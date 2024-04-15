@@ -1,6 +1,6 @@
 /**
  * [Nimble]
- * Copied from https://github.com/angular/angular/blob/15.2.10/packages/forms/test/value_accessor_integration_spec.ts
+ * Copied from https://github.com/angular/angular/blob/16.2.12/packages/forms/test/value_accessor_integration_spec.ts
  * with the following modifications:
  * - Clear the selector for built-in CVAs to keep those directives from being used within the tests
  * - Create test CVAs that extend the ones copied into `thirdparty/directives` so that those directives will be used in the tests
@@ -1523,6 +1523,7 @@ class NgModelSelectWithCustomCompareFnForm {
   selectedCity: any = {};
   cities: any[] = [];
 }
+
 
 @Component({
   selector: 'ng-model-select-multiple-compare-with',

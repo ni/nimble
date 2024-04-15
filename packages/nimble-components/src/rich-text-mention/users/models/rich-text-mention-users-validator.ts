@@ -1,7 +1,6 @@
 import type { Mapping } from '../../../mapping/base';
 import type { MappingUserKey } from '../../../mapping/base/types';
 import { MappingUser } from '../../../mapping/user';
-import type { MentionInternals } from '../../base/models/mention-internals';
 import {
     baseValidityFlagNames,
     RichTextMentionValidator
@@ -19,8 +18,8 @@ const usersValidityFlagNames = [
 export class RichTextMentionUsersValidator extends RichTextMentionValidator<
     typeof usersValidityFlagNames
 > {
-    public constructor(columnInternals: MentionInternals) {
-        super(columnInternals, usersValidityFlagNames);
+    public constructor() {
+        super(usersValidityFlagNames);
     }
 
     private static isSupportedMappingElement(
