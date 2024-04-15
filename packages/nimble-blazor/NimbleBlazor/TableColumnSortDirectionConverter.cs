@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace NimbleBlazor;
 
-internal class TableColumnSortDirectionConverter : JsonConverter<TableColumnSortDirection>
+internal sealed class TableColumnSortDirectionConverter : JsonConverter<TableColumnSortDirection>
 {
     public override TableColumnSortDirection Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {
