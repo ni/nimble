@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-tokens
 
-This log was last generated on Tue, 26 Mar 2024 20:45:41 GMT and should not be manually modified.
+This log was last generated on Mon, 15 Apr 2024 17:36:54 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 6.13.2
+
+Mon, 15 Apr 2024 17:36:54 GMT
+
+### Patches
+
+- Update to typescript 5.1.6 ([ni/nimble@7254ddb](https://github.com/ni/nimble/commit/7254ddb339236dc1519033f88290491436a01aef))
 
 ## 6.13.1
 
