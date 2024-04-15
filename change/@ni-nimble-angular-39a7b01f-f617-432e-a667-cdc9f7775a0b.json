@@ -1,7 +1,0 @@
-{
-  "type": "none",
-  "comment": "Add CSP headers to the karma run",
-  "packageName": "@ni/nimble-angular",
-  "email": "rajsite@users.noreply.github.com",
-  "dependentChangeType": "none"
-}
