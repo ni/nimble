@@ -46,7 +46,7 @@
     "style-dictionary": "^3.9.2",
     "svg-to-ts": "^12.0.0",
     "to-ico": "^1.1.5",
-    "typescript": "~4.9.5"
+    "typescript": "~5.1.6"
   },
   "files": [
     "dist/styledictionary/css/**",
