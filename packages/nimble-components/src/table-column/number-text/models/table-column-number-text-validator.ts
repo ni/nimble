@@ -1,4 +1,3 @@
-import type { ColumnInternals } from '../../base/models/column-internals';
 import { ColumnValidator } from '../../base/models/column-validator';
 import { NumberTextFormat } from '../types';
 
@@ -20,8 +19,8 @@ const maximumValidDecimalDigits = 20;
 export class TableColumnNumberTextValidator extends ColumnValidator<
     typeof numberTextValidityFlagNames
 > {
-    public constructor(columnInternals: ColumnInternals<unknown>) {
-        super(columnInternals, numberTextValidityFlagNames);
+    public constructor() {
+        super(numberTextValidityFlagNames);
     }
 
     public validateDecimalDigits(
