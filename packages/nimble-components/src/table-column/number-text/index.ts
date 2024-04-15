@@ -65,6 +65,9 @@ export class TableColumnNumberText extends mixinTextBase(
     })
     public decimalMaximumDigits?: number;
 
+    @attr({ attribute: 'display-suffix' })
+    public displaySuffix?: string;
+
     /** @internal */
     @observable
     public unitElements?: Element[];
@@ -141,6 +144,10 @@ export class TableColumnNumberText extends mixinTextBase(
         this.updateColumnConfig();
     }
 
+    private displaySuffixChanged(): void {
+        this.updateColumnConfig();
+    }
+
     private unitElementsChanged(): void {
         void this.updateUnit();
     }
@@ -194,6 +201,7 @@ export class TableColumnNumberText extends mixinTextBase(
             numberTextFormat: this.format ?? undefined,
             decimalDigits: this.decimalDigits ?? undefined,
             decimalMaximumDigits: this.decimalMaximumDigits ?? undefined,
+            displaySuffix: this.displaySuffix,
             unitScale
         });
     }

@@ -85,6 +85,7 @@ interface NumberTextColumnTableArgs extends SharedTableArgs {
     decimalDigits: number;
     decimalMaximumDigits: number;
     unit: string;
+    displaySuffix: string;
     checkValidity: () => void;
     validity: () => void;
 }
@@ -130,6 +131,8 @@ To improve the ability for users to visually scan values, applications should se
 
 const unitDescription = `A unit for the column may be configured by providing a \`nimble-unit-<name>\` element as content (in addition to the column label). Unit elements represent a set of related, scaled units, e.g. \`nimble-unit-byte\` represents bytes, KB, MB, etc. Values are converted from a source unit (e.g. bytes) to the largest scaled unit (e.g. KB, MB, etc.) that can represent that value with magnitude >= 1. The source data for the column is expected to be given in the base unit specified in the tag name, e.g. for \`nimble-unit-byte\`, a source value should be a number of bytes.
 
+If an element does not exist for the desired unit, \`display-suffix\` may be used instead to append a static string to the formatted value.
+
 <details>
     <summary>Unit Elements</summary>
 
@@ -165,7 +168,7 @@ export const numberTextColumn: StoryObj<NumberTextColumnTableArgs> = {
             <${tableColumnNumberTextTag} field-name="favoriteNumber" format="${x => NumberTextFormat[x.format]}" alignment="${x => NumberTextAlignment[x.alignment]}" decimal-digits="${x => x.decimalDigits}" decimal-maximum-digits="${x => x.decimalMaximumDigits}" placeholder="${x => x.placeholder}">
                 Favorite Number
             </${tableColumnNumberTextTag}>
-            <${tableColumnNumberTextTag} field-name="measurement" format="${x => NumberTextFormat[x.format]}" alignment="${x => NumberTextAlignment[x.alignment]}" decimal-digits="${x => x.decimalDigits}" decimal-maximum-digits="${x => x.decimalMaximumDigits}" placeholder="${x => x.placeholder}">
+            <${tableColumnNumberTextTag} field-name="measurement" format="${x => NumberTextFormat[x.format]}" alignment="${x => NumberTextAlignment[x.alignment]}" decimal-digits="${x => x.decimalDigits}" decimal-maximum-digits="${x => x.decimalMaximumDigits}" display-suffix="${x => x.displaySuffix}" placeholder="${x => x.placeholder}">
                 Measurement
                 ${when(x => x.unit === 'byte', html`<${unitByteTag}></${unitByteTag}>`)}
                 ${when(x => x.unit === 'byte (1024)', html`<${unitByteTag} binary></${unitByteTag}>`)}
@@ -213,6 +216,11 @@ export const numberTextColumn: StoryObj<NumberTextColumnTableArgs> = {
             options: ['default', 'byte', 'byte (1024)', 'volt'],
             control: { type: 'radio' }
         },
+        displaySuffix: {
+            name: 'display-suffix',
+            description:
+                'A string to append to the formatted value. This can be used to provide an arbitrary, static unit label when the desired unit is not supported by a `nimble-unit-<name>` element. This value is ignored when the column is configured with a unit element. If a space is desired between the formatted value and the suffix, it should be included in the string.'
+        },
         checkValidity: {
             name: 'checkValidity()',
             description:
@@ -229,6 +237,7 @@ export const numberTextColumn: StoryObj<NumberTextColumnTableArgs> = {
         decimalDigits: 2,
         decimalMaximumDigits: undefined,
         unit: 'volt',
+        displaySuffix: '° C',
         placeholder: 'Unknown voltage'
     }
 };

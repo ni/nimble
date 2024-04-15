@@ -11,6 +11,7 @@ export interface NumberTextUnitFormatOptions extends UnitFormatOptions {
     numberTextFormat?: NumberTextFormat;
     decimalDigits?: number;
     decimalMaximumDigits?: number;
+    displaySuffix?: string;
 }
 type ResolvedNumberTextUnitFormatOptions = NumberTextUnitFormatOptions &
 Required<UnitFormatOptions>;
@@ -45,12 +46,18 @@ export class NumberTextUnitFormat extends UnitFormat {
                 === targetResolvedOptions.decimalMaximumDigits
             && this._resolvedOptions.numberTextFormat
                 === targetResolvedOptions.numberTextFormat
-            && this._resolvedOptions.unitScale === targetResolvedOptions.unitScale
+            && this._resolvedOptions.unitScale
+                === targetResolvedOptions.unitScale
+            && this._resolvedOptions.displaySuffix
+                === targetResolvedOptions.displaySuffix
         );
     }
 
     protected override tryFormat(number: number): string {
-        return this.resolvedUnitFormat.format(number);
+        const formatted = this.resolvedUnitFormat.format(number);
+        return this._resolvedOptions.displaySuffix
+            ? `${formatted}${this._resolvedOptions.displaySuffix}`
+            : formatted;
     }
 
     private resolveUnitFormat(
@@ -91,7 +98,10 @@ export class NumberTextUnitFormat extends UnitFormat {
                 numberTextFormat: NumberTextFormat.default,
                 decimalDigits: undefined,
                 decimalMaximumDigits: undefined,
-                unitScale: options?.unitScale ?? passthroughUnitScale
+                unitScale: options?.unitScale ?? passthroughUnitScale,
+                displaySuffix: options?.unitScale
+                    ? undefined
+                    : options?.displaySuffix
             };
         }
         const hasDecimalDigits = typeof options.decimalDigits === 'number';
@@ -106,14 +116,20 @@ export class NumberTextUnitFormat extends UnitFormat {
                 numberTextFormat: NumberTextFormat.decimal,
                 decimalDigits: NumberTextUnitFormat.defaultDecimalDigits,
                 decimalMaximumDigits: undefined,
-                unitScale: options.unitScale ?? passthroughUnitScale
+                unitScale: options.unitScale ?? passthroughUnitScale,
+                displaySuffix: options?.unitScale
+                    ? undefined
+                    : options?.displaySuffix
             };
         }
         return {
             numberTextFormat: NumberTextFormat.decimal,
             decimalDigits: options.decimalDigits,
             decimalMaximumDigits: options.decimalMaximumDigits,
-            unitScale: options.unitScale ?? passthroughUnitScale
+            unitScale: options.unitScale ?? passthroughUnitScale,
+            displaySuffix: options?.unitScale
+                ? undefined
+                : options?.displaySuffix
         };
     }
 }
