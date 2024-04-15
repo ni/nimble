@@ -168,13 +168,12 @@ export class WaferMap<
     @observable public highlightedTags: string[] = [];
     @observable public dies: WaferMapDie[] = [];
     @observable public diesTable: Table<T> | undefined;
+    @observable public diesTableIPC: Uint8Array | undefined;
 
     @observable public colorScale: WaferMapColorScale = {
         colors: [],
         values: []
     };
-
-    public tableFromIPC = tableFromIPC;
 
     private readonly hoverHandler: HoverHandler = new HoverHandler(
         this.asRequiredFieldsWaferMap
@@ -383,6 +382,12 @@ export class WaferMap<
     }
 
     private diesTableChanged(): void {
+        this.waferMapUpdateTracker.track('dies');
+        this.waferMapUpdateTracker.queueUpdate();
+    }
+
+    private diesTableIPCChanged(): void {
+        this.diesTable = tableFromIPC(this.diesTableIPC);
         this.waferMapUpdateTracker.track('dies');
         this.waferMapUpdateTracker.queueUpdate();
     }
