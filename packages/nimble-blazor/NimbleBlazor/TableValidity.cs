@@ -23,7 +23,7 @@ public interface ITableValidity
     public bool IdFieldNameNotConfigured { get; }
 }
 
-internal class TableValidity : ITableValidity
+internal sealed class TableValidity : ITableValidity
 {
     [JsonPropertyName("duplicateRecordId")]
     public bool DuplicateRecordId { get; set; }
