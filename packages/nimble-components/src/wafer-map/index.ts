@@ -287,11 +287,17 @@ export class WaferMap<
         return this.diesTable !== undefined;
     }
 
+    /**
+     * @internal
+     */
     public async createWorker(): Promise<void> {
         const { matrixRenderer } = await createMatrixRenderer();
         this.worker = matrixRenderer;
     }
 
+    /**
+     * @internal
+     */
     public async createWorkerCanvas(): Promise<void> {
         const offscreenCanvas = this.workerCanvas.transferControlToOffscreen();
         await this.worker.setCanvas(
