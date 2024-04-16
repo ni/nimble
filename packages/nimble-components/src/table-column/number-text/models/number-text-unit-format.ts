@@ -99,9 +99,7 @@ export class NumberTextUnitFormat extends UnitFormat {
                 decimalDigits: undefined,
                 decimalMaximumDigits: undefined,
                 unitScale: options?.unitScale ?? passthroughUnitScale,
-                displaySuffix: options?.unitScale
-                    ? undefined
-                    : options?.displaySuffix
+                displaySuffix: options?.displaySuffix
             };
         }
         const hasDecimalDigits = typeof options.decimalDigits === 'number';
@@ -117,9 +115,7 @@ export class NumberTextUnitFormat extends UnitFormat {
                 decimalDigits: NumberTextUnitFormat.defaultDecimalDigits,
                 decimalMaximumDigits: undefined,
                 unitScale: options.unitScale ?? passthroughUnitScale,
-                displaySuffix: options?.unitScale
-                    ? undefined
-                    : options?.displaySuffix
+                displaySuffix: options?.displaySuffix
             };
         }
         return {
@@ -127,9 +123,7 @@ export class NumberTextUnitFormat extends UnitFormat {
             decimalDigits: options.decimalDigits,
             decimalMaximumDigits: options.decimalMaximumDigits,
             unitScale: options.unitScale ?? passthroughUnitScale,
-            displaySuffix: options?.unitScale
-                ? undefined
-                : options?.displaySuffix
+            displaySuffix: options?.displaySuffix
         };
     }
 }

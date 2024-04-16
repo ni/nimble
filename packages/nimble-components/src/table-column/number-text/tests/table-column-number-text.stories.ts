@@ -219,7 +219,7 @@ export const numberTextColumn: StoryObj<NumberTextColumnTableArgs> = {
         displaySuffix: {
             name: 'display-suffix',
             description:
-                'A string to append to the formatted value. This can be used to provide an arbitrary, static unit label when the desired unit is not supported by a `nimble-unit-<name>` element. This value is ignored when the column is configured with a unit element. If a space is desired between the formatted value and the suffix, it should be included in the string.'
+                'A string to append to the formatted value. This can be used to provide an arbitrary, static unit label when the desired unit is not supported by a `nimble-unit-<name>` element. If a space is desired between the formatted value and the suffix, it should be included in the string.'
         },
         checkValidity: {
             name: 'checkValidity()',
@@ -238,6 +238,6 @@ export const numberTextColumn: StoryObj<NumberTextColumnTableArgs> = {
         decimalMaximumDigits: undefined,
         unit: 'volt',
         displaySuffix: '° C',
-        placeholder: 'Unknown voltage'
+        placeholder: 'Unknown temperature'
     }
 };
