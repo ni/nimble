@@ -9,12 +9,12 @@ export const styles = css`
         height: 500px;
     }
 
-    #main-wafer {
+    .main-wafer {
         display: inline-block;
         position: absolute;
     }
 
-    #worker-wafer {
+    .worker-wafer {
         display: inline-block;
         position: absolute;
     }
