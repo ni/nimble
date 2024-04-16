@@ -558,6 +558,41 @@ describe('TableColumnNumberText', () => {
                 '11 bytes'
             );
         });
+
+        it('updates format when display-suffix is changed', async () => {
+            await table.setData([{ number1: 100 }]);
+            await waitForUpdatesAsync();
+
+            expect(pageObject.getRenderedCellTextContent(0, 0)).toBe('100.00');
+            expect(pageObject.getRenderedGroupHeaderTextContent(0)).toBe(
+                '100.00'
+            );
+
+            elementReferences.column1.displaySuffix = ' mL/sec';
+            await waitForUpdatesAsync();
+
+            expect(pageObject.getRenderedCellTextContent(0, 0)).toBe(
+                '100.00 mL/sec'
+            );
+            expect(pageObject.getRenderedGroupHeaderTextContent(0)).toBe(
+                '100.00 mL/sec'
+            );
+        });
+
+        it('appends suffix after unit', async () => {
+            elementReferences.column1.appendChild(
+                document.createElement(unitByteTag)
+            );
+            elementReferences.column1.displaySuffix = '/sec';
+            await waitForUpdatesAsync();
+
+            expect(pageObject.getRenderedCellTextContent(0, 0)).toBe(
+                '11 bytes/sec'
+            );
+            expect(pageObject.getRenderedGroupHeaderTextContent(0)).toBe(
+                '11 bytes/sec'
+            );
+        });
     });
 
     const alignmentTestCases = [
