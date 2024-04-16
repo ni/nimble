@@ -5,7 +5,7 @@ import { MappingConfig } from './mapping-config';
 export interface IconView {
     severity: IconSeverity;
     text?: string;
-    textHidden?: boolean;
+    textHidden: boolean;
 }
 
 // Create an empty template containing only a space because creating a ViewTemplate

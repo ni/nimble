@@ -41,6 +41,8 @@ export class TableColumnIconGroupHeaderView
     @observable
     public visual?: 'spinner' | 'icon';
 
+    public readonly textHidden = false;
+
     protected updateText(): void {
         this.visual = undefined;
         if (!this.columnConfig) {

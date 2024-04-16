@@ -4,7 +4,7 @@ import { spinnerTag } from '../../../spinner';
 
 export interface SpinnerView {
     text?: string;
-    textHidden?: boolean;
+    textHidden: boolean;
 }
 
 const spinnerTemplate: ViewTemplate<SpinnerView> = html`
