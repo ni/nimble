@@ -1,11 +1,15 @@
-import { transfer } from 'comlink';
+import { type Remote, transfer } from 'comlink';
 import type { WaferMap } from '../..';
 import { HoverDieOpacity } from '../../types';
+import { createMatrixRenderer } from '../create-matrix-renderer';
+import type { MatrixRenderer } from '../../../../build/generate-workers/dist/esm/source/matrix-renderer';
 
 /**
  * Responsible for drawing the dies inside the wafer map, adding dieText and scaling the canvas
  */
 export class WorkerRenderer {
+    private worker!: Remote<MatrixRenderer>;
+
     private isWorkerAlive = false;
 
     public constructor(private readonly wafermap: WaferMap) {}
@@ -21,10 +25,10 @@ export class WorkerRenderer {
         const rowIndexes = Int32Array.from(
             this.wafermap.diesTable.getChild('rowIndex')!.toArray()
         );
-        await this.wafermap.worker.setColumnIndexes(
+        await this.worker.setColumnIndexes(
             transfer(columnIndexes, [columnIndexes.buffer])
         );
-        await this.wafermap.worker.setRowIndexes(
+        await this.worker.setRowIndexes(
             transfer(rowIndexes, [rowIndexes.buffer])
         );
         await this.drawWafer();
@@ -35,17 +39,13 @@ export class WorkerRenderer {
             return;
         }
 
-        if (this.wafermap.worker === undefined) {
-            throw new Error('Worker is not defined');
-        }
-
-        await this.wafermap.worker.setTransform(this.wafermap.transform);
+        await this.worker.setTransform(this.wafermap.transform);
         const topLeftCanvasCorner = this.wafermap.transform.invert([0, 0]);
         const bottomRightCanvasCorner = this.wafermap.transform.invert([
             this.wafermap.canvasWidth,
             this.wafermap.canvasHeight
         ]);
-        await this.wafermap.worker.setCanvasCorners(
+        await this.worker.setCanvasCorners(
             {
                 x:
                     topLeftCanvasCorner[0]
@@ -59,7 +59,7 @@ export class WorkerRenderer {
                 y: bottomRightCanvasCorner[1]
             }
         );
-        await this.wafermap.worker.drawWafer();
+        await this.worker.drawWafer();
         this.renderHover();
     }
 
@@ -72,6 +72,18 @@ export class WorkerRenderer {
             ? HoverDieOpacity.hide
             : HoverDieOpacity.show;
         this.wafermap.hoverTransform = this.calculateHoverTransform();
+    }
+
+    private async createWorker(): Promise<void> {
+        const { matrixRenderer } = await createMatrixRenderer();
+        this.worker = matrixRenderer;
+    }
+
+    private async createWorkerCanvas(): Promise<void> {
+        const offscreenCanvas = this.wafermap.workerCanvas.transferControlToOffscreen();
+        await this.worker.setCanvas(
+            transfer(offscreenCanvas, [offscreenCanvas])
+        );
     }
 
     private calculateHoverTransform(): string {
@@ -102,15 +114,15 @@ export class WorkerRenderer {
             return;
         }
         if (!this.isWorkerAlive) {
-            await this.wafermap.createWorker();
+            await this.createWorker();
             this.isWorkerAlive = true;
-            await this.wafermap.createWorkerCanvas();
+            await this.createWorkerCanvas();
         }
-        await this.wafermap.worker.setCanvasDimensions({
+        await this.worker.setCanvasDimensions({
             width: this.wafermap.canvasWidth ?? 0,
             height: this.wafermap.canvasHeight ?? 0
         });
-        await this.wafermap.worker.setDiesDimensions(
+        await this.worker.setDiesDimensions(
             this.wafermap.experimentalDataManager.dieDimensions
         );
 
@@ -118,13 +130,13 @@ export class WorkerRenderer {
             - this.wafermap.experimentalDataManager.horizontalScale(0)!;
         const scaleY = this.wafermap.experimentalDataManager.verticalScale(1)!
             - this.wafermap.experimentalDataManager.verticalScale(0)!;
-        await this.wafermap.worker.setScaling(scaleX, scaleY);
+        await this.worker.setScaling(scaleX, scaleY);
 
-        await this.wafermap.worker.setBases(
+        await this.worker.setBases(
             this.wafermap.experimentalDataManager.horizontalScale(0)!,
             this.wafermap.experimentalDataManager.verticalScale(0)!
         );
-        await this.wafermap.worker.setMargin(
+        await this.worker.setMargin(
             this.wafermap.experimentalDataManager.margin
         );
     }
