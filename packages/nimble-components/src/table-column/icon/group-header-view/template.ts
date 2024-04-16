@@ -6,23 +6,16 @@ import { overflow } from '../../../utilities/directive/overflow';
 // prettier-ignore
 export const template = html<TableColumnIconGroupHeaderView>`
     ${when(
-        x => x.visual === 'icon' || x.visual === 'spinner',
+        x => x.visualizationTemplate,
         html<TableColumnIconGroupHeaderView>`
-            <span class="reserve-icon-size">${x => x.visualizationTemplate!}</span>
-            <span
-                ${overflow('hasOverflow')}
-                title="${x => (x.hasOverflow && x.text ? x.text : null)}"
-                class="text"
-            >${x => x.text}</span>`
+            <span class="reserve-icon-size">
+                ${x => x.visualizationTemplate}
+            </span>
+        `
     )}
-    ${when(
-        x => x.visual === undefined,
-        html<TableColumnIconGroupHeaderView>`
-        <span
-            ${overflow('hasOverflow')}
-            title="${x => (x.hasOverflow && x.text ? x.text : null)}"
-            class="text"
-        >${x => x.text}</span>
-    `
-    )}
+    <span
+        ${overflow('hasOverflow')}
+        title="${x => (x.hasOverflow && x.text ? x.text : null)}"
+        class="text"
+    >${x => x.text}</span>
 `;

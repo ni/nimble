@@ -44,9 +44,6 @@ export class TableColumnIconCellView
     | ViewTemplate<SpinnerView>;
 
     @observable
-    public visual?: 'spinner' | 'icon';
-
-    @observable
     public textHidden = false;
 
     /** @internal */
@@ -62,7 +59,7 @@ export class TableColumnIconCellView
     }
 
     private updateState(): void {
-        this.visual = undefined;
+        this.visualizationTemplate = undefined;
         if (!this.columnConfig || !this.cellRecord) {
             return;
         }
@@ -72,13 +69,11 @@ export class TableColumnIconCellView
         }
         const mappingConfig = this.columnConfig.mappingConfigs.get(value);
         if (mappingConfig instanceof MappingIconConfig) {
-            this.visual = 'icon';
             this.severity = mappingConfig.severity;
             this.text = mappingConfig.text;
             this.visualizationTemplate = mappingConfig.iconTemplate;
             this.textHidden = mappingConfig.textHidden;
         } else if (mappingConfig instanceof MappingSpinnerConfig) {
-            this.visual = 'spinner';
             this.text = mappingConfig.text;
             this.visualizationTemplate = mappingConfig.spinnerTemplate;
             this.textHidden = mappingConfig.textHidden;

@@ -38,13 +38,10 @@ export class TableColumnIconGroupHeaderView
     | ViewTemplate<IconView>
     | ViewTemplate<SpinnerView>;
 
-    @observable
-    public visual?: 'spinner' | 'icon';
-
     public readonly textHidden = false;
 
     protected updateText(): void {
-        this.visual = undefined;
+        this.visualizationTemplate = undefined;
         if (!this.columnConfig) {
             this.text = '';
             return;
@@ -52,12 +49,10 @@ export class TableColumnIconGroupHeaderView
         const value = this.groupHeaderValue;
         const mappingConfig = this.columnConfig.mappingConfigs.get(value!);
         if (mappingConfig instanceof MappingIconConfig) {
-            this.visual = 'icon';
             this.severity = mappingConfig.severity;
             this.text = mappingConfig.text ?? '';
             this.visualizationTemplate = mappingConfig.iconTemplate;
         } else if (mappingConfig instanceof MappingSpinnerConfig) {
-            this.visual = 'spinner';
             this.text = mappingConfig.text ?? '';
             this.visualizationTemplate = mappingConfig.spinnerTemplate;
         }
