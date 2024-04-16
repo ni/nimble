@@ -1,26 +1,27 @@
 {
-    "name": "@ni-private/performance",
-    "version": "1.0.0",
-    "private": true,
-    "type": "module",
-    "description": "A package to measure the performance of the Nimble Components",
-    "scripts": {
-        "build": "tsc && vite build src",
-        "pack": "npm pack",
-        "lint": "eslint .",
-        "start": "vite src",
-        "performance": "lhci autorun"
-    },
-    "dependencies": {
-        "@ni/nimble-components": "*"
-    },
-    "devDependencies": {
-        "@lhci/cli": "^0.13.0",
-        "typescript": "~5.1.6",
-        "vite": "^5.1.5"
-    },
-    "files": [
-        "dist",
-        "!*.tgz"
-    ]
+  "name": "@ni-private/performance",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "A package to measure the performance of the Nimble Components",
+  "scripts": {
+    "build": "tsc && vite build src",
+    "pack": "npm pack",
+    "lint": "eslint .",
+    "start": "vite src",
+    "performance": "lhci autorun"
+  },
+  "dependencies": {
+    "@ni/nimble-components": "*"
+  },
+  "devDependencies": {
+    "@lhci/cli": "^0.13.0",
+    "@ni-private/eslint-plugin-nimble": "^0.0.1",
+    "typescript": "~5.1.6",
+    "vite": "^5.1.5"
+  },
+  "files": [
+    "dist",
+    "!*.tgz"
+  ]
 }
