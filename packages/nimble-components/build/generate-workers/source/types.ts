@@ -10,13 +10,13 @@ export interface WaferMapMatrix {
     values: number[];
 }
 
-export interface Transform{
+export interface Transform {
     k: number;
     x: number;
     y: number;
 }
 
-export interface Dimensions{
+export interface Dimensions {
     width: number;
     height: number;
 }
