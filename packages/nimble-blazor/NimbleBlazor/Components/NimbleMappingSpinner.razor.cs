@@ -14,5 +14,5 @@ public partial class NimbleMappingSpinner<TKey> : NimbleMappingBase<TKey>
     /// Gets or sets whether or not the mapping's text should be rendered in the table's cells.
     /// </summary>
     [Parameter]
-    public bool TextHidden { get; set; }
+    public bool? TextHidden { get; set; }
 }
