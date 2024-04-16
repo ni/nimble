@@ -1,6 +1,6 @@
 /**
  * [Nimble]
- * Copied from https://github.com/angular/angular/blob/15.2.10/packages/platform-browser/testing/src/matchers.ts
+ * Copied from https://github.com/angular/angular/blob/16.2.12/packages/platform-browser/testing/src/matchers.ts
  * with the following modifications:
  * - Update imports
  * - Comment out everything other than what is needed to use `toHaveText` matcher because `toHaveText` is the only matcher required by the copied
@@ -27,26 +27,6 @@ import {childNodesAsList} from './browser_util';
  * Note: These matchers will only work in a browser environment.
  */
 export interface NgMatchers<T = any> extends jasmine.Matchers<T> {
-  // /**
-  //  * Expect the value to be a `Promise`.
-  //  *
-  //  * @usageNotes
-  //  * ### Example
-  //  *
-  //  * {@example testing/ts/matchers.ts region='toBePromise'}
-  //  */
-  // toBePromise(): boolean;
-
-  // /**
-  //  * Expect the value to be an instance of a class.
-  //  *
-  //  * @usageNotes
-  //  * ### Example
-  //  *
-  //  * {@example testing/ts/matchers.ts region='toBeAnInstanceOf'}
-  //  */
-  // toBeAnInstanceOf(expected: any): boolean;
-
   /**
    * Expect the element to have exactly the given text.
    *
@@ -88,16 +68,6 @@ export interface NgMatchers<T = any> extends jasmine.Matchers<T> {
   // toImplement(expected: any): boolean;
 
   // /**
-  //  * Expect an exception to contain the given error text.
-  //  *
-  //  * @usageNotes
-  //  * ### Example
-  //  *
-  //  * {@example testing/ts/matchers.ts region='toContainError'}
-  //  */
-  // toContainError(expected: any): boolean;
-
-  // /**
   //  * Expect a component of the given type to show.
   //  */
   // toContainComponent(expectedComponentType: Type<any>, expectationFailOutput?: any): boolean;
@@ -108,9 +78,6 @@ export interface NgMatchers<T = any> extends jasmine.Matchers<T> {
   // not: NgMatchers<T>;
 }
 
-// [Nimble]: Do not use ɵglobal (imported as global)
-// const _global = <any>(typeof window === 'undefined' ? global : window);
-
 /**
  * Jasmine matching function with Angular matchers mixed in.
  *
@@ -118,60 +85,11 @@ export interface NgMatchers<T = any> extends jasmine.Matchers<T> {
  *
  * {@example testing/ts/matchers.ts region='toHaveText'}
  */
-// [Nimble]: Change definition of expect to avoid relying on ɵglobal 
-// export const expect: <T = any>(actual: T) => NgMatchers<T> = _global.expect;
 const _expect: <T = any>(actual: T) => NgMatchers<T> = expect as any;
 export {_expect as expect};
 
-// Some Map polyfills don't polyfill Map.toString correctly, which
-// gives us bad error messages in tests.
-// The only way to do this in Jasmine is to monkey patch a method
-// to the object :-(
-(Map as any).prototype['jasmineToString'] = function() {
-  const m = this;
-  if (!m) {
-    return '' + m;
-  }
-  const res: any[] = [];
-  m.forEach((v: any, k: any) => {
-    res.push(`${String(k)}:${String(v)}`);
-  });
-  return `{ ${res.join(',')} }`;
-};
-
-// [Nimble]: avoid using _global, which relies on ɵglobal
 beforeEach(function() {
   jasmine.addMatchers({
-    /* [Nimble] Comment out matchers that are not needed
-    toBePromise: function() {
-      return {
-        compare: function(actual: any) {
-          const pass = typeof actual === 'object' && typeof actual.then === 'function';
-          return {
-            pass: pass,
-            get message() {
-              return 'Expected ' + actual + ' to be a promise';
-            }
-          };
-        }
-      };
-    },
-
-    toBeAnInstanceOf: function() {
-      return {
-        compare: function(actual: any, expectedClass: any) {
-          const pass = typeof actual === 'object' && actual instanceof expectedClass;
-          return {
-            pass: pass,
-            get message() {
-              return 'Expected ' + actual + ' to be an instance of ' + expectedClass;
-            }
-          };
-        }
-      };
-    },
-    */
-
     toHaveText: function() {
       return {
         compare: function(actual: any, expectedText: string) {
@@ -223,20 +141,6 @@ beforeEach(function() {
               return `Expected ${actual.outerHTML} ${!allPassed ? ' ' : 'not '}to contain the
                       CSS ${typeof styles === 'string' ? 'property' : 'styles'} "${
                   expectedValueStr}"`;
-            }
-          };
-        }
-      };
-    },
-
-    toContainError: function() {
-      return {
-        compare: function(actual: any, expectedText: any) {
-          const errorMessage = actual.toString();
-          return {
-            pass: errorMessage.indexOf(expectedText) > -1,
-            get message() {
-              return 'Expected ' + errorMessage + ' to contain ' + expectedText;
             }
           };
         }

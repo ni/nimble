@@ -13,6 +13,7 @@ import { DurationFormatter } from './models/duration-formatter';
 import { tableColumnDurationTextGroupHeaderViewTag } from './group-header-view';
 import type { TableColumnTextBaseColumnConfig } from '../text-base/cell-view';
 import { TableColumnTextBase, mixinTextBase } from '../text-base';
+import { ColumnValidator } from '../base/models/column-validator';
 
 export type TableColumnDurationTextCellRecord = TableNumberField<'value'>;
 export interface TableColumnDurationTextColumnConfig
@@ -59,7 +60,8 @@ export class TableColumnDurationText extends mixinTextBase(
             cellViewTag: tableColumnDurationTextCellViewTag,
             groupHeaderViewTag: tableColumnDurationTextGroupHeaderViewTag,
             delegatedEvents: [],
-            sortOperation: TableColumnSortOperation.basic
+            sortOperation: TableColumnSortOperation.basic,
+            validator: new ColumnValidator<[]>([])
         };
     }
 

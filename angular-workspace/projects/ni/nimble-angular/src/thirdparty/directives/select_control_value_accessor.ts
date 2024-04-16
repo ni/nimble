@@ -1,6 +1,6 @@
 /**
  * [Nimble]
- * Copied from https://github.com/angular/angular/blob/15.2.10/packages/forms/src/directives/select_control_value_accessor.ts
+ * Copied from https://github.com/angular/angular/blob/16.2.12/packages/forms/src/directives/select_control_value_accessor.ts
  * with the following modifications:
  * - Update imports
  * - Remove all configuration from SelectControlValueAccessor's `@Directive` decorator
@@ -166,7 +166,7 @@ export class SelectControlValueAccessor extends BuiltInControlValueAccessor impl
 
   /** @internal */
   _getOptionId(value: any): string|null {
-    for (const id of Array.from(this._optionMap.keys())) {
+    for (const id of this._optionMap.keys()) {
       if (this._compareWith(this._optionMap.get(id), value)) return id;
     }
     return null;
@@ -183,7 +183,7 @@ export class SelectControlValueAccessor extends BuiltInControlValueAccessor impl
  * @description
  * Marks `<option>` as dynamic, so Angular can be notified when options change.
  *
- * @see `SelectControlValueAccessor`
+ * @see {@link SelectControlValueAccessor}
  *
  * @ngModule ReactiveFormsModule
  * @ngModule FormsModule

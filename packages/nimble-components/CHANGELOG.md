@@ -1,8 +1,58 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Thu, 04 Apr 2024 21:33:43 GMT and should not be manually modified.
+This log was last generated on Mon, 15 Apr 2024 17:36:54 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 24.1.14
+
+Mon, 15 Apr 2024 17:36:54 GMT
+
+### Patches
+
+- Update to typescript 5.1.6 ([ni/nimble@7254ddb](https://github.com/ni/nimble/commit/7254ddb339236dc1519033f88290491436a01aef))
+- Bump @ni/nimble-tokens to v6.13.2
+- Bump @ni/jasmine-parameterized to v0.2.4
+
+## 24.1.13
+
+Wed, 10 Apr 2024 22:00:23 GMT
+
+### Patches
+
+- Move validator into MentionInternals ([ni/nimble@f83d076](https://github.com/ni/nimble/commit/f83d0762219a2f13d6a96f4241a6c57adf56e7a0))
+
+## 24.1.12
+
+Wed, 10 Apr 2024 19:37:06 GMT
+
+### Patches
+
+- Fix arrow key select issue for Select ([ni/nimble@6c71469](https://github.com/ni/nimble/commit/6c714694685c161e2066c700018ffb1cb42d27ea))
+
+## 24.1.11
+
+Wed, 10 Apr 2024 17:46:00 GMT
+
+### Patches
+
+- Fix a couple issues with anchor styling ([ni/nimble@8a76c28](https://github.com/ni/nimble/commit/8a76c28fbc7a700234b3629487816cb71709c4a4))
+
+## 24.1.10
+
+Wed, 10 Apr 2024 00:29:05 GMT
+
+### Patches
+
+- Update version of FAST ([ni/nimble@5832b42](https://github.com/ni/nimble/commit/5832b42172788170c01eb276eaaba1e6b47cbf92))
+
+## 24.1.9
+
+Mon, 08 Apr 2024 20:40:28 GMT
+
+### Patches
+
+- Move validator into ColumnInternals ([ni/nimble@d16c59e](https://github.com/ni/nimble/commit/d16c59ec133dcbf4d94198d3f26ff7472a143ea5))
 
 ## 24.1.8
 

@@ -21,15 +21,12 @@ declare global {
  * Rich Text user mention configuration element which will have MappingMentionUser elements as children
  */
 export class RichTextMentionUsers extends RichTextMention<RichTextMentionUsersValidator> {
-    protected override createValidator(): RichTextMentionUsersValidator {
-        return new RichTextMentionUsersValidator(this.mentionInternals);
-    }
-
-    protected override getMentionInternalsOptions(): MentionInternalsOptions {
+    protected override getMentionInternalsOptions(): MentionInternalsOptions<RichTextMentionUsersValidator> {
         return {
             icon: iconAtTag,
             character: '@',
-            viewElement: richTextMentionUsersViewTag
+            viewElement: richTextMentionUsersViewTag,
+            validator: new RichTextMentionUsersValidator()
         };
     }
 

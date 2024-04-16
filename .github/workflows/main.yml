@@ -58,6 +58,10 @@ jobs:
       # Print resolved dotnet info
       - run: dotnet --info
         working-directory: packages/nimble-blazor/
+      - run: dotnet --list-sdks
+        working-directory: packages/nimble-blazor/
+      - run: dotnet --version
+        working-directory: packages/nimble-blazor/
 
       # print a log of outdated npm dependencies
       # only informational so swallow error codes

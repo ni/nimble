@@ -13,6 +13,7 @@ import {
 import type { TableRecord } from '../types';
 import { TablePageObject } from '../testing/table.pageobject';
 import type { ColumnInternalsOptions } from '../../table-column/base/models/column-internals';
+import { ColumnValidator } from '../../table-column/base/models/column-validator';
 
 interface SimpleTableRecord extends TableRecord {
     foo: string;
@@ -29,7 +30,8 @@ class TestTableColumn extends TableColumn {
             cellRecordFieldNames: ['value'],
             cellViewTag: tableColumnTextCellViewTag,
             groupHeaderViewTag: tableColumnTextGroupHeaderViewTag,
-            delegatedEvents: ['click', 'keydown']
+            delegatedEvents: ['click', 'keydown'],
+            validator: new ColumnValidator<[]>([])
         };
     }
 }
