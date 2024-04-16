@@ -75,12 +75,12 @@ export class TableColumnIconCellView
             this.visual = 'icon';
             this.severity = mappingConfig.severity;
             this.text = mappingConfig.text;
-            this.visualizationTemplate = mappingConfig.iconCellTemplate;
+            this.visualizationTemplate = mappingConfig.iconTemplate;
             this.textHidden = mappingConfig.textHidden;
         } else if (mappingConfig instanceof MappingSpinnerConfig) {
             this.visual = 'spinner';
             this.text = mappingConfig.text;
-            this.visualizationTemplate = mappingConfig.spinnerCellTemplate;
+            this.visualizationTemplate = mappingConfig.spinnerTemplate;
             this.textHidden = mappingConfig.textHidden;
         }
     }

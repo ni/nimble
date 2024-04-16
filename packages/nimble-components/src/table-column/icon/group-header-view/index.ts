@@ -53,11 +53,11 @@ export class TableColumnIconGroupHeaderView
             this.visual = 'icon';
             this.severity = mappingConfig.severity;
             this.text = mappingConfig.text ?? '';
-            this.visualizationTemplate = mappingConfig.iconGroupRowTemplate;
+            this.visualizationTemplate = mappingConfig.iconTemplate;
         } else if (mappingConfig instanceof MappingSpinnerConfig) {
             this.visual = 'spinner';
             this.text = mappingConfig.text ?? '';
-            this.visualizationTemplate = mappingConfig.spinnerGroupRowTemplate;
+            this.visualizationTemplate = mappingConfig.spinnerTemplate;
         }
     }
 }
