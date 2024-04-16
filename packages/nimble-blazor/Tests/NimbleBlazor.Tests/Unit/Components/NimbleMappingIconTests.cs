@@ -57,7 +57,7 @@ public class NimbleMappingIconTests
     [Fact]
     public void NimbleMappingIconTextHiddenAttribute_HasCorrectMarkup()
     {
-        var element = RenderWithPropertySet<int, bool>(x => x.TextHidden, true);
+        var element = RenderWithPropertySet<int, bool?>(x => x.TextHidden, true);
 
         Assert.Contains($"text-hidden", element.Markup);
     }
