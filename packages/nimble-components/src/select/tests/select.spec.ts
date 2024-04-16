@@ -199,7 +199,7 @@ describe('Select', () => {
         pageObject.pressArrowDownKey();
         await waitForUpdatesAsync();
 
-        expect(element.displayValue).toBe('One');
+        expect(pageObject.getDisplayText()).toBe('One');
         await disconnect();
     });
 
@@ -289,7 +289,7 @@ describe('Select', () => {
         const selectedOption = pageObject.getSelectedOption();
         selectedOption!.textContent = 'foo';
         await waitForUpdatesAsync();
-        expect(element.displayValue).toBe('foo');
+        expect(pageObject.getDisplayText()).toBe('foo');
 
         await disconnect();
     });
@@ -318,6 +318,59 @@ describe('Select', () => {
         // This assertion shows that after 'slottedOptionsChanged' runs, the
         // 'selectedIndex' state has been corrected to expected DOM order.
         expect(element.selectedIndex).toBe(1);
+        await disconnect();
+    });
+
+    it('clear button is visible by default with no placholder', async () => {
+        const { element, connect, disconnect } = await setup();
+        element.clearable = true;
+        const pageObject = new SelectPageObject(element);
+        await connect();
+        await waitForUpdatesAsync();
+
+        expect(pageObject.isClearButtonVisible()).toBeTrue();
+        await disconnect();
+    });
+
+    it('clicking clear button does not open dropdown', async () => {
+        const { element, connect, disconnect } = await setup();
+        element.clearable = true;
+        const pageObject = new SelectPageObject(element);
+        await connect();
+        await waitForUpdatesAsync();
+        pageObject.clickClearButton();
+        await waitForUpdatesAsync();
+        expect(element.open).toBeFalse();
+
+        await disconnect();
+    });
+
+    it('after clicking clear button, display text is empty and clear button is hidden', async () => {
+        const { element, connect, disconnect } = await setup();
+        element.clearable = true;
+        const pageObject = new SelectPageObject(element);
+        await connect();
+        await waitForUpdatesAsync();
+        pageObject.clickClearButton();
+        await waitForUpdatesAsync();
+
+        expect(pageObject.getDisplayText()).toBe('');
+        expect(pageObject.isClearButtonVisible()).toBeFalse();
+        await disconnect();
+    });
+
+    it('after clicking clear button and then selecting an option, clear button is visible again', async () => {
+        const { element, connect, disconnect } = await setup();
+        element.clearable = true;
+        const pageObject = new SelectPageObject(element);
+        await connect();
+        await waitForUpdatesAsync();
+        pageObject.clickClearButton();
+        await clickAndWaitForOpen(element);
+        pageObject.clickOption(1);
+        await waitForUpdatesAsync();
+        expect(pageObject.isClearButtonVisible()).toBeTrue();
+
         await disconnect();
     });
 
@@ -800,12 +853,12 @@ describe('Select', () => {
         });
 
         it('selecting option will replace placeholder text with selected option text', async () => {
-            expect(element.displayValue).toBe('One');
+            expect(pageObject.getDisplayText()).toBe('One');
             await clickAndWaitForOpen(element);
             pageObject.clickOption(1);
             await waitForUpdatesAsync();
 
-            expect(element.displayValue).toBe('Two');
+            expect(pageObject.getDisplayText()).toBe('Two');
         });
 
         it('placeholder can be changed to another option programmatically', async () => {
@@ -816,11 +869,39 @@ describe('Select', () => {
             element.options[1]!.selected = true;
             await waitForUpdatesAsync();
 
-            expect(element.displayValue).toBe('Two');
+            expect(pageObject.getDisplayText()).toBe('Two');
             expect(element.value).toBe('two');
             await clickAndWaitForOpen(element);
             expect(pageObject.isOptionVisible(0)).toBeTrue();
             expect(pageObject.isOptionVisible(1)).toBeFalse();
+        });
+
+        describe('clearable', () => {
+            beforeEach(() => {
+                element.clearable = true;
+            });
+
+            it('clear button is not visible when placeholder is displayed', () => {
+                expect(pageObject.isClearButtonVisible()).toBeFalse();
+            });
+
+            it('clear button is visible after selecting an option', async () => {
+                await clickAndWaitForOpen(element);
+                pageObject.clickOption(1);
+                await waitForUpdatesAsync();
+
+                expect(pageObject.isClearButtonVisible()).toBeTrue();
+            });
+
+            it('after clicking clear button, placeholder is visible', async () => {
+                await clickAndWaitForOpen(element);
+                pageObject.clickOption(1);
+                await waitForUpdatesAsync();
+                pageObject.clickClearButton();
+                await waitForUpdatesAsync();
+
+                expect(pageObject.getDisplayText()).toBe('One');
+            });
         });
     });
 

@@ -4,8 +4,7 @@ import {
     html,
     observable,
     Observable,
-    volatile,
-    when
+    volatile
 } from '@microsoft/fast-element';
 import {
     AnchoredRegion,
@@ -43,9 +42,6 @@ import { ListOption } from '../list-option';
 import { FilterMode } from './types';
 import { diacriticInsensitiveStringNormalizer } from '../utilities/models/string-normalizers';
 import { FormAssociatedSelect } from './models/select-form-associated';
-import { iconCircleXTag } from '../icons/circle-x';
-import { buttonTag } from '../button';
-import { iconXmarkTag } from '../icons/xmark';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -960,7 +956,9 @@ export class Select
     }
 
     private findAndCachePlaceholderOption(): void {
-        this.placeholderOption = this.options.find(o => o.selected && o.disabled && o.hidden);
+        this.placeholderOption = this.options.find(
+            o => o.selected && o.disabled && o.hidden
+        );
     }
 
     private filterChanged(): void {

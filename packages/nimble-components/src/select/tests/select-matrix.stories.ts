@@ -38,6 +38,12 @@ const valueStates = [
 ] as const;
 type ValueState = (typeof valueStates)[number];
 
+const clearableStates = [
+    ['', false],
+    ['Clearable', true]
+] as const;
+type ClearableState = (typeof clearableStates)[number];
+
 const metadata: Meta = {
     title: 'Tests/Select',
     parameters: {
@@ -53,6 +59,7 @@ const component = (
     [appearanceName, appearance]: AppearanceState,
     [errorName, errorVisible, errorText]: ErrorState,
     [valueName, valueValue]: ValueState,
+    [clearableName, clearable]: ClearableState
 ): ViewTemplate => html`
     <div style="
         display: inline-flex;
@@ -61,11 +68,12 @@ const component = (
         font: var(${controlLabelFont.cssCustomProperty});
         color: var(${controlLabelFontColor.cssCustomProperty});"
     >
-        <label>${() => errorName} ${() => disabledName} ${() => appearanceName} ${() => valueName}</label>
+        <label>${() => errorName} ${() => disabledName} ${() => appearanceName} ${() => valueName} ${() => clearableName}</label>
         <${selectTag}
             ?error-visible="${() => errorVisible}"
             error-text="${() => errorText}"
             ?disabled="${() => disabled}"
+            ?clearable="${() => clearable}"
             appearance="${() => appearance}"
             style="width: var(${menuMinWidth.cssCustomProperty});"
         >
@@ -82,7 +90,8 @@ export const selectThemeMatrix: StoryFn = createMatrixThemeStory(
         disabledStates,
         appearanceStates,
         errorStates,
-        valueStates
+        valueStates,
+        clearableStates
     ])
 );
 

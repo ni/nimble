@@ -9,6 +9,7 @@ import type { Select } from '..';
 import type { ListOption } from '../../list-option';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import { FilterMode } from '../types';
+import type { Button } from '../../button';
 
 /**
  * Page object for the `nimble-select` component to provide consistent ways
@@ -109,6 +110,11 @@ export class SelectPageObject {
         this.clickOption(optionIndex);
     }
 
+    public clickClearButton(): void {
+        const clearButton = this.getClearButton();
+        clearButton?.click();
+    }
+
     public async clickAway(): Promise<void> {
         this.selectElement.dispatchEvent(new Event('focusout'));
         await waitForUpdatesAsync();
@@ -168,11 +174,16 @@ export class SelectPageObject {
         );
     }
 
-    public isFilterInputVisible(): boolean {
+    public isClearButtonVisible(): boolean {
         return (
-            this.selectElement.shadowRoot?.querySelector('.filter-field')
-            !== null
+            this.selectElement.shadowRoot?.querySelector<Button>(
+                '.clear-button'
+            ) != null
         );
+    }
+
+    public isFilterInputVisible(): boolean {
+        return this.getFilterInput() !== null;
     }
 
     public isOptionVisible(index: number): boolean {
@@ -196,6 +207,12 @@ export class SelectPageObject {
         return this.getFilterInput()?.value ?? '';
     }
 
+    public getDisplayText(): string {
+        const displayText = this.selectElement.shadowRoot?.querySelector('.selected-value')
+            ?.textContent ?? '';
+        return displayText.trim();
+    }
+
     private getFilterInput(): HTMLInputElement | null | undefined {
         if (this.selectElement.filterMode === FilterMode.none) {
             throw new Error(
@@ -204,6 +221,27 @@ export class SelectPageObject {
         }
         return this.selectElement.shadowRoot?.querySelector<HTMLInputElement>(
             '.filter-input'
+        );
+    }
+
+    private getClearButton(): Button | null | undefined {
+        if (!this.selectElement.clearable) {
+            throw new Error(
+                'Select must set "clearable" in order to click clear button'
+            );
+        }
+
+        if (
+            this.selectElement.selectedIndex === -1
+            || this.selectElement.displayPlaceholder
+        ) {
+            throw new Error(
+                'Select must have a selected element in order to click clear button'
+            );
+        }
+
+        return this.selectElement.shadowRoot?.querySelector<Button>(
+            '.clear-button'
         );
     }
 }
