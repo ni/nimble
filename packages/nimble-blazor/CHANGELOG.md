@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-blazor
 
-This log was last generated on Mon, 15 Apr 2024 18:14:20 GMT and should not be manually modified.
+This log was last generated on Wed, 17 Apr 2024 20:57:25 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 15.0.0
+
+Wed, 17 Apr 2024 20:57:25 GMT
+
+### Major changes
+
+- Add configuration for icon mappings and spinner mappings to show/hide their text within a table's cells. **Breaking change:** The icon mappings and spinner mappings now default to showing their text within a table's cells in addition to on group rows. ([ni/nimble@6d50261](https://github.com/ni/nimble/commit/6d502618333981f4c5c2f72ddb5b329674d2e345))
 
 ## 14.7.14
 
