@@ -10,7 +10,10 @@ import {
     MappingIconConfig,
     type IconView
 } from '../../enum-base/models/mapping-icon-config';
-import { MappingSpinnerConfig } from '../../enum-base/models/mapping-spinner-config';
+import {
+    MappingSpinnerConfig,
+    SpinnerView
+} from '../../enum-base/models/mapping-spinner-config';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -26,18 +29,19 @@ export class TableColumnIconGroupHeaderView
     TableFieldValue,
     TableColumnEnumColumnConfig
     >
-    implements IconView {
+    implements IconView, SpinnerView {
     @observable
     public severity: IconSeverity;
 
     @observable
-    public iconTemplate?: ViewTemplate<IconView>;
+    public visualizationTemplate?:
+    | ViewTemplate<IconView>
+    | ViewTemplate<SpinnerView>;
 
-    @observable
-    public visual?: 'spinner' | 'icon';
+    public readonly textHidden = false;
 
     protected updateText(): void {
-        this.visual = undefined;
+        this.visualizationTemplate = undefined;
         if (!this.columnConfig) {
             this.text = '';
             return;
@@ -45,13 +49,12 @@ export class TableColumnIconGroupHeaderView
         const value = this.groupHeaderValue;
         const mappingConfig = this.columnConfig.mappingConfigs.get(value!);
         if (mappingConfig instanceof MappingIconConfig) {
-            this.visual = 'icon';
             this.severity = mappingConfig.severity;
             this.text = mappingConfig.text ?? '';
-            this.iconTemplate = mappingConfig.iconTemplate;
+            this.visualizationTemplate = mappingConfig.iconTemplate;
         } else if (mappingConfig instanceof MappingSpinnerConfig) {
-            this.visual = 'spinner';
             this.text = mappingConfig.text ?? '';
+            this.visualizationTemplate = mappingConfig.spinnerTemplate;
         }
     }
 }

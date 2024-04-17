@@ -1,6 +1,7 @@
 import { DesignSystem } from '@microsoft/fast-foundation';
 import { ViewTemplate, observable } from '@microsoft/fast-element';
 import { TableCellView } from '../../base/cell-view';
+import { styles } from './styles';
 import { template } from './template';
 import type {
     TableColumnEnumCellRecord,
@@ -11,7 +12,10 @@ import {
     MappingIconConfig
 } from '../../enum-base/models/mapping-icon-config';
 import type { IconSeverity } from '../../../icon-base/types';
-import { MappingSpinnerConfig } from '../../enum-base/models/mapping-spinner-config';
+import {
+    MappingSpinnerConfig,
+    SpinnerView
+} from '../../enum-base/models/mapping-spinner-config';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -27,7 +31,7 @@ export class TableColumnIconCellView
     TableColumnEnumCellRecord,
     TableColumnEnumColumnConfig
     >
-    implements IconView {
+    implements IconView, SpinnerView {
     @observable
     public severity: IconSeverity;
 
@@ -35,10 +39,16 @@ export class TableColumnIconCellView
     public text?: string;
 
     @observable
-    public iconTemplate?: ViewTemplate<IconView>;
+    public visualizationTemplate?:
+    | ViewTemplate<IconView>
+    | ViewTemplate<SpinnerView>;
 
     @observable
-    public visual?: 'spinner' | 'icon';
+    public textHidden = false;
+
+    /** @internal */
+    @observable
+    public hasOverflow = false;
 
     private columnConfigChanged(): void {
         this.updateState();
@@ -49,7 +59,7 @@ export class TableColumnIconCellView
     }
 
     private updateState(): void {
-        this.visual = undefined;
+        this.visualizationTemplate = undefined;
         if (!this.columnConfig || !this.cellRecord) {
             return;
         }
@@ -59,20 +69,22 @@ export class TableColumnIconCellView
         }
         const mappingConfig = this.columnConfig.mappingConfigs.get(value);
         if (mappingConfig instanceof MappingIconConfig) {
-            this.visual = 'icon';
             this.severity = mappingConfig.severity;
             this.text = mappingConfig.text;
-            this.iconTemplate = mappingConfig.iconTemplate;
+            this.visualizationTemplate = mappingConfig.iconTemplate;
+            this.textHidden = mappingConfig.textHidden;
         } else if (mappingConfig instanceof MappingSpinnerConfig) {
-            this.visual = 'spinner';
             this.text = mappingConfig.text;
+            this.visualizationTemplate = mappingConfig.spinnerTemplate;
+            this.textHidden = mappingConfig.textHidden;
         }
     }
 }
 
 const iconCellView = TableColumnIconCellView.compose({
     baseName: 'table-column-icon-cell-view',
-    template
+    template,
+    styles
 });
 DesignSystem.getOrCreate().withPrefix('nimble').register(iconCellView());
 export const tableColumnIconCellViewTag = 'nimble-table-column-icon-cell-view';
