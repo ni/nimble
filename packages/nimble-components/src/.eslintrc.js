@@ -1,6 +1,6 @@
 module.exports = {
     root: true,
-    extends: 'plugin:nimble/typescript',
+    extends: 'plugin:@ni-private/nimble/typescript',
     parserOptions: {
         project: '../tsconfig.json',
         tsconfigRootDir: __dirname

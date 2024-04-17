@@ -2,7 +2,6 @@
   "name": "@ni-private/eslint-plugin-nimble",
   "version": "0.0.1",
   "private": true,
-  "type": "module",
   "description": "Common ESLint configuration for the Nimble repository",
   "repository": {
     "type": "git",

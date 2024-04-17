@@ -1,4 +1,4 @@
 module.exports = {
     root: true,
-    extends: 'plugin:nimble/javascript'
+    extends: 'plugin:@ni-private/nimble/javascript'
 };
