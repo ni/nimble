@@ -63,7 +63,10 @@ module.exports = {
         // Enabled to prevent accidental usage of async-await
         '@typescript-eslint/require-await': 'error'
     },
-    ignorePatterns: ['.eslintrc.js'],
+    ignorePatterns: [
+        'node_modules',
+        'dist'
+    ],
     overrides: [
         {
             files: ['*.stories.ts'],

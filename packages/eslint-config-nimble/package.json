@@ -22,5 +22,11 @@
     "@ni/eslint-config-typescript": "^4.2.0",
     "eslint": "^8.7.0"
   },
-  "files": ["javascript.js", "typescript.js"]
+  "files": ["javascript.js", "typescript.js"],
+  "exports": {
+    "./javascript": "./javascript.js",
+    "./javascript.js": "./javascript.js",
+    "./typescript": "./typescript.js",
+    "./typescript.js": "./typescript.js"
+  }
 }
