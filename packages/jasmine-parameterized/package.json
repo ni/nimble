@@ -44,14 +44,8 @@
   "devDependencies": {
     "@ni/eslint-config-javascript": "^4.2.0",
     "@ni/eslint-config-typescript": "^4.2.0",
+    "@ni-private/karma-config": "^1.0.0",
     "@types/jasmine": "^5.1.4",
-    "jasmine": "^5.1.0",
-    "jasmine-core": "^5.1.2",
-    "karma": "^6.3.0",
-    "karma-jasmine": "^5.1.0",
-    "karma-jasmine-html-reporter": "^2.0.0",
-    "karma-spec-reporter": "^0.0.36",
-    "playwright": "1.42.0",
     "typescript": "~5.1.6"
   }
 }

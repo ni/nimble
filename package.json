@@ -34,6 +34,7 @@
   ],
   "workspaces": [
     "packages/jasmine-parameterized",
+    "packages/karma-config",
     "packages/xliff-to-json-converter",
     "packages/nimble-tokens",
     "packages/nimble-components",
