@@ -1,8 +1,18 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Wed, 10 Apr 2024 22:00:23 GMT and should not be manually modified.
+This log was last generated on Mon, 15 Apr 2024 17:36:54 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 24.1.14
+
+Mon, 15 Apr 2024 17:36:54 GMT
+
+### Patches
+
+- Update to typescript 5.1.6 ([ni/nimble@7254ddb](https://github.com/ni/nimble/commit/7254ddb339236dc1519033f88290491436a01aef))
+- Bump @ni/nimble-tokens to v6.13.2
+- Bump @ni/jasmine-parameterized to v0.2.4
 
 ## 24.1.13
 
