@@ -41,7 +41,7 @@ public class NimbleMappingSpinnerTests
     [Fact]
     public void NimbleMappingSpinnerTextHiddenAttribute_HasCorrectMarkup()
     {
-        var element = RenderWithPropertySet<int, bool>(x => x.TextHidden, true);
+        var element = RenderWithPropertySet<int, bool?>(x => x.TextHidden, true);
 
         Assert.Contains($"text-hidden", element.Markup);
     }

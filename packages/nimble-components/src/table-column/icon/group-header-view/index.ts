@@ -39,6 +39,8 @@ export class TableColumnIconGroupHeaderView
     | ViewTemplate<IconView>
     | ViewTemplate<SpinnerView>;
 
+    public readonly textHidden = false;
+
     protected updateText(): void {
         this.resetState();
 
@@ -50,10 +52,10 @@ export class TableColumnIconGroupHeaderView
         if (mappingConfig instanceof MappingIconConfig) {
             this.severity = mappingConfig.severity;
             this.text = mappingConfig.text ?? '';
-            this.visualizationTemplate = mappingConfig.iconGroupRowTemplate;
+            this.visualizationTemplate = mappingConfig.iconTemplate;
         } else if (mappingConfig instanceof MappingSpinnerConfig) {
             this.text = mappingConfig.text ?? '';
-            this.visualizationTemplate = mappingConfig.spinnerGroupRowTemplate;
+            this.visualizationTemplate = mappingConfig.spinnerTemplate;
         } else if (mappingConfig instanceof MappingTextConfig) {
             this.text = mappingConfig.text ?? '';
         }

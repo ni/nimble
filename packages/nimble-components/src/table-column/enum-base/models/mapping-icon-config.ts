@@ -5,6 +5,7 @@ import { MappingConfig } from './mapping-config';
 export interface IconView {
     severity: IconSeverity;
     text?: string;
+    textHidden: boolean;
 }
 
 // Create an empty template containing only a space because creating a ViewTemplate
@@ -13,8 +14,7 @@ export interface IconView {
 const emptyTemplate = html<IconView>` `;
 
 const createIconTemplate = (
-    icon: string | undefined,
-    textHidden: boolean
+    icon: string | undefined
 ): ViewTemplate<IconView> => {
     if (icon === undefined) {
         return emptyTemplate;
@@ -22,10 +22,10 @@ const createIconTemplate = (
 
     return html`
         <${icon}
-            title="${x => (textHidden ? x.text : '')}"
+            title="${x => (x.textHidden ? x.text : '')}"
             role="img"
             aria-label="${x => x.text}"
-            aria-hidden="${_ => (textHidden ? 'false' : 'true')}"
+            aria-hidden="${x => (x.textHidden ? 'false' : 'true')}"
             severity="${x => x.severity}"
         >
         </${icon}>
@@ -36,8 +36,7 @@ const createIconTemplate = (
  * Mapping configuration corresponding to a icon mapping
  */
 export class MappingIconConfig extends MappingConfig {
-    public readonly iconCellTemplate: ViewTemplate<IconView>;
-    public readonly iconGroupRowTemplate: ViewTemplate<IconView>;
+    public readonly iconTemplate: ViewTemplate<IconView>;
 
     public constructor(
         resolvedIcon: string | undefined,
@@ -46,7 +45,6 @@ export class MappingIconConfig extends MappingConfig {
         public readonly textHidden: boolean
     ) {
         super(text);
-        this.iconCellTemplate = createIconTemplate(resolvedIcon, textHidden);
-        this.iconGroupRowTemplate = createIconTemplate(resolvedIcon, false);
+        this.iconTemplate = createIconTemplate(resolvedIcon);
     }
 }
