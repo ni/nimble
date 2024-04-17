@@ -18,6 +18,7 @@ import { mappingSpinnerTag } from '../../../mapping/spinner';
 import { spinnerTag } from '../../../spinner';
 import { themeProviderTag } from '../../../theme-provider';
 import { TableColumnIconPageObject } from '../testing/table-column-icon.pageobject';
+import { mappingUserTag } from '../../../mapping/user';
 
 interface SimpleTableRecord extends TableRecord {
     field1?: MappingKey | null;
@@ -435,6 +436,28 @@ describe('TableColumnIcon', () => {
             expect(
                 model.col1.validity.invalidMappingKeyValueForType
             ).toBeTrue();
+        });
+
+        // prettier-ignore
+        async function setupInvalidMappings(): Promise<Fixture<Table<SimpleTableRecord>>> {
+            return fixture<Table<SimpleTableRecord>>(
+                html`<${tableTag} style="width: 700px">
+                        <${tableColumnIconTag} field-name="field1">
+                            Column 1
+                            <${mappingUserTag} key="foo"></${mappingUserTag}>
+                            <${mappingUserTag} key="bar"></${mappingUserTag}>
+                        </${tableColumnIconTag}>
+                    </${tableTag}>`
+            );
+        }
+        it('is invalid with unsupported mapping', async () => {
+            let element: Table<SimpleTableRecord>;
+            ({ element, connect, disconnect } = await setupInvalidMappings());
+            await connect();
+            await waitForUpdatesAsync();
+            const column = element.columns[0] as TableColumnIcon;
+            expect(column.checkValidity()).toBeFalse();
+            expect(column.validity.unsupportedMappingType).toBeTrue();
         });
 
         it('is invalid with duplicate key values', async () => {

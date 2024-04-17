@@ -8,7 +8,9 @@ export const template = html<TableColumnIconGroupHeaderView>`
     ${when(
         x => x.visualizationTemplate,
         html<TableColumnIconGroupHeaderView>`
-            <span class="reserve-icon-size">${x => x.visualizationTemplate!}</span>
+            <span class="reserve-icon-size">
+                ${x => x.visualizationTemplate}
+            </span>
         `
     )}
     <span

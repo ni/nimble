@@ -33,7 +33,7 @@ export class TableColumnIconValidator extends TableColumnEnumBaseValidator<
 
     private static isSupportedMappingElement(
         mapping: Mapping<unknown>
-    ): mapping is MappingIcon | MappingSpinner {
+    ): mapping is MappingIcon | MappingSpinner | MappingText {
         return (
             mapping instanceof MappingIcon
             || mapping instanceof MappingSpinner

@@ -8,7 +8,7 @@ export const template = html<TableColumnIconCellView>`
         x => x.visualizationTemplate,
         html<TableColumnIconCellView>`
             <span class="reserve-icon-size">
-                ${x => x.visualizationTemplate!}
+                ${x => x.visualizationTemplate}
             </span>
         `
     )}
