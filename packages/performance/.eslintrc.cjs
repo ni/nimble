@@ -1,6 +1,18 @@
 module.exports = {
     root: true,
-    extends: 'plugin:@ni-private/nimble/javascript',
+    extends: [
+        '@ni/eslint-config-javascript'
+    ],
+    ignorePatterns: [
+        // Force inclusion of config dot file
+        '!.eslintrc.js',
+        'node_modules',
+        'dist'
+    ],
+    rules: {
+        // Enabled to prevent accidental usage of async-await
+        'require-await': 'error'
+    },
     overrides: [{
         files: ['*.ts'],
         extends: [

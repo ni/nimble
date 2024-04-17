@@ -111,7 +111,7 @@
     "@chromatic-com/storybook": "^1.2.25",
     "@microsoft/fast-react-wrapper": "^0.3.22",
     "@ni/jasmine-parameterized": "^0.2.4",
-    "@ni-private/eslint-plugin-nimble": "^0.0.1",
+    "@ni-private/eslint-config-nimble": "^1.0.0",
     "@rollup/plugin-commonjs": "^25.0.7",
     "@rollup/plugin-json": "^6.0.0",
     "@rollup/plugin-node-resolve": "^15.0.1",

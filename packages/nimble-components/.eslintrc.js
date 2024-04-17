@@ -1,4 +1,4 @@
 module.exports = {
     root: true,
-    extends: 'plugin:@ni-private/nimble/javascript'
+    extends: '@ni-private/eslint-config-nimble/javascript'
 };

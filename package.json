@@ -33,7 +33,7 @@
     "!*"
   ],
   "workspaces": [
-    "packages/eslint-plugin-nimble",
+    "packages/eslint-config-nimble",
     "packages/jasmine-parameterized",
     "packages/xliff-to-json-converter",
     "packages/nimble-tokens",
