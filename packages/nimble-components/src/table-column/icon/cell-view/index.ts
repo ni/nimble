@@ -11,7 +11,7 @@ import {
     IconView,
     MappingIconConfig
 } from '../../enum-base/models/mapping-icon-config';
-import type { IconSeverity } from '../../../icon-base/types';
+import { IconSeverity } from '../../../icon-base/types';
 import {
     MappingSpinnerConfig,
     SpinnerView
@@ -89,6 +89,7 @@ export class TableColumnIconCellView
         this.text = undefined;
         this.textHidden = false;
         this.visualizationTemplate = undefined;
+        this.severity = IconSeverity.default;
     }
 }
 

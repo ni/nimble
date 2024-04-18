@@ -5,7 +5,7 @@ import { template } from './template';
 import type { TableColumnEnumColumnConfig } from '../../enum-base';
 import type { TableFieldValue } from '../../../table/types';
 import { TableColumnTextGroupHeaderViewBase } from '../../text-base/group-header-view';
-import type { IconSeverity } from '../../../icon-base/types';
+import { IconSeverity } from '../../../icon-base/types';
 import {
     MappingIconConfig,
     type IconView
@@ -64,6 +64,7 @@ export class TableColumnIconGroupHeaderView
     private resetState(): void {
         this.text = '';
         this.visualizationTemplate = undefined;
+        this.severity = IconSeverity.default;
     }
 }
 
