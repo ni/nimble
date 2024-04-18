@@ -6,17 +6,15 @@ import replace from '@rollup/plugin-replace';
 import json from '@rollup/plugin-json';
 import nodePolyfills from 'rollup-plugin-polyfill-node';
 
-const umdDevelopmentPlugin = () =>
-    replace({
-        'process.env.NODE_ENV': JSON.stringify('development'),
-        preventAssignment: true
-    });
+const umdDevelopmentPlugin = () => replace({
+    'process.env.NODE_ENV': JSON.stringify('development'),
+    preventAssignment: true
+});
 
-const umdProductionPlugin = () =>
-    replace({
-        'process.env.NODE_ENV': JSON.stringify('production'),
-        preventAssignment: true
-    });
+const umdProductionPlugin = () => replace({
+    'process.env.NODE_ENV': JSON.stringify('production'),
+    preventAssignment: true
+});
 
 // eslint-disable-next-line import/no-default-export
 export default [

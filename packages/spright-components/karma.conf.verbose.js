@@ -4,7 +4,7 @@
 
 const originalConfigFunction = require('./karma.conf');
 
-module.exports = (config) => {
+module.exports = config => {
     originalConfigFunction(config);
     const options = {
         plugins: [...config.plugins, 'karma-spec-reporter'],

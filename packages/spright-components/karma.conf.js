@@ -44,7 +44,7 @@ const webpackEnvironmentPlugin = new webpack.EnvironmentPlugin({
     NODE_ENV: 'production'
 });
 
-module.exports = (config) => {
+module.exports = config => {
     const options = {
         basePath,
         browserDisconnectTimeout: 10000,
