@@ -54,6 +54,14 @@ public class NimbleMappingIconTests
         Assert.Contains($"severity=\"success\"", element.Markup);
     }
 
+    [Fact]
+    public void NimbleMappingIconTextHiddenAttribute_HasCorrectMarkup()
+    {
+        var element = RenderWithPropertySet<int, bool?>(x => x.TextHidden, true);
+
+        Assert.Contains($"text-hidden", element.Markup);
+    }
+
     private IRenderedComponent<NimbleMappingIcon<TKey>> RenderWithPropertySet<TKey, TProperty>(Expression<Func<NimbleMappingIcon<TKey>, TProperty>> propertyGetter, TProperty propertyValue)
     {
         var context = new TestContext();
