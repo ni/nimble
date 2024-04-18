@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Thu, 18 Apr 2024 17:41:50 GMT",
+      "version": "25.0.0",
+      "tag": "@ni/nimble-components_v25.0.0",
+      "comments": {
+        "none": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "7ba788c630dedbd919ecaebc420a65d2425b0a2a",
+            "comment": "Move eslint config into eslint-config-nimble"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 17 Apr 2024 20:57:25 GMT",
       "version": "25.0.0",
       "tag": "@ni/nimble-components_v25.0.0",
