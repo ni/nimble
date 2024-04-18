@@ -5,7 +5,7 @@ import { template } from './template';
 import type { TableColumnEnumColumnConfig } from '../../enum-base';
 import type { TableFieldValue } from '../../../table/types';
 import { TableColumnTextGroupHeaderViewBase } from '../../text-base/group-header-view';
-import type { IconSeverity } from '../../../icon-base/types';
+import { IconSeverity } from '../../../icon-base/types';
 import {
     MappingIconConfig,
     type IconView
@@ -14,6 +14,7 @@ import {
     MappingSpinnerConfig,
     SpinnerView
 } from '../../enum-base/models/mapping-spinner-config';
+import { MappingTextConfig } from '../../enum-base/models/mapping-text-config';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -41,9 +42,9 @@ export class TableColumnIconGroupHeaderView
     public readonly textHidden = false;
 
     protected updateText(): void {
-        this.visualizationTemplate = undefined;
+        this.resetState();
+
         if (!this.columnConfig) {
-            this.text = '';
             return;
         }
         const value = this.groupHeaderValue;
@@ -55,7 +56,15 @@ export class TableColumnIconGroupHeaderView
         } else if (mappingConfig instanceof MappingSpinnerConfig) {
             this.text = mappingConfig.text ?? '';
             this.visualizationTemplate = mappingConfig.spinnerTemplate;
+        } else if (mappingConfig instanceof MappingTextConfig) {
+            this.text = mappingConfig.text ?? '';
         }
+    }
+
+    private resetState(): void {
+        this.text = '';
+        this.visualizationTemplate = undefined;
+        this.severity = IconSeverity.default;
     }
 }
 
