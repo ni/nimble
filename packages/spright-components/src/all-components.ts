@@ -4,4 +4,4 @@
  * that are required instead of leveraging this file.
  */
 
-import './accordion';
+import './demo';
