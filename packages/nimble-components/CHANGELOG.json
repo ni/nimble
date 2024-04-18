@@ -2,6 +2,36 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Thu, 18 Apr 2024 17:41:50 GMT",
+      "version": "25.0.0",
+      "tag": "@ni/nimble-components_v25.0.0",
+      "comments": {
+        "none": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "7ba788c630dedbd919ecaebc420a65d2425b0a2a",
+            "comment": "Move eslint config into eslint-config-nimble"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 17 Apr 2024 20:57:25 GMT",
+      "version": "25.0.0",
+      "tag": "@ni/nimble-components_v25.0.0",
+      "comments": {
+        "major": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "6d502618333981f4c5c2f72ddb5b329674d2e345",
+            "comment": "Add configuration for icon mappings and spinner mappings to show/hide their text within a table's cells. **Breaking change:** The icon mappings and spinner mappings now default to showing their text within a table's cells in addition to on group rows."
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 16 Apr 2024 02:40:00 GMT",
       "version": "24.1.14",
       "tag": "@ni/nimble-components_v24.1.14",
