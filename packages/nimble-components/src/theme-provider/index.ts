@@ -60,7 +60,7 @@ export class ThemeProvider extends FoundationElement {
     public direction?: Direction;
 
     @attr()
-    public theme: Theme = Theme.light;
+    public theme!: Theme;
 
     public get validity(): ValidityObject {
         return {
