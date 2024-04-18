@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Wed, 17 Apr 2024 20:57:25 GMT and should not be manually modified.
+This log was last generated on Thu, 18 Apr 2024 21:47:19 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 25.1.0
+
+Thu, 18 Apr 2024 21:47:19 GMT
+
+### Minor changes
+
+- Support text mappings in icon column ([ni/nimble@73a19a6](https://github.com/ni/nimble/commit/73a19a6a2d1ebe03eb4245ee2119529ce9066b03))
 
 ## 25.0.0
 
