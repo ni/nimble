@@ -142,7 +142,6 @@
     "eslint-plugin-storybook": "^0.8.0",
     "html-webpack-plugin": "^5.3.1",
     "js-beautify": "^1.15.1",
-    "karma-spec-reporter": "^0.0.36",
     "prettier-eslint": "^16.3.0",
     "prettier-eslint-cli": "^8.0.1",
     "remark-gfm": "^4.0.0",
