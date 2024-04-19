@@ -1,6 +1,6 @@
 {
   "type": "major",
-  "comment": "Remove enum-text table column",
+  "comment": "Remove enum-text table column. The icon column supports text mappings and should be used instead.",
   "packageName": "@ni/nimble-components",
   "email": "20542556+mollykreis@users.noreply.github.com",
   "dependentChangeType": "patch"
