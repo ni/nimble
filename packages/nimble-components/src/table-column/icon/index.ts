@@ -19,6 +19,8 @@ import type { Mapping } from '../../mapping/base';
 import type { MappingConfig } from '../enum-base/models/mapping-config';
 import { MappingIconConfig } from '../enum-base/models/mapping-icon-config';
 import { MappingSpinnerConfig } from '../enum-base/models/mapping-spinner-config';
+import { MappingText } from '../../mapping/text';
+import { MappingTextConfig } from '../enum-base/models/mapping-text-config';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -61,11 +63,15 @@ export class TableColumnIcon extends mixinGroupableColumnAPI(
             return new MappingIconConfig(
                 mapping.resolvedIcon,
                 mapping.severity,
-                mapping.text
+                mapping.text,
+                mapping.textHidden
             );
         }
         if (mapping instanceof MappingSpinner) {
-            return new MappingSpinnerConfig(mapping.text);
+            return new MappingSpinnerConfig(mapping.text, mapping.textHidden);
+        }
+        if (mapping instanceof MappingText) {
+            return new MappingTextConfig(mapping.text);
         }
         // Getting here would indicate a programming error, b/c validation will prevent
         // this function from running when there is an unsupported mapping.

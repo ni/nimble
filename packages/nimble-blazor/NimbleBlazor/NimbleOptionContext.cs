@@ -2,7 +2,7 @@
 
 namespace NimbleBlazor;
 
-internal class NimbleOptionContext
+internal sealed class NimbleOptionContext
 {
     private readonly NimbleOptionContext? _parentContext;
 
