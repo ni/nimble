@@ -19,6 +19,7 @@ interface SimpleTableRecord extends TableRecord {
     href?: string;
     linkLabel?: string;
     date: number;
+    statusCode: number;
     result: string;
     number: number;
     duration: number;
@@ -161,6 +162,7 @@ export class CustomAppComponent implements AfterViewInit {
                 href: '/customapp',
                 linkLabel: 'Link',
                 date: (tableData.length % 2 === 0) ? new Date(2023, 7, 16, 3, 56, 11).valueOf() : new Date(2022, 2, 7, 20, 28, 41).valueOf(),
+                statusCode: (tableData.length % 2 === 0) ? 100 : 101,
                 result: (tableData.length % 2 === 0) ? 'success' : 'unknown',
                 number: tableData.length / 10,
                 duration: tableData.length * 1000 * (1.1 + 2 * 60 + 3 * 3600)
