@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Don't allow use of the nullish coalescing operator in templates",
-  "packageName": "@ni/nimble-components",
-  "email": "20542556+mollykreis@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
