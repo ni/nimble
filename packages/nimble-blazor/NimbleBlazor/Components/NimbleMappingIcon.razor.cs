@@ -21,4 +21,10 @@ public partial class NimbleMappingIcon<TKey> : NimbleMappingBase<TKey>
     /// </summary>
     [Parameter]
     public string? Text { get; set; }
+
+    /// <summary>
+    /// Gets or sets whether or not the mapping's text should be rendered in the table's cells.
+    /// </summary>
+    [Parameter]
+    public bool? TextHidden { get; set; }
 }

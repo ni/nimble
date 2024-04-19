@@ -27,5 +27,11 @@ module.exports = {
             // Rules enabled due to strictNullChecks
             '@typescript-eslint/no-non-null-assertion': 'off',
         }
+    }, {
+        files: ['vite.config.js'],
+        rules: {
+            // Configuration scripts will not be in published package and are allowed to use devDependencies
+            'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
+        }
     }]
 };

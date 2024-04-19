@@ -1,4 +1,5 @@
 import { html } from '@microsoft/fast-element';
+import { Table, tableFromArrays } from 'apache-arrow';
 import { WaferMap } from '..';
 import { processUpdates } from '../../testing/async-helpers';
 import { type Fixture, fixture } from '../../utilities/tests/fixture';
@@ -85,6 +86,12 @@ describe('WaferMap', () => {
             expect(spy).toHaveBeenCalledTimes(1);
         });
 
+        it('will update once after diesTable change', () => {
+            element.diesTable = new Table();
+            processUpdates();
+            expect(spy).toHaveBeenCalledTimes(1);
+        });
+
         it('will update once after colorScale changes', () => {
             element.colorScale = { colors: ['red', 'red'], values: ['1', '1'] };
             processUpdates();
@@ -106,6 +113,84 @@ describe('WaferMap', () => {
         });
     });
 
+    describe('worker renderer draw flow', () => {
+        let drawWaferSpy: jasmine.Spy;
+        beforeEach(() => {
+            drawWaferSpy = spyOn(element.workerRenderer, 'drawWafer');
+        });
+
+        it('will call drawWafer after supported diesTable change', () => {
+            element.diesTable = tableFromArrays({
+                colIndex: Int32Array.from([]),
+                rowIndex: Int32Array.from([]),
+                value: Float64Array.from([])
+            });
+            processUpdates();
+            expect(element.validity.invalidDiesTableSchema).toBeFalse();
+            expect(drawWaferSpy).toHaveBeenCalledTimes(1);
+        });
+
+        it('will not call drawWafer after unsupported diesTable change', () => {
+            element.diesTable = new Table();
+            processUpdates();
+            expect(element.validity.invalidDiesTableSchema).toBeTrue();
+            expect(drawWaferSpy).toHaveBeenCalledTimes(0);
+        });
+    });
+
+    describe('worker renderer flow', () => {
+        let renderHoverSpy: jasmine.Spy;
+        let experimentalUpdateSpy: jasmine.Spy;
+        beforeEach(() => {
+            renderHoverSpy = spyOn(element.workerRenderer, 'renderHover');
+            experimentalUpdateSpy = spyOn(
+                element,
+                'experimentalUpdate'
+            ).and.callThrough();
+        });
+
+        it('will use RenderingModule after dies change', () => {
+            element.dies = [{ x: 1, y: 1, value: '1' }];
+            processUpdates();
+            expect(experimentalUpdateSpy).toHaveBeenCalledTimes(0);
+        });
+
+        it('will use WorkerRenderer after supported diesTable change', () => {
+            element.diesTable = tableFromArrays({
+                colIndex: Int32Array.from([]),
+                rowIndex: Int32Array.from([]),
+                value: Float64Array.from([])
+            });
+            processUpdates();
+            expect(experimentalUpdateSpy).toHaveBeenCalledTimes(1);
+        });
+
+        it('will use WorkerRenderer after unsupported diesTable change but it will fail', () => {
+            element.diesTable = new Table();
+            processUpdates();
+            expect(experimentalUpdateSpy).toHaveBeenCalledTimes(1);
+            expect(renderHoverSpy).toHaveBeenCalledTimes(0);
+        });
+
+        it('will call renderHover after supported diesTable change', () => {
+            element.diesTable = tableFromArrays({
+                colIndex: Int32Array.from([]),
+                rowIndex: Int32Array.from([]),
+                value: Float64Array.from([])
+            });
+            processUpdates();
+            expect(element.validity.invalidDiesTableSchema).toBeFalse();
+            expect(renderHoverSpy).toHaveBeenCalledTimes(1);
+        });
+
+        it('will not call renderHover after unsupported diesTable change', () => {
+            element.diesTable = new Table();
+            processUpdates();
+            expect(element.validity.invalidDiesTableSchema).toBeTrue();
+            expect(renderHoverSpy).toHaveBeenCalledTimes(0);
+        });
+    });
+
     describe('zoom flow', () => {
         let initialValue: string | undefined;
 
@@ -120,7 +205,7 @@ describe('WaferMap', () => {
         });
 
         it('will zoom in the wafer-map', () => {
-            element.canvas.dispatchEvent(
+            element.dispatchEvent(
                 new WheelEvent('wheel', { deltaY: -2, deltaMode: -1 })
             );
             processUpdates();
@@ -129,7 +214,7 @@ describe('WaferMap', () => {
         });
 
         it('will zoom out to identity', () => {
-            element.canvas.dispatchEvent(
+            element.dispatchEvent(
                 new WheelEvent('wheel', { deltaY: -2, deltaMode: -1 })
             );
 
@@ -137,7 +222,7 @@ describe('WaferMap', () => {
             const zoomedValue = getTransform();
             expect(zoomedValue).not.toEqual(initialValue);
 
-            element.canvas.dispatchEvent(
+            element.dispatchEvent(
                 new WheelEvent('wheel', { deltaY: 2, deltaMode: -1 })
             );
 
@@ -147,7 +232,7 @@ describe('WaferMap', () => {
         });
 
         it('will not zoom out when at identity', () => {
-            element.canvas.dispatchEvent(
+            element.dispatchEvent(
                 new WheelEvent('wheel', { deltaY: 2, deltaMode: -1 })
             );
             processUpdates();
@@ -187,7 +272,7 @@ describe('WaferMap', () => {
             expect(initialHeight).toBe(460);
             expect(initialWidth).toBe(460);
 
-            element.canvas.dispatchEvent(
+            element.dispatchEvent(
                 new WheelEvent('wheel', { deltaY: -2, deltaMode: -1 })
             );
             processUpdates();
@@ -206,7 +291,7 @@ describe('WaferMap', () => {
             processUpdates();
             const initialTransform = element.hoverTransform;
             expect(initialTransform).not.toEqual('');
-            element.canvas.dispatchEvent(
+            element.dispatchEvent(
                 new WheelEvent('wheel', { deltaY: -2, deltaMode: -1 })
             );
             processUpdates();

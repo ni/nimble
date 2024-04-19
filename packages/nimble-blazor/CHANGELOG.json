@@ -2,6 +2,126 @@
   "name": "@ni/nimble-blazor",
   "entries": [
     {
+      "date": "Wed, 17 Apr 2024 20:57:25 GMT",
+      "version": "15.0.0",
+      "tag": "@ni/nimble-blazor_v15.0.0",
+      "comments": {
+        "major": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "6d502618333981f4c5c2f72ddb5b329674d2e345",
+            "comment": "Add configuration for icon mappings and spinner mappings to show/hide their text within a table's cells. **Breaking change:** The icon mappings and spinner mappings now default to showing their text within a table's cells in addition to on group rows."
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 15 Apr 2024 18:14:20 GMT",
+      "version": "14.7.14",
+      "tag": "@ni/nimble-blazor_v14.7.14",
+      "comments": {
+        "patch": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "dcf2bc498565a7b7069dae14a46c9cd992a262a3",
+            "comment": "Update nuget dependencies"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 29 Mar 2024 23:26:43 GMT",
+      "version": "14.7.0",
+      "tag": "@ni/nimble-blazor_v14.7.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "82d484e2b69dc93f526c72249f32002d355ade91",
+            "comment": "Blazor support for appearance-variant on menu and toggle buttons"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 28 Mar 2024 21:15:24 GMT",
+      "version": "14.6.0",
+      "tag": "@ni/nimble-blazor_v14.6.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "446055c74f11dd97010f2d0973a9eaf371b06389",
+            "comment": "Add support for column placeholders"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 27 Mar 2024 20:11:28 GMT",
+      "version": "14.5.7",
+      "tag": "@ni/nimble-blazor_v14.5.7",
+      "comments": {
+        "patch": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "6e8a7ad44cba28c2b26c138e57ef16cf0d2a1b90",
+            "comment": "Adding package lock files to allow for reproducible builds"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 22 Mar 2024 16:18:25 GMT",
+      "version": "14.5.2",
+      "tag": "@ni/nimble-blazor_v14.5.2",
+      "comments": {
+        "none": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "559c12f4b5eaae8fdbd18c6c0d2ecff097b699d5",
+            "comment": "Update Playwright dev dependency to 1.42.0"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 18 Mar 2024 17:12:34 GMT",
+      "version": "14.5.0",
+      "tag": "@ni/nimble-blazor_v14.5.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "3bbf8d7cd86d0129e9ad6bb0eed245ea2bfc0fda",
+            "comment": "Add new properties to the table label provider"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 13 Mar 2024 23:07:24 GMT",
+      "version": "14.4.0",
+      "tag": "@ni/nimble-blazor_v14.4.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "518c229b964d2c4a2e77210692f5d367f2937ff4",
+            "comment": "Expose additional label provider properties"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 06 Mar 2024 17:56:10 GMT",
       "version": "14.3.17",
       "tag": "@ni/nimble-blazor_v14.3.17",

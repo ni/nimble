@@ -1,24 +1,12 @@
-import { ColumnInternals } from '../../../base/models/column-internals';
 import { TableColumnNumberTextValidator } from '../table-column-number-text-validator';
-import { TableColumnSortOperation } from '../../../base/types';
 import { NumberTextFormat } from '../../types';
-import { tableColumnNumberTextCellViewTag } from '../../cell-view';
-import { tableColumnNumberTextGroupHeaderTag } from '../../group-header-view';
 import { unitByteTag } from '../../../../unit/byte';
 
 describe('TableColumnNumberTextValidator', () => {
     let validator: TableColumnNumberTextValidator;
 
     beforeEach(() => {
-        const fakeColumnInternals = new ColumnInternals({
-            cellRecordFieldNames: ['value'],
-            cellViewTag: tableColumnNumberTextCellViewTag,
-            groupHeaderViewTag: tableColumnNumberTextGroupHeaderTag,
-            delegatedEvents: [],
-            sortOperation: TableColumnSortOperation.basic
-        });
-
-        validator = new TableColumnNumberTextValidator(fakeColumnInternals);
+        validator = new TableColumnNumberTextValidator();
     });
 
     it('is valid with valid "decimal-digits" and "decimal" format', () => {

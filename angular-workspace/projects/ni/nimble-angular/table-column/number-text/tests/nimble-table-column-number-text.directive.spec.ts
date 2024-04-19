@@ -79,6 +79,7 @@ describe('NimbleTableColumnNumberText', () => {
                         decimal-digits="6"
                         decimal-maximum-digits="7"
                         alignment="${NumberTextAlignment.left}"
+                        placeholder="Custom placeholder"
                     ></nimble-table-column-number-text>
                 </nimble-table>
             `
@@ -177,6 +178,11 @@ describe('NimbleTableColumnNumberText', () => {
             expect(directive.decimalMaximumDigits).toBe(7);
             expect(nativeElement.decimalMaximumDigits).toBe(7);
         });
+
+        it('will use template string values for placeholder', () => {
+            expect(directive.placeholder).toBe('Custom placeholder');
+            expect(nativeElement.placeholder).toBe('Custom placeholder');
+        });
     });
 
     describe('with property bound values', () => {
@@ -200,6 +206,7 @@ describe('NimbleTableColumnNumberText', () => {
                         [decimal-digits]="decimalDigits"
                         [decimal-maximum-digits]="decimalMaximumDigits"
                         [alignment]="alignment"
+                        [placeholder]="placeholder"
                     ></nimble-table-column-number-text>
                 </nimble-table>
             `
@@ -222,6 +229,7 @@ describe('NimbleTableColumnNumberText', () => {
             public decimalDigits: number | null = 9;
             public decimalMaximumDigits: number | null = 10;
             public alignment: NumberTextAlignment = NumberTextAlignment.left;
+            public placeholder = 'Custom placeholder';
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
@@ -469,6 +477,17 @@ describe('NimbleTableColumnNumberText', () => {
             expect(directive.decimalMaximumDigits).toBeNull();
             expect(nativeElement.decimalMaximumDigits).toBeNull();
         });
+
+        it('can be configured with property binding for placeholder', () => {
+            expect(directive.placeholder).toBe('Custom placeholder');
+            expect(nativeElement.placeholder).toBe('Custom placeholder');
+
+            fixture.componentInstance.placeholder = 'Updated placeholder';
+            fixture.detectChanges();
+
+            expect(directive.placeholder).toBe('Updated placeholder');
+            expect(nativeElement.placeholder).toBe('Updated placeholder');
+        });
     });
 
     describe('with attribute bound values', () => {
@@ -492,6 +511,7 @@ describe('NimbleTableColumnNumberText', () => {
                         [attr.decimal-digits]="decimalDigits"
                         [attr.decimal-maximum-digits]="decimalMaximumDigits"
                         [attr.alignment]="alignment"
+                        [attr.placeholder]="placeholder"
                     ></nimble-table-column-number-text>
                 </nimble-table>
             `
@@ -514,6 +534,7 @@ describe('NimbleTableColumnNumberText', () => {
             public decimalDigits: number | null = 9;
             public decimalMaximumDigits: number | null = 10;
             public alignment: NumberTextAlignment = NumberTextAlignment.left;
+            public placeholder = 'Custom placeholder';
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
@@ -743,7 +764,7 @@ describe('NimbleTableColumnNumberText', () => {
             expect(nativeElement.decimalDigits).toBeNull();
         });
 
-        it('can be configured with property binding for decimalMaximumDigits', () => {
+        it('can be configured with attribute binding for decimalMaximumDigits', () => {
             expect(directive.decimalMaximumDigits).toBe(10);
             expect(nativeElement.decimalMaximumDigits).toBe(10);
 
@@ -754,7 +775,7 @@ describe('NimbleTableColumnNumberText', () => {
             expect(nativeElement.decimalMaximumDigits).toBe(7);
         });
 
-        it('can be configured with property binding for decimalMaximumDigits updated to null', () => {
+        it('can be configured with attribute binding for decimalMaximumDigits updated to null', () => {
             expect(directive.decimalMaximumDigits).toBe(10);
             expect(nativeElement.decimalMaximumDigits).toBe(10);
 
@@ -763,6 +784,17 @@ describe('NimbleTableColumnNumberText', () => {
 
             expect(directive.decimalMaximumDigits).toBeNull();
             expect(nativeElement.decimalMaximumDigits).toBeNull();
+        });
+
+        it('can be configured with attribute binding for placeholder', () => {
+            expect(directive.placeholder).toBe('Custom placeholder');
+            expect(nativeElement.placeholder).toBe('Custom placeholder');
+
+            fixture.componentInstance.placeholder = 'Updated placeholder';
+            fixture.detectChanges();
+
+            expect(directive.placeholder).toBe('Updated placeholder');
+            expect(nativeElement.placeholder).toBe('Updated placeholder');
         });
     });
 });

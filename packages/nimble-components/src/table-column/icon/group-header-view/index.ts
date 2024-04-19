@@ -5,12 +5,16 @@ import { template } from './template';
 import type { TableColumnEnumColumnConfig } from '../../enum-base';
 import type { TableFieldValue } from '../../../table/types';
 import { TableColumnTextGroupHeaderViewBase } from '../../text-base/group-header-view';
-import type { IconSeverity } from '../../../icon-base/types';
+import { IconSeverity } from '../../../icon-base/types';
 import {
     MappingIconConfig,
     type IconView
 } from '../../enum-base/models/mapping-icon-config';
-import { MappingSpinnerConfig } from '../../enum-base/models/mapping-spinner-config';
+import {
+    MappingSpinnerConfig,
+    SpinnerView
+} from '../../enum-base/models/mapping-spinner-config';
+import { MappingTextConfig } from '../../enum-base/models/mapping-text-config';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -26,43 +30,41 @@ export class TableColumnIconGroupHeaderView
     TableFieldValue,
     TableColumnEnumColumnConfig
     >
-    implements IconView {
+    implements IconView, SpinnerView {
     @observable
     public severity: IconSeverity;
 
     @observable
-    public iconTemplate?: ViewTemplate<IconView>;
+    public visualizationTemplate?:
+    | ViewTemplate<IconView>
+    | ViewTemplate<SpinnerView>;
 
-    @observable
-    public visual?: 'spinner' | 'icon';
+    public readonly textHidden = false;
 
-    private columnConfigChanged(): void {
-        this.updateState();
-    }
+    protected updateText(): void {
+        this.resetState();
 
-    private groupHeaderValueChanged(): void {
-        this.updateState();
-    }
-
-    private updateState(): void {
-        this.visual = undefined;
         if (!this.columnConfig) {
             return;
         }
         const value = this.groupHeaderValue;
-        if (value === undefined || value === null) {
-            return;
-        }
-        const mappingConfig = this.columnConfig.mappingConfigs.get(value);
+        const mappingConfig = this.columnConfig.mappingConfigs.get(value!);
         if (mappingConfig instanceof MappingIconConfig) {
-            this.visual = 'icon';
             this.severity = mappingConfig.severity;
             this.text = mappingConfig.text ?? '';
-            this.iconTemplate = mappingConfig.iconTemplate;
+            this.visualizationTemplate = mappingConfig.iconTemplate;
         } else if (mappingConfig instanceof MappingSpinnerConfig) {
-            this.visual = 'spinner';
+            this.text = mappingConfig.text ?? '';
+            this.visualizationTemplate = mappingConfig.spinnerTemplate;
+        } else if (mappingConfig instanceof MappingTextConfig) {
             this.text = mappingConfig.text ?? '';
         }
+    }
+
+    private resetState(): void {
+        this.text = '';
+        this.visualizationTemplate = undefined;
+        this.severity = IconSeverity.default;
     }
 }
 

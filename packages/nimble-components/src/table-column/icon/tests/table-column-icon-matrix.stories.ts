@@ -10,16 +10,8 @@ import { iconCheckTag } from '../../../icons/check';
 import { mappingIconTag } from '../../../mapping/icon';
 import { mappingSpinnerTag } from '../../../mapping/spinner';
 import { isChromatic } from '../../../utilities/tests/isChromatic';
-import { iconCircleFilledTag } from '../../../icons/circle-filled';
-
-const metadata: Meta = {
-    title: 'Tests/Table Column: Icon',
-    parameters: {
-        ...sharedMatrixParameters()
-    }
-};
-
-export default metadata;
+import { iconXmarkTag } from '../../../icons/xmark';
+import { mappingTextTag } from '../../../mapping/text';
 
 const data = [
     {
@@ -36,30 +28,53 @@ const data = [
     },
     {
         id: '3',
-        code: -1
+        code: 3
+    },
+    {
+        id: '4',
+        code: 4
+    },
+    {
+        id: '5',
+        code: 5
+    },
+    {
+        id: '6',
+        code: 6
     }
 ] as const;
 
+const metadata: Meta = {
+    title: 'Tests/Table Column: Icon',
+    parameters: {
+        ...sharedMatrixParameters()
+    }
+};
+
+export default metadata;
+
 // prettier-ignore
 const component = (): ViewTemplate => html`
-    <${tableTag} id-field-name="id" style="height: 320px; ${isChromatic() ? '--ni-private-spinner-animation-play-state:paused' : ''}">
+    <${tableTag} id-field-name="id" style="height: 520px; ${isChromatic() ? '--ni-private-spinner-animation-play-state:paused' : ''}">
         <${tableColumnIconTag}
             field-name="code"
             key-type="number"
             group-index="0"
         >
-            <${iconCircleFilledTag} title="Column 1"></${iconCircleFilledTag}>
-
-            <${mappingIconTag} key="-1" text="Unknown value"></${mappingIconTag}>
-            <${mappingIconTag} key="0" text="Zero" icon="${iconCheckTag}"></${mappingIconTag}>
-            <${mappingSpinnerTag} key="1" text="One"></${mappingSpinnerTag}>
+            Column 1
+            <${mappingIconTag} key="0" text="Icon" icon="${iconCheckTag}" severity="success"></${mappingIconTag}>
+            <${mappingIconTag} key="1" text="Icon, text-hidden" icon="${iconXmarkTag}" text-hidden></${mappingIconTag}>
+            <${mappingSpinnerTag} key="2" text="Spinner"></${mappingSpinnerTag}>
+            <${mappingSpinnerTag} key="3" text="Spinner, text-hidden" text-hidden></${mappingSpinnerTag}>
+            <${mappingIconTag} key="4" text="Undefined icon, text-hidden" text-hidden></${mappingIconTag}>
+            <${mappingIconTag} key="5" text="Undefined icon"></${mappingIconTag}>
+            <${mappingTextTag} key="6" text="Text"</${mappingTextTag}>
         </${tableColumnIconTag}>
         <${tableColumnIconTag}
             field-name="code"
             key-type="number"
         >
-            <${iconCircleFilledTag} title="Column 2"></${iconCircleFilledTag}>
-
+            Column 2
             <${mappingIconTag} key="-1" text="Unknown value"></${mappingIconTag}>
             <${mappingIconTag} key="0" text="Zero" icon="${iconCheckTag}" severity="success"></${mappingIconTag}>
             <${mappingIconTag} key="1" text="One" icon="${iconCheckTag}" severity="warning"></${mappingIconTag}>
@@ -69,8 +84,7 @@ const component = (): ViewTemplate => html`
             field-name="code"
             key-type="number"
         >
-            <${iconCircleFilledTag} title="Column 3"></${iconCircleFilledTag}>
-
+            Column 3
             <${mappingIconTag} key="-1" text="Unknown value"></${mappingIconTag}>
             <${mappingIconTag} key="0" text="Zero" icon="${iconCheckTag}" severity="information"></${mappingIconTag}>
         </${tableColumnIconTag}>

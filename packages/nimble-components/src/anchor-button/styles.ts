@@ -11,4 +11,16 @@ export const styles = css`
     .control {
         text-decoration: none;
     }
+
+    [part='start'] {
+        pointer-events: none;
+    }
+
+    .content {
+        pointer-events: none;
+    }
+
+    [part='end'] {
+        pointer-events: none;
+    }
 `;

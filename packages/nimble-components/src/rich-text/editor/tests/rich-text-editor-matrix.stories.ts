@@ -23,15 +23,6 @@ import { toggleButtonTag } from '../../../toggle-button';
 import { menuButtonTag } from '../../../menu-button';
 import { anchorButtonTag } from '../../../anchor-button';
 
-const metadata: Meta = {
-    title: 'Tests/Rich Text Editor',
-    parameters: {
-        ...sharedMatrixParameters()
-    }
-};
-
-export default metadata;
-
 const richTextMarkdownString = '1. **Bold** *Italics*\n2. Numbered lists\n   1. Option 1\n   \n3. Bulleted lists\n   * Option 1\n   \n4. Absolute link: <https://nimble.ni.dev/>\n 6. @mention:\n    1. User pattern: <user:1>';
 
 const footerHiddenStates = [
@@ -53,6 +44,15 @@ const slotButtons = [
     anchorButtonTag
 ] as const;
 type SlotButtons = (typeof slotButtons)[number];
+
+const metadata: Meta = {
+    title: 'Tests/Rich Text Editor',
+    parameters: {
+        ...sharedMatrixParameters()
+    }
+};
+
+export default metadata;
 
 // prettier-ignore
 const component = (

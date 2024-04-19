@@ -30,7 +30,10 @@ import {
 } from '@microsoft/fast-web-utilities';
 import { arrowExpanderDown16X16 } from '@ni/nimble-tokens/dist/icons/js';
 import { styles } from './styles';
-import { DropdownAppearance } from '../patterns/dropdown/types';
+import {
+    DropdownAppearance,
+    ListOptionOwner
+} from '../patterns/dropdown/types';
 import { errorTextTemplate } from '../patterns/error/template';
 import type { ErrorPattern } from '../patterns/error/types';
 import { iconExclamationMarkTag } from '../icons/exclamation-mark';
@@ -54,10 +57,16 @@ const isNimbleListOption = (el: Element): el is ListOption => {
     return el instanceof ListOption;
 };
 
+const isOptionSelectable = (el: ListOption): boolean => {
+    return !el.visuallyHidden && !el.disabled && !el.hidden;
+};
+
 /**
  * A nimble-styled HTML select.
  */
-export class Select extends FormAssociatedSelect implements ErrorPattern {
+export class Select
+    extends FormAssociatedSelect
+    implements ErrorPattern, ListOptionOwner {
     @attr
     public appearance: DropdownAppearance = DropdownAppearance.underline;
 
@@ -650,7 +659,11 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
         // don't call super.selectNextOption as that relies on side-effecty
         // behavior to not select disabled option (which no longer works)
         for (let i = this.selectedIndex + 1; i < this.options.length; i++) {
-            if (!this.options[i]?.disabled) {
+            const listOption = this.options[i]!;
+            if (
+                isNimbleListOption(listOption)
+                && isOptionSelectable(listOption)
+            ) {
                 this.selectedIndex = i;
                 break;
             }
@@ -661,11 +674,32 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
         // don't call super.selectPreviousOption as that relies on side-effecty
         // behavior to not select disabled option (which no longer works)
         for (let i = this.selectedIndex - 1; i >= 0; i--) {
-            if (!this.options[i]?.disabled) {
+            const listOption = this.options[i]!;
+            if (
+                isNimbleListOption(listOption)
+                && isOptionSelectable(listOption)
+            ) {
                 this.selectedIndex = i;
                 break;
             }
         }
+    }
+
+    /**
+     * @internal
+     */
+    public registerOption(option: ListOption): void {
+        if (this.options.includes(option)) {
+            return;
+        }
+
+        // Adding an option to the end, ultimately, isn't the correct
+        // thing to do, as this will mean the option's index in the options,
+        // at least temporarily, does not match the DOM order. However, it
+        // is expected that a successive run of `slottedOptionsChanged` will
+        // correct this order issue. See 'https://github.com/ni/nimble/issues/1915'
+        // for more info.
+        this.options.push(option);
     }
 
     // Prevents parent classes from resetting selectedIndex to a positive
@@ -778,9 +812,6 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
         const optionIsSelected = (option: ListboxOption): boolean => {
             return option.hasAttribute('selected') || option.selected;
         };
-        const optionIsDisabled = (option: ListboxOption): boolean => {
-            return option.hasAttribute('disabled') || option.disabled;
-        };
         let selectedIndex = -1;
         let firstValidOptionIndex = -1;
         for (let i = 0; i < options?.length; i++) {
@@ -788,7 +819,10 @@ export class Select extends FormAssociatedSelect implements ErrorPattern {
             if (optionIsSelected(option!) || option?.value === this.value) {
                 selectedIndex = i;
             }
-            if (firstValidOptionIndex === -1 && !optionIsDisabled(option!)) {
+            if (
+                firstValidOptionIndex === -1
+                && isOptionSelectable(option! as ListOption)
+            ) {
                 firstValidOptionIndex = i;
             }
         }

@@ -26,6 +26,7 @@ import {
     tableColumnValidationTestTag
 } from '../../table-column/base/tests/table-column.fixtures';
 import type { ColumnInternalsOptions } from '../../table-column/base/models/column-internals';
+import { ColumnValidator } from '../../table-column/base/models/column-validator';
 
 interface SimpleTableRecord extends TableRecord {
     stringData: string;
@@ -659,7 +660,8 @@ describe('Table', () => {
                         cellViewTag: focusableCellViewName,
                         cellRecordFieldNames: ['value'],
                         groupHeaderViewTag: tableColumnEmptyGroupHeaderViewTag,
-                        delegatedEvents: []
+                        delegatedEvents: [],
+                        validator: new ColumnValidator<[]>([])
                     };
                 }
             }

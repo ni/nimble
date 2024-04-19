@@ -6,11 +6,15 @@ import {
     keyArrowUp,
     keyEscape
 } from '@microsoft/fast-web-utilities';
-import { ButtonAppearance } from '../button/types';
+import {
+    ButtonAppearance,
+    ButtonAppearanceVariant,
+    MenuButtonToggleEventDetail,
+    MenuButtonPosition
+} from './types';
 import type { ToggleButton } from '../toggle-button';
 import { styles } from './styles';
 import { template } from './template';
-import { MenuButtonToggleEventDetail, MenuButtonPosition } from './types';
 import type { ButtonPattern } from '../patterns/button/types';
 import type { AnchoredRegion } from '../anchored-region';
 
@@ -26,6 +30,9 @@ declare global {
 export class MenuButton extends FoundationElement implements ButtonPattern {
     @attr
     public appearance: ButtonAppearance = ButtonAppearance.outline;
+
+    @attr({ attribute: 'appearance-variant' })
+    public appearanceVariant: ButtonAppearanceVariant;
 
     @attr({ mode: 'boolean' })
     public disabled = false;

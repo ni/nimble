@@ -15,39 +15,43 @@ import { mappingIconTag } from '../../../mapping/icon';
 import { mappingSpinnerTag } from '../../../mapping/spinner';
 import { sharedMappingValidityDescription } from '../../enum-base/tests/shared-storybook-docs';
 import { isChromatic } from '../../../utilities/tests/isChromatic';
-import { iconChartDiagramChildFocusTag } from '../../../icons/chart-diagram-child-focus';
-import { iconXmarkCheckTag } from '../../../icons/xmark-check';
+import { mappingTextTag } from '../../../mapping/text';
 
 const simpleData = [
     {
         firstName: 'Ralph',
         lastName: 'Wiggum',
         status: 'fail',
-        isChild: true
+        isChild: true,
+        gender: 'male'
     },
     {
         firstName: 'Marge',
         lastName: 'Simpson',
         status: 'success',
-        isChild: false
+        isChild: false,
+        gender: 'female'
     },
     {
         firstName: 'Homer',
         lastName: 'Simpson',
         status: 'calculating',
-        isChild: false
+        isChild: false,
+        gender: 'male'
     },
     {
         firstName: 'Bart',
         lastName: 'Simpson',
         status: 'success',
-        isChild: true
+        isChild: true,
+        gender: 'male'
     },
     {
         firstName: 'Abbey',
         lastName: '?',
         status: 'unknown',
-        isChild: false
+        isChild: false,
+        gender: 'female'
     }
 ] as const;
 
@@ -78,24 +82,24 @@ export const iconColumn: StoryObj<IconColumnTableArgs> = {
             style="${isChromatic() ? '--ni-private-spinner-animation-play-state:paused' : ''}"
         >
             <${tableColumnTextTag} field-name="firstName" >
-                First name
-            </${tableColumnTextTag}>
-            <${tableColumnTextTag} field-name="lastName" >
-                Last name
+                Name
             </${tableColumnTextTag}>
             <${tableColumnIconTag} field-name="status" group-index="0">
-                <${iconXmarkCheckTag} title="Is a Simpson"></${iconXmarkCheckTag}>
-
+                Status
                 <${mappingIconTag} key="fail" icon="${iconXmarkTag}" severity="error" text="Not a Simpson"></${mappingIconTag}>
                 <${mappingIconTag} key="success" icon="${iconCheckLargeTag}" severity="success" text="Is a Simpson"></${mappingIconTag}>
-                <${mappingSpinnerTag} key="calculating" text="Calculating"></${mappingSpinnerTag}>
-                <${mappingIconTag} key="unknown" text="Unknown"></${mappingIconTag}>
+                <${mappingSpinnerTag} key="calculating" text="Calculating" text-hidden></${mappingSpinnerTag}>
+                <${mappingIconTag} key="unknown" text="Unknown" text-hidden></${mappingIconTag}>
             </${tableColumnIconTag}>
             <${tableColumnIconTag} field-name="isChild" key-type="boolean">
-                <${iconChartDiagramChildFocusTag} title="Is child"></${iconChartDiagramChildFocusTag}>
-
+                Is Child
                 <${mappingIconTag} key="false" icon="${iconXmarkTag}" severity="error" text="Not a child"></${mappingIconTag}>
                 <${mappingIconTag} key="true" icon="${iconCheckLargeTag}" severity="success" text="Is a child"></${mappingIconTag}>
+            </${tableColumnIconTag}>
+            <${tableColumnIconTag} field-name="gender" key-type="string">
+                Gender
+                <${mappingTextTag} key="male" text="Male"></${mappingTextTag}>
+                <${mappingTextTag} key="female" text="Female"></${mappingTextTag}>
             </${tableColumnIconTag}>
         </${tableTag}>
     `),

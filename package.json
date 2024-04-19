@@ -33,6 +33,7 @@
     "!*"
   ],
   "workspaces": [
+    "packages/eslint-config-nimble",
     "packages/jasmine-parameterized",
     "packages/xliff-to-json-converter",
     "packages/nimble-tokens",
@@ -47,6 +48,6 @@
     "beachball": "^2.31.0",
     "cross-env": "^7.0.3",
     "patch-package": "^8.0.0",
-    "playwright": "1.40.0"
+    "playwright": "1.42.0"
   }
 }

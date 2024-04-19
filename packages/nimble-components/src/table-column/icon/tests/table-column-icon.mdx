@@ -3,6 +3,7 @@ import { columnOperationBehavior } from '../../base/tests/table-column-stories-u
 import * as tableColumnIconStories from './table-column-icon.stories';
 import * as iconMappingStories from '../../../mapping/icon/tests/mapping-icon.stories';
 import * as spinnerMappingStories from '../../../mapping/spinner/tests/mapping-spinner.stories';
+import * as textMappingStories from '../../../mapping/text/tests/mapping-text.stories';
 import { tableColumnIconTag } from '../';
 import { tableTag } from '../../../table';
 import { spinnerTag } from '../../../spinner';
@@ -10,7 +11,7 @@ import { spinnerTag } from '../../../spinner';
 <Meta of={tableColumnIconStories} />
 <Title of={tableColumnIconStories} />
 
-The <Tag name={tableColumnIconTag}/> column renders string, number, or boolean values as a Nimble icon or <Tag name={spinnerTag}/> in the <Tag name={tableTag}/>.
+The <Tag name={tableColumnIconTag}/> renders specific number, boolean, or string values as an icon, a spinner, text, or an icon/spinner with text in the <Tag name={tableTag}/>.
 
 The column is a fixed size and cannot be resized by a user. The column is wide enough for a single icon, so the column's header should be a nimble icon that has a `title` configured on it for accessibility.
 
@@ -19,7 +20,15 @@ The column is a fixed size and cannot be resized by a user. The column is wide e
 <Canvas of={tableColumnIconStories.iconColumn} />
 <Controls of={tableColumnIconStories.iconColumn} />
 
-## Blazor Usage
+## Usage
+
+### Best Practices
+
+-   Provide a mapping for every expected record value. Because grouping is performed on the record value, non-mapped record values can result in multiple groups without group labels.
+    -   To improve grouping behavior of values that don't correspond to icons, explicitly map those values to an `undefined` icon.
+-   Avoid having multiple values that map to the same label because grouping and sorting is done on the record value rather than the mapped label.
+
+### Blazor Usage
 
 When setting a child mapping element's `Key` value to a string, you must wrap it in `@()` so that the compiler treats it as a string, e.g.
 `<NimbleMappingIcon Key=@("foo") ...>`
@@ -33,3 +42,8 @@ When setting a child mapping element's `Key` value to a string, you must wrap it
 
 <Description of={spinnerMappingStories} />
 <Controls of={spinnerMappingStories.spinnerMapping} />
+
+## Text Mapping
+
+<Description of={textMappingStories} />
+<Controls of={textMappingStories.textMapping} />

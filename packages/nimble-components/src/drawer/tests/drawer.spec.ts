@@ -133,8 +133,7 @@ describe('Drawer', () => {
             await expectAsync(promise).toBePending();
         });
 
-        // Firefox skipped, see: https://github.com/ni/nimble/issues/1075
-        it('should resolve promise if drawer completely opens before being closed #SkipFirefox', async () => {
+        it('should resolve promise if drawer completely opens before being closed', async () => {
             const promise = element.show();
             await completeAnimationAsync(element);
             element.close();
@@ -235,15 +234,15 @@ describe('Drawer', () => {
             expect(afterDrawerCloseActiveElement).toBe(button2);
         });
 
-        // Firefox skipped, see: https://github.com/ni/nimble/issues/1075
-        it('focuses the first button on the drawer when it opens #SkipFirefox', () => {
+        // Some browsers skipped, see: https://github.com/ni/nimble/issues/1936
+        it('focuses the first button on the drawer when it opens #SkipFirefox #SkipWebkit', () => {
             const okButton = document.getElementById('ok')!;
             void element.show();
             expect(document.activeElement).toBe(okButton);
         });
 
-        // Firefox skipped, see: https://github.com/ni/nimble/issues/1075
-        it('focuses the button with autofocus when the drawer opens #SkipFirefox', () => {
+        // Some browsers skipped, see: https://github.com/ni/nimble/issues/1936
+        it('focuses the button with autofocus when the drawer opens #SkipFirefox #SkipWebkit', () => {
             const cancelButton = document.getElementById('cancel')!;
             cancelButton.setAttribute('autofocus', '');
             processUpdates();
@@ -251,8 +250,8 @@ describe('Drawer', () => {
             expect(document.activeElement).toBe(cancelButton);
         });
 
-        // Firefox skipped, see: https://github.com/ni/nimble/issues/1075
-        it('supports opening multiple drawers on top of each other #SkipFirefox', () => {
+        // Some browsers skipped, see: https://github.com/ni/nimble/issues/1936
+        it('supports opening multiple drawers on top of each other #SkipFirefox #SkipWebkit', () => {
             const secondDrawer = document.createElement('nimble-drawer');
             const secondDrawerButton = document.createElement('nimble-button');
             secondDrawer.append(secondDrawerButton);

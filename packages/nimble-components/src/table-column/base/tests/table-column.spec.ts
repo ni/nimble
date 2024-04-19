@@ -14,6 +14,7 @@ import {
 import { TableColumn } from '..';
 import { TableColumnSortDirection } from '../../../table/types';
 import type { ColumnInternalsOptions } from '../models/column-internals';
+import { ColumnValidator } from '../models/column-validator';
 
 async function setup(): Promise<Fixture<TableColumnEmpty>> {
     return fixture(tableColumnEmptyTag);
@@ -123,7 +124,8 @@ describe('TableColumn', () => {
                         cellRecordFieldNames: [],
                         cellViewTag: 'div',
                         groupHeaderViewTag: tableColumnEmptyGroupHeaderViewTag,
-                        delegatedEvents: []
+                        delegatedEvents: [],
+                        validator: new ColumnValidator<[]>([])
                     };
                 }
             }
@@ -153,7 +155,8 @@ describe('TableColumn', () => {
                         cellRecordFieldNames: [],
                         cellViewTag: tableColumnEmptyCellViewTag,
                         groupHeaderViewTag: 'div',
-                        delegatedEvents: []
+                        delegatedEvents: [],
+                        validator: new ColumnValidator<[]>([])
                     };
                 }
             }

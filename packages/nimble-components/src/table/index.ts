@@ -58,6 +58,7 @@ import { InteractiveSelectionManager } from './models/interactive-selection-mana
 import { DataHierarchyManager } from './models/data-hierarchy-manager';
 import { ExpansionManager } from './models/expansion-manager';
 import { waitUntilCustomElementsDefinedAsync } from '../utilities/wait-until-custom-elements-defined-async';
+import { ColumnValidator } from '../table-column/base/models/column-validator';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -348,11 +349,12 @@ export class Table<
                 || source instanceof ColumnInternals)
             && typeof args === 'string'
         ) {
-            if (args === 'validConfiguration') {
-                this.tableValidator.validateColumnConfigurations(this.columns);
-            } else {
-                this.tableUpdateTracker.trackColumnPropertyChanged(args);
-            }
+            this.tableUpdateTracker.trackColumnPropertyChanged(args);
+        } else if (
+            source instanceof ColumnValidator
+            && args === 'isColumnValid'
+        ) {
+            this.tableValidator.validateColumnConfigurations(this.columns);
         } else if (
             source instanceof TableLayoutManager
             && args === 'isColumnBeingSized'
@@ -746,6 +748,11 @@ export class Table<
             );
             notifierInternals.subscribe(this);
             this.columnNotifiers.push(notifierInternals);
+            const validatorNotifier = Observable.getNotifier(
+                column.columnInternals.validator
+            );
+            validatorNotifier.subscribe(this);
+            this.columnNotifiers.push(validatorNotifier);
         }
     }
 

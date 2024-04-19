@@ -8,7 +8,6 @@ import { styles } from '../enum-base/styles';
 import { template } from '../enum-base/template';
 import {
     TableColumnSortOperation,
-    TableColumnValidity,
     columnIconSize,
     columnSpacing
 } from '../base/types';
@@ -23,6 +22,8 @@ import type { Mapping } from '../../mapping/base';
 import type { MappingConfig } from '../enum-base/models/mapping-config';
 import { MappingIconConfig } from '../enum-base/models/mapping-icon-config';
 import { MappingSpinnerConfig } from '../enum-base/models/mapping-spinner-config';
+import { MappingText } from '../../mapping/text';
+import { MappingTextConfig } from '../enum-base/models/mapping-text-config';
 
 const fixedColumnSize = columnIconSize + 2 * columnSpacing;
 
@@ -38,29 +39,14 @@ declare global {
 export class TableColumnIcon extends mixinGroupableColumnAPI(
     TableColumnEnumBase<TableColumnEnumColumnConfig, TableColumnIconValidator>
 ) {
-    public constructor() {
-        super();
-
-        this.columnInternals.resizingDisabled = true;
-        this.columnInternals.pixelWidth = fixedColumnSize;
-        this.columnInternals.minPixelWidth = fixedColumnSize;
-    }
-
-    public override createValidator(): TableColumnIconValidator {
-        return new TableColumnIconValidator(this.columnInternals);
-    }
-
-    public override get validity(): TableColumnValidity {
-        return this.validator.getValidity();
-    }
-
-    protected override getColumnInternalsOptions(): ColumnInternalsOptions {
+    protected override getColumnInternalsOptions(): ColumnInternalsOptions<TableColumnIconValidator> {
         return {
             cellRecordFieldNames: ['value'],
             cellViewTag: tableColumnIconCellViewTag,
             groupHeaderViewTag: tableColumnIconGroupHeaderViewTag,
             delegatedEvents: [],
-            sortOperation: TableColumnSortOperation.basic
+            sortOperation: TableColumnSortOperation.basic,
+            validator: new TableColumnIconValidator()
         };
     }
 
@@ -77,11 +63,15 @@ export class TableColumnIcon extends mixinGroupableColumnAPI(
             return new MappingIconConfig(
                 mapping.resolvedIcon,
                 mapping.severity,
-                mapping.text
+                mapping.text,
+                mapping.textHidden
             );
         }
         if (mapping instanceof MappingSpinner) {
-            return new MappingSpinnerConfig(mapping.text);
+            return new MappingSpinnerConfig(mapping.text, mapping.textHidden);
+        }
+        if (mapping instanceof MappingText) {
+            return new MappingTextConfig(mapping.text);
         }
         // Getting here would indicate a programming error, b/c validation will prevent
         // this function from running when there is an unsupported mapping.

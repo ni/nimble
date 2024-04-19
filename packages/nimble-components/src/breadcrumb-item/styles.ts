@@ -54,11 +54,15 @@ export const styles = css`
 
     .control:active {
         color: var(--ni-private-breadcrumb-link-active-font-color);
-        text-decoration: underline;
+        text-decoration: none;
     }
 
     [part='start'] {
         display: none;
+    }
+
+    .content {
+        pointer-events: none;
     }
 
     [part='end'] {

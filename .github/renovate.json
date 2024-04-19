@@ -17,18 +17,16 @@
       "groupName": "npm dependencies lock update only",
       "matchManagers": ["npm"],
       "rangeStrategy": "in-range-only",
-      "matchDepTypes": ["dependencies", "devDependencies"],
+      "matchDepTypes": ["dependencies", "devDependencies", "peerDependencies"],
       "enabled": true
     },
     {
       "groupName": "npm dependencies update to latest",
       "matchManagers": ["npm"],
       "rangeStrategy": "update-lockfile",
-      "matchDepTypes": ["dependencies", "devDependencies"],
+      "matchDepTypes": ["dependencies", "devDependencies", "peerDependencies"],
       "excludePackagePatterns":[
         "^@angular",
-        "@microsoft/fast-foundation",
-        "@microsoft/fast-react-wrapper",
         "comlink",
         "ng-packagr",
         "playwright",

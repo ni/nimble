@@ -1,8 +1,40 @@
 # Change Log - @ni/nimble-tokens
 
-This log was last generated on Wed, 28 Feb 2024 19:35:04 GMT and should not be manually modified.
+This log was last generated on Mon, 15 Apr 2024 17:36:54 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 6.13.2
+
+Mon, 15 Apr 2024 17:36:54 GMT
+
+### Patches
+
+- Update to typescript 5.1.6 ([ni/nimble@7254ddb](https://github.com/ni/nimble/commit/7254ddb339236dc1519033f88290491436a01aef))
+
+## 6.13.1
+
+Tue, 26 Mar 2024 20:45:41 GMT
+
+### Patches
+
+- Fix value of DigitalGreenDark ([ni/nimble@594ac22](https://github.com/ni/nimble/commit/594ac221124cc1b52cd28113714bb8ff71e5820b))
+
+## 6.13.0
+
+Thu, 21 Mar 2024 17:13:38 GMT
+
+### Minor changes
+
+- Add Body_2 base font token ([ni/nimble@b93385a](https://github.com/ni/nimble/commit/b93385a27672ebc03e18a864e8fa268727595c66))
+
+## 6.12.1
+
+Tue, 12 Mar 2024 21:01:54 GMT
+
+### Patches
+
+- Update typescript to 4.9.5 ([ni/nimble@bc825e1](https://github.com/ni/nimble/commit/bc825e1b057eafd8bc005d11e9a224aa9aee9619))
 
 ## 6.12.0
 

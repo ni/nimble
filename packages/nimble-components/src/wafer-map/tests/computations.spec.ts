@@ -1,4 +1,3 @@
-import type { WaferMap } from '..';
 import { Computations } from '../modules/computations';
 import { Margin, WaferMapOriginLocation } from '../types';
 import { getWaferMapMockComputations, getWaferMapDies } from './utilities';
@@ -20,7 +19,7 @@ describe('Wafermap Computations module', () => {
                 100,
                 100
             );
-            computationsModule = new Computations(waferMock as WaferMap);
+            computationsModule = new Computations(waferMock);
             computationsModule.updateContainerDimensions();
         });
 
@@ -70,7 +69,7 @@ describe('Wafermap Computations module', () => {
                 200,
                 100
             );
-            computationsModule = new Computations(waferMock as WaferMap);
+            computationsModule = new Computations(waferMock);
             computationsModule.updateContainerDimensions();
         });
 
@@ -114,7 +113,7 @@ describe('Wafermap Computations module', () => {
                 100,
                 100
             );
-            computationsModule = new Computations(waferMock as WaferMap);
+            computationsModule = new Computations(waferMock);
             computationsModule.updateContainerDimensions();
         });
 
@@ -136,7 +135,7 @@ describe('Wafermap Computations module', () => {
                 100,
                 100
             );
-            computationsModule = new Computations(waferMock as WaferMap);
+            computationsModule = new Computations(waferMock);
             computationsModule.updateContainerDimensions();
         });
 
@@ -158,7 +157,7 @@ describe('Wafermap Computations module', () => {
                 100,
                 100
             );
-            computationsModule = new Computations(waferMock as WaferMap);
+            computationsModule = new Computations(waferMock);
             computationsModule.updateContainerDimensions();
         });
 
@@ -180,7 +179,7 @@ describe('Wafermap Computations module', () => {
                 100,
                 100
             );
-            computationsModule = new Computations(waferMock as WaferMap);
+            computationsModule = new Computations(waferMock);
             computationsModule.updateContainerDimensions();
         });
 

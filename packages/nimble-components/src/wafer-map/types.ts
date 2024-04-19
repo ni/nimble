@@ -1,4 +1,4 @@
-import type { DataManager } from './modules/data-manager';
+import type { Float64, Int32 } from 'apache-arrow';
 
 export const WaferMapOriginLocation = {
     bottomLeft: 'bottom-left',
@@ -45,16 +45,15 @@ export interface WaferMapDie {
     tags?: string[];
 }
 
+export interface HoverDie {
+    index: number;
+    x: number;
+    y: number;
+}
+
 export interface WaferMapColorScale {
     colors: string[];
     values: string[];
-}
-
-export interface HoverHandlerData {
-    canvas: HTMLCanvasElement;
-    rect: HTMLElement;
-    dataManager: DataManager;
-    originLocation: WaferMapOriginLocation;
 }
 
 export interface Dimensions {
@@ -86,4 +85,25 @@ export interface ValidityObject {
 }
 export interface WaferMapValidity extends ValidityObject {
     readonly invalidGridDimensions: boolean;
+    readonly invalidDiesTableSchema: boolean;
 }
+
+// Apache arrow probably should not be using a Record and index types on TypeMap
+// because in strict checking they end up required.
+// See: https://github.com/apache/arrow/issues/12663#issuecomment-1088244575
+// We can work around that issue by using a type alias instead of an interface
+// Where index signatures are looser.
+// See: https://github.com/microsoft/TypeScript/issues/15300#issuecomment-1317901527
+// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
+export type WaferRequiredFields = {
+    colIndex: Int32,
+    rowIndex: Int32,
+    value: Float64
+};
+
+interface IColorScaleMarker {
+    color: string;
+    value: number;
+}
+
+export type ColorScale = IColorScaleMarker[];

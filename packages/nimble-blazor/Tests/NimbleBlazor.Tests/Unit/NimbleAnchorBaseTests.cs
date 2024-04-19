@@ -23,7 +23,9 @@ public abstract class NimbleAnchorBaseTests<T> where T : NimbleAnchorBase
         };
 
     [Theory]
+#pragma warning disable xUnit1042 // The member referenced by the MemberData attribute returns untyped data rows
     [MemberData(nameof(Data))]
+#pragma warning restore xUnit1042 // The member referenced by the MemberData attribute returns untyped data rows
     public void NimbleAnchorBase_AttributeIsSet(Expression<Func<T, string>> propertyGetter, string markupName)
     {
         var anchorMenuItem = RenderWithPropertySet(propertyGetter, "foo");

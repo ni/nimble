@@ -8,6 +8,7 @@ import type { TableRecord } from '../../../table/types';
 import { TablePageObject } from '../../../table/testing/table.pageobject';
 import { TableColumnDateTextPageObject } from '../testing/table-column-date-text.pageobject';
 import { lang, themeProviderTag } from '../../../theme-provider';
+import { DateTextFormat } from '../types';
 
 interface SimpleTableRecord extends TableRecord {
     field?: number | null;
@@ -77,53 +78,15 @@ describe('TableColumnDateText', () => {
             expect(column.checkValidity()).toBeTrue();
         });
 
-        describe('displays blank when', () => {
-            const badValueData = [
-                { name: 'field not present', data: [{ unused: 'foo' }] },
-                { name: 'value is null', data: [{ field: null }] },
-                { name: 'value is undefined', data: [{ field: undefined }] },
-                {
-                    name: 'value is Inf',
-                    data: [{ field: Number.POSITIVE_INFINITY }]
-                },
-                {
-                    name: 'value is -Inf',
-                    data: [{ field: Number.NEGATIVE_INFINITY }]
-                },
-                { name: 'value is NaN', data: [{ field: Number.NaN }] },
-                {
-                    name: 'value is MAX_VALUE',
-                    data: [{ field: Number.MAX_VALUE }]
-                },
-                {
-                    name: 'value is too large for Date',
-                    data: [{ field: 8640000000000000 + 1 }]
-                },
-                {
-                    name: 'value is too small for Date',
-                    data: [{ field: -8640000000000000 - 1 }]
-                },
-                {
-                    name: 'value is not a number',
-                    data: [{ field: 'foo' as unknown as number }]
-                }
-            ] as const;
-
-            parameterizeSpec(badValueData, (spec, name, value) => {
-                spec(name, async () => {
-                    await table.setData(value.data);
-                    await waitForUpdatesAsync();
-
-                    expect(pageObject.getRenderedCellContent(0, 0)).toEqual('');
-                });
-            });
-        });
-
         it('changing fieldName updates display', async () => {
+            const fieldValue = new Date('Dec 10, 2012, 10:35:05 PM').valueOf();
+            const anotherFieldValue = new Date(
+                'Jan 20, 2018, 4:05:45 AM'
+            ).valueOf();
             await table.setData([
                 {
-                    field: new Date('Dec 10, 2012, 10:35:05 PM').valueOf(),
-                    anotherField: new Date('Jan 20, 2018, 4:05:45 AM').valueOf()
+                    field: fieldValue,
+                    anotherField: anotherFieldValue
                 }
             ]);
             await waitForUpdatesAsync();
@@ -131,18 +94,22 @@ describe('TableColumnDateText', () => {
             column.fieldName = 'anotherField';
             await waitForUpdatesAsync();
 
+            const expectedFormattedValue = pageObject.getDefaultFormattedCellText(
+                anotherFieldValue,
+                'en-US'
+            );
             expect(pageObject.getRenderedCellContent(0, 0)).toEqual(
-                'Jan 20, 2018, 4:05:45 AM'
+                expectedFormattedValue
             );
         });
 
         it('changing data from value to null displays blank', async () => {
-            await table.setData([
-                { field: new Date('Dec 10, 2012, 10:35:05 PM').valueOf() }
-            ]);
+            const fieldValue = new Date('Dec 10, 2012, 10:35:05 PM').valueOf();
+            await table.setData([{ field: fieldValue }]);
             await waitForUpdatesAsync();
+            const expectedFormattedValue = pageObject.getDefaultFormattedCellText(fieldValue, 'en-US');
             expect(pageObject.getRenderedCellContent(0, 0)).toEqual(
-                'Dec 10, 2012, 10:35:05 PM'
+                expectedFormattedValue
             );
 
             const updatedValue = { field: null };
@@ -158,13 +125,13 @@ describe('TableColumnDateText', () => {
             await waitForUpdatesAsync();
             expect(pageObject.getRenderedCellContent(0, 0)).toEqual('');
 
-            await table.setData([
-                { field: new Date('Dec 10, 2012, 10:35:05 PM').valueOf() }
-            ]);
+            const fieldValue = new Date('Dec 10, 2012, 10:35:05 PM').valueOf();
+            await table.setData([{ field: fieldValue }]);
             await waitForUpdatesAsync();
 
+            const expectedFormattedValue = pageObject.getDefaultFormattedCellText(fieldValue, 'en-US');
             expect(pageObject.getRenderedCellContent(0, 0)).toEqual(
-                'Dec 10, 2012, 10:35:05 PM'
+                expectedFormattedValue
             );
         });
 
@@ -180,9 +147,8 @@ describe('TableColumnDateText', () => {
 
         it('sets title when cell text is ellipsized', async () => {
             table.style.width = '200px';
-            await table.setData([
-                { field: new Date('Dec 10, 2012, 10:35:05 PM').valueOf() }
-            ]);
+            const fieldValue = new Date('Dec 10, 2012, 10:35:05 PM').valueOf();
+            await table.setData([{ field: fieldValue }]);
             await waitForUpdatesAsync();
             tablePageObject.dispatchEventToCell(
                 0,
@@ -190,8 +156,9 @@ describe('TableColumnDateText', () => {
                 new MouseEvent('mouseover')
             );
             await waitForUpdatesAsync();
+            const expectedFormattedValue = pageObject.getDefaultFormattedCellText(fieldValue, 'en-US');
             expect(pageObject.getCellTitle(0, 0)).toEqual(
-                'Dec 10, 2012, 10:35:05 PM'
+                expectedFormattedValue
             );
         });
 
@@ -231,12 +198,12 @@ describe('TableColumnDateText', () => {
         });
 
         it('sets group header text to rendered date value', async () => {
-            await table.setData([
-                { field: new Date('Dec 10, 2012, 10:35:05 PM').valueOf() }
-            ]);
+            const fieldValue = new Date('Dec 10, 2012, 10:35:05 PM').valueOf();
+            await table.setData([{ field: fieldValue }]);
             await waitForUpdatesAsync();
+            const expectedFormattedValue = pageObject.getDefaultFormattedCellText(fieldValue, 'en-US');
             expect(pageObject.getRenderedGroupHeaderContent(0)).toBe(
-                'Dec 10, 2012, 10:35:05 PM'
+                expectedFormattedValue
             );
         });
 
@@ -251,17 +218,18 @@ describe('TableColumnDateText', () => {
         });
 
         it('updates displayed date when lang token changes', async () => {
-            await table.setData([
-                { field: new Date('Dec 10, 2012, 10:35:05 PM').valueOf() }
-            ]);
+            const fieldValue = new Date('Dec 10, 2012, 10:35:05 PM').valueOf();
+            await table.setData([{ field: fieldValue }]);
             await waitForUpdatesAsync();
+            const expectedEnglishFormattedValue = pageObject.getDefaultFormattedCellText(fieldValue, 'en-US');
             expect(pageObject.getRenderedCellContent(0, 0)).toBe(
-                'Dec 10, 2012, 10:35:05 PM'
+                expectedEnglishFormattedValue
             );
             lang.setValueFor(table, 'fr');
             await waitForUpdatesAsync();
+            const expectedFrenchFormattedValue = pageObject.getDefaultFormattedCellText(fieldValue, 'fr');
             expect(pageObject.getRenderedCellContent(0, 0)).toBe(
-                '10 déc. 2012, 22:35:05'
+                expectedFrenchFormattedValue
             );
         });
 
@@ -508,6 +476,192 @@ describe('TableColumnDateText', () => {
             column.customDateStyle = undefined;
             await waitForUpdatesAsync();
             expect(column.validity.invalidCustomOptionsCombination).toBeFalse();
+        });
+
+        describe('placeholder', () => {
+            const testCases = [
+                {
+                    name: 'value is not specified',
+                    data: [{}],
+                    cellValue: '',
+                    groupValue: 'No value',
+                    usesColumnPlaceholder: true
+                },
+                {
+                    name: 'value is undefined',
+                    data: [{ field: undefined }],
+                    cellValue: '',
+                    groupValue: 'No value',
+                    usesColumnPlaceholder: true
+                },
+                {
+                    name: 'value is null',
+                    data: [{ field: null }],
+                    cellValue: '',
+                    groupValue: 'No value',
+                    usesColumnPlaceholder: true
+                },
+                {
+                    name: 'value is Number.NaN',
+                    data: [{ field: Number.NaN }],
+                    cellValue: '',
+                    groupValue: '',
+                    usesColumnPlaceholder: false
+                },
+                {
+                    name: 'value is valid and non-zero',
+                    data: [{ field: 1708984169258 }],
+                    cellValue: '2/26/2024',
+                    groupValue: '2/26/2024',
+                    usesColumnPlaceholder: false
+                },
+                {
+                    name: 'value is incorrect type',
+                    data: [{ field: 'not a number' as unknown as number }],
+                    cellValue: '',
+                    groupValue: '',
+                    usesColumnPlaceholder: false
+                },
+                {
+                    name: 'value is specified and falsey',
+                    data: [{ field: 0 }],
+                    cellValue: '1/1/1970',
+                    groupValue: '1/1/1970',
+                    usesColumnPlaceholder: false
+                },
+                {
+                    name: 'value is Inf',
+                    data: [{ field: Number.POSITIVE_INFINITY }],
+                    cellValue: '',
+                    groupValue: '',
+                    usesColumnPlaceholder: false
+                },
+                {
+                    name: 'value is -Inf',
+                    data: [{ field: Number.NEGATIVE_INFINITY }],
+                    cellValue: '',
+                    groupValue: '',
+                    usesColumnPlaceholder: false
+                },
+                {
+                    name: 'value is MAX_VALUE',
+                    data: [{ field: Number.MAX_VALUE }],
+                    cellValue: '',
+                    groupValue: '',
+                    usesColumnPlaceholder: false
+                },
+                {
+                    name: 'value is too large for Date',
+                    data: [{ field: 8640000000000000 + 1 }],
+                    cellValue: '',
+                    groupValue: '',
+                    usesColumnPlaceholder: false
+                },
+                {
+                    name: 'value is too small for Date',
+                    data: [{ field: -8640000000000000 - 1 }],
+                    cellValue: '',
+                    groupValue: '',
+                    usesColumnPlaceholder: false
+                }
+            ] as const;
+
+            async function initializeColumnAndTable(
+                data: readonly SimpleTableRecord[],
+                placeholder?: string
+            ): Promise<void> {
+                // Set a custom time zone so that the behavior of the test does not
+                // depend on the configuration of the computer running the tests.
+                column.format = DateTextFormat.custom;
+                column.customTimeZone = 'UTC';
+                column.placeholder = placeholder;
+                await table.setData(data);
+                await connect();
+                await waitForUpdatesAsync();
+            }
+
+            parameterizeSpec(testCases, (spec, name, value) => {
+                spec(
+                    `cell and group row render expected value when ${name} and placeholder is configured`,
+                    async () => {
+                        const placeholder = 'Custom placeholder';
+                        await initializeColumnAndTable(value.data, placeholder);
+
+                        const expectedCellText = value.usesColumnPlaceholder
+                            ? placeholder
+                            : value.cellValue;
+                        expect(pageObject.getRenderedCellContent(0, 0)).toBe(
+                            expectedCellText
+                        );
+                        expect(
+                            pageObject.getRenderedGroupHeaderContent(0)
+                        ).toBe(value.groupValue);
+                    }
+                );
+            });
+
+            parameterizeSpec(testCases, (spec, name, value) => {
+                spec(
+                    `cell and group row render expected value when ${name} and placeholder is not configured`,
+                    async () => {
+                        await initializeColumnAndTable(value.data);
+
+                        expect(pageObject.getRenderedCellContent(0, 0)).toBe(
+                            value.cellValue
+                        );
+                        expect(
+                            pageObject.getRenderedGroupHeaderContent(0)
+                        ).toBe(value.groupValue);
+                    }
+                );
+            });
+
+            it('setting placeholder to undefined updates cells from displaying placeholder to displaying blank', async () => {
+                const placeholder = 'My placeholder';
+                await initializeColumnAndTable([{}], placeholder);
+                expect(pageObject.getRenderedCellContent(0, 0)).toBe(
+                    placeholder
+                );
+
+                column.placeholder = undefined;
+                await waitForUpdatesAsync();
+                expect(pageObject.getRenderedCellContent(0, 0)).toBe('');
+            });
+
+            it('setting placeholder to defined string updates cells from displaying blank to displaying placeholder', async () => {
+                await initializeColumnAndTable([{}]);
+                expect(pageObject.getRenderedCellContent(0, 0)).toBe('');
+
+                const placeholder = 'placeholder';
+                column.placeholder = placeholder;
+                await waitForUpdatesAsync();
+                expect(pageObject.getRenderedCellContent(0, 0)).toBe(
+                    placeholder
+                );
+            });
+
+            it('updating placeholder from one string to another updates cell', async () => {
+                const placeholder1 = 'My first placeholder';
+                await initializeColumnAndTable([{}], placeholder1);
+                expect(pageObject.getRenderedCellContent(0, 0)).toBe(
+                    placeholder1
+                );
+
+                const placeholder2 = 'My second placeholder';
+                column.placeholder = placeholder2;
+                await waitForUpdatesAsync();
+                expect(pageObject.getRenderedCellContent(0, 0)).toBe(
+                    placeholder2
+                );
+            });
+
+            it('can configure empty placeholder', async () => {
+                const placeholder = '';
+                await initializeColumnAndTable([{}], placeholder);
+                expect(pageObject.getRenderedCellContent(0, 0)).toBe(
+                    placeholder
+                );
+            });
         });
     });
 

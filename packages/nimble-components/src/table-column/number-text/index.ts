@@ -13,8 +13,8 @@ import {
 import { styles } from '../base/styles';
 import { template } from './template';
 import type { TableNumberField } from '../../table/types';
-import { TableColumnTextBase } from '../text-base';
-import { TableColumnSortOperation, TableColumnValidity } from '../base/types';
+import { TableColumnTextBase, mixinTextBase } from '../text-base';
+import { TableColumnSortOperation } from '../base/types';
 import { tableColumnNumberTextGroupHeaderTag } from './group-header-view';
 import { tableColumnNumberTextCellViewTag } from './cell-view';
 import type { ColumnInternalsOptions } from '../base/models/column-internals';
@@ -26,9 +26,11 @@ import { TextCellViewBaseAlignment } from '../text-base/cell-view/types';
 import { lang } from '../../theme-provider';
 import { Unit } from '../../unit/base/unit';
 import { waitUntilCustomElementsDefinedAsync } from '../../utilities/wait-until-custom-elements-defined-async';
+import type { TableColumnTextBaseColumnConfig } from '../text-base/cell-view';
 
 export type TableColumnNumberTextCellRecord = TableNumberField<'value'>;
-export interface TableColumnNumberTextColumnConfig {
+export interface TableColumnNumberTextColumnConfig
+    extends TableColumnTextBaseColumnConfig {
     formatter: UnitFormat;
     alignment: TextCellViewBaseAlignment;
 }
@@ -42,10 +44,12 @@ declare global {
 /**
  * The table column for displaying numbers as text.
  */
-export class TableColumnNumberText extends TableColumnTextBase {
-    /** @internal */
-    public validator = new TableColumnNumberTextValidator(this.columnInternals);
-
+export class TableColumnNumberText extends mixinTextBase(
+    TableColumnTextBase<
+    TableColumnNumberTextColumnConfig,
+    TableColumnNumberTextValidator
+    >
+) {
     @attr
     public format: NumberTextFormat;
 
@@ -93,17 +97,18 @@ export class TableColumnNumberText extends TableColumnTextBase {
         lang.unsubscribe(this.langSubscriber, this);
     }
 
-    public override get validity(): TableColumnValidity {
-        return this.validator.getValidity();
+    public placeholderChanged(): void {
+        this.updateColumnConfig();
     }
 
-    protected override getColumnInternalsOptions(): ColumnInternalsOptions {
+    protected override getColumnInternalsOptions(): ColumnInternalsOptions<TableColumnNumberTextValidator> {
         return {
             cellRecordFieldNames: ['value'],
             cellViewTag: tableColumnNumberTextCellViewTag,
             groupHeaderViewTag: tableColumnNumberTextGroupHeaderTag,
             delegatedEvents: [],
-            sortOperation: TableColumnSortOperation.basic
+            sortOperation: TableColumnSortOperation.basic,
+            validator: new TableColumnNumberTextValidator()
         };
     }
 
@@ -156,22 +161,24 @@ export class TableColumnNumberText extends TableColumnTextBase {
     }
 
     private updateColumnConfig(): void {
-        this.validator.validateDecimalDigits(this.format, this.decimalDigits);
-        this.validator.validateDecimalMaximumDigits(
+        const validator = this.columnInternals.validator;
+        validator.validateDecimalDigits(this.format, this.decimalDigits);
+        validator.validateDecimalMaximumDigits(
             this.format,
             this.decimalMaximumDigits
         );
-        this.validator.validateNoMutuallyExclusiveProperties(
+        validator.validateNoMutuallyExclusiveProperties(
             this.format,
             this.decimalDigits,
             this.decimalMaximumDigits
         );
-        this.validator.validateAtMostOneUnit(this.unitElements ?? []);
+        validator.validateAtMostOneUnit(this.unitElements ?? []);
 
-        if (this.validator.isValid()) {
+        if (validator.isValid()) {
             const columnConfig: TableColumnNumberTextColumnConfig = {
                 formatter: this.createFormatter(),
-                alignment: this.determineCellContentAlignment()
+                alignment: this.determineCellContentAlignment(),
+                placeholder: this.placeholder
             };
             this.columnInternals.columnConfig = columnConfig;
         } else {

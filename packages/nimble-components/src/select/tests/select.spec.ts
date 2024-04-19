@@ -1,4 +1,5 @@
 import { html, repeat } from '@microsoft/fast-element';
+import { parameterizeSpec } from '@ni/jasmine-parameterized';
 import { fixture, Fixture } from '../../utilities/tests/fixture';
 import { Select, selectTag } from '..';
 import { ListOption, listOptionTag } from '../../list-option';
@@ -16,17 +17,18 @@ const disabledOption = 'disabled';
 const disabledSelectedOption = 'disabled selected';
 const placeholderOption = 'disabled selected hidden';
 
-async function setup(
-    position?: string,
-    open?: boolean,
-    firstOptionState?:
-    | 'disabled'
-    | 'disabled selected'
-    | 'disabled selected hidden',
-    secondOptionState?:
+type OptionInitialState =
     | 'disabled'
     | 'disabled selected'
     | 'disabled selected hidden'
+    | 'hidden'
+    | 'visually-hidden';
+
+async function setup(
+    position?: string,
+    open?: boolean,
+    firstOptionState?: OptionInitialState,
+    secondOptionState?: OptionInitialState
 ): Promise<Fixture<Select>> {
     const viewTemplate = html`
         <nimble-select
@@ -168,7 +170,7 @@ describe('Select', () => {
         const { element, connect, disconnect } = await setup();
         await connect();
         const pageObject = new SelectPageObject(element);
-        await pageObject.clickSelect();
+        await clickAndWaitForOpen(element);
         expect(pageObject.isDropdownVisible()).toBeTrue();
         expect(pageObject.isFilterInputVisible()).toBeFalse();
 
@@ -179,7 +181,7 @@ describe('Select', () => {
         const { element, connect, disconnect } = await setup();
         await connect();
         const pageObject = new SelectPageObject(element);
-        await pageObject.clickSelect();
+        pageObject.clickSelect();
         pageObject.pressArrowDownKey();
         await waitForUpdatesAsync();
         expect(element.selectedIndex).toBe(1);
@@ -195,7 +197,7 @@ describe('Select', () => {
         const { element, connect, disconnect } = await setup();
         await connect();
         const pageObject = new SelectPageObject(element);
-        await pageObject.clickSelect();
+        pageObject.clickSelect();
         pageObject.pressArrowDownKey();
         await waitForUpdatesAsync();
 
@@ -207,7 +209,7 @@ describe('Select', () => {
         const { element, connect, disconnect } = await setup();
         await connect();
         const pageObject = new SelectPageObject(element);
-        await pageObject.clickSelect();
+        pageObject.clickSelect();
         pageObject.pressArrowDownKey();
         await pageObject.pressSpaceKey();
         expect(element.value).toBe('two');
@@ -216,19 +218,54 @@ describe('Select', () => {
         await disconnect();
     });
 
-    it('disabled option that is marked as selected initially will be used as value', async () => {
-        // mark second option as selected to be different than default
-        const { element, connect, disconnect } = await setup(
-            undefined,
-            false,
-            undefined,
-            disabledSelectedOption
-        );
-        await connect();
-        await waitForUpdatesAsync();
-        expect(element.value).toBe('two');
+    describe('Default selected option', () => {
+        it('disabled option that is marked as selected initially will be used as value', async () => {
+            // mark second option as selected to be different than default
+            const { element, connect, disconnect } = await setup(
+                undefined,
+                false,
+                undefined,
+                disabledSelectedOption
+            );
+            await connect();
+            await waitForUpdatesAsync();
+            expect(element.value).toBe('two');
 
-        await disconnect();
+            await disconnect();
+        });
+
+        const defaultOptionTestCases: {
+            name: string,
+            value: OptionInitialState
+        }[] = [
+            {
+                name: 'first option disabled, second is default',
+                value: 'disabled'
+            },
+            {
+                name: 'first option hidden, second is default',
+                value: 'hidden'
+            },
+            {
+                name: 'first option visually-hidden, second is default',
+                value: 'visually-hidden'
+            }
+        ];
+        parameterizeSpec(defaultOptionTestCases, (spec, name, value) => {
+            spec(name, async () => {
+                const { element, connect, disconnect } = await setup(
+                    undefined,
+                    false,
+                    value.value,
+                    undefined
+                );
+                await connect();
+                await waitForUpdatesAsync();
+                expect(element.value).toBe('two');
+
+                await disconnect();
+            });
+        });
     });
 
     it('can set value to a disabled option', async () => {
@@ -291,6 +328,33 @@ describe('Select', () => {
         await waitForUpdatesAsync();
         expect(element.displayValue).toBe('foo');
 
+        await disconnect();
+    });
+
+    it('option added directly to DOM synchronously registers with Select', async () => {
+        const { element, connect, disconnect } = await setup();
+        await connect();
+        await waitForUpdatesAsync();
+        const newOption = new ListOption('foo', 'foo');
+        const registerOptionSpy = spyOn(
+            element,
+            'registerOption'
+        ).and.callThrough();
+        registerOptionSpy.calls.reset();
+        element.insertBefore(newOption, element.options[0]!);
+
+        expect(registerOptionSpy.calls.count()).toBe(1);
+        expect(element.options).toContain(newOption);
+
+        // While the option is registered synchronously as shown above,
+        // properties like selectedIndex will only be correct asynchronously
+        // See https://github.com/ni/nimble/issues/1915
+        expect(element.selectedIndex).toBe(0);
+        await waitForUpdatesAsync();
+        expect(element.value).toBe('one');
+        // This assertion shows that after 'slottedOptionsChanged' runs, the
+        // 'selectedIndex' state has been corrected to expected DOM order.
+        expect(element.selectedIndex).toBe(1);
         await disconnect();
     });
 
@@ -482,25 +546,25 @@ describe('Select', () => {
                     expect(element.open).toBeTrue();
                 });
 
-                it('after pressing <Esc> to close dropdown, <Enter> will re-open dropdown', async () => {
+                it('after pressing <Esc> to close dropdown, <Enter> will re-open dropdown', () => {
                     element.filterMode = testData.filter;
-                    await pageObject.clickSelect();
+                    pageObject.clickSelect();
                     pageObject.pressEscapeKey();
                     expect(element.open).toBeFalse();
                     pageObject.pressEnterKey();
                     expect(element.open).toBeTrue();
                 });
 
-                it('after closing dropdown by pressing <Esc>, activeElement is Select element', async () => {
+                it('after closing dropdown by pressing <Esc>, activeElement is Select element', () => {
                     element.filterMode = testData.filter;
-                    await pageObject.clickSelect();
+                    pageObject.clickSelect();
                     pageObject.pressEscapeKey();
                     expect(document.activeElement).toBe(element);
                 });
 
-                it('after closing dropdown by committing a value with <Enter>, activeElement is Select element', async () => {
+                it('after closing dropdown by committing a value with <Enter>, activeElement is Select element', () => {
                     element.filterMode = testData.filter;
-                    await pageObject.clickSelect();
+                    pageObject.clickSelect();
                     pageObject.pressArrowDownKey();
                     pageObject.pressEnterKey();
                     expect(document.activeElement).toBe(element);
@@ -571,7 +635,7 @@ describe('Select', () => {
             expect(currentSelection?.text).toBe('Two');
             pageObject.pressEscapeKey();
 
-            await pageObject.clickSelect();
+            pageObject.clickSelect();
             currentSelection = pageObject.getSelectedOption();
             expect(currentSelection?.text).toBe('One');
         });
@@ -584,7 +648,7 @@ describe('Select', () => {
             await pageObject.openAndSetFilterText('One'); // Matches 'One'
             pageObject.pressEnterKey();
 
-            await pageObject.clickSelect();
+            pageObject.clickSelect();
             currentSelection = pageObject.getSelectedOption();
             expect(currentSelection?.selected).toBeTrue();
         });
@@ -641,10 +705,8 @@ describe('Select', () => {
         });
 
         it('pressing <Space> after dropdown is open will enter " " as filter text and keep dropdown open', async () => {
-            await pageObject.clickSelect();
-            await waitForUpdatesAsync();
+            pageObject.clickSelect();
             await pageObject.pressSpaceKey();
-            await waitForUpdatesAsync();
             expect(element.open).toBeTrue();
             expect(pageObject.getFilterInputText()).toBe(' ');
         });
@@ -652,7 +714,7 @@ describe('Select', () => {
         it('opening dropdown after applying filter previously starts with empty filter', async () => {
             await pageObject.openAndSetFilterText('T'); // Matches 'Two' and 'Three'
             await pageObject.closeDropdown();
-            await pageObject.clickSelect();
+            pageObject.clickSelect();
 
             expect(pageObject.getFilterInputText()).toBe('');
             expect(pageObject.getFilteredOptions().length).toBe(6);
@@ -669,7 +731,7 @@ describe('Select', () => {
         });
 
         it('opening dropdown with no filter does not display "not items found" element', async () => {
-            await pageObject.clickSelect();
+            await clickAndWaitForOpen(element);
             expect(pageObject.isNoResultsLabelVisible()).toBeFalse();
         });
 
@@ -723,7 +785,7 @@ describe('Select', () => {
         });
 
         it('clicking in filter input after dropdown is open, does not close dropdown', async () => {
-            await pageObject.clickSelect();
+            await clickAndWaitForOpen(element);
             await pageObject.clickFilterInput();
             expect(element.open).toBeTrue();
         });
@@ -736,7 +798,7 @@ describe('Select', () => {
         });
 
         it('filter input "aria-controls" and "aria-activedescendant" attributes are set to element state', async () => {
-            await pageObject.clickSelect();
+            await clickAndWaitForOpen(element);
             const filterInput = element.shadowRoot?.querySelector('.filter-input');
             expect(filterInput?.getAttribute('aria-controls')).toBe(
                 element.ariaControls
@@ -744,6 +806,51 @@ describe('Select', () => {
             expect(filterInput?.getAttribute('aria-activedescendant')).toBe(
                 element.ariaActiveDescendant
             );
+        });
+
+        it('pressing arrow keys selects next visible item when option between current and next is filtered out', async () => {
+            const newOptions = element.options.map(o => o as ListOption);
+            newOptions.push(new ListOption('Twenty', 'twenty'));
+            await pageObject.setOptions(newOptions);
+            await pageObject.openAndSetFilterText('tw');
+            pageObject.pressArrowDownKey();
+            let currentSelection = pageObject.getSelectedOption();
+            expect(currentSelection?.value).toBe('twenty');
+
+            pageObject.pressArrowUpKey();
+            currentSelection = pageObject.getSelectedOption();
+            expect(currentSelection?.value).toBe('two');
+        });
+
+        it('can not select option that has been filtered out pressing arrowUp', async () => {
+            await pageObject.openAndSetFilterText('tw');
+            pageObject.pressArrowUpKey();
+            pageObject.pressEnterKey();
+            await waitForUpdatesAsync();
+            let currentSelection = pageObject.getSelectedOption();
+            expect(currentSelection?.value).toBe('two');
+
+            // make sure we can select other options after clearing filter
+            pageObject.clickSelect();
+            pageObject.pressArrowUpKey();
+            pageObject.pressEnterKey();
+            currentSelection = pageObject.getSelectedOption();
+            expect(currentSelection?.value).toBe('one');
+        });
+
+        it('cant not select option that has been filtered out pressing arrowDown', async () => {
+            await pageObject.openAndSetFilterText('tw');
+            pageObject.pressArrowDownKey();
+            pageObject.pressEnterKey();
+            let currentSelection = pageObject.getSelectedOption();
+            expect(currentSelection?.value).toBe('two');
+
+            // make sure we can select other options after clearing filter
+            pageObject.clickSelect();
+            pageObject.pressArrowDownKey();
+            pageObject.pressEnterKey();
+            currentSelection = pageObject.getSelectedOption();
+            expect(currentSelection?.value).toBe('three');
         });
     });
 
@@ -821,10 +928,9 @@ describe('Select', () => {
             await disconnect();
         });
 
-        it('exercise clickOptionWithDisplayText', async () => {
-            await pageObject.clickSelect();
-            await waitForUpdatesAsync();
-            await pageObject.clickOptionWithDisplayText('Two');
+        it('exercise clickOptionWithDisplayText', () => {
+            pageObject.clickSelect();
+            pageObject.clickOptionWithDisplayText('Two');
             expect(element.value).toBe('two');
             expect(element.selectedIndex).toBe(1);
         });

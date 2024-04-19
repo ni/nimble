@@ -2,6 +2,66 @@
   "name": "@ni/nimble-tokens",
   "entries": [
     {
+      "date": "Mon, 15 Apr 2024 17:36:54 GMT",
+      "version": "6.13.2",
+      "tag": "@ni/nimble-tokens_v6.13.2",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "7254ddb339236dc1519033f88290491436a01aef",
+            "comment": "Update to typescript 5.1.6"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 26 Mar 2024 20:45:41 GMT",
+      "version": "6.13.1",
+      "tag": "@ni/nimble-tokens_v6.13.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "594ac221124cc1b52cd28113714bb8ff71e5820b",
+            "comment": "Fix value of DigitalGreenDark"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 21 Mar 2024 17:13:38 GMT",
+      "version": "6.13.0",
+      "tag": "@ni/nimble-tokens_v6.13.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "b93385a27672ebc03e18a864e8fa268727595c66",
+            "comment": "Add Body_2 base font token"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 12 Mar 2024 21:01:54 GMT",
+      "version": "6.12.1",
+      "tag": "@ni/nimble-tokens_v6.12.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "bc825e1b057eafd8bc005d11e9a224aa9aee9619",
+            "comment": "Update typescript to 4.9.5"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 06 Mar 2024 17:56:10 GMT",
       "version": "6.12.0",
       "tag": "@ni/nimble-tokens_v6.12.0",
