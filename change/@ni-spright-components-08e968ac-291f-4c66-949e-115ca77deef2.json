@@ -1,7 +1,7 @@
 {
-  "type": "none",
+  "type": "patch",
   "comment": "Create initial spright-components package",
   "packageName": "@ni/spright-components",
   "email": "7282195+m-akinc@users.noreply.github.com",
-  "dependentChangeType": "none"
+  "dependentChangeType": "patch"
 }
