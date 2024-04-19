@@ -3,7 +3,7 @@
   "version": "0.0.2",
   "description": "NI Spright Components",
   "scripts": {
-    "build": "npm run build-components && npm run bundle-components",
+    "build": "npm run build-components && npm run bundle-components && npm run build-storybook",
     "lint": "npm run eslint && npm run prettier",
     "format": "npm run eslint-fix && npm run prettier-fix",
     "eslint": "eslint .",
