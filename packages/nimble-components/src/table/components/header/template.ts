@@ -18,7 +18,6 @@ export const template = html<TableHeader>`
         @mousedown="${(_x, c) => !((c.event as MouseEvent).detail > 1)}"
     >
         <slot></slot>
-
         ${'' /* Set aria-hidden="true" on sort indicators because aria-sort is set on the 1st sorted column */}
         ${when(x => x.sortDirection === TableColumnSortDirection.ascending, html<TableHeader>`
             <${iconArrowUpTag}
