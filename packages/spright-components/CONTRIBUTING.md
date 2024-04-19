@@ -18,9 +18,9 @@ The following table compares the requirements for components developed in Sprigh
 
 Code in Spright packages will be co-owned and reviewed by the Design System team and the contributing team.
 
-Design System team members remain as co-owners to enforce technical quality of implementation. They can (and will) give consulting on feature selection (api design for properties/attributes/methods/events, level of accessibility support for aria/keyboard/mouse, interaction design, visual design), while ultimately deferring to the Spright contributor for what to implement.
+Design System team members remain as co-owners to enforce technical quality of implementation. They can (and will) give consulting on feature selection (API design for properties/attributes/methods/events, level of accessibility support for ARIA/keyboard/mouse, interaction design, visual design), while ultimately deferring to the Spright contributor for what to implement.
 
-Spright component bug fixes and new features should be contributed by the team that needs them.
+Spright component bug fixes and new features should be contributed by the team that needs them. The Design System team will maintain infrastructure like pipelines and dependencies but may request assistance from contributing teams for component-specific issues.
 
 ## Code quality
 
