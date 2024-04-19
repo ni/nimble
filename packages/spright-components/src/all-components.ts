@@ -4,6 +4,6 @@
  * that are required instead of leveraging this file.
  */
 
-import './rectangle';
+import '@ni/nimble-components/dist/esm/all-components';
 
-import '@ni/nimble-components/all-components';
+import './rectangle';
