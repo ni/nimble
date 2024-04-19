@@ -21,8 +21,8 @@
 !/.storybook/*.js
 
 /build/**/*.*
-!build/**/*.ts
-!build/**/*.json
+!build/generate-workers/**/*.ts
+!build/generate-workers/**/*.json
 
 # Explicitly exclude the below files and folders
 dist
