@@ -119,6 +119,15 @@ module.exports = {
             }
         },
         {
+            files: ['template.ts'],
+            rules: {
+                'no-restricted-syntax': [
+                    'error',
+                    { selector: "LogicalExpression[operator='??']" }
+                ]
+            }
+        },
+        {
             // Instead of enums, this repo uses const objects and type unions which should live in types.ts
             files: ['types.ts'],
             rules: {
