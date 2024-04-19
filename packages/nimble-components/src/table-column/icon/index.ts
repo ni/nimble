@@ -1,4 +1,5 @@
 import { DesignSystem } from '@microsoft/fast-foundation';
+import { attr } from '@microsoft/fast-element';
 import {
     MappingConfigs,
     TableColumnEnumBase,
@@ -9,7 +10,8 @@ import { template } from '../enum-base/template';
 import {
     TableColumnSortOperation,
     columnIconSize,
-    columnSpacing
+    columnSpacing,
+    defaultMinPixelWidth
 } from '../base/types';
 import { mixinGroupableColumnAPI } from '../mixins/groupable-column';
 import { mixinFractionalWidthColumnAPI } from '../mixins/fractional-width-column';
@@ -25,6 +27,7 @@ import { MappingIconConfig } from '../enum-base/models/mapping-icon-config';
 import { MappingSpinnerConfig } from '../enum-base/models/mapping-spinner-config';
 import { MappingText } from '../../mapping/text';
 import { MappingTextConfig } from '../enum-base/models/mapping-text-config';
+import { TableColumnMappingWidthMode } from './types';
 
 const fixedColumnSize = columnIconSize + 2 * columnSpacing;
 
@@ -45,6 +48,9 @@ export class TableColumnIcon extends mixinGroupableColumnAPI(
         >
     )
 ) {
+    @attr({ attribute: 'width-mode' })
+    public widthMode: TableColumnMappingWidthMode;
+
     protected override getColumnInternalsOptions(): ColumnInternalsOptions<TableColumnIconValidator> {
         return {
             cellRecordFieldNames: ['value'],
@@ -82,6 +88,18 @@ export class TableColumnIcon extends mixinGroupableColumnAPI(
         // Getting here would indicate a programming error, b/c validation will prevent
         // this function from running when there is an unsupported mapping.
         throw new Error('Unsupported mapping');
+    }
+
+    private widthModeChanged(): void {
+        if (this.widthMode === TableColumnMappingWidthMode.iconSize) {
+            this.columnInternals.resizingDisabled = true;
+            this.columnInternals.pixelWidth = fixedColumnSize;
+            this.columnInternals.minPixelWidth = fixedColumnSize;
+        } else {
+            this.columnInternals.resizingDisabled = false;
+            this.columnInternals.pixelWidth = undefined;
+            this.columnInternals.minPixelWidth = defaultMinPixelWidth;
+        }
     }
 }
 
