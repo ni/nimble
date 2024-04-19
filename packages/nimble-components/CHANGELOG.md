@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Thu, 18 Apr 2024 21:47:19 GMT and should not be manually modified.
+This log was last generated on Fri, 19 Apr 2024 16:57:31 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 25.1.1
+
+Fri, 19 Apr 2024 16:57:31 GMT
+
+### Patches
+
+- Don't allow use of the nullish coalescing operator in templates ([ni/nimble@e3e5231](https://github.com/ni/nimble/commit/e3e523112cce7ebbc3fbf0fb3768f5740055891c))
 
 ## 25.1.0
 

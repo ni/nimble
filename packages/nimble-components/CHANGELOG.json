@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Fri, 19 Apr 2024 16:57:31 GMT",
+      "version": "25.1.1",
+      "tag": "@ni/nimble-components_v25.1.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "e3e523112cce7ebbc3fbf0fb3768f5740055891c",
+            "comment": "Don't allow use of the nullish coalescing operator in templates"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 18 Apr 2024 21:47:19 GMT",
       "version": "25.1.0",
       "tag": "@ni/nimble-components_v25.1.0",
