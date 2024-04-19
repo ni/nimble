@@ -3,18 +3,17 @@ import { display } from '@microsoft/fast-foundation';
 import {
     bodyFont,
     bodyFontColor,
-    borderColor,
-    borderWidth
+    borderHoverColor
 } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
 
 export const styles = css`
     ${display('inline-block')}
 
     :host {
-        border: ${borderWidth} solid ${borderColor};
+        border: 2px solid ${borderHoverColor};
     }
 
-    .slot {
+    slot {
         font: ${bodyFont};
         color: ${bodyFontColor};
     }
