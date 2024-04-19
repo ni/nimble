@@ -12,6 +12,7 @@ import {
     columnSpacing
 } from '../base/types';
 import { mixinGroupableColumnAPI } from '../mixins/groupable-column';
+import { mixinFractionalWidthColumnAPI } from '../mixins/fractional-width-column';
 import { MappingSpinner } from '../../mapping/spinner';
 import { MappingIcon } from '../../mapping/icon';
 import { TableColumnIconValidator } from './models/table-column-icon-validator';
@@ -37,7 +38,12 @@ declare global {
  * Table column that maps values to icons / spinners
  */
 export class TableColumnIcon extends mixinGroupableColumnAPI(
-    TableColumnEnumBase<TableColumnEnumColumnConfig, TableColumnIconValidator>
+    mixinFractionalWidthColumnAPI(
+        TableColumnEnumBase<
+        TableColumnEnumColumnConfig,
+        TableColumnIconValidator
+        >
+    )
 ) {
     protected override getColumnInternalsOptions(): ColumnInternalsOptions<TableColumnIconValidator> {
         return {

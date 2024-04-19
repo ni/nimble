@@ -17,7 +17,6 @@ import { tableColumnIconTag } from '../../table-column/icon';
 import { mappingIconTag } from '../../mapping/icon';
 import { tableColumnTextTag } from '../../table-column/text';
 import { iconMetadata } from './icon-metadata';
-import { iconCircleFilledTag } from '../../icons/circle-filled';
 
 type IconName = keyof typeof nimbleIconComponentsMap;
 const data = Object.values(nimbleIconComponentsMap).map(iconClass => ({
@@ -88,8 +87,7 @@ export const icons: StoryObj<IconArgs> = {
             data-unused="${x => updateData(x.tableRef)}"
         >
             <${tableColumnIconTag} field-name="tag" key-type="string">
-                <${iconCircleFilledTag} title="Icon"></${iconCircleFilledTag}>
-
+                Icon
                 ${repeat(() => data, html<Data, IconArgs>`
                     <${mappingIconTag}
                         key="${x => x.tag}"

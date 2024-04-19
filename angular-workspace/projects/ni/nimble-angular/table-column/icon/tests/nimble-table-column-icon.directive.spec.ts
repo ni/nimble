@@ -30,6 +30,8 @@ describe('NimbleTableColumnIcon', () => {
                         action-menu-slot="my-slot"
                         action-menu-label="my menu"
                         column-hidden="true"
+                        fractional-width="2"
+                        min-pixel-width="40"
                         sort-direction="${TableColumnSortDirection.ascending}"
                         sort-index="0"
                         group-index="0"
@@ -98,6 +100,16 @@ describe('NimbleTableColumnIcon', () => {
             expect(nativeElement.sortIndex).toBe(0);
         });
 
+        it('will use template string values for fractionalWidth', () => {
+            expect(directive.fractionalWidth).toBe(2);
+            expect(nativeElement.fractionalWidth).toBe(2);
+        });
+
+        it('will use template string values for minPixelWidth', () => {
+            expect(directive.minPixelWidth).toBe(40);
+            expect(nativeElement.minPixelWidth).toBe(40);
+        });
+
         it('will use template string values for groupIndex', () => {
             expect(directive.groupIndex).toBe(0);
             expect(nativeElement.groupIndex).toBe(0);
@@ -121,6 +133,8 @@ describe('NimbleTableColumnIcon', () => {
                         [actionMenuSlot]="actionMenuSlot"
                         [actionMenuLabel]="actionMenuLabel"
                         [column-hidden]="columnHidden"
+                        [fractional-width]="fractionalWidth"
+                        [min-pixel-width]="minPixelWidth"
                         [sort-direction]="sortDirection"
                         [sort-index]="sortIndex"
                         [group-index]="groupIndex"
@@ -136,6 +150,8 @@ describe('NimbleTableColumnIcon', () => {
             public keyType = 'boolean';
             public actionMenuSlot = 'my-slot';
             public actionMenuLabel = 'my menu';
+            public fractionalWidth: number | null = 2;
+            public minPixelWidth: number | null = 40;
             public columnId = 'my-column';
             public columnHidden = true;
             public sortDirection: TableColumnSortDirection = TableColumnSortDirection.ascending;
@@ -258,6 +274,50 @@ describe('NimbleTableColumnIcon', () => {
             expect(nativeElement.sortIndex).toBe(null);
         });
 
+        it('can be configured with property binding for fractionalWidth', () => {
+            expect(directive.fractionalWidth).toBe(2);
+            expect(nativeElement.fractionalWidth).toBe(2);
+
+            fixture.componentInstance.fractionalWidth = 1;
+            fixture.detectChanges();
+
+            expect(directive.fractionalWidth).toBe(1);
+            expect(nativeElement.fractionalWidth).toBe(1);
+        });
+
+        it('can be configured with property binding for fractionalWidth updated to null', () => {
+            expect(directive.fractionalWidth).toBe(2);
+            expect(nativeElement.fractionalWidth).toBe(2);
+
+            fixture.componentInstance.fractionalWidth = null;
+            fixture.detectChanges();
+
+            expect(directive.fractionalWidth).toBe(null);
+            expect(nativeElement.fractionalWidth).toBe(null);
+        });
+
+        it('can be configured with property binding for minPixelWidth', () => {
+            expect(directive.minPixelWidth).toBe(40);
+            expect(nativeElement.minPixelWidth).toBe(40);
+
+            fixture.componentInstance.minPixelWidth = 50;
+            fixture.detectChanges();
+
+            expect(directive.minPixelWidth).toBe(50);
+            expect(nativeElement.minPixelWidth).toBe(50);
+        });
+
+        it('can be configured with property binding for minPixelWidth updated to null', () => {
+            expect(directive.minPixelWidth).toBe(40);
+            expect(nativeElement.minPixelWidth).toBe(40);
+
+            fixture.componentInstance.minPixelWidth = null;
+            fixture.detectChanges();
+
+            expect(directive.minPixelWidth).toBe(null);
+            expect(nativeElement.minPixelWidth).toBe(null);
+        });
+
         it('can be configured with property binding for groupIndex', () => {
             expect(directive.groupIndex).toBe(0);
             expect(nativeElement.groupIndex).toBe(0);
@@ -304,6 +364,8 @@ describe('NimbleTableColumnIcon', () => {
                         [attr.action-menu-slot]="actionMenuSlot"
                         [attr.action-menu-label]="actionMenuLabel"
                         [attr.column-hidden]="columnHidden"
+                        [attr.fractional-width]="fractionalWidth"
+                        [attr.min-pixel-width]="minPixelWidth"
                         [attr.sort-direction]="sortDirection"
                         [attr.sort-index]="sortIndex"
                         [attr.group-index]="groupIndex"
@@ -319,6 +381,8 @@ describe('NimbleTableColumnIcon', () => {
             public keyType = 'boolean';
             public actionMenuSlot = 'my-slot';
             public actionMenuLabel = 'my menu';
+            public fractionalWidth: number | null = 2;
+            public minPixelWidth: number | null = 40;
             public columnId = 'my-column';
             public columnHidden = true;
             public sortDirection: TableColumnSortDirection = TableColumnSortDirection.ascending;
@@ -439,6 +503,50 @@ describe('NimbleTableColumnIcon', () => {
 
             expect(directive.sortIndex).toBe(null);
             expect(nativeElement.sortIndex).toBe(null);
+        });
+
+        it('can be configured with attribute binding for fractionalWidth', () => {
+            expect(directive.fractionalWidth).toBe(2);
+            expect(nativeElement.fractionalWidth).toBe(2);
+
+            fixture.componentInstance.fractionalWidth = 1;
+            fixture.detectChanges();
+
+            expect(directive.fractionalWidth).toBe(1);
+            expect(nativeElement.fractionalWidth).toBe(1);
+        });
+
+        it('can be configured with attribute binding for fractionalWidth set to null', () => {
+            expect(directive.fractionalWidth).toBe(2);
+            expect(nativeElement.fractionalWidth).toBe(2);
+
+            fixture.componentInstance.fractionalWidth = null;
+            fixture.detectChanges();
+
+            expect(directive.fractionalWidth).toBe(null);
+            expect(nativeElement.fractionalWidth).toBe(null);
+        });
+
+        it('can be configured with attribute binding for minPixelWidth', () => {
+            expect(directive.minPixelWidth).toBe(40);
+            expect(nativeElement.minPixelWidth).toBe(40);
+
+            fixture.componentInstance.minPixelWidth = 50;
+            fixture.detectChanges();
+
+            expect(directive.minPixelWidth).toBe(50);
+            expect(nativeElement.minPixelWidth).toBe(50);
+        });
+
+        it('can be configured with attribute binding for minPixelWidth set to null', () => {
+            expect(directive.minPixelWidth).toBe(40);
+            expect(nativeElement.minPixelWidth).toBe(40);
+
+            fixture.componentInstance.minPixelWidth = null;
+            fixture.detectChanges();
+
+            expect(directive.minPixelWidth).toBe(null);
+            expect(nativeElement.minPixelWidth).toBe(null);
         });
 
         it('can be configured with attribute binding for groupIndex', () => {

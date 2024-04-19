@@ -101,7 +101,6 @@ import { HeaderComponent } from './header/header.component';
         NimbleMappingUserModule,
         NimbleRichTextMentionUsersModule,
         NimbleMappingSpinnerModule,
-        NimbleIconCheckModule,
         RouterModule.forRoot(
             [
                 { path: '', redirectTo: '/customapp', pathMatch: 'full' },

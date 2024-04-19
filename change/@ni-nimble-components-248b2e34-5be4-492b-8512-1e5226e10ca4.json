@@ -1,6 +1,6 @@
 {
-  "type": "major",
-  "comment": "Make the icon column fixed size and remove its fractional-width and min-pixel-width configuration",
+  "type": "minor",
+  "comment": "Add configuration to make the icon column fixed width",
   "packageName": "@ni/nimble-components",
   "email": "20542556+mollykreis@users.noreply.github.com",
   "dependentChangeType": "patch"
