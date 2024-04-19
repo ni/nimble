@@ -30,6 +30,7 @@ describe('NimbleMappingIcon', () => {
                             text="nope"
                             icon="nimble-icon-xmark"
                             severity="error"
+                            text-hidden
                         >
                         </nimble-mapping-icon>
                     </nimble-table-column-icon>
@@ -75,6 +76,11 @@ describe('NimbleMappingIcon', () => {
             expect(directive.severity).toBe('error');
             expect(nativeElement.severity).toBe('error');
         });
+
+        it('will use template string values for textHidden', () => {
+            expect(directive.textHidden).toBeTrue();
+            expect(nativeElement.textHidden).toBeTrue();
+        });
     });
 
     describe('with property bound values', () => {
@@ -88,6 +94,7 @@ describe('NimbleMappingIcon', () => {
                             [text]="text"
                             [icon]="icon"
                             [severity]="severity"
+                            [textHidden]="textHidden"
                         >
                         </nimble-mapping-icon>
                     </nimble-table-column-icon>
@@ -101,6 +108,7 @@ describe('NimbleMappingIcon', () => {
             public text = 'nope';
             public icon = 'nimble-icon-xmark';
             public severity: IconSeverity = IconSeverity.error;
+            public textHidden = true;
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
@@ -161,6 +169,17 @@ describe('NimbleMappingIcon', () => {
             expect(directive.severity).toBe('success');
             expect(nativeElement.severity).toBe('success');
         });
+
+        it('can be configured with property binding for textHidden', () => {
+            expect(directive.textHidden).toBeTrue();
+            expect(nativeElement.textHidden).toBeTrue();
+
+            fixture.componentInstance.textHidden = false;
+            fixture.detectChanges();
+
+            expect(directive.textHidden).toBeFalse();
+            expect(nativeElement.textHidden).toBeFalse();
+        });
     });
 
     describe('with attribute bound values', () => {
@@ -174,6 +193,7 @@ describe('NimbleMappingIcon', () => {
                             [attr.text]="text"
                             [attr.icon]="icon"
                             [attr.severity]="severity"
+                            [attr.text-hidden]="textHidden"
                         >
                         </nimble-mapping-icon>
                     </nimble-table-column-icon>
@@ -187,6 +207,7 @@ describe('NimbleMappingIcon', () => {
             public text = 'nope';
             public icon = 'nimble-icon-xmark';
             public severity: IconSeverity = IconSeverity.error;
+            public textHidden = true;
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
@@ -226,7 +247,7 @@ describe('NimbleMappingIcon', () => {
             expect(nativeElement.text).toBe('yep');
         });
 
-        it('can be configured with property binding for icon', () => {
+        it('can be configured with attribute binding for icon', () => {
             expect(directive.icon).toBe('nimble-icon-xmark');
             expect(nativeElement.icon).toBe('nimble-icon-xmark');
 
@@ -237,7 +258,7 @@ describe('NimbleMappingIcon', () => {
             expect(nativeElement.icon).toBe('nimble-icon-check');
         });
 
-        it('can be configured with property binding for severity', () => {
+        it('can be configured with attribute binding for severity', () => {
             expect(directive.severity).toBe('error');
             expect(nativeElement.severity).toBe('error');
 
@@ -246,6 +267,17 @@ describe('NimbleMappingIcon', () => {
 
             expect(directive.severity).toBe('success');
             expect(nativeElement.severity).toBe('success');
+        });
+
+        it('can be configured with attribute binding for textHidden', () => {
+            expect(directive.textHidden).toBeTrue();
+            expect(nativeElement.textHidden).toBeTrue();
+
+            fixture.componentInstance.textHidden = false;
+            fixture.detectChanges();
+
+            expect(directive.textHidden).toBeFalse();
+            expect(nativeElement.textHidden).toBeFalse();
         });
     });
 });

@@ -1,8 +1,34 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Wed, 10 Apr 2024 22:00:23 GMT and should not be manually modified.
+This log was last generated on Thu, 18 Apr 2024 21:47:19 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 25.1.0
+
+Thu, 18 Apr 2024 21:47:19 GMT
+
+### Minor changes
+
+- Support text mappings in icon column ([ni/nimble@73a19a6](https://github.com/ni/nimble/commit/73a19a6a2d1ebe03eb4245ee2119529ce9066b03))
+
+## 25.0.0
+
+Wed, 17 Apr 2024 20:57:25 GMT
+
+### Major changes
+
+- Add configuration for icon mappings and spinner mappings to show/hide their text within a table's cells. **Breaking change:** The icon mappings and spinner mappings now default to showing their text within a table's cells in addition to on group rows. ([ni/nimble@6d50261](https://github.com/ni/nimble/commit/6d502618333981f4c5c2f72ddb5b329674d2e345))
+
+## 24.1.14
+
+Mon, 15 Apr 2024 17:36:54 GMT
+
+### Patches
+
+- Update to typescript 5.1.6 ([ni/nimble@7254ddb](https://github.com/ni/nimble/commit/7254ddb339236dc1519033f88290491436a01aef))
+- Bump @ni/nimble-tokens to v6.13.2
+- Bump @ni/jasmine-parameterized to v0.2.4
 
 ## 24.1.13
 

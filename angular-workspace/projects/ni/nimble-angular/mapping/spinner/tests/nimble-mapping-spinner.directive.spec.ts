@@ -27,6 +27,7 @@ describe('NimbleMappingSpinner', () => {
                             #mapping
                             key="false"
                             text="nope"
+                            text-hidden
                         >
                         </nimble-mapping-spinner>
                     </nimble-table-column-icon>
@@ -62,6 +63,11 @@ describe('NimbleMappingSpinner', () => {
             expect(directive.text).toBe('nope');
             expect(nativeElement.text).toBe('nope');
         });
+
+        it('will use template string values for textHidden', () => {
+            expect(directive.textHidden).toBeTrue();
+            expect(nativeElement.textHidden).toBeTrue();
+        });
     });
 
     describe('with property bound values', () => {
@@ -73,6 +79,7 @@ describe('NimbleMappingSpinner', () => {
                             #mapping
                             [key]="key"
                             [text]="text"
+                            [textHidden]="textHidden"
                         >
                         </nimble-mapping-spinner>
                     </nimble-table-column-icon>
@@ -84,6 +91,7 @@ describe('NimbleMappingSpinner', () => {
             @ViewChild('mapping', { read: ElementRef }) public elementRef: ElementRef<MappingSpinner>;
             public key = false;
             public text = 'nope';
+            public textHidden = true;
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
@@ -122,6 +130,17 @@ describe('NimbleMappingSpinner', () => {
             expect(directive.text).toBe('yep');
             expect(nativeElement.text).toBe('yep');
         });
+
+        it('can be configured with property binding for textHidden', () => {
+            expect(directive.textHidden).toBeTrue();
+            expect(nativeElement.textHidden).toBeTrue();
+
+            fixture.componentInstance.textHidden = false;
+            fixture.detectChanges();
+
+            expect(directive.textHidden).toBeFalse();
+            expect(nativeElement.textHidden).toBeFalse();
+        });
     });
 
     describe('with attribute bound values', () => {
@@ -133,6 +152,7 @@ describe('NimbleMappingSpinner', () => {
                             #mapping
                             [attr.key]="key"
                             [attr.text]="text"
+                            [attr.text-hidden]="textHidden"
                         >
                         </nimble-mapping-spinner>
                     </nimble-table-column-icon>
@@ -144,6 +164,7 @@ describe('NimbleMappingSpinner', () => {
             @ViewChild('mapping', { read: ElementRef }) public elementRef: ElementRef<MappingSpinner>;
             public key = false;
             public text = 'nope';
+            public textHidden = true;
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
@@ -181,6 +202,17 @@ describe('NimbleMappingSpinner', () => {
 
             expect(directive.text).toBe('yep');
             expect(nativeElement.text).toBe('yep');
+        });
+
+        it('can be configured with attribute binding for textHidden', () => {
+            expect(directive.textHidden).toBeTrue();
+            expect(nativeElement.textHidden).toBeTrue();
+
+            fixture.componentInstance.textHidden = false;
+            fixture.detectChanges();
+
+            expect(directive.textHidden).toBeFalse();
+            expect(nativeElement.textHidden).toBeFalse();
         });
     });
 });
