@@ -119,6 +119,17 @@ module.exports = {
             }
         },
         {
+            files: ['template.ts'],
+            rules: {
+                // Using '??' in templates does not get flagged correctly by FAST as being a volatile binding.
+                // See https://github.com/ni/nimble/issues/1843 for more information.
+                'no-restricted-syntax': [
+                    'error',
+                    { selector: "LogicalExpression[operator='??']" }
+                ]
+            }
+        },
+        {
             // Instead of enums, this repo uses const objects and type unions which should live in types.ts
             files: ['types.ts'],
             rules: {
