@@ -10,15 +10,18 @@ export class TableHeaderPageObject {
     public constructor(private readonly tableElement: TableHeader) {}
 
     public isSortAscendingIconVisible(): boolean {
-        return this.getSortAscendingIcon() !== null;
+        const icon = this.getSortAscendingIcon();
+        return this.isVisible(icon);
     }
 
     public isSortDescendingIconVisible(): boolean {
-        return this.getSortDescendingIcon() !== null;
+        const icon = this.getSortDescendingIcon();
+        return this.isVisible(icon);
     }
 
     public isGroupIndicatorIconVisible(): boolean {
-        return this.getGroupIndicatorIcon() !== null;
+        const icon = this.getGroupIndicatorIcon();
+        return this.isVisible(icon);
     }
 
     private getSortAscendingIcon(): HTMLElement | null {
@@ -37,5 +40,14 @@ export class TableHeaderPageObject {
         return this.tableElement.shadowRoot!.querySelector(
             '.grouped-indicator'
         );
+    }
+
+    private isVisible(element: HTMLElement | null): boolean {
+        if (element === null) {
+            return false;
+        }
+
+        const display = window.getComputedStyle(element).display;
+        return display !== 'none';
     }
 }

@@ -254,25 +254,6 @@ describe('Table', () => {
             expect(pageObject.getHeaderTitle(0)).toBe('');
         });
 
-        it('does not set indicators-hidden on a column by default', async () => {
-            await connect();
-            await waitForUpdatesAsync();
-
-            const header = pageObject.getHeaderElement(0);
-            expect(header.indicatorsHidden).toBeFalse();
-        });
-
-        it('sets indicators-hidden to true for a column that can be narrower than the default column width', async () => {
-            await connect();
-            await waitForUpdatesAsync();
-
-            element.columns[0]!.columnInternals.minPixelWidth = 1;
-            await waitForUpdatesAsync();
-
-            const header = pageObject.getHeaderElement(0);
-            expect(header.indicatorsHidden).toBeTrue();
-        });
-
         it('can set data before the element is connected', async () => {
             await element.setData(simpleTableData);
             await connect();
