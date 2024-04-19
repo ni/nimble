@@ -2,6 +2,36 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Thu, 18 Apr 2024 21:47:19 GMT",
+      "version": "25.1.0",
+      "tag": "@ni/nimble-components_v25.1.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "73a19a6a2d1ebe03eb4245ee2119529ce9066b03",
+            "comment": "Support text mappings in icon column"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 18 Apr 2024 17:41:50 GMT",
+      "version": "25.0.0",
+      "tag": "@ni/nimble-components_v25.0.0",
+      "comments": {
+        "none": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "7ba788c630dedbd919ecaebc420a65d2425b0a2a",
+            "comment": "Move eslint config into eslint-config-nimble"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 17 Apr 2024 20:57:25 GMT",
       "version": "25.0.0",
       "tag": "@ni/nimble-components_v25.0.0",

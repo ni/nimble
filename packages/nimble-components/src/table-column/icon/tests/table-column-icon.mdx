@@ -3,6 +3,7 @@ import { columnOperationBehavior } from '../../base/tests/table-column-stories-u
 import * as tableColumnIconStories from './table-column-icon.stories';
 import * as iconMappingStories from '../../../mapping/icon/tests/mapping-icon.stories';
 import * as spinnerMappingStories from '../../../mapping/spinner/tests/mapping-spinner.stories';
+import * as textMappingStories from '../../../mapping/text/tests/mapping-text.stories';
 import { tableColumnIconTag } from '../';
 import { tableTag } from '../../../table';
 import { spinnerTag } from '../../../spinner';
@@ -39,3 +40,8 @@ When setting a child mapping element's `Key` value to a string, you must wrap it
 
 <Description of={spinnerMappingStories} />
 <Controls of={spinnerMappingStories.spinnerMapping} />
+
+## Text Mapping
+
+<Description of={textMappingStories} />
+<Controls of={textMappingStories.textMapping} />
