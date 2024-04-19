@@ -5,18 +5,18 @@ This package generally uses the same tooling and policies as Nimble components. 
 The following table compares the requirements for components developed in Spright vs Nimble:
 
 |                        | `nimble-components` | `spright-components` |
-| :--------------------: | :-----------------: | :------------------: |
-| Approved spec          | 🟢 | 🟢 |
-| Unit tests             | 🟢 | 🟢 |
-| Storybook visual tests | 🟢 | 🟢 |
-| Storybook API docs     | 🟢 | 🟢 |
-| Storybook usage docs   | 🟢 | 🟡 |
-| Approved VxD\*         | 🟢 | 🟡 |
-| Approved IxD\*         | 🟢 | 🟡 |
-| Angular/Blazor support | 🟢 | 🟡 |
-| Proper a11y            | 🟢 | 🟡 |
-| Minimal tech debt      | 🟢 | 🟡 |
-| Mobile support         | 🟡 | 🟡 |
+| ---------------------- | :-----------------: | :------------------: |
+| Approved spec          |         🟢          |          🟢          |
+| Unit tests             |         🟢          |          🟢          |
+| Storybook visual tests |         🟢          |          🟢          |
+| Storybook API docs     |         🟢          |          🟢          |
+| Storybook usage docs   |         🟢          |          🟡          |
+| Approved VxD\*         |         🟢          |          🟡          |
+| Approved IxD\*         |         🟢          |          🟡          |
+| Angular/Blazor support |         🟢          |          🟡          |
+| Proper a11y            |         🟢          |          🟡          |
+| Minimal tech debt      |         🟢          |          🟡          |
+| Mobile support         |         🟡          |          🟡          |
 
 🟢 = required\
 🟡 = optional\
