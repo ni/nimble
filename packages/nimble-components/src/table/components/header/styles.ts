@@ -36,13 +36,12 @@ export const styles = css`
     .sort-indicator,
     .grouped-indicator {
         flex: 0 0 auto;
-        display: none;
     }
 
-    @container column-header (min-width: ${defaultMinHeaderContentWidth}) {
+    @container column-header (width < ${defaultMinHeaderContentWidth}) {
         .sort-indicator,
         .grouped-indicator {
-            display: inline-flex;
+            display: none;
         }
     }
 `;
