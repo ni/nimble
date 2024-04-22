@@ -150,7 +150,7 @@ export const iconColumn: StoryObj<IconColumnTableArgs> = {
         ...sharedTableArgs(simpleData),
         fieldName: 'firstName',
         keyType: 'string',
-        widthMode: 'default',
+        widthMode: 'iconSize',
         checkValidity: () => {},
         validity: () => {}
     }

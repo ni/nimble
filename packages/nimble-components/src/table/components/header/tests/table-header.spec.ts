@@ -4,6 +4,7 @@ import { waitForUpdatesAsync } from '../../../../testing/async-helpers';
 import { type Fixture, fixture } from '../../../../utilities/tests/fixture';
 import { TableColumnSortDirection } from '../../../types';
 import { TableHeaderPageObject } from './table-header-pageobject';
+import { defaultMinPixelWidth } from '../../../../table-column/base/types';
 
 async function setup(): Promise<Fixture<TableHeader>> {
     return fixture<TableHeader>(
@@ -155,5 +156,16 @@ describe('TableHeader', () => {
         expect(pageObject.isSortAscendingIconVisible()).toBeFalse();
         expect(pageObject.isSortDescendingIconVisible()).toBeFalse();
         expect(pageObject.isGroupIndicatorIconVisible()).toBeFalse();
+    });
+
+    it('sorting and grouping indicators are visible at the default minimum width', async () => {
+        element.isGrouped = true;
+        element.sortDirection = TableColumnSortDirection.ascending;
+        element.style.width = `${defaultMinPixelWidth}px`;
+        await waitForUpdatesAsync();
+
+        expect(pageObject.isSortAscendingIconVisible()).toBeTrue();
+        expect(pageObject.isSortDescendingIconVisible()).toBeFalse();
+        expect(pageObject.isGroupIndicatorIconVisible()).toBeTrue();
     });
 });
