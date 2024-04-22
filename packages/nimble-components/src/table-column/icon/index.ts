@@ -51,6 +51,12 @@ export class TableColumnIcon extends mixinGroupableColumnAPI(
     @attr({ attribute: 'width-mode' })
     public widthMode: TableColumnMappingWidthMode;
 
+    public override minPixelWidthChanged(): void {
+        if (this.widthMode !== TableColumnMappingWidthMode.iconSize) {
+            this.columnInternals.minPixelWidth = this.getConfiguredMinPixelWidth();
+        }
+    }
+
     protected override getColumnInternalsOptions(): ColumnInternalsOptions<TableColumnIconValidator> {
         return {
             cellRecordFieldNames: ['value'],
@@ -98,8 +104,15 @@ export class TableColumnIcon extends mixinGroupableColumnAPI(
         } else {
             this.columnInternals.resizingDisabled = false;
             this.columnInternals.pixelWidth = undefined;
-            this.columnInternals.minPixelWidth = defaultMinPixelWidth;
+            this.columnInternals.minPixelWidth = this.getConfiguredMinPixelWidth();
         }
+    }
+
+    private getConfiguredMinPixelWidth(): number {
+        if (typeof this.minPixelWidth === 'number') {
+            return this.minPixelWidth;
+        }
+        return defaultMinPixelWidth;
     }
 }
 
