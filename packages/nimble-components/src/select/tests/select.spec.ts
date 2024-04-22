@@ -339,10 +339,10 @@ describe('Select', () => {
 
         pageObject.clickSelect();
         pageObject.pressArrowDownKey();
-        expect(pageObject.getSelectedOption()?.value).toBe('one')
+        expect(pageObject.getSelectedOption()?.value).toBe('one');
 
         await disconnect();
-    })
+    });
 
     it('option added directly to DOM synchronously registers with Select', async () => {
         const { element, connect, disconnect } = await setup();
