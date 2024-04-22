@@ -329,7 +329,7 @@ describe('Select', () => {
         await disconnect();
     });
 
-    fit('after forcing Select to be blank, user can arrow down to first available option in dropdown', async () => {
+    it('after forcing Select to be blank, user can arrow down to first available option in dropdown', async () => {
         const { element, connect, disconnect } = await setup();
         const pageObject = new SelectPageObject(element);
         await connect();
