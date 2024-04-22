@@ -28,7 +28,6 @@ import {
     tableRowOperationColumnLabel,
     tableSelectAllLabel
 } from '../label-provider/table/label-tokens';
-import { defaultMinPixelWidth } from '../table-column/base/types';
 
 // prettier-ignore
 export const template = html<Table>`

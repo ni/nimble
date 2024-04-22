@@ -901,7 +901,9 @@ describe('TableColumnIcon', () => {
         });
 
         it('defaults to `default`', () => {
-            expect(model.col1.widthMode).toBe(TableColumnMappingWidthMode.default);
+            expect(model.col1.widthMode).toBe(
+                TableColumnMappingWidthMode.default
+            );
             expect(model.col1.columnInternals.resizingDisabled).toBeFalse();
         });
 
@@ -922,7 +924,9 @@ describe('TableColumnIcon', () => {
 
             expect(model.col1.columnInternals.resizingDisabled).toBeFalse();
             expect(model.col1.columnInternals.pixelWidth).toBe(undefined);
-            expect(model.col1.columnInternals.minPixelWidth).toBe(defaultMinPixelWidth);
+            expect(model.col1.columnInternals.minPixelWidth).toBe(
+                defaultMinPixelWidth
+            );
         });
     });
 });

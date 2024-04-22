@@ -7,7 +7,10 @@ import {
     tableHeaderFont,
     tableHeaderFontColor
 } from '../../../theme-provider/design-tokens';
-import { columnSpacing, defaultMinPixelWidth } from '../../../table-column/base/types';
+import {
+    columnSpacing,
+    defaultMinPixelWidth
+} from '../../../table-column/base/types';
 
 // When the column becomes more narrow than the default minimum width, the sorting and grouping
 // indicators should be hidden. The container query is based on the content of the header, so

@@ -1,6 +1,4 @@
-import type {
-    TableColumnMappingWidthMode
-} from '../types';
+import type { TableColumnMappingWidthMode } from '../types';
 
 describe('Icon column type', () => {
     it('TableColumnMappingWidthMode fails compile if assigning arbitrary string values', () => {
