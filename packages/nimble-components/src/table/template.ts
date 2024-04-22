@@ -42,7 +42,7 @@ export const template = html<Table>`
             --ni-private-table-header-container-margin-right: ${x => x.virtualizer.headerContainerMarginRight}px;
             --ni-private-table-scroll-height: ${x => x.virtualizer.scrollHeight}px;
             --ni-private-table-row-container-top: ${x => x.virtualizer.rowContainerYOffset}px;
-            --ni-private-table-row-grid-columns: ${x => x.rowGridColumns ?? ''};
+            --ni-private-table-row-grid-columns: ${x => (x.rowGridColumns ? x.rowGridColumns : '')};
             --ni-private-table-cursor-override: ${x => (x.layoutManager.isColumnBeingSized ? 'col-resize' : 'default')};
             --ni-private-table-scrollable-min-width: ${x => x.tableScrollableMinWidth}px;
             --ni-private-glass-overlay-pointer-events: ${x => (x.layoutManager.isColumnBeingSized ? 'none' : 'default')};
@@ -60,7 +60,7 @@ export const template = html<Table>`
                                 <span class="checkbox-container">
                                     <${checkboxTag}
                                         ${ref('selectionCheckbox')}
-                                        class="${x => `selection-checkbox ${x.selectionMode ?? ''}`}"
+                                        class="${x => `selection-checkbox ${x.selectionMode ? x.selectionMode : ''}`}"
                                         @change="${(x, c) => x.onAllRowsSelectionChange(c.event as CustomEvent)}"
                                         title="${x => tableSelectAllLabel.getValueFor(x)}"
                                         aria-label="${x => tableSelectAllLabel.getValueFor(x)}"

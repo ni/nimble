@@ -117,7 +117,7 @@ export const template = html<RichTextEditor>`
             ${ref('mentionListbox')}
             @mention-selected=${(x, c) => x.onMentionSelect(c.event as CustomEvent<MentionDetail>)}
         >
-            ${repeat(x => Array.from(x.activeMappingConfigs?.values() ?? []), html<MappingConfig>`
+            ${repeat(x => Array.from(x.activeMappingConfigs ? x.activeMappingConfigs.values() : []), html<MappingConfig>`
                 <${listOptionTag} value="${x => x.mentionHref}">${x => x.displayName}</${listOptionTag}>
             `, { recycle: false })}
         </${richTextMentionListboxTag}>
