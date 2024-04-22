@@ -11,11 +11,12 @@ import {
     IconView,
     MappingIconConfig
 } from '../../enum-base/models/mapping-icon-config';
-import type { IconSeverity } from '../../../icon-base/types';
+import { IconSeverity } from '../../../icon-base/types';
 import {
     MappingSpinnerConfig,
     SpinnerView
 } from '../../enum-base/models/mapping-spinner-config';
+import { MappingTextConfig } from '../../enum-base/models/mapping-text-config';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -59,7 +60,8 @@ export class TableColumnIconCellView
     }
 
     private updateState(): void {
-        this.visualizationTemplate = undefined;
+        this.resetState();
+
         if (!this.columnConfig || !this.cellRecord) {
             return;
         }
@@ -77,7 +79,17 @@ export class TableColumnIconCellView
             this.text = mappingConfig.text;
             this.visualizationTemplate = mappingConfig.spinnerTemplate;
             this.textHidden = mappingConfig.textHidden;
+        } else if (mappingConfig instanceof MappingTextConfig) {
+            this.text = mappingConfig.text;
+            this.textHidden = false;
         }
+    }
+
+    private resetState(): void {
+        this.text = undefined;
+        this.textHidden = false;
+        this.visualizationTemplate = undefined;
+        this.severity = IconSeverity.default;
     }
 }
 
