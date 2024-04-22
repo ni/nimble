@@ -60,7 +60,7 @@ const metadata: Meta<MenuButtonArgs> = {
         },
         endIcon: {
             name: 'end',
-            description: 'Set \`slot="end"\` to include an icon after the text content. This icon will be hidden when \`content-hidden\` is set.',
+            description: 'Set `slot="end"` to include an icon after the text content. This icon will be hidden when `content-hidden` is set.',
             table: { category: 'slots' }
         },
         menu: {
