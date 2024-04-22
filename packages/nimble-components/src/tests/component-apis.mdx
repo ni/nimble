@@ -49,7 +49,7 @@ correspond to each other one-to-one; Nimble documentation refers to the attribut
 
 ### Attributes
 
-Attributes have `snake-case` names.
+Attributes have `snake-case` names in web components and Angular.
 
 ```html
 <nimble-button appearance="outline">...</nimble-button>
@@ -65,7 +65,7 @@ Boolean attributes are `true` when present and `false` when absent.
 
 ### Properties
 
-Properties have `camelCase` names.
+Properties have `camelCase` names in web components and Angular.
 
 ```ts
 const button = document.querySelector('nimble-button');
@@ -74,7 +74,7 @@ button.appearance = ButtonAppearance.outline;
 
 ### Blazor
 
-In Blazor both properties and attributes have `PascalCase` names.
+In Blazor, properties and attributes have `PascalCase` names. For values that are enumerations of strings, the type is a C# enum.
 
 ```
 <NimbleButton Appearance="ButtonAppearance.Outline">...</NimbleButton>
