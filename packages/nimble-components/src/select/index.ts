@@ -894,11 +894,14 @@ export class Select
     private toggleNewActiveOption(getNewActiveIndex: () => number): void {
         const selectedOption = this.options[
             this.openActiveIndex ?? this.selectedIndex
-        ] as ListOption;
+        ];
         const activeIndex = getNewActiveIndex();
         if (activeIndex >= 0) {
             this.options[activeIndex]!.ariaSelected = 'true';
-            selectedOption.ariaSelected = 'false';
+            if (selectedOption) {
+                selectedOption.ariaSelected = 'false';
+            }
+
             if (this.open) {
                 this.openActiveIndex = activeIndex;
             } else {

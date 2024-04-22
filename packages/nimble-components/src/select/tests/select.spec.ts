@@ -329,6 +329,21 @@ describe('Select', () => {
         await disconnect();
     });
 
+    fit('after forcing Select to be blank, user can arrow down to first available option in dropdown', async () => {
+        const { element, connect, disconnect } = await setup();
+        const pageObject = new SelectPageObject(element);
+        await connect();
+        await waitForUpdatesAsync();
+        element.selectedIndex = -1;
+        await waitForUpdatesAsync();
+
+        pageObject.clickSelect();
+        pageObject.pressArrowDownKey();
+        expect(pageObject.getSelectedOption()?.value).toBe('one')
+
+        await disconnect();
+    })
+
     it('option added directly to DOM synchronously registers with Select', async () => {
         const { element, connect, disconnect } = await setup();
         await connect();
