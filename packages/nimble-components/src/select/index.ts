@@ -687,7 +687,7 @@ export class Select
         // don't call super.selectNextOption as that relies on side-effecty
         // behavior to not select disabled option (which no longer works)
         const startIndex = this.openActiveIndex ?? this.selectedIndex;
-        const newActiveOptionFunc = (): number => {
+        const getNewActiveOptionIndex = (): number => {
             for (let i = startIndex + 1; i < this.options.length; i++) {
                 const listOption = this.options[i]!;
                 if (
@@ -699,14 +699,14 @@ export class Select
             }
             return -1;
         };
-        this.toggleNewActiveOption(newActiveOptionFunc);
+        this.toggleNewActiveOption(getNewActiveOptionIndex);
     }
 
     public override selectPreviousOption(): void {
         // don't call super.selectPreviousOption as that relies on side-effecty
         // behavior to not select disabled option (which no longer works)
         const startIndex = this.openActiveIndex ?? this.selectedIndex;
-        const newActiveOptionFunc = (): number => {
+        const getNewActiveOptionIndex = (): number => {
             for (let i = startIndex - 1; i >= 0; i--) {
                 const listOption = this.options[i]!;
                 if (
@@ -718,26 +718,26 @@ export class Select
             }
             return -1;
         };
-        this.toggleNewActiveOption(newActiveOptionFunc);
+        this.toggleNewActiveOption(getNewActiveOptionIndex);
     }
 
     public override selectFirstOption(): void {
-        const newActiveOptionFunc = (): number => {
+        const getNewActiveOptionIndex = (): number => {
             return this.options.findIndex(
                 o => isNimbleListOption(o) && isOptionSelectable(o)
             );
         };
-        this.toggleNewActiveOption(newActiveOptionFunc);
+        this.toggleNewActiveOption(getNewActiveOptionIndex);
     }
 
     public override selectLastOption(): void {
-        const newActiveOptionFunc = (): number => {
+        const getNewActiveOptionIndex = (): number => {
             return findLastIndex(
                 this.options,
                 o => isNimbleListOption(o) && isOptionSelectable(o)
             );
         };
-        this.toggleNewActiveOption(newActiveOptionFunc);
+        this.toggleNewActiveOption(getNewActiveOptionIndex);
     }
 
     /**
@@ -891,11 +891,11 @@ export class Select
         this.committedSelectedOption = options[this.selectedIndex];
     }
 
-    private toggleNewActiveOption(newActiveIndexFunc: () => number): void {
+    private toggleNewActiveOption(getNewActiveIndex: () => number): void {
         const selectedOption = this.options[
             this.openActiveIndex ?? this.selectedIndex
         ] as ListOption;
-        const activeIndex = newActiveIndexFunc();
+        const activeIndex = getNewActiveIndex();
         if (activeIndex >= 0) {
             this.options[activeIndex]!.ariaSelected = 'true';
             selectedOption.ariaSelected = 'false';
