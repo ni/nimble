@@ -184,8 +184,6 @@ describe('Select', () => {
         pageObject.clickSelect();
         pageObject.pressArrowDownKey();
         await waitForUpdatesAsync();
-        expect(element.selectedIndex).toBe(1);
-
         pageObject.pressEscapeKey();
         await waitForUpdatesAsync();
 
@@ -569,6 +567,14 @@ describe('Select', () => {
                     pageObject.pressEnterKey();
                     expect(document.activeElement).toBe(element);
                 });
+
+                it('after closing dropdown by committing a value with <Tab>, activeElement is not Select element', () => {
+                    element.filterMode = testData.filter;
+                    pageObject.clickSelect();
+                    pageObject.pressArrowDownKey();
+                    pageObject.pressTabKey();
+                    expect(document.activeElement).not.toBe(element);
+                });
             });
         });
     });
@@ -664,6 +670,17 @@ describe('Select', () => {
             expect(element.open).toBeFalse();
         });
 
+        it('filtering out current selected item and then pressing <Tab> changes value and closes popup', async () => {
+            const currentSelection = pageObject.getSelectedOption();
+            expect(currentSelection?.text).toBe('One');
+            expect(element.value).toBe('one');
+
+            await pageObject.openAndSetFilterText('T'); // Matches 'Two' and 'Three'
+            pageObject.pressTabKey();
+            expect(element.value).toBe('two'); // 'Two' is first option in list so it should be selected now
+            expect(element.open).toBeFalse();
+        });
+
         it('filtering out current selected item and then clicking selected option changes value and closes popup', async () => {
             const currentSelection = pageObject.getSelectedOption();
             expect(currentSelection?.text).toBe('One');
@@ -754,6 +771,29 @@ describe('Select', () => {
             expect(element.value).toBe('one');
         });
 
+        it('filtering to only disabled item, then pressing <Esc> closes popup and does not change value or selectedIndex', async () => {
+            await pageObject.openAndSetFilterText('Disabled');
+            pageObject.pressEscapeKey();
+            expect(element.open).toBeFalse();
+            expect(element.value).toBe('one');
+            expect(element.selectedIndex).toBe(0);
+        });
+
+        it('filtering to only disabled item, then pressing <Tab> closes popup and does not change value or selectedIndex', async () => {
+            await pageObject.openAndSetFilterText('Disabled');
+            pageObject.pressTabKey();
+            expect(element.open).toBeFalse();
+            expect(element.value).toBe('one');
+            expect(element.selectedIndex).toBe(0);
+        });
+
+        it('filtering to no available options, then pressing <Enter> does not close popup or change value', async () => {
+            await pageObject.openAndSetFilterText('abc');
+            pageObject.pressEnterKey();
+            expect(element.open).toBeTrue();
+            expect(element.value).toBe('one');
+        });
+
         it('filtering to no available options, then pressing <Enter> does not close popup or change value', async () => {
             await pageObject.openAndSetFilterText('abc');
             pageObject.pressEnterKey();
@@ -838,7 +878,7 @@ describe('Select', () => {
             expect(currentSelection?.value).toBe('one');
         });
 
-        it('cant not select option that has been filtered out pressing arrowDown', async () => {
+        it('can not select option that has been filtered out pressing arrowDown', async () => {
             await pageObject.openAndSetFilterText('tw');
             pageObject.pressArrowDownKey();
             pageObject.pressEnterKey();

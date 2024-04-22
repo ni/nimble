@@ -298,7 +298,7 @@ describe('Select', () => {
         await disconnect();
     });
 
-    describe("should NOT emit a 'change' event when the value changes by user input while open", () => {
+    describe("should NOT emit a 'change' event while open", () => {
         it('via arrow down key', async () => {
             const { element, connect, disconnect } = await setup();
 
@@ -322,7 +322,7 @@ describe('Select', () => {
 
             expect(wasChanged).toBeFalse();
 
-            expect(element.value).toEqual('two');
+            expect(element.value).toEqual('one');
 
             await disconnect();
         });
@@ -354,7 +354,7 @@ describe('Select', () => {
 
             expect(wasChanged).toBeFalse();
 
-            expect(element.value).toEqual('one');
+            expect(element.value).toEqual('two');
 
             await disconnect();
         });
@@ -412,13 +412,13 @@ describe('Select', () => {
 
             expect(wasChanged).toBeFalse();
 
-            expect(element.value).toEqual('three');
+            expect(element.value).toEqual('one');
 
             await disconnect();
         });
     });
 
-    describe("should NOT emit an 'input' event when the value changes by user input while open", () => {
+    describe("should NOT emit an 'input' event while open", () => {
         it('via arrow down key', async () => {
             const { element, connect, disconnect } = await setup();
 
@@ -442,7 +442,7 @@ describe('Select', () => {
 
             expect(wasInput).toBeFalse();
 
-            expect(element.value).toEqual('two');
+            expect(element.value).toEqual('one');
 
             await disconnect();
         });
@@ -474,7 +474,7 @@ describe('Select', () => {
 
             expect(wasInput).toBeFalse();
 
-            expect(element.value).toEqual('one');
+            expect(element.value).toEqual('two');
 
             await disconnect();
         });
@@ -532,7 +532,7 @@ describe('Select', () => {
 
             expect(wasInput).toBeFalse();
 
-            expect(element.value).toEqual('three');
+            expect(element.value).toEqual('one');
 
             await disconnect();
         });

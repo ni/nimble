@@ -18,6 +18,7 @@ import {
     DelegatesARIASelect
 } from '@microsoft/fast-foundation';
 import {
+    findLastIndex,
     keyArrowDown,
     keyArrowUp,
     keyEnd,
@@ -197,6 +198,7 @@ export class Select
     private _value = '';
     private forcedPosition = false;
     private indexWhenOpened?: number;
+    private openActiveIndex?: number;
 
     /**
      * @internal
@@ -338,8 +340,11 @@ export class Select
         super.clickHandler(e);
 
         this.open = this.collapsible && !this.open;
-
-        if (!this.open && this.indexWhenOpened !== this.selectedIndex) {
+        if (
+            !this.open
+            && this.selectedIndex !== -1
+            && this.indexWhenOpened !== this.selectedIndex
+        ) {
             this.updateValue(true);
         }
     }
@@ -476,11 +481,11 @@ export class Select
                 o => !o.disabled
             );
             if (enabledOptions.length > 0) {
-                enabledOptions[0]!.selected = true;
+                enabledOptions[0]!.ariaSelected = 'true';
+                this.openActiveIndex = this.options.indexOf(enabledOptions[0]!);
             } else {
                 // only filtered option is disabled
-                this.selectedOptions = [];
-                this.selectedIndex = -1;
+                this.openActiveIndex = -1;
             }
         } else if (this.committedSelectedOption) {
             this.committedSelectedOption.selected = true;
@@ -510,13 +515,19 @@ export class Select
         }
 
         if (!this.options?.includes(focusTarget as ListboxOption)) {
+            let currentActiveIndex = this.openActiveIndex ?? this.selectedIndex;
             this.open = false;
-            if (this.selectedIndex === -1) {
+            if (currentActiveIndex === -1) {
                 this.selectedIndex = this.indexWhenOpened!;
+                currentActiveIndex = this.selectedIndex;
+                if (this.selectedIndex >= 0) {
+                    this.options[this.selectedIndex]!.ariaSelected = 'true';
+                }
             }
 
-            if (this.indexWhenOpened !== this.selectedIndex) {
+            if (this.indexWhenOpened !== currentActiveIndex) {
                 this.updateValue(true);
+                this.selectedIndex = currentActiveIndex;
             }
         }
         return true;
@@ -532,6 +543,7 @@ export class Select
             return true;
         }
 
+        let currentActiveIndex = this.openActiveIndex ?? this.selectedIndex;
         switch (key) {
             case keySpace: {
                 // when dropdown is open allow user to enter a space for filter text
@@ -576,20 +588,34 @@ export class Select
                     this.open = false;
                 }
 
-                if (this.selectedIndex !== this.indexWhenOpened!) {
-                    this.options[this.selectedIndex]!.selected = false;
-                    this.selectedIndex = this.indexWhenOpened!;
+                if (currentActiveIndex !== this.indexWhenOpened!) {
+                    if (currentActiveIndex >= 0) {
+                        this.options[currentActiveIndex]!.ariaSelected = 'false';
+                    }
+                    this.options[this.indexWhenOpened!]!.ariaSelected = 'true';
+                    currentActiveIndex = this.indexWhenOpened!;
                 }
                 this.focus();
                 break;
             }
             case keyTab: {
                 if (this.collapsible && this.open) {
-                    e.preventDefault();
-                    this.open = false;
+                    if (
+                        this.filteredOptions.length === 0
+                        || this.filteredOptions.every(o => o.disabled)
+                    ) {
+                        if (currentActiveIndex >= 0) {
+                            this.options[currentActiveIndex]!.ariaSelected = 'false';
+                        }
+                        this.options[this.indexWhenOpened!]!.ariaSelected = 'true';
+                        currentActiveIndex = this.indexWhenOpened!;
+                        this.open = false;
+                        return true;
+                    }
                 }
 
-                return true;
+                this.open = false;
+                break;
             }
 
             default: {
@@ -597,9 +623,11 @@ export class Select
             }
         }
 
-        if (!this.open && this.indexWhenOpened !== this.selectedIndex) {
+        if (!this.open && this.indexWhenOpened !== currentActiveIndex) {
+            this.selectedIndex = currentActiveIndex;
+            this.options[this.selectedIndex]!.ariaSelected = 'true';
             this.updateValue(true);
-            this.indexWhenOpened = this.selectedIndex;
+            this.indexWhenOpened = undefined;
         }
 
         return !(key === keyArrowDown || key === keyArrowUp);
@@ -658,31 +686,58 @@ export class Select
     public override selectNextOption(): void {
         // don't call super.selectNextOption as that relies on side-effecty
         // behavior to not select disabled option (which no longer works)
-        for (let i = this.selectedIndex + 1; i < this.options.length; i++) {
-            const listOption = this.options[i]!;
-            if (
-                isNimbleListOption(listOption)
-                && isOptionSelectable(listOption)
-            ) {
-                this.selectedIndex = i;
-                break;
+        const startIndex = this.openActiveIndex ?? this.selectedIndex;
+        const newActiveOptionFunc = (): number => {
+            for (let i = startIndex + 1; i < this.options.length; i++) {
+                const listOption = this.options[i]!;
+                if (
+                    isNimbleListOption(listOption)
+                    && isOptionSelectable(listOption)
+                ) {
+                    return i;
+                }
             }
-        }
+            return -1;
+        };
+        this.toggleNewActiveOption(newActiveOptionFunc);
     }
 
     public override selectPreviousOption(): void {
         // don't call super.selectPreviousOption as that relies on side-effecty
         // behavior to not select disabled option (which no longer works)
-        for (let i = this.selectedIndex - 1; i >= 0; i--) {
-            const listOption = this.options[i]!;
-            if (
-                isNimbleListOption(listOption)
-                && isOptionSelectable(listOption)
-            ) {
-                this.selectedIndex = i;
-                break;
+        const startIndex = this.openActiveIndex ?? this.selectedIndex;
+        const newActiveOptionFunc = (): number => {
+            for (let i = startIndex - 1; i >= 0; i--) {
+                const listOption = this.options[i]!;
+                if (
+                    isNimbleListOption(listOption)
+                    && isOptionSelectable(listOption)
+                ) {
+                    return i;
+                }
             }
-        }
+            return -1;
+        };
+        this.toggleNewActiveOption(newActiveOptionFunc);
+    }
+
+    public override selectFirstOption(): void {
+        const newActiveOptionFunc = (): number => {
+            return this.options.findIndex(
+                o => isNimbleListOption(o) && isOptionSelectable(o)
+            );
+        };
+        this.toggleNewActiveOption(newActiveOptionFunc);
+    }
+
+    public override selectLastOption(): void {
+        const newActiveOptionFunc = (): number => {
+            return findLastIndex(
+                this.options,
+                o => isNimbleListOption(o) && isOptionSelectable(o)
+            );
+        };
+        this.toggleNewActiveOption(newActiveOptionFunc);
     }
 
     /**
@@ -757,11 +812,10 @@ export class Select
 
         if (this.open) {
             this.initializeOpenState();
-            this.indexWhenOpened = this.selectedIndex;
-
             return;
         }
 
+        this.openActiveIndex = undefined;
         this.filter = '';
         if (this.filterInput) {
             this.filterInput.value = '';
@@ -835,6 +889,22 @@ export class Select
             this.selectedIndex = 0;
         }
         this.committedSelectedOption = options[this.selectedIndex];
+    }
+
+    private toggleNewActiveOption(newActiveIndexFunc: () => number): void {
+        const selectedOption = this.options[
+            this.openActiveIndex ?? this.selectedIndex
+        ] as ListOption;
+        const activeIndex = newActiveIndexFunc();
+        if (activeIndex >= 0) {
+            this.options[activeIndex]!.ariaSelected = 'true';
+            selectedOption.ariaSelected = 'false';
+            if (this.open) {
+                this.openActiveIndex = activeIndex;
+            } else {
+                this.selectedIndex = activeIndex;
+            }
+        }
     }
 
     private committedSelectedOptionChanged(): void {
@@ -948,7 +1018,7 @@ export class Select
 
     private clearSelection(): void {
         this.options.forEach(option => {
-            option.selected = false;
+            option.ariaSelected = 'false';
         });
     }
 
@@ -967,6 +1037,8 @@ export class Select
             return;
         }
 
+        this.indexWhenOpened = this.selectedIndex;
+        this.openActiveIndex = this.selectedIndex;
         this.committedSelectedOption = this.options[this.selectedIndex];
         this.ariaControls = this.listboxId;
         this.ariaExpanded = 'true';

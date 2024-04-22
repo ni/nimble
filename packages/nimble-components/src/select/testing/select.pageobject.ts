@@ -3,7 +3,8 @@ import {
     keyEscape,
     keyArrowDown,
     keyArrowUp,
-    keySpace
+    keySpace,
+    keyTab
 } from '@microsoft/fast-web-utilities';
 import type { Select } from '..';
 import type { ListOption } from '../../list-option';
@@ -53,6 +54,10 @@ export class SelectPageObject {
     }
 
     public getSelectedOption(): ListOption | null {
+        if (this.selectElement.open) {
+            return this.getSelectedDropdownOption();
+        }
+
         return (this.selectElement.selectedOptions[0] as ListOption) ?? null;
     }
 
@@ -68,7 +73,11 @@ export class SelectPageObject {
             throw new Error('Select must be open to click selectedItem');
         }
 
-        this.clickOption(this.selectElement.selectedIndex);
+        const selectedOption = this.getSelectedDropdownOption();
+        if (!selectedOption) {
+            throw new Error('No option is selected to click');
+        }
+        this.clickOption(this.selectElement.options.indexOf(selectedOption));
     }
 
     public async clickFilterInput(): Promise<void> {
@@ -123,6 +132,12 @@ export class SelectPageObject {
     public pressEscapeKey(): void {
         this.selectElement.dispatchEvent(
             new KeyboardEvent('keydown', { key: keyEscape })
+        );
+    }
+
+    public pressTabKey(): void {
+        this.selectElement.dispatchEvent(
+            new KeyboardEvent('keydown', { key: keyTab })
         );
     }
 
@@ -204,6 +219,14 @@ export class SelectPageObject {
         }
         return this.selectElement.shadowRoot?.querySelector<HTMLInputElement>(
             '.filter-input'
+        );
+    }
+
+    private getSelectedDropdownOption(): ListOption | null {
+        return (
+            (this.selectElement.options.find(
+                o => o.ariaSelected === 'true'
+            ) as ListOption) ?? null
         );
     }
 }
