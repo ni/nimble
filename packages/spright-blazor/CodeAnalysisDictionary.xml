@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Dictionary>
+    <Words>
+        <Recognized>
+            <Word>args</Word>
+            <Word>blazor</Word>
+            <Word>bool</Word>
+            <Word>enum</Word>
+            <Word>getter</Word>
+            <Word>json</Word>
+            <Word>nullable</Word>
+            <Word>runtime</Word>
+            <Word>spright</Word>
+        </Recognized>
+        <DiscreteExceptions>
+        </DiscreteExceptions>
+    </Words>
+    <Acronyms>
+        <CasingExceptions>
+        </CasingExceptions>
+    </Acronyms>
+</Dictionary>
