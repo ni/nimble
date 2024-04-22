@@ -892,9 +892,7 @@ export class Select
     }
 
     private toggleNewActiveOption(getNewActiveIndex: () => number): void {
-        const selectedOption = this.options[
-            this.openActiveIndex ?? this.selectedIndex
-        ];
+        const selectedOption = this.options[this.openActiveIndex ?? this.selectedIndex];
         const activeIndex = getNewActiveIndex();
         if (activeIndex >= 0) {
             this.options[activeIndex]!.ariaSelected = 'true';
