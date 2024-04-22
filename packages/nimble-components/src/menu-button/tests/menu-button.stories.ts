@@ -60,11 +60,13 @@ const metadata: Meta<MenuButtonArgs> = {
         },
         endIcon: {
             name: 'end',
-            description: 'Set `slot="end"` to include an icon after the text content. This icon will be hidden when `content-hidden` is set.',
+            description:
+                'Set `slot="end"` to include an icon after the text content. This icon will be hidden when `content-hidden` is set.',
             table: { category: 'slots' }
         },
         menu: {
-            description: 'The `nimble-menu` to be displayed when the button is toggled.',
+            description:
+                'The `nimble-menu` to be displayed when the button is toggled.',
             table: { category: 'slots' }
         },
         appearance: {
@@ -92,7 +94,8 @@ const metadata: Meta<MenuButtonArgs> = {
         },
         contentHidden: {
             name: 'content-hidden',
-            description: 'Hides the default text content. Set to `true` when an icon is used as the primary content',
+            description:
+                'Hides the default text content. Set to `true` when an icon is used as the primary content',
             table: { category: 'attributes' }
         },
         menuPosition: {
