@@ -49,24 +49,25 @@ const metadata: Meta<MenuButtonArgs> = {
     argTypes: {
         label: {
             name: 'default',
-            description: 'The text content of the button.',
+            description:
+                'The text content of the button. This will be hidden when `content-hidden` is set but should always be provided; see [Accessibility](#accessibility) for more info.',
             table: { category: 'slots' }
         },
         icon: {
             name: 'start',
             description:
-                'Set `slot="start"` to include an icon before the text content. This icon will be hidden when `content-hidden` is set.',
+                'Set `slot="start"` to include an icon before the text content (or instead of the content when `content-hidden` is set).',
             table: { category: 'slots' }
         },
         endIcon: {
             name: 'end',
             description:
-                'Set `slot="end"` to include an icon after the text content. This icon will be hidden when `content-hidden` is set.',
+                'Set `slot="end"` to include an icon after the text content.',
             table: { category: 'slots' }
         },
         menu: {
             description:
-                'The `nimble-menu` to be displayed when the button is toggled.',
+                'The [`nimble-menu`](?path=/docs/components-menu--docs) to be displayed when the button is toggled.',
             table: { category: 'slots' },
             control: false
         },
