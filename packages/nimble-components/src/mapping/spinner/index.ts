@@ -18,6 +18,9 @@ declare global {
 export class MappingSpinner extends Mapping<MappingKey> {
     @attr()
     public text?: string;
+
+    @attr({ attribute: 'text-hidden', mode: 'boolean' })
+    public textHidden = false;
 }
 
 const spinnerMapping = MappingSpinner.compose({

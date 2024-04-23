@@ -12,7 +12,7 @@ declare global {
 
 /**
  * Defines a mapping from one data value ('key' property) to display text ('text' property).
- * One or more may be added as children of a nimble-table-column-enum-text element to define
+ * One or more may be added as children of a nimble-table-column-icon element to define
  * how a specific data value should be displayed as text in that column's cells.
  */
 export class MappingText extends Mapping<MappingKey> {

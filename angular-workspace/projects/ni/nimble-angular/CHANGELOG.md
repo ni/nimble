@@ -1,8 +1,42 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Mon, 15 Apr 2024 17:36:55 GMT and should not be manually modified.
+This log was last generated on Mon, 22 Apr 2024 15:13:13 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 23.0.0
+
+Mon, 22 Apr 2024 15:13:13 GMT
+
+### Major changes
+
+- Remove enum-text table column. The icon column supports text mappings and should be used instead. ([ni/nimble@16b2c1b](https://github.com/ni/nimble/commit/16b2c1b2820d14e88474e26b17eefd7b7cdf0e9f))
+- Bump @ni/nimble-components to v26.0.0
+
+## 22.0.2
+
+Fri, 19 Apr 2024 16:57:31 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v25.1.1
+
+## 22.0.1
+
+Thu, 18 Apr 2024 21:47:19 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v25.1.0
+
+## 22.0.0
+
+Wed, 17 Apr 2024 20:57:25 GMT
+
+### Major changes
+
+- Add configuration for icon mappings and spinner mappings to show/hide their text within a table's cells. **Breaking change:** The icon mappings and spinner mappings now default to showing their text within a table's cells in addition to on group rows. ([ni/nimble@6d50261](https://github.com/ni/nimble/commit/6d502618333981f4c5c2f72ddb5b329674d2e345))
+- Bump @ni/nimble-components to v25.0.0
 
 ## 21.0.2
 
