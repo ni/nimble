@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/html';
 import { html } from '@microsoft/fast-element';
 import { rectangleTag } from '@ni/spright-components/dist/esm/rectangle';
-import { createUserSelectedThemeStory } from '../utilities/storybook';
+import { createUserSelectedThemeStory } from '../../utilities/storybook';
 
 interface RectangleArgs {
     text: string;

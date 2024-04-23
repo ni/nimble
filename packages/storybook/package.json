@@ -7,10 +7,16 @@
   "scripts": {
     "build": "tsc -p ./tsconfig.json && storybook build -o dist/storybook --webpack-stats-json",
     "start": "storybook dev -p 6006",
-    "lint": "eslint .",
-    "format": "eslint . --fix"
+    "lint": "npm run eslint && npm run prettier",
+    "format": "npm run eslint-fix && npm run prettier-fix",
+    "eslint": "eslint src",
+    "eslint-fix": "eslint src --fix",
+    "prettier": "prettier-eslint \"src/**/*.*\" --list-different --prettier-ignore",
+    "prettier-fix": "prettier-eslint \"src/**/*.*\" --write --prettier-ignore"
   },
-  "dependencies": {
+  "devDependencies": {
+    "@chromatic-com/storybook": "^1.2.25",
+    "@microsoft/fast-element": "^1.12.0",
     "@microsoft/fast-react-wrapper": "^0.3.22",
     "@ni/nimble-components": "*",
     "@ni/spright-components": "*",
@@ -33,12 +39,11 @@
     "remark-gfm": "^4.0.0",
     "storybook": "^8.0.4",
     "storybook-addon-pseudo-states": "^3.0.0",
-    "terser-webpack-plugin": "^5.3.10"
-  },
-  "devDependencies": {
-    "@chromatic-com/storybook": "^1.2.25",
-    "@ni-private/eslint-config-nimble": "^1.0.0",
-    "eslint-plugin-storybook": "^0.8.0",
+    "terser-webpack-plugin": "^5.3.10",
     "typescript": "~5.1.6"
+  },
+  "peerDependencies": {
+    "@ni-private/eslint-config-nimble": "^1.0.0",
+    "eslint-plugin-storybook": "^0.8.0"
   }
 }

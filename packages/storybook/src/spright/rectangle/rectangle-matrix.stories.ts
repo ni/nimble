@@ -7,14 +7,14 @@ import {
     createMatrixThemeStory,
     cartesianProduct,
     createMatrixInteractionsFromStates
-} from '../utilities/matrix';
-import { createStory } from '../utilities/storybook';
-import { hiddenWrapper } from '../utilities/hidden';
+} from '../../utilities/matrix';
+import { createStory } from '../../utilities/storybook';
+import { hiddenWrapper } from '../../utilities/hidden';
 import {
     disabledStates,
     type DisabledState,
     disabledStateIsEnabled
-} from '../utilities/states';
+} from '../../utilities/states';
 
 const metadata: Meta = {
     title: 'Tests (Spright)/Rectangle',

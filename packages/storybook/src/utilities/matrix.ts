@@ -42,7 +42,7 @@ export function cartesianProduct<T extends readonly unknown[]>(
     ): void => {
         if (currentDimensions && currentDimensions.length >= 1) {
             const [currentDimension, ...remainingDimensions] = currentDimensions;
-            for (const currentState of currentDimension!) {
+            for (const currentState of currentDimension) {
                 recurseDimensions(remainingDimensions, ...states, currentState);
             }
         } else {
