@@ -80,6 +80,11 @@ export class WaferMap<
     /**
      * @internal
      */
+    public currentTask: Promise<void> | undefined;
+
+    /**
+     * @internal
+     */
     public workerCanvas!: HTMLCanvasElement;
 
     /**
@@ -241,10 +246,15 @@ export class WaferMap<
      * The updates snowball one after the other, this function only choses the 'altitude'.
      * The hover does not require an event update, but it's also the last update in the sequence.
      */
-    public async update(): Promise<void> {
+    public update(): void {
         this.validate();
         if (this.isExperimentalUpdate()) {
-            await this.experimentalUpdate();
+            this.currentTask = this.experimentalUpdate().then(
+                () => {
+                    this.currentTask = undefined;
+                },
+                () => {}
+            );
             return;
         }
         if (this.waferMapUpdateTracker.requiresEventsUpdate) {

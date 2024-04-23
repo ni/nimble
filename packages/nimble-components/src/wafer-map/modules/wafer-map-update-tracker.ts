@@ -93,16 +93,27 @@ export class WaferMapUpdateTracker extends UpdateTracker<typeof trackedItems> {
      * After the update is finished, all the tracked items are reset.
      */
     public override queueUpdate(): void {
-        if (!this.wafermap.$fastController.isConnected) {
+        if (!this.wafermap.$fastController.isConnected || this.updateQueued) {
             return;
         }
-        if (!this.updateQueued) {
-            this.updateQueued = true;
-            DOM.queueUpdate(async () => {
-                await this.wafermap.update();
+        this.updateQueued = true;
+        if (this.wafermap.currentTask === undefined) {
+            DOM.queueUpdate(() => {
+                this.wafermap.update();
                 this.untrackAll();
                 this.updateQueued = false;
             });
+        } else {
+            this.wafermap.currentTask.then(
+                () => {
+                    DOM.queueUpdate(() => {
+                        this.wafermap.update();
+                        this.untrackAll();
+                        this.updateQueued = false;
+                    });
+                },
+                () => {}
+            );
         }
     }
 }
