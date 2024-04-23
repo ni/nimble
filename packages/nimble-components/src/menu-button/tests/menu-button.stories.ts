@@ -17,7 +17,10 @@ import { menuTag } from '../../menu';
 import { menuItemTag } from '../../menu-item';
 import {
     appearanceDescription,
-    appearanceVariantDescription
+    appearanceVariantDescription,
+    contentHiddenDescription,
+    endIconDescription,
+    iconDescription
 } from '../../patterns/button/tests/doc-strings';
 
 interface MenuButtonArgs {
@@ -55,14 +58,12 @@ const metadata: Meta<MenuButtonArgs> = {
         },
         icon: {
             name: 'start',
-            description:
-                'Set `slot="start"` to include an icon before the text content (or instead of the content when `content-hidden` is set).',
+            description: iconDescription,
             table: { category: 'slots' }
         },
         endIcon: {
             name: 'end',
-            description:
-                'Set `slot="end"` to include an icon after the text content.',
+            description: endIconDescription,
             table: { category: 'slots' }
         },
         menu: {
@@ -96,8 +97,7 @@ const metadata: Meta<MenuButtonArgs> = {
         },
         contentHidden: {
             name: 'content-hidden',
-            description:
-                'Hides the default text content. Set to `true` when an icon is used as the primary content',
+            description: contentHiddenDescription,
             table: { category: 'attributes' }
         },
         menuPosition: {
