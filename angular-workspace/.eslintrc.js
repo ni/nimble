@@ -79,7 +79,7 @@ module.exports = {
                         message: 'Do not directly use underlying libraries of nimble. Instead rely on or add to exports of nimble packages.'
                     }, {
                         group: ['@ni/nimble-components', '@ni/spright-components'],
-                        message: 'Angular tests should not have to directly depend on web components package.'
+                        message: 'Angular tests should not directly depend on web component packages.'
                     }]
                 }
             ]
