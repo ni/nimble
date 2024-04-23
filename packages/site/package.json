@@ -13,8 +13,7 @@
         "start:landing": "vite landing"
     },
     "dependencies": {
-        "@ni/nimble-components": "*",
-        "@ni/spright-components": "*"
+        "@ni/nimble-components": "*"
     },
     "devDependencies": {
         "@11ty/eleventy": "^2.0.1",
