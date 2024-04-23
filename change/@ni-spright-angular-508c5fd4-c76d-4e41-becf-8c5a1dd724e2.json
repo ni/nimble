@@ -1,6 +1,6 @@
 {
   "type": "minor",
-  "comment": "Add spright-angluar package",
+  "comment": "Add spright-angular package",
   "packageName": "@ni/spright-angular",
   "email": "7282195+m-akinc@users.noreply.github.com",
   "dependentChangeType": "patch"
