@@ -67,7 +67,8 @@ const metadata: Meta<MenuButtonArgs> = {
         menu: {
             description:
                 'The `nimble-menu` to be displayed when the button is toggled.',
-            table: { category: 'slots' }
+            table: { category: 'slots' },
+            control: false
         },
         appearance: {
             options: Object.keys(ButtonAppearance),
@@ -107,12 +108,14 @@ const metadata: Meta<MenuButtonArgs> = {
         },
         toggle: {
             description: 'Fires after the menu button is toggled.',
-            table: { category: 'events' }
+            table: { category: 'events' },
+            control: false
         },
         beforetoggle: {
             description:
                 'Fires before the menu button is toggled. This can be used to populate the menu before it is opened.',
-            table: { category: 'events' }
+            table: { category: 'events' },
+            control: false
         }
     },
     // prettier-ignore
