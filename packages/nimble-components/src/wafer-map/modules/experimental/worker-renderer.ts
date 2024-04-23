@@ -19,18 +19,17 @@ export class WorkerRenderer {
             return;
         }
         await this.setupWorker();
-        const columnIndexes = Int32Array.from(
-            this.wafermap.diesTable.getChild('colIndex')!.toArray()
-        );
-        const rowIndexes = Int32Array.from(
-            this.wafermap.diesTable.getChild('rowIndex')!.toArray()
-        );
-        await this.worker.setColumnIndexes(
-            transfer(columnIndexes, [columnIndexes.buffer])
-        );
-        await this.worker.setRowIndexes(
-            transfer(rowIndexes, [rowIndexes.buffer])
-        );
+
+        const columnIndexes = this.wafermap.diesTable
+            .getChild('colIndex')!
+            .toArray();
+        await this.worker.setColumnIndexes(columnIndexes);
+
+        const rowIndexes = this.wafermap.diesTable
+            .getChild('rowIndex')!
+            .toArray();
+        await this.worker.setRowIndexes(rowIndexes);
+
         await this.drawWafer();
     }
 
