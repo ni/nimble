@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Mon, 22 Apr 2024 15:13:13 GMT",
+      "version": "26.0.0",
+      "tag": "@ni/nimble-components_v26.0.0",
+      "comments": {
+        "major": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "16b2c1b2820d14e88474e26b17eefd7b7cdf0e9f",
+            "comment": "Remove enum-text table column. The icon column supports text mappings and should be used instead."
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 19 Apr 2024 16:57:31 GMT",
       "version": "25.1.1",
       "tag": "@ni/nimble-components_v25.1.1",

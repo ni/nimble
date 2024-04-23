@@ -1,8 +1,25 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Fri, 19 Apr 2024 16:57:31 GMT and should not be manually modified.
+This log was last generated on Tue, 23 Apr 2024 15:58:10 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 23.1.0
+
+Tue, 23 Apr 2024 15:58:10 GMT
+
+### Minor changes
+
+- Export `MappingKeyType` from `NimbleTableColumnIconModule` ([ni/nimble@5e5f7c3](https://github.com/ni/nimble/commit/5e5f7c36876af5a570dd86f04ee83025cf5dd657))
+
+## 23.0.0
+
+Mon, 22 Apr 2024 15:13:13 GMT
+
+### Major changes
+
+- Remove enum-text table column. The icon column supports text mappings and should be used instead. ([ni/nimble@16b2c1b](https://github.com/ni/nimble/commit/16b2c1b2820d14e88474e26b17eefd7b7cdf0e9f))
+- Bump @ni/nimble-components to v26.0.0
 
 ## 22.0.2
 
