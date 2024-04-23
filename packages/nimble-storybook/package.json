@@ -12,6 +12,9 @@
   },
   "dependencies": {
     "@microsoft/fast-react-wrapper": "^0.3.22",
+    "@ni/nimble-components": "^26.0.0",
+    "@ni/spright-components": "^0.0.2",
+    "@ni/nimble-tokens": "^6.13.2",
     "@storybook/addon-a11y": "^8.0.4",
     "@storybook/addon-actions": "^8.0.4",
     "@storybook/addon-docs": "^8.0.4",
@@ -25,22 +28,17 @@
     "@storybook/html-webpack5": "^8.0.4",
     "@storybook/manager-api": "^8.0.4",
     "@storybook/theming": "^8.0.4",
+    "circular-dependency-plugin": "^5.2.0",
+    "js-beautify": "^1.15.1",
+    "remark-gfm": "^4.0.0",
     "storybook": "^8.0.4",
-    "storybook-addon-pseudo-states": "^3.0.0"
+    "storybook-addon-pseudo-states": "^3.0.0",
+    "terser-webpack-plugin": "^5.3.10"
   },
   "devDependencies": {
     "@chromatic-com/storybook": "^1.2.25",
     "@ni-private/eslint-config-nimble": "^1.0.0",
-    "circular-dependency-plugin": "^5.2.0",
     "eslint-plugin-storybook": "^0.8.0",
-    "js-beautify": "^1.15.1",
-    "remark-gfm": "^4.0.0",
-    "terser-webpack-plugin": "^5.3.10",
     "typescript": "~5.1.6"
-  },
-  "peerDependencies": {
-    "@ni/nimble-components": "^26.0.0",
-    "@ni/spright-components": "^0.0.2",
-    "@ni/nimble-tokens": "^6.13.2"
   }
 }
