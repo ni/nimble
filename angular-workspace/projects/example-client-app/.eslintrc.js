@@ -1,6 +1,6 @@
 module.exports = {
     extends: '../../.eslintrc.js',
-    ignorePatterns: ['**/environment*.ts'],
+    ignorePatterns: ['/src/environments'],
     overrides: [{
         files: ['*.ts'],
         parserOptions: {
