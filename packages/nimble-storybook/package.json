@@ -1,5 +1,5 @@
 {
-  "name": "@ni-private/nimble-storybook",
+  "name": "@ni-private/storybook",
   "version": "1.0.0",
   "private": true,
   "type": "module",
@@ -12,9 +12,9 @@
   },
   "dependencies": {
     "@microsoft/fast-react-wrapper": "^0.3.22",
-    "@ni/nimble-components": "^26.0.0",
-    "@ni/spright-components": "^0.0.2",
-    "@ni/nimble-tokens": "^6.13.2",
+    "@ni/nimble-components": "*",
+    "@ni/spright-components": "*",
+    "@ni/nimble-tokens": "*",
     "@storybook/addon-a11y": "^8.0.4",
     "@storybook/addon-actions": "^8.0.4",
     "@storybook/addon-docs": "^8.0.4",
