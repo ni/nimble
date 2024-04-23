@@ -936,27 +936,27 @@ describe('Select', () => {
             expect(currentSelection?.value).toBe('three');
         });
 
-        fit('when dropdown is closed, entering text executes typeahead and sets value', async () => {
+        it('when dropdown is closed, entering text executes typeahead and sets value', () => {
             pageObject.pressCharacterKey('t');
             expect(element.value).toBe('two');
         });
 
-        fit('opening dropdown after pressing <Esc> during filter text entry, maintains original display text', async () => {
+        it('opening dropdown after pressing <Esc> during filter text entry, maintains original display text', async () => {
             await clickAndWaitForOpen(element);
             pageObject.pressCharacterKey('t');
             pageObject.pressEscapeKey();
-            await pageObject.clickSelect();
+            pageObject.clickSelect();
             await waitForUpdatesAsync();
 
             expect(pageObject.getDisplayText()).toBe('One');
         });
 
-        fit('filtering options does not change selected option in dropdown', async () => {
+        it('filtering options does not change selected option in dropdown', async () => {
             element.value = 'three';
             await pageObject.openAndSetFilterText('t'); // filters to 'Two' and 'Three'
 
             expect(pageObject.getSelectedOption()?.value).toBe('three');
-        })
+        });
     });
 
     describe('placeholder', () => {

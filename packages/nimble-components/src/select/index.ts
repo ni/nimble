@@ -481,8 +481,9 @@ export class Select
                 o => !o.disabled
             );
             if (enabledOptions.length > 0) {
-                const selectedOption = enabledOptions.find(o => o === this.committedSelectedOption)
-                    ?? enabledOptions[0]!;
+                const selectedOption = enabledOptions.find(
+                    o => o === this.committedSelectedOption
+                ) ?? enabledOptions[0]!;
                 selectedOption.ariaSelected = 'true';
                 this.openActiveIndex = this.options.indexOf(selectedOption);
             } else {
@@ -590,7 +591,10 @@ export class Select
                     this.open = false;
                 }
 
-                if (currentActiveIndex !== this.indexWhenOpened! && currentActiveIndex >= 0) {
+                if (
+                    currentActiveIndex !== this.indexWhenOpened!
+                    && currentActiveIndex >= 0
+                ) {
                     this.options[currentActiveIndex]!.ariaSelected = 'false';
                 }
 
@@ -659,7 +663,9 @@ export class Select
             if (next !== this.indexWhenOpened) {
                 this.selectedIndex = this.indexWhenOpened ?? -1;
             }
-            this.toggleNewActiveOption(() => { return next; });
+            this.toggleNewActiveOption(() => {
+                return next;
+            });
         }
     }
 

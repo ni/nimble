@@ -159,22 +159,25 @@ export class SelectPageObject {
         );
     }
 
-    public pressCharacterKey(character: string) {
+    public pressCharacterKey(character: string): void {
         if (character.length !== 1) {
-            throw new Error('character parameter must contain only a single character');
+            throw new Error(
+                'character parameter must contain only a single character'
+            );
         }
 
-        if (this.selectElement.open && this.selectElement.filterMode !== FilterMode.none) {
+        if (
+            this.selectElement.open
+            && this.selectElement.filterMode !== FilterMode.none
+        ) {
             const filterInput = this.getFilterInput();
             filterInput!.value = filterInput!.value + character;
         }
-        this.selectElement.dispatchEvent(
-            new InputEvent('input')
-        );
+        this.selectElement.dispatchEvent(new InputEvent('input'));
         this.selectElement.dispatchEvent(
             new KeyboardEvent('keydown', { key: character })
         );
-    };
+    }
 
     public async pressSpaceKey(): Promise<void> {
         const alreadyOpen = this.selectElement.open;
