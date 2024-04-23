@@ -74,7 +74,8 @@ interface IconColumnTableArgs extends SharedTableArgs {
 
 const widthModeDescription = `When set to \`iconSize\`, the column will have a fixed width that makes the column the appropriate width to render only a single icon in the cell.
 This should only be set when the header contains a single icon (no text) and none of the child mapping elements will result in text being rendered in a cell. When unset or set
-to \`default\`, the column will be resizable and be sized based on its fractional-width and min-pixel-width values.`;
+to \`default\`, the column will be resizable and be sized based on its fractional-width and min-pixel-width values. A column with its \`width-mode\` set to \`iconSize\` should
+should not be the right-most column in the table.`;
 
 const validityDescription = `${sharedMappingValidityDescription}
 -   \`invalidIconName\`: \`true\` when a mapping's \`icon\` value is not the tag name of a valid, loaded Nimble icon (e.g. \`nimble-icon-check\`)
