@@ -20,7 +20,7 @@ Components follow a standard naming convention:
 | JavaScript class name  | Interact with the component from JavaScript or TypeScript | `NimbleButton`          |
 | Angular module name    | Import the component in Angular                           | `NimbleButtonModule`    |
 | Angular directive name | Interact with the component from Angular                  | `NimbleButtonDirective` |
-| Blazor component name  | Use the component in Blazor                               | `NimbleButton`          |
+| Blazor component name  | Use the component in Blazor template or C# class          | `NimbleButton`          |
 
 ## Slots
 
@@ -49,7 +49,7 @@ correspond to each other one-to-one; Nimble documentation refers to the attribut
 
 ### Attributes
 
-Attributes have `snake-case` names in web components and Angular.
+Attributes have `kebab-case` names in HTML and Angular templates.
 
 ```html
 <nimble-button appearance="outline">...</nimble-button>
@@ -57,7 +57,7 @@ Attributes have `snake-case` names in web components and Angular.
 
 ### Boolean attributes
 
-Boolean attributes are `true` when present and `false` when absent.
+Boolean attributes don't need a value; they are `true` when present and `false` when absent.
 
 ```html
 <nimble-button content-hidden>...</nimble-button>
@@ -65,7 +65,7 @@ Boolean attributes are `true` when present and `false` when absent.
 
 ### Properties
 
-Properties have `camelCase` names in web components and Angular.
+Properties have `camelCase` names in JavaScript, TypeScript, and Angular.
 
 ```ts
 const button = document.querySelector('nimble-button');
