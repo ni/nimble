@@ -199,7 +199,7 @@ describe('Select', () => {
         pageObject.pressArrowDownKey();
         await waitForUpdatesAsync();
 
-        expect(element.displayValue).toBe('One');
+        expect(pageObject.getDisplayText()).toBe('One');
         await disconnect();
     });
 
@@ -324,7 +324,7 @@ describe('Select', () => {
         const selectedOption = pageObject.getSelectedOption();
         selectedOption!.textContent = 'foo';
         await waitForUpdatesAsync();
-        expect(element.displayValue).toBe('foo');
+        expect(pageObject.getDisplayText()).toBe('foo');
 
         await disconnect();
     });
@@ -341,6 +341,34 @@ describe('Select', () => {
         pageObject.pressArrowDownKey();
         expect(pageObject.getSelectedOption()?.value).toBe('one');
 
+        await disconnect();
+    });
+
+    it('selecting option via typing character while dropdown is closed changes value', async () => {
+        const { element, connect, disconnect } = await setup();
+        const pageObject = new SelectPageObject(element);
+        await connect();
+        await waitForUpdatesAsync();
+        pageObject.pressCharacterKey('t');
+        await waitForUpdatesAsync();
+
+        expect(element.value).toBe('two');
+        
+        await disconnect();
+    });
+
+    it('selecting option via typing character while dropdown is open with no filter does not change value', async () => {
+        const { element, connect, disconnect } = await setup();
+        const pageObject = new SelectPageObject(element);
+        await connect();
+        await waitForUpdatesAsync();
+        pageObject.clickSelect();
+        pageObject.pressCharacterKey('t');
+        await waitForUpdatesAsync();
+
+        expect(element.value).toBe('one');
+        expect(pageObject.getSelectedOption()?.value).toBe('two');
+        
         await disconnect();
     });
 
@@ -907,6 +935,28 @@ describe('Select', () => {
             currentSelection = pageObject.getSelectedOption();
             expect(currentSelection?.value).toBe('three');
         });
+
+        fit('when dropdown is closed, entering text executes typeahead and sets value', async () => {
+            pageObject.pressCharacterKey('t');
+            expect(element.value).toBe('two');
+        });
+
+        fit('opening dropdown after pressing <Esc> during filter text entry, maintains original display text', async () => {
+            await clickAndWaitForOpen(element);
+            pageObject.pressCharacterKey('t');
+            pageObject.pressEscapeKey();
+            await pageObject.clickSelect();
+            await waitForUpdatesAsync();
+
+            expect(pageObject.getDisplayText()).toBe('One');
+        });
+
+        fit('filtering options does not change selected option in dropdown', async () => {
+            element.value = 'three';
+            await pageObject.openAndSetFilterText('t'); // filters to 'Two' and 'Three'
+
+            expect(pageObject.getSelectedOption()?.value).toBe('three');
+        })
     });
 
     describe('placeholder', () => {
@@ -937,12 +987,12 @@ describe('Select', () => {
         });
 
         it('selecting option will replace placeholder text with selected option text', async () => {
-            expect(element.displayValue).toBe('One');
+            expect(pageObject.getDisplayText()).toBe('One');
             await clickAndWaitForOpen(element);
             pageObject.clickOption(1);
             await waitForUpdatesAsync();
 
-            expect(element.displayValue).toBe('Two');
+            expect(pageObject.getDisplayText()).toBe('Two');
         });
 
         it('placeholder can be changed to another option programmatically', async () => {
@@ -953,7 +1003,7 @@ describe('Select', () => {
             element.options[1]!.selected = true;
             await waitForUpdatesAsync();
 
-            expect(element.displayValue).toBe('Two');
+            expect(pageObject.getDisplayText()).toBe('Two');
             expect(element.value).toBe('two');
             await clickAndWaitForOpen(element);
             expect(pageObject.isOptionVisible(0)).toBeTrue();

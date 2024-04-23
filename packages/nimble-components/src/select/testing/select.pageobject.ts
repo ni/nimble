@@ -61,6 +61,12 @@ export class SelectPageObject {
         return (this.selectElement.selectedOptions[0] as ListOption) ?? null;
     }
 
+    public getDisplayText(): string {
+        const displayText = this.selectElement.shadowRoot?.querySelector('.selected-value')
+            ?.textContent ?? '';
+        return displayText.trim();
+    }
+
     /**
      * Either opens or closes the dropdown depending on its current state
      */
@@ -152,6 +158,23 @@ export class SelectPageObject {
             new KeyboardEvent('keydown', { key: keyArrowUp })
         );
     }
+
+    public pressCharacterKey(character: string) {
+        if (character.length !== 1) {
+            throw new Error('character parameter must contain only a single character');
+        }
+
+        if (this.selectElement.open && this.selectElement.filterMode !== FilterMode.none) {
+            const filterInput = this.getFilterInput();
+            filterInput!.value = filterInput!.value + character;
+        }
+        this.selectElement.dispatchEvent(
+            new InputEvent('input')
+        );
+        this.selectElement.dispatchEvent(
+            new KeyboardEvent('keydown', { key: character })
+        );
+    };
 
     public async pressSpaceKey(): Promise<void> {
         const alreadyOpen = this.selectElement.open;

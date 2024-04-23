@@ -481,8 +481,10 @@ export class Select
                 o => !o.disabled
             );
             if (enabledOptions.length > 0) {
-                enabledOptions[0]!.ariaSelected = 'true';
-                this.openActiveIndex = this.options.indexOf(enabledOptions[0]!);
+                const selectedOption = enabledOptions.find(o => o === this.committedSelectedOption)
+                    ?? enabledOptions[0]!;
+                selectedOption.ariaSelected = 'true';
+                this.openActiveIndex = this.options.indexOf(selectedOption);
             } else {
                 // only filtered option is disabled
                 this.openActiveIndex = -1;
@@ -588,13 +590,12 @@ export class Select
                     this.open = false;
                 }
 
-                if (currentActiveIndex !== this.indexWhenOpened!) {
-                    if (currentActiveIndex >= 0) {
-                        this.options[currentActiveIndex]!.ariaSelected = 'false';
-                    }
-                    this.options[this.indexWhenOpened!]!.ariaSelected = 'true';
-                    currentActiveIndex = this.indexWhenOpened!;
+                if (currentActiveIndex !== this.indexWhenOpened! && currentActiveIndex >= 0) {
+                    this.options[currentActiveIndex]!.ariaSelected = 'false';
                 }
+
+                this.options[this.indexWhenOpened!]!.ariaSelected = 'true';
+                currentActiveIndex = this.indexWhenOpened!;
                 this.focus();
                 break;
             }
@@ -643,14 +644,23 @@ export class Select
      */
     public override selectedIndexChanged(
         _: number | undefined,
-        __: number
+        next: number
     ): void {
         // Don't call super.selectedIndexChanged as this will disallow disabled options
         // from being valid initial selected values. Our setDefaultSelectedOption
         // implementation handles skipping non-selected disabled options for the initial
         // selected value.
-        this.setSelectedOptions();
-        this.updateValue();
+        if (!this.open) {
+            this.setSelectedOptions();
+            this.updateValue();
+        } else {
+            // Prohibit changing selectedIndex when dropdown is open. Instead, update
+            // openActiveIndex to what selectedIndex was being set to.
+            if (next !== this.indexWhenOpened) {
+                this.selectedIndex = this.indexWhenOpened ?? -1;
+            }
+            this.toggleNewActiveOption(() => { return next; });
+        }
     }
 
     /**
@@ -683,6 +693,9 @@ export class Select
         }
     }
 
+    /**
+     * @internal
+     */
     public override selectNextOption(): void {
         // don't call super.selectNextOption as that relies on side-effecty
         // behavior to not select disabled option (which no longer works)
@@ -702,6 +715,9 @@ export class Select
         this.toggleNewActiveOption(getNewActiveOptionIndex);
     }
 
+    /**
+     * @internal
+     */
     public override selectPreviousOption(): void {
         // don't call super.selectPreviousOption as that relies on side-effecty
         // behavior to not select disabled option (which no longer works)
@@ -721,6 +737,9 @@ export class Select
         this.toggleNewActiveOption(getNewActiveOptionIndex);
     }
 
+    /**
+     * @internal
+     */
     public override selectFirstOption(): void {
         const getNewActiveOptionIndex = (): number => {
             return this.options.findIndex(
@@ -730,6 +749,9 @@ export class Select
         this.toggleNewActiveOption(getNewActiveOptionIndex);
     }
 
+    /**
+     * @internal
+     */
     public override selectLastOption(): void {
         const getNewActiveOptionIndex = (): number => {
             return findLastIndex(

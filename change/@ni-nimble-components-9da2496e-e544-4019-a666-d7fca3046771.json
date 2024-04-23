@@ -1,5 +1,5 @@
 {
-  "type": "major",
+  "type": "patch",
   "comment": "Change Select to not update value as you navigate options in dropdown.",
   "packageName": "@ni/nimble-components",
   "email": "26874831+atmgrifter00@users.noreply.github.com",
