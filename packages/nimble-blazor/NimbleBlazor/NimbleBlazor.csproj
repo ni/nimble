@@ -55,10 +55,6 @@
     <None Include="packages.lock.json" />
   </ItemGroup>
 
-  <Target Name="GenerateIcons" BeforeTargets="BeforeBuild">
-    <Exec Command="npm run generate-icons" />
-  </Target>
-
   <Target Name="GenerateHybrid" BeforeTargets="BeforeBuild">
     <Exec Command="npm run generate-hybrid" />
   </Target>

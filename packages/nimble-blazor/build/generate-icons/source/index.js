@@ -20,7 +20,7 @@ const generatedFilePrefix = `@* AUTO-GENERATED FILE - DO NOT EDIT DIRECTLY
  // See generation source in nimble-blazor/build/generate-icons *@\n`;
 
 const packageDirectory = path.resolve(__dirname, '../../../');
-const iconsDirectory = path.resolve(packageDirectory, 'Components/Icons');
+const iconsDirectory = path.resolve(packageDirectory, 'NimbleBlazor/Components/Icons');
 console.log(iconsDirectory);
 
 if (fs.existsSync(iconsDirectory)) {
