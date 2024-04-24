@@ -1,4 +1,8 @@
-// Based on tests in FAST repo: https://github.com/microsoft/fast/blob/085cb27d348ed6f59d080c167fa62aeaa1e3940e/packages/web-components/fast-foundation/src/select/select.spec.ts
+/**
+ * Based on tests in FAST repo: https://github.com/microsoft/fast/blob/085cb27d348ed6f59d080c167fa62aeaa1e3940e/packages/web-components/fast-foundation/src/select/select.spec.ts
+ * One notable change to the tests is that we no longer expect the selectedIndex to change for the Select as the user
+ * navigates the dropdown menu. As as result, some test names, and the relevant expect assertions have changed.
+ */
 import {
     keyArrowDown,
     keyArrowUp,
