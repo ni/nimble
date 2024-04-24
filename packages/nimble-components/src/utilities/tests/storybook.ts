@@ -161,3 +161,10 @@ export const disableStorybookZoomTransform = `
     }
 </style>
 `;
+
+export const apiCategory = {
+    attributes: 'Attributes',
+    events: 'Events',
+    methods: 'Methods',
+    slots: 'Slots'
+} as const;
