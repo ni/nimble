@@ -648,24 +648,39 @@ export class Select
      */
     public override selectedIndexChanged(
         _: number | undefined,
-        next: number
+        __: number
     ): void {
         // Don't call super.selectedIndexChanged as this will disallow disabled options
         // from being valid initial selected values. Our setDefaultSelectedOption
         // implementation handles skipping non-selected disabled options for the initial
         // selected value.
-        if (!this.open) {
-            this.setSelectedOptions();
-            this.updateValue();
-        } else {
-            // Prohibit changing selectedIndex when dropdown is open. Instead, update
-            // openActiveIndex to what selectedIndex was being set to.
-            if (next !== this.indexWhenOpened) {
-                this.selectedIndex = this.indexWhenOpened ?? -1;
+        this.setSelectedOptions();
+        this.updateValue();
+    }
+
+    /**
+     * @internal
+     * Fork of Listbox implementation, so that the selectedIndex is not changed while the dropdown
+     * is open.
+     */
+    public override typeaheadBufferChanged(_: string, __: string): void {
+        if (this.$fastController.isConnected) {
+            const typeaheadMatches = this.getTypeaheadMatches();
+
+            if (typeaheadMatches.length) {
+                const selectedIndex = this.options.indexOf(
+                    typeaheadMatches[0] as ListOption
+                );
+                if (selectedIndex > -1 && !this.open) {
+                    this.selectedIndex = selectedIndex;
+                } else {
+                    this.toggleNewActiveOption(() => {
+                        return selectedIndex;
+                    });
+                }
             }
-            this.toggleNewActiveOption(() => {
-                return next;
-            });
+
+            this.typeaheadExpired = false;
         }
     }
 
@@ -805,6 +820,20 @@ export class Select
         }
     }
 
+    /**
+     * Fork of Listbox implementation to prevent placeholder option from being selected.
+     */
+    protected override getTypeaheadMatches(): ListboxOption[] {
+        const pattern = this.typeaheadBuffer.replace(
+            /[.*+\-?^${}()|[\]\\]/g,
+            '\\$&'
+        );
+        const re = new RegExp(`^${pattern}`, 'gi');
+        return this.options.filter(
+            (o: ListboxOption) => !o.hidden && !o.disabled && o.text.trim().match(re)
+        );
+    }
+
     protected positionChanged(
         _: SelectPosition | undefined,
         next: SelectPosition | undefined
@@ -920,12 +949,12 @@ export class Select
     }
 
     private toggleNewActiveOption(getNewActiveIndex: () => number): void {
-        const selectedOption = this.options[this.openActiveIndex ?? this.selectedIndex];
+        const selectedIndex = this.openActiveIndex ?? this.selectedIndex;
         const activeIndex = getNewActiveIndex();
         if (activeIndex >= 0) {
             this.options[activeIndex]!.ariaSelected = 'true';
-            if (selectedOption) {
-                selectedOption.ariaSelected = 'false';
+            if (selectedIndex !== activeIndex && selectedIndex > -1) {
+                this.options[selectedIndex]!.ariaSelected = 'false';
             }
 
             if (this.open) {

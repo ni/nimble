@@ -975,6 +975,7 @@ describe('Select', () => {
             element.filterMode = FilterMode.standard;
             await connect();
             pageObject = new SelectPageObject(element);
+            await waitForUpdatesAsync();
         });
 
         afterEach(async () => {
@@ -1008,6 +1009,16 @@ describe('Select', () => {
             await clickAndWaitForOpen(element);
             expect(pageObject.isOptionVisible(0)).toBeTrue();
             expect(pageObject.isOptionVisible(1)).toBeFalse();
+        });
+
+        it('selecting option via typing will not select placeholder', async () => {
+            const newOptions = element.options.map(o => o as ListOption);
+            newOptions.push(new ListOption('One one', 'one one'));
+            await pageObject.setOptions(newOptions);
+            expect(pageObject.getDisplayText()).toBe('One');
+            pageObject.pressCharacterKey('o');
+            await waitForUpdatesAsync();
+            expect(pageObject.getDisplayText()).toBe('One one');
         });
     });
 
