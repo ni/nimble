@@ -161,3 +161,12 @@ export const disableStorybookZoomTransform = `
     }
 </style>
 `;
+
+export const argsTableCategory = {
+    attributes: 'Attributes',
+    events: 'Events',
+    methods: 'Methods',
+    slots: 'Slots'
+} as const;
+export type SpinnerAppearance =
+    (typeof argsTableCategory)[keyof typeof argsTableCategory];

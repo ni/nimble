@@ -2,6 +2,7 @@ import { html, when } from '@microsoft/fast-element';
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html';
 import {
+    argsTableCategory,
     createUserSelectedThemeStory,
     disableStorybookZoomTransform
 } from '../../utilities/tests/storybook';
@@ -54,68 +55,68 @@ const metadata: Meta<MenuButtonArgs> = {
             name: 'default',
             description:
                 'The text content of the button. This will be hidden when `content-hidden` is set but should always be provided; see [Accessibility](#accessibility) for more info.',
-            table: { category: 'slots' }
+            table: { category: argsTableCategory.slots }
         },
         icon: {
             name: 'start',
             description: iconDescription,
-            table: { category: 'slots' }
+            table: { category: argsTableCategory.slots }
         },
         endIcon: {
             name: 'end',
             description: endIconDescription,
-            table: { category: 'slots' }
+            table: { category: argsTableCategory.slots }
         },
         menu: {
             description:
                 'The [`nimble-menu`](?path=/docs/components-menu--docs) to be displayed when the button is toggled.',
-            table: { category: 'slots' },
+            table: { category: argsTableCategory.slots },
             control: false
         },
         appearance: {
             options: Object.keys(ButtonAppearance),
             control: { type: 'radio' },
             description: appearanceDescription,
-            table: { category: 'attributes' }
+            table: { category: argsTableCategory.attributes }
         },
         appearanceVariant: {
             name: 'appearance-variant',
             options: Object.keys(ButtonAppearanceVariant),
             control: { type: 'radio' },
             description: appearanceVariantDescription,
-            table: { category: 'attributes' }
+            table: { category: argsTableCategory.attributes }
         },
         open: {
             control: { type: 'boolean' },
             description: 'Opens the menu.',
-            table: { category: 'attributes' }
+            table: { category: argsTableCategory.attributes }
         },
         disabled: {
             control: { type: 'boolean' },
             description: 'Disables the button.',
-            table: { category: 'attributes' }
+            table: { category: argsTableCategory.attributes }
         },
         contentHidden: {
             name: 'content-hidden',
             description: contentHiddenDescription,
-            table: { category: 'attributes' }
+            table: { category: argsTableCategory.attributes }
         },
         menuPosition: {
             name: 'menu-position',
             description: 'The position of the menu relative to the button.',
             options: Object.values(MenuButtonPosition),
             control: { type: 'radio' },
-            table: { category: 'attributes' }
+            table: { category: argsTableCategory.attributes }
         },
         toggle: {
             description: 'Fires after the menu button is toggled.',
-            table: { category: 'events' },
+            table: { category: argsTableCategory.events },
             control: false
         },
         beforetoggle: {
             description:
                 'Fires before the menu button is toggled. This can be used to populate the menu before it is opened.',
-            table: { category: 'events' },
+            table: { category: argsTableCategory.events },
             control: false
         }
     },
