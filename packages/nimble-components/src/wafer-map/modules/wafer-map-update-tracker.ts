@@ -104,16 +104,14 @@ export class WaferMapUpdateTracker extends UpdateTracker<typeof trackedItems> {
                 this.updateQueued = false;
             });
         } else {
-            this.wafermap.currentTask.then(
-                () => {
-                    DOM.queueUpdate(() => {
-                        this.wafermap.update();
-                        this.untrackAll();
-                        this.updateQueued = false;
-                    });
-                },
-                () => {}
-            );
+            void (async () => {
+                await this.wafermap.currentTask;
+                DOM.queueUpdate(() => {
+                    this.wafermap.update();
+                    this.untrackAll();
+                    this.updateQueued = false;
+                });
+            })();
         }
     }
 }
