@@ -353,7 +353,7 @@ describe('Select', () => {
         await waitForUpdatesAsync();
 
         expect(element.value).toBe('two');
-        
+
         await disconnect();
     });
 
@@ -368,7 +368,7 @@ describe('Select', () => {
 
         expect(element.value).toBe('one');
         expect(pageObject.getSelectedOption()?.value).toBe('two');
-        
+
         await disconnect();
     });
 

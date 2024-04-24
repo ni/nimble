@@ -588,7 +588,7 @@ export class Select
                 }
 
                 this.toggleNewActiveOption(() => {
-                    return this.indexWhenOpened ?? this.selectedIndex
+                    return this.indexWhenOpened ?? this.selectedIndex;
                 });
 
                 if (this.collapsible && this.open) {
@@ -607,7 +607,7 @@ export class Select
                         || this.filteredOptions.every(o => o.disabled)
                     ) {
                         this.toggleNewActiveOption(() => {
-                            return this.indexWhenOpened ?? this.selectedIndex
+                            return this.indexWhenOpened ?? this.selectedIndex;
                         });
                         currentActiveIndex = this.indexWhenOpened!;
                         this.open = false;
