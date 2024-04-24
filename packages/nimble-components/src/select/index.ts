@@ -586,19 +586,16 @@ export class Select
                 if (!this.open) {
                     break;
                 }
+
+                this.toggleNewActiveOption(() => {
+                    return this.indexWhenOpened ?? this.selectedIndex
+                });
+
                 if (this.collapsible && this.open) {
                     e.preventDefault();
                     this.open = false;
                 }
 
-                if (
-                    currentActiveIndex !== this.indexWhenOpened!
-                    && currentActiveIndex >= 0
-                ) {
-                    this.options[currentActiveIndex]!.ariaSelected = 'false';
-                }
-
-                this.options[this.indexWhenOpened!]!.ariaSelected = 'true';
                 currentActiveIndex = this.indexWhenOpened!;
                 this.focus();
                 break;
@@ -609,10 +606,9 @@ export class Select
                         this.filteredOptions.length === 0
                         || this.filteredOptions.every(o => o.disabled)
                     ) {
-                        if (currentActiveIndex >= 0) {
-                            this.options[currentActiveIndex]!.ariaSelected = 'false';
-                        }
-                        this.options[this.indexWhenOpened!]!.ariaSelected = 'true';
+                        this.toggleNewActiveOption(() => {
+                            return this.indexWhenOpened ?? this.selectedIndex
+                        });
                         currentActiveIndex = this.indexWhenOpened!;
                         this.open = false;
                         return true;
