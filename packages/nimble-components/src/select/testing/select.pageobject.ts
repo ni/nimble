@@ -54,11 +54,15 @@ export class SelectPageObject {
     }
 
     public getSelectedOption(): ListOption | null {
-        if (this.selectElement.open) {
-            return this.getSelectedDropdownOption();
-        }
-
         return (this.selectElement.selectedOptions[0] as ListOption) ?? null;
+    }
+
+    public getActiveOption(): ListOption | null {
+        return (
+            (this.selectElement.options.find(
+                o => (o as ListOption).activeOption === true
+            ) as ListOption) ?? null
+        );
     }
 
     public getDisplayText(): string {
@@ -79,7 +83,7 @@ export class SelectPageObject {
             throw new Error('Select must be open to click selectedItem');
         }
 
-        const selectedOption = this.getSelectedDropdownOption();
+        const selectedOption = this.getActiveOption();
         if (!selectedOption) {
             throw new Error('No option is selected to click');
         }
@@ -245,14 +249,6 @@ export class SelectPageObject {
         }
         return this.selectElement.shadowRoot?.querySelector<HTMLInputElement>(
             '.filter-input'
-        );
-    }
-
-    private getSelectedDropdownOption(): ListOption | null {
-        return (
-            (this.selectElement.options.find(
-                o => o.ariaSelected === 'true'
-            ) as ListOption) ?? null
         );
     }
 }

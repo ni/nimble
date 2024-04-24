@@ -54,7 +54,7 @@ declare global {
 // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 type BooleanOrVoid = boolean | void;
 
-const isNimbleListOption = (el: Element): el is ListOption => {
+const isNimbleListOption = (el: Element | undefined): el is ListOption => {
     return el instanceof ListOption;
 };
 
@@ -484,7 +484,7 @@ export class Select
                 const selectedOption = enabledOptions.find(
                     o => o === this.committedSelectedOption
                 ) ?? enabledOptions[0]!;
-                selectedOption.ariaSelected = 'true';
+                (selectedOption as ListOption).activeOption = true;
                 this.openActiveIndex = this.options.indexOf(selectedOption);
             } else {
                 // only filtered option is disabled
@@ -524,7 +524,9 @@ export class Select
                 this.selectedIndex = this.indexWhenOpened!;
                 currentActiveIndex = this.selectedIndex;
                 if (this.selectedIndex >= 0) {
-                    this.options[this.selectedIndex]!.ariaSelected = 'true';
+                    (
+                        this.options[this.selectedIndex]! as ListOption
+                    ).activeOption = true;
                 }
             }
 
@@ -587,9 +589,9 @@ export class Select
                     break;
                 }
 
-                this.toggleNewActiveOption(() => {
-                    return this.indexWhenOpened ?? this.selectedIndex;
-                });
+                this.toggleNewActiveOption(
+                    this.indexWhenOpened ?? this.selectedIndex
+                );
 
                 if (this.collapsible && this.open) {
                     e.preventDefault();
@@ -606,9 +608,9 @@ export class Select
                         this.filteredOptions.length === 0
                         || this.filteredOptions.every(o => o.disabled)
                     ) {
-                        this.toggleNewActiveOption(() => {
-                            return this.indexWhenOpened ?? this.selectedIndex;
-                        });
+                        this.toggleNewActiveOption(
+                            this.indexWhenOpened ?? this.selectedIndex
+                        );
                         currentActiveIndex = this.indexWhenOpened!;
                         this.open = false;
                         return true;
@@ -670,9 +672,7 @@ export class Select
                 if (selectedIndex > -1 && !this.open) {
                     this.selectedIndex = selectedIndex;
                 } else {
-                    this.toggleNewActiveOption(() => {
-                        return selectedIndex;
-                    });
+                    this.toggleNewActiveOption(selectedIndex);
                 }
             }
 
@@ -717,7 +717,7 @@ export class Select
         // don't call super.selectNextOption as that relies on side-effecty
         // behavior to not select disabled option (which no longer works)
         const startIndex = this.openActiveIndex ?? this.selectedIndex;
-        const getNewActiveOptionIndex = (): number => {
+        const newActiveOptionIndex = (): number => {
             for (let i = startIndex + 1; i < this.options.length; i++) {
                 const listOption = this.options[i]!;
                 if (
@@ -729,7 +729,7 @@ export class Select
             }
             return -1;
         };
-        this.toggleNewActiveOption(getNewActiveOptionIndex);
+        this.toggleNewActiveOption(newActiveOptionIndex());
     }
 
     /**
@@ -739,7 +739,7 @@ export class Select
         // don't call super.selectPreviousOption as that relies on side-effecty
         // behavior to not select disabled option (which no longer works)
         const startIndex = this.openActiveIndex ?? this.selectedIndex;
-        const getNewActiveOptionIndex = (): number => {
+        const newActiveOptionIndex = (): number => {
             for (let i = startIndex - 1; i >= 0; i--) {
                 const listOption = this.options[i]!;
                 if (
@@ -751,32 +751,28 @@ export class Select
             }
             return -1;
         };
-        this.toggleNewActiveOption(getNewActiveOptionIndex);
+        this.toggleNewActiveOption(newActiveOptionIndex());
     }
 
     /**
      * @internal
      */
     public override selectFirstOption(): void {
-        const getNewActiveOptionIndex = (): number => {
-            return this.options.findIndex(
-                o => isNimbleListOption(o) && isOptionSelectable(o)
-            );
-        };
-        this.toggleNewActiveOption(getNewActiveOptionIndex);
+        const newActiveOptionIndex = this.options.findIndex(
+            o => isNimbleListOption(o) && isOptionSelectable(o)
+        );
+        this.toggleNewActiveOption(newActiveOptionIndex);
     }
 
     /**
      * @internal
      */
     public override selectLastOption(): void {
-        const getNewActiveOptionIndex = (): number => {
-            return findLastIndex(
-                this.options,
-                o => isNimbleListOption(o) && isOptionSelectable(o)
-            );
-        };
-        this.toggleNewActiveOption(getNewActiveOptionIndex);
+        const newActiveOptionIndex = findLastIndex(
+            this.options,
+            o => isNimbleListOption(o) && isOptionSelectable(o)
+        );
+        this.toggleNewActiveOption(newActiveOptionIndex);
     }
 
     /**
@@ -816,18 +812,10 @@ export class Select
         }
     }
 
-    /**
-     * Fork of Listbox implementation to prevent placeholder option from being selected.
-     */
     protected override getTypeaheadMatches(): ListboxOption[] {
-        const pattern = this.typeaheadBuffer.replace(
-            /[.*+\-?^${}()|[\]\\]/g,
-            '\\$&'
-        );
-        const re = new RegExp(`^${pattern}`, 'gi');
-        return this.options.filter(
-            (o: ListboxOption) => !o.hidden && !o.disabled && o.text.trim().match(re)
-        );
+        const matches = super.getTypeaheadMatches();
+        // Don't allow placeholder to be matched
+        return matches.filter(o => !o.hidden && !o.disabled);
     }
 
     protected positionChanged(
@@ -944,20 +932,39 @@ export class Select
         this.committedSelectedOption = options[this.selectedIndex];
     }
 
-    private toggleNewActiveOption(getNewActiveIndex: () => number): void {
+    private toggleNewActiveOption(newActiveIndex: number): void {
         const selectedIndex = this.openActiveIndex ?? this.selectedIndex;
-        const activeIndex = getNewActiveIndex();
-        if (activeIndex >= 0) {
-            this.options[activeIndex]!.ariaSelected = 'true';
-            if (selectedIndex !== activeIndex && selectedIndex > -1) {
-                this.options[selectedIndex]!.ariaSelected = 'false';
+        const activeOption = this.options[newActiveIndex];
+        if (newActiveIndex >= 0 && isNimbleListOption(activeOption)) {
+            activeOption.activeOption = true;
+            if (selectedIndex !== newActiveIndex && selectedIndex > -1) {
+                (this.options[selectedIndex]! as ListOption).activeOption = false;
             }
 
             if (this.open) {
-                this.openActiveIndex = activeIndex;
+                this.openActiveIndex = newActiveIndex;
             } else {
-                this.selectedIndex = activeIndex;
+                this.selectedIndex = newActiveIndex;
             }
+            this.focusAndScrollActiveOptionIntoView();
+        }
+    }
+
+    private focusAndScrollActiveOptionIntoView(): void {
+        const optionToFocus = this.options[this.openActiveIndex ?? this.selectedIndex];
+        // Copied from FAST: To ensure that the browser handles both `focus()` and
+        // `scrollIntoView()`, the timing here needs to guarantee that they happen on
+        // different frames. Since this function is typically called from the `openChanged`
+        // observer, `DOM.queueUpdate` causes the calls to be grouped into the same frame.
+        // To prevent this, `requestAnimationFrame` is used instead of `DOM.queueUpdate`.
+        if (
+            this.contains(document.activeElement)
+            && optionToFocus !== undefined
+        ) {
+            optionToFocus.focus();
+            requestAnimationFrame(() => {
+                optionToFocus.scrollIntoView({ block: 'nearest' });
+            });
         }
     }
 
@@ -1072,7 +1079,7 @@ export class Select
 
     private clearSelection(): void {
         this.options.forEach(option => {
-            option.ariaSelected = 'false';
+            (option as ListOption).activeOption = false;
         });
     }
 
@@ -1085,12 +1092,6 @@ export class Select
     }
 
     private initializeOpenState(): void {
-        if (!this.open) {
-            this.ariaExpanded = 'false';
-            this.ariaControls = '';
-            return;
-        }
-
         this.indexWhenOpened = this.selectedIndex;
         this.openActiveIndex = this.selectedIndex;
         this.committedSelectedOption = this.options[this.selectedIndex];

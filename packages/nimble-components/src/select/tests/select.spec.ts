@@ -308,10 +308,10 @@ describe('Select', () => {
         await waitForUpdatesAsync();
         await clickAndWaitForOpen(element);
         pageObject.pressArrowDownKey();
-        expect(pageObject.getSelectedOption()?.value).toBe('three');
+        expect(pageObject.getActiveOption()?.value).toBe('three');
 
         pageObject.pressArrowUpKey();
-        expect(pageObject.getSelectedOption()?.value).toBe('one');
+        expect(pageObject.getActiveOption()?.value).toBe('one');
 
         await disconnect();
     });
@@ -339,7 +339,7 @@ describe('Select', () => {
 
         pageObject.clickSelect();
         pageObject.pressArrowDownKey();
-        expect(pageObject.getSelectedOption()?.value).toBe('one');
+        expect(pageObject.getActiveOption()?.value).toBe('one');
 
         await disconnect();
     });
@@ -367,7 +367,7 @@ describe('Select', () => {
         await waitForUpdatesAsync();
 
         expect(element.value).toBe('one');
-        expect(pageObject.getSelectedOption()?.value).toBe('two');
+        expect(pageObject.getActiveOption()?.value).toBe('two');
 
         await disconnect();
     });
@@ -680,12 +680,12 @@ describe('Select', () => {
             expect(element.value).toBe('one');
 
             await pageObject.openAndSetFilterText('T'); // Matches 'Two' and 'Three'
-            currentSelection = pageObject.getSelectedOption();
+            currentSelection = pageObject.getActiveOption();
             expect(currentSelection?.text).toBe('Two');
             pageObject.pressEscapeKey();
 
             pageObject.clickSelect();
-            currentSelection = pageObject.getSelectedOption();
+            currentSelection = pageObject.getActiveOption();
             expect(currentSelection?.text).toBe('One');
         });
 
@@ -698,7 +698,7 @@ describe('Select', () => {
             pageObject.pressEnterKey();
 
             pageObject.clickSelect();
-            currentSelection = pageObject.getSelectedOption();
+            currentSelection = pageObject.getActiveOption();
             expect(currentSelection?.selected).toBeTrue();
         });
 
@@ -759,7 +759,7 @@ describe('Select', () => {
 
         it('allows <Space> to be used as part of filter text', async () => {
             await pageObject.openAndSetFilterText(' '); // Matches 'Has Space'
-            const currentSelection = pageObject.getSelectedOption();
+            const currentSelection = pageObject.getActiveOption();
             expect(currentSelection?.text).toBe('Has Space');
             expect(element.open).toBeTrue();
         });
@@ -804,7 +804,7 @@ describe('Select', () => {
                 currentFilteredOptions
             );
             expect(element.open).toBeTrue();
-            expect(pageObject.getSelectedOption()?.text).toBe('Two');
+            expect(pageObject.getActiveOption()?.text).toBe('Two');
         });
 
         it('filtering to only disabled item, then pressing <Enter> does not close popup or change value', async () => {
@@ -853,7 +853,7 @@ describe('Select', () => {
 
         it('filtering to only disabled item does not select item', async () => {
             await pageObject.openAndSetFilterText('Disabled');
-            expect(pageObject.getSelectedOption()).toBeNull();
+            expect(pageObject.getActiveOption()).toBeNull();
         });
 
         it('updating slottedOptions while open applies filter to new options', async () => {
@@ -897,11 +897,11 @@ describe('Select', () => {
             await pageObject.setOptions(newOptions);
             await pageObject.openAndSetFilterText('tw');
             pageObject.pressArrowDownKey();
-            let currentSelection = pageObject.getSelectedOption();
+            let currentSelection = pageObject.getActiveOption();
             expect(currentSelection?.value).toBe('twenty');
 
             pageObject.pressArrowUpKey();
-            currentSelection = pageObject.getSelectedOption();
+            currentSelection = pageObject.getActiveOption();
             expect(currentSelection?.value).toBe('two');
         });
 
@@ -955,7 +955,7 @@ describe('Select', () => {
             element.value = 'three';
             await pageObject.openAndSetFilterText('t'); // filters to 'Two' and 'Three'
 
-            expect(pageObject.getSelectedOption()?.value).toBe('three');
+            expect(pageObject.getActiveOption()?.value).toBe('three');
         });
     });
 
@@ -1006,7 +1006,8 @@ describe('Select', () => {
 
             expect(pageObject.getDisplayText()).toBe('Two');
             expect(element.value).toBe('two');
-            await clickAndWaitForOpen(element);
+            pageObject.clickSelect();
+            await waitForUpdatesAsync();
             expect(pageObject.isOptionVisible(0)).toBeTrue();
             expect(pageObject.isOptionVisible(1)).toBeFalse();
         });
