@@ -54,7 +54,7 @@ const metadata: Meta<MenuButtonArgs> = {
         label: {
             name: 'default',
             description:
-                'The text content of the button. This will be hidden when `content-hidden` is set but should always be provided; see [Accessibility](#accessibility) for more info.',
+                'The text content of the button. This will be hidden when `content-hidden` is set but should always be provided; see [Accessibility](./?path=/docs/components-menu-button--docs#accessibility) for more info.',
             table: { category: argsTableCategory.slots }
         },
         icon: {
@@ -69,7 +69,7 @@ const metadata: Meta<MenuButtonArgs> = {
         },
         menu: {
             description:
-                'The [`nimble-menu`](?path=/docs/components-menu--docs) to be displayed when the button is toggled.',
+                'The [nimble-menu](./?path=/docs/components-menu--docs) to be displayed when the button is toggled.',
             table: { category: argsTableCategory.slots },
             control: false
         },
