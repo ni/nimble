@@ -15,7 +15,10 @@
     "format:js": "eslint . --fix",
     "test": "dotnet test -c Release",
     "pack": "npm run pack --workspace=NimbleBlazor --workspace=SprightBlazor",
-    "invoke-publish": "npm run invoke-publish --workspaces --if-present"
+    "invoke-publish": "npm run invoke-publish:clean-nuget && npm run pack && npm run invoke-publish:nuget && npm run invoke-publish:npm -- ",
+    "invoke-publish:clean-nuget": "rimraf --glob \"dist/*.nupkg\"",
+    "invoke-publish:nuget": "cross-env-shell dotnet nuget push \"dist/*.nupkg\" -k $NUGET_SECRET_TOKEN -s \"https://api.nuget.org/v3/index.json\"",
+    "invoke-publish:npm": "echo \"noop command to swallow npm args\""
   },
   "files": [
     "!*"
@@ -23,7 +26,9 @@
   "devDependencies": {
     "@ni/eslint-config-javascript": "^4.2.0",
     "@rollup/plugin-node-resolve": "^15.0.1",
+    "glob": "^10.3.10",
     "playwright": "1.42.0",
+    "rimraf": "^5.0.5",
     "rollup": "^4.12.0"
   }
 }
