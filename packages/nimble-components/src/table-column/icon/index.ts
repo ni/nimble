@@ -29,7 +29,7 @@ import { MappingText } from '../../mapping/text';
 import { MappingTextConfig } from '../enum-base/models/mapping-text-config';
 import { TableColumnMappingWidthMode } from './types';
 
-const fixedColumnSize = columnIconSize + 2 * columnSpacing;
+const iconSizeWidth = columnIconSize + 2 * columnSpacing;
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -100,8 +100,8 @@ export class TableColumnIcon extends mixinGroupableColumnAPI(
         if (this.widthMode === TableColumnMappingWidthMode.iconSize) {
             this.columnInternals.resizingDisabled = true;
             this.columnInternals.hideHeaderIndicators = true;
-            this.columnInternals.pixelWidth = fixedColumnSize;
-            this.columnInternals.minPixelWidth = fixedColumnSize;
+            this.columnInternals.pixelWidth = iconSizeWidth;
+            this.columnInternals.minPixelWidth = iconSizeWidth;
         } else {
             this.columnInternals.resizingDisabled = false;
             this.columnInternals.hideHeaderIndicators = false;
