@@ -54,7 +54,7 @@ const metadata: Meta<MenuButtonArgs> = {
         label: {
             name: 'default',
             description:
-                'The text content of the button. This will be hidden when `content-hidden` is set but should always be provided; see [Accessibility](./?path=/docs/components-menu-button--docs#accessibility) for more info.',
+                'The text content of the button. This will be hidden when `content-hidden` is set but should always be provided; see the `Accessibility` section for more info.',
             table: { category: argsTableCategory.slots }
         },
         icon: {
