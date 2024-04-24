@@ -30,7 +30,7 @@ export interface TableColumnEnumColumnConfig
 }
 
 /**
- * Base class for table columns that map values to content (e.g. nimble-table-column-enum-text and nimble-table-column-icon)
+ * Base class for table columns that map values to content
  */
 export abstract class TableColumnEnumBase<
     TColumnConfig extends TableColumnEnumColumnConfig,
