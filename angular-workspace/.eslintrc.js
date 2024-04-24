@@ -1,5 +1,10 @@
 module.exports = {
     root: true,
+    ignorePatterns: [
+        '!**/*',
+        '**/dist'
+    ],
+    plugins: ['jsdoc'],
     overrides: [{
         files: ['*.ts'],
         extends: [
@@ -14,7 +19,12 @@ module.exports = {
                     message: 'Do not directly use underlying libraries of nimble. Instead rely on or add to exports of nimble packages.'
                 },
                 {
-                    group: ['@ni/nimble-components/**/tests', '@ni/nimble-components/**/testing'],
+                    group: [
+                        '@ni/nimble-components/**/tests',
+                        '@ni/nimble-components/**/testing',
+                        '@ni/spright-components/**/tests',
+                        '@ni/spright-components/**/testing'
+                    ],
                     message: 'Do not use test code/utilities in production code.'
                 }]
             }],
@@ -31,7 +41,32 @@ module.exports = {
             }],
 
             // Enabled to prevent accidental usage of async-await
-            '@typescript-eslint/require-await': 'error'
+            '@typescript-eslint/require-await': 'error',
+
+            // Require non-empty JSDoc comment on classes
+            'jsdoc/require-jsdoc': [
+                'error',
+                {
+                    publicOnly: false,
+                    require: {
+                        ClassDeclaration: true,
+                        FunctionDeclaration: false
+                    }
+                }
+            ],
+            'jsdoc/require-description': [
+                'error',
+                { contexts: ['ClassDeclaration'] }
+            ]
+        }
+    }, {
+        // Don't require class docs on modules (they're trivial) or tests (not public API)
+        files: [
+            '*.module.ts', '*.spec.ts'
+        ],
+        rules: {
+            'jsdoc/require-jsdoc': 'off',
+            'jsdoc/require-description': 'off'
         }
     }, {
         files: ['*.spec.ts'],
@@ -43,8 +78,8 @@ module.exports = {
                         group: ['@microsoft/fast-*'],
                         message: 'Do not directly use underlying libraries of nimble. Instead rely on or add to exports of nimble packages.'
                     }, {
-                        group: ['@ni/nimble-components'],
-                        message: 'Nimble Angular tests should not have to directly depend on nimble-components.'
+                        group: ['@ni/nimble-components', '@ni/spright-components'],
+                        message: 'Angular tests should not directly depend on web component packages.'
                     }]
                 }
             ]
@@ -81,6 +116,18 @@ module.exports = {
         rules: {
             // Enabled to prevent accidental usage of async-await
             'require-await': 'error'
+        }
+    }, {
+        files: [
+            '*.js',
+            '*.ts'
+        ],
+        rules: {
+            // Use package.json from angular-workspace root
+            'import/no-extraneous-dependencies': ['error', { packageDir: __dirname }],
+            // Nimble Angular Components follow web component naming conventions
+            // where the attribute and property names are different formats
+            '@angular-eslint/no-input-rename': 'off'
         }
     }]
 };

@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Wed, 24 Apr 2024 16:20:52 GMT",
+      "version": "27.0.0",
+      "tag": "@ni/nimble-components_v27.0.0",
+      "comments": {
+        "major": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "d72a0faa81a649f70b72c9fcc8f2c4c201cfbe82",
+            "comment": "Remove fallback design tokens. Use primary font tokens instead; they include fallback fonts after Nimble's font."
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 22 Apr 2024 15:13:13 GMT",
       "version": "26.0.0",
       "tag": "@ni/nimble-components_v26.0.0",
