@@ -7,15 +7,6 @@ import {
     tableHeaderFont,
     tableHeaderFontColor
 } from '../../../theme-provider/design-tokens';
-import {
-    columnSpacing,
-    defaultMinPixelWidth
-} from '../../../table-column/base/types';
-
-// When the column is narrower than the default minimum width, the sorting and grouping
-// indicators should be hidden. The container query is based on the content of the header,
-// so the left/right padding should not be considered in the width.
-const defaultMinHeaderContentWidth = `${defaultMinPixelWidth - 2 * columnSpacing}px`;
 
 export const styles = css`
     ${display('flex')}
@@ -30,18 +21,10 @@ export const styles = css`
         text-transform: uppercase;
         gap: ${mediumPadding};
         cursor: default;
-        container: column-header / inline-size;
     }
 
     .sort-indicator,
     .grouped-indicator {
         flex: 0 0 auto;
-    }
-
-    @container column-header (width < ${defaultMinHeaderContentWidth}) {
-        .sort-indicator,
-        .grouped-indicator {
-            display: none;
-        }
     }
 `;

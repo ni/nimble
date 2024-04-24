@@ -99,10 +99,12 @@ export class TableColumnIcon extends mixinGroupableColumnAPI(
     private widthModeChanged(): void {
         if (this.widthMode === TableColumnMappingWidthMode.iconSize) {
             this.columnInternals.resizingDisabled = true;
+            this.columnInternals.hideHeaderIndicators = true;
             this.columnInternals.pixelWidth = fixedColumnSize;
             this.columnInternals.minPixelWidth = fixedColumnSize;
         } else {
             this.columnInternals.resizingDisabled = false;
+            this.columnInternals.hideHeaderIndicators = false;
             this.columnInternals.pixelWidth = undefined;
             this.columnInternals.minPixelWidth = this.getConfiguredMinPixelWidth();
         }

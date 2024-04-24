@@ -4,7 +4,6 @@ import { waitForUpdatesAsync } from '../../../../testing/async-helpers';
 import { type Fixture, fixture } from '../../../../utilities/tests/fixture';
 import { TableColumnSortDirection } from '../../../types';
 import { TableHeaderPageObject } from './table-header-pageobject';
-import { defaultMinPixelWidth } from '../../../../table-column/base/types';
 
 async function setup(): Promise<Fixture<TableHeader>> {
     return fixture<TableHeader>(
@@ -47,125 +46,105 @@ describe('TableHeader', () => {
         expect(pageObject.isSortDescendingIconVisible()).toBeFalse();
     });
 
-    describe('with width larger than minimum default', () => {
-        beforeEach(() => {
-            element.style.width = '200px';
-        });
+    it('has correct state when sorted ascending', async () => {
+        element.sortDirection = TableColumnSortDirection.ascending;
+        element.firstSortedColumn = true;
+        await waitForUpdatesAsync();
 
-        it('has correct state when sorted ascending', async () => {
-            element.sortDirection = TableColumnSortDirection.ascending;
-            element.firstSortedColumn = true;
-            await waitForUpdatesAsync();
-
-            expect(element.getAttribute('aria-sort')).toEqual('ascending');
-            expect(pageObject.isSortAscendingIconVisible()).toBeTrue();
-            expect(pageObject.isSortDescendingIconVisible()).toBeFalse();
-        });
-
-        it('has correct state when sorted descending', async () => {
-            element.sortDirection = TableColumnSortDirection.descending;
-            element.firstSortedColumn = true;
-            await waitForUpdatesAsync();
-
-            expect(element.getAttribute('aria-sort')).toEqual('descending');
-            expect(pageObject.isSortAscendingIconVisible()).toBeFalse();
-            expect(pageObject.isSortDescendingIconVisible()).toBeTrue();
-        });
-
-        it('does not configure aria-sort if it is not the first sorted column', async () => {
-            element.sortDirection = TableColumnSortDirection.descending;
-            element.firstSortedColumn = false;
-            await waitForUpdatesAsync();
-
-            expect(element.hasAttribute('aria-sort')).toBeFalse();
-            expect(pageObject.isSortAscendingIconVisible()).toBeFalse();
-            expect(pageObject.isSortDescendingIconVisible()).toBeTrue();
-        });
-
-        it('displays grouping indicator icon when grouped', async () => {
-            element.isGrouped = true;
-            await waitForUpdatesAsync();
-
-            expect(pageObject.isGroupIndicatorIconVisible()).toBeTrue();
-        });
-
-        it('grouping indicator icon is not shown when not grouped', () => {
-            expect(element.isGrouped).toBeFalse();
-            expect(pageObject.isGroupIndicatorIconVisible()).toBeFalse();
-        });
+        expect(element.getAttribute('aria-sort')).toEqual('ascending');
+        expect(pageObject.isSortAscendingIconVisible()).toBeTrue();
+        expect(pageObject.isSortDescendingIconVisible()).toBeFalse();
     });
 
-    describe('with width smaller than minimum default', () => {
-        beforeEach(() => {
-            element.style.width = '100px';
-        });
+    it('has correct state when sorted descending', async () => {
+        element.sortDirection = TableColumnSortDirection.descending;
+        element.firstSortedColumn = true;
+        await waitForUpdatesAsync();
 
-        it('sorting and grouping indicators are hidden when sorted and grouped', async () => {
-            element.isGrouped = true;
-            element.sortDirection = TableColumnSortDirection.ascending;
-            element.firstSortedColumn = true;
-            await waitForUpdatesAsync();
-
-            expect(pageObject.isSortAscendingIconVisible()).toBeFalse();
-            expect(pageObject.isSortDescendingIconVisible()).toBeFalse();
-            expect(pageObject.isGroupIndicatorIconVisible()).toBeFalse();
-        });
-
-        // Firefox skipped, see: https://github.com/ni/nimble/issues/1075
-        it('configures aria-sort when sorting indicator is hidden #SkipFirefox', async () => {
-            element.sortDirection = TableColumnSortDirection.descending;
-            element.firstSortedColumn = true;
-            await waitForUpdatesAsync();
-
-            expect(element.getAttribute('aria-sort')).toEqual('descending');
-            expect(pageObject.isSortAscendingIconVisible()).toBeFalse();
-            expect(pageObject.isSortDescendingIconVisible()).toBeFalse();
-        });
+        expect(element.getAttribute('aria-sort')).toEqual('descending');
+        expect(pageObject.isSortAscendingIconVisible()).toBeFalse();
+        expect(pageObject.isSortDescendingIconVisible()).toBeTrue();
     });
 
-    it('sorting and grouping indicators become visible when columns grows to become wider than the default minimum width', async () => {
+    it('does not configure aria-sort if it is not the first sorted column', async () => {
+        element.sortDirection = TableColumnSortDirection.descending;
+        element.firstSortedColumn = false;
+        await waitForUpdatesAsync();
+
+        expect(element.hasAttribute('aria-sort')).toBeFalse();
+        expect(pageObject.isSortAscendingIconVisible()).toBeFalse();
+        expect(pageObject.isSortDescendingIconVisible()).toBeTrue();
+    });
+
+    it('displays grouping indicator icon when grouped', async () => {
+        element.isGrouped = true;
+        await waitForUpdatesAsync();
+
+        expect(pageObject.isGroupIndicatorIconVisible()).toBeTrue();
+    });
+
+    it('grouping indicator icon is not shown when not grouped', () => {
+        expect(element.isGrouped).toBeFalse();
+        expect(pageObject.isGroupIndicatorIconVisible()).toBeFalse();
+    });
+
+    it('sorting and grouping indicators are hidden when indicators-hidden is true', async () => {
         element.isGrouped = true;
         element.sortDirection = TableColumnSortDirection.ascending;
         element.firstSortedColumn = true;
-        element.style.width = '100px';
+        element.indicatorsHidden = true;
         await waitForUpdatesAsync();
-
-        expect(pageObject.isSortAscendingIconVisible()).toBeFalse();
-        expect(pageObject.isSortDescendingIconVisible()).toBeFalse();
-        expect(pageObject.isGroupIndicatorIconVisible()).toBeFalse();
-
-        element.style.width = '200px';
-
-        expect(pageObject.isSortAscendingIconVisible()).toBeTrue();
-        expect(pageObject.isSortDescendingIconVisible()).toBeFalse();
-        expect(pageObject.isGroupIndicatorIconVisible()).toBeTrue();
-    });
-
-    it('sorting and grouping indicators become hidden when the column shrinks to become narrower than the default minimum width', async () => {
-        element.isGrouped = true;
-        element.sortDirection = TableColumnSortDirection.ascending;
-        element.style.width = '200px';
-        await waitForUpdatesAsync();
-
-        expect(pageObject.isSortAscendingIconVisible()).toBeTrue();
-        expect(pageObject.isSortDescendingIconVisible()).toBeFalse();
-        expect(pageObject.isGroupIndicatorIconVisible()).toBeTrue();
-
-        element.style.width = '100px';
 
         expect(pageObject.isSortAscendingIconVisible()).toBeFalse();
         expect(pageObject.isSortDescendingIconVisible()).toBeFalse();
         expect(pageObject.isGroupIndicatorIconVisible()).toBeFalse();
     });
 
-    it('sorting and grouping indicators are visible at the default minimum width', async () => {
+    it('sorting and grouping indicators become visible when indicators-hidden changes from true to false', async () => {
         element.isGrouped = true;
         element.sortDirection = TableColumnSortDirection.ascending;
-        element.style.width = `${defaultMinPixelWidth}px`;
+        element.firstSortedColumn = true;
+        element.indicatorsHidden = true;
+        await waitForUpdatesAsync();
+
+        expect(pageObject.isSortAscendingIconVisible()).toBeFalse();
+        expect(pageObject.isSortDescendingIconVisible()).toBeFalse();
+        expect(pageObject.isGroupIndicatorIconVisible()).toBeFalse();
+
+        element.indicatorsHidden = false;
         await waitForUpdatesAsync();
 
         expect(pageObject.isSortAscendingIconVisible()).toBeTrue();
         expect(pageObject.isSortDescendingIconVisible()).toBeFalse();
         expect(pageObject.isGroupIndicatorIconVisible()).toBeTrue();
+    });
+
+    it('sorting and grouping indicators become hidden when indicators-hidden changes from false to true', async () => {
+        element.isGrouped = true;
+        element.sortDirection = TableColumnSortDirection.ascending;
+        element.firstSortedColumn = true;
+        await waitForUpdatesAsync();
+
+        expect(pageObject.isSortAscendingIconVisible()).toBeTrue();
+        expect(pageObject.isSortDescendingIconVisible()).toBeFalse();
+        expect(pageObject.isGroupIndicatorIconVisible()).toBeTrue();
+
+        element.indicatorsHidden = true;
+        await waitForUpdatesAsync();
+
+        expect(pageObject.isSortAscendingIconVisible()).toBeFalse();
+        expect(pageObject.isSortDescendingIconVisible()).toBeFalse();
+        expect(pageObject.isGroupIndicatorIconVisible()).toBeFalse();
+    });
+
+    it('configures aria-sort when sorting indicator is hidden', async () => {
+        element.sortDirection = TableColumnSortDirection.descending;
+        element.firstSortedColumn = true;
+        element.indicatorsHidden = true;
+        await waitForUpdatesAsync();
+
+        expect(element.getAttribute('aria-sort')).toEqual('descending');
+        expect(pageObject.isSortAscendingIconVisible()).toBeFalse();
+        expect(pageObject.isSortDescendingIconVisible()).toBeFalse();
     });
 });
