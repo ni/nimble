@@ -1,6 +1,6 @@
 {
   "name": "@ni/spright-angular",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Angular components for NI Spright",
   "scripts": {
     "invoke-publish": "cd ../../../ && npm run build:spright && cd dist/ni/spright-angular && npm publish"
