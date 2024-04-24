@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Wed, 24 Apr 2024 19:54:26 GMT",
+      "version": "27.0.0",
+      "tag": "@ni/nimble-components_v27.0.0",
+      "comments": {
+        "none": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "1b7dd15cfbe6cf52fa5f49ec41a65191585bae2e",
+            "comment": "Storybook documentation improvements"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 24 Apr 2024 16:20:52 GMT",
       "version": "27.0.0",
       "tag": "@ni/nimble-components_v27.0.0",
