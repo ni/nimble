@@ -1,4 +1,4 @@
-import { parameterize, parameterizeSpec } from '../parameterized.js';
+import { parameterize } from '../parameterize.js';
 
 // The following aliases are just to reduce the number
 // of eslint disables in this test file. In normal
@@ -9,32 +9,32 @@ const FIT = fit;
 const IT = it;
 const XIT = xit;
 
-interface ParameterizeTestArgs {
+interface ParameterizeSpecTestArgs {
     spec: typeof IT | typeof XIT | typeof FIT;
     name: string;
     value: unknown;
 }
-const paramertizeTestArgs = ([
+const paramertizeSpecTestArgs = ([
     spec,
     name,
     value
-]: unknown[]): ParameterizeTestArgs => ({
+]: unknown[]): ParameterizeSpecTestArgs => ({
     spec,
     name,
     value
-} as ParameterizeTestArgs);
+} as ParameterizeSpecTestArgs);
 
-describe('Funtion parameterize', () => {
+describe('Function parameterize with specs', () => {
     describe('can parameterize simple objects', () => {
         it('with test enabled', () => {
             const testcases = {
                 case1: 'one'
             } as const;
             const spy = jasmine.createSpy();
-            parameterize(testcases, spy);
+            parameterize(testcases, spy, IT);
 
             expect(spy).toHaveBeenCalledTimes(1);
-            const { spec, name, value } = paramertizeTestArgs(
+            const { spec, name, value } = paramertizeSpecTestArgs(
                 spy.calls.argsFor(0)
             );
             expect(spec).toBe(IT);
@@ -47,12 +47,12 @@ describe('Funtion parameterize', () => {
                 case1: 'one'
             } as const;
             const spy = jasmine.createSpy();
-            parameterize(testcases, spy, {
+            parameterize(testcases, spy, IT, {
                 case1: FIT
             });
 
             expect(spy).toHaveBeenCalledTimes(1);
-            const { spec, name, value } = paramertizeTestArgs(
+            const { spec, name, value } = paramertizeSpecTestArgs(
                 spy.calls.argsFor(0)
             );
             expect(spec).toBe(FIT);
@@ -65,12 +65,12 @@ describe('Funtion parameterize', () => {
                 case1: 'one'
             } as const;
             const spy = jasmine.createSpy();
-            parameterize(testcases, spy, {
+            parameterize(testcases, spy, IT, {
                 case1: XIT
             });
 
             expect(spy).toHaveBeenCalledTimes(1);
-            const { spec, name, value } = paramertizeTestArgs(
+            const { spec, name, value } = paramertizeSpecTestArgs(
                 spy.calls.argsFor(0)
             );
             expect(spec).toBe(XIT);
@@ -85,14 +85,14 @@ describe('Funtion parameterize', () => {
                 case3: 'three'
             } as const;
             const spy = jasmine.createSpy();
-            parameterize(testcases, spy, {
+            parameterize(testcases, spy, IT, {
                 case2: XIT,
                 case3: FIT
             });
 
             expect(spy).toHaveBeenCalledTimes(3);
             {
-                const { spec, name, value } = paramertizeTestArgs(
+                const { spec, name, value } = paramertizeSpecTestArgs(
                     spy.calls.argsFor(0)
                 );
                 expect(spec).toBe(IT);
@@ -100,7 +100,7 @@ describe('Funtion parameterize', () => {
                 expect(value).toBe('one');
             }
             {
-                const { spec, name, value } = paramertizeTestArgs(
+                const { spec, name, value } = paramertizeSpecTestArgs(
                     spy.calls.argsFor(1)
                 );
                 expect(spec).toBe(XIT);
@@ -108,7 +108,7 @@ describe('Funtion parameterize', () => {
                 expect(value).toBe('two');
             }
             {
-                const { spec, name, value } = paramertizeTestArgs(
+                const { spec, name, value } = paramertizeSpecTestArgs(
                     spy.calls.argsFor(2)
                 );
                 expect(spec).toBe(FIT);
@@ -124,7 +124,7 @@ describe('Funtion parameterize', () => {
             } as { [key: string]: string };
 
             expect(() => {
-                parameterize(testcases, () => {}, {
+                parameterize(testcases, () => {}, IT, {
                     unknown: XIT
                 });
             }).toThrowError(/override names must match test case name/);
@@ -135,7 +135,7 @@ describe('Funtion parameterize', () => {
             } as const;
 
             expect(() => {
-                parameterize(testcases, () => {}, {
+                parameterize(testcases, () => {}, IT, {
                     case1: IT
                 });
             }).toThrowError(/jasmine spec functions: fit or xit/);
@@ -143,117 +143,141 @@ describe('Funtion parameterize', () => {
     });
 });
 
-interface ParameterizeListTestArgs {
-    spec: typeof IT | typeof XIT | typeof FIT;
-    name: string;
-}
-const paramertizeListTestArgs = ([
-    spec,
-    name
-]: unknown[]): ParameterizeListTestArgs => ({
-    spec,
-    name
-} as ParameterizeListTestArgs);
+// eslint-disable-next-line no-restricted-globals
+const FDESCRIBE = fdescribe;
+const DESCRIBE = describe;
+const XDESCRIBE = xdescribe;
 
-describe('Funtion parameterizeSpec', () => {
-    describe('can parameterize simple lists', () => {
+interface ParameterizeSuiteTestArgs {
+    spec: typeof DESCRIBE | typeof XDESCRIBE | typeof FDESCRIBE;
+    name: string;
+    value: unknown;
+}
+const parameterizeSuiteTestArgs = ([
+    spec,
+    name,
+    value
+]: unknown[]): ParameterizeSuiteTestArgs => ({
+    spec,
+    name,
+    value
+} as ParameterizeSuiteTestArgs);
+
+describe('Function parameterize with suites', () => {
+    describe('can parameterize simple objects', () => {
         it('with test enabled', () => {
-            const testcases = [{ name: 'case1' }] as const;
+            const testcases = {
+                case1: 'one'
+            } as const;
             const spy = jasmine.createSpy();
-            parameterizeSpec(testcases, spy);
+            parameterize(testcases, spy, DESCRIBE);
 
             expect(spy).toHaveBeenCalledTimes(1);
-            const { spec, name } = paramertizeListTestArgs(
+            const { spec, name, value } = parameterizeSuiteTestArgs(
                 spy.calls.argsFor(0)
             );
-            expect(spec).toBe(IT);
+            expect(spec).toBe(DESCRIBE);
             expect(name).toBe('case1');
+            expect(value).toBe('one');
         });
 
         it('with test focused', () => {
-            const testcases = [{ name: 'case1' }] as const;
+            const testcases = {
+                case1: 'one'
+            } as const;
             const spy = jasmine.createSpy();
-            parameterizeSpec(testcases, spy, {
-                case1: FIT
+            parameterize(testcases, spy, DESCRIBE, {
+                case1: FDESCRIBE
             });
 
             expect(spy).toHaveBeenCalledTimes(1);
-            const { spec, name } = paramertizeListTestArgs(
+            const { spec, name, value } = parameterizeSuiteTestArgs(
                 spy.calls.argsFor(0)
             );
-            expect(spec).toBe(FIT);
+            expect(spec).toBe(FDESCRIBE);
             expect(name).toBe('case1');
+            expect(value).toBe('one');
         });
 
         it('with test disabled', () => {
-            const testcases = [{ name: 'case1' }] as const;
+            const testcases = {
+                case1: 'one'
+            } as const;
             const spy = jasmine.createSpy();
-            parameterizeSpec(testcases, spy, {
-                case1: XIT
+            parameterize(testcases, spy, DESCRIBE, {
+                case1: XDESCRIBE
             });
 
             expect(spy).toHaveBeenCalledTimes(1);
-            const { spec, name } = paramertizeListTestArgs(
+            const { spec, name, value } = parameterizeSuiteTestArgs(
                 spy.calls.argsFor(0)
             );
-            expect(spec).toBe(XIT);
+            expect(spec).toBe(XDESCRIBE);
             expect(name).toBe('case1');
+            expect(value).toBe('one');
         });
 
         it('with various test cases enabled and disabled', () => {
-            const testcases = [
-                { name: 'case1' },
-                { name: 'case2' },
-                { name: 'case3' }
-            ] as const;
+            const testcases = {
+                case1: 'one',
+                case2: 'two',
+                case3: 'three'
+            } as const;
             const spy = jasmine.createSpy();
-            parameterizeSpec(testcases, spy, {
-                case2: XIT,
-                case3: FIT
+            parameterize(testcases, spy, DESCRIBE, {
+                case2: XDESCRIBE,
+                case3: FDESCRIBE
             });
 
             expect(spy).toHaveBeenCalledTimes(3);
             {
-                const { spec, name } = paramertizeListTestArgs(
+                const { spec, name, value } = parameterizeSuiteTestArgs(
                     spy.calls.argsFor(0)
                 );
-                expect(spec).toBe(IT);
+                expect(spec).toBe(DESCRIBE);
                 expect(name).toBe('case1');
+                expect(value).toBe('one');
             }
             {
-                const { spec, name } = paramertizeListTestArgs(
+                const { spec, name, value } = parameterizeSuiteTestArgs(
                     spy.calls.argsFor(1)
                 );
-                expect(spec).toBe(XIT);
+                expect(spec).toBe(XDESCRIBE);
                 expect(name).toBe('case2');
+                expect(value).toBe('two');
             }
             {
-                const { spec, name } = paramertizeListTestArgs(
+                const { spec, name, value } = parameterizeSuiteTestArgs(
                     spy.calls.argsFor(2)
                 );
-                expect(spec).toBe(FIT);
+                expect(spec).toBe(FDESCRIBE);
                 expect(name).toBe('case3');
+                expect(value).toBe('three');
             }
         });
     });
     describe('errors', () => {
         it('for override not in test cases', () => {
-            const testcases = [{ name: 'case1' }] as { name: string }[];
+            const testcases = {
+                case1: 'one'
+            } as { [key: string]: string };
 
             expect(() => {
-                parameterizeSpec(testcases, () => {}, {
-                    unknown: XIT
+                parameterize(testcases, () => {}, DESCRIBE, {
+                    unknown: XDESCRIBE
                 });
             }).toThrowError(/override names must match test case name/);
         });
         it('for override not referencing supported xit or fit', () => {
-            const testcases = [{ name: 'case1' }] as const;
+            const testcases = {
+                case1: 'one'
+            } as const;
 
             expect(() => {
-                parameterizeSpec(testcases, () => {}, {
-                    case1: IT
+                parameterize(testcases, () => {}, DESCRIBE, {
+                    case1: DESCRIBE
                 });
-            }).toThrowError(/jasmine spec functions: fit or xit/);
+            }).toThrowError(/jasmine suite functions: fdescribe or xdescribe/);
         });
     });
 });

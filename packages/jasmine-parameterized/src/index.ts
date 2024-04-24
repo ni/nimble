@@ -1,1 +1,2 @@
-export { parameterizeSpec } from './parameterized.js';
+export { parameterizeSpec } from './parameterizeSpec.js';
+export { parameterizeSuite } from './parameterizeSuite.js';
