@@ -10,8 +10,6 @@ import type { MatrixRenderer } from '../../../../build/generate-workers/dist/esm
 export class WorkerRenderer {
     private worker!: Remote<MatrixRenderer>;
 
-    private isWorkerAlive = false;
-
     public constructor(private readonly wafermap: WaferMap) {}
 
     public async setupAndDrawWafer(): Promise<void> {
@@ -112,9 +110,8 @@ export class WorkerRenderer {
         if (!this.wafermap.isExperimentalUpdate()) {
             return;
         }
-        if (!this.isWorkerAlive) {
+        if (this.worker === undefined) {
             await this.createWorker();
-            this.isWorkerAlive = true;
             await this.createWorkerCanvas();
         }
         await this.worker.setCanvasDimensions({
