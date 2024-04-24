@@ -1,7 +1,0 @@
-{
-  "type": "major",
-  "comment": "Remove fallback design tokens. Use primary font tokens instead; they include fallback fonts after Nimble's font.",
-  "packageName": "@ni/nimble-components",
-  "email": "rajsite@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
