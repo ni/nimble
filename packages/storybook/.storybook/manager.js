@@ -7,7 +7,7 @@ addons.setConfig({
         filters: {
             patterns: item => {
                 const isPublicSite = window.location.hostname === 'nimble.ni.dev';
-                const isItemInternal = item.title.startsWith('Tests/')
+                const isItemInternal = item.title.startsWith('Tests')
                     || item.title.startsWith('Internal/')
                     || item.title.startsWith('Patterns/');
                 const shouldHideInSidebar = isPublicSite && isItemInternal;
