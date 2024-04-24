@@ -38,6 +38,7 @@
     "packages/xliff-to-json-converter",
     "packages/nimble-tokens",
     "packages/nimble-components",
+    "packages/spright-components",
     "angular-workspace",
     "angular-workspace/projects/ni/nimble-angular",
     "packages/nimble-blazor",
