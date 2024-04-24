@@ -249,12 +249,10 @@ export class WaferMap<
     public update(): void {
         this.validate();
         if (this.isExperimentalUpdate()) {
-            this.currentTask = this.experimentalUpdate().then(
-                () => {
-                    this.currentTask = undefined;
-                },
-                () => {}
-            );
+            // eslint-disable-next-line @typescript-eslint/no-confusing-void-expression
+            void (() => {
+                this.currentTask = this.experimentalUpdate();
+            })();
             return;
         }
         if (this.waferMapUpdateTracker.requiresEventsUpdate) {

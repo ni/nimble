@@ -110,6 +110,7 @@ export class WaferMapUpdateTracker extends UpdateTracker<typeof trackedItems> {
                     this.wafermap.update();
                     this.untrackAll();
                     this.updateQueued = false;
+                    this.wafermap.currentTask = undefined;
                 });
             })();
         }
