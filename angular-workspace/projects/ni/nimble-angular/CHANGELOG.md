@@ -1,8 +1,24 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Mon, 22 Apr 2024 15:13:13 GMT and should not be manually modified.
+This log was last generated on Wed, 24 Apr 2024 16:20:52 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 23.1.1
+
+Wed, 24 Apr 2024 16:20:52 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v27.0.0
+
+## 23.1.0
+
+Tue, 23 Apr 2024 15:58:10 GMT
+
+### Minor changes
+
+- Export `MappingKeyType` from `NimbleTableColumnIconModule` ([ni/nimble@5e5f7c3](https://github.com/ni/nimble/commit/5e5f7c36876af5a570dd86f04ee83025cf5dd657))
 
 ## 23.0.0
 
