@@ -2,32 +2,36 @@ const path = require('path');
 const glob = require('glob');
 const fs = require('fs');
 
-const destinationDirectory = path.resolve(__dirname, '../SprightBlazor/wwwroot');
-console.log(`Destination directory for blazor assets: "${destinationDirectory}"`);
+copyEverythingToDestination(process.argv[2], process.argv[3]);
 
-const sprightComponentsPath = resolvePackagePath('@ni/spright-components');
-const nimbleTokensPath = resolvePackagePath('@ni/nimble-tokens');
+function copyEverythingToDestination(componentPackageName, destinationProjectName) {
+    const destinationDirectory = path.resolve(__dirname, '..', destinationProjectName, 'wwwroot');
+    console.log(`Destination directory for blazor assets: "${destinationDirectory}"`);
 
-const componentsBasePath = path.resolve(sprightComponentsPath, 'dist');
-const componentsSrc = [
-    { src: 'all-components-bundle.min.*' }
-];
+    const componentsPath = resolvePackagePath(`@ni/${componentPackageName}`);
+    const nimbleTokensPath = resolvePackagePath('@ni/nimble-tokens');
 
-const tokensBasePath = path.resolve(nimbleTokensPath, 'dist/fonts');
-const tokensSrc = [
-    { src: '**' }
-];
+    const componentsBasePath = path.resolve(componentsPath, 'dist');
+    const componentsSrc = [
+        { src: 'all-components-bundle.min.*' }
+    ];
 
-prepareDestinationDirectory('spright-components');
-copyFiles(componentsSrc, componentsBasePath, 'spright-components');
-prepareDestinationDirectory('nimble-tokens');
-copyFiles(tokensSrc, tokensBasePath, 'nimble-tokens');
+    const tokensBasePath = path.resolve(nimbleTokensPath, 'dist/fonts');
+    const tokensSrc = [
+        { src: '**' }
+    ];
+
+    prepareDestinationDirectory(destinationDirectory, componentPackageName);
+    copyFiles(componentsSrc, componentsBasePath, destinationDirectory, componentPackageName);
+    prepareDestinationDirectory(destinationDirectory, 'nimble-tokens');
+    copyFiles(tokensSrc, tokensBasePath, destinationDirectory, 'nimble-tokens');
+}
 
 function resolvePackagePath(packageName) {
     return path.dirname(require.resolve(`${packageName}/package.json`));
 }
 
-function copyFiles(srcPatterns, srcPath, destRelativeDirectory) {
+function copyFiles(srcPatterns, srcPath, destinationDirectory, destRelativeDirectory) {
     for (const pattern of srcPatterns) {
         const sourcePaths = glob.sync(pattern.src, {
             // glob paths should only have forward slashes
@@ -51,7 +55,7 @@ function copyFiles(srcPatterns, srcPath, destRelativeDirectory) {
     }
 }
 
-function prepareDestinationDirectory(destRelativeDirectory) {
+function prepareDestinationDirectory(destinationDirectory, destRelativeDirectory) {
     const destDirectory = path.resolve(destinationDirectory, destRelativeDirectory);
     if (fs.existsSync(destDirectory)) {
         fs.rmSync(destDirectory, { recursive: true });

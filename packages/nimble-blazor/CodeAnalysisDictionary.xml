@@ -19,6 +19,7 @@
             <Word>nullable</Word>
             <Word>runtime</Word>
             <Word>rtl</Word>
+            <Word>spright</Word>
             <Word>tooltip</Word>
         </Recognized>
         <DiscreteExceptions>

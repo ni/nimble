@@ -1,0 +1,35 @@
+{
+  "name": "@ni/spright-blazor",
+  "version": "0.0.1",
+  "description": "Blazor components for Spright",
+  "scripts": {
+    "generate-hybrid": "rollup --bundleConfigAsCjs --config build/generate-hybrid/rollup.config.js",
+    "copy-resources": "node ../build/copyResources.js spright-components SprightBlazor",
+    "pack": "cross-env-shell dotnet pack -c Release -p:PackageVersion=$npm_package_version --output ../dist"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ni/nimble.git"
+  },
+  "author": {
+    "name": "National Instruments"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ni/nimble/issues"
+  },
+  "homepage": "https://github.com/ni/nimble#readme",
+  "files": [
+    "!*"
+  ],
+  "devDependencies": {
+    "@microsoft/fast-web-utilities": "^6.0.0",
+    "@ni/nimble-components": "*",
+    "@ni/nimble-tokens": "*",
+    "@rollup/plugin-node-resolve": "^15.0.1",
+    "cross-env": "^7.0.3",
+    "glob": "^10.3.10",
+    "rimraf": "^5.0.5",
+    "rollup": "^4.12.0"
+  }
+}

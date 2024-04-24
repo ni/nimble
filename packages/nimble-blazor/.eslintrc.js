@@ -9,7 +9,7 @@ module.exports = {
     overrides: [
         {
             files: [
-                'build/**/*.js'
+                '**/build/**/*.js'
             ],
             rules: {
                 // Build scripts will not be in published package and are allowed to use devDependencies

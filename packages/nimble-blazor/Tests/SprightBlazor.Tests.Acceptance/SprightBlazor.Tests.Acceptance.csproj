@@ -36,7 +36,6 @@
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.11.0" />
     <PackageReference Include="Microsoft.Playwright" Version="[1.42.0]" />
     <PackageReference Include="NI.CSharp.Analyzers" Version="[2.0.21]" />
-    <PackageReference Include="NimbleBlazor" Version="16.0.0" />
     <PackageReference Include="System.ComponentModel" Version="4.3.0" />
     <PackageReference Include="xunit" Version="2.7.0" />
     <PackageReference Include="xunit.extensibility.execution" Version="2.7.0" />
@@ -47,6 +46,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\NimbleBlazor\NimbleBlazor.csproj" />
     <ProjectReference Include="..\..\SprightBlazor\SprightBlazor.csproj" />
   </ItemGroup>
 
