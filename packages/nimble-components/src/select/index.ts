@@ -797,7 +797,7 @@ export class Select
         if (this.open && this.selectedIndex === -1) {
             return;
         }
-
+        this.toggleNewActiveOption(this.selectedIndex);
         super.setSelectedOptions();
     }
 
