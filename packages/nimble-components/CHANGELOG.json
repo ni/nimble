@@ -2,6 +2,81 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Wed, 24 Apr 2024 19:54:26 GMT",
+      "version": "27.0.0",
+      "tag": "@ni/nimble-components_v27.0.0",
+      "comments": {
+        "none": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "1b7dd15cfbe6cf52fa5f49ec41a65191585bae2e",
+            "comment": "Storybook documentation improvements"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 24 Apr 2024 16:20:52 GMT",
+      "version": "27.0.0",
+      "tag": "@ni/nimble-components_v27.0.0",
+      "comments": {
+        "major": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "d72a0faa81a649f70b72c9fcc8f2c4c201cfbe82",
+            "comment": "Remove fallback design tokens. Use primary font tokens instead; they include fallback fonts after Nimble's font."
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 22 Apr 2024 15:13:13 GMT",
+      "version": "26.0.0",
+      "tag": "@ni/nimble-components_v26.0.0",
+      "comments": {
+        "major": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "16b2c1b2820d14e88474e26b17eefd7b7cdf0e9f",
+            "comment": "Remove enum-text table column. The icon column supports text mappings and should be used instead."
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 19 Apr 2024 16:57:31 GMT",
+      "version": "25.1.1",
+      "tag": "@ni/nimble-components_v25.1.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "e3e523112cce7ebbc3fbf0fb3768f5740055891c",
+            "comment": "Don't allow use of the nullish coalescing operator in templates"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 18 Apr 2024 21:47:19 GMT",
+      "version": "25.1.0",
+      "tag": "@ni/nimble-components_v25.1.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "73a19a6a2d1ebe03eb4245ee2119529ce9066b03",
+            "comment": "Support text mappings in icon column"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 18 Apr 2024 17:41:50 GMT",
       "version": "25.0.0",
       "tag": "@ni/nimble-components_v25.0.0",

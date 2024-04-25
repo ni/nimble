@@ -1,8 +1,40 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Wed, 17 Apr 2024 20:57:25 GMT and should not be manually modified.
+This log was last generated on Wed, 24 Apr 2024 16:20:52 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 27.0.0
+
+Wed, 24 Apr 2024 16:20:52 GMT
+
+### Major changes
+
+- Remove fallback design tokens. Use primary font tokens instead; they include fallback fonts after Nimble's font. ([ni/nimble@d72a0fa](https://github.com/ni/nimble/commit/d72a0faa81a649f70b72c9fcc8f2c4c201cfbe82))
+
+## 26.0.0
+
+Mon, 22 Apr 2024 15:13:13 GMT
+
+### Major changes
+
+- Remove enum-text table column. The icon column supports text mappings and should be used instead. ([ni/nimble@16b2c1b](https://github.com/ni/nimble/commit/16b2c1b2820d14e88474e26b17eefd7b7cdf0e9f))
+
+## 25.1.1
+
+Fri, 19 Apr 2024 16:57:31 GMT
+
+### Patches
+
+- Don't allow use of the nullish coalescing operator in templates ([ni/nimble@e3e5231](https://github.com/ni/nimble/commit/e3e523112cce7ebbc3fbf0fb3768f5740055891c))
+
+## 25.1.0
+
+Thu, 18 Apr 2024 21:47:19 GMT
+
+### Minor changes
+
+- Support text mappings in icon column ([ni/nimble@73a19a6](https://github.com/ni/nimble/commit/73a19a6a2d1ebe03eb4245ee2119529ce9066b03))
 
 ## 25.0.0
 

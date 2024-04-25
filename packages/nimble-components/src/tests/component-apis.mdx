@@ -1,0 +1,91 @@
+import { Meta } from '@storybook/addon-docs';
+
+<Meta title="Component APIs" />
+
+# Component APIs
+
+This page describes common patterns for programmatically configuring Nimble components.
+
+## Elements
+
+Nimble components are [web component custom elements](https://developer.mozilla.org/en-US/docs/Web/API/Web_components).
+Applications can use custom elements directly or use framework-specific APIs for [Angular](https://angular.io/)
+or [Blazor](https://dotnet.microsoft.com/en-us/apps/aspnet/web-apps/blazor).
+
+Components follow a standard naming convention:
+
+| Name                   | Purpose                                                   | Example                 |
+| ---------------------- | --------------------------------------------------------- | ----------------------- |
+| Custom element name    | Add the component to HTML                                 | `nimble-button`         |
+| JavaScript class name  | Interact with the component from JavaScript or TypeScript | `NimbleButton`          |
+| Angular module name    | Import the component in Angular                           | `NimbleButtonModule`    |
+| Angular directive name | Interact with the component from Angular                  | `NimbleButtonDirective` |
+| Blazor component name  | Use the component in Blazor template or C# class          | `NimbleButton`          |
+
+## Slots
+
+Component content can be configured by inserting it as a child of the component via
+[slots](https://developer.mozilla.org/en-US/docs/Web/API/Element/slot).
+
+Content can be inserted in the default slot:
+
+```html
+<nimble-button>Click me</nimble-button>
+```
+
+Or in a named slot:
+
+```html
+<nimble-button>
+    <nimble-icon-key slot="start"></nimble-icon-key>
+    Click me
+</nimble-button>
+```
+
+## Attributes and Properties
+
+Configure components from HTML using attributes or from code using properties. Attributes and properties typically
+correspond to each other one-to-one; Nimble documentation refers to the attribute name.
+
+### Attributes
+
+Attributes have `kebab-case` names in HTML and Angular templates.
+
+```html
+<nimble-button appearance="outline">...</nimble-button>
+```
+
+### Boolean attributes
+
+Boolean attributes don't need a value; they are `true` when present and `false` when absent.
+
+```html
+<nimble-button content-hidden>...</nimble-button>
+```
+
+### Properties
+
+Properties have `camelCase` names in JavaScript, TypeScript, and Angular.
+
+```ts
+const button = document.querySelector('nimble-button');
+button.appearance = ButtonAppearance.outline;
+```
+
+### Blazor
+
+In Blazor, properties and attributes have `PascalCase` names. For values that are enumerations of strings, the type is a C# enum.
+
+```
+<NimbleButton Appearance="ButtonAppearance.Outline">...</NimbleButton>
+```
+
+## Methods
+
+Some components expose methods for providing complex data or invoking operations. Methods are only available in code, not in HTML.
+
+## Events
+
+Components raise events to notify the application of changes or user interactions.
+Prefer to use documented Nimble events when available rather than native DOM events as they cover more user interactions
+(for example, `change` will be raised for both click and keyboard interactions).
