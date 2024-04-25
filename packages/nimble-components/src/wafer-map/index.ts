@@ -114,8 +114,8 @@ export class WaferMap<
 
     @observable
     public renderer: RenderingModule = new RenderingModule(
-            this.asRequiredFieldsWaferMap
-        );
+        this.asRequiredFieldsWaferMap
+    );
 
     /**
      * @internal
@@ -249,10 +249,7 @@ export class WaferMap<
     public update(): void {
         this.validate();
         if (this.isExperimentalUpdate()) {
-            // eslint-disable-next-line @typescript-eslint/no-confusing-void-expression
-            void (() => {
-                this.currentTask = this.experimentalUpdate();
-            })();
+            this.currentTask = this.experimentalUpdate();
             return;
         }
         if (this.waferMapUpdateTracker.requiresEventsUpdate) {
