@@ -372,6 +372,20 @@ describe('Select', () => {
         await disconnect();
     });
 
+    it('while navigating dropdown, ariaActiveDescendant is set to active option', async () => {
+        const { element, connect, disconnect } = await setup();
+        const pageObject = new SelectPageObject(element);
+        await connect();
+        await waitForUpdatesAsync();
+        pageObject.clickSelect();
+        pageObject.pressArrowDownKey();
+        expect(element.ariaActiveDescendant).toBe(
+            pageObject.getActiveOption()!.id
+        );
+
+        await disconnect();
+    });
+
     it('option added directly to DOM synchronously registers with Select', async () => {
         const { element, connect, disconnect } = await setup();
         await connect();

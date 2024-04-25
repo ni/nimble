@@ -797,7 +797,6 @@ export class Select
         if (this.open && this.selectedIndex === -1) {
             return;
         }
-        this.toggleNewActiveOption(this.selectedIndex);
         super.setSelectedOptions();
     }
 
@@ -941,10 +940,12 @@ export class Select
 
             if (this.open) {
                 this.openActiveIndex = newActiveIndex;
+                this.focusAndScrollActiveOptionIntoView();
             } else {
                 this.selectedIndex = newActiveIndex;
             }
-            this.focusAndScrollActiveOptionIntoView();
+
+            this.ariaActiveDescendant = this.options[newActiveIndex]?.id ?? '';
         }
     }
 
@@ -955,10 +956,7 @@ export class Select
         // different frames. Since this function is typically called from the `openChanged`
         // observer, `DOM.queueUpdate` causes the calls to be grouped into the same frame.
         // To prevent this, `requestAnimationFrame` is used instead of `DOM.queueUpdate`.
-        if (
-            this.contains(document.activeElement)
-            && optionToFocus !== undefined
-        ) {
+        if (optionToFocus !== undefined && this.contains(optionToFocus)) {
             optionToFocus.focus();
             requestAnimationFrame(() => {
                 optionToFocus.scrollIntoView({ block: 'nearest' });
@@ -1093,6 +1091,7 @@ export class Select
         this.indexWhenOpened = this.selectedIndex;
         this.openActiveIndex = this.selectedIndex;
         this.committedSelectedOption = this.options[this.selectedIndex];
+        this.toggleNewActiveOption(this.openActiveIndex ?? this.selectedIndex);
         this.ariaControls = this.listboxId;
         this.ariaExpanded = 'true';
 
