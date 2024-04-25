@@ -1,7 +1,7 @@
 import { Spec, SpecOverride, Suite, SuiteOverride } from './types.js';
 
 /**
- * Used to create a parameterized test using an object of test names and arbitrary test values.
+ * Used to create a parameterized test or suite using an object of test names and arbitrary test values.
  * In the following example:
  *  - the test named `catsAndDogs` is focused for debugging
  *  - the test named `frogs` is configured to always be disabled
