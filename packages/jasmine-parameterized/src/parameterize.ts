@@ -17,7 +17,7 @@ import { Spec, SpecOverride, Suite, SuiteOverride } from './types.js';
  *         spec(`of type ${name} exist`, () => {
  *             expect(value).toBeDefined();
  *         });
- *     }, {
+ *     }, it, {
  *         catsAndDogs: fit,
  *         frogs: xit
  *     });
