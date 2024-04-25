@@ -44,18 +44,8 @@ export class ZoomHandler {
             source === this.wafermap
             && (propertyName === 'canvasWidth' || propertyName === 'canvasHeight')
         ) {
-            this.observerWaferMap();
             this.createZoomBehavior();
         }
-    }
-
-    private observerWaferMap(): void {
-        if (this.wafermapNotifier) {
-            this.wafermapNotifier.unsubscribe(this, 'canvasWidth');
-            this.wafermapNotifier.unsubscribe(this, 'canvasHeight');
-        }
-        this.wafermapNotifier.subscribe(this, 'canvasWidth');
-        this.wafermapNotifier.subscribe(this, 'canvasHeight');
     }
 
     private createZoomBehavior(): void {
