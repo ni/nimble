@@ -717,19 +717,18 @@ export class Select
         // don't call super.selectNextOption as that relies on side-effecty
         // behavior to not select disabled option (which no longer works)
         const startIndex = this.openActiveIndex ?? this.selectedIndex;
-        const newActiveOptionIndex = (): number => {
-            for (let i = startIndex + 1; i < this.options.length; i++) {
-                const listOption = this.options[i]!;
-                if (
-                    isNimbleListOption(listOption)
-                    && isOptionSelectable(listOption)
-                ) {
-                    return i;
-                }
+        let newActiveOptionIndex = -1;
+        for (let i = startIndex + 1; i < this.options.length; i++) {
+            const listOption = this.options[i]!;
+            if (
+                isNimbleListOption(listOption)
+                && isOptionSelectable(listOption)
+            ) {
+                newActiveOptionIndex = i;
+                break;
             }
-            return -1;
-        };
-        this.toggleNewActiveOption(newActiveOptionIndex());
+        }
+        this.toggleNewActiveOption(newActiveOptionIndex);
     }
 
     /**
@@ -739,19 +738,18 @@ export class Select
         // don't call super.selectPreviousOption as that relies on side-effecty
         // behavior to not select disabled option (which no longer works)
         const startIndex = this.openActiveIndex ?? this.selectedIndex;
-        const newActiveOptionIndex = (): number => {
-            for (let i = startIndex - 1; i >= 0; i--) {
-                const listOption = this.options[i]!;
-                if (
-                    isNimbleListOption(listOption)
-                    && isOptionSelectable(listOption)
-                ) {
-                    return i;
-                }
+        let newActiveOptionIndex = -1;
+        for (let i = startIndex - 1; i >= 0; i--) {
+            const listOption = this.options[i]!;
+            if (
+                isNimbleListOption(listOption)
+                && isOptionSelectable(listOption)
+            ) {
+                newActiveOptionIndex = i;
+                break;
             }
-            return -1;
-        };
-        this.toggleNewActiveOption(newActiveOptionIndex());
+        }
+        this.toggleNewActiveOption(newActiveOptionIndex);
     }
 
     /**
