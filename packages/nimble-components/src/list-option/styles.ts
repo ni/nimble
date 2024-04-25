@@ -22,13 +22,12 @@ export const styles = css`
         height: ${controlHeight};
     }
 
-    :host([active-option]) {
+    :host([aria-selected='true']) {
         box-shadow: none;
         outline: none;
         background-color: ${fillSelectedColor};
     }
-
-    :host([active-option]:hover) {
+    :host([aria-selected='true']:hover) {
         background-color: ${fillHoverSelectedColor};
     }
 
