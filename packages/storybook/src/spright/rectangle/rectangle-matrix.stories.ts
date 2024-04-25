@@ -17,7 +17,7 @@ import {
 } from '../../utilities/states';
 
 const metadata: Meta = {
-    title: 'Tests (Spright)/Rectangle',
+    title: 'Tests Spright/Rectangle',
     parameters: {
         ...sharedMatrixParameters()
     }

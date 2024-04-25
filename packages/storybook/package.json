@@ -36,6 +36,8 @@
     "@storybook/theming": "^8.0.4",
     "circular-dependency-plugin": "^5.2.0",
     "js-beautify": "^1.15.1",
+    "prettier-eslint": "^16.3.0",
+    "prettier-eslint-cli": "^8.0.1",
     "remark-gfm": "^4.0.0",
     "storybook": "^8.0.4",
     "storybook-addon-pseudo-states": "^3.0.0",
