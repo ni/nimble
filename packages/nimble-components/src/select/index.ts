@@ -655,6 +655,9 @@ export class Select
         // implementation handles skipping non-selected disabled options for the initial
         // selected value.
         this.setSelectedOptions();
+        if (this.open) {
+            this.toggleNewActiveOption(this.selectedIndex);
+        }
         this.updateValue();
     }
 
