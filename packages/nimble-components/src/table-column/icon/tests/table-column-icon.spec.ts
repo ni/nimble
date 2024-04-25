@@ -19,28 +19,25 @@ import { spinnerTag } from '../../../spinner';
 import { themeProviderTag } from '../../../theme-provider';
 import { TableColumnIconPageObject } from '../testing/table-column-icon.pageobject';
 import { mappingUserTag } from '../../../mapping/user';
+import { mappingEmptyTag } from '../../../mapping/empty';
 
 interface SimpleTableRecord extends TableRecord {
     field1?: MappingKey | null;
     field2?: MappingKey | null;
 }
 
-interface BasicIconMapping {
+interface BaseMapping {
     key?: MappingKey;
     text?: string;
+}
+
+interface IconMapping extends BaseMapping {
     icon?: string;
     textHidden?: boolean;
 }
 
-interface BasicSpinnerMapping {
-    key?: MappingKey;
-    text?: string;
+interface SpinnerMapping extends BaseMapping {
     textHidden?: boolean;
-}
-
-interface BasicTextMapping {
-    key?: MappingKey;
-    text?: string;
 }
 
 class Model {
@@ -61,9 +58,10 @@ describe('TableColumnIcon', () => {
     // prettier-ignore
     async function setup(options: {
         keyType: MappingKeyType,
-        iconMappings?: BasicIconMapping[],
-        spinnerMappings?: BasicSpinnerMapping[],
-        textMappings?: BasicTextMapping[]
+        iconMappings?: IconMapping[],
+        spinnerMappings?: SpinnerMapping[],
+        textMappings?: BaseMapping[],
+        emptyMappings?: BaseMapping[]
     }): Promise<ModelFixture<Table<SimpleTableRecord>>> {
         const source = new Model();
         const result = await fixture<Table<SimpleTableRecord>>(html<Model>`
@@ -71,7 +69,7 @@ describe('TableColumnIcon', () => {
                 <${tableTag} ${ref('table')} style="width: 700px">
                     <${tableColumnIconTag} ${ref('col1')} field-name="field1" key-type="${options.keyType}">
                         Column 1
-                        ${repeat(() => options.iconMappings ?? [], html<BasicIconMapping>`
+                        ${repeat(() => options.iconMappings ?? [], html<IconMapping>`
                             <${mappingIconTag}
                                 key="${x => x.key}"
                                 text="${x => x.text}"
@@ -79,18 +77,24 @@ describe('TableColumnIcon', () => {
                                 ?text-hidden="${x => x.textHidden}">
                             </${mappingIconTag}>
                         `)}
-                        ${repeat(() => options.spinnerMappings ?? [], html<BasicSpinnerMapping>`
+                        ${repeat(() => options.spinnerMappings ?? [], html<SpinnerMapping>`
                         <${mappingSpinnerTag}
                             key="${x => x.key}"
                             text="${x => x.text}"
                             ?text-hidden="${x => x.textHidden}">
                         </${mappingSpinnerTag}>
                         `)}
-                        ${repeat(() => options.textMappings ?? [], html<BasicTextMapping>`
+                        ${repeat(() => options.textMappings ?? [], html<BaseMapping>`
                         <${mappingTextTag}
                             key="${x => x.key}"
                             text="${x => x.text}"
                         </${mappingTextTag}>
+                        `)}
+                        ${repeat(() => options.emptyMappings ?? [], html<BaseMapping>`
+                        <${mappingEmptyTag}
+                            key="${x => x.key}"
+                            text="${x => x.text}"
+                        </${mappingEmptyTag}>
                         `)}
                     </${tableColumnIconTag}>
                 </${tableTag}>
@@ -532,7 +536,7 @@ describe('TableColumnIcon', () => {
             expect(model.col1.validity.invalidIconName).toBeTrue();
         });
 
-        it('is invalid with missing spinner text value', async () => {
+        it('is invalid with missing text in spinner mapping', async () => {
             ({ connect, disconnect, model } = await setup({
                 keyType: MappingKeyType.string,
                 spinnerMappings: [{ key: 'a' }]
@@ -543,7 +547,7 @@ describe('TableColumnIcon', () => {
             expect(model.col1.validity.missingTextValue).toBeTrue();
         });
 
-        it('is invalid with missing spinner key value', async () => {
+        it('is invalid with missing key in spinner mapping', async () => {
             ({ connect, disconnect, model } = await setup({
                 keyType: MappingKeyType.string,
                 spinnerMappings: [{ text: 'alpha' }]
@@ -554,7 +558,7 @@ describe('TableColumnIcon', () => {
             expect(model.col1.validity.missingKeyValue).toBeTrue();
         });
 
-        it('is invalid with missing spinner text value', async () => {
+        it('is invalid with missing text in text mapping', async () => {
             ({ connect, disconnect, model } = await setup({
                 keyType: MappingKeyType.string,
                 textMappings: [{ key: 'a' }]
@@ -565,10 +569,32 @@ describe('TableColumnIcon', () => {
             expect(model.col1.validity.missingTextValue).toBeTrue();
         });
 
-        it('is invalid with missing text key value', async () => {
+        it('is invalid with missing key in text mapping', async () => {
             ({ connect, disconnect, model } = await setup({
                 keyType: MappingKeyType.string,
                 textMappings: [{ text: 'alpha' }]
+            }));
+            await connect();
+            await waitForUpdatesAsync();
+            expect(model.col1.checkValidity()).toBeFalse();
+            expect(model.col1.validity.missingKeyValue).toBeTrue();
+        });
+
+        it('is invalid with missing text in empty mapping', async () => {
+            ({ connect, disconnect, model } = await setup({
+                keyType: MappingKeyType.string,
+                emptyMappings: [{ key: 'a' }]
+            }));
+            await connect();
+            await waitForUpdatesAsync();
+            expect(model.col1.checkValidity()).toBeFalse();
+            expect(model.col1.validity.missingTextValue).toBeTrue();
+        });
+
+        it('is invalid with missing key in empty mapping', async () => {
+            ({ connect, disconnect, model } = await setup({
+                keyType: MappingKeyType.string,
+                emptyMappings: [{ text: 'alpha' }]
             }));
             await connect();
             await waitForUpdatesAsync();
@@ -742,12 +768,17 @@ describe('TableColumnIcon', () => {
             {
                 name: 'text mapping',
                 type: 'text'
+            },
+            {
+                name: 'empty mapping',
+                type: 'empty'
             }
         ] as const;
 
-        for (const mappingType of mappingTypes) {
+        const mappingsWithTextInCell = mappingTypes.filter(x => x.type !== 'empty');
+        for (const mappingType of mappingsWithTextInCell) {
             // eslint-disable-next-line @typescript-eslint/no-loop-func
-            describe(`in ${mappingType.name}`, () => {
+            describe(`in cell with ${mappingType.name}`, () => {
                 const longText = 'a very long value that should get ellipsized due to not fitting within the default cell width';
                 const shortText = 'short value';
                 const longTextRowIndex = 0;
@@ -775,6 +806,10 @@ describe('TableColumnIcon', () => {
                         textMappings: [
                             { key: 'text-long', text: longText },
                             { key: 'text-short', text: shortText }
+                        ],
+                        emptyMappings: [
+                            { key: 'empty-long', text: longText },
+                            { key: 'empty-short', text: shortText }
                         ]
                     }));
                     pageObject = new TablePageObject<SimpleTableRecord>(
@@ -793,7 +828,7 @@ describe('TableColumnIcon', () => {
                     await waitForUpdatesAsync();
                 });
 
-                it('sets title when cell text is ellipsized', async () => {
+                it('sets title when text is ellipsized', async () => {
                     columnPageObject.dispatchEventToCellText(
                         longTextRowIndex,
                         0,
@@ -808,7 +843,7 @@ describe('TableColumnIcon', () => {
                     ).toBe(longText);
                 });
 
-                it('does not set title when cell text is fully visible', async () => {
+                it('does not set title when text is fully visible', async () => {
                     columnPageObject.dispatchEventToCellText(
                         shortTextRowIndex,
                         0,
@@ -843,8 +878,62 @@ describe('TableColumnIcon', () => {
                         )
                     ).toBe('');
                 });
+            });
+        }
 
-                it('sets title when group header text is ellipsized', async () => {
+        for (const mappingType of mappingTypes) {
+            // eslint-disable-next-line @typescript-eslint/no-loop-func
+            describe(`in group row with ${mappingType.name}`, () => {
+                const longText = 'a very long value that should get ellipsized due to not fitting within the default cell width';
+                const shortText = 'short value';
+                const longTextRowIndex = 0;
+                const shortTextRowIndex = 1;
+
+                beforeEach(async () => {
+                    ({ connect, disconnect, model } = await setup({
+                        keyType: MappingKeyType.string,
+                        iconMappings: [
+                            {
+                                key: 'icon-long',
+                                text: longText,
+                                icon: iconXmarkTag
+                            },
+                            {
+                                key: 'icon-short',
+                                text: shortText,
+                                icon: iconXmarkTag
+                            }
+                        ],
+                        spinnerMappings: [
+                            { key: 'spinner-long', text: longText },
+                            { key: 'spinner-short', text: shortText }
+                        ],
+                        textMappings: [
+                            { key: 'text-long', text: longText },
+                            { key: 'text-short', text: shortText }
+                        ],
+                        emptyMappings: [
+                            { key: 'empty-long', text: longText },
+                            { key: 'empty-short', text: shortText }
+                        ]
+                    }));
+                    pageObject = new TablePageObject<SimpleTableRecord>(
+                        model.table
+                    );
+                    columnPageObject = new TableColumnIconPageObject(
+                        pageObject
+                    );
+                    await model.table.setData([
+                        { field1: `${mappingType.type}-long` },
+                        { field1: `${mappingType.type}-short` }
+                    ]);
+                    await connect();
+                    model.table.style.width = '200px';
+                    model.col1.groupIndex = 0;
+                    await waitForUpdatesAsync();
+                });
+
+                it('sets title when text is ellipsized', async () => {
                     columnPageObject.dispatchEventToGroupHeaderText(
                         longTextRowIndex,
                         new MouseEvent('mouseover')
@@ -857,7 +946,7 @@ describe('TableColumnIcon', () => {
                     ).toBe(longText);
                 });
 
-                it('does not set title when group header text is fully visible', async () => {
+                it('does not set title when text is fully visible', async () => {
                     columnPageObject.dispatchEventToGroupHeaderText(
                         shortTextRowIndex,
                         new MouseEvent('mouseover')

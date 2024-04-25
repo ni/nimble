@@ -12,6 +12,7 @@ import { mappingSpinnerTag } from '../../../mapping/spinner';
 import { isChromatic } from '../../../utilities/tests/isChromatic';
 import { iconXmarkTag } from '../../../icons/xmark';
 import { mappingTextTag } from '../../../mapping/text';
+import { mappingEmptyTag } from '../../../mapping/empty';
 
 const data = [
     {
@@ -41,6 +42,10 @@ const data = [
     {
         id: '6',
         code: 6
+    },
+    {
+        id: '7',
+        code: 7
     }
 ] as const;
 
@@ -55,7 +60,7 @@ export default metadata;
 
 // prettier-ignore
 const component = (): ViewTemplate => html`
-    <${tableTag} id-field-name="id" style="height: 520px; ${isChromatic() ? '--ni-private-spinner-animation-play-state:paused' : ''}">
+    <${tableTag} id-field-name="id" style="height: 600px; ${isChromatic() ? '--ni-private-spinner-animation-play-state:paused' : ''}">
         <${tableColumnIconTag}
             field-name="code"
             key-type="number"
@@ -68,7 +73,8 @@ const component = (): ViewTemplate => html`
             <${mappingSpinnerTag} key="3" text="Spinner, text-hidden" text-hidden></${mappingSpinnerTag}>
             <${mappingIconTag} key="4" text="Undefined icon, text-hidden" text-hidden></${mappingIconTag}>
             <${mappingIconTag} key="5" text="Undefined icon"></${mappingIconTag}>
-            <${mappingTextTag} key="6" text="Text"</${mappingTextTag}>
+            <${mappingTextTag} key="6" text="Text"></${mappingTextTag}>
+            <${mappingEmptyTag} key="7" text="Empty mapping"></${mappingEmptyTag}>
         </${tableColumnIconTag}>
         <${tableColumnIconTag}
             field-name="code"

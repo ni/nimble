@@ -15,6 +15,7 @@ import {
     SpinnerView
 } from '../../enum-base/models/mapping-spinner-config';
 import { MappingTextConfig } from '../../enum-base/models/mapping-text-config';
+import { MappingEmptyConfig } from '../../enum-base/models/mapping-empty-config';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -57,6 +58,8 @@ export class TableColumnIconGroupHeaderView
             this.text = mappingConfig.text ?? '';
             this.visualizationTemplate = mappingConfig.spinnerTemplate;
         } else if (mappingConfig instanceof MappingTextConfig) {
+            this.text = mappingConfig.text ?? '';
+        } else if (mappingConfig instanceof MappingEmptyConfig) {
             this.text = mappingConfig.text ?? '';
         }
     }

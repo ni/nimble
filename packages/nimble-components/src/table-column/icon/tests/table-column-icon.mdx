@@ -1,6 +1,7 @@
 import { Canvas, Meta, Controls, Title, Description } from '@storybook/blocks';
 import { columnOperationBehavior } from '../../base/tests/table-column-stories-utils';
 import * as tableColumnIconStories from './table-column-icon.stories';
+import * as emptyMappingStories from '../../../mapping/empty/tests/mapping-empty.stories';
 import * as iconMappingStories from '../../../mapping/icon/tests/mapping-icon.stories';
 import * as spinnerMappingStories from '../../../mapping/spinner/tests/mapping-spinner.stories';
 import * as textMappingStories from '../../../mapping/text/tests/mapping-text.stories';
@@ -45,3 +46,8 @@ When setting a child mapping element's `Key` value to a string, you must wrap it
 
 <Description of={textMappingStories} />
 <Controls of={textMappingStories.textMapping} />
+
+## Empty Mapping
+
+<Description of={emptyMappingStories} />
+<Controls of={emptyMappingStories.emptyMapping} />
