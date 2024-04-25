@@ -206,7 +206,9 @@ export class Select
     public override connectedCallback(): void {
         super.connectedCallback();
         this.forcedPosition = !!this.positionAttribute;
-        this.initializeOpenState();
+        if (this.open) {
+            this.initializeOpenState();
+        }
     }
 
     public override get value(): string {

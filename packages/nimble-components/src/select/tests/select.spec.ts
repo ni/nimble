@@ -1020,8 +1020,7 @@ describe('Select', () => {
 
             expect(pageObject.getDisplayText()).toBe('Two');
             expect(element.value).toBe('two');
-            pageObject.clickSelect();
-            await waitForUpdatesAsync();
+            await clickAndWaitForOpen(element);
             expect(pageObject.isOptionVisible(0)).toBeTrue();
             expect(pageObject.isOptionVisible(1)).toBeFalse();
         });
