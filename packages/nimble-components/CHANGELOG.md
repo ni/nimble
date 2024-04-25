@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Mon, 22 Apr 2024 15:13:13 GMT and should not be manually modified.
+This log was last generated on Wed, 24 Apr 2024 16:20:52 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 27.0.0
+
+Wed, 24 Apr 2024 16:20:52 GMT
+
+### Major changes
+
+- Remove fallback design tokens. Use primary font tokens instead; they include fallback fonts after Nimble's font. ([ni/nimble@d72a0fa](https://github.com/ni/nimble/commit/d72a0faa81a649f70b72c9fcc8f2c4c201cfbe82))
 
 ## 26.0.0
 
