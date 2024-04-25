@@ -3,9 +3,11 @@
   "version": "0.0.1",
   "description": "Blazor components for Spright",
   "scripts": {
-    "generate-hybrid": "rollup --bundleConfigAsCjs --config build/generate-hybrid/rollup.config.js",
-    "copy-resources": "node ../build/copyResources.js spright-components SprightBlazor",
-    "pack": "cross-env-shell dotnet pack -c Release -p:PackageVersion=$npm_package_version --output ../dist"
+    "pack": "cross-env-shell dotnet pack -c Release -p:PackageVersion=$npm_package_version --output ../dist",
+    "invoke-publish": "npm run invoke-publish:clean-nuget && npm run pack && npm run invoke-publish:nuget && npm run invoke-publish:npm -- ",
+    "invoke-publish:clean-nuget": "rimraf --glob \"dist/SprightBlazor.*.nupkg\"",
+    "invoke-publish:nuget": "cross-env-shell dotnet nuget push \"dist/SprightBlazor.*.nupkg\" -k $NUGET_SECRET_TOKEN -s \"https://api.nuget.org/v3/index.json\"",
+    "invoke-publish:npm": "echo \"noop command to swallow npm args\""
   },
   "repository": {
     "type": "git",
@@ -21,11 +23,5 @@
   "homepage": "https://github.com/ni/nimble#readme",
   "files": [
     "!*"
-  ],
-  "devDependencies": {
-    "@ni/spright-components": "*",
-    "@rollup/plugin-node-resolve": "^15.0.1",
-    "cross-env": "^7.0.3",
-    "rollup": "^4.12.0"
-  }
+  ]
 }

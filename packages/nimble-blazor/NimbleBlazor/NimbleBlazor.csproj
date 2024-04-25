@@ -55,11 +55,7 @@
     <None Include="packages.lock.json" />
   </ItemGroup>
 
-  <Target Name="GenerateHybrid" BeforeTargets="BeforeBuild">
-    <Exec Command="npm run generate-hybrid" />
-  </Target>
-
   <Target Name="CopyNimbleResources" BeforeTargets="BeforeBuild">
-    <Exec Command="npm run copy-resources" />
+    <Exec Command="cd ../ &amp;&amp; npm run copy-resources:nimble" />
   </Target>
 </Project>

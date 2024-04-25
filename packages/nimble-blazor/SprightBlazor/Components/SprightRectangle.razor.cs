@@ -2,7 +2,7 @@
 
 namespace SprightBlazor;
 
-public partial class SprightRectangle
+public partial class SprightRectangle : ComponentBase
 {
     /// <summary>
     /// The child content of the element.
