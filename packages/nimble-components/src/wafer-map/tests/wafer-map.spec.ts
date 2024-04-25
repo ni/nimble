@@ -117,11 +117,16 @@ describe('WaferMap', () => {
     });
 
     describe('worker renderer draw flow', () => {
-        let setupAndDrawWaferSpy: jasmine.Spy;
+        let setupWaferSpy: jasmine.Spy;
+        let drawWaferSpy: jasmine.Spy;
         beforeEach(() => {
-            setupAndDrawWaferSpy = spyOn(
+            setupWaferSpy = spyOn(
                 element.workerRenderer,
-                'setupAndDrawWafer'
+                'setupWafer'
+            );
+            drawWaferSpy = spyOn(
+                element.workerRenderer,
+                'setupWafer'
             );
         });
 
@@ -133,14 +138,16 @@ describe('WaferMap', () => {
             });
             processUpdates();
             expect(element.validity.invalidDiesTableSchema).toBeFalse();
-            expect(setupAndDrawWaferSpy).toHaveBeenCalledTimes(1);
+            expect(setupWaferSpy).toHaveBeenCalledTimes(1);
+            expect(drawWaferSpy).toHaveBeenCalledTimes(1);
         });
 
         it('will not call setupAndDrawWafer after unsupported diesTable change', () => {
             element.diesTable = new Table();
             processUpdates();
             expect(element.validity.invalidDiesTableSchema).toBeTrue();
-            expect(setupAndDrawWaferSpy).toHaveBeenCalledTimes(0);
+            expect(setupWaferSpy).toHaveBeenCalledTimes(0);
+            expect(drawWaferSpy).toHaveBeenCalledTimes(0);
         });
     });
 
