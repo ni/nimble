@@ -223,7 +223,8 @@ export class WaferMap<
                 || this.waferMapUpdateTracker.requiresScalesUpdate
             ) {
                 this.experimentalDataManager.updateComputations();
-                await this.workerRenderer.setupAndDrawWafer();
+                await this.workerRenderer.setupWafer();
+                await this.workerRenderer.drawWafer();
             } else if (
                 this.waferMapUpdateTracker.requiresLabelsFontSizeUpdate
                 || this.waferMapUpdateTracker.requiresDiesRenderInfoUpdate
