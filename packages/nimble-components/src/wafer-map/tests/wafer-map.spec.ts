@@ -121,10 +121,10 @@ describe('WaferMap', () => {
         let drawWaferSpy: jasmine.Spy;
         beforeEach(() => {
             setupWaferSpy = spyOn(element.workerRenderer, 'setupWafer');
-            drawWaferSpy = spyOn(element.workerRenderer, 'setupWafer');
+            drawWaferSpy = spyOn(element.workerRenderer, 'drawWafer');
         });
 
-        it('will call setupAndDrawWafer after supported diesTable change', () => {
+        it('will call setupWafer and drawWafer after supported diesTable change', () => {
             element.diesTable = tableFromArrays({
                 colIndex: Int32Array.from([]),
                 rowIndex: Int32Array.from([]),
@@ -136,7 +136,7 @@ describe('WaferMap', () => {
             expect(drawWaferSpy).toHaveBeenCalledTimes(1);
         });
 
-        it('will not call setupAndDrawWafer after unsupported diesTable change', () => {
+        it('will not call setupWafer and drawWafer after unsupported diesTable change', () => {
             element.diesTable = new Table();
             processUpdates();
             expect(element.validity.invalidDiesTableSchema).toBeTrue();
