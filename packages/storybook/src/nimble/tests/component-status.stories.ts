@@ -7,7 +7,7 @@ import { mappingIconTag } from '@ni/nimble-components/dist/esm/mapping/icon';
 import { iconCheckTag } from '@ni/nimble-components/dist/esm/icons/check';
 import { iconTriangleTag } from '@ni/nimble-components/dist/esm/icons/triangle';
 import { iconXmarkTag } from '@ni/nimble-components/dist/esm/icons/xmark';
-import { ComponentFrameworkStatus } from '@ni/nimble-components/dist/esm/tests/types';
+import { ComponentFrameworkStatus } from './types';
 import {
     createUserSelectedThemeStory,
     fastParameters

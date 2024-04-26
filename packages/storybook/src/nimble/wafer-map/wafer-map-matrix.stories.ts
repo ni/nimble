@@ -2,6 +2,7 @@ import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate } from '@microsoft/fast-element';
 import { waferMapTag } from '@ni/nimble-components/dist/esm/wafer-map';
 import { WaferMapOrientation, WaferMapOriginLocation } from '@ni/nimble-components/dist/esm/wafer-map/types';
+import { wafermapDiesTableSets } from './sets';
 import {
     createMatrix,
     sharedMatrixParameters,
@@ -179,6 +180,11 @@ const componentWaferWithGridDimensions = ([
 >
 </${waferMapTag}>`;
 
+const componentWaferMapWorkerCanvas = (): ViewTemplate => html`<${waferMapTag}
+    :diesTable="${() => wafermapDiesTableSets[0]}"
+>
+</${waferMapTag}>`;
+
 const componentWaferWithHighlightedTags = (
     tags: HighlightedTagState
 ): ViewTemplate => html`<${waferMapTag}
@@ -217,4 +223,8 @@ export const waferMapGridDimensionsTest: StoryFn = createStory(
 
 export const waferMapHighlightedTest: StoryFn = createStory(
     createMatrix(componentWaferWithHighlightedTags, [highlightedTagStates])
+);
+
+export const waferMapWorkerCanvas: StoryFn = createStory(
+    createMatrix(componentWaferMapWorkerCanvas)
 );

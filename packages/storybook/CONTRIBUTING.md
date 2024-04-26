@@ -2,15 +2,15 @@
 
 ## Getting Started
 
-From the `nimble` directory:
+From the Nimble repo root directory:
 
 1. Run `npm install`
 2. Run `npm run build`
-3. To view the component documentation in Storybook: `npm run storybook -w @ni/nimble-components`
+3. To view the component documentation in Storybook: `npm run start -w @ni-private/storybook`
 
 ## Documentation Workflow
 
-Add `component-name.mdx` file in component `test` directory with the following template:
+Add `component-name.mdx` file in component directory with the following template:
 
 ```jsx
 import { Canvas, Meta, Controls, Title } from '@storybook/blocks';

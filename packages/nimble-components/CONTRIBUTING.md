@@ -18,13 +18,11 @@ The library is built on the open source [FAST Design System library](https://fas
 
 ## Getting started
 
-From the `nimble` directory:
-
-1. Run `npm install`
-2. Run `npm run build`
+1. Run `npm install` from the repo root directory
+2. Run `npm run build` from the `nimble` directory
 3. Run the different Nimble Components test configurations:
 
-    - To view the components and manually test behaviors in Storybook: `npm run storybook -w @ni/nimble-components`
+    - To view the components and manually test behaviors in Storybook: `npm run start` from the `storybook` package directory
 
         **Note**: You will need to refresh your browser window to see style changes made in source.
 
@@ -41,9 +39,11 @@ Before building a new component, 3 specification documents need to be created:
 ## Development workflow
 
 1. When creating new components, create the folder structure and decide how to implement the component as described in [Develop new components](#develop-new-components).
-2. Run the Storybook command from the `nimble` directory:
+2. Run the Storybook build and start commands from the `storybook` package directory:
 
-    `npm run storybook -w @ni/nimble-components`
+    `npm run build`
+    
+    `npm run start`
 
     Storybook will build its own copy of the component in a temporary folder which is separate from the normal build.
 
@@ -120,10 +120,6 @@ Create a new folder named after your component with some core files:
 | components/                            | A folder containing any components that are used within the component but are not exported as public components themselves.                                                                                                                                                |
 | testing/component-name.pageobject.ts   | Page object to ease testing of this component.                                                                                                                                                                                                                             |
 | tests/component-name.spec.ts           | Unit tests for this component. Covers behaviors added to components on top of existing Foundation behaviors or behavior of new components.                                                                                                                                 |
-| tests/component-name.stories.ts        | Contains the component hosted in Storybook. This provides a live component view for development and testing. In the future, this will also provide API documentation.                                                                                                      |
-| tests/component-name-matrix.stories.ts | Contains a story that shows all component states for all themes hosted in Storybook. This is used by Chromatic visual tests to verify styling changes across all themes and states.                                                                                        |
-| tests/component-name.mdx               | Contains the Storybook documentation for this component. This should provide design guidance and usage information. See [Creating Storybook Component Documentation](/packages/nimble-components/docs/creating-storybook-component-documentation.md) for more information. |
-| tests/component-name.react.tsx         | Simple React wrapper for the component to be used in Storybook MDX documentation                                                                                                                                                                                           |
 
 ### Add to component bundle
 
@@ -439,8 +435,6 @@ Before disabling a test, you **must** have investigated the failure and attempte
 ## Theming
 
 Nimble includes three NI-brand aligned themes (i.e. `light`, `dark`, & `color`).
-
-When creating a new component, create a `*-matrix.stories.ts` Storybook file to confirm that the component reflects the design intent across all themes and states.
 
 ## Localization
 
