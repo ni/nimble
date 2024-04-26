@@ -15,7 +15,7 @@ public class WaferMapTests : AcceptanceTestsBase
     {
         await using var pageWrapper = await NewPageForRouteAsync("WaferMapRenderTest");
         var page = pageWrapper.Page;
-        var canvas = page.Locator("canvas");
+        var canvas = page.Locator(".main-wafer");
 
         await Assertions.Expect(canvas).ToBeVisibleAsync();
         await Task.Delay(RenderingTimeout);
@@ -30,7 +30,7 @@ public class WaferMapTests : AcceptanceTestsBase
     {
         await using var pageWrapper = await NewPageForRouteAsync("WaferMapRenderTest");
         var page = pageWrapper.Page;
-        var canvas = page.Locator("canvas");
+        var canvas = page.Locator(".main-wafer");
         var validButton = page.Locator("nimble-button");
         var textField = page.Locator("nimble-text-field");
 
@@ -46,7 +46,7 @@ public class WaferMapTests : AcceptanceTestsBase
     {
         await using var pageWrapper = await NewPageForRouteAsync("WaferMapRenderTest");
         var page = pageWrapper.Page;
-        var canvas = page.Locator("canvas");
+        var canvas = page.Locator(".main-wafer");
         var textField = page.Locator("nimble-text-field");
 
         await Assertions.Expect(canvas).ToBeVisibleAsync();
