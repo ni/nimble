@@ -119,14 +119,10 @@ export const styles = css`
     }
 
     ::slotted([role='option'][active-option]) {
-        box-shadow: none;
-        outline: none;
         background-color: ${fillSelectedColor};
     }
 
     ::slotted([role='option']:not([active-option])) {
-        box-shadow: none;
-        outline: none;
         background-color: none;
     }
 
