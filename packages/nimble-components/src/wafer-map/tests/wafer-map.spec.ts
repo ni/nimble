@@ -130,21 +130,21 @@ describe('WaferMap', () => {
             ).and.returnValue(Promise.resolve());
         });
 
-        it('will call setupWafer and drawWafer after supported diesTable change', () => {
+        it('will call setupWafer and drawWafer after supported diesTable change', async () => {
             element.diesTable = tableFromArrays({
                 colIndex: Int32Array.from([]),
                 rowIndex: Int32Array.from([]),
                 value: Float64Array.from([])
             });
-            processUpdates();
+            await waitForUpdatesAsync();
             expect(element.validity.invalidDiesTableSchema).toBeFalse();
             expect(setupWaferSpy).toHaveBeenCalledTimes(1);
             expect(drawWaferSpy).toHaveBeenCalledTimes(1);
         });
 
-        it('will not call setupWafer and drawWafer after unsupported diesTable change', () => {
+        it('will not call setupWafer and drawWafer after unsupported diesTable change', async () => {
             element.diesTable = new Table();
-            processUpdates();
+            await waitForUpdatesAsync();
             expect(element.validity.invalidDiesTableSchema).toBeTrue();
             expect(setupWaferSpy).toHaveBeenCalledTimes(0);
             expect(drawWaferSpy).toHaveBeenCalledTimes(0);
