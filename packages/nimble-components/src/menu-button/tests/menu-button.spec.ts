@@ -8,6 +8,7 @@ import {
     keySpace
 } from '@microsoft/fast-web-utilities';
 import { FoundationElement, Menu, MenuItem } from '@microsoft/fast-foundation';
+import { parameterizeSuite } from '@ni/jasmine-parameterized';
 import { fixture, Fixture } from '../../utilities/tests/fixture';
 import { MenuButton } from '..';
 import { MenuButtonToggleEventDetail, MenuButtonPosition } from '../types';
@@ -16,7 +17,6 @@ import {
     waitForUpdatesAsync
 } from '../../testing/async-helpers';
 import { createEventListener } from '../../utilities/tests/component';
-import { parameterizeSuite } from '@ni/jasmine-parameterized';
 
 class TestSlottedElement extends FoundationElement {}
 const composedTestSlottedElement = TestSlottedElement.compose({
