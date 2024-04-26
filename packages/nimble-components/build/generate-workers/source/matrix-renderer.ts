@@ -3,6 +3,7 @@ import type {
     Dimensions,
     State,
     Transform,
+    TransformData,
     WaferMapMatrix,
     WaferMapTypedMatrix
 } from './types';
@@ -15,8 +16,6 @@ import type {
  * This setup is used in the wafer-map component to perform heavy computational duties
  */
 export class MatrixRenderer {
-    public columnIndexes = Int32Array.from([]);
-    public rowIndexes = Int32Array.from([]);
     public values = Float64Array.from([]);
     public scaledColumnIndex = Float64Array.from([]);
     public scaledRowIndex = Float64Array.from([]);
@@ -34,50 +33,34 @@ export class MatrixRenderer {
         labelsFontSize: undefined,
         colorScale: undefined
     };
-    private scaleX: number = 1;
-    private scaleY: number = 1;
-    private baseX: number = 1;
-    private baseY: number = 1;
-    private dieDimensions: Dimensions = { width: 1, height: 1 };
-    private transform: Transform = { k: 1, x: 0, y: 0 };
-    private topLeftCanvasCorner!: { x: number; y: number };
-    private bottomRightCanvasCorner!: { x: number; y: number };
-    private readonly smallestMarginPossible: number = 20;
-    private margin: {
-        top: number;
-        right: number;
-        bottom: number;
-        left: number;
-    } = {
-            top: this.smallestMarginPossible,
-            right: this.smallestMarginPossible,
-            bottom: this.smallestMarginPossible,
-            left: this.smallestMarginPossible
-        };
+    private transformData: TransformData = {
+        transform: undefined,
+        topLeftCanvasCorner: undefined,
+        bottomRightCanvasCorner: undefined
+    };
 
-    public calculateXScaledIndex(columnIndex: number): number {
-        return this.scaleX * columnIndex + this.baseX + this.margin.left;
+    public calculateHorizontalScaledIndex(columnIndex: number): number {
+        return this.state.horizontalCoefficient! * columnIndex + this.state.horizontalConstant! + this.state.margin!.left;
     }
 
-    public calculateYScaledIndex(rowIndex: number): number {
-        return this.scaleY * rowIndex + this.baseY + this.margin.top;
+    public calculateVerticalScaledIndex(rowIndex: number): number {
+        return this.state.verticalCoefficient! * rowIndex + this.state.verticalConstant! + this.state.margin!.top;
     }
 
     public setColumnIndexes(columnIndexes: Int32Array): void {
-        this.columnIndexes = columnIndexes;
-        if (columnIndexes.length === 0 || this.columnIndexes[0] === undefined) {
+        if (columnIndexes.length === 0 || columnIndexes[0] === undefined) {
             return;
         }
         const scaledColumnIndex = [
-            this.calculateXScaledIndex(this.columnIndexes[0])
+            this.calculateHorizontalScaledIndex(columnIndexes[0])
         ];
         const columnPositions = [0];
-        let prev = this.columnIndexes[0];
-        for (let i = 1; i < this.columnIndexes.length; i++) {
-            const xIndex = this.columnIndexes[i];
+        let prev = columnIndexes[0];
+        for (let i = 1; i < columnIndexes.length; i++) {
+            const xIndex = columnIndexes[i];
             if (xIndex && xIndex !== prev) {
-                const scaledX = this.calculateXScaledIndex(
-                    this.columnIndexes[i]!
+                const scaledX = this.calculateHorizontalScaledIndex(
+                    columnIndexes[i]!
                 );
                 scaledColumnIndex.push(scaledX);
                 columnPositions.push(i);
@@ -88,12 +71,11 @@ export class MatrixRenderer {
         this.columnIndexPositions = Int32Array.from(columnPositions);
     }
 
-    public setRowIndexes(rowIndexesBuffer: Int32Array): void {
-        this.rowIndexes = rowIndexesBuffer;
-        this.scaledRowIndex = new Float64Array(this.rowIndexes.length);
-        for (let i = 0; i < this.rowIndexes.length; i++) {
-            this.scaledRowIndex[i] = this.calculateYScaledIndex(
-                this.rowIndexes[i]!
+    public setRowIndexes(rowIndexes: Int32Array): void {
+        this.scaledRowIndex = new Float64Array(rowIndexes.length);
+        for (let i = 0; i < rowIndexes.length; i++) {
+            this.scaledRowIndex[i] = this.calculateVerticalScaledIndex(
+                rowIndexes[i]!
             );
         }
     }
@@ -102,39 +84,8 @@ export class MatrixRenderer {
         this.state = state;
     }
 
-    public setMargin(margin: {
-        top: number;
-        right: number;
-        bottom: number;
-        left: number;
-    }): void {
-        this.margin = margin;
-    }
-
-    public setCanvasCorners(
-        topLeft: { x: number; y: number },
-        bottomRight: { x: number; y: number }
-    ): void {
-        this.topLeftCanvasCorner = topLeft;
-        this.bottomRightCanvasCorner = bottomRight;
-    }
-
-    public setDiesDimensions(data: Dimensions): void {
-        this.dieDimensions = { width: data.width, height: data.height };
-    }
-
-    public setScaling(scaleX: number, scaleY: number): void {
-        this.scaleX = scaleX;
-        this.scaleY = scaleY;
-    }
-
-    public setBases(baseX: number, baseY: number): void {
-        this.baseX = baseX;
-        this.baseY = baseY;
-    }
-
-    public setTransform(transform: Transform): void {
-        this.transform = transform;
+    public setTransformData(transformData: TransformData): void {
+        this.transformData = transformData;
     }
 
     public setCanvas(canvas: OffscreenCanvas): void {
@@ -142,29 +93,9 @@ export class MatrixRenderer {
         this.context = canvas.getContext('2d')!;
     }
 
-    public getMatrix(): WaferMapTypedMatrix {
-        return {
-            columnIndexes: this.columnIndexes,
-            rowIndexes: this.rowIndexes,
-            values: this.values
-        };
-    }
-
-    public emptyMatrix(): void {
-        this.columnIndexes = Int32Array.from([]);
-        this.rowIndexes = Int32Array.from([]);
-        this.values = Float64Array.from([]);
-    }
-
     public scaleCanvas(): void {
-        this.context.translate(this.transform.x, this.transform.y);
-        this.context.scale(this.transform.k, this.transform.k);
-    }
-
-    public updateMatrix(data: WaferMapMatrix): void {
-        this.columnIndexes = Int32Array.from(data.columnIndexes);
-        this.rowIndexes = Int32Array.from(data.rowIndexes);
-        this.values = Float64Array.from(data.values);
+        this.context.translate(this.transformData.transform!.x, this.transformData.transform!.y);
+        this.context.scale(this.transformData.transform!.k, this.transformData.transform!.k);
     }
 
     public setCanvasDimensions(data: Dimensions): void {
@@ -189,8 +120,8 @@ export class MatrixRenderer {
         this.clearCanvas();
         this.scaleCanvas();
         if (
-            this.topLeftCanvasCorner === undefined
-            || this.bottomRightCanvasCorner === undefined
+            this.transformData.topLeftCanvasCorner === undefined
+            || this.transformData.bottomRightCanvasCorner === undefined
         ) {
             throw new Error('Canvas corners are not set');
         }
@@ -198,8 +129,8 @@ export class MatrixRenderer {
             const scaledX = this.scaledColumnIndex[i]!;
             if (
                 !(
-                    scaledX >= this.topLeftCanvasCorner.x
-                    && scaledX < this.bottomRightCanvasCorner.x
+                    scaledX >= this.transformData.topLeftCanvasCorner.x
+                    && scaledX < this.transformData.bottomRightCanvasCorner.x
                 )
             ) {
                 continue;
@@ -219,8 +150,8 @@ export class MatrixRenderer {
                 const scaledY = this.scaledRowIndex[columnStartIndex]!;
                 if (
                     !(
-                        scaledY >= this.topLeftCanvasCorner.y
-                        && scaledY < this.bottomRightCanvasCorner.y
+                        scaledY >= this.transformData.topLeftCanvasCorner.y
+                        && scaledY < this.transformData.bottomRightCanvasCorner.y
                     )
                 ) {
                     continue;
@@ -230,8 +161,8 @@ export class MatrixRenderer {
                 this.context.fillRect(
                     scaledX,
                     scaledY,
-                    this.dieDimensions.width,
-                    this.dieDimensions.height
+                    this.state.dieDimensions!.width,
+                    this.state.dieDimensions!.height
                 );
             }
         }

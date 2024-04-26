@@ -26,22 +26,7 @@ export class WorkerRenderer {
             width: this.wafermap.canvasWidth ?? 0,
             height: this.wafermap.canvasHeight ?? 0
         });
-        await this.matrixRenderer.setDiesDimensions(
-            this.wafermap.state.dieDimensions!
-        );
-        const scaleX = this.wafermap.horizontalScale!(1)!
-            - this.wafermap.horizontalScale!(0)!;
-        const scaleY = this.wafermap.verticalScale!(1)!
-            - this.wafermap.verticalScale!(0)!;
-        await this.matrixRenderer.setScaling(scaleX, scaleY);
-        await this.matrixRenderer.setBases(
-            this.wafermap.horizontalScale!(0)!,
-            this.wafermap.verticalScale!(0)!
-        );
-        await this.matrixRenderer.setMargin(
-            this.wafermap.state.margin!
-        );
-
+        await this.matrixRenderer.setState(this.wafermap.state);
         if (this.wafermap.diesTable === undefined) {
             await this.matrixRenderer.setColumnIndexes(Int32Array.from([]));
             await this.matrixRenderer.setRowIndexes(Int32Array.from([]));
@@ -60,14 +45,14 @@ export class WorkerRenderer {
     }
 
     public async drawWafer(): Promise<void> {
-        await this.matrixRenderer.setTransform(this.wafermap.transform);
         const topLeftCanvasCorner = this.wafermap.transform.invert([0, 0]);
         const bottomRightCanvasCorner = this.wafermap.transform.invert([
             this.wafermap.canvasWidth,
             this.wafermap.canvasHeight
         ]);
-        await this.matrixRenderer.setCanvasCorners(
-            {
+        await this.matrixRenderer.setTransformData({
+            transform: this.wafermap.transform,
+            topLeftCanvasCorner: {
                 x:
                     topLeftCanvasCorner[0]
                     - this.wafermap.state.dieDimensions!.width,
@@ -75,11 +60,11 @@ export class WorkerRenderer {
                     topLeftCanvasCorner[1]
                     - this.wafermap.state.dieDimensions!.height
             },
-            {
+            bottomRightCanvasCorner: {
                 x: bottomRightCanvasCorner[0],
                 y: bottomRightCanvasCorner[1]
             }
-        );
+        });
         await this.matrixRenderer.drawWafer();
         this.renderHover();
     }

@@ -45,3 +45,9 @@ export interface State {
     labelsFontSize: number | undefined;
     colorScale: ColorScale | undefined;
 }
+
+export interface TransformData {
+    transform: Transform | undefined;
+    topLeftCanvasCorner: { x: number; y: number } | undefined;
+    bottomRightCanvasCorner: { x: number; y: number } | undefined;
+}
