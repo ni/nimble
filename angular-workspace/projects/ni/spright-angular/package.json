@@ -3,7 +3,8 @@
   "version": "0.1.1",
   "description": "Angular components for NI Spright",
   "scripts": {
-    "invoke-publish": "cd ../../../ && npm run build:spright && cd dist/ni/spright-angular && npm publish"
+    "invoke-publish": "npm run invoke-publish:setup && cd ../../../dist/ni/spright-angular && npm publish",
+    "invoke-publish:setup": "cd ../../../ && npm run build:spright"
   },
   "repository": {
     "type": "git",
