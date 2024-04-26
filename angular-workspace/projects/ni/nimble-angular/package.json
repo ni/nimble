@@ -1,9 +1,10 @@
 {
   "name": "@ni/nimble-angular",
-  "version": "23.1.1",
+  "version": "23.1.2",
   "description": "Angular components for the NI Nimble Design System",
   "scripts": {
-    "invoke-publish": "cd ../../../ && npm run build:library && cd dist/ni/nimble-angular && npm publish"
+    "invoke-publish": "npm run invoke-publish:setup && cd ../../../dist/ni/nimble-angular && npm publish",
+    "invoke-publish:setup": "cd ../../../ && npm run build:nimble"
   },
   "repository": {
     "type": "git",
@@ -31,7 +32,7 @@
     "@angular/forms": "^16.2.12",
     "@angular/localize": "^16.2.12",
     "@angular/router": "^16.2.12",
-    "@ni/nimble-components": "^27.0.0"
+    "@ni/nimble-components": "^27.0.1"
   },
   "dependencies": {
     "tslib": "^2.2.0"
