@@ -2,6 +2,36 @@
   "name": "@ni/spright-components",
   "entries": [
     {
+      "date": "Thu, 25 Apr 2024 23:51:13 GMT",
+      "version": "0.0.4",
+      "tag": "@ni/spright-components_v0.0.4",
+      "comments": {
+        "none": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/spright-components",
+            "commit": "48975ab9c281e3872194ab9840cb5d79fea79472",
+            "comment": "Add and exercise testing fixture in spright-components"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 25 Apr 2024 20:42:08 GMT",
+      "version": "0.0.4",
+      "tag": "@ni/spright-components_v0.0.4",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/spright-components",
+            "commit": "2de381196dbe2a12f2a23432dfa8917706e853bb",
+            "comment": "Modify Rectangle styling"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 24 Apr 2024 16:20:52 GMT",
       "version": "0.0.3",
       "tag": "@ni/spright-components_v0.0.3",

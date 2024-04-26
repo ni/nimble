@@ -1,8 +1,16 @@
 # Change Log - @ni/spright-components
 
-This log was last generated on Wed, 24 Apr 2024 16:20:52 GMT and should not be manually modified.
+This log was last generated on Thu, 25 Apr 2024 20:42:08 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 0.0.4
+
+Thu, 25 Apr 2024 20:42:08 GMT
+
+### Patches
+
+- Modify Rectangle styling ([ni/nimble@2de3811](https://github.com/ni/nimble/commit/2de381196dbe2a12f2a23432dfa8917706e853bb))
 
 ## 0.0.3
 
