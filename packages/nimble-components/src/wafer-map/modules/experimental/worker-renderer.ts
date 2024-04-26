@@ -41,15 +41,14 @@ export class WorkerRenderer {
         await this.matrixRenderer.setMargin(
             this.wafermap.experimentalDataManager.margin
         );
-
-        if (this.wafermap.diesTable !== undefined) {
-            const columnIndexes = this.wafermap.diesTable
-                .getChild('colIndex')!
+        if (this.wafermap.isExperimentalUpdate()) {
+            const columnIndexes = this.wafermap
+                .diesTable!.getChild('colIndex')!
                 .toArray();
             await this.matrixRenderer.setColumnIndexes(columnIndexes);
 
-            const rowIndexes = this.wafermap.diesTable
-                .getChild('rowIndex')!
+            const rowIndexes = this.wafermap
+                .diesTable!.getChild('rowIndex')!
                 .toArray();
             await this.matrixRenderer.setRowIndexes(rowIndexes);
         }
