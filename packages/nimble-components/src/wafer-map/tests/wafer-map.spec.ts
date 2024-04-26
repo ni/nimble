@@ -120,8 +120,14 @@ describe('WaferMap', () => {
         let setupWaferSpy: jasmine.Spy;
         let drawWaferSpy: jasmine.Spy;
         beforeEach(() => {
-            setupWaferSpy = spyOn(element.workerRenderer, 'setupWafer');
-            drawWaferSpy = spyOn(element.workerRenderer, 'drawWafer');
+            setupWaferSpy = spyOn(
+                element.workerRenderer,
+                'setupWafer'
+            ).and.returnValue(Promise.resolve());
+            drawWaferSpy = spyOn(
+                element.workerRenderer,
+                'drawWafer'
+            ).and.returnValue(Promise.resolve());
         });
 
         it('will call setupWafer and drawWafer after supported diesTable change', () => {
