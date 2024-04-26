@@ -36,6 +36,7 @@ export const tokenNames: { readonly [key in TokenName]: string } = {
     modalBackdropColor: 'modal-backdrop-color',
     popupBorderColor: 'popup-border-color',
     cardBorderColor: 'card-border-color',
+    chipBackgroundColor: 'chip-background-color',
     controlHeight: 'control-height',
     controlSlimHeight: 'control-slim-height',
     smallPadding: 'small-padding',
@@ -235,14 +236,18 @@ export const tokenNames: { readonly [key in TokenName]: string } = {
 
 const prefix = 'ni-nimble';
 
-export const styleNameFromTokenName = (tokenName: string): string => `${prefix}-${tokenName}`;
-export const cssPropertyFromTokenName = (tokenName: string): string => `--${prefix}-${tokenName}`;
-export const scssPropertyFromTokenName = (tokenName: string): string => `$${prefix}-${tokenName}`;
+export const styleNameFromTokenName = (tokenName: string): string =>
+    `${prefix}-${tokenName}`;
+export const cssPropertyFromTokenName = (tokenName: string): string =>
+    `--${prefix}-${tokenName}`;
+export const scssPropertyFromTokenName = (tokenName: string): string =>
+    `$${prefix}-${tokenName}`;
 export const scssPropertySetterMarkdown = (
     tokenName: string,
     cssProperty: string
 ): string => `\`${cssProperty}: $${prefix}-${tokenName};\``;
-export const scssInternalPropertyFromTokenName = (tokenName: string): string => `$${prefix}-internal-${tokenName}`;
+export const scssInternalPropertyFromTokenName = (tokenName: string): string =>
+    `$${prefix}-internal-${tokenName}`;
 export const scssInternalPropertySetterMarkdown = (
     tokenName: string,
     property: string
@@ -272,6 +277,9 @@ const tokenSuffixes = [
 export type TokenSuffix = (typeof tokenSuffixes)[number];
 export const suffixFromTokenName = (
     tokenName: string
-): TokenSuffix | undefined => tokenSuffixes[
-    tokenSuffixes.findIndex(tokenSuffix => tokenName.endsWith(tokenSuffix))
-];
+): TokenSuffix | undefined =>
+    tokenSuffixes[
+        tokenSuffixes.findIndex((tokenSuffix) =>
+            tokenName.endsWith(tokenSuffix)
+        )
+    ];
