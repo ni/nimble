@@ -174,8 +174,8 @@ export class SelectPageObject {
             this.selectElement.open
             && this.selectElement.filterMode !== FilterMode.none
         ) {
-            const filterInput = this.getFilterInput();
-            filterInput!.value = filterInput!.value + character;
+            const filterInput = this.getFilterInput()!;
+            filterInput.value = filterInput.value + character;
         }
         this.selectElement.dispatchEvent(new InputEvent('input'));
         this.selectElement.dispatchEvent(
