@@ -84,21 +84,12 @@ When generating a change file, follow these guidelines:
 If a beachball publish command fails on the pipeline so packages are partially published, perform the following steps to get the repo in a good state:
 
 1. Create a branch from main which should still have change files from the failed publish and, if applicable, fix the underlying issue in the branch.
-2. Find the expected published package versions. This should be in the build logs printed by beachball (but worst case go check npm, nuget, etc. and figure out what published). Example build log:
-    ```
-    Package versions are OK to publish:
-    - @ni/nimble-components@27.0.1
-    - @ni/nimble-blazor@16.0.2
-    - @ni/spright-components@0.0.5
-    - @ni/nimble-angular@23.1.2
-    - @ni/spright-angular@0.1.2
-    ```
-3. In the branch update the current `package.json` files so the package versions align with the expected published package versions. This may mean that some packages will represent a version that never published so the next version bump will skip that version. It's fine.
-4. Run the `npm ci` command and it will likely fail because the dependencies sections of the packages in the repo do not align with the published packages. Update the dependencies sections to align.
-    
-    For example: If `@ni/nimble-components@27.0.1` failed to publish then the `package.json` would be manually updated in this process from `@ni/nimble-components@27.0.0` to `@ni/nimble-components@27.0.1`. However a different package like `@ni/nimble-angular` will still have a dependency of `"@ni/nimble-components": "^27.0.0"` stated in the `package.json`. The `@ni/nimble-angular` package should update its dependency to align with the monorepo package version which is now `"@ni/nimble-components": "^27.0.1"`.
-5. Sanity run `npm ci` again and should complete successfully. No `package-lock.json` changes should need to happen for this process.
-6. Run `npm run change` and treat these updates like patch updates (you'll now have doubles of change files for certain packages, that's fine), submit a PR, and merge the branch.
+2. In the repo root run `npm run beachball-sync`. Beachball will:
+    - Find the latest packages that were published successfully to npm.
+    - Update the `package.json` for each of those packages to align with the latest published version. It also handles cross-dependencies, i.e. angular shows the latest version of components as its dependency.
+    - Note: It does not handle packages that are not published to npm at all. For example, you need to manually check nuget.org for `NimbleBlazor`'s published version and update the `package.json`.
+3. Commit the changes from `npm run beachball-sync` and run `npm run change` for those changes.
+4. Submit a PR for the branch and merge.
 
 ### Dependency Review
 
