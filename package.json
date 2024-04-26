@@ -39,6 +39,7 @@
     "packages/nimble-tokens",
     "packages/nimble-components",
     "packages/spright-components",
+    "packages/storybook",
     "angular-workspace",
     "angular-workspace/projects/ni/nimble-angular",
     "angular-workspace/projects/ni/spright-angular",
