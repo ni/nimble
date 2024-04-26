@@ -5,16 +5,15 @@ import { iconUserTag } from '@ni/nimble-components/dist/esm/icons/user';
 import { menuTag } from '@ni/nimble-components/dist/esm/menu';
 import { menuItemTag } from '@ni/nimble-components/dist/esm/menu-item';
 import { tableColumnTextTag } from '@ni/nimble-components/dist/esm/table-column/text';
-import {
-    addLabelUseMetadata,
-    type LabelUserArgs
-} from '@ni/nimble-components/dist/esm/label-provider/base/tests/label-user-stories-utils';
 import { labelProviderTableTag } from '@ni/nimble-components/dist/esm/label-provider/table';
 import { tableColumnNumberTextTag } from '@ni/nimble-components/dist/esm/table-column/number-text';
 import { Table, tableTag } from '@ni/nimble-components/dist/esm/table';
 import { TableRecordDelayedHierarchyState, TableRowSelectionMode } from '@ni/nimble-components/dist/esm/table/types';
 import { ExampleDataType } from '@ni/nimble-components/dist/esm/table/tests/types';
-
+import {
+    addLabelUseMetadata,
+    type LabelUserArgs
+} from '../label-provider/base/label-user-stories-utils';
 import { createUserSelectedThemeStory } from '../../utilities/storybook';
 import { isChromatic } from '../../utilities/isChromatic';
 

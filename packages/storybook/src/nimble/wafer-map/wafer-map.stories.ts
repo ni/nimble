@@ -23,7 +23,7 @@ import {
     wafermapDieSets,
     waferMapColorScaleSets,
     wafermapDiesTableSets
-} from '@ni/nimble-components/dist/esm/wafer-map/tests/sets';
+} from './sets';
 import {
     createUserSelectedThemeStory,
     incubatingWarning
