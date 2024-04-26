@@ -125,9 +125,9 @@ export const styles = css`
     }
 
     ::slotted([role='option']:not([active-option])) {
-        box-shadow: inherit;
-        outline: inherit;
-        background-color: inherit;
+        box-shadow: none;
+        outline: none;
+        background-color: none;
     }
 
     ::slotted([role='option'][active-option]:hover) {
