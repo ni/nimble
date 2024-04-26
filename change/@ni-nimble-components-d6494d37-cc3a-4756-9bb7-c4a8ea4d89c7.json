@@ -1,7 +1,0 @@
-{
-  "type": "none",
-  "comment": "Update tests to use `parameterizeSuite`",
-  "packageName": "@ni/nimble-components",
-  "email": "20542556+mollykreis@users.noreply.github.com",
-  "dependentChangeType": "none"
-}
