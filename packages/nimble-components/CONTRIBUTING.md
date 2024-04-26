@@ -42,7 +42,7 @@ Before building a new component, 3 specification documents need to be created:
 2. Run the Storybook build and start commands from the `storybook` package directory:
 
     `npm run build`
-    
+
     `npm run start`
 
     Storybook will build its own copy of the component in a temporary folder which is separate from the normal build.
@@ -109,17 +109,17 @@ To move a component out of incubating status:
 
 Create a new folder named after your component with some core files:
 
-| File                                   | Description                                                                                                                                                                                                                                                                |
-| -------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| specs/\*.md                            | Contains the original API and implementation specifications for the component.                                                                                                                                                                                             |
-| index.ts                               | Contains the component class definition and registration. All TypeScript logic contained in the component belongs here.                                                                                                                                                    |
-| styles.ts                              | Contains the styles relevant to this component. Note: Style property values that can be shared across components belong in [theme-provider/design-tokens.ts](/packages/nimble-components/src/theme-provider/design-tokens.ts).                                             |
-| template.ts                            | Contains the template definition for components that don't use a fast-foundation template.                                                                                                                                                                                 |
-| types.ts                               | Contains any enum-like types defined by the component                                                                                                                                                                                                                      |
-| models/                                | A folder containing any classes or interfaces that are part of the component API or implementation                                                                                                                                                                         |
-| components/                            | A folder containing any components that are used within the component but are not exported as public components themselves.                                                                                                                                                |
-| testing/component-name.pageobject.ts   | Page object to ease testing of this component.                                                                                                                                                                                                                             |
-| tests/component-name.spec.ts           | Unit tests for this component. Covers behaviors added to components on top of existing Foundation behaviors or behavior of new components.                                                                                                                                 |
+| File                                 | Description                                                                                                                                                                                                                    |
+| ------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| specs/\*.md                          | Contains the original API and implementation specifications for the component.                                                                                                                                                 |
+| index.ts                             | Contains the component class definition and registration. All TypeScript logic contained in the component belongs here.                                                                                                        |
+| styles.ts                            | Contains the styles relevant to this component. Note: Style property values that can be shared across components belong in [theme-provider/design-tokens.ts](/packages/nimble-components/src/theme-provider/design-tokens.ts). |
+| template.ts                          | Contains the template definition for components that don't use a fast-foundation template.                                                                                                                                     |
+| types.ts                             | Contains any enum-like types defined by the component                                                                                                                                                                          |
+| models/                              | A folder containing any classes or interfaces that are part of the component API or implementation                                                                                                                             |
+| components/                          | A folder containing any components that are used within the component but are not exported as public components themselves.                                                                                                    |
+| testing/component-name.pageobject.ts | Page object to ease testing of this component.                                                                                                                                                                                 |
+| tests/component-name.spec.ts         | Unit tests for this component. Covers behaviors added to components on top of existing Foundation behaviors or behavior of new components.                                                                                     |
 
 ### Add to component bundle
 
