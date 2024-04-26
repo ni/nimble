@@ -182,7 +182,6 @@ const componentWaferWithGridDimensions = ([
 
 const componentWaferMapWorkerCanvas = (): ViewTemplate => html`<${waferMapTag}
     :diesTable="${() => wafermapDiesTableSets[0]}"
-    :apiVersion="${() => 'experimental'}"
 >
 </${waferMapTag}>`;
 
