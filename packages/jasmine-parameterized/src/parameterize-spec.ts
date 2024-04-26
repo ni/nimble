@@ -47,5 +47,5 @@ export const parameterizeSpec = <T extends readonly { name: string }[]>(
         },
         {}
     ) as ObjectFromNamedList<T>;
-    parameterize<ObjectFromNamedList<T>>(testCases, test, it, specOverrides);
+    parameterize<ObjectFromNamedList<T>>('spec', testCases, test, specOverrides);
 };

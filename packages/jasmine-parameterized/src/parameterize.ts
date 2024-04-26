@@ -13,36 +13,36 @@ import { Spec, SpecOverride, Suite, SuiteOverride } from './types.js';
  *     men: 'lyrics'
  * } as const;
  * describe('Different rains', () => {
- *     parameterize(rainTests, (spec, name, value) => {
+ *     parameterize('spec', rainTests, (spec, name, value) => {
  *         spec(`of type ${name} exist`, () => {
  *             expect(value).toBeDefined();
  *         });
- *     }, it, {
+ *     }, {
  *         catsAndDogs: fit,
  *         frogs: xit
  *     });
  * });
  */
 export function parameterize<T extends object>(
+    testType: 'spec',
     testCases: T,
     test: (spec: Spec, name: keyof T, value: T[keyof T]) => void,
-    defaultTestType: Spec,
     overrides?: {
         [P in keyof T]?: SpecOverride;
     }
 ): void;
 export function parameterize<T extends object>(
+    testType: 'suite',
     testCases: T,
     test: (spec: Suite, name: keyof T, value: T[keyof T]) => void,
-    defaultTestType: Suite,
     overrides?: {
         [P in keyof T]?: SuiteOverride;
     }
 ): void;
 export function parameterize<T extends object, U = Spec | Suite>(
+    testType: 'spec' | 'suite',
     testCases: T,
     test: (spec: U, name: keyof T, value: T[keyof T]) => void,
-    defaultTestType: U,
     overrides?: {
         [P in keyof T]?: U extends Spec ? SpecOverride : SuiteOverride;
     }
@@ -60,14 +60,14 @@ export function parameterize<T extends object, U = Spec | Suite>(
             );
         }
         if (
-            defaultTestType === it
+            testType === 'spec'
             // eslint-disable-next-line no-restricted-globals
             && !overrideNames.every(overrideName => [fit, xit].includes(overrides[overrideName] as Spec))
         ) {
             throw new Error('Must configure override with one of the jasmine spec functions: fit or xit');
         }
         if (
-            defaultTestType === describe
+            testType === 'suite'
             // eslint-disable-next-line no-restricted-globals
             && !overrideNames.every(overrideName => [fdescribe, xdescribe].includes(overrides[overrideName] as Suite))
         ) {
@@ -77,7 +77,8 @@ export function parameterize<T extends object, U = Spec | Suite>(
         }
     }
     testCaseNames.forEach(testCaseName => {
-        const spec = overrides?.[testCaseName] ?? defaultTestType;
+        const defaultTest = testType === 'spec' ? it : describe;
+        const spec = overrides?.[testCaseName] ?? defaultTest;
         test(spec as U, testCaseName, testCases[testCaseName]);
     });
 }

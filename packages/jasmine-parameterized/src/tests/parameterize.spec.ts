@@ -31,7 +31,7 @@ describe('Function parameterize with specs', () => {
                 case1: 'one'
             } as const;
             const spy = jasmine.createSpy();
-            parameterize(testcases, spy, IT);
+            parameterize('spec', testcases, spy);
 
             expect(spy).toHaveBeenCalledTimes(1);
             const { spec, name, value } = paramertizeSpecTestArgs(
@@ -47,7 +47,7 @@ describe('Function parameterize with specs', () => {
                 case1: 'one'
             } as const;
             const spy = jasmine.createSpy();
-            parameterize(testcases, spy, IT, {
+            parameterize('spec', testcases, spy, {
                 case1: FIT
             });
 
@@ -65,7 +65,7 @@ describe('Function parameterize with specs', () => {
                 case1: 'one'
             } as const;
             const spy = jasmine.createSpy();
-            parameterize(testcases, spy, IT, {
+            parameterize('spec', testcases, spy, {
                 case1: XIT
             });
 
@@ -85,7 +85,7 @@ describe('Function parameterize with specs', () => {
                 case3: 'three'
             } as const;
             const spy = jasmine.createSpy();
-            parameterize(testcases, spy, IT, {
+            parameterize('spec', testcases, spy, {
                 case2: XIT,
                 case3: FIT
             });
@@ -124,7 +124,7 @@ describe('Function parameterize with specs', () => {
             } as { [key: string]: string };
 
             expect(() => {
-                parameterize(testcases, () => {}, IT, {
+                parameterize('spec', testcases, () => {}, {
                     unknown: XIT
                 });
             }).toThrowError(/override names must match test case name/);
@@ -135,7 +135,7 @@ describe('Function parameterize with specs', () => {
             } as const;
 
             expect(() => {
-                parameterize(testcases, () => {}, IT, {
+                parameterize('spec', testcases, () => {}, {
                     case1: IT
                 });
             }).toThrowError(/jasmine spec functions: fit or xit/);
@@ -170,7 +170,7 @@ describe('Function parameterize with suites', () => {
                 case1: 'one'
             } as const;
             const spy = jasmine.createSpy();
-            parameterize(testcases, spy, DESCRIBE);
+            parameterize('suite', testcases, spy);
 
             expect(spy).toHaveBeenCalledTimes(1);
             const { spec, name, value } = parameterizeSuiteTestArgs(
@@ -186,7 +186,7 @@ describe('Function parameterize with suites', () => {
                 case1: 'one'
             } as const;
             const spy = jasmine.createSpy();
-            parameterize(testcases, spy, DESCRIBE, {
+            parameterize('suite', testcases, spy, {
                 case1: FDESCRIBE
             });
 
@@ -204,7 +204,7 @@ describe('Function parameterize with suites', () => {
                 case1: 'one'
             } as const;
             const spy = jasmine.createSpy();
-            parameterize(testcases, spy, DESCRIBE, {
+            parameterize('suite', testcases, spy, {
                 case1: XDESCRIBE
             });
 
@@ -224,7 +224,7 @@ describe('Function parameterize with suites', () => {
                 case3: 'three'
             } as const;
             const spy = jasmine.createSpy();
-            parameterize(testcases, spy, DESCRIBE, {
+            parameterize('suite', testcases, spy, {
                 case2: XDESCRIBE,
                 case3: FDESCRIBE
             });
@@ -263,7 +263,7 @@ describe('Function parameterize with suites', () => {
             } as { [key: string]: string };
 
             expect(() => {
-                parameterize(testcases, () => {}, DESCRIBE, {
+                parameterize('suite', testcases, () => {}, {
                     unknown: XDESCRIBE
                 });
             }).toThrowError(/override names must match test case name/);
@@ -274,7 +274,7 @@ describe('Function parameterize with suites', () => {
             } as const;
 
             expect(() => {
-                parameterize(testcases, () => {}, DESCRIBE, {
+                parameterize('suite', testcases, () => {}, {
                     case1: DESCRIBE
                 });
             }).toThrowError(/jasmine suite functions: fdescribe or xdescribe/);
