@@ -29,6 +29,15 @@
           "StyleCop.Analyzers": "1.2.0-beta.435"
         }
       },
+      "NimbleBlazor": {
+        "type": "Direct",
+        "requested": "[16.0.4, )",
+        "resolved": "16.0.4",
+        "contentHash": "Zv/flgCXKmGKQ80DZLwm3XqcRJ5LYY6dSzD8c3XxLRPLNNiEyW1wjNeNAERkiZR1U/7BDc0tqwrpeJgwXodVdw==",
+        "dependencies": {
+          "Microsoft.AspNetCore.Components.Web": "6.0.28"
+        }
+      },
       "Microsoft.AspNetCore.Authorization": {
         "type": "Transitive",
         "resolved": "6.0.28",
