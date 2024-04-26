@@ -481,7 +481,9 @@ export class Select
         if (
             enabledOptions.length > 0
             && (this.selectedIndex < 0
-                || !enabledOptions.find(o => o === this.committedSelectedOption))
+                || !enabledOptions.find(
+                    o => o === this.options[selectedOptionIndex]
+                ))
         ) {
             selectedOptionIndex = this.options.indexOf(enabledOptions[0]!);
         } else if (enabledOptions.length === 0) {
@@ -664,7 +666,7 @@ export class Select
                 );
                 if (selectedIndex > -1 && !this.open) {
                     this.selectedIndex = selectedIndex;
-                } else {
+                } else if (this.filterMode === FilterMode.none) {
                     this.setActiveOption(selectedIndex);
                 }
             }

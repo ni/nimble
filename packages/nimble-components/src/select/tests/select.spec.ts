@@ -1004,6 +1004,15 @@ describe('Select', () => {
             expect(pageObject.getActiveOption()?.value).toBe('three');
         });
 
+        it('filtering options does not change selected option in dropdown after navigating with arrow keys', async () => {
+            await clickAndWaitForOpen(element);
+            pageObject.pressArrowDownKey();
+            pageObject.pressArrowDownKey(); // option 'Three' should be active
+            pageObject.pressCharacterKey('t'); // filters to 'Two' and 'Three'
+
+            expect(pageObject.getActiveOption()?.value).toBe('three');
+        });
+
         it('dismissing dropdown with <Tab> after navigation and then filtering to no options, does not update value', async () => {
             await clickAndWaitForOpen(element);
             pageObject.pressArrowDownKey();

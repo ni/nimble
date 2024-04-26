@@ -175,7 +175,7 @@ export class SelectPageObject {
             && this.selectElement.filterMode !== FilterMode.none
         ) {
             const filterInput = this.selectElement.filterInput!;
-            filterInput.value = filterInput.value + character;
+            filterInput.value += character;
         }
         const inputElement = this.selectElement.open
             && this.selectElement.filterMode !== FilterMode.none
