@@ -2,6 +2,47 @@
   "name": "@ni/spright-components",
   "entries": [
     {
+      "date": "Fri, 26 Apr 2024 20:31:48 GMT",
+      "version": "0.0.6",
+      "tag": "@ni/spright-components_v0.0.6",
+      "comments": {
+        "patch": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/spright-components",
+            "commit": "ff7f847c0fb3834b5fdf4ce141bbe6bd94e1f0eb",
+            "comment": "No API changes, validating release pipelines"
+          },
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/spright-components",
+            "commit": "c5a74e68c2909e2f9a50bf0e6b0e4f1c5f0cbce8",
+            "comment": "No API changes, validating release pipelines"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/spright-components",
+            "comment": "Bump @ni/nimble-components to v27.0.4",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/spright-components",
+            "comment": "Bump @ni/nimble-tokens to v6.13.5",
+            "commit": "not available"
+          }
+        ],
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/spright-components",
+            "commit": "910414c73de07589bbb608b23d7cae603d704112",
+            "comment": "fixup"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 25 Apr 2024 23:51:13 GMT",
       "version": "0.0.4",
       "tag": "@ni/spright-components_v0.0.4",

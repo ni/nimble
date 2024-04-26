@@ -2,6 +2,35 @@
   "name": "@ni/nimble-blazor",
   "entries": [
     {
+      "date": "Fri, 26 Apr 2024 20:31:47 GMT",
+      "version": "16.0.3",
+      "tag": "@ni/nimble-blazor_v16.0.3",
+      "comments": {
+        "none": [
+          {
+            "author": "110180309+Razvan1928@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "a3865cb57e09ce6581d2dd10c5a61181ece73f59",
+            "comment": "Added an additional canvas in wafer map template caused the blazor tests to fail due to missing unique identifiers for canvases, adding different ids for the canvases and explicitly telling the tests to look for one canvas id solved the issue"
+          },
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "910414c73de07589bbb608b23d7cae603d704112",
+            "comment": "fixup"
+          }
+        ],
+        "patch": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "c5a74e68c2909e2f9a50bf0e6b0e4f1c5f0cbce8",
+            "comment": "No API changes, validating release pipelines"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 22 Apr 2024 15:13:13 GMT",
       "version": "16.0.0",
       "tag": "@ni/nimble-blazor_v16.0.0",
