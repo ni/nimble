@@ -21,8 +21,8 @@
     "format:js": "eslint . --fix",
     "test": "dotnet test -c Release",
     "copy-resources": "npm run copy-resources:nimble && npm run copy-resources:spright",
-    "copy-resources:nimble": "node build/copyResources.js nimble-components NimbleBlazor",
-    "copy-resources:spright": "node build/copyResources.js spright-components SprightBlazor"
+    "copy-resources:nimble": "node build/copyResources.js nimble",
+    "copy-resources:spright": "node build/copyResources.js spright"
   },
   "files": [
     "!*"
