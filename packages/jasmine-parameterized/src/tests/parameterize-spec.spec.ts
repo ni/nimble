@@ -1,4 +1,4 @@
-import { parameterizeSpec } from '../parameterizeSpec.js';
+import { parameterizeSpec } from '../parameterize-spec.js';
 
 // The following aliases are just to reduce the number
 // of eslint disables in this test file. In normal

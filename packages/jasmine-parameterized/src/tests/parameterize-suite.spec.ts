@@ -1,4 +1,4 @@
-import { parameterizeSuite } from '../parameterizeSuite.js';
+import { parameterizeSuite } from '../parameterize-suite.js';
 
 // The following aliases are just to reduce the number
 // of eslint disables in this test file. In normal
