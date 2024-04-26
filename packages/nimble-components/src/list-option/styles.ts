@@ -27,6 +27,7 @@ export const styles = css`
         outline: none;
         background-color: ${fillSelectedColor};
     }
+
     :host([aria-selected='true']:hover) {
         background-color: ${fillHoverSelectedColor};
     }
