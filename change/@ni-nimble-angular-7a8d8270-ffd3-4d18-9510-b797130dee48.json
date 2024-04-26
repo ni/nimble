@@ -1,5 +1,5 @@
 {
-  "type": "none",
+  "type": "patch",
   "comment": "No API changes, validating release pipelines",
   "packageName": "@ni/nimble-angular",
   "email": "rajsite@users.noreply.github.com",
