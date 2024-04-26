@@ -1,6 +1,6 @@
 {
   "name": "@ni/nimble-components",
-  "version": "27.0.0",
+  "version": "27.0.5",
   "description": "Styled web components for the NI Nimble Design System",
   "scripts": {
     "build": "npm run generate-icons && npm run generate-workers && npm run build-components && npm run bundle-components && npm run generate-scss && npm run build-storybook",
@@ -68,7 +68,7 @@
     "@microsoft/fast-element": "^1.12.0",
     "@microsoft/fast-foundation": "^2.49.6",
     "@microsoft/fast-web-utilities": "^6.0.0",
-    "@ni/nimble-tokens": "^6.13.2",
+    "@ni/nimble-tokens": "^6.13.5",
     "@tanstack/table-core": "^8.10.7",
     "@tanstack/virtual-core": "^3.0.0-beta.68",
     "@tiptap/core": "^2.2.2",
@@ -110,7 +110,7 @@
     "@babel/core": "^7.20.12",
     "@chromatic-com/storybook": "^1.2.25",
     "@microsoft/fast-react-wrapper": "^0.3.22",
-    "@ni/jasmine-parameterized": "^0.2.4",
+    "@ni/jasmine-parameterized": "^0.3.0",
     "@ni-private/eslint-config-nimble": "^1.0.0",
     "@rollup/plugin-commonjs": "^25.0.7",
     "@rollup/plugin-json": "^6.0.0",
@@ -131,6 +131,7 @@
     "@storybook/manager-api": "^8.0.4",
     "@storybook/theming": "^8.0.4",
     "@types/jasmine": "^5.1.4",
+    "@types/offscreencanvas": "^2019.7.3",
     "@types/webpack-env": "^1.15.2",
     "babel-loader": "^9.1.2",
     "circular-dependency-plugin": "^5.2.0",

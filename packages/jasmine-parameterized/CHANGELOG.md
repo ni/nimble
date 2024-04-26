@@ -1,8 +1,16 @@
 # Change Log - @ni/jasmine-parameterized
 
-This log was last generated on Mon, 15 Apr 2024 17:36:54 GMT and should not be manually modified.
+This log was last generated on Fri, 26 Apr 2024 21:13:31 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 0.3.0
+
+Fri, 26 Apr 2024 21:13:31 GMT
+
+### Minor changes
+
+- Create `parameterizeSuite` function ([ni/nimble@116f0bc](https://github.com/ni/nimble/commit/116f0bc5bd4c14034f57070f3348b7c5142625d2))
 
 ## 0.2.4
 

@@ -8,6 +8,7 @@ import {
 } from '../../utilities/tests/matrix';
 import { createStory } from '../../utilities/tests/storybook';
 import { waferMapTag } from '..';
+import { wafermapDiesTableSets } from './sets';
 
 const colorScale = {
     colors: ['red', 'blue', 'green'],
@@ -179,6 +180,11 @@ const componentWaferWithGridDimensions = ([
 >
 </${waferMapTag}>`;
 
+const componentWaferMapWorkerCanvas = (): ViewTemplate => html`<${waferMapTag}
+    :diesTable="${() => wafermapDiesTableSets[0]}"
+>
+</${waferMapTag}>`;
+
 const componentWaferWithHighlightedTags = (
     tags: HighlightedTagState
 ): ViewTemplate => html`<${waferMapTag}
@@ -217,4 +223,8 @@ export const waferMapGridDimensionsTest: StoryFn = createStory(
 
 export const waferMapHighlightedTest: StoryFn = createStory(
     createMatrix(componentWaferWithHighlightedTags, [highlightedTagStates])
+);
+
+export const waferMapWorkerCanvas: StoryFn = createStory(
+    createMatrix(componentWaferMapWorkerCanvas)
 );
