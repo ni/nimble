@@ -1,8 +1,19 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Wed, 24 Apr 2024 16:20:52 GMT and should not be manually modified.
+This log was last generated on Fri, 26 Apr 2024 20:31:47 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 27.0.4
+
+Fri, 26 Apr 2024 20:31:47 GMT
+
+### Patches
+
+- No API changes, validating release pipelines ([ni/nimble@ff7f847](https://github.com/ni/nimble/commit/ff7f847c0fb3834b5fdf4ce141bbe6bd94e1f0eb))
+- No API changes, validating release pipelines ([ni/nimble@c5a74e6](https://github.com/ni/nimble/commit/c5a74e68c2909e2f9a50bf0e6b0e4f1c5f0cbce8))
+- Updated wafer map web worker class to support offscreen rendering ([ni/nimble@a3865cb](https://github.com/ni/nimble/commit/a3865cb57e09ce6581d2dd10c5a61181ece73f59))
+- Bump @ni/nimble-tokens to v6.13.5
 
 ## 27.0.0
 
