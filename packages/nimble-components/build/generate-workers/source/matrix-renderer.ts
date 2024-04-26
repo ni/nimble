@@ -1,6 +1,7 @@
 import { expose } from 'comlink';
 import type {
     Dimensions,
+    State,
     Transform,
     WaferMapMatrix,
     WaferMapTypedMatrix
@@ -22,6 +23,17 @@ export class MatrixRenderer {
     public columnIndexPositions = Int32Array.from([]);
     public canvas!: OffscreenCanvas;
     public context!: OffscreenCanvasRenderingContext2D;
+    private state: State = {
+        containerDimensions: undefined,
+        dieDimensions: undefined,
+        margin: undefined,
+        verticalCoefficient: undefined,
+        horizontalCoefficient: undefined,
+        horizontalConstant: undefined,
+        verticalConstant: undefined,
+        labelsFontSize: undefined,
+        colorScale: undefined
+    };
     private scaleX: number = 1;
     private scaleY: number = 1;
     private baseX: number = 1;
@@ -84,6 +96,10 @@ export class MatrixRenderer {
                 this.rowIndexes[i]!
             );
         }
+    }
+
+    public setState(state: State): void {
+        this.state = state;
     }
 
     public setMargin(margin: {

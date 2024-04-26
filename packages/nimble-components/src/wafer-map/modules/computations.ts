@@ -2,7 +2,8 @@ import { range } from 'd3-array';
 import { ScaleBand, scaleBand, scaleQuantile, ScaleQuantile } from 'd3-scale';
 import type { WaferMap } from '..';
 import type { WaferMapDie } from '../types';
-import { Dimensions, Margin, WaferMapOriginLocation } from '../types';
+import { WaferMapOriginLocation } from '../types';
+import type { Dimensions, Margin } from '../workers/types';
 
 interface GridDimensions {
     origin: {

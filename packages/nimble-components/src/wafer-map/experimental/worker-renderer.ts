@@ -1,8 +1,8 @@
 import { type Remote, transfer } from 'comlink';
-import type { WaferMap } from '../..';
-import { HoverDieOpacity } from '../../types';
-import { createMatrixRenderer } from '../create-matrix-renderer';
-import type { MatrixRenderer } from '../../../../build/generate-workers/dist/esm/source/matrix-renderer';
+import type { WaferMap } from '..';
+import { HoverDieOpacity } from '../types';
+import { createMatrixRenderer } from '../modules/create-matrix-renderer';
+import type { MatrixRenderer } from '../../../build/generate-workers/dist/esm/source/matrix-renderer';
 
 /**
  * Responsible for drawing the dies inside the wafer map, adding dieText and scaling the canvas
@@ -27,19 +27,19 @@ export class WorkerRenderer {
             height: this.wafermap.canvasHeight ?? 0
         });
         await this.matrixRenderer.setDiesDimensions(
-            this.wafermap.experimentalDataManager.dieDimensions
+            this.wafermap.state.dieDimensions!
         );
-        const scaleX = this.wafermap.experimentalDataManager.horizontalScale(1)!
-            - this.wafermap.experimentalDataManager.horizontalScale(0)!;
-        const scaleY = this.wafermap.experimentalDataManager.verticalScale(1)!
-            - this.wafermap.experimentalDataManager.verticalScale(0)!;
+        const scaleX = this.wafermap.horizontalScale!(1)!
+            - this.wafermap.horizontalScale!(0)!;
+        const scaleY = this.wafermap.verticalScale!(1)!
+            - this.wafermap.verticalScale!(0)!;
         await this.matrixRenderer.setScaling(scaleX, scaleY);
         await this.matrixRenderer.setBases(
-            this.wafermap.experimentalDataManager.horizontalScale(0)!,
-            this.wafermap.experimentalDataManager.verticalScale(0)!
+            this.wafermap.horizontalScale!(0)!,
+            this.wafermap.verticalScale!(0)!
         );
         await this.matrixRenderer.setMargin(
-            this.wafermap.experimentalDataManager.margin
+            this.wafermap.state.margin!
         );
 
         if (this.wafermap.diesTable === undefined) {
@@ -70,10 +70,10 @@ export class WorkerRenderer {
             {
                 x:
                     topLeftCanvasCorner[0]
-                    - this.wafermap.experimentalDataManager.dieDimensions.width,
+                    - this.wafermap.state.dieDimensions!.width,
                 y:
                     topLeftCanvasCorner[1]
-                    - this.wafermap.experimentalDataManager.dieDimensions.height
+                    - this.wafermap.state.dieDimensions!.height
             },
             {
                 x: bottomRightCanvasCorner[0],
@@ -85,9 +85,9 @@ export class WorkerRenderer {
     }
 
     public renderHover(): void {
-        this.wafermap.hoverWidth = this.wafermap.experimentalDataManager.dieDimensions.width
+        this.wafermap.hoverWidth = this.wafermap.state.dieDimensions!.width
             * this.wafermap.transform.k;
-        this.wafermap.hoverHeight = this.wafermap.experimentalDataManager.dieDimensions.height
+        this.wafermap.hoverHeight = this.wafermap.state.dieDimensions!.height
             * this.wafermap.transform.k;
         this.wafermap.hoverOpacity = this.wafermap.hoverDie === undefined
             ? HoverDieOpacity.hide
@@ -97,21 +97,21 @@ export class WorkerRenderer {
 
     private calculateHoverTransform(): string {
         if (this.wafermap.hoverDie !== undefined) {
-            const scaledX = this.wafermap.experimentalDataManager.horizontalScale(
+            const scaledX = this.wafermap.horizontalScale!(
                 this.wafermap.hoverDie.x
             );
             if (scaledX === undefined) {
                 return '';
             }
-            const scaledY = this.wafermap.experimentalDataManager.verticalScale(
+            const scaledY = this.wafermap.verticalScale!(
                 this.wafermap.hoverDie.y
             );
             if (scaledY === undefined) {
                 return '';
             }
             const transformedPoint = this.wafermap.transform.apply([
-                scaledX + this.wafermap.experimentalDataManager.margin.left,
-                scaledY + this.wafermap.experimentalDataManager.margin.top
+                scaledX + this.wafermap.state.margin!.left,
+                scaledY + this.wafermap.state.margin!.top
             ]);
             return `translate(${transformedPoint[0]}, ${transformedPoint[1]})`;
         }

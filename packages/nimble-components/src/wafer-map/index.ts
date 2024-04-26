@@ -6,10 +6,10 @@ import {
 import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
 import { zoomIdentity, ZoomTransform } from 'd3-zoom';
 import type { Table } from 'apache-arrow';
+import type { ScaleLinear } from 'd3-scale';
 import { template } from './template';
 import { styles } from './styles';
 import { DataManager } from './modules/data-manager';
-import { DataManager as ExperimentalDataManager } from './modules/experimental/data-manager';
 import { RenderingModule } from './modules/rendering';
 import {
     HoverDie,
@@ -24,10 +24,12 @@ import {
 } from './types';
 import { WaferMapUpdateTracker } from './modules/wafer-map-update-tracker';
 import { WaferMapValidator } from './modules/wafer-map-validator';
-import { WorkerRenderer } from './modules/experimental/worker-renderer';
+import { WorkerRenderer } from './experimental/worker-renderer';
 import { HoverHandler } from './modules/hover-handler';
-import { HoverHandler as ExperimentalHoverHandler } from './modules/experimental/hover-handler';
+import { HoverHandler as ExperimentalHoverHandler } from './experimental/hover-handler';
 import { ZoomHandler } from './modules/zoom-handler';
+import { Computations } from './experimental/computations';
+import type { State } from './workers/types';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -102,7 +104,29 @@ export class WaferMap<
      */
     public readonly zoomContainer!: HTMLElement;
 
-    public readonly experimentalDataManager: ExperimentalDataManager = new ExperimentalDataManager(this.asRequiredFieldsWaferMap);
+    /**
+     * @internal
+     */
+    public horizontalScale: ScaleLinear<number, number> | undefined;
+
+    /**
+     * @internal
+     */
+    public verticalScale: ScaleLinear<number, number> | undefined;
+
+    public readonly state: State = {
+        containerDimensions: undefined,
+        dieDimensions: undefined,
+        margin: undefined,
+        verticalCoefficient: undefined,
+        horizontalCoefficient: undefined,
+        horizontalConstant: undefined,
+        verticalConstant: undefined,
+        labelsFontSize: undefined,
+        colorScale: undefined
+    };
+
+    public readonly computations: Computations = new Computations(this.asRequiredFieldsWaferMap);
 
     public dataManager: DataManager = new DataManager(
         this.asRequiredFieldsWaferMap
@@ -220,16 +244,22 @@ export class WaferMap<
         if (this.waferMapUpdateTracker.requiresEventsUpdate) {
             if (
                 this.waferMapUpdateTracker.requiresContainerDimensionsUpdate
-                || this.waferMapUpdateTracker.requiresScalesUpdate
             ) {
-                this.experimentalDataManager.updateComputations();
+                this.computations.componentResizeUpdate();
+                await this.workerRenderer.setupWafer();
+                await this.workerRenderer.drawWafer();
+            } else if (
+                this.waferMapUpdateTracker.requiresScalesUpdate
+            ) {
+                this.computations.inputDataUpdate();
                 await this.workerRenderer.setupWafer();
                 await this.workerRenderer.drawWafer();
             } else if (
                 this.waferMapUpdateTracker.requiresLabelsFontSizeUpdate
                 || this.waferMapUpdateTracker.requiresDiesRenderInfoUpdate
             ) {
-                this.experimentalDataManager.updatePrerendering();
+                this.computations.colorAndTextUpdate();
+                await this.workerRenderer.setupWafer();
                 await this.workerRenderer.drawWafer();
             } else if (this.waferMapUpdateTracker.requiresDrawnWaferUpdate) {
                 await this.workerRenderer.drawWafer();

@@ -1,5 +1,6 @@
 import { Computations } from '../modules/computations';
-import { Margin, WaferMapOriginLocation } from '../types';
+import { WaferMapOriginLocation } from '../types';
+import type { Margin } from '../workers/types';
 import { getWaferMapMockComputations, getWaferMapDies } from './utilities';
 
 describe('Wafermap Computations module', () => {

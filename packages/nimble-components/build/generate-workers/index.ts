@@ -23,12 +23,15 @@ function writeFile(filePath: string, content: string): void {
 }
 
 const renderModuleName: string = '../bundle/matrix-renderer.js';
+const workerTypes: string = '../esm/source/types.d.ts';
 const workersDirectory: string = path.resolve('./src/wafer-map/workers');
 
 prepareDirectory(workersDirectory);
 
 const modulePath: string = resolveModulePath(renderModuleName);
 const sourceCode: string = fs.readFileSync(modulePath, 'utf-8');
+const workerTypesPath: string = resolveModulePath(workerTypes);
+const typesCode: string = fs.readFileSync(workerTypesPath, 'utf-8');
 
 const fileContent: string = `// eslint-disable-next-line no-template-curly-in-string
 export const workerCode = ${JSON.stringify(sourceCode)};
@@ -39,4 +42,10 @@ const renderFilePath: string = path.resolve(
     'matrix-renderer.ts'
 );
 
+const workersFilePath: string = path.resolve(
+    workersDirectory,
+    'types.ts'
+);
+
 writeFile(renderFilePath, fileContent);
+writeFile(workersFilePath, typesCode);

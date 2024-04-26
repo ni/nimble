@@ -2,12 +2,12 @@ import { ScaleLinear, scaleLinear, ScaleOrdinal, scaleOrdinal } from 'd3-scale';
 import { ColorRGBA64, parseColor } from '@microsoft/fast-colors';
 import { WaferMapColorScaleMode } from '../types';
 import type {
-    Dimensions,
     DieRenderInfo,
     WaferMapColorScale,
     WaferMapDie
 } from '../types';
 import type { WaferMap } from '..';
+import type { Dimensions } from '../workers/types';
 
 /**
  * Prerendering prepares render-ready dies data to be used by the rendering module

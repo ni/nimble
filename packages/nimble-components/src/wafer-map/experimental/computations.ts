@@ -1,6 +1,8 @@
 import { scaleLinear, ScaleLinear } from 'd3-scale';
-import type { WaferMap } from '../..';
-import { Dimensions, Margin, WaferMapOriginLocation } from '../../types';
+import { ticks } from 'd3-array';
+import type { WaferMap } from '..';
+import { WaferMapColorScaleMode, WaferMapOriginLocation } from '../types';
+import type { ColorScale, Dimensions, Margin } from '../workers/types';
 
 interface GridDimensions {
     origin: {
@@ -15,37 +17,13 @@ interface GridDimensions {
  * Computations calculates and stores different measures which are used in the Wafermap
  */
 export class Computations {
-    public get containerDimensions(): Dimensions {
-        return this._containerDimensions;
-    }
-
-    public get dieDimensions(): Dimensions {
-        return this._dieDimensions;
-    }
-
-    public get margin(): Margin {
-        return this._margin;
-    }
-
-    public get horizontalScale(): ScaleLinear<number, number> {
-        return this._horizontalScale;
-    }
-
-    public get verticalScale(): ScaleLinear<number, number> {
-        return this._verticalScale;
-    }
-
-    private _containerDimensions!: Dimensions;
-    private _dieDimensions!: Dimensions;
-    private _margin!: Margin;
-    private _horizontalScale!: ScaleLinear<number, number>;
-    private _verticalScale!: ScaleLinear<number, number>;
-    private readonly defaultPadding = 0;
     private readonly baseMarginPercentage = 0.04;
+    private readonly fontSizeFactor = 0.8;
+    private readonly colorScaleResolution = 10;
 
     public constructor(private readonly wafermap: WaferMap) {}
 
-    public update(): void {
+    public componentResizeUpdate(): void {
         const canvasDimensions = {
             width: this.wafermap.canvasWidth,
             height: this.wafermap.canvasHeight
@@ -66,37 +44,65 @@ export class Computations {
             bottom: canvasDiameter * this.baseMarginPercentage,
             left: canvasDiameter * this.baseMarginPercentage
         };
-        this._margin = this.calculateMarginAddition(baseMargin, canvasMargin);
-        this._containerDimensions = this.calculateContainerDimensions(
+        this.wafermap.state.margin = this.calculateMarginAddition(baseMargin, canvasMargin);
+        this.wafermap.state.containerDimensions = this.calculateContainerDimensions(
             canvasDimensions,
-            this._margin
+            this.wafermap.state.margin
         );
+        this.inputDataUpdate();
+    }
+
+    public inputDataUpdate(): void {
+        if (this.wafermap.state.containerDimensions === undefined) {
+            this.componentResizeUpdate();
+            return;
+        }
         const containerDiameter = Math.min(
-            this._containerDimensions.width,
-            this._containerDimensions.height
+            this.wafermap.state.containerDimensions.width,
+            this.wafermap.state.containerDimensions.height
         );
         const gridDimensions = this.gridDimensionsValidAndDefined()
             ? this.calculateGridDimensionsFromBoundingBox()
             : this.calculateGridDimensionsFromDies();
         // this scale is used for positioning the dies on the canvas
         const originLocation = this.wafermap.originLocation;
-        this._horizontalScale = this.createHorizontalScale(
+        this.wafermap.horizontalScale = this.createHorizontalScale(
             originLocation,
             gridDimensions,
             containerDiameter
         );
         // this scale is used for positioning the dies on the canvas
-        this._verticalScale = this.createVerticalScale(
+        this.wafermap.verticalScale = this.createVerticalScale(
             originLocation,
             gridDimensions,
             containerDiameter
         );
-        this._dieDimensions = {
+        this.wafermap.state.horizontalCoefficient = this.wafermap.horizontalScale(1)
+            - this.wafermap.horizontalScale(0);
+        this.wafermap.state.verticalCoefficient = this.wafermap.verticalScale(1)
+            - this.wafermap.verticalScale(0);
+        this.wafermap.state.horizontalConstant = this.wafermap.horizontalScale(0);
+        this.wafermap.state.verticalConstant = this.wafermap.verticalScale(0);
+
+        this.wafermap.state.dieDimensions = {
             width: Math.abs(
-                this._horizontalScale(0) - this._horizontalScale(1)
+                this.wafermap.horizontalScale(0) - this.wafermap.horizontalScale(1)
             ),
-            height: Math.abs(this._verticalScale(0) - this._verticalScale(1))
+            height: Math.abs(this.wafermap.verticalScale(0) - this.wafermap.verticalScale(1))
         };
+        this.colorAndTextUpdate();
+    }
+
+    public colorAndTextUpdate(): void {
+        if (this.wafermap.state.dieDimensions === undefined) {
+            this.inputDataUpdate();
+            return;
+        }
+        this.wafermap.state.labelsFontSize = this.calculateLabelsFontSize(
+            this.wafermap.state.dieDimensions,
+            this.wafermap.maxCharacters
+        );
+        this.wafermap.state.colorScale = this.calculateColorScale();
     }
 
     private gridDimensionsValidAndDefined(): boolean {
@@ -223,5 +229,56 @@ export class Computations {
             bottom: baseMargin.bottom + addedMargin.bottom,
             left: baseMargin.left + addedMargin.left
         };
+    }
+
+    private calculateColorScale(): ColorScale {
+        if (this.wafermap.colorScaleMode === WaferMapColorScaleMode.linear) {
+            const values = this.wafermap.colorScale.values.map(item => +item);
+            const d3ColorScale = scaleLinear<string, string>()
+                .domain(values)
+                .range(this.wafermap.colorScale.colors);
+            let min = values[0]!;
+            let max = values[0]!;
+            values.forEach(value => {
+                if (value < min) {
+                    min = value;
+                }
+                if (value > max) {
+                    max = value;
+                }
+            });
+            // the linear color scale will not be infinite but will be limited by the color scale resolution
+            const valueSamples = ticks(
+                min,
+                max,
+                values.length * this.colorScaleResolution
+            );
+            return valueSamples.map(value => {
+                return {
+                    color: d3ColorScale(value),
+                    value
+                };
+            });
+        }
+        // ordinal color categories have to be sorted by value
+        return this.wafermap.colorScale.colors
+            .map((color, index) => {
+                return {
+                    color,
+                    value: +this.wafermap.colorScale.values[index]!
+                };
+            })
+            .sort((a, b) => a.value - b.value);
+    }
+
+    private calculateLabelsFontSize(
+        dieDimensions: Dimensions,
+        maxCharacters: number
+    ): number {
+        return Math.min(
+            dieDimensions.height,
+            (dieDimensions.width / (Math.max(2, maxCharacters) * 0.5))
+                * this.fontSizeFactor
+        );
     }
 }

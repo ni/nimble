@@ -9,9 +9,7 @@ import {
 import { type Table, tableFromArrays } from 'apache-arrow';
 import type { ZoomTransform } from 'd3-zoom';
 import {
-    Dimensions,
     HoverDie,
-    Margin,
     WaferMapColorScale,
     WaferMapColorScaleMode,
     WaferMapDie,
@@ -20,8 +18,8 @@ import {
     WaferRequiredFields
 } from '../types';
 import type { DataManager } from '../modules/data-manager';
-import type { DataManager as ExperimentalDataManager } from '../modules/experimental/data-manager';
 import type { WaferMap } from '..';
+import type { Dimensions, Margin, State } from '../workers/types';
 
 export function getWaferMapDies(): WaferMapDie[] {
     return [
@@ -134,22 +132,18 @@ export function getDataManagerMock(
     };
     return dataManagerMock as DataManager;
 }
-export function getExperimentalDataManagerMock(
+export function getStateMock(
     dieDimensions: Dimensions,
-    margin: Margin,
-    horizontalScale: ScaleLinear<number, number> = getScaleLinear([], []),
-    verticalScale: ScaleLinear<number, number> = getScaleLinear([], [])
-): ExperimentalDataManager {
-    const dataManagerMock: Pick<
-    ExperimentalDataManager,
-    'horizontalScale' | 'verticalScale' | 'dieDimensions' | 'margin'
+    margin: Margin
+): State {
+    const stateMock: Pick<
+    State,
+    'dieDimensions' | 'margin'
     > = {
-        horizontalScale,
-        verticalScale,
         dieDimensions,
         margin
     };
-    return dataManagerMock as ExperimentalDataManager;
+    return stateMock as State;
 }
 
 export function getDataManagerMockForHover(
@@ -182,7 +176,19 @@ export function getExperimentalWaferMapMockPrerendering(
     dieLabelsHidden = true,
     dieLabelsSuffix = '',
     maxCharacters = 4,
-    experimentalDataManager = {} as ExperimentalDataManager
+    horizontalScale: ScaleLinear<number, number> = getScaleLinear([], []),
+    verticalScale: ScaleLinear<number, number> = getScaleLinear([], []),
+    state: State = {
+        containerDimensions: undefined,
+        dieDimensions: undefined,
+        margin: undefined,
+        verticalCoefficient: undefined,
+        horizontalCoefficient: undefined,
+        horizontalConstant: undefined,
+        verticalConstant: undefined,
+        labelsFontSize: undefined,
+        colorScale: undefined
+    }
 ): WaferMap {
     const waferMapMock: Pick<
     WaferMap,
@@ -193,7 +199,9 @@ export function getExperimentalWaferMapMockPrerendering(
     | 'dieLabelsHidden'
     | 'dieLabelsSuffix'
     | 'maxCharacters'
-    | 'experimentalDataManager'
+    | 'horizontalScale'
+    | 'verticalScale'
+    | 'state'
     > = {
         dies,
         colorScale,
@@ -202,7 +210,9 @@ export function getExperimentalWaferMapMockPrerendering(
         dieLabelsHidden,
         dieLabelsSuffix,
         maxCharacters,
-        experimentalDataManager
+        horizontalScale,
+        verticalScale,
+        state
     };
     return waferMapMock as WaferMap;
 }
@@ -295,6 +305,17 @@ export function getWaferMapMockComputationsExperimental(
     validity: WaferMapValidity = {
         invalidGridDimensions: false,
         invalidDiesTableSchema: false
+    },
+    state: State = {
+        containerDimensions: undefined,
+        dieDimensions: undefined,
+        margin: undefined,
+        verticalCoefficient: undefined,
+        horizontalCoefficient: undefined,
+        horizontalConstant: undefined,
+        verticalConstant: undefined,
+        labelsFontSize: undefined,
+        colorScale: undefined
     }
 ): WaferMap {
     const waferMapMock: Pick<
@@ -304,12 +325,15 @@ export function getWaferMapMockComputationsExperimental(
     | 'canvasWidth'
     | 'canvasHeight'
     | 'validity'
+    | 'state'
+
     > = {
         diesTable,
         originLocation,
         canvasWidth,
         canvasHeight,
-        validity
+        validity,
+        state
     };
     return waferMapMock as WaferMap;
 }
