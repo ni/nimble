@@ -41,17 +41,22 @@ export class WorkerRenderer {
         await this.matrixRenderer.setMargin(
             this.wafermap.experimentalDataManager.margin
         );
-        if (this.wafermap.isExperimentalUpdate()) {
-            const columnIndexes = this.wafermap
-                .diesTable!.getChild('colIndex')!
-                .toArray();
-            await this.matrixRenderer.setColumnIndexes(columnIndexes);
 
-            const rowIndexes = this.wafermap
-                .diesTable!.getChild('rowIndex')!
-                .toArray();
-            await this.matrixRenderer.setRowIndexes(rowIndexes);
+        if (this.wafermap.diesTable === undefined) {
+            await this.matrixRenderer.setColumnIndexes(Int32Array.from([]));
+            await this.matrixRenderer.setRowIndexes(Int32Array.from([]));
+            return;
         }
+
+        const columnIndexes = this.wafermap.diesTable
+            .getChild('colIndex')!
+            .toArray();
+        await this.matrixRenderer.setColumnIndexes(columnIndexes);
+
+        const rowIndexes = this.wafermap.diesTable
+            .getChild('rowIndex')!
+            .toArray();
+        await this.matrixRenderer.setRowIndexes(rowIndexes);
     }
 
     public async drawWafer(): Promise<void> {
