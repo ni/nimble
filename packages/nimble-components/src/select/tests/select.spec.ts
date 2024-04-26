@@ -413,6 +413,33 @@ describe('Select', () => {
         await disconnect();
     });
 
+    it('when handling change event, value of select element matches what was selected in dropdown on focusout', async () => {
+        const { element, connect, disconnect } = await setup();
+        await connect();
+        await waitForUpdatesAsync();
+        const pageObject = new SelectPageObject(element);
+        await clickAndWaitForOpen(element);
+        let selectValue = '';
+
+        await Promise.race([
+            new Promise(resolve => {
+                element.addEventListener('change', () => {
+                    selectValue = element.value;
+                    resolve(true);
+                });
+                pageObject.pressArrowDownKey();
+                void (async () => {
+                    await pageObject.clickAway();
+                })();
+            }),
+            waitForUpdatesAsync().then(() => false)
+        ]);
+
+        expect(selectValue).toBe('two');
+
+        await disconnect();
+    });
+
     describe('with 500 options', () => {
         async function setup500Options(): Promise<Fixture<Select>> {
             // prettier-ignore
@@ -851,6 +878,11 @@ describe('Select', () => {
             expect(element.value).toBe('one');
         });
 
+        it('filtering to no available options sets ariaActiveDescendent to empty string', async () => {
+            await pageObject.openAndSetFilterText('abc');
+            expect(element.ariaActiveDescendant).toBe('');
+        });
+
         it('filtering to no available options, then pressing <Enter> does not close popup or change value', async () => {
             await pageObject.openAndSetFilterText('abc');
             pageObject.pressEnterKey();
@@ -970,6 +1002,24 @@ describe('Select', () => {
             await pageObject.openAndSetFilterText('t'); // filters to 'Two' and 'Three'
 
             expect(pageObject.getActiveOption()?.value).toBe('three');
+        });
+
+        it('dismissing dropdown with <Tab> after navigation and then filtering to no options, does not update value', async () => {
+            await clickAndWaitForOpen(element);
+            pageObject.pressArrowDownKey();
+            pageObject.pressCharacterKey('?');
+            pageObject.pressTabKey();
+
+            expect(pageObject.getSelectedOption()?.value).toBe('one');
+        });
+
+        it('dismissing dropdown by clicking away after navigation and then filtering to no options, does not update value', async () => {
+            await clickAndWaitForOpen(element);
+            pageObject.pressArrowDownKey();
+            pageObject.pressCharacterKey('?');
+            await pageObject.clickAway();
+
+            expect(pageObject.getSelectedOption()?.value).toBe('one');
         });
     });
 

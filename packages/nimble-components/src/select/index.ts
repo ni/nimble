@@ -197,7 +197,6 @@ export class Select
 
     private _value = '';
     private forcedPosition = false;
-    private indexWhenOpened?: number;
     private openActiveIndex?: number;
 
     /**
@@ -342,11 +341,7 @@ export class Select
         super.clickHandler(e);
 
         this.open = this.collapsible && !this.open;
-        if (
-            !this.open
-            && this.selectedIndex !== -1
-            && this.indexWhenOpened !== this.selectedIndex
-        ) {
+        if (!this.open && this.selectedIndex !== -1) {
             this.updateValue(true);
         }
     }
@@ -478,23 +473,21 @@ export class Select
         this.clearSelection();
         this.filterOptions();
 
-        if (this.filteredOptions.length > 0) {
-            const enabledOptions = this.filteredOptions.filter(
-                o => !o.disabled
-            );
-            if (enabledOptions.length > 0) {
-                const selectedOption = enabledOptions.find(
-                    o => o === this.committedSelectedOption
-                ) ?? enabledOptions[0]!;
-                (selectedOption as ListOption).activeOption = true;
-                this.openActiveIndex = this.options.indexOf(selectedOption);
-            } else {
-                // only filtered option is disabled
-                this.openActiveIndex = -1;
-            }
-        } else if (this.committedSelectedOption) {
-            this.committedSelectedOption.selected = true;
+        const enabledOptions = this.filteredOptions.filter(o => !o.disabled);
+        let selectedOptionIndex = this.filter !== ''
+            ? this.openActiveIndex ?? this.selectedIndex
+            : this.selectedIndex;
+
+        if (
+            enabledOptions.length > 0
+            && (this.selectedIndex < 0
+                || !enabledOptions.find(o => o === this.committedSelectedOption))
+        ) {
+            selectedOptionIndex = this.options.indexOf(enabledOptions[0]!);
+        } else if (enabledOptions.length === 0) {
+            selectedOptionIndex = -1;
         }
+        this.setActiveOption(selectedOptionIndex);
 
         if (e.inputType.includes('deleteContent') || !this.filter.length) {
             return true;
@@ -523,7 +516,6 @@ export class Select
             let currentActiveIndex = this.openActiveIndex ?? this.selectedIndex;
             this.open = false;
             if (currentActiveIndex === -1) {
-                this.selectedIndex = this.indexWhenOpened!;
                 currentActiveIndex = this.selectedIndex;
                 if (this.selectedIndex >= 0) {
                     (
@@ -532,9 +524,9 @@ export class Select
                 }
             }
 
-            if (this.indexWhenOpened !== currentActiveIndex) {
-                this.updateValue(true);
+            if (this.selectedIndex !== currentActiveIndex) {
                 this.selectedIndex = currentActiveIndex;
+                this.updateValue(true);
             }
         }
         return true;
@@ -544,6 +536,7 @@ export class Select
      * @internal
      */
     public override keydownHandler(e: KeyboardEvent): BooleanOrVoid {
+        const initialSelectedIndex = this.selectedIndex;
         super.keydownHandler(e);
         const key = e.key;
         if (e.ctrlKey || e.shiftKey) {
@@ -591,16 +584,14 @@ export class Select
                     break;
                 }
 
-                this.toggleNewActiveOption(
-                    this.indexWhenOpened ?? this.selectedIndex
-                );
+                this.setActiveOption(this.selectedIndex);
 
                 if (this.collapsible && this.open) {
                     e.preventDefault();
                     this.open = false;
                 }
 
-                currentActiveIndex = this.indexWhenOpened!;
+                currentActiveIndex = this.selectedIndex;
                 this.focus();
                 break;
             }
@@ -610,10 +601,6 @@ export class Select
                         this.filteredOptions.length === 0
                         || this.filteredOptions.every(o => o.disabled)
                     ) {
-                        this.toggleNewActiveOption(
-                            this.indexWhenOpened ?? this.selectedIndex
-                        );
-                        currentActiveIndex = this.indexWhenOpened!;
                         this.open = false;
                         return true;
                     }
@@ -628,11 +615,12 @@ export class Select
             }
         }
 
-        if (!this.open && this.indexWhenOpened !== currentActiveIndex) {
+        if (!this.open && this.selectedIndex !== currentActiveIndex) {
             this.selectedIndex = currentActiveIndex;
-            this.options[this.selectedIndex]!.ariaSelected = 'true';
+        }
+
+        if (!this.open && initialSelectedIndex !== this.selectedIndex) {
             this.updateValue(true);
-            this.indexWhenOpened = undefined;
         }
 
         return !(key === keyArrowDown || key === keyArrowUp);
@@ -656,7 +644,7 @@ export class Select
         // selected value.
         this.setSelectedOptions();
         if (this.open) {
-            this.toggleNewActiveOption(this.selectedIndex);
+            this.setActiveOption(this.selectedIndex);
         }
         this.updateValue();
     }
@@ -677,7 +665,7 @@ export class Select
                 if (selectedIndex > -1 && !this.open) {
                     this.selectedIndex = selectedIndex;
                 } else {
-                    this.toggleNewActiveOption(selectedIndex);
+                    this.setActiveOption(selectedIndex);
                 }
             }
 
@@ -722,18 +710,16 @@ export class Select
         // don't call super.selectNextOption as that relies on side-effecty
         // behavior to not select disabled option (which no longer works)
         const startIndex = this.openActiveIndex ?? this.selectedIndex;
-        let newActiveOptionIndex = -1;
         for (let i = startIndex + 1; i < this.options.length; i++) {
             const listOption = this.options[i]!;
             if (
                 isNimbleListOption(listOption)
                 && isOptionSelectable(listOption)
             ) {
-                newActiveOptionIndex = i;
+                this.setActiveOption(i);
                 break;
             }
         }
-        this.toggleNewActiveOption(newActiveOptionIndex);
     }
 
     /**
@@ -743,18 +729,16 @@ export class Select
         // don't call super.selectPreviousOption as that relies on side-effecty
         // behavior to not select disabled option (which no longer works)
         const startIndex = this.openActiveIndex ?? this.selectedIndex;
-        let newActiveOptionIndex = -1;
         for (let i = startIndex - 1; i >= 0; i--) {
             const listOption = this.options[i]!;
             if (
                 isNimbleListOption(listOption)
                 && isOptionSelectable(listOption)
             ) {
-                newActiveOptionIndex = i;
+                this.setActiveOption(i);
                 break;
             }
         }
-        this.toggleNewActiveOption(newActiveOptionIndex);
     }
 
     /**
@@ -764,7 +748,7 @@ export class Select
         const newActiveOptionIndex = this.options.findIndex(
             o => isNimbleListOption(o) && isOptionSelectable(o)
         );
-        this.toggleNewActiveOption(newActiveOptionIndex);
+        this.setActiveOption(newActiveOptionIndex);
     }
 
     /**
@@ -775,7 +759,7 @@ export class Select
             this.options,
             o => isNimbleListOption(o) && isOptionSelectable(o)
         );
-        this.toggleNewActiveOption(newActiveOptionIndex);
+        this.setActiveOption(newActiveOptionIndex);
     }
 
     /**
@@ -934,24 +918,23 @@ export class Select
         this.committedSelectedOption = options[this.selectedIndex];
     }
 
-    private toggleNewActiveOption(newActiveIndex: number): void {
+    private setActiveOption(newActiveIndex: number): void {
         const selectedIndex = this.openActiveIndex ?? this.selectedIndex;
         const activeOption = this.options[newActiveIndex];
-        if (newActiveIndex >= 0 && isNimbleListOption(activeOption)) {
+        if (isNimbleListOption(activeOption)) {
             activeOption.activeOption = true;
             if (selectedIndex !== newActiveIndex && selectedIndex > -1) {
                 (this.options[selectedIndex]! as ListOption).activeOption = false;
             }
-
-            if (this.open) {
-                this.openActiveIndex = newActiveIndex;
-                this.focusAndScrollActiveOptionIntoView();
-            } else {
-                this.selectedIndex = newActiveIndex;
-            }
-
-            this.ariaActiveDescendant = this.options[newActiveIndex]?.id ?? '';
         }
+
+        if (this.open) {
+            this.openActiveIndex = newActiveIndex;
+            this.focusAndScrollActiveOptionIntoView();
+        } else {
+            this.selectedIndex = newActiveIndex;
+        }
+        this.ariaActiveDescendant = activeOption?.id ?? '';
     }
 
     private focusAndScrollActiveOptionIntoView(): void {
@@ -1093,10 +1076,9 @@ export class Select
     }
 
     private initializeOpenState(): void {
-        this.indexWhenOpened = this.selectedIndex;
         this.openActiveIndex = this.selectedIndex;
         this.committedSelectedOption = this.options[this.selectedIndex];
-        this.toggleNewActiveOption(this.openActiveIndex ?? this.selectedIndex);
+        this.setActiveOption(this.openActiveIndex ?? this.selectedIndex);
         this.ariaControls = this.listboxId;
         this.ariaExpanded = 'true';
 

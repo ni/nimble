@@ -174,10 +174,14 @@ export class SelectPageObject {
             this.selectElement.open
             && this.selectElement.filterMode !== FilterMode.none
         ) {
-            const filterInput = this.getFilterInput();
+            const filterInput = this.selectElement.filterInput;
             filterInput!.value = filterInput!.value + character;
         }
-        this.selectElement.dispatchEvent(new InputEvent('input'));
+        const inputElement = this.selectElement.open
+            && this.selectElement.filterMode !== FilterMode.none
+            ? this.selectElement.filterInput
+            : this.selectElement;
+        inputElement!.dispatchEvent(new InputEvent('input'));
         this.selectElement.dispatchEvent(
             new KeyboardEvent('keydown', { key: character })
         );
@@ -238,7 +242,7 @@ export class SelectPageObject {
     }
 
     public getFilterInputText(): string {
-        return this.getFilterInput()?.value ?? '';
+        return this.selectElement.filterInput?.value ?? '';
     }
 
     private getFilterInput(): HTMLInputElement | null | undefined {
@@ -247,8 +251,6 @@ export class SelectPageObject {
                 'Select has filterMode of "none" so there is no filter input'
             );
         }
-        return this.selectElement.shadowRoot?.querySelector<HTMLInputElement>(
-            '.filter-input'
-        );
+        return this.selectElement.filterInput;
     }
 }
