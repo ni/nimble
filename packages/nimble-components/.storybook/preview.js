@@ -47,6 +47,7 @@ export const parameters = {
         expanded: true
     },
     docs: {
+        controls: { sort: 'alpha' },
         source: {
             transform: transformSource
         },

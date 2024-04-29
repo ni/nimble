@@ -7,6 +7,7 @@
 !*.mdx
 !*.json
 !src/
+!build/
 !/.storybook/
 
 /src/**/*.*
@@ -18,6 +19,10 @@
 
 /.storybook/*.*
 !/.storybook/*.js
+
+/build/**/*.*
+!build/generate-workers/**/*.ts
+!build/generate-workers/**/*.json
 
 # Explicitly exclude the below files and folders
 dist

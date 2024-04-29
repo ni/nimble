@@ -2,6 +2,85 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Fri, 26 Apr 2024 21:13:31 GMT",
+      "version": "27.0.5",
+      "tag": "@ni/nimble-components_v27.0.5",
+      "comments": {
+        "none": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "116f0bc5bd4c14034f57070f3348b7c5142625d2",
+            "comment": "Update tests to use `parameterizeSuite`"
+          }
+        ],
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/jasmine-parameterized to v0.3.0",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 26 Apr 2024 20:31:47 GMT",
+      "version": "27.0.4",
+      "tag": "@ni/nimble-components_v27.0.4",
+      "comments": {
+        "patch": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "ff7f847c0fb3834b5fdf4ce141bbe6bd94e1f0eb",
+            "comment": "No API changes, validating release pipelines"
+          },
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "c5a74e68c2909e2f9a50bf0e6b0e4f1c5f0cbce8",
+            "comment": "No API changes, validating release pipelines"
+          },
+          {
+            "author": "110180309+Razvan1928@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "a3865cb57e09ce6581d2dd10c5a61181ece73f59",
+            "comment": "Updated wafer map web worker class to support offscreen rendering"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/nimble-tokens to v6.13.5",
+            "commit": "not available"
+          }
+        ],
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "910414c73de07589bbb608b23d7cae603d704112",
+            "comment": "fixup"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 24 Apr 2024 19:54:26 GMT",
+      "version": "27.0.0",
+      "tag": "@ni/nimble-components_v27.0.0",
+      "comments": {
+        "none": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "1b7dd15cfbe6cf52fa5f49ec41a65191585bae2e",
+            "comment": "Storybook documentation improvements"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 24 Apr 2024 16:20:52 GMT",
       "version": "27.0.0",
       "tag": "@ni/nimble-components_v27.0.0",
