@@ -548,14 +548,6 @@
           "System.Xml.XDocument": "4.0.11"
         }
       },
-      "NimbleBlazor": {
-        "type": "Transitive",
-        "resolved": "16.0.4",
-        "contentHash": "Zv/flgCXKmGKQ80DZLwm3XqcRJ5LYY6dSzD8c3XxLRPLNNiEyW1wjNeNAERkiZR1U/7BDc0tqwrpeJgwXodVdw==",
-        "dependencies": {
-          "Microsoft.AspNetCore.Components.Web": "6.0.28"
-        }
-      },
       "NuGet.Frameworks": {
         "type": "Transitive",
         "resolved": "5.0.0",
@@ -1066,11 +1058,16 @@
           "xunit.abstractions": "2.0.3"
         }
       },
+      "nimbleblazor": {
+        "type": "Project",
+        "dependencies": {
+          "Microsoft.AspNetCore.Components.Web": "[6.0.28, )"
+        }
+      },
       "sprightblazor": {
         "type": "Project",
         "dependencies": {
-          "Microsoft.AspNetCore.Components.Web": "[6.0.28, )",
-          "NimbleBlazor": "[16.0.4, )"
+          "Microsoft.AspNetCore.Components.Web": "[6.0.28, )"
         }
       }
     }
