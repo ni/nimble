@@ -79,6 +79,18 @@ When generating a change file, follow these guidelines:
 2. Write a brief but useful description with Nimble clients in mind. If making a major (breaking) change, explain what clients need to do to adopt it. The description can be plain text or [markdown](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax), with newlines specified via `\n` if needed.
 3. If you prefer not to expose your email address to the world, [configure GitHub to "Keep my email address private"](https://github.com/settings/emails) before generating the change file.
 
+#### Recovering from a failed beachball publish
+
+If a beachball publish command fails on the pipeline so packages are partially published, perform the following steps to get the repo in a good state:
+
+1. Create a branch from main which should still have change files from the failed publish and, if applicable, fix the underlying issue in the branch.
+2. In the repo root run `npm run beachball-sync`. Beachball will:
+    - Find the latest packages that were published successfully to npm.
+    - Update the `package.json` for each of those packages to align with the latest published version. It also handles cross-dependencies, i.e. angular shows the latest version of components as its dependency.
+    - Note: It does not handle packages that are not published to npm at all. For example, you need to manually check nuget.org for `NimbleBlazor`'s published version and update the `package.json`.
+3. Commit the changes from `npm run beachball-sync` and run `npm run change` for those changes.
+4. Submit a PR for the branch and merge.
+
 ### Dependency Review
 
 The repository runs the [Dependency Review](https://github.com/actions/dependency-review-action) action to prevent submissions if any dependencies have known vulnerabilities. This can occur during on a PR that introduces a new dependency version or on an unrelated PR if a vulnerability was recently reported on an existing dependency. If this check fails, our options include:

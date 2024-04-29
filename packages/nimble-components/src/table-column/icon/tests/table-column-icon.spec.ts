@@ -1,5 +1,5 @@
 import { html, repeat, ref } from '@microsoft/fast-element';
-import { parameterizeSpec } from '@ni/jasmine-parameterized';
+import { parameterizeSpec, parameterizeSuite } from '@ni/jasmine-parameterized';
 import { Table, tableTag } from '../../../table';
 import { TableColumnIcon, tableColumnIconTag } from '..';
 import { waitForUpdatesAsync } from '../../../testing/async-helpers';
@@ -637,9 +637,8 @@ describe('TableColumnIcon', () => {
             }
         ] as const;
 
-        for (const mappingType of mappingTypes) {
-            // eslint-disable-next-line @typescript-eslint/no-loop-func
-            describe(`in ${mappingType.name}`, () => {
+        parameterizeSuite(mappingTypes, (suite, name, value) => {
+            suite(`in ${name}`, () => {
                 beforeEach(async () => {
                     ({ connect, disconnect, model } = await setup({
                         keyType: MappingKeyType.string,
@@ -654,7 +653,7 @@ describe('TableColumnIcon', () => {
                     columnPageObject = new TableColumnIconPageObject(
                         pageObject
                     );
-                    await model.table.setData([{ field1: mappingType.type }]);
+                    await model.table.setData([{ field1: value.type }]);
                     await connect();
                     model.col1.groupIndex = 0;
                     await waitForUpdatesAsync();
@@ -728,7 +727,7 @@ describe('TableColumnIcon', () => {
                     ).toBe('alpha');
                 });
             });
-        }
+        });
     });
 
     describe('overflow', () => {
@@ -747,9 +746,8 @@ describe('TableColumnIcon', () => {
             }
         ] as const;
 
-        for (const mappingType of mappingTypes) {
-            // eslint-disable-next-line @typescript-eslint/no-loop-func
-            describe(`in ${mappingType.name}`, () => {
+        parameterizeSuite(mappingTypes, (suite, name, value) => {
+            suite(`in ${name}`, () => {
                 const longText = 'a very long value that should get ellipsized due to not fitting within the default cell width';
                 const shortText = 'short value';
                 const longTextRowIndex = 0;
@@ -786,8 +784,8 @@ describe('TableColumnIcon', () => {
                         pageObject
                     );
                     await model.table.setData([
-                        { field1: `${mappingType.type}-long` },
-                        { field1: `${mappingType.type}-short` }
+                        { field1: `${value.type}-long` },
+                        { field1: `${value.type}-short` }
                     ]);
                     await connect();
                     model.table.style.width = '200px';
@@ -890,7 +888,7 @@ describe('TableColumnIcon', () => {
                     ).toBe('');
                 });
             });
-        }
+        });
     });
 
     describe('width-mode', () => {

@@ -1,5 +1,6 @@
 import { select } from 'd3-selection';
 import { zoom, ZoomTransform } from 'd3-zoom';
+import { Observable, type Notifier } from '@microsoft/fast-element';
 import type { WaferMap } from '..';
 
 interface ZoomEvent {
@@ -12,8 +13,13 @@ interface ZoomEvent {
 export class ZoomHandler {
     private readonly scaleExtent: [number, number] = [1, 100];
     private readonly minExtentPoint: [number, number] = [0, 0];
+    private readonly wafermapNotifier: Notifier;
 
-    public constructor(private readonly wafermap: WaferMap) {}
+    public constructor(private readonly wafermap: WaferMap) {
+        this.wafermapNotifier = Observable.getNotifier(this.wafermap);
+        this.wafermapNotifier.subscribe(this, 'canvasWidth');
+        this.wafermapNotifier.subscribe(this, 'canvasHeight');
+    }
 
     /**
      * @internal
@@ -31,6 +37,15 @@ export class ZoomHandler {
     public disconnect(): void {
         zoom().on('zoom', null)(select(this.wafermap as Element));
         this.wafermap.removeEventListener('wheel', this.onWheelMove);
+    }
+
+    public handleChange(source: WaferMap, propertyName: string): void {
+        if (
+            source === this.wafermap
+            && (propertyName === 'canvasWidth' || propertyName === 'canvasHeight')
+        ) {
+            this.createZoomBehavior();
+        }
     }
 
     private createZoomBehavior(): void {
