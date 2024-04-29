@@ -9,8 +9,7 @@ import { styles } from '../enum-base/styles';
 import { template } from '../enum-base/template';
 import {
     TableColumnSortOperation,
-    columnIconSize,
-    columnSpacing,
+    singleIconColumnWidth,
     defaultMinPixelWidth
 } from '../base/types';
 import { mixinGroupableColumnAPI } from '../mixins/groupable-column';
@@ -28,8 +27,6 @@ import { MappingSpinnerConfig } from '../enum-base/models/mapping-spinner-config
 import { MappingText } from '../../mapping/text';
 import { MappingTextConfig } from '../enum-base/models/mapping-text-config';
 import { TableColumnMappingWidthMode } from './types';
-
-const iconSizeWidth = columnIconSize + 2 * columnSpacing;
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -100,8 +97,8 @@ export class TableColumnIcon extends mixinGroupableColumnAPI(
         if (this.widthMode === TableColumnMappingWidthMode.iconSize) {
             this.columnInternals.resizingDisabled = true;
             this.columnInternals.hideHeaderIndicators = true;
-            this.columnInternals.pixelWidth = iconSizeWidth;
-            this.columnInternals.minPixelWidth = iconSizeWidth;
+            this.columnInternals.pixelWidth = singleIconColumnWidth;
+            this.columnInternals.minPixelWidth = singleIconColumnWidth;
         } else {
             this.columnInternals.resizingDisabled = false;
             this.columnInternals.hideHeaderIndicators = false;
