@@ -1,5 +1,4 @@
 import { css } from '@microsoft/fast-element';
-import { display } from '@microsoft/fast-foundation';
 import {
     BannerFail100DarkUi,
     Black15,
@@ -10,6 +9,7 @@ import {
     Information100LightUi,
     White
 } from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
+import { display } from '../utilities/style/display';
 import {
     tooltipCaptionFont,
     tooltipCaptionFontColor,
@@ -34,7 +34,6 @@ export const styles = css`
     }
 
     .tooltip {
-        box-sizing: border-box;
         flex-shrink: 0;
         max-width: 440px;
         box-shadow: ${elevation2BoxShadow};

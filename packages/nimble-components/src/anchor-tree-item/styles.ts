@@ -1,5 +1,5 @@
 import { css } from '@microsoft/fast-element';
-import { display } from '@microsoft/fast-foundation';
+import { display } from '../utilities/style/display';
 import {
     bodyFontFamily,
     bodyFontWeight,
@@ -54,7 +54,6 @@ export const styles = css`
     .positioning-region {
         display: flex;
         position: relative;
-        box-sizing: border-box;
         height: calc(${iconSize} * 2);
         width: 100%;
     }

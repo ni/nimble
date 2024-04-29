@@ -1,6 +1,6 @@
 import { css } from '@microsoft/fast-element';
-import { display } from '@microsoft/fast-foundation';
 import { White } from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
+import { display } from '../../../utilities/style/display';
 import {
     applicationBackgroundColor,
     borderWidth,
@@ -27,7 +27,6 @@ export const styles = css`
         background-color: ${applicationBackgroundColor};
         height: calc(${controlHeight} + 2 * ${borderWidth});
         border-top: calc(2 * ${borderWidth}) solid transparent;
-        box-sizing: border-box;
         background-clip: padding-box;
     }
 

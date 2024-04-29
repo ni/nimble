@@ -1,5 +1,5 @@
 import { css } from '@microsoft/fast-element';
-import { display } from '@microsoft/fast-foundation';
+import { display } from '../utilities/style/display';
 
 import {
     bodyDisabledFontColor,
@@ -41,7 +41,6 @@ export const styles = css`
         display: grid;
         contain: layout;
         overflow: visible;
-        box-sizing: border-box;
         height: ${controlHeight};
         grid-template-columns: 1fr;
         column-gap: 8px;

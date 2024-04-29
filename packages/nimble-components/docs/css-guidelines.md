@@ -204,7 +204,7 @@ For consistent styling, use FAST's `display` utility when setting a `display` st
 
 ```ts
 import { css } from '@microsoft/fast-element';
-import { display } from '@microsoft/fast-foundation';
+import { display } from '.utilities/style/display';
 
 export const styles = css`
     ${display('flex')}

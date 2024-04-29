@@ -1,5 +1,5 @@
 import { css } from '@microsoft/fast-element';
-import { display } from '@microsoft/fast-foundation';
+import { display } from '../utilities/style/display';
 import {
     borderRgbPartialColor,
     borderHoverColor,
@@ -92,7 +92,6 @@ export const styles = css`
         font: inherit;
         flex-grow: 1;
         outline: none;
-        box-sizing: border-box;
         position: relative;
         color: inherit;
         border-radius: 0px;

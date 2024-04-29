@@ -5,7 +5,7 @@ import {
     Black91,
     White
 } from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
-import { display } from '@microsoft/fast-foundation';
+import { display } from '../utilities/style/display';
 import { focusVisible } from '../utilities/style/focus';
 
 import {
@@ -29,7 +29,6 @@ export const styles = css`
         cursor: pointer;
         outline: none;
         border: none;
-        box-sizing: border-box;
         transition: box-shadow ${smallDelay};
     }
 

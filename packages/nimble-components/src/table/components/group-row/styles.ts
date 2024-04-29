@@ -1,6 +1,6 @@
 import { css } from '@microsoft/fast-element';
-import { display } from '@microsoft/fast-foundation';
 import { White } from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
+import { display } from '../../../utilities/style/display';
 import {
     applicationBackgroundColor,
     borderWidth,
@@ -23,7 +23,6 @@ export const styles = css`
         align-items: center;
         height: calc(${controlHeight} + 2 * ${borderWidth});
         border-top: calc(2 * ${borderWidth}) solid ${applicationBackgroundColor};
-        box-sizing: border-box;
         grid-template-columns:
             calc(
                 ${controlHeight} *
@@ -71,7 +70,6 @@ export const styles = css`
         padding-left: ${mediumPadding};
         ${userSelectNone}
         overflow: hidden;
-        display: flex;
     }
 
     .group-row-child-count {

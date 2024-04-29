@@ -1,5 +1,5 @@
 import { css } from '@microsoft/fast-element';
-import { display } from '@microsoft/fast-foundation';
+import { display } from '../utilities/style/display';
 import {
     bodyFontColor,
     borderHoverColor,
@@ -16,7 +16,6 @@ export const styles = css`
 
     :host {
         height: ${controlHeight};
-        box-sizing: border-box;
         padding-left: calc(4px - ${borderWidth});
 
         ${

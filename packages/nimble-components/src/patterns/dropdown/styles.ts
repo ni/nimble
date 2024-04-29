@@ -1,5 +1,4 @@
 import { css } from '@microsoft/fast-element';
-import { display } from '@microsoft/fast-foundation';
 import { White } from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
 import {
     applicationBackgroundColor,
@@ -18,6 +17,7 @@ import {
     failColor,
     elevation2BoxShadow
 } from '../../theme-provider/design-tokens';
+import { display } from '../../utilities/style/display';
 import { Theme } from '../../theme-provider/types';
 import { appearanceBehavior } from '../../utilities/style/appearance';
 import { hexToRgbaCssColor } from '../../utilities/style/colors';
@@ -30,7 +30,6 @@ export const styles = css`
     ${display('inline-flex')}
 
     :host {
-        box-sizing: border-box;
         color: ${bodyFontColor};
         font: ${bodyFont};
         height: ${controlHeight};
@@ -108,7 +107,6 @@ export const styles = css`
 
     .control {
         align-items: center;
-        box-sizing: border-box;
         cursor: pointer;
         display: flex;
         min-height: 100%;
@@ -135,7 +133,6 @@ export const styles = css`
     }
 
     .listbox {
-        box-sizing: border-box;
         display: inline-flex;
         flex-direction: column;
         overflow-y: auto;

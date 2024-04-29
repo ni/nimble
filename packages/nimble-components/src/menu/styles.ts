@@ -1,5 +1,4 @@
 import { css } from '@microsoft/fast-element';
-import { display } from '@microsoft/fast-foundation';
 import { White } from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
 
 import {
@@ -15,6 +14,7 @@ import {
     elevation2BoxShadow,
     menuMinWidth
 } from '../theme-provider/design-tokens';
+import { display } from '../utilities/style/display';
 import { Theme } from '../theme-provider/types';
 import { hexToRgbaCssColor } from '../utilities/style/colors';
 import { themeBehavior } from '../utilities/style/theme';

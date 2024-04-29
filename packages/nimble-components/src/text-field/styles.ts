@@ -1,5 +1,5 @@
 import { css } from '@microsoft/fast-element';
-import { display } from '@microsoft/fast-foundation';
+import { display } from '../utilities/style/display';
 
 import {
     borderRgbPartialColor,
@@ -54,7 +54,6 @@ export const styles = css`
     }
 
     .root {
-        box-sizing: border-box;
         position: relative;
         display: flex;
         flex-direction: row;

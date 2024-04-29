@@ -1,5 +1,5 @@
 import { css } from '@microsoft/fast-element';
-import { display } from '@microsoft/fast-foundation';
+import { display } from '../../utilities/style/display';
 import { focusVisible } from '../../utilities/style/focus';
 import {
     actionRgbPartialColor,
@@ -39,7 +39,6 @@ export const styles = css`
             cursor: pointer;
             outline: none;
             border: none;
-            box-sizing: border-box;
             ${
                 /*
                     Not sure why but this is needed to get buttons with icons and buttons
@@ -55,7 +54,6 @@ export const styles = css`
             height: 100%;
             width: 100%;
             border: ${borderWidth} solid transparent;
-            box-sizing: border-box;
             color: inherit;
             border-radius: inherit;
             fill: inherit;
@@ -89,7 +87,6 @@ export const styles = css`
             width: 100%;
             height: 100%;
             pointer-events: none;
-            box-sizing: border-box;
             outline: 0px solid transparent;
             color: transparent;
             background-clip: content-box;

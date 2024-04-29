@@ -5,8 +5,15 @@ import {
     placeholderFont,
     placeholderFontColor
 } from '../../../theme-provider/design-tokens';
+import { display } from '../../../utilities/style/display';
 
 export const styles = css`
+    ${display('flex')}
+
+    :host {
+        align-items: center;
+    }
+
     :host(.right-align) {
         margin-left: auto;
     }
