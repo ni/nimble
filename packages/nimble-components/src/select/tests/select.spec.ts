@@ -652,7 +652,6 @@ describe('Select', () => {
                 });
 
                 it('after closing dropdown by committing a value with <Tab>, activeElement is not Select element', () => {
-                    element.filterMode = testData.filter;
                     pageObject.clickSelect();
                     pageObject.pressArrowDownKey();
                     pageObject.pressTabKey();
