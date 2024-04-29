@@ -85,7 +85,7 @@ const component = (): ViewTemplate => html`
         <${tableColumnIconTag}
             field-name="code"
             key-type="number"
-            width-mode="${_ => TableColumnMappingWidthMode.iconSize}"
+            width-mode="${TableColumnMappingWidthMode.iconSize}"
         >
             <${iconQuestionTag} title="Icon-only column"></${iconQuestionTag}>
             <${mappingIconTag} key="-1" text="Unknown value"></${mappingIconTag}>
