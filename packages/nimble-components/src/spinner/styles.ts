@@ -1,5 +1,4 @@
 import { css } from '@microsoft/fast-element';
-import { display } from '../utilities/style/display';
 import {
     Black15,
     Black91,
@@ -7,6 +6,7 @@ import {
     PowerGreen,
     White
 } from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
+import { display } from '../utilities/style/display';
 import { spinnerSmallHeight } from '../theme-provider/design-tokens';
 import { Theme } from '../theme-provider/types';
 import { themeBehavior } from '../utilities/style/theme';

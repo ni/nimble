@@ -1,5 +1,4 @@
 import { css } from '@microsoft/fast-element';
-import { display } from '../utilities/style/display';
 import {
     BannerFail100DarkUi,
     Black75,
@@ -10,6 +9,7 @@ import {
     Warning100LightUi,
     White
 } from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
+import { display } from '../utilities/style/display';
 
 import {
     actionRgbPartialColor,

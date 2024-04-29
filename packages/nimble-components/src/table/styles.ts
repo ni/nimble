@@ -1,6 +1,6 @@
 import { css } from '@microsoft/fast-element';
-import { display } from '../utilities/style/display';
 import { White } from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
+import { display } from '../utilities/style/display';
 import {
     applicationBackgroundColor,
     bodyFont,
