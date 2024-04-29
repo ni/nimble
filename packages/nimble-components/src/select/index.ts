@@ -26,7 +26,6 @@ import {
     keyEscape,
     keyHome,
     keySpace,
-    keyTab,
     uniqueId
 } from '@microsoft/fast-web-utilities';
 import { arrowExpanderDown16X16 } from '@ni/nimble-tokens/dist/icons/js';
@@ -474,22 +473,19 @@ export class Select
         this.filterOptions();
 
         const enabledOptions = this.filteredOptions.filter(o => !o.disabled);
-        let selectedOptionIndex = this.filter !== ''
+        let activeOptionIndex = this.filter !== ''
             ? this.openActiveIndex ?? this.selectedIndex
             : this.selectedIndex;
 
         if (
             enabledOptions.length > 0
-            && (this.selectedIndex < 0
-                || !enabledOptions.find(
-                    o => o === this.options[selectedOptionIndex]
-                ))
+            && !enabledOptions.find(o => o === this.options[activeOptionIndex])
         ) {
-            selectedOptionIndex = this.options.indexOf(enabledOptions[0]!);
+            activeOptionIndex = this.options.indexOf(enabledOptions[0]!);
         } else if (enabledOptions.length === 0) {
-            selectedOptionIndex = -1;
+            activeOptionIndex = -1;
         }
-        this.setActiveOption(selectedOptionIndex);
+        this.setActiveOption(activeOptionIndex);
 
         if (e.inputType.includes('deleteContent') || !this.filter.length) {
             return true;
@@ -519,11 +515,6 @@ export class Select
             this.open = false;
             if (currentActiveIndex === -1) {
                 currentActiveIndex = this.selectedIndex;
-                if (this.selectedIndex >= 0) {
-                    (
-                        this.options[this.selectedIndex]! as ListOption
-                    ).activeOption = true;
-                }
             }
 
             if (this.selectedIndex !== currentActiveIndex) {
@@ -597,20 +588,6 @@ export class Select
                 this.focus();
                 break;
             }
-            case keyTab: {
-                if (this.collapsible && this.open) {
-                    if (
-                        this.filteredOptions.length === 0
-                        || this.filteredOptions.every(o => o.disabled)
-                    ) {
-                        this.open = false;
-                        return true;
-                    }
-                }
-
-                this.open = false;
-                break;
-            }
 
             default: {
                 break;
@@ -661,13 +638,13 @@ export class Select
             const typeaheadMatches = this.getTypeaheadMatches();
 
             if (typeaheadMatches.length) {
-                const selectedIndex = this.options.indexOf(
+                const activeOption = this.options.indexOf(
                     typeaheadMatches[0] as ListOption
                 );
-                if (selectedIndex > -1 && !this.open) {
-                    this.selectedIndex = selectedIndex;
+                if (activeOption > -1 && !this.open) {
+                    this.selectedIndex = activeOption;
                 } else if (this.filterMode === FilterMode.none) {
-                    this.setActiveOption(selectedIndex);
+                    this.setActiveOption(activeOption);
                 }
             }
 
@@ -1080,7 +1057,7 @@ export class Select
     private initializeOpenState(): void {
         this.openActiveIndex = this.selectedIndex;
         this.committedSelectedOption = this.options[this.selectedIndex];
-        this.setActiveOption(this.openActiveIndex ?? this.selectedIndex);
+        this.setActiveOption(this.selectedIndex);
         this.ariaControls = this.listboxId;
         this.ariaExpanded = 'true';
 

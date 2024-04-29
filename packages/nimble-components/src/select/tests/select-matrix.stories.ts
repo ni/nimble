@@ -1,5 +1,6 @@
 import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate } from '@microsoft/fast-element';
+import { keyArrowDown } from '@microsoft/fast-web-utilities';
 import { createStory } from '../../utilities/tests/storybook';
 import {
     createMatrixThemeStory,
@@ -21,9 +22,10 @@ import {
     menuMinWidth,
     standardPadding
 } from '../../theme-provider/design-tokens';
-import { selectTag } from '..';
+import { Select, selectTag } from '..';
 import { listOptionTag } from '../../list-option';
 import { loremIpsum } from '../../utilities/tests/lorem-ipsum';
+import { waitForUpdatesAsync } from '../../testing/async-helpers';
 
 const appearanceStates = [
     ['Underline', DropdownAppearance.underline],
@@ -100,6 +102,29 @@ export const blankListOption: StoryFn = createStory(
         <${listOptionTag}></${listOptionTag}>
     </${selectTag}>`
 );
+
+const playFunction = async (): Promise<void> => {
+    await Promise.all(
+        Array.from(document.querySelectorAll<Select>('nimble-select')).map(
+            async select => {
+                const arrowDownEvent = new KeyboardEvent('keydown', {
+                    key: keyArrowDown
+                });
+                select.dispatchEvent(arrowDownEvent);
+                await waitForUpdatesAsync();
+            }
+        )
+    );
+};
+
+export const navigateToDifferentOption: StoryFn = createStory(
+    html`<${selectTag} open>
+        <${listOptionTag} value="1" selected>Option 1</${listOptionTag}>
+        <${listOptionTag}>Option 2</${listOptionTag}>
+    </${selectTag}>`
+);
+
+navigateToDifferentOption.play = playFunction;
 
 export const textCustomized: StoryFn = createMatrixThemeStory(
     textCustomizationWrapper(

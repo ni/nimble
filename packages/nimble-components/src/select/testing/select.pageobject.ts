@@ -149,6 +149,7 @@ export class SelectPageObject {
         this.selectElement.dispatchEvent(
             new KeyboardEvent('keydown', { key: keyTab })
         );
+        this.selectElement.dispatchEvent(new FocusEvent('focusout'));
     }
 
     public pressArrowDownKey(): void {

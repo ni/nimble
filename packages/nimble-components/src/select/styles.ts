@@ -123,7 +123,7 @@ export const styles = css`
     }
 
     ::slotted([role='option']:not([active-option])) {
-        background-color: none;
+        background: none;
     }
 
     ::slotted([role='option'][active-option]:hover) {
