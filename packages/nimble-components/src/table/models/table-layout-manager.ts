@@ -84,27 +84,15 @@ export class TableLayoutManager<TData extends TableRecord> {
     /**
      * Determines if the specified column or any columns to the left are resizable.
      */
-    public hasResizableColumnToLeft(
-        columnIndex: number
-    ): boolean {
-        return (
-            this.getFirstLeftResizableColumnIndex(
-                columnIndex
-            ) !== -1
-        );
+    public hasResizableColumnToLeft(columnIndex: number): boolean {
+        return this.getFirstLeftResizableColumnIndex(columnIndex) !== -1;
     }
 
     /**
      * Determines if the specified column or any columns to the right are resizable.
      */
-    private hasResizableColumnToRight(
-        columnIndex: number
-    ): boolean {
-        return (
-            this.getFirstRightResizableColumnIndex(
-                columnIndex
-            ) !== -1
-        );
+    private hasResizableColumnToRight(columnIndex: number): boolean {
+        return this.getFirstRightResizableColumnIndex(columnIndex) !== -1;
     }
 
     private readonly onDividerMouseMove = (event: Event): void => {
@@ -191,10 +179,10 @@ export class TableLayoutManager<TData extends TableRecord> {
      * `columnIndex` and moving to the left. If no resizable column
      * is found, returns -1.
      */
-    private getFirstLeftResizableColumnIndex(
-        columnIndex: number
-    ): number {
-        const visibleColumns = this.visibleColumns.length === 0 ? this.getVisibleColumns() : this.visibleColumns;
+    private getFirstLeftResizableColumnIndex(columnIndex: number): number {
+        const visibleColumns = this.visibleColumns.length === 0
+            ? this.getVisibleColumns()
+            : this.visibleColumns;
         for (let i = columnIndex; i >= 0; i--) {
             const column = visibleColumns[i];
             if (!column) {
@@ -212,10 +200,10 @@ export class TableLayoutManager<TData extends TableRecord> {
      * `columnIndex` and moving to the right. If no resizable column
      * is found, returns -1.
      */
-    private getFirstRightResizableColumnIndex(
-        columnIndex: number
-    ): number {
-        const visibleColumns = this.visibleColumns.length === 0 ? this.getVisibleColumns() : this.visibleColumns;
+    private getFirstRightResizableColumnIndex(columnIndex: number): number {
+        const visibleColumns = this.visibleColumns.length === 0
+            ? this.getVisibleColumns()
+            : this.visibleColumns;
         for (let i = columnIndex; i < visibleColumns.length; i++) {
             const column = visibleColumns[i];
             if (!column) {
