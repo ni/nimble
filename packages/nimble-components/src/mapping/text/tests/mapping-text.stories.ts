@@ -23,7 +23,7 @@ export const textMapping: StoryObj = {
     argTypes: {
         key: {
             description: mappingKeyDescription('the mapped display text'),
-            control: false
+            control: { type: 'none' }
         },
         text: {
             description: 'The display text.'

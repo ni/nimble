@@ -23,16 +23,16 @@ export const spinnerMapping: StoryObj = {
     argTypes: {
         key: {
             description: mappingKeyDescription('a spinner'),
-            control: false
+            control: { type: 'none' }
         },
         text: {
-            control: false,
+            control: { type: 'none' },
             description: `A textual description of the value. The text will be displayed next to the spinner in a cell if \`text-hidden\` is not set,
                 or as the tooltip and accessible  name of the spinner if \`text-hidden\` is set. The text is also displayed next to the spinner
                 in a group header. This attribute is required.`
         },
         textHidden: {
-            control: false,
+            control: { type: 'none' },
             name: 'text-hidden',
             description:
                 "When set, the text is hidden within the table's cells. When unset, the text is rendered next to the spinner within the cell."

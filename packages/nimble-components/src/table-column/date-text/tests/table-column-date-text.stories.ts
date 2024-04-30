@@ -163,7 +163,7 @@ export const dateTextColumn: StoryObj<TextColumnTableArgs> = {
             name: 'field-name',
             description:
                 'Set this attribute to identify which field in the data record should be displayed in each column. The field values must be of type `number` and represent the number of milliseconds since January 1, 1970 UTC. This is the representation used by the `Date` type.',
-            control: false
+            control: { type: 'none' }
         },
         placeholder: {
             description:

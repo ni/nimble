@@ -95,7 +95,7 @@ export const durationTextColumn: StoryObj<TextColumnTableArgs> = {
             name: 'field-name',
             description:
                 'Set this attribute to identify which field in the data record should be displayed in each column. The field values must be of type `number` and represent a total number of milliseconds.',
-            control: false
+            control: { type: 'none' }
         },
         placeholder: {
             description:

@@ -114,11 +114,11 @@ export const iconColumn: StoryObj<IconColumnTableArgs> = {
             name: 'field-name',
             description:
                 "Set this attribute to identify which field in the data record contains the value for each cell in the column. The field values' type must match the type specified by the `key-type` attribute.",
-            control: false
+            control: { type: 'none' }
         },
         keyType: {
             name: 'key-type',
-            control: false,
+            control: { type: 'none' },
             defaultValue: { summary: '"string"' },
             description:
                 'The data type of the key values used for this column. Must be one of `"string"`, `"number"`, or `"boolean"`. Defaults to `"string"` if unspecified.'

@@ -28,6 +28,6 @@ ${tokenContent}
 
 See the "Tokens/Label Providers" docs page for more information.
 `,
-        control: false
+        control: { type: 'none' }
     };
 }
