@@ -74,6 +74,6 @@ Originally, there was a desire to display the group name for the selected option
 As called out above:
 
 1. Should the `ListOptionGroup` component support slotting content such as icons into named slots?
-    - My thought is that initiailly we don't need to support this until it is asked for. So far, we have seen no requests for this.
+    - My thought is that initially we don't need to support this until it is asked for. So far, we have seen no requests for this.
 2. Should matching against a group name for filtering be configurable?
     - I'm waffling on the importance of this. Because of the very loose matching we provide for the `Select` filtering (and likely the `Combobox` eventually), it will be easy to match against several groups, particularly when very few characters have been entered, resulting in a bunch of options in the dropdown that don't match the filter itself, requiring more characters to be typed than usual to filter it down to a reasonable set. It is unclear how laborious this will make it for the user.
