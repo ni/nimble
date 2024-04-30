@@ -4,10 +4,7 @@ import { attr, customElement } from '@microsoft/fast-element';
 import { TableCellView } from '../cell-view';
 import { TableGroupHeaderView } from '../group-header-view';
 import { TableColumn } from '..';
-import type {
-    ColumnInternalsOptions,
-    ColumnInternals
-} from '../models/column-internals';
+import type { ColumnInternalsOptions } from '../models/column-internals';
 import { ColumnValidator } from '../models/column-validator';
 
 export const tableColumnEmptyCellViewTag = 'nimble-test-table-column-empty-cell-view';
@@ -56,7 +53,8 @@ export class TableColumnEmpty extends TableColumn {
             cellRecordFieldNames: [],
             cellViewTag: tableColumnEmptyCellViewTag,
             groupHeaderViewTag: tableColumnEmptyGroupHeaderViewTag,
-            delegatedEvents: []
+            delegatedEvents: [],
+            validator: new ColumnValidator<[]>([])
         };
     }
 }
@@ -69,8 +67,8 @@ const configValidity = ['invalidFoo', 'invalidBar'] as const;
 export class TestColumnValidator extends ColumnValidator<
     typeof configValidity
 > {
-    public constructor(columnInternals: ColumnInternals<unknown>) {
-        super(columnInternals, configValidity);
+    public constructor() {
+        super(configValidity);
     }
 
     public validateFoo(isValid: boolean): void {
@@ -95,30 +93,31 @@ declare global {
 @customElement({
     name: tableColumnValidationTestTag
 })
-export class TableColumnValidationTest extends TableColumn {
-    /* @internal */
-    public readonly validator = new TestColumnValidator(this.columnInternals);
-
+export class TableColumnValidationTest extends TableColumn<
+unknown,
+TestColumnValidator
+> {
     @attr({ mode: 'boolean' })
     public foo = false;
 
     @attr({ mode: 'boolean' })
     public bar = false;
 
-    protected override getColumnInternalsOptions(): ColumnInternalsOptions {
+    protected override getColumnInternalsOptions(): ColumnInternalsOptions<TestColumnValidator> {
         return {
             cellRecordFieldNames: [],
             cellViewTag: tableColumnEmptyCellViewTag,
             groupHeaderViewTag: tableColumnEmptyGroupHeaderViewTag,
-            delegatedEvents: []
+            delegatedEvents: [],
+            validator: new TestColumnValidator()
         };
     }
 
     private fooChanged(): void {
-        this.validator.validateFoo(this.foo);
+        this.columnInternals.validator.validateFoo(this.foo);
     }
 
     private barChanged(): void {
-        this.validator.validateBar(this.bar);
+        this.columnInternals.validator.validateBar(this.bar);
     }
 }

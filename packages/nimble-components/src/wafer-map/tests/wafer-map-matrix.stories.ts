@@ -8,55 +8,12 @@ import {
 } from '../../utilities/tests/matrix';
 import { createStory } from '../../utilities/tests/storybook';
 import { waferMapTag } from '..';
+import { wafermapDiesTableSets } from './sets';
 
-const metadata: Meta = {
-    title: 'Tests/Wafer Map',
-    parameters: {
-        ...sharedMatrixParameters()
-    }
-};
-
-export default metadata;
-
-const orientationStates = [
-    [WaferMapOrientation.top],
-    [WaferMapOrientation.bottom],
-    [WaferMapOrientation.left],
-    [WaferMapOrientation.right]
-] as const;
-type OrientationState = (typeof orientationStates)[number];
-
-const originLocationStates = [
-    [WaferMapOriginLocation.topLeft],
-    [WaferMapOriginLocation.bottomLeft],
-    [WaferMapOriginLocation.topRight],
-    [WaferMapOriginLocation.bottomRight]
-] as const;
-type OriginLocationStates = (typeof originLocationStates)[number];
-
-const colorsScales = [
-    [
-        {
-            colors: ['red', 'orange', 'green'],
-            values: [1, 50, 100]
-        }
-    ],
-    [
-        {
-            colors: ['red', 'purple', 'blue'],
-            values: [1, 50, 100]
-        }
-    ]
-] as const;
-type ColorScales = (typeof colorsScales)[number];
-
-const defaultColor = {
+const colorScale = {
     colors: ['red', 'blue', 'green'],
     values: [1, 50, 100]
-};
-
-const dieLabelHidden = [[true], [false]] as const;
-type DieLabelHidden = (typeof dieLabelHidden)[number];
+} as const;
 
 const waferMapDie = [
     { x: 0, y: 2, value: '99', tags: ['a'] },
@@ -72,14 +29,28 @@ const waferMapDie = [
     { x: 3, y: 1, value: '10' },
     { x: 3, y: 3, value: '15' },
     { x: 4, y: 2, value: '30' }
-];
+] as const;
 
-const waferMapSizes = [70, 200, 300, 400];
+const colorsScaleStates = [
+    [
+        {
+            colors: ['red', 'orange', 'green'],
+            values: [1, 50, 100]
+        }
+    ],
+    [
+        {
+            colors: ['red', 'purple', 'blue'],
+            values: [1, 50, 100]
+        }
+    ]
+] as const;
+type ColorScaleState = (typeof colorsScaleStates)[number];
 
-const highlightedTags = [['a'], ['b', 'a'], [], ['']];
-type HighlightedTags = string[];
+const dieLabelHiddenStates = [[true], [false]] as const;
+type DieLabelHiddenState = (typeof dieLabelHiddenStates)[number];
 
-const gridDimensions = [
+const gridDimensionStates = [
     [
         {
             gridMinX: undefined,
@@ -121,11 +92,42 @@ const gridDimensions = [
         }
     ]
 ] as const;
-type GridDimensions = (typeof gridDimensions)[number];
+type GridDimensionState = (typeof gridDimensionStates)[number];
+
+const highlightedTagStates = [['a'], ['b', 'a'], [], ['']] as const;
+type HighlightedTagState = (typeof highlightedTagStates)[number];
+
+const orientationStates = [
+    [WaferMapOrientation.top],
+    [WaferMapOrientation.bottom],
+    [WaferMapOrientation.left],
+    [WaferMapOrientation.right]
+] as const;
+type OrientationState = (typeof orientationStates)[number];
+
+const originLocationStates = [
+    [WaferMapOriginLocation.topLeft],
+    [WaferMapOriginLocation.bottomLeft],
+    [WaferMapOriginLocation.topRight],
+    [WaferMapOriginLocation.bottomRight]
+] as const;
+type OriginLocationStates = (typeof originLocationStates)[number];
+
+const sizeStates = [70, 200, 300, 400] as const;
+type SizeState = (typeof sizeStates)[number];
+
+const metadata: Meta = {
+    title: 'Tests/Wafer Map',
+    parameters: {
+        ...sharedMatrixParameters()
+    }
+};
+
+export default metadata;
 
 const simpleWaferWithDies = (): ViewTemplate => html`<${waferMapTag}
     :dies="${() => waferMapDie}"
-    :colorScale="${() => defaultColor}"
+    :colorScale="${() => colorScale}"
 >
 </${waferMapTag}>`;
 
@@ -134,15 +136,15 @@ const componentWaferWithOrientation = ([
 ]: OrientationState): ViewTemplate => html`<${waferMapTag}
     orientation="${() => orientation}"
     :dies="${() => waferMapDie}"
-    :colorScale="${() => defaultColor}"
+    :colorScale="${() => colorScale}"
 >
 </${waferMapTag}>`;
 
 const componentWaferWithHiddenDieLabel = (
-    [color]: ColorScales,
-    [dieLabelHidde]: DieLabelHidden
+    [color]: ColorScaleState,
+    [dieLabelHidden]: DieLabelHiddenState
 ): ViewTemplate => html`<${waferMapTag}
-    ?die-labels-hidden=${() => dieLabelHidde}
+    ?die-labels-hidden=${() => dieLabelHidden}
     :dies="${() => waferMapDie}"
     :colorScale="${() => color}"
 >
@@ -153,24 +155,24 @@ const componentWaferWithOriginLocation = ([
 ]: OriginLocationStates): ViewTemplate => html`<${waferMapTag}
     :originLocation="${() => originLocation}"
     :dies="${() => waferMapDie}"
-    :colorScale="${() => defaultColor}"
+    :colorScale="${() => colorScale}"
 >
 </${waferMapTag}>`;
 
 const componentWaferResize = (
-    size: number
+    size: SizeState
 ): ViewTemplate => html`<${waferMapTag}
     style="width: ${size}px; height: ${size}px"
     :dies="${() => waferMapDie}"
-    :colorScale="${() => defaultColor}"
+    :colorScale="${() => colorScale}"
 >
 </${waferMapTag}> `;
 
 const componentWaferWithGridDimensions = ([
     dimensions
-]: GridDimensions): ViewTemplate => html`<${waferMapTag}
+]: GridDimensionState): ViewTemplate => html`<${waferMapTag}
     :dies="${() => waferMapDie}"
-    :colorScale="${() => defaultColor}"
+    :colorScale="${() => colorScale}"
     :gridMaxX=${() => dimensions.gridMaxX}
     :gridMaxY=${() => dimensions.gridMaxY}
     :gridMinX=${() => dimensions.gridMinX}
@@ -178,11 +180,16 @@ const componentWaferWithGridDimensions = ([
 >
 </${waferMapTag}>`;
 
+const componentWaferMapWorkerCanvas = (): ViewTemplate => html`<${waferMapTag}
+    :diesTable="${() => wafermapDiesTableSets[0]}"
+>
+</${waferMapTag}>`;
+
 const componentWaferWithHighlightedTags = (
-    tags: HighlightedTags
+    tags: HighlightedTagState
 ): ViewTemplate => html`<${waferMapTag}
     :dies="${() => waferMapDie}"
-    :colorScale="${() => defaultColor}"
+    :colorScale="${() => colorScale}"
     :highlightedTags="${() => tags}"
 >
 </${waferMapTag}>`;
@@ -197,8 +204,8 @@ export const waferMapDiesAndOrientationTest: StoryFn = createStory(
 
 export const waferMapDieLabelAndColorScaleTest: StoryFn = createStory(
     createMatrix(componentWaferWithHiddenDieLabel, [
-        colorsScales,
-        dieLabelHidden
+        colorsScaleStates,
+        dieLabelHiddenStates
     ])
 );
 
@@ -207,13 +214,17 @@ export const waferMapOriginLocationTest: StoryFn = createStory(
 );
 
 export const waferMapResizeTest: StoryFn = createStory(
-    createMatrix(componentWaferResize, [waferMapSizes])
+    createMatrix(componentWaferResize, [sizeStates])
 );
 
 export const waferMapGridDimensionsTest: StoryFn = createStory(
-    createMatrix(componentWaferWithGridDimensions, [gridDimensions])
+    createMatrix(componentWaferWithGridDimensions, [gridDimensionStates])
 );
 
 export const waferMapHighlightedTest: StoryFn = createStory(
-    createMatrix(componentWaferWithHighlightedTags, [highlightedTags])
+    createMatrix(componentWaferWithHighlightedTags, [highlightedTagStates])
+);
+
+export const waferMapWorkerCanvas: StoryFn = createStory(
+    createMatrix(componentWaferMapWorkerCanvas)
 );

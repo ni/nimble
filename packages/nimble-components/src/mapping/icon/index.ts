@@ -31,6 +31,9 @@ export class MappingIcon extends Mapping<MappingKey> {
     @attr()
     public text?: string;
 
+    @attr({ attribute: 'text-hidden', mode: 'boolean' })
+    public textHidden = false;
+
     /**
      * @internal
      * Calculated asynchronously by the icon mapping based on the configured icon value.

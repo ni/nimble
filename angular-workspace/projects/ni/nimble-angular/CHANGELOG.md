@@ -1,8 +1,230 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Tue, 26 Mar 2024 20:45:41 GMT and should not be manually modified.
+This log was last generated on Fri, 26 Apr 2024 21:13:31 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 23.1.6
+
+Fri, 26 Apr 2024 21:13:31 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v27.0.5
+
+## 23.1.5
+
+Fri, 26 Apr 2024 20:31:47 GMT
+
+### Patches
+
+- No API changes, validating release pipelines ([ni/nimble@c5a74e6](https://github.com/ni/nimble/commit/c5a74e68c2909e2f9a50bf0e6b0e4f1c5f0cbce8))
+- No API changes, validating release pipelines ([ni/nimble@ff7f847](https://github.com/ni/nimble/commit/ff7f847c0fb3834b5fdf4ce141bbe6bd94e1f0eb))
+- Bump @ni/nimble-components to v27.0.4
+
+## 23.1.1
+
+Wed, 24 Apr 2024 16:20:52 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v27.0.0
+
+## 23.1.0
+
+Tue, 23 Apr 2024 15:58:10 GMT
+
+### Minor changes
+
+- Export `MappingKeyType` from `NimbleTableColumnIconModule` ([ni/nimble@5e5f7c3](https://github.com/ni/nimble/commit/5e5f7c36876af5a570dd86f04ee83025cf5dd657))
+
+## 23.0.0
+
+Mon, 22 Apr 2024 15:13:13 GMT
+
+### Major changes
+
+- Remove enum-text table column. The icon column supports text mappings and should be used instead. ([ni/nimble@16b2c1b](https://github.com/ni/nimble/commit/16b2c1b2820d14e88474e26b17eefd7b7cdf0e9f))
+- Bump @ni/nimble-components to v26.0.0
+
+## 22.0.2
+
+Fri, 19 Apr 2024 16:57:31 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v25.1.1
+
+## 22.0.1
+
+Thu, 18 Apr 2024 21:47:19 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v25.1.0
+
+## 22.0.0
+
+Wed, 17 Apr 2024 20:57:25 GMT
+
+### Major changes
+
+- Add configuration for icon mappings and spinner mappings to show/hide their text within a table's cells. **Breaking change:** The icon mappings and spinner mappings now default to showing their text within a table's cells in addition to on group rows. ([ni/nimble@6d50261](https://github.com/ni/nimble/commit/6d502618333981f4c5c2f72ddb5b329674d2e345))
+- Bump @ni/nimble-components to v25.0.0
+
+## 21.0.2
+
+Mon, 15 Apr 2024 17:36:55 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v24.1.14
+
+## 21.0.1
+
+Wed, 10 Apr 2024 22:00:23 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v24.1.13
+
+## 21.0.0
+
+Wed, 10 Apr 2024 20:19:57 GMT
+
+### Major changes
+
+- Update to Angular 16 ([ni/nimble@1db50a6](https://github.com/ni/nimble/commit/1db50a6f99013664f5130fbb74a5904f1800616c))
+
+## 20.7.11
+
+Wed, 10 Apr 2024 19:37:06 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v24.1.12
+
+## 20.7.10
+
+Wed, 10 Apr 2024 17:46:00 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v24.1.11
+
+## 20.7.9
+
+Wed, 10 Apr 2024 00:29:05 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v24.1.10
+
+## 20.7.7
+
+Mon, 08 Apr 2024 20:40:28 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v24.1.9
+
+## 20.7.6
+
+Thu, 04 Apr 2024 21:33:43 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v24.1.8
+
+## 20.7.5
+
+Thu, 04 Apr 2024 18:11:08 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v24.1.7
+
+## 20.7.4
+
+Thu, 04 Apr 2024 14:57:17 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v24.1.6
+
+## 20.7.3
+
+Tue, 02 Apr 2024 22:01:51 GMT
+
+### Patches
+
+- Reverting changes. ([ni/nimble@47d91bc](https://github.com/ni/nimble/commit/47d91bc3cb98a52843ffb9f0b7d3e3e1baaea344))
+- Bump @ni/nimble-components to v24.1.5
+
+## 20.7.2
+
+Tue, 02 Apr 2024 17:10:35 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v24.1.4
+
+## 20.7.1
+
+Tue, 02 Apr 2024 15:32:11 GMT
+
+### Patches
+
+- Combobox CVA optimization ([ni/nimble@7f2f704](https://github.com/ni/nimble/commit/7f2f7042d7b4006b32a841c3c5124bf33489392a))
+- Bump @ni/nimble-components to v24.1.3
+
+## 20.7.0
+
+Fri, 29 Mar 2024 23:26:43 GMT
+
+### Minor changes
+
+- Angular support for appearance-variant on toggle and menu buttons ([ni/nimble@82d484e](https://github.com/ni/nimble/commit/82d484e2b69dc93f526c72249f32002d355ade91))
+
+## 20.6.1
+
+Thu, 28 Mar 2024 17:27:01 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v24.1.2
+
+## 20.6.0
+
+Thu, 28 Mar 2024 00:47:47 GMT
+
+### Minor changes
+
+- Add support for column placeholders ([ni/nimble@a9ffce8](https://github.com/ni/nimble/commit/a9ffce872954c88d7cf4ad0dd84eb55433953886))
+
+## 20.5.7
+
+Wed, 27 Mar 2024 21:22:02 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v24.1.1
+
+## 20.5.6
+
+Wed, 27 Mar 2024 18:54:51 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v24.1.0
+
+## 20.5.5
+
+Wed, 27 Mar 2024 12:05:29 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v24.0.1
 
 ## 20.5.4
 

@@ -94,6 +94,7 @@ export const icons: StoryObj<IconArgs> = {
                         icon="${x => x.tag}"
                         text="${x => x.tag}"
                         severity="${(_, c) => c.parent.severity}"
+                        text-hidden
                     ></${mappingIconTag}>
                 `)}
             </${tableColumnIconTag}>

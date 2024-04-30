@@ -2,6 +2,7 @@ import { html, when } from '@microsoft/fast-element';
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html';
 import {
+    apiCategory,
     createUserSelectedThemeStory,
     disableStorybookZoomTransform
 } from '../../utilities/tests/storybook';
@@ -17,25 +18,26 @@ import { menuTag } from '../../menu';
 import { menuItemTag } from '../../menu-item';
 import {
     appearanceDescription,
-    appearanceVariantDescription
+    appearanceVariantDescription,
+    contentHiddenDescription,
+    endIconDescription,
+    iconDescription
 } from '../../patterns/button/tests/doc-strings';
 
 interface MenuButtonArgs {
     label: string;
+    icon: boolean;
+    endIcon: boolean;
+    menu: () => void;
     appearance: keyof typeof ButtonAppearance;
     appearanceVariant: keyof typeof ButtonAppearanceVariant;
     open: boolean;
     disabled: boolean;
-    icon: boolean;
     contentHidden: boolean;
-    endIcon: boolean;
     menuPosition: string;
+    toggle: () => void;
+    beforetoggle: () => void;
 }
-
-const endIconDescription = `When including an icon after the text content, set \`slot="end"\` on the icon to ensure proper styling.
-
-This icon will be hidden when \`contentHidden\` is set to \`true\`
-.`;
 
 const metadata: Meta<MenuButtonArgs> = {
     title: 'Components/Menu Button',
@@ -49,27 +51,73 @@ const metadata: Meta<MenuButtonArgs> = {
         }
     },
     argTypes: {
+        label: {
+            name: 'default',
+            description:
+                'The text content of the button. This will be hidden when `content-hidden` is set but should always be provided; see the `Accessibility` section for more info.',
+            table: { category: apiCategory.slots }
+        },
+        icon: {
+            name: 'start',
+            description: iconDescription,
+            table: { category: apiCategory.slots }
+        },
+        endIcon: {
+            name: 'end',
+            description: endIconDescription,
+            table: { category: apiCategory.slots }
+        },
+        menu: {
+            description:
+                'The [nimble-menu](./?path=/docs/components-menu--docs) to be displayed when the button is toggled.',
+            table: { category: apiCategory.slots },
+            control: false
+        },
         appearance: {
             options: Object.keys(ButtonAppearance),
             control: { type: 'radio' },
-            description: appearanceDescription
+            description: appearanceDescription,
+            table: { category: apiCategory.attributes }
         },
         appearanceVariant: {
             name: 'appearance-variant',
             options: Object.keys(ButtonAppearanceVariant),
             control: { type: 'radio' },
-            description: appearanceVariantDescription
+            description: appearanceVariantDescription,
+            table: { category: apiCategory.attributes }
         },
-        icon: {
-            description:
-                'When including an icon, set `slot="start"` on the icon to ensure proper styling.'
+        open: {
+            control: { type: 'boolean' },
+            description: 'Opens the menu.',
+            table: { category: apiCategory.attributes }
         },
-        endIcon: {
-            description: endIconDescription
+        disabled: {
+            control: { type: 'boolean' },
+            description: 'Disables the button.',
+            table: { category: apiCategory.attributes }
+        },
+        contentHidden: {
+            name: 'content-hidden',
+            description: contentHiddenDescription,
+            table: { category: apiCategory.attributes }
         },
         menuPosition: {
+            name: 'menu-position',
+            description: 'The position of the menu relative to the button.',
             options: Object.values(MenuButtonPosition),
-            control: { type: 'radio' }
+            control: { type: 'radio' },
+            table: { category: apiCategory.attributes }
+        },
+        toggle: {
+            description: 'Fires after the menu button is toggled.',
+            table: { category: apiCategory.events },
+            control: false
+        },
+        beforetoggle: {
+            description:
+                'Fires before the menu button is toggled. This can be used to populate the menu before it is opened.',
+            table: { category: apiCategory.events },
+            control: false
         }
     },
     // prettier-ignore
@@ -105,8 +153,6 @@ const metadata: Meta<MenuButtonArgs> = {
         </${menuButtonTag}>
     `),
     args: {
-        label: 'Menu Button',
-        appearance: 'outline',
         appearanceVariant: 'default',
         open: false,
         disabled: false,
@@ -125,12 +171,21 @@ export const outlineButton: StoryObj<MenuButtonArgs> = {
         appearance: ButtonAppearance.outline
     }
 };
+
 export const ghostButton: StoryObj<MenuButtonArgs> = {
-    args: { label: 'Ghost Menu Button', appearance: ButtonAppearance.ghost }
+    args: {
+        label: 'Ghost Menu Button',
+        appearance: ButtonAppearance.ghost
+    }
 };
+
 export const blockButton: StoryObj<MenuButtonArgs> = {
-    args: { label: 'Block Menu Button', appearance: ButtonAppearance.block }
+    args: {
+        label: 'Block Menu Button',
+        appearance: ButtonAppearance.block
+    }
 };
+
 export const iconButton: StoryObj<MenuButtonArgs> = {
     args: {
         label: 'Icon Menu Button',

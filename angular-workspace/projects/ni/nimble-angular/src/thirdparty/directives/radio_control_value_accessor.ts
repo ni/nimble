@@ -1,6 +1,6 @@
 /**
  * [Nimble]
- * Copied from https://github.com/angular/angular/blob/15.2.10/packages/forms/src/directives/radio_control_value_accessor.ts
+ * Copied from https://github.com/angular/angular/blob/16.2.12/packages/forms/src/directives/radio_control_value_accessor.ts
  * with the following modifications:
  * - Changed throwNameError() to throw Error instead of RuntimeError. This makes the file compile with Angular version 12.
  * - Removed now-unused import for RuntimeErrorCode and RuntimeError
@@ -23,7 +23,7 @@ import {BuiltInControlValueAccessor} from './control_value_accessor';
 import {ControlValueAccessor, NgControl, SetDisabledStateOption} from '@angular/forms';
 
 /* [Nimble] Do not register as a value accessor provider
-export const RADIO_VALUE_ACCESSOR: any = {
+const RADIO_VALUE_ACCESSOR: Provider = {
   provide: NG_VALUE_ACCESSOR,
   useExisting: forwardRef(() => RadioControlValueAccessor),
   multi: true
@@ -225,7 +225,7 @@ export class RadioControlValueAccessor extends BuiltInControlValueAccessor imple
      * when an *enabled* control was attached. This bug was fixed in v15 in #47576.
      *
      * This had a side effect: previously, it was possible to instantiate a reactive form control
-     * with `[attr.disabled]=true`, even though the the corresponding control was enabled in the
+     * with `[attr.disabled]=true`, even though the corresponding control was enabled in the
      * model. This resulted in a mismatch between the model and the DOM. Now, because
      * `setDisabledState` is always called, the value in the DOM will be immediately overwritten
      * with the "correct" enabled value.

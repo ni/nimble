@@ -27,8 +27,6 @@
       "matchDepTypes": ["dependencies", "devDependencies", "peerDependencies"],
       "excludePackagePatterns":[
         "^@angular",
-        "@microsoft/fast-foundation",
-        "@microsoft/fast-react-wrapper",
         "comlink",
         "ng-packagr",
         "playwright",

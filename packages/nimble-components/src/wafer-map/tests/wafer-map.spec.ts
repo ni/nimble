@@ -1,15 +1,16 @@
 import { html } from '@microsoft/fast-element';
 import { Table, tableFromArrays } from 'apache-arrow';
 import { WaferMap } from '..';
-import { processUpdates } from '../../testing/async-helpers';
+import {
+    processUpdates,
+    waitForUpdatesAsync
+} from '../../testing/async-helpers';
 import { type Fixture, fixture } from '../../utilities/tests/fixture';
 import {
     WaferMapColorScaleMode,
     WaferMapOrientation,
     WaferMapOriginLocation
 } from '../types';
-import { RenderingModule } from '../modules/rendering';
-import { WorkerRenderer } from '../modules/experimental/worker-renderer';
 
 async function setup(): Promise<Fixture<WaferMap>> {
     return fixture<WaferMap>(html`<nimble-wafer-map></nimble-wafer-map>`);
@@ -116,40 +117,56 @@ describe('WaferMap', () => {
     });
 
     describe('worker renderer draw flow', () => {
+        let setupWaferSpy: jasmine.Spy;
         let drawWaferSpy: jasmine.Spy;
         beforeEach(() => {
-            drawWaferSpy = spyOn(element.workerRenderer, 'drawWafer');
+            setupWaferSpy = spyOn(
+                element.workerRenderer,
+                'setupWafer'
+            ).and.returnValue(Promise.resolve());
+            drawWaferSpy = spyOn(
+                element.workerRenderer,
+                'drawWafer'
+            ).and.returnValue(Promise.resolve());
         });
 
-        it('will call drawWafer after supported diesTable change', () => {
+        it('will call setupWafer and drawWafer after supported diesTable change', async () => {
             element.diesTable = tableFromArrays({
                 colIndex: Int32Array.from([]),
                 rowIndex: Int32Array.from([]),
                 value: Float64Array.from([])
             });
-            processUpdates();
+            await waitForUpdatesAsync();
             expect(element.validity.invalidDiesTableSchema).toBeFalse();
+            expect(setupWaferSpy).toHaveBeenCalledTimes(1);
             expect(drawWaferSpy).toHaveBeenCalledTimes(1);
         });
 
-        it('will not call drawWafer after unsupported diesTable change', () => {
+        it('will not call setupWafer and drawWafer after unsupported diesTable change', async () => {
             element.diesTable = new Table();
-            processUpdates();
+            await waitForUpdatesAsync();
             expect(element.validity.invalidDiesTableSchema).toBeTrue();
+            expect(setupWaferSpy).toHaveBeenCalledTimes(0);
             expect(drawWaferSpy).toHaveBeenCalledTimes(0);
         });
     });
 
     describe('worker renderer flow', () => {
         let renderHoverSpy: jasmine.Spy;
+        let experimentalUpdateSpy: jasmine.Spy;
+
         beforeEach(() => {
             renderHoverSpy = spyOn(element.workerRenderer, 'renderHover');
+            experimentalUpdateSpy = spyOn(
+                element,
+                'experimentalUpdate'
+            ).and.callThrough();
         });
 
         it('will use RenderingModule after dies change', () => {
             element.dies = [{ x: 1, y: 1, value: '1' }];
             processUpdates();
-            expect(element.renderer instanceof RenderingModule).toBeTrue();
+            expect(experimentalUpdateSpy).toHaveBeenCalledTimes(0);
         });
 
         it('will use WorkerRenderer after supported diesTable change', () => {
@@ -159,24 +176,14 @@ describe('WaferMap', () => {
                 value: Float64Array.from([])
             });
             processUpdates();
-            expect(element.renderer instanceof WorkerRenderer).toBeTrue();
+            expect(experimentalUpdateSpy).toHaveBeenCalledTimes(1);
         });
 
-        it('will use RenderingModule after unsupported diesTable change', () => {
+        it('will use WorkerRenderer after unsupported diesTable change but it will fail', () => {
             element.diesTable = new Table();
             processUpdates();
-            expect(element.renderer instanceof RenderingModule).toBeTrue();
-        });
-
-        it('will call renderHover after supported diesTable change', () => {
-            element.diesTable = tableFromArrays({
-                colIndex: Int32Array.from([]),
-                rowIndex: Int32Array.from([]),
-                value: Float64Array.from([])
-            });
-            processUpdates();
-            expect(element.validity.invalidDiesTableSchema).toBeFalse();
-            expect(renderHoverSpy).toHaveBeenCalledTimes(1);
+            expect(experimentalUpdateSpy).toHaveBeenCalledTimes(1);
+            expect(renderHoverSpy).toHaveBeenCalledTimes(0);
         });
 
         it('will not call renderHover after unsupported diesTable change', () => {
@@ -198,6 +205,26 @@ describe('WaferMap', () => {
             processUpdates();
             initialValue = getTransform();
             expect(initialValue).toBe('translate(0,0) scale(1)');
+        });
+
+        it('can still zoom after canvas height was changed', () => {
+            element.canvasHeight = 250;
+            processUpdates();
+            element.dispatchEvent(
+                new WheelEvent('wheel', { deltaY: -2, deltaMode: -1 })
+            );
+            const zoomedValue = getTransform();
+            expect(zoomedValue).toBe('translate(0,0) scale(4)');
+        });
+
+        it('can still zoom after canvas width was changed', () => {
+            element.canvasWidth = 250;
+            processUpdates();
+            element.dispatchEvent(
+                new WheelEvent('wheel', { deltaY: -2, deltaMode: -1 })
+            );
+            const zoomedValue = getTransform();
+            expect(zoomedValue).toBe('translate(0,0) scale(4)');
         });
 
         it('will zoom in the wafer-map', () => {
@@ -242,15 +269,15 @@ describe('WaferMap', () => {
     }
 
     describe('hover flow', () => {
-        beforeEach(() => {
+        beforeEach(async () => {
             element.canvasWidth = 500;
             element.canvasHeight = 500;
             element.dies = [{ x: 1, y: 1, value: '1' }];
             element.colorScale = { colors: ['red', 'red'], values: ['1', '1'] };
-            processUpdates();
+            await waitForUpdatesAsync();
         });
 
-        it('will translate the rectangle when moving the pointer over the wafer-map', () => {
+        it('will translate the rectangle when moving the pointer over the wafer-map', async () => {
             const initialTransform = element.hoverTransform;
             element.dispatchEvent(
                 new MouseEvent('mousemove', {
@@ -258,11 +285,11 @@ describe('WaferMap', () => {
                     clientY: element.offsetTop + 50
                 })
             );
-            processUpdates();
+            await waitForUpdatesAsync();
             expect(element.hoverTransform).not.toEqual(initialTransform);
         });
 
-        it('will resize the rectangle when zooming in the wafer-map', () => {
+        it('will resize the rectangle when zooming in the wafer-map', async () => {
             const initialHeight = element.hoverHeight;
             const initialWidth = element.hoverWidth;
             expect(initialHeight).toBe(460);
@@ -271,26 +298,26 @@ describe('WaferMap', () => {
             element.dispatchEvent(
                 new WheelEvent('wheel', { deltaY: -2, deltaMode: -1 })
             );
-            processUpdates();
+            await waitForUpdatesAsync();
 
             expect(element.hoverHeight).not.toBe(initialHeight);
             expect(element.hoverWidth).not.toBe(initialWidth);
         });
 
-        it('will translate when zooming in the wafer-map', () => {
+        it('will translate when zooming in the wafer-map', async () => {
             element.dispatchEvent(
                 new MouseEvent('mousemove', {
                     clientX: element.offsetLeft + 50,
                     clientY: element.offsetTop + 50
                 })
             );
-            processUpdates();
+            await waitForUpdatesAsync();
             const initialTransform = element.hoverTransform;
             expect(initialTransform).not.toEqual('');
             element.dispatchEvent(
                 new WheelEvent('wheel', { deltaY: -2, deltaMode: -1 })
             );
-            processUpdates();
+            await waitForUpdatesAsync();
             expect(element.hoverTransform).not.toEqual(initialTransform);
         });
     });

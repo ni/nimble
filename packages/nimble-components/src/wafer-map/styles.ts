@@ -9,6 +9,16 @@ export const styles = css`
         height: 500px;
     }
 
+    .main-wafer {
+        display: inline-block;
+        position: absolute;
+    }
+
+    .worker-wafer {
+        display: inline-block;
+        position: absolute;
+    }
+
     .wafer-map-container {
         width: 100%;
         height: 100%;
@@ -53,11 +63,6 @@ export const styles = css`
         vector-effect: non-scaling-stroke;
         stroke-width: ${borderWidth};
         stroke: ${borderColor};
-    }
-
-    .wafer-map-canvas {
-        display: inline-block;
-        position: absolute;
     }
 
     .hover-layer {

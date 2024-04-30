@@ -1,4 +1,4 @@
-import { addons } from '@storybook/addons';
+import { addons } from '@storybook/manager-api';
 import theme from './theme';
 
 addons.setConfig({
@@ -7,13 +7,17 @@ addons.setConfig({
         filters: {
             patterns: item => {
                 const isPublicSite = window.location.hostname === 'nimble.ni.dev';
-                const isItemInternal = item.title.startsWith('Tests/')
-                    || item.title.startsWith('Internal/')
-                    || item.title.startsWith('patterns/');
+                const title = item.title.toLowerCase();
+                const isItemInternal = title.startsWith('tests/')
+                    || title.startsWith('internal/')
+                    || title.startsWith('patterns/');
                 const shouldHideInSidebar = isPublicSite && isItemInternal;
                 return !shouldHideInSidebar;
             }
         }
     },
-    theme
+    theme,
+    toolbar: {
+        'storybook/pseudo-states/tool': { hidden: true }
+    }
 });

@@ -1,7 +1,7 @@
 import type { Mapping } from '../../../mapping/base';
 import { MappingIcon } from '../../../mapping/icon';
 import { MappingSpinner } from '../../../mapping/spinner';
-import type { ColumnInternals } from '../../base/models/column-internals';
+import { MappingText } from '../../../mapping/text';
 import {
     TableColumnEnumBaseValidator,
     enumBaseValidityFlagNames
@@ -21,8 +21,8 @@ const iconValidityFlagNames = [
 export class TableColumnIconValidator extends TableColumnEnumBaseValidator<
     typeof iconValidityFlagNames
 > {
-    public constructor(columnInternals: ColumnInternals<unknown>) {
-        super(columnInternals, iconValidityFlagNames);
+    public constructor() {
+        super(iconValidityFlagNames);
     }
 
     private static isIconMappingElement(
@@ -33,9 +33,11 @@ export class TableColumnIconValidator extends TableColumnEnumBaseValidator<
 
     private static isSupportedMappingElement(
         mapping: Mapping<unknown>
-    ): mapping is MappingIcon | MappingSpinner {
+    ): mapping is MappingIcon | MappingSpinner | MappingText {
         return (
-            mapping instanceof MappingIcon || mapping instanceof MappingSpinner
+            mapping instanceof MappingIcon
+            || mapping instanceof MappingSpinner
+            || mapping instanceof MappingText
         );
     }
 

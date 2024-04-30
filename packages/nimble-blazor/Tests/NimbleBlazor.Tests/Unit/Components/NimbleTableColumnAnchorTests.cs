@@ -47,6 +47,15 @@ public class NimbleTableColumnAnchorTests
     }
 
     [Fact]
+    public void NimbleTableColumnAnchor_WithPlaceholderAttribute_HasTableMarkup()
+    {
+        var table = RenderWithPropertySet(x => x.Placeholder, "Custom placeholder");
+
+        var expectedMarkup = @"placeholder=""Custom placeholder""";
+        Assert.Contains(expectedMarkup, table.Markup);
+    }
+
+    [Fact]
     public void NimbleTableColumnAnchor_WithUnderlineHiddenAttribute_HasTableMarkup()
     {
         var tableColumn = RenderWithPropertySet(x => x.UnderlineHidden, true);

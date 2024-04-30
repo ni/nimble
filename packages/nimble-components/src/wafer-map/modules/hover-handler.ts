@@ -24,7 +24,7 @@ export class HoverHandler {
     }
 
     private readonly onMouseMove = (event: MouseEvent): void => {
-        if (this.wafermap.isExperimentalRenderer()) {
+        if (this.wafermap.isExperimentalUpdate()) {
             return;
         }
         const mousePosition: PointCoordinates = {
@@ -46,7 +46,10 @@ export class HoverHandler {
             x: invertedPoint[0],
             y: invertedPoint[1]
         });
-
+        if (dieCoordinates === undefined) {
+            this.wafermap.hoverDie = undefined;
+            return;
+        }
         this.wafermap.hoverDie = this.wafermap.dataManager.getWaferMapDie(dieCoordinates);
     };
 
@@ -56,28 +59,31 @@ export class HoverHandler {
 
     private calculateDieCoordinates(
         mousePosition: PointCoordinates
-    ): PointCoordinates {
-        const originLocation = this.wafermap.originLocation;
-        const xRoundFunction = originLocation === WaferMapOriginLocation.bottomLeft
-            || originLocation === WaferMapOriginLocation.topLeft
-            ? Math.floor
-            : Math.ceil;
-        const yRoundFunction = originLocation === WaferMapOriginLocation.bottomLeft
-            || originLocation === WaferMapOriginLocation.bottomRight
-            ? Math.floor
-            : Math.ceil;
-        // go to x and y scale to get the x,y values of the die.
-        const x = xRoundFunction(
-            this.wafermap.dataManager.invertedHorizontalScale(
-                mousePosition.x - this.wafermap.dataManager.margin.left
-            )
-        );
-        const y = yRoundFunction(
-            this.wafermap.dataManager.invertedVerticalScale(
-                mousePosition.y - this.wafermap.dataManager.margin.top
-            )
-        );
-        return { x, y };
+    ): PointCoordinates | undefined {
+        if (!this.wafermap.isExperimentalUpdate()) {
+            const originLocation = this.wafermap.originLocation;
+            const xRoundFunction = originLocation === WaferMapOriginLocation.bottomLeft
+                || originLocation === WaferMapOriginLocation.topLeft
+                ? Math.floor
+                : Math.ceil;
+            const yRoundFunction = originLocation === WaferMapOriginLocation.bottomLeft
+                || originLocation === WaferMapOriginLocation.bottomRight
+                ? Math.floor
+                : Math.ceil;
+            // go to x and y scale to get the x,y values of the die.
+            const x = xRoundFunction(
+                this.wafermap.dataManager.invertedHorizontalScale(
+                    mousePosition.x - this.wafermap.dataManager.margin.left
+                )
+            );
+            const y = yRoundFunction(
+                this.wafermap.dataManager.invertedVerticalScale(
+                    mousePosition.y - this.wafermap.dataManager.margin.top
+                )
+            );
+            return { x, y };
+        }
+        return undefined;
     }
 
     private hoversOverDie(mousePosition: PointCoordinates): boolean {

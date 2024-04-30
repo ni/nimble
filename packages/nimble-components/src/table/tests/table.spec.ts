@@ -26,6 +26,7 @@ import {
     tableColumnValidationTestTag
 } from '../../table-column/base/tests/table-column.fixtures';
 import type { ColumnInternalsOptions } from '../../table-column/base/models/column-internals';
+import { ColumnValidator } from '../../table-column/base/models/column-validator';
 
 interface SimpleTableRecord extends TableRecord {
     stringData: string;
@@ -640,7 +641,8 @@ describe('Table', () => {
                         cellViewTag: focusableCellViewName,
                         cellRecordFieldNames: ['value'],
                         groupHeaderViewTag: tableColumnEmptyGroupHeaderViewTag,
-                        delegatedEvents: []
+                        delegatedEvents: [],
+                        validator: new ColumnValidator<[]>([])
                     };
                 }
             }
@@ -677,8 +679,7 @@ describe('Table', () => {
                 verifyRenderedData(dataSubsetAtEnd);
             });
 
-            // WebKit skipped, see https://github.com/ni/nimble/issues/1942
-            it('and calls focusedRecycleCallback on focused cell views when a scroll happens #SkipWebkit', async () => {
+            it('and calls focusedRecycleCallback on focused cell views when a scroll happens', async () => {
                 const focusableColumn = document.createElement(
                     focusableColumnName
                 ) as TestFocusableTableColumn;

@@ -9,6 +9,7 @@ import type { Table } from 'apache-arrow';
 import { template } from './template';
 import { styles } from './styles';
 import { DataManager } from './modules/data-manager';
+import { DataManager as ExperimentalDataManager } from './modules/experimental/data-manager';
 import { RenderingModule } from './modules/rendering';
 import {
     HoverDie,
@@ -79,6 +80,16 @@ export class WaferMap<
     /**
      * @internal
      */
+    public currentTask: Promise<void> | undefined;
+
+    /**
+     * @internal
+     */
+    public workerCanvas!: HTMLCanvasElement;
+
+    /**
+     * @internal
+     */
     public readonly canvas!: HTMLCanvasElement;
 
     /**
@@ -91,29 +102,20 @@ export class WaferMap<
      */
     public readonly zoomContainer!: HTMLElement;
 
-    /**
-     * @internal
-     */
-    public readonly dataManager: DataManager = new DataManager(
+    public readonly experimentalDataManager: ExperimentalDataManager = new ExperimentalDataManager(this.asRequiredFieldsWaferMap);
+
+    public dataManager: DataManager = new DataManager(
         this.asRequiredFieldsWaferMap
     );
 
-    /**
-     * @internal
-     */
-    public readonly mainRenderer = new RenderingModule(
-        this.asRequiredFieldsWaferMap
-    );
-
-    /**
-     * @internal
-     */
     public readonly workerRenderer = new WorkerRenderer(
         this.asRequiredFieldsWaferMap
     );
 
     @observable
-    public renderer: RenderingModule | WorkerRenderer = this.mainRenderer;
+    public renderer: RenderingModule = new RenderingModule(
+            this.asRequiredFieldsWaferMap
+        );
 
     /**
      * @internal
@@ -208,6 +210,37 @@ export class WaferMap<
 
     /**
      * @internal
+     * Experimental update function called when an update is queued.
+     */
+    public async experimentalUpdate(): Promise<void> {
+        if (this.validity.invalidDiesTableSchema) {
+            return;
+        }
+
+        if (this.waferMapUpdateTracker.requiresEventsUpdate) {
+            if (
+                this.waferMapUpdateTracker.requiresContainerDimensionsUpdate
+                || this.waferMapUpdateTracker.requiresScalesUpdate
+            ) {
+                this.experimentalDataManager.updateComputations();
+                await this.workerRenderer.setupWafer();
+                await this.workerRenderer.drawWafer();
+            } else if (
+                this.waferMapUpdateTracker.requiresLabelsFontSizeUpdate
+                || this.waferMapUpdateTracker.requiresDiesRenderInfoUpdate
+            ) {
+                this.experimentalDataManager.updatePrerendering();
+                await this.workerRenderer.drawWafer();
+            } else if (this.waferMapUpdateTracker.requiresDrawnWaferUpdate) {
+                await this.workerRenderer.drawWafer();
+            }
+        } else if (this.waferMapUpdateTracker.requiresRenderHoverUpdate) {
+            this.workerRenderer.renderHover();
+        }
+    }
+
+    /**
+     * @internal
      * Update function called when an update is queued.
      * It will check which updates are needed based on which properties have changed.
      * Each update represents a different starting point of the same sequential update flow.
@@ -216,15 +249,11 @@ export class WaferMap<
      */
     public update(): void {
         this.validate();
-        if (this.validity.invalidDiesTableSchema) {
+        if (this.isExperimentalUpdate()) {
+            this.currentTask = this.experimentalUpdate();
             return;
         }
-        this.renderer = this.isExperimentalRenderer()
-            ? this.workerRenderer
-            : this.mainRenderer;
         if (this.waferMapUpdateTracker.requiresEventsUpdate) {
-            // zoom translateExtent needs to be recalculated when canvas size changes
-            this.zoomHandler.disconnect();
             if (this.waferMapUpdateTracker.requiresContainerDimensionsUpdate) {
                 this.dataManager.updateContainerDimensions();
                 this.renderer.updateSortedDiesAndDrawWafer();
@@ -244,7 +273,6 @@ export class WaferMap<
             } else if (this.waferMapUpdateTracker.requiresDrawnWaferUpdate) {
                 this.renderer.drawWafer();
             }
-            this.zoomHandler.connect();
         } else if (this.waferMapUpdateTracker.requiresRenderHoverUpdate) {
             this.renderer.renderHover();
         }
@@ -253,7 +281,7 @@ export class WaferMap<
     /**
      * @internal
      */
-    public isExperimentalRenderer(): boolean {
+    public isExperimentalUpdate(): boolean {
         return this.diesTable !== undefined;
     }
 

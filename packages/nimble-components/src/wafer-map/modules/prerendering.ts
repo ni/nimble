@@ -51,9 +51,11 @@ export class Prerendering {
         const isDieRenderInfo = (
             info: DieRenderInfo | null
         ): info is DieRenderInfo => info !== null;
-        this._diesRenderInfo = this.wafermap.dies
-            .map(die => this.computeDieRenderInfo(die))
-            .filter(isDieRenderInfo);
+        if (this.wafermap.diesTable === undefined) {
+            this._diesRenderInfo = this.wafermap.dies
+                .map(die => this.computeDieRenderInfo(die))
+                .filter(isDieRenderInfo);
+        }
     }
 
     private computeDieRenderInfo(die: WaferMapDie): DieRenderInfo | null {
@@ -123,7 +125,7 @@ export class Prerendering {
             return '';
         }
         const label = `${value}${dieLabelsSuffix}`;
-        if (label.length > maxCharacters) {
+        if (label.length >= maxCharacters) {
             return `${label.substring(0, maxCharacters)}…`;
         }
         return label;

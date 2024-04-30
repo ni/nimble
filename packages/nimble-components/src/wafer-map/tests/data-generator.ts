@@ -133,8 +133,8 @@ export const generateWaferTableData = (
                 j--
             ) {
                 stringValue = generateFloatValue(i, j, valueGenerator);
-                colIndex.push(j);
-                rowIndex.push(i);
+                colIndex.push(i);
+                rowIndex.push(j);
                 value.push(stringValue);
             }
             // generate points right of centerX
@@ -145,8 +145,8 @@ export const generateWaferTableData = (
                 j++
             ) {
                 stringValue = generateFloatValue(i, j, valueGenerator);
-                colIndex.push(j);
-                rowIndex.push(i);
+                colIndex.push(i);
+                rowIndex.push(j);
                 value.push(stringValue);
             }
         }
