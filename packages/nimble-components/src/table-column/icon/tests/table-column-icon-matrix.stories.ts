@@ -12,6 +12,8 @@ import { mappingSpinnerTag } from '../../../mapping/spinner';
 import { isChromatic } from '../../../utilities/tests/isChromatic';
 import { iconXmarkTag } from '../../../icons/xmark';
 import { mappingTextTag } from '../../../mapping/text';
+import { TableColumnMappingWidthMode } from '../types';
+import { iconQuestionTag } from '../../../icons/question';
 
 const data = [
     {
@@ -79,6 +81,19 @@ const component = (): ViewTemplate => html`
             <${mappingIconTag} key="0" text="Zero" icon="${iconCheckTag}" severity="success"></${mappingIconTag}>
             <${mappingIconTag} key="1" text="One" icon="${iconCheckTag}" severity="warning"></${mappingIconTag}>
             <${mappingIconTag} key="2" text="Two" icon="${iconCheckTag}" severity="error"></${mappingIconTag}>
+        </${tableColumnIconTag}>
+        <${tableColumnIconTag}
+            field-name="code"
+            key-type="number"
+            width-mode="${TableColumnMappingWidthMode.iconSize}"
+        >
+            <${iconQuestionTag} title="Icon-only column"></${iconQuestionTag}>
+            <${mappingIconTag} key="-1" text="Unknown value"></${mappingIconTag}>
+            <${mappingIconTag} key="0" text="Zero" icon="${iconCheckTag}" severity="success" text-hidden></${mappingIconTag}>
+            <${mappingIconTag} key="1" text="One" icon="${iconCheckTag}" severity="warning" text-hidden></${mappingIconTag}>
+            <${mappingIconTag} key="2" text="Two" icon="${iconCheckTag}" severity="error" text-hidden></${mappingIconTag}>
+            <${mappingIconTag} key="3" text="Three" icon="${iconCheckTag}" severity="information" text-hidden></${mappingIconTag}>
+            <${mappingIconTag} key="4" text="Four" icon="${iconCheckTag}" text-hidden></${mappingIconTag}>
         </${tableColumnIconTag}>
         <${tableColumnIconTag}
             field-name="code"
