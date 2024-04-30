@@ -114,8 +114,8 @@ export const selectAboveOpenStandardFilterDarkThemeBlackBackground: StoryFn = cr
 );
 
 const noMatchesFilterPlayFunction = (): void => {
-    const select = document.querySelector<Select>('nimble-select')!;
-    select.filter = 'abc';
+    const select = document.querySelector<Select>('nimble-select');
+    select!.filter = 'abc';
 };
 
 export const selectAboveOpenFilterNoMatchDarkThemeBlackBackground: StoryFn = createFixedThemeStory(
