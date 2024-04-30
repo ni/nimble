@@ -1,7 +1,0 @@
-{
-  "type": "minor",
-  "comment": "Add configuration to make the icon column fixed width",
-  "packageName": "@ni/nimble-components",
-  "email": "20542556+mollykreis@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
