@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "Move anchored region import from menu to menu item",
+  "packageName": "@ni/nimble-components",
+  "email": "7282195+m-akinc@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}

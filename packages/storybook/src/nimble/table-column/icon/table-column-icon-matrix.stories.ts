@@ -2,11 +2,13 @@ import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate } from '@microsoft/fast-element';
 import { Table, tableTag } from '@ni/nimble-components/dist/esm/table';
 import { iconCheckTag } from '@ni/nimble-components/dist/esm/icons/check';
+import { iconXmarkTag } from '@ni/nimble-components/dist/esm/icons/xmark';
+import { iconQuestionTag } from '@ni/nimble-components/dist/esm/icons/question';
 import { mappingIconTag } from '@ni/nimble-components/dist/esm/mapping/icon';
 import { mappingSpinnerTag } from '@ni/nimble-components/dist/esm/mapping/spinner';
-import { iconXmarkTag } from '@ni/nimble-components/dist/esm/icons/xmark';
 import { mappingTextTag } from '@ni/nimble-components/dist/esm/mapping/text';
 import { tableColumnIconTag } from '@ni/nimble-components/dist/esm/table-column/icon';
+import { TableColumnMappingWidthMode } from '@ni/nimble-components/dist/esm/table-column/icon/types';
 import { isChromatic } from '../../../utilities/isChromatic';
 import {
     createMatrixThemeStory,
@@ -79,6 +81,19 @@ const component = (): ViewTemplate => html`
             <${mappingIconTag} key="0" text="Zero" icon="${iconCheckTag}" severity="success"></${mappingIconTag}>
             <${mappingIconTag} key="1" text="One" icon="${iconCheckTag}" severity="warning"></${mappingIconTag}>
             <${mappingIconTag} key="2" text="Two" icon="${iconCheckTag}" severity="error"></${mappingIconTag}>
+        </${tableColumnIconTag}>
+        <${tableColumnIconTag}
+            field-name="code"
+            key-type="number"
+            width-mode="${TableColumnMappingWidthMode.iconSize}"
+        >
+            <${iconQuestionTag} title="Icon-only column"></${iconQuestionTag}>
+            <${mappingIconTag} key="-1" text="Unknown value"></${mappingIconTag}>
+            <${mappingIconTag} key="0" text="Zero" icon="${iconCheckTag}" severity="success" text-hidden></${mappingIconTag}>
+            <${mappingIconTag} key="1" text="One" icon="${iconCheckTag}" severity="warning" text-hidden></${mappingIconTag}>
+            <${mappingIconTag} key="2" text="Two" icon="${iconCheckTag}" severity="error" text-hidden></${mappingIconTag}>
+            <${mappingIconTag} key="3" text="Three" icon="${iconCheckTag}" severity="information" text-hidden></${mappingIconTag}>
+            <${mappingIconTag} key="4" text="Four" icon="${iconCheckTag}" text-hidden></${mappingIconTag}>
         </${tableColumnIconTag}>
         <${tableColumnIconTag}
             field-name="code"

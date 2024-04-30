@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 30 Apr 2024 21:26:44 GMT",
+      "version": "27.1.0",
+      "tag": "@ni/nimble-components_v27.1.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "6b0f3371aa6b49b802d2a0d9e79365e544cef161",
+            "comment": "Add configuration to make the icon column fixed width"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 30 Apr 2024 15:26:51 GMT",
       "version": "27.0.5",
       "tag": "@ni/nimble-components_v27.0.5",
