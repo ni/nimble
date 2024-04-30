@@ -31,7 +31,7 @@ export interface ColumnInternalsOptions<
      * The tag to use to render the group header content for a column.
      * The element this tag refers to must derive from TableGroupHeaderView.
      */
-    readonly groupHeaderViewTag: string;
+    readonly groupHeaderViewTag: string | undefined;
 
     /**
      * The names of events that should be delegated from the cell view to the column.
@@ -105,7 +105,7 @@ export class ColumnInternals<
     /**
      * Template for the group header view
      */
-    public readonly groupHeaderViewTemplate: ViewTemplate<TableGroupRow>;
+    public readonly groupHeaderViewTemplate: ViewTemplate<TableGroupRow> | undefined;
 
     /**
      * Whether or not this column can be used to group rows by
@@ -173,9 +173,9 @@ export class ColumnInternals<
     public constructor(options: ColumnInternalsOptions<TColumnValidator>) {
         this.cellRecordFieldNames = options.cellRecordFieldNames;
         this.cellViewTemplate = createCellViewTemplate(options.cellViewTag);
-        this.groupHeaderViewTemplate = createGroupHeaderViewTemplate(
+        this.groupHeaderViewTemplate = options.groupHeaderViewTag ? createGroupHeaderViewTemplate(
             options.groupHeaderViewTag
-        );
+        ) : undefined;
         this.delegatedEvents = options.delegatedEvents;
         this.sortOperation = options.sortOperation ?? TableColumnSortOperation.basic;
         this.validator = options.validator;
