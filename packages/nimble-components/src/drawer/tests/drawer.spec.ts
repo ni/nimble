@@ -250,7 +250,7 @@ describe('Drawer', () => {
             expect(document.activeElement).toBe(cancelButton);
         });
 
-        // Some browsers skipped, see: https://github.com/ni/nimble/issues/1943
+        // Some browsers skipped, see: https://github.com/ni/nimble/issues/1936
         it('supports opening multiple drawers on top of each other #SkipFirefox #SkipWebkit', () => {
             const secondDrawer = document.createElement('nimble-drawer');
             const secondDrawerButton = document.createElement('nimble-button');

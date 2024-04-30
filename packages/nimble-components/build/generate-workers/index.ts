@@ -34,6 +34,9 @@ const fileContent: string = `// eslint-disable-next-line no-template-curly-in-st
 export const workerCode = ${JSON.stringify(sourceCode)};
 `;
 
-const renderFilePath: string = path.resolve(workersDirectory, 'matrix-renderer.ts');
+const renderFilePath: string = path.resolve(
+    workersDirectory,
+    'matrix-renderer.ts'
+);
 
 writeFile(renderFilePath, fileContent);

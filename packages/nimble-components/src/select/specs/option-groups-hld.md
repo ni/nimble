@@ -63,7 +63,7 @@ _Question: Should matching against a group be configurable?_
 
 #### Combobox Guidance
 
-It should be noted that when using groups with a `Combobox`, it is advised that each option still be unique (for both its display and value). This is predicated on the [decision](https://github.com/ni/nimble/issues/1168#issuecomment-1568733159) that the `Combobox` will change it's behavior for platforms like Angular, where the model value will _always_ be the text that is in the display. This will make it impossible to disambiguate between options that have the same display value under separate groups.
+It should be noted that when using groups with a `Combobox`, it is advised that each option still be unique (for both its display and value). This is predicated on the [decision](https://github.com/ni/nimble/issues/1168#issuecomment-1568733159) that the `Combobox` will change its behavior for platforms like Angular, where the model value will _always_ be the text that is in the display. This will make it impossible to disambiguate between options that have the same display value under separate groups.
 
 ## Alternative Implementations / Designs
 
@@ -74,6 +74,6 @@ Originally, there was a desire to display the group name for the selected option
 As called out above:
 
 1. Should the `ListOptionGroup` component support slotting content such as icons into named slots?
-    - My thought is that initiailly we don't need to support this until it is asked for. So far, we have seen no requests for this.
+    - My thought is that initially we don't need to support this until it is asked for. So far, we have seen no requests for this.
 2. Should matching against a group name for filtering be configurable?
     - I'm waffling on the importance of this. Because of the very loose matching we provide for the `Select` filtering (and likely the `Combobox` eventually), it will be easy to match against several groups, particularly when very few characters have been entered, resulting in a bunch of options in the dropdown that don't match the filter itself, requiring more characters to be typed than usual to filter it down to a reasonable set. It is unclear how laborious this will make it for the user.

@@ -150,7 +150,7 @@ export class TableValidator<TData extends TableRecord> {
         columns: readonly TableColumn[]
     ): boolean {
         this.invalidColumnConfiguration = columns.some(
-            x => !x.columnInternals.validConfiguration
+            x => !x.columnInternals.validator.isColumnValid
         );
         return !this.invalidColumnConfiguration;
     }

@@ -4,7 +4,7 @@ export const appearanceVariantDescription = 'This attribute has no effect on but
 
 export const contentHiddenDescription = 'When set, this attribute hides the text and end icon, leaving only the start icon visible.';
 
-export const iconDescription = `When including an icon, set \`slot="start"\` on the icon to ensure proper styling.
+export const iconDescription = `Set \`slot="start"\` to include an icon before the text content (or instead of the content when \`content-hidden\` is set).
 
 <details>
     <summary>Icon Usage</summary>
@@ -29,7 +29,5 @@ export const iconDescription = `When including an icon, set \`slot="start"\` on 
     </ul>
 </details>`;
 
-export const endIconDescription = `When including an icon after the text content, set \`slot="end"\` on the icon to ensure proper styling.
-
-This icon will be hidden when \`contentHidden\` is set to \`true\`
-.`;
+// 'Set `slot="end"` to include an icon after the text content.'
+export const endIconDescription = 'Set `slot="end"` to include an icon after the text content. This icon will be hidden when `content-hidden` is set to `true`.';

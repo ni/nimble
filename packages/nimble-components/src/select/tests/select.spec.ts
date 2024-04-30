@@ -1,4 +1,5 @@
 import { html, repeat } from '@microsoft/fast-element';
+import { parameterizeSpec, parameterizeSuite } from '@ni/jasmine-parameterized';
 import { fixture, Fixture } from '../../utilities/tests/fixture';
 import { Select, selectTag } from '..';
 import { ListOption, listOptionTag } from '../../list-option';
@@ -16,17 +17,18 @@ const disabledOption = 'disabled';
 const disabledSelectedOption = 'disabled selected';
 const placeholderOption = 'disabled selected hidden';
 
-async function setup(
-    position?: string,
-    open?: boolean,
-    firstOptionState?:
-    | 'disabled'
-    | 'disabled selected'
-    | 'disabled selected hidden',
-    secondOptionState?:
+type OptionInitialState =
     | 'disabled'
     | 'disabled selected'
     | 'disabled selected hidden'
+    | 'hidden'
+    | 'visually-hidden';
+
+async function setup(
+    position?: string,
+    open?: boolean,
+    firstOptionState?: OptionInitialState,
+    secondOptionState?: OptionInitialState
 ): Promise<Fixture<Select>> {
     const viewTemplate = html`
         <nimble-select
@@ -216,19 +218,54 @@ describe('Select', () => {
         await disconnect();
     });
 
-    it('disabled option that is marked as selected initially will be used as value', async () => {
-        // mark second option as selected to be different than default
-        const { element, connect, disconnect } = await setup(
-            undefined,
-            false,
-            undefined,
-            disabledSelectedOption
-        );
-        await connect();
-        await waitForUpdatesAsync();
-        expect(element.value).toBe('two');
+    describe('Default selected option', () => {
+        it('disabled option that is marked as selected initially will be used as value', async () => {
+            // mark second option as selected to be different than default
+            const { element, connect, disconnect } = await setup(
+                undefined,
+                false,
+                undefined,
+                disabledSelectedOption
+            );
+            await connect();
+            await waitForUpdatesAsync();
+            expect(element.value).toBe('two');
 
-        await disconnect();
+            await disconnect();
+        });
+
+        const defaultOptionTestCases: {
+            name: string,
+            value: OptionInitialState
+        }[] = [
+            {
+                name: 'first option disabled, second is default',
+                value: 'disabled'
+            },
+            {
+                name: 'first option hidden, second is default',
+                value: 'hidden'
+            },
+            {
+                name: 'first option visually-hidden, second is default',
+                value: 'visually-hidden'
+            }
+        ];
+        parameterizeSpec(defaultOptionTestCases, (spec, name, value) => {
+            spec(name, async () => {
+                const { element, connect, disconnect } = await setup(
+                    undefined,
+                    false,
+                    value.value,
+                    undefined
+                );
+                await connect();
+                await waitForUpdatesAsync();
+                expect(element.value).toBe('two');
+
+                await disconnect();
+            });
+        });
     });
 
     it('can set value to a disabled option', async () => {
@@ -494,23 +531,24 @@ describe('Select', () => {
                 filter: FilterMode.standard,
                 name: 'standard'
             }
-        ];
-        filterModeTestData.forEach(testData => {
-            describe(`with filterMode = ${testData.name}`, () => {
+        ] as const;
+        parameterizeSuite(filterModeTestData, (suite, name, value) => {
+            suite(`with filterMode = ${name}`, () => {
+                beforeEach(() => {
+                    element.filterMode = value.filter;
+                });
+
                 it('pressing <Enter> opens dropdown', () => {
-                    element.filterMode = testData.filter;
                     pageObject.pressEnterKey();
                     expect(element.open).toBeTrue();
                 });
 
                 it('pressing <Space> opens dropdown', async () => {
-                    element.filterMode = testData.filter;
                     await pageObject.pressSpaceKey();
                     expect(element.open).toBeTrue();
                 });
 
                 it('after pressing <Esc> to close dropdown, <Enter> will re-open dropdown', () => {
-                    element.filterMode = testData.filter;
                     pageObject.clickSelect();
                     pageObject.pressEscapeKey();
                     expect(element.open).toBeFalse();
@@ -519,14 +557,12 @@ describe('Select', () => {
                 });
 
                 it('after closing dropdown by pressing <Esc>, activeElement is Select element', () => {
-                    element.filterMode = testData.filter;
                     pageObject.clickSelect();
                     pageObject.pressEscapeKey();
                     expect(document.activeElement).toBe(element);
                 });
 
                 it('after closing dropdown by committing a value with <Enter>, activeElement is Select element', () => {
-                    element.filterMode = testData.filter;
                     pageObject.clickSelect();
                     pageObject.pressArrowDownKey();
                     pageObject.pressEnterKey();
@@ -769,6 +805,51 @@ describe('Select', () => {
             expect(filterInput?.getAttribute('aria-activedescendant')).toBe(
                 element.ariaActiveDescendant
             );
+        });
+
+        it('pressing arrow keys selects next visible item when option between current and next is filtered out', async () => {
+            const newOptions = element.options.map(o => o as ListOption);
+            newOptions.push(new ListOption('Twenty', 'twenty'));
+            await pageObject.setOptions(newOptions);
+            await pageObject.openAndSetFilterText('tw');
+            pageObject.pressArrowDownKey();
+            let currentSelection = pageObject.getSelectedOption();
+            expect(currentSelection?.value).toBe('twenty');
+
+            pageObject.pressArrowUpKey();
+            currentSelection = pageObject.getSelectedOption();
+            expect(currentSelection?.value).toBe('two');
+        });
+
+        it('can not select option that has been filtered out pressing arrowUp', async () => {
+            await pageObject.openAndSetFilterText('tw');
+            pageObject.pressArrowUpKey();
+            pageObject.pressEnterKey();
+            await waitForUpdatesAsync();
+            let currentSelection = pageObject.getSelectedOption();
+            expect(currentSelection?.value).toBe('two');
+
+            // make sure we can select other options after clearing filter
+            pageObject.clickSelect();
+            pageObject.pressArrowUpKey();
+            pageObject.pressEnterKey();
+            currentSelection = pageObject.getSelectedOption();
+            expect(currentSelection?.value).toBe('one');
+        });
+
+        it('cant not select option that has been filtered out pressing arrowDown', async () => {
+            await pageObject.openAndSetFilterText('tw');
+            pageObject.pressArrowDownKey();
+            pageObject.pressEnterKey();
+            let currentSelection = pageObject.getSelectedOption();
+            expect(currentSelection?.value).toBe('two');
+
+            // make sure we can select other options after clearing filter
+            pageObject.clickSelect();
+            pageObject.pressArrowDownKey();
+            pageObject.pressEnterKey();
+            currentSelection = pageObject.getSelectedOption();
+            expect(currentSelection?.value).toBe('three');
         });
     });
 

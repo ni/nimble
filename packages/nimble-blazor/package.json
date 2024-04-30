@@ -1,9 +1,8 @@
 {
   "name": "@ni/nimble-blazor",
-  "version": "14.7.6",
+  "version": "16.0.4",
   "description": "Blazor components for the NI Nimble Design System",
   "scripts": {
-    "postinstall": "node build/generate-playwright-version-properties/source/index.js",
     "build": "npm run generate-icons && npm run generate-hybrid && npm run build:release && npm run build:client",
     "build:release": "dotnet build -c Release /p:TreatWarningsAsErrors=true /warnaserror",
     "build:client": "dotnet publish -p:BlazorEnableCompression=false -c Release Examples/Demo.Client --output dist/blazor-client-app",
@@ -19,10 +18,10 @@
     "format:js": "eslint . --fix",
     "test": "dotnet test -c Release",
     "pack": "cross-env-shell dotnet pack NimbleBlazor -c Release -p:PackageVersion=$npm_package_version --output dist",
-    "invoke-publish": "npm run invoke-publish:clean-nuget && npm run pack && npm run invoke-publish:nuget && npm run invoke-publish:npm -- ",
-    "invoke-publish:clean-nuget": "rimraf --glob \"dist/*.nupkg\"",
+    "invoke-publish": "npm run invoke-publish:setup && npm run invoke-publish:nuget && npm run invoke-publish:noop -- ",
+    "invoke-publish:setup": "rimraf --glob \"dist/*.nupkg\" && npm run pack",
     "invoke-publish:nuget": "cross-env-shell dotnet nuget push \"dist/*.nupkg\" -k $NUGET_SECRET_TOKEN -s \"https://api.nuget.org/v3/index.json\"",
-    "invoke-publish:npm": "echo \"noop command to swallow npm args\"",
+    "invoke-publish:noop": "echo \"noop command to swallow npm args\"",
     "copy-resources": "node build/copyNimbleResources.js"
   },
   "repository": {

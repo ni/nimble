@@ -80,6 +80,16 @@ export class WaferMap<
     /**
      * @internal
      */
+    public currentTask: Promise<void> | undefined;
+
+    /**
+     * @internal
+     */
+    public workerCanvas!: HTMLCanvasElement;
+
+    /**
+     * @internal
+     */
     public readonly canvas!: HTMLCanvasElement;
 
     /**
@@ -202,29 +212,28 @@ export class WaferMap<
      * @internal
      * Experimental update function called when an update is queued.
      */
-    public experimentalUpdate(): void {
+    public async experimentalUpdate(): Promise<void> {
         if (this.validity.invalidDiesTableSchema) {
             return;
         }
+
         if (this.waferMapUpdateTracker.requiresEventsUpdate) {
-            // zoom translateExtent needs to be recalculated when canvas size changes
-            this.zoomHandler.disconnect();
             if (
                 this.waferMapUpdateTracker.requiresContainerDimensionsUpdate
                 || this.waferMapUpdateTracker.requiresScalesUpdate
             ) {
                 this.experimentalDataManager.updateComputations();
-                this.workerRenderer.drawWafer();
+                await this.workerRenderer.setupWafer();
+                await this.workerRenderer.drawWafer();
             } else if (
                 this.waferMapUpdateTracker.requiresLabelsFontSizeUpdate
                 || this.waferMapUpdateTracker.requiresDiesRenderInfoUpdate
             ) {
                 this.experimentalDataManager.updatePrerendering();
-                this.workerRenderer.drawWafer();
+                await this.workerRenderer.drawWafer();
             } else if (this.waferMapUpdateTracker.requiresDrawnWaferUpdate) {
-                this.workerRenderer.drawWafer();
+                await this.workerRenderer.drawWafer();
             }
-            this.zoomHandler.connect();
         } else if (this.waferMapUpdateTracker.requiresRenderHoverUpdate) {
             this.workerRenderer.renderHover();
         }
@@ -241,12 +250,10 @@ export class WaferMap<
     public update(): void {
         this.validate();
         if (this.isExperimentalUpdate()) {
-            this.experimentalUpdate();
+            this.currentTask = this.experimentalUpdate();
             return;
         }
         if (this.waferMapUpdateTracker.requiresEventsUpdate) {
-            // zoom translateExtent needs to be recalculated when canvas size changes
-            this.zoomHandler.disconnect();
             if (this.waferMapUpdateTracker.requiresContainerDimensionsUpdate) {
                 this.dataManager.updateContainerDimensions();
                 this.renderer.updateSortedDiesAndDrawWafer();
@@ -266,7 +273,6 @@ export class WaferMap<
             } else if (this.waferMapUpdateTracker.requiresDrawnWaferUpdate) {
                 this.renderer.drawWafer();
             }
-            this.zoomHandler.connect();
         } else if (this.waferMapUpdateTracker.requiresRenderHoverUpdate) {
             this.renderer.renderHover();
         }

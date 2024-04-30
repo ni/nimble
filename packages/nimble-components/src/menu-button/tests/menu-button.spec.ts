@@ -8,6 +8,7 @@ import {
     keySpace
 } from '@microsoft/fast-web-utilities';
 import { FoundationElement, Menu, MenuItem } from '@microsoft/fast-foundation';
+import { parameterizeSuite } from '@ni/jasmine-parameterized';
 import { fixture, Fixture } from '../../utilities/tests/fixture';
 import { MenuButton } from '..';
 import { MenuButtonToggleEventDetail, MenuButtonPosition } from '../types';
@@ -319,27 +320,20 @@ describe('MenuButton', () => {
         });
     });
 
-    interface MenuSlotConfiguration<T> {
-        description: string;
-        setupFunction: () => Promise<Fixture<T>>;
-        getMenuButton: (element: HTMLElement) => MenuButton;
-    }
-
-    const menuSlotConfigurations: MenuSlotConfiguration<HTMLElement>[] = [
+    const menuSlotConfigurations = [
         {
-            description: 'menu slotted directly in menu-button',
+            name: 'menu slotted directly in menu-button',
             setupFunction: setup,
             getMenuButton: (element: HTMLElement) => element as MenuButton
         },
         {
-            description: 'menu passed through slot of additional element',
+            name: 'menu passed through slot of additional element',
             setupFunction: slottedSetup,
             getMenuButton: (element: HTMLElement) => element.shadowRoot!.querySelector('nimble-menu-button')!
         }
-    ];
-    for (const configuration of menuSlotConfigurations) {
-        // eslint-disable-next-line @typescript-eslint/no-loop-func
-        describe(`menu interaction with ${configuration.description}`, () => {
+    ] as const;
+    parameterizeSuite(menuSlotConfigurations, (suite, name, value) => {
+        suite(`menu interaction with ${name}`, () => {
             let element: HTMLElement;
             let connect: () => Promise<void>;
             let disconnect: () => Promise<void>;
@@ -358,7 +352,7 @@ describe('MenuButton', () => {
             }
 
             beforeEach(async () => {
-                ({ element, connect, disconnect, parent } = await configuration.setupFunction());
+                ({ element, connect, disconnect, parent } = await value.setupFunction());
                 createAndSlotMenu(element);
             });
 
@@ -368,7 +362,7 @@ describe('MenuButton', () => {
 
             it('should open the menu and focus first menu item when the toggle button is clicked', async () => {
                 await connect();
-                const menuButton = configuration.getMenuButton(element);
+                const menuButton = value.getMenuButton(element);
                 const toggleListener = createEventListener(
                     menuButton,
                     'toggle'
@@ -381,7 +375,7 @@ describe('MenuButton', () => {
 
             it("should open the menu and focus first menu item when 'Enter' is pressed while the toggle button is focused", async () => {
                 await connect();
-                const menuButton = configuration.getMenuButton(element);
+                const menuButton = value.getMenuButton(element);
                 const toggleListener = createEventListener(
                     menuButton,
                     'toggle'
@@ -397,7 +391,7 @@ describe('MenuButton', () => {
 
             it("should open the menu and focus first menu item when 'Space' is pressed while the toggle button is focused", async () => {
                 await connect();
-                const menuButton = configuration.getMenuButton(element);
+                const menuButton = value.getMenuButton(element);
                 const toggleListener = createEventListener(
                     menuButton,
                     'toggle'
@@ -413,7 +407,7 @@ describe('MenuButton', () => {
 
             it('should open the menu and focus first menu item when the down arrow is pressed while the toggle button is focused', async () => {
                 await connect();
-                const menuButton = configuration.getMenuButton(element);
+                const menuButton = value.getMenuButton(element);
                 const toggleListener = createEventListener(
                     menuButton,
                     'toggle'
@@ -429,7 +423,7 @@ describe('MenuButton', () => {
 
             it('should open the menu and focus last menu item when the up arrow is pressed while the toggle button is focused', async () => {
                 await connect();
-                const menuButton = configuration.getMenuButton(element);
+                const menuButton = value.getMenuButton(element);
                 const toggleListener = createEventListener(
                     menuButton,
                     'toggle'
@@ -445,7 +439,7 @@ describe('MenuButton', () => {
 
             it("should close the menu when pressing 'Escape'", async () => {
                 await connect();
-                const menuButton = configuration.getMenuButton(element);
+                const menuButton = value.getMenuButton(element);
                 await openMenu(menuButton);
 
                 const event = new KeyboardEvent('keydown', {
@@ -457,7 +451,7 @@ describe('MenuButton', () => {
 
             it("should focus the button when the menu is closed by pressing 'Escape'", async () => {
                 await connect();
-                const menuButton = configuration.getMenuButton(element);
+                const menuButton = value.getMenuButton(element);
                 await openMenu(menuButton);
 
                 const event = new KeyboardEvent('keydown', {
@@ -469,7 +463,7 @@ describe('MenuButton', () => {
 
             it('should close the menu when selecting a menu item by clicking it', async () => {
                 await connect();
-                const menuButton = configuration.getMenuButton(element);
+                const menuButton = value.getMenuButton(element);
                 await openMenu(menuButton);
 
                 menuItem1.click();
@@ -478,7 +472,7 @@ describe('MenuButton', () => {
 
             it('should focus the button when the menu is closed by selecting a menu item by clicking it', async () => {
                 await connect();
-                const menuButton = configuration.getMenuButton(element);
+                const menuButton = value.getMenuButton(element);
                 await openMenu(menuButton);
 
                 menuItem1.click();
@@ -487,7 +481,7 @@ describe('MenuButton', () => {
 
             it("should close the menu when selecting a menu item using 'Enter'", async () => {
                 await connect();
-                const menuButton = configuration.getMenuButton(element);
+                const menuButton = value.getMenuButton(element);
                 await openMenu(menuButton);
 
                 const event = new KeyboardEvent('keydown', {
@@ -499,7 +493,7 @@ describe('MenuButton', () => {
 
             it("should focus the button when the menu is closed by selecting a menu item using 'Enter'", async () => {
                 await connect();
-                const menuButton = configuration.getMenuButton(element);
+                const menuButton = value.getMenuButton(element);
                 await openMenu(menuButton);
 
                 const event = new KeyboardEvent('keydown', {
@@ -517,7 +511,7 @@ describe('MenuButton', () => {
                 };
 
                 await connect();
-                const menuButton = configuration.getMenuButton(element);
+                const menuButton = value.getMenuButton(element);
                 await openMenu(menuButton);
 
                 menuItem1.addEventListener(eventChange, onMenuItemChange);
@@ -528,7 +522,7 @@ describe('MenuButton', () => {
 
             it('should not close the menu when clicking on a disabled menu item', async () => {
                 await connect();
-                const menuButton = configuration.getMenuButton(element);
+                const menuButton = value.getMenuButton(element);
                 await openMenu(menuButton);
 
                 menuItem1.disabled = true;
@@ -540,7 +534,7 @@ describe('MenuButton', () => {
                 const focusableElement = document.createElement('input');
                 parent.appendChild(focusableElement);
                 await connect();
-                const menuButton = configuration.getMenuButton(element);
+                const menuButton = value.getMenuButton(element);
                 // Start with the focus on the menu button so that it can lose focus later
                 menuButton.focus();
                 menuButton.open = true;
@@ -550,11 +544,10 @@ describe('MenuButton', () => {
                 expect(menuButton.open).toBeFalse();
             });
         });
-    }
+    });
 
-    for (const configuration of menuSlotConfigurations) {
-        // eslint-disable-next-line @typescript-eslint/no-loop-func
-        describe(`menu interaction without a ${configuration.description}`, () => {
+    parameterizeSuite(menuSlotConfigurations, (suite, name, value) => {
+        suite(`menu interaction without a ${name}`, () => {
             let element: HTMLElement;
             let connect: () => Promise<void>;
             let disconnect: () => Promise<void>;
@@ -573,7 +566,7 @@ describe('MenuButton', () => {
             }
 
             beforeEach(async () => {
-                ({ element, connect, disconnect, parent } = await configuration.setupFunction());
+                ({ element, connect, disconnect, parent } = await value.setupFunction());
                 // Unlike other tests, explicitly do not slot a menu in the parent element
             });
 
@@ -583,7 +576,7 @@ describe('MenuButton', () => {
 
             it('should transition to the open state when the toggle button is clicked', async () => {
                 await connect();
-                const menuButton = configuration.getMenuButton(element);
+                const menuButton = value.getMenuButton(element);
                 const toggleListener = createEventListener(
                     menuButton,
                     'toggle'
@@ -603,7 +596,7 @@ describe('MenuButton', () => {
 
             it("should transition to the open state when 'Enter' is pressed while the toggle button is focused", async () => {
                 await connect();
-                const menuButton = configuration.getMenuButton(element);
+                const menuButton = value.getMenuButton(element);
                 const toggleListener = createEventListener(
                     menuButton,
                     'toggle'
@@ -626,7 +619,7 @@ describe('MenuButton', () => {
 
             it("should transition to the open state when 'Space' is pressed while the toggle button is focused", async () => {
                 await connect();
-                const menuButton = configuration.getMenuButton(element);
+                const menuButton = value.getMenuButton(element);
                 const toggleListener = createEventListener(
                     menuButton,
                     'toggle'
@@ -649,7 +642,7 @@ describe('MenuButton', () => {
 
             it('should transition to the open state when the down arrow is pressed while the toggle button is focused', async () => {
                 await connect();
-                const menuButton = configuration.getMenuButton(element);
+                const menuButton = value.getMenuButton(element);
                 const toggleListener = createEventListener(
                     menuButton,
                     'toggle'
@@ -672,7 +665,7 @@ describe('MenuButton', () => {
 
             it('should transition to the open state when the up arrow is pressed while the toggle button is focused', async () => {
                 await connect();
-                const menuButton = configuration.getMenuButton(element);
+                const menuButton = value.getMenuButton(element);
                 const toggleListener = createEventListener(
                     menuButton,
                     'toggle'
@@ -695,7 +688,7 @@ describe('MenuButton', () => {
 
             it("should transition to the closed state when pressing 'Escape'", async () => {
                 await connect();
-                const menuButton = configuration.getMenuButton(element);
+                const menuButton = value.getMenuButton(element);
                 await openMenu(menuButton);
 
                 const event = new KeyboardEvent('keydown', {
@@ -707,7 +700,7 @@ describe('MenuButton', () => {
 
             it("should focus the button when moving to the closed state by pressing 'Escape'", async () => {
                 await connect();
-                const menuButton = configuration.getMenuButton(element);
+                const menuButton = value.getMenuButton(element);
                 await openMenu(menuButton);
 
                 const event = new KeyboardEvent('keydown', {
@@ -717,5 +710,5 @@ describe('MenuButton', () => {
                 expect(document.activeElement).toEqual(element);
             });
         });
-    }
+    });
 });
