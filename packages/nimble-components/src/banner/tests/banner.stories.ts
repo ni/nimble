@@ -111,7 +111,7 @@ export const _banner: StoryObj<BannerArgs> = {
         toggle: {
             description:
                 'Event emitted by the banner when the `open` state changes. The event details include the booleans `oldState` and `newState`.',
-            control: { type: 'none' }
+            control: false
         }
     },
     args: {

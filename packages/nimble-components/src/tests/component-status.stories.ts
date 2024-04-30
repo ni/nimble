@@ -620,7 +620,7 @@ const metadata: Meta<TableArgs> = {
             }
         },
         status: {
-            options: statusOptions,
+            options: [...statusOptions],
             control: {
                 type: 'radio'
             }

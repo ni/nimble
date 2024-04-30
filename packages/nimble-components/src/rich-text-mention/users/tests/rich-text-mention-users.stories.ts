@@ -55,7 +55,7 @@ export const richTextMentionUsers: StoryObj = {
     argTypes: {
         pattern: {
             description: patternDescription,
-            control: { type: 'none' }
+            control: false
         },
         checkValidity: {
             name: 'checkValidity()',
