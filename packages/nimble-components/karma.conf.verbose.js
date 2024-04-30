@@ -8,7 +8,12 @@ module.exports = config => {
     originalConfigFunction(config);
     const options = {
         plugins: [...config.plugins, 'karma-spec-reporter'],
-        reporters: [...config.reporters, 'spec']
+        reporters: [...config.reporters, 'spec'],
+        specReporter: {
+            suppressPassed: true,
+            suppressSkipped: false,
+            showSpecTiming: true
+        }
     };
 
     config.set(options);
