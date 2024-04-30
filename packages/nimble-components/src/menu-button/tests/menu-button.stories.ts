@@ -23,6 +23,7 @@ import {
     endIconDescription,
     iconDescription
 } from '../../patterns/button/tests/doc-strings';
+import { anchorMenuItemTag } from '../../anchor-menu-item';
 
 interface MenuButtonArgs {
     label: string;
@@ -44,7 +45,7 @@ const metadata: Meta<MenuButtonArgs> = {
     decorators: [withActions<HtmlRenderer>],
     parameters: {
         actions: {
-            handles: ['toggle', 'beforetoggle']
+            handles: ['toggle', 'beforetoggle', 'change']
         },
         toolbar: {
             zoom: { hidden: true }
@@ -136,6 +137,7 @@ const metadata: Meta<MenuButtonArgs> = {
             ${when(x => x.endIcon, html`<${iconArrowExpanderDownTag} slot="end"></${iconArrowExpanderDownTag}>`)}
 
             <${menuTag} slot="menu">
+                <${anchorMenuItemTag} href="#">Anchor item</${anchorMenuItemTag}>
                 <${menuItemTag}>Item 1</${menuItemTag}>
                 <${menuItemTag}>
                     Item 2
