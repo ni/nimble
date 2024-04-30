@@ -212,8 +212,8 @@ export const tableRowBorderColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.tableRowBorderColor)
 ).withDefault((element: HTMLElement) => getColorForTheme(element, Black15, Black80, ForestGreen));
 
-export const chipBackgroundColor = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.chipBackgroundColor)
+export const tagFillColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.tagFillColor)
 ).withDefault((element: HTMLElement) => hexToRgbaCssColor(getColorForTheme(element, Black91, Black15, White), 0.1));
 
 export const buttonFillPrimaryColor = DesignToken.create<string>(

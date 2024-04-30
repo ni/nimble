@@ -1,6 +1,6 @@
 {
   "type": "minor",
-  "comment": "Added chip background color token",
+  "comment": "Added tag fill color token",
   "packageName": "@ni/nimble-components",
   "email": "1458528+fredvisser@users.noreply.github.com",
   "dependentChangeType": "patch"
