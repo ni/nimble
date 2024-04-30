@@ -89,7 +89,7 @@ export const template = html<Table>`
                                                 left
                                                 ${(_, c) => `${c.parent.layoutManager.activeColumnIndex === c.index ? 'column-active' : ''}`}
                                                 ${(_, c) => `${c.parent.layoutManager.activeColumnDivider === c.parent.getLeftDividerIndex(c.index) ? 'divider-active' : ''}`}
-                                                ${(_, c) => `${c.parent.layoutManager.hasResizableColumnToLeft(c.index - 1, c.parent.visibleColumns) ? 'draggable' : ''}`}
+                                                ${(_, c) => `${c.parent.layoutManager.hasResizableColumnToLeft(c.index - 1) ? 'draggable' : ''}`}
                                             "
                                             @mousedown="${(_, c) => c.parent.onLeftDividerMouseDown(c.event as MouseEvent, c.index)}">
                                         </div>
@@ -111,7 +111,7 @@ export const template = html<Table>`
                                                 right
                                                 ${(_, c) => `${c.parent.layoutManager.activeColumnIndex === c.index ? 'column-active' : ''}`}
                                                 ${(_, c) => `${c.parent.layoutManager.activeColumnDivider === c.parent.getRightDividerIndex(c.index) ? 'divider-active' : ''}`}
-                                                ${(_, c) => `${c.parent.layoutManager.hasResizableColumnToLeft(c.index, c.parent.visibleColumns) ? 'draggable' : ''}`}
+                                                ${(_, c) => `${c.parent.layoutManager.hasResizableColumnToLeft(c.index) ? 'draggable' : ''}`}
                                             "
                                              @mousedown="${(_, c) => c.parent.onRightDividerMouseDown(c.event as MouseEvent, c.index)}">
                                         </div>
