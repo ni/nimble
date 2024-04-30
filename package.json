@@ -16,7 +16,8 @@
     "invoke-publish": "cross-env-shell beachball publish --yes --access public --message \\\"applying package updates [skip ci]\\\" -n $NPM_SECRET_TOKEN",
     "validate": "npm run build && npm run lint && npm run test",
     "performance": "npm run performance --workspaces --if-present",
-    "beachball-sync": "beachball sync"
+    "beachball-sync": "beachball sync",
+    "concurrently-lint-test": "concurrently --group \"npm run test\" \"npm run lint\""
   },
   "repository": {
     "type": "git",
@@ -50,6 +51,7 @@
   ],
   "devDependencies": {
     "beachball": "^2.31.0",
+    "concurrently": "^8.2.2",
     "cross-env": "^7.0.3",
     "patch-package": "^8.0.0",
     "playwright": "1.42.0"
