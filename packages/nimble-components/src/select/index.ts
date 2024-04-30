@@ -638,7 +638,9 @@ export class Select
                 const activeOptionIndex = this.options.indexOf(
                     typeaheadMatches[0] as ListOption
                 );
-                this.setActiveOption(activeOptionIndex);
+                if (!(this.open && this.filterMode !== FilterMode.none)) {
+                    this.setActiveOption(activeOptionIndex);
+                }
             }
 
             this.typeaheadExpired = false;
