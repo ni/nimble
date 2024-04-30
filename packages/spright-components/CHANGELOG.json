@@ -2,6 +2,21 @@
   "name": "@ni/spright-components",
   "entries": [
     {
+      "date": "Tue, 30 Apr 2024 15:26:51 GMT",
+      "version": "0.0.7",
+      "tag": "@ni/spright-components_v0.0.7",
+      "comments": {
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/spright-components",
+            "commit": "cd00c0c1bf9bdfe7f066549d2baf123843c1badd",
+            "comment": "Try some less verbose test flags"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 26 Apr 2024 21:13:31 GMT",
       "version": "0.0.7",
       "tag": "@ni/spright-components_v0.0.7",
