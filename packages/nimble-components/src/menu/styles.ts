@@ -18,6 +18,7 @@ import {
 import { Theme } from '../theme-provider/types';
 import { hexToRgbaCssColor } from '../utilities/style/colors';
 import { themeBehavior } from '../utilities/style/theme';
+import { anchorMenuItemTag } from '../anchor-menu-item';
 
 export const styles = css`
     ${display('grid')}
@@ -40,6 +41,11 @@ export const styles = css`
         margin: 0 ${mediumPadding};
     }
 
+    ::slotted(*) {
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
     ::slotted(hr) {
         box-sizing: content-box;
         height: 2px;
@@ -47,8 +53,6 @@ export const styles = css`
         border: none;
         background: ${borderColor};
         opacity: 0.1;
-        padding-left: 8px;
-        padding-right: 8px;
     }
 
     ::slotted(header) {
@@ -58,8 +62,10 @@ export const styles = css`
         text-transform: ${groupHeaderTextTransform};
         padding-top: ${smallPadding};
         padding-bottom: ${smallPadding};
-        padding-left: 8px;
-        padding-right: 8px;
+    }
+
+    ::slotted(${anchorMenuItemTag}) {
+        padding: 0px;
     }
 `.withBehaviors(
     themeBehavior(
