@@ -17,7 +17,7 @@
     "validate": "npm run build && npm run lint && npm run test",
     "performance": "npm run performance --workspaces --if-present",
     "beachball-sync": "beachball sync",
-    "concurrently-lint-test": "concurrently --group \"npm run test\" \"npm run lint\""
+    "concurrently-lint-test": "concurrently --group \"npm run lint\" \"npm run test\""
   },
   "repository": {
     "type": "git",
