@@ -60,7 +60,7 @@ export class SelectPageObject {
     public getActiveOption(): ListOption | null {
         return (
             (this.selectElement.options.find(
-                o => (o as ListOption).activeOption === true
+                o => (o as ListOption).activeOption
             ) as ListOption) ?? null
         );
     }

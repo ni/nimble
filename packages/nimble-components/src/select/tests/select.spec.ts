@@ -344,6 +344,20 @@ describe('Select', () => {
         await disconnect();
     });
 
+    it('after forcing Select to be blank, pressing arrow down sets value to first available option', async () => {
+        const { element, connect, disconnect } = await setup();
+        const pageObject = new SelectPageObject(element);
+        await connect();
+        await waitForUpdatesAsync();
+        element.selectedIndex = -1;
+        await waitForUpdatesAsync();
+
+        pageObject.pressArrowDownKey();
+        expect(pageObject.getSelectedOption()?.value).toBe('one');
+
+        await disconnect();
+    });
+
     it('selecting option via typing character while dropdown is closed changes value', async () => {
         const { element, connect, disconnect } = await setup();
         const pageObject = new SelectPageObject(element);

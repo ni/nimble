@@ -469,7 +469,6 @@ export class Select
      */
     public inputHandler(e: InputEvent): boolean {
         this.filter = this.filterInput?.value ?? '';
-        this.clearSelection();
         this.filterOptions();
 
         const enabledOptions = this.filteredOptions.filter(o => !o.disabled);
@@ -577,8 +576,6 @@ export class Select
                     break;
                 }
 
-                this.setActiveOption(this.selectedIndex);
-
                 if (this.collapsible && this.open) {
                     e.preventDefault();
                     this.open = false;
@@ -638,14 +635,10 @@ export class Select
             const typeaheadMatches = this.getTypeaheadMatches();
 
             if (typeaheadMatches.length) {
-                const activeOption = this.options.indexOf(
+                const activeOptionIndex = this.options.indexOf(
                     typeaheadMatches[0] as ListOption
                 );
-                if (activeOption > -1 && !this.open) {
-                    this.selectedIndex = activeOption;
-                } else if (this.filterMode === FilterMode.none) {
-                    this.setActiveOption(activeOption);
-                }
+                this.setActiveOption(activeOptionIndex);
             }
 
             this.typeaheadExpired = false;
@@ -821,6 +814,10 @@ export class Select
             return;
         }
 
+        const activeOption = this.options[this.openActiveIndex ?? this.selectedIndex];
+        if (isNimbleListOption(activeOption)) {
+            activeOption.activeOption = false;
+        }
         this.openActiveIndex = undefined;
         this.filter = '';
         if (this.filterInput) {
@@ -898,21 +895,27 @@ export class Select
     }
 
     private setActiveOption(newActiveIndex: number): void {
-        const selectedIndex = this.openActiveIndex ?? this.selectedIndex;
         const activeOption = this.options[newActiveIndex];
-        if (isNimbleListOption(activeOption)) {
-            activeOption.activeOption = true;
-            if (selectedIndex !== newActiveIndex && selectedIndex > -1) {
-                (this.options[selectedIndex]! as ListOption).activeOption = false;
-            }
-        }
-
         if (this.open) {
+            if (isNimbleListOption(activeOption)) {
+                activeOption.activeOption = true;
+            }
+
+            const previousActiveIndex = this.openActiveIndex ?? this.selectedIndex;
+            const previousActiveOption = this.options[previousActiveIndex];
+            if (
+                previousActiveIndex !== newActiveIndex
+                && isNimbleListOption(previousActiveOption)
+            ) {
+                previousActiveOption.activeOption = false;
+            }
+
             this.openActiveIndex = newActiveIndex;
             this.focusAndScrollActiveOptionIntoView();
         } else {
             this.selectedIndex = newActiveIndex;
         }
+
         this.ariaActiveDescendant = activeOption?.id ?? '';
     }
 
@@ -1040,12 +1043,6 @@ export class Select
         }
     }
 
-    private clearSelection(): void {
-        this.options.forEach(option => {
-            (option as ListOption).activeOption = false;
-        });
-    }
-
     private filterChanged(): void {
         this.filterOptions();
     }
@@ -1055,7 +1052,6 @@ export class Select
     }
 
     private initializeOpenState(): void {
-        this.openActiveIndex = this.selectedIndex;
         this.committedSelectedOption = this.options[this.selectedIndex];
         this.setActiveOption(this.selectedIndex);
         this.ariaControls = this.listboxId;
