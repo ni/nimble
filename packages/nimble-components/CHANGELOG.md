@@ -1,8 +1,117 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Thu, 04 Apr 2024 21:33:43 GMT and should not be manually modified.
+This log was last generated on Fri, 26 Apr 2024 21:13:31 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 27.0.5
+
+Fri, 26 Apr 2024 21:13:31 GMT
+
+### Patches
+
+- Bump @ni/jasmine-parameterized to v0.3.0
+
+## 27.0.4
+
+Fri, 26 Apr 2024 20:31:47 GMT
+
+### Patches
+
+- No API changes, validating release pipelines ([ni/nimble@ff7f847](https://github.com/ni/nimble/commit/ff7f847c0fb3834b5fdf4ce141bbe6bd94e1f0eb))
+- No API changes, validating release pipelines ([ni/nimble@c5a74e6](https://github.com/ni/nimble/commit/c5a74e68c2909e2f9a50bf0e6b0e4f1c5f0cbce8))
+- Updated wafer map web worker class to support offscreen rendering ([ni/nimble@a3865cb](https://github.com/ni/nimble/commit/a3865cb57e09ce6581d2dd10c5a61181ece73f59))
+- Bump @ni/nimble-tokens to v6.13.5
+
+## 27.0.0
+
+Wed, 24 Apr 2024 16:20:52 GMT
+
+### Major changes
+
+- Remove fallback design tokens. Use primary font tokens instead; they include fallback fonts after Nimble's font. ([ni/nimble@d72a0fa](https://github.com/ni/nimble/commit/d72a0faa81a649f70b72c9fcc8f2c4c201cfbe82))
+
+## 26.0.0
+
+Mon, 22 Apr 2024 15:13:13 GMT
+
+### Major changes
+
+- Remove enum-text table column. The icon column supports text mappings and should be used instead. ([ni/nimble@16b2c1b](https://github.com/ni/nimble/commit/16b2c1b2820d14e88474e26b17eefd7b7cdf0e9f))
+
+## 25.1.1
+
+Fri, 19 Apr 2024 16:57:31 GMT
+
+### Patches
+
+- Don't allow use of the nullish coalescing operator in templates ([ni/nimble@e3e5231](https://github.com/ni/nimble/commit/e3e523112cce7ebbc3fbf0fb3768f5740055891c))
+
+## 25.1.0
+
+Thu, 18 Apr 2024 21:47:19 GMT
+
+### Minor changes
+
+- Support text mappings in icon column ([ni/nimble@73a19a6](https://github.com/ni/nimble/commit/73a19a6a2d1ebe03eb4245ee2119529ce9066b03))
+
+## 25.0.0
+
+Wed, 17 Apr 2024 20:57:25 GMT
+
+### Major changes
+
+- Add configuration for icon mappings and spinner mappings to show/hide their text within a table's cells. **Breaking change:** The icon mappings and spinner mappings now default to showing their text within a table's cells in addition to on group rows. ([ni/nimble@6d50261](https://github.com/ni/nimble/commit/6d502618333981f4c5c2f72ddb5b329674d2e345))
+
+## 24.1.14
+
+Mon, 15 Apr 2024 17:36:54 GMT
+
+### Patches
+
+- Update to typescript 5.1.6 ([ni/nimble@7254ddb](https://github.com/ni/nimble/commit/7254ddb339236dc1519033f88290491436a01aef))
+- Bump @ni/nimble-tokens to v6.13.2
+- Bump @ni/jasmine-parameterized to v0.2.4
+
+## 24.1.13
+
+Wed, 10 Apr 2024 22:00:23 GMT
+
+### Patches
+
+- Move validator into MentionInternals ([ni/nimble@f83d076](https://github.com/ni/nimble/commit/f83d0762219a2f13d6a96f4241a6c57adf56e7a0))
+
+## 24.1.12
+
+Wed, 10 Apr 2024 19:37:06 GMT
+
+### Patches
+
+- Fix arrow key select issue for Select ([ni/nimble@6c71469](https://github.com/ni/nimble/commit/6c714694685c161e2066c700018ffb1cb42d27ea))
+
+## 24.1.11
+
+Wed, 10 Apr 2024 17:46:00 GMT
+
+### Patches
+
+- Fix a couple issues with anchor styling ([ni/nimble@8a76c28](https://github.com/ni/nimble/commit/8a76c28fbc7a700234b3629487816cb71709c4a4))
+
+## 24.1.10
+
+Wed, 10 Apr 2024 00:29:05 GMT
+
+### Patches
+
+- Update version of FAST ([ni/nimble@5832b42](https://github.com/ni/nimble/commit/5832b42172788170c01eb276eaaba1e6b47cbf92))
+
+## 24.1.9
+
+Mon, 08 Apr 2024 20:40:28 GMT
+
+### Patches
+
+- Move validator into ColumnInternals ([ni/nimble@d16c59e](https://github.com/ni/nimble/commit/d16c59ec133dcbf4d94198d3f26ff7472a143ea5))
 
 ## 24.1.8
 

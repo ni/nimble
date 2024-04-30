@@ -57,6 +57,10 @@ const isNimbleListOption = (el: Element): el is ListOption => {
     return el instanceof ListOption;
 };
 
+const isOptionSelectable = (el: ListOption): boolean => {
+    return !el.visuallyHidden && !el.disabled && !el.hidden;
+};
+
 /**
  * A nimble-styled HTML select.
  */
@@ -655,7 +659,11 @@ export class Select
         // don't call super.selectNextOption as that relies on side-effecty
         // behavior to not select disabled option (which no longer works)
         for (let i = this.selectedIndex + 1; i < this.options.length; i++) {
-            if (!this.options[i]?.disabled) {
+            const listOption = this.options[i]!;
+            if (
+                isNimbleListOption(listOption)
+                && isOptionSelectable(listOption)
+            ) {
                 this.selectedIndex = i;
                 break;
             }
@@ -666,7 +674,11 @@ export class Select
         // don't call super.selectPreviousOption as that relies on side-effecty
         // behavior to not select disabled option (which no longer works)
         for (let i = this.selectedIndex - 1; i >= 0; i--) {
-            if (!this.options[i]?.disabled) {
+            const listOption = this.options[i]!;
+            if (
+                isNimbleListOption(listOption)
+                && isOptionSelectable(listOption)
+            ) {
                 this.selectedIndex = i;
                 break;
             }
@@ -800,9 +812,6 @@ export class Select
         const optionIsSelected = (option: ListboxOption): boolean => {
             return option.hasAttribute('selected') || option.selected;
         };
-        const optionIsDisabled = (option: ListboxOption): boolean => {
-            return option.hasAttribute('disabled') || option.disabled;
-        };
         let selectedIndex = -1;
         let firstValidOptionIndex = -1;
         for (let i = 0; i < options?.length; i++) {
@@ -810,7 +819,10 @@ export class Select
             if (optionIsSelected(option!) || option?.value === this.value) {
                 selectedIndex = i;
             }
-            if (firstValidOptionIndex === -1 && !optionIsDisabled(option!)) {
+            if (
+                firstValidOptionIndex === -1
+                && isOptionSelectable(option! as ListOption)
+            ) {
                 firstValidOptionIndex = i;
             }
         }

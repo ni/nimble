@@ -38,6 +38,14 @@ public class NimbleMappingSpinnerTests
         Assert.Contains($"text=\"foo\"", element.Markup);
     }
 
+    [Fact]
+    public void NimbleMappingSpinnerTextHiddenAttribute_HasCorrectMarkup()
+    {
+        var element = RenderWithPropertySet<int, bool?>(x => x.TextHidden, true);
+
+        Assert.Contains($"text-hidden", element.Markup);
+    }
+
     private IRenderedComponent<NimbleMappingSpinner<TKey>> RenderWithPropertySet<TKey, TProperty>(Expression<Func<NimbleMappingSpinner<TKey>, TProperty>> propertyGetter, TProperty propertyValue)
     {
         var context = new TestContext();

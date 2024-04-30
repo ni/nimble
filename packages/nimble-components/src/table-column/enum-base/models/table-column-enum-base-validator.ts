@@ -1,5 +1,4 @@
 import { ColumnValidator } from '../../base/models/column-validator';
-import type { ColumnInternals } from '../../base/models/column-internals';
 import type { Mapping } from '../../../mapping/base';
 import type { MappingKeyType } from '../types';
 import { resolveKeyWithType } from './mapping-key-resolver';
@@ -11,18 +10,15 @@ export const enumBaseValidityFlagNames = [
 ] as const;
 
 /**
- * Validator for TableColumnEnumText. Implementations MUST include enumBaseValidityFlagNames in validity flag names set.
+ * Validator base class for table columns containing mappings. Implementations MUST include enumBaseValidityFlagNames in validity flag names set.
  */
 export abstract class TableColumnEnumBaseValidator<
     ValidityFlagNames extends readonly string[]
 > extends ColumnValidator<
     typeof enumBaseValidityFlagNames | ValidityFlagNames
     > {
-    public constructor(
-        columnInternals: ColumnInternals<unknown>,
-        configValidityKeys: ValidityFlagNames
-    ) {
-        super(columnInternals, configValidityKeys);
+    public constructor(configValidityKeys: ValidityFlagNames) {
+        super(configValidityKeys);
     }
 
     public validate(

@@ -1,20 +1,24 @@
 import { html, when } from '@microsoft/fast-element';
 import type { TableColumnIconCellView } from '.';
-import { spinnerTag } from '../../../spinner';
+import { overflow } from '../../../utilities/directive/overflow';
 
+// prettier-ignore
 export const template = html<TableColumnIconCellView>`
     ${when(
-        x => x.visual === 'icon',
-        x => x.iconTemplate!
-    )}
-    ${when(
-        x => x.visual === 'spinner',
+        x => x.visualizationTemplate,
         html<TableColumnIconCellView>`
-        <${spinnerTag}
-            title="${x => x.text}"
-            aria-label="${x => x.text}"
-            class="no-shrink">
-        </${spinnerTag}>
-    `
+            <span class="reserve-icon-size">
+                ${x => x.visualizationTemplate}
+            </span>
+        `
     )}
+    ${when(x => !x.textHidden, html<TableColumnIconCellView>`
+        <span
+            ${overflow('hasOverflow')}
+            title=${x => (x.hasOverflow && x.text ? x.text : null)}
+            class="text"
+        >
+            ${x => x.text}
+        </span>
+    `)}
 `;

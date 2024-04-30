@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace NimbleBlazor;
 
-internal class TableRecordDelayedHierarchyStateConverter : JsonConverter<TableRecordDelayedHierarchyState>
+internal sealed class TableRecordDelayedHierarchyStateConverter : JsonConverter<TableRecordDelayedHierarchyState>
 {
     public override TableRecordDelayedHierarchyState Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {

@@ -15,7 +15,9 @@
     "check": "beachball check --changehint \"Run 'npm run change' to generate a change file\"",
     "invoke-publish": "cross-env-shell beachball publish --yes --access public --message \\\"applying package updates [skip ci]\\\" -n $NPM_SECRET_TOKEN",
     "validate": "npm run build && npm run lint && npm run test",
-    "performance": "npm run performance --workspaces --if-present"
+    "performance": "npm run performance --workspaces --if-present",
+    "beachball-sync": "beachball sync",
+    "concurrently-lint-test": "concurrently --group \"npm run lint\" \"npm run test\""
   },
   "repository": {
     "type": "git",
@@ -33,18 +35,23 @@
     "!*"
   ],
   "workspaces": [
+    "packages/eslint-config-nimble",
     "packages/jasmine-parameterized",
     "packages/xliff-to-json-converter",
     "packages/nimble-tokens",
     "packages/nimble-components",
+    "packages/spright-components",
+    "packages/storybook",
     "angular-workspace",
     "angular-workspace/projects/ni/nimble-angular",
+    "angular-workspace/projects/ni/spright-angular",
     "packages/nimble-blazor",
     "packages/performance",
     "packages/site"
   ],
   "devDependencies": {
     "beachball": "^2.31.0",
+    "concurrently": "^8.2.2",
     "cross-env": "^7.0.3",
     "patch-package": "^8.0.0",
     "playwright": "1.42.0"

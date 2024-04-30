@@ -2,6 +2,397 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 30 Apr 2024 15:26:51 GMT",
+      "version": "27.0.5",
+      "tag": "@ni/nimble-components_v27.0.5",
+      "comments": {
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "cd00c0c1bf9bdfe7f066549d2baf123843c1badd",
+            "comment": "Try some less verbose test flags"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 26 Apr 2024 21:13:31 GMT",
+      "version": "27.0.5",
+      "tag": "@ni/nimble-components_v27.0.5",
+      "comments": {
+        "none": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "116f0bc5bd4c14034f57070f3348b7c5142625d2",
+            "comment": "Update tests to use `parameterizeSuite`"
+          }
+        ],
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/jasmine-parameterized to v0.3.0",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 26 Apr 2024 20:31:47 GMT",
+      "version": "27.0.4",
+      "tag": "@ni/nimble-components_v27.0.4",
+      "comments": {
+        "patch": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "ff7f847c0fb3834b5fdf4ce141bbe6bd94e1f0eb",
+            "comment": "No API changes, validating release pipelines"
+          },
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "c5a74e68c2909e2f9a50bf0e6b0e4f1c5f0cbce8",
+            "comment": "No API changes, validating release pipelines"
+          },
+          {
+            "author": "110180309+Razvan1928@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "a3865cb57e09ce6581d2dd10c5a61181ece73f59",
+            "comment": "Updated wafer map web worker class to support offscreen rendering"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/nimble-tokens to v6.13.5",
+            "commit": "not available"
+          }
+        ],
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "910414c73de07589bbb608b23d7cae603d704112",
+            "comment": "fixup"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 24 Apr 2024 19:54:26 GMT",
+      "version": "27.0.0",
+      "tag": "@ni/nimble-components_v27.0.0",
+      "comments": {
+        "none": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "1b7dd15cfbe6cf52fa5f49ec41a65191585bae2e",
+            "comment": "Storybook documentation improvements"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 24 Apr 2024 16:20:52 GMT",
+      "version": "27.0.0",
+      "tag": "@ni/nimble-components_v27.0.0",
+      "comments": {
+        "major": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "d72a0faa81a649f70b72c9fcc8f2c4c201cfbe82",
+            "comment": "Remove fallback design tokens. Use primary font tokens instead; they include fallback fonts after Nimble's font."
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 22 Apr 2024 15:13:13 GMT",
+      "version": "26.0.0",
+      "tag": "@ni/nimble-components_v26.0.0",
+      "comments": {
+        "major": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "16b2c1b2820d14e88474e26b17eefd7b7cdf0e9f",
+            "comment": "Remove enum-text table column. The icon column supports text mappings and should be used instead."
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 19 Apr 2024 16:57:31 GMT",
+      "version": "25.1.1",
+      "tag": "@ni/nimble-components_v25.1.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "e3e523112cce7ebbc3fbf0fb3768f5740055891c",
+            "comment": "Don't allow use of the nullish coalescing operator in templates"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 18 Apr 2024 21:47:19 GMT",
+      "version": "25.1.0",
+      "tag": "@ni/nimble-components_v25.1.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "73a19a6a2d1ebe03eb4245ee2119529ce9066b03",
+            "comment": "Support text mappings in icon column"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 18 Apr 2024 17:41:50 GMT",
+      "version": "25.0.0",
+      "tag": "@ni/nimble-components_v25.0.0",
+      "comments": {
+        "none": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "7ba788c630dedbd919ecaebc420a65d2425b0a2a",
+            "comment": "Move eslint config into eslint-config-nimble"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 17 Apr 2024 20:57:25 GMT",
+      "version": "25.0.0",
+      "tag": "@ni/nimble-components_v25.0.0",
+      "comments": {
+        "major": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "6d502618333981f4c5c2f72ddb5b329674d2e345",
+            "comment": "Add configuration for icon mappings and spinner mappings to show/hide their text within a table's cells. **Breaking change:** The icon mappings and spinner mappings now default to showing their text within a table's cells in addition to on group rows."
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 16 Apr 2024 02:40:00 GMT",
+      "version": "24.1.14",
+      "tag": "@ni/nimble-components_v24.1.14",
+      "comments": {
+        "none": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "a0ee8556030dbfbaefd4cedfcaa395ba78b3a0a1",
+            "comment": "Toggle tip IxD spec"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 15 Apr 2024 22:18:55 GMT",
+      "version": "24.1.14",
+      "tag": "@ni/nimble-components_v24.1.14",
+      "comments": {
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "ef6c82cd1ababfb49057563abe8c9c044ec7ad9e",
+            "comment": "Add CSP headers to the karma run"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 15 Apr 2024 20:34:45 GMT",
+      "version": "24.1.14",
+      "tag": "@ni/nimble-components_v24.1.14",
+      "comments": {
+        "none": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "8d480e4fabb2a9f5e033f62620cd3b6905f4d4eb",
+            "comment": "Add 'clear selection' workflow to Select IxD spec"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 15 Apr 2024 17:36:54 GMT",
+      "version": "24.1.14",
+      "tag": "@ni/nimble-components_v24.1.14",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "7254ddb339236dc1519033f88290491436a01aef",
+            "comment": "Update to typescript 5.1.6"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/nimble-tokens to v6.13.2",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/jasmine-parameterized to v0.2.4",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 11 Apr 2024 16:16:05 GMT",
+      "version": "24.1.13",
+      "tag": "@ni/nimble-components_v24.1.13",
+      "comments": {
+        "none": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "559ede85d8922f18e98b252660e9c5c8ff99eee6",
+            "comment": "Update mapping column HLD with new plan of supporting icon + text in the same cell"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 10 Apr 2024 22:00:23 GMT",
+      "version": "24.1.13",
+      "tag": "@ni/nimble-components_v24.1.13",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "f83d0762219a2f13d6a96f4241a6c57adf56e7a0",
+            "comment": "Move validator into MentionInternals"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 10 Apr 2024 19:37:06 GMT",
+      "version": "24.1.12",
+      "tag": "@ni/nimble-components_v24.1.12",
+      "comments": {
+        "patch": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "6c714694685c161e2066c700018ffb1cb42d27ea",
+            "comment": "Fix arrow key select issue for Select"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 10 Apr 2024 17:46:00 GMT",
+      "version": "24.1.11",
+      "tag": "@ni/nimble-components_v24.1.11",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "8a76c28fbc7a700234b3629487816cb71709c4a4",
+            "comment": "Fix a couple issues with anchor styling"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 10 Apr 2024 00:29:05 GMT",
+      "version": "24.1.10",
+      "tag": "@ni/nimble-components_v24.1.10",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "5832b42172788170c01eb276eaaba1e6b47cbf92",
+            "comment": "Update version of FAST"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 09 Apr 2024 21:50:30 GMT",
+      "version": "24.1.9",
+      "tag": "@ni/nimble-components_v24.1.9",
+      "comments": {
+        "none": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "ebd9aaa536e64c48005d58cff20bda2062ed7780",
+            "comment": "Fix and re-enable intermittent mention-listbox test"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 09 Apr 2024 20:01:30 GMT",
+      "version": "24.1.9",
+      "tag": "@ni/nimble-components_v24.1.9",
+      "comments": {
+        "none": [
+          {
+            "author": "20709258+msmithNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "7968a2908e066ad58d13fc7bf48d58aacd1f9a6f",
+            "comment": "Add HLD for table keyboard navigation"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 08 Apr 2024 20:40:28 GMT",
+      "version": "24.1.9",
+      "tag": "@ni/nimble-components_v24.1.9",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "d16c59ec133dcbf4d94198d3f26ff7472a143ea5",
+            "comment": "Move validator into ColumnInternals"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 08 Apr 2024 15:20:26 GMT",
+      "version": "24.1.8",
+      "tag": "@ni/nimble-components_v24.1.8",
+      "comments": {
+        "none": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "2ab62c64d19f9d645e65568effae6d5ad4844b5b",
+            "comment": "Update issue referenced in skipped tests"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 04 Apr 2024 21:33:43 GMT",
       "version": "24.1.8",
       "tag": "@ni/nimble-components_v24.1.8",

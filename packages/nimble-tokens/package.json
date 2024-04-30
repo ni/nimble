@@ -1,6 +1,6 @@
 {
   "name": "@ni/nimble-tokens",
-  "version": "6.13.1",
+  "version": "6.13.5",
   "description": "Design tokens for the NI Nimble Design System",
   "scripts": {
     "build": "npm run build:svg-to-ts && npm run build:ts && npm run build:svg-to-ico && npm run build:generate-font-scss && npm run build:style-dictionary",
@@ -15,10 +15,9 @@
     "pack": "npm run pack:npm && npm run pack:nuget",
     "pack:npm": "npm pack",
     "pack:nuget": "cross-env-shell dotnet pack ./NimbleTokens --configuration Release -p:PackageVersion=$npm_package_version",
-    "invoke-publish": "npm run invoke-publish:clean-nuget && npm run pack && npm run invoke-publish:nuget && npm run invoke-publish:npm -- ",
-    "invoke-publish:clean-nuget": "rimraf --glob \"NimbleTokens/bin/Release/*.nupkg\"",
-    "invoke-publish:nuget": "cross-env-shell dotnet nuget push \"NimbleTokens/bin/Release/*.nupkg\" -k $NUGET_SECRET_TOKEN -s \"https://api.nuget.org/v3/index.json\"",
-    "invoke-publish:npm": "npm publish"
+    "invoke-publish": "npm run invoke-publish:setup && npm run invoke-publish:nuget && npm publish",
+    "invoke-publish:setup": "rimraf --glob \"NimbleTokens/bin/Release/*.nupkg\" && npm run pack",
+    "invoke-publish:nuget": "cross-env-shell dotnet nuget push \"NimbleTokens/bin/Release/*.nupkg\" -k $NUGET_SECRET_TOKEN -s \"https://api.nuget.org/v3/index.json\""
   },
   "repository": {
     "type": "git",
@@ -46,7 +45,7 @@
     "style-dictionary": "^3.9.2",
     "svg-to-ts": "^12.0.0",
     "to-ico": "^1.1.5",
-    "typescript": "~4.9.5"
+    "typescript": "~5.1.6"
   },
   "files": [
     "dist/styledictionary/css/**",

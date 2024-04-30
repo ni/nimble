@@ -58,6 +58,10 @@ jobs:
       # Print resolved dotnet info
       - run: dotnet --info
         working-directory: packages/nimble-blazor/
+      - run: dotnet --list-sdks
+        working-directory: packages/nimble-blazor/
+      - run: dotnet --version
+        working-directory: packages/nimble-blazor/
 
       # print a log of outdated npm dependencies
       # only informational so swallow error codes
@@ -96,11 +100,8 @@ jobs:
           exitOnceUploaded: true # Do not wait for test results
           exitZeroOnChanges: true # Option to prevent the workflow from failing
 
-      # Lint
-      - run: npm run lint
-
-      # Test
-      - run: npm run test
+      # Lint and Test
+      - run: npm run concurrently-lint-test
 
       # Run Lighthouse audit (from any push)
       - name: Performance Audit with Lighthouse CI
