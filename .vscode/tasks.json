@@ -63,7 +63,7 @@
         {
             "label": "ng serve",
             "type": "shell",
-            "command": "npm run start -w angular-workspace",
+            "command": "npm run start -w @ni-private/angular-workspace",
             "isBackground": true,
             "problemMatcher": [],
             "presentation": {

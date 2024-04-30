@@ -22,7 +22,7 @@ If you are at NI, lucky you! **Reach out to ask questions directly in the [Desig
 
 This repository contains the source for the following packages:
 
-- **[`@ni/nimble-angular`](/angular-workspace/projects/ni/nimble-angular/)** - styled Angular components for use in NI Angular applications
+- **[`@ni/nimble-angular`](/packages/angular-workspace/projects/ni/nimble-angular/)** - styled Angular components for use in NI Angular applications
 - **[`@ni/nimble-blazor`](/packages/nimble-blazor/)** - styled Blazor components for use in NI Blazor applications
 - **[`@ni/nimble-components`](/packages/nimble-components/)** - styled web components for use in other applications (also used by `nimble-angular` and `nimble-blazor`)
 - **[`@ni/nimble-tokens`](/packages/nimble-tokens/)** - design tokens used by the component packages

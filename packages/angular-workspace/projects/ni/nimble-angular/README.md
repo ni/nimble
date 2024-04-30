@@ -10,7 +10,7 @@ NI-styled UI components for [Angular](https://angular.io) applications
 
 ## Getting started
 
-The steps to use components from Nimble Angular are similar to using components from any other Angular library. You can see the [Example Client App](/angular-workspace/projects/example-client-app) project for an example.
+The steps to use components from Nimble Angular are similar to using components from any other Angular library. You can see the [Example Client App](/packages/angular-workspace/projects/example-client-app) project for an example.
 
 1. Install Nimble Angular from the [public NPM registry](https://www.npmjs.com/package/@ni/nimble-angular) by running `npm install @ni/nimble-angular`.
 
@@ -151,4 +151,4 @@ If your application uses a newer Angular version please contact the Nimble team 
 
 ## Contributing
 
-Follow the instructions in [CONTRIBUTING.md](/angular-workspace/projects/ni/nimble-angular/CONTRIBUTING.md) to modify this library.
+Follow the instructions in [CONTRIBUTING.md](/packages/angular-workspace/projects/ni/nimble-angular/CONTRIBUTING.md) to modify this library.

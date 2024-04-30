@@ -78,7 +78,6 @@ jobs:
           path: |
             packages/**/*.tgz
             packages/**/*.nupkg
-            angular-workspace/**/*.tgz
           if-no-files-found: error
       - uses: actions/upload-pages-artifact@v3
         with:
