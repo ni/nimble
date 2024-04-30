@@ -18,11 +18,13 @@ The library is built on the open source [FAST Design System library](https://fas
 
 ## Getting started
 
-1. Run `npm install` from the repo root directory
-2. Run `npm run build` from the `nimble` directory
+From the repo root directory:
+
+1. Run `npm install`
+2. Run `npm run build`
 3. Run the different Nimble Components test configurations:
 
-    - To view the components and manually test behaviors in Storybook: `npm run start` from the `storybook` package directory
+    - To view the components and manually test behaviors in Storybook: `npm run start -w @ni-private/storybook`
 
         **Note**: You will need to refresh your browser window to see style changes made in source.
 
