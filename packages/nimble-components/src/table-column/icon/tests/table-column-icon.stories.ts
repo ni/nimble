@@ -16,6 +16,8 @@ import { mappingSpinnerTag } from '../../../mapping/spinner';
 import { sharedMappingValidityDescription } from '../../enum-base/tests/shared-storybook-docs';
 import { isChromatic } from '../../../utilities/tests/isChromatic';
 import { mappingTextTag } from '../../../mapping/text';
+import { TableColumnMappingWidthMode } from '../types';
+import { iconChartDiagramChildFocusTag } from '../../../icons/chart-diagram-child-focus';
 
 const simpleData = [
     {
@@ -65,9 +67,15 @@ export default metadata;
 interface IconColumnTableArgs extends SharedTableArgs {
     fieldName: string;
     keyType: string;
+    widthMode: keyof typeof TableColumnMappingWidthMode;
     checkValidity: () => void;
     validity: () => void;
 }
+
+const widthModeDescription = `When set to \`iconSize\`, the column will have a fixed width that makes the column the appropriate width to render only a single icon in the cell.
+This should only be set when the header contains a single icon (no text) and none of the child mapping elements will result in text being rendered in a cell. When unset or set
+to \`default\`, the column will be resizable and be sized based on its fractional-width and min-pixel-width values. A column with its \`width-mode\` set to \`iconSize\` should
+should not be the right-most column in the table.`;
 
 const validityDescription = `${sharedMappingValidityDescription}
 -   \`invalidIconName\`: \`true\` when a mapping's \`icon\` value is not the tag name of a valid, loaded Nimble icon (e.g. \`nimble-icon-check\`)
@@ -91,10 +99,11 @@ export const iconColumn: StoryObj<IconColumnTableArgs> = {
                 <${mappingSpinnerTag} key="calculating" text="Calculating" text-hidden></${mappingSpinnerTag}>
                 <${mappingIconTag} key="unknown" text="Unknown" text-hidden></${mappingIconTag}>
             </${tableColumnIconTag}>
-            <${tableColumnIconTag} field-name="isChild" key-type="boolean">
-                Is Child
-                <${mappingIconTag} key="false" icon="${iconXmarkTag}" severity="error" text="Not a child"></${mappingIconTag}>
-                <${mappingIconTag} key="true" icon="${iconCheckLargeTag}" severity="success" text="Is a child"></${mappingIconTag}>
+            <${tableColumnIconTag} field-name="isChild" key-type="boolean" width-mode="${x => TableColumnMappingWidthMode[x.widthMode]}">
+                <${iconChartDiagramChildFocusTag} title="Is child"></${iconChartDiagramChildFocusTag}> 
+            
+                <${mappingIconTag} key="false" icon="${iconXmarkTag}" severity="error" text="Not a child" text-hidden></${mappingIconTag}>
+                <${mappingIconTag} key="true" icon="${iconCheckLargeTag}" severity="success" text="Is a child" text-hidden></${mappingIconTag}>
             </${tableColumnIconTag}>
             <${tableColumnIconTag} field-name="gender" key-type="string">
                 Gender
@@ -123,6 +132,12 @@ export const iconColumn: StoryObj<IconColumnTableArgs> = {
             description:
                 'The data type of the key values used for this column. Must be one of `"string"`, `"number"`, or `"boolean"`. Defaults to `"string"` if unspecified.'
         },
+        widthMode: {
+            name: 'width-mode',
+            options: Object.keys(TableColumnMappingWidthMode),
+            control: { type: 'radio' },
+            description: widthModeDescription
+        },
         checkValidity: {
             name: 'checkValidity()',
             description:
@@ -136,6 +151,7 @@ export const iconColumn: StoryObj<IconColumnTableArgs> = {
         ...sharedTableArgs(simpleData),
         fieldName: 'firstName',
         keyType: 'string',
+        widthMode: 'iconSize',
         checkValidity: () => {},
         validity: () => {}
     }

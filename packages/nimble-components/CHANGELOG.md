@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Fri, 26 Apr 2024 21:13:31 GMT and should not be manually modified.
+This log was last generated on Tue, 30 Apr 2024 21:26:44 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 27.1.0
+
+Tue, 30 Apr 2024 21:26:44 GMT
+
+### Minor changes
+
+- Add configuration to make the icon column fixed width ([ni/nimble@6b0f337](https://github.com/ni/nimble/commit/6b0f3371aa6b49b802d2a0d9e79365e544cef161))
 
 ## 27.0.5
 
