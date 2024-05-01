@@ -15,4 +15,10 @@ public partial class NimbleTableColumnIcon<TKey> : NimbleTableColumnEnumBase<TKe
     /// </summary>
     [Parameter]
     public double? MinPixelWidth { get; set; }
+
+    /// <summary>
+    /// Sets the width mode on the column.
+    /// </summary>
+    [Parameter]
+    public MappingColumnWidthMode? WidthMode { get; set; }
 }
