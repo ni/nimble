@@ -1,0 +1,1 @@
+export const menuSlotName = 'menu' as const;

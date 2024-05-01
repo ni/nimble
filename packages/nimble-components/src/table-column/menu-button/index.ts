@@ -9,6 +9,7 @@ import { ColumnValidator } from '../base/models/column-validator';
 import { mixinFractionalWidthColumnAPI } from '../mixins/fractional-width-column';
 import { TableColumn } from '../base';
 import { ButtonAppearance, ButtonAppearanceVariant } from '../../button/types';
+import { menuSlotName } from './types';
 
 export type TableColumnMenuButtonCellRecord = TableStringField<'value'>;
 
@@ -46,6 +47,7 @@ export class TableColumnMenuButton extends mixinFractionalWidthColumnAPI(
             cellViewTag: tableColumnMenuButtonCellViewTag,
             groupHeaderViewTag: undefined,
             delegatedEvents: ['beforetoggle', 'toggle'],
+            slotNames: [menuSlotName],
             validator: new ColumnValidator<[]>([])
         };
     }

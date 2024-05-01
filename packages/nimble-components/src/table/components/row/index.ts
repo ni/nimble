@@ -14,6 +14,8 @@ import { styles } from './styles';
 import { template } from './template';
 import type { TableCellState } from '../../../table-column/base/types';
 import type {
+    CellViewSlotRequestedEventDetail,
+    RowSlotRequestedEventDetail,
     TableActionMenuToggleEventDetail,
     TableFieldName,
     TableRecord,
@@ -232,6 +234,17 @@ export class TableRow<
             'transitionend',
             this.removeAnimatingClass
         );
+    }
+
+    public onCellViewSlotsRequested(column: TableColumn, event: CustomEvent<CellViewSlotRequestedEventDetail>): void {
+        event.stopImmediatePropagation();
+        const eventDetails: RowSlotRequestedEventDetail = {
+            // mkreis TODO: is this a valid non-null assertion?
+            rowId: this.recordId!,
+            columnInternalId: column.columnInternals.uniqueId,
+            slotNames: event.detail.slotNames
+        };
+        this.$emit('row-slots-requested', eventDetails);
     }
 
     private readonly removeAnimatingClass = (): void => {

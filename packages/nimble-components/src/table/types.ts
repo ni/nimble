@@ -212,3 +212,19 @@ export interface TableRowState<TData extends TableRecord = TableRecord> {
     isParentRow: boolean;
     isLoadingChildren: boolean;
 }
+
+/**
+ * @internal
+ */
+export interface CellViewSlotRequestedEventDetail {
+    slotNames: string[];
+}
+
+/**
+ * @internal
+ */
+export interface RowSlotRequestedEventDetail {
+    columnInternalId: string;
+    rowId: string;
+    slotNames: string[];
+}

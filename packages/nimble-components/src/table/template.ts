@@ -12,6 +12,7 @@ import { tableHeaderTag } from './components/header';
 import { tableRowTag } from './components/row';
 import type { TableColumn } from '../table-column/base';
 import {
+    RowSlotRequestedEventDetail,
     TableActionMenuToggleEventDetail,
     TableColumnSortDirection,
     TableRowSelectionMode,
@@ -161,6 +162,7 @@ export const template = html<Table>`
                                         @row-selection-toggle="${(x, c) => c.parent.onRowSelectionToggle(x.index, c.event as CustomEvent<TableRowSelectionToggleEventDetail>)}"
                                         @row-action-menu-beforetoggle="${(x, c) => c.parent.onRowActionMenuBeforeToggle(x.index, c.event as CustomEvent<TableActionMenuToggleEventDetail>)}"
                                         @row-action-menu-toggle="${(_, c) => c.parent.onRowActionMenuToggle(c.event as CustomEvent<TableActionMenuToggleEventDetail>)}"
+                                        @row-slots-requested="${(_, c) => c.parent.onRowSlotsRequested(c.event as CustomEvent<RowSlotRequestedEventDetail>)}"
                                         @row-expand-toggle="${(x, c) => c.parent.handleRowExpanded(x.index)}"
                                         :dataIndex="${x => x.index}"
                                     >
@@ -171,6 +173,12 @@ export const template = html<Table>`
                                                 slot="${x => `row-action-menu-${x}`}">
                                             </slot>
                                         `)}
+                                    `)}
+                                    ${repeat((x, c) => ((c.parent as Table).tableData[x.index]?.id ? (c.parent as Table).slotsByRow[(c.parent as Table).tableData[x.index]!.id] || [] : []), html`
+                                        <slot
+                                            name="temp-menu"
+                                            slot="${x => x}"
+                                        ></slot>
                                     `)}
                                     </${tableRowTag}>
                                 `)}

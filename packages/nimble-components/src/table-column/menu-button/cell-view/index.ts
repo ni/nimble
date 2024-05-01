@@ -3,6 +3,10 @@ import { TableCellView } from '../../base/cell-view';
 import type { TableColumnMenuButtonCellRecord, TableColumnMenuButtonColumnConfig } from '..';
 import { template } from './templates';
 import { styles } from './styles';
+import type { MenuButton } from '../../../menu-button';
+import type { MenuButtonToggleEventDetail } from '../../../menu-button/types';
+import type { CellViewSlotRequestedEventDetail } from '../../../table/types';
+import { menuSlotName } from '../types';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -14,8 +18,20 @@ declare global {
  * The cell view base class for displaying a string field as a menu button.
  */
 export class TableColumnMenuButtonCellView extends TableCellView<TableColumnMenuButtonCellRecord, TableColumnMenuButtonColumnConfig> {
+    /** @internal */
+    public menuButton?: MenuButton;
+
     public override focusedRecycleCallback(): void {
-        // this.menuButton?.blur();
+        this.menuButton?.blur();
+    }
+
+    public onMenuButtonBeforeToggle(event: CustomEvent<MenuButtonToggleEventDetail>): void {
+        if (event.detail.newState) {
+            const eventDetail: CellViewSlotRequestedEventDetail = {
+                slotNames: [menuSlotName]
+            };
+            this.$emit('cell-view-slots-requested', eventDetail);
+        }
     }
 }
 

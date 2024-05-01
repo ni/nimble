@@ -46,7 +46,8 @@ import {
     TableRowSelectionToggleEventDetail,
     TableRowState,
     TableValidity,
-    TableSetRecordHierarchyOptions
+    TableSetRecordHierarchyOptions,
+    RowSlotRequestedEventDetail
 } from './types';
 import { Virtualizer } from './models/virtualizer';
 import { getTanStackSortingFunction } from './models/sort-operations';
@@ -220,6 +221,10 @@ export class Table<
     @observable
     public documentShiftKeyDown = false;
 
+    /** @internal */
+    @observable
+    public slotsByRow: { [rowId: string]: string[] } = {};
+
     private readonly table: TanStackTable<TableNode<TData>>;
     private options: TanStackTableOptionsResolved<TableNode<TData>>;
     private readonly tableValidator = new TableValidator<TData>();
@@ -235,6 +240,8 @@ export class Table<
     // the selection checkbox 'checked' value should be ingored.
     // https://github.com/microsoft/fast/issues/5750
     private ignoreSelectionChangeEvents = false;
+    // Map from internal unique column IDs to an object of the form { <slotname_string>: <row_id_string> }
+    private readonly columnSlotLocations: Map<string, { [slotName: string]: string }> = new Map<string, { [slotName: string]: string }>();
 
     public constructor() {
         super();
@@ -426,6 +433,23 @@ export class Table<
     ): void {
         event.stopImmediatePropagation();
         void this.handleRowActionMenuToggleEvent(event);
+    }
+
+    /** @internal */
+    public onRowSlotsRequested(event: CustomEvent<RowSlotRequestedEventDetail>): void {
+        event.stopImmediatePropagation();
+
+        const columnUniqueId = event.detail.columnInternalId;
+        if (!this.columnSlotLocations.has(columnUniqueId)) {
+            this.columnSlotLocations.set(columnUniqueId, {});
+        }
+        const columnSlots = this.columnSlotLocations.get(columnUniqueId)!;
+        for (const slotName of event.detail.slotNames) {
+            const uniqueSlotName = columnUniqueId + slotName;
+            columnSlots[uniqueSlotName] = event.detail.rowId;
+        }
+
+        this.regenerateSlotsByRowObject();
     }
 
     /** @internal */
@@ -651,6 +675,21 @@ export class Table<
 
         this.observeColumns();
         this.tableUpdateTracker.trackColumnInstancesChanged();
+    }
+
+    private regenerateSlotsByRowObject(): void {
+        const updatedValue: { [rowId: string]: string[] } = {};
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        for (const [_columnId, slots] of this.columnSlotLocations) {
+            for (const [slotName, rowId] of Object.entries(slots)) {
+                if (!updatedValue[rowId]) {
+                    updatedValue[rowId] = [];
+                }
+                updatedValue[rowId]!.push(slotName);
+            }
+        }
+
+        this.slotsByRow = updatedValue;
     }
 
     private async handleActionMenuBeforeToggleEvent(
