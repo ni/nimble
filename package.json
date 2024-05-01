@@ -10,7 +10,7 @@
     "lint": "concurrently-workspace lint",
     "format": "npm run format --workspaces --if-present",
     "test": "concurrently-workspace test",
-    "pack": "concurrently-workspace pack",
+    "pack": "npm run pack --workspaces --if-present",
     "change": "beachball change",
     "check": "beachball check --changehint \"Run 'npm run change' to generate a change file\"",
     "invoke-publish": "cross-env-shell beachball publish --yes --access public --message \\\"applying package updates [skip ci]\\\" -n $NPM_SECRET_TOKEN",
