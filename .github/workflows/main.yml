@@ -92,19 +92,16 @@ jobs:
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
           onlyChanged: "!startsWith(github.ref, 'refs/heads/main')" # Use TurboSnap for PR builds
           externals: |
-            - './packages/nimble-components/.storybook/public/**'
+            - './packages/storybook/.storybook/public/**'
             - './packages/nimble-tokens/dist/icons/svg/**'
             - './packages/nimble-tokens/source/styledictionary/properties/**'
           storybookBuildDir: ./packages/site/dist/storybook
-          storybookBaseDir: ./packages/nimble-components
+          storybookBaseDir: ./packages/storybook
           exitOnceUploaded: true # Do not wait for test results
           exitZeroOnChanges: true # Option to prevent the workflow from failing
 
-      # Lint
-      - run: npm run lint
-
-      # Test
-      - run: npm run test
+      # Lint and Test
+      - run: npm run concurrently-lint-test
 
       # Run Lighthouse audit (from any push)
       - name: Performance Audit with Lighthouse CI

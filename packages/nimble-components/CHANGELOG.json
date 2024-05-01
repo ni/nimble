@@ -2,6 +2,66 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Wed, 01 May 2024 12:49:52 GMT",
+      "version": "27.1.1",
+      "tag": "@ni/nimble-components_v27.1.1",
+      "comments": {
+        "none": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "191fd3146609429be8859d704e175a3cc276e472",
+            "comment": "Move Storybook-related files to storybook package"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 30 Apr 2024 22:26:12 GMT",
+      "version": "27.1.1",
+      "tag": "@ni/nimble-components_v27.1.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "1ff549f91277bb7ab6949cfbc8af07c0a40d8d25",
+            "comment": "Move anchored region import from menu to menu item"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 30 Apr 2024 21:26:44 GMT",
+      "version": "27.1.0",
+      "tag": "@ni/nimble-components_v27.1.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "6b0f3371aa6b49b802d2a0d9e79365e544cef161",
+            "comment": "Add configuration to make the icon column fixed width"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 30 Apr 2024 15:26:51 GMT",
+      "version": "27.0.5",
+      "tag": "@ni/nimble-components_v27.0.5",
+      "comments": {
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "cd00c0c1bf9bdfe7f066549d2baf123843c1badd",
+            "comment": "Try some less verbose test flags"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 26 Apr 2024 21:13:31 GMT",
       "version": "27.0.5",
       "tag": "@ni/nimble-components_v27.0.5",

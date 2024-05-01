@@ -141,6 +141,19 @@ export class ColumnInternals<
     public minPixelWidth = defaultMinPixelWidth;
 
     /**
+     * Whether or not resizing the column has been disabled.
+     */
+    @observable
+    public resizingDisabled = false;
+
+    /**
+     * Whether or not the grouping and sorting indicators should be hidden in the column header
+     * when the column is grouped or sorted.
+     */
+    @observable
+    public hideHeaderIndicators = false;
+
+    /**
      * @internal Do not write to this value directly. It is used by the Table in order to store
      * the resolved value of the fractionalWidth after updates programmatic or interactive updates.
      */

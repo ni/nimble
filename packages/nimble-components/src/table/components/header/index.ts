@@ -21,6 +21,9 @@ export class TableHeader extends FoundationElement {
     @attr({ attribute: 'first-sorted-column', mode: 'boolean' })
     public firstSortedColumn = false;
 
+    @attr({ attribute: 'indicators-hidden', mode: 'boolean' })
+    public indicatorsHidden = false;
+
     @observable
     public isGrouped = false;
 
