@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Tue, 30 Apr 2024 22:26:12 GMT and should not be manually modified.
+This log was last generated on Wed, 01 May 2024 14:33:42 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 27.2.0
+
+Wed, 01 May 2024 14:33:42 GMT
+
+### Minor changes
+
+- Added tag fill color token ([ni/nimble@27804b9](https://github.com/ni/nimble/commit/27804b9a6d29ff0adc600c94f2bf6822ad4d5e63))
 
 ## 27.1.1
 

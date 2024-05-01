@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Wed, 01 May 2024 14:33:42 GMT",
+      "version": "27.2.0",
+      "tag": "@ni/nimble-components_v27.2.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "27804b9a6d29ff0adc600c94f2bf6822ad4d5e63",
+            "comment": "Added tag fill color token"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 01 May 2024 12:49:52 GMT",
       "version": "27.1.1",
       "tag": "@ni/nimble-components_v27.1.1",
