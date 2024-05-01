@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "Update @types/markdown-it to remove @types/linkify-it peerDependency",
+  "packageName": "@ni/nimble-components",
+  "email": "rajsite@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
