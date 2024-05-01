@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Wed, 01 May 2024 20:33:43 GMT and should not be manually modified.
+This log was last generated on Wed, 01 May 2024 21:45:37 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 27.2.2
+
+Wed, 01 May 2024 21:45:37 GMT
+
+### Patches
+
+- Update @types/markdown-it to remove @types/linkify-it peerDependency ([ni/nimble@c5f2626](https://github.com/ni/nimble/commit/c5f2626c97873c1f1aea9c18b06fef07cc8081bf))
 
 ## 27.2.1
 
