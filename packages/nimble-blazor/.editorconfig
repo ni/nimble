@@ -50,6 +50,11 @@ dotnet_style_namespace_match_folder = false
 # Disable 'Namespace does not match folder structure'
 dotnet_diagnostic.IDE0130.severity = none
 
+[Tests/SprightBlazor.Tests.Acceptance/Tests/*.cs]
+dotnet_style_namespace_match_folder = false
+# Disable 'Namespace does not match folder structure'
+dotnet_diagnostic.IDE0130.severity = none
+
 [Examples/Demo.Shared/Shared/*.cs]
 dotnet_style_namespace_match_folder = false
 # Disable 'Namespace does not match folder structure'

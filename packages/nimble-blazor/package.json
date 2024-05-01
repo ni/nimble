@@ -1,7 +1,8 @@
 {
-  "name": "@ni/nimble-blazor",
-  "version": "16.0.7",
-  "description": "Blazor components for the NI Nimble Design System",
+  "name": "@ni-private/blazor-workspace",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Workspace for Blazor projects",
   "scripts": {
     "build": "npm run generate-icons && npm run generate-hybrid && npm run build:release && npm run build:client",
     "build:release": "dotnet build -c Release /p:TreatWarningsAsErrors=true /warnaserror",
@@ -9,7 +10,9 @@
     "generate-icons": "npm run generate-icons:bundle && npm run generate-icons:run",
     "generate-icons:bundle": "rollup --bundleConfigAsCjs --config build/generate-icons/rollup.config.js",
     "generate-icons:run": "node build/generate-icons/dist/index.js",
-    "generate-hybrid": "rollup --bundleConfigAsCjs --config build/generate-hybrid/rollup.config.js",
+    "generate-hybrid": "npm run generate-hybrid:nimble && npm run generate-hybrid:spright",
+    "generate-hybrid:nimble": "rollup --bundleConfigAsCjs --config build/generate-hybrid/rollup.nimble.config.js",
+    "generate-hybrid:spright": "rollup --bundleConfigAsCjs --config build/generate-hybrid/rollup.spright.config.js",
     "lint": "npm run lint:cs && npm run lint:js",
     "lint:cs": "dotnet format --verify-no-changes",
     "lint:js": "eslint .",
@@ -17,25 +20,9 @@
     "format:cs": "dotnet format",
     "format:js": "eslint . --fix",
     "test": "dotnet test -c Release",
-    "pack": "cross-env-shell dotnet pack NimbleBlazor -c Release -p:PackageVersion=$npm_package_version --output dist",
-    "invoke-publish": "npm run invoke-publish:setup && npm run invoke-publish:nuget && npm run invoke-publish:noop -- ",
-    "invoke-publish:setup": "rimraf --glob \"dist/*.nupkg\" && npm run pack",
-    "invoke-publish:nuget": "cross-env-shell dotnet nuget push \"dist/*.nupkg\" -k $NUGET_SECRET_TOKEN -s \"https://api.nuget.org/v3/index.json\"",
-    "invoke-publish:noop": "echo \"noop command to swallow npm args\"",
-    "copy-resources": "node build/copyNimbleResources.js"
+    "copy-resources:nimble": "node build/copyResources.js nimble",
+    "copy-resources:spright": "node build/copyResources.js spright"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/ni/nimble.git"
-  },
-  "author": {
-    "name": "National Instruments"
-  },
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/ni/nimble/issues"
-  },
-  "homepage": "https://github.com/ni/nimble#readme",
   "files": [
     "!*"
   ],
@@ -44,6 +31,7 @@
     "@ni/eslint-config-javascript": "^4.2.0",
     "@ni/nimble-components": "*",
     "@ni/nimble-tokens": "*",
+    "@ni/spright-components": "*",
     "@rollup/plugin-node-resolve": "^15.0.1",
     "cross-env": "^7.0.3",
     "glob": "^10.3.10",
