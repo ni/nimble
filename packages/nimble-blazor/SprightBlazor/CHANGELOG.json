@@ -2,6 +2,21 @@
   "name": "@ni/spright-blazor",
   "entries": [
     {
+      "date": "Wed, 01 May 2024 22:28:21 GMT",
+      "version": "0.0.3",
+      "tag": "@ni/spright-blazor_v0.0.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/spright-blazor",
+            "commit": "5d398fc5873bcb530f0eb643eaaf2a3b5ee33568",
+            "comment": "Update nuget dependencies"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 01 May 2024 18:56:28 GMT",
       "version": "0.0.2",
       "tag": "@ni/spright-blazor_v0.0.2",
