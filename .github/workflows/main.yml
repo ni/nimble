@@ -118,6 +118,8 @@ jobs:
         run: |
           echo print files with changes:
           git diff-index --ignore-space-at-eol --stat HEAD
+          echo print diff (or blank if no changes):
+          git diff
           echo exit with error if there are changes.
           git diff-index --quiet --ignore-space-at-eol --stat HEAD
 
