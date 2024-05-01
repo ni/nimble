@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Refactor packages to introduce SprightBlazor",
-  "packageName": "@ni/nimble-blazor",
-  "email": "7282195+m-akinc@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
