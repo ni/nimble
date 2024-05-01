@@ -4,7 +4,7 @@
   "description": "NI Spright Components",
   "scripts": {
     "build": "npm run build-components && npm run bundle-components",
-    "lint": "npm run eslint && npm run prettier",
+    "lint": "concurrently --timings -n eslint,prettier --group \"npm run eslint\" \"npm run prettier\"",
     "format": "npm run eslint-fix && npm run prettier-fix",
     "eslint": "eslint src",
     "eslint-fix": "eslint src --fix",
@@ -33,7 +33,7 @@
     "test-webkit:verbose": "karma start karma.conf.verbose.js --browsers=WebkitHeadless --single-run --skip-tags SkipWebkit",
     "test-webkit:watch": "karma start karma.conf.js --browsers=WebkitHeadless --skip-tags SkipWebkit --watch-extensions js",
     "test-webkit": "karma start karma.conf.js --browsers=WebkitHeadless --single-run --skip-tags SkipWebkit",
-    "test": "npm run test-chrome:verbose && npm run test-firefox:verbose"
+    "test": "concurrently --timings -n chrome,firefox --group \"npm run test-chrome:verbose\" \"npm run test-firefox:verbose\""
   },
   "repository": {
     "type": "git",
@@ -60,8 +60,8 @@
     "tslib": "^2.2.0"
   },
   "devDependencies": {
-    "@ni/jasmine-parameterized": "^0.3.0",
     "@ni-private/eslint-config-nimble": "^1.0.0",
+    "@ni/jasmine-parameterized": "^0.3.0",
     "@rollup/plugin-commonjs": "^25.0.7",
     "@rollup/plugin-json": "^6.0.0",
     "@rollup/plugin-node-resolve": "^15.0.1",
@@ -69,6 +69,7 @@
     "@rollup/plugin-terser": "^0.4.0",
     "@types/jasmine": "^5.1.4",
     "@types/webpack-env": "^1.15.2",
+    "concurrently": "^8.2.2",
     "eslint-plugin-jsdoc": "^48.2.0",
     "jasmine-core": "^5.1.2",
     "karma": "^6.3.0",

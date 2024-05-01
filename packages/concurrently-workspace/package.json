@@ -1,0 +1,20 @@
+{
+  "name": "@ni-private/concurrently-workspace",
+  "version": "1.0.0",
+  "private": true,
+  "type": "commonjs",
+  "description": "Workspace support for concurrently",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ni/nimble.git",
+    "directory": "packages/concurrently-workspace"
+  },
+  "author": "National Instruments",
+  "license": "MIT",
+  "bin": {
+      "concurrently-workspace": "./index.js"
+  },
+  "dependencies": {
+      "concurrently": "^8.2.2"
+  }
+}

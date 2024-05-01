@@ -7,17 +7,17 @@
     "postinstall": "patch-package && npm run playwright:setup",
     "playwright:setup": "playwright install --with-deps",
     "build": "npm run build --workspaces --if-present",
-    "lint": "npm run lint --workspaces --if-present",
+    "lint": "concurrently-workspace lint",
     "format": "npm run format --workspaces --if-present",
-    "test": "npm test --workspaces --if-present",
-    "pack": "npm run pack --workspaces --if-present",
+    "test": "concurrently-workspace test",
+    "pack": "concurrently-workspace pack",
     "change": "beachball change",
     "check": "beachball check --changehint \"Run 'npm run change' to generate a change file\"",
     "invoke-publish": "cross-env-shell beachball publish --yes --access public --message \\\"applying package updates [skip ci]\\\" -n $NPM_SECRET_TOKEN",
-    "validate": "npm run build && npm run lint && npm run test",
+    "validate": "npm run build && npm run concurrently-lint-test",
     "performance": "npm run performance --workspaces --if-present",
     "beachball-sync": "beachball sync",
-    "concurrently-lint-test": "concurrently --group \"npm run lint\" \"npm run test\""
+    "concurrently-lint-test": "concurrently --timings -n lint,test --group \"npm run lint\" \"npm run test\""
   },
   "repository": {
     "type": "git",
@@ -35,6 +35,7 @@
     "!*"
   ],
   "workspaces": [
+    "packages/concurrently-workspace",
     "packages/eslint-config-nimble",
     "packages/jasmine-parameterized",
     "packages/xliff-to-json-converter",
