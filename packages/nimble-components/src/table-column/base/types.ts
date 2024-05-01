@@ -44,19 +44,22 @@ export type TableColumnSortOperation =
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface TableColumnValidity extends ValidityObject {}
 
-const groupIconSize = 16;
-const sortIconSize = 16;
-const spacing = 8;
-const menuDropdownSize = 24;
+const columnIconSize = 16; // `iconSize` token
+const columnSpacing = 8; // `mediumPadding` token
+const menuDropdownSize = 24; // `controlSlimHeight` token
 const oneCharPlusEllipsisSize = 21;
-export const defaultMinPixelWidth = spacing
+export const defaultMinPixelWidth = columnSpacing // left cell padding
     + oneCharPlusEllipsisSize
-    + spacing
-    + sortIconSize
-    + spacing
-    + groupIconSize
-    + spacing
+    + columnSpacing
+    + columnIconSize // sort icon
+    + columnSpacing
+    + columnIconSize // group icon
+    + columnSpacing
     + menuDropdownSize
-    + spacing;
+    + columnSpacing; // right cell padding
+
+export const singleIconColumnWidth = columnSpacing // left cell padding
+    + columnIconSize
+    + columnSpacing; // right cell padding
 
 export const defaultFractionalWidth = 1;

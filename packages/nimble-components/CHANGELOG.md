@@ -1,8 +1,32 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Fri, 26 Apr 2024 21:13:31 GMT and should not be manually modified.
+This log was last generated on Wed, 01 May 2024 14:33:42 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 27.2.0
+
+Wed, 01 May 2024 14:33:42 GMT
+
+### Minor changes
+
+- Added tag fill color token ([ni/nimble@27804b9](https://github.com/ni/nimble/commit/27804b9a6d29ff0adc600c94f2bf6822ad4d5e63))
+
+## 27.1.1
+
+Tue, 30 Apr 2024 22:26:12 GMT
+
+### Patches
+
+- Move anchored region import from menu to menu item ([ni/nimble@1ff549f](https://github.com/ni/nimble/commit/1ff549f91277bb7ab6949cfbc8af07c0a40d8d25))
+
+## 27.1.0
+
+Tue, 30 Apr 2024 21:26:44 GMT
+
+### Minor changes
+
+- Add configuration to make the icon column fixed width ([ni/nimble@6b0f337](https://github.com/ni/nimble/commit/6b0f3371aa6b49b802d2a0d9e79365e544cef161))
 
 ## 27.0.5
 
