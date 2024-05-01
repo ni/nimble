@@ -7,6 +7,5 @@
     }
   ],
   "editor.defaultFormatter": "rvest.vs-code-prettier-eslint",
-  "omnisharp.useModernNet": true,
-  "workbench.colorTheme": "Solarized Dark"
+  "omnisharp.useModernNet": true
 }
