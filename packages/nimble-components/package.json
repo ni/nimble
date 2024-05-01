@@ -101,7 +101,8 @@
     "tslib": "^2.2.0"
   },
   "peerDependencies": {
-    "apache-arrow": "^15.0.0"
+    "apache-arrow": "^15.0.0",
+    "@types/linkify-it": "^3.0.5"
   },
   "devDependencies": {
     "@ni/jasmine-parameterized": "^0.3.0",
