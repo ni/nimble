@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Wed, 01 May 2024 14:33:42 GMT and should not be manually modified.
+This log was last generated on Wed, 01 May 2024 20:33:43 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 27.2.1
+
+Wed, 01 May 2024 20:33:43 GMT
+
+### Patches
+
+- Peer dependency on linkify-it type added to prevent issues for those using library type checking ([ni/nimble@d4204cf](https://github.com/ni/nimble/commit/d4204cf98575263a6ba7b22525f02beac109215b))
 
 ## 27.2.0
 
