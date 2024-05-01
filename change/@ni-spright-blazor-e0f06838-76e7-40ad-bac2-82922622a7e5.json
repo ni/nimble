@@ -1,0 +1,7 @@
+{
+  "type": "none",
+  "comment": "Invoke publish fix",
+  "packageName": "@ni/spright-blazor",
+  "email": "rajsite@users.noreply.github.com",
+  "dependentChangeType": "none"
+}
