@@ -18,7 +18,8 @@ concurrently(workspaces.map((workspace) => ({
 })), {
     cwd: workingDirectory,
     group: true,
-    timings: true
+    timings: true,
+    maxProcesses: 2
 }).result.catch(e => {
     console.error('Commands had non-zero exit codes');
     process.exit(1);
