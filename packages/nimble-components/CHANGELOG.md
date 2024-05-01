@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Tue, 30 Apr 2024 21:26:44 GMT and should not be manually modified.
+This log was last generated on Tue, 30 Apr 2024 22:26:12 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 27.1.1
+
+Tue, 30 Apr 2024 22:26:12 GMT
+
+### Patches
+
+- Move anchored region import from menu to menu item ([ni/nimble@1ff549f](https://github.com/ni/nimble/commit/1ff549f91277bb7ab6949cfbc8af07c0a40d8d25))
 
 ## 27.1.0
 

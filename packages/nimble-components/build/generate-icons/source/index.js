@@ -19,7 +19,6 @@ const generatedFilePrefix = `// AUTO-GENERATED FILE - DO NOT EDIT DIRECTLY
 // See generation source in nimble-components/build/generate-icons\n`;
 
 const iconsDirectory = path.resolve(__dirname, '../../../src/icons');
-const iconsTestDirectory = path.resolve(iconsDirectory, 'tests');
 
 if (fs.existsSync(iconsDirectory)) {
     console.log(`Deleting existing icons directory "${iconsDirectory}"`);
@@ -28,7 +27,6 @@ if (fs.existsSync(iconsDirectory)) {
 }
 console.log(`Creating icons directory "${iconsDirectory}"`);
 fs.mkdirSync(iconsDirectory);
-fs.mkdirSync(iconsTestDirectory);
 
 console.log('Finished creating icons directory');
 
@@ -73,15 +71,6 @@ export const ${tagName} = '${elementName}';
     fileCount += 1;
 
     allIconsFileContents = allIconsFileContents.concat(`export { ${className} } from './${fileName}';\n`);
-
-    const iconReactWrapperContent = `${generatedFilePrefix}
-import { wrap } from '../../utilities/tests/react-wrapper';
-import { ${className} } from '../${fileName}';
-
-export const Nimble${className} = wrap(${className});`;
-
-    const reactFilePath = path.resolve(iconsTestDirectory, `${fileName}.react.tsx`);
-    fs.writeFileSync(reactFilePath, iconReactWrapperContent, { encoding: 'utf-8' });
 }
 console.log(`Finshed writing ${fileCount} icon component files`);
 

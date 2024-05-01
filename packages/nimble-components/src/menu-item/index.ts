@@ -7,6 +7,10 @@ import {
 import { arrowExpanderRight16X16 } from '@ni/nimble-tokens/dist/icons/js';
 import { styles } from './styles';
 
+// FAST menu item template requires an anchored region is available using tagFor DI
+// Register anchored region explicitly to make sure it is defined for the template
+import '../anchored-region';
+
 declare global {
     interface HTMLElementTagNameMap {
         'nimble-menu-item': MenuItem;

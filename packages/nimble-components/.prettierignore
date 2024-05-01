@@ -1,24 +1,18 @@
 # Visit and ignore all objects in the root. 
-# Then explicitly allow all TypeScript, JavaScript, Markdown, and JSON files in the root, src, and .storybook folders.
+# Then explicitly allow all TypeScript, JavaScript, Markdown, and JSON files in the root, and src folders.
 /*
 !*.ts
 !*.js
 !*.md
-!*.mdx
 !*.json
 !src/
 !build/
-!/.storybook/
 
 /src/**/*.*
 !src/**/*.ts
 !src/**/*.js
 !src/**/*.md
-!src/**/*.mdx
 !src/**/*.json
-
-/.storybook/*.*
-!/.storybook/*.js
 
 /build/**/*.*
 !build/generate-workers/**/*.ts
