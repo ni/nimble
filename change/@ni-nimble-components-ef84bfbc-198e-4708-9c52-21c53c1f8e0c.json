@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Peer dependency on linkify-it type added to prevent issues for those using library type checking",
-  "packageName": "@ni/nimble-components",
-  "email": "rajsite@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
