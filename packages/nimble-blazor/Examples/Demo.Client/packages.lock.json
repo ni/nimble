@@ -23,9 +23,9 @@
       },
       "NI.CSharp.Analyzers": {
         "type": "Direct",
-        "requested": "[2.0.25, 2.0.25]",
-        "resolved": "2.0.25",
-        "contentHash": "EgLh7G3r6Fg4SK62YYbhYXNU5s+BfhgsXNFzs/zyDprvswco4pWD1ws2Sgl3uq3CSu6I9n4F9lOHkxZ6c3yYYw==",
+        "requested": "[2.0.21, 2.0.21]",
+        "resolved": "2.0.21",
+        "contentHash": "PST6c0bUeoCVmXG7raQmPZPYQlt0I1/2IFNc7KLetoG0CIxa30A21LUMPi2FLy4e5SrdEqGnLtC0D8O9MFxI6A==",
         "dependencies": {
           "Microsoft.CodeAnalysis.Analyzers": "3.3.3",
           "Microsoft.CodeAnalysis.CSharp": "4.2.0",
@@ -339,7 +339,7 @@
         "type": "Project",
         "dependencies": {
           "Microsoft.AspNetCore.Components.Web": "[6.*, )",
-          "NI.CSharp.Analyzers": "[2.0.25, 2.0.25]",
+          "NI.CSharp.Analyzers": "[2.0.21, 2.0.21]",
           "NimbleBlazor": "[1.0.0, )"
         }
       },

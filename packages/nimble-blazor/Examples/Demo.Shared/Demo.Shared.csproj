@@ -29,7 +29,7 @@
     <None Include="packages.lock.json">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
-    <PackageReference Include="NI.CSharp.Analyzers" Version="[2.0.25]" />
+    <PackageReference Include="NI.CSharp.Analyzers" Version="[2.0.21]" />
   </ItemGroup>
 
   <ItemGroup>
