@@ -39,6 +39,9 @@
     {
       "groupName": "nuget dependencies",
       "matchManagers": ["nuget"],
+      "excludePackagePatterns":[
+        "NI.CSharp.Analyzers"
+      ],
       "enabled": true
     },
     {
