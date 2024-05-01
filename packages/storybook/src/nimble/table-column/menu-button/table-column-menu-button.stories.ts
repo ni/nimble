@@ -1,17 +1,17 @@
 import { html, ref } from '@microsoft/fast-element';
 import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html';
 import { withActions } from '@storybook/addon-actions/decorator';
-import { createUserSelectedThemeStory } from '../../../utilities/tests/storybook';
-import { tableTag } from '../../../table';
+import { tableTag } from '@ni/nimble-components/dist/esm/table';
+import { tableColumnTextTag } from '@ni/nimble-components/dist/esm/table-column/text';
+import { tableColumnMenuButtonTag } from '@ni/nimble-components/dist/esm/table-column/menu-button';
+import { ButtonAppearance, ButtonAppearanceVariant } from '@ni/nimble-components/dist/esm/button/types';
 import {
-    sharedTableActions,
     SharedTableArgs,
-    sharedTableArgs,
-    sharedTableArgTypes
-} from '../../base/tests/table-column-stories-utils';
-import { ButtonAppearance, ButtonAppearanceVariant } from '../../../button/types';
-import { tableColumnMenuButtonTag } from '..';
-import { tableColumnTextTag } from '../../text';
+    sharedTableActions,
+    sharedTableArgTypes,
+    sharedTableArgs
+} from '../base/table-column-stories-utils';
+import { createUserSelectedThemeStory } from '../../../utilities/storybook';
 
 const metadata: Meta<SharedTableArgs> = {
     title: 'Components/Table Column: Menu Button',
