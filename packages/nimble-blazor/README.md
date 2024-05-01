@@ -2,9 +2,10 @@
     <p><b>ni | nimble | blazor</b></p>
 </div>
 
-# Nimble Blazor
+# Nimble and Spright Blazor
 
-[![Nuget Version](https://img.shields.io/nuget/v/NimbleBlazor.svg)](https://www.nuget.org/packages/NimbleBlazor)
+[![Nimble Nuget Version](https://img.shields.io/nuget/v/NimbleBlazor.svg)](https://www.nuget.org/packages/NimbleBlazor)
+[![Spright Nuget Version](https://img.shields.io/nuget/v/SprightBlazor.svg)](https://www.nuget.org/packages/SprightBlazor)
 
 NI-styled UI components for Blazor applications
 

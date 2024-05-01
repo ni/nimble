@@ -11,7 +11,7 @@
     <RepositoryType>git</RepositoryType>
     <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
     <DisableImplicitNuGetFallbackFolder>true</DisableImplicitNuGetFallbackFolder>
-    <PackageTags>Web Components, .NET, Nimble, FAST, Blazor, .NET 6.0</PackageTags>
+    <PackageTags>Web Components, .NET, Spright, Nimble, FAST, Blazor, .NET 6.0</PackageTags>
     <NeutralLanguage>en</NeutralLanguage>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
@@ -55,7 +55,7 @@
     <None Include="packages.lock.json" />
   </ItemGroup>
 
-  <Target Name="CopyNimbleResources" BeforeTargets="BeforeBuild">
-    <Exec Command="npm run copy-resources:nimble" WorkingDirectory=".." />
+  <Target Name="CopyResources" BeforeTargets="BeforeBuild">
+    <Exec Command="npm run copy-resources:spright" WorkingDirectory=".." />
   </Target>
 </Project>

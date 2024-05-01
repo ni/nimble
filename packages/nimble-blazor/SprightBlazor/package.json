@@ -1,0 +1,31 @@
+{
+  "name": "@ni/spright-blazor",
+  "version": "0.0.2",
+  "description": "Blazor components for Spright",
+  "scripts": {
+    "pack": "cross-env-shell dotnet pack -c Release -p:PackageVersion=$npm_package_version --output ../dist",
+    "invoke-publish": "npm run invoke-publish:setup && npm run invoke-publish:nuget && npm run invoke-publish:noop -- ",
+    "invoke-publish:setup": "rimraf --glob \"../dist/SprightBlazor.*.nupkg\" && npm run pack",
+    "invoke-publish:nuget": "cross-env-shell dotnet nuget push \"../dist/SprightBlazor.*.nupkg\" -k $NUGET_SECRET_TOKEN -s \"https://api.nuget.org/v3/index.json\"",
+    "invoke-publish:noop": "echo \"noop command to swallow npm args\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ni/nimble.git"
+  },
+  "author": {
+    "name": "National Instruments"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ni/nimble/issues"
+  },
+  "homepage": "https://github.com/ni/nimble#readme",
+  "files": [
+    "!*"
+  ],
+  "peerDependencies": {
+    "cross-env": "^7.0.3",
+    "rimraf": "^5.0.5"
+  }
+}

@@ -1,0 +1,14 @@
+﻿@page "/Rectangle"
+@namespace SprightBlazor.Tests.Acceptance.Pages
+@inherits LayoutComponentBase
+
+<SprightRectangle @onclick="ClickHandler" @ref="_rectangle">Hello, world.</SprightRectangle>
+
+@code {
+    private SprightRectangle? _rectangle;
+
+    public async Task ClickHandler()
+    {
+        // do something
+    }
+}
