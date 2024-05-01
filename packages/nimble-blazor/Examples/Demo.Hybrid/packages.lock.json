@@ -364,7 +364,7 @@
       "nimbleblazor": {
         "type": "Project",
         "dependencies": {
-          "Microsoft.AspNetCore.Components.Web": "[6.0.28, )"
+          "Microsoft.AspNetCore.Components.Web": "[6.0.29, )"
         }
       }
     }
