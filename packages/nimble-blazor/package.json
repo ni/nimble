@@ -21,7 +21,8 @@
     "format:js": "eslint . --fix",
     "test": "dotnet test -c Release",
     "copy-resources:nimble": "node build/copyResources.js nimble",
-    "copy-resources:spright": "node build/copyResources.js spright"
+    "copy-resources:spright": "node build/copyResources.js spright",
+    "update-lock-files": "dotnet restore"
   },
   "files": [
     "!*"

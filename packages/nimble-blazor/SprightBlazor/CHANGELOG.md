@@ -1,8 +1,16 @@
 # Change Log - @ni/spright-blazor
 
-This log was last generated on Wed, 01 May 2024 18:56:28 GMT and should not be manually modified.
+This log was last generated on Wed, 01 May 2024 22:28:21 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 0.0.3
+
+Wed, 01 May 2024 22:28:21 GMT
+
+### Patches
+
+- Update nuget dependencies ([ni/nimble@5d398fc](https://github.com/ni/nimble/commit/5d398fc5873bcb530f0eb643eaaf2a3b5ee33568))
 
 ## 0.0.2
 
