@@ -1,12 +1,12 @@
 {
   "name": "@ni/nimble-blazor",
-  "version": "16.0.7",
+  "version": "16.0.9",
   "description": "Blazor components for the NI Nimble Design System",
   "scripts": {
     "pack": "cross-env-shell dotnet pack -c Release -p:PackageVersion=$npm_package_version --output ../dist",
     "invoke-publish": "npm run invoke-publish:setup && npm run invoke-publish:nuget && npm run invoke-publish:noop -- ",
-    "invoke-publish:setup": "rimraf --glob \"dist/NimbleBlazor.*.nupkg\" && npm run pack",
-    "invoke-publish:nuget": "cross-env-shell dotnet nuget push \"dist/NimbleBlazor.*.nupkg\" -k $NUGET_SECRET_TOKEN -s \"https://api.nuget.org/v3/index.json\"",
+    "invoke-publish:setup": "rimraf --glob \"../dist/NimbleBlazor.*.nupkg\" && npm run pack",
+    "invoke-publish:nuget": "cross-env-shell dotnet nuget push \"../dist/NimbleBlazor.*.nupkg\" -k $NUGET_SECRET_TOKEN -s \"https://api.nuget.org/v3/index.json\"",
     "invoke-publish:noop": "echo \"noop command to swallow npm args\""
   },
   "repository": {

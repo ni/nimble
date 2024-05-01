@@ -1,6 +1,6 @@
 {
   "name": "@ni/nimble-components",
-  "version": "27.2.0",
+  "version": "27.2.1",
   "description": "Styled web components for the NI Nimble Design System",
   "scripts": {
     "build": "npm run generate-icons && npm run generate-workers && npm run build-components && npm run bundle-components && npm run generate-scss",
@@ -101,7 +101,8 @@
     "tslib": "^2.2.0"
   },
   "peerDependencies": {
-    "apache-arrow": "^15.0.0"
+    "apache-arrow": "^15.0.0",
+    "@types/linkify-it": "^3.0.5"
   },
   "devDependencies": {
     "@ni/jasmine-parameterized": "^0.3.0",
