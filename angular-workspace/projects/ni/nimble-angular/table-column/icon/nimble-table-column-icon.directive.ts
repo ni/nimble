@@ -3,8 +3,9 @@ import { type TableColumnIcon, tableColumnIconTag } from '@ni/nimble-components/
 import { BooleanValueOrAttribute, NumberValueOrAttribute, toBooleanProperty, toNullableNumberProperty } from '@ni/nimble-angular/internal-utilities';
 import { NimbleTableColumnBaseDirective } from '@ni/nimble-angular/table-column';
 import { MappingKeyType } from '@ni/nimble-components/dist/esm/table-column/enum-base/types';
+import { TableColumnMappingWidthMode } from '@ni/nimble-components/dist/esm/table-column/icon/types';
 
-export { MappingKeyType };
+export { MappingKeyType, TableColumnMappingWidthMode };
 export type { TableColumnIcon };
 export { tableColumnIconTag };
 
@@ -61,6 +62,14 @@ export class NimbleTableColumnIconDirective extends NimbleTableColumnBaseDirecti
 
     @Input('grouping-disabled') public set groupingDisabled(value: BooleanValueOrAttribute) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'groupingDisabled', toBooleanProperty(value));
+    }
+
+    public get widthMode(): TableColumnMappingWidthMode {
+        return this.elementRef.nativeElement.widthMode;
+    }
+
+    @Input('width-mode') public set widthMode(value: TableColumnMappingWidthMode) {
+        this.renderer.setProperty(this.elementRef.nativeElement, 'widthMode', value);
     }
 
     public constructor(renderer: Renderer2, elementRef: ElementRef<TableColumnIcon>) {
