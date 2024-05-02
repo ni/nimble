@@ -8,6 +8,7 @@ import type { TableColumn } from '../../../table-column/base';
 import { styles } from './styles';
 import { template } from './template';
 import {
+    TableRowFocusableElements,
     TableRowSelectionState,
     TableRowSelectionToggleEventDetail
 } from '../../types';
@@ -104,12 +105,8 @@ export class TableGroupRow extends FoundationElement {
     }
 
     /** @internal */
-    public getFocusableElements(): HTMLElement[] {
-        if (this.selectionCheckbox) {
-            return [this.selectionCheckbox];
-        }
-
-        return [];
+    public getFocusableElements(): TableRowFocusableElements {
+        return { selectionCheckbox: this.selectionCheckbox, cells: [] };
     }
 
     private selectionStateChanged(): void {

@@ -32,8 +32,7 @@ export const template = html<TableRow>`
                     <${checkboxTag}
                         ${ref('selectionCheckbox')}
                         class="selection-checkbox"
-                        tabindex="-1" 
-                        :tabIndex="${_ => -1}"
+                        :tabIndexOverride="${_ => -1}"
                         @change="${(x, c) => x.onSelectionChange(c.event as CustomEvent)}"
                         @click="${(_, c) => c.event.stopPropagation()}"
                         title="${x => tableRowSelectLabel.getValueFor(x)}"
@@ -58,6 +57,7 @@ export const template = html<TableRow>`
             ${when(x => !x.loading, html<TableRow>`
                 <${buttonTag}
                     ${ref('expandCollapseButton')}
+                    tabindex="-1"
                     appearance="${ButtonAppearance.ghost}"
                     content-hidden
                     class="expand-collapse-button"
@@ -70,7 +70,7 @@ export const template = html<TableRow>`
         `)}
 
         <span ${ref('cellContainer')} 
-            class="cell-container ${x => (x.isNestedParent ? 'nested-parent' : '')}"
+            class="cell-container ${x => [x.isNestedParent ? 'nested-parent' : '', x.isInHierarchy ? 'is-in-hierarchy' : ''].join(' ')}"
         >
             ${repeat(x => x.columns, html<TableColumn, TableRow>`
                 ${when(x => !x.columnHidden, html<TableColumn, TableRow>`

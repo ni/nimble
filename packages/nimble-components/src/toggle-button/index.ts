@@ -1,4 +1,4 @@
-import { attr } from '@microsoft/fast-element';
+import { attr, observable } from '@microsoft/fast-element';
 import {
     applyMixins,
     ButtonOptions,
@@ -11,6 +11,7 @@ import { styles } from './styles';
 import { template } from './template';
 import type { ButtonPattern } from '../patterns/button/types';
 import { ButtonAppearance, ButtonAppearanceVariant } from './types';
+import type { TabIndexOverride } from '../patterns/tab-index-override/types';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -21,7 +22,7 @@ declare global {
 /**
  * A nimble-styled toggle button control.
  */
-export class ToggleButton extends FoundationSwitch implements ButtonPattern {
+export class ToggleButton extends FoundationSwitch implements ButtonPattern, TabIndexOverride {
     /**
      * @public
      * @remarks
@@ -48,6 +49,10 @@ export class ToggleButton extends FoundationSwitch implements ButtonPattern {
 
     /** @internal */
     public readonly control!: HTMLElement;
+
+    /** @internal */
+    @observable
+    public tabIndexOverride = 0;
 }
 applyMixins(ToggleButton, StartEnd, DelegatesARIAButton);
 export interface ToggleButton extends StartEnd, DelegatesARIAButton {}

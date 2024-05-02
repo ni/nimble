@@ -100,7 +100,6 @@
     "prosemirror-markdown": "^1.11.2",
     "prosemirror-model": "^1.19.2",
     "prosemirror-state": "^1.4.3",
-    "tabbable": "^6.2.0",
     "tslib": "^2.2.0"
   },
   "peerDependencies": {

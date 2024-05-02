@@ -19,6 +19,7 @@ AnchorOptions
     ><a
         class="control"
         part="control"
+        tabindex="${x => x.tabIndexOverride}"
         download="${x => x.download}"
         href=${x => x.href}
         hreflang="${x => x.hreflang}"

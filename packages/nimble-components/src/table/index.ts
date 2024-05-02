@@ -61,7 +61,7 @@ import { DataHierarchyManager } from './models/data-hierarchy-manager';
 import { ExpansionManager } from './models/expansion-manager';
 import { waitUntilCustomElementsDefinedAsync } from '../utilities/wait-until-custom-elements-defined-async';
 import { ColumnValidator } from '../table-column/base/models/column-validator';
-import { TableNavigationManager } from './models/table-navigation-manager';
+import { KeyboardNavigationManager } from './models/keyboard-navigation-manager';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -209,6 +209,11 @@ export class Table<
     /**
      * @internal
      */
+    public readonly keyboardNavigationManager: KeyboardNavigationManager<TData>;
+
+    /**
+     * @internal
+     */
     @observable
     public firstSortedColumn?: TableColumn;
 
@@ -233,7 +238,6 @@ export class Table<
     private options: TanStackTableOptionsResolved<TableNode<TData>>;
     private readonly tableValidator = new TableValidator<TData>();
     private readonly tableUpdateTracker = new TableUpdateTracker(this);
-    private readonly tableNavigationManager: TableNavigationManager<TData>;
     private readonly selectionManager: InteractiveSelectionManager<TData>;
     private dataHierarchyManager?: DataHierarchyManager<TData>;
     private readonly expansionManager: ExpansionManager<TData>;
@@ -276,7 +280,7 @@ export class Table<
         };
         this.table = tanStackCreateTable(this.options);
         this.virtualizer = new Virtualizer(this, this.table);
-        this.tableNavigationManager = new TableNavigationManager(
+        this.keyboardNavigationManager = new KeyboardNavigationManager(
             this,
             this.virtualizer
         );

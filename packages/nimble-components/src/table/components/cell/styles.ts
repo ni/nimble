@@ -44,4 +44,8 @@ export const styles = css`
         height: ${controlSlimHeight};
         align-self: center;
     }
+
+    .action-menu.focused {
+        display: block;
+    }
 `;

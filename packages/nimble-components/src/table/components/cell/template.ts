@@ -16,9 +16,11 @@ export const template = html<TableCell>`
             <${menuButtonTag} ${ref('actionMenuButton')}
                 content-hidden
                 appearance="${ButtonAppearance.ghost}"
+                :tabIndexOverride="${_ => -1}"
                 @beforetoggle="${(x, c) => x.onActionMenuBeforeToggle(c.event as CustomEvent<MenuButtonToggleEventDetail>)}"
                 @toggle="${(x, c) => x.onActionMenuToggle(c.event as CustomEvent<MenuButtonToggleEventDetail>)}"
                 @click="${(_, c) => c.event.stopPropagation()}"
+                @blur="${x => x.onActionMenuButtonBlur()}"
                 class="action-menu"
                 title="${x => (x.actionMenuLabel ? x.actionMenuLabel : tableCellActionMenuLabel.getValueFor(x))}"
             >

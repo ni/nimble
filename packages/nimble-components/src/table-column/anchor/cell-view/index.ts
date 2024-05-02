@@ -57,6 +57,10 @@ TableColumnAnchorColumnConfig
     public override focusedRecycleCallback(): void {
         this.anchor?.blur();
     }
+
+    public override get tabbableChildren(): HTMLElement[] {
+        return this.anchor !== undefined ? [this.anchor] : [];
+    }
 }
 
 const anchorCellView = TableColumnAnchorCellView.compose({

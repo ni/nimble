@@ -9,6 +9,7 @@ import type {
 } from '../../../table-column/base/types';
 import { styles } from './styles';
 import { template } from './template';
+import type { TableCellView } from '../../../table-column/base/cell-view';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -52,6 +53,11 @@ export class TableCell<
 
     public readonly actionMenuButton?: MenuButton;
 
+    /** @internal */
+    public get cellView(): TableCellView<TCellRecord> {
+        return this.shadowRoot?.firstElementChild as TableCellView<TCellRecord>;
+    }
+
     public onActionMenuBeforeToggle(
         event: CustomEvent<MenuButtonToggleEventDetail>
     ): void {
@@ -63,6 +69,15 @@ export class TableCell<
     ): void {
         this.menuOpen = event.detail.newState;
         this.$emit('cell-action-menu-toggle', event.detail);
+    }
+
+    /** @internal */
+    public onActionMenuButtonBlur(): void {
+        // The table keyboard navigation code adds a 'focused' class on action menu buttons before focusing them
+        // via keyboard, to ensure they're visible to focus. This code ensures we remove that CSS class when the menu
+        // button is no longer focused (which may not be for a keyboard nav reason, i.e. a mouse click elsewhere on
+        // the table)
+        this.actionMenuButton!.classList.remove('focused');
     }
 }
 

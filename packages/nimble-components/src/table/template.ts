@@ -61,6 +61,7 @@ export const template = html<Table>`
                                 <span class="checkbox-container">
                                     <${checkboxTag}
                                         ${ref('selectionCheckbox')}
+                                        :tabIndexOverride="${_ => -1}"
                                         class="${x => `selection-checkbox ${x.selectionMode ? x.selectionMode : ''}`}"
                                         @change="${(x, c) => x.onAllRowsSelectionChange(c.event as CustomEvent)}"
                                         title="${x => tableSelectAllLabel.getValueFor(x)}"
@@ -71,6 +72,7 @@ export const template = html<Table>`
                             `)}
                             <${buttonTag}
                                 ${ref('collapseAllButton')}
+                                tabindex="-1"
                                 class="collapse-all-button ${x => `${x.showCollapseAll ? 'visible' : ''}`}"
                                 content-hidden
                                 appearance="${ButtonAppearance.ghost}"

@@ -19,6 +19,7 @@ export const template = html<TableColumnAnchorCellView>`
             <${anchorTag}
                 ${ref('anchor')}
                 ${overflow('hasOverflow')}
+                :tabIndexOverride="${_ => -1}"
                 href="${x => x.cellRecord?.href}"
                 hreflang="${x => x.columnConfig?.hreflang}"
                 ping="${x => x.columnConfig?.ping}"

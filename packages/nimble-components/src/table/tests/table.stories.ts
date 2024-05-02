@@ -31,11 +31,23 @@ const metadata: Meta<BaseTableArgs> = {
     parameters: {
         actions: {
             handles: [
+                /*
+                TODO investigate Storybook error (happens when expanding/collapsing rows)
+Uncaught TypeError: Converting circular structure to JSON
+    --> starting at object with constructor 'Controller'
+    |     property 'subscribers' -> object with constructor 'Object'
+    |     property 'rowElements' -> object with constructor 'SubscriberSet'
+    |     property 'sub1' -> object with constructor 'KeyboardNavigationManager'
+    --- property 'tableNotifier' closes the circle
+    at JSON.stringify (<anonymous>)
+    */
+                /*
                 'action-menu-beforetoggle',
                 'action-menu-toggle',
                 'selection-change',
                 'column-configuration-change',
                 'row-expand-toggle'
+                */
             ]
         }
     },
@@ -182,6 +194,14 @@ const hierarchicalData = [
         age: 42,
         id: '10',
         parentId: '9'
+    },
+    {
+        firstName: 'Root Item',
+        lastName: 'With No Children',
+        quote: 'Isn’t it nice we hate the same things?',
+        age: 42,
+        id: '11',
+        parentId: undefined
     }
 ];
 
@@ -268,6 +288,9 @@ mode is \`single\`, only the first record that exists in the table's data will b
 export const table: StoryObj<TableArgs> = {
     // prettier-ignore
     render: createUserSelectedThemeStory(html<TableArgs>`
+        <br/>    
+        <input type="button" value="Additional focusable content" />
+        <br/><br/>
         <${tableTag}
             ${ref('tableRef')}
             selection-mode="${x => TableRowSelectionMode[x.selectionMode]}"
@@ -316,6 +339,8 @@ export const table: StoryObj<TableArgs> = {
                 <${menuItemTag}>Do something else with the quote</${menuItemTag}>
             </${menuTag}>
         </${tableTag}>
+        <p>More page content</p>
+        <input type="button" value="Additional focusable content" />
     `),
     argTypes: {
         data: {

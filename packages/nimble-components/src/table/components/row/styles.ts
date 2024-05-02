@@ -130,6 +130,20 @@ export const styles = css`
         --ni-private-table-cell-action-menu-display: block;
     }
 
+    /* TODO: Scope this to only hasDataHierarchy; ~4px more padding on left, so border doesn't touch expand/collapse button border */
+    nimble-table-cell:first-of-type${focusVisible} {
+        margin-left: -24px;
+        padding-left: 32px;
+    }
+
+    .is-in-hierarchy nimble-table-cell:first-of-type${focusVisible}::before {
+        content: '';
+        display: block;
+        width: calc(var(--ni-nimble-control-height) * var(--ni-private-table-cell-nesting-level));
+        height: 32px;
+        box-sizing: border-box;
+    }
+
     :host(:hover) nimble-table-cell {
         --ni-private-table-cell-action-menu-display: block;
     }

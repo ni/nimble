@@ -18,11 +18,12 @@ import type {
     TableFieldName,
     TableRecord,
     TableRowExpansionToggleEventDetail,
+    TableRowFocusableElements,
     TableRowSelectionToggleEventDetail
 } from '../../types';
 import type { TableColumn } from '../../../table-column/base';
 import type { MenuButtonToggleEventDetail } from '../../../menu-button/types';
-import { TableCell } from '../cell';
+import { TableCell, tableCellTag } from '../cell';
 import {
     ColumnInternals,
     isColumnInternalsProperty
@@ -141,6 +142,11 @@ export class TableRow<
         return this.isParentRow && this.nestingLevel > 0;
     }
 
+    @volatile
+    public get isInHierarchy(): boolean {
+        return this.isParentRow || this.nestingLevel > 0;
+    }
+
     // Programmatically updating the selection state of a checkbox fires the 'change' event.
     // Therefore, selection change events that occur due to programmatically updating
     // the selection checkbox 'checked' value should be ingored.
@@ -154,13 +160,6 @@ export class TableRow<
         }
 
         return null;
-    }
-
-    public override connectedCallback(): void {
-        super.connectedCallback();
-        if (this.selectionCheckbox) {
-            this.selectionCheckbox.tabIndex = -1;
-        }
     }
 
     /** @internal */
@@ -229,16 +228,16 @@ export class TableRow<
     }
 
     /** @internal */
-    public getFocusableElements(): HTMLElement[] {
-        const focusableElements: HTMLElement[] = [];
-        if (this.selectionCheckbox) {
-            focusableElements.push(this.selectionCheckbox);
-        }
-        if (this.expandCollapseButton) {
-            focusableElements.push(this.expandCollapseButton);
-        }
-        this.shadowRoot!.querySelectorAll('nimble-table-cell').forEach(cell => focusableElements.push(cell));
-        return focusableElements;
+    public getFocusableElements(): TableRowFocusableElements {
+        const result: TableRowFocusableElements = { cells: [] };
+        result.selectionCheckbox = this.selectionCheckbox;
+        this.shadowRoot!.querySelectorAll(tableCellTag).forEach(cell => {
+            result.cells.push({
+                actionMenuButton: cell.actionMenuButton,
+                cell
+            });
+        });
+        return result;
     }
 
     public onRowExpandToggle(event?: Event): void {
