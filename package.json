@@ -7,17 +7,18 @@
     "postinstall": "patch-package && npm run playwright:setup",
     "playwright:setup": "playwright install --with-deps",
     "build": "npm run build --workspaces --if-present",
-    "lint": "npm run lint --workspaces --if-present",
     "format": "npm run format --workspaces --if-present",
-    "test": "npm test --workspaces --if-present",
     "pack": "npm run pack --workspaces --if-present",
     "change": "beachball change",
     "check": "beachball check --changehint \"Run 'npm run change' to generate a change file\"",
     "invoke-publish": "cross-env-shell beachball publish --yes --access public --message \\\"applying package updates [skip ci]\\\" -n $NPM_SECRET_TOKEN",
-    "validate": "npm run build && npm run lint && npm run test",
     "performance": "npm run performance --workspaces --if-present",
     "beachball-sync": "beachball sync",
-    "concurrently-lint-test": "concurrently --group \"npm run lint\" \"npm run test\""
+    "lint-sequential": "npm run lint --workspaces --if-present",
+    "test-sequential": "npm run test --workspaces --if-present",
+    "lint-concurrently": "npm run lint-concurrently -w packages/nimble-components",
+    "test-concurrently": "npm run test-concurrently -w packages/nimble-components",
+    "concurrently-lint-test": "concurrently --timings --group \"npm:lint-sequential\" \"npm:test-sequential\" \"npm:lint-concurrently\" \"npm:test-concurrently\""
   },
   "repository": {
     "type": "git",
