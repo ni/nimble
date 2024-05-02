@@ -28,7 +28,9 @@ declare global {
 /**
  * A nimble-styled menu button control.
  */
-export class MenuButton extends FoundationElement implements ButtonPattern, TabIndexOverride {
+export class MenuButton
+    extends FoundationElement
+    implements ButtonPattern, TabIndexOverride {
     @attr
     public appearance: ButtonAppearance = ButtonAppearance.outline;
 

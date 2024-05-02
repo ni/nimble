@@ -145,7 +145,8 @@ export class Virtualizer<TData extends TableRecord = TableRecord> {
         }
         if (this.table.openActionMenuRecordId !== undefined) {
             const activeRow = this.table.rowElements.find(
-                row => row instanceof TableRow && row.recordId === this.table.openActionMenuRecordId
+                row => row instanceof TableRow
+                    && row.recordId === this.table.openActionMenuRecordId
             ) as TableRow | undefined;
             activeRow?.closeOpenActionMenus();
         }

@@ -28,7 +28,6 @@ import {
     ColumnInternals,
     isColumnInternalsProperty
 } from '../../../table-column/base/models/column-internals';
-import type { Button } from '../../../button';
 
 declare global {
     interface HTMLElementTagNameMap {

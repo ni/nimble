@@ -2,7 +2,6 @@ import { css } from '@microsoft/fast-element';
 import { display } from '@microsoft/fast-foundation';
 import {
     borderHoverColor,
-    borderWidth,
     controlHeight,
     controlSlimHeight,
     mediumPadding

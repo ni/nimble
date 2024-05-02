@@ -29,7 +29,6 @@ import {
     OnChangeFn as TanStackOnChangeFn
 } from '@tanstack/table-core';
 import { keyEnter, keyShift } from '@microsoft/fast-web-utilities';
-import { tabbable } from 'tabbable';
 import { TableColumn } from '../table-column/base';
 import { TableValidator } from './models/table-validator';
 import { styles } from './styles';
@@ -352,18 +351,6 @@ export class Table<
 
     public checkValidity(): boolean {
         return this.tableValidator.isValid();
-    }
-
-    public getTabbableElements(): (HTMLElement | SVGElement)[] {
-        const results1 = tabbable(this, { getShadowRoot: true });
-        // eslint-disable-next-line no-console
-        console.log('tabbable', 'from table', results1);
-        return results1;
-    }
-
-    public getTabbableElementsFrom(element: HTMLElement): (HTMLElement | SVGElement)[] {
-        const results1 = tabbable(element, { getShadowRoot: true });
-        return results1;
     }
 
     /**

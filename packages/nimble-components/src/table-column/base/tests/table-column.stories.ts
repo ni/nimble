@@ -485,7 +485,7 @@ export const sorting: StoryObj<SortingTableArgs> = {
                     [ExampleSortType.firstColumnAscendingSecondColumnDisabled]:
                         'First name ascending; sorting disabled for last name',
                     [ExampleSortType.allColumnsDisabled]:
-                    'Sorting disabled for all columns'
+                        'Sorting disabled for all columns'
                 }
             }
         },

@@ -22,7 +22,9 @@ declare global {
 /**
  * A nimble-styled toggle button control.
  */
-export class ToggleButton extends FoundationSwitch implements ButtonPattern, TabIndexOverride {
+export class ToggleButton
+    extends FoundationSwitch
+    implements ButtonPattern, TabIndexOverride {
     /**
      * @public
      * @remarks

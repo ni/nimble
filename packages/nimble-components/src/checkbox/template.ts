@@ -1,13 +1,19 @@
 /* eslint-disable @typescript-eslint/prefer-optional-chain */
 import { ViewTemplate, html, slotted } from '@microsoft/fast-element';
-import type { CheckboxOptions, OverrideFoundationElementDefinition } from '@microsoft/fast-foundation';
+import type {
+    CheckboxOptions,
+    OverrideFoundationElementDefinition
+} from '@microsoft/fast-foundation';
 import type { Checkbox } from '.';
 
 /**
  * The template for the {@link @microsoft/fast-foundation#(Checkbox:class)} component.
  * @public
  */
-export const checkboxTemplate = (_: unknown, definition: OverrideFoundationElementDefinition<CheckboxOptions>): ViewTemplate<Checkbox> => html<Checkbox>`
+export const checkboxTemplate = (
+    _: unknown,
+    definition: OverrideFoundationElementDefinition<CheckboxOptions>
+): ViewTemplate<Checkbox> => html<Checkbox>`
     <template
         role="checkbox"
         aria-checked="${x => x.checked}"

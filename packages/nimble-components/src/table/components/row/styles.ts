@@ -139,7 +139,10 @@ export const styles = css`
     .is-in-hierarchy nimble-table-cell:first-of-type${focusVisible}::before {
         content: '';
         display: block;
-        width: calc(var(--ni-nimble-control-height) * var(--ni-private-table-cell-nesting-level));
+        width: calc(
+            var(--ni-nimble-control-height) *
+                var(--ni-private-table-cell-nesting-level)
+        );
         height: 32px;
         box-sizing: border-box;
     }
