@@ -22,7 +22,7 @@ export const userMapping: StoryObj = {
     argTypes: {
         key: {
             description: 'A key (url) for each user that maps to a user',
-            control: { type: 'none' }
+            control: false
         },
         displayName: {
             name: 'display-name',

@@ -4,22 +4,22 @@
     "net6.0": {
       "Microsoft.AspNetCore.Components.WebAssembly": {
         "type": "Direct",
-        "requested": "[6.0.28, )",
-        "resolved": "6.0.28",
-        "contentHash": "rXuyMvFOIuaciinQIJw7GWyCXYeheeYEaYTDOs2D/ee2JDKc/QeBaLj8GbMozJ9OgAmvGIs1luShmIkBwLKLSw==",
+        "requested": "[6.0.29, )",
+        "resolved": "6.0.29",
+        "contentHash": "KLyvgAlbSiw4cbVxqUmTBLE6rotwHbG4MK3jFaq8YR2uMVW5Yye09AVGCsbf1O3qmGh3aDd1ZRaQ2W5IX6tA2A==",
         "dependencies": {
-          "Microsoft.AspNetCore.Components.Web": "6.0.28",
+          "Microsoft.AspNetCore.Components.Web": "6.0.29",
           "Microsoft.Extensions.Configuration.Binder": "6.0.0",
           "Microsoft.Extensions.Configuration.Json": "6.0.0",
           "Microsoft.Extensions.Logging": "6.0.0",
-          "Microsoft.JSInterop.WebAssembly": "6.0.28"
+          "Microsoft.JSInterop.WebAssembly": "6.0.29"
         }
       },
       "Microsoft.AspNetCore.Components.WebAssembly.DevServer": {
         "type": "Direct",
-        "requested": "[6.0.28, )",
-        "resolved": "6.0.28",
-        "contentHash": "9AQYtsxcD4kt8rYJesm8I/k4ZGs/oP1vwFz2c6TRrKQFp2egjfRmVjEt1TygGlTwNSpGTg/WC1Ret2Xt13YhIQ=="
+        "requested": "[6.0.29, )",
+        "resolved": "6.0.29",
+        "contentHash": "uIdqnAHtt0Y1flZqlU8RErqHH6euzzq+u4Pe9gbOdXKCbkwyuoIwio2jTJmtY2LVmCek9dzQTEQkvP0IkWc6Sg=="
       },
       "NI.CSharp.Analyzers": {
         "type": "Direct",
@@ -243,10 +243,10 @@
       },
       "Microsoft.JSInterop.WebAssembly": {
         "type": "Transitive",
-        "resolved": "6.0.28",
-        "contentHash": "T3yuRTcfbYI9j0f72oMXdOn4hHircZew6zgVPXLSGJhceTn94fmBmrf24zx5e0Srv0wwWFWLzJ+UDEI5pCGEnw==",
+        "resolved": "6.0.29",
+        "contentHash": "aJmgk1yT4XAZt6Sp6hVJUhpZNhJBV0knOIwzlYrOBd+aTLUbZVFPSAVTdzhD+ih8lBnix+noU7O4wwxCyG3geg==",
         "dependencies": {
-          "Microsoft.JSInterop": "6.0.28"
+          "Microsoft.JSInterop": "6.0.29"
         }
       },
       "Microsoft.VisualStudio.Threading.Analyzers": {
@@ -346,7 +346,7 @@
       "nimbleblazor": {
         "type": "Project",
         "dependencies": {
-          "Microsoft.AspNetCore.Components.Web": "[6.0.28, )"
+          "Microsoft.AspNetCore.Components.Web": "[6.0.29, )"
         }
       }
     },

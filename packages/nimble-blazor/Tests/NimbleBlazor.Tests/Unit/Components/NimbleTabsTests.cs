@@ -42,7 +42,7 @@ public class NimbleTabsTests
     }
 
     [Fact]
-    public async void NimbleTabs_ChangeActiveIdToNull_ActiveTabIdDoesNotSwitch()
+    public async Task NimbleTabs_ChangeActiveIdToNull_ActiveTabIdDoesNotSwitchAsync()
     {
         var expectedActiveTabId = "tab1";
         var tabs = CreateTwoTabsWithActiveTabIdSet(expectedActiveTabId);
@@ -53,7 +53,7 @@ public class NimbleTabsTests
     }
 
     [Fact]
-    public async void NimbleTabs_ChangeActiveId_ActiveTabUpdates()
+    public async Task NimbleTabs_ChangeActiveId_ActiveTabUpdatesAsync()
     {
         var expectedActiveTabId = "tab2";
         var eventArgs = new TabsChangeEventArgs { ActiveId = expectedActiveTabId };
