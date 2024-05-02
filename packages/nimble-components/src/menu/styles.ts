@@ -39,6 +39,7 @@ export const styles = css`
 
     :host([slot='submenu']) {
         margin: 0 ${mediumPadding};
+        cursor: default;
     }
 
     ::slotted(*) {
