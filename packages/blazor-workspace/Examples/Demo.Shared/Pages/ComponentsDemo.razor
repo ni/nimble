@@ -1,0 +1,388 @@
+@page "/"
+@namespace Demo.Shared.Pages
+@inherits LayoutComponentBase
+
+<div class="content container">
+    <p>
+        Explore the components below to see the Nimble components in action. See the <a
+                href="https://nimble.ni.dev/storybook/">Nimble
+                component docs</a> for additional usage details.
+    </p>
+    <div class="container">
+        <div class="sub-container">
+            <div class="container-label">Anchor</div>
+            <NimbleAnchor Href="#">Site root</NimbleAnchor>
+        </div>
+        <div class="sub-container">
+            <div class="container-label">Breadcrumb</div>
+            <NimbleBreadcrumb>
+                <NimbleBreadcrumbItem Href="#">Page 1</NimbleBreadcrumbItem>
+                <NimbleBreadcrumbItem Href="#">Page 2</NimbleBreadcrumbItem>
+                <NimbleBreadcrumbItem>Current Page (No Link)</NimbleBreadcrumbItem>
+            </NimbleBreadcrumb>
+        </div>
+        <div class="sub-container">
+            <div class="container-label">Banner</div>
+            <NimbleBanner @bind-Open="@BannerOpen" Severity="BannerSeverity.Information">
+                <span slot="title">Title of the banner</span>
+                This is the message text of this banner. It tells you something interesting.
+            </NimbleBanner>
+            <NimbleCheckbox @bind-Value="@BannerOpen">Show banner</NimbleCheckbox>
+        </div>
+        <div class="sub-container">
+            <div class="container-label">Buttons</div>
+            <NimbleButton Appearance="ButtonAppearance.Outline">Outline Button</NimbleButton>
+            <NimbleButton Appearance="ButtonAppearance.Block">Block Button</NimbleButton>
+            <NimbleButton Appearance="ButtonAppearance.Ghost">Ghost Button</NimbleButton>
+            <NimbleButton ContentHidden="true" Appearance="ButtonAppearance.Outline">
+                <NimbleIconKey slot="start"></NimbleIconKey>
+                Icon Button
+            </NimbleButton>
+        </div>
+        <div class="sub-container">
+            <div class="container-label">Buttons - Anchor</div>
+            <NimbleAnchorButton Href="#" Appearance="ButtonAppearance.Outline">Outline Anchor Button</NimbleAnchorButton>
+            <NimbleAnchorButton Href="#" Appearance="ButtonAppearance.Block">Block Anchor Button</NimbleAnchorButton>
+            <NimbleAnchorButton Href="#" Appearance="ButtonAppearance.Ghost">Ghost Anchor Button</NimbleAnchorButton>
+            <NimbleAnchorButton Href="#" ContentHidden="true" Appearance="ButtonAppearance.Outline">
+                <NimbleIconKey slot="start"></NimbleIconKey>
+                Icon Button
+            </NimbleAnchorButton>
+        </div>
+        <div class="sub-container">
+            <div class="container-label">Buttons - Toggle</div>
+            <NimbleToggleButton Appearance="ButtonAppearance.Outline">Outline Toggle Button</NimbleToggleButton>
+            <NimbleToggleButton Appearance="ButtonAppearance.Block">Block Toggle Button</NimbleToggleButton>
+            <NimbleToggleButton Appearance="ButtonAppearance.Ghost">Ghost Toggle Button</NimbleToggleButton>
+            <NimbleToggleButton ContentHidden="true" Appearance="ButtonAppearance.Outline">
+                <NimbleIconKey slot="start"></NimbleIconKey>
+                Icon Toggle Button
+            </NimbleToggleButton>
+        </div>
+        <div class="sub-container">
+            <div class="container-label">Card</div>
+            <NimbleCard>
+                <span slot="title">Title of the card</span>
+                <NimbleNumberField>Numeric field 1</NimbleNumberField>
+                <NimbleNumberField>Numeric field 2</NimbleNumberField>
+                <NimbleSelect>
+                    <NimbleListOption Value="1">Option 1</NimbleListOption>
+                    <NimbleListOption Value="2">Option 2</NimbleListOption>
+                    <NimbleListOption Value="3">Option 3</NimbleListOption>
+                </NimbleSelect>
+            </NimbleCard>
+        </div>
+        <div class="sub-container">
+            <div class="container-label">Card Button</div>
+            <NimbleCardButton>
+                <span class="card-button-content">Card Button</span>
+            </NimbleCardButton>
+            <NimbleCardButton selected>
+                <span class="card-button-content">Selected Card Button</span>
+            </NimbleCardButton>
+        </div>
+        <div class="sub-container">
+            <div class="container-label">Checkbox</div>
+            <NimbleCheckbox>Checkbox label</NimbleCheckbox>
+            <NimbleCheckbox>Checkbox label</NimbleCheckbox>
+            <NimbleCheckbox>Checkbox label</NimbleCheckbox>
+        </div>
+        <div class="sub-container">
+            <div class="container-label">Radio Buttons</div>
+            <NimbleRadioGroup Name="options" @bind-Value="@SelectedRadio">
+                <NimbleRadio Value="1">Option 1</NimbleRadio>
+                <NimbleRadio Value="2">Option 2</NimbleRadio>
+                <NimbleRadio Value="3">Option 3</NimbleRadio>
+            </NimbleRadioGroup>
+            <NimbleTextField @bind-Value="@SelectedRadio">Value</NimbleTextField>
+        </div>
+        <div class="sub-container">
+            <div class="container-label">Dialog</div>
+            <NimbleButton Appearance="ButtonAppearance.Outline" @onclick="OpenDialogAsync">Open Dialog</NimbleButton>
+            <NimbleTextField readonly Value="@DialogClosedReason">Closed reason</NimbleTextField>
+            <NimbleDialog TCloseReason="DialogResult" @ref="_dialog">
+                <span slot="title">Have a nice day</span>
+                <div>And also a nice week</div>
+                <NimbleButton slot="footer" @onclick='() => CloseDialogAsync(DialogResult.OK)'>OK</NimbleButton>
+                <NimbleButton slot="footer" @onclick='() => CloseDialogAsync(DialogResult.Cancel)'>Cancel</NimbleButton>
+            </NimbleDialog>
+        </div>
+        <div class="sub-container">
+            <div class="container-label">Drawer</div>
+            <NimbleButton Appearance="ButtonAppearance.Outline" @onclick="OpenDrawerAsync">Open Drawer</NimbleButton>
+            <NimbleSelect class="drawer-location-select" @bind-Value="@DrawerLocationAsString">
+                <NimbleListOption Value="@DrawerLocation.Left.ToString()">Drawer: Left-side</NimbleListOption>
+                <NimbleListOption Value="@DrawerLocation.Right.ToString()">Drawer: Right-side</NimbleListOption>
+            </NimbleSelect>
+            <NimbleTextField readonly Value="@DrawerClosedReason">Closed reason</NimbleTextField>
+            <NimbleDrawer TCloseReason="DialogResult" Location="_drawerLocation" @ref="_drawer">
+                <header>Have a nice day</header>
+                <section>And also a nice week</section>
+                <footer class="drawer-footer">
+                    <NimbleButton @onclick='() => CloseDrawerAsync(DialogResult.OK)'>OK</NimbleButton>
+                    <NimbleButton @onclick='() => CloseDrawerAsync(DialogResult.Cancel)'>Cancel</NimbleButton>
+                </footer>
+            </NimbleDrawer>
+        </div>
+        <div class="sub-container">
+            <div class="container-label">Icons (subset - see <a href="https://nimble.ni.dev/storybook/?path=/docs/components-icons--docs">
+                Icons Storybook page</a> for complete set)</div>
+            <NimbleIconChartDiagram></NimbleIconChartDiagram>
+            <NimbleIconSquareCheck Severity="IconSeverity.Success"></NimbleIconSquareCheck>
+            <NimbleIconXmarkCheck Severity="IconSeverity.Warning"></NimbleIconXmarkCheck>
+            <NimbleIconXmark Severity="IconSeverity.Error"></NimbleIconXmark>
+        </div>
+        <div class="sub-container">
+            <div class="container-label">Menu</div>
+            <NimbleMenu>
+                <header>Header 1</header>
+                <NimbleMenuItem>
+                    Item 1
+                    <NimbleIconAdd slot="start"></NimbleIconAdd>
+                </NimbleMenuItem>
+                <NimbleMenuItem>Item 2</NimbleMenuItem>
+                <hr>
+                <header>Header 2</header>
+                <NimbleMenuItem>Item 4</NimbleMenuItem>
+                <NimbleAnchorMenuItem Href="#">Item 5 (link)</NimbleAnchorMenuItem>
+            </NimbleMenu>
+        </div>
+        <div class="sub-container">
+            <div class="container-label">Menu button</div>
+            <NimbleMenuButton>
+                Menu button
+                <NimbleMenu slot="menu">
+                    <header>Header 1</header>
+                    <NimbleMenuItem>
+                        Item 1
+                        <NimbleIconAdd slot="start"></NimbleIconAdd>
+                    </NimbleMenuItem>
+                    <NimbleMenuItem>Item 2</NimbleMenuItem>
+                    <hr>
+                    <header>Header 2</header>
+                    <NimbleMenuItem>Item 4</NimbleMenuItem>
+                </NimbleMenu>
+            </NimbleMenuButton>
+        </div>
+        <div class="sub-container">
+            <div class="container-label">Number Field</div>
+            <NimbleNumberField Placeholder="Enter value...">Number Field Label</NimbleNumberField>
+        </div>
+        <div class="sub-container">
+            <div class="container-label">Select</div>
+            <NimbleSelect Appearance="DropdownAppearance.Underline" FilterMode="FilterMode.Standard">
+                <NimbleListOption>Option 1</NimbleListOption>
+                <NimbleListOption>Option 2</NimbleListOption>
+                <NimbleListOption>Option 3</NimbleListOption>
+            </NimbleSelect>
+            <NimbleSelect Appearance="DropdownAppearance.Outline">
+                <NimbleListOption>Option 1</NimbleListOption>
+                <NimbleListOption>Option 2</NimbleListOption>
+                <NimbleListOption>Option 3</NimbleListOption>
+            </NimbleSelect>
+            <NimbleSelect Appearance="DropdownAppearance.Block">
+                <NimbleListOption>Option 1</NimbleListOption>
+                <NimbleListOption>Option 2</NimbleListOption>
+                <NimbleListOption>Option 3</NimbleListOption>
+            </NimbleSelect>
+        </div>
+        <div class="sub-container">
+            <div class="container-label">Combobox</div>
+            <NimbleCombobox AutoComplete="AutoComplete.Both" Placeholder="Select value..." Appearance="DropdownAppearance.Underline">
+                <NimbleListOption>Mary</NimbleListOption>
+                <NimbleListOption>Sue</NimbleListOption>
+                <NimbleListOption>Dexter</NimbleListOption>
+            </NimbleCombobox>
+            <NimbleCombobox AutoComplete="AutoComplete.Both" Placeholder="Select value..." Appearance="DropdownAppearance.Outline">
+                <NimbleListOption>Mary</NimbleListOption>
+                <NimbleListOption>Sue</NimbleListOption>
+                <NimbleListOption>Dexter</NimbleListOption>
+            </NimbleCombobox>
+            <NimbleCombobox AutoComplete="AutoComplete.Both" Placeholder="Select value..." Appearance="DropdownAppearance.Block">
+                <NimbleListOption>Mary</NimbleListOption>
+                <NimbleListOption>Sue</NimbleListOption>
+                <NimbleListOption>Dexter</NimbleListOption>
+            </NimbleCombobox>
+        </div>
+        <div class="sub-container">
+            <div class="container-label">Spinner</div>
+            <NimbleSpinner></NimbleSpinner>
+        </div>
+        <div class="sub-container">
+            <div class="container-label">Switch</div>
+            <NimbleSwitch>Switch</NimbleSwitch>
+            <NimbleSwitch Value="true">
+                Switch with checked/unchecked messages
+                <span slot="unchecked-message">Off</span>
+                <span slot="checked-message">On</span>
+            </NimbleSwitch>
+        </div>
+        <div class="sub-container">
+            <div class="container-label">Table</div>
+            <NimbleTable TData="SimpleTableRecord" @ref="_table" IdFieldName="Id" ParentIdFieldName="ParentId" SelectionMode="TableRowSelectionMode.Multiple" class="table">
+                <NimbleTableColumnText
+                    FieldName="StringValue1"
+                    ActionMenuSlot="action-menu"
+                    ActionMenuLabel="Action menu"
+                    FractionalWidth="2"
+                    MinPixelWidth="300"
+                    SortDirection="TableColumnSortDirection.Ascending"
+                    SortIndex="0"
+                >
+                    <NimbleIconCheck title="String 1"></NimbleIconCheck>
+                </NimbleTableColumnText>
+                <NimbleTableColumnAnchor HrefFieldName="Href" LabelFieldName="LinkLabel">Link</NimbleTableColumnAnchor>
+                <NimbleTableColumnDateText FieldName="Date">Date</NimbleTableColumnDateText>
+                <NimbleTableColumnIcon FieldName="StatusCode" TKey="int">
+                    <NimbleMappingText Key="100" Text="Status message 1"></NimbleMappingText>
+                    <NimbleMappingText Key="101" Text="Status message 2"></NimbleMappingText>
+                    Status
+                </NimbleTableColumnIcon>
+                <NimbleTableColumnIcon FieldName="Result" TKey="string" WidthMode="MappingColumnWidthMode.IconSize">
+                    <NimbleMappingIcon
+                        Key=@("success")
+                        Text="Success"
+                        Icon="nimble-icon-check"
+                        Severity="IconSeverity.Success"
+                        TextHidden="true">
+                    </NimbleMappingIcon>
+                    <NimbleMappingSpinner
+                        Key=@("unknown")
+                        Text="Unknown"
+                        TextHidden="true">
+                    </NimbleMappingSpinner>
+                    <NimbleIconXmarkCheck title="Result"></NimbleIconXmarkCheck>
+                </NimbleTableColumnIcon>
+                <NimbleTableColumnNumberText FieldName="Number">Number</NimbleTableColumnNumberText>
+                <NimbleTableColumnDurationText FieldName="Duration">Duration</NimbleTableColumnDurationText>
+                <NimbleTableColumnText FieldName="StringValue2" MinPixelWidth="400" GroupIndex="0">String 2</NimbleTableColumnText>
+
+                <NimbleMenu slot="action-menu">
+                    <NimbleMenuItem>Item 1</NimbleMenuItem>
+                    <NimbleMenuItem>Item 2</NimbleMenuItem>
+                    <NimbleMenuItem>Item 3</NimbleMenuItem>
+                </NimbleMenu>
+            </NimbleTable>
+            <NimbleButton class="table-update-button" @onclick=@(_ => AddTableRows(10))>Add rows</NimbleButton>
+        </div>
+        <div class="sub-container">
+            <div class="container-label">Table with delayed hierarchy</div>
+            <NimbleTable TData="PersonTableRecord" RowExpandToggle="OnRowExpandToggleAsync" @ref="_delayedHierarchyTable" IdFieldName="Id" ParentIdFieldName="ParentId" SelectionMode="TableRowSelectionMode.Multiple" class="table">
+                <NimbleTableColumnText FieldName="FirstName">First name</NimbleTableColumnText>
+                <NimbleTableColumnText FieldName="LastName">Last name</NimbleTableColumnText>
+                <NimbleTableColumnNumberText FieldName="Age" Format="NumberTextFormat.Decimal" DecimalDigits="0">Age</NimbleTableColumnNumberText>
+            </NimbleTable>
+        </div>
+        <div class="sub-container">
+            <div class="container-label">Tabs</div>
+            <NimbleTabs @bind-ActiveId="@ActiveTabId">
+                <NimbleTab id="tab-1">Tab 1</NimbleTab>
+                <NimbleTab id="tab-2">Tab 2</NimbleTab>
+                <NimbleTab id="tab-3" Disabled="true">Tab 3 (Disabled)</NimbleTab>
+                <NimbleTabsToolbar>
+                    <NimbleButton>Toolbar Button</NimbleButton>
+                </NimbleTabsToolbar>
+                <NimbleTabPanel>
+                    <div class="container-label">Tab 1 content</div>
+                </NimbleTabPanel>
+                <NimbleTabPanel>
+                    <div class="container-label">Tab 2 content</div>
+                    <NimbleTextField Placeholder="Enter text into Tab here" />
+                </NimbleTabPanel>
+                <NimbleTabPanel>
+                    <div class="container-label">Tab 3 content</div>
+                </NimbleTabPanel>
+            </NimbleTabs>
+            <label id="activeTab">
+                Active tab:
+            </label>
+            <NimbleSelect @bind-Value="@ActiveTabId" aria-labelledby="activeTab">
+                <NimbleListOption Value="tab-1">Tab 1</NimbleListOption>
+                <NimbleListOption Value="tab-2">Tab 2</NimbleListOption>
+                <NimbleListOption Value="tab-3">Tab 3</NimbleListOption>
+            </NimbleSelect>
+        </div>
+        <div class="sub-container">
+            <div class="container-label">Tabs - Anchor</div>
+            <NimbleAnchorTabs ActiveId="@ActiveAnchorTabId">
+                <NimbleAnchorTab id="a-tab-1" href="https://nimble.ni.dev">Tab 1</NimbleAnchorTab>
+                <NimbleAnchorTab id="a-tab-2" href="https://ni.com">Tab 2</NimbleAnchorTab>
+                <NimbleAnchorTab id="a-tab-3" Disabled="true">Tab 3 (Disabled)</NimbleAnchorTab>
+                <NimbleTabsToolbar>
+                    <NimbleButton>Toolbar Button</NimbleButton>
+                </NimbleTabsToolbar>
+            </NimbleAnchorTabs>
+            <label id="activeAnchorTab">
+                Active tab:
+            </label>
+            <NimbleSelect @bind-Value="@ActiveAnchorTabId" aria-labelledby="activeAnchorTab">
+                <NimbleListOption Value="a-tab-1">Tab 1</NimbleListOption>
+                <NimbleListOption Value="a-tab-2">Tab 2</NimbleListOption>
+                <NimbleListOption Value="a-tab-3">Tab 3</NimbleListOption>
+            </NimbleSelect>
+        </div>
+        <div class="sub-container">
+            <div class="container-label">Text Area</div>
+            <NimbleTextArea Placeholder="Text Area" Cols="50" Rows="5" TextAreaResize="TextAreaResize.Horizontal" Value="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.">Text Area Label</NimbleTextArea>
+        </div>
+        <div class="sub-container">
+            <div class="container-label">Text Field</div>
+            <NimbleTextField Placeholder="Text Field" Value="Here is text!">Text Field Label</NimbleTextField>
+        </div>
+        <div class="sub-container">
+            <div class="container-label">Toolbar</div>
+            <NimbleToolbar>
+                <NimbleButton slot="start" Appearance="ButtonAppearance.Outline">First Button</NimbleButton>
+                <NimbleButton slot="start" Appearance="ButtonAppearance.Outline">Second Button</NimbleButton>
+                <NimbleButton>Middle Button</NimbleButton>
+                <NimbleButton slot="end" Appearance="ButtonAppearance.Outline">Last Button</NimbleButton>
+            </NimbleToolbar>
+        </div>
+        <div class="sub-container">
+            <div class="container-label">Tooltip</div>
+            <NimbleButton id="default-anchor">Default</NimbleButton>
+            <NimbleTooltip Anchor="default-anchor">Tooltip label</NimbleTooltip>
+            <NimbleButton id="fail-anchor">Fail</NimbleButton>
+            <NimbleTooltip Anchor="fail-anchor" Severity="TooltipSeverity.Error">Tooltip label</NimbleTooltip>
+            <NimbleButton id="information-anchor">Information</NimbleButton>
+            <NimbleTooltip Anchor="information-anchor" Severity="TooltipSeverity.Information">Tooltip label</NimbleTooltip>
+            <NimbleButton id="fail-icon-anchor">Fail Icon</NimbleButton>
+            <NimbleTooltip Anchor="fail-icon-anchor" Severity="TooltipSeverity.Error" IconVisible="true">Tooltip label</NimbleTooltip>
+            <NimbleButton id="information-icon-anchor">Information Icon</NimbleButton>
+            <NimbleTooltip Anchor="information-icon-anchor" Severity="TooltipSeverity.Information" IconVisible="true">Tooltip label</NimbleTooltip>
+        </div>
+        <div class="sub-container">
+            <div class="container-label">Tree View</div>
+            <NimbleTreeView>
+                <NimbleTreeItem>
+                    Parent 1
+                    <NimbleTreeItem>Child 1</NimbleTreeItem>
+                    <NimbleAnchorTreeItem Href="https://nimble.ni.dev">Child 2 (link)</NimbleAnchorTreeItem>
+                    <NimbleTreeItem Disabled="true">Child 3</NimbleTreeItem>
+                </NimbleTreeItem>
+                <NimbleTreeItem Expanded="true">
+                    Parent 2
+                    <NimbleTreeItem Selected="true">Child 2-1</NimbleTreeItem>
+                    <NimbleTreeItem>Child 2-2</NimbleTreeItem>
+                    <NimbleTreeItem>Child 2-3</NimbleTreeItem>
+                </NimbleTreeItem>
+            </NimbleTreeView>
+        </div>
+        <div class="sub-container">
+            <div class="container-label">Wafer Map</div>
+            <NimbleWaferMap 
+                OriginLocation="WaferMapOriginLocation.BottomLeft"
+                Orientation="WaferMapOrientation.Bottom"
+                MaxCharacters=2
+                DieLabelsHidden="false"
+                ColorScaleMode="WaferMapColorScaleMode.Linear"
+                @bind-Dies="Dies"
+                @bind-ColorScale="ColorScale"
+                @bind-HighlightedTags="HighlightedTags"
+            >
+            </NimbleWaferMap>
+            <NimbleButton @onclick=@(_ => AddDiesToRadius(10))>Increase Die Count</NimbleButton>
+            <NimbleButton @onclick=@(_ => RemoveDiesFromRadius(10))>Decrease Die Count</NimbleButton>
+        </div>
+    </div>
+</div>
