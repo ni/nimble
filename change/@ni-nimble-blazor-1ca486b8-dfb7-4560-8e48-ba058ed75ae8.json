@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "Test release from renamed Blazor workspace and solution",
+  "packageName": "@ni/nimble-blazor",
+  "email": "7282195+m-akinc@users.noreply.github.com",
+  "dependentChangeType": "none"
+}
