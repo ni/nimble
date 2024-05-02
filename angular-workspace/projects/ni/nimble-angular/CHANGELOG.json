@@ -2,6 +2,21 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Thu, 02 May 2024 17:22:44 GMT",
+      "version": "23.2.0",
+      "tag": "@ni/nimble-angular_v23.2.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "7a27f45851b45e29a554e3effc812011108db80d",
+            "comment": "Add width-mode to the icon column"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 01 May 2024 21:45:37 GMT",
       "version": "23.1.11",
       "tag": "@ni/nimble-angular_v23.1.11",
