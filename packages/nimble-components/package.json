@@ -4,7 +4,7 @@
   "description": "Styled web components for the NI Nimble Design System",
   "scripts": {
     "build": "npm run generate-icons && npm run generate-workers && npm run build-components && npm run bundle-components && npm run generate-scss",
-    "lint": "npm run eslint && npm run prettier",
+    "lint-concurrently": "concurrently --timings --group \"npm:eslint\" \"npm:prettier\"",
     "format": "npm run eslint-fix && npm run prettier-fix",
     "eslint": "eslint .",
     "eslint-fix": "eslint src --fix",
@@ -44,7 +44,7 @@
     "test-webkit:verbose": "karma start karma.conf.verbose.js --browsers=WebkitHeadless --single-run --skip-tags SkipWebkit",
     "test-webkit:watch": "karma start karma.conf.js --browsers=WebkitHeadless --skip-tags SkipWebkit --watch-extensions js",
     "test-webkit": "karma start karma.conf.js --browsers=WebkitHeadless --single-run --skip-tags SkipWebkit",
-    "test": "npm run test-chrome:verbose && npm run test-firefox:verbose"
+    "test-concurrently": "concurrently --timings --group \"npm:test-chrome:verbose\" \"npm:test-firefox:verbose\""
   },
   "repository": {
     "type": "git",
@@ -104,8 +104,8 @@
     "apache-arrow": "^15.0.0"
   },
   "devDependencies": {
-    "@ni/jasmine-parameterized": "^0.3.0",
     "@ni-private/eslint-config-nimble": "^1.0.0",
+    "@ni/jasmine-parameterized": "^0.3.0",
     "@rollup/plugin-commonjs": "^25.0.7",
     "@rollup/plugin-json": "^6.0.0",
     "@rollup/plugin-node-resolve": "^15.0.1",
@@ -114,6 +114,7 @@
     "@types/jasmine": "^5.1.4",
     "@types/offscreencanvas": "^2019.7.3",
     "@types/webpack-env": "^1.15.2",
+    "concurrently": "^8.2.2",
     "css-loader": "^6.7.3",
     "eslint-plugin-jsdoc": "^48.2.0",
     "jasmine-core": "^5.1.2",
