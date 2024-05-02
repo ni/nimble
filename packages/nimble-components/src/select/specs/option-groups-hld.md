@@ -71,7 +71,7 @@ Originally, there was a desire to display the group name for the selected option
 
 #### Slotted content in group
 
-At some point there may be a desire to provide extra visuals to a group. There already is such a [desire for the options](https://github.com/ni/nimble/issues/1135) themselves.
+At some point there may be a desire to provide extra visuals to a group. There already is such a [desire for the options](https://github.com/ni/nimble/issues/1135) themselves. However, there is no need to provide the API/implementation for this initially, as there is no current use-case demanding it.
 
 #### Hierarchichal groups
 
