@@ -713,7 +713,10 @@ implements Subscriber {
     }
 
     private setFocusOnHeader(): boolean {
+        // TODO: Need to re-evaluate this whenever the elements in the header change - e.g.
+        // hierarchy on/off, grouping on/off, etc
         this.focusableHeaderElements = this.getTableHeaderFocusableElements();
+
         if (
             this.focusState.focusType !== TableFocusType.headerActions
             && this.focusState.focusType !== TableFocusType.columnHeader
