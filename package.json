@@ -12,7 +12,6 @@
     "change": "beachball change",
     "check": "beachball check --changehint \"Run 'npm run change' to generate a change file\"",
     "invoke-publish": "cross-env-shell beachball publish --yes --access public --message \\\"applying package updates [skip ci]\\\" -n $NPM_SECRET_TOKEN",
-    "validate": "npm run build && npm run lint && npm run test",
     "performance": "npm run performance --workspaces --if-present",
     "beachball-sync": "beachball sync",
     "lint-sequential": "npm run lint --workspaces --if-present",
