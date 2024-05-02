@@ -45,7 +45,7 @@ jobs:
       # Install dependencies
       - uses: actions/setup-dotnet@v4
         with:
-          global-json-file: packages/nimble-blazor/global.json
+          global-json-file: packages/blazor-workspace/global.json
       - uses: actions/setup-node@v4
         with:
           node-version: '20'
@@ -53,15 +53,15 @@ jobs:
           cache: 'npm'
       - run: npm ci
       - run: dotnet restore --locked-mode
-        working-directory: packages/nimble-blazor/
+        working-directory: packages/blazor-workspace/
 
       # Print resolved dotnet info
       - run: dotnet --info
-        working-directory: packages/nimble-blazor/
+        working-directory: packages/blazor-workspace/
       - run: dotnet --list-sdks
-        working-directory: packages/nimble-blazor/
+        working-directory: packages/blazor-workspace/
       - run: dotnet --version
-        working-directory: packages/nimble-blazor/
+        working-directory: packages/blazor-workspace/
 
       # print a log of outdated npm dependencies
       # only informational so swallow error codes
