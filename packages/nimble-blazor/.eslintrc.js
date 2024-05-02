@@ -21,6 +21,9 @@ module.exports = {
                 // Rollup config files use default exports
                 'import/no-default-export': 'off',
 
+                // Allow build to reference files in NimbleBlazor and SprightBlazor
+                'import/no-relative-packages': 'off',
+
                 // Enabled to prevent accidental usage of async-await
                 'require-await': 'error'
             }

@@ -19,6 +19,8 @@ import { spinnerTag } from '../../../spinner';
 import { themeProviderTag } from '../../../theme-provider';
 import { TableColumnIconPageObject } from '../testing/table-column-icon.pageobject';
 import { mappingUserTag } from '../../../mapping/user';
+import { TableColumnMappingWidthMode } from '../types';
+import { defaultMinPixelWidth } from '../../base/types';
 
 interface SimpleTableRecord extends TableRecord {
     field1?: MappingKey | null;
@@ -886,6 +888,101 @@ describe('TableColumnIcon', () => {
                     ).toBe('');
                 });
             });
+        });
+    });
+
+    describe('width-mode', () => {
+        beforeEach(async () => {
+            ({ connect, disconnect, model } = await setup({
+                keyType: MappingKeyType.string
+            }));
+        });
+
+        it('defaults to `default`', () => {
+            expect(model.col1.widthMode).toBe(
+                TableColumnMappingWidthMode.default
+            );
+            expect(model.col1.columnInternals.resizingDisabled).toBeFalse();
+        });
+
+        it('column configuration is updated when set to `iconSize`', async () => {
+            model.col1.widthMode = TableColumnMappingWidthMode.iconSize;
+            await waitForUpdatesAsync();
+
+            expect(model.col1.columnInternals.resizingDisabled).toBeTrue();
+            expect(model.col1.columnInternals.pixelWidth).toBe(32);
+            expect(model.col1.columnInternals.minPixelWidth).toBe(32);
+        });
+
+        it('column changes back to fractionally sized when changing from `iconSize` to `default`', async () => {
+            model.col1.widthMode = TableColumnMappingWidthMode.iconSize;
+            await waitForUpdatesAsync();
+            model.col1.widthMode = TableColumnMappingWidthMode.default;
+            await waitForUpdatesAsync();
+
+            expect(model.col1.columnInternals.resizingDisabled).toBeFalse();
+            expect(model.col1.columnInternals.pixelWidth).toBe(undefined);
+            expect(model.col1.columnInternals.minPixelWidth).toBe(
+                defaultMinPixelWidth
+            );
+        });
+
+        it('changing min-pixel-width with mode of `iconSize` does not change minimum width of column', async () => {
+            model.col1.widthMode = TableColumnMappingWidthMode.iconSize;
+            await waitForUpdatesAsync();
+            expect(model.col1.columnInternals.minPixelWidth).toBe(32);
+
+            model.col1.minPixelWidth = 500;
+            await waitForUpdatesAsync();
+            expect(model.col1.columnInternals.minPixelWidth).toBe(32);
+        });
+
+        it('previously configured min-pixel-width is retained when switching from `default` to `iconSize` and back to `default`', async () => {
+            model.col1.widthMode = TableColumnMappingWidthMode.default;
+            model.col1.minPixelWidth = 500;
+            await waitForUpdatesAsync();
+            expect(model.col1.columnInternals.minPixelWidth).toBe(500);
+
+            model.col1.widthMode = TableColumnMappingWidthMode.iconSize;
+            await waitForUpdatesAsync();
+            expect(model.col1.columnInternals.minPixelWidth).toBe(32);
+
+            model.col1.widthMode = TableColumnMappingWidthMode.default;
+            await waitForUpdatesAsync();
+            expect(model.col1.columnInternals.minPixelWidth).toBe(500);
+        });
+
+        it('min-pixel-width applied with mode of `iconSize` is used when width-mode changes to `default`', async () => {
+            model.col1.widthMode = TableColumnMappingWidthMode.iconSize;
+            await waitForUpdatesAsync();
+            expect(model.col1.columnInternals.minPixelWidth).toBe(32);
+
+            model.col1.minPixelWidth = 500;
+            await waitForUpdatesAsync();
+            expect(model.col1.columnInternals.minPixelWidth).toBe(32);
+
+            model.col1.widthMode = TableColumnMappingWidthMode.default;
+            await waitForUpdatesAsync();
+            expect(model.col1.columnInternals.minPixelWidth).toBe(500);
+        });
+
+        it('clearing min-pixel-width while in `iconSize` mode resets the minimum width to default', async () => {
+            model.col1.widthMode = TableColumnMappingWidthMode.default;
+            model.col1.minPixelWidth = 500;
+            await waitForUpdatesAsync();
+            expect(model.col1.columnInternals.minPixelWidth).toBe(500);
+
+            model.col1.widthMode = TableColumnMappingWidthMode.iconSize;
+            await waitForUpdatesAsync();
+            model.col1.minPixelWidth = undefined;
+            await waitForUpdatesAsync();
+            expect(model.col1.columnInternals.minPixelWidth).toBe(32);
+
+            model.col1.widthMode = TableColumnMappingWidthMode.default;
+            await waitForUpdatesAsync();
+            expect(model.col1.columnInternals.minPixelWidth).toBe(
+                defaultMinPixelWidth
+            );
         });
     });
 });

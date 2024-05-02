@@ -46,6 +46,8 @@
     "angular-workspace/projects/ni/nimble-angular",
     "angular-workspace/projects/ni/spright-angular",
     "packages/nimble-blazor",
+    "packages/nimble-blazor/NimbleBlazor",
+    "packages/nimble-blazor/SprightBlazor",
     "packages/performance",
     "packages/site"
   ],

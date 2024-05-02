@@ -1,4 +1,5 @@
-﻿using Bunit;
+﻿using System.Threading.Tasks;
+using Bunit;
 using Xunit;
 
 namespace NimbleBlazor.Tests.Unit.Components;
@@ -53,7 +54,7 @@ public class NimbleThemeProviderTests
     }
 
     [Fact]
-    public async void NimbleThemeProvider_ValidLangIsSet()
+    public async Task NimbleThemeProvider_ValidLangIsSetAsync()
     {
         var themeProvider = RenderNimbleThemeProvider("de-DE");
 
@@ -62,7 +63,7 @@ public class NimbleThemeProviderTests
     }
 
     [Fact]
-    public async void NimbleThemeProvider_NullLangIsSet()
+    public async Task NimbleThemeProvider_NullLangIsSetAsync()
     {
         var themeProvider = RenderNimbleThemeProvider(null);
 
