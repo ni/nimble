@@ -78,4 +78,3 @@ It isn't difficult to imagine scenarios where a client may wish to have nested g
 _Note: If a client constructs a DOM hierarchy with a group within another group we may need to provide some validity state on the `Select` explaining its invalidity, and we certainly need tests around this case to ensure we behave as intended._
 
 ## Open Issues
-
