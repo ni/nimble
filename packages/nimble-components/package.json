@@ -1,6 +1,6 @@
 {
   "name": "@ni/nimble-components",
-  "version": "27.1.1",
+  "version": "27.2.2",
   "description": "Styled web components for the NI Nimble Design System",
   "scripts": {
     "build": "npm run generate-icons && npm run generate-workers && npm run build-components && npm run bundle-components && npm run generate-scss",
@@ -88,7 +88,7 @@
     "@types/d3-scale": "^4.0.2",
     "@types/d3-selection": "^3.0.0",
     "@types/d3-zoom": "^3.0.0",
-    "@types/markdown-it": "^13.0.0",
+    "@types/markdown-it": "^13.0.8",
     "comlink": "4.4.1",
     "d3-array": "^3.2.2",
     "d3-random": "^3.0.1",

@@ -1,8 +1,24 @@
 # Change Log - @ni/nimble-blazor
 
-This log was last generated on Fri, 26 Apr 2024 20:31:47 GMT and should not be manually modified.
+This log was last generated on Wed, 01 May 2024 22:28:21 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 16.0.10
+
+Wed, 01 May 2024 22:28:21 GMT
+
+### Patches
+
+- Update nuget dependencies ([ni/nimble@5d398fc](https://github.com/ni/nimble/commit/5d398fc5873bcb530f0eb643eaaf2a3b5ee33568))
+
+## 16.0.9
+
+Wed, 01 May 2024 18:56:28 GMT
+
+### Patches
+
+- Refactor packages to introduce SprightBlazor ([ni/nimble@ed21267](https://github.com/ni/nimble/commit/ed212673f9389e3e9b75a133b09e9fb29f28911a))
 
 ## 16.0.3
 

@@ -2,6 +2,50 @@
   "name": "@ni/nimble-blazor",
   "entries": [
     {
+      "date": "Wed, 01 May 2024 22:28:21 GMT",
+      "version": "16.0.10",
+      "tag": "@ni/nimble-blazor_v16.0.10",
+      "comments": {
+        "patch": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "5d398fc5873bcb530f0eb643eaaf2a3b5ee33568",
+            "comment": "Update nuget dependencies"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 01 May 2024 18:56:28 GMT",
+      "version": "16.0.9",
+      "tag": "@ni/nimble-blazor_v16.0.9",
+      "comments": {
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "048123ec697da40e479793b7f8f0ad09a9bd712f",
+            "comment": "Invoke publish fix"
+          },
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "708ee423497c4750f6f2ff37ae5477c4d165ad03",
+            "comment": "sync packages"
+          }
+        ],
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "ed212673f9389e3e9b75a133b09e9fb29f28911a",
+            "comment": "Refactor packages to introduce SprightBlazor"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 26 Apr 2024 20:31:47 GMT",
       "version": "16.0.3",
       "tag": "@ni/nimble-blazor_v16.0.3",
