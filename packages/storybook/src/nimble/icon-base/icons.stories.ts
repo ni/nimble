@@ -7,7 +7,7 @@ import {
     scssInternalPropertySetterMarkdown
 } from '@ni/nimble-components/dist/esm/theme-provider/design-token-names';
 import { Table, tableTag } from '@ni/nimble-components/dist/esm/table';
-import { tableColumnIconTag } from '@ni/nimble-components/dist/esm/table-column/mapping';
+import { tableColumnMappingTag } from '@ni/nimble-components/dist/esm/table-column/mapping';
 import { mappingIconTag } from '@ni/nimble-components/dist/esm/mapping/icon';
 import { tableColumnTextTag } from '@ni/nimble-components/dist/esm/table-column/text';
 import { IconSeverity } from '@ni/nimble-components/dist/esm/icon-base/types';
@@ -86,7 +86,7 @@ export const icons: StoryObj<IconArgs> = {
             style="height: calc((34px * var(--data-length)) + 32px);"
             data-unused="${x => updateData(x.tableRef)}"
         >
-            <${tableColumnIconTag} field-name="tag" key-type="string">
+            <${tableColumnMappingTag} field-name="tag" key-type="string">
                 Icon
                 ${repeat(() => data, html<Data, IconArgs>`
                     <${mappingIconTag}
@@ -97,7 +97,7 @@ export const icons: StoryObj<IconArgs> = {
                         text-hidden
                     ></${mappingIconTag}>
                 `)}
-            </${tableColumnIconTag}>
+            </${tableColumnMappingTag}>
             <${tableColumnTextTag} field-name="tag">
                 Tag Name
             </${tableColumnTextTag}>

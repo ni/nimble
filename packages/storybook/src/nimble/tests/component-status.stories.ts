@@ -2,7 +2,7 @@ import { html, ref } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
 import { Table, tableTag } from '@ni/nimble-components/dist/esm/table';
 import { tableColumnAnchorTag } from '@ni/nimble-components/dist/esm/table-column/anchor';
-import { tableColumnIconTag } from '@ni/nimble-components/dist/esm/table-column/mapping';
+import { tableColumnMappingTag } from '@ni/nimble-components/dist/esm/table-column/mapping';
 import { mappingIconTag } from '@ni/nimble-components/dist/esm/mapping/icon';
 import { iconCheckTag } from '@ni/nimble-components/dist/esm/icons/check';
 import { iconTriangleTag } from '@ni/nimble-components/dist/esm/icons/triangle';
@@ -581,30 +581,30 @@ const metadata: Meta<TableArgs> = {
             >
                 Issue
             </${tableColumnAnchorTag}>
-            <${tableColumnIconTag}
+            <${tableColumnMappingTag}
                 column-id="component-status-column"
                 field-name="componentStatus"
                 ?column-hidden="${x => x.status === 'future'}"
             >
                 Web Component
                 ${iconMappings}
-            </${tableColumnIconTag}>
-            <${tableColumnIconTag}
+            </${tableColumnMappingTag}>
+            <${tableColumnMappingTag}
                 column-id="angular-status-column"
                 field-name="angularStatus"
                 ?column-hidden="${x => x.status === 'future'}"
             >
                 Angular
                 ${iconMappings}
-            </${tableColumnIconTag}>
-            <${tableColumnIconTag}
+            </${tableColumnMappingTag}>
+            <${tableColumnMappingTag}
                 column-id="blazor-status-column"
                 field-name="blazorStatus"
                 ?column-hidden="${x => x.status === 'future'}"
             >
                 Blazor
                 ${iconMappings}
-            </${tableColumnIconTag}>
+            </${tableColumnMappingTag}>
 
         </${tableTag}>
     `),
