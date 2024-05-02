@@ -7,7 +7,7 @@ import {
     scssInternalPropertySetterMarkdown
 } from '@ni/nimble-components/dist/esm/theme-provider/design-token-names';
 import { Table, tableTag } from '@ni/nimble-components/dist/esm/table';
-import { tableColumnIconTag } from '@ni/nimble-components/dist/esm/table-column/icon';
+import { tableColumnIconTag } from '@ni/nimble-components/dist/esm/table-column/mapping';
 import { mappingIconTag } from '@ni/nimble-components/dist/esm/mapping/icon';
 import { tableColumnTextTag } from '@ni/nimble-components/dist/esm/table-column/text';
 import { IconSeverity } from '@ni/nimble-components/dist/esm/icon-base/types';

@@ -2,7 +2,7 @@ import { html, ref } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
 import { Table, tableTag } from '@ni/nimble-components/dist/esm/table';
 import { tableColumnAnchorTag } from '@ni/nimble-components/dist/esm/table-column/anchor';
-import { tableColumnIconTag } from '@ni/nimble-components/dist/esm/table-column/icon';
+import { tableColumnIconTag } from '@ni/nimble-components/dist/esm/table-column/mapping';
 import { mappingIconTag } from '@ni/nimble-components/dist/esm/mapping/icon';
 import { iconCheckTag } from '@ni/nimble-components/dist/esm/icons/check';
 import { iconTriangleTag } from '@ni/nimble-components/dist/esm/icons/triangle';
