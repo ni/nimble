@@ -2,12 +2,10 @@
 
 namespace NimbleBlazor;
 
-public partial class NimbleListOption : ComponentBase
+public partial class NimbleListOption : NimbleListOptionBase<string>
 {
-    internal NimbleOptionContext? Context { get; private set; }
-
     [Parameter]
-    public bool? Disabled { get; set; }
+    public bool Disabled { get; set; }
 
     /// <summary>
     /// Gets or sets the value of this option.
@@ -21,7 +19,10 @@ public partial class NimbleListOption : ComponentBase
     [Parameter] public string? Name { get; set; }
 
     [Parameter]
-    public bool? Selected { get; set; }
+    public bool Selected { get; set; }
+
+    [Parameter]
+    public bool Hidden { get; set; }
 
     [Parameter(CaptureUnmatchedValues = true)]
     public IDictionary<string, object>? AdditionalAttributes { get; set; }
@@ -29,17 +30,22 @@ public partial class NimbleListOption : ComponentBase
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
+
     [CascadingParameter] private NimbleOptionContext? CascadedContext { get; set; }
 
-    /// <inheritdoc />
-    protected override void OnParametersSet()
+    public async Task OnClickHandlerAsync()
     {
-        Context = string.IsNullOrEmpty(Name) ? CascadedContext : CascadedContext?.FindContextInAncestors(Name);
-
-        if (Context == null)
+        if (Disabled)
         {
-            throw new InvalidOperationException($"{GetType()} must have an ancestor {typeof(NimbleSelect)} " +
-                $"with a matching 'Name' property, if specified.");
+            return;
+        }
+
+        Selected = !Selected;
+
+        if (InternalListContext != null &&
+            InternalListContext.ValueChanged.HasDelegate)
+        {
+            await InternalListContext.ValueChanged.InvokeAsync(Value);
         }
     }
 }

@@ -1,17 +1,14 @@
 @namespace NimbleBlazor
-@inherits NimbleInputBase<string?>
-<CascadingValue TValue=NimbleOptionContext IsFixed=true Value=_context @key=_context>
-    <nimble-select
-        current-value="@CurrentValueAsString"
-        @onchange="@(EventCallback.Factory.CreateBinder<string?>(this, __value => CurrentValueAsString = __value, CurrentValueAsString))"
+@inherits ListComponentBase<string>
+<CascadingValue Value="_internalListContext" Name="ListContext" TValue="InternalListContext<string>" IsFixed="true">
+    <nimble-select @onchange="@OnChangedHandlerAsync"
         disabled="@Disabled"
-        name="@Name"
         position="@Position.ToAttributeValue()"
         appearance="@Appearance.ToAttributeValue()"
         filter-mode="@FilterMode.ToAttributeValue()"
         error-text="@ErrorText"
         error-visible="@ErrorVisible"
         @attributes="AdditionalAttributes">
-        @ChildContent
+        @GetListOptions(null)
     </nimble-select>
 </CascadingValue>
