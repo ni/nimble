@@ -193,7 +193,7 @@ export class TablePageObject<T extends TableRecord> {
         return anchor;
     }
 
-    public getRenderedIconColumnCellIconTagName(
+    public getRenderedMappingColumnCellIconTagName(
         rowIndex: number,
         columnIndex: number
     ): string {

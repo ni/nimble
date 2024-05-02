@@ -27,7 +27,7 @@ The Nimble table will have many labels, which are summarized here:
 - Sort indicators (ascending/descending icon) in table column headers: No accessible label specifically for these icons is currently planned. The primary sorted column is already indicated with `aria-sort="ascending"` or `aria-sort="descending"`. The [ARIA APG's sortable table example](https://www.w3.org/WAI/ARIA/apg/patterns/table/examples/sortable-table/) follows similar logic, and says sort labels are not added to each column header button "to prevent repetitious verbosity that could interfere with understanding of the column titles".
 - Grouped indicator in table column headers: Currently no ARIA attributes indicate a grouped column, so we'll probably want to add a label for this (probably via a `title` / tooltip)
 - Client-provided icon elements in the table (e.g. icons as the primary content of table headers): Follows the same guidance in [accessibility.md](../../packages/nimble-components/docs/accessibility.md), i.e. the icons should provide accessible text via the `title` attribute (and clients will handle localizing it themselves).
-- (Mapping/ Icon Columns: As currently specced, `nimble-table-column-icon`'s `nimble-mapping-icon` has a `label` attribute which will become the icon `title`)
+- (Mapping/ Icon Columns: As currently specced, `nimble-table-column-mapping`'s `nimble-mapping-icon` has a `label` attribute which will become the icon `title`)
 
 ## Localization
 

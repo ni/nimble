@@ -1,7 +1,7 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NimbleTableModule } from '../../../table/nimble-table.module';
-import { NimbleTableColumnIconModule } from '../../../table-column/icon/nimble-table-column-icon.module';
+import { NimbleTableColumnIconModule } from '../../../table-column/icon/nimble-table-column-mapping.module';
 import { NimbleMappingTextDirective, type MappingText } from '../nimble-mapping-text.directive';
 import { NimbleMappingTextModule } from '../nimble-mapping-text.module';
 
@@ -22,14 +22,14 @@ describe('NimbleMappingText', () => {
         @Component({
             template: `
                 <nimble-table>
-                    <nimble-table-column-icon key-type="boolean">
+                    <nimble-table-column-mapping key-type="boolean">
                         <nimble-mapping-text
                             #mapping
                             key="false"
                             text="nope"
                         >
                         </nimble-mapping-text>
-                    </nimble-table-column-icon>
+                    </nimble-table-column-mapping>
                 </nimble-table>
             `
         })
@@ -68,14 +68,14 @@ describe('NimbleMappingText', () => {
         @Component({
             template: `
                 <nimble-table>
-                    <nimble-table-column-icon key-type="boolean">
+                    <nimble-table-column-mapping key-type="boolean">
                         <nimble-mapping-text
                             #mapping
                             [key]="key"
                             [text]="text"
                         >
                         </nimble-mapping-text>
-                    </nimble-table-column-icon>
+                    </nimble-table-column-mapping>
                 </nimble-table>
             `
         })
@@ -128,14 +128,14 @@ describe('NimbleMappingText', () => {
         @Component({
             template: `
                 <nimble-table>
-                    <nimble-table-column-icon key-type="boolean">
+                    <nimble-table-column-mapping key-type="boolean">
                         <nimble-mapping-text
                             #mapping
                             [attr.key]="key"
                             [attr.text]="text"
                         >
                         </nimble-mapping-text>
-                    </nimble-table-column-icon>
+                    </nimble-table-column-mapping>
                 </nimble-table>
             `
         })
