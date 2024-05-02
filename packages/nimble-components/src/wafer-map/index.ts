@@ -5,6 +5,7 @@ import {
 } from '@microsoft/fast-element';
 import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
 import { zoomIdentity, ZoomTransform } from 'd3-zoom';
+import * as arrow from 'apache-arrow';
 import type { Table } from 'apache-arrow';
 import { template } from './template';
 import { styles } from './styles';
@@ -41,6 +42,8 @@ declare global {
 export class WaferMap<
     T extends WaferRequiredFields = WaferRequiredFields
 > extends FoundationElement {
+    public static readonly arrow = arrow;
+
     /**
      * @internal
      * needs to be initialized before the properties trigger changes
