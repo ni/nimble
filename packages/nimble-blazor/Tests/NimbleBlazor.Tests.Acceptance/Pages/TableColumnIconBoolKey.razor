@@ -1,14 +1,14 @@
-﻿@page "/TableColumnIconBoolKey"
+﻿@page "/TableColumnMappingBoolKey"
 @namespace NimbleBlazor.Tests.Acceptance.Pages
 @using System.Diagnostics.CodeAnalysis;
 @inherits LayoutComponentBase
 
 <NimbleTable TData="RowData" IdFieldName="Id" @ref="_table">
-    <NimbleTableColumnIcon TKey="bool" FieldName="Field1" ColumnId="1">
+    <NimbleTableColumnMapping TKey="bool" FieldName="Field1" ColumnId="1">
         <NimbleMappingIcon Key="true" Text="foo" Icon="nimble-icon-check" Severity="IconSeverity.Success"></NimbleMappingIcon>
         <NimbleMappingSpinner Key="false" Text="bar"></NimbleMappingSpinner>
         Column 1
-    </NimbleTableColumnIcon>
+    </NimbleTableColumnMapping>
 </NimbleTable>
 
 @code {
@@ -16,7 +16,7 @@
     public IEnumerable<RowData> TableData { get; set; } = Enumerable.Empty<RowData>();
     private NimbleTable<RowData>? _table;
 
-    public TableColumnIconBoolKey()
+    public TableColumnMappingBoolKey()
     {
         UpdateTableData(2);
     }

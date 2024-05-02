@@ -106,9 +106,9 @@ const component = (): ViewTemplate => html`
     </${tableTag}>
 `;
 
-export const tableColumnIconThemeMatrix: StoryFn = createMatrixThemeStory(component());
+export const tableColumnMappingThemeMatrix: StoryFn = createMatrixThemeStory(component());
 
-tableColumnIconThemeMatrix.play = async (): Promise<void> => {
+tableColumnMappingThemeMatrix.play = async (): Promise<void> => {
     await Promise.all(
         Array.from(document.querySelectorAll<Table>('nimble-table')).map(
             async table => {

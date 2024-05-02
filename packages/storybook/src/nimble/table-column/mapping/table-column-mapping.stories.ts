@@ -78,7 +78,7 @@ to \`default\`, the column will be resizable and be sized based on its fractiona
 should not be the right-most column in the table.`;
 
 const validityDescription = `${sharedMappingValidityDescription}
--   \`invalidIconName\`: \`true\` when a mapping's \`icon\` value is not the tag name of a valid, loaded Nimble icon (e.g. \`nimble-icon-check\`)
+-   \`invalidIconName\`: \`true\` when an icon mapping's \`icon\` value is not the tag name of a valid, loaded Nimble icon (e.g. \`nimble-icon-check\`)
 `;
 
 export const mappingColumn: StoryObj<MappingColumnTableArgs> = {

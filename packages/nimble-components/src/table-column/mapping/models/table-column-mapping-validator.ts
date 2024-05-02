@@ -8,7 +8,7 @@ import {
 } from '../../enum-base/models/table-column-enum-base-validator';
 import type { MappingKeyType } from '../../enum-base/types';
 
-const iconValidityFlagNames = [
+const mappingColumnValidityFlagNames = [
     ...enumBaseValidityFlagNames,
     'unsupportedMappingType',
     'invalidIconName',
@@ -19,10 +19,10 @@ const iconValidityFlagNames = [
  * Validator for TableColumnMapping
  */
 export class TableColumnMappingValidator extends TableColumnEnumBaseValidator<
-    typeof iconValidityFlagNames
+    typeof mappingColumnValidityFlagNames
 > {
     public constructor() {
-        super(iconValidityFlagNames);
+        super(mappingColumnValidityFlagNames);
     }
 
     private static isIconMappingElement(

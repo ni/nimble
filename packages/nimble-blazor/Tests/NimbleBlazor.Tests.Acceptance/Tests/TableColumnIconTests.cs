@@ -3,17 +3,17 @@ using Xunit;
 
 namespace NimbleBlazor.Tests.Acceptance;
 
-public class TableColumnIconTests : AcceptanceTestsBase
+public class TableColumnMappingTests : AcceptanceTestsBase
 {
-    public TableColumnIconTests(PlaywrightFixture playwrightFixture, BlazorServerWebHostFixture blazorServerClassFixture)
+    public TableColumnMappingTests(PlaywrightFixture playwrightFixture, BlazorServerWebHostFixture blazorServerClassFixture)
         : base(playwrightFixture, blazorServerClassFixture)
     {
     }
 
     [Fact]
-    public async Task TableColumnIcon_BoolKeyAsync()
+    public async Task TableColumnMapping_BoolKeyAsync()
     {
-        await using (var pageWrapper = await NewPageForRouteAsync("TableColumnIconBoolKey"))
+        await using (var pageWrapper = await NewPageForRouteAsync("TableColumnMappingBoolKey"))
         {
             var page = pageWrapper.Page;
             var table = page.Locator("nimble-table");

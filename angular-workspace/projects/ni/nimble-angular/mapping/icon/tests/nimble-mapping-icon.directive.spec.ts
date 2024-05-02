@@ -2,7 +2,7 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { IconSeverity } from '@ni/nimble-angular';
 import { NimbleTableModule } from '../../../table/nimble-table.module';
-import { NimbleTableColumnIconModule } from '../../../table-column/icon/nimble-table-column-mapping.module';
+import { NimbleTableColumnMappingModule } from '../../../table-column/mapping/nimble-table-column-mapping.module';
 import { NimbleMappingIconDirective, type MappingIcon } from '../nimble-mapping-icon.directive';
 import { NimbleMappingIconModule } from '../nimble-mapping-icon.module';
 
@@ -10,7 +10,7 @@ describe('NimbleMappingIcon', () => {
     describe('module', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
-                imports: [NimbleMappingIconModule]
+                imports: [NimbleTableColumnMappingModule]
             });
         });
 
@@ -48,7 +48,7 @@ describe('NimbleMappingIcon', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [NimbleMappingIconModule, NimbleTableColumnIconModule, NimbleTableModule]
+                imports: [NimbleMappingIconModule, NimbleTableColumnMappingModule, NimbleTableModule]
             });
 
             fixture = TestBed.createComponent(TestHostComponent);
@@ -117,7 +117,7 @@ describe('NimbleMappingIcon', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [NimbleMappingIconModule, NimbleTableColumnIconModule, NimbleTableModule]
+                imports: [NimbleMappingIconModule, NimbleTableColumnMappingModule, NimbleTableModule]
             });
 
             fixture = TestBed.createComponent(TestHostComponent);
@@ -216,7 +216,7 @@ describe('NimbleMappingIcon', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [NimbleMappingIconModule, NimbleTableColumnIconModule, NimbleTableModule]
+                imports: [NimbleMappingIconModule, NimbleTableColumnMappingModule, NimbleTableModule]
             });
 
             fixture = TestBed.createComponent(TestHostComponent);

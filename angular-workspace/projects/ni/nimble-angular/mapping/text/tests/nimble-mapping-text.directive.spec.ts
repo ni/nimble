@@ -1,7 +1,7 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NimbleTableModule } from '../../../table/nimble-table.module';
-import { NimbleTableColumnIconModule } from '../../../table-column/icon/nimble-table-column-mapping.module';
+import { NimbleTableColumnMappingModule } from '../../../table-column/mapping/nimble-table-column-mapping.module';
 import { NimbleMappingTextDirective, type MappingText } from '../nimble-mapping-text.directive';
 import { NimbleMappingTextModule } from '../nimble-mapping-text.module';
 
@@ -44,7 +44,7 @@ describe('NimbleMappingText', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [NimbleMappingTextModule, NimbleTableColumnIconModule, NimbleTableModule]
+                imports: [NimbleMappingTextModule, NimbleTableColumnMappingModule, NimbleTableModule]
             });
 
             fixture = TestBed.createComponent(TestHostComponent);
@@ -92,7 +92,7 @@ describe('NimbleMappingText', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [NimbleMappingTextModule, NimbleTableColumnIconModule, NimbleTableModule]
+                imports: [NimbleMappingTextModule, NimbleTableColumnMappingModule, NimbleTableModule]
             });
 
             fixture = TestBed.createComponent(TestHostComponent);
@@ -152,7 +152,7 @@ describe('NimbleMappingText', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [NimbleMappingTextModule, NimbleTableColumnIconModule, NimbleTableModule]
+                imports: [NimbleMappingTextModule, NimbleTableColumnMappingModule, NimbleTableModule]
             });
 
             fixture = TestBed.createComponent(TestHostComponent);

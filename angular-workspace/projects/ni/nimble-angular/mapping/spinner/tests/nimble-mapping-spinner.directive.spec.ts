@@ -1,7 +1,7 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NimbleTableModule } from '../../../table/nimble-table.module';
-import { NimbleTableColumnIconModule } from '../../../table-column/icon/nimble-table-column-mapping.module';
+import { NimbleTableColumnMappingModule } from '../../../table-column/mapping/nimble-table-column-mapping.module';
 import { NimbleMappingSpinnerDirective, type MappingSpinner } from '../nimble-mapping-spinner.directive';
 import { NimbleMappingSpinnerModule } from '../nimble-mapping-spinner.module';
 
@@ -45,7 +45,7 @@ describe('NimbleMappingSpinner', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [NimbleMappingSpinnerModule, NimbleTableColumnIconModule, NimbleTableModule]
+                imports: [NimbleMappingSpinnerModule, NimbleTableColumnMappingModule, NimbleTableModule]
             });
 
             fixture = TestBed.createComponent(TestHostComponent);
@@ -100,7 +100,7 @@ describe('NimbleMappingSpinner', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [NimbleMappingSpinnerModule, NimbleTableColumnIconModule, NimbleTableModule]
+                imports: [NimbleMappingSpinnerModule, NimbleTableColumnMappingModule, NimbleTableModule]
             });
 
             fixture = TestBed.createComponent(TestHostComponent);
@@ -173,7 +173,7 @@ describe('NimbleMappingSpinner', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [NimbleMappingSpinnerModule, NimbleTableColumnIconModule, NimbleTableModule]
+                imports: [NimbleMappingSpinnerModule, NimbleTableColumnMappingModule, NimbleTableModule]
             });
 
             fixture = TestBed.createComponent(TestHostComponent);

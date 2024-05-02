@@ -233,12 +233,12 @@
                 </NimbleTableColumnText>
                 <NimbleTableColumnAnchor HrefFieldName="Href" LabelFieldName="LinkLabel">Link</NimbleTableColumnAnchor>
                 <NimbleTableColumnDateText FieldName="Date">Date</NimbleTableColumnDateText>
-                <NimbleTableColumnIcon FieldName="StatusCode" TKey="int">
+                <NimbleTableColumnMapping FieldName="StatusCode" TKey="int">
                     <NimbleMappingText Key="100" Text="Status message 1"></NimbleMappingText>
                     <NimbleMappingText Key="101" Text="Status message 2"></NimbleMappingText>
                     Status
-                </NimbleTableColumnIcon>
-                <NimbleTableColumnIcon FieldName="Result" TKey="string" WidthMode="MappingColumnWidthMode.IconSize">
+                </NimbleTableColumnMapping>
+                <NimbleTableColumnMapping FieldName="Result" TKey="string" WidthMode="MappingColumnWidthMode.IconSize">
                     <NimbleMappingIcon
                         Key=@("success")
                         Text="Success"
@@ -252,7 +252,7 @@
                         TextHidden="true">
                     </NimbleMappingSpinner>
                     <NimbleIconXmarkCheck title="Result"></NimbleIconXmarkCheck>
-                </NimbleTableColumnIcon>
+                </NimbleTableColumnMapping>
                 <NimbleTableColumnNumberText FieldName="Number">Number</NimbleTableColumnNumberText>
                 <NimbleTableColumnDurationText FieldName="Duration">Duration</NimbleTableColumnDurationText>
                 <NimbleTableColumnText FieldName="StringValue2" MinPixelWidth="400" GroupIndex="0">String 2</NimbleTableColumnText>

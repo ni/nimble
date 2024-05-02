@@ -1,5 +1,5 @@
 /**
- * Width mode for the icon column
+ * Width mode for the mapping column
  */
 export const TableColumnMappingWidthMode = {
     default: undefined,
