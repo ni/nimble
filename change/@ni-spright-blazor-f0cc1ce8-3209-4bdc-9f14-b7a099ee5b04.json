@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Test release from renamed Blazor workspace and solution",
-  "packageName": "@ni/spright-blazor",
-  "email": "7282195+m-akinc@users.noreply.github.com",
-  "dependentChangeType": "none"
-}

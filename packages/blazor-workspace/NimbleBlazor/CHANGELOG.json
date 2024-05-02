@@ -2,6 +2,21 @@
   "name": "@ni/nimble-blazor",
   "entries": [
     {
+      "date": "Thu, 02 May 2024 23:33:54 GMT",
+      "version": "16.1.1",
+      "tag": "@ni/nimble-blazor_v16.1.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "358fef9cf0732360ecfbfdd624d056d116ea9f80",
+            "comment": "Test release from renamed Blazor workspace and solution"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 02 May 2024 17:22:44 GMT",
       "version": "16.1.0",
       "tag": "@ni/nimble-blazor_v16.1.0",
