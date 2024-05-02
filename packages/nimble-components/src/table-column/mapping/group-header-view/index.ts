@@ -73,5 +73,7 @@ const mappingGroupHeaderView = TableColumnMappingGroupHeaderView.compose({
     template,
     styles
 });
-DesignSystem.getOrCreate().withPrefix('nimble').register(mappingGroupHeaderView());
+DesignSystem.getOrCreate()
+    .withPrefix('nimble')
+    .register(mappingGroupHeaderView());
 export const tableColumnMappingGroupHeaderViewTag = 'nimble-table-column-mapping-group-header-view';
