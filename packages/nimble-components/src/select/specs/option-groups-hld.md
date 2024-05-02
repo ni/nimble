@@ -57,8 +57,6 @@ public class ListOptionGroup {
 
 As [mentioned in the IxD](https://github.com/ni/nimble/blob/main/packages/nimble-components/src/select/specs/IxD.md#groups), when a user has filtering enabled, typing into the filter input will match both individual options (as normal), as well as _all_ options that are under a group that matches the filter text.
 
-_Question: Should matching against a group be configurable?_
-
 #### Combobox Guidance
 
 It should be noted that when using groups with a `Combobox`, it is advised that each option still be unique (for both its display and value). This is predicated on the [decision](https://github.com/ni/nimble/issues/1168#issuecomment-1568733159) that the `Combobox` will change its behavior for platforms like Angular, where the model value will _always_ be the text that is in the display. This will make it impossible to disambiguate between options that have the same display value under separate groups.
@@ -81,7 +79,3 @@ _Note: If a client constructs a DOM hierarchy with a group within another group 
 
 ## Open Issues
 
-As called out above:
-
-1. Should matching against a group name for filtering be configurable?
-    - I'm waffling on the importance of this. Because of the very loose matching we provide for the `Select` filtering (and likely the `Combobox` eventually), it will be easy to match against several groups, particularly when very few characters have been entered, resulting in a bunch of options in the dropdown that don't match the filter itself, requiring more characters to be typed than usual to filter it down to a reasonable set. It is unclear how laborious this will make it for the user.
