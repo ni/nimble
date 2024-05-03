@@ -1,5 +1,4 @@
-@ -1,29 +0,0 @@
-﻿using Microsoft.Playwright;
+using Microsoft.Playwright;
 using Xunit;
 
 namespace NimbleBlazor.Tests.Acceptance;
