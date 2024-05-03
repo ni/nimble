@@ -72,7 +72,7 @@ implements Subscriber {
                 'relatedTarget',
                 e.relatedTarget,
                 'active element',
-                this.getActiveElement()
+                this.getActiveElementDebug()
             );
         });
         table.addEventListener('blur', e => {
@@ -83,7 +83,7 @@ implements Subscriber {
                 'relatedTarget',
                 e.relatedTarget,
                 'active element',
-                this.getActiveElement()
+                this.getActiveElementDebug()
             );
         });
         this.tableNotifier = Observable.getNotifier(this.table);
@@ -127,7 +127,7 @@ implements Subscriber {
             'relatedTarget',
             event.relatedTarget,
             'active element',
-            activeElement
+            this.getActiveElementDebug()
         );
         if (activeElement) {
             row = this.getContainingRow(activeElement);
@@ -1013,5 +1013,13 @@ implements Subscriber {
             default:
                 return false;
         }
+    }
+
+    private getActiveElementDebug(): HTMLElement | string | null {
+        const result = this.getActiveElement();
+        if (result === document.body) {
+            return '<body />';
+        }
+        return result;
     }
 }
