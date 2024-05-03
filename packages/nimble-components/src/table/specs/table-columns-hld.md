@@ -23,7 +23,7 @@ Column custom elements will be provided to the table as slotted elements. The sl
 ```HTML
 <nimble-table>
     <nimble-table-column-text data-key="name">Name</nimble-table-column-text>
-    <nimble-table-column-mapping data-key="ready">Status</nimble-table-column-mapping>
+    <nimble-table-column-number-text data-key="value">Value</nimble-table-column-number-text>
     ...
 </nimble-table>
 ```
@@ -96,7 +96,6 @@ nimble-table-column-date-text
 nimble-table-column-progress
 nimble-table-column-text-field
 nimble-table-column-number-field
-nimble-table-column-mapping
 nimble-table-column-mapping
 ```
 
