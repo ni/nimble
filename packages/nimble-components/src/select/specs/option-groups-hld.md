@@ -53,6 +53,18 @@ public class ListOptionGroup {
 }
 ```
 
+In addition to the `label` attribute, the `ListOptionGroup` will also support slotted labels. This will result in a configuration that looks like the following:
+
+```html
+<nimble-list-option-group>
+    Swedish Cars
+    <nimble-list-option value="volvo">Volvo</option>
+    <nimble-list-option value="saab">Saab</option>
+</nimble-list-option-group>
+```
+
+If a client configures both the `label` attribute _and_ supplies slotted content, we will honor the slotted content.
+
 ### Filtering
 
 As [mentioned in the IxD](https://github.com/ni/nimble/blob/main/packages/nimble-components/src/select/specs/IxD.md#groups), when a user has filtering enabled, typing into the filter input will match both individual options (as normal), as well as _all_ options that are under a group that matches the filter text.
