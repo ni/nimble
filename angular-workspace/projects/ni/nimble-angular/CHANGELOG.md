@@ -1,8 +1,24 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Wed, 01 May 2024 21:45:37 GMT and should not be manually modified.
+This log was last generated on Thu, 02 May 2024 18:52:31 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 23.2.1
+
+Thu, 02 May 2024 18:52:31 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v27.2.3
+
+## 23.2.0
+
+Thu, 02 May 2024 17:22:44 GMT
+
+### Minor changes
+
+- Add width-mode to the icon column ([ni/nimble@7a27f45](https://github.com/ni/nimble/commit/7a27f45851b45e29a554e3effc812011108db80d))
 
 ## 23.1.11
 

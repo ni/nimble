@@ -1,6 +1,6 @@
 {
   "name": "@ni/nimble-blazor",
-  "version": "16.0.10",
+  "version": "16.1.0",
   "description": "Blazor components for the NI Nimble Design System",
   "scripts": {
     "pack": "cross-env-shell dotnet pack -c Release -p:PackageVersion=$npm_package_version --output ../dist",

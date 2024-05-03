@@ -2,6 +2,21 @@
   "name": "@ni/nimble-blazor",
   "entries": [
     {
+      "date": "Thu, 02 May 2024 17:22:44 GMT",
+      "version": "16.1.0",
+      "tag": "@ni/nimble-blazor_v16.1.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "7a27f45851b45e29a554e3effc812011108db80d",
+            "comment": "Add WidthMode to icon column"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 01 May 2024 22:28:21 GMT",
       "version": "16.0.10",
       "tag": "@ni/nimble-blazor_v16.0.10",

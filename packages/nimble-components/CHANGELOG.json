@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Thu, 02 May 2024 18:52:31 GMT",
+      "version": "27.2.3",
+      "tag": "@ni/nimble-components_v27.2.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "022f1cbbe0054dd2432ddedacd4612fce244a0cb",
+            "comment": "Fix the focus styling of the anchor menu item"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 02 May 2024 16:06:02 GMT",
       "version": "27.2.2",
       "tag": "@ni/nimble-components_v27.2.2",
