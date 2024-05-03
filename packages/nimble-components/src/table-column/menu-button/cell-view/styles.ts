@@ -3,12 +3,19 @@ import { controlSlimHeight } from '../../../theme-provider/design-tokens';
 
 export const styles = css`
     :host {
-        width: fit-content;
-        max-width: 100%;
         align-self: center;
+        width: 100%;
     }
 
     nimble-menu-button {
         height: ${controlSlimHeight};
+        width: 100%;
+    }
+
+    .value-label {
+        margin-right: auto;
+        overflow-x: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
     }
 `;

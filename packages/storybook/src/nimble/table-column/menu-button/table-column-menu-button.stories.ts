@@ -1,4 +1,4 @@
-import { html, ref, repeat } from '@microsoft/fast-element';
+import { html, ref } from '@microsoft/fast-element';
 import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html';
 import { withActions } from '@storybook/addon-actions/decorator';
 import { tableTag } from '@ni/nimble-components/dist/esm/table';
@@ -16,7 +16,7 @@ import {
     sharedTableArgs
 } from '../base/table-column-stories-utils';
 import { createUserSelectedThemeStory } from '../../../utilities/storybook';
-import { menuItem } from '../../menu/menu.stories';
+import { TableRowSelectionMode } from '@ni/nimble-components/dist/esm/table/types';
 
 const metadata: Meta<SharedTableArgs> = {
     title: 'Components/Table Column: Menu Button',
@@ -29,11 +29,11 @@ const metadata: Meta<SharedTableArgs> = {
     // prettier-ignore
     argTypes: {
         ...sharedTableArgTypes,
-        selectionMode: {
-            table: {
-                disable: true
-            }
-        },
+        // selectionMode: {
+        //     table: {
+        //         disable: true
+        //     }
+        // },
     }
 };
 
@@ -68,6 +68,26 @@ const simpleData = [
     }
 ] as const;
 
+const firstNames = ['John', 'Sally', 'Joe', 'Michael', 'Sam'];
+const lastNames = ['Davidson', 'Johnson', 'Abraham', 'Wilson'];
+const ages = [16, 32, 48, 64];
+const largeData = [];
+for (let i = 0; i < 10000; i++) {
+    const possibleParent = Math.floor(Math.random() * 100);
+    const parentId = possibleParent < i ? possibleParent.toString() : undefined;
+    const firstName = firstNames[i % firstNames.length];
+    const lastName = lastNames[i % lastNames.length];
+    largeData.push({
+        id: i.toString(),
+        firstName,
+        lastName,
+        fullName: `${firstName} ${lastName}`,
+        age: ages[i % ages.length],
+        quote: `I'm number ${i + 1}!`,
+        parentId
+    });
+}
+
 interface MenuButtonColumnTableArgs extends SharedTableArgs {
     fieldName: string;
     appearance: keyof typeof ButtonAppearance;
@@ -82,7 +102,9 @@ export const menuButtonColumn: StoryObj<MenuButtonColumnTableArgs> = {
     render: createUserSelectedThemeStory(html<MenuButtonColumnTableArgs>`
         <${tableTag}
             ${ref('tableRef')}
+            selection-mode="${x => TableRowSelectionMode[x.selectionMode]}"
             data-unused="${x => x.updateData(x)}"
+            id-field-name="id"
         >
             <${tableColumnTextTag}
                 field-name="firstName"
@@ -95,7 +117,8 @@ export const menuButtonColumn: StoryObj<MenuButtonColumnTableArgs> = {
             Last Name
             </${tableColumnTextTag}>
             <${tableColumnMenuButtonTag}
-                field-name="firstName"
+                fractional-width="0.5"
+                field-name="fullName"
                 appearance="${x => x.appearance}"
                 appearance-variant="${x => x.appearanceVariant}"
                 @delegated-event="${(x, c) => x.updateMenuItems(x, c.event as CustomEvent<DelegatedEventEventDetails>)}"
@@ -158,6 +181,6 @@ export const menuButtonColumn: StoryObj<MenuButtonColumnTableArgs> = {
                 }
             }
         },
-        ...sharedTableArgs(simpleData)
+        ...sharedTableArgs(largeData)
     }
 };

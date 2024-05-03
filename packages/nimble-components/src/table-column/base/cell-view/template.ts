@@ -28,7 +28,7 @@ export const createCellViewTemplate = (
             :recordId="${y => y.recordId}"
             class="cell-view"
         >
-            <${repeat(y => y.column?.columnInternals.slotNames || [], html<string, TableCell>`
+            ${repeat(y => y.column?.columnInternals.slotNames || [], html<string, TableCell>`
                 <slot
                     name="${(x, c) => (c.parent.column!.columnInternals.uniqueId + x)}"
                     slot="${x => x}"
