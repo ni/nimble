@@ -17,7 +17,7 @@ const trimSizeFromName = text => {
 };
 
 const generatedFilePrefix = `@* AUTO-GENERATED FILE - DO NOT EDIT DIRECTLY
- // See generation source in nimble-blazor/build/generate-icons *@\n`;
+ // See generation source in blazor-workspace/build/generate-icons *@\n`;
 
 const packageDirectory = path.resolve(__dirname, '../../../');
 const iconsDirectory = path.resolve(packageDirectory, 'NimbleBlazor/Components/Icons');

@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Wed, 01 May 2024 21:45:37 GMT and should not be manually modified.
+This log was last generated on Thu, 02 May 2024 18:52:31 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 27.2.3
+
+Thu, 02 May 2024 18:52:31 GMT
+
+### Patches
+
+- Fix the focus styling of the anchor menu item ([ni/nimble@022f1cb](https://github.com/ni/nimble/commit/022f1cbbe0054dd2432ddedacd4612fce244a0cb))
 
 ## 27.2.2
 

@@ -2,7 +2,7 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NimbleTableModule } from '../../../table/nimble-table.module';
 import { NimbleTableColumnIconModule } from '../nimble-table-column-icon.module';
-import { NimbleTableColumnIconDirective, TableColumnIcon } from '../nimble-table-column-icon.directive';
+import { NimbleTableColumnIconDirective, TableColumnIcon, TableColumnMappingWidthMode } from '../nimble-table-column-icon.directive';
 import { TableColumnSortDirection } from '../../nimble-table-column-base.directive';
 
 describe('NimbleTableColumnIcon', () => {
@@ -36,6 +36,7 @@ describe('NimbleTableColumnIcon', () => {
                         sort-index="0"
                         group-index="0"
                         grouping-disabled
+                        width-mode="icon-size"
                     ></nimble-table-column-icon>
                 </nimble-table>
             `
@@ -119,6 +120,11 @@ describe('NimbleTableColumnIcon', () => {
             expect(directive.groupingDisabled).toBeTrue();
             expect(nativeElement.groupingDisabled).toBeTrue();
         });
+
+        it('will use template string values for widthMode', () => {
+            expect(directive.widthMode).toBe(TableColumnMappingWidthMode.iconSize);
+            expect(nativeElement.widthMode).toBe(TableColumnMappingWidthMode.iconSize);
+        });
     });
 
     describe('with property bound values', () => {
@@ -139,6 +145,7 @@ describe('NimbleTableColumnIcon', () => {
                         [sort-index]="sortIndex"
                         [group-index]="groupIndex"
                         [grouping-disabled]="groupingDisabled"
+                        [width-mode]="widthMode"
                     ></nimble-table-column-icon>
                 </nimble-table>
             `
@@ -158,6 +165,7 @@ describe('NimbleTableColumnIcon', () => {
             public sortIndex: number | null = 0;
             public groupIndex: number | null = 0;
             public groupingDisabled = false;
+            public widthMode: TableColumnMappingWidthMode = TableColumnMappingWidthMode.iconSize;
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
@@ -350,6 +358,17 @@ describe('NimbleTableColumnIcon', () => {
             expect(directive.groupingDisabled).toBeTrue();
             expect(nativeElement.groupingDisabled).toBeTrue();
         });
+
+        it('can be configured with property binding for widthMode', () => {
+            expect(directive.widthMode).toBe(TableColumnMappingWidthMode.iconSize);
+            expect(nativeElement.widthMode).toBe(TableColumnMappingWidthMode.iconSize);
+
+            fixture.componentInstance.widthMode = TableColumnMappingWidthMode.default;
+            fixture.detectChanges();
+
+            expect(directive.widthMode).toBe(TableColumnMappingWidthMode.default);
+            expect(nativeElement.widthMode).toBe(TableColumnMappingWidthMode.default);
+        });
     });
 
     describe('with attribute bound values', () => {
@@ -370,6 +389,7 @@ describe('NimbleTableColumnIcon', () => {
                         [attr.sort-index]="sortIndex"
                         [attr.group-index]="groupIndex"
                         [attr.grouping-disabled]="groupingDisabled"
+                        [attr.width-mode]="widthMode"
                     ></nimble-table-column-icon>
                 </nimble-table>
             `
@@ -389,6 +409,7 @@ describe('NimbleTableColumnIcon', () => {
             public sortIndex: number | null = 0;
             public groupIndex: number | null = 0;
             public groupingDisabled = false;
+            public widthMode: TableColumnMappingWidthMode = TableColumnMappingWidthMode.iconSize;
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
@@ -580,6 +601,17 @@ describe('NimbleTableColumnIcon', () => {
 
             expect(directive.groupingDisabled).toBe(true);
             expect(nativeElement.groupingDisabled).toBe(true);
+        });
+
+        it('can be configured with attribute binding for widthMode', () => {
+            expect(directive.widthMode).toBe(TableColumnMappingWidthMode.iconSize);
+            expect(nativeElement.widthMode).toBe(TableColumnMappingWidthMode.iconSize);
+
+            fixture.componentInstance.widthMode = TableColumnMappingWidthMode.default;
+            fixture.detectChanges();
+
+            expect(directive.widthMode).toBeFalsy();
+            expect(nativeElement.widthMode).toBeFalsy();
         });
     });
 });

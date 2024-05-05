@@ -1,8 +1,16 @@
 # Change Log - @ni/spright-blazor
 
-This log was last generated on Wed, 01 May 2024 22:28:21 GMT and should not be manually modified.
+This log was last generated on Thu, 02 May 2024 23:33:54 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 0.0.4
+
+Thu, 02 May 2024 23:33:54 GMT
+
+### Patches
+
+- Test release from renamed Blazor workspace and solution ([ni/nimble@358fef9](https://github.com/ni/nimble/commit/358fef9cf0732360ecfbfdd624d056d116ea9f80))
 
 ## 0.0.3
 
