@@ -25,7 +25,7 @@ See the corresponding `Getting Started` section for the general-use Nimble packa
 [![Nimble Components NPM version and repo link](https://img.shields.io/npm/v/@ni/nimble-components.svg?label=@ni/nimble-components)](https://www.npmjs.com/package/@ni/nimble-components)
 
 - **[`@ni/nimble-angular`](/angular-workspace/projects/ni/nimble-angular/)** - Handy bindings to the Nimble components for Angular applications.
-- **[`@ni/nimble-blazor`](/packages/nimble-blazor/)** - Handy bindings to the Nimble components for Blazor applications.
+- **[`@ni/nimble-blazor`](/packages/nimble-workspace/)** - Handy bindings to the Nimble components for Blazor applications.
 - **[`@ni/nimble-components`](/packages/nimble-components/)** - Nimble components to be used by [any type of  application](https://custom-elements-everywhere.com/).
 
 
@@ -36,7 +36,7 @@ The context-specific Spright packages:
 [![Spright Components NPM version and repo link](https://img.shields.io/npm/v/@ni/spright-components.svg?label=@ni/spright-components)](https://www.npmjs.com/package/@ni/spright-components)
 
 - [`@ni/spright-angular`](/angular-workspace/projects/ni/spright-angular/) - Handy bindings to the Spright components for Angular applications.
-- [`@ni/spright-blazor`](/packages/nimble-blazor/) - Handy bindings to the Spright components for Blazor applications.
+- [`@ni/spright-blazor`](/packages/nimble-workspace/) - Handy bindings to the Spright components for Blazor applications.
 - [`@ni/spright-components`](/packages/spright-components/) - Spright components to be used by [any  type of application](https://custom-elements-everywhere.com/).
 
 The utility packages:
