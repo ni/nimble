@@ -35,9 +35,9 @@ The context-specific Spright packages:
 [![Spright Blazor Nuget version and repo link](https://img.shields.io/nuget/v/SprightBlazor.svg?label=SprightBlazor)](https://www.nuget.org/packages/SprightBlazor)
 [![Spright Components NPM version and repo link](https://img.shields.io/npm/v/@ni/spright-components.svg?label=@ni/spright-components)](https://www.npmjs.com/package/@ni/spright-components)
 
-- **[`@ni/spright-angular`](/angular-workspace/projects/ni/spright-angular/)** - Handy bindings to the Spright components for Angular applications.
-- **[`@ni/spright-blazor`](/packages/nimble-blazor/)** - Handy bindings to the Spright components for Blazor applications.
-- **[`@ni/spright-components`](/packages/spright-components/)** - Spright components to be used by [any  type of application](https://custom-elements-everywhere.com/).
+- [`@ni/spright-angular`](/angular-workspace/projects/ni/spright-angular/) - Handy bindings to the Spright components for Angular applications.
+- [`@ni/spright-blazor`](/packages/nimble-blazor/) - Handy bindings to the Spright components for Blazor applications.
+- [`@ni/spright-components`](/packages/spright-components/) - Spright components to be used by [any  type of application](https://custom-elements-everywhere.com/).
 
 The utility packages:
 
@@ -45,7 +45,7 @@ The utility packages:
 [![Jasmine parameterized NPM version and repo link](https://img.shields.io/npm/v/@ni/jasmine-parameterized.svg?label=@ni/jasmine-parameterized)](https://www.npmjs.com/package/@ni/jasmine-parameterized)
 [![XLIFF to JSON Converter for Angular NPM version and repo link](https://img.shields.io/npm/v/@ni/xliff-to-json-converter.svg?label=@ni/xliff-to-json-converter)](https://www.npmjs.com/package/@ni/xliff-to-json-converter)
 
-- **[`@ni/nimble-tokens`](/packages/nimble-tokens/)** - Base design tokens used by the Nimble and Spright component packages.
+- [`@ni/nimble-tokens`](/packages/nimble-tokens/) - Base design tokens used by the Nimble and Spright component packages.
 - [`@ni/jasmine-parameterized`](/packages/jasmine-parameterized/) - a utility for writing [Jasmine](https://jasmine.github.io/) parameterized tests.
 - [`@ni/xliff-to-json-converter`](/packages/xliff-to-json-converter/) - a utility to convert translation files from XLIFF to JSON for Angular localization.
 
