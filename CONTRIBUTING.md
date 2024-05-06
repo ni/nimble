@@ -18,9 +18,11 @@ From the `nimble` directory:
 
     Note: As you make style changes to components you will need to refresh your browser window to see the effect.
 
-For Visual Studio Code users:
+For Visual Studio Code users, after running `npm install` you can:
 
-- Nimble includes 
+- Use `Terminal » Run Task…` to see a list of available tasks.
+- Use `Terminal » Run Build Task…` to do a full build of the Nimble monorepo.
+   - Alternatively, you can run a full build using the shortcuts `cmd+shift+B` on Mac / `ctrl+shift+B` on Windows.
 
 Now that you can build the monorepo see the `CONTRIBUTING.md` for the packages you would like to contribute to.
 
