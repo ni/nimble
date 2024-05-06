@@ -22,7 +22,7 @@ import { NimbleTableModule } from '@ni/nimble-angular/table';
 import { NimbleTableColumnTextModule } from '@ni/nimble-angular/table-column/text';
 import { NimbleTableColumnAnchorModule } from '@ni/nimble-angular/table-column/anchor';
 import { NimbleTableColumnDateTextModule } from '@ni/nimble-angular/table-column/date-text';
-import { NimbleTableColumnIconModule } from '@ni/nimble-angular/table-column/icon';
+import { NimbleTableColumnMappingModule } from '@ni/nimble-angular/table-column/mapping';
 import { NimbleTableColumnNumberTextModule } from '@ni/nimble-angular/table-column/number-text';
 import { NimbleTableColumnDurationTextModule } from '@ni/nimble-angular/table-column/duration-text';
 import { NimbleRichTextViewerModule } from '@ni/nimble-angular/rich-text/viewer';
@@ -95,7 +95,7 @@ import { HeaderComponent } from './header/header.component';
         NimbleBannerModule,
         NimbleRichTextViewerModule,
         NimbleRichTextEditorModule,
-        NimbleTableColumnIconModule,
+        NimbleTableColumnMappingModule,
         NimbleMappingIconModule,
         NimbleMappingUserModule,
         NimbleRichTextMentionUsersModule,
