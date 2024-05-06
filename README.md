@@ -18,7 +18,11 @@ If you are outside NI, we want to hear from you too! See how to reach out in the
 
 ## Getting Started
 
-See the corresponding `Getting Started` section for the general-use Nimble packages:
+See the corresponding `Getting Started` section in the packages hosted in the repository. Most applications will start by leveraging the Nimble packages.
+
+### Nimble packages
+
+The general-use Nimble packages implementing the Nimble Design System.
 
 [![Nimble Angular NPM version and repo link](https://img.shields.io/npm/v/@ni/nimble-angular.svg?label=@ni/nimble-angular)](https://www.npmjs.com/package/@ni/nimble-angular)
 [![Nimble Blazor Nuget version and repo link](https://img.shields.io/nuget/v/NimbleBlazor.svg?label=NimbleBlazor)](https://www.nuget.org/packages/NimbleBlazor)
@@ -28,8 +32,9 @@ See the corresponding `Getting Started` section for the general-use Nimble packa
 - **[`@ni/nimble-blazor`](/packages/blazor-workspace/)** - Handy bindings to the Nimble components for Blazor applications.
 - **[`@ni/nimble-components`](/packages/nimble-components/)** - Nimble components to be used by [any type of  application](https://custom-elements-everywhere.com/).
 
+### Spright packages
 
-The context-specific Spright packages:
+The context-specific Spright packages used for specific applications.
 
 [![Spright Angular NPM version and repo link](https://img.shields.io/npm/v/@ni/spright-angular.svg?label=@ni/spright-angular)](https://www.npmjs.com/package/@ni/spright-angular)
 [![Spright Blazor Nuget version and repo link](https://img.shields.io/nuget/v/SprightBlazor.svg?label=SprightBlazor)](https://www.nuget.org/packages/SprightBlazor)
@@ -39,7 +44,9 @@ The context-specific Spright packages:
 - [`@ni/spright-blazor`](/packages/blazor-workspace/) - Handy bindings to the Spright components for Blazor applications.
 - [`@ni/spright-components`](/packages/spright-components/) - Spright components to be used by [any  type of application](https://custom-elements-everywhere.com/).
 
-The utility packages:
+### Utility packages
+
+Tools and utilities hosted in the repository.
 
 [![Nimble Tokens NPM version and repo link](https://img.shields.io/npm/v/@ni/nimble-tokens.svg?label=@ni/nimble-tokens)](https://www.npmjs.com/package/@ni/nimble-tokens)
 [![Jasmine parameterized NPM version and repo link](https://img.shields.io/npm/v/@ni/jasmine-parameterized.svg?label=@ni/jasmine-parameterized)](https://www.npmjs.com/package/@ni/jasmine-parameterized)
