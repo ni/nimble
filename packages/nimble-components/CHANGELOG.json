@@ -2,6 +2,36 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Mon, 06 May 2024 20:26:50 GMT",
+      "version": "28.0.0",
+      "tag": "@ni/nimble-components_v28.0.0",
+      "comments": {
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "9a1ebfa1220710515a4fca079f8b01932fa3e347",
+            "comment": "Command and readme updates"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 06 May 2024 19:00:05 GMT",
+      "version": "28.0.0",
+      "tag": "@ni/nimble-components_v28.0.0",
+      "comments": {
+        "major": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "d1c9125a77615d0364671a9e03a558c57b359ed7",
+            "comment": "Rename icon column to mapping column"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 02 May 2024 18:52:31 GMT",
       "version": "27.2.3",
       "tag": "@ni/nimble-components_v27.2.3",
