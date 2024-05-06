@@ -9,8 +9,8 @@ import {
     borderHoverColor,
     borderWidth,
     controlHeight,
-    controlMinWidth,
     iconSize,
+    menuMinWidth,
     popupBorderColor,
     smallDelay,
     smallPadding,
@@ -38,7 +38,7 @@ export const styles = css`
         position: relative;
         justify-content: center;
         ${userSelectNone}
-        min-width: ${controlMinWidth};
+        min-width: ${menuMinWidth};
         outline: none;
         vertical-align: top;
         --ni-private-hover-indicator-width: calc(${borderWidth} + 1px);

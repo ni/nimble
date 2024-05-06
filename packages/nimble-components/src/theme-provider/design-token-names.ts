@@ -38,7 +38,6 @@ export const tokenNames: { readonly [key in TokenName]: string } = {
     cardBorderColor: 'card-border-color',
     tagFillColor: 'tag-fill-color',
     controlHeight: 'control-height',
-    controlMinWidth: 'control-min-width',
     controlSlimHeight: 'control-slim-height',
     smallPadding: 'small-padding',
     mediumPadding: 'medium-padding',
