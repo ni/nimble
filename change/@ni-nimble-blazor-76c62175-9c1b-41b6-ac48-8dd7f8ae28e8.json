@@ -1,7 +1,0 @@
-{
-  "type": "major",
-  "comment": "Rename icon column to mapping column",
-  "packageName": "@ni/nimble-blazor",
-  "email": "20542556+mollykreis@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}

@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-blazor
 
-This log was last generated on Thu, 02 May 2024 23:33:54 GMT and should not be manually modified.
+This log was last generated on Mon, 06 May 2024 19:00:05 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 17.0.0
+
+Mon, 06 May 2024 19:00:05 GMT
+
+### Major changes
+
+- Rename icon column to mapping column ([ni/nimble@d1c9125](https://github.com/ni/nimble/commit/d1c9125a77615d0364671a9e03a558c57b359ed7))
 
 ## 16.1.1
 

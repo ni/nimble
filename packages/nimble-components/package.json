@@ -1,6 +1,6 @@
 {
   "name": "@ni/nimble-components",
-  "version": "27.2.3",
+  "version": "28.0.0",
   "description": "Styled web components for the NI Nimble Design System",
   "scripts": {
     "build": "npm run generate-icons && npm run generate-workers && npm run build-components && npm run bundle-components && npm run generate-scss",
