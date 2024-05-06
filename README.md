@@ -30,7 +30,7 @@ The Nimble packages contain general-use components implementing the Nimble Desig
 
 - **[`@ni/nimble-angular`](/angular-workspace/projects/ni/nimble-angular/)** - Angular bindings for Nimble components.
 - **[`@ni/nimble-blazor`](/packages/blazor-workspace/)** - Blazor bindings for Nimble components.
-- **[`@ni/nimble-components`](/packages/nimble-components/)** - Nimble components to be used by [any type of  application](https://custom-elements-everywhere.com/).
+- **[`@ni/nimble-components`](/packages/nimble-components/)** - Nimble components to be used by [any type of application](https://custom-elements-everywhere.com/).
 
 ### Spright packages
 
