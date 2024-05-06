@@ -121,3 +121,6 @@ package-lock.json
 
 # lighthouse build directory
 .lighthouseci/
+
+# ignore renamed paths
+packages/nimble-blazor

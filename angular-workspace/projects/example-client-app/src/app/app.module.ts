@@ -9,7 +9,7 @@ import { NimbleTextAreaModule, NimbleTextFieldModule, NimbleNumberFieldModule, N
     NimbleIconAddModule, NimbleSwitchModule, NimbleToolbarModule, NimbleMenuButtonModule, NimbleComboboxModule, NimbleTooltipModule,
     NimbleCardButtonModule, NimbleDialogModule, NimbleRadioGroupModule, NimbleRadioModule, NimbleSpinnerModule,
     NimbleAnchorModule, NimbleAnchorButtonModule, NimbleAnchorTabModule, NimbleAnchorTabsModule,
-    NimbleIconCheckModule, NimbleBannerModule, NimbleAnchorMenuItemModule, NimbleAnchorTreeItemModule } from '@ni/nimble-angular';
+    NimbleIconCheckModule, NimbleBannerModule, NimbleAnchorMenuItemModule, NimbleAnchorTreeItemModule, NimbleIconXmarkCheckModule } from '@ni/nimble-angular';
 import { NimbleCardModule } from '@ni/nimble-angular/card';
 import { NimbleLabelProviderCoreModule } from '@ni/nimble-angular/label-provider/core';
 import { NimbleLabelProviderRichTextModule } from '@ni/nimble-angular/label-provider/rich-text';
@@ -68,6 +68,7 @@ import { HeaderComponent } from './header/header.component';
         NimbleBreadcrumbItemModule,
         NimbleIconAddModule,
         NimbleIconCheckModule,
+        NimbleIconXmarkCheckModule,
         NimbleSpinnerModule,
         NimbleSwitchModule,
         NimbleToolbarModule,
