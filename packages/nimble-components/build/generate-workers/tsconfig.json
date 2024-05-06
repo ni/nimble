@@ -3,5 +3,5 @@
     "include": ["source", "index.ts"],
     "compilerOptions": {
         "outDir": "./dist/esm"
-      }
+    }
 }

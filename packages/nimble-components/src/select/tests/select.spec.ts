@@ -1,5 +1,5 @@
 import { html, repeat } from '@microsoft/fast-element';
-import { parameterizeSpec } from '@ni/jasmine-parameterized';
+import { parameterizeSpec, parameterizeSuite } from '@ni/jasmine-parameterized';
 import { fixture, Fixture } from '../../utilities/tests/fixture';
 import { Select, selectTag } from '..';
 import { ListOption, listOptionTag } from '../../list-option';
@@ -531,23 +531,24 @@ describe('Select', () => {
                 filter: FilterMode.standard,
                 name: 'standard'
             }
-        ];
-        filterModeTestData.forEach(testData => {
-            describe(`with filterMode = ${testData.name}`, () => {
+        ] as const;
+        parameterizeSuite(filterModeTestData, (suite, name, value) => {
+            suite(`with filterMode = ${name}`, () => {
+                beforeEach(() => {
+                    element.filterMode = value.filter;
+                });
+
                 it('pressing <Enter> opens dropdown', () => {
-                    element.filterMode = testData.filter;
                     pageObject.pressEnterKey();
                     expect(element.open).toBeTrue();
                 });
 
                 it('pressing <Space> opens dropdown', async () => {
-                    element.filterMode = testData.filter;
                     await pageObject.pressSpaceKey();
                     expect(element.open).toBeTrue();
                 });
 
                 it('after pressing <Esc> to close dropdown, <Enter> will re-open dropdown', () => {
-                    element.filterMode = testData.filter;
                     pageObject.clickSelect();
                     pageObject.pressEscapeKey();
                     expect(element.open).toBeFalse();
@@ -556,14 +557,12 @@ describe('Select', () => {
                 });
 
                 it('after closing dropdown by pressing <Esc>, activeElement is Select element', () => {
-                    element.filterMode = testData.filter;
                     pageObject.clickSelect();
                     pageObject.pressEscapeKey();
                     expect(document.activeElement).toBe(element);
                 });
 
                 it('after closing dropdown by committing a value with <Enter>, activeElement is Select element', () => {
-                    element.filterMode = testData.filter;
                     pageObject.clickSelect();
                     pageObject.pressArrowDownKey();
                     pageObject.pressEnterKey();

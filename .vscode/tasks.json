@@ -87,12 +87,12 @@
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/packages/nimble-blazor/Examples/Demo.Server/Demo.Server.csproj",
+                "${workspaceFolder}/packages/blazor-workspace/Examples/Demo.Server/Demo.Server.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
             "options": {
-                "cwd": "${workspaceFolder}/packages/nimble-blazor/Examples/Demo.Server/"
+                "cwd": "${workspaceFolder}/packages/blazor-workspace/Examples/Demo.Server/"
             },
             "problemMatcher": "$msCompile"
         },
@@ -102,12 +102,12 @@
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/packages/nimble-blazor/Examples/Demo.Client/Demo.Client.csproj",
+                "${workspaceFolder}/packages/blazor-workspace/Examples/Demo.Client/Demo.Client.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
             "options": {
-                "cwd": "${workspaceFolder}/packages/nimble-blazor/Examples/Demo.Client/"
+                "cwd": "${workspaceFolder}/packages/blazor-workspace/Examples/Demo.Client/"
             },
             "problemMatcher": "$msCompile"
         },
@@ -119,10 +119,10 @@
                 "watch",
                 "run",
                 "--project",
-                "${workspaceFolder}/packages/nimble-blazor/Examples/Demo.Server/Demo.Server.csproj"
+                "${workspaceFolder}/packages/blazor-workspace/Examples/Demo.Server/Demo.Server.csproj"
             ],
             "options": {
-                "cwd": "${workspaceFolder}/packages/nimble-blazor/Examples/Demo.Server/"
+                "cwd": "${workspaceFolder}/packages/blazor-workspace/Examples/Demo.Server/"
             },
             "problemMatcher": "$msCompile"
         },
@@ -134,10 +134,10 @@
                 "watch",
                 "run",
                 "--project",
-                "${workspaceFolder}/packages/nimble-blazor/Examples/Demo.Client/Demo.Client.csproj"
+                "${workspaceFolder}/packages/blazor-workspace/Examples/Demo.Client/Demo.Client.csproj"
             ],
             "options": {
-                "cwd": "${workspaceFolder}/packages/nimble-blazor/Examples/Demo.Client/"
+                "cwd": "${workspaceFolder}/packages/blazor-workspace/Examples/Demo.Client/"
             },
             "problemMatcher": "$msCompile"
         },
