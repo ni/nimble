@@ -1,8 +1,8 @@
 import { html } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
-import { createUserSelectedThemeStory } from '../../../utilities/tests/storybook';
-import { hiddenWrapper } from '../../../utilities/tests/hidden';
-import { mappingKeyDescription } from '../../base/tests/story-helpers';
+import { mappingKeyDescription } from '../base/story-helpers';
+import { createUserSelectedThemeStory } from '../../../utilities/storybook';
+import { hiddenWrapper } from '../../../utilities/hidden';
 
 const metadata: Meta = {
     title: 'Internal/Mappings',
