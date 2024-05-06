@@ -118,12 +118,11 @@ export const styles = css`
         overflow: auto;
     }
 
+    ::slotted([role='option']) {
+        background-color: transparent;
+    }
     ::slotted([role='option'][active-option]) {
         background-color: ${fillSelectedColor};
-    }
-
-    ::slotted([role='option']:not([active-option])) {
-        background: none;
     }
 
     ::slotted([role='option'][active-option]:hover) {
