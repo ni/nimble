@@ -1,6 +1,30 @@
 # Contributing to Nimble
 
-⚠️ **Note**: Nimble doesn't yet support normal open source fork-pull workflows (see https://github.com/ni/nimble/issues/634). To contribute pull requests you must be granted access to the repo. See the [Community section of the README](/README.md#community) to get in touch if you need access.
+## Getting started
+
+To submit changes to Nimble, the first step is to build the monorepo which requires the following to be setup:
+
+- Sync down a copy of the nimble repository
+    - Note: For one-off small contributions you can consider using a fork-pull workflow. However [fork-pull workflows are not yet supported](https://github.com/ni/nimble/issues/634) for substantial development. For substantial development you should be added as a Contributor to the repository. See the [`README.md` Community section](/README.md#community) to get in touch if you need Contributor permissions. 
+- Install Node.js version 20+ (run `node --version`) and npm version 10+ (run `npm --version`) which can be downloaded from https://nodejs.org/en/download/
+- Install .NET 6 SDK (`6.0.418 <= version < 7`) which can be downloaded from https://dotnet.microsoft.com/en-us/download
+   - Run `dotnet --info` to verify the required version of the SDK is installed. A `v6` install is required, but it's fine if later versions are installed too.
+
+From the `nimble` directory:
+
+1. Run `npm install`
+2. Run `npm run build`
+3. Run `npm run storybook` to view the components in Storybook
+
+    Note: As you make style changes to components you will need to refresh your browser window to see the effect.
+
+For Visual Studio Code users, after running `npm install` you can:
+
+- Use `Terminal » Run Task…` to see a list of available tasks.
+- Use `Terminal » Run Build Task…` to do a full build of the Nimble monorepo.
+   - Alternatively, you can run a full build using the shortcuts `cmd+shift+B` on Mac / `ctrl+shift+B` on Windows.
+
+Now that you can build the monorepo see the `CONTRIBUTING.md` for the packages you would like to contribute to.
 
 ## Repository overview
 
@@ -19,24 +43,6 @@ This repository uses the following tooling. See below for more info.
 - [Nimble Components XD Library](https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/)
 - [Nimble Components Figma Library](https://www.figma.com/file/PO9mFOu5BCl8aJvFchEeuN/Nimble_Components?node-id=1295%3A77205&mode=dev)
 - [Nimble technologies walkthrough video](https://nio365.sharepoint.com/:v:/s/SystemLinkDesignSystem/EY4c8IRUechPgBkomuIDwwEB2rl66Tg2CJxY0nfPsqSb8g?e=fWViGm) (NI internal)
-
-## Getting started
-
-First step in development is to build the monorepo which requires the following to be installed:
-
-- Node.js version 20+ (run `node --version`) and npm version 10+ (run `npm --version`) which can be downloaded from https://nodejs.org/en/download/
-- .NET 6 SDK (`6.0.418 <= version < 7`) which can be downloaded from https://dotnet.microsoft.com/en-us/download
-   - Run `dotnet --info` to verify the required version of the SDK is installed. A `v6` install is required, but it's fine if later versions are installed too.
-
-From the `nimble` directory:
-
-1. Run `npm install`
-2. Run `npm run build` (Alternatively in Visual Studio Code **Terminal » Run Build Task…** [Mac: `cmd+shift+B` Windows: `ctrl+shift+B`])
-3. Run `npm run storybook -w @ni/nimble-components` to view the components in Storybook
-
-    **Note**: You will need to refresh your browser window to see style changes made in source.
-
-Now that you can build the monorepo see the `CONTRIBUTING.md` for the packages you would like to contribute to.
 
 ## Develop new components
 
@@ -84,11 +90,11 @@ When generating a change file, follow these guidelines:
 If a beachball publish command fails on the pipeline so packages are partially published, perform the following steps to get the repo in a good state:
 
 1. Create a branch from main which should still have change files from the failed publish and, if applicable, fix the underlying issue in the branch.
-2. In the repo root run `npm run beachball-sync`. Beachball will:
+2. In the repo root run `npm run sync`. Beachball will:
     - Find the latest packages that were published successfully to npm.
     - Update the `package.json` for each of those packages to align with the latest published version. It also handles cross-dependencies, i.e. angular shows the latest version of components as its dependency.
     - Note: It does not handle packages that are not published to npm at all. For example, you need to manually check nuget.org for `NimbleBlazor`'s published version and update the `package.json`.
-3. Commit the changes from `npm run beachball-sync` and run `npm run change` for those changes.
+3. Commit the changes from `npm run sync` and run `npm run change` for those changes.
 4. Submit a PR for the branch and merge.
 
 ### Dependency Review

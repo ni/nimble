@@ -100,8 +100,8 @@ jobs:
           exitOnceUploaded: true # Do not wait for test results
           exitZeroOnChanges: true # Option to prevent the workflow from failing
 
-      # Lint and Test
-      - run: npm run concurrently-lint-test
+      # Validate (Lint and Test)
+      - run: npm run validate
 
       # Run Lighthouse audit (from any push)
       - name: Performance Audit with Lighthouse CI
@@ -118,6 +118,8 @@ jobs:
         run: |
           echo print files with changes:
           git diff-index --ignore-space-at-eol --stat HEAD
+          echo print diff or blank if no changes:
+          git diff
           echo exit with error if there are changes.
           git diff-index --quiet --ignore-space-at-eol --stat HEAD
 
