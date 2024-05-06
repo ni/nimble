@@ -2,7 +2,6 @@ import { html, repeat, when } from '@microsoft/fast-element';
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html';
 import { listOptionTag } from '@ni/nimble-components/dist/esm/list-option';
-import { menuMinWidth } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
 import { selectTag } from '@ni/nimble-components/dist/esm/select';
 import { FilterMode } from '@ni/nimble-components/dist/esm/select/types';
 import { ExampleOptionsType } from '@ni/nimble-components/dist/esm/select/tests/types';
