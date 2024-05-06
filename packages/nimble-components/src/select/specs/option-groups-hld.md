@@ -2,7 +2,7 @@
 
 ## Problem Statement
 
-It is not uncommon to want to categorize the options that are present in the dropdown for a `Select`/`Combobox` component. By supporting categories, users are then able to provide options that have the same display value, but under separate categories, helping avoid confusion.
+It is a common request to categorize the options that are present in the dropdown for a `Select`/`Combobox` component. By supporting categories, developers are able to logically group options, and help end-users to quickly find the relevant option. This will also support use cases that need the same display values under separate categories.
 
 ## Links To Relevant Work Items and Reference Material
 
