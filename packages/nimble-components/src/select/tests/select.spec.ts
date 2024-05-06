@@ -433,21 +433,11 @@ describe('Select', () => {
         await waitForUpdatesAsync();
         const pageObject = new SelectPageObject(element);
         await clickAndWaitForOpen(element);
-        let selectValue = '';
 
-        await Promise.race([
-            new Promise(resolve => {
-                element.addEventListener('change', () => {
-                    selectValue = element.value;
-                    resolve(true);
-                });
-                pageObject.pressArrowDownKey();
-                void (async () => {
-                    await pageObject.clickAway();
-                })();
-            }),
-            waitForUpdatesAsync().then(() => false)
-        ]);
+        const changeValuePromise = pageObject.waitForChange();
+        pageObject.pressArrowDownKey();
+        await pageObject.clickAway();
+        const selectValue = await changeValuePromise;
 
         expect(selectValue).toBe('two');
 

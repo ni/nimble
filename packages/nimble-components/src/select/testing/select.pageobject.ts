@@ -246,6 +246,20 @@ export class SelectPageObject {
         return this.selectElement.filterInput?.value ?? '';
     }
 
+    public async waitForChange(): Promise<string> {
+        return new Promise(resolve => {
+            this.selectElement.addEventListener(
+                'change',
+                () => {
+                    resolve(this.selectElement.value);
+                },
+                {
+                    once: true
+                }
+            );
+        });
+    }
+
     private getFilterInput(): HTMLInputElement | null | undefined {
         if (this.selectElement.filterMode === FilterMode.none) {
             throw new Error(

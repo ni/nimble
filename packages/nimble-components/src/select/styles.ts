@@ -121,6 +121,7 @@ export const styles = css`
     ::slotted([role='option']) {
         background-color: transparent;
     }
+
     ::slotted([role='option'][active-option]) {
         background-color: ${fillSelectedColor};
     }
