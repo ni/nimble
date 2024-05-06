@@ -275,7 +275,6 @@ implements Subscriber {
             case TableFocusType.row:
                 if (this.isRowExpanded(focusedRow) === true) {
                     this.toggleRowExpanded(focusedRow!);
-                    this.focusRowElement(focusedRow!);
                     return true;
                 }
                 return false;
