@@ -42,6 +42,18 @@ The Nimble `Select` (and `Combobox`) will follow the same approach, and provide 
 </nimble-select>
 ```
 
+#### Visual separators
+
+The visual design calls for option groups to have a visual separator between them:
+
+![](./spec-images/option-group-separator.png)
+
+To accomplish this, a client will be required to insert an `<hr>` element between each group. This mirrors the API for the `Menu`.
+
+#### Top-level Options
+
+While not a common use-case, clients can provide `nimble-list-option`s as siblings to `nimble-list-option-group`s. In such cases, the client will be expected to insert the appropriate `<hr>` element between a `nimble-list-option-group` and set of `nimble-list-option`s that immediately follow it.
+
 ### API
 
 The `ListOptionGroup` class API should be fairly lightweight:
@@ -68,6 +80,8 @@ If a client configures both the `label` attribute _and_ supplies slotted content
 ### Filtering
 
 As [mentioned in the IxD](https://github.com/ni/nimble/blob/main/packages/nimble-components/src/select/specs/IxD.md#groups), when a user has filtering enabled, typing into the filter input will match both individual options (as normal), as well as _all_ options that are under a group that matches the filter text.
+
+When all options under a group are filtered out, the group will also be hidden in the dropdown.
 
 #### Combobox Guidance
 
