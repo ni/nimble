@@ -48,6 +48,7 @@ export const comments: { readonly [key in TokenName]: string } = {
     tagFillColor: 'Background fill color for tags, chips, or pills',
     controlHeight:
         'Standard layout height for all controls. Add "labelHeight" for labels on top.',
+    controlMinWidth: 'Standard minimum width for all controls',
     controlSlimHeight:
         'Height of controls that are somewhat shorter than standard height.',
     smallPadding: 'Fixed 4px size ramp token for component layout',

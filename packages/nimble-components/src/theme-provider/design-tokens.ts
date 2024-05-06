@@ -259,6 +259,9 @@ export const buttonBorderAccentOutlineColor = DesignToken.create<string>(
 export const controlHeight = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.controlHeight)
 ).withDefault('32px');
+export const controlMinWidth = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.controlMinWidth)
+).withDefault('176px');
 export const controlSlimHeight = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.controlSlimHeight)
 ).withDefault('24px');

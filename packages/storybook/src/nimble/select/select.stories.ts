@@ -100,7 +100,7 @@ const metadata: Meta<SelectArgs> = {
             position="${x => x.dropDownPosition}"
             appearance="${x => x.appearance}"
             filter-mode="${x => (x.filterMode === 'none' ? undefined : x.filterMode)}"
-            style="width: var(${menuMinWidth.cssCustomProperty});"
+            style="width: 250px;"
         >
             ${when(x => x.placeholder, html`
                 <${listOptionTag}

@@ -104,7 +104,7 @@ const metadata: Meta<ComboboxArgs> = {
             appearance="${x => x.appearance}"
             value="${x => x.currentValue}"
             placeholder="${x => x.placeholder}"
-            style="width: var(${menuMinWidth.cssCustomProperty});"
+            style="width: 250px;"
         >
             ${repeat(x => optionSets[x.optionsType], html<OptionArgs>`
                 <${listOptionTag} ?disabled="${x => x.disabled}">${x => x.label}</${listOptionTag}>
