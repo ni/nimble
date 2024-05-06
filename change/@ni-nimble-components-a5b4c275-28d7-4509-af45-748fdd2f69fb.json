@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "Added controlMinWidth token and set Select and Combobox controls to this new value (176px)",
+  "packageName": "@ni/nimble-components",
+  "email": "1458528+fredvisser@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
