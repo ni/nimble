@@ -2,6 +2,51 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 07 May 2024 20:15:55 GMT",
+      "version": "28.0.3",
+      "tag": "@ni/nimble-components_v28.0.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "7feb69deda088c1fa771f836dedd627e33b4e63b",
+            "comment": "Fixing hover behavior for options in Select."
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 07 May 2024 16:24:36 GMT",
+      "version": "28.0.2",
+      "tag": "@ni/nimble-components_v28.0.2",
+      "comments": {
+        "patch": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "bbe265424e76e1824a5748b8bc6cb6d69a1b9a17",
+            "comment": "Change Select to not update value as you navigate options in dropdown."
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 07 May 2024 13:17:00 GMT",
+      "version": "28.0.1",
+      "tag": "@ni/nimble-components_v28.0.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "799d39216faa9ad98c94627c6505439c846cbac9",
+            "comment": "Set Select and Combobox min-width to menuMinWidth token (176px)"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 06 May 2024 20:26:50 GMT",
       "version": "28.0.0",
       "tag": "@ni/nimble-components_v28.0.0",

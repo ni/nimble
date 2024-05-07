@@ -41,6 +41,17 @@ export class ListOption extends FoundationListboxOption {
     @attr({ attribute: 'visually-hidden', mode: 'boolean' })
     public visuallyHidden = false;
 
+    /**
+     * @internal
+     * This attribute is used to control the visual selected state of an option. This
+     * is handled independently of the public 'selected' attribute, as 'selected' is
+     * representative of the current value of the container control. However, while
+     * a dropdown is open users can navigate through the options (requiring visual
+     * updates) without changing the value of the container control.
+     */
+    @attr({ attribute: 'active-option', mode: 'boolean' })
+    public activeOption = false;
+
     /** @internal */
     @observable
     public hasOverflow = false;
