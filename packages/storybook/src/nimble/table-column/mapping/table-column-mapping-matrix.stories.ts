@@ -9,6 +9,7 @@ import { mappingSpinnerTag } from '@ni/nimble-components/dist/esm/mapping/spinne
 import { mappingTextTag } from '@ni/nimble-components/dist/esm/mapping/text';
 import { tableColumnMappingTag } from '@ni/nimble-components/dist/esm/table-column/mapping';
 import { TableColumnMappingWidthMode } from '@ni/nimble-components/dist/esm/table-column/mapping/types';
+import { mappingEmptyTag } from '@ni/nimble-components/dist/esm/mapping/empty';
 import { isChromatic } from '../../../utilities/isChromatic';
 import {
     createMatrixThemeStory,

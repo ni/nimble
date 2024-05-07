@@ -24,11 +24,11 @@ export const emptyMapping: StoryObj = {
     render: createUserSelectedThemeStory(hiddenWrapper(html`<style></style>`)),
     argTypes: {
         key: {
-            description: mappingKeyDescription('nothing'),
-            control: { type: 'none' }
+            control: false,
+            description: mappingKeyDescription('nothing')
         },
         text: {
-            control: { type: 'none' },
+            control: false,
             description: 'A textual description of the value. The table cells will render as empty, and the text will be displayed in a group header. This attribute is required.'
         }
     },
