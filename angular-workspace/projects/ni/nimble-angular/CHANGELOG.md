@@ -1,8 +1,132 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Mon, 15 Apr 2024 17:36:55 GMT and should not be manually modified.
+This log was last generated on Thu, 02 May 2024 18:52:31 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 23.2.1
+
+Thu, 02 May 2024 18:52:31 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v27.2.3
+
+## 23.2.0
+
+Thu, 02 May 2024 17:22:44 GMT
+
+### Minor changes
+
+- Add width-mode to the icon column ([ni/nimble@7a27f45](https://github.com/ni/nimble/commit/7a27f45851b45e29a554e3effc812011108db80d))
+
+## 23.1.11
+
+Wed, 01 May 2024 21:45:37 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v27.2.2
+
+## 23.1.10
+
+Wed, 01 May 2024 20:33:43 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v27.2.1
+
+## 23.1.9
+
+Wed, 01 May 2024 14:33:42 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v27.2.0
+
+## 23.1.8
+
+Tue, 30 Apr 2024 22:26:12 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v27.1.1
+
+## 23.1.7
+
+Tue, 30 Apr 2024 21:26:44 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v27.1.0
+
+## 23.1.6
+
+Fri, 26 Apr 2024 21:13:31 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v27.0.5
+
+## 23.1.5
+
+Fri, 26 Apr 2024 20:31:47 GMT
+
+### Patches
+
+- No API changes, validating release pipelines ([ni/nimble@c5a74e6](https://github.com/ni/nimble/commit/c5a74e68c2909e2f9a50bf0e6b0e4f1c5f0cbce8))
+- No API changes, validating release pipelines ([ni/nimble@ff7f847](https://github.com/ni/nimble/commit/ff7f847c0fb3834b5fdf4ce141bbe6bd94e1f0eb))
+- Bump @ni/nimble-components to v27.0.4
+
+## 23.1.1
+
+Wed, 24 Apr 2024 16:20:52 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v27.0.0
+
+## 23.1.0
+
+Tue, 23 Apr 2024 15:58:10 GMT
+
+### Minor changes
+
+- Export `MappingKeyType` from `NimbleTableColumnIconModule` ([ni/nimble@5e5f7c3](https://github.com/ni/nimble/commit/5e5f7c36876af5a570dd86f04ee83025cf5dd657))
+
+## 23.0.0
+
+Mon, 22 Apr 2024 15:13:13 GMT
+
+### Major changes
+
+- Remove enum-text table column. The icon column supports text mappings and should be used instead. ([ni/nimble@16b2c1b](https://github.com/ni/nimble/commit/16b2c1b2820d14e88474e26b17eefd7b7cdf0e9f))
+- Bump @ni/nimble-components to v26.0.0
+
+## 22.0.2
+
+Fri, 19 Apr 2024 16:57:31 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v25.1.1
+
+## 22.0.1
+
+Thu, 18 Apr 2024 21:47:19 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v25.1.0
+
+## 22.0.0
+
+Wed, 17 Apr 2024 20:57:25 GMT
+
+### Major changes
+
+- Add configuration for icon mappings and spinner mappings to show/hide their text within a table's cells. **Breaking change:** The icon mappings and spinner mappings now default to showing their text within a table's cells in addition to on group rows. ([ni/nimble@6d50261](https://github.com/ni/nimble/commit/6d502618333981f4c5c2f72ddb5b329674d2e345))
+- Bump @ni/nimble-components to v25.0.0
 
 ## 21.0.2
 

@@ -110,28 +110,6 @@ import { tokenNames, styleNameFromTokenName } from './design-token-names';
 import { theme } from '.';
 import { hexToRgbaCssColor } from '../utilities/style/colors';
 
-/* eslint-disable @typescript-eslint/naming-convention */
-const Headline1FallbackFontFamily = 'Noto Serif Fallback';
-const Headline2FallbackFontFamily = 'Noto Serif Fallback';
-const Title1FallbackFontFamily = 'Source Sans Pro Fallback';
-const Title2FallbackFontFamily = 'Source Sans Pro Fallback';
-const Title3FallbackFontFamily = 'Source Sans Pro Fallback';
-const Subtitle1FallbackFontFamily = 'Source Sans Pro Fallback';
-const Subtitle2FallbackFontFamily = 'Source Sans Pro Fallback';
-const LinkFallbackFontFamily = 'Source Sans Pro Fallback';
-const PlaceholderFallbackFontFamily = 'Source Sans Pro Fallback';
-const BodyFallbackFontFamily = 'Source Sans Pro Fallback';
-const Body2FallbackFontFamily = 'Source Sans Pro Fallback';
-const BodyEmphasizedFallbackFontFamily = 'Source Sans Pro Fallback';
-const BodyEmphasized2FallbackFontFamily = 'Source Sans Pro Fallback';
-const GroupLabel1FallbackFontFamily = 'Source Sans Pro Fallback';
-const ControlLabel1FallbackFontFamily = 'Source Sans Pro Fallback';
-const ButtonLabel1FallbackFontFamily = 'Source Sans Pro Fallback';
-const TooltipCaptionFallbackFontFamily = 'Source Sans Pro Fallback';
-const ErrorLightUiFallbackFontFamily = 'Source Sans Pro Fallback';
-const GridHeaderFallbackFontFamily = 'Source Sans Pro Fallback';
-/* eslint-enable @typescript-eslint/naming-convention */
-
 // Color Tokens
 export const actionRgbPartialColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.actionRgbPartialColor)
@@ -233,6 +211,10 @@ export const tooltipBackgroundColor = DesignToken.create<string>(
 export const tableRowBorderColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.tableRowBorderColor)
 ).withDefault((element: HTMLElement) => getColorForTheme(element, Black15, Black80, ForestGreen));
+
+export const tagFillColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.tagFillColor)
+).withDefault((element: HTMLElement) => hexToRgbaCssColor(getColorForTheme(element, Black91, Black15, White), 0.1));
 
 export const buttonFillPrimaryColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.buttonFillPrimaryColor)
@@ -375,8 +357,7 @@ export const [
     headlineFontFamily,
     headlineFontWeight,
     headlineFontSize,
-    headlineFontLineHeight,
-    headlineFallbackFontFamily
+    headlineFontLineHeight
 ] = createFontTokens(
     tokenNames.headlineFont,
     (element: HTMLElement) => getDefaultFontColorForTheme(element),
@@ -384,8 +365,7 @@ export const [
     Headline1Family,
     Headline1Weight,
     Headline1Size,
-    Headline1LineHeight,
-    Headline1FallbackFontFamily
+    Headline1LineHeight
 );
 
 export const [
@@ -395,8 +375,7 @@ export const [
     headlinePlus1FontFamily,
     headlinePlus1FontWeight,
     headlinePlus1FontSize,
-    headlinePlus1FontLineHeight,
-    headlinePlus1FallbackFontFamily
+    headlinePlus1FontLineHeight
 ] = createFontTokens(
     tokenNames.headlinePlus1Font,
     (element: HTMLElement) => getDefaultFontColorForTheme(element),
@@ -404,8 +383,7 @@ export const [
     Headline2Family,
     Headline2Weight,
     Headline2Size,
-    Headline2LineHeight,
-    Headline2FallbackFontFamily
+    Headline2LineHeight
 );
 
 export const [
@@ -415,8 +393,7 @@ export const [
     titlePlus2FontFamily,
     titlePlus2FontWeight,
     titlePlus2FontSize,
-    titlePlus2FontLineHeight,
-    titlePlus2FallbackFontFamily
+    titlePlus2FontLineHeight
 ] = createFontTokens(
     tokenNames.titlePlus2Font,
     (element: HTMLElement) => getDefaultFontColorForTheme(element),
@@ -424,8 +401,7 @@ export const [
     Title3Family,
     Title3Weight,
     Title3Size,
-    Title3LineHeight,
-    Title3FallbackFontFamily
+    Title3LineHeight
 );
 
 export const [
@@ -435,8 +411,7 @@ export const [
     titlePlus1FontFamily,
     titlePlus1FontWeight,
     titlePlus1FontSize,
-    titlePlus1FontLineHeight,
-    titlePlus1FallbackFontFamily
+    titlePlus1FontLineHeight
 ] = createFontTokens(
     tokenNames.titlePlus1Font,
     (element: HTMLElement) => getDefaultFontColorForTheme(element),
@@ -444,8 +419,7 @@ export const [
     Title2Family,
     Title2Weight,
     Title2Size,
-    Title2LineHeight,
-    Title2FallbackFontFamily
+    Title2LineHeight
 );
 
 export const [
@@ -455,8 +429,7 @@ export const [
     titleFontFamily,
     titleFontWeight,
     titleFontSize,
-    titleFontLineHeight,
-    titleFallbackFontFamily
+    titleFontLineHeight
 ] = createFontTokens(
     tokenNames.titleFont,
     (element: HTMLElement) => getDefaultFontColorForTheme(element),
@@ -464,8 +437,7 @@ export const [
     Title1Family,
     Title1Weight,
     Title1Size,
-    Title1LineHeight,
-    Title1FallbackFontFamily
+    Title1LineHeight
 );
 
 export const [
@@ -475,8 +447,7 @@ export const [
     subtitlePlus1FontFamily,
     subtitlePlus1FontWeight,
     subtitlePlus1FontSize,
-    subtitlePlus1FontLineHeight,
-    subtitlePlus1FallbackFontFamily
+    subtitlePlus1FontLineHeight
 ] = createFontTokens(
     tokenNames.subtitlePlus1Font,
     (element: HTMLElement) => getDefaultFontColorForTheme(element),
@@ -484,8 +455,7 @@ export const [
     Subtitle2Family,
     Subtitle2Weight,
     Subtitle2Size,
-    Subtitle2LineHeight,
-    Subtitle2FallbackFontFamily
+    Subtitle2LineHeight
 );
 
 export const [
@@ -495,8 +465,7 @@ export const [
     subtitleFontFamily,
     subtitleFontWeight,
     subtitleFontSize,
-    subtitleFontLineHeight,
-    subtitleFallbackFontFamily
+    subtitleFontLineHeight
 ] = createFontTokens(
     tokenNames.subtitleFont,
     (element: HTMLElement) => getDefaultFontColorForTheme(element),
@@ -504,8 +473,7 @@ export const [
     Subtitle1Family,
     Subtitle1Weight,
     Subtitle1Size,
-    Subtitle1LineHeight,
-    Subtitle1FallbackFontFamily
+    Subtitle1LineHeight
 );
 
 export const [
@@ -515,8 +483,7 @@ export const [
     linkFontFamily,
     linkFontWeight,
     linkFontSize,
-    linkFontLineHeight,
-    linkFallbackFontFamily
+    linkFontLineHeight
 ] = createFontTokens(
     tokenNames.linkFont,
     (element: HTMLElement) => getDefaultFontColorForTheme(element),
@@ -524,8 +491,7 @@ export const [
     LinkLightUiFamily,
     LinkLightUiWeight,
     LinkLightUiSize,
-    LinkLineHeight,
-    LinkFallbackFontFamily
+    LinkLineHeight
 );
 
 export const [
@@ -535,8 +501,7 @@ export const [
     linkActiveFontFamily,
     linkActiveFontWeight,
     linkActiveFontSize,
-    linkActiveFontLineHeight,
-    linkActiveFallbackFontFamily
+    linkActiveFontLineHeight
 ] = createFontTokens(
     tokenNames.linkActiveFont,
     (element: HTMLElement) => getColorForTheme(
@@ -549,8 +514,7 @@ export const [
     LinkLightUiFamily,
     LinkLightUiWeight,
     LinkLightUiSize,
-    LinkLineHeight,
-    LinkFallbackFontFamily
+    LinkLineHeight
 );
 
 export const [
@@ -560,8 +524,7 @@ export const [
     linkProminentFontFamily,
     linkProminentFontWeight,
     linkProminentFontSize,
-    linkProminentFontLineHeight,
-    linkProminentFallbackFontFamily
+    linkProminentFontLineHeight
 ] = createFontTokens(
     tokenNames.linkProminentFont,
     (element: HTMLElement) => getColorForTheme(element, DigitalGreenDark105, PowerGreen, PowerGreen),
@@ -569,8 +532,7 @@ export const [
     LinkLightUiFamily,
     LinkLightUiWeight,
     LinkLightUiSize,
-    LinkLineHeight,
-    LinkFallbackFontFamily
+    LinkLineHeight
 );
 
 export const [
@@ -580,8 +542,7 @@ export const [
     linkActiveProminentFontFamily,
     linkActiveProminentFontWeight,
     linkActiveProminentFontSize,
-    linkActiveProminentFontLineHeight,
-    linkActiveProminentFallbackFontFamily
+    linkActiveProminentFontLineHeight
 ] = createFontTokens(
     tokenNames.linkActiveProminentFont,
     (element: HTMLElement) => getColorForTheme(
@@ -594,8 +555,7 @@ export const [
     LinkLightUiFamily,
     LinkLightUiWeight,
     LinkLightUiSize,
-    LinkLineHeight,
-    LinkFallbackFontFamily
+    LinkLineHeight
 );
 
 export const [
@@ -605,8 +565,7 @@ export const [
     placeholderFontFamily,
     placeholderFontWeight,
     placeholderFontSize,
-    placeholderFontLineHeight,
-    placeholderFallbackFontFamily
+    placeholderFontLineHeight
 ] = createFontTokens(
     tokenNames.placeholderFont,
     (element: HTMLElement) => hexToRgbaCssColor(getDefaultFontColorForTheme(element), 0.6),
@@ -614,8 +573,7 @@ export const [
     PlaceholderFamily,
     PlaceholderWeight,
     PlaceholderSize,
-    PlaceholderLineHeight,
-    PlaceholderFallbackFontFamily
+    PlaceholderLineHeight
 );
 
 export const [
@@ -625,8 +583,7 @@ export const [
     bodyFontFamily,
     bodyFontWeight,
     bodyFontSize,
-    bodyFontLineHeight,
-    bodyFallbackFontFamily
+    bodyFontLineHeight
 ] = createFontTokens(
     tokenNames.bodyFont,
     (element: HTMLElement) => getDefaultFontColorForTheme(element),
@@ -634,8 +591,7 @@ export const [
     BodyFamily,
     BodyWeight,
     BodySize,
-    BodyLineHeight,
-    BodyFallbackFontFamily
+    BodyLineHeight
 );
 
 export const [
@@ -645,8 +601,7 @@ export const [
     bodyEmphasizedFontFamily,
     bodyEmphasizedFontWeight,
     bodyEmphasizedFontSize,
-    bodyEmphasizedFontLineHeight,
-    bodyEmphasizedFallbackFontFamily
+    bodyEmphasizedFontLineHeight
 ] = createFontTokens(
     tokenNames.bodyEmphasizedFont,
     (element: HTMLElement) => getDefaultFontColorForTheme(element),
@@ -654,8 +609,7 @@ export const [
     BodyEmphasizedFamily,
     BodyEmphasizedWeight,
     BodyEmphasizedSize,
-    BodyEmphasizedLineHeight,
-    BodyEmphasizedFallbackFontFamily
+    BodyEmphasizedLineHeight
 );
 
 export const [
@@ -665,8 +619,7 @@ export const [
     bodyPlus1FontFamily,
     bodyPlus1FontWeight,
     bodyPlus1FontSize,
-    bodyPlus1FontLineHeight,
-    bodyPlus1FallbackFontFamily
+    bodyPlus1FontLineHeight
 ] = createFontTokens(
     tokenNames.bodyPlus1Font,
     (element: HTMLElement) => getDefaultFontColorForTheme(element),
@@ -674,8 +627,7 @@ export const [
     Body2Family,
     Body2Weight,
     Body2Size,
-    Body2LineHeight,
-    Body2FallbackFontFamily
+    Body2LineHeight
 );
 
 export const [
@@ -685,8 +637,7 @@ export const [
     bodyPlus1EmphasizedFontFamily,
     bodyPlus1EmphasizedFontWeight,
     bodyPlus1EmphasizedFontSize,
-    bodyPlus1EmphasizedFontLineHeight,
-    bodyPlus1EmphasizedFallbackFontFamily
+    bodyPlus1EmphasizedFontLineHeight
 ] = createFontTokens(
     tokenNames.bodyPlus1EmphasizedFont,
     (element: HTMLElement) => getDefaultFontColorForTheme(element),
@@ -694,8 +645,7 @@ export const [
     BodyEmphasized2Family,
     BodyEmphasized2Weight,
     BodyEmphasized2Size,
-    BodyEmphasized2LineHeight,
-    BodyEmphasized2FallbackFontFamily
+    BodyEmphasized2LineHeight
 );
 
 export const [
@@ -705,8 +655,7 @@ export const [
     groupHeaderFontFamily,
     groupHeaderFontWeight,
     groupHeaderFontSize,
-    groupHeaderFontLineHeight,
-    groupHeaderFallbackFontFamily
+    groupHeaderFontLineHeight
 ] = createFontTokens(
     tokenNames.groupHeaderFont,
     (element: HTMLElement) => getDefaultFontColorForTheme(element),
@@ -714,8 +663,7 @@ export const [
     GroupLabel1Family,
     GroupLabel1Weight,
     GroupLabel1Size,
-    GroupLabel1LineHeight,
-    GroupLabel1FallbackFontFamily
+    GroupLabel1LineHeight
 );
 
 export const [
@@ -725,8 +673,7 @@ export const [
     controlLabelFontFamily,
     controlLabelFontWeight,
     controlLabelFontSize,
-    controlLabelFontLineHeight,
-    controlLabelFallbackFontFamily
+    controlLabelFontLineHeight
 ] = createFontTokens(
     tokenNames.controlLabelFont,
     (element: HTMLElement) => hexToRgbaCssColor(getDefaultFontColorForTheme(element), 0.6),
@@ -734,8 +681,7 @@ export const [
     ControlLabel1Family,
     ControlLabel1Weight,
     ControlLabel1Size,
-    ControlLabel1LineHeight,
-    ControlLabel1FallbackFontFamily
+    ControlLabel1LineHeight
 );
 
 export const [
@@ -745,8 +691,7 @@ export const [
     buttonLabelFontFamily,
     buttonLabelFontWeight,
     buttonLabelFontSize,
-    buttonLabelFontLineHeight,
-    buttonLabelFallbackFontFamily
+    buttonLabelFontLineHeight
 ] = createFontTokens(
     tokenNames.buttonLabelFont,
     (element: HTMLElement) => getDefaultFontColorForTheme(element),
@@ -754,8 +699,7 @@ export const [
     ButtonLabel1Family,
     ButtonLabel1Weight,
     ButtonLabel1Size,
-    ButtonLabel1LineHeight,
-    ButtonLabel1FallbackFontFamily
+    ButtonLabel1LineHeight
 );
 
 export const [
@@ -765,8 +709,7 @@ export const [
     tooltipCaptionFontFamily,
     tooltipCaptionFontWeight,
     tooltipCaptionFontSize,
-    tooltipCaptionFontLineHeight,
-    tooltipCaptionFallbackFontFamily
+    tooltipCaptionFontLineHeight
 ] = createFontTokens(
     tokenNames.tooltipCaptionFont,
     (element: HTMLElement) => getDefaultFontColorForTheme(element),
@@ -774,8 +717,7 @@ export const [
     TooltipCaptionFamily,
     TooltipCaptionWeight,
     TooltipCaptionSize,
-    TooltipCaptionLineHeight,
-    TooltipCaptionFallbackFontFamily
+    TooltipCaptionLineHeight
 );
 
 export const [
@@ -785,8 +727,7 @@ export const [
     errorTextFontFamily,
     errorTextFontWeight,
     errorTextFontSize,
-    errorTextFontLineHeight,
-    errorTextFallbackFontFamily
+    errorTextFontLineHeight
 ] = createFontTokens(
     tokenNames.errorTextFont,
     (element: HTMLElement) => getFailColorForTheme(element),
@@ -794,8 +735,7 @@ export const [
     ErrorLightUiFamily,
     ErrorLightUiWeight,
     ErrorLightUiSize,
-    TooltipCaptionLineHeight,
-    ErrorLightUiFallbackFontFamily
+    TooltipCaptionLineHeight
 );
 
 export const [
@@ -805,8 +745,7 @@ export const [
     tableHeaderFontFamily,
     tableHeaderFontWeight,
     tableHeaderFontSize,
-    tableHeaderFontLineHeight,
-    tableHeaderFallbackFontFamily
+    tableHeaderFontLineHeight
 ] = createFontTokens(
     tokenNames.tableHeaderFont,
     (element: HTMLElement) => hexToRgbaCssColor(getDefaultFontColorForTheme(element), 0.6),
@@ -814,8 +753,7 @@ export const [
     GridHeaderFamily,
     GridHeaderWeight,
     GridHeaderSize,
-    TooltipCaptionLineHeight,
-    GridHeaderFallbackFontFamily
+    TooltipCaptionLineHeight
 );
 
 export const [
@@ -825,8 +763,7 @@ export const [
     mentionFontFamily,
     mentionFontWeight,
     mentionFontSize,
-    mentionFontLineHeight,
-    mentionFallbackFontFamily
+    mentionFontLineHeight
 ] = createFontTokens(
     tokenNames.mentionFont,
     (element: HTMLElement) => getColorForTheme(element, DigitalGreenDark, PowerGreen, PowerGreen),
@@ -834,8 +771,7 @@ export const [
     BodyFamily,
     BodyEmphasizedWeight,
     BodySize,
-    BodyLineHeight,
-    BodyFallbackFontFamily
+    BodyLineHeight
 );
 
 // Font Transform Tokens
@@ -867,10 +803,8 @@ function createFontTokens(
     family: string,
     weight: string,
     size: string,
-    lineHeight: string,
-    fallbackFamily: string
+    lineHeight: string
 ): readonly [
-        CSSDesignToken<string>,
         CSSDesignToken<string>,
         CSSDesignToken<string>,
         CSSDesignToken<string>,
@@ -885,18 +819,16 @@ function createFontTokens(
         || weight === ''
         || size === ''
         || lineHeight === ''
-        || fallbackFamily === ''
     ) {
         throw new Error(
             'createFontTokens parameter unexpectedly set to empty string'
         );
     }
 
+    const familyWithFallback = `${family}, ${family} Fallback`;
     const fontToken = DesignToken.create<string>(
         styleNameFromTokenName(fontTokenName)
-    ).withDefault(
-        `${weight} ${size}/${lineHeight} ${family}, ${fallbackFamily}`
-    );
+    ).withDefault(`${weight} ${size}/${lineHeight} ${familyWithFallback}`);
 
     const fontNameParts = fontTokenName.split('-font');
     const tokenPrefixWithoutFont = fontNameParts[0];
@@ -916,23 +848,19 @@ function createFontTokens(
 
     const fontFamilyToken = DesignToken.create<string>(
         styleNameFromTokenName(`${tokenPrefixWithoutFont}-font-family`)
-    ).withDefault(`${family}`);
+    ).withDefault(familyWithFallback);
 
     const fontWeightToken = DesignToken.create<string>(
         styleNameFromTokenName(`${tokenPrefixWithoutFont}-font-weight`)
-    ).withDefault(`${weight}`);
+    ).withDefault(weight);
 
     const fontSizeToken = DesignToken.create<string>(
         styleNameFromTokenName(`${tokenPrefixWithoutFont}-font-size`)
-    ).withDefault(`${size}`);
+    ).withDefault(size);
 
     const fontLineHeightToken = DesignToken.create<string>(
         styleNameFromTokenName(`${tokenPrefixWithoutFont}-font-line-height`)
-    ).withDefault(`${lineHeight}`);
-
-    const fontFallbackFamilyToken = DesignToken.create<string>(
-        styleNameFromTokenName(`${tokenPrefixWithoutFont}-fallback-font-family`)
-    ).withDefault(`${fallbackFamily}`);
+    ).withDefault(lineHeight);
 
     return [
         fontToken,
@@ -941,8 +869,7 @@ function createFontTokens(
         fontFamilyToken,
         fontWeightToken,
         fontSizeToken,
-        fontLineHeightToken,
-        fontFallbackFamilyToken
+        fontLineHeightToken
     ] as const;
 }
 

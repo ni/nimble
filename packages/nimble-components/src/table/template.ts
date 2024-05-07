@@ -42,7 +42,7 @@ export const template = html<Table>`
             --ni-private-table-header-container-margin-right: ${x => x.virtualizer.headerContainerMarginRight}px;
             --ni-private-table-scroll-height: ${x => x.virtualizer.scrollHeight}px;
             --ni-private-table-row-container-top: ${x => x.virtualizer.rowContainerYOffset}px;
-            --ni-private-table-row-grid-columns: ${x => x.rowGridColumns ?? ''};
+            --ni-private-table-row-grid-columns: ${x => (x.rowGridColumns ? x.rowGridColumns : '')};
             --ni-private-table-cursor-override: ${x => (x.layoutManager.isColumnBeingSized ? 'col-resize' : 'default')};
             --ni-private-table-scrollable-min-width: ${x => x.tableScrollableMinWidth}px;
             --ni-private-glass-overlay-pointer-events: ${x => (x.layoutManager.isColumnBeingSized ? 'none' : 'default')};
@@ -60,7 +60,7 @@ export const template = html<Table>`
                                 <span class="checkbox-container">
                                     <${checkboxTag}
                                         ${ref('selectionCheckbox')}
-                                        class="${x => `selection-checkbox ${x.selectionMode ?? ''}`}"
+                                        class="${x => `selection-checkbox ${x.selectionMode ? x.selectionMode : ''}`}"
                                         @change="${(x, c) => x.onAllRowsSelectionChange(c.event as CustomEvent)}"
                                         title="${x => tableSelectAllLabel.getValueFor(x)}"
                                         aria-label="${x => tableSelectAllLabel.getValueFor(x)}"
@@ -89,6 +89,7 @@ export const template = html<Table>`
                                                 left
                                                 ${(_, c) => `${c.parent.layoutManager.activeColumnIndex === c.index ? 'column-active' : ''}`}
                                                 ${(_, c) => `${c.parent.layoutManager.activeColumnDivider === c.parent.getLeftDividerIndex(c.index) ? 'divider-active' : ''}`}
+                                                ${(_, c) => `${c.parent.layoutManager.hasResizableColumnToLeft(c.index - 1) ? 'draggable' : ''}`}
                                             "
                                             @mousedown="${(_, c) => c.parent.onLeftDividerMouseDown(c.event as MouseEvent, c.index)}">
                                         </div>
@@ -97,6 +98,7 @@ export const template = html<Table>`
                                             class="header"
                                             sort-direction="${x => (typeof x.columnInternals.currentSortIndex === 'number' ? x.columnInternals.currentSortDirection : TableColumnSortDirection.none)}"
                                             ?first-sorted-column="${(x, c) => x === c.parent.firstSortedColumn}"
+                                            ?indicators-hidden="${x => x.columnInternals.hideHeaderIndicators}"
                                             @click="${(x, c) => c.parent.toggleColumnSort(x, (c.event as MouseEvent).shiftKey)}"
                                             :isGrouped=${x => (typeof x.columnInternals.groupIndex === 'number' && !x.columnInternals.groupingDisabled)}
                                         >
@@ -109,6 +111,7 @@ export const template = html<Table>`
                                                 right
                                                 ${(_, c) => `${c.parent.layoutManager.activeColumnIndex === c.index ? 'column-active' : ''}`}
                                                 ${(_, c) => `${c.parent.layoutManager.activeColumnDivider === c.parent.getRightDividerIndex(c.index) ? 'divider-active' : ''}`}
+                                                ${(_, c) => `${c.parent.layoutManager.hasResizableColumnToLeft(c.index) ? 'draggable' : ''}`}
                                             "
                                              @mousedown="${(_, c) => c.parent.onRightDividerMouseDown(c.event as MouseEvent, c.index)}">
                                         </div>

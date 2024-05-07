@@ -247,29 +247,32 @@
                 >
                     Date
                 </nimble-table-column-date-text>
-                <nimble-table-column-enum-text
+                <nimble-table-column-icon
                     field-name="statusCode"
                     key-type="number"
                 >
                     <nimble-mapping-text key="100" text="Status message 1"></nimble-mapping-text>
                     <nimble-mapping-text key="101" text="Status message 2"></nimble-mapping-text>
                     Status
-                </nimble-table-column-enum-text>
+                </nimble-table-column-icon>
                 <nimble-table-column-icon
                     field-name="result"
                     key-type="string"
+                    width-mode="icon-size"
                 >
                     <nimble-mapping-icon
                         key="success"
                         text="Success"
                         icon="nimble-icon-check"
-                        severity="success">
+                        severity="success"
+                        text-hidden>
                     </nimble-mapping-icon>
                     <nimble-mapping-spinner
                         key="unknown"
-                        text="Unknown">
+                        text="Unknown"
+                        text-hidden>
                     </nimble-mapping-spinner>
-                    Result
+                    <nimble-icon-xmark-check title="Result"></nimble-icon-xmark-check>
                 </nimble-table-column-icon>
                 <nimble-table-column-number-text
                     field-name="number"

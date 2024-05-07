@@ -1,4 +1,5 @@
 import { DesignSystem } from '@microsoft/fast-foundation';
+import { attr } from '@microsoft/fast-element';
 import {
     MappingConfigs,
     TableColumnEnumBase,
@@ -6,7 +7,11 @@ import {
 } from '../enum-base';
 import { styles } from '../enum-base/styles';
 import { template } from '../enum-base/template';
-import { TableColumnSortOperation } from '../base/types';
+import {
+    TableColumnSortOperation,
+    singleIconColumnWidth,
+    defaultMinPixelWidth
+} from '../base/types';
 import { mixinGroupableColumnAPI } from '../mixins/groupable-column';
 import { mixinFractionalWidthColumnAPI } from '../mixins/fractional-width-column';
 import { MappingSpinner } from '../../mapping/spinner';
@@ -19,6 +24,9 @@ import type { Mapping } from '../../mapping/base';
 import type { MappingConfig } from '../enum-base/models/mapping-config';
 import { MappingIconConfig } from '../enum-base/models/mapping-icon-config';
 import { MappingSpinnerConfig } from '../enum-base/models/mapping-spinner-config';
+import { MappingText } from '../../mapping/text';
+import { MappingTextConfig } from '../enum-base/models/mapping-text-config';
+import { TableColumnMappingWidthMode } from './types';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -37,6 +45,15 @@ export class TableColumnIcon extends mixinGroupableColumnAPI(
         >
     )
 ) {
+    @attr({ attribute: 'width-mode' })
+    public widthMode: TableColumnMappingWidthMode;
+
+    public override minPixelWidthChanged(): void {
+        if (this.widthMode !== TableColumnMappingWidthMode.iconSize) {
+            this.columnInternals.minPixelWidth = this.getConfiguredMinPixelWidth();
+        }
+    }
+
     protected override getColumnInternalsOptions(): ColumnInternalsOptions<TableColumnIconValidator> {
         return {
             cellRecordFieldNames: ['value'],
@@ -61,15 +78,40 @@ export class TableColumnIcon extends mixinGroupableColumnAPI(
             return new MappingIconConfig(
                 mapping.resolvedIcon,
                 mapping.severity,
-                mapping.text
+                mapping.text,
+                mapping.textHidden
             );
         }
         if (mapping instanceof MappingSpinner) {
-            return new MappingSpinnerConfig(mapping.text);
+            return new MappingSpinnerConfig(mapping.text, mapping.textHidden);
+        }
+        if (mapping instanceof MappingText) {
+            return new MappingTextConfig(mapping.text);
         }
         // Getting here would indicate a programming error, b/c validation will prevent
         // this function from running when there is an unsupported mapping.
         throw new Error('Unsupported mapping');
+    }
+
+    private widthModeChanged(): void {
+        if (this.widthMode === TableColumnMappingWidthMode.iconSize) {
+            this.columnInternals.resizingDisabled = true;
+            this.columnInternals.hideHeaderIndicators = true;
+            this.columnInternals.pixelWidth = singleIconColumnWidth;
+            this.columnInternals.minPixelWidth = singleIconColumnWidth;
+        } else {
+            this.columnInternals.resizingDisabled = false;
+            this.columnInternals.hideHeaderIndicators = false;
+            this.columnInternals.pixelWidth = undefined;
+            this.columnInternals.minPixelWidth = this.getConfiguredMinPixelWidth();
+        }
+    }
+
+    private getConfiguredMinPixelWidth(): number {
+        if (typeof this.minPixelWidth === 'number') {
+            return this.minPixelWidth;
+        }
+        return defaultMinPixelWidth;
     }
 }
 

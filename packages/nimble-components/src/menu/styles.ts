@@ -18,6 +18,7 @@ import {
 import { Theme } from '../theme-provider/types';
 import { hexToRgbaCssColor } from '../utilities/style/colors';
 import { themeBehavior } from '../utilities/style/theme';
+import { anchorMenuItemTag } from '../anchor-menu-item';
 
 export const styles = css`
     ${display('grid')}
@@ -38,6 +39,7 @@ export const styles = css`
 
     :host([slot='submenu']) {
         margin: 0 ${mediumPadding};
+        cursor: default;
     }
 
     ::slotted(*) {
@@ -61,6 +63,10 @@ export const styles = css`
         text-transform: ${groupHeaderTextTransform};
         padding-top: ${smallPadding};
         padding-bottom: ${smallPadding};
+    }
+
+    ::slotted(${anchorMenuItemTag}) {
+        padding: 0px;
     }
 `.withBehaviors(
     themeBehavior(

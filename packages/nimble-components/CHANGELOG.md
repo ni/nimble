@@ -1,8 +1,115 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Mon, 15 Apr 2024 17:36:54 GMT and should not be manually modified.
+This log was last generated on Thu, 02 May 2024 18:52:31 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 27.2.3
+
+Thu, 02 May 2024 18:52:31 GMT
+
+### Patches
+
+- Fix the focus styling of the anchor menu item ([ni/nimble@022f1cb](https://github.com/ni/nimble/commit/022f1cbbe0054dd2432ddedacd4612fce244a0cb))
+
+## 27.2.2
+
+Wed, 01 May 2024 21:45:37 GMT
+
+### Patches
+
+- Update @types/markdown-it to remove @types/linkify-it peerDependency ([ni/nimble@c5f2626](https://github.com/ni/nimble/commit/c5f2626c97873c1f1aea9c18b06fef07cc8081bf))
+
+## 27.2.1
+
+Wed, 01 May 2024 20:33:43 GMT
+
+### Patches
+
+- Peer dependency on linkify-it type added to prevent issues for those using library type checking ([ni/nimble@d4204cf](https://github.com/ni/nimble/commit/d4204cf98575263a6ba7b22525f02beac109215b))
+
+## 27.2.0
+
+Wed, 01 May 2024 14:33:42 GMT
+
+### Minor changes
+
+- Added tag fill color token ([ni/nimble@27804b9](https://github.com/ni/nimble/commit/27804b9a6d29ff0adc600c94f2bf6822ad4d5e63))
+
+## 27.1.1
+
+Tue, 30 Apr 2024 22:26:12 GMT
+
+### Patches
+
+- Move anchored region import from menu to menu item ([ni/nimble@1ff549f](https://github.com/ni/nimble/commit/1ff549f91277bb7ab6949cfbc8af07c0a40d8d25))
+
+## 27.1.0
+
+Tue, 30 Apr 2024 21:26:44 GMT
+
+### Minor changes
+
+- Add configuration to make the icon column fixed width ([ni/nimble@6b0f337](https://github.com/ni/nimble/commit/6b0f3371aa6b49b802d2a0d9e79365e544cef161))
+
+## 27.0.5
+
+Fri, 26 Apr 2024 21:13:31 GMT
+
+### Patches
+
+- Bump @ni/jasmine-parameterized to v0.3.0
+
+## 27.0.4
+
+Fri, 26 Apr 2024 20:31:47 GMT
+
+### Patches
+
+- No API changes, validating release pipelines ([ni/nimble@ff7f847](https://github.com/ni/nimble/commit/ff7f847c0fb3834b5fdf4ce141bbe6bd94e1f0eb))
+- No API changes, validating release pipelines ([ni/nimble@c5a74e6](https://github.com/ni/nimble/commit/c5a74e68c2909e2f9a50bf0e6b0e4f1c5f0cbce8))
+- Updated wafer map web worker class to support offscreen rendering ([ni/nimble@a3865cb](https://github.com/ni/nimble/commit/a3865cb57e09ce6581d2dd10c5a61181ece73f59))
+- Bump @ni/nimble-tokens to v6.13.5
+
+## 27.0.0
+
+Wed, 24 Apr 2024 16:20:52 GMT
+
+### Major changes
+
+- Remove fallback design tokens. Use primary font tokens instead; they include fallback fonts after Nimble's font. ([ni/nimble@d72a0fa](https://github.com/ni/nimble/commit/d72a0faa81a649f70b72c9fcc8f2c4c201cfbe82))
+
+## 26.0.0
+
+Mon, 22 Apr 2024 15:13:13 GMT
+
+### Major changes
+
+- Remove enum-text table column. The icon column supports text mappings and should be used instead. ([ni/nimble@16b2c1b](https://github.com/ni/nimble/commit/16b2c1b2820d14e88474e26b17eefd7b7cdf0e9f))
+
+## 25.1.1
+
+Fri, 19 Apr 2024 16:57:31 GMT
+
+### Patches
+
+- Don't allow use of the nullish coalescing operator in templates ([ni/nimble@e3e5231](https://github.com/ni/nimble/commit/e3e523112cce7ebbc3fbf0fb3768f5740055891c))
+
+## 25.1.0
+
+Thu, 18 Apr 2024 21:47:19 GMT
+
+### Minor changes
+
+- Support text mappings in icon column ([ni/nimble@73a19a6](https://github.com/ni/nimble/commit/73a19a6a2d1ebe03eb4245ee2119529ce9066b03))
+
+## 25.0.0
+
+Wed, 17 Apr 2024 20:57:25 GMT
+
+### Major changes
+
+- Add configuration for icon mappings and spinner mappings to show/hide their text within a table's cells. **Breaking change:** The icon mappings and spinner mappings now default to showing their text within a table's cells in addition to on group rows. ([ni/nimble@6d50261](https://github.com/ni/nimble/commit/6d502618333981f4c5c2f72ddb5b329674d2e345))
 
 ## 24.1.14
 

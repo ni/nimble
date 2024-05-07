@@ -10,7 +10,7 @@ export const enumBaseValidityFlagNames = [
 ] as const;
 
 /**
- * Validator for TableColumnEnumText. Implementations MUST include enumBaseValidityFlagNames in validity flag names set.
+ * Validator base class for table columns containing mappings. Implementations MUST include enumBaseValidityFlagNames in validity flag names set.
  */
 export abstract class TableColumnEnumBaseValidator<
     ValidityFlagNames extends readonly string[]

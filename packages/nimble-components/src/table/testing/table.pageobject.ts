@@ -193,68 +193,14 @@ export class TablePageObject<T extends TableRecord> {
         return anchor;
     }
 
-    public getRenderedIconColumnCellIconSeverity(
-        rowIndex: number,
-        columnIndex: number
-    ): string {
-        const content = this.getRenderedCellView(rowIndex, columnIndex)
-            .shadowRoot!.firstElementChild;
-        if (!content || !(content instanceof Icon)) {
-            throw new Error(
-                `Icon not found at cell ${rowIndex},${columnIndex}`
-            );
-        }
-        return content.severity ?? '';
-    }
-
-    public getRenderedIconColumnCellIconAriaLabel(
-        rowIndex: number,
-        columnIndex: number
-    ): string {
-        const content = this.getRenderedCellView(rowIndex, columnIndex)
-            .shadowRoot!.firstElementChild;
-        if (
-            !content
-            || !(content instanceof Icon || content instanceof Spinner)
-        ) {
-            throw new Error(
-                `Icon or Spinner not found at cell ${rowIndex},${columnIndex}`
-            );
-        }
-        return content.getAttribute('aria-label') ?? '';
-    }
-
     public getRenderedIconColumnCellIconTagName(
         rowIndex: number,
         columnIndex: number
     ): string {
-        const content = this.getRenderedCellView(rowIndex, columnIndex)
-            .shadowRoot!.firstElementChild;
-        if (
-            !content
-            || !(content instanceof Icon || content instanceof Spinner)
-        ) {
-            throw new Error(
-                `Icon or Spinner not found at cell ${rowIndex},${columnIndex}`
-            );
-        }
-        return content.tagName.toLocaleLowerCase();
-    }
-
-    public getRenderedIconColumnGroupHeaderIconTagName(
-        groupRowIndex: number
-    ): string {
-        const content = this.getGroupRowHeaderView(groupRowIndex).shadowRoot!
-            .firstElementChild;
-        if (
-            !content
-            || !(content instanceof Icon || content instanceof Spinner)
-        ) {
-            throw new Error(
-                `Icon or Spinner not found at group header ${groupRowIndex}`
-            );
-        }
-        return content.tagName.toLocaleLowerCase();
+        const iconOrSpinner = this.getRenderedIconColumnIconOrSpinner(
+            this.getRenderedCellView(rowIndex, columnIndex)
+        );
+        return iconOrSpinner.tagName.toLocaleLowerCase();
     }
 
     public getRenderedGroupHeaderTextContent(groupRowIndex: number): string {
@@ -704,6 +650,12 @@ export class TablePageObject<T extends TableRecord> {
         return Number(countString);
     }
 
+    /** @internal */
+    public getGroupRowHeaderView(groupRowIndex: number): TableGroupHeaderView {
+        const groupRow = this.getGroupRow(groupRowIndex);
+        return groupRow.shadowRoot!.querySelector('.group-header-view')!;
+    }
+
     private getRow(rowIndex: number): TableRow {
         const rows = this.tableElement.shadowRoot!.querySelectorAll('nimble-table-row');
         if (rowIndex >= rows.length) {
@@ -825,11 +777,6 @@ export class TablePageObject<T extends TableRecord> {
         return groupRows.item(groupRowIndex);
     }
 
-    private getGroupRowHeaderView(groupRowIndex: number): TableGroupHeaderView {
-        const groupRow = this.getGroupRow(groupRowIndex);
-        return groupRow.shadowRoot!.querySelector('.group-header-view')!;
-    }
-
     private getHeaderContentElement(
         element: HTMLElement | HTMLSlotElement
     ): Node | undefined {
@@ -848,6 +795,22 @@ export class TablePageObject<T extends TableRecord> {
         }
 
         return nodeChildren[0]; // header content should be first item in final slot element
+    }
+
+    private getRenderedIconColumnIconOrSpinner(
+        view: TableCellView | TableGroupHeaderView
+    ): Icon | Spinner {
+        const viewShadowRoot = view.shadowRoot!;
+        const spinnerOrIcon = viewShadowRoot.querySelector(
+            '.reserve-icon-size'
+        )?.firstElementChild;
+        if (
+            !(spinnerOrIcon instanceof Icon || spinnerOrIcon instanceof Spinner)
+        ) {
+            throw new Error('Icon or Spinner not found');
+        }
+
+        return spinnerOrIcon;
     }
 
     private readonly isSlotElement = (
