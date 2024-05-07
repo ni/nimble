@@ -44,7 +44,7 @@ Before building a new component, 3 specification documents need to be created:
 
 2. Create Storybook documentation and tests for the component as described in [`@ni-private/storybook` CONTRIBUTING](/packages/storybook/CONTRIBUTING.md).
 
-3. Run the Storybook command from the repo root:  `npm run storybook`.
+3. Run the Storybook command from the repo root: `npm run storybook`.
 
     This command also causes `nimble-components` (and `spright-components`) to rebuild whenever a source file is changed so that Storybook can reflect the current state.
 
