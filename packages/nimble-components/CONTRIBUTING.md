@@ -67,7 +67,6 @@ Before building a new component, 3 specification documents need to be created:
 6. Test out the component in each of the 3 major browsers: Chrome, Firefox, and Safari (WebKit).
    For developers on non-Mac platforms, Safari/WebKit can be tested via the Playwright package:
 
-    - To open Storybook with WebKit, after running the Storybook command, run the command `npm run storybook-open-webkit -w @ni/nimble-components` from the `nimble` directory.
     - To run the unit tests with WebKit, use the command `npm run test-webkit -w @ni/nimble-components` from the `nimble` directory.
 
 7. Create change files for your work by running the following from the `nimble` directory:
