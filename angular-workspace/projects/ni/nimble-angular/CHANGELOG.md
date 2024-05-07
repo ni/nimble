@@ -1,8 +1,41 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Thu, 02 May 2024 18:52:31 GMT and should not be manually modified.
+This log was last generated on Tue, 07 May 2024 20:15:55 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 24.0.3
+
+Tue, 07 May 2024 20:15:55 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v28.0.3
+
+## 24.0.2
+
+Tue, 07 May 2024 16:24:36 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v28.0.2
+
+## 24.0.1
+
+Tue, 07 May 2024 13:17:00 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v28.0.1
+
+## 24.0.0
+
+Mon, 06 May 2024 19:00:05 GMT
+
+### Major changes
+
+- Rename icon column to mapping column ([ni/nimble@d1c9125](https://github.com/ni/nimble/commit/d1c9125a77615d0364671a9e03a558c57b359ed7))
+- Bump @ni/nimble-components to v28.0.0
 
 ## 23.2.1
 

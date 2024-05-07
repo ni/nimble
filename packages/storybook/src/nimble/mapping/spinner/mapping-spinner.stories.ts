@@ -10,7 +10,7 @@ const metadata: Meta = {
         docs: {
             description: {
                 component:
-                    'The `nimble-mapping-spinner` element defines a mapping from a data value to the Nimble spinner. It is meant to be used as content of the `nimble-table-column-icon` element.'
+                    'The `nimble-mapping-spinner` element defines a mapping from a data value to the Nimble spinner. It is meant to be used as content of the `nimble-table-column-mapping` element.'
             }
         }
     }

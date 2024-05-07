@@ -34,7 +34,7 @@ const component = (
     filterMode: FilterModeState,
     placeholder?: PlaceholderState
 ): ViewTemplate => html`
-    <${selectTag} open position="${() => position}" style="${() => positionStyle}" filter-mode="${() => filterMode}">
+    <${selectTag} open position="${() => position}" style="width: 250px; ${() => positionStyle}" filter-mode="${() => filterMode}">
         <${listOptionTag} value="1" ${placeholder ? 'selected disabled hidden' : ''} >Option 1</${listOptionTag}>
         <${listOptionTag} value="2" disabled>Option 2</${listOptionTag}>
         <${listOptionTag} value="3">Option 3</${listOptionTag}>

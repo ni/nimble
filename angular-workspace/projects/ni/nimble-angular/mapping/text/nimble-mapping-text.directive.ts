@@ -7,7 +7,7 @@ export type { MappingText, MappingKey };
 export { mappingTextTag };
 
 /**
- * Directive to provide Angular integration for the mapping text element used by the icon column.
+ * Directive to provide Angular integration for the mapping text element used by the mapping column.
  */
 @Directive({
     selector: 'nimble-mapping-text'

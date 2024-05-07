@@ -18,7 +18,7 @@ function isIconClass(elementClass: CustomElementConstructor): boolean {
 
 /**
  * Maps a data value to an icon.
- * One or more may be added as children of a nimble-table-column-icon element to define
+ * One or more may be added as children of a nimble-table-column-mapping element to define
  * how specific data values should be displayed as icons in that column's cells.
  */
 export class MappingIcon extends Mapping<MappingKey> {
