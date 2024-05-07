@@ -52,7 +52,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="CHANGELOG.json" />
     <None Include="package.json" />
     <None Include="packages.lock.json" />
   </ItemGroup>
