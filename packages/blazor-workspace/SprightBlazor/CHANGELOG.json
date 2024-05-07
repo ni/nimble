@@ -2,6 +2,21 @@
   "name": "@ni/spright-blazor",
   "entries": [
     {
+      "date": "Thu, 02 May 2024 23:33:54 GMT",
+      "version": "0.0.4",
+      "tag": "@ni/spright-blazor_v0.0.4",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/spright-blazor",
+            "commit": "358fef9cf0732360ecfbfdd624d056d116ea9f80",
+            "comment": "Test release from renamed Blazor workspace and solution"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 01 May 2024 22:28:21 GMT",
       "version": "0.0.3",
       "tag": "@ni/spright-blazor_v0.0.3",

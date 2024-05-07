@@ -142,6 +142,15 @@ public class NimbleTableColumnIconTests
         Assert.Contains(expectedMarkup, column.Markup);
     }
 
+    [Fact]
+    public void NimbleTableColumnIcon_WithWidthModeAttribute_HasMarkup()
+    {
+        var column = RenderWithPropertySet<int, MappingColumnWidthMode?>(x => x.WidthMode, MappingColumnWidthMode.IconSize);
+
+        var expectedMarkup = @"width-mode=""icon-size""";
+        Assert.Contains(expectedMarkup, column.Markup);
+    }
+
     private IRenderedComponent<NimbleTableColumnIcon<TKey>> RenderTableEnumColumn<TKey>()
     {
         var context = new TestContext();

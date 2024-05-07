@@ -1,8 +1,24 @@
 # Change Log - @ni/nimble-blazor
 
-This log was last generated on Wed, 01 May 2024 22:28:21 GMT and should not be manually modified.
+This log was last generated on Thu, 02 May 2024 23:33:54 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 16.1.1
+
+Thu, 02 May 2024 23:33:54 GMT
+
+### Patches
+
+- Test release from renamed Blazor workspace and solution ([ni/nimble@358fef9](https://github.com/ni/nimble/commit/358fef9cf0732360ecfbfdd624d056d116ea9f80))
+
+## 16.1.0
+
+Thu, 02 May 2024 17:22:44 GMT
+
+### Minor changes
+
+- Add WidthMode to icon column ([ni/nimble@7a27f45](https://github.com/ni/nimble/commit/7a27f45851b45e29a554e3effc812011108db80d))
 
 ## 16.0.10
 
