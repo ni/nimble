@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Tue, 07 May 2024 13:17:00 GMT and should not be manually modified.
+This log was last generated on Tue, 07 May 2024 16:24:36 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 28.0.2
+
+Tue, 07 May 2024 16:24:36 GMT
+
+### Patches
+
+- Change Select to not update value as you navigate options in dropdown. ([ni/nimble@bbe2654](https://github.com/ni/nimble/commit/bbe265424e76e1824a5748b8bc6cb6d69a1b9a17))
 
 ## 28.0.1
 
