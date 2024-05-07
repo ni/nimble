@@ -92,6 +92,12 @@ describe('TableColumnMapping', () => {
                             text="${x => x.text}"
                         </${mappingTextTag}>
                         `)}
+                        ${repeat(() => options.textMappings ?? [], html<BaseMapping>`
+                        <${mappingEmptyTag}
+                            key="${x => x.key}"
+                            text="${x => x.text}"
+                        </${mappingEmptyTag}>
+                        `)}
                     </${tableColumnMappingTag}>
                 </${tableTag}>
             <${themeProviderTag}>`, { source });
@@ -770,7 +776,9 @@ describe('TableColumnMapping', () => {
             }
         ] as const;
 
-        const mappingsWithTextInCell = mappingTypes.filter(x => x.type !== 'empty');
+        const mappingsWithTextInCell = mappingTypes.filter(
+            x => x.type !== 'empty'
+        );
         parameterizeSuite(mappingsWithTextInCell, (suite, name, value) => {
             suite(`in cell with ${name}`, () => {
                 const longText = 'a very long value that should get ellipsized due to not fitting within the default cell width';
