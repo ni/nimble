@@ -1,7 +1,7 @@
 using Microsoft.Playwright;
 using Xunit;
 
-namespace SprightBlazor.Tests.Acceptance;
+namespace NimbleBlazor.Tests.Acceptance.Shared;
 
 /// <summary>
 /// Fixture to handle Playwright initialization for acceptance tests.

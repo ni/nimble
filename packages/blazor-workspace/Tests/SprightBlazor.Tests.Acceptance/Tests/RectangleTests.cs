@@ -1,11 +1,12 @@
 ﻿using Microsoft.Playwright;
+using NimbleBlazor.Tests.Acceptance.Shared;
 using Xunit;
 
 namespace SprightBlazor.Tests.Acceptance;
 
-public class RectangleTests : AcceptanceTestsBase
+public class RectangleTests : SprightAcceptanceTestsBase
 {
-    public RectangleTests(PlaywrightFixture playwrightFixture, BlazorServerWebHostFixture blazorServerClassFixture)
+    public RectangleTests(PlaywrightFixture playwrightFixture, SprightBlazorWebHostServerFixture blazorServerClassFixture)
         : base(playwrightFixture, blazorServerClassFixture)
     {
     }

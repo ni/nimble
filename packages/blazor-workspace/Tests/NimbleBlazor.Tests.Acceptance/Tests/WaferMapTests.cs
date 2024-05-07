@@ -1,12 +1,13 @@
 ﻿using Microsoft.Playwright;
+using NimbleBlazor.Tests.Acceptance.Shared;
 using Xunit;
 
 namespace NimbleBlazor.Tests.Acceptance;
 
-public class WaferMapTests : AcceptanceTestsBase
+public class WaferMapTests : NimbleAcceptanceTestsBase
 {
     private const int RenderingTimeout = 200;
-    public WaferMapTests(PlaywrightFixture playwrightFixture, BlazorServerWebHostFixture blazorServerClassFixture)
+    public WaferMapTests(PlaywrightFixture playwrightFixture, NimbleBlazorWebHostServerFixture blazorServerClassFixture)
         : base(playwrightFixture, blazorServerClassFixture)
     { }
 

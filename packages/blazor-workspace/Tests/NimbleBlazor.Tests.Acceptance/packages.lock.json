@@ -1063,6 +1063,20 @@
         "dependencies": {
           "Microsoft.AspNetCore.Components.Web": "[6.0.29, )"
         }
+      },
+      "nimbleblazor.tests.acceptance.shared": {
+        "type": "Project",
+        "dependencies": {
+          "Microsoft.AspNetCore.Mvc.Testing": "[6.0.29, )",
+          "Microsoft.Extensions.Configuration": "[7.0.0, )",
+          "Microsoft.NET.Test.Sdk": "[16.11.0, )",
+          "Microsoft.Playwright": "[1.42.0, 1.42.0]",
+          "NI.CSharp.Analyzers": "[2.0.21, 2.0.21]",
+          "NimbleBlazor": "[1.0.0, )",
+          "System.ComponentModel": "[4.3.0, )",
+          "xunit": "[2.8.0, )",
+          "xunit.extensibility.execution": "[2.8.0, )"
+        }
       }
     }
   }

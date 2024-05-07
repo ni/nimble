@@ -1,4 +1,6 @@
-﻿namespace NimbleBlazor.Tests.Acceptance;
+﻿using NimbleBlazor.Tests.Acceptance.Shared;
+
+namespace NimbleBlazor.Tests.Acceptance;
 
 /// <summary>
 /// Main entry point which spins up the web server and allows loading the Razor fixtures/pages in a browser
@@ -10,7 +12,7 @@ public static class Program
     {
         var builder = WebApplication.CreateBuilder(arguments);
 
-        var startup = new Startup(builder.Configuration);
+        var startup = new Startup();
         startup.ConfigureServices(builder.Services);
         var app = builder.Build();
         startup.Configure(app);

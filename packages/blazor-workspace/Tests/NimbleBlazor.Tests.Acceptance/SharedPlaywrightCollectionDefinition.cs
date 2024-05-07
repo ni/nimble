@@ -1,4 +1,5 @@
-﻿using Xunit;
+﻿using NimbleBlazor.Tests.Acceptance.Shared;
+using Xunit;
 
 namespace NimbleBlazor.Tests.Acceptance;
 

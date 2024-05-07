@@ -48,6 +48,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\NimbleBlazor\NimbleBlazor.csproj" />
     <ProjectReference Include="..\..\SprightBlazor\SprightBlazor.csproj" />
+    <ProjectReference Include="..\NimbleBlazor.Tests.Acceptance.Shared\NimbleBlazor.Tests.Acceptance.Shared.csproj" />
   </ItemGroup>
 
 </Project>

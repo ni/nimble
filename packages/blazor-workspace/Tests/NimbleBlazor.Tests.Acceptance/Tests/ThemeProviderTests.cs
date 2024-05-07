@@ -1,11 +1,12 @@
 ﻿using Microsoft.Playwright;
+using NimbleBlazor.Tests.Acceptance.Shared;
 using Xunit;
 
 namespace NimbleBlazor.Tests.Acceptance;
 
-public class ThemeProviderTests : AcceptanceTestsBase
+public class ThemeProviderTests : NimbleAcceptanceTestsBase
 {
-    public ThemeProviderTests(PlaywrightFixture playwrightFixture, BlazorServerWebHostFixture blazorServerClassFixture)
+    public ThemeProviderTests(PlaywrightFixture playwrightFixture, NimbleBlazorWebHostServerFixture blazorServerClassFixture)
         : base(playwrightFixture, blazorServerClassFixture)
     {
     }
