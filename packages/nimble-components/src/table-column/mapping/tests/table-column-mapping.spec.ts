@@ -538,7 +538,7 @@ describe('TableColumnMapping', () => {
             expect(model.col1.validity.invalidIconName).toBeTrue();
         });
 
-        it('is invalid with missing text in spinner mapping', async () => {
+        it('is invalid with missing text in a spinner mapping', async () => {
             ({ connect, disconnect, model } = await setup({
                 keyType: MappingKeyType.string,
                 spinnerMappings: [{ key: 'a' }]
@@ -549,7 +549,7 @@ describe('TableColumnMapping', () => {
             expect(model.col1.validity.missingTextValue).toBeTrue();
         });
 
-        it('is invalid with missing key in spinner mapping', async () => {
+        it('is invalid with missing key in a spinner mapping', async () => {
             ({ connect, disconnect, model } = await setup({
                 keyType: MappingKeyType.string,
                 spinnerMappings: [{ text: 'alpha' }]
@@ -560,7 +560,7 @@ describe('TableColumnMapping', () => {
             expect(model.col1.validity.missingKeyValue).toBeTrue();
         });
 
-        it('is invalid with missing text in text mapping', async () => {
+        it('is invalid with missing text in a text mapping', async () => {
             ({ connect, disconnect, model } = await setup({
                 keyType: MappingKeyType.string,
                 textMappings: [{ key: 'a' }]
@@ -571,7 +571,7 @@ describe('TableColumnMapping', () => {
             expect(model.col1.validity.missingTextValue).toBeTrue();
         });
 
-        it('is invalid with missing key in text mapping', async () => {
+        it('is invalid with missing key in a text mapping', async () => {
             ({ connect, disconnect, model } = await setup({
                 keyType: MappingKeyType.string,
                 textMappings: [{ text: 'alpha' }]
@@ -582,7 +582,7 @@ describe('TableColumnMapping', () => {
             expect(model.col1.validity.missingKeyValue).toBeTrue();
         });
 
-        it('is invalid with missing text in empty mapping', async () => {
+        it('is invalid with missing text in an empty mapping', async () => {
             ({ connect, disconnect, model } = await setup({
                 keyType: MappingKeyType.string,
                 emptyMappings: [{ key: 'a' }]
@@ -593,7 +593,7 @@ describe('TableColumnMapping', () => {
             expect(model.col1.validity.missingTextValue).toBeTrue();
         });
 
-        it('is invalid with missing key in empty mapping', async () => {
+        it('is invalid with missing key in an empty mapping', async () => {
             ({ connect, disconnect, model } = await setup({
                 keyType: MappingKeyType.string,
                 emptyMappings: [{ text: 'alpha' }]

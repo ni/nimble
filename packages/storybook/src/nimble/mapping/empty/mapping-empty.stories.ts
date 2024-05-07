@@ -10,9 +10,8 @@ const metadata: Meta = {
         docs: {
             description: {
                 component:
-                    `The \`nimble-mapping-empty\` element defines a mapping from a data value to text. It is meant to be used as content of the \`nimble-table-column-icon\` element
-                    when the table cell should not include the mapped value. This mapping allows clients to avoid cluttering their table with information that isn't particularly
-                    helpful to a user (e.g. that the state of a system is 'idle') while still having a good grouping experience that ensures group rows are not empty.`
+                    `The \`nimble-mapping-empty\` element defines a mapping from a data value to text. It is meant to be used as content of the \`nimble-table-column-mapping\` element
+                    when the table cell should not include the mapped value and the column is groupable.`
             }
         }
     }

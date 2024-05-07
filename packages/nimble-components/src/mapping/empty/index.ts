@@ -12,7 +12,7 @@ declare global {
 
 /**
  * Maps data values to text.
- * One or more may be added as children of a nimble-table-column-icon element. The
+ * One or more may be added as children of a nimble-table-column-mapping element. The
  * mapping displays an empty cell and text-only group rows.
  */
 export class MappingEmpty extends Mapping<MappingKey> {
