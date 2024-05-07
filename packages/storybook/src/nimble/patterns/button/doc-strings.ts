@@ -1,10 +1,12 @@
+import { iconDescription as baseIconDescription } from '../../../utilities/storybook';
+
 export const appearanceDescription = 'This attribute affects the appearance of the button.';
 
 export const appearanceVariantDescription = 'This attribute has no effect on buttons with a `ghost` appearance. There is no `accent` appearance-variant for the `color` UI.';
 
 export const contentHiddenDescription = 'When set, this attribute hides the text and end icon, leaving only the start icon visible.';
 
-export const iconDescription = `Set \`slot="start"\` to include an icon before the text content (or instead of the content when \`content-hidden\` is set).
+export const iconDescription = `${baseIconDescription} When \`content-hidden\` is set the icon will be displayed instead of the text content.
 
 <details>
     <summary>Icon Usage</summary>

@@ -8,6 +8,7 @@ import { anchorTreeItemTag } from '@ni/nimble-components/dist/esm/anchor-tree-it
 import { treeViewTag } from '@ni/nimble-components/dist/esm/tree-view';
 import { TreeViewSelectionMode } from '@ni/nimble-components/dist/esm/tree-view/types';
 import { createUserSelectedThemeStory } from '../../utilities/storybook';
+import { hrefDescription } from '../patterns/anchor/anchor-docs';
 
 interface TreeArgs {
     selectionMode: TreeViewSelectionMode;
@@ -37,10 +38,6 @@ const selectionModeDescription = `
 <li>None: no items in the tree are selectable through user interaction</li>
 <br>
 Note: Changing the selection mode does not affect which items can be selected programmatically.
-`;
-
-const hrefDescription = `
-In addition to \`href\`, all other attributes of \`<a>\` are also supported, e.g. \`ping\`, \`target\`, \`type\`, etc.
 `;
 
 const metadata: Meta<TreeArgs> = {
@@ -114,7 +111,7 @@ export const anchorTreeItem: StoryObj<AnchorItemArgs> = {
                 'Cannot be selected interactively, as click/Enter causes navigation.'
         },
         href: {
-            description: hrefDescription
+            description: hrefDescription('anchor tree item', false)
         }
     },
     // prettier-ignore

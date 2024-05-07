@@ -14,10 +14,7 @@ import {
     iconDescription
 } from '../patterns/button/doc-strings';
 import { createUserSelectedThemeStory } from '../../utilities/storybook';
-
-const hrefDescription = `
-In addition to \`href\`, all other attributes of \`<a>\` are also supported, e.g. \`ping\`, \`target\`, \`type\`, etc.
-`;
+import { hrefDescription } from '../patterns/anchor/anchor-docs';
 
 interface AnchorButtonArgs {
     label: string;
@@ -55,7 +52,7 @@ const metadata: Meta<AnchorButtonArgs> = {
     `),
     argTypes: {
         href: {
-            description: hrefDescription
+            description: hrefDescription('anchor button', false)
         },
         appearance: {
             options: Object.keys(ButtonAppearance),
