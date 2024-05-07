@@ -92,7 +92,7 @@ describe('TableColumnMapping', () => {
                             text="${x => x.text}"
                         </${mappingTextTag}>
                         `)}
-                        ${repeat(() => options.textMappings ?? [], html<BaseMapping>`
+                        ${repeat(() => options.emptyMappings ?? [], html<BaseMapping>`
                         <${mappingEmptyTag}
                             key="${x => x.key}"
                             text="${x => x.text}"
