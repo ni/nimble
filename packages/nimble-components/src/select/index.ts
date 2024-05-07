@@ -343,7 +343,11 @@ export class Select
         super.clickHandler(e);
 
         this.open = this.collapsible && !this.open;
-        if (!this.open && this.selectedIndex !== currentIndex && optionClicked) {
+        if (
+            !this.open
+            && this.selectedIndex !== currentIndex
+            && optionClicked
+        ) {
             this.updateValue(true);
         }
     }
