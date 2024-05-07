@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Tue, 07 May 2024 16:24:36 GMT and should not be manually modified.
+This log was last generated on Tue, 07 May 2024 20:15:55 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 28.0.3
+
+Tue, 07 May 2024 20:15:55 GMT
+
+### Patches
+
+- Fixing hover behavior for options in Select. ([ni/nimble@7feb69d](https://github.com/ni/nimble/commit/7feb69deda088c1fa771f836dedd627e33b4e63b))
 
 ## 28.0.2
 
