@@ -767,13 +767,13 @@ describe('Select', () => {
             expect(element.open).toBeFalse();
         });
 
-        it('filtering out current selected item and then clicking selected option changes value and closes popup', async () => {
+        it('filtering out current selected item and then clicking active option changes value and closes popup', async () => {
             const currentSelection = pageObject.getSelectedOption();
             expect(currentSelection?.text).toBe('One');
             expect(element.value).toBe('one');
 
             await pageObject.openAndSetFilterText('T'); // Matches 'Two' and 'Three'
-            pageObject.clickSelectedItem();
+            pageObject.clickActiveItem();
             expect(element.value).toBe('two'); // 'Two' is first option in list so it should be selected now
             expect(element.open).toBeFalse();
         });

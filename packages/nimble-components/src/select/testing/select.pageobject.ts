@@ -78,7 +78,7 @@ export class SelectPageObject {
         this.selectElement.click();
     }
 
-    public clickSelectedItem(): void {
+    public clickActiveItem(): void {
         if (!this.selectElement.open) {
             throw new Error('Select must be open to click selectedItem');
         }
