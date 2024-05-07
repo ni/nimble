@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Hosting.Server;
 using Microsoft.AspNetCore.Hosting.Server.Features;
 using Xunit;
 
-namespace NimbleBlazor.Tests.Acceptance.Shared;
+namespace BlazorWorkspace.Testing.Acceptance;
 
 public abstract class WebHostServerFixture : IAsyncLifetime, IDisposable
 {

@@ -1,7 +1,7 @@
 ﻿using Microsoft.Playwright;
 using Xunit;
 
-namespace NimbleBlazor.Tests.Acceptance.Shared;
+namespace BlazorWorkspace.Testing.Acceptance;
 
 [Collection(nameof(PlaywrightFixture))]
 public abstract class AcceptanceTestsBase

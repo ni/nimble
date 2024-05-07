@@ -1,4 +1,4 @@
-﻿namespace NimbleBlazor.Tests.Acceptance.Shared;
+﻿namespace BlazorWorkspace.Testing.Acceptance;
 
 /// <summary>
 /// Web server initialization for Blazor Server

@@ -1,5 +1,5 @@
-﻿using Microsoft.Playwright;
-using NimbleBlazor.Tests.Acceptance.Shared;
+﻿using BlazorWorkspace.Testing.Acceptance;
+using Microsoft.Playwright;
 using Xunit;
 
 namespace SprightBlazor.Tests.Acceptance;

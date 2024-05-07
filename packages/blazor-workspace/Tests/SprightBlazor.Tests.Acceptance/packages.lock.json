@@ -1058,13 +1058,7 @@
           "xunit.abstractions": "2.0.3"
         }
       },
-      "nimbleblazor": {
-        "type": "Project",
-        "dependencies": {
-          "Microsoft.AspNetCore.Components.Web": "[6.0.29, )"
-        }
-      },
-      "nimbleblazor.tests.acceptance.shared": {
+      "blazorworkspace.testing.acceptance": {
         "type": "Project",
         "dependencies": {
           "Microsoft.AspNetCore.Mvc.Testing": "[6.0.29, )",
@@ -1076,6 +1070,12 @@
           "System.ComponentModel": "[4.3.0, )",
           "xunit": "[2.8.0, )",
           "xunit.extensibility.execution": "[2.8.0, )"
+        }
+      },
+      "nimbleblazor": {
+        "type": "Project",
+        "dependencies": {
+          "Microsoft.AspNetCore.Components.Web": "[6.0.29, )"
         }
       },
       "sprightblazor": {

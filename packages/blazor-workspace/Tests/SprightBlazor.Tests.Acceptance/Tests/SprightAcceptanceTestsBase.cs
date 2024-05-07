@@ -1,4 +1,4 @@
-﻿using NimbleBlazor.Tests.Acceptance.Shared;
+﻿using BlazorWorkspace.Testing.Acceptance;
 using Xunit;
 
 namespace SprightBlazor.Tests.Acceptance;
