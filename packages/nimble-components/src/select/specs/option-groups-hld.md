@@ -87,6 +87,15 @@ When all options under a group are filtered out, the group will also be hidden i
 
 It should be noted that when using groups with a `Combobox`, it is advised that each option still be unique (for both its display and value). This is predicated on the [decision](https://github.com/ni/nimble/issues/1168#issuecomment-1568733159) that the `Combobox` will change its behavior for platforms like Angular, where the model value will _always_ be the text that is in the display. This will make it impossible to disambiguate between options that have the same display value under separate groups.
 
+### Accessibility
+
+- The `ListOptionGroup` element will have a [role of "group"](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/group_role), which matches the role given to the native `optgroup` element.
+- The `ListOptionGroup` element is ignored during keyboard navigation of the dropdown.
+
+### Angular/Blazor Integration
+
+Standard implementation pattern for support.
+
 ## Alternative Implementations / Designs
 
 Originally, there was a desire to display the group name for the selected option outside of the dropdown of the component. However, there is not precedent for this for other design systems that support groups, nor the native `select`. If a client desires to display the group for the selected option that will be managed on the client side, including _where_ the display would be.
