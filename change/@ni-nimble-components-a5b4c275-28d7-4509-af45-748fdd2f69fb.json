@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "Set Select and Combobox min-width to menuMinWidth token (176px)",
+  "packageName": "@ni/nimble-components",
+  "email": "1458528+fredvisser@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}

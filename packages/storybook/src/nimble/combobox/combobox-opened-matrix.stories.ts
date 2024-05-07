@@ -26,7 +26,7 @@ const component = ([
     position,
     positionStyle
 ]: PositionState): ViewTemplate => html`
-    <${comboboxTag} open position="${() => position}" style="${() => positionStyle}">
+    <${comboboxTag} open position="${() => position}" style="width: 250px; ${() => positionStyle}">
         <${listOptionTag} value="1">Option 1</${listOptionTag}>
         <${listOptionTag} value="2" disabled>Option 2</${listOptionTag}>
         <${listOptionTag} value="3">Option 3</${listOptionTag}>

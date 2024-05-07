@@ -1,4 +1,5 @@
 {
     "projectId": "Project:60e89457a987cf003efc0a5b",
-    "storybookBaseDir": "./packages/nimble-components"
+    "storybookBaseDir": "packages/storybook",
+    "buildScriptName": "build"
 }
