@@ -20,13 +20,13 @@ interface MenuArgs {
     itemOptions: ItemArgs[];
 }
 
-interface MenuItemArgs {
+interface MenuItemArgsBase {
     text: string;
     disabled: boolean;
     icon: boolean;
 }
 
-interface MenuItemDocsArgs extends MenuItemArgs {
+interface MenuItemArgs extends MenuItemArgsBase {
     change: () => void;
 }
 
@@ -37,7 +37,7 @@ interface AnchorMenuItemArgs {
     icon: boolean;
 }
 
-interface ItemArgs extends MenuItemArgs {
+interface ItemArgs extends MenuItemArgsBase {
     type: 'nimble-menu-item' | 'header' | 'hr';
 }
 
@@ -143,7 +143,7 @@ export const menu: StoryObj<MenuArgs> = {
     }
 };
 
-export const menuItem: StoryObj<MenuItemDocsArgs> = {
+export const menuItem: StoryObj<MenuItemArgs> = {
     // prettier-ignore
     render: createUserSelectedThemeStory(html`
         <${menuTag}>
