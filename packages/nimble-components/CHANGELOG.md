@@ -1,8 +1,24 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Mon, 06 May 2024 19:00:05 GMT and should not be manually modified.
+This log was last generated on Tue, 07 May 2024 16:24:36 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 28.0.2
+
+Tue, 07 May 2024 16:24:36 GMT
+
+### Patches
+
+- Change Select to not update value as you navigate options in dropdown. ([ni/nimble@bbe2654](https://github.com/ni/nimble/commit/bbe265424e76e1824a5748b8bc6cb6d69a1b9a17))
+
+## 28.0.1
+
+Tue, 07 May 2024 13:17:00 GMT
+
+### Patches
+
+- Set Select and Combobox min-width to menuMinWidth token (176px) ([ni/nimble@799d392](https://github.com/ni/nimble/commit/799d39216faa9ad98c94627c6505439c846cbac9))
 
 ## 28.0.0
 

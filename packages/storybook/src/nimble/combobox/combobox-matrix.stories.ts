@@ -3,7 +3,6 @@ import { html, ViewTemplate } from '@microsoft/fast-element';
 import {
     controlLabelFont,
     controlLabelFontColor,
-    menuMinWidth,
     standardPadding
 } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
 import { listOptionTag } from '@ni/nimble-components/dist/esm/list-option';
@@ -74,7 +73,7 @@ const component = (
             error-text="${() => errorText}"
             value="${() => value}"
             placeholder="${() => placeholder}"
-            style="width: var(${menuMinWidth.cssCustomProperty});"
+            style="width: 250px;"
         >
             <${listOptionTag} value="1">Option 1</${listOptionTag}>
             <${listOptionTag} value="2" disabled>Option 2</${listOptionTag}>
@@ -95,14 +94,14 @@ export const comboboxThemeMatrix: StoryFn = createMatrixThemeStory(
 
 export const hiddenCombobox: StoryFn = createStory(
     hiddenWrapper(
-        html`<${comboboxTag} hidden>
+        html`<${comboboxTag} hidden style="width: 250px;">
             <${listOptionTag} value="1">Option 1</${listOptionTag}>
         </${comboboxTag}>`
     )
 );
 
 export const blankListOption: StoryFn = createStory(
-    html`<${comboboxTag} open>
+    html`<${comboboxTag} open style="width: 250px;">
         <${listOptionTag} value="1">Option 1</${listOptionTag}>
         <${listOptionTag}></${listOptionTag}>
     </${comboboxTag}>`

@@ -27,7 +27,7 @@ const component = ([
 ]: PositionState): ViewTemplate => html`
     <div style=${() => (position === 'below' ? 'height: 150px' : null)}>
         <div style="overflow: auto; border: 2px solid red; ${() => positionStyle}">
-            <${selectTag} open position="${() => position}">
+            <${selectTag} open position="${() => position}" style="width: 250px;">
                 <${listOptionTag} value="1">Option 1</${listOptionTag}>
                 <${listOptionTag} value="2">Option 2</${listOptionTag}>
                 <${listOptionTag} value="3">Option 3</${listOptionTag}>
