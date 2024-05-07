@@ -4,7 +4,6 @@ import { keyArrowDown } from '@microsoft/fast-web-utilities';
 import {
     controlLabelFont,
     controlLabelFontColor,
-    menuMinWidth,
     standardPadding
 } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
 import { listOptionTag } from '@ni/nimble-components/dist/esm/list-option';
@@ -69,7 +68,7 @@ const component = (
             error-text="${() => errorText}"
             ?disabled="${() => disabled}"
             appearance="${() => appearance}"
-            style="width: var(${menuMinWidth.cssCustomProperty});"
+            style="width: 250px;"
         >
             <${listOptionTag} value="1">${valueValue}</${listOptionTag}>
             <${listOptionTag} value="2" disabled>Option 2</${listOptionTag}>
@@ -90,14 +89,14 @@ export const selectThemeMatrix: StoryFn = createMatrixThemeStory(
 
 export const hiddenSelect: StoryFn = createStory(
     hiddenWrapper(
-        html`<${selectTag} hidden>
+        html`<${selectTag} hidden style="width: 250px;">
             <${listOptionTag} value="1">Option 1</${listOptionTag}>
         </${selectTag}>`
     )
 );
 
 export const blankListOption: StoryFn = createStory(
-    html`<${selectTag} open>
+    html`<${selectTag} open style="width: 250px;">
         <${listOptionTag} value="1">Option 1</${listOptionTag}>
         <${listOptionTag}></${listOptionTag}>
     </${selectTag}>`
@@ -129,7 +128,7 @@ navigateToDifferentOption.play = playFunction;
 export const textCustomized: StoryFn = createMatrixThemeStory(
     textCustomizationWrapper(
         html`
-            <${selectTag}>
+            <${selectTag} style="width: 250px;">
                 Inner text
                 <${listOptionTag}> Nimble select item </${listOptionTag}>
             </${selectTag}>

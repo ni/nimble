@@ -3,7 +3,6 @@ import { html, repeat } from '@microsoft/fast-element';
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html';
 import { listOptionTag } from '@ni/nimble-components/dist/esm/list-option';
-import { menuMinWidth } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
 import { comboboxTag } from '@ni/nimble-components/dist/esm/combobox';
 import { ExampleOptionsType } from '@ni/nimble-components/dist/esm/combobox/tests/types';
 import {
@@ -104,7 +103,7 @@ const metadata: Meta<ComboboxArgs> = {
             appearance="${x => x.appearance}"
             value="${x => x.currentValue}"
             placeholder="${x => x.placeholder}"
-            style="width: var(${menuMinWidth.cssCustomProperty});"
+            style="width: 250px;"
         >
             ${repeat(x => optionSets[x.optionsType], html<OptionArgs>`
                 <${listOptionTag} ?disabled="${x => x.disabled}">${x => x.label}</${listOptionTag}>
