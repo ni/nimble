@@ -1,14 +1,15 @@
 import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate } from '@microsoft/fast-element';
+import { keyArrowDown } from '@microsoft/fast-web-utilities';
 import {
     controlLabelFont,
     controlLabelFontColor,
-    menuMinWidth,
     standardPadding
 } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
 import { listOptionTag } from '@ni/nimble-components/dist/esm/list-option';
-import { selectTag } from '@ni/nimble-components/dist/esm/select';
+import { Select, selectTag } from '@ni/nimble-components/dist/esm/select';
 import { DropdownAppearance } from '@ni/nimble-components/dist/esm/patterns/dropdown/types';
+import { waitForUpdatesAsync } from '@ni/nimble-components/dist/esm/testing/async-helpers';
 import { createStory } from '../../utilities/storybook';
 import {
     createMatrixThemeStory,
@@ -75,7 +76,7 @@ const component = (
             ?disabled="${() => disabled}"
             ?clearable="${() => clearable}"
             appearance="${() => appearance}"
-            style="width: var(${menuMinWidth.cssCustomProperty});"
+            style="width: 250px;"
         >
             <${listOptionTag} value="1">${valueValue}</${listOptionTag}>
             <${listOptionTag} value="2" disabled>Option 2</${listOptionTag}>
@@ -97,23 +98,46 @@ export const selectThemeMatrix: StoryFn = createMatrixThemeStory(
 
 export const hiddenSelect: StoryFn = createStory(
     hiddenWrapper(
-        html`<${selectTag} hidden>
+        html`<${selectTag} hidden style="width: 250px;">
             <${listOptionTag} value="1">Option 1</${listOptionTag}>
         </${selectTag}>`
     )
 );
 
 export const blankListOption: StoryFn = createStory(
-    html`<${selectTag} open>
+    html`<${selectTag} open style="width: 250px;">
         <${listOptionTag} value="1">Option 1</${listOptionTag}>
         <${listOptionTag}></${listOptionTag}>
     </${selectTag}>`
 );
 
+const playFunction = async (): Promise<void> => {
+    await Promise.all(
+        Array.from(document.querySelectorAll<Select>('nimble-select')).map(
+            async select => {
+                const arrowDownEvent = new KeyboardEvent('keydown', {
+                    key: keyArrowDown
+                });
+                select.dispatchEvent(arrowDownEvent);
+                await waitForUpdatesAsync();
+            }
+        )
+    );
+};
+
+export const navigateToDifferentOption: StoryFn = createStory(
+    html`<${selectTag} open style="width: 250px;">
+        <${listOptionTag} value="1" selected>Option 1</${listOptionTag}>
+        <${listOptionTag}>Option 2</${listOptionTag}>
+    </${selectTag}>`
+);
+
+navigateToDifferentOption.play = playFunction;
+
 export const textCustomized: StoryFn = createMatrixThemeStory(
     textCustomizationWrapper(
         html`
-            <${selectTag}>
+            <${selectTag} style="width: 250px;">
                 Inner text
                 <${listOptionTag}> Nimble select item </${listOptionTag}>
             </${selectTag}>

@@ -3,7 +3,8 @@ import {
     keyEscape,
     keyArrowDown,
     keyArrowUp,
-    keySpace
+    keySpace,
+    keyTab
 } from '@microsoft/fast-web-utilities';
 import type { Select } from '..';
 import type { ListOption } from '../../list-option';
@@ -57,6 +58,20 @@ export class SelectPageObject {
         return (this.selectElement.selectedOptions[0] as ListOption) ?? null;
     }
 
+    public getActiveOption(): ListOption | null {
+        return (
+            (this.selectElement.options.find(
+                o => (o as ListOption).activeOption
+            ) as ListOption) ?? null
+        );
+    }
+
+    public getDisplayText(): string {
+        const displayText = this.selectElement.shadowRoot?.querySelector('.selected-value')
+            ?.textContent ?? '';
+        return displayText.trim();
+    }
+
     /**
      * Either opens or closes the dropdown depending on its current state
      */
@@ -64,12 +79,16 @@ export class SelectPageObject {
         this.selectElement.click();
     }
 
-    public clickSelectedItem(): void {
+    public clickActiveItem(): void {
         if (!this.selectElement.open) {
             throw new Error('Select must be open to click selectedItem');
         }
 
-        this.clickOption(this.selectElement.selectedIndex);
+        const selectedOption = this.getActiveOption();
+        if (!selectedOption) {
+            throw new Error('No option is selected to click');
+        }
+        this.clickOption(this.selectElement.options.indexOf(selectedOption));
     }
 
     public async clickFilterInput(): Promise<void> {
@@ -132,6 +151,13 @@ export class SelectPageObject {
         );
     }
 
+    public pressTabKey(): void {
+        this.selectElement.dispatchEvent(
+            new KeyboardEvent('keydown', { key: keyTab })
+        );
+        this.selectElement.dispatchEvent(new FocusEvent('focusout'));
+    }
+
     public pressArrowDownKey(): void {
         this.selectElement.dispatchEvent(
             new KeyboardEvent('keydown', { key: keyArrowDown })
@@ -141,6 +167,30 @@ export class SelectPageObject {
     public pressArrowUpKey(): void {
         this.selectElement.dispatchEvent(
             new KeyboardEvent('keydown', { key: keyArrowUp })
+        );
+    }
+
+    public pressCharacterKey(character: string): void {
+        if (character.length !== 1) {
+            throw new Error(
+                'character parameter must contain only a single character'
+            );
+        }
+
+        if (
+            this.selectElement.open
+            && this.selectElement.filterMode !== FilterMode.none
+        ) {
+            const filterInput = this.selectElement.filterInput!;
+            filterInput.value += character;
+        }
+        const inputElement = this.selectElement.open
+            && this.selectElement.filterMode !== FilterMode.none
+            ? this.selectElement.filterInput
+            : this.selectElement;
+        inputElement!.dispatchEvent(new InputEvent('input'));
+        this.selectElement.dispatchEvent(
+            new KeyboardEvent('keydown', { key: character })
         );
     }
 
@@ -204,7 +254,21 @@ export class SelectPageObject {
     }
 
     public getFilterInputText(): string {
-        return this.getFilterInput()?.value ?? '';
+        return this.selectElement.filterInput?.value ?? '';
+    }
+
+    public async waitForChange(): Promise<string> {
+        return new Promise(resolve => {
+            this.selectElement.addEventListener(
+                'change',
+                () => {
+                    resolve(this.selectElement.value);
+                },
+                {
+                    once: true
+                }
+            );
+        });
     }
 
     public getDisplayText(): string {
@@ -219,9 +283,7 @@ export class SelectPageObject {
                 'Select has filterMode of "none" so there is no filter input'
             );
         }
-        return this.selectElement.shadowRoot?.querySelector<HTMLInputElement>(
-            '.filter-input'
-        );
+        return this.selectElement.filterInput;
     }
 
     private getClearButton(): Button | null | undefined {

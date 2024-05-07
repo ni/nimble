@@ -2,7 +2,6 @@ import { html, repeat, when } from '@microsoft/fast-element';
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html';
 import { listOptionTag } from '@ni/nimble-components/dist/esm/list-option';
-import { menuMinWidth } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
 import { selectTag } from '@ni/nimble-components/dist/esm/select';
 import { FilterMode } from '@ni/nimble-components/dist/esm/select/types';
 import { ExampleOptionsType } from '@ni/nimble-components/dist/esm/select/tests/types';
@@ -102,7 +101,7 @@ const metadata: Meta<SelectArgs> = {
             position="${x => x.dropDownPosition}"
             appearance="${x => x.appearance}"
             filter-mode="${x => (x.filterMode === 'none' ? undefined : x.filterMode)}"
-            style="width: var(${menuMinWidth.cssCustomProperty});"
+            style="width: 250px;"
         >
             ${when(x => x.placeholder, html`
                 <${listOptionTag}

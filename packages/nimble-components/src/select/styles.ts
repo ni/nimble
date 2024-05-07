@@ -6,6 +6,8 @@ import {
     borderRgbPartialColor,
     borderWidth,
     controlHeight,
+    fillHoverSelectedColor,
+    fillSelectedColor,
     mediumPadding,
     placeholderFontColor,
     smallPadding
@@ -121,6 +123,18 @@ export const styles = css`
 
     .scrollable-region {
         overflow: auto;
+    }
+
+    ::slotted([role='option']) {
+        background-color: transparent;
+    }
+
+    ::slotted([role='option'][active-option]) {
+        background-color: ${fillSelectedColor};
+    }
+
+    ::slotted([role='option'][active-option]:hover) {
+        background-color: ${fillHoverSelectedColor};
     }
 
     .no-results-label {
