@@ -442,6 +442,24 @@ describe('Select', () => {
         await disconnect();
     });
 
+    it('navigating to different option in dropdown and then clicking select (not dropdown) does not change value or emit change event', async () => {
+        const { element, connect, disconnect } = await setup();
+        await connect();
+        await waitForUpdatesAsync();
+        const changeEvent = jasmine.createSpy();
+        element.addEventListener('change', changeEvent);
+        const pageObject = new SelectPageObject(element);
+        await clickAndWaitForOpen(element);
+
+        pageObject.pressArrowDownKey();
+        pageObject.clickSelect();
+
+        expect(element.value).toBe('one');
+        expect(changeEvent.calls.count()).toBe(0);
+
+        await disconnect();
+    });
+
     describe('with 500 options', () => {
         async function setup500Options(): Promise<Fixture<Select>> {
             // prettier-ignore
