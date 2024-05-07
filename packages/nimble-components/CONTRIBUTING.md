@@ -41,14 +41,12 @@ Before building a new component, 3 specification documents need to be created:
 ## Development workflow
 
 1. When creating new components, create the folder structure and decide how to implement the component as described in [Develop new components](#develop-new-components).
+
 2. Create Storybook documentation and tests for the component as described in [`@ni-private/storybook` CONTRIBUTING](/packages/storybook/CONTRIBUTING.md).
-3. Run the Storybook build and start commands from the `storybook` package directory:
 
-    `npm run build`
+3. Run the Storybook command from the repo root:  `npm run storybook`.
 
-    `npm run start`
-
-    Storybook will build its own copy of the component in a temporary folder which is separate from the normal build.
+    This command also causes `nimble-components` (and `spright-components`) to rebuild whenever a source file is changed so that Storybook can reflect the current state.
 
 4. Make functional and style changes to the component.
 
