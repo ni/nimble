@@ -117,7 +117,7 @@ const playFunction = async (): Promise<void> => {
 };
 
 export const navigateToDifferentOption: StoryFn = createStory(
-    html`<${selectTag} open>
+    html`<${selectTag} open style="width: 250px;">
         <${listOptionTag} value="1" selected>Option 1</${listOptionTag}>
         <${listOptionTag}>Option 2</${listOptionTag}>
     </${selectTag}>`
