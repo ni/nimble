@@ -74,6 +74,7 @@ In addition to the `label` attribute, the `ListOptionGroup` will also support sl
     <nimble-list-option value="saab">Saab</option>
 </nimble-list-option-group>
 ```
+
 #### Usage notes
 
 1. If a client configures both the `label` attribute _and_ supplies slotted content, we will honor the label attribute.
@@ -91,12 +92,12 @@ It should be noted that when using groups with a `Combobox`, it is advised that 
 
 ### Accessibility
 
-- The `ListOptionGroup` element will have a [role of "group"](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/group_role), which matches the role given to the native `optgroup` element.
-- The `ListOptionGroup` should apply the `aria-label` attribute with a value that is the display text for the group.
-- The `ListOptionGroup` element is ignored during keyboard navigation of the dropdown.
-- Screen readers should report the group when the user navigates to an option within a group for the first time. This is achieved by ensuring the accessibility tree has a structure like the following:
+-   The `ListOptionGroup` element will have a [role of "group"](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/group_role), which matches the role given to the native `optgroup` element.
+-   The `ListOptionGroup` should apply the `aria-label` attribute with a value that is the display text for the group.
+-   The `ListOptionGroup` element is ignored during keyboard navigation of the dropdown.
+-   Screen readers should report the group when the user navigates to an option within a group for the first time. This is achieved by ensuring the accessibility tree has a structure like the following:
 
-![](./spec-images/option-group-accessibility-tree.PNG)    
+![](./spec-images/option-group-accessibility-tree.PNG)
 
 ### Angular/Blazor Integration
 
