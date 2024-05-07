@@ -24,7 +24,7 @@ From the repo root directory:
 2. Run `npm run build`
 3. Run the different Nimble Components test configurations:
 
-    - To view the components and manually test behaviors in Storybook: `npm run start -w @ni-private/storybook`
+    - To view the components and manually test behaviors in Storybook: `npm run storybook`
 
         **Note**: You will need to refresh your browser window to see style changes made in source.
 
@@ -41,7 +41,8 @@ Before building a new component, 3 specification documents need to be created:
 ## Development workflow
 
 1. When creating new components, create the folder structure and decide how to implement the component as described in [Develop new components](#develop-new-components).
-2. Run the Storybook build and start commands from the `storybook` package directory:
+2. Create Storybook documentation and tests for the component as described in [`@ni-private/storybook` CONTRIBUTING](/packages/storybook/CONTRIBUTING.md).
+3. Run the Storybook build and start commands from the `storybook` package directory:
 
     `npm run build`
 
@@ -49,11 +50,11 @@ Before building a new component, 3 specification documents need to be created:
 
     Storybook will build its own copy of the component in a temporary folder which is separate from the normal build.
 
-3. Make functional and style changes to the component.
+4. Make functional and style changes to the component.
 
     The storybook will hot reload when you save changes, but the styles will not. On each save that changes `index.ts` or `styles.ts`, **you will need to refresh your browser window to see style changes**.
 
-4. Create or update tests.
+5. Create or update tests.
 
     To build and run the tests once, from the `nimble` directory run:
 
@@ -65,17 +66,17 @@ Before building a new component, 3 specification documents need to be created:
 
     See [Unit tests](#unit-tests) for additional available commands.
 
-5. Test out the component in each of the 3 major browsers: Chrome, Firefox, and Safari (WebKit).
+6. Test out the component in each of the 3 major browsers: Chrome, Firefox, and Safari (WebKit).
    For developers on non-Mac platforms, Safari/WebKit can be tested via the Playwright package:
 
     - To open Storybook with WebKit, after running the Storybook command, run the command `npm run storybook-open-webkit -w @ni/nimble-components` from the `nimble` directory.
     - To run the unit tests with WebKit, use the command `npm run test-webkit -w @ni/nimble-components` from the `nimble` directory.
 
-6. Create change files for your work by running the following from the `nimble` directory:
+7. Create change files for your work by running the following from the `nimble` directory:
 
     `npm run change`
 
-7. Update the [Component Status table](./src/tests/component-status.stories.ts) to reflect the new component state.
+8. Update the [Component Status table](./src/tests/component-status.stories.ts) to reflect the new component state.
 
 ## Develop new components
 
