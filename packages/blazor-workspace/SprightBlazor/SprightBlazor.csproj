@@ -25,6 +25,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="CHANGELOG.json" />
     <Content Remove="package.json" />
     <Content Remove="packages.lock.json" />
   </ItemGroup>
