@@ -108,7 +108,7 @@ export const anchorColumn: StoryObj<AnchorColumnTableArgs> = {
             name: 'href-field-name',
             description:
                 'Set this attribute to identify which field in the data record contains the link url for each cell in the column. If the field is not defined in a particular record, that cell will be displayed as plain text instead of a link. The field values must be of type `string`.',
-            control: { type: 'none' }
+            control: false
         },
         appearance: {
             options: Object.keys(AnchorAppearance),

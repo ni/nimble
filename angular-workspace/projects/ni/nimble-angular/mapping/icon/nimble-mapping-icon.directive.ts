@@ -9,7 +9,7 @@ export type { MappingIcon };
 export { mappingIconTag };
 
 /**
- * Directive to provide Angular integration for the mapping icon element used by the icon column.
+ * Directive to provide Angular integration for the mapping icon element used by the mapping column.
  */
 @Directive({
     selector: 'nimble-mapping-icon'

@@ -10,7 +10,7 @@ const metadata: Meta = {
         docs: {
             description: {
                 component:
-                    'The `nimble-mapping-text` element defines a mapping from a data value to display text. It is meant to be used as content of the `nimble-table-column-icon` column type element.'
+                    'The `nimble-mapping-text` element defines a mapping from a data value to display text. It is meant to be used as content of the `nimble-table-column-mapping` column type element.'
             }
         }
     }
@@ -23,7 +23,7 @@ export const textMapping: StoryObj = {
     argTypes: {
         key: {
             description: mappingKeyDescription('the mapped display text'),
-            control: { type: 'none' }
+            control: false
         },
         text: {
             description: 'The display text.'

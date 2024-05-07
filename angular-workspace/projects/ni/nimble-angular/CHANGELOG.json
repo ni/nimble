@@ -2,6 +2,117 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Tue, 07 May 2024 13:17:00 GMT",
+      "version": "24.0.1",
+      "tag": "@ni/nimble-angular_v24.0.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v28.0.1",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 06 May 2024 19:00:05 GMT",
+      "version": "24.0.0",
+      "tag": "@ni/nimble-angular_v24.0.0",
+      "comments": {
+        "major": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "d1c9125a77615d0364671a9e03a558c57b359ed7",
+            "comment": "Rename icon column to mapping column"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v28.0.0",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 02 May 2024 18:52:31 GMT",
+      "version": "23.2.1",
+      "tag": "@ni/nimble-angular_v23.2.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v27.2.3",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 02 May 2024 17:22:44 GMT",
+      "version": "23.2.0",
+      "tag": "@ni/nimble-angular_v23.2.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "7a27f45851b45e29a554e3effc812011108db80d",
+            "comment": "Add width-mode to the icon column"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 01 May 2024 21:45:37 GMT",
+      "version": "23.1.11",
+      "tag": "@ni/nimble-angular_v23.1.11",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v27.2.2",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 01 May 2024 20:33:43 GMT",
+      "version": "23.1.10",
+      "tag": "@ni/nimble-angular_v23.1.10",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v27.2.1",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 01 May 2024 14:33:42 GMT",
+      "version": "23.1.9",
+      "tag": "@ni/nimble-angular_v23.1.9",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v27.2.0",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 30 Apr 2024 22:26:12 GMT",
       "version": "23.1.8",
       "tag": "@ni/nimble-angular_v23.1.8",

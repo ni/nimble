@@ -8,7 +8,7 @@
     "generate-icons": "npm run generate-icons:bundle && npm run generate-icons:run",
     "generate-icons:bundle": "rollup --bundleConfigAsCjs --config build/generate-icons/rollup.config.js",
     "generate-icons:run": "node build/generate-icons/dist/index.js",
-    "start": "storybook dev -p 6006",
+    "start": "storybook dev --quiet -p 6006",
     "lint": "npm run eslint && npm run prettier",
     "format": "npm run eslint-fix && npm run prettier-fix",
     "eslint": "eslint src",

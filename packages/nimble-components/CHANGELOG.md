@@ -1,8 +1,56 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Tue, 30 Apr 2024 22:26:12 GMT and should not be manually modified.
+This log was last generated on Tue, 07 May 2024 13:17:00 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 28.0.1
+
+Tue, 07 May 2024 13:17:00 GMT
+
+### Patches
+
+- Set Select and Combobox min-width to menuMinWidth token (176px) ([ni/nimble@799d392](https://github.com/ni/nimble/commit/799d39216faa9ad98c94627c6505439c846cbac9))
+
+## 28.0.0
+
+Mon, 06 May 2024 19:00:05 GMT
+
+### Major changes
+
+- Rename icon column to mapping column ([ni/nimble@d1c9125](https://github.com/ni/nimble/commit/d1c9125a77615d0364671a9e03a558c57b359ed7))
+
+## 27.2.3
+
+Thu, 02 May 2024 18:52:31 GMT
+
+### Patches
+
+- Fix the focus styling of the anchor menu item ([ni/nimble@022f1cb](https://github.com/ni/nimble/commit/022f1cbbe0054dd2432ddedacd4612fce244a0cb))
+
+## 27.2.2
+
+Wed, 01 May 2024 21:45:37 GMT
+
+### Patches
+
+- Update @types/markdown-it to remove @types/linkify-it peerDependency ([ni/nimble@c5f2626](https://github.com/ni/nimble/commit/c5f2626c97873c1f1aea9c18b06fef07cc8081bf))
+
+## 27.2.1
+
+Wed, 01 May 2024 20:33:43 GMT
+
+### Patches
+
+- Peer dependency on linkify-it type added to prevent issues for those using library type checking ([ni/nimble@d4204cf](https://github.com/ni/nimble/commit/d4204cf98575263a6ba7b22525f02beac109215b))
+
+## 27.2.0
+
+Wed, 01 May 2024 14:33:42 GMT
+
+### Minor changes
+
+- Added tag fill color token ([ni/nimble@27804b9](https://github.com/ni/nimble/commit/27804b9a6d29ff0adc600c94f2bf6822ad4d5e63))
 
 ## 27.1.1
 

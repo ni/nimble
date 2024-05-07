@@ -193,11 +193,11 @@ export class TablePageObject<T extends TableRecord> {
         return anchor;
     }
 
-    public getRenderedIconColumnCellIconTagName(
+    public getRenderedMappingColumnCellIconTagName(
         rowIndex: number,
         columnIndex: number
     ): string {
-        const iconOrSpinner = this.getRenderedIconColumnIconOrSpinner(
+        const iconOrSpinner = this.getRenderedMappingColumnIconOrSpinner(
             this.getRenderedCellView(rowIndex, columnIndex)
         );
         return iconOrSpinner.tagName.toLocaleLowerCase();
@@ -797,7 +797,7 @@ export class TablePageObject<T extends TableRecord> {
         return nodeChildren[0]; // header content should be first item in final slot element
     }
 
-    private getRenderedIconColumnIconOrSpinner(
+    private getRenderedMappingColumnIconOrSpinner(
         view: TableCellView | TableGroupHeaderView
     ): Icon | Spinner {
         const viewShadowRoot = view.shadowRoot!;
