@@ -171,7 +171,7 @@ export const menuItem: StoryObj<MenuItemArgs> = {
             table: { category: apiCategory.slots }
         },
         disabled: {
-            description: disabledDescription('menu item'),
+            description: disabledDescription({ componentName: 'menu item' }),
             table: { category: apiCategory.attributes }
         },
         change: {
@@ -215,7 +215,7 @@ export const anchorMenuItem: StoryObj<AnchorMenuItemArgs> = {
             table: { category: apiCategory.slots }
         },
         disabled: {
-            description: disabledDescription('anchor menu item'),
+            description: disabledDescription({ componentName: 'anchor menu item' }),
             table: { category: apiCategory.attributes }
         }
     }
