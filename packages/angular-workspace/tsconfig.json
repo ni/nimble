@@ -4,16 +4,16 @@
   "compilerOptions": {
     "paths": {
       "@ni/nimble-angular": [
-        "dist/ni/nimble-angular"
+        "dist/nimble-angular"
       ],
       "@ni/nimble-angular/*": [
-        "dist/ni/nimble-angular/*"
+        "dist/nimble-angular/*"
       ],
       "@ni/spright-angular": [
-        "dist/ni/spright-angular"
+        "dist/spright-angular"
       ],
       "@ni/spright-angular/*": [
-        "dist/ni/spright-angular/*"
+        "dist/spright-angular/*"
       ]
     },
     "baseUrl": "./",

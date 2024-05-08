@@ -34,7 +34,7 @@ module.exports = config => {
             suppressAll: true // removes the duplicated traces
         },
         coverageReporter: {
-            dir: path.join(__dirname, '../../../coverage/ni/nimble-angular'),
+            dir: path.join(__dirname, '../coverage/nimble-angular'),
             subdir: '.',
             reporters: [
                 { type: 'html' },

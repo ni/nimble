@@ -3,8 +3,8 @@
   "version": "24.0.3",
   "description": "Angular components for the NI Nimble Design System",
   "scripts": {
-    "invoke-publish": "npm run invoke-publish:setup && cd ../../../dist/ni/nimble-angular && npm publish",
-    "invoke-publish:setup": "cd ../../../ && npm run build:nimble"
+    "invoke-publish": "npm run invoke-publish:setup && cd ../dist/nimble-angular && npm publish",
+    "invoke-publish:setup": "cd ../ && npm run build:nimble"
   },
   "repository": {
     "type": "git",
