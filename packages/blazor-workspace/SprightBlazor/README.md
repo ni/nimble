@@ -8,7 +8,7 @@
 
 Spright Blazor generally works equivalently to Nimble Blazor, so refer to the Nimble Blazor [README.md](/packages/blazor-workspace/NimbleBlazor/README.md). Any Spright-specific differences are listed below.
 
-## Using SprightBlazor with NimbleBlazor
+## Getting Started
 
 Any project using SprightBlazor components will typically also be using NimbleBlazor components (e.g. `NimbleThemeProvider` if nothing else). SprightBlazor is not a superset of NimbleBlazor, but the `spright-components` bundle _is_ a superset of the `nimble-components` bundle. Follow the directions below to avoid issues:
 
