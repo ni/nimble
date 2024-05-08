@@ -162,7 +162,7 @@ export const menuItem: StoryObj<MenuItemArgs> = {
     argTypes: {
         text: {
             name: 'default',
-            description: textContentDescription('menu item'),
+            description: textContentDescription({ componentName: 'menu item' }),
             table: { category: apiCategory.slots }
         },
         icon: {
@@ -201,7 +201,7 @@ export const anchorMenuItem: StoryObj<AnchorMenuItemArgs> = {
     argTypes: {
         text: {
             name: 'default',
-            description: textContentDescription('anchor menu item'),
+            description: textContentDescription({ componentName: 'anchor menu item' }),
             table: { category: apiCategory.slots }
         },
         href: {
