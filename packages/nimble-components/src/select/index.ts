@@ -327,20 +327,27 @@ export class Select
             return;
         }
 
+        let optionClicked = false;
         if (this.open) {
             const captured = (e.target as HTMLElement).closest<ListOption>(
                 'option,[role=option]'
             );
+            optionClicked = captured !== null;
 
             if (captured?.disabled) {
                 return;
             }
         }
 
+        const currentIndex = this.openActiveIndex ?? this.selectedIndex;
         super.clickHandler(e);
 
         this.open = this.collapsible && !this.open;
-        if (!this.open && this.selectedIndex !== -1) {
+        if (
+            !this.open
+            && this.selectedIndex !== currentIndex
+            && optionClicked
+        ) {
             this.updateValue(true);
         }
     }
@@ -503,24 +510,13 @@ export class Select
             return true;
         }
 
+        this.open = false;
         const focusTarget = e.relatedTarget as HTMLElement;
         if (this.isSameNode(focusTarget)) {
             this.focus();
             return true;
         }
 
-        if (!this.options?.includes(focusTarget as ListboxOption)) {
-            let currentActiveIndex = this.openActiveIndex ?? this.selectedIndex;
-            this.open = false;
-            if (currentActiveIndex === -1) {
-                currentActiveIndex = this.selectedIndex;
-            }
-
-            if (this.selectedIndex !== currentActiveIndex) {
-                this.selectedIndex = currentActiveIndex;
-                this.updateValue(true);
-            }
-        }
         return true;
     }
 

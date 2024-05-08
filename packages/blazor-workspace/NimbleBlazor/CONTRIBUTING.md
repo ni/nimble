@@ -107,6 +107,15 @@ Visual Studio Code commands are included to build and run the example projects. 
 - `blazor-wasm-example:build`: Build the `Demo.Client` project
 - `blazor-wasm-example:watch`: Run the `Demo.Client` project in watch mode (to automatically pick up code changes)
 
+## Creating a New Project
+
+When creating a new project in the Blazor workspace, ensure it includes the following configuration:
+
+- .NET version matches other projects in the workspace
+- `<RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>`
+- `<DisableImplicitNuGetFallbackFolder>true</DisableImplicitNuGetFallbackFolder>`
+- Package reference to `NI.CSharp.Analyzers` with same version spec as other projects
+
 ## Additional Tips
 
 ### Enabling IIS
