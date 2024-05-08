@@ -36,7 +36,7 @@ const metadata: Meta<AnchorArgs> = {
     `),
     argTypes: {
         href: {
-            description: hrefDescription('anchor', true)
+            description: hrefDescription({ componentName: 'anchor', includeDisable: true })
         },
         underlineHidden: {
             name: 'underline-hidden',

@@ -111,7 +111,7 @@ export const anchorTreeItem: StoryObj<AnchorItemArgs> = {
                 'Cannot be selected interactively, as click/Enter causes navigation.'
         },
         href: {
-            description: hrefDescription('anchor tree item', false)
+            description: hrefDescription({ componentName: 'anchor tree item', includeDisable: false })
         }
     },
     // prettier-ignore

@@ -52,7 +52,7 @@ const metadata: Meta<AnchorButtonArgs> = {
     `),
     argTypes: {
         href: {
-            description: hrefDescription('anchor button', false)
+            description: hrefDescription({ componentName: 'anchor button', includeDisable: false })
         },
         appearance: {
             options: Object.keys(ButtonAppearance),

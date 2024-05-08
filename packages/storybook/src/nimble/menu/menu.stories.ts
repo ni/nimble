@@ -206,7 +206,7 @@ export const anchorMenuItem: StoryObj<AnchorMenuItemArgs> = {
         },
         href: {
             name: 'href',
-            description: hrefDescription('anchor menu item', false),
+            description: hrefDescription({ componentName: 'anchor menu item', includeDisable: false }),
             table: { category: apiCategory.attributes }
         },
         icon: {
