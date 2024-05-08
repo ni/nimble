@@ -233,7 +233,10 @@ export class SelectPageObject {
     }
 
     public isFilterInputVisible(): boolean {
-        return this.getFilterInput() !== null;
+        return (
+            this.selectElement.shadowRoot?.querySelector('.filter-field')
+            !== null
+        );
     }
 
     public isOptionVisible(index: number): boolean {
@@ -255,26 +258,6 @@ export class SelectPageObject {
 
     public getFilterInputText(): string {
         return this.selectElement.filterInput?.value ?? '';
-    }
-
-    public async waitForChange(): Promise<string> {
-        return new Promise(resolve => {
-            this.selectElement.addEventListener(
-                'change',
-                () => {
-                    resolve(this.selectElement.value);
-                },
-                {
-                    once: true
-                }
-            );
-        });
-    }
-
-    public getDisplayText(): string {
-        const displayText = this.selectElement.shadowRoot?.querySelector('.selected-value')
-            ?.textContent ?? '';
-        return displayText.trim();
     }
 
     private getFilterInput(): HTMLInputElement | null | undefined {

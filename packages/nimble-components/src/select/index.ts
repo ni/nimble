@@ -61,6 +61,10 @@ const isOptionSelectable = (el: ListOption): boolean => {
     return !el.visuallyHidden && !el.disabled && !el.hidden;
 };
 
+const isOptionPlaceholder = (el: ListboxOption): boolean => {
+    return el.disabled && el.hidden;
+};
+
 /**
  * A nimble-styled HTML select.
  */
@@ -310,7 +314,6 @@ export class Select
             notifier.subscribe(this, 'hidden');
             notifier.subscribe(this, 'disabled');
         });
-        this.findAndCachePlaceholderOption();
         this.setProxyOptions();
         this.updateValue();
         // We need to force an update to the filteredOptions observable
@@ -367,10 +370,18 @@ export class Select
                 break;
             }
             case 'selected': {
-                if (isNimbleListOption(sourceElement)) {
+                if (
+                    isNimbleListOption(sourceElement)
+                    && sourceElement.selected
+                ) {
                     this.selectedIndex = this.options.indexOf(sourceElement);
+                } else {
+                    const placeholderOption = this.getPlaceholderOption();
+                    this.selectedIndex = placeholderOption
+                        ? this.options.indexOf(placeholderOption)
+                        : -1;
                 }
-                this.setSelectedOptions();
+                this.updateValue();
                 this.updateDisplayValue();
                 break;
             }
@@ -446,13 +457,16 @@ export class Select
         );
     }
 
+    /**
+     * @internal
+     */
     public clearClickHandler(e: MouseEvent): void {
-        if (this.placeholderOption) {
-            this.selectedIndex = this.options.indexOf(this.placeholderOption);
-            this.committedSelectedOption = this.placeholderOption;
-        } else {
-            this.selectedIndex = -1;
-        }
+        this.open = false;
+        const placeholderOption = this.getPlaceholderOption();
+        this.selectedIndex = placeholderOption
+            ? this.options.indexOf(placeholderOption)
+            : -1;
+        this.updateValue(true);
         e.stopPropagation();
     }
 
@@ -460,10 +474,10 @@ export class Select
      * @internal
      */
     public updateDisplayValue(): void {
+        const placeholderOption = this.getPlaceholderOption();
         if (
-            this.committedSelectedOption?.disabled
-            && this.committedSelectedOption?.hidden
-            && this.committedSelectedOption?.selected
+            placeholderOption
+            && this.committedSelectedOption === placeholderOption
         ) {
             this.displayPlaceholder = true;
         } else {
@@ -517,24 +531,13 @@ export class Select
             return true;
         }
 
+        this.open = false;
         const focusTarget = e.relatedTarget as HTMLElement;
         if (this.isSameNode(focusTarget)) {
             this.focus();
             return true;
         }
 
-        if (!this.options?.includes(focusTarget as ListboxOption)) {
-            let currentActiveIndex = this.openActiveIndex ?? this.selectedIndex;
-            this.open = false;
-            if (currentActiveIndex === -1) {
-                currentActiveIndex = this.selectedIndex;
-            }
-
-            if (this.selectedIndex !== currentActiveIndex) {
-                this.selectedIndex = currentActiveIndex;
-                this.updateValue(true);
-            }
-        }
         return true;
     }
 
@@ -689,6 +692,7 @@ export class Select
         if (this.selectedIndex === -1) {
             this.selectedIndex = 0;
         }
+        this.updateValue();
     }
 
     /**
@@ -767,10 +771,10 @@ export class Select
         this.options.push(option);
     }
 
-    // Prevents parent classes from resetting selectedIndex to a positive
-    // value while filtering, which can result in a disabled option being
-    // selected.
     protected override setSelectedOptions(): void {
+        // Prevents parent classes from resetting selectedIndex to a positive
+        // value while filtering, which can result in a disabled option being
+        // selected.
         if (this.open && this.selectedIndex === -1) {
             return;
         }
@@ -887,14 +891,18 @@ export class Select
         };
         let selectedIndex = -1;
         let firstValidOptionIndex = -1;
+        let placeholderIndex = -1;
         for (let i = 0; i < options?.length; i++) {
-            const option = options[i];
-            if (optionIsSelected(option!) || option?.value === this.value) {
+            const option = options[i]!;
+            if (optionIsSelected(option) || option.value === this.value) {
                 selectedIndex = i;
-            }
-            if (
+                break;
+            } else if (placeholderIndex === -1 && isOptionPlaceholder(option)) {
+                placeholderIndex = i;
+            } else if (
                 firstValidOptionIndex === -1
-                && isOptionSelectable(option! as ListOption)
+                && placeholderIndex === -1
+                && isOptionSelectable(option as ListOption)
             ) {
                 firstValidOptionIndex = i;
             }
@@ -902,6 +910,8 @@ export class Select
 
         if (selectedIndex !== -1) {
             this.selectedIndex = selectedIndex;
+        } else if (placeholderIndex !== -1) {
+            this.selectedIndex = placeholderIndex;
         } else if (firstValidOptionIndex !== -1) {
             this.selectedIndex = firstValidOptionIndex;
         } else {
@@ -948,6 +958,10 @@ export class Select
                 optionToFocus.scrollIntoView({ block: 'nearest' });
             });
         }
+    }
+
+    private getPlaceholderOption(): ListOption | undefined {
+        return this.options.find(o => o.hidden && o.disabled) as ListOption;
     }
 
     private committedSelectedOptionChanged(): void {

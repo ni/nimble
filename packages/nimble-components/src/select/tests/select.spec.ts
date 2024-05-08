@@ -15,11 +15,13 @@ import { filterSearchLabel } from '../../label-provider/core/label-tokens';
 
 const disabledOption = 'disabled';
 const disabledSelectedOption = 'disabled selected';
-const placeholderOption = 'disabled selected hidden';
+const placeholderSelectedOption = 'disabled selected hidden';
 
 type OptionInitialState =
+    | 'selected'
     | 'disabled'
     | 'disabled selected'
+    | 'disabled hidden'
     | 'disabled selected hidden'
     | 'hidden'
     | 'visually-hidden';
@@ -177,7 +179,7 @@ describe('Select', () => {
         await disconnect();
     });
 
-    it('pressing Esc after navigating to new option in dropdown maintains original selected option', async () => {
+    it('pressing <Esc> after navigating to new option in dropdown maintains original selected option', async () => {
         const { element, connect, disconnect } = await setup();
         await connect();
         const pageObject = new SelectPageObject(element);
@@ -234,19 +236,46 @@ describe('Select', () => {
 
         const defaultOptionTestCases: {
             name: string,
-            value: OptionInitialState
+            option1State: OptionInitialState,
+            option2State?: OptionInitialState,
+            expected: string
         }[] = [
             {
+                name: 'first option selected, first is default',
+                option1State: 'selected',
+                expected: 'one'
+            },
+            {
                 name: 'first option disabled, second is default',
-                value: 'disabled'
+                option1State: 'disabled',
+                expected: 'two'
             },
             {
                 name: 'first option hidden, second is default',
-                value: 'hidden'
+                option1State: 'hidden',
+                expected: 'two'
             },
             {
                 name: 'first option visually-hidden, second is default',
-                value: 'visually-hidden'
+                option1State: 'visually-hidden',
+                expected: 'two'
+            },
+            {
+                name: 'first option hidden and disabled, first is default as placeholder',
+                option1State: 'disabled hidden',
+                expected: 'one'
+            },
+            {
+                name: 'first option disabled, second is disabled hidden, second is default as placeholder',
+                option1State: 'disabled',
+                option2State: 'disabled hidden',
+                expected: 'two'
+            },
+            {
+                name: 'first option disabled, second is disabled, third is default',
+                option1State: 'disabled',
+                option2State: 'disabled',
+                expected: 'three'
             }
         ];
         parameterizeSpec(defaultOptionTestCases, (spec, name, value) => {
@@ -254,12 +283,12 @@ describe('Select', () => {
                 const { element, connect, disconnect } = await setup(
                     undefined,
                     false,
-                    value.value,
-                    undefined
+                    value.option1State,
+                    value.option2State
                 );
                 await connect();
                 await waitForUpdatesAsync();
-                expect(element.value).toBe('two');
+                expect(element.value).toBe(value.expected);
 
                 await disconnect();
             });
@@ -427,72 +456,30 @@ describe('Select', () => {
         await disconnect();
     });
 
-    it('clear button is visible by default with no placholder', async () => {
+    it('programmatically setting selected of current selected option to false results in blank display', async () => {
         const { element, connect, disconnect } = await setup();
-        element.clearable = true;
-        const pageObject = new SelectPageObject(element);
         await connect();
-        await waitForUpdatesAsync();
-
-        expect(pageObject.isClearButtonVisible()).toBeTrue();
-        await disconnect();
-    });
-
-    it('clicking clear button does not open dropdown', async () => {
-        const { element, connect, disconnect } = await setup();
-        element.clearable = true;
         const pageObject = new SelectPageObject(element);
-        await connect();
-        await waitForUpdatesAsync();
-        pageObject.clickClearButton();
-        await waitForUpdatesAsync();
-        expect(element.open).toBeFalse();
-
-        await disconnect();
-    });
-
-    it('after clicking clear button, display text is empty and clear button is hidden', async () => {
-        const { element, connect, disconnect } = await setup();
-        element.clearable = true;
-        const pageObject = new SelectPageObject(element);
-        await connect();
-        await waitForUpdatesAsync();
-        pageObject.clickClearButton();
+        const selectedOption = pageObject.getSelectedOption();
+        selectedOption!.selected = false;
         await waitForUpdatesAsync();
 
         expect(pageObject.getDisplayText()).toBe('');
-        expect(pageObject.isClearButtonVisible()).toBeFalse();
-        await disconnect();
-    });
-
-    it('after clicking clear button and then selecting an option, clear button is visible again', async () => {
-        const { element, connect, disconnect } = await setup();
-        element.clearable = true;
-        const pageObject = new SelectPageObject(element);
-        await connect();
-        await waitForUpdatesAsync();
-        pageObject.clickClearButton();
-        await clickAndWaitForOpen(element);
-        pageObject.clickOption(1);
-        await waitForUpdatesAsync();
-        expect(pageObject.isClearButtonVisible()).toBeTrue();
 
         await disconnect();
     });
 
-    it('when handling change event, value of select element matches what was selected in dropdown on focusout', async () => {
+    it('navigating to different option in dropdown and then clicking away does not change value', async () => {
         const { element, connect, disconnect } = await setup();
         await connect();
         await waitForUpdatesAsync();
         const pageObject = new SelectPageObject(element);
         await clickAndWaitForOpen(element);
 
-        const changeValuePromise = pageObject.waitForChange();
         pageObject.pressArrowDownKey();
         await pageObject.clickAway();
-        const selectValue = await changeValuePromise;
 
-        expect(selectValue).toBe('two');
+        expect(element.value).toBe('one');
 
         await disconnect();
     });
@@ -809,14 +796,14 @@ describe('Select', () => {
             expect(element.open).toBeFalse();
         });
 
-        it('filtering out current selected item and then pressing <Tab> changes value and closes popup', async () => {
+        it('filtering out current selected item and then pressing <Tab> does not change value and closes popup', async () => {
             const currentSelection = pageObject.getSelectedOption();
             expect(currentSelection?.text).toBe('One');
             expect(element.value).toBe('one');
 
             await pageObject.openAndSetFilterText('T'); // Matches 'Two' and 'Three'
             pageObject.pressTabKey();
-            expect(element.value).toBe('two'); // 'Two' is first option in list so it should be selected now
+            expect(element.value).toBe('one');
             expect(element.open).toBeFalse();
         });
 
@@ -842,14 +829,14 @@ describe('Select', () => {
             expect(element.open).toBeFalse();
         });
 
-        it('filtering out current selected item and then losing focus changes value and closes popup', async () => {
+        it('filtering out current selected item and then losing focus does not change value and closes popup', async () => {
             const currentSelection = pageObject.getSelectedOption();
             expect(currentSelection?.text).toBe('One');
             expect(element.value).toBe('one');
 
             await pageObject.openAndSetFilterText('T'); // Matches 'Two' and 'Three'
             await pageObject.clickAway();
-            expect(element.value).toBe('two'); // 'Two' is first option in list so it should be selected now
+            expect(element.value).toBe('one'); // 'Two' is first option in list so it should be selected now
             expect(element.open).toBeFalse();
         });
 
@@ -1097,11 +1084,12 @@ describe('Select', () => {
             ({ element, connect, disconnect } = await setup(
                 undefined,
                 false,
-                placeholderOption
+                placeholderSelectedOption
             ));
             element.style.width = '200px';
             element.filterMode = FilterMode.standard;
             await connect();
+            await waitForUpdatesAsync();
             pageObject = new SelectPageObject(element);
             await waitForUpdatesAsync();
         });
@@ -1149,21 +1137,97 @@ describe('Select', () => {
             expect(pageObject.getDisplayText()).toBe('One one');
         });
 
-        describe('clearable', () => {
-            beforeEach(() => {
-                element.clearable = true;
+        it('programmatically setting selected of current selected option to false results in placeholder being displayed', async () => {
+            await clickAndWaitForOpen(element);
+            pageObject.clickOption(1);
+            const selectedOption = pageObject.getSelectedOption();
+            selectedOption!.selected = false;
+            await waitForUpdatesAsync();
+
+            expect(pageObject.getDisplayText()).toBe('One');
+        });
+    });
+
+    describe('clearable', () => {
+        let element: Select;
+        let connect: () => Promise<void>;
+        let disconnect: () => Promise<void>;
+        let pageObject: SelectPageObject;
+        beforeEach(async () => {
+            ({ element, connect, disconnect } = await setup());
+            element.style.width = '200px';
+            element.clearable = true;
+            await connect();
+            await waitForUpdatesAsync();
+            pageObject = new SelectPageObject(element);
+        });
+
+        afterEach(async () => {
+            await disconnect();
+        });
+
+        it('clear button is visible after selecting an option', async () => {
+            await clickAndWaitForOpen(element);
+            pageObject.clickOption(1);
+            await waitForUpdatesAsync();
+
+            expect(pageObject.isClearButtonVisible()).toBeTrue();
+        });
+
+        it('clicking clear button does not open dropdown', async () => {
+            pageObject.clickClearButton();
+            await waitForUpdatesAsync();
+            expect(element.open).toBeFalse();
+        });
+
+        it('clicking clear button fires change event', () => {
+            const changeEvent = jasmine.createSpy();
+            element.addEventListener('change', changeEvent);
+            pageObject.clickClearButton();
+            expect(changeEvent).toHaveBeenCalledTimes(1);
+        });
+
+        it('if dropdown open clicking clear button closes dropdown and fires change event', async () => {
+            pageObject.clickSelect();
+            await waitForUpdatesAsync();
+            const changeEvent = jasmine.createSpy();
+            element.addEventListener('change', changeEvent);
+            pageObject.clickClearButton();
+            expect(changeEvent).toHaveBeenCalledTimes(1);
+        });
+
+        describe('without placeholder', () => {
+            it('clear button is visible by default', () => {
+                expect(pageObject.isClearButtonVisible()).toBeTrue();
+            });
+
+            it('after clicking clear button, display text is empty and clear button is hidden', async () => {
+                pageObject.clickClearButton();
+                await waitForUpdatesAsync();
+
+                expect(pageObject.getDisplayText()).toBe('');
+                expect(pageObject.isClearButtonVisible()).toBeFalse();
+            });
+
+            it('after clicking clear button and then selecting an option, clear button is visible again', async () => {
+                pageObject.clickClearButton();
+                await clickAndWaitForOpen(element);
+                pageObject.clickOption(1);
+                await waitForUpdatesAsync();
+                expect(pageObject.isClearButtonVisible()).toBeTrue();
+            });
+        });
+
+        describe('with placeholder', () => {
+            beforeEach(async () => {
+                const firstOption = element.options[0]!;
+                firstOption.disabled = true;
+                firstOption.hidden = true;
+                await waitForUpdatesAsync();
             });
 
             it('clear button is not visible when placeholder is displayed', () => {
                 expect(pageObject.isClearButtonVisible()).toBeFalse();
-            });
-
-            it('clear button is visible after selecting an option', async () => {
-                await clickAndWaitForOpen(element);
-                pageObject.clickOption(1);
-                await waitForUpdatesAsync();
-
-                expect(pageObject.isClearButtonVisible()).toBeTrue();
             });
 
             it('after clicking clear button, placeholder is visible', async () => {
@@ -1174,6 +1238,32 @@ describe('Select', () => {
                 await waitForUpdatesAsync();
 
                 expect(pageObject.getDisplayText()).toBe('One');
+            });
+
+            const removePlaceholderData = [
+                {
+                    name: 'remove hidden from placeholder, clear button becomes visible and clicking it results in empty display text',
+                    updatePlaceholder: (option: ListOption) => {
+                        option.hidden = false;
+                    }
+                },
+                {
+                    name: 'remove disabled from placeholder, clear button becomes visible and clicking it results in empty display text',
+                    updatePlaceholder: (option: ListOption) => {
+                        option.disabled = false;
+                    }
+                }
+            ];
+            parameterizeSpec(removePlaceholderData, (spec, name, value) => {
+                spec(name, async () => {
+                    value.updatePlaceholder(element.options[0]! as ListOption);
+                    await waitForUpdatesAsync();
+                    expect(pageObject.isClearButtonVisible()).toBeTrue();
+                    pageObject.clickClearButton();
+                    await waitForUpdatesAsync();
+
+                    expect(pageObject.getDisplayText()).toBe('');
+                });
             });
         });
     });
@@ -1188,7 +1278,7 @@ describe('Select', () => {
             ({ element, connect, disconnect } = await setup(
                 undefined,
                 false,
-                placeholderOption
+                placeholderSelectedOption
             ));
             element.style.width = '200px';
             element.filterMode = FilterMode.standard;
