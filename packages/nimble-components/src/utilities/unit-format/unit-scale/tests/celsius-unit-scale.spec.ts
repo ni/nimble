@@ -1,7 +1,7 @@
 import { parameterizeSpec } from '@ni/jasmine-parameterized';
 import { celsiusUnitScale } from '../celsius-unit-scale';
 
-describe('CelciusUnitScale', () => {
+describe('CelsiusUnitScale', () => {
     const testCases = [
         {
             name: '10 ** -1',
