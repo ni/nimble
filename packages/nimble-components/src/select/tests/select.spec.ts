@@ -427,19 +427,35 @@ describe('Select', () => {
         await disconnect();
     });
 
-    it('when handling change event, value of select element matches what was selected in dropdown on focusout', async () => {
+    it('navigating to different option in dropdown and then clicking away does not change value', async () => {
         const { element, connect, disconnect } = await setup();
         await connect();
         await waitForUpdatesAsync();
         const pageObject = new SelectPageObject(element);
         await clickAndWaitForOpen(element);
 
-        const changeValuePromise = pageObject.waitForChange();
         pageObject.pressArrowDownKey();
         await pageObject.clickAway();
-        const selectValue = await changeValuePromise;
 
-        expect(selectValue).toBe('two');
+        expect(element.value).toBe('one');
+
+        await disconnect();
+    });
+
+    it('navigating to different option in dropdown and then clicking select (not dropdown) does not change value or emit change event', async () => {
+        const { element, connect, disconnect } = await setup();
+        await connect();
+        await waitForUpdatesAsync();
+        const changeEvent = jasmine.createSpy();
+        element.addEventListener('change', changeEvent);
+        const pageObject = new SelectPageObject(element);
+        await clickAndWaitForOpen(element);
+
+        pageObject.pressArrowDownKey();
+        pageObject.clickSelect();
+
+        expect(element.value).toBe('one');
+        expect(changeEvent.calls.count()).toBe(0);
 
         await disconnect();
     });
@@ -756,14 +772,14 @@ describe('Select', () => {
             expect(element.open).toBeFalse();
         });
 
-        it('filtering out current selected item and then pressing <Tab> changes value and closes popup', async () => {
+        it('filtering out current selected item and then pressing <Tab> does not change value and closes popup', async () => {
             const currentSelection = pageObject.getSelectedOption();
             expect(currentSelection?.text).toBe('One');
             expect(element.value).toBe('one');
 
             await pageObject.openAndSetFilterText('T'); // Matches 'Two' and 'Three'
             pageObject.pressTabKey();
-            expect(element.value).toBe('two'); // 'Two' is first option in list so it should be selected now
+            expect(element.value).toBe('one');
             expect(element.open).toBeFalse();
         });
 
@@ -789,14 +805,14 @@ describe('Select', () => {
             expect(element.open).toBeFalse();
         });
 
-        it('filtering out current selected item and then losing focus changes value and closes popup', async () => {
+        it('filtering out current selected item and then losing focus does not change value and closes popup', async () => {
             const currentSelection = pageObject.getSelectedOption();
             expect(currentSelection?.text).toBe('One');
             expect(element.value).toBe('one');
 
             await pageObject.openAndSetFilterText('T'); // Matches 'Two' and 'Three'
             await pageObject.clickAway();
-            expect(element.value).toBe('two'); // 'Two' is first option in list so it should be selected now
+            expect(element.value).toBe('one'); // 'Two' is first option in list so it should be selected now
             expect(element.open).toBeFalse();
         });
 
