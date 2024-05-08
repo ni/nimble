@@ -6,6 +6,7 @@ import {
     borderRgbPartialColor,
     borderWidth,
     controlHeight,
+    fillHoverColor,
     fillHoverSelectedColor,
     fillSelectedColor,
     mediumPadding,
@@ -120,6 +121,10 @@ export const styles = css`
 
     ::slotted([role='option']) {
         background-color: transparent;
+    }
+
+    ::slotted([role='option']:hover) {
+        background-color: ${fillHoverColor};
     }
 
     ::slotted([role='option'][active-option]) {

@@ -2,6 +2,21 @@
   "name": "@ni/spright-components",
   "entries": [
     {
+      "date": "Tue, 07 May 2024 20:15:55 GMT",
+      "version": "0.0.17",
+      "tag": "@ni/spright-components_v0.0.17",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/spright-components",
+            "comment": "Bump @ni/nimble-components to v28.0.3",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 07 May 2024 16:24:36 GMT",
       "version": "0.0.16",
       "tag": "@ni/spright-components_v0.0.16",
