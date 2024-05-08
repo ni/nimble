@@ -334,20 +334,27 @@ export class Select
             return;
         }
 
+        let optionClicked = false;
         if (this.open) {
             const captured = (e.target as HTMLElement).closest<ListOption>(
                 'option,[role=option]'
             );
+            optionClicked = captured !== null;
 
             if (captured?.disabled) {
                 return;
             }
         }
 
+        const currentIndex = this.openActiveIndex ?? this.selectedIndex;
         super.clickHandler(e);
 
         this.open = this.collapsible && !this.open;
-        if (!this.open && this.selectedIndex !== -1) {
+        if (
+            !this.open
+            && this.selectedIndex !== currentIndex
+            && optionClicked
+        ) {
             this.updateValue(true);
         }
     }

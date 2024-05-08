@@ -24,9 +24,13 @@
     <NoWarn>CS8669</NoWarn>
   </PropertyGroup>
 
+  <!-- 
+    Need to explicitly exclude json and config files from Content, or they will get copied to the output directory.
+    See: https://github.com/dotnet/sdk/issues/25587#issuecomment-1134731799
+  -->
   <ItemGroup>
-    <Content Remove="package.json" />
-    <Content Remove="packages.lock.json" />
+    <Content Remove="**\*.json" />
+    <Content Remove="**\*.config" />
   </ItemGroup>
 
   <ItemGroup>
