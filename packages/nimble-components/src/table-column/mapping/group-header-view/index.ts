@@ -16,6 +16,7 @@ import {
 } from '../../enum-base/models/mapping-spinner-config';
 import { MappingTextConfig } from '../../enum-base/models/mapping-text-config';
 import { MappingEmptyConfig } from '../../enum-base/models/mapping-empty-config';
+import { TableGroupHeaderView } from '../../base/group-header-view';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -27,11 +28,18 @@ declare global {
  * The group header view for the mapping column
  */
 export class TableColumnMappingGroupHeaderView
-    extends TableColumnTextGroupHeaderViewBase<
+    extends TableGroupHeaderView<
     TableFieldValue,
     TableColumnEnumColumnConfig
     >
     implements IconView, SpinnerView {
+    /** @internal */
+    @observable
+    public hasOverflow = false;
+
+    @observable
+    public text = '';
+
     @observable
     public severity: IconSeverity;
 
@@ -42,7 +50,15 @@ export class TableColumnMappingGroupHeaderView
 
     public readonly textHidden = false;
 
-    protected updateText(): void {
+    private columnConfigChanged(): void {
+        this.updateState();
+    }
+
+    private groupHeaderValueChanged(): void {
+        this.updateState();
+    }
+
+    private updateState(): void {
         this.resetState();
 
         if (!this.columnConfig) {

@@ -28,17 +28,17 @@ interface SimpleTableRecord extends TableRecord {
     field2?: MappingKey | null;
 }
 
-interface BaseMapping {
+interface TestBaseMapping {
     key?: MappingKey;
     text?: string;
 }
 
-interface IconMapping extends BaseMapping {
+interface TestIconMapping extends TestBaseMapping {
     icon?: string;
     textHidden?: boolean;
 }
 
-interface SpinnerMapping extends BaseMapping {
+interface TestSpinnerMapping extends TestBaseMapping {
     textHidden?: boolean;
 }
 
@@ -60,10 +60,10 @@ describe('TableColumnMapping', () => {
     // prettier-ignore
     async function setup(options: {
         keyType: MappingKeyType,
-        iconMappings?: IconMapping[],
-        spinnerMappings?: SpinnerMapping[],
-        textMappings?: BaseMapping[],
-        emptyMappings?: BaseMapping[]
+        iconMappings?: TestIconMapping[],
+        spinnerMappings?: TestSpinnerMapping[],
+        textMappings?: TestBaseMapping[],
+        emptyMappings?: TestBaseMapping[]
     }): Promise<ModelFixture<Table<SimpleTableRecord>>> {
         const source = new Model();
         const result = await fixture<Table<SimpleTableRecord>>(html<Model>`
@@ -71,7 +71,7 @@ describe('TableColumnMapping', () => {
                 <${tableTag} ${ref('table')} style="width: 700px">
                     <${tableColumnMappingTag} ${ref('col1')} field-name="field1" key-type="${options.keyType}">
                         Column 1
-                        ${repeat(() => options.iconMappings ?? [], html<IconMapping>`
+                        ${repeat(() => options.iconMappings ?? [], html<TestIconMapping>`
                             <${mappingIconTag}
                                 key="${x => x.key}"
                                 text="${x => x.text}"
@@ -79,20 +79,20 @@ describe('TableColumnMapping', () => {
                                 ?text-hidden="${x => x.textHidden}">
                             </${mappingIconTag}>
                         `)}
-                        ${repeat(() => options.spinnerMappings ?? [], html<SpinnerMapping>`
+                        ${repeat(() => options.spinnerMappings ?? [], html<TestSpinnerMapping>`
                         <${mappingSpinnerTag}
                             key="${x => x.key}"
                             text="${x => x.text}"
                             ?text-hidden="${x => x.textHidden}">
                         </${mappingSpinnerTag}>
                         `)}
-                        ${repeat(() => options.textMappings ?? [], html<BaseMapping>`
+                        ${repeat(() => options.textMappings ?? [], html<TestBaseMapping>`
                         <${mappingTextTag}
                             key="${x => x.key}"
                             text="${x => x.text}"
                         </${mappingTextTag}>
                         `)}
-                        ${repeat(() => options.emptyMappings ?? [], html<BaseMapping>`
+                        ${repeat(() => options.emptyMappings ?? [], html<TestBaseMapping>`
                         <${mappingEmptyTag}
                             key="${x => x.key}"
                             text="${x => x.text}"
@@ -605,22 +605,22 @@ describe('TableColumnMapping', () => {
         });
     });
 
-    describe('placeholder', () => {
+    describe('placeholders are not used', () => {
         const testCases = [
             {
                 name: 'value is not specified',
                 data: [{}],
-                groupValue: 'No value'
+                groupValue: ''
             },
             {
                 name: 'value is undefined',
                 data: [{ field1: undefined }],
-                groupValue: 'No value'
+                groupValue: ''
             },
             {
                 name: 'value is null',
                 data: [{ field1: null }],
-                groupValue: 'No value'
+                groupValue: ''
             },
             {
                 name: 'value is unmapped value',

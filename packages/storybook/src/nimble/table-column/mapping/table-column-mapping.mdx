@@ -24,8 +24,8 @@ The <Tag name={tableColumnMappingTag}/> renders specific number, boolean, or str
 ### Best Practices
 
 -   Provide a mapping for every expected record value. Because grouping is performed on the record value, non-mapped record values can result in multiple groups without group labels.
-    -   To improve grouping behavior of values that don't correspond to icons, explicitly map those values to an `undefined` icon.
--   Avoid having multiple values that map to the same label because grouping and sorting is done on the record value rather than the mapped label.
+    -   To improve grouping behavior of a value that shouldn't be rendered in table cells, use a `nimble-mapping-empty` element to provide text for that value's group row.
+-   Avoid having multiple values that map to the same text because grouping and sorting is done on the record value rather than the mapped text.
 
 ### Blazor Usage
 
