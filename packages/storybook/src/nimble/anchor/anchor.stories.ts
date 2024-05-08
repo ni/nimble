@@ -4,12 +4,7 @@ import { bodyFont } from '@ni/nimble-components/dist/esm/theme-provider/design-t
 import { anchorTag } from '@ni/nimble-components/dist/esm/anchor';
 import { AnchorAppearance } from '@ni/nimble-components/dist/esm/anchor/types';
 import { createUserSelectedThemeStory } from '../../utilities/storybook';
-
-const hrefDescription = `
-To disable the control, remove the \`href\` attribute.
-
-In addition to \`href\`, all other attributes of \`<a>\` are also supported, e.g. \`ping\`, \`target\`, \`type\`, etc.
-`;
+import { hrefDescription } from '../patterns/anchor/anchor-docs';
 
 interface AnchorArgs {
     label: string;
@@ -41,7 +36,7 @@ const metadata: Meta<AnchorArgs> = {
     `),
     argTypes: {
         href: {
-            description: hrefDescription
+            description: hrefDescription({ componentName: 'anchor', includeDisable: true })
         },
         underlineHidden: {
             name: 'underline-hidden',
