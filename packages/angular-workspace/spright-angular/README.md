@@ -10,8 +10,8 @@ Spright components for [Angular](https://angular.io) applications
 
 ## Getting started
 
-See the `nimble-angular` [README.md](/angular-workspace/projects/ni/nimble-angular/README.md#getting-started) for details on getting started.
+See the `nimble-angular` [README.md](/packages/angular-workspace/nimble-angular/README.md#getting-started) for details on getting started.
 
 ## Contributing
 
-Follow the instructions in [CONTRIBUTING.md](/angular-workspace/projects/ni/spright-angular/CONTRIBUTING.md) to modify this library.
+Follow the instructions in [CONTRIBUTING.md](/packages/angular-workspace/spright-angular/CONTRIBUTING.md) to modify this library.
