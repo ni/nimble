@@ -2,6 +2,21 @@
   "name": "@ni/spright-blazor",
   "entries": [
     {
+      "date": "Wed, 08 May 2024 00:06:34 GMT",
+      "version": "0.0.4",
+      "tag": "@ni/spright-blazor_v0.0.4",
+      "comments": {
+        "none": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/spright-blazor",
+            "commit": "4f3336686f0c26bacbbb2a25232bc70a7e623fcf",
+            "comment": "Add Spright rectangle component to Blazor example"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 02 May 2024 23:33:54 GMT",
       "version": "0.0.4",
       "tag": "@ni/spright-blazor_v0.0.4",
