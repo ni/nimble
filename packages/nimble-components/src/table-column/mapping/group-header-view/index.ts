@@ -4,7 +4,6 @@ import { styles } from './styles';
 import { template } from './template';
 import type { TableColumnEnumColumnConfig } from '../../enum-base';
 import type { TableFieldValue } from '../../../table/types';
-import { TableColumnTextGroupHeaderViewBase } from '../../text-base/group-header-view';
 import { IconSeverity } from '../../../icon-base/types';
 import {
     MappingIconConfig,
@@ -28,10 +27,7 @@ declare global {
  * The group header view for the mapping column
  */
 export class TableColumnMappingGroupHeaderView
-    extends TableGroupHeaderView<
-    TableFieldValue,
-    TableColumnEnumColumnConfig
-    >
+    extends TableGroupHeaderView<TableFieldValue, TableColumnEnumColumnConfig>
     implements IconView, SpinnerView {
     /** @internal */
     @observable
