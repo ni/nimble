@@ -15,7 +15,7 @@ NI-styled web components for web applications.
 If you are using one of the following frameworks see associated wrapper documentation:
 
 1. Angular: See the [nimble-angular](/angular-workspace/projects/ni/nimble-angular) documentation.
-2. Blazor WebAssembly or Blazor Server: See the [nimble-blazor](/packages/nimble-blazor) documentation.
+2. Blazor WebAssembly or Blazor Server: See the [NimbleBlazor](/packages/blazor-workspace/NimbleBlazor) documentation.
 
 ### Using in a Webpack Application
 
