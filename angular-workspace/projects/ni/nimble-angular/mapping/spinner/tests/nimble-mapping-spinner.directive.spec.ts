@@ -1,7 +1,7 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NimbleTableModule } from '../../../table/nimble-table.module';
-import { NimbleTableColumnIconModule } from '../../../table-column/icon/nimble-table-column-icon.module';
+import { NimbleTableColumnMappingModule } from '../../../table-column/mapping/nimble-table-column-mapping.module';
 import { NimbleMappingSpinnerDirective, type MappingSpinner } from '../nimble-mapping-spinner.directive';
 import { NimbleMappingSpinnerModule } from '../nimble-mapping-spinner.module';
 
@@ -22,7 +22,7 @@ describe('NimbleMappingSpinner', () => {
         @Component({
             template: `
                 <nimble-table>
-                    <nimble-table-column-icon key-type="boolean">
+                    <nimble-table-column-mapping key-type="boolean">
                         <nimble-mapping-spinner
                             #mapping
                             key="false"
@@ -30,7 +30,7 @@ describe('NimbleMappingSpinner', () => {
                             text-hidden
                         >
                         </nimble-mapping-spinner>
-                    </nimble-table-column-icon>
+                    </nimble-table-column-mapping>
                 </nimble-table>
             `
         })
@@ -45,7 +45,7 @@ describe('NimbleMappingSpinner', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [NimbleMappingSpinnerModule, NimbleTableColumnIconModule, NimbleTableModule]
+                imports: [NimbleMappingSpinnerModule, NimbleTableColumnMappingModule, NimbleTableModule]
             });
 
             fixture = TestBed.createComponent(TestHostComponent);
@@ -74,7 +74,7 @@ describe('NimbleMappingSpinner', () => {
         @Component({
             template: `
                 <nimble-table>
-                    <nimble-table-column-icon key-type="boolean">
+                    <nimble-table-column-mapping key-type="boolean">
                         <nimble-mapping-spinner
                             #mapping
                             [key]="key"
@@ -82,7 +82,7 @@ describe('NimbleMappingSpinner', () => {
                             [textHidden]="textHidden"
                         >
                         </nimble-mapping-spinner>
-                    </nimble-table-column-icon>
+                    </nimble-table-column-mapping>
                 </nimble-table>
             `
         })
@@ -100,7 +100,7 @@ describe('NimbleMappingSpinner', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [NimbleMappingSpinnerModule, NimbleTableColumnIconModule, NimbleTableModule]
+                imports: [NimbleMappingSpinnerModule, NimbleTableColumnMappingModule, NimbleTableModule]
             });
 
             fixture = TestBed.createComponent(TestHostComponent);
@@ -147,7 +147,7 @@ describe('NimbleMappingSpinner', () => {
         @Component({
             template: `
                 <nimble-table>
-                    <nimble-table-column-icon key-type="boolean">
+                    <nimble-table-column-mapping key-type="boolean">
                         <nimble-mapping-spinner
                             #mapping
                             [attr.key]="key"
@@ -155,7 +155,7 @@ describe('NimbleMappingSpinner', () => {
                             [attr.text-hidden]="textHidden"
                         >
                         </nimble-mapping-spinner>
-                    </nimble-table-column-icon>
+                    </nimble-table-column-mapping>
                 </nimble-table>
             `
         })
@@ -173,7 +173,7 @@ describe('NimbleMappingSpinner', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [NimbleMappingSpinnerModule, NimbleTableColumnIconModule, NimbleTableModule]
+                imports: [NimbleMappingSpinnerModule, NimbleTableColumnMappingModule, NimbleTableModule]
             });
 
             fixture = TestBed.createComponent(TestHostComponent);

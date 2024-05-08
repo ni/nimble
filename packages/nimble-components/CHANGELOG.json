@@ -2,6 +2,216 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 07 May 2024 20:15:55 GMT",
+      "version": "28.0.3",
+      "tag": "@ni/nimble-components_v28.0.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "7feb69deda088c1fa771f836dedd627e33b4e63b",
+            "comment": "Fixing hover behavior for options in Select."
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 07 May 2024 16:24:36 GMT",
+      "version": "28.0.2",
+      "tag": "@ni/nimble-components_v28.0.2",
+      "comments": {
+        "patch": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "bbe265424e76e1824a5748b8bc6cb6d69a1b9a17",
+            "comment": "Change Select to not update value as you navigate options in dropdown."
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 07 May 2024 13:17:00 GMT",
+      "version": "28.0.1",
+      "tag": "@ni/nimble-components_v28.0.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "799d39216faa9ad98c94627c6505439c846cbac9",
+            "comment": "Set Select and Combobox min-width to menuMinWidth token (176px)"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 06 May 2024 20:26:50 GMT",
+      "version": "28.0.0",
+      "tag": "@ni/nimble-components_v28.0.0",
+      "comments": {
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "9a1ebfa1220710515a4fca079f8b01932fa3e347",
+            "comment": "Command and readme updates"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 06 May 2024 19:00:05 GMT",
+      "version": "28.0.0",
+      "tag": "@ni/nimble-components_v28.0.0",
+      "comments": {
+        "major": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "d1c9125a77615d0364671a9e03a558c57b359ed7",
+            "comment": "Rename icon column to mapping column"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 02 May 2024 18:52:31 GMT",
+      "version": "27.2.3",
+      "tag": "@ni/nimble-components_v27.2.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "022f1cbbe0054dd2432ddedacd4612fce244a0cb",
+            "comment": "Fix the focus styling of the anchor menu item"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 02 May 2024 16:06:02 GMT",
+      "version": "27.2.2",
+      "tag": "@ni/nimble-components_v27.2.2",
+      "comments": {
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "561d15319e331aee3377ee4f262de6262d3d8015",
+            "comment": "Tests make more parallel"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 01 May 2024 21:45:37 GMT",
+      "version": "27.2.2",
+      "tag": "@ni/nimble-components_v27.2.2",
+      "comments": {
+        "patch": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "c5f2626c97873c1f1aea9c18b06fef07cc8081bf",
+            "comment": "Update @types/markdown-it to remove @types/linkify-it peerDependency"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 01 May 2024 20:33:43 GMT",
+      "version": "27.2.1",
+      "tag": "@ni/nimble-components_v27.2.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "d4204cf98575263a6ba7b22525f02beac109215b",
+            "comment": "Peer dependency on linkify-it type added to prevent issues for those using library type checking"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 01 May 2024 14:33:42 GMT",
+      "version": "27.2.0",
+      "tag": "@ni/nimble-components_v27.2.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "27804b9a6d29ff0adc600c94f2bf6822ad4d5e63",
+            "comment": "Added tag fill color token"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 01 May 2024 12:49:52 GMT",
+      "version": "27.1.1",
+      "tag": "@ni/nimble-components_v27.1.1",
+      "comments": {
+        "none": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "191fd3146609429be8859d704e175a3cc276e472",
+            "comment": "Move Storybook-related files to storybook package"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 30 Apr 2024 22:26:12 GMT",
+      "version": "27.1.1",
+      "tag": "@ni/nimble-components_v27.1.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "1ff549f91277bb7ab6949cfbc8af07c0a40d8d25",
+            "comment": "Move anchored region import from menu to menu item"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 30 Apr 2024 21:26:44 GMT",
+      "version": "27.1.0",
+      "tag": "@ni/nimble-components_v27.1.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "6b0f3371aa6b49b802d2a0d9e79365e544cef161",
+            "comment": "Add configuration to make the icon column fixed width"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 30 Apr 2024 15:26:51 GMT",
+      "version": "27.0.5",
+      "tag": "@ni/nimble-components_v27.0.5",
+      "comments": {
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "cd00c0c1bf9bdfe7f066549d2baf123843c1badd",
+            "comment": "Try some less verbose test flags"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 26 Apr 2024 21:13:31 GMT",
       "version": "27.0.5",
       "tag": "@ni/nimble-components_v27.0.5",

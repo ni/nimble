@@ -1,8 +1,88 @@
 # Change Log - @ni/spright-components
 
-This log was last generated on Fri, 26 Apr 2024 21:13:31 GMT and should not be manually modified.
+This log was last generated on Tue, 07 May 2024 20:15:55 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 0.0.17
+
+Tue, 07 May 2024 20:15:55 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v28.0.3
+
+## 0.0.16
+
+Tue, 07 May 2024 16:24:36 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v28.0.2
+
+## 0.0.15
+
+Tue, 07 May 2024 13:17:00 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v28.0.1
+
+## 0.0.14
+
+Mon, 06 May 2024 19:00:05 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v28.0.0
+
+## 0.0.13
+
+Thu, 02 May 2024 18:52:31 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v27.2.3
+
+## 0.0.12
+
+Wed, 01 May 2024 21:45:37 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v27.2.2
+
+## 0.0.11
+
+Wed, 01 May 2024 20:33:43 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v27.2.1
+
+## 0.0.10
+
+Wed, 01 May 2024 14:33:42 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v27.2.0
+
+## 0.0.9
+
+Tue, 30 Apr 2024 22:26:12 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v27.1.1
+
+## 0.0.8
+
+Tue, 30 Apr 2024 21:26:44 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v27.1.0
 
 ## 0.0.7
 

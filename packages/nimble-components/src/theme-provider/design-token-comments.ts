@@ -45,6 +45,7 @@ export const comments: { readonly [key in TokenName]: string } = {
     modalBackdropColor: 'Color of background overlay behind modal dialog boxes',
     popupBorderColor: 'Border color for menus and dialog boxes',
     cardBorderColor: 'Border color for cards',
+    tagFillColor: 'Background fill color for tags, chips, or pills',
     controlHeight:
         'Standard layout height for all controls. Add "labelHeight" for labels on top.',
     controlSlimHeight:

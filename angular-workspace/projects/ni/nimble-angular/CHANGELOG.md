@@ -1,8 +1,97 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Fri, 26 Apr 2024 21:13:31 GMT and should not be manually modified.
+This log was last generated on Tue, 07 May 2024 20:15:55 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 24.0.3
+
+Tue, 07 May 2024 20:15:55 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v28.0.3
+
+## 24.0.2
+
+Tue, 07 May 2024 16:24:36 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v28.0.2
+
+## 24.0.1
+
+Tue, 07 May 2024 13:17:00 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v28.0.1
+
+## 24.0.0
+
+Mon, 06 May 2024 19:00:05 GMT
+
+### Major changes
+
+- Rename icon column to mapping column ([ni/nimble@d1c9125](https://github.com/ni/nimble/commit/d1c9125a77615d0364671a9e03a558c57b359ed7))
+- Bump @ni/nimble-components to v28.0.0
+
+## 23.2.1
+
+Thu, 02 May 2024 18:52:31 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v27.2.3
+
+## 23.2.0
+
+Thu, 02 May 2024 17:22:44 GMT
+
+### Minor changes
+
+- Add width-mode to the icon column ([ni/nimble@7a27f45](https://github.com/ni/nimble/commit/7a27f45851b45e29a554e3effc812011108db80d))
+
+## 23.1.11
+
+Wed, 01 May 2024 21:45:37 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v27.2.2
+
+## 23.1.10
+
+Wed, 01 May 2024 20:33:43 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v27.2.1
+
+## 23.1.9
+
+Wed, 01 May 2024 14:33:42 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v27.2.0
+
+## 23.1.8
+
+Tue, 30 Apr 2024 22:26:12 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v27.1.1
+
+## 23.1.7
+
+Tue, 30 Apr 2024 21:26:44 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v27.1.0
 
 ## 23.1.6
 

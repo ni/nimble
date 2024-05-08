@@ -1,0 +1,12 @@
+dist
+Examples/*/bin
+Examples/*/obj
+NimbleBlazor/bin
+NimbleBlazor/obj
+NimbleBlazor/wwwroot/nimble-*
+NimbleBlazor/wwwroot/NimbleBlazor.HybridWorkaround.js
+SprightBlazor/bin
+SprightBlazor/obj
+SprightBlazor/wwwroot/nimble-tokens
+SprightBlazor/wwwroot/spright-components
+SprightBlazor/wwwroot/SprightBlazor.HybridWorkaround.js

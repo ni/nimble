@@ -9,7 +9,7 @@ import { NimbleTextAreaModule, NimbleTextFieldModule, NimbleNumberFieldModule, N
     NimbleIconAddModule, NimbleSwitchModule, NimbleToolbarModule, NimbleMenuButtonModule, NimbleComboboxModule, NimbleTooltipModule,
     NimbleCardButtonModule, NimbleDialogModule, NimbleRadioGroupModule, NimbleRadioModule, NimbleSpinnerModule,
     NimbleAnchorModule, NimbleAnchorButtonModule, NimbleAnchorTabModule, NimbleAnchorTabsModule,
-    NimbleIconCheckModule, NimbleBannerModule, NimbleAnchorMenuItemModule, NimbleAnchorTreeItemModule } from '@ni/nimble-angular';
+    NimbleIconCheckModule, NimbleBannerModule, NimbleAnchorMenuItemModule, NimbleAnchorTreeItemModule, NimbleIconXmarkCheckModule } from '@ni/nimble-angular';
 import { NimbleCardModule } from '@ni/nimble-angular/card';
 import { NimbleLabelProviderCoreModule } from '@ni/nimble-angular/label-provider/core';
 import { NimbleLabelProviderRichTextModule } from '@ni/nimble-angular/label-provider/rich-text';
@@ -22,12 +22,13 @@ import { NimbleTableModule } from '@ni/nimble-angular/table';
 import { NimbleTableColumnTextModule } from '@ni/nimble-angular/table-column/text';
 import { NimbleTableColumnAnchorModule } from '@ni/nimble-angular/table-column/anchor';
 import { NimbleTableColumnDateTextModule } from '@ni/nimble-angular/table-column/date-text';
-import { NimbleTableColumnIconModule } from '@ni/nimble-angular/table-column/icon';
+import { NimbleTableColumnMappingModule } from '@ni/nimble-angular/table-column/mapping';
 import { NimbleTableColumnNumberTextModule } from '@ni/nimble-angular/table-column/number-text';
 import { NimbleTableColumnDurationTextModule } from '@ni/nimble-angular/table-column/duration-text';
 import { NimbleRichTextViewerModule } from '@ni/nimble-angular/rich-text/viewer';
 import { NimbleRichTextEditorModule } from '@ni/nimble-angular/rich-text/editor';
 import { NimbleRichTextMentionUsersModule } from '@ni/nimble-angular/rich-text-mention/users';
+import { SprightRectangleModule } from '@ni/spright-angular/rectangle';
 import { AppComponent } from './app.component';
 import { CustomAppComponent } from './customapp/customapp.component';
 import { HeaderComponent } from './header/header.component';
@@ -68,6 +69,7 @@ import { HeaderComponent } from './header/header.component';
         NimbleBreadcrumbItemModule,
         NimbleIconAddModule,
         NimbleIconCheckModule,
+        NimbleIconXmarkCheckModule,
         NimbleSpinnerModule,
         NimbleSwitchModule,
         NimbleToolbarModule,
@@ -94,11 +96,12 @@ import { HeaderComponent } from './header/header.component';
         NimbleBannerModule,
         NimbleRichTextViewerModule,
         NimbleRichTextEditorModule,
-        NimbleTableColumnIconModule,
+        NimbleTableColumnMappingModule,
         NimbleMappingIconModule,
         NimbleMappingUserModule,
         NimbleRichTextMentionUsersModule,
         NimbleMappingSpinnerModule,
+        SprightRectangleModule,
         RouterModule.forRoot(
             [
                 { path: '', redirectTo: '/customapp', pathMatch: 'full' },
