@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "Update angular-workspace layout and test deployment",
+  "packageName": "@ni/nimble-angular",
+  "email": "rajsite@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
