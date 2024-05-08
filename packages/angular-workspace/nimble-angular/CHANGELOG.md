@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Wed, 08 May 2024 17:29:00 GMT and should not be manually modified.
+This log was last generated on Wed, 08 May 2024 22:21:34 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 24.0.5
+
+Wed, 08 May 2024 22:21:34 GMT
+
+### Patches
+
+- Update angular-workspace layout and test deployment ([ni/nimble@e83c8ba](https://github.com/ni/nimble/commit/e83c8ba9f06850acd6a303d257ec9033c0c5d115))
 
 ## 24.0.4
 
