@@ -48,7 +48,7 @@ The visual design calls for option groups to have a visual separator between the
 
 ![](./spec-images/option-group-separator.png)
 
-To accomplish this, a client will be required to insert an `<hr>` element between each group. This mirrors the API for the `Menu`.
+Unlike the `Menu`, which requires the client to slot `<hr>` elements under the `nimble-menu`, the visual separators between the groups will be generated automatically.
 
 #### Top-level Options
 
