@@ -203,7 +203,6 @@ export class Select
 
     private _value = '';
     private forcedPosition = false;
-    private placeholderOption?: ListboxOption;
     private openActiveIndex?: number;
 
     /**
@@ -1079,12 +1078,6 @@ export class Select
                 }
             });
         }
-    }
-
-    private findAndCachePlaceholderOption(): void {
-        this.placeholderOption = this.options.find(
-            o => o.selected && o.disabled && o.hidden
-        );
     }
 
     private filterChanged(): void {
