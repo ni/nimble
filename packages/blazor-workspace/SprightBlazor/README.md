@@ -10,7 +10,7 @@ Spright Blazor generally works equivalently to Nimble Blazor, so refer to the Ni
 
 ## Using SprightBlazor with NimbleBlazor
 
-Any project using SprightBlazor components will typically also be using NimbleBlazor components (e.g. `NimbleThemeProvider` if nothing else). SprightBlazor is not a superset of NimbleBlazor, but the `spright-components` bundle _is_ as superset of the `nimble-components` bundle. Follow the directions below to avoid issues:
+Any project using SprightBlazor components will typically also be using NimbleBlazor components (e.g. `NimbleThemeProvider` if nothing else). SprightBlazor is not a superset of NimbleBlazor, but the `spright-components` bundle _is_ a superset of the `nimble-components` bundle. Follow the directions below to avoid issues:
 
 - Add references to **both** the SprightBlazor and NimbleBlazor NuGet packages in your project
 
