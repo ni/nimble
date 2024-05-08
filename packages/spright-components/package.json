@@ -1,6 +1,6 @@
 {
   "name": "@ni/spright-components",
-  "version": "0.0.17",
+  "version": "0.0.18",
   "description": "NI Spright Components",
   "scripts": {
     "build": "npm run build-components && npm run bundle-components",
@@ -55,7 +55,7 @@
     "@microsoft/fast-element": "^1.12.0",
     "@microsoft/fast-foundation": "^2.49.6",
     "@microsoft/fast-web-utilities": "^6.0.0",
-    "@ni/nimble-components": "28.0.3",
+    "@ni/nimble-components": "28.0.4",
     "@ni/nimble-tokens": "^6.13.5",
     "tslib": "^2.2.0"
   },
