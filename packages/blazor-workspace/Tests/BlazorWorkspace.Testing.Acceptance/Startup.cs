@@ -1,17 +1,10 @@
-﻿namespace NimbleBlazor.Tests.Acceptance;
+﻿namespace BlazorWorkspace.Testing.Acceptance;
 
 /// <summary>
 /// Web server initialization for Blazor Server
 /// </summary>
 public sealed class Startup
 {
-    public Startup(IConfiguration configuration)
-    {
-        Configuration = configuration;
-    }
-
-    public IConfiguration Configuration { get; }
-
     public void ConfigureServices(IServiceCollection services)
     {
         services.AddRazorPages();
