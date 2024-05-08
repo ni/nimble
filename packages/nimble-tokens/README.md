@@ -13,7 +13,7 @@ NI base design tokens. Design tokens are primitive elements of component style l
 
 If you are using one of the following frameworks you should consume tokens via components implemented in the following libraries. These libraries provide styled components that use the design tokens to implement several color themes.
 
-1. Angular: See the [nimble-angular](/angular-workspace/projects/ni/nimble-angular) documentation.
+1. Angular: See the [nimble-angular](/packages/angular-workspace/nimble-angular) documentation.
 2. Blazor WebAssembly or Blazor Server: See the [nimble-blazor](/packages/nimble-blazor) documentation.
 3. Vanilla / Frameworkless: See the [nimble-components](/packages/nimble-components) documentation.
 

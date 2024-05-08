@@ -124,3 +124,4 @@ package-lock.json
 
 # ignore renamed paths
 packages/nimble-blazor
+/angular-workspace
