@@ -1,11 +1,12 @@
-﻿using Microsoft.Playwright;
+﻿using BlazorWorkspace.Testing.Acceptance;
+using Microsoft.Playwright;
 using Xunit;
 
 namespace NimbleBlazor.Tests.Acceptance;
 
-public class DialogTests : AcceptanceTestsBase
+public class DialogTests : NimbleAcceptanceTestsBase
 {
-    public DialogTests(PlaywrightFixture playwrightFixture, BlazorServerWebHostFixture blazorServerClassFixture)
+    public DialogTests(PlaywrightFixture playwrightFixture, NimbleBlazorWebHostServerFixture blazorServerClassFixture)
         : base(playwrightFixture, blazorServerClassFixture)
     {
     }

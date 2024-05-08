@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Components.Web;
 using Microsoft.JSInterop;
 using NimbleBlazor;
 
-namespace SprightBlazor.Tests.Acceptance.Shared;
+namespace BlazorWorkspace.Testing.Acceptance;
 
 /// <summary>
 /// The MainLayout Component.

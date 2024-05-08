@@ -28,6 +28,7 @@ import { NimbleTableColumnDurationTextModule } from '@ni/nimble-angular/table-co
 import { NimbleRichTextViewerModule } from '@ni/nimble-angular/rich-text/viewer';
 import { NimbleRichTextEditorModule } from '@ni/nimble-angular/rich-text/editor';
 import { NimbleRichTextMentionUsersModule } from '@ni/nimble-angular/rich-text-mention/users';
+import { SprightRectangleModule } from '@ni/spright-angular/rectangle';
 import { AppComponent } from './app.component';
 import { CustomAppComponent } from './customapp/customapp.component';
 import { HeaderComponent } from './header/header.component';
@@ -100,6 +101,7 @@ import { HeaderComponent } from './header/header.component';
         NimbleMappingUserModule,
         NimbleRichTextMentionUsersModule,
         NimbleMappingSpinnerModule,
+        SprightRectangleModule,
         RouterModule.forRoot(
             [
                 { path: '', redirectTo: '/customapp', pathMatch: 'full' },
