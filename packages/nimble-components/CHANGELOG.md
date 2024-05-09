@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Thu, 09 May 2024 18:40:41 GMT and should not be manually modified.
+This log was last generated on Thu, 09 May 2024 20:39:47 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 28.1.0
+
+Thu, 09 May 2024 20:39:47 GMT
+
+### Minor changes
+
+- Add Celsius and Fahrenheit number formatting unit support ([ni/nimble@89919ee](https://github.com/ni/nimble/commit/89919eef4f938c802e3160928000ef1b5d71b083))
 
 ## 28.0.5
 
