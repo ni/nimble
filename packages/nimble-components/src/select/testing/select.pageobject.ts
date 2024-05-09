@@ -240,11 +240,7 @@ export class SelectPageObject {
     }
 
     public isClearButtonVisible(): boolean {
-        return (
-            this.selectElement.shadowRoot?.querySelector<Button>(
-                '.clear-button'
-            ) != null
-        );
+        return this.getClearButton() != null;
     }
 
     public isFilterInputVisible(): boolean {
