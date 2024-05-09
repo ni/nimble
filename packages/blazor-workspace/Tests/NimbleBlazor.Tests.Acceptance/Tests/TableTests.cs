@@ -1,11 +1,12 @@
-﻿using Microsoft.Playwright;
+﻿using BlazorWorkspace.Testing.Acceptance;
+using Microsoft.Playwright;
 using Xunit;
 
 namespace NimbleBlazor.Tests.Acceptance;
 
-public class TableTests : AcceptanceTestsBase
+public class TableTests : NimbleAcceptanceTestsBase
 {
-    public TableTests(PlaywrightFixture playwrightFixture, BlazorServerWebHostFixture blazorServerClassFixture)
+    public TableTests(PlaywrightFixture playwrightFixture, NimbleBlazorWebHostServerFixture blazorServerClassFixture)
         : base(playwrightFixture, blazorServerClassFixture)
     {
     }

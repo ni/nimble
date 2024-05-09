@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Tue, 07 May 2024 20:15:55 GMT and should not be manually modified.
+This log was last generated on Wed, 08 May 2024 17:29:00 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 28.0.4
+
+Wed, 08 May 2024 17:29:00 GMT
+
+### Patches
+
+- Don't change Select value on focusout. ([ni/nimble@7d71953](https://github.com/ni/nimble/commit/7d71953ecbd516120f930e13934ee713a06e5cff))
 
 ## 28.0.3
 

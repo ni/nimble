@@ -2,6 +2,36 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Wed, 08 May 2024 22:21:34 GMT",
+      "version": "28.0.4",
+      "tag": "@ni/nimble-components_v28.0.4",
+      "comments": {
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "e83c8ba9f06850acd6a303d257ec9033c0c5d115",
+            "comment": "README updates"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 08 May 2024 17:29:00 GMT",
+      "version": "28.0.4",
+      "tag": "@ni/nimble-components_v28.0.4",
+      "comments": {
+        "patch": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "7d71953ecbd516120f930e13934ee713a06e5cff",
+            "comment": "Don't change Select value on focusout."
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 08 May 2024 16:52:33 GMT",
       "version": "28.0.3",
       "tag": "@ni/nimble-components_v28.0.3",

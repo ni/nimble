@@ -1,11 +1,12 @@
-﻿using Microsoft.Playwright;
+﻿using BlazorWorkspace.Testing.Acceptance;
+using Microsoft.Playwright;
 using Xunit;
 
 namespace NimbleBlazor.Tests.Acceptance;
 
-public class TableColumnNumberTextTests : AcceptanceTestsBase
+public class TableColumnNumberTextTests : NimbleAcceptanceTestsBase
 {
-    public TableColumnNumberTextTests(PlaywrightFixture playwrightFixture, BlazorServerWebHostFixture blazorServerClassFixture)
+    public TableColumnNumberTextTests(PlaywrightFixture playwrightFixture, NimbleBlazorWebHostServerFixture blazorServerClassFixture)
         : base(playwrightFixture, blazorServerClassFixture)
     {
     }
