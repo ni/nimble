@@ -178,12 +178,6 @@ export class Select
     public filter = '';
 
     /**
-     * @internal
-     */
-    @observable
-    public committedSelectedOption?: ListboxOption;
-
-    /**
      * The max height for the listbox when opened.
      *
      * @internal
@@ -246,15 +240,9 @@ export class Select
         if (prev !== newValue && !(this.open && this.selectedIndex < 0)) {
             this._value = newValue;
             super.valueChanged(prev, newValue);
-            if (!this.open) {
-                this.committedSelectedOption = this.options.find(
-                    o => o.value === newValue
-                );
-            }
             Observable.notify(this, 'value');
+            this.updateDisplayValue();
         }
-
-        Observable.notify(this, 'displayValue');
     }
 
     /**
@@ -263,7 +251,7 @@ export class Select
     @volatile
     public get displayValue(): string {
         Observable.track(this, 'displayValue');
-        return this.committedSelectedOption?.text ?? '';
+        return this.firstSelectedOption?.text ?? '';
     }
 
     /**
@@ -321,7 +309,6 @@ export class Select
         if (value) {
             this.value = value;
         }
-        this.committedSelectedOption = this.options[this.selectedIndex];
     }
 
     /**
@@ -382,13 +369,8 @@ export class Select
                 ) {
                     this.selectedIndex = this.options.indexOf(sourceElement);
                 } else {
-                    const placeholderOption = this.getPlaceholderOption();
-                    this.selectedIndex = placeholderOption
-                        ? this.options.indexOf(placeholderOption)
-                        : -1;
+                    this.clearSelect();
                 }
-                this.updateValue();
-                this.updateDisplayValue();
                 break;
             }
             case 'hidden': {
@@ -457,21 +439,9 @@ export class Select
     /**
      * @internal
      */
-    public changeValueHandler(): void {
-        this.committedSelectedOption = this.options.find(
-            option => option.selected
-        );
-    }
-
-    /**
-     * @internal
-     */
     public clearClickHandler(e: MouseEvent): void {
         this.open = false;
-        const placeholderOption = this.getPlaceholderOption();
-        this.selectedIndex = placeholderOption
-            ? this.options.indexOf(placeholderOption)
-            : -1;
+        this.clearSelect();
         this.updateValue(true);
         e.stopPropagation();
     }
@@ -483,16 +453,14 @@ export class Select
         const placeholderOption = this.getPlaceholderOption();
         if (
             placeholderOption
-            && this.committedSelectedOption === placeholderOption
+            && this.firstSelectedOption === placeholderOption
         ) {
             this.displayPlaceholder = true;
         } else {
             this.displayPlaceholder = false;
         }
 
-        if (this.collapsible) {
-            Observable.notify(this, 'displayValue');
-        }
+        Observable.notify(this, 'displayValue');
     }
 
     /**
@@ -698,7 +666,6 @@ export class Select
         if (this.selectedIndex === -1) {
             this.selectedIndex = 0;
         }
-        this.updateValue();
     }
 
     /**
@@ -907,7 +874,6 @@ export class Select
                 placeholderIndex = i;
             } else if (
                 firstValidOptionIndex === -1
-                && placeholderIndex === -1
                 && isOptionSelectable(option as ListOption)
             ) {
                 firstValidOptionIndex = i;
@@ -923,7 +889,6 @@ export class Select
         } else {
             this.selectedIndex = 0;
         }
-        this.committedSelectedOption = options[this.selectedIndex];
     }
 
     private setActiveOption(newActiveIndex: number): void {
@@ -968,10 +933,6 @@ export class Select
 
     private getPlaceholderOption(): ListOption | undefined {
         return this.options.find(o => o.hidden && o.disabled) as ListOption;
-    }
-
-    private committedSelectedOptionChanged(): void {
-        this.updateDisplayValue();
     }
 
     private setPositioning(): void {
@@ -1047,7 +1008,6 @@ export class Select
     private updateValue(shouldEmit?: boolean): void {
         if (this.$fastController.isConnected) {
             this.value = this.firstSelectedOption?.value ?? '';
-            this.committedSelectedOption = this.firstSelectedOption;
         }
 
         if (shouldEmit) {
@@ -1057,6 +1017,13 @@ export class Select
                 composed: undefined
             });
         }
+    }
+
+    private clearSelect(): void {
+        const placeholder = this.getPlaceholderOption();
+        this.selectedIndex = placeholder
+            ? this.options.indexOf(placeholder)
+            : -1;
     }
 
     /**
@@ -1089,7 +1056,6 @@ export class Select
     }
 
     private initializeOpenState(): void {
-        this.committedSelectedOption = this.options[this.selectedIndex];
         this.setActiveOption(this.selectedIndex);
         this.ariaControls = this.listboxId;
         this.ariaExpanded = 'true';

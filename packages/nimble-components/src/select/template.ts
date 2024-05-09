@@ -48,7 +48,6 @@ SelectOptions
         role="combobox"
         tabindex="${x => (!x.disabled ? '0' : null)}"
         @click="${(x, c) => x.clickHandler(c.event as MouseEvent)}"
-        @change="${x => x.changeValueHandler()}"
         @contentchange="${x => x.updateDisplayValue()}"
         @focusin="${(x, c) => x.focusinHandler(c.event as FocusEvent)}"
         @focusout="${(x, c) => x.focusoutHandler(c.event as FocusEvent)}"
@@ -70,6 +69,7 @@ SelectOptions
                     ${when(x => x.clearable && !x.displayPlaceholder && x.selectedIndex >= 0, html<Select>`
                         <${buttonTag} 
                             class="clear-button"
+                            part="clear-button"
                             content-hidden
                             appearance="ghost"
                             @click="${(x, c) => x.clearClickHandler(c.event as MouseEvent)}">

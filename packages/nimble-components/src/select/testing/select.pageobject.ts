@@ -130,6 +130,21 @@ export class SelectPageObject {
     }
 
     public clickClearButton(): void {
+        if (!this.selectElement.clearable) {
+            throw new Error(
+                'Select must set "clearable" in order to click clear button'
+            );
+        }
+
+        if (
+            this.selectElement.selectedIndex === -1
+            || this.selectElement.displayPlaceholder
+        ) {
+            throw new Error(
+                'Select must have a selected element in order to click clear button'
+            );
+        }
+
         const clearButton = this.getClearButton();
         clearButton?.click();
     }
@@ -270,21 +285,6 @@ export class SelectPageObject {
     }
 
     private getClearButton(): Button | null | undefined {
-        if (!this.selectElement.clearable) {
-            throw new Error(
-                'Select must set "clearable" in order to click clear button'
-            );
-        }
-
-        if (
-            this.selectElement.selectedIndex === -1
-            || this.selectElement.displayPlaceholder
-        ) {
-            throw new Error(
-                'Select must have a selected element in order to click clear button'
-            );
-        }
-
         return this.selectElement.shadowRoot?.querySelector<Button>(
             '.clear-button'
         );
