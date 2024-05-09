@@ -1,7 +1,3 @@
-<div align="center">
-    <p><b>ni | nimble | blazor</b></p>
-</div>
-
 # Nimble Blazor
 
 [![Nimble Nuget Version](https://img.shields.io/nuget/v/NimbleBlazor.svg)](https://www.nuget.org/packages/NimbleBlazor)

@@ -6,6 +6,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <DebugType>embedded</DebugType>
     <Authors>NI</Authors>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageProjectUrl>https://github.com/ni/nimble</PackageProjectUrl>
     <RepositoryUrl>https://github.com/ni/nimble</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
