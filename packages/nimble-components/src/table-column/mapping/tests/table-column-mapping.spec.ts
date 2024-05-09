@@ -368,6 +368,38 @@ describe('TableColumnMapping', () => {
         expect(() => columnPageObject.getRenderedGroupHeaderIconTagName(0)).toThrowError();
     });
 
+    it('empty mapping displays no value in cell', async () => {
+        ({ connect, disconnect, model } = await setup({
+            keyType: MappingKeyType.string,
+            emptyMappings: [{ key: 'a', text: 'alpha' }]
+        }));
+        pageObject = new TablePageObject<SimpleTableRecord>(model.table);
+        columnPageObject = new TableColumnMappingPageObject(pageObject);
+        await model.table.setData([{ field1: 'a' }]);
+        await connect();
+        await waitForUpdatesAsync();
+
+        expect(() => pageObject.getRenderedMappingColumnCellIconTagName(0, 0)).toThrowError();
+        expect(pageObject.getRenderedCellTextContent(0, 0)).toBe('');
+    });
+
+    it('empty mapping displays text in group row', async () => {
+        ({ connect, disconnect, model } = await setup({
+            keyType: MappingKeyType.string,
+            emptyMappings: [{ key: 'a', text: 'alpha' }]
+        }));
+        pageObject = new TablePageObject<SimpleTableRecord>(model.table);
+        columnPageObject = new TableColumnMappingPageObject(pageObject);
+        await model.table.setData([{ field1: 'a' }]);
+        await connect();
+        await waitForUpdatesAsync();
+        model.col1.groupIndex = 0;
+        await waitForUpdatesAsync();
+
+        expect(() => columnPageObject.getRenderedGroupHeaderIconTagName(0)).toThrowError();
+        expect(pageObject.getRenderedGroupHeaderTextContent(0)).toBe('alpha');
+    });
+
     describe('validation', () => {
         it('is valid with no mappings', async () => {
             ({ connect, disconnect, model } = await setup({
