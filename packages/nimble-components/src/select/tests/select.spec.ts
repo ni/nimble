@@ -1311,7 +1311,7 @@ describe('Select', () => {
                 await waitForUpdatesAsync();
             });
 
-            it('clear button is not visible when placeholder is displayed', () => {
+            it('clear button is not visible by default', () => {
                 expect(pageObject.isClearButtonVisible()).toBeFalse();
             });
 
