@@ -1248,6 +1248,10 @@ describe('Select', () => {
             await disconnect();
         });
 
+        it('clear button is visible by default', () => {
+            expect(pageObject.isClearButtonVisible()).toBeTrue();
+        });
+
         it('clear button is visible after selecting an option', async () => {
             pageObject.clickClearButton();
             await waitForUpdatesAsync();
@@ -1282,10 +1286,6 @@ describe('Select', () => {
         });
 
         describe('without placeholder', () => {
-            it('clear button is visible by default', () => {
-                expect(pageObject.isClearButtonVisible()).toBeTrue();
-            });
-
             it('after clicking clear button, display text is empty and clear button is hidden', async () => {
                 pageObject.clickClearButton();
                 await waitForUpdatesAsync();
