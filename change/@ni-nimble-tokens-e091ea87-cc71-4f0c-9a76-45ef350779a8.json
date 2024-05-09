@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Update Blazor docs for Spright and workspace change",
-  "packageName": "@ni/nimble-tokens",
-  "email": "7282195+m-akinc@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
