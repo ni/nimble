@@ -236,7 +236,7 @@ describe('Select', () => {
 
         const defaultOptionTestCases: {
             name: string,
-            option1State: OptionInitialState,
+            option1State?: OptionInitialState,
             option2State?: OptionInitialState,
             expected: string
         }[] = [
@@ -276,6 +276,12 @@ describe('Select', () => {
                 option1State: 'disabled',
                 option2State: 'disabled',
                 expected: 'three'
+            },
+            {
+                name: 'second option selected, second is default',
+                option1State: undefined,
+                option2State: 'selected',
+                expected: 'two'
             }
         ];
         parameterizeSpec(defaultOptionTestCases, (spec, name, value) => {
@@ -500,6 +506,64 @@ describe('Select', () => {
         expect(changeEvent.calls.count()).toBe(0);
 
         await disconnect();
+    });
+
+    describe('with all options disabled', () => {
+        async function setupAllDisabled(): Promise<Fixture<Select>> {
+            const viewTemplate = html`
+                <nimble-select>
+                    <nimble-list-option disabled value="one"
+                        >One</nimble-list-option
+                    >
+                    <nimble-list-option disabled value="two"
+                        >Two</nimble-list-option
+                    >
+                    <nimble-list-option disabled value="three"
+                        >Three</nimble-list-option
+                    >
+                </nimble-select>
+            `;
+            return fixture<Select>(viewTemplate);
+        }
+
+        it('when all options disabled, first option is selected', async () => {
+            const { element, connect, disconnect } = await setupAllDisabled();
+            await connect();
+            await waitForUpdatesAsync();
+
+            expect(element.value).toBe('one');
+
+            await disconnect();
+        });
+    });
+
+    describe('with all options hidden', () => {
+        async function setupAllHidden(): Promise<Fixture<Select>> {
+            const viewTemplate = html`
+                <nimble-select>
+                    <nimble-list-option hidden value="one"
+                        >One</nimble-list-option
+                    >
+                    <nimble-list-option hidden value="two"
+                        >Two</nimble-list-option
+                    >
+                    <nimble-list-option hidden value="three"
+                        >Three</nimble-list-option
+                    >
+                </nimble-select>
+            `;
+            return fixture<Select>(viewTemplate);
+        }
+
+        it('when all options hidden, first option is selected', async () => {
+            const { element, connect, disconnect } = await setupAllHidden();
+            await connect();
+            await waitForUpdatesAsync();
+
+            expect(element.value).toBe('one');
+
+            await disconnect();
+        });
     });
 
     describe('with 500 options', () => {
@@ -1185,6 +1249,9 @@ describe('Select', () => {
         });
 
         it('clear button is visible after selecting an option', async () => {
+            pageObject.clickClearButton();
+            await waitForUpdatesAsync();
+            expect(pageObject.isClearButtonVisible()).toBeFalse();
             await clickAndWaitForOpen(element);
             pageObject.clickOption(1);
             await waitForUpdatesAsync();
