@@ -26,6 +26,8 @@ import { MappingIconConfig } from '../enum-base/models/mapping-icon-config';
 import { MappingSpinnerConfig } from '../enum-base/models/mapping-spinner-config';
 import { MappingText } from '../../mapping/text';
 import { MappingTextConfig } from '../enum-base/models/mapping-text-config';
+import { MappingEmpty } from '../../mapping/empty';
+import { MappingEmptyConfig } from '../enum-base/models/mapping-empty-config';
 import { TableColumnMappingWidthMode } from './types';
 
 declare global {
@@ -88,6 +90,9 @@ export class TableColumnMapping extends mixinGroupableColumnAPI(
         }
         if (mapping instanceof MappingText) {
             return new MappingTextConfig(mapping.text);
+        }
+        if (mapping instanceof MappingEmpty) {
+            return new MappingEmptyConfig(mapping.text);
         }
         // Getting here would indicate a programming error, b/c validation will prevent
         // this function from running when there is an unsupported mapping.
