@@ -1,4 +1,4 @@
-import { DurationPipe, NumberTextPipe, byteUnitScale, byte1024UnitScale, voltUnitScale } from '@ni/nimble-angular/pipes';
+import { DurationPipe, NumberTextPipe, byteUnitScale, byte1024UnitScale, celsiusUnitScale, fahrenheitUnitScale, voltUnitScale } from '@ni/nimble-angular/pipes';
 
 describe('Pipes', () => {
     it('exports DurationPipe', () => {
@@ -15,6 +15,14 @@ describe('Pipes', () => {
 
     it('exports byte1024UnitScale', () => {
         expect(byte1024UnitScale).toBeTruthy();
+    });
+
+    it('exports celsiusUnitScale', () => {
+        expect(celsiusUnitScale).toBeTruthy();
+    });
+
+    it('exports fahrenheitUnitScale', () => {
+        expect(fahrenheitUnitScale).toBeTruthy();
     });
 
     it('exports voltUnitScale', () => {
