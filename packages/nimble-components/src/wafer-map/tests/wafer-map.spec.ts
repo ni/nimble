@@ -321,4 +321,17 @@ describe('WaferMap', () => {
             expect(element.hoverTransform).not.toEqual(initialTransform);
         });
     });
+
+    describe('hover flow with no canvas dimensions', () => {
+        beforeEach(async () => {
+            element.dies = [{ x: 1, y: 1, value: '1' }];
+            element.colorScale = { colors: ['red', 'red'], values: ['1', '1'] };
+            await waitForUpdatesAsync();
+        });
+
+        it('will have hover rectangle with no dimensions', () => {
+            expect(element.hoverHeight).toEqual(0);
+            expect(element.hoverWidth).toEqual(0);
+        });
+    });
 });
