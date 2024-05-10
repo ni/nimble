@@ -11,6 +11,10 @@
 - *Link to Visual Design spec [Optional for Spright]*
 - *Link to relevant work items, related existing issues, etc.*
 
+### Containing Library
+
+*State whether this component be part of Nimble or Spright and provide justification or considerations leading to that decision.* 
+
 ### Non-goals
 
 *A list of use cases, features, or functionality which are **not** goals for the component.*
@@ -65,29 +69,21 @@
 
 ### Native form integration
 
-*[Optional for Spright]*
-
 *Describe the plan for custom element form integration or why it's not necessary.*
 
 *Components that are intended to replace a native form element (input, textarea, select) should generally behave like their native counterpart. See ["More capable form controls" on web.dev](https://web.dev/articles/more-capable-form-controls) for an overview of requirements. Leverage patterns from [FAST Form Associated Custom Elements](https://github.com/microsoft/fast/blob/master/packages/web-components/fast-foundation/src/form-associated/form-associated-custom-element.spec.md).*
 
 ### Angular integration
 
-*[Optional for Spright]*
-
 *Describe the plan for Angular support, including directives for attribute binding and ControlValueAccessor for form integration. Depending on the contributor's needs, implementing Angular integration may be deferred but the initial spec should still document what work will be needed.*
 
 ### Blazor integration
-
-*[Optional for Spright]*
 
 *Describe the plan for Blazor support, including form integration. See the [nimble-blazor CONTRIBUTING.md](/packages/blazor-workspace/NimbleBlazor/CONTRIBUTING.md) for details. Depending on the contributor's needs, implementing Blazor integration may be deferred but the initial spec should still document what work will be needed.*
 
 ### Visual Appearance
 
-*[Optional for Spright]*
-
-*Work with Visual Design to create Figma files and other design assets. Be sure to account for the various component states, including hover, active, etc. as well as validity, and appearance variants.*
+*Work with Visual Design to create Figma files and other design assets (optional for Spright components). Be sure to account for the various component states, including hover, active, etc. as well as validity, and appearance variants.*
 
 ---
 
@@ -120,8 +116,6 @@
 - *Support for standard link behaviors if the component is an anchor or contains an anchor. These behaviors are enumerated in the [anchor-patterns story](/packages/nimble-components/src/patterns/anchor/tests/anchor-patterns.mdx). The story should be updated to include the new component.*
 
 ### Mobile
-
-*[Optional for Spright]*
 
 *Consider how the component will behave on mobile devices, including:*
 

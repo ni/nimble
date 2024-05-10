@@ -10,6 +10,11 @@
 - *Link to Visual Design spec [Optional for Spright]*
 - *Link to relevant work items, related existing issues, etc.*
 
+
+### Containing Library
+
+*State whether this component be part of Nimble or Spright and provide justification or considerations leading to that decision.* 
+
 ---
 
 ## Design
@@ -41,13 +46,9 @@
 
 ### Angular integration
 
-*[Optional for Spright]*
-
 *Describe the plan for Angular support, including directives for attribute binding and ControlValueAccessor for form integration. Depending on the contributor's needs, implementing Angular integration may be deferred but the initial spec should still document what work will be needed.*
 
 ### Blazor integration
-
-*[Optional for Spright]*
 
 *Describe the plan for Blazor support, including form integration. See the [nimble-blazor CONTRIBUTING.md](/packages/blazor-workspace/NimbleBlazor/CONTRIBUTING.md) for details. Depending on the contributor's needs, implementing Blazor integration may be deferred but the initial spec should still document what work will be needed.*
 
