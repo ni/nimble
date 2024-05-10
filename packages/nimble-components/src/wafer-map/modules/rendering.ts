@@ -35,10 +35,12 @@ export class RenderingModule {
     }
 
     public renderHover(): void {
-        this.wafermap.hoverWidth = this.wafermap.dataManager.dieDimensions.width
+        const hoverWidth = this.wafermap.dataManager.dieDimensions.width
             * this.wafermap.transform.k;
-        this.wafermap.hoverHeight = this.wafermap.dataManager.dieDimensions.height
+        this.wafermap.hoverWidth = isNaN(hoverWidth) ? 0 : hoverWidth;
+        const hoverHeight = this.wafermap.dataManager.dieDimensions.height
             * this.wafermap.transform.k;
+        this.wafermap.hoverHeight = isNaN(hoverHeight) ? 0 : hoverHeight;
         this.wafermap.hoverOpacity = this.wafermap.hoverDie === undefined
             ? HoverDieOpacity.hide
             : HoverDieOpacity.show;
