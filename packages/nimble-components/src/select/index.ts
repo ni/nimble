@@ -339,13 +339,13 @@ export class Select
             }
         }
 
-        const currentIndex = this.openActiveIndex ?? this.selectedIndex;
+        const previousSelectedIndex = this.selectedIndex;
         super.clickHandler(e);
 
         this.open = this.collapsible && !this.open;
         if (
             !this.open
-            && this.selectedIndex !== currentIndex
+            && this.selectedIndex !== previousSelectedIndex
             && optionClicked
         ) {
             this.updateValue(true);

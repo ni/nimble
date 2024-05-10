@@ -2,6 +2,36 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Fri, 10 May 2024 16:42:46 GMT",
+      "version": "28.2.1",
+      "tag": "@ni/nimble-components_v28.2.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "9714748c8963830a41b772796cb237262f26683b",
+            "comment": "Fix issue with clicking option in dropdown not updating display."
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 10 May 2024 16:11:55 GMT",
+      "version": "28.2.0",
+      "tag": "@ni/nimble-components_v28.2.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "090b724be133ceceb70e742207a74cf026988ae6",
+            "comment": "Create empty mapping element and support it in the icon column"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 09 May 2024 20:39:47 GMT",
       "version": "28.1.0",
       "tag": "@ni/nimble-components_v28.1.0",
