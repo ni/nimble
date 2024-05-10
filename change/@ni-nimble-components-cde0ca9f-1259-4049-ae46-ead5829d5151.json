@@ -1,7 +1,0 @@
-{
-  "type": "minor",
-  "comment": "Create empty mapping element and support it in the icon column",
-  "packageName": "@ni/nimble-components",
-  "email": "20542556+mollykreis@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}

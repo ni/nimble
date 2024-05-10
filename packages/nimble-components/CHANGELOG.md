@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Thu, 09 May 2024 20:39:47 GMT and should not be manually modified.
+This log was last generated on Fri, 10 May 2024 16:11:55 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 28.2.0
+
+Fri, 10 May 2024 16:11:55 GMT
+
+### Minor changes
+
+- Create empty mapping element and support it in the icon column ([ni/nimble@090b724](https://github.com/ni/nimble/commit/090b724be133ceceb70e742207a74cf026988ae6))
 
 ## 28.1.0
 
