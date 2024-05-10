@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Fri, 10 May 2024 16:42:46 GMT and should not be manually modified.
+This log was last generated on Fri, 10 May 2024 22:37:40 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 28.3.0
+
+Fri, 10 May 2024 22:37:40 GMT
+
+### Minor changes
+
+- Export nimble-mapping-empty from all-components ([ni/nimble@4e595cc](https://github.com/ni/nimble/commit/4e595cc0e67a9903510ba60da17afdb1bf2643d6))
 
 ## 28.2.1
 

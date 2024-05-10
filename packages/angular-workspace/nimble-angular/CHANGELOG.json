@@ -2,6 +2,27 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Fri, 10 May 2024 22:37:40 GMT",
+      "version": "24.2.0",
+      "tag": "@ni/nimble-angular_v24.2.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "4e595cc0e67a9903510ba60da17afdb1bf2643d6",
+            "comment": "Add support for empty mapping component"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v28.3.0",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 10 May 2024 18:51:13 GMT",
       "version": "24.1.0",
       "tag": "@ni/nimble-angular_v24.1.0",
