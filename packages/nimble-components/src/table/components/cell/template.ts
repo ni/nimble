@@ -7,6 +7,7 @@ import {
     MenuButtonToggleEventDetail
 } from '../../../menu-button/types';
 import { tableCellActionMenuLabel } from '../../../label-provider/table/label-tokens';
+import { notFocusable } from '../../../utilities/directive/not-focusable';
 
 // prettier-ignore
 export const template = html<TableCell>`
@@ -16,7 +17,7 @@ export const template = html<TableCell>`
             <${menuButtonTag} ${ref('actionMenuButton')}
                 content-hidden
                 appearance="${ButtonAppearance.ghost}"
-                :tabIndexOverride="${_ => -1}"
+                ${notFocusable()}
                 @beforetoggle="${(x, c) => x.onActionMenuBeforeToggle(c.event as CustomEvent<MenuButtonToggleEventDetail>)}"
                 @toggle="${(x, c) => x.onActionMenuToggle(c.event as CustomEvent<MenuButtonToggleEventDetail>)}"
                 @click="${(_, c) => c.event.stopPropagation()}"

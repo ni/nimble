@@ -3,6 +3,7 @@ import { html, ref, when } from '@microsoft/fast-element';
 import type { TableColumnAnchorCellView } from '.';
 import { anchorTag } from '../../../anchor';
 import { overflow } from '../../../utilities/directive/overflow';
+import { notFocusable } from '../../../utilities/directive/not-focusable';
 
 // prettier-ignore
 export const template = html<TableColumnAnchorCellView>`
@@ -19,7 +20,7 @@ export const template = html<TableColumnAnchorCellView>`
             <${anchorTag}
                 ${ref('anchor')}
                 ${overflow('hasOverflow')}
-                :tabIndexOverride="${_ => -1}"
+                ${notFocusable()}
                 href="${x => x.cellRecord?.href}"
                 hreflang="${x => x.columnConfig?.hreflang}"
                 ping="${x => x.columnConfig?.ping}"

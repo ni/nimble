@@ -24,8 +24,8 @@ import { MenuButton } from '../../menu-button';
 import { tableHeaderTag } from '../components/header';
 import { MenuItem } from '../../menu-item';
 import { Menu } from '../../menu';
-import type { TabIndexOverride } from '../../patterns/tab-index-override/types';
 import { TableCellView } from '../../table-column/base/cell-view';
+import { getTabIndexTarget } from '../../utilities/directive/not-focusable';
 
 interface TableFocusState {
     focusType: TableFocusType;
@@ -695,8 +695,9 @@ implements Subscriber {
         const menuButton = element instanceof MenuButton
             ? element
             : this.getContainingMenuButton(element);
+        let tabIndexTarget = element;
         if (menuButton) {
-            menuButton.tabIndexOverride = tabIndex;
+            tabIndexTarget = menuButton;
             // The MenuButton needs to be visible in order to be focused, so this 'focused' CSS class styling
             // handles that (see cell/styles.ts).
             // TableCell.onActionMenuButtonBlur() ensures that the CSS class is removed when the action menu
@@ -708,11 +709,8 @@ implements Subscriber {
             }
         }
 
-        if ('tabIndexOverride' in element) {
-            (element as TabIndexOverride).tabIndexOverride = tabIndex;
-        } else {
-            element.tabIndex = tabIndex;
-        }
+        tabIndexTarget = getTabIndexTarget(tabIndexTarget);
+        tabIndexTarget.tabIndex = tabIndex;
     }
 
     private setFocusOnHeader(): boolean {

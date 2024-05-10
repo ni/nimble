@@ -17,6 +17,7 @@ import { buttonTag } from '../../../button';
 import { iconArrowExpanderRightTag } from '../../../icons/arrow-expander-right';
 import { spinnerTag } from '../../../spinner';
 import { SpinnerAppearance } from '../../../spinner/types';
+import { notFocusable } from '../../../utilities/directive/not-focusable';
 
 // prettier-ignore
 export const template = html<TableRow>`
@@ -32,7 +33,7 @@ export const template = html<TableRow>`
                     <${checkboxTag}
                         ${ref('selectionCheckbox')}
                         class="selection-checkbox"
-                        :tabIndexOverride="${_ => -1}"
+                        ${notFocusable()}
                         @change="${(x, c) => x.onSelectionChange(c.event as CustomEvent)}"
                         @click="${(_, c) => c.event.stopPropagation()}"
                         title="${x => tableRowSelectLabel.getValueFor(x)}"

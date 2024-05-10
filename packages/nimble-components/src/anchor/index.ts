@@ -1,4 +1,4 @@
-import { attr, observable } from '@microsoft/fast-element';
+import { attr } from '@microsoft/fast-element';
 import {
     DesignSystem,
     Anchor as FoundationAnchor,
@@ -8,7 +8,6 @@ import { AnchorBase } from '../anchor-base';
 import { styles } from './styles';
 import { template } from './template';
 import type { AnchorAppearance } from './types';
-import type { TabIndexOverride } from '../patterns/tab-index-override/types';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -19,7 +18,7 @@ declare global {
 /**
  * A nimble-styled anchor
  */
-export class Anchor extends AnchorBase implements TabIndexOverride {
+export class Anchor extends AnchorBase {
     /**
      * @public
      * @remarks
@@ -48,10 +47,6 @@ export class Anchor extends AnchorBase implements TabIndexOverride {
      */
     @attr({ attribute: 'contenteditable' })
     public override contentEditable!: string;
-
-    /** @internal */
-    @observable
-    public tabIndexOverride = 0;
 }
 
 // FoundationAnchor already applies the StartEnd mixin, so we don't need to do it here.

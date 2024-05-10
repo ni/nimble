@@ -1,13 +1,11 @@
 import {
     DesignSystem,
     Checkbox as FoundationCheckbox,
+    checkboxTemplate as template,
     CheckboxOptions
 } from '@microsoft/fast-foundation';
-import { observable } from '@microsoft/fast-element';
 import { check16X16, minus16X16 } from '@ni/nimble-tokens/dist/icons/js';
 import { styles } from './styles';
-import { checkboxTemplate as template } from './template';
-import type { TabIndexOverride } from '../patterns/tab-index-override/types';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -18,11 +16,7 @@ declare global {
 /**
  * A nimble-styled checkbox control.
  */
-export class Checkbox extends FoundationCheckbox implements TabIndexOverride {
-    /** @internal */
-    @observable
-    public tabIndexOverride = 0;
-}
+export class Checkbox extends FoundationCheckbox {}
 
 const nimbleCheckbox = Checkbox.compose<CheckboxOptions>({
     baseName: 'checkbox',

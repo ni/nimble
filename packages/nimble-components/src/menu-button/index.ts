@@ -17,7 +17,6 @@ import { styles } from './styles';
 import { template } from './template';
 import type { ButtonPattern } from '../patterns/button/types';
 import type { AnchoredRegion } from '../anchored-region';
-import type { TabIndexOverride } from '../patterns/tab-index-override/types';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -28,9 +27,7 @@ declare global {
 /**
  * A nimble-styled menu button control.
  */
-export class MenuButton
-    extends FoundationElement
-    implements ButtonPattern, TabIndexOverride {
+export class MenuButton extends FoundationElement implements ButtonPattern {
     @attr
     public appearance: ButtonAppearance = ButtonAppearance.outline;
 
@@ -66,10 +63,6 @@ export class MenuButton
     /** @internal */
     @observable
     public readonly slottedMenus?: HTMLElement[];
-
-    /** @internal */
-    @observable
-    public tabIndexOverride = 0;
 
     /**
      * Used to maintain the internal state of whether the last menu item should be focused instead
