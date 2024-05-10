@@ -9,6 +9,7 @@ import { mappingIconTag } from '@ni/nimble-components/dist/esm/mapping/icon';
 import { mappingSpinnerTag } from '@ni/nimble-components/dist/esm/mapping/spinner';
 import { sharedMappingValidityDescription } from '@ni/nimble-components/dist/esm/table-column/enum-base/tests/shared-storybook-docs';
 import { mappingTextTag } from '@ni/nimble-components/dist/esm/mapping/text';
+import { mappingEmptyTag } from '@ni/nimble-components/dist/esm/mapping/empty';
 import { TableColumnMappingWidthMode } from '@ni/nimble-components/dist/esm/table-column/mapping/types';
 import { tableColumnMappingTag } from '@ni/nimble-components/dist/esm/table-column/mapping';
 import {
@@ -18,7 +19,6 @@ import {
 } from '../base/table-column-stories-utils';
 import { isChromatic } from '../../../utilities/isChromatic';
 import { createUserSelectedThemeStory } from '../../../utilities/storybook';
-import { mappingEmptyTag } from '@ni/nimble-components/dist/esm/mapping/empty';
 
 const simpleData = [
     {
