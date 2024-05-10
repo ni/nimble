@@ -1,4 +1,5 @@
 import type { Mapping } from '../../../mapping/base';
+import { MappingEmpty } from '../../../mapping/empty';
 import { MappingIcon } from '../../../mapping/icon';
 import { MappingSpinner } from '../../../mapping/spinner';
 import { MappingText } from '../../../mapping/text';
@@ -33,11 +34,12 @@ export class TableColumnMappingValidator extends TableColumnEnumBaseValidator<
 
     private static isSupportedMappingElement(
         mapping: Mapping<unknown>
-    ): mapping is MappingIcon | MappingSpinner | MappingText {
+    ): mapping is MappingIcon | MappingSpinner | MappingText | MappingEmpty {
         return (
             mapping instanceof MappingIcon
             || mapping instanceof MappingSpinner
             || mapping instanceof MappingText
+            || mapping instanceof MappingEmpty
         );
     }
 

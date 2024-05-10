@@ -2,6 +2,36 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Fri, 10 May 2024 16:11:55 GMT",
+      "version": "28.2.0",
+      "tag": "@ni/nimble-components_v28.2.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "090b724be133ceceb70e742207a74cf026988ae6",
+            "comment": "Create empty mapping element and support it in the icon column"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 09 May 2024 20:39:47 GMT",
+      "version": "28.1.0",
+      "tag": "@ni/nimble-components_v28.1.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "89919eef4f938c802e3160928000ef1b5d71b083",
+            "comment": "Add Celsius and Fahrenheit number formatting unit support"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 09 May 2024 18:40:41 GMT",
       "version": "28.0.5",
       "tag": "@ni/nimble-components_v28.0.5",
