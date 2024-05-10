@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-blazor
 
-This log was last generated on Mon, 06 May 2024 19:00:05 GMT and should not be manually modified.
+This log was last generated on Thu, 09 May 2024 18:40:41 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 17.0.1
+
+Thu, 09 May 2024 18:40:41 GMT
+
+### Patches
+
+- Update Blazor docs for Spright and workspace change ([ni/nimble@43edba8](https://github.com/ni/nimble/commit/43edba8e90d0c5f414fd2b4cf19eee197b477829))
 
 ## 17.0.0
 

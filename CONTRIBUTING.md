@@ -51,7 +51,7 @@ This repository uses the following tooling. See below for more info.
 1. Write a spec describing the API and behavior of the component. See instructions for [component specs](/specs/README.md).
 2. Ensure UX specs are up to date and tokens are generated. See instructions for [contributing to Nimble Tokens](/packages/nimble-tokens/CONTRIBUTING.md).
 3. Expose any tokens in the token provider and add web component logic. See instructions for [contributing to Nimble Components](/packages/nimble-components/CONTRIBUTING.md).
-4. Add wrappers for each framework. See instructions for [adding Angular wrappers](/packages/angular-workspace/nimble-angular/CONTRIBUTING.md). See instructions for [adding Blazor wrappers](/packages/nimble-blazor/CONTRIBUTING.md).
+4. Add wrappers for each framework. See instructions for [adding Angular wrappers](/packages/angular-workspace/nimble-angular/CONTRIBUTING.md). See instructions for [adding Blazor wrappers](/packages/blazor-workspace/NimbleBlazor/CONTRIBUTING.md).
 5. Publish and use! 🎉
 
 ## Documentation policies
