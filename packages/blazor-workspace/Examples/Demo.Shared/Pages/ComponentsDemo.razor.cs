@@ -168,6 +168,7 @@ public partial class ComponentsDemo
     public void AddTableRows(int numberOfRowsToAdd)
     {
         var tableData = new List<SimpleTableRecord>(TableData);
+        List<string> possibleStatuses = new() { "success", "calculating", "unknown" };
 
         for (int i = 0; i < numberOfRowsToAdd; i++)
         {
@@ -183,7 +184,7 @@ public partial class ComponentsDemo
                 "Link",
                 (rowCount % 2 == 0) ? new DateTime(2023, 8, 16, 2, 56, 11) : new DateTime(2022, 3, 7, 20, 28, 41),
                 (rowCount % 2 == 0) ? 100 : 101,
-                (rowCount % 2 == 0) ? "success" : "unknown",
+                possibleStatuses.ElementAt(rowCount % 3),
                 rowCount / 10.0,
                 rowCount * 1000.0 * (1.1 + (2 * 60) + (3 * 3600))));
         }
