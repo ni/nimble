@@ -12,15 +12,17 @@
 # Specific packages
 /packages/angular-workspace/example-client-app @rajsite @atmgrifter00
 /packages/angular-workspace/nimble-angular @rajsite @atmgrifter00
+/packages/angular-workspace/spright-angular @rajsite @atmgrifter00
 /packages/blazor-workspace @atmgrifter00 @msmithNI
 /packages/nimble-components @rajsite @jattasNI
-/packages/nimble-components/.storybook @rajsite @jattasNI @fredvisser
 /packages/nimble-components/build/generate-workers @rajsite @jattasNI @DStavilaNI @munteannatan
 /packages/nimble-components/src/wafer-map @rajsite @jattasNI @DStavilaNI @munteannatan
 /packages/nimble-components/src/rich-text @rajsite @jattasNI @vivinkrishna-ni
 /packages/nimble-components/src/rich-text-mention @rajsite @jattasNI @vivinkrishna-ni
 /packages/nimble-tokens @rajsite @jattasNI @fredvisser
 /packages/site @rajsite @jattasNI
+/packages/spright-components @rajsite @jattasNI
+/packages/storybook/.storybook @rajsite @jattasNI @fredvisser
 /packages/xliff-to-json-converter @rajsite @TrevorKarjanis @jattasNI
 
 # Specs (placed after packages to have higher precedence for spec files contained in packages)
