@@ -1,7 +1,0 @@
-{
-  "type": "minor",
-  "comment": "Add Angular support for Celsius and Fahrenheit number format units",
-  "packageName": "@ni/nimble-angular",
-  "email": "7282195+m-akinc@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
