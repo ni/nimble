@@ -322,7 +322,7 @@ describe('WaferMap', () => {
         });
     });
 
-    fdescribe('hover action with no canvas dimensions', () => {
+    describe('hover action with no canvas dimensions', () => {
         beforeEach(async () => {
             element.dies = [{ x: 1, y: 1, value: '1' }];
             element.colorScale = { colors: ['red', 'red'], values: ['1', '1'] };
