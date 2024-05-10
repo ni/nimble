@@ -119,17 +119,14 @@ The icon mapping column will not have a configuration for a placeholder.
 
 | Special-cased field values | Cell display  | Group row display  |
 | -------------------------- | ------------- | ------------------ |
-| `undefined`                | \<empty cell> | `"No value"`       |
-| `null`                     | \<empty cell> | `"No value"`       |
 | Non-mapped value\*         | \<empty cell> | \<empty group row> |
 
 \*This is considered invalid data from the table's perspective and should be fixed within the client application.
 
 Column best practices:
 
--   Avoid mixing `undefined` and `null` as values for the same field. When grouping this will lead to two groups (one for `null` values and one for `undefined` values) that both have the text `"No value"`.
 -   Avoid using values that do not correspond to a mapping for the column.
--   To display an empty cell but have a non-blank group row, create a mapping of the record value to an `undefined` icon.
+-   To display an empty cell but have a non-blank group row, use a `nimble-mapping-empty` child element.
 
 #### Text mapping column
 

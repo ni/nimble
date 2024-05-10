@@ -9,6 +9,7 @@ import { mappingIconTag } from '@ni/nimble-components/dist/esm/mapping/icon';
 import { mappingSpinnerTag } from '@ni/nimble-components/dist/esm/mapping/spinner';
 import { sharedMappingValidityDescription } from '@ni/nimble-components/dist/esm/table-column/enum-base/tests/shared-storybook-docs';
 import { mappingTextTag } from '@ni/nimble-components/dist/esm/mapping/text';
+import { mappingEmptyTag } from '@ni/nimble-components/dist/esm/mapping/empty';
 import { TableColumnMappingWidthMode } from '@ni/nimble-components/dist/esm/table-column/mapping/types';
 import { tableColumnMappingTag } from '@ni/nimble-components/dist/esm/table-column/mapping';
 import {
@@ -97,7 +98,7 @@ export const mappingColumn: StoryObj<MappingColumnTableArgs> = {
                 <${mappingIconTag} key="fail" icon="${iconXmarkTag}" severity="error" text="Not a Simpson"></${mappingIconTag}>
                 <${mappingIconTag} key="success" icon="${iconCheckLargeTag}" severity="success" text="Is a Simpson"></${mappingIconTag}>
                 <${mappingSpinnerTag} key="calculating" text="Calculating" text-hidden></${mappingSpinnerTag}>
-                <${mappingIconTag} key="unknown" text="Unknown" text-hidden></${mappingIconTag}>
+                <${mappingEmptyTag} key="unknown" text="Unknown"></${mappingEmptyTag}>
             </${tableColumnMappingTag}>
             <${tableColumnMappingTag} field-name="isChild" key-type="boolean" width-mode="${x => TableColumnMappingWidthMode[x.widthMode]}">
                 <${iconChartDiagramChildFocusTag} title="Is child"></${iconChartDiagramChildFocusTag}> 
