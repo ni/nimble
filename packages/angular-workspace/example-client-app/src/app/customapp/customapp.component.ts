@@ -153,6 +153,7 @@ export class CustomAppComponent implements AfterViewInit {
 
     public addTableRows(numberOfRowsToAdd: number): void {
         const tableData = this.tableDataSubject.value;
+        const possibleStatuses = ['success', 'calculating', 'unknown'];
         for (let i = 0; i < numberOfRowsToAdd; i++) {
             tableData.push({
                 id: tableData.length.toString(),
@@ -163,7 +164,7 @@ export class CustomAppComponent implements AfterViewInit {
                 linkLabel: 'Link',
                 date: (tableData.length % 2 === 0) ? new Date(2023, 7, 16, 3, 56, 11).valueOf() : new Date(2022, 2, 7, 20, 28, 41).valueOf(),
                 statusCode: (tableData.length % 2 === 0) ? 100 : 101,
-                result: (tableData.length % 2 === 0) ? 'success' : 'unknown',
+                result: possibleStatuses[tableData.length % 3],
                 number: tableData.length / 10,
                 duration: tableData.length * 1000 * (1.1 + 2 * 60 + 3 * 3600)
             });
