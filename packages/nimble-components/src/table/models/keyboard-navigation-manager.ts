@@ -103,7 +103,11 @@ implements Subscriber {
 
     public onVirtualizerChange(): void {
         if (this.hasRowOrCellFocusType() && this.inNavigationMode) {
-            this.focusCurrentRow(false);
+            // TODO - the rAF fixes an issue where fast ArrowDown presses won't always focus a new row. Look at switching this
+            // back to observing both the virtualizer items and the dataIndex on rows.
+            window.requestAnimationFrame(() => {
+                this.focusCurrentRow(false);
+            });
         }
     }
 
@@ -661,7 +665,7 @@ implements Subscriber {
             this.table.tabIndex = 0;
         });
 
-        activeElement.blur();
+        // Don't explicitly call blur() on activeElement (causes unexpected behavior on Safari / Mac Firefox)
         this.setElementFocusable(activeElement, false);
     }
 
