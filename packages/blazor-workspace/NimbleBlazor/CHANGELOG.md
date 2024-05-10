@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-blazor
 
-This log was last generated on Fri, 10 May 2024 22:37:40 GMT and should not be manually modified.
+This log was last generated on Fri, 10 May 2024 23:16:09 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 17.2.0
+
+Fri, 10 May 2024 23:16:09 GMT
+
+### Minor changes
+
+- Add Blazor support for Celsius and Fahrenheit number format units ([ni/nimble@93325bd](https://github.com/ni/nimble/commit/93325bd0c81791411c57a4f43cdcf68843108684))
 
 ## 17.1.0
 
