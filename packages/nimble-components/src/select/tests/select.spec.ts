@@ -1285,6 +1285,20 @@ describe('Select', () => {
             expect(changeEvent).toHaveBeenCalledTimes(1);
         });
 
+        it('if dropdown open pressing <Esc> closes dropdown and does not clear value', async () => {
+            pageObject.clickSelect();
+            await waitForUpdatesAsync();
+            pageObject.pressEscapeKey();
+            expect(element.open).toBeFalse();
+            expect(element.value).toBe('one');
+        });
+
+        it('if dropdown is closed, pressing <Esc> clears value', async () => {
+            pageObject.pressEscapeKey();
+            await waitForUpdatesAsync();
+            expect(element.value).toBe('');
+        });
+
         describe('without placeholder', () => {
             it('after clicking clear button, display text is empty and clear button is hidden', async () => {
                 pageObject.clickClearButton();

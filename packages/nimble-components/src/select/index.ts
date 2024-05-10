@@ -564,6 +564,12 @@ export class Select
             }
             case keyEscape: {
                 if (!this.open) {
+                    if (this.clearable) {
+                        this.clearSelect();
+                        this.updateValue(true);
+                        return true;
+                    }
+
                     break;
                 }
 
