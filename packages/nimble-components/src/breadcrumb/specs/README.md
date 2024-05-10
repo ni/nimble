@@ -126,7 +126,7 @@ We have a few options:
         Custom App Page
     </nimble-breadcrumb-item>
     ```
--   (Alternate/Fallback option) We can prevent the RouterLink onClick from being called (with a click listener on a child element, or with a listener with useCapture=true). For an example/ prototype implementation [see the directives here](https://github.com/ni/nimble/tree/nimble-breadcrumb-prototype/angular-workspace/projects/ni/nimble-angular/src/directives/breadcrumb-item). (This prototype has the correct behavior for left-click, Ctrl-click, and middle-mouse click of breadcrumb item links, and href gets set correctly.)
+-   (Alternate/Fallback option) We can prevent the RouterLink onClick from being called (with a click listener on a child element, or with a listener with useCapture=true). For an example/ prototype implementation [see the directives here](https://github.com/ni/nimble/tree/d8d59a36a37baaccd0e45e9c6ad789023f48ce5d/angular-workspace/projects/ni/nimble-angular/src/directives/breadcrumb-item). (This prototype has the correct behavior for left-click, Ctrl-click, and middle-mouse click of breadcrumb item links, and href gets set correctly.)
 
 (Nimble Anchor can share those directives once created.)
 

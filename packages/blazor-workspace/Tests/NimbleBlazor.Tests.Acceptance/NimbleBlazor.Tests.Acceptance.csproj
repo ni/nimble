@@ -47,6 +47,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\NimbleBlazor\NimbleBlazor.csproj" />
+    <ProjectReference Include="..\BlazorWorkspace.Testing.Acceptance\BlazorWorkspace.Testing.Acceptance.csproj" />
   </ItemGroup>
 
 </Project>

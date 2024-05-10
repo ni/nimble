@@ -4,6 +4,8 @@ import { withActions } from '@storybook/addon-actions/decorator';
 import { tableTag } from '@ni/nimble-components/dist/esm/table';
 import { tableColumnTextTag } from '@ni/nimble-components/dist/esm/table-column/text';
 import { unitByteTag } from '@ni/nimble-components/dist/esm/unit/byte';
+import { unitCelsiusTag } from '@ni/nimble-components/dist/esm/unit/celsius';
+import { unitFahrenheitTag } from '@ni/nimble-components/dist/esm/unit/fahrenheit';
 import { unitVoltTag } from '@ni/nimble-components/dist/esm/unit/volt';
 import { tableColumnNumberTextTag } from '@ni/nimble-components/dist/esm/table-column/number-text';
 import { NumberTextAlignment, NumberTextFormat } from '@ni/nimble-components/dist/esm/table-column/number-text/types';
@@ -139,6 +141,10 @@ const unitDescription = `A unit for the column may be configured by providing a 
                 <li>\`binary\` - boolean attribute that indicates a binary conversion factor of 1024 should be used rather than 1000. The resulting unit labels are \`byte\`/\`bytes\`, \`KiB\`, \`MiB\`, \`GiB\`, \`TiB\`, and \`PiB\`. Translations exist for English, French, German, Japanese, and Chinese.</li>
             </ul>
         </li>
+        <li>\`nimble-unit-celsius\`: This unit label is \`°C\`. Translations exist for all languages supported by the runtime environment.
+        </li>
+        <li>\`nimble-unit-fahrenheit\`: This unit label is \`°F\`. Translations exist for all languages supported by the runtime environment.
+        </li>
         <li>\`nimble-unit-volt\`: Labels in this unit scale are \`fV\`, \`pV\`, \`nV\`, \`μV\`, \`mV\`, \`cV\`, \`dV\`, \`volt\`/\`volts\`, \`kV\`, \`MV\`, \`GV\`, \`TV\`, \`PV\`, and \`EV\`. Translations exist for English, French, German, Japanese, and Chinese.
         </li>
     </ul>
@@ -169,6 +175,8 @@ export const numberTextColumn: StoryObj<NumberTextColumnTableArgs> = {
                 Measurement
                 ${when(x => x.unit === 'byte', html`<${unitByteTag}></${unitByteTag}>`)}
                 ${when(x => x.unit === 'byte (1024)', html`<${unitByteTag} binary></${unitByteTag}>`)}
+                ${when(x => x.unit === 'degrees Celsius', html`<${unitCelsiusTag}></${unitCelsiusTag}>`)}
+                ${when(x => x.unit === 'degrees Fahrenheit', html`<${unitFahrenheitTag}></${unitFahrenheitTag}>`)}
                 ${when(x => x.unit === 'volt', html`<${unitVoltTag}></${unitVoltTag}>`)}
             </${tableColumnNumberTextTag}>
         </${tableTag}>
@@ -210,7 +218,7 @@ export const numberTextColumn: StoryObj<NumberTextColumnTableArgs> = {
         },
         unit: {
             description: unitDescription,
-            options: ['default', 'byte', 'byte (1024)', 'volt'],
+            options: ['default', 'byte', 'byte (1024)', 'degrees Celsius', 'degrees Fahrenheit', 'volt'],
             control: { type: 'radio' }
         },
         checkValidity: {

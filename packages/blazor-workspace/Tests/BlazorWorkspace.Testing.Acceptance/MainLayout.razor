@@ -1,0 +1,21 @@
+﻿@using Microsoft.AspNetCore.Components
+@using Microsoft.AspNetCore.Components.Web
+@using NimbleBlazor
+@namespace BlazorWorkspace.Testing.Acceptance
+@inherits LayoutComponentBase
+
+<PageTitle>Nimble Blazor tests</PageTitle>
+<NimbleThemeProvider Theme="Theme">
+    <div class="root">
+        <ErrorBoundary @ref="ErrorBoundary">
+            <ChildContent>
+                <div>
+                    @Body
+                </div>
+            </ChildContent>
+            <ErrorContent Context="ex">
+                <p class="error">@ex.Message</p>
+            </ErrorContent>
+        </ErrorBoundary>
+    </div>
+</NimbleThemeProvider>
