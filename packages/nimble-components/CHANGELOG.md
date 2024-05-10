@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Fri, 10 May 2024 16:11:55 GMT and should not be manually modified.
+This log was last generated on Fri, 10 May 2024 16:42:46 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 28.2.1
+
+Fri, 10 May 2024 16:42:46 GMT
+
+### Patches
+
+- Fix issue with clicking option in dropdown not updating display. ([ni/nimble@9714748](https://github.com/ni/nimble/commit/9714748c8963830a41b772796cb237262f26683b))
 
 ## 28.2.0
 
