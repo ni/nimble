@@ -69,6 +69,7 @@ SelectOptions
                     ${when(x => x.clearable && !x.displayPlaceholder && x.selectedIndex >= 0, html<Select>`
                         <${buttonTag} 
                             class="clear-button"
+                            tabindex="-1"
                             part="clear-button"
                             content-hidden
                             appearance="ghost"
