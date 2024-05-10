@@ -66,7 +66,7 @@ SelectOptions
                     <div class="selected-value ${x => (x.displayPlaceholder ? 'placeholder' : '')}" part="selected-value" ${overflow('hasOverflow')} title=${x => (x.hasOverflow && x.displayValue ? x.displayValue : null)}>
                         <slot name="selected-value">${x => x.displayValue}</slot>
                     </div>
-                    ${when(x => x.clearable && !x.displayPlaceholder && x.selectedIndex >= 0, html<Select>`
+                    ${when(x => !x.disabled && x.clearable && !x.displayPlaceholder && x.selectedIndex >= 0, html<Select>`
                         <${buttonTag} 
                             class="clear-button"
                             tabindex="-1"

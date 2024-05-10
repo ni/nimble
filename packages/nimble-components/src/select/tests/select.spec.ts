@@ -12,6 +12,7 @@ import {
     waitAnimationFrame
 } from '../../utilities/tests/component';
 import { filterSearchLabel } from '../../label-provider/core/label-tokens';
+import type { Button } from '../../button';
 
 const disabledOption = 'disabled';
 const disabledSelectedOption = 'disabled selected';
@@ -1228,6 +1229,16 @@ describe('Select', () => {
 
             expect(pageObject.getDisplayText()).toBe('One');
         });
+
+        it('pressing ESC does not clear placeholder text', async () => {
+            pageObject.pressEscapeKey();
+            await waitForUpdatesAsync();
+            expect(pageObject.getDisplayText()).toBe('One');
+        });
+
+        it('clear button is not visible when placeholder is selected', () => {
+            expect(pageObject.isClearButtonVisible()).toBeFalse();
+        });
     });
 
     describe('clearable', () => {
@@ -1250,6 +1261,17 @@ describe('Select', () => {
 
         it('clear button is visible by default', () => {
             expect(pageObject.isClearButtonVisible()).toBeTrue();
+        });
+
+        it('when select is disabled, clear button is not visible', async () => {
+            element.disabled = true;
+            await waitForUpdatesAsync();
+            expect(pageObject.isClearButtonVisible()).toBeFalse();
+        });
+
+        it('can not Tab to clear button', () => {
+            const clearButton = element.shadowRoot?.querySelector<Button>('.clear-button');
+            expect(clearButton?.getAttribute('tabindex')).toBe('-1');
         });
 
         it('clear button is visible after selecting an option', async () => {
