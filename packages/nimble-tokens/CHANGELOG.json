@@ -2,6 +2,21 @@
   "name": "@ni/nimble-tokens",
   "entries": [
     {
+      "date": "Thu, 09 May 2024 18:40:41 GMT",
+      "version": "6.13.6",
+      "tag": "@ni/nimble-tokens_v6.13.6",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "43edba8e90d0c5f414fd2b4cf19eee197b477829",
+            "comment": "Update Blazor docs for Spright and workspace change"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 08 May 2024 22:21:34 GMT",
       "version": "6.13.5",
       "tag": "@ni/nimble-tokens_v6.13.5",

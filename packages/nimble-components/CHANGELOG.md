@@ -1,8 +1,25 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Wed, 08 May 2024 17:29:00 GMT and should not be manually modified.
+This log was last generated on Thu, 09 May 2024 20:39:47 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 28.1.0
+
+Thu, 09 May 2024 20:39:47 GMT
+
+### Minor changes
+
+- Add Celsius and Fahrenheit number formatting unit support ([ni/nimble@89919ee](https://github.com/ni/nimble/commit/89919eef4f938c802e3160928000ef1b5d71b083))
+
+## 28.0.5
+
+Thu, 09 May 2024 18:40:41 GMT
+
+### Patches
+
+- Update Blazor docs for Spright and workspace change ([ni/nimble@43edba8](https://github.com/ni/nimble/commit/43edba8e90d0c5f414fd2b4cf19eee197b477829))
+- Bump @ni/nimble-tokens to v6.13.6
 
 ## 28.0.4
 
