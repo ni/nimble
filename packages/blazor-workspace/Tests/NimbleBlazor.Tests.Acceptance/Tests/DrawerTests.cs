@@ -1,11 +1,12 @@
-﻿using Microsoft.Playwright;
+﻿using BlazorWorkspace.Testing.Acceptance;
+using Microsoft.Playwright;
 using Xunit;
 
 namespace NimbleBlazor.Tests.Acceptance;
 
-public class DrawerTests : AcceptanceTestsBase
+public class DrawerTests : NimbleAcceptanceTestsBase
 {
-    public DrawerTests(PlaywrightFixture playwrightFixture, BlazorServerWebHostFixture blazorServerClassFixture)
+    public DrawerTests(PlaywrightFixture playwrightFixture, NimbleBlazorWebHostServerFixture blazorServerClassFixture)
         : base(playwrightFixture, blazorServerClassFixture)
     {
     }

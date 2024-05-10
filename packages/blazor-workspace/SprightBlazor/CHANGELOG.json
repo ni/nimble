@@ -2,6 +2,21 @@
   "name": "@ni/spright-blazor",
   "entries": [
     {
+      "date": "Thu, 09 May 2024 18:40:41 GMT",
+      "version": "0.0.5",
+      "tag": "@ni/spright-blazor_v0.0.5",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/spright-blazor",
+            "commit": "43edba8e90d0c5f414fd2b4cf19eee197b477829",
+            "comment": "Update Blazor docs for Spright and workspace change"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 08 May 2024 00:06:34 GMT",
       "version": "0.0.4",
       "tag": "@ni/spright-blazor_v0.0.4",

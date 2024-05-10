@@ -3,7 +3,7 @@ module.exports = eleventyConfig => {
         root: './',
         'landing/dist': './',
         '../../packages/storybook/dist/storybook': 'storybook',
-        '../../angular-workspace/dist/example-client-app': 'storybook/example-client-app',
+        '../../packages/angular-workspace/dist/example-client-app': 'storybook/example-client-app',
         '../../packages/blazor-workspace/dist/blazor-client-app': 'storybook/blazor-client-app',
         '../../packages/performance/dist': 'storybook/performance'
     });

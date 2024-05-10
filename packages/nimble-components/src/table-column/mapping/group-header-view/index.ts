@@ -4,7 +4,6 @@ import { styles } from './styles';
 import { template } from './template';
 import type { TableColumnEnumColumnConfig } from '../../enum-base';
 import type { TableFieldValue } from '../../../table/types';
-import { TableColumnTextGroupHeaderViewBase } from '../../text-base/group-header-view';
 import { IconSeverity } from '../../../icon-base/types';
 import {
     MappingIconConfig,
@@ -15,6 +14,8 @@ import {
     SpinnerView
 } from '../../enum-base/models/mapping-spinner-config';
 import { MappingTextConfig } from '../../enum-base/models/mapping-text-config';
+import { MappingEmptyConfig } from '../../enum-base/models/mapping-empty-config';
+import { TableGroupHeaderView } from '../../base/group-header-view';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -26,11 +27,15 @@ declare global {
  * The group header view for the mapping column
  */
 export class TableColumnMappingGroupHeaderView
-    extends TableColumnTextGroupHeaderViewBase<
-    TableFieldValue,
-    TableColumnEnumColumnConfig
-    >
+    extends TableGroupHeaderView<TableFieldValue, TableColumnEnumColumnConfig>
     implements IconView, SpinnerView {
+    /** @internal */
+    @observable
+    public hasOverflow = false;
+
+    @observable
+    public text = '';
+
     @observable
     public severity: IconSeverity;
 
@@ -41,7 +46,15 @@ export class TableColumnMappingGroupHeaderView
 
     public readonly textHidden = false;
 
-    protected updateText(): void {
+    private columnConfigChanged(): void {
+        this.updateState();
+    }
+
+    private groupHeaderValueChanged(): void {
+        this.updateState();
+    }
+
+    private updateState(): void {
         this.resetState();
 
         if (!this.columnConfig) {
@@ -57,6 +70,8 @@ export class TableColumnMappingGroupHeaderView
             this.text = mappingConfig.text ?? '';
             this.visualizationTemplate = mappingConfig.spinnerTemplate;
         } else if (mappingConfig instanceof MappingTextConfig) {
+            this.text = mappingConfig.text ?? '';
+        } else if (mappingConfig instanceof MappingEmptyConfig) {
             this.text = mappingConfig.text ?? '';
         }
     }

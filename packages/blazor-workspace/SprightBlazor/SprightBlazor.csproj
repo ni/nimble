@@ -6,6 +6,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <DebugType>embedded</DebugType>
     <Authors>NI</Authors>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageProjectUrl>https://github.com/ni/nimble</PackageProjectUrl>
     <RepositoryUrl>https://github.com/ni/nimble</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
@@ -57,6 +58,7 @@
   <ItemGroup>
     <None Include="package.json" />
     <None Include="packages.lock.json" />
+    <None Include="README.md" Pack="true" PackagePath="\"/>
   </ItemGroup>
 
   <Target Name="CopyResources" BeforeTargets="BeforeBuild">
