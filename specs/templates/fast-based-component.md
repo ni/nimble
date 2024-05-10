@@ -7,7 +7,7 @@
 ### Background
 
 - *Relevant historical or background information*
-- *Link to Visual Design spec [Optional for Spright]*
+- *Link to Visual Design spec*
 - *Link to relevant work items, related existing issues, etc.*
 
 
@@ -62,7 +62,6 @@
 - *Documentation: Any requirements besides standard Storybook docs and updating the Example Client App demo?*
 - *Tooling: Any new tools, updates to tools, code generation, etc?*
 - *Accessibility: keyboard navigation/focus, form input, use with assistive technology, etc.*
-    - *For Spright, describe plan even if not implementing in initial submission.*
     - *Support for standard link behaviors if the component is an anchor or contains an anchor. These behaviors are enumerated in the [anchor-patterns story](/packages/nimble-components/src/patterns/anchor/tests/anchor-patterns.mdx). The story should be updated to include the new component.*
 - *Mobile: small screens, touch interactions, mobile-specific integrations*
 - *Globalization: special RTL handling, swapping of icons/visuals, localization, etc.*

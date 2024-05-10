@@ -7,8 +7,8 @@
 ### Background
 
 - *Relevant historical or background information*
-- *Link to Interaction Design spec [Optional for Spright]*
-- *Link to Visual Design spec [Optional for Spright]*
+- *Link to Interaction Design spec*
+- *Link to Visual Design spec*
 - *Link to relevant work items, related existing issues, etc.*
 
 ### Containing Library
@@ -83,7 +83,7 @@
 
 ### Visual Appearance
 
-*Work with Visual Design to create Figma files and other design assets (optional for Spright components). Be sure to account for the various component states, including hover, active, etc. as well as validity, and appearance variants.*
+*Work with Visual Design to create Figma files and other design assets. Be sure to account for the various component states, including hover, active, etc. as well as validity, and appearance variants.*
 
 ---
 
@@ -100,8 +100,6 @@
 *Key component states, valid state transitions, and how interactions trigger a state transition.*
 
 ### Accessibility
-
-*[Spright - Describe plan, but not necessary to implement initially]*
 
 *Consider the accessibility of the component, including:*
 
