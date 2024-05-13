@@ -1,8 +1,24 @@
 # Change Log - @ni/nimble-blazor
 
-This log was last generated on Thu, 09 May 2024 18:40:41 GMT and should not be manually modified.
+This log was last generated on Fri, 10 May 2024 23:16:09 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 17.2.0
+
+Fri, 10 May 2024 23:16:09 GMT
+
+### Minor changes
+
+- Add Blazor support for Celsius and Fahrenheit number format units ([ni/nimble@93325bd](https://github.com/ni/nimble/commit/93325bd0c81791411c57a4f43cdcf68843108684))
+
+## 17.1.0
+
+Fri, 10 May 2024 22:37:40 GMT
+
+### Minor changes
+
+- Add support for empty mapping component ([ni/nimble@4e595cc](https://github.com/ni/nimble/commit/4e595cc0e67a9903510ba60da17afdb1bf2643d6))
 
 ## 17.0.1
 
