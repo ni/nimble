@@ -7140,13 +7140,13 @@ class DummyLinkCmp {
   }
 }
 
-@Component({selector: 'link-cmp', template: `<a [routerLink]="['/simple']">link</a>`})
+// [Nimble] add irrelevant :not(head) to selector to force distinct component ID generation
+//  Solution based on suggestion from https://angular.io/errors/NG0912#debugging-the-error
+@Component({selector: 'link-cmp:not(head)', template: `<a [routerLink]="['/simple']">link</a>`})
 class AbsoluteSimpleLinkCmp {
 }
 
-// [Nimble] add irrelevant :not(head) to selector to force distinct component ID generation
-//  Solution based on suggestion from https://angular.io/errors/NG0912#debugging-the-error
-@Component({selector: 'link-cmp:not(head)', template: `<a [routerLink]="['../simple']">link</a>`})
+@Component({selector: 'link-cmp', template: `<a [routerLink]="['../simple']">link</a>`})
 class RelativeLinkCmp {
 }
 
