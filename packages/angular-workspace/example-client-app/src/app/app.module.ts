@@ -18,6 +18,7 @@ import { NimbleMappingTextModule } from '@ni/nimble-angular/mapping/text';
 import { NimbleMappingIconModule } from '@ni/nimble-angular/mapping/icon';
 import { NimbleMappingUserModule } from '@ni/nimble-angular/mapping/user';
 import { NimbleMappingSpinnerModule } from '@ni/nimble-angular/mapping/spinner';
+import { NimbleMappingEmptyModule } from '@ni/nimble-angular/mapping/empty';
 import { NimbleTableModule } from '@ni/nimble-angular/table';
 import { NimbleTableColumnTextModule } from '@ni/nimble-angular/table-column/text';
 import { NimbleTableColumnAnchorModule } from '@ni/nimble-angular/table-column/anchor';
@@ -101,6 +102,7 @@ import { HeaderComponent } from './header/header.component';
         NimbleMappingUserModule,
         NimbleRichTextMentionUsersModule,
         NimbleMappingSpinnerModule,
+        NimbleMappingEmptyModule,
         SprightRectangleModule,
         RouterModule.forRoot(
             [

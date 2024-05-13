@@ -1,8 +1,65 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Wed, 08 May 2024 22:21:34 GMT and should not be manually modified.
+This log was last generated on Mon, 13 May 2024 09:49:02 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 24.2.1
+
+Mon, 13 May 2024 09:49:02 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v28.3.1
+
+## 24.2.0
+
+Fri, 10 May 2024 22:37:40 GMT
+
+### Minor changes
+
+- Add support for empty mapping component ([ni/nimble@4e595cc](https://github.com/ni/nimble/commit/4e595cc0e67a9903510ba60da17afdb1bf2643d6))
+- Bump @ni/nimble-components to v28.3.0
+
+## 24.1.0
+
+Fri, 10 May 2024 18:51:13 GMT
+
+### Minor changes
+
+- Add Angular support for Celsius and Fahrenheit number format units ([ni/nimble@7f6a791](https://github.com/ni/nimble/commit/7f6a791484cc420725502f5a5e07aa037a952a1f))
+
+## 24.0.9
+
+Fri, 10 May 2024 16:42:46 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v28.2.1
+
+## 24.0.8
+
+Fri, 10 May 2024 16:11:56 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v28.2.0
+
+## 24.0.7
+
+Thu, 09 May 2024 20:39:47 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v28.1.0
+
+## 24.0.6
+
+Thu, 09 May 2024 18:40:41 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v28.0.5
 
 ## 24.0.5
 

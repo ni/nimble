@@ -35,7 +35,7 @@ describe('WaferMap', () => {
         );
     });
 
-    describe('update flow', () => {
+    describe('update action', () => {
         let spy: jasmine.Spy;
         beforeEach(() => {
             spy = spyOn(element, 'update');
@@ -116,7 +116,7 @@ describe('WaferMap', () => {
         });
     });
 
-    describe('worker renderer draw flow', () => {
+    describe('worker renderer draw action', () => {
         let setupWaferSpy: jasmine.Spy;
         let drawWaferSpy: jasmine.Spy;
         beforeEach(() => {
@@ -151,7 +151,7 @@ describe('WaferMap', () => {
         });
     });
 
-    describe('worker renderer flow', () => {
+    describe('worker renderer action', () => {
         let renderHoverSpy: jasmine.Spy;
         let experimentalUpdateSpy: jasmine.Spy;
 
@@ -194,7 +194,7 @@ describe('WaferMap', () => {
         });
     });
 
-    describe('zoom flow', () => {
+    describe('zoom action', () => {
         let initialValue: string | undefined;
 
         beforeEach(() => {
@@ -268,7 +268,7 @@ describe('WaferMap', () => {
         return element.transform.toString();
     }
 
-    describe('hover flow', () => {
+    describe('hover action', () => {
         beforeEach(async () => {
             element.canvasWidth = 500;
             element.canvasHeight = 500;
@@ -319,6 +319,19 @@ describe('WaferMap', () => {
             );
             await waitForUpdatesAsync();
             expect(element.hoverTransform).not.toEqual(initialTransform);
+        });
+    });
+
+    describe('hover action with no canvas dimensions', () => {
+        beforeEach(async () => {
+            element.dies = [{ x: 1, y: 1, value: '1' }];
+            element.colorScale = { colors: ['red', 'red'], values: ['1', '1'] };
+            await waitForUpdatesAsync();
+        });
+
+        it('will have hover rectangle with no dimensions', () => {
+            expect(element.hoverHeight).toEqual(0);
+            expect(element.hoverWidth).toEqual(0);
         });
     });
 });

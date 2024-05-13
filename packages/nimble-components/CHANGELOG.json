@@ -2,6 +2,102 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Mon, 13 May 2024 09:49:02 GMT",
+      "version": "28.3.1",
+      "tag": "@ni/nimble-components_v28.3.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "33986780+munteannatan@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "dee0ac1b99f0186fe45d416ed5604e0c27469d36",
+            "comment": "Fixed hover die template error where width and height were NaN"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 10 May 2024 22:37:40 GMT",
+      "version": "28.3.0",
+      "tag": "@ni/nimble-components_v28.3.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "4e595cc0e67a9903510ba60da17afdb1bf2643d6",
+            "comment": "Export nimble-mapping-empty from all-components"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 10 May 2024 16:42:46 GMT",
+      "version": "28.2.1",
+      "tag": "@ni/nimble-components_v28.2.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "9714748c8963830a41b772796cb237262f26683b",
+            "comment": "Fix issue with clicking option in dropdown not updating display."
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 10 May 2024 16:11:55 GMT",
+      "version": "28.2.0",
+      "tag": "@ni/nimble-components_v28.2.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "090b724be133ceceb70e742207a74cf026988ae6",
+            "comment": "Create empty mapping element and support it in the icon column"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 09 May 2024 20:39:47 GMT",
+      "version": "28.1.0",
+      "tag": "@ni/nimble-components_v28.1.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "89919eef4f938c802e3160928000ef1b5d71b083",
+            "comment": "Add Celsius and Fahrenheit number formatting unit support"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 09 May 2024 18:40:41 GMT",
+      "version": "28.0.5",
+      "tag": "@ni/nimble-components_v28.0.5",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "43edba8e90d0c5f414fd2b4cf19eee197b477829",
+            "comment": "Update Blazor docs for Spright and workspace change"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/nimble-tokens to v6.13.6",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 08 May 2024 22:21:34 GMT",
       "version": "28.0.4",
       "tag": "@ni/nimble-components_v28.0.4",
