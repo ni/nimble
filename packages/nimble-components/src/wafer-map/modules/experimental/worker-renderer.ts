@@ -85,6 +85,12 @@ export class WorkerRenderer {
     }
 
     public renderHover(): void {
+        if (
+            this.wafermap.experimentalDataManager.dieDimensions === undefined
+            || this.wafermap.transform === undefined
+        ) {
+            return;
+        }
         this.wafermap.hoverWidth = this.wafermap.experimentalDataManager.dieDimensions.width
             * this.wafermap.transform.k;
         this.wafermap.hoverHeight = this.wafermap.experimentalDataManager.dieDimensions.height
