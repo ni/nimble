@@ -8,9 +8,7 @@ export interface IconView {
     textHidden: boolean;
 }
 
-const createIconTemplate = (
-    icon: string
-): ViewTemplate<IconView> => {
+const createIconTemplate = (icon: string): ViewTemplate<IconView> => {
     return html`
         <${icon}
             title="${x => (x.textHidden ? x.text : '')}"
