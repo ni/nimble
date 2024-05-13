@@ -1,0 +1,7 @@
+{
+  "type": "major",
+  "comment": "Require an icon to be specified on icon mappings",
+  "packageName": "@ni/nimble-components",
+  "email": "20542556+mollykreis@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
