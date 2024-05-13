@@ -2,6 +2,21 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Mon, 13 May 2024 17:24:57 GMT",
+      "version": "24.2.1",
+      "tag": "@ni/nimble-angular_v24.2.1",
+      "comments": {
+        "none": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "1d4e5d62158dff0092785a81a307689c7f1ee71d",
+            "comment": "Avoid Angular component ID collision test failure"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 13 May 2024 09:49:02 GMT",
       "version": "24.2.1",
       "tag": "@ni/nimble-angular_v24.2.1",
