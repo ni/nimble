@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Mon, 13 May 2024 09:49:02 GMT",
+      "version": "28.3.1",
+      "tag": "@ni/nimble-components_v28.3.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "33986780+munteannatan@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "dee0ac1b99f0186fe45d416ed5604e0c27469d36",
+            "comment": "Fixed hover die template error where width and height were NaN"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 10 May 2024 22:37:40 GMT",
       "version": "28.3.0",
       "tag": "@ni/nimble-components_v28.3.0",
