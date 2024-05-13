@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "Fixed hover die template error where width and height were NaN",
+  "packageName": "@ni/nimble-components",
+  "email": "33986780+munteannatan@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
