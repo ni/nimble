@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 14 May 2024 21:43:26 GMT",
+      "version": "29.0.0",
+      "tag": "@ni/nimble-components_v29.0.0",
+      "comments": {
+        "major": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "3b47e5159c4b3fdcf2e6b2f57c2f4619a7298aaf",
+            "comment": "Breaking change: Having an `undefined` icon on `nimble-mapping-icon` results in an invalid mapping column; Use `nimble-mapping-empty` or `nimble-mapping-text` instead."
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 14 May 2024 17:03:10 GMT",
       "version": "28.3.1",
       "tag": "@ni/nimble-components_v28.3.1",

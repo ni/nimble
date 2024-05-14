@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Mon, 13 May 2024 09:49:02 GMT and should not be manually modified.
+This log was last generated on Tue, 14 May 2024 21:43:26 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 29.0.0
+
+Tue, 14 May 2024 21:43:26 GMT
+
+### Major changes
+
+- Breaking change: Having an `undefined` icon on `nimble-mapping-icon` results in an invalid mapping column; Use `nimble-mapping-empty` or `nimble-mapping-text` instead. ([ni/nimble@3b47e51](https://github.com/ni/nimble/commit/3b47e5159c4b3fdcf2e6b2f57c2f4619a7298aaf))
 
 ## 28.3.1
 
