@@ -5,7 +5,10 @@ import TerserPlugin from 'terser-webpack-plugin';
 
 // All files participating in storybook should be in src
 // so that TypeScript and linters can track them correctly
-export const stories = ['../src/**/*.mdx', '../src/**/*.stories.ts'];
+export const stories = [
+    '../src/nimble',
+    '../src/spright'
+];
 export const addons = [
     {
         name: getAbsolutePath('@storybook/addon-essentials'),

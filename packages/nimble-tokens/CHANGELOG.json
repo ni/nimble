@@ -2,6 +2,65 @@
   "name": "@ni/nimble-tokens",
   "entries": [
     {
+      "date": "Thu, 09 May 2024 18:40:41 GMT",
+      "version": "6.13.6",
+      "tag": "@ni/nimble-tokens_v6.13.6",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "43edba8e90d0c5f414fd2b4cf19eee197b477829",
+            "comment": "Update Blazor docs for Spright and workspace change"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 08 May 2024 22:21:34 GMT",
+      "version": "6.13.5",
+      "tag": "@ni/nimble-tokens_v6.13.5",
+      "comments": {
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "e83c8ba9f06850acd6a303d257ec9033c0c5d115",
+            "comment": "README updates"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 26 Apr 2024 20:31:47 GMT",
+      "version": "6.13.5",
+      "tag": "@ni/nimble-tokens_v6.13.5",
+      "comments": {
+        "patch": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "c5a74e68c2909e2f9a50bf0e6b0e4f1c5f0cbce8",
+            "comment": "No API changes, validating release pipelines"
+          },
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "ff7f847c0fb3834b5fdf4ce141bbe6bd94e1f0eb",
+            "comment": "No API changes, validating release pipelines"
+          }
+        ],
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "910414c73de07589bbb608b23d7cae603d704112",
+            "comment": "fixup"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 24 Apr 2024 16:20:52 GMT",
       "version": "6.13.2",
       "tag": "@ni/nimble-tokens_v6.13.2",

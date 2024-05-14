@@ -128,9 +128,11 @@ export class Computations {
             gridDimensions,
             containerDiameter
         );
+        const dieWidth = this.horizontalScale.bandwidth();
+        const dieHeight = this.verticalScale.bandwidth();
         this._dieDimensions = {
-            width: this.horizontalScale.bandwidth(),
-            height: this.verticalScale.bandwidth()
+            width: isNaN(dieWidth) ? 0 : dieWidth,
+            height: isNaN(dieHeight) ? 0 : dieHeight
         };
     }
 

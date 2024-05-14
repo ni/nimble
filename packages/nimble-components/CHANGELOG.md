@@ -1,8 +1,164 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Wed, 24 Apr 2024 16:20:52 GMT and should not be manually modified.
+This log was last generated on Mon, 13 May 2024 09:49:02 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 28.3.1
+
+Mon, 13 May 2024 09:49:02 GMT
+
+### Patches
+
+- Fixed hover die template error where width and height were NaN ([ni/nimble@dee0ac1](https://github.com/ni/nimble/commit/dee0ac1b99f0186fe45d416ed5604e0c27469d36))
+
+## 28.3.0
+
+Fri, 10 May 2024 22:37:40 GMT
+
+### Minor changes
+
+- Export nimble-mapping-empty from all-components ([ni/nimble@4e595cc](https://github.com/ni/nimble/commit/4e595cc0e67a9903510ba60da17afdb1bf2643d6))
+
+## 28.2.1
+
+Fri, 10 May 2024 16:42:46 GMT
+
+### Patches
+
+- Fix issue with clicking option in dropdown not updating display. ([ni/nimble@9714748](https://github.com/ni/nimble/commit/9714748c8963830a41b772796cb237262f26683b))
+
+## 28.2.0
+
+Fri, 10 May 2024 16:11:55 GMT
+
+### Minor changes
+
+- Create empty mapping element and support it in the icon column ([ni/nimble@090b724](https://github.com/ni/nimble/commit/090b724be133ceceb70e742207a74cf026988ae6))
+
+## 28.1.0
+
+Thu, 09 May 2024 20:39:47 GMT
+
+### Minor changes
+
+- Add Celsius and Fahrenheit number formatting unit support ([ni/nimble@89919ee](https://github.com/ni/nimble/commit/89919eef4f938c802e3160928000ef1b5d71b083))
+
+## 28.0.5
+
+Thu, 09 May 2024 18:40:41 GMT
+
+### Patches
+
+- Update Blazor docs for Spright and workspace change ([ni/nimble@43edba8](https://github.com/ni/nimble/commit/43edba8e90d0c5f414fd2b4cf19eee197b477829))
+- Bump @ni/nimble-tokens to v6.13.6
+
+## 28.0.4
+
+Wed, 08 May 2024 17:29:00 GMT
+
+### Patches
+
+- Don't change Select value on focusout. ([ni/nimble@7d71953](https://github.com/ni/nimble/commit/7d71953ecbd516120f930e13934ee713a06e5cff))
+
+## 28.0.3
+
+Tue, 07 May 2024 20:15:55 GMT
+
+### Patches
+
+- Fixing hover behavior for options in Select. ([ni/nimble@7feb69d](https://github.com/ni/nimble/commit/7feb69deda088c1fa771f836dedd627e33b4e63b))
+
+## 28.0.2
+
+Tue, 07 May 2024 16:24:36 GMT
+
+### Patches
+
+- Change Select to not update value as you navigate options in dropdown. ([ni/nimble@bbe2654](https://github.com/ni/nimble/commit/bbe265424e76e1824a5748b8bc6cb6d69a1b9a17))
+
+## 28.0.1
+
+Tue, 07 May 2024 13:17:00 GMT
+
+### Patches
+
+- Set Select and Combobox min-width to menuMinWidth token (176px) ([ni/nimble@799d392](https://github.com/ni/nimble/commit/799d39216faa9ad98c94627c6505439c846cbac9))
+
+## 28.0.0
+
+Mon, 06 May 2024 19:00:05 GMT
+
+### Major changes
+
+- Rename icon column to mapping column ([ni/nimble@d1c9125](https://github.com/ni/nimble/commit/d1c9125a77615d0364671a9e03a558c57b359ed7))
+
+## 27.2.3
+
+Thu, 02 May 2024 18:52:31 GMT
+
+### Patches
+
+- Fix the focus styling of the anchor menu item ([ni/nimble@022f1cb](https://github.com/ni/nimble/commit/022f1cbbe0054dd2432ddedacd4612fce244a0cb))
+
+## 27.2.2
+
+Wed, 01 May 2024 21:45:37 GMT
+
+### Patches
+
+- Update @types/markdown-it to remove @types/linkify-it peerDependency ([ni/nimble@c5f2626](https://github.com/ni/nimble/commit/c5f2626c97873c1f1aea9c18b06fef07cc8081bf))
+
+## 27.2.1
+
+Wed, 01 May 2024 20:33:43 GMT
+
+### Patches
+
+- Peer dependency on linkify-it type added to prevent issues for those using library type checking ([ni/nimble@d4204cf](https://github.com/ni/nimble/commit/d4204cf98575263a6ba7b22525f02beac109215b))
+
+## 27.2.0
+
+Wed, 01 May 2024 14:33:42 GMT
+
+### Minor changes
+
+- Added tag fill color token ([ni/nimble@27804b9](https://github.com/ni/nimble/commit/27804b9a6d29ff0adc600c94f2bf6822ad4d5e63))
+
+## 27.1.1
+
+Tue, 30 Apr 2024 22:26:12 GMT
+
+### Patches
+
+- Move anchored region import from menu to menu item ([ni/nimble@1ff549f](https://github.com/ni/nimble/commit/1ff549f91277bb7ab6949cfbc8af07c0a40d8d25))
+
+## 27.1.0
+
+Tue, 30 Apr 2024 21:26:44 GMT
+
+### Minor changes
+
+- Add configuration to make the icon column fixed width ([ni/nimble@6b0f337](https://github.com/ni/nimble/commit/6b0f3371aa6b49b802d2a0d9e79365e544cef161))
+
+## 27.0.5
+
+Fri, 26 Apr 2024 21:13:31 GMT
+
+### Patches
+
+- Bump @ni/jasmine-parameterized to v0.3.0
+
+## 27.0.4
+
+Fri, 26 Apr 2024 20:31:47 GMT
+
+### Patches
+
+- No API changes, validating release pipelines ([ni/nimble@ff7f847](https://github.com/ni/nimble/commit/ff7f847c0fb3834b5fdf4ce141bbe6bd94e1f0eb))
+- No API changes, validating release pipelines ([ni/nimble@c5a74e6](https://github.com/ni/nimble/commit/c5a74e68c2909e2f9a50bf0e6b0e4f1c5f0cbce8))
+- Updated wafer map web worker class to support offscreen rendering ([ni/nimble@a3865cb](https://github.com/ni/nimble/commit/a3865cb57e09ce6581d2dd10c5a61181ece73f59))
+- Bump @ni/nimble-tokens to v6.13.5
 
 ## 27.0.0
 

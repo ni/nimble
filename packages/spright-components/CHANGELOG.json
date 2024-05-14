@@ -2,6 +2,344 @@
   "name": "@ni/spright-components",
   "entries": [
     {
+      "date": "Mon, 13 May 2024 09:49:02 GMT",
+      "version": "0.0.24",
+      "tag": "@ni/spright-components_v0.0.24",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/spright-components",
+            "comment": "Bump @ni/nimble-components to v28.3.1",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 10 May 2024 22:37:40 GMT",
+      "version": "0.0.23",
+      "tag": "@ni/spright-components_v0.0.23",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/spright-components",
+            "comment": "Bump @ni/nimble-components to v28.3.0",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 10 May 2024 16:42:46 GMT",
+      "version": "0.0.22",
+      "tag": "@ni/spright-components_v0.0.22",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/spright-components",
+            "comment": "Bump @ni/nimble-components to v28.2.1",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 10 May 2024 16:11:56 GMT",
+      "version": "0.0.21",
+      "tag": "@ni/spright-components_v0.0.21",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/spright-components",
+            "comment": "Bump @ni/nimble-components to v28.2.0",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 09 May 2024 20:39:47 GMT",
+      "version": "0.0.20",
+      "tag": "@ni/spright-components_v0.0.20",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/spright-components",
+            "comment": "Bump @ni/nimble-components to v28.1.0",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 09 May 2024 18:40:41 GMT",
+      "version": "0.0.19",
+      "tag": "@ni/spright-components_v0.0.19",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/spright-components",
+            "comment": "Bump @ni/nimble-components to v28.0.5",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/spright-components",
+            "comment": "Bump @ni/nimble-tokens to v6.13.6",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 08 May 2024 17:29:00 GMT",
+      "version": "0.0.18",
+      "tag": "@ni/spright-components_v0.0.18",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/spright-components",
+            "comment": "Bump @ni/nimble-components to v28.0.4",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 07 May 2024 20:15:55 GMT",
+      "version": "0.0.17",
+      "tag": "@ni/spright-components_v0.0.17",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/spright-components",
+            "comment": "Bump @ni/nimble-components to v28.0.3",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 07 May 2024 16:24:36 GMT",
+      "version": "0.0.16",
+      "tag": "@ni/spright-components_v0.0.16",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/spright-components",
+            "comment": "Bump @ni/nimble-components to v28.0.2",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 07 May 2024 13:17:00 GMT",
+      "version": "0.0.15",
+      "tag": "@ni/spright-components_v0.0.15",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/spright-components",
+            "comment": "Bump @ni/nimble-components to v28.0.1",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 06 May 2024 19:00:05 GMT",
+      "version": "0.0.14",
+      "tag": "@ni/spright-components_v0.0.14",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/spright-components",
+            "comment": "Bump @ni/nimble-components to v28.0.0",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 02 May 2024 18:52:31 GMT",
+      "version": "0.0.13",
+      "tag": "@ni/spright-components_v0.0.13",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/spright-components",
+            "comment": "Bump @ni/nimble-components to v27.2.3",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 01 May 2024 21:45:37 GMT",
+      "version": "0.0.12",
+      "tag": "@ni/spright-components_v0.0.12",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/spright-components",
+            "comment": "Bump @ni/nimble-components to v27.2.2",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 01 May 2024 20:33:43 GMT",
+      "version": "0.0.11",
+      "tag": "@ni/spright-components_v0.0.11",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/spright-components",
+            "comment": "Bump @ni/nimble-components to v27.2.1",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 01 May 2024 14:33:42 GMT",
+      "version": "0.0.10",
+      "tag": "@ni/spright-components_v0.0.10",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/spright-components",
+            "comment": "Bump @ni/nimble-components to v27.2.0",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 30 Apr 2024 22:26:12 GMT",
+      "version": "0.0.9",
+      "tag": "@ni/spright-components_v0.0.9",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/spright-components",
+            "comment": "Bump @ni/nimble-components to v27.1.1",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 30 Apr 2024 21:26:44 GMT",
+      "version": "0.0.8",
+      "tag": "@ni/spright-components_v0.0.8",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/spright-components",
+            "comment": "Bump @ni/nimble-components to v27.1.0",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 30 Apr 2024 15:26:51 GMT",
+      "version": "0.0.7",
+      "tag": "@ni/spright-components_v0.0.7",
+      "comments": {
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/spright-components",
+            "commit": "cd00c0c1bf9bdfe7f066549d2baf123843c1badd",
+            "comment": "Try some less verbose test flags"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 26 Apr 2024 21:13:31 GMT",
+      "version": "0.0.7",
+      "tag": "@ni/spright-components_v0.0.7",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/spright-components",
+            "comment": "Bump @ni/nimble-components to v27.0.5",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/spright-components",
+            "comment": "Bump @ni/jasmine-parameterized to v0.3.0",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 26 Apr 2024 20:31:48 GMT",
+      "version": "0.0.6",
+      "tag": "@ni/spright-components_v0.0.6",
+      "comments": {
+        "patch": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/spright-components",
+            "commit": "ff7f847c0fb3834b5fdf4ce141bbe6bd94e1f0eb",
+            "comment": "No API changes, validating release pipelines"
+          },
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/spright-components",
+            "commit": "c5a74e68c2909e2f9a50bf0e6b0e4f1c5f0cbce8",
+            "comment": "No API changes, validating release pipelines"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/spright-components",
+            "comment": "Bump @ni/nimble-components to v27.0.4",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/spright-components",
+            "comment": "Bump @ni/nimble-tokens to v6.13.5",
+            "commit": "not available"
+          }
+        ],
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/spright-components",
+            "commit": "910414c73de07589bbb608b23d7cae603d704112",
+            "comment": "fixup"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 25 Apr 2024 23:51:13 GMT",
       "version": "0.0.4",
       "tag": "@ni/spright-components_v0.0.4",

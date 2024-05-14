@@ -1,0 +1,67 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <DebugType>embedded</DebugType>
+    <Authors>NI</Authors>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageProjectUrl>https://github.com/ni/nimble</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/ni/nimble</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
+    <DisableImplicitNuGetFallbackFolder>true</DisableImplicitNuGetFallbackFolder>
+    <PackageTags>Web Components, .NET, Spright, Nimble, FAST, Blazor, .NET 6.0</PackageTags>
+    <NeutralLanguage>en</NeutralLanguage>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <NoWarn>1701;1702,8669,1591</NoWarn>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <NoWarn>CS8669</NoWarn>
+  </PropertyGroup>
+
+  <!-- 
+    Need to explicitly exclude json and config files from Content, or they will get copied to the output directory.
+    See: https://github.com/dotnet/sdk/issues/25587#issuecomment-1134731799
+  -->
+  <ItemGroup>
+    <Content Remove="**\*.json" />
+    <Content Remove="**\*.config" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="CodeAnalysisDictionary.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <AdditionalFiles Include="..\CodeAnalysisDictionary.xml" Link="CodeAnalysisDictionary.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <SupportedPlatform Include="browser" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.29" />
+    <PackageReference Include="NI.CSharp.Analyzers" Version="[2.0.21]" PrivateAssets="all" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="package.json" />
+    <None Include="packages.lock.json" />
+    <None Include="README.md" Pack="true" PackagePath="\"/>
+  </ItemGroup>
+
+  <Target Name="CopyResources" BeforeTargets="BeforeBuild">
+    <Exec Command="npm run copy-resources:spright" WorkingDirectory=".." />
+  </Target>
+</Project>
