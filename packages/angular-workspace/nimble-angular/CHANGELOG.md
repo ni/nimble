@@ -1,8 +1,33 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Fri, 10 May 2024 18:51:13 GMT and should not be manually modified.
+This log was last generated on Tue, 14 May 2024 21:43:26 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 24.2.2
+
+Tue, 14 May 2024 21:43:26 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v29.0.0
+
+## 24.2.1
+
+Mon, 13 May 2024 09:49:02 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v28.3.1
+
+## 24.2.0
+
+Fri, 10 May 2024 22:37:40 GMT
+
+### Minor changes
+
+- Add support for empty mapping component ([ni/nimble@4e595cc](https://github.com/ni/nimble/commit/4e595cc0e67a9903510ba60da17afdb1bf2643d6))
+- Bump @ni/nimble-components to v28.3.0
 
 ## 24.1.0
 

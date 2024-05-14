@@ -1,8 +1,32 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Fri, 10 May 2024 16:42:46 GMT and should not be manually modified.
+This log was last generated on Tue, 14 May 2024 21:43:26 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 29.0.0
+
+Tue, 14 May 2024 21:43:26 GMT
+
+### Major changes
+
+- Breaking change: Having an `undefined` icon on `nimble-mapping-icon` results in an invalid mapping column; Use `nimble-mapping-empty` or `nimble-mapping-text` instead. ([ni/nimble@3b47e51](https://github.com/ni/nimble/commit/3b47e5159c4b3fdcf2e6b2f57c2f4619a7298aaf))
+
+## 28.3.1
+
+Mon, 13 May 2024 09:49:02 GMT
+
+### Patches
+
+- Fixed hover die template error where width and height were NaN ([ni/nimble@dee0ac1](https://github.com/ni/nimble/commit/dee0ac1b99f0186fe45d416ed5604e0c27469d36))
+
+## 28.3.0
+
+Fri, 10 May 2024 22:37:40 GMT
+
+### Minor changes
+
+- Export nimble-mapping-empty from all-components ([ni/nimble@4e595cc](https://github.com/ni/nimble/commit/4e595cc0e67a9903510ba60da17afdb1bf2643d6))
 
 ## 28.2.1
 
