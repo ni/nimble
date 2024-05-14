@@ -60,6 +60,15 @@ export class MatrixRenderer {
         if (columnIndexes.length === 0 || columnIndexes[0] === undefined) {
             return;
         }
+        if (
+            this.state.horizontalCoefficient === undefined
+            || this.state.horizontalConstant === undefined
+            || this.state.margin === undefined
+        ) {
+            throw new Error(
+                'Horizontal coefficient, constant or margin is not set'
+            );
+        }
         const scaledColumnIndex = [
             this.calculateHorizontalScaledIndex(columnIndexes[0])
         ];
@@ -81,6 +90,15 @@ export class MatrixRenderer {
     }
 
     public setRowIndexes(rowIndexes: Int32Array): void {
+        if (
+            this.state.verticalCoefficient === undefined
+            || this.state.verticalConstant === undefined
+            || this.state.margin === undefined
+        ) {
+            throw new Error(
+                'Vertical coefficient, constant or margin is not set'
+            );
+        }
         this.scaledRowIndex = new Float64Array(rowIndexes.length);
         for (let i = 0; i < rowIndexes.length; i++) {
             this.scaledRowIndex[i] = this.calculateVerticalScaledIndex(
@@ -103,13 +121,16 @@ export class MatrixRenderer {
     }
 
     public scaleCanvas(): void {
+        if (this.transformData.transform === undefined) {
+            throw new Error('Transform is not set');
+        }
         this.context.translate(
-            this.transformData.transform!.x,
-            this.transformData.transform!.y
+            this.transformData.transform.x,
+            this.transformData.transform.y
         );
         this.context.scale(
-            this.transformData.transform!.k,
-            this.transformData.transform!.k
+            this.transformData.transform.k,
+            this.transformData.transform.k
         );
     }
 
@@ -139,6 +160,9 @@ export class MatrixRenderer {
             || this.transformData.bottomRightCanvasCorner === undefined
         ) {
             throw new Error('Canvas corners are not set');
+        }
+        if (this.state.dieDimensions === undefined) {
+            throw new Error('Die dimensions are not set');
         }
         for (let i = 0; i < this.scaledColumnIndex.length; i++) {
             const scaledX = this.scaledColumnIndex[i]!;
@@ -176,8 +200,8 @@ export class MatrixRenderer {
                 this.context.fillRect(
                     scaledX,
                     scaledY,
-                    this.state.dieDimensions!.width,
-                    this.state.dieDimensions!.height
+                    this.state.dieDimensions.width,
+                    this.state.dieDimensions.height
                 );
             }
         }

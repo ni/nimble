@@ -1,13 +1,8 @@
 import { Remote, expose, transfer, wrap } from 'comlink';
 import { MatrixRenderer } from '../matrix-renderer';
 
-fdescribe('MatrixRenderer with MessageChannel', () => {
+describe('MatrixRenderer with MessageChannel', () => {
     let matrixRenderer: Remote<MatrixRenderer>;
-    const testData = {
-        columnIndexes: [4, 1, 2],
-        rowIndexes: [54, 54, 62],
-        values: [8.12, 9.0, 0.32]
-    };
 
     beforeEach(async () => {
         const { port1, port2 } = new MessageChannel();
