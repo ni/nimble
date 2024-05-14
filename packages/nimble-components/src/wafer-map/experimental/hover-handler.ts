@@ -84,14 +84,12 @@ export class HoverHandler {
             // go to x and y scale to get the x,y values of the die.
             const x = xRoundFunction(
                 this.wafermap.horizontalScale.invert(
-                    mousePosition.x
-                        - this.wafermap.margin.left
+                    mousePosition.x - this.wafermap.margin.left
                 )
             );
             const y = yRoundFunction(
                 this.wafermap.verticalScale.invert(
-                    mousePosition.y
-                        - this.wafermap.margin.top
+                    mousePosition.y - this.wafermap.margin.top
                 )
             );
             return { x, y };

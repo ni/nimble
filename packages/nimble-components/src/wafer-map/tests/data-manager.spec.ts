@@ -4,10 +4,7 @@ import { fixture, Fixture } from '../../utilities/tests/fixture';
 import { processUpdates } from '../../testing/async-helpers';
 import type { DataManager } from '../modules/data-manager';
 import type { WaferMap } from '..';
-import {
-    WaferMapColorScaleMode,
-    WaferMapOriginLocation
-} from '../types';
+import { WaferMapColorScaleMode, WaferMapOriginLocation } from '../types';
 import {
     getColorScale,
     getHighlightedTags,

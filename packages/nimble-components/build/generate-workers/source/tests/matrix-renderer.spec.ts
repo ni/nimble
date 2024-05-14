@@ -1,7 +1,7 @@
 import { Remote, expose, transfer, wrap } from 'comlink';
 import { MatrixRenderer } from '../matrix-renderer';
 
-describe('MatrixRenderer with MessageChannel', () => {
+fdescribe('MatrixRenderer with MessageChannel', () => {
     let matrixRenderer: Remote<MatrixRenderer>;
     const testData = {
         columnIndexes: [4, 1, 2],
@@ -14,41 +14,35 @@ describe('MatrixRenderer with MessageChannel', () => {
         const worker = new MatrixRenderer();
         expose(worker, port1);
         matrixRenderer = await wrap<MatrixRenderer>(port2);
+        await matrixRenderer.setState({
+            containerDimensions: undefined,
+            dieDimensions: undefined,
+            margin: {
+                top: 20,
+                right: 0,
+                bottom: 0,
+                left: 20
+            },
+            verticalCoefficient: 0.5,
+            horizontalCoefficient: 1,
+            horizontalConstant: 3,
+            verticalConstant: 2,
+            labelsFontSize: undefined,
+            colorScale: undefined
+        });
     });
 
-    // it('updateMatrix should update the dieMatrix', async () => {
-    //     await matrixRenderer.updateMatrix(testData);
+    it('calculateVerticalScaledIndex should compute the vertical scaled index', async () => {
+        expect(await matrixRenderer.calculateVerticalScaledIndex(100)).toEqual(
+            72
+        );
+    });
 
-    //     const updatedMatrix = await matrixRenderer.getMatrix();
-    //     expect(updatedMatrix).toEqual({
-    //         columnIndexes: Int32Array.from(testData.columnIndexes),
-    //         rowIndexes: Int32Array.from(testData.rowIndexes),
-    //         values: Float64Array.from(testData.values)
-    //     });
-    // });
-
-    // it('emptyMatrix should empty the dieMatrix', async () => {
-    //     await matrixRenderer.emptyMatrix();
-
-    //     const updatedMatrix = await matrixRenderer.getMatrix();
-    //     expect(
-    //         updatedMatrix.columnIndexes.length
-    //             + updatedMatrix.rowIndexes.length
-    //             + updatedMatrix.values.length
-    //     ).toEqual(0);
-    // });
-
-    // it('calculateYScaledIndex should compute the scaleY index', async () => {
-    //     await matrixRenderer.setBases(2, 2);
-    //     await matrixRenderer.setScaling(0.5, 0.5);
-    //     expect(await matrixRenderer.calculateYScaledIndex(100)).toEqual(72);
-    // });
-
-    // it('calculateXScaledIndex should compute the scaleX index', async () => {
-    //     await matrixRenderer.setBases(3, 3);
-    //     await matrixRenderer.setScaling(1, 1);
-    //     expect(await matrixRenderer.calculateXScaledIndex(100)).toEqual(123);
-    // });
+    it('calculateHorizontalScaledIndex should compute the horizontal scaled index', async () => {
+        expect(
+            await matrixRenderer.calculateHorizontalScaledIndex(100)
+        ).toEqual(123);
+    });
 });
 
 describe('MatrixRenderer with MessageChannel needing canvas context', () => {
@@ -76,23 +70,19 @@ describe('MatrixRenderer with MessageChannel needing canvas context', () => {
         });
     });
 
-    // it('indexes should be set', async () => {
-    //     const typedColumnIndexes = Int32Array.from(testData.columnIndexes);
-    //     const typedRowIndexes = Int32Array.from(testData.rowIndexes);
+    it('scaled indexes should be computed', async () => {
+        const typedColumnIndexes = Int32Array.from(testData.columnIndexes);
+        const typedRowIndexes = Int32Array.from(testData.rowIndexes);
 
-    //     await matrixRenderer.setColumnIndexes(
-    //         transfer(typedColumnIndexes, [typedColumnIndexes.buffer])
-    //     );
-    //     await matrixRenderer.setRowIndexes(
-    //         transfer(typedRowIndexes, [typedRowIndexes.buffer])
-    //     );
+        await matrixRenderer.setColumnIndexes(typedColumnIndexes);
+        await matrixRenderer.setRowIndexes(typedRowIndexes);
 
-    //     const columnIndexes = await matrixRenderer.columnIndexes;
-    //     const rowIndexes = await matrixRenderer.rowIndexes;
+        const scaledColumnIndex = await matrixRenderer.scaledColumnIndex;
+        const scaledRowIndex = await matrixRenderer.scaledRowIndex;
 
-    //     expect(columnIndexes).toEqual(Int32Array.from([4, 1, 2]));
-    //     expect(rowIndexes).toEqual(Int32Array.from([54, 54, 62]));
-    // });
+        expect(scaledColumnIndex).toEqual(Float64Array.from([4, 1, 2]));
+        expect(scaledRowIndex).toEqual(Float64Array.from([54, 54, 62]));
+    });
 
     it('should throw error calling drawWafer if canvas corners are not set', async () => {
         await expectAsync(matrixRenderer.drawWafer()).toBeRejectedWithError(

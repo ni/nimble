@@ -2,11 +2,7 @@ import type { ScaleBand, ScaleQuantile } from 'd3-scale';
 import { Computations } from './computations';
 import { Prerendering } from './prerendering';
 import type { WaferMap } from '..';
-import type {
-    DieRenderInfo,
-    WaferMapDie,
-    PointCoordinates
-} from '../types';
+import type { DieRenderInfo, WaferMapDie, PointCoordinates } from '../types';
 import type { Dimensions, Margin } from '../workers/types';
 
 /**

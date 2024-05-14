@@ -22,52 +22,42 @@ describe('MatrixRenderer worker', () => {
         matrixRenderer = undefined!;
     });
 
-    it('updateMatrix should update the dieMatrix', async () => {
-        await matrixRenderer.updateMatrix(testData);
-        const resolvedDieMatrix = await matrixRenderer.getMatrix();
-
-        expect(resolvedDieMatrix.columnIndexes).toEqual(
-            Int32Array.from(testData.columnIndexes)
-        );
-        expect(resolvedDieMatrix.rowIndexes).toEqual(
-            Int32Array.from(testData.rowIndexes)
-        );
-        expect(resolvedDieMatrix.values).toEqual(
-            Float64Array.from(testData.values)
-        );
-    });
-
-    it('emptyMatrix should empty the dieMatrix', async () => {
-        await matrixRenderer.updateMatrix(testData);
-        await matrixRenderer.emptyMatrix();
-        const resolvedDieMatrix = await matrixRenderer.getMatrix();
-        expect(
-            resolvedDieMatrix.columnIndexes.length
-                + resolvedDieMatrix.rowIndexes.length
-                + resolvedDieMatrix.values.length
-        ).toEqual(0);
-    });
-
-    it('indexes should be set', async () => {
+    it('scaled indexes should be computed', async () => {
         const offscreenCanvas = new OffscreenCanvas(300, 300);
-        await matrixRenderer.setCanvas(
-            transfer(offscreenCanvas, [offscreenCanvas])
-        );
-
         const typedColumnIndexes = Int32Array.from(testData.columnIndexes);
         const typedRowIndexes = Int32Array.from(testData.rowIndexes);
 
-        await matrixRenderer.setColumnIndexes(
-            transfer(typedColumnIndexes, [typedColumnIndexes.buffer])
+        await matrixRenderer.setCanvas(
+            transfer(offscreenCanvas, [offscreenCanvas])
         );
-        await matrixRenderer.setRowIndexes(
-            transfer(typedRowIndexes, [typedRowIndexes.buffer])
-        );
+        await matrixRenderer.setCanvasDimensions({
+            width: 300,
+            height: 300
+        });
+        await matrixRenderer.setState({
+            containerDimensions: undefined,
+            dieDimensions: undefined,
+            margin: {
+                top: 0,
+                right: 0,
+                bottom: 0,
+                left: 0
+            },
+            verticalCoefficient: 1,
+            horizontalCoefficient: 1,
+            horizontalConstant: 0,
+            verticalConstant: 0,
+            labelsFontSize: undefined,
+            colorScale: undefined
+        });
 
-        const columnIndexes = await matrixRenderer.columnIndexes;
-        const rowIndexes = await matrixRenderer.rowIndexes;
+        await matrixRenderer.setColumnIndexes(typedColumnIndexes);
+        await matrixRenderer.setRowIndexes(typedRowIndexes);
 
-        expect(columnIndexes).toEqual(Int32Array.from([4, 1, 2]));
-        expect(rowIndexes).toEqual(Int32Array.from([54, 54, 62]));
+        const scaledColumnIndex = await matrixRenderer.scaledColumnIndex;
+        const scaledRowIndex = await matrixRenderer.scaledRowIndex;
+
+        expect(scaledColumnIndex).toEqual(Float64Array.from([4, 1, 2]));
+        expect(scaledRowIndex).toEqual(Float64Array.from([54, 54, 62]));
     });
 });

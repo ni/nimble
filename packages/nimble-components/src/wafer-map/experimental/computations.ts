@@ -44,7 +44,10 @@ export class Computations {
             bottom: canvasDiameter * this.baseMarginPercentage,
             left: canvasDiameter * this.baseMarginPercentage
         };
-        this.wafermap.margin = this.calculateMarginAddition(baseMargin, canvasMargin);
+        this.wafermap.margin = this.calculateMarginAddition(
+            baseMargin,
+            canvasMargin
+        );
         this.wafermap.containerDimensions = this.calculateContainerDimensions(
             canvasDimensions,
             this.wafermap.margin
@@ -77,18 +80,19 @@ export class Computations {
             gridDimensions,
             containerDiameter
         );
-        this.wafermap.horizontalCoefficient = this.wafermap.horizontalScale(1)
-            - this.wafermap.horizontalScale(0);
-        this.wafermap.verticalCoefficient = this.wafermap.verticalScale(1)
-            - this.wafermap.verticalScale(0);
+        this.wafermap.horizontalCoefficient = this.wafermap.horizontalScale(1) - this.wafermap.horizontalScale(0);
+        this.wafermap.verticalCoefficient = this.wafermap.verticalScale(1) - this.wafermap.verticalScale(0);
         this.wafermap.horizontalConstant = this.wafermap.horizontalScale(0);
         this.wafermap.verticalConstant = this.wafermap.verticalScale(0);
 
         this.wafermap.dieDimensions = {
             width: Math.abs(
-                this.wafermap.horizontalScale(0) - this.wafermap.horizontalScale(1)
+                this.wafermap.horizontalScale(0)
+                    - this.wafermap.horizontalScale(1)
             ),
-            height: Math.abs(this.wafermap.verticalScale(0) - this.wafermap.verticalScale(1))
+            height: Math.abs(
+                this.wafermap.verticalScale(0) - this.wafermap.verticalScale(1)
+            )
         };
         this.colorAndTextUpdate();
     }

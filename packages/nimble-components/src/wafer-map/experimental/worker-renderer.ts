@@ -28,7 +28,9 @@ export class WorkerRenderer {
                 transfer(offscreenCanvas, [offscreenCanvas])
             );
         }
-        await this.matrixRenderer.setCanvasDimensions(snapshot.canvasDimensions);
+        await this.matrixRenderer.setCanvasDimensions(
+            snapshot.canvasDimensions
+        );
         await this.matrixRenderer.setState(snapshot.state);
         await this.matrixRenderer.setColumnIndexes(snapshot.columnIndexes);
         await this.matrixRenderer.setRowIndexes(snapshot.rowIndexes);
@@ -47,12 +49,8 @@ export class WorkerRenderer {
         await this.matrixRenderer.setTransformData({
             transform: snapshot.transform,
             topLeftCanvasCorner: {
-                x:
-                    topLeftCanvasCorner[0]
-                    - snapshot.dieDimensions.width,
-                y:
-                    topLeftCanvasCorner[1]
-                    - snapshot.dieDimensions.height
+                x: topLeftCanvasCorner[0] - snapshot.dieDimensions.width,
+                y: topLeftCanvasCorner[1] - snapshot.dieDimensions.height
             },
             bottomRightCanvasCorner: {
                 x: bottomRightCanvasCorner[0],
@@ -63,10 +61,8 @@ export class WorkerRenderer {
     }
 
     public renderHover(): void {
-        this.wafermap.hoverWidth = this.wafermap.dieDimensions.width
-            * this.wafermap.transform.k;
-        this.wafermap.hoverHeight = this.wafermap.dieDimensions.height
-            * this.wafermap.transform.k;
+        this.wafermap.hoverWidth = this.wafermap.dieDimensions.width * this.wafermap.transform.k;
+        this.wafermap.hoverHeight = this.wafermap.dieDimensions.height * this.wafermap.transform.k;
         this.wafermap.hoverOpacity = this.wafermap.hoverDie === undefined
             ? HoverDieOpacity.hide
             : HoverDieOpacity.show;

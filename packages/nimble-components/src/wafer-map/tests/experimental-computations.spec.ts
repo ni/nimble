@@ -158,10 +158,7 @@ describe('Wafermap Experimental Computations module', () => {
         const highlightedTags: string[] = [];
         const margin = { top: 0, right: 0, bottom: 0, left: 0 };
 
-        const stateMock = getStateMock(
-            dieDimensions,
-            margin
-        );
+        const stateMock = getStateMock(dieDimensions, margin);
         waferMock = getExperimentalWaferMapMockPrerendering(
             getWaferMapDies(),
             { colors: [], values: [] },
@@ -190,10 +187,7 @@ describe('Wafermap Experimental Computations module', () => {
         const highlightedTags: string[] = [];
         const margin = { top: 0, right: 0, bottom: 0, left: 0 };
 
-        const stateMock = getStateMock(
-            dieDimensions,
-            margin
-        );
+        const stateMock = getStateMock(dieDimensions, margin);
         waferMock = getExperimentalWaferMapMockPrerendering(
             getWaferMapDies(),
             { colors: [], values: [] },
@@ -225,10 +219,7 @@ describe('Wafermap Experimental Computations module', () => {
             const highlightedTags: string[] = [];
             const margin = { top: 0, right: 0, bottom: 0, left: 0 };
 
-            const stateMock = getStateMock(
-                dieDimensions,
-                margin
-            );
+            const stateMock = getStateMock(dieDimensions, margin);
             waferMock = getExperimentalWaferMapMockPrerendering(
                 getWaferMapDies(),
                 { colors: ['red'], values: ['1'] },
@@ -262,10 +253,7 @@ describe('Wafermap Experimental Computations module', () => {
             const highlightedTags: string[] = [];
             const margin = { top: 0, right: 0, bottom: 0, left: 0 };
 
-            const stateMock = getStateMock(
-                dieDimensions,
-                margin
-            );
+            const stateMock = getStateMock(dieDimensions, margin);
             waferMock = getExperimentalWaferMapMockPrerendering(
                 getWaferMapDies(),
                 {
@@ -301,10 +289,7 @@ describe('Wafermap Experimental Computations module', () => {
             const highlightedTags: string[] = [];
             const margin = { top: 0, right: 0, bottom: 0, left: 0 };
 
-            const stateMock = getStateMock(
-                dieDimensions,
-                margin
-            );
+            const stateMock = getStateMock(dieDimensions, margin);
             waferMock = getExperimentalWaferMapMockPrerendering(
                 getWaferMapDies(),
                 {
@@ -348,10 +333,7 @@ describe('Wafermap Experimental Computations module', () => {
             const highlightedTags: string[] = [];
             const margin = { top: 0, right: 0, bottom: 0, left: 0 };
 
-            const stateMock = getStateMock(
-                dieDimensions,
-                margin
-            );
+            const stateMock = getStateMock(dieDimensions, margin);
             waferMock = getExperimentalWaferMapMockPrerendering(
                 getWaferMapDies(),
                 { colors: ['red'], values: ['1'] },
@@ -383,10 +365,7 @@ describe('Wafermap Experimental Computations module', () => {
             const highlightedTags: string[] = [];
             const margin = { top: 0, right: 0, bottom: 0, left: 0 };
 
-            const stateMock = getStateMock(
-                dieDimensions,
-                margin
-            );
+            const stateMock = getStateMock(dieDimensions, margin);
             waferMock = getExperimentalWaferMapMockPrerendering(
                 getWaferMapDies(),
                 {

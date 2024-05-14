@@ -33,6 +33,7 @@ export class MatrixRenderer {
         labelsFontSize: undefined,
         colorScale: undefined
     };
+
     private transformData: TransformData = {
         transform: undefined,
         topLeftCanvasCorner: undefined,
@@ -40,11 +41,19 @@ export class MatrixRenderer {
     };
 
     public calculateHorizontalScaledIndex(columnIndex: number): number {
-        return this.state.horizontalCoefficient! * columnIndex + this.state.horizontalConstant! + this.state.margin!.left;
+        return (
+            this.state.horizontalCoefficient! * columnIndex
+            + this.state.horizontalConstant!
+            + this.state.margin!.left
+        );
     }
 
     public calculateVerticalScaledIndex(rowIndex: number): number {
-        return this.state.verticalCoefficient! * rowIndex + this.state.verticalConstant! + this.state.margin!.top;
+        return (
+            this.state.verticalCoefficient! * rowIndex
+            + this.state.verticalConstant!
+            + this.state.margin!.top
+        );
     }
 
     public setColumnIndexes(columnIndexes: Int32Array): void {
@@ -94,8 +103,14 @@ export class MatrixRenderer {
     }
 
     public scaleCanvas(): void {
-        this.context.translate(this.transformData.transform!.x, this.transformData.transform!.y);
-        this.context.scale(this.transformData.transform!.k, this.transformData.transform!.k);
+        this.context.translate(
+            this.transformData.transform!.x,
+            this.transformData.transform!.y
+        );
+        this.context.scale(
+            this.transformData.transform!.k,
+            this.transformData.transform!.k
+        );
     }
 
     public setCanvasDimensions(data: Dimensions): void {

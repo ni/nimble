@@ -42,10 +42,7 @@ const renderFilePath: string = path.resolve(
     'matrix-renderer.ts'
 );
 
-const workersFilePath: string = path.resolve(
-    workersDirectory,
-    'types.ts'
-);
+const workersFilePath: string = path.resolve(workersDirectory, 'types.ts');
 
 writeFile(renderFilePath, fileContent);
 writeFile(workersFilePath, typesCode);

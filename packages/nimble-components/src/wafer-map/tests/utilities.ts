@@ -132,14 +132,8 @@ export function getDataManagerMock(
     };
     return dataManagerMock as DataManager;
 }
-export function getStateMock(
-    dieDimensions: Dimensions,
-    margin: Margin
-): State {
-    const stateMock: Pick<
-    State,
-    'dieDimensions' | 'margin'
-    > = {
+export function getStateMock(dieDimensions: Dimensions, margin: Margin): State {
+    const stateMock: Pick<State, 'dieDimensions' | 'margin'> = {
         dieDimensions,
         margin
     };
@@ -350,7 +344,6 @@ export function getWaferMapMockComputationsExperimental(
     | 'verticalConstant'
     | 'labelsFontSize'
     | 'workerColorScale'
-
     > = {
         diesTable,
         originLocation,

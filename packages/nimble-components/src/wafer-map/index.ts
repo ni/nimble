@@ -159,7 +159,9 @@ export class WaferMap<
      */
     public workerColorScale!: ColorScale;
 
-    public readonly computations: Computations = new Computations(this.asRequiredFieldsWaferMap);
+    public readonly computations: Computations = new Computations(
+        this.asRequiredFieldsWaferMap
+    );
 
     public dataManager: DataManager = new DataManager(
         this.asRequiredFieldsWaferMap
@@ -275,14 +277,10 @@ export class WaferMap<
         }
         if (this.waferMapUpdateTracker.requiresEventsUpdate) {
             let setupWafer = false;
-            if (
-                this.waferMapUpdateTracker.requiresContainerDimensionsUpdate
-            ) {
+            if (this.waferMapUpdateTracker.requiresContainerDimensionsUpdate) {
                 this.computations.componentResizeUpdate();
                 setupWafer = true;
-            } else if (
-                this.waferMapUpdateTracker.requiresScalesUpdate
-            ) {
+            } else if (this.waferMapUpdateTracker.requiresScalesUpdate) {
                 this.computations.inputDataUpdate();
                 setupWafer = true;
             } else if (
@@ -374,18 +372,24 @@ export class WaferMap<
         const transform = this.transform;
         if (this.diesTable === undefined) {
             return {
-                canvasDimensions, state, dieDimensions, transform, columnIndexes: Int32Array.from([]), rowIndexes: Int32Array.from([])
+                canvasDimensions,
+                state,
+                dieDimensions,
+                transform,
+                columnIndexes: Int32Array.from([]),
+                rowIndexes: Int32Array.from([])
             };
         }
-        const columnIndexes = this.diesTable
-            .getChild('colIndex')!
-            .toArray();
+        const columnIndexes = this.diesTable.getChild('colIndex')!.toArray();
 
-        const rowIndexes = this.diesTable
-            .getChild('rowIndex')!
-            .toArray();
+        const rowIndexes = this.diesTable.getChild('rowIndex')!.toArray();
         return {
-            canvasDimensions, state, columnIndexes, rowIndexes, dieDimensions, transform
+            canvasDimensions,
+            state,
+            columnIndexes,
+            rowIndexes,
+            dieDimensions,
+            transform
         };
     }
 
