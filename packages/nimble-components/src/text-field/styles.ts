@@ -118,7 +118,7 @@ export const styles = css`
 
     slot[name='start']::slotted(*) {
         flex: none;
-        ${iconColor.cssCustomProperty}: currentcolor;
+        opacity: 0.6;
     }
 
     .control {
