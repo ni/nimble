@@ -36,7 +36,7 @@ describe('Wafermap Experimental Computations module', () => {
         });
 
         it('should have expected square container', () => {
-            expect(waferMock.state.containerDimensions).toEqual({
+            expect(waferMock.containerDimensions).toEqual({
                 width: 92,
                 height: 92
             });
@@ -44,8 +44,8 @@ describe('Wafermap Experimental Computations module', () => {
 
         it('should have expected die size', () => {
             const computedDimensions = {
-                width: Math.ceil(waferMock.state.dieDimensions!.width),
-                height: Math.ceil(waferMock.state.dieDimensions!.height)
+                width: Math.ceil(waferMock.dieDimensions.width),
+                height: Math.ceil(waferMock.dieDimensions.height)
             };
             expect(computedDimensions).toEqual({
                 width: 19,
@@ -54,14 +54,14 @@ describe('Wafermap Experimental Computations module', () => {
         });
 
         it('should have expected margin', () => {
-            expect(waferMock.state.margin).toEqual(expectedMargin);
+            expect(waferMock.margin).toEqual(expectedMargin);
         });
 
         it('should have horizontal domain containing min and max column indexes', () => {
-            expect(waferMock.horizontalScale!.domain()).toEqual([2, 7]);
+            expect(waferMock.horizontalScale.domain()).toEqual([2, 7]);
         });
         it('should have vertical domain containing min and max  row indexes, ', () => {
-            expect(waferMock.verticalScale!.domain()).toEqual([1, 7]);
+            expect(waferMock.verticalScale.domain()).toEqual([1, 7]);
         });
     });
 
@@ -78,7 +78,7 @@ describe('Wafermap Experimental Computations module', () => {
         });
 
         it('should have adjusted square container', () => {
-            expect(waferMock.state.containerDimensions).toEqual({
+            expect(waferMock.containerDimensions).toEqual({
                 width: 92,
                 height: 92
             });
@@ -86,8 +86,8 @@ describe('Wafermap Experimental Computations module', () => {
 
         it('should have adjusted die size', () => {
             const computedDimensions = {
-                width: Math.ceil(waferMock.state.dieDimensions!.width),
-                height: Math.ceil(waferMock.state.dieDimensions!.height)
+                width: Math.ceil(waferMock.dieDimensions.width),
+                height: Math.ceil(waferMock.dieDimensions.height)
             };
             expect(computedDimensions).toEqual({
                 width: 19,
@@ -96,7 +96,7 @@ describe('Wafermap Experimental Computations module', () => {
         });
 
         it('should have adjusted margin', () => {
-            expect(waferMock.state.margin).toEqual({
+            expect(waferMock.margin).toEqual({
                 top: 4,
                 right: 54,
                 bottom: 4,
@@ -140,10 +140,10 @@ describe('Wafermap Experimental Computations module', () => {
                 );
                 computationsModule = new Computations(waferMock);
                 computationsModule.componentResizeUpdate();
-                expect(waferMock.horizontalScale!.range()).toEqual(
+                expect(waferMock.horizontalScale.range()).toEqual(
                     value.horizontalRange
                 );
-                expect(waferMock.verticalScale!.range()).toEqual(
+                expect(waferMock.verticalScale.range()).toEqual(
                     value.verticalRange
                 );
             }
@@ -177,8 +177,8 @@ describe('Wafermap Experimental Computations module', () => {
         computationsModule = new Computations(waferMock);
         computationsModule.componentResizeUpdate();
 
-        expect(waferMock.state.labelsFontSize).toBeLessThanOrEqual(
-            waferMock.state.dieDimensions!.height
+        expect(waferMock.labelsFontSize).toBeLessThanOrEqual(
+            waferMock.dieDimensions.height
         );
     });
 
@@ -209,8 +209,8 @@ describe('Wafermap Experimental Computations module', () => {
         computationsModule = new Computations(waferMock);
         computationsModule.componentResizeUpdate();
 
-        expect(waferMock.state.labelsFontSize).toBeLessThan(
-            waferMock.state.dieDimensions!.width
+        expect(waferMock.labelsFontSize).toBeLessThan(
+            waferMock.dieDimensions.width
         );
     });
 
@@ -245,7 +245,7 @@ describe('Wafermap Experimental Computations module', () => {
             computationsModule.componentResizeUpdate();
             const expectedValues = Array(1).fill(undefined);
 
-            const actualValues = waferMock.state.colorScale!.map(
+            const actualValues = waferMock.workerColorScale.map(
                 colorCategory => colorCategory.color
             );
 
@@ -285,7 +285,7 @@ describe('Wafermap Experimental Computations module', () => {
             computationsModule.componentResizeUpdate();
 
             const expectedValues = Array(1).fill('rgb(255, 0, 0)');
-            const actualValues = waferMock.state.colorScale!.map(
+            const actualValues = waferMock.workerColorScale.map(
                 colorCategory => colorCategory.color
             );
             expect(actualValues).toEqual(
@@ -328,7 +328,7 @@ describe('Wafermap Experimental Computations module', () => {
                 .map(waferMapDie => {
                     return `rgb(${(+waferMapDie.value - 1) * 15}, 0, 0)`;
                 });
-            const actualValues = waferMock.state.colorScale!.map(
+            const actualValues = waferMock.workerColorScale.map(
                 colorCategory => colorCategory.color
             );
             expect(actualValues).toEqual(
@@ -367,7 +367,7 @@ describe('Wafermap Experimental Computations module', () => {
             computationsModule = new Computations(waferMock);
             computationsModule.componentResizeUpdate();
             const expectedValues = Array(1).fill('red');
-            const actualValues = waferMock.state.colorScale!.map(
+            const actualValues = waferMock.workerColorScale.map(
                 colorCategory => colorCategory.color
             );
             expect(actualValues).toEqual(
@@ -387,7 +387,7 @@ describe('Wafermap Experimental Computations module', () => {
                 dieDimensions,
                 margin
             );
-            const waferMock = getExperimentalWaferMapMockPrerendering(
+            waferMock = getExperimentalWaferMapMockPrerendering(
                 getWaferMapDies(),
                 {
                     colors: ['black', 'red'],
@@ -406,7 +406,7 @@ describe('Wafermap Experimental Computations module', () => {
             computationsModule.componentResizeUpdate();
 
             const expectedValues = ['black', 'red'];
-            const actualValues = waferMock.state.colorScale!.map(
+            const actualValues = waferMock.workerColorScale.map(
                 colorCategory => colorCategory.color
             );
             expect(actualValues).toEqual(

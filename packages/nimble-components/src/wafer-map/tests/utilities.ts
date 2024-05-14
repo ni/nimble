@@ -201,7 +201,15 @@ export function getExperimentalWaferMapMockPrerendering(
     | 'maxCharacters'
     | 'horizontalScale'
     | 'verticalScale'
-    | 'state'
+    | 'containerDimensions'
+    | 'dieDimensions'
+    | 'margin'
+    | 'verticalCoefficient'
+    | 'horizontalCoefficient'
+    | 'horizontalConstant'
+    | 'verticalConstant'
+    | 'labelsFontSize'
+    | 'workerColorScale'
     > = {
         dies,
         colorScale,
@@ -212,7 +220,15 @@ export function getExperimentalWaferMapMockPrerendering(
         maxCharacters,
         horizontalScale,
         verticalScale,
-        state
+        containerDimensions: state.containerDimensions!,
+        dieDimensions: state.dieDimensions!,
+        margin: state.margin!,
+        verticalCoefficient: state.verticalCoefficient!,
+        horizontalCoefficient: state.horizontalCoefficient!,
+        horizontalConstant: state.horizontalConstant!,
+        verticalConstant: state.verticalConstant!,
+        labelsFontSize: state.labelsFontSize!,
+        workerColorScale: state.colorScale!
     };
     return waferMapMock as WaferMap;
 }
@@ -325,7 +341,15 @@ export function getWaferMapMockComputationsExperimental(
     | 'canvasWidth'
     | 'canvasHeight'
     | 'validity'
-    | 'state'
+    | 'containerDimensions'
+    | 'dieDimensions'
+    | 'margin'
+    | 'verticalCoefficient'
+    | 'horizontalCoefficient'
+    | 'horizontalConstant'
+    | 'verticalConstant'
+    | 'labelsFontSize'
+    | 'workerColorScale'
 
     > = {
         diesTable,
@@ -333,7 +357,15 @@ export function getWaferMapMockComputationsExperimental(
         canvasWidth,
         canvasHeight,
         validity,
-        state
+        containerDimensions: state.containerDimensions!,
+        dieDimensions: state.dieDimensions!,
+        margin: state.margin!,
+        verticalCoefficient: state.verticalCoefficient!,
+        horizontalCoefficient: state.horizontalCoefficient!,
+        horizontalConstant: state.horizontalConstant!,
+        verticalConstant: state.verticalConstant!,
+        labelsFontSize: state.labelsFontSize!,
+        workerColorScale: state.colorScale!
     };
     return waferMapMock as WaferMap;
 }

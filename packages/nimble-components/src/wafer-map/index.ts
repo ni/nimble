@@ -29,7 +29,7 @@ import { HoverHandler } from './modules/hover-handler';
 import { HoverHandler as ExperimentalHoverHandler } from './experimental/hover-handler';
 import { ZoomHandler } from './modules/zoom-handler';
 import { Computations } from './experimental/computations';
-import type { State } from './workers/types';
+import type { ColorScale, Dimensions, Margin, State } from './workers/types';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -107,24 +107,57 @@ export class WaferMap<
     /**
      * @internal
      */
-    public horizontalScale: ScaleLinear<number, number> | undefined;
+    public horizontalScale!: ScaleLinear<number, number>;
 
     /**
      * @internal
      */
-    public verticalScale: ScaleLinear<number, number> | undefined;
+    public verticalScale!: ScaleLinear<number, number>;
 
-    public readonly state: State = {
-        containerDimensions: undefined,
-        dieDimensions: undefined,
-        margin: undefined,
-        verticalCoefficient: undefined,
-        horizontalCoefficient: undefined,
-        horizontalConstant: undefined,
-        verticalConstant: undefined,
-        labelsFontSize: undefined,
-        colorScale: undefined
-    };
+    /**
+     * @internal
+     */
+    public containerDimensions!: Dimensions;
+
+    /**
+     * @internal
+     */
+    public dieDimensions!: Dimensions;
+
+    /**
+     * @internal
+     */
+    public margin!: Margin;
+
+    /**
+     * @internal
+     */
+    public verticalCoefficient!: number;
+
+    /**
+     * @internal
+     */
+    public horizontalCoefficient!: number;
+
+    /**
+     * @internal
+     */
+    public horizontalConstant!: number;
+
+    /**
+     * @internal
+     */
+    public verticalConstant!: number;
+
+    /**
+     * @internal
+     */
+    public labelsFontSize!: number;
+
+    /**
+     * @internal
+     */
+    public workerColorScale!: ColorScale;
 
     public readonly computations: Computations = new Computations(this.asRequiredFieldsWaferMap);
 
@@ -240,33 +273,32 @@ export class WaferMap<
         if (this.validity.invalidDiesTableSchema) {
             return;
         }
-
         if (this.waferMapUpdateTracker.requiresEventsUpdate) {
+            let setupWafer = false;
             if (
                 this.waferMapUpdateTracker.requiresContainerDimensionsUpdate
             ) {
                 this.computations.componentResizeUpdate();
-                await this.workerRenderer.setupWafer();
-                await this.workerRenderer.drawWafer();
+                setupWafer = true;
             } else if (
                 this.waferMapUpdateTracker.requiresScalesUpdate
             ) {
                 this.computations.inputDataUpdate();
-                await this.workerRenderer.setupWafer();
-                await this.workerRenderer.drawWafer();
+                setupWafer = true;
             } else if (
                 this.waferMapUpdateTracker.requiresLabelsFontSizeUpdate
                 || this.waferMapUpdateTracker.requiresDiesRenderInfoUpdate
             ) {
                 this.computations.colorAndTextUpdate();
-                await this.workerRenderer.setupWafer();
-                await this.workerRenderer.drawWafer();
-            } else if (this.waferMapUpdateTracker.requiresDrawnWaferUpdate) {
-                await this.workerRenderer.drawWafer();
+                setupWafer = true;
             }
-        } else if (this.waferMapUpdateTracker.requiresRenderHoverUpdate) {
-            this.workerRenderer.renderHover();
+            const snapshot = this.createSnapshot();
+            if (setupWafer) {
+                await this.workerRenderer.setupWafer(snapshot);
+            }
+            await this.workerRenderer.drawWafer(snapshot);
         }
+        this.workerRenderer.renderHover();
     }
 
     /**
@@ -313,6 +345,48 @@ export class WaferMap<
      */
     public isExperimentalUpdate(): boolean {
         return this.diesTable !== undefined;
+    }
+
+    private createSnapshot(): {
+        canvasDimensions: Dimensions,
+        state: State,
+        dieDimensions: Dimensions,
+        transform: ZoomTransform,
+        columnIndexes: Int32Array,
+        rowIndexes: Int32Array
+    } {
+        const canvasDimensions = {
+            width: this.canvasWidth ?? 0,
+            height: this.canvasHeight ?? 0
+        };
+        const state: State = {
+            containerDimensions: this.containerDimensions,
+            dieDimensions: this.dieDimensions,
+            margin: this.margin,
+            verticalCoefficient: this.verticalCoefficient,
+            horizontalCoefficient: this.horizontalCoefficient,
+            horizontalConstant: this.horizontalConstant,
+            verticalConstant: this.verticalConstant,
+            labelsFontSize: this.labelsFontSize,
+            colorScale: this.workerColorScale
+        };
+        const dieDimensions = this.dieDimensions;
+        const transform = this.transform;
+        if (this.diesTable === undefined) {
+            return {
+                canvasDimensions, state, dieDimensions, transform, columnIndexes: Int32Array.from([]), rowIndexes: Int32Array.from([])
+            };
+        }
+        const columnIndexes = this.diesTable
+            .getChild('colIndex')!
+            .toArray();
+
+        const rowIndexes = this.diesTable
+            .getChild('rowIndex')!
+            .toArray();
+        return {
+            canvasDimensions, state, columnIndexes, rowIndexes, dieDimensions, transform
+        };
     }
 
     private validate(): void {

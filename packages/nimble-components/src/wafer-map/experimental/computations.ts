@@ -44,22 +44,22 @@ export class Computations {
             bottom: canvasDiameter * this.baseMarginPercentage,
             left: canvasDiameter * this.baseMarginPercentage
         };
-        this.wafermap.state.margin = this.calculateMarginAddition(baseMargin, canvasMargin);
-        this.wafermap.state.containerDimensions = this.calculateContainerDimensions(
+        this.wafermap.margin = this.calculateMarginAddition(baseMargin, canvasMargin);
+        this.wafermap.containerDimensions = this.calculateContainerDimensions(
             canvasDimensions,
-            this.wafermap.state.margin
+            this.wafermap.margin
         );
         this.inputDataUpdate();
     }
 
     public inputDataUpdate(): void {
-        if (this.wafermap.state.containerDimensions === undefined) {
+        if (this.wafermap.containerDimensions === undefined) {
             this.componentResizeUpdate();
             return;
         }
         const containerDiameter = Math.min(
-            this.wafermap.state.containerDimensions.width,
-            this.wafermap.state.containerDimensions.height
+            this.wafermap.containerDimensions.width,
+            this.wafermap.containerDimensions.height
         );
         const gridDimensions = this.gridDimensionsValidAndDefined()
             ? this.calculateGridDimensionsFromBoundingBox()
@@ -77,14 +77,14 @@ export class Computations {
             gridDimensions,
             containerDiameter
         );
-        this.wafermap.state.horizontalCoefficient = this.wafermap.horizontalScale(1)
+        this.wafermap.horizontalCoefficient = this.wafermap.horizontalScale(1)
             - this.wafermap.horizontalScale(0);
-        this.wafermap.state.verticalCoefficient = this.wafermap.verticalScale(1)
+        this.wafermap.verticalCoefficient = this.wafermap.verticalScale(1)
             - this.wafermap.verticalScale(0);
-        this.wafermap.state.horizontalConstant = this.wafermap.horizontalScale(0);
-        this.wafermap.state.verticalConstant = this.wafermap.verticalScale(0);
+        this.wafermap.horizontalConstant = this.wafermap.horizontalScale(0);
+        this.wafermap.verticalConstant = this.wafermap.verticalScale(0);
 
-        this.wafermap.state.dieDimensions = {
+        this.wafermap.dieDimensions = {
             width: Math.abs(
                 this.wafermap.horizontalScale(0) - this.wafermap.horizontalScale(1)
             ),
@@ -94,15 +94,15 @@ export class Computations {
     }
 
     public colorAndTextUpdate(): void {
-        if (this.wafermap.state.dieDimensions === undefined) {
+        if (this.wafermap.dieDimensions === undefined) {
             this.inputDataUpdate();
             return;
         }
-        this.wafermap.state.labelsFontSize = this.calculateLabelsFontSize(
-            this.wafermap.state.dieDimensions,
+        this.wafermap.labelsFontSize = this.calculateLabelsFontSize(
+            this.wafermap.dieDimensions,
             this.wafermap.maxCharacters
         );
-        this.wafermap.state.colorScale = this.calculateColorScale();
+        this.wafermap.workerColorScale = this.calculateColorScale();
     }
 
     private gridDimensionsValidAndDefined(): boolean {
