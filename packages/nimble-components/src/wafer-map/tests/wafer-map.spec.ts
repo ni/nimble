@@ -329,7 +329,8 @@ describe('WaferMap', () => {
             await waitForUpdatesAsync();
         });
 
-        it('will have hover rectangle with no dimensions', () => {
+        // Disabled due to intermittency: https://github.com/ni/nimble/issues/2104
+        xit('will have hover rectangle with no dimensions', () => {
             expect(element.hoverHeight).toEqual(0);
             expect(element.hoverWidth).toEqual(0);
         });
