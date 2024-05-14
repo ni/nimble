@@ -4,7 +4,8 @@ import { display } from '@microsoft/fast-foundation';
 import {
     groupHeaderFont,
     groupHeaderFontColor,
-    groupHeaderTextTransform
+    groupHeaderTextTransform,
+    smallPadding
 } from '../theme-provider/design-tokens';
 
 export const styles = css`
@@ -31,5 +32,7 @@ export const styles = css`
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
+        margin-left: ${smallPadding};
+        margin-bottom: ${smallPadding};
     }
 `;

@@ -2,16 +2,17 @@ import { html, repeat, when } from '@microsoft/fast-element';
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html';
 import { listOptionTag } from '@ni/nimble-components/dist/esm/list-option';
+import { listOptionGroupTag } from '@ni/nimble-components/dist/esm/list-option-group';
 import { menuMinWidth } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
 import { selectTag } from '@ni/nimble-components/dist/esm/select';
 import { FilterMode } from '@ni/nimble-components/dist/esm/select/types';
-import { ExampleOptionsType } from '@ni/nimble-components/dist/esm/select/tests/types';
 import { DropdownAppearance } from '@ni/nimble-components/dist/esm/patterns/dropdown/types';
 
 import {
     createUserSelectedThemeStory,
     disableStorybookZoomTransform
 } from '../../utilities/storybook';
+import { ExampleOptionsType } from './types';
 
 interface SelectArgs {
     disabled: boolean;
@@ -22,12 +23,18 @@ interface SelectArgs {
     appearance: string;
     filterMode: keyof typeof FilterMode;
     placeholder: boolean;
+    grouped: boolean;
 }
 
 interface OptionArgs {
     label: string;
     value: string;
-    disabled: boolean;
+    disabled?: boolean;
+}
+
+interface GroupedOptionArgs {
+    label: string;
+    options: OptionArgs[];
 }
 
 const simpleOptions: readonly OptionArgs[] = [
@@ -67,6 +74,27 @@ const optionSets = {
     [ExampleOptionsType.manyOptions]: manyOptions
 } as const;
 
+const getGroupedOptions = (optionsType: ExampleOptionsType): GroupedOptionArgs[] => {
+    let optionsLength = 0;
+    if (optionsType === ExampleOptionsType.simpleOptions) {
+        optionsLength = simpleOptions.length;
+    } else if (optionsType === ExampleOptionsType.wideOptions) {
+        optionsLength = wideOptions.length;
+    } else {
+        optionsLength = manyOptions.length;
+    }
+
+    const groupedOptions: GroupedOptionArgs[] = [];
+    for (let i = 0; i < optionsLength / 3; i++) {
+        groupedOptions.push({
+            label: `Group ${i + 1}`,
+            options: optionSets[optionsType].slice(i * 3, (i + 1) * 3)
+        });
+    }
+
+    return groupedOptions;
+};
+
 const filterModeDescription = `
 This attribute controls the filtering behavior of the \`Select\`. The default of \`none\` results in a dropdown with no input for filtering. A non-'none' setting results in a search input placed at the top or the bottom of the dropdown when opened (depending on where the popup is shown relative to the component). The \`standard\` setting will perform a case-insensitive and diacritic-insensitive filtering of the available options anywhere within the text of each option. 
 
@@ -77,6 +105,10 @@ const placeholderDescription = `
 To display placeholder text within the \`Select\` you must provide an option that has the \`disabled\`, \`selected\` and \`hidden\` attributes set. This option will not be available in the dropdown, and its contents will be used as the placeholder text.
 
 Any \`Select\` without a default selected option should provide placeholder text. Placeholder text should always follow the pattern "Select [thing(s)]", for example "Select country". Use sentence casing and don't include punctuation at the end of the prompt.
+`;
+
+const groupedDescription = `
+To group options in a \`Select\`, you can use the \`nimble-list-option-group\` element. This element should be placed within the \`Select\` and contain the \`nimble-list-option\` elements that you want to group. The \`label\` attribute of the \`nimble-list-option-group\` element will be used as the group label. Alternatively, text can be provided next to the \`nimble-list-option-group\` element to serve as the group label.
 `;
 
 const metadata: Meta<SelectArgs> = {
@@ -110,13 +142,28 @@ const metadata: Meta<SelectArgs> = {
                     Select an option
                 </${listOptionTag}?
             `)}
-            ${repeat(x => optionSets[x.optionsType], html<OptionArgs>`
-                <${listOptionTag}
-                    value="${x => x.value}"
-                    ?disabled="${x => x.disabled}"
-                >
-                    ${x => x.label}
-                </${listOptionTag}>
+            ${when(x => x.grouped, html<SelectArgs>`
+                ${repeat(x => getGroupedOptions(x.optionsType), html<GroupedOptionArgs>`
+                    <${listOptionGroupTag}
+                        label="${x => x.label}"
+                    >
+                        ${repeat(x => x.options, html<OptionArgs>`
+                            <${listOptionTag}
+                                value="${x => x.value}"
+                            >${x => x.label}</${listOptionTag}>
+                        `, { positioning: true })}
+                    </${listOptionGroupTag}>
+                `)}
+            `)}
+            ${when(x => !x.grouped, html<SelectArgs>`
+                ${repeat(x => optionSets[x.optionsType], html<OptionArgs>`
+                    <${listOptionTag}
+                        value="${x => x.value}"
+                        ?disabled="${x => x.disabled}"
+                    >
+                        ${x => x.label}
+                    </${listOptionTag}>
+                `)}
             `)}
         </${selectTag}>
     `),
@@ -145,6 +192,10 @@ const metadata: Meta<SelectArgs> = {
             name: 'placeholder',
             description: placeholderDescription
         },
+        grouped: {
+            name: 'grouped',
+            description: groupedDescription
+        },
         optionsType: {
             name: 'options',
             options: Object.values(ExampleOptionsType),
@@ -166,7 +217,8 @@ const metadata: Meta<SelectArgs> = {
         dropDownPosition: 'below',
         appearance: DropdownAppearance.underline,
         optionsType: ExampleOptionsType.simpleOptions,
-        placeholder: false
+        placeholder: false,
+        grouped: false
     }
 };
 
