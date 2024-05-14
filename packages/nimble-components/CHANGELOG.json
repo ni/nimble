@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 14 May 2024 23:23:47 GMT",
+      "version": "29.0.0",
+      "tag": "@ni/nimble-components_v29.0.0",
+      "comments": {
+        "none": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "8dbea360389b9f0e5698bd65d3a0b4054a8e73bb",
+            "comment": "Update documentation about incubating components in CONTRIBUTING"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 14 May 2024 21:43:26 GMT",
       "version": "29.0.0",
       "tag": "@ni/nimble-components_v29.0.0",
