@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 14 May 2024 17:03:10 GMT",
+      "version": "28.3.1",
+      "tag": "@ni/nimble-components_v28.3.1",
+      "comments": {
+        "none": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "0be7c0a6c8f1b151551b7a169b460b672e71a70b",
+            "comment": "Disable intermittent WaferMap test"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 13 May 2024 09:49:02 GMT",
       "version": "28.3.1",
       "tag": "@ni/nimble-components_v28.3.1",
