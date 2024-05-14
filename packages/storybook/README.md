@@ -4,5 +4,5 @@ Private package containing the Storybook for the Nimble repo.
 
 ## Contributing
 
-See `Getting Started` in [`CONTRIBUTING.md`](/CONTRIBUTING.md#getting-started) to get started with building
+See `Getting Started` in [`CONTRIBUTING.md`](/packages/storybook/CONTRIBUTING.md) to get started with building
 and running storybook.
