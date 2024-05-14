@@ -1,6 +1,6 @@
 {
   "type": "major",
-  "comment": "Require an icon to be specified on icon mappings",
+  "comment": "[Breaking change]: Having an `undefined` icon on `nimble-mapping-icon` results in an invalid mapping column; Use `nimble-mapping-empty` or `nimble-mapping-text` instead.",
   "packageName": "@ni/nimble-components",
   "email": "20542556+mollykreis@users.noreply.github.com",
   "dependentChangeType": "patch"
