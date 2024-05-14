@@ -42,6 +42,7 @@ import { ListOption } from '../list-option';
 import { FilterMode } from './types';
 import { diacriticInsensitiveStringNormalizer } from '../utilities/models/string-normalizers';
 import { FormAssociatedSelect } from './models/select-form-associated';
+import { ListOptionGroup } from '../list-option-group';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -297,9 +298,10 @@ export class Select
             notifier.unsubscribe(this, 'disabled');
         });
 
-        super.slottedOptionsChanged(prev, next);
+        const options = this.getSlottedOptions(next);
+        super.slottedOptionsChanged(prev, options);
 
-        this.options.forEach(o => {
+        options.forEach(o => {
             const notifier = Observable.getNotifier(o);
             notifier.subscribe(this, 'value');
             notifier.subscribe(this, 'hidden');
@@ -837,6 +839,19 @@ export class Select
         this.committedSelectedOption = options[this.selectedIndex];
     }
 
+    private getSlottedOptions(slottedElements: Element[]): ListboxOption[] {
+        const options: ListOption[] = [];
+        slottedElements.forEach(el => {
+            if (el instanceof ListOption) {
+                options.push(el);
+            } else if (el instanceof ListOptionGroup) {
+                options.splice(options.length, 0, ...this.getGroupOptions(el));
+            }
+        });
+
+        return options;
+    }
+
     private committedSelectedOptionChanged(): void {
         this.updateDisplayValue();
     }
@@ -875,33 +890,104 @@ export class Select
      * @public
      */
     private filterOptions(): void {
-        const filter = this.filter.toLowerCase();
-
-        if (filter) {
-            this.filteredOptions = this.options.filter(option => {
-                const normalizedFilter = diacriticInsensitiveStringNormalizer(filter);
-                return (
-                    !option.hidden
-                    && diacriticInsensitiveStringNormalizer(option.text).includes(
-                        normalizedFilter
-                    )
-                );
-            });
-        } else {
-            this.filteredOptions = this.options.filter(
-                option => !option.hidden
-            );
+        if (!this.$fastController.isConnected) {
+            return;
         }
 
-        this.options.forEach(o => {
-            if (isNimbleListOption(o)) {
-                if (!this.filteredOptions.includes(o)) {
-                    o.visuallyHidden = true;
-                } else {
-                    o.visuallyHidden = false;
+        const filter = this.filter.toLowerCase();
+        const normalizedFilter = diacriticInsensitiveStringNormalizer(filter);
+        const filteredOptions: ListOption[] = [];
+        const filterOption = (
+            option: ListboxOption,
+            group?: ListOptionGroup
+        ): boolean => {
+            const optionIsHidden = (option.hidden
+                    || !diacriticInsensitiveStringNormalizer(option.text).includes(
+                        normalizedFilter
+                    ))
+                && ((group
+                    && !diacriticInsensitiveStringNormalizer(
+                        group.labelContent ?? ''
+                    ).includes(normalizedFilter))
+                    ?? true);
+            if (isNimbleListOption(option)) {
+                option.visuallyHidden = optionIsHidden;
+                if (!optionIsHidden) {
+                    filteredOptions.push(option);
                 }
+
+                return optionIsHidden;
             }
-        });
+
+            return true;
+        };
+
+        let lastVisibleOptionGroupIndex = -1;
+        let visibleElementAfterLastVisibleGroup = false;
+        let previousVisibleElementNotGroup = false;
+        for (let i = 0; i < this.slottedOptions.length; i++) {
+            const element = this.slottedOptions[i];
+            if (i > 0) {
+                const previousElement = this.slottedOptions[i - 1];
+                previousVisibleElementNotGroup = previousElement instanceof ListOption
+                    && !(previousElement.hidden || previousElement.visuallyHidden);
+            }
+
+            if (element instanceof ListOptionGroup) {
+                this.clearGroupStyling(element);
+                const groupOptions = this.getGroupOptions(element);
+                let allOptionsHidden = true;
+                groupOptions.forEach(o => {
+                    allOptionsHidden = filterOption(o, element) && allOptionsHidden;
+                });
+                if (
+                    previousVisibleElementNotGroup
+                    && !allOptionsHidden
+                    && i > 0
+                ) {
+                    element.classList.add('first-group-show-top-separator');
+                }
+
+                element.visuallyHidden = allOptionsHidden;
+                if (!allOptionsHidden) {
+                    if (lastVisibleOptionGroupIndex > -1) {
+                        this.slottedOptions[
+                            lastVisibleOptionGroupIndex
+                        ]!.classList.remove('last-visible-option-group');
+                    }
+                    visibleElementAfterLastVisibleGroup = false;
+                }
+
+                lastVisibleOptionGroupIndex = allOptionsHidden
+                    ? lastVisibleOptionGroupIndex
+                    : i;
+                element.classList.add('last-visible-option-group');
+            } else {
+                const optionHidden = filterOption(element as ListboxOption);
+                visibleElementAfterLastVisibleGroup = !optionHidden;
+            }
+        }
+        if (
+            lastVisibleOptionGroupIndex > -1
+            && visibleElementAfterLastVisibleGroup
+        ) {
+            this.slottedOptions[lastVisibleOptionGroupIndex]!.classList.add(
+                'last-group-show-bottom-separator'
+            );
+        }
+        this.filteredOptions = filteredOptions;
+    }
+
+    private clearGroupStyling(group: ListOptionGroup): void {
+        group.classList.remove('first-group-show-top-separator');
+        group.classList.remove('last-visible-option-group');
+        group.classList.remove('last-group-show-bottom-separator');
+    }
+
+    private getGroupOptions(group: ListOptionGroup): ListOption[] {
+        return Array.from(group.children).filter(
+            el => el instanceof ListOption
+        ) as ListOption[];
     }
 
     /**

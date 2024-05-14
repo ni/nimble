@@ -22,6 +22,11 @@ import {
     filterSearchLabel
 } from '../label-provider/core/label-tokens';
 import { FilterMode } from './types';
+import { ListOptionGroup } from '../list-option-group';
+
+const slottedOptionGroupFilter = (n: HTMLElement): boolean => {
+    return n instanceof ListOptionGroup && !n.hidden;
+};
 
 /* eslint-disable @typescript-eslint/indent */
 // prettier-ignore
@@ -119,7 +124,7 @@ SelectOptions
                         class="scrollable-region">
                         <slot
                             ${slotted({
-                                filter: (n: Node) => n instanceof HTMLElement && isListboxOption(n),
+                                filter: (n: Node) => n instanceof HTMLElement && (isListboxOption(n) || slottedOptionGroupFilter(n)),
                                 flatten: true,
                                 property: 'slottedOptions',
                             })}

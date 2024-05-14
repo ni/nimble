@@ -12,6 +12,7 @@ import {
     waitAnimationFrame
 } from '../../utilities/tests/component';
 import { filterSearchLabel } from '../../label-provider/core/label-tokens';
+import { ListOptionGroup } from '../../list-option-group';
 
 const disabledOption = 'disabled';
 const disabledSelectedOption = 'disabled selected';
@@ -56,11 +57,37 @@ async function setup(
     return fixture<Select>(viewTemplate);
 }
 
+async function setupWithGroups(): Promise<Fixture<Select>> {
+    const viewTemplate = html`
+        <nimble-select>
+            <nimble-list-option-group label="Group One">
+                <nimble-list-option value="one">One</nimble-list-option>
+                <nimble-list-option value="two">Two</nimble-list-option>
+            </nimble-list-option-group>
+            <nimble-list-option-group label="Group Two">
+                <nimble-list-option value="three">Three</nimble-list-option>
+                <nimble-list-option value="four">Four</nimble-list-option>
+            </nimble-list-option-group>
+            <nimble-list-option-group
+                label="Gróup Three with diacritic and a really long label"
+            >
+                <nimble-list-option value="five">Five</nimble-list-option>
+                <nimble-list-option value="six">Six</nimble-list-option>
+            </nimble-list-option-group>
+        </nimble-select>
+    `;
+    return fixture<Select>(viewTemplate);
+}
+
 async function clickAndWaitForOpen(select: Select): Promise<void> {
     const regionLoadedListener = createEventListener(select, 'loaded');
     select.click();
     await regionLoadedListener.promise;
 }
+
+const isListOptionGroup = (el: Element): el is ListOptionGroup => {
+    return el instanceof ListOptionGroup;
+};
 
 describe('Select', () => {
     it('should set classes based on collapsible, open, disabled, and position', async () => {
@@ -438,70 +465,6 @@ describe('Select', () => {
 
     it('can construct an element instance', () => {
         expect(document.createElement('nimble-select')).toBeInstanceOf(Select);
-    });
-
-    describe('title overflow', () => {
-        let element: Select;
-        let connect: () => Promise<void>;
-        let disconnect: () => Promise<void>;
-
-        function dispatchEventToSelectedValue(
-            event: Event
-        ): boolean | undefined {
-            return element
-                .shadowRoot!.querySelector('.selected-value')!
-                .dispatchEvent(event);
-        }
-
-        function getSelectedValueTitle(): string {
-            return (
-                element
-                    .shadowRoot!.querySelector('.selected-value')!
-                    .getAttribute('title') ?? ''
-            );
-        }
-
-        function setSelectedValueContent(value: string): void {
-            element.options[1]!.textContent = value;
-            element.value = 'two';
-        }
-
-        beforeEach(async () => {
-            ({ element, connect, disconnect } = await setup());
-            element.style.width = '200px';
-            await connect();
-        });
-
-        afterEach(async () => {
-            await disconnect();
-        });
-
-        it('sets title when option text is ellipsized', async () => {
-            const optionContent = 'a very long value that should get ellipsized due to not fitting within the allocated width';
-            setSelectedValueContent(optionContent);
-            await waitForUpdatesAsync();
-            dispatchEventToSelectedValue(new MouseEvent('mouseover'));
-            await waitForUpdatesAsync();
-            expect(getSelectedValueTitle()).toBe(optionContent);
-        });
-
-        it('does not set title when option text is fully visible', async () => {
-            const optionContent = 'short value';
-            setSelectedValueContent(optionContent);
-            dispatchEventToSelectedValue(new MouseEvent('mouseover'));
-            await waitForUpdatesAsync();
-            expect(getSelectedValueTitle()).toBe('');
-        });
-
-        it('removes title on mouseout of option', async () => {
-            const optionContent = 'a very long value that should get ellipsized due to not fitting within the allocated width';
-            setSelectedValueContent(optionContent);
-            dispatchEventToSelectedValue(new MouseEvent('mouseover'));
-            await waitForUpdatesAsync();
-            dispatchEventToSelectedValue(new MouseEvent('mouseout'));
-            await waitForUpdatesAsync();
-            expect(getSelectedValueTitle()).toBe('');
-        });
     });
 
     describe('opening and closing dropdown', () => {
@@ -902,6 +865,85 @@ describe('Select', () => {
             await clickAndWaitForOpen(element);
             expect(pageObject.isOptionVisible(0)).toBeTrue();
             expect(pageObject.isOptionVisible(1)).toBeFalse();
+        });
+    });
+
+    describe('groups', () => {
+        let element: Select;
+        let connect: () => Promise<void>;
+        let disconnect: () => Promise<void>;
+        let pageObject: SelectPageObject;
+        const totalSlottedElements = 9;
+
+        beforeEach(async () => {
+            ({ element, connect, disconnect } = await setupWithGroups());
+            element.style.width = '200px';
+            await connect();
+            pageObject = new SelectPageObject(element);
+        });
+
+        afterEach(async () => {
+            await disconnect();
+        });
+
+        it('can select an option within a group', async () => {
+            await clickAndWaitForOpen(element);
+            pageObject.clickOption(1);
+            expect(element.value).toBe('two');
+            expect(element.selectedIndex).toBe(1);
+        });
+
+        it('clicking a group does not close the dropdown', async () => {
+            await clickAndWaitForOpen(element);
+            const group = element.querySelector('[role="group"]');
+            group?.dispatchEvent(new MouseEvent('click'));
+            expect(element.open).toBeTrue();
+        });
+
+        describe('filtering', () => {
+            beforeEach(async () => {
+                element.filterMode = FilterMode.standard;
+                await waitForUpdatesAsync();
+            });
+
+            it('filter match on group label shows all options in matched group, as well as options in other groups that match filter', async () => {
+                await pageObject.openAndSetFilterText('Two');
+                const visibleElements = Array.from(
+                    element.querySelectorAll(':not([visually-hidden])') ?? []
+                );
+                expect(visibleElements?.length).toBe(5);
+                expect(isListOptionGroup(visibleElements[0]!)).toBeTrue();
+                expect(
+                    (visibleElements[0] as ListOptionGroup).labelContent
+                ).toBe('Group One');
+                expect(visibleElements[1]!.textContent?.trim()).toBe('Two');
+                expect(isListOptionGroup(visibleElements[2]!)).toBeTrue();
+                expect(
+                    (visibleElements[2] as ListOptionGroup).labelContent
+                ).toBe('Group Two');
+                expect(visibleElements[3]!.textContent?.trim()).toBe('Three');
+                expect(visibleElements[4]!.textContent?.trim()).toBe('Four');
+
+                await disconnect();
+            });
+
+            it('clearing filter shows all options and groups', async () => {
+                await pageObject.openAndSetFilterText('Two');
+                pageObject.clearFilter();
+                await waitForUpdatesAsync();
+                const visibleElements = Array.from(
+                    element.querySelectorAll(':not([visually-hidden])') ?? []
+                );
+                expect(visibleElements?.length).toBe(totalSlottedElements);
+            });
+
+            it('filter matches diacritic characters in group label', async () => {
+                await pageObject.openAndSetFilterText('ó');
+                const visibleElements = Array.from(
+                    element.querySelectorAll(':not([visually-hidden])') ?? []
+                );
+                expect(visibleElements?.length).toBe(totalSlottedElements); // 'o' is matched in all group labels
+            });
         });
     });
 

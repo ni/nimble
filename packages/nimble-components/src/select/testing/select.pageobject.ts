@@ -162,6 +162,19 @@ export class SelectPageObject {
         await waitForUpdatesAsync();
     }
 
+    public clearFilter(): void {
+        if (this.selectElement.filterMode === FilterMode.none) {
+            throw new Error(
+                'Select has filterMode of "none" so there is no filter input'
+            );
+        }
+        const filterInput = this.getFilterInput();
+        filterInput!.value = '';
+        filterInput?.dispatchEvent(
+            new InputEvent('input', { inputType: 'deleteContentBackward' })
+        );
+    }
+
     public isDropdownVisible(): boolean {
         return (
             this.selectElement.shadowRoot?.querySelector('.listbox') !== null
