@@ -19,8 +19,8 @@ export class ListOptionGroup extends FoundationElement {
      *
      * @public
      * @remarks
-     * If a label is provided via slotted content, that will be used in place of
-     * this attribute.
+     * If a label is also provided via slotted content, the label attribute
+     * will have precedence.
      */
     @attr
     public label?: string;
@@ -39,7 +39,7 @@ export class ListOptionGroup extends FoundationElement {
     /**
      * @internal
      * This attribute is required to allow use-cases that offer dynamic filtering
-     * (like the Select) to visually hide options that are filtered out, but still
+     * (like the Select) to visually hide groups that are filtered out, but still
      * allow users to use the native 'hidden' attribute without it being affected
      * by the filtering process.
      */
