@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Wed, 15 May 2024 21:06:27 GMT",
+      "version": "29.1.0",
+      "tag": "@ni/nimble-components_v29.1.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "f06b18a53a13a66af6ae47aa83df0a99ce8cffd0",
+            "comment": "Add clear button for Select"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 14 May 2024 23:23:47 GMT",
       "version": "29.0.0",
       "tag": "@ni/nimble-components_v29.0.0",
