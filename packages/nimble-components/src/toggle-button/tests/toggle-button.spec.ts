@@ -106,7 +106,26 @@ describe('ToggleButton', () => {
         element.disabled = true;
         await connect();
         expect(element.control.hasAttribute('tabindex')).toBe(false);
-        expect(element.control.getAttribute('tabindex')).toBe(null);
+    });
+
+    it('should reflect `tabindex` value to the internal button', async () => {
+        await connect();
+
+        element.setAttribute('tabindex', '-1');
+        await waitForUpdatesAsync();
+
+        expect(element.control.getAttribute('tabindex')).toBe('-1');
+    });
+
+    it('should set the `tabindex` attribute to 0 on the internal button when changed to null', async () => {
+        await connect();
+
+        element.setAttribute('tabindex', '-1');
+        await waitForUpdatesAsync();
+        element.setAttribute('tabindex', 'null');
+        await waitForUpdatesAsync();
+
+        expect(element.control.getAttribute('tabindex')).toBe('0');
     });
 
     describe('events', () => {

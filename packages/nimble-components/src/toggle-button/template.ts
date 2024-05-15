@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-syntax */
 import { html, ref, ViewTemplate } from '@microsoft/fast-element';
 import {
     endSlotTemplate,
@@ -14,7 +15,7 @@ ButtonOptions
     <div
         role="button"
         part="control"
-        tabindex="${x => (x.disabled ? null : 0)}"
+        tabindex="${x => (x.disabled ? null : x.tabIndex ?? 0)}"
         @keypress="${(x, c) => x.keypressHandler(c.event as KeyboardEvent)}"
         @click="${(x, c) => x.clickHandler(c.event as MouseEvent)}"
         class="control ${x => (x.checked ? 'checked' : '')}"
