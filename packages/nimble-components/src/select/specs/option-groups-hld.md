@@ -52,7 +52,7 @@ Unlike the `Menu`, which requires the client to slot `<hr>` elements under the `
 
 #### Top-level Options
 
-While not a common use-case, clients can provide `nimble-list-option`s as siblings to `nimble-list-option-group`s. In such cases, the client will be expected to insert the appropriate `<hr>` element between a `nimble-list-option-group` and set of `nimble-list-option`s that immediately follow it.
+While not a common use-case, clients can provide `nimble-list-option`s as siblings to `nimble-list-option-group`s.
 
 ### API
 
