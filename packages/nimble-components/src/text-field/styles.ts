@@ -120,6 +120,10 @@ export const styles = css`
         opacity: 0.6;
     }
 
+    :host([disabled]) slot[name='start']::slotted(*) {
+        opacity: 0.3;
+    }
+
     .control {
         -webkit-appearance: none;
         font: inherit;
