@@ -105,7 +105,7 @@ Standard implementation pattern for support.
 
 ## Alternative Implementations / Designs
 
-Originally, there was a desire to display the group name for the selected option outside of the dropdown of the component. However, there is not precedent for this for other design systems that support groups, nor the native `select`. If a client desires to display the group for the selected option that will be managed on the client side, including _where_ the display would be.
+Originally, there was a desire to display the group name for the selected option outside of the dropdown of the component. However, there is not precedent for this for other design systems that support groups, nor the native `select`. If a client would like to display the group for the selected option, please discuss this use case with the design system team.
 
 ## Future Considerations
 
