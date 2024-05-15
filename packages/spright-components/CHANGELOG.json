@@ -2,6 +2,21 @@
   "name": "@ni/spright-components",
   "entries": [
     {
+      "date": "Wed, 15 May 2024 18:50:42 GMT",
+      "version": "1.0.0",
+      "tag": "@ni/spright-components_v1.0.0",
+      "comments": {
+        "major": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/spright-components",
+            "commit": "1b7878b6ea02439299d77219762235972a07f276",
+            "comment": "Publishing version 1.0.0"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 14 May 2024 23:23:47 GMT",
       "version": "0.0.25",
       "tag": "@ni/spright-components_v0.0.25",
