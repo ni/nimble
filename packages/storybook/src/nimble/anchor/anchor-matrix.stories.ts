@@ -62,7 +62,7 @@ export const anchorThemeMatrix: StoryFn = createMatrixThemeStory(
     ])
 );
 
-const interactionStatesHover = cartesianProduct([
+const interactionStatesIncludingDisabled = cartesianProduct([
     disabledStates,
     underlineHiddenStates,
     appearanceStates
@@ -76,10 +76,15 @@ const interactionStates = cartesianProduct([
 
 export const anchorInteractionsThemeMatrix: StoryFn = createMatrixThemeStory(
     createMatrixInteractionsFromStates(component, {
-        hover: interactionStatesHover,
+        hover: interactionStatesIncludingDisabled,
         hoverActive: interactionStates,
         active: interactionStates,
-        focus: interactionStates
+        focus: interactionStates,
+        visited: {
+            plain: interactionStatesIncludingDisabled,
+            active: interactionStates,
+            focus: interactionStates
+        }
     })
 );
 

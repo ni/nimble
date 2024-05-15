@@ -1,4 +1,4 @@
-import { html, repeat, ViewTemplate } from '@microsoft/fast-element';
+import { html, repeat, ViewTemplate, when } from '@microsoft/fast-element';
 import { themeProviderTag } from '@ni/nimble-components/dist/esm/theme-provider';
 import {
     bodyFont,
@@ -107,19 +107,26 @@ export const createMatrixThemeStory = <TSource>(
 };
 
 export function createMatrixInteractionsFromStates<
+    T extends readonly unknown[],
     THover extends readonly unknown[],
     THoverActive extends readonly unknown[],
     TActive extends readonly unknown[],
-    TFocus extends readonly unknown[]
+    TFocus extends readonly unknown[],
+    TVisited extends {
+        plain: T[],
+        active: TActive[],
+        focus: TFocus[]
+    }
 >(
     component: (
-        ...states: THover | TActive | THoverActive | TFocus
+        ...states: T | THover | TActive | THoverActive | TFocus
     ) => ViewTemplate,
     states: {
         hover: THover[],
         hoverActive: THoverActive[],
         active: TActive[],
-        focus: TFocus[]
+        focus: TFocus[],
+        visited?: TVisited
     }
 ): ViewTemplate {
     // prettier-ignore
@@ -144,6 +151,20 @@ export function createMatrixInteractionsFromStates<
             <p>Focus</p>
             ${createMatrixFromStates(component, states.focus)}
         </div>
+        ${when(() => states.visited, html`
+            <div class="pseudo-visited-all">
+                <p>Visited</p>
+                ${createMatrixFromStates(component, states.visited!.plain)}
+            </div>
+            <div class="pseudo-visited-all pseudo-active-all">
+                <p>Visited and active</p>
+                ${createMatrixFromStates(component, states.visited!.active)}
+            </div>
+            <div class="pseudo-visited-all pseudo-focus-visible-all pseudo-focus-within-all">
+                <p>Visited and focus</p>
+                ${createMatrixFromStates(component, states.visited!.focus)}
+            </div>
+        `)}
     </div>
 `;
 }
