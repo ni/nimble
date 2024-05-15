@@ -14,8 +14,7 @@ import {
     bodyFont,
     controlLabelFontColor,
     controlLabelDisabledFontColor,
-    mediumPadding,
-    iconColor
+    mediumPadding
 } from '../theme-provider/design-tokens';
 import { appearanceBehavior } from '../utilities/style/appearance';
 import { TextFieldAppearance } from './types';
