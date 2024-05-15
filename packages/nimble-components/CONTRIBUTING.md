@@ -82,7 +82,6 @@ Before building a new component, 3 specification documents need to be created:
 If a component is not ready for general use, it should be marked as "incubating" to indicate that status to clients. A component could be in this state if any of the following are true:
 
 -   It is still in development.
--   It is currently experimental or application-specific and hasn't yet been generalized for broader use.
 -   It is missing important features like interaction design, visual design, or accessibility.
 
 Incubating contributions may compromise on the above capabilities but they still must abide by other repository requirements. For example:

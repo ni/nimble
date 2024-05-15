@@ -18,6 +18,10 @@ import {
 
 const data = [
     {
+        id: '-1',
+        code: -1
+    },
+    {
         id: '0',
         code: 0
     },
@@ -36,18 +40,6 @@ const data = [
     {
         id: '4',
         code: 4
-    },
-    {
-        id: '5',
-        code: 5
-    },
-    {
-        id: '6',
-        code: 6
-    },
-    {
-        id: '7',
-        code: 7
     }
 ] as const;
 
@@ -69,21 +61,19 @@ const component = (): ViewTemplate => html`
             group-index="0"
         >
             Column 1
-            <${mappingIconTag} key="0" text="Icon" icon="${iconCheckTag}" severity="success"></${mappingIconTag}>
-            <${mappingIconTag} key="1" text="Icon, text-hidden" icon="${iconXmarkTag}" text-hidden></${mappingIconTag}>
-            <${mappingSpinnerTag} key="2" text="Spinner"></${mappingSpinnerTag}>
-            <${mappingSpinnerTag} key="3" text="Spinner, text-hidden" text-hidden></${mappingSpinnerTag}>
-            <${mappingIconTag} key="4" text="Undefined icon, text-hidden" text-hidden></${mappingIconTag}>
-            <${mappingIconTag} key="5" text="Undefined icon"></${mappingIconTag}>
-            <${mappingTextTag} key="6" text="Text"></${mappingTextTag}>
-            <${mappingEmptyTag} key="7" text="Empty mapping"></${mappingEmptyTag}>
+            <${mappingIconTag} key="-1" text="Icon" icon="${iconCheckTag}" severity="success"></${mappingIconTag}>
+            <${mappingIconTag} key="0" text="Icon, text-hidden" icon="${iconXmarkTag}" text-hidden></${mappingIconTag}>
+            <${mappingSpinnerTag} key="1" text="Spinner"></${mappingSpinnerTag}>
+            <${mappingSpinnerTag} key="2" text="Spinner, text-hidden" text-hidden></${mappingSpinnerTag}>
+            <${mappingTextTag} key="3" text="Text"></${mappingTextTag}>
+            <${mappingEmptyTag} key="4" text="Empty mapping"></${mappingEmptyTag}>
         </${tableColumnMappingTag}>
         <${tableColumnMappingTag}
             field-name="code"
             key-type="number"
         >
             Column 2
-            <${mappingIconTag} key="-1" text="Unknown value"></${mappingIconTag}>
+            <${mappingTextTag} key="-1" text="Unknown value"></${mappingTextTag}>
             <${mappingIconTag} key="0" text="Zero" icon="${iconCheckTag}" severity="success"></${mappingIconTag}>
             <${mappingIconTag} key="1" text="One" icon="${iconCheckTag}" severity="warning"></${mappingIconTag}>
             <${mappingIconTag} key="2" text="Two" icon="${iconCheckTag}" severity="error"></${mappingIconTag}>
@@ -94,7 +84,7 @@ const component = (): ViewTemplate => html`
             width-mode="${TableColumnMappingWidthMode.iconSize}"
         >
             <${iconQuestionTag} title="Icon-only column"></${iconQuestionTag}>
-            <${mappingIconTag} key="-1" text="Unknown value"></${mappingIconTag}>
+            <${mappingEmptyTag} key="-1" text="Unknown value"></${mappingEmptyTag}>
             <${mappingIconTag} key="0" text="Zero" icon="${iconCheckTag}" severity="success" text-hidden></${mappingIconTag}>
             <${mappingIconTag} key="1" text="One" icon="${iconCheckTag}" severity="warning" text-hidden></${mappingIconTag}>
             <${mappingIconTag} key="2" text="Two" icon="${iconCheckTag}" severity="error" text-hidden></${mappingIconTag}>
@@ -106,7 +96,7 @@ const component = (): ViewTemplate => html`
             key-type="number"
         >
             Column 3
-            <${mappingIconTag} key="-1" text="Unknown value"></${mappingIconTag}>
+            <${mappingTextTag} key="-1" text="Unknown value"></${mappingTextTag}>
             <${mappingIconTag} key="0" text="Zero" icon="${iconCheckTag}" severity="information"></${mappingIconTag}>
         </${tableColumnMappingTag}>
     </${tableTag}>

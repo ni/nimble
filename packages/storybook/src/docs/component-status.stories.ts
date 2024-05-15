@@ -11,7 +11,7 @@ import { ComponentFrameworkStatus } from './types';
 import {
     createUserSelectedThemeStory,
     fastParameters
-} from '../../utilities/storybook';
+} from '../utilities/storybook';
 
 const statusOptions = ['active', 'future'] as const;
 

@@ -2,6 +2,51 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 14 May 2024 23:23:47 GMT",
+      "version": "29.0.0",
+      "tag": "@ni/nimble-components_v29.0.0",
+      "comments": {
+        "none": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "8dbea360389b9f0e5698bd65d3a0b4054a8e73bb",
+            "comment": "Update documentation about incubating components in CONTRIBUTING"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 14 May 2024 21:43:26 GMT",
+      "version": "29.0.0",
+      "tag": "@ni/nimble-components_v29.0.0",
+      "comments": {
+        "major": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "3b47e5159c4b3fdcf2e6b2f57c2f4619a7298aaf",
+            "comment": "Breaking change: Having an `undefined` icon on `nimble-mapping-icon` results in an invalid mapping column; Use `nimble-mapping-empty` or `nimble-mapping-text` instead."
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 14 May 2024 17:03:10 GMT",
+      "version": "28.3.1",
+      "tag": "@ni/nimble-components_v28.3.1",
+      "comments": {
+        "none": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "0be7c0a6c8f1b151551b7a169b460b672e71a70b",
+            "comment": "Disable intermittent WaferMap test"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 13 May 2024 09:49:02 GMT",
       "version": "28.3.1",
       "tag": "@ni/nimble-components_v28.3.1",
