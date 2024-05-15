@@ -80,6 +80,25 @@ describe('Anchor', () => {
                 expect(element.control!.getAttribute(name)).toBe('foo');
             });
         });
+
+        it('for attribute tabindex', async () => {
+            await connect();
+
+            element.setAttribute('tabindex', '-1');
+            await waitForUpdatesAsync();
+
+            expect(element.control!.getAttribute('tabindex')).toBe('-1');
+        });
+    });
+
+    it('should clear tabindex attribute from the internal control when changed to null', async () => {
+        await connect();
+
+        element.setAttribute('tabindex', '-1');
+        element.setAttribute('tabindex', 'null');
+        await waitForUpdatesAsync();
+
+        expect(element.control!.hasAttribute('tabindex')).toBeFalse();
     });
 
     describe('contenteditable behavior', () => {
