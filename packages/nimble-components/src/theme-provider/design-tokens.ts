@@ -98,7 +98,9 @@ import {
     GridHeaderFamily,
     GridHeaderWeight,
     GridHeaderSize,
-    DigitalGreenDark105
+    DigitalGreenDark105,
+    NiIndigo,
+    IndigoDark1
 } from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
 import {
     modalBackdropColorThemeColorStatic,
@@ -253,6 +255,24 @@ export const buttonBorderAccentOutlineColor = DesignToken.create<string>(
     DigitalGreenLight,
     PowerGreen,
     hexToRgbaCssColor(White, 0.3)
+));
+
+export const linkVisitedColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.linkVisitedColor)
+).withDefault((element: HTMLElement) => getColorForTheme(
+    element,
+    Information100LightUi,
+    Information100DarkUi,
+    White
+));
+
+export const linkActiveVisitedColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.linkActiveVisitedColor)
+).withDefault((element: HTMLElement) => getColorForTheme(
+    element,
+    IndigoDark1,
+    NiIndigo,
+    hexToRgbaCssColor(White, 0.75)
 ));
 
 // Component Sizing Tokens
@@ -508,7 +528,7 @@ export const [
         element,
         DigitalGreenLight,
         DigitalGreenLight,
-        hexToRgbaCssColor(White, 0.6)
+        hexToRgbaCssColor(White, 0.75)
     ),
     (element: HTMLElement) => hexToRgbaCssColor(getDefaultFontColorForTheme(element), 0.3),
     LinkLightUiFamily,
@@ -527,7 +547,7 @@ export const [
     linkProminentFontLineHeight
 ] = createFontTokens(
     tokenNames.linkProminentFont,
-    (element: HTMLElement) => getColorForTheme(element, DigitalGreenDark105, PowerGreen, PowerGreen),
+    (element: HTMLElement) => getColorForTheme(element, DigitalGreenDark105, PowerGreen, White),
     (element: HTMLElement) => hexToRgbaCssColor(getDefaultFontColorForTheme(element), 0.3),
     LinkLightUiFamily,
     LinkLightUiWeight,
@@ -549,7 +569,7 @@ export const [
         element,
         DigitalGreenLight,
         DigitalGreenLight,
-        hexToRgbaCssColor(White, 0.6)
+        hexToRgbaCssColor(White, 0.75)
     ),
     (element: HTMLElement) => hexToRgbaCssColor(getDefaultFontColorForTheme(element), 0.3),
     LinkLightUiFamily,
