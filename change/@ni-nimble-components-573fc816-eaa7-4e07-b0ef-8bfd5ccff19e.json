@@ -1,6 +1,6 @@
 {
   "type": "patch",
-  "comment": "Support tabindex overriding for Button, MenuButton, ToggleButton, and Anchor",
+  "comment": "Support tabindex overriding for Button, MenuButton, ToggleButton, Checkbox, and Anchor",
   "packageName": "@ni/nimble-components",
   "email": "7282195+m-akinc@users.noreply.github.com",
   "dependentChangeType": "patch"
