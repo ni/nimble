@@ -24,8 +24,6 @@ export const styles = css`
 
     .cell-view {
         overflow: hidden;
-        display: flex;
-        align-items: center;
     }
 
     .action-menu {

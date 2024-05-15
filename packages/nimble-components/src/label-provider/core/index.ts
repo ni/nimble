@@ -11,6 +11,7 @@ import {
     filterSearchLabel,
     filterNoResultsLabel
 } from './label-tokens';
+import { styles } from '../base/styles';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -63,7 +64,8 @@ export class LabelProviderCore
 }
 
 const nimbleLabelProviderCore = LabelProviderCore.compose({
-    baseName: 'label-provider-core'
+    baseName: 'label-provider-core',
+    styles
 });
 
 DesignSystem.getOrCreate()

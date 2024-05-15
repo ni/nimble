@@ -71,7 +71,6 @@ export const styles = css`
         padding-left: ${mediumPadding};
         ${userSelectNone}
         overflow: hidden;
-        display: flex;
     }
 
     .group-row-child-count {

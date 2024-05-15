@@ -18,8 +18,8 @@ import { themeBehavior } from '../../../utilities/style/theme';
 import { styles as expandCollapseStyles } from '../../../patterns/expand-collapse/styles';
 
 export const styles = css`
-    ${expandCollapseStyles}
     ${display('flex')}
+    ${expandCollapseStyles}
 
     :host {
         width: fit-content;
