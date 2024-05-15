@@ -27,7 +27,7 @@ export const styles = css`
          error icon, and dropdown arrow because they are not "interactive" i.e. part of the tab order */ ''
     }
 
-    ::slotted(nimble-list-option-group.first-group-show-top-separator)::before,
+    ::slotted(nimble-list-option-group.show-top-separator)::before,
     ::slotted(nimble-list-option-group)::after {
         content: ' ';
         margin-top: ${smallPadding};
@@ -41,9 +41,7 @@ export const styles = css`
         display: none;
     }
 
-    ::slotted(
-            nimble-list-option-group.last-group-show-bottom-separator
-        )::after {
+    ::slotted(nimble-list-option-group.show-bottom-separator)::after {
         width: auto;
         display: block;
     }

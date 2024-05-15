@@ -901,32 +901,30 @@ export class Select
             option: ListboxOption,
             group?: ListOptionGroup
         ): boolean => {
-            const optionIsHidden = (option.hidden
-                    || !diacriticInsensitiveStringNormalizer(option.text).includes(
-                        normalizedFilter
-                    ))
-                && ((group
-                    && !diacriticInsensitiveStringNormalizer(
-                        group.labelContent ?? ''
-                    ).includes(normalizedFilter))
-                    ?? true);
+            const optionMatchesFilter = diacriticInsensitiveStringNormalizer(
+                option.text
+            ).includes(normalizedFilter);
+            const groupLabel = group?.labelContent ?? '';
+            const groupMatchesFilter = diacriticInsensitiveStringNormalizer(groupLabel).includes(
+                normalizedFilter
+            );
+            const optionIsHidden = (option.hidden || !optionMatchesFilter)
+                && ((group && !groupMatchesFilter) ?? true);
             if (isNimbleListOption(option)) {
                 option.visuallyHidden = optionIsHidden;
                 if (!optionIsHidden) {
                     filteredOptions.push(option);
                 }
-
-                return optionIsHidden;
             }
 
-            return true;
+            return optionIsHidden;
         };
 
         let lastVisibleOptionGroupIndex = -1;
         let visibleElementAfterLastVisibleGroup = false;
         let previousVisibleElementNotGroup = false;
         for (let i = 0; i < this.slottedOptions.length; i++) {
-            const element = this.slottedOptions[i];
+            const element = this.slottedOptions[i]!;
             if (i > 0) {
                 const previousElement = this.slottedOptions[i - 1];
                 previousVisibleElementNotGroup = previousElement instanceof ListOption
@@ -940,28 +938,22 @@ export class Select
                 groupOptions.forEach(o => {
                     allOptionsHidden = filterOption(o, element) && allOptionsHidden;
                 });
-                if (
-                    previousVisibleElementNotGroup
-                    && !allOptionsHidden
-                    && i > 0
-                ) {
-                    element.classList.add('first-group-show-top-separator');
-                }
-
                 element.visuallyHidden = allOptionsHidden;
+
                 if (!allOptionsHidden) {
+                    if (previousVisibleElementNotGroup) {
+                        element.classList.add('show-top-separator');
+                    }
+
                     if (lastVisibleOptionGroupIndex > -1) {
                         this.slottedOptions[
                             lastVisibleOptionGroupIndex
                         ]!.classList.remove('last-visible-option-group');
                     }
+                    element.classList.add('last-visible-option-group');
                     visibleElementAfterLastVisibleGroup = false;
+                    lastVisibleOptionGroupIndex = i;
                 }
-
-                lastVisibleOptionGroupIndex = allOptionsHidden
-                    ? lastVisibleOptionGroupIndex
-                    : i;
-                element.classList.add('last-visible-option-group');
             } else {
                 const optionHidden = filterOption(element as ListboxOption);
                 visibleElementAfterLastVisibleGroup = !optionHidden;
@@ -972,16 +964,16 @@ export class Select
             && visibleElementAfterLastVisibleGroup
         ) {
             this.slottedOptions[lastVisibleOptionGroupIndex]!.classList.add(
-                'last-group-show-bottom-separator'
+                'show-bottom-separator'
             );
         }
         this.filteredOptions = filteredOptions;
     }
 
     private clearGroupStyling(group: ListOptionGroup): void {
-        group.classList.remove('first-group-show-top-separator');
+        group.classList.remove('show-top-separator');
         group.classList.remove('last-visible-option-group');
-        group.classList.remove('last-group-show-bottom-separator');
+        group.classList.remove('show-bottom-separator');
     }
 
     private getGroupOptions(group: ListOptionGroup): ListOption[] {

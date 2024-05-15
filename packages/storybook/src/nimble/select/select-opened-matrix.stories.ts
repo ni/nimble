@@ -32,24 +32,36 @@ type PlaceholderState = (typeof placeholderStates)[number];
 const groupedStates = [false, true] as const;
 type GroupedState = (typeof groupedStates)[number];
 
+const optionsOutsideGroupStates = [false, true] as const;
+type OptionsOutsideGroupState = (typeof optionsOutsideGroupStates)[number];
+
 // prettier-ignore
 const component = (
     [position, positionStyle]: PositionState,
     filterMode: FilterModeState,
     placeholder?: PlaceholderState,
-    grouped?: GroupedState
+    grouped?: GroupedState,
+    optionsOutsideGroup?: OptionsOutsideGroupState
 ): ViewTemplate => html`
     <${selectTag} open position="${() => position}" style="${() => positionStyle}" filter-mode="${() => filterMode}" style="width: 250px;">
         ${when(() => grouped, html`
             <${listOptionTag} value="1" ${placeholder ? 'selected disabled hidden' : ''} >Select an option</${listOptionTag}>
-            <${listOptionTag}>Option Not in Group</${listOptionTag}>
+            ${when(() => optionsOutsideGroup ?? false, html`
+                <${listOptionTag}>Option Not in Group</${listOptionTag}>
+            `)}
             <${listOptionGroupTag} label="Group 1">
                 <${listOptionTag} value="2" disabled>Option 1</${listOptionTag}>
                 <${listOptionTag} value="3">Option 2</${listOptionTag}>
             </${listOptionGroupTag}>         
+            ${when(() => optionsOutsideGroup ?? false, html`
+                <${listOptionTag}>Option Not in Group</${listOptionTag}>
+            `)}
             <${listOptionGroupTag} label="Group 2 with a ridiculously long label that does't fit">
                 <${listOptionTag} value="4">Option 3</${listOptionTag}>
             </${listOptionGroupTag}>         
+            ${when(() => optionsOutsideGroup ?? false, html`
+                <${listOptionTag}>Option Not in Group</${listOptionTag}>
+            `)}
         `)}
         ${when(() => !grouped, html`
             <${listOptionTag} value="1" ${placeholder ? 'selected disabled hidden' : ''} >Option 1</${listOptionTag}>
@@ -205,5 +217,20 @@ export const selectGroupedOptionsColorThemeWhiteBackground: StoryFn = createFixe
 
 export const selectGroupedOptionsDarkThemeWhiteBackground: StoryFn = createFixedThemeStory(
     component(positionStates[0], FilterMode.standard, true, true),
+    darkThemeBlackBackground
+);
+
+export const selectGroupedAndNotGroupedOptionsLightThemeWhiteBackground: StoryFn = createFixedThemeStory(
+    component(positionStates[0], FilterMode.standard, true, true, true),
+    lightThemeWhiteBackground
+);
+
+export const selectGroupedAndNotGroupedOptionsColorThemeWhiteBackground: StoryFn = createFixedThemeStory(
+    component(positionStates[0], FilterMode.standard, true, true, true),
+    colorThemeDarkGreenBackground
+);
+
+export const selectGroupedAndNotGroupedOptionsDarkThemeWhiteBackground: StoryFn = createFixedThemeStory(
+    component(positionStates[0], FilterMode.standard, true, true, true),
     darkThemeBlackBackground
 );
