@@ -263,7 +263,7 @@ export const linkVisitedColor = DesignToken.create<string>(
     element,
     Information100LightUi,
     Information100DarkUi,
-    White
+    hexToRgbaCssColor(White, 0.6)
 ));
 
 export const linkActiveVisitedColor = DesignToken.create<string>(
