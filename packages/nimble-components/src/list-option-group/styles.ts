@@ -21,10 +21,6 @@ export const styles = css`
         display: none;
     }
 
-    .label-slot {
-        display: none;
-    }
-
     .header {
         font: ${groupHeaderFont};
         text-transform: ${groupHeaderTextTransform};
@@ -34,5 +30,9 @@ export const styles = css`
         text-overflow: ellipsis;
         margin-left: ${smallPadding};
         margin-bottom: ${smallPadding};
+    }
+
+    .label-slot {
+        display: none;
     }
 `;
