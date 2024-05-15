@@ -8,18 +8,7 @@ export interface IconView {
     textHidden: boolean;
 }
 
-// Create an empty template containing only a space because creating a ViewTemplate
-// with an empty string throws an exception at runtime.
-// prettier-ignore
-const emptyTemplate = html<IconView>` `;
-
-const createIconTemplate = (
-    icon: string | undefined
-): ViewTemplate<IconView> => {
-    if (icon === undefined) {
-        return emptyTemplate;
-    }
-
+const createIconTemplate = (icon: string): ViewTemplate<IconView> => {
     return html`
         <${icon}
             title="${x => (x.textHidden ? x.text : '')}"
@@ -39,7 +28,7 @@ export class MappingIconConfig extends MappingConfig {
     public readonly iconTemplate: ViewTemplate<IconView>;
 
     public constructor(
-        resolvedIcon: string | undefined,
+        resolvedIcon: string,
         public readonly severity: IconSeverity,
         text: string | undefined,
         public readonly textHidden: boolean

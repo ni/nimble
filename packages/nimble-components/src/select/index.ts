@@ -61,6 +61,10 @@ const isOptionSelectable = (el: ListOption): boolean => {
     return !el.visuallyHidden && !el.disabled && !el.hidden;
 };
 
+const isOptionPlaceholder = (el: ListboxOption): boolean => {
+    return el.disabled && el.hidden;
+};
+
 /**
  * A nimble-styled HTML select.
  */
@@ -93,6 +97,9 @@ export class Select
 
     @attr({ attribute: 'filter-mode' })
     public filterMode: FilterMode = FilterMode.none;
+
+    @attr({ attribute: 'clearable', mode: 'boolean' })
+    public clearable = false;
 
     /**
      * @internal
@@ -171,12 +178,6 @@ export class Select
     public filter = '';
 
     /**
-     * @internal
-     */
-    @observable
-    public committedSelectedOption?: ListboxOption;
-
-    /**
      * The max height for the listbox when opened.
      *
      * @internal
@@ -239,15 +240,8 @@ export class Select
         if (prev !== newValue && !(this.open && this.selectedIndex < 0)) {
             this._value = newValue;
             super.valueChanged(prev, newValue);
-            if (!this.open) {
-                this.committedSelectedOption = this.options.find(
-                    o => o.value === newValue
-                );
-            }
             Observable.notify(this, 'value');
-            if (this.collapsible) {
-                Observable.notify(this, 'displayValue');
-            }
+            this.updateDisplayValue();
         }
     }
 
@@ -257,7 +251,7 @@ export class Select
     @volatile
     public get displayValue(): string {
         Observable.track(this, 'displayValue');
-        return this.committedSelectedOption?.text ?? '';
+        return this.firstSelectedOption?.text ?? '';
     }
 
     /**
@@ -315,7 +309,6 @@ export class Select
         if (value) {
             this.value = value;
         }
-        this.committedSelectedOption = this.options[this.selectedIndex];
     }
 
     /**
@@ -327,20 +320,27 @@ export class Select
             return;
         }
 
+        let optionClicked = false;
         if (this.open) {
             const captured = (e.target as HTMLElement).closest<ListOption>(
                 'option,[role=option]'
             );
+            optionClicked = captured !== null;
 
             if (captured?.disabled) {
                 return;
             }
         }
 
+        const previousSelectedIndex = this.selectedIndex;
         super.clickHandler(e);
 
         this.open = this.collapsible && !this.open;
-        if (!this.open && this.selectedIndex !== -1) {
+        if (
+            !this.open
+            && this.selectedIndex !== previousSelectedIndex
+            && optionClicked
+        ) {
             this.updateValue(true);
         }
     }
@@ -363,11 +363,14 @@ export class Select
                 break;
             }
             case 'selected': {
-                if (isNimbleListOption(sourceElement)) {
+                if (
+                    isNimbleListOption(sourceElement)
+                    && sourceElement.selected
+                ) {
                     this.selectedIndex = this.options.indexOf(sourceElement);
+                } else {
+                    this.clearSelect();
                 }
-                this.setSelectedOptions();
-                this.updateDisplayValue();
                 break;
             }
             case 'hidden': {
@@ -436,29 +439,28 @@ export class Select
     /**
      * @internal
      */
-    public changeValueHandler(): void {
-        this.committedSelectedOption = this.options.find(
-            option => option.selected
-        );
+    public clearClickHandler(e: MouseEvent): void {
+        this.open = false;
+        this.clearSelect();
+        this.updateValue(true);
+        e.stopPropagation();
     }
 
     /**
      * @internal
      */
     public updateDisplayValue(): void {
+        const placeholderOption = this.getPlaceholderOption();
         if (
-            this.committedSelectedOption?.disabled
-            && this.committedSelectedOption?.hidden
-            && this.committedSelectedOption?.selected
+            placeholderOption
+            && this.firstSelectedOption === placeholderOption
         ) {
             this.displayPlaceholder = true;
         } else {
             this.displayPlaceholder = false;
         }
 
-        if (this.collapsible) {
-            Observable.notify(this, 'displayValue');
-        }
+        Observable.notify(this, 'displayValue');
     }
 
     /**
@@ -503,24 +505,13 @@ export class Select
             return true;
         }
 
+        this.open = false;
         const focusTarget = e.relatedTarget as HTMLElement;
         if (this.isSameNode(focusTarget)) {
             this.focus();
             return true;
         }
 
-        if (!this.options?.includes(focusTarget as ListboxOption)) {
-            let currentActiveIndex = this.openActiveIndex ?? this.selectedIndex;
-            this.open = false;
-            if (currentActiveIndex === -1) {
-                currentActiveIndex = this.selectedIndex;
-            }
-
-            if (this.selectedIndex !== currentActiveIndex) {
-                this.selectedIndex = currentActiveIndex;
-                this.updateValue(true);
-            }
-        }
         return true;
     }
 
@@ -573,6 +564,12 @@ export class Select
             }
             case keyEscape: {
                 if (!this.open) {
+                    if (this.clearable) {
+                        this.clearSelect();
+                        this.updateValue(true);
+                        return true;
+                    }
+
                     break;
                 }
 
@@ -753,10 +750,10 @@ export class Select
         this.options.push(option);
     }
 
-    // Prevents parent classes from resetting selectedIndex to a positive
-    // value while filtering, which can result in a disabled option being
-    // selected.
     protected override setSelectedOptions(): void {
+        // Prevents parent classes from resetting selectedIndex to a positive
+        // value while filtering, which can result in a disabled option being
+        // selected.
         if (this.open && this.selectedIndex === -1) {
             return;
         }
@@ -873,14 +870,17 @@ export class Select
         };
         let selectedIndex = -1;
         let firstValidOptionIndex = -1;
+        let placeholderIndex = -1;
         for (let i = 0; i < options?.length; i++) {
-            const option = options[i];
-            if (optionIsSelected(option!) || option?.value === this.value) {
+            const option = options[i]!;
+            if (optionIsSelected(option) || option.value === this.value) {
                 selectedIndex = i;
-            }
-            if (
+                break;
+            } else if (placeholderIndex === -1 && isOptionPlaceholder(option)) {
+                placeholderIndex = i;
+            } else if (
                 firstValidOptionIndex === -1
-                && isOptionSelectable(option! as ListOption)
+                && isOptionSelectable(option as ListOption)
             ) {
                 firstValidOptionIndex = i;
             }
@@ -888,12 +888,13 @@ export class Select
 
         if (selectedIndex !== -1) {
             this.selectedIndex = selectedIndex;
+        } else if (placeholderIndex !== -1) {
+            this.selectedIndex = placeholderIndex;
         } else if (firstValidOptionIndex !== -1) {
             this.selectedIndex = firstValidOptionIndex;
         } else {
             this.selectedIndex = 0;
         }
-        this.committedSelectedOption = options[this.selectedIndex];
     }
 
     private setActiveOption(newActiveIndex: number): void {
@@ -936,8 +937,8 @@ export class Select
         }
     }
 
-    private committedSelectedOptionChanged(): void {
-        this.updateDisplayValue();
+    private getPlaceholderOption(): ListOption | undefined {
+        return this.options.find(o => o.hidden && o.disabled) as ListOption;
     }
 
     private setPositioning(): void {
@@ -1024,6 +1025,13 @@ export class Select
         }
     }
 
+    private clearSelect(): void {
+        const placeholder = this.getPlaceholderOption();
+        this.selectedIndex = placeholder
+            ? this.options.indexOf(placeholder)
+            : -1;
+    }
+
     /**
      * Resets and fills the proxy to match the component's options.
      *
@@ -1054,7 +1062,6 @@ export class Select
     }
 
     private initializeOpenState(): void {
-        this.committedSelectedOption = this.options[this.selectedIndex];
         this.setActiveOption(this.selectedIndex);
         this.ariaControls = this.listboxId;
         this.ariaExpanded = 'true';
