@@ -1,4 +1,4 @@
-import { html, repeat, ViewTemplate, when } from '@microsoft/fast-element';
+import { html, repeat, ViewTemplate } from '@microsoft/fast-element';
 import { themeProviderTag } from '@ni/nimble-components/dist/esm/theme-provider';
 import {
     bodyFont,
@@ -151,20 +151,20 @@ export function createMatrixInteractionsFromStates<
             <p>Focus</p>
             ${createMatrixFromStates(component, states.focus)}
         </div>
-        ${when(() => states.visited, html`
+        ${states.visited ? html`
             <div class="pseudo-visited-all">
                 <p>Visited</p>
-                ${createMatrixFromStates(component, states.visited!.plain)}
+                ${createMatrixFromStates(component, states.visited.plain)}
             </div>
             <div class="pseudo-visited-all pseudo-active-all">
                 <p>Visited and active</p>
-                ${createMatrixFromStates(component, states.visited!.active)}
+                ${createMatrixFromStates(component, states.visited.active)}
             </div>
             <div class="pseudo-visited-all pseudo-focus-visible-all pseudo-focus-within-all">
                 <p>Visited and focus</p>
-                ${createMatrixFromStates(component, states.visited!.focus)}
+                ${createMatrixFromStates(component, states.visited.focus)}
             </div>
-        `)}
+        ` : ''}
     </div>
 `;
 }
