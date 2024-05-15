@@ -66,8 +66,7 @@ export const styles = css`
 
     @layer focusVisible {
         .control${focusVisible} {
-            outline: none;
-            border: ${borderHoverColor} solid 2px;
+            outline: ${borderHoverColor} solid 2px;
         }
     }
 
