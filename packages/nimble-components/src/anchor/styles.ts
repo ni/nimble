@@ -2,6 +2,7 @@ import { css } from '@microsoft/fast-element';
 import { display } from '@microsoft/fast-foundation';
 import { focusVisible } from '../utilities/style/focus';
 import {
+    borderHoverColor,
     linkActiveFontColor,
     linkActiveProminentFontColor,
     linkDisabledFontColor,
@@ -60,8 +61,7 @@ export const styles = css`
     @layer focusVisible {
         .control${focusVisible} {
             outline: none;
-            box-shadow: inset 0px -1px;
-            text-decoration: underline;
+            border: ${borderHoverColor} solid 2px;
         }
     }
 
@@ -69,7 +69,6 @@ export const styles = css`
         .control:active {
             color: ${linkActiveFontColor};
             text-decoration: underline;
-            box-shadow: none;
         }
 
         :host([appearance='prominent']) .control:active {
