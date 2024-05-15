@@ -1,5 +1,6 @@
 import { Controls, Canvas, Meta, Title } from '@storybook/blocks';
 import TargetDocs from '../patterns/anchor/target-docs.mdx';
+import ComponentApisLink from '../../docs/component-apis-link.mdx';
 import * as menuStories from './menu.stories';
 import { menuTag } from '@ni/nimble-components/dist/esm/menu';
 import { menuItemTag } from '@ni/nimble-components/dist/esm/menu-item';
@@ -14,27 +15,53 @@ menubars commonly found at the top of many desktop application windows. A menu i
 choosing an item in a menu that opens a sub menu, or by invoking a command, such as Shift + F10 in Windows, that opens a context specific menu.
 When a user activates a choice in a menu, the menu usually closes unless the choice opened a submenu.
 
-The <Tag name={menuTag}/> supports several child elements including `<header>`, `<hr>`, <Tag name={menuItemTag} open/> and <Tag name={anchorMenuItemTag} open/>.
-
 <Canvas of={menuStories.menu} />
+
+## API
+
 <Controls of={menuStories.menu} />
+<ComponentApisLink />
 
-## Child Elements
+### Menu Item
 
--   <Tag name={menuItemTag} /> - Use this child element to execute a function when
-    the item is activated or to include a sub-menu. To include a sub-menu, place
-    a <Tag name={menuTag} /> as a child of a <Tag name={menuItemTag} />.
--   <Tag name={anchorMenuItemTag} /> - Use this child element to navigate to a URL
-    when the item is activated.
+Use the <Tag name={menuItemTag} /> child element to execute a function when
+    the item is activated or to include a sub-menu.
 
-### Anchor Menu Item Target Configuration
+<Canvas of={menuStories.menuItem} />
+<Controls of={menuStories.menuItem} />
+
+
+### Anchor Menu Item
+
+Use the <Tag name={anchorMenuItemTag} /> child element to navigate to a URL when the item is activated.
+
+<Canvas of={menuStories.anchorMenuItem} />
+<Controls of={menuStories.anchorMenuItem} />
+
+#### Anchor Menu Item Target Configuration
 
 <TargetDocs />
 
-## Custom Header
+{/* ## Usage */}
+
+## Examples
+
+### Nested Menu
+
+To include a sub-menu, place a <Tag name={menuTag} /> as a child of a <Tag name={menuItemTag} />.
+
+For example:
+
+<Canvas of={menuStories.nestedMenu} />
+
+### Custom Header
 
 The menu can be configured to display a custom header with arbitrary content. This could include other nimble components, or even custom elements.
 
 For example:
 
 <Canvas of={menuStories.customMenu} />
+
+{/* ## Accessibility */}
+
+{/* ## Resources */}

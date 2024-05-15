@@ -7,6 +7,9 @@ import {
     borderRgbPartialColor,
     borderWidth,
     controlHeight,
+    fillHoverColor,
+    fillHoverSelectedColor,
+    fillSelectedColor,
     mediumPadding,
     placeholderFontColor,
     smallPadding
@@ -54,8 +57,15 @@ export const styles = css`
         order: 1;
     }
 
-    [part='indicator'] {
+    .clear-button {
         order: 3;
+        width: auto;
+        height: auto;
+        margin-left: ${smallPadding};
+    }
+
+    [part='indicator'] {
+        order: 4;
     }
 
     .error-icon {
@@ -134,6 +144,22 @@ export const styles = css`
 
     .scrollable-region {
         overflow: auto;
+    }
+
+    ::slotted([role='option']) {
+        background-color: transparent;
+    }
+
+    ::slotted([role='option']:hover) {
+        background-color: ${fillHoverColor};
+    }
+
+    ::slotted([role='option'][active-option]) {
+        background-color: ${fillSelectedColor};
+    }
+
+    ::slotted([role='option'][active-option]:hover) {
+        background-color: ${fillHoverSelectedColor};
     }
 
     .no-results-label {

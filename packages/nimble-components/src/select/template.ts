@@ -23,6 +23,8 @@ import {
 } from '../label-provider/core/label-tokens';
 import { FilterMode } from './types';
 import { ListOptionGroup } from '../list-option-group';
+import { buttonTag } from '../button';
+import { iconXmarkTag } from '../icons/xmark';
 
 const slottedOptionGroupFilter = (n: HTMLElement): boolean => {
     return n instanceof ListOptionGroup && !n.hidden;
@@ -51,7 +53,6 @@ SelectOptions
         role="combobox"
         tabindex="${x => (!x.disabled ? '0' : null)}"
         @click="${(x, c) => x.clickHandler(c.event as MouseEvent)}"
-        @change="${x => x.changeValueHandler()}"
         @contentchange="${x => x.updateDisplayValue()}"
         @focusin="${(x, c) => x.focusinHandler(c.event as FocusEvent)}"
         @focusout="${(x, c) => x.focusoutHandler(c.event as FocusEvent)}"
@@ -70,6 +71,17 @@ SelectOptions
                     <div class="selected-value ${x => (x.displayPlaceholder ? 'placeholder' : '')}" part="selected-value" ${overflow('hasOverflow')} title=${x => (x.hasOverflow && x.displayValue ? x.displayValue : null)}>
                         <slot name="selected-value">${x => x.displayValue}</slot>
                     </div>
+                    ${when(x => !x.disabled && x.clearable && !x.displayPlaceholder && x.selectedIndex >= 0, html<Select>`
+                        <${buttonTag} 
+                            class="clear-button"
+                            tabindex="-1"
+                            part="clear-button"
+                            content-hidden
+                            appearance="ghost"
+                            @click="${(x, c) => x.clearClickHandler(c.event as MouseEvent)}">
+                            <${iconXmarkTag} slot="start"></${iconXmarkTag}>
+                        </${buttonTag}>
+                    `)}
                     <div aria-hidden="true" class="indicator" part="indicator">
                         <slot name="indicator">
                             ${definition.indicator || ''}

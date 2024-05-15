@@ -1,4 +1,8 @@
-// Based on tests in FAST repo: https://github.com/microsoft/fast/blob/085cb27d348ed6f59d080c167fa62aeaa1e3940e/packages/web-components/fast-foundation/src/select/select.spec.ts
+/**
+ * Based on tests in FAST repo: https://github.com/microsoft/fast/blob/085cb27d348ed6f59d080c167fa62aeaa1e3940e/packages/web-components/fast-foundation/src/select/select.spec.ts
+ * One notable change to the tests is that we no longer expect the selectedIndex to change for the Select as the user
+ * navigates the dropdown menu. As as result, some test names, and the relevant expect assertions have changed.
+ */
 import {
     keyArrowDown,
     keyArrowUp,
@@ -298,7 +302,7 @@ describe('Select', () => {
         await disconnect();
     });
 
-    describe("should NOT emit a 'change' event when the value changes by user input while open", () => {
+    describe("should NOT emit a 'change' event while open", () => {
         it('via arrow down key', async () => {
             const { element, connect, disconnect } = await setup();
 
@@ -322,7 +326,7 @@ describe('Select', () => {
 
             expect(wasChanged).toBeFalse();
 
-            expect(element.value).toEqual('two');
+            expect(element.value).toEqual('one');
 
             await disconnect();
         });
@@ -354,7 +358,7 @@ describe('Select', () => {
 
             expect(wasChanged).toBeFalse();
 
-            expect(element.value).toEqual('one');
+            expect(element.value).toEqual('two');
 
             await disconnect();
         });
@@ -412,13 +416,13 @@ describe('Select', () => {
 
             expect(wasChanged).toBeFalse();
 
-            expect(element.value).toEqual('three');
+            expect(element.value).toEqual('one');
 
             await disconnect();
         });
     });
 
-    describe("should NOT emit an 'input' event when the value changes by user input while open", () => {
+    describe("should NOT emit an 'input' event while open", () => {
         it('via arrow down key', async () => {
             const { element, connect, disconnect } = await setup();
 
@@ -442,7 +446,7 @@ describe('Select', () => {
 
             expect(wasInput).toBeFalse();
 
-            expect(element.value).toEqual('two');
+            expect(element.value).toEqual('one');
 
             await disconnect();
         });
@@ -474,7 +478,7 @@ describe('Select', () => {
 
             expect(wasInput).toBeFalse();
 
-            expect(element.value).toEqual('one');
+            expect(element.value).toEqual('two');
 
             await disconnect();
         });
@@ -532,7 +536,7 @@ describe('Select', () => {
 
             expect(wasInput).toBeFalse();
 
-            expect(element.value).toEqual('three');
+            expect(element.value).toEqual('one');
 
             await disconnect();
         });
