@@ -1394,6 +1394,18 @@ describe('Select', () => {
             expect(element.open).toBeTrue();
         });
 
+        it('updating content with no groups updates options', async () => {
+            const newOptions = [
+                new ListOption('Ten', 'ten'),
+                new ListOption('Twenty', 'twenty')
+            ];
+            await pageObject.setOptions(newOptions);
+            await clickAndWaitForOpen(element);
+            expect(element.options.length).toBe(2);
+            expect(element.options[0]!.textContent).toBe('Ten');
+            expect(element.options[1]!.textContent).toBe('Twenty');
+        });
+
         describe('filtering', () => {
             beforeEach(async () => {
                 element.filterMode = FilterMode.standard;
