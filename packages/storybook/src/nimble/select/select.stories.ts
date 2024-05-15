@@ -108,7 +108,7 @@ Any \`Select\` without a default selected option should provide placeholder text
 `;
 
 const groupedDescription = `
-To group options in a \`Select\`, you can use the \`nimble-list-option-group\` element. This element should be placed within the \`Select\` and contain the \`nimble-list-option\` elements that you want to group. The \`label\` attribute of the \`nimble-list-option-group\` element will be used as the group label. Alternatively, text can be provided next to the \`nimble-list-option-group\` element to serve as the group label.
+To group options in a \`Select\`, you can use the \`nimble-list-option-group\` element. This element should be placed within the \`Select\` and contain the \`nimble-list-option\` elements that you want to group. Note that a \`nimble-list-option-group\` placed within another \`nimble-list-option-group\` is not supported. The \`label\` attribute of the \`nimble-list-option-group\` element will be used as the group label. Alternatively, text can be provided next to the \`nimble-list-option-group\` element to serve as the group label.
 `;
 
 const metadata: Meta<SelectArgs> = {
