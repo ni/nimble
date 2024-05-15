@@ -1,0 +1,7 @@
+{
+  "type": "major",
+  "comment": "Publishing version 1.0.0",
+  "packageName": "@ni/spright-blazor",
+  "email": "7282195+m-akinc@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
