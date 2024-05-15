@@ -1,7 +1,0 @@
-{
-  "type": "major",
-  "comment": "Publishing version 1.0.0",
-  "packageName": "@ni/spright-angular",
-  "email": "7282195+m-akinc@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
