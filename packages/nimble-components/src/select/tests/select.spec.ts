@@ -235,35 +235,35 @@ describe('Select', () => {
             await disconnect();
         });
 
-        const defaultOptionTestCases: {
-            name: string,
-            option1State?: OptionInitialState,
-            option2State?: OptionInitialState,
-            expected: string
-        }[] = [
+        const defaultOptionTestCases = [
             {
                 name: 'first option selected, first is default',
                 option1State: 'selected',
+                option2State: undefined,
                 expected: 'one'
             },
             {
                 name: 'first option disabled, second is default',
                 option1State: 'disabled',
+                option2State: undefined,
                 expected: 'two'
             },
             {
                 name: 'first option hidden, second is default',
                 option1State: 'hidden',
+                option2State: undefined,
                 expected: 'two'
             },
             {
                 name: 'first option visually-hidden, second is default',
                 option1State: 'visually-hidden',
+                option2State: undefined,
                 expected: 'two'
             },
             {
                 name: 'first option hidden and disabled, first is default as placeholder',
                 option1State: 'disabled hidden',
+                option2State: undefined,
                 expected: 'one'
             },
             {
@@ -284,7 +284,7 @@ describe('Select', () => {
                 option2State: 'selected',
                 expected: 'two'
             }
-        ];
+        ] as const;
         parameterizeSpec(defaultOptionTestCases, (spec, name, value) => {
             spec(name, async () => {
                 const { element, connect, disconnect } = await setup(
