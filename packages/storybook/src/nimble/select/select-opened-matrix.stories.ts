@@ -1,6 +1,7 @@
 import type { StoryFn, Meta } from '@storybook/html';
-import { html, ViewTemplate } from '@microsoft/fast-element';
+import { html, ViewTemplate, when } from '@microsoft/fast-element';
 import { listOptionTag } from '@ni/nimble-components/dist/esm/list-option';
+import { listOptionGroupTag } from '@ni/nimble-components/dist/esm/list-option-group';
 import { Select, selectTag } from '@ni/nimble-components/dist/esm/select';
 import { FilterMode } from '@ni/nimble-components/dist/esm/select/types';
 import { createFixedThemeStory } from '../../utilities/storybook';
@@ -28,17 +29,34 @@ type FilterModeState = (typeof filterModeStates)[number];
 const placeholderStates = [false, true] as const;
 type PlaceholderState = (typeof placeholderStates)[number];
 
+const groupedStates = [false, true] as const;
+type GroupedState = (typeof groupedStates)[number];
+
 // prettier-ignore
 const component = (
     [position, positionStyle]: PositionState,
     filterMode: FilterModeState,
-    placeholder?: PlaceholderState
+    placeholder?: PlaceholderState,
+    grouped?: GroupedState
 ): ViewTemplate => html`
-    <${selectTag} open position="${() => position}" style="${() => positionStyle}" filter-mode="${() => filterMode}">
-        <${listOptionTag} value="1" ${placeholder ? 'selected disabled hidden' : ''} >Option 1</${listOptionTag}>
-        <${listOptionTag} value="2" disabled>Option 2</${listOptionTag}>
-        <${listOptionTag} value="3">Option 3</${listOptionTag}>
-        <${listOptionTag} value="4" hidden>Option 4</${listOptionTag}>
+    <${selectTag} open position="${() => position}" style="${() => positionStyle}" filter-mode="${() => filterMode}" style="width: 250px;">
+        ${when(() => grouped, html`
+            <${listOptionTag} value="1" ${placeholder ? 'selected disabled hidden' : ''} >Select an option</${listOptionTag}>
+            <${listOptionTag}>Option Not in Group</${listOptionTag}>
+            <${listOptionGroupTag} label="Group 1">
+                <${listOptionTag} value="2" disabled>Option 1</${listOptionTag}>
+                <${listOptionTag} value="3">Option 2</${listOptionTag}>
+            </${listOptionGroupTag}>         
+            <${listOptionGroupTag} label="Group 2 with a ridiculously long label that does't fit">
+                <${listOptionTag} value="4">Option 3</${listOptionTag}>
+            </${listOptionGroupTag}>         
+        `)}
+        ${when(() => !grouped, html`
+            <${listOptionTag} value="1" ${placeholder ? 'selected disabled hidden' : ''} >Option 1</${listOptionTag}>
+            <${listOptionTag} value="2" disabled>Option 2</${listOptionTag}>
+            <${listOptionTag} value="3">Option 3</${listOptionTag}>
+            <${listOptionTag} value="4" hidden>Option 4</${listOptionTag}>
+        `)}
     </${selectTag}>
 `;
 
@@ -172,5 +190,20 @@ export const selectBelowOpenNoFilterColorThemeWhiteBackgroundWithPlaceholder: St
 
 export const selectBelowOpenNoFilterDarkThemeWhiteBackgroundWithPlaceholder: StoryFn = createFixedThemeStory(
     component(positionStates[0], FilterMode.none, true),
+    darkThemeBlackBackground
+);
+
+export const selectGroupedOptionsLightThemeWhiteBackground: StoryFn = createFixedThemeStory(
+    component(positionStates[0], FilterMode.standard, true, true),
+    lightThemeWhiteBackground
+);
+
+export const selectGroupedOptionsColorThemeWhiteBackground: StoryFn = createFixedThemeStory(
+    component(positionStates[0], FilterMode.standard, true, true),
+    colorThemeDarkGreenBackground
+);
+
+export const selectGroupedOptionsDarkThemeWhiteBackground: StoryFn = createFixedThemeStory(
+    component(positionStates[0], FilterMode.standard, true, true),
     darkThemeBlackBackground
 );
