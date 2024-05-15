@@ -43,13 +43,6 @@ export class TableColumnMappingValidator extends TableColumnEnumBaseValidator<
         );
     }
 
-    private static hasUnresolvedIcon(mappingIcon: MappingIcon): boolean {
-        return (
-            typeof mappingIcon.icon === 'string'
-            && mappingIcon.resolvedIcon === undefined
-        );
-    }
-
     public override validate(
         mappings: Mapping<unknown>[],
         keyType: MappingKeyType
@@ -63,7 +56,7 @@ export class TableColumnMappingValidator extends TableColumnEnumBaseValidator<
     private validateIconNames(mappings: Mapping<unknown>[]): void {
         const invalid = mappings
             .filter(TableColumnMappingValidator.isIconMappingElement)
-            .some(TableColumnMappingValidator.hasUnresolvedIcon);
+            .some(mappingIcon => mappingIcon.resolvedIcon === undefined);
         this.setConditionValue('invalidIconName', invalid);
     }
 
