@@ -1384,7 +1384,7 @@ describe('Select', () => {
                         option.disabled = false;
                     }
                 }
-            ];
+            ] as const;
             parameterizeSpec(removePlaceholderData, (spec, name, value) => {
                 spec(name, async () => {
                     value.updatePlaceholder(element.options[0]! as ListOption);
