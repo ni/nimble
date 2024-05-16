@@ -1,8 +1,8 @@
 import { iconDescription as baseIconDescription } from '../../../utilities/storybook';
 
-export const appearanceDescription = 'This attribute affects the appearance of the button.';
+export const appearanceDescription = 'This attribute affects the appearance of the button. See the **Styling** section for more information.';
 
-export const appearanceVariantDescription = 'This attribute has no effect on buttons with a `ghost` appearance. There is no `accent` appearance-variant for the `color` UI.';
+export const appearanceVariantDescription = 'This attribute configures additional variations of the button appearance. It has no effect on buttons with a `ghost` appearance. There is no `accent` appearance-variant for the `color` UI.  See the **Styling** section for more information.';
 
 export const contentHiddenDescription = 'When set, this attribute hides the text and end icon, leaving only the start icon visible.';
 
