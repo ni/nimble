@@ -1,10 +1,12 @@
 import { Canvas, Meta, Controls, Title, Description } from '@storybook/blocks';
 import { columnOperationBehavior } from '../base/table-column-stories-utils';
 import * as tableColumnMappingStories from './table-column-mapping.stories';
+import * as emptyMappingStories from '../../mapping/empty/mapping-empty.stories';
 import * as iconMappingStories from '../../mapping/icon/mapping-icon.stories';
 import * as spinnerMappingStories from '../../mapping/spinner/mapping-spinner.stories';
 import * as textMappingStories from '../../mapping/text/mapping-text.stories';
 import { tableColumnMappingTag } from '@ni/nimble-components/dist/esm/table-column/mapping';
+import { mappingEmptyTag } from '@ni/nimble-components/dist/esm/mapping/empty';
 import { tableTag } from '@ni/nimble-components/dist/esm/table';
 import { spinnerTag } from '@ni/nimble-components/dist/esm/spinner';
 
@@ -23,8 +25,8 @@ The <Tag name={tableColumnMappingTag}/> renders specific number, boolean, or str
 ### Best Practices
 
 -   Provide a mapping for every expected record value. Because grouping is performed on the record value, non-mapped record values can result in multiple groups without group labels.
-    -   To improve grouping behavior of values that don't correspond to icons, explicitly map those values to an `undefined` icon.
--   Avoid having multiple values that map to the same label because grouping and sorting is done on the record value rather than the mapped label.
+    -   To improve grouping behavior of a value that shouldn't be rendered in table cells, use a <Tag name={mappingEmptyTag}/> element to provide text for that value's group row.
+-   Avoid having multiple values that map to the same text because grouping and sorting is done on the record value rather than the mapped text.
 
 ### Blazor Usage
 
@@ -45,3 +47,8 @@ When setting a child mapping element's `Key` value to a string, you must wrap it
 
 <Description of={textMappingStories} />
 <Controls of={textMappingStories.textMapping} />
+
+## Empty Mapping
+
+<Description of={emptyMappingStories} />
+<Controls of={emptyMappingStories.emptyMapping} />

@@ -168,3 +168,7 @@ export const apiCategory = {
     methods: 'Methods',
     slots: 'Slots'
 } as const;
+
+export const iconDescription = 'Set `slot="start"` to include an icon before the text content.';
+export const disabledDescription = (options: { componentName: string }): string => `Disables the ${options.componentName}.`;
+export const textContentDescription = (options: { componentName: string }): string => `The text content of the ${options.componentName}.`;

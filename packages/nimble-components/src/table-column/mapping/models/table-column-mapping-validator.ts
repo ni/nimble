@@ -1,4 +1,5 @@
 import type { Mapping } from '../../../mapping/base';
+import { MappingEmpty } from '../../../mapping/empty';
 import { MappingIcon } from '../../../mapping/icon';
 import { MappingSpinner } from '../../../mapping/spinner';
 import { MappingText } from '../../../mapping/text';
@@ -33,18 +34,12 @@ export class TableColumnMappingValidator extends TableColumnEnumBaseValidator<
 
     private static isSupportedMappingElement(
         mapping: Mapping<unknown>
-    ): mapping is MappingIcon | MappingSpinner | MappingText {
+    ): mapping is MappingIcon | MappingSpinner | MappingText | MappingEmpty {
         return (
             mapping instanceof MappingIcon
             || mapping instanceof MappingSpinner
             || mapping instanceof MappingText
-        );
-    }
-
-    private static hasUnresolvedIcon(mappingIcon: MappingIcon): boolean {
-        return (
-            typeof mappingIcon.icon === 'string'
-            && mappingIcon.resolvedIcon === undefined
+            || mapping instanceof MappingEmpty
         );
     }
 
@@ -61,7 +56,7 @@ export class TableColumnMappingValidator extends TableColumnEnumBaseValidator<
     private validateIconNames(mappings: Mapping<unknown>[]): void {
         const invalid = mappings
             .filter(TableColumnMappingValidator.isIconMappingElement)
-            .some(TableColumnMappingValidator.hasUnresolvedIcon);
+            .some(mappingIcon => mappingIcon.resolvedIcon === undefined);
         this.setConditionValue('invalidIconName', invalid);
     }
 
