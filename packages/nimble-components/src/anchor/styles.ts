@@ -67,6 +67,7 @@ export const styles = css`
     @layer focusVisible {
         .control${focusVisible} {
             outline: ${borderHoverColor} solid 2px;
+            outline-offset: -2px;
         }
     }
 
