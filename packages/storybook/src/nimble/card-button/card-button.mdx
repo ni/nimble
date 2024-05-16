@@ -1,5 +1,6 @@
 import { Canvas, Meta, Controls, Title } from '@storybook/blocks';
 import { NimbleCardButton } from './card-button.react';
+import { anchorButtonTag } from '@ni/nimble-components/dist/esm/anchor-button';
 import { cardButtonTag } from '@ni/nimble-components/dist/esm/card-button';
 import { buttonTag } from '@ni/nimble-components/dist/esm/button';
 import * as cardButtonStories from './card-button.stories';
@@ -9,6 +10,8 @@ import * as cardButtonStories from './card-button.stories';
 
 The <Tag name={cardButtonTag}/> is a button that is designed to contain arbitrary content that is specified by a client
 application. The <Tag name={cardButtonTag}/> is intended to be larger and more prominent on a page than the standard <Tag name={buttonTag}/>.
+
+If you want a button that triggers navigation to a URL, use the <Tag name={anchorButtonTag}/> instead.
 
 Note: The styling for the "Color" theme is not complete.
 
