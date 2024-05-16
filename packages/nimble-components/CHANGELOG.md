@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Wed, 15 May 2024 21:06:27 GMT and should not be manually modified.
+This log was last generated on Thu, 16 May 2024 18:44:46 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 29.1.1
+
+Thu, 16 May 2024 18:44:46 GMT
+
+### Patches
+
+- Switch to custom display helper ([ni/nimble@17ddea5](https://github.com/ni/nimble/commit/17ddea50b5accb353a0288c42d0e64ddc5df0d04))
 
 ## 29.1.0
 
