@@ -26,9 +26,10 @@ export class TableColumnMenuButtonCellView extends TableCellView<TableColumnMenu
     }
 
     public onMenuButtonBeforeToggle(event: CustomEvent<MenuButtonToggleEventDetail>): void {
-        if (event.detail.newState) {
+        const configuredSlotName = this.columnConfig?.menuSlot;
+        if (configuredSlotName && event.detail.newState) {
             const eventDetail: CellViewSlotRequestedEventDetail = {
-                slotNames: [menuSlotName]
+                slotNames: [configuredSlotName]
             };
             this.$emit('cell-view-slots-requested', eventDetail);
         }

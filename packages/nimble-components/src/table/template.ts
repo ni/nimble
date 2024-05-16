@@ -174,9 +174,9 @@ export const template = html<Table>`
                                             </slot>
                                         `)}
                                     `)}
-                                    ${repeat((x, c) => ((c.parent as Table).tableData[x.index]?.id ? (c.parent as Table).slotsByRow[(c.parent as Table).tableData[x.index]!.id] || [] : []), html`
+                                    ${repeat((x, c) => ((c.parent as Table).tableData[x.index]?.id ? (c.parent as Table).slotsByRow[(c.parent as Table).tableData[x.index]!.id] || [] : []), html<string>`
                                         <slot
-                                            name="temp-menu"
+                                            name="${x => x}"
                                             slot="${x => x}"
                                         ></slot>
                                     `)}

@@ -445,8 +445,7 @@ export class Table<
         }
         const columnSlots = this.columnSlotLocations.get(columnUniqueId)!;
         for (const slotName of event.detail.slotNames) {
-            const uniqueSlotName = columnUniqueId + slotName;
-            columnSlots[uniqueSlotName] = event.detail.rowId;
+            columnSlots[slotName] = event.detail.rowId;
         }
 
         this.regenerateSlotsByRowObject();

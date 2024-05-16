@@ -16,6 +16,7 @@ export type TableColumnMenuButtonCellRecord = TableStringField<'value'>;
 export interface TableColumnMenuButtonColumnConfig {
     appearance: ButtonAppearance;
     appearanceVariant: ButtonAppearanceVariant;
+    menuSlot?: string;
 }
 
 declare global {
@@ -34,6 +35,9 @@ export class TableColumnMenuButton extends mixinFractionalWidthColumnAPI(
 
     @attr
     public appearance: ButtonAppearance = ButtonAppearance.outline;
+
+    @attr({ attribute: 'menu-slot' })
+    public menuSlot?: string;
 
     @attr({ attribute: 'appearance-variant' })
     public appearanceVariant: ButtonAppearanceVariant;
@@ -68,7 +72,8 @@ export class TableColumnMenuButton extends mixinFractionalWidthColumnAPI(
     private updateColumnConfig(): void {
         this.columnInternals.columnConfig = {
             appearance: this.appearance,
-            appearanceVariant: this.appearanceVariant
+            appearanceVariant: this.appearanceVariant,
+            menuSlot: this.menuSlot
         };
     }
 }
