@@ -984,6 +984,28 @@ export class Select
         this.updateListboxMaxHeightCssVariable();
     }
 
+    private isOptionHidden(option: ListOption): boolean {
+        if (option.hidden) {
+            return true;
+        }
+        const filter = this.filter.toLowerCase();
+        const normalizedFilter = diacriticInsensitiveStringNormalizer(filter);
+        return !diacriticInsensitiveStringNormalizer(option.text).includes(
+            normalizedFilter
+        );
+    }
+
+    private isOptionGroupHidden(group: ListOptionGroup): boolean {
+        if (group.hidden) {
+            return true;
+        }
+        const filter = this.filter.toLowerCase();
+        const normalizedFilter = diacriticInsensitiveStringNormalizer(filter);
+        return !diacriticInsensitiveStringNormalizer(
+            group.labelContent
+        ).includes(normalizedFilter);
+    }
+
     /**
      * Filter available options by text value.
      *
@@ -994,78 +1016,58 @@ export class Select
             return;
         }
 
-        const filter = this.filter.toLowerCase();
-        const normalizedFilter = diacriticInsensitiveStringNormalizer(filter);
         const filteredOptions: ListOption[] = [];
-        const filterOption = (
-            option: ListboxOption,
-            group?: ListOptionGroup
-        ): boolean => {
-            const optionMatchesFilter = diacriticInsensitiveStringNormalizer(
-                option.text
-            ).includes(normalizedFilter);
-            const groupLabel = group?.labelContent ?? '';
-            const groupMatchesFilter = diacriticInsensitiveStringNormalizer(groupLabel).includes(
-                normalizedFilter
-            );
-            const optionIsHidden = (option.hidden || !optionMatchesFilter)
-                && ((group && !groupMatchesFilter) ?? true);
-            if (isNimbleListOption(option)) {
-                option.visuallyHidden = optionIsHidden;
-                if (!optionIsHidden) {
-                    filteredOptions.push(option);
-                }
-            }
-
-            return optionIsHidden;
-        };
 
         let lastVisibleOptionGroupIndex = -1;
-        let visibleElementAfterLastVisibleGroup = false;
-        let previousVisibleElementNotGroup = false;
+        let lastVisibleElement: ListOption | ListOptionGroup | undefined;
         for (let i = 0; i < this.slottedOptions.length; i++) {
             const element = this.slottedOptions[i]!;
-            if (i > 0) {
-                const previousElement = this.slottedOptions[i - 1];
-                previousVisibleElementNotGroup = previousElement instanceof ListOption
-                    && !(previousElement.hidden || previousElement.visuallyHidden);
-            }
 
             if (element instanceof ListOptionGroup) {
                 this.clearGroupStyling(element);
                 const groupOptions = this.getGroupOptions(element);
+                const groupMatchesFilter = this.isOptionGroupHidden(element);
                 let allOptionsHidden = true;
                 groupOptions.forEach(o => {
-                    allOptionsHidden = filterOption(o, element) && allOptionsHidden;
+                    if (groupMatchesFilter) {
+                        o.visuallyHidden = false;
+                        allOptionsHidden = false;
+                        return;
+                    }
+                    o.visuallyHidden = this.isOptionHidden(o);
+                    if (!o.visuallyHidden) {
+                        filteredOptions.push(o);
+                    }
+                    allOptionsHidden = this.isOptionHidden(o) && allOptionsHidden;
                 });
                 element.visuallyHidden = allOptionsHidden;
 
                 if (!allOptionsHidden) {
-                    if (previousVisibleElementNotGroup) {
-                        element.classList.add('show-top-separator');
-                    }
-
-                    if (lastVisibleOptionGroupIndex > -1) {
-                        this.slottedOptions[
-                            lastVisibleOptionGroupIndex
-                        ]!.classList.remove('last-visible-option-group');
-                    }
-                    element.classList.add('last-visible-option-group');
-                    visibleElementAfterLastVisibleGroup = false;
+                    element.showBottomSeparator = true;
                     lastVisibleOptionGroupIndex = i;
+                    if (lastVisibleElement instanceof ListOption) {
+                        element.showTopSeparator = true;
+                    }
                 }
-            } else {
-                const optionHidden = filterOption(element as ListboxOption);
-                visibleElementAfterLastVisibleGroup = !optionHidden;
+                lastVisibleElement = allOptionsHidden
+                    ? lastVisibleElement
+                    : element;
+            } else if (isNimbleListOption(element)) {
+                const optionHidden = this.isOptionHidden(element);
+                element.visuallyHidden = optionHidden;
+                if (!optionHidden) {
+                    filteredOptions.push(element);
+                }
+                lastVisibleElement = optionHidden
+                    ? lastVisibleElement
+                    : element;
             }
         }
-        if (
-            lastVisibleOptionGroupIndex > -1
-            && visibleElementAfterLastVisibleGroup
-        ) {
-            this.slottedOptions[lastVisibleOptionGroupIndex]!.classList.add(
-                'show-bottom-separator'
-            );
+        const lastVisibleGroup = this.slottedOptions[
+            lastVisibleOptionGroupIndex
+        ] as ListOptionGroup;
+        if (lastVisibleGroup && lastVisibleGroup === lastVisibleElement) {
+            lastVisibleGroup.showBottomSeparator = false;
         }
         this.filteredOptions = filteredOptions;
     }

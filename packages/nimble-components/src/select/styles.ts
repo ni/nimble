@@ -3,7 +3,6 @@ import { White } from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
 import { styles as dropdownStyles } from '../patterns/dropdown/styles';
 import { styles as errorStyles } from '../patterns/error/styles';
 import {
-    borderColor,
     borderRgbPartialColor,
     borderWidth,
     controlHeight,
@@ -28,25 +27,6 @@ export const styles = css`
     ${
         /* We are using flex `order` to define the visual ordering of the selected value,
          error icon, and dropdown arrow because they are not "interactive" i.e. part of the tab order */ ''
-    }
-
-    ::slotted(nimble-list-option-group.show-top-separator)::before,
-    ::slotted(nimble-list-option-group)::after {
-        content: ' ';
-        margin-top: ${smallPadding};
-        margin-bottom: ${smallPadding};
-        border-bottom: ${borderColor} 2px solid;
-        opacity: 0.1;
-    }
-
-    ::slotted(nimble-list-option-group.last-visible-option-group)::after {
-        width: 0px;
-        display: none;
-    }
-
-    ::slotted(nimble-list-option-group.show-bottom-separator)::after {
-        width: auto;
-        display: block;
     }
 
     .selected-value.placeholder {

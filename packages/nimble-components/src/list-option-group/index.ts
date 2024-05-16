@@ -46,6 +46,18 @@ export class ListOptionGroup extends FoundationElement {
     @attr({ attribute: 'visually-hidden', mode: 'boolean' })
     public visuallyHidden = false;
 
+    /**
+     * @internal
+     */
+    @attr({ attribute: 'show-top-separator', mode: 'boolean' })
+    public showTopSeparator = false;
+
+    /**
+     * @internal
+     */
+    @attr({ attribute: 'show-bottom-separator', mode: 'boolean' })
+    public showBottomSeparator = false;
+
     /** @internal */
     @observable
     public hasOverflow = false;
