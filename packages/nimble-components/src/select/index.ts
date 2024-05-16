@@ -1038,7 +1038,7 @@ export class Select
                     if (!o.visuallyHidden) {
                         filteredOptions.push(o);
                     }
-                    allOptionsHidden = this.isOptionHidden(o) && allOptionsHidden;
+                    allOptionsHidden = o.visuallyHidden && allOptionsHidden;
                 });
                 element.visuallyHidden = allOptionsHidden;
 
@@ -1053,12 +1053,11 @@ export class Select
                     ? lastVisibleElement
                     : element;
             } else if (isNimbleListOption(element)) {
-                const optionHidden = this.isOptionHidden(element);
-                element.visuallyHidden = optionHidden;
-                if (!optionHidden) {
+                element.visuallyHidden = this.isOptionHidden(element);
+                if (!element.visuallyHidden) {
                     filteredOptions.push(element);
                 }
-                lastVisibleElement = optionHidden
+                lastVisibleElement = element.visuallyHidden
                     ? lastVisibleElement
                     : element;
             }
