@@ -54,6 +54,8 @@ import * as componentNameStories from './component-name.stories';
 
 ### Appearance Variants
 
+### Sizing
+
 ## Examples
 
 ## Accessibility
