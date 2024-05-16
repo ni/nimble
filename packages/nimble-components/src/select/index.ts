@@ -1024,7 +1024,8 @@ export class Select
             const element = this.slottedOptions[i]!;
 
             if (element instanceof ListOptionGroup) {
-                this.clearGroupStyling(element);
+                element.showTopSeparator = false;
+                element.showBottomSeparator = false;
                 const groupOptions = this.getGroupOptions(element);
                 const groupMatchesFilter = this.isOptionGroupHidden(element);
                 let allOptionsHidden = true;
@@ -1069,12 +1070,6 @@ export class Select
             lastVisibleGroup.showBottomSeparator = false;
         }
         this.filteredOptions = filteredOptions;
-    }
-
-    private clearGroupStyling(group: ListOptionGroup): void {
-        group.classList.remove('show-top-separator');
-        group.classList.remove('last-visible-option-group');
-        group.classList.remove('show-bottom-separator');
     }
 
     private getGroupOptions(group: ListOptionGroup): ListOption[] {
