@@ -17,7 +17,6 @@ export const styles = css`
         ${display('inline')}
 
         :host {
-            box-sizing: border-box;
             font: ${linkFont};
         }
 

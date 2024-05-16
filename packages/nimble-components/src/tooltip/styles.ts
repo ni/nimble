@@ -34,7 +34,6 @@ export const styles = css`
     }
 
     .tooltip {
-        box-sizing: border-box;
         flex-shrink: 0;
         max-width: 440px;
         box-shadow: ${elevation2BoxShadow};
