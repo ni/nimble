@@ -121,8 +121,17 @@ describe('ToggleButton', () => {
         await connect();
 
         element.setAttribute('tabindex', '-1');
-        await waitForUpdatesAsync();
         element.setAttribute('tabindex', 'null');
+        await waitForUpdatesAsync();
+
+        expect(element.control.getAttribute('tabindex')).toBe('0');
+    });
+
+    it('should set the `tabindex` attribute to 0 on the internal button when removed from host', async () => {
+        await connect();
+
+        element.setAttribute('tabindex', '-1');
+        element.removeAttribute('tabindex');
         await waitForUpdatesAsync();
 
         expect(element.control.getAttribute('tabindex')).toBe('0');

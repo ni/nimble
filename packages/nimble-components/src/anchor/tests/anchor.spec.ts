@@ -101,6 +101,16 @@ describe('Anchor', () => {
         expect(element.control!.hasAttribute('tabindex')).toBeFalse();
     });
 
+    it('should clear tabindex attribute from the internal control when cleared from the host', async () => {
+        await connect();
+
+        element.setAttribute('tabindex', '-1');
+        element.removeAttribute('tabindex');
+        await waitForUpdatesAsync();
+
+        expect(element.control!.hasAttribute('tabindex')).toBeFalse();
+    });
+
     describe('contenteditable behavior', () => {
         let innerAnchor: HTMLAnchorElement;
 

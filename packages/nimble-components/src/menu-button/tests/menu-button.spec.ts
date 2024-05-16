@@ -121,7 +121,7 @@ describe('MenuButton', () => {
             expect(element.toggleButton!.disabled).toBeTrue();
         });
 
-        it('should default tabIndex on the toggle button to 0', async () => {
+        it('should not set tabindex on the toggle button by default', async () => {
             await connect();
             expect(element.toggleButton!.getAttribute('tabindex')).toBeNull();
         });
@@ -137,6 +137,13 @@ describe('MenuButton', () => {
         it('should clear tabindex from the toggle button when changed to null', async () => {
             element.setAttribute('tabindex', '-1');
             element.setAttribute('tabindex', 'null');
+            await connect();
+            expect(element.toggleButton!.getAttribute('tabindex')).toBeNull();
+        });
+
+        it('should clear tabindex from the toggle button when cleared from the host', async () => {
+            element.setAttribute('tabindex', '-1');
+            element.removeAttribute('tabindex');
             await connect();
             expect(element.toggleButton!.getAttribute('tabindex')).toBeNull();
         });
