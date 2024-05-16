@@ -83,6 +83,8 @@ Note: if linking in a story via a native or Nimble anchor component, use the fol
 <a href="./?path=/docs/some--id" target="_top">Link</a>
 ```
 
+Linking to headings within a document doesn't work very well; avoid using links and refer to the section using **Bold** instead.
+
 All other Markdown formatting is supported. See any [Markdown Cheatsheet](https://www.markdownguide.org/cheat-sheet/) for more information.
 
 ### Testing 
