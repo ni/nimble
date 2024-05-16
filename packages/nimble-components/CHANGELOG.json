@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Wed, 15 May 2024 22:04:54 GMT",
+      "version": "29.1.0",
+      "tag": "@ni/nimble-components_v29.1.0",
+      "comments": {
+        "none": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "beaeac428f8a67bd7dd457c5a9dbc2a6d48421df",
+            "comment": "HLD for option groups for Select/Combobox."
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 15 May 2024 21:06:27 GMT",
       "version": "29.1.0",
       "tag": "@ni/nimble-components_v29.1.0",
