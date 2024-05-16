@@ -121,6 +121,7 @@ export const menuButtonColumn: StoryObj<MenuButtonColumnTableArgs> = {
                 field-name="fullName"
                 appearance="${x => x.appearance}"
                 appearance-variant="${x => x.appearanceVariant}"
+                menu-slot="temp-menu"
                 @delegated-event="${(x, c) => x.updateMenuItems(x, c.event as CustomEvent<DelegatedEventEventDetails>)}"
             >
             Menu Button Column

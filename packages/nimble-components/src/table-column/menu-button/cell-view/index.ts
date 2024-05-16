@@ -1,4 +1,5 @@
 import { DesignSystem } from '@microsoft/fast-foundation';
+import { observable } from '@microsoft/fast-element';
 import { TableCellView } from '../../base/cell-view';
 import type { TableColumnMenuButtonCellRecord, TableColumnMenuButtonColumnConfig } from '..';
 import { template } from './templates';
@@ -21,6 +22,11 @@ export class TableColumnMenuButtonCellView extends TableCellView<TableColumnMenu
     /** @internal */
     public menuButton?: MenuButton;
 
+    // TODO: This doesn't work the way it should because the title is only added to the button when hovering over the span.
+    /** @internal */
+    @observable
+    public hasOverflow = false;
+
     public override focusedRecycleCallback(): void {
         this.menuButton?.blur();
     }
@@ -29,7 +35,7 @@ export class TableColumnMenuButtonCellView extends TableCellView<TableColumnMenu
         const configuredSlotName = this.columnConfig?.menuSlot;
         if (configuredSlotName && event.detail.newState) {
             const eventDetail: CellViewSlotRequestedEventDetail = {
-                slotNames: [configuredSlotName]
+                slots: [{ name: configuredSlotName, slot: menuSlotName }]
             };
             this.$emit('cell-view-slots-requested', eventDetail);
         }

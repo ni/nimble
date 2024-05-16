@@ -242,7 +242,7 @@ export class TableRow<
             // mkreis TODO: is this a valid non-null assertion?
             rowId: this.recordId!,
             columnInternalId: column.columnInternals.uniqueId,
-            slotNames: event.detail.slotNames
+            slots: event.detail.slots
         };
         this.$emit('row-slots-requested', eventDetails);
     }

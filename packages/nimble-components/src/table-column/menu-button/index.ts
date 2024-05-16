@@ -10,6 +10,8 @@ import { mixinFractionalWidthColumnAPI } from '../mixins/fractional-width-column
 import { TableColumn } from '../base';
 import { ButtonAppearance, ButtonAppearanceVariant } from '../../button/types';
 import { menuSlotName } from './types';
+import { tableColumnTextGroupHeaderViewTag } from '../text/group-header-view';
+import { mixinGroupableColumnAPI } from '../mixins/groupable-column';
 
 export type TableColumnMenuButtonCellRecord = TableStringField<'value'>;
 
@@ -29,10 +31,10 @@ declare global {
  * The table column for displaying string fields as text.
  */
 export class TableColumnMenuButton extends mixinFractionalWidthColumnAPI(
-    TableColumn<TableColumnMenuButtonColumnConfig>
+    mixinGroupableColumnAPI(
+        TableColumn<TableColumnMenuButtonColumnConfig>
+    )
 ) {
-    public override sortingDisabled = true;
-
     @attr
     public appearance: ButtonAppearance = ButtonAppearance.outline;
 
@@ -49,7 +51,7 @@ export class TableColumnMenuButton extends mixinFractionalWidthColumnAPI(
         return {
             cellRecordFieldNames: ['value'],
             cellViewTag: tableColumnMenuButtonCellViewTag,
-            groupHeaderViewTag: undefined,
+            groupHeaderViewTag: tableColumnTextGroupHeaderViewTag,
             delegatedEvents: ['beforetoggle', 'toggle'],
             slotNames: [menuSlotName],
             validator: new ColumnValidator<[]>([])

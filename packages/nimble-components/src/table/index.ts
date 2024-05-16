@@ -223,7 +223,7 @@ export class Table<
 
     /** @internal */
     @observable
-    public slotsByRow: { [rowId: string]: string[] } = {};
+    public slotsByRow: { [rowId: string]: { name: string, slot: string }[] } = {};
 
     private readonly table: TanStackTable<TableNode<TData>>;
     private options: TanStackTableOptionsResolved<TableNode<TData>>;
@@ -240,8 +240,8 @@ export class Table<
     // the selection checkbox 'checked' value should be ingored.
     // https://github.com/microsoft/fast/issues/5750
     private ignoreSelectionChangeEvents = false;
-    // Map from internal unique column IDs to an object of the form { <slotname_string>: <row_id_string> }
-    private readonly columnSlotLocations: Map<string, { [slotName: string]: string }> = new Map<string, { [slotName: string]: string }>();
+    // Map from internal unique column IDs to an object of the form { <slot_string>: { rowId: <row_id_string>, name: <slot_name_string> } }
+    private readonly columnSlotLocations: Map<string, { [slot: string]: { rowId: string, name: string } }> = new Map<string, { [slotName: string]: { rowId: string, name: string } }>();
 
     public constructor() {
         super();
@@ -444,8 +444,8 @@ export class Table<
             this.columnSlotLocations.set(columnUniqueId, {});
         }
         const columnSlots = this.columnSlotLocations.get(columnUniqueId)!;
-        for (const slotName of event.detail.slotNames) {
-            columnSlots[slotName] = event.detail.rowId;
+        for (const slot of event.detail.slots) {
+            columnSlots[slot.slot] = { rowId: event.detail.rowId, name: slot.name };
         }
 
         this.regenerateSlotsByRowObject();
@@ -677,14 +677,19 @@ export class Table<
     }
 
     private regenerateSlotsByRowObject(): void {
-        const updatedValue: { [rowId: string]: string[] } = {};
+        const updatedValue: { [rowId: string]: { name: string, slot: string }[] } = {};
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        for (const [_columnId, slots] of this.columnSlotLocations) {
-            for (const [slotName, rowId] of Object.entries(slots)) {
+        for (const [columnId, slots] of this.columnSlotLocations) {
+            for (const [slot, otherInfo] of Object.entries(slots)) {
+                const rowId = otherInfo.rowId;
+                const slotName = otherInfo.name;
                 if (!updatedValue[rowId]) {
                     updatedValue[rowId] = [];
                 }
-                updatedValue[rowId]!.push(slotName);
+                updatedValue[rowId]!.push({
+                    name: slotName,
+                    slot: `${columnId}${slot}`
+                });
             }
         }
 

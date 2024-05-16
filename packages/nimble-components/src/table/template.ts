@@ -174,10 +174,10 @@ export const template = html<Table>`
                                             </slot>
                                         `)}
                                     `)}
-                                    ${repeat((x, c) => ((c.parent as Table).tableData[x.index]?.id ? (c.parent as Table).slotsByRow[(c.parent as Table).tableData[x.index]!.id] || [] : []), html<string>`
+                                    ${repeat((x, c) => ((c.parent as Table).tableData[x.index]?.id ? (c.parent as Table).slotsByRow[(c.parent as Table).tableData[x.index]!.id] || [] : []), html<{ name: string, slot: string }>`
                                         <slot
-                                            name="${x => x}"
-                                            slot="${x => x}"
+                                            name="${x => x.name}"
+                                            slot="${x => x.slot}"
                                         ></slot>
                                     `)}
                                     </${tableRowTag}>
