@@ -6,4 +6,4 @@ import {
 
 export const display: typeof foundationDisplay = (
     displayValue: CSSDisplayPropertyValue
-) => `${foundationDisplay(displayValue)}`;
+) => `${foundationDisplay(displayValue)}:host,:host::before,:host::after,*,::before,::after{box-sizing:border-box}`;
