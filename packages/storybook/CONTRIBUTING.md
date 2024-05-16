@@ -46,11 +46,13 @@ import * as componentNameStories from './component-name.stories';
 <Controls of={componentNameStories.firstStoryName} />
 <ComponentApisLink />
 
-## Appearances
+## Usage
 
-## Appearance Variants
+## Styling
 
-## Usage 
+### Appearances
+
+### Appearance Variants
 
 ## Examples
 
