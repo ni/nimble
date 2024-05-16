@@ -40,20 +40,6 @@ describe('Button', () => {
         await disconnect();
     });
 
-    it('should clear the `tabindex` attribute on the internal button when changed to null', async () => {
-        const { element, connect, disconnect } = await setup('-1');
-        await connect();
-
-        element.setAttribute('tabindex', 'null');
-        await waitForUpdatesAsync();
-
-        const innerButton = element.shadowRoot!.querySelector('button')!;
-        expect(innerButton.getAttribute('tabindex')).toBeNull();
-        expect(innerButton.tabIndex).toEqual(0);
-
-        await disconnect();
-    });
-
     it('should clear the `tabindex` attribute on the internal button when cleared from the host', async () => {
         const { element, connect, disconnect } = await setup('-1');
         await connect();

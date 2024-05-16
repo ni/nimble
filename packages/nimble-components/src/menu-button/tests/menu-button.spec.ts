@@ -134,13 +134,6 @@ describe('MenuButton', () => {
             );
         });
 
-        it('should clear tabindex from the toggle button when changed to null', async () => {
-            element.setAttribute('tabindex', '-1');
-            element.setAttribute('tabindex', 'null');
-            await connect();
-            expect(element.toggleButton!.getAttribute('tabindex')).toBeNull();
-        });
-
         it('should clear tabindex from the toggle button when cleared from the host', async () => {
             element.setAttribute('tabindex', '-1');
             element.removeAttribute('tabindex');

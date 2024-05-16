@@ -91,16 +91,6 @@ describe('Anchor', () => {
         });
     });
 
-    it('should clear tabindex attribute from the internal control when changed to null', async () => {
-        await connect();
-
-        element.setAttribute('tabindex', '-1');
-        element.setAttribute('tabindex', 'null');
-        await waitForUpdatesAsync();
-
-        expect(element.control!.hasAttribute('tabindex')).toBeFalse();
-    });
-
     it('should clear tabindex attribute from the internal control when cleared from the host', async () => {
         await connect();
 

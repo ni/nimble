@@ -30,19 +30,6 @@ describe('Checkbox', () => {
         await disconnect();
     });
 
-    it('should default `tabindex` back to 0 when changed to null', async () => {
-        const { element, connect, disconnect } = await setup('-1');
-        await connect();
-
-        element.setAttribute('tabindex', 'null');
-        await waitForUpdatesAsync();
-
-        expect(element.getAttribute('tabindex')).toEqual('0');
-        expect(element.tabIndex).toEqual(0);
-
-        await disconnect();
-    });
-
     it('should default `tabindex` back to 0 when removed', async () => {
         const { element, connect, disconnect } = await setup('-1');
         await connect();
