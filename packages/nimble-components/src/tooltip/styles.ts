@@ -1,5 +1,4 @@
 import { css } from '@microsoft/fast-element';
-import { display } from '@microsoft/fast-foundation';
 import {
     BannerFail100DarkUi,
     Black15,
@@ -10,6 +9,7 @@ import {
     Information100LightUi,
     White
 } from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
+import { display } from '../utilities/style/display';
 import {
     tooltipCaptionFont,
     tooltipCaptionFontColor,

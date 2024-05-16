@@ -19,6 +19,7 @@ import {
     tableGroupRowPlaceholderEmptyLabel,
     tableGroupRowPlaceholderNoValueLabel
 } from './label-tokens';
+import { styles } from '../base/styles';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -103,7 +104,8 @@ export class LabelProviderTable
 }
 
 const nimbleLabelProviderTable = LabelProviderTable.compose({
-    baseName: 'label-provider-table'
+    baseName: 'label-provider-table',
+    styles
 });
 
 DesignSystem.getOrCreate()

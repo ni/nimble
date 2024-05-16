@@ -1,5 +1,4 @@
 import { css } from '@microsoft/fast-element';
-import { display } from '@microsoft/fast-foundation';
 import {
     bodyDisabledFontColor,
     bodyFont,
@@ -7,6 +6,7 @@ import {
     borderHoverColor,
     borderRgbPartialColor
 } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
+import { display } from '../utilities/style/display';
 
 export const styles = css`
     ${display('inline-block')}

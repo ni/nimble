@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "Switch to custom display helper",
+  "packageName": "@ni/spright-components",
+  "email": "rajsite@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
