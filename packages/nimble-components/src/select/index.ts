@@ -998,9 +998,9 @@ export class Select
     private filterMatchesText(text: string): boolean {
         const filter = this.filter.toLowerCase();
         const normalizedFilter = diacriticInsensitiveStringNormalizer(filter);
-        return diacriticInsensitiveStringNormalizer(
-            text
-        ).includes(normalizedFilter);
+        return diacriticInsensitiveStringNormalizer(text).includes(
+            normalizedFilter
+        );
     }
 
     /**
@@ -1027,7 +1027,9 @@ export class Select
                 const groupMatchesFilter = this.groupMatchesFilter(element);
                 let allOptionsHidden = true;
                 groupOptions.forEach(option => {
-                    option.visuallyHidden = groupMatchesFilter ? false : this.isOptionHidden(option);
+                    option.visuallyHidden = groupMatchesFilter
+                        ? false
+                        : this.isOptionHidden(option);
                     if (!option.visuallyHidden) {
                         filteredOptions.push(option);
                     }
