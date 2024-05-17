@@ -98,7 +98,9 @@ import {
     GridHeaderFamily,
     GridHeaderWeight,
     GridHeaderSize,
-    DigitalGreenDark105
+    DigitalGreenDark105,
+    NiIndigo,
+    IndigoDark1
 } from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
 import {
     modalBackdropColorThemeColorStatic,
@@ -253,6 +255,24 @@ export const buttonBorderAccentOutlineColor = DesignToken.create<string>(
     DigitalGreenLight,
     PowerGreen,
     hexToRgbaCssColor(White, 0.3)
+));
+
+export const linkVisitedColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.linkVisitedColor)
+).withDefault((element: HTMLElement) => getColorForTheme(
+    element,
+    Information100LightUi,
+    Information100DarkUi,
+    hexToRgbaCssColor(White, 0.6)
+));
+
+export const linkActiveVisitedColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.linkActiveVisitedColor)
+).withDefault((element: HTMLElement) => getColorForTheme(
+    element,
+    IndigoDark1,
+    NiIndigo,
+    hexToRgbaCssColor(White, 0.75)
 ));
 
 // Component Sizing Tokens

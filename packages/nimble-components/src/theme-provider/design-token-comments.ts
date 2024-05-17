@@ -46,6 +46,8 @@ export const comments: { readonly [key in TokenName]: string } = {
     popupBorderColor: 'Border color for menus and dialog boxes',
     cardBorderColor: 'Border color for cards',
     tagFillColor: 'Background fill color for tags, chips, or pills',
+    linkVisitedColor: 'Text color for visited links',
+    linkActiveVisitedColor: 'Text color for active visited links',
     controlHeight:
         'Standard layout height for all controls. Add "labelHeight" for labels on top.',
     controlSlimHeight:
