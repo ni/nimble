@@ -90,9 +90,7 @@ implements Subscriber {
                     const rowWithActionMenu = this.getContainingRow(cell);
                     this.focusState.focusType = TableFocusType.cellActionMenu;
                     this.focusState.rowIndex = rowWithActionMenu!.dataIndex;
-                    this.focusState.columnIndex = this.table.visibleColumns.indexOf(
-                        cell.column!
-                    );
+                    this.focusState.columnIndex = this.table.visibleColumns.indexOf(cell.column!);
                     this.inNavigationMode = false;
                     // Need to ensure action menu button is focusable. If nothing in the table is focusable, opening an
                     // action menu via keyboard results in the menu losing focus too (could no longer select menu items
@@ -163,13 +161,17 @@ implements Subscriber {
         }
     }
 
-    public onRowActionMenuToggle(event: CustomEvent<TableActionMenuToggleEventDetail>): void {
+    public onRowActionMenuToggle(
+        event: CustomEvent<TableActionMenuToggleEventDetail>
+    ): void {
         const isOpen = event.detail.newState;
         const row = event.target as TableRow;
         if (isOpen) {
             this.focusState.focusType = TableFocusType.cellActionMenu;
             this.focusState.rowIndex = row.dataIndex;
-            this.focusState.columnIndex = this.table.visibleColumns.findIndex(column => column.columnId === event.detail.columnId);
+            this.focusState.columnIndex = this.table.visibleColumns.findIndex(
+                column => column.columnId === event.detail.columnId
+            );
             this.inNavigationMode = false;
         }
     }
@@ -293,8 +295,12 @@ implements Subscriber {
 
     private readonly onKeyDown = (event: KeyboardEvent): void => {
         if (!this.inNavigationMode && !event.defaultPrevented) {
-            if ((event.key === keyEscape && (this.focusState.focusType === TableFocusType.cellActionMenu || this.focusState.focusType === TableFocusType.cellContent))
-            /* || (event.key === keyEnter && this.focusState.focusType === TableFocusType.cellContent) */) {
+            if (
+                event.key === keyEscape
+                && (this.focusState.focusType === TableFocusType.cellActionMenu
+                    || this.focusState.focusType === TableFocusType.cellContent)
+                /* || (event.key === keyEnter && this.focusState.focusType === TableFocusType.cellContent) */
+            ) {
                 const focusedRow = this.getCurrentRow();
                 if (focusedRow) {
                     this.focusState.focusType = TableFocusType.cell;
@@ -307,7 +313,8 @@ implements Subscriber {
     };
 
     private readonly onViewportKeyDown = (event: KeyboardEvent): void => {
-        let handleEvent = !this.inNavigationMode && (event.key === keyArrowUp || event.key === keyArrowDown);
+        let handleEvent = !this.inNavigationMode
+            && (event.key === keyArrowUp || event.key === keyArrowDown);
         switch (event.key) {
             case keyPageUp:
             case keyPageDown:
@@ -347,7 +354,9 @@ implements Subscriber {
                 }
             } else {
                 // const previousActiveElement = this.getActiveElement(false);
-                const interactiveElement = this.focusFirstInteractiveElementInCurrentCell(focusableRowElements!);
+                const interactiveElement = this.focusFirstInteractiveElementInCurrentCell(
+                    focusableRowElements!
+                );
                 // for same behavior as F2:
                 // return interactiveElement !== undefined;
                 if (interactiveElement) {
@@ -371,18 +380,26 @@ implements Subscriber {
             const row = this.getCurrentRow();
             const focusableRowElements = row!.getFocusableElements();
             const cellInfo = focusableRowElements.cells[this.focusState.columnIndex!]!;
-            if (!cellInfo.actionMenuButton && cellInfo.cell.cellView.tabbableChildren.length === 1) {
+            if (
+                !cellInfo.actionMenuButton
+                && cellInfo.cell.cellView.tabbableChildren.length === 1
+            ) {
                 // already focused (single interactive element)
                 return false;
             }
-            const interactiveElement = this.focusFirstInteractiveElementInCurrentCell(focusableRowElements);
+            const interactiveElement = this.focusFirstInteractiveElementInCurrentCell(
+                focusableRowElements
+            );
             return interactiveElement !== undefined;
         }
         return false;
     }
 
     private onSpacePressed(shiftKey: boolean): boolean {
-        if (this.focusState.focusType === TableFocusType.row || this.focusState.focusType === TableFocusType.cell) {
+        if (
+            this.focusState.focusType === TableFocusType.row
+            || this.focusState.focusType === TableFocusType.cell
+        ) {
             if (this.focusState.focusType === TableFocusType.row || shiftKey) {
                 const row = this.getCurrentRow();
                 if (row instanceof TableRow) {
@@ -576,7 +593,12 @@ implements Subscriber {
     }
 
     private onEndPressed(ctrlKey: boolean): boolean {
-        if (!ctrlKey && (this.focusState.focusType === TableFocusType.cell || this.focusState.focusType === TableFocusType.rowSelectionCheckbox)) {
+        if (
+            !ctrlKey
+            && (this.focusState.focusType === TableFocusType.cell
+                || this.focusState.focusType
+                    === TableFocusType.rowSelectionCheckbox)
+        ) {
             const focusedRow = this.getCurrentRow();
             const focusedRowElements = focusedRow!.getFocusableElements();
             if (focusedRowElements.cells.length > 0) {
@@ -637,7 +659,10 @@ implements Subscriber {
                     cellContentIndex = this.focusState.cellContentIndex! + 1;
                 } else if (this.focusState.focusType === TableFocusType.cell) {
                     const cellInfo = focusableRowElements.cells[cellIndex]!;
-                    if (!cellInfo.actionMenuButton && cellInfo.cell.cellView.tabbableChildren.length === 1) {
+                    if (
+                        !cellInfo.actionMenuButton
+                        && cellInfo.cell.cellView.tabbableChildren.length === 1
+                    ) {
                         // Single interactive element (which means it was already focused)
                         cellContentIndex = 1; // Skip single interactive element
                     }
@@ -685,9 +710,23 @@ implements Subscriber {
                     case TableFocusType.cellContent:
                         cellIndex = this.focusState.columnIndex!;
                         if (
-                            (this.focusState.focusType === TableFocusType.cellContent && this.focusState.cellContentIndex === 0)
-                            || (this.focusState.focusType === TableFocusType.cellActionMenu && focusableRowElements.cells[this.focusState.columnIndex!]!.cell.cellView.tabbableChildren.length === 0)
-                            || (this.focusState.focusType === TableFocusType.cell && !focusableRowElements.cells[this.focusState.columnIndex!]!.actionMenuButton && focusableRowElements.cells[this.focusState.columnIndex!]!.cell.cellView.tabbableChildren.length === 1)
+                            (this.focusState.focusType
+                                === TableFocusType.cellContent
+                                && this.focusState.cellContentIndex === 0)
+                            || (this.focusState.focusType
+                                === TableFocusType.cellActionMenu
+                                && focusableRowElements.cells[
+                                    this.focusState.columnIndex!
+                                ]!.cell.cellView.tabbableChildren.length
+                                    === 0)
+                            || (this.focusState.focusType
+                                === TableFocusType.cell
+                                && !focusableRowElements.cells[
+                                    this.focusState.columnIndex!
+                                ]!.actionMenuButton
+                                && focusableRowElements.cells[
+                                    this.focusState.columnIndex!
+                                ]!.cell.cellView.tabbableChildren.length === 1)
                         ) {
                             cellIndex -= 1;
                         }
@@ -836,14 +875,20 @@ implements Subscriber {
                         focusType === TableFocusType.row
                         || focusType === TableFocusType.rowSelectionCheckbox
                     ) {
-                        if (this.focusableHeaderElements.headerActions.length > 0) {
+                        if (
+                            this.focusableHeaderElements.headerActions.length
+                            > 0
+                        ) {
                             const selectAllCheckboxIndex = 0;
                             this.focusState.focusType = TableFocusType.headerActions;
                             this.focusState.headerActionIndex = selectAllCheckboxIndex;
                             this.focusHeaderElement();
                             return true;
                         }
-                        if (this.focusableHeaderElements.columnHeaders.length > 0) {
+                        if (
+                            this.focusableHeaderElements.columnHeaders.length
+                            > 0
+                        ) {
                             this.focusState.focusType = TableFocusType.columnHeader;
                             this.focusState.columnIndex = 0;
                             this.focusHeaderElement();
@@ -893,7 +938,10 @@ implements Subscriber {
                 if (rowDelta > 1) {
                     scrollOptions.align = 'end';
                 }
-                if (rowIndex > this.focusState.rowIndex! && rowIndex < this.table.tableData.length) {
+                if (
+                    rowIndex > this.focusState.rowIndex!
+                    && rowIndex < this.table.tableData.length
+                ) {
                     return this.scrollToAndFocusRow(rowIndex, scrollOptions);
                 }
                 return false;
@@ -913,7 +961,10 @@ implements Subscriber {
         if (previousActiveElement !== element) {
             this.setElementFocusable(element, true);
             element.focus(focusOptions);
-            if (previousActiveElement && this.isInTable(previousActiveElement)) {
+            if (
+                previousActiveElement
+                && this.isInTable(previousActiveElement)
+            ) {
                 this.setElementFocusable(previousActiveElement, false);
             }
         } /* else {
@@ -1226,7 +1277,8 @@ implements Subscriber {
             // In some cases, the active element may be a sub-part of a control (example: MenuButton -> ToggleButton -> a div with tabindex=0). Stop at the outer control boundary, so that
             // we can more simply check equality against the elements of getTableHeaderFocusableElements() / row.getFocusableElements().
             // (For rows/cells/cell views, we do need to recurse into them, to get to the appropriate focused controls though)
-            if (stopAtTableBoundaries
+            if (
+                stopAtTableBoundaries
                 && activeElement instanceof FoundationElement
                 && !(activeElement instanceof TableRow)
                 && !(activeElement instanceof TableCell)
@@ -1260,7 +1312,9 @@ implements Subscriber {
         return undefined;
     }
 
-    private focusFirstInteractiveElementInCurrentCell(focusableRowElements: TableRowFocusableElements): HTMLElement | undefined {
+    private focusFirstInteractiveElementInCurrentCell(
+        focusableRowElements: TableRowFocusableElements
+    ): HTMLElement | undefined {
         const cellInfo = focusableRowElements.cells[this.focusState.columnIndex!]!;
         const tabbableElements = cellInfo.cell.cellView.tabbableChildren;
         let firstInteractiveElement: HTMLElement | undefined;

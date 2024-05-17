@@ -40,8 +40,10 @@ export class Virtualizer<TData extends TableRecord = TableRecord> {
     }
 
     private get rowHeight(): number {
-        return parseFloat(controlHeight.getValueFor(this.table))
-            + 2 * parseFloat(borderWidth.getValueFor(this.table));
+        return (
+            parseFloat(controlHeight.getValueFor(this.table))
+            + 2 * parseFloat(borderWidth.getValueFor(this.table))
+        );
     }
 
     private readonly table: Table<TData>;
@@ -146,7 +148,10 @@ export class Virtualizer<TData extends TableRecord = TableRecord> {
             tableFocusedElement !== null
             && !(tableFocusedElement instanceof TableCellView)
         ) {
-            if (tableFocusedElement instanceof MenuButton && parentFocusedElement instanceof TableCell) {
+            if (
+                tableFocusedElement instanceof MenuButton
+                && parentFocusedElement instanceof TableCell
+            ) {
                 focusedActionMenuButton = tableFocusedElement;
             }
             if (tableFocusedElement.shadowRoot) {

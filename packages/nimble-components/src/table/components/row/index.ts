@@ -175,7 +175,10 @@ export class TableRow<
     /** @internal */
     public onSelectionChange(oldState: boolean, newState: boolean): void {
         this.selected = newState;
-        const detail: TableRowSelectionToggleEventDetail = { oldState, newState };
+        const detail: TableRowSelectionToggleEventDetail = {
+            oldState,
+            newState
+        };
         this.$emit('row-selection-toggle', detail);
     }
 
@@ -367,16 +370,6 @@ export class TableRow<
             this.ignoreSelectionChangeEvents = false;
         }
     }
-
-    private readonly rowFocusInHandler = (event: FocusEvent): void => {
-        // const path = event.composedPath();
-        // console.log('row focus in', this, path, event.target, event.relatedTarget);
-    };
-
-    private readonly rowFocusOutHandler = (event: FocusEvent): void => {
-        // const path = event.composedPath();
-        // console.log('row focus out', this, path, event.target, event.relatedTarget);
-    };
 }
 
 const nimbleTableRow = TableRow.compose({

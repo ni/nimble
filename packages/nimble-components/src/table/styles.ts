@@ -30,10 +30,12 @@ export const styles = css`
     }
 
     :host(${focusVisible}) {
-        ${/* The table can briefly be focused in some keyboard nav cases (e.g. regaining focus and we
+        ${
+            /* The table can briefly be focused in some keyboard nav cases (e.g. regaining focus and we
             need to scroll to the previously focused row first). Ensure that we don't get the browser-default
             focus outline in that case.
-        ) */ ''}
+        ) */ ''
+        }
         outline: none;
     }
 
@@ -201,7 +203,8 @@ export const styles = css`
         --ni-private-cell-focus-offset-multiplier: 0;
     }
 
-    .collapse-all-visible .row, .collapse-all-visible .group-row {
+    .collapse-all-visible .row,
+    .collapse-all-visible .group-row {
         --ni-private-cell-focus-offset-multiplier: 1;
     }
 
