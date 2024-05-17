@@ -988,21 +988,18 @@ export class Select
         if (option.hidden) {
             return true;
         }
-        const filter = this.filter.toLowerCase();
-        const normalizedFilter = diacriticInsensitiveStringNormalizer(filter);
-        return !diacriticInsensitiveStringNormalizer(option.text).includes(
-            normalizedFilter
-        );
+        return !this.filterMatchesText(option.text);
     }
 
-    private isOptionGroupHidden(group: ListOptionGroup): boolean {
-        if (group.hidden) {
-            return true;
-        }
+    private groupMatchesFilter(group: ListOptionGroup): boolean {
+        return this.filterMatchesText(group.labelContent);
+    }
+
+    private filterMatchesText(text: string): boolean {
         const filter = this.filter.toLowerCase();
         const normalizedFilter = diacriticInsensitiveStringNormalizer(filter);
-        return !diacriticInsensitiveStringNormalizer(
-            group.labelContent
+        return diacriticInsensitiveStringNormalizer(
+            text
         ).includes(normalizedFilter);
     }
 
@@ -1027,21 +1024,16 @@ export class Select
                 element.showTopSeparator = false;
                 element.showBottomSeparator = false;
                 const groupOptions = this.getGroupOptions(element);
-                const groupMatchesFilter = this.isOptionGroupHidden(element);
+                const groupMatchesFilter = this.groupMatchesFilter(element);
                 let allOptionsHidden = true;
-                groupOptions.forEach(o => {
-                    if (groupMatchesFilter) {
-                        o.visuallyHidden = false;
-                        allOptionsHidden = false;
-                        return;
+                groupOptions.forEach(option => {
+                    option.visuallyHidden = groupMatchesFilter ? false : this.isOptionHidden(option);
+                    if (!option.visuallyHidden) {
+                        filteredOptions.push(option);
                     }
-                    o.visuallyHidden = this.isOptionHidden(o);
-                    if (!o.visuallyHidden) {
-                        filteredOptions.push(o);
-                    }
-                    allOptionsHidden = o.visuallyHidden && allOptionsHidden;
+                    allOptionsHidden = option.visuallyHidden && allOptionsHidden;
                 });
-                element.visuallyHidden = allOptionsHidden;
+                element.visuallyHidden = allOptionsHidden || element.hidden;
 
                 if (!allOptionsHidden) {
                     element.showBottomSeparator = true;
