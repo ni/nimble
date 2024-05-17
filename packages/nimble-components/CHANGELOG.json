@@ -2,6 +2,66 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Thu, 16 May 2024 18:44:46 GMT",
+      "version": "29.1.1",
+      "tag": "@ni/nimble-components_v29.1.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "17ddea50b5accb353a0288c42d0e64ddc5df0d04",
+            "comment": "Switch to custom display helper"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 16 May 2024 17:30:17 GMT",
+      "version": "29.1.0",
+      "tag": "@ni/nimble-components_v29.1.0",
+      "comments": {
+        "none": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "82f16939883721eddc438ca91007bd39dcc87dfb",
+            "comment": "Disable intermittent test"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 15 May 2024 22:04:54 GMT",
+      "version": "29.1.0",
+      "tag": "@ni/nimble-components_v29.1.0",
+      "comments": {
+        "none": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "beaeac428f8a67bd7dd457c5a9dbc2a6d48421df",
+            "comment": "HLD for option groups for Select/Combobox."
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 15 May 2024 21:06:27 GMT",
+      "version": "29.1.0",
+      "tag": "@ni/nimble-components_v29.1.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "f06b18a53a13a66af6ae47aa83df0a99ce8cffd0",
+            "comment": "Add clear button for Select"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 14 May 2024 23:23:47 GMT",
       "version": "29.0.0",
       "tag": "@ni/nimble-components_v29.0.0",

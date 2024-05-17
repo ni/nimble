@@ -3,6 +3,7 @@ import { attr } from '@microsoft/fast-element';
 import { Mapping } from '../base';
 import { template } from '../base/template';
 import type { MappingKey } from '../base/types';
+import { styles } from '../base/styles';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -22,7 +23,8 @@ export class MappingText extends Mapping<MappingKey> {
 
 const textMapping = MappingText.compose({
     baseName: 'mapping-text',
-    template
+    template,
+    styles
 });
 DesignSystem.getOrCreate().withPrefix('nimble').register(textMapping());
 export const mappingTextTag = 'nimble-mapping-text';

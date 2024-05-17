@@ -1,11 +1,11 @@
 import { css } from '@microsoft/fast-element';
-import { display } from '@microsoft/fast-foundation';
 import {
     Black15,
     Black7,
     Black91,
     White
 } from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
+import { display } from '../utilities/style/display';
 import {
     bodyFont,
     borderHoverColor,

@@ -1,10 +1,12 @@
 import { css } from '@microsoft/fast-element';
 import { DigitalGreenLight } from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
 import { borderColor, borderWidth } from '../theme-provider/design-tokens';
+import { display } from '../utilities/style/display';
 
 export const styles = css`
+    ${display('inline-block')}
+
     :host {
-        display: inline-block;
         width: 500px;
         height: 500px;
     }

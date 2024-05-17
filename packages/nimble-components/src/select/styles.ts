@@ -38,8 +38,15 @@ export const styles = css`
         order: 1;
     }
 
-    [part='indicator'] {
+    .clear-button {
         order: 3;
+        width: auto;
+        height: auto;
+        margin-left: ${smallPadding};
+    }
+
+    [part='indicator'] {
+        order: 4;
     }
 
     .error-icon {

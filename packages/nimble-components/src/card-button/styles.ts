@@ -5,7 +5,7 @@ import {
     Black91,
     White
 } from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
-import { display } from '@microsoft/fast-foundation';
+import { display } from '../utilities/style/display';
 import { focusVisible } from '../utilities/style/focus';
 
 import {

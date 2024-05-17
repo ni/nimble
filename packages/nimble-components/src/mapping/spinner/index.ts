@@ -3,6 +3,7 @@ import { attr } from '@microsoft/fast-element';
 import { Mapping } from '../base';
 import { template } from '../base/template';
 import type { MappingKey } from '../base/types';
+import { styles } from '../base/styles';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -25,7 +26,8 @@ export class MappingSpinner extends Mapping<MappingKey> {
 
 const spinnerMapping = MappingSpinner.compose({
     baseName: 'mapping-spinner',
-    template
+    template,
+    styles
 });
 DesignSystem.getOrCreate().withPrefix('nimble').register(spinnerMapping());
 export const mappingSpinnerTag = 'nimble-mapping-spinner';
