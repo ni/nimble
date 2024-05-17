@@ -991,10 +991,6 @@ export class Select
         return !this.filterMatchesText(option.text);
     }
 
-    private groupMatchesFilter(group: ListOptionGroup): boolean {
-        return this.filterMatchesText(group.labelContent);
-    }
-
     private filterMatchesText(text: string): boolean {
         const filter = this.filter.toLowerCase();
         const normalizedFilter = diacriticInsensitiveStringNormalizer(filter);
@@ -1024,7 +1020,7 @@ export class Select
                 element.showTopSeparator = false;
                 element.showBottomSeparator = false;
                 const groupOptions = this.getGroupOptions(element);
-                const groupMatchesFilter = this.groupMatchesFilter(element);
+                const groupMatchesFilter = this.filterMatchesText(element.labelContent);
                 let allOptionsHidden = true;
                 groupOptions.forEach(option => {
                     option.visuallyHidden = groupMatchesFilter
