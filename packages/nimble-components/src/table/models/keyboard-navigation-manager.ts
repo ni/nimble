@@ -736,7 +736,11 @@ implements Subscriber {
                 let cellContentIndex: number | undefined;
                 if (this.focusState.focusType === TableFocusType.cellContent) {
                     cellContentIndex = this.focusState.cellContentIndex! - 1;
-                } else if (this.focusState.focusType === TableFocusType.cellActionMenu && cellIndex === this.focusState.columnIndex!) {
+                } else if (
+                    this.focusState.focusType
+                        === TableFocusType.cellActionMenu
+                    && cellIndex === this.focusState.columnIndex!
+                ) {
                     cellContentIndex = -1;
                 }
                 while (
