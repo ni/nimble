@@ -4,6 +4,7 @@ import { template } from '../base/template';
 import { byte1024UnitScale } from '../../utilities/unit-format/unit-scale/byte-1024-unit-scale';
 import { byteUnitScale } from '../../utilities/unit-format/unit-scale/byte-unit-scale';
 import { Unit } from '../base/unit';
+import { styles } from '../base/styles';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -36,7 +37,8 @@ export class UnitByte extends Unit {
 
 const nimbleUnitByte = UnitByte.compose({
     baseName: 'unit-byte',
-    template
+    template,
+    styles
 });
 
 DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleUnitByte());

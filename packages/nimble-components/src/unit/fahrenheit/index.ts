@@ -2,6 +2,7 @@ import { DesignSystem } from '@microsoft/fast-foundation';
 import { template } from '../base/template';
 import { Unit } from '../base/unit';
 import { fahrenheitUnitScale } from '../../utilities/unit-format/unit-scale/fahrenheit-unit-scale';
+import { styles } from '../base/styles';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -21,7 +22,8 @@ export class UnitFahrenheit extends Unit {
 
 const nimbleUnitFahrenheit = UnitFahrenheit.compose({
     baseName: 'unit-fahrenheit',
-    template
+    template,
+    styles
 });
 
 DesignSystem.getOrCreate()

@@ -8,6 +8,7 @@ import {
     ButtonAppearanceVariant
 } from '@ni/nimble-components/dist/esm/patterns/button/types';
 import {
+    appearanceDescription,
     appearanceVariantDescription,
     contentHiddenDescription,
     endIconDescription,
@@ -56,7 +57,8 @@ const metadata: Meta<AnchorButtonArgs> = {
         },
         appearance: {
             options: Object.keys(ButtonAppearance),
-            control: { type: 'radio' }
+            control: { type: 'radio' },
+            description: appearanceDescription
         },
         appearanceVariant: {
             name: 'appearance-variant',

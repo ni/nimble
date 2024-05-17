@@ -24,7 +24,7 @@ import {
 import { FilterMode } from './types';
 import { ListOptionGroup } from '../list-option-group';
 import { buttonTag } from '../button';
-import { iconXmarkTag } from '../icons/xmark';
+import { iconTimesTag } from '../icons/times';
 
 const isListOptionGroup = (n: HTMLElement): boolean => {
     return n instanceof ListOptionGroup;
@@ -79,7 +79,7 @@ SelectOptions
                             content-hidden
                             appearance="ghost"
                             @click="${(x, c) => x.clearClickHandler(c.event as MouseEvent)}">
-                            <${iconXmarkTag} slot="start"></${iconXmarkTag}>
+                            <${iconTimesTag} slot="start"></${iconTimesTag}>
                         </${buttonTag}>
                     `)}
                     <div aria-hidden="true" class="indicator" part="indicator">
