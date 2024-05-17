@@ -34,7 +34,7 @@ export const template = html<TableRow>`
                         ${ref('selectionCheckbox')}
                         class="selection-checkbox"
                         ${notFocusable()}
-                        @change="${(x, c) => x.onSelectionChange(c.event as CustomEvent)}"
+                        @change="${(x, c) => x.onSelectionCheckboxChange(c.event as CustomEvent)}"
                         @click="${(_, c) => c.event.stopPropagation()}"
                         title="${x => tableRowSelectLabel.getValueFor(x)}"
                         aria-label="${x => tableRowSelectLabel.getValueFor(x)}"

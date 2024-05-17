@@ -132,16 +132,16 @@ export const styles = css`
 
     /* TODO: Scope this to only hasDataHierarchy; ~4px more padding on left, so border doesn't touch expand/collapse button border */
     nimble-table-cell:first-of-type${focusVisible} {
-        margin-left: -24px;
-        padding-left: 32px;
+        margin-left: calc(-28px * var(--ni-private-cell-focus-offset-multiplier));
+        padding-left: calc(24px * var(--ni-private-cell-focus-offset-multiplier) + 8px);
     }
 
-    .is-in-hierarchy nimble-table-cell:first-of-type${focusVisible}::before {
+    /*.is-in-hierarchy */
+    nimble-table-cell:first-of-type${focusVisible}::before {
         content: '';
         display: block;
         width: calc(
-            var(--ni-nimble-control-height) *
-                var(--ni-private-table-cell-nesting-level)
+            (var(--ni-nimble-control-height) * var(--ni-private-table-cell-nesting-level) + 4px) * var(--ni-private-cell-focus-offset-multiplier)
         );
         height: 32px;
         box-sizing: border-box;

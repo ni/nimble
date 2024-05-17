@@ -14,6 +14,8 @@ import type { Table } from '..';
 import type { TableNode, TableRecord } from '../types';
 import { TableCellView } from '../../table-column/base/cell-view';
 import { TableRow } from '../components/row';
+import { TableCell } from '../components/cell';
+import { MenuButton } from '../../menu-button';
 
 /**
  * Helper class for the nimble-table for row virtualization.
@@ -32,6 +34,15 @@ export class Virtualizer<TData extends TableRecord = TableRecord> {
 
     @observable
     public rowContainerYOffset = 0;
+
+    public get pageSize(): number {
+        return Math.round(this.table.viewport.clientHeight / this.rowHeight);
+    }
+
+    private get rowHeight(): number {
+        return parseFloat(controlHeight.getValueFor(this.table))
+            + 2 * parseFloat(borderWidth.getValueFor(this.table));
+    }
 
     private readonly table: Table<TData>;
     private readonly tanStackTable: TanStackTable<TableNode<TData>>;
@@ -90,8 +101,7 @@ export class Virtualizer<TData extends TableRecord = TableRecord> {
     HTMLElement,
     HTMLElement
     > {
-        const rowHeight = parseFloat(controlHeight.getValueFor(this.table))
-            + 2 * parseFloat(borderWidth.getValueFor(this.table));
+        const rowHeight = this.rowHeight;
         return {
             count: this.tanStackTable.getRowModel().rows.length,
             getScrollElement: () => {
@@ -130,11 +140,17 @@ export class Virtualizer<TData extends TableRecord = TableRecord> {
 
     private notifyFocusedCellRecycling(): void {
         let tableFocusedElement = this.table.shadowRoot!.activeElement;
+        let parentFocusedElement: Element | undefined;
+        let focusedActionMenuButton: MenuButton | undefined;
         while (
             tableFocusedElement !== null
             && !(tableFocusedElement instanceof TableCellView)
         ) {
+            if (tableFocusedElement instanceof MenuButton && parentFocusedElement instanceof TableCell) {
+                focusedActionMenuButton = tableFocusedElement;
+            }
             if (tableFocusedElement.shadowRoot) {
+                parentFocusedElement = tableFocusedElement;
                 tableFocusedElement = tableFocusedElement.shadowRoot.activeElement;
             } else {
                 break;
@@ -149,6 +165,9 @@ export class Virtualizer<TData extends TableRecord = TableRecord> {
                     && row.recordId === this.table.openActionMenuRecordId
             ) as TableRow | undefined;
             activeRow?.closeOpenActionMenus();
+        }
+        if (focusedActionMenuButton) {
+            focusedActionMenuButton.blur();
         }
     }
 }

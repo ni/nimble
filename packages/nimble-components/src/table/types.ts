@@ -1,3 +1,5 @@
+import type { Checkbox } from '../checkbox';
+import type { MenuButton } from '../menu-button';
 import type { TableColumn } from '../table-column/base';
 import type { ValidityObject } from '../utilities/models/validator';
 import type { TableCell } from './components/cell';
@@ -237,9 +239,9 @@ export type TableFocusType =
  * Focusable elements of a table row
  */
 export interface TableRowFocusableElements {
-    selectionCheckbox?: HTMLElement;
+    selectionCheckbox?: Checkbox;
     cells: {
         cell: TableCell,
-        actionMenuButton?: HTMLElement
+        actionMenuButton?: MenuButton
     }[];
 }

@@ -337,6 +337,7 @@ export class Table<
         this.viewport.addEventListener('scroll', this.onViewPortScroll, {
             passive: true
         });
+        this.keyboardNavigationManager.connect();
         document.addEventListener('keydown', this.onKeyDown);
         document.addEventListener('keyup', this.onKeyUp);
     }
@@ -414,6 +415,11 @@ export class Table<
         }
 
         return true;
+    }
+
+    /** @internal */
+    public onRowFocusIn(event: FocusEvent): void {
+        this.keyboardNavigationManager.onRowFocusIn(event);
     }
 
     /** @internal */
@@ -699,6 +705,7 @@ export class Table<
     private async handleRowActionMenuToggleEvent(
         event: CustomEvent<TableActionMenuToggleEventDetail>
     ): Promise<void> {
+        this.keyboardNavigationManager.onRowActionMenuToggle(event);
         const detail = await this.getActionMenuToggleEventDetail(event);
         this.$emit('action-menu-toggle', detail);
         if (!event.detail.newState) {

@@ -87,7 +87,7 @@ export class TableGroupRow extends FoundationElement {
     }
 
     /** @internal */
-    public onSelectionChange(event: CustomEvent): void {
+    public onSelectionCheckboxChange(event: CustomEvent): void {
         if (this.ignoreSelectionChangeEvents) {
             return;
         }

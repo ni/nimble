@@ -130,13 +130,14 @@ export const template = html<Table>`
                 </div>
                 <div class="table-viewport" ${ref('viewport')}>
                     <div class="table-scroll"></div>
-                    <div class="table-row-container" ${children({ property: 'rowElements', filter: elements(`${tableRowTag}, ${tableGroupRowTag}`) })}
+                    <div class="table-row-container ${x => `${x.showCollapseAll ? 'collapse-all-visible' : ''}`}" ${children({ property: 'rowElements', filter: elements(`${tableRowTag}, ${tableGroupRowTag}`) })}
                         role="rowgroup">
                         ${when(x => x.columns.length > 0 && x.canRenderRows, html<Table>`
                             ${repeat(x => x.virtualizer.visibleItems, html<VirtualItem, Table>`
                                 ${when((x, c) => (c.parent as Table).tableData[x.index]?.isGroupRow, html<VirtualItem, Table>`
                                     <${tableGroupRowTag}
                                         class="group-row"
+                                        tabindex="-1"
                                         :groupRowValue="${(x, c) => c.parent.tableData[x.index]?.groupRowValue}"
                                         ?expanded="${(x, c) => c.parent.tableData[x.index]?.isExpanded}"
                                         :nestingLevel="${(x, c) => c.parent.tableData[x.index]?.nestingLevel}"
@@ -145,6 +146,7 @@ export const template = html<Table>`
                                         ?selectable="${(_, c) => c.parent.selectionMode === TableRowSelectionMode.multiple}"
                                         selection-state="${(x, c) => c.parent.tableData[x.index]?.selectionState}"
                                         :dataIndex="${x => x.index}"
+                                        @focusin="${(_, c) => c.parent.onRowFocusIn(c.event as FocusEvent)}"
                                         @group-selection-toggle="${(x, c) => c.parent.onRowSelectionToggle(x.index, c.event as CustomEvent<TableRowSelectionToggleEventDetail>)}"
                                         @group-expand-toggle="${(x, c) => c.parent.handleGroupRowExpanded(x.index, c.event)}"
                                     >
@@ -153,6 +155,7 @@ export const template = html<Table>`
                                 ${when((x, c) => !(c.parent as Table).tableData[x.index]?.isGroupRow, html<VirtualItem, Table>`
                                     <${tableRowTag}
                                         class="row"
+                                        tabindex="-1"
                                         record-id="${(x, c) => c.parent.tableData[x.index]?.id}"
                                         ?selectable="${(_, c) => c.parent.selectionMode !== TableRowSelectionMode.none}"
                                         ?selected="${(x, c) => c.parent.tableData[x.index]?.selectionState === TableRowSelectionState.selected}"
@@ -166,6 +169,7 @@ export const template = html<Table>`
                                         ?loading="${(x, c) => c.parent.tableData[x.index]?.isLoadingChildren}"
                                         :dataIndex="${x => x.index}"
                                         @click="${(x, c) => c.parent.onRowClick(x.index, c.event as MouseEvent)}"
+                                        @focusin="${(_, c) => c.parent.onRowFocusIn(c.event as FocusEvent)}"
                                         @row-selection-toggle="${(x, c) => c.parent.onRowSelectionToggle(x.index, c.event as CustomEvent<TableRowSelectionToggleEventDetail>)}"
                                         @row-action-menu-beforetoggle="${(x, c) => c.parent.onRowActionMenuBeforeToggle(x.index, c.event as CustomEvent<TableActionMenuToggleEventDetail>)}"
                                         @row-action-menu-toggle="${(_, c) => c.parent.onRowActionMenuToggle(c.event as CustomEvent<TableActionMenuToggleEventDetail>)}"
