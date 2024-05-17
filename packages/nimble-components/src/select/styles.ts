@@ -6,6 +6,7 @@ import {
     borderRgbPartialColor,
     borderWidth,
     controlHeight,
+    controlSlimHeight,
     fillHoverColor,
     fillHoverSelectedColor,
     fillSelectedColor,
@@ -40,8 +41,7 @@ export const styles = css`
 
     .clear-button {
         order: 3;
-        width: auto;
-        height: auto;
+        height: ${controlSlimHeight};
         margin-left: ${smallPadding};
     }
 
