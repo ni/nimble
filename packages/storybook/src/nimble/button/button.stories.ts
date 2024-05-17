@@ -23,7 +23,7 @@ interface ButtonArgs {
     icon: boolean;
     contentHidden: boolean;
     endIcon: boolean;
-    click: () => void;
+    click: undefined;
 }
 
 const metadata: Meta<ButtonArgs> = {

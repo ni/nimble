@@ -24,7 +24,7 @@ interface ToggleButtonArgs {
     icon: boolean;
     contentHidden: boolean;
     endIcon: boolean;
-    change: () => void;
+    change: undefined;
 }
 
 const contentDescription = textContentDescription({ componentName: 'toggle button' });

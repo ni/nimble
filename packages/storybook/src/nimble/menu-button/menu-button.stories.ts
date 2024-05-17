@@ -38,8 +38,8 @@ interface MenuButtonArgs {
     disabled: boolean;
     contentHidden: boolean;
     menuPosition: string;
-    toggle: () => void;
-    beforetoggle: () => void;
+    toggle: undefined;
+    beforetoggle: undefined;
 }
 
 const metadata: Meta<MenuButtonArgs> = {

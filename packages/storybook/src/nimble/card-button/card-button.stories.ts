@@ -9,7 +9,7 @@ interface CardButtonArgs {
     disabled: boolean;
     selected: boolean;
     content: string;
-    click: () => void;
+    click: undefined;
 }
 
 const metadata: Meta<CardButtonArgs> = {
