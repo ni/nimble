@@ -10,9 +10,10 @@ import {
     appearanceVariantDescription,
     contentHiddenDescription,
     endIconDescription,
-    iconDescription
+    iconDescription,
+    textContentDescription
 } from '../patterns/button/doc-strings';
-import { createUserSelectedThemeStory } from '../../utilities/storybook';
+import { apiCategory, createUserSelectedThemeStory, disabledDescription } from '../../utilities/storybook';
 
 interface ToggleButtonArgs {
     label: string;
@@ -23,7 +24,12 @@ interface ToggleButtonArgs {
     icon: boolean;
     contentHidden: boolean;
     endIcon: boolean;
+    change: undefined;
 }
+
+const contentDescription = textContentDescription({ componentName: 'toggle button' });
+
+const defaultSlotDescription = `${contentDescription} The content should remain the same whether the toggle button is pressed or not.`;
 
 const metadata: Meta<ToggleButtonArgs> = {
     title: 'Components/Toggle Button',
@@ -35,24 +41,49 @@ const metadata: Meta<ToggleButtonArgs> = {
     },
     argTypes: {
         appearance: {
-            options: Object.values(ButtonAppearance),
+            options: Object.keys(ButtonAppearance),
             control: { type: 'radio' },
-            description: appearanceDescription
+            description: appearanceDescription,
+            table: { category: apiCategory.attributes }
         },
         appearanceVariant: {
             name: 'appearance-variant',
             options: Object.keys(ButtonAppearanceVariant),
             control: { type: 'radio' },
-            description: appearanceVariantDescription
+            description: appearanceVariantDescription,
+            table: { category: apiCategory.attributes }
         },
         contentHidden: {
-            description: contentHiddenDescription
+            name: 'content-hidden',
+            description: contentHiddenDescription,
+            table: { category: apiCategory.attributes }
+        },
+        disabled: {
+            description: disabledDescription({ componentName: 'toggle button' }),
+            table: { category: apiCategory.attributes }
+        },
+        checked: {
+            description: 'Whether the toggle button is pressed (on) or not pressed (off).',
+            table: { category: apiCategory.attributes }
+        },
+        label: {
+            name: 'default',
+            description: defaultSlotDescription,
+            table: { category: apiCategory.slots }
         },
         icon: {
-            description: iconDescription
+            name: 'start',
+            description: iconDescription,
+            table: { category: apiCategory.slots }
         },
         endIcon: {
-            description: endIconDescription
+            name: 'end',
+            description: endIconDescription,
+            table: { category: apiCategory.slots }
+        },
+        change: {
+            description: 'Fires when the toggle button is pressed via mouse or keyboard.',
+            table: { category: apiCategory.events }
         }
     },
     // prettier-ignore
