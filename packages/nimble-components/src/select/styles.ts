@@ -9,6 +9,7 @@ import {
     fillHoverColor,
     fillHoverSelectedColor,
     fillSelectedColor,
+    iconColor,
     mediumPadding,
     placeholderFontColor,
     smallPadding
@@ -95,6 +96,7 @@ export const styles = css`
 
     .filter-icon {
         padding-left: ${smallPadding};
+        ${iconColor.cssCustomProperty}: ${placeholderFontColor};
     }
 
     .filter-input {
