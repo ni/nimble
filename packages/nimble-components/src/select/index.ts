@@ -1020,7 +1020,9 @@ export class Select
                 element.showTopSeparator = false;
                 element.showBottomSeparator = false;
                 const groupOptions = this.getGroupOptions(element);
-                const groupMatchesFilter = this.filterMatchesText(element.labelContent);
+                const groupMatchesFilter = this.filterMatchesText(
+                    element.labelContent
+                );
                 let allOptionsHidden = true;
                 groupOptions.forEach(option => {
                     option.visuallyHidden = groupMatchesFilter
@@ -1036,9 +1038,7 @@ export class Select
                 if (!allOptionsHidden) {
                     element.showBottomSeparator = true;
                     lastVisibleOptionGroupIndex = i;
-                    if (lastVisibleElement instanceof ListOption) {
-                        element.showTopSeparator = true;
-                    }
+                    element.showTopSeparator = lastVisibleElement instanceof ListOption;
                 }
                 lastVisibleElement = allOptionsHidden
                     ? lastVisibleElement
@@ -1059,6 +1059,7 @@ export class Select
         if (lastVisibleGroup && lastVisibleGroup === lastVisibleElement) {
             lastVisibleGroup.showBottomSeparator = false;
         }
+
         this.filteredOptions = filteredOptions;
     }
 
