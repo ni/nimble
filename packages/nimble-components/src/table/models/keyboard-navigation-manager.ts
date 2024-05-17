@@ -61,7 +61,6 @@ implements Subscriber {
     private readonly tableNotifier: Notifier;
     private focusableHeaderElements!: TableHeaderFocusableElements;
     private inNavigationMode = true;
-    private handlingTabPress = false;
     private needsRowFocusAfterScroll = false;
 
     public constructor(
@@ -127,7 +126,7 @@ implements Subscriber {
 
     public printActiveElement(): void {
         console.log('Current Active Element', this.getActiveElement(false));
-        window.setTimeout(() => this.getActiveElementDebug(), 8000);
+        window.setTimeout(() => this.printActiveElement(), 8000);
     }
 
     public handleChange(source: unknown, args: unknown): void {
@@ -247,9 +246,7 @@ implements Subscriber {
     private readonly onCaptureKeyDown = (event: KeyboardEvent): void => {
         let handled = false;
         if (event.key === keyTab) {
-            this.handlingTabPress = true;
             handled = this.onTabPressed(event.shiftKey);
-            this.handlingTabPress = false;
         } else if (this.inNavigationMode) {
             switch (event.key) {
                 case keyArrowLeft:
@@ -373,6 +370,11 @@ implements Subscriber {
         if (this.focusState.focusType === TableFocusType.cell) {
             const row = this.getCurrentRow();
             const focusableRowElements = row!.getFocusableElements();
+            const cellInfo = focusableRowElements.cells[this.focusState.columnIndex!]!;
+            if (!cellInfo.actionMenuButton && cellInfo.cell.cellView.tabbableChildren.length === 1) {
+                // already focused (single interactive element)
+                return false;
+            }
             const interactiveElement = this.focusFirstInteractiveElementInCurrentCell(focusableRowElements);
             return interactiveElement !== undefined;
         }
