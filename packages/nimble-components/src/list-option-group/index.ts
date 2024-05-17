@@ -70,6 +70,10 @@ export class ListOptionGroup extends FoundationElement {
     public slottedElements: Element[] = [];
 
     /** @internal */
+    @observable
+    public listOptions: ListOption[] = [];
+
+    /** @internal */
     @volatile
     public get labelContent(): string {
         if (this.label || !this.$fastController.isConnected) {
@@ -78,7 +82,10 @@ export class ListOptionGroup extends FoundationElement {
 
         const nodes = this.labelSlot.assignedNodes();
         return nodes.length > 0
-            ? nodes.map(node => node.textContent?.trim()).join(' ')
+            ? nodes
+                .filter(node => node.textContent?.trim() !== '')
+                .map(node => node.textContent?.trim())
+                .join(' ')
             : '';
     }
 

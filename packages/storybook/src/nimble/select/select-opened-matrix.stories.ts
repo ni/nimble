@@ -41,7 +41,8 @@ const component = (
     filterMode: FilterModeState,
     placeholder?: PlaceholderState,
     grouped?: GroupedState,
-    optionsOutsideGroup?: OptionsOutsideGroupState
+    optionsOutsideGroup?: OptionsOutsideGroupState,
+    slottedLabel?: boolean
 ): ViewTemplate => html`
     <${selectTag} open position="${() => position}" style="${() => positionStyle}" filter-mode="${() => filterMode}" style="width: 250px;">
         ${when(() => grouped, html`
@@ -49,14 +50,20 @@ const component = (
             ${when(() => optionsOutsideGroup ?? false, html`
                 <${listOptionTag}>Option Not in Group</${listOptionTag}>
             `)}
-            <${listOptionGroupTag} label="Group 1">
+            <${listOptionGroupTag} ${!slottedLabel ? 'label="Group 1"' : ''}>
+                ${when(() => slottedLabel, html`
+                    <span>Group 1</span>
+                `)}
                 <${listOptionTag} value="2" disabled>Option 1</${listOptionTag}>
                 <${listOptionTag} value="3">Option 2</${listOptionTag}>
             </${listOptionGroupTag}>         
             ${when(() => optionsOutsideGroup ?? false, html`
                 <${listOptionTag}>Option Not in Group</${listOptionTag}>
             `)}
-            <${listOptionGroupTag} label="Group 2 with a ridiculously long label that does't fit">
+            <${listOptionGroupTag}  ${!slottedLabel ? 'label="Group 2 with a ridiculously long label that does\'t fit"' : ''}>
+                ${when(() => slottedLabel, html`
+                    <span>Group 2 with a ridiculously long label that does't fit</span>
+                `)}
                 <${listOptionTag} value="4">Option 3</${listOptionTag}>
             </${listOptionGroupTag}>         
             ${when(() => optionsOutsideGroup ?? false, html`
@@ -232,5 +239,20 @@ export const selectGroupedAndNotGroupedOptionsColorThemeWhiteBackground: StoryFn
 
 export const selectGroupedAndNotGroupedOptionsDarkThemeWhiteBackground: StoryFn = createFixedThemeStory(
     component(positionStates[0], FilterMode.standard, true, true, true),
+    darkThemeBlackBackground
+);
+
+export const selectGroupedWithSlottedLabelLightThemeWhiteBackground: StoryFn = createFixedThemeStory(
+    component(positionStates[0], FilterMode.standard, true, true, false, true),
+    lightThemeWhiteBackground
+);
+
+export const selectGroupedWithSlottedLabelColorThemeWhiteBackground: StoryFn = createFixedThemeStory(
+    component(positionStates[0], FilterMode.standard, true, true, false, true),
+    colorThemeDarkGreenBackground
+);
+
+export const selectGroupedWithSlottedLabelDarkThemeWhiteBackground: StoryFn = createFixedThemeStory(
+    component(positionStates[0], FilterMode.standard, true, true, false, true),
     darkThemeBlackBackground
 );

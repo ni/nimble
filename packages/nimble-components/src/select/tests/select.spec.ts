@@ -1470,6 +1470,21 @@ describe('Select', () => {
             expect(element.options[1]!.textContent).toBe('Twenty');
         });
 
+        it('can not select option in hidden group via arrow keys', () => {
+            const group = element.querySelector<ListOptionGroup>('[role="group"]')!;
+            group.hidden = true;
+            pageObject.pressArrowDownKey();
+            expect(element.value).toBe('three');
+        });
+
+        it('when group becomes unhidden, can select option in group via arrow keys', () => {
+            const group = element.querySelector<ListOptionGroup>('[role="group"]')!;
+            group.hidden = true;
+            group.hidden = false;
+            pageObject.pressArrowDownKey();
+            expect(element.value).toBe('two');
+        });
+
         describe('filtering', () => {
             beforeEach(async () => {
                 element.filterMode = FilterMode.standard;

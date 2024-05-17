@@ -58,6 +58,12 @@ const isNimbleListOption = (el: Element | undefined): el is ListOption => {
     return el instanceof ListOption;
 };
 
+const isNimbleListOptionGroup = (
+    el: Element | undefined
+): el is ListOptionGroup => {
+    return el instanceof ListOptionGroup;
+};
+
 const isOptionSelectable = (el: ListOption): boolean => {
     return !el.visuallyHidden && !el.disabled && !el.hidden;
 };
@@ -294,6 +300,12 @@ export class Select
             notifier.unsubscribe(this, 'disabled');
         });
 
+        prev
+            ?.filter(el => el instanceof ListOptionGroup)
+            .forEach(el => {
+                const notifier = Observable.getNotifier(el);
+                notifier.unsubscribe(this, 'hidden');
+            });
         const options = this.getSlottedOptions(next);
         super.slottedOptionsChanged(prev, options);
 
@@ -303,6 +315,12 @@ export class Select
             notifier.subscribe(this, 'hidden');
             notifier.subscribe(this, 'disabled');
         });
+        next
+            ?.filter(el => el instanceof ListOptionGroup)
+            .forEach(el => {
+                const notifier = Observable.getNotifier(el);
+                notifier.subscribe(this, 'hidden');
+            });
         this.setProxyOptions();
         this.updateValue();
         // We need to force an update to the filteredOptions observable
@@ -378,6 +396,11 @@ export class Select
             case 'hidden': {
                 if (isNimbleListOption(sourceElement)) {
                     sourceElement.visuallyHidden = sourceElement.hidden;
+                } else if (isNimbleListOptionGroup(sourceElement)) {
+                    sourceElement.listOptions.forEach(e => {
+                        e.visuallyHidden = sourceElement.hidden;
+                    });
+                    this.filterOptions();
                 }
                 this.updateDisplayValue();
                 break;
@@ -905,7 +928,7 @@ export class Select
             if (el instanceof ListOption) {
                 options.push(el);
             } else if (el instanceof ListOptionGroup) {
-                options.splice(options.length, 0, ...this.getGroupOptions(el));
+                options.push(...this.getGroupOptions(el));
             }
         });
 
@@ -1010,15 +1033,15 @@ export class Select
         }
 
         const filteredOptions: ListOption[] = [];
-
-        let lastVisibleOptionGroupIndex = -1;
-        let lastVisibleElement: ListOption | ListOptionGroup | undefined;
-        for (let i = 0; i < this.slottedOptions.length; i++) {
-            const element = this.slottedOptions[i]!;
+        let lastVisibleElement: Element | undefined;
+        for (const element of this.slottedOptions) {
+            let elementHidden = false;
 
             if (element instanceof ListOptionGroup) {
-                element.showTopSeparator = false;
-                element.showBottomSeparator = false;
+                if (element.hidden) {
+                    elementHidden = true;
+                    break; // no need to process hidden groups
+                }
                 const groupOptions = this.getGroupOptions(element);
                 const groupMatchesFilter = this.filterMatchesText(
                     element.labelContent
@@ -1034,39 +1057,40 @@ export class Select
                     allOptionsHidden = option.visuallyHidden && allOptionsHidden;
                 });
                 element.visuallyHidden = allOptionsHidden || element.hidden;
-
-                if (!allOptionsHidden) {
-                    element.showBottomSeparator = true;
-                    lastVisibleOptionGroupIndex = i;
-                    element.showTopSeparator = lastVisibleElement instanceof ListOption;
-                }
-                lastVisibleElement = allOptionsHidden
-                    ? lastVisibleElement
-                    : element;
+                elementHidden = element.visuallyHidden;
             } else if (isNimbleListOption(element)) {
                 element.visuallyHidden = this.isOptionHidden(element);
+                elementHidden = element.visuallyHidden;
                 if (!element.visuallyHidden) {
                     filteredOptions.push(element);
                 }
-                lastVisibleElement = element.visuallyHidden
-                    ? lastVisibleElement
-                    : element;
             }
-        }
-        const lastVisibleGroup = this.slottedOptions[
-            lastVisibleOptionGroupIndex
-        ] as ListOptionGroup;
-        if (lastVisibleGroup && lastVisibleGroup === lastVisibleElement) {
-            lastVisibleGroup.showBottomSeparator = false;
+
+            if (lastVisibleElement instanceof ListOptionGroup) {
+                lastVisibleElement.showBottomSeparator = true;
+            }
+
+            if (element instanceof ListOptionGroup && !elementHidden) {
+                element.showTopSeparator = lastVisibleElement instanceof ListOption;
+                element.showBottomSeparator = false;
+            }
+
+            lastVisibleElement = elementHidden ? lastVisibleElement : element;
         }
 
         this.filteredOptions = filteredOptions;
     }
 
     private getGroupOptions(group: ListOptionGroup): ListOption[] {
-        return Array.from(group.children).filter(
-            el => el instanceof ListOption
-        ) as ListOption[];
+        return Array.from(group.children)
+            .filter(el => el instanceof ListOption)
+            .map(el => {
+                if (group.hidden && isNimbleListOption(el)) {
+                    el.visuallyHidden = true;
+                }
+
+                return el;
+            }) as ListOption[];
     }
 
     /**

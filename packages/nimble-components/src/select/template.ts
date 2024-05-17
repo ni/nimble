@@ -26,8 +26,8 @@ import { ListOptionGroup } from '../list-option-group';
 import { buttonTag } from '../button';
 import { iconXmarkTag } from '../icons/xmark';
 
-const slottedOptionGroupFilter = (n: HTMLElement): boolean => {
-    return n instanceof ListOptionGroup && !n.hidden;
+const isListOptionGroup = (n: HTMLElement): boolean => {
+    return n instanceof ListOptionGroup;
 };
 
 /* eslint-disable @typescript-eslint/indent */
@@ -136,7 +136,7 @@ SelectOptions
                         class="scrollable-region">
                         <slot
                             ${slotted({
-                                filter: (n: Node) => n instanceof HTMLElement && (isListboxOption(n) || slottedOptionGroupFilter(n)),
+                                filter: (n: Node) => n instanceof HTMLElement && (isListboxOption(n) || isListOptionGroup(n)),
                                 flatten: true,
                                 property: 'slottedOptions',
                             })}

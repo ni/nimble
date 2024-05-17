@@ -17,7 +17,6 @@ export const styles = css`
 
     :host {
         cursor: default;
-        justify-content: left;
         flex-direction: column;
     }
 
@@ -56,7 +55,7 @@ export const styles = css`
         background-color: ${fillHoverSelectedColor};
     }
 
-    .header {
+    .label-display {
         font: ${groupHeaderFont};
         text-transform: ${groupHeaderTextTransform};
         color: ${groupHeaderFontColor};
@@ -67,7 +66,7 @@ export const styles = css`
         margin-bottom: ${smallPadding};
     }
 
-    .label-slot {
+    .label-slot.hidden {
         display: none;
     }
 `;
