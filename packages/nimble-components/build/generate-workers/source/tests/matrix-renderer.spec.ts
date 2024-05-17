@@ -55,6 +55,34 @@ describe('MatrixRenderer with MessageChannel needing canvas context', () => {
         matrixRenderer = await wrap<MatrixRenderer>(port2);
         const offscreenCanvas = new OffscreenCanvas(300, 300);
         matrixRenderer.setCanvas(transfer(offscreenCanvas, [offscreenCanvas]));
+        await matrixRenderer.setState({
+            containerDimensions: undefined,
+            dieDimensions: {
+                width: 10,
+                height: 10
+            },
+            margin: {
+                top: 0,
+                right: 0,
+                bottom: 0,
+                left: 0
+            },
+            verticalCoefficient: 1,
+            horizontalCoefficient: 1,
+            horizontalConstant: 0,
+            verticalConstant: 0,
+            labelsFontSize: undefined,
+            colorScale: undefined
+        });
+        await matrixRenderer.setTransformData({
+            transform: {
+                k: 1,
+                x: 1,
+                y: 1
+            },
+            topLeftCanvasCorner: undefined,
+            bottomRightCanvasCorner: undefined
+        });
     });
 
     it('setCanvasDimensions should set the canvas dimensions', async () => {

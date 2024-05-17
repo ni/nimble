@@ -3,11 +3,6 @@ import { Computations } from '../experimental/computations';
 import { WaferMapColorScaleMode, WaferMapOriginLocation } from '../types';
 import {
     getWaferMapMockComputationsExperimental,
-    getWaferMapDiesTable,
-    getExperimentalWaferMapMockPrerendering,
-    defaultExperimentalHorizontalScale,
-    defaultExperimentalVerticalScale,
-    getStateMock,
     getWaferMapDies
 } from './utilities';
 import type { WaferMap } from '..';
@@ -25,12 +20,9 @@ describe('Wafermap Experimental Computations module', () => {
             left: 4
         };
         beforeEach(() => {
-            waferMock = getWaferMapMockComputationsExperimental(
-                getWaferMapDiesTable(),
-                WaferMapOriginLocation.topLeft,
-                100,
-                100
-            );
+            waferMock = getWaferMapMockComputationsExperimental();
+            waferMock.canvasWidth = 100;
+            waferMock.canvasHeight = 100;
             computationsModule = new Computations(waferMock);
             computationsModule.componentResizeUpdate();
         });
@@ -67,12 +59,9 @@ describe('Wafermap Experimental Computations module', () => {
 
     describe('with rectangular canvas', () => {
         beforeEach(() => {
-            waferMock = getWaferMapMockComputationsExperimental(
-                getWaferMapDiesTable(),
-                WaferMapOriginLocation.topLeft,
-                200,
-                100
-            );
+            waferMock = getWaferMapMockComputationsExperimental();
+            waferMock.canvasWidth = 200;
+            waferMock.canvasHeight = 100;
             computationsModule = new Computations(waferMock);
             computationsModule.componentResizeUpdate();
         });
@@ -132,12 +121,10 @@ describe('Wafermap Experimental Computations module', () => {
         spec(
             `with ${name} originLocation should have expected horizontal range and vertical range`,
             () => {
-                waferMock = getWaferMapMockComputationsExperimental(
-                    getWaferMapDiesTable(),
-                    value.name,
-                    100,
-                    100
-                );
+                waferMock = getWaferMapMockComputationsExperimental();
+                waferMock.originLocation = value.name;
+                waferMock.canvasWidth = 100;
+                waferMock.canvasHeight = 100;
                 computationsModule = new Computations(waferMock);
                 computationsModule.componentResizeUpdate();
                 expect(waferMock.horizontalScale.range()).toEqual(
@@ -152,27 +139,17 @@ describe('Wafermap Experimental Computations module', () => {
 
     it('with die input and small die height should not have labelsFontSize larger than the die height', () => {
         const dieDimensions = { width: 10, height: 1 };
-        const dieLabelsSuffix = '';
-        const dieLabelsHidden = false;
         const maxCharacters = 2;
-        const highlightedTags: string[] = [];
         const margin = { top: 0, right: 0, bottom: 0, left: 0 };
 
-        const stateMock = getStateMock(dieDimensions, margin);
-        waferMock = getExperimentalWaferMapMockPrerendering(
-            getWaferMapDies(),
-            { colors: [], values: [] },
-            highlightedTags,
-            WaferMapColorScaleMode.linear,
-            dieLabelsHidden,
-            dieLabelsSuffix,
-            maxCharacters,
-            defaultExperimentalHorizontalScale,
-            defaultExperimentalVerticalScale,
-            stateMock
-        );
+        waferMock = getWaferMapMockComputationsExperimental();
+        waferMock.canvasWidth = 100;
+        waferMock.canvasHeight = 100;
+        waferMock.maxCharacters = maxCharacters;
+        waferMock.dieDimensions = dieDimensions;
+        waferMock.margin = margin;
         computationsModule = new Computations(waferMock);
-        computationsModule.componentResizeUpdate();
+        computationsModule.colorAndTextUpdate();
 
         expect(waferMock.labelsFontSize).toBeLessThanOrEqual(
             waferMock.dieDimensions.height
@@ -181,27 +158,15 @@ describe('Wafermap Experimental Computations module', () => {
 
     it('with small width and one character at maximum should not have labelsFontSize larger than the die width', () => {
         const dieDimensions = { width: 1, height: 10 };
-        const dieLabelsSuffix = '';
-        const dieLabelsHidden = false;
         const maxCharacters = 1;
-        const highlightedTags: string[] = [];
         const margin = { top: 0, right: 0, bottom: 0, left: 0 };
 
-        const stateMock = getStateMock(dieDimensions, margin);
-        waferMock = getExperimentalWaferMapMockPrerendering(
-            getWaferMapDies(),
-            { colors: [], values: [] },
-            highlightedTags,
-            WaferMapColorScaleMode.linear,
-            dieLabelsHidden,
-            dieLabelsSuffix,
-            maxCharacters,
-            defaultExperimentalHorizontalScale,
-            defaultExperimentalVerticalScale,
-            stateMock
-        );
+        waferMock = getWaferMapMockComputationsExperimental();
+        waferMock.maxCharacters = maxCharacters;
+        waferMock.dieDimensions = dieDimensions;
+        waferMock.margin = margin;
         computationsModule = new Computations(waferMock);
-        computationsModule.componentResizeUpdate();
+        computationsModule.colorAndTextUpdate();
 
         expect(waferMock.labelsFontSize).toBeLessThan(
             waferMock.dieDimensions.width
@@ -213,27 +178,17 @@ describe('Wafermap Experimental Computations module', () => {
 
         it('and only one color value pair should have undefined color category', () => {
             const dieDimensions = { width: 10, height: 10 };
-            const dieLabelsSuffix = '';
-            const dieLabelsHidden = true;
             const maxCharacters = 2;
-            const highlightedTags: string[] = [];
             const margin = { top: 0, right: 0, bottom: 0, left: 0 };
 
-            const stateMock = getStateMock(dieDimensions, margin);
-            waferMock = getExperimentalWaferMapMockPrerendering(
-                getWaferMapDies(),
-                { colors: ['red'], values: ['1'] },
-                highlightedTags,
-                colorScaleMode,
-                dieLabelsHidden,
-                dieLabelsSuffix,
-                maxCharacters,
-                defaultExperimentalHorizontalScale,
-                defaultExperimentalVerticalScale,
-                stateMock
-            );
+            waferMock = getWaferMapMockComputationsExperimental();
+            waferMock.colorScale = { colors: ['red'], values: ['1'] };
+            waferMock.colorScaleMode = colorScaleMode;
+            waferMock.maxCharacters = maxCharacters;
+            waferMock.dieDimensions = dieDimensions;
+            waferMock.margin = margin;
             computationsModule = new Computations(waferMock);
-            computationsModule.componentResizeUpdate();
+            computationsModule.colorAndTextUpdate();
             const expectedValues = Array(1).fill(undefined);
 
             const actualValues = waferMock.workerColorScale.map(
@@ -247,30 +202,20 @@ describe('Wafermap Experimental Computations module', () => {
 
         it('and only one duplicated color value pair should have a single color category', () => {
             const dieDimensions = { width: 10, height: 10 };
-            const dieLabelsSuffix = '';
-            const dieLabelsHidden = true;
             const maxCharacters = 2;
-            const highlightedTags: string[] = [];
             const margin = { top: 0, right: 0, bottom: 0, left: 0 };
 
-            const stateMock = getStateMock(dieDimensions, margin);
-            waferMock = getExperimentalWaferMapMockPrerendering(
-                getWaferMapDies(),
-                {
-                    colors: ['red', 'red'],
-                    values: ['1', '1']
-                },
-                highlightedTags,
-                colorScaleMode,
-                dieLabelsHidden,
-                dieLabelsSuffix,
-                maxCharacters,
-                defaultExperimentalHorizontalScale,
-                defaultExperimentalVerticalScale,
-                stateMock
-            );
+            waferMock = getWaferMapMockComputationsExperimental();
+            waferMock.colorScale = {
+                colors: ['red', 'red'],
+                values: ['1', '1']
+            };
+            waferMock.colorScaleMode = colorScaleMode;
+            waferMock.maxCharacters = maxCharacters;
+            waferMock.dieDimensions = dieDimensions;
+            waferMock.margin = margin;
             computationsModule = new Computations(waferMock);
-            computationsModule.componentResizeUpdate();
+            computationsModule.colorAndTextUpdate();
 
             const expectedValues = Array(1).fill('rgb(255, 0, 0)');
             const actualValues = waferMock.workerColorScale.map(
@@ -283,30 +228,20 @@ describe('Wafermap Experimental Computations module', () => {
 
         it('and color value pairs for the scale ends should have the colors equally distributed', () => {
             const dieDimensions = { width: 10, height: 10 };
-            const dieLabelsSuffix = '';
-            const dieLabelsHidden = true;
             const maxCharacters = 2;
-            const highlightedTags: string[] = [];
             const margin = { top: 0, right: 0, bottom: 0, left: 0 };
 
-            const stateMock = getStateMock(dieDimensions, margin);
-            waferMock = getExperimentalWaferMapMockPrerendering(
-                getWaferMapDies(),
-                {
-                    colors: ['black', 'red'],
-                    values: ['1', '18']
-                },
-                highlightedTags,
-                colorScaleMode,
-                dieLabelsHidden,
-                dieLabelsSuffix,
-                maxCharacters,
-                defaultExperimentalHorizontalScale,
-                defaultExperimentalVerticalScale,
-                stateMock
-            );
+            waferMock = getWaferMapMockComputationsExperimental();
+            waferMock.colorScale = {
+                colors: ['black', 'red'],
+                values: ['1', '18']
+            };
+            waferMock.colorScaleMode = colorScaleMode;
+            waferMock.maxCharacters = maxCharacters;
+            waferMock.dieDimensions = dieDimensions;
+            waferMock.margin = margin;
             computationsModule = new Computations(waferMock);
-            computationsModule.componentResizeUpdate();
+            computationsModule.colorAndTextUpdate();
             const waferMapDies = getWaferMapDies();
             const expectedValues = waferMapDies
                 .sort((a, b) => +a.value - +b.value)
@@ -327,27 +262,17 @@ describe('Wafermap Experimental Computations module', () => {
 
         it('and only one color value pair should have a single color category', () => {
             const dieDimensions = { width: 10, height: 10 };
-            const dieLabelsSuffix = '';
-            const dieLabelsHidden = true;
             const maxCharacters = 2;
-            const highlightedTags: string[] = [];
             const margin = { top: 0, right: 0, bottom: 0, left: 0 };
 
-            const stateMock = getStateMock(dieDimensions, margin);
-            waferMock = getExperimentalWaferMapMockPrerendering(
-                getWaferMapDies(),
-                { colors: ['red'], values: ['1'] },
-                highlightedTags,
-                colorScaleMode,
-                dieLabelsHidden,
-                dieLabelsSuffix,
-                maxCharacters,
-                defaultExperimentalHorizontalScale,
-                defaultExperimentalVerticalScale,
-                stateMock
-            );
+            waferMock = getWaferMapMockComputationsExperimental();
+            waferMock.colorScale = { colors: ['red'], values: ['1'] };
+            waferMock.colorScaleMode = colorScaleMode;
+            waferMock.maxCharacters = maxCharacters;
+            waferMock.dieDimensions = dieDimensions;
+            waferMock.margin = margin;
             computationsModule = new Computations(waferMock);
-            computationsModule.componentResizeUpdate();
+            computationsModule.colorAndTextUpdate();
             const expectedValues = Array(1).fill('red');
             const actualValues = waferMock.workerColorScale.map(
                 colorCategory => colorCategory.color
@@ -359,30 +284,20 @@ describe('Wafermap Experimental Computations module', () => {
 
         it('and two colors should have two color categories', () => {
             const dieDimensions = { width: 10, height: 10 };
-            const dieLabelsSuffix = '';
-            const dieLabelsHidden = true;
             const maxCharacters = 2;
-            const highlightedTags: string[] = [];
             const margin = { top: 0, right: 0, bottom: 0, left: 0 };
 
-            const stateMock = getStateMock(dieDimensions, margin);
-            waferMock = getExperimentalWaferMapMockPrerendering(
-                getWaferMapDies(),
-                {
-                    colors: ['black', 'red'],
-                    values: []
-                },
-                highlightedTags,
-                colorScaleMode,
-                dieLabelsHidden,
-                dieLabelsSuffix,
-                maxCharacters,
-                defaultExperimentalHorizontalScale,
-                defaultExperimentalVerticalScale,
-                stateMock
-            );
+            waferMock = getWaferMapMockComputationsExperimental();
+            waferMock.colorScale = {
+                colors: ['black', 'red'],
+                values: []
+            };
+            waferMock.colorScaleMode = colorScaleMode;
+            waferMock.maxCharacters = maxCharacters;
+            waferMock.dieDimensions = dieDimensions;
+            waferMock.margin = margin;
             computationsModule = new Computations(waferMock);
-            computationsModule.componentResizeUpdate();
+            computationsModule.colorAndTextUpdate();
 
             const expectedValues = ['black', 'red'];
             const actualValues = waferMock.workerColorScale.map(
