@@ -107,26 +107,19 @@ export const createMatrixThemeStory = <TSource>(
 };
 
 export function createMatrixInteractionsFromStates<
-    T extends readonly unknown[],
     THover extends readonly unknown[],
     THoverActive extends readonly unknown[],
     TActive extends readonly unknown[],
-    TFocus extends readonly unknown[],
-    TVisited extends {
-        plain: T[],
-        active: TActive[],
-        focus: TFocus[]
-    }
+    TFocus extends readonly unknown[]
 >(
     component: (
-        ...states: T | THover | TActive | THoverActive | TFocus
+        ...states: THover | TActive | THoverActive | TFocus
     ) => ViewTemplate,
     states: {
         hover: THover[],
         hoverActive: THoverActive[],
         active: TActive[],
-        focus: TFocus[],
-        visited?: TVisited
+        focus: TFocus[]
     }
 ): ViewTemplate {
     // prettier-ignore
@@ -151,20 +144,6 @@ export function createMatrixInteractionsFromStates<
             <p>Focus</p>
             ${createMatrixFromStates(component, states.focus)}
         </div>
-        ${states.visited ? html`
-            <div class="pseudo-visited-all">
-                <p>Visited</p>
-                ${createMatrixFromStates(component, states.visited.plain)}
-            </div>
-            <div class="pseudo-visited-all pseudo-active-all">
-                <p>Visited and active</p>
-                ${createMatrixFromStates(component, states.visited.active)}
-            </div>
-            <div class="pseudo-visited-all pseudo-focus-visible-all pseudo-focus-within-all">
-                <p>Visited and focus</p>
-                ${createMatrixFromStates(component, states.visited.focus)}
-            </div>
-        ` : ''}
     </div>
 `;
 }

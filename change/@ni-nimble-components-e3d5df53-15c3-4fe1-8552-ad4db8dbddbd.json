@@ -1,6 +1,6 @@
 {
   "type": "patch",
-  "comment": "Fix anchor focus and visited styling",
+  "comment": "Fix anchor focus styling",
   "packageName": "@ni/nimble-components",
   "email": "7282195+m-akinc@users.noreply.github.com",
   "dependentChangeType": "patch"

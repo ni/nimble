@@ -8,9 +8,7 @@ import {
     linkDisabledFontColor,
     linkFont,
     linkFontColor,
-    linkProminentFontColor,
-    linkActiveVisitedColor,
-    linkVisitedColor
+    linkProminentFontColor
 } from '../theme-provider/design-tokens';
 
 export const styles = css`
@@ -39,10 +37,6 @@ export const styles = css`
 
         :host([appearance='prominent']) .control {
             color: ${linkProminentFontColor};
-        }
-
-        .control:visited {
-            color: ${linkVisitedColor};
         }
 
         [part='start'] {
@@ -79,10 +73,6 @@ export const styles = css`
 
         :host([appearance='prominent']) .control:active {
             color: ${linkActiveProminentFontColor};
-        }
-
-        .control:active:visited {
-            color: ${linkActiveVisitedColor};
         }
 
         :host([underline-hidden]) .control:active {
