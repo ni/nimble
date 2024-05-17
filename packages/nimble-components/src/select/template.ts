@@ -23,7 +23,7 @@ import {
 } from '../label-provider/core/label-tokens';
 import { FilterMode } from './types';
 import { buttonTag } from '../button';
-import { iconXmarkTag } from '../icons/xmark';
+import { iconTimesTag } from '../icons/times';
 
 /* eslint-disable @typescript-eslint/indent */
 // prettier-ignore
@@ -74,7 +74,7 @@ SelectOptions
                             content-hidden
                             appearance="ghost"
                             @click="${(x, c) => x.clearClickHandler(c.event as MouseEvent)}">
-                            <${iconXmarkTag} slot="start"></${iconXmarkTag}>
+                            <${iconTimesTag} slot="start"></${iconTimesTag}>
                         </${buttonTag}>
                     `)}
                     <div aria-hidden="true" class="indicator" part="indicator">
