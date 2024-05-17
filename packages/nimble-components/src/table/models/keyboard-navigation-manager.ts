@@ -114,7 +114,6 @@ implements Subscriber {
         });
         this.tableNotifier = Observable.getNotifier(this.table);
         this.tableNotifier.subscribe(this, 'rowElements');
-
         window.setTimeout(() => this.printActiveElement(), 8000);
     }
 
@@ -737,6 +736,8 @@ implements Subscriber {
                 let cellContentIndex: number | undefined;
                 if (this.focusState.focusType === TableFocusType.cellContent) {
                     cellContentIndex = this.focusState.cellContentIndex! - 1;
+                } else if (this.focusState.focusType === TableFocusType.cellActionMenu && cellIndex === this.focusState.columnIndex!) {
+                    cellContentIndex = -1;
                 }
                 while (
                     cellIndex >= 0
