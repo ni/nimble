@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Update 'start' slot of text field to match design spec",
-  "packageName": "@ni/nimble-components",
-  "email": "20542556+mollykreis@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
