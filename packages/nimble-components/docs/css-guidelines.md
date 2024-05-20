@@ -198,13 +198,13 @@ When styling the invalid state of a form component, it may seem natural to use `
 
 Instead of styling based on `:invalid`, style the `[error-visible]` attribute. Then the client can create a binding to apply the `invalid` class based on the associated `FormControl`'s status properties, like `invalid`, `dirty`, and `touched`.
 
-## Use FAST's display utility for styling host element
+## Use the display utility for styling host element
 
-For consistent styling, use FAST's `display` utility when setting a `display` style on the host element.
+For consistent styling, use the `display` utility when setting a `display` style on the host element.
 
 ```ts
 import { css } from '@microsoft/fast-element';
-import { display } from '@microsoft/fast-foundation';
+import { display } from '../utilities/style/display';
 
 export const styles = css`
     ${display('flex')}

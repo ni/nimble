@@ -1,8 +1,40 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Tue, 14 May 2024 21:43:26 GMT and should not be manually modified.
+This log was last generated on Mon, 20 May 2024 15:39:22 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 29.1.3
+
+Mon, 20 May 2024 15:39:22 GMT
+
+### Patches
+
+- Update 'start' slot of text field to match design spec ([ni/nimble@830231e](https://github.com/ni/nimble/commit/830231edf173fa68ba7dee2b0bd7ab16b543af7a))
+
+## 29.1.2
+
+Fri, 17 May 2024 20:05:45 GMT
+
+### Patches
+
+- Make clear select button match design spec ([ni/nimble@c057819](https://github.com/ni/nimble/commit/c05781966b2fde5db2445db93872fbcc3a1a27de))
+
+## 29.1.1
+
+Thu, 16 May 2024 18:44:46 GMT
+
+### Patches
+
+- Switch to custom display helper ([ni/nimble@17ddea5](https://github.com/ni/nimble/commit/17ddea50b5accb353a0288c42d0e64ddc5df0d04))
+
+## 29.1.0
+
+Wed, 15 May 2024 21:06:27 GMT
+
+### Minor changes
+
+- Add clear button for Select ([ni/nimble@f06b18a](https://github.com/ni/nimble/commit/f06b18a53a13a66af6ae47aa83df0a99ce8cffd0))
 
 ## 29.0.0
 

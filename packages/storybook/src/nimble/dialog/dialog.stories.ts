@@ -61,7 +61,7 @@ const content = {
 const sizeDescription = `
 Size of a nimble dialog.
 
-See the Sizing section of the Usage Docs for information on controlling the size of the dialog.
+See the **Sizing** section for information on controlling the size of the dialog.
 `;
 
 const widths = {
