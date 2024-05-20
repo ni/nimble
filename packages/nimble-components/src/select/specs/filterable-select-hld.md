@@ -20,13 +20,20 @@ Our clients have a need of a filterable dropdown component that does not allow a
 
 #### Select
 
-We will provide a means for clients to enable this feature with a new attribute:
+We will provide a means for clients to enable this feature with some new attributes:
 
 ```ts
 export class Select() {
     ...
     @attr({ attribute: 'filter-mode' })
     public filterMode = FilterMode.none;
+
+    /**
+     * Displays a message at the bottom of the dropdown to indicate more options
+     * are currently being loaded.
+     */
+    @attr({ attribute: 'is-loading' })
+    public isLoading = false;
     ...
 }
 
@@ -34,14 +41,36 @@ export class Select() {
 export const FilterMode  = {
     none: undefined;
     standard: 'standard';
+    custom: 'custom';
 } as const;
 ```
 
 -   The `standard` filterMode will result in case-insensitive, diacritic-insensitive filtering.
--   `filterMode` will default to `none` so as not to affect existing clients.
+-   The `custom` filterMode will result in a search input being shown, but no automatic filtering will occur as the user types in the search box. Instead, it is expected that a client leverage the `filter-input`event described in the ['Dynamic Options'](#dynamic-options) section below.
 -   The `none` filter mode results in no search input being shown in the dropdown.
+-   `filterMode` will default to `none` so as not to affect existing clients.
 
 _Note: The `filterMode` isn't meant to mirror the `Combobox` `autocomplete` API, as they do serve slightly different purposes: The `autocomplete` for the `Combobox` ultimately helps set the actual value of the `Combobox` as the user types, and isn't necessarily performing any filtering (e.g. the `inline` mode). One possible concern, however, is that we are presenting an API that will allow different types of filter behaviors (i.e. case sensitive) that the `Combobox` does not support. Additionally, I am proposing diacritic insensitive filtering, which the `Combobox` also does not currently support, but I feel this is quite likely a better default experience._
+
+#### Dynamic options
+
+In order to support the use-case of clients supplying options to the `Select` based on the current search text, clients will need to set the `filterMode` to `custom`, and then subscribe to the `filter-input` event, the details of which will provide the current search text:
+
+```ts
+interface SelectFilterInputEventDetail {
+    filterText: string;
+}
+```
+
+Then, in the handling of the `filter-input` event, clients will need to perform the desired filtering using the supplied filter text, in addition to setting the `is-loading` attribute to `true` while the options are being loaded into the DOM, and then again to `false` when that process is complete.
+
+_IMPORTANT_: When using the `custom` filter mode, clients are responsible for making sure the options that are placed in the DOM meet one of the following criteria:
+
+-   The option is some reasonable default option when there is no filter text provided _OR_
+-   The option display text matches the provided filter in an understandable way _OR_
+-   The option is a placeholder option
+
+_Note: When the `isLoading` attribute is set, we will display localizable text at the bottom of the dropdown (defaulting to "Loading"), along with the spinner icon._
 
 #### LabelProviderCore
 
@@ -55,12 +84,16 @@ export class LabelProviderCore
 
     @attr({ attribute: 'select-filter-no-results' })
     public selectFilterNoResults: string | undefined;
+
+    @attr({ attribute: 'select-is-loading' })
+    public selectIsLoading: string | undefined;
 ```
 
 The English strings used for these labels will be:
 
 -   selectFilterSearch: "Search"
 -   selectFilterNoResults: "No items found"
+-   selectIsLoading: "Loading"
 
 ### Implementation details
 
@@ -88,6 +121,8 @@ The accessibility tree will report that the search `input` element should have i
 
 ### Future considerations
 
+It's possible that we may want to improve/alter the discoverability of the fact that more options are available to be loaded when using the `custom` filtering option. This _could_ follow the design of what we see with the AzDO _Windows_-based user selector experiece where a display of the number of current results is shown at the bottom, and when a user begins typing in the filter input, a 'Show more results' button is shown at the bottom of the dropdown.
+
 #### Grouping/Metadata
 
 One feature that we intend to add to the `Select` is the ability to specify "groups" of options, where each group will have non-selectable header text followed by the options under that group. Ultimately, this feature will have to work nicely with filtering, but I don't believe there are aspects of this that would interfere with the current proposed API in this HLD of a single attribute that specifies how the filter text is applied to a target.
@@ -98,18 +133,10 @@ There is also a desire to allow the [`ListOption` to contain complex content](ht
 
 It may be desireable to have other filter modes in the future, such as case sensitive, or even regular expressions. By making the new API an enum, we can easily add new modes as needed.
 
-#### Dynamic fetching of options
-
-We know that there is a use-case with the `Combobox` to dynamically fetch options from a server that match the pattern provided in the input field, and so it isn't a stretch that a client might want the same capability in the `Select`. However, this is currently accomplished through turning off the `Combobox` `autocomplete` mode, and essentially having the client provide a custom behavior.
-
-The `Select` presents its own challenges for providing a similar ability:
-
--   Should the `Combobox` and `Select` provide mirrored APIs for this? Currently, this doesn't seem possible in Angular as the `Combobox` relies on users accessing its `value` property from the `nativeElement` to use for the filter, in combination with listening to native `input` events. The `Select` would either need to work differently, or the `Combobox` would have to be updated.
--   Would this feature be enabled through another mode on the `filterMode` enum (i.e. a `dynamic` or `custom` mode), or is it orthogonal to the `filterMode` API?
--   Are there challenges in having the filter work against local options in addition to retrieving new ones?
-
 ## Alternative Implementations / Designs
 
 None
 
 ## Open Issues
+
+-   Does the `Combobox` need to present a mirrored API to the `Select` for dynmically loaded options (i.e. an `isLoading` attribute along with the accompanying visuals, and a `filter-input` event)
