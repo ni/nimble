@@ -95,7 +95,9 @@ public class NimbleSelectTests
     }
 
     [Fact]
+#pragma warning disable NI1704 // Identifiers should be spelled correctly
     public void SelectClearable_AttributeIsSet()
+#pragma warning restore NI1704 // Identifiers should be spelled correctly
     {
         var select = RenderWithPropertySet(x => x.Clearable, true);
 
