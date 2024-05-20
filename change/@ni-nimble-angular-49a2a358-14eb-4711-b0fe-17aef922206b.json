@@ -1,6 +1,6 @@
 {
   "type": "minor",
-  "comment": "Adding clearable feature for Select.",
+  "comment": "Adding clearable API for Select.",
   "packageName": "@ni/nimble-angular",
   "email": "26874831+atmgrifter00@users.noreply.github.com",
   "dependentChangeType": "patch"
