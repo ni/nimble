@@ -21,6 +21,10 @@ export interface Dimensions {
     height: number;
 }
 
+export interface Position {
+    x: number;
+    y: number;
+}
 export interface Margin {
     readonly top: number;
     readonly right: number;
@@ -48,6 +52,6 @@ export interface State {
 
 export interface TransformData {
     transform: Transform | undefined;
-    topLeftCanvasCorner: { x: number; y: number } | undefined;
-    bottomRightCanvasCorner: { x: number; y: number } | undefined;
+    topLeftCanvasCorner: Position | undefined;
+    bottomRightCanvasCorner: Position | undefined;
 }
