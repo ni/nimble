@@ -21,7 +21,7 @@
             <Word>rtl</Word>
             <Word>spright</Word>
             <Word>tooltip</Word>
-			<word>clearable</word>
+			<Word>clearable</Word>
         </Recognized>
         <DiscreteExceptions>
         </DiscreteExceptions>
