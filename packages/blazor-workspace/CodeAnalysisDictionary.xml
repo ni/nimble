@@ -5,7 +5,8 @@
             <Word>args</Word>
             <Word>blazor</Word>
             <Word>bool</Word>
-            <Word>combobox</Word>
+			<Word>clearable</Word>
+			<Word>combobox</Word>
             <Word>dropdown</Word>
             <Word>enum</Word>
             <Word>frameless</Word>
@@ -21,7 +22,6 @@
             <Word>rtl</Word>
             <Word>spright</Word>
             <Word>tooltip</Word>
-            <Word>clearable</Word>
         </Recognized>
         <DiscreteExceptions>
         </DiscreteExceptions>
