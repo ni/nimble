@@ -1,4 +1,3 @@
-/* eslint-disable no-restricted-syntax */
 import { html, slotted, type ViewTemplate } from '@microsoft/fast-element';
 import type {
     CheckboxOptions,
@@ -16,7 +15,7 @@ CheckboxOptions
         aria-required="${x => x.required}"
         aria-disabled="${x => x.disabled}"
         aria-readonly="${x => x.readOnly}"
-        tabindex="${x => (x.disabled ? null : x.tabIndex ?? 0)}"
+        tabindex="${x => x.getEffectiveTabIndex()}"
         @keypress="${(x, c) => x.keypressHandler(c.event as KeyboardEvent)}"
         @click="${(x, c) => x.clickHandler(c.event as MouseEvent)}"
         class="${x => (x.readOnly ? 'readonly' : '')} ${x => (x.checked ? 'checked' : '')} ${x => (x.indeterminate ? 'indeterminate' : '')}"

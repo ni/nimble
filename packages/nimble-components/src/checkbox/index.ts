@@ -25,6 +25,14 @@ export class Checkbox extends FoundationCheckbox {
      */
     @attr({ attribute: 'tabindex', converter: nullableNumberConverter })
     public override tabIndex!: number;
+
+    /**
+     * @internal
+     */
+    public getEffectiveTabIndex(): number | null {
+        // prettier-ignore
+        return this.disabled ? null : (this.tabIndex ?? 0);
+    }
 }
 
 const nimbleCheckbox = Checkbox.compose<CheckboxOptions>({

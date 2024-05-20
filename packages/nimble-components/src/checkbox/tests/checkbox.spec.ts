@@ -4,10 +4,8 @@ import { fixture, type Fixture } from '../../utilities/tests/fixture';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 
 describe('Checkbox', () => {
-    async function setup(tabIndex?: string): Promise<Fixture<Checkbox>> {
-        return fixture<Checkbox>(
-            html`<${checkboxTag} ${tabIndex ? `tabindex=${tabIndex}` : ''}></${checkboxTag}>`
-        );
+    async function setup(): Promise<Fixture<Checkbox>> {
+        return fixture<Checkbox>(html`<${checkboxTag}></${checkboxTag}>`);
     }
 
     it('should export its tag', () => {
@@ -21,7 +19,8 @@ describe('Checkbox', () => {
     });
 
     it('should honor provided `tabindex` value', async () => {
-        const { element, connect, disconnect } = await setup('-1');
+        const { element, connect, disconnect } = await setup();
+        element.setAttribute('tabindex', '-1');
         await connect();
 
         expect(element.getAttribute('tabindex')).toEqual('-1');
@@ -31,7 +30,8 @@ describe('Checkbox', () => {
     });
 
     it('should default `tabindex` back to 0 when removed', async () => {
-        const { element, connect, disconnect } = await setup('-1');
+        const { element, connect, disconnect } = await setup();
+        element.setAttribute('tabindex', '-1');
         await connect();
 
         element.removeAttribute('tabindex');

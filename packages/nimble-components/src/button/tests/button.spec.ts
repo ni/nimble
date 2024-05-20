@@ -4,10 +4,8 @@ import { fixture, type Fixture } from '../../utilities/tests/fixture';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 
 describe('Button', () => {
-    async function setup(tabIndex?: string): Promise<Fixture<Button>> {
-        return fixture<Button>(
-            html`<${buttonTag} ${tabIndex ? `tabindex=${tabIndex}` : ''}></${buttonTag}>`
-        );
+    async function setup(): Promise<Fixture<Button>> {
+        return fixture<Button>(html`<${buttonTag}></${buttonTag}>`);
     }
 
     it('should export its tag', () => {
@@ -30,7 +28,8 @@ describe('Button', () => {
     });
 
     it('should set the `tabindex` attribute on the internal button when provided', async () => {
-        const { element, connect, disconnect } = await setup('-1');
+        const { element, connect, disconnect } = await setup();
+        element.setAttribute('tabindex', '-1');
         await connect();
 
         const innerButton = element.shadowRoot!.querySelector('button')!;
@@ -41,7 +40,8 @@ describe('Button', () => {
     });
 
     it('should clear the `tabindex` attribute on the internal button when cleared from the host', async () => {
-        const { element, connect, disconnect } = await setup('-1');
+        const { element, connect, disconnect } = await setup();
+        element.setAttribute('tabindex', '-1');
         await connect();
 
         element.removeAttribute('tabindex');
