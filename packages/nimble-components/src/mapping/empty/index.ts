@@ -3,6 +3,7 @@ import { attr } from '@microsoft/fast-element';
 import { Mapping } from '../base';
 import { template } from '../base/template';
 import type { MappingKey } from '../base/types';
+import { styles } from '../base/styles';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -22,7 +23,8 @@ export class MappingEmpty extends Mapping<MappingKey> {
 
 const emptyMapping = MappingEmpty.compose({
     baseName: 'mapping-empty',
-    template
+    template,
+    styles
 });
 DesignSystem.getOrCreate().withPrefix('nimble').register(emptyMapping());
 export const mappingEmptyTag = 'nimble-mapping-empty';

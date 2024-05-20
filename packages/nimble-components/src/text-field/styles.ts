@@ -1,5 +1,5 @@
 import { css } from '@microsoft/fast-element';
-import { display } from '@microsoft/fast-foundation';
+import { display } from '../utilities/style/display';
 
 import {
     borderRgbPartialColor,
@@ -14,8 +14,7 @@ import {
     bodyFont,
     controlLabelFontColor,
     controlLabelDisabledFontColor,
-    mediumPadding,
-    iconColor
+    mediumPadding
 } from '../theme-provider/design-tokens';
 import { appearanceBehavior } from '../utilities/style/appearance';
 import { TextFieldAppearance } from './types';
@@ -118,7 +117,11 @@ export const styles = css`
 
     slot[name='start']::slotted(*) {
         flex: none;
-        ${iconColor.cssCustomProperty}: currentcolor;
+        opacity: 0.6;
+    }
+
+    :host([disabled]) slot[name='start']::slotted(*) {
+        opacity: 0.3;
     }
 
     .control {
