@@ -42,7 +42,7 @@ export const anchorTabs: StoryObj<AnchorTabsArgs> = {
             options: ['None', '1', '2', '3'],
             control: { type: 'radio' },
             description:
-                "The `id` of the `nimble-anchor-tab` that should be indicated as currently active/selected. It is the application's responsibility to set `activeid` to the tab matching the currently loaded URL.",
+                `The \`id\` of the \`${anchorTabTag}\` that should be indicated as currently active/selected. It is the application's responsibility to set \`activeid\` to the tab matching the currently loaded URL.`,
             table: { category: apiCategory.attributes }
         },
         content: {
@@ -75,7 +75,7 @@ export const anchorTab: StoryObj<AnchorTabArgs> = {
             table: { category: apiCategory.attributes }
         },
         id: {
-            description: 'Set the `id` attribute on each tab and use the value to set the `activeid` attribute on the `nimble-anchor-tabs` element to indicate the currently selected tab.',
+            description: `Set the \`id\` attribute on each tab and use the value to set the \`activeid\` attribute on the \`${anchorTabsTag}\` element to indicate the currently selected tab.`,
             control: false,
             table: { category: apiCategory.attributes }
         },
