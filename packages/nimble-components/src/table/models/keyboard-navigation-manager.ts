@@ -29,7 +29,7 @@ import { TableGroupRow } from '../components/group-row';
 import { TableRow } from '../components/row';
 import { TableCell } from '../components/cell';
 import { MenuButton } from '../../menu-button';
-import { tableHeaderTag } from '../components/header';
+import { TableHeader, tableHeaderTag } from '../components/header';
 import { MenuItem } from '../../menu-item';
 import { Menu } from '../../menu';
 import { TableCellView } from '../../table-column/base/cell-view';
@@ -122,7 +122,7 @@ implements Subscriber {
     }
 
     public printActiveElement(): void {
-        console.log('Current Active Element', this.getActiveElement(false));
+        console.log('Current Active Element', this.getActiveElementDebug());
         window.setTimeout(() => this.printActiveElement(), 8000);
     }
 
@@ -625,166 +625,65 @@ implements Subscriber {
                 return false;
             }
             const focusableRowElements = row.getFocusableElements();
-            if (!shiftKeyPressed) {
-                let cellIndex = -1;
-                switch (this.focusState.focusType) {
-                    case TableFocusType.row:
-                        if (focusableRowElements.selectionCheckbox) {
-                            focusableElement = focusableRowElements.selectionCheckbox;
-                            this.focusState.focusType = TableFocusType.rowSelectionCheckbox;
-                        } else {
-                            cellIndex = 0;
-                        }
-                        break;
-                    case TableFocusType.rowSelectionCheckbox:
-                        cellIndex = 0;
-                        break;
-                    case TableFocusType.cell:
-                    case TableFocusType.cellActionMenu:
-                    case TableFocusType.cellContent:
-                        cellIndex = this.focusState.columnIndex!;
-                        if (
-                            this.focusState.focusType
-                            === TableFocusType.cellActionMenu
-                        ) {
-                            cellIndex += 1;
-                        }
-                        break;
-                    default:
-                        break;
-                }
-                let cellContentIndex = 0;
-                if (this.focusState.focusType === TableFocusType.cellContent) {
-                    cellContentIndex = this.focusState.cellContentIndex! + 1;
-                } else if (this.focusState.focusType === TableFocusType.cell) {
-                    const cellInfo = focusableRowElements.cells[cellIndex]!;
-                    if (
-                        !cellInfo.actionMenuButton
-                        && cellInfo.cell.cellView.tabbableChildren.length === 1
-                    ) {
-                        // Single interactive element (which means it was already focused)
-                        cellContentIndex = 1; // Skip single interactive element
-                    }
-                }
-                while (
-                    cellIndex >= 0
-                    && cellIndex < this.table.visibleColumns.length
-                ) {
-                    const cell = focusableRowElements.cells[cellIndex]!;
-                    const tabbableCellContent = cell.cell.cellView.tabbableChildren;
-                    while (cellContentIndex < tabbableCellContent.length) {
-                        focusableElement = tabbableCellContent[cellContentIndex];
-                        if (focusableElement) {
-                            break;
-                        }
-                        cellContentIndex += 1;
-                    }
-                    if (focusableElement) {
-                        this.focusState.focusType = TableFocusType.cellContent;
-                        this.focusState.columnIndex = cellIndex;
-                        this.focusState.cellContentIndex = cellContentIndex;
-                        break;
-                    }
-                    if (cell.actionMenuButton) {
-                        focusableElement = cell.actionMenuButton;
-                        this.focusState.focusType = TableFocusType.cellActionMenu;
-                        this.focusState.columnIndex = cellIndex;
-                        break;
-                    }
-                    cellIndex += 1;
-                    cellContentIndex = 0;
-                }
-            } else {
-                // shiftKeyPressed
-                let cellIndex = -1;
-                switch (this.focusState.focusType) {
-                    case TableFocusType.row:
-                        cellIndex = focusableRowElements.cells.length - 1;
-                        break;
-                    case TableFocusType.rowSelectionCheckbox:
-                        // Already on the 1st tabbable row element; nothing else to focus (we'll blur)
-                        break;
-                    case TableFocusType.cell:
-                    case TableFocusType.cellActionMenu:
-                    case TableFocusType.cellContent:
-                        cellIndex = this.focusState.columnIndex!;
-                        if (
-                            (this.focusState.focusType
-                                === TableFocusType.cellContent
-                                && this.focusState.cellContentIndex === 0)
-                            || (this.focusState.focusType
-                                === TableFocusType.cellActionMenu
-                                && focusableRowElements.cells[
-                                    this.focusState.columnIndex!
-                                ]!.cell.cellView.tabbableChildren.length
-                                    === 0)
-                            || (this.focusState.focusType
-                                === TableFocusType.cell
-                                && !focusableRowElements.cells[
-                                    this.focusState.columnIndex!
-                                ]!.actionMenuButton
-                                && focusableRowElements.cells[
-                                    this.focusState.columnIndex!
-                                ]!.cell.cellView.tabbableChildren.length === 1)
-                        ) {
-                            cellIndex -= 1;
-                        }
-                        break;
-                    default:
-                        break;
-                }
-                let cellContentIndex: number | undefined;
-                if (this.focusState.focusType === TableFocusType.cellContent) {
-                    cellContentIndex = this.focusState.cellContentIndex! - 1;
-                } else if (
-                    this.focusState.focusType
-                        === TableFocusType.cellActionMenu
-                    && cellIndex === this.focusState.columnIndex!
-                ) {
-                    cellContentIndex = -1;
-                }
-                while (
-                    cellIndex >= 0
-                    && cellIndex < this.table.visibleColumns.length
-                ) {
-                    const cell = focusableRowElements.cells[cellIndex]!;
-                    if (
-                        cellContentIndex === undefined
-                        && cell.actionMenuButton
-                    ) {
-                        focusableElement = cell.actionMenuButton;
-                        this.focusState.focusType = TableFocusType.cellActionMenu;
-                        this.focusState.columnIndex = cellIndex;
-                        break;
-                    }
-                    const tabbableCellContent = cell.cell.cellView.tabbableChildren;
-                    cellContentIndex = tabbableCellContent.length - 1;
-                    while (cellContentIndex >= 0) {
-                        focusableElement = tabbableCellContent[cellContentIndex];
-                        if (focusableElement) {
-                            break;
-                        }
-                        cellContentIndex -= 1;
-                    }
-                    if (focusableElement) {
-                        this.focusState.focusType = TableFocusType.cellContent;
-                        this.focusState.columnIndex = cellIndex;
-                        this.focusState.cellContentIndex = cellContentIndex;
-                        break;
-                    }
-                    cellIndex -= 1;
-                    cellContentIndex = undefined;
-                }
-                if (
-                    focusableElement === undefined
-                    && this.focusState.focusType
-                        !== TableFocusType.rowSelectionCheckbox
-                    && focusableRowElements.selectionCheckbox
-                ) {
-                    focusableElement = focusableRowElements.selectionCheckbox;
-                    this.focusState.focusType = TableFocusType.rowSelectionCheckbox;
-                }
+            const direction = shiftKeyPressed ? -1 : 1;
+            const tabbableElements = [];
+            const tabbableElementFocusState: TableFocusState[] = [];
+            tabbableElements.push(focusableRowElements.selectionCheckbox);
+            tabbableElementFocusState.push({ focusType: TableFocusType.rowSelectionCheckbox });
+            let startIndex = -1;
+            if (this.focusState.focusType === TableFocusType.rowSelectionCheckbox) {
+                startIndex = 0;
             }
+            let cellIndex = 0;
+            while (cellIndex < this.table.visibleColumns.length) {
+                const firstCellTabbableIndex = tabbableElements.length;
+                const cellInfo = focusableRowElements.cells[cellIndex]!;
+                const cellViewTabbableChildren = cellInfo.cell.cellView.tabbableChildren;
+                for (let i = 0; i < cellViewTabbableChildren.length; i++) {
+                    tabbableElements.push(cellViewTabbableChildren[i]);
+                    tabbableElementFocusState.push({ focusType: TableFocusType.cellContent, columnIndex: cellIndex, cellContentIndex: i });
+                    if (this.focusState.focusType === TableFocusType.cellContent && this.focusState.columnIndex === cellIndex && this.focusState.cellContentIndex === i) {
+                        startIndex = tabbableElements.length - 1;
+                    }
+                }
+                if (cellInfo.actionMenuButton) {
+                    tabbableElements.push(cellInfo.actionMenuButton);
+                    tabbableElementFocusState.push({ focusType: TableFocusType.cellActionMenu, columnIndex: cellIndex });
+                    if (this.focusState.focusType === TableFocusType.cellActionMenu && this.focusState.columnIndex === cellIndex) {
+                        startIndex = tabbableElements.length - 1;
+                    }
+                }
+                const lastCellTabbableIndex = tabbableElements.length - 1;
+                if (this.focusState.focusType === TableFocusType.cell && this.focusState.columnIndex === cellIndex) {
+                    if (!cellInfo.actionMenuButton && cellInfo.cell.cellView.tabbableChildren.length === 1) { // Single interactive element (which means it was already focused)
+                        startIndex = firstCellTabbableIndex; // Start at single interactive element
+                    } else {
+                        startIndex = shiftKeyPressed ? lastCellTabbableIndex + 1 : firstCellTabbableIndex - 1;
+                    }
+                }
+                cellIndex += 1;
+            }
+            if (this.focusState.focusType === TableFocusType.row) {
+                startIndex = shiftKeyPressed ? tabbableElements.length : -1;
+            }
+            let index = startIndex + direction;
+            do {
+                focusableElement = tabbableElements[index];
+                if (focusableElement === undefined) {
+                    index += direction;
+                    continue;
+                } else {
+                    const newFocusState = tabbableElementFocusState[index]!;
+                    this.focusState.focusType = newFocusState.focusType;
+                    if (newFocusState.cellContentIndex !== undefined) {
+                        this.focusState.cellContentIndex = newFocusState.cellContentIndex;
+                    }
+                    if (newFocusState.columnIndex !== undefined) {
+                        this.focusState.columnIndex = newFocusState.columnIndex;
+                    }
+                    break;
+                }
+            } while (index >= 0 && index < tabbableElements.length);
         } else {
             const headerActionIndex = this.focusableHeaderElements.headerActions.indexOf(
                 activeElement
@@ -1352,7 +1251,7 @@ implements Subscriber {
     }
 
     private getActiveElementDebug(): HTMLElement | string | null {
-        const result = this.getActiveElement();
+        const result = this.getActiveElement(false);
         if (result === document.body) {
             return '<body />';
         }
