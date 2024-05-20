@@ -128,7 +128,7 @@ export const template = html<Table>`
                         </span>
                     </div>
                 </div>
-                <div class="table-viewport" ${ref('viewport')}>
+                <div class="table-viewport" tabindex="-1" ${ref('viewport')}>
                     <div class="table-scroll"></div>
                     <div class="table-row-container ${x => `${x.showCollapseAll ? 'collapse-all-visible' : ''}`}" ${children({ property: 'rowElements', filter: elements(`${tableRowTag}, ${tableGroupRowTag}`) })}
                         role="rowgroup">

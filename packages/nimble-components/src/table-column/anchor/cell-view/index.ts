@@ -59,7 +59,11 @@ TableColumnAnchorColumnConfig
     }
 
     public override get tabbableChildren(): HTMLElement[] {
-        return this.anchor !== undefined ? [this.anchor] : [];
+        // this.anchor can be initialized even when not active in the template, so make sure it's in our DOM
+        if (this.anchor?.getRootNode() === this.shadowRoot) {
+            return [this.anchor];
+        }
+        return [];
     }
 }
 
