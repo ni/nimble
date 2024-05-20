@@ -42,7 +42,7 @@ public partial class NimbleSelect : NimbleInputBase<string?>
     /// Gets or sets whether the select can be cleared.
     /// </summary>
     [Parameter]
-    public bool Clearable { get; set; }
+    public bool? Clearable { get; set; }
 
     /// <summary>
     /// Gets or sets the select error text
