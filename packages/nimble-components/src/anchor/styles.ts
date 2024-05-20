@@ -60,8 +60,10 @@ export const styles = css`
 
     @layer focusVisible {
         .control${focusVisible} {
-            outline: ${borderHoverColor} solid 2px;
-            outline-offset: -2px;
+            outline: none;
+            box-shadow: inset 0px -1px;
+            text-decoration: underline;
+            color: ${borderHoverColor};
         }
     }
 
@@ -69,6 +71,7 @@ export const styles = css`
         .control:active {
             color: ${linkActiveFontColor};
             text-decoration: underline;
+            box-shadow: none;
         }
 
         :host([appearance='prominent']) .control:active {
