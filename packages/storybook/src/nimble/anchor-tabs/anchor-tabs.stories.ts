@@ -16,6 +16,7 @@ interface AnchorTabArgs {
     href: string;
     disabled: boolean;
     id: string;
+    title: string;
 }
 
 interface ToolbarArgs {
@@ -59,7 +60,7 @@ export const anchorTabs: StoryObj<AnchorTabsArgs> = {
 export const anchorTab: StoryObj<AnchorTabArgs> = {
     render: createUserSelectedThemeStory(html`
         <${anchorTabsTag} activeid="1">
-            <${anchorTabTag} id="1" ?disabled="${x => x.disabled}" href="${x => x.href}">Google</${anchorTabTag}>
+            <${anchorTabTag} id="1" ?disabled="${x => x.disabled}" href="${x => x.href}">${x => x.title}</${anchorTabTag}>
             <${anchorTabTag} id="2" href="https://www.ni.com">NI</${anchorTabTag}>
             <${anchorTabTag} id="3" href="https://nimble.ni.dev">Nimble</${anchorTabTag}>
         </${anchorTabsTag}>
@@ -77,11 +78,17 @@ export const anchorTab: StoryObj<AnchorTabArgs> = {
             description: 'Set the `id` attribute on each tab and use the value to set the `activeid` attribute on the `nimble-anchor-tabs` element to indicate the currently selected tab.',
             control: false,
             table: { category: apiCategory.attributes }
+        },
+        title: {
+            name: 'default',
+            description: 'Set the name of each tab by providing text content in its default slot.',
+            table: { category: apiCategory.slots }
         }
     },
     args: {
         href: 'https://www.google.com',
-        disabled: false
+        disabled: false,
+        title: 'Google'
     }
 };
 
