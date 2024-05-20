@@ -4,7 +4,7 @@ import ComponentApisLink from '../../docs/component-apis-link.mdx';
 import { anchorTabTag } from '@ni/nimble-components/dist/esm/anchor-tab';
 import { anchorTabsTag } from '@ni/nimble-components/dist/esm/anchor-tabs';
 import { tabsToolbar, tabsToolbarTag } from '@ni/nimble-components/dist/esm/tabs-toolbar';
-import { tabTag } from '@ni/nimble-components/dist/esm/tab';
+import { tabsTag } from '@ni/nimble-components/dist/esm/tabs';
 import * as anchorTabsStories from './anchor-tabs.stories';
 
 <Meta of={anchorTabsStories} />
@@ -14,7 +14,7 @@ Anchor tabs are a sequence of links that are styled to look like tab elements, w
 be distinguished as the currently active item. Use this component instead of the standard tabs component when each tab
 represents a different URL to navigate to.
 
-If you want the tabs to switch between different tab panels hosted on the same page, use the <Tag name={tabTag}/> instead.
+If you want the tabs to switch between different tab panels hosted on the same page, use the <Tag name={tabsTag}/> instead.
 
 <Canvas of={anchorTabsStories.anchorTabs} />
 
@@ -26,7 +26,7 @@ If you want the tabs to switch between different tab panels hosted on the same p
 
 ### Anchor Tab
 
-Use the <Tag name={anchorTabsTag} /> child element to add new tabs to the <Tag name={anchorTabTag} />.
+Use the <Tag name={anchorTabTag} /> child element to add new tabs to the <Tag name={anchorTabsTag} />.
 
 <Canvas of={anchorTabsStories.anchorTab} />
 <Controls of={anchorTabsStories.anchorTab} />
