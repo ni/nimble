@@ -136,8 +136,8 @@ describe('MenuButton', () => {
 
         it('should clear tabindex from the toggle button when cleared from the host', async () => {
             element.setAttribute('tabindex', '-1');
-            element.removeAttribute('tabindex');
             await connect();
+            element.removeAttribute('tabindex');
             expect(element.toggleButton!.getAttribute('tabindex')).toBeNull();
         });
 

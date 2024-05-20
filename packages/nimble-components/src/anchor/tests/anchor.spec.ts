@@ -92,9 +92,9 @@ describe('Anchor', () => {
     });
 
     it('should clear tabindex attribute from the internal control when cleared from the host', async () => {
+        element.setAttribute('tabindex', '-1');
         await connect();
 
-        element.setAttribute('tabindex', '-1');
         element.removeAttribute('tabindex');
         await waitForUpdatesAsync();
 
