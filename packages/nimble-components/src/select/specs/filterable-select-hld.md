@@ -86,13 +86,11 @@ Since the input for the filter is devoid of interaction semantics we find in the
 
 The accessibility tree will report that the search `input` element should have its own `focus` styling, however this should not be necessary, as the existence of the popup should provide the necessary focus hint to the user. Hiding the `input` from the accessibility tree using `aria-hidden` is strongly discouraged, and setting its `role` to `presentation` is not allowed.
 
-### Future considerations
-
 #### Grouping/Metadata
 
-One feature that we intend to add to the `Select` is the ability to specify "groups" of options, where each group will have non-selectable header text followed by the options under that group. Ultimately, this feature will have to work nicely with filtering, but I don't believe there are aspects of this that would interfere with the current proposed API in this HLD of a single attribute that specifies how the filter text is applied to a target.
+See [Option Groups/Filtering](./option-groups-hld.md#filtering)
 
-There is also a desire to allow the [`ListOption` to contain complex content](https://github.com/ni/nimble/issues/1135). This could include content that also supplies some metadata that _could_ be used for filtering purposes. The current proposed API is meant to inform _how_ the filter text is applied to a target, not _what_ the target is, so I suspect if we ever need to provide a means to the client to change what the target for the filter is, then that would be a different API.
+### Future considerations
 
 #### More filter modes
 
