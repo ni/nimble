@@ -46,11 +46,15 @@ import * as componentNameStories from './component-name.stories';
 <Controls of={componentNameStories.firstStoryName} />
 <ComponentApisLink />
 
-## Appearances
+## Usage
 
-## Appearance Variants
+## Styling
 
-## Usage 
+### Appearances
+
+### Appearance Variants
+
+### Sizing
 
 ## Examples
 
@@ -78,6 +82,8 @@ Note: if linking in a story via a native or Nimble anchor component, use the fol
 ```html
 <a href="./?path=/docs/some--id" target="_top">Link</a>
 ```
+
+Linking to headings within a document doesn't work very well, i.e. `./page#some-heading`; avoid using links to specific headings and instead link to the page and refer to the section using **Bold**, i.e. `See **Some Heading** on [Page](./page)`.
 
 All other Markdown formatting is supported. See any [Markdown Cheatsheet](https://www.markdownguide.org/cheat-sheet/) for more information.
 

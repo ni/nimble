@@ -1,5 +1,5 @@
 import { css } from '@microsoft/fast-element';
-import { display } from '@microsoft/fast-foundation';
+import { display } from '../../utilities/style/display';
 import { focusVisible } from '../../utilities/style/focus';
 import {
     actionRgbPartialColor,

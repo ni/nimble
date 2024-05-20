@@ -27,7 +27,7 @@ interface MenuItemArgsBase {
 }
 
 interface MenuItemArgs extends MenuItemArgsBase {
-    change: () => void;
+    change: undefined;
 }
 
 interface AnchorMenuItemArgs {

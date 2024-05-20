@@ -2,6 +2,7 @@ import { DesignSystem } from '@microsoft/fast-foundation';
 import { template } from '../base/template';
 import { Unit } from '../base/unit';
 import { voltUnitScale } from '../../utilities/unit-format/unit-scale/volt-unit-scale';
+import { styles } from '../base/styles';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -21,7 +22,8 @@ export class UnitVolt extends Unit {
 
 const nimbleUnitVolt = UnitVolt.compose({
     baseName: 'unit-volt',
-    template
+    template,
+    styles
 });
 
 DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleUnitVolt());
