@@ -2,7 +2,7 @@ import { Canvas, Meta, Controls, Title } from '@storybook/blocks';
 import { NimbleTabs } from './tabs.react';
 import * as tabsStories from './tabs.stories';
 import ComponentApisLink from '../../docs/component-apis-link.mdx';
-import { anchorTabTag } from '@ni/nimble-components/dist/esm/anchor-tab';
+import { anchorTabsTag } from '@ni/nimble-components/dist/esm/anchor-tabs';
 import { tabTag } from '@ni/nimble-components/dist/esm/tab';
 import { tabsTag } from '@ni/nimble-components/dist/esm/tabs';
 import { tabPanelTag } from '@ni/nimble-components/dist/esm/tab-panel';
@@ -16,7 +16,7 @@ sections of content, known as tab panels, that display one panel of content at a
 associated tab element, that when activated, displays the panel. The list of tab elements is arranged along
 one edge of the currently displayed panel, most commonly the top edge.
 
-If you want a sequence of tabs that navigate to different URLs, use the <Tag name={anchorTabTag}/> instead.
+If you want a sequence of tabs that navigate to different URLs, use the <Tag name={anchorTabsTag}/> instead.
 
 <Canvas of={tabsStories.tabs} />
 
