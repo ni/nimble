@@ -42,7 +42,9 @@ public partial class NimbleSelect : NimbleInputBase<string?>
     /// Gets or sets whether the select can be cleared.
     /// </summary>
     [Parameter]
+#pragma warning disable NI1704 // Identifiers should be spelled correctly
     public bool Clearable { get; set; }
+#pragma warning restore NI1704 // Identifiers should be spelled correctly
 
     /// <summary>
     /// Gets or sets the select error text
