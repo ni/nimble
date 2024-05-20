@@ -4,8 +4,11 @@ import {
     smallPadding,
     standardPadding
 } from '../theme-provider/design-tokens';
+import { display } from '../utilities/style/display';
 
 export const styles = css`
+    ${display('inline')}
+
     .positioning-region {
         display: flex;
         padding: ${smallPadding} ${standardPadding};

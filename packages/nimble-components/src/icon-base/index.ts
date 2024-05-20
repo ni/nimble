@@ -28,8 +28,7 @@ export const registerIcon = (baseName: string, iconClass: IconClass): void => {
     const composedIcon = iconClass.compose({
         baseName,
         template,
-        styles,
-        baseClass: iconClass
+        styles
     });
 
     DesignSystem.getOrCreate().withPrefix('nimble').register(composedIcon());

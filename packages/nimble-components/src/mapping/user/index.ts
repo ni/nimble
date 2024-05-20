@@ -3,6 +3,7 @@ import { DesignSystem } from '@microsoft/fast-foundation';
 import { Mapping } from '../base';
 import type { MappingUserKey } from '../base/types';
 import { template } from '../base/template';
+import { styles } from '../base/styles';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -19,7 +20,8 @@ export class MappingUser extends Mapping<MappingUserKey> {
 }
 const mappingUser = MappingUser.compose({
     baseName: 'mapping-user',
-    template
+    template,
+    styles
 });
 DesignSystem.getOrCreate().withPrefix('nimble').register(mappingUser());
 export const mappingUserTag = 'nimble-mapping-user';

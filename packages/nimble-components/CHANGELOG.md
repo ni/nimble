@@ -1,8 +1,40 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Mon, 13 May 2024 09:49:02 GMT and should not be manually modified.
+This log was last generated on Fri, 17 May 2024 20:05:45 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 29.1.2
+
+Fri, 17 May 2024 20:05:45 GMT
+
+### Patches
+
+- Make clear select button match design spec ([ni/nimble@c057819](https://github.com/ni/nimble/commit/c05781966b2fde5db2445db93872fbcc3a1a27de))
+
+## 29.1.1
+
+Thu, 16 May 2024 18:44:46 GMT
+
+### Patches
+
+- Switch to custom display helper ([ni/nimble@17ddea5](https://github.com/ni/nimble/commit/17ddea50b5accb353a0288c42d0e64ddc5df0d04))
+
+## 29.1.0
+
+Wed, 15 May 2024 21:06:27 GMT
+
+### Minor changes
+
+- Add clear button for Select ([ni/nimble@f06b18a](https://github.com/ni/nimble/commit/f06b18a53a13a66af6ae47aa83df0a99ce8cffd0))
+
+## 29.0.0
+
+Tue, 14 May 2024 21:43:26 GMT
+
+### Major changes
+
+- Breaking change: Having an `undefined` icon on `nimble-mapping-icon` results in an invalid mapping column; Use `nimble-mapping-empty` or `nimble-mapping-text` instead. ([ni/nimble@3b47e51](https://github.com/ni/nimble/commit/3b47e5159c4b3fdcf2e6b2f57c2f4619a7298aaf))
 
 ## 28.3.1
 

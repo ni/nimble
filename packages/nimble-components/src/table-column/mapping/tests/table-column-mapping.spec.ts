@@ -186,20 +186,6 @@ describe('TableColumnMapping', () => {
         expect(() => pageObject.getRenderedMappingColumnCellIconTagName(0, 0)).toThrowError();
     });
 
-    it('displays blank when no icon specified for mapping', async () => {
-        ({ connect, disconnect, model } = await setup({
-            keyType: MappingKeyType.string,
-            iconMappings: [{ key: 'a', text: 'alpha', icon: undefined }]
-        }));
-        pageObject = new TablePageObject<SimpleTableRecord>(model.table);
-        columnPageObject = new TableColumnMappingPageObject(pageObject);
-        await model.table.setData([{ field1: 'a' }]);
-        await connect();
-        await waitForUpdatesAsync();
-
-        expect(() => pageObject.getRenderedMappingColumnCellIconTagName(0, 0)).toThrowError();
-    });
-
     it('changing fieldName updates display', async () => {
         ({ connect, disconnect, model } = await setup({
             keyType: MappingKeyType.string,
@@ -310,23 +296,6 @@ describe('TableColumnMapping', () => {
                 ).toContain(name);
             });
         });
-    });
-
-    it('sets group header text label and no icon when icon is undefined', async () => {
-        ({ connect, disconnect, model } = await setup({
-            keyType: MappingKeyType.string,
-            iconMappings: [{ key: 'b', text: 'bravo', icon: undefined }]
-        }));
-        pageObject = new TablePageObject<SimpleTableRecord>(model.table);
-        columnPageObject = new TableColumnMappingPageObject(pageObject);
-        await model.table.setData([{ field1: 'b' }]);
-        await connect();
-        await waitForUpdatesAsync();
-        model.col1.groupIndex = 0;
-        await waitForUpdatesAsync();
-
-        expect(() => columnPageObject.getRenderedGroupHeaderIconTagName(0)).toThrowError();
-        expect(pageObject.getRenderedGroupHeaderTextContent(0)).toBe('bravo');
     });
 
     it('clears cell when mappings removed', async () => {
@@ -563,6 +532,17 @@ describe('TableColumnMapping', () => {
             ({ connect, disconnect, model } = await setup({
                 keyType: MappingKeyType.string,
                 iconMappings: [{ key: 'a', text: 'alpha', icon: 'foo' }]
+            }));
+            await connect();
+            await waitForUpdatesAsync();
+            expect(model.col1.checkValidity()).toBeFalse();
+            expect(model.col1.validity.invalidIconName).toBeTrue();
+        });
+
+        it('is invalid with undefined icon value', async () => {
+            ({ connect, disconnect, model } = await setup({
+                keyType: MappingKeyType.string,
+                iconMappings: [{ key: 'a', text: 'alpha', icon: undefined }]
             }));
             await connect();
             await waitForUpdatesAsync();

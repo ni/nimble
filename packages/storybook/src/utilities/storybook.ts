@@ -170,5 +170,5 @@ export const apiCategory = {
 } as const;
 
 export const iconDescription = 'Set `slot="start"` to include an icon before the text content.';
-export const disabledDescription = (options: { componentName: string }): string => `Disables the ${options.componentName}.`;
+export const disabledDescription = (options: { componentName: string }): string => `Styles the ${options.componentName} as disabled and prevents focus and user interaction.`;
 export const textContentDescription = (options: { componentName: string }): string => `The text content of the ${options.componentName}.`;
