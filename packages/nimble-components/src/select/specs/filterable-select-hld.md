@@ -62,7 +62,7 @@ interface SelectFilterInputEventDetail {
 }
 ```
 
-Then, in the handling of the `filter-input` event, clients will need to perform the desired filtering using the supplied filter text, in addition to setting the `is-loading` attribute to `true` while the options are being loaded into the DOM, and then again to `false` when that process is complete.
+Then, when handling the `filter-input` event, clients should perform the desired filtering using the provided filter text. Additionally, they should set the `is-loading` attribute to `true` while the options are being loaded into the DOM, and then set it back to `false` when the loading process is complete.
 
 _IMPORTANT_: When using the `custom` filter mode, clients are responsible for making sure the options that are placed in the DOM meet one of the following criteria:
 
