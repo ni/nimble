@@ -138,6 +138,7 @@ describe('MenuButton', () => {
             element.setAttribute('tabindex', '-1');
             await connect();
             element.removeAttribute('tabindex');
+            await waitForUpdatesAsync();
             expect(element.toggleButton!.getAttribute('tabindex')).toBeNull();
         });
 
