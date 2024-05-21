@@ -77,7 +77,7 @@ export const styles = css`
         align-items: center;
         justify-content: center;
         align-self: flex-start;
-        margin-top: ${smallPadding}; 
+        margin-top: ${smallPadding};
         ${controlHeight.cssCustomProperty}: ${controlSlimHeight};
     }
 
