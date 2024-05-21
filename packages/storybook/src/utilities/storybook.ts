@@ -167,6 +167,7 @@ export const apiCategory = {
     attributes: 'Attributes',
     events: 'Events',
     methods: 'Methods',
+    nonAttributeProperties: 'Properties',
     slots: 'Slots'
 } as const;
 
