@@ -54,7 +54,7 @@ _Note: The `filterMode` isn't meant to mirror the `Combobox` `autocomplete` API,
 
 #### Dynamic options
 
-In order to support the use-case of clients supplying options to the `Select` based on the current search text, clients will need to set the `filterMode` to `custom`, and then subscribe to the `filter-input` event, the details of which will provide the current search text:
+The `filterMode: custom` option allows clients to dynamically supply list options to the `select` control in response to user search text, by subscribing to the `filter-input` event.
 
 ```ts
 interface SelectFilterInputEventDetail {
