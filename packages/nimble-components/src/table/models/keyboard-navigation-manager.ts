@@ -59,7 +59,6 @@ implements Subscriber {
     };
 
     private readonly tableNotifier: Notifier;
-    private focusableHeaderElements!: TableHeaderFocusableElements;
     private inNavigationMode = true;
     private needsRowFocusAfterScroll = false;
 
@@ -88,10 +87,8 @@ implements Subscriber {
                 const cell = this.getCellWithActionMenu(e.relatedTarget);
                 if (cell) {
                     const rowWithActionMenu = this.getContainingRow(cell);
-                    this.focusState.focusType = TableFocusType.cellActionMenu;
-                    this.focusState.rowIndex = rowWithActionMenu!.dataIndex;
-                    this.focusState.columnIndex = this.table.visibleColumns.indexOf(cell.column!);
-                    this.inNavigationMode = false;
+                    const columnIndex = this.table.visibleColumns.indexOf(cell.column!);
+                    this.setCellActionMenuFocusState(rowWithActionMenu!.dataIndex, columnIndex);
                     // Need to ensure action menu button is focusable. If nothing in the table is focusable, opening an
                     // action menu via keyboard results in the menu losing focus too (could no longer select menu items
                     // with the keyboard)
@@ -123,6 +120,7 @@ implements Subscriber {
 
     public printActiveElement(): void {
         console.log('Current Active Element', this.getActiveElementDebug());
+        console.log('Current Focus State', this.focusState);
         window.setTimeout(() => this.printActiveElement(), 8000);
     }
 
@@ -154,8 +152,7 @@ implements Subscriber {
         const row = event.target;
         if (row instanceof TableRow || row instanceof TableGroupRow) {
             if (this.focusState.rowIndex !== row.dataIndex) {
-                this.focusState.focusType = TableFocusType.row;
-                this.focusState.rowIndex = row.dataIndex;
+                this.setRowFocusState(row.dataIndex);
             }
         }
     }
@@ -166,12 +163,8 @@ implements Subscriber {
         const isOpen = event.detail.newState;
         const row = event.target as TableRow;
         if (isOpen) {
-            this.focusState.focusType = TableFocusType.cellActionMenu;
-            this.focusState.rowIndex = row.dataIndex;
-            this.focusState.columnIndex = this.table.visibleColumns.findIndex(
-                column => column.columnId === event.detail.columnId
-            );
-            this.inNavigationMode = false;
+            const columnIndex = this.table.visibleColumns.findIndex(column => column.columnId === event.detail.columnId);
+            this.setCellActionMenuFocusState(row.dataIndex, columnIndex);
         }
     }
 
@@ -185,8 +178,8 @@ implements Subscriber {
         // TODO: any better ways to handle this? Only do this if mouse clicked after last key navigation? Cache the active element
         // as we update focusState, and only do the more complicated logic if activeElement no longer matches what we think it should
         // be (based on focusState)?
+        const actionMenuOpen = this.table.openActionMenuRecordId !== undefined;
         const activeElement = this.getActiveElement();
-        let actionMenuActive = this.table.openActionMenuRecordId !== undefined;
         let row: TableRow | TableGroupRow | undefined;
         let cell: TableCell | undefined;
         console.log(
@@ -201,22 +194,15 @@ implements Subscriber {
             cell = this.getContainingCell(activeElement);
             if (row && !(row instanceof TableGroupRow)) {
                 if (cell) {
+                    const columnIndex = this.table.visibleColumns.indexOf(cell.column!);
                     if (cell.actionMenuButton === activeElement) {
-                        this.focusState.focusType = TableFocusType.cellActionMenu;
-                        this.focusState.rowIndex = row.dataIndex;
-                        this.focusState.columnIndex = this.table.visibleColumns.indexOf(cell.column!);
-                        actionMenuActive = true;
-                        this.inNavigationMode = false;
+                        this.setCellActionMenuFocusState(row.dataIndex, columnIndex);
                     } else {
                         const contentIndex = cell.cellView.tabbableChildren.indexOf(
                             activeElement
                         );
                         if (contentIndex > -1) {
-                            this.focusState.focusType = TableFocusType.cellContent;
-                            this.focusState.rowIndex = row.dataIndex;
-                            this.focusState.columnIndex = this.table.visibleColumns.indexOf(cell.column!);
-                            this.focusState.cellContentIndex = contentIndex;
-                            this.inNavigationMode = false;
+                            this.setCellContentFocusState(contentIndex, row.dataIndex, columnIndex);
                         }
                     }
                 }
@@ -225,10 +211,7 @@ implements Subscriber {
 
         // Sets initial focus on the appropriate table content
         if (
-            (event.target === this.table
-                || this.focusState.focusType === TableFocusType.none)
-            && !actionMenuActive
-        ) {
+            (event.target === this.table || this.focusState.focusType === TableFocusType.none) && !actionMenuOpen) {
             let focusHeader = true;
             if (
                 this.hasRowOrCellFocusType()
@@ -236,8 +219,7 @@ implements Subscriber {
             ) {
                 focusHeader = false;
             }
-            this.inNavigationMode = this.focusState.focusType !== TableFocusType.cellActionMenu
-                && this.focusState.focusType !== TableFocusType.cellContent;
+            this.inNavigationMode = this.focusState.focusType !== TableFocusType.cellActionMenu && this.focusState.focusType !== TableFocusType.cellContent;
             if (focusHeader && !this.setFocusOnHeader()) {
                 this.table.blur(); // nothing to focus
             }
@@ -296,16 +278,12 @@ implements Subscriber {
         if (!this.inNavigationMode && !event.defaultPrevented) {
             if (
                 event.key === keyEscape
-                && (this.focusState.focusType === TableFocusType.cellActionMenu
-                    || this.focusState.focusType === TableFocusType.cellContent)
-                /* || (event.key === keyEnter && this.focusState.focusType === TableFocusType.cellContent) */
+                && (this.focusState.focusType === TableFocusType.cellActionMenu || this.focusState.focusType === TableFocusType.cellContent)
             ) {
                 const focusedRow = this.getCurrentRow();
                 if (focusedRow) {
-                    this.focusState.focusType = TableFocusType.cell;
+                    this.setCellFocusState();
                     this.focusRowElement(focusedRow);
-                    this.inNavigationMode = true;
-                    // event.preventDefault();
                 }
             }
         }
@@ -352,26 +330,33 @@ implements Subscriber {
                     return true;
                 }
             } else {
-                // const previousActiveElement = this.getActiveElement(false);
-                const interactiveElement = this.focusFirstInteractiveElementInCurrentCell(
-                    focusableRowElements!
-                );
-                // for same behavior as F2:
-                // return interactiveElement !== undefined;
-                if (interactiveElement) {
-                    // Since the element may delegate focus, we want to get the innermost active element to
-                    // interact with. (Example: <a> inside the nimble-anchor)
-                    const newActiveElement = this.getActiveElement(false);
-                    if (newActiveElement) {
-                        newActiveElement.click();
-                    } else {
-                        interactiveElement.click();
-                    }
-                    return true;
-                }
+                // return this.onEnterFocusInteractiveElementOnly(focusableRowElements!);
+                return this.onEnterFocusAndActivateCell(focusableRowElements!);
             }
         }
         return false;
+    }
+
+    private onEnterFocusAndActivateCell(focusableRowElements: TableRowFocusableElements): boolean {
+        const interactiveElement = this.focusFirstInteractiveElementInCurrentCell(focusableRowElements);
+        if (interactiveElement) {
+            // Since the element may delegate focus, we want to get the innermost active element to
+            // interact with. (Example: <a> inside the nimble-anchor)
+            const newActiveElement = this.getActiveElement(false);
+            if (newActiveElement) {
+                newActiveElement.click();
+            } else {
+                interactiveElement.click();
+            }
+            return true;
+        }
+        return false;
+    }
+
+    private onEnterFocusInteractiveElementOnly(focusableRowElements: TableRowFocusableElements): boolean {
+        // to match F2 behavior (first Enter focuses, 2nd Enter activates)
+        const interactiveElement = this.focusFirstInteractiveElementInCurrentCell(focusableRowElements);
+        return interactiveElement !== undefined;
     }
 
     private onF2Pressed(): boolean {
@@ -432,19 +417,20 @@ implements Subscriber {
                 this.focusState.headerActionIndex! -= 1;
                 this.focusHeaderElement();
                 return true;
-            case TableFocusType.columnHeader:
+            case TableFocusType.columnHeader: {
                 if (this.focusState.columnIndex! - 1 >= 0) {
                     this.focusState.columnIndex! -= 1;
                     this.focusHeaderElement();
                     return true;
                 }
-                if (this.focusableHeaderElements.headerActions.length > 0) {
-                    this.focusState.focusType = TableFocusType.headerActions;
-                    this.focusState.headerActionIndex = this.focusableHeaderElements.headerActions.length - 1;
+                const focusableHeaderElements = this.getTableHeaderFocusableElements();
+                if (focusableHeaderElements.headerActions.length > 0) {
+                    this.setHeaderActionFocusState(focusableHeaderElements.headerActions.length - 1);
                     this.focusHeaderElement();
                     return true;
                 }
                 return false;
+            }
             case TableFocusType.row:
                 if (this.isRowExpanded(focusedRow) === true) {
                     this.toggleRowExpanded(focusedRow!);
@@ -452,16 +438,16 @@ implements Subscriber {
                 }
                 return false;
             case TableFocusType.rowSelectionCheckbox:
-                this.focusState.focusType = TableFocusType.row;
+                this.setRowFocusState();
                 this.focusCurrentRow(true);
                 return true;
             case TableFocusType.cell:
                 if (focusedRowElements!.cells.length > 0) {
                     if (this.focusState.columnIndex! - 1 < 0) {
                         if (focusedRowElements!.selectionCheckbox) {
-                            this.focusState.focusType = TableFocusType.rowSelectionCheckbox;
+                            this.setRowSelectionCheckboxFocusState();
                         } else {
-                            this.focusState.focusType = TableFocusType.row;
+                            this.setRowFocusState();
                             this.focusCurrentRow(true);
                             return true;
                         }
@@ -483,20 +469,19 @@ implements Subscriber {
         const focusType = this.focusState.focusType;
         let focusedRow: TableRow | TableGroupRow | undefined;
         let focusedRowElements: TableRowFocusableElements;
+        let focusableHeaderElements!: TableHeaderFocusableElements;
         if (this.hasRowOrCellFocusType()) {
             focusedRow = this.getCurrentRow();
             focusedRowElements = focusedRow!.getFocusableElements();
+        } else if (this.hasHeaderFocusType()) {
+            focusableHeaderElements = this.getTableHeaderFocusableElements();
         }
 
         switch (focusType) {
             case TableFocusType.headerActions:
-                if (
-                    this.focusState.headerActionIndex! + 1
-                    >= this.focusableHeaderElements.headerActions.length
-                ) {
-                    if (this.focusableHeaderElements.columnHeaders.length > 0) {
-                        this.focusState.focusType = TableFocusType.columnHeader;
-                        this.focusState.columnIndex = 0;
+                if (this.focusState.headerActionIndex! + 1 >= focusableHeaderElements.headerActions.length) {
+                    if (focusableHeaderElements.columnHeaders.length > 0) {
+                        this.setColumnHeaderFocusState(0);
                     } else {
                         return false;
                     }
@@ -506,10 +491,7 @@ implements Subscriber {
                 this.focusHeaderElement();
                 return true;
             case TableFocusType.columnHeader:
-                if (
-                    this.focusState.columnIndex! + 1
-                    < this.focusableHeaderElements.columnHeaders.length
-                ) {
+                if (this.focusState.columnIndex! + 1 < focusableHeaderElements.columnHeaders.length) {
                     this.focusState.columnIndex! += 1;
                     this.focusHeaderElement();
                     return true;
@@ -519,10 +501,9 @@ implements Subscriber {
                 if (this.isRowExpanded(focusedRow) === false) {
                     this.toggleRowExpanded(focusedRow!);
                 } else if (focusedRowElements!.selectionCheckbox) {
-                    this.focusState.focusType = TableFocusType.rowSelectionCheckbox;
+                    this.setRowSelectionCheckboxFocusState();
                 } else if (focusedRowElements!.cells.length > 0) {
-                    this.focusState.columnIndex = 0;
-                    this.focusState.focusType = TableFocusType.cell;
+                    this.setCellFocusState(0);
                 } else {
                     return false;
                 }
@@ -530,8 +511,7 @@ implements Subscriber {
                 return true;
             case TableFocusType.rowSelectionCheckbox:
                 if (focusedRowElements!.cells.length > 0) {
-                    this.focusState.focusType = TableFocusType.cell;
-                    this.focusState.columnIndex = 0;
+                    this.setCellFocusState(0);
                     this.focusRowElement(focusedRow!);
                     return true;
                 }
@@ -566,7 +546,7 @@ implements Subscriber {
             const focusedRow = this.getCurrentRow();
             const focusedRowElements = focusedRow!.getFocusableElements();
             if (focusedRowElements.selectionCheckbox) {
-                this.focusState.focusType = TableFocusType.rowSelectionCheckbox;
+                this.setRowSelectionCheckboxFocusState();
                 this.focusRowElement(focusedRow!);
                 return true;
             }
@@ -601,8 +581,7 @@ implements Subscriber {
             const focusedRow = this.getCurrentRow();
             const focusedRowElements = focusedRow!.getFocusableElements();
             if (focusedRowElements.cells.length > 0) {
-                this.focusState.focusType = TableFocusType.cell;
-                this.focusState.columnIndex = focusedRowElements.cells.length - 1;
+                this.setCellFocusState(focusedRowElements.cells.length - 1);
                 this.focusRowElement(focusedRow!);
                 return true;
             }
@@ -616,6 +595,10 @@ implements Subscriber {
         if (activeElement === null || activeElement === this.table) {
             return false;
         }
+        const direction = shiftKeyPressed ? -1 : 1;
+        let startIndex = -1;
+        const tabbableElements = [];
+        const tabbableElementFocusState: TableFocusState[] = [];
 
         let focusableElement: HTMLElement | undefined;
         if (this.hasRowOrCellFocusType()) {
@@ -625,12 +608,8 @@ implements Subscriber {
                 return false;
             }
             const focusableRowElements = row.getFocusableElements();
-            const direction = shiftKeyPressed ? -1 : 1;
-            const tabbableElements = [];
-            const tabbableElementFocusState: TableFocusState[] = [];
             tabbableElements.push(focusableRowElements.selectionCheckbox);
             tabbableElementFocusState.push({ focusType: TableFocusType.rowSelectionCheckbox });
-            let startIndex = -1;
             if (this.focusState.focusType === TableFocusType.rowSelectionCheckbox) {
                 startIndex = 0;
             }
@@ -666,64 +645,38 @@ implements Subscriber {
             if (this.focusState.focusType === TableFocusType.row) {
                 startIndex = shiftKeyPressed ? tabbableElements.length : -1;
             }
-            let index = startIndex + direction;
-            do {
-                focusableElement = tabbableElements[index];
-                if (focusableElement === undefined) {
-                    index += direction;
-                    continue;
-                } else {
-                    const newFocusState = tabbableElementFocusState[index]!;
-                    this.focusState.focusType = newFocusState.focusType;
-                    if (newFocusState.cellContentIndex !== undefined) {
-                        this.focusState.cellContentIndex = newFocusState.cellContentIndex;
-                    }
-                    if (newFocusState.columnIndex !== undefined) {
-                        this.focusState.columnIndex = newFocusState.columnIndex;
-                    }
-                    break;
-                }
-            } while (index >= 0 && index < tabbableElements.length);
         } else {
-            const headerActionIndex = this.focusableHeaderElements.headerActions.indexOf(
-                activeElement
-            );
-            if (shiftKeyPressed) {
-                if (headerActionIndex > -1) {
-                    if (headerActionIndex > 0) {
-                        this.focusState.focusType = TableFocusType.headerActions;
-                        this.focusState.headerActionIndex = headerActionIndex - 1;
-                        focusableElement = this.focusableHeaderElements.headerActions[
-                            this.focusState.headerActionIndex
-                        ];
-                    }
-                } else if (
-                    this.focusableHeaderElements.columnHeaders.includes(
-                        activeElement
-                    )
-                ) {
-                    if (this.focusableHeaderElements.headerActions.length > 0) {
-                        this.focusState.focusType = TableFocusType.headerActions;
-                        this.focusState.headerActionIndex = this.focusableHeaderElements.headerActions.length
-                            - 1;
-                        focusableElement = this.focusableHeaderElements.headerActions[
-                            this.focusState.headerActionIndex
-                        ];
-                    }
-                }
-            } else if (headerActionIndex > -1) {
-                if (
-                    headerActionIndex + 1
-                    < this.focusableHeaderElements.headerActions.length
-                ) {
-                    this.focusState.focusType = TableFocusType.headerActions;
-                    this.focusState.headerActionIndex = headerActionIndex + 1;
-                    focusableElement = this.focusableHeaderElements.headerActions[
-                        this.focusState.headerActionIndex
-                    ];
-                }
+            const headerTabbableElements = this.getTableHeaderFocusableElements().headerActions;
+            for (let i = 0; i < headerTabbableElements.length; i++) {
+                tabbableElements.push(headerTabbableElements[i]);
+                tabbableElementFocusState.push({ focusType: TableFocusType.headerActions, headerActionIndex: i });
+            }
+            startIndex = shiftKeyPressed ? tabbableElements.length : -1;
+            if (this.focusState.focusType === TableFocusType.headerActions) {
+                startIndex = this.focusState.headerActionIndex!;
             }
         }
+        let index = startIndex + direction;
+        do {
+            focusableElement = tabbableElements[index];
+            if (focusableElement === undefined) {
+                index += direction;
+                continue;
+            } else {
+                const newFocusState = tabbableElementFocusState[index]!;
+                this.focusState.focusType = newFocusState.focusType;
+                if (newFocusState.cellContentIndex !== undefined) {
+                    this.focusState.cellContentIndex = newFocusState.cellContentIndex;
+                }
+                if (newFocusState.columnIndex !== undefined) {
+                    this.focusState.columnIndex = newFocusState.columnIndex;
+                }
+                if (newFocusState.headerActionIndex !== undefined) {
+                    this.focusState.headerActionIndex = newFocusState.headerActionIndex;
+                }
+                break;
+            }
+        } while (index >= 0 && index < tabbableElements.length);
         if (focusableElement) {
             this.inNavigationMode = this.focusState.focusType !== TableFocusType.cellContent
                 && this.focusState.focusType !== TableFocusType.cellActionMenu;
@@ -775,26 +728,15 @@ implements Subscriber {
                     return this.scrollToAndFocusRow(rowIndex, scrollOptions);
                 }
                 if (rowIndex === -1) {
-                    if (
-                        focusType === TableFocusType.row
-                        || focusType === TableFocusType.rowSelectionCheckbox
-                    ) {
-                        if (
-                            this.focusableHeaderElements.headerActions.length
-                            > 0
-                        ) {
-                            const selectAllCheckboxIndex = 0;
-                            this.focusState.focusType = TableFocusType.headerActions;
-                            this.focusState.headerActionIndex = selectAllCheckboxIndex;
+                    if (focusType === TableFocusType.row || focusType === TableFocusType.rowSelectionCheckbox) {
+                        const focusableHeaderElements = this.getTableHeaderFocusableElements();
+                        if (focusableHeaderElements.headerActions.length > 0) {
+                            this.setHeaderActionFocusState(0);
                             this.focusHeaderElement();
                             return true;
                         }
-                        if (
-                            this.focusableHeaderElements.columnHeaders.length
-                            > 0
-                        ) {
-                            this.focusState.focusType = TableFocusType.columnHeader;
-                            this.focusState.columnIndex = 0;
+                        if (focusableHeaderElements.columnHeaders.length > 0) {
+                            this.setColumnHeaderFocusState(0);
                             this.focusHeaderElement();
                             return true;
                         }
@@ -802,7 +744,7 @@ implements Subscriber {
                         focusType === TableFocusType.cell
                         && this.canFocusColumnHeaders()
                     ) {
-                        this.focusState.focusType = TableFocusType.columnHeader;
+                        this.setColumnHeaderFocusState(this.focusState.columnIndex!);
                         this.focusHeaderElement();
                         return true;
                     }
@@ -820,11 +762,11 @@ implements Subscriber {
         const coerceRowIndex = rowDelta > 1;
         switch (this.focusState.focusType) {
             case TableFocusType.headerActions: {
-                this.focusState.focusType = TableFocusType.row;
+                this.setRowFocusState(0);
                 return this.scrollToAndFocusRow(0);
             }
             case TableFocusType.columnHeader: {
-                this.focusState.focusType = TableFocusType.cell;
+                this.setCellFocusState(this.focusState.columnIndex, 0);
                 return this.scrollToAndFocusRow(0);
             }
             case TableFocusType.row:
@@ -914,23 +856,17 @@ implements Subscriber {
     }
 
     private setFocusOnHeader(): boolean {
-        // TODO: Need to re-evaluate this whenever the elements in the header change - e.g.
-        // hierarchy on/off, grouping on/off, etc
-        this.focusableHeaderElements = this.getTableHeaderFocusableElements();
+        const focusableHeaderElements = this.getTableHeaderFocusableElements();
 
         if (
             this.focusState.focusType !== TableFocusType.headerActions
             && this.focusState.focusType !== TableFocusType.columnHeader
         ) {
-            this.focusState.focusType = TableFocusType.headerActions;
-            if (this.focusState.headerActionIndex === undefined) {
-                if (this.focusableHeaderElements.headerActions.length > 0) {
-                    this.focusState.headerActionIndex = 0;
-                } else if (
-                    this.focusableHeaderElements.columnHeaders.length > 0
-                ) {
-                    this.focusState.focusType = TableFocusType.columnHeader;
-                    this.focusState.columnIndex = 0;
+            if (this.focusState.headerActionIndex === undefined || this.focusState.headerActionIndex >= focusableHeaderElements.headerActions.length) {
+                if (focusableHeaderElements.headerActions.length > 0) {
+                    this.setHeaderActionFocusState(0);
+                } else if (focusableHeaderElements.columnHeaders.length > 0) {
+                    this.setColumnHeaderFocusState(0);
                 } else if (this.table.tableData.length > 0) {
                     return this.scrollToAndFocusRow(0);
                 } else {
@@ -946,22 +882,19 @@ implements Subscriber {
         totalRowIndex: number,
         scrollOptions?: ScrollToOptions
     ): boolean {
-        switch (this.focusState.focusType) {
-            case TableFocusType.none:
-            case TableFocusType.headerActions:
-            case TableFocusType.columnHeader:
-                this.focusState.focusType = TableFocusType.row;
-                break;
-            default:
-                break;
-        }
         if (totalRowIndex >= 0 && totalRowIndex < this.table.tableData.length) {
-            this.focusState.rowIndex = totalRowIndex;
+            switch (this.focusState.focusType) {
+                case TableFocusType.none:
+                case TableFocusType.headerActions:
+                case TableFocusType.columnHeader:
+                    this.setRowFocusState(totalRowIndex);
+                    break;
+                default:
+                    break;
+            }
             this.needsRowFocusAfterScroll = true;
-            this.virtualizer.scrollToIndex(
-                this.focusState.rowIndex,
-                scrollOptions
-            );
+            this.focusState.rowIndex = totalRowIndex;
+            this.virtualizer.scrollToIndex(totalRowIndex, scrollOptions);
             this.focusCurrentRow(true);
             return true;
         }
@@ -974,6 +907,7 @@ implements Subscriber {
             return false;
         }
         const focusedRow = this.table.rowElements[visibleRowIndex]!;
+
         let focusRowOnly = false;
         switch (this.focusState.focusType) {
             case TableFocusType.row:
@@ -1035,29 +969,21 @@ implements Subscriber {
     }
 
     private focusHeaderElement(): boolean {
+        const focusableHeaderElements = this.getTableHeaderFocusableElements();
         let focusableElement: HTMLElement | undefined;
         switch (this.focusState.focusType) {
             case TableFocusType.headerActions:
-                if (
-                    this.focusState.headerActionIndex!
-                    >= this.focusableHeaderElements.headerActions.length
+                if (this.focusState.headerActionIndex! >= focusableHeaderElements.headerActions.length
                 ) {
                     return false;
                 }
-                focusableElement = this.focusableHeaderElements.headerActions[
-                    this.focusState.headerActionIndex!
-                ]!;
+                focusableElement = focusableHeaderElements.headerActions[this.focusState.headerActionIndex!]!;
                 break;
             case TableFocusType.columnHeader:
-                if (
-                    this.focusState.columnIndex!
-                    >= this.focusableHeaderElements.columnHeaders.length
-                ) {
+                if (this.focusState.columnIndex! >= focusableHeaderElements.columnHeaders.length) {
                     return false;
                 }
-                focusableElement = this.focusableHeaderElements.columnHeaders[
-                    this.focusState.columnIndex!
-                ]!;
+                focusableElement = focusableHeaderElements.columnHeaders[this.focusState.columnIndex!]!;
                 break;
             default:
                 break;
@@ -1223,15 +1149,13 @@ implements Subscriber {
         const tabbableElements = cellInfo.cell.cellView.tabbableChildren;
         let firstInteractiveElement: HTMLElement | undefined;
         if (tabbableElements.length > 0) {
-            this.focusState.focusType = TableFocusType.cellContent;
-            this.focusState.cellContentIndex = 0;
+            this.setCellContentFocusState(0);
             firstInteractiveElement = tabbableElements[0];
         } else if (cellInfo.actionMenuButton) {
-            this.focusState.focusType = TableFocusType.cellActionMenu;
+            this.setCellActionMenuFocusState();
             firstInteractiveElement = cellInfo.actionMenuButton;
         }
         if (firstInteractiveElement) {
-            this.inNavigationMode = false;
             this.focusElement(firstInteractiveElement);
         }
         return firstInteractiveElement;
@@ -1250,11 +1174,83 @@ implements Subscriber {
         }
     }
 
+    private hasHeaderFocusType(): boolean {
+        switch (this.focusState.focusType) {
+            case TableFocusType.headerActions:
+            case TableFocusType.columnHeader:
+                return true;
+            default:
+                return false;
+        }
+    }
+
     private getActiveElementDebug(): HTMLElement | string | null {
         const result = this.getActiveElement(false);
         if (result === document.body) {
             return '<body />';
         }
         return result;
+    }
+
+    private setCellActionMenuFocusState(rowIndex?: number, columnIndex?: number): void {
+        this.focusState.focusType = TableFocusType.cellActionMenu;
+        if (rowIndex !== undefined) {
+            this.focusState.rowIndex = rowIndex;
+        }
+        if (columnIndex !== undefined) {
+            this.focusState.columnIndex = columnIndex;
+        }
+        this.inNavigationMode = false;
+    }
+
+    private setCellContentFocusState(cellContentIndex: number, rowIndex?: number, columnIndex?: number): void {
+        this.focusState.focusType = TableFocusType.cellContent;
+        this.focusState.cellContentIndex = cellContentIndex;
+        if (rowIndex !== undefined) {
+            this.focusState.rowIndex = rowIndex;
+        }
+        if (columnIndex !== undefined) {
+            this.focusState.columnIndex = columnIndex;
+        }
+        this.inNavigationMode = false;
+    }
+
+    private setRowFocusState(rowIndex?: number): void {
+        this.focusState.focusType = TableFocusType.row;
+        if (rowIndex !== undefined) {
+            this.focusState.rowIndex = rowIndex;
+        }
+        this.inNavigationMode = true;
+    }
+
+    private setRowSelectionCheckboxFocusState(rowIndex?: number): void {
+        this.focusState.focusType = TableFocusType.rowSelectionCheckbox;
+        if (rowIndex !== undefined) {
+            this.focusState.rowIndex = rowIndex;
+        }
+        this.inNavigationMode = true;
+    }
+
+    private setCellFocusState(columnIndex?: number, rowIndex?: number): void {
+        this.focusState.focusType = TableFocusType.cell;
+        if (rowIndex !== undefined) {
+            this.focusState.rowIndex = rowIndex;
+        }
+        if (columnIndex !== undefined) {
+            this.focusState.columnIndex = columnIndex;
+        }
+        this.inNavigationMode = true;
+    }
+
+    private setColumnHeaderFocusState(columnIndex: number): void {
+        this.focusState.focusType = TableFocusType.columnHeader;
+        this.focusState.columnIndex = columnIndex;
+        this.inNavigationMode = true;
+    }
+
+    private setHeaderActionFocusState(headerActionIndex: number): void {
+        this.focusState.focusType = TableFocusType.headerActions;
+        this.focusState.headerActionIndex = headerActionIndex;
+        this.inNavigationMode = true;
     }
 }
