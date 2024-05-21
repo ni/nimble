@@ -62,7 +62,7 @@ const component = (
             `)}
             <${listOptionGroupTag}  ${!slottedLabel ? 'label="Group 2 with a ridiculously long label that does\'t fit"' : ''}>
                 ${when(() => slottedLabel, html`
-                    <span>Group 2 with a ridiculously long label that does't fit</span>
+                    <span>Group 2 with a ridiculously long label that doesn't fit</span>
                 `)}
                 <${listOptionTag} value="4">Option 3</${listOptionTag}>
             </${listOptionGroupTag}>         
