@@ -46,7 +46,7 @@ export const FilterMode  = {
 ```
 
 -   The `standard` filterMode will result in case-insensitive, diacritic-insensitive filtering.
--   The `custom` filterMode will result in a search input being shown, but no automatic filtering will occur as the user types in the search box. Instead, it is expected that a client leverage the `filter-input`event described in the ['Dynamic Options'](#dynamic-options) section below.
+-   The `custom` filterMode will display a search input, but it won't automatically filter the options as the user types. Instead, clients can use the `filter-input` event described in the ['Dynamic Options'](#dynamic-options) section below to implement their own filtering logic.
 -   The `none` filter mode results in no search input being shown in the dropdown.
 -   `filterMode` will default to `none` so as not to affect existing clients.
 
