@@ -1516,6 +1516,20 @@ describe('Select', () => {
             expect(lastGroup.showBottomSeparator).toBeTrue();
         });
 
+        it('group that is hidden when slotted results in hidden options', async () => {
+            const group = new ListOptionGroup();
+            group.hidden = true;
+            const option = new ListOption('Hidden Option', 'hidden-option');
+            group.appendChild(option);
+            element.appendChild(group);
+            await waitForUpdatesAsync();
+            await clickAndWaitForOpen(element);
+            const hiddenOptionIndex = element.options.findIndex(
+                o => o.text === 'Hidden Option'
+            );
+            expect(pageObject.isOptionVisible(hiddenOptionIndex)).toBeFalse();
+        });
+
         describe('filtering', () => {
             beforeEach(async () => {
                 element.filterMode = FilterMode.standard;
@@ -1565,6 +1579,16 @@ describe('Select', () => {
                 await pageObject.openAndSetFilterText('One');
                 const group = element.querySelector<ListOptionGroup>('[role="group"]')!;
                 expect(group.showBottomSeparator).toBeFalse();
+            });
+
+            it('filtering will not match options inside hidden group', async () => {
+                const group = element.querySelector<ListOptionGroup>('[role="group"]')!;
+                group.hidden = true; // Hides 'Group One' which has 'Two' option
+                await pageObject.openAndSetFilterText('Two'); // Matches 'Group Two'
+                const filteredOptions = pageObject
+                    .getFilteredOptions()
+                    .map(option => option.text);
+                expect(filteredOptions).not.toContain('Two');
             });
         });
     });

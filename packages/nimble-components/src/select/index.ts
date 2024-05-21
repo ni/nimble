@@ -1077,9 +1077,9 @@ export class Select
                     element.showTopSeparator = lastVisibleElement instanceof ListOption;
                     element.showBottomSeparator = false;
                 }
-            }
 
-            lastVisibleElement = elementHidden ? lastVisibleElement : element;
+                lastVisibleElement = element;
+            }
         }
 
         this.filteredOptions = filteredOptions;
