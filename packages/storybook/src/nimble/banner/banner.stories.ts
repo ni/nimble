@@ -8,12 +8,12 @@ import { labelProviderCoreTag } from '@ni/nimble-components/dist/esm/label-provi
 import { popupDismissLabel } from '@ni/nimble-components/dist/esm/label-provider/core/label-tokens';
 import { bannerTag } from '@ni/nimble-components/dist/esm/banner';
 import { BannerSeverity } from '@ni/nimble-components/dist/esm/banner/types';
+import { ButtonAppearance, ButtonAppearanceVariant } from '@ni/nimble-components/dist/esm/button/types';
 import {
     LabelUserArgs,
     addLabelUseMetadata
 } from '../label-provider/base/label-user-stories-utils';
 import { createUserSelectedThemeStory } from '../../utilities/storybook';
-import { ButtonAppearance, ButtonAppearanceVariant } from '@ni/nimble-components/dist/esm/button/types';
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 const ActionType = {
