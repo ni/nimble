@@ -8,8 +8,12 @@ import { ExampleOptionsType } from '@ni/nimble-components/dist/esm/select/tests/
 import { DropdownAppearance } from '@ni/nimble-components/dist/esm/patterns/dropdown/types';
 
 import {
+    apiCategory,
     createUserSelectedThemeStory,
-    disableStorybookZoomTransform
+    disableStorybookZoomTransform,
+    disabledDescription,
+    errorTextDescription,
+    errorVisibleDescription
 } from '../../utilities/storybook';
 
 interface SelectArgs {
@@ -75,10 +79,6 @@ const appearanceDescription = `
 This attribute affects the appearance of the \`Select\`. The default appearance is \`underline\`, which displays a line beneath the selected value. The \`outline\` appearance displays a border around the entire component. The \`block\` appearance applies a background for the entire component.
 `;
 
-const errorTextDescription = `
-A message to be displayed when the text field is in the invalid state explaining why the value is invalid.
-`;
-
 const filterModeDescription = `
 This attribute controls the filtering behavior of the \`Select\`. The default of \`none\` results in a dropdown with no input for filtering. A non-'none' setting results in a search input placed at the top or the bottom of the dropdown when opened (depending on where the popup is shown relative to the component). The \`standard\` setting will perform a case-insensitive and diacritic-insensitive filtering of the available options anywhere within the text of each option. 
 
@@ -94,6 +94,8 @@ Any \`Select\` without a default selected option should provide placeholder text
 const clearableDescription = `
 When the \`clearable\` attribute is set, a clear button will be displayed in the \`Select\` when a value is selected. Clicking the clear button will clear the selected value and display the placeholder text, if available, or will result in a blank display.
 `;
+
+const optionsDescription = `Add \`${listOptionTag}\` items to the default slot to provide options for the user to select.`;
 
 const metadata: Meta<SelectArgs> = {
     title: 'Components/Select',
@@ -141,36 +143,48 @@ const metadata: Meta<SelectArgs> = {
         dropDownPosition: {
             options: ['above', 'below'],
             control: { type: 'select' },
-            description: dropdownPositionDescription
+            description: dropdownPositionDescription,
+            table: { category: apiCategory.attributes }
         },
         appearance: {
             options: Object.values(DropdownAppearance),
             control: { type: 'radio' },
-            description: appearanceDescription
+            description: appearanceDescription,
+            table: { category: apiCategory.attributes }
         },
         filterMode: {
             options: Object.keys(FilterMode),
             control: { type: 'radio' },
             name: 'filter-mode',
-            description: filterModeDescription
+            description: filterModeDescription,
+            table: { category: apiCategory.attributes }
+        },
+        disabled: {
+            description: disabledDescription({ componentName: 'select' }),
+            table: { category: apiCategory.attributes }
         },
         errorText: {
             name: 'error-text',
-            description: errorTextDescription
+            description: errorTextDescription,
+            table: { category: apiCategory.attributes }
         },
         errorVisible: {
-            name: 'error-visible'
+            name: 'error-visible',
+            description: errorVisibleDescription,
+            table: { category: apiCategory.attributes }
         },
         placeholder: {
             name: 'placeholder',
-            description: placeholderDescription
+            description: placeholderDescription,
         },
         clearable: {
             name: 'clearable',
-            description: clearableDescription
+            description: clearableDescription,
+            table: { category: apiCategory.attributes }
         },
         optionsType: {
-            name: 'options',
+            name: 'default',
+            description: optionsDescription,
             options: Object.values(ExampleOptionsType),
             control: {
                 type: 'radio',
@@ -179,7 +193,8 @@ const metadata: Meta<SelectArgs> = {
                     [ExampleOptionsType.manyOptions]: 'Many options',
                     [ExampleOptionsType.wideOptions]: 'Wide options'
                 }
-            }
+            },
+            table: { category: apiCategory.slots }
         }
     },
     args: {
