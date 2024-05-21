@@ -387,14 +387,21 @@ export class MyComponent {
 
 Then in the template, bind the focusable elements' `tabindex` to the host component's property:
 
+<!-- prettier-ignore -->
 ```html
-html<MyComponent
-    >`
-    <nimble-button ... tabindex="${x => x.tabIndex}"></nimble-button>
+html<MyComponent>`
+    <nimble-button 
+        ...
+        tabindex="${x => x.tabIndex}">
+    </nimble-button>
     // or for an element that isn't focusable by default:
-    <div ... tabindex="${x => (x.disabled ? null : x.tabIndex ?? 0)}"></div>
-    `;</MyComponent
->
+    <div
+        ...
+        tabindex="${x => {
+            const tabindex = x.tabIndex ?? 0;
+            return x.disabled ? undefined : `${tabindex}`;
+        }">
+    </div>`;
 ```
 
 ### Leverage mixins for shared APIs across components

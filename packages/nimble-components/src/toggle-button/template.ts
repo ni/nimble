@@ -1,4 +1,3 @@
-/* eslint-disable no-restricted-syntax */
 import { html, ref, ViewTemplate } from '@microsoft/fast-element';
 import {
     endSlotTemplate,
@@ -65,3 +64,4 @@ ButtonOptions
         ${endSlotTemplate(context, definition)}
     </div>
 `;
+/* eslint-enable @typescript-eslint/indent */
