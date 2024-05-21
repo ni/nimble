@@ -174,6 +174,7 @@ export const apiCategory = {
 export const appearanceDescription = (options: { componentName: string }): string => `This attribute affects the appearance of the ${options.componentName}.`;
 export const iconDescription = 'Set `slot="start"` to include an icon before the text content.';
 export const disabledDescription = (options: { componentName: string }): string => `Styles the ${options.componentName} as disabled and prevents focus and user interaction.`;
+export const slottedLabelDescription = (options: { componentName: string }): string => `Label text to display adjacent to the ${options.componentName} describing its purpose to the user. Provide the label by adding text content to the default slot.`;
 export const textContentDescription = (options: { componentName: string }): string => `The text content of the ${options.componentName}.`;
 
 export const errorTextDescription = 'A message to be displayed explaining why the value is invalid. Only visible when `error-visible` is set.';

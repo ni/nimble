@@ -2,7 +2,7 @@ import { html } from '@microsoft/fast-element';
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html';
 import { checkboxTag } from '@ni/nimble-components/dist/esm/checkbox';
-import { apiCategory, createUserSelectedThemeStory, disabledDescription } from '../../utilities/storybook';
+import { apiCategory, createUserSelectedThemeStory, disabledDescription, slottedLabelDescription } from '../../utilities/storybook';
 
 interface CheckboxArgs {
     label: string;
@@ -31,8 +31,9 @@ const metadata: Meta<CheckboxArgs> = {
     `),
     argTypes: {
         label: {
-            description: 'Text to display next to the checkbox.',
-            table: { category: apiCategory.attributes }
+            name: 'default',
+            description: slottedLabelDescription({ componentName: 'checkbox' }),
+            table: { category: apiCategory.slots }
         },
         checked: {
             description: 'Whether the checkbox is checked.',
