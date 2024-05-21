@@ -289,8 +289,8 @@ export class Select
      * @internal
      */
     public override slottedOptionsChanged(
-        prev: Element[],
-        next: Element[]
+        prev: Element[] | undefined,
+        next: Element[] | undefined
     ): void {
         const value = this.value;
         this.options.forEach(o => {
@@ -922,9 +922,11 @@ export class Select
         }
     }
 
-    private getSlottedOptions(slottedElements: Element[]): ListboxOption[] {
+    private getSlottedOptions(
+        slottedElements: Element[] | undefined
+    ): ListboxOption[] {
         const options: ListOption[] = [];
-        slottedElements.forEach(el => {
+        slottedElements?.forEach(el => {
             if (el instanceof ListOption) {
                 options.push(el);
             } else if (el instanceof ListOptionGroup) {
@@ -1066,13 +1068,15 @@ export class Select
                 }
             }
 
-            if (lastVisibleElement instanceof ListOptionGroup) {
-                lastVisibleElement.showBottomSeparator = true;
-            }
+            if (!elementHidden) {
+                if (lastVisibleElement instanceof ListOptionGroup) {
+                    lastVisibleElement.showBottomSeparator = true;
+                }
 
-            if (element instanceof ListOptionGroup && !elementHidden) {
-                element.showTopSeparator = lastVisibleElement instanceof ListOption;
-                element.showBottomSeparator = false;
+                if (element instanceof ListOptionGroup) {
+                    element.showTopSeparator = lastVisibleElement instanceof ListOption;
+                    element.showBottomSeparator = false;
+                }
             }
 
             lastVisibleElement = elementHidden ? lastVisibleElement : element;

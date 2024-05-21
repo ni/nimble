@@ -3,7 +3,7 @@ import type { ListOptionGroup } from '.';
 import { overflow } from '../utilities/directive/overflow';
 import { ListOption } from '../list-option';
 
-const isListOption = (n: HTMLElement): boolean => {
+const isListOption = (n: Node): boolean => {
     return n instanceof ListOption;
 };
 
@@ -32,7 +32,7 @@ export const template = html<ListOptionGroup>`
         <slot name="options-slot"
         ${slotted({
         flatten: true,
-        filter: (n: Node) => n instanceof HTMLElement && isListOption(n),
+        filter: (n: Node) => isListOption(n),
         property: 'listOptions'
     })}
 ></slot>

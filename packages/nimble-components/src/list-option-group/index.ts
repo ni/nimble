@@ -76,17 +76,19 @@ export class ListOptionGroup extends FoundationElement {
     /** @internal */
     @volatile
     public get labelContent(): string {
-        if (this.label || !this.$fastController.isConnected) {
-            return this.label ?? '';
+        if (this.label) {
+            return this.label;
+        }
+
+        if (!this.$fastController.isConnected) {
+            return '';
         }
 
         const nodes = this.labelSlot.assignedNodes();
-        return nodes.length > 0
-            ? nodes
-                .filter(node => node.textContent?.trim() !== '')
-                .map(node => node.textContent?.trim())
-                .join(' ')
-            : '';
+        return nodes
+            .filter(node => node.textContent?.trim() !== '')
+            .map(node => node.textContent?.trim())
+            .join(' ');
     }
 
     /**

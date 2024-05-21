@@ -1485,6 +1485,37 @@ describe('Select', () => {
             expect(element.value).toBe('two');
         });
 
+        it('all groups except last show bottom separator', async () => {
+            await clickAndWaitForOpen(element);
+            const groups = Array.from(
+                element.querySelectorAll<ListOptionGroup>('[role="group"]')
+            );
+            expect(groups[0]!.showBottomSeparator).toBeTrue();
+            expect(groups[1]!.showBottomSeparator).toBeTrue();
+            expect(groups[2]!.showBottomSeparator).toBeFalse();
+        });
+
+        it('list option before group causes group to show top separator', async () => {
+            const listOption = new ListOption('Before Group', 'before-group');
+            const groups = element.querySelectorAll<ListOptionGroup>('[role="group"]');
+            const group = groups[0]!;
+            group.before(listOption);
+            await waitForUpdatesAsync();
+            expect(group.showTopSeparator).toBeTrue();
+        });
+
+        it('list option after last group causes group to show bottom separator', async () => {
+            const listOption = new ListOption(
+                'After Last Group',
+                'after-last-group'
+            );
+            const groups = element.querySelectorAll<ListOptionGroup>('[role="group"]');
+            const lastGroup = groups[groups.length - 1]!;
+            lastGroup.after(listOption);
+            await waitForUpdatesAsync();
+            expect(lastGroup.showBottomSeparator).toBeTrue();
+        });
+
         describe('filtering', () => {
             beforeEach(async () => {
                 element.filterMode = FilterMode.standard;
@@ -1528,6 +1559,12 @@ describe('Select', () => {
                     element.querySelectorAll(':not([visually-hidden])') ?? []
                 );
                 expect(visibleElements?.length).toBe(totalSlottedElements); // 'o' is matched in all group labels
+            });
+
+            it('filter matches only first group, results in bottom separator being hidden', async () => {
+                await pageObject.openAndSetFilterText('One');
+                const group = element.querySelector<ListOptionGroup>('[role="group"]')!;
+                expect(group.showBottomSeparator).toBeFalse();
             });
         });
     });

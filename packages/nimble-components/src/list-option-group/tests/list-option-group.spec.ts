@@ -74,23 +74,7 @@ describe('ListboxOptionGroup', () => {
         await disconnect();
     });
 
-    it('if multiple slotted labels are provided, all are appended to the labelContent', async () => {
-        const { element, connect, disconnect } = await setup();
-        await connect();
-        element.label = undefined;
-        const slottedLabel1 = document.createElement('span');
-        slottedLabel1.textContent = 'Slotted Label 1';
-        element.appendChild(slottedLabel1);
-        const slottedLabel2 = document.createElement('span');
-        slottedLabel2.textContent = 'Slotted Label 2';
-        element.appendChild(slottedLabel2);
-        await waitForUpdatesAsync();
-
-        expect(element.labelContent).toBe('Slotted Label 1 Slotted Label 2');
-        await disconnect();
-    });
-
-    it('if multiple slotted labels are provided with extra whiitespace, labelContent result is trimmed', async () => {
+    it('if multiple slotted labels are provided with extra whitespace, labelContent result is trimmed', async () => {
         const { element, connect, disconnect } = await setup();
         await connect();
         element.label = undefined;
