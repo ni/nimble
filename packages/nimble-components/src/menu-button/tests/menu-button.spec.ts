@@ -121,6 +121,27 @@ describe('MenuButton', () => {
             expect(element.toggleButton!.disabled).toBeTrue();
         });
 
+        it('should not set tabindex on the toggle button by default', async () => {
+            await connect();
+            expect(element.toggleButton!.getAttribute('tabindex')).toBeNull();
+        });
+
+        it('should set tabindex on the toggle button when provided', async () => {
+            element.setAttribute('tabindex', '-1');
+            await connect();
+            expect(element.toggleButton!.getAttribute('tabindex')).toEqual(
+                '-1'
+            );
+        });
+
+        it('should clear tabindex from the toggle button when cleared from the host', async () => {
+            element.setAttribute('tabindex', '-1');
+            await connect();
+            element.removeAttribute('tabindex');
+            await waitForUpdatesAsync();
+            expect(element.toggleButton!.getAttribute('tabindex')).toBeNull();
+        });
+
         it('should set aria-haspopup on toggle button', async () => {
             await connect();
             expect(element.toggleButton!.getAttribute('aria-haspopup')).toEqual(
