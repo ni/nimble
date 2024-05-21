@@ -72,6 +72,7 @@ export const styles = css`
     }
 
     .controls {
+        height: ${controlHeight};
         margin-left: auto;
         display: flex;
         align-items: center;
