@@ -1,6 +1,7 @@
 import { Canvas, Meta, Controls, Title } from '@storybook/blocks';
 import { NimbleSelect } from './select.react';
 import * as selectStories from './select.stories';
+import ComponentApisLink from '../../docs/component-apis-link.mdx';
 import { listOptionTag } from '@ni/nimble-components/dist/esm/list-option';
 
 <Meta of={selectStories} />
@@ -9,7 +10,11 @@ import { listOptionTag } from '@ni/nimble-components/dist/esm/list-option';
 Select is a control for selecting amongst a set of options. Its value comes from the `value` of the currently selected <Tag name={listOptionTag}/>, or, if no value exists for that option, the option's content. Upon clicking on the element, the other options are visible.
 
 <Canvas of={selectStories.underlineSelect} />
+
+## API
+
 <Controls of={selectStories.underlineSelect} />
+<ComponentApisLink />
 
 {/* ## Styling */}
 
