@@ -12,19 +12,11 @@ import {
 import { display } from '../utilities/style/display';
 
 import {
-    actionRgbPartialColor,
     applicationBackgroundColor,
     bodyFont,
-    borderHoverColor,
-    buttonLabelFontColor,
+    bodyFontColor,
     controlHeight,
     controlSlimHeight,
-    fillSelectedColor,
-    iconColor,
-    iconSize,
-    linkActiveFontColor,
-    linkDisabledFontColor,
-    linkFontColor,
     standardPadding
 } from '../theme-provider/design-tokens';
 import { Theme } from '../theme-provider/types';
@@ -40,8 +32,6 @@ export const styles = css`
         font-size: 12.8px;
         align-items: top;
         overflow: hidden;
-        color: ${White};
-        ${iconColor.cssCustomProperty}: ${hexToRgbaCssColor(White, 0.6)};
     }
 
     :host(:not([open])) {
@@ -49,6 +39,7 @@ export const styles = css`
     }
 
     .container {
+        color: ${bodyFontColor};
         display: flex;
         width: 100%;
     }
@@ -59,6 +50,7 @@ export const styles = css`
         justify-content: center;
         margin-top: 8px;
         flex: 0 0 auto;
+        opacity: 0.6;
     }
 
     .text {
@@ -84,7 +76,8 @@ export const styles = css`
         display: flex;
         align-items: center;
         justify-content: center;
-        align-self: flex-start;
+        align-self: center;
+        ${controlHeight.cssCustomProperty}: ${controlSlimHeight};
     }
 
     slot[name='action'] {
@@ -95,52 +88,13 @@ export const styles = css`
     }
 
     slot[name='action']::slotted(nimble-anchor) {
-        ${linkFontColor.cssCustomProperty}: ${White};
-        ${linkDisabledFontColor.cssCustomProperty}: ${White};
-        ${linkActiveFontColor.cssCustomProperty}: ${hexToRgbaCssColor(
-            White,
-            0.6
-        )};
         font-size: 12.8px;
-    }
-
-    slot[name='action']::slotted(nimble-button) {
-        ${controlHeight.cssCustomProperty}: ${controlSlimHeight};
-        ${buttonLabelFontColor.cssCustomProperty}: ${White};
-        ${fillSelectedColor.cssCustomProperty}: ${hexToRgbaCssColor(
-            White,
-            0.2
-        )};
-        ${borderHoverColor.cssCustomProperty}: ${White};
-    }
-
-    slot[name='action']::slotted(nimble-button[appearance='outline']) {
-        ${actionRgbPartialColor.cssCustomProperty}: ${White}
     }
 
     .dismiss {
         width: 48px;
         display: flex;
         justify-content: center;
-    }
-
-    .dismiss nimble-button {
-        ${controlHeight.cssCustomProperty}: 16px;
-        ${iconSize.cssCustomProperty}: 14px;
-        ${buttonLabelFontColor.cssCustomProperty}: ${White};
-        ${borderHoverColor.cssCustomProperty}: transparent;
-        ${fillSelectedColor.cssCustomProperty}: ${hexToRgbaCssColor(
-            White,
-            0.2
-        )};
-    }
-
-    .dismiss nimble-button:focus-within {
-        outline: 2px solid ${White};
-    }
-
-    .dismiss nimble-button:hover {
-        background: ${hexToRgbaCssColor(White, 0.2)};
     }
 `.withBehaviors(
     themeBehavior(

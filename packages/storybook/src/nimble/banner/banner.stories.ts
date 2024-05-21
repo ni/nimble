@@ -13,6 +13,7 @@ import {
     addLabelUseMetadata
 } from '../label-provider/base/label-user-stories-utils';
 import { createUserSelectedThemeStory } from '../../utilities/storybook';
+import { ButtonAppearance, ButtonAppearanceVariant } from '@ni/nimble-components/dist/esm/button/types';
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 const ActionType = {
@@ -61,11 +62,11 @@ export const _banner: StoryObj<BannerArgs> = {
             <span slot="title">${x => x.title}</span>
             ${x => x.text}
             ${when(x => x.action === 'button (ghost)', html`
-                <${buttonTag} slot="action" appearance="ghost">Do action</${buttonTag}>`)}
+                <${buttonTag} slot="action" appearance="${ButtonAppearance.ghost}" appearance-variant="${ButtonAppearanceVariant.primary}">Do action</${buttonTag}>`)}
             ${when(x => x.action === 'button (outline)', html`
-                <${buttonTag} slot="action" appearance="outline">Do action</${buttonTag}>`)}
+                <${buttonTag} slot="action" appearance="${ButtonAppearance.outline}" appearance-variant="${ButtonAppearanceVariant.primary}">Do action</${buttonTag}>`)}
             ${when(x => x.action === 'icon button (outline)', html`
-                <${buttonTag} slot="action" appearance="outline" content-hidden>
+                <${buttonTag} slot="action" appearance="${ButtonAppearance.outline}" appearance-variant="${ButtonAppearanceVariant.primary}" content-hidden>
                     <${iconKeyTag} slot="start"></${iconKeyTag}>
                     Do action
                 </${buttonTag}>`)}
@@ -97,7 +98,7 @@ export const _banner: StoryObj<BannerArgs> = {
             options: Object.values(ActionType),
             control: { type: 'radio' },
             description:
-                'The `action` slot provides a place to display a button or anchor that you provide. If you provide a button, it should have either the `"ghost"` or `"outline"` appearance.'
+                'The `action` slot provides a place to display a button or anchor that you provide. If you provide a button, it should have either the `"ghost"` or `"outline"` appearance and have the `"primary"` appearance variant.'
         },
         preventDismiss: {
             name: 'prevent-dismiss',
