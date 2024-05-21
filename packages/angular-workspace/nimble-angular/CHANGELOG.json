@@ -2,6 +2,36 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Tue, 21 May 2024 15:50:01 GMT",
+      "version": "24.3.0",
+      "tag": "@ni/nimble-angular_v24.3.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "89e3bc88811ac6a6c92c8cacc61031b65a5b901c",
+            "comment": "Adding clearable API for Select."
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 20 May 2024 15:39:22 GMT",
+      "version": "24.2.6",
+      "tag": "@ni/nimble-angular_v24.2.6",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v29.1.3",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 17 May 2024 20:05:45 GMT",
       "version": "24.2.5",
       "tag": "@ni/nimble-angular_v24.2.5",

@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Fri, 17 May 2024 20:05:45 GMT and should not be manually modified.
+This log was last generated on Mon, 20 May 2024 15:39:22 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 29.1.3
+
+Mon, 20 May 2024 15:39:22 GMT
+
+### Patches
+
+- Update 'start' slot of text field to match design spec ([ni/nimble@830231e](https://github.com/ni/nimble/commit/830231edf173fa68ba7dee2b0bd7ab16b543af7a))
 
 ## 29.1.2
 
