@@ -17,7 +17,7 @@ ButtonOptions
     <div
         role="button"
         part="control"
-        tabindex="${x => x.getEffectiveTabIndex()}"
+        tabindex="${x => x.resolvedTabIndex}"
         @keypress="${(x, c) => x.keypressHandler(c.event as KeyboardEvent)}"
         @click="${(x, c) => x.clickHandler(c.event as MouseEvent)}"
         class="control ${x => (x.checked ? 'checked' : '')}"

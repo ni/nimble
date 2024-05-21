@@ -60,9 +60,9 @@ export class ToggleButton extends FoundationSwitch implements ButtonPattern {
     /**
      * @internal
      */
-    public getEffectiveTabIndex(): number | null {
-        // prettier-ignore
-        return this.disabled ? null : (this.tabIndex ?? 0);
+    public get resolvedTabIndex(): string | undefined {
+        const tabIndex = this.tabIndex ?? 0;
+        return this.disabled ? undefined : tabIndex.toString();
     }
 }
 applyMixins(ToggleButton, StartEnd, DelegatesARIAButton);
