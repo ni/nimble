@@ -94,6 +94,14 @@ public class NimbleSelectTests
         Assert.DoesNotContain("filter-mode", select.Markup);
     }
 
+    [Fact]
+    public void SelectClearable_AttributeIsSet()
+    {
+        var select = RenderWithPropertySet(x => x.Clearable, true);
+
+        Assert.Contains("clearable", select.Markup);
+    }
+
     private IRenderedComponent<NimbleSelect> RenderWithPropertySet<TProperty>(Expression<Func<NimbleSelect, TProperty>> propertyGetter, TProperty propertyValue)
     {
         var context = new TestContext();

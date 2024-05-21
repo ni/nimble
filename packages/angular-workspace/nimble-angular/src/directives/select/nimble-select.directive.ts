@@ -31,6 +31,14 @@ export class NimbleSelectDirective {
         this.renderer.setProperty(this.elementRef.nativeElement, 'filterMode', value);
     }
 
+    public get clearable(): boolean {
+        return this.elementRef.nativeElement.clearable;
+    }
+
+    @Input() public set clearable(value: BooleanValueOrAttribute) {
+        this.renderer.setProperty(this.elementRef.nativeElement, 'clearable', toBooleanProperty(value));
+    }
+
     public get disabled(): boolean {
         return this.elementRef.nativeElement.disabled;
     }
