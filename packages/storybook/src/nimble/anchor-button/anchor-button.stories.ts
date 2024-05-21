@@ -8,12 +8,13 @@ import {
     ButtonAppearanceVariant
 } from '@ni/nimble-components/dist/esm/patterns/button/types';
 import {
+    appearanceDescription,
     appearanceVariantDescription,
     contentHiddenDescription,
     endIconDescription,
     iconDescription
 } from '../patterns/button/doc-strings';
-import { createUserSelectedThemeStory } from '../../utilities/storybook';
+import { apiCategory, createUserSelectedThemeStory, disabledDescription, textContentDescription } from '../../utilities/storybook';
 import { hrefDescription } from '../patterns/anchor/anchor-docs';
 
 interface AnchorButtonArgs {
@@ -52,28 +53,46 @@ const metadata: Meta<AnchorButtonArgs> = {
     `),
     argTypes: {
         href: {
-            description: hrefDescription({ componentName: 'anchor button', includeDisable: false })
+            description: hrefDescription({ componentName: 'anchor button', includeDisable: false }),
+            table: { category: apiCategory.attributes }
         },
         appearance: {
             options: Object.keys(ButtonAppearance),
-            control: { type: 'radio' }
+            control: { type: 'radio' },
+            description: appearanceDescription,
+            table: { category: apiCategory.attributes }
         },
         appearanceVariant: {
             name: 'appearance-variant',
             options: Object.keys(ButtonAppearanceVariant),
             control: { type: 'radio' },
-            description: appearanceVariantDescription
-        },
-        icon: {
-            description: iconDescription
-        },
-        endIcon: {
-            description: endIconDescription
+            description: appearanceVariantDescription,
+            table: { category: apiCategory.attributes }
         },
         contentHidden: {
             name: 'content-hidden',
-            description: contentHiddenDescription
-        }
+            description: contentHiddenDescription,
+            table: { category: apiCategory.attributes }
+        },
+        disabled: {
+            description: disabledDescription({ componentName: 'anchor button' }),
+            table: { category: apiCategory.attributes }
+        },
+        label: {
+            name: 'default',
+            description: textContentDescription({ componentName: 'anchor button' }),
+            table: { category: apiCategory.slots }
+        },
+        icon: {
+            name: 'start',
+            description: iconDescription,
+            table: { category: apiCategory.slots }
+        },
+        endIcon: {
+            name: 'end',
+            description: endIconDescription,
+            table: { category: apiCategory.slots }
+        },
     },
     args: {
         label: 'Anchor Button',

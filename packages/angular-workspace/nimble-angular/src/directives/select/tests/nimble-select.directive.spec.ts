@@ -57,6 +57,11 @@ describe('Nimble select', () => {
             expect(nativeElement.filterMode).toBe(FilterMode.none);
         });
 
+        it('has expected defaults for clearable', () => {
+            expect(directive.clearable).toBe(false);
+            expect(nativeElement.clearable).toBe(false);
+        });
+
         it('has expected defaults for errorText', () => {
             expect(directive.errorText).toBeUndefined();
             expect(nativeElement.errorText).toBeUndefined();
@@ -86,6 +91,7 @@ describe('Nimble select', () => {
                     disabled
                     appearance="${DropdownAppearance.block}"
                     filter-mode="${FilterMode.standard}"
+                    clearable
                     error-text="error text"
                     error-visible
                 >
@@ -127,6 +133,11 @@ describe('Nimble select', () => {
             expect(nativeElement.filterMode).toBe(FilterMode.standard);
         });
 
+        it('will use template string values for clearable', () => {
+            expect(directive.clearable).toBeTrue();
+            expect(nativeElement.clearable).toBeTrue();
+        });
+
         it('will use template string values for errorText', () => {
             expect(directive.errorText).toBe('error text');
             expect(nativeElement.errorText).toBe('error text');
@@ -145,6 +156,7 @@ describe('Nimble select', () => {
                     [disabled] = "disabled"
                     [appearance]="appearance"
                     [filter-mode]="filterMode"
+                    [clearable]="clearable"
                     [error-text]="errorText"
                     [error-visible]="errorVisible"
                 >
@@ -157,6 +169,7 @@ describe('Nimble select', () => {
             public disabled = false;
             public appearance: DropdownAppearance = DropdownAppearance.block;
             public filterMode: FilterMode = FilterMode.standard;
+            public clearable = false;
             public errorText = 'initial value';
             public errorVisible = false;
         }
@@ -209,6 +222,17 @@ describe('Nimble select', () => {
             expect(nativeElement.filterMode).toBe(FilterMode.none);
         });
 
+        it('can be configured with property binding for clearable', () => {
+            expect(directive.clearable).toBeFalse();
+            expect(nativeElement.clearable).toBeFalse();
+
+            fixture.componentInstance.clearable = true;
+            fixture.detectChanges();
+
+            expect(directive.clearable).toBeTrue();
+            expect(nativeElement.clearable).toBeTrue();
+        });
+
         it('can be configured with property binding for errorText', () => {
             expect(directive.errorText).toBe('initial value');
             expect(nativeElement.errorText).toBe('initial value');
@@ -239,6 +263,7 @@ describe('Nimble select', () => {
                     [attr.disabled]="disabled"
                     [attr.appearance]="appearance"
                     [attr.filter-mode]="filterMode"
+                    [attr.clearable]="clearable"
                     [attr.error-text]="errorText"
                     [attr.error-visible]="errorVisible"
                 >
@@ -251,6 +276,7 @@ describe('Nimble select', () => {
             public disabled: BooleanValueOrAttribute = null;
             public appearance: DropdownAppearance = DropdownAppearance.block;
             public filterMode: FilterMode;
+            public clearable: BooleanValueOrAttribute = null;
             public errorText = 'initial value';
             public errorVisible: BooleanValueOrAttribute = null;
         }
@@ -301,6 +327,17 @@ describe('Nimble select', () => {
 
             expect(directive.filterMode).toBe(FilterMode.standard);
             expect(nativeElement.filterMode).toBe(FilterMode.standard);
+        });
+
+        it('can be configured with attribute binding for clearable', () => {
+            expect(directive.clearable).toBeFalse();
+            expect(nativeElement.clearable).toBeFalse();
+
+            fixture.componentInstance.clearable = '';
+            fixture.detectChanges();
+
+            expect(directive.clearable).toBeTrue();
+            expect(nativeElement.clearable).toBeTrue();
         });
 
         it('can be configured with attribute binding for errorText', () => {
