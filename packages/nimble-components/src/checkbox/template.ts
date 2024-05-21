@@ -15,7 +15,7 @@ CheckboxOptions
         aria-required="${x => x.required}"
         aria-disabled="${x => x.disabled}"
         aria-readonly="${x => x.readOnly}"
-        tabindex="${x => x.resolvedTabIndex}"
+        tabindex="${x => x.resolvedTabindex}"
         @keypress="${(x, c) => x.keypressHandler(c.event as KeyboardEvent)}"
         @click="${(x, c) => x.clickHandler(c.event as MouseEvent)}"
         class="${x => (x.readOnly ? 'readonly' : '')} ${x => (x.checked ? 'checked' : '')} ${x => (x.indeterminate ? 'indeterminate' : '')}"

@@ -29,9 +29,9 @@ export class Checkbox extends FoundationCheckbox {
     /**
      * @internal
      */
-    public get resolvedTabIndex(): string | undefined {
+    public get resolvedTabindex(): string | undefined {
         const tabIndex = this.tabIndex ?? 0;
-        return this.disabled ? undefined : tabIndex.toString();
+        return this.disabled ? undefined : `${tabIndex}`;
     }
 }
 
