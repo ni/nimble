@@ -60,7 +60,7 @@ const component = (
             ${when(() => optionsOutsideGroup ?? false, html`
                 <${listOptionTag}>Option Not in Group</${listOptionTag}>
             `)}
-            <${listOptionGroupTag}  ${!slottedLabel ? 'label="Group 2 with a ridiculously long label that does\'t fit"' : ''}>
+            <${listOptionGroupTag}  ${!slottedLabel ? 'label="Group 2 with a ridiculously long label that doesn\'t fit"' : ''}>
                 ${when(() => slottedLabel, html`
                     <span>Group 2 with a ridiculously long label that doesn't fit</span>
                 `)}
