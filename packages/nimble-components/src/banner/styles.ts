@@ -17,6 +17,7 @@ import {
     bodyFontColor,
     controlHeight,
     controlSlimHeight,
+    smallPadding,
     standardPadding
 } from '../theme-provider/design-tokens';
 import { Theme } from '../theme-provider/types';
@@ -71,12 +72,12 @@ export const styles = css`
     }
 
     .controls {
-        height: ${controlHeight};
         margin-left: auto;
         display: flex;
         align-items: center;
         justify-content: center;
-        align-self: center;
+        align-self: flex-start;
+        margin-top: ${smallPadding}; 
         ${controlHeight.cssCustomProperty}: ${controlSlimHeight};
     }
 
