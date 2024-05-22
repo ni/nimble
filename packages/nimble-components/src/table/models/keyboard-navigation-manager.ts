@@ -650,9 +650,10 @@ implements Subscriber {
                 tabbableElements.push(headerTabbableElements[i]);
                 tabbableElementFocusState.push({ focusType: TableFocusType.headerActions, headerActionIndex: i });
             }
-            startIndex = shiftKeyPressed ? tabbableElements.length : -1;
             if (this.focusState.focusType === TableFocusType.headerActions) {
                 startIndex = this.focusState.headerActionIndex!;
+            } else { // TableFocusType.columnHeader
+                startIndex = tabbableElements.length;
             }
         }
         let index = startIndex + direction;

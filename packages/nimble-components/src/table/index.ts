@@ -556,11 +556,14 @@ export class Table<
     /**
      * @internal
      */
-    public onHeaderKeyDown(column: TableColumn, event: KeyboardEvent): void {
+    public onHeaderKeyDown(column: TableColumn, event: KeyboardEvent): boolean {
         const allowMultiSort = event.shiftKey;
         if (event.key === keyEnter) {
             this.toggleColumnSort(column, allowMultiSort);
         }
+        // Return true so that we don't prevent default behavior. Without this, Tab navigation
+        // gets stuck on the column headers.
+        return true;
     }
 
     /**
