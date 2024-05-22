@@ -18,25 +18,32 @@ expanded to reveal the contents of the folder, which may be files, folders, or b
 The <Tag name={treeViewTag}/> supports standard <Tag name={treeItemTag}/> and <Tag name={anchorTreeItemTag}/>,
 which navigate to a url upon activation. Both types of tree items support icons as slotted content.
 
-<Canvas of={treeViewStories.treeItem} />
+<Canvas of={treeViewStories.multipleTreeItems} />
 
 ## API
 
-<Controls of={treeViewStories.treeItem} />
+<Controls of={treeViewStories.multipleTreeItems} />
 <ComponentApisLink />
+
+### Tree Item
+
+Use a <Tag name={treeItemTag} /> child element if you want a tree item that calls a callback, has a value, and/or has child items.
+
+<Canvas of={treeViewStories.treeItem} />
+<Controls of={treeViewStories.treeItem} />
+
+### Anchor Tree Item
+
+Use a <Tag name={anchorTreeItemTag} /> child element to navigate to a URL when the item is activated.
+
+<Canvas of={treeViewStories.anchorTreeItem} />
+<Controls of={treeViewStories.anchorTreeItem} />
 
 {/* ## Styling */}
 
 {/* ## Usage */}
 
 {/* ## Examples */}
-
-### Child Elements
-
--   <Tag name={treeItemTag} /> - Use a this child element if you want a tree item
-    that calls a callback, has a value, and/or has child items.
--   <Tag name={anchorTreeItemTag} /> - Use this child element to navigate to a URL
-    when the item is activated.
 
 ## Accessibility
 

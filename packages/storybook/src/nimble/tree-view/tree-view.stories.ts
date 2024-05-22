@@ -7,12 +7,14 @@ import { treeItemTag } from '../../../../nimble-components/src/tree-item';
 import { anchorTreeItemTag } from '../../../../nimble-components/src/anchor-tree-item';
 import { treeViewTag } from '../../../../nimble-components/src/tree-view';
 import { TreeViewSelectionMode } from '../../../../nimble-components/src/tree-view/types';
-import { createUserSelectedThemeStory } from '../../utilities/storybook';
+import { apiCategory, createUserSelectedThemeStory, disabledDescription } from '../../utilities/storybook';
 import { hrefDescription } from '../patterns/anchor/anchor-docs';
 
 interface TreeArgs {
     selectionMode: TreeViewSelectionMode;
     options: ItemArgs[];
+    expandedChange: undefined;
+    selectedChange: undefined;
 }
 
 interface ItemArgs {
@@ -33,12 +35,15 @@ interface AnchorItemArgs {
 }
 
 const selectionModeDescription = `
-<li>All: all items in the tree are selectable through user interaction</li>
-<li>Leaves only: only the leaf items in the tree are selectable through user interaction</li>
-<li>None: no items in the tree are selectable through user interaction</li>
+<li>all: all items in the tree are selectable through user interaction</li>
+<li>leaves-only: only the leaf items in the tree are selectable through user interaction</li>
+<li>none: no items in the tree are selectable through user interaction</li>
 <br>
 Note: Changing the selection mode does not affect which items can be selected programmatically.
 `;
+const iconDescription = 'To place an icon at the far-left of the item, set `slot="start"` on the icon.';
+const labelDescription = 'The text content of the tree item.';
+
 
 const metadata: Meta<TreeArgs> = {
     title: 'Components/Tree View',
@@ -46,11 +51,6 @@ const metadata: Meta<TreeArgs> = {
     parameters: {
         actions: {
             handles: ['expanded-change', 'selected-change']
-        }
-    },
-    argTypes: {
-        selectionMode: {
-            description: selectionModeDescription
         }
     }
 };
@@ -66,10 +66,32 @@ export const treeItem: StoryObj<ItemArgs> = {
         }
     },
     argTypes: {
+        label: {
+            name: 'default',
+            description: labelDescription,
+            table: { category: apiCategory.slots }
+        },
+        value: {
+            description: 'A value for this tree item that can be used to identify the item when handling tree events.',
+            table: { category: apiCategory.attributes }
+        },
+        disabled: {
+            description: disabledDescription({ componentName: 'tree item' }),
+            table: { category: apiCategory.attributes }
+        },
         icon: {
-            description:
-                'When including an icon, set `slot="start"` on the icon to ensure proper styling.'
-        }
+            name: 'start',
+            description: iconDescription,
+            table: { category: apiCategory.slots }
+        },
+        selected: {
+            description: 'Whether this item is selected.',
+            table: { category: apiCategory.attributes }
+        },
+        expanded: {
+            description: 'Whether this item is expanded.',
+            table: { category: apiCategory.attributes }
+        },
     },
     // prettier-ignore
     render: createUserSelectedThemeStory(html`
@@ -102,17 +124,28 @@ export const anchorTreeItem: StoryObj<AnchorItemArgs> = {
         }
     },
     argTypes: {
-        icon: {
-            description:
-                'When including an icon, set `slot="start"` on the icon to ensure proper styling.'
+        label: {
+            name: 'default',
+            description: labelDescription,
+            table: { category: apiCategory.slots }
+        },
+        href: {
+            description: hrefDescription({ componentName: 'anchor tree item', includeDisable: false }),
+            table: { category: apiCategory.attributes }
+        },
+        disabled: {
+            description: disabledDescription({ componentName: 'tree item' }),
+            table: { category: apiCategory.attributes }
         },
         selected: {
             description:
-                'Cannot be selected interactively, as click/Enter causes navigation.'
+                'Set this attribute programmatically to render the item as selected. It cannot be selected interactively, as click/Enter causes navigation.',
+            table: { category: apiCategory.attributes }
         },
-        href: {
-            description: hrefDescription({ componentName: 'anchor tree item', includeDisable: false })
-        }
+        icon: {
+            description: iconDescription,
+            table: { category: apiCategory.slots }
+        },
     },
     // prettier-ignore
     render: createUserSelectedThemeStory(html`
@@ -135,9 +168,29 @@ export const anchorTreeItem: StoryObj<AnchorItemArgs> = {
 export const multipleTreeItems: StoryObj<TreeArgs> = {
     argTypes: {
         selectionMode: {
+            name: 'selection-mode',
             options: Object.values(TreeViewSelectionMode),
-            control: { type: 'radio' }
-        }
+            control: { type: 'radio' },
+            description: selectionModeDescription,
+            table: { category: apiCategory.attributes }
+
+        },
+        options: {
+            name: 'default',
+            description:
+                `Add one or more \`${treeItemTag}\` or \`${anchorTreeItemTag}\` elements as child content to populate the tree.`,
+            table: { category: apiCategory.slots }
+        },
+        expandedChange: {
+            name: 'expanded-change',
+            description: 'Event that emits when an item is expanded or collapsed.',
+            table: { category: apiCategory.events }
+        },
+        selectedChange: {
+            name: 'selected-change',
+            description: 'Event that emits when an item is selected or deselected.',
+            table: { category: apiCategory.events }
+        },
     },
     // prettier-ignore
     render: createUserSelectedThemeStory(html`
