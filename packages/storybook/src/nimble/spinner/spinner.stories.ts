@@ -13,7 +13,7 @@ import { spinnerTag } from '../../../../nimble-components/src/spinner';
 import { SpinnerAppearance } from '../../../../nimble-components/src/spinner/types';
 import { isChromatic } from '../../utilities/isChromatic';
 
-import { createUserSelectedThemeStory } from '../../utilities/storybook';
+import { apiCategory, createUserSelectedThemeStory } from '../../utilities/storybook';
 
 const spinnerSize = {
     small: null,
@@ -53,7 +53,7 @@ const metadata: Meta<SpinnerArgs> = {
                 Requires 64px minimum margins.
                 </li></ul></details>`,
             options: Object.keys(spinnerSize),
-            table: { defaultValue: { summary: 'Small (16x16)' } },
+            table: { category: apiCategory.styles },
             control: {
                 type: 'radio',
                 labels: {
@@ -81,7 +81,8 @@ const metadata: Meta<SpinnerArgs> = {
                 + `<li>For appearance \`accent\`:<br/>
                         Use for promoting NI branding and adding a splash of color in a monochromatic setting.  Common places to use is home screens, licensing, dialogs and any instances where there will not be a conflict with green representing status.<br/>
                         The green version is not intended to represent “Good” or “Success”.  
-                    </li></ul></details>`
+                    </li></ul></details>`,
+            table: { category: apiCategory.attributes }
         }
     },
     // Disable animation in Chromatic because it intermittently causes shapshot differences

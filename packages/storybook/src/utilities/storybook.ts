@@ -169,7 +169,8 @@ export const apiCategory = {
     localizableLabels: 'Localizable Labels',
     methods: 'Methods',
     nonAttributeProperties: 'Properties',
-    slots: 'Slots'
+    slots: 'Slots',
+    styles: 'Styles'
 } as const;
 
 export const appearanceDescription = (options: { componentName: string }): string => `This attribute affects the appearance of the ${options.componentName}.`;
