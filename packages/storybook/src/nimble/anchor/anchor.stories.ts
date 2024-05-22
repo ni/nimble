@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/html';
 import { html } from '@microsoft/fast-element';
-import { bodyFont } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
+import { bodyFont, bodyFontColor } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
 import { anchorTag } from '@ni/nimble-components/dist/esm/anchor';
 import { AnchorAppearance } from '@ni/nimble-components/dist/esm/anchor/types';
 import { apiCategory, createUserSelectedThemeStory } from '../../utilities/storybook';
@@ -24,6 +24,7 @@ const metadata: Meta<AnchorArgs> = {
         <style class='code-hide'>
             .anchor-container {
                 font: var(${bodyFont.cssCustomProperty});
+                color: var(${bodyFontColor.cssCustomProperty});
                 outline: none;
             }
         </style>
