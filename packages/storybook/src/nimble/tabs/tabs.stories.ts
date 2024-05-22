@@ -1,11 +1,11 @@
 import { html, when } from '@microsoft/fast-element';
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html';
-import { buttonTag } from '@ni/nimble-components/dist/esm/button';
-import { tabTag } from '@ni/nimble-components/dist/esm/tab';
-import { tabPanelTag } from '@ni/nimble-components/dist/esm/tab-panel';
-import { tabsToolbarTag } from '@ni/nimble-components/dist/esm/tabs-toolbar';
-import { tabsTag } from '@ni/nimble-components/dist/esm/tabs';
+import { buttonTag } from '../../../../nimble-components/src/button';
+import { tabTag } from '../../../../nimble-components/src/tab';
+import { tabPanelTag } from '../../../../nimble-components/src/tab-panel';
+import { tabsToolbarTag } from '../../../../nimble-components/src/tabs-toolbar';
+import { tabsTag } from '../../../../nimble-components/src/tabs';
 import { apiCategory, createUserSelectedThemeStory, disabledDescription } from '../../utilities/storybook';
 
 interface TabsArgs {

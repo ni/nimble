@@ -1,7 +1,7 @@
 import { html, when } from '@microsoft/fast-element';
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html';
-import { switchTag } from '@ni/nimble-components/dist/esm/switch';
+import { switchTag } from '../../../../nimble-components/src/switch';
 import { createUserSelectedThemeStory } from '../../utilities/storybook';
 
 interface SwitchArgs {

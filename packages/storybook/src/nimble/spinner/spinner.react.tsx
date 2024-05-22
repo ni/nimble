@@ -1,4 +1,4 @@
-import { Spinner } from '@ni/nimble-components/dist/esm/spinner';
+import { Spinner } from '../../../../nimble-components/src/spinner';
 import { wrap } from '../../utilities/react-wrapper';
 
 export const NimbleSpinner = wrap(Spinner);

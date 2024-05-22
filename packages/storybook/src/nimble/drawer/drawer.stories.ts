@@ -4,19 +4,19 @@ import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html';
 import {
     tokenNames,
     scssInternalPropertySetterMarkdown
-} from '@ni/nimble-components/dist/esm/theme-provider/design-token-names';
+} from '../../../../nimble-components/src/theme-provider/design-token-names';
 import {
     drawerWidth,
     standardPadding
-} from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
-import { TextField, textFieldTag } from '@ni/nimble-components/dist/esm/text-field';
-import { buttonTag } from '@ni/nimble-components/dist/esm/button';
-import { listOptionTag } from '@ni/nimble-components/dist/esm/list-option';
-import { numberFieldTag } from '@ni/nimble-components/dist/esm/number-field';
-import { selectTag } from '@ni/nimble-components/dist/esm/select';
-import { Drawer, drawerTag, UserDismissed } from '@ni/nimble-components/dist/esm/drawer';
-import { DrawerLocation } from '@ni/nimble-components/dist/esm/drawer/types';
-import { DrawerWidthOptions, ExampleContentType } from '@ni/nimble-components/dist/esm/drawer/tests/types';
+} from '../../../../nimble-components/src/theme-provider/design-tokens';
+import { TextField, textFieldTag } from '../../../../nimble-components/src/text-field';
+import { buttonTag } from '../../../../nimble-components/src/button';
+import { listOptionTag } from '../../../../nimble-components/src/list-option';
+import { numberFieldTag } from '../../../../nimble-components/src/number-field';
+import { selectTag } from '../../../../nimble-components/src/select';
+import { Drawer, drawerTag, UserDismissed } from '../../../../nimble-components/src/drawer';
+import { DrawerLocation } from '../../../../nimble-components/src/drawer/types';
+import { DrawerWidthOptions, ExampleContentType } from '../../../../nimble-components/src/drawer/tests/types';
 
 import {
     createUserSelectedThemeStory,

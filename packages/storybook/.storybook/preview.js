@@ -5,7 +5,7 @@ import { transformSource } from './transformSource';
 import {
     backgroundStates,
     defaultBackgroundState
-} from '../dist/esm/utilities/states';
+} from '../src/utilities/states.ts';
 import {
     Container,
     Column,

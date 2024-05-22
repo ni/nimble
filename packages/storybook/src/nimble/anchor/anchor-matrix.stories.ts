@@ -1,8 +1,8 @@
 import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate } from '@microsoft/fast-element';
-import { bodyFont } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
-import { anchorTag } from '@ni/nimble-components/dist/esm/anchor';
-import { AnchorAppearance } from '@ni/nimble-components/dist/esm/anchor/types';
+import { bodyFont } from '../../../../nimble-components/src/theme-provider/design-tokens';
+import { anchorTag } from '../../../../nimble-components/src/anchor';
+import { AnchorAppearance } from '../../../../nimble-components/src/anchor/types';
 import {
     createMatrix,
     sharedMatrixParameters,
