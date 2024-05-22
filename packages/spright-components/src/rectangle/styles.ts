@@ -3,6 +3,7 @@ import {
     bodyDisabledFontColor,
     bodyFont,
     bodyFontColor,
+    borderHoverColor,
     borderRgbPartialColor
 } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
 import { display } from '../utilities/style/display';
@@ -11,7 +12,7 @@ export const styles = css`
     ${display('inline-block')}
 
     :host {
-        border: 2px solid red;
+        border: 2px solid ${borderHoverColor};
     }
 
     :host(:hover) {
