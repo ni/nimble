@@ -6,7 +6,6 @@ import {
     volatile
 } from '@microsoft/fast-element';
 import {
-    Checkbox,
     DesignSystem,
     FoundationElement
 } from '@microsoft/fast-foundation';
@@ -28,6 +27,7 @@ import {
     ColumnInternals,
     isColumnInternalsProperty
 } from '../../../table-column/base/models/column-internals';
+import type { Checkbox } from '../../../checkbox';
 
 declare global {
     interface HTMLElementTagNameMap {

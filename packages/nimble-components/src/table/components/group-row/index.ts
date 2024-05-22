@@ -1,6 +1,5 @@
 import { attr, observable } from '@microsoft/fast-element';
 import {
-    Checkbox,
     DesignSystem,
     FoundationElement
 } from '@microsoft/fast-foundation';
@@ -12,6 +11,7 @@ import {
     TableRowSelectionState,
     TableRowSelectionToggleEventDetail
 } from '../../types';
+import type { Checkbox } from '../../../checkbox';
 
 declare global {
     interface HTMLElementTagNameMap {
