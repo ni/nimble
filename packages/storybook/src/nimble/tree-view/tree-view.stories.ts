@@ -44,7 +44,6 @@ Note: Changing the selection mode does not affect which items can be selected pr
 const iconDescription = 'To place an icon at the far-left of the item, set `slot="start"` on the icon.';
 const labelDescription = 'The text content of the tree item.';
 
-
 const metadata: Meta<TreeArgs> = {
     title: 'Components/Tree View',
     decorators: [withActions<HtmlRenderer>],

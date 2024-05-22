@@ -56,7 +56,7 @@ const content = {
     [ExampleContentType.shortContent]: shortContent,
     [ExampleContentType.longContent]: longContent,
     [ExampleContentType.shortContentWithFooterButtons]: shortContent,
-    [ExampleContentType.longContentWithFooterButtons]: longContent 
+    [ExampleContentType.longContentWithFooterButtons]: longContent
 } as const;
 
 const sizeDescription = `
