@@ -27,7 +27,10 @@ Usage of the column would look as follows:
 
 ```html
 <nimble-table>
-    <nimble-table-column-menu-button field-name="selectedVersion" menu-slot="software-version-menu">
+    <nimble-table-column-menu-button
+        field-name="selectedVersion"
+        menu-slot="software-version-menu"
+    >
         Software version
     </nimble-table-column-menu-button>
 
