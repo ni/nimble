@@ -1,8 +1,8 @@
 import { ViewTemplate, html } from '@microsoft/fast-element';
 import type { Meta, StoryFn } from '@storybook/html';
-import { listOptionTag } from '@ni/nimble-components/dist/esm/list-option';
-import { menuMinWidth } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
-import { listboxTag } from '@ni/nimble-components/dist/esm/listbox';
+import { listOptionTag } from '../../../../nimble-components/src/list-option';
+import { menuMinWidth } from '../../../../nimble-components/src/theme-provider/design-tokens';
+import { listboxTag } from '../../../../nimble-components/src/listbox';
 import {
     createMatrix,
     sharedMatrixParameters,

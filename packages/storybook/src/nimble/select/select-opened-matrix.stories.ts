@@ -1,8 +1,8 @@
 import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate } from '@microsoft/fast-element';
-import { listOptionTag } from '@ni/nimble-components/dist/esm/list-option';
-import { Select, selectTag } from '@ni/nimble-components/dist/esm/select';
-import { FilterMode } from '@ni/nimble-components/dist/esm/select/types';
+import { listOptionTag } from '../../../../nimble-components/src/list-option';
+import { Select, selectTag } from '../../../../nimble-components/src/select';
+import { FilterMode } from '../../../../nimble-components/src/select/types';
 import { createFixedThemeStory } from '../../utilities/storybook';
 import { sharedMatrixParameters } from '../../utilities/matrix';
 import { backgroundStates } from '../../utilities/states';

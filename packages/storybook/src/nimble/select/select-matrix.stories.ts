@@ -5,11 +5,11 @@ import {
     controlLabelFont,
     controlLabelFontColor,
     standardPadding
-} from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
-import { listOptionTag } from '@ni/nimble-components/dist/esm/list-option';
-import { Select, selectTag } from '@ni/nimble-components/dist/esm/select';
-import { DropdownAppearance } from '@ni/nimble-components/dist/esm/patterns/dropdown/types';
-import { waitForUpdatesAsync } from '@ni/nimble-components/dist/esm/testing/async-helpers';
+} from '../../../../nimble-components/src/theme-provider/design-tokens';
+import { listOptionTag } from '../../../../nimble-components/src/list-option';
+import { Select, selectTag } from '../../../../nimble-components/src/select';
+import { DropdownAppearance } from '../../../../nimble-components/src/patterns/dropdown/types';
+import { waitForUpdatesAsync } from '../../../../nimble-components/src/testing/async-helpers';
 import { createStory } from '../../utilities/storybook';
 import {
     createMatrixThemeStory,

@@ -1,7 +1,7 @@
 import { ViewTemplate, html } from '@microsoft/fast-element';
 import type { Meta, StoryFn } from '@storybook/html';
-import { listOptionTag } from '@ni/nimble-components/dist/esm/list-option';
-import { richTextMentionListboxTag } from '@ni/nimble-components/dist/esm/rich-text/mention-listbox';
+import { listOptionTag } from '../../../../../nimble-components/src/list-option';
+import { richTextMentionListboxTag } from '../../../../../nimble-components/src/rich-text/mention-listbox';
 import { hiddenWrapper } from '../../../utilities/hidden';
 import { loremIpsum } from '../../../utilities/lorem-ipsum';
 import {
