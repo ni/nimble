@@ -27,6 +27,7 @@ AnchorOptions
         rel="${x => x.rel}"
         target="${x => x.target}"
         type="${x => x.type}"
+        tabindex="${x => x.tabIndex}"
         aria-atomic="${x => x.ariaAtomic}"
         aria-busy="${x => x.ariaBusy}"
         aria-controls="${x => x.ariaControls}"

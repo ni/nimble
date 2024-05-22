@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 21 May 2024 22:53:18 GMT",
+      "version": "29.1.4",
+      "tag": "@ni/nimble-components_v29.1.4",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "32fcfaf36e8b7383defe891dcb51664f3069a725",
+            "comment": "Support tabindex overriding for Button, MenuButton, ToggleButton, Checkbox, and Anchor"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 20 May 2024 15:39:22 GMT",
       "version": "29.1.3",
       "tag": "@ni/nimble-components_v29.1.3",
