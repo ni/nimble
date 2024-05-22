@@ -29,11 +29,10 @@ import { TableGroupRow } from '../components/group-row';
 import { TableRow } from '../components/row';
 import { TableCell } from '../components/cell';
 import { MenuButton } from '../../menu-button';
-import { TableHeader, tableHeaderTag } from '../components/header';
+import { tableHeaderTag } from '../components/header';
 import { MenuItem } from '../../menu-item';
 import { Menu } from '../../menu';
 import { TableCellView } from '../../table-column/base/cell-view';
-import { getTabIndexTarget } from '../../utilities/directive/not-focusable';
 
 interface TableFocusState {
     focusType: TableFocusType;
@@ -851,7 +850,6 @@ implements Subscriber {
             }
         }
 
-        tabIndexTarget = getTabIndexTarget(tabIndexTarget);
         tabIndexTarget.tabIndex = tabIndex;
     }
 
