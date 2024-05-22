@@ -77,6 +77,20 @@ const metadata: Meta<TextAreaArgs> = {
             description: disabledDescription({ componentName: 'text area' }),
             table: { category: apiCategory.attributes }
         },
+        errorText: {
+            name: 'error-text',
+            description: errorTextDescription,
+            table: { category: apiCategory.attributes }
+        },
+        errorVisible: {
+            name: 'error-visible',
+            description: errorVisibleDescription,
+            table: { category: apiCategory.attributes }
+        },
+        spellcheck: {
+            description: 'Specifies whether the text area is subject to spell checking by the underlying browser/OS.',
+            table: { category: apiCategory.attributes }
+        },
         resize: {
             description:
                 'Direction(s) the text area is sizeable by the user. Setting a fixed `height` and `width` on the text area is not supported while it is sizeable. You may instead use `rows` and `cols` to set an initial size.',
@@ -98,20 +112,6 @@ const metadata: Meta<TextAreaArgs> = {
         maxlength: {
             description:
                 'Maximum number of characters that may be entered by the user',
-            table: { category: apiCategory.attributes }
-        },
-        errorText: {
-            name: 'error-text',
-            description: errorTextDescription,
-            table: { category: apiCategory.attributes }
-        },
-        errorVisible: {
-            name: 'error-visible',
-            description: errorVisibleDescription,
-            table: { category: apiCategory.attributes }
-        },
-        spellcheck: {
-            description: 'Specifies whether the text area is subject to spell checking by the underlying browser/OS.',
             table: { category: apiCategory.attributes }
         },
         change: {
