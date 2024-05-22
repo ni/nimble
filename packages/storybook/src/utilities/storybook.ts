@@ -166,6 +166,7 @@ export const disableStorybookZoomTransform = `
 export const apiCategory = {
     attributes: 'Attributes',
     events: 'Events',
+    localizableLabels: 'Localizable Labels',
     methods: 'Methods',
     nonAttributeProperties: 'Properties',
     slots: 'Slots'

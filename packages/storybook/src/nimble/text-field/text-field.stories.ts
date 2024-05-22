@@ -74,7 +74,7 @@ const metadata: Meta<TextFieldArgs> = {
             table: { category: apiCategory.slots }
         },
         placeholder: {
-            description: placeholderDescription({ componentName: 'text area' }),
+            description: placeholderDescription({ componentName: 'text field' }),
             table: { category: apiCategory.attributes }
         },
         type: {
@@ -104,7 +104,7 @@ const metadata: Meta<TextFieldArgs> = {
             table: { category: apiCategory.attributes }
         },
         disabled: {
-            description: disabledDescription({ componentName: 'text area' }),
+            description: disabledDescription({ componentName: 'text field' }),
             table: { category: apiCategory.attributes }
         },
         errorVisible: {
@@ -132,7 +132,7 @@ const metadata: Meta<TextFieldArgs> = {
             table: { category: apiCategory.events }
         },
         input: {
-            description: 'Event emitted on each user keystroke within the text area.',
+            description: 'Event emitted on each user keystroke within the text field.',
             table: { category: apiCategory.events }
         }
     },
