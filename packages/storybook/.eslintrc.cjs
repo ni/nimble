@@ -14,7 +14,8 @@ module.exports = {
                 'import/no-extraneous-dependencies': [
                     'error',
                     { devDependencies: true }
-                ]
+                ],
+                'import/no-relative-packages': 'off'
             }
         }
     ]
