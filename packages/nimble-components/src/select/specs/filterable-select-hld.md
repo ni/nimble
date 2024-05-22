@@ -46,7 +46,7 @@ export const FilterMode  = {
 ```
 
 -   The `standard` filterMode will result in case-insensitive, diacritic-insensitive filtering.
--   The `dynamic` filterMode will result in a search input being shown, but no automatic filtering will occur as the user types in the search box. Instead, it is expected that a client leverage the `filter-input`event described in the ['Dynamic Options'](#dynamic-options) section below.
+-   The `dynamic` filterMode will display a search input, but it won't automatically filter the options as the user types. Instead, clients can use the `filter-input` event described in the ['Dynamic Options'](#dynamic-options) section below to implement their own filtering logic.
 -   The `none` filter mode results in no search input being shown in the dropdown.
 -   `filterMode` will default to `none` so as not to affect existing clients.
 
@@ -54,7 +54,7 @@ _Note: The `filterMode` isn't meant to mirror the `Combobox` `autocomplete` API,
 
 #### Dynamic options
 
-In order to support the use-case of clients supplying options to the `Select` based on the current search text, clients will need to set the `filterMode` to `dynamic`, and then subscribe to the `filter-input` event, the details of which will provide the current search text:
+The `filterMode: dynamic` option allows clients to dynamically supply list options to the `select` control in response to user search text, by subscribing to the `filter-input` event.
 
 ```ts
 interface SelectFilterInputEventDetail {
@@ -62,7 +62,7 @@ interface SelectFilterInputEventDetail {
 }
 ```
 
-Then, in the handling of the `filter-input` event, clients will need to perform the desired filtering using the supplied filter text, in addition to setting the `loading` attribute to `true` while the options are being loaded into the DOM, and then again to `false` when that process is complete. A `filter-input` event will be emitted with its `filterText` set to empty string upon closure of the dropdown if both the `filter-mode` was not set to `none` _and_ the filter input contains non-empty text.
+Then, when handling the `filter-input` event, clients should perform the desired filtering using the provided filter text. Additionally, they should set the `loading` attribute to `true` while the options are being loaded into the DOM, and then set it back to `false` when the loading process is complete. A `filter-input` event will also be emitted with its `filterText` set to empty string upon closure of the dropdown if both the `filter-mode` was not set to `none` _and_ the filter input contains non-empty text.
 
 _IMPORTANT_: When using the `dynamic` filter mode, clients are responsible for making sure the options that are placed in the DOM meet one of the following criteria:
 
