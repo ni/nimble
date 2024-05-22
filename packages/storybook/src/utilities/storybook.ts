@@ -1,7 +1,7 @@
 import { html, ViewTemplate } from '@microsoft/fast-element';
-import { themeProviderTag } from '@ni/nimble-components/dist/esm/theme-provider';
-import { bodyFont } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
-import type { Theme } from '@ni/nimble-components/dist/esm/theme-provider/types';
+import { themeProviderTag } from '../../../nimble-components/src/theme-provider';
+import { bodyFont } from '../../../nimble-components/src/theme-provider/design-tokens';
+import type { Theme } from '../../../nimble-components/src/theme-provider/types';
 import {
     BackgroundState,
     backgroundStates,

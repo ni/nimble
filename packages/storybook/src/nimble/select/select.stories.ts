@@ -1,11 +1,11 @@
 import { html, repeat, when } from '@microsoft/fast-element';
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html';
-import { listOptionTag } from '@ni/nimble-components/dist/esm/list-option';
-import { selectTag } from '@ni/nimble-components/dist/esm/select';
-import { FilterMode } from '@ni/nimble-components/dist/esm/select/types';
-import { ExampleOptionsType } from '@ni/nimble-components/dist/esm/select/tests/types';
-import { DropdownAppearance } from '@ni/nimble-components/dist/esm/patterns/dropdown/types';
+import { listOptionTag } from '../../../../nimble-components/src/list-option';
+import { selectTag } from '../../../../nimble-components/src/select';
+import { FilterMode } from '../../../../nimble-components/src/select/types';
+import { ExampleOptionsType } from '../../../../nimble-components/src/select/tests/types';
+import { DropdownAppearance } from '../../../../nimble-components/src/patterns/dropdown/types';
 
 import {
     createUserSelectedThemeStory,

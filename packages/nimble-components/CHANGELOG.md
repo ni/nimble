@@ -1,8 +1,32 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Fri, 17 May 2024 20:05:45 GMT and should not be manually modified.
+This log was last generated on Wed, 22 May 2024 18:32:15 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 29.1.5
+
+Wed, 22 May 2024 18:32:15 GMT
+
+### Patches
+
+- Fix anchor focus styling ([ni/nimble@5e4882a](https://github.com/ni/nimble/commit/5e4882a41568361919fc96a91243fc37cd831208))
+
+## 29.1.4
+
+Tue, 21 May 2024 22:53:18 GMT
+
+### Patches
+
+- Support tabindex overriding for Button, MenuButton, ToggleButton, Checkbox, and Anchor ([ni/nimble@32fcfaf](https://github.com/ni/nimble/commit/32fcfaf36e8b7383defe891dcb51664f3069a725))
+
+## 29.1.3
+
+Mon, 20 May 2024 15:39:22 GMT
+
+### Patches
+
+- Update 'start' slot of text field to match design spec ([ni/nimble@830231e](https://github.com/ni/nimble/commit/830231edf173fa68ba7dee2b0bd7ab16b543af7a))
 
 ## 29.1.2
 

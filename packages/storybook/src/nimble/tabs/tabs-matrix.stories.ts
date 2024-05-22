@@ -1,10 +1,10 @@
 import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate, when } from '@microsoft/fast-element';
-import { buttonTag } from '@ni/nimble-components/dist/esm/button';
-import { tabTag } from '@ni/nimble-components/dist/esm/tab';
-import { tabPanelTag } from '@ni/nimble-components/dist/esm/tab-panel';
-import { tabsToolbarTag } from '@ni/nimble-components/dist/esm/tabs-toolbar';
-import { tabsTag } from '@ni/nimble-components/dist/esm/tabs';
+import { buttonTag } from '../../../../nimble-components/src/button';
+import { tabTag } from '../../../../nimble-components/src/tab';
+import { tabPanelTag } from '../../../../nimble-components/src/tab-panel';
+import { tabsToolbarTag } from '../../../../nimble-components/src/tabs-toolbar';
+import { tabsTag } from '../../../../nimble-components/src/tabs';
 import { createStory } from '../../utilities/storybook';
 import {
     createMatrixThemeStory,

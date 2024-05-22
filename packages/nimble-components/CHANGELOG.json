@@ -2,6 +2,66 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Wed, 22 May 2024 18:32:15 GMT",
+      "version": "29.1.5",
+      "tag": "@ni/nimble-components_v29.1.5",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "5e4882a41568361919fc96a91243fc37cd831208",
+            "comment": "Fix anchor focus styling"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 22 May 2024 17:46:25 GMT",
+      "version": "29.1.4",
+      "tag": "@ni/nimble-components_v29.1.4",
+      "comments": {
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "699ce37952cf27977915aeb8f9b9341ce701002e",
+            "comment": "Update build time global type extensions"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 21 May 2024 22:53:18 GMT",
+      "version": "29.1.4",
+      "tag": "@ni/nimble-components_v29.1.4",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "32fcfaf36e8b7383defe891dcb51664f3069a725",
+            "comment": "Support tabindex overriding for Button, MenuButton, ToggleButton, Checkbox, and Anchor"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 20 May 2024 15:39:22 GMT",
+      "version": "29.1.3",
+      "tag": "@ni/nimble-components_v29.1.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "830231edf173fa68ba7dee2b0bd7ab16b543af7a",
+            "comment": "Update 'start' slot of text field to match design spec"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 17 May 2024 20:05:45 GMT",
       "version": "29.1.2",
       "tag": "@ni/nimble-components_v29.1.2",
