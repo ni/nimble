@@ -218,7 +218,7 @@ const metadata: Meta<DialogArgs> = {
         close: {
             name: 'close(reason)',
             description:
-                'Call this member function to close the dialog. It takes an optional `reason` value which can be any type. This value is returned from `show()` via a `Promise`',
+                'Call this member function to close the dialog. It takes an optional `reason` value which can be any type. This value is returned from `show()` via a `Promise`.',
             table: { category: apiCategory.methods }
         },
         openAndHandleResult: {
