@@ -1,6 +1,7 @@
 import { Controls, Canvas, Meta, Title } from '@storybook/blocks';
 import TargetDocs from '../patterns/anchor/target-docs.mdx';
 import * as treeViewStories from './tree-view.stories';
+import ComponentApisLink from '../../docs/component-apis-link.mdx';
 import { treeViewTag } from '../../../../nimble-components/src/tree-view';
 import { treeItemTag } from '../../../../nimble-components/src/tree-item';
 import { anchorTreeItemTag } from '../../../../nimble-components/src/anchor-tree-item';
@@ -18,7 +19,11 @@ The <Tag name={treeViewTag}/> supports standard <Tag name={treeItemTag}/> and <T
 which navigate to a url upon activation. Both types of tree items support icons as slotted content.
 
 <Canvas of={treeViewStories.treeItem} />
+
+## API
+
 <Controls of={treeViewStories.treeItem} />
+<ComponentApisLink />
 
 {/* ## Styling */}
 

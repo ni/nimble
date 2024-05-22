@@ -1,5 +1,6 @@
 import { Canvas, Meta, Controls, Title } from '@storybook/blocks';
 import * as dialogStories from './dialog.stories';
+import ComponentApisLink from '../../docs/component-apis-link.mdx';
 
 <Meta of={dialogStories} />
 <Title of={dialogStories} />
@@ -9,7 +10,11 @@ A modal dialog that appears centered on top of all other windows, blocking other
 By default, the first focusable control gets focus when the dialog is opened. To focus a specific element instead, set the `autofocus` attribute on that element.
 
 <Canvas of={dialogStories.dialog} />
+
+## API
+
 <Controls of={dialogStories.dialog} />
+<ComponentApisLink />
 
 ## Styling
 
