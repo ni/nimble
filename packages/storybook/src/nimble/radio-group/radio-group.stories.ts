@@ -4,7 +4,7 @@ import { withActions } from '@storybook/addon-actions/decorator';
 import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html';
 import { radioTag } from '@ni/nimble-components/dist/esm/radio';
 import { radioGroupTag } from '@ni/nimble-components/dist/esm/radio-group';
-import { createUserSelectedThemeStory } from '../../utilities/storybook';
+import { apiCategory, createUserSelectedThemeStory, disabledDescription, slottedLabelDescription } from '../../utilities/storybook';
 
 interface RadioGroupArgs {
     label: string;
@@ -12,10 +12,26 @@ interface RadioGroupArgs {
     disabled: boolean;
     name: string;
     value: string;
+    buttons: undefined;
+    change: undefined;
+}
+
+interface RadioArgs {
+    label: string;
+    value: string;
+    disabled: boolean;
+    name: string;
 }
 
 const metadata: Meta<RadioGroupArgs> = {
     title: 'Components/Radio Group',
+};
+
+export default metadata;
+
+const nameDescription = 'Radio buttons whose values are mutually exclusive should set the same `name` attribute. Setting the name on the group sets it on all child radio buttons. When using radio buttons in an Angular form, you must explicitly set either `name` or `formControlName` on each radio button. In that scenario, setting `name` on the group is ineffective.';
+
+export const radioGroup: StoryObj<RadioGroupArgs> = {
     decorators: [withActions<HtmlRenderer>],
     parameters: {
         actions: {
@@ -47,11 +63,14 @@ const metadata: Meta<RadioGroupArgs> = {
             options: ['none', 'apple', 'mango', 'orange'],
             control: {
                 type: 'radio'
-            }
+            },
+            description: 'The currently selected radio button. Each button should specify its unique value using its `value` attribute.',
+            table: { category: apiCategory.attributes }
         },
         label: {
             description:
-                'You must provide a `label` element with `slot="label"` as content of the `nimble-radio-group`.'
+                'You must provide a `label` element with `slot="label"` as content of the `nimble-radio-group`.',
+            table: { category: apiCategory.slots }
         },
         orientation: {
             options: Object.values(Orientation),
@@ -62,17 +81,57 @@ const metadata: Meta<RadioGroupArgs> = {
                     [Orientation.vertical]: 'Vertical'
                 }
             },
-            table: {
-                defaultValue: { summary: 'Horizontal' }
-            }
+            description: 'The orientation of the radio buttons.',
+            table: { category: apiCategory.attributes }
+        },
+        disabled: {
+            description: disabledDescription({ componentName: 'radio group' }),
+            table: { category: apiCategory.attributes }
         },
         name: {
-            description:
-                'Radio buttons whose values are mutually exclusive should set the same `name` attribute. Setting the name on the group sets it on all child radio buttons. When using radio buttons in an Angular form, you must explicitly set either `name` or `formControlName` on each radio button. In that scenario, setting `name` on the group is ineffective.'
+            description: nameDescription,
+            table: { category: apiCategory.attributes }
+        },
+        buttons: {
+            name: 'default',
+            description: `Add radio buttons by slotting ${radioTag} elements as child content in the default slot.`,
+            control: false,
+            table: { category: apiCategory.slots }
+        },
+        change: {
+            description: 'Event emitted when the user selects a new value in the radio group.',
+            table: { category: apiCategory.events }
         }
     }
 };
 
-export default metadata;
-
-export const radioGroup: StoryObj<RadioGroupArgs> = {};
+export const radio: StoryObj<RadioArgs> = {
+    render: createUserSelectedThemeStory(html`
+        <${radioTag} value="${x => x.value}" ?disabled="${x => x.disabled}">${x => x.label}</${radioTag}>
+    `),
+    args: {
+        disabled: false,
+        name: 'fruit',
+        label: 'Apple',
+        value: 'none'
+    },
+    argTypes: {
+        value: {
+            control: false,
+            description: 'The value of the radio button. Used by the radio group `value` attribute to determine the selected radio button.',
+            table: { category: apiCategory.attributes }
+        },
+        label: {
+            description: slottedLabelDescription({ componentName: 'radio' }),
+            table: { category: apiCategory.slots }
+        },
+        disabled: {
+            description: disabledDescription({ componentName: 'radio' }),
+            table: { category: apiCategory.attributes }
+        },
+        name: {
+            description: nameDescription,
+            table: { category: apiCategory.attributes }
+        },
+    }
+};
