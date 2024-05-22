@@ -6,10 +6,11 @@ import { iconPencilTag } from '@ni/nimble-components/dist/esm/icons/pencil';
 import { iconTagTag } from '@ni/nimble-components/dist/esm/icons/tag';
 import { textFieldTag } from '@ni/nimble-components/dist/esm/text-field';
 import { TextFieldAppearance, TextFieldType } from '@ni/nimble-components/dist/esm/text-field/types';
-import { createUserSelectedThemeStory } from '../../utilities/storybook';
+import { apiCategory, appearanceDescription, createUserSelectedThemeStory, disabledDescription, errorTextDescription, errorVisibleDescription, placeholderDescription, slottedLabelDescription } from '../../utilities/storybook';
 
 interface TextFieldArgs {
     label: string;
+    placeholder: string;
     type: TextFieldType;
     appearance: string;
     fullBleed: boolean;
@@ -20,6 +21,8 @@ interface TextFieldArgs {
     errorText: string;
     actionButton: boolean;
     leftIcon: boolean;
+    change: undefined;
+    input: undefined;
 }
 
 const leftIconDescription = 'To place an icon at the far-left of the text-field, set `slot="start"` on the icon.';
@@ -42,10 +45,10 @@ const metadata: Meta<TextFieldArgs> = {
     // prettier-ignore
     render: createUserSelectedThemeStory(html`
         <${textFieldTag}
-            placeholder="${x => x.label}"
+            placeholder="${x => x.placeholder}"
+            :value="${x => x.value}"
             type="${x => x.type}"
             appearance="${x => x.appearance}"
-            value="${x => x.value}"
             ?readonly="${x => x.readonly}"
             ?disabled="${x => x.disabled}"
             error-text="${x => x.errorText}"
@@ -67,29 +70,75 @@ const metadata: Meta<TextFieldArgs> = {
     argTypes: {
         type: {
             options: Object.values(TextFieldType),
-            control: { type: 'select' }
+            control: { type: 'select' },
+            description: 'They type of input to accept and render in the text field. This corresponds to [the `type` attribute of the native `input` element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#type) though only a subset of values are supported.',
+            table: { category: apiCategory.attributes }
         },
         appearance: {
             options: Object.values(TextFieldAppearance),
-            control: { type: 'radio' }
+            control: { type: 'radio' },
+            description: appearanceDescription({ componentName: 'text field' }),
+            table: { category: apiCategory.attributes }
+        },
+        label: {
+            name: 'default',
+            description: `${slottedLabelDescription({ componentName: 'text field' })}`,
+            table: { category: apiCategory.slots }
+        },
+        placeholder: {
+            description: placeholderDescription({ componentName: 'text area' }),
+            table: { category: apiCategory.attributes }
+        },
+        value: {
+            description: 'The string displayed in the text field.',
+            table: { category: apiCategory.nonAttributeProperties }
         },
         fullBleed: {
+            name: 'full-bleed',
             description:
-                'Remove the start and end margins causing the text to stretch across the full control width. Only applies to the frameless appearance.'
+                'Remove the start and end margins causing the text to stretch across the full control width. Only applies to the frameless appearance.',
+            table: { category: apiCategory.attributes }
+        },
+        readonly: {
+            description: 'Disallows input on the text field while maintaining enabled appearance.',
+            table: { category: apiCategory.attributes }
+        },
+        disabled: {
+            description: disabledDescription({ componentName: 'text area' }),
+            table: { category: apiCategory.attributes }
         },
         errorText: {
-            description:
-                'A message to be displayed when the text field is in the invalid state explaining why the value is invalid'
+            name: 'error-text',
+            description: errorTextDescription,
+            table: { category: apiCategory.attributes }
+        },
+        errorVisible: {
+            name: 'error-visible',
+            description: errorVisibleDescription,
+            table: { category: apiCategory.attributes }
         },
         actionButton: {
-            description: actionButtonDescription
+            name: 'actions',
+            description: actionButtonDescription,
+            table: { category: apiCategory.slots }
         },
         leftIcon: {
-            description: leftIconDescription
+            name: 'start',
+            description: leftIconDescription,
+            table: { category: apiCategory.slots }
+        },
+        change: {
+            description: 'Event emitted when the user commits a new value to the text field.',
+            table: { category: apiCategory.events }
+        },
+        input: {
+            description: 'Event emitted on each user keystroke within the text area.',
+            table: { category: apiCategory.events }
         }
     },
     args: {
         label: 'default label',
+        placeholder: 'Enter text...',
         type: TextFieldType.text,
         appearance: 'underline',
         fullBleed: false,
