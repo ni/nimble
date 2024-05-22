@@ -34,7 +34,7 @@ describe('MatrixRenderer worker', () => {
             width: 300,
             height: 300
         });
-        await matrixRenderer.setState({
+        await matrixRenderer.setRenderConfig({
             containerDimensions: undefined,
             dieDimensions: undefined,
             margin: {

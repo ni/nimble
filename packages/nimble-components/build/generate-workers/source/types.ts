@@ -38,7 +38,7 @@ export interface IColorScaleMarker {
 
 export type ColorScale = IColorScaleMarker[];
 
-export interface State {
+export interface RenderConfig {
     containerDimensions: Dimensions | undefined;
     dieDimensions: Dimensions | undefined;
     margin: Margin | undefined;
@@ -50,7 +50,7 @@ export interface State {
     colorScale: ColorScale | undefined;
 }
 
-export interface TransformData {
+export interface TransformConfig {
     transform: Transform | undefined;
     topLeftCanvasCorner: Position | undefined;
     bottomRightCanvasCorner: Position | undefined;

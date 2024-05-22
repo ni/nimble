@@ -29,7 +29,12 @@ import { HoverHandler } from './modules/hover-handler';
 import { HoverHandler as ExperimentalHoverHandler } from './experimental/hover-handler';
 import { ZoomHandler } from './modules/zoom-handler';
 import { Computations } from './experimental/computations';
-import type { ColorScale, Dimensions, Margin, State } from './workers/types';
+import type {
+    ColorScale,
+    Dimensions,
+    Margin,
+    RenderConfig
+} from './workers/types';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -347,7 +352,7 @@ export class WaferMap<
 
     private createSnapshot(): {
         canvasDimensions: Dimensions,
-        state: State,
+        renderConfig: RenderConfig,
         dieDimensions: Dimensions,
         transform: ZoomTransform,
         columnIndexes: Int32Array,
@@ -357,7 +362,7 @@ export class WaferMap<
             width: this.canvasWidth ?? 0,
             height: this.canvasHeight ?? 0
         };
-        const state: State = {
+        const renderConfig: RenderConfig = {
             containerDimensions: this.containerDimensions,
             dieDimensions: this.dieDimensions,
             margin: this.margin,
@@ -373,7 +378,7 @@ export class WaferMap<
         if (this.diesTable === undefined) {
             return {
                 canvasDimensions,
-                state,
+                renderConfig,
                 dieDimensions,
                 transform,
                 columnIndexes: Int32Array.from([]),
@@ -385,7 +390,7 @@ export class WaferMap<
         const rowIndexes = this.diesTable.getChild('rowIndex')!.toArray();
         return {
             canvasDimensions,
-            state,
+            renderConfig,
             columnIndexes,
             rowIndexes,
             dieDimensions,

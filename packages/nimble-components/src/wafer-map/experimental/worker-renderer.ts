@@ -4,7 +4,7 @@ import type { WaferMap } from '..';
 import { HoverDieOpacity } from '../types';
 import { createMatrixRenderer } from '../modules/create-matrix-renderer';
 import type { MatrixRenderer } from '../../../build/generate-workers/dist/esm/source/matrix-renderer';
-import type { Dimensions, State } from '../workers/types';
+import type { Dimensions, RenderConfig } from '../workers/types';
 
 /**
  * Responsible for drawing the dies inside the wafer map, adding dieText and scaling the canvas
@@ -16,7 +16,7 @@ export class WorkerRenderer {
 
     public async setupWafer(snapshot: {
         canvasDimensions: Dimensions,
-        state: State,
+        renderConfig: RenderConfig,
         columnIndexes: Int32Array,
         rowIndexes: Int32Array
     }): Promise<void> {
@@ -31,7 +31,7 @@ export class WorkerRenderer {
         await this.matrixRenderer.setCanvasDimensions(
             snapshot.canvasDimensions
         );
-        await this.matrixRenderer.setState(snapshot.state);
+        await this.matrixRenderer.setRenderConfig(snapshot.renderConfig);
         await this.matrixRenderer.setColumnIndexes(snapshot.columnIndexes);
         await this.matrixRenderer.setRowIndexes(snapshot.rowIndexes);
     }
@@ -46,7 +46,7 @@ export class WorkerRenderer {
             snapshot.canvasDimensions.width,
             snapshot.canvasDimensions.height
         ]);
-        await this.matrixRenderer.setTransformData({
+        await this.matrixRenderer.setTransformConfig({
             transform: snapshot.transform,
             topLeftCanvasCorner: {
                 x: topLeftCanvasCorner[0] - snapshot.dieDimensions.width,

@@ -1,9 +1,9 @@
 import { expose } from 'comlink';
 import type {
     Dimensions,
-    State,
+    RenderConfig,
     Transform,
-    TransformData,
+    TransformConfig,
     WaferMapMatrix,
     WaferMapTypedMatrix
 } from './types';
@@ -22,7 +22,7 @@ export class MatrixRenderer {
     public columnIndexPositions = Int32Array.from([]);
     public canvas!: OffscreenCanvas;
     public context!: OffscreenCanvasRenderingContext2D;
-    private state: State = {
+    private renderConfig: RenderConfig = {
         containerDimensions: undefined,
         dieDimensions: undefined,
         margin: undefined,
@@ -34,7 +34,7 @@ export class MatrixRenderer {
         colorScale: undefined
     };
 
-    private transformData: TransformData = {
+    private transformConfig: TransformConfig = {
         transform: undefined,
         topLeftCanvasCorner: undefined,
         bottomRightCanvasCorner: undefined
@@ -42,17 +42,17 @@ export class MatrixRenderer {
 
     public calculateHorizontalScaledIndex(columnIndex: number): number {
         return (
-            this.state.horizontalCoefficient! * columnIndex
-            + this.state.horizontalConstant!
-            + this.state.margin!.left
+            this.renderConfig.horizontalCoefficient! * columnIndex
+            + this.renderConfig.horizontalConstant!
+            + this.renderConfig.margin!.left
         );
     }
 
     public calculateVerticalScaledIndex(rowIndex: number): number {
         return (
-            this.state.verticalCoefficient! * rowIndex
-            + this.state.verticalConstant!
-            + this.state.margin!.top
+            this.renderConfig.verticalCoefficient! * rowIndex
+            + this.renderConfig.verticalConstant!
+            + this.renderConfig.margin!.top
         );
     }
 
@@ -61,9 +61,9 @@ export class MatrixRenderer {
             return;
         }
         if (
-            this.state.horizontalCoefficient === undefined
-            || this.state.horizontalConstant === undefined
-            || this.state.margin === undefined
+            this.renderConfig.horizontalCoefficient === undefined
+            || this.renderConfig.horizontalConstant === undefined
+            || this.renderConfig.margin === undefined
         ) {
             throw new Error(
                 'Horizontal coefficient, constant or margin is not set'
@@ -91,9 +91,9 @@ export class MatrixRenderer {
 
     public setRowIndexes(rowIndexes: Int32Array): void {
         if (
-            this.state.verticalCoefficient === undefined
-            || this.state.verticalConstant === undefined
-            || this.state.margin === undefined
+            this.renderConfig.verticalCoefficient === undefined
+            || this.renderConfig.verticalConstant === undefined
+            || this.renderConfig.margin === undefined
         ) {
             throw new Error(
                 'Vertical coefficient, constant or margin is not set'
@@ -107,12 +107,12 @@ export class MatrixRenderer {
         }
     }
 
-    public setState(state: State): void {
-        this.state = state;
+    public setRenderConfig(renderConfig: RenderConfig): void {
+        this.renderConfig = renderConfig;
     }
 
-    public setTransformData(transformData: TransformData): void {
-        this.transformData = transformData;
+    public setTransformConfig(transformData: TransformConfig): void {
+        this.transformConfig = transformData;
     }
 
     public setCanvas(canvas: OffscreenCanvas): void {
@@ -121,16 +121,16 @@ export class MatrixRenderer {
     }
 
     public scaleCanvas(): void {
-        if (this.transformData.transform === undefined) {
+        if (this.transformConfig.transform === undefined) {
             throw new Error('Transform is not set');
         }
         this.context.translate(
-            this.transformData.transform.x,
-            this.transformData.transform.y
+            this.transformConfig.transform.x,
+            this.transformConfig.transform.y
         );
         this.context.scale(
-            this.transformData.transform.k,
-            this.transformData.transform.k
+            this.transformConfig.transform.k,
+            this.transformConfig.transform.k
         );
     }
 
@@ -156,20 +156,20 @@ export class MatrixRenderer {
         this.clearCanvas();
         this.scaleCanvas();
         if (
-            this.transformData.topLeftCanvasCorner === undefined
-            || this.transformData.bottomRightCanvasCorner === undefined
+            this.transformConfig.topLeftCanvasCorner === undefined
+            || this.transformConfig.bottomRightCanvasCorner === undefined
         ) {
             throw new Error('Canvas corners are not set');
         }
-        if (this.state.dieDimensions === undefined) {
+        if (this.renderConfig.dieDimensions === undefined) {
             throw new Error('Die dimensions are not set');
         }
         for (let i = 0; i < this.scaledColumnIndex.length; i++) {
             const scaledX = this.scaledColumnIndex[i]!;
             if (
                 !(
-                    scaledX >= this.transformData.topLeftCanvasCorner.x
-                    && scaledX < this.transformData.bottomRightCanvasCorner.x
+                    scaledX >= this.transformConfig.topLeftCanvasCorner.x
+                    && scaledX < this.transformConfig.bottomRightCanvasCorner.x
                 )
             ) {
                 continue;
@@ -189,8 +189,8 @@ export class MatrixRenderer {
                 const scaledY = this.scaledRowIndex[columnStartIndex]!;
                 if (
                     !(
-                        scaledY >= this.transformData.topLeftCanvasCorner.y
-                        && scaledY < this.transformData.bottomRightCanvasCorner.y
+                        scaledY >= this.transformConfig.topLeftCanvasCorner.y
+                        && scaledY < this.transformConfig.bottomRightCanvasCorner.y
                     )
                 ) {
                     continue;
@@ -200,8 +200,8 @@ export class MatrixRenderer {
                 this.context.fillRect(
                     scaledX,
                     scaledY,
-                    this.state.dieDimensions.width,
-                    this.state.dieDimensions.height
+                    this.renderConfig.dieDimensions.width,
+                    this.renderConfig.dieDimensions.height
                 );
             }
         }
