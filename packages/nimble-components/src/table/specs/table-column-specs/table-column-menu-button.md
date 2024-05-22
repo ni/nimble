@@ -23,6 +23,22 @@ In some tables, the user needs to make a selection associated with cell in the t
 
 The `nimble-table-column-menu-button` will follow many of the API patterns established by the table's action menu. A client will configure a column with the name of the slot to find the menu associated with the menu button, say `software-version-menu`. The client will also slot their menu into the table using the slot name they configured on the column; in this case, `software-version-menu`. The table, along with all of its subcomponents, will be responsible for coordinating the slotting of the menu into the appropriate row and cell when a menu button becomes open. If the client needs different menu items depending on which menu button is open, they can update the menu items within their slotted menu in reaction to the `delegated-event` event firing from the table. In the case of a menu button opening or closing, the original event's details will be an instance of `MenuButtonToggleEventDetail`.
 
+Usage of the column would look as follows:
+
+```html
+<nimble-table>
+    <nimble-table-column-menu-button field-name="selectedVersion" menu-slot="software-version-menu">
+        Software version
+    </nimble-table-column-menu-button>
+
+    <nimble-menu slot="software-version-menu">
+        <nimble-menu-item>1.0.0</nimble-menu-item>
+        <nimble-menu-item>1.5.0</nimble-menu-item>
+        <nimble-menu-item>2.0.0</nimble-menu-item>
+    </nimble-menu>
+</nimble-table>
+```
+
 ### API
 
 #### Column Component
