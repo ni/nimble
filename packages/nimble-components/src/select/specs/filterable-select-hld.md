@@ -32,8 +32,8 @@ export class Select() {
      * Displays a message at the bottom of the dropdown to indicate more options
      * are currently being loaded.
      */
-    @attr({ attribute: 'is-loading' })
-    public isLoading = false;
+    @attr()
+    public loading = false;
     ...
 }
 
@@ -41,12 +41,12 @@ export class Select() {
 export const FilterMode  = {
     none: undefined;
     standard: 'standard';
-    custom: 'custom';
+    dynamic: 'dynamic';
 } as const;
 ```
 
 -   The `standard` filterMode will result in case-insensitive, diacritic-insensitive filtering.
--   The `custom` filterMode will result in a search input being shown, but no automatic filtering will occur as the user types in the search box. Instead, it is expected that a client leverage the `filter-input`event described in the ['Dynamic Options'](#dynamic-options) section below.
+-   The `dynamic` filterMode will result in a search input being shown, but no automatic filtering will occur as the user types in the search box. Instead, it is expected that a client leverage the `filter-input`event described in the ['Dynamic Options'](#dynamic-options) section below.
 -   The `none` filter mode results in no search input being shown in the dropdown.
 -   `filterMode` will default to `none` so as not to affect existing clients.
 
@@ -54,7 +54,7 @@ _Note: The `filterMode` isn't meant to mirror the `Combobox` `autocomplete` API,
 
 #### Dynamic options
 
-In order to support the use-case of clients supplying options to the `Select` based on the current search text, clients will need to set the `filterMode` to `custom`, and then subscribe to the `filter-input` event, the details of which will provide the current search text:
+In order to support the use-case of clients supplying options to the `Select` based on the current search text, clients will need to set the `filterMode` to `dynamic`, and then subscribe to the `filter-input` event, the details of which will provide the current search text:
 
 ```ts
 interface SelectFilterInputEventDetail {
@@ -62,15 +62,15 @@ interface SelectFilterInputEventDetail {
 }
 ```
 
-Then, in the handling of the `filter-input` event, clients will need to perform the desired filtering using the supplied filter text, in addition to setting the `is-loading` attribute to `true` while the options are being loaded into the DOM, and then again to `false` when that process is complete.
+Then, in the handling of the `filter-input` event, clients will need to perform the desired filtering using the supplied filter text, in addition to setting the `loading` attribute to `true` while the options are being loaded into the DOM, and then again to `false` when that process is complete. A `filter-input` event will be emitted with its `filterText` set to empty string upon closure of the dropdown if both the `filter-mode` was not set to `none` _and_ the filter input contains non-empty text.
 
-_IMPORTANT_: When using the `custom` filter mode, clients are responsible for making sure the options that are placed in the DOM meet one of the following criteria:
+_IMPORTANT_: When using the `dynamic` filter mode, clients are responsible for making sure the options that are placed in the DOM meet one of the following criteria:
 
 -   The option is some reasonable default option when there is no filter text provided _OR_
 -   The option display text matches the provided filter in an understandable way _OR_
 -   The option is a placeholder option
 
-_Note: When the `isLoading` attribute is set, we will display localizable text at the bottom of the dropdown (defaulting to "Loading"), along with the spinner icon._
+_Note: When the_ `loading` _attribute is set, we will display localizable text at the bottom of the dropdown (defaulting to "Loading"), along with the spinner icon._
 
 #### LabelProviderCore
 
@@ -85,8 +85,8 @@ export class LabelProviderCore
     @attr({ attribute: 'select-filter-no-results' })
     public selectFilterNoResults: string | undefined;
 
-    @attr({ attribute: 'select-is-loading' })
-    public selectIsLoading: string | undefined;
+    @attr({ attribute: 'select-loading-options' })
+    public selectLoadingOptions: string | undefined;
 ```
 
 The English strings used for these labels will be:
@@ -121,7 +121,11 @@ The accessibility tree will report that the search `input` element should have i
 
 ### Future considerations
 
-It's possible that we may want to improve/alter the discoverability of the fact that more options are available to be loaded when using the `custom` filtering option. This _could_ follow the design of what we see with the AzDO _Windows_-based user selector experiece where a display of the number of current results is shown at the bottom, and when a user begins typing in the filter input, a 'Show more results' button is shown at the bottom of the dropdown.
+It's possible that we may want to improve/alter the discoverability of the fact that more options are available to be loaded when using the `dynamic` filtering option. This _could_ follow the design of what we see with the AzDO _Windows_-based user selector experiece where a display of the number of current results is shown at the bottom, and when a user begins typing in the filter input, a 'Show more results' button is shown at the bottom of the dropdown.
+
+#### Combobox alignment
+
+It's reasonable to think that a client may want to have the same UX and Nimble-provided APIs as the `Select` for dynamic options.
 
 #### Grouping/Metadata
 
@@ -138,5 +142,3 @@ It may be desireable to have other filter modes in the future, such as case sens
 None
 
 ## Open Issues
-
--   Does the `Combobox` need to present a mirrored API to the `Select` for dynmically loaded options (i.e. an `isLoading` attribute along with the accompanying visuals, and a `filter-input` event)
