@@ -68,6 +68,15 @@ const metadata: Meta<TextFieldArgs> = {
         </${textFieldTag}>
     `),
     argTypes: {
+        label: {
+            name: 'default',
+            description: `${slottedLabelDescription({ componentName: 'text field' })}`,
+            table: { category: apiCategory.slots }
+        },
+        placeholder: {
+            description: placeholderDescription({ componentName: 'text area' }),
+            table: { category: apiCategory.attributes }
+        },
         type: {
             options: Object.values(TextFieldType),
             control: { type: 'select' },
@@ -80,24 +89,15 @@ const metadata: Meta<TextFieldArgs> = {
             description: appearanceDescription({ componentName: 'text field' }),
             table: { category: apiCategory.attributes }
         },
-        label: {
-            name: 'default',
-            description: `${slottedLabelDescription({ componentName: 'text field' })}`,
-            table: { category: apiCategory.slots }
-        },
-        placeholder: {
-            description: placeholderDescription({ componentName: 'text area' }),
-            table: { category: apiCategory.attributes }
-        },
-        value: {
-            description: 'The string displayed in the text field.',
-            table: { category: apiCategory.nonAttributeProperties }
-        },
         fullBleed: {
             name: 'full-bleed',
             description:
                 'Remove the start and end margins causing the text to stretch across the full control width. Only applies to the frameless appearance.',
             table: { category: apiCategory.attributes }
+        },
+        value: {
+            description: 'The string displayed in the text field.',
+            table: { category: apiCategory.nonAttributeProperties }
         },
         readonly: {
             description: 'Disallows input on the text field while maintaining enabled appearance.',
@@ -107,14 +107,14 @@ const metadata: Meta<TextFieldArgs> = {
             description: disabledDescription({ componentName: 'text area' }),
             table: { category: apiCategory.attributes }
         },
-        errorText: {
-            name: 'error-text',
-            description: errorTextDescription,
-            table: { category: apiCategory.attributes }
-        },
         errorVisible: {
             name: 'error-visible',
             description: errorVisibleDescription,
+            table: { category: apiCategory.attributes }
+        },
+        errorText: {
+            name: 'error-text',
+            description: errorTextDescription,
             table: { category: apiCategory.attributes }
         },
         actionButton: {
