@@ -18,7 +18,8 @@ import {
     dropdownPositionDescription,
     errorTextDescription,
     errorVisibleDescription,
-    optionsDescription
+    optionsDescription,
+    placeholderDescription
 } from '../../utilities/storybook';
 
 interface ComboboxArgs {
@@ -147,6 +148,7 @@ const metadata: Meta<ComboboxArgs> = {
             table: { category: apiCategory.attributes }
         },
         errorText: {
+            name: 'error-text',
             description: errorTextDescription,
             table: { category: apiCategory.attributes }
         },
@@ -156,7 +158,7 @@ const metadata: Meta<ComboboxArgs> = {
             table: { category: apiCategory.attributes }
         },
         placeholder: {
-            description: 'Placeholder text to display when no value has been entered in the combobox.',
+            description: placeholderDescription({ componentName: 'combobox' }),
             table: { category: apiCategory.attributes }
         },
         optionsType: {
