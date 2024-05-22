@@ -1,6 +1,8 @@
 export const ExampleContentType = {
     shortContent: 'ShortContent',
-    longContent: 'LongContent'
+    longContent: 'LongContent',
+    shortContentWithFooterButtons: 'ShortContentWithFooterButtons',
+    longContentWithFooterButtons: 'LongContentWithFooterButtons'
 } as const;
 export type ExampleContentType =
     (typeof ExampleContentType)[keyof typeof ExampleContentType];
