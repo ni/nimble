@@ -899,7 +899,6 @@ implements Subscriber {
                 default:
                     break;
             }
-            this.needsRowFocusAfterScroll = true;
             this.focusState.rowIndex = totalRowIndex;
             this.virtualizer.scrollToIndex(totalRowIndex, scrollOptions);
             this.focusCurrentRow(true);
