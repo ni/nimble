@@ -136,8 +136,6 @@ export class Virtualizer<TData extends TableRecord = TableRecord> {
         }
 
         this.rowContainerYOffset = rowContainerYOffset;
-
-        this.table.keyboardNavigationManager.onVirtualizerChange();
     }
 
     private notifyFocusedCellRecycling(): void {

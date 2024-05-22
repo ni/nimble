@@ -58,8 +58,9 @@ implements Subscriber {
     };
 
     private readonly tableNotifier: Notifier;
+    private readonly virtualizerNotifier: Notifier;
+    private visibleRowNotifiers: Notifier[] = [];
     private inNavigationMode = true;
-    private needsRowFocusAfterScroll = false;
 
     public constructor(
         private readonly table: Table<TData>,
@@ -110,6 +111,8 @@ implements Subscriber {
         });
         this.tableNotifier = Observable.getNotifier(this.table);
         this.tableNotifier.subscribe(this, 'rowElements');
+        this.virtualizerNotifier = Observable.getNotifier(this.virtualizer);
+        this.virtualizerNotifier.subscribe(this, 'visibleItems');
         window.setTimeout(() => this.printActiveElement(), 8000);
     }
 
@@ -124,30 +127,36 @@ implements Subscriber {
     }
 
     public handleChange(source: unknown, args: unknown): void {
-        if (
-            source === this.table
-            && args === 'rowElements'
-            && this.hasRowOrCellFocusType()
-            && this.inNavigationMode
-        ) {
+        let focusRow = false;
+        if (source === this.virtualizer && args === 'visibleItems') {
+            focusRow = true;
+        } else if (source === this.table && args === 'rowElements') {
+            for (const notifier of this.visibleRowNotifiers) {
+                notifier.unsubscribe(this);
+            }
+            this.visibleRowNotifiers = [];
+            for (const visibleRow of this.table.rowElements) {
+                const rowNotifier = Observable.getNotifier(visibleRow);
+                rowNotifier.subscribe(this, 'dataIndex');
+                if (visibleRow.dataIndex === this.focusState.rowIndex) {
+                    focusRow = true;
+                }
+            }
+        } else if (args === 'dataIndex') {
+            const dataIndex = (source as TableRow | TableGroupRow).dataIndex;
+            if (dataIndex === this.focusState.rowIndex) {
+                focusRow = true;
+            }
+        }
+
+        if (focusRow && this.hasRowOrCellFocusType() && this.inNavigationMode) {
             this.focusCurrentRow(false);
         }
     }
 
-    public onVirtualizerChange(): void {
-        const needsFocus = this.inNavigationMode || this.needsRowFocusAfterScroll;
-        const allowScroll = this.needsRowFocusAfterScroll;
-        if (this.hasRowOrCellFocusType() && needsFocus) {
-            // TODO - the rAF fixes an issue where fast ArrowDown presses won't always focus a new row. Look at switching this
-            // back to observing both the virtualizer items and the dataIndex on rows.
-            window.requestAnimationFrame(() => {
-                this.focusCurrentRow(allowScroll);
-                this.needsRowFocusAfterScroll = false;
-            });
-        }
-    }
-
     public onRowFocusIn(event: FocusEvent): void {
+        // If user focuses a row some other way (e.g. mouse), update our focus state so future keyboard nav
+        // will start from that row
         const row = event.target;
         if (row instanceof TableRow || row instanceof TableGroupRow) {
             if (this.focusState.rowIndex !== row.dataIndex) {
@@ -700,7 +709,6 @@ implements Subscriber {
         });
 
         // Don't explicitly call blur() on activeElement (causes unexpected behavior on Safari / Mac Firefox)
-        // activeElement.blur();
         this.setElementFocusable(activeElement, false);
     }
 
@@ -920,15 +928,16 @@ implements Subscriber {
             default:
                 break;
         }
+        const focusOptions = { preventScroll: !allowScroll };
         if (focusRowOnly) {
-            this.focusElement(focusedRow, { preventScroll: !allowScroll });
+            this.focusElement(focusedRow, focusOptions);
             return true;
         }
-        this.focusRowElement(focusedRow);
+        this.focusRowElement(focusedRow, focusOptions);
         return true;
     }
 
-    private focusRowElement(row: TableRow | TableGroupRow): void {
+    private focusRowElement(row: TableRow | TableGroupRow, focusOptions?: FocusOptions): void {
         const focusableRowElements = row.getFocusableElements();
         let focusableElement: HTMLElement | undefined;
         switch (this.focusState.focusType) {
@@ -963,7 +972,7 @@ implements Subscriber {
                 break;
         }
         if (focusableElement) {
-            this.focusElement(focusableElement);
+            this.focusElement(focusableElement, focusOptions);
         }
     }
 
