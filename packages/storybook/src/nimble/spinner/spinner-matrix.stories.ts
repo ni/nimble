@@ -4,9 +4,9 @@ import {
     bodyFontColor,
     spinnerLargeHeight,
     spinnerMediumHeight
-} from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
-import { spinnerTag } from '@ni/nimble-components/dist/esm/spinner';
-import { SpinnerAppearance } from '@ni/nimble-components/dist/esm/spinner/types';
+} from '../../../../nimble-components/src/theme-provider/design-tokens';
+import { spinnerTag } from '../../../../nimble-components/src/spinner';
+import { SpinnerAppearance } from '../../../../nimble-components/src/spinner/types';
 import { isChromatic } from '../../utilities/isChromatic';
 
 import {

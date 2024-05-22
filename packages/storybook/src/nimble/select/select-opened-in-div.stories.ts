@@ -1,7 +1,7 @@
 import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate } from '@microsoft/fast-element';
-import { listOptionTag } from '@ni/nimble-components/dist/esm/list-option';
-import { selectTag } from '@ni/nimble-components/dist/esm/select';
+import { listOptionTag } from '../../../../nimble-components/src/list-option';
+import { selectTag } from '../../../../nimble-components/src/select';
 import { createStory } from '../../utilities/storybook';
 import { sharedMatrixParameters } from '../../utilities/matrix';
 

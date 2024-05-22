@@ -1,9 +1,9 @@
 import { html, repeat, ViewTemplate } from '@microsoft/fast-element';
-import { themeProviderTag } from '@ni/nimble-components/dist/esm/theme-provider';
+import { themeProviderTag } from '../../../nimble-components/src/theme-provider';
 import {
     bodyFont,
     bodyFontColor
-} from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
+} from '../../../nimble-components/src/theme-provider/design-tokens';
 import { fastParameters, renderViewTemplate } from './storybook';
 import { type BackgroundState, backgroundStates } from './states';
 
@@ -41,7 +41,9 @@ export function cartesianProduct<T extends readonly unknown[]>(
         ...states: readonly unknown[]
     ): void => {
         if (currentDimensions && currentDimensions.length >= 1) {
-            const [currentDimension, ...remainingDimensions] = currentDimensions;
+            const [currentDimensionOrUndefined, ...remainingDimensions] = currentDimensions;
+            // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
+            const currentDimension = currentDimensionOrUndefined!;
             for (const currentState of currentDimension) {
                 recurseDimensions(remainingDimensions, ...states, currentState);
             }
