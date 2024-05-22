@@ -1,8 +1,145 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Thu, 02 May 2024 18:52:31 GMT and should not be manually modified.
+This log was last generated on Tue, 21 May 2024 22:53:18 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 29.1.4
+
+Tue, 21 May 2024 22:53:18 GMT
+
+### Patches
+
+- Support tabindex overriding for Button, MenuButton, ToggleButton, Checkbox, and Anchor ([ni/nimble@32fcfaf](https://github.com/ni/nimble/commit/32fcfaf36e8b7383defe891dcb51664f3069a725))
+
+## 29.1.3
+
+Mon, 20 May 2024 15:39:22 GMT
+
+### Patches
+
+- Update 'start' slot of text field to match design spec ([ni/nimble@830231e](https://github.com/ni/nimble/commit/830231edf173fa68ba7dee2b0bd7ab16b543af7a))
+
+## 29.1.2
+
+Fri, 17 May 2024 20:05:45 GMT
+
+### Patches
+
+- Make clear select button match design spec ([ni/nimble@c057819](https://github.com/ni/nimble/commit/c05781966b2fde5db2445db93872fbcc3a1a27de))
+
+## 29.1.1
+
+Thu, 16 May 2024 18:44:46 GMT
+
+### Patches
+
+- Switch to custom display helper ([ni/nimble@17ddea5](https://github.com/ni/nimble/commit/17ddea50b5accb353a0288c42d0e64ddc5df0d04))
+
+## 29.1.0
+
+Wed, 15 May 2024 21:06:27 GMT
+
+### Minor changes
+
+- Add clear button for Select ([ni/nimble@f06b18a](https://github.com/ni/nimble/commit/f06b18a53a13a66af6ae47aa83df0a99ce8cffd0))
+
+## 29.0.0
+
+Tue, 14 May 2024 21:43:26 GMT
+
+### Major changes
+
+- Breaking change: Having an `undefined` icon on `nimble-mapping-icon` results in an invalid mapping column; Use `nimble-mapping-empty` or `nimble-mapping-text` instead. ([ni/nimble@3b47e51](https://github.com/ni/nimble/commit/3b47e5159c4b3fdcf2e6b2f57c2f4619a7298aaf))
+
+## 28.3.1
+
+Mon, 13 May 2024 09:49:02 GMT
+
+### Patches
+
+- Fixed hover die template error where width and height were NaN ([ni/nimble@dee0ac1](https://github.com/ni/nimble/commit/dee0ac1b99f0186fe45d416ed5604e0c27469d36))
+
+## 28.3.0
+
+Fri, 10 May 2024 22:37:40 GMT
+
+### Minor changes
+
+- Export nimble-mapping-empty from all-components ([ni/nimble@4e595cc](https://github.com/ni/nimble/commit/4e595cc0e67a9903510ba60da17afdb1bf2643d6))
+
+## 28.2.1
+
+Fri, 10 May 2024 16:42:46 GMT
+
+### Patches
+
+- Fix issue with clicking option in dropdown not updating display. ([ni/nimble@9714748](https://github.com/ni/nimble/commit/9714748c8963830a41b772796cb237262f26683b))
+
+## 28.2.0
+
+Fri, 10 May 2024 16:11:55 GMT
+
+### Minor changes
+
+- Create empty mapping element and support it in the icon column ([ni/nimble@090b724](https://github.com/ni/nimble/commit/090b724be133ceceb70e742207a74cf026988ae6))
+
+## 28.1.0
+
+Thu, 09 May 2024 20:39:47 GMT
+
+### Minor changes
+
+- Add Celsius and Fahrenheit number formatting unit support ([ni/nimble@89919ee](https://github.com/ni/nimble/commit/89919eef4f938c802e3160928000ef1b5d71b083))
+
+## 28.0.5
+
+Thu, 09 May 2024 18:40:41 GMT
+
+### Patches
+
+- Update Blazor docs for Spright and workspace change ([ni/nimble@43edba8](https://github.com/ni/nimble/commit/43edba8e90d0c5f414fd2b4cf19eee197b477829))
+- Bump @ni/nimble-tokens to v6.13.6
+
+## 28.0.4
+
+Wed, 08 May 2024 17:29:00 GMT
+
+### Patches
+
+- Don't change Select value on focusout. ([ni/nimble@7d71953](https://github.com/ni/nimble/commit/7d71953ecbd516120f930e13934ee713a06e5cff))
+
+## 28.0.3
+
+Tue, 07 May 2024 20:15:55 GMT
+
+### Patches
+
+- Fixing hover behavior for options in Select. ([ni/nimble@7feb69d](https://github.com/ni/nimble/commit/7feb69deda088c1fa771f836dedd627e33b4e63b))
+
+## 28.0.2
+
+Tue, 07 May 2024 16:24:36 GMT
+
+### Patches
+
+- Change Select to not update value as you navigate options in dropdown. ([ni/nimble@bbe2654](https://github.com/ni/nimble/commit/bbe265424e76e1824a5748b8bc6cb6d69a1b9a17))
+
+## 28.0.1
+
+Tue, 07 May 2024 13:17:00 GMT
+
+### Patches
+
+- Set Select and Combobox min-width to menuMinWidth token (176px) ([ni/nimble@799d392](https://github.com/ni/nimble/commit/799d39216faa9ad98c94627c6505439c846cbac9))
+
+## 28.0.0
+
+Mon, 06 May 2024 19:00:05 GMT
+
+### Major changes
+
+- Rename icon column to mapping column ([ni/nimble@d1c9125](https://github.com/ni/nimble/commit/d1c9125a77615d0364671a9e03a558c57b359ed7))
 
 ## 27.2.3
 

@@ -6,6 +6,11 @@ import {
     borderRgbPartialColor,
     borderWidth,
     controlHeight,
+    controlSlimHeight,
+    fillHoverColor,
+    fillHoverSelectedColor,
+    fillSelectedColor,
+    iconColor,
     mediumPadding,
     placeholderFontColor,
     smallPadding
@@ -34,8 +39,14 @@ export const styles = css`
         order: 1;
     }
 
-    [part='indicator'] {
+    .clear-button {
         order: 3;
+        height: ${controlSlimHeight};
+        margin-left: ${smallPadding};
+    }
+
+    [part='indicator'] {
+        order: 4;
     }
 
     .error-icon {
@@ -92,6 +103,7 @@ export const styles = css`
 
     .filter-icon {
         padding-left: ${smallPadding};
+        ${iconColor.cssCustomProperty}: ${placeholderFontColor};
     }
 
     .filter-input {
@@ -114,6 +126,22 @@ export const styles = css`
 
     .scrollable-region {
         overflow: auto;
+    }
+
+    ::slotted([role='option']) {
+        background-color: transparent;
+    }
+
+    ::slotted([role='option']:hover) {
+        background-color: ${fillHoverColor};
+    }
+
+    ::slotted([role='option'][active-option]) {
+        background-color: ${fillSelectedColor};
+    }
+
+    ::slotted([role='option'][active-option]:hover) {
+        background-color: ${fillHoverSelectedColor};
     }
 
     .no-results-label {

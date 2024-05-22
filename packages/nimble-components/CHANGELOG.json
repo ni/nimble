@@ -2,6 +2,372 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 21 May 2024 22:53:18 GMT",
+      "version": "29.1.4",
+      "tag": "@ni/nimble-components_v29.1.4",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "32fcfaf36e8b7383defe891dcb51664f3069a725",
+            "comment": "Support tabindex overriding for Button, MenuButton, ToggleButton, Checkbox, and Anchor"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 20 May 2024 15:39:22 GMT",
+      "version": "29.1.3",
+      "tag": "@ni/nimble-components_v29.1.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "830231edf173fa68ba7dee2b0bd7ab16b543af7a",
+            "comment": "Update 'start' slot of text field to match design spec"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 17 May 2024 20:05:45 GMT",
+      "version": "29.1.2",
+      "tag": "@ni/nimble-components_v29.1.2",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "c05781966b2fde5db2445db93872fbcc3a1a27de",
+            "comment": "Make clear select button match design spec"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 16 May 2024 18:44:46 GMT",
+      "version": "29.1.1",
+      "tag": "@ni/nimble-components_v29.1.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "17ddea50b5accb353a0288c42d0e64ddc5df0d04",
+            "comment": "Switch to custom display helper"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 16 May 2024 17:30:17 GMT",
+      "version": "29.1.0",
+      "tag": "@ni/nimble-components_v29.1.0",
+      "comments": {
+        "none": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "82f16939883721eddc438ca91007bd39dcc87dfb",
+            "comment": "Disable intermittent test"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 15 May 2024 22:04:54 GMT",
+      "version": "29.1.0",
+      "tag": "@ni/nimble-components_v29.1.0",
+      "comments": {
+        "none": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "beaeac428f8a67bd7dd457c5a9dbc2a6d48421df",
+            "comment": "HLD for option groups for Select/Combobox."
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 15 May 2024 21:06:27 GMT",
+      "version": "29.1.0",
+      "tag": "@ni/nimble-components_v29.1.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "f06b18a53a13a66af6ae47aa83df0a99ce8cffd0",
+            "comment": "Add clear button for Select"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 14 May 2024 23:23:47 GMT",
+      "version": "29.0.0",
+      "tag": "@ni/nimble-components_v29.0.0",
+      "comments": {
+        "none": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "8dbea360389b9f0e5698bd65d3a0b4054a8e73bb",
+            "comment": "Update documentation about incubating components in CONTRIBUTING"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 14 May 2024 21:43:26 GMT",
+      "version": "29.0.0",
+      "tag": "@ni/nimble-components_v29.0.0",
+      "comments": {
+        "major": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "3b47e5159c4b3fdcf2e6b2f57c2f4619a7298aaf",
+            "comment": "Breaking change: Having an `undefined` icon on `nimble-mapping-icon` results in an invalid mapping column; Use `nimble-mapping-empty` or `nimble-mapping-text` instead."
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 14 May 2024 17:03:10 GMT",
+      "version": "28.3.1",
+      "tag": "@ni/nimble-components_v28.3.1",
+      "comments": {
+        "none": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "0be7c0a6c8f1b151551b7a169b460b672e71a70b",
+            "comment": "Disable intermittent WaferMap test"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 13 May 2024 09:49:02 GMT",
+      "version": "28.3.1",
+      "tag": "@ni/nimble-components_v28.3.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "33986780+munteannatan@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "dee0ac1b99f0186fe45d416ed5604e0c27469d36",
+            "comment": "Fixed hover die template error where width and height were NaN"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 10 May 2024 22:37:40 GMT",
+      "version": "28.3.0",
+      "tag": "@ni/nimble-components_v28.3.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "4e595cc0e67a9903510ba60da17afdb1bf2643d6",
+            "comment": "Export nimble-mapping-empty from all-components"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 10 May 2024 16:42:46 GMT",
+      "version": "28.2.1",
+      "tag": "@ni/nimble-components_v28.2.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "9714748c8963830a41b772796cb237262f26683b",
+            "comment": "Fix issue with clicking option in dropdown not updating display."
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 10 May 2024 16:11:55 GMT",
+      "version": "28.2.0",
+      "tag": "@ni/nimble-components_v28.2.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "090b724be133ceceb70e742207a74cf026988ae6",
+            "comment": "Create empty mapping element and support it in the icon column"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 09 May 2024 20:39:47 GMT",
+      "version": "28.1.0",
+      "tag": "@ni/nimble-components_v28.1.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "89919eef4f938c802e3160928000ef1b5d71b083",
+            "comment": "Add Celsius and Fahrenheit number formatting unit support"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 09 May 2024 18:40:41 GMT",
+      "version": "28.0.5",
+      "tag": "@ni/nimble-components_v28.0.5",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "43edba8e90d0c5f414fd2b4cf19eee197b477829",
+            "comment": "Update Blazor docs for Spright and workspace change"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/nimble-tokens to v6.13.6",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 08 May 2024 22:21:34 GMT",
+      "version": "28.0.4",
+      "tag": "@ni/nimble-components_v28.0.4",
+      "comments": {
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "e83c8ba9f06850acd6a303d257ec9033c0c5d115",
+            "comment": "README updates"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 08 May 2024 17:29:00 GMT",
+      "version": "28.0.4",
+      "tag": "@ni/nimble-components_v28.0.4",
+      "comments": {
+        "patch": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "7d71953ecbd516120f930e13934ee713a06e5cff",
+            "comment": "Don't change Select value on focusout."
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 08 May 2024 16:52:33 GMT",
+      "version": "28.0.3",
+      "tag": "@ni/nimble-components_v28.0.3",
+      "comments": {
+        "none": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "3900eb4d5aa15fba8f34d6745120ba07eeb24772",
+            "comment": "Storybook CONTRIBUTING doc improvements"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 07 May 2024 20:15:55 GMT",
+      "version": "28.0.3",
+      "tag": "@ni/nimble-components_v28.0.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "7feb69deda088c1fa771f836dedd627e33b4e63b",
+            "comment": "Fixing hover behavior for options in Select."
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 07 May 2024 16:24:36 GMT",
+      "version": "28.0.2",
+      "tag": "@ni/nimble-components_v28.0.2",
+      "comments": {
+        "patch": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "bbe265424e76e1824a5748b8bc6cb6d69a1b9a17",
+            "comment": "Change Select to not update value as you navigate options in dropdown."
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 07 May 2024 13:17:00 GMT",
+      "version": "28.0.1",
+      "tag": "@ni/nimble-components_v28.0.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "799d39216faa9ad98c94627c6505439c846cbac9",
+            "comment": "Set Select and Combobox min-width to menuMinWidth token (176px)"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 06 May 2024 20:26:50 GMT",
+      "version": "28.0.0",
+      "tag": "@ni/nimble-components_v28.0.0",
+      "comments": {
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "9a1ebfa1220710515a4fca079f8b01932fa3e347",
+            "comment": "Command and readme updates"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 06 May 2024 19:00:05 GMT",
+      "version": "28.0.0",
+      "tag": "@ni/nimble-components_v28.0.0",
+      "comments": {
+        "major": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "d1c9125a77615d0364671a9e03a558c57b359ed7",
+            "comment": "Rename icon column to mapping column"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 02 May 2024 18:52:31 GMT",
       "version": "27.2.3",
       "tag": "@ni/nimble-components_v27.2.3",

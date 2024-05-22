@@ -6,6 +6,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <DebugType>embedded</DebugType>
     <Authors>NI</Authors>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageProjectUrl>https://github.com/ni/nimble</PackageProjectUrl>
     <RepositoryUrl>https://github.com/ni/nimble</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
@@ -24,9 +25,13 @@
     <NoWarn>CS8669</NoWarn>
   </PropertyGroup>
 
+  <!-- 
+    Need to explicitly exclude json and config files from Content, or they will get copied to the output directory.
+    See: https://github.com/dotnet/sdk/issues/25587#issuecomment-1134731799
+  -->
   <ItemGroup>
-    <Content Remove="package.json" />
-    <Content Remove="packages.lock.json" />
+    <Content Remove="**\*.json" />
+    <Content Remove="**\*.config" />
   </ItemGroup>
 
   <ItemGroup>
@@ -53,6 +58,7 @@
   <ItemGroup>
     <None Include="package.json" />
     <None Include="packages.lock.json" />
+    <None Include="README.md" Pack="true" PackagePath="\"/>
   </ItemGroup>
 
   <Target Name="CopyResources" BeforeTargets="BeforeBuild">

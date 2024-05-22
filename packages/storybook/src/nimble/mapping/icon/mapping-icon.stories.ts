@@ -10,7 +10,7 @@ const metadata: Meta = {
         docs: {
             description: {
                 component:
-                    'The `nimble-mapping-icon` element defines a mapping from a data value to an icon representation to use for that value. It is meant to be used as content of the `nimble-table-column-icon` element.'
+                    'The `nimble-mapping-icon` element defines a mapping from a data value to an icon representation to use for that value. It is meant to be used as content of the `nimble-table-column-mapping` element.'
             }
         }
     }
@@ -27,9 +27,7 @@ export const iconMapping: StoryObj = {
         },
         icon: {
             control: false,
-            description: `The tag name of the Nimble icon to render, e.g. \`nimble-icon-check\`. Alternatively, set \`icon\` to \`undefined\` to render
-                no icon for the mapping while still providing a label to be used when grouping. Space will always be reserved for the icon so
-                that the text in cells and group rows associated with icon mappings will always be aligned.`
+            description: 'The tag name of the Nimble icon to render, e.g. `nimble-icon-check`.'
         },
         severity: {
             control: false,

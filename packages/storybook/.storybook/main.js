@@ -6,6 +6,7 @@ import TerserPlugin from 'terser-webpack-plugin';
 // All files participating in storybook should be in src
 // so that TypeScript and linters can track them correctly
 export const stories = [
+    '../src/docs',
     '../src/nimble',
     '../src/spright'
 ];

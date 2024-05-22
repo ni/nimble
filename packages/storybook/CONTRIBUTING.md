@@ -1,4 +1,8 @@
-# Creating Storybook Component Documentation
+# Creating Storybook Files for a Component
+
+This package contains Storybook files for each component which accomplish two things:
+1. provide user facing documentation in the [public Nimble and Spright Storybook](https://nimble.ni.dev/storybook).
+2. comprehensively test visual states of the component in [Chromatic](https://www.chromatic.com/builds?appId=60e89457a987cf003efc0a5b).
 
 ## Getting Started
 
@@ -6,7 +10,20 @@ From the Nimble repo root directory:
 
 1. Run `npm install`
 2. Run `npm run build`
-3. To view the component documentation in Storybook: `npm run start -w @ni-private/storybook`
+3. To view the component documentation in Storybook: `npm run storybook`
+
+## Folder Structure
+
+Create a folder for each component under `src/nimble` or `src/spright`. The folder should match the name of the component in the corresponding `@ni/nimble-components` or `@ni/spright-components` package.
+
+Each folder should include the following files:
+
+| File                             | Description                          |
+| -------------------------------- | ------------------------------------ |
+| component-name.stories.ts        | Contains the component hosted in Storybook. This provides a live component view for development and testing along with API documentation.  |
+| component-name-matrix.stories.ts | Contains a story that shows all component states for all themes hosted in Storybook. This is used by Chromatic visual tests to verify styling changes across all themes and states.   |
+| component-name.mdx               | Contains the Storybook documentation for this component. This should provide design guidance and usage information. See below for more information about the structure of this file. |
+| component-name.react.tsx         | Simple React wrapper for the component to be used in Storybook MDX documentation.   |
 
 ## Documentation Workflow
 
@@ -23,13 +40,21 @@ import * as componentNameStories from './component-name.stories';
 *Component description*
 
 <Canvas of={componentNameStories.firstStoryName} />
+
+## API
+
 <Controls of={componentNameStories.firstStoryName} />
+<ComponentApisLink />
 
-## Appearances
+## Usage
 
-## Appearance Variants
+## Styling
 
-## Usage 
+### Appearances
+
+### Appearance Variants
+
+### Sizing
 
 ## Examples
 
@@ -57,6 +82,8 @@ Note: if linking in a story via a native or Nimble anchor component, use the fol
 ```html
 <a href="./?path=/docs/some--id" target="_top">Link</a>
 ```
+
+Linking to headings within a document doesn't work very well, i.e. `./page#some-heading`; avoid using links to specific headings and instead link to the page and refer to the section using **Bold**, i.e. `See **Some Heading** on [Page](./page)`.
 
 All other Markdown formatting is supported. See any [Markdown Cheatsheet](https://www.markdownguide.org/cheat-sheet/) for more information.
 

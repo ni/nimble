@@ -1,8 +1,154 @@
 # Change Log - @ni/spright-components
 
-This log was last generated on Thu, 02 May 2024 18:52:31 GMT and should not be manually modified.
+This log was last generated on Tue, 21 May 2024 22:53:18 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.0.5
+
+Tue, 21 May 2024 22:53:18 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v29.1.4
+
+## 1.0.4
+
+Mon, 20 May 2024 15:39:22 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v29.1.3
+
+## 1.0.3
+
+Fri, 17 May 2024 20:05:45 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v29.1.2
+
+## 1.0.2
+
+Thu, 16 May 2024 18:44:46 GMT
+
+### Patches
+
+- Switch to custom display helper ([ni/nimble@17ddea5](https://github.com/ni/nimble/commit/17ddea50b5accb353a0288c42d0e64ddc5df0d04))
+- Bump @ni/nimble-components to v29.1.1
+
+## 1.0.1
+
+Wed, 15 May 2024 21:06:27 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v29.1.0
+
+## 1.0.0
+
+Wed, 15 May 2024 18:50:42 GMT
+
+### Major changes
+
+- Publishing version 1.0.0 ([ni/nimble@1b7878b](https://github.com/ni/nimble/commit/1b7878b6ea02439299d77219762235972a07f276))
+
+## 0.0.25
+
+Tue, 14 May 2024 21:43:26 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v29.0.0
+
+## 0.0.24
+
+Mon, 13 May 2024 09:49:02 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v28.3.1
+
+## 0.0.23
+
+Fri, 10 May 2024 22:37:40 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v28.3.0
+
+## 0.0.22
+
+Fri, 10 May 2024 16:42:46 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v28.2.1
+
+## 0.0.21
+
+Fri, 10 May 2024 16:11:56 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v28.2.0
+
+## 0.0.20
+
+Thu, 09 May 2024 20:39:47 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v28.1.0
+
+## 0.0.19
+
+Thu, 09 May 2024 18:40:41 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v28.0.5
+- Bump @ni/nimble-tokens to v6.13.6
+
+## 0.0.18
+
+Wed, 08 May 2024 17:29:00 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v28.0.4
+
+## 0.0.17
+
+Tue, 07 May 2024 20:15:55 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v28.0.3
+
+## 0.0.16
+
+Tue, 07 May 2024 16:24:36 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v28.0.2
+
+## 0.0.15
+
+Tue, 07 May 2024 13:17:00 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v28.0.1
+
+## 0.0.14
+
+Mon, 06 May 2024 19:00:05 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v28.0.0
 
 ## 0.0.13
 

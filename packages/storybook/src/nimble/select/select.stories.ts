@@ -2,7 +2,6 @@ import { html, repeat, when } from '@microsoft/fast-element';
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html';
 import { listOptionTag } from '@ni/nimble-components/dist/esm/list-option';
-import { menuMinWidth } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
 import { selectTag } from '@ni/nimble-components/dist/esm/select';
 import { FilterMode } from '@ni/nimble-components/dist/esm/select/types';
 import { ExampleOptionsType } from '@ni/nimble-components/dist/esm/select/tests/types';
@@ -22,6 +21,7 @@ interface SelectArgs {
     appearance: string;
     filterMode: keyof typeof FilterMode;
     placeholder: boolean;
+    clearable: boolean;
 }
 
 interface OptionArgs {
@@ -67,6 +67,18 @@ const optionSets = {
     [ExampleOptionsType.manyOptions]: manyOptions
 } as const;
 
+const dropdownPositionDescription = `
+The \`dropDownPosition\` attribute controls the position of the dropdown relative to the \`Select\`. The default is \`below\`, which will display the dropdown below the \`Select\`. The \`above\` setting will display the dropdown above the \`Select\`.
+`;
+
+const appearanceDescription = `
+This attribute affects the appearance of the \`Select\`. The default appearance is \`underline\`, which displays a line beneath the selected value. The \`outline\` appearance displays a border around the entire component. The \`block\` appearance applies a background for the entire component.
+`;
+
+const errorTextDescription = `
+A message to be displayed when the text field is in the invalid state explaining why the value is invalid.
+`;
+
 const filterModeDescription = `
 This attribute controls the filtering behavior of the \`Select\`. The default of \`none\` results in a dropdown with no input for filtering. A non-'none' setting results in a search input placed at the top or the bottom of the dropdown when opened (depending on where the popup is shown relative to the component). The \`standard\` setting will perform a case-insensitive and diacritic-insensitive filtering of the available options anywhere within the text of each option. 
 
@@ -74,9 +86,13 @@ It is recommended that if the \`Select\` has 15 or fewer options that you use th
 `;
 
 const placeholderDescription = `
-To display placeholder text within the \`Select\` you must provide an option that has the \`disabled\`, \`selected\` and \`hidden\` attributes set. This option will not be available in the dropdown, and its contents will be used as the placeholder text.
+To display placeholder text within the \`Select\` you must provide an option that has the \`disabled\`, \`selected\` and \`hidden\` attributes set. This option will not be available in the dropdown, and its contents will be used as the placeholder text. Note that giving the placeholder an initial \`selected\` state is only necessary to display the placeholder initially. If another option is selected initially the placeholder will be displayed upon clearing the current value.
 
 Any \`Select\` without a default selected option should provide placeholder text. Placeholder text should always follow the pattern "Select [thing(s)]", for example "Select country". Use sentence casing and don't include punctuation at the end of the prompt.
+`;
+
+const clearableDescription = `
+When the \`clearable\` attribute is set, a clear button will be displayed in the \`Select\` when a value is selected. Clicking the clear button will clear the selected value and display the placeholder text, if available, or will result in a blank display.
 `;
 
 const metadata: Meta<SelectArgs> = {
@@ -97,10 +113,11 @@ const metadata: Meta<SelectArgs> = {
             ?error-visible="${x => x.errorVisible}"
             error-text="${x => x.errorText}"
             ?disabled="${x => x.disabled}"
+            ?clearable="${x => x.clearable}"
             position="${x => x.dropDownPosition}"
             appearance="${x => x.appearance}"
             filter-mode="${x => (x.filterMode === 'none' ? undefined : x.filterMode)}"
-            style="width: var(${menuMinWidth.cssCustomProperty});"
+            style="width: 250px;"
         >
             ${when(x => x.placeholder, html`
                 <${listOptionTag}
@@ -123,11 +140,13 @@ const metadata: Meta<SelectArgs> = {
     argTypes: {
         dropDownPosition: {
             options: ['above', 'below'],
-            control: { type: 'select' }
+            control: { type: 'select' },
+            description: dropdownPositionDescription
         },
         appearance: {
             options: Object.values(DropdownAppearance),
-            control: { type: 'radio' }
+            control: { type: 'radio' },
+            description: appearanceDescription
         },
         filterMode: {
             options: Object.keys(FilterMode),
@@ -136,7 +155,8 @@ const metadata: Meta<SelectArgs> = {
             description: filterModeDescription
         },
         errorText: {
-            name: 'error-text'
+            name: 'error-text',
+            description: errorTextDescription
         },
         errorVisible: {
             name: 'error-visible'
@@ -144,6 +164,10 @@ const metadata: Meta<SelectArgs> = {
         placeholder: {
             name: 'placeholder',
             description: placeholderDescription
+        },
+        clearable: {
+            name: 'clearable',
+            description: clearableDescription
         },
         optionsType: {
             name: 'options',
@@ -166,7 +190,8 @@ const metadata: Meta<SelectArgs> = {
         dropDownPosition: 'below',
         appearance: DropdownAppearance.underline,
         optionsType: ExampleOptionsType.simpleOptions,
-        placeholder: false
+        placeholder: false,
+        clearable: false
     }
 };
 

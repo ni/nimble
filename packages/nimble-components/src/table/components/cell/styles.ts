@@ -1,5 +1,5 @@
 import { css } from '@microsoft/fast-element';
-import { display } from '@microsoft/fast-foundation';
+import { display } from '../../../utilities/style/display';
 import {
     borderHoverColor,
     controlHeight,
@@ -31,8 +31,6 @@ export const styles = css`
 
     .cell-view {
         overflow: hidden;
-        display: flex;
-        align-items: center;
     }
 
     .action-menu {

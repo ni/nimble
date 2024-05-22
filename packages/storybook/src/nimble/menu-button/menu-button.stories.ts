@@ -17,12 +17,14 @@ import {
     appearanceVariantDescription,
     contentHiddenDescription,
     endIconDescription,
-    iconDescription
+    iconDescription,
+    textContentDescription
 } from '../patterns/button/doc-strings';
 import {
     apiCategory,
     createUserSelectedThemeStory,
-    disableStorybookZoomTransform
+    disableStorybookZoomTransform,
+    disabledDescription
 } from '../../utilities/storybook';
 
 interface MenuButtonArgs {
@@ -36,8 +38,8 @@ interface MenuButtonArgs {
     disabled: boolean;
     contentHidden: boolean;
     menuPosition: string;
-    toggle: () => void;
-    beforetoggle: () => void;
+    toggle: undefined;
+    beforetoggle: undefined;
 }
 
 const metadata: Meta<MenuButtonArgs> = {
@@ -54,8 +56,7 @@ const metadata: Meta<MenuButtonArgs> = {
     argTypes: {
         label: {
             name: 'default',
-            description:
-                'The text content of the button. This will be hidden when `content-hidden` is set but should always be provided; see the `Accessibility` section for more info.',
+            description: textContentDescription({ componentName: 'menu button' }),
             table: { category: apiCategory.slots }
         },
         icon: {
@@ -94,7 +95,7 @@ const metadata: Meta<MenuButtonArgs> = {
         },
         disabled: {
             control: { type: 'boolean' },
-            description: 'Disables the button.',
+            description: disabledDescription({ componentName: 'menu button' }),
             table: { category: apiCategory.attributes }
         },
         contentHidden: {
