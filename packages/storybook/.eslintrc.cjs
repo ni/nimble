@@ -23,9 +23,9 @@ module.exports = {
                     {
                         patterns: [
                             {
-                                group: ['@ni/nimble-components/*', '@ni/spright-components/*'],
+                                group: ['*/nimble-components/dist/esm/*', '*/spright-components/dist/esm/*'],
                                 message:
-                                    'For storybook, link directly to the nimble-components or spright-components source path in the monorepo instead.'
+                                    'For storybook, link directly to the nimble-components or spright-components typescript source path in the monorepo with a relative path instead of dist build output.'
                             },
                         ]
                     }
