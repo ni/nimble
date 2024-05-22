@@ -1,6 +1,12 @@
 import { Canvas, Meta, Controls, Title } from '@storybook/blocks';
 import { NimbleTabs } from './tabs.react';
 import * as tabsStories from './tabs.stories';
+import ComponentApisLink from '../../docs/component-apis-link.mdx';
+import { anchorTabsTag } from '../../../../nimble-components/src/anchor-tabs';
+import { tabTag } from '../../../../nimble-components/src/tab';
+import { tabsTag } from '../../../../nimble-components/src/tabs';
+import { tabPanelTag } from '../../../../nimble-components/src/tab-panel';
+import { tabsToolbarTag } from '../../../../nimble-components/src/tabs-toolbar';
 
 <Meta of={tabsStories} />
 <Title of={tabsStories} />
@@ -10,17 +16,43 @@ sections of content, known as tab panels, that display one panel of content at a
 associated tab element, that when activated, displays the panel. The list of tab elements is arranged along
 one edge of the currently displayed panel, most commonly the top edge.
 
-Content in tab panels should be sized and arranged such that it fits horizontally within the panel to avoid
-horizontal scrolling. Content may be any height; the tab panel will display a vertical scrollbar if necessary.
-
-If you want a sequence of tabs that navigate to different URLs, use the Anchor Tabs component instead.
+If you want a sequence of tabs that navigate to different URLs, use the <Tag name={anchorTabsTag}/> instead.
 
 <Canvas of={tabsStories.tabs} />
+
+## API
+
 <Controls of={tabsStories.tabs} />
 
-{/* ## Appearances */}
+<ComponentApisLink />
 
-{/* ## Appearance Variants */}
+### Tab
+
+Use the <Tag name={tabTag} /> child element to add new tabs to the <Tag name={tabsTag} />.
+
+<Canvas of={tabsStories.tab} />
+<Controls of={tabsStories.tab} />
+
+### Tab Panel
+
+Use the <Tag name={tabPanelTag} /> child element to add a panel of content for each <Tag name={tabTag} />.
+
+<Canvas of={tabsStories.tabPanel} />
+<Controls of={tabsStories.tabPanel} />
+
+### Tab Toolbar
+
+Use the <Tag name={tabsToolbarTag} /> child element to add a toolbar next to the tabs.
+
+<Canvas of={tabsStories.tabToolbar} />
+<Controls of={tabsStories.tabToolbar} />
+
+## Styling
+
+### Sizing
+
+Content in tab panels should be sized and arranged such that it fits horizontally within the panel to avoid
+horizontal scrolling. Content may be any height; the tab panel will display a vertical scrollbar if necessary.
 
 {/* ## Usage */}
 

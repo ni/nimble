@@ -1,6 +1,6 @@
 import { Controls, Canvas, Meta, Title } from '@storybook/blocks';
 import * as tableStories from './table.stories';
-import { tableTag } from '@ni/nimble-components/dist/esm/table';
+import { tableTag } from '../../../../nimble-components/src/table';
 
 <Meta of={tableStories} />
 <Title of={tableStories} />
@@ -49,11 +49,9 @@ The expected usage of the dynamically loaded hierarchy is as follows:
 -   the table will not render delayed hierarchy state (loading or expandable) if the table's `parentIdFieldName` is not configured; however, the options will remain cached within the table if the `parentIdFieldName` becomes `undefined`, and that cached configuration will render in the table if the table's `parentIdFieldName` is changed back to a non-`undefined` value
 -   calling `setData` will clear options associated with IDs that are no longer present in the data
 
-{/* ## Appearances */}
-
-{/* ## Appearance Variants */}
-
 ## Styling
+
+### Sizing
 
 The <Tag name={tableTag}/> should be sized explicitly or sized to fill the space of a parent container. The <Tag name={tableTag}/> does not currently support being styled with `height: auto`. The ability to auto size the table is tracked with [issue 1624](https://github.com/ni/nimble/issues/1624).
 

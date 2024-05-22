@@ -1,7 +1,7 @@
 import { html, ViewTemplate } from '@microsoft/fast-element';
-import { themeProviderTag } from '@ni/nimble-components/dist/esm/theme-provider';
-import { bodyFont } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
-import type { Theme } from '@ni/nimble-components/dist/esm/theme-provider/types';
+import { themeProviderTag } from '../../../nimble-components/src/theme-provider';
+import { bodyFont } from '../../../nimble-components/src/theme-provider/design-tokens';
+import type { Theme } from '../../../nimble-components/src/theme-provider/types';
 import {
     BackgroundState,
     backgroundStates,
@@ -170,5 +170,5 @@ export const apiCategory = {
 } as const;
 
 export const iconDescription = 'Set `slot="start"` to include an icon before the text content.';
-export const disabledDescription = (options: { componentName: string }): string => `Disables the ${options.componentName}.`;
+export const disabledDescription = (options: { componentName: string }): string => `Styles the ${options.componentName} as disabled and prevents focus and user interaction.`;
 export const textContentDescription = (options: { componentName: string }): string => `The text content of the ${options.componentName}.`;

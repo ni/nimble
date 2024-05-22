@@ -2,6 +2,21 @@
   "name": "@ni/nimble-blazor",
   "entries": [
     {
+      "date": "Tue, 21 May 2024 15:50:01 GMT",
+      "version": "17.3.0",
+      "tag": "@ni/nimble-blazor_v17.3.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "89e3bc88811ac6a6c92c8cacc61031b65a5b901c",
+            "comment": "Adding Clearable API for Select"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 10 May 2024 23:16:09 GMT",
       "version": "17.2.0",
       "tag": "@ni/nimble-blazor_v17.2.0",

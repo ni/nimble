@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/html';
 import { html, repeat } from '@microsoft/fast-element';
-import { breadcrumbItemTag } from '@ni/nimble-components/dist/esm/breadcrumb-item';
-import { breadcrumbTag } from '@ni/nimble-components/dist/esm/breadcrumb';
-import { BreadcrumbAppearance } from '@ni/nimble-components/dist/esm/breadcrumb/types';
+import { breadcrumbItemTag } from '../../../../nimble-components/src/breadcrumb-item';
+import { breadcrumbTag } from '../../../../nimble-components/src/breadcrumb';
+import { BreadcrumbAppearance } from '../../../../nimble-components/src/breadcrumb/types';
 import { createUserSelectedThemeStory } from '../../utilities/storybook';
 
 interface BreadcrumbArgs {

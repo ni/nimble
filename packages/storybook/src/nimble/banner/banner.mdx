@@ -1,6 +1,6 @@
 import { Canvas, Meta, Controls, Title } from '@storybook/blocks';
 import { NimbleBanner } from './banner.react';
-import { bannerGapSize } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
+import { bannerGapSize } from '../../../../nimble-components/src/theme-provider/design-tokens';
 import * as bannerStories from './banner.stories';
 
 <Meta of={bannerStories} />
@@ -16,9 +16,7 @@ should be spaced apart using the <code>{bannerGapSize.cssCustomProperty}</code> 
 <Canvas of={bannerStories._banner} />
 <Controls of={bannerStories._banner} />
 
-{/* ## Appearances */}
-
-{/* ## Appearance Variants */}
+{/* ## Styling */}
 
 {/* ## Usage */}
 

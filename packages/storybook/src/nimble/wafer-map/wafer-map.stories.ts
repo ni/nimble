@@ -1,23 +1,23 @@
 import { html } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
 import type { Table } from 'apache-arrow';
-import { waferMapTag } from '@ni/nimble-components/dist/esm/wafer-map';
+import { waferMapTag } from '../../../../nimble-components/src/wafer-map';
 import type {
     WaferMapDie,
     WaferMapColorScale,
     WaferMapValidity
-} from '@ni/nimble-components/dist/esm/wafer-map/types';
+} from '../../../../nimble-components/src/wafer-map/types';
 import {
     WaferMapOriginLocation,
     WaferMapOrientation,
     WaferMapColorScaleMode
-} from '@ni/nimble-components/dist/esm/wafer-map/types';
-import { generateWaferData, generateWaferTableData } from '@ni/nimble-components/dist/esm/wafer-map/tests/data-generator';
+} from '../../../../nimble-components/src/wafer-map/types';
+import { generateWaferData, generateWaferTableData } from '../../../../nimble-components/src/wafer-map/tests/data-generator';
 import {
     goodValueGenerator,
     badValueGenerator,
     highlightedValueGenerator
-} from '@ni/nimble-components/dist/esm/wafer-map/tests/value-generator';
+} from '../../../../nimble-components/src/wafer-map/tests/value-generator';
 import {
     highlightedTagsSets,
     wafermapDieSets,

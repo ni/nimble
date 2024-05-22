@@ -1,8 +1,56 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Tue, 14 May 2024 21:43:26 GMT and should not be manually modified.
+This log was last generated on Tue, 21 May 2024 22:53:18 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 24.3.1
+
+Tue, 21 May 2024 22:53:18 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v29.1.4
+
+## 24.3.0
+
+Tue, 21 May 2024 15:50:01 GMT
+
+### Minor changes
+
+- Adding clearable API for Select. ([ni/nimble@89e3bc8](https://github.com/ni/nimble/commit/89e3bc88811ac6a6c92c8cacc61031b65a5b901c))
+
+## 24.2.6
+
+Mon, 20 May 2024 15:39:22 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v29.1.3
+
+## 24.2.5
+
+Fri, 17 May 2024 20:05:45 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v29.1.2
+
+## 24.2.4
+
+Thu, 16 May 2024 18:44:46 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v29.1.1
+
+## 24.2.3
+
+Wed, 15 May 2024 21:06:27 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v29.1.0
 
 ## 24.2.2
 

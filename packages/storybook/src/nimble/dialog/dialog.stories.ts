@@ -1,8 +1,8 @@
 import { html, ref, when } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
-import { TextField, textFieldTag } from '@ni/nimble-components/dist/esm/text-field';
-import { buttonTag } from '@ni/nimble-components/dist/esm/button';
-import { checkboxTag } from '@ni/nimble-components/dist/esm/checkbox';
+import { TextField, textFieldTag } from '../../../../nimble-components/src/text-field';
+import { buttonTag } from '../../../../nimble-components/src/button';
+import { checkboxTag } from '../../../../nimble-components/src/checkbox';
 import {
     dialogLargeHeight,
     dialogLargeMaxHeight,
@@ -10,9 +10,9 @@ import {
     dialogSmallHeight,
     dialogSmallMaxHeight,
     dialogSmallWidth
-} from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
-import { Dialog, dialogTag, UserDismissed } from '@ni/nimble-components/dist/esm/dialog';
-import { DialogSizeOptions, ExampleContentType } from '@ni/nimble-components/dist/esm/dialog/tests/types';
+} from '../../../../nimble-components/src/theme-provider/design-tokens';
+import { Dialog, dialogTag, UserDismissed } from '../../../../nimble-components/src/dialog';
+import { DialogSizeOptions, ExampleContentType } from '../../../../nimble-components/src/dialog/tests/types';
 import { createUserSelectedThemeStory } from '../../utilities/storybook';
 import { loremIpsum } from '../../utilities/lorem-ipsum';
 
@@ -61,7 +61,7 @@ const content = {
 const sizeDescription = `
 Size of a nimble dialog.
 
-See the Sizing section of the Usage Docs for information on controlling the size of the dialog.
+See the **Sizing** section for information on controlling the size of the dialog.
 `;
 
 const widths = {

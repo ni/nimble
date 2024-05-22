@@ -1,3 +1,5 @@
+const { ignoreAttributes } = require('@ni/eslint-config-angular/template/options');
+
 module.exports = {
     root: true,
     ignorePatterns: [
@@ -104,9 +106,27 @@ module.exports = {
             '@ni/eslint-config-angular/template'
         ],
         rules: {
-            // nimble-angular shouldn't provide user-visible strings so doesn't need i18n
-            // example-client-app is just for demo purposes and isn't anticipated to be localized
-            '@angular-eslint/template/i18n': 'off'
+            // Enable i18n template checking for the purpose of making sure to capture updates for the lint rules
+            // New entries should be added to the ignoreAttributeSets:
+            // See: https://github.com/ni/javascript-styleguide/blob/main/packages/eslint-config-angular/template/options.js
+            '@angular-eslint/template/i18n': [
+                'error',
+                {
+                    checkText: false,
+                    checkId: false,
+                    ignoreAttributes: [
+                        ...ignoreAttributes.all,
+                        // The following attributes should be marked i18n in production applications but
+                        // are ignored here as they do not actually need to be marked for tests / example apps
+                        'action-menu-label',
+                        'aria-label',
+                        'button-label',
+                        'placeholder',
+                        'text',
+                        'title'
+                    ]
+                }
+            ],
         }
     }, {
         files: ['*.js'],

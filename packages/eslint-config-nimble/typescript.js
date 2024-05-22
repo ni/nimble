@@ -6,6 +6,12 @@ const restrictedImportsPaths = () => [
             'Please use focusVisible from src/utilities/style/focus instead.'
     },
     {
+        name: '@microsoft/fast-foundation',
+        importNames: ['display'],
+        message:
+            'Please use display from src/utilities/style/display instead.'
+    },
+    {
         name: '@microsoft/fast-components',
         message:
             'It is not expected to leverage @microsoft/fast-components directly as they are coupled to FAST design tokens.'
@@ -108,6 +114,15 @@ module.exports = {
                 'import/no-extraneous-dependencies': [
                     'error',
                     { devDependencies: true }
+                ]
+            }
+        },
+        {
+            files: ['*.foundation.spec.ts'],
+            rules: {
+                'no-restricted-imports': [
+                    'error',
+                    { paths: restrictedImportsPaths() }
                 ]
             }
         },
