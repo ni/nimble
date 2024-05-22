@@ -2,12 +2,12 @@ import { html, ViewTemplate } from '@microsoft/fast-element';
 import { themeProviderTag } from '@ni/nimble-components/dist/esm/theme-provider';
 import { bodyFont } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
 import type { Theme } from '@ni/nimble-components/dist/esm/theme-provider/types';
+import { listOptionTag } from '@ni/nimble-components/dist/esm/list-option';
 import {
     BackgroundState,
     backgroundStates,
     defaultBackgroundState
 } from './states';
-import { listOptionTag } from '@ni/nimble-components/dist/esm/list-option';
 
 export const fastParameters = () => ({
     a11y: { disable: true },
