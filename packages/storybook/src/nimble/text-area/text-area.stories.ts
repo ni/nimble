@@ -66,7 +66,7 @@ const metadata: Meta<TextAreaArgs> = {
             table: { category: apiCategory.attributes }
         },
         value: {
-            description: 'The string displayed in the text area.',
+            description: 'The string displayed in the text area. Note that the property value is not synced to an attribute.',
             table: { category: apiCategory.nonAttributeProperties }
         },
         readonly: {

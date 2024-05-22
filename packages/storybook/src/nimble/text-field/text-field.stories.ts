@@ -96,7 +96,7 @@ const metadata: Meta<TextFieldArgs> = {
             table: { category: apiCategory.attributes }
         },
         value: {
-            description: 'The string displayed in the text field.',
+            description: 'The string displayed in the text field. Note that the property value is not synced to an attribute.',
             table: { category: apiCategory.nonAttributeProperties }
         },
         readonly: {
