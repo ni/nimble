@@ -1,9 +1,9 @@
 import { html, ref } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
-import { tableTag } from '@ni/nimble-components/dist/esm/table';
-import { tableColumnDateTextTag } from '@ni/nimble-components/dist/esm/table-column/date-text';
-import { Direction, themeProviderTag } from '@ni/nimble-components/dist/esm/theme-provider';
-import { Theme } from '@ni/nimble-components/dist/esm/theme-provider/types';
+import { tableTag } from '../../../../nimble-components/src/table';
+import { tableColumnDateTextTag } from '../../../../nimble-components/src/table-column/date-text';
+import { Direction, themeProviderTag } from '../../../../nimble-components/src/theme-provider';
+import { Theme } from '../../../../nimble-components/src/theme-provider/types';
 import {
     sharedTableArgTypes,
     type SharedTableArgs,

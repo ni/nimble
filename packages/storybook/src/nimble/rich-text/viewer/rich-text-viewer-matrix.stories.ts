@@ -3,10 +3,10 @@ import { html, ViewTemplate } from '@microsoft/fast-element';
 import {
     cssPropertyFromTokenName,
     tokenNames
-} from '@ni/nimble-components/dist/esm/theme-provider/design-token-names';
-import { mappingUserTag } from '@ni/nimble-components/dist/esm/mapping/user';
-import { richTextMentionUsersTag } from '@ni/nimble-components/dist/esm/rich-text-mention/users';
-import { richTextViewerTag } from '@ni/nimble-components/dist/esm/rich-text/viewer';
+} from '../../../../../nimble-components/src/theme-provider/design-token-names';
+import { mappingUserTag } from '../../../../../nimble-components/src/mapping/user';
+import { richTextMentionUsersTag } from '../../../../../nimble-components/src/rich-text-mention/users';
+import { richTextViewerTag } from '../../../../../nimble-components/src/rich-text/viewer';
 import { createStory } from '../../../utilities/storybook';
 import {
     createMatrixThemeStory,

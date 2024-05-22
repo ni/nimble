@@ -1,14 +1,14 @@
 import type { StoryFn, Meta } from '@storybook/html';
 import { html } from '@microsoft/fast-element';
-import { buttonTag } from '@ni/nimble-components/dist/esm/button';
-import { iconArrowRotateRightTag } from '@ni/nimble-components/dist/esm/icons/arrow-rotate-right';
-import { iconCogTag } from '@ni/nimble-components/dist/esm/icons/cog';
-import { iconEyeTag } from '@ni/nimble-components/dist/esm/icons/eye';
-import { iconFilterTag } from '@ni/nimble-components/dist/esm/icons/filter';
-import { iconPencilTag } from '@ni/nimble-components/dist/esm/icons/pencil';
-import { iconThumbtackTag } from '@ni/nimble-components/dist/esm/icons/thumbtack';
-import { iconTrashTag } from '@ni/nimble-components/dist/esm/icons/trash';
-import { toolbarTag } from '@ni/nimble-components/dist/esm/toolbar';
+import { buttonTag } from '../../../../nimble-components/src/button';
+import { iconArrowRotateRightTag } from '../../../../nimble-components/src/icons/arrow-rotate-right';
+import { iconCogTag } from '../../../../nimble-components/src/icons/cog';
+import { iconEyeTag } from '../../../../nimble-components/src/icons/eye';
+import { iconFilterTag } from '../../../../nimble-components/src/icons/filter';
+import { iconPencilTag } from '../../../../nimble-components/src/icons/pencil';
+import { iconThumbtackTag } from '../../../../nimble-components/src/icons/thumbtack';
+import { iconTrashTag } from '../../../../nimble-components/src/icons/trash';
+import { toolbarTag } from '../../../../nimble-components/src/toolbar';
 import { hiddenWrapper } from '../../utilities/hidden';
 import { createStory } from '../../utilities/storybook';
 import {

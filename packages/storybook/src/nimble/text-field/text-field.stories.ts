@@ -1,11 +1,11 @@
 import { html, when } from '@microsoft/fast-element';
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html';
-import { buttonTag } from '@ni/nimble-components/dist/esm/button';
-import { iconPencilTag } from '@ni/nimble-components/dist/esm/icons/pencil';
-import { iconTagTag } from '@ni/nimble-components/dist/esm/icons/tag';
-import { textFieldTag } from '@ni/nimble-components/dist/esm/text-field';
-import { TextFieldAppearance, TextFieldType } from '@ni/nimble-components/dist/esm/text-field/types';
+import { buttonTag } from '../../../../nimble-components/src/button';
+import { iconPencilTag } from '../../../../nimble-components/src/icons/pencil';
+import { iconTagTag } from '../../../../nimble-components/src/icons/tag';
+import { textFieldTag } from '../../../../nimble-components/src/text-field';
+import { TextFieldAppearance, TextFieldType } from '../../../../nimble-components/src/text-field/types';
 import { apiCategory, appearanceDescription, createUserSelectedThemeStory, disabledDescription, errorTextDescription, errorVisibleDescription, placeholderDescription, slottedLabelDescription } from '../../utilities/storybook';
 
 interface TextFieldArgs {

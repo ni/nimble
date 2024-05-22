@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Wed, 22 May 2024 17:46:25 GMT",
+      "version": "29.1.4",
+      "tag": "@ni/nimble-components_v29.1.4",
+      "comments": {
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "699ce37952cf27977915aeb8f9b9341ce701002e",
+            "comment": "Update build time global type extensions"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 21 May 2024 22:53:18 GMT",
       "version": "29.1.4",
       "tag": "@ni/nimble-components_v29.1.4",
