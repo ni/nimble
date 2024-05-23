@@ -2,6 +2,7 @@ import { Canvas, Meta, Stories, Controls, Title } from '@storybook/blocks';
 import { NimbleBreadcrumb } from './breadcrumb.react';
 import * as breadcrumbStories from './breadcrumb.stories';
 import ComponentApisLink from '../../docs/component-apis-link.mdx';
+import TargetDocs from '../patterns/anchor/target-docs.mdx';
 
 <Meta of={breadcrumbStories} />
 <Title of={breadcrumbStories} />
@@ -18,13 +19,21 @@ for information on using this component in Angular with RouterLink directives.
 
 <Controls of={breadcrumbStories._standardBreadcrumb} />
 <ComponentApisLink />
-<Stories of={breadcrumbStories} />
+
+### Breadcrumb Item
+
+<Canvas of={breadcrumbStories.breadcrumbItem} />
+<Controls of={breadcrumbStories.breadcrumbItem} />
 
 {/* ## Styling */}
 
 {/* ## Usage */}
 
 {/* ## Examples */}
+
+## Target Configuration
+
+<TargetDocs />
 
 {/* ## Accessibility */}
 
