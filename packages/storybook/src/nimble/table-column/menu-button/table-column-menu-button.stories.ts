@@ -1,14 +1,15 @@
 import { html, ref } from '@microsoft/fast-element';
 import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html';
 import { withActions } from '@storybook/addon-actions/decorator';
-import { tableTag } from '@ni/nimble-components/dist/esm/table';
-import { tableColumnTextTag } from '@ni/nimble-components/dist/esm/table-column/text';
-import { tableColumnMenuButtonTag } from '@ni/nimble-components/dist/esm/table-column/menu-button';
-import { ButtonAppearance, ButtonAppearanceVariant } from '@ni/nimble-components/dist/esm/button/types';
-import { Menu, menuTag } from '@ni/nimble-components/dist/esm/menu';
-import { menuItemTag } from '@ni/nimble-components/dist/esm/menu-item';
-import { DelegatedEventEventDetails } from '@ni/nimble-components/dist/esm/table-column/base/types';
-import { MenuButtonToggleEventDetail } from '@ni/nimble-components/dist/esm/menu-button/types';
+import { tableTag } from '../../../../../nimble-components/src/table';
+import { tableColumnTextTag } from '../../../../../nimble-components/src/table-column/text';
+import { tableColumnMenuButtonTag } from '../../../../../nimble-components/src/table-column/menu-button';
+import { ButtonAppearance, ButtonAppearanceVariant } from '../../../../../nimble-components/src/button/types';
+import { Menu, menuTag } from '../../../../../nimble-components/src/menu';
+import { menuItemTag } from '../../../../../nimble-components/src/menu-item';
+import type { DelegatedEventEventDetails } from '../../../../../nimble-components/src/table-column/base/types';
+import type { MenuButtonToggleEventDetail } from '../../../../../nimble-components/src/menu-button/types';
+import { TableRowSelectionMode } from '../../../../../nimble-components/src/table/types';
 import {
     SharedTableArgs,
     sharedTableActions,
@@ -16,7 +17,6 @@ import {
     sharedTableArgs
 } from '../base/table-column-stories-utils';
 import { createUserSelectedThemeStory } from '../../../utilities/storybook';
-import { TableRowSelectionMode } from '@ni/nimble-components/dist/esm/table/types';
 
 const metadata: Meta<SharedTableArgs> = {
     title: 'Components/Table Column: Menu Button',
@@ -39,35 +39,6 @@ const metadata: Meta<SharedTableArgs> = {
 
 export default metadata;
 
-const simpleData = [
-    {
-        firstName: 'Ralph',
-        lastName: 'Wiggum',
-        url: 'https://www.google.com/search?q=ralph+wiggum',
-    },
-    {
-        firstName: 'Milhouse',
-        lastName: 'Van Houten',
-        url: 'https://www.google.com/search?q=milhouse+van+houten'
-    },
-    {
-        firstName: 'Ned',
-        lastName: 'Flanders',
-        url: 'https://www.google.com/search?q=ned+flanders'
-    },
-    {
-        firstName: 'Maggie (no link)',
-        lastName: 'Simpson'
-    },
-    {
-        lastName: 'Simpson',
-        url: 'https://www.google.com/search?q=simpsons'
-    },
-    {
-        lastName: 'Simpson'
-    }
-] as const;
-
 const firstNames = ['John', 'Sally', 'Joe', 'Michael', 'Sam'];
 const lastNames = ['Davidson', 'Johnson', 'Abraham', 'Wilson'];
 const ages = [16, 32, 48, 64];
@@ -75,8 +46,8 @@ const largeData = [];
 for (let i = 0; i < 10000; i++) {
     const possibleParent = Math.floor(Math.random() * 100);
     const parentId = possibleParent < i ? possibleParent.toString() : undefined;
-    const firstName = firstNames[i % firstNames.length];
-    const lastName = lastNames[i % lastNames.length];
+    const firstName = firstNames[i % firstNames.length]!;
+    const lastName = lastNames[i % lastNames.length]!;
     largeData.push({
         id: i.toString(),
         firstName,
