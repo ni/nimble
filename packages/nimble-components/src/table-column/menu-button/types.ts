@@ -1,5 +1,6 @@
 import type { MenuButtonToggleEventDetail } from '../../menu-button/types';
 
+/** @internal */
 export const menuSlotName = 'menu' as const;
 
 /**
