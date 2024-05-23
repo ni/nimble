@@ -47,7 +47,7 @@ import {
     TableRowState,
     TableValidity,
     TableSetRecordHierarchyOptions,
-    RowSlotRequestedEventDetail
+    RowSlotRequestEventDetail
 } from './types';
 import { Virtualizer } from './models/virtualizer';
 import { getTanStackSortingFunction } from './models/sort-operations';
@@ -436,7 +436,7 @@ export class Table<
     }
 
     /** @internal */
-    public onRowSlotsRequested(event: CustomEvent<RowSlotRequestedEventDetail>): void {
+    public onRowSlotsRequest(event: CustomEvent<RowSlotRequestEventDetail>): void {
         event.stopImmediatePropagation();
 
         const columnUniqueId = event.detail.columnInternalId;

@@ -12,7 +12,7 @@ import { tableHeaderTag } from './components/header';
 import { tableRowTag } from './components/row';
 import type { TableColumn } from '../table-column/base';
 import {
-    RowSlotRequestedEventDetail,
+    RowSlotRequestEventDetail,
     TableActionMenuToggleEventDetail,
     TableColumnSortDirection,
     TableRowSelectionMode,
@@ -162,7 +162,7 @@ export const template = html<Table>`
                                         @row-selection-toggle="${(x, c) => c.parent.onRowSelectionToggle(x.index, c.event as CustomEvent<TableRowSelectionToggleEventDetail>)}"
                                         @row-action-menu-beforetoggle="${(x, c) => c.parent.onRowActionMenuBeforeToggle(x.index, c.event as CustomEvent<TableActionMenuToggleEventDetail>)}"
                                         @row-action-menu-toggle="${(_, c) => c.parent.onRowActionMenuToggle(c.event as CustomEvent<TableActionMenuToggleEventDetail>)}"
-                                        @row-slots-requested="${(_, c) => c.parent.onRowSlotsRequested(c.event as CustomEvent<RowSlotRequestedEventDetail>)}"
+                                        @row-slots-request="${(_, c) => c.parent.onRowSlotsRequest(c.event as CustomEvent<RowSlotRequestEventDetail>)}"
                                         @row-expand-toggle="${(x, c) => c.parent.handleRowExpanded(x.index)}"
                                         :dataIndex="${x => x.index}"
                                     >

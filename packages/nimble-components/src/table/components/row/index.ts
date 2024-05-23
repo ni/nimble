@@ -14,8 +14,8 @@ import { styles } from './styles';
 import { template } from './template';
 import type { TableCellState } from '../../../table-column/base/types';
 import type {
-    CellViewSlotRequestedEventDetail,
-    RowSlotRequestedEventDetail,
+    CellViewSlotRequestEventDetail,
+    RowSlotRequestEventDetail,
     TableActionMenuToggleEventDetail,
     TableFieldName,
     TableRecord,
@@ -236,15 +236,15 @@ export class TableRow<
         );
     }
 
-    public onCellViewSlotsRequested(column: TableColumn, event: CustomEvent<CellViewSlotRequestedEventDetail>): void {
+    public onCellViewSlotsRequest(column: TableColumn, event: CustomEvent<CellViewSlotRequestEventDetail>): void {
         event.stopImmediatePropagation();
-        const eventDetails: RowSlotRequestedEventDetail = {
+        const eventDetails: RowSlotRequestEventDetail = {
             // mkreis TODO: is this a valid non-null assertion?
             rowId: this.recordId!,
             columnInternalId: column.columnInternals.uniqueId,
             slots: event.detail.slots
         };
-        this.$emit('row-slots-requested', eventDetails);
+        this.$emit('row-slots-request', eventDetails);
     }
 
     private readonly removeAnimatingClass = (): void => {

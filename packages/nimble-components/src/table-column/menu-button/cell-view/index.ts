@@ -6,7 +6,7 @@ import { template } from './templates';
 import { styles } from './styles';
 import type { MenuButton } from '../../../menu-button';
 import type { MenuButtonToggleEventDetail } from '../../../menu-button/types';
-import type { CellViewSlotRequestedEventDetail } from '../../../table/types';
+import type { CellViewSlotRequestEventDetail } from '../../../table/types';
 import { menuSlotName } from '../types';
 
 declare global {
@@ -34,10 +34,10 @@ export class TableColumnMenuButtonCellView extends TableCellView<TableColumnMenu
     public onMenuButtonBeforeToggle(event: CustomEvent<MenuButtonToggleEventDetail>): void {
         const configuredSlotName = this.columnConfig?.menuSlot;
         if (configuredSlotName && event.detail.newState) {
-            const eventDetail: CellViewSlotRequestedEventDetail = {
+            const eventDetail: CellViewSlotRequestEventDetail = {
                 slots: [{ name: configuredSlotName, slot: menuSlotName }]
             };
-            this.$emit('cell-view-slots-requested', eventDetail);
+            this.$emit('cell-view-slots-request', eventDetail);
         }
     }
 }

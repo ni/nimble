@@ -216,14 +216,14 @@ export interface TableRowState<TData extends TableRecord = TableRecord> {
 /**
  * @internal
  */
-export interface CellViewSlotRequestedEventDetail {
+export interface CellViewSlotRequestEventDetail {
     slots: { slot: string, name: string }[];
 }
 
 /**
  * @internal
  */
-export interface RowSlotRequestedEventDetail {
+export interface RowSlotRequestEventDetail {
     columnInternalId: string;
     rowId: string;
     slots: { slot: string, name: string }[];
