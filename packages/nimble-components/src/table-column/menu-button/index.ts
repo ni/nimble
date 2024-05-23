@@ -9,9 +9,11 @@ import { ColumnValidator } from '../base/models/column-validator';
 import { mixinFractionalWidthColumnAPI } from '../mixins/fractional-width-column';
 import { TableColumn } from '../base';
 import { ButtonAppearance, ButtonAppearanceVariant } from '../../button/types';
-import { menuSlotName } from './types';
+import { MenuButtonColumnToggleEventDetail, menuSlotName } from './types';
 import { tableColumnTextGroupHeaderViewTag } from '../text/group-header-view';
 import { mixinGroupableColumnAPI } from '../mixins/groupable-column';
+import type { DelegatedEventEventDetails } from '../base/types';
+import type { MenuButtonToggleEventDetail } from '../../menu-button/types';
 
 export type TableColumnMenuButtonCellRecord = TableStringField<'value'>;
 
@@ -35,17 +37,27 @@ export class TableColumnMenuButton extends mixinFractionalWidthColumnAPI(
         TableColumn<TableColumnMenuButtonColumnConfig>
     )
 ) {
-    @attr
-    public appearance: ButtonAppearance = ButtonAppearance.outline;
+    @attr({ attribute: 'field-name' })
+    public fieldName?: string;
 
     @attr({ attribute: 'menu-slot' })
     public menuSlot?: string;
 
+    @attr
+    public appearance: ButtonAppearance = ButtonAppearance.outline;
+
     @attr({ attribute: 'appearance-variant' })
     public appearanceVariant: ButtonAppearanceVariant;
 
-    @attr({ attribute: 'field-name' })
-    public fieldName?: string;
+    public override connectedCallback(): void {
+        super.connectedCallback();
+        this.addEventListener('delegated-event', this.onDelegatedEvent);
+    }
+
+    public override disconnectedCallback(): void {
+        super.disconnectedCallback();
+        this.removeEventListener('delegated-event', this.onDelegatedEvent);
+    }
 
     protected override getColumnInternalsOptions(): ColumnInternalsOptions {
         return {
@@ -78,6 +90,23 @@ export class TableColumnMenuButton extends mixinFractionalWidthColumnAPI(
             menuSlot: this.menuSlot
         };
     }
+
+    private readonly onDelegatedEvent = (e: Event): void => {
+        const event = e as CustomEvent<DelegatedEventEventDetails>;
+        const originalEvent = event.detail.originalEvent;
+
+        if (originalEvent.type === 'beforetoggle' || originalEvent.type === 'toggle') {
+            const newEventName = `menu-button-${originalEvent.type}`;
+            const originalToggleEvent = originalEvent as CustomEvent<MenuButtonToggleEventDetail>;
+            const detail: MenuButtonColumnToggleEventDetail = {
+                recordId: event.detail.recordId,
+                newState: originalToggleEvent.detail.newState,
+                oldState: originalToggleEvent.detail.oldState,
+                originalEvent: originalToggleEvent
+            };
+            this.$emit(newEventName, detail);
+        }
+    };
 }
 
 const nimbleTableColumnMenuButton = TableColumnMenuButton.compose({

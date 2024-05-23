@@ -31,7 +31,7 @@ export class TableColumnMenuButtonCellView extends TableCellView<TableColumnMenu
         this.menuButton?.blur();
     }
 
-    public onMenuButtonBeforeToggle(event: CustomEvent<MenuButtonToggleEventDetail>): void {
+    public onMenuButtonBeforeToggle(event: CustomEvent<MenuButtonToggleEventDetail>): boolean {
         const configuredSlotName = this.columnConfig?.menuSlot;
         if (configuredSlotName && event.detail.newState) {
             const eventDetail: CellViewSlotRequestEventDetail = {
@@ -39,6 +39,7 @@ export class TableColumnMenuButtonCellView extends TableCellView<TableColumnMenu
             };
             this.$emit('cell-view-slots-request', eventDetail);
         }
+        return true;
     }
 }
 

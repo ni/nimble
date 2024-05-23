@@ -4,11 +4,10 @@ import { withActions } from '@storybook/addon-actions/decorator';
 import { tableTag } from '../../../../../nimble-components/src/table';
 import { tableColumnTextTag } from '../../../../../nimble-components/src/table-column/text';
 import { tableColumnMenuButtonTag } from '../../../../../nimble-components/src/table-column/menu-button';
+import type { MenuButtonColumnToggleEventDetail } from '../../../../../nimble-components/src/table-column/menu-button/types';
 import { ButtonAppearance, ButtonAppearanceVariant } from '../../../../../nimble-components/src/button/types';
 import { Menu, menuTag } from '../../../../../nimble-components/src/menu';
 import { menuItemTag } from '../../../../../nimble-components/src/menu-item';
-import type { DelegatedEventEventDetails } from '../../../../../nimble-components/src/table-column/base/types';
-import type { MenuButtonToggleEventDetail } from '../../../../../nimble-components/src/menu-button/types';
 import { TableRowSelectionMode } from '../../../../../nimble-components/src/table/types';
 import {
     SharedTableArgs,
@@ -23,7 +22,7 @@ const metadata: Meta<SharedTableArgs> = {
     decorators: [withActions<HtmlRenderer>],
     parameters: {
         actions: {
-            handles: sharedTableActions
+            handles: [...sharedTableActions, 'menu-button-toggle', 'menu-button-beforetoggle']
         }
     },
     // prettier-ignore
@@ -63,7 +62,7 @@ interface MenuButtonColumnTableArgs extends SharedTableArgs {
     fieldName: string;
     appearance: keyof typeof ButtonAppearance;
     appearanceVariant: keyof typeof ButtonAppearanceVariant;
-    updateMenuItems: (storyArgs: MenuButtonColumnTableArgs, e: CustomEvent<DelegatedEventEventDetails>) => void;
+    updateMenuItems: (storyArgs: MenuButtonColumnTableArgs, e: CustomEvent<MenuButtonColumnToggleEventDetail>) => void;
     menuRef: Menu;
 }
 
@@ -93,7 +92,7 @@ export const menuButtonColumn: StoryObj<MenuButtonColumnTableArgs> = {
                 appearance="${x => x.appearance}"
                 appearance-variant="${x => x.appearanceVariant}"
                 menu-slot="temp-menu"
-                @delegated-event="${(x, c) => x.updateMenuItems(x, c.event as CustomEvent<DelegatedEventEventDetails>)}"
+                @menu-button-beforetoggle="${(x, c) => x.updateMenuItems(x, c.event as CustomEvent<MenuButtonColumnToggleEventDetail>)}"
             >
             Menu Button Column
             </${tableColumnMenuButtonTag}>
@@ -137,20 +136,16 @@ export const menuButtonColumn: StoryObj<MenuButtonColumnTableArgs> = {
         appearance: 'outline',
         appearanceVariant: 'default',
         menuRef: undefined,
-        updateMenuItems: (storyArgs: MenuButtonColumnTableArgs, e: CustomEvent<DelegatedEventEventDetails>): void => {
-            const originalEvent = e.detail.originalEvent;
-            if (originalEvent.type === 'beforetoggle') {
-                const beforeToggleEvent = originalEvent as CustomEvent<MenuButtonToggleEventDetail>;
-                if (beforeToggleEvent.detail.newState) {
-                    const recordId = e.detail.recordId;
+        updateMenuItems: (storyArgs: MenuButtonColumnTableArgs, e: CustomEvent<MenuButtonColumnToggleEventDetail>): void => {
+            if (e.detail.newState) {
+                const recordId = e.detail.recordId;
 
-                    const item1 = document.createElement(menuItemTag);
-                    item1.textContent = `Item 1 (record ${recordId})`;
-                    const item2 = document.createElement(menuItemTag);
-                    item2.textContent = `Item 2 (record ${recordId})`;
+                const item1 = document.createElement(menuItemTag);
+                item1.textContent = `Item 1 (record ${recordId})`;
+                const item2 = document.createElement(menuItemTag);
+                item2.textContent = `Item 2 (record ${recordId})`;
 
-                    storyArgs.menuRef.replaceChildren(item1, item2);
-                }
+                storyArgs.menuRef.replaceChildren(item1, item2);
             }
         },
         ...sharedTableArgs(largeData)
