@@ -14,6 +14,7 @@ import {
 import { filterSearchLabel } from '../../label-provider/core/label-tokens';
 import { ListOptionGroup } from '../../list-option-group';
 import type { Button } from '../../button';
+import { SelectPageObjectInternal } from '../testing/select.pageobject.internal';
 
 const disabledOption = 'disabled';
 const disabledSelectedOption = 'disabled selected';
@@ -1430,14 +1431,14 @@ describe('Select', () => {
         let element: Select;
         let connect: () => Promise<void>;
         let disconnect: () => Promise<void>;
-        let pageObject: SelectPageObject;
+        let pageObject: SelectPageObjectInternal;
         const totalSlottedElements = 9;
 
         beforeEach(async () => {
             ({ element, connect, disconnect } = await setupWithGroups());
             element.style.width = '200px';
             await connect();
-            pageObject = new SelectPageObject(element);
+            pageObject = new SelectPageObjectInternal(element);
         });
 
         afterEach(async () => {
@@ -1453,8 +1454,7 @@ describe('Select', () => {
 
         it('clicking a group does not close the dropdown', async () => {
             await clickAndWaitForOpen(element);
-            const group = element.querySelector('[role="group"]');
-            group?.dispatchEvent(new MouseEvent('click'));
+            pageObject.clickGroup(0);
             expect(element.open).toBeTrue();
         });
 
@@ -1471,14 +1471,14 @@ describe('Select', () => {
         });
 
         it('can not select option in hidden group via arrow keys', () => {
-            const group = element.querySelector<ListOptionGroup>('[role="group"]')!;
+            const group = pageObject.getGroup(0);
             group.hidden = true;
             pageObject.pressArrowDownKey();
             expect(element.value).toBe('three');
         });
 
         it('when group becomes unhidden, can select option in group via arrow keys', () => {
-            const group = element.querySelector<ListOptionGroup>('[role="group"]')!;
+            const group = pageObject.getGroup(0);
             group.hidden = true;
             group.hidden = false;
             pageObject.pressArrowDownKey();
@@ -1487,9 +1487,7 @@ describe('Select', () => {
 
         it('all groups except last show bottom separator', async () => {
             await clickAndWaitForOpen(element);
-            const groups = Array.from(
-                element.querySelectorAll<ListOptionGroup>('[role="group"]')
-            );
+            const groups = pageObject.getAllGroups();
             expect(groups[0]!.showBottomSeparator).toBeTrue();
             expect(groups[1]!.showBottomSeparator).toBeTrue();
             expect(groups[2]!.showBottomSeparator).toBeFalse();
@@ -1497,8 +1495,7 @@ describe('Select', () => {
 
         it('list option before group causes group to show top separator', async () => {
             const listOption = new ListOption('Before Group', 'before-group');
-            const groups = element.querySelectorAll<ListOptionGroup>('[role="group"]');
-            const group = groups[0]!;
+            const group = pageObject.getGroup(0);
             group.before(listOption);
             await waitForUpdatesAsync();
             expect(group.showTopSeparator).toBeTrue();
@@ -1509,7 +1506,7 @@ describe('Select', () => {
                 'After Last Group',
                 'after-last-group'
             );
-            const groups = element.querySelectorAll<ListOptionGroup>('[role="group"]');
+            const groups = pageObject.getAllGroups();
             const lastGroup = groups[groups.length - 1]!;
             lastGroup.after(listOption);
             await waitForUpdatesAsync();
@@ -1530,6 +1527,29 @@ describe('Select', () => {
             expect(pageObject.isOptionVisible(hiddenOptionIndex)).toBeFalse();
         });
 
+        it('changing group to be hidden results in hidden options', async () => {
+            const group = pageObject.getGroup(0);
+            group.hidden = true;
+            await waitForUpdatesAsync();
+            await clickAndWaitForOpen(element);
+            // first two options should now be hidden
+            expect(pageObject.isOptionVisible(0)).toBeFalse();
+            expect(pageObject.isOptionVisible(1)).toBeFalse();
+        });
+
+        it('changing hidden group to be visible results in visible options', async () => {
+            const group = pageObject.getGroup(0);
+            group.hidden = true;
+            await waitForUpdatesAsync();
+            await clickAndWaitForOpen(element);
+            expect(pageObject.isOptionVisible(0)).toBeFalse();
+            group.hidden = false;
+            await waitForUpdatesAsync();
+            // first two options should now be visible
+            expect(pageObject.isOptionVisible(0)).toBeTrue();
+            expect(pageObject.isOptionVisible(1)).toBeTrue();
+        });
+
         describe('filtering', () => {
             beforeEach(async () => {
                 element.filterMode = FilterMode.standard;
@@ -1538,9 +1558,7 @@ describe('Select', () => {
 
             it('filter match on group label shows all options in matched group, as well as options in other groups that match filter', async () => {
                 await pageObject.openAndSetFilterText('Two');
-                const visibleElements = Array.from(
-                    element.querySelectorAll(':not([visually-hidden])') ?? []
-                );
+                const visibleElements = pageObject.getDropdownVisibleElements();
                 expect(visibleElements?.length).toBe(5);
                 expect(isListOptionGroup(visibleElements[0]!)).toBeTrue();
                 expect(
@@ -1561,28 +1579,24 @@ describe('Select', () => {
                 await pageObject.openAndSetFilterText('Two');
                 pageObject.clearFilter();
                 await waitForUpdatesAsync();
-                const visibleElements = Array.from(
-                    element.querySelectorAll(':not([visually-hidden])') ?? []
-                );
+                const visibleElements = pageObject.getDropdownVisibleElements();
                 expect(visibleElements?.length).toBe(totalSlottedElements);
             });
 
             it('filter matches diacritic characters in group label', async () => {
                 await pageObject.openAndSetFilterText('ó');
-                const visibleElements = Array.from(
-                    element.querySelectorAll(':not([visually-hidden])') ?? []
-                );
+                const visibleElements = pageObject.getDropdownVisibleElements();
                 expect(visibleElements?.length).toBe(totalSlottedElements); // 'o' is matched in all group labels
             });
 
             it('filter matches only first group, results in bottom separator being hidden', async () => {
                 await pageObject.openAndSetFilterText('One');
-                const group = element.querySelector<ListOptionGroup>('[role="group"]')!;
+                const group = pageObject.getGroup(0);
                 expect(group.showBottomSeparator).toBeFalse();
             });
 
             it('filtering will not match options inside hidden group', async () => {
-                const group = element.querySelector<ListOptionGroup>('[role="group"]')!;
+                const group = pageObject.getGroup(0);
                 group.hidden = true; // Hides 'Group One' which has 'Two' option
                 await pageObject.openAndSetFilterText('Two'); // Matches 'Group Two'
                 const filteredOptions = pageObject
@@ -1600,11 +1614,7 @@ describe('Select', () => {
         let pageObject: SelectPageObject;
 
         beforeEach(async () => {
-            ({ element, connect, disconnect } = await setup(
-                undefined,
-                false,
-                placeholderSelectedOption
-            ));
+            ({ element, connect, disconnect } = await setupWithGroups());
             element.style.width = '200px';
             element.filterMode = FilterMode.standard;
             await connect();
@@ -1620,6 +1630,22 @@ describe('Select', () => {
             pageObject.clickOptionWithDisplayText('Two');
             expect(element.value).toBe('two');
             expect(element.selectedIndex).toBe(1);
+        });
+
+        it('exercise getGroupLabels', async () => {
+            await clickAndWaitForOpen(element);
+            const groupLabels = pageObject.getGroupLabels();
+            expect(groupLabels).toEqual([
+                'Group One',
+                'Group Two',
+                'Gróup Three with diacritic and a really long label'
+            ]);
+        });
+
+        it('exercise getOptionLabels', async () => {
+            await clickAndWaitForOpen(element);
+            const optionLabels = pageObject.getGroupOptionLabels(0);
+            expect(optionLabels).toEqual(['One', 'Two']);
         });
     });
 });

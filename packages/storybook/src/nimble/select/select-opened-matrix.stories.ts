@@ -69,7 +69,10 @@ const component = ({
                     <span>Group 2 with a ridiculously long label that doesn't fit</span>
                 `)}
                 <${listOptionTag} value="4">Option 3</${listOptionTag}>
-            </${listOptionGroupTag}>         
+            </${listOptionGroupTag}>
+            <${listOptionGroupTag} label="Hidden Group" hidden>
+                <${listOptionTag} value="5">Hidden Option</${listOptionTag}>
+            </${listOptionGroupTag}>
             ${when(() => optionsOutsideGroup ?? false, html`
                 <${listOptionTag}>Option Not in Group</${listOptionTag}>
             `)}

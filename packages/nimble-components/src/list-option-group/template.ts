@@ -17,6 +17,7 @@ export const template = html<ListOptionGroup>`
         class="label-display"
         aria-hidden="true"
         title=${x => (x.hasOverflow && x.labelContent ? x.labelContent : null)}
+        @click="${(x, c) => x.clickHandler(c.event as MouseEvent)}"
     >
         ${when(x => (typeof x.label === 'string'), html<ListOptionGroup>`${x => x.label}`)} 
         <slot ${ref('labelSlot')}

@@ -1009,7 +1009,7 @@ export class Select
         this.updateListboxMaxHeightCssVariable();
     }
 
-    private isOptionHidden(option: ListOption): boolean {
+    private isOptionHiddenOrFilteredOut(option: ListOption): boolean {
         if (option.hidden) {
             return true;
         }
@@ -1052,7 +1052,7 @@ export class Select
                 groupOptions.forEach(option => {
                     option.visuallyHidden = groupMatchesFilter
                         ? false
-                        : this.isOptionHidden(option);
+                        : this.isOptionHiddenOrFilteredOut(option);
                     if (!option.visuallyHidden) {
                         filteredOptions.push(option);
                     }
@@ -1061,7 +1061,7 @@ export class Select
                 element.visuallyHidden = allOptionsHidden || element.hidden;
                 elementHidden = element.visuallyHidden;
             } else if (isNimbleListOption(element)) {
-                element.visuallyHidden = this.isOptionHidden(element);
+                element.visuallyHidden = this.isOptionHiddenOrFilteredOut(element);
                 elementHidden = element.visuallyHidden;
                 if (!element.visuallyHidden) {
                     filteredOptions.push(element);

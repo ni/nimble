@@ -11,7 +11,7 @@ declare global {
 }
 
 /**
- * A nimble-styled HTML listbox option
+ * A nimble-styled HTML listbox option group
  */
 export class ListOptionGroup extends FoundationElement {
     /**

@@ -30,12 +30,25 @@ describe('ListboxOptionGroup', () => {
         await disconnect();
     });
 
-    it('if label attribute is undefined, and slotted label is provided, labelContent is set to slotted label', async () => {
+    it('if label attribute is undefined, and slotted label is provided as a span, labelContent is set to slotted label', async () => {
         const { element, connect, disconnect } = await setup();
         await connect();
         element.label = undefined;
         const slottedLabel = document.createElement('span');
         slottedLabel.textContent = 'Slotted Label';
+        element.appendChild(slottedLabel);
+        await waitForUpdatesAsync();
+
+        expect(element.labelContent).toBe('Slotted Label');
+
+        await disconnect();
+    });
+
+    it('if label attribute is undefined, and slotted label is provided as text node, labelContent is set to slotted label', async () => {
+        const { element, connect, disconnect } = await setup();
+        await connect();
+        element.label = undefined;
+        const slottedLabel = document.createTextNode('Slotted Label');
         element.appendChild(slottedLabel);
         await waitForUpdatesAsync();
 
@@ -179,6 +192,41 @@ describe('ListboxOptionGroup', () => {
             dispatchEventToListOptionGroup(new MouseEvent('mouseover'));
             await waitForUpdatesAsync();
             dispatchEventToListOptionGroup(new MouseEvent('mouseout'));
+            await waitForUpdatesAsync();
+            expect(getListOptionGroupTitle()).toBe('');
+        });
+
+        it('updating slotted label updates title', async () => {
+            const groupLabel = 'a very long value that should get ellipsized due to not fitting within the allocated width';
+            element.label = undefined;
+            const slottedLabel = document.createElement('span');
+            slottedLabel.textContent = groupLabel;
+            element.appendChild(slottedLabel);
+            await waitForUpdatesAsync();
+            dispatchEventToListOptionGroup(new MouseEvent('mouseover'));
+            await waitForUpdatesAsync();
+            expect(getListOptionGroupTitle()).toEqual(groupLabel);
+            dispatchEventToListOptionGroup(new MouseEvent('mouseout'));
+            await waitForUpdatesAsync();
+            const newGroupLabel = 'a different very long value that should get ellipsized due to not fitting within the allocated width';
+            slottedLabel.textContent = newGroupLabel;
+            dispatchEventToListOptionGroup(new MouseEvent('mouseover'));
+            await waitForUpdatesAsync();
+            expect(getListOptionGroupTitle()).toEqual(newGroupLabel);
+        });
+
+        it('removing slotted label removes title', async () => {
+            const groupLabel = 'a very long value that should get ellipsized due to not fitting within the allocated width';
+            element.label = undefined;
+            const slottedLabel = document.createElement('span');
+            slottedLabel.textContent = groupLabel;
+            element.appendChild(slottedLabel);
+            await waitForUpdatesAsync();
+            dispatchEventToListOptionGroup(new MouseEvent('mouseover'));
+            await waitForUpdatesAsync();
+            expect(getListOptionGroupTitle()).toEqual(groupLabel);
+            dispatchEventToListOptionGroup(new MouseEvent('mouseout'));
+            element.removeChild(slottedLabel);
             await waitForUpdatesAsync();
             expect(getListOptionGroupTitle()).toBe('');
         });
