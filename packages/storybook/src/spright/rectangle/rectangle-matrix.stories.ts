@@ -1,6 +1,6 @@
 import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate } from '@microsoft/fast-element';
-import { rectangleTag } from '@ni/spright-components/dist/esm/rectangle';
+import { rectangleTag } from '../../../../spright-components/src/rectangle';
 import {
     createMatrix,
     sharedMatrixParameters,

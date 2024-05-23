@@ -9,7 +9,9 @@ import {
 import TargetDocs from '../patterns/anchor/target-docs.mdx';
 import ContentHiddenDocs from '../patterns/button/content-hidden-docs.mdx';
 import StylingDocs from '../patterns/button/styling-docs.mdx';
-import { anchorButtonTag } from '@ni/nimble-components/dist/esm/anchor-button';
+import ComponentApisLink from '../../docs/component-apis-link.mdx';
+import { anchorButtonTag } from '../../../../nimble-components/src/anchor-button';
+import { buttonTag } from '../../../../nimble-components/src/button';
 import * as anchorButtonStories from './anchor-button.stories';
 
 <Meta of={anchorButtonStories} />
@@ -17,8 +19,17 @@ import * as anchorButtonStories from './anchor-button.stories';
 
 An anchor button is a component with the visual appearance of a button, but it navigates like an anchor/link when pressed.
 
+If you want a button that triggers an action or event, use the <Tag name={buttonTag}/> instead.
+
 <Canvas of={anchorButtonStories.outlineAnchorButton} />
+
+## API
+
 <Controls of={anchorButtonStories.outlineAnchorButton} />
+
+<ComponentApisLink />
+
+## Styling
 
 <StylingDocs components={{ Button: anchorButtonTag }} />
 

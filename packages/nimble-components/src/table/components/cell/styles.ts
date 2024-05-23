@@ -1,5 +1,5 @@
 import { css } from '@microsoft/fast-element';
-import { display } from '@microsoft/fast-foundation';
+import { display } from '../../../utilities/style/display';
 import {
     controlHeight,
     controlSlimHeight,
@@ -24,8 +24,6 @@ export const styles = css`
 
     .cell-view {
         overflow: hidden;
-        display: flex;
-        align-items: center;
     }
 
     .action-menu {

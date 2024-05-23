@@ -5,8 +5,8 @@ import {
     bodyFont,
     bodyFontColor,
     borderHoverColor
-} from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
-import { anchoredRegionTag } from '@ni/nimble-components/dist/esm/anchored-region';
+} from '../../../../nimble-components/src/theme-provider/design-tokens';
+import { anchoredRegionTag } from '../../../../nimble-components/src/anchored-region';
 import { createUserSelectedThemeStory } from '../../utilities/storybook';
 
 interface AnchoredRegionArgs {

@@ -7,20 +7,20 @@ import {
     controlLabelFontColor,
     mediumPadding,
     standardPadding
-} from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
-import { anchorTag } from '@ni/nimble-components/dist/esm/anchor';
-import { anchorButtonTag } from '@ni/nimble-components/dist/esm/anchor-button';
-import { anchorTabsTag } from '@ni/nimble-components/dist/esm/anchor-tabs';
-import { anchorTabTag } from '@ni/nimble-components/dist/esm/anchor-tab';
-import { breadcrumbTag } from '@ni/nimble-components/dist/esm/breadcrumb';
-import { breadcrumbItemTag } from '@ni/nimble-components/dist/esm/breadcrumb-item';
-import { RichTextViewer, richTextViewerTag } from '@ni/nimble-components/dist/esm/rich-text/viewer';
-import { anchorTreeItemTag } from '@ni/nimble-components/dist/esm/anchor-tree-item';
-import { treeViewTag } from '@ni/nimble-components/dist/esm/tree-view';
-import { anchorMenuItemTag } from '@ni/nimble-components/dist/esm/anchor-menu-item';
-import { menuTag } from '@ni/nimble-components/dist/esm/menu';
-import { Table, tableTag } from '@ni/nimble-components/dist/esm/table';
-import { tableColumnAnchorTag } from '@ni/nimble-components/dist/esm/table-column/anchor';
+} from '../../../../../nimble-components/src/theme-provider/design-tokens';
+import { anchorTag } from '../../../../../nimble-components/src/anchor';
+import { anchorButtonTag } from '../../../../../nimble-components/src/anchor-button';
+import { anchorTabsTag } from '../../../../../nimble-components/src/anchor-tabs';
+import { anchorTabTag } from '../../../../../nimble-components/src/anchor-tab';
+import { breadcrumbTag } from '../../../../../nimble-components/src/breadcrumb';
+import { breadcrumbItemTag } from '../../../../../nimble-components/src/breadcrumb-item';
+import { RichTextViewer, richTextViewerTag } from '../../../../../nimble-components/src/rich-text/viewer';
+import { anchorTreeItemTag } from '../../../../../nimble-components/src/anchor-tree-item';
+import { treeViewTag } from '../../../../../nimble-components/src/tree-view';
+import { anchorMenuItemTag } from '../../../../../nimble-components/src/anchor-menu-item';
+import { menuTag } from '../../../../../nimble-components/src/menu';
+import { Table, tableTag } from '../../../../../nimble-components/src/table';
+import { tableColumnAnchorTag } from '../../../../../nimble-components/src/table-column/anchor';
 import { createUserSelectedThemeStory } from '../../../utilities/storybook';
 
 interface AnchorPatternsArgs {

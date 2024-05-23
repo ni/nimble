@@ -1,8 +1,8 @@
 import { Canvas, Meta, Controls, Title } from '@storybook/blocks';
 import { NimbleTableColumnDateText } from './table-column-date-text.react';
 import * as tableColumnDateTextStories from './table-column-date-text.stories';
-import { tableColumnDateTextTag } from '@ni/nimble-components/dist/esm/table-column/date-text';
-import { tableTag } from '@ni/nimble-components/dist/esm/table';
+import { tableColumnDateTextTag } from '../../../../../nimble-components/src/table-column/date-text';
+import { tableTag } from '../../../../../nimble-components/src/table';
 import NoNullAndUndefinedBestPractice from '../../patterns/table-column/no-null-and-undefined-best-practice-docs.mdx';
 
 <Meta of={tableColumnDateTextStories} />
@@ -13,9 +13,7 @@ The <Tag name={tableColumnDateTextTag}/> column is used to display date-time fie
 <Canvas of={tableColumnDateTextStories.dateTextColumn} />
 <Controls of={tableColumnDateTextStories.dateTextColumn} />
 
-{/* ## Appearances */}
-
-{/* ## Appearance Variants */}
+{/* ## Styling */}
 
 ## Usage
 

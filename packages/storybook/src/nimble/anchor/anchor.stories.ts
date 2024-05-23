@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/html';
 import { html } from '@microsoft/fast-element';
-import { bodyFont } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
-import { anchorTag } from '@ni/nimble-components/dist/esm/anchor';
-import { AnchorAppearance } from '@ni/nimble-components/dist/esm/anchor/types';
-import { createUserSelectedThemeStory } from '../../utilities/storybook';
+import { bodyFont, bodyFontColor } from '../../../../nimble-components/src/theme-provider/design-tokens';
+import { anchorTag } from '../../../../nimble-components/src/anchor';
+import { AnchorAppearance } from '../../../../nimble-components/src/anchor/types';
+import { apiCategory, createUserSelectedThemeStory } from '../../utilities/storybook';
 import { hrefDescription } from '../patterns/anchor/anchor-docs';
 
 interface AnchorArgs {
@@ -24,6 +24,7 @@ const metadata: Meta<AnchorArgs> = {
         <style class='code-hide'>
             .anchor-container {
                 font: var(${bodyFont.cssCustomProperty});
+                color: var(${bodyFontColor.cssCustomProperty});
                 outline: none;
             }
         </style>
@@ -35,23 +36,32 @@ const metadata: Meta<AnchorArgs> = {
         >${x => x.label}</${anchorTag}> to navigate.</span>
     `),
     argTypes: {
+        label: {
+            name: 'default',
+            description: 'The text to display in the anchor.',
+            table: { category: apiCategory.slots }
+        },
         href: {
-            description: hrefDescription({ componentName: 'anchor', includeDisable: true })
+            description: hrefDescription({ componentName: 'anchor', includeDisable: true }),
+            table: { category: apiCategory.attributes }
         },
         underlineHidden: {
             name: 'underline-hidden',
             description:
-                'Causes the underline to be hidden except on hover. Set this for anchors that are not part of blocks of text.'
+                'Causes the underline to be hidden except on hover. Set this for anchors that are not part of blocks of text.',
+            table: { category: apiCategory.attributes }
         },
         appearance: {
             options: Object.keys(AnchorAppearance),
             control: { type: 'radio' },
             description:
-                'Set to `prominent` to make the anchor appear in a different color than normal text.'
+                'Set to `prominent` to make the anchor appear in a different color than normal text. This has no effect under the Color theme.',
+            table: { category: apiCategory.attributes }
         },
         contenteditable: {
             description:
-                'Set this to the string "true" (or an empty string)  when the anchor is within an editable region (i.e. element/hierarchy with [contenteditable](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/contenteditable)). Whereas native elements inherit their `contenteditable` value by default, the `nimble-anchor` requires this attribute be explicitly set.'
+                'Set this to the string "true" (or an empty string)  when the anchor is within an editable region (i.e. element/hierarchy with [contenteditable](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/contenteditable)). Whereas native elements inherit their `contenteditable` value by default, the `nimble-anchor` requires this attribute be explicitly set.',
+            table: { category: apiCategory.attributes }
         }
     },
     args: {

@@ -1,9 +1,9 @@
 import { ViewTemplate, html } from '@microsoft/fast-element';
 import type { Meta, StoryFn } from '@storybook/html';
-import { listOptionTag } from '@ni/nimble-components/dist/esm/list-option';
-import { numberFieldTag } from '@ni/nimble-components/dist/esm/number-field';
-import { selectTag } from '@ni/nimble-components/dist/esm/select';
-import { cardTag } from '@ni/nimble-components/dist/esm/card';
+import { listOptionTag } from '../../../../nimble-components/src/list-option';
+import { numberFieldTag } from '../../../../nimble-components/src/number-field';
+import { selectTag } from '../../../../nimble-components/src/select';
+import { cardTag } from '../../../../nimble-components/src/card';
 import {
     createMatrix,
     sharedMatrixParameters,

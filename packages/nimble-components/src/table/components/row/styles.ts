@@ -1,6 +1,6 @@
 import { css } from '@microsoft/fast-element';
-import { display } from '@microsoft/fast-foundation';
 import { White } from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
+import { display } from '../../../utilities/style/display';
 import {
     applicationBackgroundColor,
     borderWidth,
@@ -18,8 +18,8 @@ import { themeBehavior } from '../../../utilities/style/theme';
 import { styles as expandCollapseStyles } from '../../../patterns/expand-collapse/styles';
 
 export const styles = css`
-    ${expandCollapseStyles}
     ${display('flex')}
+    ${expandCollapseStyles}
 
     :host {
         width: fit-content;

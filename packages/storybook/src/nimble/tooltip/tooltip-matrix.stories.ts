@@ -4,9 +4,9 @@ import {
     bodyFont,
     bodyFontColor,
     borderColor
-} from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
-import { tooltipTag } from '@ni/nimble-components/dist/esm/tooltip';
-import { TooltipSeverity } from '@ni/nimble-components/dist/esm/tooltip/types';
+} from '../../../../nimble-components/src/theme-provider/design-tokens';
+import { tooltipTag } from '../../../../nimble-components/src/tooltip';
+import { TooltipSeverity } from '../../../../nimble-components/src/tooltip/types';
 import {
     createMatrix,
     sharedMatrixParameters

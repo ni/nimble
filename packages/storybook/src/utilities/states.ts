@@ -1,4 +1,4 @@
-import { Theme } from '@ni/nimble-components/dist/esm/theme-provider/types';
+import { Theme } from '../../../nimble-components/src/theme-provider/types';
 
 export const backgroundStates = [
     {

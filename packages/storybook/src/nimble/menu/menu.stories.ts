@@ -1,18 +1,18 @@
 import { html, repeat, when } from '@microsoft/fast-element';
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html';
-import { iconArrowLeftFromLineTag } from '@ni/nimble-components/dist/esm/icons/arrow-left-from-line';
-import { iconUserTag } from '@ni/nimble-components/dist/esm/icons/user';
-import { menuItemTag } from '@ni/nimble-components/dist/esm/menu-item';
-import { anchorMenuItemTag } from '@ni/nimble-components/dist/esm/anchor-menu-item';
+import { iconArrowLeftFromLineTag } from '../../../../nimble-components/src/icons/arrow-left-from-line';
+import { iconUserTag } from '../../../../nimble-components/src/icons/user';
+import { menuItemTag } from '../../../../nimble-components/src/menu-item';
+import { anchorMenuItemTag } from '../../../../nimble-components/src/anchor-menu-item';
 import {
     bodyEmphasizedFont,
     bodyEmphasizedFontColor,
     bodyEmphasizedFontWeight,
     bodyFont,
     bodyFontColor
-} from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
-import { menuTag } from '@ni/nimble-components/dist/esm/menu';
+} from '../../../../nimble-components/src/theme-provider/design-tokens';
+import { menuTag } from '../../../../nimble-components/src/menu';
 import { apiCategory, createUserSelectedThemeStory, disabledDescription, iconDescription, textContentDescription } from '../../utilities/storybook';
 import { hrefDescription } from '../patterns/anchor/anchor-docs';
 
@@ -27,7 +27,7 @@ interface MenuItemArgsBase {
 }
 
 interface MenuItemArgs extends MenuItemArgsBase {
-    change: () => void;
+    change: undefined;
 }
 
 interface AnchorMenuItemArgs {

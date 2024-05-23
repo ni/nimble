@@ -5,7 +5,7 @@ import { transformSource } from './transformSource';
 import {
     backgroundStates,
     defaultBackgroundState
-} from '../dist/esm/utilities/states';
+} from '../src/utilities/states.ts';
 import {
     Container,
     Column,
@@ -104,3 +104,6 @@ export default {
 configureActions({
     depth: 1
 });
+
+// Update the GUID on this line to trigger a turbosnap full rebuild: 354fdf0e-bdb4-4dd9-a6e4-21bf71c6efe6
+// See https://www.chromatic.com/docs/turbosnap/#full-rebuilds
