@@ -116,7 +116,8 @@ const metadata: Meta<TextAreaArgs> = {
         },
         change: {
             description: 'Event emitted when the user commits a new value to the text area.',
-            table: { category: apiCategory.events }
+            table: { category: apiCategory.events },
+            control: false
         }
     },
     args: {

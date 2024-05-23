@@ -100,7 +100,8 @@ export const radioGroup: StoryObj<RadioGroupArgs> = {
         },
         change: {
             description: 'Event emitted when the user selects a new value in the radio group.',
-            table: { category: apiCategory.events }
+            table: { category: apiCategory.events },
+            control: false
         }
     }
 };

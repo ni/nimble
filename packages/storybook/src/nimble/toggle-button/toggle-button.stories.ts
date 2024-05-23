@@ -83,7 +83,8 @@ const metadata: Meta<ToggleButtonArgs> = {
         },
         change: {
             description: 'Fires when the toggle button is pressed via mouse or keyboard.',
-            table: { category: apiCategory.events }
+            table: { category: apiCategory.events },
+            control: false
         }
     },
     // prettier-ignore

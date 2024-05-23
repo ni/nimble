@@ -54,7 +54,8 @@ The \`indeterminate\` state is not automatically changed when the user changes t
         },
         change: {
             description: 'Event emitted when the user checks or unchecks the checkbox.',
-            table: { category: apiCategory.events }
+            table: { category: apiCategory.events },
+            control: false
         }
     },
     args: {

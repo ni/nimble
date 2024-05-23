@@ -129,11 +129,13 @@ const metadata: Meta<TextFieldArgs> = {
         },
         change: {
             description: 'Event emitted when the user commits a new value to the text field.',
-            table: { category: apiCategory.events }
+            table: { category: apiCategory.events },
+            control: false
         },
         input: {
             description: 'Event emitted on each user keystroke within the text field.',
-            table: { category: apiCategory.events }
+            table: { category: apiCategory.events },
+            control: false
         }
     },
     args: {

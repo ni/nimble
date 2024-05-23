@@ -177,11 +177,13 @@ const metadata: Meta<ComboboxArgs> = {
         },
         change: {
             description: 'Emitted when the user changes the selected option.',
-            table: { category: apiCategory.events }
+            table: { category: apiCategory.events },
+            control: false
         },
         input: {
             description: 'Emitted when the user types in the combobox. Use this event if you need to update the list of options based on the text input.',
-            table: { category: apiCategory.events }
+            table: { category: apiCategory.events },
+            control: false
         }
     },
     args: {
