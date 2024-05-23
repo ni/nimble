@@ -230,5 +230,20 @@ describe('ListboxOptionGroup', () => {
             await waitForUpdatesAsync();
             expect(getListOptionGroupTitle()).toBe('');
         });
+
+        it('when label attribute is set, updating slotted label does not update display', async () => {
+            const groupLabel = 'a very long value that should get ellipsized due to not fitting within the allocated width';
+            element.label = groupLabel;
+            const slottedLabel = document.createElement('span');
+            slottedLabel.textContent = 'different value';
+            element.appendChild(slottedLabel);
+            await waitForUpdatesAsync();
+            expect(element.labelSlot.getAttribute('class')).toContain('hidden');
+            expect(
+                element.shadowRoot
+                    ?.querySelector('.label-display')!
+                    .textContent?.trim()
+            ).toEqual(groupLabel);
+        });
     });
 });
