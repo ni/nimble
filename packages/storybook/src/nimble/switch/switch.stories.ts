@@ -58,7 +58,8 @@ const metadata: Meta<SwitchArgs> = {
         },
         change: {
             description: 'Event emitted when the user toggles the switch.',
-            table: { category: apiCategory.events }
+            table: { category: apiCategory.events },
+            control: false
         }
     },
     args: {

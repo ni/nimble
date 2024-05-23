@@ -193,7 +193,8 @@ const metadata: Meta<SelectArgs> = {
         },
         change: {
             description: 'Emitted when the user changes the selected option.',
-            table: { category: apiCategory.events }
+            table: { category: apiCategory.events },
+            control: false
         }
     },
     args: {
