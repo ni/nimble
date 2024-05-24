@@ -29,6 +29,7 @@ ListboxOptionOptions
         .filter(Boolean)
         .join(' ')}"
         role="option"
+        slot="options"
     >
         ${startSlotTemplate(context, definition)}
         <span

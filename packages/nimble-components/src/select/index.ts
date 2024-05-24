@@ -72,6 +72,10 @@ const isOptionPlaceholder = (el: ListboxOption): boolean => {
     return el.disabled && el.hidden;
 };
 
+const isOptionOrGroupVisible = (el: ListOption | ListOptionGroup): boolean => {
+    return !el.visuallyHidden && !el.hidden;
+};
+
 /**
  * A nimble-styled HTML select.
  */
@@ -305,6 +309,7 @@ export class Select
             .forEach(el => {
                 const notifier = Observable.getNotifier(el);
                 notifier.unsubscribe(this, 'hidden');
+                notifier.unsubscribe(this, 'visuallyHidden');
             });
         const options = this.getSlottedOptions(next);
         super.slottedOptionsChanged(prev, options);
@@ -318,8 +323,10 @@ export class Select
         next
             ?.filter(el => el instanceof ListOptionGroup)
             .forEach(el => {
+                this.updateAdjacentSeparatorState(el as ListOptionGroup);
                 const notifier = Observable.getNotifier(el);
                 notifier.subscribe(this, 'hidden');
+                notifier.subscribe(this, 'visuallyHidden');
             });
         this.setProxyOptions();
         this.updateValue();
@@ -401,8 +408,15 @@ export class Select
                         e.visuallyHidden = sourceElement.hidden;
                     });
                     this.filterOptions();
+                    this.updateAdjacentSeparatorState(sourceElement);
                 }
                 this.updateDisplayValue();
+                break;
+            }
+            case 'visuallyHidden': {
+                if (isNimbleListOptionGroup(sourceElement)) {
+                    this.updateAdjacentSeparatorState(sourceElement);
+                }
                 break;
             }
             case 'disabled': {
@@ -1009,6 +1023,60 @@ export class Select
         this.updateListboxMaxHeightCssVariable();
     }
 
+    private updateAdjacentSeparatorState(group: ListOptionGroup): void {
+        const previousElement = this.getPreviousVisibleOptionOrGroup(group);
+        const nextElement = this.getNextVisibleOptionOrGroup(group);
+        group.showBottomSeparator = nextElement !== null;
+        if (isOptionOrGroupVisible(group)) {
+            group.showTopSeparator = previousElement instanceof ListOption;
+            if (previousElement instanceof ListOptionGroup) {
+                previousElement.showBottomSeparator = true;
+            }
+        } else {
+            if (previousElement instanceof ListOptionGroup) {
+                previousElement.showBottomSeparator = nextElement !== null;
+            }
+
+            if (nextElement instanceof ListOptionGroup) {
+                nextElement.showTopSeparator = previousElement instanceof ListOption;
+            }
+        }
+    }
+
+    private getPreviousVisibleOptionOrGroup(
+        element: HTMLElement
+    ): ListOption | ListOptionGroup | null {
+        let previousElement = element.previousElementSibling;
+        while (previousElement) {
+            if (
+                (previousElement instanceof ListOption
+                    || previousElement instanceof ListOptionGroup)
+                && isOptionOrGroupVisible(previousElement)
+            ) {
+                return previousElement;
+            }
+            previousElement = previousElement.previousElementSibling;
+        }
+        return null;
+    }
+
+    private getNextVisibleOptionOrGroup(
+        element: HTMLElement
+    ): ListOption | ListOptionGroup | null {
+        let nextElement = element.nextElementSibling;
+        while (nextElement) {
+            if (
+                (nextElement instanceof ListOption
+                    || nextElement instanceof ListOptionGroup)
+                && isOptionOrGroupVisible(nextElement)
+            ) {
+                return nextElement;
+            }
+            nextElement = nextElement.nextElementSibling;
+        }
+        return null;
+    }
+
     private isOptionHiddenOrFilteredOut(option: ListOption): boolean {
         if (option.hidden) {
             return true;
@@ -1035,20 +1103,15 @@ export class Select
         }
 
         const filteredOptions: ListOption[] = [];
-        let lastVisibleElement: Element | undefined;
         for (const element of this.slottedOptions) {
-            let elementHidden = false;
-
             if (element instanceof ListOptionGroup) {
                 if (element.hidden) {
-                    elementHidden = true;
                     break; // no need to process hidden groups
                 }
                 const groupOptions = this.getGroupOptions(element);
                 const groupMatchesFilter = this.filterMatchesText(
                     element.labelContent
                 );
-                let allOptionsHidden = true;
                 groupOptions.forEach(option => {
                     option.visuallyHidden = groupMatchesFilter
                         ? false
@@ -1056,29 +1119,12 @@ export class Select
                     if (!option.visuallyHidden) {
                         filteredOptions.push(option);
                     }
-                    allOptionsHidden = option.visuallyHidden && allOptionsHidden;
                 });
-                element.visuallyHidden = allOptionsHidden || element.hidden;
-                elementHidden = element.visuallyHidden;
             } else if (isNimbleListOption(element)) {
                 element.visuallyHidden = this.isOptionHiddenOrFilteredOut(element);
-                elementHidden = element.visuallyHidden;
                 if (!element.visuallyHidden) {
                     filteredOptions.push(element);
                 }
-            }
-
-            if (!elementHidden) {
-                if (lastVisibleElement instanceof ListOptionGroup) {
-                    lastVisibleElement.showBottomSeparator = true;
-                }
-
-                if (element instanceof ListOptionGroup) {
-                    element.showTopSeparator = lastVisibleElement instanceof ListOption;
-                    element.showBottomSeparator = false;
-                }
-
-                lastVisibleElement = element;
             }
         }
 

@@ -1,4 +1,5 @@
 import { html } from '@microsoft/fast-element';
+import { parameterizeSpec } from '@ni/jasmine-parameterized';
 import { ListOptionGroup, listOptionGroupTag } from '..';
 import { fixture, type Fixture } from '../../utilities/tests/fixture';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
@@ -103,6 +104,171 @@ describe('ListboxOptionGroup', () => {
         await disconnect();
     });
 
+    it('group is visually hidden with no options', async () => {
+        const { element, connect, disconnect } = await setup();
+        await connect();
+        expect(element.visuallyHidden).toBe(true);
+        await disconnect();
+    });
+
+    it('group is visually hidden with no visible options', async () => {
+        const { element, connect, disconnect } = await setup();
+        await connect();
+        const option = document.createElement('nimble-list-option');
+        option.hidden = true;
+        element.appendChild(option);
+        const option2 = document.createElement('nimble-list-option');
+        option2.visuallyHidden = true;
+        element.appendChild(option2);
+        await waitForUpdatesAsync();
+        expect(element.visuallyHidden).toBe(true);
+        await disconnect();
+    });
+
+    it('group is visible with visible options', async () => {
+        const { element, connect, disconnect } = await setup();
+        await connect();
+        const option = document.createElement('nimble-list-option');
+        element.appendChild(option);
+        await waitForUpdatesAsync();
+        expect(element.visuallyHidden).toBe(false);
+        await disconnect();
+    });
+
+    it('group becomes hidden when all options are hidden', async () => {
+        const { element, connect, disconnect } = await setup();
+        await connect();
+        const option = document.createElement('nimble-list-option');
+        element.appendChild(option);
+        await waitForUpdatesAsync();
+        expect(element.visuallyHidden).toBe(false);
+
+        element.removeChild(option);
+        await waitForUpdatesAsync();
+        expect(element.visuallyHidden).toBe(true);
+        await disconnect();
+    });
+
+    it('option that is removed and then updates its hidden state does not update group', async () => {
+        const { element, connect, disconnect } = await setup();
+        await connect();
+        const option1 = document.createElement('nimble-list-option');
+        option1.hidden = true;
+        element.appendChild(option1);
+        const option2 = document.createElement('nimble-list-option');
+        option2.hidden = true;
+        element.appendChild(option2);
+        await waitForUpdatesAsync();
+        expect(element.visuallyHidden).toBe(true);
+
+        element.removeChild(option1);
+        await waitForUpdatesAsync();
+        option1.hidden = false;
+        expect(element.visuallyHidden).toBe(true);
+        await disconnect();
+    });
+
+    const hideShowOptionTestCases = [
+        {
+            name: 'all options hidden, then one option is made visible, then group is visible',
+            optionInitialHiddenStates: [true, true, true],
+            optionIndicesToToggle: [0],
+            optionIndicesToRemove: [],
+            optionHiddenStatesAfter: [false, true, true],
+            groupVisuallyHiddenAfter: false
+        },
+        {
+            name: 'one option is visible, then that option is hidden, then group is hidden',
+            optionInitialHiddenStates: [false, true, true],
+            optionIndicesToToggle: [0],
+            optionIndicesToRemove: [],
+            optionHiddenStatesAfter: [true, true, true],
+            groupVisuallyHiddenAfter: true
+        },
+        {
+            name: 'one option is hidden, then that option is visible, then group remains visible',
+            optionInitialHiddenStates: [true, false, false],
+            optionIndicesToToggle: [0],
+            optionIndicesToRemove: [],
+            optionHiddenStatesAfter: [false, false, false],
+            groupVisuallyHiddenAfter: false
+        },
+        {
+            name: 'all options visible, then one option is hidden, then group remains visible',
+            optionInitialHiddenStates: [false, false, false],
+            optionIndicesToToggle: [0],
+            optionIndicesToRemove: [],
+            optionHiddenStatesAfter: [true, false, false],
+            groupVisuallyHiddenAfter: false
+        },
+        {
+            name: 'all options visible, then all options are hidden, then group is hidden',
+            optionInitialHiddenStates: [false, false, false],
+            optionIndicesToToggle: [0, 1, 2],
+            optionIndicesToRemove: [],
+            optionHiddenStatesAfter: [true, true, true],
+            groupVisuallyHiddenAfter: true
+        },
+        {
+            name: 'all options visible, then all options are removed, then group is hidden',
+            optionInitialHiddenStates: [false, false, false],
+            optionIndicesToToggle: [],
+            optionIndicesToRemove: [0, 1, 2],
+            optionHiddenStatesAfter: [],
+            groupVisuallyHiddenAfter: true
+        },
+        {
+            name: 'all options hidden, then one option is made visible, then that option is removed, then group is hidden',
+            optionInitialHiddenStates: [true, true, true],
+            optionIndicesToToggle: [0],
+            optionIndicesToRemove: [0],
+            optionHiddenStatesAfter: [true, true],
+            groupVisuallyHiddenAfter: true
+        },
+        {
+            name: 'all options visible, then one option is made hidden, then that option is removed, then group remains visible',
+            optionInitialHiddenStates: [false, false, false],
+            optionIndicesToToggle: [0],
+            optionIndicesToRemove: [0],
+            optionHiddenStatesAfter: [false, false],
+            groupVisuallyHiddenAfter: false
+        }
+    ];
+    parameterizeSpec(hideShowOptionTestCases, (spec, name, value) => {
+        spec(name, async () => {
+            const { element, connect, disconnect } = await setup();
+            await connect();
+            const option1 = document.createElement('nimble-list-option');
+            option1.hidden = value.optionInitialHiddenStates[0]!;
+            element.appendChild(option1);
+            const option2 = document.createElement('nimble-list-option');
+            option2.hidden = value.optionInitialHiddenStates[1]!;
+            element.appendChild(option2);
+            const option3 = document.createElement('nimble-list-option');
+            option3.hidden = value.optionInitialHiddenStates[2]!;
+            element.appendChild(option3);
+            await waitForUpdatesAsync();
+            let options = element.querySelectorAll('nimble-list-option');
+            value.optionIndicesToRemove.forEach(index => {
+                element.removeChild(options[index]!);
+            });
+            value.optionIndicesToToggle.forEach(index => {
+                options[index]!.hidden = !options[index]!.hidden;
+            });
+            await waitForUpdatesAsync();
+
+            options = element.querySelectorAll('nimble-list-option');
+            options.forEach((option, index) => {
+                expect(option.hidden).toBe(
+                    value.optionHiddenStatesAfter[index]!
+                );
+            });
+            expect(element.visuallyHidden).toBe(value.groupVisuallyHiddenAfter);
+
+            await disconnect();
+        });
+    });
+
     describe('title overflow', () => {
         let element: ListOptionGroup;
         let connect: () => Promise<void>;
@@ -126,6 +292,9 @@ describe('ListboxOptionGroup', () => {
 
         beforeEach(async () => {
             ({ element, connect, disconnect } = await setup());
+            const option = document.createElement('nimble-list-option');
+            option.textContent = 'Option 1';
+            element.appendChild(option);
             await connect();
         });
 

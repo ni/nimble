@@ -12,6 +12,7 @@ export const template = html<ListOptionGroup>`
 <template
     role="group"
     aria-label="${x => x.labelContent}"
+    slot="options"
 >
     <span ${overflow('hasOverflow')} 
         class="label-display"
@@ -22,15 +23,11 @@ export const template = html<ListOptionGroup>`
         ${when(x => (typeof x.label === 'string'), html<ListOptionGroup>`${x => x.label}`)} 
         <slot ${ref('labelSlot')}
             class="label-slot ${x => (typeof x.label === 'string' ? 'hidden' : '')}"
-            ${slotted({
-        flatten: true,
-        property: 'slottedElements'
-    })}
-            >
+        >
         </slot>
     </span>
     <span class="content" part="content" role="none">
-        <slot name="options-slot"
+        <slot name="options"
         ${slotted({
         flatten: true,
         filter: (n: Node) => isListOption(n),

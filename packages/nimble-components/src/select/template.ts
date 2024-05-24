@@ -135,6 +135,7 @@ SelectOptions
                     <div ${ref('scrollableRegion')}
                         class="scrollable-region">
                         <slot
+                            name="options"
                             ${slotted({
                                 filter: (n: Node) => n instanceof HTMLElement && (isListboxOption(n) || isListOptionGroup(n)),
                                 flatten: true,

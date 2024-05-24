@@ -1,5 +1,10 @@
 import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
-import { observable, attr, volatile } from '@microsoft/fast-element';
+import {
+    observable,
+    attr,
+    volatile,
+    Observable
+} from '@microsoft/fast-element';
 import { styles } from './styles';
 import { template } from './template';
 import { ListOption } from '../list-option';
@@ -67,10 +72,6 @@ export class ListOptionGroup extends FoundationElement {
 
     /** @internal */
     @observable
-    public slottedElements: Element[] = [];
-
-    /** @internal */
-    @observable
     public listOptions: ListOption[] = [];
 
     /** @internal */
@@ -91,6 +92,8 @@ export class ListOptionGroup extends FoundationElement {
             .join(' ');
     }
 
+    private hiddenOptions: ListOption[] = [];
+
     /**
      * @internal
      */
@@ -99,12 +102,46 @@ export class ListOptionGroup extends FoundationElement {
         e.stopImmediatePropagation();
     }
 
-    protected slottedElementsChanged(): void {
-        this.slottedElements.forEach(e => {
-            if (e instanceof ListOption) {
-                e.slot = 'options-slot';
+    /**
+     * @internal
+     */
+    public handleChange(source: unknown, propertyName: string): void {
+        if (
+            source instanceof ListOption
+            && (propertyName === 'hidden' || propertyName === 'visuallyHidden')
+        ) {
+            if (source.hidden || source.visuallyHidden) {
+                this.hiddenOptions.push(source);
+            } else {
+                this.hiddenOptions = this.hiddenOptions.filter(
+                    x => x !== source
+                );
             }
+
+            this.visuallyHidden = this.hiddenOptions.length === this.listOptions.length;
+        }
+    }
+
+    private listOptionsChanged(
+        prev: ListOption[] | undefined,
+        next: ListOption[]
+    ): void {
+        this.hiddenOptions = next.filter(x => x.hidden || x.visuallyHidden);
+        prev?.forEach(o => {
+            const notifier = Observable.getNotifier(o);
+            notifier.unsubscribe(this, 'hidden');
+            notifier.unsubscribe(this, 'visuallyHidden');
         });
+
+        let allOptionsHidden = true;
+        next?.forEach(o => {
+            const notifier = Observable.getNotifier(o);
+            notifier.subscribe(this, 'hidden');
+            notifier.subscribe(this, 'visuallyHidden');
+            allOptionsHidden = allOptionsHidden && (o.hidden || o.visuallyHidden);
+        });
+
+        this.visuallyHidden = next.length === 0 || allOptionsHidden;
     }
 }
 
