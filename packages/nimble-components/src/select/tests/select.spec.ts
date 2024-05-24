@@ -1606,6 +1606,31 @@ describe('Select', () => {
             expect(groupAfterInsertedOption.topSeparatorVisible).toBeTrue();
         });
 
+        it('hiding option between groups results in top separator being hidden of group after option', async () => {
+            const newOption = new ListOption('Between', 'between-groups');
+            const group = pageObject.getGroup(0);
+            group.after(newOption);
+            await waitForUpdatesAsync();
+            newOption.hidden = true;
+            await clickAndWaitForOpen(element);
+            const groupAfterInsertedOption = pageObject.getGroup(1);
+            expect(groupAfterInsertedOption.topSeparatorVisible).toBeFalse();
+        });
+
+        it('hiding option after all groups results in bottom separator being hidden for last group', async () => {
+            const newOption = new ListOption('Between', 'between-groups');
+            const group = pageObject.getGroup(2);
+            group.after(newOption);
+            await waitForUpdatesAsync();
+            await clickAndWaitForOpen(element);
+            expect(group.bottomSeparatorVisible).toBeTrue();
+            await waitForUpdatesAsync();
+            newOption.hidden = true;
+            pageObject.clickSelect();
+            await waitForUpdatesAsync();
+            expect(group.bottomSeparatorVisible).toBeFalse();
+        });
+
         it('after removing group hidden from options and then changing option to be visible, adding group back results in visible group', async () => {
             const group = pageObject.getGroup(0);
             const groupOptions = group.listOptions;
@@ -1798,6 +1823,16 @@ describe('Select', () => {
                     .getFilteredOptions()
                     .map(option => option.text);
                 expect(filteredOptions).not.toContain('Two');
+            });
+
+            it('filtering out option between groups results in top separator of group after option', async () => {
+                const newOption = new ListOption('Between', 'between-groups');
+                const group = pageObject.getGroup(0);
+                group.after(newOption);
+                await waitForUpdatesAsync();
+                await pageObject.openAndSetFilterText('Group');
+                const groupAfterInsertedOption = pageObject.getGroup(1);
+                expect(groupAfterInsertedOption.topSeparatorVisible).toBeTrue();
             });
         });
     });

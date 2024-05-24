@@ -403,6 +403,7 @@ export class Select
             case 'hidden': {
                 if (isNimbleListOption(sourceElement)) {
                     sourceElement.visuallyHidden = sourceElement.hidden;
+                    this.updateAdjacentSeparatorState(sourceElement);
                 } else if (isNimbleListOptionGroup(sourceElement)) {
                     sourceElement.listOptions.forEach(e => {
                         e.visuallyHidden = sourceElement.hidden;
@@ -414,7 +415,10 @@ export class Select
                 break;
             }
             case 'visuallyHidden': {
-                if (isNimbleListOptionGroup(sourceElement)) {
+                if (
+                    isNimbleListOptionGroup(sourceElement)
+                    || isNimbleListOption(sourceElement)
+                ) {
                     this.updateAdjacentSeparatorState(sourceElement);
                 }
                 break;
@@ -1023,12 +1027,19 @@ export class Select
         this.updateListboxMaxHeightCssVariable();
     }
 
-    private updateAdjacentSeparatorState(group: ListOptionGroup): void {
-        const previousElement = this.getPreviousVisibleOptionOrGroup(group);
-        const nextElement = this.getNextVisibleOptionOrGroup(group);
-        group.bottomSeparatorVisible = nextElement !== null;
-        if (isOptionOrGroupVisible(group)) {
-            group.topSeparatorVisible = previousElement instanceof ListOption;
+    private updateAdjacentSeparatorState(
+        element: ListOptionGroup | ListOption
+    ): void {
+        const previousElement = this.getPreviousVisibleOptionOrGroup(element);
+        const nextElement = this.getNextVisibleOptionOrGroup(element);
+        if (element instanceof ListOptionGroup) {
+            element.bottomSeparatorVisible = nextElement !== null;
+        }
+        if (isOptionOrGroupVisible(element)) {
+            if (element instanceof ListOptionGroup) {
+                element.topSeparatorVisible = previousElement instanceof ListOption;
+            }
+
             if (previousElement instanceof ListOptionGroup) {
                 previousElement.bottomSeparatorVisible = true;
             }
