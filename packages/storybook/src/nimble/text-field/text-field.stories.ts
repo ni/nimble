@@ -15,6 +15,7 @@ interface TextFieldArgs {
     appearance: string;
     fullBleed: boolean;
     value: string;
+    valueAttribute: string;
     readonly: boolean;
     disabled: boolean;
     errorVisible: boolean;
@@ -96,8 +97,13 @@ const metadata: Meta<TextFieldArgs> = {
             table: { category: apiCategory.attributes }
         },
         value: {
-            description: 'The string displayed in the text field. Note that the property value is not synced to an attribute.',
+            description: 'The string displayed in the text field. Note that the property and attribute behave differently.',
             table: { category: apiCategory.nonAttributeProperties }
+        },
+        valueAttribute: {
+            name: 'value',
+            description: 'The initial string displayed in the text field. Changing this after the text field initializes has no effect. Note that the property behave differently.',
+            table: { category: apiCategory.attributes }
         },
         readonly: {
             description: 'Disallows input on the text field while maintaining enabled appearance.',
