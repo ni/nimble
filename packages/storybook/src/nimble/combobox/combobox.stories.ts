@@ -144,7 +144,7 @@ const metadata: Meta<ComboboxArgs> = {
             table: { category: apiCategory.attributes }
         },
         disabled: {
-            description: disabledDescription({ componentName: 'select' }),
+            description: disabledDescription({ componentName: 'combobox' }),
             table: { category: apiCategory.attributes }
         },
         errorText: {
