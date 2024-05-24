@@ -50,7 +50,7 @@ const metadata: Meta<CheckboxArgs> = {
 
 <details>
 <summary>Usage details</summary>
-The \`indeterminate\` state is not automatically changed when the user changes the \`checked\` state. Client applications that use \`indeterminate\` state are responsible for subscribing to the \`change\` event to respond to this situation.
+The \`indeterminate\` state is not automatically changed when the user interactively changes the checked state. Client applications that use \`indeterminate\` state are responsible for subscribing to the \`change\` event to respond to this situation.
 </details>`,
             table: { category: apiCategory.nonAttributeProperties }
         },
