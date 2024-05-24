@@ -76,19 +76,19 @@ const optionSets = {
 } as const;
 
 const filterModeDescription = `
-Controls the filtering behavior of the \`Select\`. The default of \`none\` results in a dropdown with no input for filtering. A non-'none' setting results in a search input placed at the top or the bottom of the dropdown when opened (depending on where the dropdown is shown relative to the component). The \`standard\` setting will perform a case-insensitive and diacritic-insensitive filtering of the available options anywhere within the text of each option. 
+Controls the filtering behavior of the select. The default of \`none\` results in a dropdown with no input for filtering. A non-'none' setting results in a search input placed at the top or the bottom of the dropdown when opened (depending on where the dropdown is shown relative to the component). The \`standard\` setting will perform a case-insensitive and diacritic-insensitive filtering of the available options anywhere within the text of each option. 
 
-It is recommended that if the \`Select\` has 15 or fewer options that you use the \`none\` setting for the \`filter-mode\`.
+It is recommended that if the select has 15 or fewer options that you use the \`none\` setting for the \`filter-mode\`.
 `;
 
 const placeholderDescription = `
-To display placeholder text within the \`Select\` you must provide an option that has the \`disabled\`, \`selected\` and \`hidden\` attributes set. This option will not be available in the dropdown, and its contents will be used as the placeholder text. Note that giving the placeholder an initial \`selected\` state is only necessary to display the placeholder initially. If another option is selected initially the placeholder will be displayed upon clearing the current value.
+To display placeholder text within the select you must provide an option that has the \`disabled\`, \`selected\` and \`hidden\` attributes set. This option will not be available in the dropdown, and its contents will be used as the placeholder text. Note that giving the placeholder an initial \`selected\` state is only necessary to display the placeholder initially. If another option is selected initially the placeholder will be displayed upon clearing the current value.
 
-Any \`Select\` without a default selected option should provide placeholder text. Placeholder text should always follow the pattern "Select [thing(s)]", for example "Select country". Use sentence casing and don't include punctuation at the end of the prompt.
+Any select without a default selected option should provide placeholder text. Placeholder text should always follow the pattern "Select [thing(s)]", for example "Select country". Use sentence casing and don't include punctuation at the end of the prompt.
 `;
 
 const clearableDescription = `
-When the \`clearable\` attribute is set, a clear button will be displayed in the \`Select\` when a value is selected. Clicking the clear button will clear the selected value and display the placeholder text, if available, or will result in a blank display.
+When the \`clearable\` attribute is set, a clear button will be displayed in the select when a value is selected. Clicking the clear button will clear the selected value and display the placeholder text, if available, or will result in a blank display.
 `;
 
 const metadata: Meta<SelectArgs> = {
