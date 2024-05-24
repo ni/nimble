@@ -69,7 +69,7 @@ export const radioGroup: StoryObj<RadioGroupArgs> = {
         },
         label: {
             description:
-                'You must provide a `label` element with `slot="label"` as content of the `nimble-radio-group`.',
+                'A `label` element containing text that describes the group of options.',
             table: { category: apiCategory.slots }
         },
         orientation: {
@@ -90,7 +90,7 @@ export const radioGroup: StoryObj<RadioGroupArgs> = {
         },
         buttons: {
             name: 'default',
-            description: `Add radio buttons by slotting ${radioTag} elements as child content in the default slot.`,
+            description: `The `${radioTag}` elements to display in the group.`,
             control: false,
             table: { category: apiCategory.slots }
         },
