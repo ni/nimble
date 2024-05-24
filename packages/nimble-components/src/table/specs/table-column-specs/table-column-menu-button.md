@@ -21,7 +21,7 @@ In some tables, the user needs to make a selection associated with cell in the t
 
 ## Implementation / Design
 
-The `nimble-table-column-menu-button` will follow many of the API patterns established by the table's action menu. A client will configure a column with the name of the slot to find the menu associated with the menu button, say `software-version-menu`. The client will also slot their menu into the table using the slot name they configured on the column; in this case, `software-version-menu`. The table, along with all of its subcomponents, will be responsible for coordinating the slotting of the menu into the appropriate row and cell when a menu button becomes open. If the client needs different menu items depending on which menu button is open, they can update the menu items within their slotted menu in reaction to the `delegated-event` event firing from the table. In the case of a menu button opening or closing, the original event's details will be an instance of `MenuButtonToggleEventDetail`.
+The `nimble-table-column-menu-button` will follow many of the API patterns established by the table's action menu. Part of the menu button column's configuration will include the name of the slot where the menu associated with the menu button will be provided, say `software-version-menu`. The client will slot their menu into the table using the slot name they configured on the column; in this case, `software-version-menu`. The table, along with all of its subcomponents, will be responsible for coordinating the slotting of the menu into the appropriate row and cell when a menu button becomes open. If the client needs different menu items depending on which menu button is open, they can update the menu items within their slotted menu in reaction to the `menu-button-beforetoggle` event firing from the column.
 
 Usage of the column would look as follows:
 
@@ -52,7 +52,7 @@ _Component Name_
 
 _Props/Attrs_
 
--   `field-name`: string - The name of the field in a record that contains the string that will be displayed in the menu button.
+-   `field-name`: string - The name of the field in each record that contains the string that will be displayed in the menu button
 -   `menu-slot`: string - The name of the slot within the `nimble-table` instance where the menu associated with the column's menu button will be provided
 -   `fractional-width`: number (defaults to 1)
 -   `min-pixel-width`: number (defaults to minimum supported by table)
@@ -60,6 +60,21 @@ _Props/Attrs_
 _Content_
 
 -   column title (icon and/or text)
+
+_Events_
+
+-   `menu-button-beforetoggle`: Fired when a menu button in a cell fires the `beforetoggle` event
+-   `menu-button-toggle`: Fired when a menu button in a cell fires the `toggle` event
+
+The detail for each of these events will be as follows:
+```ts
+interface MenuButtonColumnToggleEventDetail {
+    recordId: string;
+    newState: boolean;
+    oldState: boolean;
+    originalEvent: CustomEvent<MenuButtonToggleEventDetail>;
+}
+```
 
 #### Cell View Component
 
@@ -76,8 +91,11 @@ The menu button will have the following behaviors/styles:
 -   Use `ghost` appearance mode
 -   Have `nimble-icon-arrow-expander-down` slotted into the `end` slot
 -   Grow to fill the width of the cell
--   Left-align the text (with padding) in the button. By default, button text is centered, but custom styling will be written to handle this case so that the text within each button is aligned for a given column.
+-   Left-align the text (with padding) in the button to make the text within each button is aligned for a given column.
+    -   By default, button text is centered, so custom styling will be written to handle this case.
 -   Ellipsize text in the button if it doesn't fit in the button.
+-   Provide the full text within the button's `title` if the text is ellipsized.
+    -   This likely will not be able to leverage the existing `overflow` directive as-is because the overflow will occur on the text within a `span` within the button, but the `title` should be added when the button is hovered. The best solution to this problem will be determined during implementation.
 
 #### Group Header View Component
 
@@ -95,7 +113,9 @@ Group rows will display `tableGroupRowPlaceholderNoValueLabel` when the value is
 
 ### Delegated Events
 
-The cell will delegate the `beforetoggle` and `toggle` events from the menu button through the table's `delegate-event` event. This will allow a client application to listen for the delegated event and update the menu items in the slotted menu as appropriate before the menu opens.
+The cell will delegate the `beforetoggle` and `toggle` events from the menu button through the column's `delegated-event` event. The column will listen for the `delegated-event` event, and it will fire the `menu-button-beforetoggle` event when it recieves a delegated event for `beforetoggle` on the menu button and will fire the `menu-button-toggle` event when it recieves a delegated event for `toggle` on the menu button.
+
+The `menu-button-beforetoggle` and `menu-button-toggle` event detail will both include the original event fired by the menu button. With this, the client can interact with the original event if necessary, such as cancelling the event once the menu button supports this (see [nimble issue #1157](https://github.com/ni/nimble/issues/1157)).
 
 ### Focus Recycling
 
@@ -111,26 +131,38 @@ When the menu button is focused, it will have the same keyboard interactions as 
 
 ### Accessibility
 
--   If the text of the button does not fit fully in the button, it will be ellipsized and the button's `title` will be set to the full text.
+If the text of the button does not fit fully in the button, it will be ellipsized and the button's `title` will be set to the full text.
+
+All other accessibility needs are already implemented by the table, menu button, and menu.
 
 ### Angular integration
 
-An Angular wrapper will be created for the component. There is no special considerations for Angular.
+An Angular wrapper will be created for the component. There are no special considerations for Angular.
 
 ### Blazor integration
 
-A Blazor wrapper will be created for the component. There is no special considerations needed for Blazor.
+A Blazor wrapper will be created for the component. There are no special considerations needed for Blazor.
 
 ### API Updates to Existing Table Components
 
-Multiple API changes need to be made the table, its subcomponents, and the classes it uses to facilitate slotting a menu through the table and into a specific cell view.
-
-These changes include changes to the following:
+Multiple API changes need to be made the table, its subcomponents, and the classes it uses to facilitate slotting a menu through the table and into a specific cell view. This includes the following:
 
 -   The `ColumnInternalsOptions` interface will be updated to include an optional string array named `slotNames`, which allows a column to specify the names of any slots that need to be forwarded into a cell.
 -   As with the `ColumnInternalsOptions`, the `ColumnInternals` class will be updated to have a `slotNames` array that specifies the names of any slots that need to be forwarded into a cell. The value will be readonly and will be populated by the `ColumnInternalsOptions` `slotNames` property. It will default to an empty array if a value is not provided in `ColumnInternalsOptions`.
--   The `createCellViewTemplate` function exported from the base `cell-view` template will be updated to `repeat` over all slot names specified in the column's `slotNames` array and create a `slot` for each. The `name` of each slot will be the value in the `slotNames` array concatenated to the column's unique ID (i.e. `column.columnInternals.uniqueId + column.columnInternals.slotNames[i]`). The `slot` attribute will be set to the value in the `slotNames` array.
--   Add events to pass slot information between cell views, rows, and the table. These will look as follows:
+-   Add slots to component templates:
+    -   table template - slots created within each table row element that has most recently requested the slot
+        -   slot's name: specified by client's column configuration (e.g. `software-version-menu`)
+        -   slot's slot: _unique-column-id_ + _column-requested-slot-name from column internal's slotNames array_ (e.g. table-column-slot2-menu)
+    -   row template - slots created within each table row element for each slot name that is specified in the column's `ColumnInternals.slotNames` array
+        -   slot's name: _unique-column-id_ + _column-requested-slot-name from column internal's slotNames array_ (e.g. table-column-slot2-menu)
+        -   slot's slot: _unique-column-id_ + _column-requested-slot-name from column internal's slotNames array_ (e.g. table-column-slot2-menu)
+    -   cell view, created via `createCellViewTemplate` - slots created within the cell view
+        -   slot's name:  _unique-column-id_ + _column-requested-slot-name from column internal's slotNames array_ (e.g. table-column-slot2-menu)
+        -   slot's slot: _column-requested-slot-name from column internal's slotNames array_ (e.g. menu)
+    -   menu button column cell view - slot created within the menu button component
+        -   slot's name: _column-requested-slot-name from column internal's slotNames array_ (e.g. menu)
+        -   slot's slot: `"menu"`, which is the slot name required by the `nimble-menu-button` comonent
+-   Add events to pass slot information between cell views, rows, and the table:
     -   `cell-view-slots-request` event
         -   Fired by cell view instances if they want to request that the column's slots to be placed within that cell. For example, the menu button column's cell view will fire this event when the cell's `menu-button` fires a `beforetoggle` event with the `newState` as `true`.
         -   Handled by table rows. When handling this event, a table row will fire the `row-slots-request` event to request the table to slot the necessary elements within the row.
@@ -167,3 +199,4 @@ Rather than creating a menu button column, we could create a select column. Howe
 -   There is no visual design spec for this feature yet. Therefore there are a few open visual design questions, including the following:
     -   If we only support one appearance for the menu-button, is `ghost` the appropriate one to support?
     -   Is there any concern that the button text will not align with the column header because of the padding between the edge of the button and the text within the button?
+-   If the menu is open in a cell, it needs to be closed when scrolling. However, the `focusedRecycleCallback()` doesn't provide the appropriate hook to do this today. The problem appears to be that the menu has focus when the menu button is open, which means the focus isn't actually in the cell view -- it's in the menu slotted into the cell view. We need to come up with a plan to address this.
