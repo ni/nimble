@@ -60,7 +60,7 @@ const metadata: Meta<NumberFieldArgs> = {
             table: { category: apiCategory.slots }
         },
         value: {
-            description: 'The number displayed in the text area. Note that the property value is not synced to an attribute.',
+            description: 'The number displayed in the number field. Note that the property value is not synced to an attribute.',
             table: { category: apiCategory.nonAttributeProperties }
         },
         appearance: {

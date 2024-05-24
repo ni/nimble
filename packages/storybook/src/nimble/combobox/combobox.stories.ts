@@ -144,7 +144,7 @@ const metadata: Meta<ComboboxArgs> = {
             table: { category: apiCategory.attributes }
         },
         disabled: {
-            description: disabledDescription({ componentName: 'select' }),
+            description: disabledDescription({ componentName: 'combobox' }),
             table: { category: apiCategory.attributes }
         },
         errorText: {
@@ -176,7 +176,7 @@ const metadata: Meta<ComboboxArgs> = {
             table: { category: apiCategory.slots }
         },
         change: {
-            description: 'Emitted when the user changes the selected option.',
+            description: 'Emitted when the user changes the selected option, either by selecting an item from the dropdown or by committing a typed value.',
             table: { category: apiCategory.events },
             control: false
         },

@@ -27,6 +27,8 @@ Per [W3C](https://www.w3.org/WAI/ARIA/apg/patterns/radio/) - A radio group is a 
 
 ### Angular Usage
 
+When using radio buttons in an Angular form, you must explicitly set either `name` or `formControlName` on each radio button. In that scenario, setting `name` on the group is ineffective.
+
 The Angular control value accessor for the radio button group ignores the value of `callSetDisabledState` configured on the form module.
 Instead, it always uses the default value of `'always'`.
 

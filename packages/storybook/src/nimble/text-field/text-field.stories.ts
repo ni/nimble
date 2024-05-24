@@ -15,6 +15,7 @@ interface TextFieldArgs {
     appearance: string;
     fullBleed: boolean;
     value: string;
+    valueAttribute: string;
     readonly: boolean;
     disabled: boolean;
     errorVisible: boolean;
@@ -25,9 +26,9 @@ interface TextFieldArgs {
     input: undefined;
 }
 
-const leftIconDescription = 'To place an icon at the far-left of the text-field, set `slot="start"` on the icon.';
+const leftIconDescription = 'An icon to display at the start of the text field.';
 
-const actionButtonDescription = `To place content such as a button at the far-right of the text-field, set \`slot="actions"\` on the content.
+const actionButtonDescription = `Content such as a button at the end of the text field.
 
 Note: The content in the \`actions\` slot will not adjust based on the state of the text-field (e.g. disabled or readonly). It is the responsibility of the
 consuming application to make any necessary adjustments. For example, if the buttons should be disabled when the text-field is disabled, the
@@ -79,7 +80,7 @@ const metadata: Meta<TextFieldArgs> = {
         },
         type: {
             options: Object.values(TextFieldType),
-            control: { type: 'select' },
+            control: { type: 'radio' },
             description: 'They type of input to accept and render in the text field. This corresponds to [the `type` attribute of the native `input` element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#type) though only a subset of values are supported.',
             table: { category: apiCategory.attributes }
         },
@@ -96,8 +97,13 @@ const metadata: Meta<TextFieldArgs> = {
             table: { category: apiCategory.attributes }
         },
         value: {
-            description: 'The string displayed in the text field. Note that the property value is not synced to an attribute.',
+            description: 'The string displayed in the text field. Note that the property and attribute behave differently.',
             table: { category: apiCategory.nonAttributeProperties }
+        },
+        valueAttribute: {
+            name: 'value',
+            description: 'The initial string displayed in the text field. Changing this after the text field initializes has no effect. Note that the property behave differently.',
+            table: { category: apiCategory.attributes }
         },
         readonly: {
             description: 'Disallows input on the text field while maintaining enabled appearance.',

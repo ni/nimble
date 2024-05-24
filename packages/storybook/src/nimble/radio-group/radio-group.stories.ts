@@ -69,17 +69,13 @@ export const radioGroup: StoryObj<RadioGroupArgs> = {
         },
         label: {
             description:
-                'You must provide a `label` element with `slot="label"` as content of the `nimble-radio-group`.',
+                'A `label` element containing text that describes the group of options.',
             table: { category: apiCategory.slots }
         },
         orientation: {
             options: Object.values(Orientation),
             control: {
-                type: 'radio',
-                labels: {
-                    [Orientation.horizontal]: 'Horizontal',
-                    [Orientation.vertical]: 'Vertical'
-                }
+                type: 'radio'
             },
             description: 'The orientation of the radio buttons.',
             table: { category: apiCategory.attributes }
@@ -94,7 +90,7 @@ export const radioGroup: StoryObj<RadioGroupArgs> = {
         },
         buttons: {
             name: 'default',
-            description: `Add radio buttons by slotting ${radioTag} elements as child content in the default slot.`,
+            description: `The \`${radioTag}\` elements to display in the group.`,
             control: false,
             table: { category: apiCategory.slots }
         },
@@ -123,11 +119,11 @@ export const radio: StoryObj<RadioArgs> = {
             table: { category: apiCategory.attributes }
         },
         label: {
-            description: slottedLabelDescription({ componentName: 'radio' }),
+            description: slottedLabelDescription({ componentName: 'radio button' }),
             table: { category: apiCategory.slots }
         },
         disabled: {
-            description: disabledDescription({ componentName: 'radio' }),
+            description: disabledDescription({ componentName: 'radio button' }),
             table: { category: apiCategory.attributes }
         },
         name: {
