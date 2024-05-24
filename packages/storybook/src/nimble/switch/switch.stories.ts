@@ -48,12 +48,12 @@ const metadata: Meta<SwitchArgs> = {
         },
         checkedMessage: {
             name: 'checked-message',
-            description: 'The message displayed when the switch is toggled on. Provide the message by adding a `span` containing text content to the `checked-message` slot.',
+            description: 'A `span` element containing the message to display when the switch is toggled on.',
             table: { category: apiCategory.slots }
         },
         uncheckedMessage: {
             name: 'unchecked-message',
-            description: 'The message displayed when the switch is toggled off. Provide the message by adding a `span` containing text content to the `unchecked-message` slot.',
+            description: 'A `span` element containing the message to display when the switch is toggled off.',
             table: { category: apiCategory.slots }
         },
         change: {
