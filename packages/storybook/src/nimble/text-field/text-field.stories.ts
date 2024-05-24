@@ -25,9 +25,9 @@ interface TextFieldArgs {
     input: undefined;
 }
 
-const leftIconDescription = 'To place an icon at the far-left of the text-field, set `slot="start"` on the icon.';
+const leftIconDescription = 'An icon to display at the start of the text field.';
 
-const actionButtonDescription = `To place content such as a button at the far-right of the text-field, set \`slot="actions"\` on the content.
+const actionButtonDescription = `Content such as a button at the end of the text field.
 
 Note: The content in the \`actions\` slot will not adjust based on the state of the text-field (e.g. disabled or readonly). It is the responsibility of the
 consuming application to make any necessary adjustments. For example, if the buttons should be disabled when the text-field is disabled, the
