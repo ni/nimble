@@ -80,7 +80,7 @@ const metadata: Meta<TextFieldArgs> = {
         },
         type: {
             options: Object.values(TextFieldType),
-            control: { type: 'select' },
+            control: { type: 'radio' },
             description: 'They type of input to accept and render in the text field. This corresponds to [the `type` attribute of the native `input` element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#type) though only a subset of values are supported.',
             table: { category: apiCategory.attributes }
         },
