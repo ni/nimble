@@ -17,6 +17,7 @@ import { buttonTag } from '../../../button';
 import { iconArrowExpanderRightTag } from '../../../icons/arrow-expander-right';
 import { spinnerTag } from '../../../spinner';
 import { SpinnerAppearance } from '../../../spinner/types';
+import type { CellViewSlotRequestEventDetail } from '../../types';
 
 // prettier-ignore
 export const template = html<TableRow>`
@@ -85,6 +86,7 @@ export const template = html<TableRow>`
                         action-menu-label="${x => x.actionMenuLabel}"
                         @cell-action-menu-beforetoggle="${(x, c) => c.parent.onCellActionMenuBeforeToggle(c.event as CustomEvent<MenuButtonToggleEventDetail>, x)}"
                         @cell-action-menu-toggle="${(x, c) => c.parent.onCellActionMenuToggle(c.event as CustomEvent<MenuButtonToggleEventDetail>, x)}"
+                        @cell-view-slots-request="${(x, c) => c.parent.onCellViewSlotsRequest(x, c.event as CustomEvent<CellViewSlotRequestEventDetail>)}"
                         :nestingLevel="${(_, c) => c.parent.cellIndentLevels[c.index]}"
                     >
 
@@ -92,6 +94,13 @@ export const template = html<TableRow>`
                             <slot
                                 name="${x => `row-action-menu-${x.actionMenuSlot!}`}"
                                 slot="cellActionMenu"
+                            ></slot>
+                        `)}
+
+                        ${repeat(x => x.columnInternals.slotNames, html<string, TableColumn>`
+                            <slot
+                                name="${(x, c) => (c.parent.columnInternals.uniqueId + x)}"
+                                slot="${(x, c) => (c.parent.columnInternals.uniqueId + x)}"
                             ></slot>
                         `)}
                     </${tableCellTag}>

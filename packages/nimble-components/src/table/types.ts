@@ -245,3 +245,19 @@ export interface TableRowFocusableElements {
         actionMenuButton?: MenuButton
     }[];
 }
+
+/**
+ * @internal
+ */
+export interface CellViewSlotRequestEventDetail {
+    slots: { slot: string, name: string }[];
+}
+
+/**
+ * @internal
+ */
+export interface RowSlotRequestEventDetail {
+    columnInternalId: string;
+    rowId: string;
+    slots: { slot: string, name: string }[];
+}

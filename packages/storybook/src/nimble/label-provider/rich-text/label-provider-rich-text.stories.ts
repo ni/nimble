@@ -1,6 +1,6 @@
 import type { StoryObj, Meta } from '@storybook/html';
-import { labelProviderRichTextTag } from '@ni/nimble-components/dist/esm/label-provider/rich-text';
-import * as labelTokensNamespace from '@ni/nimble-components/dist/esm/label-provider/rich-text/label-tokens';
+import { labelProviderRichTextTag } from '../../../../../nimble-components/src/label-provider/rich-text';
+import * as labelTokensNamespace from '../../../../../nimble-components/src/label-provider/rich-text/label-tokens';
 import {
     LabelProviderArgs,
     labelProviderMetadata

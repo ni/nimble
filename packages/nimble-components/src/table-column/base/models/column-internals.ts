@@ -39,6 +39,11 @@ export interface ColumnInternalsOptions<
     readonly delegatedEvents: readonly string[];
 
     /**
+     * The names of slots that need to be forwarded into a cell.
+     */
+    readonly slotNames?: readonly string[];
+
+    /**
      * The sort operation to use for the column (defaults to TableColumnSortOperation.basic)
      */
     readonly sortOperation?: TableColumnSortOperation;
@@ -76,6 +81,11 @@ export class ColumnInternals<
      * The names of events that should be delegated from the cell view to the column.
      */
     public readonly delegatedEvents: readonly string[];
+
+    /**
+     * The names of slots that need to be forwarded into a cell.
+     */
+    public readonly slotNames: readonly string[];
 
     /**
      * The relevant, static configuration a column requires its cell view to have access to.
@@ -190,6 +200,7 @@ export class ColumnInternals<
             options.groupHeaderViewTag
         );
         this.delegatedEvents = options.delegatedEvents;
+        this.slotNames = options.slotNames ?? [];
         this.sortOperation = options.sortOperation ?? TableColumnSortOperation.basic;
         this.validator = options.validator;
     }
