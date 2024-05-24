@@ -57,7 +57,7 @@ export const _standardBreadcrumb: StoryObj<BreadcrumbArgs> = {
         options: {
             name: 'default',
             description:
-                `Add one or more \`${breadcrumbItemTag}\` elements as children of the breadcrumb in the default slot. `
+                `The \`${breadcrumbItemTag}\` elements that populate this breadcrumb. `
                 + 'With a standard breadcrumb containing multiple items, the last breadcrumb represents the current page.',
             table: { category: apiCategory.slots }
         },

@@ -174,7 +174,7 @@ const metadata: Meta<DrawerArgs> = {
                         'Header/Content/Footer Example'
                 }
             },
-            description: 'Drawer content is provided by adding HTML to the default slot.',
+            description: 'The drawer content, which can be arbitrary HTML.',
             table: { category: apiCategory.slots }
         },
         width: {

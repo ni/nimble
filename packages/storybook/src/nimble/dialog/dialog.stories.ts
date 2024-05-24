@@ -191,7 +191,7 @@ const metadata: Meta<DialogArgs> = {
                     [ExampleContentType.longContentWithFooterButtons]: 'Long content with footer buttons'
                 }
             },
-            description: 'Dialog content is provided by adding HTML to the default slot.',
+            description: 'The dialog content, which can be arbitrary HTML.',
             table: { category: apiCategory.slots }
         },
         size: {

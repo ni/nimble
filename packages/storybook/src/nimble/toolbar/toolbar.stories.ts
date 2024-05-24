@@ -45,12 +45,12 @@ const metadata: Meta<ToolbarArgs> = {
     `),
     argTypes: {
         start: {
-            description: 'Add content to the `start` slot to position it at the start of the toolbar.',
+            description: 'Content which will be positioned at the start of the toolbar.',
             control: false,
             table: { category: apiCategory.slots }
         },
         end: {
-            description: 'Add content to the `end` slot to position it at the end of the toolbar.',
+            description: 'Content which will be positioned at the end of the toolbar.',
             control: false,
             table: { category: apiCategory.slots }
         },
