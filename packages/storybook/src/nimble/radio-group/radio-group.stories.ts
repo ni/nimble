@@ -90,7 +90,7 @@ export const radioGroup: StoryObj<RadioGroupArgs> = {
         },
         buttons: {
             name: 'default',
-            description: `The `${radioTag}` elements to display in the group.`,
+            description: `The \`${radioTag}\` elements to display in the group.`,
             control: false,
             table: { category: apiCategory.slots }
         },
@@ -119,11 +119,11 @@ export const radio: StoryObj<RadioArgs> = {
             table: { category: apiCategory.attributes }
         },
         label: {
-            description: slottedLabelDescription({ componentName: 'radio' }),
+            description: slottedLabelDescription({ componentName: 'radio button' }),
             table: { category: apiCategory.slots }
         },
         disabled: {
-            description: disabledDescription({ componentName: 'radio' }),
+            description: disabledDescription({ componentName: 'radio button' }),
             table: { category: apiCategory.attributes }
         },
         name: {
