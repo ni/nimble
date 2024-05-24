@@ -31,6 +31,14 @@ export class TableColumnMenuButtonCellView extends TableCellView<TableColumnMenu
         this.menuButton?.blur();
     }
 
+    public override get tabbableChildren(): HTMLElement[] {
+        // this.menuButton can be initialized even when not active in the template, so make sure it's in our DOM
+        if (this.menuButton?.getRootNode() === this.shadowRoot) {
+            return [this.menuButton];
+        }
+        return [];
+    }
+
     public onMenuButtonBeforeToggle(event: CustomEvent<MenuButtonToggleEventDetail>): boolean {
         const configuredSlotName = this.columnConfig?.menuSlot;
         if (configuredSlotName && event.detail.newState) {
