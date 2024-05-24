@@ -171,6 +171,7 @@ const metadata: Meta<SelectArgs> = {
         placeholder: {
             name: 'placeholder',
             description: placeholderDescription,
+            // TODO: move this to a list-option story or create a table category to indicate there isn't a single 'placeholder' attribute
         },
         clearable: {
             name: 'clearable',
