@@ -5,6 +5,8 @@ import { tableTag } from '../../../../../nimble-components/src/table';
 import { tableColumnTextTag } from '../../../../../nimble-components/src/table-column/text';
 import { AnchorAppearance } from '../../../../../nimble-components/src/anchor/types';
 import { tableColumnAnchorTag } from '../../../../../nimble-components/src/table-column/anchor';
+import { menuTag } from '../../../../../nimble-components/src/menu';
+import { menuItemTag } from '../../../../../nimble-components/src/menu-item';
 import {
     sharedTableActions,
     SharedTableArgs,
