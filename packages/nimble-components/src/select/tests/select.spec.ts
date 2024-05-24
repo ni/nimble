@@ -247,6 +247,21 @@ describe('Select', () => {
         await disconnect();
     });
 
+    it('option that is not hidden but is visuallyHidden, if removed and then added back, will be visible', async () => {
+        const { element, connect, disconnect } = await setup();
+        await connect();
+        const option = element.options[0]! as ListOption;
+        option.visuallyHidden = true;
+        element.removeChild(option);
+        await waitForUpdatesAsync();
+        element.appendChild(option);
+        await waitForUpdatesAsync();
+
+        expect(option.visuallyHidden).toBeFalse();
+
+        await disconnect();
+    });
+
     describe('Default selected option', () => {
         it('disabled option that is marked as selected initially will be used as value', async () => {
             // mark second option as selected to be different than default
@@ -1193,6 +1208,34 @@ describe('Select', () => {
 
             expect(pageObject.getSelectedOption()?.value).toBe('one');
         });
+
+        it('option that is not hidden but visuallyHidden, if removed from DOM, and then re-added to DOM while dropdown open, is not displayed in dropdown', async () => {
+            const option = element.options[1] as ListOption;
+            await pageObject.openAndSetFilterText('Three');
+            expect(option.visuallyHidden).toBeTrue();
+
+            element.removeChild(option);
+            await waitForUpdatesAsync();
+            element.appendChild(option);
+            await waitForUpdatesAsync();
+
+            expect(option.visuallyHidden).toBeTrue();
+        });
+
+        it('option that is not hidden but visuallyHidden, if removed from DOM, and then re-added to DOM while dropdown closed, is visible in dropdown when opened', async () => {
+            const option = element.options[1] as ListOption;
+            await pageObject.openAndSetFilterText('Three');
+            expect(option.visuallyHidden).toBeTrue();
+
+            element.removeChild(option);
+            await waitForUpdatesAsync();
+            await pageObject.clickAway(); // clears filter
+            element.appendChild(option);
+            await waitForUpdatesAsync();
+            pageObject.clickSelect();
+
+            expect(option.visuallyHidden).toBeFalse();
+        });
     });
 
     describe('placeholder', () => {
@@ -1563,6 +1606,24 @@ describe('Select', () => {
             expect(groupAfterInsertedOption.topSeparatorVisible).toBeTrue();
         });
 
+        it('after removing group hidden from options and then changing option to be visible, adding group back results in visible group', async () => {
+            const group = pageObject.getGroup(0);
+            const groupOptions = group.listOptions;
+            groupOptions.forEach(o => {
+                o.hidden = true;
+            });
+            await waitForUpdatesAsync();
+            expect(group.visuallyHidden).toBeTrue();
+            element.removeChild(group);
+
+            groupOptions.forEach(o => {
+                o.hidden = false;
+            });
+            element.appendChild(group);
+            await waitForUpdatesAsync();
+            expect(group.visuallyHidden).toBeFalse();
+        });
+
         describe('filtering', () => {
             beforeEach(async () => {
                 element.filterMode = FilterMode.standard;
@@ -1575,7 +1636,10 @@ describe('Select', () => {
                     filter: 'One',
                     visibleGroupLabels: ['Group One'],
                     separatorStates: [
-                        { topSeparatorVisible: false, bottomSeparatorVisible: false }
+                        {
+                            topSeparatorVisible: false,
+                            bottomSeparatorVisible: false
+                        }
                     ]
                 },
                 {
@@ -1583,7 +1647,10 @@ describe('Select', () => {
                     filter: 'Four',
                     visibleGroupLabels: ['Group Two'],
                     separatorStates: [
-                        { topSeparatorVisible: false, bottomSeparatorVisible: false }
+                        {
+                            topSeparatorVisible: false,
+                            bottomSeparatorVisible: false
+                        }
                     ]
                 },
                 {
@@ -1591,7 +1658,10 @@ describe('Select', () => {
                     filter: 'Six',
                     visibleGroupLabels: ['Gróup Three'],
                     separatorStates: [
-                        { topSeparatorVisible: false, bottomSeparatorVisible: false }
+                        {
+                            topSeparatorVisible: false,
+                            bottomSeparatorVisible: false
+                        }
                     ]
                 },
                 {
@@ -1599,8 +1669,14 @@ describe('Select', () => {
                     filter: 'Two',
                     visibleGroupLabels: ['Group One', 'Group Two'],
                     separatorStates: [
-                        { topSeparatorVisible: false, bottomSeparatorVisible: true },
-                        { topSeparatorVisible: false, bottomSeparatorVisible: false }
+                        {
+                            topSeparatorVisible: false,
+                            bottomSeparatorVisible: true
+                        },
+                        {
+                            topSeparatorVisible: false,
+                            bottomSeparatorVisible: false
+                        }
                     ]
                 },
                 {
@@ -1608,8 +1684,14 @@ describe('Select', () => {
                     filter: 'Three',
                     visibleGroupLabels: ['Group Two', 'Gróup Three'],
                     separatorStates: [
-                        { topSeparatorVisible: false, bottomSeparatorVisible: true },
-                        { topSeparatorVisible: false, bottomSeparatorVisible: false }
+                        {
+                            topSeparatorVisible: false,
+                            bottomSeparatorVisible: true
+                        },
+                        {
+                            topSeparatorVisible: false,
+                            bottomSeparatorVisible: false
+                        }
                     ]
                 },
                 {
@@ -1617,8 +1699,14 @@ describe('Select', () => {
                     filter: 'Edge',
                     visibleGroupLabels: ['Group One', 'Gróup Three'],
                     separatorStates: [
-                        { topSeparatorVisible: false, bottomSeparatorVisible: true },
-                        { topSeparatorVisible: false, bottomSeparatorVisible: false }
+                        {
+                            topSeparatorVisible: false,
+                            bottomSeparatorVisible: true
+                        },
+                        {
+                            topSeparatorVisible: false,
+                            bottomSeparatorVisible: false
+                        }
                     ]
                 },
                 {
@@ -1630,9 +1718,18 @@ describe('Select', () => {
                         'Gróup Three'
                     ],
                     separatorStates: [
-                        { topSeparatorVisible: false, bottomSeparatorVisible: true },
-                        { topSeparatorVisible: false, bottomSeparatorVisible: true },
-                        { topSeparatorVisible: false, bottomSeparatorVisible: false }
+                        {
+                            topSeparatorVisible: false,
+                            bottomSeparatorVisible: true
+                        },
+                        {
+                            topSeparatorVisible: false,
+                            bottomSeparatorVisible: true
+                        },
+                        {
+                            topSeparatorVisible: false,
+                            bottomSeparatorVisible: false
+                        }
                     ]
                 }
             ];

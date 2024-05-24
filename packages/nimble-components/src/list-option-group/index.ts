@@ -72,7 +72,7 @@ export class ListOptionGroup extends FoundationElement {
 
     /** @internal */
     @observable
-    public listOptions: ListOption[] = [];
+    public listOptions!: ListOption[];
 
     /** @internal */
     @volatile
@@ -92,7 +92,7 @@ export class ListOptionGroup extends FoundationElement {
             .join(' ');
     }
 
-    private hiddenOptions: ListOption[] = [];
+    private readonly hiddenOptions: Map<ListOption, boolean> = new Map();
 
     /**
      * @internal
@@ -111,14 +111,12 @@ export class ListOptionGroup extends FoundationElement {
             && (propertyName === 'hidden' || propertyName === 'visuallyHidden')
         ) {
             if (source.hidden || source.visuallyHidden) {
-                this.hiddenOptions.push(source);
+                this.hiddenOptions.set(source, true);
             } else {
-                this.hiddenOptions = this.hiddenOptions.filter(
-                    x => x !== source
-                );
+                this.hiddenOptions.delete(source);
             }
 
-            this.visuallyHidden = this.hiddenOptions.length === this.listOptions.length;
+            this.visuallyHidden = this.hiddenOptions.size === this.listOptions.length;
         }
     }
 
@@ -126,7 +124,8 @@ export class ListOptionGroup extends FoundationElement {
         prev: ListOption[] | undefined,
         next: ListOption[]
     ): void {
-        this.hiddenOptions = next.filter(x => x.hidden || x.visuallyHidden);
+        this.hiddenOptions.clear();
+        next.filter(o => o.hidden || o.visuallyHidden).forEach(o => this.hiddenOptions.set(o, true));
         prev?.forEach(o => {
             const notifier = Observable.getNotifier(o);
             notifier.unsubscribe(this, 'hidden');

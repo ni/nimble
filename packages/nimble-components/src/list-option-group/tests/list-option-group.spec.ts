@@ -107,7 +107,7 @@ describe('ListboxOptionGroup', () => {
     it('group is visually hidden with no options', async () => {
         const { element, connect, disconnect } = await setup();
         await connect();
-        expect(element.visuallyHidden).toBe(true);
+        expect(element.visuallyHidden).toBeTrue();
         await disconnect();
     });
 
@@ -121,7 +121,7 @@ describe('ListboxOptionGroup', () => {
         option2.visuallyHidden = true;
         element.appendChild(option2);
         await waitForUpdatesAsync();
-        expect(element.visuallyHidden).toBe(true);
+        expect(element.visuallyHidden).toBeTrue();
         await disconnect();
     });
 
@@ -131,7 +131,7 @@ describe('ListboxOptionGroup', () => {
         const option = document.createElement('nimble-list-option');
         element.appendChild(option);
         await waitForUpdatesAsync();
-        expect(element.visuallyHidden).toBe(false);
+        expect(element.visuallyHidden).toBeFalse();
         await disconnect();
     });
 
@@ -141,11 +141,11 @@ describe('ListboxOptionGroup', () => {
         const option = document.createElement('nimble-list-option');
         element.appendChild(option);
         await waitForUpdatesAsync();
-        expect(element.visuallyHidden).toBe(false);
+        expect(element.visuallyHidden).toBeFalse();
 
         element.removeChild(option);
         await waitForUpdatesAsync();
-        expect(element.visuallyHidden).toBe(true);
+        expect(element.visuallyHidden).toBeTrue();
         await disconnect();
     });
 
@@ -159,12 +159,27 @@ describe('ListboxOptionGroup', () => {
         option2.hidden = true;
         element.appendChild(option2);
         await waitForUpdatesAsync();
-        expect(element.visuallyHidden).toBe(true);
+        expect(element.visuallyHidden).toBeTrue();
 
         element.removeChild(option1);
         await waitForUpdatesAsync();
         option1.hidden = false;
-        expect(element.visuallyHidden).toBe(true);
+        expect(element.visuallyHidden).toBeTrue();
+        await disconnect();
+    });
+
+    it('option that is hidden and then set to visually hidden keeps group hidden', async () => {
+        const { element, connect, disconnect } = await setup();
+        await connect();
+        const option = document.createElement('nimble-list-option');
+        option.hidden = true;
+        element.appendChild(option);
+        await waitForUpdatesAsync();
+        expect(element.visuallyHidden).toBeTrue();
+
+        option.visuallyHidden = true;
+        await waitForUpdatesAsync();
+        expect(element.visuallyHidden).toBeTrue();
         await disconnect();
     });
 
