@@ -1736,14 +1736,14 @@ describe('Select', () => {
             expect(groupLabels).toEqual([
                 'Group One',
                 'Group Two',
-                'Gróup Three with diacritic and a really long label'
+                'Gróup Three'
             ]);
         });
 
         it('exercise getOptionLabels', async () => {
             await clickAndWaitForOpen(element);
             const optionLabels = pageObject.getGroupOptionLabels(0);
-            expect(optionLabels).toEqual(['One', 'Two']);
+            expect(optionLabels).toEqual(['One', 'Two', 'Edge']);
         });
     });
 });

@@ -76,7 +76,7 @@ ComboboxOptions
                 ?disabled="${x => x.disabled}"
                 ${ref('listbox')}
             >
-                <slot
+                <slot name="options"
                     ${slotted({
         filter: (n: Node) => n instanceof HTMLElement && Listbox.slottedOptionFilter(n),
         flatten: true,
