@@ -67,6 +67,7 @@ _Events_
 -   `menu-button-toggle`: Fired when a menu button in a cell fires the `toggle` event
 
 The detail for each of these events will be as follows:
+
 ```ts
 interface MenuButtonColumnToggleEventDetail {
     recordId: string;
@@ -157,7 +158,7 @@ Multiple API changes need to be made the table, its subcomponents, and the class
         -   slot's name: _unique-column-id_ + _column-requested-slot-name from column internal's slotNames array_ (e.g. table-column-slot2-menu)
         -   slot's slot: _unique-column-id_ + _column-requested-slot-name from column internal's slotNames array_ (e.g. table-column-slot2-menu)
     -   cell view, created via `createCellViewTemplate` - slots created within the cell view
-        -   slot's name:  _unique-column-id_ + _column-requested-slot-name from column internal's slotNames array_ (e.g. table-column-slot2-menu)
+        -   slot's name: _unique-column-id_ + _column-requested-slot-name from column internal's slotNames array_ (e.g. table-column-slot2-menu)
         -   slot's slot: _column-requested-slot-name from column internal's slotNames array_ (e.g. menu)
     -   menu button column cell view - slot created within the menu button component
         -   slot's name: _column-requested-slot-name from column internal's slotNames array_ (e.g. menu)
