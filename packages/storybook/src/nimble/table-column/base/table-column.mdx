@@ -1,41 +1,49 @@
 import { Controls, Canvas, Meta, Title, Description } from '@storybook/blocks';
 import * as tableColumnStories from './table-column.stories';
+import ComponentApisLink from '../../../docs/component-apis-link.mdx';
 
 <Meta of={tableColumnStories} />
 <Title of={tableColumnStories} />
 <Description of={tableColumnStories} />
 
-## Adding columns
+## API
+
+<Controls of={tableColumnStories.api} />
+<ComponentApisLink />
+
+## Examples
+
+### Adding columns
 
 <Description of={tableColumnStories.addingColumns} />
 <Canvas of={tableColumnStories.addingColumns} />
 <Controls of={tableColumnStories.addingColumns} />
 
-## Setting header content
+### Setting header content
 
 <Description of={tableColumnStories.headerContent} />
 <Canvas of={tableColumnStories.headerContent} />
 <Controls of={tableColumnStories.headerContent} />
 
-## Configuring common attributes
+### Hiding
 
-<Description of={tableColumnStories.commonAttributes} />
-<Canvas of={tableColumnStories.commonAttributes} />
-<Controls of={tableColumnStories.commonAttributes} />
+<Description of={tableColumnStories.columnHidden} />
+<Canvas of={tableColumnStories.columnHidden} />
+<Controls of={tableColumnStories.columnHidden} />
 
-## Sorting
+### Sorting
 
 <Description of={tableColumnStories.sorting} />
 <Canvas of={tableColumnStories.sorting} />
 <Controls of={tableColumnStories.sorting} />
 
-## Grouping
+### Grouping
 
 <Description of={tableColumnStories.grouping} />
 <Canvas of={tableColumnStories.grouping} />
 <Controls of={tableColumnStories.grouping} />
 
-## Column Width
+### Column width
 
 <Description of={tableColumnStories.width} />
 <Canvas of={tableColumnStories.width} />
