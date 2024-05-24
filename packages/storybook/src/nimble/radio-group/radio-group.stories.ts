@@ -75,11 +75,7 @@ export const radioGroup: StoryObj<RadioGroupArgs> = {
         orientation: {
             options: Object.values(Orientation),
             control: {
-                type: 'radio',
-                labels: {
-                    [Orientation.horizontal]: 'Horizontal',
-                    [Orientation.vertical]: 'Vertical'
-                }
+                type: 'radio'
             },
             description: 'The orientation of the radio buttons.',
             table: { category: apiCategory.attributes }
