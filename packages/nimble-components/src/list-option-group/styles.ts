@@ -34,8 +34,8 @@ export const styles = css`
         display: none;
     }
 
-    :host([show-top-separator])::before,
-    :host([show-bottom-separator])::after {
+    :host([top-separator-visible])::before,
+    :host([bottom-separator-visible])::after {
         display: block;
     }
 

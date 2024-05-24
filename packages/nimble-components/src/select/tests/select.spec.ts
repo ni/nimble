@@ -1488,9 +1488,9 @@ describe('Select', () => {
         it('all groups except last show bottom separator', async () => {
             await clickAndWaitForOpen(element);
             const groups = pageObject.getAllGroups();
-            expect(groups[0]!.showBottomSeparator).toBeTrue();
-            expect(groups[1]!.showBottomSeparator).toBeTrue();
-            expect(groups[2]!.showBottomSeparator).toBeFalse();
+            expect(groups[0]!.bottomSeparatorVisible).toBeTrue();
+            expect(groups[1]!.bottomSeparatorVisible).toBeTrue();
+            expect(groups[2]!.bottomSeparatorVisible).toBeFalse();
         });
 
         it('list option before group causes group to show top separator', async () => {
@@ -1498,7 +1498,7 @@ describe('Select', () => {
             const group = pageObject.getGroup(0);
             group.before(listOption);
             await waitForUpdatesAsync();
-            expect(group.showTopSeparator).toBeTrue();
+            expect(group.topSeparatorVisible).toBeTrue();
         });
 
         it('list option after last group causes group to show bottom separator', async () => {
@@ -1510,7 +1510,7 @@ describe('Select', () => {
             const lastGroup = groups[groups.length - 1]!;
             lastGroup.after(listOption);
             await waitForUpdatesAsync();
-            expect(lastGroup.showBottomSeparator).toBeTrue();
+            expect(lastGroup.bottomSeparatorVisible).toBeTrue();
         });
 
         it('group that is hidden when slotted results in hidden options', async () => {
@@ -1560,7 +1560,7 @@ describe('Select', () => {
             await waitForUpdatesAsync();
             await clickAndWaitForOpen(element);
             const groupAfterInsertedOption = pageObject.getGroup(1);
-            expect(groupAfterInsertedOption.showTopSeparator).toBeTrue();
+            expect(groupAfterInsertedOption.topSeparatorVisible).toBeTrue();
         });
 
         describe('filtering', () => {
@@ -1575,7 +1575,7 @@ describe('Select', () => {
                     filter: 'One',
                     visibleGroupLabels: ['Group One'],
                     separatorStates: [
-                        { showTopSeparator: false, showBottomSeparator: false }
+                        { topSeparatorVisible: false, bottomSeparatorVisible: false }
                     ]
                 },
                 {
@@ -1583,7 +1583,7 @@ describe('Select', () => {
                     filter: 'Four',
                     visibleGroupLabels: ['Group Two'],
                     separatorStates: [
-                        { showTopSeparator: false, showBottomSeparator: false }
+                        { topSeparatorVisible: false, bottomSeparatorVisible: false }
                     ]
                 },
                 {
@@ -1591,7 +1591,7 @@ describe('Select', () => {
                     filter: 'Six',
                     visibleGroupLabels: ['Gróup Three'],
                     separatorStates: [
-                        { showTopSeparator: false, showBottomSeparator: false }
+                        { topSeparatorVisible: false, bottomSeparatorVisible: false }
                     ]
                 },
                 {
@@ -1599,8 +1599,8 @@ describe('Select', () => {
                     filter: 'Two',
                     visibleGroupLabels: ['Group One', 'Group Two'],
                     separatorStates: [
-                        { showTopSeparator: false, showBottomSeparator: true },
-                        { showTopSeparator: false, showBottomSeparator: false }
+                        { topSeparatorVisible: false, bottomSeparatorVisible: true },
+                        { topSeparatorVisible: false, bottomSeparatorVisible: false }
                     ]
                 },
                 {
@@ -1608,8 +1608,8 @@ describe('Select', () => {
                     filter: 'Three',
                     visibleGroupLabels: ['Group Two', 'Gróup Three'],
                     separatorStates: [
-                        { showTopSeparator: false, showBottomSeparator: true },
-                        { showTopSeparator: false, showBottomSeparator: false }
+                        { topSeparatorVisible: false, bottomSeparatorVisible: true },
+                        { topSeparatorVisible: false, bottomSeparatorVisible: false }
                     ]
                 },
                 {
@@ -1617,8 +1617,8 @@ describe('Select', () => {
                     filter: 'Edge',
                     visibleGroupLabels: ['Group One', 'Gróup Three'],
                     separatorStates: [
-                        { showTopSeparator: false, showBottomSeparator: true },
-                        { showTopSeparator: false, showBottomSeparator: false }
+                        { topSeparatorVisible: false, bottomSeparatorVisible: true },
+                        { topSeparatorVisible: false, bottomSeparatorVisible: false }
                     ]
                 },
                 {
@@ -1630,9 +1630,9 @@ describe('Select', () => {
                         'Gróup Three'
                     ],
                     separatorStates: [
-                        { showTopSeparator: false, showBottomSeparator: true },
-                        { showTopSeparator: false, showBottomSeparator: true },
-                        { showTopSeparator: false, showBottomSeparator: false }
+                        { topSeparatorVisible: false, bottomSeparatorVisible: true },
+                        { topSeparatorVisible: false, bottomSeparatorVisible: true },
+                        { topSeparatorVisible: false, bottomSeparatorVisible: false }
                     ]
                 }
             ];
@@ -1650,8 +1650,8 @@ describe('Select', () => {
                     expect(
                         visibleGroups.map(g => {
                             return {
-                                showTopSeparator: g.showTopSeparator,
-                                showBottomSeparator: g.showBottomSeparator
+                                topSeparatorVisible: g.topSeparatorVisible,
+                                bottomSeparatorVisible: g.bottomSeparatorVisible
                             };
                         })
                     ).toEqual(value.separatorStates);

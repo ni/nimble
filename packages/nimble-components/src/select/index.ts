@@ -1026,19 +1026,19 @@ export class Select
     private updateAdjacentSeparatorState(group: ListOptionGroup): void {
         const previousElement = this.getPreviousVisibleOptionOrGroup(group);
         const nextElement = this.getNextVisibleOptionOrGroup(group);
-        group.showBottomSeparator = nextElement !== null;
+        group.bottomSeparatorVisible = nextElement !== null;
         if (isOptionOrGroupVisible(group)) {
-            group.showTopSeparator = previousElement instanceof ListOption;
+            group.topSeparatorVisible = previousElement instanceof ListOption;
             if (previousElement instanceof ListOptionGroup) {
-                previousElement.showBottomSeparator = true;
+                previousElement.bottomSeparatorVisible = true;
             }
         } else {
             if (previousElement instanceof ListOptionGroup) {
-                previousElement.showBottomSeparator = nextElement !== null;
+                previousElement.bottomSeparatorVisible = nextElement !== null;
             }
 
             if (nextElement instanceof ListOptionGroup) {
-                nextElement.showTopSeparator = previousElement instanceof ListOption;
+                nextElement.topSeparatorVisible = previousElement instanceof ListOption;
             }
         }
     }

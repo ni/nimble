@@ -54,14 +54,14 @@ export class ListOptionGroup extends FoundationElement {
     /**
      * @internal
      */
-    @attr({ attribute: 'show-top-separator', mode: 'boolean' })
-    public showTopSeparator = false;
+    @attr({ attribute: 'top-separator-visible', mode: 'boolean' })
+    public topSeparatorVisible = false;
 
     /**
      * @internal
      */
-    @attr({ attribute: 'show-bottom-separator', mode: 'boolean' })
-    public showBottomSeparator = false;
+    @attr({ attribute: 'bottom-separator-visible', mode: 'boolean' })
+    public bottomSeparatorVisible = false;
 
     /** @internal */
     @observable
