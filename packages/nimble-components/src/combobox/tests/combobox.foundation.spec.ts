@@ -43,12 +43,15 @@ describe('Combobox', () => {
         element.id = 'combobox';
 
         const option1 = document.createElement('fast-option') as ListboxOption;
+        option1.slot = 'options';
         option1.textContent = 'one';
 
         const option2 = document.createElement('fast-option') as ListboxOption;
+        option2.slot = 'options';
         option2.textContent = 'two';
 
         const option3 = document.createElement('fast-option') as ListboxOption;
+        option3.slot = 'options';
         option3.textContent = 'three';
 
         element.appendChild(option1);
