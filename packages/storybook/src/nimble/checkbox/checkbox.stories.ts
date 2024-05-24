@@ -37,12 +37,12 @@ const metadata: Meta<CheckboxArgs> = {
             table: { category: apiCategory.slots }
         },
         checked: {
-            description: 'Whether the checkbox is initially checked. Setting this attribute after the checkbox initializes will not affect its current state. However, interactively changing the checkbox state does affect this attribute. Note that the `checked` property behaves differently than the `checked` attribute.',
+            description: 'Whether the checkbox is initially checked. Setting this attribute after the checkbox initializes will not affect its visual state. Note that the `checked` property behaves differently than the `checked` attribute.',
             table: { category: apiCategory.attributes }
         },
         checkedProperty: {
             name: 'checked',
-            description: 'Whether the checkbox is checked. Setting this property affects the current checkbox state. Interactively changing the checkbox state affects this property. Note that the `checked` property behaves differently than the `checked` attribute.',
+            description: 'Whether the checkbox is checked. Setting this property affects the checkbox visual state and interactively changing the checkbox state affects this property. Note that the `checked` property behaves differently than the `checked` attribute.',
             table: { category: apiCategory.nonAttributeProperties }
         },
         indeterminate: {
