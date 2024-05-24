@@ -94,7 +94,7 @@ export const radioGroup: StoryObj<RadioGroupArgs> = {
         },
         buttons: {
             name: 'default',
-            description: `Add radio buttons by slotting ${radioTag} elements as child content in the default slot.`,
+            description: `The `${radioTag}` elements to display in the group.`,
             control: false,
             table: { category: apiCategory.slots }
         },
