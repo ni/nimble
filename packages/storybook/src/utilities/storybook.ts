@@ -183,4 +183,4 @@ export const errorTextDescription = 'A message to be displayed explaining why th
 export const errorVisibleDescription = 'When set to `true`, the `error-text` message will be displayed.';
 
 export const dropdownPositionDescription = (options: { componentName: string }): string => `Controls the position of the dropdown relative to the ${options.componentName}.`;
-export const optionsDescription = `Add \`${listOptionTag}\` items to the default slot to provide options for the user to select.`;
+export const optionsDescription = `The \`${listOptionTag}\` items for the user to select from.`;
