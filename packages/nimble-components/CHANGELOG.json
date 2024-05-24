@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Wed, 22 May 2024 18:32:15 GMT",
+      "version": "29.1.5",
+      "tag": "@ni/nimble-components_v29.1.5",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "5e4882a41568361919fc96a91243fc37cd831208",
+            "comment": "Fix anchor focus styling"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 22 May 2024 17:46:25 GMT",
       "version": "29.1.4",
       "tag": "@ni/nimble-components_v29.1.4",

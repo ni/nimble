@@ -67,7 +67,7 @@ export const treeItem: StoryObj<ItemArgs> = {
     argTypes: {
         label: {
             name: 'default',
-            description: labelDescription,
+            description: `${labelDescription} Tree items can also contain child tree items to establish hierarchy.`,
             table: { category: apiCategory.slots }
         },
         value: {
@@ -118,7 +118,7 @@ export const anchorTreeItem: StoryObj<AnchorItemArgs> = {
     parameters: {
         docs: {
             description: {
-                story: 'Use a `nimble-anchor-tree-item` to navigate to a URL from a `nimble-tree-view`. If you want a tree item that can have a value and/or child items, use a `nimble-tree-item` instead.'
+                story: `Use a \`${anchorTreeItemTag}\` to navigate to a URL from a \`${treeViewTag}\`. If you want a tree item that can have a value and/or child items, use a \`${treeItemTag}\` instead.`
             }
         }
     },
@@ -177,7 +177,7 @@ export const multipleTreeItems: StoryObj<TreeArgs> = {
         options: {
             name: 'default',
             description:
-                `Add one or more \`${treeItemTag}\` or \`${anchorTreeItemTag}\` elements as child content to populate the tree.`,
+                `One or more \`${treeItemTag}\` or \`${anchorTreeItemTag}\` elements which populate the tree. Nest items to establish tree hierarchy.`,
             table: { category: apiCategory.slots }
         },
         expandedChange: {

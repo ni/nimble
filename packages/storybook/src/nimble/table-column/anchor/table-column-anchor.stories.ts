@@ -116,7 +116,7 @@ export const anchorColumn: StoryObj<AnchorColumnTableArgs> = {
             options: Object.keys(AnchorAppearance),
             control: { type: 'radio' },
             description:
-                'Set to `prominent` to make the anchor appear in a different color than normal text.',
+                'Set to `prominent` to make the anchor appear in a different color than normal text. This has no effect under the Color theme.',
             table: { category: apiCategory.attributes },
         },
         underlineHidden: {
