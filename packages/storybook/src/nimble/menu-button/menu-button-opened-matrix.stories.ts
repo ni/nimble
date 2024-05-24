@@ -1,8 +1,8 @@
 import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate } from '@microsoft/fast-element';
-import { menuTag } from '@ni/nimble-components/dist/esm/menu';
-import { menuItemTag } from '@ni/nimble-components/dist/esm/menu-item';
-import { menuButtonTag } from '@ni/nimble-components/dist/esm/menu-button';
+import { menuTag } from '../../../../nimble-components/src/menu';
+import { menuItemTag } from '../../../../nimble-components/src/menu-item';
+import { menuButtonTag } from '../../../../nimble-components/src/menu-button';
 import { createFixedThemeStory } from '../../utilities/storybook';
 import { sharedMatrixParameters } from '../../utilities/matrix';
 import { backgroundStates } from '../../utilities/states';

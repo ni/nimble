@@ -16,6 +16,7 @@ export const template = html<MenuButton>`
             ?content-hidden="${x => x.contentHidden}"
             ?checked="${x => x.open}"
             ?disabled="${x => x.disabled}"
+            tabindex="${x => x.tabIndex}"
             aria-haspopup="true"
             aria-expanded="${x => x.open}"
             @change="${(x, c) => x.toggleButtonCheckedChangeHandler(c.event)}"

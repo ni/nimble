@@ -1,6 +1,6 @@
 import type { StoryFn, Meta } from '@storybook/html';
 import { html } from '@microsoft/fast-element';
-import { drawerTag } from '@ni/nimble-components/dist/esm/drawer';
+import { drawerTag } from '../../../../nimble-components/src/drawer';
 import { createFixedThemeStory } from '../../utilities/storybook';
 import { sharedMatrixParameters } from '../../utilities/matrix';
 import { backgroundStates } from '../../utilities/states';
