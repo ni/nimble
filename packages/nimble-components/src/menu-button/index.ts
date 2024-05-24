@@ -1,4 +1,8 @@
-import { attr, observable } from '@microsoft/fast-element';
+import {
+    attr,
+    nullableNumberConverter,
+    observable
+} from '@microsoft/fast-element';
 import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
 import {
     eventChange,
@@ -39,6 +43,9 @@ export class MenuButton extends FoundationElement implements ButtonPattern {
 
     @attr({ attribute: 'content-hidden', mode: 'boolean' })
     public contentHidden = false;
+
+    @attr({ attribute: 'tabindex', converter: nullableNumberConverter })
+    public override tabIndex!: number;
 
     /**
      * Specifies whether or not the menu is open.

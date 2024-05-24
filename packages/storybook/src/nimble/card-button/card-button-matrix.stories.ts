@@ -1,7 +1,7 @@
 import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate } from '@microsoft/fast-element';
-import { bodyFont } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
-import { cardButtonTag } from '@ni/nimble-components/dist/esm/card-button';
+import { bodyFont } from '../../../../nimble-components/src/theme-provider/design-tokens';
+import { cardButtonTag } from '../../../../nimble-components/src/card-button';
 import {
     createMatrix,
     sharedMatrixParameters,

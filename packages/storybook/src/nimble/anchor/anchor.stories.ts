@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/html';
 import { html } from '@microsoft/fast-element';
-import { bodyFont } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
-import { anchorTag } from '@ni/nimble-components/dist/esm/anchor';
-import { AnchorAppearance } from '@ni/nimble-components/dist/esm/anchor/types';
+import { bodyFont, bodyFontColor } from '../../../../nimble-components/src/theme-provider/design-tokens';
+import { anchorTag } from '../../../../nimble-components/src/anchor';
+import { AnchorAppearance } from '../../../../nimble-components/src/anchor/types';
 import { apiCategory, createUserSelectedThemeStory } from '../../utilities/storybook';
 import { hrefDescription } from '../patterns/anchor/anchor-docs';
 
@@ -24,6 +24,7 @@ const metadata: Meta<AnchorArgs> = {
         <style class='code-hide'>
             .anchor-container {
                 font: var(${bodyFont.cssCustomProperty});
+                color: var(${bodyFontColor.cssCustomProperty});
                 outline: none;
             }
         </style>
@@ -54,7 +55,7 @@ const metadata: Meta<AnchorArgs> = {
             options: Object.keys(AnchorAppearance),
             control: { type: 'radio' },
             description:
-                'Set to `prominent` to make the anchor appear in a different color than normal text.',
+                'Set to `prominent` to make the anchor appear in a different color than normal text. This has no effect under the Color theme.',
             table: { category: apiCategory.attributes }
         },
         contenteditable: {

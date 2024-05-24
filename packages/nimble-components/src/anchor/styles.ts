@@ -2,6 +2,7 @@ import { css } from '@microsoft/fast-element';
 import { display } from '../utilities/style/display';
 import { focusVisible } from '../utilities/style/focus';
 import {
+    borderHoverColor,
     linkActiveFontColor,
     linkActiveProminentFontColor,
     linkDisabledFontColor,
@@ -62,6 +63,7 @@ export const styles = css`
             outline: none;
             box-shadow: inset 0px -1px;
             text-decoration: underline;
+            color: ${borderHoverColor};
         }
     }
 

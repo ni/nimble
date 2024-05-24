@@ -375,6 +375,35 @@ const nimbleButton = Button.compose({
 });
 ```
 
+If delegating focus, you must forward the `tabindex` attribute to any focusable elements in the shadow DOM. While some browsers (e.g. Chrome) will work properly without forwarding, others (e.g. Firefox) won't. Override the `tabIndex` property and mark it as an attribute:
+
+```ts
+export class MyComponent {
+    ...
+    @attr({ attribute: 'tabindex', converter: nullableNumberConverter })
+    public override tabIndex!: number;
+}
+```
+
+Then in the template, bind the focusable elements' `tabindex` to the host component's property:
+
+<!-- prettier-ignore -->
+```html
+html<MyComponent>`
+    <nimble-button 
+        ...
+        tabindex="${x => x.tabIndex}">
+    </nimble-button>
+    // or for an element that isn't focusable by default:
+    <div
+        ...
+        tabindex="${x => {
+            const tabindex = x.tabIndex ?? 0;
+            return x.disabled ? undefined : `${tabindex}`;
+        }">
+    </div>`;
+```
+
 ### Leverage mixins for shared APIs across components
 
 TypeScript and the FAST library each offer patterns and/or mechanisms to alter the APIs for a component via a mixin.

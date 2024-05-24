@@ -2,8 +2,8 @@ import { html } from '@microsoft/fast-element';
 import { Orientation } from '@microsoft/fast-web-utilities';
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html';
-import { radioTag } from '@ni/nimble-components/dist/esm/radio';
-import { radioGroupTag } from '@ni/nimble-components/dist/esm/radio-group';
+import { radioTag } from '../../../../nimble-components/src/radio';
+import { radioGroupTag } from '../../../../nimble-components/src/radio-group';
 import { createUserSelectedThemeStory } from '../../utilities/storybook';
 
 interface RadioGroupArgs {

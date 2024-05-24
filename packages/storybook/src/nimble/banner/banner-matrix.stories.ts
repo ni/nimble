@@ -1,12 +1,12 @@
 import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate, when } from '@microsoft/fast-element';
-import { bannerGapSize } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
-import { buttonTag } from '@ni/nimble-components/dist/esm/button';
-import { anchorTag } from '@ni/nimble-components/dist/esm/anchor';
-import { iconKeyTag } from '@ni/nimble-components/dist/esm/icons/key';
-import { bannerTag } from '@ni/nimble-components/dist/esm/banner';
-import { BannerSeverity } from '@ni/nimble-components/dist/esm/banner/types';
-import { ButtonAppearanceVariant } from '@ni/nimble-components/dist/esm/button/types';
+import { bannerGapSize } from '../../../../nimble-components/src/theme-provider/design-tokens';
+import { buttonTag } from '../../../../nimble-components/src/button';
+import { anchorTag } from '../../../../nimble-components/src/anchor';
+import { iconKeyTag } from '../../../../nimble-components/src/icons/key';
+import { bannerTag } from '../../../../nimble-components/src/banner';
+import { BannerSeverity } from '../../../../nimble-components/src/banner/types';
+import { ButtonAppearanceVariant } from '../../../../nimble-components/src/button/types';
 import { createStory } from '../../utilities/storybook';
 import {
     createMatrix,
