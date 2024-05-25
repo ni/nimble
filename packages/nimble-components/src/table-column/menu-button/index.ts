@@ -14,6 +14,7 @@ import { tableColumnTextGroupHeaderViewTag } from '../text/group-header-view';
 import { mixinGroupableColumnAPI } from '../mixins/groupable-column';
 import type { DelegatedEventEventDetails } from '../base/types';
 import type { MenuButtonToggleEventDetail } from '../../menu-button/types';
+import { tableTag } from '../../table';
 
 export type TableColumnMenuButtonCellRecord = TableStringField<'value'>;
 
@@ -105,6 +106,17 @@ export class TableColumnMenuButton extends mixinFractionalWidthColumnAPI(
                 originalEvent: originalToggleEvent
             };
             this.$emit(newEventName, detail);
+
+            if (originalEvent.type === 'toggle') {
+                // TODO seems like we should just be able to listen to the bubbling event menu-button-toggle from the
+                // table / table.viewport, but that wasn't working.
+                // Goal is to prevent KeyboardNavigationManager from handling arrow keys when the menu is open. This is only needed
+                // if we keep the current special 'single interactive element' focus code.
+                const table = this.closest(tableTag);
+                if (table) {
+                    table.keyboardNavigationManager.updateNavigationMode(!detail.newState);
+                }
+            }
         }
     };
 }

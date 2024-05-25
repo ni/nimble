@@ -33,6 +33,7 @@ import { tableHeaderTag } from '../components/header';
 import { MenuItem } from '../../menu-item';
 import { Menu } from '../../menu';
 import { TableCellView } from '../../table-column/base/cell-view';
+import type { MenuButtonToggleEventDetail } from '../../menu-button/types';
 
 interface TableFocusState {
     focusType: TableFocusType;
@@ -176,6 +177,10 @@ implements Subscriber {
         }
     }
 
+    public updateNavigationMode(inNavigationMode: boolean): void {
+        this.inNavigationMode = inNavigationMode;
+    }
+
     private readonly handleFocus = (event: FocusEvent): void => {
         // User may have clicked elsewhere in the table (on an element not reflected in this.focusState). Update our focusState
         // based on the current active element in a few cases:
@@ -206,11 +211,14 @@ implements Subscriber {
                     if (cell.actionMenuButton === activeElement) {
                         this.setCellActionMenuFocusState(row.dataIndex, columnIndex);
                     } else {
-                        const contentIndex = cell.cellView.tabbableChildren.indexOf(
-                            activeElement
-                        );
+                        const tabbableChildren = cell.cellView.tabbableChildren;
+                        const contentIndex = tabbableChildren.indexOf(activeElement);
                         if (contentIndex > -1) {
-                            this.setCellContentFocusState(contentIndex, row.dataIndex, columnIndex);
+                            if (this.cellHasSingleInteractiveElement(cell)) {
+                                this.setCellFocusState(columnIndex, row.dataIndex);
+                            } else {
+                                this.setCellContentFocusState(contentIndex, row.dataIndex, columnIndex);
+                            }
                         }
                     }
                 }
@@ -278,6 +286,7 @@ implements Subscriber {
             }
         }
         if (handled) {
+            event.stopPropagation();
             event.preventDefault();
         }
     };
@@ -371,11 +380,8 @@ implements Subscriber {
         if (this.focusState.focusType === TableFocusType.cell) {
             const row = this.getCurrentRow();
             const focusableRowElements = row!.getFocusableElements();
-            const cellInfo = focusableRowElements.cells[this.focusState.columnIndex!]!;
-            if (
-                !cellInfo.actionMenuButton
-                && cellInfo.cell.cellView.tabbableChildren.length === 1
-            ) {
+            const cell = focusableRowElements.cells[this.focusState.columnIndex!]!.cell;
+            if (this.cellHasSingleInteractiveElement(cell)) {
                 // already focused (single interactive element)
                 return false;
             }
@@ -642,7 +648,7 @@ implements Subscriber {
                 }
                 const lastCellTabbableIndex = tabbableElements.length - 1;
                 if (this.focusState.focusType === TableFocusType.cell && this.focusState.columnIndex === cellIndex) {
-                    if (!cellInfo.actionMenuButton && cellInfo.cell.cellView.tabbableChildren.length === 1) { // Single interactive element (which means it was already focused)
+                    if (this.cellHasSingleInteractiveElement(cellInfo.cell)) { // Single interactive element (which means it was already focused)
                         startIndex = firstCellTabbableIndex; // Start at single interactive element
                     } else {
                         startIndex = shiftKeyPressed ? lastCellTabbableIndex + 1 : firstCellTabbableIndex - 1;
@@ -944,15 +950,14 @@ implements Subscriber {
                 focusableElement = focusableRowElements.selectionCheckbox;
                 break;
             case TableFocusType.cell: {
-                const cell = focusableRowElements.cells[this.focusState.columnIndex!]!;
-                const tabbableChildren = cell.cell.cellView.tabbableChildren;
+                const cell = focusableRowElements.cells[this.focusState.columnIndex!]!.cell;
                 // For cells with a single focusable element, and no action menu, we focus the
                 // child element instead of the cell itself (as it's the only thing the user can
                 // interact with)
-                if (!cell.actionMenuButton && tabbableChildren.length === 1) {
-                    focusableElement = tabbableChildren[0];
+                if (this.cellHasSingleInteractiveElement(cell)) {
+                    focusableElement = cell.cellView.tabbableChildren[0];
                 } else {
-                    focusableElement = cell.cell;
+                    focusableElement = cell;
                 }
                 break;
             }
@@ -1147,6 +1152,10 @@ implements Subscriber {
             }
         }
         return undefined;
+    }
+
+    private cellHasSingleInteractiveElement(cell: TableCell): boolean {
+        return !cell.actionMenuButton && cell.cellView.tabbableChildren.length === 1;
     }
 
     private focusFirstInteractiveElementInCurrentCell(
