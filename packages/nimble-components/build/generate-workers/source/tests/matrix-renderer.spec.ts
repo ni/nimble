@@ -17,7 +17,6 @@ describe('MatrixRenderer with MessageChannel needing canvas context', () => {
         const offscreenCanvas = new OffscreenCanvas(300, 300);
         matrixRenderer.setCanvas(transfer(offscreenCanvas, [offscreenCanvas]));
         await matrixRenderer.setRenderConfig({
-            containerDimensions: undefined,
             dieDimensions: {
                 width: 10,
                 height: 10
@@ -32,8 +31,8 @@ describe('MatrixRenderer with MessageChannel needing canvas context', () => {
             horizontalCoefficient: 1,
             horizontalConstant: 0,
             verticalConstant: 0,
-            labelsFontSize: undefined,
-            colorScale: undefined
+            labelsFontSize: 0,
+            colorScale: []
         });
         await matrixRenderer.setTransformConfig({
             transform: {
@@ -41,8 +40,14 @@ describe('MatrixRenderer with MessageChannel needing canvas context', () => {
                 x: 1,
                 y: 1
             },
-            topLeftCanvasCorner: undefined,
-            bottomRightCanvasCorner: undefined
+            topLeftCanvasCorner: {
+                x: 0,
+                y: 0
+            },
+            bottomRightCanvasCorner: {
+                x: 0,
+                y: 0
+            }
         });
     });
 
@@ -66,11 +71,5 @@ describe('MatrixRenderer with MessageChannel needing canvas context', () => {
 
         expect(scaledColumnIndex).toEqual(Float64Array.from([4, 1, 2]));
         expect(scaledRowIndex).toEqual(Float64Array.from([54, 54, 62]));
-    });
-
-    it('should throw error calling drawWafer if canvas corners are not set', async () => {
-        await expectAsync(matrixRenderer.drawWafer()).toBeRejectedWithError(
-            'Canvas corners are not set'
-        );
     });
 });

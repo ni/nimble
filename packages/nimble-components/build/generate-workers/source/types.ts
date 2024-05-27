@@ -27,19 +27,18 @@ export interface IColorScaleMarker {
 export type ColorScale = IColorScaleMarker[];
 
 export interface RenderConfig {
-    containerDimensions: Dimensions | undefined;
-    dieDimensions: Dimensions | undefined;
-    margin: Margin | undefined;
-    verticalCoefficient: number | undefined;
-    horizontalCoefficient: number | undefined;
-    horizontalConstant: number | undefined;
-    verticalConstant: number | undefined;
-    labelsFontSize: number | undefined;
-    colorScale: ColorScale | undefined;
+    dieDimensions: Dimensions;
+    margin: Margin;
+    verticalCoefficient: number;
+    horizontalCoefficient: number;
+    horizontalConstant: number;
+    verticalConstant: number;
+    labelsFontSize: number;
+    colorScale: ColorScale;
 }
 
 export interface TransformConfig {
-    transform: Transform | undefined;
-    topLeftCanvasCorner: Position | undefined;
-    bottomRightCanvasCorner: Position | undefined;
+    transform: Transform;
+    topLeftCanvasCorner: Position;
+    bottomRightCanvasCorner: Position;
 }

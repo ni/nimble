@@ -363,7 +363,6 @@ export class WaferMap<
             height: this.canvasHeight ?? 0
         };
         const renderConfig: RenderConfig = {
-            containerDimensions: this.containerDimensions,
             dieDimensions: this.dieDimensions,
             margin: this.margin,
             verticalCoefficient: this.verticalCoefficient,

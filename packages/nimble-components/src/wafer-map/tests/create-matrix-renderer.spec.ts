@@ -35,8 +35,10 @@ describe('MatrixRenderer worker', () => {
             height: 300
         });
         await matrixRenderer.setRenderConfig({
-            containerDimensions: undefined,
-            dieDimensions: undefined,
+            dieDimensions: {
+                width: 0,
+                height: 0
+            },
             margin: {
                 top: 0,
                 right: 0,
@@ -47,8 +49,8 @@ describe('MatrixRenderer worker', () => {
             horizontalCoefficient: 1,
             horizontalConstant: 0,
             verticalConstant: 0,
-            labelsFontSize: undefined,
-            colorScale: undefined
+            labelsFontSize: 0,
+            colorScale: []
         });
 
         await matrixRenderer.setColumnIndices(typedColumnIndices);

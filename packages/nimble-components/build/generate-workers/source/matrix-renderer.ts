@@ -16,21 +16,38 @@ export class MatrixRenderer {
     public canvas!: OffscreenCanvas;
     public context!: OffscreenCanvasRenderingContext2D;
     private renderConfig: RenderConfig = {
-        containerDimensions: undefined,
-        dieDimensions: undefined,
-        margin: undefined,
-        verticalCoefficient: undefined,
-        horizontalCoefficient: undefined,
-        horizontalConstant: undefined,
-        verticalConstant: undefined,
-        labelsFontSize: undefined,
-        colorScale: undefined
+        dieDimensions: {
+            width: 0,
+            height: 0
+        },
+        margin: {
+            top: 0,
+            right: 0,
+            bottom: 0,
+            left: 0
+        },
+        verticalCoefficient: 1,
+        horizontalCoefficient: 1,
+        horizontalConstant: 0,
+        verticalConstant: 0,
+        labelsFontSize: 0,
+        colorScale: []
     };
 
     private transformConfig: TransformConfig = {
-        transform: undefined,
-        topLeftCanvasCorner: undefined,
-        bottomRightCanvasCorner: undefined
+        transform: {
+            k: 1,
+            x: 0,
+            y: 0
+        },
+        topLeftCanvasCorner: {
+            x: 0,
+            y: 0
+        },
+        bottomRightCanvasCorner: {
+            x: 0,
+            y: 0
+        }
     };
 
     private calculateHorizontalScaledIndices(columnIndex: number): number {
@@ -53,15 +70,6 @@ export class MatrixRenderer {
         if (columnIndices.length === 0 || columnIndices[0] === undefined) {
             return;
         }
-        if (
-            this.renderConfig.horizontalCoefficient === undefined
-            || this.renderConfig.horizontalConstant === undefined
-            || this.renderConfig.margin === undefined
-        ) {
-            throw new Error(
-                'Horizontal coefficient, constant or margin is not set'
-            );
-        }
         const scaledColumnIndex = [
             this.calculateHorizontalScaledIndices(columnIndices[0])
         ];
@@ -83,15 +91,6 @@ export class MatrixRenderer {
     }
 
     public setRowIndices(rowIndices: Int32Array): void {
-        if (
-            this.renderConfig.verticalCoefficient === undefined
-            || this.renderConfig.verticalConstant === undefined
-            || this.renderConfig.margin === undefined
-        ) {
-            throw new Error(
-                'Vertical coefficient, constant or margin is not set'
-            );
-        }
         this.scaledRowIndices = new Float64Array(rowIndices.length);
         for (let i = 0; i < rowIndices.length; i++) {
             this.scaledRowIndices[i] = this.calculateVerticalScaledIndices(
@@ -114,9 +113,6 @@ export class MatrixRenderer {
     }
 
     public scaleCanvas(): void {
-        if (this.transformConfig.transform === undefined) {
-            throw new Error('Transform is not set');
-        }
         this.context.translate(
             this.transformConfig.transform.x,
             this.transformConfig.transform.y
@@ -148,15 +144,6 @@ export class MatrixRenderer {
         this.context.save();
         this.clearCanvas();
         this.scaleCanvas();
-        if (
-            this.transformConfig.topLeftCanvasCorner === undefined
-            || this.transformConfig.bottomRightCanvasCorner === undefined
-        ) {
-            throw new Error('Canvas corners are not set');
-        }
-        if (this.renderConfig.dieDimensions === undefined) {
-            throw new Error('Die dimensions are not set');
-        }
         for (let i = 0; i < this.scaledColumnIndices.length; i++) {
             const scaledX = this.scaledColumnIndices[i]!;
             if (
