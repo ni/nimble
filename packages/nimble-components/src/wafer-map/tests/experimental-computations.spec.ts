@@ -49,10 +49,10 @@ describe('Wafermap Experimental Computations module', () => {
             expect(waferMock.margin).toEqual(expectedMargin);
         });
 
-        it('should have horizontal domain containing min and max column indexes', () => {
+        it('should have horizontal domain containing min and max column Indices', () => {
             expect(waferMock.horizontalScale.domain()).toEqual([2, 7]);
         });
-        it('should have vertical domain containing min and max  row indexes, ', () => {
+        it('should have vertical domain containing min and max  row Indices, ', () => {
             expect(waferMock.verticalScale.domain()).toEqual([1, 7]);
         });
     });

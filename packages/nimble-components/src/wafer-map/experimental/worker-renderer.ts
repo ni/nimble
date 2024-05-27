@@ -17,8 +17,8 @@ export class WorkerRenderer {
     public async setupWafer(snapshot: {
         canvasDimensions: Dimensions,
         renderConfig: RenderConfig,
-        columnIndexes: Int32Array,
-        rowIndexes: Int32Array
+        columnIndices: Int32Array,
+        rowIndices: Int32Array
     }): Promise<void> {
         if (this.matrixRenderer === undefined) {
             const { matrixRenderer } = await createMatrixRenderer();
@@ -32,8 +32,8 @@ export class WorkerRenderer {
             snapshot.canvasDimensions
         );
         await this.matrixRenderer.setRenderConfig(snapshot.renderConfig);
-        await this.matrixRenderer.setColumnIndexes(snapshot.columnIndexes);
-        await this.matrixRenderer.setRowIndexes(snapshot.rowIndexes);
+        await this.matrixRenderer.setColumnIndices(snapshot.columnIndices);
+        await this.matrixRenderer.setRowIndices(snapshot.rowIndices);
     }
 
     public async drawWafer(snapshot: {

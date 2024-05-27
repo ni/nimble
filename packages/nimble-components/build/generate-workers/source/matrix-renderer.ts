@@ -1,12 +1,5 @@
 import { expose } from 'comlink';
-import type {
-    Dimensions,
-    RenderConfig,
-    Transform,
-    TransformConfig,
-    WaferMapMatrix,
-    WaferMapTypedMatrix
-} from './types';
+import type { Dimensions, RenderConfig, TransformConfig } from './types';
 
 /**
  * MatrixRenderer class is meant to be used within a Web Worker context,
@@ -17,9 +10,9 @@ import type {
  */
 export class MatrixRenderer {
     public values = Float64Array.from([]);
-    public scaledColumnIndex = Float64Array.from([]);
-    public scaledRowIndex = Float64Array.from([]);
-    public columnIndexPositions = Int32Array.from([]);
+    public scaledColumnIndices = Float64Array.from([]);
+    public scaledRowIndices = Float64Array.from([]);
+    public columnIndicesPositions = Int32Array.from([]);
     public canvas!: OffscreenCanvas;
     public context!: OffscreenCanvasRenderingContext2D;
     private renderConfig: RenderConfig = {
@@ -40,7 +33,7 @@ export class MatrixRenderer {
         bottomRightCanvasCorner: undefined
     };
 
-    public calculateHorizontalScaledIndex(columnIndex: number): number {
+    private calculateHorizontalScaledIndices(columnIndex: number): number {
         return (
             this.renderConfig.horizontalCoefficient! * columnIndex
             + this.renderConfig.horizontalConstant!
@@ -48,7 +41,7 @@ export class MatrixRenderer {
         );
     }
 
-    public calculateVerticalScaledIndex(rowIndex: number): number {
+    private calculateVerticalScaledIndices(rowIndex: number): number {
         return (
             this.renderConfig.verticalCoefficient! * rowIndex
             + this.renderConfig.verticalConstant!
@@ -56,8 +49,8 @@ export class MatrixRenderer {
         );
     }
 
-    public setColumnIndexes(columnIndexes: Int32Array): void {
-        if (columnIndexes.length === 0 || columnIndexes[0] === undefined) {
+    public setColumnIndices(columnIndices: Int32Array): void {
+        if (columnIndices.length === 0 || columnIndices[0] === undefined) {
             return;
         }
         if (
@@ -70,26 +63,26 @@ export class MatrixRenderer {
             );
         }
         const scaledColumnIndex = [
-            this.calculateHorizontalScaledIndex(columnIndexes[0])
+            this.calculateHorizontalScaledIndices(columnIndices[0])
         ];
         const columnPositions = [0];
-        let prev = columnIndexes[0];
-        for (let i = 1; i < columnIndexes.length; i++) {
-            const xIndex = columnIndexes[i];
+        let prev = columnIndices[0];
+        for (let i = 1; i < columnIndices.length; i++) {
+            const xIndex = columnIndices[i];
             if (xIndex && xIndex !== prev) {
-                const scaledX = this.calculateHorizontalScaledIndex(
-                    columnIndexes[i]!
+                const scaledX = this.calculateHorizontalScaledIndices(
+                    columnIndices[i]!
                 );
                 scaledColumnIndex.push(scaledX);
                 columnPositions.push(i);
                 prev = xIndex;
             }
         }
-        this.scaledColumnIndex = Float64Array.from(scaledColumnIndex);
-        this.columnIndexPositions = Int32Array.from(columnPositions);
+        this.scaledColumnIndices = Float64Array.from(scaledColumnIndex);
+        this.columnIndicesPositions = Int32Array.from(columnPositions);
     }
 
-    public setRowIndexes(rowIndexes: Int32Array): void {
+    public setRowIndices(rowIndices: Int32Array): void {
         if (
             this.renderConfig.verticalCoefficient === undefined
             || this.renderConfig.verticalConstant === undefined
@@ -99,10 +92,10 @@ export class MatrixRenderer {
                 'Vertical coefficient, constant or margin is not set'
             );
         }
-        this.scaledRowIndex = new Float64Array(rowIndexes.length);
-        for (let i = 0; i < rowIndexes.length; i++) {
-            this.scaledRowIndex[i] = this.calculateVerticalScaledIndex(
-                rowIndexes[i]!
+        this.scaledRowIndices = new Float64Array(rowIndices.length);
+        for (let i = 0; i < rowIndices.length; i++) {
+            this.scaledRowIndices[i] = this.calculateVerticalScaledIndices(
+                rowIndices[i]!
             );
         }
     }
@@ -164,8 +157,8 @@ export class MatrixRenderer {
         if (this.renderConfig.dieDimensions === undefined) {
             throw new Error('Die dimensions are not set');
         }
-        for (let i = 0; i < this.scaledColumnIndex.length; i++) {
-            const scaledX = this.scaledColumnIndex[i]!;
+        for (let i = 0; i < this.scaledColumnIndices.length; i++) {
+            const scaledX = this.scaledColumnIndices[i]!;
             if (
                 !(
                     scaledX >= this.transformConfig.topLeftCanvasCorner.x
@@ -177,16 +170,16 @@ export class MatrixRenderer {
 
             // columnIndexPositions is used to get chunks to determine the start and end index of the column, it looks something like [0, 1, 4, 9, 12]
             // This means that the first column has a start index of 0 and an end index of 1, the second column has a start index of 1 and an end index of 4, and so on
-            // scaledRowIndex is used when we reach the end of the columnIndexPositions, when columnIndexPositions is [0, 1, 4, 9, 12], scaledRowIndex is 13
-            const columnEndIndex = this.columnIndexPositions[i + 1] !== undefined
-                ? this.columnIndexPositions[i + 1]!
-                : this.scaledRowIndex.length;
+            // scaledRowIndices is used when we reach the end of the columnIndexPositions, when columnIndexPositions is [0, 1, 4, 9, 12], scaledRowIndices is 13
+            const columnEndIndex = this.columnIndicesPositions[i + 1] !== undefined
+                ? this.columnIndicesPositions[i + 1]!
+                : this.scaledRowIndices.length;
             for (
-                let columnStartIndex = this.columnIndexPositions[i]!;
+                let columnStartIndex = this.columnIndicesPositions[i]!;
                 columnStartIndex < columnEndIndex;
                 columnStartIndex++
             ) {
-                const scaledY = this.scaledRowIndex[columnStartIndex]!;
+                const scaledY = this.scaledRowIndices[columnStartIndex]!;
                 if (
                     !(
                         scaledY >= this.transformConfig.topLeftCanvasCorner.y

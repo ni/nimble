@@ -6,8 +6,8 @@ describe('MatrixRenderer worker', () => {
     let matrixRenderer: Remote<MatrixRenderer>;
     let terminate: () => void;
     const testData = {
-        columnIndexes: [4, 1, 2],
-        rowIndexes: [54, 54, 62],
+        columnIndices: [4, 1, 2],
+        rowIndices: [54, 54, 62],
         values: [8.12, 9.0, 0.32]
     };
 
@@ -22,10 +22,10 @@ describe('MatrixRenderer worker', () => {
         matrixRenderer = undefined!;
     });
 
-    it('scaled indexes should be computed', async () => {
+    it('scaled Indices should be computed', async () => {
         const offscreenCanvas = new OffscreenCanvas(300, 300);
-        const typedColumnIndexes = Int32Array.from(testData.columnIndexes);
-        const typedRowIndexes = Int32Array.from(testData.rowIndexes);
+        const typedColumnIndices = Int32Array.from(testData.columnIndices);
+        const typedRowIndices = Int32Array.from(testData.rowIndices);
 
         await matrixRenderer.setCanvas(
             transfer(offscreenCanvas, [offscreenCanvas])
@@ -51,11 +51,11 @@ describe('MatrixRenderer worker', () => {
             colorScale: undefined
         });
 
-        await matrixRenderer.setColumnIndexes(typedColumnIndexes);
-        await matrixRenderer.setRowIndexes(typedRowIndexes);
+        await matrixRenderer.setColumnIndices(typedColumnIndices);
+        await matrixRenderer.setRowIndices(typedRowIndices);
 
-        const scaledColumnIndex = await matrixRenderer.scaledColumnIndex;
-        const scaledRowIndex = await matrixRenderer.scaledRowIndex;
+        const scaledColumnIndex = await matrixRenderer.scaledColumnIndices;
+        const scaledRowIndex = await matrixRenderer.scaledRowIndices;
 
         expect(scaledColumnIndex).toEqual(Float64Array.from([4, 1, 2]));
         expect(scaledRowIndex).toEqual(Float64Array.from([54, 54, 62]));
