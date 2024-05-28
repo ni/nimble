@@ -178,6 +178,7 @@ const metadata: Meta<DrawerArgs> = {
             table: { category: apiCategory.slots }
         },
         width: {
+            name: 'Drawer width',
             description: widthDescription,
             options: [
                 DrawerWidthOptions.default,

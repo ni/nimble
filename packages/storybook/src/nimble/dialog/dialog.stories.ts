@@ -196,6 +196,7 @@ const metadata: Meta<DialogArgs> = {
             table: { category: apiCategory.slots }
         },
         size: {
+            name: 'Dialog sizing',
             description: sizeDescription,
             options: [
                 DialogSizeOptions.smallGrowable,
