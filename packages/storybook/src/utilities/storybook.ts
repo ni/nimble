@@ -186,4 +186,4 @@ export const errorVisibleDescription = 'When set to `true`, the `error-text` mes
 export const dropdownPositionDescription = (options: { componentName: string }): string => `Controls the position of the dropdown relative to the ${options.componentName}.`;
 export const optionsDescription = `The \`${listOptionTag}\` items for the user to select from.`;
 
-export const preventDismissDescription = (options: { componentName: string }): string => `A boolean attribute to configure whether or not the ${options.componentName} is dismissible via the \`Esc\` key, or any other dismiss action that is supported in the future.`;
+export const preventDismissDescription = (options: { componentName: string }): string => `Prevents the \`Esc\` key from closing the ${options.componentName}.`;
