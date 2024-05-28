@@ -2,6 +2,7 @@ import { html, ViewTemplate } from '@microsoft/fast-element';
 import { themeProviderTag } from '../../../nimble-components/src/theme-provider';
 import { bodyFont } from '../../../nimble-components/src/theme-provider/design-tokens';
 import type { Theme } from '../../../nimble-components/src/theme-provider/types';
+import { listOptionTag } from '../../../nimble-components/src/list-option';
 import {
     BackgroundState,
     backgroundStates,
@@ -165,10 +166,21 @@ export const disableStorybookZoomTransform = `
 export const apiCategory = {
     attributes: 'Attributes',
     events: 'Events',
+    localizableLabels: 'Localizable Labels',
     methods: 'Methods',
+    nonAttributeProperties: 'Properties',
     slots: 'Slots'
 } as const;
 
+export const appearanceDescription = (options: { componentName: string }): string => `This attribute affects the appearance of the ${options.componentName}.`;
 export const iconDescription = 'Set `slot="start"` to include an icon before the text content.';
 export const disabledDescription = (options: { componentName: string }): string => `Styles the ${options.componentName} as disabled and prevents focus and user interaction.`;
+export const slottedLabelDescription = (options: { componentName: string }): string => `Label text to display adjacent to the ${options.componentName} describing its purpose to the user.`;
 export const textContentDescription = (options: { componentName: string }): string => `The text content of the ${options.componentName}.`;
+export const placeholderDescription = (options: { componentName: string }): string => `Placeholder text to display when no value has been entered in the ${options.componentName}.`;
+
+export const errorTextDescription = 'A message to be displayed explaining why the value is invalid. Only visible when `error-visible` is set.';
+export const errorVisibleDescription = 'When set to `true`, the `error-text` message will be displayed.';
+
+export const dropdownPositionDescription = (options: { componentName: string }): string => `Controls the position of the dropdown relative to the ${options.componentName}.`;
+export const optionsDescription = `The \`${listOptionTag}\` items for the user to select from.`;
