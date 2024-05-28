@@ -213,7 +213,7 @@ const metadata: Meta<DialogArgs> = {
         show: {
             name: 'show()',
             description:
-                'Call this member function to open the dialog. It returns a `Promise` that is resolved when the dialog is closed. The resolved value is either the reason passed to `close(...)` or the symbol `UserDismissed` if the dialog was dismissed via the ESC key.',
+                'Call this member function to open the dialog. It returns a `Promise` that is resolved when the dialog is closed. The resolved value is either the reason passed to `close(...)` or the symbol `UserDismissed` if the dialog was dismissed via the `Esc` key.',
             table: { category: apiCategory.methods }
         },
         close: {
@@ -239,7 +239,7 @@ const metadata: Meta<DialogArgs> = {
         openAndHandleResult: (dialogRef, textFieldRef) => {
             void (async () => {
                 const reason = await dialogRef.show();
-                textFieldRef.value = reason === UserDismissed ? 'ESC pressed' : reason;
+                textFieldRef.value = reason === UserDismissed ? 'Esc pressed' : reason;
             })();
         }
     }
