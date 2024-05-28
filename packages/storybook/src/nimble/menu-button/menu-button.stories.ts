@@ -111,13 +111,13 @@ const metadata: Meta<MenuButtonArgs> = {
             table: { category: apiCategory.attributes }
         },
         toggle: {
-            description: 'Fires after the menu button is toggled.',
+            description: 'Event emitted after the menu button is toggled.',
             table: { category: apiCategory.events },
             control: false
         },
         beforetoggle: {
             description:
-                'Fires before the menu button is toggled. This can be used to populate the menu before it is opened.',
+                'Event emitted before the menu button is toggled. This can be used to populate the menu before it is opened.',
             table: { category: apiCategory.events },
             control: false
         }

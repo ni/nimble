@@ -74,7 +74,7 @@ const metadata: Meta<ButtonArgs> = {
         },
         click: {
             description:
-                'Fires when the button is activated by either keyboard or mouse.',
+                'Event emitted when the button is activated by either keyboard or mouse.',
             table: { category: apiCategory.events },
             control: false
         }

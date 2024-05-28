@@ -66,7 +66,7 @@ export const tabs: StoryObj<TabsArgs> = {
             table: { category: apiCategory.slots }
         },
         change: {
-            description: 'Fires when the active tab is changed',
+            description: 'Event emitted when the active tab is changed',
             control: false,
             table: { category: apiCategory.events }
         }

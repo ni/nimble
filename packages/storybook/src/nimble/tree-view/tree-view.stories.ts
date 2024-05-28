@@ -182,12 +182,12 @@ export const multipleTreeItems: StoryObj<TreeArgs> = {
         },
         expandedChange: {
             name: 'expanded-change',
-            description: 'Event that emits when an item is expanded or collapsed.',
+            description: 'Event emitted when an item is expanded or collapsed.',
             table: { category: apiCategory.events }
         },
         selectedChange: {
             name: 'selected-change',
-            description: 'Event that emits when an item is selected or deselected.',
+            description: 'Event emitted when an item is selected or deselected.',
             table: { category: apiCategory.events }
         },
     },

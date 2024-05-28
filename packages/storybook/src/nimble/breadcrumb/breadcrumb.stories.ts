@@ -109,7 +109,7 @@ export const breadcrumbItem: StoryObj<BreadcrumbItemArgs> = {
             table: { category: apiCategory.slots }
         },
         click: {
-            description: 'Fires when the user activates the breadcrumb item link, for example by clicking on it or pressing Enter while focused.',
+            description: 'Event emitted when the user activates the breadcrumb item link, for example by clicking on it or pressing Enter while focused.',
             control: false,
             table: { category: apiCategory.events }
         }
