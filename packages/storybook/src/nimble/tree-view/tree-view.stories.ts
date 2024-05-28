@@ -35,9 +35,9 @@ interface AnchorItemArgs {
 }
 
 const selectionModeDescription = `
-<li>all: all items in the tree are selectable through user interaction</li>
-<li>leaves-only: only the leaf items in the tree are selectable through user interaction</li>
-<li>none: no items in the tree are selectable through user interaction</li>
+<li>all: All items in the tree are selectable through user interaction</li>
+<li>leaves-only: Only the leaf items in the tree are selectable through user interaction</li>
+<li>none: No items in the tree are selectable through user interaction</li>
 <br>
 Note: Changing the selection mode does not affect which items can be selected programmatically.
 `;
