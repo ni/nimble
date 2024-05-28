@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 28 May 2024 20:13:14 GMT",
+      "version": "29.1.6",
+      "tag": "@ni/nimble-components_v29.1.6",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "2855db4fe58a8d1df112ea656215696d9582f9ea",
+            "comment": "Update banner styling to align with visual design spec"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 22 May 2024 18:32:15 GMT",
       "version": "29.1.5",
       "tag": "@ni/nimble-components_v29.1.5",
