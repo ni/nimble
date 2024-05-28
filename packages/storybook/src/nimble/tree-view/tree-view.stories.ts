@@ -140,6 +140,7 @@ export const anchorTreeItem: StoryObj<AnchorItemArgs> = {
             table: { category: apiCategory.attributes }
         },
         icon: {
+            name: 'start',
             description: iconDescription,
             table: { category: apiCategory.slots }
         },
