@@ -7,7 +7,7 @@ import { treeItemTag } from '../../../../nimble-components/src/tree-item';
 import { anchorTreeItemTag } from '../../../../nimble-components/src/anchor-tree-item';
 import { treeViewTag } from '../../../../nimble-components/src/tree-view';
 import { TreeViewSelectionMode } from '../../../../nimble-components/src/tree-view/types';
-import { apiCategory, createUserSelectedThemeStory, disabledDescription } from '../../utilities/storybook';
+import { apiCategory, createUserSelectedThemeStory, disabledDescription, iconDescription, textContentDescription } from '../../utilities/storybook';
 import { hrefDescription } from '../patterns/anchor/anchor-docs';
 
 interface TreeArgs {
@@ -41,8 +41,6 @@ const selectionModeDescription = `
 <br>
 Note: Changing the selection mode does not affect which items can be selected programmatically.
 `;
-const iconDescription = 'To place an icon at the far-left of the item, set `slot="start"` on the icon.';
-const labelDescription = 'The text content of the tree item.';
 
 const metadata: Meta<TreeArgs> = {
     title: 'Components/Tree View',
@@ -67,7 +65,7 @@ export const treeItem: StoryObj<ItemArgs> = {
     argTypes: {
         label: {
             name: 'default',
-            description: `${labelDescription} Tree items can also contain child tree items to establish hierarchy.`,
+            description: `${textContentDescription({ componentName: 'tree item' })} Tree items can also contain child tree items to establish hierarchy.`,
             table: { category: apiCategory.slots }
         },
         value: {
@@ -125,7 +123,7 @@ export const anchorTreeItem: StoryObj<AnchorItemArgs> = {
     argTypes: {
         label: {
             name: 'default',
-            description: labelDescription,
+            description: textContentDescription({ componentName: 'anchor tree item' }),
             table: { category: apiCategory.slots }
         },
         href: {
