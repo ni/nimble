@@ -34,7 +34,7 @@ const metadata: Meta<BreadcrumbArgs> = {
 export default metadata;
 
 const defaultHrefDescription = hrefDescription({ componentName: 'breadcrumb item', includeDisable: false });
-const itemHrefDescription = `${defaultHrefDescription} Generally, the last breadcrumb item representing the current page has no \`href\` set.`;
+const itemHrefDescription = `${defaultHrefDescription} If the last breadcrumb item represents the current page it should have no \`href\` set.`;
 
 export const _standardBreadcrumb: StoryObj<BreadcrumbArgs> = {
     // prettier-ignore
