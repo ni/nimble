@@ -6,7 +6,6 @@ import {
 import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
 import { zoomIdentity, ZoomTransform } from 'd3-zoom';
 import type { Table } from 'apache-arrow';
-import type { ScaleLinear } from 'd3-scale';
 import { template } from './template';
 import { styles } from './styles';
 import { DataManager } from './modules/data-manager';
@@ -29,12 +28,7 @@ import { HoverHandler } from './modules/hover-handler';
 import { HoverHandler as ExperimentalHoverHandler } from './experimental/hover-handler';
 import { ZoomHandler } from './modules/zoom-handler';
 import { Computations } from './experimental/computations';
-import type {
-    ColorScale,
-    Dimensions,
-    Margin,
-    RenderConfig
-} from './workers/types';
+import type { Dimensions, RenderConfig } from './workers/types';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -108,61 +102,6 @@ export class WaferMap<
      * @internal
      */
     public readonly zoomContainer!: HTMLElement;
-
-    /**
-     * @internal
-     */
-    public horizontalScale!: ScaleLinear<number, number>;
-
-    /**
-     * @internal
-     */
-    public verticalScale!: ScaleLinear<number, number>;
-
-    /**
-     * @internal
-     */
-    public containerDimensions!: Dimensions;
-
-    /**
-     * @internal
-     */
-    public dieDimensions!: Dimensions;
-
-    /**
-     * @internal
-     */
-    public margin!: Margin;
-
-    /**
-     * @internal
-     */
-    public verticalCoefficient!: number;
-
-    /**
-     * @internal
-     */
-    public horizontalCoefficient!: number;
-
-    /**
-     * @internal
-     */
-    public horizontalConstant!: number;
-
-    /**
-     * @internal
-     */
-    public verticalConstant!: number;
-
-    /**
-     * @internal
-     */
-    public labelsFontSize!: number;
-
-    /**
-     * @internal
-     */
-    public workerColorScale!: ColorScale;
 
     public readonly computations: Computations = new Computations(
         this.asRequiredFieldsWaferMap
@@ -363,16 +302,16 @@ export class WaferMap<
             height: this.canvasHeight ?? 0
         };
         const renderConfig: RenderConfig = {
-            dieDimensions: this.dieDimensions,
-            margin: this.margin,
-            verticalCoefficient: this.verticalCoefficient,
-            horizontalCoefficient: this.horizontalCoefficient,
-            horizontalConstant: this.horizontalConstant,
-            verticalConstant: this.verticalConstant,
-            labelsFontSize: this.labelsFontSize,
-            colorScale: this.workerColorScale
+            dieDimensions: this.computations.dieDimensions,
+            margin: this.computations.margin,
+            verticalCoefficient: this.computations.verticalCoefficient,
+            horizontalCoefficient: this.computations.horizontalCoefficient,
+            horizontalConstant: this.computations.horizontalConstant,
+            verticalConstant: this.computations.verticalConstant,
+            labelsFontSize: this.computations.labelsFontSize,
+            colorScale: this.computations.colorScale
         };
-        const dieDimensions = this.dieDimensions;
+        const dieDimensions = this.computations.dieDimensions;
         const transform = this.transform;
         if (this.diesTable === undefined) {
             return {

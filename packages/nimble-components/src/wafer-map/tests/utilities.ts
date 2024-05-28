@@ -245,20 +245,6 @@ export function getWaferMapMockComputationsExperimental(
         maxCharacters: 4,
         canvasWidth: 0,
         canvasHeight: 0,
-        dieDimensions: { width: 0, height: 0 },
-        margin: {
-            top: 0,
-            bottom: 0,
-            left: 0,
-            right: 0
-        },
-        containerDimensions: { width: 0, height: 0 },
-        verticalCoefficient: 0,
-        horizontalCoefficient: 0,
-        horizontalConstant: 0,
-        verticalConstant: 0,
-        labelsFontSize: 0,
-        workerColorScale: [],
         validity: {
             invalidGridDimensions: false,
             invalidDiesTableSchema: false
@@ -275,15 +261,6 @@ export function getWaferMapMockComputationsExperimental(
     | 'canvasWidth'
     | 'canvasHeight'
     | 'validity'
-    | 'containerDimensions'
-    | 'dieDimensions'
-    | 'margin'
-    | 'verticalCoefficient'
-    | 'horizontalCoefficient'
-    | 'horizontalConstant'
-    | 'verticalConstant'
-    | 'labelsFontSize'
-    | 'workerColorScale'
     > = props;
     return waferMapMock as WaferMap;
 }
