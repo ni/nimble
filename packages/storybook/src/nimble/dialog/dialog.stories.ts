@@ -13,7 +13,7 @@ import {
 } from '../../../../nimble-components/src/theme-provider/design-tokens';
 import { Dialog, dialogTag, UserDismissed } from '../../../../nimble-components/src/dialog';
 import { DialogSizeOptions, ExampleContentType } from './types';
-import { apiCategory, createUserSelectedThemeStory } from '../../utilities/storybook';
+import { apiCategory, createUserSelectedThemeStory, preventDismissDescription } from '../../utilities/storybook';
 import { loremIpsum } from '../../utilities/lorem-ipsum';
 
 interface DialogArgs {
@@ -149,6 +149,7 @@ const metadata: Meta<DialogArgs> = {
     argTypes: {
         preventDismiss: {
             name: 'prevent-dismiss',
+            description: preventDismissDescription({ componentName: 'dialog' }),
             table: { category: apiCategory.attributes }
         },
         title: {
