@@ -12,7 +12,7 @@ import {
     dialogSmallWidth
 } from '../../../../nimble-components/src/theme-provider/design-tokens';
 import { Dialog, dialogTag, UserDismissed } from '../../../../nimble-components/src/dialog';
-import { DialogSizeOptions, ExampleContentType } from './types';
+import { DialogSizeOptions, ExampleContentType, ExampleFooterContentType } from './types';
 import { apiCategory, createUserSelectedThemeStory, preventDismissDescription } from '../../utilities/storybook';
 import { loremIpsum } from '../../utilities/lorem-ipsum';
 
@@ -23,6 +23,7 @@ interface DialogArgs {
     footerHidden: boolean;
     preventDismiss: boolean;
     content: ExampleContentType;
+    footer: ExampleFooterContentType;
     size: DialogSizeOptions;
     show: undefined;
     close: undefined;
@@ -55,8 +56,6 @@ const longContent = html`
 const content = {
     [ExampleContentType.shortContent]: shortContent,
     [ExampleContentType.longContent]: longContent,
-    [ExampleContentType.shortContentWithFooterButtons]: shortContent,
-    [ExampleContentType.longContentWithFooterButtons]: longContent
 } as const;
 
 const sizeDescription = `
@@ -107,7 +106,7 @@ const metadata: Meta<DialogArgs> = {
 
             ${x => content[x.content]}
             ${when(
-        x => x.content === ExampleContentType.shortContentWithFooterButtons || x.content === ExampleContentType.longContentWithFooterButtons,
+        x => x.footer === ExampleFooterContentType.buttons,
         html<DialogArgs>`
                     <${buttonTag}
                         @click="${x => x.dialogRef.close('Back pressed')}"
@@ -180,19 +179,30 @@ const metadata: Meta<DialogArgs> = {
             options: [
                 ExampleContentType.shortContent,
                 ExampleContentType.longContent,
-                ExampleContentType.shortContentWithFooterButtons,
-                ExampleContentType.longContentWithFooterButtons
             ],
             control: {
                 type: 'radio',
                 labels: {
                     [ExampleContentType.shortContent]: 'Short content',
                     [ExampleContentType.longContent]: 'Long content',
-                    [ExampleContentType.shortContentWithFooterButtons]: 'Short content with footer buttons',
-                    [ExampleContentType.longContentWithFooterButtons]: 'Long content with footer buttons'
                 }
             },
             description: 'The dialog content, which can be arbitrary HTML.',
+            table: { category: apiCategory.slots }
+        },
+        footer: {
+            options: [
+                ExampleFooterContentType.none,
+                ExampleFooterContentType.buttons,
+            ],
+            control: {
+                type: 'radio',
+                labels: {
+                    [ExampleFooterContentType.none]: 'None',
+                    [ExampleFooterContentType.buttons]: 'Buttons',
+                }
+            },
+            description: 'Content like buttons which appear at the bottom of the dialog.',
             table: { category: apiCategory.slots }
         },
         size: {
@@ -236,6 +246,7 @@ const metadata: Meta<DialogArgs> = {
         footerHidden: false,
         preventDismiss: false,
         content: ExampleContentType.shortContent,
+        footer: ExampleFooterContentType.buttons,
         size: DialogSizeOptions.smallGrowable,
         openAndHandleResult: (dialogRef, textFieldRef) => {
             void (async () => {
