@@ -4,6 +4,8 @@ import { TextField, textFieldTag } from '../../../../nimble-components/src/text-
 import { buttonTag } from '../../../../nimble-components/src/button';
 import { checkboxTag } from '../../../../nimble-components/src/checkbox';
 import {
+    bodyFont,
+    bodyFontColor,
     dialogLargeHeight,
     dialogLargeMaxHeight,
     dialogLargeWidth,
@@ -94,6 +96,10 @@ const metadata: Meta<DialogArgs> = {
                     max-height:${maxHeights[x.size]};
                 `}
             }
+            span[slot="footer"] {
+                font: var(${bodyFont.cssCustomProperty});
+                color: var(${bodyFontColor.cssCustomProperty});
+            }
         </style>
         <${dialogTag}
             ${ref('dialogRef')}
@@ -130,6 +136,9 @@ const metadata: Meta<DialogArgs> = {
                     >
                         Continue
                     </${buttonTag}>
+                `,
+        html<DialogArgs>`
+                    <span slot="footer">${x => (x.preventDismiss ? 'Refresh the page to close the dialog.' : 'Press Esc to close the dialog.')}</span>
                 `
     )}
         </${dialogTag}>
@@ -192,13 +201,13 @@ const metadata: Meta<DialogArgs> = {
         },
         footer: {
             options: [
-                ExampleFooterContentType.none,
+                ExampleFooterContentType.text,
                 ExampleFooterContentType.buttons,
             ],
             control: {
                 type: 'radio',
                 labels: {
-                    [ExampleFooterContentType.none]: 'None',
+                    [ExampleFooterContentType.text]: 'Text',
                     [ExampleFooterContentType.buttons]: 'Buttons',
                 }
             },

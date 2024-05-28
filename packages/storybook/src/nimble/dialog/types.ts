@@ -6,7 +6,7 @@ export type ExampleContentType =
     (typeof ExampleContentType)[keyof typeof ExampleContentType];
 
 export const ExampleFooterContentType = {
-    none: 'none',
+    text: 'text',
     buttons: 'buttons'
 } as const;
 export type ExampleFooterContentType =
