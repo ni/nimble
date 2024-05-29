@@ -5,6 +5,7 @@
 import { CSSResult, LitElement, TemplateResult } from 'lit';
 // .js is needed for storybook build to succeed, otherwise get webpack build error
 // Module not found: Error: Package path ./decorators is not exported from package /Users/jesse/Documents/GitHub/nimble2/node_modules/lit
+// eslint-disable-next-line import/extensions
 import { customElement } from 'lit/decorators.js';
 
 import { styles } from './styles';
