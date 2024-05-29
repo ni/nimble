@@ -151,6 +151,10 @@ interface ApiTableArgs extends SharedTableArgs {
 }
 
 export const api: StoryObj<ApiTableArgs> = {
+    parameters: {
+        // Story used by documentation, not needed for visual comparison.
+        chromatic: { disableSnapshot: true }
+    },
     argTypes: {
         content: {
             name: 'default',
