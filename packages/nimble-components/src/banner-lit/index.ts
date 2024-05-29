@@ -1,9 +1,9 @@
-import { attr } from '@microsoft/fast-element';
 import {
     applyMixins,
     ARIAGlobalStatesAndProperties
 } from '@microsoft/fast-foundation';
 import { CSSResult, LitElement, TemplateResult } from 'lit';
+import { property } from 'lit/decorators';
 import { styles } from './styles';
 import { template } from './template';
 import { BannerSeverityLit, BannerLitToggleEventDetail } from './types';
@@ -19,16 +19,13 @@ declare global {
  */
 export class BannerLit extends LitElement {
     public static override styles: CSSResult = styles;
-    protected override render(): TemplateResult {
-        return template(this);
-    }
 
     /**
      * @public
      * @description
      * Whether the banner is visible or not
      */
-    @attr({ mode: 'boolean' })
+    @property()
     public open = false;
 
     /**
@@ -36,7 +33,7 @@ export class BannerLit extends LitElement {
      * @description
      * Severity of the banner's message
      */
-    @attr()
+    @property()
     public severity: BannerSeverityLit = BannerSeverityLit.default;
 
     /**
@@ -44,7 +41,7 @@ export class BannerLit extends LitElement {
      * @description
      * Whether the banner title is hidden
      */
-    @attr({ attribute: 'title-hidden', mode: 'boolean' })
+    @property({ attribute: 'title-hidden' })
     public titleHidden = false;
 
     /**
@@ -52,7 +49,7 @@ export class BannerLit extends LitElement {
      * @description
      * Hides the dismiss button
      */
-    @attr({ attribute: 'prevent-dismiss', mode: 'boolean' })
+    @property({ attribute: 'prevent-dismiss' })
     public preventDismiss = false;
 
     /**
@@ -63,7 +60,10 @@ export class BannerLit extends LitElement {
             newState: this.open,
             oldState: !this.open
         };
-        this.$emit('toggle', eventDetail);
+        const litEventDetail = {
+            detail: eventDetail
+        };
+        this.dispatchEvent(new CustomEvent('toggle', litEventDetail));
     }
 
     /**
@@ -71,6 +71,10 @@ export class BannerLit extends LitElement {
      */
     public dismissBanner(): void {
         this.open = false;
+    }
+
+    protected override render(): TemplateResult {
+        return template(this);
     }
 }
 
