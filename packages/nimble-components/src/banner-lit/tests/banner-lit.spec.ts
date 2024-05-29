@@ -1,6 +1,6 @@
 import { html } from '@microsoft/fast-element';
 import { fixture, Fixture } from '../../utilities/tests/fixture';
-import { BannerLit, bannerTag } from '..';
+import { BannerLit, bannerLitTag } from '..';
 import { BannerSeverityLit } from '../types';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import { createEventListener } from '../../utilities/tests/component';
@@ -47,7 +47,9 @@ describe('Banner', () => {
     });
 
     it('can construct an element instance', () => {
-        expect(document.createElement('nimble-banner')).toBeInstanceOf(BannerLit);
+        expect(document.createElement('nimble-banner')).toBeInstanceOf(
+            BannerLit
+        );
     });
 
     it("should initialize 'open' to false", () => {
@@ -125,7 +127,7 @@ describe('Banner with LabelProviderCore', () => {
             disconnect
         } = await setupWithLabelProvider());
         await connect();
-        element = themeProvider.querySelector(bannerTag)!;
+        element = themeProvider.querySelector(bannerLitTag)!;
         labelProvider = themeProvider.querySelector(labelProviderCoreTag)!;
     });
 

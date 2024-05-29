@@ -77,3 +77,5 @@ export class BannerLit extends LitElement {
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface BannerLit extends ARIAGlobalStatesAndProperties {}
 applyMixins(BannerLit, ARIAGlobalStatesAndProperties);
+
+export const bannerLitTag = 'nimble-banner-lit';
