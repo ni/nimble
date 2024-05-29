@@ -3,7 +3,8 @@ import {
     ARIAGlobalStatesAndProperties
 } from '@microsoft/fast-foundation';
 import { CSSResult, LitElement, TemplateResult } from 'lit';
-import { property } from 'lit/decorators';
+// eslint-disable-next-line import/extensions
+import { property } from 'lit/decorators.js';
 import { styles } from './styles';
 import { template } from './template';
 import { BannerSeverityLit, BannerLitToggleEventDetail } from './types';
@@ -25,7 +26,7 @@ export class BannerLit extends LitElement {
      * @description
      * Whether the banner is visible or not
      */
-    @property()
+    @property({ type: Boolean })
     public open = false;
 
     /**
@@ -41,7 +42,7 @@ export class BannerLit extends LitElement {
      * @description
      * Whether the banner title is hidden
      */
-    @property({ attribute: 'title-hidden' })
+    @property({ attribute: 'title-hidden', type: Boolean })
     public titleHidden = false;
 
     /**
@@ -49,7 +50,7 @@ export class BannerLit extends LitElement {
      * @description
      * Hides the dismiss button
      */
-    @property({ attribute: 'prevent-dismiss' })
+    @property({ attribute: 'prevent-dismiss', type: Boolean })
     public preventDismiss = false;
 
     /**
