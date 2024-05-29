@@ -26,7 +26,7 @@ The <Tag name={tableTag}/> should be sized explicitly or sized to fill the space
 
 ## Examples
 
-### Delay-loaded Hierarchy
+### Delay-loaded hierarchy
 
 In some cases, it may be known that a record has children, but the records for those children are not known. For performance reasons, it may be preferred to load
 the children on demand when a user expands the parent row. To accomplish this, use the `setRecordHierarchyOptions()` function on the table to set the hierarchy
@@ -35,7 +35,7 @@ options associated with records in the data.
 <Canvas of={tableStories.delayedHierarchy} />
 <Controls of={tableStories.delayedHierarchy} />
 
-#### Delay-loaded Hierarchy Usage
+#### Using delay-loaded hierarchy
 
 The expected usage of the dynamically loaded hierarchy is as follows:
 
@@ -54,7 +54,7 @@ The expected usage of the dynamically loaded hierarchy is as follows:
     - If loading the data determines that the row doesn't actually have children:
         1. Call `setRecordHierarchyOptions` to change the row state to `{ delayedHierarchyState: TableRecordDelayedHierarchyState.none }`. This call must include the current state of any records not in the default state.
 
-#### setRecordHierarchyOptions Behavior
+#### Behavior of setRecordHierarchyOptions
 
 `setRecordHierarchyOptions()` has the following behavior:
 
