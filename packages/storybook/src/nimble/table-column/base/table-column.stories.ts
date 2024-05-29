@@ -74,7 +74,7 @@ const simpleData = [
 ] as const;
 
 const overviewText = `This page contains information about configuring the columns of a \`nimble-table\`. 
-See **Table** for information about configuring the table itself and the **Table Column** specific docs for 
+See [Table](?path=/docs/components-table--docs) for information about configuring the table itself and the **Table Column** pages for 
 information about specific types of column.`;
 
 const metadata: Meta<SharedTableArgs> = {
