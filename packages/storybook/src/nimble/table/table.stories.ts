@@ -425,7 +425,7 @@ export const table: StoryObj<TableArgs> = {
         },
         rowExpandToggle: {
             name: 'row-expand-toggle',
-            description: 'Event emitted when the user expands or collapses a row in a table with hierarchy.',
+            description: 'Event emitted when the user expands or collapses a row in a table with hierarchy. This does not emit when group rows are expanded or collapsed.',
             control: false,
             table: { category: apiCategory.events },
         },
