@@ -34,4 +34,4 @@ export class CardLit extends LitElement {
 // });
 
 // DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleCard());
-export const cardTag = 'nimble-card-lit';
+export const cardLitTag = 'nimble-card-lit';
