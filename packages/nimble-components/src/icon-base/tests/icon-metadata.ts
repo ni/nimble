@@ -116,13 +116,13 @@ export const iconMetadata: {
         tags: ['assets']
     },
     IconCheck: {
-        tags: ['status', 'alarm acknowledged']
+        tags: ['status', 'success', 'alarm acknowledged']
     },
     IconCheckDot: {
         tags: ['status', 'done']
     },
     IconCheckLarge: {
-        tags: ['status']
+        tags: ['status', 'success']
     },
     IconCircle: {
         tags: ['status', 'connected']
@@ -500,10 +500,10 @@ export const iconMetadata: {
         tags: []
     },
     IconTimes: {
-        tags: ['close']
+        tags: ['clear', 'close', 'delete', 'multiply', 'remove', 'x']
     },
     IconTrash: {
-        tags: ['clear', 'close', 'delete', 'remove', 'x']
+        tags: ['delete', 'remove']
     },
     IconTriangle: {
         tags: ['status', 'alarm active']
