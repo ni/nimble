@@ -1,7 +1,6 @@
-import { html } from '@microsoft/fast-element';
-import type { Card } from '.';
+import { html } from 'lit';
 
-export const template = html<Card>`
+export const template = html`
     <section aria-labelledby="title-slot">
         <span id="title-slot"><slot name="title"></slot></span>
         <slot></slot>

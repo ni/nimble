@@ -1,11 +1,11 @@
-import { Card, cardTag } from '..';
+import { CardLit, cardTag } from '..';
 
-describe('Card', () => {
+describe('CardLit', () => {
     it('should export its tag', () => {
-        expect(cardTag).toBe('nimble-card');
+        expect(cardTag).toBe('nimble-card-lit');
     });
 
     it('can construct an element instance', () => {
-        expect(document.createElement('nimble-card')).toBeInstanceOf(Card);
+        expect(document.createElement('nimble-card-lit')).toBeInstanceOf(CardLit);
     });
 });
