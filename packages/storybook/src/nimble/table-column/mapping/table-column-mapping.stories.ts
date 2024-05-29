@@ -18,7 +18,7 @@ import {
     sharedTableArgs
 } from '../base/table-column-stories-utils';
 import { isChromatic } from '../../../utilities/isChromatic';
-import { apiCategory, createUserSelectedThemeStory } from '../../../utilities/storybook';
+import { apiCategory, checkValidityDescription, createUserSelectedThemeStory } from '../../../utilities/storybook';
 
 const simpleData = [
     {
@@ -145,8 +145,7 @@ export const mappingColumn: StoryObj<MappingColumnTableArgs> = {
         },
         checkValidity: {
             name: 'checkValidity()',
-            description:
-                'Returns `true` if the column configuration is valid, otherwise `false`.',
+            description: checkValidityDescription({ componentName: 'mapping column' }),
             table: { category: apiCategory.methods },
             control: false
         },

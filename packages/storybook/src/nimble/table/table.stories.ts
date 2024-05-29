@@ -14,7 +14,7 @@ import {
     addLabelUseMetadata,
     type LabelUserArgs
 } from '../label-provider/base/label-user-stories-utils';
-import { apiCategory, createUserSelectedThemeStory } from '../../utilities/storybook';
+import { apiCategory, checkValidityDescription, createUserSelectedThemeStory } from '../../utilities/storybook';
 import { isChromatic } from '../../utilities/isChromatic';
 
 interface BaseTableArgs extends LabelUserArgs {
@@ -377,8 +377,7 @@ export const table: StoryObj<TableArgs> = {
         },
         checkValidity: {
             name: 'checkValidity()',
-            description:
-                'A function that returns `true` if the configuration of the table is valid and `false` if the configuration of the table is not valid.',
+            description: checkValidityDescription({ componentName: 'table' }),
             control: false,
             table: { category: apiCategory.methods },
         },

@@ -15,7 +15,7 @@ import {
     sharedTableArgTypes,
     sharedTableArgs
 } from '../base/table-column-stories-utils';
-import { apiCategory, createUserSelectedThemeStory } from '../../../utilities/storybook';
+import { apiCategory, checkValidityDescription, createUserSelectedThemeStory } from '../../../utilities/storybook';
 
 const simpleData = [
     {
@@ -230,8 +230,7 @@ export const numberTextColumn: StoryObj<NumberTextColumnTableArgs> = {
         },
         checkValidity: {
             name: 'checkValidity()',
-            description:
-                'Returns `true` if the column configuration is valid, otherwise `false`.',
+            description: checkValidityDescription({ componentName: 'number text column' }),
             control: false,
             table: { category: apiCategory.methods },
         },
