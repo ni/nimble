@@ -31,6 +31,7 @@ const metadata: Meta<SpinnerArgs> = {
     parameters: {},
     argTypes: {
         size: {
+            name: 'Spinner sizing',
             description:
                 '<p>Size of the spinner component.</p><details><summary>Usage details</summary>To customize its size, set its CSS '
                 + '<span style="font-family: monospace;">height</span> to a design token, and its width will automatically match its height. Each size will also require minimum pixel margins.<br/><ul>'

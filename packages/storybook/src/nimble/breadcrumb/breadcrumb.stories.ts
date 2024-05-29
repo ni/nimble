@@ -34,7 +34,7 @@ const metadata: Meta<BreadcrumbArgs> = {
 export default metadata;
 
 const defaultHrefDescription = hrefDescription({ componentName: 'breadcrumb item', includeDisable: false });
-const itemHrefDescription = `${defaultHrefDescription} Generally, the last breadcrumb item representing the current page has no \`href\` set.`;
+const itemHrefDescription = `${defaultHrefDescription} If the last breadcrumb item represents the current page it should have no \`href\` set.`;
 
 export const _standardBreadcrumb: StoryObj<BreadcrumbArgs> = {
     // prettier-ignore
@@ -57,8 +57,9 @@ export const _standardBreadcrumb: StoryObj<BreadcrumbArgs> = {
         options: {
             name: 'default',
             description:
-                `The \`${breadcrumbItemTag}\` elements that populate this breadcrumb. `
-                + 'With a standard breadcrumb containing multiple items, the last breadcrumb represents the current page.',
+                `The \`${breadcrumbItemTag}\` elements that populate this breadcrumb. 
+
+With a standard breadcrumb containing multiple items, the last breadcrumb represents the current page.`,
             table: { category: apiCategory.slots }
         },
         appearance: {
@@ -108,7 +109,7 @@ export const breadcrumbItem: StoryObj<BreadcrumbItemArgs> = {
             table: { category: apiCategory.slots }
         },
         click: {
-            description: 'Fires when the user activates the breadcrumb item link, for example by clicking on it or pressing Enter while focused.',
+            description: 'Event emitted when the user activates the breadcrumb item link, for example by clicking on it or pressing Enter while focused.',
             control: false,
             table: { category: apiCategory.events }
         }

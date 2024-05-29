@@ -21,7 +21,8 @@ import { DrawerWidthOptions, ExampleContentType } from '../../../../nimble-compo
 import {
     apiCategory,
     createUserSelectedThemeStory,
-    overrideWarning
+    overrideWarning,
+    preventDismissDescription
 } from '../../utilities/storybook';
 
 interface DrawerArgs {
@@ -156,8 +157,7 @@ const metadata: Meta<DrawerArgs> = {
         },
         preventDismiss: {
             name: 'prevent-dismiss',
-            description:
-                'A boolean attribute to configure whether or not the drawer is dismissible via the `Esc` key, or any other dismiss action that is supported in the future.',
+            description: preventDismissDescription({ componentName: 'drawer' }),
             table: { category: apiCategory.attributes }
         },
         content: {
@@ -178,6 +178,7 @@ const metadata: Meta<DrawerArgs> = {
             table: { category: apiCategory.slots }
         },
         width: {
+            name: 'Drawer width',
             description: widthDescription,
             options: [
                 DrawerWidthOptions.default,

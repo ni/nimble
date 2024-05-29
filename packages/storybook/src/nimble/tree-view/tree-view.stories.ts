@@ -7,7 +7,7 @@ import { treeItemTag } from '../../../../nimble-components/src/tree-item';
 import { anchorTreeItemTag } from '../../../../nimble-components/src/anchor-tree-item';
 import { treeViewTag } from '../../../../nimble-components/src/tree-view';
 import { TreeViewSelectionMode } from '../../../../nimble-components/src/tree-view/types';
-import { apiCategory, createUserSelectedThemeStory, disabledDescription } from '../../utilities/storybook';
+import { apiCategory, createUserSelectedThemeStory, disabledDescription, iconDescription, textContentDescription } from '../../utilities/storybook';
 import { hrefDescription } from '../patterns/anchor/anchor-docs';
 
 interface TreeArgs {
@@ -35,14 +35,12 @@ interface AnchorItemArgs {
 }
 
 const selectionModeDescription = `
-<li>all: all items in the tree are selectable through user interaction</li>
-<li>leaves-only: only the leaf items in the tree are selectable through user interaction</li>
-<li>none: no items in the tree are selectable through user interaction</li>
+<li>all: All items in the tree are selectable through user interaction</li>
+<li>leaves-only: Only the leaf items in the tree are selectable through user interaction</li>
+<li>none: No items in the tree are selectable through user interaction</li>
 <br>
 Note: Changing the selection mode does not affect which items can be selected programmatically.
 `;
-const iconDescription = 'To place an icon at the far-left of the item, set `slot="start"` on the icon.';
-const labelDescription = 'The text content of the tree item.';
 
 const metadata: Meta<TreeArgs> = {
     title: 'Components/Tree View',
@@ -67,7 +65,7 @@ export const treeItem: StoryObj<ItemArgs> = {
     argTypes: {
         label: {
             name: 'default',
-            description: `${labelDescription} Tree items can also contain child tree items to establish hierarchy.`,
+            description: `${textContentDescription({ componentName: 'tree item' })} Tree items can also contain child tree items to establish hierarchy.`,
             table: { category: apiCategory.slots }
         },
         value: {
@@ -125,7 +123,7 @@ export const anchorTreeItem: StoryObj<AnchorItemArgs> = {
     argTypes: {
         label: {
             name: 'default',
-            description: labelDescription,
+            description: textContentDescription({ componentName: 'anchor tree item' }),
             table: { category: apiCategory.slots }
         },
         href: {
@@ -142,6 +140,7 @@ export const anchorTreeItem: StoryObj<AnchorItemArgs> = {
             table: { category: apiCategory.attributes }
         },
         icon: {
+            name: 'start',
             description: iconDescription,
             table: { category: apiCategory.slots }
         },
@@ -182,12 +181,12 @@ export const multipleTreeItems: StoryObj<TreeArgs> = {
         },
         expandedChange: {
             name: 'expanded-change',
-            description: 'Event that emits when an item is expanded or collapsed.',
+            description: 'Event emitted when an item is expanded or collapsed.',
             table: { category: apiCategory.events }
         },
         selectedChange: {
             name: 'selected-change',
-            description: 'Event that emits when an item is selected or deselected.',
+            description: 'Event emitted when an item is selected or deselected.',
             table: { category: apiCategory.events }
         },
     },

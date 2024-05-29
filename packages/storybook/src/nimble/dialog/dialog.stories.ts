@@ -4,6 +4,8 @@ import { TextField, textFieldTag } from '../../../../nimble-components/src/text-
 import { buttonTag } from '../../../../nimble-components/src/button';
 import { checkboxTag } from '../../../../nimble-components/src/checkbox';
 import {
+    bodyFont,
+    bodyFontColor,
     dialogLargeHeight,
     dialogLargeMaxHeight,
     dialogLargeWidth,
@@ -12,8 +14,8 @@ import {
     dialogSmallWidth
 } from '../../../../nimble-components/src/theme-provider/design-tokens';
 import { Dialog, dialogTag, UserDismissed } from '../../../../nimble-components/src/dialog';
-import { DialogSizeOptions, ExampleContentType } from './types';
-import { apiCategory, createUserSelectedThemeStory } from '../../utilities/storybook';
+import { DialogSizeOptions, ExampleContentType, ExampleFooterContentType } from './types';
+import { apiCategory, createUserSelectedThemeStory, preventDismissDescription } from '../../utilities/storybook';
 import { loremIpsum } from '../../utilities/lorem-ipsum';
 
 interface DialogArgs {
@@ -23,6 +25,7 @@ interface DialogArgs {
     footerHidden: boolean;
     preventDismiss: boolean;
     content: ExampleContentType;
+    footer: ExampleFooterContentType;
     size: DialogSizeOptions;
     show: undefined;
     close: undefined;
@@ -55,8 +58,6 @@ const longContent = html`
 const content = {
     [ExampleContentType.shortContent]: shortContent,
     [ExampleContentType.longContent]: longContent,
-    [ExampleContentType.shortContentWithFooterButtons]: shortContent,
-    [ExampleContentType.longContentWithFooterButtons]: longContent
 } as const;
 
 const sizeDescription = `
@@ -95,6 +96,10 @@ const metadata: Meta<DialogArgs> = {
                     max-height:${maxHeights[x.size]};
                 `}
             }
+            span[slot="footer"] {
+                font: var(${bodyFont.cssCustomProperty});
+                color: var(${bodyFontColor.cssCustomProperty});
+            }
         </style>
         <${dialogTag}
             ${ref('dialogRef')}
@@ -107,7 +112,7 @@ const metadata: Meta<DialogArgs> = {
 
             ${x => content[x.content]}
             ${when(
-        x => x.content === ExampleContentType.shortContentWithFooterButtons || x.content === ExampleContentType.longContentWithFooterButtons,
+        x => x.footer === ExampleFooterContentType.buttons,
         html<DialogArgs>`
                     <${buttonTag}
                         @click="${x => x.dialogRef.close('Back pressed')}"
@@ -131,6 +136,9 @@ const metadata: Meta<DialogArgs> = {
                     >
                         Continue
                     </${buttonTag}>
+                `,
+        html<DialogArgs>`
+                    <span slot="footer">${x => (x.preventDismiss ? 'Refresh the page to close the dialog.' : 'Press Esc to close the dialog.')}</span>
                 `
     )}
         </${dialogTag}>
@@ -149,6 +157,7 @@ const metadata: Meta<DialogArgs> = {
     argTypes: {
         preventDismiss: {
             name: 'prevent-dismiss',
+            description: preventDismissDescription({ componentName: 'dialog' }),
             table: { category: apiCategory.attributes }
         },
         title: {
@@ -179,22 +188,34 @@ const metadata: Meta<DialogArgs> = {
             options: [
                 ExampleContentType.shortContent,
                 ExampleContentType.longContent,
-                ExampleContentType.shortContentWithFooterButtons,
-                ExampleContentType.longContentWithFooterButtons
             ],
             control: {
                 type: 'radio',
                 labels: {
                     [ExampleContentType.shortContent]: 'Short content',
                     [ExampleContentType.longContent]: 'Long content',
-                    [ExampleContentType.shortContentWithFooterButtons]: 'Short content with footer buttons',
-                    [ExampleContentType.longContentWithFooterButtons]: 'Long content with footer buttons'
                 }
             },
             description: 'The dialog content, which can be arbitrary HTML.',
             table: { category: apiCategory.slots }
         },
+        footer: {
+            options: [
+                ExampleFooterContentType.text,
+                ExampleFooterContentType.buttons,
+            ],
+            control: {
+                type: 'radio',
+                labels: {
+                    [ExampleFooterContentType.text]: 'Text',
+                    [ExampleFooterContentType.buttons]: 'Buttons',
+                }
+            },
+            description: 'Content like buttons which appear at the bottom of the dialog.',
+            table: { category: apiCategory.slots }
+        },
         size: {
+            name: 'Dialog sizing',
             description: sizeDescription,
             options: [
                 DialogSizeOptions.smallGrowable,
@@ -212,7 +233,7 @@ const metadata: Meta<DialogArgs> = {
         show: {
             name: 'show()',
             description:
-                'Call this member function to open the dialog. It returns a `Promise` that is resolved when the dialog is closed. The resolved value is either the reason passed to `close(...)` or the symbol `UserDismissed` if the dialog was dismissed via the ESC key.',
+                'Call this member function to open the dialog. It returns a `Promise` that is resolved when the dialog is closed. The resolved value is either the reason passed to `close(...)` or the symbol `UserDismissed` if the dialog was dismissed via the `Esc` key.',
             table: { category: apiCategory.methods }
         },
         close: {
@@ -234,11 +255,12 @@ const metadata: Meta<DialogArgs> = {
         footerHidden: false,
         preventDismiss: false,
         content: ExampleContentType.shortContent,
+        footer: ExampleFooterContentType.buttons,
         size: DialogSizeOptions.smallGrowable,
         openAndHandleResult: (dialogRef, textFieldRef) => {
             void (async () => {
                 const reason = await dialogRef.show();
-                textFieldRef.value = reason === UserDismissed ? 'ESC pressed' : reason;
+                textFieldRef.value = reason === UserDismissed ? 'Esc pressed' : reason;
             })();
         }
     }

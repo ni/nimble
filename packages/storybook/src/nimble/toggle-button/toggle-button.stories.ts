@@ -82,7 +82,7 @@ const metadata: Meta<ToggleButtonArgs> = {
             table: { category: apiCategory.slots }
         },
         change: {
-            description: 'Fires when the toggle button is pressed via mouse or keyboard.',
+            description: 'Event emitted when the toggle button is pressed via mouse or keyboard.',
             table: { category: apiCategory.events },
             control: false
         }
