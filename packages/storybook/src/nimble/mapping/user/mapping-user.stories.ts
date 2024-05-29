@@ -21,14 +21,14 @@ export const userMapping: StoryObj = {
     render: createUserSelectedThemeStory(hiddenWrapper(html`<style></style>`)),
     argTypes: {
         key: {
-            description: 'A key (url) for each user that maps to a user',
+            description: 'A URL that uniquely identifies the user, e.g. `user:1234`.',
             control: false,
             table: { category: apiCategory.attributes },
         },
         displayName: {
             name: 'display-name',
             description:
-                'A string which renders the textual representation of user name',
+                'The display name to render for the user, e.g. `Oscar Meyer 🌭`.',
             table: { category: apiCategory.attributes },
         }
     },
