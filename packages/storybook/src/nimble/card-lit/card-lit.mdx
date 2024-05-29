@@ -1,0 +1,23 @@
+import { Canvas, Meta, Controls, Title } from '@storybook/blocks';
+import { NimbleCardLit } from './card-lit.react';
+import { cardLitTag } from '../../../../nimble-components/src/card-lit';
+import * as cardLitStories from './card-lit.stories';
+
+<Meta of={cardLitStories} />
+<Title of={cardLitStories} />
+
+The <Tag name={cardLitTag} /> is a container that is designed to contain arbitrary content that is specified by a client
+application. The <Tag name={cardLitTag} /> is intended for grouping related content.
+
+<Canvas of={cardLitStories.card} />
+<Controls of={cardLitStories.card} />
+
+{/* ## Styling */}
+
+{/* ## Usage */}
+
+{/* ## Examples */}
+
+{/* ## Accessibility */}
+
+{/* ## Resources */}
