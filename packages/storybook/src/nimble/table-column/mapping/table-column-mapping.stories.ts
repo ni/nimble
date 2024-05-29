@@ -157,7 +157,7 @@ export const mappingColumn: StoryObj<MappingColumnTableArgs> = {
         },
         content: {
             name: 'default',
-            description: 'Add mapping elements as children in the default slot to specify how to render each possible data value.',
+            description: 'One or more mapping elements which specify how to render each possible data value.',
             table: { category: apiCategory.slots },
             control: false
         }
