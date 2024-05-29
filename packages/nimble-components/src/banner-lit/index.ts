@@ -1,10 +1,9 @@
 import { attr } from '@microsoft/fast-element';
 import {
     applyMixins,
-    ARIAGlobalStatesAndProperties,
-    DesignSystem,
-    FoundationElement
+    ARIAGlobalStatesAndProperties
 } from '@microsoft/fast-foundation';
+import { CSSResult, LitElement, TemplateResult } from 'lit';
 import { styles } from './styles';
 import { template } from './template';
 import { BannerSeverityLit, BannerLitToggleEventDetail } from './types';
@@ -18,7 +17,12 @@ declare global {
 /**
  * A nimble-styled notification banner for persistent messages.
  */
-export class BannerLit extends FoundationElement {
+export class BannerLit extends LitElement {
+    public static override styles: CSSResult = styles;
+    protected override render(): TemplateResult {
+        return template(this);
+    }
+
     /**
      * @public
      * @description
@@ -73,12 +77,3 @@ export class BannerLit extends FoundationElement {
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface BannerLit extends ARIAGlobalStatesAndProperties {}
 applyMixins(BannerLit, ARIAGlobalStatesAndProperties);
-
-const nimbleBannerLit = BannerLit.compose({
-    baseName: 'banner-lit',
-    template,
-    styles
-});
-
-DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleBannerLit());
-export const bannerLitTag = 'nimble-banner-lit';

@@ -1,4 +1,6 @@
-import { html, when } from '@microsoft/fast-element';
+import { TemplateResult, html } from 'lit';
+// eslint-disable-next-line import/extensions
+import { when } from 'lit/directives/when.js';
 import type { BannerLit } from '.';
 import { buttonTag } from '../button';
 import { iconExclamationMarkTag } from '../icons/exclamation-mark';
@@ -17,40 +19,40 @@ import { Theme } from '../theme-provider/types';
 import { ButtonAppearance, ButtonAppearanceVariant } from '../button/types';
 
 // prettier-ignore
-export const template = html<BannerLit>`
+export const template = (x: BannerLit): TemplateResult => html`
     <${themeProviderTag} theme="${Theme.color}">
         <div class="container"
             role="status"
-            aria-atomic="${x => x.ariaAtomic}"
-            aria-busy="${x => x.ariaBusy}"
-            aria-controls="${x => x.ariaControls}"
-            aria-current="${x => x.ariaCurrent}"
-            aria-describedby="${x => x.ariaDescribedby}"
-            aria-details="${x => x.ariaDetails}"
-            aria-disabled="${x => x.ariaDisabled}"
-            aria-errormessage="${x => x.ariaErrormessage}"
-            aria-expanded="${x => x.ariaExpanded}"
-            aria-flowto="${x => x.ariaFlowto}"
-            aria-haspopup="${x => x.ariaHaspopup}"
-            aria-hidden="${x => x.ariaHidden}"
-            aria-invalid="${x => x.ariaInvalid}"
-            aria-keyshortcuts="${x => x.ariaKeyshortcuts}"
-            aria-label="${x => x.ariaLabel}"
+            aria-atomic="${x.ariaAtomic}"
+            aria-busy="${x.ariaBusy}"
+            aria-controls="${x.ariaControls}"
+            aria-current="${x.ariaCurrent}"
+            aria-describedby="${x.ariaDescribedby}"
+            aria-details="${x.ariaDetails}"
+            aria-disabled="${x.ariaDisabled}"
+            aria-errormessage="${x.ariaErrormessage}"
+            aria-expanded="${x.ariaExpanded}"
+            aria-flowto="${x.ariaFlowto}"
+            aria-haspopup="${x.ariaHaspopup}"
+            aria-hidden="${x.ariaHidden}"
+            aria-invalid="${x.ariaInvalid}"
+            aria-keyshortcuts="${x.ariaKeyshortcuts}"
+            aria-label="${x.ariaLabel}"
             aria-labelledby="titleSlot"
-            aria-live="${x => x.ariaLive}"
-            aria-owns="${x => x.ariaOwns}"
-            aria-relevant="${x => x.ariaRelevant}"
-            aria-roledescription="${x => x.ariaRoledescription}"
+            aria-live="${x.ariaLive}"
+            aria-owns="${x.ariaOwns}"
+            aria-relevant="${x.ariaRelevant}"
+            aria-roledescription="${x.ariaRoledescription}"
         >
             <div class="icon">
-                ${when(x => x.severity === BannerSeverityLit.error, html<BannerLit>`
-                    <${iconExclamationMarkTag} role="img" aria-label="${x => popupIconErrorLabel.getValueFor(x)}"></${iconExclamationMarkTag}>
+                ${when(x.severity === BannerSeverityLit.error, () => html`
+                    <${iconExclamationMarkTag} role="img" aria-label="${popupIconErrorLabel.getValueFor(x)}"></${iconExclamationMarkTag}>
                 `)}
-                ${when(x => x.severity === BannerSeverityLit.warning, html<BannerLit>`
-                    <${iconTriangleFilledTag} role="img" aria-label="${x => popupIconWarningLabel.getValueFor(x)}"></${iconTriangleFilledTag}>
+                ${when(x.severity === BannerSeverityLit.warning, () => html`
+                    <${iconTriangleFilledTag} role="img" aria-label="${popupIconWarningLabel.getValueFor(x)}"></${iconTriangleFilledTag}>
                 `)}
-                ${when(x => x.severity === BannerSeverityLit.information, html<BannerLit>`
-                    <${iconInfoTag} role="img" aria-label="${x => popupIconInformationLabel.getValueFor(x)}"></${iconInfoTag}>
+                ${when(x.severity === BannerSeverityLit.information, () => html`
+                    <${iconInfoTag} role="img" aria-label="${popupIconInformationLabel.getValueFor(x)}"></${iconInfoTag}>
                 `)}
             </div>
             <div class="text">
@@ -60,10 +62,10 @@ export const template = html<BannerLit>`
             <div class="controls">
                 <slot name="action"></slot>
                 <div class="dismiss">
-                    ${when(x => !x.preventDismiss, html<BannerLit>`
-                        <${buttonTag} appearance="${ButtonAppearance.ghost}" appearance-variant="${ButtonAppearanceVariant.primary}" content-hidden @click="${x => x.dismissBanner()}">
+                    ${when(!x.preventDismiss, () => html`
+                        <${buttonTag} appearance="${ButtonAppearance.ghost}" appearance-variant="${ButtonAppearanceVariant.primary}" content-hidden @click="${x.dismissBanner}">
                             <${iconTimesTag} slot="start"></${iconTimesTag}>
-                            ${x => popupDismissLabel.getValueFor(x)}
+                            ${popupDismissLabel.getValueFor(x)}
                         </${buttonTag}>
                     `)}
                 </div>
