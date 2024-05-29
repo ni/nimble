@@ -74,11 +74,11 @@ export class BannerLit extends FoundationElement {
 export interface BannerLit extends ARIAGlobalStatesAndProperties {}
 applyMixins(BannerLit, ARIAGlobalStatesAndProperties);
 
-const nimbleBanner = BannerLit.compose({
+const nimbleBannerLit = BannerLit.compose({
     baseName: 'banner-lit',
     template,
     styles
 });
 
-DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleBanner());
-export const bannerTag = 'nimble-banner-lit';
+DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleBannerLit());
+export const bannerLitTag = 'nimble-banner-lit';
