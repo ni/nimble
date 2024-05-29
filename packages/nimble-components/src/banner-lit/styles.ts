@@ -66,11 +66,11 @@ export const styles = css`
         padding-right: 8px;
         white-space: nowrap;
     }
-/*
+
     :host([title-hidden]) slot[name='title'] {
-        var(${unsafeCSS(accessiblyHidden)});
+        ${unsafeCSS(accessiblyHidden)};
     }
-*/
+
     .controls {
         height: var(${unsafeCSS(controlHeight.cssCustomProperty)});
         margin-left: auto;
@@ -79,7 +79,7 @@ export const styles = css`
         justify-content: center;
         align-self: flex-start;
         margin-top: var(${unsafeCSS(smallPadding.cssCustomProperty)});
-        var(${unsafeCSS(controlHeight.cssCustomProperty)}): var(${unsafeCSS(controlSlimHeight.cssCustomProperty)});
+        ${unsafeCSS(controlHeight.cssCustomProperty)}: var(${unsafeCSS(controlSlimHeight.cssCustomProperty)});
     }
 
     slot[name='action'] {
