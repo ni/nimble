@@ -1,4 +1,4 @@
-import { css } from '@microsoft/fast-element';
+import { css, unsafeCSS } from 'lit';
 import {
     BannerFail100DarkUi,
     Black75,
@@ -26,10 +26,10 @@ import { themeBehavior } from '../utilities/style/theme';
 import { accessiblyHidden } from '../utilities/style/accessibly-hidden';
 
 export const styles = css`
-    ${display('flex')}
+    ${unsafeCSS(display('flex'))}
 
     :host {
-        font: ${bodyFont};
+        font: var(${unsafeCSS(bodyFont.cssCustomProperty)});
         font-size: 12.8px;
         align-items: top;
         overflow: hidden;
@@ -40,7 +40,7 @@ export const styles = css`
     }
 
     .container {
-        color: ${bodyFontColor};
+        color: var(${unsafeCSS(bodyFontColor.cssCustomProperty)});
         display: flex;
         width: 100%;
     }
@@ -66,26 +66,26 @@ export const styles = css`
         padding-right: 8px;
         white-space: nowrap;
     }
-
+/*
     :host([title-hidden]) slot[name='title'] {
-        ${accessiblyHidden}
+        var(${unsafeCSS(accessiblyHidden)});
     }
-
+*/
     .controls {
-        height: ${controlHeight};
+        height: var(${unsafeCSS(controlHeight.cssCustomProperty)});
         margin-left: auto;
         display: flex;
         align-items: center;
         justify-content: center;
         align-self: flex-start;
-        margin-top: ${smallPadding};
-        ${controlHeight.cssCustomProperty}: ${controlSlimHeight};
+        margin-top: var(${unsafeCSS(smallPadding.cssCustomProperty)});
+        var(${unsafeCSS(controlHeight.cssCustomProperty)}): var(${unsafeCSS(controlSlimHeight.cssCustomProperty)});
     }
 
     slot[name='action'] {
         display: flex;
         align-content: center;
-        margin-left: ${standardPadding};
+        margin-left: var(${unsafeCSS(standardPadding.cssCustomProperty)});
         white-space: nowrap;
     }
 
@@ -98,24 +98,24 @@ export const styles = css`
         display: flex;
         justify-content: center;
     }
-`.withBehaviors(
+`/*.withBehaviors(
     themeBehavior(
         Theme.light,
         css`
             :host {
-                background: ${Black75};
+                background: var(${unsafeCSS(Black75)});
             }
 
             :host([severity='error']) {
-                background: ${Fail100LightUi};
+                background: var(${unsafeCSS(Fail100LightUi)};
             }
 
             :host([severity='warning']) {
-                background: ${Warning100LightUi};
+                background: var(${unsafeCSS(Warning100LightUi)};
             }
 
             :host([severity='information']) {
-                background: ${Information100LightUi};
+                background: var(${unsafeCSS(Information100LightUi)};
             }
         `
     ),
@@ -123,19 +123,19 @@ export const styles = css`
         Theme.dark,
         css`
             :host {
-                background: ${Black75};
+                background: var(${unsafeCSS(Black75)};
             }
 
             :host([severity='error']) {
-                background: ${BannerFail100DarkUi};
+                background: var(${unsafeCSS(BannerFail100DarkUi)};
             }
 
             :host([severity='warning']) {
-                background: ${Warning100DarkUi};
+                background: var(${unsafeCSS(Warning100DarkUi)};
             }
 
             :host([severity='information']) {
-                background: ${Information100DarkUi};
+                background: var(${unsafeCSS(Information100DarkUi)};
             }
         `
     ),
@@ -143,12 +143,12 @@ export const styles = css`
         Theme.color,
         css`
             :host {
-                background: ${applicationBackgroundColor};
+                background: var(${unsafeCSS(applicationBackgroundColor.cssCustomProperty)});
             }
 
             .container {
-                background: ${hexToRgbaCssColor(White, 0.3)};
+                background: var(${unsafeCSS(hexToRgbaCssColor(White, 0.3))});
             }
         `
     )
-);
+)*/;
