@@ -10,7 +10,6 @@ import {
     subtitlePlus1Font
 } from '../theme-provider/design-tokens';
 
-
 export const styles = css`
     ${unsafeCSS(display('flex'))}
 
