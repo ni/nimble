@@ -244,7 +244,7 @@ The attribute is invalid in the following conditions:
 
 const parentIdFieldNameDescription = `An optional string attribute that specifies the field name within a row's record to use as a row's parent ID, which,
 when used in combination with the \`id-field-name\` attribute, will display the table data in a hierarchical fashion. If the attribute is not specified, the
-data in the table will always be presented without hierarchy.
+data in the table will be presented without hierarchy. To configure hierarchy dynamically instead, see \`setRecordHierarchyOptions()\`.
 
 The attribute is invalid in the following conditions:
 -   When this attribute is set, but \`id-field-name\` is unset. This will cause \`validity.idFieldNameNotConfigured\` to be \`true\`.
@@ -383,7 +383,7 @@ export const table: StoryObj<TableArgs> = {
         },
         setRecordHierarchyOptions: {
             name: 'setRecordHierarchyOptions()',
-            description: 'Configures table hierarchy. See the **Delay-loaded Hierarchy** section for more information.',
+            description: 'Used to configure the hierarchy state of rows dynamically. To set static hierarchy, use `parent-id-field-name` instead. See the **Delay-loaded Hierarchy** section for more information.',
             control: false,
             table: { category: apiCategory.methods },
         },
