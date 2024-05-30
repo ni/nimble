@@ -7,6 +7,7 @@ import {
     standardPadding
 } from '../../../../nimble-components/src/theme-provider/design-tokens';
 import { listOptionTag } from '../../../../nimble-components/src/list-option';
+import { listOptionGroupTag } from '../../../../nimble-components/src/list-option-group';
 import { Select, selectTag } from '../../../../nimble-components/src/select';
 import { DropdownAppearance } from '../../../../nimble-components/src/patterns/dropdown/types';
 import { waitForUpdatesAsync } from '../../../../nimble-components/src/testing/async-helpers';
@@ -133,6 +134,17 @@ export const navigateToDifferentOption: StoryFn = createStory(
 );
 
 navigateToDifferentOption.play = playFunction;
+
+export const navigateToDifferentOptionWithGroups: StoryFn = createStory(
+    html`<${selectTag} open style="width: 250px;">
+        <${listOptionGroupTag} label="Group 1">
+            <${listOptionTag} value="1" selected>Option 1</${listOptionTag}>
+            <${listOptionTag}>Option 2</${listOptionTag}>
+        </${listOptionGroupTag}>
+    </${selectTag}>`
+);
+
+navigateToDifferentOptionWithGroups.play = playFunction;
 
 export const textCustomized: StoryFn = createMatrixThemeStory(
     textCustomizationWrapper(

@@ -39,19 +39,19 @@ export const styles = css`
         display: block;
     }
 
-    slot[name='options-slot']::slotted([role='option']) {
+    slot[name='options']::slotted([role='option']) {
         background-color: transparent;
     }
 
-    slot[name='options-slot']::slotted([role='option']:hover) {
+    slot[name='options']::slotted([role='option']:hover) {
         background-color: ${fillHoverColor};
     }
 
-    slot[name='options-slot']::slotted([role='option'][active-option]) {
+    slot[name='options']::slotted([role='option'][active-option]) {
         background-color: ${fillSelectedColor};
     }
 
-    slot[name='options-slot']::slotted([role='option'][active-option]:hover) {
+    slot[name='options']::slotted([role='option'][active-option]:hover) {
         background-color: ${fillHoverSelectedColor};
     }
 
