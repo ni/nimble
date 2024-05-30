@@ -2,7 +2,7 @@
 
 ## Overview
 
-In some tables, the user needs to make a selection associated with cell in the table. For example, in a table of software packages where there is a column for the software version to install, the user needs to select a version for each software package. The selection and options can vary between records.
+In some tables, the user needs to make a selection associated with a cell in the table. For example, in a table of software packages where there is a column for the software version to install, the user needs to select a version for each software package. The selection and options can vary between records.
 
 ### Background
 
