@@ -1,5 +1,6 @@
 import { Controls, Canvas, Meta, Title, Description } from '@storybook/blocks';
 import * as viewerStories from './rich-text-viewer.stories';
+import ComponentApisLink from '../../../docs/component-apis-link.mdx';
 import * as mentionUserStories from '../../rich-text-mention/users/rich-text-mention-users.stories';
 import * as userMappingStories from '../../mapping/user/mapping-user.stories';
 import { richTextViewerTag } from '../../../../../nimble-components/src/rich-text/viewer';
@@ -12,7 +13,11 @@ The rich text viewer component allows users to view text formatted with various 
 See the [rich text editor](?path=/docs/incubating-rich-text-editor--docs) component to enable users to modify the markdown contents.
 
 <Canvas of={viewerStories.richTextViewer} />
+
+## API
+
 <Controls of={viewerStories.richTextViewer} />
+<ComponentApisLink />
 
 ## User Mention Usage
 
