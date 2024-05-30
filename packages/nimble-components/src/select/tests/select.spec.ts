@@ -1160,6 +1160,14 @@ describe('Select', () => {
             expect(currentSelection?.value).toBe('three');
         });
 
+        it('after hiding all elements, dropdown shows no results label', async () => {
+            element.options.forEach(o => {
+                o.hidden = true;
+            });
+            await waitForUpdatesAsync();
+            expect(pageObject.isNoResultsLabelVisible()).toBeTrue();
+        });
+
         it('when dropdown is closed, entering text executes typeahead and sets value', () => {
             pageObject.pressCharacterKey('t');
             expect(element.value).toBe('two');
@@ -1833,6 +1841,15 @@ describe('Select', () => {
                 await pageObject.openAndSetFilterText('Group');
                 const groupAfterInsertedOption = pageObject.getGroup(1);
                 expect(groupAfterInsertedOption.topSeparatorVisible).toBeTrue();
+            });
+
+            it('after hiding all groups, dropdown shows no results label', async () => {
+                const groups = pageObject.getAllGroups();
+                groups.forEach(g => {
+                    g.hidden = true;
+                });
+                await waitForUpdatesAsync();
+                expect(pageObject.isNoResultsLabelVisible()).toBeTrue();
             });
         });
     });

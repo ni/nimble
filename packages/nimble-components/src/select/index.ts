@@ -304,13 +304,11 @@ export class Select
             notifier.unsubscribe(this, 'disabled');
         });
 
-        prev
-            ?.filter(el => el instanceof ListOptionGroup)
-            .forEach(el => {
-                const notifier = Observable.getNotifier(el);
-                notifier.unsubscribe(this, 'hidden');
-                notifier.unsubscribe(this, 'visuallyHidden');
-            });
+        prev?.filter<ListOptionGroup>(isNimbleListOptionGroup).forEach(el => {
+            const notifier = Observable.getNotifier(el);
+            notifier.unsubscribe(this, 'hidden');
+            notifier.unsubscribe(this, 'visuallyHidden');
+        });
         const options = this.getSlottedOptions(next);
         super.slottedOptionsChanged(prev, options);
 
@@ -320,14 +318,12 @@ export class Select
             notifier.subscribe(this, 'hidden');
             notifier.subscribe(this, 'disabled');
         });
-        next
-            ?.filter(el => el instanceof ListOptionGroup)
-            .forEach(el => {
-                this.updateAdjacentSeparatorState(el as ListOptionGroup);
-                const notifier = Observable.getNotifier(el);
-                notifier.subscribe(this, 'hidden');
-                notifier.subscribe(this, 'visuallyHidden');
-            });
+        next?.filter<ListOptionGroup>(isNimbleListOptionGroup).forEach(el => {
+            this.updateAdjacentSeparatorState(el);
+            const notifier = Observable.getNotifier(el);
+            notifier.subscribe(this, 'hidden');
+            notifier.subscribe(this, 'visuallyHidden');
+        });
         this.setProxyOptions();
         this.updateValue();
         // We need to force an update to the filteredOptions observable
@@ -408,9 +404,9 @@ export class Select
                     sourceElement.listOptions.forEach(e => {
                         e.visuallyHidden = sourceElement.hidden;
                     });
-                    this.filterOptions();
                     this.updateAdjacentSeparatorState(sourceElement);
                 }
+                this.filterOptions();
                 this.updateDisplayValue();
                 break;
             }

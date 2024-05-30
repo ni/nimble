@@ -135,7 +135,7 @@ describe('ListboxOptionGroup', () => {
         await disconnect();
     });
 
-    it('group becomes hidden when all options are hidden', async () => {
+    it('group becomes hidden when all options are removed from it', async () => {
         const { element, connect, disconnect } = await setup();
         await connect();
         const option = document.createElement('nimble-list-option');
@@ -149,7 +149,7 @@ describe('ListboxOptionGroup', () => {
         await disconnect();
     });
 
-    it('option that is removed and then updates its hidden state does not update group', async () => {
+    it('option that is removed and then updates its hidden state, does not update group', async () => {
         const { element, connect, disconnect } = await setup();
         await connect();
         const option1 = document.createElement('nimble-list-option');
@@ -178,6 +178,36 @@ describe('ListboxOptionGroup', () => {
         expect(element.visuallyHidden).toBeTrue();
 
         option.visuallyHidden = true;
+        await waitForUpdatesAsync();
+        expect(element.visuallyHidden).toBeTrue();
+        await disconnect();
+    });
+
+    it('option that is hidden and visuallyHidden, then has hidden set to false, keeps group hidden', async () => {
+        const { element, connect, disconnect } = await setup();
+        await connect();
+        const option = document.createElement('nimble-list-option');
+        option.hidden = true;
+        option.visuallyHidden = true;
+        element.appendChild(option);
+        await waitForUpdatesAsync();
+
+        option.hidden = false;
+        await waitForUpdatesAsync();
+        expect(element.visuallyHidden).toBeTrue();
+        await disconnect();
+    });
+
+    it('option that is hidden and visuallyHidden, then has visuallyHidden set to false, keeps group hidden', async () => {
+        const { element, connect, disconnect } = await setup();
+        await connect();
+        const option = document.createElement('nimble-list-option');
+        option.hidden = true;
+        option.visuallyHidden = true;
+        element.appendChild(option);
+        await waitForUpdatesAsync();
+
+        option.visuallyHidden = false;
         await waitForUpdatesAsync();
         expect(element.visuallyHidden).toBeTrue();
         await disconnect();
