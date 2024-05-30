@@ -17,11 +17,12 @@ In some tables, the user needs to make a selection associated with cell in the t
 
 -   Support client-specified icons in the menu button, including icon-only menu buttons
 -   Allow configuration of the menu button's `appearance` or `appearance-variant`
--   Automatically updating the row's record when an item in the menu is activated
+-   Having the table or the column automatically update the row's record when an item in the menu is activated.
+    -   If a record needs to be updated, the expectation is that this will be done within client code in reaction to an event fired by the menu items.
 
 ## Implementation / Design
 
-The `nimble-table-column-menu-button` will follow many of the API patterns established by the table's action menu. Part of the menu button column's configuration will include the name of the slot where the menu associated with the menu button will be provided, say `software-version-menu`. The client will slot their menu into the table using the slot name they configured on the column; in this case, `software-version-menu`. The table, along with all of its subcomponents, will be responsible for coordinating the slotting of the menu into the appropriate row and cell when a menu button becomes open. If the client needs different menu items depending on which menu button is open, they can update the menu items within their slotted menu in reaction to the `menu-button-beforetoggle` event firing from the column.
+The `nimble-table-column-menu-button` will follow many of the API patterns established by the table's action menu. Part of the menu button column's configuration will be the name of the slot where the menu associated with the menu button will be provided, say `software-version-menu`. The client will slot their menu into the table using the slot name they configured on the column; in this case, `software-version-menu`. The table, along with all of its subcomponents, will be responsible for coordinating the slotting of the menu into the appropriate row and cell when a menu button becomes open. If the client needs different menu items depending on which menu button is open, they can update the menu items within their slotted menu in reaction to the `menu-button-beforetoggle` event firing from the column.
 
 Usage of the column would look as follows:
 
@@ -92,11 +93,11 @@ The menu button will have the following behaviors/styles:
 -   Use `ghost` appearance mode
 -   Have `nimble-icon-arrow-expander-down` slotted into the `end` slot
 -   Grow to fill the width of the cell
--   Left-align the text (with padding) in the button to make the text within each button is aligned for a given column.
+-   Left-align the text (with padding) in the button to make the text within each button is aligned for a given column
     -   By default, button text is centered, so custom styling will be written to handle this case.
--   Ellipsize text in the button if it doesn't fit in the button.
--   Provide the full text within the button's `title` if the text is ellipsized.
-    -   This likely will not be able to leverage the existing `overflow` directive as-is because the overflow will occur on the text within a `span` within the button, but the `title` should be added when the button is hovered. The best solution to this problem will be determined during implementation.
+-   Ellipsize text in the button if it doesn't fit in the button
+-   Provide the full text within the button's `title` if the text is ellipsized
+    -   It is unlikely this can leverage the existing `overflow` directive as-is because the overflow will occur on the text within a `span` within the button, but the `title` should be added when the button is hovered. The best solution to this problem will be determined during implementation.
 
 #### Group Header View Component
 
@@ -122,6 +123,8 @@ The `menu-button-beforetoggle` and `menu-button-toggle` event detail will both i
 
 Because the menu button in the cell can have focus, we must override `focusedRecycleCallback()` in our cell view and have it call `blur()` on the button. If we don't, the focus can pass to other cells as you scroll.
 
+Note, there are open issues associated with scrolling, keyboard navigation, and focus recycling with the menu button.
+
 ### Sizing
 
 The column will support fractional width sizing along with a minimum pixel width.
@@ -146,7 +149,7 @@ A Blazor wrapper will be created for the component. There are no special conside
 
 ### API Updates to Existing Table Components
 
-Multiple API changes need to be made the table, its subcomponents, and the classes it uses to facilitate slotting a menu through the table and into a specific cell view. This includes the following:
+Multiple API changes need to be made to the table, its subcomponents, and the classes it uses to facilitate slotting a menu through the table and into a specific cell view. This includes the following:
 
 -   The `ColumnInternalsOptions` interface will be updated to include an optional string array named `slotNames`, which allows a column to specify the names of any slots that need to be forwarded into a cell.
 -   As with the `ColumnInternalsOptions`, the `ColumnInternals` class will be updated to have a `slotNames` array that specifies the names of any slots that need to be forwarded into a cell. The value will be readonly and will be populated by the `ColumnInternalsOptions` `slotNames` property. It will default to an empty array if a value is not provided in `ColumnInternalsOptions`.
@@ -201,3 +204,4 @@ Rather than creating a menu button column, we could create a select column. Howe
     -   If we only support one appearance for the menu-button, is `ghost` the appropriate one to support?
     -   Is there any concern that the button text will not align with the column header because of the padding between the edge of the button and the text within the button?
 -   If the menu is open in a cell, it needs to be closed when scrolling. However, the `focusedRecycleCallback()` doesn't provide the appropriate hook to do this today. The problem appears to be that the menu has focus when the menu button is open, which means the focus isn't actually in the cell view -- it's in the menu slotted into the cell view. We need to come up with a plan to address this.
+-   Some issues need to be resolved with keyboard navigation + menu button column.
