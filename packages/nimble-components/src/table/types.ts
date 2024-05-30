@@ -245,3 +245,12 @@ export interface TableRowFocusableElements {
         actionMenuButton?: MenuButton
     }[];
 }
+
+/**
+ * @internal
+ * Focusable elements of a table's header
+ */
+export interface TableHeaderFocusableElements {
+    headerActions: HTMLElement[];
+    columnHeaders: HTMLElement[];
+}
