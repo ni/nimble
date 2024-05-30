@@ -77,6 +77,7 @@ _Notes_:
 
 -   When the* `loading-visible` \_attribute is set, we will display localizable text at the bottom of the dropdown (defaulting to "Loading"), along with the spinner icon.*
 -   The `Select` will not peform any debouncing as the user types into the filter input. It is expected that clients can perform any debouncing that is needed easily at the app level.
+-   The `filter-input` event will be emitted for all filter modes (except `none`)
 
 #### LabelProviderCore
 
