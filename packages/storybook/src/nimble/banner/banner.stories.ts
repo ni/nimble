@@ -1,8 +1,10 @@
 import { html, when } from '@microsoft/fast-element';
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html';
+import { Theme } from '../../../../nimble-components/src/theme-provider/types';
 import { iconKeyTag } from '../../../../nimble-components/src/icons/key';
 import { buttonTag } from '../../../../nimble-components/src/button';
+import { ButtonAppearance, ButtonAppearanceVariant } from '../../../../nimble-components/src/button/types';
 import { anchorTag } from '../../../../nimble-components/src/anchor';
 import { labelProviderCoreTag } from '../../../../nimble-components/src/label-provider/core';
 import { popupDismissLabel } from '../../../../nimble-components/src/label-provider/core/label-tokens';
@@ -61,11 +63,11 @@ export const _banner: StoryObj<BannerArgs> = {
             <span slot="title">${x => x.title}</span>
             ${x => x.text}
             ${when(x => x.action === 'button (ghost)', html`
-                <${buttonTag} slot="action" appearance="ghost">Do action</${buttonTag}>`)}
+                <${buttonTag} slot="action" appearance="${ButtonAppearance.ghost}" appearance-variant="${ButtonAppearanceVariant.primary}">Do action</${buttonTag}>`)}
             ${when(x => x.action === 'button (outline)', html`
-                <${buttonTag} slot="action" appearance="outline">Do action</${buttonTag}>`)}
+                <${buttonTag} slot="action" appearance="${ButtonAppearance.outline}" appearance-variant="${ButtonAppearanceVariant.primary}">Do action</${buttonTag}>`)}
             ${when(x => x.action === 'icon button (outline)', html`
-                <${buttonTag} slot="action" appearance="outline" content-hidden>
+                <${buttonTag} slot="action" appearance="${ButtonAppearance.outline}" appearance-variant="${ButtonAppearanceVariant.primary}" content-hidden>
                     <${iconKeyTag} slot="start"></${iconKeyTag}>
                     Do action
                 </${buttonTag}>`)}
@@ -91,13 +93,13 @@ export const _banner: StoryObj<BannerArgs> = {
             options: Object.keys(BannerSeverity),
             control: { type: 'radio' },
             description:
-                'Severity of the message presented by the banner. Controls the displayed color and icon. If not set, the banner has a neutral appearance.'
+                `Severity of the message presented by the banner. Controls the icon displayed within the banner and, in themes other than \`${Theme.color}\`, controls the background color of the banner. If not set, the banner has a neutral appearance.`
         },
         action: {
             options: Object.values(ActionType),
             control: { type: 'radio' },
             description:
-                'The `action` slot provides a place to display a button or anchor that you provide. If you provide a button, it should have either the `"ghost"` or `"outline"` appearance.'
+                'The `action` slot provides a place to display a button or anchor that you provide. If you provide a button, it should have either the `"ghost"` or `"outline"` appearance and have the `"primary"` appearance variant.'
         },
         preventDismiss: {
             name: 'prevent-dismiss',

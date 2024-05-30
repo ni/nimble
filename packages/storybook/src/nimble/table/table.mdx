@@ -1,17 +1,33 @@
 import { Controls, Canvas, Meta, Title } from '@storybook/blocks';
 import * as tableStories from './table.stories';
+import ComponentApisLink from '../../docs/component-apis-link.mdx';
 import { tableTag } from '../../../../nimble-components/src/table';
 
 <Meta of={tableStories} />
 <Title of={tableStories} />
 
 The <Tag name={tableTag}/> is a component that offers a way to render tabular data in a variety of ways in each column.
-For information about configuring table columns, see **Table Column Configuration** and **Table Column Types**.
+For information about configuring table columns, see [Table Column Configuration](?path=/docs/components-table-column-configuration--docs)
+and the **Table Column** pages for individual table column types.
 
 <Canvas of={tableStories.table} />
-<Controls of={tableStories.table} />
 
-## Delay-loaded Hierarchy
+## API
+
+<Controls of={tableStories.table} />
+<ComponentApisLink />
+
+## Styling
+
+### Sizing
+
+The <Tag name={tableTag}/> should be sized explicitly or sized to fill the space of a parent container. The <Tag name={tableTag}/> does not currently support being styled with `height: auto`. The ability to auto size the table is tracked with [issue 1624](https://github.com/ni/nimble/issues/1624).
+
+{/* ## Usage */}
+
+## Examples
+
+### Delay-loaded hierarchy
 
 In some cases, it may be known that a record has children, but the records for those children are not known. For performance reasons, it may be preferred to load
 the children on demand when a user expands the parent row. To accomplish this, use the `setRecordHierarchyOptions()` function on the table to set the hierarchy
@@ -20,7 +36,7 @@ options associated with records in the data.
 <Canvas of={tableStories.delayedHierarchy} />
 <Controls of={tableStories.delayedHierarchy} />
 
-### Delay-loaded Hierarchy Usage
+#### Using delay-loaded hierarchy
 
 The expected usage of the dynamically loaded hierarchy is as follows:
 
@@ -39,7 +55,7 @@ The expected usage of the dynamically loaded hierarchy is as follows:
     - If loading the data determines that the row doesn't actually have children:
         1. Call `setRecordHierarchyOptions` to change the row state to `{ delayedHierarchyState: TableRecordDelayedHierarchyState.none }`. This call must include the current state of any records not in the default state.
 
-### setRecordHierarchyOptions Behavior
+#### Behavior of setRecordHierarchyOptions
 
 `setRecordHierarchyOptions()` has the following behavior:
 
@@ -48,16 +64,6 @@ The expected usage of the dynamically loaded hierarchy is as follows:
 -   the options passed to `setRecordHierarchyOptions` will override any options previously set to become the complete set of options configured on the table
 -   the table will not render delayed hierarchy state (loading or expandable) if the table's `parentIdFieldName` is not configured; however, the options will remain cached within the table if the `parentIdFieldName` becomes `undefined`, and that cached configuration will render in the table if the table's `parentIdFieldName` is changed back to a non-`undefined` value
 -   calling `setData` will clear options associated with IDs that are no longer present in the data
-
-## Styling
-
-### Sizing
-
-The <Tag name={tableTag}/> should be sized explicitly or sized to fill the space of a parent container. The <Tag name={tableTag}/> does not currently support being styled with `height: auto`. The ability to auto size the table is tracked with [issue 1624](https://github.com/ni/nimble/issues/1624).
-
-{/* ## Usage */}
-
-{/* ## Examples */}
 
 {/* ## Accessibility */}
 

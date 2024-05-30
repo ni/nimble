@@ -175,7 +175,7 @@ export const menuItem: StoryObj<MenuItemArgs> = {
             table: { category: apiCategory.attributes }
         },
         change: {
-            description: 'Fires after the menu item is selected.',
+            description: 'Event emitted after the menu item is selected.',
             table: { category: apiCategory.events },
             control: false
         }
