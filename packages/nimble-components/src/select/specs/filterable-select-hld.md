@@ -33,7 +33,7 @@ export class Select() {
      * are currently being loaded.
      */
     @attr()
-    public loading = false;
+    public loading-visible = false;
     ...
 }
 
@@ -41,12 +41,12 @@ export class Select() {
 export const FilterMode  = {
     none: undefined;
     standard: 'standard';
-    dynamic: 'dynamic';
+    manual: 'manual';
 } as const;
 ```
 
 -   The `standard` filterMode will result in case-insensitive, diacritic-insensitive filtering.
--   The `dynamic` filterMode will display a search input, but it won't automatically filter the options as the user types. Instead, clients can use the `filter-input` event described in the ['Dynamic Options'](#dynamic-options) section below to implement their own filtering logic.
+-   The `manual` filterMode will display a search input, but it won't automatically filter the options as the user types. Instead, clients can use the `filter-input` event described in the ['Dynamic Options'](#dynamic-options) section below to implement their own filtering logic.
 -   The `none` filter mode results in no search input being shown in the dropdown.
 -   `filterMode` will default to `none` so as not to affect existing clients.
 
@@ -54,7 +54,7 @@ _Note: The `filterMode` isn't meant to mirror the `Combobox` `autocomplete` API,
 
 #### Dynamic options
 
-The `filterMode: dynamic` option allows clients to dynamically supply list options to the `select` control in response to user search text, by subscribing to the `filter-input` event.
+The `filterMode: manual` option expects clients to dynamically supply `list-option`s to the `Select` component in response to user search text, by subscribing to the `filter-input` event.
 
 ```ts
 interface SelectFilterInputEventDetail {
@@ -62,15 +62,21 @@ interface SelectFilterInputEventDetail {
 }
 ```
 
-Then, when handling the `filter-input` event, clients should perform the desired filtering using the provided filter text. Additionally, they should set the `loading` attribute to `true` while the options are being loaded into the DOM, and then set it back to `false` when the loading process is complete. A `filter-input` event will also be emitted with its `filterText` set to empty string upon closure of the dropdown if both the `filter-mode` was not set to `none` _and_ the filter input contains non-empty text.
+Then, when handling the `filter-input` event, clients should perform the desired filtering using the provided filter text. Additionally, they should set the `loading` attribute to `true` while the options are being loaded into the DOM, and then set it back to `false` when the loading process is complete. The `filter-input` event is emitted any time the user types a character in the filter input and also when the dropdown is closed (in which case the `filterText` in the details will always be an empty string).
 
-_IMPORTANT_: When using the `dynamic` filter mode, clients are responsible for making sure the options that are placed in the DOM meet one of the following criteria:
+_IMPORTANT_: When using the `manual` filter mode, clients are responsible for the following:
 
--   The option is some reasonable default option when there is no filter text provided _OR_
--   The option display text matches the provided filter in an understandable way _OR_
--   The option is a placeholder option
+-   The currently selected option is included in the set of options placed in the DOM regardless of match against filter (and have its `hidden` state adjusted as needed)
+-   Placeholder options should not be filtered out
 
-_Note: When the_ `loading` _attribute is set, we will display localizable text at the bottom of the dropdown (defaulting to "Loading"), along with the spinner icon._
+##### Groups
+
+When using the `filterMode: manual` option along with [groups](./option-groups-hld.md), clients will also need to determine the appropriate matching behavior against the `ListOptionGroup` elements. Our guidance will be that filter text should be able to be matched against _any_ text in the group label, and when that matches, _all_ options within that group should be visible.
+
+_Notes_:
+
+-   When the* `loading-visible` \_attribute is set, we will display localizable text at the bottom of the dropdown (defaulting to "Loading"), along with the spinner icon.*
+-   The `Select` will not peform any debouncing as the user types into the filter input. It is expected that clients can perform any debouncing that is needed easily at the app level.
 
 #### LabelProviderCore
 
@@ -85,15 +91,15 @@ export class LabelProviderCore
     @attr({ attribute: 'select-filter-no-results' })
     public selectFilterNoResults: string | undefined;
 
-    @attr({ attribute: 'select-loading-options' })
-    public selectLoadingOptions: string | undefined;
+    @attr({ attribute: 'loading' })
+    public loading: string | undefined;
 ```
 
 The English strings used for these labels will be:
 
 -   selectFilterSearch: "Search"
 -   selectFilterNoResults: "No items found"
--   selectIsLoading: "Loading"
+-   loading: "Loading"
 
 ### Implementation details
 
@@ -121,17 +127,15 @@ The accessibility tree will report that the search `input` element should have i
 
 ### Future considerations
 
-It's possible that we may want to improve/alter the discoverability of the fact that more options are available to be loaded when using the `dynamic` filtering option. This _could_ follow the design of what we see with the AzDO _Windows_-based user selector experiece where a display of the number of current results is shown at the bottom, and when a user begins typing in the filter input, a 'Show more results' button is shown at the bottom of the dropdown.
+It's possible that we may want to improve/alter the discoverability of the fact that more options are available to be loaded when using the `manual` filtering option. This _could_ follow the design of what we see with the AzDO _Windows_-based user selector experiece where a display of the number of current results is shown at the bottom, and when a user begins typing in the filter input, a 'Show more results' button is shown at the bottom of the dropdown.
 
 #### Combobox alignment
 
 It's reasonable to think that a client may want to have the same UX and Nimble-provided APIs as the `Select` for dynamic options.
 
-#### Grouping/Metadata
+#### Complex content
 
-One feature that we intend to add to the `Select` is the ability to specify "groups" of options, where each group will have non-selectable header text followed by the options under that group. Ultimately, this feature will have to work nicely with filtering, but I don't believe there are aspects of this that would interfere with the current proposed API in this HLD of a single attribute that specifies how the filter text is applied to a target.
-
-There is also a desire to allow the [`ListOption` to contain complex content](https://github.com/ni/nimble/issues/1135). This could include content that also supplies some metadata that _could_ be used for filtering purposes. The current proposed API is meant to inform _how_ the filter text is applied to a target, not _what_ the target is, so I suspect if we ever need to provide a means to the client to change what the target for the filter is, then that would be a different API.
+There is a desire to allow the [`ListOption` to contain complex content](https://github.com/ni/nimble/issues/1135). This could include content that also supplies some metadata that _could_ be used for filtering purposes. The current proposed API is meant to inform _how_ the filter text is applied to a target, not _what_ the target is, so I suspect if we ever need to provide a means to the client to change what the target for the filter is, then that would be a different API.
 
 #### More filter modes
 
