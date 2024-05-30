@@ -18,7 +18,7 @@ import {
     sharedTableArgs
 } from '../base/table-column-stories-utils';
 import { isChromatic } from '../../../utilities/isChromatic';
-import { createUserSelectedThemeStory } from '../../../utilities/storybook';
+import { apiCategory, checkValidityDescription, createUserSelectedThemeStory } from '../../../utilities/storybook';
 
 const simpleData = [
     {
@@ -71,6 +71,7 @@ interface MappingColumnTableArgs extends SharedTableArgs {
     widthMode: keyof typeof TableColumnMappingWidthMode;
     checkValidity: () => void;
     validity: () => void;
+    content: undefined;
 }
 
 const widthModeDescription = `When set to \`iconSize\`, the column will have a fixed width that makes the column the appropriate width to render only a single icon in the cell.
@@ -124,6 +125,7 @@ export const mappingColumn: StoryObj<MappingColumnTableArgs> = {
             name: 'field-name',
             description:
                 "Set this attribute to identify which field in the data record contains the value for each cell in the column. The field values' type must match the type specified by the `key-type` attribute.",
+            table: { category: apiCategory.attributes },
             control: false
         },
         keyType: {
@@ -131,21 +133,32 @@ export const mappingColumn: StoryObj<MappingColumnTableArgs> = {
             control: false,
             defaultValue: { summary: '"string"' },
             description:
-                'The data type of the key values used for this column. Must be one of `"string"`, `"number"`, or `"boolean"`. Defaults to `"string"` if unspecified.'
+                'The data type of the key values used for this column. Must be one of `"string"`, `"number"`, or `"boolean"`. Defaults to `"string"` if unspecified.',
+            table: { category: apiCategory.attributes },
         },
         widthMode: {
             name: 'width-mode',
             options: Object.keys(TableColumnMappingWidthMode),
             control: { type: 'radio' },
-            description: widthModeDescription
+            description: widthModeDescription,
+            table: { category: apiCategory.attributes },
         },
         checkValidity: {
             name: 'checkValidity()',
-            description:
-                'Returns `true` if the column configuration is valid, otherwise `false`.'
+            description: checkValidityDescription({ componentName: 'mapping column' }),
+            table: { category: apiCategory.methods },
+            control: false
         },
         validity: {
-            description: validityDescription
+            description: validityDescription,
+            table: { category: apiCategory.nonAttributeProperties },
+            control: false
+        },
+        content: {
+            name: 'default',
+            description: 'One or more mapping elements which specify how to render each possible data value.',
+            table: { category: apiCategory.slots },
+            control: false
         }
     },
     args: {

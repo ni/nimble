@@ -6,25 +6,29 @@ import { iconPencilTag } from '../../../../nimble-components/src/icons/pencil';
 import { iconTagTag } from '../../../../nimble-components/src/icons/tag';
 import { textFieldTag } from '../../../../nimble-components/src/text-field';
 import { TextFieldAppearance, TextFieldType } from '../../../../nimble-components/src/text-field/types';
-import { createUserSelectedThemeStory } from '../../utilities/storybook';
+import { apiCategory, appearanceDescription, createUserSelectedThemeStory, disabledDescription, errorTextDescription, errorVisibleDescription, placeholderDescription, slottedLabelDescription } from '../../utilities/storybook';
 
 interface TextFieldArgs {
     label: string;
+    placeholder: string;
     type: TextFieldType;
     appearance: string;
     fullBleed: boolean;
     value: string;
+    valueAttribute: string;
     readonly: boolean;
     disabled: boolean;
     errorVisible: boolean;
     errorText: string;
     actionButton: boolean;
     leftIcon: boolean;
+    change: undefined;
+    input: undefined;
 }
 
-const leftIconDescription = 'To place an icon at the far-left of the text-field, set `slot="start"` on the icon.';
+const leftIconDescription = 'An icon to display at the start of the text field.';
 
-const actionButtonDescription = `To place content such as a button at the far-right of the text-field, set \`slot="actions"\` on the content.
+const actionButtonDescription = `Content such as a button at the end of the text field.
 
 Note: The content in the \`actions\` slot will not adjust based on the state of the text-field (e.g. disabled or readonly). It is the responsibility of the
 consuming application to make any necessary adjustments. For example, if the buttons should be disabled when the text-field is disabled, the
@@ -42,10 +46,10 @@ const metadata: Meta<TextFieldArgs> = {
     // prettier-ignore
     render: createUserSelectedThemeStory(html`
         <${textFieldTag}
-            placeholder="${x => x.label}"
+            placeholder="${x => x.placeholder}"
+            :value="${x => x.value}"
             type="${x => x.type}"
             appearance="${x => x.appearance}"
-            value="${x => x.value}"
             ?readonly="${x => x.readonly}"
             ?disabled="${x => x.disabled}"
             error-text="${x => x.errorText}"
@@ -65,31 +69,84 @@ const metadata: Meta<TextFieldArgs> = {
         </${textFieldTag}>
     `),
     argTypes: {
+        label: {
+            name: 'default',
+            description: `${slottedLabelDescription({ componentName: 'text field' })}`,
+            table: { category: apiCategory.slots }
+        },
+        placeholder: {
+            description: placeholderDescription({ componentName: 'text field' }),
+            table: { category: apiCategory.attributes }
+        },
         type: {
             options: Object.values(TextFieldType),
-            control: { type: 'select' }
+            control: { type: 'radio' },
+            description: 'They type of input to accept and render in the text field. This corresponds to [the `type` attribute of the native `input` element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#type) though only a subset of values are supported.',
+            table: { category: apiCategory.attributes }
         },
         appearance: {
             options: Object.values(TextFieldAppearance),
-            control: { type: 'radio' }
+            control: { type: 'radio' },
+            description: appearanceDescription({ componentName: 'text field' }),
+            table: { category: apiCategory.attributes }
         },
         fullBleed: {
+            name: 'full-bleed',
             description:
-                'Remove the start and end margins causing the text to stretch across the full control width. Only applies to the frameless appearance.'
+                'Remove the start and end margins causing the text to stretch across the full control width. Only applies to the frameless appearance.',
+            table: { category: apiCategory.attributes }
+        },
+        value: {
+            description: 'The string displayed in the text field. Note that the property and attribute behave differently.',
+            table: { category: apiCategory.nonAttributeProperties }
+        },
+        valueAttribute: {
+            name: 'value',
+            description: 'The initial string displayed in the text field. Changing this after the text field initializes has no effect. Note that the property behave differently.',
+            table: { category: apiCategory.attributes }
+        },
+        readonly: {
+            description: 'Disallows input on the text field while maintaining enabled appearance.',
+            table: { category: apiCategory.attributes }
+        },
+        disabled: {
+            description: disabledDescription({ componentName: 'text field' }),
+            table: { category: apiCategory.attributes }
+        },
+        errorVisible: {
+            name: 'error-visible',
+            description: errorVisibleDescription,
+            table: { category: apiCategory.attributes }
         },
         errorText: {
-            description:
-                'A message to be displayed when the text field is in the invalid state explaining why the value is invalid'
+            name: 'error-text',
+            description: errorTextDescription,
+            table: { category: apiCategory.attributes }
         },
         actionButton: {
-            description: actionButtonDescription
+            name: 'actions',
+            description: actionButtonDescription,
+            table: { category: apiCategory.slots }
         },
         leftIcon: {
-            description: leftIconDescription
+            name: 'start',
+            description: leftIconDescription,
+            table: { category: apiCategory.slots }
+        },
+        change: {
+            description: 'Event emitted when the user commits a new value to the text field.',
+            table: { category: apiCategory.events },
+            control: false
+        },
+        input: {
+            description: 'Event emitted on each user keystroke within the text field.',
+            table: { category: apiCategory.events },
+            control: false
         }
     },
     args: {
         label: 'default label',
+        placeholder: 'Enter text...',
         type: TextFieldType.text,
         appearance: 'underline',
         fullBleed: false,

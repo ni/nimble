@@ -19,8 +19,10 @@ import { DrawerLocation } from '../../../../nimble-components/src/drawer/types';
 import { DrawerWidthOptions, ExampleContentType } from '../../../../nimble-components/src/drawer/tests/types';
 
 import {
+    apiCategory,
     createUserSelectedThemeStory,
-    overrideWarning
+    overrideWarning,
+    preventDismissDescription
 } from '../../utilities/storybook';
 
 interface DrawerArgs {
@@ -149,12 +151,14 @@ const metadata: Meta<DrawerArgs> = {
     argTypes: {
         location: {
             options: [DrawerLocation.left, DrawerLocation.right],
-            control: { type: 'radio' }
+            control: { type: 'radio' },
+            description: 'The side of the screen from which the drawer will slide in',
+            table: { category: apiCategory.attributes }
         },
         preventDismiss: {
             name: 'prevent-dismiss',
-            description:
-                'A boolean attribute to configure whether or not the drawer is dismissible via the `Esc` key, or any other dismiss action that is supported in the future'
+            description: preventDismissDescription({ componentName: 'drawer' }),
+            table: { category: apiCategory.attributes }
         },
         content: {
             options: [
@@ -169,9 +173,12 @@ const metadata: Meta<DrawerArgs> = {
                     [ExampleContentType.headerContentFooter]:
                         'Header/Content/Footer Example'
                 }
-            }
+            },
+            description: 'The drawer content, which can be arbitrary HTML.',
+            table: { category: apiCategory.slots }
         },
         width: {
+            name: 'Drawer width',
             description: widthDescription,
             options: [
                 DrawerWidthOptions.default,
@@ -189,17 +196,20 @@ const metadata: Meta<DrawerArgs> = {
                     [DrawerWidthOptions.medium500]: 'Medium - 500px',
                     [DrawerWidthOptions.fitContent]: 'fit-content'
                 }
-            }
+            },
+            table: { category: apiCategory.styles }
         },
         show: {
             name: 'show()',
             description:
-                'Call this member function to open the drawer. It returns a `Promise` that is resolved when the drawer is closed. The resolved value is either the reason passed to `close(...)` or the symbol `UserDismissed` if the drawer was dismissed via the `Esc` key.'
+                'Call this member function to open the drawer. It returns a `Promise` that is resolved when the drawer is closed. The resolved value is either the reason passed to `close(...)` or the symbol `UserDismissed` if the drawer was dismissed via the `Esc` key.',
+            table: { category: apiCategory.methods }
         },
         close: {
             name: 'close(reason)',
             description:
-                'Call this member function to close the drawer. It takes an optional `reason` value which can be any type. This value is returned from `show()` via a `Promise`'
+                'Call this member function to close the drawer. It takes an optional `reason` value which can be any type. This value is returned from `show()` via a `Promise`.',
+            table: { category: apiCategory.methods }
         },
         drawerRef: {
             table: {

@@ -2,6 +2,51 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 28 May 2024 20:13:14 GMT",
+      "version": "29.1.6",
+      "tag": "@ni/nimble-components_v29.1.6",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "2855db4fe58a8d1df112ea656215696d9582f9ea",
+            "comment": "Update banner styling to align with visual design spec"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 22 May 2024 18:32:15 GMT",
+      "version": "29.1.5",
+      "tag": "@ni/nimble-components_v29.1.5",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "5e4882a41568361919fc96a91243fc37cd831208",
+            "comment": "Fix anchor focus styling"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 22 May 2024 17:46:25 GMT",
+      "version": "29.1.4",
+      "tag": "@ni/nimble-components_v29.1.4",
+      "comments": {
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "699ce37952cf27977915aeb8f9b9341ce701002e",
+            "comment": "Update build time global type extensions"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 21 May 2024 22:53:18 GMT",
       "version": "29.1.4",
       "tag": "@ni/nimble-components_v29.1.4",

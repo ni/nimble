@@ -13,6 +13,7 @@ import { tableColumnTextTag } from '../../../../nimble-components/src/table-colu
 import { IconSeverity } from '../../../../nimble-components/src/icon-base/types';
 import { iconMetadata } from '../../../../nimble-components/src/icon-base/tests/icon-metadata';
 import {
+    apiCategory,
     createUserSelectedThemeStory,
     fastParameters,
     overrideWarning
@@ -71,7 +72,8 @@ export const icons: StoryObj<IconArgs> = {
         severity: {
             options: Object.keys(IconSeverity),
             control: { type: 'radio' },
-            description: severityDescription
+            description: severityDescription,
+            table: { category: apiCategory.attributes }
         },
         tableRef: {
             table: {

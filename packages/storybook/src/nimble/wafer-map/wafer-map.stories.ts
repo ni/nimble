@@ -382,7 +382,7 @@ const metadata: Meta<WaferMapArgs> = {
         dieHover: {
             name: 'die-hover',
             description:
-                'The event is fired whenever the mouse enters or leaves a die. In the event data, `detail.currentDie` will be set to the `WaferMapDie` element of the `dies` array that is being hovered or `undefined` if the mouse is leaving a die.'
+                'Event emitted whenever the mouse enters or leaves a die. In the event data, `detail.currentDie` will be set to the `WaferMapDie` element of the `dies` array that is being hovered or `undefined` if the mouse is leaving a die.'
         },
         validity: {
             description: `Readonly object of boolean values that represents the validity states that the wafer map's configuration can be in.
