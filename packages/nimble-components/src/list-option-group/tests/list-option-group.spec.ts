@@ -248,7 +248,7 @@ describe('ListboxOptionGroup', () => {
             optionHiddenStatesAfter: [false, false],
             groupVisuallyHiddenAfter: false
         }
-    ];
+    ] as const;
     parameterizeSpec(hideShowOptionTestCases, (spec, name, value) => {
         spec(name, async () => {
             const { element, connect, disconnect } = await setup();
