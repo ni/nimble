@@ -529,17 +529,22 @@ implements Subscriber {
         while (cellIndex < this.table.visibleColumns.length) {
             const firstCellTabbableIndex = focusStates.length;
             const cellInfo = rowElements.cells[cellIndex]!;
-            const cellViewTabbableChildren = cellInfo.cell.cellView.tabbableChildren;
-            for (let i = 0; i < cellViewTabbableChildren.length; i++) {
-                focusStates.push({ focusType: TableFocusType.cellContent, columnIndex: cellIndex, cellContentIndex: i });
-                if (this.focusType === TableFocusType.cellContent && this.columnIndex === cellIndex && this.cellContentIndex === i) {
-                    startIndex = focusStates.length - 1;
+            const cellHasSingleInteractiveElement = this.cellHasSingleInteractiveElement(cellInfo.cell);
+            if (cellHasSingleInteractiveElement) {
+                focusStates.push({ focusType: TableFocusType.cell, columnIndex: cellIndex });
+            } else {
+                const cellViewTabbableChildren = cellInfo.cell.cellView.tabbableChildren;
+                for (let i = 0; i < cellViewTabbableChildren.length; i++) {
+                    focusStates.push({ focusType: TableFocusType.cellContent, columnIndex: cellIndex, cellContentIndex: i });
+                    if (this.focusType === TableFocusType.cellContent && this.columnIndex === cellIndex && this.cellContentIndex === i) {
+                        startIndex = focusStates.length - 1;
+                    }
                 }
-            }
-            if (cellInfo.actionMenuButton) {
-                focusStates.push({ focusType: TableFocusType.cellActionMenu, columnIndex: cellIndex });
-                if (this.focusType === TableFocusType.cellActionMenu && this.columnIndex === cellIndex) {
-                    startIndex = focusStates.length - 1;
+                if (cellInfo.actionMenuButton) {
+                    focusStates.push({ focusType: TableFocusType.cellActionMenu, columnIndex: cellIndex });
+                    if (this.focusType === TableFocusType.cellActionMenu && this.columnIndex === cellIndex) {
+                        startIndex = focusStates.length - 1;
+                    }
                 }
             }
             const lastCellTabbableIndex = focusStates.length - 1;
