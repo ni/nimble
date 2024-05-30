@@ -1,7 +1,10 @@
 import { html } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
-import { createUserSelectedThemeStory } from '../../../utilities/storybook';
+import { apiCategory, checkValidityDescription, createUserSelectedThemeStory } from '../../../utilities/storybook';
 import { hiddenWrapper } from '../../../utilities/hidden';
+import { richTextMentionUsersTag } from '@ni/nimble-components/src/rich-text-mention/users';
+import { mappingUserTag } from '@ni/nimble-components/src/mapping/user';
+import { mappingTextTag } from '@ni/nimble-components/src/mapping/text';
 
 const patternDescription = `A regex used for detecting, validating, and extracting information from mentions in the rich text markdown string.
 
@@ -15,7 +18,7 @@ The mention view will be rendered in the following ways based on specific inputs
 const mappingUserValidityDescription = `Readonly object of boolean values that represents the validity states that the mention's configuration can be in.
 The object's type is \`RichTextMentionValidity\`, and it contains the following boolean properties:
 
--   \`unsupportedMappingType\`: \`true\` when the mention contains a mapping element other than \`nimble-mapping-user\`
+-   \`unsupportedMappingType\`: \`true\` when the mention contains a mapping element other than \`${mappingUserTag}\`
 -   \`duplicateMappingMentionHref\`: \`true\` when multiple mappings have the same \`key\` value
 -   \`missingMentionHrefValue\`: \`true\` when a mapping has no \`key\` value
 -   \`mentionHrefNotValidUrl\`: \`true\` when any one of the \`key\` is not a valid URL i.e. throws error if \`new URL(key)\`
@@ -25,7 +28,7 @@ The object's type is \`RichTextMentionValidity\`, and it contains the following 
 -   \`missingDisplayNameValue\`: \`true\` when a mapping has no \`display-name\` value
 `;
 
-const mentionUpdateEventDescription = `For the editor, This event will be emitted on following action:
+const mentionUpdateEventDescription = `Event emitted on following actions:
 
 - Whenever the \`@\` character is entered into the editor
 - When the user types any character after \`@\` into the editor
@@ -42,7 +45,9 @@ const metadata: Meta = {
         docs: {
             description: {
                 component:
-                    'Add a `nimble-rich-text-mention-users` element as a child of the rich text components to enable support for `@mention`. Add `nimble-mapping-mention-user` elements as its children to specify the users available to be mentioned.'
+                    `Add a \`${richTextMentionUsersTag}\` element as a child of the rich text components to enable support for \`@mention\`. Add \`${mappingUserTag}\` elements as its children to specify the users available to be mentioned.
+                    
+These components facilitate the parsing of input markdown into a mention node that displays a user's name. For the editor component they are also used to populate the list of user names in the mention dropdown.`
             }
         }
     }
@@ -55,24 +60,38 @@ export const richTextMentionUsers: StoryObj = {
     argTypes: {
         pattern: {
             description: patternDescription,
-            control: false
+            control: false,
+            table: { category: apiCategory.attributes },
         },
         checkValidity: {
             name: 'checkValidity()',
-            description:
-                'Returns `true` if the mention configuration is valid, otherwise `false`.'
+            description: checkValidityDescription({ componentName: 'rich text mention users' }),
+            table: { category: apiCategory.methods },
         },
         validity: {
-            description: mappingUserValidityDescription
+            description: mappingUserValidityDescription,
+            table: { category: apiCategory.nonAttributeProperties },
         },
         mentionUpdate: {
             name: 'mention-update',
-            description: mentionUpdateEventDescription
+            description: mentionUpdateEventDescription,
+            table: { category: apiCategory.events },
         },
         buttonLabel: {
             name: 'button-label',
             description:
-                'Label and title text for the mention button in the footer toolbar.'
+                'Label and title text for the mention button in the footer toolbar.',
+            table: { category: apiCategory.attributes },
+        },
+        content: {
+            name: 'default',
+            description: `Configure how users are displayed by adding \`${mappingTextTag}\` elements as content. Ensure that each user mentioned in the markdown input has a corresponding user mapping.
+
+For the rich text editor, the user mappings are used to populate the mention dropdown. Update the mention elements dynamically by listening to the \`mention-update\` event and filtering the user mappings based on the current text input.
+It is recommended to limit the number of users displayed to 50 or fewer.
+
+For more details, see [Client Usage Guidance on Filtered Users](https://github.com/ni/nimble/blob/main/packages/nimble-components/src/rich-text/specs/mention-hld.md#client-usage-guidance-on-filtered-users).`,
+            table: { category: apiCategory.slots },
         }
     }
 };

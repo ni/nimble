@@ -19,16 +19,12 @@ See the [rich text editor](?path=/docs/incubating-rich-text-editor--docs) compon
 <Controls of={viewerStories.richTextViewer} />
 <ComponentApisLink />
 
-## User Mention Usage
-
-To enable support for `@mention` in the <Tag name={richTextViewerTag}/> component, include the specified configuration and mapping components as children. These components facilitate the conversion of input markdown into a mention node, displaying a user's name. Additionally, ensure that each user mentioned in the markdown input has a corresponding user mapping. For more details, see [Client Usage Guidance on Filtered Users](https://github.com/ni/nimble/blob/main/packages/nimble-components/src/rich-text/specs/mention-hld.md#client-usage-guidance-on-filtered-users-1).
-
-## User Configuration
+### User configuration
 
 <Description of={mentionUserStories} />
 <Controls of={mentionUserStories.richTextMentionUsers} />
 
-## User Mapping
+### User mapping
 
 <Description of={userMappingStories} />
 <Controls of={userMappingStories.userMapping} />
