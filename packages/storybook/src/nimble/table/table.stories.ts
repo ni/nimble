@@ -16,6 +16,7 @@ import {
 } from '../label-provider/base/label-user-stories-utils';
 import { createUserSelectedThemeStory } from '../../utilities/storybook';
 import { isChromatic } from '../../utilities/isChromatic';
+import { tableColumnAnchorTag } from '@ni/nimble-components/dist/esm/table-column/anchor';
 
 interface BaseTableArgs extends LabelUserArgs {
     tableRef: Table;
@@ -74,6 +75,7 @@ interface TableArgs extends BaseTableArgs {
     setSelectedRecordIds: undefined;
     getSelectedRecordIds: undefined;
     data: ExampleDataType;
+    showLastNameActionMenu: boolean;
 }
 
 const simpleData = [
@@ -302,13 +304,13 @@ export const table: StoryObj<TableArgs> = {
             >
                 <${iconUserTag} title="First Name"></${iconUserTag}>
             </${tableColumnTextTag}>
-            <${tableColumnTextTag}
+            <${tableColumnAnchorTag}
                 column-id="last-name-column"
-                field-name="lastName"
-                action-menu-slot="name-menu" action-menu-label="Configure name"
+                label-field-name="lastName" href-field-name="lastName"
+                action-menu-slot="${x => (x.showLastNameActionMenu ? 'name-menu' : null)}" action-menu-label="${x => (x.showLastNameActionMenu ? 'Configure name' : null)}"
             >
                 Last Name
-            </${tableColumnTextTag}>
+            </${tableColumnAnchorTag}>
             <${tableColumnNumberTextTag}
                 column-id="age-column"
                 field-name="age"
@@ -362,6 +364,11 @@ export const table: StoryObj<TableArgs> = {
                 'Controls whether the table supports selecting a single row at a time, multiple rows at a time, or no rows. When selection is enabled, `id-field-name` must be specified.',
             control: { type: 'radio' }
         },
+        showLastNameActionMenu: {
+            name: 'Show Last Name action menu',
+            description:
+                'Show Last Name action menu'
+        },
         getSelectedRecordIds: {
             name: 'getSelectedRecordIds()',
             description:
@@ -406,6 +413,7 @@ export const table: StoryObj<TableArgs> = {
         idFieldName: undefined,
         validity: undefined,
         checkValidity: undefined,
+        showLastNameActionMenu: true,
         tableRef: undefined,
         updateData: x => {
             void (async () => {
