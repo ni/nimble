@@ -132,8 +132,8 @@ implements Subscriber {
         event: CustomEvent<TableActionMenuToggleEventDetail>
     ): void {
         const isOpen = event.detail.newState;
-        const row = event.target as TableRow;
         if (isOpen) {
+            const row = event.target as TableRow;
             const columnIndex = this.table.visibleColumns.findIndex(column => column.columnId === event.detail.columnId);
             this.setCellActionMenuFocusState(row.dataIndex!, columnIndex, false);
         }
@@ -181,7 +181,9 @@ implements Subscriber {
                         this.setCellActionMenuFocusState(row.dataIndex!, columnIndex, false);
                     } else {
                         const contentIndex = cell.cellView.tabbableChildren.indexOf(activeElement);
-                        if (contentIndex > -1) {
+                        if (contentIndex === 0 && this.cellHasSingleInteractiveElement(cell)) {
+                            this.setCellFocusState(columnIndex, row.dataIndex!, false);
+                        } else if (contentIndex > -1) {
                             this.setCellContentFocusState(contentIndex, row.dataIndex!, columnIndex, false);
                         }
                     }
@@ -192,12 +194,19 @@ implements Subscriber {
 
     private readonly handleBlur = (e: FocusEvent): void => {
         console.log('table blur', 'target', e.target, 'relatedTarget', e.relatedTarget, 'nav mode', this.inNavigationMode, 'focusType', this.focusType);
-        if (this.focusType === TableFocusType.cellActionMenu) {
+        if (this.focusType === TableFocusType.cellActionMenu || this.focusType === TableFocusType.cellContent || this.focusType === TableFocusType.cell) {
             const source = e.composedPath()[0];
             if (source instanceof Element) {
                 const cell = this.getContainingCell(source);
-                if (cell?.actionMenuButton) {
-                    this.setActionMenuButtonFocused(cell.actionMenuButton, false);
+                if (cell) {
+                    if (this.focusType === TableFocusType.cellActionMenu && cell.actionMenuButton) {
+                        this.setActionMenuButtonFocused(cell.actionMenuButton, false);
+                    }
+                    if (this.focusType === TableFocusType.cell && this.cellHasSingleInteractiveElement(cell)) {
+                        this.setRowFocusState();
+                    } else {
+                        this.setCellFocusState(this.columnIndex, this.rowIndex, false);
+                    }
                 }
             }
         }
@@ -333,7 +342,7 @@ implements Subscriber {
         if (this.focusType === TableFocusType.cell) {
             const row = this.getCurrentRow();
             const rowElements = row!.getFocusableElements();
-            if (this.cellHasSingleInteractiveElement(rowElements)) {
+            if (this.currentCellHasSingleInteractiveElement(rowElements)) {
                 // already focused (single interactive element special case), so we don't want to set cellContent focus type
                 return false;
             }
@@ -535,7 +544,7 @@ implements Subscriber {
             }
             const lastCellTabbableIndex = focusStates.length - 1;
             if (this.focusType === TableFocusType.cell && this.columnIndex === cellIndex) {
-                if (this.cellHasSingleInteractiveElement(rowElements)) { // Single interactive element (already focused, for cell focusType)
+                if (this.cellHasSingleInteractiveElement(cellInfo.cell)) { // Single interactive element (already focused, for cell focusType)
                     startIndex = firstCellTabbableIndex; // Start at single interactive element
                 } else {
                     startIndex = shiftKeyPressed ? lastCellTabbableIndex + 1 : firstCellTabbableIndex - 1;
@@ -784,7 +793,7 @@ implements Subscriber {
                 // For cells with a single focusable element, and no action menu, we focus the
                 // child element instead of the cell itself (as it's the only thing the user can
                 // interact with)
-                if (this.cellHasSingleInteractiveElement(rowElements)) {
+                if (this.currentCellHasSingleInteractiveElement(rowElements)) {
                     focusableElement = cellInfo.cell.cellView.tabbableChildren[0];
                 } else {
                     focusableElement = cellInfo.cell;
@@ -961,9 +970,12 @@ implements Subscriber {
         return this.trySetCellContentFocus(rowElements, 0) || this.trySetCellActionMenuFocus(rowElements);
     }
 
-    private cellHasSingleInteractiveElement(rowElements: TableRowFocusableElements): boolean {
-        const cellInfo = rowElements.cells[this.columnIndex]!;
-        return !cellInfo.actionMenuButton && cellInfo.cell.cellView.tabbableChildren.length === 1;
+    private currentCellHasSingleInteractiveElement(rowElements: TableRowFocusableElements): boolean {
+        return this.cellHasSingleInteractiveElement(rowElements.cells[this.columnIndex]!.cell);
+    }
+
+    private cellHasSingleInteractiveElement(cell: TableCell): boolean {
+        return !cell.actionMenuButton && cell.cellView.tabbableChildren.length === 1;
     }
 
     private hasRowOrCellFocusType(): boolean {
