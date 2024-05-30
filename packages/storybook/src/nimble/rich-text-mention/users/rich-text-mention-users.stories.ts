@@ -1,10 +1,10 @@
 import { html } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
-import { apiCategory, checkValidityDescription, createUserSelectedThemeStory } from '../../../utilities/storybook';
-import { hiddenWrapper } from '../../../utilities/hidden';
 import { richTextMentionUsersTag } from '@ni/nimble-components/src/rich-text-mention/users';
 import { mappingUserTag } from '@ni/nimble-components/src/mapping/user';
 import { mappingTextTag } from '@ni/nimble-components/src/mapping/text';
+import { hiddenWrapper } from '../../../utilities/hidden';
+import { apiCategory, checkValidityDescription, createUserSelectedThemeStory } from '../../../utilities/storybook';
 
 const patternDescription = `A regex used for detecting, validating, and extracting information from mentions in the rich text markdown string.
 
