@@ -80,28 +80,7 @@ implements Subscriber {
                 this.focusState.focusType
             );
         });
-        table.addEventListener('blur', e => {
-            console.log(
-                'table blur',
-                'target',
-                e.target,
-                'relatedTarget',
-                e.relatedTarget,
-                'nav mode',
-                this.inNavigationMode,
-                'focusType',
-                this.focusState.focusType
-            );
-            if (this.focusState.focusType === TableFocusType.cellActionMenu) {
-                const source = e.composedPath()[0];
-                if (source instanceof Element) {
-                    const cell = this.getContainingCell(source);
-                    if (cell?.actionMenuButton) {
-                        this.setActionMenuButtonFocused(cell.actionMenuButton, false);
-                    }
-                }
-            }
-        });
+        table.addEventListener('blur', e => this.handleBlur(e));
         this.tableNotifier = Observable.getNotifier(this.table);
         this.tableNotifier.subscribe(this, 'rowElements');
         this.virtualizerNotifier = Observable.getNotifier(this.virtualizer);
@@ -215,6 +194,19 @@ implements Subscriber {
                             this.setCellContentFocusState(contentIndex, row.dataIndex!, columnIndex, false);
                         }
                     }
+                }
+            }
+        }
+    };
+
+    private readonly handleBlur = (e: FocusEvent): void => {
+        console.log('table blur', 'target', e.target, 'relatedTarget', e.relatedTarget, 'nav mode', this.inNavigationMode, 'focusType', this.focusState.focusType);
+        if (this.focusState.focusType === TableFocusType.cellActionMenu) {
+            const source = e.composedPath()[0];
+            if (source instanceof Element) {
+                const cell = this.getContainingCell(source);
+                if (cell?.actionMenuButton) {
+                    this.setActionMenuButtonFocused(cell.actionMenuButton, false);
                 }
             }
         }
@@ -341,9 +333,9 @@ implements Subscriber {
         return false;
     }
 
-    private onEnterFocusInteractiveElementOnly(focusableRowElements: TableRowFocusableElements): boolean {
+    private onEnterFocusInteractiveElementOnly(rowElements: TableRowFocusableElements): boolean {
         // to match F2 behavior (first Enter focuses, 2nd Enter activates)
-        return this.focusFirstInteractiveElementInCurrentCell(focusableRowElements);
+        return this.focusFirstInteractiveElementInCurrentCell(rowElements);
     }
 
     private onF2Pressed(): boolean {
@@ -550,7 +542,7 @@ implements Subscriber {
             }
             const lastCellTabbableIndex = focusStates.length - 1;
             if (this.focusState.focusType === TableFocusType.cell && this.focusState.columnIndex === cellIndex) {
-                if (this.cellHasSingleInteractiveElement(rowElements)) { // Single interactive element (which means it was already focused for cell focusType)
+                if (this.cellHasSingleInteractiveElement(rowElements)) { // Single interactive element (already focused, for cell focusType)
                     startIndex = firstCellTabbableIndex; // Start at single interactive element
                 } else {
                     startIndex = shiftKeyPressed ? lastCellTabbableIndex + 1 : firstCellTabbableIndex - 1;
@@ -789,31 +781,30 @@ implements Subscriber {
     }
 
     private focusRowElement(row: TableRow | TableGroupRow, focusOptions?: FocusOptions): void {
-        const focusableRowElements = row.getFocusableElements();
+        const rowElements = row.getFocusableElements();
         let focusableElement: HTMLElement | undefined;
         switch (this.focusState.focusType) {
             case TableFocusType.rowSelectionCheckbox:
-                focusableElement = focusableRowElements.selectionCheckbox;
+                focusableElement = rowElements.selectionCheckbox;
                 break;
             case TableFocusType.cell: {
-                const cell = focusableRowElements.cells[this.focusState.columnIndex]!;
-                const tabbableChildren = cell.cell.cellView.tabbableChildren;
+                const cellInfo = rowElements.cells[this.focusState.columnIndex]!;
                 // For cells with a single focusable element, and no action menu, we focus the
                 // child element instead of the cell itself (as it's the only thing the user can
                 // interact with)
-                if (!cell.actionMenuButton && tabbableChildren.length === 1) {
-                    focusableElement = tabbableChildren[0];
+                if (this.cellHasSingleInteractiveElement(rowElements)) {
+                    focusableElement = cellInfo.cell.cellView.tabbableChildren[0];
                 } else {
-                    focusableElement = cell.cell;
+                    focusableElement = cellInfo.cell;
                 }
                 break;
             }
             case TableFocusType.cellActionMenu:
-                focusableElement = focusableRowElements.cells[this.focusState.columnIndex]!
+                focusableElement = rowElements.cells[this.focusState.columnIndex]!
                     .actionMenuButton;
                 break;
             case TableFocusType.cellContent: {
-                const cell = focusableRowElements.cells[this.focusState.columnIndex]!;
+                const cell = rowElements.cells[this.focusState.columnIndex]!;
                 focusableElement = cell.cell.cellView.tabbableChildren[
                     this.focusState.cellContentIndex
                 ];
@@ -828,14 +819,14 @@ implements Subscriber {
     }
 
     private focusHeaderElement(): boolean {
-        const focusableHeaderElements = this.getTableHeaderFocusableElements();
+        const headerElements = this.getTableHeaderFocusableElements();
         let focusableElement: HTMLElement | undefined;
         switch (this.focusState.focusType) {
             case TableFocusType.headerActions:
-                focusableElement = focusableHeaderElements.headerActions[this.focusState.headerActionIndex]!;
+                focusableElement = headerElements.headerActions[this.focusState.headerActionIndex]!;
                 break;
             case TableFocusType.columnHeader:
-                focusableElement = focusableHeaderElements.columnHeaders[this.focusState.columnIndex]!;
+                focusableElement = headerElements.columnHeaders[this.focusState.columnIndex]!;
                 break;
             default:
                 break;
