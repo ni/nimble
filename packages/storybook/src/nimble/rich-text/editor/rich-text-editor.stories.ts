@@ -202,7 +202,7 @@ const metadata: Meta<RichTextEditorArgs> = {
         input: {
             name: 'input',
             description:
-                'This event is fired when there is a change in the content of the editor.',
+                'Event emitted when there is a change in the content of the editor.',
             control: false
         },
         validity: {

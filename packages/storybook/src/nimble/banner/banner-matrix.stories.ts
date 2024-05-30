@@ -6,6 +6,7 @@ import { anchorTag } from '../../../../nimble-components/src/anchor';
 import { iconKeyTag } from '../../../../nimble-components/src/icons/key';
 import { bannerTag } from '../../../../nimble-components/src/banner';
 import { BannerSeverity } from '../../../../nimble-components/src/banner/types';
+import { ButtonAppearanceVariant } from '../../../../nimble-components/src/button/types';
 import { createStory } from '../../utilities/storybook';
 import {
     createMatrix,
@@ -72,7 +73,7 @@ const component = (
             <${anchorTag} slot="action" href="#">${longText ? loremIpsum.substring(0, 78) : 'Nimble anchor'}</${anchorTag}>
         `)}
         ${when(() => buttonAppearance, html`
-            <${buttonTag} slot="action" appearance="${buttonAppearance!}" content-hidden=${iconButton}>
+            <${buttonTag} slot="action" appearance="${buttonAppearance!}" appearance-variant="${ButtonAppearanceVariant.primary}" content-hidden=${iconButton}>
                 ${when(() => iconButton, html`
                     <${iconKeyTag} slot="start"></${iconKeyTag}>
                 `)}

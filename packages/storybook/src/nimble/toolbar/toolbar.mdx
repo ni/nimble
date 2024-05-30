@@ -1,6 +1,7 @@
-import { Canvas, Meta, Title } from '@storybook/blocks';
+import { Canvas, Controls, Meta, Title } from '@storybook/blocks';
 import { NimbleToolbar } from './toolbar.react';
 import * as toolbarStories from './toolbar.stories';
+import ComponentApisLink from '../../docs/component-apis-link.mdx';
 
 <Meta of={toolbarStories} />
 <Title of={toolbarStories} />
@@ -21,6 +22,11 @@ nimble-toolbar::part(positioning-region) {
 ```
 
 <Canvas of={toolbarStories.toolbar} />
+
+## API
+
+<Controls of={toolbarStories.toolbar} />
+
 
 {/* ## Styling */}
 

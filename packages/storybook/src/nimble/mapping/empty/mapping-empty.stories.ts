@@ -1,7 +1,7 @@
 import { html } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
 import { mappingKeyDescription } from '../base/story-helpers';
-import { createUserSelectedThemeStory } from '../../../utilities/storybook';
+import { apiCategory, createUserSelectedThemeStory } from '../../../utilities/storybook';
 import { hiddenWrapper } from '../../../utilities/hidden';
 
 const metadata: Meta = {
@@ -25,11 +25,13 @@ export const emptyMapping: StoryObj = {
     argTypes: {
         key: {
             control: false,
-            description: mappingKeyDescription('nothing')
+            description: mappingKeyDescription('nothing'),
+            table: { category: apiCategory.attributes },
         },
         text: {
             control: false,
-            description: 'A textual description of the value. This value will be displayed in group rows, but table cells will be empty. This attribute is required.'
+            description: 'A textual description of the value. This value will be displayed in group rows, but table cells will be empty. This attribute is required.',
+            table: { category: apiCategory.attributes },
         }
     },
     args: {}
