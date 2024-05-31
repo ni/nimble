@@ -151,6 +151,28 @@ export const styles = css`
         align-items: center;
         padding: ${smallPadding} ${mediumPadding};
     }
+
+    .loading-container {
+        padding-left: ${mediumPadding};
+        padding-right: ${mediumPadding};
+        display: flex;
+        height: ${controlHeight};
+        align-items: center;
+    }
+
+    .loading-container.above {
+        margin-top: ${mediumPadding};
+        margin-bottom: 0;
+    }
+
+    .loading-container.below {
+        margin-top: 0;
+        margin-bottom: ${mediumPadding};
+    }
+
+    .loading-spinner {
+        margin-left: auto;
+    }
 `.withBehaviors(
     appearanceBehavior(
         DropdownAppearance.block,
@@ -165,7 +187,8 @@ export const styles = css`
         Theme.color,
         css`
             .filter-field,
-            .no-results-label {
+            .no-results-label,
+            .loading-container {
                 background: ${hexToRgbaCssColor(White, 0.15)};
             }
         `

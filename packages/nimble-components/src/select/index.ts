@@ -39,7 +39,7 @@ import type { ErrorPattern } from '../patterns/error/types';
 import { iconExclamationMarkTag } from '../icons/exclamation-mark';
 import { isListOptionGroup, template } from './template';
 import { ListOption } from '../list-option';
-import { FilterMode } from './types';
+import { FilterMode, SelectFilterInputEventDetail } from './types';
 import { diacriticInsensitiveStringNormalizer } from '../utilities/models/string-normalizers';
 import { FormAssociatedSelect } from './models/select-form-associated';
 import { ListOptionGroup } from '../list-option-group';
@@ -105,6 +105,9 @@ export class Select
 
     @attr({ attribute: 'clearable', mode: 'boolean' })
     public clearable = false;
+
+    @attr({ attribute: 'loading-visible', mode: 'boolean' })
+    public loadingVisible = false;
 
     /**
      * @internal
@@ -465,8 +468,8 @@ export class Select
     /**
      * @internal
      */
-    public inputClickHandler(e: MouseEvent): void {
-        e.stopPropagation(); // clicking in filter input shouldn't close dropdown
+    public ignoreClickHandler(e: MouseEvent): void {
+        e.stopPropagation();
     }
 
     /**
@@ -504,22 +507,30 @@ export class Select
      */
     public inputHandler(e: InputEvent): boolean {
         this.filter = this.filterInput?.value ?? '';
-        this.filterOptions();
+        if (this.filterMode === FilterMode.standard) {
+            this.filterOptions();
 
-        const enabledOptions = this.filteredOptions.filter(o => !o.disabled);
-        let activeOptionIndex = this.filter !== ''
-            ? this.openActiveIndex ?? this.selectedIndex
-            : this.selectedIndex;
+            const enabledOptions = this.filteredOptions.filter(
+                o => !o.disabled
+            );
+            let activeOptionIndex = this.filter !== ''
+                ? this.openActiveIndex ?? this.selectedIndex
+                : this.selectedIndex;
 
-        if (
-            enabledOptions.length > 0
-            && !enabledOptions.find(o => o === this.options[activeOptionIndex])
-        ) {
-            activeOptionIndex = this.options.indexOf(enabledOptions[0]!);
-        } else if (enabledOptions.length === 0) {
-            activeOptionIndex = -1;
+            if (
+                enabledOptions.length > 0
+                && !enabledOptions.find(o => o === this.options[activeOptionIndex])
+            ) {
+                activeOptionIndex = this.options.indexOf(enabledOptions[0]!);
+            } else if (enabledOptions.length === 0) {
+                activeOptionIndex = -1;
+            }
+            this.setActiveOption(activeOptionIndex);
         }
-        this.setActiveOption(activeOptionIndex);
+
+        if (this.filterMode !== FilterMode.none) {
+            this.emitFilterInputEvent();
+        }
 
         if (e.inputType.includes('deleteContent') || !this.filter.length) {
             return true;
@@ -856,6 +867,7 @@ export class Select
             this.filterInput.value = '';
         }
 
+        this.emitFilterInputEvent();
         this.ariaControls = '';
         this.ariaExpanded = 'false';
     }
@@ -1103,30 +1115,38 @@ export class Select
             return;
         }
 
-        const filteredOptions: ListOption[] = [];
-        for (const element of this.slottedOptions) {
-            if (element instanceof ListOptionGroup) {
-                if (element.hidden) {
-                    break; // no need to process hidden groups
-                }
-                const groupOptions = this.getGroupOptions(element);
-                const groupMatchesFilter = this.filterMatchesText(
-                    element.labelContent
-                );
-                groupOptions.forEach(option => {
-                    option.visuallyHidden = groupMatchesFilter
-                        ? false
-                        : this.isOptionHiddenOrFilteredOut(option);
-                    if (!option.visuallyHidden) {
-                        filteredOptions.push(option);
+        const filteredOptions: ListboxOption[] = [];
+        if (this.filterMode === FilterMode.standard) {
+            for (const element of this.slottedOptions) {
+                if (element instanceof ListOptionGroup) {
+                    if (element.hidden) {
+                        break; // no need to process hidden groups
                     }
-                });
-            } else if (isNimbleListOption(element)) {
-                element.visuallyHidden = this.isOptionHiddenOrFilteredOut(element);
-                if (!element.visuallyHidden) {
-                    filteredOptions.push(element);
+                    const groupOptions = this.getGroupOptions(element);
+                    const groupMatchesFilter = this.filterMatchesText(
+                        element.labelContent
+                    );
+                    groupOptions.forEach(option => {
+                        option.visuallyHidden = groupMatchesFilter
+                            ? false
+                            : this.isOptionHiddenOrFilteredOut(option);
+                        if (!option.visuallyHidden) {
+                            filteredOptions.push(option);
+                        }
+                    });
+                } else if (isNimbleListOption(element)) {
+                    element.visuallyHidden = this.isOptionHiddenOrFilteredOut(element);
+                    if (!element.visuallyHidden) {
+                        filteredOptions.push(element);
+                    }
                 }
             }
+        } else {
+            filteredOptions.push(
+                ...this.options.filter(
+                    o => isNimbleListOption(o) && isOptionOrGroupVisible(o)
+                )
+            );
         }
 
         this.filteredOptions = filteredOptions;
@@ -1195,6 +1215,14 @@ export class Select
 
     private filterChanged(): void {
         this.filterOptions();
+    }
+
+    private emitFilterInputEvent(): void {
+        const eventDetail: SelectFilterInputEventDetail = {
+            filterText: this.filter
+        };
+
+        this.$emit('filter-input', eventDetail, { bubbles: true });
     }
 
     private maxHeightChanged(): void {

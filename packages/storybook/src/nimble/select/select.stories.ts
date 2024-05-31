@@ -31,6 +31,7 @@ interface SelectArgs {
     placeholder: boolean;
     grouped: boolean;
     clearable: boolean;
+    loadingVisible: boolean;
     change: undefined;
 }
 
@@ -123,6 +124,10 @@ const clearableDescription = `
 When the \`clearable\` attribute is set, a clear button will be displayed in the select when a value is selected. Clicking the clear button will clear the selected value and display the placeholder text, if available, or will result in a blank display.
 `;
 
+const loadingVisibleDescription = `
+When the \`loading-visible\` attribute is set, a loading spinner will be displayed in the dropdown of the select along with localizable text that defaults to "Loading". This is useful when the select is loading its options dynamically.
+`;
+
 const metadata: Meta<SelectArgs> = {
     title: 'Components/Select',
     decorators: [withActions<HtmlRenderer>],
@@ -145,6 +150,7 @@ const metadata: Meta<SelectArgs> = {
             position="${x => x.dropDownPosition}"
             appearance="${x => x.appearance}"
             filter-mode="${x => (x.filterMode === 'none' ? undefined : x.filterMode)}"
+            ?loading-visible="${x => x.loadingVisible}"
             style="width: 250px;"
         >
             ${when(x => x.placeholder, html`
@@ -229,6 +235,11 @@ const metadata: Meta<SelectArgs> = {
             description: clearableDescription,
             table: { category: apiCategory.attributes }
         },
+        loadingVisible: {
+            name: 'loading-visible',
+            description: loadingVisibleDescription,
+            table: { category: apiCategory.attributes }
+        },
         optionsType: {
             name: 'default',
             description: optionsDescription,
@@ -259,7 +270,8 @@ const metadata: Meta<SelectArgs> = {
         optionsType: ExampleOptionsType.simpleOptions,
         placeholder: false,
         grouped: false,
-        clearable: false
+        clearable: false,
+        loadingVisible: false
     }
 };
 

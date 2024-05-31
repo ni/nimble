@@ -7,6 +7,7 @@ import { FilterMode } from '../../../../nimble-components/src/select/types';
 import { createFixedThemeStory } from '../../utilities/storybook';
 import { sharedMatrixParameters } from '../../utilities/matrix';
 import { backgroundStates } from '../../utilities/states';
+import { isChromatic } from '../../utilities/isChromatic';
 
 const metadata: Meta = {
     title: 'Tests/Select',
@@ -26,6 +27,9 @@ type PositionState = (typeof positionStates)[number];
 const filterModeStates = Object.values(FilterMode);
 type FilterModeState = (typeof filterModeStates)[number];
 
+const loadingVisibleStates = [false, true] as const;
+type LoadingVisibleState = (typeof loadingVisibleStates)[number];
+
 const placeholderStates = [false, true] as const;
 type PlaceholderState = (typeof placeholderStates)[number];
 
@@ -38,6 +42,7 @@ type OptionsOutsideGroupState = (typeof optionsOutsideGroupStates)[number];
 interface SelectMatrixStoryOptions {
     positionState: PositionState;
     filterMode: FilterModeState;
+    loadingVisible?: LoadingVisibleState;
     placeholder?: PlaceholderState;
     grouped?: GroupedState;
     optionsOutsideGroup?: OptionsOutsideGroupState;
@@ -46,9 +51,13 @@ interface SelectMatrixStoryOptions {
 
 // prettier-ignore
 const component = ({
-    positionState, filterMode, placeholder, grouped, optionsOutsideGroup, slottedLabel
+    positionState, filterMode, loadingVisible, placeholder, grouped, optionsOutsideGroup, slottedLabel
 }: SelectMatrixStoryOptions): ViewTemplate => html`
-    <${selectTag} open position="${() => positionState[0]}" style="${() => positionState[1]}" filter-mode="${() => filterMode}" style="width: 250px;">
+    <${selectTag} open 
+        position="${() => positionState[0]}" 
+        style="${() => positionState[1]} width: 250px; ${isChromatic() ? '--ni-private-spinner-animation-play-state:paused' : ''}"
+        filter-mode="${() => filterMode}"
+        loading-visible="${() => loadingVisible}">
         ${when(() => grouped, html`
             <${listOptionTag} value="1" ${placeholder ? 'selected disabled hidden' : ''} >Select an option</${listOptionTag}>
             ${when(() => optionsOutsideGroup ?? false, html`
@@ -269,3 +278,54 @@ export const selectGroupedWithSlottedLabelDarkThemeBlackBackground: StoryFn = cr
     }),
     darkThemeBlackBackground
 );
+
+export const selectBelowOpenLoadingVisibleNoGroupsLightThemeWhiteBackground: StoryFn = createFixedThemeStory(
+    component({
+        positionState: positionStates[0], filterMode: FilterMode.standard, loadingVisible: true
+    }),
+    lightThemeWhiteBackground
+);
+
+export const selectBelowOpenLoadingVisibleNoGroupsDarkGreenBackground: StoryFn = createFixedThemeStory(
+    component({
+        positionState: positionStates[0], filterMode: FilterMode.standard, loadingVisible: true
+    }),
+    colorThemeDarkGreenBackground
+);
+
+export const selectBelowOpenLoadingVisibleNoGroupsDarkThemeBlackBackground: StoryFn = createFixedThemeStory(
+    component({
+        positionState: positionStates[0], filterMode: FilterMode.standard, loadingVisible: true
+    }),
+    darkThemeBlackBackground
+);
+
+export const selectAboveOpenLoadingVisibleNoGroupsLightThemeWhiteBackground: StoryFn = createFixedThemeStory(
+    component({
+        positionState: positionStates[1], filterMode: FilterMode.standard, loadingVisible: true
+    }),
+    lightThemeWhiteBackground
+);
+
+export const selectAboveOpenLoadingVisibleNoGroupsDarkGreenBackground: StoryFn = createFixedThemeStory(
+    component({
+        positionState: positionStates[1], filterMode: FilterMode.standard, loadingVisible: true
+    }),
+    colorThemeDarkGreenBackground
+);
+
+export const selectAboveOpenLoadingVisibleNoGroupsDarkThemeBlackBackground: StoryFn = createFixedThemeStory(
+    component({
+        positionState: positionStates[1], filterMode: FilterMode.standard, loadingVisible: true
+    }),
+    darkThemeBlackBackground
+);
+
+export const selectLoadingVisibleNoMatchesLightThemeWhiteBackground: StoryFn = createFixedThemeStory(
+    component({
+        positionState: positionStates[0], filterMode: FilterMode.standard, loadingVisible: true
+    }),
+    lightThemeWhiteBackground
+);
+
+selectLoadingVisibleNoMatchesLightThemeWhiteBackground.play = noMatchesFilterPlayFunction;
