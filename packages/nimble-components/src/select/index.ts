@@ -37,7 +37,7 @@ import {
 import { errorTextTemplate } from '../patterns/error/template';
 import type { ErrorPattern } from '../patterns/error/types';
 import { iconExclamationMarkTag } from '../icons/exclamation-mark';
-import { template } from './template';
+import { isListOptionGroup, template } from './template';
 import { ListOption } from '../list-option';
 import { FilterMode } from './types';
 import { diacriticInsensitiveStringNormalizer } from '../utilities/models/string-normalizers';
@@ -56,12 +56,6 @@ type BooleanOrVoid = boolean | void;
 
 const isNimbleListOption = (el: Element | undefined): el is ListOption => {
     return el instanceof ListOption;
-};
-
-const isNimbleListOptionGroup = (
-    el: Element | undefined
-): el is ListOptionGroup => {
-    return el instanceof ListOptionGroup;
 };
 
 const isOptionSelectable = (el: ListOption): boolean => {
@@ -304,7 +298,7 @@ export class Select
             notifier.unsubscribe(this, 'disabled');
         });
 
-        prev?.filter<ListOptionGroup>(isNimbleListOptionGroup).forEach(el => {
+        prev?.filter<ListOptionGroup>(isListOptionGroup).forEach(el => {
             const notifier = Observable.getNotifier(el);
             notifier.unsubscribe(this, 'hidden');
             notifier.unsubscribe(this, 'visuallyHidden');
@@ -318,7 +312,7 @@ export class Select
             notifier.subscribe(this, 'hidden');
             notifier.subscribe(this, 'disabled');
         });
-        next?.filter<ListOptionGroup>(isNimbleListOptionGroup).forEach(el => {
+        next?.filter<ListOptionGroup>(isListOptionGroup).forEach(el => {
             this.updateAdjacentSeparatorState(el);
             const notifier = Observable.getNotifier(el);
             notifier.subscribe(this, 'hidden');
@@ -400,7 +394,7 @@ export class Select
                 if (isNimbleListOption(sourceElement)) {
                     sourceElement.visuallyHidden = sourceElement.hidden;
                     this.updateAdjacentSeparatorState(sourceElement);
-                } else if (isNimbleListOptionGroup(sourceElement)) {
+                } else if (isListOptionGroup(sourceElement)) {
                     sourceElement.listOptions.forEach(e => {
                         e.visuallyHidden = sourceElement.hidden;
                     });
@@ -412,7 +406,7 @@ export class Select
             }
             case 'visuallyHidden': {
                 if (
-                    isNimbleListOptionGroup(sourceElement)
+                    isListOptionGroup(sourceElement)
                     || isNimbleListOption(sourceElement)
                 ) {
                     this.updateAdjacentSeparatorState(sourceElement);

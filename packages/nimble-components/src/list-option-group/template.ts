@@ -12,7 +12,7 @@ export const template = html<ListOptionGroup>`
 <template
     role="group"
     aria-label="${x => x.labelContent}"
-    slot="options"
+    slot="option"
 >
     <span ${overflow('hasOverflow')} 
         class="label-display"

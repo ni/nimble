@@ -26,7 +26,9 @@ import { ListOptionGroup } from '../list-option-group';
 import { buttonTag } from '../button';
 import { iconTimesTag } from '../icons/times';
 
-const isListOptionGroup = (n: HTMLElement): boolean => {
+export const isListOptionGroup = (
+    n: Element | undefined
+): n is ListOptionGroup => {
     return n instanceof ListOptionGroup;
 };
 
@@ -135,7 +137,7 @@ SelectOptions
                     <div ${ref('scrollableRegion')}
                         class="scrollable-region">
                         <slot
-                            name="options"
+                            name="option"
                             ${slotted({
                                 filter: (n: Node) => n instanceof HTMLElement && (isListboxOption(n) || isListOptionGroup(n)),
                                 flatten: true,

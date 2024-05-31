@@ -15,6 +15,7 @@ import { filterSearchLabel } from '../../label-provider/core/label-tokens';
 import { ListOptionGroup } from '../../list-option-group';
 import type { Button } from '../../button';
 import { SelectPageObjectInternal } from '../testing/select.pageobject.internal';
+import { isListOptionGroup } from '../template';
 
 const disabledOption = 'disabled';
 const disabledSelectedOption = 'disabled selected';
@@ -88,10 +89,6 @@ async function clickAndWaitForOpen(select: Select): Promise<void> {
     select.click();
     await regionLoadedListener.promise;
 }
-
-const isListOptionGroup = (el: Element): el is ListOptionGroup => {
-    return el instanceof ListOptionGroup;
-};
 
 describe('Select', () => {
     it('should set classes based on collapsible, open, disabled, and position', async () => {
@@ -1794,12 +1791,12 @@ describe('Select', () => {
                 await pageObject.openAndSetFilterText('Two');
                 const visibleElements = pageObject.getDropdownVisibleElements();
                 expect(visibleElements?.length).toBe(5);
-                expect(isListOptionGroup(visibleElements[0]!)).toBeTrue();
+                expect(isListOptionGroup(visibleElements[0])).toBeTrue();
                 expect(
                     (visibleElements[0] as ListOptionGroup).labelContent
                 ).toBe('Group One');
                 expect(visibleElements[1]!.textContent?.trim()).toBe('Two');
-                expect(isListOptionGroup(visibleElements[2]!)).toBeTrue();
+                expect(isListOptionGroup(visibleElements[2])).toBeTrue();
                 expect(
                     (visibleElements[2] as ListOptionGroup).labelContent
                 ).toBe('Group Two');

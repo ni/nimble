@@ -24,7 +24,7 @@ export const template = html<RichTextMentionListbox>`
                 @click="${(x, c) => x.clickHandler(c.event as MouseEvent)}"
                 ?disabled="${x => x.disabled}"
             >
-                <slot name="options"
+                <slot name="option"
                     ${slotted({ filter: (n: Node) => n instanceof HTMLElement && Listbox.slottedOptionFilter(n), flatten: true, property: 'slottedOptions' })}
                 >
                 </slot>
