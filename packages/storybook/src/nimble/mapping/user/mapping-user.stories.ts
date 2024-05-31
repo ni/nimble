@@ -29,6 +29,7 @@ export const userMapping: StoryObj = {
             name: 'display-name',
             description:
                 'The display name to render for the user, e.g. `Oscar Meyer 🌭`.',
+            control: false,
             table: { category: apiCategory.attributes },
         }
     },
