@@ -2,6 +2,36 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Fri, 31 May 2024 15:22:31 GMT",
+      "version": "29.1.7",
+      "tag": "@ni/nimble-components_v29.1.7",
+      "comments": {
+        "patch": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "ad47a4137ef0a1a49b82b99fdbfdf4feb510d5fe",
+            "comment": "Remove listbox component as it is unused."
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 28 May 2024 20:13:14 GMT",
+      "version": "29.1.6",
+      "tag": "@ni/nimble-components_v29.1.6",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "2855db4fe58a8d1df112ea656215696d9582f9ea",
+            "comment": "Update banner styling to align with visual design spec"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 22 May 2024 18:32:15 GMT",
       "version": "29.1.5",
       "tag": "@ni/nimble-components_v29.1.5",

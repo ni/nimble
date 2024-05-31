@@ -1,6 +1,7 @@
 import { Canvas, Meta, Controls, Title } from '@storybook/blocks';
 import { NimbleTextArea } from './text-area.react';
 import * as textAreaStories from './text-area.stories';
+import ComponentApisLink from '../../docs/component-apis-link.mdx';
 
 <Meta of={textAreaStories} />
 <Title of={textAreaStories} />
@@ -10,7 +11,11 @@ A multi-line text input control. The text area is often used in a form to collec
 If you configure your text area to be resizable (with the `resize` attribute) in a certain dimension, do not set an explicit size for that dimension (via `height` and/or `width` `style` properties), or you may experience unexpected resize behavior. If you want to set the initial size of a resizable text area, use the `rows` and/or `cols` attribute(s).
 
 <Canvas of={textAreaStories.outlineTextArea} />
+
+## API
+
 <Controls of={textAreaStories.outlineTextArea} />
+<ComponentApisLink />
 
 {/* ## Styling */}
 

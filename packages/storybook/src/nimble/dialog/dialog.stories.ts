@@ -4,6 +4,8 @@ import { TextField, textFieldTag } from '../../../../nimble-components/src/text-
 import { buttonTag } from '../../../../nimble-components/src/button';
 import { checkboxTag } from '../../../../nimble-components/src/checkbox';
 import {
+    bodyFont,
+    bodyFontColor,
     dialogLargeHeight,
     dialogLargeMaxHeight,
     dialogLargeWidth,
@@ -12,8 +14,8 @@ import {
     dialogSmallWidth
 } from '../../../../nimble-components/src/theme-provider/design-tokens';
 import { Dialog, dialogTag, UserDismissed } from '../../../../nimble-components/src/dialog';
-import { DialogSizeOptions, ExampleContentType } from '../../../../nimble-components/src/dialog/tests/types';
-import { createUserSelectedThemeStory } from '../../utilities/storybook';
+import { DialogSizeOptions, ExampleContentType, ExampleFooterContentType } from './types';
+import { apiCategory, createUserSelectedThemeStory, preventDismissDescription } from '../../utilities/storybook';
 import { loremIpsum } from '../../utilities/lorem-ipsum';
 
 interface DialogArgs {
@@ -21,9 +23,9 @@ interface DialogArgs {
     subtitle: string;
     headerHidden: boolean;
     footerHidden: boolean;
-    includeFooterButtons: boolean;
     preventDismiss: boolean;
     content: ExampleContentType;
+    footer: ExampleFooterContentType;
     size: DialogSizeOptions;
     show: undefined;
     close: undefined;
@@ -55,7 +57,7 @@ const longContent = html`
 
 const content = {
     [ExampleContentType.shortContent]: shortContent,
-    [ExampleContentType.longContent]: longContent
+    [ExampleContentType.longContent]: longContent,
 } as const;
 
 const sizeDescription = `
@@ -94,6 +96,10 @@ const metadata: Meta<DialogArgs> = {
                     max-height:${maxHeights[x.size]};
                 `}
             }
+            span[slot="footer"] {
+                font: var(${bodyFont.cssCustomProperty});
+                color: var(${bodyFontColor.cssCustomProperty});
+            }
         </style>
         <${dialogTag}
             ${ref('dialogRef')}
@@ -106,7 +112,7 @@ const metadata: Meta<DialogArgs> = {
 
             ${x => content[x.content]}
             ${when(
-        x => x.includeFooterButtons,
+        x => x.footer === ExampleFooterContentType.buttons,
         html<DialogArgs>`
                     <${buttonTag}
                         @click="${x => x.dialogRef.close('Back pressed')}"
@@ -130,6 +136,9 @@ const metadata: Meta<DialogArgs> = {
                     >
                         Continue
                     </${buttonTag}>
+                `,
+        html<DialogArgs>`
+                    <span slot="footer">${x => (x.preventDismiss ? 'Refresh the page to close the dialog.' : 'Press Esc to close the dialog.')}</span>
                 `
     )}
         </${dialogTag}>
@@ -147,43 +156,66 @@ const metadata: Meta<DialogArgs> = {
     `),
     argTypes: {
         preventDismiss: {
-            name: 'prevent-dismiss'
+            name: 'prevent-dismiss',
+            description: preventDismissDescription({ componentName: 'dialog' }),
+            table: { category: apiCategory.attributes }
         },
         title: {
             description:
-                'Primary text that is displayed in the header when `header-hidden` is not set. Dialogs should **always include a title** even when `header-hidden` is set. The title is used to provide an accessible name to assistive technologies regardless of the value of `header-hidden`.<br><br>The title should be specified using an `inline` element, such as a `<span>`.'
+                'Primary text that is displayed in the header when `header-hidden` is not set. Dialogs should **always include a title** even when `header-hidden` is set. The title is used to provide an accessible name to assistive technologies regardless of the value of `header-hidden`.<br><br>The title should be specified using an `inline` element, such as a `<span>`.',
+            table: { category: apiCategory.slots }
         },
         subtitle: {
             description:
-                'Secondary text that is displayed in the header when `header-hidden` is not set. If a dialog has an appropriate value to set for the subtitle, it should be included even when `header-hidden` is set. If the subtitle is set, it is used with the title to provide an accessible name to assistive technologies regardless of the value of `header-hidden`.<br><br>The subtitle should be specified using an `inline` element, such as a `<span>`.'
+                'Secondary text that is displayed in the header when `header-hidden` is not set. If a dialog has an appropriate value to set for the subtitle, it should be included even when `header-hidden` is set. If the subtitle is set, it is used with the title to provide an accessible name to assistive technologies regardless of the value of `header-hidden`.<br><br>The subtitle should be specified using an `inline` element, such as a `<span>`.',
+            table: { category: apiCategory.slots }
         },
         headerHidden: {
             name: 'header-hidden',
             description:
-                'Setting `header-hidden` hides the title and subtitle of the dialog and allows the main content of the dialog to fill the space that would otherwise be reserved for the header. A title (and optionally a subtitle) should still be provided when `header-hidden` is set to ensure the dialog has a label that can be used by assistive technologies.'
+                'Setting `header-hidden` hides the title and subtitle of the dialog and allows the main content of the dialog to fill the space that would otherwise be reserved for the header. A title (and optionally a subtitle) should still be provided when `header-hidden` is set to ensure the dialog has a label that can be used by assistive technologies.',
+            table: { category: apiCategory.attributes }
+
         },
         footerHidden: {
             name: 'footer-hidden',
             description:
-                'Setting `footer-hidden` hides the footer of the dialog and any content that has been slotted within it. Setting `footer-hidden` also allows the main content of the dialog to fill the space that would otherwise be reserved for the footer.'
-        },
-        includeFooterButtons: {
-            name: 'Include footer buttons'
+                'Setting `footer-hidden` hides the footer of the dialog and any content that has been slotted within it. Setting `footer-hidden` also allows the main content of the dialog to fill the space that would otherwise be reserved for the footer.',
+            table: { category: apiCategory.attributes }
         },
         content: {
+            name: 'default',
             options: [
                 ExampleContentType.shortContent,
-                ExampleContentType.longContent
+                ExampleContentType.longContent,
             ],
             control: {
                 type: 'radio',
                 labels: {
                     [ExampleContentType.shortContent]: 'Short content',
-                    [ExampleContentType.longContent]: 'Long content'
+                    [ExampleContentType.longContent]: 'Long content',
                 }
-            }
+            },
+            description: 'The dialog content, which can be arbitrary HTML.',
+            table: { category: apiCategory.slots }
+        },
+        footer: {
+            options: [
+                ExampleFooterContentType.text,
+                ExampleFooterContentType.buttons,
+            ],
+            control: {
+                type: 'radio',
+                labels: {
+                    [ExampleFooterContentType.text]: 'Text',
+                    [ExampleFooterContentType.buttons]: 'Buttons',
+                }
+            },
+            description: 'Content like buttons which appear at the bottom of the dialog.',
+            table: { category: apiCategory.slots }
         },
         size: {
+            name: 'Dialog sizing',
             description: sizeDescription,
             options: [
                 DialogSizeOptions.smallGrowable,
@@ -195,17 +227,20 @@ const metadata: Meta<DialogArgs> = {
                     [DialogSizeOptions.smallGrowable]: 'Small growable',
                     [DialogSizeOptions.largeFixed]: 'Large fixed'
                 }
-            }
+            },
+            table: { category: apiCategory.styles }
         },
         show: {
             name: 'show()',
             description:
-                'Call this member function to open the dialog. It returns a `Promise` that is resolved when the dialog is closed. The resolved value is either the reason passed to `close(...)` or the symbol `UserDismissed` if the dialog was dismissed via the ESC key.'
+                'Call this member function to open the dialog. It returns a `Promise` that is resolved when the dialog is closed. The resolved value is either the reason passed to `close(...)` or the symbol `UserDismissed` if the dialog was dismissed via the `Esc` key.',
+            table: { category: apiCategory.methods }
         },
         close: {
             name: 'close(reason)',
             description:
-                'Call this member function to close the dialog. It takes an optional `reason` value which can be any type. This value is returned from `show()` via a `Promise`'
+                'Call this member function to close the dialog. It takes an optional `reason` value which can be any type. This value is returned from `show()` via a `Promise`.',
+            table: { category: apiCategory.methods }
         },
         openAndHandleResult: {
             table: {
@@ -218,14 +253,14 @@ const metadata: Meta<DialogArgs> = {
         subtitle: 'Dialog subtitle',
         headerHidden: false,
         footerHidden: false,
-        includeFooterButtons: true,
         preventDismiss: false,
         content: ExampleContentType.shortContent,
+        footer: ExampleFooterContentType.buttons,
         size: DialogSizeOptions.smallGrowable,
         openAndHandleResult: (dialogRef, textFieldRef) => {
             void (async () => {
                 const reason = await dialogRef.show();
-                textFieldRef.value = reason === UserDismissed ? 'ESC pressed' : reason;
+                textFieldRef.value = reason === UserDismissed ? 'Esc pressed' : reason;
             })();
         }
     }
