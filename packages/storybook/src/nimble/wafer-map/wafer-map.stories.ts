@@ -1,23 +1,23 @@
 import { html } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
 import type { Table } from 'apache-arrow';
-import { waferMapTag } from '@ni/nimble-components/dist/esm/wafer-map';
+import { waferMapTag } from '../../../../nimble-components/src/wafer-map';
 import type {
     WaferMapDie,
     WaferMapColorScale,
     WaferMapValidity
-} from '@ni/nimble-components/dist/esm/wafer-map/types';
+} from '../../../../nimble-components/src/wafer-map/types';
 import {
     WaferMapOriginLocation,
     WaferMapOrientation,
     WaferMapColorScaleMode
-} from '@ni/nimble-components/dist/esm/wafer-map/types';
-import { generateWaferData, generateWaferTableData } from '@ni/nimble-components/dist/esm/wafer-map/tests/data-generator';
+} from '../../../../nimble-components/src/wafer-map/types';
+import { generateWaferData, generateWaferTableData } from '../../../../nimble-components/src/wafer-map/tests/data-generator';
 import {
     goodValueGenerator,
     badValueGenerator,
     highlightedValueGenerator
-} from '@ni/nimble-components/dist/esm/wafer-map/tests/value-generator';
+} from '../../../../nimble-components/src/wafer-map/tests/value-generator';
 import {
     highlightedTagsSets,
     wafermapDieSets,
@@ -382,7 +382,7 @@ const metadata: Meta<WaferMapArgs> = {
         dieHover: {
             name: 'die-hover',
             description:
-                'The event is fired whenever the mouse enters or leaves a die. In the event data, `detail.currentDie` will be set to the `WaferMapDie` element of the `dies` array that is being hovered or `undefined` if the mouse is leaving a die.'
+                'Event emitted whenever the mouse enters or leaves a die. In the event data, `detail.currentDie` will be set to the `WaferMapDie` element of the `dies` array that is being hovered or `undefined` if the mouse is leaving a die.'
         },
         validity: {
             description: `Readonly object of boolean values that represents the validity states that the wafer map's configuration can be in.

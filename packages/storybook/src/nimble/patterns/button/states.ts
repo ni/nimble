@@ -1,4 +1,4 @@
-import { ButtonAppearance, ButtonAppearanceVariant } from '@ni/nimble-components/dist/esm/patterns/button/types';
+import { ButtonAppearance, ButtonAppearanceVariant } from '../../../../../nimble-components/src/patterns/button/types';
 
 /* array of iconVisible, labelVisible, endIconVisible */
 export const partVisibilityStates = [

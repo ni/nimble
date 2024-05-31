@@ -1,6 +1,7 @@
 import { Canvas, Meta, Controls, Title } from '@storybook/blocks';
 import * as spinnerStories from './spinner.stories';
-import { spinnerTag } from '@ni/nimble-components/dist/esm/spinner';
+import ComponentApisLink from '../../docs/component-apis-link.mdx';
+import { spinnerTag } from '../../../../nimble-components/src/spinner';
 
 <Meta of={spinnerStories} />
 <Title of={spinnerStories} />
@@ -9,13 +10,16 @@ import { spinnerTag } from '@ni/nimble-components/dist/esm/spinner';
     particular region of a page to represent loading progress, or an
     ongoing operation, of an indeterminate / unknown duration.
 
-    It has 3 sizes (64px, 32px, and 16px) and 2 appearance types (default and
-    accent).
-
 <Canvas of={spinnerStories.spinner} />
-<Controls of={spinnerStories.spinner} />
 
-## Sizing
+## API
+
+<Controls of={spinnerStories.spinner} />
+<ComponentApisLink />
+
+## Styling
+
+### Sizing
 
 The 64px spinner is a less commonly used size reserved for large negative empty space. Only one 64px spinner should be used on a single screen at one time.
 
@@ -25,7 +29,7 @@ The 16px spinner is the most compact option for tight spaces such as grid cells 
 
 Multiple 16px spinners can be used on a single screen at one time.
 
-## Styling / Theme
+### Appearances
 
 Use the `default` appearance and Color theme for UIs with a strong background color. Do not use the `accent` appearance with the Color theme.
 

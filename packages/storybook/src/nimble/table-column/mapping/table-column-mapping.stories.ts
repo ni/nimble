@@ -1,24 +1,24 @@
 import { html, ref } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
-import { tableTag } from '@ni/nimble-components/dist/esm/table';
-import { iconXmarkTag } from '@ni/nimble-components/dist/esm/icons/xmark';
-import { tableColumnTextTag } from '@ni/nimble-components/dist/esm/table-column/text';
-import { iconCheckLargeTag } from '@ni/nimble-components/dist/esm/icons/check-large';
-import { iconChartDiagramChildFocusTag } from '@ni/nimble-components/dist/esm/icons/chart-diagram-child-focus';
-import { mappingIconTag } from '@ni/nimble-components/dist/esm/mapping/icon';
-import { mappingSpinnerTag } from '@ni/nimble-components/dist/esm/mapping/spinner';
-import { sharedMappingValidityDescription } from '@ni/nimble-components/dist/esm/table-column/enum-base/tests/shared-storybook-docs';
-import { mappingTextTag } from '@ni/nimble-components/dist/esm/mapping/text';
-import { mappingEmptyTag } from '@ni/nimble-components/dist/esm/mapping/empty';
-import { TableColumnMappingWidthMode } from '@ni/nimble-components/dist/esm/table-column/mapping/types';
-import { tableColumnMappingTag } from '@ni/nimble-components/dist/esm/table-column/mapping';
+import { tableTag } from '../../../../../nimble-components/src/table';
+import { iconXmarkTag } from '../../../../../nimble-components/src/icons/xmark';
+import { tableColumnTextTag } from '../../../../../nimble-components/src/table-column/text';
+import { iconCheckLargeTag } from '../../../../../nimble-components/src/icons/check-large';
+import { iconChartDiagramChildFocusTag } from '../../../../../nimble-components/src/icons/chart-diagram-child-focus';
+import { mappingIconTag } from '../../../../../nimble-components/src/mapping/icon';
+import { mappingSpinnerTag } from '../../../../../nimble-components/src/mapping/spinner';
+import { sharedMappingValidityDescription } from '../../../../../nimble-components/src/table-column/enum-base/tests/shared-storybook-docs';
+import { mappingTextTag } from '../../../../../nimble-components/src/mapping/text';
+import { mappingEmptyTag } from '../../../../../nimble-components/src/mapping/empty';
+import { TableColumnMappingWidthMode } from '../../../../../nimble-components/src/table-column/mapping/types';
+import { tableColumnMappingTag } from '../../../../../nimble-components/src/table-column/mapping';
 import {
     SharedTableArgs,
     sharedTableArgTypes,
     sharedTableArgs
 } from '../base/table-column-stories-utils';
 import { isChromatic } from '../../../utilities/isChromatic';
-import { createUserSelectedThemeStory } from '../../../utilities/storybook';
+import { apiCategory, checkValidityDescription, createUserSelectedThemeStory } from '../../../utilities/storybook';
 
 const simpleData = [
     {
@@ -71,6 +71,7 @@ interface MappingColumnTableArgs extends SharedTableArgs {
     widthMode: keyof typeof TableColumnMappingWidthMode;
     checkValidity: () => void;
     validity: () => void;
+    content: undefined;
 }
 
 const widthModeDescription = `When set to \`iconSize\`, the column will have a fixed width that makes the column the appropriate width to render only a single icon in the cell.
@@ -124,6 +125,7 @@ export const mappingColumn: StoryObj<MappingColumnTableArgs> = {
             name: 'field-name',
             description:
                 "Set this attribute to identify which field in the data record contains the value for each cell in the column. The field values' type must match the type specified by the `key-type` attribute.",
+            table: { category: apiCategory.attributes },
             control: false
         },
         keyType: {
@@ -131,21 +133,32 @@ export const mappingColumn: StoryObj<MappingColumnTableArgs> = {
             control: false,
             defaultValue: { summary: '"string"' },
             description:
-                'The data type of the key values used for this column. Must be one of `"string"`, `"number"`, or `"boolean"`. Defaults to `"string"` if unspecified.'
+                'The data type of the key values used for this column. Must be one of `"string"`, `"number"`, or `"boolean"`. Defaults to `"string"` if unspecified.',
+            table: { category: apiCategory.attributes },
         },
         widthMode: {
             name: 'width-mode',
             options: Object.keys(TableColumnMappingWidthMode),
             control: { type: 'radio' },
-            description: widthModeDescription
+            description: widthModeDescription,
+            table: { category: apiCategory.attributes },
         },
         checkValidity: {
             name: 'checkValidity()',
-            description:
-                'Returns `true` if the column configuration is valid, otherwise `false`.'
+            description: checkValidityDescription({ componentName: 'mapping column' }),
+            table: { category: apiCategory.methods },
+            control: false
         },
         validity: {
-            description: validityDescription
+            description: validityDescription,
+            table: { category: apiCategory.nonAttributeProperties },
+            control: false
+        },
+        content: {
+            name: 'default',
+            description: 'One or more mapping elements which specify how to render each possible data value.',
+            table: { category: apiCategory.slots },
+            control: false
         }
     },
     args: {

@@ -1,12 +1,12 @@
 import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate } from '@microsoft/fast-element';
-import { iconUserTag } from '@ni/nimble-components/dist/esm/icons/user';
-import { Table, tableTag } from '@ni/nimble-components/dist/esm/table';
+import { iconUserTag } from '../../../../../nimble-components/src/icons/user';
+import { Table, tableTag } from '../../../../../nimble-components/src/table';
 import {
     controlLabelFont,
     controlLabelFontColor
-} from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
-import { tableColumnDateTextTag } from '@ni/nimble-components/dist/esm/table-column/date-text';
+} from '../../../../../nimble-components/src/theme-provider/design-tokens';
+import { tableColumnDateTextTag } from '../../../../../nimble-components/src/table-column/date-text';
 import {
     placeholderStates,
     type PlaceholderState

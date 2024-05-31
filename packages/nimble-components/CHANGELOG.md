@@ -1,8 +1,32 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Mon, 20 May 2024 15:39:22 GMT and should not be manually modified.
+This log was last generated on Tue, 28 May 2024 20:13:14 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 29.1.6
+
+Tue, 28 May 2024 20:13:14 GMT
+
+### Patches
+
+- Update banner styling to align with visual design spec ([ni/nimble@2855db4](https://github.com/ni/nimble/commit/2855db4fe58a8d1df112ea656215696d9582f9ea))
+
+## 29.1.5
+
+Wed, 22 May 2024 18:32:15 GMT
+
+### Patches
+
+- Fix anchor focus styling ([ni/nimble@5e4882a](https://github.com/ni/nimble/commit/5e4882a41568361919fc96a91243fc37cd831208))
+
+## 29.1.4
+
+Tue, 21 May 2024 22:53:18 GMT
+
+### Patches
+
+- Support tabindex overriding for Button, MenuButton, ToggleButton, Checkbox, and Anchor ([ni/nimble@32fcfaf](https://github.com/ni/nimble/commit/32fcfaf36e8b7383defe891dcb51664f3069a725))
 
 ## 29.1.3
 

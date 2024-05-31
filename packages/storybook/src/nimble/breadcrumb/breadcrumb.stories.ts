@@ -1,34 +1,40 @@
-import type { Meta, StoryObj } from '@storybook/html';
+import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html';
+import { withActions } from '@storybook/addon-actions/decorator';
 import { html, repeat } from '@microsoft/fast-element';
-import { breadcrumbItemTag } from '@ni/nimble-components/dist/esm/breadcrumb-item';
-import { breadcrumbTag } from '@ni/nimble-components/dist/esm/breadcrumb';
-import { BreadcrumbAppearance } from '@ni/nimble-components/dist/esm/breadcrumb/types';
-import { createUserSelectedThemeStory } from '../../utilities/storybook';
+import { breadcrumbItemTag } from '../../../../nimble-components/src/breadcrumb-item';
+import { breadcrumbTag } from '../../../../nimble-components/src/breadcrumb';
+import { BreadcrumbAppearance } from '../../../../nimble-components/src/breadcrumb/types';
+import { apiCategory, appearanceDescription, createUserSelectedThemeStory } from '../../utilities/storybook';
+import { hrefDescription } from '../patterns/anchor/anchor-docs';
 
 interface BreadcrumbArgs {
     options: ItemArgs[];
     appearance: keyof typeof BreadcrumbAppearance;
-    allowNavigation: boolean;
 }
 
 interface ItemArgs {
     href?: string;
-    target?: string;
     label: string;
 }
 
 interface BreadcrumbItemArgs extends ItemArgs {
-    allowNavigation: boolean;
+    click: undefined;
 }
 
 const metadata: Meta<BreadcrumbArgs> = {
     title: 'Components/Breadcrumb',
+    decorators: [withActions<HtmlRenderer>],
     parameters: {
-        actions: {}
+        actions: {
+            handles: ['click']
+        }
     }
 };
 
 export default metadata;
+
+const defaultHrefDescription = hrefDescription({ componentName: 'breadcrumb item', includeDisable: false });
+const itemHrefDescription = `${defaultHrefDescription} If the last breadcrumb item represents the current page it should have no \`href\` set.`;
 
 export const _standardBreadcrumb: StoryObj<BreadcrumbArgs> = {
     // prettier-ignore
@@ -39,8 +45,6 @@ export const _standardBreadcrumb: StoryObj<BreadcrumbArgs> = {
             ${repeat(x => x.options, html<ItemArgs, BreadcrumbArgs>`
                 <${breadcrumbItemTag}
                     href="${x => x.href}"
-                    target="${x => x.target}"
-                    @click="${(_x, c) => c.parent.allowNavigation}"
                 >
                     ${x => x.label}
                 </${breadcrumbItemTag}>
@@ -51,14 +55,18 @@ export const _standardBreadcrumb: StoryObj<BreadcrumbArgs> = {
     name: 'Standard Breadcrumb',
     argTypes: {
         options: {
+            name: 'default',
             description:
-                'Nest one or more `<nimble-breadcrumb-item />`s inside `<nimble-breadcrumb />`. Each can optionally set `href`, `target`, etc. '
-                + 'With a standard breadcrumb containing multiple items, the last breadcrumb represents the current page (with no `href` specified, '
-                + 'rendering with a bold font).'
+                `The \`${breadcrumbItemTag}\` elements that populate this breadcrumb. 
+
+With a standard breadcrumb containing multiple items, the last breadcrumb represents the current page.`,
+            table: { category: apiCategory.slots }
         },
         appearance: {
             options: Object.keys(BreadcrumbAppearance),
-            control: { type: 'radio' }
+            description: appearanceDescription({ componentName: 'breadcrumb' }),
+            control: { type: 'radio' },
+            table: { category: apiCategory.attributes }
         }
     },
     args: {
@@ -75,8 +83,7 @@ export const _standardBreadcrumb: StoryObj<BreadcrumbArgs> = {
                 label: 'Current (No Link)'
             }
         ],
-        appearance: 'default',
-        allowNavigation: false
+        appearance: 'default'
     }
 };
 
@@ -85,28 +92,30 @@ export const breadcrumbItem: StoryObj<BreadcrumbItemArgs> = {
         <${breadcrumbTag}>
             <${breadcrumbItemTag}
                 href="${x => x.href}"
-                target="${x => x.target}"
-                @click="${x => x.allowNavigation}"
             >
-                Breadcrumb Item
+                ${x => x.label}
             </${breadcrumbItemTag}>
         </${breadcrumbTag}>
     `),
     argTypes: {
         href: {
-            description:
-                '(Optional) The URL that this breadcrumb item/ link points to. Generally, the last breadcrumb item '
-                + 'representing the current page has no `href` set.'
+            description: itemHrefDescription,
+            table: { category: apiCategory.attributes }
         },
-        target: {
-            description:
-                '(Optional) Where to display the linked URL (destination browsing context): `_self`, `_blank`, etc.',
-            type: 'string'
+        label: {
+            name: 'default',
+            description: 'The text content of the breadcrumb item.',
+            type: 'string',
+            table: { category: apiCategory.slots }
+        },
+        click: {
+            description: 'Event emitted when the user activates the breadcrumb item link, for example by clicking on it or pressing Enter while focused.',
+            control: false,
+            table: { category: apiCategory.events }
         }
     },
     args: {
         href: 'http://www.ni.com',
         label: 'Breadcrumb Item',
-        allowNavigation: false
     }
 };

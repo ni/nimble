@@ -1,10 +1,10 @@
 import { html, when } from '@microsoft/fast-element';
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html';
-import { iconArrowExpanderDownTag } from '@ni/nimble-components/dist/esm/icons/arrow-expander-down';
-import { iconKeyTag } from '@ni/nimble-components/dist/esm/icons/key';
-import { toggleButtonTag } from '@ni/nimble-components/dist/esm/toggle-button';
-import { ButtonAppearance, ButtonAppearanceVariant } from '@ni/nimble-components/dist/esm/toggle-button/types';
+import { iconArrowExpanderDownTag } from '../../../../nimble-components/src/icons/arrow-expander-down';
+import { iconKeyTag } from '../../../../nimble-components/src/icons/key';
+import { toggleButtonTag } from '../../../../nimble-components/src/toggle-button';
+import { ButtonAppearance, ButtonAppearanceVariant } from '../../../../nimble-components/src/toggle-button/types';
 import {
     appearanceDescription,
     appearanceVariantDescription,
@@ -82,8 +82,9 @@ const metadata: Meta<ToggleButtonArgs> = {
             table: { category: apiCategory.slots }
         },
         change: {
-            description: 'Fires when the toggle button is pressed via mouse or keyboard.',
-            table: { category: apiCategory.events }
+            description: 'Event emitted when the toggle button is pressed via mouse or keyboard.',
+            table: { category: apiCategory.events },
+            control: false
         }
     },
     // prettier-ignore

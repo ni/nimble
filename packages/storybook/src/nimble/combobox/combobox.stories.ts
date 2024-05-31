@@ -2,16 +2,24 @@ import { ComboboxAutocomplete } from '@microsoft/fast-foundation';
 import { html, repeat } from '@microsoft/fast-element';
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html';
-import { listOptionTag } from '@ni/nimble-components/dist/esm/list-option';
-import { comboboxTag } from '@ni/nimble-components/dist/esm/combobox';
-import { ExampleOptionsType } from '@ni/nimble-components/dist/esm/combobox/tests/types';
+import { listOptionTag } from '../../../../nimble-components/src/list-option';
+import { comboboxTag } from '../../../../nimble-components/src/combobox';
+import { ExampleOptionsType } from '../../../../nimble-components/src/combobox/tests/types';
 import {
     DropdownAppearance,
     DropdownPosition
-} from '@ni/nimble-components/dist/esm/patterns/dropdown/types';
+} from '../../../../nimble-components/src/patterns/dropdown/types';
 import {
+    apiCategory,
+    appearanceDescription,
     createUserSelectedThemeStory,
-    disableStorybookZoomTransform
+    disableStorybookZoomTransform,
+    disabledDescription,
+    dropdownPositionDescription,
+    errorTextDescription,
+    errorVisibleDescription,
+    optionsDescription,
+    placeholderDescription
 } from '../../utilities/storybook';
 
 interface ComboboxArgs {
@@ -24,6 +32,8 @@ interface ComboboxArgs {
     currentValue: string;
     appearance: string;
     placeholder: string;
+    change: undefined;
+    input: undefined;
 }
 
 interface OptionArgs {
@@ -117,22 +127,43 @@ const metadata: Meta<ComboboxArgs> = {
             description: `- inline: Automatically matches the first option that matches the start of the entered text.
 - list: Filters the dropdown to options that start with the entered text.
 - both: Automatically matches and filters list to options that start with the entered text.
-- none: No autocomplete (default).`
+- none: No autocomplete (default).`,
+            table: { category: apiCategory.attributes }
         },
         dropDownPosition: {
+            name: 'position',
             options: [DropdownPosition.above, DropdownPosition.below],
-            control: { type: 'select' }
+            control: { type: 'select' },
+            description: dropdownPositionDescription({ componentName: 'combobox' }),
+            table: { category: apiCategory.attributes }
         },
         appearance: {
             options: Object.values(DropdownAppearance),
-            control: { type: 'radio' }
+            control: { type: 'radio' },
+            description: appearanceDescription({ componentName: 'combobox' }),
+            table: { category: apiCategory.attributes }
+        },
+        disabled: {
+            description: disabledDescription({ componentName: 'combobox' }),
+            table: { category: apiCategory.attributes }
         },
         errorText: {
-            description:
-                'A message to be displayed when the text field is in the invalid state explaining why the value is invalid'
+            name: 'error-text',
+            description: errorTextDescription,
+            table: { category: apiCategory.attributes }
+        },
+        errorVisible: {
+            name: 'error-visible',
+            description: errorVisibleDescription,
+            table: { category: apiCategory.attributes }
+        },
+        placeholder: {
+            description: placeholderDescription({ componentName: 'combobox' }),
+            table: { category: apiCategory.attributes }
         },
         optionsType: {
-            name: 'options',
+            name: 'default',
+            description: optionsDescription,
             options: Object.values(ExampleOptionsType),
             control: {
                 type: 'radio',
@@ -141,7 +172,18 @@ const metadata: Meta<ComboboxArgs> = {
                     [ExampleOptionsType.wideOptions]: 'Wide options',
                     [ExampleOptionsType.manyOptions]: 'Many options'
                 }
-            }
+            },
+            table: { category: apiCategory.slots }
+        },
+        change: {
+            description: 'Emitted when the user changes the selected option, either by selecting an item from the dropdown or by committing a typed value.',
+            table: { category: apiCategory.events },
+            control: false
+        },
+        input: {
+            description: 'Emitted when the user types in the combobox. Use this event if you need to update the list of options based on the text input.',
+            table: { category: apiCategory.events },
+            control: false
         }
     },
     args: {

@@ -1,13 +1,18 @@
 import { Controls, Canvas, Meta, Title, Description } from '@storybook/blocks';
 import * as comboboxStories from './combobox.stories';
-import { listOptionTag } from '@ni/nimble-components/dist/esm/list-option/';
+import ComponentApisLink from '../../docs/component-apis-link.mdx';
+import { listOptionTag } from '../../../../nimble-components/src/list-option/';
 
 <Meta of={comboboxStories} />
 <Title of={comboboxStories} />
 <Description of={comboboxStories} />
 
 <Canvas of={comboboxStories.underlineCombobox} />
+
+## API
+
 <Controls of={comboboxStories.underlineCombobox} />
+<ComponentApisLink />
 
 {/* ## Styling */}
 

@@ -1,11 +1,11 @@
 import { html, ref, when } from '@microsoft/fast-element';
 import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html';
 import { withActions } from '@storybook/addon-actions/decorator';
-import { buttonTag } from '@ni/nimble-components/dist/esm/button';
-import { labelProviderRichTextTag } from '@ni/nimble-components/dist/esm/label-provider/rich-text';
-import { mappingUserTag } from '@ni/nimble-components/dist/esm/mapping/user';
-import { richTextMentionUsersTag } from '@ni/nimble-components/dist/esm/rich-text-mention/users';
-import { RichTextEditor, richTextEditorTag } from '@ni/nimble-components/dist/esm/rich-text/editor';
+import { buttonTag } from '../../../../../nimble-components/src/button';
+import { labelProviderRichTextTag } from '../../../../../nimble-components/src/label-provider/rich-text';
+import { mappingUserTag } from '../../../../../nimble-components/src/mapping/user';
+import { richTextMentionUsersTag } from '../../../../../nimble-components/src/rich-text-mention/users';
+import { RichTextEditor, richTextEditorTag } from '../../../../../nimble-components/src/rich-text/editor';
 import {
     addLabelUseMetadata,
     type LabelUserArgs
@@ -202,7 +202,7 @@ const metadata: Meta<RichTextEditorArgs> = {
         input: {
             name: 'input',
             description:
-                'This event is fired when there is a change in the content of the editor.',
+                'Event emitted when there is a change in the content of the editor.',
             control: false
         },
         validity: {

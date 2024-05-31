@@ -1,13 +1,28 @@
 {
     "compilerOptions": {
+      "declaration": true,
+      "esModuleInterop": true,
+      "moduleResolution": "node",
+      "outDir": "dist/esm",
+      "strict": true,
+      "experimentalDecorators": true,
       "target": "ES2020",
       "module": "ES2020",
-      "moduleResolution": "node",
-      "esModuleInterop": true,
-      "outDir": "./dist/esm",
       "allowJs": true,
       "importHelpers": true,
-      "strict": true,
+      "resolveJsonModule": true,
+      "sourceMap": true,
+      "inlineSources": true,
+      "lib": ["DOM", "ES2015", "ES2016.Array.Include", "ES2017.Object"],
+      // Whitelist imported @types instead of using them all
+      "types": ["jasmine", "webpack-env", "offscreencanvas"],
+      // Require type only imports where possible
+      // so imports with side-effects are explicit
+      "importsNotUsedAsValues": "error",
+      "ignoreDeprecations": "5.0",
+      "noImplicitOverride": true,
+      "noUncheckedIndexedAccess": true,
+      "noPropertyAccessFromIndexSignature": false,
       "jsx": "preserve"
     },
     "include": [

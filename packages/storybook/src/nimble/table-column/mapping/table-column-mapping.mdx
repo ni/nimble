@@ -5,10 +5,11 @@ import * as emptyMappingStories from '../../mapping/empty/mapping-empty.stories'
 import * as iconMappingStories from '../../mapping/icon/mapping-icon.stories';
 import * as spinnerMappingStories from '../../mapping/spinner/mapping-spinner.stories';
 import * as textMappingStories from '../../mapping/text/mapping-text.stories';
-import { tableColumnMappingTag } from '@ni/nimble-components/dist/esm/table-column/mapping';
-import { mappingEmptyTag } from '@ni/nimble-components/dist/esm/mapping/empty';
-import { tableTag } from '@ni/nimble-components/dist/esm/table';
-import { spinnerTag } from '@ni/nimble-components/dist/esm/spinner';
+import ComponentApisLink from '../../../docs/component-apis-link.mdx';
+import { tableColumnMappingTag } from '../../../../../nimble-components/src/table-column/mapping';
+import { mappingEmptyTag } from '../../../../../nimble-components/src/mapping/empty';
+import { tableTag } from '../../../../../nimble-components/src/table';
+import { spinnerTag } from '../../../../../nimble-components/src/spinner';
 
 <Meta of={tableColumnMappingStories} />
 <Title of={tableColumnMappingStories} />
@@ -18,7 +19,31 @@ The <Tag name={tableColumnMappingTag}/> renders specific number, boolean, or str
 <p>{columnOperationBehavior}</p>
 
 <Canvas of={tableColumnMappingStories.mappingColumn} />
+
+## API
+
 <Controls of={tableColumnMappingStories.mappingColumn} />
+<ComponentApisLink />
+
+### Icon Mapping
+
+<Description of={iconMappingStories} />
+<Controls of={iconMappingStories.iconMapping} />
+
+### Spinner Mapping
+
+<Description of={spinnerMappingStories} />
+<Controls of={spinnerMappingStories.spinnerMapping} />
+
+### Text Mapping
+
+<Description of={textMappingStories} />
+<Controls of={textMappingStories.textMapping} />
+
+### Empty Mapping
+
+<Description of={emptyMappingStories} />
+<Controls of={emptyMappingStories.emptyMapping} />
 
 ## Usage
 
@@ -32,23 +57,3 @@ The <Tag name={tableColumnMappingTag}/> renders specific number, boolean, or str
 
 When setting a child mapping element's `Key` value to a string, you must wrap it in `@()` so that the compiler treats it as a string, e.g.
 `<NimbleMappingIcon Key=@("foo") ...>`
-
-## Icon Mapping
-
-<Description of={iconMappingStories} />
-<Controls of={iconMappingStories.iconMapping} />
-
-## Spinner Mapping
-
-<Description of={spinnerMappingStories} />
-<Controls of={spinnerMappingStories.spinnerMapping} />
-
-## Text Mapping
-
-<Description of={textMappingStories} />
-<Controls of={textMappingStories.textMapping} />
-
-## Empty Mapping
-
-<Description of={emptyMappingStories} />
-<Controls of={emptyMappingStories.emptyMapping} />
