@@ -90,7 +90,7 @@ export const richTextMentionUsers: StoryObj = {
 For the rich text editor, the user mappings are used to populate the mention dropdown. Update the mention elements dynamically by listening to the \`mention-update\` event and filtering the user mappings based on the current text input.
 It is recommended to limit the number of users displayed to 50 or fewer.
 
-For more details, see [Client Usage Guidance on Filtered Users](https://github.com/ni/nimble/blob/main/packages/nimble-components/src/rich-text/specs/mention-hld.md#client-usage-guidance-on-filtered-users).`,
+For more details, see **Guidance for filtering users**.`,
             table: { category: apiCategory.slots },
         }
     }
