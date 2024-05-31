@@ -66,18 +66,19 @@ Then, when handling the `filter-input` event, clients should perform the desired
 
 _IMPORTANT_: When using the `manual` filter mode, clients are responsible for the following:
 
--   The currently selected option is included in the set of options placed in the DOM regardless of match against filter (and have its `hidden` state adjusted as needed)
--   Placeholder options should not be filtered out
-
-##### Groups
-
-When using the `filterMode: manual` option along with [groups](./option-groups-hld.md), clients will also need to determine the appropriate matching behavior against the `ListOptionGroup` elements. Our guidance will be that filter text should be able to be matched against _any_ text in the group label, and when that matches, _all_ options within that group should be visible. Conversely, the select will automatically hide groups with no items in them. This means clients only need to conditionally remove items, not groups (though it's fine if they manually remove empty groups too).
+-   Either adding/removing options to/from the DOM that do or do not match the filter and/or marking existing options as `hidden` when they don't match.
+-   The currently selected option is included in the set of options placed in the DOM regardless of match against filter (and be marked as `hidden` if it doesn't match the filter)
+-   If a placeholder option exists for the select, it should never be filtered out.
 
 _Notes_:
 
 -   When the `loading-visible` attribute is set, we will display localizable text at the bottom of the dropdown (defaulting to "Loading"), along with the spinner icon.
 -   The `Select` will not peform any debouncing as the user types into the filter input. It is expected that clients can perform any debouncing that is needed easily at the app level.
 -   The `filter-input` event will be emitted for all filter modes (except `none`)
+
+##### Groups
+
+When using the `filterMode: manual` option along with [groups](./option-groups-hld.md), clients will also need to determine the appropriate matching behavior against the `ListOptionGroup` elements. Our guidance will be that filter text should be able to be matched against _any_ text in the group label, and when that matches, _all_ options within that group should be visible. Conversely, the select will automatically hide groups with no items in them. This means clients only need to conditionally remove items, not groups (though it's fine if they manually remove empty groups too).
 
 #### LabelProviderCore
 
