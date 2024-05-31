@@ -198,8 +198,6 @@ Rather than creating a menu button column, we could create a select column. Howe
 
 ## Open Issues
 
--   In the Software Table, how should the currently installed version be represented? Currently it is italicized in both the menu and menu-button, but this is probably not the solution we want in the nimble table column.
--   In the Software Table, the full software version is displayed as the title of the menu button and menu items. Where should that information go?
 -   There is no visual design spec for this feature yet. Therefore there are a few open visual design questions, including the following:
     -   If we only support one appearance for the menu-button, is `ghost` the appropriate one to support?
     -   Is there any concern that the button text will not align with the column header because of the padding between the edge of the button and the text within the button?
