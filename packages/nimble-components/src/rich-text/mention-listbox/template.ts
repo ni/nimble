@@ -1,5 +1,5 @@
 import { html, ref, slotted } from '@microsoft/fast-element';
-import { Listbox, isListboxOption } from '@microsoft/fast-foundation';
+import { Listbox } from '@microsoft/fast-foundation';
 import type { RichTextMentionListbox } from '.';
 import { anchoredRegionTag } from '../../anchored-region';
 
@@ -25,7 +25,7 @@ export const template = html<RichTextMentionListbox>`
                 ?disabled="${x => x.disabled}"
             >
                 <slot name="option"
-                    ${slotted({ filter: (n: Node) => n instanceof HTMLElement && isListboxOption(n) && !n.hidden, flatten: true, property: 'slottedOptions' })}
+                    ${slotted({ filter: (n: Node) => n instanceof HTMLElement && Listbox.slottedOptionFilter(n), flatten: true, property: 'slottedOptions' })}
                 >
                 </slot>
             </div>
