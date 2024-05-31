@@ -5,6 +5,8 @@ import { richTextMentionUsersTag } from '../../../../../nimble-components/src/ri
 import { richTextViewerTag } from '../../../../../nimble-components/src/rich-text/viewer';
 import { richTextMarkdownString } from '../../../utilities/rich-text-markdown-string';
 import {
+    apiCategory,
+    checkValidityDescription,
     createUserSelectedThemeStory,
     incubatingWarning
 } from '../../../utilities/storybook';
@@ -62,12 +64,13 @@ const metadata: Meta<RichTextViewerArgs> = {
     argTypes: {
         markdown: {
             description:
-                'Input markdown string for the supported text formatting options in a [CommonMark](https://commonmark.org/) flavor.'
+                'Input markdown string for the supported text formatting options in a [CommonMark](https://commonmark.org/) flavor.',
+            table: { category: apiCategory.nonAttributeProperties },
         },
         data: {
-            name: '@mention configuration',
+            name: 'default',
             description:
-                'Configure how mentions are detected and displayed. See documentation of the `pattern` attribute of the mention configuration element and the `key` attribute of mapping element(s).',
+                `Configure how mentions are detected and displayed by adding a \`${richTextMentionUsersTag}\` as content. See documentation of the \`pattern\` attribute of the mention configuration element and the \`key\` attribute of mapping element(s).`,
             options: Object.values(exampleDataType),
             control: {
                 type: 'radio',
@@ -76,23 +79,26 @@ const metadata: Meta<RichTextViewerArgs> = {
                     [exampleDataType.httpsPattern]:
                         'HTTPS Pattern - https://user/(.*)'
                 }
-            }
+            },
+            table: { category: apiCategory.slots },
         },
         validity: {
             description: validityDescription,
-            control: false
+            control: false,
+            table: { category: apiCategory.nonAttributeProperties },
         },
         checkValidity: {
             name: 'checkValidity()',
-            description:
-                'A function that returns `true` if the configuration of the rich text viewer is valid and `false` if the configuration is not valid.',
-            control: false
+            description: checkValidityDescription({ componentName: 'rich text viewer' }),
+            control: false,
+            table: { category: apiCategory.methods },
         },
         getMentionedHrefs: {
             name: 'getMentionedHrefs()',
             description:
                 'Returns an array of strings listing the hrefs of current mentions in the rich text components.',
-            control: false
+            control: false,
+            table: { category: apiCategory.methods },
         }
     },
     args: {
