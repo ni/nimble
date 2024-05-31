@@ -116,7 +116,7 @@ Any select without a default selected option should provide placeholder text. Pl
 `;
 
 const groupedDescription = `
-To group options in a \`Select\`, you can use the \`${listOptionGroupTag}\` element. This element should be placed within the \`${selectTag}\` and contain the \`${listOptionTag}\` elements that you want to group. Note that a \`${listOptionGroupTag}\` placed within another \`${listOptionGroupTag}\` is not supported. The \`label\` attribute of the \`${listOptionGroupTag}\` element will be used as the group label. Alternatively, text can be provided as content of the \`${listOptionGroupTag}\` element to serve as the group label. Text provided as content can be either plain text or as content of a \`<span\`> element.
+To group options in a select, you can use the \`${listOptionGroupTag}\` element. This element should be placed within the \`${selectTag}\` and contain the \`${listOptionTag}\` elements that you want to group. Note that a \`${listOptionGroupTag}\` placed within another \`${listOptionGroupTag}\` is not supported. The \`label\` attribute of the \`${listOptionGroupTag}\` element will be used as the group label. Alternatively, text can be provided as content of the \`${listOptionGroupTag}\` element to serve as the group label. Text provided as content can be either plain text or as content of a \`<span\`> element.
 `;
 
 const clearableDescription = `
