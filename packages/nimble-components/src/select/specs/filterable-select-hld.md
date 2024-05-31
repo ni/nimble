@@ -75,7 +75,7 @@ When using the `filterMode: manual` option along with [groups](./option-groups-h
 
 _Notes_:
 
--   When the* `loading-visible` \_attribute is set, we will display localizable text at the bottom of the dropdown (defaulting to "Loading"), along with the spinner icon.*
+-   When the `loading-visible` attribute is set, we will display localizable text at the bottom of the dropdown (defaulting to "Loading"), along with the spinner icon.
 -   The `Select` will not peform any debouncing as the user types into the filter input. It is expected that clients can perform any debouncing that is needed easily at the app level.
 -   The `filter-input` event will be emitted for all filter modes (except `none`)
 
@@ -128,7 +128,7 @@ The accessibility tree will report that the search `input` element should have i
 
 ### Future considerations
 
-It's possible that we may want to improve/alter the discoverability of the fact that more options are available to be loaded when using the `manual` filtering option. This _could_ follow the design of what we see with the AzDO _Windows_-based user selector experiece where a display of the number of current results is shown at the bottom, and when a user begins typing in the filter input, a 'Show more results' button is shown at the bottom of the dropdown.
+We may want to improve/alter the discoverability of the fact that more options are available to be loaded when using the `manual` filtering option. Currently, before a user begins typing there is nothing to suggest that there could be other options that are available to select.
 
 #### Combobox alignment
 
