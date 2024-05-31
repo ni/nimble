@@ -58,19 +58,7 @@ implements Subscriber {
         });
         table.addEventListener('keydown', e => this.onKeyDown(e));
         table.addEventListener('focusin', e => this.handleFocus(e));
-        table.addEventListener('focusout', e => {
-            console.log(
-                'table focusout',
-                'target',
-                e.target,
-                'relatedTarget',
-                e.relatedTarget,
-                'nav mode',
-                this.inNavigationMode,
-                'focusType',
-                this.focusType
-            );
-        });
+        table.addEventListener('focusout', e => this.handleFocusOut(e));
         table.addEventListener('blur', e => this.handleBlur(e));
         this.tableNotifier = Observable.getNotifier(this.table);
         this.tableNotifier.subscribe(this, 'rowElements');
@@ -112,8 +100,16 @@ implements Subscriber {
             }
         }
 
-        if (focusRow && this.hasRowOrCellFocusType() && this.inNavigationMode) {
-            this.focusCurrentRow(false);
+        if (focusRow) {
+            // Focusable elements in cells, and action menus, are both blurred on scroll. To maintain our row/cell focus state,
+            // we focus the cell instead here. (We also don't want to refocus the cell content when the focusedRecycleCallback just
+            // blurred it.)
+            if (this.focusType === TableFocusType.cellActionMenu || this.focusType === TableFocusType.cellContent) {
+                this.setCellFocusState(this.columnIndex, this.rowIndex, false);
+            }
+            if (this.inNavigationMode && this.hasRowOrCellFocusType()) {
+                this.focusCurrentRow(false);
+            }
         }
     }
 
@@ -192,19 +188,21 @@ implements Subscriber {
 
     private readonly handleBlur = (e: FocusEvent): void => {
         console.log('table blur', 'target', e.target, 'relatedTarget', e.relatedTarget, 'nav mode', this.inNavigationMode, 'focusType', this.focusType);
-        if (this.focusType === TableFocusType.cellActionMenu || this.focusType === TableFocusType.cellContent || this.focusType === TableFocusType.cell) {
+        if (this.focusType === TableFocusType.cellActionMenu) {
             const source = e.composedPath()[0];
             if (source instanceof Element) {
                 const cell = this.getContainingCell(source);
                 if (cell) {
                     if (this.focusType === TableFocusType.cellActionMenu && cell.actionMenuButton) {
                         this.setActionMenuButtonFocused(cell.actionMenuButton, false);
-                    } else {
-                        this.setCellFocusState(this.columnIndex, this.rowIndex, false);
                     }
                 }
             }
         }
+    };
+
+    private readonly handleFocusOut = (e: FocusEvent): void => {
+        console.log('table focusout', 'target', e.target, 'relatedTarget', e.relatedTarget, 'nav mode', this.inNavigationMode, 'focusType', this.focusType);
     };
 
     private readonly onCaptureKeyDown = (event: KeyboardEvent): void => {
