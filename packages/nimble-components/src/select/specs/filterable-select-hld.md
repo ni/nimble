@@ -32,8 +32,8 @@ export class Select() {
      * Displays a message at the bottom of the dropdown to indicate more options
      * are currently being loaded.
      */
-    @attr()
-    public loading-visible = false;
+    @attr({ attribute: 'loading-visible', mode: 'boolean' })
+    public loadingVisible = false;
     ...
 }
 
