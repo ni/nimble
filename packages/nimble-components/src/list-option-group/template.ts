@@ -27,7 +27,7 @@ export const template = html<ListOptionGroup>`
         </slot>
     </span>
     <span class="content" part="content" role="none">
-        <slot name="options"
+        <slot name="option"
         ${slotted({
         flatten: true,
         filter: (n: Node) => isListOption(n),
