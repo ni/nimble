@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Fri, 31 May 2024 18:50:45 GMT",
+      "version": "29.1.7",
+      "tag": "@ni/nimble-components_v29.1.7",
+      "comments": {
+        "none": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "7f81793cd766e69d63c89d69716a9f4352bb32ab",
+            "comment": "Update spec with new APIs for Select custom filtering."
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 31 May 2024 15:22:31 GMT",
       "version": "29.1.7",
       "tag": "@ni/nimble-components_v29.1.7",
