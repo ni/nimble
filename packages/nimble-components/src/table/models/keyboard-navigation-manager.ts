@@ -291,7 +291,7 @@ implements Subscriber {
 
     private onEnterPressed(ctrlKey: boolean): boolean {
         let row: TableRow | TableGroupRow | undefined;
-        let rowElements: TableRowFocusableElements;
+        let rowElements!: TableRowFocusableElements;
         if (this.hasRowOrCellFocusType()) {
             row = this.getCurrentRow();
             rowElements = row!.getFocusableElements();
@@ -304,33 +304,15 @@ implements Subscriber {
         }
         if (this.focusType === TableFocusType.cell) {
             if (ctrlKey) {
-                const cell = rowElements!.cells[this.columnIndex]!;
+                const cell = rowElements.cells[this.columnIndex]!;
                 if (cell.actionMenuButton && !cell.actionMenuButton.open) {
                     cell.actionMenuButton.toggleButton!.control.click();
                     return true;
                 }
-            } else {
-                // return this.onEnterFocusInteractiveElementOnly(rowElements!);
-                return this.onEnterFocusAndActivateCell(rowElements!);
             }
+            return this.focusFirstInteractiveElementInCurrentCell(rowElements);
         }
         return false;
-    }
-
-    private onEnterFocusAndActivateCell(rowElements: TableRowFocusableElements): boolean {
-        if (this.focusFirstInteractiveElementInCurrentCell(rowElements)) {
-            // Since the element may delegate focus, we want to get the innermost active element to
-            // interact with. (Example: <a> inside the nimble-anchor)
-            const newActiveElement = this.getActiveElement(false);
-            newActiveElement?.click();
-            return true;
-        }
-        return false;
-    }
-
-    private onEnterFocusInteractiveElementOnly(rowElements: TableRowFocusableElements): boolean {
-        // to match F2 behavior (first Enter focuses, 2nd Enter activates)
-        return this.focusFirstInteractiveElementInCurrentCell(rowElements);
     }
 
     private onF2Pressed(): boolean {
