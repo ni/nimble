@@ -71,7 +71,7 @@ _IMPORTANT_: When using the `manual` filter mode, clients are responsible for th
 
 ##### Groups
 
-When using the `filterMode: manual` option along with [groups](./option-groups-hld.md), clients will also need to determine the appropriate matching behavior against the `ListOptionGroup` elements. Our guidance will be that filter text should be able to be matched against _any_ text in the group label, and when that matches, _all_ options within that group should be visible.
+When using the `filterMode: manual` option along with [groups](./option-groups-hld.md), clients will also need to determine the appropriate matching behavior against the `ListOptionGroup` elements. Our guidance will be that filter text should be able to be matched against _any_ text in the group label, and when that matches, _all_ options within that group should be visible. Conversely, the select will automatically hide groups with no items in them. This means clients only need to conditionally remove items, not groups (though it's fine if they manually remove empty groups too).
 
 _Notes_:
 
