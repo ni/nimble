@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Fri, 31 May 2024 15:22:31 GMT and should not be manually modified.
+This log was last generated on Mon, 03 Jun 2024 22:25:43 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 29.1.8
+
+Mon, 03 Jun 2024 22:25:43 GMT
+
+### Patches
+
+- Refactored experimental structure and update strategy for wafer map component ([ni/nimble@decce3d](https://github.com/ni/nimble/commit/decce3d5531d93d66fe608607dd0260602b3a2f9))
 
 ## 29.1.7
 
