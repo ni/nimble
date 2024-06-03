@@ -12,6 +12,7 @@
 !src/**/*.ts
 !src/**/*.js
 !src/**/*.md
+!src/**/*.mdx
 !src/**/*.json
 
 /build/**/*.*
