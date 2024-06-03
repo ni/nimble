@@ -37,8 +37,8 @@ import {
 import { errorTextTemplate } from '../patterns/error/template';
 import type { ErrorPattern } from '../patterns/error/types';
 import { iconExclamationMarkTag } from '../icons/exclamation-mark';
-import { isListOptionGroup, template } from './template';
-import { ListOption } from '../list-option';
+import { isListOption, isListOptionGroup, template } from './template';
+import type { ListOption } from '../list-option';
 import { FilterMode } from './types';
 import { diacriticInsensitiveStringNormalizer } from '../utilities/models/string-normalizers';
 import { FormAssociatedSelect } from './models/select-form-associated';
@@ -53,12 +53,6 @@ declare global {
 // Used in overrides of base class methods
 // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 type BooleanOrVoid = boolean | void;
-
-const isNimbleListOption = (
-    el: Element | undefined | null
-): el is ListOption => {
-    return el instanceof ListOption;
-};
 
 const isOptionSelectable = (el: ListOption): boolean => {
     return !el.visuallyHidden && !el.disabled && !el.hidden;
@@ -382,10 +376,7 @@ export class Select
                 break;
             }
             case 'selected': {
-                if (
-                    isNimbleListOption(sourceElement)
-                    && sourceElement.selected
-                ) {
+                if (isListOption(sourceElement) && sourceElement.selected) {
                     this.selectedIndex = this.options.indexOf(sourceElement);
                 } else {
                     this.clearSelect();
@@ -393,7 +384,7 @@ export class Select
                 break;
             }
             case 'hidden': {
-                if (isNimbleListOption(sourceElement)) {
+                if (isListOption(sourceElement)) {
                     sourceElement.visuallyHidden = sourceElement.hidden;
                     this.updateAdjacentSeparatorState(sourceElement);
                 } else if (isListOptionGroup(sourceElement)) {
@@ -409,7 +400,7 @@ export class Select
             case 'visuallyHidden': {
                 if (
                     isListOptionGroup(sourceElement)
-                    || isNimbleListOption(sourceElement)
+                    || isListOption(sourceElement)
                 ) {
                     this.updateAdjacentSeparatorState(sourceElement);
                 }
@@ -718,10 +709,7 @@ export class Select
         const startIndex = this.openActiveIndex ?? this.selectedIndex;
         for (let i = startIndex + 1; i < this.options.length; i++) {
             const listOption = this.options[i]!;
-            if (
-                isNimbleListOption(listOption)
-                && isOptionSelectable(listOption)
-            ) {
+            if (isListOption(listOption) && isOptionSelectable(listOption)) {
                 this.setActiveOption(i);
                 break;
             }
@@ -737,10 +725,7 @@ export class Select
         const startIndex = this.openActiveIndex ?? this.selectedIndex;
         for (let i = startIndex - 1; i >= 0; i--) {
             const listOption = this.options[i]!;
-            if (
-                isNimbleListOption(listOption)
-                && isOptionSelectable(listOption)
-            ) {
+            if (isListOption(listOption) && isOptionSelectable(listOption)) {
                 this.setActiveOption(i);
                 break;
             }
@@ -752,7 +737,7 @@ export class Select
      */
     public override selectFirstOption(): void {
         const newActiveOptionIndex = this.options.findIndex(
-            o => isNimbleListOption(o) && isOptionSelectable(o)
+            o => isListOption(o) && isOptionSelectable(o)
         );
         this.setActiveOption(newActiveOptionIndex);
     }
@@ -763,7 +748,7 @@ export class Select
     public override selectLastOption(): void {
         const newActiveOptionIndex = findLastIndex(
             this.options,
-            o => isNimbleListOption(o) && isOptionSelectable(o)
+            o => isListOption(o) && isOptionSelectable(o)
         );
         this.setActiveOption(newActiveOptionIndex);
     }
@@ -849,7 +834,7 @@ export class Select
         }
 
         const activeOption = this.options[this.openActiveIndex ?? this.selectedIndex];
-        if (isNimbleListOption(activeOption)) {
+        if (isListOption(activeOption)) {
             activeOption.activeOption = false;
         }
         this.openActiveIndex = undefined;
@@ -898,7 +883,7 @@ export class Select
      */
     protected override setDefaultSelectedOption(): void {
         const options: ListboxOption[] = this.options
-            ?? Array.from(this.children).filter(o => isNimbleListOption(o));
+            ?? Array.from(this.children).filter(o => isListOption(o));
 
         const optionIsSelected = (option: ListboxOption): boolean => {
             return option.hasAttribute('selected') || option.selected;
@@ -937,7 +922,7 @@ export class Select
     ): ListboxOption[] {
         const options: ListOption[] = [];
         slottedElements?.forEach(el => {
-            if (isNimbleListOption(el)) {
+            if (isListOption(el)) {
                 options.push(el);
             } else if (isListOptionGroup(el)) {
                 options.push(...this.getGroupOptions(el));
@@ -950,7 +935,7 @@ export class Select
     private setActiveOption(newActiveIndex: number): void {
         const activeOption = this.options[newActiveIndex];
         if (this.open) {
-            if (isNimbleListOption(activeOption)) {
+            if (isListOption(activeOption)) {
                 activeOption.activeOption = true;
             }
 
@@ -958,7 +943,7 @@ export class Select
             const previousActiveOption = this.options[previousActiveIndex];
             if (
                 previousActiveIndex !== newActiveIndex
-                && isNimbleListOption(previousActiveOption)
+                && isListOption(previousActiveOption)
             ) {
                 previousActiveOption.activeOption = false;
             }
@@ -1026,13 +1011,13 @@ export class Select
         const nextElement = this.getNextVisibleOptionOrGroup(element);
 
         if (isOptionOrGroupVisible(element)) {
-            const topSeparatorVisible = isNimbleListOption(previousElement);
+            const topSeparatorVisible = isListOption(previousElement);
             this.setTopSeparatorState(element, topSeparatorVisible);
             const bottomSeparatorVisible = nextElement !== null;
             this.setBottomSeparatorState(element, bottomSeparatorVisible);
             this.setBottomSeparatorState(previousElement, true);
         } else {
-            const nextTopSeparatorVisible = isNimbleListOption(previousElement);
+            const nextTopSeparatorVisible = isListOption(previousElement);
             this.setTopSeparatorState(nextElement, nextTopSeparatorVisible);
             const previousBottomSeparatorVisible = nextElement !== null;
             this.setBottomSeparatorState(
@@ -1066,7 +1051,7 @@ export class Select
         let previousElement = element.previousElementSibling;
         while (previousElement) {
             if (
-                (isNimbleListOption(previousElement)
+                (isListOption(previousElement)
                     || isListOptionGroup(previousElement))
                 && isOptionOrGroupVisible(previousElement)
             ) {
@@ -1083,8 +1068,7 @@ export class Select
         let nextElement = element.nextElementSibling;
         while (nextElement) {
             if (
-                (isNimbleListOption(nextElement)
-                    || isListOptionGroup(nextElement))
+                (isListOption(nextElement) || isListOptionGroup(nextElement))
                 && isOptionOrGroupVisible(nextElement)
             ) {
                 return nextElement;
@@ -1137,7 +1121,7 @@ export class Select
                         filteredOptions.push(option);
                     }
                 });
-            } else if (isNimbleListOption(element)) {
+            } else if (isListOption(element)) {
                 element.visuallyHidden = this.isOptionHiddenOrFilteredOut(element);
                 if (!element.visuallyHidden) {
                     filteredOptions.push(element);
@@ -1150,9 +1134,9 @@ export class Select
 
     private getGroupOptions(group: ListOptionGroup): ListOption[] {
         return Array.from(group.children)
-            .filter(el => isNimbleListOption(el))
+            .filter(el => isListOption(el))
             .map(el => {
-                if (group.hidden && isNimbleListOption(el)) {
+                if (group.hidden && isListOption(el)) {
                     el.visuallyHidden = true;
                 }
 
