@@ -6,8 +6,10 @@ import { tableTag } from '../../../../nimble-components/src/table';
 <Meta of={tableStories} />
 <Title of={tableStories} />
 
-The <Tag name={tableTag}/> is a component that offers a way to render tabular data in a variety of ways in each column.
-For information about configuring table columns, see [Table Column Configuration](?path=/docs/components-table-column-configuration--docs)
+The <Tag name={tableTag}/> is a component that offers a way to render tabular
+data in a variety of ways in each column. For information about configuring
+table columns, see
+[Table Column Configuration](?path=/docs/components-table-column-configuration--docs)
 and the **Table Column** pages for individual table column types.
 
 <Canvas of={tableStories.table} />
@@ -21,7 +23,10 @@ and the **Table Column** pages for individual table column types.
 
 ### Sizing
 
-The <Tag name={tableTag}/> should be sized explicitly or sized to fill the space of a parent container. The <Tag name={tableTag}/> does not currently support being styled with `height: auto`. The ability to auto size the table is tracked with [issue 1624](https://github.com/ni/nimble/issues/1624).
+The <Tag name={tableTag}/> should be sized explicitly or sized to fill the space
+of a parent container. The <Tag name={tableTag}/> does not currently support
+being styled with `height: auto`. The ability to auto size the table is tracked
+with [issue 1624](https://github.com/ni/nimble/issues/1624).
 
 {/* ## Usage */}
 
@@ -29,9 +34,11 @@ The <Tag name={tableTag}/> should be sized explicitly or sized to fill the space
 
 ### Delay-loaded hierarchy
 
-In some cases, it may be known that a record has children, but the records for those children are not known. For performance reasons, it may be preferred to load
-the children on demand when a user expands the parent row. To accomplish this, use the `setRecordHierarchyOptions()` function on the table to set the hierarchy
-options associated with records in the data.
+In some cases, it may be known that a record has children, but the records for
+those children are not known. For performance reasons, it may be preferred to
+load the children on demand when a user expands the parent row. To accomplish
+this, use the `setRecordHierarchyOptions()` function on the table to set the
+hierarchy options associated with records in the data.
 
 <Canvas of={tableStories.delayedHierarchy} />
 <Controls of={tableStories.delayedHierarchy} />
@@ -42,28 +49,53 @@ The expected usage of the dynamically loaded hierarchy is as follows:
 
 1. Configure `idFieldName` and `parentIdFieldName` on the table
 1. Call `setData` on the table with the records that are known
-1. Call `setRecordHierarchyOptions` with an option of `{ delayedHierarchyState: TableRecordDelayedHierarchyState.canLoadChildren }` for IDs associated with records that are known to have children that have not been loaded.
-1. Handle the `row-expand-toggle` event on the table by doing the following for rows that need to dynamically load their data:
+1. Call `setRecordHierarchyOptions` with an option of
+   `{ delayedHierarchyState: TableRecordDelayedHierarchyState.canLoadChildren }`
+   for IDs associated with records that are known to have children that have not
+   been loaded.
+1. Handle the `row-expand-toggle` event on the table by doing the following for
+   rows that need to dynamically load their data:
     1. Start loading the data in the background.
-    1. Call `setRecordHierarchyOptions` on the table to update the state of the row whose data is being loaded to `{ delayedHierarchyState: TableRecordDelayedHierarchyState.loadingChildren }`. This call must include the current state of any records not in the default state.
-1. When the dynamically loaded data has finished loading, do the following based on the result of loading data:
+    1. Call `setRecordHierarchyOptions` on the table to update the state of the
+       row whose data is being loaded to
+       `{ delayedHierarchyState: TableRecordDelayedHierarchyState.loadingChildren }`.
+       This call must include the current state of any records not in the
+       default state.
+1. When the dynamically loaded data has finished loading, do the following based
+   on the result of loading data:
     - If loading the data succeeds:
         1. Call `setData` on the table with the new data
-        1. Call `setRecordHierarchyOptions` with the current row options for each row that is either still loading or still has data that hasn't been loaded yet.
+        1. Call `setRecordHierarchyOptions` with the current row options for
+           each row that is either still loading or still has data that hasn't
+           been loaded yet.
     - If loading the data fails but can be tried again:
-        1. Call `setRecordHierarchyOptions` to change the row state back to `{ delayedHierarchyState: TableRecordDelayedHierarchyState.canLoadChildren }`. This call must include the current state of any records not in the default state.
-    - If loading the data determines that the row doesn't actually have children:
-        1. Call `setRecordHierarchyOptions` to change the row state to `{ delayedHierarchyState: TableRecordDelayedHierarchyState.none }`. This call must include the current state of any records not in the default state.
+        1. Call `setRecordHierarchyOptions` to change the row state back to
+           `{ delayedHierarchyState: TableRecordDelayedHierarchyState.canLoadChildren }`.
+           This call must include the current state of any records not in the
+           default state.
+    - If loading the data determines that the row doesn't actually have
+      children:
+        1. Call `setRecordHierarchyOptions` to change the row state to
+           `{ delayedHierarchyState: TableRecordDelayedHierarchyState.none }`.
+           This call must include the current state of any records not in the
+           default state.
 
 #### Behavior of setRecordHierarchyOptions
 
 `setRecordHierarchyOptions()` has the following behavior:
 
 -   all options will be cleared when the table's `idFieldName` changes
--   an option passed to `setRecordHierarchyOptions` with an ID that does not match a record in the data will be ignored
--   the options passed to `setRecordHierarchyOptions` will override any options previously set to become the complete set of options configured on the table
--   the table will not render delayed hierarchy state (loading or expandable) if the table's `parentIdFieldName` is not configured; however, the options will remain cached within the table if the `parentIdFieldName` becomes `undefined`, and that cached configuration will render in the table if the table's `parentIdFieldName` is changed back to a non-`undefined` value
--   calling `setData` will clear options associated with IDs that are no longer present in the data
+-   an option passed to `setRecordHierarchyOptions` with an ID that does not
+    match a record in the data will be ignored
+-   the options passed to `setRecordHierarchyOptions` will override any options
+    previously set to become the complete set of options configured on the table
+-   the table will not render delayed hierarchy state (loading or expandable) if
+    the table's `parentIdFieldName` is not configured; however, the options will
+    remain cached within the table if the `parentIdFieldName` becomes
+    `undefined`, and that cached configuration will render in the table if the
+    table's `parentIdFieldName` is changed back to a non-`undefined` value
+-   calling `setData` will clear options associated with IDs that are no longer
+    present in the data
 
 {/* ## Accessibility */}
 

@@ -9,14 +9,16 @@ import { anchorTreeItemTag } from '../../../../nimble-components/src/anchor-tree
 <Meta of={treeViewStories} />
 <Title of={treeViewStories} />
 
-Per [W3C](https://www.w3.org/WAI/ARIA/apg/patterns/treeview/) - A tree view widget
-presents a hierarchical list. Any item in the hierarchy may have child items, and items that have
-children may be expanded or collapsed to show or hide the children. For example, in a file system
-navigator that uses a tree view to display folders and files, an item representing a folder can be
-expanded to reveal the contents of the folder, which may be files, folders, or both.
+Per [W3C](https://www.w3.org/WAI/ARIA/apg/patterns/treeview/) - A tree view
+widget presents a hierarchical list. Any item in the hierarchy may have child
+items, and items that have children may be expanded or collapsed to show or hide
+the children. For example, in a file system navigator that uses a tree view to
+display folders and files, an item representing a folder can be expanded to
+reveal the contents of the folder, which may be files, folders, or both.
 
-The <Tag name={treeViewTag}/> supports standard <Tag name={treeItemTag}/> and <Tag name={anchorTreeItemTag}/>,
-which navigate to a url upon activation. Both types of tree items support icons as slotted content.
+The <Tag name={treeViewTag}/> supports standard <Tag name={treeItemTag}/> and
+<Tag name={anchorTreeItemTag}/>, which navigate to a url upon activation. Both
+types of tree items support icons as slotted content.
 
 <Canvas of={treeViewStories.multipleTreeItems} />
 
@@ -27,14 +29,16 @@ which navigate to a url upon activation. Both types of tree items support icons 
 
 ### Tree Item
 
-Use a <Tag name={treeItemTag} /> child element if you want a tree item that calls a callback, has a value, and/or has child items.
+Use a <Tag name={treeItemTag} /> child element if you want a tree item that
+calls a callback, has a value, and/or has child items.
 
 <Canvas of={treeViewStories.treeItem} />
 <Controls of={treeViewStories.treeItem} />
 
 ### Anchor Tree Item
 
-Use a <Tag name={anchorTreeItemTag} /> child element to navigate to a URL when the item is activated.
+Use a <Tag name={anchorTreeItemTag} /> child element to navigate to a URL when
+the item is activated.
 
 <Canvas of={treeViewStories.anchorTreeItem} />
 <Controls of={treeViewStories.anchorTreeItem} />

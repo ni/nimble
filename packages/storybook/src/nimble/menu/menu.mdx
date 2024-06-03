@@ -9,11 +9,15 @@ import { anchorMenuItemTag } from '../../../../nimble-components/src/anchor-menu
 <Meta of={menuStories} />
 <Title of={menuStories} />
 
-Per [W3C](https://www.w3.org/WAI/ARIA/apg/patterns/menubar/) - A menu is a widget that offers a list of choices to the user,
-such as a set of actions or functions. Menu widgets behave like native operating system menus, such as the menus that pull down from the
-menubars commonly found at the top of many desktop application windows. A menu is usually opened, or made visible, by activating a menu button,
-choosing an item in a menu that opens a sub menu, or by invoking a command, such as Shift + F10 in Windows, that opens a context specific menu.
-When a user activates a choice in a menu, the menu usually closes unless the choice opened a submenu.
+Per [W3C](https://www.w3.org/WAI/ARIA/apg/patterns/menubar/) - A menu is a
+widget that offers a list of choices to the user, such as a set of actions or
+functions. Menu widgets behave like native operating system menus, such as the
+menus that pull down from the menubars commonly found at the top of many desktop
+application windows. A menu is usually opened, or made visible, by activating a
+menu button, choosing an item in a menu that opens a sub menu, or by invoking a
+command, such as Shift + F10 in Windows, that opens a context specific menu.
+When a user activates a choice in a menu, the menu usually closes unless the
+choice opened a submenu.
 
 <Canvas of={menuStories.menu} />
 
@@ -24,16 +28,16 @@ When a user activates a choice in a menu, the menu usually closes unless the cho
 
 ### Menu Item
 
-Use the <Tag name={menuItemTag} /> child element to execute a function when
-    the item is activated or to include a sub-menu.
+Use the <Tag name={menuItemTag} /> child element to execute a function when the
+item is activated or to include a sub-menu.
 
 <Canvas of={menuStories.menuItem} />
 <Controls of={menuStories.menuItem} />
 
-
 ### Anchor Menu Item
 
-Use the <Tag name={anchorMenuItemTag} /> child element to navigate to a URL when the item is activated.
+Use the <Tag name={anchorMenuItemTag} /> child element to navigate to a URL when
+the item is activated.
 
 <Canvas of={menuStories.anchorMenuItem} />
 <Controls of={menuStories.anchorMenuItem} />
@@ -48,7 +52,8 @@ Use the <Tag name={anchorMenuItemTag} /> child element to navigate to a URL when
 
 ### Nested Menu
 
-To include a sub-menu, place a <Tag name={menuTag} /> as a child of a <Tag name={menuItemTag} />.
+To include a sub-menu, place a <Tag name={menuTag} /> as a child of a
+<Tag name={menuItemTag} />.
 
 For example:
 
@@ -56,7 +61,8 @@ For example:
 
 ### Custom Header
 
-The menu can be configured to display a custom header with arbitrary content. This could include other nimble components, or even custom elements.
+The menu can be configured to display a custom header with arbitrary content.
+This could include other nimble components, or even custom elements.
 
 For example:
 
