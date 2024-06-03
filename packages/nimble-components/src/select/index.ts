@@ -42,7 +42,7 @@ import { ListOption } from '../list-option';
 import { FilterMode } from './types';
 import { diacriticInsensitiveStringNormalizer } from '../utilities/models/string-normalizers';
 import { FormAssociatedSelect } from './models/select-form-associated';
-import { ListOptionGroup } from '../list-option-group';
+import type { ListOptionGroup } from '../list-option-group';
 
 declare global {
     interface HTMLElementTagNameMap {
