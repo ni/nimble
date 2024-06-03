@@ -33,8 +33,7 @@ export class WaferMapUpdateTracker extends UpdateTracker<typeof trackedItems> {
 
     public get requiresEventsUpdate(): boolean {
         return (
-            this.isTracked('highlightedTags')
-            || this.isTracked('canvasWidth')
+            this.isTracked('canvasWidth')
             || this.isTracked('canvasHeight')
             || this.isTracked('originLocation')
             || this.isTracked('gridMinX')
@@ -43,6 +42,7 @@ export class WaferMapUpdateTracker extends UpdateTracker<typeof trackedItems> {
             || this.isTracked('gridMaxY')
             || this.isTracked('dies')
             || this.isTracked('maxCharacters')
+            || this.isTracked('highlightedTags')
             || this.isTracked('colorScale')
             || this.isTracked('colorScaleMode')
             || this.isTracked('dieLabelsHidden')
@@ -51,11 +51,45 @@ export class WaferMapUpdateTracker extends UpdateTracker<typeof trackedItems> {
         );
     }
 
+    public get requiresWorkerWaferSetup(): boolean {
+        return (
+            this.isTracked('canvasWidth')
+            || this.isTracked('canvasHeight')
+            || this.isTracked('originLocation')
+            || this.isTracked('gridMinX')
+            || this.isTracked('gridMaxX')
+            || this.isTracked('gridMinY')
+            || this.isTracked('gridMaxY')
+            || this.isTracked('dies')
+            || this.isTracked('maxCharacters')
+            || this.isTracked('highlightedTags')
+            || this.isTracked('colorScale')
+            || this.isTracked('colorScaleMode')
+            || this.isTracked('dieLabelsHidden')
+            || this.isTracked('dieLabelsSuffix')
+        );
+    }
+
     public get requiresContainerDimensionsUpdate(): boolean {
         return this.isTracked('canvasWidth') || this.isTracked('canvasHeight');
     }
 
+    public get requiresComponentResizeUpdate(): boolean {
+        return this.isTracked('canvasWidth') || this.isTracked('canvasHeight');
+    }
+
     public get requiresScalesUpdate(): boolean {
+        return (
+            this.isTracked('originLocation')
+            || this.isTracked('gridMinX')
+            || this.isTracked('gridMaxX')
+            || this.isTracked('gridMinY')
+            || this.isTracked('gridMaxY')
+            || this.isTracked('dies')
+        );
+    }
+
+    public get requiresInputDataUpdate(): boolean {
         return (
             this.isTracked('originLocation')
             || this.isTracked('gridMinX')
@@ -73,6 +107,17 @@ export class WaferMapUpdateTracker extends UpdateTracker<typeof trackedItems> {
     public get requiresDiesRenderInfoUpdate(): boolean {
         return (
             this.isTracked('highlightedTags')
+            || this.isTracked('colorScale')
+            || this.isTracked('colorScaleMode')
+            || this.isTracked('dieLabelsHidden')
+            || this.isTracked('dieLabelsSuffix')
+        );
+    }
+
+    public get requiresColorAndTextUpdate(): boolean {
+        return (
+            this.isTracked('maxCharacters')
+            || this.isTracked('highlightedTags')
             || this.isTracked('colorScale')
             || this.isTracked('colorScaleMode')
             || this.isTracked('dieLabelsHidden')
