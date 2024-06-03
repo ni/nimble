@@ -244,21 +244,6 @@ describe('Select', () => {
         await disconnect();
     });
 
-    it('option that is not hidden but is visuallyHidden, if removed and then added back, will be visible', async () => {
-        const { element, connect, disconnect } = await setup();
-        await connect();
-        const option = element.options[0]! as ListOption;
-        option.visuallyHidden = true;
-        element.removeChild(option);
-        await waitForUpdatesAsync();
-        element.appendChild(option);
-        await waitForUpdatesAsync();
-
-        expect(option.visuallyHidden).toBeFalse();
-
-        await disconnect();
-    });
-
     describe('Default selected option', () => {
         it('disabled option that is marked as selected initially will be used as value', async () => {
             // mark second option as selected to be different than default
@@ -1253,6 +1238,17 @@ describe('Select', () => {
                 element.appendChild(option);
                 await waitForUpdatesAsync();
                 pageObject.clickSelect();
+
+                expect(option.visuallyHidden).toBeFalse();
+            });
+
+            it('option that is not hidden but is visuallyHidden, if removed and then added back, will be visible', async () => {
+                const option = element.options[0]! as ListOption;
+                option.visuallyHidden = true;
+                element.removeChild(option);
+                await waitForUpdatesAsync();
+                element.appendChild(option);
+                await waitForUpdatesAsync();
 
                 expect(option.visuallyHidden).toBeFalse();
             });
