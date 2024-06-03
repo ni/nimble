@@ -50,7 +50,9 @@ describe('MatrixRenderer worker', () => {
             horizontalConstant: 0,
             verticalConstant: 0,
             labelsFontSize: 0,
-            colorScale: []
+            colorScale: [],
+            dieLabelsSuffix: '',
+            maxCharacters: 0
         });
 
         await matrixRenderer.setColumnIndices(typedColumnIndices);
