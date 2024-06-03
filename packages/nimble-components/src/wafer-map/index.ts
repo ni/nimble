@@ -220,22 +220,15 @@ export class WaferMap<
             return;
         }
         if (this.waferMapUpdateTracker.requiresEventsUpdate) {
-            let setupWafer = false;
-            if (this.waferMapUpdateTracker.requiresContainerDimensionsUpdate) {
+            if (this.waferMapUpdateTracker.requiresComponentResizeUpdate) {
                 this.computations.componentResizeUpdate();
-                setupWafer = true;
-            } else if (this.waferMapUpdateTracker.requiresScalesUpdate) {
+            } else if (this.waferMapUpdateTracker.requiresInputDataUpdate) {
                 this.computations.inputDataUpdate();
-                setupWafer = true;
-            } else if (
-                this.waferMapUpdateTracker.requiresLabelsFontSizeUpdate
-                || this.waferMapUpdateTracker.requiresDiesRenderInfoUpdate
-            ) {
+            } else if (this.waferMapUpdateTracker.requiresColorAndTextUpdate) {
                 this.computations.colorAndTextUpdate();
-                setupWafer = true;
             }
             const snapshot = this.createSnapshot();
-            if (setupWafer) {
+            if (this.waferMapUpdateTracker.requiresWorkerWaferSetup) {
                 await this.workerRenderer.setupWafer(snapshot);
             }
             await this.workerRenderer.drawWafer(snapshot);
