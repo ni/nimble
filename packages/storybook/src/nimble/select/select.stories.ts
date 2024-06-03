@@ -8,8 +8,15 @@ import { ExampleOptionsType } from '../../../../nimble-components/src/select/tes
 import { DropdownAppearance } from '../../../../nimble-components/src/patterns/dropdown/types';
 
 import {
+    apiCategory,
+    appearanceDescription,
     createUserSelectedThemeStory,
-    disableStorybookZoomTransform
+    disableStorybookZoomTransform,
+    disabledDescription,
+    dropdownPositionDescription,
+    errorTextDescription,
+    errorVisibleDescription,
+    optionsDescription
 } from '../../utilities/storybook';
 
 interface SelectArgs {
@@ -22,6 +29,7 @@ interface SelectArgs {
     filterMode: keyof typeof FilterMode;
     placeholder: boolean;
     clearable: boolean;
+    change: undefined;
 }
 
 interface OptionArgs {
@@ -67,32 +75,20 @@ const optionSets = {
     [ExampleOptionsType.manyOptions]: manyOptions
 } as const;
 
-const dropdownPositionDescription = `
-The \`dropDownPosition\` attribute controls the position of the dropdown relative to the \`Select\`. The default is \`below\`, which will display the dropdown below the \`Select\`. The \`above\` setting will display the dropdown above the \`Select\`.
-`;
-
-const appearanceDescription = `
-This attribute affects the appearance of the \`Select\`. The default appearance is \`underline\`, which displays a line beneath the selected value. The \`outline\` appearance displays a border around the entire component. The \`block\` appearance applies a background for the entire component.
-`;
-
-const errorTextDescription = `
-A message to be displayed when the text field is in the invalid state explaining why the value is invalid.
-`;
-
 const filterModeDescription = `
-This attribute controls the filtering behavior of the \`Select\`. The default of \`none\` results in a dropdown with no input for filtering. A non-'none' setting results in a search input placed at the top or the bottom of the dropdown when opened (depending on where the popup is shown relative to the component). The \`standard\` setting will perform a case-insensitive and diacritic-insensitive filtering of the available options anywhere within the text of each option. 
+Controls the filtering behavior of the select. The default of \`none\` results in a dropdown with no input for filtering. A non-'none' setting results in a search input placed at the top or the bottom of the dropdown when opened (depending on where the dropdown is shown relative to the component). The \`standard\` setting will perform a case-insensitive and diacritic-insensitive filtering of the available options anywhere within the text of each option. 
 
-It is recommended that if the \`Select\` has 15 or fewer options that you use the \`none\` setting for the \`filter-mode\`.
+It is recommended that if the select has 15 or fewer options that you use the \`none\` setting for the \`filter-mode\`.
 `;
 
 const placeholderDescription = `
-To display placeholder text within the \`Select\` you must provide an option that has the \`disabled\`, \`selected\` and \`hidden\` attributes set. This option will not be available in the dropdown, and its contents will be used as the placeholder text. Note that giving the placeholder an initial \`selected\` state is only necessary to display the placeholder initially. If another option is selected initially the placeholder will be displayed upon clearing the current value.
+To display placeholder text within the select you must provide an option that has the \`disabled\`, \`selected\` and \`hidden\` attributes set. This option will not be available in the dropdown, and its contents will be used as the placeholder text. Note that giving the placeholder an initial \`selected\` state is only necessary to display the placeholder initially. If another option is selected initially the placeholder will be displayed upon clearing the current value.
 
-Any \`Select\` without a default selected option should provide placeholder text. Placeholder text should always follow the pattern "Select [thing(s)]", for example "Select country". Use sentence casing and don't include punctuation at the end of the prompt.
+Any select without a default selected option should provide placeholder text. Placeholder text should always follow the pattern "Select [thing(s)]", for example "Select country". Use sentence casing and don't include punctuation at the end of the prompt.
 `;
 
 const clearableDescription = `
-When the \`clearable\` attribute is set, a clear button will be displayed in the \`Select\` when a value is selected. Clicking the clear button will clear the selected value and display the placeholder text, if available, or will result in a blank display.
+When the \`clearable\` attribute is set, a clear button will be displayed in the select when a value is selected. Clicking the clear button will clear the selected value and display the placeholder text, if available, or will result in a blank display.
 `;
 
 const metadata: Meta<SelectArgs> = {
@@ -139,38 +135,52 @@ const metadata: Meta<SelectArgs> = {
     `),
     argTypes: {
         dropDownPosition: {
+            name: 'position',
             options: ['above', 'below'],
             control: { type: 'select' },
-            description: dropdownPositionDescription
+            description: dropdownPositionDescription({ componentName: 'select' }),
+            table: { category: apiCategory.attributes }
         },
         appearance: {
             options: Object.values(DropdownAppearance),
             control: { type: 'radio' },
-            description: appearanceDescription
+            description: appearanceDescription({ componentName: 'select' }),
+            table: { category: apiCategory.attributes }
         },
         filterMode: {
             options: Object.keys(FilterMode),
             control: { type: 'radio' },
             name: 'filter-mode',
-            description: filterModeDescription
+            description: filterModeDescription,
+            table: { category: apiCategory.attributes }
+        },
+        disabled: {
+            description: disabledDescription({ componentName: 'select' }),
+            table: { category: apiCategory.attributes }
         },
         errorText: {
             name: 'error-text',
-            description: errorTextDescription
+            description: errorTextDescription,
+            table: { category: apiCategory.attributes }
         },
         errorVisible: {
-            name: 'error-visible'
+            name: 'error-visible',
+            description: errorVisibleDescription,
+            table: { category: apiCategory.attributes }
         },
         placeholder: {
             name: 'placeholder',
-            description: placeholderDescription
+            description: placeholderDescription,
+            // TODO: move this to a list-option story or create a table category to indicate there isn't a single 'placeholder' attribute
         },
         clearable: {
             name: 'clearable',
-            description: clearableDescription
+            description: clearableDescription,
+            table: { category: apiCategory.attributes }
         },
         optionsType: {
-            name: 'options',
+            name: 'default',
+            description: optionsDescription,
             options: Object.values(ExampleOptionsType),
             control: {
                 type: 'radio',
@@ -179,7 +189,13 @@ const metadata: Meta<SelectArgs> = {
                     [ExampleOptionsType.manyOptions]: 'Many options',
                     [ExampleOptionsType.wideOptions]: 'Wide options'
                 }
-            }
+            },
+            table: { category: apiCategory.slots }
+        },
+        change: {
+            description: 'Emitted when the user changes the selected option.',
+            table: { category: apiCategory.events },
+            control: false
         }
     },
     args: {

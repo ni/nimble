@@ -5,6 +5,7 @@ import { numberFieldTag } from '../../../../nimble-components/src/number-field';
 import { selectTag } from '../../../../nimble-components/src/select';
 import { cardTag } from '../../../../nimble-components/src/card';
 import {
+    apiCategory,
     createUserSelectedThemeStory,
     disableStorybookZoomTransform,
     incubatingWarning
@@ -12,6 +13,7 @@ import {
 
 interface CardArgs {
     title: string;
+    content: undefined;
 }
 
 const metadata: Meta<CardArgs> = {
@@ -39,7 +41,14 @@ const metadata: Meta<CardArgs> = {
     argTypes: {
         title: {
             description:
-                'Text displayed as a title inside the card. This text should be short enough to fit within two lines when displayed. Cards should **always include a title**. The title is used to provide an accessible name to assistive technologies.<br><br>Provide the title in an element targeted to the `title` slot.'
+                'Text displayed as a title inside the card. This text should be short enough to fit within two lines when displayed. Cards should **always include a title**. The title is used to provide an accessible name to assistive technologies.',
+            table: { category: apiCategory.slots },
+        },
+        content: {
+            name: 'default',
+            description: 'Content to be displayed inside the card.',
+            table: { category: apiCategory.slots },
+            control: false
         }
     },
     args: {

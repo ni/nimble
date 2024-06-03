@@ -21,7 +21,7 @@ import {
     sharedTableArgTypes,
     sharedTableArgs
 } from './table-column-stories-utils';
-import { createUserSelectedThemeStory } from '../../../utilities/storybook';
+import { apiCategory, createUserSelectedThemeStory } from '../../../utilities/storybook';
 
 const simpleData = [
     {
@@ -74,7 +74,7 @@ const simpleData = [
 ] as const;
 
 const overviewText = `This page contains information about configuring the columns of a \`nimble-table\`. 
-See **Table** for information about configuring the table itself and the **Table Column** specific docs for 
+See [Table](?path=/docs/components-table--docs) for information about configuring the table itself and the **Table Column** pages for 
 information about specific types of column.`;
 
 const metadata: Meta<SharedTableArgs> = {
@@ -135,6 +135,96 @@ const metadata: Meta<SharedTableArgs> = {
 };
 
 export default metadata;
+
+interface ApiTableArgs extends SharedTableArgs {
+    content: undefined;
+    columnHidden: undefined;
+    columnId: undefined;
+    actionMenuSlot: undefined;
+    actionMenuLabel: undefined;
+    sortDirection: undefined;
+    sortIndex: undefined;
+    groupIndex: undefined;
+    groupingDisabled: undefined;
+    fractionalWidth: undefined;
+    minPixelWidth: undefined;
+}
+
+export const api: StoryObj<ApiTableArgs> = {
+    parameters: {
+        // Story used by documentation, not needed for visual comparison.
+        chromatic: { disableSnapshot: true }
+    },
+    argTypes: {
+        content: {
+            name: 'default',
+            description: 'Text or an icon added to the default slot of the column will be placed in the column header. See **Setting header content** for more information.',
+            table: { category: apiCategory.slots },
+            control: false
+        },
+        columnHidden: {
+            name: 'column-hidden',
+            description: 'Whether the column is hidden from display. See **Hiding** for more information.',
+            table: { category: apiCategory.attributes },
+            control: false
+        },
+        columnId: {
+            name: 'column-id',
+            description:
+                "Optionally use the `column-id` attribute to uniquely identify a column for features like adding an action menu. If you aren't using features that require a column id you may leave it unset for all columns. If you provide `column-id` for any column within a table then you must provide it for all and they must be unique strings.",
+            table: { category: apiCategory.attributes },
+            control: false
+        },
+        actionMenuSlot: {
+            name: 'action-menu-slot',
+            description: 'Configure this column to have an action menu by setting this attribute to the name of a slot in the table that contains the menu.',
+            table: { category: apiCategory.attributes },
+            control: false
+        },
+        actionMenuLabel: {
+            name: 'action-menu-label',
+            description: 'Configures the title and accessible label of the action menu button for this column.',
+            table: { category: apiCategory.attributes },
+            control: false
+        },
+        sortDirection: {
+            name: 'sort-direction',
+            description: 'The direction to sort the data in the column. See **Sorting** for more information.',
+            table: { category: apiCategory.attributes },
+            control: false
+        },
+        sortIndex: {
+            name: 'sort-index',
+            description: 'Specifies the sort precedence of the column within the set of all sorted columns. See **Sorting** for more information.',
+            table: { category: apiCategory.attributes },
+            control: false
+        },
+        groupIndex: {
+            name: 'group-index',
+            description: 'Specifies the group precedence of the column within the set of all grouped columns. See **Grouping** for more information.',
+            table: { category: apiCategory.attributes },
+            control: false
+        },
+        groupingDisabled: {
+            name: 'grouping-disabled',
+            description: 'Prevents the column from participating in grouping. See **Grouping** for more information.',
+            table: { category: apiCategory.attributes },
+            control: false
+        },
+        fractionalWidth: {
+            name: 'fractional-width',
+            description: 'Configures the proportion of the table width that this column should occupy initially. See **Column width** for more information.',
+            table: { category: apiCategory.attributes },
+            control: false
+        },
+        minPixelWidth: {
+            name: 'min-pixel-width',
+            description: 'Configures the minimum width that the column can be interactively resized to. See **Column width** for more information.',
+            table: { category: apiCategory.attributes },
+            control: false
+        },
+    }
+};
 
 type ColumnOrderOption = 'FirstName, LastName' | 'LastName, FirstName';
 
@@ -270,23 +360,22 @@ export const headerContent: StoryObj<HeaderContentTableArgs> = {
     }
 };
 
-const commonColumnAttributes = 'In addition to the attributes described in other stories there are other attributes available on all column types.';
+const columnHiddenDescription = 'Columns can be added to the table but hidden from display. One use case for this is to sort by a field but not display its value.';
 
-interface CommonAttributesTableArgs extends SharedTableArgs {
+interface ColumnHiddenTableArgs extends SharedTableArgs {
     columnHidden: boolean;
-    columnId: string;
 }
 
-export const commonAttributes: StoryObj<CommonAttributesTableArgs> = {
+export const columnHidden: StoryObj<ColumnHiddenTableArgs> = {
     parameters: {
         docs: {
             description: {
-                story: commonColumnAttributes
+                story: columnHiddenDescription
             }
         }
     },
     // prettier-ignore
-    render: createUserSelectedThemeStory(html<CommonAttributesTableArgs>`
+    render: createUserSelectedThemeStory(html<ColumnHiddenTableArgs>`
         <${tableTag}
             ${ref('tableRef')}
             data-unused="${x => x.updateData(x)}"
@@ -319,13 +408,8 @@ export const commonAttributes: StoryObj<CommonAttributesTableArgs> = {
         columnHidden: {
             name: 'column-hidden',
             description:
-                'Add the `column-hidden` attribute to hide a column from display. One use case for this is to sort by a field but not display its value.'
+                'Add the `column-hidden` attribute to hide a column from display.'
         },
-        columnId: {
-            name: 'column-id',
-            description:
-                "Optionally use the `column-id` attribute to uniquely identify a column for features like adding an action menu. If you aren't using features that require a column id you may leave it unset for all columns. If you provide `column-id` for any column within a table then you must provide it for all and they must be unique strings."
-        }
     },
     args: {
         columnHidden: false

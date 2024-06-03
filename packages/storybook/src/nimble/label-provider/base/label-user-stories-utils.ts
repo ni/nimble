@@ -1,5 +1,6 @@
 import type { Meta } from '@storybook/html';
 import type { DesignToken } from '@microsoft/fast-foundation';
+import { apiCategory } from '../../../utilities/storybook';
 
 export interface LabelUserArgs {
     usedLabels: null;
@@ -26,8 +27,9 @@ export function addLabelUseMetadata<TArgs extends LabelUserArgs>(
         description: `Label Provider:\`${labelProviderTag}\`
 ${tokenContent}
 
-See the "Tokens/Label Providers" docs page for more information.
+See the [Tokens/Label Providers docs page](./?path=/docs/tokens-label-providers--docs) for more information.
 `,
-        control: false
+        control: false,
+        table: { category: apiCategory.localizableLabels }
     };
 }
