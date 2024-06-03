@@ -295,7 +295,8 @@ export class WaferMap<
         dieDimensions: Dimensions,
         transform: ZoomTransform,
         columnIndices: Int32Array,
-        rowIndices: Int32Array
+        rowIndices: Int32Array,
+        values: Float64Array
     } {
         const canvasDimensions = {
             width: this.canvasWidth ?? 0,
@@ -320,17 +321,19 @@ export class WaferMap<
                 dieDimensions,
                 transform,
                 columnIndices: Int32Array.from([]),
-                rowIndices: Int32Array.from([])
+                rowIndices: Int32Array.from([]),
+                values: Float64Array.from([])
             };
         }
         const columnIndices = this.diesTable.getChild('colIndex')!.toArray();
-
         const rowIndices = this.diesTable.getChild('rowIndex')!.toArray();
+        const values = this.diesTable.getChild('value')!.toArray();
         return {
             canvasDimensions,
             renderConfig,
             columnIndices,
             rowIndices,
+            values,
             dieDimensions,
             transform
         };

@@ -13,8 +13,13 @@ export class MatrixRenderer {
     public scaledColumnIndices = Float64Array.from([]);
     public scaledRowIndices = Float64Array.from([]);
     public columnIndicesPositions = Int32Array.from([]);
+    public colorIndices = Int32Array.from([]);
     public canvas!: OffscreenCanvas;
     public context!: OffscreenCanvasRenderingContext2D;
+    private colors: string[] = [];
+    private colorValues = Float64Array.from([]);
+    private readonly outsideRangeDieColor = 'rgba(218,223,236,1)';
+    private readonly fontSizeFactor = 0.8;
     private renderConfig: RenderConfig = {
         dieDimensions: {
             width: 0,
@@ -66,6 +71,20 @@ export class MatrixRenderer {
         );
     }
 
+    private calculateColorIndex(value: number): number {
+        let index = -1;
+        if (this.colorValues.length === 0 || this.colorValues[0]! >= value) {
+            return index;
+        }
+        for (let i = 0; i < this.colorValues.length; i++) {
+            if (value <= this.colorValues[i]!) {
+                index = i;
+                break;
+            }
+        }
+        return index;
+    }
+
     public setColumnIndices(columnIndices: Int32Array): void {
         if (columnIndices.length === 0 || columnIndices[0] === undefined) {
             return;
@@ -99,8 +118,20 @@ export class MatrixRenderer {
         }
     }
 
+    public setValues(valuesBuffer: Float64Array): void {
+        this.values = valuesBuffer;
+        this.colorIndices = new Int32Array(this.values.length);
+        for (let i = 0; i < this.values.length; i++) {
+            this.colorIndices[i] = this.calculateColorIndex(this.values[i]!);
+        }
+    }
+
     public setRenderConfig(renderConfig: RenderConfig): void {
         this.renderConfig = renderConfig;
+        this.colors = renderConfig.colorScale.map(category => category.color);
+        this.colorValues = Float64Array.from(
+            renderConfig.colorScale.map(category => category.value)
+        );
     }
 
     public setTransformConfig(transformData: TransformConfig): void {
@@ -176,7 +207,8 @@ export class MatrixRenderer {
                     continue;
                 }
                 // Fill style is temporary green for all dies, will be replaced with a color based on the value of the die in a future implementation
-                this.context.fillStyle = 'Green';
+                this.context.fillStyle = this.colors[this.colorIndices[columnStartIndex]!]
+                    ?? this.outsideRangeDieColor;
                 this.context.fillRect(
                     scaledX,
                     scaledY,

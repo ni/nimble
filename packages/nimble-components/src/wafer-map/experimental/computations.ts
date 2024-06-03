@@ -1,5 +1,5 @@
 import { scaleLinear, ScaleLinear } from 'd3-scale';
-import { ticks } from 'd3-array';
+import { range } from 'd3-array';
 import type { WaferMap } from '..';
 import { WaferMapColorScaleMode, WaferMapOriginLocation } from '../types';
 import type { ColorScale, Dimensions, Margin } from '../workers/types';
@@ -302,11 +302,12 @@ export class Computations {
                 }
             });
             // the linear color scale will not be infinite but will be limited by the color scale resolution
-            const valueSamples = ticks(
+            const valueSamples = range(
                 min,
                 max,
-                values.length * this.colorScaleResolution
+                (max - min) / (values.length * this.colorScaleResolution)
             );
+            valueSamples.push(max);
             return valueSamples.map(value => {
                 return {
                     color: d3ColorScale(value),
