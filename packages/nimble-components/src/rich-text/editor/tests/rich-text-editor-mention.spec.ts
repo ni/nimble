@@ -1242,7 +1242,8 @@ describe('RichTextEditorMentionListbox', () => {
             expect(pageObject.isMentionListboxOpened()).toBeFalse();
         });
 
-        it('should filter and commit first mention into the editor on Enter', async () => {
+        // Intermittent, see https://github.com/ni/nimble/issues/2150
+        xit('should filter and commit first mention into the editor on Enter', async () => {
             await appendUserMentionConfiguration(element, [
                 { key: 'user:1', displayName: 'username1' },
                 { key: 'user:2', displayName: 'username2' }
