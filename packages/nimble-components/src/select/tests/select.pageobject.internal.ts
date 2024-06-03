@@ -1,6 +1,6 @@
 import type { Select } from '..';
 import type { ListOptionGroup } from '../../list-option-group';
-import { SelectPageObject } from './select.pageobject';
+import { SelectPageObject } from '../testing/select.pageobject';
 
 /**
  * Page object for the `nimble-select` component to provide consistent ways

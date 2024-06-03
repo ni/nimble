@@ -2,11 +2,11 @@ import { html, repeat } from '@microsoft/fast-element';
 import { parameterizeSpec, parameterizeSuite } from '@ni/jasmine-parameterized';
 import { fixture, Fixture } from '../../utilities/tests/fixture';
 import { Select, selectTag } from '..';
+import { SelectPageObjectInternal as SelectPageObject } from './select.pageobject.internal';
 import { ListOption, listOptionTag } from '../../list-option';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import { checkFullyInViewport } from '../../utilities/tests/intersection-observer';
 import { FilterMode } from '../types';
-import { SelectPageObject } from '../testing/select.pageobject';
 import {
     createEventListener,
     waitAnimationFrame
@@ -14,7 +14,6 @@ import {
 import { filterSearchLabel } from '../../label-provider/core/label-tokens';
 import { ListOptionGroup } from '../../list-option-group';
 import type { Button } from '../../button';
-import { SelectPageObjectInternal } from '../testing/select.pageobject.internal';
 import { isListOptionGroup } from '../template';
 
 const disabledOption = 'disabled';
@@ -1479,14 +1478,14 @@ describe('Select', () => {
         let element: Select;
         let connect: () => Promise<void>;
         let disconnect: () => Promise<void>;
-        let pageObject: SelectPageObjectInternal;
+        let pageObject: SelectPageObject;
         const totalSlottedElements = 11;
 
         beforeEach(async () => {
             ({ element, connect, disconnect } = await setupWithGroups());
             element.style.width = '200px';
             await connect();
-            pageObject = new SelectPageObjectInternal(element);
+            pageObject = new SelectPageObject(element);
         });
 
         afterEach(async () => {

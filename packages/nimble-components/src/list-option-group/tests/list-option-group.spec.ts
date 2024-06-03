@@ -3,6 +3,7 @@ import { parameterizeSpec } from '@ni/jasmine-parameterized';
 import { ListOptionGroup, listOptionGroupTag } from '..';
 import { fixture, type Fixture } from '../../utilities/tests/fixture';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
+import { listOptionTag } from '../../list-option';
 
 describe('ListOptionGroup', () => {
     async function setup(): Promise<Fixture<ListOptionGroup>> {
@@ -13,12 +14,12 @@ describe('ListOptionGroup', () => {
     }
 
     it('should export its tag', () => {
-        expect(listOptionGroupTag).toBe('nimble-list-option-group');
+        expect(listOptionGroupTag).toBe(listOptionGroupTag);
     });
 
     it('can construct an element instance', () => {
         expect(
-            document.createElement('nimble-list-option-group')
+            document.createElement(listOptionGroupTag)
         ).toBeInstanceOf(ListOptionGroup);
     });
 
@@ -114,10 +115,10 @@ describe('ListOptionGroup', () => {
     it('group is visually hidden with no visible options', async () => {
         const { element, connect, disconnect } = await setup();
         await connect();
-        const option = document.createElement('nimble-list-option');
+        const option = document.createElement(listOptionTag);
         option.hidden = true;
         element.appendChild(option);
-        const option2 = document.createElement('nimble-list-option');
+        const option2 = document.createElement(listOptionTag);
         option2.visuallyHidden = true;
         element.appendChild(option2);
         await waitForUpdatesAsync();
@@ -128,7 +129,7 @@ describe('ListOptionGroup', () => {
     it('group is visible with visible options', async () => {
         const { element, connect, disconnect } = await setup();
         await connect();
-        const option = document.createElement('nimble-list-option');
+        const option = document.createElement(listOptionTag);
         element.appendChild(option);
         await waitForUpdatesAsync();
         expect(element.visuallyHidden).toBeFalse();
@@ -138,7 +139,7 @@ describe('ListOptionGroup', () => {
     it('group becomes hidden when all options are removed from it', async () => {
         const { element, connect, disconnect } = await setup();
         await connect();
-        const option = document.createElement('nimble-list-option');
+        const option = document.createElement(listOptionTag);
         element.appendChild(option);
         await waitForUpdatesAsync();
         expect(element.visuallyHidden).toBeFalse();
@@ -152,10 +153,10 @@ describe('ListOptionGroup', () => {
     it('option that is removed and then updates its hidden state, does not update group', async () => {
         const { element, connect, disconnect } = await setup();
         await connect();
-        const option1 = document.createElement('nimble-list-option');
+        const option1 = document.createElement(listOptionTag);
         option1.hidden = true;
         element.appendChild(option1);
-        const option2 = document.createElement('nimble-list-option');
+        const option2 = document.createElement(listOptionTag);
         option2.hidden = true;
         element.appendChild(option2);
         await waitForUpdatesAsync();
@@ -171,7 +172,7 @@ describe('ListOptionGroup', () => {
     it('option that is hidden and then set to visually hidden keeps group hidden', async () => {
         const { element, connect, disconnect } = await setup();
         await connect();
-        const option = document.createElement('nimble-list-option');
+        const option = document.createElement(listOptionTag);
         option.hidden = true;
         element.appendChild(option);
         await waitForUpdatesAsync();
@@ -186,7 +187,7 @@ describe('ListOptionGroup', () => {
     it('option that is hidden and visuallyHidden, then has hidden set to false, keeps group hidden', async () => {
         const { element, connect, disconnect } = await setup();
         await connect();
-        const option = document.createElement('nimble-list-option');
+        const option = document.createElement(listOptionTag);
         option.hidden = true;
         option.visuallyHidden = true;
         element.appendChild(option);
@@ -201,7 +202,7 @@ describe('ListOptionGroup', () => {
     it('option that is hidden and visuallyHidden, then has visuallyHidden set to false, keeps group hidden', async () => {
         const { element, connect, disconnect } = await setup();
         await connect();
-        const option = document.createElement('nimble-list-option');
+        const option = document.createElement(listOptionTag);
         option.hidden = true;
         option.visuallyHidden = true;
         element.appendChild(option);
@@ -283,17 +284,17 @@ describe('ListOptionGroup', () => {
         spec(name, async () => {
             const { element, connect, disconnect } = await setup();
             await connect();
-            const option1 = document.createElement('nimble-list-option');
+            const option1 = document.createElement(listOptionTag);
             option1.hidden = value.optionInitialHiddenStates[0]!;
             element.appendChild(option1);
-            const option2 = document.createElement('nimble-list-option');
+            const option2 = document.createElement(listOptionTag);
             option2.hidden = value.optionInitialHiddenStates[1]!;
             element.appendChild(option2);
-            const option3 = document.createElement('nimble-list-option');
+            const option3 = document.createElement(listOptionTag);
             option3.hidden = value.optionInitialHiddenStates[2]!;
             element.appendChild(option3);
             await waitForUpdatesAsync();
-            let options = element.querySelectorAll('nimble-list-option');
+            let options = element.querySelectorAll(listOptionTag);
             value.optionIndicesToRemove.forEach(index => {
                 element.removeChild(options[index]!);
             });
@@ -302,7 +303,7 @@ describe('ListOptionGroup', () => {
             });
             await waitForUpdatesAsync();
 
-            options = element.querySelectorAll('nimble-list-option');
+            options = element.querySelectorAll(listOptionTag);
             options.forEach((option, index) => {
                 expect(option.hidden).toBe(
                     value.optionHiddenStatesAfter[index]!
@@ -337,7 +338,7 @@ describe('ListOptionGroup', () => {
 
         beforeEach(async () => {
             ({ element, connect, disconnect } = await setup());
-            const option = document.createElement('nimble-list-option');
+            const option = document.createElement(listOptionTag);
             option.textContent = 'Option 1';
             element.appendChild(option);
             await connect();
