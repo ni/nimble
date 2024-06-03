@@ -18,9 +18,9 @@ describe('ListOptionGroup', () => {
     });
 
     it('can construct an element instance', () => {
-        expect(
-            document.createElement(listOptionGroupTag)
-        ).toBeInstanceOf(ListOptionGroup);
+        expect(document.createElement(listOptionGroupTag)).toBeInstanceOf(
+            ListOptionGroup
+        );
     });
 
     it('if label attribute is provided, labelContent is set to label attribute', async () => {
