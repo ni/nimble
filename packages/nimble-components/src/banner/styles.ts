@@ -65,7 +65,6 @@ export const styles = css`
         display: inline;
         font-weight: bold;
         padding-right: 8px;
-        white-space: nowrap;
     }
 
     :host([title-hidden]) slot[name='title'] {
