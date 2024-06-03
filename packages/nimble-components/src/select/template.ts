@@ -27,7 +27,7 @@ import { buttonTag } from '../button';
 import { iconTimesTag } from '../icons/times';
 
 export const isListOptionGroup = (
-    n: Element | undefined
+    n: Element | undefined | null
 ): n is ListOptionGroup => {
     return n instanceof ListOptionGroup;
 };

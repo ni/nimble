@@ -54,7 +54,9 @@ declare global {
 // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 type BooleanOrVoid = boolean | void;
 
-const isNimbleListOption = (el: Element | undefined): el is ListOption => {
+const isNimbleListOption = (
+    el: Element | undefined | null
+): el is ListOption => {
     return el instanceof ListOption;
 };
 
@@ -935,9 +937,9 @@ export class Select
     ): ListboxOption[] {
         const options: ListOption[] = [];
         slottedElements?.forEach(el => {
-            if (el instanceof ListOption) {
+            if (isNimbleListOption(el)) {
                 options.push(el);
-            } else if (el instanceof ListOptionGroup) {
+            } else if (isListOptionGroup(el)) {
                 options.push(...this.getGroupOptions(el));
             }
         });
@@ -1022,25 +1024,39 @@ export class Select
     ): void {
         const previousElement = this.getPreviousVisibleOptionOrGroup(element);
         const nextElement = this.getNextVisibleOptionOrGroup(element);
-        if (element instanceof ListOptionGroup) {
-            element.bottomSeparatorVisible = nextElement !== null;
-        }
+
         if (isOptionOrGroupVisible(element)) {
-            if (element instanceof ListOptionGroup) {
-                element.topSeparatorVisible = previousElement instanceof ListOption;
-            }
-
-            if (previousElement instanceof ListOptionGroup) {
-                previousElement.bottomSeparatorVisible = true;
-            }
+            const topSeparatorVisible = isNimbleListOption(previousElement);
+            this.setTopSeparatorState(element, topSeparatorVisible);
+            const bottomSeparatorVisible = nextElement !== null;
+            this.setBottomSeparatorState(element, bottomSeparatorVisible);
+            this.setBottomSeparatorState(previousElement, true);
         } else {
-            if (previousElement instanceof ListOptionGroup) {
-                previousElement.bottomSeparatorVisible = nextElement !== null;
-            }
+            const nextTopSeparatorVisible = isNimbleListOption(previousElement);
+            this.setTopSeparatorState(nextElement, nextTopSeparatorVisible);
+            const previousBottomSeparatorVisible = nextElement !== null;
+            this.setBottomSeparatorState(
+                previousElement,
+                previousBottomSeparatorVisible
+            );
+        }
+    }
 
-            if (nextElement instanceof ListOptionGroup) {
-                nextElement.topSeparatorVisible = previousElement instanceof ListOption;
-            }
+    private setTopSeparatorState(
+        element: ListOptionGroup | ListOption | null,
+        visible: boolean
+    ): void {
+        if (isListOptionGroup(element)) {
+            element.topSeparatorVisible = visible;
+        }
+    }
+
+    private setBottomSeparatorState(
+        element: ListOptionGroup | ListOption | null,
+        visible: boolean
+    ): void {
+        if (isListOptionGroup(element)) {
+            element.bottomSeparatorVisible = visible;
         }
     }
 
@@ -1105,9 +1121,9 @@ export class Select
 
         const filteredOptions: ListOption[] = [];
         for (const element of this.slottedOptions) {
-            if (element instanceof ListOptionGroup) {
+            if (isListOptionGroup(element)) {
                 if (element.hidden) {
-                    break; // no need to process hidden groups
+                    continue; // no need to process hidden groups
                 }
                 const groupOptions = this.getGroupOptions(element);
                 const groupMatchesFilter = this.filterMatchesText(
@@ -1134,7 +1150,7 @@ export class Select
 
     private getGroupOptions(group: ListOptionGroup): ListOption[] {
         return Array.from(group.children)
-            .filter(el => el instanceof ListOption)
+            .filter(el => isNimbleListOption(el))
             .map(el => {
                 if (group.hidden && isNimbleListOption(el)) {
                     el.visuallyHidden = true;
