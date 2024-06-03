@@ -964,6 +964,7 @@ implements Subscriber {
         if (rowElements.selectionCheckbox) {
             this.focusType = TableFocusType.rowSelectionCheckbox;
             this.updateNavigationMode();
+            this.focusCurrentRow(true);
             return true;
         }
         return false;
