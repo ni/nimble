@@ -15,6 +15,7 @@ import iconOnlyTextHeader from './images/icon-only-text-header.png';
 import iconOnlyPlusTextOnlyTextHeader from './images/icon-only-plus-text-only-text-header.png';
 import iconTextTextHeader from './images/icon-text-text-header.png';
 import textOnlyTextHeader from './images/text-only-text-header.png';
+import { NimbleSpinner } from '../../spinner/spinner.react';
 
 <Meta of={tableColumnMappingStories} />
 <Title of={tableColumnMappingStories} />
@@ -65,16 +66,23 @@ string values as an icon, a spinner, text, or an icon/spinner with text in the
         for that value's group row.
 -   Avoid having multiple values that map to the same text because grouping and
     sorting is done on the record value rather than the mapped text.
+-   Don't mix and match icon-only, and icon and text mappings in the same
+    column. Choose whether to enable the `text-hidden` attribute or not, and
+    stick with it.
+    -   Exception: You can use a spinner-only mapping in the same column as an
+        icon-only or icon and text mapping.
 
 #### Choosing a mapping style
 
 | Best practice                                                                                                                                                                                  | Example                                      |
 | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------- |
-| **Icon and text, with a text header** <br/> Default configuration where icons exist for the mapping set                                                                                        | <img src={iconTextTextHeader} />             |
+| **Icon and text, with a text header** <br/> Preferred configuration where icons exist for the mapping set                                                                                      | <img src={iconTextTextHeader} />             |
 | **Icon-only, with an icon header** <br/> Use only when table width is at a premium and all the icons in the set have a clear and unambiguous meaning                                           | <img src={iconOnlyIconHeader} />             |
 | **Icon-only, with a text header** <br/> Use when header text provides enough context for all the icons in the set to have a clear and unambiguous meaning                                      | <img src={iconOnlyTextHeader} />             |
 | **Text-only, with a text header** <br/> Use when there isn't an icon for each mapping value                                                                                                    | <img src={textOnlyTextHeader} />             |
 | **Icon-only column beside a text-only column** <br/> Use to be compatible with existing columns, or when the end-user is likely to remove the text-only column in a custom table configuration | <img src={iconOnlyPlusTextOnlyTextHeader} /> |
+| **Spinner** <br/> Use with any other mapping style to indicate indeterminate progress, but don't use to indicate a process is 'running' or 'waiting'                                           | <NimbleSpinner/>                             |
+| **Empty** <br/> Use with any other mapping style to indicate an empty value                                                                                                                    |                                              |
 
 ### Blazor usage
 
