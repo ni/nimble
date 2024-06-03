@@ -1066,8 +1066,8 @@ export class Select
         let previousElement = element.previousElementSibling;
         while (previousElement) {
             if (
-                (previousElement instanceof ListOption
-                    || previousElement instanceof ListOptionGroup)
+                (isNimbleListOption(previousElement)
+                    || isListOptionGroup(previousElement))
                 && isOptionOrGroupVisible(previousElement)
             ) {
                 return previousElement;
@@ -1083,8 +1083,8 @@ export class Select
         let nextElement = element.nextElementSibling;
         while (nextElement) {
             if (
-                (nextElement instanceof ListOption
-                    || nextElement instanceof ListOptionGroup)
+                (isNimbleListOption(nextElement)
+                    || isListOptionGroup(nextElement))
                 && isOptionOrGroupVisible(nextElement)
             ) {
                 return nextElement;
