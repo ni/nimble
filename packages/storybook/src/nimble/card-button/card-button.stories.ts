@@ -72,7 +72,7 @@ const metadata: Meta<CardButtonArgs> = {
         },
         click: {
             description:
-                'Fires when the card button is activated by either keyboard or mouse.',
+                'Event emitted when the card button is activated by either keyboard or mouse.',
             table: { category: apiCategory.events },
             control: false
         }

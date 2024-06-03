@@ -1,8 +1,24 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Wed, 22 May 2024 18:32:15 GMT and should not be manually modified.
+This log was last generated on Fri, 31 May 2024 15:22:31 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 29.1.7
+
+Fri, 31 May 2024 15:22:31 GMT
+
+### Patches
+
+- Remove listbox component as it is unused. ([ni/nimble@ad47a41](https://github.com/ni/nimble/commit/ad47a4137ef0a1a49b82b99fdbfdf4feb510d5fe))
+
+## 29.1.6
+
+Tue, 28 May 2024 20:13:14 GMT
+
+### Patches
+
+- Update banner styling to align with visual design spec ([ni/nimble@2855db4](https://github.com/ni/nimble/commit/2855db4fe58a8d1df112ea656215696d9582f9ea))
 
 ## 29.1.5
 
