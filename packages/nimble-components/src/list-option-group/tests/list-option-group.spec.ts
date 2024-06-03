@@ -4,7 +4,7 @@ import { ListOptionGroup, listOptionGroupTag } from '..';
 import { fixture, type Fixture } from '../../utilities/tests/fixture';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 
-describe('ListboxOptionGroup', () => {
+describe('ListOptionGroup', () => {
     async function setup(): Promise<Fixture<ListOptionGroup>> {
         return fixture<ListOptionGroup>(
             html`<nimble-list-option-group style="width: 200px" label="Group 1">
