@@ -12,7 +12,15 @@ import {
     addLabelUseMetadata,
     type LabelUserArgs
 } from '../label-provider/base/label-user-stories-utils';
-import { apiCategory, appearanceDescription, createUserSelectedThemeStory, disabledDescription, errorTextDescription, errorVisibleDescription, slottedLabelDescription } from '../../utilities/storybook';
+import {
+    apiCategory,
+    appearanceDescription,
+    createUserSelectedThemeStory,
+    disabledDescription,
+    errorTextDescription,
+    errorVisibleDescription,
+    slottedLabelDescription
+} from '../../utilities/storybook';
 
 interface NumberFieldArgs extends LabelUserArgs {
     label: string;
@@ -60,13 +68,16 @@ const metadata: Meta<NumberFieldArgs> = {
             table: { category: apiCategory.slots }
         },
         value: {
-            description: 'The number displayed in the number field. Note that the property value is not synced to an attribute.',
+            description:
+                'The number displayed in the number field. Note that the property value is not synced to an attribute.',
             table: { category: apiCategory.nonAttributeProperties }
         },
         appearance: {
             options: Object.values(NumberFieldAppearance),
             control: { type: 'radio' },
-            description: appearanceDescription({ componentName: 'number field' }),
+            description: appearanceDescription({
+                componentName: 'number field'
+            }),
             table: { category: apiCategory.attributes }
         },
         disabled: {
@@ -103,12 +114,14 @@ const metadata: Meta<NumberFieldArgs> = {
             table: { category: apiCategory.attributes }
         },
         change: {
-            description: 'Event emitted when the user commits a new value to the number field.',
+            description:
+                'Event emitted when the user commits a new value to the number field.',
             table: { category: apiCategory.events },
             control: false
         },
         input: {
-            description: 'Event emitted on each user keystroke within the number field.',
+            description:
+                'Event emitted on each user keystroke within the number field.',
             table: { category: apiCategory.events },
             control: false
         }

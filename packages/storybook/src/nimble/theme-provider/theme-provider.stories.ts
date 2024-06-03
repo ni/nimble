@@ -2,14 +2,20 @@ import { html, ref } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
 import { tableTag } from '../../../../nimble-components/src/table';
 import { tableColumnDateTextTag } from '../../../../nimble-components/src/table-column/date-text';
-import { Direction, themeProviderTag } from '../../../../nimble-components/src/theme-provider';
+import {
+    Direction,
+    themeProviderTag
+} from '../../../../nimble-components/src/theme-provider';
 import { Theme } from '../../../../nimble-components/src/theme-provider/types';
 import {
     sharedTableArgTypes,
     type SharedTableArgs,
     sharedTableArgs
 } from '../table-column/base/table-column-stories-utils';
-import { apiCategory, createUserSelectedThemeStory } from '../../utilities/storybook';
+import {
+    apiCategory,
+    createUserSelectedThemeStory
+} from '../../utilities/storybook';
 
 const simpleData = [
     {

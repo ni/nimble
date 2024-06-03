@@ -5,11 +5,11 @@ import { iconPencilTag } from '../../../../nimble-components/src/icons/pencil';
 import { iconTagTag } from '../../../../nimble-components/src/icons/tag';
 import { iconXmarkTag } from '../../../../nimble-components/src/icons/xmark';
 import { textFieldTag } from '../../../../nimble-components/src/text-field';
-import { TextFieldAppearance, TextFieldType } from '../../../../nimble-components/src/text-field/types';
 import {
-    createStory,
-    createFixedThemeStory
-} from '../../utilities/storybook';
+    TextFieldAppearance,
+    TextFieldType
+} from '../../../../nimble-components/src/text-field/types';
+import { createStory, createFixedThemeStory } from '../../utilities/storybook';
 import {
     createMatrixThemeStory,
     createMatrix,

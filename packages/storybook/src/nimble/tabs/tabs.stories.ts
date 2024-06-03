@@ -6,7 +6,11 @@ import { tabTag } from '../../../../nimble-components/src/tab';
 import { tabPanelTag } from '../../../../nimble-components/src/tab-panel';
 import { tabsToolbarTag } from '../../../../nimble-components/src/tabs-toolbar';
 import { tabsTag } from '../../../../nimble-components/src/tabs';
-import { apiCategory, createUserSelectedThemeStory, disabledDescription } from '../../utilities/storybook';
+import {
+    apiCategory,
+    createUserSelectedThemeStory,
+    disabledDescription
+} from '../../utilities/storybook';
 
 interface TabsArgs {
     activeid: string;
@@ -35,7 +39,7 @@ const metadata: Meta<TabsArgs> = {
         actions: {
             handles: ['change']
         }
-    },
+    }
 };
 
 export default metadata;
@@ -61,7 +65,8 @@ export const tabs: StoryObj<TabsArgs> = {
         },
         content: {
             name: 'default',
-            description: 'Add tabs, tab panels, or a toolbar by slotting them as child content in the default slot.',
+            description:
+                'Add tabs, tab panels, or a toolbar by slotting them as child content in the default slot.',
             control: false,
             table: { category: apiCategory.slots }
         },
@@ -72,7 +77,7 @@ export const tabs: StoryObj<TabsArgs> = {
         }
     },
     args: {
-        activeid: '1',
+        activeid: '1'
     }
 };
 
@@ -98,7 +103,8 @@ export const tab: StoryObj<TabArgs> = {
         },
         title: {
             name: 'default',
-            description: 'Set the name of each tab by providing text content in its default slot.',
+            description:
+                'Set the name of each tab by providing text content in its default slot.',
             table: { category: apiCategory.slots }
         }
     },
@@ -120,7 +126,8 @@ export const tabPanel: StoryObj<TabPanelArgs> = {
     `),
     argTypes: {
         content: {
-            description: 'Populate the content of each tab panel by slotting arbitrary HTML into its default slot.',
+            description:
+                'Populate the content of each tab panel by slotting arbitrary HTML into its default slot.',
             table: { category: apiCategory.slots }
         }
     },
@@ -148,6 +155,6 @@ export const tabToolbar: StoryObj<ToolbarArgs> = {
         }
     },
     args: {
-        toolbar: true,
+        toolbar: true
     }
 };

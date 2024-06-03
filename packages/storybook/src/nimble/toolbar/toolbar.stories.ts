@@ -7,7 +7,10 @@ import { iconFilterTag } from '../../../../nimble-components/src/icons/filter';
 import { iconPencilTag } from '../../../../nimble-components/src/icons/pencil';
 import { iconTrashTag } from '../../../../nimble-components/src/icons/trash';
 import { toolbarTag } from '../../../../nimble-components/src/toolbar';
-import { apiCategory, createUserSelectedThemeStory } from '../../utilities/storybook';
+import {
+    apiCategory,
+    createUserSelectedThemeStory
+} from '../../utilities/storybook';
 
 interface ToolbarArgs {
     start: undefined;
@@ -45,15 +48,17 @@ const metadata: Meta<ToolbarArgs> = {
     `),
     argTypes: {
         start: {
-            description: 'Content which will be positioned at the start of the toolbar.',
+            description:
+                'Content which will be positioned at the start of the toolbar.',
             control: false,
             table: { category: apiCategory.slots }
         },
         end: {
-            description: 'Content which will be positioned at the end of the toolbar.',
+            description:
+                'Content which will be positioned at the end of the toolbar.',
             control: false,
             table: { category: apiCategory.slots }
-        },
+        }
     }
 };
 
