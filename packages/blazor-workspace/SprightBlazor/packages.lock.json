@@ -4,14 +4,14 @@
     "net6.0": {
       "Microsoft.AspNetCore.Components.Web": {
         "type": "Direct",
-        "requested": "[6.0.29, )",
-        "resolved": "6.0.29",
-        "contentHash": "NjOkG9RIETtEK/oQetPsXEPfONvc8yM8bW/JPWrO7bhX36Klq3U7eodQXfCe2hLhz3R16hopQ7AzfsQal6Fnlw==",
+        "requested": "[6.0.31, )",
+        "resolved": "6.0.31",
+        "contentHash": "D8KqECSA7oFTCc1pL1quU1Tjt/HuHhB/jK+t5Nluax+FSU3XBsb5V1FwZoGnJklsCi1jSqBgopbs2MGt2NIJAQ==",
         "dependencies": {
-          "Microsoft.AspNetCore.Components": "6.0.29",
-          "Microsoft.AspNetCore.Components.Forms": "6.0.29",
+          "Microsoft.AspNetCore.Components": "6.0.31",
+          "Microsoft.AspNetCore.Components.Forms": "6.0.31",
           "Microsoft.Extensions.DependencyInjection": "6.0.1",
-          "Microsoft.JSInterop": "6.0.29",
+          "Microsoft.JSInterop": "6.0.31",
           "System.IO.Pipelines": "6.0.3"
         }
       },
@@ -31,40 +31,40 @@
       },
       "Microsoft.AspNetCore.Authorization": {
         "type": "Transitive",
-        "resolved": "6.0.29",
-        "contentHash": "1GbePh5YLbjNJjluHPiD2Nc3Y6TSPxWIa6zDxq4vsHrFESspXwRlMD73pd/9LYwQra9+4BgWz3qUFYiBHbBKKQ==",
+        "resolved": "6.0.31",
+        "contentHash": "IuIc4MjVzrnw+qTeONaA+fP4W/c40+8mjhEn9irURwhghdMpwFWLgbg0H9fraz++rQe07KVPE+9PzYcAKATtmw==",
         "dependencies": {
-          "Microsoft.AspNetCore.Metadata": "6.0.29",
+          "Microsoft.AspNetCore.Metadata": "6.0.31",
           "Microsoft.Extensions.Logging.Abstractions": "6.0.4",
           "Microsoft.Extensions.Options": "6.0.0"
         }
       },
       "Microsoft.AspNetCore.Components": {
         "type": "Transitive",
-        "resolved": "6.0.29",
-        "contentHash": "gKxEKtF2Yo0BxOALqb/C9fKAMWid69bv1wB3Gfq+ZJ+738rEg745aTgH8cYZVE+quEu+srZWJQV9HiLsgu45xA==",
+        "resolved": "6.0.31",
+        "contentHash": "V22PkvRL6hD1MW2phIK0246B5JzQool2ZjLff7BZqDF/kW4N4vA6Ubeh3OmF67962x6d+pXc5CViYNiwspyDvQ==",
         "dependencies": {
-          "Microsoft.AspNetCore.Authorization": "6.0.29",
-          "Microsoft.AspNetCore.Components.Analyzers": "6.0.29"
+          "Microsoft.AspNetCore.Authorization": "6.0.31",
+          "Microsoft.AspNetCore.Components.Analyzers": "6.0.31"
         }
       },
       "Microsoft.AspNetCore.Components.Analyzers": {
         "type": "Transitive",
-        "resolved": "6.0.29",
-        "contentHash": "XxaP69TMJojgBNfp0HkQXr1i2ulhxb1Snf8w1Cp2dSFMD0J+77308hNH5QD8HLkasKwTjd/ECTwKyVTO8y9ngg=="
+        "resolved": "6.0.31",
+        "contentHash": "MqU/mJCTX07fVTJeGK+Y8ovpSZNr2OPr2IocO+NvVhN4JXB3m2leI37agEhiOoa9+bOK0gDYfXNHSBkiljFsGQ=="
       },
       "Microsoft.AspNetCore.Components.Forms": {
         "type": "Transitive",
-        "resolved": "6.0.29",
-        "contentHash": "HU+wgWqDybHYVo0d0xmj0HnsyQXUjlm5wSDjWy83XD1SxQ6bkHP51uhFOLOA8rEzCon9T5MdbTENwLQAR+j6NQ==",
+        "resolved": "6.0.31",
+        "contentHash": "zUly+qivplyhj3n1shg982I4FE8Rv0j6PdsQAXW2LBVaUckhQ69aykHFAyGY3muadsfeAqNb9uy9lzrugvcPwQ==",
         "dependencies": {
-          "Microsoft.AspNetCore.Components": "6.0.29"
+          "Microsoft.AspNetCore.Components": "6.0.31"
         }
       },
       "Microsoft.AspNetCore.Metadata": {
         "type": "Transitive",
-        "resolved": "6.0.29",
-        "contentHash": "NKIduYKzggjJPh00AjhTEJ9MWRUf3y67zwRVy08mB/QtctwcYS1i5Nx3u7UurcudH1J0l904IY8SXnJJ/PMszQ=="
+        "resolved": "6.0.31",
+        "contentHash": "r71keLBN33K/U2tqBFMSO4M2O+1gz++bYUTIoRqqDBay8tVaL0gfuN53kbjM93Nxfflmg85gU+Uv/02E/S3Tdw=="
       },
       "Microsoft.CodeAnalysis.Analyzers": {
         "type": "Transitive",
@@ -136,8 +136,8 @@
       },
       "Microsoft.JSInterop": {
         "type": "Transitive",
-        "resolved": "6.0.29",
-        "contentHash": "SOGezowQCY3bxL4lMFk18EbC1OlZ8ea8XJ2e+/eCKapLrarI47XqoGN9WVfAeB0QiT+dynOhAxrMWpTi2fpZPg=="
+        "resolved": "6.0.31",
+        "contentHash": "jEiGGfbFUiAngRz5pzhal40dPNhhU1vHJm63UiqUFmHHyCd8IXx+HJhT3v2jyp6OYD7mtVRvIx9pUR6oiSOFqw=="
       },
       "Microsoft.VisualStudio.Threading.Analyzers": {
         "type": "Transitive",

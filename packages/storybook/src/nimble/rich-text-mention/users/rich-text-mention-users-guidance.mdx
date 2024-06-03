@@ -1,0 +1,34 @@
+### Guidance for filtering users
+
+Initially, the client application need not provide any user mapping elements within the children of `nimble-rich-text-mention-users`. It can be empty. 
+However, if the editor loads with an initial markdown string that contains user mentions, then the client should load those user mapping elements. 
+This is to map the user IDs in the markdown string converted to a readable user name in the editor. Therefore, it is advisable to keep two lists, 
+`filteredOptions` for dynamic filtering of users to populate in the @mention popup and `mentionedUsers` for storing the already mentioned users which 
+should be loaded initially by the client to represent the user names that are stored in markdown. Later, the `mentionedUsers` will be filtered internally 
+within the Nimble editor or by the client to show the names in the popup whenever texts added after @ in the editor.
+
+The `nimble-rich-text-mention-users` component will emit an event whenever the @ character is entered into the editor. The client can listen to the 
+`mention-update` event and provide the other initial user lists that are not mentioned already.
+
+It is recommended to sort the usernames in alphabetical order and send at most 20 users list at a time to reduce the number of elements in the DOM 
+for a single page. This dynamic loading of the user's list will help when there are a lot of @mention instances on a single page. If the users list is 
+very large, it may cause the page to load slower as the mapping mention element is overflowed in the DOM when there are multiple editors in a single
+page or a large number of users in the client organization.
+
+The `mention-update` event will also be triggered when the user types any character after @, containing that text along with the @ character in the 
+event data. For example, if a user types @ and then adds `a` the event will be emitted with data that includes the value @a. The client can listen 
+to this event, filter the list of users that includes the names containing the letter `a`, and then dynamically update the `nimble-mapping-mention-user` 
+element based on the filter data. Subsequently, a maximum of 20 filtered options should be transmitted to the editor.
+
+The `mention-update` event will also be triggered when a user copies a mention node from the viewer/editor and pasting it in the editor. Clients should 
+read the `getMentionedHrefs()` method to identify the user URL(s) that are being pasted into the editor so that the mapping elements can be sent as a children. 
+This is necessary because the corresponding name for the newly added user URL(s) is required to render as username(s) in the components so the client
+should send the mapping elements for all mentioned users.
+
+The above event triggers for every key down event like adding/removing texts and moving the text cursor after the @ character. Updating users is quite an 
+expensive operation to perform for every keystroke so it is advisable to debounce the events if you're using network requests to perform the filtering 
+operations. For example, allow at most one request per second to filter the list for each second instead of for each keystrokes.
+
+Note: The editor will also perform the same filtering once again to ensure the filtered options are proper and update the dropdown list in the UI. 
+This helps to filter the list, regardless of whether the client is loading the list dynamically by listening to the event as mentioned above or statically 
+providing user details at the start via `nimble-mapping-mention`.
