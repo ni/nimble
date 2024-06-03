@@ -35,6 +35,8 @@ export interface RenderConfig {
     verticalConstant: number;
     labelsFontSize: number;
     colorScale: ColorScale;
+    dieLabelsSuffix: string;
+    maxCharacters: number;
 }
 
 export interface TransformConfig {

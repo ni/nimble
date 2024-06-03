@@ -36,7 +36,9 @@ export class MatrixRenderer {
         horizontalConstant: 0,
         verticalConstant: 0,
         labelsFontSize: 0,
-        colorScale: []
+        colorScale: [],
+        dieLabelsSuffix: '',
+        maxCharacters: 0
     };
 
     private transformConfig: TransformConfig = {
@@ -214,6 +216,60 @@ export class MatrixRenderer {
                     scaledY,
                     this.renderConfig.dieDimensions.width,
                     this.renderConfig.dieDimensions.height
+                );
+            }
+        }
+    }
+
+    public drawText(): void {
+        this.context.font = `${this.renderConfig.labelsFontSize.toString()}px sans-serif`;
+        this.context.fillStyle = '#ffffff';
+        this.context.textAlign = 'center';
+        this.context.lineCap = 'butt';
+        const approximateTextHeight = this.context.measureText('M');
+
+        for (let i = 0; i < this.scaledColumnIndices.length; i++) {
+            const scaledX = this.scaledColumnIndices[i]!;
+            if (
+                !(
+                    scaledX >= this.transformConfig.topLeftCanvasCorner.x
+                    && scaledX < this.transformConfig.bottomRightCanvasCorner.x
+                )
+            ) {
+                continue;
+            }
+
+            // columnIndexPositions is used to get chunks to determine the start and end index of the column, it looks something like [0, 1, 4, 9, 12]
+            // This means that the first column has a start index of 0 and an end index of 1, the second column has a start index of 1 and an end index of 4, and so on
+            // scaledRowIndices is used when we reach the end of the columnIndexPositions, when columnIndexPositions is [0, 1, 4, 9, 12], scaledRowIndices is 13
+            const columnEndIndex = this.columnIndicesPositions[i + 1] !== undefined
+                ? this.columnIndicesPositions[i + 1]!
+                : this.scaledRowIndices.length;
+            for (
+                let columnStartIndex = this.columnIndicesPositions[i]!;
+                columnStartIndex < columnEndIndex;
+                columnStartIndex++
+            ) {
+                const scaledY = this.scaledRowIndices[columnStartIndex]!;
+                if (
+                    !(
+                        scaledY >= this.transformConfig.topLeftCanvasCorner.y
+                        && scaledY < this.transformConfig.bottomRightCanvasCorner.y
+                    )
+                ) {
+                    continue;
+                }
+                let label = `${this.values[columnStartIndex]}${this.renderConfig.dieLabelsSuffix}`;
+                if (label.length >= this.renderConfig.maxCharacters) {
+                    label = `${label.substring(0, this.renderConfig.maxCharacters)}…`;
+                }
+                this.context.fillText(
+                    label,
+                    scaledX + this.renderConfig.dieDimensions.width / 2,
+                    scaledY
+                        + this.renderConfig.dieDimensions.height / 2
+                        + approximateTextHeight.width / 2,
+                    this.renderConfig.dieDimensions.width * this.fontSizeFactor
                 );
             }
         }

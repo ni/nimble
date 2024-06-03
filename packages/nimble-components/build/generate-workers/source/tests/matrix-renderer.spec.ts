@@ -32,7 +32,9 @@ describe('MatrixRenderer with MessageChannel needing canvas context', () => {
             horizontalConstant: 0,
             verticalConstant: 0,
             labelsFontSize: 0,
-            colorScale: []
+            colorScale: [],
+            dieLabelsSuffix: '',
+            maxCharacters: 0
         });
         await matrixRenderer.setTransformConfig({
             transform: {

@@ -294,6 +294,7 @@ export class WaferMap<
         renderConfig: RenderConfig,
         dieDimensions: Dimensions,
         transform: ZoomTransform,
+        dieLabelsHidden: boolean,
         columnIndices: Int32Array,
         rowIndices: Int32Array,
         values: Float64Array
@@ -310,16 +311,20 @@ export class WaferMap<
             horizontalConstant: this.computations.horizontalConstant,
             verticalConstant: this.computations.verticalConstant,
             labelsFontSize: this.computations.labelsFontSize,
-            colorScale: this.computations.colorScale
+            colorScale: this.computations.colorScale,
+            dieLabelsSuffix: this.dieLabelsSuffix,
+            maxCharacters: this.maxCharacters
         };
         const dieDimensions = this.computations.dieDimensions;
         const transform = this.transform;
+        const dieLabelsHidden = this.dieLabelsHidden;
         if (this.diesTable === undefined) {
             return {
                 canvasDimensions,
                 renderConfig,
                 dieDimensions,
                 transform,
+                dieLabelsHidden,
                 columnIndices: Int32Array.from([]),
                 rowIndices: Int32Array.from([]),
                 values: Float64Array.from([])
@@ -335,7 +340,8 @@ export class WaferMap<
             rowIndices,
             values,
             dieDimensions,
-            transform
+            transform,
+            dieLabelsHidden
         };
     }
 

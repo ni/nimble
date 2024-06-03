@@ -11,6 +11,7 @@ import type { Dimensions, RenderConfig } from '../workers/types';
  */
 export class WorkerRenderer {
     private matrixRenderer!: Remote<MatrixRenderer>;
+    private readonly minDieDim = 100;
 
     public constructor(private readonly wafermap: WaferMap) {}
 
@@ -41,7 +42,8 @@ export class WorkerRenderer {
     public async drawWafer(snapshot: {
         canvasDimensions: Dimensions,
         dieDimensions: Dimensions,
-        transform: ZoomTransform
+        transform: ZoomTransform,
+        dieLabelsHidden: boolean
     }): Promise<void> {
         const topLeftCanvasCorner = snapshot.transform.invert([0, 0]);
         const bottomRightCanvasCorner = snapshot.transform.invert([
@@ -60,6 +62,16 @@ export class WorkerRenderer {
             }
         });
         await this.matrixRenderer.drawWafer();
+        if (
+            !snapshot.dieLabelsHidden
+            && snapshot.dieDimensions
+            && snapshot.dieDimensions.width
+                * snapshot.dieDimensions.height
+                * (snapshot.transform.k || 1)
+                >= this.minDieDim
+        ) {
+            await this.matrixRenderer.drawText();
+        }
     }
 
     public renderHover(): void {
