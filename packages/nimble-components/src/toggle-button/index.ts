@@ -1,4 +1,4 @@
-import { attr } from '@microsoft/fast-element';
+import { attr, nullableNumberConverter } from '@microsoft/fast-element';
 import {
     applyMixins,
     ButtonOptions,
@@ -46,8 +46,24 @@ export class ToggleButton extends FoundationSwitch implements ButtonPattern {
     @attr({ attribute: 'content-hidden', mode: 'boolean' })
     public contentHidden = false;
 
+    /**
+     * @public
+     * @remarks
+     * HTML Attribute: tabindex
+     */
+    @attr({ attribute: 'tabindex', converter: nullableNumberConverter })
+    public override tabIndex!: number;
+
     /** @internal */
     public readonly control!: HTMLElement;
+
+    /**
+     * @internal
+     */
+    public get resolvedTabindex(): string | undefined {
+        const tabIndex = this.tabIndex ?? 0;
+        return this.disabled ? undefined : `${tabIndex}`;
+    }
 }
 applyMixins(ToggleButton, StartEnd, DelegatesARIAButton);
 export interface ToggleButton extends StartEnd, DelegatesARIAButton {}

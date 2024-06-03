@@ -6,10 +6,11 @@ import {
     borderColor,
     bodyFont,
     bodyFontColor
-} from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
-import { tooltipTag } from '@ni/nimble-components/dist/esm/tooltip';
-import { TooltipSeverity } from '@ni/nimble-components/dist/esm/tooltip/types';
+} from '../../../../nimble-components/src/theme-provider/design-tokens';
+import { tooltipTag } from '../../../../nimble-components/src/tooltip';
+import { TooltipSeverity } from '../../../../nimble-components/src/tooltip/types';
 import {
+    apiCategory,
     createUserSelectedThemeStory,
     incubatingWarning
 } from '../../utilities/storybook';
@@ -21,7 +22,6 @@ interface TooltipArgs {
     visible: boolean;
     severity: keyof typeof TooltipSeverity;
     delay: number;
-    value: string;
     autoUpdateMode: AutoUpdateMode;
     iconVisible: boolean;
     anchorRef: HTMLElementWithUniqueID;
@@ -29,7 +29,7 @@ interface TooltipArgs {
     content: 'simple' | 'complex';
 }
 
-const simpleContent = html<TooltipArgs>`${x => x.value}`;
+const simpleContent = html<TooltipArgs>`Tooltip label`;
 const complexContent = html<TooltipArgs>`
     <style class="code-hide">
         #complex-anchor {
@@ -133,7 +133,6 @@ const metadata: Meta<TooltipArgs> = {
         visible: false,
         severity: 'default',
         iconVisible: false,
-        value: 'Tooltip label',
         delay: 300,
         autoUpdateMode: 'anchor',
         anchorRef: undefined,
@@ -148,25 +147,42 @@ const metadata: Meta<TooltipArgs> = {
         content: 'simple'
     },
     argTypes: {
+        visible: {
+            description: 'Whether the tooltip is visible by default.',
+            table: { category: apiCategory.attributes }
+        },
         autoUpdateMode: {
+            name: 'auto-update-mode',
             options: ['anchor', 'auto'],
             control: { type: 'radio' },
             description:
-                'Controls when the tooltip updates its position. The default is `anchor`, which only updates when the anchor is resized. `auto` will update on scroll/resize events.'
+                'Controls when the tooltip updates its position. The default is `anchor`, which only updates when the anchor is resized. `auto` will update on scroll/resize events.',
+            table: { category: apiCategory.attributes },
+        },
+        iconVisible: {
+            name: 'icon-visible',
+            description: 'Whether to show an icon in the tooltip. The icon is determined by the severity of the tooltip.',
+            table: { category: apiCategory.attributes },
         },
         delay: {
             description:
-                'The delay in milliseconds before a tooltip is shown after a hover event'
+                'The delay in milliseconds before a tooltip is shown after a hover event',
+            table: { category: apiCategory.attributes },
         },
         severity: {
             options: Object.keys(TooltipSeverity),
-            control: { type: 'radio' }
+            control: { type: 'radio' },
+            description: 'The severity of the message presented by the tooltip.',
+            table: { category: apiCategory.attributes },
         },
         content: {
+            name: 'default',
             options: ['simple', 'complex'],
             control: {
                 type: 'radio'
-            }
+            },
+            description: 'The content to display in the tooltip.',
+            table: { category: apiCategory.slots },
         },
         anchorRef: {
             table: {

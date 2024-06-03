@@ -508,7 +508,7 @@ export const [
         element,
         DigitalGreenLight,
         DigitalGreenLight,
-        hexToRgbaCssColor(White, 0.6)
+        hexToRgbaCssColor(White, 0.75)
     ),
     (element: HTMLElement) => hexToRgbaCssColor(getDefaultFontColorForTheme(element), 0.3),
     LinkLightUiFamily,
@@ -527,7 +527,7 @@ export const [
     linkProminentFontLineHeight
 ] = createFontTokens(
     tokenNames.linkProminentFont,
-    (element: HTMLElement) => getColorForTheme(element, DigitalGreenDark105, PowerGreen, PowerGreen),
+    (element: HTMLElement) => getColorForTheme(element, DigitalGreenDark105, PowerGreen, White),
     (element: HTMLElement) => hexToRgbaCssColor(getDefaultFontColorForTheme(element), 0.3),
     LinkLightUiFamily,
     LinkLightUiWeight,
@@ -549,7 +549,7 @@ export const [
         element,
         DigitalGreenLight,
         DigitalGreenLight,
-        hexToRgbaCssColor(White, 0.6)
+        hexToRgbaCssColor(White, 0.75)
     ),
     (element: HTMLElement) => hexToRgbaCssColor(getDefaultFontColorForTheme(element), 0.3),
     LinkLightUiFamily,

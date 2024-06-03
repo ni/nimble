@@ -1,18 +1,19 @@
 import type { Meta, StoryObj } from '@storybook/html';
 import { html, ref, repeat } from '@microsoft/fast-element';
 import { DesignSystem } from '@microsoft/fast-foundation';
-import * as nimbleIconComponentsMap from '@ni/nimble-components/dist/esm/icons/all-icons';
+import * as nimbleIconComponentsMap from '../../../../nimble-components/src/icons/all-icons';
 import {
     tokenNames,
     scssInternalPropertySetterMarkdown
-} from '@ni/nimble-components/dist/esm/theme-provider/design-token-names';
-import { Table, tableTag } from '@ni/nimble-components/dist/esm/table';
-import { tableColumnMappingTag } from '@ni/nimble-components/dist/esm/table-column/mapping';
-import { mappingIconTag } from '@ni/nimble-components/dist/esm/mapping/icon';
-import { tableColumnTextTag } from '@ni/nimble-components/dist/esm/table-column/text';
-import { IconSeverity } from '@ni/nimble-components/dist/esm/icon-base/types';
-import { iconMetadata } from '@ni/nimble-components/dist/esm/icon-base/tests/icon-metadata';
+} from '../../../../nimble-components/src/theme-provider/design-token-names';
+import { Table, tableTag } from '../../../../nimble-components/src/table';
+import { tableColumnMappingTag } from '../../../../nimble-components/src/table-column/mapping';
+import { mappingIconTag } from '../../../../nimble-components/src/mapping/icon';
+import { tableColumnTextTag } from '../../../../nimble-components/src/table-column/text';
+import { IconSeverity } from '../../../../nimble-components/src/icon-base/types';
+import { iconMetadata } from '../../../../nimble-components/src/icon-base/tests/icon-metadata';
 import {
+    apiCategory,
     createUserSelectedThemeStory,
     fastParameters,
     overrideWarning
@@ -71,7 +72,8 @@ export const icons: StoryObj<IconArgs> = {
         severity: {
             options: Object.keys(IconSeverity),
             control: { type: 'radio' },
-            description: severityDescription
+            description: severityDescription,
+            table: { category: apiCategory.attributes }
         },
         tableRef: {
             table: {

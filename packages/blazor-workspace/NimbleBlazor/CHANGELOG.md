@@ -1,8 +1,24 @@
 # Change Log - @ni/nimble-blazor
 
-This log was last generated on Fri, 10 May 2024 23:16:09 GMT and should not be manually modified.
+This log was last generated on Sat, 01 Jun 2024 21:18:00 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 17.3.1
+
+Sat, 01 Jun 2024 21:18:00 GMT
+
+### Patches
+
+- Update nuget dependencies ([ni/nimble@995204e](https://github.com/ni/nimble/commit/995204e955b75f06616df7020461ee6cba5ebe83))
+
+## 17.3.0
+
+Tue, 21 May 2024 15:50:01 GMT
+
+### Minor changes
+
+- Adding Clearable API for Select ([ni/nimble@89e3bc8](https://github.com/ni/nimble/commit/89e3bc88811ac6a6c92c8cacc61031b65a5b901c))
 
 ## 17.2.0
 

@@ -1,5 +1,6 @@
 import { Controls, Canvas, Meta, Title } from '@storybook/blocks';
 import TargetDocs from '../patterns/anchor/target-docs.mdx';
+import ComponentApisLink from '../../docs/component-apis-link.mdx';
 import * as anchorStories from './anchor.stories';
 
 <Meta of={anchorStories} />
@@ -8,11 +9,18 @@ import * as anchorStories from './anchor.stories';
 Per [W3C](https://www.w3.org/WAI/ARIA/apg/patterns/link/), an anchor/link widget provides an interactive reference to a resource. The target resource can be either external or local, i.e., either outside or within the current page or application.
 
 <Canvas of={anchorStories.anchor} />
+
+## API
+
 <Controls of={anchorStories.anchor} />
 
-{/* ## Appearances */}
+<ComponentApisLink />
 
-{/* ## Appearance Variants */}
+### Target Configuration
+
+<TargetDocs />
+
+{/* ## Styling */}
 
 {/* ## Usage */}
 
@@ -21,7 +29,3 @@ Per [W3C](https://www.w3.org/WAI/ARIA/apg/patterns/link/), an anchor/link widget
 {/* ## Accessibility */}
 
 {/* ## Resources */}
-
-## Target Configuration
-
-<TargetDocs />

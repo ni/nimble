@@ -3,17 +3,17 @@ import type { Meta, StoryObj } from '@storybook/html';
 import {
     spinnerLargeHeight,
     spinnerMediumHeight
-} from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
+} from '../../../../nimble-components/src/theme-provider/design-tokens';
 import {
     scssPropertyFromTokenName,
     scssPropertySetterMarkdown,
     tokenNames
-} from '@ni/nimble-components/dist/esm/theme-provider/design-token-names';
-import { spinnerTag } from '@ni/nimble-components/dist/esm/spinner';
-import { SpinnerAppearance } from '@ni/nimble-components/dist/esm/spinner/types';
+} from '../../../../nimble-components/src/theme-provider/design-token-names';
+import { spinnerTag } from '../../../../nimble-components/src/spinner';
+import { SpinnerAppearance } from '../../../../nimble-components/src/spinner/types';
 import { isChromatic } from '../../utilities/isChromatic';
 
-import { createUserSelectedThemeStory } from '../../utilities/storybook';
+import { apiCategory, createUserSelectedThemeStory } from '../../utilities/storybook';
 
 const spinnerSize = {
     small: null,
@@ -31,6 +31,7 @@ const metadata: Meta<SpinnerArgs> = {
     parameters: {},
     argTypes: {
         size: {
+            name: 'Spinner sizing',
             description:
                 '<p>Size of the spinner component.</p><details><summary>Usage details</summary>To customize its size, set its CSS '
                 + '<span style="font-family: monospace;">height</span> to a design token, and its width will automatically match its height. Each size will also require minimum pixel margins.<br/><ul>'
@@ -53,7 +54,7 @@ const metadata: Meta<SpinnerArgs> = {
                 Requires 64px minimum margins.
                 </li></ul></details>`,
             options: Object.keys(spinnerSize),
-            table: { defaultValue: { summary: 'Small (16x16)' } },
+            table: { category: apiCategory.styles },
             control: {
                 type: 'radio',
                 labels: {
@@ -81,7 +82,8 @@ const metadata: Meta<SpinnerArgs> = {
                 + `<li>For appearance \`accent\`:<br/>
                         Use for promoting NI branding and adding a splash of color in a monochromatic setting.  Common places to use is home screens, licensing, dialogs and any instances where there will not be a conflict with green representing status.<br/>
                         The green version is not intended to represent “Good” or “Success”.  
-                    </li></ul></details>`
+                    </li></ul></details>`,
+            table: { category: apiCategory.attributes }
         }
     },
     // Disable animation in Chromatic because it intermittently causes shapshot differences

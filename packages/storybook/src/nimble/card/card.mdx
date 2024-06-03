@@ -1,6 +1,7 @@
 import { Canvas, Meta, Controls, Title } from '@storybook/blocks';
 import { NimbleCard } from './card.react';
-import { cardTag } from '@ni/nimble-components/dist/esm/card';
+import ComponentApisLink from '../../docs/component-apis-link.mdx';
+import { cardTag } from '../../../../nimble-components/src/card';
 import * as cardStories from './card.stories';
 
 <Meta of={cardStories} />
@@ -10,11 +11,13 @@ The <Tag name={cardTag} /> is a container that is designed to contain arbitrary 
 application. The <Tag name={cardTag} /> is intended for grouping related content.
 
 <Canvas of={cardStories.card} />
+
+## API
+
 <Controls of={cardStories.card} />
+<ComponentApisLink />
 
-{/* ## Appearances */}
-
-{/* ## Appearance Variants */}
+{/* ## Styling */}
 
 {/* ## Usage */}
 

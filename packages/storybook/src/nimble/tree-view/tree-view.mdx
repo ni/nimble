@@ -1,9 +1,10 @@
 import { Controls, Canvas, Meta, Title } from '@storybook/blocks';
 import TargetDocs from '../patterns/anchor/target-docs.mdx';
 import * as treeViewStories from './tree-view.stories';
-import { treeViewTag } from '@ni/nimble-components/dist/esm/tree-view';
-import { treeItemTag } from '@ni/nimble-components/dist/esm/tree-item';
-import { anchorTreeItemTag } from '@ni/nimble-components/dist/esm/anchor-tree-item';
+import ComponentApisLink from '../../docs/component-apis-link.mdx';
+import { treeViewTag } from '../../../../nimble-components/src/tree-view';
+import { treeItemTag } from '../../../../nimble-components/src/tree-item';
+import { anchorTreeItemTag } from '../../../../nimble-components/src/anchor-tree-item';
 
 <Meta of={treeViewStories} />
 <Title of={treeViewStories} />
@@ -17,28 +18,37 @@ expanded to reveal the contents of the folder, which may be files, folders, or b
 The <Tag name={treeViewTag}/> supports standard <Tag name={treeItemTag}/> and <Tag name={anchorTreeItemTag}/>,
 which navigate to a url upon activation. Both types of tree items support icons as slotted content.
 
+<Canvas of={treeViewStories.multipleTreeItems} />
+
+## API
+
+<Controls of={treeViewStories.multipleTreeItems} />
+<ComponentApisLink />
+
+### Tree Item
+
+Use a <Tag name={treeItemTag} /> child element if you want a tree item that calls a callback, has a value, and/or has child items.
+
 <Canvas of={treeViewStories.treeItem} />
 <Controls of={treeViewStories.treeItem} />
 
-{/* ## Appearances */}
+### Anchor Tree Item
 
-{/* ## Appearance Variants */}
+Use a <Tag name={anchorTreeItemTag} /> child element to navigate to a URL when the item is activated.
+
+<Canvas of={treeViewStories.anchorTreeItem} />
+<Controls of={treeViewStories.anchorTreeItem} />
+
+#### Anchor Tree Item Target Configuration
+
+<TargetDocs />
+
+{/* ## Styling */}
 
 {/* ## Usage */}
 
 {/* ## Examples */}
 
-### Child Elements
-
--   <Tag name={treeItemTag} /> - Use a this child element if you want a tree item
-    that calls a callback, has a value, and/or has child items.
--   <Tag name={anchorTreeItemTag} /> - Use this child element to navigate to a URL
-    when the item is activated.
-
-## Accessibility
-
-### Anchor Tree Item Target Configuration
-
-<TargetDocs />
+{/* ## Accessibility */}
 
 {/* ## Resources */}

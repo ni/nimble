@@ -1,8 +1,9 @@
 import { Canvas, Meta, Controls, Title } from '@storybook/blocks';
 import { NimbleTableColumnDateText } from './table-column-date-text.react';
 import * as tableColumnDateTextStories from './table-column-date-text.stories';
-import { tableColumnDateTextTag } from '@ni/nimble-components/dist/esm/table-column/date-text';
-import { tableTag } from '@ni/nimble-components/dist/esm/table';
+import ComponentApisLink from '../../../docs/component-apis-link.mdx';
+import { tableColumnDateTextTag } from '../../../../../nimble-components/src/table-column/date-text';
+import { tableTag } from '../../../../../nimble-components/src/table';
 import NoNullAndUndefinedBestPractice from '../../patterns/table-column/no-null-and-undefined-best-practice-docs.mdx';
 
 <Meta of={tableColumnDateTextStories} />
@@ -11,11 +12,13 @@ import NoNullAndUndefinedBestPractice from '../../patterns/table-column/no-null-
 The <Tag name={tableColumnDateTextTag}/> column is used to display date-time fields as text in the <Tag name={tableTag}/>. The date-time values must be of type `number` and represent the number of milliseconds since January 1, 1970 UTC. This is the representation used by the [JavaScript `Date` type](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date). Dates are formatted in a locale-specific way based on the value of the `lang` token, which can be set via the [nimble-theme-provider](?path=/docs/tokens-theme-provider--docs).
 
 <Canvas of={tableColumnDateTextStories.dateTextColumn} />
+
+## API
+
 <Controls of={tableColumnDateTextStories.dateTextColumn} />
+<ComponentApisLink />
 
-{/* ## Appearances */}
-
-{/* ## Appearance Variants */}
+{/* ## Styling */}
 
 ## Usage
 

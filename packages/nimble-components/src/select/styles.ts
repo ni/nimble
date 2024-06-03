@@ -6,9 +6,11 @@ import {
     borderRgbPartialColor,
     borderWidth,
     controlHeight,
+    controlSlimHeight,
     fillHoverColor,
     fillHoverSelectedColor,
     fillSelectedColor,
+    iconColor,
     mediumPadding,
     placeholderFontColor,
     smallPadding
@@ -39,8 +41,7 @@ export const styles = css`
 
     .clear-button {
         order: 3;
-        width: auto;
-        height: auto;
+        height: ${controlSlimHeight};
         margin-left: ${smallPadding};
     }
 
@@ -102,6 +103,7 @@ export const styles = css`
 
     .filter-icon {
         padding-left: ${smallPadding};
+        ${iconColor.cssCustomProperty}: ${placeholderFontColor};
     }
 
     .filter-input {

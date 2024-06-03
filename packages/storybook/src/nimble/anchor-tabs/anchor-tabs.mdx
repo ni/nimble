@@ -1,6 +1,10 @@
 import { Controls, Canvas, Meta, Title } from '@storybook/blocks';
 import TargetDocs from '../patterns/anchor/target-docs.mdx';
-import { anchorTabTag } from '@ni/nimble-components/dist/esm/anchor-tab';
+import ComponentApisLink from '../../docs/component-apis-link.mdx';
+import { anchorTabTag } from '../../../../nimble-components/src/anchor-tab';
+import { anchorTabsTag } from '../../../../nimble-components/src/anchor-tabs';
+import { tabsToolbarTag } from '../../../../nimble-components/src/tabs-toolbar';
+import { tabsTag } from '../../../../nimble-components/src/tabs';
 import * as anchorTabsStories from './anchor-tabs.stories';
 
 <Meta of={anchorTabsStories} />
@@ -8,23 +12,41 @@ import * as anchorTabsStories from './anchor-tabs.stories';
 
 Anchor tabs are a sequence of links that are styled to look like tab elements, where one link can
 be distinguished as the currently active item. Use this component instead of the standard tabs component when each tab
-represents a different URL to navigate to. Use the standard tabs component when the tabs should switch between different
-tab panels hosted on the same page.
+represents a different URL to navigate to.
+
+If you want the tabs to switch between different tab panels hosted on the same page, use the <Tag name={tabsTag}/> instead.
 
 <Canvas of={anchorTabsStories.anchorTabs} />
+
+## API
+
 <Controls of={anchorTabsStories.anchorTabs} />
 
-{/* ## Appearances */}
+<ComponentApisLink />
 
-{/* ## Appearance Variants */}
+### Anchor Tab
+
+Use the <Tag name={anchorTabTag} /> child element to add new tabs to the <Tag name={anchorTabsTag} />.
+
+<Canvas of={anchorTabsStories.anchorTab} />
+<Controls of={anchorTabsStories.anchorTab} />
+
+#### Target Configuration
+
+<TargetDocs />
+
+### Tabs Toolbar
+
+Use the <Tag name={tabsToolbarTag} /> child element to add a toolbar next to the tabs.
+
+<Canvas of={anchorTabsStories.tabsToolbar} />
+<Controls of={anchorTabsStories.tabsToolbar} />
+
+{/* ## Styling */}
 
 {/* ## Usage */}
 
 {/* ## Examples */}
-
-## Target Configuration
-
-<TargetDocs />
 
 ## Angular Usage
 

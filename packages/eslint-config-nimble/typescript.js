@@ -118,6 +118,15 @@ module.exports = {
             }
         },
         {
+            files: ['*.foundation.spec.ts'],
+            rules: {
+                'no-restricted-imports': [
+                    'error',
+                    { paths: restrictedImportsPaths() }
+                ]
+            }
+        },
+        {
             files: ['styles.ts'],
             rules: {
                 // Prettier and eslint conflict in how they format CSS in styles files and we prefer prettier's output
