@@ -73,7 +73,7 @@ export class MatrixRenderer {
         );
     }
 
-    private calculateColorIndex(value: number): number {
+    private findColorIndex(value: number): number {
         let index = -1;
         if (this.colorValues.length === 0 || this.colorValues[0]! >= value) {
             return index;
@@ -124,15 +124,15 @@ export class MatrixRenderer {
         this.values = valuesBuffer;
         this.colorIndices = new Int32Array(this.values.length);
         for (let i = 0; i < this.values.length; i++) {
-            this.colorIndices[i] = this.calculateColorIndex(this.values[i]!);
+            this.colorIndices[i] = this.findColorIndex(this.values[i]!);
         }
     }
 
     public setRenderConfig(renderConfig: RenderConfig): void {
         this.renderConfig = renderConfig;
-        this.colors = renderConfig.colorScale.map(category => category.color);
+        this.colors = renderConfig.colorScale.map(marker => marker.color);
         this.colorValues = Float64Array.from(
-            renderConfig.colorScale.map(category => category.value)
+            renderConfig.colorScale.map(marker => marker.value)
         );
     }
 

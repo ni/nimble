@@ -306,8 +306,7 @@ export class Computations {
                 min,
                 max,
                 (max - min) / (values.length * this.colorScaleResolution)
-            );
-            valueSamples.push(max);
+            ).concat(max);
             return valueSamples.map(value => {
                 return {
                     color: d3ColorScale(value),
