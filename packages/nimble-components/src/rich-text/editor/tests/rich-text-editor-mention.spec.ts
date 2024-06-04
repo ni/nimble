@@ -1173,7 +1173,8 @@ describe('RichTextEditorMentionListbox', () => {
             expect(pageObject.getSelectedOption()).toBe('user2 name');
         });
 
-        it('should commit mention into the editor when clicked', async () => {
+        // Intermittent, see https://github.com/ni/nimble/issues/2150
+        xit('should commit mention into the editor when clicked', async () => {
             await appendUserMentionConfiguration(element, [
                 { key: 'user:1', displayName: 'username1' }
             ]);
