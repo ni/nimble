@@ -2,6 +2,36 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 04 Jun 2024 02:06:07 GMT",
+      "version": "29.2.0",
+      "tag": "@ni/nimble-components_v29.2.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "9ed4ff0f84ba6b696a1602816825e875a9ae618f",
+            "comment": "List option groups for Select"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 03 Jun 2024 22:25:43 GMT",
+      "version": "29.1.8",
+      "tag": "@ni/nimble-components_v29.1.8",
+      "comments": {
+        "patch": [
+          {
+            "author": "33986780+munteannatan@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "decce3d5531d93d66fe608607dd0260602b3a2f9",
+            "comment": "Refactored experimental structure and update strategy for wafer map component"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 31 May 2024 18:50:45 GMT",
       "version": "29.1.7",
       "tag": "@ni/nimble-components_v29.1.7",
