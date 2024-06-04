@@ -5,8 +5,20 @@ import { buttonTag } from '../../../../nimble-components/src/button';
 import { iconPencilTag } from '../../../../nimble-components/src/icons/pencil';
 import { iconTagTag } from '../../../../nimble-components/src/icons/tag';
 import { textFieldTag } from '../../../../nimble-components/src/text-field';
-import { TextFieldAppearance, TextFieldType } from '../../../../nimble-components/src/text-field/types';
-import { apiCategory, appearanceDescription, createUserSelectedThemeStory, disabledDescription, errorTextDescription, errorVisibleDescription, placeholderDescription, slottedLabelDescription } from '../../utilities/storybook';
+import {
+    TextFieldAppearance,
+    TextFieldType
+} from '../../../../nimble-components/src/text-field/types';
+import {
+    apiCategory,
+    appearanceDescription,
+    createUserSelectedThemeStory,
+    disabledDescription,
+    errorTextDescription,
+    errorVisibleDescription,
+    placeholderDescription,
+    slottedLabelDescription
+} from '../../utilities/storybook';
 
 interface TextFieldArgs {
     label: string;
@@ -75,13 +87,16 @@ const metadata: Meta<TextFieldArgs> = {
             table: { category: apiCategory.slots }
         },
         placeholder: {
-            description: placeholderDescription({ componentName: 'text field' }),
+            description: placeholderDescription({
+                componentName: 'text field'
+            }),
             table: { category: apiCategory.attributes }
         },
         type: {
             options: Object.values(TextFieldType),
             control: { type: 'radio' },
-            description: 'They type of input to accept and render in the text field. This corresponds to [the `type` attribute of the native `input` element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#type) though only a subset of values are supported.',
+            description:
+                'They type of input to accept and render in the text field. This corresponds to [the `type` attribute of the native `input` element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#type) though only a subset of values are supported.',
             table: { category: apiCategory.attributes }
         },
         appearance: {
@@ -97,16 +112,19 @@ const metadata: Meta<TextFieldArgs> = {
             table: { category: apiCategory.attributes }
         },
         value: {
-            description: 'The string displayed in the text field. Note that the property and attribute behave differently.',
+            description:
+                'The string displayed in the text field. Note that the property and attribute behave differently.',
             table: { category: apiCategory.nonAttributeProperties }
         },
         valueAttribute: {
             name: 'value',
-            description: 'The initial string displayed in the text field. Changing this after the text field initializes has no effect. Note that the property behave differently.',
+            description:
+                'The initial string displayed in the text field. Changing this after the text field initializes has no effect. Note that the property behave differently.',
             table: { category: apiCategory.attributes }
         },
         readonly: {
-            description: 'Disallows input on the text field while maintaining enabled appearance.',
+            description:
+                'Disallows input on the text field while maintaining enabled appearance.',
             table: { category: apiCategory.attributes }
         },
         disabled: {
@@ -134,12 +152,14 @@ const metadata: Meta<TextFieldArgs> = {
             table: { category: apiCategory.slots }
         },
         change: {
-            description: 'Event emitted when the user commits a new value to the text field.',
+            description:
+                'Event emitted when the user commits a new value to the text field.',
             table: { category: apiCategory.events },
             control: false
         },
         input: {
-            description: 'Event emitted on each user keystroke within the text field.',
+            description:
+                'Event emitted on each user keystroke within the text field.',
             table: { category: apiCategory.events },
             control: false
         }

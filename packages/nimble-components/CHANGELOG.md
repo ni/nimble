@@ -1,8 +1,24 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Tue, 04 Jun 2024 02:06:07 GMT and should not be manually modified.
+This log was last generated on Tue, 04 Jun 2024 17:40:32 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 29.2.2
+
+Tue, 04 Jun 2024 17:40:32 GMT
+
+### Patches
+
+- Fix some icon metaphors and use larger check for checkbox ([ni/nimble@8ead53f](https://github.com/ni/nimble/commit/8ead53f722fc0ed9fde1b4b96417aedfff6fe1cc))
+
+## 29.2.1
+
+Tue, 04 Jun 2024 16:35:58 GMT
+
+### Patches
+
+- Bump @ni/nimble-tokens to v6.14.0
 
 ## 29.2.0
 

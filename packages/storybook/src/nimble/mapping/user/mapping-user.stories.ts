@@ -1,6 +1,9 @@
 import { html } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
-import { apiCategory, createUserSelectedThemeStory } from '../../../utilities/storybook';
+import {
+    apiCategory,
+    createUserSelectedThemeStory
+} from '../../../utilities/storybook';
 import { hiddenWrapper } from '../../../utilities/hidden';
 
 const metadata: Meta = {
@@ -21,16 +24,17 @@ export const userMapping: StoryObj = {
     render: createUserSelectedThemeStory(hiddenWrapper(html`<style></style>`)),
     argTypes: {
         key: {
-            description: 'A URL that uniquely identifies the user, e.g. `user:1234`.',
+            description:
+                'A URL that uniquely identifies the user, e.g. `user:1234`.',
             control: false,
-            table: { category: apiCategory.attributes },
+            table: { category: apiCategory.attributes }
         },
         displayName: {
             name: 'display-name',
             description:
                 'The display name to render for the user, e.g. `Oscar Meyer 🌭`.',
             control: false,
-            table: { category: apiCategory.attributes },
+            table: { category: apiCategory.attributes }
         }
     },
     args: {}

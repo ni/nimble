@@ -171,7 +171,9 @@ export const select: Meta<SelectArgs> = {
             name: 'position',
             options: ['above', 'below'],
             control: { type: 'select' },
-            description: dropdownPositionDescription({ componentName: 'select' }),
+            description: dropdownPositionDescription({
+                componentName: 'select'
+            }),
             table: { category: apiCategory.attributes }
         },
         appearance: {
