@@ -13,7 +13,10 @@ import { spinnerTag } from '../../../../nimble-components/src/spinner';
 import { SpinnerAppearance } from '../../../../nimble-components/src/spinner/types';
 import { isChromatic } from '../../utilities/isChromatic';
 
-import { apiCategory, createUserSelectedThemeStory } from '../../utilities/storybook';
+import {
+    apiCategory,
+    createUserSelectedThemeStory
+} from '../../utilities/storybook';
 
 const spinnerSize = {
     small: null,

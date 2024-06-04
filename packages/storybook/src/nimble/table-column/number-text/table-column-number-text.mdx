@@ -13,8 +13,10 @@ import NoNullAndUndefinedBestPractice from '../../patterns/table-column/no-null-
 <Meta of={tableColumnNumberTextStories} />
 <Title of={tableColumnNumberTextStories} />
 
-The <Tag name={tableColumnNumberTextTag}/> column is used to display number fields as text in the <Tag name={tableTag}/>. Numbers are formatted in a locale-specific way
-based on the value of the `lang` token, which can be set via the [nimble-theme-provider](?path=/docs/tokens-theme-provider--docs).
+The <Tag name={tableColumnNumberTextTag}/> column is used to display number
+fields as text in the <Tag name={tableTag}/>. Numbers are formatted in a
+locale-specific way based on the value of the `lang` token, which can be set via
+the [nimble-theme-provider](?path=/docs/tokens-theme-provider--docs).
 
 <p>{columnOperationBehavior}</p>
 
@@ -32,27 +34,49 @@ based on the value of the `lang` token, which can be set via the [nimble-theme-p
 ### Best Practices
 
 -   <NoNullAndUndefinedBestPractice />
--   If relevant to your data source, make sure to consider the IEEE 754 special cases of `-Inf`, `+Inf`, `-0`, `+0`, and `NaN`. Those values are handled as follows in the table:
-    -   `-Inf` will be rendered as `-∞` in the table. It is considered the smallest possible number when sorting.
-    -   `+Inf` will be rendered as `∞` in the table. It is considered the largest possible number when sorting.
-    -   `-0`, `0`, and `+0` will be rendered as `0` in the table. No distinction is made between those values when grouping.
-    -   `NaN` will be rendered as `NaN` in the table. It is sorted between non-defined values of `undefined`/`null` and `-Inf`.
+-   If relevant to your data source, make sure to consider the IEEE 754 special
+    cases of `-Inf`, `+Inf`, `-0`, `+0`, and `NaN`. Those values are handled as
+    follows in the table:
+    -   `-Inf` will be rendered as `-∞` in the table. It is considered the
+        smallest possible number when sorting.
+    -   `+Inf` will be rendered as `∞` in the table. It is considered the
+        largest possible number when sorting.
+    -   `-0`, `0`, and `+0` will be rendered as `0` in the table. No distinction
+        is made between those values when grouping.
+    -   `NaN` will be rendered as `NaN` in the table. It is sorted between
+        non-defined values of `undefined`/`null` and `-Inf`.
 
 ### Angular Usage
 
 #### Number Format Pipe
 
-An Angular pipe is provided for formatting number values into strings outside of the Nimble table. It uses the same formatting rules (and localization) as the number-text table column.
+An Angular pipe is provided for formatting number values into strings outside of
+the Nimble table. It uses the same formatting rules (and localization) as the
+number-text table column.
 
 To use it:
 
 -   Import `NumberTextPipe` from `@ni/nimble-angular/pipes`
--   Use the pipe in your templates (pipe name is `numberText`), or instantiate and use directly in your code
--   As input, the pipe optionally takes a configuration object as a parameter. The object may include any of the following properties:
-    -   `numberTextFormat` - Either `NumberTextFormat.default` or `NumberTextFormat.decimal`. Defaults to `NumberTextFormat.default`.
-    -   `decimalDigits` - When `numberTextFormat` is `NumberTextFormat.decimal`, specifies the number of decimal places to show. If neither `decimalDigits` or `decimalMaximumDigits` are set, a default value of 2 is used. `decimalDigits` and `decimalMaximumDigits` cannot both be set at the same time. The value must be in the range 0 - 20 (inclusive).
-    -   `decimalMaximumDigits` - When `numberTextFormat` is `NumberTextFormat.decimal`, specifies the maximum number of decimal places to show. This differs from `decimalDigits` in that trailing zeros are omitted. `decimalDigits` and `decimalMaximumDigits` cannot both be set at the same time. The value must be in the range 0 - 20 (inclusive).
-    -   `unitScale` - A `UnitScale` object indicating units to display. Possible values are `byteUnitScale`, `byte1024UnitScale`, `celsiusUnitScale`, `fahrenheitUnitScale`, and `voltUnitScale` which are exported from `@ni/nimble-angular/pipes`.
+-   Use the pipe in your templates (pipe name is `numberText`), or instantiate
+    and use directly in your code
+-   As input, the pipe optionally takes a configuration object as a parameter.
+    The object may include any of the following properties:
+    -   `numberTextFormat` - Either `NumberTextFormat.default` or
+        `NumberTextFormat.decimal`. Defaults to `NumberTextFormat.default`.
+    -   `decimalDigits` - When `numberTextFormat` is `NumberTextFormat.decimal`,
+        specifies the number of decimal places to show. If neither
+        `decimalDigits` or `decimalMaximumDigits` are set, a default value of 2
+        is used. `decimalDigits` and `decimalMaximumDigits` cannot both be set
+        at the same time. The value must be in the range 0 - 20 (inclusive).
+    -   `decimalMaximumDigits` - When `numberTextFormat` is
+        `NumberTextFormat.decimal`, specifies the maximum number of decimal
+        places to show. This differs from `decimalDigits` in that trailing zeros
+        are omitted. `decimalDigits` and `decimalMaximumDigits` cannot both be
+        set at the same time. The value must be in the range 0 - 20 (inclusive).
+    -   `unitScale` - A `UnitScale` object indicating units to display. Possible
+        values are `byteUnitScale`, `byte1024UnitScale`, `celsiusUnitScale`,
+        `fahrenheitUnitScale`, and `voltUnitScale` which are exported from
+        `@ni/nimble-angular/pipes`.
 
 {/* ## Examples */}
 

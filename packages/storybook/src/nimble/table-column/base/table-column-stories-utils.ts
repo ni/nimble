@@ -1,5 +1,8 @@
 import type { Table } from '../../../../../nimble-components/src/table';
-import { TableRecord, TableRowSelectionMode } from '../../../../../nimble-components/src/table/types';
+import {
+    TableRecord,
+    TableRowSelectionMode
+} from '../../../../../nimble-components/src/table/types';
 
 export interface SharedTableArgs {
     selectionMode: keyof typeof TableRowSelectionMode;

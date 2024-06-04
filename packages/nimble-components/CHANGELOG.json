@@ -2,6 +2,51 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 04 Jun 2024 17:40:32 GMT",
+      "version": "29.2.2",
+      "tag": "@ni/nimble-components_v29.2.2",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "8ead53f722fc0ed9fde1b4b96417aedfff6fe1cc",
+            "comment": "Fix some icon metaphors and use larger check for checkbox"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 04 Jun 2024 17:05:14 GMT",
+      "version": "29.2.1",
+      "tag": "@ni/nimble-components_v29.2.1",
+      "comments": {
+        "none": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "9b1924fe150d01e2343e8087abdd4730f1da4466",
+            "comment": "Disable intermittent rich text editor test"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 04 Jun 2024 16:35:58 GMT",
+      "version": "29.2.1",
+      "tag": "@ni/nimble-components_v29.2.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/nimble-tokens to v6.14.0",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 04 Jun 2024 02:06:07 GMT",
       "version": "29.2.0",
       "tag": "@ni/nimble-components_v29.2.0",

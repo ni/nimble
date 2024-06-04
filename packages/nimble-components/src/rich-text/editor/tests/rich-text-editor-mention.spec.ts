@@ -1173,7 +1173,8 @@ describe('RichTextEditorMentionListbox', () => {
             expect(pageObject.getSelectedOption()).toBe('user2 name');
         });
 
-        it('should commit mention into the editor when clicked', async () => {
+        // Intermittent, see https://github.com/ni/nimble/issues/2150
+        xit('should commit mention into the editor when clicked', async () => {
             await appendUserMentionConfiguration(element, [
                 { key: 'user:1', displayName: 'username1' }
             ]);
@@ -1242,7 +1243,8 @@ describe('RichTextEditorMentionListbox', () => {
             expect(pageObject.isMentionListboxOpened()).toBeFalse();
         });
 
-        it('should filter and commit first mention into the editor on Enter', async () => {
+        // Intermittent, see https://github.com/ni/nimble/issues/2150
+        xit('should filter and commit first mention into the editor on Enter', async () => {
             await appendUserMentionConfiguration(element, [
                 { key: 'user:1', displayName: 'username1' },
                 { key: 'user:2', displayName: 'username2' }
@@ -1262,7 +1264,8 @@ describe('RichTextEditorMentionListbox', () => {
             ).toEqual(['username2']);
         });
 
-        it('should filter and commit first mention into the editor on Tab', async () => {
+        // Intermittent, see https://github.com/ni/nimble/issues/2150
+        xit('should filter and commit first mention into the editor on Tab', async () => {
             await appendUserMentionConfiguration(element, [
                 { key: 'user:1', displayName: 'username1' },
                 { key: 'user:2', displayName: 'username2' }

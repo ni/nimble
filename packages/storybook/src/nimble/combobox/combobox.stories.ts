@@ -134,7 +134,9 @@ const metadata: Meta<ComboboxArgs> = {
             name: 'position',
             options: [DropdownPosition.above, DropdownPosition.below],
             control: { type: 'select' },
-            description: dropdownPositionDescription({ componentName: 'combobox' }),
+            description: dropdownPositionDescription({
+                componentName: 'combobox'
+            }),
             table: { category: apiCategory.attributes }
         },
         appearance: {
@@ -176,12 +178,14 @@ const metadata: Meta<ComboboxArgs> = {
             table: { category: apiCategory.slots }
         },
         change: {
-            description: 'Emitted when the user changes the selected option, either by selecting an item from the dropdown or by committing a typed value.',
+            description:
+                'Emitted when the user changes the selected option, either by selecting an item from the dropdown or by committing a typed value.',
             table: { category: apiCategory.events },
             control: false
         },
         input: {
-            description: 'Emitted when the user types in the combobox. Use this event if you need to update the list of options based on the text input.',
+            description:
+                'Emitted when the user types in the combobox. Use this event if you need to update the list of options based on the text input.',
             table: { category: apiCategory.events },
             control: false
         }

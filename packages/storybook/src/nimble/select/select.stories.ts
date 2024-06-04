@@ -82,7 +82,9 @@ const optionSets = {
     [ExampleOptionsType.manyOptions]: manyOptions
 } as const;
 
-const getGroupedOptions = (optionsType: ExampleOptionsType): GroupedOptionArgs[] => {
+const getGroupedOptions = (
+    optionsType: ExampleOptionsType
+): GroupedOptionArgs[] => {
     let optionsLength = 0;
     if (optionsType === ExampleOptionsType.simpleOptions) {
         optionsLength = simpleOptions.length;
@@ -185,7 +187,9 @@ const metadata: Meta<SelectArgs> = {
             name: 'position',
             options: ['above', 'below'],
             control: { type: 'select' },
-            description: dropdownPositionDescription({ componentName: 'select' }),
+            description: dropdownPositionDescription({
+                componentName: 'select'
+            }),
             table: { category: apiCategory.attributes }
         },
         appearance: {
@@ -217,7 +221,7 @@ const metadata: Meta<SelectArgs> = {
         },
         placeholder: {
             name: 'placeholder',
-            description: placeholderDescription,
+            description: placeholderDescription
             // TODO: move this to a list-option story or create a table category to indicate there isn't a single 'placeholder' attribute
         },
         grouped: {
