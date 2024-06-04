@@ -1,26 +1,47 @@
-import { Canvas, Meta, Controls, Title } from '@storybook/blocks';
+import { Canvas, Meta, Controls, Title, Description } from '@storybook/blocks';
 import { NimbleSelect } from './select.react';
 import * as selectStories from './select.stories';
+import * as listOptionStories from '../list-option/list-option.stories';
+import * as listOptionGroupStories from '../list-option-group/list-option-group.stories';
 import ComponentApisLink from '../../docs/component-apis-link.mdx';
 import { listOptionTag } from '../../../../nimble-components/src/list-option';
+import { listOptionGroupTag } from '../../../../nimble-components/src/list-option-group';
 
 <Meta of={selectStories} />
 <Title of={selectStories} />
 
 Select is a control for selecting amongst a set of options. Its value comes from the `value` of the currently selected <Tag name={listOptionTag}/>, or, if no value exists for that option, the option's content. Upon clicking on the element, the other options are visible.
 
-<Canvas of={selectStories.underlineSelect} />
+<Canvas of={selectStories.select} />
 
 ## API
 
-<Controls of={selectStories.underlineSelect} />
+<Controls of={selectStories.select} />
 <ComponentApisLink />
+
+### ListOption
+
+<Description of={listOptionStories} />
+<Controls of={listOptionStories.listOption} />
+
+### ListOptionGroup
+
+<Description of={listOptionGroupStories} />
+<Controls of={listOptionGroupStories.listOptionGroup} />
 
 {/* ## Styling */}
 
 {/* ## Usage */}
 
-{/* ## Examples */}
+## Examples
+
+### Placeholder
+
+The `Select` component can be configured to display a placeholder when no option is selected. To do this, configure one option to have its `selected`, `disabled`, and `hidden` attributes set to `true`.
+
+See:
+
+<Canvas of={selectStories.placeholder} />
 
 {/* ## Accessibility */}
 

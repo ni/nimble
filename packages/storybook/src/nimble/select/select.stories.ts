@@ -28,8 +28,6 @@ interface SelectArgs {
     optionsType: ExampleOptionsType;
     appearance: string;
     filterMode: keyof typeof FilterMode;
-    placeholder: boolean;
-    grouped: boolean;
     clearable: boolean;
     change: undefined;
 }
@@ -37,11 +35,15 @@ interface SelectArgs {
 interface OptionArgs {
     label: string;
     value: string;
+    selected?: boolean;
     disabled?: boolean;
+    hidden?: boolean;
 }
 
 interface GroupedOptionArgs {
     label: string;
+    content?: undefined;
+    hidden?: boolean;
     options: OptionArgs[];
 }
 
@@ -76,54 +78,47 @@ for (let i = 0; i < 100; i++) {
     });
 }
 
-const optionSets = {
-    [ExampleOptionsType.simpleOptions]: simpleOptions,
-    [ExampleOptionsType.wideOptions]: wideOptions,
-    [ExampleOptionsType.manyOptions]: manyOptions
-} as const;
-
-const getGroupedOptions = (optionsType: ExampleOptionsType): GroupedOptionArgs[] => {
-    let optionsLength = 0;
-    if (optionsType === ExampleOptionsType.simpleOptions) {
-        optionsLength = simpleOptions.length;
-    } else if (optionsType === ExampleOptionsType.wideOptions) {
-        optionsLength = wideOptions.length;
-    } else {
-        optionsLength = manyOptions.length;
-    }
-
+const getGroupedOptions = (): GroupedOptionArgs[] => {
     const groupedOptions: GroupedOptionArgs[] = [];
-    for (let i = 0; i < optionsLength / 3; i++) {
+    for (let i = 0; i < manyOptions.length / 3; i++) {
         groupedOptions.push({
             label: `Group ${i + 1}`,
-            options: optionSets[optionsType].slice(i * 3, (i + 1) * 3)
+            options: manyOptions.slice(i * 3, (i + 1) * 3)
         });
     }
 
     return groupedOptions;
 };
 
+const optionSets = {
+    [ExampleOptionsType.simpleOptions]: simpleOptions,
+    [ExampleOptionsType.wideOptions]: wideOptions,
+    [ExampleOptionsType.manyOptions]: manyOptions,
+    [ExampleOptionsType.groupedOptions]: getGroupedOptions()
+} as const;
+
 const filterModeDescription = `
 Controls the filtering behavior of the select. The default of \`none\` results in a dropdown with no input for filtering. A non-'none' setting results in a search input placed at the top or the bottom of the dropdown when opened (depending on where the dropdown is shown relative to the component). The \`standard\` setting will perform a case-insensitive and diacritic-insensitive filtering of the available options anywhere within the text of each option. 
 
 It is recommended that if the select has 15 or fewer options that you use the \`none\` setting for the \`filter-mode\`.
 `;
-
-const placeholderDescription = `
-To display placeholder text within the select you must provide an option that has the \`disabled\`, \`selected\` and \`hidden\` attributes set. This option will not be available in the dropdown, and its contents will be used as the placeholder text. Note that giving the placeholder an initial \`selected\` state is only necessary to display the placeholder initially. If another option is selected initially the placeholder will be displayed upon clearing the current value.
-
-Any select without a default selected option should provide placeholder text. Placeholder text should always follow the pattern "Select [thing(s)]", for example "Select country". Use sentence casing and don't include punctuation at the end of the prompt.
-`;
-
-const groupedDescription = `
-To group options in a select, you can use the \`${listOptionGroupTag}\` element. This element should be placed within the \`${selectTag}\` and contain the \`${listOptionTag}\` elements that you want to group. Note that a \`${listOptionGroupTag}\` placed within another \`${listOptionGroupTag}\` is not supported. The \`label\` attribute of the \`${listOptionGroupTag}\` element will be used as the group label. Alternatively, text can be provided as content of the \`${listOptionGroupTag}\` element to serve as the group label. Text provided as content can be either plain text or as content of a \`<span\`> element.
-`;
-
 const clearableDescription = `
 When the \`clearable\` attribute is set, a clear button will be displayed in the select when a value is selected. Clicking the clear button will clear the selected value and display the placeholder text, if available, or will result in a blank display.
 `;
 
 const metadata: Meta<SelectArgs> = {
+    title: 'Components/Select',
+    decorators: [withActions<HtmlRenderer>],
+    parameters: {
+        actions: {
+            handles: ['change']
+        }
+    }
+};
+
+export default metadata;
+
+export const select: Meta<SelectArgs> = {
     title: 'Components/Select',
     decorators: [withActions<HtmlRenderer>],
     parameters: {
@@ -147,16 +142,8 @@ const metadata: Meta<SelectArgs> = {
             filter-mode="${x => (x.filterMode === 'none' ? undefined : x.filterMode)}"
             style="width: 250px;"
         >
-            ${when(x => x.placeholder, html`
-                <${listOptionTag}
-                    disabled
-                    selected
-                    hidden>
-                    Select an option
-                </${listOptionTag}?
-            `)}
-            ${when(x => x.grouped, html<SelectArgs>`
-                ${repeat(x => getGroupedOptions(x.optionsType), html<GroupedOptionArgs>`
+            ${when(x => x.optionsType === ExampleOptionsType.groupedOptions, html<SelectArgs>`
+                ${repeat(_ => getGroupedOptions(), html<GroupedOptionArgs>`
                     <${listOptionGroupTag}
                         label="${x => x.label}"
                     >
@@ -168,10 +155,9 @@ const metadata: Meta<SelectArgs> = {
                     </${listOptionGroupTag}>
                 `)}
             `)}
-            ${when(x => !x.grouped, html<SelectArgs>`
-                ${repeat(x => optionSets[x.optionsType], html<OptionArgs>`
+            ${when(x => x.optionsType !== ExampleOptionsType.groupedOptions, html<SelectArgs>`
+                ${repeat(x => (optionSets[x.optionsType] as OptionArgs[]), html<OptionArgs>`
                     <${listOptionTag}
-                        value="${x => x.value}"
                         ?disabled="${x => x.disabled}"
                     >
                         ${x => x.label}
@@ -215,15 +201,6 @@ const metadata: Meta<SelectArgs> = {
             description: errorVisibleDescription,
             table: { category: apiCategory.attributes }
         },
-        placeholder: {
-            name: 'placeholder',
-            description: placeholderDescription,
-            // TODO: move this to a list-option story or create a table category to indicate there isn't a single 'placeholder' attribute
-        },
-        grouped: {
-            name: 'grouped',
-            description: groupedDescription
-        },
         clearable: {
             name: 'clearable',
             description: clearableDescription,
@@ -238,7 +215,8 @@ const metadata: Meta<SelectArgs> = {
                 labels: {
                     [ExampleOptionsType.simpleOptions]: 'Simple options',
                     [ExampleOptionsType.manyOptions]: 'Many options',
-                    [ExampleOptionsType.wideOptions]: 'Wide options'
+                    [ExampleOptionsType.wideOptions]: 'Wide options',
+                    [ExampleOptionsType.groupedOptions]: 'Grouped options'
                 }
             },
             table: { category: apiCategory.slots }
@@ -257,22 +235,34 @@ const metadata: Meta<SelectArgs> = {
         dropDownPosition: 'below',
         appearance: DropdownAppearance.underline,
         optionsType: ExampleOptionsType.simpleOptions,
-        placeholder: false,
-        grouped: false,
         clearable: false
     }
 };
 
-export default metadata;
-
-export const underlineSelect: StoryObj<SelectArgs> = {
-    args: { appearance: DropdownAppearance.underline }
-};
-
-export const outlineSelect: StoryObj<SelectArgs> = {
-    args: { appearance: DropdownAppearance.outline }
-};
-
-export const blockSelect: StoryObj<SelectArgs> = {
-    args: { appearance: DropdownAppearance.block }
+export const placeholder: StoryObj<SelectArgs> = {
+    // prettier-ignore
+    render: createUserSelectedThemeStory(html`
+        ${disableStorybookZoomTransform}
+        <div style="height: 100px;">
+            <${selectTag}
+                style="width: 250px;"
+                position="below"
+            >
+                <${listOptionTag}
+                    disabled
+                    selected
+                    hidden>
+                    Select an option
+                </${listOptionTag}>
+                <${listOptionTag}
+                    value="1">
+                    Option 1
+                </${listOptionTag}>
+                <${listOptionTag}
+                    value="2">
+                    Option 2
+                </${listOptionTag}>
+            </${selectTag}>
+        </div>
+    `)
 };
