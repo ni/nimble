@@ -2,9 +2,9 @@ import { html, repeat, when } from '@microsoft/fast-element';
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html';
 import { listOptionTag } from '../../../../nimble-components/src/list-option';
+import { listOptionGroupTag } from '../../../../nimble-components/src/list-option-group';
 import { selectTag } from '../../../../nimble-components/src/select';
 import { FilterMode } from '../../../../nimble-components/src/select/types';
-import { ExampleOptionsType } from '../../../../nimble-components/src/select/tests/types';
 import { DropdownAppearance } from '../../../../nimble-components/src/patterns/dropdown/types';
 
 import {
@@ -18,6 +18,7 @@ import {
     errorVisibleDescription,
     optionsDescription
 } from '../../utilities/storybook';
+import { ExampleOptionsType } from './types';
 
 interface SelectArgs {
     disabled: boolean;
@@ -28,6 +29,7 @@ interface SelectArgs {
     appearance: string;
     filterMode: keyof typeof FilterMode;
     placeholder: boolean;
+    grouped: boolean;
     clearable: boolean;
     change: undefined;
 }
@@ -35,7 +37,12 @@ interface SelectArgs {
 interface OptionArgs {
     label: string;
     value: string;
-    disabled: boolean;
+    disabled?: boolean;
+}
+
+interface GroupedOptionArgs {
+    label: string;
+    options: OptionArgs[];
 }
 
 const simpleOptions: readonly OptionArgs[] = [
@@ -75,6 +82,27 @@ const optionSets = {
     [ExampleOptionsType.manyOptions]: manyOptions
 } as const;
 
+const getGroupedOptions = (optionsType: ExampleOptionsType): GroupedOptionArgs[] => {
+    let optionsLength = 0;
+    if (optionsType === ExampleOptionsType.simpleOptions) {
+        optionsLength = simpleOptions.length;
+    } else if (optionsType === ExampleOptionsType.wideOptions) {
+        optionsLength = wideOptions.length;
+    } else {
+        optionsLength = manyOptions.length;
+    }
+
+    const groupedOptions: GroupedOptionArgs[] = [];
+    for (let i = 0; i < optionsLength / 3; i++) {
+        groupedOptions.push({
+            label: `Group ${i + 1}`,
+            options: optionSets[optionsType].slice(i * 3, (i + 1) * 3)
+        });
+    }
+
+    return groupedOptions;
+};
+
 const filterModeDescription = `
 Controls the filtering behavior of the select. The default of \`none\` results in a dropdown with no input for filtering. A non-'none' setting results in a search input placed at the top or the bottom of the dropdown when opened (depending on where the dropdown is shown relative to the component). The \`standard\` setting will perform a case-insensitive and diacritic-insensitive filtering of the available options anywhere within the text of each option. 
 
@@ -85,6 +113,10 @@ const placeholderDescription = `
 To display placeholder text within the select you must provide an option that has the \`disabled\`, \`selected\` and \`hidden\` attributes set. This option will not be available in the dropdown, and its contents will be used as the placeholder text. Note that giving the placeholder an initial \`selected\` state is only necessary to display the placeholder initially. If another option is selected initially the placeholder will be displayed upon clearing the current value.
 
 Any select without a default selected option should provide placeholder text. Placeholder text should always follow the pattern "Select [thing(s)]", for example "Select country". Use sentence casing and don't include punctuation at the end of the prompt.
+`;
+
+const groupedDescription = `
+To group options in a select, you can use the \`${listOptionGroupTag}\` element. This element should be placed within the \`${selectTag}\` and contain the \`${listOptionTag}\` elements that you want to group. Note that a \`${listOptionGroupTag}\` placed within another \`${listOptionGroupTag}\` is not supported. The \`label\` attribute of the \`${listOptionGroupTag}\` element will be used as the group label. Alternatively, text can be provided as content of the \`${listOptionGroupTag}\` element to serve as the group label. Text provided as content can be either plain text or as content of a \`<span\`> element.
 `;
 
 const clearableDescription = `
@@ -123,13 +155,28 @@ const metadata: Meta<SelectArgs> = {
                     Select an option
                 </${listOptionTag}?
             `)}
-            ${repeat(x => optionSets[x.optionsType], html<OptionArgs>`
-                <${listOptionTag}
-                    value="${x => x.value}"
-                    ?disabled="${x => x.disabled}"
-                >
-                    ${x => x.label}
-                </${listOptionTag}>
+            ${when(x => x.grouped, html<SelectArgs>`
+                ${repeat(x => getGroupedOptions(x.optionsType), html<GroupedOptionArgs>`
+                    <${listOptionGroupTag}
+                        label="${x => x.label}"
+                    >
+                        ${repeat(x => x.options, html<OptionArgs>`
+                            <${listOptionTag}
+                                value="${x => x.value}"
+                            >${x => x.label}</${listOptionTag}>
+                        `, { positioning: true })}
+                    </${listOptionGroupTag}>
+                `)}
+            `)}
+            ${when(x => !x.grouped, html<SelectArgs>`
+                ${repeat(x => optionSets[x.optionsType], html<OptionArgs>`
+                    <${listOptionTag}
+                        value="${x => x.value}"
+                        ?disabled="${x => x.disabled}"
+                    >
+                        ${x => x.label}
+                    </${listOptionTag}>
+                `)}
             `)}
         </${selectTag}>
     `),
@@ -173,6 +220,10 @@ const metadata: Meta<SelectArgs> = {
             description: placeholderDescription,
             // TODO: move this to a list-option story or create a table category to indicate there isn't a single 'placeholder' attribute
         },
+        grouped: {
+            name: 'grouped',
+            description: groupedDescription
+        },
         clearable: {
             name: 'clearable',
             description: clearableDescription,
@@ -207,6 +258,7 @@ const metadata: Meta<SelectArgs> = {
         appearance: DropdownAppearance.underline,
         optionsType: ExampleOptionsType.simpleOptions,
         placeholder: false,
+        grouped: false,
         clearable: false
     }
 };
