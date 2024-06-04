@@ -82,7 +82,9 @@ const optionSets = {
     [ExampleOptionsType.manyOptions]: manyOptions
 } as const;
 
-const getGroupedOptions = (optionsType: ExampleOptionsType): GroupedOptionArgs[] => {
+const getGroupedOptions = (
+    optionsType: ExampleOptionsType
+): GroupedOptionArgs[] => {
     let optionsLength = 0;
     if (optionsType === ExampleOptionsType.simpleOptions) {
         optionsLength = simpleOptions.length;
