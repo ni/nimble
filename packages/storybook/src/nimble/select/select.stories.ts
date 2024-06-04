@@ -210,7 +210,7 @@ export const select: Meta<SelectArgs> = {
         },
         optionsType: {
             name: 'default',
-            description: optionsDescription({ forSelect: true }),
+            description: optionsDescription({ includeGrouping: true }),
             options: Object.values(ExampleOptionsType),
             control: {
                 type: 'radio',

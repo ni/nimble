@@ -165,7 +165,7 @@ const metadata: Meta<ComboboxArgs> = {
         },
         optionsType: {
             name: 'default',
-            description: optionsDescription({ forSelect: false }),
+            description: optionsDescription({ includeGrouping: false }),
             options: Object.values(ExampleOptionsType),
             control: {
                 type: 'radio',
