@@ -1,5 +1,5 @@
-import type { WaferMap } from '../..';
-import { PointCoordinates, WaferMapOriginLocation } from '../../types';
+import type { WaferMap } from '..';
+import { PointCoordinates, WaferMapOriginLocation } from '../types';
 
 /**
  * HoverHandler deals with user interactions and events like hovering
@@ -83,15 +83,13 @@ export class HoverHandler {
                 : Math.floor;
             // go to x and y scale to get the x,y values of the die.
             const x = xRoundFunction(
-                this.wafermap.experimentalDataManager.horizontalScale.invert(
-                    mousePosition.x
-                        - this.wafermap.experimentalDataManager.margin.left
+                this.wafermap.computations.horizontalScale.invert(
+                    mousePosition.x - this.wafermap.computations.margin.left
                 )
             );
             const y = yRoundFunction(
-                this.wafermap.experimentalDataManager.verticalScale.invert(
-                    mousePosition.y
-                        - this.wafermap.experimentalDataManager.margin.top
+                this.wafermap.computations.verticalScale.invert(
+                    mousePosition.y - this.wafermap.computations.margin.top
                 )
             );
             return { x, y };

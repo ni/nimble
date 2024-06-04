@@ -56,18 +56,6 @@ export interface WaferMapColorScale {
     values: string[];
 }
 
-export interface Dimensions {
-    readonly width: number;
-    readonly height: number;
-}
-
-export interface Margin {
-    readonly top: number;
-    readonly right: number;
-    readonly bottom: number;
-    readonly left: number;
-}
-
 export interface DieRenderInfo {
     readonly x: number;
     readonly y: number;
@@ -100,10 +88,3 @@ export type WaferRequiredFields = {
     rowIndex: Int32,
     value: Float64
 };
-
-interface IColorScaleMarker {
-    color: string;
-    value: number;
-}
-
-export type ColorScale = IColorScaleMarker[];

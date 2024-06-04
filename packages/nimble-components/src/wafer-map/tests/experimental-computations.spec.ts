@@ -1,13 +1,16 @@
 import { parameterizeSpec } from '@ni/jasmine-parameterized';
-import { Computations } from '../modules/experimental/computations';
-import { Margin, WaferMapOriginLocation } from '../types';
+import { Computations } from '../experimental/computations';
+import { WaferMapColorScaleMode, WaferMapOriginLocation } from '../types';
 import {
     getWaferMapMockComputationsExperimental,
-    getWaferMapDiesTable
+    getWaferMapDies
 } from './utilities';
+import type { WaferMap } from '..';
+import type { Margin } from '../workers/types';
 
 describe('Wafermap Experimental Computations module', () => {
     let computationsModule: Computations;
+    let waferMock: WaferMap;
 
     describe('with 100 square canvas', () => {
         const expectedMargin: Margin = {
@@ -17,14 +20,11 @@ describe('Wafermap Experimental Computations module', () => {
             left: 4
         };
         beforeEach(() => {
-            const waferMock = getWaferMapMockComputationsExperimental(
-                getWaferMapDiesTable(),
-                WaferMapOriginLocation.topLeft,
-                100,
-                100
-            );
+            waferMock = getWaferMapMockComputationsExperimental();
+            waferMock.canvasWidth = 100;
+            waferMock.canvasHeight = 100;
             computationsModule = new Computations(waferMock);
-            computationsModule.update();
+            computationsModule.componentResizeUpdate();
         });
 
         it('should have expected square container', () => {
@@ -49,24 +49,21 @@ describe('Wafermap Experimental Computations module', () => {
             expect(computationsModule.margin).toEqual(expectedMargin);
         });
 
-        it('should have horizontal domain containing min and max column indexes', () => {
+        it('should have horizontal domain containing min and max column Indices', () => {
             expect(computationsModule.horizontalScale.domain()).toEqual([2, 7]);
         });
-        it('should have vertical domain containing min and max  row indexes, ', () => {
+        it('should have vertical domain containing min and max  row Indices, ', () => {
             expect(computationsModule.verticalScale.domain()).toEqual([1, 7]);
         });
     });
 
     describe('with rectangular canvas', () => {
         beforeEach(() => {
-            const waferMock = getWaferMapMockComputationsExperimental(
-                getWaferMapDiesTable(),
-                WaferMapOriginLocation.topLeft,
-                200,
-                100
-            );
+            waferMock = getWaferMapMockComputationsExperimental();
+            waferMock.canvasWidth = 200;
+            waferMock.canvasHeight = 100;
             computationsModule = new Computations(waferMock);
-            computationsModule.update();
+            computationsModule.componentResizeUpdate();
         });
 
         it('should have adjusted square container', () => {
@@ -124,14 +121,12 @@ describe('Wafermap Experimental Computations module', () => {
         spec(
             `with ${name} originLocation should have expected horizontal range and vertical range`,
             () => {
-                const waferMock = getWaferMapMockComputationsExperimental(
-                    getWaferMapDiesTable(),
-                    value.name,
-                    100,
-                    100
-                );
+                waferMock = getWaferMapMockComputationsExperimental();
+                waferMock.originLocation = value.name;
+                waferMock.canvasWidth = 100;
+                waferMock.canvasHeight = 100;
                 computationsModule = new Computations(waferMock);
-                computationsModule.update();
+                computationsModule.componentResizeUpdate();
                 expect(computationsModule.horizontalScale.range()).toEqual(
                     value.horizontalRange
                 );
@@ -140,5 +135,137 @@ describe('Wafermap Experimental Computations module', () => {
                 );
             }
         );
+    });
+
+    it('with die input and small die height should not have labelsFontSize larger than the die height', () => {
+        waferMock = getWaferMapMockComputationsExperimental();
+        waferMock.canvasWidth = 50;
+        waferMock.canvasHeight = 41;
+        waferMock.maxCharacters = 2;
+        computationsModule = new Computations(waferMock);
+        computationsModule.componentResizeUpdate();
+
+        expect(computationsModule.labelsFontSize).toBeLessThanOrEqual(
+            computationsModule.dieDimensions.height
+        );
+    });
+
+    it('with small width and one character at maximum should not have labelsFontSize larger than the die width', () => {
+        waferMock = getWaferMapMockComputationsExperimental();
+        waferMock.maxCharacters = 1;
+        waferMock.canvasWidth = 41;
+        waferMock.canvasHeight = 50;
+        computationsModule = new Computations(waferMock);
+        computationsModule.componentResizeUpdate();
+
+        expect(computationsModule.labelsFontSize).toBeLessThan(
+            computationsModule.dieDimensions.width
+        );
+    });
+
+    describe('with linear color scale', () => {
+        const colorScaleMode = WaferMapColorScaleMode.linear;
+
+        it('and only one color value pair should have undefined color category', () => {
+            waferMock = getWaferMapMockComputationsExperimental();
+            waferMock.colorScale = { colors: ['red'], values: ['1'] };
+            waferMock.colorScaleMode = colorScaleMode;
+            waferMock.maxCharacters = 2;
+            computationsModule = new Computations(waferMock);
+            computationsModule.colorAndTextUpdate();
+            const expectedValues = Array(1).fill(undefined);
+
+            const actualValues = computationsModule.colorScale.map(
+                colorCategory => colorCategory.color
+            );
+
+            expect(actualValues).toEqual(
+                jasmine.arrayWithExactContents(expectedValues)
+            );
+        });
+
+        it('and only one duplicated color value pair should have a single color category', () => {
+            waferMock = getWaferMapMockComputationsExperimental();
+            waferMock.colorScale = {
+                colors: ['red', 'red'],
+                values: ['1', '1']
+            };
+            waferMock.colorScaleMode = colorScaleMode;
+            waferMock.maxCharacters = 2;
+            computationsModule = new Computations(waferMock);
+            computationsModule.colorAndTextUpdate();
+
+            const expectedValues = Array(1).fill('rgb(255, 0, 0)');
+            const actualValues = computationsModule.colorScale.map(
+                colorCategory => colorCategory.color
+            );
+            expect(actualValues).toEqual(
+                jasmine.arrayWithExactContents(expectedValues)
+            );
+        });
+
+        it('and color value pairs for the scale ends should have the colors equally distributed', () => {
+            waferMock = getWaferMapMockComputationsExperimental();
+            waferMock.colorScale = {
+                colors: ['black', 'red'],
+                values: ['1', '18']
+            };
+            waferMock.colorScaleMode = colorScaleMode;
+            waferMock.maxCharacters = 2;
+            computationsModule = new Computations(waferMock);
+            computationsModule.colorAndTextUpdate();
+            const waferMapDies = getWaferMapDies();
+            const expectedValues = waferMapDies
+                .sort((a, b) => +a.value - +b.value)
+                .map(waferMapDie => {
+                    return `rgb(${(+waferMapDie.value - 1) * 15}, 0, 0)`;
+                });
+            const actualValues = computationsModule.colorScale.map(
+                colorCategory => colorCategory.color
+            );
+            expect(actualValues).toEqual(
+                jasmine.arrayWithExactContents(expectedValues)
+            );
+        });
+    });
+
+    describe('with ordinal color scale', () => {
+        const colorScaleMode = WaferMapColorScaleMode.ordinal;
+
+        it('and only one color value pair should have a single color category', () => {
+            waferMock = getWaferMapMockComputationsExperimental();
+            waferMock.colorScale = { colors: ['red'], values: ['1'] };
+            waferMock.colorScaleMode = colorScaleMode;
+            waferMock.maxCharacters = 2;
+            computationsModule = new Computations(waferMock);
+            computationsModule.colorAndTextUpdate();
+            const expectedValues = Array(1).fill('red');
+            const actualValues = computationsModule.colorScale.map(
+                colorCategory => colorCategory.color
+            );
+            expect(actualValues).toEqual(
+                jasmine.arrayWithExactContents(expectedValues)
+            );
+        });
+
+        it('and two colors should have two color categories', () => {
+            waferMock = getWaferMapMockComputationsExperimental();
+            waferMock.colorScale = {
+                colors: ['black', 'red'],
+                values: []
+            };
+            waferMock.colorScaleMode = colorScaleMode;
+            waferMock.maxCharacters = 2;
+            computationsModule = new Computations(waferMock);
+            computationsModule.colorAndTextUpdate();
+
+            const expectedValues = ['black', 'red'];
+            const actualValues = computationsModule.colorScale.map(
+                colorCategory => colorCategory.color
+            );
+            expect(actualValues).toEqual(
+                jasmine.arrayWithExactContents(expectedValues)
+            );
+        });
     });
 });
