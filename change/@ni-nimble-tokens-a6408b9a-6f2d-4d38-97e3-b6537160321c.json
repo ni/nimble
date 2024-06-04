@@ -1,0 +1,7 @@
+{
+  "type": "minor",
+  "comment": "Update button label font size from 12.8px to 14px to match current visual design in Figma",
+  "packageName": "@ni/nimble-tokens",
+  "email": "1458528+fredvisser@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
