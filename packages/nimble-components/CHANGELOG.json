@@ -2,6 +2,96 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 04 Jun 2024 17:05:14 GMT",
+      "version": "29.2.1",
+      "tag": "@ni/nimble-components_v29.2.1",
+      "comments": {
+        "none": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "9b1924fe150d01e2343e8087abdd4730f1da4466",
+            "comment": "Disable intermittent rich text editor test"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 04 Jun 2024 16:35:58 GMT",
+      "version": "29.2.1",
+      "tag": "@ni/nimble-components_v29.2.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/nimble-tokens to v6.14.0",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 04 Jun 2024 02:06:07 GMT",
+      "version": "29.2.0",
+      "tag": "@ni/nimble-components_v29.2.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "9ed4ff0f84ba6b696a1602816825e875a9ae618f",
+            "comment": "List option groups for Select"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 03 Jun 2024 22:25:43 GMT",
+      "version": "29.1.8",
+      "tag": "@ni/nimble-components_v29.1.8",
+      "comments": {
+        "patch": [
+          {
+            "author": "33986780+munteannatan@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "decce3d5531d93d66fe608607dd0260602b3a2f9",
+            "comment": "Refactored experimental structure and update strategy for wafer map component"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 31 May 2024 18:50:45 GMT",
+      "version": "29.1.7",
+      "tag": "@ni/nimble-components_v29.1.7",
+      "comments": {
+        "none": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "7f81793cd766e69d63c89d69716a9f4352bb32ab",
+            "comment": "Update spec with new APIs for Select custom filtering."
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 31 May 2024 15:22:31 GMT",
+      "version": "29.1.7",
+      "tag": "@ni/nimble-components_v29.1.7",
+      "comments": {
+        "patch": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "ad47a4137ef0a1a49b82b99fdbfdf4feb510d5fe",
+            "comment": "Remove listbox component as it is unused."
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 28 May 2024 20:13:14 GMT",
       "version": "29.1.6",
       "tag": "@ni/nimble-components_v29.1.6",

@@ -187,3 +187,5 @@ export const dropdownPositionDescription = (options: { componentName: string }):
 export const optionsDescription = `The \`${listOptionTag}\` items for the user to select from.`;
 
 export const preventDismissDescription = (options: { componentName: string }): string => `Prevents the \`Esc\` key from closing the ${options.componentName}.`;
+
+export const checkValidityDescription = (options: { componentName: string }): string => `Returns \`true\` if the configuration of the ${options.componentName} is valid, otherwise \`false\`.`;
