@@ -13,8 +13,7 @@ const metadata: Meta = {
     parameters: {
         docs: {
             description: {
-                component:
-                    `The ${listOptionTag} component is used to define the options that are available in its parent component.`
+                component: `The ${listOptionTag} component is used to define the options that are available in its parent component.`
             }
         }
     }
@@ -33,8 +32,7 @@ export const listOption: StoryObj = {
         },
         value: {
             name: 'value',
-            description:
-                `The value associated with the option. Some parent components like the ${selectTag} will use this value as their own when this option is selected.`,
+            description: `The value associated with the option. Some parent components like the ${selectTag} will use this value as their own when this option is selected.`,
             table: { category: apiCategory.attributes },
             control: false
         },
