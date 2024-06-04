@@ -14,7 +14,7 @@ To group options in a select, you can use the \`${listOptionGroupTag}\` element.
 `;
 
 const metadata: Meta = {
-    title: 'Internal/ListOptionGroup',
+    title: 'Internal/List Option Group',
     parameters: {
         docs: {
             description: {
