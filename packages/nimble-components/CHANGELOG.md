@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Mon, 03 Jun 2024 22:25:43 GMT and should not be manually modified.
+This log was last generated on Tue, 04 Jun 2024 02:06:07 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 29.2.0
+
+Tue, 04 Jun 2024 02:06:07 GMT
+
+### Minor changes
+
+- List option groups for Select ([ni/nimble@9ed4ff0](https://github.com/ni/nimble/commit/9ed4ff0f84ba6b696a1602816825e875a9ae618f))
 
 ## 29.1.8
 
