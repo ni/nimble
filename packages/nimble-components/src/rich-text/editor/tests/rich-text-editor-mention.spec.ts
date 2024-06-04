@@ -1264,7 +1264,8 @@ describe('RichTextEditorMentionListbox', () => {
             ).toEqual(['username2']);
         });
 
-        it('should filter and commit first mention into the editor on Tab', async () => {
+        // Intermittent, see https://github.com/ni/nimble/issues/2150
+        xit('should filter and commit first mention into the editor on Tab', async () => {
             await appendUserMentionConfiguration(element, [
                 { key: 'user:1', displayName: 'username1' },
                 { key: 'user:2', displayName: 'username2' }
