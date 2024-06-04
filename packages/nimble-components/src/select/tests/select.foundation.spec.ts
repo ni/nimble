@@ -13,7 +13,7 @@ import { Select } from '..';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import { fixture } from '../../utilities/tests/fixture';
 import { template } from '../template';
-import { ListOption } from '../../list-option';
+import { ListOption, listOptionTag } from '../../list-option';
 import { template as listOptionTemplate } from '../../list-option/template';
 
 /**
@@ -54,15 +54,15 @@ describe('Select', () => {
             option()
         ]);
 
-        const option1 = document.createElement('nimble-list-option');
+        const option1 = document.createElement(listOptionTag);
         option1.value = 'one';
         option1.textContent = 'option one';
 
-        const option2 = document.createElement('nimble-list-option');
+        const option2 = document.createElement(listOptionTag);
         option2.value = 'two';
         option2.textContent = 'option two';
 
-        const option3 = document.createElement('nimble-list-option');
+        const option3 = document.createElement(listOptionTag);
         option3.value = 'three';
         option3.textContent = 'option three';
 

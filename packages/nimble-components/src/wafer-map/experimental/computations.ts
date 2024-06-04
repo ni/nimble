@@ -1,6 +1,8 @@
 import { scaleLinear, ScaleLinear } from 'd3-scale';
-import type { WaferMap } from '../..';
-import { Dimensions, Margin, WaferMapOriginLocation } from '../../types';
+import { ticks } from 'd3-array';
+import type { WaferMap } from '..';
+import { WaferMapColorScaleMode, WaferMapOriginLocation } from '../types';
+import type { ColorScale, Dimensions, Margin } from '../workers/types';
 
 interface GridDimensions {
     origin: {
@@ -15,6 +17,14 @@ interface GridDimensions {
  * Computations calculates and stores different measures which are used in the Wafermap
  */
 export class Computations {
+    public get horizontalScale(): ScaleLinear<number, number> {
+        return this._horizontalScale;
+    }
+
+    public get verticalScale(): ScaleLinear<number, number> {
+        return this._verticalScale;
+    }
+
     public get containerDimensions(): Dimensions {
         return this._containerDimensions;
     }
@@ -27,25 +37,49 @@ export class Computations {
         return this._margin;
     }
 
-    public get horizontalScale(): ScaleLinear<number, number> {
-        return this._horizontalScale;
+    public get verticalCoefficient(): number {
+        return this._verticalCoefficient;
     }
 
-    public get verticalScale(): ScaleLinear<number, number> {
-        return this._verticalScale;
+    public get horizontalCoefficient(): number {
+        return this._horizontalCoefficient;
     }
 
+    public get horizontalConstant(): number {
+        return this._horizontalConstant;
+    }
+
+    public get verticalConstant(): number {
+        return this._verticalConstant;
+    }
+
+    public get labelsFontSize(): number {
+        return this._labelsFontSize;
+    }
+
+    public get colorScale(): ColorScale {
+        return this._colorScale;
+    }
+
+    private _horizontalScale!: ScaleLinear<number, number>;
+    private _verticalScale!: ScaleLinear<number, number>;
     private _containerDimensions!: Dimensions;
     private _dieDimensions!: Dimensions;
     private _margin!: Margin;
-    private _horizontalScale!: ScaleLinear<number, number>;
-    private _verticalScale!: ScaleLinear<number, number>;
-    private readonly defaultPadding = 0;
+    private _verticalCoefficient!: number;
+    private _horizontalCoefficient!: number;
+    private _horizontalConstant!: number;
+    private _verticalConstant!: number;
+    private _labelsFontSize!: number;
+    private _colorScale!: ColorScale;
+
     private readonly baseMarginPercentage = 0.04;
+    private readonly fontSizeFactor = 0.8;
+    private readonly colorScaleResolution = 10;
 
     public constructor(private readonly wafermap: WaferMap) {}
 
-    public update(): void {
+    public componentResizeUpdate(): void {
         const canvasDimensions = {
             width: this.wafermap.canvasWidth,
             height: this.wafermap.canvasHeight
@@ -69,8 +103,16 @@ export class Computations {
         this._margin = this.calculateMarginAddition(baseMargin, canvasMargin);
         this._containerDimensions = this.calculateContainerDimensions(
             canvasDimensions,
-            this._margin
+            this.margin
         );
+        this.inputDataUpdate();
+    }
+
+    public inputDataUpdate(): void {
+        if (this._containerDimensions === undefined) {
+            this.componentResizeUpdate();
+            return;
+        }
         const containerDiameter = Math.min(
             this._containerDimensions.width,
             this._containerDimensions.height
@@ -91,12 +133,30 @@ export class Computations {
             gridDimensions,
             containerDiameter
         );
+        this._horizontalCoefficient = this._horizontalScale(1) - this._horizontalScale(0);
+        this._verticalCoefficient = this._verticalScale(1) - this._verticalScale(0);
+        this._horizontalConstant = this._horizontalScale(0);
+        this._verticalConstant = this._verticalScale(0);
+
         this._dieDimensions = {
             width: Math.abs(
                 this._horizontalScale(0) - this._horizontalScale(1)
             ),
             height: Math.abs(this._verticalScale(0) - this._verticalScale(1))
         };
+        this.colorAndTextUpdate();
+    }
+
+    public colorAndTextUpdate(): void {
+        if (this._dieDimensions === undefined) {
+            this.inputDataUpdate();
+            return;
+        }
+        this._labelsFontSize = this.calculateLabelsFontSize(
+            this._dieDimensions,
+            this.wafermap.maxCharacters
+        );
+        this._colorScale = this.calculateColorScale();
     }
 
     private gridDimensionsValidAndDefined(): boolean {
@@ -223,5 +283,56 @@ export class Computations {
             bottom: baseMargin.bottom + addedMargin.bottom,
             left: baseMargin.left + addedMargin.left
         };
+    }
+
+    private calculateColorScale(): ColorScale {
+        if (this.wafermap.colorScaleMode === WaferMapColorScaleMode.linear) {
+            const values = this.wafermap.colorScale.values.map(item => +item);
+            const d3ColorScale = scaleLinear<string, string>()
+                .domain(values)
+                .range(this.wafermap.colorScale.colors);
+            let min = values[0]!;
+            let max = values[0]!;
+            values.forEach(value => {
+                if (value < min) {
+                    min = value;
+                }
+                if (value > max) {
+                    max = value;
+                }
+            });
+            // the linear color scale will not be infinite but will be limited by the color scale resolution
+            const valueSamples = ticks(
+                min,
+                max,
+                values.length * this.colorScaleResolution
+            );
+            return valueSamples.map(value => {
+                return {
+                    color: d3ColorScale(value),
+                    value
+                };
+            });
+        }
+        // ordinal color categories have to be sorted by value
+        return this.wafermap.colorScale.colors
+            .map((color, index) => {
+                return {
+                    color,
+                    value: +this.wafermap.colorScale.values[index]!
+                };
+            })
+            .sort((a, b) => a.value - b.value);
+    }
+
+    private calculateLabelsFontSize(
+        dieDimensions: Dimensions,
+        maxCharacters: number
+    ): number {
+        return Math.min(
+            dieDimensions.height,
+            (dieDimensions.width / (Math.max(2, maxCharacters) * 0.5))
+                * this.fontSizeFactor
+        );
     }
 }
