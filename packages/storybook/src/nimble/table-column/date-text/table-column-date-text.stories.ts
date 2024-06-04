@@ -28,7 +28,11 @@ import {
     sharedTableArgTypes,
     sharedTableArgs
 } from '../base/table-column-stories-utils';
-import { apiCategory, checkValidityDescription, createUserSelectedThemeStory } from '../../../utilities/storybook';
+import {
+    apiCategory,
+    checkValidityDescription,
+    createUserSelectedThemeStory
+} from '../../../utilities/storybook';
 
 const simpleData = [
     {
@@ -164,18 +168,18 @@ export const dateTextColumn: StoryObj<TextColumnTableArgs> = {
             description:
                 'Set this attribute to identify which field in the data record should be displayed in each column. The field values must be of type `number` and represent the number of milliseconds since January 1, 1970 UTC. This is the representation used by the `Date` type.',
             control: false,
-            table: { category: apiCategory.attributes },
+            table: { category: apiCategory.attributes }
         },
         placeholder: {
             description:
                 'The placeholder text to display when the field value is `undefined` or `null` for a record.',
-            table: { category: apiCategory.attributes },
+            table: { category: apiCategory.attributes }
         },
         format: {
             description: formatDescription,
             options: Object.keys(DateTextFormat),
             control: { type: 'radio' },
-            table: { category: apiCategory.attributes },
+            table: { category: apiCategory.attributes }
         },
         customDateStyle: {
             name: 'custom-date-style',
@@ -183,7 +187,7 @@ export const dateTextColumn: StoryObj<TextColumnTableArgs> = {
                 'Refer to the option [documentation for the `Intl.DateTimeFormat()` constructor](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat/DateTimeFormat).',
             options: [undefined, 'full', 'long', 'medium', 'short'],
             control: { type: 'radio' },
-            table: { category: apiCategory.attributes },
+            table: { category: apiCategory.attributes }
         },
         customTimeStyle: {
             name: 'custom-time-style',
@@ -191,7 +195,7 @@ export const dateTextColumn: StoryObj<TextColumnTableArgs> = {
                 'Refer to the option [documentation for the `Intl.DateTimeFormat()` constructor](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat/DateTimeFormat).',
             options: [undefined, 'full', 'long', 'medium', 'short'],
             control: { type: 'radio' },
-            table: { category: apiCategory.attributes },
+            table: { category: apiCategory.attributes }
         },
         customWeekday: {
             name: 'custom-weekday',
@@ -199,7 +203,7 @@ export const dateTextColumn: StoryObj<TextColumnTableArgs> = {
                 'Refer to the option [documentation for the `Intl.DateTimeFormat()` constructor](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat/DateTimeFormat).',
             options: [undefined, 'long', 'short', 'narrow'],
             control: { type: 'radio' },
-            table: { category: apiCategory.attributes },
+            table: { category: apiCategory.attributes }
         },
         customDay: {
             name: 'custom-day',
@@ -207,7 +211,7 @@ export const dateTextColumn: StoryObj<TextColumnTableArgs> = {
                 'Refer to the option [documentation for the `Intl.DateTimeFormat()` constructor](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat/DateTimeFormat).',
             options: [undefined, 'numeric', '2-digit'],
             control: { type: 'radio' },
-            table: { category: apiCategory.attributes },
+            table: { category: apiCategory.attributes }
         },
         customMonth: {
             name: 'custom-month',
@@ -222,7 +226,7 @@ export const dateTextColumn: StoryObj<TextColumnTableArgs> = {
                 'narrow'
             ],
             control: { type: 'radio' },
-            table: { category: apiCategory.attributes },
+            table: { category: apiCategory.attributes }
         },
         customYear: {
             name: 'custom-year',
@@ -230,7 +234,7 @@ export const dateTextColumn: StoryObj<TextColumnTableArgs> = {
                 'Refer to the option [documentation for the `Intl.DateTimeFormat()` constructor](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat/DateTimeFormat).',
             options: [undefined, 'numeric', '2-digit'],
             control: { type: 'radio' },
-            table: { category: apiCategory.attributes },
+            table: { category: apiCategory.attributes }
         },
         customEra: {
             name: 'custom-era',
@@ -238,7 +242,7 @@ export const dateTextColumn: StoryObj<TextColumnTableArgs> = {
                 'Refer to the option [documentation for the `Intl.DateTimeFormat()` constructor](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat/DateTimeFormat).',
             options: [undefined, 'long', 'short', 'narrow'],
             control: { type: 'radio' },
-            table: { category: apiCategory.attributes },
+            table: { category: apiCategory.attributes }
         },
         customHour: {
             name: 'custom-hour',
@@ -246,7 +250,7 @@ export const dateTextColumn: StoryObj<TextColumnTableArgs> = {
                 'Refer to the option [documentation for the `Intl.DateTimeFormat()` constructor](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat/DateTimeFormat).',
             options: [undefined, 'numeric', '2-digit'],
             control: { type: 'radio' },
-            table: { category: apiCategory.attributes },
+            table: { category: apiCategory.attributes }
         },
         customMinute: {
             name: 'custom-minute',
@@ -254,7 +258,7 @@ export const dateTextColumn: StoryObj<TextColumnTableArgs> = {
                 'Refer to the option [documentation for the `Intl.DateTimeFormat()` constructor](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat/DateTimeFormat).',
             options: [undefined, 'numeric', '2-digit'],
             control: { type: 'radio' },
-            table: { category: apiCategory.attributes },
+            table: { category: apiCategory.attributes }
         },
         customSecond: {
             name: 'custom-second',
@@ -262,7 +266,7 @@ export const dateTextColumn: StoryObj<TextColumnTableArgs> = {
                 'Refer to the option [documentation for the `Intl.DateTimeFormat()` constructor](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat/DateTimeFormat).',
             options: [undefined, 'numeric', '2-digit'],
             control: { type: 'radio' },
-            table: { category: apiCategory.attributes },
+            table: { category: apiCategory.attributes }
         },
         customHour12: {
             name: 'custom-hour12',
@@ -270,7 +274,7 @@ export const dateTextColumn: StoryObj<TextColumnTableArgs> = {
                 'Refer to the option [documentation for the `Intl.DateTimeFormat()` constructor](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat/DateTimeFormat).',
             options: [undefined, true, false],
             control: { type: 'radio' },
-            table: { category: apiCategory.attributes },
+            table: { category: apiCategory.attributes }
         },
         customHourCycle: {
             name: 'custom-hour-cycle',
@@ -278,7 +282,7 @@ export const dateTextColumn: StoryObj<TextColumnTableArgs> = {
                 'Refer to the option [documentation for the `Intl.DateTimeFormat()` constructor](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat/DateTimeFormat).',
             options: [undefined, 'h11', 'h12', 'h23', 'h24'],
             control: { type: 'radio' },
-            table: { category: apiCategory.attributes },
+            table: { category: apiCategory.attributes }
         },
         customTimeZoneName: {
             name: 'custom-time-zone-name',
@@ -294,7 +298,7 @@ export const dateTextColumn: StoryObj<TextColumnTableArgs> = {
                 'shortGeneric'
             ],
             control: { type: 'radio' },
-            table: { category: apiCategory.attributes },
+            table: { category: apiCategory.attributes }
         },
         customTimeZone: {
             name: 'custom-time-zone',
@@ -308,7 +312,7 @@ export const dateTextColumn: StoryObj<TextColumnTableArgs> = {
                 'Europe/Paris'
             ],
             control: { type: 'radio' },
-            table: { category: apiCategory.attributes },
+            table: { category: apiCategory.attributes }
         },
         customDayPeriod: {
             name: 'custom-day-period',
@@ -316,7 +320,7 @@ export const dateTextColumn: StoryObj<TextColumnTableArgs> = {
                 'Refer to the option [documentation for the `Intl.DateTimeFormat()` constructor](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat/DateTimeFormat).',
             options: [undefined, 'narrow', 'short', 'long'],
             control: { type: 'radio' },
-            table: { category: apiCategory.attributes },
+            table: { category: apiCategory.attributes }
         },
         customCalendar: {
             name: 'custom-calendar',
@@ -331,7 +335,7 @@ export const dateTextColumn: StoryObj<TextColumnTableArgs> = {
                 'islamic-civil'
             ],
             control: { type: 'radio' },
-            table: { category: apiCategory.attributes },
+            table: { category: apiCategory.attributes }
         },
         customNumberingSystem: {
             name: 'custom-numbering-system',
@@ -339,7 +343,7 @@ export const dateTextColumn: StoryObj<TextColumnTableArgs> = {
                 'Refer to the option [documentation for the `Intl.DateTimeFormat()` constructor](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat/DateTimeFormat). The values presented here are not a comprehensive list.',
             options: [undefined, 'arab', 'fullwide', 'latn', 'tamldec'],
             control: { type: 'radio' },
-            table: { category: apiCategory.attributes },
+            table: { category: apiCategory.attributes }
         },
         customFormatMatcher: {
             name: 'custom-format-matcher',
@@ -347,7 +351,7 @@ export const dateTextColumn: StoryObj<TextColumnTableArgs> = {
                 'Refer to the option [documentation for the `Intl.DateTimeFormat()` constructor](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat/DateTimeFormat).',
             options: [undefined, 'basic', 'best-fit'],
             control: { type: 'radio' },
-            table: { category: apiCategory.attributes },
+            table: { category: apiCategory.attributes }
         },
         customLocaleMatcher: {
             name: 'custom-locale-matcher',
@@ -355,18 +359,20 @@ export const dateTextColumn: StoryObj<TextColumnTableArgs> = {
                 'Refer to the option [documentation for the `Intl.DateTimeFormat()` constructor](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat/DateTimeFormat).',
             options: [undefined, 'lookup', 'best-fit'],
             control: { type: 'radio' },
-            table: { category: apiCategory.attributes },
+            table: { category: apiCategory.attributes }
         },
         checkValidity: {
             name: 'checkValidity()',
-            description: checkValidityDescription({ componentName: 'date text column' }),
+            description: checkValidityDescription({
+                componentName: 'date text column'
+            }),
             table: { category: apiCategory.methods },
-            control: false,
+            control: false
         },
         validity: {
             description: validityDescription,
             table: { category: apiCategory.nonAttributeProperties },
-            control: false,
+            control: false
         }
     },
     args: {

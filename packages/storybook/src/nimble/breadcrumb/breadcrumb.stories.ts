@@ -4,7 +4,11 @@ import { html, repeat } from '@microsoft/fast-element';
 import { breadcrumbItemTag } from '../../../../nimble-components/src/breadcrumb-item';
 import { breadcrumbTag } from '../../../../nimble-components/src/breadcrumb';
 import { BreadcrumbAppearance } from '../../../../nimble-components/src/breadcrumb/types';
-import { apiCategory, appearanceDescription, createUserSelectedThemeStory } from '../../utilities/storybook';
+import {
+    apiCategory,
+    appearanceDescription,
+    createUserSelectedThemeStory
+} from '../../utilities/storybook';
 import { hrefDescription } from '../patterns/anchor/anchor-docs';
 
 interface BreadcrumbArgs {
@@ -33,7 +37,10 @@ const metadata: Meta<BreadcrumbArgs> = {
 
 export default metadata;
 
-const defaultHrefDescription = hrefDescription({ componentName: 'breadcrumb item', includeDisable: false });
+const defaultHrefDescription = hrefDescription({
+    componentName: 'breadcrumb item',
+    includeDisable: false
+});
 const itemHrefDescription = `${defaultHrefDescription} If the last breadcrumb item represents the current page it should have no \`href\` set.`;
 
 export const _standardBreadcrumb: StoryObj<BreadcrumbArgs> = {
@@ -56,8 +63,7 @@ export const _standardBreadcrumb: StoryObj<BreadcrumbArgs> = {
     argTypes: {
         options: {
             name: 'default',
-            description:
-                `The \`${breadcrumbItemTag}\` elements that populate this breadcrumb. 
+            description: `The \`${breadcrumbItemTag}\` elements that populate this breadcrumb. 
 
 With a standard breadcrumb containing multiple items, the last breadcrumb represents the current page.`,
             table: { category: apiCategory.slots }
@@ -109,13 +115,14 @@ export const breadcrumbItem: StoryObj<BreadcrumbItemArgs> = {
             table: { category: apiCategory.slots }
         },
         click: {
-            description: 'Event emitted when the user activates the breadcrumb item link, for example by clicking on it or pressing Enter while focused.',
+            description:
+                'Event emitted when the user activates the breadcrumb item link, for example by clicking on it or pressing Enter while focused.',
             control: false,
             table: { category: apiCategory.events }
         }
     },
     args: {
         href: 'http://www.ni.com',
-        label: 'Breadcrumb Item',
+        label: 'Breadcrumb Item'
     }
 };

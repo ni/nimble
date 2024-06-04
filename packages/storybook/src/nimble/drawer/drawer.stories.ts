@@ -9,14 +9,24 @@ import {
     drawerWidth,
     standardPadding
 } from '../../../../nimble-components/src/theme-provider/design-tokens';
-import { TextField, textFieldTag } from '../../../../nimble-components/src/text-field';
+import {
+    TextField,
+    textFieldTag
+} from '../../../../nimble-components/src/text-field';
 import { buttonTag } from '../../../../nimble-components/src/button';
 import { listOptionTag } from '../../../../nimble-components/src/list-option';
 import { numberFieldTag } from '../../../../nimble-components/src/number-field';
 import { selectTag } from '../../../../nimble-components/src/select';
-import { Drawer, drawerTag, UserDismissed } from '../../../../nimble-components/src/drawer';
+import {
+    Drawer,
+    drawerTag,
+    UserDismissed
+} from '../../../../nimble-components/src/drawer';
 import { DrawerLocation } from '../../../../nimble-components/src/drawer/types';
-import { DrawerWidthOptions, ExampleContentType } from '../../../../nimble-components/src/drawer/tests/types';
+import {
+    DrawerWidthOptions,
+    ExampleContentType
+} from '../../../../nimble-components/src/drawer/tests/types';
 
 import {
     apiCategory,
@@ -152,7 +162,8 @@ const metadata: Meta<DrawerArgs> = {
         location: {
             options: [DrawerLocation.left, DrawerLocation.right],
             control: { type: 'radio' },
-            description: 'The side of the screen from which the drawer will slide in',
+            description:
+                'The side of the screen from which the drawer will slide in',
             table: { category: apiCategory.attributes }
         },
         preventDismiss: {

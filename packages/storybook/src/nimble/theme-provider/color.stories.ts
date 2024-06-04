@@ -1,7 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/html';
 import { html, repeat } from '@microsoft/fast-element';
 import * as tokens from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
-import { controlLabelFont, controlLabelFontColor } from '../../../../nimble-components/src/theme-provider/design-tokens';
+import {
+    controlLabelFont,
+    controlLabelFontColor
+} from '../../../../nimble-components/src/theme-provider/design-tokens';
 import { createUserSelectedThemeStory } from '../../utilities/storybook';
 
 interface NimbleColor {

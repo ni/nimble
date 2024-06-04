@@ -5,7 +5,10 @@ import { buttonTag } from '../../../../../nimble-components/src/button';
 import { labelProviderRichTextTag } from '../../../../../nimble-components/src/label-provider/rich-text';
 import { mappingUserTag } from '../../../../../nimble-components/src/mapping/user';
 import { richTextMentionUsersTag } from '../../../../../nimble-components/src/rich-text-mention/users';
-import { RichTextEditor, richTextEditorTag } from '../../../../../nimble-components/src/rich-text/editor';
+import {
+    RichTextEditor,
+    richTextEditorTag
+} from '../../../../../nimble-components/src/rich-text/editor';
 import {
     addLabelUseMetadata,
     type LabelUserArgs
@@ -149,12 +152,11 @@ const metadata: Meta<RichTextEditorArgs> = {
                         'Combination of all supported markdown string'
                 }
             },
-            table: { category: apiCategory.methods },
+            table: { category: apiCategory.methods }
         },
         mentionData: {
             name: 'default',
-            description:
-                `Configure how mentions are detected and displayed by adding a \`${richTextMentionUsersTag}\` as content. See documentation of the \`pattern\` attribute of the mention configuration element and the \`key\` attribute of mapping element(s).`,
+            description: `Configure how mentions are detected and displayed by adding a \`${richTextMentionUsersTag}\` as content. See documentation of the \`pattern\` attribute of the mention configuration element and the \`key\` attribute of mapping element(s).`,
             options: Object.values(mentionDataType),
             control: {
                 type: 'radio',
@@ -164,25 +166,25 @@ const metadata: Meta<RichTextEditorArgs> = {
                         'HTTPS Pattern - https://user/(.*)'
                 }
             },
-            table: { category: apiCategory.slots },
+            table: { category: apiCategory.slots }
         },
         footerActionButtons: {
             name: 'footer-actions',
             description: footerActionButtonDescription,
-            table: { category: apiCategory.slots },
+            table: { category: apiCategory.slots }
         },
         getMarkdown: {
             name: 'getMarkdown()',
             description: getMarkdownDescription,
             control: false,
-            table: { category: apiCategory.methods },
+            table: { category: apiCategory.methods }
         },
         getMentionedHrefs: {
             name: 'getMentionedHrefs()',
             description:
                 'Returns an array of strings listing the hrefs of current mentions in the rich text components.',
             control: false,
-            table: { category: apiCategory.methods },
+            table: { category: apiCategory.methods }
         },
         editorRef: {
             table: { disable: true }
@@ -191,50 +193,56 @@ const metadata: Meta<RichTextEditorArgs> = {
             table: { disable: true }
         },
         disabled: {
-            description: disabledDescription({ componentName: 'rich text editor' }),
-            table: { category: apiCategory.attributes },
+            description: disabledDescription({
+                componentName: 'rich text editor'
+            }),
+            table: { category: apiCategory.attributes }
         },
         errorVisible: {
             description: errorVisibleDescription,
-            table: { category: apiCategory.attributes },
+            table: { category: apiCategory.attributes }
         },
         errorText: {
             description: errorTextDescription,
-            table: { category: apiCategory.attributes },
+            table: { category: apiCategory.attributes }
         },
         placeholder: {
-            description: placeholderDescription({ componentName: 'rich text editor' }),
-            table: { category: apiCategory.attributes },
+            description: placeholderDescription({
+                componentName: 'rich text editor'
+            }),
+            table: { category: apiCategory.attributes }
         },
         footerHidden: {
             description:
                 'Hides the footer section which consists of all formatting option buttons and the `footer-actions` slot content.',
-            table: { category: apiCategory.attributes },
+            table: { category: apiCategory.attributes }
         },
         empty: {
             name: 'empty',
             description:
                 'Read-only boolean value. Returns true if editor is either empty or contains only whitespace.',
             control: false,
-            table: { category: apiCategory.nonAttributeProperties },
+            table: { category: apiCategory.nonAttributeProperties }
         },
         input: {
             name: 'input',
             description:
                 'Event emitted when there is a change in the content of the editor.',
             control: false,
-            table: { category: apiCategory.events },
+            table: { category: apiCategory.events }
         },
         validity: {
             description: validityDescription,
             control: false,
-            table: { category: apiCategory.nonAttributeProperties },
+            table: { category: apiCategory.nonAttributeProperties }
         },
         checkValidity: {
             name: 'checkValidity()',
-            description: checkValidityDescription({ componentName: 'rich text editor' }),
+            description: checkValidityDescription({
+                componentName: 'rich text editor'
+            }),
             control: false,
-            table: { category: apiCategory.methods },
+            table: { category: apiCategory.methods }
         }
     },
     args: {
