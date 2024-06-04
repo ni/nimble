@@ -33,7 +33,7 @@ export const styles = css`
         font-size: 12.8px;
         align-items: top;
         overflow: hidden;
-        overflow-wrap: break-word;
+        overflow-wrap: anywhere;
     }
 
     :host(:not([open])) {
