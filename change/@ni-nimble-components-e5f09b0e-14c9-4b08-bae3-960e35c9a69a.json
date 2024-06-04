@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Fix some icon metaphors and use larger check for checkbox",
-  "packageName": "@ni/nimble-components",
-  "email": "7282195+m-akinc@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
