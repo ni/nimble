@@ -3,6 +3,7 @@ import { themeProviderTag } from '../../../nimble-components/src/theme-provider'
 import { bodyFont } from '../../../nimble-components/src/theme-provider/design-tokens';
 import type { Theme } from '../../../nimble-components/src/theme-provider/types';
 import { listOptionTag } from '../../../nimble-components/src/list-option';
+import { listOptionGroupTag } from '../../../nimble-components/src/list-option-group';
 import {
     BackgroundState,
     backgroundStates,
@@ -196,7 +197,7 @@ export const errorVisibleDescription = 'When set to `true`, the `error-text` mes
 export const dropdownPositionDescription = (options: {
     componentName: string
 }): string => `Controls the position of the dropdown relative to the ${options.componentName}.`;
-export const optionsDescription = `The \`${listOptionTag}\` items for the user to select from.`;
+export const optionsDescription = `The \`${listOptionTag}\` items for the user to select from. Each \`${listOptionTag}\` can also be grouped using the \`${listOptionGroupTag}\` element.`;
 
 export const preventDismissDescription = (options: {
     componentName: string
