@@ -500,7 +500,7 @@ export const iconMetadata: {
         tags: []
     },
     IconTimes: {
-        tags: ['clear', 'close', 'delete', 'multiply', 'remove', 'x']
+        tags: ['clear', 'close', 'delete', 'multiply', 'remove']
     },
     IconTrash: {
         tags: ['delete', 'remove']
