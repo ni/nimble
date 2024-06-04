@@ -10,7 +10,10 @@ import type { Dimensions, RenderConfig } from '../workers/types';
  * Responsible for drawing the dies inside the wafer map, adding dieText and scaling the canvas
  */
 export class WorkerRenderer {
-    private matrixRenderer!: Remote<MatrixRenderer>;
+    /**
+     * @internal
+     */
+    public matrixRenderer!: Remote<MatrixRenderer>;
     private readonly minDieDim = 100;
 
     public constructor(private readonly wafermap: WaferMap) {}
