@@ -7,7 +7,7 @@ import {
 import { hiddenWrapper } from '../../utilities/hidden';
 
 const metadata: Meta = {
-    title: 'Internal/ListOption',
+    title: 'Internal/List Option',
     parameters: {
         docs: {
             description: {
