@@ -1,18 +1,24 @@
 import { html } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
+import { listOptionGroupTag } from '@ni/nimble-components/src/list-option-group';
+import { selectTag } from '@ni/nimble-components/src/select';
+import { listOptionTag } from '@ni/nimble-components/src/list-option';
 import {
     apiCategory,
     createUserSelectedThemeStory
 } from '../../utilities/storybook';
 import { hiddenWrapper } from '../../utilities/hidden';
 
+const groupedDescription = `
+To group options in a select, you can use the \`${listOptionGroupTag}\` element. This element should be placed within the \`${selectTag}\` and contain the \`${listOptionTag}\` elements that you want to group. Note that a \`${listOptionGroupTag}\` placed within another \`${listOptionGroupTag}\` is not supported.
+`;
+
 const metadata: Meta = {
     title: 'Internal/ListOptionGroup',
     parameters: {
         docs: {
             description: {
-                component:
-                    'The `nimble-list-option-group` component is used to provide a header above groups of options.'
+                component: groupedDescription
             }
         }
     }
