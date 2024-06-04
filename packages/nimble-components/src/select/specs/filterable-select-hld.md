@@ -127,6 +127,10 @@ Since the input for the filter is devoid of interaction semantics we find in the
 
 The accessibility tree will report that the search `input` element should have its own `focus` styling, however this should not be necessary, as the existence of the popup should provide the necessary focus hint to the user. Hiding the `input` from the accessibility tree using `aria-hidden` is strongly discouraged, and setting its `role` to `presentation` is not allowed.
 
+#### Grouping/Metadata
+
+See [Option Groups/Filtering](./option-groups-hld.md#filtering)
+
 ### Future considerations
 
 We may want to improve/alter the discoverability of the fact that more options are available to be loaded when using the `manual` filtering option. Currently, before a user begins typing there is nothing to suggest that there could be other options that are available to select.
