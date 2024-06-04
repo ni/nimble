@@ -1,5 +1,7 @@
 import { html } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
+import { selectTag } from '@ni/nimble-components/src/select';
+import { listOptionTag } from '@ni/nimble-components/src/list-option';
 import {
     apiCategory,
     createUserSelectedThemeStory
@@ -12,7 +14,7 @@ const metadata: Meta = {
         docs: {
             description: {
                 component:
-                    'The `nimble-list-option` component is used to define the options that are available to the `nimble-select` component.'
+                    `The ${listOptionTag} component is used to define the options that are available in its parent component.`
             }
         }
     }
@@ -32,14 +34,14 @@ export const listOption: StoryObj = {
         value: {
             name: 'value',
             description:
-                'The value associated with the option. When selected, this value will be used as the value of the select.',
+                `The value associated with the option. Some parent components like the ${selectTag} will use this value as their own when this option is selected.`,
             table: { category: apiCategory.attributes },
             control: false
         },
         selected: {
             name: 'selected',
             description:
-                'When true, the value of the select will match the value of this option. Note only one option can be selected at a time.',
+                'Represents which option in a set is currently selected. Note only one option can be selected at a time. This is managed by the parent component, but can be given an initial value.',
             table: { category: apiCategory.attributes },
             control: false
         },
