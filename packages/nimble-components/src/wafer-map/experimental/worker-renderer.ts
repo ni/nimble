@@ -3,7 +3,7 @@ import type { ZoomTransform } from 'd3-zoom';
 import type { WaferMap } from '..';
 import { HoverDieOpacity } from '../types';
 import { createMatrixRenderer } from '../modules/create-matrix-renderer';
-import type { MatrixRenderer } from '../../../build/generate-workers/dist/esm/source/matrix-renderer';
+import type { MatrixRenderer } from '../workers/matrix-renderer';
 import type { Dimensions, RenderConfig } from '../workers/types';
 
 /**
