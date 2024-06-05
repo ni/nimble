@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Wed, 05 Jun 2024 00:51:43 GMT",
+      "version": "29.2.2",
+      "tag": "@ni/nimble-components_v29.2.2",
+      "comments": {
+        "none": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "363a99447b464bce2a1f556190f3c1a5c6977f1d",
+            "comment": "Disable three more intermittent rich text tests"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 04 Jun 2024 17:40:32 GMT",
       "version": "29.2.2",
       "tag": "@ni/nimble-components_v29.2.2",
