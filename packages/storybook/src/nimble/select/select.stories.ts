@@ -29,6 +29,7 @@ interface SelectArgs {
     appearance: string;
     filterMode: keyof typeof FilterMode;
     clearable: boolean;
+    value: string;
     change: undefined;
 }
 
@@ -207,6 +208,13 @@ export const select: Meta<SelectArgs> = {
             name: 'clearable',
             description: clearableDescription,
             table: { category: apiCategory.attributes }
+        },
+        value: {
+            name: 'value',
+            description:
+                'The current value of the select. Selecting a new option will update this value.',
+            table: { category: apiCategory.nonAttributeProperties },
+            control: false
         },
         optionsType: {
             name: 'default',
