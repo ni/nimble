@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
-    <defs>
-        <style>.cls-1{fill:#161617;stroke-width:0px;}</style>
-    </defs>
     <polygon class="cls-1"
         points="11.02252 4.19547 8.72748 3.74436 13.99999 2 12.23751 7.25562 11.77998 4.95488 4.97748 11.80448 7.27252 12.25564 2.00001 14 3.76249 8.74433 4.22002 11.04508 11.02252 4.19547" />
 </svg>
