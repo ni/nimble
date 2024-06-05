@@ -56,7 +56,9 @@ const metadata: Meta<MenuButtonArgs> = {
     argTypes: {
         label: {
             name: 'default',
-            description: textContentDescription({ componentName: 'menu button' }),
+            description: textContentDescription({
+                componentName: 'menu button'
+            }),
             table: { category: apiCategory.slots }
         },
         icon: {

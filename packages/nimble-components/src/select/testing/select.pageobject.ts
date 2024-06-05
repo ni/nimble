@@ -11,13 +11,14 @@ import type { ListOption } from '../../list-option';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import { FilterMode } from '../types';
 import type { Button } from '../../button';
+import type { ListOptionGroup } from '../../list-option-group';
 
 /**
  * Page object for the `nimble-select` component to provide consistent ways
  * of querying and interacting with the component during tests.
  */
 export class SelectPageObject {
-    public constructor(private readonly selectElement: Select) {}
+    public constructor(protected readonly selectElement: Select) {}
 
     public async openAndSetFilterText(filterText: string): Promise<void> {
         if (this.selectElement.filterMode === FilterMode.none) {
@@ -70,6 +71,25 @@ export class SelectPageObject {
         const displayText = this.selectElement.shadowRoot?.querySelector('.selected-value')
             ?.textContent ?? '';
         return displayText.trim();
+    }
+
+    public getGroupLabels(): string[] {
+        return Array.from(
+            this.selectElement.querySelectorAll<ListOptionGroup>(
+                '[role="group"]'
+            ) ?? []
+        ).map(group => group.labelContent);
+    }
+
+    public getGroupOptionLabels(groupIndex: number): string[] {
+        const group = Array.from(
+            this.selectElement.querySelectorAll<ListOptionGroup>(
+                '[role="group"]'
+            ) ?? []
+        )[groupIndex];
+        return Array.from(
+            group?.querySelectorAll<ListOption>('[role="option"]') ?? []
+        ).map(option => option.textContent?.trim() ?? '');
     }
 
     /**
@@ -231,6 +251,19 @@ export class SelectPageObject {
             );
         }
         await waitForUpdatesAsync();
+    }
+
+    public clearFilter(): void {
+        if (this.selectElement.filterMode === FilterMode.none) {
+            throw new Error(
+                'Select has filterMode of "none" so there is no filter input'
+            );
+        }
+        const filterInput = this.getFilterInput();
+        filterInput!.value = '';
+        filterInput?.dispatchEvent(
+            new InputEvent('input', { inputType: 'deleteContentBackward' })
+        );
     }
 
     public isDropdownVisible(): boolean {

@@ -2,8 +2,20 @@ import { html } from '@microsoft/fast-element';
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html';
 import { textAreaTag } from '../../../../nimble-components/src/text-area';
-import { TextAreaAppearance, TextAreaResize } from '../../../../nimble-components/src/text-area/types';
-import { apiCategory, appearanceDescription, createUserSelectedThemeStory, disabledDescription, errorTextDescription, errorVisibleDescription, placeholderDescription, slottedLabelDescription } from '../../utilities/storybook';
+import {
+    TextAreaAppearance,
+    TextAreaResize
+} from '../../../../nimble-components/src/text-area/types';
+import {
+    apiCategory,
+    appearanceDescription,
+    createUserSelectedThemeStory,
+    disabledDescription,
+    errorTextDescription,
+    errorVisibleDescription,
+    placeholderDescription,
+    slottedLabelDescription
+} from '../../utilities/storybook';
 import { loremIpsum } from '../../utilities/lorem-ipsum';
 
 interface TextAreaArgs {
@@ -66,11 +78,13 @@ const metadata: Meta<TextAreaArgs> = {
             table: { category: apiCategory.attributes }
         },
         value: {
-            description: 'The string displayed in the text area. Note that the property value is not synced to an attribute.',
+            description:
+                'The string displayed in the text area. Note that the property value is not synced to an attribute.',
             table: { category: apiCategory.nonAttributeProperties }
         },
         readonly: {
-            description: 'Disallows input on the text area while maintaining enabled appearance.',
+            description:
+                'Disallows input on the text area while maintaining enabled appearance.',
             table: { category: apiCategory.attributes }
         },
         disabled: {
@@ -88,7 +102,8 @@ const metadata: Meta<TextAreaArgs> = {
             table: { category: apiCategory.attributes }
         },
         spellcheck: {
-            description: 'Specifies whether the text area is subject to spell checking by the underlying browser/OS.',
+            description:
+                'Specifies whether the text area is subject to spell checking by the underlying browser/OS.',
             table: { category: apiCategory.attributes }
         },
         resize: {
@@ -97,7 +112,6 @@ const metadata: Meta<TextAreaArgs> = {
             options: Object.values(TextAreaResize),
             control: { type: 'select' },
             table: { category: apiCategory.attributes }
-
         },
         rows: {
             description: 'Number of visible rows of text.',
@@ -107,7 +121,6 @@ const metadata: Meta<TextAreaArgs> = {
             description:
                 'Visible width of the text, in average character widths',
             table: { category: apiCategory.attributes }
-
         },
         maxlength: {
             description:
@@ -115,7 +128,8 @@ const metadata: Meta<TextAreaArgs> = {
             table: { category: apiCategory.attributes }
         },
         change: {
-            description: 'Event emitted when the user commits a new value to the text area.',
+            description:
+                'Event emitted when the user commits a new value to the text area.',
             table: { category: apiCategory.events },
             control: false
         }

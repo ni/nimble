@@ -14,7 +14,10 @@ import { anchorTabsTag } from '../../../../../nimble-components/src/anchor-tabs'
 import { anchorTabTag } from '../../../../../nimble-components/src/anchor-tab';
 import { breadcrumbTag } from '../../../../../nimble-components/src/breadcrumb';
 import { breadcrumbItemTag } from '../../../../../nimble-components/src/breadcrumb-item';
-import { RichTextViewer, richTextViewerTag } from '../../../../../nimble-components/src/rich-text/viewer';
+import {
+    RichTextViewer,
+    richTextViewerTag
+} from '../../../../../nimble-components/src/rich-text/viewer';
 import { anchorTreeItemTag } from '../../../../../nimble-components/src/anchor-tree-item';
 import { treeViewTag } from '../../../../../nimble-components/src/tree-view';
 import { anchorMenuItemTag } from '../../../../../nimble-components/src/anchor-menu-item';

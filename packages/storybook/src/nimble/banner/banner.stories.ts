@@ -4,7 +4,10 @@ import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html';
 import { Theme } from '../../../../nimble-components/src/theme-provider/types';
 import { iconKeyTag } from '../../../../nimble-components/src/icons/key';
 import { buttonTag } from '../../../../nimble-components/src/button';
-import { ButtonAppearance, ButtonAppearanceVariant } from '../../../../nimble-components/src/button/types';
+import {
+    ButtonAppearance,
+    ButtonAppearanceVariant
+} from '../../../../nimble-components/src/button/types';
 import { anchorTag } from '../../../../nimble-components/src/anchor';
 import { labelProviderCoreTag } from '../../../../nimble-components/src/label-provider/core';
 import { popupDismissLabel } from '../../../../nimble-components/src/label-provider/core/label-tokens';
@@ -14,7 +17,10 @@ import {
     LabelUserArgs,
     addLabelUseMetadata
 } from '../label-provider/base/label-user-stories-utils';
-import { apiCategory, createUserSelectedThemeStory } from '../../utilities/storybook';
+import {
+    apiCategory,
+    createUserSelectedThemeStory
+} from '../../utilities/storybook';
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 const ActionType = {
@@ -80,43 +86,42 @@ export const _banner: StoryObj<BannerArgs> = {
     argTypes: {
         open: {
             description: 'Controls whether the banner is visible.',
-            table: { category: apiCategory.attributes },
+            table: { category: apiCategory.attributes }
         },
         title: {
             description:
                 'Primary text which is displayed when `title-hidden` is not set. Banners should **always include a title** even when `title-hidden` is set. The title is used to provide an accessible name to assistive technologies regardless of the value of `title-hidden`.<br><br>Provide the title in an `inline` element such as `<span>`',
-            table: { category: apiCategory.slots },
+            table: { category: apiCategory.slots }
         },
         text: {
             name: 'default',
             description:
                 'Secondary text that provides a detailed message. This text should be short enough to fit within three lines when displayed.',
-            table: { category: apiCategory.slots },
+            table: { category: apiCategory.slots }
         },
         severity: {
             options: Object.keys(BannerSeverity),
             control: { type: 'radio' },
-            description:
-                `Severity of the message presented by the banner. Controls the icon displayed within the banner and, in themes other than \`${Theme.color}\`, controls the background color of the banner. If not set, the banner has a neutral appearance.`,
-            table: { category: apiCategory.attributes },
+            description: `Severity of the message presented by the banner. Controls the icon displayed within the banner and, in themes other than \`${Theme.color}\`, controls the background color of the banner. If not set, the banner has a neutral appearance.`,
+            table: { category: apiCategory.attributes }
         },
         action: {
             options: Object.values(ActionType),
             control: { type: 'radio' },
             description:
                 'Display a button or anchor which the user can click to invoke an additional action. If you provide a button, it should have either the `"ghost"` or `"outline"` appearance and have the `"primary"` appearance variant.',
-            table: { category: apiCategory.slots },
+            table: { category: apiCategory.slots }
         },
         preventDismiss: {
             name: 'prevent-dismiss',
             description:
                 'If set, removes the "X" button that dismisses the banner.',
-            table: { category: apiCategory.attributes },
+            table: { category: apiCategory.attributes }
         },
         titleHidden: {
             name: 'title-hidden',
             description: 'If set, hides the provided title.',
-            table: { category: apiCategory.attributes },
+            table: { category: apiCategory.attributes }
         },
         toggle: {
             description:

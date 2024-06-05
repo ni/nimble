@@ -37,11 +37,12 @@ import {
 import { errorTextTemplate } from '../patterns/error/template';
 import type { ErrorPattern } from '../patterns/error/types';
 import { iconExclamationMarkTag } from '../icons/exclamation-mark';
-import { template } from './template';
-import { ListOption } from '../list-option';
+import { isListOption, isListOptionGroup, template } from './template';
+import type { ListOption } from '../list-option';
 import { FilterMode } from './types';
 import { diacriticInsensitiveStringNormalizer } from '../utilities/models/string-normalizers';
 import { FormAssociatedSelect } from './models/select-form-associated';
+import type { ListOptionGroup } from '../list-option-group';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -53,16 +54,16 @@ declare global {
 // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 type BooleanOrVoid = boolean | void;
 
-const isNimbleListOption = (el: Element | undefined): el is ListOption => {
-    return el instanceof ListOption;
-};
-
 const isOptionSelectable = (el: ListOption): boolean => {
     return !el.visuallyHidden && !el.disabled && !el.hidden;
 };
 
 const isOptionPlaceholder = (el: ListboxOption): boolean => {
     return el.disabled && el.hidden;
+};
+
+const isOptionOrGroupVisible = (el: ListOption | ListOptionGroup): boolean => {
+    return !el.visuallyHidden && !el.hidden;
 };
 
 /**
@@ -282,8 +283,8 @@ export class Select
      * @internal
      */
     public override slottedOptionsChanged(
-        prev: Element[],
-        next: Element[]
+        prev: Element[] | undefined,
+        next: Element[] | undefined
     ): void {
         const value = this.value;
         this.options.forEach(o => {
@@ -293,13 +294,25 @@ export class Select
             notifier.unsubscribe(this, 'disabled');
         });
 
-        super.slottedOptionsChanged(prev, next);
+        prev?.filter<ListOptionGroup>(isListOptionGroup).forEach(el => {
+            const notifier = Observable.getNotifier(el);
+            notifier.unsubscribe(this, 'hidden');
+            notifier.unsubscribe(this, 'visuallyHidden');
+        });
+        const options = this.getSlottedOptions(next);
+        super.slottedOptionsChanged(prev, options);
 
-        this.options.forEach(o => {
+        options.forEach(o => {
             const notifier = Observable.getNotifier(o);
             notifier.subscribe(this, 'value');
             notifier.subscribe(this, 'hidden');
             notifier.subscribe(this, 'disabled');
+        });
+        next?.filter<ListOptionGroup>(isListOptionGroup).forEach(el => {
+            this.updateAdjacentSeparatorState(el);
+            const notifier = Observable.getNotifier(el);
+            notifier.subscribe(this, 'hidden');
+            notifier.subscribe(this, 'visuallyHidden');
         });
         this.setProxyOptions();
         this.updateValue();
@@ -363,10 +376,7 @@ export class Select
                 break;
             }
             case 'selected': {
-                if (
-                    isNimbleListOption(sourceElement)
-                    && sourceElement.selected
-                ) {
+                if (isListOption(sourceElement) && sourceElement.selected) {
                     this.selectedIndex = this.options.indexOf(sourceElement);
                 } else {
                     this.clearSelect();
@@ -374,10 +384,26 @@ export class Select
                 break;
             }
             case 'hidden': {
-                if (isNimbleListOption(sourceElement)) {
+                if (isListOption(sourceElement)) {
                     sourceElement.visuallyHidden = sourceElement.hidden;
+                    this.updateAdjacentSeparatorState(sourceElement);
+                } else if (isListOptionGroup(sourceElement)) {
+                    sourceElement.listOptions.forEach(e => {
+                        e.visuallyHidden = sourceElement.hidden;
+                    });
+                    this.updateAdjacentSeparatorState(sourceElement);
                 }
+                this.filterOptions();
                 this.updateDisplayValue();
+                break;
+            }
+            case 'visuallyHidden': {
+                if (
+                    isListOptionGroup(sourceElement)
+                    || isListOption(sourceElement)
+                ) {
+                    this.updateAdjacentSeparatorState(sourceElement);
+                }
                 break;
             }
             case 'disabled': {
@@ -683,10 +709,7 @@ export class Select
         const startIndex = this.openActiveIndex ?? this.selectedIndex;
         for (let i = startIndex + 1; i < this.options.length; i++) {
             const listOption = this.options[i]!;
-            if (
-                isNimbleListOption(listOption)
-                && isOptionSelectable(listOption)
-            ) {
+            if (isListOption(listOption) && isOptionSelectable(listOption)) {
                 this.setActiveOption(i);
                 break;
             }
@@ -702,10 +725,7 @@ export class Select
         const startIndex = this.openActiveIndex ?? this.selectedIndex;
         for (let i = startIndex - 1; i >= 0; i--) {
             const listOption = this.options[i]!;
-            if (
-                isNimbleListOption(listOption)
-                && isOptionSelectable(listOption)
-            ) {
+            if (isListOption(listOption) && isOptionSelectable(listOption)) {
                 this.setActiveOption(i);
                 break;
             }
@@ -717,7 +737,7 @@ export class Select
      */
     public override selectFirstOption(): void {
         const newActiveOptionIndex = this.options.findIndex(
-            o => isNimbleListOption(o) && isOptionSelectable(o)
+            o => isListOption(o) && isOptionSelectable(o)
         );
         this.setActiveOption(newActiveOptionIndex);
     }
@@ -728,7 +748,7 @@ export class Select
     public override selectLastOption(): void {
         const newActiveOptionIndex = findLastIndex(
             this.options,
-            o => isNimbleListOption(o) && isOptionSelectable(o)
+            o => isListOption(o) && isOptionSelectable(o)
         );
         this.setActiveOption(newActiveOptionIndex);
     }
@@ -814,7 +834,7 @@ export class Select
         }
 
         const activeOption = this.options[this.openActiveIndex ?? this.selectedIndex];
-        if (isNimbleListOption(activeOption)) {
+        if (isListOption(activeOption)) {
             activeOption.activeOption = false;
         }
         this.openActiveIndex = undefined;
@@ -863,7 +883,7 @@ export class Select
      */
     protected override setDefaultSelectedOption(): void {
         const options: ListboxOption[] = this.options
-            ?? Array.from(this.children).filter(o => isNimbleListOption(o));
+            ?? Array.from(this.children).filter(o => isListOption(o));
 
         const optionIsSelected = (option: ListboxOption): boolean => {
             return option.hasAttribute('selected') || option.selected;
@@ -897,10 +917,25 @@ export class Select
         }
     }
 
+    private getSlottedOptions(
+        slottedElements: Element[] | undefined
+    ): ListboxOption[] {
+        const options: ListOption[] = [];
+        slottedElements?.forEach(el => {
+            if (isListOption(el)) {
+                options.push(el);
+            } else if (isListOptionGroup(el)) {
+                options.push(...this.getGroupOptions(el));
+            }
+        });
+
+        return options;
+    }
+
     private setActiveOption(newActiveIndex: number): void {
         const activeOption = this.options[newActiveIndex];
         if (this.open) {
-            if (isNimbleListOption(activeOption)) {
+            if (isListOption(activeOption)) {
                 activeOption.activeOption = true;
             }
 
@@ -908,7 +943,7 @@ export class Select
             const previousActiveOption = this.options[previousActiveIndex];
             if (
                 previousActiveIndex !== newActiveIndex
-                && isNimbleListOption(previousActiveOption)
+                && isListOption(previousActiveOption)
             ) {
                 previousActiveOption.activeOption = false;
             }
@@ -969,39 +1004,144 @@ export class Select
         this.updateListboxMaxHeightCssVariable();
     }
 
+    private updateAdjacentSeparatorState(
+        element: ListOptionGroup | ListOption
+    ): void {
+        const previousElement = this.getPreviousVisibleOptionOrGroup(element);
+        const nextElement = this.getNextVisibleOptionOrGroup(element);
+
+        if (isOptionOrGroupVisible(element)) {
+            const topSeparatorVisible = isListOption(previousElement);
+            this.setTopSeparatorState(element, topSeparatorVisible);
+            const bottomSeparatorVisible = nextElement !== null;
+            this.setBottomSeparatorState(element, bottomSeparatorVisible);
+            this.setBottomSeparatorState(previousElement, true);
+        } else {
+            const nextTopSeparatorVisible = isListOption(previousElement);
+            this.setTopSeparatorState(nextElement, nextTopSeparatorVisible);
+            const previousBottomSeparatorVisible = nextElement !== null;
+            this.setBottomSeparatorState(
+                previousElement,
+                previousBottomSeparatorVisible
+            );
+        }
+    }
+
+    private setTopSeparatorState(
+        element: ListOptionGroup | ListOption | null,
+        visible: boolean
+    ): void {
+        if (isListOptionGroup(element)) {
+            element.topSeparatorVisible = visible;
+        }
+    }
+
+    private setBottomSeparatorState(
+        element: ListOptionGroup | ListOption | null,
+        visible: boolean
+    ): void {
+        if (isListOptionGroup(element)) {
+            element.bottomSeparatorVisible = visible;
+        }
+    }
+
+    private getPreviousVisibleOptionOrGroup(
+        element: HTMLElement
+    ): ListOption | ListOptionGroup | null {
+        let previousElement = element.previousElementSibling;
+        while (previousElement) {
+            if (
+                (isListOption(previousElement)
+                    || isListOptionGroup(previousElement))
+                && isOptionOrGroupVisible(previousElement)
+            ) {
+                return previousElement;
+            }
+            previousElement = previousElement.previousElementSibling;
+        }
+        return null;
+    }
+
+    private getNextVisibleOptionOrGroup(
+        element: HTMLElement
+    ): ListOption | ListOptionGroup | null {
+        let nextElement = element.nextElementSibling;
+        while (nextElement) {
+            if (
+                (isListOption(nextElement) || isListOptionGroup(nextElement))
+                && isOptionOrGroupVisible(nextElement)
+            ) {
+                return nextElement;
+            }
+            nextElement = nextElement.nextElementSibling;
+        }
+        return null;
+    }
+
+    private isOptionHiddenOrFilteredOut(option: ListOption): boolean {
+        if (option.hidden) {
+            return true;
+        }
+        return !this.filterMatchesText(option.text);
+    }
+
+    private filterMatchesText(text: string): boolean {
+        const filter = this.filter.toLowerCase();
+        const normalizedFilter = diacriticInsensitiveStringNormalizer(filter);
+        return diacriticInsensitiveStringNormalizer(text).includes(
+            normalizedFilter
+        );
+    }
+
     /**
      * Filter available options by text value.
      *
      * @public
      */
     private filterOptions(): void {
-        const filter = this.filter.toLowerCase();
-
-        if (filter) {
-            this.filteredOptions = this.options.filter(option => {
-                const normalizedFilter = diacriticInsensitiveStringNormalizer(filter);
-                return (
-                    !option.hidden
-                    && diacriticInsensitiveStringNormalizer(option.text).includes(
-                        normalizedFilter
-                    )
-                );
-            });
-        } else {
-            this.filteredOptions = this.options.filter(
-                option => !option.hidden
-            );
+        if (!this.$fastController.isConnected) {
+            return;
         }
 
-        this.options.forEach(o => {
-            if (isNimbleListOption(o)) {
-                if (!this.filteredOptions.includes(o)) {
-                    o.visuallyHidden = true;
-                } else {
-                    o.visuallyHidden = false;
+        const filteredOptions: ListOption[] = [];
+        for (const element of this.slottedOptions) {
+            if (isListOptionGroup(element)) {
+                if (element.hidden) {
+                    continue; // no need to process hidden groups
+                }
+                const groupOptions = this.getGroupOptions(element);
+                const groupMatchesFilter = this.filterMatchesText(
+                    element.labelContent
+                );
+                groupOptions.forEach(option => {
+                    option.visuallyHidden = groupMatchesFilter
+                        ? false
+                        : this.isOptionHiddenOrFilteredOut(option);
+                    if (!option.visuallyHidden) {
+                        filteredOptions.push(option);
+                    }
+                });
+            } else if (isListOption(element)) {
+                element.visuallyHidden = this.isOptionHiddenOrFilteredOut(element);
+                if (!element.visuallyHidden) {
+                    filteredOptions.push(element);
                 }
             }
-        });
+        }
+
+        this.filteredOptions = filteredOptions;
+    }
+
+    private getGroupOptions(group: ListOptionGroup): ListOption[] {
+        return Array.from(group.children)
+            .filter(el => isListOption(el))
+            .map(el => {
+                if (group.hidden && isListOption(el)) {
+                    el.visuallyHidden = true;
+                }
+
+                return el;
+            }) as ListOption[];
     }
 
     /**
