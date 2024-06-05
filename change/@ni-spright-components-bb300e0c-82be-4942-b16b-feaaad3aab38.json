@@ -1,7 +1,0 @@
-{
-  "type": "none",
-  "comment": "Update Playwright version to 1.44.0",
-  "packageName": "@ni/spright-components",
-  "email": "7282195+m-akinc@users.noreply.github.com",
-  "dependentChangeType": "none"
-}
