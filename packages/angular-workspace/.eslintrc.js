@@ -121,6 +121,7 @@ module.exports = {
                         'action-menu-label',
                         'aria-label',
                         'button-label',
+                        'label',
                         'placeholder',
                         'text',
                         'title'
