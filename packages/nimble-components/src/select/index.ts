@@ -298,6 +298,7 @@ export class Select
             const notifier = Observable.getNotifier(el);
             notifier.unsubscribe(this, 'hidden');
             notifier.unsubscribe(this, 'visuallyHidden');
+            notifier.unsubscribe(this, 'listOptions');
         });
         const options = this.getSlottedOptions(next);
         super.slottedOptionsChanged(prev, options);
@@ -313,6 +314,7 @@ export class Select
             const notifier = Observable.getNotifier(el);
             notifier.subscribe(this, 'hidden');
             notifier.subscribe(this, 'visuallyHidden');
+            notifier.subscribe(this, 'listOptions');
         });
         this.setProxyOptions();
         this.updateValue();
@@ -408,6 +410,11 @@ export class Select
             }
             case 'disabled': {
                 this.updateDisplayValue();
+                break;
+            }
+            case 'listOptions': {
+                // force refresh of slotted options for groups
+                this.slottedOptionsChanged(this.slottedOptions, this.slottedOptions);
                 break;
             }
             default:

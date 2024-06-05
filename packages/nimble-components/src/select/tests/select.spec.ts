@@ -1653,6 +1653,28 @@ describe('Select', () => {
             expect(group.visuallyHidden).toBeFalse();
         });
 
+        it('adding option to group is added to options of select', async () => {
+            const group = pageObject.getGroup(0);
+            const newOption = new ListOption('New Option', 'new-option');
+            group.appendChild(newOption);
+            await waitForUpdatesAsync();
+            expect(element.options).toContain(newOption);
+        });
+
+        it('placeholder can be defined in a group', async () => {
+            const group = pageObject.getGroup(0);
+            const placeholder = new ListOption('Placeholder', 'placeholder');
+            placeholder.hidden = true;
+            placeholder.disabled = true;
+            placeholder.selected = true;
+            element.selectedIndex = -1;
+            group.insertAdjacentElement('afterbegin', placeholder);
+            await waitForUpdatesAsync();
+            expect(pageObject.getDisplayText()).toBe('Placeholder');
+            await clickAndWaitForOpen(element);
+            expect(pageObject.isOptionVisible(0)).toBeFalse();
+        });
+
         describe('filtering', () => {
             beforeEach(async () => {
                 element.filterMode = FilterMode.standard;
