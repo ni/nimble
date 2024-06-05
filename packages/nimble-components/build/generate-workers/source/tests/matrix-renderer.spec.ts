@@ -31,6 +31,10 @@ describe('MatrixRenderer with MessageChannel needing canvas context', () => {
             horizontalCoefficient: 1,
             horizontalConstant: 0,
             verticalConstant: 0,
+            gridMinX: 1,
+            gridMaxX: 4,
+            gridMinY: 54,
+            gridMaxY: 62,
             labelsFontSize: 0,
             colorScale: [],
             dieLabelsSuffix: '',
@@ -64,9 +68,13 @@ describe('MatrixRenderer with MessageChannel needing canvas context', () => {
     it('scaled Indices should be computed', async () => {
         const typedColumnIndices = Int32Array.from(testData.columnIndices);
         const typedRowIndices = Int32Array.from(testData.rowIndices);
+        const typedValues = Float64Array.from(testData.values);
 
-        await matrixRenderer.setColumnIndices(typedColumnIndices);
-        await matrixRenderer.setRowIndices(typedRowIndices);
+        await matrixRenderer.setMatrixData(
+            typedColumnIndices,
+            typedRowIndices,
+            typedValues
+        );
 
         const scaledColumnIndex = await matrixRenderer.scaledColumnIndices;
         const scaledRowIndex = await matrixRenderer.scaledRowIndices;

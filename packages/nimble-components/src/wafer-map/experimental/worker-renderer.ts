@@ -37,9 +37,11 @@ export class WorkerRenderer {
             snapshot.canvasDimensions
         );
         await this.matrixRenderer.setRenderConfig(snapshot.renderConfig);
-        await this.matrixRenderer.setColumnIndices(snapshot.columnIndices);
-        await this.matrixRenderer.setRowIndices(snapshot.rowIndices);
-        await this.matrixRenderer.setValues(snapshot.values);
+        await this.matrixRenderer.setMatrixData(
+            snapshot.columnIndices,
+            snapshot.rowIndices,
+            snapshot.values
+        );
     }
 
     public async drawWafer(snapshot: {
