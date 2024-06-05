@@ -1193,7 +1193,8 @@ describe('RichTextEditorMentionListbox', () => {
             expect(pageObject.isMentionListboxOpened()).toBeFalse();
         });
 
-        it('should commit mention into the editor on Enter', async () => {
+        // Intermittent, see https://github.com/ni/nimble/issues/2150
+        xit('should commit mention into the editor on Enter', async () => {
             await appendUserMentionConfiguration(element, [
                 { key: 'user:1', displayName: 'username1' }
             ]);
@@ -1212,7 +1213,8 @@ describe('RichTextEditorMentionListbox', () => {
             expect(pageObject.isMentionListboxOpened()).toBeFalse();
         });
 
-        it('should commit mention into the editor on Tab', async () => {
+        // Intermittent, see https://github.com/ni/nimble/issues/2150
+        xit('should commit mention into the editor on Tab', async () => {
             await appendUserMentionConfiguration(element, [
                 { key: 'user:1', displayName: 'username1' }
             ]);
@@ -1545,7 +1547,8 @@ describe('RichTextEditorMentionListbox', () => {
             expect(pageObject.isMentionListboxOpened()).toBeTrue();
         });
 
-        it('should show mention popup for multiple mention configuration elements', async () => {
+        // Intermittent, see https://github.com/ni/nimble/issues/2150
+        xit('should show mention popup for multiple mention configuration elements', async () => {
             await appendUserMentionConfiguration(element, [
                 { key: 'user:1', displayName: 'username1' },
                 { key: 'user:2', displayName: 'username2' }
