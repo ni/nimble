@@ -68,7 +68,7 @@ const component = (
         prevent-dismiss="${partsHidden}"
     >
         <span slot="title">${severityLabel} ${actionLabel} ${partsHiddenLabel} ${longTextLabel} ${longText ? loremIpsum.substring(0, 78) : ''}</span>
-        ${longText ? loremIpsum : 'This is message text.'}
+        ${longText ? `${loremIpsum} abcdedfghijklmnopqrstuvwxyzabcdedfghijklmnopqrstuvwxyzabcdedfghijklmnopqrstuvwxyzabcdedfghijklmnopqrstuvwxyz` : 'This is message text.'}
         ${when(() => linkVisible, html`
             <${anchorTag} slot="action" href="#">${longText ? loremIpsum.substring(0, 78) : 'Nimble anchor'}</${anchorTag}>
         `)}

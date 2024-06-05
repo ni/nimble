@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "Allow very long words in banner to break to another line",
+  "packageName": "@ni/nimble-components",
+  "email": "7282195+m-akinc@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
