@@ -34,15 +34,12 @@ const sourceCode: string = fs.readFileSync(modulePath, 'utf-8');
 const workerTypesPath: string = resolveModulePath(workerTypes);
 const workerTypesCode: string = fs.readFileSync(workerTypesPath, 'utf-8');
 const matrixRendererTypesPath: string = resolveModulePath(matrixRendererTypes);
-const matrixRendererTypesCode: string = '/* eslint-disable @typescript-eslint/prefer-readonly */\n'
-    + `/* eslint-disable @typescript-eslint/explicit-member-accessibility */\n${fs.readFileSync(
-        matrixRendererTypesPath,
-        'utf-8'
-    )}`;
+const matrixRendererTypesCode: string = fs.readFileSync(
+    matrixRendererTypesPath,
+    'utf-8'
+);
 
-const fileContent: string = `// eslint-disable-next-line no-template-curly-in-string
-export const workerCode = ${JSON.stringify(sourceCode)};
-`;
+const fileContent: string = `export const workerCode = ${JSON.stringify(sourceCode)};`;
 
 const renderFilePath: string = path.resolve(workersDirectory, 'worker-code.ts');
 
