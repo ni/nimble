@@ -7,14 +7,8 @@ import {
 } from '../../../../nimble-components/src/theme-provider/design-tokens';
 import { tooltipTag } from '../../../../nimble-components/src/tooltip';
 import { TooltipSeverity } from '../../../../nimble-components/src/tooltip/types';
-import {
-    createMatrix,
-    sharedMatrixParameters
-} from '../../utilities/matrix';
-import {
-    createFixedThemeStory,
-    createStory
-} from '../../utilities/storybook';
+import { createMatrix, sharedMatrixParameters } from '../../utilities/matrix';
+import { createFixedThemeStory, createStory } from '../../utilities/storybook';
 import { backgroundStates } from '../../utilities/states';
 import { hiddenWrapper } from '../../utilities/hidden';
 import { loremIpsum } from '../../utilities/lorem-ipsum';

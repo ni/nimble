@@ -9,7 +9,10 @@ import {
     sharedTableArgTypes,
     sharedTableArgs
 } from '../base/table-column-stories-utils';
-import { apiCategory, createUserSelectedThemeStory } from '../../../utilities/storybook';
+import {
+    apiCategory,
+    createUserSelectedThemeStory
+} from '../../../utilities/storybook';
 
 const simpleData = [
     {
@@ -96,12 +99,12 @@ export const textColumn: StoryObj<TextColumnTableArgs> = {
                 'Set this attribute to identify which field in the data record should be displayed in each column. The field values must be of type `string`.',
             options: ['firstName', 'lastName'],
             control: { type: 'radio' },
-            table: { category: apiCategory.attributes },
+            table: { category: apiCategory.attributes }
         },
         placeholder: {
             description:
                 'The placeholder text to display when the field value is `undefined` or `null` for a record.',
-            table: { category: apiCategory.attributes },
+            table: { category: apiCategory.attributes }
         }
     },
     args: {

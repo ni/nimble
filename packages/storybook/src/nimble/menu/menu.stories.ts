@@ -13,7 +13,13 @@ import {
     bodyFontColor
 } from '../../../../nimble-components/src/theme-provider/design-tokens';
 import { menuTag } from '../../../../nimble-components/src/menu';
-import { apiCategory, createUserSelectedThemeStory, disabledDescription, iconDescription, textContentDescription } from '../../utilities/storybook';
+import {
+    apiCategory,
+    createUserSelectedThemeStory,
+    disabledDescription,
+    iconDescription,
+    textContentDescription
+} from '../../utilities/storybook';
 import { hrefDescription } from '../patterns/anchor/anchor-docs';
 
 interface MenuArgs {
@@ -201,12 +207,17 @@ export const anchorMenuItem: StoryObj<AnchorMenuItemArgs> = {
     argTypes: {
         text: {
             name: 'default',
-            description: textContentDescription({ componentName: 'anchor menu item' }),
+            description: textContentDescription({
+                componentName: 'anchor menu item'
+            }),
             table: { category: apiCategory.slots }
         },
         href: {
             name: 'href',
-            description: hrefDescription({ componentName: 'anchor menu item', includeDisable: false }),
+            description: hrefDescription({
+                componentName: 'anchor menu item',
+                includeDisable: false
+            }),
             table: { category: apiCategory.attributes }
         },
         icon: {
@@ -215,7 +226,9 @@ export const anchorMenuItem: StoryObj<AnchorMenuItemArgs> = {
             table: { category: apiCategory.slots }
         },
         disabled: {
-            description: disabledDescription({ componentName: 'anchor menu item' }),
+            description: disabledDescription({
+                componentName: 'anchor menu item'
+            }),
             table: { category: apiCategory.attributes }
         }
     }

@@ -2,6 +2,21 @@
   "name": "@ni/nimble-tokens",
   "entries": [
     {
+      "date": "Tue, 04 Jun 2024 16:35:58 GMT",
+      "version": "6.14.0",
+      "tag": "@ni/nimble-tokens_v6.14.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "466a7b577ba7e8dc9f6e2adb5beb81b37d4bd9cd",
+            "comment": "Update button label font size from 12.8px to 14px to match current visual design in Figma"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 09 May 2024 18:40:41 GMT",
       "version": "6.13.6",
       "tag": "@ni/nimble-tokens_v6.13.6",
