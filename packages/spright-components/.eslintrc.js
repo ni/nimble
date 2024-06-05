@@ -10,15 +10,11 @@ module.exports = {
             files: ['*.js']
         },
         {
-            extends: ['@ni-private/eslint-config-nimble/typescript'],
+            extends: ['@ni-private/eslint-config-nimble/components'],
             files: ['*.ts'],
             parserOptions: {
-                project: 'tsconfig.json',
+                project: './tsconfig.json',
                 tsconfigRootDir: __dirname
-            },
-            rules: {
-                // This is a command line app so printing to console to show progress is desirable
-                'no-console': 'off',
             },
         }
     ]
