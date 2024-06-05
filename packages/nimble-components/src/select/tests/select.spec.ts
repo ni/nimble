@@ -1661,6 +1661,14 @@ describe('Select', () => {
             expect(element.options).toContain(newOption);
         });
 
+        it('removing option from group removes option from options of select', async () => {
+            const group = pageObject.getGroup(0);
+            const option = group.listOptions[0];
+            group.removeChild(option as Node);
+            await waitForUpdatesAsync();
+            expect(element.options).not.toContain(option!);
+        });
+
         it('placeholder can be defined in a group', async () => {
             const group = pageObject.getGroup(0);
             const placeholder = new ListOption('Placeholder', 'placeholder');
