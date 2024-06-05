@@ -1,0 +1,7 @@
+{
+  "type": "none",
+  "comment": "Switch to all nimble private linting",
+  "packageName": "@ni/jasmine-parameterized",
+  "email": "rajsite@users.noreply.github.com",
+  "dependentChangeType": "none"
+}
