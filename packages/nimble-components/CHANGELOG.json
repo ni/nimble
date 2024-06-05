@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Wed, 05 Jun 2024 17:12:12 GMT",
+      "version": "29.2.3",
+      "tag": "@ni/nimble-components_v29.2.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "1d6c2e938db2295416e2d22c47685d9da22fad0f",
+            "comment": "Allow very long words in banner to break to another line"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 05 Jun 2024 00:51:43 GMT",
       "version": "29.2.2",
       "tag": "@ni/nimble-components_v29.2.2",
