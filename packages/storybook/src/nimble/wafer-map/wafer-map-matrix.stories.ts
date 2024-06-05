@@ -1,7 +1,10 @@
 import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate } from '@microsoft/fast-element';
 import { waferMapTag } from '../../../../nimble-components/src/wafer-map';
-import { WaferMapOrientation, WaferMapOriginLocation } from '../../../../nimble-components/src/wafer-map/types';
+import {
+    WaferMapOrientation,
+    WaferMapOriginLocation
+} from '../../../../nimble-components/src/wafer-map/types';
 import { wafermapDiesTableSets } from './sets';
 import {
     createMatrix,

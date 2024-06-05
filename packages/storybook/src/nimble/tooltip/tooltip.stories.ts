@@ -157,23 +157,25 @@ const metadata: Meta<TooltipArgs> = {
             control: { type: 'radio' },
             description:
                 'Controls when the tooltip updates its position. The default is `anchor`, which only updates when the anchor is resized. `auto` will update on scroll/resize events.',
-            table: { category: apiCategory.attributes },
+            table: { category: apiCategory.attributes }
         },
         iconVisible: {
             name: 'icon-visible',
-            description: 'Whether to show an icon in the tooltip. The icon is determined by the severity of the tooltip.',
-            table: { category: apiCategory.attributes },
+            description:
+                'Whether to show an icon in the tooltip. The icon is determined by the severity of the tooltip.',
+            table: { category: apiCategory.attributes }
         },
         delay: {
             description:
                 'The delay in milliseconds before a tooltip is shown after a hover event',
-            table: { category: apiCategory.attributes },
+            table: { category: apiCategory.attributes }
         },
         severity: {
             options: Object.keys(TooltipSeverity),
             control: { type: 'radio' },
-            description: 'The severity of the message presented by the tooltip.',
-            table: { category: apiCategory.attributes },
+            description:
+                'The severity of the message presented by the tooltip.',
+            table: { category: apiCategory.attributes }
         },
         content: {
             name: 'default',
@@ -182,7 +184,7 @@ const metadata: Meta<TooltipArgs> = {
                 type: 'radio'
             },
             description: 'The content to display in the tooltip.',
-            table: { category: apiCategory.slots },
+            table: { category: apiCategory.slots }
         },
         anchorRef: {
             table: {

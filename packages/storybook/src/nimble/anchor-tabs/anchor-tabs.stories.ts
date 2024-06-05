@@ -4,7 +4,11 @@ import { anchorTabTag } from '../../../../nimble-components/src/anchor-tab';
 import { tabsToolbarTag } from '../../../../nimble-components/src/tabs-toolbar';
 import { buttonTag } from '../../../../nimble-components/src/button';
 import { anchorTabsTag } from '../../../../nimble-components/src/anchor-tabs';
-import { apiCategory, createUserSelectedThemeStory, disabledDescription } from '../../utilities/storybook';
+import {
+    apiCategory,
+    createUserSelectedThemeStory,
+    disabledDescription
+} from '../../utilities/storybook';
 import { hrefDescription } from '../patterns/anchor/anchor-docs';
 
 interface AnchorTabsArgs {
@@ -24,7 +28,7 @@ interface ToolbarArgs {
 }
 
 const metadata: Meta<AnchorTabsArgs> = {
-    title: 'Components/Anchor Tabs',
+    title: 'Components/Anchor Tabs'
 };
 
 export default metadata;
@@ -41,19 +45,19 @@ export const anchorTabs: StoryObj<AnchorTabsArgs> = {
         activeid: {
             options: ['None', '1', '2', '3'],
             control: { type: 'radio' },
-            description:
-                `The \`id\` of the \`${anchorTabTag}\` that should be indicated as currently active/selected. It is the application's responsibility to set \`activeid\` to the tab matching the currently loaded URL.`,
+            description: `The \`id\` of the \`${anchorTabTag}\` that should be indicated as currently active/selected. It is the application's responsibility to set \`activeid\` to the tab matching the currently loaded URL.`,
             table: { category: apiCategory.attributes }
         },
         content: {
             name: 'default',
-            description: 'Add tabs or a toolbar by slotting them as child content in the default slot.',
+            description:
+                'Add tabs or a toolbar by slotting them as child content in the default slot.',
             control: false,
             table: { category: apiCategory.slots }
         }
     },
     args: {
-        activeid: 'None',
+        activeid: 'None'
     }
 };
 
@@ -67,7 +71,10 @@ export const anchorTab: StoryObj<AnchorTabArgs> = {
     `),
     argTypes: {
         href: {
-            description: hrefDescription({ componentName: 'anchor tab', includeDisable: false }),
+            description: hrefDescription({
+                componentName: 'anchor tab',
+                includeDisable: false
+            }),
             table: { category: apiCategory.attributes }
         },
         disabled: {
@@ -81,7 +88,8 @@ export const anchorTab: StoryObj<AnchorTabArgs> = {
         },
         title: {
             name: 'default',
-            description: 'Set the name of each tab by providing text content in its default slot.',
+            description:
+                'Set the name of each tab by providing text content in its default slot.',
             table: { category: apiCategory.slots }
         }
     },
@@ -109,6 +117,6 @@ export const tabsToolbar: StoryObj<ToolbarArgs> = {
         }
     },
     args: {
-        toolbar: true,
+        toolbar: true
     }
 };

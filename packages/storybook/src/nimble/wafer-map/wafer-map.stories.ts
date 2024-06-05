@@ -12,7 +12,10 @@ import {
     WaferMapOrientation,
     WaferMapColorScaleMode
 } from '../../../../nimble-components/src/wafer-map/types';
-import { generateWaferData, generateWaferTableData } from '../../../../nimble-components/src/wafer-map/tests/data-generator';
+import {
+    generateWaferData,
+    generateWaferTableData
+} from '../../../../nimble-components/src/wafer-map/tests/data-generator';
 import {
     goodValueGenerator,
     badValueGenerator,
@@ -208,7 +211,8 @@ const metadata: Meta<WaferMapArgs> = {
             defaultValue: 'stable'
         },
         colorScale: {
-            description: 'Represents the color spectrum which shows the status of the dies on the wafer.',
+            description:
+                'Represents the color spectrum which shows the status of the dies on the wafer.',
             options: ['set1'],
             control: {
                 type: 'radio',
@@ -220,7 +224,7 @@ const metadata: Meta<WaferMapArgs> = {
             mapping: {
                 set1: waferMapColorScaleSets[0]
             },
-            table: { category: apiCategory.nonAttributeProperties },
+            table: { category: apiCategory.nonAttributeProperties }
         },
         colorScaleMode: {
             name: 'color-scale-mode',
@@ -234,10 +238,11 @@ const metadata: Meta<WaferMapArgs> = {
                     [WaferMapColorScaleMode.ordinal]: 'Ordinal'
                 }
             },
-            table: { category: apiCategory.attributes },
+            table: { category: apiCategory.attributes }
         },
         dies: {
-            description: 'Represents the input data, an array of `WaferMapDie`, which will be rendered by the wafer map. Part of the Stable API.',
+            description:
+                'Represents the input data, an array of `WaferMapDie`, which will be rendered by the wafer map. Part of the Stable API.',
             options: [
                 'fixedDies10',
                 'goodDies100',
@@ -255,10 +260,11 @@ const metadata: Meta<WaferMapArgs> = {
             },
             defaultValue: 'fixedDies10',
             if: { arg: 'apiVersion', eq: 'stable' },
-            table: { category: apiCategory.nonAttributeProperties },
+            table: { category: apiCategory.nonAttributeProperties }
         },
         diesTable: {
-            description: 'Represents the input data, an apache-arrow `Table`, which will be rendered by the wafer map. Part of the Experimental API.',
+            description:
+                'Represents the input data, an apache-arrow `Table`, which will be rendered by the wafer map. Part of the Experimental API.',
             options: [
                 'fixedDies10',
                 'goodDies100',
@@ -276,10 +282,11 @@ const metadata: Meta<WaferMapArgs> = {
             },
             defaultValue: 'fixedDies10',
             if: { arg: 'apiVersion', eq: 'experimental' },
-            table: { category: apiCategory.nonAttributeProperties },
+            table: { category: apiCategory.nonAttributeProperties }
         },
         highlightedTags: {
-            description: 'Represent a list of strings that will be highlighted in the wafer map view. Each die has a tags?: string[] property, if at least one element of highlightedTags equals at least one element of die.tags the die will be highlighted.',
+            description:
+                'Represent a list of strings that will be highlighted in the wafer map view. Each die has a tags?: string[] property, if at least one element of highlightedTags equals at least one element of die.tags the die will be highlighted.',
             options: ['set1', 'set2', 'set3', 'set4'],
             control: {
                 type: 'radio',
@@ -291,28 +298,28 @@ const metadata: Meta<WaferMapArgs> = {
                 }
             },
             defaultValue: 'set1',
-            table: { category: apiCategory.nonAttributeProperties },
+            table: { category: apiCategory.nonAttributeProperties }
         },
         dieLabelsHidden: {
             name: 'die-labels-hidden',
             description:
                 'Boolean value that determines if the dies labels in the wafer map view are shown or not. Default value is false.',
             control: { type: 'boolean' },
-            table: { category: apiCategory.attributes },
+            table: { category: apiCategory.attributes }
         },
         dieLabelsSuffix: {
             name: 'die-labels-suffix',
             description:
                 'String that can be added as a label at the end of each wafer map die value',
             control: { type: 'text' },
-            table: { category: apiCategory.attributes },
+            table: { category: apiCategory.attributes }
         },
         maxCharacters: {
             name: 'max-characters',
             description:
                 'Represents the number of characters allowed to be displayed within a single die. As the die values are represented by Floating point numbers, we must have the liberty of limiting how many characters we are willing to display within a single die.',
             control: { type: 'number' },
-            table: { category: apiCategory.attributes },
+            table: { category: apiCategory.attributes }
         },
         orientation: {
             description: 'Notch orientation',
@@ -326,7 +333,7 @@ const metadata: Meta<WaferMapArgs> = {
                     [WaferMapOrientation.bottom]: 'bottom'
                 }
             },
-            table: { category: apiCategory.attributes },
+            table: { category: apiCategory.attributes }
         },
         originLocation: {
             name: 'origin-location',
@@ -342,41 +349,41 @@ const metadata: Meta<WaferMapArgs> = {
                     [WaferMapOriginLocation.topRight]: 'top-right'
                 }
             },
-            table: { category: apiCategory.attributes },
+            table: { category: apiCategory.attributes }
         },
         gridMinX: {
             name: 'grid-min-x',
             description:
                 'Represents the X coordinate of the minimum corner of the the grid bounding box for rendering the wafer map. Leaving the value `undefined` will set the value to the minimum X value of the bounding box of the input dies coordinates.',
             control: { type: 'number' },
-            table: { category: apiCategory.attributes },
+            table: { category: apiCategory.attributes }
         },
         gridMaxX: {
             name: 'grid-max-x',
             description:
                 'Represents the X coordinate of the maximum corner of the the grid bounding box for rendering the wafer map. Leaving the value `undefined` will set the value to the maximum X value of the bounding box of the input dies coordinates.',
             control: { type: 'number' },
-            table: { category: apiCategory.attributes },
+            table: { category: apiCategory.attributes }
         },
         gridMinY: {
             name: 'grid-min-y',
             description:
                 'Represents the Y coordinate of the minimum corner of the the grid bounding box for rendering the wafer map. Leaving the value `undefined` will set the value to the minimum Y value of the bounding box of the input dies coordinates.',
             control: { type: 'number' },
-            table: { category: apiCategory.attributes },
+            table: { category: apiCategory.attributes }
         },
         gridMaxY: {
             name: 'grid-max-y',
             description:
                 'Represents the Y coordinate of the maximum corner of the the grid bounding box for rendering the wafer map. Leaving the value `undefined` will set the value to the maximum Y value of the bounding box of the input dies coordinates.',
             control: { type: 'number' },
-            table: { category: apiCategory.attributes },
+            table: { category: apiCategory.attributes }
         },
         dieHover: {
             name: 'die-hover',
             description:
                 'Event emitted whenever the mouse enters or leaves a die. In the event data, `detail.currentDie` will be set to the `WaferMapDie` element of the `dies` array that is being hovered or `undefined` if the mouse is leaving a die.',
-            table: { category: apiCategory.events },
+            table: { category: apiCategory.events }
         },
         validity: {
             description: `Readonly object of boolean values that represents the validity states that the wafer map's configuration can be in.
@@ -386,13 +393,15 @@ The object's type is \`WaferMapValidity\`, and it contains the following boolean
 
 -   \`invalidDiesTableSchema \`: \`true\` when the \`diesTable\` does not have all of the three expected columns: \`colIndex\`, \`rowIndex\` and \`value\`, but \`false\` when all of them are provided or the \`diesTable\` is \`undefined\``,
             control: false,
-            table: { category: apiCategory.nonAttributeProperties },
+            table: { category: apiCategory.nonAttributeProperties }
         },
         checkValidity: {
             name: 'checkValidity()',
-            description: checkValidityDescription({ componentName: 'wafer map' }),
+            description: checkValidityDescription({
+                componentName: 'wafer map'
+            }),
             control: false,
-            table: { category: apiCategory.methods },
+            table: { category: apiCategory.methods }
         }
     }
 };

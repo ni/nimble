@@ -5,6 +5,7 @@ process.env.CHROME_BIN = require('playwright').chromium.executablePath();
 const karmaJasmine = require('karma-jasmine');
 const karmaChromeLauncher = require('karma-chrome-launcher');
 const karmaJasmineHtmlReporter = require('karma-jasmine-html-reporter');
+const karmaSpecReporter = require('karma-spec-reporter');
 const karmaCoverage = require('karma-coverage');
 const karmaAngular = require('@angular-devkit/build-angular/plugins/karma');
 const path = require('path');
@@ -17,6 +18,7 @@ module.exports = config => {
             karmaJasmine,
             karmaChromeLauncher,
             karmaJasmineHtmlReporter,
+            karmaSpecReporter,
             karmaCoverage,
             karmaAngular
         ],
@@ -41,7 +43,12 @@ module.exports = config => {
                 { type: 'text-summary' }
             ]
         },
-        reporters: ['progress', 'kjhtml'],
+        reporters: ['kjhtml', 'spec'],
+        specReporter: {
+            suppressPassed: true,
+            suppressSkipped: false,
+            showSpecTiming: true
+        },
         port: 9876,
         colors: true,
         logLevel: config.LOG_INFO,

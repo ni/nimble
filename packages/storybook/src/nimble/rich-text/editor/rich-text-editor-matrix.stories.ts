@@ -3,7 +3,10 @@ import { html, ViewTemplate } from '@microsoft/fast-element';
 import { buttonTag } from '../../../../../nimble-components/src/button';
 import { richTextMentionUsersTag } from '../../../../../nimble-components/src/rich-text-mention/users';
 import { mappingUserTag } from '../../../../../nimble-components/src/mapping/user';
-import { bodyFont, bodyFontColor } from '../../../../../nimble-components/src/theme-provider/design-tokens';
+import {
+    bodyFont,
+    bodyFontColor
+} from '../../../../../nimble-components/src/theme-provider/design-tokens';
 import { toggleButtonTag } from '../../../../../nimble-components/src/toggle-button';
 import { menuButtonTag } from '../../../../../nimble-components/src/menu-button';
 import { anchorButtonTag } from '../../../../../nimble-components/src/anchor-button';

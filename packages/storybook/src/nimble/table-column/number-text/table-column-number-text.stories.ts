@@ -8,14 +8,21 @@ import { unitCelsiusTag } from '../../../../../nimble-components/src/unit/celsiu
 import { unitFahrenheitTag } from '../../../../../nimble-components/src/unit/fahrenheit';
 import { unitVoltTag } from '../../../../../nimble-components/src/unit/volt';
 import { tableColumnNumberTextTag } from '../../../../../nimble-components/src/table-column/number-text';
-import { NumberTextAlignment, NumberTextFormat } from '../../../../../nimble-components/src/table-column/number-text/types';
+import {
+    NumberTextAlignment,
+    NumberTextFormat
+} from '../../../../../nimble-components/src/table-column/number-text/types';
 import {
     SharedTableArgs,
     sharedTableActions,
     sharedTableArgTypes,
     sharedTableArgs
 } from '../base/table-column-stories-utils';
-import { apiCategory, checkValidityDescription, createUserSelectedThemeStory } from '../../../utilities/storybook';
+import {
+    apiCategory,
+    checkValidityDescription,
+    createUserSelectedThemeStory
+} from '../../../utilities/storybook';
 
 const simpleData = [
     {
@@ -187,24 +194,24 @@ export const numberTextColumn: StoryObj<NumberTextColumnTableArgs> = {
             description:
                 'Set this attribute to identify which field in the data record should be displayed in each column. The field values must be of type `number`.',
             control: false,
-            table: { category: apiCategory.attributes },
+            table: { category: apiCategory.attributes }
         },
         placeholder: {
             description:
                 'The placeholder text to display when the field value is `undefined` or `null` for a record.',
-            table: { category: apiCategory.attributes },
+            table: { category: apiCategory.attributes }
         },
         format: {
             description: formatDescription,
             options: Object.keys(NumberTextFormat),
             control: { type: 'radio' },
-            table: { category: apiCategory.attributes },
+            table: { category: apiCategory.attributes }
         },
         alignment: {
             description: alignmentDescription,
             options: Object.keys(NumberTextAlignment),
             control: { type: 'radio' },
-            table: { category: apiCategory.attributes },
+            table: { category: apiCategory.attributes }
         },
         decimalDigits: {
             name: 'decimal-digits',
@@ -212,7 +219,7 @@ export const numberTextColumn: StoryObj<NumberTextColumnTableArgs> = {
                 "The number of decimal places to format values to when the column's `format` is configured to be `decimal`. If neither `decimal-digits` or `decimal-maximum-digits` are set, a default value of `2` is used. `decimal-digits` and `decimal-maximum-digits` cannot both be set at the same time. The value must be in the range 0 - 20 (inclusive).",
             options: [undefined, 0, 1, 2, 3],
             control: { type: 'select' },
-            table: { category: apiCategory.attributes },
+            table: { category: apiCategory.attributes }
         },
         decimalMaximumDigits: {
             name: 'decimal-maximum-digits',
@@ -220,24 +227,33 @@ export const numberTextColumn: StoryObj<NumberTextColumnTableArgs> = {
                 "The maximum number of decimal places to format values to when the column's `format` is configured to be `decimal`. This differs from `decimal-digits` in that trailing zeros are omitted. `decimal-digits` and `decimal-maximum-digits` cannot both be set at the same time. The value must be in the range 0 - 20 (inclusive).",
             options: [undefined, 0, 1, 2, 3, 20],
             control: { type: 'select' },
-            table: { category: apiCategory.attributes },
+            table: { category: apiCategory.attributes }
         },
         unit: {
             description: unitDescription,
-            options: ['default', 'byte', 'byte (1024)', 'degrees Celsius', 'degrees Fahrenheit', 'volt'],
+            options: [
+                'default',
+                'byte',
+                'byte (1024)',
+                'degrees Celsius',
+                'degrees Fahrenheit',
+                'volt'
+            ],
             control: { type: 'radio' },
-            table: { category: apiCategory.attributes },
+            table: { category: apiCategory.attributes }
         },
         checkValidity: {
             name: 'checkValidity()',
-            description: checkValidityDescription({ componentName: 'number text column' }),
+            description: checkValidityDescription({
+                componentName: 'number text column'
+            }),
             control: false,
-            table: { category: apiCategory.methods },
+            table: { category: apiCategory.methods }
         },
         validity: {
             description: validityDescription,
             control: false,
-            table: { category: apiCategory.nonAttributeProperties },
+            table: { category: apiCategory.nonAttributeProperties }
         }
     },
     args: {

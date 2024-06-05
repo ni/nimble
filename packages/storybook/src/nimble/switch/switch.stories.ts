@@ -2,7 +2,12 @@ import { html, when } from '@microsoft/fast-element';
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html';
 import { switchTag } from '../../../../nimble-components/src/switch';
-import { apiCategory, createUserSelectedThemeStory, disabledDescription, slottedLabelDescription } from '../../utilities/storybook';
+import {
+    apiCategory,
+    createUserSelectedThemeStory,
+    disabledDescription,
+    slottedLabelDescription
+} from '../../utilities/storybook';
 
 interface SwitchArgs {
     label: string;
@@ -48,12 +53,14 @@ const metadata: Meta<SwitchArgs> = {
         },
         checkedMessage: {
             name: 'checked-message',
-            description: 'A `span` element containing the message to display when the switch is toggled on.',
+            description:
+                'A `span` element containing the message to display when the switch is toggled on.',
             table: { category: apiCategory.slots }
         },
         uncheckedMessage: {
             name: 'unchecked-message',
-            description: 'A `span` element containing the message to display when the switch is toggled off.',
+            description:
+                'A `span` element containing the message to display when the switch is toggled off.',
             table: { category: apiCategory.slots }
         },
         change: {
