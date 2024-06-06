@@ -25,6 +25,7 @@ module.exports = {
         ],
 
         // Rules enabled due to strictNullChecks
+        // see: https://github.com/ni/javascript-styleguide/#strict-null-checks
         '@typescript-eslint/no-non-null-assertion': 'off',
 
         // Enabled to prevent accidental usage of async-await
@@ -48,7 +49,9 @@ module.exports = {
                 'import/no-extraneous-dependencies': [
                     'error',
                     { devDependencies: true }
-                ]
+                ],
+
+                'max-classes-per-file': 'off'
             }
         }
     ]

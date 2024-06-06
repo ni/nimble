@@ -9,15 +9,15 @@ module.exports = {
     ],
     overrides: [
         {
-            extends: ['@ni-private/eslint-config-nimble/javascript'],
-            files: ['*.js']
+            files: ['*.js'],
+            extends: ['@ni-private/eslint-config-nimble/javascript']
         },
         {
+            files: ['*.ts', '*.tsx'],
             extends: [
                 '@ni-private/eslint-config-nimble/components',
                 'plugin:storybook/recommended'
             ],
-            files: ['*.ts', '*.tsx'],
             parserOptions: {
                 project: './tsconfig.json',
                 tsconfigRootDir: __dirname

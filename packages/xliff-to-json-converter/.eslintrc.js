@@ -6,12 +6,12 @@ module.exports = {
     ],
     overrides: [
         {
-            extends: ['@ni-private/eslint-config-nimble/javascript'],
-            files: ['*.js']
+            files: ['*.js'],
+            extends: ['@ni-private/eslint-config-nimble/javascript']
         },
         {
-            extends: ['@ni-private/eslint-config-nimble/typescript'],
             files: ['*.ts'],
+            extends: ['@ni-private/eslint-config-nimble/typescript'],
             parserOptions: {
                 project: 'tsconfig.json',
                 tsconfigRootDir: __dirname
