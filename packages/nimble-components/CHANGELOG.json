@@ -2,6 +2,42 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Thu, 06 Jun 2024 17:29:15 GMT",
+      "version": "29.3.0",
+      "tag": "@ni/nimble-components_v29.3.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "d375e092e3b2e627fba234136871d002aeb3c7b6",
+            "comment": "Add icons for AI, clean, expand, collapse, debug"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/nimble-tokens to v6.15.0",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 06 Jun 2024 15:56:25 GMT",
+      "version": "29.2.4",
+      "tag": "@ni/nimble-components_v29.2.4",
+      "comments": {
+        "patch": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "c6b91bb4a57bbc4b55a74d14f318886e55020348",
+            "comment": "Address issue with select not recognizing when group options are updated"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 05 Jun 2024 18:54:09 GMT",
       "version": "29.2.3",
       "tag": "@ni/nimble-components_v29.2.3",
