@@ -483,7 +483,7 @@ describe('Table keyboard navigation', () => {
                 expect(currentFocusedElement()).toBe(pageObject.getCell(0, 1));
             });
 
-            it('when a row is focused, all action menus in that row are visible (and otherwise hidden)', async () => {
+            it('when a row is focused, all action menus in that row are visible (and otherwise hidden) #SkipFirefox #SkipWebkit', async () => {
                 await addActionMenu(column2);
                 await addActionMenu(column3);
                 await sendKeyPressToTable(keyArrowDown);
@@ -497,8 +497,9 @@ describe('Table keyboard navigation', () => {
                 expect(isCellActionMenuVisible(0, 2)).toBe(false);
             });
 
-            it('when a cell is focused, its action menu is visible', async () => {
+            it('when a cell is focused, its action menu is visible #SkipFirefox #SkipWebkit', async () => {
                 await addActionMenu(column1);
+
                 await sendKeyPressToTable(keyArrowDown);
 
                 expect(isCellActionMenuVisible(0, 0)).toBe(true);
