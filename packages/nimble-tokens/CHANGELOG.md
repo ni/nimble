@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-tokens
 
-This log was last generated on Tue, 04 Jun 2024 16:35:58 GMT and should not be manually modified.
+This log was last generated on Thu, 06 Jun 2024 17:29:15 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 6.15.0
+
+Thu, 06 Jun 2024 17:29:15 GMT
+
+### Minor changes
+
+- Add icons for AI, clean, expand, collapse, debug ([ni/nimble@d375e09](https://github.com/ni/nimble/commit/d375e092e3b2e627fba234136871d002aeb3c7b6))
 
 ## 6.14.0
 
