@@ -37,12 +37,12 @@ import {
 import { errorTextTemplate } from '../patterns/error/template';
 import type { ErrorPattern } from '../patterns/error/types';
 import { iconExclamationMarkTag } from '../icons/exclamation-mark';
-import { isListOptionGroup, template } from './template';
-import { ListOption } from '../list-option';
+import { isListOption, isListOptionGroup, template } from './template';
+import type { ListOption } from '../list-option';
 import { FilterMode, SelectFilterInputEventDetail } from './types';
 import { diacriticInsensitiveStringNormalizer } from '../utilities/models/string-normalizers';
 import { FormAssociatedSelect } from './models/select-form-associated';
-import { ListOptionGroup } from '../list-option-group';
+import type { ListOptionGroup } from '../list-option-group';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -53,10 +53,6 @@ declare global {
 // Used in overrides of base class methods
 // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 type BooleanOrVoid = boolean | void;
-
-const isNimbleListOption = (el: Element | undefined): el is ListOption => {
-    return el instanceof ListOption;
-};
 
 const isOptionSelectable = (el: ListOption): boolean => {
     return !el.visuallyHidden && !el.disabled && !el.hidden;
@@ -383,10 +379,7 @@ export class Select
                 break;
             }
             case 'selected': {
-                if (
-                    isNimbleListOption(sourceElement)
-                    && sourceElement.selected
-                ) {
+                if (isListOption(sourceElement) && sourceElement.selected) {
                     this.selectedIndex = this.options.indexOf(sourceElement);
                 } else {
                     this.clearSelect();
@@ -394,7 +387,7 @@ export class Select
                 break;
             }
             case 'hidden': {
-                if (isNimbleListOption(sourceElement)) {
+                if (isListOption(sourceElement)) {
                     sourceElement.visuallyHidden = sourceElement.hidden;
                     this.updateAdjacentSeparatorState(sourceElement);
                 } else if (isListOptionGroup(sourceElement)) {
@@ -410,7 +403,7 @@ export class Select
             case 'visuallyHidden': {
                 if (
                     isListOptionGroup(sourceElement)
-                    || isNimbleListOption(sourceElement)
+                    || isListOption(sourceElement)
                 ) {
                     this.updateAdjacentSeparatorState(sourceElement);
                 }
@@ -727,10 +720,7 @@ export class Select
         const startIndex = this.openActiveIndex ?? this.selectedIndex;
         for (let i = startIndex + 1; i < this.options.length; i++) {
             const listOption = this.options[i]!;
-            if (
-                isNimbleListOption(listOption)
-                && isOptionSelectable(listOption)
-            ) {
+            if (isListOption(listOption) && isOptionSelectable(listOption)) {
                 this.setActiveOption(i);
                 break;
             }
@@ -746,10 +736,7 @@ export class Select
         const startIndex = this.openActiveIndex ?? this.selectedIndex;
         for (let i = startIndex - 1; i >= 0; i--) {
             const listOption = this.options[i]!;
-            if (
-                isNimbleListOption(listOption)
-                && isOptionSelectable(listOption)
-            ) {
+            if (isListOption(listOption) && isOptionSelectable(listOption)) {
                 this.setActiveOption(i);
                 break;
             }
@@ -761,7 +748,7 @@ export class Select
      */
     public override selectFirstOption(): void {
         const newActiveOptionIndex = this.options.findIndex(
-            o => isNimbleListOption(o) && isOptionSelectable(o)
+            o => isListOption(o) && isOptionSelectable(o)
         );
         this.setActiveOption(newActiveOptionIndex);
     }
@@ -772,7 +759,7 @@ export class Select
     public override selectLastOption(): void {
         const newActiveOptionIndex = findLastIndex(
             this.options,
-            o => isNimbleListOption(o) && isOptionSelectable(o)
+            o => isListOption(o) && isOptionSelectable(o)
         );
         this.setActiveOption(newActiveOptionIndex);
     }
@@ -858,7 +845,7 @@ export class Select
         }
 
         const activeOption = this.options[this.openActiveIndex ?? this.selectedIndex];
-        if (isNimbleListOption(activeOption)) {
+        if (isListOption(activeOption)) {
             activeOption.activeOption = false;
         }
         this.openActiveIndex = undefined;
@@ -908,7 +895,7 @@ export class Select
      */
     protected override setDefaultSelectedOption(): void {
         const options: ListboxOption[] = this.options
-            ?? Array.from(this.children).filter(o => isNimbleListOption(o));
+            ?? Array.from(this.children).filter(o => isListOption(o));
 
         const optionIsSelected = (option: ListboxOption): boolean => {
             return option.hasAttribute('selected') || option.selected;
@@ -947,9 +934,9 @@ export class Select
     ): ListboxOption[] {
         const options: ListOption[] = [];
         slottedElements?.forEach(el => {
-            if (el instanceof ListOption) {
+            if (isListOption(el)) {
                 options.push(el);
-            } else if (el instanceof ListOptionGroup) {
+            } else if (isListOptionGroup(el)) {
                 options.push(...this.getGroupOptions(el));
             }
         });
@@ -960,7 +947,7 @@ export class Select
     private setActiveOption(newActiveIndex: number): void {
         const activeOption = this.options[newActiveIndex];
         if (this.open) {
-            if (isNimbleListOption(activeOption)) {
+            if (isListOption(activeOption)) {
                 activeOption.activeOption = true;
             }
 
@@ -968,7 +955,7 @@ export class Select
             const previousActiveOption = this.options[previousActiveIndex];
             if (
                 previousActiveIndex !== newActiveIndex
-                && isNimbleListOption(previousActiveOption)
+                && isListOption(previousActiveOption)
             ) {
                 previousActiveOption.activeOption = false;
             }
@@ -1034,25 +1021,39 @@ export class Select
     ): void {
         const previousElement = this.getPreviousVisibleOptionOrGroup(element);
         const nextElement = this.getNextVisibleOptionOrGroup(element);
-        if (element instanceof ListOptionGroup) {
-            element.bottomSeparatorVisible = nextElement !== null;
-        }
+
         if (isOptionOrGroupVisible(element)) {
-            if (element instanceof ListOptionGroup) {
-                element.topSeparatorVisible = previousElement instanceof ListOption;
-            }
-
-            if (previousElement instanceof ListOptionGroup) {
-                previousElement.bottomSeparatorVisible = true;
-            }
+            const topSeparatorVisible = isListOption(previousElement);
+            this.setTopSeparatorState(element, topSeparatorVisible);
+            const bottomSeparatorVisible = nextElement !== null;
+            this.setBottomSeparatorState(element, bottomSeparatorVisible);
+            this.setBottomSeparatorState(previousElement, true);
         } else {
-            if (previousElement instanceof ListOptionGroup) {
-                previousElement.bottomSeparatorVisible = nextElement !== null;
-            }
+            const nextTopSeparatorVisible = isListOption(previousElement);
+            this.setTopSeparatorState(nextElement, nextTopSeparatorVisible);
+            const previousBottomSeparatorVisible = nextElement !== null;
+            this.setBottomSeparatorState(
+                previousElement,
+                previousBottomSeparatorVisible
+            );
+        }
+    }
 
-            if (nextElement instanceof ListOptionGroup) {
-                nextElement.topSeparatorVisible = previousElement instanceof ListOption;
-            }
+    private setTopSeparatorState(
+        element: ListOptionGroup | ListOption | null,
+        visible: boolean
+    ): void {
+        if (isListOptionGroup(element)) {
+            element.topSeparatorVisible = visible;
+        }
+    }
+
+    private setBottomSeparatorState(
+        element: ListOptionGroup | ListOption | null,
+        visible: boolean
+    ): void {
+        if (isListOptionGroup(element)) {
+            element.bottomSeparatorVisible = visible;
         }
     }
 
@@ -1062,8 +1063,8 @@ export class Select
         let previousElement = element.previousElementSibling;
         while (previousElement) {
             if (
-                (previousElement instanceof ListOption
-                    || previousElement instanceof ListOptionGroup)
+                (isListOption(previousElement)
+                    || isListOptionGroup(previousElement))
                 && isOptionOrGroupVisible(previousElement)
             ) {
                 return previousElement;
@@ -1079,8 +1080,7 @@ export class Select
         let nextElement = element.nextElementSibling;
         while (nextElement) {
             if (
-                (nextElement instanceof ListOption
-                    || nextElement instanceof ListOptionGroup)
+                (isListOption(nextElement) || isListOptionGroup(nextElement))
                 && isOptionOrGroupVisible(nextElement)
             ) {
                 return nextElement;
@@ -1094,7 +1094,9 @@ export class Select
         if (option.hidden) {
             return true;
         }
-        return !this.filterMatchesText(option.text);
+        return this.filterMode === FilterMode.standard
+            ? !this.filterMatchesText(option.text)
+            : false;
     }
 
     private filterMatchesText(text: string): boolean {
@@ -1115,13 +1117,13 @@ export class Select
             return;
         }
 
+        this.filteredOptions = [];
         const filteredOptions: ListboxOption[] = [];
-        if (this.filterMode === FilterMode.standard) {
-            for (const element of this.slottedOptions) {
-                if (element instanceof ListOptionGroup) {
-                    if (element.hidden) {
-                        break; // no need to process hidden groups
-                    }
+        for (const element of this.slottedOptions) {
+            if (isListOptionGroup(element)) {
+                if (element.hidden) {
+                    continue; // no need to process hidden groups
+                } else {
                     const groupOptions = this.getGroupOptions(element);
                     const groupMatchesFilter = this.filterMatchesText(
                         element.labelContent
@@ -1134,19 +1136,13 @@ export class Select
                             filteredOptions.push(option);
                         }
                     });
-                } else if (isNimbleListOption(element)) {
-                    element.visuallyHidden = this.isOptionHiddenOrFilteredOut(element);
-                    if (!element.visuallyHidden) {
-                        filteredOptions.push(element);
-                    }
+                }
+            } else if (isListOption(element)) {
+                element.visuallyHidden = this.isOptionHiddenOrFilteredOut(element);
+                if (!element.visuallyHidden) {
+                    filteredOptions.push(element);
                 }
             }
-        } else {
-            filteredOptions.push(
-                ...this.options.filter(
-                    o => isNimbleListOption(o) && isOptionOrGroupVisible(o)
-                )
-            );
         }
 
         this.filteredOptions = filteredOptions;
@@ -1154,9 +1150,9 @@ export class Select
 
     private getGroupOptions(group: ListOptionGroup): ListOption[] {
         return Array.from(group.children)
-            .filter(el => el instanceof ListOption)
+            .filter(el => isListOption(el))
             .map(el => {
-                if (group.hidden && isNimbleListOption(el)) {
+                if (group.hidden && isListOption(el)) {
                     el.visuallyHidden = true;
                 }
 

@@ -136,12 +136,15 @@ export const navigateToDifferentOption: StoryFn = createStory(
 navigateToDifferentOption.play = playFunction;
 
 export const navigateToDifferentOptionWithGroups: StoryFn = createStory(
-    html`<${selectTag} open style="width: 250px;">
-        <${listOptionGroupTag} label="Group 1">
-            <${listOptionTag} value="1" selected>Option 1</${listOptionTag}>
-            <${listOptionTag}>Option 2</${listOptionTag}>
-        </${listOptionGroupTag}>
-    </${selectTag}>`
+    html`
+    <div style="height: 250px;">
+        <${selectTag} open style="width: 250px;">
+            <${listOptionGroupTag} label="Group 1">
+                <${listOptionTag} value="1" selected>Option 1</${listOptionTag}>
+                <${listOptionTag}>Option 2</${listOptionTag}>
+            </${listOptionGroupTag}>
+        </${selectTag}>
+    </div>`
 );
 
 navigateToDifferentOptionWithGroups.play = playFunction;

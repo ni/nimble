@@ -42,7 +42,7 @@ const metadata: Meta<CardArgs> = {
         title: {
             description:
                 'Text displayed as a title inside the card. This text should be short enough to fit within two lines when displayed. Cards should **always include a title**. The title is used to provide an accessible name to assistive technologies.',
-            table: { category: apiCategory.slots },
+            table: { category: apiCategory.slots }
         },
         content: {
             name: 'default',

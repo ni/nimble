@@ -13,6 +13,7 @@ import { Combobox } from '..';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import { fixture } from '../../utilities/tests/fixture';
 import { template } from '../template';
+import { listOptionTag } from '../../list-option';
 
 describe('Combobox', () => {
     const combobox = Combobox.compose({
@@ -42,16 +43,13 @@ describe('Combobox', () => {
 
         element.id = 'combobox';
 
-        const option1 = document.createElement('fast-option') as ListboxOption;
-        option1.slot = 'option';
+        const option1 = document.createElement(listOptionTag) as ListboxOption;
         option1.textContent = 'one';
 
-        const option2 = document.createElement('fast-option') as ListboxOption;
-        option2.slot = 'option';
+        const option2 = document.createElement(listOptionTag) as ListboxOption;
         option2.textContent = 'two';
 
-        const option3 = document.createElement('fast-option') as ListboxOption;
-        option3.slot = 'option';
+        const option3 = document.createElement(listOptionTag) as ListboxOption;
         option3.textContent = 'three';
 
         element.appendChild(option1);

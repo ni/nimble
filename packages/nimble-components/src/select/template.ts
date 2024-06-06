@@ -9,8 +9,7 @@ import {
     endSlotTemplate,
     FoundationElementTemplate,
     SelectOptions,
-    startSlotTemplate,
-    isListboxOption
+    startSlotTemplate
 } from '@microsoft/fast-foundation';
 import type { Select } from '.';
 import { anchoredRegionTag } from '../anchored-region';
@@ -26,10 +25,17 @@ import { FilterMode } from './types';
 import { ListOptionGroup } from '../list-option-group';
 import { buttonTag } from '../button';
 import { iconTimesTag } from '../icons/times';
+import { ListOption } from '../list-option';
 import { spinnerTag } from '../spinner';
 
+export const isListOption = (
+    el: Element | undefined | null
+): el is ListOption => {
+    return el instanceof ListOption;
+};
+
 export const isListOptionGroup = (
-    n: Element | undefined
+    n: Element | undefined | null
 ): n is ListOptionGroup => {
     return n instanceof ListOptionGroup;
 };
@@ -141,7 +147,7 @@ SelectOptions
                         <slot
                             name="option"
                             ${slotted({
-                                filter: (n: Node) => n instanceof HTMLElement && (isListboxOption(n) || isListOptionGroup(n)),
+                                filter: (n: Node) => n instanceof HTMLElement && (isListOption(n) || isListOptionGroup(n)),
                                 flatten: true,
                                 property: 'slottedOptions',
                             })}

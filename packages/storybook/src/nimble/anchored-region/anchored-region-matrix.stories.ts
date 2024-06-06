@@ -7,10 +7,7 @@ import {
     applicationBackgroundColor
 } from '../../../../nimble-components/src/theme-provider/design-tokens';
 import { anchoredRegionTag } from '../../../../nimble-components/src/anchored-region';
-import {
-    createMatrix,
-    sharedMatrixParameters
-} from '../../utilities/matrix';
+import { createMatrix, sharedMatrixParameters } from '../../utilities/matrix';
 import { createStory } from '../../utilities/storybook';
 import { hiddenWrapper } from '../../utilities/hidden';
 
