@@ -1,17 +1,17 @@
 import { html, when } from '@microsoft/fast-element';
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html';
-import { iconArrowExpanderDownTag } from '@ni/nimble-components/dist/esm/icons/arrow-expander-down';
-import { iconKeyTag } from '@ni/nimble-components/dist/esm/icons/key';
-import { menuTag } from '@ni/nimble-components/dist/esm/menu';
-import { anchorMenuItemTag } from '@ni/nimble-components/dist/esm/anchor-menu-item';
-import { menuItemTag } from '@ni/nimble-components/dist/esm/menu-item';
-import { menuButtonTag } from '@ni/nimble-components/dist/esm/menu-button';
+import { iconArrowExpanderDownTag } from '../../../../nimble-components/src/icons/arrow-expander-down';
+import { iconKeyTag } from '../../../../nimble-components/src/icons/key';
+import { menuTag } from '../../../../nimble-components/src/menu';
+import { anchorMenuItemTag } from '../../../../nimble-components/src/anchor-menu-item';
+import { menuItemTag } from '../../../../nimble-components/src/menu-item';
+import { menuButtonTag } from '../../../../nimble-components/src/menu-button';
 import {
     ButtonAppearance,
     ButtonAppearanceVariant,
     MenuButtonPosition
-} from '@ni/nimble-components/dist/esm/menu-button/types';
+} from '../../../../nimble-components/src/menu-button/types';
 import {
     appearanceDescription,
     appearanceVariantDescription,
@@ -56,7 +56,9 @@ const metadata: Meta<MenuButtonArgs> = {
     argTypes: {
         label: {
             name: 'default',
-            description: textContentDescription({ componentName: 'menu button' }),
+            description: textContentDescription({
+                componentName: 'menu button'
+            }),
             table: { category: apiCategory.slots }
         },
         icon: {
@@ -111,13 +113,13 @@ const metadata: Meta<MenuButtonArgs> = {
             table: { category: apiCategory.attributes }
         },
         toggle: {
-            description: 'Fires after the menu button is toggled.',
+            description: 'Event emitted after the menu button is toggled.',
             table: { category: apiCategory.events },
             control: false
         },
         beforetoggle: {
             description:
-                'Fires before the menu button is toggled. This can be used to populate the menu before it is opened.',
+                'Event emitted before the menu button is toggled. This can be used to populate the menu before it is opened.',
             table: { category: apiCategory.events },
             control: false
         }

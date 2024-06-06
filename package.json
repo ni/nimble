@@ -19,7 +19,7 @@
     "validate:test:sequential": "npm run test --workspaces --if-present",
     "validate:lint-concurrent:nimble-components": "npm run lint-concurrent -w packages/nimble-components",
     "validate:test-concurrent:nimble-components": "npm run test-concurrent -w packages/nimble-components",
-    "storybook": "concurrently -n nimble,spright,storybook \"npm run build-components:watch -w @ni/nimble-components\" \"npm run build-components:watch -w @ni/spright-components\" \"npm run start -w @ni-private/storybook\""
+    "storybook": "npm run start -w @ni-private/storybook"
   },
   "repository": {
     "type": "git",
@@ -58,6 +58,6 @@
     "concurrently": "^8.2.2",
     "cross-env": "^7.0.3",
     "patch-package": "^8.0.0",
-    "playwright": "1.42.0"
+    "playwright": "1.44.0"
   }
 }

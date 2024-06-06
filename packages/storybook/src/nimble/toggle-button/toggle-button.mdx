@@ -1,15 +1,16 @@
 import { Controls, Canvas, Meta, Title } from '@storybook/blocks';
 import ContentHiddenDocs from '../patterns/button/content-hidden-docs.mdx';
 import StylingDocs from '../patterns/button/styling-docs.mdx';
-import { toggleButtonTag } from '@ni/nimble-components/dist/esm/toggle-button';
+import { toggleButtonTag } from '../../../../nimble-components/src/toggle-button';
 import * as toggleButtonStories from './toggle-button.stories';
 
 <Meta of={toggleButtonStories} />
 <Title of={toggleButtonStories} />
 
-Per [W3C](https://www.w3.org/WAI/ARIA/apg/patterns/button/) - A toggle button is a two-state button
-that can be either off (not pressed) or on (pressed). For example, a button labeled mute in an audio player could
-indicate that sound is muted by setting the pressed state true.
+Per [W3C](https://www.w3.org/WAI/ARIA/apg/patterns/button/) - A toggle button is
+a two-state button that can be either off (not pressed) or on (pressed). For
+example, a button labeled mute in an audio player could indicate that sound is
+muted by setting the pressed state true.
 
 <Canvas of={toggleButtonStories.outlineButton} />
 

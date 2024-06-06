@@ -1,21 +1,56 @@
-import { Canvas, Meta, Controls, Title } from '@storybook/blocks';
+import { Canvas, Meta, Controls, Title, Description } from '@storybook/blocks';
 import { NimbleSelect } from './select.react';
 import * as selectStories from './select.stories';
-import { listOptionTag } from '@ni/nimble-components/dist/esm/list-option';
+import * as listOptionStories from '../list-option/list-option.stories';
+import * as listOptionGroupStories from '../list-option-group/list-option-group.stories';
+import ComponentApisLink from '../../docs/component-apis-link.mdx';
+import { listOptionTag } from '../../../../nimble-components/src/list-option';
+import { listOptionGroupTag } from '../../../../nimble-components/src/list-option-group';
 
 <Meta of={selectStories} />
 <Title of={selectStories} />
 
-Select is a control for selecting amongst a set of options. Its value comes from the `value` of the currently selected <Tag name={listOptionTag}/>, or, if no value exists for that option, the option's content. Upon clicking on the element, the other options are visible.
+Select is a control for selecting amongst a set of options. Upon clicking on the
+element, the other options are visible in a dropdown.
 
-<Canvas of={selectStories.underlineSelect} />
-<Controls of={selectStories.underlineSelect} />
+<Canvas of={selectStories.select} />
+
+## API
+
+<Controls of={selectStories.select} />
+<ComponentApisLink />
+
+### List Option
+
+<Description of={listOptionStories} />
+<Controls of={listOptionStories.listOption} />
+
+### List Option Group
+
+<Description of={listOptionGroupStories} />
+<Controls of={listOptionGroupStories.listOptionGroup} />
 
 {/* ## Styling */}
 
 {/* ## Usage */}
 
-{/* ## Examples */}
+## Examples
+
+### Placeholder
+
+To display placeholder text within the select you must provide an option that
+has the `disabled`, `selected` and `hidden` attributes set. This option will not
+be available in the dropdown, and its contents will be used as the placeholder
+text. Note that giving the placeholder an initial `selected` state is only
+necessary to display the placeholder initially. If another option is selected
+initially the placeholder will be displayed upon clearing the current value.
+
+Any select without a default selected option should provide placeholder text.
+Placeholder text should always follow the pattern "Select [thing(s)]", for
+example "Select country". Use sentence casing and don't include punctuation at
+the end of the prompt.
+
+<Canvas of={selectStories.placeholder} />
 
 {/* ## Accessibility */}
 

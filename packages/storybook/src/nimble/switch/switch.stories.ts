@@ -1,8 +1,13 @@
 import { html, when } from '@microsoft/fast-element';
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html';
-import { switchTag } from '@ni/nimble-components/dist/esm/switch';
-import { createUserSelectedThemeStory } from '../../utilities/storybook';
+import { switchTag } from '../../../../nimble-components/src/switch';
+import {
+    apiCategory,
+    createUserSelectedThemeStory,
+    disabledDescription,
+    slottedLabelDescription
+} from '../../utilities/storybook';
 
 interface SwitchArgs {
     label: string;
@@ -10,6 +15,7 @@ interface SwitchArgs {
     disabled: boolean;
     checkedMessage: string;
     uncheckedMessage: string;
+    change: undefined;
 }
 
 const metadata: Meta<SwitchArgs> = {
@@ -31,6 +37,38 @@ const metadata: Meta<SwitchArgs> = {
             ${when(x => x.uncheckedMessage, html<SwitchArgs>`<span slot="unchecked-message">${x => x.uncheckedMessage}</span>`)}
         </${switchTag}>
     `),
+    argTypes: {
+        label: {
+            name: 'default',
+            description: `${slottedLabelDescription({ componentName: 'switch' })}`,
+            table: { category: apiCategory.slots }
+        },
+        checked: {
+            description: 'Whether the switch is toggled on.',
+            table: { category: apiCategory.attributes }
+        },
+        disabled: {
+            description: disabledDescription({ componentName: 'switch' }),
+            table: { category: apiCategory.attributes }
+        },
+        checkedMessage: {
+            name: 'checked-message',
+            description:
+                'A `span` element containing the message to display when the switch is toggled on.',
+            table: { category: apiCategory.slots }
+        },
+        uncheckedMessage: {
+            name: 'unchecked-message',
+            description:
+                'A `span` element containing the message to display when the switch is toggled off.',
+            table: { category: apiCategory.slots }
+        },
+        change: {
+            description: 'Event emitted when the user toggles the switch.',
+            table: { category: apiCategory.events },
+            control: false
+        }
+    },
     args: {
         label: 'Switch',
         checked: true,

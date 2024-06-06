@@ -5,11 +5,12 @@ import {
     controlLabelFont,
     controlLabelFontColor,
     standardPadding
-} from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
-import { listOptionTag } from '@ni/nimble-components/dist/esm/list-option';
-import { Select, selectTag } from '@ni/nimble-components/dist/esm/select';
-import { DropdownAppearance } from '@ni/nimble-components/dist/esm/patterns/dropdown/types';
-import { waitForUpdatesAsync } from '@ni/nimble-components/dist/esm/testing/async-helpers';
+} from '../../../../nimble-components/src/theme-provider/design-tokens';
+import { listOptionTag } from '../../../../nimble-components/src/list-option';
+import { listOptionGroupTag } from '../../../../nimble-components/src/list-option-group';
+import { Select, selectTag } from '../../../../nimble-components/src/select';
+import { DropdownAppearance } from '../../../../nimble-components/src/patterns/dropdown/types';
+import { waitForUpdatesAsync } from '../../../../nimble-components/src/testing/async-helpers';
 import { createStory } from '../../utilities/storybook';
 import {
     createMatrixThemeStory,
@@ -133,6 +134,20 @@ export const navigateToDifferentOption: StoryFn = createStory(
 );
 
 navigateToDifferentOption.play = playFunction;
+
+export const navigateToDifferentOptionWithGroups: StoryFn = createStory(
+    html`
+    <div style="height: 250px;">
+        <${selectTag} open style="width: 250px;">
+            <${listOptionGroupTag} label="Group 1">
+                <${listOptionTag} value="1" selected>Option 1</${listOptionTag}>
+                <${listOptionTag}>Option 2</${listOptionTag}>
+            </${listOptionGroupTag}>
+        </${selectTag}>
+    </div>`
+);
+
+navigateToDifferentOptionWithGroups.play = playFunction;
 
 export const textCustomized: StoryFn = createMatrixThemeStory(
     textCustomizationWrapper(

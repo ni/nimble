@@ -1,13 +1,13 @@
 import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate } from '@microsoft/fast-element';
-import { iconUserTag } from '@ni/nimble-components/dist/esm/icons/user';
-import { Table, tableTag } from '@ni/nimble-components/dist/esm/table';
-import { AnchorAppearance } from '@ni/nimble-components/dist/esm/anchor/types';
+import { iconUserTag } from '../../../../../nimble-components/src/icons/user';
+import { Table, tableTag } from '../../../../../nimble-components/src/table';
+import { AnchorAppearance } from '../../../../../nimble-components/src/anchor/types';
 import {
     controlLabelFont,
     controlLabelFontColor
-} from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
-import { tableColumnAnchorTag } from '@ni/nimble-components/dist/esm/table-column/anchor';
+} from '../../../../../nimble-components/src/theme-provider/design-tokens';
+import { tableColumnAnchorTag } from '../../../../../nimble-components/src/table-column/anchor';
 import {
     placeholderStates,
     type PlaceholderState

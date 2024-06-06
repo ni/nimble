@@ -1,6 +1,11 @@
-import { textContentDescription as baseTextContentDescription, iconDescription as baseIconDescription } from '../../../utilities/storybook';
+import {
+    textContentDescription as baseTextContentDescription,
+    iconDescription as baseIconDescription
+} from '../../../utilities/storybook';
 
-export const textContentDescription = (options: { componentName: string }): string => `${baseTextContentDescription(options)} This will be hidden when \`content-hidden\` is set but should always be provided; see the **Accessibility** section for more info.`;
+export const textContentDescription = (options: {
+    componentName: string
+}): string => `${baseTextContentDescription(options)} This will be hidden when \`content-hidden\` is set but should always be provided; see the **Accessibility** section for more info.`;
 
 export const appearanceDescription = 'This attribute affects the appearance of the button. See the **Styling** section for more information.';
 

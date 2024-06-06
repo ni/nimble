@@ -1,8 +1,72 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Tue, 21 May 2024 22:53:18 GMT and should not be manually modified.
+This log was last generated on Wed, 05 Jun 2024 17:12:12 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 29.2.3
+
+Wed, 05 Jun 2024 17:12:12 GMT
+
+### Patches
+
+- Allow very long words in banner to break to another line ([ni/nimble@1d6c2e9](https://github.com/ni/nimble/commit/1d6c2e938db2295416e2d22c47685d9da22fad0f))
+
+## 29.2.2
+
+Tue, 04 Jun 2024 17:40:32 GMT
+
+### Patches
+
+- Fix some icon metaphors and use larger check for checkbox ([ni/nimble@8ead53f](https://github.com/ni/nimble/commit/8ead53f722fc0ed9fde1b4b96417aedfff6fe1cc))
+
+## 29.2.1
+
+Tue, 04 Jun 2024 16:35:58 GMT
+
+### Patches
+
+- Bump @ni/nimble-tokens to v6.14.0
+
+## 29.2.0
+
+Tue, 04 Jun 2024 02:06:07 GMT
+
+### Minor changes
+
+- List option groups for Select ([ni/nimble@9ed4ff0](https://github.com/ni/nimble/commit/9ed4ff0f84ba6b696a1602816825e875a9ae618f))
+
+## 29.1.8
+
+Mon, 03 Jun 2024 22:25:43 GMT
+
+### Patches
+
+- Refactored experimental structure and update strategy for wafer map component ([ni/nimble@decce3d](https://github.com/ni/nimble/commit/decce3d5531d93d66fe608607dd0260602b3a2f9))
+
+## 29.1.7
+
+Fri, 31 May 2024 15:22:31 GMT
+
+### Patches
+
+- Remove listbox component as it is unused. ([ni/nimble@ad47a41](https://github.com/ni/nimble/commit/ad47a4137ef0a1a49b82b99fdbfdf4feb510d5fe))
+
+## 29.1.6
+
+Tue, 28 May 2024 20:13:14 GMT
+
+### Patches
+
+- Update banner styling to align with visual design spec ([ni/nimble@2855db4](https://github.com/ni/nimble/commit/2855db4fe58a8d1df112ea656215696d9582f9ea))
+
+## 29.1.5
+
+Wed, 22 May 2024 18:32:15 GMT
+
+### Patches
+
+- Fix anchor focus styling ([ni/nimble@5e4882a](https://github.com/ni/nimble/commit/5e4882a41568361919fc96a91243fc37cd831208))
 
 ## 29.1.4
 

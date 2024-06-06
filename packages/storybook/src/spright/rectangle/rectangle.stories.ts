@@ -1,7 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/html';
 import { html } from '@microsoft/fast-element';
-import { rectangleTag } from '@ni/spright-components/dist/esm/rectangle';
-import { createUserSelectedThemeStory } from '../../utilities/storybook';
+import { rectangleTag } from '../../../../spright-components/src/rectangle';
+import {
+    apiCategory,
+    createUserSelectedThemeStory,
+    disabledDescription
+} from '../../utilities/storybook';
 
 interface RectangleArgs {
     text: string;
@@ -20,7 +24,12 @@ const metadata: Meta<RectangleArgs> = {
     `),
     argTypes: {
         text: {
-            description: 'The text to display in the rectangle.'
+            description: 'The text to display in the rectangle.',
+            table: { category: apiCategory.slots }
+        },
+        disabled: {
+            description: disabledDescription({ componentName: 'rectangle' }),
+            table: { category: apiCategory.attributes }
         }
     },
     args: {

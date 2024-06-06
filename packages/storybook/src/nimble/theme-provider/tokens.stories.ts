@@ -1,15 +1,15 @@
 import type { Meta, StoryObj } from '@storybook/html';
 import { html, repeat, ViewTemplate, when } from '@microsoft/fast-element';
-import { waitForUpdatesAsync } from '@ni/nimble-components/dist/esm/testing/async-helpers';
-import { PropertyFormat } from '@ni/nimble-components/dist/esm/theme-provider/tests/types';
+import { waitForUpdatesAsync } from '../../../../nimble-components/src/testing/async-helpers';
+import { PropertyFormat } from '../../../../nimble-components/src/theme-provider/tests/types';
 import {
     tokenNames,
     cssPropertyFromTokenName,
     scssPropertyFromTokenName,
     TokenSuffix,
     suffixFromTokenName
-} from '@ni/nimble-components/dist/esm/theme-provider/design-token-names';
-import { comments } from '@ni/nimble-components/dist/esm/theme-provider/design-token-comments';
+} from '../../../../nimble-components/src/theme-provider/design-token-names';
+import { comments } from '../../../../nimble-components/src/theme-provider/design-token-comments';
 
 import {
     bodyFont,
@@ -17,7 +17,7 @@ import {
     groupHeaderFont,
     groupHeaderFontColor,
     groupHeaderTextTransform
-} from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
+} from '../../../../nimble-components/src/theme-provider/design-tokens';
 import { createUserSelectedThemeStory } from '../../utilities/storybook';
 
 type TokenName = keyof typeof tokenNames;

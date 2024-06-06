@@ -1,18 +1,26 @@
 import { html, when } from '@microsoft/fast-element';
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html';
-import { iconKeyTag } from '@ni/nimble-components/dist/esm/icons/key';
-import { buttonTag } from '@ni/nimble-components/dist/esm/button';
-import { anchorTag } from '@ni/nimble-components/dist/esm/anchor';
-import { labelProviderCoreTag } from '@ni/nimble-components/dist/esm/label-provider/core';
-import { popupDismissLabel } from '@ni/nimble-components/dist/esm/label-provider/core/label-tokens';
-import { bannerTag } from '@ni/nimble-components/dist/esm/banner';
-import { BannerSeverity } from '@ni/nimble-components/dist/esm/banner/types';
+import { Theme } from '../../../../nimble-components/src/theme-provider/types';
+import { iconKeyTag } from '../../../../nimble-components/src/icons/key';
+import { buttonTag } from '../../../../nimble-components/src/button';
+import {
+    ButtonAppearance,
+    ButtonAppearanceVariant
+} from '../../../../nimble-components/src/button/types';
+import { anchorTag } from '../../../../nimble-components/src/anchor';
+import { labelProviderCoreTag } from '../../../../nimble-components/src/label-provider/core';
+import { popupDismissLabel } from '../../../../nimble-components/src/label-provider/core/label-tokens';
+import { bannerTag } from '../../../../nimble-components/src/banner';
+import { BannerSeverity } from '../../../../nimble-components/src/banner/types';
 import {
     LabelUserArgs,
     addLabelUseMetadata
 } from '../label-provider/base/label-user-stories-utils';
-import { createUserSelectedThemeStory } from '../../utilities/storybook';
+import {
+    apiCategory,
+    createUserSelectedThemeStory
+} from '../../utilities/storybook';
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 const ActionType = {
@@ -61,11 +69,11 @@ export const _banner: StoryObj<BannerArgs> = {
             <span slot="title">${x => x.title}</span>
             ${x => x.text}
             ${when(x => x.action === 'button (ghost)', html`
-                <${buttonTag} slot="action" appearance="ghost">Do action</${buttonTag}>`)}
+                <${buttonTag} slot="action" appearance="${ButtonAppearance.ghost}" appearance-variant="${ButtonAppearanceVariant.primary}">Do action</${buttonTag}>`)}
             ${when(x => x.action === 'button (outline)', html`
-                <${buttonTag} slot="action" appearance="outline">Do action</${buttonTag}>`)}
+                <${buttonTag} slot="action" appearance="${ButtonAppearance.outline}" appearance-variant="${ButtonAppearanceVariant.primary}">Do action</${buttonTag}>`)}
             ${when(x => x.action === 'icon button (outline)', html`
-                <${buttonTag} slot="action" appearance="outline" content-hidden>
+                <${buttonTag} slot="action" appearance="${ButtonAppearance.outline}" appearance-variant="${ButtonAppearanceVariant.primary}" content-hidden>
                     <${iconKeyTag} slot="start"></${iconKeyTag}>
                     Do action
                 </${buttonTag}>`)}
@@ -77,40 +85,48 @@ export const _banner: StoryObj<BannerArgs> = {
     name: 'Banner',
     argTypes: {
         open: {
-            description: 'Controls whether the banner is visible.'
+            description: 'Controls whether the banner is visible.',
+            table: { category: apiCategory.attributes }
         },
         title: {
             description:
-                'Primary text which is displayed when `title-hidden` is not set. Banners should **always include a title** even when `title-hidden` is set. The title is used to provide an accessible name to assistive technologies regardless of the value of `title-hidden`.<br><br>Provide the title in an `inline` element such as `<span>` that is targeted to the `title` slot.'
+                'Primary text which is displayed when `title-hidden` is not set. Banners should **always include a title** even when `title-hidden` is set. The title is used to provide an accessible name to assistive technologies regardless of the value of `title-hidden`.<br><br>Provide the title in an `inline` element such as `<span>`',
+            table: { category: apiCategory.slots }
         },
         text: {
+            name: 'default',
             description:
-                'Secondary text that provides a detailed message. This text should be short enough to fit within three lines when displayed.<br><br>Provide this text as content of the banner element (uses the default slot).'
+                'Secondary text that provides a detailed message. This text should be short enough to fit within three lines when displayed.',
+            table: { category: apiCategory.slots }
         },
         severity: {
             options: Object.keys(BannerSeverity),
             control: { type: 'radio' },
-            description:
-                'Severity of the message presented by the banner. Controls the displayed color and icon. If not set, the banner has a neutral appearance.'
+            description: `Severity of the message presented by the banner. Controls the icon displayed within the banner and, in themes other than \`${Theme.color}\`, controls the background color of the banner. If not set, the banner has a neutral appearance.`,
+            table: { category: apiCategory.attributes }
         },
         action: {
             options: Object.values(ActionType),
             control: { type: 'radio' },
             description:
-                'The `action` slot provides a place to display a button or anchor that you provide. If you provide a button, it should have either the `"ghost"` or `"outline"` appearance.'
+                'Display a button or anchor which the user can click to invoke an additional action. If you provide a button, it should have either the `"ghost"` or `"outline"` appearance and have the `"primary"` appearance variant.',
+            table: { category: apiCategory.slots }
         },
         preventDismiss: {
             name: 'prevent-dismiss',
             description:
-                'If set, removes the "X" button that dismisses the banner.'
+                'If set, removes the "X" button that dismisses the banner.',
+            table: { category: apiCategory.attributes }
         },
         titleHidden: {
             name: 'title-hidden',
-            description: 'If set, hides the provided title.'
+            description: 'If set, hides the provided title.',
+            table: { category: apiCategory.attributes }
         },
         toggle: {
             description:
                 'Event emitted by the banner when the `open` state changes. The event details include the booleans `oldState` and `newState`.',
+            table: { category: apiCategory.events },
             control: false
         }
     },

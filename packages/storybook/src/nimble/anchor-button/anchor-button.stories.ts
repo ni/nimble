@@ -1,12 +1,12 @@
 import type { Meta, StoryObj } from '@storybook/html';
 import { html, when } from '@microsoft/fast-element';
-import { iconLinkTag } from '@ni/nimble-components/dist/esm/icons/link';
-import { iconArrowExpanderRightTag } from '@ni/nimble-components/dist/esm/icons/arrow-expander-right';
-import { anchorButtonTag } from '@ni/nimble-components/dist/esm/anchor-button';
+import { iconLinkTag } from '../../../../nimble-components/src/icons/link';
+import { iconArrowExpanderRightTag } from '../../../../nimble-components/src/icons/arrow-expander-right';
+import { anchorButtonTag } from '../../../../nimble-components/src/anchor-button';
 import {
     ButtonAppearance,
     ButtonAppearanceVariant
-} from '@ni/nimble-components/dist/esm/patterns/button/types';
+} from '../../../../nimble-components/src/patterns/button/types';
 import {
     appearanceDescription,
     appearanceVariantDescription,
@@ -14,7 +14,12 @@ import {
     endIconDescription,
     iconDescription
 } from '../patterns/button/doc-strings';
-import { apiCategory, createUserSelectedThemeStory, disabledDescription, textContentDescription } from '../../utilities/storybook';
+import {
+    apiCategory,
+    createUserSelectedThemeStory,
+    disabledDescription,
+    textContentDescription
+} from '../../utilities/storybook';
 import { hrefDescription } from '../patterns/anchor/anchor-docs';
 
 interface AnchorButtonArgs {
@@ -53,7 +58,10 @@ const metadata: Meta<AnchorButtonArgs> = {
     `),
     argTypes: {
         href: {
-            description: hrefDescription({ componentName: 'anchor button', includeDisable: false }),
+            description: hrefDescription({
+                componentName: 'anchor button',
+                includeDisable: false
+            }),
             table: { category: apiCategory.attributes }
         },
         appearance: {
@@ -75,12 +83,16 @@ const metadata: Meta<AnchorButtonArgs> = {
             table: { category: apiCategory.attributes }
         },
         disabled: {
-            description: disabledDescription({ componentName: 'anchor button' }),
+            description: disabledDescription({
+                componentName: 'anchor button'
+            }),
             table: { category: apiCategory.attributes }
         },
         label: {
             name: 'default',
-            description: textContentDescription({ componentName: 'anchor button' }),
+            description: textContentDescription({
+                componentName: 'anchor button'
+            }),
             table: { category: apiCategory.slots }
         },
         icon: {
@@ -92,7 +104,7 @@ const metadata: Meta<AnchorButtonArgs> = {
             name: 'end',
             description: endIconDescription,
             table: { category: apiCategory.slots }
-        },
+        }
     },
     args: {
         label: 'Anchor Button',

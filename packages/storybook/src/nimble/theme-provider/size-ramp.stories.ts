@@ -1,12 +1,12 @@
 import type { Meta, StoryObj } from '@storybook/html';
 import { html, repeat, when } from '@microsoft/fast-element';
-import { waitForUpdatesAsync } from '@ni/nimble-components/dist/esm/testing/async-helpers';
-import { PropertyFormat } from '@ni/nimble-components/dist/esm/theme-provider/tests/types';
+import { waitForUpdatesAsync } from '../../../../nimble-components/src/testing/async-helpers';
+import { PropertyFormat } from '../../../../nimble-components/src/theme-provider/tests/types';
 import {
     tokenNames,
     cssPropertyFromTokenName,
     scssPropertyFromTokenName
-} from '@ni/nimble-components/dist/esm/theme-provider/design-token-names';
+} from '../../../../nimble-components/src/theme-provider/design-token-names';
 
 import {
     bodyFont,
@@ -14,7 +14,7 @@ import {
     groupHeaderFont,
     groupHeaderFontColor,
     groupHeaderTextTransform
-} from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
+} from '../../../../nimble-components/src/theme-provider/design-tokens';
 import { createUserSelectedThemeStory } from '../../utilities/storybook';
 
 const sizeRampTokenNames = (({

@@ -1,6 +1,6 @@
 import { html, ref, slotted } from '@microsoft/fast-element';
+import { Listbox } from '@microsoft/fast-foundation';
 import type { RichTextMentionListbox } from '.';
-import { Listbox } from '../../listbox';
 import { anchoredRegionTag } from '../../anchored-region';
 
 // prettier-ignore
@@ -24,7 +24,7 @@ export const template = html<RichTextMentionListbox>`
                 @click="${(x, c) => x.clickHandler(c.event as MouseEvent)}"
                 ?disabled="${x => x.disabled}"
             >
-                <slot
+                <slot name="option"
                     ${slotted({ filter: (n: Node) => n instanceof HTMLElement && Listbox.slottedOptionFilter(n), flatten: true, property: 'slottedOptions' })}
                 >
                 </slot>
