@@ -2,6 +2,21 @@
   "name": "@ni/spright-components",
   "entries": [
     {
+      "date": "Wed, 05 Jun 2024 18:54:09 GMT",
+      "version": "1.0.13",
+      "tag": "@ni/spright-components_v1.0.13",
+      "comments": {
+        "none": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/spright-components",
+            "commit": "1f0d3e634294c4fd54139e1181660c48cc3fe54c",
+            "comment": "Update Playwright version to 1.44.0"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 05 Jun 2024 17:12:12 GMT",
       "version": "1.0.13",
       "tag": "@ni/spright-components_v1.0.13",
