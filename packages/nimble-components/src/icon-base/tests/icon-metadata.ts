@@ -16,8 +16,14 @@ export const iconMetadata: {
     IconArrowDown: {
         tags: ['sort', 'arrow', 'down', 'descending']
     },
+    IconArrowDownLeftAndArrowUpRight: {
+        tags: ['collapse', 'shrink', 'reduce size']
+    },
     IconArrowDownRightAndArrowUpLeft: {
         tags: ['resize', 'collapse']
+    },
+    IconArrowUpRightAndArrowDownLeft: {
+        tags: ['expand', 'grow', 'enlarge size']
     },
     IconArrowExpanderDown: {
         tags: []
@@ -216,6 +222,9 @@ export const iconMetadata: {
     },
     IconDatabaseCheck: {
         tags: ['system state manager']
+    },
+    IconDebug: {
+        tags: ['troubleshoot']
     },
     IconDesktop: {
         tags: ['monitor']
@@ -447,6 +456,12 @@ export const iconMetadata: {
     },
     IconSkipArrow: {
         tags: ['status', 'skipped']
+    },
+    IconSparkles: {
+        tags: ['clean up', 'stars']
+    },
+    IconSparkleSwirls: {
+        tags: ['ai', 'artificial intelligence', 'magic', 'advanced automate']
     },
     IconSpinner: {
         tags: ['in progress']
