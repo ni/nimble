@@ -29,6 +29,7 @@ interface SelectArgs {
     appearance: string;
     filterMode: keyof typeof FilterMode;
     clearable: boolean;
+    loadingVisible: boolean;
     value: string;
     change: undefined;
 }
@@ -107,6 +108,10 @@ const clearableDescription = `
 When the \`clearable\` attribute is set, a clear button will be displayed in the select when a value is selected. Clicking the clear button will clear the selected value and display the placeholder text, if available, or will result in a blank display.
 `;
 
+const loadingVisibleDescription = `
+When the \`loading-visible\` attribute is set, a loading spinner will be displayed in the dropdown of the select along with localizable text that defaults to "Loading". This is useful when the select is loading its options dynamically.
+`;
+
 const metadata: Meta<SelectArgs> = {
     title: 'Components/Select',
     decorators: [withActions<HtmlRenderer>],
@@ -141,6 +146,7 @@ export const select: Meta<SelectArgs> = {
             position="${x => x.dropDownPosition}"
             appearance="${x => x.appearance}"
             filter-mode="${x => (x.filterMode === 'none' ? undefined : x.filterMode)}"
+            ?loading-visible="${x => x.loadingVisible}"
             style="width: 250px;"
         >
             ${when(x => x.optionsType === ExampleOptionsType.groupedOptions, html<SelectArgs>`
@@ -209,6 +215,11 @@ export const select: Meta<SelectArgs> = {
             description: clearableDescription,
             table: { category: apiCategory.attributes }
         },
+        loadingVisible: {
+            name: 'loading-visible',
+            description: loadingVisibleDescription,
+            table: { category: apiCategory.attributes }
+        },
         value: {
             name: 'value',
             description:
@@ -245,7 +256,8 @@ export const select: Meta<SelectArgs> = {
         dropDownPosition: 'below',
         appearance: DropdownAppearance.underline,
         optionsType: ExampleOptionsType.simpleOptions,
-        clearable: false
+        clearable: false,
+        loadingVisible: false
     }
 };
 

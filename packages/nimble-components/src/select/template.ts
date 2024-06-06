@@ -18,13 +18,15 @@ import { overflow } from '../utilities/directive/overflow';
 import { iconMagnifyingGlassTag } from '../icons/magnifying-glass';
 import {
     filterNoResultsLabel,
-    filterSearchLabel
+    filterSearchLabel,
+    loadingLabel
 } from '../label-provider/core/label-tokens';
 import { FilterMode } from './types';
 import { ListOptionGroup } from '../list-option-group';
 import { buttonTag } from '../button';
 import { iconTimesTag } from '../icons/times';
 import { ListOption } from '../list-option';
+import { spinnerTag } from '../spinner';
 
 export const isListOption = (
     el: Element | undefined | null
@@ -134,7 +136,7 @@ SelectOptions
                                 aria-controls="${x => x.ariaControls}"
                                 aria-activedescendant="${x => x.ariaActiveDescendant}"
                                 @input="${(x, c) => x.inputHandler(c.event as InputEvent)}"
-                                @click="${(x, c) => x.inputClickHandler(c.event as MouseEvent)}"
+                                @click="${(x, c) => x.ignoreClickHandler(c.event as MouseEvent)}"
                                 placeholder="${x => filterSearchLabel.getValueFor(x)}"
                                 value="${x => x.filter}"
                             />
@@ -151,10 +153,18 @@ SelectOptions
                             })}
                         ></slot>
                     </div>
-                    ${when(x => (x.filterMode !== FilterMode.none && x.filteredOptions.length === 0), html<Select>`
+                    ${when(x => (x.filterMode !== FilterMode.none && x.filteredOptions.length === 0 && !x.loadingVisible), html<Select>`
                         <span class="no-results-label ${x => x.positionAttribute}">
                             ${x => filterNoResultsLabel.getValueFor(x)}
                         </span>
+                    `)}
+                    ${when(x => x.loadingVisible, html<Select>`
+                        <div class="loading-container" @click="${(x, c) => x.ignoreClickHandler(c.event as MouseEvent)}">
+                            <span class="loading-label">
+                                ${x => loadingLabel.getValueFor(x)}
+                            </span>
+                            <${spinnerTag} class="loading-spinner"></${spinnerTag}>
+                        </div>
                     `)}
                 </div>
             </div>
