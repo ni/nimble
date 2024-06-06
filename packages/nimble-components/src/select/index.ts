@@ -1117,26 +1117,24 @@ export class Select
             return;
         }
 
-        this.filteredOptions = [];
-        const filteredOptions: ListboxOption[] = [];
+        const filteredOptions: ListOption[] = [];
         for (const element of this.slottedOptions) {
             if (isListOptionGroup(element)) {
                 if (element.hidden) {
                     continue; // no need to process hidden groups
-                } else {
-                    const groupOptions = this.getGroupOptions(element);
-                    const groupMatchesFilter = this.filterMatchesText(
-                        element.labelContent
-                    );
-                    groupOptions.forEach(option => {
-                        option.visuallyHidden = groupMatchesFilter
-                            ? false
-                            : this.isOptionHiddenOrFilteredOut(option);
-                        if (!option.visuallyHidden) {
-                            filteredOptions.push(option);
-                        }
-                    });
                 }
+                const groupOptions = this.getGroupOptions(element);
+                const groupMatchesFilter = this.filterMatchesText(
+                    element.labelContent
+                );
+                groupOptions.forEach(option => {
+                    option.visuallyHidden = groupMatchesFilter
+                        ? false
+                        : this.isOptionHiddenOrFilteredOut(option);
+                    if (!option.visuallyHidden) {
+                        filteredOptions.push(option);
+                    }
+                });
             } else if (isListOption(element)) {
                 element.visuallyHidden = this.isOptionHiddenOrFilteredOut(element);
                 if (!element.visuallyHidden) {

@@ -325,58 +325,67 @@ export const selectGroupedOptionsDarkThemeBlackBackground: StoryFn = createFixed
 );
 
 export const selectGroupedAndNotGroupedOptionsLightThemeWhiteBackground: StoryFn = createFixedThemeStory(
-    component({ positionState: positionStates[0], filterMode: FilterMode.standard, placeholder: true, grouped: true, optionsOutsideGroup: true }),
+    component({
+        positionState: positionStates[0],
+        filterMode: FilterMode.standard,
+        placeholder: true,
+        grouped: true,
+        optionsOutsideGroup: true
+    }),
     lightThemeWhiteBackground
 );
 
 export const selectGroupedAndNotGroupedOptionsColorThemeDarkGreenBackground: StoryFn = createFixedThemeStory(
-    component({ positionState: positionStates[0], filterMode: FilterMode.standard, placeholder: true, grouped: true, optionsOutsideGroup: true }),
+    component({
+        positionState: positionStates[0],
+        filterMode: FilterMode.standard,
+        placeholder: true,
+        grouped: true,
+        optionsOutsideGroup: true
+    }),
     colorThemeDarkGreenBackground
 );
 
 export const selectGroupedAndNotGroupedOptionsDarkThemeBlackBackground: StoryFn = createFixedThemeStory(
-    component({ positionState: positionStates[0], filterMode: FilterMode.standard, placeholder: true, grouped: true, optionsOutsideGroup: true }),
+    component({
+        positionState: positionStates[0],
+        filterMode: FilterMode.standard,
+        placeholder: true,
+        grouped: true,
+        optionsOutsideGroup: true
+    }),
     darkThemeBlackBackground
 );
 
 export const selectGroupedWithSlottedLabelLightThemeWhiteBackground: StoryFn = createFixedThemeStory(
     component({
-        positionState: positionStates[0], filterMode: FilterMode.standard, placeholder: true, grouped: true, slottedLabel: true
+        positionState: positionStates[0],
+        filterMode: FilterMode.standard,
+        placeholder: true,
+        grouped: true,
+        slottedLabel: true
     }),
     lightThemeWhiteBackground
 );
 
 export const selectGroupedWithSlottedLabelColorThemeDarkGreenBackground: StoryFn = createFixedThemeStory(
     component({
-        positionState: positionStates[0], filterMode: FilterMode.standard, placeholder: true, grouped: true, slottedLabel: true
+        positionState: positionStates[0],
+        filterMode: FilterMode.standard,
+        placeholder: true,
+        grouped: true,
+        slottedLabel: true
     }),
     colorThemeDarkGreenBackground
 );
 
 export const selectGroupedWithSlottedLabelDarkThemeBlackBackground: StoryFn = createFixedThemeStory(
     component({
-        positionState: positionStates[0], filterMode: FilterMode.standard, placeholder: true, grouped: true, slottedLabel: true
-    }),
-    darkThemeBlackBackground
-);
-
-export const selectBelowOpenLoadingVisibleNoGroupsLightThemeWhiteBackground: StoryFn = createFixedThemeStory(
-    component({
-        positionState: positionStates[0], filterMode: FilterMode.standard, loadingVisible: true
-    }),
-    lightThemeWhiteBackground
-);
-
-export const selectBelowOpenLoadingVisibleNoGroupsDarkGreenBackground: StoryFn = createFixedThemeStory(
-    component({
-        positionState: positionStates[0], filterMode: FilterMode.standard, loadingVisible: true
-    }),
-    colorThemeDarkGreenBackground
-);
-
-export const selectBelowOpenLoadingVisibleNoGroupsDarkThemeBlackBackground: StoryFn = createFixedThemeStory(
-    component({
-        positionState: positionStates[0], filterMode: FilterMode.standard, loadingVisible: true
+        positionState: positionStates[0],
+        filterMode: FilterMode.standard,
+        placeholder: true,
+        grouped: true,
+        slottedLabel: true
     }),
     darkThemeBlackBackground
 );

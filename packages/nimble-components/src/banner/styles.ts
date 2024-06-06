@@ -33,6 +33,7 @@ export const styles = css`
         font-size: 12.8px;
         align-items: top;
         overflow: hidden;
+        overflow-wrap: anywhere;
     }
 
     :host(:not([open])) {
@@ -64,7 +65,6 @@ export const styles = css`
         display: inline;
         font-weight: bold;
         padding-right: 8px;
-        white-space: nowrap;
     }
 
     :host([title-hidden]) slot[name='title'] {

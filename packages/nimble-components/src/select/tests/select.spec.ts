@@ -1308,6 +1308,34 @@ describe('Select', () => {
                 ).toBe('');
             });
         });
+
+        it('option that is not hidden but visuallyHidden, if removed from DOM, and then re-added to DOM while dropdown open, is not displayed in dropdown', async () => {
+            const option = element.options[1] as ListOption;
+            await pageObject.openAndSetFilterText('Three');
+            expect(option.visuallyHidden).toBeTrue();
+
+            element.removeChild(option);
+            await waitForUpdatesAsync();
+            element.appendChild(option);
+            await waitForUpdatesAsync();
+
+            expect(option.visuallyHidden).toBeTrue();
+        });
+
+        it('option that is not hidden but visuallyHidden, if removed from DOM, and then re-added to DOM while dropdown closed, is visible in dropdown when opened', async () => {
+            const option = element.options[1] as ListOption;
+            await pageObject.openAndSetFilterText('Three');
+            expect(option.visuallyHidden).toBeTrue();
+
+            element.removeChild(option);
+            await waitForUpdatesAsync();
+            await pageObject.clickAway(); // clears filter
+            element.appendChild(option);
+            await waitForUpdatesAsync();
+            pageObject.clickSelect();
+
+            expect(option.visuallyHidden).toBeFalse();
+        });
     });
 
     describe('placeholder', () => {

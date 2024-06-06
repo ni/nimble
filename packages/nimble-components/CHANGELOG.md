@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Tue, 04 Jun 2024 17:40:32 GMT and should not be manually modified.
+This log was last generated on Wed, 05 Jun 2024 17:12:12 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 29.2.3
+
+Wed, 05 Jun 2024 17:12:12 GMT
+
+### Patches
+
+- Allow very long words in banner to break to another line ([ni/nimble@1d6c2e9](https://github.com/ni/nimble/commit/1d6c2e938db2295416e2d22c47685d9da22fad0f))
 
 ## 29.2.2
 
