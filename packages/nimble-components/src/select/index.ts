@@ -289,7 +289,6 @@ export class Select
         prev: Element[] | undefined,
         next: Element[] | undefined
     ): void {
-        const value = this.value;
         this.options.forEach(o => {
             const notifier = Observable.getNotifier(o);
             notifier.unsubscribe(this, 'value');
@@ -301,8 +300,11 @@ export class Select
             const notifier = Observable.getNotifier(el);
             notifier.unsubscribe(this, 'hidden');
             notifier.unsubscribe(this, 'visuallyHidden');
+            notifier.unsubscribe(this, 'listOptions');
         });
         const options = this.getSlottedOptions(next);
+        // reset selectedIndex in case the selected option was removed or reordered
+        this.selectedIndex = options.findIndex(o => o.selected);
         super.slottedOptionsChanged(prev, options);
 
         options.forEach(o => {
@@ -316,15 +318,13 @@ export class Select
             const notifier = Observable.getNotifier(el);
             notifier.subscribe(this, 'hidden');
             notifier.subscribe(this, 'visuallyHidden');
+            notifier.subscribe(this, 'listOptions');
         });
         this.setProxyOptions();
         this.updateValue();
         // We need to force an update to the filteredOptions observable
         // (by calling 'filterOptions()) so that the template correctly updates.
         this.filterOptions();
-        if (value) {
-            this.value = value;
-        }
     }
 
     /**
@@ -411,6 +411,14 @@ export class Select
             }
             case 'disabled': {
                 this.updateDisplayValue();
+                break;
+            }
+            case 'listOptions': {
+                // force refresh of slotted options for groups
+                this.slottedOptionsChanged(
+                    this.slottedOptions,
+                    this.slottedOptions
+                );
                 break;
             }
             default:
