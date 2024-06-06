@@ -32,7 +32,9 @@ describe('Icons', () => {
         const getPaths = (svg: SVGElement): SVGPathElement[] => Array.from(svg.querySelectorAll('path'));
 
         const nimbleIconsWithStyle = ['sparkle_swirls_16_x_16'];
-        const nimbleIconsWithoutStyle = nimbleIcons.filter(value => !nimbleIconsWithStyle.includes(value.name));
+        const nimbleIconsWithoutStyle = nimbleIcons.filter(
+            value => !nimbleIconsWithStyle.includes(value.name)
+        );
         parameterizeSpec(nimbleIconsWithoutStyle, (spec, name, value) => {
             spec(`for icon ${name}`, () => {
                 const svg = getSVGElement(value.data);
