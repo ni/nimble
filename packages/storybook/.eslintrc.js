@@ -38,17 +38,11 @@ module.exports = {
                         ]
                     }
                 ],
-            }
-        },
-        {
-            files: ['*.stories.ts'],
-            rules: {
-                // Storybook files will not be in published package and are allowed to use devDependencies
+                // Storybook is not a published package and is allowed to use devDependencies
                 'import/no-extraneous-dependencies': [
                     'error',
                     { devDependencies: true }
                 ],
-                'import/no-default-export': 'off',
                 'storybook/prefer-pascal-case': 'off'
             }
         },
