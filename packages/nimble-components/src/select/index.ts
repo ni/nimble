@@ -412,7 +412,10 @@ export class Select
             }
             case 'listOptions': {
                 // force refresh of slotted options for groups
-                this.slottedOptionsChanged(this.slottedOptions, this.slottedOptions);
+                this.slottedOptionsChanged(
+                    this.slottedOptions,
+                    this.slottedOptions
+                );
                 break;
             }
             default:
