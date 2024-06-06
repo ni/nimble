@@ -2,7 +2,10 @@ import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate } from '@microsoft/fast-element';
 import { tableFromArrays } from 'apache-arrow';
 import { waferMapTag } from '../../../../nimble-components/src/wafer-map';
-import { WaferMapOrientation, WaferMapOriginLocation } from '../../../../nimble-components/src/wafer-map/types';
+import {
+    WaferMapOrientation,
+    WaferMapOriginLocation
+} from '../../../../nimble-components/src/wafer-map/types';
 import {
     createMatrix,
     sharedMatrixParameters,
@@ -34,7 +37,9 @@ const waferMapDie = [
 const waferMapDiesTable = tableFromArrays({
     colIndex: Int32Array.from([0, 1, 1, 1, 2, 2, 2, 2, 2, 3, 3, 3, 4]),
     rowIndex: Int32Array.from([2, 2, 1, 3, 2, 1, 0, 3, 4, 2, 1, 3, 2]),
-    value: Float64Array.from([99, 78, 88, 68, 99, 99, 80, 99, 100, 40, 10, 15, 30])
+    value: Float64Array.from([
+        99, 78, 88, 68, 99, 99, 80, 99, 100, 40, 10, 15, 30
+    ])
 });
 
 const colorsScaleStates = [
@@ -285,7 +290,9 @@ export const waferMapOriginLocationTest: StoryFn = createStory(
 );
 
 export const experimentalWaferMapOriginLocationTest: StoryFn = createStory(
-    createMatrix(componentExperimentalWaferWithOriginLocation, [originLocationStates])
+    createMatrix(componentExperimentalWaferWithOriginLocation, [
+        originLocationStates
+    ])
 );
 
 export const waferMapResizeTest: StoryFn = createStory(
@@ -301,7 +308,9 @@ export const waferMapGridDimensionsTest: StoryFn = createStory(
 );
 
 export const experimentalWaferMapGridDimensionsTest: StoryFn = createStory(
-    createMatrix(componentExperimentalWaferWithGridDimensions, [gridDimensionStates])
+    createMatrix(componentExperimentalWaferWithGridDimensions, [
+        gridDimensionStates
+    ])
 );
 
 export const waferMapHighlightedTest: StoryFn = createStory(

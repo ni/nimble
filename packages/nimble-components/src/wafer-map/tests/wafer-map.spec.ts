@@ -148,7 +148,7 @@ describe('WaferMap', () => {
                 value: Float64Array.from([])
             });
             await waitForUpdatesAsync();
-            await waitForUpdatesAsync();
+            await element.currentTask;
             expect(element.validity.invalidDiesTableSchema).toBeFalse();
             expect(setupWaferSpy).toHaveBeenCalledTimes(1);
             expect(matrixRendererSpy.drawWafer).toHaveBeenCalledTimes(1);
@@ -165,7 +165,7 @@ describe('WaferMap', () => {
                 value: Float64Array.from([1])
             });
             await waitForUpdatesAsync();
-            await waitForUpdatesAsync();
+            await element.currentTask;
             expect(element.validity.invalidDiesTableSchema).toBeFalse();
             expect(setupWaferSpy).toHaveBeenCalledTimes(1);
             expect(matrixRendererSpy.drawWafer).toHaveBeenCalledTimes(1);
