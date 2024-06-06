@@ -1052,7 +1052,8 @@ describe('Select', () => {
             expect(element.value).toBe('one');
         });
 
-        it('filtering to no available options sets ariaActiveDescendent to empty string', async () => {
+        // Fails on Webkit. Tracked by https://github.com/ni/nimble/issues/2170
+        it('filtering to no available options sets ariaActiveDescendent to empty string #SkipWebkit', async () => {
             await pageObject.openAndSetFilterText('abc');
             expect(element.ariaActiveDescendant).toBe('');
         });
