@@ -1922,6 +1922,13 @@ describe('Select', () => {
                 await pageObject.openAndSetFilterText('abc');
                 expect(pageObject.isNoResultsLabelVisible()).toBeFalse();
             });
+
+            it('does not automatically filter options when filterMode is manual', async () => {
+                element.filterMode = FilterMode.manual;
+                await pageObject.openAndSetFilterText('one');
+                const filteredOptions = pageObject.getFilteredOptions();
+                expect(filteredOptions.length).toBe(8);
+            });
         });
     });
 
