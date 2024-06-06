@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Wed, 05 Jun 2024 17:12:12 GMT and should not be manually modified.
+This log was last generated on Thu, 06 Jun 2024 15:56:25 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 29.2.4
+
+Thu, 06 Jun 2024 15:56:25 GMT
+
+### Patches
+
+- Address issue with select not recognizing when group options are updated ([ni/nimble@c6b91bb](https://github.com/ni/nimble/commit/c6b91bb4a57bbc4b55a74d14f318886e55020348))
 
 ## 29.2.3
 
