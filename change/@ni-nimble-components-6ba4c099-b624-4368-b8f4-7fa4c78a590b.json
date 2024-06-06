@@ -1,6 +1,6 @@
 {
-  "type": "none",
-  "comment": "Switch to all nimble private linting",
+  "type": "patch",
+  "comment": "Minor wafer updates due to lint config changes",
   "packageName": "@ni/nimble-components",
   "email": "rajsite@users.noreply.github.com",
   "dependentChangeType": "none"
