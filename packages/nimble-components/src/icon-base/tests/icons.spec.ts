@@ -8,15 +8,15 @@ import { Fixture, fixture } from '../../utilities/tests/fixture';
 import { IconAdd, iconAddTag } from '../../icons/add';
 
 describe('Icons', () => {
-    describe('should have correct SVG structure', () => {
-        const nimbleIcons = Object.values(nimbleIconsMap);
-        const getSVGElement = (htmlString: string): SVGElement => {
-            const template = document.createElement('template');
-            template.innerHTML = htmlString;
-            const svg = template.content.querySelector('svg');
-            return svg!;
-        };
+    const nimbleIcons = Object.values(nimbleIconsMap);
+    const getSVGElement = (htmlString: string): SVGElement => {
+        const template = document.createElement('template');
+        template.innerHTML = htmlString;
+        const svg = template.content.querySelector('svg');
+        return svg!;
+    };
 
+    describe('should have correct SVG structure', () => {
         parameterizeSpec(nimbleIcons, (spec, name, value) => {
             spec(`for icon ${name}`, () => {
                 const svg = getSVGElement(value.data);
@@ -24,6 +24,24 @@ describe('Icons', () => {
                 expect(svg.getAttribute('viewBox')).toBeTruthy();
                 expect(svg.getAttribute('height')).toBeNull();
                 expect(svg.getAttribute('width')).toBeNull();
+            });
+        });
+    });
+
+    describe('should not have inline style', () => {
+        const getPaths = (svg: SVGElement): SVGPathElement[] => Array.from(svg.querySelectorAll('path'));
+
+        const nimbleIconsWithStyle = ['sparkle_swirls_16_x_16'];
+        const nimbleIconsWithoutStyle = nimbleIcons.filter(value => !nimbleIconsWithStyle.includes(value.name));
+        parameterizeSpec(nimbleIconsWithoutStyle, (spec, name, value) => {
+            spec(`for icon ${name}`, () => {
+                const svg = getSVGElement(value.data);
+                const paths = getPaths(svg);
+
+                expect(svg.querySelector('defs')).toBeNull();
+                for (const path of paths) {
+                    expect(path.getAttribute('style')).toBeNull();
+                }
             });
         });
     });
