@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import { Notifier, Subscriber, Observable } from '@microsoft/fast-element';
 import {
     keyArrowDown,
@@ -58,13 +57,11 @@ implements Subscriber {
         });
         table.addEventListener('keydown', e => this.onKeyDown(e));
         table.addEventListener('focusin', e => this.handleFocus(e));
-        table.addEventListener('focusout', e => this.handleFocusOut(e));
         table.addEventListener('blur', e => this.handleBlur(e));
         this.tableNotifier = Observable.getNotifier(this.table);
         this.tableNotifier.subscribe(this, 'rowElements');
         this.virtualizerNotifier = Observable.getNotifier(this.virtualizer);
         this.virtualizerNotifier.subscribe(this, 'visibleItems');
-        window.setTimeout(() => this.printActiveElement(), 8000);
     }
 
     public resetFocusState(): void {
@@ -77,12 +74,6 @@ implements Subscriber {
 
     public connect(): void {
         this.table.viewport.addEventListener('keydown', e => this.onViewportKeyDown(e));
-    }
-
-    public printActiveElement(): void {
-        console.log('Current Active Element', this.getActiveElementDebug());
-        console.log('Current Focus State', this.focusType, 'rowIndex', this.rowIndex, 'columnIndex', this.columnIndex, 'headerActionIndex', this.headerActionIndex, 'cellContentIndex', this.cellContentIndex);
-        window.setTimeout(() => this.printActiveElement(), 8000);
     }
 
     public handleChange(source: unknown, args: unknown): void {
@@ -162,13 +153,6 @@ implements Subscriber {
         const activeElement = this.getActiveElement();
         let row: TableRow | TableGroupRow | undefined;
         let cell: TableCell | undefined;
-        console.log(
-            'table focusin',
-            'target',
-            event.target,
-            'relatedTarget',
-            event.relatedTarget
-        );
         if (activeElement) {
             row = this.getContainingRow(activeElement);
             cell = this.getContainingCell(activeElement);
@@ -179,10 +163,8 @@ implements Subscriber {
                         this.setCellActionMenuFocusState(row.dataIndex!, columnIndex, false);
                         return;
                     }
-                    console.log('handleFocus', 'activeElement', activeElement, 'tabbableChildren', cell.cellView.tabbableChildren);
                     const contentIndex = cell.cellView.tabbableChildren.indexOf(activeElement);
                     if (contentIndex > -1) {
-                        console.log('handleFocus set cell content focus');
                         this.setCellContentFocusState(contentIndex, row.dataIndex!, columnIndex, false);
                         return;
                     }
@@ -196,19 +178,16 @@ implements Subscriber {
             let focusHeader = true;
             if (this.hasRowOrCellFocusType() && this.scrollToAndFocusRow(this.rowIndex)) {
                 focusHeader = false;
-                console.log('handleFocus -> row or cell focus type');
             }
             this.updateNavigationMode();
             if (focusHeader && !this.setFocusOnHeader()) {
                 // nothing to focus
-                console.log('handleFocus -> blur');
                 this.table.blur();
             }
         }
     };
 
     private readonly handleBlur = (e: FocusEvent): void => {
-        console.log('table blur', 'target', e.target, 'relatedTarget', e.relatedTarget, 'nav mode', this.inNavigationMode, 'focusType', this.focusType);
         if (this.focusType === TableFocusType.cellActionMenu) {
             const source = e.composedPath()[0];
             if (source instanceof Element) {
@@ -220,10 +199,6 @@ implements Subscriber {
                 }
             }
         }
-    };
-
-    private readonly handleFocusOut = (e: FocusEvent): void => {
-        console.log('table focusout', 'target', e.target, 'relatedTarget', e.relatedTarget, 'nav mode', this.inNavigationMode, 'focusType', this.focusType);
     };
 
     private readonly onCaptureKeyDown = (event: KeyboardEvent): void => {
