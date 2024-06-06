@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/member-ordering */
 import { expose } from 'comlink';
 import type { Dimensions, RenderConfig, TransformConfig } from './types';
 
