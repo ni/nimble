@@ -371,28 +371,6 @@ const sortedOptions = {
             sortDirection: TableColumnSortDirection.none,
             sortingDisabled: true
         }
-    ],
-    [ExampleSortType.allColumnsDisabled]: [
-        {
-            columnId: 'first-name-column',
-            sortDirection: TableColumnSortDirection.none,
-            sortingDisabled: true
-        },
-        {
-            columnId: 'last-name-column',
-            sortDirection: TableColumnSortDirection.none,
-            sortingDisabled: true
-        },
-        {
-            columnId: 'favorite-color-column',
-            sortDirection: TableColumnSortDirection.none,
-            sortingDisabled: true
-        },
-        {
-            columnId: 'quote-column',
-            sortDirection: TableColumnSortDirection.none,
-            sortingDisabled: true
-        }
     ]
 } as const;
 
@@ -483,9 +461,7 @@ export const sorting: StoryObj<SortingTableArgs> = {
                     [ExampleSortType.secondColumnDescendingFirstColumnAscending]:
                         'Last name descending then first name ascending',
                     [ExampleSortType.firstColumnAscendingSecondColumnDisabled]:
-                        'First name ascending; sorting disabled for last name',
-                    [ExampleSortType.allColumnsDisabled]:
-                        'Sorting disabled for all columns'
+                        'First name ascending; sorting disabled for last name'
                 }
             }
         },

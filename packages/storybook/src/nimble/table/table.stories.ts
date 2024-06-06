@@ -16,7 +16,6 @@ import {
 } from '../label-provider/base/label-user-stories-utils';
 import { createUserSelectedThemeStory } from '../../utilities/storybook';
 import { isChromatic } from '../../utilities/isChromatic';
-import { tableColumnAnchorTag } from '@ni/nimble-components/dist/esm/table-column/anchor';
 
 interface BaseTableArgs extends LabelUserArgs {
     tableRef: Table;
@@ -29,23 +28,11 @@ const metadata: Meta<BaseTableArgs> = {
     parameters: {
         actions: {
             handles: [
-                /*
-                TODO investigate Storybook error (happens when expanding/collapsing rows)
-Uncaught TypeError: Converting circular structure to JSON
-    --> starting at object with constructor 'Controller'
-    |     property 'subscribers' -> object with constructor 'Object'
-    |     property 'rowElements' -> object with constructor 'SubscriberSet'
-    |     property 'sub1' -> object with constructor 'KeyboardNavigationManager'
-    --- property 'tableNotifier' closes the circle
-    at JSON.stringify (<anonymous>)
-    */
-                /*
                 'action-menu-beforetoggle',
                 'action-menu-toggle',
                 'selection-change',
                 'column-configuration-change',
                 'row-expand-toggle'
-                */
             ]
         }
     },
@@ -75,7 +62,6 @@ interface TableArgs extends BaseTableArgs {
     setSelectedRecordIds: undefined;
     getSelectedRecordIds: undefined;
     data: ExampleDataType;
-    showLastNameActionMenu: boolean;
 }
 
 const simpleData = [
@@ -193,14 +179,6 @@ const hierarchicalData = [
         age: 42,
         id: '10',
         parentId: '9'
-    },
-    {
-        firstName: 'Root Item',
-        lastName: 'With No Children',
-        quote: 'Isn’t it nice we hate the same things?',
-        age: 42,
-        id: '11',
-        parentId: undefined
     }
 ];
 
@@ -287,9 +265,6 @@ mode is \`single\`, only the first record that exists in the table's data will b
 export const table: StoryObj<TableArgs> = {
     // prettier-ignore
     render: createUserSelectedThemeStory(html<TableArgs>`
-        <br/>    
-        <input type="button" value="Additional focusable content" />
-        <br/><br/>
         <${tableTag}
             ${ref('tableRef')}
             selection-mode="${x => TableRowSelectionMode[x.selectionMode]}"
@@ -304,13 +279,13 @@ export const table: StoryObj<TableArgs> = {
             >
                 <${iconUserTag} title="First Name"></${iconUserTag}>
             </${tableColumnTextTag}>
-            <${tableColumnAnchorTag}
+            <${tableColumnTextTag}
                 column-id="last-name-column"
-                label-field-name="lastName" href-field-name="lastName"
-                action-menu-slot="${x => (x.showLastNameActionMenu ? 'name-menu' : null)}" action-menu-label="${x => (x.showLastNameActionMenu ? 'Configure name' : null)}"
+                field-name="lastName"
+                action-menu-slot="name-menu" action-menu-label="Configure name"
             >
                 Last Name
-            </${tableColumnAnchorTag}>
+            </${tableColumnTextTag}>
             <${tableColumnNumberTextTag}
                 column-id="age-column"
                 field-name="age"
@@ -338,8 +313,6 @@ export const table: StoryObj<TableArgs> = {
                 <${menuItemTag}>Do something else with the quote</${menuItemTag}>
             </${menuTag}>
         </${tableTag}>
-        <p>More page content</p>
-        <input type="button" value="Additional focusable content" />
     `),
     argTypes: {
         data: {
@@ -363,11 +336,6 @@ export const table: StoryObj<TableArgs> = {
             description:
                 'Controls whether the table supports selecting a single row at a time, multiple rows at a time, or no rows. When selection is enabled, `id-field-name` must be specified.',
             control: { type: 'radio' }
-        },
-        showLastNameActionMenu: {
-            name: 'Show Last Name action menu',
-            description:
-                'Show Last Name action menu'
         },
         getSelectedRecordIds: {
             name: 'getSelectedRecordIds()',
@@ -413,7 +381,6 @@ export const table: StoryObj<TableArgs> = {
         idFieldName: undefined,
         validity: undefined,
         checkValidity: undefined,
-        showLastNameActionMenu: true,
         tableRef: undefined,
         updateData: x => {
             void (async () => {

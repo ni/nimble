@@ -5,8 +5,6 @@ import { tableTag } from '@ni/nimble-components/dist/esm/table';
 import { tableColumnTextTag } from '@ni/nimble-components/dist/esm/table-column/text';
 import { AnchorAppearance } from '@ni/nimble-components/dist/esm/anchor/types';
 import { tableColumnAnchorTag } from '@ni/nimble-components/dist/esm/table-column/anchor';
-import { menuTag } from '@ni/nimble-components/dist/esm/menu';
-import { menuItemTag } from '@ni/nimble-components/dist/esm/menu-item';
 import {
     sharedTableActions,
     SharedTableArgs,
@@ -67,7 +65,6 @@ const simpleData = [
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface AnchorColumnTableArgs extends SharedTableArgs {
-    showActionMenu: boolean;
     labelFieldName: string;
     hrefFieldName: string;
     appearance: keyof typeof AnchorAppearance;
@@ -89,7 +86,6 @@ export const anchorColumn: StoryObj<AnchorColumnTableArgs> = {
                 appearance="${x => x.appearance}"
                 ?underline-hidden="${x => x.underlineHidden}"
                 placeholder="${x => x.placeholder}"
-                action-menu-slot="${x => (x.showActionMenu ? 'name-menu' : null)}" action-menu-label="${x => (x.showActionMenu ? 'Configure name' : null)}"
             >
             Link Column
             </${tableColumnAnchorTag}>
@@ -98,20 +94,9 @@ export const anchorColumn: StoryObj<AnchorColumnTableArgs> = {
             >
             Last Name
             </${tableColumnTextTag}>
-            <${menuTag} slot="name-menu">
-                <${menuItemTag}>Edit name</${menuItemTag}>
-                <${menuItemTag}>Delete person</${menuItemTag}>
-                <${menuItemTag}>Archive person</${menuItemTag}>
-                <${menuItemTag}>Duplicate person</${menuItemTag}>
-            </${menuTag}>
         </${tableTag}>
     `),
     argTypes: {
-        showActionMenu: {
-            name: 'Show action menu',
-            description:
-                'Show action menu'
-        },
         labelFieldName: {
             name: 'label-field-name',
             description:
@@ -142,7 +127,6 @@ export const anchorColumn: StoryObj<AnchorColumnTableArgs> = {
         }
     },
     args: {
-        showActionMenu: true,
         labelFieldName: 'firstName',
         hrefFieldName: 'url',
         appearance: 'default',
