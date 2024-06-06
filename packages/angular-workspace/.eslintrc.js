@@ -27,21 +27,21 @@ module.exports = {
                 // Use package.json from angular-workspace root
                 'import/no-extraneous-dependencies': ['error', { packageDir: __dirname }],
                 'no-restricted-imports': ['error', {
-                    patterns:
-                [{
-                    group: ['@microsoft/fast-*'],
-                    message: 'Do not directly use underlying libraries of nimble. Instead rely on or add to exports of nimble packages.'
-                },
-                {
-                    group: [
-                        '@ni/nimble-components/**/tests',
-                        '@ni/nimble-components/**/testing',
-                        '@ni/spright-components/**/tests',
-                        '@ni/spright-components/**/testing'
-                    ],
-                    message: 'Do not use test code/utilities in production code.'
-                }]
+                    patterns: [{
+                        group: ['@microsoft/fast-*'],
+                        message: 'Do not directly use underlying libraries of nimble. Instead rely on or add to exports of nimble packages.'
+                    },
+                    {
+                        group: [
+                            '@ni/nimble-components/**/tests',
+                            '@ni/nimble-components/**/testing',
+                            '@ni/spright-components/**/tests',
+                            '@ni/spright-components/**/testing'
+                        ],
+                        message: 'Do not use test code/utilities in production code.'
+                    }]
                 }],
+
                 // Rules enabled due to strictNullChecks
                 // see: https://github.com/ni/javascript-styleguide/#strict-null-checks
                 '@typescript-eslint/no-unnecessary-boolean-literal-compare': 'error',
@@ -71,14 +71,13 @@ module.exports = {
             rules: {
                 'no-restricted-imports': [
                     'error', {
-                        patterns:
-                    [{
-                        group: ['@microsoft/fast-*'],
-                        message: 'Do not directly use underlying libraries of nimble. Instead rely on or add to exports of nimble packages.'
-                    }, {
-                        group: ['@ni/nimble-components', '@ni/spright-components'],
-                        message: 'Angular tests should not directly depend on web component packages.'
-                    }]
+                        patterns: [{
+                            group: ['@microsoft/fast-*'],
+                            message: 'Do not directly use underlying libraries of nimble. Instead rely on or add to exports of nimble packages.'
+                        }, {
+                            group: ['@ni/nimble-components', '@ni/spright-components'],
+                            message: 'Angular tests should not directly depend on web component packages.'
+                        }]
                     }
                 ],
 
@@ -91,11 +90,10 @@ module.exports = {
             rules: {
                 'no-restricted-imports': [
                     'error', {
-                        patterns:
-                    [{
-                        group: ['@microsoft/fast-*'],
-                        message: 'Do not directly use underlying libraries of nimble. Instead rely on or add to exports of nimble packages.'
-                    }]
+                        patterns: [{
+                            group: ['@microsoft/fast-*'],
+                            message: 'Do not directly use underlying libraries of nimble. Instead rely on or add to exports of nimble packages.'
+                        }]
                     }
                 ]
             }
@@ -106,18 +104,19 @@ module.exports = {
                 '@ni/eslint-config-angular/template'
             ],
             rules: {
-            // Enable i18n template checking for the purpose of making sure to capture updates for the lint rules
-            // New entries should be added to the ignoreAttributeSets:
-            // See: https://github.com/ni/javascript-styleguide/blob/main/packages/eslint-config-angular/template/options.js
+                // Enable i18n template checking for the purpose of making sure to capture updates for the lint rules
                 '@angular-eslint/template/i18n': [
                     'error',
                     {
                         checkText: false,
                         checkId: false,
                         ignoreAttributes: [
+                            // Attributes that SHOULD NOT ever be localized need to be added to ignoreAttributeSets
+                            // See: https://github.com/ni/javascript-styleguide/blob/main/packages/eslint-config-angular/template/options.js
                             ...ignoreAttributes.all,
-                            // The following attributes should be marked i18n in production applications but
-                            // are ignored here as they do not actually need to be marked for tests / example apps
+
+                            // Attributes that SHOULD be localized in production, but we don't want to
+                            // for tests / examples apps should be added to the following list:
                             'action-menu-label',
                             'aria-label',
                             'button-label',
