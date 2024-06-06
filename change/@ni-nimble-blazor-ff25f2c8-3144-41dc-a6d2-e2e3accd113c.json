@@ -1,7 +1,0 @@
-{
-  "type": "minor",
-  "comment": "Blazor integration for ListOptionGroup",
-  "packageName": "@ni/nimble-blazor",
-  "email": "26874831+atmgrifter00@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
