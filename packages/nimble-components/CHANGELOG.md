@@ -1,8 +1,17 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Thu, 06 Jun 2024 15:56:25 GMT and should not be manually modified.
+This log was last generated on Thu, 06 Jun 2024 17:29:15 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 29.3.0
+
+Thu, 06 Jun 2024 17:29:15 GMT
+
+### Minor changes
+
+- Add icons for AI, clean, expand, collapse, debug ([ni/nimble@d375e09](https://github.com/ni/nimble/commit/d375e092e3b2e627fba234136871d002aeb3c7b6))
+- Bump @ni/nimble-tokens to v6.15.0
 
 ## 29.2.4
 

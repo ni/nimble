@@ -1,7 +1,0 @@
-{
-  "type": "minor",
-  "comment": "Add icons for AI, clean, expand, collapse, debug",
-  "packageName": "@ni/nimble-components",
-  "email": "jattasNI@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
