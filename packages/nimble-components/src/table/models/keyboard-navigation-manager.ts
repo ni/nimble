@@ -67,6 +67,14 @@ implements Subscriber {
         window.setTimeout(() => this.printActiveElement(), 8000);
     }
 
+    public resetFocusState(): void {
+        this.focusType = TableFocusType.none;
+        const activeElement = this.getActiveElement();
+        if (activeElement && this.isInTable(activeElement)) {
+            this.setDefaultFocus();
+        }
+    }
+
     public connect(): void {
         this.table.viewport.addEventListener('keydown', e => this.onViewportKeyDown(e));
     }
@@ -108,6 +116,15 @@ implements Subscriber {
                 this.setCellFocusState(this.columnIndex, this.rowIndex, false);
             }
             if (this.inNavigationMode && this.hasRowOrCellFocusType()) {
+                if (this.rowIndex > this.table.tableData.length - 1) {
+                    // Focused row index no longer valid, coerce to 1st row if possible
+                    if (this.table.tableData.length > 0) {
+                        this.rowIndex = 0;
+                    } else {
+                        this.setDefaultFocus();
+                        return;
+                    }
+                }
                 this.focusCurrentRow(false);
             }
         }
@@ -689,12 +706,15 @@ implements Subscriber {
         if (this.hasHeaderFocusType()) {
             return this.focusHeaderElement();
         }
+        this.setDefaultFocus();
+        return this.focusType !== TableFocusType.none;
+    }
+
+    private setDefaultFocus(): void {
         const headerElements = this.getTableHeaderFocusableElements();
-        if (this.trySetHeaderActionFocus(headerElements, 0) || this.trySetColumnHeaderFocus(headerElements, 0) || this.scrollToAndFocusRow(0)) {
-            return true;
+        if (!this.trySetHeaderActionFocus(headerElements, 0) && !this.trySetColumnHeaderFocus(headerElements, 0) && !this.scrollToAndFocusRow(0)) {
+            this.focusType = TableFocusType.none;
         }
-        this.focusType = TableFocusType.none;
-        return false;
     }
 
     private scrollToAndFocusRow(
@@ -760,14 +780,10 @@ implements Subscriber {
                 break;
             }
             case TableFocusType.cellActionMenu:
-                focusableElement = rowElements.cells[this.columnIndex]!
-                    .actionMenuButton;
+                focusableElement = rowElements.cells[this.columnIndex]?.actionMenuButton;
                 break;
             case TableFocusType.cellContent: {
-                const cell = rowElements.cells[this.columnIndex]!;
-                focusableElement = cell.cell.cellView.tabbableChildren[
-                    this.cellContentIndex
-                ];
+                focusableElement = rowElements.cells[this.columnIndex]?.cell.cellView.tabbableChildren[this.cellContentIndex];
                 break;
             }
             default:
@@ -783,10 +799,10 @@ implements Subscriber {
         let focusableElement: HTMLElement | undefined;
         switch (this.focusType) {
             case TableFocusType.headerActions:
-                focusableElement = headerElements.headerActions[this.headerActionIndex]!;
+                focusableElement = headerElements.headerActions[this.headerActionIndex];
                 break;
             case TableFocusType.columnHeader:
-                focusableElement = headerElements.columnHeaders[this.columnIndex]!;
+                focusableElement = headerElements.columnHeaders[this.columnIndex];
                 break;
             default:
                 break;
@@ -806,12 +822,12 @@ implements Subscriber {
 
     private getTableHeaderFocusableElements(): TableHeaderFocusableElements {
         const headerActions: HTMLElement[] = [];
-        if (this.table.selectionCheckbox) {
+        if (this.table.selectionCheckbox?.getRootNode() === this.table.shadowRoot) {
             headerActions.push(this.table.selectionCheckbox);
         }
 
-        if (this.table.showCollapseAll) {
-            headerActions.push(this.table.collapseAllButton!);
+        if (this.table.showCollapseAll && this.table.collapseAllButton?.getRootNode() === this.table.shadowRoot) {
+            headerActions.push(this.table.collapseAllButton);
         }
 
         const columnHeaders: HTMLElement[] = [];

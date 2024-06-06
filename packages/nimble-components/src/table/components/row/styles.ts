@@ -130,7 +130,6 @@ export const styles = css`
         --ni-private-table-cell-action-menu-display: block;
     }
 
-    /* TODO: Scope this to only hasDataHierarchy; ~4px more padding on left, so border doesn't touch expand/collapse button border */
     nimble-table-cell:first-of-type${focusVisible} {
         margin-left: calc(
             -28px * var(--ni-private-cell-focus-offset-multiplier)
@@ -140,7 +139,6 @@ export const styles = css`
         );
     }
 
-    /*.is-in-hierarchy */
     nimble-table-cell:first-of-type${focusVisible}::before {
         content: '';
         display: block;

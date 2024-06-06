@@ -23,6 +23,7 @@ const trackedItems = [
     'groupRows',
     'columnIds',
     'columnSort',
+    'columnSortDisabled',
     'columnWidths',
     'columnDefinition',
     'actionMenuSlots',
@@ -97,6 +98,15 @@ export class TableUpdateTracker<
         );
     }
 
+    public get requiresKeyboardFocusReset(): boolean {
+        return (
+            this.isTracked('columnSortDisabled')
+            || this.isTracked('columnDefinition')
+            || this.isTracked('selectionMode')
+            || this.isTracked('actionMenuSlots')
+        );
+    }
+
     public trackAllStateChanged(): void {
         this.trackAll();
         this.queueUpdate();
@@ -119,11 +129,14 @@ export class TableUpdateTracker<
             this.track('columnDefinition');
         } else if (
             isColumnProperty(changedColumnProperty, 'sortingDisabled')
-            || isColumnInternalsProperty(
-                changedColumnProperty,
-                'currentSortDirection',
-                'currentSortIndex'
-            )
+        ) {
+            this.track('columnSort');
+            this.track('columnSortDisabled');
+        } else if (isColumnInternalsProperty(
+            changedColumnProperty,
+            'currentSortDirection',
+            'currentSortIndex'
+        )
         ) {
             this.track('columnSort');
         } else if (
@@ -156,6 +169,7 @@ export class TableUpdateTracker<
         this.track('columnIds');
         this.track('columnDefinition');
         this.track('columnSort');
+        this.track('columnSortDisabled');
         this.track('columnWidths');
         this.track('actionMenuSlots');
         this.track('groupRows');

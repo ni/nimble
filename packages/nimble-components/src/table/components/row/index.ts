@@ -234,7 +234,9 @@ export class TableRow<
     /** @internal */
     public getFocusableElements(): TableRowFocusableElements {
         const result: TableRowFocusableElements = { cells: [] };
-        result.selectionCheckbox = this.selectionCheckbox;
+        if (this.selectable && !this.hideSelection) {
+            result.selectionCheckbox = this.selectionCheckbox;
+        }
         this.shadowRoot!.querySelectorAll(tableCellTag).forEach(cell => {
             result.cells.push({
                 actionMenuButton: cell.actionMenuButton,

@@ -585,6 +585,10 @@ export class Table<
                 column => !column.columnHidden
             );
         }
+
+        if (this.tableUpdateTracker.requiresKeyboardFocusReset) {
+            this.keyboardNavigationManager.resetFocusState();
+        }
     }
 
     public override get ariaMultiSelectable(): 'true' | 'false' | null {
