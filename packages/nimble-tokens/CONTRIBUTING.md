@@ -71,6 +71,8 @@ These steps require access to Adobe Illustrator and Perforce so will typically b
 
       <img src="docs/find-replace-5.png" width="1000">
 
+      - **Note:** In rare cases, icons will be provided with multiple fixed colors that are not intended to change with the theme or `severity`. These icons should retain the `<defs>` tags.
+
 3. Confirm the new icon files will build correctly by running: `npm run build -w @ni/nimble-tokens`.
 4. Generate and build icon components by running `npm run build -w @ni/nimble-components`. This step will report an error at this point but is necessary to enable the next step.
 5. Add metadata for the new icons to `nimble-components/src/icon-base/tests/icon-metadata.ts`.

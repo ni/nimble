@@ -16,20 +16,14 @@ describe('Icons', () => {
             const svg = template.content.querySelector('svg');
             return svg!;
         };
-        const getPaths = (svg: SVGElement): SVGPathElement[] => Array.from(svg.querySelectorAll('path'));
 
         parameterizeSpec(nimbleIcons, (spec, name, value) => {
             spec(`for icon ${name}`, () => {
                 const svg = getSVGElement(value.data);
-                const paths = getPaths(svg);
                 expect(svg).toBeTruthy();
                 expect(svg.getAttribute('viewBox')).toBeTruthy();
                 expect(svg.getAttribute('height')).toBeNull();
                 expect(svg.getAttribute('width')).toBeNull();
-                expect(svg.querySelector('defs')).toBeNull();
-                for (const path of paths) {
-                    expect(path.getAttribute('style')).toBeNull();
-                }
             });
         });
     });
