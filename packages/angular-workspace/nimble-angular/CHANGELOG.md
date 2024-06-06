@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Wed, 05 Jun 2024 17:12:12 GMT and should not be manually modified.
+This log was last generated on Thu, 06 Jun 2024 14:24:25 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 24.4.0
+
+Thu, 06 Jun 2024 14:24:25 GMT
+
+### Minor changes
+
+- Angular integration for ListOptionGroup ([ni/nimble@bcc1362](https://github.com/ni/nimble/commit/bcc13620f5a4b2b466f2d15777803e5799d62992))
 
 ## 24.3.9
 
