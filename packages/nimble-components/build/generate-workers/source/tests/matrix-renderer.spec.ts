@@ -15,7 +15,9 @@ describe('MatrixRenderer with MessageChannel needing canvas context', () => {
         expose(worker, port1);
         matrixRenderer = wrap<MatrixRenderer>(port2);
         const offscreenCanvas = new OffscreenCanvas(300, 300);
-        await matrixRenderer.setCanvas(transfer(offscreenCanvas, [offscreenCanvas]));
+        await matrixRenderer.setCanvas(
+            transfer(offscreenCanvas, [offscreenCanvas])
+        );
         await matrixRenderer.setRenderConfig({
             dieDimensions: {
                 width: 10,
