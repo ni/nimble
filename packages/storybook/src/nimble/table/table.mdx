@@ -97,6 +97,69 @@ The expected usage of the dynamically loaded hierarchy is as follows:
 -   calling `setData` will clear options associated with IDs that are no longer
     present in the data
 
-{/* ## Accessibility */}
+## Accessibility
+
+### Keyboard Navigation
+
+Once the table is focused, it supports navigation via keyboard keys.
+
+-   If the table is focused via `Tab`/`Shift-Tab`: focus starts on the first
+    action button in the header row (if any); the first column header (if any
+    columns are sortable); or the first row of data.
+-   If the table is focused via mouse-click on a row, keyboard navigation will
+    start from that row once a navigation key is pressed afterwards.
+
+Column sorting:
+
+-   If a column header is focused, `Enter` will toggle its sort mode between
+    ascending, descending, and no sorting.
+-   `Shift-Enter` will do the same but will maintain other columns as sorted if
+    they were already.
+
+Navigating the table:
+
+-   `UpArrow`, `DownArrow`, `LeftArrow`, `RightArrow` will navigate amongst the
+    table column headers, rows, and cells.
+-   When a row is focused:
+    -   If the row is expandable, `RightArrow` and `LeftArrow` will
+        expand/collapse the row.
+    -   If the row cannot be expanded (or is already expanded), a `RightArrow`
+        press will focus the first cell.
+    -   `Home` and `End` will focus the first and last rows in the dataset,
+        respectively.
+-   When a cell is focused:
+    -   If the leftmost cell of a row is focused, another `LeftArrow` press will
+        focus the entire row.
+    -   `Home` and `End` will focus the first and last cells of the row,
+        respectively.
+    -   `Ctrl-Home` and `Ctrl-End` will focus the cell in the same column of the
+        first and last rows of the dataset.
+-   `PgUp` and `PgDown` will navigate up or down by one page's worth of rows.
+    -   If a cell was focused, the cell in the same column in the new row will
+        be focused.
+    -   If a row was focused, the new row will be focused afterwards.
+
+Interacting with cell contents:
+
+-   `Enter` or `F2` will focus the first interactive element inside a cell, if
+    there is one (such as an anchor)
+-   `Ctrl-Enter` will open the cell's action menu, if it has one.
+-   When an action menu or element inside a cell has focus, pressing `Esc` will
+    return to row/cell navigation mode.
+
+Row selection and grouping:
+
+-   If a row is focused, `Space` will select the row.
+-   If a row or cell is focused, `Shift-Space` will select the row. (Note, in
+    multiple selection mode, this may result in ranges of rows being selected.)
+-   If a group header row is focused, `Space` will expand/collapse the group. To
+    select the group, navigate to the selection checkbox with `LeftArrow` and
+    `RightArrow`, and toggle it with `Space`.
+
+`Tab` and `Shift-Tab` can be used to navigate between the interactive elements
+in the current row or header, such as buttons or anchors. Once those elements in
+the current row have been traversed, `Tab`/`Shift-Tab` will move focus outside
+the table. When the table is focused again, navigation will resume from the
+previously focused element.
 
 {/* ## Resources */}
