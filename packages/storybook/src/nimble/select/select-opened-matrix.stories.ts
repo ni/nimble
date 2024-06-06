@@ -392,28 +392,36 @@ export const selectGroupedWithSlottedLabelDarkThemeBlackBackground: StoryFn = cr
 
 export const selectAboveOpenLoadingVisibleNoGroupsLightThemeWhiteBackground: StoryFn = createFixedThemeStory(
     component({
-        positionState: positionStates[1], filterMode: FilterMode.standard, loadingVisible: true
+        positionState: positionStates[1],
+        filterMode: FilterMode.standard,
+        loadingVisible: true
     }),
     lightThemeWhiteBackground
 );
 
 export const selectAboveOpenLoadingVisibleNoGroupsDarkGreenBackground: StoryFn = createFixedThemeStory(
     component({
-        positionState: positionStates[1], filterMode: FilterMode.standard, loadingVisible: true
+        positionState: positionStates[1],
+        filterMode: FilterMode.standard,
+        loadingVisible: true
     }),
     colorThemeDarkGreenBackground
 );
 
 export const selectAboveOpenLoadingVisibleNoGroupsDarkThemeBlackBackground: StoryFn = createFixedThemeStory(
     component({
-        positionState: positionStates[1], filterMode: FilterMode.standard, loadingVisible: true
+        positionState: positionStates[1],
+        filterMode: FilterMode.standard,
+        loadingVisible: true
     }),
     darkThemeBlackBackground
 );
 
 export const selectLoadingVisibleNoMatchesLightThemeWhiteBackground: StoryFn = createFixedThemeStory(
     component({
-        positionState: positionStates[0], filterMode: FilterMode.standard, loadingVisible: true
+        positionState: positionStates[0],
+        filterMode: FilterMode.standard,
+        loadingVisible: true
     }),
     lightThemeWhiteBackground
 );
