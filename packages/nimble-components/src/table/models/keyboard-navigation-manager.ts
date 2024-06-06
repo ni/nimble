@@ -153,21 +153,6 @@ implements Subscriber {
     }
 
     private readonly handleFocus = (event: FocusEvent): void => {
-        // Sets initial focus on the appropriate table content
-        const actionMenuOpen = this.table.openActionMenuRecordId !== undefined;
-        if ((event.target === this.table || this.focusType === TableFocusType.none) && !actionMenuOpen) {
-            let focusHeader = true;
-            if (this.hasRowOrCellFocusType() && this.scrollToAndFocusRow(this.rowIndex)) {
-                focusHeader = false;
-            }
-            this.updateNavigationMode();
-            if (focusHeader && !this.setFocusOnHeader()) {
-                // nothing to focus
-                this.table.blur();
-                return;
-            }
-        }
-
         // User may have clicked elsewhere in the table (on an element not reflected in this.focusState). Update our focusState
         // based on the current active element in a few cases:
         // - user is interacting with tabbable content of a cell
@@ -192,13 +177,32 @@ implements Subscriber {
                     const columnIndex = this.table.visibleColumns.indexOf(cell.column!);
                     if (cell.actionMenuButton === activeElement) {
                         this.setCellActionMenuFocusState(row.dataIndex!, columnIndex, false);
-                    } else {
-                        const contentIndex = cell.cellView.tabbableChildren.indexOf(activeElement);
-                        if (contentIndex > -1) {
-                            this.setCellContentFocusState(contentIndex, row.dataIndex!, columnIndex, false);
-                        }
+                        return;
+                    }
+                    console.log('handleFocus', 'activeElement', activeElement, 'tabbableChildren', cell.cellView.tabbableChildren);
+                    const contentIndex = cell.cellView.tabbableChildren.indexOf(activeElement);
+                    if (contentIndex > -1) {
+                        console.log('handleFocus set cell content focus');
+                        this.setCellContentFocusState(contentIndex, row.dataIndex!, columnIndex, false);
+                        return;
                     }
                 }
+            }
+        }
+
+        // Sets initial focus on the appropriate table content
+        const actionMenuOpen = this.table.openActionMenuRecordId !== undefined;
+        if ((event.target === this.table || this.focusType === TableFocusType.none) && !actionMenuOpen) {
+            let focusHeader = true;
+            if (this.hasRowOrCellFocusType() && this.scrollToAndFocusRow(this.rowIndex)) {
+                focusHeader = false;
+                console.log('handleFocus -> row or cell focus type');
+            }
+            this.updateNavigationMode();
+            if (focusHeader && !this.setFocusOnHeader()) {
+                // nothing to focus
+                console.log('handleFocus -> blur');
+                this.table.blur();
             }
         }
     };
