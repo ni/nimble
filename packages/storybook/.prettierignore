@@ -1,26 +1,19 @@
 # Visit and ignore all objects in the root. 
 # Then explicitly allow all TypeScript, JavaScript, Markdown, and JSON files in the root, and src folders.
 /*
-!*.ts
-!*.js
-!*.md
-!*.json
+!*.[ts,js,md,json]
 !src/
 !build/
 
 /src/**/*.*
-!src/**/*.ts
-!src/**/*.js
-!src/**/*.md
-!src/**/*.mdx
-!src/**/*.json
+!src/**/*.[ts,js,md,json]
 
 /build/**/*.*
-!build/generate-workers/**/*.ts
-!build/generate-workers/**/*.json
+!build/**/*[ts,js,md,json]
 
 # Explicitly exclude the below files and folders
 dist
 node_modules
 package.json
 CHANGELOG.*
+src/nimble/icons

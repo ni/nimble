@@ -25,6 +25,7 @@
     "@ni/nimble-components": "*",
     "@ni/spright-components": "*",
     "@ni/nimble-tokens": "*",
+    "@ni-private/eslint-config-nimble": "*",
     "@rollup/plugin-node-resolve": "^15.0.1",
     "@storybook/addon-a11y": "^8.0.4",
     "@storybook/addon-actions": "^8.0.4",
@@ -53,7 +54,6 @@
     "typescript": "~5.1.6"
   },
   "peerDependencies": {
-    "@ni-private/eslint-config-nimble": "^1.0.0",
     "eslint-plugin-storybook": "^0.8.0"
   }
 }
