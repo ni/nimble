@@ -2,6 +2,21 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Thu, 06 Jun 2024 14:24:25 GMT",
+      "version": "24.4.0",
+      "tag": "@ni/nimble-angular_v24.4.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "bcc13620f5a4b2b466f2d15777803e5799d62992",
+            "comment": "Angular integration for ListOptionGroup"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 05 Jun 2024 17:12:12 GMT",
       "version": "24.3.9",
       "tag": "@ni/nimble-angular_v24.3.9",
