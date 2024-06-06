@@ -127,16 +127,15 @@ export class TableUpdateTracker<
             )
         ) {
             this.track('columnDefinition');
-        } else if (
-            isColumnProperty(changedColumnProperty, 'sortingDisabled')
-        ) {
+        } else if (isColumnProperty(changedColumnProperty, 'sortingDisabled')) {
             this.track('columnSort');
             this.track('columnSortDisabled');
-        } else if (isColumnInternalsProperty(
-            changedColumnProperty,
-            'currentSortDirection',
-            'currentSortIndex'
-        )
+        } else if (
+            isColumnInternalsProperty(
+                changedColumnProperty,
+                'currentSortDirection',
+                'currentSortIndex'
+            )
         ) {
             this.track('columnSort');
         } else if (

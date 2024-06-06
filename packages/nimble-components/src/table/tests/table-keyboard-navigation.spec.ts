@@ -1,7 +1,21 @@
 /* eslint-disable no-await-in-loop */
 import { html } from '@microsoft/fast-element';
 import { FoundationElement } from '@microsoft/fast-foundation';
-import { keyArrowDown, keyArrowLeft, keyArrowRight, keyArrowUp, keyEnd, keyEnter, keyEscape, keyFunction2, keyHome, keyPageDown, keyPageUp, keySpace, keyTab } from '@microsoft/fast-web-utilities';
+import {
+    keyArrowDown,
+    keyArrowLeft,
+    keyArrowRight,
+    keyArrowUp,
+    keyEnd,
+    keyEnter,
+    keyEscape,
+    keyFunction2,
+    keyHome,
+    keyPageDown,
+    keyPageUp,
+    keySpace,
+    keyTab
+} from '@microsoft/fast-web-utilities';
 import type { Table } from '..';
 import type { TableColumnText } from '../../table-column/text';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
@@ -65,7 +79,8 @@ function currentFocusedElement(): HTMLElement | null {
         // In some cases, the active element may be a sub-part of a control (example: MenuButton -> ToggleButton -> a div with tabindex=0). Stop at the outer control boundary, so that
         // we can more simply check element equality.
         // (For rows/cells/cell views, we do need to recurse into them, to get to the appropriate focused controls though)
-        if (activeElement instanceof FoundationElement
+        if (
+            activeElement instanceof FoundationElement
             && !(activeElement instanceof TableRow)
             && !(activeElement instanceof TableCell)
             && !(activeElement instanceof TableCellView)
@@ -99,7 +114,10 @@ describe('Table keyboard navigation', () => {
         await waitForUpdatesAsync();
     }
 
-    function isCellActionMenuVisible(rowIndex: number, columnIndex: number): boolean {
+    function isCellActionMenuVisible(
+        rowIndex: number,
+        columnIndex: number
+    ): boolean {
         const cell = pageObject.getCell(rowIndex, columnIndex);
         if (cell.actionMenuButton) {
             return cell.actionMenuButton.getBoundingClientRect().width > 0;
@@ -107,7 +125,9 @@ describe('Table keyboard navigation', () => {
         throw new Error('Cell action menu button not found');
     }
 
-    async function verifyLastTabKeyEventBehavior(keyEvent: KeyboardEvent): Promise<void> {
+    async function verifyLastTabKeyEventBehavior(
+        keyEvent: KeyboardEvent
+    ): Promise<void> {
         // Note: Dispatching key events with dispatchEvent is not sufficient to trigger the browser's built-in Tab behavior.
         // From these tests, we can only check defaultPrevented (and assume that defaultPrevented=false means that the browser will
         // focus the expected element outside the table).
@@ -123,14 +143,26 @@ describe('Table keyboard navigation', () => {
         expect(element.shadowRoot?.activeElement).toBeNull();
     }
 
-    async function sendKeyPress(target: HTMLElement, key: string, init?: KeyboardEventInit): Promise<KeyboardEvent> {
-        const event = new KeyboardEvent('keydown', { key, cancelable: true, bubbles: true, ...init });
+    async function sendKeyPress(
+        target: HTMLElement,
+        key: string,
+        init?: KeyboardEventInit
+    ): Promise<KeyboardEvent> {
+        const event = new KeyboardEvent('keydown', {
+            key,
+            cancelable: true,
+            bubbles: true,
+            ...init
+        });
         target.dispatchEvent(event);
         await waitForUpdatesAsync();
         return event;
     }
 
-    async function sendKeyPressToTable(key: string, init?: KeyboardEventInit): Promise<KeyboardEvent> {
+    async function sendKeyPressToTable(
+        key: string,
+        init?: KeyboardEventInit
+    ): Promise<KeyboardEvent> {
         return sendKeyPress(element, key, init);
     }
 
@@ -148,10 +180,30 @@ describe('Table keyboard navigation', () => {
 
         async function setupBasicTable(): Promise<void> {
             const data: readonly SimpleTableRecord[] = [
-                { id: '1', stringData1: 'a1', stringData2: 'b1', stringData3: 'c1' },
-                { id: '2', stringData1: 'a2', stringData2: 'b2', stringData3: 'c2' },
-                { id: '3', stringData1: 'a3', stringData2: 'b3', stringData3: 'c3' },
-                { id: '4', stringData1: 'a4', stringData2: 'b4', stringData3: 'c4' }
+                {
+                    id: '1',
+                    stringData1: 'a1',
+                    stringData2: 'b1',
+                    stringData3: 'c1'
+                },
+                {
+                    id: '2',
+                    stringData1: 'a2',
+                    stringData2: 'b2',
+                    stringData3: 'c2'
+                },
+                {
+                    id: '3',
+                    stringData1: 'a3',
+                    stringData2: 'b3',
+                    stringData3: 'c3'
+                },
+                {
+                    id: '4',
+                    stringData1: 'a4',
+                    stringData2: 'b4',
+                    stringData3: 'c4'
+                }
             ] as const;
 
             await element.setData(data);
@@ -161,10 +213,30 @@ describe('Table keyboard navigation', () => {
 
         async function setupTableWithGrouping(): Promise<void> {
             const data: readonly SimpleTableRecord[] = [
-                { id: '1', stringData1: 'a1', stringData2: 'b1', stringData3: 'c1' },
-                { id: '2', stringData1: 'a2', stringData2: 'b1', stringData3: 'c2' },
-                { id: '3', stringData1: 'a3', stringData2: 'b3', stringData3: 'c3' },
-                { id: '4', stringData1: 'a4', stringData2: 'b3', stringData3: 'c4' }
+                {
+                    id: '1',
+                    stringData1: 'a1',
+                    stringData2: 'b1',
+                    stringData3: 'c1'
+                },
+                {
+                    id: '2',
+                    stringData1: 'a2',
+                    stringData2: 'b1',
+                    stringData3: 'c2'
+                },
+                {
+                    id: '3',
+                    stringData1: 'a3',
+                    stringData2: 'b3',
+                    stringData3: 'c3'
+                },
+                {
+                    id: '4',
+                    stringData1: 'a4',
+                    stringData2: 'b3',
+                    stringData3: 'c4'
+                }
             ] as const;
 
             await element.setData(data);
@@ -176,7 +248,12 @@ describe('Table keyboard navigation', () => {
         async function setupLargeDataTable(): Promise<void> {
             const data: SimpleTableRecord[] = [];
             for (let i = 0; i < largeDataRowCount; i++) {
-                data.push({ id: i.toString(), stringData1: `a${i}`, stringData2: `b${i}`, stringData3: `c${i}` });
+                data.push({
+                    id: i.toString(),
+                    stringData1: `a${i}`,
+                    stringData2: `b${i}`,
+                    stringData3: `c${i}`
+                });
             }
 
             await element.setData(data);
@@ -210,17 +287,27 @@ describe('Table keyboard navigation', () => {
 
             it('consecutive Enter key presses will sort the focused column (ascending, descending, no sort)', async () => {
                 const firstHeader = pageObject.getHeaderElement(0);
-                expect(firstHeader.sortDirection).toBe(TableColumnSortDirection.none);
+                expect(firstHeader.sortDirection).toBe(
+                    TableColumnSortDirection.none
+                );
 
                 await sendKeyPress(firstHeader, keyEnter);
-                expect(firstHeader.sortDirection).toBe(TableColumnSortDirection.ascending);
+                expect(firstHeader.sortDirection).toBe(
+                    TableColumnSortDirection.ascending
+                );
 
                 await sendKeyPress(firstHeader, keyEnter);
-                expect(firstHeader.sortDirection).toBe(TableColumnSortDirection.descending);
+                expect(firstHeader.sortDirection).toBe(
+                    TableColumnSortDirection.descending
+                );
 
                 await sendKeyPress(firstHeader, keyEnter);
                 await waitForUpdatesAsync();
-                expect(firstHeader.sortDirection === TableColumnSortDirection.none || firstHeader.sortDirection === null).toBe(true);
+                expect(
+                    firstHeader.sortDirection
+                        === TableColumnSortDirection.none
+                        || firstHeader.sortDirection === null
+                ).toBe(true);
             });
 
             it('Shift-Enter key presses will sort the focused column (ascending, descending, no sort) and maintain other sorted columns', async () => {
@@ -230,38 +317,72 @@ describe('Table keyboard navigation', () => {
                 await sendKeyPressToTable(keyArrowRight);
 
                 await sendKeyPress(secondHeader, keyEnter, { shiftKey: true });
-                expect(firstHeader.sortDirection).toBe(TableColumnSortDirection.ascending);
-                expect(secondHeader.sortDirection).toBe(TableColumnSortDirection.ascending);
+                expect(firstHeader.sortDirection).toBe(
+                    TableColumnSortDirection.ascending
+                );
+                expect(secondHeader.sortDirection).toBe(
+                    TableColumnSortDirection.ascending
+                );
 
                 await sendKeyPress(secondHeader, keyEnter, { shiftKey: true });
-                expect(firstHeader.sortDirection).toBe(TableColumnSortDirection.ascending);
-                expect(secondHeader.sortDirection).toBe(TableColumnSortDirection.descending);
+                expect(firstHeader.sortDirection).toBe(
+                    TableColumnSortDirection.ascending
+                );
+                expect(secondHeader.sortDirection).toBe(
+                    TableColumnSortDirection.descending
+                );
 
                 await sendKeyPress(secondHeader, keyEnter, { shiftKey: true });
-                expect(firstHeader.sortDirection).toBe(TableColumnSortDirection.ascending);
-                expect(secondHeader.sortDirection === TableColumnSortDirection.none || secondHeader.sortDirection === null).toBe(true);
+                expect(firstHeader.sortDirection).toBe(
+                    TableColumnSortDirection.ascending
+                );
+                expect(
+                    secondHeader.sortDirection
+                        === TableColumnSortDirection.none
+                        || secondHeader.sortDirection === null
+                ).toBe(true);
             });
 
             it('consecutive RightArrow presses focus each header to the right, stopping at the last header', async () => {
-                expect(currentFocusedElement()).toBe(pageObject.getHeaderElement(0));
+                expect(currentFocusedElement()).toBe(
+                    pageObject.getHeaderElement(0)
+                );
                 await sendKeyPressToTable(keyArrowRight);
-                expect(currentFocusedElement()).toBe(pageObject.getHeaderElement(1));
+                expect(currentFocusedElement()).toBe(
+                    pageObject.getHeaderElement(1)
+                );
                 await sendKeyPressToTable(keyArrowRight);
-                expect(currentFocusedElement()).toBe(pageObject.getHeaderElement(2));
+                expect(currentFocusedElement()).toBe(
+                    pageObject.getHeaderElement(2)
+                );
                 await sendKeyPressToTable(keyArrowRight);
-                expect(currentFocusedElement()).toBe(pageObject.getHeaderElement(2));
+                expect(currentFocusedElement()).toBe(
+                    pageObject.getHeaderElement(2)
+                );
             });
 
             it('from the last header being focused, consecutive LeftArrow presses focus each header to the left, stopping at the 1st header', async () => {
-                await sendKeyPressesToTable(keyArrowRight, keyArrowRight, keyArrowRight);
+                await sendKeyPressesToTable(
+                    keyArrowRight,
+                    keyArrowRight,
+                    keyArrowRight
+                );
 
-                expect(currentFocusedElement()).toBe(pageObject.getHeaderElement(2));
+                expect(currentFocusedElement()).toBe(
+                    pageObject.getHeaderElement(2)
+                );
                 await sendKeyPressToTable(keyArrowLeft);
-                expect(currentFocusedElement()).toBe(pageObject.getHeaderElement(1));
+                expect(currentFocusedElement()).toBe(
+                    pageObject.getHeaderElement(1)
+                );
                 await sendKeyPressToTable(keyArrowLeft);
-                expect(currentFocusedElement()).toBe(pageObject.getHeaderElement(0));
+                expect(currentFocusedElement()).toBe(
+                    pageObject.getHeaderElement(0)
+                );
                 await sendKeyPressToTable(keyArrowLeft);
-                expect(currentFocusedElement()).toBe(pageObject.getHeaderElement(0));
+                expect(currentFocusedElement()).toBe(
+                    pageObject.getHeaderElement(0)
+                );
             });
 
             it('after a DownArrow key press (from 1st column header), cell[0, 0] is focused', async () => {
@@ -282,31 +403,53 @@ describe('Table keyboard navigation', () => {
                 });
 
                 it('consecutive RightArrow presses focus each cell to the right in the same row, stopping at the last cell', async () => {
-                    expect(currentFocusedElement()).toBe(pageObject.getCell(0, 0));
+                    expect(currentFocusedElement()).toBe(
+                        pageObject.getCell(0, 0)
+                    );
                     await sendKeyPressToTable(keyArrowRight);
-                    expect(currentFocusedElement()).toBe(pageObject.getCell(0, 1));
+                    expect(currentFocusedElement()).toBe(
+                        pageObject.getCell(0, 1)
+                    );
                     await sendKeyPressToTable(keyArrowRight);
-                    expect(currentFocusedElement()).toBe(pageObject.getCell(0, 2));
+                    expect(currentFocusedElement()).toBe(
+                        pageObject.getCell(0, 2)
+                    );
                     await sendKeyPressToTable(keyArrowRight);
-                    expect(currentFocusedElement()).toBe(pageObject.getCell(0, 2));
+                    expect(currentFocusedElement()).toBe(
+                        pageObject.getCell(0, 2)
+                    );
                 });
 
                 it('from the last cell being focused, consecutive LeftArrow presses focus each cell to the left in the same row', async () => {
-                    await sendKeyPressesToTable(keyArrowRight, keyArrowRight, keyArrowRight);
+                    await sendKeyPressesToTable(
+                        keyArrowRight,
+                        keyArrowRight,
+                        keyArrowRight
+                    );
 
-                    expect(currentFocusedElement()).toBe(pageObject.getCell(0, 2));
+                    expect(currentFocusedElement()).toBe(
+                        pageObject.getCell(0, 2)
+                    );
                     await sendKeyPressToTable(keyArrowLeft);
-                    expect(currentFocusedElement()).toBe(pageObject.getCell(0, 1));
+                    expect(currentFocusedElement()).toBe(
+                        pageObject.getCell(0, 1)
+                    );
                     await sendKeyPressToTable(keyArrowLeft);
-                    expect(currentFocusedElement()).toBe(pageObject.getCell(0, 0));
+                    expect(currentFocusedElement()).toBe(
+                        pageObject.getCell(0, 0)
+                    );
                 });
 
                 it('End will focus the last cell in the same row, and Home will focus the 1st cell in the same row', async () => {
                     await sendKeyPressToTable(keyEnd);
-                    expect(currentFocusedElement()).toBe(pageObject.getCell(0, 2));
+                    expect(currentFocusedElement()).toBe(
+                        pageObject.getCell(0, 2)
+                    );
 
                     await sendKeyPressToTable(keyHome);
-                    expect(currentFocusedElement()).toBe(pageObject.getCell(0, 0));
+                    expect(currentFocusedElement()).toBe(
+                        pageObject.getCell(0, 0)
+                    );
                 });
 
                 it('with no tabbable elements in the row, pressing Tab will move focus past the table', async () => {
@@ -330,7 +473,11 @@ describe('Table keyboard navigation', () => {
             });
 
             it('UpArrow key press will focus the cell in the same column in the previous row', async () => {
-                await sendKeyPressesToTable(keyArrowDown, keyArrowDown, keyArrowRight); // cell 1, 1
+                await sendKeyPressesToTable(
+                    keyArrowDown,
+                    keyArrowDown,
+                    keyArrowRight
+                ); // cell 1, 1
 
                 await sendKeyPressToTable(keyArrowUp);
                 expect(currentFocusedElement()).toBe(pageObject.getCell(0, 1));
@@ -361,18 +508,23 @@ describe('Table keyboard navigation', () => {
                 await addActionMenu(column1);
                 await sendKeyPressToTable(keyArrowDown);
 
-                const toggleListener = createEventListener(element, 'action-menu-toggle');
+                const toggleListener = createEventListener(
+                    element,
+                    'action-menu-toggle'
+                );
                 await sendKeyPressToTable(keyEnter, { ctrlKey: true });
                 await toggleListener.promise;
 
                 expect(pageObject.getCell(0, 0).menuOpen).toBe(true);
             });
 
-            it('when a cell\'s action menu is focused, pressing Esc will focus the cell', async () => {
+            it("when a cell's action menu is focused, pressing Esc will focus the cell", async () => {
                 await addActionMenu(column1);
                 await sendKeyPressToTable(keyArrowDown);
                 await sendKeyPressToTable(keyTab);
-                expect(currentFocusedElement()).toBe(pageObject.getCellActionMenu(0, 0));
+                expect(currentFocusedElement()).toBe(
+                    pageObject.getCellActionMenu(0, 0)
+                );
 
                 await sendKeyPressToTable(keyEscape);
 
@@ -392,7 +544,9 @@ describe('Table keyboard navigation', () => {
                 const visibleIndex = 0;
                 const firstRenderedRow = pageObject.getRow(visibleIndex);
                 if (firstRenderedRow.dataRecord!.id !== '0') {
-                    throw new Error('Expected 1st visible row to be the 1st row in the dataset');
+                    throw new Error(
+                        'Expected 1st visible row to be the 1st row in the dataset'
+                    );
                 }
                 return visibleIndex;
             }
@@ -401,8 +555,13 @@ describe('Table keyboard navigation', () => {
                 const renderedRowCount = pageObject.getRenderedRowCount();
                 const visibleIndex = renderedRowCount - 1;
                 const lastRenderedRow = pageObject.getRow(visibleIndex);
-                if (lastRenderedRow.dataRecord!.id !== (largeDataRowCount - 1).toString()) {
-                    throw new Error('Expected last visible row to be the last row in the dataset');
+                if (
+                    lastRenderedRow.dataRecord!.id
+                    !== (largeDataRowCount - 1).toString()
+                ) {
+                    throw new Error(
+                        'Expected last visible row to be the last row in the dataset'
+                    );
                 }
                 return visibleIndex;
             }
@@ -424,12 +583,18 @@ describe('Table keyboard navigation', () => {
             it('with a cell focused, Ctrl-End focuses the cell (same column) in the last row, and Ctrl-Home focuses the cell (same column) in the 1st row', async () => {
                 await sendKeyPressToTable(keyEnd, { ctrlKey: true });
                 await waitForUpdatesAsync();
-                const cellInLastRow = pageObject.getCell(getLastRowVisibleIndex(), 0);
+                const cellInLastRow = pageObject.getCell(
+                    getLastRowVisibleIndex(),
+                    0
+                );
                 expect(currentFocusedElement()).toBe(cellInLastRow);
 
                 await sendKeyPressToTable(keyHome, { ctrlKey: true });
                 await waitForUpdatesAsync();
-                const cellInFirstRow = pageObject.getCell(getFirstRowVisibleIndex(), 0);
+                const cellInFirstRow = pageObject.getCell(
+                    getFirstRowVisibleIndex(),
+                    0
+                );
                 expect(currentFocusedElement()).toBe(cellInFirstRow);
             });
 
@@ -442,11 +607,18 @@ describe('Table keyboard navigation', () => {
                 expect(focusedElement).toBeInstanceOf(TableRow);
                 const newRowIndex = (focusedElement as TableRow).dataIndex!;
 
-                expect(newRowIndex).toBeCloseTo(element.virtualizer.pageSize, 0);
+                expect(newRowIndex).toBeCloseTo(
+                    element.virtualizer.pageSize,
+                    0
+                );
             });
 
             it('with a row focused, PgUp will focus a row one page (table viewport height of rows) up', async () => {
-                await sendKeyPressesToTable(keyArrowLeft, keyPageDown, keyPageDown);
+                await sendKeyPressesToTable(
+                    keyArrowLeft,
+                    keyPageDown,
+                    keyPageDown
+                );
                 let focusedElement = currentFocusedElement();
                 expect(focusedElement).toBeInstanceOf(TableRow);
                 const oldRowIndex = (focusedElement as TableRow).dataIndex!;
@@ -457,35 +629,53 @@ describe('Table keyboard navigation', () => {
                 expect(focusedElement).toBeInstanceOf(TableRow);
                 const newRowIndex = (focusedElement as TableRow).dataIndex!;
 
-                expect(newRowIndex).toBeCloseTo(oldRowIndex - element.virtualizer.pageSize, 0);
+                expect(newRowIndex).toBeCloseTo(
+                    oldRowIndex - element.virtualizer.pageSize,
+                    0
+                );
             });
 
             it('with a row focused, if the table is scrolled away from that row, then back to it, it is focused again', async () => {
-                await sendKeyPressesToTable(keyArrowLeft, keyArrowDown, keyArrowDown, keyArrowDown);
+                await sendKeyPressesToTable(
+                    keyArrowLeft,
+                    keyArrowDown,
+                    keyArrowDown,
+                    keyArrowDown
+                );
                 let focusedElement = currentFocusedElement();
                 expect(focusedElement).toBeInstanceOf(TableRow);
-                const originalFocusedRowId = (focusedElement as TableRow).recordId;
+                const originalFocusedRowId = (focusedElement as TableRow)
+                    .recordId;
 
                 await pageObject.scrollToLastRowAsync();
                 await pageObject.scrollToFirstRowAsync();
 
                 focusedElement = currentFocusedElement();
                 expect(focusedElement).toBeInstanceOf(TableRow);
-                expect((focusedElement as TableRow).recordId).toBe(originalFocusedRowId);
+                expect((focusedElement as TableRow).recordId).toBe(
+                    originalFocusedRowId
+                );
             });
 
             it('with a cell focused, if the table is scrolled away from that cell, then back to it, it is focused again', async () => {
-                await sendKeyPressesToTable(keyArrowDown, keyArrowDown, keyArrowDown);
+                await sendKeyPressesToTable(
+                    keyArrowDown,
+                    keyArrowDown,
+                    keyArrowDown
+                );
                 let focusedElement = currentFocusedElement();
                 expect(focusedElement).toBeInstanceOf(TableCell);
-                const originalFocusedCellId = (focusedElement as TableCell).recordId;
+                const originalFocusedCellId = (focusedElement as TableCell)
+                    .recordId;
 
                 await pageObject.scrollToLastRowAsync();
                 await pageObject.scrollToFirstRowAsync();
 
                 focusedElement = currentFocusedElement();
                 expect(focusedElement).toBeInstanceOf(TableCell);
-                expect((focusedElement as TableCell).recordId).toBe(originalFocusedCellId);
+                expect((focusedElement as TableCell).recordId).toBe(
+                    originalFocusedCellId
+                );
             });
         });
 
@@ -542,7 +732,9 @@ describe('Table keyboard navigation', () => {
             it('pressing RightArrow will focus the row selection checkbox', async () => {
                 await sendKeyPressToTable(keyArrowRight);
 
-                expect(currentFocusedElement()).toBe(pageObject.getRow(0).selectionCheckbox!);
+                expect(currentFocusedElement()).toBe(
+                    pageObject.getRow(0).selectionCheckbox!
+                );
             });
 
             it('pressing Home when a cell is focused will focus the row selection checkbox', async () => {
@@ -550,7 +742,9 @@ describe('Table keyboard navigation', () => {
 
                 await sendKeyPressToTable(keyHome);
 
-                expect(currentFocusedElement()).toBe(pageObject.getRow(0).selectionCheckbox!);
+                expect(currentFocusedElement()).toBe(
+                    pageObject.getRow(0).selectionCheckbox!
+                );
             });
 
             it('pressing End when the row selection checkbox is focused will focus the last cell', async () => {
@@ -580,7 +774,9 @@ describe('Table keyboard navigation', () => {
 
                     const focusedElement = currentFocusedElement();
                     expect(focusedElement).toBeInstanceOf(TableGroupRow);
-                    expect((focusedElement as TableGroupRow).expanded).toBe(false);
+                    expect((focusedElement as TableGroupRow).expanded).toBe(
+                        false
+                    );
                 });
             });
             const expandGroupKeys = [keySpace, keyEnter, keyArrowRight];
@@ -589,15 +785,22 @@ describe('Table keyboard navigation', () => {
                     pageObject.toggleGroupRowExpandedState(0);
                     await waitForUpdatesAsync();
                     let focusedElement = currentFocusedElement();
-                    if (!(focusedElement instanceof TableGroupRow) || focusedElement.expanded) {
-                        throw new Error('Expected focused group row to be collapsed');
+                    if (
+                        !(focusedElement instanceof TableGroupRow)
+                        || focusedElement.expanded
+                    ) {
+                        throw new Error(
+                            'Expected focused group row to be collapsed'
+                        );
                     }
 
                     await sendKeyPressToTable(key);
 
                     focusedElement = currentFocusedElement();
                     expect(focusedElement).toBeInstanceOf(TableGroupRow);
-                    expect((focusedElement as TableGroupRow).expanded).toBe(true);
+                    expect((focusedElement as TableGroupRow).expanded).toBe(
+                        true
+                    );
                 });
             });
         });
@@ -609,10 +812,30 @@ describe('Table keyboard navigation', () => {
             pageObject = new TablePageObject<SimpleAnchorTableRecord>(element);
 
             const data: readonly SimpleAnchorTableRecord[] = [
-                { id: '1', href1: 'http://www.ni.com/a1', href2: 'http://www.ni.com/b1', href3: 'http://www.ni.com/c1' },
-                { id: '2', href1: 'http://www.ni.com/a2', href2: 'http://www.ni.com/b2', href3: 'http://www.ni.com/c2' },
-                { id: '3', href1: 'http://www.ni.com/a3', href2: 'http://www.ni.com/b3', href3: 'http://www.ni.com/c3' },
-                { id: '4', href1: 'http://www.ni.com/a4', href2: 'http://www.ni.com/b4', href3: 'http://www.ni.com/c4' }
+                {
+                    id: '1',
+                    href1: 'http://www.ni.com/a1',
+                    href2: 'http://www.ni.com/b1',
+                    href3: 'http://www.ni.com/c1'
+                },
+                {
+                    id: '2',
+                    href1: 'http://www.ni.com/a2',
+                    href2: 'http://www.ni.com/b2',
+                    href3: 'http://www.ni.com/c2'
+                },
+                {
+                    id: '3',
+                    href1: 'http://www.ni.com/a3',
+                    href2: 'http://www.ni.com/b3',
+                    href3: 'http://www.ni.com/c3'
+                },
+                {
+                    id: '4',
+                    href1: 'http://www.ni.com/a4',
+                    href2: 'http://www.ni.com/b4',
+                    href3: 'http://www.ni.com/c4'
+                }
             ] as const;
 
             await element.setData(data);
@@ -651,11 +874,15 @@ describe('Table keyboard navigation', () => {
                 pageObject.getRenderedCellAnchor(0, 0)
             ];
             for (const expectedElement of expectedFocusedElements) {
-                const tabEvent = await sendKeyPressToTable(keyTab, { shiftKey: true });
+                const tabEvent = await sendKeyPressToTable(keyTab, {
+                    shiftKey: true
+                });
                 expect(currentFocusedElement()).toBe(expectedElement);
                 expect(tabEvent.defaultPrevented).toBe(true);
             }
-            const lastTabEvent = await sendKeyPressToTable(keyTab, { shiftKey: true });
+            const lastTabEvent = await sendKeyPressToTable(keyTab, {
+                shiftKey: true
+            });
             await verifyLastTabKeyEventBehavior(lastTabEvent);
         });
 

@@ -1,8 +1,5 @@
 import { attr, observable } from '@microsoft/fast-element';
-import {
-    DesignSystem,
-    FoundationElement
-} from '@microsoft/fast-foundation';
+import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
 import type { TableColumn } from '../../../table-column/base';
 import { styles } from './styles';
 import { template } from './template';
