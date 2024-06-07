@@ -2,6 +2,21 @@
   "name": "@ni/nimble-blazor",
   "entries": [
     {
+      "date": "Thu, 06 Jun 2024 14:24:25 GMT",
+      "version": "17.4.0",
+      "tag": "@ni/nimble-blazor_v17.4.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "bcc13620f5a4b2b466f2d15777803e5799d62992",
+            "comment": "Blazor integration for ListOptionGroup"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sat, 01 Jun 2024 21:18:00 GMT",
       "version": "17.3.1",
       "tag": "@ni/nimble-blazor_v17.3.1",
