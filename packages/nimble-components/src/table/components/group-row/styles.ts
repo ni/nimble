@@ -58,8 +58,8 @@ export const styles = css`
     }
 
     :host(${focusVisible}) {
-        outline: 2px solid ${borderHoverColor};
-        outline-offset: -2px;
+        outline: calc(2 * ${borderWidth}) solid ${borderHoverColor};
+        outline-offset: calc(-2 * ${borderWidth});
     }
 
     .expand-collapse-button {

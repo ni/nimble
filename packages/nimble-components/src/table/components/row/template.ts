@@ -28,7 +28,7 @@ export const template = html<TableRow>`
     >
         ${when(x => !x.rowOperationGridCellHidden, html<TableRow>`
             <span role="gridcell" class="row-operations-container">
-                ${when(x => x.selectable && !x.hideSelection, html<TableRow>`
+                ${when(x => x.showSelectionCheckbox, html<TableRow>`
                     <${checkboxTag}
                         ${ref('selectionCheckbox')}
                         class="selection-checkbox"
@@ -70,7 +70,7 @@ export const template = html<TableRow>`
         `)}
 
         <span ${ref('cellContainer')} 
-            class="cell-container ${x => [x.isNestedParent ? 'nested-parent' : '', x.isInHierarchy ? 'is-in-hierarchy' : ''].join(' ')}"
+            class="cell-container ${x => (x.isNestedParent ? 'nested-parent' : '')}"
         >
             ${repeat(x => x.columns, html<TableColumn, TableRow>`
                 ${when(x => !x.columnHidden, html<TableColumn, TableRow>`

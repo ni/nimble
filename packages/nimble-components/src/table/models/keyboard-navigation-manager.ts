@@ -65,7 +65,6 @@ implements Subscriber {
         });
         table.addEventListener('keydown', e => this.onKeyDown(e));
         table.addEventListener('focusin', e => this.handleFocus(e));
-        table.addEventListener('blur', e => this.handleBlur(e));
         this.tableNotifier = Observable.getNotifier(this.table);
         this.tableNotifier.subscribe(this, 'rowElements');
         this.virtualizerNotifier = Observable.getNotifier(this.virtualizer);
@@ -82,6 +81,7 @@ implements Subscriber {
 
     public connect(): void {
         this.table.viewport.addEventListener('keydown', e => this.onViewportKeyDown(e));
+        this.table.viewport.addEventListener('cell-action-menu-blur', e => this.onCellActionMenuBlur(e));
     }
 
     public handleChange(source: unknown, args: unknown): void {
@@ -161,12 +161,10 @@ implements Subscriber {
     }
 
     private readonly handleFocus = (event: FocusEvent): void => {
-        // User may have clicked elsewhere in the table (on an element not reflected in this.focusState). Update our focusState
+        // User may have clicked in the table (on an element not reflected in our focus state). Update our focus state
         // based on the current active element in a few cases:
         // - user is interacting with tabbable content of a cell
-        // - user clicked an action menu. In this case, the active element can either be the MenuButton (no table focus beforehand), or a
-        //   MenuItem (if focus was already in the table when the action menu button was clicked).  If it's a MenuItem, we need to look up
-        //   the linked action menu and cell to figure out what to set our focusState to.
+        // - user clicked an action menu button (and the table wasn't focused - otherwise onRowActionMenuToggle() handles it)
         const activeElement = this.getActiveElement();
         let row: TableRow | TableGroupRow | undefined;
         let cell: TableCell | undefined;
@@ -222,23 +220,12 @@ implements Subscriber {
         }
     };
 
-    private readonly handleBlur = (e: FocusEvent): void => {
-        if (this.focusType === TableFocusType.cellActionMenu) {
-            const source = e.composedPath()[0];
-            if (source instanceof Element) {
-                const cell = this.getContainingCell(source);
-                if (cell) {
-                    if (
-                        this.focusType === TableFocusType.cellActionMenu
-                        && cell.actionMenuButton
-                    ) {
-                        this.setActionMenuButtonFocused(
-                            cell.actionMenuButton,
-                            false
-                        );
-                    }
-                }
-            }
+    private readonly onCellActionMenuBlur = (event: Event): void => {
+        event.stopPropagation();
+        const source = event.composedPath()[0];
+        if (source instanceof TableCell && source.actionMenuButton) {
+            // Ensure that action menu buttons get hidden when no longer focused
+            this.setActionMenuButtonFocused(source.actionMenuButton, false);
         }
     };
 

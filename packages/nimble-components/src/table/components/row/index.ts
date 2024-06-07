@@ -139,8 +139,8 @@ export class TableRow<
     }
 
     @volatile
-    public get isInHierarchy(): boolean {
-        return this.isParentRow || this.nestingLevel > 0;
+    public get showSelectionCheckbox(): boolean {
+        return this.selectable && !this.hideSelection;
     }
 
     // Programmatically updating the selection state of a checkbox fires the 'change' event.
@@ -231,7 +231,7 @@ export class TableRow<
     /** @internal */
     public getFocusableElements(): TableRowFocusableElements {
         const result: TableRowFocusableElements = { cells: [] };
-        if (this.selectable && !this.hideSelection) {
+        if (this.showSelectionCheckbox) {
             result.selectionCheckbox = this.selectionCheckbox;
         }
         this.shadowRoot!.querySelectorAll(tableCellTag).forEach(cell => {

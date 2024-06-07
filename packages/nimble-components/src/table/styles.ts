@@ -169,6 +169,10 @@ export const styles = css`
         position: relative;
     }
 
+    .table-viewport${focusVisible} {
+        outline: none;
+    }
+
     .table-scroll {
         pointer-events: none;
         position: absolute;

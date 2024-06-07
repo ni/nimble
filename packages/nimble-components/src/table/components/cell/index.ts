@@ -70,6 +70,10 @@ export class TableCell<
         this.menuOpen = event.detail.newState;
         this.$emit('cell-action-menu-toggle', event.detail);
     }
+
+    public onActionMenuBlur(): void {
+        this.$emit('cell-action-menu-blur');
+    }
 }
 
 const nimbleTableCell = TableCell.compose({

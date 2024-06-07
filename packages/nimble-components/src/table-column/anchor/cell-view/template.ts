@@ -15,7 +15,7 @@ export const template = html<TableColumnAnchorCellView>`
         }}"
         class="${x => (x.isPlaceholder ? 'placeholder' : '')}"
     >
-        ${when(x => typeof x.cellRecord?.href === 'string', html<TableColumnAnchorCellView>`
+        ${when(x => x.showAnchor, html<TableColumnAnchorCellView>`
             <${anchorTag}
                 ${ref('anchor')}
                 ${overflow('hasOverflow')}
@@ -34,7 +34,7 @@ export const template = html<TableColumnAnchorCellView>`
             >
                 ${x => x.text}
             </${anchorTag}>`)}
-        ${when(x => typeof x.cellRecord?.href !== 'string', html<TableColumnAnchorCellView>`
+        ${when(x => !x.showAnchor, html<TableColumnAnchorCellView>`
             <span
                 ${overflow('hasOverflow')}
                 title=${x => (x.hasOverflow ? x.text : null)}

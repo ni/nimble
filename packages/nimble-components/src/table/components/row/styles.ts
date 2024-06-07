@@ -11,6 +11,7 @@ import {
     fillHoverSelectedColor,
     fillSelectedColor,
     mediumPadding,
+    smallPadding,
     standardPadding
 } from '../../../theme-provider/design-tokens';
 import { Theme } from '../../../theme-provider/types';
@@ -56,8 +57,8 @@ export const styles = css`
     }
 
     :host(${focusVisible}) {
-        outline: 2px solid ${borderHoverColor};
-        outline-offset: -2px;
+        outline: calc(2 * ${borderWidth}) solid ${borderHoverColor};
+        outline-offset: calc(-2 * ${borderWidth});
     }
 
     .expand-collapse-button {
@@ -131,24 +132,15 @@ export const styles = css`
     }
 
     nimble-table-cell:first-of-type${focusVisible} {
-        margin-left: calc(
-            -28px * var(--ni-private-cell-focus-offset-multiplier)
-        );
-        padding-left: calc(
-            24px * var(--ni-private-cell-focus-offset-multiplier) + 8px
-        );
+        margin-left: calc(-1 * (${controlHeight} - ${smallPadding}) * var(--ni-private-cell-focus-offset-multiplier));
+        padding-left: calc((${controlHeight} - ${mediumPadding}) * var(--ni-private-cell-focus-offset-multiplier) + ${mediumPadding});
     }
 
     nimble-table-cell:first-of-type${focusVisible}::before {
         content: '';
         display: block;
-        width: calc(
-            (
-                    var(--ni-nimble-control-height) *
-                        var(--ni-private-table-cell-nesting-level) + 4px
-                ) * var(--ni-private-cell-focus-offset-multiplier)
-        );
-        height: 32px;
+        width: calc((${controlHeight} * var(--ni-private-table-cell-nesting-level) + ${smallPadding}) * var(--ni-private-cell-focus-offset-multiplier));
+        height: ${controlHeight};
         box-sizing: border-box;
     }
 

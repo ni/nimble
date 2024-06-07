@@ -2,6 +2,7 @@ import { css } from '@microsoft/fast-element';
 import { display } from '../../../utilities/style/display';
 import {
     borderHoverColor,
+    borderWidth,
     controlHeight,
     iconColor,
     mediumPadding,
@@ -26,8 +27,8 @@ export const styles = css`
     }
 
     :host(${focusVisible}) {
-        outline: 2px solid ${borderHoverColor};
-        outline-offset: -2px;
+        outline: calc(2 * ${borderWidth}) solid ${borderHoverColor};
+        outline-offset: calc(-2 * ${borderWidth});
     }
 
     .sort-indicator,

@@ -54,14 +54,18 @@ TableColumnAnchorColumnConfig
         return '';
     }
 
+    @volatile
+    public get showAnchor(): boolean {
+        return typeof this.cellRecord?.href === 'string';
+    }
+
     public override focusedRecycleCallback(): void {
         this.anchor?.blur();
     }
 
     public override get tabbableChildren(): HTMLElement[] {
-        // this.anchor can be initialized even when not active in the template, so make sure it's in our DOM
-        if (this.anchor?.getRootNode() === this.shadowRoot) {
-            return [this.anchor];
+        if (this.showAnchor) {
+            return [this.anchor!];
         }
         return [];
     }
