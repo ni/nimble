@@ -519,6 +519,15 @@ describe('Table keyboard navigation', () => {
                 expect(pageObject.getCell(0, 0).menuOpen).toBe(true);
             });
 
+            it('when a cell with an action menu is focused, pressing Enter will focus the action menu (if the cell contains no other interactive elements)', async () => {
+                await addActionMenu(column1);
+                await sendKeyPressToTable(keyArrowDown);
+
+                await sendKeyPressToTable(keyEnter);
+
+                expect(currentFocusedElement()).toBe(pageObject.getCellActionMenu(0, 0));
+            });
+
             it("when a cell's action menu is focused, pressing Esc will focus the cell", async () => {
                 await addActionMenu(column1);
                 await sendKeyPressToTable(keyArrowDown);

@@ -1151,7 +1151,7 @@ implements Subscriber {
             && newColumnIndex < rowElements.cells.length
             && cellContentIndex >= 0
             && cellContentIndex
-                <= rowElements.cells[newColumnIndex]!.cell.cellView
+                < rowElements.cells[newColumnIndex]!.cell.cellView
                     .tabbableChildren.length
         ) {
             this.setCellContentFocusState(
