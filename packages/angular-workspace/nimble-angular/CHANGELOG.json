@@ -2,6 +2,27 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Fri, 07 Jun 2024 17:53:20 GMT",
+      "version": "24.4.3",
+      "tag": "@ni/nimble-angular_v24.4.3",
+      "comments": {
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "992217c62385db7dcc228d23a74658c6f8f6b44c",
+            "comment": "Switch to all nimble private linting"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v29.3.2",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 07 Jun 2024 15:10:38 GMT",
       "version": "24.4.3",
       "tag": "@ni/nimble-angular_v24.4.3",

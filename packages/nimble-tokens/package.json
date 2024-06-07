@@ -36,7 +36,7 @@
   "homepage": "https://github.com/ni/nimble#readme",
   "devDependencies": {
     "@microsoft/fast-colors": "^5.3.1",
-    "@ni/eslint-config-javascript": "^4.2.0",
+    "@ni-private/eslint-config-nimble": "*",
     "cross-env": "^7.0.3",
     "glob": "^10.3.10",
     "lodash": "^4.17.21",

@@ -1,4 +1,3 @@
-/* eslint-disable max-classes-per-file */
 import { customElement } from '@microsoft/fast-element';
 import {
     fixture,

@@ -22,8 +22,8 @@ function writeFile(filePath: string, content: string): void {
     console.log('Finished writing file');
 }
 
-const renderModuleName: string = '../bundle/matrix-renderer.js';
-const workerTypes: string = '../esm/source/types.d.ts';
+const renderModuleName = '../bundle/matrix-renderer.js';
+const workerTypes = '../esm/source/types.d.ts';
 const workersDirectory: string = path.resolve('./src/wafer-map/workers');
 
 prepareDirectory(workersDirectory);
@@ -33,7 +33,7 @@ const sourceCode: string = fs.readFileSync(modulePath, 'utf-8');
 const workerTypesPath: string = resolveModulePath(workerTypes);
 const typesCode: string = fs.readFileSync(workerTypesPath, 'utf-8');
 
-const fileContent: string = `// eslint-disable-next-line no-template-curly-in-string
+const fileContent = `// eslint-disable-next-line no-template-curly-in-string
 export const workerCode = ${JSON.stringify(sourceCode)};
 `;
 

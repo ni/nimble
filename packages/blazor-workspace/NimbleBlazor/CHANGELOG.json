@@ -2,6 +2,21 @@
   "name": "@ni/nimble-blazor",
   "entries": [
     {
+      "date": "Fri, 07 Jun 2024 17:53:20 GMT",
+      "version": "17.4.1",
+      "tag": "@ni/nimble-blazor_v17.4.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "992217c62385db7dcc228d23a74658c6f8f6b44c",
+            "comment": "Update to module async behavior"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 06 Jun 2024 14:24:25 GMT",
       "version": "17.4.0",
       "tag": "@ni/nimble-blazor_v17.4.0",

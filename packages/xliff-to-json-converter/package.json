@@ -28,8 +28,7 @@
   "author": "National Instruments",
   "license": "MIT",
   "devDependencies": {
-    "@ni/eslint-config-javascript": "^4.2.0",
-    "@ni/eslint-config-typescript": "^4.2.0",
+    "@ni-private/eslint-config-nimble": "*",
     "@types/jasmine": "^5.1.4",
     "@types/yargs": "^17.0.10",
     "jasmine": "^5.1.0",

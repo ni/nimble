@@ -70,7 +70,9 @@ export const ${tagName} = '${elementName}';
     fs.writeFileSync(filePath, componentFileContents, { encoding: 'utf-8' });
     fileCount += 1;
 
-    allIconsFileContents = allIconsFileContents.concat(`export { ${className} } from './${fileName}';\n`);
+    allIconsFileContents = allIconsFileContents.concat(
+        `export { ${className} } from './${fileName}';\n`
+    );
 }
 console.log(`Finshed writing ${fileCount} icon component files`);
 

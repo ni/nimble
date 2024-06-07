@@ -17,16 +17,22 @@
   ],
   "author": "National Instruments",
   "license": "MIT",
-  "peerDependencies": {
-    "@ni/eslint-config-javascript": "^4.2.0",
-    "@ni/eslint-config-typescript": "^4.2.0",
-    "eslint": "^8.7.0"
+  "scripts": {
+    "lint": "eslint .",
+    "format": "eslint . --fix"
   },
-  "files": ["javascript.js", "typescript.js"],
+  "files": ["javascript.js", "typescript.js", "components.js"],
   "exports": {
     "./javascript": "./javascript.js",
     "./javascript.js": "./javascript.js",
     "./typescript": "./typescript.js",
-    "./typescript.js": "./typescript.js"
+    "./typescript.js": "./typescript.js",
+    "./components": "./components.js",
+    "./components.js": "./components.js"
+  },
+  "peerDependencies": {
+    "@ni/eslint-config-javascript": "^4.2.0",
+    "@ni/eslint-config-typescript": "^4.2.0",
+    "eslint": "^8.7.0"
   }
 }
