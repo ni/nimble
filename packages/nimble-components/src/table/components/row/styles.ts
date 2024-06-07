@@ -132,14 +132,26 @@ export const styles = css`
     }
 
     nimble-table-cell:first-of-type${focusVisible} {
-        margin-left: calc(-1 * (${controlHeight} - ${smallPadding}) * var(--ni-private-cell-focus-offset-multiplier));
-        padding-left: calc((${controlHeight} - ${mediumPadding}) * var(--ni-private-cell-focus-offset-multiplier) + ${mediumPadding});
+        margin-left: calc(
+            -1 * (${controlHeight} - ${smallPadding}) * var(--ni-private-cell-focus-offset-multiplier)
+        );
+        padding-left: calc(
+            (${controlHeight} - ${mediumPadding}) *
+                var(--ni-private-cell-focus-offset-multiplier) +
+                ${mediumPadding}
+        );
     }
 
     nimble-table-cell:first-of-type${focusVisible}::before {
         content: '';
         display: block;
-        width: calc((${controlHeight} * var(--ni-private-table-cell-nesting-level) + ${smallPadding}) * var(--ni-private-cell-focus-offset-multiplier));
+        width: calc(
+            (
+                    ${controlHeight} *
+                        var(--ni-private-table-cell-nesting-level) +
+                        ${smallPadding}
+                ) * var(--ni-private-cell-focus-offset-multiplier)
+        );
         height: ${controlHeight};
         box-sizing: border-box;
     }
