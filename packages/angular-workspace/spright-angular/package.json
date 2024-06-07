@@ -1,6 +1,6 @@
 {
   "name": "@ni/spright-angular",
-  "version": "1.0.15",
+  "version": "1.0.16",
   "description": "Angular components for NI Spright",
   "scripts": {
     "invoke-publish": "npm run invoke-publish:setup && cd ../dist/spright-angular && npm publish",
@@ -24,7 +24,7 @@
   "peerDependencies": {
     "@angular/common": "^17.3.11",
     "@angular/core": "^17.3.11",
-    "@ni/spright-components": "^1.0.15"
+    "@ni/spright-components": "^1.0.16"
   },
   "dependencies": {
     "tslib": "^2.2.0"

@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Thu, 06 Jun 2024 17:29:15 GMT and should not be manually modified.
+This log was last generated on Fri, 07 Jun 2024 15:10:38 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 29.3.1
+
+Fri, 07 Jun 2024 15:10:38 GMT
+
+### Patches
+
+- Revert previous change as this causes a regression in Angular apps. ([ni/nimble@f0dd137](https://github.com/ni/nimble/commit/f0dd13720cee919ca0540ed26a99d6cfccbdd67f))
 
 ## 29.3.0
 

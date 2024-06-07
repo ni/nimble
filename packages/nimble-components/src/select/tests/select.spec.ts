@@ -546,19 +546,6 @@ describe('Select', () => {
         await disconnect();
     });
 
-    it('removing selected option results in first selectable option being selected', async () => {
-        const { element, connect, disconnect } = await setup();
-        await connect();
-        await waitForUpdatesAsync();
-        expect(element.value).toBe('one');
-
-        element.removeChild(element.options[0]!);
-        await waitForUpdatesAsync();
-        expect(element.value).toBe('two');
-
-        await disconnect();
-    });
-
     describe('with all options disabled', () => {
         async function setupAllDisabled(): Promise<Fixture<Select>> {
             const viewTemplate = html`
@@ -1063,7 +1050,8 @@ describe('Select', () => {
             expect(element.value).toBe('one');
         });
 
-        it('filtering to no available options sets ariaActiveDescendent to empty string', async () => {
+        // Fails on Webkit. Tracked by https://github.com/ni/nimble/issues/2170
+        it('filtering to no available options sets ariaActiveDescendent to empty string #SkipWebkit', async () => {
             await pageObject.openAndSetFilterText('abc');
             expect(element.ariaActiveDescendant).toBe('');
         });
@@ -1672,13 +1660,6 @@ describe('Select', () => {
             await clickAndWaitForOpen(element);
             pageObject.clickOptionWithDisplayText('New Option');
             expect(element.value).toBe('new option');
-        });
-
-        it('removing selected option from group results in first selectable option being selected', async () => {
-            const group = pageObject.getGroup(0);
-            group.removeChild(group.listOptions[0] as Node);
-            await waitForUpdatesAsync();
-            expect(element.value).toBe('two');
         });
 
         it('removing option from group removes option from options of select', async () => {

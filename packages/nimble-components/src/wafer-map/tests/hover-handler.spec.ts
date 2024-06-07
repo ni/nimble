@@ -10,7 +10,8 @@ async function setup(): Promise<Fixture<WaferMap>> {
     return fixture<WaferMap>(html`<nimble-wafer-map></nimble-wafer-map>`);
 }
 
-describe('HoverHandler', () => {
+// OffscreenCanvas not supported in Playwright's Windows/Linux Webkit build: https://github.com/ni/nimble/issues/2169
+describe('HoverHandler #SkipWebkit', () => {
     let element: WaferMap;
     let connect: () => Promise<void>;
     const canvasWidth = 100;
