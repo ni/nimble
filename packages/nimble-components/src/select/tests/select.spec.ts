@@ -1279,7 +1279,7 @@ describe('Select', () => {
                 expect(filteredOptions.length).toBe(6);
             });
 
-            fit('emits filter-input event when filter text is entered', async () => {
+            it('emits filter-input event when filter text is entered', async () => {
                 const filterInputEvent = jasmine.createSpy();
                 element.addEventListener('filter-input', filterInputEvent);
                 await pageObject.openAndSetFilterText('o');
