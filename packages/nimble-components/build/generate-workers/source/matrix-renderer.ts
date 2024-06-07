@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/member-ordering */
 import { expose } from 'comlink';
 import type { Dimensions, RenderConfig, TransformConfig } from './types';
 
@@ -72,17 +73,17 @@ export class MatrixRenderer {
 
     private calculateHorizontalScaledIndices(columnIndex: number): number {
         return (
-            this.renderConfig.horizontalCoefficient! * columnIndex
-            + this.renderConfig.horizontalConstant!
-            + this.renderConfig.margin!.left
+            this.renderConfig.horizontalCoefficient * columnIndex
+            + this.renderConfig.horizontalConstant
+            + this.renderConfig.margin.left
         );
     }
 
     private calculateVerticalScaledIndices(rowIndex: number): number {
         return (
-            this.renderConfig.verticalCoefficient! * rowIndex
-            + this.renderConfig.verticalConstant!
-            + this.renderConfig.margin!.top
+            this.renderConfig.verticalCoefficient * rowIndex
+            + this.renderConfig.verticalConstant
+            + this.renderConfig.margin.top
         );
     }
 
