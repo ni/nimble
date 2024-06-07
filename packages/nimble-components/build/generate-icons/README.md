@@ -2,8 +2,8 @@
 
 ## Behavior
 
-- Depends on the build output of `nimble-tokens` to generate icon components.
-- Generates an icon component file for each icon, and an all-icons.ts file which exports all icon components.
+-   Depends on the build output of `nimble-tokens` to generate icon components.
+-   Generates an icon component file for each icon, and an all-icons.ts file which exports all icon components.
 
 ## How to run
 

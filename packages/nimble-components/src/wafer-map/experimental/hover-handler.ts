@@ -36,7 +36,10 @@ export class HoverHandler {
             x: invertedPoint[0],
             y: invertedPoint[1]
         });
-        if (dieCoordinates === undefined) {
+        if (
+            dieCoordinates === undefined
+            || !this.isDieInGrid(dieCoordinates.x, dieCoordinates.y)
+        ) {
             this.wafermap.hoverDie = undefined;
             return;
         }
@@ -95,5 +98,14 @@ export class HoverHandler {
             return { x, y };
         }
         return undefined;
+    }
+
+    private isDieInGrid(x: number, y: number): boolean {
+        return (
+            x >= this.wafermap.computations.gridMinX
+            && x <= this.wafermap.computations.gridMaxX
+            && y >= this.wafermap.computations.gridMinY
+            && y <= this.wafermap.computations.gridMaxY
+        );
     }
 }

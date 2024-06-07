@@ -1,5 +1,5 @@
 import { wrap, Remote } from 'comlink';
-import { workerCode } from '../workers/matrix-renderer';
+import { workerCode } from '../workers/worker-code';
 import type { MatrixRenderer } from '../../../build/generate-workers/dist/esm/source/matrix-renderer';
 
 let url: string;

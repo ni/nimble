@@ -44,6 +44,8 @@ import { wrap } from '../../utilities/react-wrapper';
 export const Nimble${className} = wrap(${className});`;
 
     const outputPath = path.resolve(iconsDirectory, `${fileName}.react.tsx`);
-    fs.writeFileSync(outputPath, iconReactWrapperContent, { encoding: 'utf-8' });
+    fs.writeFileSync(outputPath, iconReactWrapperContent, {
+        encoding: 'utf-8'
+    });
 }
 console.log(`Finshed writing ${fileCount} icon react wrapper files`);
