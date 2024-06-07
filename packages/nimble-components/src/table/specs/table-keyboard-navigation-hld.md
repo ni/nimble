@@ -90,15 +90,10 @@ To navigate by multiple rows/cells, when a row or cell is focused:
 -   `Ctrl-Home`: Navigate to the first row. If a cell was selected, the matching cell (in the same column) of the new row will be selected.
 -   `Ctrl-End`: Navigate to the last row. If a cell was selected, the matching cell (in the same column) of the new row will be selected.
 
-Special case of focusing a cell:
-
--   If a cell does not have an action menu, and only contains a single interactive/focusable element of the following types: button (and variants), switch, checkbox, or anchor/link: that child element will be focused _instead_ of the cell.
-
 To interact with a cell's interactive contents, starting from the state of a cell being focused:
 
 -   If the cell has an interactive element (including the action menu button):
-    -   Pressing `Enter` will focus the 1st/ primary interactive element, _and_ trigger its functionality (e.g. button press, link navigation)
-    -   Pressing `F2` will focus the 1st/ primary interactive element, but not trigger its functionality
+    -   Pressing `Enter` or `F2` will focus the 1st/ primary interactive element, but not trigger its functionality. Once the element is focused, it can be triggered using standard keys (`Enter` for most elements).
     -   At this point, the table is no longer in 'navigation mode' (will not handle arrow key presses). `Tab`/`Shift-Tab` will also be handled by the active element by default, but may bubble up and be handled by the table (resulting in a focus change) if the content does not process `Tab`/`Shift-Tab` presses. To return to 'navigation mode', and focus the cell again:
         -   `Esc` is pressed: If the user had edited content (e.g. textbox), it may be reverted.
         -   `Enter` is pressed: If the user was editing content or interacting with a control, those changes will be committed.
@@ -110,6 +105,7 @@ Scrolling the table:
 
 -   If a row or cell is focused, and the table is scrolled such that the focused row/cell is no longer visible, then it's scrolled back, the same row/cell should be focused again.
 -   The row/cell keyboard navigation actions will scroll the table if required, such that the newly focused row/cell is visible.
+-   If an element in a cell (or the cell action menu) is focused when a scroll occurs, after the scroll, the cell will be focused instead.
 
 `Ctrl-Alt modifiers`: It appears to be a common convention for screen readers to leverage `Ctrl-Alt Arrows` to move the screen reader focus to each of the cells in a row. As such, it may be desirable for our implementation to explicitly not handle keyboard interactions that involve both modifier keys, and instead respond to any resulting focus change, and update any internal state as needed based on the newly focused element. This is what the ARIA `treegrid` example does. It's not clear whether this behavior will require special handling by us or not, but we should test this scenario.
 
@@ -143,9 +139,18 @@ If a group header row is focused:
 -   `Space` / `Enter` will expand or collapse that group (toggling the expansion state)
 -   `ArrowLeft` will collapse the group, and `ArrowRight` will expand it (for consistency with the row interactions)
 
+#### Effects of mouse interactions on keyboard navigation
+
+If the user interacts with the table with the mouse (e.g. clicks a row, cell, or cell action menu button), subsequent keyboard navigation will start from the row/cell that was interacted with. Focus visuals will not be shown when a row/cell is clicked, until any keyboard navigation after that occurs.
+
 #### Unsupported Functionality
 
 **Column sizing:** Currently we don't plan to support column sizing via the keyboard. In the future, one way we may support this is via a column header action menu, with Size to Fit or similar functions.
+
+**Focusing single interactive element of a cell**
+
+-   If a cell does not have an action menu, and only contains a single interactive/focusable element of the following types: button (and variants), switch, checkbox, or anchor/link: it may be desirable to focus the child element _instead_ of the cell. (See ARIA guidance from above)
+-   We opted against implementing this behavior, partially due to complications with virtualization (wanting to blur the previously focused control on scroll).
 
 ### ARIA roles
 
