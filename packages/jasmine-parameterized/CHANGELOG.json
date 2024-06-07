@@ -2,6 +2,21 @@
   "name": "@ni/jasmine-parameterized",
   "entries": [
     {
+      "date": "Fri, 07 Jun 2024 17:53:20 GMT",
+      "version": "0.3.0",
+      "tag": "@ni/jasmine-parameterized_v0.3.0",
+      "comments": {
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/jasmine-parameterized",
+            "commit": "992217c62385db7dcc228d23a74658c6f8f6b44c",
+            "comment": "Switch to all nimble private linting"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 05 Jun 2024 18:54:09 GMT",
       "version": "0.3.0",
       "tag": "@ni/jasmine-parameterized_v0.3.0",

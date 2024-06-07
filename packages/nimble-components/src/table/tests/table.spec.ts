@@ -1,4 +1,3 @@
-/* eslint-disable max-classes-per-file */
 import { attr, customElement, html } from '@microsoft/fast-element';
 import { parameterizeSpec } from '@ni/jasmine-parameterized';
 import { Table, tableTag } from '..';
