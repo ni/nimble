@@ -1,5 +1,9 @@
+import type { Checkbox } from '../checkbox';
+import type { MenuButton } from '../menu-button';
 import type { TableColumn } from '../table-column/base';
 import type { ValidityObject } from '../utilities/models/validator';
+import type { TableCell } from './components/cell';
+import type { TableHeader } from './components/header';
 
 /**
  * TableFieldName describes the type associated with keys within
@@ -211,4 +215,43 @@ export interface TableRowState<TData extends TableRecord = TableRecord> {
     groupColumn?: TableColumn;
     isParentRow: boolean;
     isLoadingChildren: boolean;
+    dataIndex?: number;
+}
+
+/**
+ * @internal
+ * Table keyboard focus types
+ */
+export const TableFocusType = {
+    none: 'none',
+    columnHeader: 'columnHeader',
+    headerActions: 'headerActions',
+    row: 'row',
+    rowSelectionCheckbox: 'rowSelectionCheckbox',
+    cell: 'cell',
+    cellActionMenu: 'cellActionMenu',
+    cellContent: 'cellContent'
+} as const;
+export type TableFocusType =
+    (typeof TableFocusType)[keyof typeof TableFocusType];
+
+/**
+ * @internal
+ * Focusable elements in the header of the table
+ */
+export interface TableHeaderFocusableElements {
+    headerActions: HTMLElement[];
+    columnHeaders: TableHeader[];
+}
+
+/**
+ * @internal
+ * Focusable elements of a table row
+ */
+export interface TableRowFocusableElements {
+    selectionCheckbox?: Checkbox;
+    cells: {
+        cell: TableCell,
+        actionMenuButton?: MenuButton
+    }[];
 }
