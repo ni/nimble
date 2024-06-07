@@ -33,8 +33,14 @@ export interface RenderConfig {
     horizontalCoefficient: number;
     horizontalConstant: number;
     verticalConstant: number;
+    gridMinX: number;
+    gridMaxX: number;
+    gridMinY: number;
+    gridMaxY: number;
     labelsFontSize: number;
     colorScale: ColorScale;
+    dieLabelsSuffix: string;
+    maxCharacters: number;
 }
 
 export interface TransformConfig {
