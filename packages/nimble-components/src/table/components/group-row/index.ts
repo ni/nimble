@@ -28,7 +28,7 @@ export class TableGroupRow extends FoundationElement {
     public nestingLevel = 0;
 
     @observable
-    public dataIndex?: number;
+    public rowStateIndex?: number;
 
     @observable
     public immediateChildCount?: number;

@@ -95,14 +95,14 @@ implements Subscriber {
             this.visibleRowNotifiers = [];
             for (const visibleRow of this.table.rowElements) {
                 const rowNotifier = Observable.getNotifier(visibleRow);
-                rowNotifier.subscribe(this, 'dataIndex');
-                if (visibleRow.dataIndex === this.rowIndex) {
+                rowNotifier.subscribe(this, 'rowStateIndex');
+                if (visibleRow.rowStateIndex === this.rowIndex) {
                     focusRowAndCell = true;
                 }
             }
-        } else if (args === 'dataIndex') {
-            const dataIndex = (source as TableRow | TableGroupRow).dataIndex;
-            if (dataIndex === this.rowIndex) {
+        } else if (args === 'rowStateIndex') {
+            const index = (source as TableRow | TableGroupRow).rowStateIndex;
+            if (index === this.rowIndex) {
                 focusRowAndCell = true;
             }
         }
@@ -137,8 +137,8 @@ implements Subscriber {
         // will start from that row
         const row = event.target;
         if (row instanceof TableRow || row instanceof TableGroupRow) {
-            if (this.rowIndex !== row.dataIndex) {
-                this.setRowFocusState(row.dataIndex);
+            if (this.rowIndex !== row.rowStateIndex) {
+                this.setRowFocusState(row.rowStateIndex);
             }
         }
     }
@@ -153,7 +153,7 @@ implements Subscriber {
                 column => column.columnId === event.detail.columnId
             );
             this.setCellActionMenuFocusState(
-                row.dataIndex!,
+                row.rowStateIndex!,
                 columnIndex,
                 false
             );
@@ -178,7 +178,7 @@ implements Subscriber {
                     );
                     if (cell.actionMenuButton === activeElement) {
                         this.setCellActionMenuFocusState(
-                            row.dataIndex!,
+                            row.rowStateIndex!,
                             columnIndex,
                             false
                         );
@@ -188,7 +188,7 @@ implements Subscriber {
                     if (contentIndex > -1) {
                         this.setCellContentFocusState(
                             contentIndex,
-                            row.dataIndex!,
+                            row.rowStateIndex!,
                             columnIndex,
                             false
                         );
@@ -910,7 +910,7 @@ implements Subscriber {
 
     private getCurrentRowVisibleIndex(): number {
         return this.table.rowElements.findIndex(
-            row => row.dataIndex === this.rowIndex
+            row => row.rowStateIndex === this.rowIndex
         );
     }
 

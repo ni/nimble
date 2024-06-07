@@ -76,7 +76,7 @@ export class TableRow<
     public nestingLevel = 0;
 
     @observable
-    public dataIndex?: number;
+    public rowStateIndex?: number;
 
     @attr({ attribute: 'is-parent-row', mode: 'boolean' })
     public isParentRow = false;
