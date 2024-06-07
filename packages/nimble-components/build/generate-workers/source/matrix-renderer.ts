@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/member-ordering */
 import { expose } from 'comlink';
 import type { Dimensions, RenderConfig, TransformConfig } from './types';
 
@@ -61,45 +60,6 @@ export class MatrixRenderer {
             y: 0
         }
     };
-
-    private isDieInGrid(x: number, y: number): boolean {
-        return (
-            x >= this.renderConfig.gridMinX
-            && x <= this.renderConfig.gridMaxX
-            && y >= this.renderConfig.gridMinY
-            && y <= this.renderConfig.gridMaxY
-        );
-    }
-
-    private calculateHorizontalScaledIndices(columnIndex: number): number {
-        return (
-            this.renderConfig.horizontalCoefficient * columnIndex
-            + this.renderConfig.horizontalConstant
-            + this.renderConfig.margin.left
-        );
-    }
-
-    private calculateVerticalScaledIndices(rowIndex: number): number {
-        return (
-            this.renderConfig.verticalCoefficient * rowIndex
-            + this.renderConfig.verticalConstant
-            + this.renderConfig.margin.top
-        );
-    }
-
-    private findColorIndex(value: number): number {
-        let index = -1;
-        if (this.colorValues.length === 0 || this.colorValues[0]! >= value) {
-            return index;
-        }
-        for (let i = 0; i < this.colorValues.length; i++) {
-            if (value <= this.colorValues[i]!) {
-                index = i;
-                break;
-            }
-        }
-        return index;
-    }
 
     public setMatrixData(
         columnIndices: Int32Array,
@@ -285,6 +245,45 @@ export class MatrixRenderer {
                 );
             }
         }
+    }
+
+    private isDieInGrid(x: number, y: number): boolean {
+        return (
+            x >= this.renderConfig.gridMinX
+            && x <= this.renderConfig.gridMaxX
+            && y >= this.renderConfig.gridMinY
+            && y <= this.renderConfig.gridMaxY
+        );
+    }
+
+    private calculateHorizontalScaledIndices(columnIndex: number): number {
+        return (
+            this.renderConfig.horizontalCoefficient * columnIndex
+            + this.renderConfig.horizontalConstant
+            + this.renderConfig.margin.left
+        );
+    }
+
+    private calculateVerticalScaledIndices(rowIndex: number): number {
+        return (
+            this.renderConfig.verticalCoefficient * rowIndex
+            + this.renderConfig.verticalConstant
+            + this.renderConfig.margin.top
+        );
+    }
+
+    private findColorIndex(value: number): number {
+        let index = -1;
+        if (this.colorValues.length === 0 || this.colorValues[0]! >= value) {
+            return index;
+        }
+        for (let i = 0; i < this.colorValues.length; i++) {
+            if (value <= this.colorValues[i]!) {
+                index = i;
+                break;
+            }
+        }
+        return index;
     }
 }
 expose(MatrixRenderer);
