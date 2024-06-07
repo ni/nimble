@@ -158,16 +158,17 @@ export const styles = css`
         display: flex;
         height: ${controlHeight};
         align-items: center;
+        flex: 1 0 auto;
     }
 
     .loading-container.above {
-        margin-top: ${mediumPadding};
-        margin-bottom: 0;
+        margin-top: 0px;
+        margin-bottom: calc(-1 * ${smallPadding});
     }
 
     .loading-container.below {
-        margin-top: 0;
-        margin-bottom: ${mediumPadding};
+        margin-top: calc(-1 * ${smallPadding});
+        margin-bottom: 0px;
     }
 
     .loading-spinner {

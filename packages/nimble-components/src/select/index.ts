@@ -552,7 +552,7 @@ export class Select
             return true;
         }
 
-        this.open = false;
+        // this.open = false;
         const focusTarget = e.relatedTarget as HTMLElement;
         if (this.isSameNode(focusTarget)) {
             this.focus();
@@ -864,7 +864,9 @@ export class Select
             this.filterInput.value = '';
         }
 
-        this.emitFilterInputEvent();
+        if (this.filterMode !== FilterMode.none) {
+            this.emitFilterInputEvent();
+        }
         this.ariaControls = '';
         this.ariaExpanded = 'false';
     }

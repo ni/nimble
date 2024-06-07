@@ -159,7 +159,7 @@ SelectOptions
                         </span>
                     `)}
                     ${when(x => x.loadingVisible, html<Select>`
-                        <div class="loading-container" @click="${(x, c) => x.ignoreClickHandler(c.event as MouseEvent)}">
+                        <div class="loading-container ${x => x.positionAttribute}" @click="${(x, c) => x.ignoreClickHandler(c.event as MouseEvent)}">
                             <span class="loading-label">
                                 ${x => loadingLabel.getValueFor(x)}
                             </span>
