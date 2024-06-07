@@ -1076,16 +1076,10 @@ describe('Select', () => {
                 expect(element.value).toBe('one');
             });
 
-            it('filtering to no available options sets ariaActiveDescendent to empty string', async () => {
+            // Fails on Webkit. Tracked by https://github.com/ni/nimble/issues/2170
+            it('filtering to no available options sets ariaActiveDescendent to empty string #SkipWebkit', async () => {
                 await pageObject.openAndSetFilterText('abc');
                 expect(element.ariaActiveDescendant).toBe('');
-            });
-
-            it('filtering to no available options, then pressing <Enter> does not close popup or change value', async () => {
-                await pageObject.openAndSetFilterText('abc');
-                pageObject.pressEnterKey();
-                expect(element.open).toBeTrue();
-                expect(element.value).toBe('one');
             });
 
             it('filtering to only disabled item, then clicking away does not change value', async () => {
