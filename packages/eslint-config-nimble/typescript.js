@@ -51,6 +51,7 @@ module.exports = {
                     { devDependencies: true }
                 ],
 
+                // It's common to define helper classes for tests and it's more readable to do this in the same file
                 'max-classes-per-file': 'off'
             }
         }
