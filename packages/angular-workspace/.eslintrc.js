@@ -119,12 +119,24 @@ module.exports = {
                         // The following attributes should be marked i18n in production applications but
                         // are ignored here as they do not actually need to be marked for tests / example apps
                         'action-menu-label',
+                        'anchor',
                         'aria-label',
+                        'aria-labelledby',
                         'button-label',
+                        'content',
+                        'display-name',
+                        'href-field-name',
                         'label',
+                        'label-field-name',
+                        'location',
+                        'parent-id-field-name',
+                        'pattern',
                         'placeholder',
+                        'rel',
+                        'sizes',
                         'text',
-                        'title'
+                        'title',
+                        'width-mode'
                     ]
                 }
             ],
