@@ -1,7 +1,8 @@
 import { Remote, expose, transfer, wrap } from 'comlink';
 import { MatrixRenderer } from '../matrix-renderer';
 
-describe('MatrixRenderer with MessageChannel needing canvas context', () => {
+// OffscreenCanvas not supported in Playwright's Windows/Linux Webkit build: https://github.com/ni/nimble/issues/2169
+describe('MatrixRenderer with MessageChannel needing canvas context #SkipWebkit', () => {
     let matrixRenderer: Remote<MatrixRenderer>;
     const testData = {
         columnIndices: [4, 1, 2],
