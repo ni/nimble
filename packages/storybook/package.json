@@ -50,7 +50,7 @@
     "storybook-addon-pseudo-states": "^3.0.0",
     "terser-webpack-plugin": "^5.3.10",
     "ts-loader": "^9.2.5",
-    "typescript": "~5.1.6"
+    "typescript": "~5.4.5"
   },
   "peerDependencies": {
     "@ni-private/eslint-config-nimble": "^1.0.0",
