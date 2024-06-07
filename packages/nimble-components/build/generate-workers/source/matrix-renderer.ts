@@ -130,7 +130,7 @@ export class MatrixRenderer {
                 const value = valuesBuffer[i]!;
                 values.push(value);
                 colorIndices.push(this.findColorIndex(value));
-                dieCount++;
+                dieCount += 1;
             }
         }
         this.scaledColumnIndices = Float64Array.from(scaledColumnIndex);
@@ -271,7 +271,7 @@ export class MatrixRenderer {
                 ) {
                     continue;
                 }
-                let label = `${this.values[columnStartIndex]}${this.renderConfig.dieLabelsSuffix}`;
+                let label = `${this.values[columnStartIndex] || 'NaN'}${this.renderConfig.dieLabelsSuffix}`;
                 if (label.length >= this.renderConfig.maxCharacters) {
                     label = `${label.substring(0, this.renderConfig.maxCharacters)}…`;
                 }

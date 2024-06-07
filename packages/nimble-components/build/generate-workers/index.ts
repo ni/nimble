@@ -22,9 +22,9 @@ function writeFile(filePath: string, content: string): void {
     console.log('Finished writing file');
 }
 
-const renderModuleName: string = '../bundle/matrix-renderer.js';
-const workerTypes: string = '../esm/source/types.d.ts';
-const matrixRendererTypes: string = '../esm/source/matrix-renderer.d.ts';
+const renderModuleName = '../bundle/matrix-renderer.js';
+const workerTypes = '../esm/source/types.d.ts';
+const matrixRendererTypes = '../esm/source/matrix-renderer.d.ts';
 const workersDirectory: string = path.resolve('./src/wafer-map/workers');
 
 prepareDirectory(workersDirectory);
@@ -39,7 +39,7 @@ const matrixRendererTypesCode: string = fs.readFileSync(
     'utf-8'
 );
 
-const fileContent: string = `export const workerCode = ${JSON.stringify(sourceCode)};`;
+const fileContent = `export const workerCode = ${JSON.stringify(sourceCode)};`;
 
 const renderFilePath: string = path.resolve(workersDirectory, 'worker-code.ts');
 
