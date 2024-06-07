@@ -1,6 +1,6 @@
 /**
  * [Nimble]
- * Copied from https://github.com/angular/angular/blob/16.2.12/packages/forms/src/directives/radio_control_value_accessor.ts
+ * Copied from https://github.com/angular/angular/blob/17.3.11/packages/forms/src/directives/radio_control_value_accessor.ts
  * with the following modifications:
  * - Changed throwNameError() to throw Error instead of RuntimeError. This makes the file compile with Angular version 12.
  * - Removed now-unused import for RuntimeErrorCode and RuntimeError
@@ -17,7 +17,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 
-import {Directive, ElementRef, Injectable, Injector, Input, NgModule, OnDestroy, OnInit, Renderer2} from '@angular/core';
+import {Directive, ElementRef, forwardRef, inject, Injectable, Injector, Input, OnDestroy, OnInit, Provider, Renderer2, ɵRuntimeError as RuntimeError} from '@angular/core';
 
 import {BuiltInControlValueAccessor} from './control_value_accessor';
 import {ControlValueAccessor, NgControl, SetDisabledStateOption} from '@angular/forms';
@@ -41,20 +41,10 @@ function throwNameError() {
 }
 
 /**
- * Internal-only NgModule that works as a host for the `RadioControlRegistry` tree-shakable
- * provider. Note: the `InternalFormsSharedModule` can not be used here directly, since it's
- * declared *after* the `RadioControlRegistry` class and the `providedIn` doesn't support
- * `forwardRef` logic.
- */
-@NgModule()
-export class RadioControlRegistryModule {
-}
-
-/**
  * @description
  * Class used by Angular to track radio buttons. For internal use only.
  */
-@Injectable({providedIn: RadioControlRegistryModule})
+@Injectable({providedIn: 'root'})
 export class RadioControlRegistry {
   private _accessors: any[] = [];
 
