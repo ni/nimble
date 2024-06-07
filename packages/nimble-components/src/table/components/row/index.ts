@@ -138,6 +138,7 @@ export class TableRow<
         return this.isParentRow && this.nestingLevel > 0;
     }
 
+    /** @internal */
     @volatile
     public get showSelectionCheckbox(): boolean {
         return this.selectable && !this.hideSelection;

@@ -54,6 +54,7 @@ TableColumnAnchorColumnConfig
         return '';
     }
 
+    /** @internal */
     @volatile
     public get showAnchor(): boolean {
         return typeof this.cellRecord?.href === 'string';
