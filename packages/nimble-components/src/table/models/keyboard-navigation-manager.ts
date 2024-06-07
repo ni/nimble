@@ -1074,14 +1074,6 @@ implements Subscriber {
         }
     }
 
-    private getActiveElementDebug(): HTMLElement | string | null {
-        const result = this.getActiveElement(false);
-        if (result === document.body) {
-            return '<body />';
-        }
-        return result;
-    }
-
     private trySetRowSelectionCheckboxFocus(
         rowElements: TableRowFocusableElements
     ): boolean {
