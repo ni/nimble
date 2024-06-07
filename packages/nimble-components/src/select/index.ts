@@ -289,6 +289,7 @@ export class Select
         prev: Element[] | undefined,
         next: Element[] | undefined
     ): void {
+        const value = this.value;
         this.options.forEach(o => {
             const notifier = Observable.getNotifier(o);
             notifier.unsubscribe(this, 'value');
@@ -303,8 +304,6 @@ export class Select
             notifier.unsubscribe(this, 'listOptions');
         });
         const options = this.getSlottedOptions(next);
-        // reset selectedIndex in case the selected option was removed or reordered
-        this.selectedIndex = options.findIndex(o => o.selected);
         super.slottedOptionsChanged(prev, options);
 
         options.forEach(o => {
@@ -325,6 +324,9 @@ export class Select
         // We need to force an update to the filteredOptions observable
         // (by calling 'filterOptions()) so that the template correctly updates.
         this.filterOptions();
+        if (value) {
+            this.value = value;
+        }
     }
 
     /**
