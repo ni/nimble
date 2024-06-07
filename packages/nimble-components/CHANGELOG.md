@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Fri, 07 Jun 2024 17:53:20 GMT and should not be manually modified.
+This log was last generated on Fri, 07 Jun 2024 20:34:51 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 29.3.3
+
+Fri, 07 Jun 2024 20:34:51 GMT
+
+### Patches
+
+- Created renderer capabilities for colors and text in the offscreen canvas ([ni/nimble@d5ad24b](https://github.com/ni/nimble/commit/d5ad24b089316112493858c00d16b248f129d9bd))
 
 ## 29.3.2
 

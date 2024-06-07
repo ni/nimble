@@ -1,10 +1,8 @@
 import { parameterizeSpec } from '@ni/jasmine-parameterized';
+import { range } from 'd3-array';
 import { Computations } from '../experimental/computations';
 import { WaferMapColorScaleMode, WaferMapOriginLocation } from '../types';
-import {
-    getWaferMapMockComputationsExperimental,
-    getWaferMapDies
-} from './utilities';
+import { getWaferMapMockComputationsExperimental } from './utilities';
 import type { WaferMap } from '..';
 import type { Margin } from '../workers/types';
 
@@ -208,17 +206,16 @@ describe('Wafermap Experimental Computations module', () => {
             waferMock = getWaferMapMockComputationsExperimental();
             waferMock.colorScale = {
                 colors: ['black', 'red'],
-                values: ['1', '18']
+                values: ['0', '20']
             };
             waferMock.colorScaleMode = colorScaleMode;
             waferMock.maxCharacters = 2;
             computationsModule = new Computations(waferMock);
             computationsModule.colorAndTextUpdate();
-            const waferMapDies = getWaferMapDies();
-            const expectedValues = waferMapDies
-                .sort((a, b) => +a.value - +b.value)
-                .map(waferMapDie => {
-                    return `rgb(${(+waferMapDie.value - 1) * 15}, 0, 0)`;
+            const expectedValues = range(0, 20)
+                .concat(20)
+                .map(value => {
+                    return `rgb(${Math.round(value * 12.75)}, 0, 0)`;
                 });
             const actualValues = computationsModule.colorScale.map(
                 colorCategory => colorCategory.color

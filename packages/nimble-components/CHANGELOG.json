@@ -2,6 +2,36 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Fri, 07 Jun 2024 21:16:09 GMT",
+      "version": "29.3.3",
+      "tag": "@ni/nimble-components_v29.3.3",
+      "comments": {
+        "none": [
+          {
+            "author": "20709258+msmithNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "a486bd56a7a87d6bddfccc098871278878893b37",
+            "comment": "Minor updates to table keyboard navigation HLD"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 07 Jun 2024 20:34:51 GMT",
+      "version": "29.3.3",
+      "tag": "@ni/nimble-components_v29.3.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "33986780+munteannatan@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "d5ad24b089316112493858c00d16b248f129d9bd",
+            "comment": "Created renderer capabilities for colors and text in the offscreen canvas"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 07 Jun 2024 17:53:20 GMT",
       "version": "29.3.2",
       "tag": "@ni/nimble-components_v29.3.2",
