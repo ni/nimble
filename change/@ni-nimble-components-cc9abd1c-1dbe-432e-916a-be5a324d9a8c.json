@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Created renderer capabilities for colors and text in the offscreen canvas",
-  "packageName": "@ni/nimble-components",
-  "email": "33986780+munteannatan@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
