@@ -1,7 +1,0 @@
-{
-  "type": "none",
-  "comment": "Switch to all nimble private linting",
-  "packageName": "@ni/nimble-angular",
-  "email": "rajsite@users.noreply.github.com",
-  "dependentChangeType": "none"
-}

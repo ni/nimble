@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Fri, 07 Jun 2024 15:10:38 GMT and should not be manually modified.
+This log was last generated on Fri, 07 Jun 2024 17:53:20 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 29.3.2
+
+Fri, 07 Jun 2024 17:53:20 GMT
+
+### Patches
+
+- Minor wafer updates due to lint config changes ([ni/nimble@992217c](https://github.com/ni/nimble/commit/992217c62385db7dcc228d23a74658c6f8f6b44c))
 
 ## 29.3.1
 

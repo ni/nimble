@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-blazor
 
-This log was last generated on Thu, 06 Jun 2024 14:24:25 GMT and should not be manually modified.
+This log was last generated on Fri, 07 Jun 2024 17:53:20 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 17.4.1
+
+Fri, 07 Jun 2024 17:53:20 GMT
+
+### Patches
+
+- Update to module async behavior ([ni/nimble@992217c](https://github.com/ni/nimble/commit/992217c62385db7dcc228d23a74658c6f8f6b44c))
 
 ## 17.4.0
 
