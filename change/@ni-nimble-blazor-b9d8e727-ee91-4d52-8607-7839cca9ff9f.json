@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "Update to module async behavior",
+  "packageName": "@ni/nimble-blazor",
+  "email": "rajsite@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}

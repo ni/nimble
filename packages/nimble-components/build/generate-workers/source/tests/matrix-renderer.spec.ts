@@ -14,9 +14,11 @@ describe('MatrixRenderer with MessageChannel needing canvas context #SkipWebkit'
         const { port1, port2 } = new MessageChannel();
         const worker = new MatrixRenderer();
         expose(worker, port1);
-        matrixRenderer = await wrap<MatrixRenderer>(port2);
+        matrixRenderer = wrap<MatrixRenderer>(port2);
         const offscreenCanvas = new OffscreenCanvas(300, 300);
-        matrixRenderer.setCanvas(transfer(offscreenCanvas, [offscreenCanvas]));
+        await matrixRenderer.setCanvas(
+            transfer(offscreenCanvas, [offscreenCanvas])
+        );
         await matrixRenderer.setRenderConfig({
             dieDimensions: {
                 width: 10,
