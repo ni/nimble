@@ -85,9 +85,9 @@ implements Subscriber {
     }
 
     public handleChange(source: unknown, args: unknown): void {
-        let focusRow = false;
+        let focusRowAndCell = false;
         if (source === this.virtualizer && args === 'visibleItems') {
-            focusRow = true;
+            focusRowAndCell = true;
         } else if (source === this.table && args === 'rowElements') {
             for (const notifier of this.visibleRowNotifiers) {
                 notifier.unsubscribe(this);
@@ -97,17 +97,17 @@ implements Subscriber {
                 const rowNotifier = Observable.getNotifier(visibleRow);
                 rowNotifier.subscribe(this, 'dataIndex');
                 if (visibleRow.dataIndex === this.rowIndex) {
-                    focusRow = true;
+                    focusRowAndCell = true;
                 }
             }
         } else if (args === 'dataIndex') {
             const dataIndex = (source as TableRow | TableGroupRow).dataIndex;
             if (dataIndex === this.rowIndex) {
-                focusRow = true;
+                focusRowAndCell = true;
             }
         }
 
-        if (focusRow) {
+        if (focusRowAndCell) {
             // Focusable elements in cells, and action menus, are both blurred on scroll. To maintain our row/cell focus state,
             // we focus the cell instead here. (We also don't want to refocus the cell content when the focusedRecycleCallback just
             // blurred it.)
@@ -830,7 +830,7 @@ implements Subscriber {
     }
 
     private focusCurrentRow(allowScroll: boolean): boolean {
-        const visibleRowIndex = this.getVisibleRowIndex();
+        const visibleRowIndex = this.getCurrentRowVisibleIndex();
         if (visibleRowIndex < 0) {
             return false;
         }
@@ -908,7 +908,7 @@ implements Subscriber {
         return false;
     }
 
-    private getVisibleRowIndex(): number {
+    private getCurrentRowVisibleIndex(): number {
         return this.table.rowElements.findIndex(
             row => row.dataIndex === this.rowIndex
         );
@@ -946,7 +946,7 @@ implements Subscriber {
     }
 
     private getCurrentRow(): TableRow | TableGroupRow | undefined {
-        const visibleRowIndex = this.getVisibleRowIndex();
+        const visibleRowIndex = this.getCurrentRowVisibleIndex();
         if (visibleRowIndex >= 0) {
             return this.table.rowElements[visibleRowIndex];
         }

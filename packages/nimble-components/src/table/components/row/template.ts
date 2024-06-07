@@ -56,7 +56,6 @@ export const template = html<TableRow>`
             `)}
             ${when(x => !x.loading, html<TableRow>`
                 <${buttonTag}
-                    ${ref('expandCollapseButton')}
                     tabindex="-1"
                     appearance="${ButtonAppearance.ghost}"
                     content-hidden

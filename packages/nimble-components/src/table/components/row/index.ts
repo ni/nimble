@@ -111,10 +111,6 @@ export class TableRow<
     public readonly selectionCheckbox?: Checkbox;
 
     /** @internal */
-    @observable
-    public readonly expandCollapseButton?: HTMLElement;
-
-    /** @internal */
     public readonly cellContainer!: HTMLSpanElement;
 
     /**
