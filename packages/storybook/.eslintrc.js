@@ -10,7 +10,17 @@ module.exports = {
     overrides: [
         {
             files: ['*.js'],
-            extends: ['@ni-private/eslint-config-nimble/javascript']
+            extends: ['@ni-private/eslint-config-nimble/javascript'],
+            rules: {
+                // Storybook tends to rely on default exports in plugins
+                'import/no-default-export': 'off',
+
+                // Storybook is not a published package and is allowed to use devDependencies
+                'import/no-extraneous-dependencies': [
+                    'error',
+                    { devDependencies: true }
+                ],
+            }
         },
         {
             files: ['*.ts', '*.tsx'],
@@ -23,7 +33,15 @@ module.exports = {
                 tsconfigRootDir: __dirname
             },
             rules: {
+                // Storybook tends to rely on default exports in plugins
                 'import/no-default-export': 'off',
+
+                // Storybook is not a published package and is allowed to use devDependencies
+                'import/no-extraneous-dependencies': [
+                    'error',
+                    { devDependencies: true }
+                ],
+
                 // This rule is disabled in order to allow linking directly to nimble-components and spright-components source
                 // Other files in the repo should NOT directly link to source and should resolve with the package identifier instead
                 'import/no-relative-packages': 'off',
@@ -39,11 +57,9 @@ module.exports = {
                         ]
                     }
                 ],
-                // Storybook is not a published package and is allowed to use devDependencies
-                'import/no-extraneous-dependencies': [
-                    'error',
-                    { devDependencies: true }
-                ],
+
+                // Disables a rule from storybook recommended we have not followed
+                // No reason we couldn't other than low ROI
                 'storybook/prefer-pascal-case': 'off'
             }
         },
@@ -65,9 +81,24 @@ module.exports = {
             rules: {
                 // Build scripts should give verbose logging
                 'no-console': 'off',
-                // Rollup config files use default exports
-                'import/no-default-export': 'off',
             },
+        },
+        {
+            files: ['.storybook/*.js'],
+            env: {
+                browser: true,
+            }
+        },
+        {
+            files: ['.storybook/blocks/**/*tsx'],
+            rules: {
+                // Improves readability of React Components to avoid return types in template expressions
+                '@typescript-eslint/explicit-function-return-type': 'off',
+                '@typescript-eslint/explicit-module-boundary-types': 'off',
+
+                // The React components should use PascalCase
+                '@typescript-eslint/naming-convention': 'off'
+            }
         }
     ]
 };

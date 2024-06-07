@@ -7,7 +7,7 @@
     "lint-concurrent": "concurrently --timings --group \"npm:eslint\" \"npm:prettier\"",
     "format": "npm run eslint-fix && npm run prettier-fix",
     "eslint": "eslint .",
-    "eslint-fix": "eslint src --fix",
+    "eslint-fix": "eslint . --fix",
     "prettier": "prettier-eslint \"**/*.*\" --list-different --prettier-ignore",
     "prettier-fix": "prettier-eslint \"**/*.*\" --write --prettier-ignore",
     "pack": "npm pack",
