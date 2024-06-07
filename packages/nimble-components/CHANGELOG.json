@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Fri, 07 Jun 2024 15:10:38 GMT",
+      "version": "29.3.1",
+      "tag": "@ni/nimble-components_v29.3.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "f0dd13720cee919ca0540ed26a99d6cfccbdd67f",
+            "comment": "Revert previous change as this causes a regression in Angular apps."
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 07 Jun 2024 13:32:45 GMT",
       "version": "29.3.0",
       "tag": "@ni/nimble-components_v29.3.0",
