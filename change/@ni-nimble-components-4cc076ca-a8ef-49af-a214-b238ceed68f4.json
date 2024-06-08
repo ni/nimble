@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "Worker generation tweaks",
+  "packageName": "@ni/nimble-components",
+  "email": "rajsite@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
