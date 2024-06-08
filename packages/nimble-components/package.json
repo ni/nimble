@@ -1,6 +1,6 @@
 {
   "name": "@ni/nimble-components",
-  "version": "29.3.3",
+  "version": "29.3.4",
   "description": "Styled web components for the NI Nimble Design System",
   "scripts": {
     "build": "npm run generate-icons && npm run generate-workers && npm run build-components && npm run bundle-components && npm run generate-scss",
@@ -25,7 +25,7 @@
     "generate-workers": "npm run generate-workers:build && npm run generate-workers:bundle && npm run generate-workers:run",
     "generate-workers:build": "tsc -p build/generate-workers/tsconfig.json",
     "generate-workers:bundle": "rollup --bundleConfigAsCjs --config build/generate-workers/rollup.config.js",
-    "generate-workers:run": "node build/generate-workers/dist/esm/index.js",
+    "generate-workers:run": "node build/generate-workers/index.js",
     "tdd": "npm run build-components && npm run test-chrome",
     "tdd:watch": "npm run build-components:watch & npm run test-chrome:watch",
     "tdd-firefox": "npm run build-components && npm run test-firefox",
