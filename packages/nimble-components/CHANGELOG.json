@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Sat, 08 Jun 2024 22:12:12 GMT",
+      "version": "29.3.4",
+      "tag": "@ni/nimble-components_v29.3.4",
+      "comments": {
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "26f9a4ebb0ae298177ebc0de6056790f21ff565d",
+            "comment": "Change concurrent-lint behavior for components"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sat, 08 Jun 2024 17:53:59 GMT",
       "version": "29.3.4",
       "tag": "@ni/nimble-components_v29.3.4",
