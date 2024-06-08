@@ -19,7 +19,7 @@ const matrixRendererTypes = fs.readFileSync(matrixRendererTypesPath, 'utf-8');
 const workerCode = `export const workerCode = ${JSON.stringify(matrixRendererBundle)};`;
 
 const workerCodeOutPath = path.resolve(workersDirectory, 'worker-code.ts');
-const typesDTSOutPath = path.resolve(workersDirectory, 'types.ts');
+const typesTSOutPath = path.resolve(workersDirectory, 'types.ts');
 const matrixRendererTypesOutPath = path.resolve(
     workersDirectory,
     'matrix-renderer.ts'
@@ -27,7 +27,7 @@ const matrixRendererTypesOutPath = path.resolve(
 
 prepareDirectory(workersDirectory);
 writeFile(workerCodeOutPath, workerCode);
-writeFile(typesDTSOutPath, typesDTS);
+writeFile(typesDTSOutPath, typesTS);
 writeFile(matrixRendererTypesOutPath, matrixRendererTypes);
 
 function prepareDirectory(dirPath) {
