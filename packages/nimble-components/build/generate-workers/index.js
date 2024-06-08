@@ -27,7 +27,7 @@ const matrixRendererTypesOutPath = path.resolve(
 
 prepareDirectory(workersDirectory);
 writeFile(workerCodeOutPath, workerCode);
-writeFile(typesDTSOutPath, typesTS);
+writeFile(typesTSOutPath, typesDTS);
 writeFile(matrixRendererTypesOutPath, matrixRendererTypes);
 
 function prepareDirectory(dirPath) {
