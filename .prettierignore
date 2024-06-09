@@ -1,2 +1,4 @@
 *
 !packages/nimble-components/*
+!packages/spright-components/*
+!packages/storybook/*

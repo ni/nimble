@@ -2,7 +2,12 @@ import { html } from '@microsoft/fast-element';
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html';
 import { checkboxTag } from '../../../../nimble-components/src/checkbox';
-import { apiCategory, createUserSelectedThemeStory, disabledDescription, slottedLabelDescription } from '../../utilities/storybook';
+import {
+    apiCategory,
+    createUserSelectedThemeStory,
+    disabledDescription,
+    slottedLabelDescription
+} from '../../utilities/storybook';
 
 interface CheckboxArgs {
     label: string;
@@ -37,12 +42,14 @@ const metadata: Meta<CheckboxArgs> = {
             table: { category: apiCategory.slots }
         },
         checked: {
-            description: 'Whether the checkbox is initially checked. Setting this attribute after the checkbox initializes will not affect its visual state. Note that the `checked` property behaves differently than the `checked` attribute.',
+            description:
+                'Whether the checkbox is initially checked. Setting this attribute after the checkbox initializes will not affect its visual state. Note that the `checked` property behaves differently than the `checked` attribute.',
             table: { category: apiCategory.attributes }
         },
         checkedProperty: {
             name: 'checked',
-            description: 'Whether the checkbox is checked. Setting this property affects the checkbox visual state and interactively changing the checkbox state affects this property. Note that the `checked` property behaves differently than the `checked` attribute.',
+            description:
+                'Whether the checkbox is checked. Setting this property affects the checkbox visual state and interactively changing the checkbox state affects this property. Note that the `checked` property behaves differently than the `checked` attribute.',
             table: { category: apiCategory.nonAttributeProperties }
         },
         indeterminate: {
@@ -59,7 +66,8 @@ The \`indeterminate\` state is not automatically changed when the user interacti
             table: { category: apiCategory.attributes }
         },
         change: {
-            description: 'Event emitted when the user checks or unchecks the checkbox.',
+            description:
+                'Event emitted when the user checks or unchecks the checkbox.',
             table: { category: apiCategory.events },
             control: false
         }

@@ -1,6 +1,9 @@
 import { html, ref, when } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
-import { TextField, textFieldTag } from '../../../../nimble-components/src/text-field';
+import {
+    TextField,
+    textFieldTag
+} from '../../../../nimble-components/src/text-field';
 import { buttonTag } from '../../../../nimble-components/src/button';
 import { checkboxTag } from '../../../../nimble-components/src/checkbox';
 import {
@@ -13,9 +16,21 @@ import {
     dialogSmallMaxHeight,
     dialogSmallWidth
 } from '../../../../nimble-components/src/theme-provider/design-tokens';
-import { Dialog, dialogTag, UserDismissed } from '../../../../nimble-components/src/dialog';
-import { DialogSizeOptions, ExampleContentType, ExampleFooterContentType } from './types';
-import { apiCategory, createUserSelectedThemeStory, preventDismissDescription } from '../../utilities/storybook';
+import {
+    Dialog,
+    dialogTag,
+    UserDismissed
+} from '../../../../nimble-components/src/dialog';
+import {
+    DialogSizeOptions,
+    ExampleContentType,
+    ExampleFooterContentType
+} from './types';
+import {
+    apiCategory,
+    createUserSelectedThemeStory,
+    preventDismissDescription
+} from '../../utilities/storybook';
 import { loremIpsum } from '../../utilities/lorem-ipsum';
 
 interface DialogArgs {
@@ -57,7 +72,7 @@ const longContent = html`
 
 const content = {
     [ExampleContentType.shortContent]: shortContent,
-    [ExampleContentType.longContent]: longContent,
+    [ExampleContentType.longContent]: longContent
 } as const;
 
 const sizeDescription = `
@@ -138,7 +153,11 @@ const metadata: Meta<DialogArgs> = {
                     </${buttonTag}>
                 `,
         html<DialogArgs>`
-                    <span slot="footer">${x => (x.preventDismiss ? 'Refresh the page to close the dialog.' : 'Press Esc to close the dialog.')}</span>
+                    <span slot="footer"
+                        >${x => (x.preventDismiss
+        ? 'Refresh the page to close the dialog.'
+        : 'Press Esc to close the dialog.')}</span
+                    >
                 `
     )}
         </${dialogTag}>
@@ -175,7 +194,6 @@ const metadata: Meta<DialogArgs> = {
             description:
                 'Setting `header-hidden` hides the title and subtitle of the dialog and allows the main content of the dialog to fill the space that would otherwise be reserved for the header. A title (and optionally a subtitle) should still be provided when `header-hidden` is set to ensure the dialog has a label that can be used by assistive technologies.',
             table: { category: apiCategory.attributes }
-
         },
         footerHidden: {
             name: 'footer-hidden',
@@ -187,13 +205,13 @@ const metadata: Meta<DialogArgs> = {
             name: 'default',
             options: [
                 ExampleContentType.shortContent,
-                ExampleContentType.longContent,
+                ExampleContentType.longContent
             ],
             control: {
                 type: 'radio',
                 labels: {
                     [ExampleContentType.shortContent]: 'Short content',
-                    [ExampleContentType.longContent]: 'Long content',
+                    [ExampleContentType.longContent]: 'Long content'
                 }
             },
             description: 'The dialog content, which can be arbitrary HTML.',
@@ -202,16 +220,17 @@ const metadata: Meta<DialogArgs> = {
         footer: {
             options: [
                 ExampleFooterContentType.text,
-                ExampleFooterContentType.buttons,
+                ExampleFooterContentType.buttons
             ],
             control: {
                 type: 'radio',
                 labels: {
                     [ExampleFooterContentType.text]: 'Text',
-                    [ExampleFooterContentType.buttons]: 'Buttons',
+                    [ExampleFooterContentType.buttons]: 'Buttons'
                 }
             },
-            description: 'Content like buttons which appear at the bottom of the dialog.',
+            description:
+                'Content like buttons which appear at the bottom of the dialog.',
             table: { category: apiCategory.slots }
         },
         size: {

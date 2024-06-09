@@ -65,12 +65,11 @@ const metadata: Meta<RichTextViewerArgs> = {
         markdown: {
             description:
                 'Input markdown string for the supported text formatting options in a [CommonMark](https://commonmark.org/) flavor.',
-            table: { category: apiCategory.nonAttributeProperties },
+            table: { category: apiCategory.nonAttributeProperties }
         },
         data: {
             name: 'default',
-            description:
-                `Configure how mentions are detected and displayed by adding a \`${richTextMentionUsersTag}\` as content. See documentation of the \`pattern\` attribute of the mention configuration element and the \`key\` attribute of mapping element(s).`,
+            description: `Configure how mentions are detected and displayed by adding a \`${richTextMentionUsersTag}\` as content. See documentation of the \`pattern\` attribute of the mention configuration element and the \`key\` attribute of mapping element(s).`,
             options: Object.values(exampleDataType),
             control: {
                 type: 'radio',
@@ -80,25 +79,27 @@ const metadata: Meta<RichTextViewerArgs> = {
                         'HTTPS Pattern - https://user/(.*)'
                 }
             },
-            table: { category: apiCategory.slots },
+            table: { category: apiCategory.slots }
         },
         validity: {
             description: validityDescription,
             control: false,
-            table: { category: apiCategory.nonAttributeProperties },
+            table: { category: apiCategory.nonAttributeProperties }
         },
         checkValidity: {
             name: 'checkValidity()',
-            description: checkValidityDescription({ componentName: 'rich text viewer' }),
+            description: checkValidityDescription({
+                componentName: 'rich text viewer'
+            }),
             control: false,
-            table: { category: apiCategory.methods },
+            table: { category: apiCategory.methods }
         },
         getMentionedHrefs: {
             name: 'getMentionedHrefs()',
             description:
                 'Returns an array of strings listing the hrefs of current mentions in the rich text components.',
             control: false,
-            table: { category: apiCategory.methods },
+            table: { category: apiCategory.methods }
         }
     },
     args: {

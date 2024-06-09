@@ -181,7 +181,7 @@ window.NimbleBlazor = window.NimbleBlazor ?? {
             await tableReference.setRecordHierarchyOptions(options);
         },
         getSelectedRecordIds: async function (tableReference) {
-            return tableReference.getSelectedRecordIds();
+            return await tableReference.getSelectedRecordIds();
         },
         setSelectedRecordIds: async function (tableReference, selectedRecordIds) {
             await tableReference.setSelectedRecordIds(selectedRecordIds);
