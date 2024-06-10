@@ -55,7 +55,10 @@ implements Subscriber {
     private readonly virtualizerNotifier: Notifier;
     private visibleRowNotifiers: Notifier[] = [];
     private get inNavigationMode(): boolean {
-        return this.focusType !== TableFocusType.cellActionMenu && this.focusType !== TableFocusType.cellContent;
+        return (
+            this.focusType !== TableFocusType.cellActionMenu
+            && this.focusType !== TableFocusType.cellContent
+        );
     }
 
     public constructor(
@@ -945,7 +948,10 @@ implements Subscriber {
     private isRowExpanded(
         row: TableRow | TableGroupRow | undefined
     ): boolean | undefined {
-        if ((row instanceof TableRow && row.isParentRow) || row instanceof TableGroupRow) {
+        if (
+            (row instanceof TableRow && row.isParentRow)
+            || row instanceof TableGroupRow
+        ) {
             return row.expanded;
         }
         return undefined;
@@ -1028,7 +1034,9 @@ implements Subscriber {
         return activeElement as HTMLElement;
     }
 
-    private focusFirstInteractiveElementInCurrentCell(rowElements?: TableRowFocusableElements): boolean {
+    private focusFirstInteractiveElementInCurrentCell(
+        rowElements?: TableRowFocusableElements
+    ): boolean {
         if (!rowElements) {
             return false;
         }
@@ -1061,7 +1069,9 @@ implements Subscriber {
         }
     }
 
-    private trySetRowSelectionCheckboxFocus(rowElements: TableRowFocusableElements | undefined): boolean {
+    private trySetRowSelectionCheckboxFocus(
+        rowElements: TableRowFocusableElements | undefined
+    ): boolean {
         if (rowElements?.selectionCheckbox) {
             this.focusType = TableFocusType.rowSelectionCheckbox;
             this.focusCurrentRow(true);

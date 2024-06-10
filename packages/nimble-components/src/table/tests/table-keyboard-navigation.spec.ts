@@ -516,7 +516,9 @@ describe('Table keyboard navigation', () => {
 
                 await sendKeyPressToTable(keyEnter);
 
-                expect(currentFocusedElement()).toBe(pageObject.getCellActionMenu(0, 0));
+                expect(currentFocusedElement()).toBe(
+                    pageObject.getCellActionMenu(0, 0)
+                );
             });
 
             const refocusCellKeys = [keyEscape, keyFunction2];
@@ -531,7 +533,9 @@ describe('Table keyboard navigation', () => {
 
                     await sendKeyPressToTable(key);
 
-                    expect(currentFocusedElement()).toBe(pageObject.getCell(0, 0));
+                    expect(currentFocusedElement()).toBe(
+                        pageObject.getCell(0, 0)
+                    );
                 });
             });
 
@@ -543,21 +547,27 @@ describe('Table keyboard navigation', () => {
                 it('adding an action menu to a column', async () => {
                     await addActionMenu(column1);
 
-                    expect(currentFocusedElement()).toBe(pageObject.getHeaderElement(0));
+                    expect(currentFocusedElement()).toBe(
+                        pageObject.getHeaderElement(0)
+                    );
                 });
 
                 it('hiding a column', async () => {
                     column1.columnHidden = true;
                     await waitForUpdatesAsync();
 
-                    expect(currentFocusedElement()).toBe(pageObject.getHeaderElement(0));
+                    expect(currentFocusedElement()).toBe(
+                        pageObject.getHeaderElement(0)
+                    );
                 });
 
                 it('changing selection mode', async () => {
                     element.selectionMode = TableRowSelectionMode.single;
                     await waitForUpdatesAsync();
 
-                    expect(currentFocusedElement()).toBe(pageObject.getHeaderElement(0));
+                    expect(currentFocusedElement()).toBe(
+                        pageObject.getHeaderElement(0)
+                    );
                 });
             });
         });

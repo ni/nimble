@@ -150,9 +150,7 @@ export class TableUpdateTracker<
             )
         ) {
             this.track('columnWidths');
-        } else if (
-            isColumnProperty(changedColumnProperty, 'columnHidden')
-        ) {
+        } else if (isColumnProperty(changedColumnProperty, 'columnHidden')) {
             this.track('columnWidths');
             this.track('columnHidden');
         } else if (isColumnProperty(changedColumnProperty, 'actionMenuSlot')) {
