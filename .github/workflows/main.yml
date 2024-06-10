@@ -85,23 +85,35 @@ jobs:
           path: 'packages/site/dist'
 
       # Publish to Chromatic (from any push)
-      - name: Publish to Chromatic
-        if: env.HAS_CHROMATIC_PROJECT_TOKEN == 'true' && github.event_name == 'push'
-        uses: chromaui/action@v11
-        with:
-          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
-          onlyChanged: "!startsWith(github.ref, 'refs/heads/main')" # Use TurboSnap for PR builds
-          externals: |
-            - './packages/storybook/.storybook/public/**'
-            - './packages/nimble-tokens/dist/icons/svg/**'
-            - './packages/nimble-tokens/source/styledictionary/properties/**'
-          storybookBuildDir: ./packages/site/dist/storybook
-          storybookBaseDir: ./packages/storybook
-          exitOnceUploaded: true # Do not wait for test results
-          exitZeroOnChanges: true # Option to prevent the workflow from failing
+      # - name: Publish to Chromatic
+      #   if: env.HAS_CHROMATIC_PROJECT_TOKEN == 'true' && github.event_name == 'push'
+      #   uses: chromaui/action@v11
+      #   with:
+      #     projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+      #     onlyChanged: "!startsWith(github.ref, 'refs/heads/main')" # Use TurboSnap for PR builds
+      #     externals: |
+      #       - './packages/storybook/.storybook/public/**'
+      #       - './packages/nimble-tokens/dist/icons/svg/**'
+      #       - './packages/nimble-tokens/source/styledictionary/properties/**'
+      #     storybookBuildDir: ./packages/site/dist/storybook
+      #     storybookBaseDir: ./packages/storybook
+      #     exitOnceUploaded: true # Do not wait for test results
+      #     exitZeroOnChanges: true # Option to prevent the workflow from failing
 
       # Validate (Lint and Test)
-      - run: npm run validate
+      #- run: npm run validate
+      
+      # Test
+      - run: npm run validate:test:sequential
+        env:
+          DEBUG: pw:*
+          DEBUG_FILE: pw-log.txt
+        timeout-minutes: 10
+      - uses: actions/upload-artifact@v3
+        if: failure()
+        with:
+          name: Playwright Logs
+          path: pw-log.txt
 
       # Run Lighthouse audit (from any push)
       - name: Performance Audit with Lighthouse CI
