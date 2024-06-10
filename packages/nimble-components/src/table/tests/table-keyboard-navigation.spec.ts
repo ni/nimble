@@ -528,17 +528,20 @@ describe('Table keyboard navigation', () => {
                 expect(currentFocusedElement()).toBe(pageObject.getCellActionMenu(0, 0));
             });
 
-            it("when a cell's action menu is focused, pressing Esc will focus the cell", async () => {
-                await addActionMenu(column1);
-                await sendKeyPressToTable(keyArrowDown);
-                await sendKeyPressToTable(keyTab);
-                expect(currentFocusedElement()).toBe(
-                    pageObject.getCellActionMenu(0, 0)
-                );
-
-                await sendKeyPressToTable(keyEscape);
-
-                expect(currentFocusedElement()).toBe(pageObject.getCell(0, 0));
+            const refocusCellKeys = [keyEscape, keyFunction2];
+            refocusCellKeys.forEach(key => {
+                it(`when a cell's action menu is focused, pressing ${key} will focus the cell`, async () => {
+                    await addActionMenu(column1);
+                    await sendKeyPressToTable(keyArrowDown);
+                    await sendKeyPressToTable(keyTab);
+                    expect(currentFocusedElement()).toBe(
+                        pageObject.getCellActionMenu(0, 0)
+                    );
+    
+                    await sendKeyPressToTable(key);
+    
+                    expect(currentFocusedElement()).toBe(pageObject.getCell(0, 0));
+                });
             });
 
             describe('table focus state is reset back to default on certain table configuration changes:', () => {
@@ -932,12 +935,15 @@ describe('Table keyboard navigation', () => {
             });
         });
 
-        it('when the anchor (focusable content) in the cell is focused, pressing Esc will focus the cell', async () => {
-            await sendKeyPressToTable(keyEnter);
+        const refocusCellKeys = [keyEscape, keyFunction2];
+        refocusCellKeys.forEach(key => {
+            it(`when the anchor (focusable content) in the cell is focused, pressing ${key} will focus the cell`, async () => {
+                await sendKeyPressToTable(keyEnter);
 
-            await sendKeyPressToTable(keyEscape);
+                await sendKeyPressToTable(key);
 
-            expect(currentFocusedElement()).toBe(pageObject.getCell(0, 1));
+                expect(currentFocusedElement()).toBe(pageObject.getCell(0, 1));
+            });
         });
     });
 });

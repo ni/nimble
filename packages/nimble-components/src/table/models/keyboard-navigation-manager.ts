@@ -279,11 +279,7 @@ implements Subscriber {
 
     private readonly onKeyDown = (event: KeyboardEvent): void => {
         if (!this.inNavigationMode && !event.defaultPrevented) {
-            if (
-                event.key === keyEscape
-                && (this.focusType === TableFocusType.cellActionMenu
-                    || this.focusType === TableFocusType.cellContent)
-            ) {
+            if ((event.key === keyEscape || event.key === keyFunction2) && (this.focusType === TableFocusType.cellActionMenu || this.focusType === TableFocusType.cellContent)) {
                 const row = this.getCurrentRow();
                 if (row) {
                     this.trySetCellFocus(row.getFocusableElements());
