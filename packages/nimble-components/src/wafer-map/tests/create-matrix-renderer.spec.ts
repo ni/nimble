@@ -1,6 +1,6 @@
 import { transfer, type Remote } from 'comlink';
 import { createMatrixRenderer } from '../modules/create-matrix-renderer';
-import type { MatrixRenderer } from '../../../build/generate-workers/dist/esm/source/matrix-renderer';
+import type { MatrixRenderer } from '../workers/matrix-renderer';
 
 // OffscreenCanvas not supported in Playwright's Windows/Linux Webkit build: https://github.com/ni/nimble/issues/2169
 describe('MatrixRenderer worker #SkipWebkit', () => {
