@@ -152,7 +152,7 @@ const SafariBrowser = function (baseBrowserDecorator, args) {
   let testUrl;
 
   this._start = (url) => {
-    console.log('===================================================================SafariBrowser._start');
+    console.warn('===================================================================SafariBrowser._start');
     const flags = args.flags || [];
     const command = this._getCommand();
     testUrl = addTestBrowserInformation(url, "Safari");
@@ -182,7 +182,7 @@ const SafariBrowser = function (baseBrowserDecorator, args) {
   };
 
   this.on("kill", (done) => {
-    console.log('===================================================================Safari kill');
+    console.warn('===================================================================Safari kill');
     // Close opened tabs if open by osascript.
     if (
       process.platform == "darwin" &&
@@ -194,7 +194,7 @@ const SafariBrowser = function (baseBrowserDecorator, args) {
   });
 
   this.on("done", () => {
-    console.log('===================================================================Safari done');
+    console.warn('===================================================================Safari done');
     // Close opened tabs if open by osascript.
     if (
       process.platform == "darwin" &&
@@ -221,7 +221,7 @@ SafariBrowser.$inject = ["baseBrowserDecorator", "args"];
  * @param {*} args
  */
 const WebkitBrowser = function (baseBrowserDecorator, args) {
-  console.log('===================================================================WebkitBrowser');
+  console.warn('===================================================================WebkitBrowser');
   // Automatically switch to Safari, if osascript is used and not headless mode.
   if (
     (args && args.flags
@@ -231,7 +231,7 @@ const WebkitBrowser = function (baseBrowserDecorator, args) {
     !hasWebkitEnv() &&
     getWebkitExecutable().endsWith("osascript")
   ) {
-    console.log('===================================================================Webkit calling Safari');
+    console.warn('===================================================================Webkit calling Safari');
     SafariBrowser.call(this, baseBrowserDecorator, args);
     return;
   }
@@ -240,7 +240,7 @@ const WebkitBrowser = function (baseBrowserDecorator, args) {
   let testUrl;
 
   this._start = (url) => {
-    console.log('===================================================================WebkitBrowser._start');
+    console.warn('===================================================================WebkitBrowser._start');
     const command = this._getCommand();
 
     // Add used browser to test url.
@@ -258,7 +258,7 @@ const WebkitBrowser = function (baseBrowserDecorator, args) {
   };
 
   this.on("kill", (done) => {
-    console.log('===================================================================kill');
+    console.warn('===================================================================kill');
     // Clean up all remaining processes after 500ms delay on normal clients.
     //if (!isCI) {
       childProcessCleanup(this.id, done);
@@ -268,7 +268,7 @@ const WebkitBrowser = function (baseBrowserDecorator, args) {
   });
 
   this.on("done", () => {
-    console.log('===================================================================done');
+    console.warn('===================================================================done');
     // Clean up all remaining processes after 500ms delay on normal clients.
     //if (!isCI) {
       childProcessCleanup(this.id);
@@ -382,7 +382,7 @@ const childProcessCleanup = function (task_id, callback) {
   }
 
   // Find all related child process for playwright based on the task id.
-  console.log('Looking for Playwright child processes');
+  console.warn('Looking for Playwright child processes');
   const findChildProcesses = `ps | grep -i "playwright" | grep -i "id=${task_id}"`;
   child_process.exec(findChildProcesses, (error, stdout) => {
     // Ignore error from killed karma processes.
