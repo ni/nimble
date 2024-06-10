@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Fri, 07 Jun 2024 20:34:51 GMT and should not be manually modified.
+This log was last generated on Sat, 08 Jun 2024 17:53:59 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 29.3.4
+
+Sat, 08 Jun 2024 17:53:59 GMT
+
+### Patches
+
+- Worker generation tweaks ([ni/nimble@5a5891d](https://github.com/ni/nimble/commit/5a5891d245144ce82d5f39dd2c008ee3f1c5910e))
 
 ## 29.3.3
 
