@@ -32,6 +32,7 @@ interface SelectArgs {
     loadingVisible: boolean;
     value: string;
     change: undefined;
+    filterInput: undefined;
 }
 
 interface OptionArgs {
@@ -100,7 +101,7 @@ const optionSets = {
 } as const;
 
 const filterModeDescription = `
-Controls the filtering behavior of the select. The default of \`none\` results in a dropdown with no input for filtering. A non-'none' setting results in a search input placed at the top or the bottom of the dropdown when opened (depending on where the dropdown is shown relative to the component). The \`standard\` setting will perform a case-insensitive and diacritic-insensitive filtering of the available options anywhere within the text of each option. 
+Controls the filtering behavior of the select. The default of \`none\` results in a dropdown with no input for filtering. A non-'none' setting results in a search input placed at the top or the bottom of the dropdown when opened (depending on where the dropdown is shown relative to the component). The \`standard\` setting will perform a case-insensitive and diacritic-insensitive filtering of the available options anywhere within the text of each option. The \`manual\` setting will provide the search input in the dropdown, but performs no filtering of the options. This allows for custom filtering to be implemented by the consuming application.
 
 It is recommended that if the select has 15 or fewer options that you use the \`none\` setting for the \`filter-mode\`.
 `;
@@ -129,7 +130,7 @@ export const select: Meta<SelectArgs> = {
     decorators: [withActions<HtmlRenderer>],
     parameters: {
         actions: {
-            handles: ['change']
+            handles: ['change', 'filter-input']
         },
         toolbar: {
             zoom: { hidden: true }
@@ -244,6 +245,11 @@ export const select: Meta<SelectArgs> = {
         },
         change: {
             description: 'Emitted when the user changes the selected option.',
+            table: { category: apiCategory.events },
+            control: false
+        },
+        filterInput: {
+            description: 'Emitted when the user types in the filter input.',
             table: { category: apiCategory.events },
             control: false
         }

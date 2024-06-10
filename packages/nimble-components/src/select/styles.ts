@@ -156,19 +156,22 @@ export const styles = css`
         padding-left: ${mediumPadding};
         padding-right: ${mediumPadding};
         display: flex;
-        height: ${controlHeight};
-        align-items: center;
+        height: calc(${controlHeight} - ${smallPadding});
         flex: 1 0 auto;
     }
 
     .loading-container.above {
-        margin-top: 0px;
-        margin-bottom: calc(-1 * ${smallPadding});
+        align-items: end;
+        padding-bottom: ${smallPadding};
     }
 
     .loading-container.below {
-        margin-top: calc(-1 * ${smallPadding});
-        margin-bottom: 0px;
+        align-items: normal;
+        padding-top: ${smallPadding};
+    }
+
+    .loading-label {
+        color: ${placeholderFontColor};
     }
 
     .loading-spinner {

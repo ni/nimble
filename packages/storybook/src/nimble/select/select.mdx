@@ -52,6 +52,23 @@ the end of the prompt.
 
 <Canvas of={selectStories.placeholder} />
 
+### Dynamic Options
+
+There are scenarios that might require not all possible options to be available
+initially, such as when the set of all options is too large to be loaded at once. 
+In such cases, users are expected to provide filter text to narrow down the list 
+of options. The `Select` now offers the `filter-input` event to allow clients to
+listen for changes to the filter input. When accompanied with the `filterMode` set
+to `manual`, clients can perform their own filtering and provide the set of options
+to the `Select` dynamically.
+
+Typical steps for dynamic options are as follows:
+1. Set the `filterMode` to `manual` on the `Select`.
+1. Listen for the `filter-input` event on the `Select`.
+1. In the event handler, retrieve the filter text from the event and populate the DOM
+with the set of options that match the filter text by your own logic.
+    - It is important that one of the options in the DOM is the currently selected option.
+
 {/* ## Accessibility */}
 
 {/* ## Resources */}

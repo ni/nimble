@@ -163,7 +163,7 @@ SelectOptions
                             <span class="loading-label">
                                 ${x => loadingLabel.getValueFor(x)}
                             </span>
-                            <${spinnerTag} class="loading-spinner"></${spinnerTag}>
+                            <${spinnerTag} class="loading-spinner" appearance="accent"></${spinnerTag}>
                         </div>
                     `)}
                 </div>
