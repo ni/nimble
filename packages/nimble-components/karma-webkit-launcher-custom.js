@@ -152,6 +152,7 @@ const SafariBrowser = function (baseBrowserDecorator, args) {
   let testUrl;
 
   this._start = (url) => {
+    console.log('===================================================================SafariBrowser._start');
     const flags = args.flags || [];
     const command = this._getCommand();
     testUrl = addTestBrowserInformation(url, "Safari");
@@ -181,6 +182,7 @@ const SafariBrowser = function (baseBrowserDecorator, args) {
   };
 
   this.on("kill", (done) => {
+    console.log('===================================================================Safari kill');
     // Close opened tabs if open by osascript.
     if (
       process.platform == "darwin" &&
@@ -192,6 +194,7 @@ const SafariBrowser = function (baseBrowserDecorator, args) {
   });
 
   this.on("done", () => {
+    console.log('===================================================================Safari done');
     // Close opened tabs if open by osascript.
     if (
       process.platform == "darwin" &&
@@ -218,6 +221,7 @@ SafariBrowser.$inject = ["baseBrowserDecorator", "args"];
  * @param {*} args
  */
 const WebkitBrowser = function (baseBrowserDecorator, args) {
+  console.log('===================================================================WebkitBrowser');
   // Automatically switch to Safari, if osascript is used and not headless mode.
   if (
     (args && args.flags
@@ -227,6 +231,7 @@ const WebkitBrowser = function (baseBrowserDecorator, args) {
     !hasWebkitEnv() &&
     getWebkitExecutable().endsWith("osascript")
   ) {
+    console.log('===================================================================Webkit calling Safari');
     SafariBrowser.call(this, baseBrowserDecorator, args);
     return;
   }
@@ -235,6 +240,7 @@ const WebkitBrowser = function (baseBrowserDecorator, args) {
   let testUrl;
 
   this._start = (url) => {
+    console.log('===================================================================WebkitBrowser._start');
     const command = this._getCommand();
 
     // Add used browser to test url.
@@ -252,6 +258,7 @@ const WebkitBrowser = function (baseBrowserDecorator, args) {
   };
 
   this.on("kill", (done) => {
+    console.log('===================================================================kill');
     // Clean up all remaining processes after 500ms delay on normal clients.
     //if (!isCI) {
       childProcessCleanup(this.id, done);
@@ -261,6 +268,7 @@ const WebkitBrowser = function (baseBrowserDecorator, args) {
   });
 
   this.on("done", () => {
+    console.log('===================================================================done');
     // Clean up all remaining processes after 500ms delay on normal clients.
     //if (!isCI) {
       childProcessCleanup(this.id);
