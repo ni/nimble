@@ -169,7 +169,7 @@ export const styles = css`
 
     .error-icon {
         order: 1;
-        padding-right: ${smallPadding};
+        margin-right: ${smallPadding};
     }
 `.withBehaviors(
     appearanceBehavior(
