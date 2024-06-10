@@ -1,11 +1,17 @@
 # Visit and ignore all objects in the root. 
-# Then explicitly allow all TypeScript, JavaScript, Markdown, and JSON files in the root, and src folders.
+# Then explicitly allow specific file extensions to format.
 /*
-!*.[ts,js,md,json]
+!*.ts
+!*.js
+!*.md
+!*.json
 !src/
 
 /src/**/*.*
-!src/**/*.[ts,js,md,json]
+!src/**/*.ts
+!src/**/*.js
+!src/**/*.md
+!src/**/*.json
 
 # Explicitly exclude the below files and folders
 dist
