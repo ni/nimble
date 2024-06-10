@@ -552,7 +552,7 @@ export class Select
             return true;
         }
 
-        // this.open = false;
+        this.open = false;
         const focusTarget = e.relatedTarget as HTMLElement;
         if (this.isSameNode(focusTarget)) {
             this.focus();
