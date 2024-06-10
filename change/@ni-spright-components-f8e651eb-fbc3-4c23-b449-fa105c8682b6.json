@@ -1,7 +1,0 @@
-{
-  "type": "none",
-  "comment": "lint uppdates without source changes",
-  "packageName": "@ni/spright-components",
-  "email": "rajsite@users.noreply.github.com",
-  "dependentChangeType": "none"
-}

@@ -1,7 +1,0 @@
-{
-  "type": "none",
-  "comment": "lint updates without source changes",
-  "packageName": "@ni/nimble-components",
-  "email": "rajsite@users.noreply.github.com",
-  "dependentChangeType": "none"
-}
