@@ -89,7 +89,7 @@ export const styles = css`
             pointer-events: none;
             outline: 0px solid transparent;
             color: transparent;
-            background-clip: content-box;
+            background-clip: border-box;
             transition: outline ${smallDelay} ease-in-out;
         }
 
