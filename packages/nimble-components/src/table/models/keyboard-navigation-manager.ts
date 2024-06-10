@@ -311,10 +311,10 @@ implements Subscriber {
 
     private onEnterPressed(ctrlKey: boolean): boolean {
         let row: TableRow | TableGroupRow | undefined;
-        let rowElements!: TableRowFocusableElements;
+        let rowElements: TableRowFocusableElements | undefined;
         if (this.hasRowOrCellFocusType()) {
             row = this.getCurrentRow();
-            rowElements = row!.getFocusableElements();
+            rowElements = row?.getFocusableElements();
         }
         if (this.focusType === TableFocusType.row) {
             if (row instanceof TableGroupRow) {
@@ -324,8 +324,8 @@ implements Subscriber {
         }
         if (this.focusType === TableFocusType.cell) {
             if (ctrlKey) {
-                const cell = rowElements.cells[this.columnIndex]!;
-                if (cell.actionMenuButton && !cell.actionMenuButton.open) {
+                const cell = rowElements?.cells[this.columnIndex];
+                if (cell?.actionMenuButton && !cell.actionMenuButton.open) {
                     cell.actionMenuButton.toggleButton!.control.click();
                     return true;
                 }
@@ -338,7 +338,7 @@ implements Subscriber {
     private onF2Pressed(): boolean {
         if (this.focusType === TableFocusType.cell) {
             const row = this.getCurrentRow();
-            const rowElements = row!.getFocusableElements();
+            const rowElements = row?.getFocusableElements();
             return this.focusFirstInteractiveElementInCurrentCell(rowElements);
         }
         return false;
@@ -366,12 +366,12 @@ implements Subscriber {
     }
 
     private onLeftArrowPressed(): boolean {
-        let row!: TableRow | TableGroupRow;
-        let rowElements!: TableRowFocusableElements;
+        let row: TableRow | TableGroupRow | undefined;
+        let rowElements: TableRowFocusableElements | undefined;
         let headerElements!: TableHeaderFocusableElements;
         if (this.hasRowOrCellFocusType()) {
-            row = this.getCurrentRow()!;
-            rowElements = row.getFocusableElements();
+            row = this.getCurrentRow();
+            rowElements = row?.getFocusableElements();
         } else if (this.hasHeaderFocusType()) {
             headerElements = this.getTableHeaderFocusableElements();
         }
@@ -395,7 +395,7 @@ implements Subscriber {
                 );
             case TableFocusType.row:
                 if (this.isRowExpanded(row) === true) {
-                    this.toggleRowExpanded(row);
+                    this.toggleRowExpanded(row!);
                     return true;
                 }
                 return false;
@@ -419,12 +419,12 @@ implements Subscriber {
     }
 
     private onRightArrowPressed(): boolean {
-        let row!: TableRow | TableGroupRow;
-        let rowElements!: TableRowFocusableElements;
+        let row: TableRow | TableGroupRow | undefined;
+        let rowElements: TableRowFocusableElements | undefined;
         let headerElements!: TableHeaderFocusableElements;
         if (this.hasRowOrCellFocusType()) {
-            row = this.getCurrentRow()!;
-            rowElements = row.getFocusableElements();
+            row = this.getCurrentRow();
+            rowElements = row?.getFocusableElements();
         } else if (this.hasHeaderFocusType()) {
             headerElements = this.getTableHeaderFocusableElements();
         }
@@ -444,7 +444,7 @@ implements Subscriber {
                 );
             case TableFocusType.row:
                 if (this.isRowExpanded(row) === false) {
-                    this.toggleRowExpanded(row);
+                    this.toggleRowExpanded(row!);
                     return true;
                 }
                 return (
@@ -473,7 +473,7 @@ implements Subscriber {
     private onHomePressed(ctrlKey: boolean): boolean {
         if (this.handleHomeEndWithinRow(ctrlKey)) {
             const row = this.getCurrentRow();
-            const rowElements = row!.getFocusableElements();
+            const rowElements = row?.getFocusableElements();
             return (
                 this.trySetRowSelectionCheckboxFocus(rowElements)
                 || this.trySetCellFocus(rowElements, 0)
@@ -494,10 +494,10 @@ implements Subscriber {
     private onEndPressed(ctrlKey: boolean): boolean {
         if (this.handleHomeEndWithinRow(ctrlKey)) {
             const row = this.getCurrentRow();
-            const rowElements = row!.getFocusableElements();
+            const rowElements = row?.getFocusableElements();
             return this.trySetCellFocus(
                 rowElements,
-                rowElements.cells.length - 1
+                this.table.visibleColumns.length - 1
             );
         }
 
@@ -939,20 +939,13 @@ implements Subscriber {
     }
 
     private getCurrentRow(): TableRow | TableGroupRow | undefined {
-        const visibleRowIndex = this.getCurrentRowVisibleIndex();
-        if (visibleRowIndex >= 0) {
-            return this.table.rowElements[visibleRowIndex];
-        }
-        return undefined;
+        return this.table.rowElements[this.getCurrentRowVisibleIndex()];
     }
 
     private isRowExpanded(
         row: TableRow | TableGroupRow | undefined
     ): boolean | undefined {
-        if (row instanceof TableRow && row.isParentRow) {
-            return row.expanded;
-        }
-        if (row instanceof TableGroupRow) {
+        if ((row instanceof TableRow && row.isParentRow) || row instanceof TableGroupRow) {
             return row.expanded;
         }
         return undefined;
@@ -1035,9 +1028,10 @@ implements Subscriber {
         return activeElement as HTMLElement;
     }
 
-    private focusFirstInteractiveElementInCurrentCell(
-        rowElements: TableRowFocusableElements
-    ): boolean {
+    private focusFirstInteractiveElementInCurrentCell(rowElements?: TableRowFocusableElements): boolean {
+        if (!rowElements) {
+            return false;
+        }
         return (
             this.trySetCellContentFocus(rowElements, 0)
             || this.trySetCellActionMenuFocus(rowElements)
@@ -1067,10 +1061,8 @@ implements Subscriber {
         }
     }
 
-    private trySetRowSelectionCheckboxFocus(
-        rowElements: TableRowFocusableElements
-    ): boolean {
-        if (rowElements.selectionCheckbox) {
+    private trySetRowSelectionCheckboxFocus(rowElements: TableRowFocusableElements | undefined): boolean {
+        if (rowElements?.selectionCheckbox) {
             this.focusType = TableFocusType.rowSelectionCheckbox;
             this.focusCurrentRow(true);
             return true;
@@ -1111,10 +1103,13 @@ implements Subscriber {
     }
 
     private trySetCellFocus(
-        rowElements: TableRowFocusableElements,
+        rowElements: TableRowFocusableElements | undefined,
         columnIndex?: number,
         rowIndex?: number
     ): boolean {
+        if (!rowElements) {
+            return false;
+        }
         const newColumnIndex = columnIndex ?? this.columnIndex;
         const newRowIndex = rowIndex ?? this.rowIndex;
 
@@ -1128,11 +1123,14 @@ implements Subscriber {
     }
 
     private trySetCellContentFocus(
-        rowElements: TableRowFocusableElements,
+        rowElements: TableRowFocusableElements | undefined,
         cellContentIndex: number,
         columnIndex?: number,
         rowIndex?: number
     ): boolean {
+        if (!rowElements) {
+            return false;
+        }
         const newColumnIndex = columnIndex ?? this.columnIndex;
         const newRowIndex = rowIndex ?? this.rowIndex;
 
