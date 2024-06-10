@@ -114,17 +114,6 @@ describe('Table keyboard navigation', () => {
         await waitForUpdatesAsync();
     }
 
-    function isCellActionMenuVisible(
-        rowIndex: number,
-        columnIndex: number
-    ): boolean {
-        const cell = pageObject.getCell(rowIndex, columnIndex);
-        if (cell.actionMenuButton) {
-            return cell.actionMenuButton.getBoundingClientRect().width > 0;
-        }
-        throw new Error('Cell action menu button not found');
-    }
-
     async function verifyLastTabKeyEventBehavior(
         keyEvent: KeyboardEvent
     ): Promise<void> {
@@ -291,17 +280,18 @@ describe('Table keyboard navigation', () => {
                     TableColumnSortDirection.none
                 );
 
-                await sendKeyPress(firstHeader, keyEnter);
+                const focusedColumn = currentFocusedElement()!;
+                await sendKeyPress(focusedColumn, keyEnter);
                 expect(firstHeader.sortDirection).toBe(
                     TableColumnSortDirection.ascending
                 );
 
-                await sendKeyPress(firstHeader, keyEnter);
+                await sendKeyPress(focusedColumn, keyEnter);
                 expect(firstHeader.sortDirection).toBe(
                     TableColumnSortDirection.descending
                 );
 
-                await sendKeyPress(firstHeader, keyEnter);
+                await sendKeyPress(focusedColumn, keyEnter);
                 await waitForUpdatesAsync();
                 expect(
                     firstHeader.sortDirection
@@ -313,10 +303,11 @@ describe('Table keyboard navigation', () => {
             it('Shift-Enter key presses will sort the focused column (ascending, descending, no sort) and maintain other sorted columns', async () => {
                 const firstHeader = pageObject.getHeaderElement(0);
                 const secondHeader = pageObject.getHeaderElement(1);
-                await sendKeyPress(firstHeader, keyEnter);
+                await sendKeyPress(currentFocusedElement()!, keyEnter);
                 await sendKeyPressToTable(keyArrowRight);
 
-                await sendKeyPress(secondHeader, keyEnter, { shiftKey: true });
+                const focusedColumn = currentFocusedElement()!;
+                await sendKeyPress(focusedColumn, keyEnter, { shiftKey: true });
                 expect(firstHeader.sortDirection).toBe(
                     TableColumnSortDirection.ascending
                 );
@@ -324,7 +315,7 @@ describe('Table keyboard navigation', () => {
                     TableColumnSortDirection.ascending
                 );
 
-                await sendKeyPress(secondHeader, keyEnter, { shiftKey: true });
+                await sendKeyPress(focusedColumn, keyEnter, { shiftKey: true });
                 expect(firstHeader.sortDirection).toBe(
                     TableColumnSortDirection.ascending
                 );
@@ -332,7 +323,7 @@ describe('Table keyboard navigation', () => {
                     TableColumnSortDirection.descending
                 );
 
-                await sendKeyPress(secondHeader, keyEnter, { shiftKey: true });
+                await sendKeyPress(focusedColumn, keyEnter, { shiftKey: true });
                 expect(firstHeader.sortDirection).toBe(
                     TableColumnSortDirection.ascending
                 );
@@ -489,12 +480,12 @@ describe('Table keyboard navigation', () => {
                 await sendKeyPressToTable(keyArrowDown);
                 await sendKeyPressToTable(keyArrowLeft); // focus row
 
-                expect(isCellActionMenuVisible(0, 1)).toBe(true);
-                expect(isCellActionMenuVisible(0, 2)).toBe(true);
+                expect(pageObject.isCellActionMenuVisible(0, 1)).toBe(true);
+                expect(pageObject.isCellActionMenuVisible(0, 2)).toBe(true);
 
                 await sendKeyPressToTable(keyArrowRight); // focus cell 0, 0
-                expect(isCellActionMenuVisible(0, 1)).toBe(false);
-                expect(isCellActionMenuVisible(0, 2)).toBe(false);
+                expect(pageObject.isCellActionMenuVisible(0, 1)).toBe(false);
+                expect(pageObject.isCellActionMenuVisible(0, 2)).toBe(false);
             });
 
             it('when a cell is focused, its action menu is visible #SkipFirefox #SkipWebkit', async () => {
@@ -502,7 +493,7 @@ describe('Table keyboard navigation', () => {
 
                 await sendKeyPressToTable(keyArrowDown);
 
-                expect(isCellActionMenuVisible(0, 0)).toBe(true);
+                expect(pageObject.isCellActionMenuVisible(0, 0)).toBe(true);
             });
 
             it('when a cell with an action menu is focused, pressing Ctrl-Enter will open the action menu', async () => {
