@@ -22,6 +22,7 @@ const trackedItems = [
     'rowParentIds',
     'groupRows',
     'columnIds',
+    'columnHidden',
     'columnSort',
     'columnSortDisabled',
     'columnWidths',
@@ -102,6 +103,7 @@ export class TableUpdateTracker<
         return (
             this.isTracked('columnSortDisabled')
             || this.isTracked('columnDefinition')
+            || this.isTracked('columnHidden')
             || this.isTracked('selectionMode')
             || this.isTracked('actionMenuSlots')
         );
@@ -139,8 +141,7 @@ export class TableUpdateTracker<
         ) {
             this.track('columnSort');
         } else if (
-            isColumnProperty(changedColumnProperty, 'columnHidden')
-            || isColumnInternalsProperty(
+            isColumnInternalsProperty(
                 changedColumnProperty,
                 'currentFractionalWidth',
                 'currentPixelWidth',
@@ -149,6 +150,11 @@ export class TableUpdateTracker<
             )
         ) {
             this.track('columnWidths');
+        } else if (
+            isColumnProperty(changedColumnProperty, 'columnHidden')
+        ) {
+            this.track('columnWidths');
+            this.track('columnHidden');
         } else if (isColumnProperty(changedColumnProperty, 'actionMenuSlot')) {
             this.track('actionMenuSlots');
         } else if (

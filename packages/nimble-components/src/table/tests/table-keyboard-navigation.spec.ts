@@ -540,6 +540,32 @@ describe('Table keyboard navigation', () => {
 
                 expect(currentFocusedElement()).toBe(pageObject.getCell(0, 0));
             });
+
+            describe('table focus state is reset back to default on certain table configuration changes:', () => {
+                beforeEach(async () => {
+                    await sendKeyPressesToTable(keyArrowDown, keyArrowRight); // focus cell 0, 1
+                });
+
+                it('adding an action menu to a column', async () => {
+                    await addActionMenu(column1);
+    
+                    expect(currentFocusedElement()).toBe(pageObject.getHeaderElement(0));
+                });
+    
+                it('hiding a column', async () => {
+                    column1.columnHidden = true;
+                    await waitForUpdatesAsync();
+    
+                    expect(currentFocusedElement()).toBe(pageObject.getHeaderElement(0));
+                });
+    
+                it('changing selection mode', async () => {
+                    element.selectionMode = TableRowSelectionMode.single;
+                    await waitForUpdatesAsync();
+    
+                    expect(currentFocusedElement()).toBe(pageObject.getHeaderElement(0));
+                });
+            });
         });
 
         describe('for a large dataset (virtualized) table with cell[0, 0] focused,', () => {
