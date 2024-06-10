@@ -33,7 +33,6 @@ export const styles = css`
         position: relative;
         width: calc(${controlHeight} / 2);
         height: calc(${controlHeight} / 2);
-        box-sizing: border-box;
         flex-shrink: 0;
         border: ${borderWidth} solid ${borderColor};
         border-radius: 100%;

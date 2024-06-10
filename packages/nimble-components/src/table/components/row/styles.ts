@@ -27,7 +27,6 @@ export const styles = css`
         background-color: ${applicationBackgroundColor};
         height: calc(${controlHeight} + 2 * ${borderWidth});
         border-top: calc(2 * ${borderWidth}) solid transparent;
-        box-sizing: border-box;
         background-clip: padding-box;
     }
 
@@ -36,7 +35,6 @@ export const styles = css`
         width: 100%;
         height: ${controlHeight};
         pointer-events: none;
-        box-sizing: border-box;
         bottom: 0px;
         position: absolute;
     }

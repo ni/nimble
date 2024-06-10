@@ -99,7 +99,7 @@ const component = (
     [valueName, valueValue, placeholderValue]: ValueState
 ): ViewTemplate => html`
     <${textFieldTag}
-        style="width: 350px; padding: 8px;"
+        style="width: 350px; margin: 8px;"
         ?full-bleed="${() => fullBleed}"
         ?disabled="${() => disabled}"
         type="${() => type}"
