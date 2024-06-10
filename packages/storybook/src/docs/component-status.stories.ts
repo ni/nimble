@@ -317,7 +317,7 @@ const components = [
         componentName: 'Rich Text Editor',
         componentHref: './?path=/docs/incubating-rich-text-editor--docs',
         designHref:
-        'https://www.figma.com/design/Q5SU1OwrnD08keon3zObRX/SystemLink-orig?node-id=6280-94045&m=dev',
+            'https://www.figma.com/design/Q5SU1OwrnD08keon3zObRX/SystemLink-orig?node-id=6280-94045&m=dev',
         designLabel: 'Figma',
         issueHref: 'https://github.com/ni/nimble/issues/1288',
         issueLabel: 'Issue',
@@ -329,7 +329,7 @@ const components = [
         componentName: 'Rich Text Viewer',
         componentHref: './?path=/docs/incubating-rich-text-viewer--docs',
         designHref:
-        'https://www.figma.com/design/Q5SU1OwrnD08keon3zObRX/SystemLink-orig?node-id=6280-94045&m=dev',
+            'https://www.figma.com/design/Q5SU1OwrnD08keon3zObRX/SystemLink-orig?node-id=6280-94045&m=dev',
         designLabel: 'Figma',
         issueHref: 'https://github.com/ni/nimble/issues/1288',
         issueLabel: 'Issue',
