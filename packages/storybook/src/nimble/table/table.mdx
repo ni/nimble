@@ -104,8 +104,8 @@ The expected usage of the dynamically loaded hierarchy is as follows:
 Once the table is focused, it supports navigation via keyboard keys.
 
 -   If the table is focused via `Tab`/`Shift-Tab`: focus starts on the first
-    action button in the header row (if any); the first column header (if any
-    columns are sortable); or the first row of data.
+    action button in the header row (if any), the first column header (if any
+    columns are sortable), or the first row of data.
 -   If the table is focused via mouse-click on a row, keyboard navigation will
     start from that row once a navigation key is pressed afterwards.
 
@@ -141,11 +141,13 @@ Navigating the table:
 
 Interacting with cell contents:
 
--   `Enter` or `F2` will focus the first interactive element inside a cell, if
-    there is one (such as an anchor)
--   `Ctrl-Enter` will open the cell's action menu, if it has one.
--   When an action menu or element inside a cell has focus, pressing `Esc` will
-    return to row/cell navigation mode.
+- When a cell is focused:
+  - `Enter` or `F2` will focus the first interactive element inside a cell, if
+    there is one (such as an anchor).
+  - `Ctrl-Enter` will open the cell's action menu, if it has one.
+-   When an action menu or element inside a cell has focus:
+    - Arrow key presses will no longer navigate between rows/cells.
+    - Pressing `Esc` or `F2` will return to row/cell navigation mode.
 
 Row selection and grouping:
 
