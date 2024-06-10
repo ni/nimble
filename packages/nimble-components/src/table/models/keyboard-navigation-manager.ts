@@ -51,10 +51,12 @@ implements Subscriber {
     private rowIndex = -1;
     private cellContentIndex = -1;
     private columnIndex = -1;
-    private inNavigationMode = true;
     private readonly tableNotifier: Notifier;
     private readonly virtualizerNotifier: Notifier;
     private visibleRowNotifiers: Notifier[] = [];
+    private get inNavigationMode(): boolean {
+        return this.focusType !== TableFocusType.cellActionMenu && this.focusType !== TableFocusType.cellContent;
+    }
 
     public constructor(
         private readonly table: Table<TData>,
@@ -212,7 +214,6 @@ implements Subscriber {
             ) {
                 focusHeader = false;
             }
-            this.updateNavigationMode();
             if (focusHeader && !this.setFocusOnHeader()) {
                 // nothing to focus
                 this.table.blur();
@@ -528,7 +529,6 @@ implements Subscriber {
             this.columnIndex = nextFocusState.columnIndex ?? this.columnIndex;
             this.headerActionIndex = nextFocusState.headerActionIndex ?? this.headerActionIndex;
             this.cellContentIndex = nextFocusState.cellContentIndex ?? this.cellContentIndex;
-            this.updateNavigationMode();
             if (this.hasRowOrCellFocusType()) {
                 this.focusCurrentRow(false);
             } else {
@@ -1075,7 +1075,6 @@ implements Subscriber {
     ): boolean {
         if (rowElements.selectionCheckbox) {
             this.focusType = TableFocusType.rowSelectionCheckbox;
-            this.updateNavigationMode();
             this.focusCurrentRow(true);
             return true;
         }
@@ -1092,7 +1091,6 @@ implements Subscriber {
         ) {
             this.focusType = TableFocusType.columnHeader;
             this.columnIndex = columnIndex;
-            this.updateNavigationMode();
             this.focusHeaderElement();
             return true;
         }
@@ -1109,7 +1107,6 @@ implements Subscriber {
         ) {
             this.focusType = TableFocusType.headerActions;
             this.headerActionIndex = headerActionIndex;
-            this.updateNavigationMode();
             this.focusHeaderElement();
             return true;
         }
@@ -1207,7 +1204,6 @@ implements Subscriber {
         if (rowIndex !== undefined) {
             this.rowIndex = rowIndex;
         }
-        this.updateNavigationMode();
     }
 
     private setCellFocusState(
@@ -1226,14 +1222,8 @@ implements Subscriber {
     ): void {
         this.rowIndex = rowIndex;
         this.columnIndex = columnIndex;
-        this.updateNavigationMode();
         if (focusElement) {
             this.focusCurrentRow(true);
         }
-    }
-
-    private updateNavigationMode(): void {
-        this.inNavigationMode = this.focusType !== TableFocusType.cellActionMenu
-            && this.focusType !== TableFocusType.cellContent;
     }
 }
