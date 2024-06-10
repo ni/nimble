@@ -280,7 +280,7 @@ implements Subscriber {
 
     private readonly onKeyDown = (event: KeyboardEvent): void => {
         if (!this.inNavigationMode && !event.defaultPrevented) {
-            if ((event.key === keyEscape || event.key === keyFunction2) && (this.focusType === TableFocusType.cellActionMenu || this.focusType === TableFocusType.cellContent)) {
+            if (event.key === keyEscape || event.key === keyFunction2) {
                 const row = this.getCurrentRow();
                 if (row) {
                     this.trySetCellFocus(row.getFocusableElements());
@@ -488,9 +488,6 @@ implements Subscriber {
     }
 
     private onPageDownPressed(): boolean {
-        if (!this.inNavigationMode) {
-            return true;
-        }
         return this.onMoveDown(this.virtualizer.pageSize);
     }
 
