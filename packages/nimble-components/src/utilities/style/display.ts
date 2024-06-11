@@ -5,8 +5,10 @@ import {
 } from '@microsoft/fast-foundation';
 
 /**
- * This utility will generate the appropriate display style, as well as a style rule
- * to hide the host element when its `hidden` attribute is set.
+ * Each element should use the display utility which will create styles to:
+ * - Set the `:host` display property
+ * - Respond to the `hidden` attribute set on `:host`
+ * - Configure `box-sizing` for `:host`, all elements in shadow root, and `::before` / `::after` pseudoelements
  */
 export const display: typeof foundationDisplay = (
     displayValue: CSSDisplayPropertyValue
