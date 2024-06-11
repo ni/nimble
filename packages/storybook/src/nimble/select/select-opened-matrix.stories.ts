@@ -390,6 +390,33 @@ export const selectGroupedWithSlottedLabelDarkThemeBlackBackground: StoryFn = cr
     darkThemeBlackBackground
 );
 
+export const selectBelowOpenLoadingVisibleNoGroupsLightThemeWhiteBackground: StoryFn = createFixedThemeStory(
+    component({
+        positionState: positionStates[0],
+        filterMode: FilterMode.standard,
+        loadingVisible: true
+    }),
+    lightThemeWhiteBackground
+);
+
+export const selectBelowOpenLoadingVisibleNoGroupsDarkGreenBackground: StoryFn = createFixedThemeStory(
+    component({
+        positionState: positionStates[0],
+        filterMode: FilterMode.standard,
+        loadingVisible: true
+    }),
+    colorThemeDarkGreenBackground
+);
+
+export const selectBelowOpenLoadingVisibleNoGroupsDarkThemeBlackBackground: StoryFn = createFixedThemeStory(
+    component({
+        positionState: positionStates[0],
+        filterMode: FilterMode.standard,
+        loadingVisible: true
+    }),
+    darkThemeBlackBackground
+);
+
 export const selectAboveOpenLoadingVisibleNoGroupsLightThemeWhiteBackground: StoryFn = createFixedThemeStory(
     component({
         positionState: positionStates[1],
@@ -417,7 +444,7 @@ export const selectAboveOpenLoadingVisibleNoGroupsDarkThemeBlackBackground: Stor
     darkThemeBlackBackground
 );
 
-export const selectLoadingVisibleNoMatchesLightThemeWhiteBackground: StoryFn = createFixedThemeStory(
+export const selectBelowLoadingVisibleNoMatchesLightThemeWhiteBackground: StoryFn = createFixedThemeStory(
     component({
         positionState: positionStates[0],
         filterMode: FilterMode.standard,
@@ -426,4 +453,15 @@ export const selectLoadingVisibleNoMatchesLightThemeWhiteBackground: StoryFn = c
     lightThemeWhiteBackground
 );
 
-selectLoadingVisibleNoMatchesLightThemeWhiteBackground.play = noMatchesFilterPlayFunction;
+selectBelowLoadingVisibleNoMatchesLightThemeWhiteBackground.play = noMatchesFilterPlayFunction;
+
+export const selectAboveLoadingVisibleNoMatchesLightThemeWhiteBackground: StoryFn = createFixedThemeStory(
+    component({
+        positionState: positionStates[1],
+        filterMode: FilterMode.standard,
+        loadingVisible: true
+    }),
+    lightThemeWhiteBackground
+);
+
+selectAboveLoadingVisibleNoMatchesLightThemeWhiteBackground.play = noMatchesFilterPlayFunction;

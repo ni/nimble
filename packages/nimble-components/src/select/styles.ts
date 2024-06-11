@@ -170,6 +170,11 @@ export const styles = css`
         padding-top: ${smallPadding};
     }
 
+    .loading-container.empty {
+        padding: ${smallPadding} ${mediumPadding};
+        align-items: center;
+    }
+
     .loading-label {
         color: ${placeholderFontColor};
     }
