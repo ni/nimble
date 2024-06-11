@@ -47,6 +47,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Apache.Arrow" Version="16.1.0" />
     <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.31" />
     <PackageReference Include="NI.CSharp.Analyzers" Version="[2.0.21]" PrivateAssets="all" />
   </ItemGroup>
@@ -58,7 +59,7 @@
   <ItemGroup>
     <None Include="package.json" />
     <None Include="packages.lock.json" />
-    <None Include="README.md" Pack="true" PackagePath="\"/>
+    <None Include="README.md" Pack="true" PackagePath="\" />
   </ItemGroup>
 
   <Target Name="CopyNimbleResources" BeforeTargets="BeforeBuild">

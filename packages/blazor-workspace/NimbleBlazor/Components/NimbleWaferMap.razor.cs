@@ -1,4 +1,6 @@
 ﻿using System.Text.Json;
+using Apache.Arrow;
+using Apache.Arrow.Ipc;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 
@@ -12,12 +14,15 @@ public partial class NimbleWaferMap : ComponentBase
     private ElementReference _waferMap;
     private bool _diesUpdated;
     private IEnumerable<WaferMapDie>? _dies;
+    private bool _diesTableUpdated;
+    private RecordBatch? _diesTable;
     private bool _colorScaleUpdated;
     private WaferMapColorScale? _colorScale;
     private bool _highlightedTagsUpdated;
     private IEnumerable<string>? _highlightedTags;
     internal static string GetWaferMapValidityMethodName = "NimbleBlazor.WaferMap.getValidity";
     internal static string SetWaferMapDiesMethodName = "NimbleBlazor.WaferMap.setDies";
+    internal static string SetWaferMapDiesTableMethodName = "NimbleBlazor.WaferMap.setDiesTable";
     internal static string SetWaferMapColorScaleMethodName = "NimbleBlazor.WaferMap.setColorScale";
     internal static string SetWaferMapHighlightedTagsMethodName = "NimbleBlazor.WaferMap.setHighlightedTags";
 
@@ -119,6 +124,23 @@ public partial class NimbleWaferMap : ComponentBase
     }
 
     /// <summary>
+    /// Represents the input data, an apache arrow Table, which fills the wafer map with content
+    /// </summary>
+    [Parameter]
+    public RecordBatch? DiesTable
+    {
+        get
+        {
+            return _diesTable;
+        }
+        set
+        {
+            _diesTable = value;
+            _diesTableUpdated = true;
+        }
+    }
+
+    /// <summary>
     /// Represents the color spectrum which shows the status of the dies on the wafer.
     /// </summary>
     [Parameter]
@@ -151,6 +173,21 @@ public partial class NimbleWaferMap : ComponentBase
     }
 
     /// <summary>
+    /// Will be triggered to inform the user that the rendering finished.
+    /// </summary>
+    [Parameter]
+    public EventCallback<EventArgs> RenderFinished { get; set; }
+
+    /// <summary>
+    /// Called when the 'render-finished' event is fired on the web component.
+    /// </summary>
+    /// <param name="eventArgs">The configuration of the columns</param>
+    protected async void HandleRenderFinished(EventArgs eventArgs)
+    {
+        await RenderFinished.InvokeAsync(eventArgs);
+    }
+
+    /// <summary>
     /// Returns an object of boolean values that represents the validity states that the wafer map's configuration can be in.
     /// </summary>
     public async Task<IWaferMapValidity> GetValidityAsync()
@@ -169,10 +206,19 @@ public partial class NimbleWaferMap : ComponentBase
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         var options = new JsonSerializerOptions { MaxDepth = 3 };
-        if (_diesUpdated)
+        if (_diesTableUpdated && _diesTable != null)
+        {
+            var stream = new MemoryStream();
+            var writer = new ArrowStreamWriter(stream, _diesTable.Schema);
+            await writer.WriteRecordBatchAsync(_diesTable);
+            await writer.WriteEndAsync();
+            await JSRuntime!.InvokeVoidAsync(SetWaferMapDiesTableMethodName, _waferMap, stream.ToArray());
+        }
+        else if (_diesUpdated)
         {
             await JSRuntime!.InvokeVoidAsync(SetWaferMapDiesMethodName, _waferMap, JsonSerializer.Serialize(_dies, options));
         }
+        _diesTableUpdated = false;
         _diesUpdated = false;
         if (_colorScaleUpdated)
         {

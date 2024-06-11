@@ -5,7 +5,7 @@ import {
 } from '@microsoft/fast-element';
 import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
 import { zoomIdentity, ZoomTransform } from 'd3-zoom';
-import type { Table } from 'apache-arrow';
+import { type Table, tableFromIPC } from 'apache-arrow';
 import { template } from './template';
 import { styles } from './styles';
 import { DataManager } from './modules/data-manager';
@@ -169,6 +169,11 @@ export class WaferMap<
     @observable public dies: WaferMapDie[] = [];
     @observable public diesTable: Table<T> | undefined;
 
+    /**
+     * @internal
+     */
+    @observable public diesTableIPC: Uint8Array | undefined;
+
     @observable public colorScale: WaferMapColorScale = {
         colors: [],
         values: []
@@ -232,6 +237,7 @@ export class WaferMap<
                 await this.workerRenderer.setupWafer(snapshot);
             }
             await this.workerRenderer.drawWafer(snapshot);
+            this.$emit('render-finished');
         }
         this.workerRenderer.renderHover();
     }
@@ -420,6 +426,12 @@ export class WaferMap<
     }
 
     private diesTableChanged(): void {
+        this.waferMapUpdateTracker.track('dies');
+        this.waferMapUpdateTracker.queueUpdate();
+    }
+
+    private diesTableIPCChanged(): void {
+        this.diesTable = tableFromIPC(this.diesTableIPC);
         this.waferMapUpdateTracker.track('dies');
         this.waferMapUpdateTracker.queueUpdate();
     }

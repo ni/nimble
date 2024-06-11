@@ -6,24 +6,20 @@ namespace NimbleBlazor.Tests.Acceptance;
 
 public class WaferMapTests : NimbleAcceptanceTestsBase
 {
-    private const int RenderingTimeout = 200;
     public WaferMapTests(PlaywrightFixture playwrightFixture, NimbleBlazorWebHostServerFixture blazorServerClassFixture)
         : base(playwrightFixture, blazorServerClassFixture)
     { }
 
     [Fact]
-    public async Task WaferMap_WithDiesAndColorScale_RendersColorsAsync()
+    public async Task WaferMap_WithDiesAndColorScale_TriggersRenderFinishedEventAsync()
     {
         await using var pageWrapper = await NewPageForRouteAsync("WaferMapRenderTest");
         var page = pageWrapper.Page;
-        var canvas = page.Locator(".main-wafer");
+        var canvas = page.Locator(".worker-wafer");
+        var renderTextField = page.Locator(".render-text-field");
 
         await Assertions.Expect(canvas).ToBeVisibleAsync();
-        await Task.Delay(RenderingTimeout);
-        var color = await page.EvaluateAsync<string>(
-            @"document.getElementsByTagName('nimble-wafer-map')[0].canvas.getContext('2d').getImageData(249, 249, 1, 1).data.toString()");
-
-        Assert.Equal(@"85,85,0,255", color);
+        await Assertions.Expect(renderTextField).ToHaveAttributeAsync("current-value", "render-finished");
     }
 
     [Fact]
@@ -31,12 +27,13 @@ public class WaferMapTests : NimbleAcceptanceTestsBase
     {
         await using var pageWrapper = await NewPageForRouteAsync("WaferMapRenderTest");
         var page = pageWrapper.Page;
-        var canvas = page.Locator(".main-wafer");
+        var canvas = page.Locator(".worker-wafer");
         var validButton = page.Locator("nimble-button");
-        var textField = page.Locator("nimble-text-field");
+        var renderTextField = page.Locator(".render-text-field");
+        var textField = page.Locator(".test-text-field");
 
         await Assertions.Expect(canvas).ToBeVisibleAsync();
-        await Task.Delay(RenderingTimeout);
+        await Assertions.Expect(renderTextField).ToHaveAttributeAsync("current-value", "render-finished");
         await validButton.ClickAsync();
 
         await Assertions.Expect(textField).ToHaveAttributeAsync("current-value", "False");
@@ -47,11 +44,12 @@ public class WaferMapTests : NimbleAcceptanceTestsBase
     {
         await using var pageWrapper = await NewPageForRouteAsync("WaferMapRenderTest");
         var page = pageWrapper.Page;
-        var canvas = page.Locator(".main-wafer");
-        var textField = page.Locator("nimble-text-field");
+        var canvas = page.Locator(".worker-wafer");
+        var renderTextField = page.Locator(".render-text-field");
+        var textField = page.Locator(".test-text-field");
 
         await Assertions.Expect(canvas).ToBeVisibleAsync();
-        await Task.Delay(RenderingTimeout);
+        await Assertions.Expect(renderTextField).ToHaveAttributeAsync("current-value", "render-finished");
         await canvas.HoverAsync();
 
         await Assertions.Expect(textField).ToHaveAttributeAsync("current-value", "4");

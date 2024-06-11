@@ -1,6 +1,8 @@
 ﻿@page "/WaferMapRenderTest"
 @namespace NimbleBlazor.Tests.Acceptance.Pages
 @using System.Diagnostics.CodeAnalysis;
+@using Apache.Arrow;
+@using Apache.Arrow.Types;
 @inherits LayoutComponentBase
 
 <NimbleWaferMap @ref="_waferMap"
@@ -14,17 +16,20 @@
                 GridMinX="0"
                 GridMinY="0"
                 HoverDieChanged="@ShowCurrentDie"
-                @bind-Dies="Dies"
+                RenderFinished="@SignalRenderFinnished"
+                @bind-DiesTable="DiesTable"
                 @bind-ColorScale="ColorScale"
                 @bind-HighlightedTags="HighlightedTags">
 </NimbleWaferMap>
 <NimbleButton @onclick="GetValidityAsync">Get Validity Async</NimbleButton>
-<NimbleTextField @bind-Value="TextFieldText"></NimbleTextField>
+<NimbleTextField class="test-text-field" @bind-Value="TextFieldText"></NimbleTextField>
+<NimbleTextField class="render-text-field" @bind-Value="RenderTextField"></NimbleTextField>
 @code {
     public NimbleWaferMap? _waferMap;
     private string? TextFieldText { get; set; }
+    private string? RenderTextField { get; set; }
     [NotNull]
-    public IEnumerable<WaferMapDie> Dies { get; set; } = Enumerable.Empty<WaferMapDie>();
+    public RecordBatch? DiesTable { get; set; }
     [NotNull]
     public IEnumerable<string> HighlightedTags { get; set; } = Enumerable.Empty<string>();
     [NotNull]
@@ -32,14 +37,15 @@
 
     public WaferMapRenderTest()
     {
-        UpdateDies(5);
+        UpdateDiesTable(5);
     }
 
-    public void UpdateDies(int numDies)
+    public void UpdateDiesTable(int numberOfDies)
     {
-
-        var dies = new List<WaferMapDie>();
-        int radius = (int)Math.Ceiling(Math.Sqrt(numDies / Math.PI));
+        var colIndexes = new Int32Array.Builder();
+        var rowIndexes = new Int32Array.Builder();
+        var values = new DoubleArray.Builder();
+        int radius = (int)Math.Ceiling(Math.Sqrt(numberOfDies / Math.PI));
         var centerX = radius;
         var centerY = radius;
 
@@ -53,7 +59,9 @@
                 j--)
             {
                 var value = (i + j) % 100;
-                dies.Add(new WaferMapDie(i, j, value.ToString()));
+                colIndexes.Append(i);
+                rowIndexes.Append(j);
+                values.Append(value);
             }
             // generate points right of centerX
             for (
@@ -63,10 +71,26 @@
                 j++)
             {
                 var value = (i + j) % 100;
-                dies.Add(new WaferMapDie(i, j, value.ToString()));
+                colIndexes.Append(i);
+                rowIndexes.Append(j);
+                values.Append(value);
             }
         }
-        Dies = dies;
+        var colIndexField = new Field("colIndex", new Int32Type(), false);
+        var rowIndexField = new Field("rowIndex", new Int32Type(), false);
+        var valueField = new Field("value", new DoubleType(), false);
+        var schema = new Schema.Builder()
+            .Field(colIndexField)
+            .Field(rowIndexField)
+            .Field(valueField)
+            .Build();
+
+        DiesTable = new RecordBatch(schema, new List<IArrowArray> {
+            colIndexes.Build(),
+            rowIndexes.Build(),
+            values.Build()
+        },
+        colIndexes.Length);
     }
 
     public async Task GetValidityAsync()
@@ -91,7 +115,19 @@
 
         var currentDie = e.CurrentDie;
 
-        TextFieldText = currentDie?.Value;
+        TextFieldText = currentDie?.Index.ToString();
+
+    }
+
+
+    private void SignalRenderFinnished(EventArgs e)
+    {
+        if (_waferMap == null)
+        {
+            return;
+        }
+
+        RenderTextField = "render-finished";
 
     }
 }

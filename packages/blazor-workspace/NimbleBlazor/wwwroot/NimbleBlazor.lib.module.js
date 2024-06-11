@@ -138,6 +138,13 @@ export function afterStarted(Blazor) {
             };
         }
     });
+    // Used by NimbleWaferMap.razor
+    Blazor.registerCustomEventType('nimblewafermapdrenderfinished', {
+        browserEventName: 'render-finished',
+        createEventArgs: event => {
+            return event;
+        }
+    });
 }
 
 if (window.NimbleBlazor) {
@@ -209,6 +216,10 @@ window.NimbleBlazor = window.NimbleBlazor ?? {
             const diesObject = JSON.parse(data);
             waferMapReference.dies = diesObject;
         },
+        setDiesTable: async function (waferMapReference, data) {
+            waferMapReference.diesTableIPC = data;
+        },
+
         setColorScale: function (waferMapReference, data) {
             const colorScaleObject = JSON.parse(data);
             waferMapReference.colorScale = colorScaleObject;
