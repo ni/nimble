@@ -2,6 +2,51 @@
   "name": "@ni/nimble-tokens",
   "entries": [
     {
+      "date": "Fri, 07 Jun 2024 17:53:20 GMT",
+      "version": "6.15.0",
+      "tag": "@ni/nimble-tokens_v6.15.0",
+      "comments": {
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "992217c62385db7dcc228d23a74658c6f8f6b44c",
+            "comment": "Switch to all nimble private linting"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 06 Jun 2024 17:29:15 GMT",
+      "version": "6.15.0",
+      "tag": "@ni/nimble-tokens_v6.15.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "d375e092e3b2e627fba234136871d002aeb3c7b6",
+            "comment": "Add icons for AI, clean, expand, collapse, debug"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 04 Jun 2024 16:35:58 GMT",
+      "version": "6.14.0",
+      "tag": "@ni/nimble-tokens_v6.14.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "466a7b577ba7e8dc9f6e2adb5beb81b37d4bd9cd",
+            "comment": "Update button label font size from 12.8px to 14px to match current visual design in Figma"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 09 May 2024 18:40:41 GMT",
       "version": "6.13.6",
       "tag": "@ni/nimble-tokens_v6.13.6",

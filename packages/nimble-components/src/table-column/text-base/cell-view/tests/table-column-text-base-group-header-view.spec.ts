@@ -1,4 +1,3 @@
-// eslint-disable-next-line max-classes-per-file
 import { customElement, html, ref } from '@microsoft/fast-element';
 import { parameterizeSpec } from '@ni/jasmine-parameterized';
 import {

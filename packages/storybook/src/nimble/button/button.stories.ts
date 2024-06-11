@@ -4,7 +4,10 @@ import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html';
 import { iconArrowExpanderDownTag } from '../../../../nimble-components/src/icons/arrow-expander-down';
 import { iconKeyTag } from '../../../../nimble-components/src/icons/key';
 import { buttonTag } from '../../../../nimble-components/src/button';
-import { ButtonAppearance, ButtonAppearanceVariant } from '../../../../nimble-components/src/button/types';
+import {
+    ButtonAppearance,
+    ButtonAppearanceVariant
+} from '../../../../nimble-components/src/button/types';
 import {
     appearanceDescription,
     appearanceVariantDescription,
@@ -13,7 +16,11 @@ import {
     iconDescription,
     textContentDescription
 } from '../patterns/button/doc-strings';
-import { apiCategory, createUserSelectedThemeStory, disabledDescription } from '../../utilities/storybook';
+import {
+    apiCategory,
+    createUserSelectedThemeStory,
+    disabledDescription
+} from '../../utilities/storybook';
 
 interface ButtonArgs {
     label: string;

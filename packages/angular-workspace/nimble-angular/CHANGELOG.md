@@ -1,8 +1,104 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Tue, 28 May 2024 20:13:14 GMT and should not be manually modified.
+This log was last generated on Sat, 08 Jun 2024 17:53:59 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 24.4.5
+
+Sat, 08 Jun 2024 17:53:59 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v29.3.4
+
+## 24.4.4
+
+Fri, 07 Jun 2024 20:34:51 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v29.3.3
+
+## 24.4.3
+
+Fri, 07 Jun 2024 15:10:38 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v29.3.1
+
+## 24.4.2
+
+Thu, 06 Jun 2024 17:29:15 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v29.3.0
+
+## 24.4.1
+
+Thu, 06 Jun 2024 15:56:25 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v29.2.4
+
+## 24.4.0
+
+Thu, 06 Jun 2024 14:24:25 GMT
+
+### Minor changes
+
+- Angular integration for ListOptionGroup ([ni/nimble@bcc1362](https://github.com/ni/nimble/commit/bcc13620f5a4b2b466f2d15777803e5799d62992))
+
+## 24.3.9
+
+Wed, 05 Jun 2024 17:12:12 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v29.2.3
+
+## 24.3.8
+
+Tue, 04 Jun 2024 17:40:32 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v29.2.2
+
+## 24.3.7
+
+Tue, 04 Jun 2024 16:35:58 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v29.2.1
+
+## 24.3.6
+
+Tue, 04 Jun 2024 02:06:07 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v29.2.0
+
+## 24.3.5
+
+Mon, 03 Jun 2024 22:25:43 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v29.1.8
+
+## 24.3.4
+
+Fri, 31 May 2024 15:22:31 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v29.1.7
 
 ## 24.3.3
 

@@ -4,7 +4,12 @@ import { withActions } from '@storybook/addon-actions/decorator';
 import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html';
 import { radioTag } from '../../../../nimble-components/src/radio';
 import { radioGroupTag } from '../../../../nimble-components/src/radio-group';
-import { apiCategory, createUserSelectedThemeStory, disabledDescription, slottedLabelDescription } from '../../utilities/storybook';
+import {
+    apiCategory,
+    createUserSelectedThemeStory,
+    disabledDescription,
+    slottedLabelDescription
+} from '../../utilities/storybook';
 
 interface RadioGroupArgs {
     label: string;
@@ -24,7 +29,7 @@ interface RadioArgs {
 }
 
 const metadata: Meta<RadioGroupArgs> = {
-    title: 'Components/Radio Group',
+    title: 'Components/Radio Group'
 };
 
 export default metadata;
@@ -64,7 +69,8 @@ export const radioGroup: StoryObj<RadioGroupArgs> = {
             control: {
                 type: 'radio'
             },
-            description: 'The currently selected radio button. Each button should specify its unique value using its `value` attribute.',
+            description:
+                'The currently selected radio button. Each button should specify its unique value using its `value` attribute.',
             table: { category: apiCategory.attributes }
         },
         label: {
@@ -95,7 +101,8 @@ export const radioGroup: StoryObj<RadioGroupArgs> = {
             table: { category: apiCategory.slots }
         },
         change: {
-            description: 'Event emitted when the user selects a new value in the radio group.',
+            description:
+                'Event emitted when the user selects a new value in the radio group.',
             table: { category: apiCategory.events },
             control: false
         }
@@ -115,11 +122,14 @@ export const radio: StoryObj<RadioArgs> = {
     argTypes: {
         value: {
             control: false,
-            description: 'The value of the radio button. Used by the radio group `value` attribute to determine the selected radio button.',
+            description:
+                'The value of the radio button. Used by the radio group `value` attribute to determine the selected radio button.',
             table: { category: apiCategory.attributes }
         },
         label: {
-            description: slottedLabelDescription({ componentName: 'radio button' }),
+            description: slottedLabelDescription({
+                componentName: 'radio button'
+            }),
             table: { category: apiCategory.slots }
         },
         disabled: {
@@ -129,6 +139,6 @@ export const radio: StoryObj<RadioArgs> = {
         name: {
             description: nameDescription,
             table: { category: apiCategory.attributes }
-        },
+        }
     }
 };

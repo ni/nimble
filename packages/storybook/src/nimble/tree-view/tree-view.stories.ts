@@ -7,7 +7,13 @@ import { treeItemTag } from '../../../../nimble-components/src/tree-item';
 import { anchorTreeItemTag } from '../../../../nimble-components/src/anchor-tree-item';
 import { treeViewTag } from '../../../../nimble-components/src/tree-view';
 import { TreeViewSelectionMode } from '../../../../nimble-components/src/tree-view/types';
-import { apiCategory, createUserSelectedThemeStory, disabledDescription, iconDescription, textContentDescription } from '../../utilities/storybook';
+import {
+    apiCategory,
+    createUserSelectedThemeStory,
+    disabledDescription,
+    iconDescription,
+    textContentDescription
+} from '../../utilities/storybook';
 import { hrefDescription } from '../patterns/anchor/anchor-docs';
 
 interface TreeArgs {
@@ -58,7 +64,7 @@ export const treeItem: StoryObj<ItemArgs> = {
     parameters: {
         docs: {
             description: {
-                story: 'Use a `nimble-tree-item` if you want a tree item that calls a callback, has a value, and/or has child items. Use a `nimble-anchor-tree-item` instead if you want to navigate to a URL.'
+                story: `Use a \`${treeItemTag}\` if you want a tree item that calls a callback, has a value, and/or has child items. Use a \`${anchorTreeItemTag}\` instead if you want to navigate to a URL.`
             }
         }
     },
@@ -69,7 +75,8 @@ export const treeItem: StoryObj<ItemArgs> = {
             table: { category: apiCategory.slots }
         },
         value: {
-            description: 'A value for this tree item that can be used to identify the item when handling tree events.',
+            description:
+                'A value for this tree item that can be used to identify the item when handling tree events.',
             table: { category: apiCategory.attributes }
         },
         disabled: {
@@ -88,7 +95,7 @@ export const treeItem: StoryObj<ItemArgs> = {
         expanded: {
             description: 'Whether this item is expanded.',
             table: { category: apiCategory.attributes }
-        },
+        }
     },
     // prettier-ignore
     render: createUserSelectedThemeStory(html`
@@ -123,11 +130,16 @@ export const anchorTreeItem: StoryObj<AnchorItemArgs> = {
     argTypes: {
         label: {
             name: 'default',
-            description: textContentDescription({ componentName: 'anchor tree item' }),
+            description: textContentDescription({
+                componentName: 'anchor tree item'
+            }),
             table: { category: apiCategory.slots }
         },
         href: {
-            description: hrefDescription({ componentName: 'anchor tree item', includeDisable: false }),
+            description: hrefDescription({
+                componentName: 'anchor tree item',
+                includeDisable: false
+            }),
             table: { category: apiCategory.attributes }
         },
         disabled: {
@@ -143,7 +155,7 @@ export const anchorTreeItem: StoryObj<AnchorItemArgs> = {
             name: 'start',
             description: iconDescription,
             table: { category: apiCategory.slots }
-        },
+        }
     },
     // prettier-ignore
     render: createUserSelectedThemeStory(html`
@@ -171,12 +183,10 @@ export const multipleTreeItems: StoryObj<TreeArgs> = {
             control: { type: 'radio' },
             description: selectionModeDescription,
             table: { category: apiCategory.attributes }
-
         },
         options: {
             name: 'default',
-            description:
-                `One or more \`${treeItemTag}\` or \`${anchorTreeItemTag}\` elements which populate the tree. Nest items to establish tree hierarchy.`,
+            description: `One or more \`${treeItemTag}\` or \`${anchorTreeItemTag}\` elements which populate the tree. Nest items to establish tree hierarchy.`,
             table: { category: apiCategory.slots }
         },
         expandedChange: {
@@ -186,9 +196,10 @@ export const multipleTreeItems: StoryObj<TreeArgs> = {
         },
         selectedChange: {
             name: 'selected-change',
-            description: 'Event emitted when an item is selected or deselected.',
+            description:
+                'Event emitted when an item is selected or deselected.',
             table: { category: apiCategory.events }
-        },
+        }
     },
     // prettier-ignore
     render: createUserSelectedThemeStory(html`

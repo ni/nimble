@@ -1,4 +1,3 @@
-/* eslint-disable max-classes-per-file */
 import { parameterizeSpec } from '@ni/jasmine-parameterized';
 import { DefaultUnitFormat } from '../default-unit-format';
 import { ScaledUnit } from '../scaled-unit/scaled-unit';

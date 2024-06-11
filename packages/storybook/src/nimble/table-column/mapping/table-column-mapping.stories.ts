@@ -18,7 +18,11 @@ import {
     sharedTableArgs
 } from '../base/table-column-stories-utils';
 import { isChromatic } from '../../../utilities/isChromatic';
-import { apiCategory, checkValidityDescription, createUserSelectedThemeStory } from '../../../utilities/storybook';
+import {
+    apiCategory,
+    checkValidityDescription,
+    createUserSelectedThemeStory
+} from '../../../utilities/storybook';
 
 const simpleData = [
     {
@@ -134,18 +138,20 @@ export const mappingColumn: StoryObj<MappingColumnTableArgs> = {
             defaultValue: { summary: '"string"' },
             description:
                 'The data type of the key values used for this column. Must be one of `"string"`, `"number"`, or `"boolean"`. Defaults to `"string"` if unspecified.',
-            table: { category: apiCategory.attributes },
+            table: { category: apiCategory.attributes }
         },
         widthMode: {
             name: 'width-mode',
             options: Object.keys(TableColumnMappingWidthMode),
             control: { type: 'radio' },
             description: widthModeDescription,
-            table: { category: apiCategory.attributes },
+            table: { category: apiCategory.attributes }
         },
         checkValidity: {
             name: 'checkValidity()',
-            description: checkValidityDescription({ componentName: 'mapping column' }),
+            description: checkValidityDescription({
+                componentName: 'mapping column'
+            }),
             table: { category: apiCategory.methods },
             control: false
         },
@@ -156,7 +162,8 @@ export const mappingColumn: StoryObj<MappingColumnTableArgs> = {
         },
         content: {
             name: 'default',
-            description: 'One or more mapping elements which specify how to render each possible data value.',
+            description:
+                'One or more mapping elements which specify how to render each possible data value.',
             table: { category: apiCategory.slots },
             control: false
         }

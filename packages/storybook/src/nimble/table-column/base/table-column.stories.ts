@@ -21,7 +21,10 @@ import {
     sharedTableArgTypes,
     sharedTableArgs
 } from './table-column-stories-utils';
-import { apiCategory, createUserSelectedThemeStory } from '../../../utilities/storybook';
+import {
+    apiCategory,
+    createUserSelectedThemeStory
+} from '../../../utilities/storybook';
 
 const simpleData = [
     {
@@ -158,13 +161,15 @@ export const api: StoryObj<ApiTableArgs> = {
     argTypes: {
         content: {
             name: 'default',
-            description: 'Text or an icon added to the default slot of the column will be placed in the column header. See **Setting header content** for more information.',
+            description:
+                'Text or an icon added to the default slot of the column will be placed in the column header. See **Setting header content** for more information.',
             table: { category: apiCategory.slots },
             control: false
         },
         columnHidden: {
             name: 'column-hidden',
-            description: 'Whether the column is hidden from display. See **Hiding** for more information.',
+            description:
+                'Whether the column is hidden from display. See **Hiding** for more information.',
             table: { category: apiCategory.attributes },
             control: false
         },
@@ -177,52 +182,60 @@ export const api: StoryObj<ApiTableArgs> = {
         },
         actionMenuSlot: {
             name: 'action-menu-slot',
-            description: 'Configure this column to have an action menu by setting this attribute to the name of a slot in the table that contains the menu.',
+            description:
+                'Configure this column to have an action menu by setting this attribute to the name of a slot in the table that contains the menu.',
             table: { category: apiCategory.attributes },
             control: false
         },
         actionMenuLabel: {
             name: 'action-menu-label',
-            description: 'Configures the title and accessible label of the action menu button for this column.',
+            description:
+                'Configures the title and accessible label of the action menu button for this column.',
             table: { category: apiCategory.attributes },
             control: false
         },
         sortDirection: {
             name: 'sort-direction',
-            description: 'The direction to sort the data in the column. See **Sorting** for more information.',
+            description:
+                'The direction to sort the data in the column. See **Sorting** for more information.',
             table: { category: apiCategory.attributes },
             control: false
         },
         sortIndex: {
             name: 'sort-index',
-            description: 'Specifies the sort precedence of the column within the set of all sorted columns. See **Sorting** for more information.',
+            description:
+                'Specifies the sort precedence of the column within the set of all sorted columns. See **Sorting** for more information.',
             table: { category: apiCategory.attributes },
             control: false
         },
         groupIndex: {
             name: 'group-index',
-            description: 'Specifies the group precedence of the column within the set of all grouped columns. See **Grouping** for more information.',
+            description:
+                'Specifies the group precedence of the column within the set of all grouped columns. See **Grouping** for more information.',
             table: { category: apiCategory.attributes },
             control: false
         },
         groupingDisabled: {
             name: 'grouping-disabled',
-            description: 'Prevents the column from participating in grouping. See **Grouping** for more information.',
+            description:
+                'Prevents the column from participating in grouping. See **Grouping** for more information.',
             table: { category: apiCategory.attributes },
             control: false
         },
         fractionalWidth: {
             name: 'fractional-width',
-            description: 'Configures the proportion of the table width that this column should occupy initially. See **Column width** for more information.',
+            description:
+                'Configures the proportion of the table width that this column should occupy initially. See **Column width** for more information.',
             table: { category: apiCategory.attributes },
             control: false
         },
         minPixelWidth: {
             name: 'min-pixel-width',
-            description: 'Configures the minimum width that the column can be interactively resized to. See **Column width** for more information.',
+            description:
+                'Configures the minimum width that the column can be interactively resized to. See **Column width** for more information.',
             table: { category: apiCategory.attributes },
             control: false
-        },
+        }
     }
 };
 
@@ -409,7 +422,7 @@ export const columnHidden: StoryObj<ColumnHiddenTableArgs> = {
             name: 'column-hidden',
             description:
                 'Add the `column-hidden` attribute to hide a column from display.'
-        },
+        }
     },
     args: {
         columnHidden: false

@@ -2,9 +2,9 @@ import { html, repeat, when } from '@microsoft/fast-element';
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html';
 import { listOptionTag } from '../../../../nimble-components/src/list-option';
+import { listOptionGroupTag } from '../../../../nimble-components/src/list-option-group';
 import { selectTag } from '../../../../nimble-components/src/select';
 import { FilterMode } from '../../../../nimble-components/src/select/types';
-import { ExampleOptionsType } from '../../../../nimble-components/src/select/tests/types';
 import { DropdownAppearance } from '../../../../nimble-components/src/patterns/dropdown/types';
 
 import {
@@ -18,6 +18,7 @@ import {
     errorVisibleDescription,
     optionsDescription
 } from '../../utilities/storybook';
+import { ExampleOptionsType } from './types';
 
 interface SelectArgs {
     disabled: boolean;
@@ -27,15 +28,24 @@ interface SelectArgs {
     optionsType: ExampleOptionsType;
     appearance: string;
     filterMode: keyof typeof FilterMode;
-    placeholder: boolean;
     clearable: boolean;
+    value: string;
     change: undefined;
 }
 
 interface OptionArgs {
     label: string;
     value: string;
-    disabled: boolean;
+    selected?: boolean;
+    disabled?: boolean;
+    hidden?: boolean;
+}
+
+interface GroupedOptionArgs {
+    label: string;
+    content?: undefined;
+    hidden?: boolean;
+    options: OptionArgs[];
 }
 
 const simpleOptions: readonly OptionArgs[] = [
@@ -69,10 +79,23 @@ for (let i = 0; i < 100; i++) {
     });
 }
 
+const getGroupedOptions = (): GroupedOptionArgs[] => {
+    const groupedOptions: GroupedOptionArgs[] = [];
+    for (let i = 0; i < manyOptions.length / 3; i++) {
+        groupedOptions.push({
+            label: `Group ${i + 1}`,
+            options: manyOptions.slice(i * 3, (i + 1) * 3)
+        });
+    }
+
+    return groupedOptions;
+};
+
 const optionSets = {
     [ExampleOptionsType.simpleOptions]: simpleOptions,
     [ExampleOptionsType.wideOptions]: wideOptions,
-    [ExampleOptionsType.manyOptions]: manyOptions
+    [ExampleOptionsType.manyOptions]: manyOptions,
+    [ExampleOptionsType.groupedOptions]: getGroupedOptions()
 } as const;
 
 const filterModeDescription = `
@@ -80,18 +103,23 @@ Controls the filtering behavior of the select. The default of \`none\` results i
 
 It is recommended that if the select has 15 or fewer options that you use the \`none\` setting for the \`filter-mode\`.
 `;
-
-const placeholderDescription = `
-To display placeholder text within the select you must provide an option that has the \`disabled\`, \`selected\` and \`hidden\` attributes set. This option will not be available in the dropdown, and its contents will be used as the placeholder text. Note that giving the placeholder an initial \`selected\` state is only necessary to display the placeholder initially. If another option is selected initially the placeholder will be displayed upon clearing the current value.
-
-Any select without a default selected option should provide placeholder text. Placeholder text should always follow the pattern "Select [thing(s)]", for example "Select country". Use sentence casing and don't include punctuation at the end of the prompt.
-`;
-
 const clearableDescription = `
 When the \`clearable\` attribute is set, a clear button will be displayed in the select when a value is selected. Clicking the clear button will clear the selected value and display the placeholder text, if available, or will result in a blank display.
 `;
 
 const metadata: Meta<SelectArgs> = {
+    title: 'Components/Select',
+    decorators: [withActions<HtmlRenderer>],
+    parameters: {
+        actions: {
+            handles: ['change']
+        }
+    }
+};
+
+export default metadata;
+
+export const select: Meta<SelectArgs> = {
     title: 'Components/Select',
     decorators: [withActions<HtmlRenderer>],
     parameters: {
@@ -115,21 +143,27 @@ const metadata: Meta<SelectArgs> = {
             filter-mode="${x => (x.filterMode === 'none' ? undefined : x.filterMode)}"
             style="width: 250px;"
         >
-            ${when(x => x.placeholder, html`
-                <${listOptionTag}
-                    disabled
-                    selected
-                    hidden>
-                    Select an option
-                </${listOptionTag}?
+            ${when(x => x.optionsType === ExampleOptionsType.groupedOptions, html<SelectArgs>`
+                ${repeat(_ => getGroupedOptions(), html<GroupedOptionArgs>`
+                    <${listOptionGroupTag}
+                        label="${x => x.label}"
+                    >
+                        ${repeat(x => x.options, html<OptionArgs>`
+                            <${listOptionTag}
+                                value="${x => x.value}"
+                            >${x => x.label}</${listOptionTag}>
+                        `, { positioning: true })}
+                    </${listOptionGroupTag}>
+                `)}
             `)}
-            ${repeat(x => optionSets[x.optionsType], html<OptionArgs>`
-                <${listOptionTag}
-                    value="${x => x.value}"
-                    ?disabled="${x => x.disabled}"
-                >
-                    ${x => x.label}
-                </${listOptionTag}>
+            ${when(x => x.optionsType !== ExampleOptionsType.groupedOptions, html<SelectArgs>`
+                ${repeat(x => (optionSets[x.optionsType] as OptionArgs[]), html<OptionArgs>`
+                    <${listOptionTag}
+                        ?disabled="${x => x.disabled}"
+                    >
+                        ${x => x.label}
+                    </${listOptionTag}>
+                `)}
             `)}
         </${selectTag}>
     `),
@@ -138,7 +172,9 @@ const metadata: Meta<SelectArgs> = {
             name: 'position',
             options: ['above', 'below'],
             control: { type: 'select' },
-            description: dropdownPositionDescription({ componentName: 'select' }),
+            description: dropdownPositionDescription({
+                componentName: 'select'
+            }),
             table: { category: apiCategory.attributes }
         },
         appearance: {
@@ -168,26 +204,29 @@ const metadata: Meta<SelectArgs> = {
             description: errorVisibleDescription,
             table: { category: apiCategory.attributes }
         },
-        placeholder: {
-            name: 'placeholder',
-            description: placeholderDescription,
-            // TODO: move this to a list-option story or create a table category to indicate there isn't a single 'placeholder' attribute
-        },
         clearable: {
             name: 'clearable',
             description: clearableDescription,
             table: { category: apiCategory.attributes }
         },
+        value: {
+            name: 'value',
+            description:
+                'The current value of the select. Selecting a new option will update this value.',
+            table: { category: apiCategory.nonAttributeProperties },
+            control: false
+        },
         optionsType: {
             name: 'default',
-            description: optionsDescription,
+            description: optionsDescription({ includeGrouping: true }),
             options: Object.values(ExampleOptionsType),
             control: {
                 type: 'radio',
                 labels: {
                     [ExampleOptionsType.simpleOptions]: 'Simple options',
                     [ExampleOptionsType.manyOptions]: 'Many options',
-                    [ExampleOptionsType.wideOptions]: 'Wide options'
+                    [ExampleOptionsType.wideOptions]: 'Wide options',
+                    [ExampleOptionsType.groupedOptions]: 'Grouped options'
                 }
             },
             table: { category: apiCategory.slots }
@@ -206,21 +245,34 @@ const metadata: Meta<SelectArgs> = {
         dropDownPosition: 'below',
         appearance: DropdownAppearance.underline,
         optionsType: ExampleOptionsType.simpleOptions,
-        placeholder: false,
         clearable: false
     }
 };
 
-export default metadata;
-
-export const underlineSelect: StoryObj<SelectArgs> = {
-    args: { appearance: DropdownAppearance.underline }
-};
-
-export const outlineSelect: StoryObj<SelectArgs> = {
-    args: { appearance: DropdownAppearance.outline }
-};
-
-export const blockSelect: StoryObj<SelectArgs> = {
-    args: { appearance: DropdownAppearance.block }
+export const placeholder: StoryObj<SelectArgs> = {
+    // prettier-ignore
+    render: createUserSelectedThemeStory(html`
+        ${disableStorybookZoomTransform}
+        <div style="height: 100px;">
+            <${selectTag}
+                style="width: 250px;"
+                position="below"
+            >
+                <${listOptionTag}
+                    disabled
+                    selected
+                    hidden>
+                    Select an option
+                </${listOptionTag}>
+                <${listOptionTag}
+                    value="1">
+                    Option 1
+                </${listOptionTag}>
+                <${listOptionTag}
+                    value="2">
+                    Option 2
+                </${listOptionTag}>
+            </${selectTag}>
+        </div>
+    `)
 };
