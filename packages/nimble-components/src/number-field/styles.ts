@@ -52,7 +52,6 @@ export const styles = css`
     }
 
     .root {
-        box-sizing: border-box;
         position: relative;
         display: flex;
         flex-direction: row;
@@ -170,7 +169,7 @@ export const styles = css`
 
     .error-icon {
         order: 1;
-        padding-right: ${smallPadding};
+        margin-right: ${smallPadding};
     }
 `.withBehaviors(
     appearanceBehavior(

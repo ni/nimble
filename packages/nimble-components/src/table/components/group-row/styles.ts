@@ -23,7 +23,6 @@ export const styles = css`
         align-items: center;
         height: calc(${controlHeight} + 2 * ${borderWidth});
         border-top: calc(2 * ${borderWidth}) solid ${applicationBackgroundColor};
-        box-sizing: border-box;
         grid-template-columns:
             calc(
                 ${controlHeight} *

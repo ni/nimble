@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 11 Jun 2024 19:27:14 GMT",
+      "version": "29.3.5",
+      "tag": "@ni/nimble-components_v29.3.5",
+      "comments": {
+        "patch": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "17ddea50b5accb353a0288c42d0e64ddc5df0d04",
+            "comment": "Switch to custom box-sizing: border-box consistently"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 10 Jun 2024 17:58:35 GMT",
       "version": "29.3.4",
       "tag": "@ni/nimble-components_v29.3.4",
