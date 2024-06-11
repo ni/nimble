@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "Created internal input to convert from binary to dies table",
+  "packageName": "@ni/nimble-components",
+  "email": "33986780+munteannatan@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
