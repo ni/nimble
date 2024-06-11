@@ -53,10 +53,10 @@ export const styles = css`
 
     .expand-collapse-button {
         flex: 0 0 auto;
-        padding-left: calc(
+        margin-left: max(calc(
             ${mediumPadding} + (var(--ni-private-table-row-indent-level) - 1) *
                 ${controlHeight}
-        );
+        ), 0px);
     }
 
     .spinner-container {
@@ -67,10 +67,10 @@ export const styles = css`
         display: flex;
         align-items: center;
         justify-content: center;
-        padding-left: calc(
+        margin-left: max(calc(
             ${mediumPadding} + (var(--ni-private-table-row-indent-level) - 1) *
                 ${controlHeight}
-        );
+        ), 0px);
     }
 
     .row-operations-container {
