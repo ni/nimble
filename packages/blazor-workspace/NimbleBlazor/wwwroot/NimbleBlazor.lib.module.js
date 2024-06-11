@@ -216,7 +216,7 @@ window.NimbleBlazor = window.NimbleBlazor ?? {
             const diesObject = JSON.parse(data);
             waferMapReference.dies = diesObject;
         },
-        setDiesTable: async function (waferMapReference, data) {
+        setDiesTable: function (waferMapReference, data) {
             waferMapReference.diesTableIPC = data;
         },
 
