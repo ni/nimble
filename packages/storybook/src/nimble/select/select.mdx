@@ -83,6 +83,15 @@ Typical steps for dynamic options are as follows:
    is opened again, while the other options retrieved dynamically can be
    discarded (if desired).
 
+#### Groups
+
+When using groups with dynamic options, clients should also match the filter text
+against the group label. If the group label matches the filter text, the group
+should be displayed, and all options within the group should be displayed as
+well. If the group label does not match the filter text, then options within the
+group should only be displayed if they match the filter text.
+
+
 {/* ## Accessibility */}
 
 {/* ## Resources */}
