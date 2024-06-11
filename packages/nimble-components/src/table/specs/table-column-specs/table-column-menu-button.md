@@ -22,7 +22,7 @@ In some tables, the user needs to make a selection associated with a cell in the
 
 ## Implementation / Design
 
-The `nimble-table-column-menu-button` will follow many of the API patterns established by the table's action menu. Part of the menu button column's configuration will be the name of the slot where the menu associated with the menu button will be provided, say `software-version-menu`. The client will slot their menu into the table using the slot name they configured on the column; in this case, `software-version-menu`. The table, along with all of its subcomponents, will be responsible for coordinating the slotting of the menu into the appropriate row and cell when a menu button becomes open. If the client needs different menu items depending on which menu button is open, they can update the menu items within their slotted menu in reaction to the `menu-button-beforetoggle` event firing from the column.
+The `nimble-table-column-menu-button` will follow many of the API patterns established by the table's action menu. Part of the menu button column's configuration will be the name of the slot where the menu associated with the menu button will be provided, say `software-version-menu`. The client will slot their menu into the table using the slot name they configured on the column; in this case, `software-version-menu`. The table, along with all of its subcomponents, will be responsible for coordinating the slotting of the menu into the appropriate row and cell when a menu button becomes open. If the client needs different menu items depending on which menu button is open, they can update the menu items within their slotted menu in reaction to the `menu-button-column-beforetoggle` event firing from the column.
 
 Usage of the column would look as follows:
 
@@ -39,6 +39,35 @@ Usage of the column would look as follows:
         <nimble-menu-item>1.0.0</nimble-menu-item>
         <nimble-menu-item>1.5.0</nimble-menu-item>
         <nimble-menu-item>2.0.0</nimble-menu-item>
+    </nimble-menu>
+</nimble-table>
+```
+
+Because the menu will only be shown for one menu button at a time, the same slot and menu element can be shared across menu button columns and action menus. For example:
+
+```html
+<nimble-table>
+    <nimble-table-column-text
+        field-name="packageName"
+        action-menu-slot="table-menu"
+    >
+        Name
+    </nimble-table-column-text>
+    <nimble-table-column-menu-button
+        field-name="selectedBitness"
+        menu-slot="table-menu"
+    >
+        Bitness
+    </nimble-table-column-menu-button>
+    <nimble-table-column-menu-button
+        field-name="selectedVersion"
+        menu-slot="table-menu"
+    >
+        Version
+    </nimble-table-column-menu-button>
+
+    <nimble-menu slot="table-menu">
+        <!-- Items dynamically updated based on the column & record associated with the open menu -->
     </nimble-menu>
 </nimble-table>
 ```
@@ -64,17 +93,14 @@ _Content_
 
 _Events_
 
--   `menu-button-beforetoggle`: Fired when a menu button in a cell fires the `beforetoggle` event
--   `menu-button-toggle`: Fired when a menu button in a cell fires the `toggle` event
+-   `menu-button-column-beforetoggle`: Fired when a menu button in a cell fires the `beforetoggle` event
+-   `menu-button-column-toggle`: Fired when a menu button in a cell fires the `toggle` event
 
 The detail for each of these events will be as follows:
 
 ```ts
-interface MenuButtonColumnToggleEventDetail {
+interface MenuButtonColumnToggleEventDetail extends MenuButtonToggleEventDetail {
     recordId: string;
-    newState: boolean;
-    oldState: boolean;
-    originalEvent: CustomEvent<MenuButtonToggleEventDetail>;
 }
 ```
 
@@ -105,19 +131,19 @@ A new component will not be created for the group header view of the menu button
 
 ### Sorting & Grouping
 
-The column will be sorted and grouped based on the text that is provided for display in the button.
+The column will not be sortable or groupable.
 
 ### Placeholder
 
-The column cell will not have a placeholder. If an empty, `undefined`, or `null` value is provided for the record, an empty cell will be rendered.
+The column's cells will not have a placeholder. If an empty, `undefined`, or `null` value is provided for the record, an empty cell will be rendered.
 
 Group rows will display `tableGroupRowPlaceholderNoValueLabel` when the value is `undefined` or `null` and `tableGroupRowPlaceholderEmptyLabel` when the value is an empty string. This group row placeholder behavior already exists in the `TableColumnTextGroupHeaderView`, so no changes are required to achieve this behavior.
 
 ### Delegated Events
 
-The cell will delegate the `beforetoggle` and `toggle` events from the menu button through the column's `delegated-event` event. The column will listen for the `delegated-event` event, and it will fire the `menu-button-beforetoggle` event when it recieves a delegated event for `beforetoggle` on the menu button and will fire the `menu-button-toggle` event when it recieves a delegated event for `toggle` on the menu button.
+The cell will delegate the `beforetoggle` and `toggle` events from the menu button through the column's `delegated-event` event. The column will listen for the `delegated-event` event, and it will fire the `menu-button-column-beforetoggle` event when it recieves a delegated event for `beforetoggle` on the menu button and will fire the `menu-button-column-toggle` event when it recieves a delegated event for `toggle` on the menu button.
 
-The `menu-button-beforetoggle` and `menu-button-toggle` event detail will both include the original event fired by the menu button. With this, the client can interact with the original event if necessary, such as cancelling the event once the menu button supports this (see [nimble issue #1157](https://github.com/ni/nimble/issues/1157)).
+The `menu-button-column-beforetoggle` and `menu-button-column-toggle` event detail will extend the menu button's event detail with an additional `recordId` property to indicate which menu button was toggled. When the menu button's toggle events are updated to be cancellable, the menu button column's toggle events will also be made cancellable so that the toggle events can be cancelled within the table (see [nimble issue #1157](https://github.com/ni/nimble/issues/1157)).
 
 ### Focus Recycling
 
@@ -190,6 +216,8 @@ Multiple API changes need to be made to the table, its subcomponents, and the cl
             }
             ```
 
+In addition to the slotting changes needed within the table, updates also need to be made to disable sorting on this column. Specifically, the sorting properties of `sortDirection`, `sortIndex`, and `sortingDisabled` will be moved out of the base `TableColumn` class and into a mixin that all existing columns will leverage.
+
 ## Alternative Implementations / Designs
 
 _Alternative #1_
@@ -202,4 +230,4 @@ Rather than creating a menu button column, we could create a select column. Howe
     -   If we only support one appearance for the menu-button, is `ghost` the appropriate one to support?
     -   Is there any concern that the button text will not align with the column header because of the padding between the edge of the button and the text within the button?
 -   If the menu is open in a cell, it needs to be closed when scrolling. However, the `focusedRecycleCallback()` doesn't provide the appropriate hook to do this today. The problem appears to be that the menu has focus when the menu button is open, which means the focus isn't actually in the cell view -- it's in the menu slotted into the cell view. We need to come up with a plan to address this.
--   Some issues need to be resolved with keyboard navigation + menu button column.
+-   There may be additional work to integrate this column with the table keyboard navigation work that is currently in progress.
