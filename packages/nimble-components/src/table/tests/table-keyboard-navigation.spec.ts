@@ -843,6 +843,20 @@ describe('Table keyboard navigation', () => {
                     );
                 });
             });
+
+            it('with no tabbable elements in the group row, pressing Tab will move focus past the table', async () => {
+                const keyEvent = await sendKeyPressToTable(keyTab);
+
+                await verifyLastTabKeyEventBehavior(keyEvent);
+            });
+
+            it('with no tabbable elements in the group row, pressing Shift-Tab will move focus past the table', async () => {
+                const keyEvent = await sendKeyPressToTable(keyTab, {
+                    shiftKey: true
+                });
+
+                await verifyLastTabKeyEventBehavior(keyEvent);
+            });
         });
     });
 

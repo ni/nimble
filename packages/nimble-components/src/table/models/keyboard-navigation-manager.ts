@@ -559,7 +559,7 @@ implements Subscriber {
             }
         }
         let cellIndex = 0;
-        while (cellIndex < this.table.visibleColumns.length) {
+        while (cellIndex < rowElements.cells.length) {
             const firstCellTabbableIndex = focusStates.length;
             const cellInfo = rowElements.cells[cellIndex]!;
             const cellViewTabbableChildren = cellInfo.cell.cellView.tabbableChildren;
