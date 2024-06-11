@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Switch to custom box-sizing: border-box consistently",
-  "packageName": "@ni/nimble-components",
-  "email": "rajsite@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
