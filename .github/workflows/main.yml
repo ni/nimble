@@ -105,7 +105,7 @@ jobs:
       
       # Test
       - run: npm run validate:test:sequential
-        timeout-minutes: 4
+        timeout-minutes: 2.5
 
       # Run Lighthouse audit (from any push)
       - name: Performance Audit with Lighthouse CI
