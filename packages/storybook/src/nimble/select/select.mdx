@@ -66,10 +66,22 @@ Typical steps for dynamic options are as follows:
 
 1. Set the `filter-mode` to `manual` on the select.
 1. Listen for the `filter-input` event on the select.
-1. In the event handler, retrieve the filter text from the event and populate
-   the DOM with the set of options that match the filter text by your own
-   logic. - It is important that one of the options in the DOM is the currently
-   selected option.
+1. In the event handler, do the following:
+    - Set the `loading-visible` attribute on the select.
+    - Retrieve the filter text from the event and populate the DOM with the set
+      of options that match the filter text by your own logic. This can be
+      asynchronous, as this often involves fetching data from a server. To
+      reduce unnecessary requests, consider debouncing the filter input.
+      Handling the case where the filter text is empty is important, as this is
+      when the select should display all initial options in the dropdown.
+    - Remove the `loading-visible` attribute on the select.
+    - It is important that one of the options in the DOM is the currently
+      selected option, as well as any option that is designated as the
+      placeholder.
+1. When the user selects an option, that option should now be made to be part of
+   the initial set of options, and thus immediately available when the dropdown
+   is opened again, while the other options retrieved dynamically can be
+   discarded (if desired).
 
 {/* ## Accessibility */}
 
