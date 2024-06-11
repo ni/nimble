@@ -60,7 +60,7 @@ const component = (
     [appearanceName, appearance]: AppearanceState
 ): ViewTemplate => html`
     <${numberFieldTag}
-        style="width: 250px; padding: 8px;"
+        style="width: 250px; margin: 8px;"
         value="${() => valueValue}"
         placeholder="${() => placeholderValue}"
         appearance="${() => appearance}"
