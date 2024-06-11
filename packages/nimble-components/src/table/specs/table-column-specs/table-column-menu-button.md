@@ -99,7 +99,8 @@ _Events_
 The detail for each of these events will be as follows:
 
 ```ts
-interface MenuButtonColumnToggleEventDetail extends MenuButtonToggleEventDetail {
+interface MenuButtonColumnToggleEventDetail
+    extends MenuButtonToggleEventDetail {
     recordId: string;
 }
 ```
