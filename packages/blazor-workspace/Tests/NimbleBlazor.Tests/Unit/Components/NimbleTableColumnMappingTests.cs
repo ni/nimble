@@ -186,3 +186,10 @@ public class NimbleTableColumnMappingFractionalWidthTests : FractionalWidthBaseT
 public class NimbleTableColumnMappingGroupableTests : GroupableBaseTests<NimbleTableColumnMapping<int>>
 {
 }
+
+/// <summary>
+/// Tests for SortableAPI on <see cref="NimbleTableColumnMapping"/>
+/// </summary>
+public class NimbleTableColumnMappingSortableTests : SortableBaseTests<NimbleTableColumnMapping<int>>
+{
+}
