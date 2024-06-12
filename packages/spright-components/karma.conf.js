@@ -10,6 +10,8 @@ process.env.WEBKIT_BIN = playwright.webkit.executablePath();
 process.env.FIREFOX_BIN = playwright.firefox.executablePath();
 process.env.CHROME_BIN = playwright.chromium.executablePath();
 
+const karmaWebkitLauncherCustom = require('../../karma-webkit-launcher-custom');
+
 const path = require('path');
 
 const basePath = path.resolve(__dirname);
@@ -52,7 +54,8 @@ module.exports = (config) => {
             'karma-sourcemap-loader',
             'karma-chrome-launcher',
             'karma-firefox-launcher',
-            'karma-webkit-launcher'
+            //'karma-webkit-launcher',
+            karmaWebkitLauncherCustom
         ],
         files: ['dist/esm/utilities/tests/setup.js'],
         preprocessors: {

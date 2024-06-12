@@ -13,7 +13,7 @@ process.env.CHROME_BIN = playwright.chromium.executablePath();
 const path = require('path');
 const webpack = require('webpack');
 
-const karmaWebkitLauncherCustom = require('./karma-webkit-launcher-custom');
+const karmaWebkitLauncherCustom = require('../../karma-webkit-launcher-custom');
 
 const basePath = path.resolve(__dirname);
 const commonChromeFlags = [
