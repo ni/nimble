@@ -16,7 +16,7 @@
     "performance": "npm run performance --workspaces --if-present",
     "validate": "concurrently --timings --group \"npm:validate:*\"",
     "validate:lint:sequential": "npm run lint --workspaces --if-present",
-    "validate:test:sequential": "npm run test -w packages/angular-workspace --if-present",
+    "validate:test:sequential": "npm run test -w packages/angular-workspace -w packages/spright-components --if-present",
     "validate:lint-concurrent:nimble-components": "npm run lint-concurrent -w packages/nimble-components",
     "validate:test-concurrent:nimble-components": "npm run test-concurrent -w packages/nimble-components",
     "test": "concurrently --timings --group \"npm:validate:test*\"",
