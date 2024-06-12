@@ -137,8 +137,8 @@ describe('Nimble anchor table column', () => {
         });
 
         it('has expected defaults for sortIndex', () => {
-            expect(directive.sortIndex).toBeUndefined();
-            expect(nativeElement.sortIndex).toBeUndefined();
+            expect(directive.sortIndex).toBeNull();
+            expect(nativeElement.sortIndex).toBeNull();
         });
 
         it('has expected defaults for sortingDisabled', () => {
