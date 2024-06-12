@@ -5,6 +5,7 @@ module.exports = {
         'dist',
         // Force inclusion of storybook dot file hidden folder
         '!/.storybook',
+        '/.storybook/blocks/StoryLayout.tsx',
         'src/nimble/icons'
     ],
     overrides: [
