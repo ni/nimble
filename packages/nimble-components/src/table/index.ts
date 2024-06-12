@@ -47,7 +47,8 @@ import {
     TableRowState,
     TableValidity,
     TableSetRecordHierarchyOptions,
-    RowSlotRequestEventDetail
+    RowSlotRequestEventDetail,
+    SlotDetail
 } from './types';
 import { Virtualizer } from './models/virtualizer';
 import { getTanStackSortingFunction } from './models/sort-operations';
@@ -60,11 +61,32 @@ import { DataHierarchyManager } from './models/data-hierarchy-manager';
 import { ExpansionManager } from './models/expansion-manager';
 import { waitUntilCustomElementsDefinedAsync } from '../utilities/wait-until-custom-elements-defined-async';
 import { ColumnValidator } from '../table-column/base/models/column-validator';
+import { uniquifySlotNameForColumnId } from './models/utilities';
 
 declare global {
     interface HTMLElementTagNameMap {
         'nimble-table': Table;
     }
+}
+
+interface SlotDetails {
+    /**
+     * The record ID associated with the row that the slot should be provided in.
+     */
+    recordId: string;
+
+    /**
+     * The name that the slot should be given.
+     */
+    name: string;
+}
+
+interface ColumnSlots {
+    /**
+     * Key/value pairs where the key is the slot that should be created and the value
+     * is the details associated with the slot that will be created.
+    */
+    [slot: string]: SlotDetails;
 }
 
 /**
@@ -223,7 +245,7 @@ export class Table<
 
     /** @internal */
     @observable
-    public slotsByRow: { [rowId: string]: { name: string, slot: string }[] } = {};
+    public slotsByRecordId: { [recordId: string]: SlotDetail[] } = {};
 
     private readonly table: TanStackTable<TableNode<TData>>;
     private options: TanStackTableOptionsResolved<TableNode<TData>>;
@@ -240,8 +262,8 @@ export class Table<
     // the selection checkbox 'checked' value should be ingored.
     // https://github.com/microsoft/fast/issues/5750
     private ignoreSelectionChangeEvents = false;
-    // Map from internal unique column IDs to an object of the form { <slot_string>: { rowId: <row_id_string>, name: <slot_name_string> } }
-    private readonly columnSlotLocations: Map<string, { [slot: string]: { rowId: string, name: string } }> = new Map<string, { [slotName: string]: { rowId: string, name: string } }>();
+    // Map from internal unique column IDs to any slots that could be created on any rows for that column.
+    private readonly slotsByColumn: Map<string, ColumnSlots> = new Map<string, ColumnSlots>();
 
     public constructor() {
         super();
@@ -440,15 +462,15 @@ export class Table<
         event.stopImmediatePropagation();
 
         const columnUniqueId = event.detail.columnInternalId;
-        if (!this.columnSlotLocations.has(columnUniqueId)) {
-            this.columnSlotLocations.set(columnUniqueId, {});
+        if (!this.slotsByColumn.has(columnUniqueId)) {
+            this.slotsByColumn.set(columnUniqueId, {});
         }
-        const columnSlots = this.columnSlotLocations.get(columnUniqueId)!;
+        const columnSlots = this.slotsByColumn.get(columnUniqueId)!;
         for (const slot of event.detail.slots) {
-            columnSlots[slot.slot] = { rowId: event.detail.rowId, name: slot.name };
+            columnSlots[slot.slot] = { recordId: event.detail.recordId, name: slot.name };
         }
 
-        this.regenerateSlotsByRowObject();
+        this.regenerateRequestedSlotsByRecordIds();
     }
 
     /** @internal */
@@ -676,24 +698,23 @@ export class Table<
         this.tableUpdateTracker.trackColumnInstancesChanged();
     }
 
-    private regenerateSlotsByRowObject(): void {
-        const updatedValue: { [rowId: string]: { name: string, slot: string }[] } = {};
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        for (const [columnId, slots] of this.columnSlotLocations) {
+    private regenerateRequestedSlotsByRecordIds(): void {
+        const updatedSlotsByRecordId: { [recordId: string]: SlotDetail[] } = {};
+        for (const [columnId, slots] of this.slotsByColumn) {
             for (const [slot, otherInfo] of Object.entries(slots)) {
-                const rowId = otherInfo.rowId;
+                const recordId = otherInfo.recordId;
                 const slotName = otherInfo.name;
-                if (!updatedValue[rowId]) {
-                    updatedValue[rowId] = [];
+                if (!Object.prototype.hasOwnProperty.call(updatedSlotsByRecordId, recordId)) {
+                    updatedSlotsByRecordId[recordId] = [];
                 }
-                updatedValue[rowId]!.push({
+                updatedSlotsByRecordId[recordId]!.push({
                     name: slotName,
-                    slot: `${columnId}${slot}`
+                    slot: uniquifySlotNameForColumnId(columnId, slot)
                 });
             }
         }
 
-        this.slotsByRow = updatedValue;
+        this.slotsByRecordId = updatedSlotsByRecordId;
     }
 
     private async handleActionMenuBeforeToggleEvent(

@@ -238,9 +238,14 @@ export class TableRow<
 
     public onCellViewSlotsRequest(column: TableColumn, event: CustomEvent<CellViewSlotRequestEventDetail>): void {
         event.stopImmediatePropagation();
+        if (typeof this.recordId !== 'string') {
+            // The recordId is expected to be defined on any row that can be interacted with, but if
+            // it isn't defined, nothing can be done with the request to slot content into the row.
+            return;
+        }
+
         const eventDetails: RowSlotRequestEventDetail = {
-            // mkreis TODO: is this a valid non-null assertion?
-            rowId: this.recordId!,
+            recordId: this.recordId,
             columnInternalId: column.columnInternals.uniqueId,
             slots: event.detail.slots
         };

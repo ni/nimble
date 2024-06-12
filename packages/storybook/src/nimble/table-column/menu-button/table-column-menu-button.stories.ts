@@ -22,7 +22,7 @@ const metadata: Meta<SharedTableArgs> = {
     decorators: [withActions<HtmlRenderer>],
     parameters: {
         actions: {
-            handles: [...sharedTableActions, 'menu-button-toggle', 'menu-button-beforetoggle']
+            handles: [...sharedTableActions, 'menu-button-column-toggle', 'menu-button-column-beforetoggle']
         }
     },
     // prettier-ignore
@@ -92,7 +92,7 @@ export const menuButtonColumn: StoryObj<MenuButtonColumnTableArgs> = {
                 appearance="${x => x.appearance}"
                 appearance-variant="${x => x.appearanceVariant}"
                 menu-slot="temp-menu"
-                @menu-button-beforetoggle="${(x, c) => x.updateMenuItems(x, c.event as CustomEvent<MenuButtonColumnToggleEventDetail>)}"
+                @menu-button-column-beforetoggle="${(x, c) => x.updateMenuItems(x, c.event as CustomEvent<MenuButtonColumnToggleEventDetail>)}"
             >
             Menu Button Column
             </${tableColumnMenuButtonTag}>

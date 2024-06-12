@@ -18,6 +18,7 @@ import { iconArrowExpanderRightTag } from '../../../icons/arrow-expander-right';
 import { spinnerTag } from '../../../spinner';
 import { SpinnerAppearance } from '../../../spinner/types';
 import type { CellViewSlotRequestEventDetail } from '../../types';
+import { uniquifySlotNameForColumn } from '../../models/utilities';
 
 // prettier-ignore
 export const template = html<TableRow>`
@@ -98,8 +99,8 @@ export const template = html<TableRow>`
 
                         ${repeat(x => x.columnInternals.slotNames, html<string, TableColumn>`
                             <slot
-                                name="${(x, c) => (c.parent.columnInternals.uniqueId + x)}"
-                                slot="${(x, c) => (c.parent.columnInternals.uniqueId + x)}"
+                                name="${(x, c) => uniquifySlotNameForColumn(c.parent, x)}"
+                                slot="${(x, c) => uniquifySlotNameForColumn(c.parent, x)}"
                             ></slot>
                         `)}
                     </${tableCellTag}>

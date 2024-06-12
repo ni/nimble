@@ -13,6 +13,7 @@ import { tableRowTag } from './components/row';
 import type { TableColumn } from '../table-column/base';
 import {
     RowSlotRequestEventDetail,
+    SlotDetail,
     TableActionMenuToggleEventDetail,
     TableColumnSortDirection,
     TableRowSelectionMode,
@@ -174,7 +175,7 @@ export const template = html<Table>`
                                             </slot>
                                         `)}
                                     `)}
-                                    ${repeat((x, c) => ((c.parent as Table).tableData[x.index]?.id ? (c.parent as Table).slotsByRow[(c.parent as Table).tableData[x.index]!.id] || [] : []), html<{ name: string, slot: string }>`
+                                    ${repeat((x, c) => ((c.parent as Table).tableData[x.index]?.id ? (c.parent as Table).slotsByRecordId[(c.parent as Table).tableData[x.index]!.id] || [] : []), html<SlotDetail>`
                                         <slot
                                             name="${x => x.name}"
                                             slot="${x => x.slot}"
