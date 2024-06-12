@@ -164,6 +164,16 @@ describe('TableColumnAnchor', () => {
             expect(pageObject.getCellTitle(0, 0)).toBe('');
         });
 
+        it('cell view tabbableChildren is an empty array', async () => {
+            const cellContents = 'value';
+            await table.setData([{ label: cellContents }]);
+            await connect();
+            await waitForUpdatesAsync();
+
+            const cellView = pageObject.getRenderedCellView(0, 0);
+            expect(cellView.tabbableChildren).toEqual([]);
+        });
+
         describe('various string values render as expected', () => {
             parameterizeSpec(wackyStrings, (spec, name) => {
                 spec(`data "${name}" renders correctly`, async () => {
@@ -245,6 +255,16 @@ describe('TableColumnAnchor', () => {
                     .getRenderedCellAnchor(0, 0)
                     .hasAttribute('underline-hidden')
             ).toBeFalse();
+        });
+
+        it('cell view tabbableChildren returns the anchor', async () => {
+            await table.setData([{ link: 'foo' }]);
+            await connect();
+            await waitForUpdatesAsync();
+
+            const cellView = pageObject.getRenderedCellView(0, 0);
+            const anchor = pageObject.getRenderedCellAnchor(0, 0);
+            expect(cellView.tabbableChildren).toEqual([anchor]);
         });
 
         const linkOptionData = [

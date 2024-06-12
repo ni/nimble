@@ -233,8 +233,10 @@ export class TableRow<
         }
         this.shadowRoot!.querySelectorAll(tableCellTag).forEach(cell => {
             result.cells.push({
-                actionMenuButton: cell.actionMenuButton,
-                cell
+                cell,
+                actionMenuButton: cell.hasActionMenu
+                    ? cell.actionMenuButton
+                    : undefined
             });
         });
         return result;
