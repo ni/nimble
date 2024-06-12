@@ -26,11 +26,7 @@ export function mixinGroupableColumnAPI<
         }
 
         public groupIndexChanged(): void {
-            if (typeof this.groupIndex === 'number') {
-                this.columnInternals.groupIndex = this.groupIndex;
-            } else {
-                this.columnInternals.groupIndex = undefined;
-            }
+            this.columnInternals.groupIndex = this.groupIndex ?? undefined;
         }
     }
     attr({ attribute: 'grouping-disabled', mode: 'boolean' })(

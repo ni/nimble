@@ -4,6 +4,7 @@ import { mixinFractionalWidthColumnAPI } from '../mixins/fractional-width-column
 import { mixinGroupableColumnAPI } from '../mixins/groupable-column';
 import { mixinColumnWithPlaceholderAPI } from '../mixins/placeholder';
 import type { ColumnValidator } from '../base/models/column-validator';
+import { mixinSortableColumnAPI } from '../mixins/sortable-column';
 
 /**
  * The base class for table columns that display fields of any type as text.
@@ -36,6 +37,10 @@ export function mixinTextBase<
     TColumnValidator extends ColumnValidator<[]> = ColumnValidator<[]>
 >(base: TBase) {
     return mixinGroupableColumnAPI(
-        mixinFractionalWidthColumnAPI(mixinColumnWithPlaceholderAPI(base))
+        mixinFractionalWidthColumnAPI(
+            mixinColumnWithPlaceholderAPI(
+                mixinSortableColumnAPI(base)
+            )
+        )
     );
 }

@@ -13,6 +13,7 @@ import { tableColumnTextGroupHeaderViewTag } from '../text/group-header-view';
 import type { AnchorAppearance } from '../../anchor/types';
 import type { ColumnInternalsOptions } from '../base/models/column-internals';
 import { ColumnValidator } from '../base/models/column-validator';
+import { mixinSortableColumnAPI } from '../mixins/sortable-column';
 
 export type TableColumnAnchorCellRecord = TableStringField<'label' | 'href'>;
 export interface TableColumnAnchorColumnConfig {
@@ -40,7 +41,9 @@ declare global {
 export class TableColumnAnchor extends mixinGroupableColumnAPI(
     mixinFractionalWidthColumnAPI(
         mixinColumnWithPlaceholderAPI(
-            TableColumn<TableColumnAnchorColumnConfig>
+            mixinSortableColumnAPI(
+                TableColumn<TableColumnAnchorColumnConfig>
+            )
         )
     )
 ) {
