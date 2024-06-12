@@ -20,7 +20,7 @@
     "pack:application": "cd dist/example-client-app && npm pack",
     "performance": "lhci autorun",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test --watch=false",
+    "test": "ng test --watch=false @ni/spright-angular",
     "lint": "ng lint",
     "format": "ng lint --fix"
   },
