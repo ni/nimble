@@ -110,7 +110,7 @@ When the \`clearable\` attribute is set, a clear button will be displayed in the
 `;
 
 const loadingVisibleDescription = `
-When the \`loading-visible\` attribute is set, a loading spinner will be displayed in the dropdown of the select along with localizable text that defaults to "Loading". This is useful when the select is loading its options dynamically.
+When the \`loading-visible\` attribute is set, a loading spinner will be displayed in the dropdown of the select along with localizable text that defaults to "Loading…". This is useful when the select is loading its options dynamically.
 `;
 
 const metadata: Meta<SelectArgs> = {
