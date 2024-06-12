@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Wed, 12 Jun 2024 16:30:00 GMT",
+      "version": "29.3.5",
+      "tag": "@ni/nimble-components_v29.3.5",
+      "comments": {
+        "none": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "50505a96ca8994ffedcd58c1f0604b01b76cbe2a",
+            "comment": "Create HLD for menu-button table column"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 11 Jun 2024 19:27:14 GMT",
       "version": "29.3.5",
       "tag": "@ni/nimble-components_v29.3.5",
