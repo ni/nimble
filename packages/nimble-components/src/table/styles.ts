@@ -199,17 +199,17 @@ export const styles = css`
 
     .group-row {
         position: relative;
-        --ni-private-cell-focus-offset-multiplier: 0;
+        --ni-private-table-cell-focus-offset-multiplier: 0;
     }
 
     .row {
         position: relative;
-        --ni-private-cell-focus-offset-multiplier: 0;
+        --ni-private-table-cell-focus-offset-multiplier: 0;
     }
 
     .collapse-all-visible .row,
     .collapse-all-visible .group-row {
-        --ni-private-cell-focus-offset-multiplier: 1;
+        --ni-private-table-cell-focus-offset-multiplier: 1;
     }
 
     .accessibly-hidden {

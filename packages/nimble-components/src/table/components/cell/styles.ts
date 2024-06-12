@@ -2,6 +2,7 @@ import { css } from '@microsoft/fast-element';
 import { display } from '../../../utilities/style/display';
 import {
     borderHoverColor,
+    borderWidth,
     controlHeight,
     controlSlimHeight,
     mediumPadding
@@ -25,7 +26,7 @@ export const styles = css`
     }
 
     :host(${focusVisible}) {
-        outline: 2px solid ${borderHoverColor};
+        outline: calc(2 * ${borderWidth}) solid ${borderHoverColor};
         outline-offset: -2px;
     }
 
