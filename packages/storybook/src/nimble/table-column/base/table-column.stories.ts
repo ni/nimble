@@ -146,6 +146,7 @@ interface ApiTableArgs extends SharedTableArgs {
     actionMenuSlot: undefined;
     actionMenuLabel: undefined;
     sortDirection: undefined;
+    sortingDisabled: undefined;
     sortIndex: undefined;
     groupIndex: undefined;
     groupingDisabled: undefined;
@@ -198,6 +199,13 @@ export const api: StoryObj<ApiTableArgs> = {
             name: 'sort-direction',
             description:
                 'The direction to sort the data in the column. See **Sorting** for more information.',
+            table: { category: apiCategory.attributes },
+            control: false
+        },
+        sortingDisabled: {
+            name: 'sorting-disabled',
+            description:
+                'Whether to disallow a user from sorting a column by interacting with its header. See **Sorting** for more information.',
             table: { category: apiCategory.attributes },
             control: false
         },
