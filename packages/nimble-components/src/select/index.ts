@@ -32,7 +32,8 @@ import { arrowExpanderDown16X16 } from '@ni/nimble-tokens/dist/icons/js';
 import { styles } from './styles';
 import {
     DropdownAppearance,
-    ListOptionOwner
+    ListOptionOwner,
+    MaxVisibleOptions
 } from '../patterns/dropdown/types';
 import { errorTextTemplate } from '../patterns/error/template';
 import type { ErrorPattern } from '../patterns/error/types';
@@ -43,6 +44,10 @@ import { FilterMode } from './types';
 import { diacriticInsensitiveStringNormalizer } from '../utilities/models/string-normalizers';
 import { FormAssociatedSelect } from './models/select-form-associated';
 import type { ListOptionGroup } from '../list-option-group';
+import {
+    controlHeight as controlHeightToken,
+    smallPadding
+} from '../theme-provider/design-tokens';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -1008,9 +1013,29 @@ export class Select
             ? this.positionAttribute
             : this.position;
 
-        this.maxHeight = this.position === SelectPosition.above
+        const availableHeight = this.position === SelectPosition.above
             ? Math.trunc(currentBox.top)
             : Math.trunc(availableBottom);
+
+        const controlHeight = parseInt(
+            controlHeightToken.getValueFor(this),
+            10
+        );
+        const listboxInnerPadding = parseInt(
+            smallPadding.getValueFor(this),
+            10
+        );
+        const listboxGap = listboxInnerPadding; // both use smallPadding
+        const listboxBorderHeight = 2; // 1px top and bottom
+        const filterHeight = this.filterMode !== FilterMode.none ? controlHeight : 0;
+        this.maxHeight = Math.min(
+            availableHeight,
+            controlHeight * MaxVisibleOptions
+                + listboxGap
+                + listboxBorderHeight
+                + filterHeight
+                + listboxInnerPadding
+        );
         this.updateListboxMaxHeightCssVariable();
     }
 

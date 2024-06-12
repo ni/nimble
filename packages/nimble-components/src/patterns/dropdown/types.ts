@@ -1,6 +1,8 @@
 import type { ListOption } from '../../list-option';
 import type { ErrorPattern } from '../error/types';
 
+export const MaxVisibleOptions = 10.5;
+
 /**
  * The interface that dropdowns of various types implement. The properties in this interface
  * are leveraged by the shared dropdown pattern css.

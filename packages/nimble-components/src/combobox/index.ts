@@ -34,11 +34,18 @@ import { iconExclamationMarkTag } from '../icons/exclamation-mark';
 import { styles } from './styles';
 import type { ErrorPattern } from '../patterns/error/types';
 import type { DropdownPattern } from '../patterns/dropdown/types';
-import { DropdownAppearance } from '../patterns/dropdown/types';
+import {
+    DropdownAppearance,
+    MaxVisibleOptions
+} from '../patterns/dropdown/types';
 import type { AnchoredRegion } from '../anchored-region';
 import { template } from './template';
 import { FormAssociatedCombobox } from './models/combobox-form-associated';
 import type { ListOption } from '../list-option';
+import {
+    controlHeight as controlHeightToken,
+    smallPadding
+} from '../theme-provider/design-tokens';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -625,9 +632,27 @@ export class Combobox
             ? this.positionAttribute
             : this.position;
 
-        this.maxHeight = this.position === SelectPosition.above
+        const availableHeight = this.position === SelectPosition.above
             ? Math.trunc(currentBox.top)
             : Math.trunc(availableBottom);
+
+        const controlHeight = parseInt(
+            controlHeightToken.getValueFor(this),
+            10
+        );
+        const listboxInnerPadding = parseInt(
+            smallPadding.getValueFor(this),
+            10
+        );
+        const listboxGap = listboxInnerPadding; // both use smallPadding
+        const listboxBorderHeight = 2; // 1px top and bottom
+        this.maxHeight = Math.min(
+            availableHeight,
+            controlHeight * MaxVisibleOptions
+                + listboxGap
+                + listboxBorderHeight
+                + listboxInnerPadding
+        );
     }
 
     /**
