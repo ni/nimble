@@ -86,7 +86,10 @@ implements Subscriber {
 
     public connect(): void {
         this.table.viewport.addEventListener('keydown', e => this.onViewportKeyDown(e));
-        this.table.viewport.addEventListener('cell-action-menu-blur', e => this.onCellActionMenuBlur(e));
+        this.table.viewport.addEventListener('cell-action-menu-blur', e => this.onCellActionMenuBlur(e as CustomEvent<TableCell>));
+        this.table.viewport.addEventListener('cell-view-focus-in', e => this.onCellViewFocusIn(e as CustomEvent<TableCell>));
+        this.table.viewport.addEventListener('cell-focus-in', e => this.onCellFocusIn(e as CustomEvent<TableCell>));
+        this.table.viewport.addEventListener('cell-blur', e => this.onCellBlur(e as CustomEvent<TableCell>));
     }
 
     public handleChange(source: unknown, args: unknown): void {
@@ -148,6 +151,13 @@ implements Subscriber {
         }
     }
 
+    public onRowBlur(event: FocusEvent): void {
+        const row = event.target;
+        if (row instanceof TableRow || row instanceof TableGroupRow) {
+            this.setElementFocusable(row, false);
+        }
+    }
+
     public onRowActionMenuToggle(
         event: CustomEvent<TableActionMenuToggleEventDetail>
     ): void {
@@ -166,42 +176,7 @@ implements Subscriber {
     }
 
     private readonly handleFocus = (event: FocusEvent): void => {
-        // User may have clicked in the table (on an element not reflected in our focus state). Update our focus state
-        // based on the current active element in a few cases:
-        // - user is interacting with tabbable content of a cell
-        // - user clicked an action menu button (and the table wasn't focused - otherwise onRowActionMenuToggle() handles it)
-        const activeElement = this.getActiveElement();
-        let row: TableRow | TableGroupRow | undefined;
-        let cell: TableCell | undefined;
-        if (activeElement) {
-            row = this.getContainingRow(activeElement);
-            cell = this.getContainingCell(activeElement);
-            if (row && !(row instanceof TableGroupRow)) {
-                if (cell) {
-                    const columnIndex = this.table.visibleColumns.indexOf(
-                        cell.column!
-                    );
-                    if (cell.actionMenuButton === activeElement) {
-                        this.setCellActionMenuFocusState(
-                            row.rowStateIndex!,
-                            columnIndex,
-                            false
-                        );
-                        return;
-                    }
-                    const contentIndex = cell.cellView.tabbableChildren.indexOf(activeElement);
-                    if (contentIndex > -1) {
-                        this.setCellContentFocusState(
-                            contentIndex,
-                            row.rowStateIndex!,
-                            columnIndex,
-                            false
-                        );
-                        return;
-                    }
-                }
-            }
-        }
+        this.updateFocusStateFromActiveElement(false);
 
         // Sets initial focus on the appropriate table content
         const actionMenuOpen = this.table.openActionMenuRecordId !== undefined;
@@ -224,13 +199,44 @@ implements Subscriber {
         }
     };
 
-    private readonly onCellActionMenuBlur = (event: Event): void => {
+    private readonly onCellActionMenuBlur = (
+        event: CustomEvent<TableCell>
+    ): void => {
         event.stopPropagation();
-        const source = event.composedPath()[0];
-        if (source instanceof TableCell && source.actionMenuButton) {
+        const cell = event.detail;
+        if (cell.actionMenuButton) {
             // Ensure that action menu buttons get hidden when no longer focused
-            this.setActionMenuButtonFocused(source.actionMenuButton, false);
+            this.setActionMenuButtonFocused(cell.actionMenuButton, false);
         }
+    };
+
+    private readonly onCellViewFocusIn = (
+        event: CustomEvent<TableCell>
+    ): void => {
+        event.stopPropagation();
+        this.updateFocusStateFromActiveElement(false);
+    };
+
+    private readonly onCellFocusIn = (event: CustomEvent<TableCell>): void => {
+        event.stopPropagation();
+        const cell = event.detail;
+        this.updateFocusStateFromActiveElement(true);
+        // Currently, clicking a non-interactive cell only updates the focus state to that row, it
+        // doesn't focus the cell. If we revisit this, we most likely need to set the cells to tabindex=-1
+        // upfront too, so their focusing behavior is consistent whether they've been previously keyboard
+        // focused or not.
+        if (
+            this.focusType === TableFocusType.row
+            && this.getActiveElement() === cell
+        ) {
+            this.focusCurrentRow(false);
+        }
+    };
+
+    private readonly onCellBlur = (event: CustomEvent<TableCell>): void => {
+        event.stopPropagation();
+        const cell = event.detail;
+        this.setElementFocusable(cell, false);
     };
 
     private readonly onCaptureKeyDown = (event: KeyboardEvent): void => {
@@ -731,6 +737,52 @@ implements Subscriber {
         }
 
         return false;
+    }
+
+    private updateFocusStateFromActiveElement(setRowFocus: boolean): void {
+        // If the user is interacting with the table with non-keyboard methods (like mouse), we need to
+        // update our focus state based on the current active/focused element
+        const activeElement = this.getActiveElement();
+        if (activeElement) {
+            const row = this.getContainingRow(activeElement);
+            if (row) {
+                if (!(row instanceof TableGroupRow)) {
+                    const cell = this.getContainingCell(activeElement);
+                    if (cell) {
+                        const columnIndex = this.table.visibleColumns.indexOf(
+                            cell.column!
+                        );
+                        if (cell.actionMenuButton === activeElement) {
+                            this.setCellActionMenuFocusState(
+                                row.rowStateIndex!,
+                                columnIndex,
+                                false
+                            );
+                            return;
+                        }
+                        const contentIndex = cell.cellView.tabbableChildren.indexOf(
+                            activeElement
+                        );
+                        if (contentIndex > -1) {
+                            this.setCellContentFocusState(
+                                contentIndex,
+                                row.rowStateIndex!,
+                                columnIndex,
+                                false
+                            );
+                            return;
+                        }
+                    }
+                }
+                if (
+                    setRowFocus
+                    && this.hasRowOrCellFocusType()
+                    && this.rowIndex !== row.rowStateIndex
+                ) {
+                    this.setRowFocusState(row.rowStateIndex);
+                }
+            }
+        }
     }
 
     private focusElement(

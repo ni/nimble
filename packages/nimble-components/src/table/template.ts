@@ -146,6 +146,7 @@ export const template = html<Table>`
                                         selection-state="${(x, c) => c.parent.tableData[x.index]?.selectionState}"
                                         :rowStateIndex="${x => x.index}"
                                         @focusin="${(_, c) => c.parent.onRowFocusIn(c.event as FocusEvent)}"
+                                        @blur="${(_, c) => c.parent.onRowBlur(c.event as FocusEvent)}"
                                         @group-selection-toggle="${(x, c) => c.parent.onRowSelectionToggle(x.index, c.event as CustomEvent<TableRowSelectionToggleEventDetail>)}"
                                         @group-expand-toggle="${(x, c) => c.parent.handleGroupRowExpanded(x.index, c.event)}"
                                     >
@@ -169,6 +170,7 @@ export const template = html<Table>`
                                         :rowStateIndex="${x => x.index}"
                                         @click="${(x, c) => c.parent.onRowClick(x.index, c.event as MouseEvent)}"
                                         @focusin="${(_, c) => c.parent.onRowFocusIn(c.event as FocusEvent)}"
+                                        @blur="${(_, c) => c.parent.onRowBlur(c.event as FocusEvent)}"
                                         @row-selection-toggle="${(x, c) => c.parent.onRowSelectionToggle(x.index, c.event as CustomEvent<TableRowSelectionToggleEventDetail>)}"
                                         @row-action-menu-beforetoggle="${(x, c) => c.parent.onRowActionMenuBeforeToggle(x.index, c.event as CustomEvent<TableActionMenuToggleEventDetail>)}"
                                         @row-action-menu-toggle="${(_, c) => c.parent.onRowActionMenuToggle(c.event as CustomEvent<TableActionMenuToggleEventDetail>)}"

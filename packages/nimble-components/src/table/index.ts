@@ -423,6 +423,11 @@ export class Table<
     }
 
     /** @internal */
+    public onRowBlur(event: FocusEvent): void {
+        this.keyboardNavigationManager.onRowBlur(event);
+    }
+
+    /** @internal */
     public onAllRowsSelectionChange(event: CustomEvent): void {
         event.stopPropagation();
 

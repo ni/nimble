@@ -72,7 +72,19 @@ export class TableCell<
     }
 
     public onActionMenuBlur(): void {
-        this.$emit('cell-action-menu-blur');
+        this.$emit('cell-action-menu-blur', this);
+    }
+
+    public onCellViewFocusIn(): void {
+        this.$emit('cell-view-focus-in', this);
+    }
+
+    public onCellFocusIn(): void {
+        this.$emit('cell-focus-in', this);
+    }
+
+    public onCellBlur(): void {
+        this.$emit('cell-blur', this);
     }
 }
 

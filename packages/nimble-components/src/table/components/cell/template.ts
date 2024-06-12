@@ -10,7 +10,10 @@ import { tableCellActionMenuLabel } from '../../../label-provider/table/label-to
 
 // prettier-ignore
 export const template = html<TableCell>`
-    <template role="cell" style="--ni-private-table-cell-nesting-level: ${x => x.nestingLevel}">
+    <template role="cell" style="--ni-private-table-cell-nesting-level: ${x => x.nestingLevel}"
+        @focusin="${x => x.onCellFocusIn()}"
+        @blur="${x => x.onCellBlur()}"
+    >
         ${x => x.cellViewTemplate}
         ${when(x => x.hasActionMenu, html<TableCell>`
             <${menuButtonTag} ${ref('actionMenuButton')}
