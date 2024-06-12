@@ -249,6 +249,7 @@ export const select: Meta<SelectArgs> = {
             control: false
         },
         filterInput: {
+            name: 'filter-input',
             description: 'Emitted when the user types in the filter input.',
             table: { category: apiCategory.events },
             control: false
