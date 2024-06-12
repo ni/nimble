@@ -89,17 +89,6 @@ module.exports = {
             env: {
                 browser: true,
             }
-        },
-        {
-            files: ['.storybook/blocks/**/*tsx'],
-            rules: {
-                // Improves readability of React Components to avoid return types in template expressions
-                '@typescript-eslint/explicit-function-return-type': 'off',
-                '@typescript-eslint/explicit-module-boundary-types': 'off',
-
-                // The React components should use PascalCase
-                '@typescript-eslint/naming-convention': 'off'
-            }
         }
     ]
 };
