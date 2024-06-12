@@ -130,6 +130,10 @@ module.exports = (config) => {
             WebkitDebugging: {
                 base: 'Webkit',
                 debug: true
+            },
+            CustomWebkitDebugging: {
+                base: 'CustomWebkit',
+                debug: true
             }
         },
         client: {
