@@ -1,16 +1,19 @@
-import { Canvas, Meta, Title } from '@storybook/blocks';
+import { Canvas, Controls, Meta, Title } from '@storybook/blocks';
 import { NimbleToolbar } from './toolbar.react';
 import * as toolbarStories from './toolbar.stories';
+import ComponentApisLink from '../../docs/component-apis-link.mdx';
 
 <Meta of={toolbarStories} />
 <Title of={toolbarStories} />
 
-Per [W3C](https://www.w3.org/WAI/ARIA/apg/patterns/toolbar/) - A toolbar is a container
-for grouping a set of controls, such as buttons, menubuttons, or checkboxes.
+Per [W3C](https://www.w3.org/WAI/ARIA/apg/patterns/toolbar/) - A toolbar is a
+container for grouping a set of controls, such as buttons, menubuttons, or
+checkboxes.
 
-When a set of controls is visually presented as a group, the toolbar role can be used to communicate the
-presence and purpose of the grouping to screen reader users. Grouping controls into toolbars can also be
-an effective way of reducing the number of tab stops in the keyboard interface.
+When a set of controls is visually presented as a group, the toolbar role can be
+used to communicate the presence and purpose of the grouping to screen reader
+users. Grouping controls into toolbars can also be an effective way of reducing
+the number of tab stops in the keyboard interface.
 
 To override the toolbar's background color, style the `positioning-region` part:
 
@@ -21,6 +24,10 @@ nimble-toolbar::part(positioning-region) {
 ```
 
 <Canvas of={toolbarStories.toolbar} />
+
+## API
+
+<Controls of={toolbarStories.toolbar} />
 
 {/* ## Styling */}
 

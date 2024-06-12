@@ -1,24 +1,30 @@
 import { Canvas, Meta, Controls, Title } from '@storybook/blocks';
 import * as dialogStories from './dialog.stories';
+import ComponentApisLink from '../../docs/component-apis-link.mdx';
 
 <Meta of={dialogStories} />
 <Title of={dialogStories} />
 
-A modal dialog that appears centered on top of all other windows, blocking other interaction until dismissed.
-
-By default, the first focusable control gets focus when the dialog is opened. To focus a specific element instead, set the `autofocus` attribute on that element.
+A modal dialog that appears centered on top of all other windows, blocking other
+interaction until dismissed.
 
 <Canvas of={dialogStories.dialog} />
+
+## API
+
 <Controls of={dialogStories.dialog} />
+<ComponentApisLink />
 
 ## Styling
 
 ### Sizing
 
-The dialog size can be customized by modyfing the width, height and max-height properties of `nimble-dialog::part(control)`.
+The dialog size can be customized by modyfing the width, height and max-height
+properties of `nimble-dialog::part(control)`.
 
-By default, the dialog is sized to be small and growable. This should be used for small dialogs like a confirmation dialog.
-This is equivalent of using the following style configuration:
+By default, the dialog is sized to be small and growable. This should be used
+for small dialogs like a confirmation dialog. This is equivalent of using the
+following style configuration:
 
 ```scss
 nimble-dialog::part(control) {
@@ -28,7 +34,8 @@ nimble-dialog::part(control) {
 }
 ```
 
-For larger dialogs, for example a wizard-like dialog, the following style configuration should be used:
+For larger dialogs, for example a wizard-like dialog, the following style
+configuration should be used:
 
 ```scss
 nimble-dialog::part(control) {
@@ -38,7 +45,10 @@ nimble-dialog::part(control) {
 }
 ```
 
-{/* ## Usage */}
+## Usage
+
+By default, the first focusable control gets focus when the dialog is opened. To
+focus a specific element instead, set the `autofocus` attribute on that element.
 
 {/* ## Examples */}
 

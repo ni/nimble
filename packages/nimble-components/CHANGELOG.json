@@ -2,6 +2,357 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Wed, 12 Jun 2024 16:30:00 GMT",
+      "version": "29.3.5",
+      "tag": "@ni/nimble-components_v29.3.5",
+      "comments": {
+        "none": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "50505a96ca8994ffedcd58c1f0604b01b76cbe2a",
+            "comment": "Create HLD for menu-button table column"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 11 Jun 2024 19:27:14 GMT",
+      "version": "29.3.5",
+      "tag": "@ni/nimble-components_v29.3.5",
+      "comments": {
+        "patch": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "17ddea50b5accb353a0288c42d0e64ddc5df0d04",
+            "comment": "Switch to custom box-sizing: border-box consistently"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 10 Jun 2024 17:58:35 GMT",
+      "version": "29.3.4",
+      "tag": "@ni/nimble-components_v29.3.4",
+      "comments": {
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "5245940fac73a300b6552998da6ca4d4b07166e9",
+            "comment": "lint updates without source changes"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Sat, 08 Jun 2024 22:12:12 GMT",
+      "version": "29.3.4",
+      "tag": "@ni/nimble-components_v29.3.4",
+      "comments": {
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "26f9a4ebb0ae298177ebc0de6056790f21ff565d",
+            "comment": "Change concurrent-lint behavior for components"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Sat, 08 Jun 2024 17:53:59 GMT",
+      "version": "29.3.4",
+      "tag": "@ni/nimble-components_v29.3.4",
+      "comments": {
+        "patch": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "5a5891d245144ce82d5f39dd2c008ee3f1c5910e",
+            "comment": "Worker generation tweaks"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 07 Jun 2024 21:16:09 GMT",
+      "version": "29.3.3",
+      "tag": "@ni/nimble-components_v29.3.3",
+      "comments": {
+        "none": [
+          {
+            "author": "20709258+msmithNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "a486bd56a7a87d6bddfccc098871278878893b37",
+            "comment": "Minor updates to table keyboard navigation HLD"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 07 Jun 2024 20:34:51 GMT",
+      "version": "29.3.3",
+      "tag": "@ni/nimble-components_v29.3.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "33986780+munteannatan@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "d5ad24b089316112493858c00d16b248f129d9bd",
+            "comment": "Created renderer capabilities for colors and text in the offscreen canvas"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 07 Jun 2024 17:53:20 GMT",
+      "version": "29.3.2",
+      "tag": "@ni/nimble-components_v29.3.2",
+      "comments": {
+        "patch": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "992217c62385db7dcc228d23a74658c6f8f6b44c",
+            "comment": "Minor wafer updates due to lint config changes"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 07 Jun 2024 15:10:38 GMT",
+      "version": "29.3.1",
+      "tag": "@ni/nimble-components_v29.3.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "f0dd13720cee919ca0540ed26a99d6cfccbdd67f",
+            "comment": "Revert previous change as this causes a regression in Angular apps."
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 07 Jun 2024 13:32:45 GMT",
+      "version": "29.3.0",
+      "tag": "@ni/nimble-components_v29.3.0",
+      "comments": {
+        "none": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "94c787183287139d46cffa2ddb79d5b0e9681ec5",
+            "comment": "Disable some tests that fail for Webkit"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 06 Jun 2024 17:29:15 GMT",
+      "version": "29.3.0",
+      "tag": "@ni/nimble-components_v29.3.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "d375e092e3b2e627fba234136871d002aeb3c7b6",
+            "comment": "Add icons for AI, clean, expand, collapse, debug"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/nimble-tokens to v6.15.0",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 06 Jun 2024 15:56:25 GMT",
+      "version": "29.2.4",
+      "tag": "@ni/nimble-components_v29.2.4",
+      "comments": {
+        "patch": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "c6b91bb4a57bbc4b55a74d14f318886e55020348",
+            "comment": "Address issue with select not recognizing when group options are updated"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 05 Jun 2024 18:54:09 GMT",
+      "version": "29.2.3",
+      "tag": "@ni/nimble-components_v29.2.3",
+      "comments": {
+        "none": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "1f0d3e634294c4fd54139e1181660c48cc3fe54c",
+            "comment": "Update Playwright version to 1.44.0"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 05 Jun 2024 17:12:12 GMT",
+      "version": "29.2.3",
+      "tag": "@ni/nimble-components_v29.2.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "1d6c2e938db2295416e2d22c47685d9da22fad0f",
+            "comment": "Allow very long words in banner to break to another line"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 05 Jun 2024 00:51:43 GMT",
+      "version": "29.2.2",
+      "tag": "@ni/nimble-components_v29.2.2",
+      "comments": {
+        "none": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "363a99447b464bce2a1f556190f3c1a5c6977f1d",
+            "comment": "Disable three more intermittent rich text tests"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 04 Jun 2024 17:40:32 GMT",
+      "version": "29.2.2",
+      "tag": "@ni/nimble-components_v29.2.2",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "8ead53f722fc0ed9fde1b4b96417aedfff6fe1cc",
+            "comment": "Fix some icon metaphors and use larger check for checkbox"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 04 Jun 2024 17:05:14 GMT",
+      "version": "29.2.1",
+      "tag": "@ni/nimble-components_v29.2.1",
+      "comments": {
+        "none": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "9b1924fe150d01e2343e8087abdd4730f1da4466",
+            "comment": "Disable intermittent rich text editor test"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 04 Jun 2024 16:35:58 GMT",
+      "version": "29.2.1",
+      "tag": "@ni/nimble-components_v29.2.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/nimble-tokens to v6.14.0",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 04 Jun 2024 02:06:07 GMT",
+      "version": "29.2.0",
+      "tag": "@ni/nimble-components_v29.2.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "9ed4ff0f84ba6b696a1602816825e875a9ae618f",
+            "comment": "List option groups for Select"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 03 Jun 2024 22:25:43 GMT",
+      "version": "29.1.8",
+      "tag": "@ni/nimble-components_v29.1.8",
+      "comments": {
+        "patch": [
+          {
+            "author": "33986780+munteannatan@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "decce3d5531d93d66fe608607dd0260602b3a2f9",
+            "comment": "Refactored experimental structure and update strategy for wafer map component"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 31 May 2024 18:50:45 GMT",
+      "version": "29.1.7",
+      "tag": "@ni/nimble-components_v29.1.7",
+      "comments": {
+        "none": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "7f81793cd766e69d63c89d69716a9f4352bb32ab",
+            "comment": "Update spec with new APIs for Select custom filtering."
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 31 May 2024 15:22:31 GMT",
+      "version": "29.1.7",
+      "tag": "@ni/nimble-components_v29.1.7",
+      "comments": {
+        "patch": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "ad47a4137ef0a1a49b82b99fdbfdf4feb510d5fe",
+            "comment": "Remove listbox component as it is unused."
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 28 May 2024 20:13:14 GMT",
+      "version": "29.1.6",
+      "tag": "@ni/nimble-components_v29.1.6",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "2855db4fe58a8d1df112ea656215696d9582f9ea",
+            "comment": "Update banner styling to align with visual design spec"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 22 May 2024 18:32:15 GMT",
       "version": "29.1.5",
       "tag": "@ni/nimble-components_v29.1.5",

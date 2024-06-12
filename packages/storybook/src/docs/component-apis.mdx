@@ -4,13 +4,16 @@ import { Meta } from '@storybook/addon-docs';
 
 # Component APIs
 
-This page describes common patterns for programmatically configuring Nimble components.
+This page describes common patterns for programmatically configuring Nimble
+components.
 
 ## Elements
 
-Nimble components are [web component custom elements](https://developer.mozilla.org/en-US/docs/Web/API/Web_components).
-Applications can use custom elements directly or use framework-specific APIs for [Angular](https://angular.io/)
-or [Blazor](https://dotnet.microsoft.com/en-us/apps/aspnet/web-apps/blazor).
+Nimble components are
+[web component custom elements](https://developer.mozilla.org/en-US/docs/Web/API/Web_components).
+Applications can use custom elements directly or use framework-specific APIs for
+[Angular](https://angular.io/) or
+[Blazor](https://dotnet.microsoft.com/en-us/apps/aspnet/web-apps/blazor).
 
 Components follow a standard naming convention:
 
@@ -24,8 +27,8 @@ Components follow a standard naming convention:
 
 ## Slots
 
-Component content can be configured by inserting it as a child of the component via
-[slots](https://developer.mozilla.org/en-US/docs/Web/API/Element/slot).
+Component content can be configured by inserting it as a child of the component
+via [slots](https://developer.mozilla.org/en-US/docs/Web/API/Element/slot).
 
 Content can be inserted in the default slot:
 
@@ -44,8 +47,9 @@ Or in a named slot:
 
 ## Attributes and Properties
 
-Configure components from HTML using attributes or from code using properties. Attributes and properties typically
-correspond to each other one-to-one; Nimble documentation refers to the attribute name.
+Configure components from HTML using attributes or from code using properties.
+Attributes and properties typically correspond to each other one-to-one; Nimble
+documentation refers to the attribute name unless otherwise specified.
 
 ### Attributes
 
@@ -57,7 +61,8 @@ Attributes have `kebab-case` names in HTML and Angular templates.
 
 ### Boolean attributes
 
-Boolean attributes don't need a value; they are `true` when present and `false` when absent.
+Boolean attributes don't need a value; they are `true` when present and `false`
+when absent.
 
 ```html
 <nimble-button content-hidden>...</nimble-button>
@@ -74,7 +79,8 @@ button.appearance = ButtonAppearance.outline;
 
 ### Blazor
 
-In Blazor, properties and attributes have `PascalCase` names. For values that are enumerations of strings, the type is a C# enum.
+In Blazor, properties and attributes have `PascalCase` names. For values that
+are enumerations of strings, the type is a C# enum.
 
 ```
 <NimbleButton Appearance="ButtonAppearance.Outline">...</NimbleButton>
@@ -82,10 +88,12 @@ In Blazor, properties and attributes have `PascalCase` names. For values that ar
 
 ## Methods
 
-Some components expose methods for providing complex data or invoking operations. Methods are only available in code, not in HTML.
+Some components expose methods for providing complex data or invoking
+operations. Methods are only available in code, not in HTML.
 
 ## Events
 
-Components raise events to notify the application of changes or user interactions.
-Prefer to use documented Nimble events when available rather than native DOM events as they cover more user interactions
-(for example, `change` will be raised for both click and keyboard interactions).
+Components raise events to notify the application of changes or user
+interactions. Prefer to use documented Nimble events when available rather than
+native DOM events as they cover more user interactions (for example, `change`
+will be raised for both click and keyboard interactions).

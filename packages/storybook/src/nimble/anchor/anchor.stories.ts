@@ -1,9 +1,15 @@
 import type { Meta, StoryObj } from '@storybook/html';
 import { html } from '@microsoft/fast-element';
-import { bodyFont, bodyFontColor } from '../../../../nimble-components/src/theme-provider/design-tokens';
+import {
+    bodyFont,
+    bodyFontColor
+} from '../../../../nimble-components/src/theme-provider/design-tokens';
 import { anchorTag } from '../../../../nimble-components/src/anchor';
 import { AnchorAppearance } from '../../../../nimble-components/src/anchor/types';
-import { apiCategory, createUserSelectedThemeStory } from '../../utilities/storybook';
+import {
+    apiCategory,
+    createUserSelectedThemeStory
+} from '../../utilities/storybook';
 import { hrefDescription } from '../patterns/anchor/anchor-docs';
 
 interface AnchorArgs {
@@ -42,7 +48,10 @@ const metadata: Meta<AnchorArgs> = {
             table: { category: apiCategory.slots }
         },
         href: {
-            description: hrefDescription({ componentName: 'anchor', includeDisable: true }),
+            description: hrefDescription({
+                componentName: 'anchor',
+                includeDisable: true
+            }),
             table: { category: apiCategory.attributes }
         },
         underlineHidden: {

@@ -1,8 +1,24 @@
 # Change Log - @ni/nimble-tokens
 
-This log was last generated on Thu, 09 May 2024 18:40:41 GMT and should not be manually modified.
+This log was last generated on Thu, 06 Jun 2024 17:29:15 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 6.15.0
+
+Thu, 06 Jun 2024 17:29:15 GMT
+
+### Minor changes
+
+- Add icons for AI, clean, expand, collapse, debug ([ni/nimble@d375e09](https://github.com/ni/nimble/commit/d375e092e3b2e627fba234136871d002aeb3c7b6))
+
+## 6.14.0
+
+Tue, 04 Jun 2024 16:35:58 GMT
+
+### Minor changes
+
+- Update button label font size from 12.8px to 14px to match current visual design in Figma ([ni/nimble@466a7b5](https://github.com/ni/nimble/commit/466a7b577ba7e8dc9f6e2adb5beb81b37d4bd9cd))
 
 ## 6.13.6
 

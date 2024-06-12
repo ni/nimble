@@ -25,6 +25,7 @@ import './icons/all-icons';
 import './label-provider/core';
 import './label-provider/table';
 import './list-option';
+import './list-option-group';
 import './mapping/empty';
 import './mapping/icon';
 import './mapping/spinner';

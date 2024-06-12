@@ -4,7 +4,10 @@ import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html';
 import { iconArrowExpanderDownTag } from '../../../../nimble-components/src/icons/arrow-expander-down';
 import { iconKeyTag } from '../../../../nimble-components/src/icons/key';
 import { toggleButtonTag } from '../../../../nimble-components/src/toggle-button';
-import { ButtonAppearance, ButtonAppearanceVariant } from '../../../../nimble-components/src/toggle-button/types';
+import {
+    ButtonAppearance,
+    ButtonAppearanceVariant
+} from '../../../../nimble-components/src/toggle-button/types';
 import {
     appearanceDescription,
     appearanceVariantDescription,
@@ -13,7 +16,11 @@ import {
     iconDescription,
     textContentDescription
 } from '../patterns/button/doc-strings';
-import { apiCategory, createUserSelectedThemeStory, disabledDescription } from '../../utilities/storybook';
+import {
+    apiCategory,
+    createUserSelectedThemeStory,
+    disabledDescription
+} from '../../utilities/storybook';
 
 interface ToggleButtonArgs {
     label: string;
@@ -27,7 +34,9 @@ interface ToggleButtonArgs {
     change: undefined;
 }
 
-const contentDescription = textContentDescription({ componentName: 'toggle button' });
+const contentDescription = textContentDescription({
+    componentName: 'toggle button'
+});
 
 const defaultSlotDescription = `${contentDescription} The content should remain the same whether the toggle button is pressed or not.`;
 
@@ -59,11 +68,14 @@ const metadata: Meta<ToggleButtonArgs> = {
             table: { category: apiCategory.attributes }
         },
         disabled: {
-            description: disabledDescription({ componentName: 'toggle button' }),
+            description: disabledDescription({
+                componentName: 'toggle button'
+            }),
             table: { category: apiCategory.attributes }
         },
         checked: {
-            description: 'Whether the toggle button is pressed (on) or not pressed (off).',
+            description:
+                'Whether the toggle button is pressed (on) or not pressed (off).',
             table: { category: apiCategory.attributes }
         },
         label: {
@@ -82,8 +94,10 @@ const metadata: Meta<ToggleButtonArgs> = {
             table: { category: apiCategory.slots }
         },
         change: {
-            description: 'Fires when the toggle button is pressed via mouse or keyboard.',
-            table: { category: apiCategory.events }
+            description:
+                'Event emitted when the toggle button is pressed via mouse or keyboard.',
+            table: { category: apiCategory.events },
+            control: false
         }
     },
     // prettier-ignore

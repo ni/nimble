@@ -10,7 +10,10 @@ import {
     sharedTableArgTypes,
     sharedTableArgs
 } from '../base/table-column-stories-utils';
-import { createUserSelectedThemeStory } from '../../../utilities/storybook';
+import {
+    apiCategory,
+    createUserSelectedThemeStory
+} from '../../../utilities/storybook';
 
 const simpleData = [
     {
@@ -95,11 +98,13 @@ export const durationTextColumn: StoryObj<TextColumnTableArgs> = {
             name: 'field-name',
             description:
                 'Set this attribute to identify which field in the data record should be displayed in each column. The field values must be of type `number` and represent a total number of milliseconds.',
-            control: false
+            control: false,
+            table: { category: apiCategory.attributes }
         },
         placeholder: {
             description:
-                'The placeholder text to display when the field value is `undefined` or `null` for a record.'
+                'The placeholder text to display when the field value is `undefined` or `null` for a record.',
+            table: { category: apiCategory.attributes }
         }
     },
     args: {

@@ -2,14 +2,20 @@ import { html, ref } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
 import { tableTag } from '../../../../nimble-components/src/table';
 import { tableColumnDateTextTag } from '../../../../nimble-components/src/table-column/date-text';
-import { Direction, themeProviderTag } from '../../../../nimble-components/src/theme-provider';
+import {
+    Direction,
+    themeProviderTag
+} from '../../../../nimble-components/src/theme-provider';
 import { Theme } from '../../../../nimble-components/src/theme-provider/types';
 import {
     sharedTableArgTypes,
     type SharedTableArgs,
     sharedTableArgs
 } from '../table-column/base/table-column-stories-utils';
-import { createUserSelectedThemeStory } from '../../utilities/storybook';
+import {
+    apiCategory,
+    createUserSelectedThemeStory
+} from '../../utilities/storybook';
 
 const simpleData = [
     {
@@ -88,7 +94,8 @@ export const themeProvider: StoryObj<ThemeProviderArgs> = {
                 summary: '"light"'
             },
             options: Object.keys(Theme),
-            control: { type: 'radio' }
+            control: { type: 'radio' },
+            table: { category: apiCategory.attributes }
         },
         lang: {
             description: langDescription,
@@ -97,7 +104,8 @@ export const themeProvider: StoryObj<ThemeProviderArgs> = {
                     '`lang` of the document element if set, otherwise "en-US".'
             },
             options: ['en-US', 'fr-FR', 'de-DE'],
-            control: { type: 'radio' }
+            control: { type: 'radio' },
+            table: { category: apiCategory.attributes }
         },
         direction: {
             description:
@@ -106,7 +114,8 @@ export const themeProvider: StoryObj<ThemeProviderArgs> = {
                 summary: '"ltr"'
             },
             options: Object.keys(Direction),
-            control: { type: 'radio' }
+            control: { type: 'radio' },
+            table: { category: apiCategory.attributes }
         }
     },
     args: {

@@ -5,11 +5,11 @@ import { iconPencilTag } from '../../../../nimble-components/src/icons/pencil';
 import { iconTagTag } from '../../../../nimble-components/src/icons/tag';
 import { iconXmarkTag } from '../../../../nimble-components/src/icons/xmark';
 import { textFieldTag } from '../../../../nimble-components/src/text-field';
-import { TextFieldAppearance, TextFieldType } from '../../../../nimble-components/src/text-field/types';
 import {
-    createStory,
-    createFixedThemeStory
-} from '../../utilities/storybook';
+    TextFieldAppearance,
+    TextFieldType
+} from '../../../../nimble-components/src/text-field/types';
+import { createStory, createFixedThemeStory } from '../../utilities/storybook';
 import {
     createMatrixThemeStory,
     createMatrix,
@@ -99,7 +99,7 @@ const component = (
     [valueName, valueValue, placeholderValue]: ValueState
 ): ViewTemplate => html`
     <${textFieldTag}
-        style="width: 350px; padding: 8px;"
+        style="width: 350px; margin: 8px;"
         ?full-bleed="${() => fullBleed}"
         ?disabled="${() => disabled}"
         type="${() => type}"

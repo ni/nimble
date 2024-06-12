@@ -1,13 +1,27 @@
 import { Controls, Canvas, Meta, Title } from '@storybook/blocks';
 import * as radioGroupStories from './radio-group.stories';
+import ComponentApisLink from '../../docs/component-apis-link.mdx';
 
 <Meta of={radioGroupStories} />
 <Title of={radioGroupStories} />
 
-Per [W3C](https://www.w3.org/WAI/ARIA/apg/patterns/radio/) - A radio group is a set of checkable buttons, known as radio buttons, where no more than one of the buttons can be checked at a time. Some implementations may initialize the set with all buttons in the unchecked state in order to force the user to check one of the buttons before moving past a certain point in the workflow.
+Per [W3C](https://www.w3.org/WAI/ARIA/apg/patterns/radio/) - A radio group is a
+set of checkable buttons, known as radio buttons, where no more than one of the
+buttons can be checked at a time. Some implementations may initialize the set
+with all buttons in the unchecked state in order to force the user to check one
+of the buttons before moving past a certain point in the workflow.
 
 <Canvas of={radioGroupStories.radioGroup} />
+
+## API
+
 <Controls of={radioGroupStories.radioGroup} />
+<ComponentApisLink />
+
+### Radio
+
+<Canvas of={radioGroupStories.radio} />
+<Controls of={radioGroupStories.radio} />
 
 {/* ## Styling */}
 
@@ -17,8 +31,13 @@ Per [W3C](https://www.w3.org/WAI/ARIA/apg/patterns/radio/) - A radio group is a 
 
 ### Angular Usage
 
-The Angular CVA for the radio button group ignores the value of `callSetDisabledState` configured on the form module.
-Instead, it always uses the default value of `'always'`.
+When using radio buttons in an Angular form, you must explicitly set either
+`name` or `formControlName` on each radio button. In that scenario, setting
+`name` on the group is ineffective.
+
+The Angular control value accessor for the radio button group ignores the value
+of `callSetDisabledState` configured on the form module. Instead, it always uses
+the default value of `'always'`.
 
 {/* ## Accessibility */}
 

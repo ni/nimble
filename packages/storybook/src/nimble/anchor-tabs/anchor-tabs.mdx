@@ -10,11 +10,13 @@ import * as anchorTabsStories from './anchor-tabs.stories';
 <Meta of={anchorTabsStories} />
 <Title of={anchorTabsStories} />
 
-Anchor tabs are a sequence of links that are styled to look like tab elements, where one link can
-be distinguished as the currently active item. Use this component instead of the standard tabs component when each tab
-represents a different URL to navigate to.
+Anchor tabs are a sequence of links that are styled to look like tab elements,
+where one link can be distinguished as the currently active item. Use this
+component instead of the standard tabs component when each tab represents a
+different URL to navigate to.
 
-If you want the tabs to switch between different tab panels hosted on the same page, use the <Tag name={tabsTag}/> instead.
+If you want the tabs to switch between different tab panels hosted on the same
+page, use the <Tag name={tabsTag}/> instead.
 
 <Canvas of={anchorTabsStories.anchorTabs} />
 
@@ -26,14 +28,21 @@ If you want the tabs to switch between different tab panels hosted on the same p
 
 ### Anchor Tab
 
-Use the <Tag name={anchorTabTag} /> child element to add new tabs to the <Tag name={anchorTabsTag} />.
+Use the <Tag name={anchorTabTag} /> child element to add new tabs to the
+
+<Tag name={anchorTabsTag} />.
 
 <Canvas of={anchorTabsStories.anchorTab} />
 <Controls of={anchorTabsStories.anchorTab} />
 
+#### Target Configuration
+
+<TargetDocs />
+
 ### Tabs Toolbar
 
-Use the <Tag name={tabsToolbarTag} /> child element to add a toolbar next to the tabs.
+Use the <Tag name={tabsToolbarTag} /> child element to add a toolbar next to the
+tabs.
 
 <Canvas of={anchorTabsStories.tabsToolbar} />
 <Controls of={anchorTabsStories.tabsToolbar} />
@@ -44,15 +53,12 @@ Use the <Tag name={tabsToolbarTag} /> child element to add a toolbar next to the
 
 {/* ## Examples */}
 
-## Target Configuration
-
-<TargetDocs />
-
 ## Angular Usage
 
-In an Angular application, it is common to integrate with the router by setting `nimbleRouterLink` (rather than `href`)
-on each <Tag name={anchorTabTag} /> element. In those cases, it is recommended to also set `replaceUrl="true"` so that switching
-between tabs does not add to the browser history.
+In an Angular application, it is common to integrate with the router by setting
+`nimbleRouterLink` (rather than `href`) on each <Tag name={anchorTabTag} />
+element. In those cases, it is recommended to also set `replaceUrl="true"` so
+that switching between tabs does not add to the browser history.
 
 {/* ## Accessibility */}
 

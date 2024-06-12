@@ -48,7 +48,7 @@ export const styles = css`
     }
 
     ::slotted(hr) {
-        box-sizing: content-box;
+        box-sizing: border-box;
         height: 2px;
         margin: ${smallPadding};
         border: none;

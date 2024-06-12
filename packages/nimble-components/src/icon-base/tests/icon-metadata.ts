@@ -16,8 +16,14 @@ export const iconMetadata: {
     IconArrowDown: {
         tags: ['sort', 'arrow', 'down', 'descending']
     },
+    IconArrowDownLeftAndArrowUpRight: {
+        tags: ['collapse', 'shrink', 'reduce size']
+    },
     IconArrowDownRightAndArrowUpLeft: {
         tags: ['resize', 'collapse']
+    },
+    IconArrowUpRightAndArrowDownLeft: {
+        tags: ['expand', 'grow', 'enlarge size']
     },
     IconArrowExpanderDown: {
         tags: []
@@ -116,13 +122,13 @@ export const iconMetadata: {
         tags: ['assets']
     },
     IconCheck: {
-        tags: ['status', 'alarm acknowledged']
+        tags: ['status', 'success', 'alarm acknowledged']
     },
     IconCheckDot: {
         tags: ['status', 'done']
     },
     IconCheckLarge: {
-        tags: ['status']
+        tags: ['status', 'success']
     },
     IconCircle: {
         tags: ['status', 'connected']
@@ -216,6 +222,9 @@ export const iconMetadata: {
     },
     IconDatabaseCheck: {
         tags: ['system state manager']
+    },
+    IconDebug: {
+        tags: ['troubleshoot']
     },
     IconDesktop: {
         tags: ['monitor']
@@ -448,6 +457,12 @@ export const iconMetadata: {
     IconSkipArrow: {
         tags: ['status', 'skipped']
     },
+    IconSparkles: {
+        tags: ['clean up', 'stars']
+    },
+    IconSparkleSwirls: {
+        tags: ['ai', 'artificial intelligence', 'magic', 'advanced automate']
+    },
     IconSpinner: {
         tags: ['in progress']
     },
@@ -500,10 +515,10 @@ export const iconMetadata: {
         tags: []
     },
     IconTimes: {
-        tags: ['close']
+        tags: ['clear', 'close', 'delete', 'multiply', 'remove']
     },
     IconTrash: {
-        tags: ['clear', 'close', 'delete', 'remove', 'x']
+        tags: ['delete', 'remove']
     },
     IconTriangle: {
         tags: ['status', 'alarm active']

@@ -1,6 +1,7 @@
 import { Canvas, Meta, Controls, Title } from '@storybook/blocks';
 import { NimbleTableColumnText } from './table-column-text.react';
 import * as tableColumnTextStories from './table-column-text.stories';
+import ComponentApisLink from '../../../docs/component-apis-link.mdx';
 import { tableColumnTextTag } from '../../../../../nimble-components/src/table-column/text';
 import { tableTag } from '../../../../../nimble-components/src/table';
 import NoNullAndUndefinedBestPractice from '../../patterns/table-column/no-null-and-undefined-best-practice-docs.mdx';
@@ -8,10 +9,15 @@ import NoNullAndUndefinedBestPractice from '../../patterns/table-column/no-null-
 <Meta of={tableColumnTextStories} />
 <Title of={tableColumnTextStories} />
 
-The <Tag name={tableColumnTextTag}/> column is used to display string fields as text in the <Tag name={tableTag}/>.
+The <Tag name={tableColumnTextTag}/> column is used to display string fields as
+text in the <Tag name={tableTag}/>.
 
 <Canvas of={tableColumnTextStories.textColumn} />
+
+## API
+
 <Controls of={tableColumnTextStories.textColumn} />
+<ComponentApisLink />
 
 {/* ## Styling */}
 
@@ -20,8 +26,11 @@ The <Tag name={tableColumnTextTag}/> column is used to display string fields as 
 ### Best Practices
 
 -   <NoNullAndUndefinedBestPractice />
--   Avoid mixing empty string with `undefined`/`null`. The distinction when grouping between `"No value"` and `"Empty"` is not likely meaningful to a user.
--   Avoid displaying whitespace values that are not empty string (`''`) as these values will be rendered as-is in group rows.
+-   Avoid mixing empty string with `undefined`/`null`. The distinction when
+    grouping between `"No value"` and `"Empty"` is not likely meaningful to a
+    user.
+-   Avoid displaying whitespace values that are not empty string (`''`) as these
+    values will be rendered as-is in group rows.
 
 {/* ## Examples */}
 

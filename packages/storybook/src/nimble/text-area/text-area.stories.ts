@@ -2,8 +2,20 @@ import { html } from '@microsoft/fast-element';
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html';
 import { textAreaTag } from '../../../../nimble-components/src/text-area';
-import { TextAreaAppearance, TextAreaResize } from '../../../../nimble-components/src/text-area/types';
-import { createUserSelectedThemeStory } from '../../utilities/storybook';
+import {
+    TextAreaAppearance,
+    TextAreaResize
+} from '../../../../nimble-components/src/text-area/types';
+import {
+    apiCategory,
+    appearanceDescription,
+    createUserSelectedThemeStory,
+    disabledDescription,
+    errorTextDescription,
+    errorVisibleDescription,
+    placeholderDescription,
+    slottedLabelDescription
+} from '../../utilities/storybook';
 import { loremIpsum } from '../../utilities/lorem-ipsum';
 
 interface TextAreaArgs {
@@ -20,6 +32,7 @@ interface TextAreaArgs {
     rows: number;
     cols: number;
     maxlength: number;
+    change: undefined;
 }
 
 const metadata: Meta<TextAreaArgs> = {
@@ -52,40 +65,73 @@ const metadata: Meta<TextAreaArgs> = {
         appearance: {
             options: Object.values(TextAreaAppearance),
             control: { type: 'radio' },
-            table: {
-                defaultValue: { summary: 'outline' }
-            }
+            description: appearanceDescription({ componentName: 'text area' }),
+            table: { category: apiCategory.attributes }
+        },
+        label: {
+            name: 'default',
+            description: `${slottedLabelDescription({ componentName: 'text area' })}`,
+            table: { category: apiCategory.slots }
+        },
+        placeholder: {
+            description: placeholderDescription({ componentName: 'text area' }),
+            table: { category: apiCategory.attributes }
+        },
+        value: {
+            description:
+                'The string displayed in the text area. Note that the property value is not synced to an attribute.',
+            table: { category: apiCategory.nonAttributeProperties }
+        },
+        readonly: {
+            description:
+                'Disallows input on the text area while maintaining enabled appearance.',
+            table: { category: apiCategory.attributes }
+        },
+        disabled: {
+            description: disabledDescription({ componentName: 'text area' }),
+            table: { category: apiCategory.attributes }
+        },
+        errorText: {
+            name: 'error-text',
+            description: errorTextDescription,
+            table: { category: apiCategory.attributes }
+        },
+        errorVisible: {
+            name: 'error-visible',
+            description: errorVisibleDescription,
+            table: { category: apiCategory.attributes }
+        },
+        spellcheck: {
+            description:
+                'Specifies whether the text area is subject to spell checking by the underlying browser/OS.',
+            table: { category: apiCategory.attributes }
         },
         resize: {
             description:
                 'Direction(s) the text area is sizeable by the user. Setting a fixed `height` and `width` on the text area is not supported while it is sizeable. You may instead use `rows` and `cols` to set an initial size.',
             options: Object.values(TextAreaResize),
             control: { type: 'select' },
-            table: {
-                defaultValue: { summary: 'none' }
-            }
+            table: { category: apiCategory.attributes }
         },
         rows: {
-            description: 'Number of visible rows of text.'
+            description: 'Number of visible rows of text.',
+            table: { category: apiCategory.attributes }
         },
         cols: {
             description:
                 'Visible width of the text, in average character widths',
-            table: {
-                defaultValue: { summary: '20' }
-            }
+            table: { category: apiCategory.attributes }
         },
         maxlength: {
             description:
-                'Maximum number of characters that may be entered by the user'
+                'Maximum number of characters that may be entered by the user',
+            table: { category: apiCategory.attributes }
         },
-        errorVisible: {
+        change: {
             description:
-                'Whether the text area should be styled to indicate that it is in an invalid state'
-        },
-        errorText: {
-            description:
-                'A message to be displayed when the text area is in the invalid state explaining why the value is invalid'
+                'Event emitted when the user commits a new value to the text area.',
+            table: { category: apiCategory.events },
+            control: false
         }
     },
     args: {

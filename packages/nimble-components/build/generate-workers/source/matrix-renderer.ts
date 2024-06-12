@@ -1,10 +1,5 @@
 import { expose } from 'comlink';
-import type {
-    Dimensions,
-    Transform,
-    WaferMapMatrix,
-    WaferMapTypedMatrix
-} from './types';
+import type { Dimensions, RenderConfig, TransformConfig } from './types';
 
 /**
  * MatrixRenderer class is meant to be used within a Web Worker context,
@@ -14,111 +9,107 @@ import type {
  * This setup is used in the wafer-map component to perform heavy computational duties
  */
 export class MatrixRenderer {
-    public columnIndexes = Int32Array.from([]);
-    public rowIndexes = Int32Array.from([]);
     public values = Float64Array.from([]);
-    public scaledColumnIndex = Float64Array.from([]);
-    public scaledRowIndex = Float64Array.from([]);
-    public columnIndexPositions = Int32Array.from([]);
+    public scaledColumnIndices = Float64Array.from([]);
+    public scaledRowIndices = Float64Array.from([]);
+    public columnIndicesPositions = Int32Array.from([]);
+    public colorIndices = Int32Array.from([]);
     public canvas!: OffscreenCanvas;
     public context!: OffscreenCanvasRenderingContext2D;
-    private scaleX: number = 1;
-    private scaleY: number = 1;
-    private baseX: number = 1;
-    private baseY: number = 1;
-    private dieDimensions: Dimensions = { width: 1, height: 1 };
-    private transform: Transform = { k: 1, x: 0, y: 0 };
-    private topLeftCanvasCorner!: { x: number; y: number };
-    private bottomRightCanvasCorner!: { x: number; y: number };
-    private readonly smallestMarginPossible: number = 20;
-    private margin: {
-        top: number;
-        right: number;
-        bottom: number;
-        left: number;
-    } = {
-            top: this.smallestMarginPossible,
-            right: this.smallestMarginPossible,
-            bottom: this.smallestMarginPossible,
-            left: this.smallestMarginPossible
-        };
+    private colors: string[] = [];
+    private colorValues = Float64Array.from([]);
+    private readonly outsideRangeDieColor = 'rgba(218,223,236,1)';
+    private readonly fontSizeFactor = 0.8;
+    private renderConfig: RenderConfig = {
+        dieDimensions: {
+            width: 0,
+            height: 0
+        },
+        margin: {
+            top: 0,
+            right: 0,
+            bottom: 0,
+            left: 0
+        },
+        verticalCoefficient: 1,
+        horizontalCoefficient: 1,
+        horizontalConstant: 0,
+        verticalConstant: 0,
+        gridMinX: 0,
+        gridMaxX: 0,
+        gridMinY: 0,
+        gridMaxY: 0,
+        labelsFontSize: 0,
+        colorScale: [],
+        dieLabelsSuffix: '',
+        maxCharacters: 0
+    };
 
-    public calculateXScaledIndex(columnIndex: number): number {
-        return this.scaleX * columnIndex + this.baseX + this.margin.left;
-    }
-
-    public calculateYScaledIndex(rowIndex: number): number {
-        return this.scaleY * rowIndex + this.baseY + this.margin.top;
-    }
-
-    public setColumnIndexes(columnIndexes: Int32Array): void {
-        this.columnIndexes = columnIndexes;
-        if (columnIndexes.length === 0 || this.columnIndexes[0] === undefined) {
-            return;
+    private transformConfig: TransformConfig = {
+        transform: {
+            k: 1,
+            x: 0,
+            y: 0
+        },
+        topLeftCanvasCorner: {
+            x: 0,
+            y: 0
+        },
+        bottomRightCanvasCorner: {
+            x: 0,
+            y: 0
         }
-        const scaledColumnIndex = [
-            this.calculateXScaledIndex(this.columnIndexes[0])
-        ];
-        const columnPositions = [0];
-        let prev = this.columnIndexes[0];
-        for (let i = 1; i < this.columnIndexes.length; i++) {
-            const xIndex = this.columnIndexes[i];
-            if (xIndex && xIndex !== prev) {
-                const scaledX = this.calculateXScaledIndex(
-                    this.columnIndexes[i]!
+    };
+
+    public setMatrixData(
+        columnIndices: Int32Array,
+        rowIndices: Int32Array,
+        valuesBuffer: Float64Array
+    ): void {
+        const scaledColumnIndex = [];
+        const columnPositions = [];
+        const scaledRowIndices = [];
+        const values = [];
+        const colorIndices = [];
+        let prevXIndex;
+        let dieCount = 0;
+        for (let i = 0; i < columnIndices.length; i++) {
+            const xIndex = columnIndices[i]!;
+            const yIndex = rowIndices[i]!;
+            if (this.isDieInGrid(xIndex, yIndex)) {
+                if (xIndex !== prevXIndex) {
+                    scaledColumnIndex.push(
+                        this.calculateHorizontalScaledIndices(xIndex)
+                    );
+                    columnPositions.push(dieCount);
+                    prevXIndex = xIndex;
+                }
+                scaledRowIndices.push(
+                    this.calculateVerticalScaledIndices(yIndex)
                 );
-                scaledColumnIndex.push(scaledX);
-                columnPositions.push(i);
-                prev = xIndex;
+                const value = valuesBuffer[i]!;
+                values.push(value);
+                colorIndices.push(this.findColorIndex(value));
+                dieCount += 1;
             }
         }
-        this.scaledColumnIndex = Float64Array.from(scaledColumnIndex);
-        this.columnIndexPositions = Int32Array.from(columnPositions);
+        this.scaledColumnIndices = Float64Array.from(scaledColumnIndex);
+        this.columnIndicesPositions = Int32Array.from(columnPositions);
+        this.scaledRowIndices = Float64Array.from(scaledRowIndices);
+        this.values = Float64Array.from(values);
+        this.colorIndices = Int32Array.from(colorIndices);
     }
 
-    public setRowIndexes(rowIndexesBuffer: Int32Array): void {
-        this.rowIndexes = rowIndexesBuffer;
-        this.scaledRowIndex = new Float64Array(this.rowIndexes.length);
-        for (let i = 0; i < this.rowIndexes.length; i++) {
-            this.scaledRowIndex[i] = this.calculateYScaledIndex(
-                this.rowIndexes[i]!
-            );
-        }
+    public setRenderConfig(renderConfig: RenderConfig): void {
+        this.renderConfig = renderConfig;
+        this.colors = renderConfig.colorScale.map(marker => marker.color);
+        this.colorValues = Float64Array.from(
+            renderConfig.colorScale.map(marker => marker.value)
+        );
     }
 
-    public setMargin(margin: {
-        top: number;
-        right: number;
-        bottom: number;
-        left: number;
-    }): void {
-        this.margin = margin;
-    }
-
-    public setCanvasCorners(
-        topLeft: { x: number; y: number },
-        bottomRight: { x: number; y: number }
-    ): void {
-        this.topLeftCanvasCorner = topLeft;
-        this.bottomRightCanvasCorner = bottomRight;
-    }
-
-    public setDiesDimensions(data: Dimensions): void {
-        this.dieDimensions = { width: data.width, height: data.height };
-    }
-
-    public setScaling(scaleX: number, scaleY: number): void {
-        this.scaleX = scaleX;
-        this.scaleY = scaleY;
-    }
-
-    public setBases(baseX: number, baseY: number): void {
-        this.baseX = baseX;
-        this.baseY = baseY;
-    }
-
-    public setTransform(transform: Transform): void {
-        this.transform = transform;
+    public setTransformConfig(transformData: TransformConfig): void {
+        this.transformConfig = transformData;
     }
 
     public setCanvas(canvas: OffscreenCanvas): void {
@@ -126,29 +117,15 @@ export class MatrixRenderer {
         this.context = canvas.getContext('2d')!;
     }
 
-    public getMatrix(): WaferMapTypedMatrix {
-        return {
-            columnIndexes: this.columnIndexes,
-            rowIndexes: this.rowIndexes,
-            values: this.values
-        };
-    }
-
-    public emptyMatrix(): void {
-        this.columnIndexes = Int32Array.from([]);
-        this.rowIndexes = Int32Array.from([]);
-        this.values = Float64Array.from([]);
-    }
-
     public scaleCanvas(): void {
-        this.context.translate(this.transform.x, this.transform.y);
-        this.context.scale(this.transform.k, this.transform.k);
-    }
-
-    public updateMatrix(data: WaferMapMatrix): void {
-        this.columnIndexes = Int32Array.from(data.columnIndexes);
-        this.rowIndexes = Int32Array.from(data.rowIndexes);
-        this.values = Float64Array.from(data.values);
+        this.context.translate(
+            this.transformConfig.transform.x,
+            this.transformConfig.transform.y
+        );
+        this.context.scale(
+            this.transformConfig.transform.k,
+            this.transformConfig.transform.k
+        );
     }
 
     public setCanvasDimensions(data: Dimensions): void {
@@ -172,18 +149,12 @@ export class MatrixRenderer {
         this.context.save();
         this.clearCanvas();
         this.scaleCanvas();
-        if (
-            this.topLeftCanvasCorner === undefined
-            || this.bottomRightCanvasCorner === undefined
-        ) {
-            throw new Error('Canvas corners are not set');
-        }
-        for (let i = 0; i < this.scaledColumnIndex.length; i++) {
-            const scaledX = this.scaledColumnIndex[i]!;
+        for (let i = 0; i < this.scaledColumnIndices.length; i++) {
+            const scaledX = this.scaledColumnIndices[i]!;
             if (
                 !(
-                    scaledX >= this.topLeftCanvasCorner.x
-                    && scaledX < this.bottomRightCanvasCorner.x
+                    scaledX >= this.transformConfig.topLeftCanvasCorner.x
+                    && scaledX < this.transformConfig.bottomRightCanvasCorner.x
                 )
             ) {
                 continue;
@@ -191,34 +162,128 @@ export class MatrixRenderer {
 
             // columnIndexPositions is used to get chunks to determine the start and end index of the column, it looks something like [0, 1, 4, 9, 12]
             // This means that the first column has a start index of 0 and an end index of 1, the second column has a start index of 1 and an end index of 4, and so on
-            // scaledRowIndex is used when we reach the end of the columnIndexPositions, when columnIndexPositions is [0, 1, 4, 9, 12], scaledRowIndex is 13
-            const columnEndIndex = this.columnIndexPositions[i + 1] !== undefined
-                ? this.columnIndexPositions[i + 1]!
-                : this.scaledRowIndex.length;
+            // scaledRowIndices is used when we reach the end of the columnIndexPositions, when columnIndexPositions is [0, 1, 4, 9, 12], scaledRowIndices is 13
+            const columnEndIndex = this.columnIndicesPositions[i + 1] !== undefined
+                ? this.columnIndicesPositions[i + 1]!
+                : this.scaledRowIndices.length;
             for (
-                let columnStartIndex = this.columnIndexPositions[i]!;
+                let columnStartIndex = this.columnIndicesPositions[i]!;
                 columnStartIndex < columnEndIndex;
                 columnStartIndex++
             ) {
-                const scaledY = this.scaledRowIndex[columnStartIndex]!;
+                const scaledY = this.scaledRowIndices[columnStartIndex]!;
                 if (
                     !(
-                        scaledY >= this.topLeftCanvasCorner.y
-                        && scaledY < this.bottomRightCanvasCorner.y
+                        scaledY >= this.transformConfig.topLeftCanvasCorner.y
+                        && scaledY < this.transformConfig.bottomRightCanvasCorner.y
                     )
                 ) {
                     continue;
                 }
                 // Fill style is temporary green for all dies, will be replaced with a color based on the value of the die in a future implementation
-                this.context.fillStyle = 'Green';
+                this.context.fillStyle = this.colors[this.colorIndices[columnStartIndex]!]
+                    ?? this.outsideRangeDieColor;
                 this.context.fillRect(
                     scaledX,
                     scaledY,
-                    this.dieDimensions.width,
-                    this.dieDimensions.height
+                    this.renderConfig.dieDimensions.width,
+                    this.renderConfig.dieDimensions.height
                 );
             }
         }
+    }
+
+    public drawText(): void {
+        this.context.font = `${this.renderConfig.labelsFontSize.toString()}px sans-serif`;
+        this.context.fillStyle = '#ffffff';
+        this.context.textAlign = 'center';
+        this.context.lineCap = 'butt';
+        const approximateTextHeight = this.context.measureText('M');
+
+        for (let i = 0; i < this.scaledColumnIndices.length; i++) {
+            const scaledX = this.scaledColumnIndices[i]!;
+            if (
+                !(
+                    scaledX >= this.transformConfig.topLeftCanvasCorner.x
+                    && scaledX < this.transformConfig.bottomRightCanvasCorner.x
+                )
+            ) {
+                continue;
+            }
+
+            // columnIndexPositions is used to get chunks to determine the start and end index of the column, it looks something like [0, 1, 4, 9, 12]
+            // This means that the first column has a start index of 0 and an end index of 1, the second column has a start index of 1 and an end index of 4, and so on
+            // scaledRowIndices is used when we reach the end of the columnIndexPositions, when columnIndexPositions is [0, 1, 4, 9, 12], scaledRowIndices is 13
+            const columnEndIndex = this.columnIndicesPositions[i + 1] !== undefined
+                ? this.columnIndicesPositions[i + 1]!
+                : this.scaledRowIndices.length;
+            for (
+                let columnStartIndex = this.columnIndicesPositions[i]!;
+                columnStartIndex < columnEndIndex;
+                columnStartIndex++
+            ) {
+                const scaledY = this.scaledRowIndices[columnStartIndex]!;
+                if (
+                    !(
+                        scaledY >= this.transformConfig.topLeftCanvasCorner.y
+                        && scaledY < this.transformConfig.bottomRightCanvasCorner.y
+                    )
+                ) {
+                    continue;
+                }
+                let label = `${this.values[columnStartIndex] || 'NaN'}${this.renderConfig.dieLabelsSuffix}`;
+                if (label.length >= this.renderConfig.maxCharacters) {
+                    label = `${label.substring(0, this.renderConfig.maxCharacters)}…`;
+                }
+                this.context.fillText(
+                    label,
+                    scaledX + this.renderConfig.dieDimensions.width / 2,
+                    scaledY
+                        + this.renderConfig.dieDimensions.height / 2
+                        + approximateTextHeight.width / 2,
+                    this.renderConfig.dieDimensions.width * this.fontSizeFactor
+                );
+            }
+        }
+    }
+
+    private isDieInGrid(x: number, y: number): boolean {
+        return (
+            x >= this.renderConfig.gridMinX
+            && x <= this.renderConfig.gridMaxX
+            && y >= this.renderConfig.gridMinY
+            && y <= this.renderConfig.gridMaxY
+        );
+    }
+
+    private calculateHorizontalScaledIndices(columnIndex: number): number {
+        return (
+            this.renderConfig.horizontalCoefficient * columnIndex
+            + this.renderConfig.horizontalConstant
+            + this.renderConfig.margin.left
+        );
+    }
+
+    private calculateVerticalScaledIndices(rowIndex: number): number {
+        return (
+            this.renderConfig.verticalCoefficient * rowIndex
+            + this.renderConfig.verticalConstant
+            + this.renderConfig.margin.top
+        );
+    }
+
+    private findColorIndex(value: number): number {
+        let index = -1;
+        if (this.colorValues.length === 0 || this.colorValues[0]! >= value) {
+            return index;
+        }
+        for (let i = 0; i < this.colorValues.length; i++) {
+            if (value <= this.colorValues[i]!) {
+                index = i;
+                break;
+            }
+        }
+        return index;
     }
 }
 expose(MatrixRenderer);

@@ -1,16 +1,20 @@
 module.exports = {
     root: true,
-    extends: [
-        '@ni/eslint-config-javascript'
+    ignorePatterns: [
+        'node_modules',
+        'dist',
+        'bin',
+        'obj',
+        '**/wwwroot/**',
+        '!**/wwwroot/*.lib.module.js',
     ],
-    parserOptions: {
-        ecmaVersion: 2020
-    },
     overrides: [
         {
-            files: [
-                'build/**/*.js'
-            ],
+            files: ['*.js'],
+            extends: ['@ni-private/eslint-config-nimble/javascript'],
+        },
+        {
+            files: ['build/**/*.js'],
             rules: {
                 // Build scripts will not be in published package and are allowed to use devDependencies
                 'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
@@ -23,10 +27,13 @@ module.exports = {
 
                 // Allow build to reference files in NimbleBlazor and SprightBlazor
                 'import/no-relative-packages': 'off',
-
-                // Enabled to prevent accidental usage of async-await
-                'require-await': 'error'
             }
+        },
+        {
+            files: ['build/generate-hybrid/source/*.js'],
+            env: {
+                browser: true
+            },
         }
     ]
 };

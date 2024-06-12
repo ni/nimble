@@ -1,6 +1,6 @@
 {
   "name": "@ni/nimble-tokens",
-  "version": "6.13.6",
+  "version": "6.15.0",
   "description": "Design tokens for the NI Nimble Design System",
   "scripts": {
     "build": "npm run build:svg-to-ts && npm run build:ts && npm run build:svg-to-ico && npm run build:generate-font-scss && npm run build:style-dictionary",
@@ -36,7 +36,7 @@
   "homepage": "https://github.com/ni/nimble#readme",
   "devDependencies": {
     "@microsoft/fast-colors": "^5.3.1",
-    "@ni/eslint-config-javascript": "^4.2.0",
+    "@ni-private/eslint-config-nimble": "*",
     "cross-env": "^7.0.3",
     "glob": "^10.3.10",
     "lodash": "^4.17.21",

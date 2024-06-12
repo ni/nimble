@@ -17,7 +17,7 @@
     },
     "devDependencies": {
         "@11ty/eleventy": "^2.0.1",
-        "@ni/eslint-config-javascript": "^4.2.0",
+        "@ni-private/eslint-config-nimble": "*",
         "typescript": "~5.1.6",
         "vite": "^5.1.5"
     },
