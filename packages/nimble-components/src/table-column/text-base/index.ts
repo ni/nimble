@@ -38,9 +38,7 @@ export function mixinTextBase<
 >(base: TBase) {
     return mixinGroupableColumnAPI(
         mixinFractionalWidthColumnAPI(
-            mixinColumnWithPlaceholderAPI(
-                mixinSortableColumnAPI(base)
-            )
+            mixinColumnWithPlaceholderAPI(mixinSortableColumnAPI(base))
         )
     );
 }

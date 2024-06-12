@@ -11,7 +11,6 @@ import {
     tableColumnEmptyTag
 } from './table-column.fixtures';
 import { TableColumn } from '..';
-import { TableColumnSortDirection } from '../../../table/types';
 import type { ColumnInternalsOptions } from '../models/column-internals';
 import { ColumnValidator } from '../models/column-validator';
 

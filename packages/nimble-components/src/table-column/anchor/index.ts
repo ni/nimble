@@ -41,9 +41,7 @@ declare global {
 export class TableColumnAnchor extends mixinGroupableColumnAPI(
     mixinFractionalWidthColumnAPI(
         mixinColumnWithPlaceholderAPI(
-            mixinSortableColumnAPI(
-                TableColumn<TableColumnAnchorColumnConfig>
-            )
+            mixinSortableColumnAPI(TableColumn<TableColumnAnchorColumnConfig>)
         )
     )
 ) {

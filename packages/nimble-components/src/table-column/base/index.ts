@@ -1,7 +1,4 @@
-import {
-    attr,
-    observable
-} from '@microsoft/fast-element';
+import { attr, observable } from '@microsoft/fast-element';
 import { FoundationElement } from '@microsoft/fast-foundation';
 import {
     ColumnInternals,
