@@ -53,7 +53,6 @@ export const styles = css`
     }
 
     .root {
-        box-sizing: border-box;
         position: relative;
         display: flex;
         flex-direction: row;

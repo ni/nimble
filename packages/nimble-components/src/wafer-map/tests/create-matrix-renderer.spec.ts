@@ -1,6 +1,6 @@
 import { transfer, type Remote } from 'comlink';
 import { createMatrixRenderer } from '../modules/create-matrix-renderer';
-import type { MatrixRenderer } from '../../../build/generate-workers/dist/esm/source/matrix-renderer';
+import type { MatrixRenderer } from '../workers/matrix-renderer';
 
 // OffscreenCanvas not supported in Playwright's Windows/Linux Webkit build: https://github.com/ni/nimble/issues/2169
 describe('MatrixRenderer worker #SkipWebkit', () => {
@@ -27,6 +27,7 @@ describe('MatrixRenderer worker #SkipWebkit', () => {
         const offscreenCanvas = new OffscreenCanvas(300, 300);
         const typedColumnIndices = Int32Array.from(testData.columnIndices);
         const typedRowIndices = Int32Array.from(testData.rowIndices);
+        const typedValues = Float64Array.from(testData.values);
 
         await matrixRenderer.setCanvas(
             transfer(offscreenCanvas, [offscreenCanvas])
@@ -50,12 +51,21 @@ describe('MatrixRenderer worker #SkipWebkit', () => {
             horizontalCoefficient: 1,
             horizontalConstant: 0,
             verticalConstant: 0,
+            gridMinX: 1,
+            gridMaxX: 4,
+            gridMinY: 54,
+            gridMaxY: 62,
             labelsFontSize: 0,
-            colorScale: []
+            colorScale: [],
+            dieLabelsSuffix: '',
+            maxCharacters: 0
         });
 
-        await matrixRenderer.setColumnIndices(typedColumnIndices);
-        await matrixRenderer.setRowIndices(typedRowIndices);
+        await matrixRenderer.setMatrixData(
+            typedColumnIndices,
+            typedRowIndices,
+            typedValues
+        );
 
         const scaledColumnIndex = await matrixRenderer.scaledColumnIndices;
         const scaledRowIndex = await matrixRenderer.scaledRowIndices;

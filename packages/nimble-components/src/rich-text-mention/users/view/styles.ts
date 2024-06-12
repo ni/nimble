@@ -10,7 +10,6 @@ export const styles = css`
     ${display('inline-block')}
 
     :host {
-        box-sizing: border-box;
         font: ${mentionFont};
     }
 

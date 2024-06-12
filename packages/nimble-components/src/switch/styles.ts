@@ -72,7 +72,6 @@ export const styles = css`
         display: flex;
         height: var(--ni-private-switch-height);
         width: calc(var(--ni-private-switch-height) * 2);
-        box-sizing: border-box;
         background-color: ${fillHoverColor};
         border-radius: calc(var(--ni-private-switch-height) / 2);
         align-items: center;
@@ -101,7 +100,6 @@ export const styles = css`
         justify-content: center;
         align-items: center;
         background-color: var(--ni-private-switch-indicator-background-color);
-        box-sizing: border-box;
         width: var(--ni-private-switch-indicator-size);
         height: var(--ni-private-switch-indicator-size);
         border-radius: calc(var(--ni-private-switch-indicator-size) / 2);

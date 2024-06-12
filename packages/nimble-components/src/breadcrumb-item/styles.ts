@@ -16,7 +16,6 @@ export const styles = css`
 
     :host {
         height: ${controlHeight};
-        box-sizing: border-box;
         padding-left: calc(4px - ${borderWidth});
 
         ${

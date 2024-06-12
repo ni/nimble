@@ -31,7 +31,6 @@ export const styles = css`
     ${display('inline-flex')}
 
     :host {
-        box-sizing: border-box;
         color: ${bodyFontColor};
         font: ${bodyFont};
         height: ${controlHeight};
@@ -109,7 +108,6 @@ export const styles = css`
 
     .control {
         align-items: center;
-        box-sizing: border-box;
         cursor: pointer;
         display: flex;
         min-height: 100%;
@@ -136,7 +134,6 @@ export const styles = css`
     }
 
     .listbox {
-        box-sizing: border-box;
         display: inline-flex;
         flex-direction: column;
         overflow-y: auto;

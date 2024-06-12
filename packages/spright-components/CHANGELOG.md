@@ -1,8 +1,33 @@
 # Change Log - @ni/spright-components
 
-This log was last generated on Fri, 07 Jun 2024 15:10:38 GMT and should not be manually modified.
+This log was last generated on Tue, 11 Jun 2024 19:27:14 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.0.19
+
+Tue, 11 Jun 2024 19:27:14 GMT
+
+### Patches
+
+- Switch to custom box-sizing: border-box consistently ([ni/nimble@17ddea5](https://github.com/ni/nimble/commit/17ddea50b5accb353a0288c42d0e64ddc5df0d04))
+- Bump @ni/nimble-components to v29.3.5
+
+## 1.0.18
+
+Sat, 08 Jun 2024 17:53:59 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v29.3.4
+
+## 1.0.17
+
+Fri, 07 Jun 2024 20:34:51 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v29.3.3
 
 ## 1.0.16
 

@@ -13,7 +13,6 @@ export const styles = css`
     ${display('inline-block')}
 
     :host {
-        box-sizing: border-box;
         font: ${linkFont};
         --ni-private-breadcrumb-link-font-color: ${linkFontColor};
         --ni-private-breadcrumb-link-active-font-color: ${linkActiveFontColor};

@@ -16,7 +16,6 @@ export const styles = css`
     :host {
         align-items: center;
         height: ${controlHeight};
-        box-sizing: border-box;
         font: ${bodyFont};
         color: ${bodyFontColor};
     }

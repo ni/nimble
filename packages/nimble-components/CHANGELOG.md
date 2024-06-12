@@ -1,8 +1,32 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Fri, 07 Jun 2024 17:53:20 GMT and should not be manually modified.
+This log was last generated on Tue, 11 Jun 2024 19:27:14 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 29.3.5
+
+Tue, 11 Jun 2024 19:27:14 GMT
+
+### Patches
+
+- Switch to custom box-sizing: border-box consistently ([ni/nimble@17ddea5](https://github.com/ni/nimble/commit/17ddea50b5accb353a0288c42d0e64ddc5df0d04))
+
+## 29.3.4
+
+Sat, 08 Jun 2024 17:53:59 GMT
+
+### Patches
+
+- Worker generation tweaks ([ni/nimble@5a5891d](https://github.com/ni/nimble/commit/5a5891d245144ce82d5f39dd2c008ee3f1c5910e))
+
+## 29.3.3
+
+Fri, 07 Jun 2024 20:34:51 GMT
+
+### Patches
+
+- Created renderer capabilities for colors and text in the offscreen canvas ([ni/nimble@d5ad24b](https://github.com/ni/nimble/commit/d5ad24b089316112493858c00d16b248f129d9bd))
 
 ## 29.3.2
 

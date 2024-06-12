@@ -186,7 +186,7 @@ export const richTextEditorSlotButtons: StoryFn = createStory(html`
 
 // prettier-ignore
 const mobileWidthComponent = html`
-    <${richTextEditorTag} style="padding: 20px; width: 360px; height: 250px;">
+    <${richTextEditorTag} style="margin: 20px; width: 360px; height: 250px;">
         <${richTextMentionUsersTag} pattern="^user:(.*)">
             <${mappingUserTag} key="user:1" display-name="John Doe"></${mappingUserTag}>
         </${richTextMentionUsersTag}>

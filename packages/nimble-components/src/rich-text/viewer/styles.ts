@@ -21,7 +21,6 @@ export const styles = css`
     .viewer {
         font: inherit;
         outline: none;
-        box-sizing: border-box;
         position: relative;
         color: inherit;
         overflow-wrap: anywhere;

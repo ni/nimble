@@ -20,7 +20,6 @@ export const styles = css`
 
     :host {
         position: relative;
-        box-sizing: border-box;
         font: ${buttonLabelFont};
         height: ${controlHeight};
         color: ${bodyFontColor};

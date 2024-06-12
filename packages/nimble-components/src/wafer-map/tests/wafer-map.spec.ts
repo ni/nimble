@@ -1,5 +1,6 @@
 import { html } from '@microsoft/fast-element';
 import { Table, tableFromArrays } from 'apache-arrow';
+import type { Remote } from 'comlink';
 import { WaferMap } from '..';
 import {
     processUpdates,
@@ -11,6 +12,7 @@ import {
     WaferMapOrientation,
     WaferMapOriginLocation
 } from '../types';
+import type { MatrixRenderer } from '../workers/matrix-renderer';
 
 async function setup(): Promise<Fixture<WaferMap>> {
     return fixture<WaferMap>(html`<nimble-wafer-map></nimble-wafer-map>`);
@@ -113,6 +115,61 @@ describe('WaferMap', () => {
             element.colorScale = { colors: ['red', 'red'], values: ['1', '1'] };
             processUpdates();
             expect(spy).toHaveBeenCalledTimes(1);
+        });
+    });
+
+    describe('worker renderer draw wafer action', () => {
+        let matrixRendererSpy: jasmine.SpyObj<Remote<MatrixRenderer>>;
+        let setupWaferSpy: jasmine.Spy;
+        beforeEach(() => {
+            setupWaferSpy = spyOn(
+                element.workerRenderer,
+                'setupWafer'
+            ).and.returnValue(Promise.resolve());
+            matrixRendererSpy = jasmine.createSpyObj<Remote<MatrixRenderer>>(
+                'Remote',
+                ['setTransformConfig', 'drawWafer', 'drawText']
+            );
+            matrixRendererSpy.setTransformConfig.and.returnValue(
+                Promise.resolve()
+            );
+            matrixRendererSpy.drawWafer.and.returnValue(Promise.resolve());
+            matrixRendererSpy.drawText.and.returnValue(Promise.resolve());
+            element.workerRenderer.matrixRenderer = matrixRendererSpy;
+        });
+
+        it('will call setupWafer and drawWafer but not drawText when labels are hidden', async () => {
+            element.dieLabelsHidden = true;
+            element.canvasWidth = 500;
+            element.canvasHeight = 500;
+            element.diesTable = tableFromArrays({
+                colIndex: Int32Array.from([]),
+                rowIndex: Int32Array.from([]),
+                value: Float64Array.from([])
+            });
+            await waitForUpdatesAsync();
+            await element.currentTask;
+            expect(element.validity.invalidDiesTableSchema).toBeFalse();
+            expect(setupWaferSpy).toHaveBeenCalledTimes(1);
+            expect(matrixRendererSpy.drawWafer).toHaveBeenCalledTimes(1);
+            expect(matrixRendererSpy.drawText).toHaveBeenCalledTimes(0);
+        });
+
+        it('will call setupWafer, drawWafer and drawText when labels are not hidden', async () => {
+            element.dieLabelsHidden = false;
+            element.canvasWidth = 500;
+            element.canvasHeight = 500;
+            element.diesTable = tableFromArrays({
+                colIndex: Int32Array.from([1]),
+                rowIndex: Int32Array.from([1]),
+                value: Float64Array.from([1])
+            });
+            await waitForUpdatesAsync();
+            await element.currentTask;
+            expect(element.validity.invalidDiesTableSchema).toBeFalse();
+            expect(setupWaferSpy).toHaveBeenCalledTimes(1);
+            expect(matrixRendererSpy.drawWafer).toHaveBeenCalledTimes(1);
+            expect(matrixRendererSpy.drawText).toHaveBeenCalledTimes(1);
         });
     });
 
