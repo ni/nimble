@@ -115,27 +115,6 @@ When the \`loading-visible\` attribute is set, a loading spinner will be display
 
 const metadata: Meta<SelectArgs> = {
     title: 'Components/Select',
-    decorators: [withActions<HtmlRenderer>],
-    parameters: {
-        actions: {
-            handles: ['change']
-        }
-    }
-};
-
-export default metadata;
-
-export const select: Meta<SelectArgs> = {
-    title: 'Components/Select',
-    decorators: [withActions<HtmlRenderer>],
-    parameters: {
-        actions: {
-            handles: ['change', 'filter-input']
-        },
-        toolbar: {
-            zoom: { hidden: true }
-        }
-    },
     // prettier-ignore
     render: createUserSelectedThemeStory(html`
         ${disableStorybookZoomTransform}
@@ -267,6 +246,21 @@ export const select: Meta<SelectArgs> = {
         loadingVisible: false
     }
 };
+
+export default metadata;
+
+export const select: StoryObj<SelectArgs> = {
+    ...metadata,
+    decorators: [withActions<HtmlRenderer>],
+    parameters: {
+        actions: {
+            handles: ['change', 'filter-input']
+        },
+        toolbar: {
+            zoom: { hidden: true }
+        }
+    }
+}
 
 export const placeholder: StoryObj<SelectArgs> = {
     // prettier-ignore
