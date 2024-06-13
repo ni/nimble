@@ -121,7 +121,7 @@ export class ColumnInternals<
      * Whether or not this column can be used to group rows by
      */
     @observable
-    public groupingDisabled = false;
+    public groupingDisabled = true;
 
     /**
      * Specifies the grouping precedence of the column within the set of all columns participating in grouping.
@@ -181,7 +181,7 @@ export class ColumnInternals<
      * Whether or not this column can be sorted
      */
     @observable
-    public sortingDisabled = false;
+    public sortingDisabled = true;
 
     /**
      * @internal Do not write to this value directly. It is used by the Table in order to store
