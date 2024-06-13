@@ -224,6 +224,7 @@ SafariBrowser.$inject = ["baseBrowserDecorator", "args"];
  */
 const WebkitBrowser = function (baseBrowserDecorator, args) {
   console.log('===================================================================WebkitBrowser');
+  console.log(args);
   // Automatically switch to Safari, if osascript is used and not headless mode.
   if (
     (args && args.flags

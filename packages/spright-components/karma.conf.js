@@ -131,8 +131,8 @@ module.exports = (config) => {
                 base: 'Webkit',
                 debug: true
             },
-            CustomWebkitDebugging: {
-                base: 'CustomWebkit',
+            WebkitHeadlessDebugging: {
+                base: 'WebkitHeadless',
                 debug: true
             }
         },
