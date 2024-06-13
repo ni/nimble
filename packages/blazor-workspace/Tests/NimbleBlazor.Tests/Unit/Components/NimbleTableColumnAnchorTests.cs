@@ -155,3 +155,10 @@ public class NimbleTableColumnAnchorFractionalWidthTests : FractionalWidthBaseTe
 public class NimbleTableColumnAnchorGroupableTests : GroupableBaseTests<NimbleTableColumnAnchor>
 {
 }
+
+/// <summary>
+/// Tests for SortableAPI on <see cref="NimbleTableColumnAnchor"/>
+/// </summary>
+public class NimbleTableColumnAnchorSortableTests : SortableBaseTests<NimbleTableColumnAnchor>
+{
+}
