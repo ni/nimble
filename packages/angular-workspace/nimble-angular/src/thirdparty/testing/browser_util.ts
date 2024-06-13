@@ -1,6 +1,6 @@
 /**
  * [Nimble]
- * Copied from https://github.com/angular/angular/blob/16.2.12/packages/platform-browser/testing/src/browser_util.ts
+ * Copied from https://github.com/angular/angular/blob/17.3.11/packages/platform-browser/testing/src/browser_util.ts
  * with the following modifications:
  * - Comment out everything except childNodesAsList
  */

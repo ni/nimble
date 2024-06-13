@@ -1,6 +1,6 @@
 /**
  * [Nimble]
- * Copied from https://github.com/angular/angular/blob/16.2.12/packages/forms/src/directives/select_control_value_accessor.ts
+ * Copied from https://github.com/angular/angular/blob/17.3.11/packages/forms/src/directives/select_control_value_accessor.ts
  * with the following modifications:
  * - Update imports
  * - Remove all configuration from SelectControlValueAccessor's `@Directive` decorator
@@ -17,10 +17,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 
-import {Directive, ElementRef, Host, Input, OnDestroy, Optional, Renderer2, isDevMode} from '@angular/core';
+import {Directive, ElementRef, forwardRef, Host, Input, OnDestroy, Optional, Provider, Renderer2, ɵRuntimeError as RuntimeError, isDevMode} from '@angular/core';
 
-import type { ControlValueAccessor } from '@angular/forms';
-import { BuiltInControlValueAccessor } from './control_value_accessor';
+import type {ControlValueAccessor} from '@angular/forms';
+import {BuiltInControlValueAccessor} from './control_value_accessor';
 
 /* [Nimble] Do not register as a value accessor provider
 const SELECT_VALUE_ACCESSOR: Provider = {

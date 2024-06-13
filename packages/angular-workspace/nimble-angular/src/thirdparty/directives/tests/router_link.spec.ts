@@ -1,6 +1,6 @@
 /**
  * [Nimble]
- * Copied from https://github.com/angular/angular/blob/16.2.12/packages/router/test/router_link_spec.ts
+ * Copied from https://github.com/angular/angular/blob/17.3.11/packages/router/test/router_link_spec.ts
  * with the following modifications:
  * - replace import of Angular's RouterLink with our forked version
  * - define TestRouterLinkDirective to use in tests, and add it to declarations of testing modules
@@ -18,8 +18,7 @@
 import {Component, Directive} from '@angular/core';
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {By} from '@angular/platform-browser';
-import {Router, RouterModule} from '@angular/router';
-import {RouterLink} from '../router_link';
+import {Router, RouterLink, RouterModule} from '@angular/router';
 
 describe('RouterLink', () => {
   // [Nimble] Defining test directive to use instead of RouterLink
@@ -29,11 +28,13 @@ describe('RouterLink', () => {
   it('does not modify tabindex if already set on non-anchor element', () => {
     @Component({template: `<div [routerLink]="link" tabindex="1"></div>`})
     class LinkComponent {
-      link: string|null|undefined = '/';
+      link: string | null | undefined = '/';
     }
     // [Nimble] Declare TestRouterLinkDirective
-    TestBed.configureTestingModule(
-        {imports: [RouterModule.forRoot([])], declarations: [LinkComponent, TestRouterLinkDirective]});
+    TestBed.configureTestingModule({
+      imports: [RouterModule.forRoot([])],
+      declarations: [LinkComponent, TestRouterLinkDirective],
+    });
     const fixture = TestBed.createComponent(LinkComponent);
     fixture.detectChanges();
     const link = fixture.debugElement.query(By.css('div')).nativeElement;
@@ -52,10 +53,10 @@ describe('RouterLink', () => {
           [preserveFragment]="preserveFragment"
           [skipLocationChange]="skipLocationChange"
           [replaceUrl]="replaceUrl"></div>
-      `
+      `,
     })
     class LinkComponent {
-      link: string|null|undefined = '/';
+      link: string | null | undefined = '/';
       preserveFragment: unknown;
       skipLocationChange: unknown;
       replaceUrl: unknown;
@@ -134,10 +135,10 @@ describe('RouterLink', () => {
             [preserveFragment]="preserveFragment"
             [skipLocationChange]="skipLocationChange"
             [replaceUrl]="replaceUrl"></a>
-        `
+        `,
       })
       class LinkComponent {
-        link: string|null|undefined = '/';
+        link: string | null | undefined = '/';
         preserveFragment: unknown;
         skipLocationChange: unknown;
         replaceUrl: unknown;
@@ -198,8 +199,7 @@ describe('RouterLink', () => {
 
     it('should handle routerLink in svg templates', () => {
       @Component({template: `<svg><a routerLink="test"></a></svg>`})
-      class LinkComponent {
-      }
+      class LinkComponent {}
 
       TestBed.configureTestingModule({
         imports: [RouterModule.forRoot([])],
