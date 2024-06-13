@@ -18,6 +18,8 @@
  * @author mbordihn@google.com (Markus Bordihn)
  */
 
+const fs = require('fs');
+
 const child_process = require("child_process");
 const os = require("os");
 const path = require("path");
@@ -242,7 +244,7 @@ const WebkitBrowser = function (baseBrowserDecorator, args) {
   this._start = (url) => {
     console.log('===================================================================WebkitBrowser._start');
     const command = this._getCommand();
-    console.log(command);
+    console.log(`path exists? ${fs.existsSync(command)}`);
 
     // Add used browser to test url.
     if (command && command.includes("ms-playwright")) {
