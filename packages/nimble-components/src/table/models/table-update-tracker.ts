@@ -118,9 +118,9 @@ export class TableUpdateTracker<
         ) {
             this.track('columnDefinition');
         } else if (
-            isColumnProperty(changedColumnProperty, 'sortingDisabled')
-            || isColumnInternalsProperty(
+            isColumnInternalsProperty(
                 changedColumnProperty,
+                'sortingDisabled',
                 'currentSortDirection',
                 'currentSortIndex'
             )

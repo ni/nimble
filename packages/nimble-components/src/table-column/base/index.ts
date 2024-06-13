@@ -1,10 +1,5 @@
-import {
-    attr,
-    nullableNumberConverter,
-    observable
-} from '@microsoft/fast-element';
+import { attr, observable } from '@microsoft/fast-element';
 import { FoundationElement } from '@microsoft/fast-foundation';
-import { TableColumnSortDirection } from '../../table/types';
 import {
     ColumnInternals,
     ColumnInternalsOptions
@@ -41,15 +36,6 @@ export abstract class TableColumn<
     @attr({ attribute: 'column-hidden', mode: 'boolean' })
     public columnHidden = false;
 
-    @attr({ attribute: 'sort-index', converter: nullableNumberConverter })
-    public sortIndex?: number | null;
-
-    @attr({ attribute: 'sort-direction' })
-    public sortDirection: TableColumnSortDirection = TableColumnSortDirection.none;
-
-    @attr({ attribute: 'sorting-disabled', mode: 'boolean' })
-    public sortingDisabled = false;
-
     /** @internal */
     @observable
     public hasOverflow = false;
@@ -81,26 +67,4 @@ export abstract class TableColumn<
     }
 
     protected abstract getColumnInternalsOptions(): ColumnInternalsOptions<TColumnValidator>;
-
-    protected sortDirectionChanged(): void {
-        if (!this.sortingDisabled) {
-            this.columnInternals.currentSortDirection = this.sortDirection;
-        }
-    }
-
-    protected sortIndexChanged(): void {
-        if (!this.sortingDisabled) {
-            this.columnInternals.currentSortIndex = this.sortIndex;
-        }
-    }
-
-    protected sortingDisabledChanged(): void {
-        if (this.sortingDisabled) {
-            this.columnInternals.currentSortDirection = TableColumnSortDirection.none;
-            this.columnInternals.currentSortIndex = undefined;
-        } else {
-            this.columnInternals.currentSortDirection = this.sortDirection;
-            this.columnInternals.currentSortIndex = this.sortIndex;
-        }
-    }
 }

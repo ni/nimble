@@ -532,7 +532,7 @@ export class Table<
         column: TableColumn,
         allowMultiSort: boolean
     ): void {
-        if (column.sortingDisabled) {
+        if (column.columnInternals.sortingDisabled) {
             return;
         }
 
@@ -822,7 +822,7 @@ export class Table<
 
     private getColumnsParticipatingInSorting(): TableColumn[] {
         return this.columns.filter(
-            x => !x.sortingDisabled
+            x => !x.columnInternals.sortingDisabled
                 && x.columnInternals.currentSortDirection
                     !== TableColumnSortDirection.none
                 && typeof x.columnInternals.currentSortIndex === 'number'
