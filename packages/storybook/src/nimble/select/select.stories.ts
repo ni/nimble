@@ -260,7 +260,7 @@ export const select: StoryObj<SelectArgs> = {
             zoom: { hidden: true }
         }
     }
-}
+};
 
 export const placeholder: StoryObj<SelectArgs> = {
     // prettier-ignore
