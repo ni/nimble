@@ -30,7 +30,6 @@ class TestTableColumn extends mixinSortableColumnAPI(TableColumn) {
     }
 }
 
-// prettier-ignore
 async function setup(): Promise<Fixture<TestTableColumn>> {
     return fixture(columnName);
 }
