@@ -107,9 +107,17 @@ _Rendering_
 
 *Will the cell render any interactive elements? You must override `tabbableChildren` on the cell view to return any focusable children. These elements must be initially configured with `tabindex=-1`, and the table will programmatically update `tabIndex` as needed. Make sure that any such elements properly forward the `tabIndex` value to shadow DOM elements.*
 
+### Test Cases
+
+*List any interesting use cases that should be tested.*
+
+### Internationalization
+
+*Will any work be required to handle different locales/languages, e.g. rendering decimal numbers, dates/times, currency, units, etc? Will there be any built-in labels, tooltips, etc. that need to be added to a label-provider?*
+
 ### Accessibility
 
-*Describe any special accessibility considerations.*
+*Describe any work needed to provide proper accessibility.*
 
 ### Angular Integration
 
