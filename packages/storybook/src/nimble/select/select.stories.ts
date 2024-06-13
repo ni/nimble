@@ -250,7 +250,6 @@ const metadata: Meta<SelectArgs> = {
 export default metadata;
 
 export const select: StoryObj<SelectArgs> = {
-    ...metadata,
     decorators: [withActions<HtmlRenderer>],
     parameters: {
         actions: {
