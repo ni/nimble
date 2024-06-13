@@ -721,9 +721,9 @@ describe('Table keyboard navigation', () => {
 
         it('for a simple table with no columns sortable, on initial table focus, the 1st row is focused', async () => {
             await setupBasicTable();
-            element.columns.forEach(column => {
-                column.sortingDisabled = true;
-            });
+            column1.sortingDisabled = true;
+            column2.sortingDisabled = true;
+            column3.sortingDisabled = true;
             await waitForUpdatesAsync();
             element.focus();
             await waitForUpdatesAsync();

@@ -990,7 +990,10 @@ implements Subscriber {
     }
 
     private canFocusColumnHeaders(): boolean {
-        return this.table.columns.find(c => !c.sortingDisabled) !== undefined;
+        return (
+            this.table.columns.find(c => !c.columnInternals.sortingDisabled)
+            !== undefined
+        );
     }
 
     private getCurrentRow(): TableRow | TableGroupRow | undefined {

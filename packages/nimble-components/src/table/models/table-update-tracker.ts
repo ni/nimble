@@ -129,13 +129,14 @@ export class TableUpdateTracker<
             )
         ) {
             this.track('columnDefinition');
-        } else if (isColumnProperty(changedColumnProperty, 'sortingDisabled')) {
+        } else if (
+            isColumnInternalsProperty(changedColumnProperty, 'sortingDisabled')
+        ) {
             this.track('columnSort');
             this.track('columnSortDisabled');
         } else if (
             isColumnInternalsProperty(
                 changedColumnProperty,
-                'sortingDisabled',
                 'currentSortDirection',
                 'currentSortIndex'
             )
