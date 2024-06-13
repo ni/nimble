@@ -20,7 +20,7 @@ export function mixinSortableColumnAPI<
     abstract class SortableColumn extends base {
         public sortingDisabled = false;
 
-        public sortIndex?: number | null = null;
+        public sortIndex?: number | null;
 
         public sortDirection: TableColumnSortDirection = TableColumnSortDirection.none;
 

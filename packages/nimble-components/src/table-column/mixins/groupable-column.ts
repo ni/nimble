@@ -19,7 +19,7 @@ export function mixinGroupableColumnAPI<
     abstract class GroupableColumn extends base {
         public groupingDisabled = false;
 
-        public groupIndex?: number | null = null;
+        public groupIndex?: number | null;
 
         public groupingDisabledChanged(): void {
             this.columnInternals.groupingDisabled = this.groupingDisabled;
