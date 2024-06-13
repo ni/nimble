@@ -137,8 +137,8 @@ describe('Nimble anchor table column', () => {
         });
 
         it('has expected defaults for sortIndex', () => {
-            expect(directive.sortIndex).toBeNull();
-            expect(nativeElement.sortIndex).toBeNull();
+            expect(directive.sortIndex).toBeUndefined();
+            expect(nativeElement.sortIndex).toBeUndefined();
         });
 
         it('has expected defaults for sortingDisabled', () => {
@@ -157,8 +157,8 @@ describe('Nimble anchor table column', () => {
         });
 
         it('has expected defaults for groupIndex', () => {
-            expect(directive.groupIndex).toBeNull();
-            expect(nativeElement.groupIndex).toBeNull();
+            expect(directive.groupIndex).toBeUndefined();
+            expect(nativeElement.groupIndex).toBeUndefined();
         });
 
         it('has expected defaults for groupingDisabled', () => {
