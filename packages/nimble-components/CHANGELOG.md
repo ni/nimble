@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Sat, 08 Jun 2024 17:53:59 GMT and should not be manually modified.
+This log was last generated on Tue, 11 Jun 2024 19:27:14 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 29.3.5
+
+Tue, 11 Jun 2024 19:27:14 GMT
+
+### Patches
+
+- Switch to custom box-sizing: border-box consistently ([ni/nimble@17ddea5](https://github.com/ni/nimble/commit/17ddea50b5accb353a0288c42d0e64ddc5df0d04))
 
 ## 29.3.4
 
