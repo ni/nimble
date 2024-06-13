@@ -613,7 +613,7 @@ export class TablePageObject<T extends TableRecord> {
     public getSortedColumns(): SortedColumn[] {
         return this.tableElement.columns
             .filter(
-                x => !x.sortingDisabled
+                x => !x.columnInternals.sortingDisabled
                     && typeof x.columnInternals.currentSortIndex === 'number'
                     && x.columnInternals.currentSortDirection
                         !== TableColumnSortDirection.none

@@ -135,6 +135,7 @@ export class TableUpdateTracker<
         } else if (
             isColumnInternalsProperty(
                 changedColumnProperty,
+                'sortingDisabled',
                 'currentSortDirection',
                 'currentSortIndex'
             )
