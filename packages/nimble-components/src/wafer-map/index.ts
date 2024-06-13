@@ -42,6 +42,11 @@ declare global {
 export class WaferMap<
     T extends WaferRequiredFields = WaferRequiredFields
 > extends FoundationElement {
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    public static readonly Arrow = {
+        tableFromIPC
+    };
+
     /**
      * @internal
      * needs to be initialized before the properties trigger changes
@@ -169,11 +174,6 @@ export class WaferMap<
     @observable public dies: WaferMapDie[] = [];
     @observable public diesTable: Table<T> | undefined;
 
-    /**
-     * @internal
-     */
-    @observable public diesTableIPC: Uint8Array | undefined;
-
     @observable public colorScale: WaferMapColorScale = {
         colors: [],
         values: []
@@ -286,6 +286,14 @@ export class WaferMap<
      */
     public isExperimentalUpdate(): boolean {
         return this.diesTable !== undefined;
+    }
+
+    public async setData(tableData: Table): Promise<void> {
+        if (this.currentTask !== undefined) {
+            await this.currentTask;
+        }
+        this.diesTable = tableData;
+        this.waferMapUpdateTracker.queueUpdate();
     }
 
     private createSnapshot(): {
@@ -426,12 +434,6 @@ export class WaferMap<
     }
 
     private diesTableChanged(): void {
-        this.waferMapUpdateTracker.track('dies');
-        this.waferMapUpdateTracker.queueUpdate();
-    }
-
-    private diesTableIPCChanged(): void {
-        this.diesTable = tableFromIPC(this.diesTableIPC);
         this.waferMapUpdateTracker.track('dies');
         this.waferMapUpdateTracker.queueUpdate();
     }
