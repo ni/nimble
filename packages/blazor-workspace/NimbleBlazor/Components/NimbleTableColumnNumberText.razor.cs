@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Components;
 
 namespace NimbleBlazor;
 
-public partial class NimbleTableColumnNumberText : NimbleTableColumn, IFractionalWidthColumn, IGroupableColumn
+public partial class NimbleTableColumnNumberText : NimbleTableColumn, IFractionalWidthColumn, IGroupableColumn, ISortableColumn
 {
     /// <summary>
     /// Gets or sets the field in the element representing a row of data in a <see cref="NimbleTable{TData}"/>to display
@@ -46,6 +46,26 @@ public partial class NimbleTableColumnNumberText : NimbleTableColumn, IFractiona
     /// </summary>
     [Parameter]
     public bool? GroupingDisabled { get; set; }
+
+    /// <summary>
+    /// The direction the column is sorted.
+    /// </summary>
+    [Parameter]
+    public TableColumnSortDirection? SortDirection { get; set; }
+
+    /// <summary>
+    /// The index for sorting the column. When multiple columns are sorted,
+    /// they will be sorted from lowest index to highest index.
+    /// </summary>
+    [Parameter]
+    public int? SortIndex { get; set; }
+
+    /// <summary>
+    /// Whether or not sorting is disabled on the column. If sorting is disabled, the column
+    /// will not be sorted even if <see cref="SortIndex"/> and <see cref="SortDirection"/> are configured.
+    /// </summary>
+    [Parameter]
+    public bool? SortingDisabled { get; set; }
 
     /// <summary>
     /// Formatting scheme to use

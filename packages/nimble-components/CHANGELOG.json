@@ -2,6 +2,36 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Thu, 13 Jun 2024 17:01:38 GMT",
+      "version": "29.3.6",
+      "tag": "@ni/nimble-components_v29.3.6",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "659242fdcda04d270085e3a7e86493e9fc8a1fc5",
+            "comment": "Move column sorting properties to a column mixin"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 12 Jun 2024 16:30:00 GMT",
+      "version": "29.3.5",
+      "tag": "@ni/nimble-components_v29.3.5",
+      "comments": {
+        "none": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "50505a96ca8994ffedcd58c1f0604b01b76cbe2a",
+            "comment": "Create HLD for menu-button table column"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 11 Jun 2024 19:27:14 GMT",
       "version": "29.3.5",
       "tag": "@ni/nimble-components_v29.3.5",
