@@ -17,5 +17,7 @@ export const styles = css`
         overflow-x: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
+        height: 100%;
+        align-content: center;
     }
 `;

@@ -3,7 +3,6 @@ import type { TableColumnMenuButtonCellView } from '.';
 import { menuButtonTag } from '../../../menu-button';
 import { ButtonAppearance, type MenuButtonToggleEventDetail } from '../../../menu-button/types';
 import { iconArrowExpanderDownTag } from '../../../icons/arrow-expander-down';
-import { overflow } from '../../../utilities/directive/overflow';
 import { cellViewMenuSlotName } from '../types';
 
 // prettier-ignore
@@ -13,9 +12,11 @@ export const template = html<TableColumnMenuButtonCellView>`
             ${ref('menuButton')}
             appearance="${ButtonAppearance.ghost}"
             @beforetoggle="${(x, c) => x.onMenuButtonBeforeToggle(c.event as CustomEvent<MenuButtonToggleEventDetail>)}"
+            @mouseover="${x => x.onMenuButtonMouseOver()}"
+            @mouseout="${x => x.onMenuButtonMouseOut()}"
             title=${x => (x.hasOverflow && x.cellRecord!.value ? x.cellRecord!.value : null)}
         >
-            <span class="value-label" ${overflow('hasOverflow')}>${x => x.cellRecord?.value}</span>
+            <span ${ref('valueSpan')} class="value-label">${x => x.cellRecord?.value}</span>
             <${iconArrowExpanderDownTag} slot="end"></${iconArrowExpanderDownTag}>
 
             <slot name="${cellViewMenuSlotName}" slot="menu"></slot>

@@ -22,7 +22,9 @@ export class TableColumnMenuButtonCellView extends TableCellView<TableColumnMenu
     /** @internal */
     public menuButton?: MenuButton;
 
-    // TODO: This doesn't work the way it should because the title is only added to the button when hovering over the span.
+    /** @internal */
+    public valueSpan?: HTMLSpanElement;
+
     /** @internal */
     @observable
     public hasOverflow = false;
@@ -31,6 +33,7 @@ export class TableColumnMenuButtonCellView extends TableCellView<TableColumnMenu
         this.menuButton?.blur();
     }
 
+    /** @internal */
     public onMenuButtonBeforeToggle(event: CustomEvent<MenuButtonToggleEventDetail>): boolean {
         const configuredSlotName = this.columnConfig?.menuSlot;
         if (configuredSlotName && event.detail.newState) {
@@ -40,6 +43,18 @@ export class TableColumnMenuButtonCellView extends TableCellView<TableColumnMenu
             this.$emit('cell-view-slots-request', eventDetail);
         }
         return true;
+    }
+
+    /** @internal */
+    public onMenuButtonMouseOver(): void {
+        if (this.valueSpan) {
+            this.hasOverflow = this.valueSpan.offsetWidth < this.valueSpan.scrollWidth;
+        }
+    }
+
+    /** @internal */
+    public onMenuButtonMouseOut(): void {
+        this.hasOverflow = false;
     }
 }
 

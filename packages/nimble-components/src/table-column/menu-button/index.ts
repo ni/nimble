@@ -9,7 +9,6 @@ import { ColumnValidator } from '../base/models/column-validator';
 import { mixinFractionalWidthColumnAPI } from '../mixins/fractional-width-column';
 import { TableColumn } from '../base';
 import { MenuButtonColumnToggleEventDetail, cellViewMenuSlotName } from './types';
-import { mixinGroupableColumnAPI } from '../mixins/groupable-column';
 import type { DelegatedEventEventDetails } from '../base/types';
 import type { MenuButtonToggleEventDetail } from '../../menu-button/types';
 
@@ -29,9 +28,7 @@ declare global {
  * The table column for displaying string fields as the content within a menu button.
  */
 export class TableColumnMenuButton extends mixinFractionalWidthColumnAPI(
-    mixinGroupableColumnAPI(
-        TableColumn<TableColumnMenuButtonColumnConfig>
-    )
+    TableColumn<TableColumnMenuButtonColumnConfig>
 ) {
     @attr({ attribute: 'field-name' })
     public fieldName?: string;
