@@ -56,6 +56,11 @@ export class TableColumnMenuButtonCellView extends TableCellView<TableColumnMenu
     public onMenuButtonMouseOut(): void {
         this.hasOverflow = false;
     }
+
+    /** @internal */
+    public onMenuButtonClick(e: Event): void {
+        e.stopPropagation();
+    }
 }
 
 const menuButtonCellView = TableColumnMenuButtonCellView.compose({

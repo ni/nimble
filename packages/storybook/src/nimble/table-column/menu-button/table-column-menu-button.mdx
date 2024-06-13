@@ -1,16 +1,18 @@
 import { Controls, Canvas, Meta, Title } from '@storybook/blocks';
 import * as menuButtonColumnStories from './table-column-menu-button.stories';
+import ComponentApisLink from '../../../docs/component-apis-link.mdx';
+import { tableColumnMenuButtonTag } from '../../../../../nimble-components/src/table-column/menu-button';
 
 <Meta of={menuButtonColumnStories} />
 <Title of={menuButtonColumnStories} />
 
-TODO
+The <Tag name={tableColumnMenuButtonTag}/> renders string values as the content of a menu button. The client can specify a slot name where they have provided the menu that is associated with the button.
+
+The column is neither sortable nor groupable.
 
 <Canvas of={menuButtonColumnStories.menuButtonColumn} />
+
+## API
+
 <Controls of={menuButtonColumnStories.menuButtonColumn} />
-
-## Usage
-
-### Best Practices
-
-TODO
+<ComponentApisLink />

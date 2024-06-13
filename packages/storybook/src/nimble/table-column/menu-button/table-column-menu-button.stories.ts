@@ -5,7 +5,6 @@ import { tableTag } from '../../../../../nimble-components/src/table';
 import { tableColumnTextTag } from '../../../../../nimble-components/src/table-column/text';
 import { tableColumnMenuButtonTag } from '../../../../../nimble-components/src/table-column/menu-button';
 import type { MenuButtonColumnToggleEventDetail } from '../../../../../nimble-components/src/table-column/menu-button/types';
-import { ButtonAppearance, ButtonAppearanceVariant } from '../../../../../nimble-components/src/button/types';
 import { Menu, menuTag } from '../../../../../nimble-components/src/menu';
 import { menuItemTag } from '../../../../../nimble-components/src/menu-item';
 import { TableRowSelectionMode } from '../../../../../nimble-components/src/table/types';
@@ -15,7 +14,7 @@ import {
     sharedTableArgTypes,
     sharedTableArgs
 } from '../base/table-column-stories-utils';
-import { createUserSelectedThemeStory } from '../../../utilities/storybook';
+import { apiCategory, createUserSelectedThemeStory } from '../../../utilities/storybook';
 
 const metadata: Meta<SharedTableArgs> = {
     title: 'Components/Table Column: Menu Button',
@@ -25,14 +24,8 @@ const metadata: Meta<SharedTableArgs> = {
             handles: [...sharedTableActions, 'menu-button-column-toggle', 'menu-button-column-beforetoggle']
         }
     },
-    // prettier-ignore
     argTypes: {
-        ...sharedTableArgTypes,
-        // selectionMode: {
-        //     table: {
-        //         disable: true
-        //     }
-        // },
+        ...sharedTableArgTypes
     }
 };
 
@@ -60,8 +53,7 @@ for (let i = 0; i < 10000; i++) {
 
 interface MenuButtonColumnTableArgs extends SharedTableArgs {
     fieldName: string;
-    appearance: keyof typeof ButtonAppearance;
-    appearanceVariant: keyof typeof ButtonAppearanceVariant;
+    menuSlot: string;
     updateMenuItems: (storyArgs: MenuButtonColumnTableArgs, e: CustomEvent<MenuButtonColumnToggleEventDetail>) => void;
     menuRef: Menu;
 }
@@ -87,17 +79,14 @@ export const menuButtonColumn: StoryObj<MenuButtonColumnTableArgs> = {
             Last Name
             </${tableColumnTextTag}>
             <${tableColumnMenuButtonTag}
-                fractional-width="0.5"
-                field-name="fullName"
-                appearance="${x => x.appearance}"
-                appearance-variant="${x => x.appearanceVariant}"
-                menu-slot="temp-menu"
+                field-name="${x => x.fieldName}"
+                menu-slot="${x => x.menuSlot}"
                 @menu-button-column-beforetoggle="${(x, c) => x.updateMenuItems(x, c.event as CustomEvent<MenuButtonColumnToggleEventDetail>)}"
             >
             Menu Button Column
             </${tableColumnMenuButtonTag}>
 
-            <${menuTag} ${ref('menuRef')} slot="temp-menu">
+            <${menuTag} ${ref('menuRef')} slot="${x => x.menuSlot}">
             </${menuTag}>
         </${tableTag}>
     `),
@@ -106,19 +95,15 @@ export const menuButtonColumn: StoryObj<MenuButtonColumnTableArgs> = {
             name: 'field-name',
             description:
                 'Set this attribute to identify which field in the data record contains the visible text value for each cell\'s menu button in the column. The field values must be of type `string`.',
-            control: { type: 'radio' }
+            control: false,
+            table: { category: apiCategory.attributes }
         },
-        appearance: {
-            options: Object.keys(ButtonAppearance),
-            control: { type: 'radio' },
+        menuSlot: {
+            name: 'menu-slot',
             description:
-                'Controls the appearance of the menu button within each cell.'
-        },
-        appearanceVariant: {
-            name: 'appearance-variant',
-            control: { type: 'radio' },
-            options: Object.keys(ButtonAppearanceVariant),
-            description: 'Controls the appearance variant of the menu button within each cell.'
+                'The name of the slot within the `nimble-table` instance where the menu associated with the column\'s menu button will be provided',
+            control: false,
+            table: { category: apiCategory.attributes }
         },
         updateMenuItems: {
             table: {
@@ -132,9 +117,8 @@ export const menuButtonColumn: StoryObj<MenuButtonColumnTableArgs> = {
         }
     },
     args: {
-        fieldName: 'firstName',
-        appearance: 'outline',
-        appearanceVariant: 'default',
+        fieldName: 'fullName',
+        menuSlot: 'column-menu',
         menuRef: undefined,
         updateMenuItems: (storyArgs: MenuButtonColumnTableArgs, e: CustomEvent<MenuButtonColumnToggleEventDetail>): void => {
             if (e.detail.newState) {

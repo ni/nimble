@@ -14,6 +14,7 @@ export const template = html<TableColumnMenuButtonCellView>`
             @beforetoggle="${(x, c) => x.onMenuButtonBeforeToggle(c.event as CustomEvent<MenuButtonToggleEventDetail>)}"
             @mouseover="${x => x.onMenuButtonMouseOver()}"
             @mouseout="${x => x.onMenuButtonMouseOut()}"
+            @click="${(x, c) => x.onMenuButtonClick(c.event)}"
             title=${x => (x.hasOverflow && x.cellRecord!.value ? x.cellRecord!.value : null)}
         >
             <span ${ref('valueSpan')} class="value-label">${x => x.cellRecord?.value}</span>
