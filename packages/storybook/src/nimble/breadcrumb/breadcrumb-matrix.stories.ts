@@ -73,6 +73,6 @@ export const hiddenBreadcrumb: StoryFn = createStory(
 
 export const textCustomized: StoryFn = createMatrixThemeStory(
     textCustomizationWrapper(
-        html`<${breadcrumbItemTag}>Breadcrumb item</${breadcrumbItemTag}>`
+        html`<${breadcrumbItemTag} href="#">Breadcrumb item</${breadcrumbItemTag}>`
     )
 );
