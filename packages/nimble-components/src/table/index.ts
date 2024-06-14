@@ -69,26 +69,6 @@ declare global {
     }
 }
 
-interface SlotDetails {
-    /**
-     * The record ID associated with the row that the slot should be provided in.
-     */
-    recordId: string;
-
-    /**
-     * The name that the slot should be given.
-     */
-    name: string;
-}
-
-interface ColumnSlots {
-    /**
-     * Key/value pairs where the key is the slot that should be created and the value
-     * is the details associated with the slot that will be created.
-    */
-    [slot: string]: SlotDetails;
-}
-
 /**
  * A nimble-styled table.
  */
@@ -262,8 +242,8 @@ export class Table<
     // the selection checkbox 'checked' value should be ingored.
     // https://github.com/microsoft/fast/issues/5750
     private ignoreSelectionChangeEvents = false;
-    // Map from internal unique column IDs to any slots that could be created on any rows for that column.
-    private readonly slotsByColumn: Map<string, ColumnSlots> = new Map<string, ColumnSlots>();
+    // Map from slot name to the record ID and column ID that requested the slot.
+    private readonly columnRequestedSlots: Map<string, { recordId: string, uniqueSlotName: string }> = new Map();
 
     public constructor() {
         super();
@@ -461,13 +441,9 @@ export class Table<
     public onRowSlotsRequest(event: CustomEvent<RowSlotRequestEventDetail>): void {
         event.stopImmediatePropagation();
 
-        const columnUniqueId = event.detail.columnInternalId;
-        if (!this.slotsByColumn.has(columnUniqueId)) {
-            this.slotsByColumn.set(columnUniqueId, {});
-        }
-        const columnSlots = this.slotsByColumn.get(columnUniqueId)!;
-        for (const slot of event.detail.slots) {
-            columnSlots[slot.slot] = { recordId: event.detail.recordId, name: slot.name };
+        for (const slotDetail of event.detail.slots) {
+            const uniqueSlotName = uniquifySlotNameForColumnId(event.detail.columnInternalId, slotDetail.slot);
+            this.columnRequestedSlots.set(slotDetail.name, { recordId: event.detail.recordId, uniqueSlotName });
         }
 
         this.regenerateRequestedSlotsByRecordIds();
@@ -698,20 +674,25 @@ export class Table<
         this.tableUpdateTracker.trackColumnInstancesChanged();
     }
 
+    private foo(): void {
+        for (const actionMenuSlot of this.actionMenuSlots) {
+            this.columnRequestedSlots.delete(actionMenuSlot);
+        }
+
+        this.regenerateRequestedSlotsByRecordIds();
+    }
+
     private regenerateRequestedSlotsByRecordIds(): void {
         const updatedSlotsByRecordId: { [recordId: string]: SlotDetail[] } = {};
-        for (const [columnId, slots] of this.slotsByColumn) {
-            for (const [slot, otherInfo] of Object.entries(slots)) {
-                const recordId = otherInfo.recordId;
-                const slotName = otherInfo.name;
-                if (!Object.prototype.hasOwnProperty.call(updatedSlotsByRecordId, recordId)) {
-                    updatedSlotsByRecordId[recordId] = [];
-                }
-                updatedSlotsByRecordId[recordId]!.push({
-                    name: slotName,
-                    slot: uniquifySlotNameForColumnId(columnId, slot)
-                });
+
+        for (const [slotName, { recordId, uniqueSlotName }] of this.columnRequestedSlots) {
+            if (!Object.prototype.hasOwnProperty.call(updatedSlotsByRecordId, recordId)) {
+                updatedSlotsByRecordId[recordId] = [];
             }
+            updatedSlotsByRecordId[recordId]!.push({
+                name: slotName,
+                slot: uniqueSlotName
+            });
         }
 
         this.slotsByRecordId = updatedSlotsByRecordId;
@@ -729,6 +710,7 @@ export class Table<
         }
 
         this.openActionMenuRecordId = event.detail.recordIds[0];
+        this.foo();
         const detail = await this.getActionMenuToggleEventDetail(event);
         this.$emit('action-menu-beforetoggle', detail);
     }
