@@ -7,10 +7,13 @@ import { createStory } from '../../utilities/storybook';
 import {
     createMatrixThemeStory,
     createMatrix,
-    sharedMatrixParameters
+    sharedMatrixParameters,
+    cartesianProduct,
+    createMatrixInteractionsFromStates
 } from '../../utilities/matrix';
 import { hiddenWrapper } from '../../utilities/hidden';
 import { textCustomizationWrapper } from '../../utilities/text-customization';
+import { DisabledState, disabledStates } from '../../utilities/states';
 
 const appearanceStates = [
     ['Default', BreadcrumbAppearance.default],
@@ -27,22 +30,36 @@ const metadata: Meta = {
 
 export default metadata;
 
-const component = ([
-    appearanceName,
-    appearance
-]: AppearanceState): ViewTemplate => html`
+const component = (
+    [appearanceName, appearance]: AppearanceState,
+    [disabledName, disabled]: DisabledState
+): ViewTemplate => html`
     <${breadcrumbTag}
         appearance="${() => appearance}"
         style="margin-right: 24px"
     >
-        <${breadcrumbItemTag} href="${parent.location.href}">
-            ${() => `Breadcrumb (${appearanceName}) - Link`}
+        <${breadcrumbItemTag} href="${disabled ? '' : parent.location.href}">
+            ${() => `${disabledName} Breadcrumb (${appearanceName}) - Link`}
         </${breadcrumbItemTag}>
         <${breadcrumbItemTag}>Current (No Link)</${breadcrumbItemTag}>
     </${breadcrumbTag}>
 `;
 export const breadcrumbThemeMatrix: StoryFn = createMatrixThemeStory(
-    createMatrix(component, [appearanceStates])
+    createMatrix(component, [appearanceStates, disabledStates])
+);
+
+const interactionStates = cartesianProduct([
+    appearanceStates,
+    disabledStates
+] as const);
+
+export const breadcrumbInteractionsThemeMatrix: StoryFn = createMatrixThemeStory(
+    createMatrixInteractionsFromStates(component, {
+        hover: interactionStates,
+        hoverActive: interactionStates,
+        active: [],
+        focus: interactionStates
+    })
 );
 
 export const hiddenBreadcrumb: StoryFn = createStory(

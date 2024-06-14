@@ -14,16 +14,16 @@ export const styles = css`
         flex-wrap: wrap;
     }
 
-    ::slotted(*:first-child) {
+    ::slotted(:first-child) {
         padding-left: 0px;
     }
 
-    ::slotted(*:not([href]):last-child) {
+    ::slotted(:not([href]):last-child) {
         font: ${bodyEmphasizedFont};
         color: ${linkFontColor};
     }
 
-    :host([appearance='prominent']) ::slotted(*:not([href]):last-child) {
+    :host([appearance='prominent']) ::slotted(:not([href]):last-child) {
         color: ${linkProminentFontColor};
     }
 `;

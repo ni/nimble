@@ -39,6 +39,12 @@ export const styles = css`
             text-decoration: none;
         }
 
+        :host(:not([href])) slot:not([name]),
+        :host([href='']) slot:not([name]) {
+            display: block;
+            margin-right: ${mediumPadding};
+        }
+
         slot[name='separator'] {
             display: flex;
             align-items: center;
