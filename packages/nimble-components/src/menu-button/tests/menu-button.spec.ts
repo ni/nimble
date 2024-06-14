@@ -1,12 +1,5 @@
 import { html } from '@microsoft/fast-element';
-import {
-    eventChange,
-    keyArrowDown,
-    keyArrowUp,
-    keyEnter,
-    keyEscape,
-    keySpace
-} from '@microsoft/fast-web-utilities';
+import {eventChange, keyEnter} from '@microsoft/fast-web-utilities';
 import { FoundationElement, Menu, MenuItem } from '@microsoft/fast-foundation';
 import { parameterizeSuite } from '@ni/jasmine-parameterized';
 import { fixture, Fixture } from '../../utilities/tests/fixture';
@@ -17,6 +10,7 @@ import {
     waitForUpdatesAsync
 } from '../../testing/async-helpers';
 import { createEventListener } from '../../utilities/tests/component';
+import { MenuButtonPageObject } from '../testing/menu-button.pageobject';
 
 class TestSlottedElement extends FoundationElement {}
 const composedTestSlottedElement = TestSlottedElement.compose({
@@ -97,12 +91,14 @@ describe('MenuButton', () => {
 
     describe('basic functionality', () => {
         let element: MenuButton;
+        let pageObject: MenuButtonPageObject;
         let connect: () => Promise<void>;
         let disconnect: () => Promise<void>;
 
         beforeEach(async () => {
             ({ element, connect, disconnect, parent } = await setup());
             createAndSlotMenu(element);
+            pageObject = new MenuButtonPageObject(element);
         });
 
         afterEach(async () => {
@@ -190,14 +186,14 @@ describe('MenuButton', () => {
         it('should not open menu when the toggle button is clicked if the element is disabled', async () => {
             element.disabled = true;
             await connect();
-            element.toggleButton!.control.click();
+            pageObject.clickMenuButton();
             expect(element.open).toBeFalse();
         });
 
         it('should close menu when toggle button is clicked while the menu is open', async () => {
             element.open = true;
             await connect();
-            element.toggleButton!.control.click();
+            pageObject.clickMenuButton();
             expect(element.open).toBeFalse();
         });
 
@@ -300,7 +296,7 @@ describe('MenuButton', () => {
                 oldState: false
             };
 
-            element.toggleButton!.control.click();
+            pageObject.clickMenuButton();
             await beforeToggleListener.promise;
             expect(beforeToggleListener.spy).toHaveBeenCalledTimes(1);
             const event = beforeToggleListener.spy.calls.first()
@@ -327,7 +323,7 @@ describe('MenuButton', () => {
                 oldState: true
             };
 
-            element.toggleButton!.control.click();
+            pageObject.clickMenuButton();
             await beforeToggleListener.promise;
             expect(beforeToggleListener.spy).toHaveBeenCalledTimes(1);
             const event = beforeToggleListener.spy.calls.first()
@@ -359,19 +355,6 @@ describe('MenuButton', () => {
             let connect: () => Promise<void>;
             let disconnect: () => Promise<void>;
 
-            async function openMenu(menuButton: MenuButton): Promise<void> {
-                if (menuButton.open) {
-                    return;
-                }
-
-                const toggleListener = createEventListener(
-                    menuButton,
-                    'toggle'
-                );
-                menuButton.open = true;
-                await toggleListener.promise;
-            }
-
             beforeEach(async () => {
                 ({ element, connect, disconnect, parent } = await value.setupFunction());
                 createAndSlotMenu(element);
@@ -384,11 +367,12 @@ describe('MenuButton', () => {
             it('should open the menu and focus first menu item when the toggle button is clicked', async () => {
                 await connect();
                 const menuButton = value.getMenuButton(element);
+                const pageObject = new MenuButtonPageObject(menuButton);
                 const toggleListener = createEventListener(
                     menuButton,
                     'toggle'
                 );
-                menuButton.toggleButton!.control.click();
+                pageObject.clickMenuButton();
                 expect(menuButton.open).toBeTrue();
                 await toggleListener.promise;
                 expect(document.activeElement).toEqual(menuItem1);
@@ -397,14 +381,12 @@ describe('MenuButton', () => {
             it("should open the menu and focus first menu item when 'Enter' is pressed while the toggle button is focused", async () => {
                 await connect();
                 const menuButton = value.getMenuButton(element);
+                const pageObject = new MenuButtonPageObject(menuButton);
                 const toggleListener = createEventListener(
                     menuButton,
                     'toggle'
                 );
-                const event = new KeyboardEvent('keypress', {
-                    key: keyEnter
-                } as KeyboardEventInit);
-                menuButton.toggleButton!.control.dispatchEvent(event);
+                pageObject.pressEnter();
                 expect(menuButton.open).toBeTrue();
                 await toggleListener.promise;
                 expect(document.activeElement).toEqual(menuItem1);
@@ -413,14 +395,12 @@ describe('MenuButton', () => {
             it("should open the menu and focus first menu item when 'Space' is pressed while the toggle button is focused", async () => {
                 await connect();
                 const menuButton = value.getMenuButton(element);
+                const pageObject = new MenuButtonPageObject(menuButton);
                 const toggleListener = createEventListener(
                     menuButton,
                     'toggle'
                 );
-                const event = new KeyboardEvent('keypress', {
-                    key: keySpace
-                } as KeyboardEventInit);
-                menuButton.toggleButton!.control.dispatchEvent(event);
+                pageObject.pressSpace();
                 expect(menuButton.open).toBeTrue();
                 await toggleListener.promise;
                 expect(document.activeElement).toEqual(menuItem1);
@@ -429,14 +409,12 @@ describe('MenuButton', () => {
             it('should open the menu and focus first menu item when the down arrow is pressed while the toggle button is focused', async () => {
                 await connect();
                 const menuButton = value.getMenuButton(element);
+                const pageObject = new MenuButtonPageObject(menuButton);
                 const toggleListener = createEventListener(
                     menuButton,
                     'toggle'
                 );
-                const event = new KeyboardEvent('keydown', {
-                    key: keyArrowDown
-                } as KeyboardEventInit);
-                menuButton.toggleButton!.dispatchEvent(event);
+                pageObject.pressArrowDown();
                 expect(menuButton.open).toBeTrue();
                 await toggleListener.promise;
                 expect(document.activeElement).toEqual(menuItem1);
@@ -445,14 +423,12 @@ describe('MenuButton', () => {
             it('should open the menu and focus last menu item when the up arrow is pressed while the toggle button is focused', async () => {
                 await connect();
                 const menuButton = value.getMenuButton(element);
+                const pageObject = new MenuButtonPageObject(menuButton);
                 const toggleListener = createEventListener(
                     menuButton,
                     'toggle'
                 );
-                const event = new KeyboardEvent('keydown', {
-                    key: keyArrowUp
-                } as KeyboardEventInit);
-                menuButton.toggleButton!.dispatchEvent(event);
+                pageObject.pressArrowUp();
                 expect(menuButton.open).toBeTrue();
                 await toggleListener.promise;
                 expect(document.activeElement).toEqual(menuItem3);
@@ -461,31 +437,28 @@ describe('MenuButton', () => {
             it("should close the menu when pressing 'Escape'", async () => {
                 await connect();
                 const menuButton = value.getMenuButton(element);
-                await openMenu(menuButton);
+                const pageObject = new MenuButtonPageObject(menuButton);
+                await pageObject.openMenu();
 
-                const event = new KeyboardEvent('keydown', {
-                    key: keyEscape
-                } as KeyboardEventInit);
-                menuButton.region!.dispatchEvent(event);
+                pageObject.closeMenuWithEscape();
                 expect(menuButton.open).toBeFalse();
             });
 
             it("should focus the button when the menu is closed by pressing 'Escape'", async () => {
                 await connect();
                 const menuButton = value.getMenuButton(element);
-                await openMenu(menuButton);
+                const pageObject = new MenuButtonPageObject(menuButton);
+                await pageObject.openMenu();
 
-                const event = new KeyboardEvent('keydown', {
-                    key: keyEscape
-                } as KeyboardEventInit);
-                menuButton.region!.dispatchEvent(event);
+                pageObject.closeMenuWithEscape();
                 expect(document.activeElement).toEqual(element);
             });
 
             it('should close the menu when selecting a menu item by clicking it', async () => {
                 await connect();
                 const menuButton = value.getMenuButton(element);
-                await openMenu(menuButton);
+                const pageObject = new MenuButtonPageObject(menuButton);
+                await pageObject.openMenu();
 
                 menuItem1.click();
                 expect(menuButton.open).toBeFalse();
@@ -494,7 +467,8 @@ describe('MenuButton', () => {
             it('should focus the button when the menu is closed by selecting a menu item by clicking it', async () => {
                 await connect();
                 const menuButton = value.getMenuButton(element);
-                await openMenu(menuButton);
+                const pageObject = new MenuButtonPageObject(menuButton);
+                await pageObject.openMenu();
 
                 menuItem1.click();
                 expect(document.activeElement).toEqual(element);
@@ -503,7 +477,8 @@ describe('MenuButton', () => {
             it("should close the menu when selecting a menu item using 'Enter'", async () => {
                 await connect();
                 const menuButton = value.getMenuButton(element);
-                await openMenu(menuButton);
+                const pageObject = new MenuButtonPageObject(menuButton);
+                await pageObject.openMenu();
 
                 const event = new KeyboardEvent('keydown', {
                     key: keyEnter
@@ -515,7 +490,8 @@ describe('MenuButton', () => {
             it("should focus the button when the menu is closed by selecting a menu item using 'Enter'", async () => {
                 await connect();
                 const menuButton = value.getMenuButton(element);
-                await openMenu(menuButton);
+                const pageObject = new MenuButtonPageObject(menuButton);
+                await pageObject.openMenu();
 
                 const event = new KeyboardEvent('keydown', {
                     key: keyEnter
@@ -533,7 +509,8 @@ describe('MenuButton', () => {
 
                 await connect();
                 const menuButton = value.getMenuButton(element);
-                await openMenu(menuButton);
+                const pageObject = new MenuButtonPageObject(menuButton);
+                await pageObject.openMenu();
 
                 menuItem1.addEventListener(eventChange, onMenuItemChange);
                 menuItem1.click();
@@ -544,7 +521,8 @@ describe('MenuButton', () => {
             it('should not close the menu when clicking on a disabled menu item', async () => {
                 await connect();
                 const menuButton = value.getMenuButton(element);
-                await openMenu(menuButton);
+                const pageObject = new MenuButtonPageObject(menuButton);
+                await pageObject.openMenu();
 
                 menuItem1.disabled = true;
                 menuItem1.click();
@@ -573,19 +551,6 @@ describe('MenuButton', () => {
             let connect: () => Promise<void>;
             let disconnect: () => Promise<void>;
 
-            async function openMenu(menuButton: MenuButton): Promise<void> {
-                if (menuButton.open) {
-                    return;
-                }
-
-                const toggleListener = createEventListener(
-                    menuButton,
-                    'toggle'
-                );
-                menuButton.open = true;
-                await toggleListener.promise;
-            }
-
             beforeEach(async () => {
                 ({ element, connect, disconnect, parent } = await value.setupFunction());
                 // Unlike other tests, explicitly do not slot a menu in the parent element
@@ -598,11 +563,12 @@ describe('MenuButton', () => {
             it('should transition to the open state when the toggle button is clicked', async () => {
                 await connect();
                 const menuButton = value.getMenuButton(element);
+                const pageObject = new MenuButtonPageObject(menuButton);
                 const toggleListener = createEventListener(
                     menuButton,
                     'toggle'
                 );
-                menuButton.toggleButton!.control.click();
+                pageObject.clickMenuButton();
                 expect(menuButton.open).toBeTrue();
                 await toggleListener.promise;
                 expect(toggleListener.spy).toHaveBeenCalledTimes(1);
@@ -618,14 +584,12 @@ describe('MenuButton', () => {
             it("should transition to the open state when 'Enter' is pressed while the toggle button is focused", async () => {
                 await connect();
                 const menuButton = value.getMenuButton(element);
+                const pageObject = new MenuButtonPageObject(menuButton);
                 const toggleListener = createEventListener(
                     menuButton,
                     'toggle'
                 );
-                const event = new KeyboardEvent('keypress', {
-                    key: keyEnter
-                } as KeyboardEventInit);
-                menuButton.toggleButton!.control.dispatchEvent(event);
+                pageObject.pressEnter();
                 expect(menuButton.open).toBeTrue();
                 await toggleListener.promise;
                 expect(toggleListener.spy).toHaveBeenCalledTimes(1);
@@ -641,14 +605,12 @@ describe('MenuButton', () => {
             it("should transition to the open state when 'Space' is pressed while the toggle button is focused", async () => {
                 await connect();
                 const menuButton = value.getMenuButton(element);
+                const pageObject = new MenuButtonPageObject(menuButton);
                 const toggleListener = createEventListener(
                     menuButton,
                     'toggle'
                 );
-                const event = new KeyboardEvent('keypress', {
-                    key: keySpace
-                } as KeyboardEventInit);
-                menuButton.toggleButton!.control.dispatchEvent(event);
+                pageObject.pressSpace();
                 expect(menuButton.open).toBeTrue();
                 await toggleListener.promise;
                 expect(toggleListener.spy).toHaveBeenCalledTimes(1);
@@ -664,14 +626,12 @@ describe('MenuButton', () => {
             it('should transition to the open state when the down arrow is pressed while the toggle button is focused', async () => {
                 await connect();
                 const menuButton = value.getMenuButton(element);
+                const pageObject = new MenuButtonPageObject(menuButton);
                 const toggleListener = createEventListener(
                     menuButton,
                     'toggle'
                 );
-                const event = new KeyboardEvent('keydown', {
-                    key: keyArrowDown
-                } as KeyboardEventInit);
-                menuButton.toggleButton!.dispatchEvent(event);
+                pageObject.pressArrowDown();
                 expect(menuButton.open).toBeTrue();
                 await toggleListener.promise;
                 expect(toggleListener.spy).toHaveBeenCalledTimes(1);
@@ -687,14 +647,12 @@ describe('MenuButton', () => {
             it('should transition to the open state when the up arrow is pressed while the toggle button is focused', async () => {
                 await connect();
                 const menuButton = value.getMenuButton(element);
+                const pageObject = new MenuButtonPageObject(menuButton);
                 const toggleListener = createEventListener(
                     menuButton,
                     'toggle'
                 );
-                const event = new KeyboardEvent('keydown', {
-                    key: keyArrowUp
-                } as KeyboardEventInit);
-                menuButton.toggleButton!.dispatchEvent(event);
+                pageObject.pressArrowUp();
                 expect(menuButton.open).toBeTrue();
                 await toggleListener.promise;
                 expect(toggleListener.spy).toHaveBeenCalledTimes(1);
@@ -710,24 +668,20 @@ describe('MenuButton', () => {
             it("should transition to the closed state when pressing 'Escape'", async () => {
                 await connect();
                 const menuButton = value.getMenuButton(element);
-                await openMenu(menuButton);
+                const pageObject = new MenuButtonPageObject(menuButton);
+                await pageObject.openMenu();
 
-                const event = new KeyboardEvent('keydown', {
-                    key: keyEscape
-                } as KeyboardEventInit);
-                menuButton.region!.dispatchEvent(event);
+                pageObject.closeMenuWithEscape();
                 expect(menuButton.open).toBeFalse();
             });
 
             it("should focus the button when moving to the closed state by pressing 'Escape'", async () => {
                 await connect();
                 const menuButton = value.getMenuButton(element);
-                await openMenu(menuButton);
+                const pageObject = new MenuButtonPageObject(menuButton);
+                await pageObject.openMenu();
 
-                const event = new KeyboardEvent('keydown', {
-                    key: keyEscape
-                } as KeyboardEventInit);
-                menuButton.region!.dispatchEvent(event);
+                pageObject.closeMenuWithEscape();
                 expect(document.activeElement).toEqual(element);
             });
         });
