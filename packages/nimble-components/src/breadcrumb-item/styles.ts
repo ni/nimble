@@ -1,81 +1,53 @@
 import { css } from '@microsoft/fast-element';
 import { display } from '../utilities/style/display';
 import {
-    bodyFontColor,
-    borderHoverColor,
-    borderWidth,
     controlHeight,
     iconSize,
-    linkFont,
+    linkDisabledFontColor,
+    mediumPadding,
     placeholderFontColor
 } from '../theme-provider/design-tokens';
-import { focusVisible } from '../utilities/style/focus';
+import { styles as anchorStyles } from '../anchor/styles';
 
 export const styles = css`
-    ${display('inline-flex')}
+    ${anchorStyles}
 
-    :host {
-        height: ${controlHeight};
-        padding-left: calc(4px - ${borderWidth});
+    @layer base {
+        ${display('inline-flex')}
 
-        ${
-            /* When href removed the .control element is also removed
-             so this becomes the fallback color for the slot */ ''
+        :host {
+            height: ${controlHeight};
+            padding-left: ${mediumPadding};
+
+            ${
+                /* When href removed the .control element is also removed
+                so this becomes the fallback color for the slot */ ''
+            }
+            color: ${linkDisabledFontColor};
         }
-        color: ${bodyFontColor};
-        font: ${linkFont};
-    }
 
-    .listitem {
-        display: flex;
-        align-items: center;
-    }
+        .listitem {
+            display: flex;
+            align-items: center;
+        }
 
-    .control {
-        color: var(--ni-private-breadcrumb-link-font-color);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border: ${borderWidth} solid transparent;
-        padding-right: calc(4px - ${borderWidth});
-        text-decoration: none;
-    }
+        .control {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: ${mediumPadding};
+            text-decoration: none;
+        }
 
-    .control:hover {
-        text-decoration: underline;
-    }
+        slot[name='separator'] {
+            display: flex;
+            align-items: center;
+        }
 
-    .control${focusVisible} {
-        border: ${borderWidth} solid ${borderHoverColor};
-        outline: 2px solid ${borderHoverColor};
-        outline-offset: 1px;
-    }
-
-    .control:active {
-        color: var(--ni-private-breadcrumb-link-active-font-color);
-        text-decoration: none;
-    }
-
-    [part='start'] {
-        display: none;
-    }
-
-    .content {
-        pointer-events: none;
-    }
-
-    [part='end'] {
-        display: none;
-    }
-
-    slot[name='separator'] {
-        display: flex;
-        align-items: center;
-    }
-
-    slot[name='separator'] svg {
-        width: ${iconSize};
-        height: ${iconSize};
-        fill: ${placeholderFontColor};
+        slot[name='separator'] svg {
+            width: ${iconSize};
+            height: ${iconSize};
+            fill: ${placeholderFontColor};
+        }
     }
 `;
