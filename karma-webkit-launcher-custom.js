@@ -266,19 +266,19 @@ const WebkitBrowser = function (baseBrowserDecorator, args) {
   this.on("kill", (done) => {
     console.log('===================================================================kill');
     // Clean up all remaining processes after 500ms delay on normal clients.
-    //if (!isCI) {
+    if (!isCI) {
       childProcessCleanup(this.id, done);
-    //} else {
-    //  done();
-    //}
+    } else {
+      done();
+    }
   });
 
   this.on("done", () => {
     console.log('===================================================================done');
     // Clean up all remaining processes after 500ms delay on normal clients.
-    //if (!isCI) {
+    if (!isCI) {
       childProcessCleanup(this.id);
-    //}
+    }
   });
 };
 
