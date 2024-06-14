@@ -52,9 +52,9 @@ module.exports = config => {
         port: 9876,
         colors: true,
         logLevel: config.LOG_DEBUG,
-        autoWatch: true,
+        autoWatch: false,
         browsers: ['ChromeHeadless'],
-        singleRun: false,
+        singleRun: true,
         restartOnFileChange: true,
         customHeaders: [
             // Test under the OWASP Basic non-strict CSP Policy
