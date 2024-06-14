@@ -27,7 +27,6 @@ export const styles = css`
         background-color: ${applicationBackgroundColor};
         height: calc(${controlHeight} + 2 * ${borderWidth});
         border-top: calc(2 * ${borderWidth}) solid transparent;
-        box-sizing: border-box;
         background-clip: padding-box;
     }
 
@@ -36,7 +35,6 @@ export const styles = css`
         width: 100%;
         height: ${controlHeight};
         pointer-events: none;
-        box-sizing: border-box;
         bottom: 0px;
         position: absolute;
     }
@@ -55,9 +53,13 @@ export const styles = css`
 
     .expand-collapse-button {
         flex: 0 0 auto;
-        padding-left: calc(
-            ${mediumPadding} + (var(--ni-private-table-row-indent-level) - 1) *
-                ${controlHeight}
+        margin-left: max(
+            calc(
+                ${mediumPadding} +
+                    (var(--ni-private-table-row-indent-level) - 1) *
+                    ${controlHeight}
+            ),
+            0px
         );
     }
 
@@ -69,9 +71,13 @@ export const styles = css`
         display: flex;
         align-items: center;
         justify-content: center;
-        padding-left: calc(
-            ${mediumPadding} + (var(--ni-private-table-row-indent-level) - 1) *
-                ${controlHeight}
+        margin-left: max(
+            calc(
+                ${mediumPadding} +
+                    (var(--ni-private-table-row-indent-level) - 1) *
+                    ${controlHeight}
+            ),
+            0px
         );
     }
 

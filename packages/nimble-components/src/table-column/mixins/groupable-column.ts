@@ -19,18 +19,14 @@ export function mixinGroupableColumnAPI<
     abstract class GroupableColumn extends base {
         public groupingDisabled = false;
 
-        public groupIndex?: number | null = null;
+        public groupIndex?: number | null;
 
         public groupingDisabledChanged(): void {
             this.columnInternals.groupingDisabled = this.groupingDisabled;
         }
 
         public groupIndexChanged(): void {
-            if (typeof this.groupIndex === 'number') {
-                this.columnInternals.groupIndex = this.groupIndex;
-            } else {
-                this.columnInternals.groupIndex = undefined;
-            }
+            this.columnInternals.groupIndex = this.groupIndex ?? undefined;
         }
     }
     attr({ attribute: 'grouping-disabled', mode: 'boolean' })(

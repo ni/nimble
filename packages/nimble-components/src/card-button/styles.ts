@@ -29,7 +29,6 @@ export const styles = css`
         cursor: pointer;
         outline: none;
         border: none;
-        box-sizing: border-box;
         transition: box-shadow ${smallDelay};
     }
 

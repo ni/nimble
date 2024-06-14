@@ -203,6 +203,7 @@
           "options": {
             "lintFilePatterns": [
               "example-client-app/**/*.ts",
+              "example-client-app/**/*.js",
               "example-client-app/**/*.html"
             ]
           }

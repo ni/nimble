@@ -1,5 +1,5 @@
 # Visit and ignore all objects in the root. 
-# Then explicitly allow all TypeScript, JavaScript, Markdown, and JSON files in the root, and src folders.
+# Then explicitly allow specific file extensions to format.
 /*
 !*.ts
 !*.js
@@ -15,8 +15,10 @@
 !src/**/*.json
 
 /build/**/*.*
-!build/generate-workers/**/*.ts
-!build/generate-workers/**/*.json
+!build/**/*.ts
+!build/**/*.js
+!build/**/*.md
+!build/**/*.json
 
 # Explicitly exclude the below files and folders
 dist
@@ -26,6 +28,5 @@ CHANGELOG.*
 src/utilities/tests/tests/fixture.spec.ts
 src/utilities/tests/fixture.ts
 src/utilities/style/direction.ts
-src/icons/**/*.ts
-build/transform-fragments.js
+src/icons
 src/wafer-map/workers

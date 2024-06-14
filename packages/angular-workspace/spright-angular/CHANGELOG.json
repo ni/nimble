@@ -2,6 +2,126 @@
   "name": "@ni/spright-angular",
   "entries": [
     {
+      "date": "Thu, 13 Jun 2024 17:01:39 GMT",
+      "version": "1.0.20",
+      "tag": "@ni/spright-angular_v1.0.20",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/spright-angular",
+            "comment": "Bump @ni/spright-components to v1.0.20",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 11 Jun 2024 19:27:14 GMT",
+      "version": "1.0.19",
+      "tag": "@ni/spright-angular_v1.0.19",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/spright-angular",
+            "comment": "Bump @ni/spright-components to v1.0.19",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Sat, 08 Jun 2024 17:53:59 GMT",
+      "version": "1.0.18",
+      "tag": "@ni/spright-angular_v1.0.18",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/spright-angular",
+            "comment": "Bump @ni/spright-components to v1.0.18",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 07 Jun 2024 20:34:51 GMT",
+      "version": "1.0.17",
+      "tag": "@ni/spright-angular_v1.0.17",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/spright-angular",
+            "comment": "Bump @ni/spright-components to v1.0.17",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 07 Jun 2024 17:53:20 GMT",
+      "version": "1.0.16",
+      "tag": "@ni/spright-angular_v1.0.16",
+      "comments": {
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/spright-angular",
+            "commit": "992217c62385db7dcc228d23a74658c6f8f6b44c",
+            "comment": "Switch to all nimble private linting"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 07 Jun 2024 15:10:38 GMT",
+      "version": "1.0.16",
+      "tag": "@ni/spright-angular_v1.0.16",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/spright-angular",
+            "comment": "Bump @ni/spright-components to v1.0.16",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 06 Jun 2024 17:29:15 GMT",
+      "version": "1.0.15",
+      "tag": "@ni/spright-angular_v1.0.15",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/spright-angular",
+            "comment": "Bump @ni/spright-components to v1.0.15",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 06 Jun 2024 15:56:25 GMT",
+      "version": "1.0.14",
+      "tag": "@ni/spright-angular_v1.0.14",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/spright-angular",
+            "comment": "Bump @ni/spright-components to v1.0.14",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 05 Jun 2024 17:12:12 GMT",
       "version": "1.0.13",
       "tag": "@ni/spright-angular_v1.0.13",

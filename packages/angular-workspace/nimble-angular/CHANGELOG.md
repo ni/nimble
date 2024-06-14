@@ -1,8 +1,73 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Wed, 05 Jun 2024 17:12:12 GMT and should not be manually modified.
+This log was last generated on Thu, 13 Jun 2024 17:01:38 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 24.4.7
+
+Thu, 13 Jun 2024 17:01:38 GMT
+
+### Patches
+
+- Move column sorting properties to a column mixin ([ni/nimble@659242f](https://github.com/ni/nimble/commit/659242fdcda04d270085e3a7e86493e9fc8a1fc5))
+- Bump @ni/nimble-components to v29.3.6
+
+## 24.4.6
+
+Tue, 11 Jun 2024 19:27:14 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v29.3.5
+
+## 24.4.5
+
+Sat, 08 Jun 2024 17:53:59 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v29.3.4
+
+## 24.4.4
+
+Fri, 07 Jun 2024 20:34:51 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v29.3.3
+
+## 24.4.3
+
+Fri, 07 Jun 2024 15:10:38 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v29.3.1
+
+## 24.4.2
+
+Thu, 06 Jun 2024 17:29:15 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v29.3.0
+
+## 24.4.1
+
+Thu, 06 Jun 2024 15:56:25 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v29.2.4
+
+## 24.4.0
+
+Thu, 06 Jun 2024 14:24:25 GMT
+
+### Minor changes
+
+- Angular integration for ListOptionGroup ([ni/nimble@bcc1362](https://github.com/ni/nimble/commit/bcc13620f5a4b2b466f2d15777803e5799d62992))
 
 ## 24.3.9
 

@@ -1,8 +1,32 @@
 # Change Log - @ni/nimble-blazor
 
-This log was last generated on Sat, 01 Jun 2024 21:18:00 GMT and should not be manually modified.
+This log was last generated on Thu, 13 Jun 2024 17:01:38 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 17.4.2
+
+Thu, 13 Jun 2024 17:01:38 GMT
+
+### Patches
+
+- Move column sorting properties to a column mixin ([ni/nimble@659242f](https://github.com/ni/nimble/commit/659242fdcda04d270085e3a7e86493e9fc8a1fc5))
+
+## 17.4.1
+
+Fri, 07 Jun 2024 17:53:20 GMT
+
+### Patches
+
+- Update to module async behavior ([ni/nimble@992217c](https://github.com/ni/nimble/commit/992217c62385db7dcc228d23a74658c6f8f6b44c))
+
+## 17.4.0
+
+Thu, 06 Jun 2024 14:24:25 GMT
+
+### Minor changes
+
+- Blazor integration for ListOptionGroup ([ni/nimble@bcc1362](https://github.com/ni/nimble/commit/bcc13620f5a4b2b466f2d15777803e5799d62992))
 
 ## 17.3.1
 

@@ -51,6 +51,8 @@ export * from './directives/list-option/nimble-combobox-list-option.directive';
 export * from './directives/list-option/nimble-list-option.directive';
 export * from './directives/list-option/nimble-select-list-option.directive';
 export * from './directives/list-option/nimble-list-option.module';
+export * from './directives/list-option-group/nimble-list-option-group.directive';
+export * from './directives/list-option-group/nimble-list-option-group.module';
 export * from './directives/menu/nimble-menu.directive';
 export * from './directives/menu/nimble-menu.module';
 export * from './directives/menu-button/nimble-menu-button.directive';

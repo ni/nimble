@@ -93,6 +93,7 @@ describe('NimbleTableColumnDateText', () => {
                         min-pixel-width="40"
                         sort-direction="${TableColumnSortDirection.ascending}"
                         sort-index="0"
+                        sorting-disabled
                         group-index="0"
                         grouping-disabled
                         format="custom"
@@ -173,6 +174,11 @@ describe('NimbleTableColumnDateText', () => {
         it('will use template string value for sortIndex', () => {
             expect(directive.sortIndex).toBe(0);
             expect(nativeElement.sortIndex).toBe(0);
+        });
+
+        it('will use template string value for sortingDisabled', () => {
+            expect(directive.sortingDisabled).toBeTrue();
+            expect(nativeElement.sortingDisabled).toBeTrue();
         });
 
         it('will use template string values for fractionalWidth', () => {
@@ -316,6 +322,7 @@ describe('NimbleTableColumnDateText', () => {
                         [min-pixel-width]="minPixelWidth"
                         [sort-direction]="sortDirection"
                         [sort-index]="sortIndex"
+                        [sorting-disabled]="sortingDisabled"
                         [group-index]="groupIndex"
                         [grouping-disabled]="groupingDisabled"
                         [format]="format"
@@ -355,6 +362,7 @@ describe('NimbleTableColumnDateText', () => {
             public columnHidden = true;
             public sortDirection: TableColumnSortDirection = TableColumnSortDirection.ascending;
             public sortIndex: number | null = 0;
+            public sortingDisabled = false;
             public groupIndex: number | null = 0;
             public groupingDisabled = false;
             public format: DateTextFormat = 'custom';
@@ -481,6 +489,17 @@ describe('NimbleTableColumnDateText', () => {
 
             expect(directive.sortIndex).toBe(null);
             expect(nativeElement.sortIndex).toBe(null);
+        });
+
+        it('can be configured with property binding for sortingDisabled', () => {
+            expect(directive.sortingDisabled).toBeFalse();
+            expect(nativeElement.sortingDisabled).toBeFalse();
+
+            fixture.componentInstance.sortingDisabled = true;
+            fixture.detectChanges();
+
+            expect(directive.sortingDisabled).toBeTrue();
+            expect(nativeElement.sortingDisabled).toBeTrue();
         });
 
         it('can be configured with property binding for fractionalWidth', () => {
@@ -1016,6 +1035,7 @@ describe('NimbleTableColumnDateText', () => {
                         [attr.min-pixel-width]="minPixelWidth"
                         [attr.sort-direction]="sortDirection"
                         [attr.sort-index]="sortIndex"
+                        [attr.sorting-disabled]="sortingDisabled"
                         [attr.group-index]="groupIndex"
                         [attr.grouping-disabled]="groupingDisabled"
                         [attr.format]="format"
@@ -1055,6 +1075,7 @@ describe('NimbleTableColumnDateText', () => {
             public columnHidden = true;
             public sortDirection: TableColumnSortDirection = TableColumnSortDirection.ascending;
             public sortIndex: number | null = 0;
+            public sortingDisabled = false;
             public groupIndex: number | null = 0;
             public groupingDisabled = false;
             public format: DateTextFormat = 'custom';
@@ -1181,6 +1202,17 @@ describe('NimbleTableColumnDateText', () => {
 
             expect(directive.sortIndex).toBe(null);
             expect(nativeElement.sortIndex).toBe(null);
+        });
+
+        it('can be configured with attribute binding for sortingDisabled', () => {
+            expect(directive.sortingDisabled).toBeFalse();
+            expect(nativeElement.sortingDisabled).toBeFalse();
+
+            fixture.componentInstance.sortingDisabled = true;
+            fixture.detectChanges();
+
+            expect(directive.sortingDisabled).toBeTrue();
+            expect(nativeElement.sortingDisabled).toBeTrue();
         });
 
         it('can be configured with attribute binding for fractionalWidth', () => {
