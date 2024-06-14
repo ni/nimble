@@ -130,10 +130,6 @@ module.exports = (config) => {
             WebkitDebugging: {
                 base: 'Webkit',
                 debug: true
-            },
-            WebkitHeadlessDebugging: {
-                base: 'WebkitHeadless',
-                debug: true
             }
         },
         client: {

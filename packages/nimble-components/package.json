@@ -41,9 +41,9 @@
     "test-firefox:watch": "karma start karma.conf.js --browsers=FirefoxHeadless --skip-tags SkipFirefox --watch-extensions js",
     "test-firefox": "karma start karma.conf.js --browsers=FirefoxHeadless --single-run --skip-tags SkipFirefox",
     "test-webkit:debugger": "karma start karma.conf.js --browsers=WebkitDebugging --skip-tags SkipWebkit",
-    "test-webkit:verbose": "karma start karma.conf.verbose.js --browsers=CustomWebkitDebugging --single-run --skip-tags SkipWebkit",
-    "test-webkit:watch": "karma start karma.conf.js --browsers=CustomWebkitDebugging --skip-tags SkipWebkit --watch-extensions js",
-    "test-webkit": "karma start karma.conf.js --browsers=CustomWebkitDebugging --single-run --skip-tags SkipWebkit",
+    "test-webkit:verbose": "karma start karma.conf.verbose.js --browsers=WebkitHeadless --single-run --skip-tags SkipWebkit",
+    "test-webkit:watch": "karma start karma.conf.js --browsers=WebkitHeadless --skip-tags SkipWebkit --watch-extensions js",
+    "test-webkit": "karma start karma.conf.js --browsers=WebkitHeadless --single-run --skip-tags SkipWebkit",
     "test-concurrent": "concurrently --timings --group \"npm:test-chrome:verbose\" \"npm:test-firefox:verbose\" \"npm:test-webkit:verbose\""
   },
   "repository": {

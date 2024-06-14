@@ -457,6 +457,6 @@ const killChildProcesses = function (childProcessIds, task_id = "unknown") {
 module.exports = {
   "launcher:Epiphany": ["type", EpiphanyBrowser],
   "launcher:Safari": ["type", SafariBrowser],
-  "launcher:CustomWebkit": ["type", WebkitBrowser],
-  "launcher:CustomWebkitHeadless": ["type", WebkitHeadlessBrowser],
+  "launcher:Webkit": ["type", WebkitBrowser],
+  "launcher:WebkitHeadless": ["type", WebkitHeadlessBrowser],
 };

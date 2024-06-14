@@ -140,8 +140,8 @@ module.exports = config => {
                 base: 'Firefox',
                 debug: true
             },
-            CustomWebkitDebugging: {
-                base: 'CustomWebkit',
+            WebkitDebugging: {
+                base: 'Webkit',
                 debug: true
             }
         },
