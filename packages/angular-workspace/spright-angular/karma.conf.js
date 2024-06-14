@@ -55,7 +55,7 @@ module.exports = config => {
         autoWatch: false,
         browsers: ['ChromeHeadless'],
         singleRun: true,
-        restartOnFileChange: true,
+        restartOnFileChange: false,
         customHeaders: [
             // Test under the OWASP Basic non-strict CSP Policy
             // See: https://cheatsheetseries.owasp.org/cheatsheets/Content_Security_Policy_Cheat_Sheet.html#basic-non-strict-csp-policy
