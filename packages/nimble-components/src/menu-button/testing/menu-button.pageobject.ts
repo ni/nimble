@@ -1,4 +1,10 @@
-import { keyArrowDown, keyArrowUp, keyEnter, keyEscape, keySpace } from '@microsoft/fast-web-utilities';
+import {
+    keyArrowDown,
+    keyArrowUp,
+    keyEnter,
+    keyEscape,
+    keySpace
+} from '@microsoft/fast-web-utilities';
 import type { MenuButton } from '..';
 import { createEventListener } from '../../utilities/tests/component';
 
@@ -25,7 +31,10 @@ export class MenuButtonPageObject {
             return;
         }
 
-        const toggleListener = createEventListener(this.menuButtonElement, 'toggle');
+        const toggleListener = createEventListener(
+            this.menuButtonElement,
+            'toggle'
+        );
         this.clickMenuButton();
         await toggleListener.promise;
     }

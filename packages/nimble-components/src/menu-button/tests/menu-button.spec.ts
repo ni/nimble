@@ -1,5 +1,5 @@
 import { html } from '@microsoft/fast-element';
-import {eventChange, keyEnter} from '@microsoft/fast-web-utilities';
+import { eventChange, keyEnter } from '@microsoft/fast-web-utilities';
 import { FoundationElement, Menu, MenuItem } from '@microsoft/fast-foundation';
 import { parameterizeSuite } from '@ni/jasmine-parameterized';
 import { fixture, Fixture } from '../../utilities/tests/fixture';
