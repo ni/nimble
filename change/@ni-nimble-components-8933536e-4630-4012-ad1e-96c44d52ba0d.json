@@ -1,7 +1,7 @@
 {
-  "type": "none",
+  "type": "minor",
   "comment": "Create page object for menu button",
   "packageName": "@ni/nimble-components",
   "email": "20542556+mollykreis@users.noreply.github.com",
-  "dependentChangeType": "none"
+  "dependentChangeType": "patch"
 }
