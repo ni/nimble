@@ -3,7 +3,6 @@ import resolve from '@rollup/plugin-node-resolve';
 import sourcemaps from 'rollup-plugin-sourcemaps';
 import terser from '@rollup/plugin-terser';
 import replace from '@rollup/plugin-replace';
-import json from '@rollup/plugin-json';
 
 const umdDevelopmentPlugin = () => replace({
     'process.env.NODE_ENV': JSON.stringify('development'),
@@ -55,8 +54,7 @@ export default [
             umdDevelopmentPlugin(),
             sourcemaps(),
             resolve(),
-            commonJS(),
-            json()
+            commonJS()
         ],
         onwarn
     },
@@ -78,8 +76,7 @@ export default [
             umdProductionPlugin(),
             sourcemaps(),
             resolve(),
-            commonJS(),
-            json()
+            commonJS()
         ],
         onwarn
     }
