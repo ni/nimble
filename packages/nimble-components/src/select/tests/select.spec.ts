@@ -180,11 +180,9 @@ describe('Select', () => {
         await waitForUpdatesAsync();
         expect(element.value).toBe('two');
 
-        // Add option zero at the top of the options list
-        // prettier-ignore
-        element.insertAdjacentHTML(
-            'afterbegin',
-            '<nimble-list-option value="zero">Zero</nimble-list-option>'
+        element.insertBefore(
+            new ListOption('zero', 'zero'),
+            element.options[0]!
         );
         await waitForUpdatesAsync();
 
@@ -1052,7 +1050,8 @@ describe('Select', () => {
             expect(element.value).toBe('one');
         });
 
-        it('filtering to no available options sets ariaActiveDescendent to empty string', async () => {
+        // Fails on Webkit. Tracked by https://github.com/ni/nimble/issues/2170
+        it('filtering to no available options sets ariaActiveDescendent to empty string #SkipWebkit', async () => {
             await pageObject.openAndSetFilterText('abc');
             expect(element.ariaActiveDescendant).toBe('');
         });
@@ -1651,6 +1650,38 @@ describe('Select', () => {
             element.appendChild(group);
             await waitForUpdatesAsync();
             expect(group.visuallyHidden).toBeFalse();
+        });
+
+        it('after adding option to a group, it can be selected', async () => {
+            const group = pageObject.getGroup(0);
+            const newOption = new ListOption('New Option', 'new option');
+            group.appendChild(newOption);
+            await waitForUpdatesAsync();
+            await clickAndWaitForOpen(element);
+            pageObject.clickOptionWithDisplayText('New Option');
+            expect(element.value).toBe('new option');
+        });
+
+        it('removing option from group removes option from options of select', async () => {
+            const group = pageObject.getGroup(0);
+            const option = group.listOptions[0];
+            group.removeChild(option as Node);
+            await waitForUpdatesAsync();
+            expect(element.options).not.toContain(option!);
+        });
+
+        it('placeholder can be defined in a group', async () => {
+            const group = pageObject.getGroup(0);
+            const placeholder = new ListOption('Placeholder', 'placeholder');
+            placeholder.hidden = true;
+            placeholder.disabled = true;
+            placeholder.selected = true;
+            element.selectedIndex = -1;
+            group.insertAdjacentElement('afterbegin', placeholder);
+            await waitForUpdatesAsync();
+            expect(pageObject.getDisplayText()).toBe('Placeholder');
+            await clickAndWaitForOpen(element);
+            expect(pageObject.isOptionVisible(0)).toBeFalse();
         });
 
         describe('filtering', () => {

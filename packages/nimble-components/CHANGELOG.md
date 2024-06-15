@@ -1,8 +1,97 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Tue, 04 Jun 2024 02:06:07 GMT and should not be manually modified.
+This log was last generated on Thu, 13 Jun 2024 17:01:38 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 29.3.6
+
+Thu, 13 Jun 2024 17:01:38 GMT
+
+### Patches
+
+- Move column sorting properties to a column mixin ([ni/nimble@659242f](https://github.com/ni/nimble/commit/659242fdcda04d270085e3a7e86493e9fc8a1fc5))
+
+## 29.3.5
+
+Tue, 11 Jun 2024 19:27:14 GMT
+
+### Patches
+
+- Switch to custom box-sizing: border-box consistently ([ni/nimble@17ddea5](https://github.com/ni/nimble/commit/17ddea50b5accb353a0288c42d0e64ddc5df0d04))
+
+## 29.3.4
+
+Sat, 08 Jun 2024 17:53:59 GMT
+
+### Patches
+
+- Worker generation tweaks ([ni/nimble@5a5891d](https://github.com/ni/nimble/commit/5a5891d245144ce82d5f39dd2c008ee3f1c5910e))
+
+## 29.3.3
+
+Fri, 07 Jun 2024 20:34:51 GMT
+
+### Patches
+
+- Created renderer capabilities for colors and text in the offscreen canvas ([ni/nimble@d5ad24b](https://github.com/ni/nimble/commit/d5ad24b089316112493858c00d16b248f129d9bd))
+
+## 29.3.2
+
+Fri, 07 Jun 2024 17:53:20 GMT
+
+### Patches
+
+- Minor wafer updates due to lint config changes ([ni/nimble@992217c](https://github.com/ni/nimble/commit/992217c62385db7dcc228d23a74658c6f8f6b44c))
+
+## 29.3.1
+
+Fri, 07 Jun 2024 15:10:38 GMT
+
+### Patches
+
+- Revert previous change as this causes a regression in Angular apps. ([ni/nimble@f0dd137](https://github.com/ni/nimble/commit/f0dd13720cee919ca0540ed26a99d6cfccbdd67f))
+
+## 29.3.0
+
+Thu, 06 Jun 2024 17:29:15 GMT
+
+### Minor changes
+
+- Add icons for AI, clean, expand, collapse, debug ([ni/nimble@d375e09](https://github.com/ni/nimble/commit/d375e092e3b2e627fba234136871d002aeb3c7b6))
+- Bump @ni/nimble-tokens to v6.15.0
+
+## 29.2.4
+
+Thu, 06 Jun 2024 15:56:25 GMT
+
+### Patches
+
+- Address issue with select not recognizing when group options are updated ([ni/nimble@c6b91bb](https://github.com/ni/nimble/commit/c6b91bb4a57bbc4b55a74d14f318886e55020348))
+
+## 29.2.3
+
+Wed, 05 Jun 2024 17:12:12 GMT
+
+### Patches
+
+- Allow very long words in banner to break to another line ([ni/nimble@1d6c2e9](https://github.com/ni/nimble/commit/1d6c2e938db2295416e2d22c47685d9da22fad0f))
+
+## 29.2.2
+
+Tue, 04 Jun 2024 17:40:32 GMT
+
+### Patches
+
+- Fix some icon metaphors and use larger check for checkbox ([ni/nimble@8ead53f](https://github.com/ni/nimble/commit/8ead53f722fc0ed9fde1b4b96417aedfff6fe1cc))
+
+## 29.2.1
+
+Tue, 04 Jun 2024 16:35:58 GMT
+
+### Patches
+
+- Bump @ni/nimble-tokens to v6.14.0
 
 ## 29.2.0
 

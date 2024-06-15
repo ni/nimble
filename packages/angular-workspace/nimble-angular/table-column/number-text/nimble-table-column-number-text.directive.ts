@@ -1,6 +1,6 @@
 import { Directive, ElementRef, Input, Renderer2 } from '@angular/core';
 import { BooleanValueOrAttribute, NumberValueOrAttribute, toBooleanProperty, toNullableNumberProperty } from '@ni/nimble-angular/internal-utilities';
-import { NimbleTableColumnBaseDirective } from '@ni/nimble-angular/table-column';
+import { NimbleTableColumnBaseDirective, TableColumnSortDirection } from '@ni/nimble-angular/table-column';
 import { type TableColumnNumberText, tableColumnNumberTextTag } from '@ni/nimble-components/dist/esm/table-column/number-text';
 import { NumberTextAlignment, NumberTextFormat } from '@ni/nimble-components/dist/esm/table-column/number-text/types';
 
@@ -92,6 +92,30 @@ export class NimbleTableColumnNumberTextDirective extends NimbleTableColumnBaseD
 
     @Input('grouping-disabled') public set groupingDisabled(value: BooleanValueOrAttribute) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'groupingDisabled', toBooleanProperty(value));
+    }
+
+    public get sortingDisabled(): boolean {
+        return this.elementRef.nativeElement.sortingDisabled;
+    }
+
+    @Input('sorting-disabled') public set sortingDisabled(value: BooleanValueOrAttribute) {
+        this.renderer.setProperty(this.elementRef.nativeElement, 'sortingDisabled', toBooleanProperty(value));
+    }
+
+    public get sortDirection(): TableColumnSortDirection {
+        return this.elementRef.nativeElement.sortDirection;
+    }
+
+    @Input('sort-direction') public set sortDirection(value: TableColumnSortDirection) {
+        this.renderer.setProperty(this.elementRef.nativeElement, 'sortDirection', value);
+    }
+
+    public get sortIndex(): number | null | undefined {
+        return this.elementRef.nativeElement.sortIndex;
+    }
+
+    @Input('sort-index') public set sortIndex(value: NumberValueOrAttribute | null | undefined) {
+        this.renderer.setProperty(this.elementRef.nativeElement, 'sortIndex', toNullableNumberProperty(value));
     }
 
     public constructor(renderer: Renderer2, elementRef: ElementRef<TableColumnNumberText>) {

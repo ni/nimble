@@ -1,4 +1,3 @@
-/* eslint-disable max-classes-per-file */
 import { customElement } from '@microsoft/fast-element';
 import {
     fixture,
@@ -30,7 +29,6 @@ class TestTableColumn extends mixinGroupableColumnAPI(TableColumn) {
     }
 }
 
-// prettier-ignore
 async function setup(): Promise<Fixture<TestTableColumn>> {
     return fixture(columnName);
 }

@@ -1,7 +1,7 @@
 import { stringify, JsonFile } from './json-file';
 
 describe('JsonFile', () => {
-    it('can convert to string', async () => {
+    it('can convert to string', () => {
         const jsonFile = {
             locale: 'de',
             translations: {

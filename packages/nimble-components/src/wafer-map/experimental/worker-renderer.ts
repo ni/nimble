@@ -3,14 +3,18 @@ import type { ZoomTransform } from 'd3-zoom';
 import type { WaferMap } from '..';
 import { HoverDieOpacity } from '../types';
 import { createMatrixRenderer } from '../modules/create-matrix-renderer';
-import type { MatrixRenderer } from '../../../build/generate-workers/dist/esm/source/matrix-renderer';
+import type { MatrixRenderer } from '../workers/matrix-renderer';
 import type { Dimensions, RenderConfig } from '../workers/types';
 
 /**
  * Responsible for drawing the dies inside the wafer map, adding dieText and scaling the canvas
  */
 export class WorkerRenderer {
-    private matrixRenderer!: Remote<MatrixRenderer>;
+    /**
+     * @internal
+     */
+    public matrixRenderer!: Remote<MatrixRenderer>;
+    private readonly minDieDim = 100;
 
     public constructor(private readonly wafermap: WaferMap) {}
 
@@ -18,7 +22,8 @@ export class WorkerRenderer {
         canvasDimensions: Dimensions,
         renderConfig: RenderConfig,
         columnIndices: Int32Array,
-        rowIndices: Int32Array
+        rowIndices: Int32Array,
+        values: Float64Array
     }): Promise<void> {
         if (this.matrixRenderer === undefined) {
             const { matrixRenderer } = await createMatrixRenderer();
@@ -32,14 +37,18 @@ export class WorkerRenderer {
             snapshot.canvasDimensions
         );
         await this.matrixRenderer.setRenderConfig(snapshot.renderConfig);
-        await this.matrixRenderer.setColumnIndices(snapshot.columnIndices);
-        await this.matrixRenderer.setRowIndices(snapshot.rowIndices);
+        await this.matrixRenderer.setMatrixData(
+            snapshot.columnIndices,
+            snapshot.rowIndices,
+            snapshot.values
+        );
     }
 
     public async drawWafer(snapshot: {
         canvasDimensions: Dimensions,
         dieDimensions: Dimensions,
-        transform: ZoomTransform
+        transform: ZoomTransform,
+        dieLabelsHidden: boolean
     }): Promise<void> {
         const topLeftCanvasCorner = snapshot.transform.invert([0, 0]);
         const bottomRightCanvasCorner = snapshot.transform.invert([
@@ -58,6 +67,16 @@ export class WorkerRenderer {
             }
         });
         await this.matrixRenderer.drawWafer();
+        if (
+            !snapshot.dieLabelsHidden
+            && snapshot.dieDimensions
+            && snapshot.dieDimensions.width
+                * snapshot.dieDimensions.height
+                * (snapshot.transform.k || 1)
+                >= this.minDieDim
+        ) {
+            await this.matrixRenderer.drawText();
+        }
     }
 
     public renderHover(): void {

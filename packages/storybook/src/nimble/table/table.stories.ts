@@ -8,13 +8,20 @@ import { tableColumnTextTag } from '../../../../nimble-components/src/table-colu
 import { labelProviderTableTag } from '../../../../nimble-components/src/label-provider/table';
 import { tableColumnNumberTextTag } from '../../../../nimble-components/src/table-column/number-text';
 import { Table, tableTag } from '../../../../nimble-components/src/table';
-import { TableRecordDelayedHierarchyState, TableRowSelectionMode } from '../../../../nimble-components/src/table/types';
+import {
+    TableRecordDelayedHierarchyState,
+    TableRowSelectionMode
+} from '../../../../nimble-components/src/table/types';
 import { ExampleDataType } from '../../../../nimble-components/src/table/tests/types';
 import {
     addLabelUseMetadata,
     type LabelUserArgs
 } from '../label-provider/base/label-user-stories-utils';
-import { apiCategory, checkValidityDescription, createUserSelectedThemeStory } from '../../utilities/storybook';
+import {
+    apiCategory,
+    checkValidityDescription,
+    createUserSelectedThemeStory
+} from '../../utilities/storybook';
 import { isChromatic } from '../../utilities/isChromatic';
 
 interface BaseTableArgs extends LabelUserArgs {
@@ -335,7 +342,7 @@ export const table: StoryObj<TableArgs> = {
                     [ExampleDataType.hierarchicalDataSet]: 'Hierarchical data'
                 }
             },
-            table: { category: apiCategory.methods },
+            table: { category: apiCategory.methods }
         },
         selectionMode: {
             name: 'selection-mode',
@@ -343,92 +350,98 @@ export const table: StoryObj<TableArgs> = {
             description:
                 'Controls whether the table supports selecting a single row at a time, multiple rows at a time, or no rows. When selection is enabled, `id-field-name` must be specified.',
             control: { type: 'radio' },
-            table: { category: apiCategory.attributes },
+            table: { category: apiCategory.attributes }
         },
         getSelectedRecordIds: {
             name: 'getSelectedRecordIds()',
             description:
                 'A function that returns an array of record IDs that represent the selected row(s) in the table.',
             control: false,
-            table: { category: apiCategory.methods },
+            table: { category: apiCategory.methods }
         },
         setSelectedRecordIds: {
             name: 'setSelectedRecordIds()',
             description: setSelectedRecordIdsDescription,
             control: false,
-            table: { category: apiCategory.methods },
+            table: { category: apiCategory.methods }
         },
         idFieldName: {
             name: 'id-field-name',
             description: idFieldNameDescription,
             control: false,
-            table: { category: apiCategory.attributes },
+            table: { category: apiCategory.attributes }
         },
         parentIdFieldName: {
             name: 'parent-id-field-name',
             description: parentIdFieldNameDescription,
             control: false,
-            table: { category: apiCategory.attributes },
+            table: { category: apiCategory.attributes }
         },
         validity: {
             description: validityDescription,
             control: false,
-            table: { category: apiCategory.nonAttributeProperties },
+            table: { category: apiCategory.nonAttributeProperties }
         },
         checkValidity: {
             name: 'checkValidity()',
             description: checkValidityDescription({ componentName: 'table' }),
             control: false,
-            table: { category: apiCategory.methods },
+            table: { category: apiCategory.methods }
         },
         setRecordHierarchyOptions: {
             name: 'setRecordHierarchyOptions()',
-            description: 'Used to configure the hierarchy state of rows dynamically. To set static hierarchy, use `parent-id-field-name` instead. See the **Delay-loaded Hierarchy** section for more information.',
+            description:
+                'Used to configure the hierarchy state of rows dynamically. To set static hierarchy, use `parent-id-field-name` instead. See the **Delay-loaded Hierarchy** section for more information.',
             control: false,
-            table: { category: apiCategory.methods },
+            table: { category: apiCategory.methods }
         },
         defaultSlot: {
             name: 'default',
-            description: 'Configure table columns by adding them as child elements in the default slot. See **Table Column Configuration** for more information.',
+            description:
+                'Configure table columns by adding them as child elements in the default slot. See **Table Column Configuration** for more information.',
             control: false,
-            table: { category: apiCategory.slots },
+            table: { category: apiCategory.slots }
         },
         actionMenuSlot: {
             name: 'Action menus',
             description: `To add an action menu to a column, add a \`${menuTag}\` element as a child of the table and set its slot attribute to a custom value. Then configure the column's \`action-menu-slot\` attribute to the same value. You can configure different action menus for multiple columns by giving them unique slot names.`,
             control: false,
-            table: { category: apiCategory.slots },
+            table: { category: apiCategory.slots }
         },
         actionMenuBeforetoggle: {
             name: 'action-menu-beforetoggle',
-            description: 'Event emitted before an action menu opens or closes. This can be used to populate the menu before it is visible.',
+            description:
+                'Event emitted before an action menu opens or closes. This can be used to populate the menu before it is visible.',
             control: false,
-            table: { category: apiCategory.events },
+            table: { category: apiCategory.events }
         },
         actionMenuToggle: {
             name: 'action-menu-toggle',
             description: 'Event emitted after an action menu opens or closes.',
             control: false,
-            table: { category: apiCategory.events },
+            table: { category: apiCategory.events }
         },
         selectionChange: {
             name: 'selection-change',
-            description: 'Event emitted when the user changes which rows are selected.',
+            description:
+                'Event emitted when the user changes which rows are selected.',
             control: false,
-            table: { category: apiCategory.events },
+            table: { category: apiCategory.events }
         },
         columnConfigurationChange: {
             name: 'column-configuration-change',
-            description: 'Event emitted when the user changes a column\'s width or sort order.',
+            description:
+                "Event emitted when the user changes a column's width or sort order.",
             control: false,
-            table: { category: apiCategory.events },
+            table: { category: apiCategory.events }
         },
         rowExpandToggle: {
             name: 'row-expand-toggle',
-            description: 'Event emitted when the user expands or collapses a row in a table with hierarchy. This does not emit when group rows are expanded or collapsed.',
+            description:
+                'Event emitted when the user expands or collapses a row in a table with hierarchy. This does not emit when group rows are expanded or collapsed.',
             control: false,
-            table: { category: apiCategory.events },
-        },
+            table: { category: apiCategory.events }
+        }
     },
     args: {
         data: ExampleDataType.simpleData,

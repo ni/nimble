@@ -4,7 +4,11 @@ import { richTextMentionUsersTag } from '@ni/nimble-components/src/rich-text-men
 import { mappingUserTag } from '@ni/nimble-components/src/mapping/user';
 import { mappingTextTag } from '@ni/nimble-components/src/mapping/text';
 import { hiddenWrapper } from '../../../utilities/hidden';
-import { apiCategory, checkValidityDescription, createUserSelectedThemeStory } from '../../../utilities/storybook';
+import {
+    apiCategory,
+    checkValidityDescription,
+    createUserSelectedThemeStory
+} from '../../../utilities/storybook';
 
 const patternDescription = `A regex used for detecting, validating, and extracting information from mentions in the rich text markdown string.
 
@@ -44,8 +48,7 @@ const metadata: Meta = {
     parameters: {
         docs: {
             description: {
-                component:
-                    `Add a \`${richTextMentionUsersTag}\` element as a child of the rich text components to enable support for \`@mention\`. Add \`${mappingUserTag}\` elements as its children to specify the users available to be mentioned.
+                component: `Add a \`${richTextMentionUsersTag}\` element as a child of the rich text components to enable support for \`@mention\`. Add \`${mappingUserTag}\` elements as its children to specify the users available to be mentioned.
                     
 These components facilitate the parsing of input markdown into a mention node that displays a user's name. For the editor component they are also used to populate the list of user names in the mention dropdown.`
             }
@@ -61,27 +64,29 @@ export const richTextMentionUsers: StoryObj = {
         pattern: {
             description: patternDescription,
             control: false,
-            table: { category: apiCategory.attributes },
+            table: { category: apiCategory.attributes }
         },
         checkValidity: {
             name: 'checkValidity()',
-            description: checkValidityDescription({ componentName: 'rich text mention users' }),
-            table: { category: apiCategory.methods },
+            description: checkValidityDescription({
+                componentName: 'rich text mention users'
+            }),
+            table: { category: apiCategory.methods }
         },
         validity: {
             description: mappingUserValidityDescription,
-            table: { category: apiCategory.nonAttributeProperties },
+            table: { category: apiCategory.nonAttributeProperties }
         },
         mentionUpdate: {
             name: 'mention-update',
             description: mentionUpdateEventDescription,
-            table: { category: apiCategory.events },
+            table: { category: apiCategory.events }
         },
         buttonLabel: {
             name: 'button-label',
             description:
                 'Label and title text for the mention button in the footer toolbar.',
-            table: { category: apiCategory.attributes },
+            table: { category: apiCategory.attributes }
         },
         content: {
             name: 'default',
@@ -91,7 +96,7 @@ For the rich text editor, the user mappings are used to populate the mention dro
 It is recommended to limit the number of users displayed to 50 or fewer.
 
 For more details, see **Guidance for filtering users**.`,
-            table: { category: apiCategory.slots },
+            table: { category: apiCategory.slots }
         }
     }
 };

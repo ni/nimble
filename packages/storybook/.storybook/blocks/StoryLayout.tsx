@@ -4,7 +4,7 @@ import { NimbleIconCheck } from '../../src/nimble/icons/check.react';
 import { NimbleIconExclamationMark } from '../../src/nimble/icons/exclamation-mark.react';
 
 interface ChildrenProp {
-    children?: ReactNode
+    children?: ReactNode;
 }
 
 /**
@@ -15,8 +15,8 @@ export const Frame = ({ children }: ChildrenProp) => {
 };
 
 interface ContainerProp {
-    children?: ReactNode
-    config?: string
+    children?: ReactNode;
+    config?: string;
 }
 
 /**
@@ -24,12 +24,12 @@ interface ContainerProp {
  * Use CSS grid syntax for the config prop to specify the number of columns and their widths.
  */
 export const Container = ({ children, config = '200px 1fr' }: ContainerProp) => {
-    return <div className="story-layout-container" style={{gridTemplateColumns: config}}>{children}</div>;
+    return <div className="story-layout-container" style={{ gridTemplateColumns: config }}>{children}</div>;
 };
 
 interface ColumnProp {
-    children?: ReactNode
-    stylingClass?: string
+    children?: ReactNode;
+    stylingClass?: string;
 }
 
 /**
@@ -55,7 +55,7 @@ export const Do = ({ children }: ChildrenProp) => {
     return (
         <Container config='48px 1fr'>
             <Column>
-                <NimbleIconCheck style={{width: '28px', height: '28px'}} severity='success'/>
+                <NimbleIconCheck style={{ width: '28px', height: '28px' }} severity='success'/>
             </Column>
             <Column><p>{children}</p></Column>
         </Container>
@@ -69,7 +69,7 @@ export const Dont = ({ children }: ChildrenProp) => {
     return (
         <Container config='48px 1fr'>
             <Column>
-                <NimbleIconExclamationMark style={{width: '24px', height: '24px'}} severity='error'/>
+                <NimbleIconExclamationMark style={{ width: '24px', height: '24px' }} severity='error'/>
             </Column>
             <Column><p>{children}</p></Column>
         </Container>
@@ -77,11 +77,11 @@ export const Dont = ({ children }: ChildrenProp) => {
 };
 
 interface TagProp {
-    name: string
-    open?: boolean
-    openClose?: boolean
-    close?: boolean
-    selfClose?: boolean
+    name: string;
+    open?: boolean;
+    openClose?: boolean;
+    close?: boolean;
+    selfClose?: boolean;
 }
 
 /**
@@ -90,13 +90,15 @@ interface TagProp {
 export const Tag = ({ name, open, openClose, close, selfClose }: TagProp) => {
     if (open) {
         return (<code>&lt;{name}&gt;</code>);
-    } else if (close) {
-        return (<code>&lt;/{name}&gt;</code>);
-    } else if (openClose) {
-        return (<code>&lt;{name}&gt;&lt;/{name}&gt;</code>);
-    } else if (selfClose) {
-        return (<code>&lt;{name}/&gt;</code>);
-    } else {
-        return (<code>{name}</code>);
     }
+    if (close) {
+        return (<code>&lt;/{name}&gt;</code>);
+    }
+    if (openClose) {
+        return (<code>&lt;{name}&gt;&lt;/{name}&gt;</code>);
+    }
+    if (selfClose) {
+        return (<code>&lt;{name}/&gt;</code>);
+    }
+    return (<code>{name}</code>);
 };

@@ -1,7 +1,8 @@
 import { Remote, expose, transfer, wrap } from 'comlink';
 import { MatrixRenderer } from '../matrix-renderer';
 
-describe('MatrixRenderer with MessageChannel needing canvas context', () => {
+// OffscreenCanvas not supported in Playwright's Windows/Linux Webkit build: https://github.com/ni/nimble/issues/2169
+describe('MatrixRenderer with MessageChannel needing canvas context #SkipWebkit', () => {
     let matrixRenderer: Remote<MatrixRenderer>;
     const testData = {
         columnIndices: [4, 1, 2],
@@ -13,9 +14,11 @@ describe('MatrixRenderer with MessageChannel needing canvas context', () => {
         const { port1, port2 } = new MessageChannel();
         const worker = new MatrixRenderer();
         expose(worker, port1);
-        matrixRenderer = await wrap<MatrixRenderer>(port2);
+        matrixRenderer = wrap<MatrixRenderer>(port2);
         const offscreenCanvas = new OffscreenCanvas(300, 300);
-        matrixRenderer.setCanvas(transfer(offscreenCanvas, [offscreenCanvas]));
+        await matrixRenderer.setCanvas(
+            transfer(offscreenCanvas, [offscreenCanvas])
+        );
         await matrixRenderer.setRenderConfig({
             dieDimensions: {
                 width: 10,
@@ -31,8 +34,14 @@ describe('MatrixRenderer with MessageChannel needing canvas context', () => {
             horizontalCoefficient: 1,
             horizontalConstant: 0,
             verticalConstant: 0,
+            gridMinX: 1,
+            gridMaxX: 4,
+            gridMinY: 54,
+            gridMaxY: 62,
             labelsFontSize: 0,
-            colorScale: []
+            colorScale: [],
+            dieLabelsSuffix: '',
+            maxCharacters: 0
         });
         await matrixRenderer.setTransformConfig({
             transform: {
@@ -62,9 +71,13 @@ describe('MatrixRenderer with MessageChannel needing canvas context', () => {
     it('scaled Indices should be computed', async () => {
         const typedColumnIndices = Int32Array.from(testData.columnIndices);
         const typedRowIndices = Int32Array.from(testData.rowIndices);
+        const typedValues = Float64Array.from(testData.values);
 
-        await matrixRenderer.setColumnIndices(typedColumnIndices);
-        await matrixRenderer.setRowIndices(typedRowIndices);
+        await matrixRenderer.setMatrixData(
+            typedColumnIndices,
+            typedRowIndices,
+            typedValues
+        );
 
         const scaledColumnIndex = await matrixRenderer.scaledColumnIndices;
         const scaledRowIndex = await matrixRenderer.scaledRowIndices;

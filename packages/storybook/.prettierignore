@@ -1,0 +1,34 @@
+# Visit and ignore all objects in the root. 
+# Then explicitly allow specific file extensions to format.
+/*
+!*.ts
+!*.js
+!*.md
+!*.json
+!*.mdx
+!*.tsx
+!src/
+!build/
+
+/src/**/*.*
+!src/**/*.ts
+!src/**/*.js
+!src/**/*.md
+!src/**/*.json
+!src/**/*.mdx
+!src/**/*.tsx
+
+/build/**/*.*
+!build/**/*.ts
+!build/**/*.js
+!build/**/*.md
+!build/**/*.json
+!build/**/*.mdx
+!build/**/*.tsx
+
+# Explicitly exclude the below files and folders
+dist
+node_modules
+package.json
+CHANGELOG.*
+src/nimble/icons
