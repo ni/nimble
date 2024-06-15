@@ -50,12 +50,7 @@ export default [
             format: 'iife',
             sourcemap: true
         },
-        plugins: [
-            umdDevelopmentPlugin(),
-            sourcemaps(),
-            resolve(),
-            commonJS()
-        ],
+        plugins: [umdDevelopmentPlugin(), sourcemaps(), resolve(), commonJS()],
         onwarn
     },
     {
@@ -72,12 +67,7 @@ export default [
                 })
             ]
         },
-        plugins: [
-            umdProductionPlugin(),
-            sourcemaps(),
-            resolve(),
-            commonJS()
-        ],
+        plugins: [umdProductionPlugin(), sourcemaps(), resolve(), commonJS()],
         onwarn
     }
 ];
