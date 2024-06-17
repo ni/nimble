@@ -1280,12 +1280,19 @@ describe('Select', () => {
             });
 
             it('emits filter-input event when filter text is entered', async () => {
-                type SelectFilterInputEventHandler = (evt: CustomEvent<SelectFilterInputEventDetail>) => void;
+                type SelectFilterInputEventHandler = (
+                    evt: CustomEvent<SelectFilterInputEventDetail>
+                ) => void;
                 const filterInputEvent = jasmine.createSpy<SelectFilterInputEventHandler>();
-                element.addEventListener('filter-input', filterInputEvent as unknown as EventListener);
+                element.addEventListener(
+                    'filter-input',
+                    filterInputEvent as unknown as EventListener
+                );
                 await pageObject.openAndSetFilterText('o');
                 expect(filterInputEvent).toHaveBeenCalledTimes(1);
-                expect(filterInputEvent.calls.argsFor(0)[0].detail.filterText).toBe('o');
+                expect(
+                    filterInputEvent.calls.argsFor(0)[0].detail.filterText
+                ).toBe('o');
             });
 
             it('emits filter-input event with empty filterText when dropdown is closed', async () => {
