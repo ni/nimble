@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Mon, 17 Jun 2024 15:13:30 GMT and should not be manually modified.
+This log was last generated on Mon, 17 Jun 2024 16:38:20 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 29.4.0
+
+Mon, 17 Jun 2024 16:38:20 GMT
+
+### Minor changes
+
+- Select manual filtering APIs ([ni/nimble@30fe9fc](https://github.com/ni/nimble/commit/30fe9fced9935c89e7e5f5b0a9c263eccdb77375))
 
 ## 29.3.7
 

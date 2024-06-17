@@ -6,7 +6,7 @@ import { SelectPageObjectInternal as SelectPageObject } from './select.pageobjec
 import { ListOption, listOptionTag } from '../../list-option';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import { checkFullyInViewport } from '../../utilities/tests/intersection-observer';
-import { FilterMode } from '../types';
+import { FilterMode, SelectFilterInputEventDetail } from '../types';
 import {
     createEventListener,
     waitAnimationFrame
@@ -575,6 +575,18 @@ describe('Select', () => {
         await disconnect();
     });
 
+    it('setting loadingVisible to true shows loading visual', async () => {
+        const { element, connect, disconnect } = await setup();
+        const pageObject = new SelectPageObject(element);
+        await connect();
+        element.loadingVisible = true;
+        await waitForUpdatesAsync();
+
+        expect(pageObject.isLoadingVisualVisible()).toBeTrue();
+
+        await disconnect();
+    });
+
     describe('with all options disabled', () => {
         async function setupAllDisabled(): Promise<Fixture<Select>> {
             const viewTemplate = html`
@@ -860,413 +872,471 @@ describe('Select', () => {
         let disconnect: () => Promise<void>;
         let pageObject: SelectPageObject;
 
-        beforeEach(async () => {
-            ({ element, connect, disconnect } = await setup());
-            element.style.width = '200px';
-            element.filterMode = FilterMode.standard;
-            await connect();
-            pageObject = new SelectPageObject(element);
-        });
-
-        afterEach(async () => {
-            await disconnect();
-        });
-
-        it('matches any character in option strings', async () => {
-            await pageObject.openAndSetFilterText('o'); // Matches 'One' and 'Two'
-            const filteredOptions = pageObject
-                .getFilteredOptions()
-                .map(option => option.text);
-            await pageObject.closeDropdown();
-            expect(filteredOptions).toContain('One');
-            expect(filteredOptions).toContain('Two');
-            expect(filteredOptions.length).toBe(2);
-        });
-
-        it('matches diacritic characters in option strings', async () => {
-            await pageObject.openAndSetFilterText('u'); // Matches 'Zürich'
-            const filteredOptions = pageObject
-                .getFilteredOptions()
-                .map(option => option.text);
-            await pageObject.closeDropdown();
-            expect(filteredOptions).toContain('Zürich');
-            expect(filteredOptions.length).toBe(1);
-        });
-
-        it('filtering out current selected item and then pressing <Esc> does not change value, reverts selected item and closes popup', async () => {
-            let currentSelection = pageObject.getSelectedOption();
-            expect(currentSelection?.text).toBe('One');
-            expect(element.value).toBe('one');
-
-            await pageObject.openAndSetFilterText('T'); // Matches 'Two' and 'Three'
-            pageObject.pressEscapeKey();
-            currentSelection = pageObject.getSelectedOption();
-            expect(currentSelection?.text).toBe('One');
-            expect(element.value).toBe('one');
-            expect(element.open).toBeFalse();
-        });
-
-        it('opening popup shows correct selected element after cancelling previous selection', async () => {
-            let currentSelection = pageObject.getSelectedOption();
-            expect(currentSelection?.text).toBe('One');
-            expect(element.value).toBe('one');
-
-            await pageObject.openAndSetFilterText('T'); // Matches 'Two' and 'Three'
-            currentSelection = pageObject.getActiveOption();
-            expect(currentSelection?.text).toBe('Two');
-            pageObject.pressEscapeKey();
-
-            pageObject.clickSelect();
-            currentSelection = pageObject.getActiveOption();
-            expect(currentSelection?.text).toBe('One');
-        });
-
-        it('opening popup shows correct selected element after filtering and committing but not changing selected option', async () => {
-            let currentSelection = pageObject.getSelectedOption();
-            expect(currentSelection?.text).toBe('One');
-            expect(element.value).toBe('one');
-
-            await pageObject.openAndSetFilterText('One'); // Matches 'One'
-            pageObject.pressEnterKey();
-
-            pageObject.clickSelect();
-            currentSelection = pageObject.getActiveOption();
-            expect(currentSelection?.selected).toBeTrue();
-        });
-
-        it('filtering out current selected item and then pressing <Enter> changes value, emits change event, and closes popup', async () => {
-            const currentSelection = pageObject.getSelectedOption();
-            expect(currentSelection?.text).toBe('One');
-            expect(element.value).toBe('one');
-
-            const changeEvent = jasmine.createSpy();
-            element.addEventListener('change', changeEvent);
-            await pageObject.openAndSetFilterText('T'); // Matches 'Two' and 'Three'
-            pageObject.pressEnterKey();
-            await waitForUpdatesAsync();
-            expect(element.value).toBe('two'); // 'Two' is first option in list so it should be selected now
-            expect(pageObject.getDisplayText()).toBe('Two');
-            expect(changeEvent.calls.count()).toBe(1);
-            expect(element.open).toBeFalse();
-        });
-
-        it('filtering out current selected item and then pressing <Tab> does not change value and closes popup', async () => {
-            const currentSelection = pageObject.getSelectedOption();
-            expect(currentSelection?.text).toBe('One');
-            expect(element.value).toBe('one');
-
-            await pageObject.openAndSetFilterText('T'); // Matches 'Two' and 'Three'
-            pageObject.pressTabKey();
-            expect(element.value).toBe('one');
-            expect(element.open).toBeFalse();
-        });
-
-        it('filtering out current selected item and then clicking active option changes value, emits change event, and closes popup', async () => {
-            const currentSelection = pageObject.getSelectedOption();
-            expect(currentSelection?.text).toBe('One');
-            expect(element.value).toBe('one');
-
-            const changeEvent = jasmine.createSpy();
-            element.addEventListener('change', changeEvent);
-            await pageObject.openAndSetFilterText('T'); // Matches 'Two' and 'Three'
-            pageObject.clickActiveItem();
-            await waitForUpdatesAsync();
-            expect(element.value).toBe('two'); // 'Two' is first option in list so it should be selected now
-            expect(pageObject.getDisplayText()).toBe('Two');
-            expect(changeEvent.calls.count()).toBe(1);
-            expect(element.open).toBeFalse();
-        });
-
-        it('filtering out current selected item and then clicking non-selected option changes value and closes popup', async () => {
-            const currentSelection = pageObject.getSelectedOption();
-            expect(currentSelection?.text).toBe('One');
-            expect(element.value).toBe('one');
-
-            await pageObject.openAndSetFilterText('T'); // Matches 'Two' and 'Three'
-            pageObject.clickOption(2); // index 2 matches option with 'Three' text
-            expect(element.value).toBe('three');
-            expect(element.open).toBeFalse();
-        });
-
-        it('filtering out current selected item and then losing focus does not change value and closes popup', async () => {
-            const currentSelection = pageObject.getSelectedOption();
-            expect(currentSelection?.text).toBe('One');
-            expect(element.value).toBe('one');
-
-            await pageObject.openAndSetFilterText('T'); // Matches 'Two' and 'Three'
-            await pageObject.clickAway();
-            expect(element.value).toBe('one'); // 'Two' is first option in list so it should be selected now
-            expect(element.open).toBeFalse();
-        });
-
-        it('allows <Space> to be used as part of filter text', async () => {
-            await pageObject.openAndSetFilterText(' '); // Matches 'Has Space'
-            const currentSelection = pageObject.getActiveOption();
-            expect(currentSelection?.text).toBe('Has Space');
-            expect(element.open).toBeTrue();
-        });
-
-        it('pressing <Space> after dropdown is open will enter " " as filter text and keep dropdown open', async () => {
-            pageObject.clickSelect();
-            await pageObject.pressSpaceKey();
-            expect(element.open).toBeTrue();
-            expect(pageObject.getFilterInputText()).toBe(' ');
-        });
-
-        it('opening dropdown after applying filter previously starts with empty filter', async () => {
-            await pageObject.openAndSetFilterText('T'); // Matches 'Two' and 'Three'
-            await pageObject.closeDropdown();
-            pageObject.clickSelect();
-
-            expect(pageObject.getFilterInputText()).toBe('');
-            expect(pageObject.getFilteredOptions().length).toBe(6);
-        });
-
-        it('entering filter text with no match results in "no items found" element', async () => {
-            await pageObject.openAndSetFilterText('abc'); // Matches nothing
-            expect(pageObject.isNoResultsLabelVisible()).toBeTrue();
-        });
-
-        it('entering filter text with matches does not display "not items found" element', async () => {
-            await pageObject.openAndSetFilterText('T');
-            expect(pageObject.isNoResultsLabelVisible()).toBeFalse();
-        });
-
-        it('opening dropdown with no filter does not display "not items found" element', async () => {
-            await clickAndWaitForOpen(element);
-            expect(pageObject.isNoResultsLabelVisible()).toBeFalse();
-        });
-
-        it('clicking disabled option does not cause select to change state', async () => {
-            await pageObject.openAndSetFilterText('T');
-            const currentFilteredOptions = pageObject.getFilteredOptions();
-            pageObject.clickOption(3); // click disabled option
-
-            expect(pageObject.getFilteredOptions()).toEqual(
-                currentFilteredOptions
-            );
-            expect(element.open).toBeTrue();
-            expect(pageObject.getActiveOption()?.text).toBe('Two');
-        });
-
-        it('filtering to only disabled item, then pressing <Enter> does not close popup or change value', async () => {
-            await pageObject.openAndSetFilterText('Disabled');
-            pageObject.pressEnterKey();
-            expect(element.open).toBeTrue();
-            expect(element.value).toBe('one');
-        });
-
-        it('filtering to only disabled item, then pressing <Esc> closes popup and does not change value or selectedIndex', async () => {
-            await pageObject.openAndSetFilterText('Disabled');
-            pageObject.pressEscapeKey();
-            expect(element.open).toBeFalse();
-            expect(element.value).toBe('one');
-            expect(element.selectedIndex).toBe(0);
-        });
-
-        it('filtering to only disabled item, then pressing <Tab> closes popup and does not change value or selectedIndex', async () => {
-            await pageObject.openAndSetFilterText('Disabled');
-            pageObject.pressTabKey();
-            expect(element.open).toBeFalse();
-            expect(element.value).toBe('one');
-            expect(element.selectedIndex).toBe(0);
-        });
-
-        it('filtering to no available options, then pressing <Enter> does not close popup or change value', async () => {
-            await pageObject.openAndSetFilterText('abc');
-            pageObject.pressEnterKey();
-            expect(element.open).toBeTrue();
-            expect(element.value).toBe('one');
-        });
-
-        // Fails on Webkit. Tracked by https://github.com/ni/nimble/issues/2170
-        it('filtering to no available options sets ariaActiveDescendent to empty string #SkipWebkit', async () => {
-            await pageObject.openAndSetFilterText('abc');
-            expect(element.ariaActiveDescendant).toBe('');
-        });
-
-        it('filtering to no available options, then pressing <Enter> does not close popup or change value', async () => {
-            await pageObject.openAndSetFilterText('abc');
-            pageObject.pressEnterKey();
-            expect(element.open).toBeTrue();
-            expect(element.value).toBe('one');
-        });
-
-        it('filtering to only disabled item, then clicking away does not change value', async () => {
-            await pageObject.openAndSetFilterText('Disabled');
-            await pageObject.clickAway();
-            const currentSelection = pageObject.getSelectedOption();
-            expect(currentSelection?.value).toBe('one');
-        });
-
-        it('filtering to only disabled item does not select item', async () => {
-            await pageObject.openAndSetFilterText('Disabled');
-            expect(pageObject.getActiveOption()).toBeNull();
-        });
-
-        it('updating slottedOptions while open applies filter to new options', async () => {
-            const newOptions = [
-                new ListOption('Ten', 'ten'),
-                new ListOption('Twenty', 'twenty')
-            ];
-            await pageObject.openAndSetFilterText('tw');
-            expect(pageObject.getFilteredOptions()[0]?.value).toBe('two');
-            await pageObject.setOptions(newOptions);
-            expect(pageObject.getFilteredOptions()[0]?.value).toBe('twenty');
-        });
-
-        it('clicking in filter input after dropdown is open, does not close dropdown', async () => {
-            await clickAndWaitForOpen(element);
-            await pageObject.clickFilterInput();
-            expect(element.open).toBeTrue();
-        });
-
-        it('filter input placeholder gets text from design token', async () => {
-            filterSearchLabel.setValueFor(element, 'foo');
-            await waitForUpdatesAsync();
-            const filterInput = element.shadowRoot?.querySelector('.filter-input');
-            expect(filterInput?.getAttribute('placeholder')).toBe('foo');
-        });
-
-        it('filter input "aria-controls" and "aria-activedescendant" attributes are set to element state', async () => {
-            await clickAndWaitForOpen(element);
-            const filterInput = element.shadowRoot?.querySelector('.filter-input');
-            expect(filterInput?.getAttribute('aria-controls')).toBe(
-                element.ariaControls
-            );
-            expect(filterInput?.getAttribute('aria-activedescendant')).toBe(
-                element.ariaActiveDescendant
-            );
-        });
-
-        it('pressing arrow keys selects next visible item when option between current and next is filtered out', async () => {
-            const newOptions = element.options.map(o => o as ListOption);
-            newOptions.push(new ListOption('Twenty', 'twenty'));
-            await pageObject.setOptions(newOptions);
-            await pageObject.openAndSetFilterText('tw');
-            pageObject.pressArrowDownKey();
-            let currentSelection = pageObject.getActiveOption();
-            expect(currentSelection?.value).toBe('twenty');
-
-            pageObject.pressArrowUpKey();
-            currentSelection = pageObject.getActiveOption();
-            expect(currentSelection?.value).toBe('two');
-        });
-
-        it('can not select option that has been filtered out pressing arrowUp', async () => {
-            await pageObject.openAndSetFilterText('tw');
-            pageObject.pressArrowUpKey();
-            pageObject.pressEnterKey();
-            await waitForUpdatesAsync();
-            let currentSelection = pageObject.getSelectedOption();
-            expect(currentSelection?.value).toBe('two');
-
-            // make sure we can select other options after clearing filter
-            pageObject.clickSelect();
-            pageObject.pressArrowUpKey();
-            pageObject.pressEnterKey();
-            currentSelection = pageObject.getSelectedOption();
-            expect(currentSelection?.value).toBe('one');
-        });
-
-        it('can not select option that has been filtered out pressing arrowDown', async () => {
-            await pageObject.openAndSetFilterText('tw');
-            pageObject.pressArrowDownKey();
-            pageObject.pressEnterKey();
-            let currentSelection = pageObject.getSelectedOption();
-            expect(currentSelection?.value).toBe('two');
-
-            // make sure we can select other options after clearing filter
-            pageObject.clickSelect();
-            pageObject.pressArrowDownKey();
-            pageObject.pressEnterKey();
-            currentSelection = pageObject.getSelectedOption();
-            expect(currentSelection?.value).toBe('three');
-        });
-
-        it('after hiding all elements, dropdown shows no results label', async () => {
-            element.options.forEach(o => {
-                o.hidden = true;
+        describe('with filterMode = standard', () => {
+            beforeEach(async () => {
+                ({ element, connect, disconnect } = await setup());
+                element.style.width = '200px';
+                element.filterMode = FilterMode.standard;
+                await connect();
+                pageObject = new SelectPageObject(element);
             });
-            await waitForUpdatesAsync();
-            expect(pageObject.isNoResultsLabelVisible()).toBeTrue();
+
+            afterEach(async () => {
+                await disconnect();
+            });
+
+            it('matches any character in option strings', async () => {
+                await pageObject.openAndSetFilterText('o'); // Matches 'One' and 'Two'
+                const filteredOptions = pageObject
+                    .getFilteredOptions()
+                    .map(option => option.text);
+                await pageObject.closeDropdown();
+                expect(filteredOptions).toContain('One');
+                expect(filteredOptions).toContain('Two');
+                expect(filteredOptions.length).toBe(2);
+            });
+
+            it('matches diacritic characters in option strings', async () => {
+                await pageObject.openAndSetFilterText('u'); // Matches 'Zürich'
+                const filteredOptions = pageObject
+                    .getFilteredOptions()
+                    .map(option => option.text);
+                await pageObject.closeDropdown();
+                expect(filteredOptions).toContain('Zürich');
+                expect(filteredOptions.length).toBe(1);
+            });
+
+            it('filtering out current selected item and then pressing <Esc> does not change value, reverts selected item and closes popup', async () => {
+                let currentSelection = pageObject.getSelectedOption();
+                expect(currentSelection?.text).toBe('One');
+                expect(element.value).toBe('one');
+
+                await pageObject.openAndSetFilterText('T'); // Matches 'Two' and 'Three'
+                pageObject.pressEscapeKey();
+                currentSelection = pageObject.getSelectedOption();
+                expect(currentSelection?.text).toBe('One');
+                expect(element.value).toBe('one');
+                expect(element.open).toBeFalse();
+            });
+
+            it('opening popup shows correct selected element after cancelling previous selection', async () => {
+                let currentSelection = pageObject.getSelectedOption();
+                expect(currentSelection?.text).toBe('One');
+                expect(element.value).toBe('one');
+
+                await pageObject.openAndSetFilterText('T'); // Matches 'Two' and 'Three'
+                currentSelection = pageObject.getActiveOption();
+                expect(currentSelection?.text).toBe('Two');
+                pageObject.pressEscapeKey();
+
+                pageObject.clickSelect();
+                currentSelection = pageObject.getActiveOption();
+                expect(currentSelection?.text).toBe('One');
+            });
+
+            it('opening popup shows correct selected element after filtering and committing but not changing selected option', async () => {
+                let currentSelection = pageObject.getSelectedOption();
+                expect(currentSelection?.text).toBe('One');
+                expect(element.value).toBe('one');
+
+                await pageObject.openAndSetFilterText('One'); // Matches 'One'
+                pageObject.pressEnterKey();
+
+                pageObject.clickSelect();
+                currentSelection = pageObject.getActiveOption();
+                expect(currentSelection?.selected).toBeTrue();
+            });
+
+            it('filtering out current selected item and then pressing <Enter> changes value, emits change event, and closes popup', async () => {
+                const currentSelection = pageObject.getSelectedOption();
+                expect(currentSelection?.text).toBe('One');
+                expect(element.value).toBe('one');
+
+                const changeEvent = jasmine.createSpy();
+                element.addEventListener('change', changeEvent);
+                await pageObject.openAndSetFilterText('T'); // Matches 'Two' and 'Three'
+                pageObject.pressEnterKey();
+                await waitForUpdatesAsync();
+                expect(element.value).toBe('two'); // 'Two' is first option in list so it should be selected now
+                expect(pageObject.getDisplayText()).toBe('Two');
+                expect(changeEvent.calls.count()).toBe(1);
+                expect(element.open).toBeFalse();
+            });
+
+            it('filtering out current selected item and then pressing <Tab> does not change value and closes popup', async () => {
+                const currentSelection = pageObject.getSelectedOption();
+                expect(currentSelection?.text).toBe('One');
+                expect(element.value).toBe('one');
+
+                await pageObject.openAndSetFilterText('T'); // Matches 'Two' and 'Three'
+                pageObject.pressTabKey();
+                expect(element.value).toBe('one');
+                expect(element.open).toBeFalse();
+            });
+
+            it('filtering out current selected item and then clicking active option changes value, emits change event, and closes popup', async () => {
+                const currentSelection = pageObject.getSelectedOption();
+                expect(currentSelection?.text).toBe('One');
+                expect(element.value).toBe('one');
+
+                const changeEvent = jasmine.createSpy();
+                element.addEventListener('change', changeEvent);
+                await pageObject.openAndSetFilterText('T'); // Matches 'Two' and 'Three'
+                pageObject.clickActiveItem();
+                await waitForUpdatesAsync();
+                expect(element.value).toBe('two'); // 'Two' is first option in list so it should be selected now
+                expect(pageObject.getDisplayText()).toBe('Two');
+                expect(changeEvent.calls.count()).toBe(1);
+                expect(element.open).toBeFalse();
+            });
+
+            it('filtering out current selected item and then clicking non-selected option changes value and closes popup', async () => {
+                const currentSelection = pageObject.getSelectedOption();
+                expect(currentSelection?.text).toBe('One');
+                expect(element.value).toBe('one');
+
+                await pageObject.openAndSetFilterText('T'); // Matches 'Two' and 'Three'
+                pageObject.clickOption(2); // index 2 matches option with 'Three' text
+                expect(element.value).toBe('three');
+                expect(element.open).toBeFalse();
+            });
+
+            it('filtering out current selected item and then losing focus does not change value and closes popup', async () => {
+                const currentSelection = pageObject.getSelectedOption();
+                expect(currentSelection?.text).toBe('One');
+                expect(element.value).toBe('one');
+
+                await pageObject.openAndSetFilterText('T'); // Matches 'Two' and 'Three'
+                await pageObject.clickAway();
+                expect(element.value).toBe('one'); // 'Two' is first option in list so it should be selected now
+                expect(element.open).toBeFalse();
+            });
+
+            it('allows <Space> to be used as part of filter text', async () => {
+                await pageObject.openAndSetFilterText(' '); // Matches 'Has Space'
+                const currentSelection = pageObject.getActiveOption();
+                expect(currentSelection?.text).toBe('Has Space');
+                expect(element.open).toBeTrue();
+            });
+
+            it('pressing <Space> after dropdown is open will enter " " as filter text and keep dropdown open', async () => {
+                pageObject.clickSelect();
+                await pageObject.pressSpaceKey();
+                expect(element.open).toBeTrue();
+                expect(pageObject.getFilterInputText()).toBe(' ');
+            });
+
+            it('opening dropdown after applying filter previously starts with empty filter', async () => {
+                await pageObject.openAndSetFilterText('T'); // Matches 'Two' and 'Three'
+                await pageObject.closeDropdown();
+                pageObject.clickSelect();
+
+                expect(pageObject.getFilterInputText()).toBe('');
+                expect(pageObject.getFilteredOptions().length).toBe(6);
+            });
+
+            it('entering filter text with no match results in "no items found" element', async () => {
+                await pageObject.openAndSetFilterText('abc'); // Matches nothing
+                expect(pageObject.isNoResultsLabelVisible()).toBeTrue();
+            });
+
+            it('entering filter text with matches does not display "not items found" element', async () => {
+                await pageObject.openAndSetFilterText('T');
+                expect(pageObject.isNoResultsLabelVisible()).toBeFalse();
+            });
+
+            it('opening dropdown with no filter does not display "not items found" element', async () => {
+                await clickAndWaitForOpen(element);
+                expect(pageObject.isNoResultsLabelVisible()).toBeFalse();
+            });
+
+            it('clicking disabled option does not cause select to change state', async () => {
+                await pageObject.openAndSetFilterText('T');
+                const currentFilteredOptions = pageObject.getFilteredOptions();
+                pageObject.clickOption(3); // click disabled option
+
+                expect(pageObject.getFilteredOptions()).toEqual(
+                    currentFilteredOptions
+                );
+                expect(element.open).toBeTrue();
+                expect(pageObject.getActiveOption()?.text).toBe('Two');
+            });
+
+            it('filtering to only disabled item, then pressing <Enter> does not close popup or change value', async () => {
+                await pageObject.openAndSetFilterText('Disabled');
+                pageObject.pressEnterKey();
+                expect(element.open).toBeTrue();
+                expect(element.value).toBe('one');
+            });
+
+            it('filtering to only disabled item, then pressing <Esc> closes popup and does not change value or selectedIndex', async () => {
+                await pageObject.openAndSetFilterText('Disabled');
+                pageObject.pressEscapeKey();
+                expect(element.open).toBeFalse();
+                expect(element.value).toBe('one');
+                expect(element.selectedIndex).toBe(0);
+            });
+
+            it('filtering to only disabled item, then pressing <Tab> closes popup and does not change value or selectedIndex', async () => {
+                await pageObject.openAndSetFilterText('Disabled');
+                pageObject.pressTabKey();
+                expect(element.open).toBeFalse();
+                expect(element.value).toBe('one');
+                expect(element.selectedIndex).toBe(0);
+            });
+
+            it('filtering to no available options, then pressing <Enter> does not close popup or change value', async () => {
+                await pageObject.openAndSetFilterText('abc');
+                pageObject.pressEnterKey();
+                expect(element.open).toBeTrue();
+                expect(element.value).toBe('one');
+            });
+
+            // Fails on Webkit. Tracked by https://github.com/ni/nimble/issues/2170
+            it('filtering to no available options sets ariaActiveDescendent to empty string #SkipWebkit', async () => {
+                await pageObject.openAndSetFilterText('abc');
+                expect(element.ariaActiveDescendant).toBe('');
+            });
+
+            it('filtering to only disabled item, then clicking away does not change value', async () => {
+                await pageObject.openAndSetFilterText('Disabled');
+                await pageObject.clickAway();
+                const currentSelection = pageObject.getSelectedOption();
+                expect(currentSelection?.value).toBe('one');
+            });
+
+            it('filtering to only disabled item does not select item', async () => {
+                await pageObject.openAndSetFilterText('Disabled');
+                expect(pageObject.getActiveOption()).toBeNull();
+            });
+
+            it('updating slottedOptions while open applies filter to new options', async () => {
+                const newOptions = [
+                    new ListOption('Ten', 'ten'),
+                    new ListOption('Twenty', 'twenty')
+                ];
+                await pageObject.openAndSetFilterText('tw');
+                expect(pageObject.getFilteredOptions()[0]?.value).toBe('two');
+                await pageObject.setOptions(newOptions);
+                expect(pageObject.getFilteredOptions()[0]?.value).toBe(
+                    'twenty'
+                );
+            });
+
+            it('clicking in filter input after dropdown is open, does not close dropdown', async () => {
+                await clickAndWaitForOpen(element);
+                await pageObject.clickFilterInput();
+                expect(element.open).toBeTrue();
+            });
+
+            it('filter input placeholder gets text from design token', async () => {
+                filterSearchLabel.setValueFor(element, 'foo');
+                await waitForUpdatesAsync();
+                const filterInput = element.shadowRoot?.querySelector('.filter-input');
+                expect(filterInput?.getAttribute('placeholder')).toBe('foo');
+            });
+
+            it('filter input "aria-controls" and "aria-activedescendant" attributes are set to element state', async () => {
+                await clickAndWaitForOpen(element);
+                const filterInput = element.shadowRoot?.querySelector('.filter-input');
+                expect(filterInput?.getAttribute('aria-controls')).toBe(
+                    element.ariaControls
+                );
+                expect(filterInput?.getAttribute('aria-activedescendant')).toBe(
+                    element.ariaActiveDescendant
+                );
+            });
+
+            it('pressing arrow keys selects next visible item when option between current and next is filtered out', async () => {
+                const newOptions = element.options.map(o => o as ListOption);
+                newOptions.push(new ListOption('Twenty', 'twenty'));
+                await pageObject.setOptions(newOptions);
+                await pageObject.openAndSetFilterText('tw');
+                pageObject.pressArrowDownKey();
+                let currentSelection = pageObject.getActiveOption();
+                expect(currentSelection?.value).toBe('twenty');
+
+                pageObject.pressArrowUpKey();
+                currentSelection = pageObject.getActiveOption();
+                expect(currentSelection?.value).toBe('two');
+            });
+
+            it('can not select option that has been filtered out pressing arrowUp', async () => {
+                await pageObject.openAndSetFilterText('tw');
+                pageObject.pressArrowUpKey();
+                pageObject.pressEnterKey();
+                await waitForUpdatesAsync();
+                let currentSelection = pageObject.getSelectedOption();
+                expect(currentSelection?.value).toBe('two');
+
+                // make sure we can select other options after clearing filter
+                pageObject.clickSelect();
+                pageObject.pressArrowUpKey();
+                pageObject.pressEnterKey();
+                currentSelection = pageObject.getSelectedOption();
+                expect(currentSelection?.value).toBe('one');
+            });
+
+            it('can not select option that has been filtered out pressing arrowDown', async () => {
+                await pageObject.openAndSetFilterText('tw');
+                pageObject.pressArrowDownKey();
+                pageObject.pressEnterKey();
+                let currentSelection = pageObject.getSelectedOption();
+                expect(currentSelection?.value).toBe('two');
+
+                // make sure we can select other options after clearing filter
+                pageObject.clickSelect();
+                pageObject.pressArrowDownKey();
+                pageObject.pressEnterKey();
+                currentSelection = pageObject.getSelectedOption();
+                expect(currentSelection?.value).toBe('three');
+            });
+
+            it('after hiding all elements, dropdown shows no results label', async () => {
+                element.options.forEach(o => {
+                    o.hidden = true;
+                });
+                await waitForUpdatesAsync();
+                expect(pageObject.isNoResultsLabelVisible()).toBeTrue();
+            });
+
+            it('when dropdown is closed, entering text executes typeahead and sets value', () => {
+                pageObject.pressCharacterKey('t');
+                expect(element.value).toBe('two');
+            });
+
+            it('opening dropdown after pressing <Esc> during filter text entry, maintains original display text', async () => {
+                await clickAndWaitForOpen(element);
+                pageObject.pressCharacterKey('t');
+                pageObject.pressEscapeKey();
+                pageObject.clickSelect();
+                await waitForUpdatesAsync();
+
+                expect(pageObject.getDisplayText()).toBe('One');
+            });
+
+            it('filtering options does not change selected option in dropdown', async () => {
+                element.value = 'three';
+                await pageObject.openAndSetFilterText('t'); // filters to 'Two' and 'Three'
+
+                expect(pageObject.getActiveOption()?.value).toBe('three');
+            });
+
+            it('filtering options does not change selected option in dropdown after navigating with arrow keys', async () => {
+                await clickAndWaitForOpen(element);
+                pageObject.pressArrowDownKey();
+                pageObject.pressArrowDownKey(); // option 'Three' should be active
+                pageObject.pressCharacterKey('t'); // filters to 'Two' and 'Three'
+
+                expect(pageObject.getActiveOption()?.value).toBe('three');
+            });
+
+            it('dismissing dropdown with <Tab> after navigation and then filtering to no options, does not update value', async () => {
+                await clickAndWaitForOpen(element);
+                pageObject.pressArrowDownKey();
+                pageObject.pressCharacterKey('?');
+                pageObject.pressTabKey();
+
+                expect(pageObject.getSelectedOption()?.value).toBe('one');
+            });
+
+            it('dismissing dropdown by clicking away after navigation and then filtering to no options, does not update value', async () => {
+                await clickAndWaitForOpen(element);
+                pageObject.pressArrowDownKey();
+                pageObject.pressCharacterKey('?');
+                await pageObject.clickAway();
+
+                expect(pageObject.getSelectedOption()?.value).toBe('one');
+            });
+
+            it('option that is not hidden but visuallyHidden, if removed from DOM, and then re-added to DOM while dropdown open, is not displayed in dropdown', async () => {
+                const option = element.options[1] as ListOption;
+                await pageObject.openAndSetFilterText('Three');
+                expect(option.visuallyHidden).toBeTrue();
+
+                element.removeChild(option);
+                await waitForUpdatesAsync();
+                element.appendChild(option);
+                await waitForUpdatesAsync();
+
+                expect(option.visuallyHidden).toBeTrue();
+            });
+
+            it('option that is not hidden but visuallyHidden, if removed from DOM, and then re-added to DOM while dropdown closed, is visible in dropdown when opened', async () => {
+                const option = element.options[1] as ListOption;
+                await pageObject.openAndSetFilterText('Three');
+                expect(option.visuallyHidden).toBeTrue();
+
+                element.removeChild(option);
+                await waitForUpdatesAsync();
+                await pageObject.clickAway(); // clears filter
+                element.appendChild(option);
+                await waitForUpdatesAsync();
+                pageObject.clickSelect();
+
+                expect(option.visuallyHidden).toBeFalse();
+            });
+
+            it('option that is not hidden but is visuallyHidden, if removed and then added back, will be visible', async () => {
+                const option = element.options[0]! as ListOption;
+                option.visuallyHidden = true;
+                element.removeChild(option);
+                await waitForUpdatesAsync();
+                element.appendChild(option);
+                await waitForUpdatesAsync();
+
+                expect(option.visuallyHidden).toBeFalse();
+            });
         });
 
-        it('when dropdown is closed, entering text executes typeahead and sets value', () => {
-            pageObject.pressCharacterKey('t');
-            expect(element.value).toBe('two');
-        });
+        describe('with filterMode = manual', () => {
+            beforeEach(async () => {
+                ({ element, connect, disconnect } = await setup());
+                element.style.width = '200px';
+                element.filterMode = FilterMode.manual;
+                await connect();
+                pageObject = new SelectPageObject(element);
+            });
 
-        it('opening dropdown after pressing <Esc> during filter text entry, maintains original display text', async () => {
-            await clickAndWaitForOpen(element);
-            pageObject.pressCharacterKey('t');
-            pageObject.pressEscapeKey();
-            pageObject.clickSelect();
-            await waitForUpdatesAsync();
+            afterEach(async () => {
+                await disconnect();
+            });
 
-            expect(pageObject.getDisplayText()).toBe('One');
-        });
+            it('does not automatically filter options when filterMode is manual', async () => {
+                await pageObject.openAndSetFilterText('o');
+                const filteredOptions = pageObject.getFilteredOptions();
+                expect(filteredOptions.length).toBe(6);
+            });
 
-        it('filtering options does not change selected option in dropdown', async () => {
-            element.value = 'three';
-            await pageObject.openAndSetFilterText('t'); // filters to 'Two' and 'Three'
+            it('emits filter-input event when filter text is entered', async () => {
+                type SelectFilterInputEventHandler = (
+                    evt: CustomEvent<SelectFilterInputEventDetail>
+                ) => void;
+                const filterInputEvent = jasmine.createSpy<SelectFilterInputEventHandler>();
+                element.addEventListener(
+                    'filter-input',
+                    filterInputEvent as unknown as EventListener
+                );
+                await pageObject.openAndSetFilterText('o');
+                expect(filterInputEvent).toHaveBeenCalledTimes(1);
+                expect(
+                    filterInputEvent.calls.argsFor(0)[0].detail.filterText
+                ).toBe('o');
+            });
 
-            expect(pageObject.getActiveOption()?.value).toBe('three');
-        });
-
-        it('filtering options does not change selected option in dropdown after navigating with arrow keys', async () => {
-            await clickAndWaitForOpen(element);
-            pageObject.pressArrowDownKey();
-            pageObject.pressArrowDownKey(); // option 'Three' should be active
-            pageObject.pressCharacterKey('t'); // filters to 'Two' and 'Three'
-
-            expect(pageObject.getActiveOption()?.value).toBe('three');
-        });
-
-        it('dismissing dropdown with <Tab> after navigation and then filtering to no options, does not update value', async () => {
-            await clickAndWaitForOpen(element);
-            pageObject.pressArrowDownKey();
-            pageObject.pressCharacterKey('?');
-            pageObject.pressTabKey();
-
-            expect(pageObject.getSelectedOption()?.value).toBe('one');
-        });
-
-        it('dismissing dropdown by clicking away after navigation and then filtering to no options, does not update value', async () => {
-            await clickAndWaitForOpen(element);
-            pageObject.pressArrowDownKey();
-            pageObject.pressCharacterKey('?');
-            await pageObject.clickAway();
-
-            expect(pageObject.getSelectedOption()?.value).toBe('one');
-        });
-
-        it('option that is not hidden but visuallyHidden, if removed from DOM, and then re-added to DOM while dropdown open, is not displayed in dropdown', async () => {
-            const option = element.options[1] as ListOption;
-            await pageObject.openAndSetFilterText('Three');
-            expect(option.visuallyHidden).toBeTrue();
-
-            element.removeChild(option);
-            await waitForUpdatesAsync();
-            element.appendChild(option);
-            await waitForUpdatesAsync();
-
-            expect(option.visuallyHidden).toBeTrue();
-        });
-
-        it('option that is not hidden but visuallyHidden, if removed from DOM, and then re-added to DOM while dropdown closed, is visible in dropdown when opened', async () => {
-            const option = element.options[1] as ListOption;
-            await pageObject.openAndSetFilterText('Three');
-            expect(option.visuallyHidden).toBeTrue();
-
-            element.removeChild(option);
-            await waitForUpdatesAsync();
-            await pageObject.clickAway(); // clears filter
-            element.appendChild(option);
-            await waitForUpdatesAsync();
-            pageObject.clickSelect();
-
-            expect(option.visuallyHidden).toBeFalse();
+            it('emits filter-input event with empty filterText when dropdown is closed', async () => {
+                const filterInputEvent = jasmine.createSpy();
+                element.addEventListener('filter-input', filterInputEvent);
+                await pageObject.openAndSetFilterText('o');
+                await pageObject.closeDropdown();
+                expect(filterInputEvent).toHaveBeenCalledTimes(2);
+                expect(
+                    (
+                        (filterInputEvent.calls.argsFor(1)[0] as CustomEvent)
+                            .detail as SelectFilterInputEventDetail
+                    ).filterText
+                ).toBe('');
+            });
         });
     });
 
@@ -1906,6 +1976,20 @@ describe('Select', () => {
                 });
                 await waitForUpdatesAsync();
                 expect(pageObject.isNoResultsLabelVisible()).toBeTrue();
+            });
+
+            it('if all results are hidden, and loadingVisible is true, no results label is not shown', async () => {
+                element.loadingVisible = true;
+                await waitForUpdatesAsync();
+                await pageObject.openAndSetFilterText('abc');
+                expect(pageObject.isNoResultsLabelVisible()).toBeFalse();
+            });
+
+            it('does not automatically filter options when filterMode is manual', async () => {
+                element.filterMode = FilterMode.manual;
+                await pageObject.openAndSetFilterText('one');
+                const filteredOptions = pageObject.getFilteredOptions();
+                expect(filteredOptions.length).toBe(8);
             });
         });
     });
