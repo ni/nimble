@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Remove unneeded rollup dependencies",
-  "packageName": "@ni/spright-components",
-  "email": "jattasNI@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}

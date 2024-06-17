@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Mon, 17 Jun 2024 15:13:30 GMT",
+      "version": "29.3.7",
+      "tag": "@ni/nimble-components_v29.3.7",
+      "comments": {
+        "patch": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "4befcd5173fc83a2e3d352f5f69f1e45de4221e1",
+            "comment": "Remove unneeded rollup dependencies"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 17 Jun 2024 13:23:52 GMT",
       "version": "29.3.6",
       "tag": "@ni/nimble-components_v29.3.6",

@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Thu, 13 Jun 2024 17:01:38 GMT and should not be manually modified.
+This log was last generated on Mon, 17 Jun 2024 15:13:30 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 29.3.7
+
+Mon, 17 Jun 2024 15:13:30 GMT
+
+### Patches
+
+- Remove unneeded rollup dependencies ([ni/nimble@4befcd5](https://github.com/ni/nimble/commit/4befcd5173fc83a2e3d352f5f69f1e45de4221e1))
 
 ## 29.3.6
 
