@@ -2,7 +2,7 @@ import { Directive, ElementRef, Input, Renderer2 } from '@angular/core';
 import type { TableColumn } from '@ni/nimble-components/dist/esm/table-column/base';
 import type { DelegatedEventEventDetails, TableColumnValidity } from '@ni/nimble-components/dist/esm/table-column/base/types';
 import { TableColumnSortDirection } from '@ni/nimble-components/dist/esm/table/types';
-import { BooleanValueOrAttribute, NumberValueOrAttribute, toBooleanProperty, toNullableNumberProperty } from '@ni/nimble-angular/internal-utilities';
+import { BooleanValueOrAttribute, toBooleanProperty } from '@ni/nimble-angular/internal-utilities';
 
 export { TableColumnSortDirection, DelegatedEventEventDetails, TableColumnValidity };
 
@@ -41,22 +41,6 @@ export class NimbleTableColumnBaseDirective<T extends TableColumn> {
 
     @Input('column-hidden') public set columnHidden(value: BooleanValueOrAttribute) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'columnHidden', toBooleanProperty(value));
-    }
-
-    public get sortDirection(): TableColumnSortDirection {
-        return this.elementRef.nativeElement.sortDirection;
-    }
-
-    @Input('sort-direction') public set sortDirection(value: TableColumnSortDirection) {
-        this.renderer.setProperty(this.elementRef.nativeElement, 'sortDirection', value);
-    }
-
-    public get sortIndex(): number | null | undefined {
-        return this.elementRef.nativeElement.sortIndex;
-    }
-
-    @Input('sort-index') public set sortIndex(value: NumberValueOrAttribute | null | undefined) {
-        this.renderer.setProperty(this.elementRef.nativeElement, 'sortIndex', toNullableNumberProperty(value));
     }
 
     public constructor(protected readonly renderer: Renderer2, protected readonly elementRef: ElementRef<T>) {}

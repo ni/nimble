@@ -1,8 +1,42 @@
 # Change Log - @ni/spright-components
 
-This log was last generated on Sat, 08 Jun 2024 17:53:59 GMT and should not be manually modified.
+This log was last generated on Mon, 17 Jun 2024 16:38:20 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.0.22
+
+Mon, 17 Jun 2024 16:38:20 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v29.4.0
+
+## 1.0.21
+
+Mon, 17 Jun 2024 15:13:30 GMT
+
+### Patches
+
+- Remove unneeded rollup dependencies ([ni/nimble@4befcd5](https://github.com/ni/nimble/commit/4befcd5173fc83a2e3d352f5f69f1e45de4221e1))
+- Bump @ni/nimble-components to v29.3.7
+
+## 1.0.20
+
+Thu, 13 Jun 2024 17:01:39 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v29.3.6
+
+## 1.0.19
+
+Tue, 11 Jun 2024 19:27:14 GMT
+
+### Patches
+
+- Switch to custom box-sizing: border-box consistently ([ni/nimble@17ddea5](https://github.com/ni/nimble/commit/17ddea50b5accb353a0288c42d0e64ddc5df0d04))
+- Bump @ni/nimble-components to v29.3.5
 
 ## 1.0.18
 

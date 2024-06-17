@@ -1,8 +1,41 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Sat, 08 Jun 2024 17:53:59 GMT and should not be manually modified.
+This log was last generated on Mon, 17 Jun 2024 16:38:20 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 24.4.9
+
+Mon, 17 Jun 2024 16:38:20 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v29.4.0
+
+## 24.4.8
+
+Mon, 17 Jun 2024 15:13:30 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v29.3.7
+
+## 24.4.7
+
+Thu, 13 Jun 2024 17:01:38 GMT
+
+### Patches
+
+- Move column sorting properties to a column mixin ([ni/nimble@659242f](https://github.com/ni/nimble/commit/659242fdcda04d270085e3a7e86493e9fc8a1fc5))
+- Bump @ni/nimble-components to v29.3.6
+
+## 24.4.6
+
+Tue, 11 Jun 2024 19:27:14 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v29.3.5
 
 ## 24.4.5
 

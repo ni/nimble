@@ -102,3 +102,10 @@ public class NimbleTableColumnNumberTextFractionalWidthTests : FractionalWidthBa
 public class NimbleTableColumnNumberTextGroupableTests : GroupableBaseTests<NimbleTableColumnNumberText>
 {
 }
+
+/// <summary>
+/// Tests for SortableAPI on <see cref="NimbleTableColumnNumberText"/>
+/// </summary>
+public class NimbleTableColumnNumberTextSortableTests : SortableBaseTests<NimbleTableColumnNumberText>
+{
+}

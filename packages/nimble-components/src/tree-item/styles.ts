@@ -57,7 +57,6 @@ export const styles = css`
     .positioning-region {
         display: flex;
         position: relative;
-        box-sizing: border-box;
         height: calc(${iconSize} * 2);
     }
 

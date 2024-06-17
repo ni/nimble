@@ -8,6 +8,7 @@ import { FilterMode } from '../../../../nimble-components/src/select/types';
 import { createFixedThemeStory } from '../../utilities/storybook';
 import { sharedMatrixParameters } from '../../utilities/matrix';
 import { backgroundStates } from '../../utilities/states';
+import { isChromatic } from '../../utilities/isChromatic';
 
 const metadata: Meta = {
     title: 'Tests/Select',
@@ -24,6 +25,9 @@ type PositionState = (typeof positionStates)[number];
 const filterModeStates = Object.values(FilterMode);
 type FilterModeState = (typeof filterModeStates)[number];
 
+const loadingVisibleStates = [false, true] as const;
+type LoadingVisibleState = (typeof loadingVisibleStates)[number];
+
 const placeholderStates = [false, true] as const;
 type PlaceholderState = (typeof placeholderStates)[number];
 
@@ -36,6 +40,7 @@ type OptionsOutsideGroupState = (typeof optionsOutsideGroupStates)[number];
 interface SelectMatrixStoryOptions {
     positionState: PositionState;
     filterMode: FilterModeState;
+    loadingVisible?: LoadingVisibleState;
     placeholder?: PlaceholderState;
     grouped?: GroupedState;
     optionsOutsideGroup?: OptionsOutsideGroupState;
@@ -45,13 +50,15 @@ interface SelectMatrixStoryOptions {
 
 // prettier-ignore
 const component = ({
-    positionState, filterMode, placeholder, grouped, optionsOutsideGroup, slottedLabel, manyOptions
+    positionState, filterMode, loadingVisible, placeholder, grouped, optionsOutsideGroup, slottedLabel, manyOptions
 }: SelectMatrixStoryOptions): ViewTemplate => html`
     <${selectTag} open 
         position="${() => positionState}"
         style="${() => (positionState === DropdownPosition.below ? 'margin-bottom: 120px;' : `margin-top: ${manyOptions ? 400 : 180}px;`)}"
-        filter-mode="${() => filterMode}"
+        style="${isChromatic() ? '--ni-private-spinner-animation-play-state:paused' : ''}"
         style="width: 250px;"
+        filter-mode="${() => filterMode}"
+        loading-visible="${() => loadingVisible}"
     >
         ${when(() => !manyOptions, html`
             ${when(() => grouped, html`
@@ -401,6 +408,82 @@ export const selectGroupedWithSlottedLabelDarkThemeBlackBackground: StoryFn = cr
     darkThemeBlackBackground
 );
 
+export const selectBelowOpenLoadingVisibleNoGroupsLightThemeWhiteBackground: StoryFn = createFixedThemeStory(
+    component({
+        positionState: DropdownPosition.below,
+        filterMode: FilterMode.standard,
+        loadingVisible: true
+    }),
+    lightThemeWhiteBackground
+);
+
+export const selectBelowOpenLoadingVisibleNoGroupsDarkGreenBackground: StoryFn = createFixedThemeStory(
+    component({
+        positionState: DropdownPosition.below,
+        filterMode: FilterMode.standard,
+        loadingVisible: true
+    }),
+    colorThemeDarkGreenBackground
+);
+
+export const selectBelowOpenLoadingVisibleNoGroupsDarkThemeBlackBackground: StoryFn = createFixedThemeStory(
+    component({
+        positionState: DropdownPosition.below,
+        filterMode: FilterMode.standard,
+        loadingVisible: true
+    }),
+    darkThemeBlackBackground
+);
+
+export const selectAboveOpenLoadingVisibleNoGroupsLightThemeWhiteBackground: StoryFn = createFixedThemeStory(
+    component({
+        positionState: DropdownPosition.above,
+        filterMode: FilterMode.standard,
+        loadingVisible: true
+    }),
+    lightThemeWhiteBackground
+);
+
+export const selectAboveOpenLoadingVisibleNoGroupsDarkGreenBackground: StoryFn = createFixedThemeStory(
+    component({
+        positionState: DropdownPosition.above,
+        filterMode: FilterMode.standard,
+        loadingVisible: true
+    }),
+    colorThemeDarkGreenBackground
+);
+
+export const selectAboveOpenLoadingVisibleNoGroupsDarkThemeBlackBackground: StoryFn = createFixedThemeStory(
+    component({
+        positionState: DropdownPosition.above,
+        filterMode: FilterMode.standard,
+        loadingVisible: true
+    }),
+    darkThemeBlackBackground
+);
+
+export const selectBelowLoadingVisibleNoMatchesLightThemeWhiteBackground: StoryFn = createFixedThemeStory(
+    component({
+        positionState: DropdownPosition.below,
+        filterMode: FilterMode.standard,
+        loadingVisible: true
+    }),
+    lightThemeWhiteBackground
+);
+
+selectBelowLoadingVisibleNoMatchesLightThemeWhiteBackground.play = noMatchesFilterPlayFunction;
+
+export const selectAboveLoadingVisibleNoMatchesLightThemeWhiteBackground: StoryFn = createFixedThemeStory(
+    component({
+        positionState: DropdownPosition.above,
+        filterMode: FilterMode.standard,
+        loadingVisible: true
+    }),
+    lightThemeWhiteBackground
+);
+
+selectAboveLoadingVisibleNoMatchesLightThemeWhiteBackground.play = noMatchesFilterPlayFunction;
+
 export const selectBelowOpenNoFilterManyOptions: StoryFn = createFixedThemeStory(
     component({
         positionState: DropdownPosition.below,
@@ -410,10 +493,30 @@ export const selectBelowOpenNoFilterManyOptions: StoryFn = createFixedThemeStory
     lightThemeWhiteBackground
 );
 
+export const selectBelowOpenNoFilterLoadingVisibleManyOptions: StoryFn = createFixedThemeStory(
+    component({
+        positionState: DropdownPosition.below,
+        filterMode: FilterMode.none,
+        loadingVisible: true,
+        manyOptions: true
+    }),
+    lightThemeWhiteBackground
+);
+
 export const selectBelowOpenStandardFilterManyOptions: StoryFn = createFixedThemeStory(
     component({
         positionState: DropdownPosition.below,
         filterMode: FilterMode.standard,
+        manyOptions: true
+    }),
+    lightThemeWhiteBackground
+);
+
+export const selectBelowOpenStandardFilterLoadingVisibleManyOptions: StoryFn = createFixedThemeStory(
+    component({
+        positionState: DropdownPosition.below,
+        filterMode: FilterMode.standard,
+        loadingVisible: true,
         manyOptions: true
     }),
     lightThemeWhiteBackground
@@ -442,6 +545,16 @@ export const selectAboveOpenStandardFilterManyOptions: StoryFn = createFixedThem
     component({
         positionState: DropdownPosition.above,
         filterMode: FilterMode.standard,
+        manyOptions: true
+    }),
+    lightThemeWhiteBackground
+);
+
+export const selectAboveOpenStandardFilterLoadingVisibleManyOptions: StoryFn = createFixedThemeStory(
+    component({
+        positionState: DropdownPosition.above,
+        filterMode: FilterMode.standard,
+        loadingVisible: true,
         manyOptions: true
     }),
     lightThemeWhiteBackground

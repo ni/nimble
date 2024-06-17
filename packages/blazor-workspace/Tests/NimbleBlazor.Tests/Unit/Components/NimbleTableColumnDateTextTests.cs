@@ -262,3 +262,10 @@ public class NimbleTableColumnDateTextFractionalWidthTests : FractionalWidthBase
 public class NimbleTableColumnDateTextGroupableTests : GroupableBaseTests<NimbleTableColumnDateText>
 {
 }
+
+/// <summary>
+/// Tests for SortableAPI on <see cref="NimbleTableColumnDateText"/>
+/// </summary>
+public class NimbleTableColumnDateTextSortableTests : SortableBaseTests<NimbleTableColumnDateText>
+{
+}

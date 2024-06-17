@@ -151,6 +151,37 @@ export const styles = css`
         align-items: center;
         padding: ${smallPadding} ${mediumPadding};
     }
+
+    .loading-container {
+        padding-left: ${mediumPadding};
+        padding-right: ${mediumPadding};
+        display: flex;
+        height: ${controlHeight};
+        flex: 1 0 auto;
+    }
+
+    .loading-container.above {
+        align-items: end;
+        padding-bottom: ${smallPadding};
+    }
+
+    .loading-container.below {
+        align-items: normal;
+        padding-top: ${smallPadding};
+    }
+
+    .loading-container.empty {
+        padding: ${smallPadding} ${mediumPadding};
+        align-items: center;
+    }
+
+    .loading-label {
+        color: ${placeholderFontColor};
+    }
+
+    .loading-spinner {
+        margin-left: auto;
+    }
 `.withBehaviors(
     appearanceBehavior(
         DropdownAppearance.block,
@@ -165,7 +196,8 @@ export const styles = css`
         Theme.color,
         css`
             .filter-field,
-            .no-results-label {
+            .no-results-label,
+            .loading-container {
                 background: ${hexToRgbaCssColor(White, 0.15)};
             }
         `
