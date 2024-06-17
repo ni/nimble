@@ -66,9 +66,22 @@ export class ListOption extends FoundationListboxOption {
 
     public override connectedCallback(): void {
         super.connectedCallback();
-        if (this.isListOptionOwner(this.parentElement)) {
-            this.parentElement.registerOption(this);
+        const owner = this.getListOptionOwner();
+        owner?.registerOption(this);
+    }
+
+    private getListOptionOwner(): ListOptionOwner | null {
+        let parent = this.parentElement;
+
+        while (parent) {
+            if (this.isListOptionOwner(parent)) {
+                return parent;
+            }
+
+            parent = parent.parentElement;
         }
+
+        return null;
     }
 
     private isListOptionOwner(

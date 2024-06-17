@@ -500,6 +500,35 @@ describe('Select', () => {
         await disconnect();
     });
 
+    it('option added directly to DOM under group synchronously registers with Select', async () => {
+        const { element, connect, disconnect } = await setupWithGroups();
+        await connect();
+        await waitForUpdatesAsync();
+        const newOption = new ListOption('foo', 'foo');
+        const registerOptionSpy = spyOn(
+            element,
+            'registerOption'
+        ).and.callThrough();
+        registerOptionSpy.calls.reset();
+        const pageObject = new SelectPageObject(element);
+        const group = pageObject.getAllGroups()[0] as ListOptionGroup;
+        group.insertAdjacentElement('afterbegin', newOption);
+
+        expect(registerOptionSpy.calls.count()).toBe(1);
+        expect(element.options).toContain(newOption);
+
+        // While the option is registered synchronously as shown above,
+        // properties like selectedIndex will only be correct asynchronously
+        // See https://github.com/ni/nimble/issues/1915
+        expect(element.selectedIndex).toBe(0);
+        await waitForUpdatesAsync();
+        expect(element.value).toBe('one');
+        // This assertion shows that after 'slottedOptionsChanged' runs, the
+        // 'selectedIndex' state has been corrected to expected DOM order.
+        expect(element.selectedIndex).toBe(1);
+        await disconnect();
+    });
+
     it('programmatically setting selected of current selected option to false results in blank display', async () => {
         const { element, connect, disconnect } = await setup();
         await connect();
