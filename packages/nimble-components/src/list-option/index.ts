@@ -70,7 +70,7 @@ export class ListOption extends FoundationListboxOption {
         owner?.registerOption(this);
     }
 
-    private getListOptionOwner(): ListOptionOwner | null {
+    private getListOptionOwner(): ListOptionOwner | undefined {
         let parent = this.parentElement;
 
         while (parent) {
@@ -81,7 +81,7 @@ export class ListOption extends FoundationListboxOption {
             parent = parent.parentElement;
         }
 
-        return null;
+        return undefined;
     }
 
     private isListOptionOwner(

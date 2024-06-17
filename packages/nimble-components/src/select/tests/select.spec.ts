@@ -482,7 +482,6 @@ describe('Select', () => {
             element,
             'registerOption'
         ).and.callThrough();
-        registerOptionSpy.calls.reset();
         element.insertBefore(newOption, element.options[0]!);
 
         expect(registerOptionSpy.calls.count()).toBe(1);
@@ -509,7 +508,6 @@ describe('Select', () => {
             element,
             'registerOption'
         ).and.callThrough();
-        registerOptionSpy.calls.reset();
         const pageObject = new SelectPageObject(element);
         const group = pageObject.getAllGroups()[0]!;
         group.insertAdjacentElement('afterbegin', newOption);
