@@ -378,11 +378,49 @@ const closeSafariTab = function (url) {
  * @param {function} callback - An optional callback function to execute after cleanup.
  */
 const childProcessCleanup = function (task_id, callback) {
+  console.log('===================================================================childProcessCleanup');
   const isCallbackDefined = callback && typeof callback === "function";
 
+  console.log('platform: ' + process.platform);
   if (process.platform !== "darwin") {
+    console.log('not darwin');
     if (isCallbackDefined) {
+      console.log('callback defined: calling it');
       callback();
+    } else {
+      // Find all related child process for playwright based on the task id.
+      console.log('Looking for child processes');
+      const findChildProcesses = `ps | grep -i "npm run" | grep -i "id=${task_id}"`;
+      child_process.exec(findChildProcesses, (error, stdout) => {
+        // Ignore error from killed karma processes.
+        if (error && error.signal != "SIGHUP") {
+          console.log(error);
+          throw error;
+        }
+    
+        // Check process list for relevant entries.
+        if (
+          stdout &&
+          stdout.toLowerCase().includes("npm run") &&
+          stdout.includes(task_id)
+        ) {
+          // Extract relevant child process ids.
+          const childProcessIds = stdout.match(/^\s?(\d)+\s?/gm);
+          if (childProcessIds && childProcessIds.length > 0) {
+            console.log(`Found ${childProcessIds.length} child processes`);
+            killChildProcesses(childProcessIds, task_id);
+    
+            // Allow 500ms for the processes to close before calling the callback.
+            if (isCallbackDefined) {
+              setTimeout(callback, 500);
+            }
+          } else if (isCallbackDefined) {
+            callback();
+          }
+        } else if (isCallbackDefined) {
+          callback();
+        }
+      });
     }
     return;
   }
@@ -393,6 +431,7 @@ const childProcessCleanup = function (task_id, callback) {
   child_process.exec(findChildProcesses, (error, stdout) => {
     // Ignore error from killed karma processes.
     if (error && error.signal != "SIGHUP") {
+      console.log(error);
       throw error;
     }
 
@@ -405,6 +444,7 @@ const childProcessCleanup = function (task_id, callback) {
       // Extract relevant child process ids.
       const childProcessIds = stdout.match(/^\s?(\d)+\s?/gm);
       if (childProcessIds && childProcessIds.length > 0) {
+        console.log(`Found ${childProcessIds.length} child processes`);
         killChildProcesses(childProcessIds, task_id);
 
         // Allow 500ms for the processes to close before calling the callback.
