@@ -2,7 +2,7 @@ import { attr, customElement, html } from '@microsoft/fast-element';
 import { parameterizeSpec } from '@ni/jasmine-parameterized';
 import { Table, tableTag } from '..';
 import { TableColumn } from '../../table-column/base';
-import { tableColumnTextTag } from '../../table-column/text';
+import { TableColumnText, tableColumnTextTag } from '../../table-column/text';
 import { TableColumnTextCellView } from '../../table-column/text/cell-view';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import { controlHeight } from '../../theme-provider/design-tokens';
@@ -85,8 +85,8 @@ describe('Table', () => {
         let connect: () => Promise<void>;
         let disconnect: () => Promise<void>;
         let pageObject: TablePageObject<SimpleTableRecord>;
-        let column1: TableColumn;
-        let column2: TableColumn;
+        let column1: TableColumnText;
+        let column2: TableColumnText;
 
         // The assumption being made here is that the values in the data are equal to their
         // rendered representation (no formatting).
@@ -149,8 +149,8 @@ describe('Table', () => {
         beforeEach(async () => {
             ({ element, connect, disconnect } = await setup());
             pageObject = new TablePageObject<SimpleTableRecord>(element);
-            column1 = element.querySelector<TableColumn>('#first-column')!;
-            column2 = element.querySelector<TableColumn>('#second-column')!;
+            column1 = element.querySelector<TableColumnText>('#first-column')!;
+            column2 = element.querySelector<TableColumnText>('#second-column')!;
         });
 
         afterEach(async () => {

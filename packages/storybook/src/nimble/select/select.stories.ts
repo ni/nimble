@@ -110,20 +110,11 @@ When the \`clearable\` attribute is set, a clear button will be displayed in the
 `;
 
 const loadingVisibleDescription = `
-When the \`loading-visible\` attribute is set, a loading spinner will be displayed in the dropdown of the select along with localizable text that defaults to "Loading". This is useful when the select is loading its options dynamically.
+When the \`loading-visible\` attribute is set, a loading spinner will be displayed in the dropdown of the select along with localizable text that defaults to "Loading…". This is useful when the select is loading its options dynamically.
 `;
 
 const metadata: Meta<SelectArgs> = {
     title: 'Components/Select',
-    decorators: [withActions<HtmlRenderer>],
-    parameters: {
-        actions: {
-            handles: ['change', 'filter-input']
-        },
-        toolbar: {
-            zoom: { hidden: true }
-        }
-    },
     // prettier-ignore
     render: createUserSelectedThemeStory(html`
         ${disableStorybookZoomTransform}
@@ -237,6 +228,7 @@ const metadata: Meta<SelectArgs> = {
             control: false
         },
         filterInput: {
+            name: 'filter-input',
             description: 'Emitted when the user types in the filter input.',
             table: { category: apiCategory.events },
             control: false
@@ -258,7 +250,15 @@ const metadata: Meta<SelectArgs> = {
 export default metadata;
 
 export const select: StoryObj<SelectArgs> = {
-    ...metadata
+    decorators: [withActions<HtmlRenderer>],
+    parameters: {
+        actions: {
+            handles: ['change', 'filter-input']
+        },
+        toolbar: {
+            zoom: { hidden: true }
+        }
+    }
 };
 
 export const placeholder: StoryObj<SelectArgs> = {

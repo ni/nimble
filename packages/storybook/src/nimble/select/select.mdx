@@ -57,10 +57,13 @@ the end of the prompt.
 There are scenarios that require not all possible options to be available
 initially, such as when the set of all options is too large to be loaded at
 once. In such cases, users are expected to provide filter text to narrow down
-the list of options. The select offers the `filter-input` event to allow clients
-to listen for changes to the filter input. When accompanied with the setting
-`filter-mode` to `manual`, clients can perform their own filtering and provide
-the set of options to the select dynamically.
+the list of options. It is recommended that when option sets exceed 1000 in
+number that this strategy is implemented.
+
+The select offers the `filter-input` event to allow clients to listen for
+changes to the filter input. When accompanied with the setting `filter-mode` to
+`manual`, clients can perform their own filtering and provide the set of options
+to the select dynamically.
 
 Typical steps for dynamic options are as follows:
 

@@ -2,6 +2,57 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Mon, 17 Jun 2024 15:13:30 GMT",
+      "version": "24.4.8",
+      "tag": "@ni/nimble-angular_v24.4.8",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v29.3.7",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 13 Jun 2024 17:01:38 GMT",
+      "version": "24.4.7",
+      "tag": "@ni/nimble-angular_v24.4.7",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "659242fdcda04d270085e3a7e86493e9fc8a1fc5",
+            "comment": "Move column sorting properties to a column mixin"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v29.3.6",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 11 Jun 2024 19:27:14 GMT",
+      "version": "24.4.6",
+      "tag": "@ni/nimble-angular_v24.4.6",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v29.3.5",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sat, 08 Jun 2024 17:53:59 GMT",
       "version": "24.4.5",
       "tag": "@ni/nimble-angular_v24.4.5",

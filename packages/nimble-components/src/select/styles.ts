@@ -156,7 +156,7 @@ export const styles = css`
         padding-left: ${mediumPadding};
         padding-right: ${mediumPadding};
         display: flex;
-        height: calc(${controlHeight} - ${smallPadding});
+        height: ${controlHeight};
         flex: 1 0 auto;
     }
 

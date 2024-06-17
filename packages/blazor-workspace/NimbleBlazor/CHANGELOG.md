@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-blazor
 
-This log was last generated on Fri, 07 Jun 2024 17:53:20 GMT and should not be manually modified.
+This log was last generated on Thu, 13 Jun 2024 17:01:38 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 17.4.2
+
+Thu, 13 Jun 2024 17:01:38 GMT
+
+### Patches
+
+- Move column sorting properties to a column mixin ([ni/nimble@659242f](https://github.com/ni/nimble/commit/659242fdcda04d270085e3a7e86493e9fc8a1fc5))
 
 ## 17.4.1
 
