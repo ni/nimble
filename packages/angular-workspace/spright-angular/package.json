@@ -4,7 +4,8 @@
   "description": "Angular components for NI Spright",
   "scripts": {
     "invoke-publish": "npm run invoke-publish:setup && cd ../dist/spright-angular && npm publish",
-    "invoke-publish:setup": "cd ../ && npm run build:spright"
+    "invoke-publish:setup": "cd ../ && npm run build:spright",
+    "test": "ng test"
   },
   "repository": {
     "type": "git",
