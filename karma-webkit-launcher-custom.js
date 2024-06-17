@@ -391,10 +391,10 @@ const childProcessCleanup = function (task_id, callback) {
         console.log(`error: ${error}`);
         console.log(`stdout: ${stdout}`);
       });
-      const findChildProcesses = `ps | grep -i "npm run" | grep -i "id=${task_id}"`;
+      const findChildProcesses = `ps | grep -i "MiniBrowser"`;
       child_process.exec(findChildProcesses, (error, stdout) => {
-        console.log(`"npm run" processes error: ${error}`);
-        console.log(`"npm run" processes stdout: ${stdout}`);
+        console.log(`"MiniBrowser" processes error: ${error}`);
+        console.log(`"MiniBrowser" processes stdout: ${stdout}`);
         // Ignore error from killed karma processes.
         if (error && error.signal != "SIGHUP") {
           console.log(error);
@@ -404,8 +404,7 @@ const childProcessCleanup = function (task_id, callback) {
         // Check process list for relevant entries.
         if (
           stdout &&
-          stdout.toLowerCase().includes("npm run") &&
-          stdout.includes(task_id)
+          stdout.toLowerCase().includes("MiniBrowser")
         ) {
           // Extract relevant child process ids.
           const childProcessIds = stdout.match(/^\s?(\d)+\s?/gm);
@@ -424,10 +423,6 @@ const childProcessCleanup = function (task_id, callback) {
           callback();
         }
       });
-      
-      console.log('callback defined: calling it');
-      callback();
-    } else {
     }
     return;
   }
