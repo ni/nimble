@@ -10,7 +10,7 @@ import { createEventListener } from '../../utilities/tests/component';
 
 /**
  * Page object for `nimble-menu-button` component to provide consistent ways
- * of query and interacting with the component during tests.
+ * of querying and interacting with the component during tests.
  */
 export class MenuButtonPageObject {
     public constructor(protected readonly menuButtonElement: MenuButton) {}
