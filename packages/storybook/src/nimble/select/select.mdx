@@ -52,6 +52,48 @@ the end of the prompt.
 
 <Canvas of={selectStories.placeholder} />
 
+### Dynamic options
+
+There are scenarios that require not all possible options to be available
+initially, such as when the set of all options is too large to be loaded at
+once. In such cases, users are expected to provide filter text to narrow down
+the list of options. It is recommended that when option sets exceed 1000 in
+number that this strategy is implemented.
+
+The select offers the `filter-input` event to allow clients to listen for
+changes to the filter input. When accompanied with the setting `filter-mode` to
+`manual`, clients can perform their own filtering and provide the set of options
+to the select dynamically.
+
+Typical steps for dynamic options are as follows:
+
+1. Set the `filter-mode` to `manual` on the select.
+1. Listen for the `filter-input` event on the select.
+1. In the event handler, do the following:
+    - Set the `loading-visible` attribute on the select.
+    - Retrieve the filter text from the event and populate the DOM with the set
+      of options that match the filter text by your own logic. This can be
+      asynchronous, as this often involves fetching data from a server. To
+      reduce unnecessary requests, consider debouncing the filter input.
+      Handling the case where the filter text is empty is important, as this is
+      when the select should display all initial options in the dropdown.
+    - Remove the `loading-visible` attribute on the select.
+    - It is important that one of the options in the DOM is the currently
+      selected option, as well as any option that is designated as the
+      placeholder.
+1. When the user selects an option, that option should now be made to be part of
+   the initial set of options, and thus immediately available when the dropdown
+   is opened again, while the other options retrieved dynamically can be
+   discarded (if desired).
+
+#### Groups
+
+When using groups with dynamic options, clients should also match the filter
+text against the group label. If the group label matches the filter text, the
+group should be displayed, and all options within the group should be displayed
+as well. If the group label does not match the filter text, then options within
+the group should only be displayed if they match the filter text.
+
 {/* ## Accessibility */}
 
 {/* ## Resources */}
