@@ -85,11 +85,46 @@ implements Subscriber {
     }
 
     public connect(): void {
-        this.table.viewport.addEventListener('keydown', e => this.onViewportKeyDown(e));
-        this.table.viewport.addEventListener('cell-action-menu-blur', e => this.onCellActionMenuBlur(e as CustomEvent<TableCell>));
-        this.table.viewport.addEventListener('cell-view-focus-in', e => this.onCellViewFocusIn(e as CustomEvent<TableCell>));
-        this.table.viewport.addEventListener('cell-focus-in', e => this.onCellFocusIn(e as CustomEvent<TableCell>));
-        this.table.viewport.addEventListener('cell-blur', e => this.onCellBlur(e as CustomEvent<TableCell>));
+        this.table.viewport.addEventListener('keydown', this.onViewportKeyDown);
+        this.table.viewport.addEventListener(
+            'cell-action-menu-blur',
+            this.onCellActionMenuBlur as EventListener
+        );
+        this.table.viewport.addEventListener(
+            'cell-view-focus-in',
+            this.onCellViewFocusIn as EventListener
+        );
+        this.table.viewport.addEventListener(
+            'cell-focus-in',
+            this.onCellFocusIn as EventListener
+        );
+        this.table.viewport.addEventListener(
+            'cell-blur',
+            this.onCellBlur as EventListener
+        );
+    }
+
+    public disconnect(): void {
+        this.table.viewport.removeEventListener(
+            'keydown',
+            this.onViewportKeyDown
+        );
+        this.table.viewport.removeEventListener(
+            'cell-action-menu-blur',
+            this.onCellActionMenuBlur as EventListener
+        );
+        this.table.viewport.removeEventListener(
+            'cell-view-focus-in',
+            this.onCellViewFocusIn as EventListener
+        );
+        this.table.viewport.removeEventListener(
+            'cell-focus-in',
+            this.onCellFocusIn as EventListener
+        );
+        this.table.viewport.removeEventListener(
+            'cell-blur',
+            this.onCellBlur as EventListener
+        );
     }
 
     public handleChange(source: unknown, args: unknown): void {
@@ -640,7 +675,7 @@ implements Subscriber {
         // element before/after the table, the table shouldn't have tabIndex=0 when this event
         // handling ends. However it needs to be tabIndex=0 so we can re-focus the table the next time
         // it's tabbed to, so set tabIndex back to 0 after a rAF.
-        // Note: In Chrome this is only needed for Shift-Tab, but in Firefox both Tab+Shift-Tab need this
+        // Note: In Chrome this is only needed for Shift-Tab, but in Firefox both Tab and Shift-Tab need this
         // to work as expected.
         this.table.tabIndex = -1;
         window.requestAnimationFrame(() => {

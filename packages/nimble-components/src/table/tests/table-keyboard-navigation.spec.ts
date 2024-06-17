@@ -16,6 +16,7 @@ import {
     keySpace,
     keyTab
 } from '@microsoft/fast-web-utilities';
+import { parameterizeSpec } from '@ni/jasmine-parameterized';
 import type { Table } from '..';
 import type { TableColumnText } from '../../table-column/text';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
@@ -596,21 +597,26 @@ describe('Table keyboard navigation', () => {
                 );
             });
 
-            const refocusCellKeys = [keyEscape, keyFunction2];
-            refocusCellKeys.forEach(key => {
-                it(`when a cell's action menu is focused, pressing ${key} will focus the cell`, async () => {
-                    await addActionMenu(column1);
-                    await sendKeyPressToTable(keyArrowDown);
-                    await sendKeyPressToTable(keyTab);
-                    expect(currentFocusedElement()).toBe(
-                        pageObject.getCellActionMenu(0, 0)
-                    );
+            describe("when a cell's action menu is focused, pressing the given key will focus the cell:", () => {
+                const tests = [
+                    { name: 'Escape', key: keyEscape },
+                    { name: 'F2', key: keyFunction2 }
+                ];
+                parameterizeSpec(tests, (spec, name, value) => {
+                    spec(name, async () => {
+                        await addActionMenu(column1);
+                        await sendKeyPressToTable(keyArrowDown);
+                        await sendKeyPressToTable(keyTab);
+                        expect(currentFocusedElement()).toBe(
+                            pageObject.getCellActionMenu(0, 0)
+                        );
 
-                    await sendKeyPressToTable(key);
+                        await sendKeyPressToTable(value.key);
 
-                    expect(currentFocusedElement()).toBe(
-                        pageObject.getCell(0, 0)
-                    );
+                        expect(currentFocusedElement()).toBe(
+                            pageObject.getCell(0, 0)
+                        );
+                    });
                 });
             });
 
@@ -882,40 +888,53 @@ describe('Table keyboard navigation', () => {
                 }
             });
 
-            const collapseGroupKeys = [keySpace, keyEnter, keyArrowLeft];
-            collapseGroupKeys.forEach(key => {
-                it(`for an expanded group row, pressing ${key} will collapse the group`, async () => {
-                    await sendKeyPressToTable(key);
+            describe('for an expanded group row, pressing the given key will collapse the group:', () => {
+                const tests = [
+                    { name: 'Space', key: keySpace },
+                    { name: 'Enter', key: keyEnter },
+                    { name: 'LeftArrow', key: keyArrowLeft }
+                ];
+                parameterizeSpec(tests, (spec, name, value) => {
+                    spec(name, async () => {
+                        await sendKeyPressToTable(value.key);
 
-                    const focusedElement = currentFocusedElement();
-                    expect(focusedElement).toBeInstanceOf(TableGroupRow);
-                    expect((focusedElement as TableGroupRow).expanded).toBe(
-                        false
-                    );
+                        const focusedElement = currentFocusedElement();
+                        expect(focusedElement).toBeInstanceOf(TableGroupRow);
+                        expect((focusedElement as TableGroupRow).expanded).toBe(
+                            false
+                        );
+                    });
                 });
             });
-            const expandGroupKeys = [keySpace, keyEnter, keyArrowRight];
-            expandGroupKeys.forEach(key => {
-                it(`for a collapsed group row, pressing ${key} will expand the group`, async () => {
-                    pageObject.toggleGroupRowExpandedState(0);
-                    await waitForUpdatesAsync();
-                    let focusedElement = currentFocusedElement();
-                    if (
-                        !(focusedElement instanceof TableGroupRow)
-                        || focusedElement.expanded
-                    ) {
-                        throw new Error(
-                            'Expected focused group row to be collapsed'
+
+            describe('for a collapsed group row, pressing the given key will expand the group:', () => {
+                const tests = [
+                    { name: 'Space', key: keySpace },
+                    { name: 'Enter', key: keyEnter },
+                    { name: 'RightArrow', key: keyArrowRight }
+                ];
+                parameterizeSpec(tests, (spec, name, value) => {
+                    spec(name, async () => {
+                        pageObject.toggleGroupRowExpandedState(0);
+                        await waitForUpdatesAsync();
+                        let focusedElement = currentFocusedElement();
+                        if (
+                            !(focusedElement instanceof TableGroupRow)
+                            || focusedElement.expanded
+                        ) {
+                            throw new Error(
+                                'Expected focused group row to be collapsed'
+                            );
+                        }
+
+                        await sendKeyPressToTable(value.key);
+
+                        focusedElement = currentFocusedElement();
+                        expect(focusedElement).toBeInstanceOf(TableGroupRow);
+                        expect((focusedElement as TableGroupRow).expanded).toBe(
+                            true
                         );
-                    }
-
-                    await sendKeyPressToTable(key);
-
-                    focusedElement = currentFocusedElement();
-                    expect(focusedElement).toBeInstanceOf(TableGroupRow);
-                    expect((focusedElement as TableGroupRow).expanded).toBe(
-                        true
-                    );
+                    });
                 });
             });
 
@@ -1032,26 +1051,39 @@ describe('Table keyboard navigation', () => {
                 await verifyLastTabKeyEventBehavior(lastTabEvent);
             });
 
-            const focusContentKeys = [keyEnter, keyFunction2];
-            focusContentKeys.forEach(key => {
-                it(`pressing ${key} will focus the anchor in the current cell`, async () => {
-                    await sendKeyPressToTable(key);
+            describe('pressing the given key will focus the anchor in the current cell:', () => {
+                const tests = [
+                    { name: 'Enter', key: keyEnter },
+                    { name: 'F2', key: keyFunction2 }
+                ];
+                parameterizeSpec(tests, (spec, name, value) => {
+                    spec(name, async () => {
+                        await sendKeyPressToTable(value.key);
 
-                    const anchorInCell = pageObject.getRenderedCellAnchor(0, 1);
-                    expect(currentFocusedElement()).toBe(anchorInCell);
+                        const anchorInCell = pageObject.getRenderedCellAnchor(
+                            0,
+                            1
+                        );
+                        expect(currentFocusedElement()).toBe(anchorInCell);
+                    });
                 });
             });
 
-            const refocusCellKeys = [keyEscape, keyFunction2];
-            refocusCellKeys.forEach(key => {
-                it(`when the anchor (focusable content) in the cell is focused, pressing ${key} will focus the cell`, async () => {
-                    await sendKeyPressToTable(keyEnter);
+            describe('when the anchor (focusable content) in the cell is focused, pressing the given key will focus the cell:', () => {
+                const tests = [
+                    { name: 'Escape', key: keyEscape },
+                    { name: 'F2', key: keyFunction2 }
+                ];
+                parameterizeSpec(tests, (spec, name, value) => {
+                    spec(name, async () => {
+                        await sendKeyPressToTable(keyEnter);
 
-                    await sendKeyPressToTable(key);
+                        await sendKeyPressToTable(value.key);
 
-                    expect(currentFocusedElement()).toBe(
-                        pageObject.getCell(0, 1)
-                    );
+                        expect(currentFocusedElement()).toBe(
+                            pageObject.getCell(0, 1)
+                        );
+                    });
                 });
             });
         });
