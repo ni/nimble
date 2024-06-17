@@ -381,9 +381,7 @@ const childProcessCleanup = function (task_id, callback) {
   console.log('===================================================================childProcessCleanup');
   const isCallbackDefined = callback && typeof callback === "function";
 
-  console.log('platform: ' + process.platform);
   if (process.platform !== "darwin") {
-    console.log('not darwin');
     if (isCallbackDefined) {
       // Find all related child process for playwright based on the task id.
       console.log('Looking for child processes');
@@ -402,10 +400,7 @@ const childProcessCleanup = function (task_id, callback) {
         }
     
         // Check process list for relevant entries.
-        if (
-          stdout &&
-          stdout.toLowerCase().includes("MiniBrowser")
-        ) {
+        if (stdout?.includes("MiniBrowser")) {
           // Extract relevant child process ids.
           const match = stdout.match(/\b\d+\b/);
           if (match) {
@@ -465,11 +460,13 @@ const childProcessCleanup = function (task_id, callback) {
  * @param {String} task_id
  */
 const killChildProcesses = function (childProcessIds, task_id = "unknown") {
+  console.log('===================================================================killChildProcesses');
   if (!childProcessIds || childProcessIds.length <= 0) {
     return;
   }
 
   childProcessIds.forEach((childProcessId) => {
+    console.log(childProcessId);
     // Check if the process is still valid with a 0 kill signal.
     try {
       process.kill(childProcessId, 0);
@@ -479,6 +476,7 @@ const killChildProcesses = function (childProcessIds, task_id = "unknown") {
           `No permission to kill child process ${childProcessId} for karma-task ${task_id}`
         );
       }
+      console.log('Could not kill: ' + error);
       return;
     }
 
