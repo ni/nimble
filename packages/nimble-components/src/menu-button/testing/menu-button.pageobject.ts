@@ -81,7 +81,7 @@ export class MenuButtonPageObject {
         this.menuButtonElement.region!.dispatchEvent(event);
     }
 
-    public getTextContent(): string {
+    public getLabelText(): string {
         return this.menuButtonElement.textContent?.trim() ?? '';
     }
 }
