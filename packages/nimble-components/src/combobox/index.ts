@@ -37,7 +37,6 @@ import {
     DropdownAppearance,
     type DropdownPattern
 } from '../patterns/dropdown/types';
-import { getDropdownMaxHeight } from '../patterns/dropdown/helpers';
 import type { AnchoredRegion } from '../anchored-region';
 import { template } from './template';
 import { FormAssociatedCombobox } from './models/combobox-form-associated';
@@ -204,12 +203,12 @@ export class Combobox
     public listboxId: string = uniqueId('listbox-');
 
     /**
-     * The max height for the listbox when opened.
+     * The space available in the viewport for the listbox when opened.
      *
      * @internal
      */
     @observable
-    public maxHeight = 0;
+    public availableViewportHeight = 0;
 
     private valueUpdatedByInput = false;
     private valueBeforeTextUpdate?: string;
@@ -628,14 +627,9 @@ export class Combobox
             ? this.positionAttribute
             : this.position;
 
-        const availableHeight = this.position === SelectPosition.above
+        this.availableViewportHeight = this.position === SelectPosition.above
             ? Math.trunc(currentBox.top)
             : Math.trunc(availableBottom);
-
-        this.maxHeight = Math.min(
-            availableHeight,
-            getDropdownMaxHeight(this, false)
-        );
     }
 
     /**
@@ -734,8 +728,8 @@ export class Combobox
         this.updateInputAriaLabel();
     }
 
-    private maxHeightChanged(): void {
-        this.updateListboxMaxHeightCssVariable();
+    private availableViewportHeightChanged(): void {
+        this.updateListboxAvailableViewportHeightCssVariable();
     }
 
     /**
@@ -791,11 +785,11 @@ export class Combobox
         this.updateValue(this.value !== newValue);
     }
 
-    private updateListboxMaxHeightCssVariable(): void {
+    private updateListboxAvailableViewportHeightCssVariable(): void {
         if (this.listbox) {
             this.listbox.style.setProperty(
-                '--ni-private-select-max-height',
-                `${this.maxHeight}px`
+                '--ni-private-listbox-available-viewport-height',
+                `${this.availableViewportHeight}px`
             );
         }
     }

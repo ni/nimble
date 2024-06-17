@@ -34,7 +34,6 @@ import {
     DropdownAppearance,
     ListOptionOwner
 } from '../patterns/dropdown/types';
-import { getDropdownMaxHeight } from '../patterns/dropdown/helpers';
 import { errorTextTemplate } from '../patterns/error/template';
 import type { ErrorPattern } from '../patterns/error/types';
 import { iconExclamationMarkTag } from '../icons/exclamation-mark';
@@ -183,12 +182,12 @@ export class Select
     public filter = '';
 
     /**
-     * The max height for the listbox when opened.
+     * The space available in the viewport for the listbox when opened.
      *
      * @internal
      */
     @observable
-    public maxHeight = 0;
+    public availableViewportHeight = 0;
 
     /**
      * The component is collapsible when in single-selection mode with no size attribute.
@@ -1023,15 +1022,10 @@ export class Select
             ? this.positionAttribute
             : this.position;
 
-        const availableHeight = this.position === SelectPosition.above
+        this.availableViewportHeight = this.position === SelectPosition.above
             ? Math.trunc(currentBox.top)
             : Math.trunc(availableBottom);
-
-        this.maxHeight = Math.min(
-            availableHeight,
-            getDropdownMaxHeight(this, this.filterMode !== FilterMode.none)
-        );
-        this.updateListboxMaxHeightCssVariable();
+        this.updateListboxAvailableViewportHeightCssVariable();
     }
 
     private updateAdjacentSeparatorState(
@@ -1237,8 +1231,8 @@ export class Select
         this.$emit('filter-input', eventDetail, { bubbles: true });
     }
 
-    private maxHeightChanged(): void {
-        this.updateListboxMaxHeightCssVariable();
+    private availableViewportHeightChanged(): void {
+        this.updateListboxAvailableViewportHeightCssVariable();
     }
 
     private initializeOpenState(): void {
@@ -1250,11 +1244,11 @@ export class Select
         this.focusAndScrollOptionIntoView();
     }
 
-    private updateListboxMaxHeightCssVariable(): void {
+    private updateListboxAvailableViewportHeightCssVariable(): void {
         if (this.listbox) {
             this.listbox.style.setProperty(
-                '--ni-private-select-max-height',
-                `${this.maxHeight}px`
+                '--ni-private-listbox-available-viewport-height',
+                `${this.availableViewportHeight}px`
             );
         }
     }
