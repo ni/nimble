@@ -385,9 +385,6 @@ const childProcessCleanup = function (task_id, callback) {
   if (process.platform !== "darwin") {
     console.log('not darwin');
     if (isCallbackDefined) {
-      console.log('callback defined: calling it');
-      callback();
-    } else {
       // Find all related child process for playwright based on the task id.
       console.log('Looking for child processes');
       child_process.exec('ps', (error, stdout) => {
@@ -427,6 +424,10 @@ const childProcessCleanup = function (task_id, callback) {
           callback();
         }
       });
+      
+      console.log('callback defined: calling it');
+      callback();
+    } else {
     }
     return;
   }
