@@ -362,7 +362,7 @@ describe('Nimble select control value accessor', () => {
                 { name: 'Option 1', value: 1 },
                 { name: 'Option 2', value: 2 },
                 { name: 'Option 3', value: 3 }
-            ] as const;
+            ];
 
             public selectedOption = new FormControl<{ name: string, value: number } | null>(null);
 
