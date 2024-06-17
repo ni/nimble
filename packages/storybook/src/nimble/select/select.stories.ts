@@ -118,18 +118,6 @@ const metadata: Meta<SelectArgs> = {
     decorators: [withActions<HtmlRenderer>],
     parameters: {
         actions: {
-            handles: ['change']
-        }
-    }
-};
-
-export default metadata;
-
-export const select: Meta<SelectArgs> = {
-    title: 'Components/Select',
-    decorators: [withActions<HtmlRenderer>],
-    parameters: {
-        actions: {
             handles: ['change', 'filter-input']
         },
         toolbar: {
@@ -265,6 +253,12 @@ export const select: Meta<SelectArgs> = {
         clearable: false,
         loadingVisible: false
     }
+};
+
+export default metadata;
+
+export const select: StoryObj<SelectArgs> = {
+    ...metadata
 };
 
 export const placeholder: StoryObj<SelectArgs> = {
