@@ -1,6 +1,6 @@
 {
   "name": "@ni/nimble-components",
-  "version": "29.3.6",
+  "version": "29.4.0",
   "description": "Styled web components for the NI Nimble Design System",
   "scripts": {
     "build": "npm run generate-icons && npm run generate-workers && npm run build-components && npm run bundle-components && npm run generate-scss",
@@ -107,7 +107,6 @@
     "@ni-private/eslint-config-nimble": "*",
     "@ni/jasmine-parameterized": "^0.3.0",
     "@rollup/plugin-commonjs": "^25.0.7",
-    "@rollup/plugin-json": "^6.0.0",
     "@rollup/plugin-node-resolve": "^15.0.1",
     "@rollup/plugin-replace": "^5.0.1",
     "@rollup/plugin-terser": "^0.4.0",
@@ -132,7 +131,6 @@
     "prettier-eslint": "^16.3.0",
     "prettier-eslint-cli": "^8.0.1",
     "rollup": "^4.12.0",
-    "rollup-plugin-polyfill-node": "^0.13.0",
     "rollup-plugin-sourcemaps": "^0.6.3",
     "source-map-loader": "^5.0.0",
     "terser-webpack-plugin": "^5.3.10",
