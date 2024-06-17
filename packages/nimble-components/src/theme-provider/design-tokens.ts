@@ -223,31 +223,31 @@ export const graphTrace1Color = DesignToken.create<string>(
 ).withDefault((element: HTMLElement) => getColorForTheme(element, NiIndigoDark2, NiSky, White));
 
 export const graphTrace2Color = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.graphTrace1Color)
+    styleNameFromTokenName(tokenNames.graphTrace2Color)
 ).withDefault((element: HTMLElement) => getColorForTheme(element, NiScarletDark1, NiScarlet, White));
 
 export const graphTrace3Color = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.graphTrace1Color)
+    styleNameFromTokenName(tokenNames.graphTrace3Color)
 ).withDefault((element: HTMLElement) => getColorForTheme(element, NiFernDark1, NiFern, White));
 
 export const graphTrace4Color = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.graphTrace1Color)
+    styleNameFromTokenName(tokenNames.graphTrace4Color)
 ).withDefault((element: HTMLElement) => getColorForTheme(element, NiPlumDark1, NiSeaLight, White));
 
 export const graphTrace5Color = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.graphTrace1Color)
+    styleNameFromTokenName(tokenNames.graphTrace5Color)
 ).withDefault((element: HTMLElement) => getColorForTheme(element, NiSeaDark2, NiSea, White));
 
 export const graphTrace6Color = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.graphTrace1Color)
+    styleNameFromTokenName(tokenNames.graphTrace6Color)
 ).withDefault((element: HTMLElement) => getColorForTheme(element, NiTulip, NiTulip, White));
 
 export const graphTrace7Color = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.graphTrace1Color)
+    styleNameFromTokenName(tokenNames.graphTrace7Color)
 ).withDefault((element: HTMLElement) => getColorForTheme(element, NiScarletDark3, NiHoneyLight, White));
 
 export const graphTrace8Color = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.graphTrace1Color)
+    styleNameFromTokenName(tokenNames.graphTrace8Color)
 ).withDefault((element: HTMLElement) => getColorForTheme(element, NiIndigo, NiIndigo, White));
 
 export const tooltipBackgroundColor = DesignToken.create<string>(
