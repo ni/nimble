@@ -2,6 +2,27 @@
   "name": "@ni/spright-components",
   "entries": [
     {
+      "date": "Mon, 17 Jun 2024 15:13:30 GMT",
+      "version": "1.0.21",
+      "tag": "@ni/spright-components_v1.0.21",
+      "comments": {
+        "patch": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/spright-components",
+            "commit": "4befcd5173fc83a2e3d352f5f69f1e45de4221e1",
+            "comment": "Remove unneeded rollup dependencies"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/spright-components",
+            "comment": "Bump @ni/nimble-components to v29.3.7",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 13 Jun 2024 17:01:39 GMT",
       "version": "1.0.20",
       "tag": "@ni/spright-components_v1.0.20",
