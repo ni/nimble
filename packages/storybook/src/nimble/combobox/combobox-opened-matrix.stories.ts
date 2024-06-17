@@ -31,7 +31,7 @@ const component = ({
 }: ComboboxMatrixStoryOptions): ViewTemplate => html`
     <${comboboxTag} open
         position="${() => position}" 
-        style="width: 250px; ${() => (position === DropdownPosition.below ? 'margin-bottom: 120px;' : `margin-top: ${manyOptions ? 400 : 120}px;`)}"
+        style="width: 250px; ${() => (position === DropdownPosition.below ? 'margin-bottom: 120px;' : `margin-top: ${manyOptions ? 360 : 120}px;`)}"
     >
         ${when(() => !manyOptions, html`
             <${listOptionTag} value="1">Option 1</${listOptionTag}>
@@ -58,46 +58,54 @@ if (remaining.length > 0) {
     throw new Error('New backgrounds need to be supported');
 }
 
+// prettier-ignore
 export const comboboxBelowOpenLightThemeWhiteBackground: StoryFn = createFixedThemeStory(
-    component({
-        position: DropdownPosition.below
-    }),
+    component({ position: DropdownPosition.below }),
     lightThemeWhiteBackground
 );
 
+// prettier-ignore
 export const comboboxAboveOpenLightThemeWhiteBackground: StoryFn = createFixedThemeStory(
-    component({
-        position: DropdownPosition.above
-    }),
+    component({ position: DropdownPosition.above }),
     lightThemeWhiteBackground
 );
 
 // prettier-ignore
 export const comboboxBelowOpenColorThemeDarkGreenBackground: StoryFn = createFixedThemeStory(
-    component({
-        position: DropdownPosition.below
-    }),
+    component({ position: DropdownPosition.below }),
     colorThemeDarkGreenBackground
 );
 
 // prettier-ignore
 export const comboboxAboveOpenColorThemeDarkGreenBackground: StoryFn = createFixedThemeStory(
-    component({
-        position: DropdownPosition.above
-    }),
+    component({ position: DropdownPosition.above }),
     colorThemeDarkGreenBackground
 );
 
+// prettier-ignore
 export const comboboxBelowOpenDarkThemeBlackBackground: StoryFn = createFixedThemeStory(
-    component({
-        position: DropdownPosition.below
-    }),
+    component({ position: DropdownPosition.below }),
     darkThemeBlackBackground
 );
 
+// prettier-ignore
 export const comboboxAboveOpenDarkThemeBlackBackground: StoryFn = createFixedThemeStory(
-    component({
-        position: DropdownPosition.above
-    }),
+    component({ position: DropdownPosition.above }),
     darkThemeBlackBackground
+);
+
+export const comboboxBelowOpenManyOptions: StoryFn = createFixedThemeStory(
+    component({
+        position: DropdownPosition.below,
+        manyOptions: true
+    }),
+    lightThemeWhiteBackground
+);
+
+export const comboboxAboveOpenManyOptions: StoryFn = createFixedThemeStory(
+    component({
+        position: DropdownPosition.above,
+        manyOptions: true
+    }),
+    lightThemeWhiteBackground
 );
