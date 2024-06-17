@@ -390,8 +390,14 @@ const childProcessCleanup = function (task_id, callback) {
     } else {
       // Find all related child process for playwright based on the task id.
       console.log('Looking for child processes');
+      child_process.exec('ps', (error, stdout) => {
+        console.log(`error: ${error}`);
+        console.log(`stdout: ${stdout}`);
+      });
       const findChildProcesses = `ps | grep -i "npm run" | grep -i "id=${task_id}"`;
       child_process.exec(findChildProcesses, (error, stdout) => {
+        console.log(`"npm run" processes error: ${error}`);
+        console.log(`"npm run" processes stdout: ${stdout}`);
         // Ignore error from killed karma processes.
         if (error && error.signal != "SIGHUP") {
           console.log(error);
@@ -431,7 +437,6 @@ const childProcessCleanup = function (task_id, callback) {
   child_process.exec(findChildProcesses, (error, stdout) => {
     // Ignore error from killed karma processes.
     if (error && error.signal != "SIGHUP") {
-      console.log(error);
       throw error;
     }
 
@@ -444,7 +449,6 @@ const childProcessCleanup = function (task_id, callback) {
       // Extract relevant child process ids.
       const childProcessIds = stdout.match(/^\s?(\d)+\s?/gm);
       if (childProcessIds && childProcessIds.length > 0) {
-        console.log(`Found ${childProcessIds.length} child processes`);
         killChildProcesses(childProcessIds, task_id);
 
         // Allow 500ms for the processes to close before calling the callback.
