@@ -11,6 +11,9 @@ import { createEventListener } from '../../utilities/tests/component';
 /**
  * Page object for `nimble-menu-button` component to provide consistent ways
  * of querying and interacting with the component during tests.
+ *
+ * This page object is intended to be used to interact with a `nimble-menu-button`,
+ * not the menu slotted into the button or the menu items.
  */
 export class MenuButtonPageObject {
     public constructor(protected readonly menuButtonElement: MenuButton) {}
@@ -39,28 +42,28 @@ export class MenuButtonPageObject {
         await toggleListener.promise;
     }
 
-    public pressEnter(): void {
+    public pressEnterOnMenuButton(): void {
         const event = new KeyboardEvent('keypress', {
             key: keyEnter
         } as KeyboardEventInit);
         this.menuButtonElement.toggleButton!.control.dispatchEvent(event);
     }
 
-    public pressSpace(): void {
+    public pressSpaceOnMenuButton(): void {
         const event = new KeyboardEvent('keypress', {
             key: keySpace
         } as KeyboardEventInit);
         this.menuButtonElement.toggleButton!.control.dispatchEvent(event);
     }
 
-    public pressArrowUp(): void {
+    public pressArrowUpOnMenuButton(): void {
         const event = new KeyboardEvent('keydown', {
             key: keyArrowUp
         } as KeyboardEventInit);
         this.menuButtonElement.toggleButton!.dispatchEvent(event);
     }
 
-    public pressArrowDown(): void {
+    public pressArrowDownOnMenuButton(): void {
         const event = new KeyboardEvent('keydown', {
             key: keyArrowDown
         } as KeyboardEventInit);
