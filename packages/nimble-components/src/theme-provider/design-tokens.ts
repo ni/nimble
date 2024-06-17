@@ -224,31 +224,56 @@ export const graphTrace1Color = DesignToken.create<string>(
 
 export const graphTrace2Color = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.graphTrace2Color)
-).withDefault((element: HTMLElement) => getColorForTheme(element, NiScarletDark1, NiScarlet, White));
+).withDefault((element: HTMLElement) => getColorForTheme(
+    element,
+    NiScarletDark1,
+    NiScarlet,
+    hexToRgbaCssColor(White, 0.7)
+));
 
 export const graphTrace3Color = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.graphTrace3Color)
-).withDefault((element: HTMLElement) => getColorForTheme(element, NiFernDark1, NiFern, White));
+).withDefault((element: HTMLElement) => getColorForTheme(
+    element,
+    NiFernDark1,
+    NiFern,
+    hexToRgbaCssColor(White, 0.4)
+));
 
 export const graphTrace4Color = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.graphTrace4Color)
-).withDefault((element: HTMLElement) => getColorForTheme(element, NiPlumDark1, NiSeaLight, White));
+).withDefault((element: HTMLElement) => getColorForTheme(
+    element,
+    NiPlumDark1,
+    NiSeaLight,
+    hexToRgbaCssColor(White, 0.25)
+));
 
 export const graphTrace5Color = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.graphTrace5Color)
-).withDefault((element: HTMLElement) => getColorForTheme(element, NiSeaDark2, NiSea, White));
+).withDefault((element: HTMLElement) => getColorForTheme(element, NiSeaDark2, NiSea, hexToRgbaCssColor(White, 0.55)));
 
 export const graphTrace6Color = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.graphTrace6Color)
-).withDefault((element: HTMLElement) => getColorForTheme(element, NiTulip, NiTulip, White));
+).withDefault((element: HTMLElement) => getColorForTheme(element, NiTulip, NiTulip, hexToRgbaCssColor(White, 0.85)));
 
 export const graphTrace7Color = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.graphTrace7Color)
-).withDefault((element: HTMLElement) => getColorForTheme(element, NiScarletDark3, NiHoneyLight, White));
+).withDefault((element: HTMLElement) => getColorForTheme(
+    element,
+    NiScarletDark3,
+    NiHoneyLight,
+    hexToRgbaCssColor(White, 0.325)
+));
 
 export const graphTrace8Color = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.graphTrace8Color)
-).withDefault((element: HTMLElement) => getColorForTheme(element, NiIndigo, NiIndigo, White));
+).withDefault((element: HTMLElement) => getColorForTheme(
+    element,
+    NiIndigo,
+    NiIndigo,
+    hexToRgbaCssColor(White, 0.625)
+));
 
 export const tooltipBackgroundColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.tooltipBackgroundColor)
