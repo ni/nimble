@@ -10,6 +10,12 @@ import { tableColumnMappingTag } from '../../../../../nimble-components/src/tabl
 import { mappingEmptyTag } from '../../../../../nimble-components/src/mapping/empty';
 import { tableTag } from '../../../../../nimble-components/src/table';
 import { spinnerTag } from '../../../../../nimble-components/src/spinner';
+import iconOnlyIconHeader from './images/icon-only-icon-header.png';
+import iconOnlyTextHeader from './images/icon-only-text-header.png';
+import iconOnlyPlusTextOnlyTextHeader from './images/icon-only-plus-text-only-text-header.png';
+import iconTextTextHeader from './images/icon-text-text-header.png';
+import textOnlyTextHeader from './images/text-only-text-header.png';
+import { NimbleSpinner } from '../../spinner/spinner.react';
 
 <Meta of={tableColumnMappingStories} />
 <Title of={tableColumnMappingStories} />
@@ -28,29 +34,29 @@ string values as an icon, a spinner, text, or an icon/spinner with text in the
 <Controls of={tableColumnMappingStories.mappingColumn} />
 <ComponentApisLink />
 
-### Icon Mapping
+### Icon mapping
 
 <Description of={iconMappingStories} />
 <Controls of={iconMappingStories.iconMapping} />
 
-### Spinner Mapping
+### Spinner mapping
 
 <Description of={spinnerMappingStories} />
 <Controls of={spinnerMappingStories.spinnerMapping} />
 
-### Text Mapping
+### Text mapping
 
 <Description of={textMappingStories} />
 <Controls of={textMappingStories.textMapping} />
 
-### Empty Mapping
+### Empty mapping
 
 <Description of={emptyMappingStories} />
 <Controls of={emptyMappingStories.emptyMapping} />
 
 ## Usage
 
-### Best Practices
+### Best practices
 
 -   Provide a mapping for every expected record value. Because grouping is
     performed on the record value, non-mapped record values can result in
@@ -58,10 +64,29 @@ string values as an icon, a spinner, text, or an icon/spinner with text in the
     -   To improve grouping behavior of a value that shouldn't be rendered in
         table cells, use a <Tag name={mappingEmptyTag}/> element to provide text
         for that value's group row.
--   Avoid having multiple values that map to the same text because grouping and
-    sorting is done on the record value rather than the mapped text.
+-   Avoid having multiple values that map to the same text value. This can lead
+    to confusion when grouping and sorting, as it would result in multiple
+    groups with the same text label representing different values or the same
+    text label showing up multiple times with a different sort order.
+-   Don't mix and match icon-only, and icon and text mappings in the same
+    column. Choose whether to enable the `text-hidden` attribute for all
+    mappings or none.
+    -   Exception: You can use a spinner-only mapping in the same column as an
+        icon-only or icon and text mapping.
 
-### Blazor Usage
+#### Choosing a mapping style
+
+| Best practice                                                                                                                                                                                                               | Example                                      |
+| --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------- |
+| **Icon and text, with a text header** <br/> Preferred configuration where icons exist for the mapping set                                                                                                                   | <img src={iconTextTextHeader} />             |
+| **Icon-only, with an icon header** <br/> Use only when table width is at a premium and all the icons in the set have a clear and unambiguous meaning                                                                        | <img src={iconOnlyIconHeader} />             |
+| **Icon-only, with a text header** <br/> Use when header text provides enough context for all the icons in the set to have a clear and unambiguous meaning                                                                   | <img src={iconOnlyTextHeader} />             |
+| **Text-only, with a text header** <br/> Use when there isn't an icon for each mapping value                                                                                                                                 | <img src={textOnlyTextHeader} />             |
+| **Icon-only column beside a text-only column** <br/> Separate columns for icon and text is a legacy pattern. Ideally applications should use the **Icon and text, with a text header** pattern or another alternative above | <img src={iconOnlyPlusTextOnlyTextHeader} /> |
+| **Spinner** <br/> Use with any other mapping style to indicate indeterminate progress                                                                                                                                       | <NimbleSpinner/>                             |
+| **Empty** <br/> Use with any other mapping style to indicate an empty value                                                                                                                                                 |                                              |
+
+### Blazor usage
 
 When setting a child mapping element's `Key` value to a string, you must wrap it
 in `@()` so that the compiler treats it as a string, e.g.
