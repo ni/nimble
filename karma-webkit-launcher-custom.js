@@ -407,10 +407,10 @@ const childProcessCleanup = function (task_id, callback) {
           stdout.toLowerCase().includes("MiniBrowser")
         ) {
           // Extract relevant child process ids.
-          const childProcessIds = stdout.match(/^\s?(\d)+\s?/gm);
-          if (childProcessIds && childProcessIds.length > 0) {
-            console.log(`Found ${childProcessIds.length} child processes`);
-            killChildProcesses(childProcessIds, task_id);
+          const match = stdout.match(/\b\d+\b/);
+          if (match) {
+            console.log(`Found match`);
+            killChildProcesses(match);
     
             // Allow 500ms for the processes to close before calling the callback.
             if (isCallbackDefined) {
