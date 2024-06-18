@@ -247,6 +247,11 @@ export class RichTextEditorPageObject {
             })
             .run();
         await waitForUpdatesAsync();
+
+        if (this.isMentionListboxOpened()) {
+            this.richTextEditorElement.tiptapEditor.commands.focus();
+            await waitForUpdatesAsync();
+        }
     }
 
     public async setCursorPosition(position: number): Promise<void> {
