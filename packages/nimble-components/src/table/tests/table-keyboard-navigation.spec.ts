@@ -542,6 +542,15 @@ describe('Table keyboard navigation', () => {
                 expect(firstRow.tabIndex).toBe(-1);
             });
 
+            it('when a row is focused, pressing Space has no effect when selectionMode is none (row not selected)', async () => {
+                await sendKeyPressesToTable(keyArrowDown, keyArrowLeft);
+
+                await sendKeyPressToTable(keySpace);
+
+                expect(currentFocusedElement()).toBe(pageObject.getRow(0));
+                expect(pageObject.getRow(0).selected).toBe(false);
+            });
+
             // This test relies on :focus-visible styling for the action menus to show, and programmatic focus / key events don't seem to
             // trigger that for Firefox/WebKit.
             it('when a row is focused, all action menus in that row are visible (and otherwise hidden) #SkipFirefox #SkipWebkit', async () => {
@@ -831,14 +840,30 @@ describe('Table keyboard navigation', () => {
                 await waitForUpdatesAsync();
             });
 
-            it('when a row is focused, pressing Space will select the row', async () => {
+            it('when a row is focused, pressing Space will select the row, and pressing it again will deselect the row', async () => {
                 await sendKeyPressesToTable(keyArrowDown, keyArrowLeft);
 
                 const row = pageObject.getRow(0);
                 await sendKeyPressToTable(keySpace);
-                await waitForUpdatesAsync();
 
                 expect(row.selected).toBe(true);
+
+                await sendKeyPressToTable(keySpace);
+
+                expect(row.selected).toBe(false);
+            });
+
+            it('when a cell is focused, pressing Shift-Space will select the row, and pressing it again will deselect the row', async () => {
+                await sendKeyPressesToTable(keyArrowDown);
+
+                const row = pageObject.getRow(0);
+                await sendKeyPressToTable(keySpace, { shiftKey: true });
+
+                expect(row.selected).toBe(true);
+
+                await sendKeyPressToTable(keySpace, { shiftKey: true });
+
+                expect(row.selected).toBe(false);
             });
         });
 
@@ -959,6 +984,62 @@ describe('Table keyboard navigation', () => {
                 });
 
                 await verifyLastTabKeyEventBehavior(keyEvent);
+            });
+        });
+
+        describe('for a table with hierarchy', () => {
+            beforeEach(async () => {
+                const data = [
+                    {
+                        stringData1: 'A0',
+                        stringData2: 'B0',
+                        stringData3: 'C0',
+                        id: '0',
+                        parentId: undefined
+                    },
+                    {
+                        stringData1: 'A1',
+                        stringData2: 'B1',
+                        stringData3: 'C1',
+                        id: '1',
+                        parentId: '0'
+                    }
+                ];
+                element.idFieldName = 'id';
+                element.parentIdFieldName = 'parentId';
+                await element.setData(data);
+                await connect();
+                await waitForUpdatesAsync();
+                element.focus();
+                await waitForUpdatesAsync();
+            });
+
+            it('when a collapsed row is focused, pressing RightArrow will expand the row', async () => {
+                pageObject.clickDataRowExpandCollapseButton(0);
+                await sendKeyPressToTable(keyArrowDown);
+
+                await sendKeyPressToTable(keyArrowRight);
+
+                const row = pageObject.getRow(0);
+                expect(row.expanded).toBe(true);
+            });
+
+            it('when an expanded row is focused, pressing LeftArrow will collapse the row', async () => {
+                await sendKeyPressToTable(keyArrowDown);
+
+                await sendKeyPressToTable(keyArrowLeft);
+
+                const row = pageObject.getRow(0);
+                expect(row.expanded).toBe(false);
+            });
+
+            it('when an expanded row is focused, pressing RightArrow will move to the 1st cell of the row (and the row stays expanded)', async () => {
+                await sendKeyPressToTable(keyArrowDown);
+
+                await sendKeyPressToTable(keyArrowRight);
+
+                expect(currentFocusedElement()).toBe(pageObject.getCell(0, 0));
+                expect(pageObject.getRow(0).expanded).toBe(true);
             });
         });
     });

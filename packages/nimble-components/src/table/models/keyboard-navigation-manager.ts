@@ -406,7 +406,7 @@ implements Subscriber {
         ) {
             if (this.focusType === TableFocusType.row || shiftKey) {
                 const row = this.getCurrentRow();
-                if (row instanceof TableRow) {
+                if (row instanceof TableRow && row.selectable) {
                     row.onSelectionChange(row.selected, !row.selected);
                 } else if (row instanceof TableGroupRow) {
                     this.toggleRowExpanded(row);
