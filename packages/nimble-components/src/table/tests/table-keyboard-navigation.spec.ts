@@ -33,6 +33,7 @@ import { TableCell } from '../components/cell';
 import { TableCellView } from '../../table-column/base/cell-view';
 import type { TableColumn } from '../../table-column/base';
 import { TableGroupRow } from '../components/group-row';
+import { menuItemTag } from '../../menu-item';
 
 interface SimpleTableRecord extends TableRecord {
     id: string;
@@ -621,6 +622,49 @@ describe('Table keyboard navigation', () => {
                             pageObject.getCell(0, 0)
                         );
                     });
+                });
+            });
+
+            describe("when a cell's action menu is focused,", () => {
+                beforeEach(async () => {
+                    await addActionMenu(column1);
+                    await sendKeyPressToTable(keyArrowDown);
+                    await sendKeyPressToTable(keyTab);
+                });
+
+                const tests = [
+                    { name: 'UpArrow', key: keyArrowUp },
+                    { name: 'DownArrow', key: keyArrowDown }
+                ];
+                parameterizeSpec(tests, (spec, name, value) => {
+                    spec(
+                        `pressing ${name} will open the action menu, Esc will close the menu, and another Esc press will focus the (same) cell`,
+                        async () => {
+                            const actionMenuButton = pageObject.getCellActionMenu(0, 0)!;
+                            const toggleListener = createEventListener(
+                                element,
+                                'action-menu-toggle'
+                            );
+                            await sendKeyPress(
+                                actionMenuButton.toggleButton!,
+                                value.key
+                            );
+                            await toggleListener.promise;
+
+                            const firstCell = pageObject.getCell(0, 0);
+                            expect(firstCell.menuOpen).toBe(true);
+
+                            const actionMenuItem = element.querySelector(menuItemTag)!;
+
+                            await sendKeyPress(actionMenuItem, keyEscape);
+
+                            expect(firstCell.menuOpen).toBe(false);
+
+                            await sendKeyPressToTable(keyEscape);
+
+                            expect(currentFocusedElement()).toBe(firstCell);
+                        }
+                    );
                 });
             });
 
