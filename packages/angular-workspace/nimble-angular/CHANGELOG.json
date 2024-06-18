@@ -2,6 +2,27 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Tue, 18 Jun 2024 22:10:11 GMT",
+      "version": "24.5.0",
+      "tag": "@ni/nimble-angular_v24.5.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "9763ab025b9ad497025d67cf9e2a674159bf7b3f",
+            "comment": "Export menu-button page object"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v29.5.0",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 18 Jun 2024 18:31:52 GMT",
       "version": "24.4.11",
       "tag": "@ni/nimble-angular_v24.4.11",

@@ -1,8 +1,17 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Tue, 18 Jun 2024 18:31:52 GMT and should not be manually modified.
+This log was last generated on Tue, 18 Jun 2024 22:10:11 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 24.5.0
+
+Tue, 18 Jun 2024 22:10:11 GMT
+
+### Minor changes
+
+- Export menu-button page object ([ni/nimble@9763ab0](https://github.com/ni/nimble/commit/9763ab025b9ad497025d67cf9e2a674159bf7b3f))
+- Bump @ni/nimble-components to v29.5.0
 
 ## 24.4.11
 

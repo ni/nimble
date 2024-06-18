@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 18 Jun 2024 22:10:11 GMT",
+      "version": "29.5.0",
+      "tag": "@ni/nimble-components_v29.5.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "9763ab025b9ad497025d67cf9e2a674159bf7b3f",
+            "comment": "Create page object for menu button"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 18 Jun 2024 18:31:52 GMT",
       "version": "29.4.2",
       "tag": "@ni/nimble-components_v29.4.2",
