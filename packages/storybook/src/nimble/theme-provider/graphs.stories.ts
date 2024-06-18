@@ -1,29 +1,17 @@
 import type { Meta } from '@storybook/html';
-import { getTokensStory, TokenName } from './tokens';
+import { tokenNames } from '../../../../nimble-components/src/theme-provider/design-token-names';
+import { createUserSelectedThemeStory } from '../../utilities/storybook';
+import { component, metadata } from './tokens';
+import '../../utilities/typed-object-keys';
 
-const graphTokenNames = [
-    'graphGridlineColor',
-    'graphTrace1Color',
-    'graphTrace2Color',
-    'graphTrace3Color',
-    'graphTrace4Color',
-    'graphTrace5Color',
-    'graphTrace6Color',
-    'graphTrace7Color',
-    'graphTrace8Color'
-] as TokenName[];
-
-const metadata: Meta = {
-    title: 'Tokens/Graph Styling',
-    parameters: {
-        docs: {
-            source: {
-                code: null
-            }
-        }
-    }
+const meta: Meta = {
+    ...metadata,
+    title: 'Tokens/Graph Styling'
 };
+export default meta;
 
-export default metadata;
+const graphTokenNames = Object.keys(tokenNames).filter(x => x.startsWith('graph'));
 
-export const graphStyling = getTokensStory(graphTokenNames);
+export const graphStyling = createUserSelectedThemeStory(
+    component(graphTokenNames)
+);

@@ -1,4 +1,4 @@
-import type { StoryObj } from '@storybook/html';
+import type { Meta } from '@storybook/html';
 import { html, repeat, ViewTemplate, when } from '@microsoft/fast-element';
 import { waitForUpdatesAsync } from '../../../../nimble-components/src/testing/async-helpers';
 import { PropertyFormat } from '../../../../nimble-components/src/theme-provider/tests/types';
@@ -18,11 +18,9 @@ import {
     groupHeaderFontColor,
     groupHeaderTextTransform
 } from '../../../../nimble-components/src/theme-provider/design-tokens';
-import { createUserSelectedThemeStory } from '../../utilities/storybook';
 
-export type TokenName = keyof typeof tokens;
-
-export interface TokenArgs {
+type TokenName = keyof typeof tokens;
+interface TokenArgs {
     propertyFormat: PropertyFormat;
 }
 
@@ -111,75 +109,77 @@ const templateForTokenName = (
     return template;
 };
 
-export function getTokensStory(tokenNames: TokenName[]): StoryObj<TokenArgs> {
-    // prettier-ignore
-    const story: StoryObj<TokenArgs> = {
-        parameters: {
-            controls: { hideNoControlsWarning: true }
-        },
-        args: {
-            propertyFormat: PropertyFormat.scss
-        },
-        argTypes: {
-            propertyFormat: {
-                options: Object.values(PropertyFormat),
-                control: { type: 'radio' },
-                name: 'Property Format'
+// prettier-ignore
+export const component = (
+    tokenNames: TokenName[]
+): ViewTemplate => html<TokenArgs>`
+    <style>
+        table {
+            font: var(${bodyFont.cssCustomProperty});
+            color: var(${bodyFontColor.cssCustomProperty});
+        }
+        thead {
+            font: var(${groupHeaderFont.cssCustomProperty});
+            color: var(${groupHeaderFontColor.cssCustomProperty});
+            text-transform: var(${groupHeaderTextTransform.cssCustomProperty});
+        }
+        td { 
+            padding: 10px;
+            height: 32px;
+        }
+    </style>
+    <table>
+        <thead>
+            <tr>
+                <th>${x => x.propertyFormat} Property</th>
+                <th>Preview</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+        ${repeat(() => tokenNames, html<TokenName, TokenArgs>`
+            <tr>
+                <td>
+                    ${when((_, c) => (c.parent as TokenArgs).propertyFormat === PropertyFormat.css, html<TokenName>`
+                        ${x => cssPropertyFromTokenName(tokens[x])}
+                    `)}
+                    ${when((_, c) => (c.parent as TokenArgs).propertyFormat === PropertyFormat.scss, html<TokenName>`
+                        ${x => scssPropertyFromTokenName(tokens[x])}
+                    `)}
+                </td>
+                <td>${x => templateForTokenName(x)}</td>
+                <td>${x => comments[x]}</td>
+            </tr>
+        `)}
+        </tbody>
+    </table>
+`;
+
+export const metadata: Meta = {
+    parameters: {
+        docs: {
+            source: {
+                code: null
             }
         },
-        render: createUserSelectedThemeStory(html<TokenArgs>`
-            <style>
-                table {
-                    font: var(${bodyFont.cssCustomProperty});
-                    color: var(${bodyFontColor.cssCustomProperty});
-                }
-                thead {
-                    font: var(${groupHeaderFont.cssCustomProperty});
-                    color: var(${groupHeaderFontColor.cssCustomProperty});
-                    text-transform: var(${groupHeaderTextTransform.cssCustomProperty});
-                }
-                td { 
-                    padding: 10px;
-                    height: 32px;
-                }
-            </style>
-            <table>
-                <thead>
-                    <tr>
-                        <th>${x => x.propertyFormat} Property</th>
-                        <th>Preview</th>
-                        <th>Description</th>
-                    </tr>
-                </thead>
-                <tbody>
-                ${repeat(() => tokenNames, html<TokenName, TokenArgs>`
-                    <tr>
-                        <td>
-                            ${when((_, c) => (c.parent as TokenArgs).propertyFormat === PropertyFormat.css, html<TokenName>`
-                                ${x => cssPropertyFromTokenName(tokens[x])}
-                            `)}
-                            ${when((_, c) => (c.parent as TokenArgs).propertyFormat === PropertyFormat.scss, html<TokenName>`
-                                ${x => scssPropertyFromTokenName(tokens[x])}
-                            `)}
-                        </td>
-                        <td>${x => templateForTokenName(x)}</td>
-                        <td>${x => comments[x]}</td>
-                    </tr>
-                `)}
-                </tbody>
-            </table>
-        `)
-    };
-
+        controls: { hideNoControlsWarning: true }
+    },
+    args: {
+        propertyFormat: PropertyFormat.scss
+    },
+    argTypes: {
+        propertyFormat: {
+            options: Object.values(PropertyFormat),
+            control: { type: 'radio' },
+            name: 'Property Format'
+        }
+    },
     // Setting token default values is done as part of the FAST render queue so it needs to be cleared before reading them
     // https://github.com/microsoft/fast/blob/bbf4e532cf9263727ef1bd8afbc30d79d1104c03/packages/web-components/fast-foundation/src/design-token/custom-property-manager.ts#LL154C3-L154C3
     // This uses Storybook's "loaders" feature to await the queue. https://storybook.js.org/docs/html/writing-stories/loaders
-    story.loaders = [
-        async () => {
+    loaders: [
+        async (): Promise<void> => {
             await waitForUpdatesAsync();
-            return {};
         }
-    ];
-
-    return story;
-}
+    ]
+};
