@@ -592,7 +592,7 @@ describe('Table keyboard navigation', () => {
                 );
             });
 
-            describe('when a cell\'s action menu is focused, pressing the given key will focus the cell:', () => {
+            describe("when a cell's action menu is focused, pressing the given key will focus the cell:", () => {
                 const tests = [
                     { name: 'Escape', key: keyEscape },
                     { name: 'F2', key: keyFunction2 }
