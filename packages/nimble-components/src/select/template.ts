@@ -125,6 +125,7 @@ SelectOptions
                     part="listbox"
                     role="listbox"
                     ?disabled="${x => x.disabled}"
+                    style="--ni-private-listbox-available-viewport-height: ${x => x.availableViewportHeight}px;"
                     ${ref('listbox')}
                 >
                     ${when(x => x.filterMode !== FilterMode.none, html<Select>`

@@ -1025,7 +1025,6 @@ export class Select
         this.availableViewportHeight = this.position === SelectPosition.above
             ? Math.trunc(currentBox.top)
             : Math.trunc(availableBottom);
-        this.updateListboxAvailableViewportHeightCssVariable();
     }
 
     private updateAdjacentSeparatorState(
@@ -1231,10 +1230,6 @@ export class Select
         this.$emit('filter-input', eventDetail, { bubbles: true });
     }
 
-    private availableViewportHeightChanged(): void {
-        this.updateListboxAvailableViewportHeightCssVariable();
-    }
-
     private initializeOpenState(): void {
         this.setActiveOption(this.selectedIndex);
         this.ariaControls = this.listboxId;
@@ -1242,15 +1237,6 @@ export class Select
 
         this.setPositioning();
         this.focusAndScrollOptionIntoView();
-    }
-
-    private updateListboxAvailableViewportHeightCssVariable(): void {
-        if (this.listbox) {
-            this.listbox.style.setProperty(
-                '--ni-private-listbox-available-viewport-height',
-                `${this.availableViewportHeight}px`
-            );
-        }
     }
 }
 

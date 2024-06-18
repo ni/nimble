@@ -728,10 +728,6 @@ export class Combobox
         this.updateInputAriaLabel();
     }
 
-    private availableViewportHeightChanged(): void {
-        this.updateListboxAvailableViewportHeightCssVariable();
-    }
-
     /**
      * Sets the value and to match the first selected option.
      */
@@ -783,15 +779,6 @@ export class Combobox
             ? this.firstSelectedOption?.text
             : this.control.value;
         this.updateValue(this.value !== newValue);
-    }
-
-    private updateListboxAvailableViewportHeightCssVariable(): void {
-        if (this.listbox) {
-            this.listbox.style.setProperty(
-                '--ni-private-listbox-available-viewport-height',
-                `${this.availableViewportHeight}px`
-            );
-        }
     }
 
     private updateInputAriaLabel(): void {

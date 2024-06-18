@@ -139,12 +139,11 @@ export const styles = css`
         overflow-y: auto;
         width: 100%;
         --ni-private-listbox-padding: ${smallPadding};
-        --ni-private-listbox-border-width: 1px;
         --ni-private-listbox-filter-height: 0px;
         --ni-private-listbox-loading-indicator-height: 0px;
         max-height: min(
             calc(
-                ${smallPadding} + 2 * var(--ni-private-listbox-border-width) +
+                ${smallPadding} + 2 * ${borderWidth} +
                     ${controlHeight} * 10.5 +
                     var(--ni-private-listbox-filter-height) +
                     var(--ni-private-listbox-loading-indicator-height)
@@ -155,7 +154,7 @@ export const styles = css`
             )
         );
         box-shadow: ${elevation2BoxShadow};
-        border: var(--ni-private-listbox-border-width) solid ${popupBorderColor};
+        border: ${borderWidth} solid ${popupBorderColor};
         background-color: ${applicationBackgroundColor};
     }
 
