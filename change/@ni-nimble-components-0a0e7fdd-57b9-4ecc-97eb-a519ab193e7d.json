@@ -1,7 +1,0 @@
-{
-  "type": "none",
-  "comment": "Fix intermittent tests on rich text editor",
-  "packageName": "@ni/nimble-components",
-  "email": "123377523+vivinkrishna-ni@users.noreply.github.com",
-  "dependentChangeType": "none"
-}

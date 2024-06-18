@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 18 Jun 2024 16:39:30 GMT",
+      "version": "29.4.1",
+      "tag": "@ni/nimble-components_v29.4.1",
+      "comments": {
+        "none": [
+          {
+            "author": "123377523+vivinkrishna-ni@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "b3cf1500163c84dd7caee3ed350c36afd2979d1b",
+            "comment": "Fix intermittent tests on rich text editor"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 17 Jun 2024 22:45:32 GMT",
       "version": "29.4.1",
       "tag": "@ni/nimble-components_v29.4.1",
