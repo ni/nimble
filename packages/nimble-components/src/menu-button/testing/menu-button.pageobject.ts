@@ -18,10 +18,17 @@ import { waitForEventAsync } from '../../utilities/tests/component';
 export class MenuButtonPageObject {
     public constructor(protected readonly menuButtonElement: MenuButton) {}
 
+    /**
+     * @returns Whether or not the menu is open.
+     */
     public isOpen(): boolean {
         return this.menuButtonElement.open;
     }
 
+    /**
+     * Opens the menu.
+     * @returns A promise that resolves when the menu opens.
+     */
     public async openMenu(): Promise<void> {
         if (this.isOpen()) {
             return;
@@ -35,6 +42,10 @@ export class MenuButtonPageObject {
         await toggleEventPromise;
     }
 
+    /**
+     * Closes the menu by pressing Escape.
+     * Throws an error if the menu is not open.
+     */
     public closeMenuWithEscape(): void {
         if (!this.isOpen()) {
             throw new Error('Cannot close menu when it is not open');
@@ -46,11 +57,18 @@ export class MenuButtonPageObject {
         this.menuButtonElement.region!.dispatchEvent(event);
     }
 
+    /**
+     * Gets the text in the menu button.
+     * @returns The trimmed text that is slotted into the menu button.
+     */
     public getLabelText(): string {
         return this.menuButtonElement.textContent?.trim() ?? '';
     }
 
-    /** @internal */
+    /**
+     * @internal
+     * Focuses and clicks the menu button.
+     */
     public clickMenuButton(): void {
         // Focus the menu button before calling click() because ordinarily a mouse click
         // would bring focus to the button, but calling click() directly does not.
@@ -58,7 +76,10 @@ export class MenuButtonPageObject {
         this.menuButtonElement.toggleButton!.control.click();
     }
 
-    /** @internal */
+    /**
+     * @internal
+     * Presses the Enter key on the menu button.
+     */
     public pressEnterKey(): void {
         const event = new KeyboardEvent('keypress', {
             key: keyEnter
@@ -66,7 +87,10 @@ export class MenuButtonPageObject {
         this.menuButtonElement.toggleButton!.control.dispatchEvent(event);
     }
 
-    /** @internal */
+    /**
+     * @internal
+     * Presses the Space key on the menu button.
+     */
     public pressSpaceKey(): void {
         const event = new KeyboardEvent('keypress', {
             key: keySpace
@@ -74,7 +98,10 @@ export class MenuButtonPageObject {
         this.menuButtonElement.toggleButton!.control.dispatchEvent(event);
     }
 
-    /** @internal */
+    /**
+     * @internal
+     * Presses the Arrow Up key on the menu button.
+     */
     public pressArrowUpKey(): void {
         const event = new KeyboardEvent('keydown', {
             key: keyArrowUp
@@ -82,7 +109,10 @@ export class MenuButtonPageObject {
         this.menuButtonElement.toggleButton!.dispatchEvent(event);
     }
 
-    /** @internal */
+    /**
+     * @internal
+     * Presses the Arrow Down key on the menu button.
+     */
     public pressArrowDownKey(): void {
         const event = new KeyboardEvent('keydown', {
             key: keyArrowDown
