@@ -443,6 +443,11 @@ export class RichTextEditorPageObject {
         this.richTextEditorElement.tiptapEditor.commands.focus('start');
     }
 
+    public async focusEditor(): Promise<void> {
+        this.richTextEditorElement.tiptapEditor.commands.focus();
+        await waitForUpdatesAsync();
+    }
+
     public getCursorPosition(): number {
         return this.richTextEditorElement.tiptapEditor.state.selection.anchor;
     }

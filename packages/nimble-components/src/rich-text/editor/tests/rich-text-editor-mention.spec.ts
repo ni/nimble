@@ -1173,14 +1173,16 @@ describe('RichTextEditorMentionListbox', () => {
             expect(pageObject.getSelectedOption()).toBe('user2 name');
         });
 
-        // Intermittent, see https://github.com/ni/nimble/issues/2150
-        xit('should commit mention into the editor when clicked', async () => {
+        it('should commit mention into the editor when clicked', async () => {
             await appendUserMentionConfiguration(element, [
                 { key: 'user:1', displayName: 'username1' }
             ]);
             expect(pageObject.isMentionListboxOpened()).toBeFalse();
             await pageObject.setEditorTextContent('@');
             expect(pageObject.isMentionListboxOpened()).toBeTrue();
+            // Editor loses focus when a mention popup is opened
+            // So focusing the editor before committing the mention node
+            await pageObject.focusEditor();
             await pageObject.clickMentionListboxOption(0);
 
             expect(pageObject.getMarkdownRenderedTagNames()).toEqual([
@@ -1193,14 +1195,16 @@ describe('RichTextEditorMentionListbox', () => {
             expect(pageObject.isMentionListboxOpened()).toBeFalse();
         });
 
-        // Intermittent, see https://github.com/ni/nimble/issues/2150
-        xit('should commit mention into the editor on Enter', async () => {
+        it('should commit mention into the editor on Enter', async () => {
             await appendUserMentionConfiguration(element, [
                 { key: 'user:1', displayName: 'username1' }
             ]);
             expect(pageObject.isMentionListboxOpened()).toBeFalse();
             await pageObject.setEditorTextContent('@');
             expect(pageObject.isMentionListboxOpened()).toBeTrue();
+            // Editor loses focus when a mention popup is opened
+            // So focusing the editor before committing the mention node
+            await pageObject.focusEditor();
             await pageObject.pressEnterKeyInEditor();
 
             expect(pageObject.getMarkdownRenderedTagNames()).toEqual([
@@ -1213,14 +1217,16 @@ describe('RichTextEditorMentionListbox', () => {
             expect(pageObject.isMentionListboxOpened()).toBeFalse();
         });
 
-        // Intermittent, see https://github.com/ni/nimble/issues/2150
-        xit('should commit mention into the editor on Tab', async () => {
+        it('should commit mention into the editor on Tab', async () => {
             await appendUserMentionConfiguration(element, [
                 { key: 'user:1', displayName: 'username1' }
             ]);
             expect(pageObject.isMentionListboxOpened()).toBeFalse();
             await pageObject.setEditorTextContent('@');
             expect(pageObject.isMentionListboxOpened()).toBeTrue();
+            // Editor loses focus when a mention popup is opened
+            // So focusing the editor before committing the mention node
+            await pageObject.focusEditor();
             await pageObject.pressTabKeyInEditor();
 
             expect(pageObject.getMarkdownRenderedTagNames()).toEqual([
@@ -1245,8 +1251,7 @@ describe('RichTextEditorMentionListbox', () => {
             expect(pageObject.isMentionListboxOpened()).toBeFalse();
         });
 
-        // Intermittent, see https://github.com/ni/nimble/issues/2150
-        xit('should filter and commit first mention into the editor on Enter', async () => {
+        it('should filter and commit first mention into the editor on Enter', async () => {
             await appendUserMentionConfiguration(element, [
                 { key: 'user:1', displayName: 'username1' },
                 { key: 'user:2', displayName: 'username2' }
@@ -1255,6 +1260,9 @@ describe('RichTextEditorMentionListbox', () => {
             expect(pageObject.getMentionListboxItemsName()).toEqual([
                 'username2'
             ]);
+            // Editor loses focus when a mention popup is opened
+            // So focusing the editor before committing the mention node
+            await pageObject.focusEditor();
             await pageObject.pressEnterKeyInEditor();
 
             expect(pageObject.getMarkdownRenderedTagNames()).toEqual([
@@ -1266,8 +1274,7 @@ describe('RichTextEditorMentionListbox', () => {
             ).toEqual(['username2']);
         });
 
-        // Intermittent, see https://github.com/ni/nimble/issues/2150
-        xit('should filter and commit first mention into the editor on Tab', async () => {
+        it('should filter and commit first mention into the editor on Tab', async () => {
             await appendUserMentionConfiguration(element, [
                 { key: 'user:1', displayName: 'username1' },
                 { key: 'user:2', displayName: 'username2' }
@@ -1276,6 +1283,9 @@ describe('RichTextEditorMentionListbox', () => {
             expect(pageObject.getMentionListboxItemsName()).toEqual([
                 'username2'
             ]);
+            // Editor loses focus when a mention popup is opened
+            // So focusing the editor before committing the mention node
+            await pageObject.focusEditor();
             await pageObject.pressTabKeyInEditor();
 
             expect(pageObject.getMarkdownRenderedTagNames()).toEqual([
@@ -1547,8 +1557,7 @@ describe('RichTextEditorMentionListbox', () => {
             expect(pageObject.isMentionListboxOpened()).toBeTrue();
         });
 
-        // Intermittent, see https://github.com/ni/nimble/issues/2150
-        xit('should show mention popup for multiple mention configuration elements', async () => {
+        it('should show mention popup for multiple mention configuration elements', async () => {
             await appendUserMentionConfiguration(element, [
                 { key: 'user:1', displayName: 'username1' },
                 { key: 'user:2', displayName: 'username2' }
@@ -1559,6 +1568,9 @@ describe('RichTextEditorMentionListbox', () => {
                 'username1',
                 'username2'
             ]);
+            // Editor loses focus when a mention popup is opened
+            // So focusing the editor before committing the mention node
+            await pageObject.focusEditor();
             await pageObject.clickMentionListboxOption(0);
             await appendTestMentionConfiguration(element, [
                 { key: 'test:1', displayName: 'testname1' },
