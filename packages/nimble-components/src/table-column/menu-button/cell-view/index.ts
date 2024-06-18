@@ -29,9 +29,7 @@ export class TableColumnMenuButtonCellView extends TableCellView<TableColumnMenu
     @observable
     public hasOverflow = false;
 
-    public override focusedRecycleCallback(): void {
-        this.menuButton?.blur();
-    }
+    // TODO: Override tabbableChildren getter
 
     /** @internal */
     public onMenuButtonBeforeToggle(event: CustomEvent<MenuButtonToggleEventDetail>): boolean {

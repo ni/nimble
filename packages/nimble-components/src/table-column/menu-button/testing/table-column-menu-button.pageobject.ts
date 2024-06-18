@@ -3,7 +3,6 @@ import { MenuButtonPageObject } from '../../../menu-button/testing/menu-button.p
 import type { TablePageObject } from '../../../table/testing/table.pageobject';
 import type { TableRecord } from '../../../table/types';
 import { createEventListener } from '../../../utilities/tests/component';
-import type { MenuButtonColumnToggleEventDetail } from '../types';
 
 /**
  * Page object for `nimble-table-column-menu-button`.
