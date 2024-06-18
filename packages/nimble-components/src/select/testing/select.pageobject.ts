@@ -300,6 +300,14 @@ export class SelectPageObject {
         );
     }
 
+    public isLoadingVisualVisible(): boolean {
+        return (
+            this.selectElement.shadowRoot?.querySelector(
+                '.loading-container'
+            ) !== null
+        );
+    }
+
     public getFilterInputText(): string {
         return this.selectElement.filterInput?.value ?? '';
     }
