@@ -1180,9 +1180,6 @@ describe('RichTextEditorMentionListbox', () => {
             expect(pageObject.isMentionListboxOpened()).toBeFalse();
             await pageObject.setEditorTextContent('@');
             expect(pageObject.isMentionListboxOpened()).toBeTrue();
-            // Editor loses focus when a mention popup is opened
-            // So focusing the editor before committing the mention node
-            await pageObject.focusEditor();
             await pageObject.clickMentionListboxOption(0);
 
             expect(pageObject.getMarkdownRenderedTagNames()).toEqual([
@@ -1202,9 +1199,6 @@ describe('RichTextEditorMentionListbox', () => {
             expect(pageObject.isMentionListboxOpened()).toBeFalse();
             await pageObject.setEditorTextContent('@');
             expect(pageObject.isMentionListboxOpened()).toBeTrue();
-            // Editor loses focus when a mention popup is opened
-            // So focusing the editor before committing the mention node
-            await pageObject.focusEditor();
             await pageObject.pressEnterKeyInEditor();
 
             expect(pageObject.getMarkdownRenderedTagNames()).toEqual([
@@ -1224,9 +1218,6 @@ describe('RichTextEditorMentionListbox', () => {
             expect(pageObject.isMentionListboxOpened()).toBeFalse();
             await pageObject.setEditorTextContent('@');
             expect(pageObject.isMentionListboxOpened()).toBeTrue();
-            // Editor loses focus when a mention popup is opened
-            // So focusing the editor before committing the mention node
-            await pageObject.focusEditor();
             await pageObject.pressTabKeyInEditor();
 
             expect(pageObject.getMarkdownRenderedTagNames()).toEqual([
@@ -1260,9 +1251,6 @@ describe('RichTextEditorMentionListbox', () => {
             expect(pageObject.getMentionListboxItemsName()).toEqual([
                 'username2'
             ]);
-            // Editor loses focus when a mention popup is opened
-            // So focusing the editor before committing the mention node
-            await pageObject.focusEditor();
             await pageObject.pressEnterKeyInEditor();
 
             expect(pageObject.getMarkdownRenderedTagNames()).toEqual([
@@ -1283,9 +1271,6 @@ describe('RichTextEditorMentionListbox', () => {
             expect(pageObject.getMentionListboxItemsName()).toEqual([
                 'username2'
             ]);
-            // Editor loses focus when a mention popup is opened
-            // So focusing the editor before committing the mention node
-            await pageObject.focusEditor();
             await pageObject.pressTabKeyInEditor();
 
             expect(pageObject.getMarkdownRenderedTagNames()).toEqual([
@@ -1568,9 +1553,6 @@ describe('RichTextEditorMentionListbox', () => {
                 'username1',
                 'username2'
             ]);
-            // Editor loses focus when a mention popup is opened
-            // So focusing the editor before committing the mention node
-            await pageObject.focusEditor();
             await pageObject.clickMentionListboxOption(0);
             await appendTestMentionConfiguration(element, [
                 { key: 'test:1', displayName: 'testname1' },
