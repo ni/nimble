@@ -955,13 +955,19 @@ describe('Table keyboard navigation', () => {
                 await sendKeyPressToTable(keyArrowRight);
 
                 await sendKeyPressToTable(keyArrowDown);
-                expect(currentFocusedElement()).toBe(pageObject.getRow(1).selectionCheckbox!);
+                expect(currentFocusedElement()).toBe(
+                    pageObject.getRow(1).selectionCheckbox!
+                );
 
                 await sendKeyPressToTable(keyArrowDown);
-                expect(currentFocusedElement()).toBe(pageObject.getRow(2).selectionCheckbox!);
+                expect(currentFocusedElement()).toBe(
+                    pageObject.getRow(2).selectionCheckbox!
+                );
 
                 await sendKeyPressToTable(keyArrowDown);
-                expect(currentFocusedElement()).toBe(pageObject.getRow(3).selectionCheckbox!);
+                expect(currentFocusedElement()).toBe(
+                    pageObject.getRow(3).selectionCheckbox!
+                );
             });
 
             it('pressing Home when a cell is focused will focus the row selection checkbox', async () => {
