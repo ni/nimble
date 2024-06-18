@@ -789,6 +789,20 @@ describe('Table keyboard navigation', () => {
                     originalFocusedCellId
                 );
             });
+
+            it('if a cell is focused, then the table loses focus, it does not steal focus back on scroll', async () => {
+                await sendKeyPressesToTable(
+                    keyArrowDown,
+                    keyArrowDown,
+                    keyArrowDown
+                );
+
+                currentFocusedElement()!.blur();
+                await pageObject.scrollToLastRowAsync();
+                await pageObject.scrollToFirstRowAsync();
+
+                expect(currentFocusedElement()).toBe(document.body);
+            });
         });
 
         it('for a simple table with no columns sortable, on initial table focus, the 1st row is focused', async () => {

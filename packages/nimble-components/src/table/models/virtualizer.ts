@@ -14,8 +14,6 @@ import type { Table } from '..';
 import type { TableNode, TableRecord } from '../types';
 import { TableCellView } from '../../table-column/base/cell-view';
 import { TableRow } from '../components/row';
-import { TableCell } from '../components/cell';
-import { MenuButton } from '../../menu-button';
 
 /**
  * Helper class for the nimble-table for row virtualization.
@@ -140,20 +138,11 @@ export class Virtualizer<TData extends TableRecord = TableRecord> {
 
     private notifyFocusedCellRecycling(): void {
         let tableFocusedElement = this.table.shadowRoot!.activeElement;
-        let parentFocusedElement: Element | undefined;
-        let focusedActionMenuButton: MenuButton | undefined;
         while (
             tableFocusedElement !== null
             && !(tableFocusedElement instanceof TableCellView)
         ) {
-            if (
-                tableFocusedElement instanceof MenuButton
-                && parentFocusedElement instanceof TableCell
-            ) {
-                focusedActionMenuButton = tableFocusedElement;
-            }
             if (tableFocusedElement.shadowRoot) {
-                parentFocusedElement = tableFocusedElement;
                 tableFocusedElement = tableFocusedElement.shadowRoot.activeElement;
             } else {
                 break;
@@ -168,9 +157,6 @@ export class Virtualizer<TData extends TableRecord = TableRecord> {
                     && row.recordId === this.table.openActionMenuRecordId
             ) as TableRow | undefined;
             activeRow?.closeOpenActionMenus();
-        }
-        if (focusedActionMenuButton) {
-            focusedActionMenuButton.blur();
         }
     }
 }

@@ -51,6 +51,7 @@ implements Subscriber {
     private rowIndex = -1;
     private cellContentIndex = -1;
     private columnIndex = -1;
+    private focusWithinTable = false;
     private readonly tableNotifier: Notifier;
     private readonly virtualizerNotifier: Notifier;
     private visibleRowNotifiers: Notifier[] = [];
@@ -70,6 +71,9 @@ implements Subscriber {
         });
         table.addEventListener('keydown', e => this.onKeyDown(e));
         table.addEventListener('focusin', e => this.handleFocus(e));
+        table.addEventListener('focusout', () => {
+            this.focusWithinTable = false;
+        });
         this.tableNotifier = Observable.getNotifier(this.table);
         this.tableNotifier.subscribe(this, 'rowElements');
         this.virtualizerNotifier = Observable.getNotifier(this.virtualizer);
@@ -166,11 +170,17 @@ implements Subscriber {
                     if (this.table.tableData.length > 0) {
                         this.rowIndex = 0;
                     } else {
-                        this.setDefaultFocus();
+                        if (this.focusWithinTable) {
+                            this.setDefaultFocus();
+                        } else {
+                            this.focusType = TableFocusType.none;
+                        }
                         return;
                     }
                 }
-                this.focusCurrentRow(false);
+                if (this.focusWithinTable) {
+                    this.focusCurrentRow(false);
+                }
             }
         }
     }
@@ -211,6 +221,7 @@ implements Subscriber {
     }
 
     private readonly handleFocus = (event: FocusEvent): void => {
+        this.focusWithinTable = true;
         this.updateFocusStateFromActiveElement(false);
 
         // Sets initial focus on the appropriate table content
