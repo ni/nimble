@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Mon, 17 Jun 2024 22:45:32 GMT",
+      "version": "29.4.1",
+      "tag": "@ni/nimble-components_v29.4.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "e3eff22ac6f9d523126c3834afcd90413c4a0b77",
+            "comment": "Fixing scenario where list option in a group would not call registerOwner on Select."
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 17 Jun 2024 16:38:20 GMT",
       "version": "29.4.0",
       "tag": "@ni/nimble-components_v29.4.0",
