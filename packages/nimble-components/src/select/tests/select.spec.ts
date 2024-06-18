@@ -2027,10 +2027,16 @@ describe('Select', () => {
             ]);
         });
 
-        it('exercise getOptionLabels', async () => {
+        it('exercise getGroupOptionLabelsByIndex', async () => {
             await clickAndWaitForOpen(element);
-            const optionLabels = pageObject.getGroupOptionLabels(0);
+            const optionLabels = pageObject.getGroupOptionLabelsByIndex(0);
             expect(optionLabels).toEqual(['One', 'Two', 'Edge']);
+        });
+
+        it('exercise getGroupOptionLabelsByLabel', async () => {
+            await clickAndWaitForOpen(element);
+            const optionLabels = pageObject.getGroupOptionLabelsByLabel('Group Two');
+            expect(optionLabels).toEqual(['Three', 'Four']);
         });
     });
 });
