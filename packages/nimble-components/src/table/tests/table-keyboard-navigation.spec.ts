@@ -542,6 +542,8 @@ describe('Table keyboard navigation', () => {
                 expect(firstRow.tabIndex).toBe(-1);
             });
 
+            // This test relies on :focus-visible styling for the action menus to show, and programmatic focus / key events don't seem to
+            // trigger that for Firefox/WebKit.
             it('when a row is focused, all action menus in that row are visible (and otherwise hidden) #SkipFirefox #SkipWebkit', async () => {
                 await addActionMenu(column2);
                 await addActionMenu(column3);
@@ -555,6 +557,8 @@ describe('Table keyboard navigation', () => {
                 expect(pageObject.isCellActionMenuVisible(0, 2)).toBe(false);
             });
 
+            // This test relies on :focus-visible styling for the action menus to show, and programmatic focus / key events don't seem to
+            // trigger that for Firefox/WebKit.
             it('when a cell is focused, its action menu is visible #SkipFirefox #SkipWebkit', async () => {
                 await addActionMenu(column1);
 
@@ -588,7 +592,7 @@ describe('Table keyboard navigation', () => {
                 );
             });
 
-            describe("when a cell's action menu is focused, pressing the given key will focus the cell:", () => {
+            describe('when a cell\'s action menu is focused, pressing the given key will focus the cell:', () => {
                 const tests = [
                     { name: 'Escape', key: keyEscape },
                     { name: 'F2', key: keyFunction2 }
