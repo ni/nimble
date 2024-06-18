@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Mon, 17 Jun 2024 22:45:32 GMT and should not be manually modified.
+This log was last generated on Tue, 18 Jun 2024 18:31:52 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 29.4.2
+
+Tue, 18 Jun 2024 18:31:52 GMT
+
+### Patches
+
+- Adding new SelectPageObject API. ([ni/nimble@7de6721](https://github.com/ni/nimble/commit/7de67217535a774170e2af1f5794ba308a085c3d))
 
 ## 29.4.1
 
