@@ -2,6 +2,42 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Tue, 18 Jun 2024 18:31:52 GMT",
+      "version": "24.4.11",
+      "tag": "@ni/nimble-angular_v24.4.11",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v29.4.2",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 17 Jun 2024 22:45:32 GMT",
+      "version": "24.4.10",
+      "tag": "@ni/nimble-angular_v24.4.10",
+      "comments": {
+        "patch": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "e3eff22ac6f9d523126c3834afcd90413c4a0b77",
+            "comment": "Fixing scenario where list option in a group would not call registerOwner on Select."
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v29.4.1",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 17 Jun 2024 16:38:20 GMT",
       "version": "24.4.9",
       "tag": "@ni/nimble-angular_v24.4.9",

@@ -1,8 +1,25 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Mon, 17 Jun 2024 16:38:20 GMT and should not be manually modified.
+This log was last generated on Tue, 18 Jun 2024 18:31:52 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 24.4.11
+
+Tue, 18 Jun 2024 18:31:52 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v29.4.2
+
+## 24.4.10
+
+Mon, 17 Jun 2024 22:45:32 GMT
+
+### Patches
+
+- Fixing scenario where list option in a group would not call registerOwner on Select. ([ni/nimble@e3eff22](https://github.com/ni/nimble/commit/e3eff22ac6f9d523126c3834afcd90413c4a0b77))
+- Bump @ni/nimble-components to v29.4.1
 
 ## 24.4.9
 
