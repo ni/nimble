@@ -19,10 +19,9 @@ import {
     groupHeaderTextTransform
 } from '../../../../nimble-components/src/theme-provider/design-tokens';
 import { createUserSelectedThemeStory } from '../../utilities/storybook';
-import '../../utilities/typed-object-keys';
 
 type TokenName = keyof typeof tokens;
-const tokenNames = Object.keys(tokens);
+const tokenNames = Object.keys(tokens) as TokenName[];
 tokenNames.sort((a, b) => a.localeCompare(b));
 const graphTokenNames = tokenNames.filter(x => x.startsWith('graph'));
 
