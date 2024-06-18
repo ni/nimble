@@ -494,6 +494,21 @@ describe('Table keyboard navigation', () => {
                     );
                 });
 
+                it('consecutive DownArrow presses focus each cell to the bottom in subsequent rows', async () => {
+                    await sendKeyPressToTable(keyArrowDown);
+                    expect(currentFocusedElement()).toBe(
+                        pageObject.getCell(1, 0)
+                    );
+                    await sendKeyPressToTable(keyArrowDown);
+                    expect(currentFocusedElement()).toBe(
+                        pageObject.getCell(2, 0)
+                    );
+                    await sendKeyPressToTable(keyArrowDown);
+                    expect(currentFocusedElement()).toBe(
+                        pageObject.getCell(3, 0)
+                    );
+                });
+
                 it('with no tabbable elements in the row, pressing Tab will move focus past the table', async () => {
                     const keyEvent = await sendKeyPressToTable(keyTab);
 
@@ -934,6 +949,19 @@ describe('Table keyboard navigation', () => {
                 expect(currentFocusedElement()).toBe(
                     pageObject.getRow(0).selectionCheckbox!
                 );
+            });
+
+            it('pressing DownArrow multiple times when the row selection checkbox is focused will focus the row selection checkbox on subsequent rows', async () => {
+                await sendKeyPressToTable(keyArrowRight);
+
+                await sendKeyPressToTable(keyArrowDown);
+                expect(currentFocusedElement()).toBe(pageObject.getRow(1).selectionCheckbox!);
+
+                await sendKeyPressToTable(keyArrowDown);
+                expect(currentFocusedElement()).toBe(pageObject.getRow(2).selectionCheckbox!);
+
+                await sendKeyPressToTable(keyArrowDown);
+                expect(currentFocusedElement()).toBe(pageObject.getRow(3).selectionCheckbox!);
             });
 
             it('pressing Home when a cell is focused will focus the row selection checkbox', async () => {

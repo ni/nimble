@@ -52,6 +52,7 @@ implements Subscriber {
     private cellContentIndex = -1;
     private columnIndex = -1;
     private focusWithinTable = false;
+    private isCurrentlyFocusingElement = false;
     private readonly tableNotifier: Notifier;
     private readonly virtualizerNotifier: Notifier;
     private visibleRowNotifiers: Notifier[] = [];
@@ -186,11 +187,14 @@ implements Subscriber {
     }
 
     public onRowFocusIn(event: FocusEvent): void {
-        // If user focuses a row some other way (e.g. mouse), update our focus state so future keyboard nav
-        // will start from that row
+        if (this.isCurrentlyFocusingElement) {
+            return;
+        }
         const row = event.target;
         if (row instanceof TableRow || row instanceof TableGroupRow) {
             if (this.rowIndex !== row.rowStateIndex) {
+                // If user focuses a row some other way (e.g. mouse), update our focus state so future keyboard nav
+                // will start from that row
                 this.setRowFocusState(row.rowStateIndex);
             }
         }
@@ -842,7 +846,9 @@ implements Subscriber {
         const previousActiveElement = this.getActiveElement();
         if (previousActiveElement !== element) {
             this.setElementFocusable(element, true);
+            this.isCurrentlyFocusingElement = true;
             element.focus(focusOptions);
+            this.isCurrentlyFocusingElement = false;
             if (
                 previousActiveElement
                 && this.isInTable(previousActiveElement)
