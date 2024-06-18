@@ -518,7 +518,9 @@ implements Subscriber {
     }
 
     private onUpArrowPressed(): boolean {
-        return this.onMoveUp(1);
+        this.onMoveUp(1);
+        // Always prevent default - prevents page scroll, and FireFox changing focus if focus is at table extents
+        return true;
     }
 
     private onPageUpPressed(): boolean {
@@ -539,7 +541,9 @@ implements Subscriber {
     }
 
     private onDownArrowPressed(): boolean {
-        return this.onMoveDown(1);
+        this.onMoveDown(1);
+        // Always prevent default - prevents page scroll, and FireFox changing focus if focus is at table extents
+        return true;
     }
 
     private onPageDownPressed(): boolean {
