@@ -54,9 +54,9 @@ const component = ({
 }: SelectMatrixStoryOptions): ViewTemplate => html`
     <${selectTag} open 
         position="${() => positionState}"
-        style="${() => (positionState === DropdownPosition.below ? 'margin-bottom: 120px;' : `margin-top: ${manyOptions ? 430 : 180}px;`)}"
-        style="${isChromatic() ? '--ni-private-spinner-animation-play-state:paused' : ''}"
-        style="width: 250px;"
+        style="width: 250px;
+            ${() => (positionState === DropdownPosition.below ? 'margin-bottom: 120px;' : `margin-top: ${manyOptions ? 430 : 180}px;`)}
+            ${isChromatic() ? '--ni-private-spinner-animation-play-state:paused;' : ''}"
         filter-mode="${() => filterMode}"
         loading-visible="${() => loadingVisible}"
     >
