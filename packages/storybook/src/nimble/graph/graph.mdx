@@ -1,5 +1,6 @@
 import { Canvas, Meta, Controls, Title } from '@storybook/blocks';
-import * as graphStories from './graphs.stories';
+import * as graphStories from './graph.stories';
+import * as tokenStories from '../theme-provider/tokens.stories';
 
 <Meta of={graphStories} />
 <Title of={graphStories} />
@@ -8,8 +9,8 @@ The Nimble Design System does not provide a graph component, but theme-aware
 tokens are available for styling custom or third-party graph components to match
 the Nimble Design System.
 
-<Canvas of={graphStories.graphStyling} />
-<Controls of={graphStories.graphStyling} />
+<Canvas of={tokenStories.graphTokens} />
+<Controls of={tokenStories.graphTokens} />
 
 ## Usage
 
