@@ -9,7 +9,8 @@ import {
     popupIconWarningLabel,
     popupIconInformationLabel,
     filterSearchLabel,
-    filterNoResultsLabel
+    filterNoResultsLabel,
+    loadingLabel
 } from './label-tokens';
 import { styles } from '../base/styles';
 
@@ -27,7 +28,8 @@ const supportedLabels = {
     popupIconWarning: popupIconWarningLabel,
     popupIconInformation: popupIconInformationLabel,
     filterSearch: filterSearchLabel,
-    filterNoResults: filterNoResultsLabel
+    filterNoResults: filterNoResultsLabel,
+    loading: loadingLabel
 } as const;
 
 /**
@@ -59,6 +61,9 @@ export class LabelProviderCore
 
     @attr({ attribute: 'filter-no-results' })
     public filterNoResults: string | undefined;
+
+    @attr({ attribute: 'loading' })
+    public loading: string | undefined;
 
     protected override readonly supportedLabels = supportedLabels;
 }
