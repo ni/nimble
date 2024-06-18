@@ -1,8 +1,48 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Thu, 13 Jun 2024 17:01:38 GMT and should not be manually modified.
+This log was last generated on Tue, 18 Jun 2024 22:10:11 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 29.5.0
+
+Tue, 18 Jun 2024 22:10:11 GMT
+
+### Minor changes
+
+- Create page object for menu button ([ni/nimble@9763ab0](https://github.com/ni/nimble/commit/9763ab025b9ad497025d67cf9e2a674159bf7b3f))
+
+## 29.4.2
+
+Tue, 18 Jun 2024 18:31:52 GMT
+
+### Patches
+
+- Adding new SelectPageObject API. ([ni/nimble@7de6721](https://github.com/ni/nimble/commit/7de67217535a774170e2af1f5794ba308a085c3d))
+
+## 29.4.1
+
+Mon, 17 Jun 2024 22:45:32 GMT
+
+### Patches
+
+- Fixing scenario where list option in a group would not call registerOwner on Select. ([ni/nimble@e3eff22](https://github.com/ni/nimble/commit/e3eff22ac6f9d523126c3834afcd90413c4a0b77))
+
+## 29.4.0
+
+Mon, 17 Jun 2024 16:38:20 GMT
+
+### Minor changes
+
+- Select manual filtering APIs ([ni/nimble@30fe9fc](https://github.com/ni/nimble/commit/30fe9fced9935c89e7e5f5b0a9c263eccdb77375))
+
+## 29.3.7
+
+Mon, 17 Jun 2024 15:13:30 GMT
+
+### Patches
+
+- Remove unneeded rollup dependencies ([ni/nimble@4befcd5](https://github.com/ni/nimble/commit/4befcd5173fc83a2e3d352f5f69f1e45de4221e1))
 
 ## 29.3.6
 
