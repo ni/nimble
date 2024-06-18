@@ -6,7 +6,7 @@ import {
     keySpace
 } from '@microsoft/fast-web-utilities';
 import type { MenuButton } from '..';
-import { createEventListener } from '../../utilities/tests/component';
+import { waitForEventAsync } from '../../utilities/tests/component';
 
 /**
  * Page object for `nimble-menu-button` component to provide consistent ways
@@ -22,52 +22,17 @@ export class MenuButtonPageObject {
         return this.menuButtonElement.open;
     }
 
-    public clickMenuButton(): void {
-        // Focus the menu button before calling click() because ordinarily a mouse click
-        // would bring focus to the button, but calling click() directly does not.
-        this.menuButtonElement.focus();
-        this.menuButtonElement.toggleButton!.control.click();
-    }
-
     public async openMenu(): Promise<void> {
         if (this.isOpen()) {
             return;
         }
 
-        const toggleListener = createEventListener(
+        const toggleEventPromise = waitForEventAsync(
             this.menuButtonElement,
             'toggle'
         );
         this.clickMenuButton();
-        await toggleListener.promise;
-    }
-
-    public pressEnterOnMenuButton(): void {
-        const event = new KeyboardEvent('keypress', {
-            key: keyEnter
-        } as KeyboardEventInit);
-        this.menuButtonElement.toggleButton!.control.dispatchEvent(event);
-    }
-
-    public pressSpaceOnMenuButton(): void {
-        const event = new KeyboardEvent('keypress', {
-            key: keySpace
-        } as KeyboardEventInit);
-        this.menuButtonElement.toggleButton!.control.dispatchEvent(event);
-    }
-
-    public pressArrowUpOnMenuButton(): void {
-        const event = new KeyboardEvent('keydown', {
-            key: keyArrowUp
-        } as KeyboardEventInit);
-        this.menuButtonElement.toggleButton!.dispatchEvent(event);
-    }
-
-    public pressArrowDownOnMenuButton(): void {
-        const event = new KeyboardEvent('keydown', {
-            key: keyArrowDown
-        } as KeyboardEventInit);
-        this.menuButtonElement.toggleButton!.dispatchEvent(event);
+        await toggleEventPromise;
     }
 
     public closeMenuWithEscape(): void {
@@ -77,11 +42,51 @@ export class MenuButtonPageObject {
 
         const event = new KeyboardEvent('keydown', {
             key: keyEscape
-        } as KeyboardEventInit);
+        });
         this.menuButtonElement.region!.dispatchEvent(event);
     }
 
     public getLabelText(): string {
         return this.menuButtonElement.textContent?.trim() ?? '';
+    }
+
+    /** @internal */
+    public clickMenuButton(): void {
+        // Focus the menu button before calling click() because ordinarily a mouse click
+        // would bring focus to the button, but calling click() directly does not.
+        this.menuButtonElement.focus();
+        this.menuButtonElement.toggleButton!.control.click();
+    }
+
+    /** @internal */
+    public pressEnterKey(): void {
+        const event = new KeyboardEvent('keypress', {
+            key: keyEnter
+        });
+        this.menuButtonElement.toggleButton!.control.dispatchEvent(event);
+    }
+
+    /** @internal */
+    public pressSpaceKey(): void {
+        const event = new KeyboardEvent('keypress', {
+            key: keySpace
+        });
+        this.menuButtonElement.toggleButton!.control.dispatchEvent(event);
+    }
+
+    /** @internal */
+    public pressArrowUpKey(): void {
+        const event = new KeyboardEvent('keydown', {
+            key: keyArrowUp
+        });
+        this.menuButtonElement.toggleButton!.dispatchEvent(event);
+    }
+
+    /** @internal */
+    public pressArrowDownKey(): void {
+        const event = new KeyboardEvent('keydown', {
+            key: keyArrowDown
+        });
+        this.menuButtonElement.toggleButton!.dispatchEvent(event);
     }
 }

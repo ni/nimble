@@ -385,7 +385,7 @@ describe('MenuButton', () => {
                     menuButton,
                     'toggle'
                 );
-                pageObject.pressEnterOnMenuButton();
+                pageObject.pressEnterKey();
                 expect(menuButton.open).toBeTrue();
                 await toggleListener.promise;
                 expect(document.activeElement).toEqual(menuItem1);
@@ -396,7 +396,7 @@ describe('MenuButton', () => {
                     menuButton,
                     'toggle'
                 );
-                pageObject.pressSpaceOnMenuButton();
+                pageObject.pressSpaceKey();
                 expect(menuButton.open).toBeTrue();
                 await toggleListener.promise;
                 expect(document.activeElement).toEqual(menuItem1);
@@ -407,7 +407,7 @@ describe('MenuButton', () => {
                     menuButton,
                     'toggle'
                 );
-                pageObject.pressArrowDownOnMenuButton();
+                pageObject.pressArrowDownKey();
                 expect(menuButton.open).toBeTrue();
                 await toggleListener.promise;
                 expect(document.activeElement).toEqual(menuItem1);
@@ -418,7 +418,7 @@ describe('MenuButton', () => {
                     menuButton,
                     'toggle'
                 );
-                pageObject.pressArrowUpOnMenuButton();
+                pageObject.pressArrowUpKey();
                 expect(menuButton.open).toBeTrue();
                 await toggleListener.promise;
                 expect(document.activeElement).toEqual(menuItem3);
@@ -552,7 +552,7 @@ describe('MenuButton', () => {
                     menuButton,
                     'toggle'
                 );
-                pageObject.pressEnterOnMenuButton();
+                pageObject.pressEnterKey();
                 expect(menuButton.open).toBeTrue();
                 await toggleListener.promise;
                 expect(toggleListener.spy).toHaveBeenCalledTimes(1);
@@ -570,7 +570,7 @@ describe('MenuButton', () => {
                     menuButton,
                     'toggle'
                 );
-                pageObject.pressSpaceOnMenuButton();
+                pageObject.pressSpaceKey();
                 expect(menuButton.open).toBeTrue();
                 await toggleListener.promise;
                 expect(toggleListener.spy).toHaveBeenCalledTimes(1);
@@ -588,7 +588,7 @@ describe('MenuButton', () => {
                     menuButton,
                     'toggle'
                 );
-                pageObject.pressArrowDownOnMenuButton();
+                pageObject.pressArrowDownKey();
                 expect(menuButton.open).toBeTrue();
                 await toggleListener.promise;
                 expect(toggleListener.spy).toHaveBeenCalledTimes(1);
@@ -606,7 +606,7 @@ describe('MenuButton', () => {
                     menuButton,
                     'toggle'
                 );
-                pageObject.pressArrowUpOnMenuButton();
+                pageObject.pressArrowUpKey();
                 expect(menuButton.open).toBeTrue();
                 await toggleListener.promise;
                 expect(toggleListener.spy).toHaveBeenCalledTimes(1);
