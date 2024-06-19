@@ -1,8 +1,59 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Tue, 11 Jun 2024 19:27:14 GMT and should not be manually modified.
+This log was last generated on Tue, 18 Jun 2024 22:10:11 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 24.5.0
+
+Tue, 18 Jun 2024 22:10:11 GMT
+
+### Minor changes
+
+- Export menu-button page object ([ni/nimble@9763ab0](https://github.com/ni/nimble/commit/9763ab025b9ad497025d67cf9e2a674159bf7b3f))
+- Bump @ni/nimble-components to v29.5.0
+
+## 24.4.11
+
+Tue, 18 Jun 2024 18:31:52 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v29.4.2
+
+## 24.4.10
+
+Mon, 17 Jun 2024 22:45:32 GMT
+
+### Patches
+
+- Fixing scenario where list option in a group would not call registerOwner on Select. ([ni/nimble@e3eff22](https://github.com/ni/nimble/commit/e3eff22ac6f9d523126c3834afcd90413c4a0b77))
+- Bump @ni/nimble-components to v29.4.1
+
+## 24.4.9
+
+Mon, 17 Jun 2024 16:38:20 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v29.4.0
+
+## 24.4.8
+
+Mon, 17 Jun 2024 15:13:30 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v29.3.7
+
+## 24.4.7
+
+Thu, 13 Jun 2024 17:01:38 GMT
+
+### Patches
+
+- Move column sorting properties to a column mixin ([ni/nimble@659242f](https://github.com/ni/nimble/commit/659242fdcda04d270085e3a7e86493e9fc8a1fc5))
+- Bump @ni/nimble-components to v29.3.6
 
 ## 24.4.6
 

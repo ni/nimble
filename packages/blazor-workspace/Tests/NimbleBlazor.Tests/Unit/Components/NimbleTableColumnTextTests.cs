@@ -65,3 +65,10 @@ public class NimbleTableColumnTextFractionalWidthTests : FractionalWidthBaseTest
 public class NimbleTableColumnTextGroupableTests : GroupableBaseTests<NimbleTableColumnText>
 {
 }
+
+/// <summary>
+/// Tests for SortableAPI on <see cref="NimbleTableColumnText"/>
+/// </summary>
+public class NimbleTableColumnTextSortableTests : SortableBaseTests<NimbleTableColumnText>
+{
+}

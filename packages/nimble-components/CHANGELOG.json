@@ -2,6 +2,126 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 18 Jun 2024 22:10:11 GMT",
+      "version": "29.5.0",
+      "tag": "@ni/nimble-components_v29.5.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "9763ab025b9ad497025d67cf9e2a674159bf7b3f",
+            "comment": "Create page object for menu button"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 18 Jun 2024 18:31:52 GMT",
+      "version": "29.4.2",
+      "tag": "@ni/nimble-components_v29.4.2",
+      "comments": {
+        "patch": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "7de67217535a774170e2af1f5794ba308a085c3d",
+            "comment": "Adding new SelectPageObject API."
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 18 Jun 2024 16:39:30 GMT",
+      "version": "29.4.1",
+      "tag": "@ni/nimble-components_v29.4.1",
+      "comments": {
+        "none": [
+          {
+            "author": "123377523+vivinkrishna-ni@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "b3cf1500163c84dd7caee3ed350c36afd2979d1b",
+            "comment": "Fix intermittent tests on rich text editor"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 17 Jun 2024 22:45:32 GMT",
+      "version": "29.4.1",
+      "tag": "@ni/nimble-components_v29.4.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "e3eff22ac6f9d523126c3834afcd90413c4a0b77",
+            "comment": "Fixing scenario where list option in a group would not call registerOwner on Select."
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 17 Jun 2024 16:38:20 GMT",
+      "version": "29.4.0",
+      "tag": "@ni/nimble-components_v29.4.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "30fe9fced9935c89e7e5f5b0a9c263eccdb77375",
+            "comment": "Select manual filtering APIs"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 17 Jun 2024 15:13:30 GMT",
+      "version": "29.3.7",
+      "tag": "@ni/nimble-components_v29.3.7",
+      "comments": {
+        "patch": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "4befcd5173fc83a2e3d352f5f69f1e45de4221e1",
+            "comment": "Remove unneeded rollup dependencies"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 17 Jun 2024 13:23:52 GMT",
+      "version": "29.3.6",
+      "tag": "@ni/nimble-components_v29.3.6",
+      "comments": {
+        "none": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "4e41583ed3b667d75894229dede4e0d4a3eb2fca",
+            "comment": "Documentation updates for icon/mapping column best practices"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 13 Jun 2024 17:01:38 GMT",
+      "version": "29.3.6",
+      "tag": "@ni/nimble-components_v29.3.6",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "659242fdcda04d270085e3a7e86493e9fc8a1fc5",
+            "comment": "Move column sorting properties to a column mixin"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 12 Jun 2024 16:30:00 GMT",
       "version": "29.3.5",
       "tag": "@ni/nimble-components_v29.3.5",
