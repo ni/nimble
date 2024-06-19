@@ -17,7 +17,6 @@
                 GridMinY="0"
                 HoverDieChanged="@ShowCurrentDie"
                 RenderFinished="@SignalRenderFinnished"
-                @bind-DiesTable="DiesTable"
                 @bind-ColorScale="ColorScale"
                 @bind-HighlightedTags="HighlightedTags">
 </NimbleWaferMap>
@@ -104,6 +103,12 @@
 
         TextFieldText = validity.InvalidGridDimensions.ToString();
 
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await _waferMap!.SetDataAsync(DiesTable);
+        await base.OnAfterRenderAsync(firstRender);
     }
 
     private void ShowCurrentDie(WaferMapHoverDieChangedEventArgs e)

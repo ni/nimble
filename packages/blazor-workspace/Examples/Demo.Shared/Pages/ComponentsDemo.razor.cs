@@ -19,6 +19,7 @@ public partial class ComponentsDemo
     private NimbleDrawer<DialogResult>? _drawer;
     private NimbleTable<SimpleTableRecord>? _table;
     private NimbleTable<PersonTableRecord>? _delayedHierarchyTable;
+    private NimbleWaferMap? _waferMap;
     private string? DrawerClosedReason { get; set; }
     private string? SelectedRadio { get; set; } = "2";
     private bool BannerOpen { get; set; }
@@ -49,6 +50,7 @@ public partial class ComponentsDemo
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         await _table!.SetDataAsync(TableData);
+        await _waferMap!.SetDataAsync(DiesTable);
         await UpdateDelayedHierarchyTableAsync();
         await base.OnAfterRenderAsync(firstRender);
     }
