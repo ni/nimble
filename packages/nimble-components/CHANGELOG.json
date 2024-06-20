@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Thu, 20 Jun 2024 20:08:12 GMT",
+      "version": "29.6.0",
+      "tag": "@ni/nimble-components_v29.6.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "0084f69eb791dc78ecd49dc586d783736e7f5c3d",
+            "comment": "Define graph trace color tokens"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 18 Jun 2024 22:10:11 GMT",
       "version": "29.5.0",
       "tag": "@ni/nimble-components_v29.5.0",
