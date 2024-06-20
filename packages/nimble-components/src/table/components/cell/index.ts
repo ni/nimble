@@ -59,7 +59,8 @@ export class TableCell<
 
     /** @internal */
     public get cellView(): TableCellView<TCellRecord> {
-        return this.cellViewContainer.firstElementChild as TableCellView<TCellRecord>;
+        return this.cellViewContainer
+            .firstElementChild as TableCellView<TCellRecord>;
     }
 
     public onActionMenuBeforeToggle(
