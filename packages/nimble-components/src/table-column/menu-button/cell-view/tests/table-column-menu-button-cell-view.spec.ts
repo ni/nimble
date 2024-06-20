@@ -1,4 +1,7 @@
-import { TableColumnMenuButtonCellView, tableColumnMenuButtonCellViewTag } from '..';
+import {
+    TableColumnMenuButtonCellView,
+    tableColumnMenuButtonCellViewTag
+} from '..';
 
 describe('TableColumnMenuButtonCellView', () => {
     it('should export its tag', () => {

@@ -1,7 +1,10 @@
 import { html, ref, when } from '@microsoft/fast-element';
 import type { TableColumnMenuButtonCellView } from '.';
 import { menuButtonTag } from '../../../menu-button';
-import { ButtonAppearance, type MenuButtonToggleEventDetail } from '../../../menu-button/types';
+import {
+    ButtonAppearance,
+    type MenuButtonToggleEventDetail
+} from '../../../menu-button/types';
 import { iconArrowExpanderDownTag } from '../../../icons/arrow-expander-down';
 import { cellViewMenuSlotName } from '../types';
 

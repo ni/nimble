@@ -7,9 +7,7 @@ import { TablePageObject } from '@ni/nimble-components/src/table/testing/table.p
 import { Table, tableTag } from '../../../../../nimble-components/src/table';
 import { tableColumnMenuButtonTag } from '../../../../../nimble-components/src/table-column/menu-button';
 import { TableColumnMenuButtonPageObject } from '../../../../../nimble-components/src/table-column/menu-button/testing/table-column-menu-button.pageobject';
-import {
-    sharedMatrixParameters
-} from '../../../utilities/matrix';
+import { sharedMatrixParameters } from '../../../utilities/matrix';
 import { backgroundStates } from '../../../utilities/states';
 import { createFixedThemeStory } from '../../../utilities/storybook';
 
@@ -21,7 +19,7 @@ const data = [
     {
         id: '1',
         firstName: 'Milhouse'
-    },
+    }
 ] as const;
 
 const metadata: Meta = {
@@ -67,9 +65,10 @@ const playFunction = async (): Promise<void> => {
     await table.setData(data);
     await waitForUpdatesAsync();
 
-    debugger;
     const tablePageObject = new TablePageObject(table);
-    const columnPageObject = new TableColumnMenuButtonPageObject(tablePageObject);
+    const columnPageObject = new TableColumnMenuButtonPageObject(
+        tablePageObject
+    );
     await columnPageObject.getMenuButton(0, 0)!.openMenu();
 };
 

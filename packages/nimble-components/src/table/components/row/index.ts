@@ -236,7 +236,10 @@ export class TableRow<
         );
     }
 
-    public onCellViewSlotsRequest(column: TableColumn, event: CustomEvent<CellViewSlotRequestEventDetail>): void {
+    public onCellViewSlotsRequest(
+        column: TableColumn,
+        event: CustomEvent<CellViewSlotRequestEventDetail>
+    ): void {
         event.stopImmediatePropagation();
         if (typeof this.recordId !== 'string') {
             // The recordId is expected to be defined on any row that can be interacted with, but if

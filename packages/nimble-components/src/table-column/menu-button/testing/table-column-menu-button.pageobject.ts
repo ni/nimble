@@ -10,7 +10,10 @@ import { createEventListener } from '../../../utilities/tests/component';
 export class TableColumnMenuButtonPageObject<T extends TableRecord> {
     public constructor(private readonly tablePageObject: TablePageObject<T>) {}
 
-    public getMenuButton(rowIndex: number, columnIndex: number): MenuButtonPageObject | null {
+    public getMenuButton(
+        rowIndex: number,
+        columnIndex: number
+    ): MenuButtonPageObject | null {
         const menuButton = this.getMenuButtonElement(rowIndex, columnIndex);
         return menuButton ? new MenuButtonPageObject(menuButton) : null;
     }
@@ -25,29 +28,48 @@ export class TableColumnMenuButtonPageObject<T extends TableRecord> {
         return menuButton!.title;
     }
 
-    public dispatchEventToMenuButton(rowIndex: number, columnIndex: number, event: Event): void {
+    public dispatchEventToMenuButton(
+        rowIndex: number,
+        columnIndex: number,
+        event: Event
+    ): void {
         const menuButton = this.getMenuButtonElement(rowIndex, columnIndex);
         menuButton!.dispatchEvent(event);
     }
 
-    public createBeforeToggleListener(rowIndex: number, columnIndex: number): {
-        promise: Promise<void>,
-        spy: jasmine.Spy
-    } {
+    public createBeforeToggleListener(
+        rowIndex: number,
+        columnIndex: number
+    ): {
+            promise: Promise<void>,
+            spy: jasmine.Spy
+        } {
         const menuButton = this.getMenuButtonElement(rowIndex, columnIndex);
-        return createEventListener(menuButton!, 'menu-button-column-beforetoggle');
+        return createEventListener(
+            menuButton!,
+            'menu-button-column-beforetoggle'
+        );
     }
 
-    public createToggleListener(rowIndex: number, columnIndex: number): {
-        promise: Promise<void>,
-        spy: jasmine.Spy
-    } {
+    public createToggleListener(
+        rowIndex: number,
+        columnIndex: number
+    ): {
+            promise: Promise<void>,
+            spy: jasmine.Spy
+        } {
         const menuButton = this.getMenuButtonElement(rowIndex, columnIndex);
         return createEventListener(menuButton!, 'menu-button-column-toggle');
     }
 
-    private getMenuButtonElement(rowIndex: number, columnIndex: number): MenuButton | null {
-        const cellView = this.tablePageObject.getRenderedCellView(rowIndex, columnIndex);
+    private getMenuButtonElement(
+        rowIndex: number,
+        columnIndex: number
+    ): MenuButton | null {
+        const cellView = this.tablePageObject.getRenderedCellView(
+            rowIndex,
+            columnIndex
+        );
         return cellView.shadowRoot!.querySelector(menuButtonTag);
     }
 }

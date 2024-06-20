@@ -1,7 +1,10 @@
 import { DesignSystem } from '@microsoft/fast-foundation';
 import { observable } from '@microsoft/fast-element';
 import { TableCellView } from '../../base/cell-view';
-import type { TableColumnMenuButtonCellRecord, TableColumnMenuButtonColumnConfig } from '..';
+import type {
+    TableColumnMenuButtonCellRecord,
+    TableColumnMenuButtonColumnConfig
+} from '..';
 import { template } from './templates';
 import { styles } from './styles';
 import type { MenuButton } from '../../../menu-button';
@@ -18,7 +21,10 @@ declare global {
 /**
  * The cell view base class for displaying a string field as a menu button.
  */
-export class TableColumnMenuButtonCellView extends TableCellView<TableColumnMenuButtonCellRecord, TableColumnMenuButtonColumnConfig> {
+export class TableColumnMenuButtonCellView extends TableCellView<
+TableColumnMenuButtonCellRecord,
+TableColumnMenuButtonColumnConfig
+> {
     /** @internal */
     public menuButton?: MenuButton;
 
@@ -32,11 +38,15 @@ export class TableColumnMenuButtonCellView extends TableCellView<TableColumnMenu
     // TODO: Override tabbableChildren getter
 
     /** @internal */
-    public onMenuButtonBeforeToggle(event: CustomEvent<MenuButtonToggleEventDetail>): boolean {
+    public onMenuButtonBeforeToggle(
+        event: CustomEvent<MenuButtonToggleEventDetail>
+    ): boolean {
         const configuredSlotName = this.columnConfig?.menuSlot;
         if (configuredSlotName && event.detail.newState) {
             const eventDetail: CellViewSlotRequestEventDetail = {
-                slots: [{ name: configuredSlotName, slot: cellViewMenuSlotName }]
+                slots: [
+                    { name: configuredSlotName, slot: cellViewMenuSlotName }
+                ]
             };
             this.$emit('cell-view-slots-request', eventDetail);
         }

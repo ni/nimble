@@ -243,7 +243,10 @@ export class Table<
     // https://github.com/microsoft/fast/issues/5750
     private ignoreSelectionChangeEvents = false;
     // Map from slot name to the record ID and column ID that requested the slot.
-    private readonly columnRequestedSlots: Map<string, { recordId: string, uniqueSlotName: string }> = new Map();
+    private readonly columnRequestedSlots: Map<
+    string,
+    { recordId: string, uniqueSlotName: string }
+    > = new Map();
 
     public constructor() {
         super();
@@ -438,12 +441,20 @@ export class Table<
     }
 
     /** @internal */
-    public onRowSlotsRequest(event: CustomEvent<RowSlotRequestEventDetail>): void {
+    public onRowSlotsRequest(
+        event: CustomEvent<RowSlotRequestEventDetail>
+    ): void {
         event.stopImmediatePropagation();
 
         for (const slotDetail of event.detail.slots) {
-            const uniqueSlotName = uniquifySlotNameForColumnId(event.detail.columnInternalId, slotDetail.slot);
-            this.columnRequestedSlots.set(slotDetail.name, { recordId: event.detail.recordId, uniqueSlotName });
+            const uniqueSlotName = uniquifySlotNameForColumnId(
+                event.detail.columnInternalId,
+                slotDetail.slot
+            );
+            this.columnRequestedSlots.set(slotDetail.name, {
+                recordId: event.detail.recordId,
+                uniqueSlotName
+            });
         }
 
         this.regenerateRequestedSlotsByRecordIds();
@@ -685,8 +696,14 @@ export class Table<
     private regenerateRequestedSlotsByRecordIds(): void {
         const updatedSlotsByRecordId: { [recordId: string]: SlotDetail[] } = {};
 
-        for (const [slotName, { recordId, uniqueSlotName }] of this.columnRequestedSlots) {
-            if (!Object.prototype.hasOwnProperty.call(updatedSlotsByRecordId, recordId)) {
+        for (const [slotName, { recordId, uniqueSlotName }] of this
+            .columnRequestedSlots) {
+            if (
+                !Object.prototype.hasOwnProperty.call(
+                    updatedSlotsByRecordId,
+                    recordId
+                )
+            ) {
                 updatedSlotsByRecordId[recordId] = [];
             }
             updatedSlotsByRecordId[recordId]!.push({

@@ -8,7 +8,10 @@ import type { ColumnInternalsOptions } from '../base/models/column-internals';
 import { ColumnValidator } from '../base/models/column-validator';
 import { mixinFractionalWidthColumnAPI } from '../mixins/fractional-width-column';
 import { TableColumn } from '../base';
-import { MenuButtonColumnToggleEventDetail, cellViewMenuSlotName } from './types';
+import {
+    MenuButtonColumnToggleEventDetail,
+    cellViewMenuSlotName
+} from './types';
 import type { DelegatedEventEventDetails } from '../base/types';
 import type { MenuButtonToggleEventDetail } from '../../menu-button/types';
 
@@ -75,7 +78,10 @@ export class TableColumnMenuButton extends mixinFractionalWidthColumnAPI(
         const event = e as CustomEvent<DelegatedEventEventDetails>;
         const originalEvent = event.detail.originalEvent;
 
-        if (originalEvent.type === 'beforetoggle' || originalEvent.type === 'toggle') {
+        if (
+            originalEvent.type === 'beforetoggle'
+            || originalEvent.type === 'toggle'
+        ) {
             const newEventName = `menu-button-column-${originalEvent.type}`;
             const originalToggleEvent = originalEvent as CustomEvent<MenuButtonToggleEventDetail>;
             const detail: MenuButtonColumnToggleEventDetail = {

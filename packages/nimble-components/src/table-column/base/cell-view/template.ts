@@ -29,12 +29,15 @@ export const createCellViewTemplate = (
             :recordId="${y => y.recordId}"
             class="cell-view"
         >
-            ${repeat(y => y.column?.columnInternals.slotNames || [], html<string, TableCell>`
-                <slot
-                    name="${(x, c) => uniquifySlotNameForColumn(c.parent.column!, x)}"
-                    slot="${x => x}"
-                ></slot>
-            `)}
+            ${repeat(
+        y => y.column?.columnInternals.slotNames || [],
+        html<string, TableCell>`
+                    <slot
+                        name="${(x, c) => uniquifySlotNameForColumn(c.parent.column!, x)}"
+                        slot="${x => x}"
+                    ></slot>
+                `
+    )}
         </${cellViewTag}>
     `;
 };
