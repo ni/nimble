@@ -12,7 +12,9 @@ import { createStory } from '../../utilities/storybook';
 import {
     createMatrixThemeStory,
     createMatrix,
-    sharedMatrixParameters
+    sharedMatrixParameters,
+    cartesianProduct,
+    createMatrixInteractionsFromStates
 } from '../../utilities/matrix';
 import { hiddenWrapper } from '../../utilities/hidden';
 import { isChromatic } from '../../utilities/isChromatic';
@@ -157,6 +159,21 @@ export const tableMultipleSelectionThemeMatrix: StoryFn = createMatrixThemeStory
     createMatrix(component, [['multiple'], groupedStates, hierarchyStates])
 );
 tableMultipleSelectionThemeMatrix.play = playFunction;
+
+const tableKeyboardFocusStates = cartesianProduct([
+    ['multiple'],
+    [groupedStates[0]],
+    [hierarchyStates[0]]
+] as const);
+export const tableKeyboardFocusThemeMatrix: StoryFn = createMatrixThemeStory(
+    createMatrixInteractionsFromStates(component, {
+        hover: [],
+        hoverActive: [],
+        active: [],
+        focus: tableKeyboardFocusStates
+    })
+);
+tableKeyboardFocusThemeMatrix.play = playFunction;
 
 export const hiddenTable: StoryFn = createStory(
     hiddenWrapper(html`<${tableTag} hidden></${tableTag}>`)
