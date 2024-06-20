@@ -444,12 +444,12 @@ export class Table<
     ): void {
         event.stopImmediatePropagation();
 
-        for (const SlotMetadata of event.detail.slots) {
+        for (const slotMetadata of event.detail.slots) {
             const uniqueSlot = uniquifySlotNameForColumnId(
                 event.detail.columnInternalId,
-                SlotMetadata.slot
+                slotMetadata.slot
             );
-            this.columnRequestedSlots.set(SlotMetadata.name, {
+            this.columnRequestedSlots.set(slotMetadata.name, {
                 recordId: event.detail.recordId,
                 uniqueSlot
             });

@@ -1,4 +1,4 @@
-import { menuButtonTag, type MenuButton } from '../../../menu-button';
+import { menuButtonTag } from '../../../menu-button';
 import { MenuButtonPageObject } from '../../../menu-button/testing/menu-button.pageobject';
 import type { TablePageObject } from '../../../table/testing/table.pageobject';
 import type { TableRecord } from '../../../table/types';
