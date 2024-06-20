@@ -148,13 +148,15 @@ export const menuButtonColumn: StoryObj<MenuButtonColumnTableArgs> = {
         },
         toggleEvent: {
             name: 'menu-button-column-toggle',
-            description: 'Emitted when the `toggle` event is fired on a menu button in the column.',
+            description:
+                'Emitted when the `toggle` event is fired on a menu button in the column.',
             control: false,
             table: { category: apiCategory.events }
         },
         beforeToggleEvent: {
             name: 'menu-button-column-beforetoggle',
-            description: 'Emitted when the `beforetoggle` event is fired on a menu button in the column. If necessary, a handler for this event should be used to update the menu items for the menu button associated with the event.',
+            description:
+                'Emitted when the `beforetoggle` event is fired on a menu button in the column. If necessary, a handler for this event should be used to update the menu items for the menu button associated with the event.',
             control: false,
             table: { category: apiCategory.events }
         }
