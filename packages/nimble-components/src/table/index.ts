@@ -48,7 +48,7 @@ import {
     TableValidity,
     TableSetRecordHierarchyOptions,
     RowSlotRequestEventDetail,
-    SlotDetail
+    SlotMetadata
 } from './types';
 import { Virtualizer } from './models/virtualizer';
 import { getTanStackSortingFunction } from './models/sort-operations';
@@ -225,7 +225,7 @@ export class Table<
 
     /** @internal */
     @observable
-    public slotsByRecordId: { [recordId: string]: SlotDetail[] } = {};
+    public slotsByRecordId: { [recordId: string]: SlotMetadata[] } = {};
 
     private readonly table: TanStackTable<TableNode<TData>>;
     private options: TanStackTableOptionsResolved<TableNode<TData>>;
@@ -242,11 +242,9 @@ export class Table<
     // the selection checkbox 'checked' value should be ingored.
     // https://github.com/microsoft/fast/issues/5750
     private ignoreSelectionChangeEvents = false;
-    // Map from slot name to the record ID and column ID that requested the slot.
-    private readonly columnRequestedSlots: Map<
-    string,
-    { recordId: string, uniqueSlotName: string }
-    > = new Map();
+    // Map from external slot name to the record ID of the row that should have the slot and
+    // the uniquified slot that the slot should be given.
+    private readonly columnRequestedSlots: Map<string, { recordId: string, uniqueSlot: string }> = new Map();
 
     public constructor() {
         super();
@@ -446,14 +444,14 @@ export class Table<
     ): void {
         event.stopImmediatePropagation();
 
-        for (const slotDetail of event.detail.slots) {
-            const uniqueSlotName = uniquifySlotNameForColumnId(
+        for (const SlotMetadata of event.detail.slots) {
+            const uniqueSlot = uniquifySlotNameForColumnId(
                 event.detail.columnInternalId,
-                slotDetail.slot
+                SlotMetadata.slot
             );
-            this.columnRequestedSlots.set(slotDetail.name, {
+            this.columnRequestedSlots.set(SlotMetadata.name, {
                 recordId: event.detail.recordId,
-                uniqueSlotName
+                uniqueSlot
             });
         }
 
@@ -685,7 +683,7 @@ export class Table<
         this.tableUpdateTracker.trackColumnInstancesChanged();
     }
 
-    private foo(): void {
+    private removeActionMenuSlotsFromColumnRequestedSlots(): void {
         for (const actionMenuSlot of this.actionMenuSlots) {
             this.columnRequestedSlots.delete(actionMenuSlot);
         }
@@ -694,10 +692,9 @@ export class Table<
     }
 
     private regenerateRequestedSlotsByRecordIds(): void {
-        const updatedSlotsByRecordId: { [recordId: string]: SlotDetail[] } = {};
+        const updatedSlotsByRecordId: { [recordId: string]: SlotMetadata[] } = {};
 
-        for (const [slotName, { recordId, uniqueSlotName }] of this
-            .columnRequestedSlots) {
+        for (const [slotName, { recordId, uniqueSlot }] of this.columnRequestedSlots) {
             if (
                 !Object.prototype.hasOwnProperty.call(
                     updatedSlotsByRecordId,
@@ -708,7 +705,7 @@ export class Table<
             }
             updatedSlotsByRecordId[recordId]!.push({
                 name: slotName,
-                slot: uniqueSlotName
+                slot: uniqueSlot
             });
         }
 
@@ -727,7 +724,7 @@ export class Table<
         }
 
         this.openActionMenuRecordId = event.detail.recordIds[0];
-        this.foo();
+        this.removeActionMenuSlotsFromColumnRequestedSlots();
         const detail = await this.getActionMenuToggleEventDetail(event);
         this.$emit('action-menu-beforetoggle', detail);
     }

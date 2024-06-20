@@ -119,4 +119,18 @@ export class MenuButtonPageObject {
         });
         this.menuButtonElement.toggleButton!.dispatchEvent(event);
     }
+
+    /**
+     * @internal
+     */
+    public getTitle(): string {
+        return this.menuButtonElement.title;
+    }
+
+    /**
+     * @internal
+     */
+    public dispatchEvent(event: Event): void {
+        this.menuButtonElement.dispatchEvent(event);
+    }
 }

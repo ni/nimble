@@ -7,7 +7,6 @@ import { tableColumnMenuButtonTag } from '../../../../../nimble-components/src/t
 import type { MenuButtonColumnToggleEventDetail } from '../../../../../nimble-components/src/table-column/menu-button/types';
 import { Menu, menuTag } from '../../../../../nimble-components/src/menu';
 import { menuItemTag } from '../../../../../nimble-components/src/menu-item';
-import { TableRowSelectionMode } from '../../../../../nimble-components/src/table/types';
 import {
     SharedTableArgs,
     sharedTableActions,
@@ -18,6 +17,36 @@ import {
     apiCategory,
     createUserSelectedThemeStory
 } from '../../../utilities/storybook';
+
+const simpleData = [
+    {
+        id: 'Ralph Wiggum',
+        firstName: 'Ralph',
+        lastName: 'Wiggum',
+        favoriteColor: 'Rainbow',
+        quote: "I'm in danger!"
+    },
+    {
+        id: 'Milhouse Van Houten',
+        firstName: 'Milhouse',
+        lastName: 'Van Houten',
+        favoriteColor: 'Crimson',
+        quote: "Not only am I not learning, I'm forgetting stuff I used to know!"
+    },
+    {
+        id: 'Ned Flanders',
+        firstName: 'Ned',
+        lastName: 'Flanders',
+        favoriteColor: 'Taupe',
+        quote: 'Hi diddly-ho neighbor!'
+    },
+    {
+        id: 'Maggie Simpson',
+        firstName: 'Maggie',
+        lastName: 'Simpson',
+        favoriteColor: 'Red'
+    }
+] as const;
 
 const metadata: Meta<SharedTableArgs> = {
     title: 'Components/Table Column: Menu Button',
@@ -31,32 +60,21 @@ const metadata: Meta<SharedTableArgs> = {
             ]
         }
     },
+    // prettier-ignore
     argTypes: {
-        ...sharedTableArgTypes
+        ...sharedTableArgTypes,
+        selectionMode: {
+            table: {
+                disable: true
+            }
+        },
+    },
+    args: {
+        ...sharedTableArgs(simpleData)
     }
 };
 
 export default metadata;
-
-const firstNames = ['John', 'Sally', 'Joe', 'Michael', 'Sam'];
-const lastNames = ['Davidson', 'Johnson', 'Abraham', 'Wilson'];
-const ages = [16, 32, 48, 64];
-const largeData = [];
-for (let i = 0; i < 10000; i++) {
-    const possibleParent = Math.floor(Math.random() * 100);
-    const parentId = possibleParent < i ? possibleParent.toString() : undefined;
-    const firstName = firstNames[i % firstNames.length]!;
-    const lastName = lastNames[i % lastNames.length]!;
-    largeData.push({
-        id: i.toString(),
-        firstName,
-        lastName,
-        fullName: `${firstName} ${lastName}`,
-        age: ages[i % ages.length],
-        quote: `I'm number ${i + 1}!`,
-        parentId
-    });
-}
 
 interface MenuButtonColumnTableArgs extends SharedTableArgs {
     fieldName: string;
@@ -67,6 +85,8 @@ interface MenuButtonColumnTableArgs extends SharedTableArgs {
     ) => void;
     menuRef: Menu;
     headerContent: string;
+    toggleEvent: never;
+    beforeToggleEvent: never;
 }
 
 export const menuButtonColumn: StoryObj<MenuButtonColumnTableArgs> = {
@@ -75,7 +95,6 @@ export const menuButtonColumn: StoryObj<MenuButtonColumnTableArgs> = {
     render: createUserSelectedThemeStory(html<MenuButtonColumnTableArgs>`
         <${tableTag}
             ${ref('tableRef')}
-            selection-mode="${x => TableRowSelectionMode[x.selectionMode]}"
             data-unused="${x => x.updateData(x)}"
             id-field-name="id"
         >
@@ -126,11 +145,23 @@ export const menuButtonColumn: StoryObj<MenuButtonColumnTableArgs> = {
             name: 'default',
             description: 'The content to display in the header of the column.',
             table: { category: apiCategory.slots }
+        },
+        toggleEvent: {
+            name: 'menu-button-column-toggle',
+            description: 'Emitted when the `toggle` event is fired on a menu button in the column.',
+            control: false,
+            table: { category: apiCategory.events }
+        },
+        beforeToggleEvent: {
+            name: 'menu-button-column-beforetoggle',
+            description: 'Emitted when the `beforetoggle` event is fired on a menu button in the column. If necessary, a handler for this event should be used to update the menu items for the menu button associated with the event.',
+            control: false,
+            table: { category: apiCategory.events }
         }
     },
     args: {
-        fieldName: 'fullName',
-        menuSlot: 'column-menu',
+        fieldName: 'favoriteColor',
+        menuSlot: 'color-menu',
         menuRef: undefined,
         updateMenuItems: (
             storyArgs: MenuButtonColumnTableArgs,
@@ -140,14 +171,15 @@ export const menuButtonColumn: StoryObj<MenuButtonColumnTableArgs> = {
                 const recordId = e.detail.recordId;
 
                 const item1 = document.createElement(menuItemTag);
-                item1.textContent = `Item 1 (record ${recordId})`;
+                item1.textContent = `[${recordId}] Blue`;
                 const item2 = document.createElement(menuItemTag);
-                item2.textContent = `Item 2 (record ${recordId})`;
+                item2.textContent = `[${recordId}] Green`;
+                const item3 = document.createElement(menuItemTag);
+                item3.textContent = `[${recordId}] Purple`;
 
-                storyArgs.menuRef.replaceChildren(item1, item2);
+                storyArgs.menuRef.replaceChildren(item1, item2, item3);
             }
         },
-        headerContent: 'Menu Button Column',
-        ...sharedTableArgs(largeData)
+        headerContent: 'Menu Button Column'
     }
 };

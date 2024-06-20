@@ -216,7 +216,7 @@ export interface TableRowState<TData extends TableRecord = TableRecord> {
 /**
  * @internal
  */
-export interface SlotDetail {
+export interface SlotMetadata {
     slot: string;
     name: string;
 }
@@ -225,7 +225,7 @@ export interface SlotDetail {
  * @internal
  */
 export interface CellViewSlotRequestEventDetail {
-    slots: SlotDetail[];
+    slots: SlotMetadata[];
 }
 
 /**
@@ -234,5 +234,5 @@ export interface CellViewSlotRequestEventDetail {
 export interface RowSlotRequestEventDetail {
     columnInternalId: string;
     recordId: string;
-    slots: SlotDetail[];
+    slots: SlotMetadata[];
 }

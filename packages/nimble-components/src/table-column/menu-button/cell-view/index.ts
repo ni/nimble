@@ -67,6 +67,8 @@ TableColumnMenuButtonColumnConfig
 
     /** @internal */
     public onMenuButtonClick(e: Event): void {
+        // Stop propagation of the click event to prevent clicking the menu button
+        // from affecting row selection.
         e.stopPropagation();
     }
 }

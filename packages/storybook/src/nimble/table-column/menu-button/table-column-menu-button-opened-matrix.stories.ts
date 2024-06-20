@@ -38,7 +38,7 @@ const component = html`
             field-name="firstName"
             menu-slot="button-column-menu"
         >
-            Button column
+            Menu button column
         </${tableColumnMenuButtonTag}>
 
         <${menuTag} slot="button-column-menu">

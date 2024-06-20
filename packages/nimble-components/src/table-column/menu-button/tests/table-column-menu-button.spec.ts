@@ -91,7 +91,7 @@ describe('TableColumnMenuButton', () => {
         await table.setData([{ field: 'value' }]);
         await waitForUpdatesAsync();
 
-        expect(pageObject.getMenuButtonText(0, 0)).toEqual('value');
+        expect(pageObject.getMenuButton(0, 0)?.getLabelText()).toEqual('value');
     });
 
     it('updating table data updates menu button text', async () => {
@@ -100,7 +100,7 @@ describe('TableColumnMenuButton', () => {
         await table.setData([{ field: 'new value' }]);
         await waitForUpdatesAsync();
 
-        expect(pageObject.getMenuButtonText(0, 0)).toEqual('new value');
+        expect(pageObject.getMenuButton(0, 0)?.getLabelText()).toEqual('new value');
     });
 
     it('updating table data updates menu button text', async () => {
@@ -112,7 +112,7 @@ describe('TableColumnMenuButton', () => {
         column.fieldName = 'anotherField';
         await waitForUpdatesAsync();
 
-        expect(pageObject.getMenuButtonText(0, 0)).toEqual('another value');
+        expect(pageObject.getMenuButton(0, 0)?.getLabelText()).toEqual('another value');
     });
 
     const emptyCellValues = [
@@ -144,7 +144,7 @@ describe('TableColumnMenuButton', () => {
         await table.setData([{ field: 'value' }]);
         await waitForUpdatesAsync();
 
-        expect(pageObject.getMenuButtonText(0, 0)).toBe('value');
+        expect(pageObject.getMenuButton(0, 0)?.getLabelText()).toBe('value');
     });
 
     it('when no fieldName provided, nothing is displayed', async () => {
@@ -163,7 +163,7 @@ describe('TableColumnMenuButton', () => {
                 await table.setData([{ field: name }]);
                 await waitForUpdatesAsync();
 
-                expect(pageObject.getMenuButtonText(0, 0)).toEqual(name);
+                expect(pageObject.getMenuButton(0, 0)?.getLabelText()).toEqual(name);
             });
         });
     });
@@ -174,25 +174,19 @@ describe('TableColumnMenuButton', () => {
             table.style.width = '100px';
             await table.setData([{ field: longValue }]);
             await waitForUpdatesAsync();
-            pageObject.dispatchEventToMenuButton(
-                0,
-                0,
-                new MouseEvent('mouseover')
-            );
+            const menuButton = pageObject.getMenuButton(0, 0)!;
+            menuButton.dispatchEvent(new MouseEvent('mouseover'));
             await waitForUpdatesAsync();
-            expect(pageObject.getMenuButtonTitle(0, 0)).toEqual(longValue);
+            expect(menuButton.getTitle()).toEqual(longValue);
         });
 
         it('does not set title when cell text is fully visible', async () => {
             await table.setData([{ field: 'a' }]);
             await waitForUpdatesAsync();
-            pageObject.dispatchEventToMenuButton(
-                0,
-                0,
-                new MouseEvent('mouseover')
-            );
+            const menuButton = pageObject.getMenuButton(0, 0)!;
+            menuButton.dispatchEvent(new MouseEvent('mouseover'));
             await waitForUpdatesAsync();
-            expect(pageObject.getMenuButtonTitle(0, 0)).toEqual('');
+            expect(menuButton.getTitle()).toEqual('');
         });
 
         it('removes title on mouseout of cell', async () => {
@@ -200,23 +194,16 @@ describe('TableColumnMenuButton', () => {
             table.style.width = '100px';
             await table.setData([{ field: longValue }]);
             await waitForUpdatesAsync();
-            pageObject.dispatchEventToMenuButton(
-                0,
-                0,
-                new MouseEvent('mouseover')
-            );
+            const menuButton = pageObject.getMenuButton(0, 0)!;
+            menuButton.dispatchEvent(new MouseEvent('mouseover'));
             await waitForUpdatesAsync();
-            pageObject.dispatchEventToMenuButton(
-                0,
-                0,
-                new MouseEvent('mouseout')
-            );
+            menuButton.dispatchEvent(new MouseEvent('mouseout'));
             await waitForUpdatesAsync();
-            expect(pageObject.getMenuButtonTitle(0, 0)).toEqual('');
+            expect(menuButton.getTitle()).toEqual('');
         });
     });
 
-    describe('table selection', () => {
+    describe('table selection does not change', () => {
         let menuButton: MenuButtonPageObject;
 
         beforeEach(async () => {
@@ -229,7 +216,7 @@ describe('TableColumnMenuButton', () => {
             menuButton = pageObject.getMenuButton(0, 0)!;
         });
 
-        it('opening a menu button by clicking does not change selection', async () => {
+        it('when opening a menu button by clicking', async () => {
             menuButton.clickMenuButton();
             expect(menuButton.isOpen()).toBeTrue();
             await waitForUpdatesAsync();
@@ -237,7 +224,7 @@ describe('TableColumnMenuButton', () => {
             expect(selection.length).toBe(0);
         });
 
-        it('opening a menu button by pressing Enter does not change selection', async () => {
+        it('when opening a menu button by pressing Enter', async () => {
             menuButton.pressEnterKey();
             expect(menuButton.isOpen()).toBeTrue();
             await waitForUpdatesAsync();
@@ -522,7 +509,7 @@ describe('TableColumnMenuButton', () => {
                     elementReferences.firstMenuItem
                 );
 
-                // Close column1 action menu
+                // Open column1 action menu
                 await actionMenu.openMenu();
                 expect(column1MenuButton.isOpen()).toBeFalse();
                 expect(column2MenuButton.isOpen()).toBeFalse();
