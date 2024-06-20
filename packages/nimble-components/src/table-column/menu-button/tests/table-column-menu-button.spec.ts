@@ -222,7 +222,7 @@ describe('TableColumnMenuButton', () => {
         });
 
         it('opening a menu button by pressing Enter does not change selection', async () => {
-            menuButton.pressEnter();
+            menuButton.pressEnterKey();
             expect(menuButton.isOpen()).toBeTrue();
             await waitForUpdatesAsync();
             const selection = await table.getSelectedRecordIds();
@@ -301,10 +301,10 @@ describe('TableColumnMenuButton', () => {
         describe('opens and focuses menu item', () => {
             const openActions = [
                 { name: 'when button is clicked', action: () => menuButton.clickMenuButton(), expectedFocus: 'first' },
-                { name: 'when Space is pressed', action: () => menuButton.pressSpace(), expectedFocus: 'first' },
-                { name: 'when Enter is pressed', action: () => menuButton.pressEnter(), expectedFocus: 'first' },
-                { name: 'when ArrowDown is pressed', action: () => menuButton.pressArrowDown(), expectedFocus: 'first' },
-                { name: 'when ArrowUp is pressed', action: () => menuButton.pressArrowUp(), expectedFocus: 'last' }
+                { name: 'when Space is pressed', action: () => menuButton.pressSpaceKey(), expectedFocus: 'first' },
+                { name: 'when Enter is pressed', action: () => menuButton.pressEnterKey(), expectedFocus: 'first' },
+                { name: 'when ArrowDown is pressed', action: () => menuButton.pressArrowDownKey(), expectedFocus: 'first' },
+                { name: 'when ArrowUp is pressed', action: () => menuButton.pressArrowUpKey(), expectedFocus: 'last' }
             ] as const;
             parameterizeSpec(openActions, (spec, name, value) => {
                 spec(name, async () => {
