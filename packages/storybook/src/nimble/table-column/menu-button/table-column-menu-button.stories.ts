@@ -14,14 +14,21 @@ import {
     sharedTableArgTypes,
     sharedTableArgs
 } from '../base/table-column-stories-utils';
-import { apiCategory, createUserSelectedThemeStory } from '../../../utilities/storybook';
+import {
+    apiCategory,
+    createUserSelectedThemeStory
+} from '../../../utilities/storybook';
 
 const metadata: Meta<SharedTableArgs> = {
     title: 'Components/Table Column: Menu Button',
     decorators: [withActions<HtmlRenderer>],
     parameters: {
         actions: {
-            handles: [...sharedTableActions, 'menu-button-column-toggle', 'menu-button-column-beforetoggle']
+            handles: [
+                ...sharedTableActions,
+                'menu-button-column-toggle',
+                'menu-button-column-beforetoggle'
+            ]
         }
     },
     argTypes: {
@@ -54,7 +61,10 @@ for (let i = 0; i < 10000; i++) {
 interface MenuButtonColumnTableArgs extends SharedTableArgs {
     fieldName: string;
     menuSlot: string;
-    updateMenuItems: (storyArgs: MenuButtonColumnTableArgs, e: CustomEvent<MenuButtonColumnToggleEventDetail>) => void;
+    updateMenuItems: (
+        storyArgs: MenuButtonColumnTableArgs,
+        e: CustomEvent<MenuButtonColumnToggleEventDetail>
+    ) => void;
     menuRef: Menu;
     headerContent: string;
 }
@@ -91,14 +101,14 @@ export const menuButtonColumn: StoryObj<MenuButtonColumnTableArgs> = {
         fieldName: {
             name: 'field-name',
             description:
-                'Set this attribute to identify which field in the data record contains the visible text value for each cell\'s menu button in the column. The field values must be of type `string`.',
+                "Set this attribute to identify which field in the data record contains the visible text value for each cell's menu button in the column. The field values must be of type `string`.",
             control: false,
             table: { category: apiCategory.attributes }
         },
         menuSlot: {
             name: 'menu-slot',
             description:
-                'The name of the slot within the `nimble-table` instance where the menu associated with the column\'s menu button will be provided',
+                "The name of the slot within the `nimble-table` instance where the menu associated with the column's menu button will be provided",
             control: false,
             table: { category: apiCategory.attributes }
         },
@@ -122,7 +132,10 @@ export const menuButtonColumn: StoryObj<MenuButtonColumnTableArgs> = {
         fieldName: 'fullName',
         menuSlot: 'column-menu',
         menuRef: undefined,
-        updateMenuItems: (storyArgs: MenuButtonColumnTableArgs, e: CustomEvent<MenuButtonColumnToggleEventDetail>): void => {
+        updateMenuItems: (
+            storyArgs: MenuButtonColumnTableArgs,
+            e: CustomEvent<MenuButtonColumnToggleEventDetail>
+        ): void => {
             if (e.detail.newState) {
                 const recordId = e.detail.recordId;
 

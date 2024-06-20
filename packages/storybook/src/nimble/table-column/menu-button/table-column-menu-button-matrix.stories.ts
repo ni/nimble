@@ -28,7 +28,7 @@ const data = [
     {
         id: '4',
         firstName: 'Milhouse'
-    },
+    }
 ] as const;
 
 const metadata: Meta = {
