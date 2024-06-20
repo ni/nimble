@@ -30,6 +30,10 @@ export const styles = css`
         outline-offset: -2px;
     }
 
+    .cell-view-container {
+        display: contents;
+    }
+
     .cell-view {
         overflow: hidden;
     }

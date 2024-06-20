@@ -48,6 +48,10 @@ export class TableCell<
     @observable
     public cellViewTemplate?: ViewTemplate<TableCell>;
 
+    /** @internal */
+    @observable
+    public cellViewContainer!: HTMLElement;
+
     @observable
     public nestingLevel = 0;
 
@@ -55,7 +59,7 @@ export class TableCell<
 
     /** @internal */
     public get cellView(): TableCellView<TCellRecord> {
-        return this.shadowRoot?.firstElementChild as TableCellView<TCellRecord>;
+        return this.cellViewContainer.firstElementChild as TableCellView<TCellRecord>;
     }
 
     public onActionMenuBeforeToggle(

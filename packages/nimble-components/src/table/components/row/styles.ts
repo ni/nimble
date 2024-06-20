@@ -159,7 +159,6 @@ export const styles = css`
                 ) * var(--ni-private-table-cell-focus-offset-multiplier)
         );
         height: ${controlHeight};
-        box-sizing: border-box;
     }
 
     :host(:hover) nimble-table-cell {
