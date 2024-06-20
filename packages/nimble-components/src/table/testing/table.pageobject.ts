@@ -142,7 +142,7 @@ export class TablePageObject<T extends TableRecord> {
         columnIndex: number
     ): TableCellView {
         const cell = this.getCell(rowIndex, columnIndex);
-        const cellView = cell.shadowRoot!.firstElementChild;
+        const cellView = cell.cellViewContainer.firstElementChild;
         if (!(cellView instanceof TableCellView)) {
             throw new Error(
                 'Cell view not found in cell - ensure cellViewTag is set for column'
@@ -156,7 +156,7 @@ export class TablePageObject<T extends TableRecord> {
         columnId: string
     ): TableCellView {
         const cell = this.getCellById(recordId, columnId);
-        const cellView = cell.shadowRoot!.firstElementChild;
+        const cellView = cell.cellViewContainer.firstElementChild;
         if (!(cellView instanceof TableCellView)) {
             throw new Error(
                 'Cell view not found in cell - ensure cellViewTag is set for column'
