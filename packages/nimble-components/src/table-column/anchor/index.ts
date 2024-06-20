@@ -14,6 +14,7 @@ import type { AnchorAppearance } from '../../anchor/types';
 import type { ColumnInternalsOptions } from '../base/models/column-internals';
 import { ColumnValidator } from '../base/models/column-validator';
 import { mixinSortableColumnAPI } from '../mixins/sortable-column';
+import { mixinCustomSortOrderColumnAPI } from '../mixins/custom-sort-order';
 
 export type TableColumnAnchorCellRecord = TableStringField<'label' | 'href'>;
 export interface TableColumnAnchorColumnConfig {
@@ -41,7 +42,9 @@ declare global {
 export class TableColumnAnchor extends mixinGroupableColumnAPI(
     mixinFractionalWidthColumnAPI(
         mixinColumnWithPlaceholderAPI(
-            mixinSortableColumnAPI(TableColumn<TableColumnAnchorColumnConfig>)
+            mixinSortableColumnAPI(
+                mixinCustomSortOrderColumnAPI(TableColumn<TableColumnAnchorColumnConfig>)
+            )
         )
     )
 ) {
@@ -82,6 +85,16 @@ export class TableColumnAnchor extends mixinGroupableColumnAPI(
         this.updateColumnConfig();
     }
 
+    /** @internal */
+    public override getDefaultSortFieldName(): string | undefined {
+        return this.labelFieldName;
+    }
+
+    /** @internal */
+    public override getDefaultSortOperation(): TableColumnSortOperation {
+        return TableColumnSortOperation.localeAwareCaseSensitive;
+    }
+
     protected override getColumnInternalsOptions(): ColumnInternalsOptions {
         return {
             cellRecordFieldNames: ['label', 'href'],
@@ -98,7 +111,7 @@ export class TableColumnAnchor extends mixinGroupableColumnAPI(
             this.labelFieldName,
             this.hrefFieldName
         ] as const;
-        this.columnInternals.operandDataRecordFieldName = this.labelFieldName;
+        this.updateOperandDataRecordFieldName();
     }
 
     protected hrefFieldNameChanged(): void {

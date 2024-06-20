@@ -1,4 +1,5 @@
 import { DesignSystem } from '@microsoft/fast-foundation';
+import { attr } from '@microsoft/fast-element';
 import { styles } from '../base/styles';
 import { template } from '../base/template';
 import type { TableStringField } from '../../table/types';
@@ -9,6 +10,7 @@ import { tableColumnTextCellViewTag } from './cell-view';
 import type { ColumnInternalsOptions } from '../base/models/column-internals';
 import type { TableColumnTextBaseColumnConfig } from '../text-base/cell-view';
 import { ColumnValidator } from '../base/models/column-validator';
+import { mixinCustomSortOrderColumnAPI } from '../mixins/custom-sort-order';
 
 export type TableColumnTextCellRecord = TableStringField<'value'>;
 
@@ -25,13 +27,25 @@ declare global {
 /**
  * The table column for displaying string fields as text.
  */
-export class TableColumnText extends mixinTextBase(
-    TableColumnTextBase<TableColumnTextColumnConfig>
+export class TableColumnText extends mixinCustomSortOrderColumnAPI(
+    mixinTextBase(
+        TableColumnTextBase<TableColumnTextColumnConfig>
+    )
 ) {
     public placeholderChanged(): void {
         this.columnInternals.columnConfig = {
             placeholder: this.placeholder
         };
+    }
+
+    /** @internal */
+    public override getDefaultSortFieldName(): string | undefined {
+        return this.fieldName;
+    }
+
+    /** @internal */
+    public override getDefaultSortOperation(): TableColumnSortOperation {
+        return TableColumnSortOperation.localeAwareCaseSensitive;
     }
 
     protected override getColumnInternalsOptions(): ColumnInternalsOptions {
@@ -43,6 +57,11 @@ export class TableColumnText extends mixinTextBase(
             sortOperation: TableColumnSortOperation.localeAwareCaseSensitive,
             validator: new ColumnValidator<[]>([])
         };
+    }
+
+    protected override fieldNameChanged(): void {
+        this.columnInternals.dataRecordFieldNames = [this.fieldName] as const;
+        this.updateOperandDataRecordFieldName();
     }
 }
 
