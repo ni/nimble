@@ -56,6 +56,7 @@ interface MenuButtonColumnTableArgs extends SharedTableArgs {
     menuSlot: string;
     updateMenuItems: (storyArgs: MenuButtonColumnTableArgs, e: CustomEvent<MenuButtonColumnToggleEventDetail>) => void;
     menuRef: Menu;
+    headerContent: string;
 }
 
 export const menuButtonColumn: StoryObj<MenuButtonColumnTableArgs> = {
@@ -68,22 +69,18 @@ export const menuButtonColumn: StoryObj<MenuButtonColumnTableArgs> = {
             data-unused="${x => x.updateData(x)}"
             id-field-name="id"
         >
-            <${tableColumnTextTag}
-                field-name="firstName"
-            >
-            First Name
+            <${tableColumnTextTag} field-name="firstName">
+                First Name
             </${tableColumnTextTag}>
-            <${tableColumnTextTag}
-                field-name="lastName"
-            >
-            Last Name
+            <${tableColumnTextTag} field-name="lastName">
+                Last Name
             </${tableColumnTextTag}>
             <${tableColumnMenuButtonTag}
                 field-name="${x => x.fieldName}"
                 menu-slot="${x => x.menuSlot}"
                 @menu-button-column-beforetoggle="${(x, c) => x.updateMenuItems(x, c.event as CustomEvent<MenuButtonColumnToggleEventDetail>)}"
             >
-            Menu Button Column
+                ${x => x.headerContent}
             </${tableColumnMenuButtonTag}>
 
             <${menuTag} ${ref('menuRef')} slot="${x => x.menuSlot}">
@@ -114,6 +111,11 @@ export const menuButtonColumn: StoryObj<MenuButtonColumnTableArgs> = {
             table: {
                 disable: true
             }
+        },
+        headerContent: {
+            name: 'default',
+            description: 'The content to display in the header of the column.',
+            table: { category: apiCategory.slots }
         }
     },
     args: {
@@ -132,6 +134,7 @@ export const menuButtonColumn: StoryObj<MenuButtonColumnTableArgs> = {
                 storyArgs.menuRef.replaceChildren(item1, item2);
             }
         },
+        headerContent: 'Menu Button Column',
         ...sharedTableArgs(largeData)
     }
 };
