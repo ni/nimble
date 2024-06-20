@@ -527,6 +527,51 @@ describe('Table keyboard navigation', () => {
 
                     expect(currentFocusedElement()).toBe(pageObject.getRow(0));
                 });
+
+                it('when the table data changes (same or greater row count), the focused cell is maintained (row at the same index)', async () => {
+                    await sendKeyPressesToTable(keyArrowDown, keyArrowDown); // cell 2, 0
+
+                    const newData: SimpleTableRecord[] = [
+                        { id: 'A' },
+                        { id: 'B' },
+                        { id: 'C' },
+                        { id: 'D' },
+                        { id: 'E' }
+                    ];
+                    await element.setData(newData);
+                    await waitForUpdatesAsync();
+
+                    expect(currentFocusedElement()).toBe(
+                        pageObject.getCell(2, 0)
+                    );
+                });
+
+                it('when the table data changes (fewer rows than previously focused row index), the focused cell resets to be for the 1st row', async () => {
+                    await sendKeyPressesToTable(keyArrowDown, keyArrowDown); // cell 2, 0
+
+                    const newData: SimpleTableRecord[] = [
+                        { id: 'A' },
+                        { id: 'B' }
+                    ];
+                    await element.setData(newData);
+                    await waitForUpdatesAsync();
+
+                    expect(currentFocusedElement()).toBe(
+                        pageObject.getCell(0, 0)
+                    );
+                });
+
+                it('when the table data changes to zero rows, the focus resets to the header', async () => {
+                    await sendKeyPressesToTable(keyArrowDown, keyArrowDown); // cell 2, 0
+
+                    const newData: SimpleTableRecord[] = [];
+                    await element.setData(newData);
+                    await waitForUpdatesAsync();
+
+                    expect(currentFocusedElement()).toBe(
+                        pageObject.getHeaderElement(0)
+                    );
+                });
             });
 
             it('DownArrow key press will focus the cell in the same column in the next row', async () => {
