@@ -1,8 +1,24 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Mon, 17 Jun 2024 22:45:32 GMT and should not be manually modified.
+This log was last generated on Tue, 18 Jun 2024 22:10:11 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 29.5.0
+
+Tue, 18 Jun 2024 22:10:11 GMT
+
+### Minor changes
+
+- Create page object for menu button ([ni/nimble@9763ab0](https://github.com/ni/nimble/commit/9763ab025b9ad497025d67cf9e2a674159bf7b3f))
+
+## 29.4.2
+
+Tue, 18 Jun 2024 18:31:52 GMT
+
+### Patches
+
+- Adding new SelectPageObject API. ([ni/nimble@7de6721](https://github.com/ni/nimble/commit/7de67217535a774170e2af1f5794ba308a085c3d))
 
 ## 29.4.1
 
