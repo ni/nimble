@@ -6,22 +6,22 @@ A table column whose cells render an action button (`nimble-button`).
 
 ### Background
 
-The primary ask has been from the Systems app to have an icon button that copies some long key related to a pending system. Another potential use case is the ability to mark a row as a "favorite", but it is not clear if we should have a separate toggle-button column type for those sorts of stateful use cases.
+The primary ask has been from the Systems app to have an icon button that copies some long key related to a pending system. Another potential use case is the ability to mark a row as a "favorite", but the team consensus is that we should have a separate column type for those sorts of stateful use cases.
 
 -   [Table button column (AzDO Feature)](https://ni.visualstudio.com/DevCentral/_workitems/edit/2530349)
 -   [nimble-button table column (Nimble issue)](https://github.com/ni/nimble/issues/1582)
 
 ### Features
 
--   Text and/or icon(s) in button
--   Option to hide buttons except when hovered or row/cell is focused (similar to action menu)
+-   Text and/or icon in button
 -   Keyboard focusable
 -   Fixed-width
 
 ### Non-goals
 
 -   Different button configuration per row (i.e. different labels/icons or actions)
-    -   State-based configuration (e.g. to emulate toggle button) _[QUESTION: Should we support this? We could probably do so by reusing `nimble-mapping-icon` and `nimble-mapping-text`. If we support this, then buttons will no longer be uniform, so we should also support sorting, grouping, and resizing. And by depending on a record value, we would also need to reconsider placeholders.]_
+    -   We could probably do so by reusing `nimble-mapping-icon` and `nimble-mapping-text`. Buttons would not be uniform, so we would also support sorting, grouping, and resizing. And by depending on a record value, we would also need to consider placeholders.
+-   Option to hide buttons except when hovered or row/cell is focused (similar to action menu)
 -   Configurable `appearance` or `appearance-variant` attributes (ghost appearance only)
 -   Disabled button state
 -   Sorting/grouping of column
@@ -29,39 +29,33 @@ The primary ask has been from the Systems app to have an icon button that copies
 
 ## Implementation / Design
 
-The general approach is to treat the column element as a proxy for the button elements. I.e. attributes that would normally be configured on the button are configured on the column, and elements that would be provided to the button as content are instead column content. Where this breaks down is the text content, which is still used to configure the column label rather than the button label. A new `button-text` attribute is used instead. _[QUESTION: Should we even support column labels for this column? If not, we could use the column content for the button label instead of using a separate attribute.]_
+All button configuration is done via attributes on the column element. Every row renders the same thing, so we do not need to access any record data. Icons are referenced by name, the same way as done by the mapping column.
 
 Typical usage (icon-only button):
 
 ```html
 <nimble-table>
     <nimble-table-column-button
+        icon="nimble-icon-arrow-rotate-right"
         button-text="Reboot"
         button-title="Reboot"
-        content-hidden
-        hide-unless-focused
+        text-hidden
     >
         <!-- no column label -->
-        <nimble-icon-arrow-rotate-right
-            slot="start"
-        ></nimble-icon-arrow-rotate-right>
     </nimble-table-column-button>
 </nimble-table>
 ```
 
-Text/icon button:
+Icon and text button (with more detailed tooltip):
 
 ```html
 <nimble-table>
     <nimble-table-column-button
+        icon="nimble-icon-arrow-rotate-right"
         button-text="Reboot"
         button-title="Reboot the system. All temporary configuration will be lost."
-        hide-unless-focused
     >
         <!-- no column label -->
-        <nimble-icon-arrow-rotate-right
-            slot="start"
-        ></nimble-icon-arrow-rotate-right>
     </nimble-table-column-button>
 </nimble-table>
 ```
@@ -76,16 +70,14 @@ _Element Name_
 
 _Props/Attrs_
 
--   `button-text`: string - Text displayed on the button. If `content-hidden` is set, the text is hidden, but still serves as the accessible name of the button.
--   `button-title`: string - Text used for the `title` (tooltip) of the button. If `content-hidden` is set, then this should typically have the same value as `button-text`.
--   `content-hidden`: boolean - When set, the button text and end slot are hidden, leaving only the start slot visible.
--   `hide-unless-focused`: boolean - When set, cells render as empty except when the cell is hovered, focused, or the containing row is focused. Used to reduce visual clutter in the table. _[QUESTION: Should this be the default behavior?]_
+-   `button-text`: string - Text displayed on the button. If `text-hidden` is set, the text is hidden, but still serves as the accessible name of the button.
+-   `button-title`: string - Text used for the `title` (tooltip) of the button. For an icon-only button (i.e. `text-hidden` is set), this should typically have the same value as `button-text`.
+-   `icon`: string - Tag name of the Nimble icon to render on the button.
+-   `text-hidden`: boolean - When set, the button is styled such that only the icon is visible.
 
 _Content_
 
 -   default slot - Column label (icon and/or text)
--   `start` slot - Icon to render in the `start` slot of each button
--   `end` slot - Icon to render in the `end` slot of each button
 
 _Events_
 
@@ -107,7 +99,7 @@ _Element Name_
 
 _Rendering_
 
-Renders a ghost button with the configured text and/or icons. If `hide-unless-focused` was set on the column, then a blank cell is rendered except when the cell is hovered/focused or the row is focused.
+Renders a ghost button with the configured text and/or icon.
 
 #### Group Header View Element
 
@@ -137,7 +129,8 @@ The `nimble-table-column-button-cell-view` will configure a click handler that s
 
 ### Test Cases
 
--   Typical visual tests that exercise combinations of start/end icons and text, as well as the `hide-unless-focused` attribute.
+-   Typical visual tests that exercise combinations of icons and text.
+-   Interaction state visual tests (hover, hover + active, focused).
 
 ### Internationalization
 
@@ -145,7 +138,7 @@ No special considerations.
 
 ### Accessibility
 
-`button-text` should always be configured on the column, even for icon-only buttons, for the sake of accessibility. This will be documented. _[QUESTION: Should we add a validator and enforces that this is provided?]_
+`button-text` should always be configured on the column, even for icon-only buttons, for the sake of accessibility. This will be documented. _[QUESTION: Should we add a validator and enforce that this is provided?]_
 
 ### Angular Integration
 
