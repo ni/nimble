@@ -26,6 +26,26 @@ Most of the column changes will be the same for all columns needing this functio
 
 Initially, this functionality will be added only to `nimble-table-column-text` and `nimble-table-column-anchor` because those are the only columns known to need this functionality.
 
+## Alternative Implementations / Designs
+
+### Support grouping and custom sort order together
+
+If a column with a custom sort order needs to be groupable, that could likely be achieved through a more complex implementation. The changes to implement this include:
+
+-   Add additional field to `ColumnInternals`, say `sortDataRecordFieldName`, to track the sort data field separate than the `operandDataRecordFieldName` that is used for grouping
+-   Table columns will set `sortDataRecordFieldName` to the value of `sort-by-field-name` rather than updating `operandDataRecordFieldName`.
+-   When `sortDataRecordFieldName` is set on a column, the `nimble-table` will create two TanStack columns for that nimble column. One column will be associated with the `operandDataRecordFieldName` and the other will be associated with `sortDataRecordFieldName`. The `nimble-table` would have logic to know which TanStack column to mark as grouped or sorted when the nimble column was grouped or sorted.
+-   Update the table's update tracker to have the correct notification logic to regenerate the TanStack columns, grouping state, and sorting state at the appropriate times.
+
+**Pros:**
+-   Removes the limitation of not being able to group a column with a custom sort order. This includes not needing to add validation for this scenario.
+
+**Cons:**
+-   Adds additional complexity to the table.
+-   It is unclear whether or not this is actually helpful in practice. It can lead to items being sorted drastically differently but being grouped together. For example, a number tag with the value of `0` and the string tag with the value of `"0"` would likely be sorted in different positions, but they would both have the same string representation of `"0"`.
+
+With the exception of adding the `invalidCustomSortWithGrouping` key in the columns' validation objects, all the changes proposed in this HLD are backwards compatible from an end-client point of view with this alternative. Therefore, since no clients currently need grouping with custom sorting and since it isn't clear if this would ever be desirable, it makes the most sense to implement the more straightfoward behavior and not support grouping a column that has custom sorting is enabled.
+
 ## Open Issues
 
 _None_
