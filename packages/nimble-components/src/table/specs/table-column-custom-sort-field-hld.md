@@ -38,9 +38,11 @@ If a column with a custom sort order needs to be groupable, that could likely be
 -   Update the table's update tracker to have the correct notification logic to regenerate the TanStack columns, grouping state, and sorting state at the appropriate times.
 
 **Pros:**
+
 -   Removes the limitation of not being able to group a column with a custom sort order. This includes not needing to add validation for this scenario.
 
 **Cons:**
+
 -   Adds additional complexity to the table.
 -   It is unclear whether or not this is actually helpful in practice. It can lead to items being sorted drastically differently but being grouped together. For example, a number tag with the value of `0` and the string tag with the value of `"0"` would likely be sorted in different positions, but they would both have the same string representation of `"0"`.
 
