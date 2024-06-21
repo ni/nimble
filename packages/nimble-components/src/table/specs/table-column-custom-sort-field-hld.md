@@ -48,6 +48,10 @@ If a column with a custom sort order needs to be groupable, that could likely be
 
 With the exception of adding the `invalidCustomSortWithGrouping` key in the columns' validation objects, all the changes proposed in this HLD are backwards compatible from an end-client point of view with this alternative. Therefore, since no clients currently need grouping with custom sorting and since it isn't clear if this would ever be desirable, it makes the most sense to implement the more straightfoward behavior and not support grouping a column that has custom sorting is enabled.
 
+### Allow specifying custom sort function
+
+Rather than having a client pre-sort their data and specify a `sort-by-field-name` on the column, the client could specify a custom sort function for the column. This however, would be difficult to achieve in Blazor since it would require custom JS code that is configured for a column. Additionally, it opens the door for a client to significantly impact the sort performance on the table by writing a slow sort function that gets called every time a user clicks on the column's header. This approach would also be inconsistent with other decisions made for the column, such as the decision not to allow custom format functions to be specified for text or number columns.
+
 ## Open Issues
 
 _None_
