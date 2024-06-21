@@ -58,37 +58,31 @@ if (remaining.length > 0) {
     throw new Error('New backgrounds need to be supported');
 }
 
-// prettier-ignore
 export const comboboxBelowOpenLightThemeWhiteBackground: StoryFn = createFixedThemeStory(
     component({ position: DropdownPosition.below }),
     lightThemeWhiteBackground
 );
 
-// prettier-ignore
 export const comboboxAboveOpenLightThemeWhiteBackground: StoryFn = createFixedThemeStory(
     component({ position: DropdownPosition.above }),
     lightThemeWhiteBackground
 );
 
-// prettier-ignore
 export const comboboxBelowOpenColorThemeDarkGreenBackground: StoryFn = createFixedThemeStory(
     component({ position: DropdownPosition.below }),
     colorThemeDarkGreenBackground
 );
 
-// prettier-ignore
 export const comboboxAboveOpenColorThemeDarkGreenBackground: StoryFn = createFixedThemeStory(
     component({ position: DropdownPosition.above }),
     colorThemeDarkGreenBackground
 );
 
-// prettier-ignore
 export const comboboxBelowOpenDarkThemeBlackBackground: StoryFn = createFixedThemeStory(
     component({ position: DropdownPosition.below }),
     darkThemeBlackBackground
 );
 
-// prettier-ignore
 export const comboboxAboveOpenDarkThemeBlackBackground: StoryFn = createFixedThemeStory(
     component({ position: DropdownPosition.above }),
     darkThemeBlackBackground
