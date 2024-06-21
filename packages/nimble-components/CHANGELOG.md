@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Tue, 18 Jun 2024 22:10:11 GMT and should not be manually modified.
+This log was last generated on Thu, 20 Jun 2024 20:08:12 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 29.6.0
+
+Thu, 20 Jun 2024 20:08:12 GMT
+
+### Minor changes
+
+- Define graph trace color tokens ([ni/nimble@0084f69](https://github.com/ni/nimble/commit/0084f69eb791dc78ecd49dc586d783736e7f5c3d))
 
 ## 29.5.0
 

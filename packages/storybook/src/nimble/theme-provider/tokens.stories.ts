@@ -3,7 +3,7 @@ import { html, repeat, ViewTemplate, when } from '@microsoft/fast-element';
 import { waitForUpdatesAsync } from '../../../../nimble-components/src/testing/async-helpers';
 import { PropertyFormat } from '../../../../nimble-components/src/theme-provider/tests/types';
 import {
-    tokenNames,
+    tokenNames as tokens,
     cssPropertyFromTokenName,
     scssPropertyFromTokenName,
     TokenSuffix,
@@ -20,26 +20,16 @@ import {
 } from '../../../../nimble-components/src/theme-provider/design-tokens';
 import { createUserSelectedThemeStory } from '../../utilities/storybook';
 
-type TokenName = keyof typeof tokenNames;
-const tokenNameKeys = Object.keys(tokenNames) as TokenName[];
-tokenNameKeys.sort((a, b) => a.localeCompare(b));
+type TokenName = keyof typeof tokens;
+const tokenNames = Object.keys(tokens) as TokenName[];
+tokenNames.sort((a, b) => a.localeCompare(b));
+const graphTokenNames = tokenNames.filter(x => x.startsWith('graph'));
 
 interface TokenArgs {
+    metaTitle: string;
+    tokenNames: TokenName[];
     propertyFormat: PropertyFormat;
 }
-
-const metadata: Meta = {
-    title: 'Tokens/Theme-aware Tokens',
-    parameters: {
-        docs: {
-            source: {
-                code: null
-            }
-        }
-    }
-};
-
-export default metadata;
 
 const computedCSSValueFromTokenName = (tokenName: string): string => {
     return getComputedStyle(document.documentElement).getPropertyValue(
@@ -49,33 +39,33 @@ const computedCSSValueFromTokenName = (tokenName: string): string => {
 
 const colorTemplate = html<TokenName>`
     <div
-        title="${x => computedCSSValueFromTokenName(tokenNames[x])}"
+        title="${x => computedCSSValueFromTokenName(tokens[x])}"
         style="
         display: inline-block;
         height: 24px;
         width: 24px;
         border: 1px solid black;
-        background-color: var(${x => cssPropertyFromTokenName(tokenNames[x])});
+        background-color: var(${x => cssPropertyFromTokenName(tokens[x])});
     "
     ></div>
 `;
 
 const rgbColorTemplate = html<TokenName>`
     <div
-        title="${x => computedCSSValueFromTokenName(tokenNames[x])}"
+        title="${x => computedCSSValueFromTokenName(tokens[x])}"
         style="
         display: inline-block;
         height: 24px;
         width: 24px;
         border: 1px solid black;
-        background-color: rgba(var(${x => cssPropertyFromTokenName(tokenNames[x])}), 1.0);
+        background-color: rgba(var(${x => cssPropertyFromTokenName(tokens[x])}), 1.0);
     "
     ></div>
 `;
 
 const stringValueTemplate = html<TokenName>`
     <div style="display: inline-block;">
-        ${x => computedCSSValueFromTokenName(tokenNames[x])}
+        ${x => computedCSSValueFromTokenName(tokens[x])}
     </div>
 `;
 
@@ -83,7 +73,7 @@ const fontTemplate = html<TokenName>`
     <div
         style="
         display: inline-block;
-        font: var(${x => cssPropertyFromTokenName(tokenNames[x])});
+        font: var(${x => cssPropertyFromTokenName(tokens[x])});
     "
     >
         Nimble
@@ -127,8 +117,14 @@ const templateForTokenName = (
 };
 
 // prettier-ignore
-export const themeAwareTokens: StoryObj<TokenArgs> = {
+const metadata: Meta<TokenArgs> = {
+    title: 'Tokens/Theme-aware Tokens',
     parameters: {
+        docs: {
+            source: {
+                code: null
+            }
+        },
         controls: { hideNoControlsWarning: true }
     },
     args: {
@@ -139,9 +135,12 @@ export const themeAwareTokens: StoryObj<TokenArgs> = {
             options: Object.values(PropertyFormat),
             control: { type: 'radio' },
             name: 'Property Format'
+        },
+        tokenNames: {
+            table: { disable: true }
         }
     },
-    render: createUserSelectedThemeStory(html<TokenArgs>`
+    render: createUserSelectedThemeStory(html`
         <style>
             table {
                 font: var(${bodyFont.cssCustomProperty});
@@ -166,14 +165,14 @@ export const themeAwareTokens: StoryObj<TokenArgs> = {
                 </tr>
             </thead>
             <tbody>
-            ${repeat(() => tokenNameKeys, html<TokenName, TokenArgs>`
+            ${repeat(x => x.tokenNames, html<TokenName, TokenArgs>`
                 <tr>
                     <td>
                         ${when((_, c) => (c.parent as TokenArgs).propertyFormat === PropertyFormat.css, html<TokenName>`
-                            ${x => cssPropertyFromTokenName(tokenNames[x])}
+                            ${x => cssPropertyFromTokenName(tokens[x])}
                         `)}
                         ${when((_, c) => (c.parent as TokenArgs).propertyFormat === PropertyFormat.scss, html<TokenName>`
-                            ${x => scssPropertyFromTokenName(tokenNames[x])}
+                            ${x => scssPropertyFromTokenName(tokens[x])}
                         `)}
                     </td>
                     <td>${x => templateForTokenName(x)}</td>
@@ -182,17 +181,23 @@ export const themeAwareTokens: StoryObj<TokenArgs> = {
             `)}
             </tbody>
         </table>
-    `)
+    `),
+    // Setting token default values is done as part of the FAST render queue so it needs to be cleared before reading them
+    // https://github.com/microsoft/fast/blob/bbf4e532cf9263727ef1bd8afbc30d79d1104c03/packages/web-components/fast-foundation/src/design-token/custom-property-manager.ts#LL154C3-L154C3
+    // This uses Storybook's "loaders" feature to await the queue. https://storybook.js.org/docs/html/writing-stories/loaders
+    loaders: [
+        async (): Promise<void> => {
+            await waitForUpdatesAsync();
+        }
+    ]
 };
 
-themeAwareTokens.name = 'Theme-aware Tokens';
+export default metadata;
 
-// Setting token default values is done as part of the FAST render queue so it needs to be cleared before reading them
-// https://github.com/microsoft/fast/blob/bbf4e532cf9263727ef1bd8afbc30d79d1104c03/packages/web-components/fast-foundation/src/design-token/custom-property-manager.ts#LL154C3-L154C3
-// This uses Storybook's "loaders" feature to await the queue. https://storybook.js.org/docs/html/writing-stories/loaders
-themeAwareTokens.loaders = [
-    async () => {
-        await waitForUpdatesAsync();
-        return {};
-    }
-];
+export const themeAwareTokens: StoryObj<TokenArgs> = {
+    args: { tokenNames }
+};
+
+export const graphTokens: StoryObj<TokenArgs> = {
+    args: { tokenNames: graphTokenNames }
+};
