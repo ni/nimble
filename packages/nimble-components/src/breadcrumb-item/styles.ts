@@ -7,7 +7,7 @@ import {
     mediumPadding,
     placeholderFontColor
 } from '../theme-provider/design-tokens';
-import { styles as anchorStyles } from '../anchor/styles';
+import { styles as anchorStyles } from '../patterns/anchor/styles';
 
 export const styles = css`
     ${anchorStyles}

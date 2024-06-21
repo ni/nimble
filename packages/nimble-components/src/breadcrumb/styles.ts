@@ -25,5 +25,6 @@ export const styles = css`
 
     :host([appearance='prominent']) ::slotted(:not([href]):last-child) {
         color: ${linkProminentFontColor};
+        margin-right: 0px;
     }
 `;

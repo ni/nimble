@@ -5,7 +5,7 @@ import {
     AnchorOptions
 } from '@microsoft/fast-foundation';
 import { AnchorBase } from '../anchor-base';
-import { styles } from './styles';
+import { styles } from '../patterns/anchor/styles';
 import { template } from './template';
 import type { AnchorAppearance } from './types';
 
