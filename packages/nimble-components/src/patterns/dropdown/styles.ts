@@ -143,8 +143,7 @@ export const styles = css`
         --ni-private-listbox-loading-indicator-height: 0px;
         max-height: min(
             calc(
-                ${smallPadding} + 2 * ${borderWidth} +
-                    ${controlHeight} * 10.5 +
+                ${smallPadding} + 2 * ${borderWidth} + ${controlHeight} * 10.5 +
                     var(--ni-private-listbox-filter-height) +
                     var(--ni-private-listbox-loading-indicator-height)
             ),
