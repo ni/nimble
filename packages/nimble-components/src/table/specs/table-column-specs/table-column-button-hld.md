@@ -8,24 +8,24 @@ A table column whose cells render an action button (`nimble-button`).
 
 The primary ask has been from the Systems app to have an icon button that copies some long key related to a pending system. Another potential use case is the ability to mark a row as a "favorite", but it is not clear if we should have a separate toggle-button column type for those sorts of stateful use cases.
 
-- [Table button column (AzDO Feature)](https://ni.visualstudio.com/DevCentral/_workitems/edit/2530349)
-- [nimble-button table column (Nimble issue)](https://github.com/ni/nimble/issues/1582)
+-   [Table button column (AzDO Feature)](https://ni.visualstudio.com/DevCentral/_workitems/edit/2530349)
+-   [nimble-button table column (Nimble issue)](https://github.com/ni/nimble/issues/1582)
 
 ### Features
 
-- Text and/or icon(s) in button
-- Option to hide buttons except when hovered or row/cell is focused (similar to action menu)
-- Keyboard focusable
-- Fixed-width
+-   Text and/or icon(s) in button
+-   Option to hide buttons except when hovered or row/cell is focused (similar to action menu)
+-   Keyboard focusable
+-   Fixed-width
 
 ### Non-goals
 
-- Different button configuration per row (i.e. different labels/icons or actions)
-    - State-based configuration (e.g. to emulate toggle button) _[QUESTION: Should we support this? We could probably do so by reusing `nimble-mapping-icon` and `nimble-mapping-text`. If we support this, then buttons will no longer be uniform, so we should also support sorting, grouping, and resizing. And by depending on a record value, we would also need to reconsider placeholders.]_
-- Configurable `appearance` or `appearance-variant` attributes (ghost appearance only)
-- Disabled button state
-- Sorting/grouping of column
-- Column resizing
+-   Different button configuration per row (i.e. different labels/icons or actions)
+    -   State-based configuration (e.g. to emulate toggle button) _[QUESTION: Should we support this? We could probably do so by reusing `nimble-mapping-icon` and `nimble-mapping-text`. If we support this, then buttons will no longer be uniform, so we should also support sorting, grouping, and resizing. And by depending on a record value, we would also need to reconsider placeholders.]_
+-   Configurable `appearance` or `appearance-variant` attributes (ghost appearance only)
+-   Disabled button state
+-   Sorting/grouping of column
+-   Column resizing
 
 ## Implementation / Design
 
@@ -42,7 +42,9 @@ Typical usage (icon-only button):
         hide-unless-focused
     >
         <!-- no column label -->
-        <nimble-icon-arrow-rotate-right slot="start"></nimble-icon-arrow-rotate-right> 
+        <nimble-icon-arrow-rotate-right
+            slot="start"
+        ></nimble-icon-arrow-rotate-right>
     </nimble-table-column-button>
 </nimble-table>
 ```
@@ -57,7 +59,9 @@ Text/icon button:
         hide-unless-focused
     >
         <!-- no column label -->
-        <nimble-icon-arrow-rotate-right slot="start"></nimble-icon-arrow-rotate-right> 
+        <nimble-icon-arrow-rotate-right
+            slot="start"
+        ></nimble-icon-arrow-rotate-right>
     </nimble-table-column-button>
 </nimble-table>
 ```
@@ -90,8 +94,7 @@ _Events_
 The detail for the event is:
 
 ```ts
-interface ButtonColumnClickEventDetail
-    extends PointerEvent {
+interface ButtonColumnClickEventDetail extends PointerEvent {
     recordId: string;
 }
 ```
@@ -134,7 +137,7 @@ The `nimble-table-column-button-cell-view` will configure a click handler that s
 
 ### Test Cases
 
-- Typical visual tests that exercise combinations of start/end icons and text, as well as the `hide-unless-focused` attribute.
+-   Typical visual tests that exercise combinations of start/end icons and text, as well as the `hide-unless-focused` attribute.
 
 ### Internationalization
 
