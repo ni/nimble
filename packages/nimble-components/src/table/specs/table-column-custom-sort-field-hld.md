@@ -2,7 +2,7 @@
 
 ## Problem Statement
 
-In some cases, a client may have the need to specify a custom sort order for a column. For example, a table displaying SystemLink tags may have a field in their records for the stringified tag but may not want to sort that column that stringified value. Instead, they want to provide their own sort order for tags that takes each tag's data type and value into account.
+In some cases, a client may have the need to specify a custom sort order for a column. For example, a table displaying SystemLink tags may have a field in their records for the stringified tag but may not want to sort that column by that stringified value. Instead, they want to provide their own sort order for tags that takes each tag's data type and value into account.
 
 ## Links to Relevant Work Items and Reference Material
 
