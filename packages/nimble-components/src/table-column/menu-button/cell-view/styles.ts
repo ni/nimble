@@ -5,17 +5,14 @@ export const styles = css`
     :host {
         align-self: center;
         width: 100%;
-        background: red;
     }
 
     nimble-menu-button {
         height: ${controlSlimHeight};
         width: 100%;
-        background: purple;
     }
 
     .value-label {
-        background: yellow;
         margin-right: auto;
         overflow-x: hidden;
         text-overflow: ellipsis;
