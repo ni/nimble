@@ -100,7 +100,9 @@ describe('TableColumnMenuButton', () => {
         await table.setData([{ field: 'new value' }]);
         await waitForUpdatesAsync();
 
-        expect(pageObject.getMenuButton(0, 0)?.getLabelText()).toEqual('new value');
+        expect(pageObject.getMenuButton(0, 0)?.getLabelText()).toEqual(
+            'new value'
+        );
     });
 
     it('updating table data updates menu button text', async () => {
@@ -112,7 +114,9 @@ describe('TableColumnMenuButton', () => {
         column.fieldName = 'anotherField';
         await waitForUpdatesAsync();
 
-        expect(pageObject.getMenuButton(0, 0)?.getLabelText()).toEqual('another value');
+        expect(pageObject.getMenuButton(0, 0)?.getLabelText()).toEqual(
+            'another value'
+        );
     });
 
     const emptyCellValues = [
@@ -163,7 +167,9 @@ describe('TableColumnMenuButton', () => {
                 await table.setData([{ field: name }]);
                 await waitForUpdatesAsync();
 
-                expect(pageObject.getMenuButton(0, 0)?.getLabelText()).toEqual(name);
+                expect(pageObject.getMenuButton(0, 0)?.getLabelText()).toEqual(
+                    name
+                );
             });
         });
     });

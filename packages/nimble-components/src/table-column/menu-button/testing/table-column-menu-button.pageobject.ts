@@ -18,6 +18,8 @@ export class TableColumnMenuButtonPageObject<T extends TableRecord> {
             columnIndex
         );
         const menuButtonElement = cellView.shadowRoot!.querySelector(menuButtonTag);
-        return menuButtonElement ? new MenuButtonPageObject(menuButtonElement) : null;
+        return menuButtonElement
+            ? new MenuButtonPageObject(menuButtonElement)
+            : null;
     }
 }

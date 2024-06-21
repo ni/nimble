@@ -244,7 +244,10 @@ export class Table<
     private ignoreSelectionChangeEvents = false;
     // Map from external slot name to the record ID of the row that should have the slot and
     // the uniquified slot that the slot should be given.
-    private readonly columnRequestedSlots: Map<string, { recordId: string, uniqueSlot: string }> = new Map();
+    private readonly columnRequestedSlots: Map<
+    string,
+    { recordId: string, uniqueSlot: string }
+    > = new Map();
 
     public constructor() {
         super();
@@ -694,7 +697,8 @@ export class Table<
     private regenerateRequestedSlotsByRecordIds(): void {
         const updatedSlotsByRecordId: { [recordId: string]: SlotMetadata[] } = {};
 
-        for (const [slotName, { recordId, uniqueSlot }] of this.columnRequestedSlots) {
+        for (const [slotName, { recordId, uniqueSlot }] of this
+            .columnRequestedSlots) {
             if (
                 !Object.prototype.hasOwnProperty.call(
                     updatedSlotsByRecordId,
