@@ -61,13 +61,14 @@ circle {
 }
 
 $colors:
-    $ni-nimble-base-power-green,
-    $ni-nimble-base-rgb-ni-green,
-    $ni-nimble-base-forest-green,
-    $ni-nimble-base-ni-scarlet,
-    $rgb-ni-sky-light,
-    $ni-nimble-base-ni-sky,
-    $rgb-labview;
+    $ni-nimble-graph-trace-1-color,
+    $ni-nimble-graph-trace-2-color,
+    $ni-nimble-graph-trace-3-color,
+    $ni-nimble-graph-trace-4-color,
+    $ni-nimble-graph-trace-5-color,
+    $ni-nimble-graph-trace-6-color,
+    $ni-nimble-graph-trace-7-color,
+    $ni-nimble-graph-trace-8-color;
 
 @for $i from 1 through length($colors) {
     circle:nth-of-type(#{length($colors)}n+#{$i}) {
