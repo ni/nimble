@@ -27,8 +27,12 @@ export class TableGroupRow extends FoundationElement {
     @observable
     public nestingLevel = 0;
 
+    /**
+     * Row index in the flattened set of all regular and group header rows.
+     * Represents the index in table.tableData (TableRowState[]).
+     */
     @observable
-    public rowStateIndex?: number;
+    public resolvedRowIndex?: number;
 
     @observable
     public immediateChildCount?: number;

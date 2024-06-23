@@ -1011,7 +1011,7 @@ export class Table<
                 isParentRow: isParent,
                 immediateChildCount: row.subRows.length,
                 groupColumn: this.getGroupRowColumn(row),
-                rowStateIndex: row.index,
+                resolvedRowIndex: row.index,
                 isLoadingChildren: this.expansionManager.isLoadingChildren(
                     row.id
                 )

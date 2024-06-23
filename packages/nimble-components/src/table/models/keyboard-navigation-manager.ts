@@ -143,13 +143,13 @@ implements Subscriber {
             this.visibleRowNotifiers = [];
             for (const visibleRow of this.table.rowElements) {
                 const rowNotifier = Observable.getNotifier(visibleRow);
-                rowNotifier.subscribe(this, 'rowStateIndex');
-                if (visibleRow.rowStateIndex === this.rowIndex) {
+                rowNotifier.subscribe(this, 'resolvedRowIndex');
+                if (visibleRow.resolvedRowIndex === this.rowIndex) {
                     focusRowAndCell = true;
                 }
             }
-        } else if (args === 'rowStateIndex') {
-            const index = (source as TableRow | TableGroupRow).rowStateIndex;
+        } else if (args === 'resolvedRowIndex') {
+            const index = (source as TableRow | TableGroupRow).resolvedRowIndex;
             if (index === this.rowIndex) {
                 focusRowAndCell = true;
             }
@@ -192,10 +192,10 @@ implements Subscriber {
         }
         const row = event.target;
         if (row instanceof TableRow || row instanceof TableGroupRow) {
-            if (this.rowIndex !== row.rowStateIndex) {
+            if (this.rowIndex !== row.resolvedRowIndex) {
                 // If user focuses a row some other way (e.g. mouse), update our focus state so future keyboard nav
                 // will start from that row
-                this.setRowFocusState(row.rowStateIndex);
+                this.setRowFocusState(row.resolvedRowIndex);
             }
         }
     }
@@ -217,7 +217,7 @@ implements Subscriber {
                 column => column.columnId === event.detail.columnId
             );
             this.setCellActionMenuFocusState(
-                row.rowStateIndex!,
+                row.resolvedRowIndex!,
                 columnIndex,
                 false
             );
@@ -808,7 +808,7 @@ implements Subscriber {
                         );
                         if (cell.actionMenuButton === activeElement) {
                             this.setCellActionMenuFocusState(
-                                row.rowStateIndex!,
+                                row.resolvedRowIndex!,
                                 columnIndex,
                                 false
                             );
@@ -820,7 +820,7 @@ implements Subscriber {
                         if (contentIndex > -1) {
                             this.setCellContentFocusState(
                                 contentIndex,
-                                row.rowStateIndex!,
+                                row.resolvedRowIndex!,
                                 columnIndex,
                                 false
                             );
@@ -831,9 +831,9 @@ implements Subscriber {
                 if (
                     setRowFocus
                     && this.hasRowOrCellFocusType()
-                    && this.rowIndex !== row.rowStateIndex
+                    && this.rowIndex !== row.resolvedRowIndex
                 ) {
-                    this.setRowFocusState(row.rowStateIndex);
+                    this.setRowFocusState(row.resolvedRowIndex);
                 }
             }
         }
@@ -1014,7 +1014,7 @@ implements Subscriber {
 
     private getCurrentRowVisibleIndex(): number {
         return this.table.rowElements.findIndex(
-            row => row.rowStateIndex === this.rowIndex
+            row => row.resolvedRowIndex === this.rowIndex
         );
     }
 

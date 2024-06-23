@@ -75,8 +75,12 @@ export class TableRow<
     @observable
     public nestingLevel = 0;
 
+    /**
+     * Row index in the flattened set of all regular and group header rows.
+     * Represents the index in table.tableData (TableRowState[]).
+     */
     @observable
-    public rowStateIndex?: number;
+    public resolvedRowIndex?: number;
 
     @attr({ attribute: 'is-parent-row', mode: 'boolean' })
     public isParentRow = false;

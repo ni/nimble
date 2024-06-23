@@ -214,7 +214,7 @@ export interface TableRowState<TData extends TableRecord = TableRecord> {
     groupColumn?: TableColumn;
     isParentRow: boolean;
     isLoadingChildren: boolean;
-    rowStateIndex?: number;
+    resolvedRowIndex?: number;
 }
 
 /**
