@@ -231,19 +231,17 @@ export class TableRow<
 
     /** @internal */
     public getFocusableElements(): TableRowFocusableElements {
-        const result: TableRowFocusableElements = { cells: [] };
-        if (this.showSelectionCheckbox) {
-            result.selectionCheckbox = this.selectionCheckbox;
-        }
-        this.shadowRoot!.querySelectorAll(tableCellTag).forEach(cell => {
-            result.cells.push({
-                cell,
-                actionMenuButton: cell.hasActionMenu
-                    ? cell.actionMenuButton
-                    : undefined
-            });
-        });
-        return result;
+        return {
+            selectionCheckbox: this.showSelectionCheckbox ? this.selectionCheckbox : undefined,
+            cells: Array.from(this.cellContainer.querySelectorAll(tableCellTag)).map(cell => {
+                return {
+                    cell,
+                    actionMenuButton: cell.hasActionMenu
+                        ? cell.actionMenuButton
+                        : undefined
+                };
+            })
+        };
     }
 
     public onRowExpandToggle(event?: Event): void {
