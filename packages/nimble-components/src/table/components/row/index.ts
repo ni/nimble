@@ -232,8 +232,12 @@ export class TableRow<
     /** @internal */
     public getFocusableElements(): TableRowFocusableElements {
         return {
-            selectionCheckbox: this.showSelectionCheckbox ? this.selectionCheckbox : undefined,
-            cells: Array.from(this.cellContainer.querySelectorAll(tableCellTag)).map(cell => {
+            selectionCheckbox: this.showSelectionCheckbox
+                ? this.selectionCheckbox
+                : undefined,
+            cells: Array.from(
+                this.cellContainer.querySelectorAll(tableCellTag)
+            ).map(cell => {
                 return {
                     cell,
                     actionMenuButton: cell.hasActionMenu

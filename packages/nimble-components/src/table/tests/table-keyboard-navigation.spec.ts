@@ -834,7 +834,8 @@ describe('Table keyboard navigation', () => {
                 await waitForUpdatesAsync();
                 const focusedElement = currentFocusedElement();
                 expect(focusedElement).toBeInstanceOf(TableRow);
-                const newRowIndex = (focusedElement as TableRow).resolvedRowIndex!;
+                const newRowIndex = (focusedElement as TableRow)
+                    .resolvedRowIndex!;
 
                 expect(newRowIndex).toBeCloseTo(
                     element.virtualizer.pageSize,
@@ -850,13 +851,15 @@ describe('Table keyboard navigation', () => {
                 );
                 let focusedElement = currentFocusedElement();
                 expect(focusedElement).toBeInstanceOf(TableRow);
-                const oldRowIndex = (focusedElement as TableRow).resolvedRowIndex!;
+                const oldRowIndex = (focusedElement as TableRow)
+                    .resolvedRowIndex!;
 
                 await sendKeyPressToTable(keyPageUp);
                 await waitForUpdatesAsync();
                 focusedElement = currentFocusedElement();
                 expect(focusedElement).toBeInstanceOf(TableRow);
-                const newRowIndex = (focusedElement as TableRow).resolvedRowIndex!;
+                const newRowIndex = (focusedElement as TableRow)
+                    .resolvedRowIndex!;
 
                 expect(newRowIndex).toBeCloseTo(
                     oldRowIndex - element.virtualizer.pageSize,
