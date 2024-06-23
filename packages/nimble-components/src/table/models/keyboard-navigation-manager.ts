@@ -148,9 +148,8 @@ implements Subscriber {
                     focusRowAndCell = true;
                 }
             }
-        } else if (args === 'resolvedRowIndex') {
-            const index = (source as TableRow | TableGroupRow).resolvedRowIndex;
-            if (index === this.rowIndex) {
+        } else if (args === 'resolvedRowIndex' && this.isVisualRow(source)) {
+            if (source.resolvedRowIndex === this.rowIndex) {
                 focusRowAndCell = true;
             }
         }
@@ -191,7 +190,7 @@ implements Subscriber {
             return;
         }
         const row = event.target;
-        if (row instanceof TableRow || row instanceof TableGroupRow) {
+        if (this.isVisualRow(row)) {
             if (this.rowIndex !== row.resolvedRowIndex) {
                 // If user focuses a row some other way (e.g. mouse), update our focus state so future keyboard nav
                 // will start from that row
@@ -202,7 +201,7 @@ implements Subscriber {
 
     public onRowBlur(event: FocusEvent): void {
         const row = event.target;
-        if (row instanceof TableRow || row instanceof TableGroupRow) {
+        if (this.isVisualRow(row)) {
             this.setElementFocusable(row, false);
         }
     }
@@ -1075,10 +1074,7 @@ implements Subscriber {
     private getContainingRow(
         start: Element | undefined | null
     ): TableRow | TableGroupRow | undefined {
-        return this.getContainingElement(
-            start,
-            e => e instanceof TableRow || e instanceof TableGroupRow
-        );
+        return this.getContainingElement(start, e => this.isVisualRow(e));
     }
 
     private getContainingCell(
@@ -1329,5 +1325,9 @@ implements Subscriber {
         if (focusElement) {
             this.focusCurrentRow(true);
         }
+    }
+
+    private isVisualRow(row: unknown): row is TableRow | TableGroupRow {
+        return row instanceof TableRow || row instanceof TableGroupRow;
     }
 }
