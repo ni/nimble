@@ -28,7 +28,7 @@ import type { Virtualizer } from './virtualizer';
 import { TableGroupRow } from '../components/group-row';
 import { TableRow } from '../components/row';
 import { TableCell } from '../components/cell';
-import { MenuButton } from '../../menu-button';
+import type { MenuButton } from '../../menu-button';
 import { tableHeaderTag } from '../components/header';
 import { TableCellView } from '../../table-column/base/cell-view';
 
@@ -866,17 +866,7 @@ implements Subscriber {
             return;
         }
 
-        const tabIndex = focusable ? 0 : -1;
-        const menuButton = element instanceof MenuButton
-            ? element
-            : this.getContainingMenuButton(element);
-        let tabIndexTarget = element;
-        if (menuButton) {
-            tabIndexTarget = menuButton;
-            this.setActionMenuButtonFocused(menuButton, focusable);
-        }
-
-        tabIndexTarget.tabIndex = tabIndex;
+        element.tabIndex = focusable ? 0 : -1;
     }
 
     private setActionMenuButtonFocused(
@@ -976,9 +966,14 @@ implements Subscriber {
                 focusableElement = rowElements.cells[this.columnIndex]!.cell;
                 break;
             }
-            case TableFocusType.cellActionMenu:
-                focusableElement = rowElements.cells[this.columnIndex]?.actionMenuButton;
+            case TableFocusType.cellActionMenu: {
+                const actionMenuButton = rowElements.cells[this.columnIndex]?.cell.actionMenuButton;
+                if (actionMenuButton) {
+                    focusableElement = actionMenuButton;
+                    this.setActionMenuButtonFocused(actionMenuButton, true);
+                }
                 break;
+            }
             case TableFocusType.cellContent: {
                 focusableElement = rowElements.cells[this.columnIndex]?.cell.cellView
                     .tabbableChildren[this.cellContentIndex];
@@ -1092,12 +1087,6 @@ implements Subscriber {
         return this.getContainingElement(start, e => e instanceof TableCell);
     }
 
-    private getContainingMenuButton(
-        start: Element | undefined | null
-    ): MenuButton | undefined {
-        return this.getContainingElement(start, e => e instanceof MenuButton);
-    }
-
     private getContainingElement<TElement>(
         start: Element | undefined | null,
         isElementMatch: (element: Element) => boolean
@@ -1124,7 +1113,7 @@ implements Subscriber {
         return possibleMatch === this.table;
     }
 
-    private getActiveElement(stopAtTableBoundaries = true): HTMLElement | null {
+    private getActiveElement(): HTMLElement | null {
         let activeElement = document.activeElement;
         while (activeElement?.shadowRoot?.activeElement) {
             activeElement = activeElement.shadowRoot.activeElement;
@@ -1132,8 +1121,7 @@ implements Subscriber {
             // we can more simply check equality against the elements of getTableHeaderFocusableElements() / row.getFocusableElements().
             // (For rows/cells/cell views, we do need to recurse into them, to get to the appropriate focused controls though)
             if (
-                stopAtTableBoundaries
-                && activeElement instanceof FoundationElement
+                activeElement instanceof FoundationElement
                 && !(activeElement instanceof TableRow)
                 && !(activeElement instanceof TableCell)
                 && !(activeElement instanceof TableCellView)
