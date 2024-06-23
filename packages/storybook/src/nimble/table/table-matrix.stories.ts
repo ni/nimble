@@ -151,19 +151,29 @@ export const tableNoSelectionThemeMatrix: StoryFn = createMatrixThemeStory(
 tableNoSelectionThemeMatrix.play = playFunction;
 
 export const tableSingleSelectionThemeMatrix: StoryFn = createMatrixThemeStory(
-    createMatrix(component, [['single'], groupedStates, hierarchyStates])
+    createMatrix(component, [
+        [TableRowSelectionMode.single],
+        groupedStates,
+        hierarchyStates
+    ])
 );
 tableSingleSelectionThemeMatrix.play = playFunction;
 
 export const tableMultipleSelectionThemeMatrix: StoryFn = createMatrixThemeStory(
-    createMatrix(component, [['multiple'], groupedStates, hierarchyStates])
+    createMatrix(component, [
+        [TableRowSelectionMode.multiple],
+        groupedStates,
+        hierarchyStates
+    ])
 );
 tableMultipleSelectionThemeMatrix.play = playFunction;
 
+const groupedStatesGroupingEnabled = groupedStates[0];
+const hierarchyStatesHierarchyEnabled = hierarchyStates[0];
 const tableKeyboardFocusStates = cartesianProduct([
-    ['multiple'],
-    [groupedStates[0]],
-    [hierarchyStates[0]]
+    [TableRowSelectionMode.multiple],
+    [groupedStatesGroupingEnabled],
+    [hierarchyStatesHierarchyEnabled]
 ] as const);
 export const tableKeyboardFocusThemeMatrix: StoryFn = createMatrixThemeStory(
     createMatrixInteractionsFromStates(component, {
