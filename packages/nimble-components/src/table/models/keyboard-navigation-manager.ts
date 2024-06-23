@@ -67,14 +67,6 @@ implements Subscriber {
         private readonly table: Table<TData>,
         private readonly virtualizer: Virtualizer<TData>
     ) {
-        table.addEventListener('keydown', e => this.onCaptureKeyDown(e), {
-            capture: true
-        });
-        table.addEventListener('keydown', e => this.onKeyDown(e));
-        table.addEventListener('focusin', e => this.handleFocus(e));
-        table.addEventListener('focusout', () => {
-            this.focusWithinTable = false;
-        });
         this.tableNotifier = Observable.getNotifier(this.table);
         this.tableNotifier.subscribe(this, 'rowElements');
         this.virtualizerNotifier = Observable.getNotifier(this.virtualizer);
@@ -90,6 +82,20 @@ implements Subscriber {
     }
 
     public connect(): void {
+        this.table.addEventListener(
+            'keydown',
+            this.onCaptureKeyDown as EventListener,
+            { capture: true }
+        );
+        this.table.addEventListener('keydown', this.onKeyDown as EventListener);
+        this.table.addEventListener(
+            'focusin',
+            this.onTableFocusIn as EventListener
+        );
+        this.table.addEventListener(
+            'focusout',
+            this.onTableFocusOut as EventListener
+        );
         this.table.viewport.addEventListener('keydown', this.onViewportKeyDown);
         this.table.viewport.addEventListener(
             'cell-action-menu-blur',
@@ -110,6 +116,23 @@ implements Subscriber {
     }
 
     public disconnect(): void {
+        this.table.removeEventListener(
+            'keydown',
+            this.onCaptureKeyDown as EventListener,
+            { capture: true }
+        );
+        this.table.removeEventListener(
+            'keydown',
+            this.onKeyDown as EventListener
+        );
+        this.table.removeEventListener(
+            'focusin',
+            this.onTableFocusIn as EventListener
+        );
+        this.table.removeEventListener(
+            'focusout',
+            this.onTableFocusOut as EventListener
+        );
         this.table.viewport.removeEventListener(
             'keydown',
             this.onViewportKeyDown
@@ -223,7 +246,7 @@ implements Subscriber {
         }
     }
 
-    private readonly handleFocus = (event: FocusEvent): void => {
+    private readonly onTableFocusIn = (event: FocusEvent): void => {
         this.focusWithinTable = true;
         this.updateFocusStateFromActiveElement(false);
 
@@ -246,6 +269,10 @@ implements Subscriber {
                 this.table.blur();
             }
         }
+    };
+
+    private readonly onTableFocusOut = (): void => {
+        this.focusWithinTable = false;
     };
 
     private readonly onCellActionMenuBlur = (
