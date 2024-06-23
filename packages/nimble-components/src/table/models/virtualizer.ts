@@ -34,7 +34,7 @@ export class Virtualizer<TData extends TableRecord = TableRecord> {
     public rowContainerYOffset = 0;
 
     public get pageSize(): number {
-        return Math.round(this.table.viewport.clientHeight / this.rowHeight);
+        return this._pageSize;
     }
 
     private get rowHeight(): number {
@@ -48,6 +48,7 @@ export class Virtualizer<TData extends TableRecord = TableRecord> {
     private readonly tanStackTable: TanStackTable<TableNode<TData>>;
     private readonly viewportResizeObserver: ResizeObserver;
     private virtualizer?: TanStackVirtualizer<HTMLElement, HTMLElement>;
+    private _pageSize!: number;
 
     public constructor(
         table: Table<TData>,
@@ -58,6 +59,7 @@ export class Virtualizer<TData extends TableRecord = TableRecord> {
         this.viewportResizeObserver = new ResizeObserver(entries => {
             const borderBoxSize = entries[0]?.borderBoxSize[0];
             if (borderBoxSize) {
+                this.updatePageSize();
                 // If we have enough rows that a vertical scrollbar is shown, we need to offset the header widths
                 // by the same margin so the column headers align with the corresponding rendered cells
                 const viewportBoundingWidth = borderBoxSize.inlineSize;
@@ -67,6 +69,7 @@ export class Virtualizer<TData extends TableRecord = TableRecord> {
     }
 
     public connect(): void {
+        this.updatePageSize();
         this.viewportResizeObserver.observe(this.table.viewport);
         this.updateVirtualizer();
         this.table.viewport.scrollTo({ top: this.virtualizer!.scrollOffset });
@@ -158,5 +161,11 @@ export class Virtualizer<TData extends TableRecord = TableRecord> {
             ) as TableRow | undefined;
             activeRow?.closeOpenActionMenus();
         }
+    }
+
+    private updatePageSize(): void {
+        this._pageSize = Math.round(
+            this.table.viewport.clientHeight / this.rowHeight
+        );
     }
 }
