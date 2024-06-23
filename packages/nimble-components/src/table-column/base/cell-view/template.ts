@@ -26,7 +26,6 @@ export const createCellViewTemplate = (
             :columnConfig="${y => y.cellState?.columnConfig}"
             :column="${y => y.column}"
             :recordId="${y => y.recordId}"
-            @focusin="${y => y.onCellViewFocusIn()}"
             class="cell-view"
         >
         </${cellViewTag}>

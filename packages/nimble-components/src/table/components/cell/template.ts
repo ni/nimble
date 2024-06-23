@@ -14,7 +14,7 @@ export const template = html<TableCell>`
         @focusin="${x => x.onCellFocusIn()}"
         @blur="${x => x.onCellBlur()}"
     >
-        <div ${ref('cellViewContainer')} class="cell-view-container">
+        <div ${ref('cellViewContainer')} class="cell-view-container" @focusin="${y => y.onCellViewFocusIn()}">
             ${x => x.cellViewTemplate}
         </div>
         ${when(x => x.hasActionMenu, html<TableCell>`
