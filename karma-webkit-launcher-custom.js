@@ -252,6 +252,7 @@ const WebkitBrowser = function (baseBrowserDecorator, args) {
   };
 
   this.on("kill", (done) => {
+    console.log('---------------------------------------------------------on kill');
     killMiniBrowser(done);
     // Clean up all remaining processes after 500ms delay on normal clients.
     // if (!isCI) {
@@ -262,6 +263,7 @@ const WebkitBrowser = function (baseBrowserDecorator, args) {
   });
 
   this.on("done", () => {
+    console.log('---------------------------------------------------------on done');
     // Clean up all remaining processes after 500ms delay on normal clients.
     // if (!isCI) {
       childProcessCleanup(this.id);
@@ -407,17 +409,20 @@ const childProcessCleanup = function (task_id, callback) {
 };
 
 const killMiniBrowser = function () {
+  console.log('---------------------------------------------------------killMiniBrowser');
   child_process.exec('ps | grep -i "MiniBrowser"', (error, stdout) => {
+    console.log('---------------------------------------------------------killMiniBrowser: ps returned' + stdout);
     // Ignore error from killed processes.
     if (error && error.signal != "SIGHUP") {
       throw error;
     }
 
     if (stdout?.includes("MiniBrowser")) {
-
+      console.log('---------------------------------------------------------killMiniBrowser: found MiniBrowser in output');
       // Extract process id
       const match = stdout.match(/\b\d+\b/);
       if (match) {
+        console.log('---------------------------------------------------------killMiniBrowser: found MiniBrowser process id');
         // This actually kills any process, not just child processes.
         killChildProcesses(match);
       }
@@ -431,9 +436,11 @@ const killMiniBrowser = function () {
  * @param {String} task_id
  */
 const killChildProcesses = function (childProcessIds, task_id = "unknown") {
+  console.log('---------------------------------------------------------killChildProcesses');
   if (!childProcessIds || childProcessIds.length <= 0) {
     return;
   }
+  console.log('---------------------------------------------------------killChildProcesses: [0]=' + childProcessIds[0]);
 
   childProcessIds.forEach((childProcessId) => {
     // Check if the process is still valid with a 0 kill signal.
@@ -450,8 +457,10 @@ const killChildProcesses = function (childProcessIds, task_id = "unknown") {
 
     // Killing child process, if there are no permission error.
     try {
+      console.log('---------------------------------------------------------killChildProcesses: killing process');
       process.kill(childProcessId, "SIGHUP");
     } catch (killError) {
+      console.log('---------------------------------------------------------killChildProcesses: kill errored: ' + killError);
       // Ignore errors if process is already killed.
       if (killError.code != "ESRCH") {
         throw killError;

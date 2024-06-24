@@ -102,6 +102,7 @@ jobs:
 
       # Validate (Lint and Test)
       - run: npm run validate
+        timeout-minutes: 7
 
       # Run Lighthouse audit (from any push)
       - name: Performance Audit with Lighthouse CI
