@@ -1,12 +1,12 @@
 import type { StoryFn, Meta } from '@storybook/html';
 import { html } from '@microsoft/fast-element';
-import { waitForUpdatesAsync } from '@ni/nimble-components/src/testing/async-helpers';
-import { menuTag } from '@ni/nimble-components/src/menu';
-import { menuItemTag } from '@ni/nimble-components/src/menu-item';
-import { TablePageObject } from '@ni/nimble-components/src/table/testing/table.pageobject';
 import { Table, tableTag } from '../../../../../nimble-components/src/table';
+import { menuTag } from '../../../../../nimble-components/src/menu';
+import { menuItemTag } from '../../../../../nimble-components/src/menu-item';
 import { tableColumnMenuButtonTag } from '../../../../../nimble-components/src/table-column/menu-button';
 import { TableColumnMenuButtonPageObject } from '../../../../../nimble-components/src/table-column/menu-button/testing/table-column-menu-button.pageobject';
+import { TablePageObject } from '../../../../../nimble-components/src/table/testing/table.pageobject';
+import { waitForUpdatesAsync } from '../../../../../nimble-components/src/testing/async-helpers';
 import { sharedMatrixParameters } from '../../../utilities/matrix';
 import { backgroundStates } from '../../../utilities/states';
 import { createFixedThemeStory } from '../../../utilities/storybook';
