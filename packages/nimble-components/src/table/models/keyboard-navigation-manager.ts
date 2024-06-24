@@ -175,7 +175,10 @@ implements Subscriber {
                     focusRowAndCell = true;
                 }
             }
-        } else if (args === 'resolvedRowIndex' && this.isVisualRow(source)) {
+        } else if (
+            args === 'resolvedRowIndex'
+            && this.isResolvedRowType(source)
+        ) {
             if (source.resolvedRowIndex === this.rowIndex) {
                 focusRowAndCell = true;
             }
@@ -223,7 +226,7 @@ implements Subscriber {
             return;
         }
         const row = event.target;
-        if (this.isVisualRow(row)) {
+        if (this.isResolvedRowType(row)) {
             if (this.rowIndex !== row.resolvedRowIndex) {
                 // If user focuses a row some other way (e.g. mouse), update our focus state so future keyboard nav
                 // will start from that row
@@ -234,7 +237,7 @@ implements Subscriber {
 
     public onRowBlur(event: FocusEvent): void {
         const row = event.target;
-        if (this.isVisualRow(row)) {
+        if (this.isResolvedRowType(row)) {
             this.setElementFocusable(row, false);
         }
     }
@@ -909,12 +912,12 @@ implements Subscriber {
         menuButton: MenuButton,
         focused: boolean
     ): void {
-        // The action MenuButton needs to be visible in order to be focused, so this 'focused' CSS class styling
+        // The action MenuButton needs to be visible in order to be focused, so this CSS class styling
         // handles that (see cell/styles.ts).
         if (focused) {
-            menuButton.classList.add('focused');
+            menuButton.classList.add('cell-action-menu-focused');
         } else {
-            menuButton.classList.remove('focused');
+            menuButton.classList.remove('cell-action-menu-focused');
         }
     }
 
@@ -1111,7 +1114,7 @@ implements Subscriber {
     private getContainingRow(
         start: Element | undefined | null
     ): TableRow | TableGroupRow | undefined {
-        return this.getContainingElement(start, e => this.isVisualRow(e));
+        return this.getContainingElement(start, e => this.isResolvedRowType(e));
     }
 
     private getContainingCell(
@@ -1364,7 +1367,7 @@ implements Subscriber {
         }
     }
 
-    private isVisualRow(row: unknown): row is TableRow | TableGroupRow {
+    private isResolvedRowType(row: unknown): row is TableRow | TableGroupRow {
         return row instanceof TableRow || row instanceof TableGroupRow;
     }
 }

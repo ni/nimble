@@ -46,7 +46,7 @@ export class Virtualizer<TData extends TableRecord = TableRecord> {
     private readonly tanStackTable: TanStackTable<TableNode<TData>>;
     private readonly viewportResizeObserver: ResizeObserver;
     private virtualizer?: TanStackVirtualizer<HTMLElement, HTMLElement>;
-    private _pageSize!: number;
+    private _pageSize = 0;
 
     public constructor(
         table: Table<TData>,
@@ -67,7 +67,6 @@ export class Virtualizer<TData extends TableRecord = TableRecord> {
     }
 
     public connect(): void {
-        this.updatePageSize();
         this.viewportResizeObserver.observe(this.table.viewport);
         this.updateVirtualizer();
         this.table.viewport.scrollTo({ top: this.virtualizer!.scrollOffset });

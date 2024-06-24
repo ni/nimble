@@ -638,6 +638,13 @@ describe('TableColumnAnchor', () => {
                 placeholder
             );
         });
+
+        it('for cells with placeholder, cellView tabbableChildren is an empty array', async () => {
+            await initializeColumnAndTable([{}], 'placeholder');
+
+            const cellView = pageObject.getRenderedCellView(0, 0);
+            expect(cellView.tabbableChildren).toEqual([]);
+        });
     });
 
     describe('keyboard navigation', () => {

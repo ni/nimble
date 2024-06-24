@@ -237,14 +237,12 @@ export class TableRow<
                 : undefined,
             cells: Array.from(
                 this.cellContainer.querySelectorAll(tableCellTag)
-            ).map(cell => {
-                return {
-                    cell,
-                    actionMenuButton: cell.hasActionMenu
-                        ? cell.actionMenuButton
-                        : undefined
-                };
-            })
+            ).map(cell => ({
+                cell,
+                actionMenuButton: cell.hasActionMenu
+                    ? cell.actionMenuButton
+                    : undefined
+            }))
         };
     }
 

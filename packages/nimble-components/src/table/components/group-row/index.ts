@@ -107,11 +107,12 @@ export class TableGroupRow extends FoundationElement {
 
     /** @internal */
     public getFocusableElements(): TableRowFocusableElements {
-        const elements: TableRowFocusableElements = { cells: [] };
-        if (this.selectable) {
-            elements.selectionCheckbox = this.selectionCheckbox;
-        }
-        return elements;
+        return {
+            selectionCheckbox: this.selectable
+                ? this.selectionCheckbox
+                : undefined,
+            cells: []
+        };
     }
 
     private selectionStateChanged(): void {

@@ -109,6 +109,9 @@ export const template = html<Table>`
                                     `)}
                                         <${tableHeaderTag}
                                             class="header"
+                                ${''
+    /* tabindex managed dynamically by KeyboardNavigationManager (if column sorting not disabled) */
+}
                                             sort-direction="${x => (typeof x.columnInternals.currentSortIndex === 'number' ? x.columnInternals.currentSortDirection : TableColumnSortDirection.none)}"
                                             ?first-sorted-column="${(x, c) => x === c.parent.firstSortedColumn}"
                                             ?indicators-hidden="${x => x.columnInternals.hideHeaderIndicators}"

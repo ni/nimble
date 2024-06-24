@@ -47,7 +47,10 @@ export const styles = css`
         align-self: center;
     }
 
-    .action-menu.focused {
+    ${
+        /* This CSS class is applied dynamically by KeyboardNavigationManager */ ''
+    }
+    .action-menu.cell-action-menu-focused {
         display: block;
     }
 `;
