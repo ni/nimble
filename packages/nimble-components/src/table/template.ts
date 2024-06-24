@@ -176,7 +176,7 @@ export const template = html<Table>`
                                             </slot>
                                         `)}
                                     `)}
-                                    ${repeat((x, c: ExecutionContext<Table>) => (c.parent.tableData[x.index]?.id ? c.parent.slotsByRecordId[c.parent.tableData[x.index]!.id] || [] : []), html<SlotMetadata>`
+                                    ${repeat((x, c: ExecutionContext<Table>) => (c.parent.tableData[x.index]?.id ? (c.parent.slotsByRecordId[c.parent.tableData[x.index]!.id] || []) : []), html<SlotMetadata>`
                                         <slot
                                             name="${x => x.name}"
                                             slot="${x => x.slot}"
