@@ -1,5 +1,7 @@
 # Button Table Column
 
+NOTE: No longer planned (at least, with this limited scope). Client use cases that would have used this form of the button column are served well enough by an action menu item.
+
 ## Overview
 
 A table column whose cells render an action button (`nimble-button`).
