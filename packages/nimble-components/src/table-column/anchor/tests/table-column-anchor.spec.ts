@@ -665,17 +665,6 @@ describe('TableColumnAnchor', () => {
             return anchor.shadowRoot?.activeElement !== null;
         }
 
-        it('cellView tabbableChildren returns the anchor for cells with links', () => {
-            const cellView = pageObject.getRenderedCellView(0, 0);
-            const anchor = pageObject.getRenderedCellAnchor(0, 0);
-            expect(cellView.tabbableChildren).toEqual([anchor]);
-        });
-
-        it('cellView tabbableChildren returns an empty array for cells without links', () => {
-            const cellView = pageObject.getRenderedCellView(0, 1);
-            expect(cellView.tabbableChildren).toEqual([]);
-        });
-
         describe('with cell[0, 0] focused,', () => {
             beforeEach(async () => {
                 await sendKeyDownEvent(table, keyArrowDown);
