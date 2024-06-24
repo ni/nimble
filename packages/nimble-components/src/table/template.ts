@@ -1,4 +1,5 @@
 import {
+    ExecutionContext,
     children,
     elements,
     html,
@@ -130,7 +131,7 @@ export const template = html<Table>`
                         role="rowgroup">
                         ${when(x => x.columns.length > 0 && x.canRenderRows, html<Table>`
                             ${repeat(x => x.virtualizer.visibleItems, html<VirtualItem, Table>`
-                                ${when((x, c) => (c.parent as Table).tableData[x.index]?.isGroupRow, html<VirtualItem, Table>`
+                                ${when((x, c: ExecutionContext<Table>) => c.parent.tableData[x.index]?.isGroupRow, html<VirtualItem, Table>`
                                     <${tableGroupRowTag}
                                         class="group-row"
                                         :groupRowValue="${(x, c) => c.parent.tableData[x.index]?.groupRowValue}"
@@ -145,7 +146,7 @@ export const template = html<Table>`
                                     >
                                     </${tableGroupRowTag}>
                                 `)}
-                                ${when((x, c) => !(c.parent as Table).tableData[x.index]?.isGroupRow, html<VirtualItem, Table>`
+                                ${when((x, c: ExecutionContext<Table>) => !c.parent.tableData[x.index]?.isGroupRow, html<VirtualItem, Table>`
                                     <${tableRowTag}
                                         class="row"
                                         record-id="${(x, c) => c.parent.tableData[x.index]?.id}"
@@ -167,15 +168,15 @@ export const template = html<Table>`
                                         @row-expand-toggle="${(x, c) => c.parent.handleRowExpanded(x.index)}"
                                         :dataIndex="${x => x.index}"
                                     >
-                                    ${when((x, c) => (c.parent as Table).openActionMenuRecordId === (c.parent as Table).tableData[x.index]?.id, html<VirtualItem, Table>`
-                                        ${repeat((_, c) => (c.parent as Table).actionMenuSlots, html<string, Table>`
+                                    ${when((x, c: ExecutionContext<Table>) => c.parent.openActionMenuRecordId === c.parent.tableData[x.index]?.id, html<VirtualItem, Table>`
+                                        ${repeat((_, c: ExecutionContext<Table>) => c.parent.actionMenuSlots, html<string, Table>`
                                             <slot
                                                 name="${x => x}"
                                                 slot="${x => `row-action-menu-${x}`}">
                                             </slot>
                                         `)}
                                     `)}
-                                    ${repeat((x, c) => ((c.parent as Table).tableData[x.index]?.id ? (c.parent as Table).slotsByRecordId[(c.parent as Table).tableData[x.index]!.id] || [] : []), html<SlotMetadata>`
+                                    ${repeat((x, c: ExecutionContext<Table>) => (c.parent.slotsByRecordId[c.parent.tableData[x.index]!.id] || []), html<SlotMetadata>`
                                         <slot
                                             name="${x => x.name}"
                                             slot="${x => x.slot}"
