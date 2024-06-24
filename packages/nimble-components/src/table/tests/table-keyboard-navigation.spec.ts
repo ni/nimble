@@ -1,5 +1,5 @@
 /* eslint-disable no-await-in-loop */
-import { html } from '@microsoft/fast-element';
+import { customElement, html, observable, ref } from '@microsoft/fast-element';
 import { FoundationElement } from '@microsoft/fast-foundation';
 import {
     keyArrowDown,
@@ -16,53 +16,43 @@ import {
     keySpace,
     keyTab
 } from '@microsoft/fast-web-utilities';
-import { parameterizeSpec, parameterizeSuite } from '@ni/jasmine-parameterized';
+import { parameterizeSpec } from '@ni/jasmine-parameterized';
 import type { Table } from '..';
-import type { TableColumnText } from '../../table-column/text';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
-import { type Fixture, fixture } from '../../utilities/tests/fixture';
+import {
+    type Fixture,
+    fixture,
+    uniqueElementName
+} from '../../utilities/tests/fixture';
 import {
     TableColumnSortDirection,
     TableRecord,
     TableRowSelectionMode
 } from '../types';
 import { TablePageObject } from '../testing/table.pageobject';
-import { createEventListener } from '../../utilities/tests/component';
+import {
+    createEventListener,
+    sendKeyDownEvent
+} from '../../utilities/tests/component';
 import { TableRow } from '../components/row';
 import { TableCell } from '../components/cell';
 import { TableCellView } from '../../table-column/base/cell-view';
-import type { TableColumn } from '../../table-column/base';
+import { TableColumn } from '../../table-column/base';
 import { TableGroupRow } from '../components/group-row';
 import { menuItemTag } from '../../menu-item';
+import {
+    tableColumnEmptyCellViewTag,
+    tableColumnEmptyGroupHeaderViewTag
+} from '../../table-column/base/tests/table-column.fixtures';
+import { mixinGroupableColumnAPI } from '../../table-column/mixins/groupable-column';
+import type { ColumnInternalsOptions } from '../../table-column/base/models/column-internals';
+import { ColumnValidator } from '../../table-column/base/models/column-validator';
+import { mixinSortableColumnAPI } from '../../table-column/mixins/sortable-column';
 
 interface SimpleTableRecord extends TableRecord {
     id: string;
-    stringData1?: string | null;
-    stringData2?: string | null;
-    stringData3?: string | null;
+    value?: string | null;
     parentId?: string;
-}
-
-// prettier-ignore
-async function setupWithTextColumns(): Promise<Fixture<Table<SimpleTableRecord>>> {
-    return fixture<Table<SimpleTableRecord>>(
-        html`<nimble-table id-field-name="id">
-        <nimble-table-column-text id="first-column" field-name="stringData1" column-id="column-1"></nimble-table-column-text>
-        <nimble-table-column-text id="second-column" field-name="stringData2" column-id="column-2"></nimble-table-column-text>
-        <nimble-table-column-text id="third-column" field-name="stringData3" column-id="column-3"></nimble-table-column-text>
-    </nimble-table>`
-    );
-}
-
-// prettier-ignore
-async function setupWithAnchorColumns(): Promise<Fixture<Table<SimpleTableRecord>>> {
-    return fixture<Table<SimpleTableRecord>>(
-        html`<nimble-table id-field-name="id">
-        <nimble-table-column-anchor id="first-column" href-field-name="href1" label-field-name="href1" column-id="column-1"></nimble-table-column-anchor>
-        <nimble-table-column-anchor id="second-column" href-field-name="href2" label-field-name="href2" column-id="column-2"></nimble-table-column-anchor>
-        <nimble-table-column-anchor id="third-column" href-field-name="href3" label-field-name="href3" column-id="column-3"></nimble-table-column-anchor>
-    </nimble-table>`
-    );
 }
 
 function currentFocusedElement(): HTMLElement | null {
@@ -125,27 +115,11 @@ describe('Table keyboard navigation', () => {
         expect(element.shadowRoot?.activeElement).toBeNull();
     }
 
-    async function sendKeyPress(
-        target: HTMLElement,
-        key: string,
-        init?: KeyboardEventInit
-    ): Promise<KeyboardEvent> {
-        const event = new KeyboardEvent('keydown', {
-            key,
-            cancelable: true,
-            bubbles: true,
-            ...init
-        });
-        target.dispatchEvent(event);
-        await waitForUpdatesAsync();
-        return event;
-    }
-
     async function sendKeyPressToTable(
         key: string,
         init?: KeyboardEventInit
     ): Promise<KeyboardEvent> {
-        return sendKeyPress(element, key, init);
+        return sendKeyDownEvent(element, key, init);
     }
 
     async function sendKeyPressesToTable(...keys: string[]): Promise<void> {
@@ -212,37 +186,57 @@ describe('Table keyboard navigation', () => {
         await waitForUpdatesAsync();
     }
 
-    describe('with non-interactive (text) columns', () => {
-        let column1: TableColumnText;
-        let column2: TableColumnText;
-        let column3: TableColumnText;
+    describe('with non-interactive columns', () => {
+        const nonInteractiveColumnName = uniqueElementName();
+        // prettier-ignore
+        @customElement({
+            name: nonInteractiveColumnName
+        })
+        class TestNonInteractiveTableColumn extends mixinSortableColumnAPI(mixinGroupableColumnAPI(TableColumn)) {
+            protected override getColumnInternalsOptions(): ColumnInternalsOptions {
+                return {
+                    cellRecordFieldNames: ['value'],
+                    cellViewTag: tableColumnEmptyCellViewTag,
+                    groupHeaderViewTag: tableColumnEmptyGroupHeaderViewTag,
+                    delegatedEvents: [],
+                    validator: new ColumnValidator<[]>([])
+                };
+            }
+        }
+
+        // prettier-ignore
+        async function setupNonInteractiveTable(): Promise<Fixture<Table<SimpleTableRecord>>> {
+            return fixture<Table<SimpleTableRecord>>(
+                html`<nimble-table id-field-name="id">
+                <${nonInteractiveColumnName} id="first-column" column-id="column-1"></${nonInteractiveColumnName}>
+                <${nonInteractiveColumnName} id="second-column" column-id="column-2"></${nonInteractiveColumnName}>
+                <${nonInteractiveColumnName} id="third-column" column-id="column-3"></${nonInteractiveColumnName}>
+            </nimble-table>`
+            );
+        }
+
+        let column1: TestNonInteractiveTableColumn;
+        let column2: TestNonInteractiveTableColumn;
+        let column3: TestNonInteractiveTableColumn;
         const largeDataRowCount = 1000;
 
         async function setupBasicTable(): Promise<void> {
             const data: readonly SimpleTableRecord[] = [
                 {
                     id: '1',
-                    stringData1: 'a1',
-                    stringData2: 'b1',
-                    stringData3: 'c1'
+                    value: 'a1'
                 },
                 {
                     id: '2',
-                    stringData1: 'a2',
-                    stringData2: 'b2',
-                    stringData3: 'c2'
+                    value: 'a2'
                 },
                 {
                     id: '3',
-                    stringData1: 'a3',
-                    stringData2: 'b3',
-                    stringData3: 'c3'
+                    value: 'a3'
                 },
                 {
                     id: '4',
-                    stringData1: 'a4',
-                    stringData2: 'b4',
-                    stringData3: 'c4'
+                    value: 'a4'
                 }
             ] as const;
 
@@ -255,27 +249,19 @@ describe('Table keyboard navigation', () => {
             const data: readonly SimpleTableRecord[] = [
                 {
                     id: '1',
-                    stringData1: 'a1',
-                    stringData2: 'b1',
-                    stringData3: 'c1'
+                    value: 'a1'
                 },
                 {
                     id: '2',
-                    stringData1: 'a2',
-                    stringData2: 'b1',
-                    stringData3: 'c2'
+                    value: 'a2'
                 },
                 {
                     id: '3',
-                    stringData1: 'a3',
-                    stringData2: 'b3',
-                    stringData3: 'c3'
+                    value: 'a3'
                 },
                 {
                     id: '4',
-                    stringData1: 'a4',
-                    stringData2: 'b3',
-                    stringData3: 'c4'
+                    value: 'a4'
                 }
             ] as const;
 
@@ -290,9 +276,7 @@ describe('Table keyboard navigation', () => {
             for (let i = 0; i < largeDataRowCount; i++) {
                 data.push({
                     id: i.toString(),
-                    stringData1: `a${i}`,
-                    stringData2: `b${i}`,
-                    stringData3: `c${i}`
+                    value: `a${i}`
                 });
             }
 
@@ -302,11 +286,17 @@ describe('Table keyboard navigation', () => {
         }
 
         beforeEach(async () => {
-            ({ element, connect, disconnect } = await setupWithTextColumns());
+            ({ element, connect, disconnect } = await setupNonInteractiveTable());
             pageObject = new TablePageObject<SimpleTableRecord>(element);
-            column1 = element.querySelector<TableColumnText>('#first-column')!;
-            column2 = element.querySelector<TableColumnText>('#second-column')!;
-            column3 = element.querySelector<TableColumnText>('#third-column')!;
+            column1 = element.querySelector<TestNonInteractiveTableColumn>(
+                '#first-column'
+            )!;
+            column2 = element.querySelector<TestNonInteractiveTableColumn>(
+                '#second-column'
+            )!;
+            column3 = element.querySelector<TestNonInteractiveTableColumn>(
+                '#third-column'
+            )!;
         });
 
         afterEach(async () => {
@@ -332,17 +322,17 @@ describe('Table keyboard navigation', () => {
                 );
 
                 const focusedColumn = currentFocusedElement()!;
-                await sendKeyPress(focusedColumn, keyEnter);
+                await sendKeyDownEvent(focusedColumn, keyEnter);
                 expect(firstHeader.sortDirection).toBe(
                     TableColumnSortDirection.ascending
                 );
 
-                await sendKeyPress(focusedColumn, keyEnter);
+                await sendKeyDownEvent(focusedColumn, keyEnter);
                 expect(firstHeader.sortDirection).toBe(
                     TableColumnSortDirection.descending
                 );
 
-                await sendKeyPress(focusedColumn, keyEnter);
+                await sendKeyDownEvent(focusedColumn, keyEnter);
                 await waitForUpdatesAsync();
                 expect(
                     firstHeader.sortDirection
@@ -354,11 +344,13 @@ describe('Table keyboard navigation', () => {
             it('Shift-Enter key presses will sort the focused column (ascending, descending, no sort) and maintain other sorted columns', async () => {
                 const firstHeader = pageObject.getHeaderElement(0);
                 const secondHeader = pageObject.getHeaderElement(1);
-                await sendKeyPress(currentFocusedElement()!, keyEnter);
+                await sendKeyDownEvent(currentFocusedElement()!, keyEnter);
                 await sendKeyPressToTable(keyArrowRight);
 
                 const focusedColumn = currentFocusedElement()!;
-                await sendKeyPress(focusedColumn, keyEnter, { shiftKey: true });
+                await sendKeyDownEvent(focusedColumn, keyEnter, {
+                    shiftKey: true
+                });
                 expect(firstHeader.sortDirection).toBe(
                     TableColumnSortDirection.ascending
                 );
@@ -366,7 +358,9 @@ describe('Table keyboard navigation', () => {
                     TableColumnSortDirection.ascending
                 );
 
-                await sendKeyPress(focusedColumn, keyEnter, { shiftKey: true });
+                await sendKeyDownEvent(focusedColumn, keyEnter, {
+                    shiftKey: true
+                });
                 expect(firstHeader.sortDirection).toBe(
                     TableColumnSortDirection.ascending
                 );
@@ -374,7 +368,9 @@ describe('Table keyboard navigation', () => {
                     TableColumnSortDirection.descending
                 );
 
-                await sendKeyPress(focusedColumn, keyEnter, { shiftKey: true });
+                await sendKeyDownEvent(focusedColumn, keyEnter, {
+                    shiftKey: true
+                });
                 expect(firstHeader.sortDirection).toBe(
                     TableColumnSortDirection.ascending
                 );
@@ -705,7 +701,7 @@ describe('Table keyboard navigation', () => {
                                 element,
                                 'action-menu-toggle'
                             );
-                            await sendKeyPress(
+                            await sendKeyDownEvent(
                                 actionMenuButton.toggleButton!,
                                 value.key
                             );
@@ -716,7 +712,7 @@ describe('Table keyboard navigation', () => {
 
                             const actionMenuItem = element.querySelector(menuItemTag)!;
 
-                            await sendKeyPress(actionMenuItem, keyEscape);
+                            await sendKeyDownEvent(actionMenuItem, keyEscape);
 
                             expect(firstCell.menuOpen).toBe(false);
 
@@ -1170,164 +1166,188 @@ describe('Table keyboard navigation', () => {
         });
     });
 
-    describe('with interactive columns of type', () => {
-        const tests = [
-            {
-                name: 'anchor',
-                setup: setupWithAnchorColumns,
-                tableData: [
-                    {
-                        id: '1',
-                        href1: 'http://www.ni.com/a1',
-                        href2: 'http://www.ni.com/b1',
-                        href3: 'http://www.ni.com/c1'
-                    },
-                    {
-                        id: '2',
-                        href1: 'http://www.ni.com/a2',
-                        href2: 'http://www.ni.com/b2',
-                        href3: 'http://www.ni.com/c2'
-                    },
-                    {
-                        id: '3',
-                        href1: 'http://www.ni.com/a3',
-                        href2: 'http://www.ni.com/b3',
-                        href3: 'http://www.ni.com/c3'
-                    },
-                    {
-                        id: '4',
-                        href1: 'http://www.ni.com/a4',
-                        href2: 'http://www.ni.com/b4',
-                        href3: 'http://www.ni.com/c4'
-                    }
-                ] as SimpleTableRecord[],
-                getRenderedCellContent: (
-                    rowIndex: number,
-                    columnIndex: number
-                ) => pageObject.getRenderedCellAnchor(rowIndex, columnIndex)
+    describe('with interactive columns', () => {
+        const interactiveCellViewName = uniqueElementName();
+        const interactiveColumnName = uniqueElementName();
+
+        // prettier-ignore
+        @customElement({
+            name: interactiveCellViewName,
+            template: html<TestInteractiveCellView>`<span tabindex="-1" ${ref('spanElement')}>Test</span>`
+        })
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        class TestInteractiveCellView extends TableCellView {
+            @observable
+            public spanElement!: HTMLSpanElement;
+
+            public override get tabbableChildren(): HTMLElement[] {
+                return [this.spanElement];
             }
-        ];
-        parameterizeSuite(tests, (suite, name, value) => {
-            suite(name, () => {
-                beforeEach(async () => {
-                    ({ element, connect, disconnect } = await value.setup());
-                    pageObject = new TablePageObject(element);
+        }
+        // prettier-ignore
+        @customElement({
+            name: interactiveColumnName
+        })
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        class TestInteractiveTableColumn extends TableColumn {
+            protected override getColumnInternalsOptions(): ColumnInternalsOptions {
+                return {
+                    cellViewTag: interactiveCellViewName,
+                    cellRecordFieldNames: ['value'],
+                    groupHeaderViewTag: tableColumnEmptyGroupHeaderViewTag,
+                    delegatedEvents: [],
+                    validator: new ColumnValidator<[]>([])
+                };
+            }
+        }
 
-                    await element.setData(value.tableData);
-                    const column2 = element.querySelector<TableColumn>('#second-column')!;
-                    await addActionMenu(column2);
-                    await connect();
-                    await waitForUpdatesAsync();
-                    element.focus();
-                    await waitForUpdatesAsync();
-                });
+        // prettier-ignore
+        async function setupInteractiveTable(): Promise<Fixture<Table<SimpleTableRecord>>> {
+            return fixture<Table<SimpleTableRecord>>(
+                html`<nimble-table id-field-name="id">
+                <${interactiveColumnName} id="first-column" column-id="column-1"></${interactiveColumnName}>
+                <${interactiveColumnName} id="second-column" column-id="column-2"></${interactiveColumnName}>
+                <${interactiveColumnName} id="third-column" column-id="column-3"></${interactiveColumnName}>
+            </nimble-table>`
+            );
+        }
 
-                afterEach(async () => {
-                    await disconnect();
-                });
+        function getRenderedCellContent(
+            rowIndex: number,
+            columnIndex: number
+        ): HTMLElement {
+            return (
+                pageObject.getRenderedCellView(
+                    rowIndex,
+                    columnIndex
+                ) as TestInteractiveCellView
+            ).spanElement;
+        }
 
-                it(`with the first row focused, clicking cell content (${name}) in another row will focus that ${name}, and an Esc key press will refocus the cell`, async () => {
-                    await sendKeyPressesToTable(keyArrowDown, keyArrowLeft); // focus row
+        beforeEach(async () => {
+            ({ element, connect, disconnect } = await setupInteractiveTable());
+            pageObject = new TablePageObject(element);
 
-                    const row2CellContent = value.getRenderedCellContent(1, 0);
-                    await clickAndSendFocusEvents(row2CellContent);
+            const tableData = [
+                {
+                    id: '1',
+                    value: 'a1'
+                },
+                {
+                    id: '2',
+                    value: 'a2'
+                },
+                {
+                    id: '3',
+                    value: 'a3'
+                },
+                {
+                    id: '4',
+                    value: 'a4'
+                }
+            ] as SimpleTableRecord[];
+            await element.setData(tableData);
+            const column2 = element.querySelector<TableColumn>('#second-column')!;
+            await addActionMenu(column2);
+            await connect();
+            await waitForUpdatesAsync();
+            element.focus();
+            await waitForUpdatesAsync();
+        });
 
-                    expect(currentFocusedElement()).toBe(row2CellContent);
+        afterEach(async () => {
+            await disconnect();
+        });
 
-                    await sendKeyPressToTable(keyEscape);
+        it('with the first row focused, clicking interactive cell content in another row will focus that content, and an Esc key press will refocus the cell', async () => {
+            await sendKeyPressesToTable(keyArrowDown, keyArrowLeft); // focus row
 
-                    expect(currentFocusedElement()).toBe(
-                        pageObject.getCell(1, 0)
-                    );
-                });
+            const row2CellContent = getRenderedCellContent(1, 0);
+            await clickAndSendFocusEvents(row2CellContent);
 
-                describe('and cell[0, 1] focused,', () => {
-                    beforeEach(async () => {
-                        await sendKeyPressesToTable(
-                            keyArrowDown,
-                            keyArrowRight
-                        );
+            expect(currentFocusedElement()).toBe(row2CellContent);
+
+            await sendKeyPressToTable(keyEscape);
+
+            expect(currentFocusedElement()).toBe(pageObject.getCell(1, 0));
+        });
+
+        describe('and cell[0, 1] focused,', () => {
+            beforeEach(async () => {
+                await sendKeyPressesToTable(keyArrowDown, keyArrowRight);
+            });
+
+            it('each Tab press will focus each of the remaining tabbable elements in the row (to the right), then will move focus past the table', async () => {
+                const expectedFocusedElements = [
+                    getRenderedCellContent(0, 1),
+                    pageObject.getCellActionMenu(0, 1)!,
+                    getRenderedCellContent(0, 2)
+                ];
+                for (const expectedElement of expectedFocusedElements) {
+                    const tabEvent = await sendKeyPressToTable(keyTab);
+                    expect(currentFocusedElement()).toBe(expectedElement);
+                    expect(tabEvent.defaultPrevented).toBe(true);
+                }
+                const lastTabEvent = await sendKeyPressToTable(keyTab);
+                await verifyLastTabKeyEventBehavior(lastTabEvent);
+            });
+
+            it('each Shift-Tab press will focus each of the remaining tabbable elements in the row (to the left), then will move focus past the table', async () => {
+                const expectedFocusedElements = [
+                    pageObject.getCellActionMenu(0, 1)!,
+                    getRenderedCellContent(0, 1),
+                    getRenderedCellContent(0, 0)
+                ];
+                for (const expectedElement of expectedFocusedElements) {
+                    const tabEvent = await sendKeyPressToTable(keyTab, {
+                        shiftKey: true
                     });
+                    expect(currentFocusedElement()).toBe(expectedElement);
+                    expect(tabEvent.defaultPrevented).toBe(true);
+                }
+                const lastTabEvent = await sendKeyPressToTable(keyTab, {
+                    shiftKey: true
+                });
+                await verifyLastTabKeyEventBehavior(lastTabEvent);
+            });
 
-                    it('each Tab press will focus each of the remaining tabbable elements in the row (to the right), then will move focus past the table', async () => {
-                        const expectedFocusedElements = [
-                            value.getRenderedCellContent(0, 1),
-                            pageObject.getCellActionMenu(0, 1)!,
-                            value.getRenderedCellContent(0, 2)
-                        ];
-                        for (const expectedElement of expectedFocusedElements) {
-                            const tabEvent = await sendKeyPressToTable(keyTab);
-                            expect(currentFocusedElement()).toBe(
-                                expectedElement
-                            );
-                            expect(tabEvent.defaultPrevented).toBe(true);
-                        }
-                        const lastTabEvent = await sendKeyPressToTable(keyTab);
-                        await verifyLastTabKeyEventBehavior(lastTabEvent);
-                    });
+            describe('pressing the given key will focus the interactive cell content in the current cell:', () => {
+                const keyTests = [
+                    { name: 'Enter', key: keyEnter },
+                    { name: 'F2', key: keyFunction2 }
+                ];
+                parameterizeSpec(
+                    keyTests,
+                    (keyTestSpec, keyTestName, keyTestValue) => {
+                        keyTestSpec(keyTestName, async () => {
+                            await sendKeyPressToTable(keyTestValue.key);
 
-                    it('each Shift-Tab press will focus each of the remaining tabbable elements in the row (to the left), then will move focus past the table', async () => {
-                        const expectedFocusedElements = [
-                            pageObject.getCellActionMenu(0, 1)!,
-                            value.getRenderedCellContent(0, 1),
-                            value.getRenderedCellContent(0, 0)
-                        ];
-                        for (const expectedElement of expectedFocusedElements) {
-                            const tabEvent = await sendKeyPressToTable(keyTab, {
-                                shiftKey: true
-                            });
-                            expect(currentFocusedElement()).toBe(
-                                expectedElement
-                            );
-                            expect(tabEvent.defaultPrevented).toBe(true);
-                        }
-                        const lastTabEvent = await sendKeyPressToTable(keyTab, {
-                            shiftKey: true
+                            const cellContent = getRenderedCellContent(0, 1);
+                            expect(currentFocusedElement()).toBe(cellContent);
                         });
-                        await verifyLastTabKeyEventBehavior(lastTabEvent);
-                    });
+                    }
+                );
+            });
 
-                    describe(`pressing the given key will focus the ${name} in the current cell:`, () => {
-                        const keyTests = [
-                            { name: 'Enter', key: keyEnter },
-                            { name: 'F2', key: keyFunction2 }
-                        ];
-                        parameterizeSpec(
-                            keyTests,
-                            (keyTestSpec, keyTestName, keyTestValue) => {
-                                keyTestSpec(keyTestName, async () => {
-                                    await sendKeyPressToTable(keyTestValue.key);
+            describe('when the interactive content in the cell is focused, pressing the given key will focus the cell:', () => {
+                const keyTests = [
+                    { name: 'Escape', key: keyEscape },
+                    { name: 'F2', key: keyFunction2 }
+                ];
+                parameterizeSpec(
+                    keyTests,
+                    (keyTestSpec, keyTestName, keyTestValue) => {
+                        keyTestSpec(keyTestName, async () => {
+                            await sendKeyPressToTable(keyEnter);
 
-                                    const cellContent = value.getRenderedCellContent(0, 1);
-                                    expect(currentFocusedElement()).toBe(
-                                        cellContent
-                                    );
-                                });
-                            }
-                        );
-                    });
+                            await sendKeyPressToTable(keyTestValue.key);
 
-                    describe(`when the ${name} (focusable content) in the cell is focused, pressing the given key will focus the cell:`, () => {
-                        const keyTests = [
-                            { name: 'Escape', key: keyEscape },
-                            { name: 'F2', key: keyFunction2 }
-                        ];
-                        parameterizeSpec(
-                            keyTests,
-                            (keyTestSpec, keyTestName, keyTestValue) => {
-                                keyTestSpec(keyTestName, async () => {
-                                    await sendKeyPressToTable(keyEnter);
-
-                                    await sendKeyPressToTable(keyTestValue.key);
-
-                                    expect(currentFocusedElement()).toBe(
-                                        pageObject.getCell(0, 1)
-                                    );
-                                });
-                            }
-                        );
-                    });
-                });
+                            expect(currentFocusedElement()).toBe(
+                                pageObject.getCell(0, 1)
+                            );
+                        });
+                    }
+                );
             });
         });
     });

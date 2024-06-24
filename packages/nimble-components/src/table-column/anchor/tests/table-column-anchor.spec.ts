@@ -1,5 +1,6 @@
 import { html, ref } from '@microsoft/fast-element';
 import { parameterizeSpec } from '@ni/jasmine-parameterized';
+import { keyArrowDown, keyEscape, keyTab } from '@microsoft/fast-web-utilities';
 import { tableTag, type Table } from '../../../table';
 import { TableColumnAnchor, tableColumnAnchorTag } from '..';
 import { waitForUpdatesAsync } from '../../../testing/async-helpers';
@@ -8,6 +9,7 @@ import { TableColumnSortDirection, TableRecord } from '../../../table/types';
 import { TablePageObject } from '../../../table/testing/table.pageobject';
 import { wackyStrings } from '../../../utilities/tests/wacky-strings';
 import type { Anchor } from '../../../anchor';
+import { sendKeyDownEvent } from '../../../utilities/tests/component';
 
 interface SimpleTableRecord extends TableRecord {
     label?: string | null;
@@ -635,6 +637,66 @@ describe('TableColumnAnchor', () => {
             expect(pageObject.getRenderedCellTextContent(0, 0)).toBe(
                 placeholder
             );
+        });
+    });
+
+    describe('keyboard navigation', () => {
+        beforeEach(async () => {
+            const tableData = [
+                {
+                    id: '1',
+                    label: 'Link 1a',
+                    link: 'http://www.ni.com/a1'
+                }
+            ];
+            await table.setData(tableData);
+            column.groupIndex = null;
+            await connect();
+            await waitForUpdatesAsync();
+            table.focus();
+            await waitForUpdatesAsync();
+        });
+
+        afterEach(async () => {
+            await disconnect();
+        });
+
+        function isAnchorFocused(anchor: Anchor): boolean {
+            return anchor.shadowRoot?.activeElement !== null;
+        }
+
+        it('cellView tabbableChildren returns the anchor for cells with links', () => {
+            const cellView = pageObject.getRenderedCellView(0, 0);
+            const anchor = pageObject.getRenderedCellAnchor(0, 0);
+            expect(cellView.tabbableChildren).toEqual([anchor]);
+        });
+
+        it('cellView tabbableChildren returns an empty array for cells without links', () => {
+            const cellView = pageObject.getRenderedCellView(0, 1);
+            expect(cellView.tabbableChildren).toEqual([]);
+        });
+
+        describe('with cell[0, 0] focused,', () => {
+            beforeEach(async () => {
+                await sendKeyDownEvent(table, keyArrowDown);
+            });
+
+            it('anchors in cells are reachable via Tab', async () => {
+                await sendKeyDownEvent(table, keyTab);
+
+                expect(
+                    isAnchorFocused(pageObject.getRenderedCellAnchor(0, 0))
+                ).toBe(true);
+            });
+
+            it('when an anchor is focused, pressing Esc will blur the anchor', async () => {
+                await sendKeyDownEvent(table, keyTab);
+                await sendKeyDownEvent(table, keyEscape);
+
+                expect(
+                    isAnchorFocused(pageObject.getRenderedCellAnchor(0, 0))
+                ).toBe(false);
+            });
         });
     });
 });
