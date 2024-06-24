@@ -33,6 +33,9 @@ import {
 export const template = html<Table>`
     <template
         role="treegrid"
+        ${''
+    /* tabindex managed dynamically by KeyboardNavigationManager */
+}
         tabindex="0"
         aria-multiselectable="${x => x.ariaMultiSelectable}"
         ${children({ property: 'childItems', filter: elements() })}
@@ -61,6 +64,9 @@ export const template = html<Table>`
                                 <span class="checkbox-container">
                                     <${checkboxTag}
                                         ${ref('selectionCheckbox')}
+                                        ${''
+    /* tabindex managed dynamically by KeyboardNavigationManager */
+}
                                         tabindex="-1"
                                         class="${x => `selection-checkbox ${x.selectionMode ? x.selectionMode : ''}`}"
                                         @change="${(x, c) => x.onAllRowsSelectionChange(c.event as CustomEvent)}"
@@ -72,6 +78,9 @@ export const template = html<Table>`
                             `)}
                             <${buttonTag}
                                 ${ref('collapseAllButton')}
+                                ${''
+    /* tabindex managed dynamically by KeyboardNavigationManager */
+}
                                 tabindex="-1"
                                 class="collapse-all-button ${x => `${x.showCollapseAll ? 'visible' : ''}`}"
                                 content-hidden
@@ -136,6 +145,9 @@ export const template = html<Table>`
                                 ${when((x, c) => (c.parent as Table).tableData[x.index]?.isGroupRow, html<VirtualItem, Table>`
                                     <${tableGroupRowTag}
                                         class="group-row"
+                                        ${''
+    /* tabindex managed dynamically by KeyboardNavigationManager */
+}
                                         tabindex="-1"
                                         :groupRowValue="${(x, c) => c.parent.tableData[x.index]?.groupRowValue}"
                                         ?expanded="${(x, c) => c.parent.tableData[x.index]?.isExpanded}"
@@ -155,6 +167,9 @@ export const template = html<Table>`
                                 ${when((x, c) => !(c.parent as Table).tableData[x.index]?.isGroupRow, html<VirtualItem, Table>`
                                     <${tableRowTag}
                                         class="row"
+                                        ${''
+    /* tabindex managed dynamically by KeyboardNavigationManager */
+}
                                         tabindex="-1"
                                         record-id="${(x, c) => c.parent.tableData[x.index]?.id}"
                                         ?selectable="${(_, c) => c.parent.selectionMode !== TableRowSelectionMode.none}"
