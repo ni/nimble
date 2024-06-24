@@ -81,6 +81,10 @@ implements Subscriber {
         }
     }
 
+    public get hasActiveRowOrCellFocus(): boolean {
+        return this.focusWithinTable && this.hasRowOrCellFocusType();
+    }
+
     public connect(): void {
         this.table.addEventListener(
             'keydown',
@@ -205,6 +209,12 @@ implements Subscriber {
                     this.focusCurrentRow(false);
                 }
             }
+        }
+    }
+
+    public handleFocusedCellRecycling(hadRowOrCellFocus: boolean): void {
+        if (hadRowOrCellFocus && !this.focusWithinTable) {
+            this.focusCurrentRow(false);
         }
     }
 

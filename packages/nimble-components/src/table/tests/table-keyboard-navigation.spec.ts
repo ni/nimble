@@ -220,6 +220,17 @@ describe('Table keyboard navigation', () => {
         let column3: TestNonInteractiveTableColumn;
         const largeDataRowCount = 1000;
 
+        function createTableData(rowCount: number): SimpleTableRecord[] {
+            const data: SimpleTableRecord[] = [];
+            for (let i = 0; i < rowCount; i++) {
+                data.push({
+                    id: i.toString(),
+                    value: `a${i}`
+                });
+            }
+            return data;
+        }
+
         async function setupBasicTable(): Promise<void> {
             const data: readonly SimpleTableRecord[] = [
                 {
@@ -272,14 +283,7 @@ describe('Table keyboard navigation', () => {
         }
 
         async function setupLargeDataTable(): Promise<void> {
-            const data: SimpleTableRecord[] = [];
-            for (let i = 0; i < largeDataRowCount; i++) {
-                data.push({
-                    id: i.toString(),
-                    value: `a${i}`
-                });
-            }
-
+            const data = createTableData(largeDataRowCount);
             await element.setData(data);
             await connect();
             await waitForUpdatesAsync();
@@ -919,6 +923,21 @@ describe('Table keyboard navigation', () => {
 
                 expect(currentFocusedElement()).toBe(document.body);
             });
+
+            it('if a cell is focused, then the table loses focus, it does not steal focus back on data updates', async () => {
+                await sendKeyPressesToTable(
+                    keyArrowDown,
+                    keyArrowDown,
+                    keyArrowDown
+                );
+
+                currentFocusedElement()!.blur();
+                const newTableData = createTableData(20);
+                await element.setData(newTableData);
+                await waitForUpdatesAsync();
+
+                expect(currentFocusedElement()).toBe(document.body);
+            });
         });
 
         it('for a simple table with no columns sortable, on initial table focus, the 1st row is focused', async () => {
@@ -1183,6 +1202,10 @@ describe('Table keyboard navigation', () => {
             public override get tabbableChildren(): HTMLElement[] {
                 return [this.spanElement];
             }
+
+            public override focusedRecycleCallback(): void {
+                this.spanElement.blur();
+            }
         }
         // prettier-ignore
         @customElement({
@@ -1348,6 +1371,22 @@ describe('Table keyboard navigation', () => {
                         });
                     }
                 );
+            });
+
+            it('when the interactive content in the cell is focused, and a data update happens, the matching cell will be focused afterwards', async () => {
+                await sendKeyPressToTable(keyEnter);
+
+                const tableData: SimpleTableRecord[] = [];
+                for (let i = 0; i < 20; i++) {
+                    tableData.push({
+                        id: i.toString(),
+                        value: `a${i}`
+                    });
+                }
+                await element.setData(tableData);
+                await waitForUpdatesAsync();
+
+                expect(currentFocusedElement()).toBe(pageObject.getCell(0, 1));
             });
         });
     });
