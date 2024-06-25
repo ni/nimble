@@ -223,10 +223,6 @@ export class Table<
     @observable
     public documentShiftKeyDown = false;
 
-    /** @internal */
-    @observable
-    public slotsByRecordId: { [recordId: string]: SlotMetadata[] } = {};
-
     private readonly table: TanStackTable<TableNode<TData>>;
     private options: TanStackTableOptionsResolved<TableNode<TData>>;
     private readonly tableValidator = new TableValidator<TData>();
@@ -458,7 +454,7 @@ export class Table<
             });
         }
 
-        this.regenerateRequestedSlotsByRecordIds();
+        this.refreshRows();
     }
 
     /** @internal */
@@ -691,29 +687,7 @@ export class Table<
             this.columnRequestedSlots.delete(actionMenuSlot);
         }
 
-        this.regenerateRequestedSlotsByRecordIds();
-    }
-
-    private regenerateRequestedSlotsByRecordIds(): void {
-        const updatedSlotsByRecordId: { [recordId: string]: SlotMetadata[] } = {};
-
-        for (const [slotName, { recordId, uniqueSlot }] of this
-            .columnRequestedSlots) {
-            if (
-                !Object.prototype.hasOwnProperty.call(
-                    updatedSlotsByRecordId,
-                    recordId
-                )
-            ) {
-                updatedSlotsByRecordId[recordId] = [];
-            }
-            updatedSlotsByRecordId[recordId]!.push({
-                name: slotName,
-                slot: uniqueSlot
-            });
-        }
-
-        this.slotsByRecordId = updatedSlotsByRecordId;
+        this.refreshRows();
     }
 
     private async handleActionMenuBeforeToggleEvent(
@@ -1004,6 +978,7 @@ export class Table<
 
         let hasDataHierarchy = false;
         const rows = this.table.getRowModel().rows;
+        const slotsByRecordId = this.getRequestedSlotsByRecordId();
         this.tableData = rows.map(row => {
             const isGroupRow = row.getIsGrouped();
             const hasParentRow = isGroupRow ? false : row.getParentRow();
@@ -1030,7 +1005,8 @@ export class Table<
                 groupColumn: this.getGroupRowColumn(row),
                 isLoadingChildren: this.expansionManager.isLoadingChildren(
                     row.id
-                )
+                ),
+                slots: slotsByRecordId[row.id] ?? []
             };
             hasDataHierarchy = hasDataHierarchy || isParent;
             return rowState;
@@ -1038,6 +1014,23 @@ export class Table<
         this.showCollapseAll = hasDataHierarchy
             || this.getColumnsParticipatingInGrouping().length > 0;
         this.virtualizer.dataChanged();
+    }
+
+    private getRequestedSlotsByRecordId(): { [recordId: string]: SlotMetadata[] } {
+        const slotsByRecordId: { [recordId: string]: SlotMetadata[] } = {};
+
+        for (const [slotName, { recordId, uniqueSlot }] of this
+            .columnRequestedSlots) {
+            if (!Object.prototype.hasOwnProperty.call(slotsByRecordId, recordId)) {
+                slotsByRecordId[recordId] = [];
+            }
+            slotsByRecordId[recordId]!.push({
+                name: slotName,
+                slot: uniqueSlot
+            });
+        }
+
+        return slotsByRecordId;
     }
 
     private getTableSelectionState(): TableRowSelectionState {
