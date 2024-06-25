@@ -1158,7 +1158,7 @@ implements Subscriber {
             // (For rows/cells/cell views, we do need to recurse into them, to get to the appropriate focused controls though)
             if (
                 activeElement instanceof FoundationElement
-                && !(activeElement instanceof TableRow)
+                && !(this.isResolvedRowType(activeElement))
                 && !(activeElement instanceof TableCell)
                 && !(activeElement instanceof TableCellView)
             ) {

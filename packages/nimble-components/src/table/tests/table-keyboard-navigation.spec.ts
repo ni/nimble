@@ -65,6 +65,7 @@ function currentFocusedElement(): HTMLElement | null {
         if (
             activeElement instanceof FoundationElement
             && !(activeElement instanceof TableRow)
+            && !(activeElement instanceof TableGroupRow)
             && !(activeElement instanceof TableCell)
             && !(activeElement instanceof TableCellView)
         ) {
@@ -1110,6 +1111,34 @@ describe('Table keyboard navigation', () => {
                             true
                         );
                     });
+                });
+            });
+
+            describe('when multiple selection is enabled', () => {
+                beforeEach(async () => {
+                    element.selectionMode = TableRowSelectionMode.multiple;
+                    await waitForUpdatesAsync();
+                    element.focus();
+                    await waitForUpdatesAsync();
+                    await sendKeyPressToTable(keyArrowDown);
+                    if (!(currentFocusedElement() instanceof TableGroupRow)) {
+                        throw new Error('Expected group row to be focused');
+                    }
+                });
+
+                it('pressing RightArrow on an focused expanded group row will focus the selection checkbox', async () => {
+                    const initialFocusedGroupRow = currentFocusedElement() as TableGroupRow;
+                    await sendKeyPressToTable(keyArrowRight);
+
+                    expect(currentFocusedElement()).toBe(initialFocusedGroupRow.selectionCheckbox!);
+                });
+
+                it('pressing LeftArrow on a focused group row selection checkbox will focus the entire group row', async () => {
+                    const initialFocusedGroupRow = currentFocusedElement() as TableGroupRow;
+                    await sendKeyPressToTable(keyArrowRight);
+                    await sendKeyPressToTable(keyArrowLeft);
+
+                    expect(currentFocusedElement()).toBe(initialFocusedGroupRow);
                 });
             });
 
