@@ -1130,7 +1130,9 @@ describe('Table keyboard navigation', () => {
                     const initialFocusedGroupRow = currentFocusedElement() as TableGroupRow;
                     await sendKeyPressToTable(keyArrowRight);
 
-                    expect(currentFocusedElement()).toBe(initialFocusedGroupRow.selectionCheckbox!);
+                    expect(currentFocusedElement()).toBe(
+                        initialFocusedGroupRow.selectionCheckbox!
+                    );
                 });
 
                 it('pressing LeftArrow on a focused group row selection checkbox will focus the entire group row', async () => {
@@ -1138,7 +1140,9 @@ describe('Table keyboard navigation', () => {
                     await sendKeyPressToTable(keyArrowRight);
                     await sendKeyPressToTable(keyArrowLeft);
 
-                    expect(currentFocusedElement()).toBe(initialFocusedGroupRow);
+                    expect(currentFocusedElement()).toBe(
+                        initialFocusedGroupRow
+                    );
                 });
             });
 
