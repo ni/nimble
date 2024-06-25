@@ -96,11 +96,11 @@ _Rendering_
 
 ### Delegated Events
 
-*Will the cells delegate any events to the column element?*
+*Are there any events emitted by components in cells that a client might be interested in? Because clients cannot easily subscribe to every cell view, such events should be delegated to the column element so that it can emit an equivalent event for clients to subscribe to. Names of delegated events (e.g. `'click'`, `'keydown'`, etc.) should be listed in the `delegatedEvents` property of the column internals options, and the column should set up a listener to handle the `delegated-event` event that emits a new event for clients to listen for. For example, `click` events from the cell might be delegated to the column and re-emitted as `button-click` events. Describe here any events that will be delegated (e.g. `click`), the new event name(s) that will be emitted by the column (e.g. `button-click`), and any extra data that will be included in those event details (e.g. `recordId` field).*
 
 ### Focus Recycling
 
-*Will the cell view need to override `focusedRecycleCallback()` to perform any actions when the cell is recycled while it has focus? If so, explain.*
+*Will the cell view need to override `focusedRecycleCallback()` to perform any actions when the cell is recycled while it has focus? Cells are recycled during a virtualized scroll, and `focusedRecycleCallback()` gives columns the opportunity to commit changes and prevent cell view state from being transfered to a different cell. Note that this [may become a moot point](https://github.com/ni/nimble/issues/2202), at which point this section should be removed.*
 
 ### Interactions
 
