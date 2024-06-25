@@ -1,5 +1,7 @@
 # Table Column [Template]
 
+*Refer to the [table column type philosophy docs](/packages/nimble-components/src/table/specs/table-columns-hld.md#column-type-philosophy) for column creation policies and naming conventions.*
+
 ## Overview
 
 *A high-level description of the column.*
@@ -11,7 +13,7 @@
 
 ### Features
 
-*A list of the key features unique to this component.*
+*A list of the key features unique to this component. If adding support for an existing Nimble component's capabilities (e.g. as `nimble-table-column-mapping` does for Nimble icons and `nimble-spinner`), consider which parts of that component's API should be exposed, and whether on a per-column or per-cell basis. Any parts of the API explicitly not supported should be called out below as non-goals.*
 
 ### Non-goals
 
@@ -79,13 +81,10 @@ _Rendering_
 
 *Describe what the group header view will render.*
 
-### Sorting
+### Sorting / Grouping
 
-*Will the column be sortable? Which `TableColumnSortOperation` will be used? Describe any interesting use cases.* 
+*Will the column be sortable and/or groupable? If so, which `xxx-field-name` attribute will be assigned to  `operandDataRecordFieldName`? If sortable, which `TableColumnSortOperation` will be used? Describe any interesting use cases.*
 
-### Grouping
-
-*Will the column be groupable? Describe any interesting use cases.*
 
 ### Sizing
 
@@ -93,7 +92,7 @@ _Rendering_
 
 ### Placeholder
 
-*Will the column support a `placeholder` for `undefined` and `null` values? Will the group header view display the standard strings for `undefined` and `null` values, or will there be something unique?*
+*What is the behavior of cells and group rows when the value is `undefined` or `null`? Will a `placeholder` be supported to display a specific interpretation for missing values (e.g. showing "Never run" in a date-time column of latest execution times)? Are there additional values (e.g. empty string) for which placeholders or default rendering need to be considered?*
 
 ### Delegated Events
 
@@ -105,7 +104,7 @@ _Rendering_
 
 ### Interactions
 
-*Will the cell render any interactive elements? You must override `tabbableChildren` on the cell view to return any focusable children. These elements must be initially configured with `tabindex=-1`, and the table will programmatically update `tabIndex` as needed. Make sure that any such elements properly forward the `tabIndex` value to shadow DOM elements.*
+*If the cell will render any interactive elements, indicate which ones will be marked focusable via the cell view's `tabbableChildren`. Confirm that those elements properly forward the `tabIndex` value to shadow DOM elements, or indicate that you will have to update them to do so.*
 
 ### Test Cases
 
