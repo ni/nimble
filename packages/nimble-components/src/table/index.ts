@@ -1016,12 +1016,16 @@ export class Table<
         this.virtualizer.dataChanged();
     }
 
-    private getRequestedSlotsByRecordId(): { [recordId: string]: SlotMetadata[] } {
+    private getRequestedSlotsByRecordId(): {
+        [recordId: string]: SlotMetadata[]
+    } {
         const slotsByRecordId: { [recordId: string]: SlotMetadata[] } = {};
 
         for (const [slotName, { recordId, uniqueSlot }] of this
             .columnRequestedSlots) {
-            if (!Object.prototype.hasOwnProperty.call(slotsByRecordId, recordId)) {
+            if (
+                !Object.prototype.hasOwnProperty.call(slotsByRecordId, recordId)
+            ) {
                 slotsByRecordId[recordId] = [];
             }
             slotsByRecordId[recordId]!.push({
