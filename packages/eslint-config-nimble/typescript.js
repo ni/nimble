@@ -32,7 +32,16 @@ module.exports = {
         'require-await': 'off',
         '@typescript-eslint/require-await': 'error',
         'no-return-await': 'off',
-        '@typescript-eslint/return-await': 'error'
+        '@typescript-eslint/return-await': 'error',
+
+        // Increasing the value of minProperties (default is 5?) so that eslint doesn't
+        // introduce line breaks where prettier doesn't. If eslint introduces line breaks,
+        // they will be unix-style, which will cause pointless diffs in git.
+        'object-curly-newline': ['error', {
+            multiline: true,
+            consistent: true,
+            minProperties: 1000
+        }]
     },
     overrides: [
         {
