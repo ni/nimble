@@ -19,9 +19,7 @@ export const template = html<TableColumnAnchorCellView>`
             <${anchorTag}
                 ${ref('anchor')}
                 ${overflow('hasOverflow')}
-                ${''
-    /* tabindex managed dynamically by KeyboardNavigationManager */
-}
+                ${'' /* tabindex managed dynamically by KeyboardNavigationManager */}
                 tabindex="-1"
                 href="${x => x.cellRecord?.href}"
                 hreflang="${x => x.columnConfig?.hreflang}"

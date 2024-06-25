@@ -21,9 +21,7 @@ export const template = html<TableCell>`
             <${menuButtonTag} ${ref('actionMenuButton')}
                 content-hidden
                 appearance="${ButtonAppearance.ghost}"
-                ${''
-    /* tabindex managed dynamically by KeyboardNavigationManager */
-}
+                ${'' /* tabindex managed dynamically by KeyboardNavigationManager */}
                 tabindex="-1"
                 @beforetoggle="${(x, c) => x.onActionMenuBeforeToggle(c.event as CustomEvent<MenuButtonToggleEventDetail>)}"
                 @toggle="${(x, c) => x.onActionMenuToggle(c.event as CustomEvent<MenuButtonToggleEventDetail>)}"

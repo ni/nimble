@@ -32,9 +32,7 @@ export const template = html<TableRow>`
                     <${checkboxTag}
                         ${ref('selectionCheckbox')}
                         class="selection-checkbox"
-                        ${''
-    /* tabindex managed dynamically by KeyboardNavigationManager */
-}
+                        ${'' /* tabindex managed dynamically by KeyboardNavigationManager */}
                         tabindex="-1"
                         @change="${(x, c) => x.onSelectionCheckboxChange(c.event as CustomEvent)}"
                         @click="${(_, c) => c.event.stopPropagation()}"
