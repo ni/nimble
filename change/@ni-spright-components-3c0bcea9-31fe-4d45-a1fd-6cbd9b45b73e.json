@@ -1,0 +1,7 @@
+{
+  "type": "none",
+  "comment": "Format command shouldn't run redundant eslint -fix",
+  "packageName": "@ni/spright-components",
+  "email": "7282195+m-akinc@users.noreply.github.com",
+  "dependentChangeType": "none"
+}
