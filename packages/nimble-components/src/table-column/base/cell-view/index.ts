@@ -29,6 +29,14 @@ export abstract class TableCellView<
     @observable
     public recordId?: string;
 
+    /**
+     * Gets the child elements in this cell view that should be able to be reached via Tab/ Shift-Tab,
+     * if any.
+     */
+    public get tabbableChildren(): HTMLElement[] {
+        return [];
+    }
+
     private delegatedEvents: readonly string[] = [];
 
     /**
