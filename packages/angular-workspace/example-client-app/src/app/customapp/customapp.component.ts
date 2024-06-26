@@ -1,7 +1,7 @@
 /* eslint-disable no-alert */
 import { AfterViewInit, Component, Inject, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { DrawerLocation, MenuItem, NimbleDialogDirective, NimbleDrawerDirective, OptionNotFound, OPTION_NOT_FOUND, UserDismissed } from '@ni/nimble-angular';
+import { DrawerLocation, MenuItem, NimbleDialogDirective, NimbleDrawerDirective, OptionNotFound, OPTION_NOT_FOUND, UserDismissed, SelectFilterInputEventDetail, NimbleSelectDirective } from '@ni/nimble-angular';
 import { NimbleTableDirective, TableRecordDelayedHierarchyState, TableRecord, TableRowExpansionToggleEventDetail, TableSetRecordHierarchyOptions } from '@ni/nimble-angular/table';
 import { NimbleRichTextEditorDirective } from '@ni/nimble-angular/rich-text/editor';
 import { BehaviorSubject, Observable } from 'rxjs';
@@ -52,8 +52,12 @@ export class CustomAppComponent implements AfterViewInit {
         { first: 'Mister', last: 'Smithers' }
     ];
 
+    public dynamicSelectItems: ComboboxItem[] = [];
+
     public comboboxSelectedOption?: ComboboxItem;
     public comboboxSelectedLastName = this.comboboxSelectedOption?.last;
+    public placeholderValue = null;
+    public dynamicSelectValue: ComboboxItem | null = null;
     public selectedRadio = 'mango';
     public activeTabId = 'tab-1';
     public activeAnchorTabId = 'a-tab-2';
@@ -99,6 +103,26 @@ export class CustomAppComponent implements AfterViewInit {
         },
     ];
 
+    private readonly availableSelectItems = [
+        { first: 'Homer', last: 'Simpson' },
+        { first: 'Marge', last: 'Simpson' },
+        { first: 'Bart', last: 'Simpson' },
+        { first: 'Lisa', last: 'Simpson' },
+        { first: 'Maggie', last: 'Simpson' },
+        { first: 'Mona', last: 'Simpson' },
+        { first: 'Jacqueline', last: 'Bouvier' },
+        { first: 'Selma', last: 'Bouvier' },
+        { first: 'Patty', last: 'Bouvier' },
+        { first: 'Abe', last: 'Simpson' },
+        { first: 'Ned', last: 'Flanders' },
+        { first: 'Maude', last: 'Flanders' },
+        { first: 'Rod', last: 'Flanders' },
+        { first: 'Todd', last: 'Flanders' }
+    ];
+
+    private readonly localSelectItems = this.availableSelectItems.slice(0, 5);
+    private dynamicSelectFilterTimeout?: number;
+    private hideSelectedItem = false;
     private readonly recordsLoadingChildren = new Set<string>();
     private readonly recordsWithLoadedChildren = new Set<string>();
 
@@ -106,10 +130,12 @@ export class CustomAppComponent implements AfterViewInit {
     @ViewChild('drawer', { read: NimbleDrawerDirective }) private readonly drawer: NimbleDrawerDirective<string>;
     @ViewChild('editor', { read: NimbleRichTextEditorDirective }) private readonly editor: NimbleRichTextEditorDirective;
     @ViewChild('delayedHierarchyTable', { read: NimbleTableDirective }) private readonly delayedHierarchyTable: NimbleTableDirective<PersonTableRecord>;
+    @ViewChild('dynamicSelect', { read: NimbleSelectDirective }) private readonly dynamicSelect: NimbleSelectDirective;
 
     public constructor(@Inject(ActivatedRoute) public readonly route: ActivatedRoute) {
         this.tableData$ = this.tableDataSubject.asObservable();
         this.addTableRows(10);
+        this.dynamicSelectItems = this.localSelectItems;
     }
 
     public ngAfterViewInit(): void {
@@ -119,6 +145,36 @@ export class CustomAppComponent implements AfterViewInit {
     public onMenuButtonMenuChange(event: Event): void {
         const menuItemText = (event.target as MenuItem).innerText;
         alert(`${menuItemText} selected`);
+    }
+
+    public onDynamicSelectFilterInput(e: Event): void {
+        const event = e as CustomEvent<SelectFilterInputEventDetail>;
+        const filter = event.detail.filterText;
+        if (filter.length > 0) {
+            window.clearTimeout(this.dynamicSelectFilterTimeout);
+            this.dynamicSelect.loadingVisible = true;
+            this.dynamicSelectFilterTimeout = window.setTimeout(() => {
+                // do your custom filtering here
+                const filteredItems = this.availableSelectItems.filter(item => item.first.concat(item.last).toLowerCase().includes(filter.toLowerCase()));
+                this.setDynamicSelectItems(filteredItems);
+                this.hideSelectedItem = (this.dynamicSelectValue && !filteredItems.includes(this.dynamicSelectValue))
+                    ?? false;
+                this.dynamicSelect.loadingVisible = false;
+            }, 2000); // simulate async loading with debounce
+        } else {
+            this.hideSelectedItem = false;
+            window.clearTimeout(this.dynamicSelectFilterTimeout);
+            this.setDynamicSelectItems(this.localSelectItems);
+            this.dynamicSelect.loadingVisible = false;
+        }
+    }
+
+    public shouldHideSelectedItem(value: ComboboxItem): boolean {
+        if (value === this.dynamicSelectValue && this.hideSelectedItem) {
+            return true;
+        }
+
+        return false;
     }
 
     public onComboboxChange(value: ComboboxItem | OptionNotFound): void {
@@ -197,6 +253,14 @@ export class CustomAppComponent implements AfterViewInit {
                 this.recordsWithLoadedChildren.add(recordId);
                 void this.updateDelayedHierarchyTable();
             }, 1500);
+        }
+    }
+
+    private setDynamicSelectItems(dynamicSelectItems: ComboboxItem[]): void {
+        if (this.dynamicSelectValue && !dynamicSelectItems.includes(this.dynamicSelectValue)) {
+            this.dynamicSelectItems = [...dynamicSelectItems, this.dynamicSelectValue];
+        } else {
+            this.dynamicSelectItems = dynamicSelectItems;
         }
     }
 

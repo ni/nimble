@@ -361,6 +361,9 @@ export class Select
         ) {
             this.updateValue(true);
         }
+        if (!this.open && this.filterMode !== FilterMode.none) {
+            this.emitFilterInputEvent();
+        }
     }
 
     /**
@@ -479,9 +482,12 @@ export class Select
      * @internal
      */
     public clearClickHandler(e: MouseEvent): void {
-        this.open = false;
+        const wasOpen = this.open;
         this.clearSelect();
         this.updateValue(true);
+        if (wasOpen && this.filterMode !== FilterMode.none) {
+            this.emitFilterInputEvent();
+        }
         e.stopPropagation();
     }
 
@@ -553,6 +559,9 @@ export class Select
         }
 
         this.open = false;
+        if (this.filterMode !== FilterMode.none) {
+            this.emitFilterInputEvent();
+        }
         const focusTarget = e.relatedTarget as HTMLElement;
         if (this.isSameNode(focusTarget)) {
             this.focus();
@@ -623,6 +632,9 @@ export class Select
                 if (this.collapsible && this.open) {
                     e.preventDefault();
                     this.open = false;
+                    if (this.filterMode !== FilterMode.none) {
+                        this.emitFilterInputEvent();
+                    }
                 }
 
                 currentActiveIndex = this.selectedIndex;
@@ -641,6 +653,9 @@ export class Select
 
         if (!this.open && initialSelectedIndex !== this.selectedIndex) {
             this.updateValue(true);
+            if (this.filterMode !== FilterMode.none) {
+                this.emitFilterInputEvent();
+            }
         }
 
         return !(key === keyArrowDown || key === keyArrowUp);
@@ -864,9 +879,6 @@ export class Select
             this.filterInput.value = '';
         }
 
-        if (this.filterMode !== FilterMode.none) {
-            this.emitFilterInputEvent();
-        }
         this.ariaControls = '';
         this.ariaExpanded = 'false';
     }
