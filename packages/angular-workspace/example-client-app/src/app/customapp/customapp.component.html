@@ -184,12 +184,11 @@
                 </nimble-list-option-group>
             </nimble-select>
             <div class="sub-container">
-                <div class="container-label">Select with dynamic options</div>
-                    <nimble-select #dynamicSelect appearance="underline" filter-mode="manual" [(ngModel)]="dynamicSelectValue" (filter-input)="onDynamicSelectFilterInput($event)">
-                        <nimble-list-option hidden selected disabled [ngValue]="placeholderValue">Select an option</nimble-list-option>
-                        <nimble-list-option #dynamicOptions *ngFor="let item of dynamicSelectItems" [ngValue]="item" [hidden]="shouldHideSelectedItem(item)">{{ item.first }} {{ item.last }}</nimble-list-option>
-                    </nimble-select>
-                </div>
+            <div class="container-label">Select with dynamic options</div>
+                <nimble-select #dynamicSelect appearance="underline" filter-mode="manual" [(ngModel)]="dynamicSelectValue" (filter-input)="onDynamicSelectFilterInput($event)">
+                    <nimble-list-option hidden selected disabled [ngValue]="placeholderValue">Select an option</nimble-list-option>
+                    <nimble-list-option #dynamicOptions *ngFor="let item of dynamicSelectItems" [ngValue]="item" [hidden]="shouldHideSelectedItem(item)">{{ item.first }} {{ item.last }}</nimble-list-option>
+                </nimble-select>
             </div>
         </div>
         <div class="sub-container">
