@@ -2,6 +2,27 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Wed, 26 Jun 2024 23:27:39 GMT",
+      "version": "29.7.1",
+      "tag": "@ni/nimble-components_v29.7.1",
+      "comments": {
+        "none": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "cc030f0d85ca0cdc4ef76cb28a2cf5ece5d7a9b0",
+            "comment": "Avoid phantom diffs from prettier-eslint"
+          },
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "afea9d891db2d61b24fc52256e646b89f4837f6c",
+            "comment": "disable intermittent test"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 26 Jun 2024 20:18:04 GMT",
       "version": "29.7.1",
       "tag": "@ni/nimble-components_v29.7.1",

@@ -2,6 +2,21 @@
   "name": "@ni/spright-components",
   "entries": [
     {
+      "date": "Wed, 26 Jun 2024 23:27:39 GMT",
+      "version": "1.0.28",
+      "tag": "@ni/spright-components_v1.0.28",
+      "comments": {
+        "none": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/spright-components",
+            "commit": "cc030f0d85ca0cdc4ef76cb28a2cf5ece5d7a9b0",
+            "comment": "Format command shouldn't run redundant eslint -fix"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 26 Jun 2024 20:18:04 GMT",
       "version": "1.0.28",
       "tag": "@ni/spright-components_v1.0.28",
