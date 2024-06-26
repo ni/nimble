@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Thu, 20 Jun 2024 20:08:12 GMT and should not be manually modified.
+This log was last generated on Tue, 25 Jun 2024 18:38:45 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 29.7.0
+
+Tue, 25 Jun 2024 18:38:45 GMT
+
+### Minor changes
+
+- Add keyboard navigation functionality to the table component ([ni/nimble@5be33e3](https://github.com/ni/nimble/commit/5be33e36abffe890b932d57f8412f46f4df6714d))
 
 ## 29.6.0
 

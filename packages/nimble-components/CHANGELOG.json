@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 25 Jun 2024 18:38:45 GMT",
+      "version": "29.7.0",
+      "tag": "@ni/nimble-components_v29.7.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "20709258+msmithNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "5be33e36abffe890b932d57f8412f46f4df6714d",
+            "comment": "Add keyboard navigation functionality to the table component"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 20 Jun 2024 20:08:12 GMT",
       "version": "29.6.0",
       "tag": "@ni/nimble-components_v29.6.0",

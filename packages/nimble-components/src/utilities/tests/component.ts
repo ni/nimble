@@ -5,6 +5,22 @@ export async function clickElement(element: HTMLElement): Promise<void> {
     await waitForUpdatesAsync();
 }
 
+export async function sendKeyDownEvent(
+    target: HTMLElement,
+    key: string,
+    init?: KeyboardEventInit
+): Promise<KeyboardEvent> {
+    const event = new KeyboardEvent('keydown', {
+        key,
+        cancelable: true,
+        bubbles: true,
+        ...init
+    });
+    target.dispatchEvent(event);
+    await waitForUpdatesAsync();
+    return event;
+}
+
 /** A helper function to abstract turning waiting for an event to fire into a promise.
  * The returned promise should be resolved prior to completing a test.
  */
