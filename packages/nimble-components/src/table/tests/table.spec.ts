@@ -642,6 +642,10 @@ describe('Table', () => {
             })
             // eslint-disable-next-line @typescript-eslint/no-unused-vars
             class TestFocusableCellView extends TableColumnTextCellView {
+                public override get tabbableChildren(): HTMLElement[] {
+                    return [this.shadowRoot!.firstElementChild as HTMLElement];
+                }
+
                 public override focusedRecycleCallback(): void {
                     (this.shadowRoot!.firstElementChild as HTMLElement).blur();
                 }

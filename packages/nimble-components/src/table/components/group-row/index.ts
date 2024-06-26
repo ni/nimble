@@ -1,16 +1,14 @@
 import { attr, observable } from '@microsoft/fast-element';
-import {
-    Checkbox,
-    DesignSystem,
-    FoundationElement
-} from '@microsoft/fast-foundation';
+import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
 import type { TableColumn } from '../../../table-column/base';
 import { styles } from './styles';
 import { template } from './template';
 import {
+    TableRowFocusableElements,
     TableRowSelectionState,
     TableRowSelectionToggleEventDetail
 } from '../../types';
+import type { Checkbox } from '../../../checkbox';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -28,6 +26,13 @@ export class TableGroupRow extends FoundationElement {
 
     @observable
     public nestingLevel = 0;
+
+    /**
+     * Row index in the flattened set of all regular and group header rows.
+     * Represents the index in table.tableData (TableRowState[]).
+     */
+    @observable
+    public resolvedRowIndex?: number;
 
     @observable
     public immediateChildCount?: number;
@@ -83,7 +88,7 @@ export class TableGroupRow extends FoundationElement {
     }
 
     /** @internal */
-    public onSelectionChange(event: CustomEvent): void {
+    public onSelectionCheckboxChange(event: CustomEvent): void {
         if (this.ignoreSelectionChangeEvents) {
             return;
         }
@@ -98,6 +103,16 @@ export class TableGroupRow extends FoundationElement {
             newState: checked
         };
         this.$emit('group-selection-toggle', detail);
+    }
+
+    /** @internal */
+    public getFocusableElements(): TableRowFocusableElements {
+        return {
+            selectionCheckbox: this.selectable
+                ? this.selectionCheckbox
+                : undefined,
+            cells: []
+        };
     }
 
     private selectionStateChanged(): void {
