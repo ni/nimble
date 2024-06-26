@@ -35,7 +35,12 @@ TableColumnMenuButtonColumnConfig
     @observable
     public hasOverflow = false;
 
-    // TODO: Override tabbableChildren getter
+    public override get tabbableChildren(): HTMLElement[] {
+        if (this.menuButton) {
+            return [this.menuButton];
+        }
+        return [];
+    }
 
     /** @internal */
     public onMenuButtonBeforeToggle(

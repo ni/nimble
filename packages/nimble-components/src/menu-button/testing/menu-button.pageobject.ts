@@ -81,6 +81,8 @@ export class MenuButtonPageObject {
      * Presses the Enter key on the menu button.
      */
     public pressEnterKey(): void {
+        // Focus the menu button before dispatching the event because a key event only makes sense on a focused element.
+        this.menuButtonElement.focus();
         const event = new KeyboardEvent('keypress', {
             key: keyEnter
         });
@@ -92,6 +94,8 @@ export class MenuButtonPageObject {
      * Presses the Space key on the menu button.
      */
     public pressSpaceKey(): void {
+        // Focus the menu button before dispatching the event because a key event only makes sense on a focused element.
+        this.menuButtonElement.focus();
         const event = new KeyboardEvent('keypress', {
             key: keySpace
         });
@@ -103,6 +107,8 @@ export class MenuButtonPageObject {
      * Presses the Arrow Up key on the menu button.
      */
     public pressArrowUpKey(): void {
+        // Focus the menu button before dispatching the event because a key event only makes sense on a focused element.
+        this.menuButtonElement.focus();
         const event = new KeyboardEvent('keydown', {
             key: keyArrowUp
         });
@@ -114,6 +120,8 @@ export class MenuButtonPageObject {
      * Presses the Arrow Down key on the menu button.
      */
     public pressArrowDownKey(): void {
+        // Focus the menu button before dispatching the event because a key event only makes sense on a focused element.
+        this.menuButtonElement.focus();
         const event = new KeyboardEvent('keydown', {
             key: keyArrowDown
         });
