@@ -1,7 +1,5 @@
 # Table Column [Template]
 
-*Refer to the [table column type philosophy docs](/packages/nimble-components/src/table/specs/table-columns-hld.md#column-type-philosophy) for column creation policies and naming conventions.*
-
 ## Overview
 
 *A high-level description of the column.*
@@ -38,6 +36,8 @@ Typical usage:
 ### API
 
 #### Column Element
+
+*Refer to the [table column type philosophy docs](/packages/nimble-components/src/table/specs/table-columns-hld.md#column-type-philosophy) for column creation policies and naming conventions.*
 
 _Element Name_
 
@@ -96,7 +96,17 @@ _Rendering_
 
 ### Delegated Events
 
-*Are there any events emitted by components in cells that a client might be interested in? Because clients cannot easily subscribe to every cell view, such events should be delegated to the column element so that it can emit an equivalent event for clients to subscribe to. Names of delegated events (e.g. `'click'`, `'keydown'`, etc.) should be listed in the `delegatedEvents` property of the column internals options, and the column should set up a listener to handle the `delegated-event` event that emits a new event for clients to listen for. For example, `click` events from the cell might be delegated to the column and re-emitted as `button-click` events. Describe here any events that will be delegated (e.g. `click`), the new event name(s) that will be emitted by the column (e.g. `button-click`), and any extra data that will be included in those event details (e.g. `recordId` field).*
+*Are there any events emitted by components in cells that a client might be interested in? Because clients cannot easily subscribe to every cell view, such events should be delegated to the column element so that it can emit an equivalent event for clients to subscribe to. Names of delegated events (e.g. `'click'`, `'keydown'`, etc.) should be listed in the `delegatedEvents` property of the column internals options, and the column should set up a listener to handle the `delegated-event` event that emits a new event for clients to listen for.*
+
+*Describe here any events that will be delegated (e.g. `click`), the new event name(s) that will be emitted by the column (e.g. `button-click`), and any extra data that will be included in those event details (e.g. `recordId` field). An example follows:*
+
+The `click` event from the button in the cell will be delegated to the column. The column will re-emit these as `button-click` events. The `button-click` event details will include the original event details, plus the `recordId` identifying the row where the click originated:
+
+```ts
+interface ButtonColumnClickEventDetail extends PointerEvent {
+    recordId: string;
+}
+```
 
 ### Focus Recycling
 
