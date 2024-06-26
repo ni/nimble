@@ -81,12 +81,23 @@ export class SelectPageObject {
         ).map(group => group.labelContent);
     }
 
-    public getGroupOptionLabels(groupIndex: number): string[] {
+    public getGroupOptionLabelsByIndex(groupIndex: number): string[] {
         const group = Array.from(
             this.selectElement.querySelectorAll<ListOptionGroup>(
                 '[role="group"]'
             ) ?? []
         )[groupIndex];
+        return Array.from(
+            group?.querySelectorAll<ListOption>('[role="option"]') ?? []
+        ).map(option => option.textContent?.trim() ?? '');
+    }
+
+    public getGroupOptionLabelsByLabel(groupLabel: string): string[] {
+        const group = Array.from(
+            this.selectElement.querySelectorAll<ListOptionGroup>(
+                '[role="group"]'
+            ) ?? []
+        ).find(g => g.labelContent === groupLabel);
         return Array.from(
             group?.querySelectorAll<ListOption>('[role="option"]') ?? []
         ).map(option => option.textContent?.trim() ?? '');

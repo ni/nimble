@@ -1,4 +1,4 @@
-import { html, repeat, ViewTemplate } from '@microsoft/fast-element';
+import { html, repeat, ViewTemplate, when } from '@microsoft/fast-element';
 import { themeProviderTag } from '../../../nimble-components/src/theme-provider';
 import {
     bodyFont,
@@ -134,22 +134,30 @@ export function createMatrixInteractionsFromStates<
         font: var(${bodyFont.cssCustomProperty});
         color: var(${bodyFontColor.cssCustomProperty});
     ">
-        <div class="pseudo-hover-all">
-            <p>Hover</p>
-            ${createMatrixFromStates(component, states.hover)}
-        </div>
-        <div class="pseudo-hover-all pseudo-active-all">
-            <p>Hover and active</p>
-            ${createMatrixFromStates(component, states.hoverActive)}
-        </div>
-        <div class="pseudo-active-all">
-            <p>Active</p>
-            ${createMatrixFromStates(component, states.active)}
-        </div>
-        <div class="pseudo-focus-visible-all pseudo-focus-within-all">
-            <p>Focus</p>
-            ${createMatrixFromStates(component, states.focus)}
-        </div>
+        ${when(() => states.hover.length > 0, html`
+            <div class="pseudo-hover-all">
+                <p>Hover</p>
+                ${createMatrixFromStates(component, states.hover)}
+            </div>
+        `)}
+        ${when(() => states.hoverActive.length > 0, html`
+            <div class="pseudo-hover-all pseudo-active-all">
+                <p>Hover and active</p>
+                ${createMatrixFromStates(component, states.hoverActive)}
+            </div>
+        `)}
+        ${when(() => states.active.length > 0, html`
+            <div class="pseudo-active-all">
+                <p>Active</p>
+                ${createMatrixFromStates(component, states.active)}
+            </div>
+        `)}
+        ${when(() => states.focus.length > 0, html`
+            <div class="pseudo-focus-visible-all pseudo-focus-within-all">
+                <p>Focus</p>
+                ${createMatrixFromStates(component, states.focus)}
+            </div>
+        `)}
     </div>
 `;
 }

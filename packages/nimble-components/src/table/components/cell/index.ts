@@ -9,6 +9,7 @@ import type {
 } from '../../../table-column/base/types';
 import { styles } from './styles';
 import { template } from './template';
+import type { TableCellView } from '../../../table-column/base/cell-view';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -47,10 +48,20 @@ export class TableCell<
     @observable
     public cellViewTemplate?: ViewTemplate<TableCell>;
 
+    /** @internal */
+    @observable
+    public cellViewContainer!: HTMLElement;
+
     @observable
     public nestingLevel = 0;
 
     public readonly actionMenuButton?: MenuButton;
+
+    /** @internal */
+    public get cellView(): TableCellView<TCellRecord> {
+        return this.cellViewContainer
+            .firstElementChild as TableCellView<TCellRecord>;
+    }
 
     public onActionMenuBeforeToggle(
         event: CustomEvent<MenuButtonToggleEventDetail>
@@ -63,6 +74,22 @@ export class TableCell<
     ): void {
         this.menuOpen = event.detail.newState;
         this.$emit('cell-action-menu-toggle', event.detail);
+    }
+
+    public onActionMenuBlur(): void {
+        this.$emit('cell-action-menu-blur', this);
+    }
+
+    public onCellViewFocusIn(): void {
+        this.$emit('cell-view-focus-in', this);
+    }
+
+    public onCellFocusIn(): void {
+        this.$emit('cell-focus-in', this);
+    }
+
+    public onCellBlur(): void {
+        this.$emit('cell-blur', this);
     }
 }
 

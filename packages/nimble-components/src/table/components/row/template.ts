@@ -28,11 +28,13 @@ export const template = html<TableRow>`
     >
         ${when(x => !x.rowOperationGridCellHidden, html<TableRow>`
             <span role="gridcell" class="row-operations-container">
-                ${when(x => x.selectable && !x.hideSelection, html<TableRow>`
+                ${when(x => x.showSelectionCheckbox, html<TableRow>`
                     <${checkboxTag}
                         ${ref('selectionCheckbox')}
                         class="selection-checkbox"
-                        @change="${(x, c) => x.onSelectionChange(c.event as CustomEvent)}"
+                        ${'' /* tabindex managed dynamically by KeyboardNavigationManager */}
+                        tabindex="-1"
+                        @change="${(x, c) => x.onSelectionCheckboxChange(c.event as CustomEvent)}"
                         @click="${(_, c) => c.event.stopPropagation()}"
                         title="${x => tableRowSelectLabel.getValueFor(x)}"
                         aria-label="${x => tableRowSelectLabel.getValueFor(x)}"
