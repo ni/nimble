@@ -5,7 +5,7 @@
   "scripts": {
     "build": "npm run build-components && npm run bundle-components",
     "lint": "npm run eslint && npm run prettier",
-    "format": "npm run eslint-fix && npm run prettier-fix",
+    "format": "npm run prettier-fix",
     "eslint": "eslint .",
     "eslint-fix": "eslint . --fix",
     "prettier": "prettier-eslint \"**/*.*\" --list-different --prettier-ignore",

@@ -454,9 +454,7 @@ describe('Combobox', () => {
     });
 
     it("should set the control's `aria-activedescendant` property to the ID of the currently selected option while open", async () => {
-        const {
-            connect, disconnect, element, option1, option2, option3
-        } = await setup();
+        const { connect, disconnect, element, option1, option2, option3 } = await setup();
 
         await connect();
 
