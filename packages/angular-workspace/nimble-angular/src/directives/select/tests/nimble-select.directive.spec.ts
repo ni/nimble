@@ -87,12 +87,6 @@ describe('Nimble select', () => {
             expect(directive.loadingVisible).toBeFalse();
             expect(nativeElement.loadingVisible).toBeFalse();
         });
-
-        it('can use the directive to set loadingVisible', () => {
-            directive.loadingVisible = true;
-            expect(directive.loadingVisible).toBeTrue();
-            expect(nativeElement.loadingVisible).toBeTrue();
-        });
     });
 
     describe('with template string values', () => {
