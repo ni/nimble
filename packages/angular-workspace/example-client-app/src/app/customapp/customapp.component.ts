@@ -169,11 +169,7 @@ export class CustomAppComponent implements AfterViewInit {
     }
 
     public shouldHideSelectedItem(value: ComboboxItem): boolean {
-        if (value === this.dynamicSelectValue && this.hideSelectedItem) {
-            return true;
-        }
-
-        return false;
+        return this.hideSelectedItem && value === this.dynamicSelectValue;
     }
 
     public onComboboxChange(value: ComboboxItem | OptionNotFound): void {
