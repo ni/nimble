@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Thu, 27 Jun 2024 20:48:54 GMT",
+      "version": "29.7.2",
+      "tag": "@ni/nimble-components_v29.7.2",
+      "comments": {
+        "none": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "adff480023a4fdcb491bd2963ddfac2787a5d4a4",
+            "comment": "Create HLD for custom column sorting"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 27 Jun 2024 17:22:12 GMT",
       "version": "29.7.2",
       "tag": "@ni/nimble-components_v29.7.2",
