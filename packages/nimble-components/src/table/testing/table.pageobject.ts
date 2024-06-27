@@ -142,7 +142,7 @@ export class TablePageObject<T extends TableRecord> {
         columnIndex: number
     ): TableCellView {
         const cell = this.getCell(rowIndex, columnIndex);
-        const cellView = cell.shadowRoot!.firstElementChild;
+        const cellView = cell.cellViewContainer.firstElementChild;
         if (!(cellView instanceof TableCellView)) {
             throw new Error(
                 'Cell view not found in cell - ensure cellViewTag is set for column'
@@ -156,7 +156,7 @@ export class TablePageObject<T extends TableRecord> {
         columnId: string
     ): TableCellView {
         const cell = this.getCellById(recordId, columnId);
-        const cellView = cell.shadowRoot!.firstElementChild;
+        const cellView = cell.cellViewContainer.firstElementChild;
         if (!(cellView instanceof TableCellView)) {
             throw new Error(
                 'Cell view not found in cell - ensure cellViewTag is set for column'
@@ -299,6 +299,12 @@ export class TablePageObject<T extends TableRecord> {
         return Array.from(cells!).reduce((p, c) => {
             return p + c.getBoundingClientRect().width;
         }, 0);
+    }
+
+    public async scrollToFirstRowAsync(): Promise<void> {
+        const scrollElement = this.tableElement.viewport;
+        scrollElement.scroll({ top: 0 });
+        await waitForUpdatesAsync();
     }
 
     public async scrollToLastRowAsync(): Promise<void> {
@@ -656,7 +662,8 @@ export class TablePageObject<T extends TableRecord> {
         return groupRow.shadowRoot!.querySelector('.group-header-view')!;
     }
 
-    private getRow(rowIndex: number): TableRow {
+    /** @internal */
+    public getRow(rowIndex: number): TableRow {
         const rows = this.tableElement.shadowRoot!.querySelectorAll('nimble-table-row');
         if (rowIndex >= rows.length) {
             throw new Error(
@@ -665,6 +672,19 @@ export class TablePageObject<T extends TableRecord> {
         }
 
         return rows.item(rowIndex);
+    }
+
+    /** @internal */
+    public getCell(rowIndex: number, columnIndex: number): TableCell {
+        const row = this.getRow(rowIndex);
+        const cells = row.shadowRoot!.querySelectorAll('nimble-table-cell');
+        if (columnIndex >= cells.length) {
+            throw new Error(
+                'Attempting to index past the total number of rendered columns'
+            );
+        }
+
+        return cells.item(columnIndex);
     }
 
     private getRowById(recordId: string): TableRow {
@@ -678,18 +698,6 @@ export class TablePageObject<T extends TableRecord> {
         }
 
         return row;
-    }
-
-    private getCell(rowIndex: number, columnIndex: number): TableCell {
-        const row = this.getRow(rowIndex);
-        const cells = row.shadowRoot!.querySelectorAll('nimble-table-cell');
-        if (columnIndex >= cells.length) {
-            throw new Error(
-                'Attempting to index past the total number of rendered columns'
-            );
-        }
-
-        return cells.item(columnIndex);
     }
 
     private getCellById(recordId: string, columnId: string): TableCell {

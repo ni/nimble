@@ -29,8 +29,10 @@ interface SelectArgs {
     appearance: string;
     filterMode: keyof typeof FilterMode;
     clearable: boolean;
+    loadingVisible: boolean;
     value: string;
     change: undefined;
+    filterInput: undefined;
 }
 
 interface OptionArgs {
@@ -99,7 +101,7 @@ const optionSets = {
 } as const;
 
 const filterModeDescription = `
-Controls the filtering behavior of the select. The default of \`none\` results in a dropdown with no input for filtering. A non-'none' setting results in a search input placed at the top or the bottom of the dropdown when opened (depending on where the dropdown is shown relative to the component). The \`standard\` setting will perform a case-insensitive and diacritic-insensitive filtering of the available options anywhere within the text of each option. 
+Controls the filtering behavior of the select. The default of \`none\` results in a dropdown with no input for filtering. A non-'none' setting results in a search input placed at the top or the bottom of the dropdown when opened (depending on where the dropdown is shown relative to the component). The \`standard\` setting will perform a case-insensitive and diacritic-insensitive filtering of the available options anywhere within the text of each option. The \`manual\` setting will provide the search input in the dropdown, but performs no filtering of the options. This allows for custom filtering to be implemented by the consuming application.
 
 It is recommended that if the select has 15 or fewer options that you use the \`none\` setting for the \`filter-mode\`.
 `;
@@ -107,29 +109,12 @@ const clearableDescription = `
 When the \`clearable\` attribute is set, a clear button will be displayed in the select when a value is selected. Clicking the clear button will clear the selected value and display the placeholder text, if available, or will result in a blank display.
 `;
 
+const loadingVisibleDescription = `
+When the \`loading-visible\` attribute is set, a loading spinner will be displayed in the dropdown of the select along with localizable text that defaults to "Loading…". This is useful when the select is loading its options dynamically.
+`;
+
 const metadata: Meta<SelectArgs> = {
     title: 'Components/Select',
-    decorators: [withActions<HtmlRenderer>],
-    parameters: {
-        actions: {
-            handles: ['change']
-        }
-    }
-};
-
-export default metadata;
-
-export const select: Meta<SelectArgs> = {
-    title: 'Components/Select',
-    decorators: [withActions<HtmlRenderer>],
-    parameters: {
-        actions: {
-            handles: ['change']
-        },
-        toolbar: {
-            zoom: { hidden: true }
-        }
-    },
     // prettier-ignore
     render: createUserSelectedThemeStory(html`
         ${disableStorybookZoomTransform}
@@ -141,6 +126,7 @@ export const select: Meta<SelectArgs> = {
             position="${x => x.dropDownPosition}"
             appearance="${x => x.appearance}"
             filter-mode="${x => (x.filterMode === 'none' ? undefined : x.filterMode)}"
+            ?loading-visible="${x => x.loadingVisible}"
             style="width: 250px;"
         >
             ${when(x => x.optionsType === ExampleOptionsType.groupedOptions, html<SelectArgs>`
@@ -209,6 +195,11 @@ export const select: Meta<SelectArgs> = {
             description: clearableDescription,
             table: { category: apiCategory.attributes }
         },
+        loadingVisible: {
+            name: 'loading-visible',
+            description: loadingVisibleDescription,
+            table: { category: apiCategory.attributes }
+        },
         value: {
             name: 'value',
             description:
@@ -235,6 +226,12 @@ export const select: Meta<SelectArgs> = {
             description: 'Emitted when the user changes the selected option.',
             table: { category: apiCategory.events },
             control: false
+        },
+        filterInput: {
+            name: 'filter-input',
+            description: 'Emitted when the user types in the filter input.',
+            table: { category: apiCategory.events },
+            control: false
         }
     },
     args: {
@@ -245,7 +242,22 @@ export const select: Meta<SelectArgs> = {
         dropDownPosition: 'below',
         appearance: DropdownAppearance.underline,
         optionsType: ExampleOptionsType.simpleOptions,
-        clearable: false
+        clearable: false,
+        loadingVisible: false
+    }
+};
+
+export default metadata;
+
+export const select: StoryObj<SelectArgs> = {
+    decorators: [withActions<HtmlRenderer>],
+    parameters: {
+        actions: {
+            handles: ['change', 'filter-input']
+        },
+        toolbar: {
+            zoom: { hidden: true }
+        }
     }
 };
 

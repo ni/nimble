@@ -198,6 +198,46 @@ describe('Table action menu', () => {
         expect(menuButton.textContent?.trim()).toEqual(label);
     });
 
+    it('button is included in row getFocusableElements() result', async () => {
+        const slot = 'my-action-menu';
+        column1.actionMenuSlot = slot;
+        createAndSlotMenu(slot);
+        await connect();
+        await waitForUpdatesAsync();
+
+        const row = pageObject.getRow(0)!;
+        const focusableElements = row.getFocusableElements();
+        expect(focusableElements.cells.length).toBe(2);
+        expect(focusableElements.cells[0]!.actionMenuButton).toBe(
+            pageObject.getCellActionMenu(0, 0)!
+        );
+        expect(focusableElements.cells[1]!.actionMenuButton).toBeUndefined();
+    });
+
+    it('when action menu button is blurred, cell fires cell-action-menu-blur event', async () => {
+        const slot = 'my-action-menu';
+        column1.actionMenuSlot = slot;
+        createAndSlotMenu(slot);
+        await connect();
+        await waitForUpdatesAsync();
+        pageObject.setRowHoverState(1, true);
+        await waitForUpdatesAsync();
+        const cell = pageObject.getCell(1, 0)!;
+        const menuButton = pageObject.getCellActionMenu(1, 0)!;
+        const blurListener = createEventListener(cell, 'cell-action-menu-blur');
+        menuButton.focus();
+        await waitForUpdatesAsync();
+
+        expect(blurListener.spy).not.toHaveBeenCalled();
+
+        menuButton.blur();
+        await blurListener.promise;
+
+        expect(blurListener.spy).toHaveBeenCalledOnceWith(
+            jasmine.objectContaining({ detail: cell })
+        );
+    });
+
     it('table creates two slots for two unique `action-menu-slot` values', async () => {
         const slot1 = 'my-action-menu';
         column1.actionMenuSlot = slot1;
