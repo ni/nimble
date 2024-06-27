@@ -155,6 +155,9 @@ export class SelectPageObject {
     /**
      * Click the option with the text provided by the 'displayText' parameter.
      * @param value The text of the option to be selected
+     * @remarks This method is useful when the display text is unique. If the
+     * display text is not unique, the first option with the matching text will
+     * be selected.
      */
     public clickOptionWithDisplayText(displayText: string): void {
         if (!this.selectElement.open) {
