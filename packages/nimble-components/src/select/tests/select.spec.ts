@@ -2031,7 +2031,7 @@ describe('Select', () => {
                 expect(await changeEventWasFirst).toBeTrue();
             });
 
-            it('pressing <Esc> issues filter-input event with empty filterText', async () => {
+            it('pressing <Esc> issues one filter-input event with empty filterText', async () => {
                 await clickAndWaitForOpen(element);
                 const filterInputEventListener = createEventListener(
                     element,
@@ -2043,10 +2043,11 @@ describe('Select', () => {
                 };
                 const event = filterInputEventListener.spy.calls.first()
                     .args[0] as CustomEvent;
+                expect(filterInputEventListener.spy).toHaveBeenCalledTimes(1);
                 expect(event.detail).toEqual(expectedDetails);
             });
 
-            it('clicking outside of dropdown issues filter-input event with empty filterText', async () => {
+            it('clicking outside of dropdown issues one filter-input event with empty filterText', async () => {
                 await clickAndWaitForOpen(element);
                 const filterInputEventListener = createEventListener(
                     element,
@@ -2058,6 +2059,7 @@ describe('Select', () => {
                 };
                 const event = filterInputEventListener.spy.calls.first()
                     .args[0] as CustomEvent;
+                expect(filterInputEventListener.spy).toHaveBeenCalledTimes(1);
                 expect(event.detail).toEqual(expectedDetails);
             });
         });

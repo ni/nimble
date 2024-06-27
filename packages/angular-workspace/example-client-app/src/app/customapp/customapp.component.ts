@@ -168,7 +168,7 @@ export class CustomAppComponent implements AfterViewInit {
         }
     }
 
-    public shouldHideSelectedItem(value: ComboboxItem): boolean {
+    public shouldHideItem(value: ComboboxItem): boolean {
         return this.hideSelectedItem && value === this.dynamicSelectValue;
     }
 

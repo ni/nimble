@@ -483,6 +483,7 @@ export class Select
      */
     public clearClickHandler(e: MouseEvent): void {
         const wasOpen = this.open;
+        this.open = false;
         this.clearSelect();
         this.updateValue(true);
         if (wasOpen && this.filterMode !== FilterMode.none) {
