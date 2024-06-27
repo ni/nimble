@@ -56,7 +56,7 @@ export class CustomAppComponent implements AfterViewInit {
 
     public comboboxSelectedOption?: ComboboxItem;
     public comboboxSelectedLastName = this.comboboxSelectedOption?.last;
-    public placeholderValue = null;
+    public dynamicSelectPlaceholderValue = null;
     public dynamicSelectValue: ComboboxItem | null = null;
     public selectedRadio = 'mango';
     public activeTabId = 'tab-1';
