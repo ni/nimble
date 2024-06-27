@@ -139,10 +139,30 @@ export const styles = css`
         overflow-y: auto;
         width: 100%;
         --ni-private-listbox-padding: ${smallPadding};
-        max-height: calc(var(--ni-private-select-max-height) - ${smallPadding});
+        --ni-private-listbox-filter-height: 0px;
+        --ni-private-listbox-loading-indicator-height: 0px;
+        max-height: min(
+            calc(
+                ${smallPadding} + 2 * ${borderWidth} + ${controlHeight} * 10.5 +
+                    var(--ni-private-listbox-filter-height) +
+                    var(--ni-private-listbox-loading-indicator-height)
+            ),
+            calc(
+                var(--ni-private-listbox-available-viewport-height) -
+                    ${smallPadding}
+            )
+        );
         box-shadow: ${elevation2BoxShadow};
-        border: 1px solid ${popupBorderColor};
+        border: ${borderWidth} solid ${popupBorderColor};
         background-color: ${applicationBackgroundColor};
+    }
+
+    .listbox:has(.filter-field) {
+        --ni-private-listbox-filter-height: ${controlHeight};
+    }
+
+    .listbox:has(.loading-container) {
+        --ni-private-listbox-loading-indicator-height: ${controlHeight};
     }
 
     .listbox slot {
