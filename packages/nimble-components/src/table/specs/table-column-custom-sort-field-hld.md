@@ -10,7 +10,7 @@ In some cases, a client may have the need to specify a custom sort order for a c
 
 ## Implementation / Design
 
-Columns that need support for a custom column sort order will extend their API to allow a client to optionally specify an additional field within the data that specifies the sort order of that column. This field is expected to be a numeric value that is the sorted data index of the record. When the table is sorted by this column, the table will use the `basic` sort operation and sort the records by the additionally specified field rather than the default `operandDataRecordFieldName` associated with the column.
+Columns that need support for a custom column sort order will extend their API to allow a client to optionally specify an additional field within the data that specifies the sort order of that column. This field is expected to be a numeric value where the order of the values indicates the order in which the records should be sorted, such as the sorted data index of the record. When the table is sorted by this column, the table will use the `basic` sort operation and sort the records by the additionally specified field rather than the default `operandDataRecordFieldName` associated with the column.
 
 TanStack uses the same field internally for both sorting and grouping. Grouping by this custom sort field could likely lead to unexpected results since there isn't a guarantee that two values that render identically have the same sort index. Therefore, grouping and specifying a custom sort order will not be allowed on a column at the same time. If both are specified at the same time, the column will be considered invalid and the `invalidCustomSortWithGrouping` validation flag will be set on the column.
 
