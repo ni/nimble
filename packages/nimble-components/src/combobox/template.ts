@@ -74,6 +74,7 @@ ComboboxOptions
                 part="listbox"
                 role="listbox"
                 ?disabled="${x => x.disabled}"
+                style="--ni-private-listbox-available-viewport-height: ${x => x.availableViewportHeight}px;"
                 ${ref('listbox')}
             >
                 <slot name="option"

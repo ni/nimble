@@ -1,12 +1,15 @@
 import { css } from '@microsoft/fast-element';
 import { display } from '../../../utilities/style/display';
 import {
+    borderHoverColor,
+    borderWidth,
     controlHeight,
     iconColor,
     mediumPadding,
     tableHeaderFont,
     tableHeaderFontColor
 } from '../../../theme-provider/design-tokens';
+import { focusVisible } from '../../../utilities/style/focus';
 
 export const styles = css`
     ${display('flex')}
@@ -21,6 +24,11 @@ export const styles = css`
         text-transform: uppercase;
         gap: ${mediumPadding};
         cursor: default;
+    }
+
+    :host(${focusVisible}) {
+        outline: calc(2 * ${borderWidth}) solid ${borderHoverColor};
+        outline-offset: calc(-2 * ${borderWidth});
     }
 
     .sort-indicator,

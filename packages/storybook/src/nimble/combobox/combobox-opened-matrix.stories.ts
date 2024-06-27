@@ -1,5 +1,6 @@
 import type { StoryFn, Meta } from '@storybook/html';
-import { html, ViewTemplate } from '@microsoft/fast-element';
+import { html, repeat, ViewTemplate, when } from '@microsoft/fast-element';
+import { DropdownPosition } from '../../../../nimble-components/src/patterns/dropdown/types';
 import { listOptionTag } from '../../../../nimble-components/src/list-option';
 import { comboboxTag } from '../../../../nimble-components/src/combobox';
 import { createFixedThemeStory } from '../../utilities/storybook';
@@ -15,22 +16,34 @@ const metadata: Meta = {
 
 export default metadata;
 
-const positionStates = [
-    ['below', 'margin-bottom: 120px;'],
-    ['above', 'margin-top: 120px;']
-] as const;
+const positionStates = Object.values(DropdownPosition);
 type PositionState = (typeof positionStates)[number];
 
+interface ComboboxMatrixStoryOptions {
+    position: PositionState;
+    manyOptions?: boolean;
+}
+
 // prettier-ignore
-const component = ([
+const component = ({
     position,
-    positionStyle
-]: PositionState): ViewTemplate => html`
-    <${comboboxTag} open position="${() => position}" style="width: 250px; ${() => positionStyle}">
-        <${listOptionTag} value="1">Option 1</${listOptionTag}>
-        <${listOptionTag} value="2" disabled>Option 2</${listOptionTag}>
-        <${listOptionTag} value="3">Option 3</${listOptionTag}>
-        <${listOptionTag} value="4" hidden>Option 4</${listOptionTag}>
+    manyOptions
+}: ComboboxMatrixStoryOptions): ViewTemplate => html`
+    <${comboboxTag} open
+        position="${() => position}" 
+        style="width: 250px; ${() => (position === DropdownPosition.below ? 'margin-bottom: 120px;' : `margin-top: ${manyOptions ? 360 : 120}px;`)}"
+    >
+        ${when(() => !manyOptions, html`
+            <${listOptionTag} value="1">Option 1</${listOptionTag}>
+            <${listOptionTag} value="2" disabled>Option 2</${listOptionTag}>
+            <${listOptionTag} value="3">Option 3</${listOptionTag}>
+            <${listOptionTag} value="4" hidden>Option 4</${listOptionTag}>
+        `)}
+        ${when(() => manyOptions, html`
+            ${repeat(() => [...Array(100).keys()], html<number>`
+                <${listOptionTag} value="${x => x}">Option ${x => x + 1}</${listOptionTag}>
+            `)}
+        `)}
     </${comboboxTag}>
 `;
 
@@ -46,27 +59,47 @@ if (remaining.length > 0) {
 }
 
 export const comboboxBelowOpenLightThemeWhiteBackground: StoryFn = createFixedThemeStory(
-    component(positionStates[0]),
+    component({ position: DropdownPosition.below }),
     lightThemeWhiteBackground
 );
 
 export const comboboxAboveOpenLightThemeWhiteBackground: StoryFn = createFixedThemeStory(
-    component(positionStates[1]),
+    component({ position: DropdownPosition.above }),
     lightThemeWhiteBackground
 );
 
-// prettier-ignore
-export const comboboxBelowOpenColorThemeDarkGreenBackground: StoryFn = createFixedThemeStory(component(positionStates[0]), colorThemeDarkGreenBackground);
+export const comboboxBelowOpenColorThemeDarkGreenBackground: StoryFn = createFixedThemeStory(
+    component({ position: DropdownPosition.below }),
+    colorThemeDarkGreenBackground
+);
 
-// prettier-ignore
-export const comboboxAboveOpenColorThemeDarkGreenBackground: StoryFn = createFixedThemeStory(component(positionStates[1]), colorThemeDarkGreenBackground);
+export const comboboxAboveOpenColorThemeDarkGreenBackground: StoryFn = createFixedThemeStory(
+    component({ position: DropdownPosition.above }),
+    colorThemeDarkGreenBackground
+);
 
 export const comboboxBelowOpenDarkThemeBlackBackground: StoryFn = createFixedThemeStory(
-    component(positionStates[0]),
+    component({ position: DropdownPosition.below }),
     darkThemeBlackBackground
 );
 
 export const comboboxAboveOpenDarkThemeBlackBackground: StoryFn = createFixedThemeStory(
-    component(positionStates[1]),
+    component({ position: DropdownPosition.above }),
     darkThemeBlackBackground
+);
+
+export const comboboxBelowOpenManyOptions: StoryFn = createFixedThemeStory(
+    component({
+        position: DropdownPosition.below,
+        manyOptions: true
+    }),
+    lightThemeWhiteBackground
+);
+
+export const comboboxAboveOpenManyOptions: StoryFn = createFixedThemeStory(
+    component({
+        position: DropdownPosition.above,
+        manyOptions: true
+    }),
+    lightThemeWhiteBackground
 );

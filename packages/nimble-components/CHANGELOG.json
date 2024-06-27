@@ -2,6 +2,87 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Thu, 27 Jun 2024 17:22:12 GMT",
+      "version": "29.7.2",
+      "tag": "@ni/nimble-components_v29.7.2",
+      "comments": {
+        "patch": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "b59758cbfd774f09cb4dd610b08c4ef63c41a110",
+            "comment": "Make SelectPageObject clickOption reference only visible options."
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 26 Jun 2024 23:27:39 GMT",
+      "version": "29.7.1",
+      "tag": "@ni/nimble-components_v29.7.1",
+      "comments": {
+        "none": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "cc030f0d85ca0cdc4ef76cb28a2cf5ece5d7a9b0",
+            "comment": "Avoid phantom diffs from prettier-eslint"
+          },
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "afea9d891db2d61b24fc52256e646b89f4837f6c",
+            "comment": "disable intermittent test"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 26 Jun 2024 20:18:04 GMT",
+      "version": "29.7.1",
+      "tag": "@ni/nimble-components_v29.7.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "fc8d51451dbc8fa1d460a19964fb1277958be4a3",
+            "comment": "Limit combobox and select dropdown to 10.5 visible options"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 25 Jun 2024 18:38:45 GMT",
+      "version": "29.7.0",
+      "tag": "@ni/nimble-components_v29.7.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "20709258+msmithNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "5be33e36abffe890b932d57f8412f46f4df6714d",
+            "comment": "Add keyboard navigation functionality to the table component"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 20 Jun 2024 20:08:12 GMT",
+      "version": "29.6.0",
+      "tag": "@ni/nimble-components_v29.6.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "0084f69eb791dc78ecd49dc586d783736e7f5c3d",
+            "comment": "Define graph trace color tokens"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 18 Jun 2024 22:10:11 GMT",
       "version": "29.5.0",
       "tag": "@ni/nimble-components_v29.5.0",

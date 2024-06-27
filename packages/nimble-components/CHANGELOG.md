@@ -1,8 +1,40 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Tue, 18 Jun 2024 22:10:11 GMT and should not be manually modified.
+This log was last generated on Thu, 27 Jun 2024 17:22:12 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 29.7.2
+
+Thu, 27 Jun 2024 17:22:12 GMT
+
+### Patches
+
+- Make SelectPageObject clickOption reference only visible options. ([ni/nimble@b59758c](https://github.com/ni/nimble/commit/b59758cbfd774f09cb4dd610b08c4ef63c41a110))
+
+## 29.7.1
+
+Wed, 26 Jun 2024 20:18:04 GMT
+
+### Patches
+
+- Limit combobox and select dropdown to 10.5 visible options ([ni/nimble@fc8d514](https://github.com/ni/nimble/commit/fc8d51451dbc8fa1d460a19964fb1277958be4a3))
+
+## 29.7.0
+
+Tue, 25 Jun 2024 18:38:45 GMT
+
+### Minor changes
+
+- Add keyboard navigation functionality to the table component ([ni/nimble@5be33e3](https://github.com/ni/nimble/commit/5be33e36abffe890b932d57f8412f46f4df6714d))
+
+## 29.6.0
+
+Thu, 20 Jun 2024 20:08:12 GMT
+
+### Minor changes
+
+- Define graph trace color tokens ([ni/nimble@0084f69](https://github.com/ni/nimble/commit/0084f69eb791dc78ecd49dc586d783736e7f5c3d))
 
 ## 29.5.0
 
