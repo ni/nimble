@@ -120,7 +120,7 @@ export class CustomAppComponent implements AfterViewInit {
         { first: 'Todd', last: 'Flanders' }
     ];
 
-    private readonly localSelectItems = this.availableSelectItems.slice(0, 5);
+    private readonly defaultDynamicSelectItems = this.availableSelectItems.slice(0, 5);
     private dynamicSelectFilterTimeout?: number;
     private hideSelectedItem = false;
     private readonly recordsLoadingChildren = new Set<string>();
@@ -135,7 +135,7 @@ export class CustomAppComponent implements AfterViewInit {
     public constructor(@Inject(ActivatedRoute) public readonly route: ActivatedRoute) {
         this.tableData$ = this.tableDataSubject.asObservable();
         this.addTableRows(10);
-        this.dynamicSelectItems = this.localSelectItems;
+        this.dynamicSelectItems = this.defaultDynamicSelectItems;
     }
 
     public ngAfterViewInit(): void {
@@ -163,7 +163,7 @@ export class CustomAppComponent implements AfterViewInit {
         } else {
             this.hideSelectedItem = false;
             window.clearTimeout(this.dynamicSelectFilterTimeout);
-            this.setDynamicSelectItems(this.localSelectItems);
+            this.setDynamicSelectItems(this.defaultDynamicSelectItems);
             this.dynamicSelect.loadingVisible = false;
         }
     }
