@@ -994,7 +994,7 @@ describe('Select', () => {
                 expect(element.value).toBe('one');
 
                 await pageObject.openAndSetFilterText('T'); // Matches 'Two' and 'Three'
-                pageObject.clickOption(2); // index 2 matches option with 'Three' text
+                pageObject.clickOption(1); // index 1 matches option with 'Three' text
                 expect(element.value).toBe('three');
                 expect(element.open).toBeFalse();
             });
@@ -1051,7 +1051,7 @@ describe('Select', () => {
             it('clicking disabled option does not cause select to change state', async () => {
                 await pageObject.openAndSetFilterText('T');
                 const currentFilteredOptions = pageObject.getFilteredOptions();
-                pageObject.clickOption(3); // click disabled option
+                pageObject.clickOption(2); // click disabled option
 
                 expect(pageObject.getFilteredOptions()).toEqual(
                     currentFilteredOptions
@@ -1370,7 +1370,7 @@ describe('Select', () => {
         it('selecting option will replace placeholder text with selected option text', async () => {
             expect(pageObject.getDisplayText()).toBe('One');
             await clickAndWaitForOpen(element);
-            pageObject.clickOption(1);
+            pageObject.clickOption(0);
             await waitForUpdatesAsync();
 
             expect(pageObject.getDisplayText()).toBe('Two');

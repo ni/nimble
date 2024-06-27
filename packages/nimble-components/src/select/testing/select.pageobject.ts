@@ -119,7 +119,8 @@ export class SelectPageObject {
         if (!selectedOption) {
             throw new Error('No option is selected to click');
         }
-        this.clickOption(this.selectElement.options.indexOf(selectedOption));
+        const visibleOptions = this.getVisibleOptions();
+        this.clickOption(visibleOptions.indexOf(selectedOption));
     }
 
     public async clickFilterInput(): Promise<void> {
@@ -131,13 +132,14 @@ export class SelectPageObject {
     }
 
     public clickOption(index: number): void {
-        if (index >= this.selectElement.options.length) {
+        const visibleOptions = this.getVisibleOptions();
+        if (index >= visibleOptions.length) {
             throw new Error(
                 '"index" greater than number of current displayed options'
             );
         }
 
-        const option = this.selectElement.options[index]!;
+        const option = visibleOptions[index]!;
         option.scrollIntoView();
         option.click();
     }
@@ -321,6 +323,12 @@ export class SelectPageObject {
 
     public getFilterInputText(): string {
         return this.selectElement.filterInput?.value ?? '';
+    }
+
+    private getVisibleOptions(): ListOption[] {
+        return this.selectElement.options.filter(
+            o => !((o as ListOption).hidden || (o as ListOption).visuallyHidden)
+        ) as ListOption[];
     }
 
     private getFilterInput(): HTMLInputElement | null | undefined {
