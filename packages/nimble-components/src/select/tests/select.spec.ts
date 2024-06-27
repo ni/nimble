@@ -2038,7 +2038,7 @@ describe('Select', () => {
             option.hidden = true;
             pageObject.clickSelect();
             pageObject.clickOption(1);
-            expect(element.value).toBe('three');
+            expect(element.value).toBe('edge');
             expect(element.selectedIndex).toBe(2);
         });
 
