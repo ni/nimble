@@ -131,6 +131,14 @@ export class SelectPageObject {
         await waitForUpdatesAsync();
     }
 
+    /**
+     * Selects an option using an index value into the list of visible options.
+     * Options that have the `hidden` or `visuallyHidden` attribute set to true
+     * are not considered visible.
+     * @param index The index of the option in the visible set to be selected
+     * @remarks Prefer clickOptionWithDisplayText where possible. This method is
+     * useful when the display text is not unique and the index is known.
+     */
     public clickOption(index: number): void {
         const visibleOptions = this.getVisibleOptions();
         if (index >= visibleOptions.length) {
@@ -152,7 +160,7 @@ export class SelectPageObject {
         if (!this.selectElement.open) {
             this.clickSelect();
         }
-        const optionIndex = this.selectElement.options.findIndex(
+        const optionIndex = this.getVisibleOptions().findIndex(
             o => o.text === displayText
         );
         if (optionIndex === -1) {
