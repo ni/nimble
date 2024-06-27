@@ -157,8 +157,7 @@ export class CustomAppComponent implements AfterViewInit {
                 // do your custom filtering here
                 const filteredItems = this.availableSelectItems.filter(item => item.first.concat(item.last).toLowerCase().includes(filter.toLowerCase()));
                 this.setDynamicSelectItems(filteredItems);
-                this.hideSelectedItem = (this.dynamicSelectValue && !filteredItems.includes(this.dynamicSelectValue))
-                    ?? false;
+                this.hideSelectedItem = this.dynamicSelectValue ? !filteredItems.includes(this.dynamicSelectValue) : false;
                 this.dynamicSelect.loadingVisible = false;
             }, 2000); // simulate async loading with debounce
         } else {
