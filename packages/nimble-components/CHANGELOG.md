@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Wed, 26 Jun 2024 20:18:04 GMT and should not be manually modified.
+This log was last generated on Thu, 27 Jun 2024 17:22:12 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 29.7.2
+
+Thu, 27 Jun 2024 17:22:12 GMT
+
+### Patches
+
+- Make SelectPageObject clickOption reference only visible options. ([ni/nimble@b59758c](https://github.com/ni/nimble/commit/b59758cbfd774f09cb4dd610b08c4ef63c41a110))
 
 ## 29.7.1
 
