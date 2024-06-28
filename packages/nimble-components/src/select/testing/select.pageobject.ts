@@ -119,7 +119,8 @@ export class SelectPageObject {
         if (!selectedOption) {
             throw new Error('No option is selected to click');
         }
-        this.clickOption(this.selectElement.options.indexOf(selectedOption));
+        const visibleOptions = this.getVisibleOptions();
+        this.clickOption(visibleOptions.indexOf(selectedOption));
     }
 
     public async clickFilterInput(): Promise<void> {
@@ -130,14 +131,23 @@ export class SelectPageObject {
         await waitForUpdatesAsync();
     }
 
+    /**
+     * Selects an option using an index value into the list of visible options.
+     * Options that have the `hidden` or `visuallyHidden` attribute set to true
+     * are not considered visible.
+     * @param index The index of the option in the visible set to be selected
+     * @remarks Prefer clickOptionWithDisplayText where possible. This method is
+     * useful when the display text is not unique and the index is known.
+     */
     public clickOption(index: number): void {
-        if (index >= this.selectElement.options.length) {
+        const visibleOptions = this.getVisibleOptions();
+        if (index >= visibleOptions.length) {
             throw new Error(
                 '"index" greater than number of current displayed options'
             );
         }
 
-        const option = this.selectElement.options[index]!;
+        const option = visibleOptions[index]!;
         option.scrollIntoView();
         option.click();
     }
@@ -145,12 +155,15 @@ export class SelectPageObject {
     /**
      * Click the option with the text provided by the 'displayText' parameter.
      * @param value The text of the option to be selected
+     * @remarks This method is useful when the display text is unique. If the
+     * display text is not unique, the first option with the matching text will
+     * be selected.
      */
     public clickOptionWithDisplayText(displayText: string): void {
         if (!this.selectElement.open) {
             this.clickSelect();
         }
-        const optionIndex = this.selectElement.options.findIndex(
+        const optionIndex = this.getVisibleOptions().findIndex(
             o => o.text === displayText
         );
         if (optionIndex === -1) {
@@ -321,6 +334,12 @@ export class SelectPageObject {
 
     public getFilterInputText(): string {
         return this.selectElement.filterInput?.value ?? '';
+    }
+
+    private getVisibleOptions(): ListOption[] {
+        return this.selectElement.options.filter(
+            o => !((o as ListOption).hidden || (o as ListOption).visuallyHidden)
+        ) as ListOption[];
     }
 
     private getFilterInput(): HTMLInputElement | null | undefined {
