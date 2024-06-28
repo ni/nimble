@@ -40,39 +40,57 @@ export default metadata;
 const simpleData = [
     {
         firstName: 'Ralph',
+        firstNameSortIndex: 3,
         lastName: 'Wiggum',
+        lastNameSortIndex: 3,
+        fullName: 'Ralph Wiggum',
         url: 'https://www.google.com/search?q=ralph+wiggum'
     },
     {
         firstName: 'Milhouse',
+        firstNameSortIndex: 1,
         lastName: 'Van Houten',
+        lastNameSortIndex: 2,
+        fullName: 'Milhouse Van Houten',
         url: 'https://www.google.com/search?q=milhouse+van+houten'
     },
     {
         firstName: 'Ned',
+        firstNameSortIndex: 2,
         lastName: 'Flanders',
+        lastNameSortIndex: 0,
+        fullName: 'Ned Flanders',
         url: 'https://www.google.com/search?q=ned+flanders'
     },
     {
         firstName: 'Maggie (no link)',
-        lastName: 'Simpson'
+        firstNameSortIndex: 0,
+        lastName: 'Simpson',
+        lastNameSortIndex: 1,
+        fullName: 'Maggie Simpson'
     },
     {
+        firstNameSortIndex: -1,
         lastName: 'Simpson',
+        lastNameSortIndex: 1,
+        fullName: 'Unknown Simpson',
         url: 'https://www.google.com/search?q=simpsons'
     },
     {
-        lastName: 'Simpson'
+        firstNameSortIndex: -1,
+        lastName: 'Simpson',
+        lastNameSortIndex: 1,
+        fullName: 'Unknown Simpson',
     }
 ] as const;
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface AnchorColumnTableArgs extends SharedTableArgs {
     labelFieldName: string;
     hrefFieldName: string;
     appearance: keyof typeof AnchorAppearance;
     underlineHidden: boolean;
     placeholder: string;
+    sortByFieldName: 'firstNameSortIndex' | 'lastNameSortIndex';
 }
 
 export const anchorColumn: StoryObj<AnchorColumnTableArgs> = {
@@ -90,13 +108,22 @@ export const anchorColumn: StoryObj<AnchorColumnTableArgs> = {
                 ?underline-hidden="${x => x.underlineHidden}"
                 placeholder="${x => x.placeholder}"
             >
-            Link Column
+                Link Column
             </${tableColumnAnchorTag}>
             <${tableColumnTextTag}
                 field-name="lastName"
             >
-            Last Name
+                Last Name
             </${tableColumnTextTag}>
+            <${tableColumnAnchorTag}
+                label-field-name="fullName"
+                href-field-name="${x => x.hrefFieldName}"
+                appearance="${x => x.appearance}"
+                ?underline-hidden="${x => x.underlineHidden}"
+                sort-by-field-name="${x => x.sortByFieldName}"
+            >
+                Full Name (Link)
+            </${tableColumnAnchorTag}>
         </${tableTag}>
     `),
     argTypes: {
@@ -132,6 +159,20 @@ export const anchorColumn: StoryObj<AnchorColumnTableArgs> = {
             description:
                 'The placeholder text to display when the label and href are both `undefined` or `null` for a record.',
             table: { category: apiCategory.attributes }
+        },
+        sortByFieldName: {
+            name: 'sort-by-field-name',
+            description:
+                'Set this attribute to identify a field to sort the column by. If not set, the column will sort by the `field-name` field. It is invalid to group by a column with `sort-by-field-name` configured.',
+            options: ['firstNameSortIndex', 'lastNameSortIndex'],
+            control: {
+                type: 'radio',
+                labels: {
+                    firstNameSortIndex: 'Sort "Full Name" column by first name',
+                    lastNameSortIndex: 'Sort "Full Name" column by last name'
+                }
+            },
+            table: { category: apiCategory.attributes }
         }
     },
     args: {
@@ -140,6 +181,7 @@ export const anchorColumn: StoryObj<AnchorColumnTableArgs> = {
         appearance: 'default',
         underlineHidden: false,
         placeholder: 'Mystery',
+        sortByFieldName: 'firstNameSortIndex',
         ...sharedTableArgs(simpleData)
     }
 };

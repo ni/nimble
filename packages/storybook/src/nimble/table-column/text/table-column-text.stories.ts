@@ -17,28 +17,36 @@ import {
 const simpleData = [
     {
         firstName: 'Ralph',
+        firstNameSortIndex: 3,
         lastName: 'Wiggum',
+        lastNameSortIndex: 3,
         fullName: 'Ralph Wiggum',
         favoriteColor: 'Rainbow',
         quote: "I'm in danger!"
     },
     {
         firstName: 'Milhouse',
+        firstNameSortIndex: 1,
         lastName: 'Van Houten',
+        lastNameSortIndex: 2,
         fullName: 'Milhouse Van Houten',
         favoriteColor: 'Crimson',
         quote: "Not only am I not learning, I'm forgetting stuff I used to know!"
     },
     {
         firstName: 'Ned',
+        firstNameSortIndex: 2,
         lastName: 'Flanders',
+        lastNameSortIndex: 0,
         fullName: 'Ned Flanders',
         favoriteColor: 'Taupe',
         quote: 'Hi diddly-ho neighbor!'
     },
     {
         firstName: 'Maggie',
+        firstNameSortIndex: 0,
         lastName: 'Simpson',
+        lastNameSortIndex: 1,
         fullName: 'Maggie Simpson',
         favoriteColor: 'Red'
     }
@@ -68,12 +76,10 @@ const metadata: Meta<SharedTableArgs> = {
 
 export default metadata;
 
-type TextColumnFieldNameOption = 'firstName' | 'lastName';
-
 interface TextColumnTableArgs extends SharedTableArgs {
-    fieldName: TextColumnFieldNameOption;
+    fieldName: undefined;
     placeholder: string;
-    sortByFieldName: string;
+    sortByFieldName: 'firstNameSortIndex' | 'lastNameSortIndex';
 }
 
 export const textColumn: StoryObj<TextColumnTableArgs> = {
@@ -125,14 +131,19 @@ export const textColumn: StoryObj<TextColumnTableArgs> = {
             name: 'sort-by-field-name',
             description:
                 'Set this attribute to identify a field to sort the column by. If not set, the column will sort by the `field-name` field. It is invalid to group by a column with `sort-by-field-name` configured.',
-            options: ['firstName', 'lastName'],
-            control: { type: 'radio' },
+            options: ['firstNameSortIndex', 'lastNameSortIndex'],
+            control: {
+                type: 'radio',
+                labels: {
+                    firstNameSortIndex: 'Sort "Full Name" column by first name',
+                    lastNameSortIndex: 'Sort "Full Name" column by last name'
+                }
+            },
             table: { category: apiCategory.attributes }
         },
     },
     args: {
-        fieldName: 'firstName',
         placeholder: 'Did not respond to request for comment',
-        sortByFieldName: 'firstName'
+        sortByFieldName: 'firstNameSortIndex'
     }
 };
