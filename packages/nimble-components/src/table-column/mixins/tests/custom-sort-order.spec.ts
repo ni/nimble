@@ -79,7 +79,7 @@ describe('CustomSortOrderColumn', () => {
         );
     });
 
-    it('clearing sortByFieldName resets columnInternals.operandFieldName and columnInternals.sortOperation', async () => {
+    it('clearing sortByFieldName resets columnInternals.operandFieldName and columnInternals.sortOperation', () => {
         element.sortByFieldName = 'customFieldName';
 
         const columnDefaultSortFieldName = 'expectedFieldName';
@@ -152,7 +152,7 @@ describe('CustomSortOrderColumn', () => {
         expect(element.validity.invalidCustomSortWithGrouping).toBeFalse();
     });
 
-    it('clearing the custom sort order on a grouped column makes the column valid', async () => {
+    it('clearing the custom sort order on a grouped column makes the column valid', () => {
         element.sortByFieldName = 'customFieldName';
         element.columnInternals.groupingDisabled = false;
         element.columnInternals.groupIndex = 0;
