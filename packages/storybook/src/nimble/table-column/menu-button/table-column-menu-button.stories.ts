@@ -84,7 +84,6 @@ interface MenuButtonColumnTableArgs extends SharedTableArgs {
         e: CustomEvent<MenuButtonColumnToggleEventDetail>
     ) => void;
     menuRef: Menu;
-    headerContent: string;
     toggleEvent: never;
     beforeToggleEvent: never;
 }
@@ -109,7 +108,7 @@ export const menuButtonColumn: StoryObj<MenuButtonColumnTableArgs> = {
                 menu-slot="${x => x.menuSlot}"
                 @menu-button-column-beforetoggle="${(x, c) => x.updateMenuItems(x, c.event as CustomEvent<MenuButtonColumnToggleEventDetail>)}"
             >
-                ${x => x.headerContent}
+                Favorite Color
             </${tableColumnMenuButtonTag}>
 
             <${menuTag} ${ref('menuRef')} slot="${x => x.menuSlot}">
@@ -140,11 +139,6 @@ export const menuButtonColumn: StoryObj<MenuButtonColumnTableArgs> = {
             table: {
                 disable: true
             }
-        },
-        headerContent: {
-            name: 'default',
-            description: 'The content to display in the header of the column.',
-            table: { category: apiCategory.slots }
         },
         toggleEvent: {
             name: 'menu-button-column-toggle',
@@ -181,7 +175,6 @@ export const menuButtonColumn: StoryObj<MenuButtonColumnTableArgs> = {
 
                 storyArgs.menuRef.replaceChildren(item1, item2, item3);
             }
-        },
-        headerContent: 'Menu Button Column'
+        }
     }
 };
