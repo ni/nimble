@@ -1,17 +1,19 @@
-import { attr } from '@microsoft/fast-element';
+import { Notifier, Observable, attr } from '@microsoft/fast-element';
 import type { TableColumn } from '../base';
 import { TableColumnSortOperation } from '../base/types';
+import type { ColumnValidator } from '../base/models/column-validator';
 
 // Pick just the relevant properties the mixin depends on (typescript complains if the mixin declares private / protected base exports)
-type CustomSortOrderTableColumn = Pick<TableColumn, 'columnInternals'>;
+type CustomSortOrderTableColumn<TColumnValidator extends ColumnValidator<['invalidCustomSortWithGrouping']>> = Pick<TableColumn<unknown, TColumnValidator>, 'columnInternals'>;
 // prettier-ignore
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-type CustomSortOrderTableColumnConstructor = abstract new (...args: any[]) => CustomSortOrderTableColumn;
+type CustomSortOrderTableColumnConstructor<TColumnValidator extends ColumnValidator<['invalidCustomSortWithGrouping']>> = abstract new (...args: any[]) => CustomSortOrderTableColumn<TColumnValidator>;
 
 // As the returned class is internal to the function, we can't write a signature that uses is directly, so rely on inference
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/explicit-function-return-type
 export function mixinCustomSortOrderColumnAPI<
-    TBase extends CustomSortOrderTableColumnConstructor
+    TBase extends CustomSortOrderTableColumnConstructor<TColumnValidator>,
+    TColumnValidator extends ColumnValidator<['invalidCustomSortWithGrouping']>
 >(base: TBase) {
     /**
      * The Mixin that provides a concrete column with the API to allow sorting
@@ -21,8 +23,21 @@ export function mixinCustomSortOrderColumnAPI<
         public sortByFieldName?: string;
 
         /** @internal */
+        public notifier?: Notifier;
+
+        /** @internal */
         public sortByFieldNameChanged(): void {
             this.updateOperandDataRecordFieldName();
+
+            if (typeof this.sortByFieldName === 'string' && !this.notifier) {
+                this.notifier = Observable.getNotifier(this.columnInternals);
+                this.notifier.subscribe(this);
+                this.updateCustomColumnSortingValidity();
+            } else {
+                this.notifier?.unsubscribe(this);
+                this.notifier = undefined;
+                this.updateCustomColumnSortingValidity();
+            }
         }
 
         /** @internal */
@@ -33,6 +48,25 @@ export function mixinCustomSortOrderColumnAPI<
             } else {
                 this.columnInternals.operandDataRecordFieldName = this.getDefaultSortFieldName();
                 this.columnInternals.sortOperation = this.getDefaultSortOperation();
+            }
+        }
+
+        /** @internal */
+        public handleChange(_source: unknown, args: unknown): void {
+            if (args === 'groupingDisabled' || args === 'groupIndex') {
+                this.updateCustomColumnSortingValidity();
+            }
+        }
+
+        /** @internal */
+        public updateCustomColumnSortingValidity(): void {
+            const hasCustomColumnSorting = typeof this.sortByFieldName === 'string';
+            const isGrouped = !this.columnInternals.groupingDisabled && typeof this.columnInternals.groupIndex === 'number';
+            const isValid = !isGrouped || !hasCustomColumnSorting;
+            if (isValid) {
+                this.columnInternals.validator.untrack('invalidCustomSortWithGrouping');
+            } else {
+                this.columnInternals.validator.track('invalidCustomSortWithGrouping');
             }
         }
 

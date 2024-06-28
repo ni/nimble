@@ -1,5 +1,4 @@
 import { DesignSystem } from '@microsoft/fast-foundation';
-import { attr } from '@microsoft/fast-element';
 import { styles } from '../base/styles';
 import { template } from '../base/template';
 import type { TableStringField } from '../../table/types';
@@ -9,8 +8,8 @@ import { tableColumnTextGroupHeaderViewTag } from './group-header-view';
 import { tableColumnTextCellViewTag } from './cell-view';
 import type { ColumnInternalsOptions } from '../base/models/column-internals';
 import type { TableColumnTextBaseColumnConfig } from '../text-base/cell-view';
-import { ColumnValidator } from '../base/models/column-validator';
 import { mixinCustomSortOrderColumnAPI } from '../mixins/custom-sort-order';
+import { TableColumnTextValidator } from './models/table-column-text-validator';
 
 export type TableColumnTextCellRecord = TableStringField<'value'>;
 
@@ -29,7 +28,7 @@ declare global {
  */
 export class TableColumnText extends mixinCustomSortOrderColumnAPI(
     mixinTextBase(
-        TableColumnTextBase<TableColumnTextColumnConfig>
+        TableColumnTextBase<TableColumnTextColumnConfig, TableColumnTextValidator>
     )
 ) {
     public placeholderChanged(): void {
@@ -48,14 +47,14 @@ export class TableColumnText extends mixinCustomSortOrderColumnAPI(
         return TableColumnSortOperation.localeAwareCaseSensitive;
     }
 
-    protected override getColumnInternalsOptions(): ColumnInternalsOptions {
+    protected override getColumnInternalsOptions(): ColumnInternalsOptions<TableColumnTextValidator> {
         return {
             cellRecordFieldNames: ['value'],
             cellViewTag: tableColumnTextCellViewTag,
             groupHeaderViewTag: tableColumnTextGroupHeaderViewTag,
             delegatedEvents: [],
             sortOperation: TableColumnSortOperation.localeAwareCaseSensitive,
-            validator: new ColumnValidator<[]>([])
+            validator: new TableColumnTextValidator()
         };
     }
 

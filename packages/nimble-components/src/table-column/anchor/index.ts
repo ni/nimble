@@ -15,6 +15,7 @@ import type { ColumnInternalsOptions } from '../base/models/column-internals';
 import { ColumnValidator } from '../base/models/column-validator';
 import { mixinSortableColumnAPI } from '../mixins/sortable-column';
 import { mixinCustomSortOrderColumnAPI } from '../mixins/custom-sort-order';
+import { TableColumnAnchorValidator } from './models/table-column-anchor-validator';
 
 export type TableColumnAnchorCellRecord = TableStringField<'label' | 'href'>;
 export interface TableColumnAnchorColumnConfig {
@@ -43,7 +44,7 @@ export class TableColumnAnchor extends mixinGroupableColumnAPI(
     mixinFractionalWidthColumnAPI(
         mixinColumnWithPlaceholderAPI(
             mixinSortableColumnAPI(
-                mixinCustomSortOrderColumnAPI(TableColumn<TableColumnAnchorColumnConfig>)
+                mixinCustomSortOrderColumnAPI(TableColumn<TableColumnAnchorColumnConfig, TableColumnAnchorValidator>)
             )
         )
     )
@@ -95,14 +96,14 @@ export class TableColumnAnchor extends mixinGroupableColumnAPI(
         return TableColumnSortOperation.localeAwareCaseSensitive;
     }
 
-    protected override getColumnInternalsOptions(): ColumnInternalsOptions {
+    protected override getColumnInternalsOptions(): ColumnInternalsOptions<TableColumnAnchorValidator> {
         return {
             cellRecordFieldNames: ['label', 'href'],
             cellViewTag: tableColumnAnchorCellViewTag,
             groupHeaderViewTag: tableColumnTextGroupHeaderViewTag,
             delegatedEvents: ['click'],
             sortOperation: TableColumnSortOperation.localeAwareCaseSensitive,
-            validator: new ColumnValidator<[]>([])
+            validator: new TableColumnAnchorValidator()
         };
     }
 
