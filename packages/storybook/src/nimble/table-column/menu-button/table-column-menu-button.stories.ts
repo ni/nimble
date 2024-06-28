@@ -24,28 +24,169 @@ const simpleData = [
         id: 'Ralph Wiggum',
         firstName: 'Ralph',
         lastName: 'Wiggum',
-        favoriteColor: 'Rainbow',
-        quote: "I'm in danger!"
+        favoriteColor: 'Rainbow'
     },
     {
         id: 'Milhouse Van Houten',
         firstName: 'Milhouse',
         lastName: 'Van Houten',
-        favoriteColor: 'Crimson',
-        quote: "Not only am I not learning, I'm forgetting stuff I used to know!"
+        favoriteColor: 'Crimson'
     },
     {
         id: 'Ned Flanders',
         firstName: 'Ned',
         lastName: 'Flanders',
-        favoriteColor: 'Taupe',
-        quote: 'Hi diddly-ho neighbor!'
+        favoriteColor: 'Taupe'
     },
     {
         id: 'Maggie Simpson',
         firstName: 'Maggie',
         lastName: 'Simpson',
         favoriteColor: 'Red'
+    },
+    {
+        id: 'Homer Simpson',
+        firstName: 'Homer',
+        lastName: 'Simpson',
+        favoriteColor: 'Blue'
+    },
+    {
+        id: 'Marge Simpson',
+        firstName: 'Marge',
+        lastName: 'Simpson',
+        favoriteColor: 'Purple'
+    },
+    {
+        id: 'Bart Simpson',
+        firstName: 'Bart',
+        lastName: 'Simpson',
+        favoriteColor: 'Green'
+    },
+    {
+        id: 'Lisa Simpson',
+        firstName: 'Lisa',
+        lastName: 'Simpson',
+        favoriteColor: 'Yellow'
+    },
+    {
+        id: 'Moe Szyslak',
+        firstName: 'Moe',
+        lastName: 'Szyslak',
+        favoriteColor: 'Orange'
+    },
+    {
+        id: 'Barney Gumble',
+        firstName: 'Barney',
+        lastName: 'Gumble',
+        favoriteColor: 'Pink'
+    },
+    {
+        id: 'Lenny Leonard',
+        firstName: 'Lenny',
+        lastName: 'Leonard',
+        favoriteColor: 'Black'
+    },
+    {
+        id: 'Carl Carlson',
+        firstName: 'Carl',
+        lastName: 'Carlson',
+        favoriteColor: 'White'
+    },
+    {
+        id: 'Waylon Smithers',
+        firstName: 'Waylon',
+        lastName: 'Smithers',
+        favoriteColor: 'Brown'
+    },
+    {
+        id: 'Edna Krabappel',
+        firstName: 'Edna',
+        lastName: 'Krabappel',
+        favoriteColor: 'Gray'
+    },
+    {
+        id: 'Seymour Skinner',
+        firstName: 'Seymour',
+        lastName: 'Skinner',
+        favoriteColor: 'Beige'
+    },
+    {
+        id: 'Patty Bouvier',
+        firstName: 'Patty',
+        lastName: 'Bouvier',
+        favoriteColor: 'Teal'
+    },
+    {
+        id: 'Selma Bouvier',
+        firstName: 'Selma',
+        lastName: 'Bouvier',
+        favoriteColor: 'Lavender'
+    },
+    {
+        id: 'Nelson Muntz',
+        firstName: 'Nelson',
+        lastName: 'Muntz',
+        favoriteColor: 'Magenta'
+    },
+    {
+        id: 'Jimbo Jones',
+        firstName: 'Jimbo',
+        lastName: 'Jones',
+        favoriteColor: 'Cyan'
+    },
+    {
+        id: 'Kearney Zzyzwicz',
+        firstName: 'Kearney',
+        lastName: 'Zzyzwicz',
+        favoriteColor: 'Azure'
+    },
+    {
+        id: 'Dolph Starbeam',
+        firstName: 'Dolph',
+        lastName: 'Starbeam',
+        favoriteColor: 'Aquamarine'
+    },
+    {
+        id: 'Wendell Borton',
+        firstName: 'Wendell',
+        lastName: 'Borton',
+        favoriteColor: 'Turquoise'
+    },
+    {
+        id: 'Martin Prince',
+        firstName: 'Martin',
+        lastName: 'Prince',
+        favoriteColor: 'Sienna'
+    },
+    {
+        id: 'Sherri Mackleberry',
+        firstName: 'Sherri',
+        lastName: 'Mackleberry',
+        favoriteColor: 'Periwinkle'
+    },
+    {
+        id: 'Terri Mackleberry',
+        firstName: 'Terri',
+        lastName: 'Mackleberry',
+        favoriteColor: 'Coral'
+    },
+    {
+        id: 'Rod Flanders',
+        firstName: 'Rod',
+        lastName: 'Flanders',
+        favoriteColor: 'Cyan'
+    },
+    {
+        id: 'Todd Flanders',
+        firstName: 'Todd',
+        lastName: 'Flanders',
+        favoriteColor: 'Magenta'
+    },
+    {
+        id: 'Agnes Skinner',
+        firstName: 'Agnes',
+        lastName: 'Skinner',
+        favoriteColor: 'Azure'
     }
 ] as const;
 
