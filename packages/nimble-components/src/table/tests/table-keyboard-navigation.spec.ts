@@ -1245,7 +1245,7 @@ describe('Table keyboard navigation', () => {
             name: interactiveColumnName
         })
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        class TestInteractiveTableColumn extends TableColumn {
+        class TestInteractiveTableColumn extends mixinSortableColumnAPI(TableColumn) {
             protected override getColumnInternalsOptions(): ColumnInternalsOptions {
                 return {
                     cellViewTag: interactiveCellViewName,

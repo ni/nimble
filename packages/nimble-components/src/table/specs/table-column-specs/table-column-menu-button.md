@@ -128,7 +128,7 @@ The menu button will have the following behaviors/styles:
 
 #### Group Header View Component
 
-A new component will not be created for the group header view of the menu button column. The column will specify the existing `tableColumnTextGroupHeaderViewTag` as the `groupHeaderViewTag` because the header will contain only text.
+The column will not be groupable, so a group header view component is not required.
 
 ### Sorting & Grouping
 
@@ -138,7 +138,7 @@ The column will not be sortable or groupable.
 
 The column's cells will not have a placeholder. If an empty, `undefined`, or `null` value is provided for the record, an empty cell will be rendered.
 
-Group rows will display `tableGroupRowPlaceholderNoValueLabel` when the value is `undefined` or `null` and `tableGroupRowPlaceholderEmptyLabel` when the value is an empty string. This group row placeholder behavior already exists in the `TableColumnTextGroupHeaderView`, so no changes are required to achieve this behavior.
+As the column is not groupable, placeholder strings on group rows do not need to be considered.
 
 ### Delegated Events
 
