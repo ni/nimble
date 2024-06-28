@@ -37,12 +37,12 @@ export class ColumnValidator<
     }
 
     public override trackAll(): void {
-        this.trackAll();
+        super.trackAll();
         this.updateColumnInternalsFlag();
     }
 
     public override untrackAll(): void {
-        this.untrackAll();
+        super.untrackAll();
         this.updateColumnInternalsFlag();
     }
 
