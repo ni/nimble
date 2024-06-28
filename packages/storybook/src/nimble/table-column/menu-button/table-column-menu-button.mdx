@@ -21,7 +21,12 @@ The column is neither sortable nor groupable.
 
 ## Usage
 
-When using the <Tag name={tableColumnMenuButtonTag}/>, it is the client's responsibility to do the following:
+When using the <Tag name={tableColumnMenuButtonTag}/>, it is the client's
+responsibility to do the following:
 
-1. Ensure that the menu has the correct items in it based on the record for which it was opened. This should be done by listening to the `menu-button-column-beforetoggle` event and updating the menu items when the `newState` is `true`.
-2. Update the data through a `setData()` call when a menu item is activated in order to update the text on the menu button in the column.
+1. Ensure that the menu has the correct items in it based on the record for
+   which it was opened. This should be done by listening to the
+   `menu-button-column-beforetoggle` event and updating the menu items when the
+   `newState` is `true`.
+2. Update the data through a `setData()` call when a menu item is activated in
+   order to update the text on the menu button in the column.
