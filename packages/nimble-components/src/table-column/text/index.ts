@@ -28,7 +28,10 @@ declare global {
  */
 export class TableColumnText extends mixinCustomSortOrderColumnAPI(
     mixinTextBase(
-        TableColumnTextBase<TableColumnTextColumnConfig, TableColumnTextValidator>
+        TableColumnTextBase<
+        TableColumnTextColumnConfig,
+        TableColumnTextValidator
+        >
     )
 ) {
     public placeholderChanged(): void {

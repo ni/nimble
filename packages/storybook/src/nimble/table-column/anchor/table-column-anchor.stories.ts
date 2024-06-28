@@ -80,7 +80,7 @@ const simpleData = [
         firstNameSortIndex: -1,
         lastName: 'Simpson',
         lastNameSortIndex: 1,
-        fullName: 'Unknown Simpson',
+        fullName: 'Unknown Simpson'
     }
 ] as const;
 

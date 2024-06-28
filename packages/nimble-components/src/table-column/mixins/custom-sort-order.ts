@@ -4,7 +4,9 @@ import { TableColumnSortOperation } from '../base/types';
 import type { ColumnValidator } from '../base/models/column-validator';
 
 // Pick just the relevant properties the mixin depends on (typescript complains if the mixin declares private / protected base exports)
-type CustomSortOrderTableColumn<TColumnValidator extends ColumnValidator<['invalidCustomSortWithGrouping']>> = Pick<TableColumn<unknown, TColumnValidator>, 'columnInternals'>;
+type CustomSortOrderTableColumn<
+    TColumnValidator extends ColumnValidator<['invalidCustomSortWithGrouping']>
+> = Pick<TableColumn<unknown, TColumnValidator>, 'columnInternals'>;
 // prettier-ignore
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type CustomSortOrderTableColumnConstructor<TColumnValidator extends ColumnValidator<['invalidCustomSortWithGrouping']>> = abstract new (...args: any[]) => CustomSortOrderTableColumn<TColumnValidator>;
@@ -61,12 +63,17 @@ export function mixinCustomSortOrderColumnAPI<
         /** @internal */
         public updateCustomColumnSortingValidity(): void {
             const hasCustomColumnSorting = typeof this.sortByFieldName === 'string';
-            const isGrouped = !this.columnInternals.groupingDisabled && typeof this.columnInternals.groupIndex === 'number';
+            const isGrouped = !this.columnInternals.groupingDisabled
+                && typeof this.columnInternals.groupIndex === 'number';
             const isValid = !isGrouped || !hasCustomColumnSorting;
             if (isValid) {
-                this.columnInternals.validator.untrack('invalidCustomSortWithGrouping');
+                this.columnInternals.validator.untrack(
+                    'invalidCustomSortWithGrouping'
+                );
             } else {
-                this.columnInternals.validator.track('invalidCustomSortWithGrouping');
+                this.columnInternals.validator.track(
+                    'invalidCustomSortWithGrouping'
+                );
             }
         }
 

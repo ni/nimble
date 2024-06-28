@@ -1,14 +1,14 @@
 import { ColumnValidator } from '../../base/models/column-validator';
 
 export const columnAnchorValidityFlagNames = [
-    'invalidCustomSortWithGrouping',
+    'invalidCustomSortWithGrouping'
 ] as const;
 
 /**
  * Validator class for the anchor table column.
  */
 export class TableColumnAnchorValidator extends ColumnValidator<
-typeof columnAnchorValidityFlagNames
+    typeof columnAnchorValidityFlagNames
 > {
     public constructor() {
         super(columnAnchorValidityFlagNames);

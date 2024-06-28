@@ -22,12 +22,16 @@ export class ColumnValidator<
         return this.getValidationFlags();
     }
 
-    public override track(key: ValidityFlagNames extends readonly (infer U)[] ? U : never): void {
+    public override track(
+        key: ValidityFlagNames extends readonly (infer U)[] ? U : never
+    ): void {
         super.track(key);
         this.updateColumnInternalsFlag();
     }
 
-    public override untrack(key: ValidityFlagNames extends readonly (infer U)[] ? U : never): void {
+    public override untrack(
+        key: ValidityFlagNames extends readonly (infer U)[] ? U : never
+    ): void {
         super.untrack(key);
         this.updateColumnInternalsFlag();
     }

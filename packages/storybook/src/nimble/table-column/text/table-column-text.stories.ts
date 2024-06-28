@@ -140,7 +140,7 @@ export const textColumn: StoryObj<TextColumnTableArgs> = {
                 }
             },
             table: { category: apiCategory.attributes }
-        },
+        }
     },
     args: {
         placeholder: 'Did not respond to request for comment',

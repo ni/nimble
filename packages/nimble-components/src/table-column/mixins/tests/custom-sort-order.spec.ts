@@ -14,12 +14,10 @@ import { ColumnValidator } from '../../base/models/column-validator';
 import { mixinCustomSortOrderColumnAPI } from '../custom-sort-order';
 import { TableColumnSortOperation } from '../../base/types';
 
-const columnTestValidityFlagNames = [
-    'invalidCustomSortWithGrouping'
-] as const;
+const columnTestValidityFlagNames = ['invalidCustomSortWithGrouping'] as const;
 
 class TestValidator extends ColumnValidator<
-typeof columnTestValidityFlagNames
+    typeof columnTestValidityFlagNames
 > {
     public constructor() {
         super(columnTestValidityFlagNames);
@@ -30,7 +28,9 @@ const customSortColumnName = uniqueElementName();
 @customElement({
     name: customSortColumnName
 })
-class CustomSortTableColumn extends mixinCustomSortOrderColumnAPI(TableColumn<unknown, TestValidator>) {
+class CustomSortTableColumn extends mixinCustomSortOrderColumnAPI(
+    TableColumn<unknown, TestValidator>
+    ) {
     public override getDefaultSortFieldName(): string | undefined {
         return 'defaultSortFieldName';
     }
@@ -71,24 +71,38 @@ describe('CustomSortOrderColumn', () => {
     it('setting sortByFieldName sets columnInternals.operandFieldName and columnInternals.sortOperation', () => {
         element.sortByFieldName = 'customFieldName';
 
-        expect(element.columnInternals.operandDataRecordFieldName).toBe('customFieldName');
-        expect(element.columnInternals.sortOperation).toBe(TableColumnSortOperation.basic);
+        expect(element.columnInternals.operandDataRecordFieldName).toBe(
+            'customFieldName'
+        );
+        expect(element.columnInternals.sortOperation).toBe(
+            TableColumnSortOperation.basic
+        );
     });
 
     it('clearing sortByFieldName resets columnInternals.operandFieldName and columnInternals.sortOperation', async () => {
         element.sortByFieldName = 'customFieldName';
 
         const columnDefaultSortFieldName = 'expectedFieldName';
-        const getDefaultSortFieldNameSpy = spyOn(element, 'getDefaultSortFieldName').and.returnValue(columnDefaultSortFieldName);
+        const getDefaultSortFieldNameSpy = spyOn(
+            element,
+            'getDefaultSortFieldName'
+        ).and.returnValue(columnDefaultSortFieldName);
         const columnDefaultSortOperation = TableColumnSortOperation.localeAwareCaseSensitive;
-        const getDefaultSortOperationSpy = spyOn(element, 'getDefaultSortOperation').and.returnValue(columnDefaultSortOperation);
+        const getDefaultSortOperationSpy = spyOn(
+            element,
+            'getDefaultSortOperation'
+        ).and.returnValue(columnDefaultSortOperation);
 
         element.sortByFieldName = undefined;
 
         expect(getDefaultSortFieldNameSpy).toHaveBeenCalledTimes(1);
-        expect(element.columnInternals.operandDataRecordFieldName).toBe(columnDefaultSortFieldName);
+        expect(element.columnInternals.operandDataRecordFieldName).toBe(
+            columnDefaultSortFieldName
+        );
         expect(getDefaultSortOperationSpy).toHaveBeenCalledTimes(1);
-        expect(element.columnInternals.sortOperation).toBe(columnDefaultSortOperation);
+        expect(element.columnInternals.sortOperation).toBe(
+            columnDefaultSortOperation
+        );
     });
 
     it('column is valid by default', () => {
