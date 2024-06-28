@@ -2,6 +2,7 @@ import { html, ref } from '@microsoft/fast-element';
 import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html';
 import { withActions } from '@storybook/addon-actions/decorator';
 import { tableTag } from '../../../../../nimble-components/src/table';
+import type { TableRecord } from '../../../../../nimble-components/src/table/types';
 import { tableColumnTextTag } from '../../../../../nimble-components/src/table-column/text';
 import { tableColumnMenuButtonTag } from '../../../../../nimble-components/src/table-column/menu-button';
 import type { MenuButtonColumnToggleEventDetail } from '../../../../../nimble-components/src/table-column/menu-button/types';
@@ -86,6 +87,7 @@ interface MenuButtonColumnTableArgs extends SharedTableArgs {
     menuRef: Menu;
     toggleEvent: never;
     beforeToggleEvent: never;
+    currentData: TableRecord[];
 }
 
 export const menuButtonColumn: StoryObj<MenuButtonColumnTableArgs> = {
@@ -140,6 +142,11 @@ export const menuButtonColumn: StoryObj<MenuButtonColumnTableArgs> = {
                 disable: true
             }
         },
+        currentData: {
+            table: {
+                disable: true
+            }
+        },
         toggleEvent: {
             name: 'menu-button-column-toggle',
             description:
@@ -159,6 +166,7 @@ export const menuButtonColumn: StoryObj<MenuButtonColumnTableArgs> = {
         fieldName: 'favoriteColor',
         menuSlot: 'color-menu',
         menuRef: undefined,
+        currentData: [...simpleData],
         updateMenuItems: (
             storyArgs: MenuButtonColumnTableArgs,
             e: CustomEvent<MenuButtonColumnToggleEventDetail>
@@ -166,12 +174,31 @@ export const menuButtonColumn: StoryObj<MenuButtonColumnTableArgs> = {
             if (e.detail.newState) {
                 const recordId = e.detail.recordId;
 
+                const changeFavoriteColor = (color: string): void => {
+                    const newData = storyArgs.currentData.map(d => {
+                        if (d.id !== recordId) {
+                            return d;
+                        }
+                        return {
+                            ...d,
+                            favoriteColor: color
+                        };
+                    });
+                    storyArgs.currentData = newData;
+                    void storyArgs.tableRef.setData(newData);
+                };
+
                 const item1 = document.createElement(menuItemTag);
                 item1.textContent = `[${recordId}] Blue`;
+                item1.addEventListener('change', () => changeFavoriteColor('Blue'));
+
                 const item2 = document.createElement(menuItemTag);
                 item2.textContent = `[${recordId}] Green`;
+                item2.addEventListener('change', () => changeFavoriteColor('Green'));
+
                 const item3 = document.createElement(menuItemTag);
                 item3.textContent = `[${recordId}] Purple`;
+                item3.addEventListener('change', () => changeFavoriteColor('Purple'));
 
                 storyArgs.menuRef.replaceChildren(item1, item2, item3);
             }
