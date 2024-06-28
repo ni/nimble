@@ -127,7 +127,7 @@ export const menuButtonColumn: StoryObj<MenuButtonColumnTableArgs> = {
         menuSlot: {
             name: 'menu-slot',
             description:
-                "The name of the slot within the `nimble-table` instance where the menu associated with the column's menu button will be provided",
+                "The name of the slot within the `nimble-table` instance where the menu associated with the column's menu button will be provided.",
             control: false,
             table: { category: apiCategory.attributes }
         },
