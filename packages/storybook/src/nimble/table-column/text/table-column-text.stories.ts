@@ -11,6 +11,7 @@ import {
 } from '../base/table-column-stories-utils';
 import {
     apiCategory,
+    checkValidityDescription,
     createUserSelectedThemeStory
 } from '../../../utilities/storybook';
 
@@ -80,7 +81,14 @@ interface TextColumnTableArgs extends SharedTableArgs {
     fieldName: undefined;
     placeholder: string;
     sortByFieldName: 'firstNameSortIndex' | 'lastNameSortIndex';
+    checkValidity: never;
+    validity: never;
 }
+
+const validityDescription = `Readonly object of boolean values that represents the validity states that the column's configuration can be in.
+The object's type is \`TableColumnValidity\`, and it contains the following boolean properties:
+-   \`invalidCustomSortWithGrouping\`: \`true\` when \`sort-by-field-name\` is specified while the column used for grouping.
+`;
 
 export const textColumn: StoryObj<TextColumnTableArgs> = {
     parameters: {},
@@ -140,6 +148,19 @@ export const textColumn: StoryObj<TextColumnTableArgs> = {
                 }
             },
             table: { category: apiCategory.attributes }
+        },
+        checkValidity: {
+            name: 'checkValidity()',
+            description: checkValidityDescription({
+                componentName: 'text column'
+            }),
+            table: { category: apiCategory.methods },
+            control: false
+        },
+        validity: {
+            description: validityDescription,
+            table: { category: apiCategory.nonAttributeProperties },
+            control: false
         }
     },
     args: {
