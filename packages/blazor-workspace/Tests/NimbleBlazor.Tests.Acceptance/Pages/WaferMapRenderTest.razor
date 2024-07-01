@@ -16,7 +16,6 @@
                 GridMinX="0"
                 GridMinY="0"
                 HoverDieChanged="@ShowCurrentDie"
-                RenderFinished="@SignalRenderFinnished"
                 @bind-ColorScale="ColorScale"
                 @bind-HighlightedTags="HighlightedTags">
 </NimbleWaferMap>
@@ -121,18 +120,6 @@
         var currentDie = e.CurrentDie;
 
         TextFieldText = currentDie?.Index.ToString();
-
-    }
-
-
-    private void SignalRenderFinnished(EventArgs e)
-    {
-        if (_waferMap == null)
-        {
-            return;
-        }
-
-        RenderTextField = "render-finished";
 
     }
 }

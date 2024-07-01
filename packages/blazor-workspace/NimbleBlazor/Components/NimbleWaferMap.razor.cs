@@ -167,21 +167,6 @@ public partial class NimbleWaferMap : ComponentBase
     }
 
     /// <summary>
-    /// Will be triggered to inform the user that the rendering finished.
-    /// </summary>
-    [Parameter]
-    public EventCallback<EventArgs> RenderFinished { get; set; }
-
-    /// <summary>
-    /// Called when the 'render-finished' event is fired on the web component.
-    /// </summary>
-    /// <param name="eventArgs">The configuration of the columns</param>
-    protected async void HandleRenderFinished(EventArgs eventArgs)
-    {
-        await RenderFinished.InvokeAsync(eventArgs);
-    }
-
-    /// <summary>
     /// Returns an object of boolean values that represents the validity states that the wafer map's configuration can be in.
     /// </summary>
     public async Task<IWaferMapValidity> GetValidityAsync()

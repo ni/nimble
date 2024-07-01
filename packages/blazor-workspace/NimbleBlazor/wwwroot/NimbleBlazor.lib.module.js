@@ -138,13 +138,6 @@ export function afterStarted(Blazor) {
             };
         }
     });
-    // Used by NimbleWaferMap.razor
-    Blazor.registerCustomEventType('nimblewafermapdrenderfinished', {
-        browserEventName: 'render-finished',
-        createEventArgs: event => {
-            return event;
-        }
-    });
 }
 
 if (window.NimbleBlazor) {

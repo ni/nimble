@@ -84,7 +84,6 @@ public class WaferMapHoverDieChangedEventArgs : EventArgs
 [EventHandler("onnimbletablecolumnconfigurationchange", typeof(TableColumnConfigurationEventArgs), enableStopPropagation: true, enablePreventDefault: false)]
 [EventHandler("onnimbletablerowexpandtoggle", typeof(TableRowExpandToggleEventArgs), enableStopPropagation: true, enablePreventDefault: false)]
 [EventHandler("onnimblewafermapdiehoverchange", typeof(WaferMapHoverDieChangedEventArgs), enableStopPropagation: true, enablePreventDefault: false)]
-[EventHandler("onnimblewafermapdrenderfinished", typeof(EventArgs), enableStopPropagation: true, enablePreventDefault: false)]
 public static class EventHandlers
 {
 }

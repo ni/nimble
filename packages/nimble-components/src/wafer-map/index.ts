@@ -237,7 +237,6 @@ export class WaferMap<
                 await this.workerRenderer.setupWafer(snapshot);
             }
             await this.workerRenderer.drawWafer(snapshot);
-            this.$emit('render-finished');
         }
         this.workerRenderer.renderHover();
     }
