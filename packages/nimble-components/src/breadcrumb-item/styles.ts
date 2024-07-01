@@ -1,17 +1,19 @@
 import { css } from '@microsoft/fast-element';
 import { display } from '../utilities/style/display';
 import {
+    borderHoverColor,
     controlHeight,
     iconSize,
+    linkActiveFontColor,
     linkDisabledFontColor,
+    linkFont,
+    linkFontColor,
     mediumPadding,
     placeholderFontColor
 } from '../theme-provider/design-tokens';
-import { styles as anchorStyles } from '../patterns/anchor/styles';
+import { focusVisible } from '../utilities/style/focus';
 
 export const styles = css`
-    ${anchorStyles}
-
     @layer base {
         ${display('inline-flex')}
 
@@ -24,6 +26,7 @@ export const styles = css`
                 so this becomes the fallback color for the slot */ ''
             }
             color: ${linkDisabledFontColor};
+            font: ${linkFont};
         }
 
         .listitem {
@@ -32,6 +35,7 @@ export const styles = css`
         }
 
         .control {
+            color: ${linkFontColor};
             display: flex;
             align-items: center;
             justify-content: center;
@@ -39,10 +43,22 @@ export const styles = css`
             text-decoration: none;
         }
 
+        [part='start'] {
+            display: none;
+        }
+
+        .content {
+            pointer-events: none;
+        }
+
         :host(:not([href])) slot:not([name]),
         :host([href='']) slot:not([name]) {
             display: block;
             margin-right: ${mediumPadding};
+        }
+
+        [part='end'] {
+            display: none;
         }
 
         slot[name='separator'] {
@@ -54,6 +70,35 @@ export const styles = css`
             width: ${iconSize};
             height: ${iconSize};
             fill: ${placeholderFontColor};
+        }
+    }
+
+    @layer hover {
+        .control:any-link:hover {
+            text-decoration: underline;
+        }
+    }
+
+    @layer focusVisible {
+        .control${focusVisible} {
+            outline: none;
+            box-shadow: inset 0px -1px;
+            text-decoration: underline;
+            color: ${borderHoverColor};
+        }
+    }
+
+    @layer active {
+        .control:active {
+            color: ${linkActiveFontColor};
+            text-decoration: underline;
+            box-shadow: none;
+        }
+    }
+
+    @layer disabled {
+        .control:not(:any-link) {
+            color: ${linkDisabledFontColor};
         }
     }
 `;
