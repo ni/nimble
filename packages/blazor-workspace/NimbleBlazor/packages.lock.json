@@ -4,7 +4,7 @@
     "net6.0": {
       "Apache.Arrow": {
         "type": "Direct",
-        "requested": "[16.1.0, )",
+        "requested": "[16.1.0, 16.1.0]",
         "resolved": "16.1.0",
         "contentHash": "Xs4v4zhiYjhAF7wGrjJlfhFU+NKj6NfE3Hx5s32ZX2KjZZ5EYOis0P9vyQSAjVafGanWwOM1iaRzS4tZHI0nAg=="
       },
