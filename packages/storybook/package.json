@@ -10,7 +10,7 @@
     "generate-icons:run": "node build/generate-icons/dist/index.js",
     "start": "storybook dev --quiet -p 6006",
     "lint": "npm run eslint && npm run prettier",
-    "format": "npm run eslint-fix && npm run prettier-fix",
+    "format": "npm run prettier-fix",
     "eslint": "eslint .",
     "eslint-fix": "eslint . --fix",
     "prettier": "prettier-eslint \"**/*.*\" --list-different --prettier-ignore",

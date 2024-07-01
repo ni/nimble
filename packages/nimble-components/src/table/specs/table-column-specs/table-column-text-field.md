@@ -118,6 +118,12 @@ Note that as we are using a `span` element for the visual we will not support ma
 -   No support for error states
 -   No password display support
 
+## Sorting behavior
+
+The column will be sortable, and by default, the sorting will occur in a locale-aware way on the string value associated with `field-name`.
+
+The column will also support having a custom sort order, as detailed in the [Custom Sort Order HLD](../table-column-custom-sort-field-hld.md).
+
 ### Alternatives considered
 
 We are using `span` elements for the text rendering of the values instead of a `nimble-text-field` for performance's sake, as we avoid the presumably heavier cost of using a custom element. The other benefits that using a `nimble-text-field` offer, such as built-in styling, seems trivial to replicate, which seems worth it for a performance improvement.

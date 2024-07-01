@@ -40,3 +40,8 @@ export const filterNoResultsLabel = DesignToken.create<string>({
     name: 'filter-no-results-label',
     cssCustomPropertyName: null
 }).withDefault(coreLabelDefaults.filterNoResultsLabel);
+
+export const loadingLabel = DesignToken.create<string>({
+    name: 'loading-label',
+    cssCustomPropertyName: null
+}).withDefault(coreLabelDefaults.loadingLabel);

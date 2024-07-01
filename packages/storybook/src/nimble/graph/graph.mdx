@@ -1,0 +1,26 @@
+import { Canvas, Meta, Controls, Title } from '@storybook/blocks';
+import * as graphStories from './graph.stories';
+import * as tokenStories from '../theme-provider/tokens.stories';
+
+<Meta of={graphStories} />
+<Title of={graphStories} />
+
+The Nimble Design System does not provide a graph component, but theme-aware
+tokens are available for styling custom or third-party graph components to match
+the Nimble Design System.
+
+<Canvas of={tokenStories.graphTokens} />
+<Controls of={tokenStories.graphTokens} />
+
+## Usage
+
+For monochromatic UIs using the Color theme, it is recommended to override the
+default values of the graph trace tokens with colors that work with the specific
+background color. Special care should be taken to ensure the colors pass
+accessibility standards. Consult with a visual designer for help.
+
+{/* ## Examples */}
+
+{/* ## Accessibility */}
+
+{/* ## Resources */}

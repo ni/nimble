@@ -24,7 +24,7 @@ export const template = html<TableGroupRow>`
                 <${checkboxTag}
                     ${ref('selectionCheckbox')}
                     class="selection-checkbox"
-                    @change="${(x, c) => x.onSelectionChange(c.event as CustomEvent)}"
+                    @change="${(x, c) => x.onSelectionCheckboxChange(c.event as CustomEvent)}"
                     @click="${(_, c) => c.event.stopPropagation()}"
                     title="${x => tableGroupSelectAllLabel.getValueFor(x)}"
                     aria-label="${x => tableGroupSelectAllLabel.getValueFor(x)}"
