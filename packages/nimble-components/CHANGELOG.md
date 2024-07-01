@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Mon, 01 Jul 2024 20:14:06 GMT and should not be manually modified.
+This log was last generated on Mon, 01 Jul 2024 23:05:23 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 29.7.4
+
+Mon, 01 Jul 2024 23:05:23 GMT
+
+### Patches
+
+- Update tanstack dependencies ([ni/nimble@40a4930](https://github.com/ni/nimble/commit/40a49301bf6784741f82cae3e07aa8741bd20317))
 
 ## 29.7.3
 
