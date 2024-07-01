@@ -253,6 +253,7 @@ const WebkitBrowser = function (baseBrowserDecorator, args) {
 
   this.on("kill", (done) => {
     console.log('---------------------------------------------------------on kill');
+    printPS();
     // Clean up all remaining processes after 500ms delay on normal clients.
     // if (!isCI) {
       childProcessCleanup(this.id, done);
@@ -267,6 +268,7 @@ const WebkitBrowser = function (baseBrowserDecorator, args) {
     // if (!isCI) {
       childProcessCleanup(this.id);
     // }
+    printPS();
   });
 };
 
@@ -366,14 +368,35 @@ const closeSafariTab = function (url) {
  * @param {function} callback - An optional callback function to execute after cleanup.
  */
 const childProcessCleanup = function (task_id, callback) {
+  console.log('-----------------------------------------' + process.platform);
+  if (process.platform === "darwin") {
+    childProcessCleanupDarwin(task_id, callback);
+  } else if (process.platform.startsWith("Linux")) {
+    childProcessCleanupLinux(task_id, callback);
+  } else {
+    const isCallbackDefined = callback && typeof callback === "function";
+    if (isCallbackDefined) {
+      callback();
+    }
+  }
+};
+
+const childProcessCleanupLinux = function (task_id, callback) {
   const isCallbackDefined = callback && typeof callback === "function";
 
-  if (process.platform !== "darwin") {
-    if (isCallbackDefined) {
-      killMiniBrowser(callback);
+  child_process.exec(`pkill -P ${task_id}`, (error, stdout) => {
+    console.log('---------------------------------------------------------childProcessCleanupLinux: pkill returned' + stdout);
+    if (error) {
+      console.log('---------------------------------------------------------childProcessCleanupLinux: ERROR: ' + error);
     }
-    return;
-  }
+    if (isCallbackDefined) {
+      callback();
+    }
+  });
+};
+
+const childProcessCleanupDarwin = function (task_id, callback) {
+  const isCallbackDefined = callback && typeof callback === "function";
 
   // Find all related child process for playwright based on the task id.
   const findChildProcesses = `ps | grep -i "playwright" | grep -i "id=${task_id}"`;
@@ -406,6 +429,16 @@ const childProcessCleanup = function (task_id, callback) {
     }
   });
 };
+
+const printPS = function () {
+  console.log('---------------------------------------------------------printPS');
+  child_process.exec('ps', (error, stdout) => {
+    console.log('---------------------------------------------------------printPS: ps returned' + stdout);
+    if (error) {
+      console.log('---------------------------------------------------------printPS: ERROR: ' + error);
+    }
+  });
+}
 
 const killMiniBrowser = function (callback) {
   console.log('---------------------------------------------------------killMiniBrowser');
