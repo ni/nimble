@@ -19,7 +19,7 @@ BreadcrumbItemOptions
         `)}
         ${when(x => !x.href, html`
             ${startSlotTemplate(context, definition)}
-            <slot></slot>
+            <slot class="default-slot"></slot>
             ${endSlotTemplate(context, definition)}
         `)}
         ${when(x => x.separator, html`

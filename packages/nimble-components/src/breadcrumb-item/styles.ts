@@ -47,13 +47,8 @@ export const styles = css`
             display: none;
         }
 
-        .content {
-            pointer-events: none;
-        }
-
-        :host(:not([href])) slot:not([name]),
-        :host([href='']) slot:not([name]) {
-            display: block;
+        :host(:not([href])) .default-slot {
+            display: inline-flex;
             margin-right: ${mediumPadding};
         }
 

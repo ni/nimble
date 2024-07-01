@@ -38,7 +38,7 @@ const component = (
         appearance="${() => appearance}"
         style="margin-right: 24px"
     >
-        <${breadcrumbItemTag} href="${disabled ? '' : parent.location.href}">
+        <${breadcrumbItemTag} ${disabled ? '' : 'href="parent.location.href"'}>
             ${() => `${disabledName} Breadcrumb (${appearanceName}) - Link`}
         </${breadcrumbItemTag}>
         <${breadcrumbItemTag}>Current (No Link)</${breadcrumbItemTag}>
