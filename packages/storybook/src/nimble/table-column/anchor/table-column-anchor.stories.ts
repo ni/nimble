@@ -41,47 +41,63 @@ export default metadata;
 const simpleData = [
     {
         firstName: 'Ralph',
-        firstNameSortIndex: 3,
         lastName: 'Wiggum',
-        lastNameSortIndex: 3,
-        fullName: 'Ralph Wiggum',
-        url: 'https://www.google.com/search?q=ralph+wiggum'
+        url: 'https://www.google.com/search?q=ralph+wiggum',
+        address: '732 Evergreen Terrace',
+        addressSortOrder: 0,
+        addressUrl: 'https://www.google.com/search?q=732+Evergreen+Terrace'
     },
     {
         firstName: 'Milhouse',
-        firstNameSortIndex: 1,
         lastName: 'Van Houten',
-        lastNameSortIndex: 2,
-        fullName: 'Milhouse Van Houten',
-        url: 'https://www.google.com/search?q=milhouse+van+houten'
+        url: 'https://www.google.com/search?q=milhouse+van+houten',
+        address: '316 Pikeland Avenue',
+        addressSortOrder: 3,
+        addressUrl: 'https://www.google.com/search?q=316+Pikeland+Avenue'
     },
     {
         firstName: 'Ned',
-        firstNameSortIndex: 2,
         lastName: 'Flanders',
-        lastNameSortIndex: 0,
-        fullName: 'Ned Flanders',
-        url: 'https://www.google.com/search?q=ned+flanders'
+        url: 'https://www.google.com/search?q=ned+flanders',
+        address: '744 Evergreen Terrace',
+        addressSortOrder: 2,
+        addressUrl: 'https://www.google.com/search?q=744+Evergreen+Terrace'
     },
     {
         firstName: 'Maggie (no link)',
-        firstNameSortIndex: 0,
         lastName: 'Simpson',
-        lastNameSortIndex: 1,
-        fullName: 'Maggie Simpson'
+        address: '742 Evergreen Terrace',
+        addressSortOrder: 1,
+        addressUrl: 'https://www.google.com/search?q=742+Evergreen+Terrace'
     },
     {
-        firstNameSortIndex: -1,
         lastName: 'Simpson',
-        lastNameSortIndex: 1,
         fullName: 'Unknown Simpson',
-        url: 'https://www.google.com/search?q=simpsons'
+        url: 'https://www.google.com/search?q=simpsons',
+        address: 'Unknown Address',
+        addressSortOrder: -1
     },
     {
-        firstNameSortIndex: -1,
         lastName: 'Simpson',
-        lastNameSortIndex: 1,
-        fullName: 'Unknown Simpson'
+        fullName: 'Unknown Simpson',
+        address: 'Unknown Address',
+        addressSortOrder: -1
+    },
+    {
+        firstName: 'Agnes',
+        lastName: 'Skinner',
+        url: 'https://www.google.com/search?q=agnes+skinner',
+        address: '330 Pikeland Avenue',
+        addressSortOrder: 4,
+        addressUrl: 'https://www.google.com/search?q=330+Pikeland+Avenue'
+    },
+    {
+        firstName: 'Moe',
+        lastName: 'Szyslak',
+        url: 'https://www.google.com/search?q=moe+szyslak',
+        address: '57 Walnut Street',
+        addressSortOrder: 5,
+        addressUrl: 'https://www.google.com/search?q=57+Walnut+Street'
     }
 ] as const;
 
@@ -91,7 +107,7 @@ interface AnchorColumnTableArgs extends SharedTableArgs {
     appearance: keyof typeof AnchorAppearance;
     underlineHidden: boolean;
     placeholder: string;
-    sortByFieldName: 'firstNameSortIndex' | 'lastNameSortIndex';
+    sortByFieldName: never;
     checkValidity: never;
     validity: never;
 }
@@ -124,13 +140,13 @@ export const anchorColumn: StoryObj<AnchorColumnTableArgs> = {
                 Last Name
             </${tableColumnTextTag}>
             <${tableColumnAnchorTag}
-                label-field-name="fullName"
-                href-field-name="${x => x.hrefFieldName}"
+                label-field-name="address"
+                href-field-name="addressUrl"
                 appearance="${x => x.appearance}"
                 ?underline-hidden="${x => x.underlineHidden}"
-                sort-by-field-name="${x => x.sortByFieldName}"
+                sort-by-field-name="addressSortOrder"
             >
-                Full Name (Link)
+                Address
             </${tableColumnAnchorTag}>
         </${tableTag}>
     `),
@@ -172,14 +188,7 @@ export const anchorColumn: StoryObj<AnchorColumnTableArgs> = {
             name: 'sort-by-field-name',
             description:
                 'Set this attribute to identify a field to sort the column by. If not set, the column will sort by the `field-name` field. It is invalid to group by a column with `sort-by-field-name` configured.',
-            options: ['firstNameSortIndex', 'lastNameSortIndex'],
-            control: {
-                type: 'radio',
-                labels: {
-                    firstNameSortIndex: 'Sort "Full Name" column by first name',
-                    lastNameSortIndex: 'Sort "Full Name" column by last name'
-                }
-            },
+            control: false,
             table: { category: apiCategory.attributes }
         },
         checkValidity: {
@@ -202,7 +211,6 @@ export const anchorColumn: StoryObj<AnchorColumnTableArgs> = {
         appearance: 'default',
         underlineHidden: false,
         placeholder: 'Mystery',
-        sortByFieldName: 'firstNameSortIndex',
         ...sharedTableArgs(simpleData)
     }
 };

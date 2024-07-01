@@ -18,38 +18,48 @@ import {
 const simpleData = [
     {
         firstName: 'Ralph',
-        firstNameSortIndex: 3,
         lastName: 'Wiggum',
-        lastNameSortIndex: 3,
-        fullName: 'Ralph Wiggum',
         favoriteColor: 'Rainbow',
+        address: '732 Evergreen Terrace',
+        addressSortOrder: 0,
         quote: "I'm in danger!"
     },
     {
         firstName: 'Milhouse',
-        firstNameSortIndex: 1,
         lastName: 'Van Houten',
-        lastNameSortIndex: 2,
-        fullName: 'Milhouse Van Houten',
         favoriteColor: 'Crimson',
+        address: '316 Pikeland Avenue',
+        addressSortOrder: 3,
         quote: "Not only am I not learning, I'm forgetting stuff I used to know!"
     },
     {
         firstName: 'Ned',
-        firstNameSortIndex: 2,
         lastName: 'Flanders',
-        lastNameSortIndex: 0,
-        fullName: 'Ned Flanders',
         favoriteColor: 'Taupe',
+        address: '744 Evergreen Terrace',
+        addressSortOrder: 2,
         quote: 'Hi diddly-ho neighbor!'
     },
     {
         firstName: 'Maggie',
-        firstNameSortIndex: 0,
         lastName: 'Simpson',
-        lastNameSortIndex: 1,
-        fullName: 'Maggie Simpson',
-        favoriteColor: 'Red'
+        favoriteColor: 'Red',
+        address: '742 Evergreen Terrace',
+        addressSortOrder: 1
+    },
+    {
+        firstName: 'Anges',
+        lastName: 'Skinner',
+        favoriteColor: 'Purple',
+        address: '330 Pikeland Avenue',
+        addressSortOrder: 4,
+    },
+    {
+        firstName: 'Moe',
+        lastName: 'Szyslak',
+        favoriteColor: 'Black',
+        address: '57 Walnut Street',
+        addressSortOrder: 5
     }
 ] as const;
 
@@ -80,7 +90,7 @@ export default metadata;
 interface TextColumnTableArgs extends SharedTableArgs {
     fieldName: undefined;
     placeholder: string;
-    sortByFieldName: 'firstNameSortIndex' | 'lastNameSortIndex';
+    sortByFieldName: never;
     checkValidity: never;
     validity: never;
 }
@@ -109,10 +119,10 @@ export const textColumn: StoryObj<TextColumnTableArgs> = {
                 Last Name
             </${tableColumnTextTag}>
             <${tableColumnTextTag}
-                field-name="fullName"
-                sort-by-field-name="${x => x.sortByFieldName}"
+                field-name="address"
+                sort-by-field-name="addressSortOrder"
             >
-                Full Name
+                Address
             </${tableColumnTextTag}>
             <${tableColumnTextTag}
                 field-name="quote"
@@ -140,13 +150,7 @@ export const textColumn: StoryObj<TextColumnTableArgs> = {
             description:
                 'Set this attribute to identify a field to sort the column by. If not set, the column will sort by the `field-name` field. It is invalid to group by a column with `sort-by-field-name` configured.',
             options: ['firstNameSortIndex', 'lastNameSortIndex'],
-            control: {
-                type: 'radio',
-                labels: {
-                    firstNameSortIndex: 'Sort "Full Name" column by first name',
-                    lastNameSortIndex: 'Sort "Full Name" column by last name'
-                }
-            },
+            control: false,
             table: { category: apiCategory.attributes }
         },
         checkValidity: {
@@ -164,7 +168,6 @@ export const textColumn: StoryObj<TextColumnTableArgs> = {
         }
     },
     args: {
-        placeholder: 'Did not respond to request for comment',
-        sortByFieldName: 'firstNameSortIndex'
+        placeholder: 'Did not respond to request for comment'
     }
 };
