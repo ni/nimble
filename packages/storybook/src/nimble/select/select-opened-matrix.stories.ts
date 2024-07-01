@@ -1,5 +1,6 @@
 import type { StoryFn, Meta } from '@storybook/html';
-import { html, ViewTemplate, when } from '@microsoft/fast-element';
+import { html, repeat, ViewTemplate, when } from '@microsoft/fast-element';
+import { DropdownPosition } from '../../../../nimble-components/src/patterns/dropdown/types';
 import { listOptionTag } from '../../../../nimble-components/src/list-option';
 import { listOptionGroupTag } from '../../../../nimble-components/src/list-option-group';
 import { Select, selectTag } from '../../../../nimble-components/src/select';
@@ -7,6 +8,7 @@ import { FilterMode } from '../../../../nimble-components/src/select/types';
 import { createFixedThemeStory } from '../../utilities/storybook';
 import { sharedMatrixParameters } from '../../utilities/matrix';
 import { backgroundStates } from '../../utilities/states';
+import { isChromatic } from '../../utilities/isChromatic';
 
 const metadata: Meta = {
     title: 'Tests/Select',
@@ -17,14 +19,14 @@ const metadata: Meta = {
 
 export default metadata;
 
-const positionStates = [
-    ['below', 'margin-bottom: 120px;'],
-    ['above', 'margin-top: 180px;']
-] as const;
+const positionStates = Object.values(DropdownPosition);
 type PositionState = (typeof positionStates)[number];
 
 const filterModeStates = Object.values(FilterMode);
 type FilterModeState = (typeof filterModeStates)[number];
+
+const loadingVisibleStates = [false, true] as const;
+type LoadingVisibleState = (typeof loadingVisibleStates)[number];
 
 const placeholderStates = [false, true] as const;
 type PlaceholderState = (typeof placeholderStates)[number];
@@ -38,50 +40,75 @@ type OptionsOutsideGroupState = (typeof optionsOutsideGroupStates)[number];
 interface SelectMatrixStoryOptions {
     positionState: PositionState;
     filterMode: FilterModeState;
+    loadingVisible?: LoadingVisibleState;
     placeholder?: PlaceholderState;
     grouped?: GroupedState;
     optionsOutsideGroup?: OptionsOutsideGroupState;
     slottedLabel?: boolean;
+    manyOptions?: boolean;
 }
 
 // prettier-ignore
 const component = ({
-    positionState, filterMode, placeholder, grouped, optionsOutsideGroup, slottedLabel
+    positionState, filterMode, loadingVisible, placeholder, grouped, optionsOutsideGroup, slottedLabel, manyOptions
 }: SelectMatrixStoryOptions): ViewTemplate => html`
-    <${selectTag} open position="${() => positionState[0]}" style="${() => positionState[1]}" filter-mode="${() => filterMode}" style="width: 250px;">
-        ${when(() => grouped, html`
-            <${listOptionTag} value="1" ${placeholder ? 'selected disabled hidden' : ''} >Select an option</${listOptionTag}>
-            ${when(() => optionsOutsideGroup ?? false, html`
-                <${listOptionTag}>Option Not in Group</${listOptionTag}>
-            `)}
-            <${listOptionGroupTag} ${!slottedLabel ? 'label="Group 1"' : ''}>
-                ${when(() => slottedLabel, html`
-                    <span>Group 1</span>
+    <${selectTag} open 
+        position="${() => positionState}"
+        style="width: 250px;
+            ${() => (positionState === DropdownPosition.below ? 'margin-bottom: 120px;' : `margin-top: ${manyOptions ? 430 : 180}px;`)}
+            ${isChromatic() ? '--ni-private-spinner-animation-play-state:paused;' : ''}"
+        filter-mode="${() => filterMode}"
+        loading-visible="${() => loadingVisible}"
+    >
+        ${when(() => !manyOptions, html`
+            ${when(() => grouped, html`
+                <${listOptionTag} value="1" ${placeholder ? 'selected disabled hidden' : ''} >Select an option</${listOptionTag}>
+                ${when(() => optionsOutsideGroup ?? false, html`
+                    <${listOptionTag}>Option Not in Group</${listOptionTag}>
                 `)}
-                <${listOptionTag} value="2" disabled>Option 1</${listOptionTag}>
-                <${listOptionTag} value="3">Option 2</${listOptionTag}>
-            </${listOptionGroupTag}>         
-            ${when(() => optionsOutsideGroup ?? false, html`
-                <${listOptionTag}>Option Not in Group</${listOptionTag}>
-            `)}
-            <${listOptionGroupTag}  ${!slottedLabel ? 'label="Group 2 with a ridiculously long label that doesn\'t fit"' : ''}>
-                ${when(() => slottedLabel, html`
-                    <span>Group 2 with a ridiculously long label that doesn't fit</span>
+                <${listOptionGroupTag} ${!slottedLabel ? 'label="Group 1"' : ''}>
+                    ${when(() => slottedLabel, html`
+                        <span>Group 1</span>
+                    `)}
+                    <${listOptionTag} value="2" disabled>Option 1</${listOptionTag}>
+                    <${listOptionTag} value="3">Option 2</${listOptionTag}>
+                </${listOptionGroupTag}>         
+                ${when(() => optionsOutsideGroup ?? false, html`
+                    <${listOptionTag}>Option Not in Group</${listOptionTag}>
                 `)}
-                <${listOptionTag} value="4">Option 3</${listOptionTag}>
-            </${listOptionGroupTag}>
-            <${listOptionGroupTag} label="Hidden Group" hidden>
-                <${listOptionTag} value="5">Hidden Option</${listOptionTag}>
-            </${listOptionGroupTag}>
-            ${when(() => optionsOutsideGroup ?? false, html`
-                <${listOptionTag}>Option Not in Group</${listOptionTag}>
+                <${listOptionGroupTag}  ${!slottedLabel ? 'label="Group 2 with a ridiculously long label that doesn\'t fit"' : ''}>
+                    ${when(() => slottedLabel, html`
+                        <span>Group 2 with a ridiculously long label that doesn't fit</span>
+                    `)}
+                    <${listOptionTag} value="4">Option 3</${listOptionTag}>
+                </${listOptionGroupTag}>
+                <${listOptionGroupTag} label="Hidden Group" hidden>
+                    <${listOptionTag} value="5">Hidden Option</${listOptionTag}>
+                </${listOptionGroupTag}>
+                ${when(() => optionsOutsideGroup ?? false, html`
+                    <${listOptionTag}>Option Not in Group</${listOptionTag}>
+                `)}
+            `)}
+            ${when(() => !grouped, html`
+                <${listOptionTag} value="1" ${placeholder ? 'selected disabled hidden' : ''} >Option 1</${listOptionTag}>
+                <${listOptionTag} value="2" disabled>Option 2</${listOptionTag}>
+                <${listOptionTag} value="3">Option 3</${listOptionTag}>
+                <${listOptionTag} value="4" hidden>Option 4</${listOptionTag}>
             `)}
         `)}
-        ${when(() => !grouped, html`
-            <${listOptionTag} value="1" ${placeholder ? 'selected disabled hidden' : ''} >Option 1</${listOptionTag}>
-            <${listOptionTag} value="2" disabled>Option 2</${listOptionTag}>
-            <${listOptionTag} value="3">Option 3</${listOptionTag}>
-            <${listOptionTag} value="4" hidden>Option 4</${listOptionTag}>
+        ${when(() => manyOptions, html`
+            ${when(() => grouped, html`
+                <${listOptionGroupTag} label="Group 1">
+                ${repeat(() => [...Array(100).keys()], html<number>`
+                    <${listOptionTag} value="${x => x}">Option ${x => x + 1}</${listOptionTag}>
+                `)}
+                </${listOptionGroupTag}>
+            `)}
+            ${when(() => !grouped, html`
+                ${repeat(() => [...Array(100).keys()], html<number>`
+                    <${listOptionTag} value="${x => x}">Option ${x => x + 1}</${listOptionTag}>
+                `)}
+            `)}
         `)}
     </${selectTag}>
 `;
@@ -99,7 +126,7 @@ if (remaining.length > 0) {
 
 export const selectBelowOpenNoFilterLightThemeWhiteBackground: StoryFn = createFixedThemeStory(
     component({
-        positionState: positionStates[0],
+        positionState: DropdownPosition.below,
         filterMode: FilterMode.none
     }),
     lightThemeWhiteBackground
@@ -107,7 +134,7 @@ export const selectBelowOpenNoFilterLightThemeWhiteBackground: StoryFn = createF
 
 export const selectBelowOpenStandardFilterLightThemeWhiteBackground: StoryFn = createFixedThemeStory(
     component({
-        positionState: positionStates[0],
+        positionState: DropdownPosition.below,
         filterMode: FilterMode.standard
     }),
     lightThemeWhiteBackground
@@ -115,7 +142,7 @@ export const selectBelowOpenStandardFilterLightThemeWhiteBackground: StoryFn = c
 
 export const selectAboveOpenNoFilterLightThemeWhiteBackground: StoryFn = createFixedThemeStory(
     component({
-        positionState: positionStates[1],
+        positionState: DropdownPosition.above,
         filterMode: FilterMode.none
     }),
     lightThemeWhiteBackground
@@ -123,7 +150,7 @@ export const selectAboveOpenNoFilterLightThemeWhiteBackground: StoryFn = createF
 
 export const selectAboveOpenStandardFilterLightThemeWhiteBackground: StoryFn = createFixedThemeStory(
     component({
-        positionState: positionStates[1],
+        positionState: DropdownPosition.above,
         filterMode: FilterMode.standard
     }),
     lightThemeWhiteBackground
@@ -131,7 +158,7 @@ export const selectAboveOpenStandardFilterLightThemeWhiteBackground: StoryFn = c
 
 export const selectBelowOpenColorNoFilterThemeDarkGreenBackground: StoryFn = createFixedThemeStory(
     component({
-        positionState: positionStates[0],
+        positionState: DropdownPosition.below,
         filterMode: FilterMode.none
     }),
     colorThemeDarkGreenBackground
@@ -139,7 +166,7 @@ export const selectBelowOpenColorNoFilterThemeDarkGreenBackground: StoryFn = cre
 
 export const selectBelowOpenColorStandardFilterThemeDarkGreenBackground: StoryFn = createFixedThemeStory(
     component({
-        positionState: positionStates[0],
+        positionState: DropdownPosition.below,
         filterMode: FilterMode.standard
     }),
     colorThemeDarkGreenBackground
@@ -147,7 +174,7 @@ export const selectBelowOpenColorStandardFilterThemeDarkGreenBackground: StoryFn
 
 export const selectAboveOpenNoFilterColorThemeDarkGreenBackground: StoryFn = createFixedThemeStory(
     component({
-        positionState: positionStates[1],
+        positionState: DropdownPosition.above,
         filterMode: FilterMode.none
     }),
     colorThemeDarkGreenBackground
@@ -155,7 +182,7 @@ export const selectAboveOpenNoFilterColorThemeDarkGreenBackground: StoryFn = cre
 
 export const selectAboveOpenStandardFilterColorThemeDarkGreenBackground: StoryFn = createFixedThemeStory(
     component({
-        positionState: positionStates[1],
+        positionState: DropdownPosition.above,
         filterMode: FilterMode.standard
     }),
     colorThemeDarkGreenBackground
@@ -163,7 +190,7 @@ export const selectAboveOpenStandardFilterColorThemeDarkGreenBackground: StoryFn
 
 export const selectBelowOpenNoFilterDarkThemeBlackBackground: StoryFn = createFixedThemeStory(
     component({
-        positionState: positionStates[0],
+        positionState: DropdownPosition.below,
         filterMode: FilterMode.none
     }),
     darkThemeBlackBackground
@@ -171,7 +198,7 @@ export const selectBelowOpenNoFilterDarkThemeBlackBackground: StoryFn = createFi
 
 export const selectBelowOpenStandardFilterDarkThemeBlackBackground: StoryFn = createFixedThemeStory(
     component({
-        positionState: positionStates[0],
+        positionState: DropdownPosition.below,
         filterMode: FilterMode.standard
     }),
     darkThemeBlackBackground
@@ -179,7 +206,7 @@ export const selectBelowOpenStandardFilterDarkThemeBlackBackground: StoryFn = cr
 
 export const selectAboveOpenNoFilterDarkThemeBlackBackground: StoryFn = createFixedThemeStory(
     component({
-        positionState: positionStates[1],
+        positionState: DropdownPosition.above,
         filterMode: FilterMode.none
     }),
     darkThemeBlackBackground
@@ -187,7 +214,7 @@ export const selectAboveOpenNoFilterDarkThemeBlackBackground: StoryFn = createFi
 
 export const selectAboveOpenStandardFilterDarkThemeBlackBackground: StoryFn = createFixedThemeStory(
     component({
-        positionState: positionStates[1],
+        positionState: DropdownPosition.above,
         filterMode: FilterMode.standard
     }),
     darkThemeBlackBackground
@@ -200,7 +227,7 @@ const noMatchesFilterPlayFunction = (): void => {
 
 export const selectAboveOpenFilterNoMatchDarkThemeBlackBackground: StoryFn = createFixedThemeStory(
     component({
-        positionState: positionStates[1],
+        positionState: DropdownPosition.above,
         filterMode: FilterMode.standard
     }),
     darkThemeBlackBackground
@@ -210,7 +237,7 @@ selectAboveOpenFilterNoMatchDarkThemeBlackBackground.play = noMatchesFilterPlayF
 
 export const selectAboveOpenFilterNoMatchLightThemeWhiteBackground: StoryFn = createFixedThemeStory(
     component({
-        positionState: positionStates[1],
+        positionState: DropdownPosition.above,
         filterMode: FilterMode.standard
     }),
     lightThemeWhiteBackground
@@ -220,7 +247,7 @@ selectAboveOpenFilterNoMatchLightThemeWhiteBackground.play = noMatchesFilterPlay
 
 export const selectAboveOpenFilterNoMatchColorThemeDarkGreenBackground: StoryFn = createFixedThemeStory(
     component({
-        positionState: positionStates[1],
+        positionState: DropdownPosition.above,
         filterMode: FilterMode.standard
     }),
     colorThemeDarkGreenBackground
@@ -230,7 +257,7 @@ selectAboveOpenFilterNoMatchColorThemeDarkGreenBackground.play = noMatchesFilter
 
 export const selectBelowOpenFilterNoMatchDarkThemeBlackBackground: StoryFn = createFixedThemeStory(
     component({
-        positionState: positionStates[0],
+        positionState: DropdownPosition.below,
         filterMode: FilterMode.standard
     }),
     darkThemeBlackBackground
@@ -240,7 +267,7 @@ selectBelowOpenFilterNoMatchDarkThemeBlackBackground.play = noMatchesFilterPlayF
 
 export const selectBelowOpenFilterNoMatchLightThemeWhiteBackground: StoryFn = createFixedThemeStory(
     component({
-        positionState: positionStates[0],
+        positionState: DropdownPosition.below,
         filterMode: FilterMode.standard
     }),
     lightThemeWhiteBackground
@@ -250,7 +277,7 @@ selectBelowOpenFilterNoMatchLightThemeWhiteBackground.play = noMatchesFilterPlay
 
 export const selectBelowOpenFilterNoMatchColorThemeDarkGreenBackground: StoryFn = createFixedThemeStory(
     component({
-        positionState: positionStates[0],
+        positionState: DropdownPosition.below,
         filterMode: FilterMode.standard
     }),
     colorThemeDarkGreenBackground
@@ -260,7 +287,7 @@ selectBelowOpenFilterNoMatchColorThemeDarkGreenBackground.play = noMatchesFilter
 
 export const selectBelowOpenNoFilterLightThemeWhiteBackgroundWithPlaceholder: StoryFn = createFixedThemeStory(
     component({
-        positionState: positionStates[0],
+        positionState: DropdownPosition.below,
         filterMode: FilterMode.none,
         placeholder: true
     }),
@@ -269,7 +296,7 @@ export const selectBelowOpenNoFilterLightThemeWhiteBackgroundWithPlaceholder: St
 
 export const selectBelowOpenNoFilterColorThemeDarkGreenBackgroundWithPlaceholder: StoryFn = createFixedThemeStory(
     component({
-        positionState: positionStates[0],
+        positionState: DropdownPosition.below,
         filterMode: FilterMode.none,
         placeholder: true
     }),
@@ -278,7 +305,7 @@ export const selectBelowOpenNoFilterColorThemeDarkGreenBackgroundWithPlaceholder
 
 export const selectBelowOpenNoFilterDarkThemeBlackBackgroundWithPlaceholder: StoryFn = createFixedThemeStory(
     component({
-        positionState: positionStates[0],
+        positionState: DropdownPosition.below,
         filterMode: FilterMode.none,
         placeholder: true
     }),
@@ -287,7 +314,7 @@ export const selectBelowOpenNoFilterDarkThemeBlackBackgroundWithPlaceholder: Sto
 
 export const selectGroupedOptionsLightThemeWhiteBackground: StoryFn = createFixedThemeStory(
     component({
-        positionState: positionStates[0],
+        positionState: DropdownPosition.below,
         filterMode: FilterMode.standard,
         placeholder: true,
         grouped: true
@@ -297,7 +324,7 @@ export const selectGroupedOptionsLightThemeWhiteBackground: StoryFn = createFixe
 
 export const selectGroupedOptionsColorThemeDarkGreenBackground: StoryFn = createFixedThemeStory(
     component({
-        positionState: positionStates[0],
+        positionState: DropdownPosition.below,
         filterMode: FilterMode.standard,
         placeholder: true,
         grouped: true
@@ -307,7 +334,7 @@ export const selectGroupedOptionsColorThemeDarkGreenBackground: StoryFn = create
 
 export const selectGroupedOptionsDarkThemeBlackBackground: StoryFn = createFixedThemeStory(
     component({
-        positionState: positionStates[0],
+        positionState: DropdownPosition.below,
         filterMode: FilterMode.standard,
         placeholder: true,
         grouped: true
@@ -317,7 +344,7 @@ export const selectGroupedOptionsDarkThemeBlackBackground: StoryFn = createFixed
 
 export const selectGroupedAndNotGroupedOptionsLightThemeWhiteBackground: StoryFn = createFixedThemeStory(
     component({
-        positionState: positionStates[0],
+        positionState: DropdownPosition.below,
         filterMode: FilterMode.standard,
         placeholder: true,
         grouped: true,
@@ -328,7 +355,7 @@ export const selectGroupedAndNotGroupedOptionsLightThemeWhiteBackground: StoryFn
 
 export const selectGroupedAndNotGroupedOptionsColorThemeDarkGreenBackground: StoryFn = createFixedThemeStory(
     component({
-        positionState: positionStates[0],
+        positionState: DropdownPosition.below,
         filterMode: FilterMode.standard,
         placeholder: true,
         grouped: true,
@@ -339,7 +366,7 @@ export const selectGroupedAndNotGroupedOptionsColorThemeDarkGreenBackground: Sto
 
 export const selectGroupedAndNotGroupedOptionsDarkThemeBlackBackground: StoryFn = createFixedThemeStory(
     component({
-        positionState: positionStates[0],
+        positionState: DropdownPosition.below,
         filterMode: FilterMode.standard,
         placeholder: true,
         grouped: true,
@@ -350,7 +377,7 @@ export const selectGroupedAndNotGroupedOptionsDarkThemeBlackBackground: StoryFn 
 
 export const selectGroupedWithSlottedLabelLightThemeWhiteBackground: StoryFn = createFixedThemeStory(
     component({
-        positionState: positionStates[0],
+        positionState: DropdownPosition.below,
         filterMode: FilterMode.standard,
         placeholder: true,
         grouped: true,
@@ -361,7 +388,7 @@ export const selectGroupedWithSlottedLabelLightThemeWhiteBackground: StoryFn = c
 
 export const selectGroupedWithSlottedLabelColorThemeDarkGreenBackground: StoryFn = createFixedThemeStory(
     component({
-        positionState: positionStates[0],
+        positionState: DropdownPosition.below,
         filterMode: FilterMode.standard,
         placeholder: true,
         grouped: true,
@@ -372,11 +399,173 @@ export const selectGroupedWithSlottedLabelColorThemeDarkGreenBackground: StoryFn
 
 export const selectGroupedWithSlottedLabelDarkThemeBlackBackground: StoryFn = createFixedThemeStory(
     component({
-        positionState: positionStates[0],
+        positionState: DropdownPosition.below,
         filterMode: FilterMode.standard,
         placeholder: true,
         grouped: true,
         slottedLabel: true
     }),
     darkThemeBlackBackground
+);
+
+export const selectBelowOpenLoadingVisibleNoGroupsLightThemeWhiteBackground: StoryFn = createFixedThemeStory(
+    component({
+        positionState: DropdownPosition.below,
+        filterMode: FilterMode.standard,
+        loadingVisible: true
+    }),
+    lightThemeWhiteBackground
+);
+
+export const selectBelowOpenLoadingVisibleNoGroupsDarkGreenBackground: StoryFn = createFixedThemeStory(
+    component({
+        positionState: DropdownPosition.below,
+        filterMode: FilterMode.standard,
+        loadingVisible: true
+    }),
+    colorThemeDarkGreenBackground
+);
+
+export const selectBelowOpenLoadingVisibleNoGroupsDarkThemeBlackBackground: StoryFn = createFixedThemeStory(
+    component({
+        positionState: DropdownPosition.below,
+        filterMode: FilterMode.standard,
+        loadingVisible: true
+    }),
+    darkThemeBlackBackground
+);
+
+export const selectAboveOpenLoadingVisibleNoGroupsLightThemeWhiteBackground: StoryFn = createFixedThemeStory(
+    component({
+        positionState: DropdownPosition.above,
+        filterMode: FilterMode.standard,
+        loadingVisible: true
+    }),
+    lightThemeWhiteBackground
+);
+
+export const selectAboveOpenLoadingVisibleNoGroupsDarkGreenBackground: StoryFn = createFixedThemeStory(
+    component({
+        positionState: DropdownPosition.above,
+        filterMode: FilterMode.standard,
+        loadingVisible: true
+    }),
+    colorThemeDarkGreenBackground
+);
+
+export const selectAboveOpenLoadingVisibleNoGroupsDarkThemeBlackBackground: StoryFn = createFixedThemeStory(
+    component({
+        positionState: DropdownPosition.above,
+        filterMode: FilterMode.standard,
+        loadingVisible: true
+    }),
+    darkThemeBlackBackground
+);
+
+export const selectBelowLoadingVisibleNoMatchesLightThemeWhiteBackground: StoryFn = createFixedThemeStory(
+    component({
+        positionState: DropdownPosition.below,
+        filterMode: FilterMode.standard,
+        loadingVisible: true
+    }),
+    lightThemeWhiteBackground
+);
+
+selectBelowLoadingVisibleNoMatchesLightThemeWhiteBackground.play = noMatchesFilterPlayFunction;
+
+export const selectAboveLoadingVisibleNoMatchesLightThemeWhiteBackground: StoryFn = createFixedThemeStory(
+    component({
+        positionState: DropdownPosition.above,
+        filterMode: FilterMode.standard,
+        loadingVisible: true
+    }),
+    lightThemeWhiteBackground
+);
+
+selectAboveLoadingVisibleNoMatchesLightThemeWhiteBackground.play = noMatchesFilterPlayFunction;
+
+export const selectBelowOpenNoFilterManyOptions: StoryFn = createFixedThemeStory(
+    component({
+        positionState: DropdownPosition.below,
+        filterMode: FilterMode.none,
+        manyOptions: true
+    }),
+    lightThemeWhiteBackground
+);
+
+export const selectBelowOpenNoFilterLoadingVisibleManyOptions: StoryFn = createFixedThemeStory(
+    component({
+        positionState: DropdownPosition.below,
+        filterMode: FilterMode.none,
+        loadingVisible: true,
+        manyOptions: true
+    }),
+    lightThemeWhiteBackground
+);
+
+export const selectBelowOpenStandardFilterManyOptions: StoryFn = createFixedThemeStory(
+    component({
+        positionState: DropdownPosition.below,
+        filterMode: FilterMode.standard,
+        manyOptions: true
+    }),
+    lightThemeWhiteBackground
+);
+
+export const selectBelowOpenStandardFilterLoadingVisibleManyOptions: StoryFn = createFixedThemeStory(
+    component({
+        positionState: DropdownPosition.below,
+        filterMode: FilterMode.standard,
+        loadingVisible: true,
+        manyOptions: true
+    }),
+    lightThemeWhiteBackground
+);
+
+export const selectBelowOpenStandardFilterGroupedManyOptions: StoryFn = createFixedThemeStory(
+    component({
+        positionState: DropdownPosition.below,
+        filterMode: FilterMode.standard,
+        grouped: true,
+        manyOptions: true
+    }),
+    lightThemeWhiteBackground
+);
+
+export const selectAboveOpenNoFilterManyOptions: StoryFn = createFixedThemeStory(
+    component({
+        positionState: DropdownPosition.above,
+        filterMode: FilterMode.none,
+        manyOptions: true
+    }),
+    lightThemeWhiteBackground
+);
+
+export const selectAboveOpenStandardFilterManyOptions: StoryFn = createFixedThemeStory(
+    component({
+        positionState: DropdownPosition.above,
+        filterMode: FilterMode.standard,
+        manyOptions: true
+    }),
+    lightThemeWhiteBackground
+);
+
+export const selectAboveOpenStandardFilterLoadingVisibleManyOptions: StoryFn = createFixedThemeStory(
+    component({
+        positionState: DropdownPosition.above,
+        filterMode: FilterMode.standard,
+        loadingVisible: true,
+        manyOptions: true
+    }),
+    lightThemeWhiteBackground
+);
+
+export const selectAboveOpenStandardFilterGroupedManyOptions: StoryFn = createFixedThemeStory(
+    component({
+        positionState: DropdownPosition.above,
+        filterMode: FilterMode.standard,
+        grouped: true,
+        manyOptions: true
+    }),
+    lightThemeWhiteBackground
 );

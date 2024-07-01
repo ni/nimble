@@ -33,8 +33,10 @@ import { iconExclamationMarkTag } from '../icons/exclamation-mark';
 
 import { styles } from './styles';
 import type { ErrorPattern } from '../patterns/error/types';
-import type { DropdownPattern } from '../patterns/dropdown/types';
-import { DropdownAppearance } from '../patterns/dropdown/types';
+import {
+    DropdownAppearance,
+    type DropdownPattern
+} from '../patterns/dropdown/types';
 import type { AnchoredRegion } from '../anchored-region';
 import { template } from './template';
 import { FormAssociatedCombobox } from './models/combobox-form-associated';
@@ -201,12 +203,12 @@ export class Combobox
     public listboxId: string = uniqueId('listbox-');
 
     /**
-     * The max height for the listbox when opened.
+     * The space available in the viewport for the listbox when opened.
      *
      * @internal
      */
     @observable
-    public maxHeight = 0;
+    public availableViewportHeight = 0;
 
     private valueUpdatedByInput = false;
     private valueBeforeTextUpdate?: string;
@@ -625,7 +627,7 @@ export class Combobox
             ? this.positionAttribute
             : this.position;
 
-        this.maxHeight = this.position === SelectPosition.above
+        this.availableViewportHeight = this.position === SelectPosition.above
             ? Math.trunc(currentBox.top)
             : Math.trunc(availableBottom);
     }
@@ -726,10 +728,6 @@ export class Combobox
         this.updateInputAriaLabel();
     }
 
-    private maxHeightChanged(): void {
-        this.updateListboxMaxHeightCssVariable();
-    }
-
     /**
      * Sets the value and to match the first selected option.
      */
@@ -781,15 +779,6 @@ export class Combobox
             ? this.firstSelectedOption?.text
             : this.control.value;
         this.updateValue(this.value !== newValue);
-    }
-
-    private updateListboxMaxHeightCssVariable(): void {
-        if (this.listbox) {
-            this.listbox.style.setProperty(
-                '--ni-private-select-max-height',
-                `${this.maxHeight}px`
-            );
-        }
     }
 
     private updateInputAriaLabel(): void {
