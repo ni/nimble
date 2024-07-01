@@ -1,6 +1,6 @@
 import { css } from '@microsoft/fast-element';
-import { display } from '../../utilities/style/display';
-import { focusVisible } from '../../utilities/style/focus';
+import { display } from '../utilities/style/display';
+import { focusVisible } from '../utilities/style/focus';
 import {
     borderHoverColor,
     linkActiveFontColor,
@@ -9,7 +9,7 @@ import {
     linkFont,
     linkFontColor,
     linkProminentFontColor
-} from '../../theme-provider/design-tokens';
+} from '../theme-provider/design-tokens';
 
 export const styles = css`
     @layer base, hover, focusVisible, active, disabled;
