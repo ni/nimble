@@ -2,7 +2,6 @@
 using Apache.Arrow;
 using Apache.Arrow.Ipc;
 using Microsoft.AspNetCore.Components;
-using Microsoft.Extensions.Options;
 using Microsoft.JSInterop;
 
 namespace NimbleBlazor;
