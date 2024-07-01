@@ -2,6 +2,7 @@
 using Apache.Arrow;
 using Apache.Arrow.Ipc;
 using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Options;
 using Microsoft.JSInterop;
 
 namespace NimbleBlazor;
@@ -18,6 +19,7 @@ public partial class NimbleWaferMap : ComponentBase
     private WaferMapColorScale? _colorScale;
     private bool _highlightedTagsUpdated;
     private IEnumerable<string>? _highlightedTags;
+    private readonly JsonSerializerOptions _options = new() { MaxDepth = 3 };
     internal static string GetWaferMapValidityMethodName = "NimbleBlazor.WaferMap.getValidity";
     internal static string SetWaferMapDiesMethodName = "NimbleBlazor.WaferMap.setDies";
     internal static string SetWaferMapDiesTableMethodName = "NimbleBlazor.WaferMap.setDiesTable";
@@ -142,6 +144,15 @@ public partial class NimbleWaferMap : ComponentBase
     /// Sets the data in the wafer map.
     /// </summary>
     /// <param name="data">The input data, an Apache.Arrow.RecordBatch, which fills the wafer map with content</param>
+    public async Task SetDataAsync(IEnumerable<WaferMapDie> data)
+    {
+        await JSRuntime!.InvokeVoidAsync(SetWaferMapDiesMethodName, _waferMap, JsonSerializer.Serialize(data, _options));
+    }
+
+    /// <summary>
+    /// Sets the data in the wafer map.
+    /// </summary>
+    /// <param name="data">The input data, an Apache.Arrow.RecordBatch, which fills the wafer map with content</param>
     public async Task SetDataAsync(RecordBatch data)
     {
         var stream = new MemoryStream();
@@ -184,20 +195,19 @@ public partial class NimbleWaferMap : ComponentBase
     /// <exception cref="JsonException"></exception>
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        var options = new JsonSerializerOptions { MaxDepth = 3 };
         if (_diesUpdated)
         {
-            await JSRuntime!.InvokeVoidAsync(SetWaferMapDiesMethodName, _waferMap, JsonSerializer.Serialize(_dies, options));
+            await JSRuntime!.InvokeVoidAsync(SetWaferMapDiesMethodName, _waferMap, JsonSerializer.Serialize(_dies, _options));
         }
         _diesUpdated = false;
         if (_colorScaleUpdated)
         {
-            await JSRuntime!.InvokeVoidAsync(SetWaferMapColorScaleMethodName, _waferMap, JsonSerializer.Serialize(_colorScale, options));
+            await JSRuntime!.InvokeVoidAsync(SetWaferMapColorScaleMethodName, _waferMap, JsonSerializer.Serialize(_colorScale, _options));
         }
         _colorScaleUpdated = false;
         if (_highlightedTagsUpdated)
         {
-            await JSRuntime!.InvokeVoidAsync(SetWaferMapHighlightedTagsMethodName, _waferMap, JsonSerializer.Serialize(_highlightedTags, options));
+            await JSRuntime!.InvokeVoidAsync(SetWaferMapHighlightedTagsMethodName, _waferMap, JsonSerializer.Serialize(_highlightedTags, _options));
         }
         _highlightedTagsUpdated = false;
     }
