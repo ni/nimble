@@ -1,11 +1,11 @@
 import {
     DesignSystem,
     BreadcrumbItem as FoundationBreadcrumbItem,
-    breadcrumbItemTemplate as template,
     BreadcrumbItemOptions
 } from '@microsoft/fast-foundation';
 import { forwardSlash16X16 } from '@ni/nimble-tokens/dist/icons/js';
 import { styles } from './styles';
+import { template } from './template';
 
 declare global {
     interface HTMLElementTagNameMap {
