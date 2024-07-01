@@ -19,7 +19,6 @@ export const styles = css`
 
         :host {
             height: ${controlHeight};
-            padding-left: ${mediumPadding};
 
             ${
                 /* When href removed the .control element is also removed
@@ -39,7 +38,6 @@ export const styles = css`
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-right: ${mediumPadding};
             text-decoration: none;
         }
 
@@ -47,13 +45,13 @@ export const styles = css`
             display: none;
         }
 
-        :host(:not([href])) .default-slot {
-            display: inline-flex;
-            margin-right: ${mediumPadding};
-        }
-
         [part='end'] {
             display: none;
+        }
+
+        .separator {
+            padding-left: ${mediumPadding};
+            padding-right: ${mediumPadding};
         }
 
         slot[name='separator'] {

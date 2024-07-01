@@ -1,9 +1,7 @@
 import { html, type ViewTemplate, when } from '@microsoft/fast-element';
-import {
+import type {
     BreadcrumbItemOptions,
-    endSlotTemplate,
-    type FoundationElementTemplate,
-    startSlotTemplate
+    FoundationElementTemplate
 } from '@microsoft/fast-foundation';
 import { template as anchorTemplate } from '../anchor/template';
 import type { BreadcrumbItem } from '.';
@@ -14,13 +12,11 @@ ViewTemplate<BreadcrumbItem>,
 BreadcrumbItemOptions
 > = (context, definition) => html<BreadcrumbItem>`
     <div role="listitem" class="listitem" part="listitem">
-        ${when(x => x.href && x.href.length > 0, html`
+        ${when(x => x.href, html`
             ${anchorTemplate(context, definition)}
         `)}
         ${when(x => !x.href, html`
-            ${startSlotTemplate(context, definition)}
-            <slot class="default-slot"></slot>
-            ${endSlotTemplate(context, definition)}
+            <slot></slot>
         `)}
         ${when(x => x.separator, html`
             <span class="separator" part="separator" aria-hidden="true">
