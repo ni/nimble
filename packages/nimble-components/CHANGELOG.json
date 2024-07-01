@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Mon, 01 Jul 2024 20:14:06 GMT",
+      "version": "29.7.3",
+      "tag": "@ni/nimble-components_v29.7.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "0f03ba3f181a96a585bb01aaf7da3ce74f6aac22",
+            "comment": "Fix Virtualizer usage for latest version"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 27 Jun 2024 20:48:54 GMT",
       "version": "29.7.2",
       "tag": "@ni/nimble-components_v29.7.2",

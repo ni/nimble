@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Fix Virtualizer usage for latest version",
-  "packageName": "@ni/nimble-components",
-  "email": "rajsite@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}

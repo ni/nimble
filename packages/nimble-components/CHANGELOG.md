@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Thu, 27 Jun 2024 17:22:12 GMT and should not be manually modified.
+This log was last generated on Mon, 01 Jul 2024 20:14:06 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 29.7.3
+
+Mon, 01 Jul 2024 20:14:06 GMT
+
+### Patches
+
+- Fix Virtualizer usage for latest version ([ni/nimble@0f03ba3](https://github.com/ni/nimble/commit/0f03ba3f181a96a585bb01aaf7da3ce74f6aac22))
 
 ## 29.7.2
 
