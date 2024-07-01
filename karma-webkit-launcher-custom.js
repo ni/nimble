@@ -253,7 +253,6 @@ const WebkitBrowser = function (baseBrowserDecorator, args) {
 
   this.on("kill", (done) => {
     console.log('---------------------------------------------------------on kill');
-    killMiniBrowser(done);
     // Clean up all remaining processes after 500ms delay on normal clients.
     // if (!isCI) {
       childProcessCleanup(this.id, done);
@@ -371,7 +370,7 @@ const childProcessCleanup = function (task_id, callback) {
 
   if (process.platform !== "darwin") {
     if (isCallbackDefined) {
-      callback();
+      killMiniBrowser(callback);
     }
     return;
   }
@@ -408,7 +407,7 @@ const childProcessCleanup = function (task_id, callback) {
   });
 };
 
-const killMiniBrowser = function () {
+const killMiniBrowser = function (callback) {
   console.log('---------------------------------------------------------killMiniBrowser');
   child_process.exec('ps | grep -i "MiniBrowser"', (error, stdout) => {
     console.log('---------------------------------------------------------killMiniBrowser: ps returned' + stdout);
@@ -427,6 +426,7 @@ const killMiniBrowser = function () {
         killChildProcesses(match);
       }
     }
+    callback();
 
   });
 };
