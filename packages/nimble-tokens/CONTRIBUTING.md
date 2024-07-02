@@ -61,11 +61,10 @@ These steps require access to Adobe Illustrator and Perforce so will typically b
    4. Choose to replace any existing files in the `dist/icons/svg` folder.
 
       <img src="docs/ai-export-4.png" width="600"> 
-3. Proceed to the steps below or [create a user story](https://github.com/ni/nimble/issues/new/choose) requesting that the Nimble team perform them. If filing an issue, attach the new and modified SVG files and also `Nimble_Iconography.ai` to the issue.
+3. Proceed to the steps below or [create a user story](https://github.com/ni/nimble/issues/new/choose) requesting that the Nimble team perform them. If filing an issue, attach the new and modified SVG files to the issue.
 
 ### Adding icons to Nimble
 
-1. In a new branch, copy the Illustrator file to `source/icons/Nimble_Iconography.ai` and the SVG files to `dist/icons/svg`.
 2. Search for all `<defs>.*</defs>` tags in the exported `.svg` files and remove them. This removes all color from the `.svg` files and allows us to dynamically change the fill color.
 
       <img src="docs/find-replace-5.png" width="1000">
