@@ -371,28 +371,13 @@ const childProcessCleanup = function (task_id, callback) {
   if (process.platform === "darwin") {
     childProcessCleanupDarwin(task_id, callback);
   } else if (process.platform === "linux") {
-    childProcessCleanupLinux(task_id, callback);
+    killMiniBrowser(callback);
   } else {
     const isCallbackDefined = callback && typeof callback === "function";
     if (isCallbackDefined) {
       callback();
     }
   }
-};
-
-const childProcessCleanupLinux = function (task_id, callback) {
-  const isCallbackDefined = callback && typeof callback === "function";
-
-  console.log(`---------------------------------------------------------childProcessCleanupLinux: pkill -P ${task_id}`);
-  child_process.exec(`pkill -P ${task_id}`, (error, stdout) => {
-    console.log('---------------------------------------------------------childProcessCleanupLinux: pkill returned' + stdout);
-    if (error) {
-      console.log('---------------------------------------------------------childProcessCleanupLinux: ERROR: ' + error);
-    }
-    if (isCallbackDefined) {
-      callback();
-    }
-  });
 };
 
 const childProcessCleanupDarwin = function (task_id, callback) {
@@ -442,7 +427,7 @@ const printPS = function () {
 
 const killMiniBrowser = function (callback) {
   console.log('---------------------------------------------------------killMiniBrowser');
-  child_process.exec('ps | grep -i "MiniBrowser"', (error, stdout) => {
+  child_process.exec('ps -eo pid,ppid,comm | grep -w "1 MiniBrowser"', (error, stdout) => {
     console.log('---------------------------------------------------------killMiniBrowser: ps returned' + stdout);
     // Ignore error from killed processes.
     if (error && error.signal != "SIGHUP") {
@@ -454,12 +439,13 @@ const killMiniBrowser = function (callback) {
       // Extract process id
       const match = stdout.match(/\b\d+\b/);
       if (match) {
-        console.log('---------------------------------------------------------killMiniBrowser: found MiniBrowser process id');
+        console.log('---------------------------------------------------------killMiniBrowser: found MiniBrowser process id: ' + match[0]);
         // This actually kills any process, not just child processes.
         killChildProcesses(match);
       }
     }
     callback();
+    printPS();
 
   });
 };
