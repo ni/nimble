@@ -2,6 +2,66 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Tue, 02 Jul 2024 00:41:46 GMT",
+      "version": "24.5.7",
+      "tag": "@ni/nimble-angular_v24.5.7",
+      "comments": {
+        "none": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "f3c7da55a2b8b7c9b168b3f36fe9a35ac5236317",
+            "comment": "Avoid another instance of intermittent test component id collision"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 02 Jul 2024 00:04:53 GMT",
+      "version": "24.5.7",
+      "tag": "@ni/nimble-angular_v24.5.7",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v29.7.5",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 01 Jul 2024 23:05:23 GMT",
+      "version": "24.5.6",
+      "tag": "@ni/nimble-angular_v24.5.6",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v29.7.4",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 01 Jul 2024 20:14:06 GMT",
+      "version": "24.5.5",
+      "tag": "@ni/nimble-angular_v24.5.5",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v29.7.3",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 27 Jun 2024 17:22:12 GMT",
       "version": "24.5.4",
       "tag": "@ni/nimble-angular_v24.5.4",

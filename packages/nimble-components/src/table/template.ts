@@ -139,8 +139,8 @@ export const template = html<Table>`
                     <div class="table-row-container ${x => `${x.showCollapseAll ? 'collapse-all-visible' : ''}`}" ${children({ property: 'rowElements', filter: elements(`${tableRowTag}, ${tableGroupRowTag}`) })}
                         role="rowgroup">
                         ${when(x => x.columns.length > 0 && x.canRenderRows, html<Table>`
-                            ${repeat(x => x.virtualizer.visibleItems, html<VirtualItem, Table>`
-                                ${when((x, c: ExecutionContext<Table>) => c.parent.tableData[x.index]?.isGroupRow, html<VirtualItem, Table>`
+                            ${repeat(x => x.virtualizer.visibleItems, html<VirtualItem<HTMLElement>, Table>`
+                                ${when((x, c: ExecutionContext<Table>) => c.parent.tableData[x.index]?.isGroupRow, html<VirtualItem<HTMLElement>, Table>`
                                     <${tableGroupRowTag}
                                         class="group-row"
                                         ${'' /* tabindex managed dynamically by KeyboardNavigationManager */}
@@ -160,7 +160,7 @@ export const template = html<Table>`
                                     >
                                     </${tableGroupRowTag}>
                                 `)}
-                                ${when((x, c: ExecutionContext<Table>) => !c.parent.tableData[x.index]?.isGroupRow, html<VirtualItem, Table>`
+                                ${when((x, c: ExecutionContext<Table>) => !c.parent.tableData[x.index]?.isGroupRow, html<VirtualItem<HTMLElement>, Table>`
                                     <${tableRowTag}
                                         class="row"
                                         ${'' /* tabindex managed dynamically by KeyboardNavigationManager */}
@@ -186,7 +186,7 @@ export const template = html<Table>`
                                         @row-slots-request="${(_, c) => c.parent.onRowSlotsRequest(c.event as CustomEvent<RowSlotRequestEventDetail>)}"
                                         @row-expand-toggle="${(x, c) => c.parent.handleRowExpanded(x.index)}"
                                     >
-                                    ${when((x, c: ExecutionContext<Table>) => c.parent.openActionMenuRecordId === c.parent.tableData[x.index]?.id, html<VirtualItem, Table>`
+                                    ${when((x, c: ExecutionContext<Table>) => c.parent.openActionMenuRecordId === c.parent.tableData[x.index]?.id, html<VirtualItem<HTMLElement>, Table>`
                                         ${repeat((_, c: ExecutionContext<Table>) => c.parent.actionMenuSlots, html<string, Table>`
                                             <slot
                                                 name="${x => x}"
