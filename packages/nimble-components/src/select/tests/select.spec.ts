@@ -655,7 +655,7 @@ describe('Select', () => {
             return fixture<Select>(viewTemplate);
         }
 
-        fit('should limit dropdown height to viewport', async () => {
+        it('should limit dropdown height to viewport', async () => {
             const { element, connect, disconnect } = await setup500Options();
             await connect();
             await clickAndWaitForOpen(element);

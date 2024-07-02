@@ -81,7 +81,7 @@ describe('RichTextMentionListbox', () => {
         await disconnect();
     });
 
-    fit('should limit dropdown height to viewport', async () => {
+    it('should limit dropdown height to viewport', async () => {
         const model = new Model();
         const { connect, disconnect } = await setup500Options(model);
         await connect();
