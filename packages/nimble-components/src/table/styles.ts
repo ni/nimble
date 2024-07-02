@@ -18,6 +18,7 @@ import { themeBehavior } from '../utilities/style/theme';
 import { userSelectNone } from '../utilities/style/user-select';
 import { accessiblyHidden } from '../utilities/style/accessibly-hidden';
 import { ZIndexLevels } from '../utilities/style/types';
+import { focusVisible } from '../utilities/style/focus';
 
 export const styles = css`
     ${display('flex')}
@@ -26,6 +27,16 @@ export const styles = css`
         height: 480px;
         --ni-private-column-divider-width: 2px;
         --ni-private-column-divider-padding: 3px;
+    }
+
+    :host(${focusVisible}) {
+        ${
+            /* The table can briefly be focused in some keyboard nav cases (e.g. regaining focus and we
+            need to scroll to the previously focused row first). Ensure that we don't get the browser-default
+            focus outline in that case.
+        ) */ ''
+        }
+        outline: none;
     }
 
     .disable-select {
@@ -158,6 +169,10 @@ export const styles = css`
         position: relative;
     }
 
+    .table-viewport${focusVisible} {
+        outline: none;
+    }
+
     .table-scroll {
         pointer-events: none;
         position: absolute;
@@ -184,10 +199,17 @@ export const styles = css`
 
     .group-row {
         position: relative;
+        --ni-private-table-cell-focus-offset-multiplier: 0;
     }
 
     .row {
         position: relative;
+        --ni-private-table-cell-focus-offset-multiplier: 0;
+    }
+
+    .collapse-all-visible .row,
+    .collapse-all-visible .group-row {
+        --ni-private-table-cell-focus-offset-multiplier: 1;
     }
 
     .accessibly-hidden {

@@ -182,12 +182,12 @@ export class Select
     public filter = '';
 
     /**
-     * The max height for the listbox when opened.
+     * The space available in the viewport for the listbox when opened.
      *
      * @internal
      */
     @observable
-    public maxHeight = 0;
+    public availableViewportHeight = 0;
 
     /**
      * The component is collapsible when in single-selection mode with no size attribute.
@@ -1022,10 +1022,9 @@ export class Select
             ? this.positionAttribute
             : this.position;
 
-        this.maxHeight = this.position === SelectPosition.above
+        this.availableViewportHeight = this.position === SelectPosition.above
             ? Math.trunc(currentBox.top)
             : Math.trunc(availableBottom);
-        this.updateListboxMaxHeightCssVariable();
     }
 
     private updateAdjacentSeparatorState(
@@ -1231,10 +1230,6 @@ export class Select
         this.$emit('filter-input', eventDetail, { bubbles: true });
     }
 
-    private maxHeightChanged(): void {
-        this.updateListboxMaxHeightCssVariable();
-    }
-
     private initializeOpenState(): void {
         this.setActiveOption(this.selectedIndex);
         this.ariaControls = this.listboxId;
@@ -1242,15 +1237,6 @@ export class Select
 
         this.setPositioning();
         this.focusAndScrollOptionIntoView();
-    }
-
-    private updateListboxMaxHeightCssVariable(): void {
-        if (this.listbox) {
-            this.listbox.style.setProperty(
-                '--ni-private-select-max-height',
-                `${this.maxHeight}px`
-            );
-        }
     }
 }
 

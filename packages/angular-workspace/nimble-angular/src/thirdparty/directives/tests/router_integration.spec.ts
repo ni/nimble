@@ -5,7 +5,7 @@
  * - comment out all tests not involving RouterLink
  * - modify imports
  * - define and use TestRouterLinkDirective/TestRouterLinkModule instead of RouterLink
- * - change selector to avoid NG0912 component ID collision
+ * - uniquify all 'link-cmp' selectors to avoid NG0912 component ID collision. Approach based on: https://angular.io/errors/NG0912#debugging-the-error
  */
 
 /**
@@ -6545,7 +6545,7 @@ describe('Integration', () => {
          }
 
          @Component({
-           selector: 'link-cmp',
+           selector: 'link-cmp:not([nimble-unused-0])',
            template:
                `<a [relativeTo]="route.parent" [routerLink]="[{outlets: {'secondary': null}}]">link</a>
             <button [relativeTo]="route.parent" [routerLink]="[{outlets: {'secondary': null}}]">link</button>
@@ -6588,7 +6588,7 @@ describe('Integration', () => {
 
     it('should ignore empty path for relative links',
        fakeAsync(inject([Router], (router: Router) => {
-         @Component({selector: 'link-cmp', template: `<a [routerLink]="['../simple']">link</a>`})
+         @Component({selector: 'link-cmp:not([nimble-unused-1])', template: `<a [routerLink]="['../simple']">link</a>`})
          class RelativeLinkCmp {
          }
 
@@ -7105,23 +7105,23 @@ function onlyNavigationStartAndEnd(e: Event): e is NavigationStart|NavigationEnd
 }
 
 @Component(
-    {selector: 'link-cmp', template: `<a routerLink="/team/33/simple" [target]="'_self'">link</a>`})
+    {selector: 'link-cmp:not([nimble-unused-2])', template: `<a routerLink="/team/33/simple" [target]="'_self'">link</a>`})
 class StringLinkCmp {
 }
 
-@Component({selector: 'link-cmp', template: `<button routerLink="/team/33/simple">link</button>`})
+@Component({selector: 'link-cmp:not([nimble-unused-3])', template: `<button routerLink="/team/33/simple">link</button>`})
 class StringLinkButtonCmp {
 }
 
 @Component({
-  selector: 'link-cmp',
+  selector: 'link-cmp:not([nimble-unused-4])',
   template: `<router-outlet></router-outlet><a [routerLink]="['/team/33/simple']">link</a>`
 })
 class AbsoluteLinkCmp {
 }
 
 @Component({
-  selector: 'link-cmp',
+  selector: 'link-cmp:not([nimble-unused-5])',
   template:
       `<router-outlet></router-outlet><a routerLinkActive="active" (isActiveChange)="this.onRouterLinkActivated($event)" [routerLinkActiveOptions]="{exact: exact}" ariaCurrentWhenActive="page" [routerLink]="['./']">link</a>
  <button routerLinkActive="active" [routerLinkActiveOptions]="{exact: exact}" [routerLink]="['./']">button</button>
@@ -7140,25 +7140,23 @@ class DummyLinkCmp {
   }
 }
 
-// [Nimble] add irrelevant :not(head) to selector to force distinct component ID generation
-//  Solution based on suggestion from https://angular.io/errors/NG0912#debugging-the-error
-@Component({selector: 'link-cmp:not(head)', template: `<a [routerLink]="['/simple']">link</a>`})
+@Component({selector: 'link-cmp:not([nimble-unused-6])', template: `<a [routerLink]="['/simple']">link</a>`})
 class AbsoluteSimpleLinkCmp {
 }
 
-@Component({selector: 'link-cmp', template: `<a [routerLink]="['../simple']">link</a>`})
+@Component({selector: 'link-cmp:not([nimble-unused-7])', template: `<a [routerLink]="['../simple']">link</a>`})
 class RelativeLinkCmp {
 }
 
 @Component({
-  selector: 'link-cmp',
+  selector: 'link-cmp:not([nimble-unused-8]',
   template: `<a [routerLink]="['../simple']" [queryParams]="{q: '1'}" fragment="f">link</a>`
 })
 class LinkWithQueryParamsAndFragment {
 }
 
 @Component({
-  selector: 'link-cmp',
+  selector: 'link-cmp:not([nimble-unused-9]',
   template: `<a id="link" [routerLink]="['../simple']" [state]="{foo: 'bar'}">link</a>`
 })
 class LinkWithState {
@@ -7282,7 +7280,7 @@ class RouteCmp {
 }
 
 @Component({
-  selector: 'link-cmp',
+  selector: 'link-cmp:not([nimble-unused-10]',
   template:
       `<div *ngIf="show"><a [routerLink]="['./simple']">link</a></div> <router-outlet></router-outlet>`
 })
@@ -7297,7 +7295,7 @@ class OutletInNgIf {
 }
 
 @Component({
-  selector: 'link-cmp',
+  selector: 'link-cmp:not([nimble-unused-11]',
   template: `<router-outlet></router-outlet>
               <div id="link-parent" routerLinkActive="active" [routerLinkActiveOptions]="{exact: exact}">
                 <div ngClass="{one: 'true'}"><a [routerLink]="['./']">link</a></div>

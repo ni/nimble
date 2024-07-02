@@ -3,6 +3,7 @@ import { White } from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
 import { display } from '../../../utilities/style/display';
 import {
     applicationBackgroundColor,
+    borderHoverColor,
     borderWidth,
     controlHeight,
     controlSlimHeight,
@@ -10,12 +11,14 @@ import {
     fillHoverSelectedColor,
     fillSelectedColor,
     mediumPadding,
+    smallPadding,
     standardPadding
 } from '../../../theme-provider/design-tokens';
 import { Theme } from '../../../theme-provider/types';
 import { hexToRgbaCssColor } from '../../../utilities/style/colors';
 import { themeBehavior } from '../../../utilities/style/theme';
 import { styles as expandCollapseStyles } from '../../../patterns/expand-collapse/styles';
+import { focusVisible } from '../../../utilities/style/focus';
 
 export const styles = css`
     ${display('flex')}
@@ -49,6 +52,11 @@ export const styles = css`
 
     :host([selected]:hover)::before {
         background-color: ${fillHoverSelectedColor};
+    }
+
+    :host(${focusVisible}) {
+        outline: calc(2 * ${borderWidth}) solid ${borderHoverColor};
+        outline-offset: calc(-2 * ${borderWidth});
     }
 
     .expand-collapse-button {
@@ -125,11 +133,43 @@ export const styles = css`
         --ni-private-table-cell-action-menu-display: block;
     }
 
+    nimble-table-cell${focusVisible} {
+        --ni-private-table-cell-action-menu-display: block;
+    }
+
+    nimble-table-cell:first-of-type${focusVisible} {
+        margin-left: calc(
+            -1 * (${controlHeight} - ${smallPadding}) * var(--ni-private-table-cell-focus-offset-multiplier)
+        );
+        padding-left: calc(
+            (${controlHeight} - ${mediumPadding}) *
+                var(--ni-private-table-cell-focus-offset-multiplier) +
+                ${mediumPadding}
+        );
+    }
+
+    nimble-table-cell:first-of-type${focusVisible}::before {
+        content: '';
+        display: block;
+        width: calc(
+            (
+                    ${controlHeight} *
+                        var(--ni-private-table-cell-nesting-level) +
+                        ${smallPadding}
+                ) * var(--ni-private-table-cell-focus-offset-multiplier)
+        );
+        height: ${controlHeight};
+    }
+
     :host(:hover) nimble-table-cell {
         --ni-private-table-cell-action-menu-display: block;
     }
 
     :host([selected]) nimble-table-cell {
+        --ni-private-table-cell-action-menu-display: block;
+    }
+
+    :host(${focusVisible}) nimble-table-cell {
         --ni-private-table-cell-action-menu-display: block;
     }
 `.withBehaviors(

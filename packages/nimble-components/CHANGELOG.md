@@ -1,8 +1,56 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Thu, 20 Jun 2024 20:08:12 GMT and should not be manually modified.
+This log was last generated on Tue, 02 Jul 2024 00:04:53 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 29.7.5
+
+Tue, 02 Jul 2024 00:04:53 GMT
+
+### Patches
+
+- Update breadcrumb styling ([ni/nimble@7ec1678](https://github.com/ni/nimble/commit/7ec1678eb1f0d918198f5e32ab6b5f3e9d6682fc))
+
+## 29.7.4
+
+Mon, 01 Jul 2024 23:05:23 GMT
+
+### Patches
+
+- Update tanstack dependencies ([ni/nimble@40a4930](https://github.com/ni/nimble/commit/40a49301bf6784741f82cae3e07aa8741bd20317))
+
+## 29.7.3
+
+Mon, 01 Jul 2024 20:14:06 GMT
+
+### Patches
+
+- Fix Virtualizer usage for latest version ([ni/nimble@0f03ba3](https://github.com/ni/nimble/commit/0f03ba3f181a96a585bb01aaf7da3ce74f6aac22))
+
+## 29.7.2
+
+Thu, 27 Jun 2024 17:22:12 GMT
+
+### Patches
+
+- Make SelectPageObject clickOption reference only visible options. ([ni/nimble@b59758c](https://github.com/ni/nimble/commit/b59758cbfd774f09cb4dd610b08c4ef63c41a110))
+
+## 29.7.1
+
+Wed, 26 Jun 2024 20:18:04 GMT
+
+### Patches
+
+- Limit combobox and select dropdown to 10.5 visible options ([ni/nimble@fc8d514](https://github.com/ni/nimble/commit/fc8d51451dbc8fa1d460a19964fb1277958be4a3))
+
+## 29.7.0
+
+Tue, 25 Jun 2024 18:38:45 GMT
+
+### Minor changes
+
+- Add keyboard navigation functionality to the table component ([ni/nimble@5be33e3](https://github.com/ni/nimble/commit/5be33e36abffe890b932d57f8412f46f4df6714d))
 
 ## 29.6.0
 
