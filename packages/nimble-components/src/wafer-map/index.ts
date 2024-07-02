@@ -5,7 +5,7 @@ import {
 } from '@microsoft/fast-element';
 import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
 import { zoomIdentity, ZoomTransform } from 'd3-zoom';
-import type { Table } from 'apache-arrow';
+import { type Table, tableFromIPC } from 'apache-arrow';
 import { template } from './template';
 import { styles } from './styles';
 import { DataManager } from './modules/data-manager';
@@ -42,6 +42,11 @@ declare global {
 export class WaferMap<
     T extends WaferRequiredFields = WaferRequiredFields
 > extends FoundationElement {
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    public static readonly Arrow = {
+        tableFromIPC
+    };
+
     /**
      * @internal
      * needs to be initialized before the properties trigger changes
@@ -280,6 +285,14 @@ export class WaferMap<
      */
     public isExperimentalUpdate(): boolean {
         return this.diesTable !== undefined;
+    }
+
+    public async setData(tableData: Table): Promise<void> {
+        if (this.currentTask !== undefined) {
+            await this.currentTask;
+        }
+        this.diesTable = tableData;
+        this.waferMapUpdateTracker.queueUpdate();
     }
 
     private createSnapshot(): {

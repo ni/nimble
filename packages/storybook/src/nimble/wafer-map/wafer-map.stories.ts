@@ -53,6 +53,7 @@ interface WaferMapArgs {
     dieHover: unknown;
     validity: WaferMapValidity;
     checkValidity: undefined;
+    setData: undefined;
 }
 
 const getDiesSet = (
@@ -400,6 +401,13 @@ The object's type is \`WaferMapValidity\`, and it contains the following boolean
             description: checkValidityDescription({
                 componentName: 'wafer map'
             }),
+            control: false,
+            table: { category: apiCategory.methods }
+        },
+        setData: {
+            name: 'setData(data)',
+            description:
+                'Used to set data to the wafer map. Part of the Experimental API. The `data` parameter is an apache-arrow `Table`.',
             control: false,
             table: { category: apiCategory.methods }
         }

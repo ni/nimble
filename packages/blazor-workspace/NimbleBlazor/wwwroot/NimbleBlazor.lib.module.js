@@ -209,6 +209,12 @@ window.NimbleBlazor = window.NimbleBlazor ?? {
             const diesObject = JSON.parse(data);
             waferMapReference.dies = diesObject;
         },
+        setDiesTable: async function (waferMapReference, data) {
+            const tableFromIPC = window.customElements.get('nimble-wafer-map').Arrow.tableFromIPC;
+            const table = tableFromIPC(data);
+            await waferMapReference.setData(table);
+        },
+
         setColorScale: function (waferMapReference, data) {
             const colorScaleObject = JSON.parse(data);
             waferMapReference.colorScale = colorScaleObject;
