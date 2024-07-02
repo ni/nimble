@@ -9,7 +9,6 @@
 | dist/icons           | Icons for use in applications           |
 | dist/styledictionary | JSON token source files                 |
 | docs                 | Files used by the documentation         |
-| NimbleTokens         | Project for building the Nuget package  |
 | source/icons         | Illustrator files for editing icons     |
 
 ## Getting started
