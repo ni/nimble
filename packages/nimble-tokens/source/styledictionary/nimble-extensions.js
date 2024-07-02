@@ -76,23 +76,3 @@ StyleDictionary.registerTransformGroup({
         'font/weight'
     ]
 });
-
-StyleDictionary.registerTransform({
-    name: 'color/FromRgb',
-    type: 'value',
-    transitive: true,
-    matcher: token => token.attributes.category === 'color',
-    transformer: token => {
-        const { r, g, b } = (global.fastColorsParseColorHexRGBA(token.value));
-        return `${r * 255}, ${g * 255}, ${b * 255}`;
-    }
-});
-
-StyleDictionary.registerTransformGroup({
-    name: 'ni-color-class',
-    transforms: [
-        'attribute/cti',
-        'name/ti/camel',
-        'color/FromRgb'
-    ]
-});

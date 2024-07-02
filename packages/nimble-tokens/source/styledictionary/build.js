@@ -3,8 +3,6 @@ require('./nimble-extensions');
 const StyleDictionary = require('style-dictionary');
 
 (async () => {
-    global.fastColorsParseColorHexRGBA = (await import('@microsoft/fast-colors')).parseColorHexRGBA;
-
     const coreStyleDictionary = StyleDictionary.extend(
         {
             source: [

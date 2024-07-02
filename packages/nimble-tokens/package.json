@@ -11,9 +11,8 @@
     "build:ts:watch": "tsc -p ./tsconfig.json -w",
     "format": "eslint . --fix",
     "lint": "eslint .",
-    "pack": "npm run pack:npm",
-    "pack:npm": "npm pack",
-    "invoke-publish": "npm run invoke-publish:setup && npm publish"
+    "pack": "npm pack",
+    "invoke-publish": "npm publish"
   },
   "repository": {
     "type": "git",
@@ -31,7 +30,6 @@
   },
   "homepage": "https://github.com/ni/nimble#readme",
   "devDependencies": {
-    "@microsoft/fast-colors": "^5.3.1",
     "@ni-private/eslint-config-nimble": "*",
     "style-dictionary": "^3.9.2",
     "svg-to-ts": "^12.0.0",
