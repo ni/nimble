@@ -76,7 +76,7 @@ export class Tracker<TrackedItemsList extends readonly string[]> {
         return Object.values(this.trackedItems).every(x => !x);
     }
 
-    protected onTrackingChange(): void {}
+    public onTrackingChange(): void {}
 
     private setAllKeys(value: boolean): void {
         type TrackedItems = typeof this.trackedItems;

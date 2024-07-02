@@ -22,6 +22,11 @@ export class ColumnValidator<
         return this.getValidationFlags();
     }
 
+    public override onTrackingChange(): void {
+        super.onTrackingChange();
+        this.isColumnValid = this.isValid();
+    }
+
     /**
      * Sets a particular validity condition flag's value, e.g. "hasInvalidFooValue" = true
      */
@@ -34,9 +39,5 @@ export class ColumnValidator<
         } else {
             this.untrack(name);
         }
-    }
-
-    protected override onTrackingChange(): void {
-        this.isColumnValid = this.isValid();
     }
 }
