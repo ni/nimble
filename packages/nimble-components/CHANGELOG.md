@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Mon, 01 Jul 2024 23:05:23 GMT and should not be manually modified.
+This log was last generated on Tue, 02 Jul 2024 00:04:53 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 29.7.5
+
+Tue, 02 Jul 2024 00:04:53 GMT
+
+### Patches
+
+- Update breadcrumb styling ([ni/nimble@7ec1678](https://github.com/ni/nimble/commit/7ec1678eb1f0d918198f5e32ab6b5f3e9d6682fc))
 
 ## 29.7.4
 
