@@ -2,6 +2,21 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Tue, 02 Jul 2024 00:41:46 GMT",
+      "version": "24.5.7",
+      "tag": "@ni/nimble-angular_v24.5.7",
+      "comments": {
+        "none": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "f3c7da55a2b8b7c9b168b3f36fe9a35ac5236317",
+            "comment": "Avoid another instance of intermittent test component id collision"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 02 Jul 2024 00:04:53 GMT",
       "version": "24.5.7",
       "tag": "@ni/nimble-angular_v24.5.7",

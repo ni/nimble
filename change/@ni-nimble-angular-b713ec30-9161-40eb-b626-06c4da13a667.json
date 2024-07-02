@@ -1,7 +1,0 @@
-{
-  "type": "none",
-  "comment": "Avoid another instance of intermittent test component id collision",
-  "packageName": "@ni/nimble-angular",
-  "email": "7282195+m-akinc@users.noreply.github.com",
-  "dependentChangeType": "none"
-}
