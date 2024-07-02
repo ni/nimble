@@ -59,12 +59,6 @@ In your application JavaScript or TypeScript code, import the token strings you 
 import { White } from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
 ```
 
-#### Other formats
-
-Tokens values are also available as:
- - [C# strings](/packages/nimble-tokens/dist/styledictionary/csharp/colors.cs)
- - [XAML resources](/packages/nimble-tokens/dist/styledictionary/xaml/colors.xaml)
-
 #### Icons
 
 Icons are included in the `nimble-tokens` package, but (like tokens) icons should primarily consumed through framework-specific components.

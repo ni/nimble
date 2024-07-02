@@ -4,9 +4,6 @@
  * and performs additional StyleDictionary builds for custom platforms.
  */
 
-const fs = require('fs');
-const _ = require('lodash');
-const path = require('path');
 const StyleDictionary = require('style-dictionary');
 
 StyleDictionary.registerTransform({
@@ -78,35 +75,6 @@ StyleDictionary.registerTransformGroup({
         'color/hex',
         'font/weight'
     ]
-});
-
-// Templates and transforms to build XAML compatible token resource dictionaries
-const xamlColorTemplatePath = path.resolve(__dirname, './templates/XamlColor.template');
-console.log(`XamlColor template path: ${xamlColorTemplatePath}`);
-const xamlColorTemplate = _.template(fs.readFileSync(xamlColorTemplatePath));
-
-StyleDictionary.registerFormat({
-    name: 'xaml/XamlColor',
-    formatter: xamlColorTemplate
-});
-
-StyleDictionary.registerTransformGroup({
-    name: 'ni-xaml-color',
-    transforms: [
-        'attribute/cti',
-        'size/px',
-        'color/hex8android'
-    ]
-});
-
-// Templates and transforms to build C# token class
-const cSharpClassColorTemplatePath = path.resolve(__dirname, './templates/cSharpClassColor.template');
-console.log(`cSharpClassColor template path: ${cSharpClassColorTemplatePath}`);
-const cSharpClassColorTemplate = _.template(fs.readFileSync(cSharpClassColorTemplatePath));
-
-StyleDictionary.registerFormat({
-    name: 'cSharpClass/Color',
-    formatter: cSharpClassColorTemplate
 });
 
 StyleDictionary.registerTransform({

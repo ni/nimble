@@ -52,49 +52,7 @@ const StyleDictionary = require('style-dictionary');
         }
     );
 
-    const xamlStyleDictionary = StyleDictionary.extend(
-        {
-            source: [
-                'properties/colors.json'
-            ],
-            platforms: {
-                xaml: {
-                    files: [
-                        {
-                            destination: 'colors.xaml',
-                            format: 'xaml/XamlColor'
-                        }
-                    ],
-                    transformGroup: 'ni-xaml-color',
-                    buildPath: '../../dist/styledictionary/xaml/'
-                }
-            }
-        }
-    );
-
-    const cSharpClassStyleDictionary = StyleDictionary.extend(
-        {
-            source: [
-                'properties/colors.json',
-            ],
-            platforms: {
-                xaml: {
-                    files: [
-                        {
-                            destination: 'colors.cs',
-                            format: 'cSharpClass/Color'
-                        }
-                    ],
-                    transformGroup: 'ni-color-class',
-                    buildPath: '../../dist/styledictionary/csharp/'
-                }
-            }
-        }
-    );
-
     coreStyleDictionary.buildAllPlatforms();
-    xamlStyleDictionary.buildAllPlatforms();
-    cSharpClassStyleDictionary.buildAllPlatforms();
 })().catch(ex => {
     throw new Error(ex);
 });
