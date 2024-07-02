@@ -53,7 +53,7 @@ const simpleData = [
         lastName: 'Skinner',
         favoriteColor: 'Purple',
         address: '330 Pikeland Avenue',
-        addressSortOrder: 4,
+        addressSortOrder: 4
     },
     {
         firstName: 'Moe',

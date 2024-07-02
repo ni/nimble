@@ -202,7 +202,8 @@ export const anchorColumn: StoryObj<AnchorColumnTableArgs> = {
                 validityFlags: [
                     {
                         flagName: 'invalidCustomSortWithGrouping',
-                        description: 'true when sort-by-field-name is specified while the column used for grouping.'
+                        description:
+                            'true when sort-by-field-name is specified while the column used for grouping.'
                     }
                 ]
             }),
