@@ -87,15 +87,17 @@ export class TableColumnAnchor extends mixinGroupableColumnAPI(
     public download?: string;
 
     /** @internal */
-    public override defaultSortOperation = TableColumnSortOperation.localeAwareCaseSensitive;
-
-    public placeholderChanged(): void {
-        this.updateColumnConfig();
+    public override getDefaultSortOperation(): TableColumnSortOperation {
+        return TableColumnSortOperation.localeAwareCaseSensitive;
     }
 
     /** @internal */
-    public override get defaultSortFieldName(): string | undefined {
+    public override getDefaultSortFieldName(): string | undefined {
         return this.labelFieldName;
+    }
+
+    public placeholderChanged(): void {
+        this.updateColumnConfig();
     }
 
     protected override getColumnInternalsOptions(): ColumnInternalsOptions<TableColumnAnchorValidator> {
@@ -104,7 +106,7 @@ export class TableColumnAnchor extends mixinGroupableColumnAPI(
             cellViewTag: tableColumnAnchorCellViewTag,
             groupHeaderViewTag: tableColumnTextGroupHeaderViewTag,
             delegatedEvents: ['click'],
-            sortOperation: this.defaultSortOperation,
+            sortOperation: this.getDefaultSortOperation(),
             validator: new TableColumnAnchorValidator()
         };
     }

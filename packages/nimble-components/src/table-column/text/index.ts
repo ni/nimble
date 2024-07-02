@@ -35,17 +35,19 @@ export class TableColumnText extends mixinCustomSortOrderColumnAPI(
     )
 ) {
     /** @internal */
-    public override defaultSortOperation = TableColumnSortOperation.localeAwareCaseSensitive;
+    public override getDefaultSortOperation(): TableColumnSortOperation {
+        return TableColumnSortOperation.localeAwareCaseSensitive;
+    }
+
+    /** @internal */
+    public override getDefaultSortFieldName(): string | undefined {
+        return this.fieldName;
+    }
 
     public placeholderChanged(): void {
         this.columnInternals.columnConfig = {
             placeholder: this.placeholder
         };
-    }
-
-    /** @internal */
-    public override get defaultSortFieldName(): string | undefined {
-        return this.fieldName;
     }
 
     protected override getColumnInternalsOptions(): ColumnInternalsOptions<TableColumnTextValidator> {
@@ -54,7 +56,7 @@ export class TableColumnText extends mixinCustomSortOrderColumnAPI(
             cellViewTag: tableColumnTextCellViewTag,
             groupHeaderViewTag: tableColumnTextGroupHeaderViewTag,
             delegatedEvents: [],
-            sortOperation: this.defaultSortOperation,
+            sortOperation: this.getDefaultSortOperation(),
             validator: new TableColumnTextValidator()
         };
     }

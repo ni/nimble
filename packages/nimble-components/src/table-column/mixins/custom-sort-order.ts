@@ -48,8 +48,8 @@ export function mixinCustomSortOrderColumnAPI<
                 this.columnInternals.operandDataRecordFieldName = this.sortByFieldName;
                 this.columnInternals.sortOperation = TableColumnSortOperation.basic;
             } else {
-                this.columnInternals.operandDataRecordFieldName = this.defaultSortFieldName;
-                this.columnInternals.sortOperation = this.defaultSortOperation;
+                this.columnInternals.operandDataRecordFieldName = this.getDefaultSortFieldName();
+                this.columnInternals.sortOperation = this.getDefaultSortOperation();
             }
         }
 
@@ -80,10 +80,10 @@ export function mixinCustomSortOrderColumnAPI<
         }
 
         /** @internal */
-        public abstract get defaultSortFieldName(): string | undefined;
+        public abstract getDefaultSortFieldName(): string | undefined;
 
         /** @internal */
-        public abstract get defaultSortOperation(): TableColumnSortOperation;
+        public abstract getDefaultSortOperation(): TableColumnSortOperation;
     }
 
     attr({ attribute: 'sort-by-field-name' })(

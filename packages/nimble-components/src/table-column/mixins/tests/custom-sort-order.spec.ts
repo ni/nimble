@@ -31,9 +31,11 @@ const customSortColumnName = uniqueElementName();
 class CustomSortTableColumn extends mixinCustomSortOrderColumnAPI(
     TableColumn<unknown, TestValidator>
     ) {
-    public override readonly defaultSortFieldName = 'defaultSortFieldName';
+    public override getDefaultSortFieldName(): string | undefined {
+        return 'defaultSortFieldName';
+    }
 
-    public override get defaultSortOperation(): TableColumnSortOperation {
+    public override getDefaultSortOperation(): TableColumnSortOperation {
         return TableColumnSortOperation.localeAwareCaseSensitive;
     }
 
@@ -83,10 +85,10 @@ describe('CustomSortOrderColumn', () => {
         element.sortByFieldName = undefined;
 
         expect(element.columnInternals.operandDataRecordFieldName).toBe(
-            element.defaultSortFieldName
+            element.getDefaultSortFieldName()
         );
         expect(element.columnInternals.sortOperation).toBe(
-            element.defaultSortOperation
+            element.getDefaultSortOperation()
         );
     });
 
