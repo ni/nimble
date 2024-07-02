@@ -105,7 +105,7 @@ describe('TableColumnMenuButton', () => {
         );
     });
 
-    it('updating table data updates menu button text', async () => {
+    it('updating fieldName updates menu button text', async () => {
         await table.setData([
             { field: 'value', anotherField: 'another value' }
         ]);
