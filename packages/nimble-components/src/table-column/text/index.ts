@@ -8,7 +8,8 @@ import { tableColumnTextGroupHeaderViewTag } from './group-header-view';
 import { tableColumnTextCellViewTag } from './cell-view';
 import type { ColumnInternalsOptions } from '../base/models/column-internals';
 import type { TableColumnTextBaseColumnConfig } from '../text-base/cell-view';
-import { ColumnValidator } from '../base/models/column-validator';
+import { mixinCustomSortOrderColumnAPI } from '../mixins/custom-sort-order';
+import { TableColumnTextValidator } from './models/table-column-text-validator';
 
 export type TableColumnTextCellRecord = TableStringField<'value'>;
 
@@ -25,24 +26,44 @@ declare global {
 /**
  * The table column for displaying string fields as text.
  */
-export class TableColumnText extends mixinTextBase(
-    TableColumnTextBase<TableColumnTextColumnConfig>
+export class TableColumnText extends mixinCustomSortOrderColumnAPI(
+    mixinTextBase(
+        TableColumnTextBase<
+        TableColumnTextColumnConfig,
+        TableColumnTextValidator
+        >
+    )
 ) {
+    /** @internal */
+    public override getDefaultSortOperation(): TableColumnSortOperation {
+        return TableColumnSortOperation.localeAwareCaseSensitive;
+    }
+
+    /** @internal */
+    public override getDefaultSortFieldName(): string | undefined {
+        return this.fieldName;
+    }
+
     public placeholderChanged(): void {
         this.columnInternals.columnConfig = {
             placeholder: this.placeholder
         };
     }
 
-    protected override getColumnInternalsOptions(): ColumnInternalsOptions {
+    protected override getColumnInternalsOptions(): ColumnInternalsOptions<TableColumnTextValidator> {
         return {
             cellRecordFieldNames: ['value'],
             cellViewTag: tableColumnTextCellViewTag,
             groupHeaderViewTag: tableColumnTextGroupHeaderViewTag,
             delegatedEvents: [],
-            sortOperation: TableColumnSortOperation.localeAwareCaseSensitive,
-            validator: new ColumnValidator<[]>([])
+            sortOperation: this.getDefaultSortOperation(),
+            validator: new TableColumnTextValidator()
         };
+    }
+
+    protected override fieldNameChanged(): void {
+        this.columnInternals.dataRecordFieldNames = [this.fieldName] as const;
+        this.updateOperandDataRecordFieldName();
     }
 }
 

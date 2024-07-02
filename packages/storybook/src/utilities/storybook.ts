@@ -208,3 +208,11 @@ export const preventDismissDescription = (options: {
 export const checkValidityDescription = (options: {
     componentName: string
 }): string => `Returns \`true\` if the configuration of the ${options.componentName} is valid, otherwise \`false\`.`;
+
+export const validityDescription = (options: {
+    componentName: string,
+    validityObjectType: string,
+    validityFlags: { flagName: string, description: string }[]
+}): string => `Readonly object of boolean values that represents the validity states that the \`${options.componentName}\`'s configuration can be in.
+The object's type is \`${options.validityObjectType}\`, and it contains the following boolean properties:
+${options.validityFlags.map(flag => `-   \`${flag.flagName}\`: ${flag.description}`).join('\n')}`;

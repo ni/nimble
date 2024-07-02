@@ -53,4 +53,58 @@ describe('The Tracker Utility', () => {
         tracker.untrackAll();
         expect(tracker.noneTracked()).toBeTrue();
     });
+
+    describe('handle change', () => {
+        it('is called when track() changes state', () => {
+            const spy = spyOn(tracker, 'onTrackingChange');
+            tracker.track('a');
+            expect(spy).toHaveBeenCalledTimes(1);
+        });
+
+        it('is not called when track() does not change state', () => {
+            tracker.track('a');
+            const spy = spyOn(tracker, 'onTrackingChange');
+            tracker.track('a');
+            expect(spy).not.toHaveBeenCalled();
+        });
+
+        it('is called when untrack() changes state', () => {
+            tracker.track('a');
+            const spy = spyOn(tracker, 'onTrackingChange');
+            tracker.untrack('a');
+            expect(spy).toHaveBeenCalledTimes(1);
+        });
+
+        it('is not called when untrack() does not change state', () => {
+            const spy = spyOn(tracker, 'onTrackingChange');
+            tracker.untrack('a');
+            expect(spy).not.toHaveBeenCalled();
+        });
+
+        it('is called when trackAll() changes state', () => {
+            const spy = spyOn(tracker, 'onTrackingChange');
+            tracker.trackAll();
+            expect(spy).toHaveBeenCalledTimes(1);
+        });
+
+        it('is not called when trackAll() does not change state', () => {
+            tracker.trackAll();
+            const spy = spyOn(tracker, 'onTrackingChange');
+            tracker.trackAll();
+            expect(spy).not.toHaveBeenCalled();
+        });
+
+        it('is called when untrackAll() changes state', () => {
+            tracker.trackAll();
+            const spy = spyOn(tracker, 'onTrackingChange');
+            tracker.untrackAll();
+            expect(spy).toHaveBeenCalledTimes(1);
+        });
+
+        it('is not called when untrackAll() does not change state', () => {
+            const spy = spyOn(tracker, 'onTrackingChange');
+            tracker.untrackAll();
+            expect(spy).not.toHaveBeenCalled();
+        });
+    });
 });
