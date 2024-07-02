@@ -48,8 +48,8 @@ export function mixinCustomSortOrderColumnAPI<
                 this.columnInternals.operandDataRecordFieldName = this.sortByFieldName;
                 this.columnInternals.sortOperation = TableColumnSortOperation.basic;
             } else {
-                this.columnInternals.operandDataRecordFieldName = this.getDefaultSortFieldName();
-                this.columnInternals.sortOperation = this.getDefaultSortOperation();
+                this.columnInternals.operandDataRecordFieldName = this.defaultSortFieldName;
+                this.columnInternals.sortOperation = this.defaultSortOperation;
             }
         }
 
@@ -57,6 +57,8 @@ export function mixinCustomSortOrderColumnAPI<
         public handleChange(_source: unknown, args: unknown): void {
             if (args === 'groupingDisabled' || args === 'groupIndex') {
                 this.updateCustomColumnSortingValidity();
+            } else if (args === 'dataRecordFieldNames') {
+                this.updateOperandDataRecordFieldName();
             }
         }
 
@@ -78,11 +80,12 @@ export function mixinCustomSortOrderColumnAPI<
         }
 
         /** @internal */
-        public abstract getDefaultSortFieldName(): string | undefined;
+        public abstract get defaultSortFieldName(): string | undefined;
 
         /** @internal */
-        public abstract getDefaultSortOperation(): TableColumnSortOperation;
+        public abstract get defaultSortOperation(): TableColumnSortOperation;
     }
+
     attr({ attribute: 'sort-by-field-name' })(
         // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
         CustomSortOrderColumn.prototype,

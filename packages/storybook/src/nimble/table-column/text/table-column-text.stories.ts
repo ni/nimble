@@ -12,7 +12,8 @@ import {
 import {
     apiCategory,
     checkValidityDescription,
-    createUserSelectedThemeStory
+    createUserSelectedThemeStory,
+    validityDescription
 } from '../../../utilities/storybook';
 
 const simpleData = [
@@ -48,7 +49,7 @@ const simpleData = [
         addressSortOrder: 1
     },
     {
-        firstName: 'Anges',
+        firstName: 'Agnes',
         lastName: 'Skinner',
         favoriteColor: 'Purple',
         address: '330 Pikeland Avenue',
@@ -95,10 +96,22 @@ interface TextColumnTableArgs extends SharedTableArgs {
     validity: never;
 }
 
-const validityDescription = `Readonly object of boolean values that represents the validity states that the column's configuration can be in.
-The object's type is \`TableColumnValidity\`, and it contains the following boolean properties:
--   \`invalidCustomSortWithGrouping\`: \`true\` when \`sort-by-field-name\` is specified while the column used for grouping.
-`;
+// const validityDescription = validityDescriptionFn({
+//     componentName: tableColumnTextTag,
+//     validityObjectType: 'TableColumnValidity',
+//     validityFlags: [
+//         {
+//             flagName: 'invalidCustomSortWithGrouping',
+//             description:
+//                 'true when `sort-by-field-name` is specified while the column used for grouping.'
+//         }
+//     ]
+// });
+
+// `Readonly object of boolean values that represents the validity states that the column's configuration can be in.
+// The object's type is \`TableColumnValidity\`, and it contains the following boolean properties:
+// -   \`invalidCustomSortWithGrouping\`: \`true\` when \`sort-by-field-name\` is specified while the column used for grouping.
+// `;
 
 export const textColumn: StoryObj<TextColumnTableArgs> = {
     parameters: {},
@@ -148,7 +161,7 @@ export const textColumn: StoryObj<TextColumnTableArgs> = {
         sortByFieldName: {
             name: 'sort-by-field-name',
             description:
-                'Set this attribute to identify a field to sort the column by. If not set, the column will sort by the `field-name` field. It is invalid to group by a column with `sort-by-field-name` configured.',
+                'Set this attribute to identify a numeric field to sort the column by. If not set, the column will sort by the `field-name` field. It is invalid to group by a column with `sort-by-field-name` configured.',
             options: ['firstNameSortIndex', 'lastNameSortIndex'],
             control: false,
             table: { category: apiCategory.attributes }
@@ -162,7 +175,17 @@ export const textColumn: StoryObj<TextColumnTableArgs> = {
             control: false
         },
         validity: {
-            description: validityDescription,
+            description: validityDescription({
+                componentName: tableColumnTextTag,
+                validityObjectType: 'TableColumnValidity',
+                validityFlags: [
+                    {
+                        flagName: 'invalidCustomSortWithGrouping',
+                        description:
+                            'true when `sort-by-field-name` is specified while the column used for grouping.'
+                    }
+                ]
+            }),
             table: { category: apiCategory.nonAttributeProperties },
             control: false
         }

@@ -31,11 +31,9 @@ const customSortColumnName = uniqueElementName();
 class CustomSortTableColumn extends mixinCustomSortOrderColumnAPI(
     TableColumn<unknown, TestValidator>
     ) {
-    public override getDefaultSortFieldName(): string | undefined {
-        return 'defaultSortFieldName';
-    }
+    public override readonly defaultSortFieldName = 'defaultSortFieldName';
 
-    public override getDefaultSortOperation(): TableColumnSortOperation {
+    public override get defaultSortOperation(): TableColumnSortOperation {
         return TableColumnSortOperation.localeAwareCaseSensitive;
     }
 
@@ -82,26 +80,13 @@ describe('CustomSortOrderColumn', () => {
     it('clearing sortByFieldName resets columnInternals.operandFieldName and columnInternals.sortOperation', () => {
         element.sortByFieldName = 'customFieldName';
 
-        const columnDefaultSortFieldName = 'expectedFieldName';
-        const getDefaultSortFieldNameSpy = spyOn(
-            element,
-            'getDefaultSortFieldName'
-        ).and.returnValue(columnDefaultSortFieldName);
-        const columnDefaultSortOperation = TableColumnSortOperation.localeAwareCaseSensitive;
-        const getDefaultSortOperationSpy = spyOn(
-            element,
-            'getDefaultSortOperation'
-        ).and.returnValue(columnDefaultSortOperation);
-
         element.sortByFieldName = undefined;
 
-        expect(getDefaultSortFieldNameSpy).toHaveBeenCalledTimes(1);
         expect(element.columnInternals.operandDataRecordFieldName).toBe(
-            columnDefaultSortFieldName
+            element.defaultSortFieldName
         );
-        expect(getDefaultSortOperationSpy).toHaveBeenCalledTimes(1);
         expect(element.columnInternals.sortOperation).toBe(
-            columnDefaultSortOperation
+            element.defaultSortOperation
         );
     });
 

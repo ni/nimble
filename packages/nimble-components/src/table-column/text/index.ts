@@ -34,6 +34,9 @@ export class TableColumnText extends mixinCustomSortOrderColumnAPI(
         >
     )
 ) {
+    /** @internal */
+    public override defaultSortOperation = TableColumnSortOperation.localeAwareCaseSensitive;
+
     public placeholderChanged(): void {
         this.columnInternals.columnConfig = {
             placeholder: this.placeholder
@@ -41,13 +44,8 @@ export class TableColumnText extends mixinCustomSortOrderColumnAPI(
     }
 
     /** @internal */
-    public override getDefaultSortFieldName(): string | undefined {
+    public override get defaultSortFieldName(): string | undefined {
         return this.fieldName;
-    }
-
-    /** @internal */
-    public override getDefaultSortOperation(): TableColumnSortOperation {
-        return TableColumnSortOperation.localeAwareCaseSensitive;
     }
 
     protected override getColumnInternalsOptions(): ColumnInternalsOptions<TableColumnTextValidator> {
@@ -56,7 +54,7 @@ export class TableColumnText extends mixinCustomSortOrderColumnAPI(
             cellViewTag: tableColumnTextCellViewTag,
             groupHeaderViewTag: tableColumnTextGroupHeaderViewTag,
             delegatedEvents: [],
-            sortOperation: TableColumnSortOperation.localeAwareCaseSensitive,
+            sortOperation: this.defaultSortOperation,
             validator: new TableColumnTextValidator()
         };
     }
