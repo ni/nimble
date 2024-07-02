@@ -20,7 +20,7 @@ import type { TableNode, TableRecord } from '../types';
  */
 export class Virtualizer<TData extends TableRecord = TableRecord> {
     @observable
-    public visibleItems: VirtualItem[] = [];
+    public visibleItems: VirtualItem<HTMLElement>[] = [];
 
     @observable
     public scrollHeight = 0;
@@ -69,7 +69,10 @@ export class Virtualizer<TData extends TableRecord = TableRecord> {
     public connect(): void {
         this.viewportResizeObserver.observe(this.table.viewport);
         this.updateVirtualizer();
-        this.table.viewport.scrollTo({ top: this.virtualizer!.scrollOffset });
+        const scrollOffset = this.virtualizer!.scrollOffset;
+        if (scrollOffset !== null) {
+            this.table.viewport.scrollTo({ top: scrollOffset });
+        }
     }
 
     public disconnect(): void {
