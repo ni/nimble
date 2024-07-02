@@ -96,23 +96,6 @@ interface TextColumnTableArgs extends SharedTableArgs {
     validity: never;
 }
 
-// const validityDescription = validityDescriptionFn({
-//     componentName: tableColumnTextTag,
-//     validityObjectType: 'TableColumnValidity',
-//     validityFlags: [
-//         {
-//             flagName: 'invalidCustomSortWithGrouping',
-//             description:
-//                 'true when `sort-by-field-name` is specified while the column used for grouping.'
-//         }
-//     ]
-// });
-
-// `Readonly object of boolean values that represents the validity states that the column's configuration can be in.
-// The object's type is \`TableColumnValidity\`, and it contains the following boolean properties:
-// -   \`invalidCustomSortWithGrouping\`: \`true\` when \`sort-by-field-name\` is specified while the column used for grouping.
-// `;
-
 export const textColumn: StoryObj<TextColumnTableArgs> = {
     parameters: {},
     // prettier-ignore
