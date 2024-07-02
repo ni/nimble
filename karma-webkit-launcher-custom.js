@@ -368,10 +368,9 @@ const closeSafariTab = function (url) {
  * @param {function} callback - An optional callback function to execute after cleanup.
  */
 const childProcessCleanup = function (task_id, callback) {
-  console.log('-----------------------------------------' + process.platform);
   if (process.platform === "darwin") {
     childProcessCleanupDarwin(task_id, callback);
-  } else if (process.platform.startsWith("Linux")) {
+  } else if (process.platform === "linux") {
     childProcessCleanupLinux(task_id, callback);
   } else {
     const isCallbackDefined = callback && typeof callback === "function";
@@ -384,6 +383,7 @@ const childProcessCleanup = function (task_id, callback) {
 const childProcessCleanupLinux = function (task_id, callback) {
   const isCallbackDefined = callback && typeof callback === "function";
 
+  console.log(`---------------------------------------------------------childProcessCleanupLinux: pkill -P ${task_id}`);
   child_process.exec(`pkill -P ${task_id}`, (error, stdout) => {
     console.log('---------------------------------------------------------childProcessCleanupLinux: pkill returned' + stdout);
     if (error) {
@@ -432,7 +432,7 @@ const childProcessCleanupDarwin = function (task_id, callback) {
 
 const printPS = function () {
   console.log('---------------------------------------------------------printPS');
-  child_process.exec('ps', (error, stdout) => {
+  child_process.exec('ps -eo pid,ppid,comm', (error, stdout) => {
     console.log('---------------------------------------------------------printPS: ps returned' + stdout);
     if (error) {
       console.log('---------------------------------------------------------printPS: ERROR: ' + error);
