@@ -22,30 +22,6 @@ export class ColumnValidator<
         return this.getValidationFlags();
     }
 
-    public override track(
-        key: ValidityFlagNames extends readonly (infer U)[] ? U : never
-    ): void {
-        super.track(key);
-        this.updateColumnInternalsFlag();
-    }
-
-    public override untrack(
-        key: ValidityFlagNames extends readonly (infer U)[] ? U : never
-    ): void {
-        super.untrack(key);
-        this.updateColumnInternalsFlag();
-    }
-
-    public override trackAll(): void {
-        super.trackAll();
-        this.updateColumnInternalsFlag();
-    }
-
-    public override untrackAll(): void {
-        super.untrackAll();
-        this.updateColumnInternalsFlag();
-    }
-
     /**
      * Sets a particular validity condition flag's value, e.g. "hasInvalidFooValue" = true
      */
@@ -58,10 +34,9 @@ export class ColumnValidator<
         } else {
             this.untrack(name);
         }
-        this.updateColumnInternalsFlag();
     }
 
-    private updateColumnInternalsFlag(): void {
+    protected override onTrackingChange(): void {
         this.isColumnValid = this.isValid();
     }
 }

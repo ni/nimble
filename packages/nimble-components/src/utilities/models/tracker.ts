@@ -31,19 +31,37 @@ export class Tracker<TrackedItemsList extends readonly string[]> {
     }
 
     public track(key: keyof ObjectFromList<TrackedItemsList>): void {
-        this.trackedItems[key] = true;
+        const wasTracked = this.trackedItems[key];
+        if (!wasTracked) {
+            this.trackedItems[key] = true;
+            this.onTrackingChange();
+        }
     }
 
     public untrack(key: keyof ObjectFromList<TrackedItemsList>): void {
-        this.trackedItems[key] = false;
+        const wasTracked = this.trackedItems[key];
+        if (wasTracked) {
+            this.trackedItems[key] = false;
+            this.onTrackingChange();
+        }
     }
 
     public trackAll(): void {
+        if (this.allTracked()) {
+            return;
+        }
+
         this.setAllKeys(true);
+        this.onTrackingChange();
     }
 
     public untrackAll(): void {
+        if (this.noneTracked()) {
+            return;
+        }
+
         this.setAllKeys(false);
+        this.onTrackingChange();
     }
 
     public allTracked(): boolean {
@@ -57,6 +75,8 @@ export class Tracker<TrackedItemsList extends readonly string[]> {
     public noneTracked(): boolean {
         return Object.values(this.trackedItems).every(x => !x);
     }
+
+    protected onTrackingChange(): void {}
 
     private setAllKeys(value: boolean): void {
         type TrackedItems = typeof this.trackedItems;
