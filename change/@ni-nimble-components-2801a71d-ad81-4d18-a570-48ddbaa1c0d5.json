@@ -1,7 +1,0 @@
-{
-  "type": "none",
-  "comment": "remove unused css-loader dep",
-  "packageName": "@ni/nimble-components",
-  "email": "rajsite@users.noreply.github.com",
-  "dependentChangeType": "none"
-}
