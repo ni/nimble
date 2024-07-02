@@ -4,7 +4,3 @@ dist/icons/*
 dist/fonts/scss
 
 dist/styledictionary
-
-NimbleTokens/bin
-NimbleTokens/obj
-NimbleTokens/.vs
