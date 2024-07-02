@@ -142,7 +142,7 @@ public partial class NimbleWaferMap : ComponentBase
     /// <summary>
     /// Sets the data in the wafer map.
     /// </summary>
-    /// <param name="data">The input data, an Apache.Arrow.RecordBatch, which fills the wafer map with content</param>
+    /// <param name="data">The input data, an array of `WaferMapDie`, which fills the wafer map with content</param>
     public async Task SetDataAsync(IEnumerable<WaferMapDie> data)
     {
         await JSRuntime!.InvokeVoidAsync(SetWaferMapDiesMethodName, _waferMap, JsonSerializer.Serialize(data, _options));
