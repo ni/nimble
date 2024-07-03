@@ -66,6 +66,13 @@ export class MenuButtonPageObject {
     }
 
     /**
+     * @returns Whether or not the menu button is focused.
+     */
+    public isFocused(): boolean {
+        return this.menuButtonElement.shadowRoot?.activeElement !== null;
+    }
+
+    /**
      * @internal
      * Focuses and clicks the menu button.
      */

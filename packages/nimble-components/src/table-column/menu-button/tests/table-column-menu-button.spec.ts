@@ -1,5 +1,6 @@
 import { html, ref } from '@microsoft/fast-element';
-import { parameterizeSpec } from '@ni/jasmine-parameterized';
+import { parameterizeSpec, parameterizeSuite } from '@ni/jasmine-parameterized';
+import { keyArrowDown, keyEscape, keyTab } from '@microsoft/fast-web-utilities';
 import { tableTag, type Table } from '../../../table';
 import { TableColumnMenuButton, tableColumnMenuButtonTag } from '..';
 import { waitForUpdatesAsync } from '../../../testing/async-helpers';
@@ -10,9 +11,10 @@ import { TableColumnMenuButtonPageObject } from '../testing/table-column-menu-bu
 import { wackyStrings } from '../../../utilities/tests/wacky-strings';
 import { MenuButtonPageObject } from '../../../menu-button/testing/menu-button.pageobject';
 import type { MenuButtonColumnToggleEventDetail } from '../types';
-import { createEventListener } from '../../../utilities/tests/component';
+import { createEventListener, sendKeyDownEvent } from '../../../utilities/tests/component';
 import { Menu, menuTag } from '../../../menu';
 import { MenuItem, menuItemTag } from '../../../menu-item';
+import { MenuButton } from '../../../menu-button';
 
 interface SimpleTableRecord extends TableRecord {
     id?: string;
@@ -87,11 +89,28 @@ describe('TableColumnMenuButton', () => {
         ).toBeInstanceOf(TableColumnMenuButton);
     });
 
+    it('reports column configuration valid', async () => {
+        await connect();
+        await waitForUpdatesAsync();
+
+        expect(column.checkValidity()).toBeTrue();
+    });
+
     it('renders a menu button with record value when data is a non-empty string value', async () => {
         await table.setData([{ field: 'value' }]);
         await waitForUpdatesAsync();
 
         expect(pageObject.getMenuButton(0, 0)?.getLabelText()).toEqual('value');
+    });
+
+    it('cell view tabbableChildren contains the menu button when data is a non-empty string', async () => {
+        await table.setData([{ field: 'value' }]);
+        await waitForUpdatesAsync();
+
+        const cellView = tablePageObject.getRenderedCellView(0, 0);
+        expect(cellView.tabbableChildren.length).toEqual(1);
+        const tabbableChild = cellView.tabbableChildren[0];
+        expect(tabbableChild).toBeInstanceOf(MenuButton);
     });
 
     it('updating table data updates menu button text', async () => {
@@ -124,12 +143,21 @@ describe('TableColumnMenuButton', () => {
         { name: 'null', value: null },
         { name: 'undefined', value: undefined }
     ] as const;
-    parameterizeSpec(emptyCellValues, (spec, name, value) => {
-        spec(`does not render a menu button when data is ${name}`, async () => {
-            await table.setData([{ field: value.value }]);
-            await waitForUpdatesAsync();
+    parameterizeSuite(emptyCellValues, (suite, name, value) => {
+        suite(`when data is ${name}`, () => {
+            beforeEach(async () => {
+                await table.setData([{ field: value.value }]);
+                await waitForUpdatesAsync();
+            });
 
-            expect(pageObject.getMenuButton(0, 0)).toBeFalsy();
+            it('does not render a menu button', () => {
+                expect(pageObject.getMenuButton(0, 0)).toBeFalsy();
+            });
+
+            it('cell view tabbableChildren is an empty array', () => {
+                const cellView = tablePageObject.getRenderedCellView(0, 0);
+                expect(cellView.tabbableChildren).toEqual([]);
+            });
         });
     });
 
@@ -237,11 +265,28 @@ describe('TableColumnMenuButton', () => {
             const selection = await table.getSelectedRecordIds();
             expect(selection.length).toBe(0);
         });
+
+        it('when closing a menu button by clicking', async () => {
+            // Open the menu button
+            menuButton.clickMenuButton();
+            expect(menuButton.isOpen()).toBeTrue();
+
+            // Close the menu button
+            menuButton.clickMenuButton();
+            expect(menuButton.isOpen()).toBeFalse();
+            await waitForUpdatesAsync();
+
+            const selection = await table.getSelectedRecordIds();
+            expect(selection.length).toBe(0);
+        });
     });
 
     describe('menu button interactions', () => {
         let menuButton: MenuButtonPageObject;
         const recordId = 'id-0' as const;
+        const originalData = [
+            { id: recordId, field: 'value', anotherField: 'another value' }
+        ] as const;
 
         function getEventDetailFromSpy(
             spy: jasmine.Spy
@@ -253,9 +298,7 @@ describe('TableColumnMenuButton', () => {
 
         beforeEach(async () => {
             table.idFieldName = 'id';
-            await table.setData([
-                { id: recordId, field: 'value', anotherField: 'another value' }
-            ]);
+            await table.setData(originalData);
             await waitForUpdatesAsync();
             menuButton = pageObject.getMenuButton(0, 0)!;
         });
@@ -291,7 +334,7 @@ describe('TableColumnMenuButton', () => {
             expect(eventDetail).toEqual(expectedDetails);
         });
 
-        it('closing menu button fires "menu-button-column-beforetoggle" followed by "menu-button-column-toggle"', async () => {
+        it('closing menu button with ESC fires "menu-button-column-beforetoggle" followed by "menu-button-column-toggle"', async () => {
             await menuButton.openMenu();
 
             const beforeToggleListener = createEventListener(
@@ -322,6 +365,76 @@ describe('TableColumnMenuButton', () => {
             expect(toggleListener.spy).toHaveBeenCalledTimes(1);
             eventDetail = getEventDetailFromSpy(toggleListener.spy);
             expect(eventDetail).toEqual(expectedDetails);
+
+            expect(menuButton.isOpen()).toBeFalse();
+        });
+
+        it('closing menu button by clicking fires "menu-button-column-beforetoggle" followed by "menu-button-column-toggle"', async () => {
+            await menuButton.openMenu();
+
+            const beforeToggleListener = createEventListener(
+                column,
+                'menu-button-column-beforetoggle'
+            );
+            const toggleListener = createEventListener(
+                column,
+                'menu-button-column-toggle'
+            );
+
+            menuButton.clickMenuButton();
+
+            const expectedDetails: MenuButtonColumnToggleEventDetail = {
+                recordId,
+                newState: false,
+                oldState: true
+            };
+
+            await beforeToggleListener.promise;
+            expect(beforeToggleListener.spy).toHaveBeenCalledTimes(1);
+            let eventDetail = getEventDetailFromSpy(beforeToggleListener.spy);
+            expect(eventDetail).toEqual(expectedDetails);
+            beforeToggleListener.spy.calls.reset();
+
+            await toggleListener.promise;
+            expect(beforeToggleListener.spy).not.toHaveBeenCalled();
+            expect(toggleListener.spy).toHaveBeenCalledTimes(1);
+            eventDetail = getEventDetailFromSpy(toggleListener.spy);
+            expect(eventDetail).toEqual(expectedDetails);
+
+            expect(menuButton.isOpen()).toBeFalse();
+        });
+
+        it('calling setData() closes the menu button', async () => {
+            await menuButton.openMenu();
+            expect(menuButton.isOpen()).toBeTrue();
+
+            await table.setData([
+                ...originalData,
+                { id: 'id-1', field: 'value-1', anotherField: 'another value-1' },
+                { id: 'id-2', field: 'value-2', anotherField: 'another value-2' }
+            ]);
+            await waitForUpdatesAsync();
+
+            const menuButtonAfterSetData = pageObject.getMenuButton(0, 0)!;
+            expect(menuButtonAfterSetData.isOpen()).toBeFalse();
+        });
+
+        it('scrolling the table closes the menu button', async () => {
+            const largeDataSet = Array.from({ length: 100 }, (_, i) => ({
+                id: `id-${i}`,
+                field: `value-${i}`
+            }));
+            await table.setData(largeDataSet);
+            await waitForUpdatesAsync();
+
+            expect(tablePageObject.isVerticalScrollbarVisible()).toBeTrue();
+
+            await menuButton.openMenu();
+            expect(menuButton.isOpen()).toBeTrue();
+
+            await tablePageObject.scrollToLastRowAsync();
+            await tablePageObject.scrollToFirstRowAsync();
+            expect(menuButton.isOpen()).toBeFalse();
         });
 
         describe('opens and focuses menu item', () => {
@@ -532,6 +645,45 @@ describe('TableColumnMenuButton', () => {
                 expect(document.activeElement).toBe(
                     elementReferences.firstMenuItem
                 );
+            });
+        });
+    });
+
+    describe('keyboard navigation', () => {
+        let menuButton: MenuButtonPageObject;
+
+        beforeEach(async () => {
+            const tableData = [
+                { field: 'value' }
+            ];
+            await table.setData(tableData);
+            await connect();
+            await waitForUpdatesAsync();
+            table.focus();
+            await waitForUpdatesAsync();
+            menuButton = pageObject.getMenuButton(0, 0)!;
+        });
+
+        afterEach(async () => {
+            await disconnect();
+        });
+
+        describe('with cell[0, 0] focused,', () => {
+            beforeEach(async () => {
+                await sendKeyDownEvent(table, keyArrowDown);
+            });
+
+            it('menu button in cells are reachable via Tab', async () => {
+                await sendKeyDownEvent(table, keyTab);
+
+                expect(menuButton.isFocused()).toBeTrue();
+            });
+
+            it('when menu button is focused, pressing Esc will blur the menu button', async () => {
+                await sendKeyDownEvent(table, keyTab);
+                await sendKeyDownEvent(table, keyEscape);
+
+                expect(menuButton.isFocused()).toBeFalse();
             });
         });
     });
