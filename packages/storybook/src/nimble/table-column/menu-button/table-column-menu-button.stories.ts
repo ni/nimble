@@ -16,7 +16,8 @@ import {
 } from '../base/table-column-stories-utils';
 import {
     apiCategory,
-    createUserSelectedThemeStory
+    createUserSelectedThemeStory,
+    disableStorybookZoomTransform
 } from '../../../utilities/storybook';
 
 const simpleData = [
@@ -235,6 +236,7 @@ export const menuButtonColumn: StoryObj<MenuButtonColumnTableArgs> = {
     parameters: {},
     // prettier-ignore
     render: createUserSelectedThemeStory(html<MenuButtonColumnTableArgs>`
+        ${disableStorybookZoomTransform} 
         <${tableTag}
             ${ref('tableRef')}
             data-unused="${x => x.updateData(x)}"
