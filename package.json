@@ -14,7 +14,7 @@
     "sync": "beachball sync",
     "invoke-publish": "cross-env-shell beachball publish --yes --access public --message \\\"applying package updates [skip ci]\\\" -n $NPM_SECRET_TOKEN",
     "performance": "npm run performance --workspaces --if-present",
-    "validate": "npm run test-webkit:verbose -w packages/nimble-components",
+    "validate": "npm run test-webkit:verbose -w packages/nimble-components && npm run test-chrome:verbose -w packages/nimble-components",
     "validate:lint:sequential": "npm run lint --workspaces --if-present",
     "validate:test:sequential": "npm run test --workspaces --if-present",
     "validate:lint-concurrent:nimble-components": "npm run lint-concurrent -w packages/nimble-components",
