@@ -137,7 +137,7 @@ export class RichTextMentionListbox extends FoundationListbox {
                     href: this.firstSelectedOption.value,
                     displayName: this.firstSelectedOption.text
                 };
-                this.emitMentionSelected(mentionDetail);
+                this.$emit('mention-selected', mentionDetail);
                 this.setOpen(false);
                 return true;
             }
@@ -219,7 +219,7 @@ export class RichTextMentionListbox extends FoundationListbox {
             href: capturedListOption.value,
             displayName: capturedListOption.text
         };
-        this.emitMentionSelected(mentionDetail);
+        this.$emit('mention-selected', mentionDetail);
         this.setOpen(false);
         return true;
     }
@@ -281,10 +281,6 @@ export class RichTextMentionListbox extends FoundationListbox {
                 this.firstSelectedOption?.scrollIntoView({ block: 'nearest' });
             });
         }
-    }
-
-    private emitMentionSelected(mentionDetail: MentionDetail): void {
-        this.$emit('mention-selected', mentionDetail);
     }
 
     private setOpen(value: boolean): void {

@@ -16,7 +16,7 @@ export const styles = css`
     }
 
     .listbox {
-        --ni-private-listbox-num-visible-options: 5.5;
+        --ni-private-listbox-visible-option-count: 5.5;
         --ni-private-listbox-anchor-element-gap: 0px;
         min-width: ${menuMinWidth};
     }

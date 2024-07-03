@@ -61,8 +61,7 @@ describe('RichTextMentionListbox', () => {
         await regionLoadedListener.promise;
     }
 
-    // Intermittent: see https://github.com/ni/nimble/issues/1891
-    xit('should scroll the selected option into view when opened', async () => {
+    it('should scroll the selected option into view when opened', async () => {
         const model = new Model();
         const { connect, disconnect } = await setup500Options(model);
         await connect();
@@ -87,7 +86,7 @@ describe('RichTextMentionListbox', () => {
         await connect();
         await showAndWaitForOpen(model.mentionListbox, model.anchorDiv);
         model.mentionListbox.listbox.style.setProperty(
-            '--ni-private-listbox-num-visible-options',
+            '--ni-private-listbox-visible-option-count',
             '10000'
         );
         const fullyVisible = await checkFullyInViewport(
