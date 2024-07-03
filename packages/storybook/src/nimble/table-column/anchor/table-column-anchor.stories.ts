@@ -197,7 +197,7 @@ export const anchorColumn: StoryObj<AnchorColumnTableArgs> = {
         },
         validity: {
             description: validityDescription({
-                componentName: tableColumnAnchorTag,
+                colloquialName: 'column',
                 validityObjectType: 'TableColumnValidity',
                 validityFlags: [
                     {

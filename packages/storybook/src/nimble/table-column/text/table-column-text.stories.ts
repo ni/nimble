@@ -159,7 +159,7 @@ export const textColumn: StoryObj<TextColumnTableArgs> = {
         },
         validity: {
             description: validityDescription({
-                componentName: tableColumnTextTag,
+                colloquialName: 'column',
                 validityObjectType: 'TableColumnValidity',
                 validityFlags: [
                     {
