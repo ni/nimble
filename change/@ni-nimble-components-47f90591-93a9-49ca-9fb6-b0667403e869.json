@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Created internal input to set data as dies table and exposed tableFomIPC Arrow method",
-  "packageName": "@ni/nimble-components",
-  "email": "33986780+munteannatan@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}

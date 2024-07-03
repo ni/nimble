@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-blazor
 
-This log was last generated on Thu, 13 Jun 2024 17:01:38 GMT and should not be manually modified.
+This log was last generated on Wed, 03 Jul 2024 20:37:08 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 17.4.3
+
+Wed, 03 Jul 2024 20:37:08 GMT
+
+### Patches
+
+- Updated Blazor Wafer Map with setData as Dies Table API ([ni/nimble@2214283](https://github.com/ni/nimble/commit/2214283df7d144fdb3fa2fa33f40d744aaac16b6))
 
 ## 17.4.2
 
