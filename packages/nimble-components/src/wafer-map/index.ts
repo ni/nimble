@@ -1,4 +1,5 @@
 import {
+    DOM,
     attr,
     nullableNumberConverter,
     observable
@@ -287,12 +288,16 @@ export class WaferMap<
         return this.diesTable !== undefined;
     }
 
-    public async setData(tableData: Table): Promise<void> {
+    public async setData(data: Table | WaferMapDie[]): Promise<void> {
+        if (Array.isArray(data)) {
+            this.dies = data;
+        } else {
+            this.diesTable = data;
+        }
+        await DOM.nextUpdate();
         if (this.currentTask !== undefined) {
             await this.currentTask;
         }
-        this.diesTable = tableData;
-        this.waferMapUpdateTracker.queueUpdate();
     }
 
     private createSnapshot(): {

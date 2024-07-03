@@ -194,11 +194,6 @@ public partial class NimbleWaferMap : ComponentBase
     /// <exception cref="JsonException"></exception>
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        if (_diesUpdated)
-        {
-            await JSRuntime!.InvokeVoidAsync(SetWaferMapDiesMethodName, _waferMap, JsonSerializer.Serialize(_dies, _options));
-        }
-        _diesUpdated = false;
         if (_colorScaleUpdated)
         {
             await JSRuntime!.InvokeVoidAsync(SetWaferMapColorScaleMethodName, _waferMap, JsonSerializer.Serialize(_colorScale, _options));
