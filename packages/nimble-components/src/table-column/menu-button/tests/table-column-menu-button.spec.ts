@@ -11,7 +11,10 @@ import { TableColumnMenuButtonPageObject } from '../testing/table-column-menu-bu
 import { wackyStrings } from '../../../utilities/tests/wacky-strings';
 import { MenuButtonPageObject } from '../../../menu-button/testing/menu-button.pageobject';
 import type { MenuButtonColumnToggleEventDetail } from '../types';
-import { createEventListener, sendKeyDownEvent } from '../../../utilities/tests/component';
+import {
+    createEventListener,
+    sendKeyDownEvent
+} from '../../../utilities/tests/component';
 import { Menu, menuTag } from '../../../menu';
 import { MenuItem, menuItemTag } from '../../../menu-item';
 import { MenuButton } from '../../../menu-button';
@@ -410,8 +413,16 @@ describe('TableColumnMenuButton', () => {
 
             await table.setData([
                 ...originalData,
-                { id: 'id-1', field: 'value-1', anotherField: 'another value-1' },
-                { id: 'id-2', field: 'value-2', anotherField: 'another value-2' }
+                {
+                    id: 'id-1',
+                    field: 'value-1',
+                    anotherField: 'another value-1'
+                },
+                {
+                    id: 'id-2',
+                    field: 'value-2',
+                    anotherField: 'another value-2'
+                }
             ]);
             await waitForUpdatesAsync();
 
@@ -653,9 +664,7 @@ describe('TableColumnMenuButton', () => {
         let menuButton: MenuButtonPageObject;
 
         beforeEach(async () => {
-            const tableData = [
-                { field: 'value' }
-            ];
+            const tableData = [{ field: 'value' }];
             await table.setData(tableData);
             await connect();
             await waitForUpdatesAsync();
