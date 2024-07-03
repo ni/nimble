@@ -252,8 +252,8 @@ export class Table<
     // the selection checkbox 'checked' value should be ingored.
     // https://github.com/microsoft/fast/issues/5750
     private ignoreSelectionChangeEvents = false;
-    // Map from external slot name to the record ID of the row that should have the slot and
-    // the uniquified slot that the slot should be given.
+    // Map from the external slot name to the record ID of the row that should have the slot
+    // and the unique slot name that the slot should be slotted into.
     private readonly columnRequestedSlots: Map<
     string,
     { recordId: string, uniqueSlot: string }
