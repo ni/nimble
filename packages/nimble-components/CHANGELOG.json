@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 02 Jul 2024 20:52:45 GMT",
+      "version": "29.7.5",
+      "tag": "@ni/nimble-components_v29.7.5",
+      "comments": {
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "8c9b74b3511d4bb67bedf9b40b632b66be7b8e8f",
+            "comment": "remove unused css-loader dep"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 02 Jul 2024 00:04:53 GMT",
       "version": "29.7.5",
       "tag": "@ni/nimble-components_v29.7.5",
