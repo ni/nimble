@@ -1,7 +1,7 @@
 import { DesignSystem } from '@microsoft/fast-foundation';
 import { attr } from '@microsoft/fast-element';
+import { template } from './template';
 import { styles } from '../base/styles';
-import { template } from '../base/template';
 import type { TableStringField } from '../../table/types';
 import { tableColumnMenuButtonCellViewTag } from './cell-view';
 import type { ColumnInternalsOptions } from '../base/models/column-internals';
@@ -39,14 +39,23 @@ export class TableColumnMenuButton extends mixinFractionalWidthColumnAPI(
     @attr({ attribute: 'menu-slot' })
     public menuSlot?: string;
 
-    public override connectedCallback(): void {
-        super.connectedCallback();
-        this.addEventListener('delegated-event', this.onDelegatedEvent);
-    }
+    /** @internal */
+    public onDelegatedEvent(e: Event): void {
+        const event = e as CustomEvent<DelegatedEventEventDetails>;
+        const originalEvent = event.detail.originalEvent;
 
-    public override disconnectedCallback(): void {
-        super.disconnectedCallback();
-        this.removeEventListener('delegated-event', this.onDelegatedEvent);
+        if (
+            originalEvent.type === 'beforetoggle'
+            || originalEvent.type === 'toggle'
+        ) {
+            const newEventName = `menu-button-column-${originalEvent.type}`;
+            const originalToggleEvent = originalEvent as CustomEvent<MenuButtonToggleEventDetail>;
+            const detail: MenuButtonColumnToggleEventDetail = {
+                ...originalToggleEvent.detail,
+                recordId: event.detail.recordId
+            };
+            this.$emit(newEventName, detail);
+        }
     }
 
     protected override getColumnInternalsOptions(): ColumnInternalsOptions {
@@ -73,24 +82,6 @@ export class TableColumnMenuButton extends mixinFractionalWidthColumnAPI(
             menuSlot: this.menuSlot
         };
     }
-
-    private readonly onDelegatedEvent = (e: Event): void => {
-        const event = e as CustomEvent<DelegatedEventEventDetails>;
-        const originalEvent = event.detail.originalEvent;
-
-        if (
-            originalEvent.type === 'beforetoggle'
-            || originalEvent.type === 'toggle'
-        ) {
-            const newEventName = `menu-button-column-${originalEvent.type}`;
-            const originalToggleEvent = originalEvent as CustomEvent<MenuButtonToggleEventDetail>;
-            const detail: MenuButtonColumnToggleEventDetail = {
-                ...originalToggleEvent.detail,
-                recordId: event.detail.recordId
-            };
-            this.$emit(newEventName, detail);
-        }
-    };
 }
 
 const nimbleTableColumnMenuButton = TableColumnMenuButton.compose({
