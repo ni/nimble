@@ -12,8 +12,6 @@ namespace NimbleBlazor;
 public partial class NimbleWaferMap : ComponentBase
 {
     private ElementReference _waferMap;
-    private bool _diesUpdated;
-    private IEnumerable<WaferMapDie>? _dies;
     private bool _colorScaleUpdated;
     private WaferMapColorScale? _colorScale;
     private bool _highlightedTagsUpdated;
@@ -102,23 +100,6 @@ public partial class NimbleWaferMap : ComponentBase
         {
             _highlightedTags = value;
             _highlightedTagsUpdated = true;
-        }
-    }
-
-    /// <summary>
-    /// Represents the input data, an array of `WaferMapDie`, which fills the wafer map with content
-    /// </summary>
-    [Parameter]
-    public IEnumerable<WaferMapDie>? Dies
-    {
-        get
-        {
-            return _dies;
-        }
-        set
-        {
-            _dies = value;
-            _diesUpdated = true;
         }
     }
 
