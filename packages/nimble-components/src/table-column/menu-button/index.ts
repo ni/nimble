@@ -41,9 +41,10 @@ export class TableColumnMenuButton extends mixinFractionalWidthColumnAPI(
 
     /** @internal */
     public onDelegatedEvent(e: Event): void {
+        e.stopImmediatePropagation();
+
         const event = e as CustomEvent<DelegatedEventEventDetails>;
         const originalEvent = event.detail.originalEvent;
-
         if (
             originalEvent.type === 'beforetoggle'
             || originalEvent.type === 'toggle'
