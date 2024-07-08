@@ -648,7 +648,7 @@ export class Select
         }
 
         if (
-            commitValueThenClose
+            (!this.open || commitValueThenClose)
             && initialSelectedIndex !== this.selectedIndex
         ) {
             this.updateValue(true);
