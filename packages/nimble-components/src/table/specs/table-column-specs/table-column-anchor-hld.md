@@ -66,6 +66,8 @@ The column will be sorted and grouped by the label value. It would be unexpected
 
 When grouped, the header item should not be a link.
 
+The column will also support having a custom sort order, as detailed in the [Custom Sort Order HLD](../table-column-custom-sort-field-hld.md).
+
 ### Clearing state
 
 Because the anchor in the cell can have focus, we must override `focusedRecycleCallback()` in our cell view and have it call `blur()` on our anchor. If we don't, the focus can pass to other cells as you scroll.

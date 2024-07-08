@@ -994,7 +994,7 @@ describe('Select', () => {
                 expect(element.value).toBe('one');
 
                 await pageObject.openAndSetFilterText('T'); // Matches 'Two' and 'Three'
-                pageObject.clickOption(2); // index 2 matches option with 'Three' text
+                pageObject.clickOptionWithDisplayText('Three');
                 expect(element.value).toBe('three');
                 expect(element.open).toBeFalse();
             });
@@ -1051,7 +1051,7 @@ describe('Select', () => {
             it('clicking disabled option does not cause select to change state', async () => {
                 await pageObject.openAndSetFilterText('T');
                 const currentFilteredOptions = pageObject.getFilteredOptions();
-                pageObject.clickOption(3); // click disabled option
+                pageObject.clickOption(2); // click disabled option
 
                 expect(pageObject.getFilteredOptions()).toEqual(
                     currentFilteredOptions
@@ -1370,7 +1370,7 @@ describe('Select', () => {
         it('selecting option will replace placeholder text with selected option text', async () => {
             expect(pageObject.getDisplayText()).toBe('One');
             await clickAndWaitForOpen(element);
-            pageObject.clickOption(1);
+            pageObject.clickOptionWithDisplayText('Two');
             await waitForUpdatesAsync();
 
             expect(pageObject.getDisplayText()).toBe('Two');
@@ -1403,7 +1403,7 @@ describe('Select', () => {
 
         it('programmatically setting selected of current selected option to false results in placeholder being displayed', async () => {
             await clickAndWaitForOpen(element);
-            pageObject.clickOption(1);
+            pageObject.clickOptionWithDisplayText('Two');
             const selectedOption = pageObject.getSelectedOption();
             selectedOption!.selected = false;
             await waitForUpdatesAsync();
@@ -1460,7 +1460,7 @@ describe('Select', () => {
             await waitForUpdatesAsync();
             expect(pageObject.isClearButtonVisible()).toBeFalse();
             await clickAndWaitForOpen(element);
-            pageObject.clickOption(1);
+            pageObject.clickOptionWithDisplayText('Two');
             await waitForUpdatesAsync();
 
             expect(pageObject.isClearButtonVisible()).toBeTrue();
@@ -1514,7 +1514,7 @@ describe('Select', () => {
             it('after clicking clear button and then selecting an option, clear button is visible again', async () => {
                 pageObject.clickClearButton();
                 await clickAndWaitForOpen(element);
-                pageObject.clickOption(1);
+                pageObject.clickOptionWithDisplayText('Two');
                 await waitForUpdatesAsync();
                 expect(pageObject.isClearButtonVisible()).toBeTrue();
             });
@@ -1534,7 +1534,7 @@ describe('Select', () => {
 
             it('after clicking clear button, placeholder is visible', async () => {
                 await clickAndWaitForOpen(element);
-                pageObject.clickOption(1);
+                pageObject.clickOptionWithDisplayText('Two');
                 await waitForUpdatesAsync();
                 pageObject.clickClearButton();
                 await waitForUpdatesAsync();
@@ -1590,7 +1590,7 @@ describe('Select', () => {
 
         it('can select an option within a group', async () => {
             await clickAndWaitForOpen(element);
-            pageObject.clickOption(1);
+            pageObject.clickOptionWithDisplayText('Two');
             expect(element.value).toBe('two');
             expect(element.selectedIndex).toBe(1);
         });
@@ -2088,6 +2088,31 @@ describe('Select', () => {
             pageObject.clickOptionWithDisplayText('Two');
             expect(element.value).toBe('two');
             expect(element.selectedIndex).toBe(1);
+        });
+
+        it('exercise clickOptionWithDisplayText with a hidden option', () => {
+            const option = element.options[0] as ListOption;
+            option.hidden = true;
+            pageObject.clickSelect();
+            pageObject.clickOptionWithDisplayText('Two');
+            expect(element.value).toBe('two');
+            expect(element.selectedIndex).toBe(1);
+        });
+
+        it('exercise clickOption', () => {
+            pageObject.clickSelect();
+            pageObject.clickOption(1);
+            expect(element.value).toBe('two');
+            expect(element.selectedIndex).toBe(1);
+        });
+
+        it('exercise clickOption with a hidden option', () => {
+            const option = element.options[0] as ListOption;
+            option.hidden = true;
+            pageObject.clickSelect();
+            pageObject.clickOption(1);
+            expect(element.value).toBe('edge');
+            expect(element.selectedIndex).toBe(2);
         });
 
         it('exercise getGroupLabels', async () => {
