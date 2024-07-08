@@ -2,6 +2,36 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Mon, 08 Jul 2024 20:36:03 GMT",
+      "version": "29.7.7",
+      "tag": "@ni/nimble-components_v29.7.7",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/nimble-tokens to v6.15.1",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 03 Jul 2024 20:37:08 GMT",
+      "version": "29.7.6",
+      "tag": "@ni/nimble-components_v29.7.6",
+      "comments": {
+        "patch": [
+          {
+            "author": "33986780+munteannatan@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "2214283df7d144fdb3fa2fa33f40d744aaac16b6",
+            "comment": "Created internal input to set data as dies table and exposed tableFomIPC Arrow method"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 02 Jul 2024 20:52:45 GMT",
       "version": "29.7.5",
       "tag": "@ni/nimble-components_v29.7.5",
