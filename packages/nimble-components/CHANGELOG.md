@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Tue, 02 Jul 2024 00:04:53 GMT and should not be manually modified.
+This log was last generated on Wed, 03 Jul 2024 20:37:08 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 29.7.6
+
+Wed, 03 Jul 2024 20:37:08 GMT
+
+### Patches
+
+- Created internal input to set data as dies table and exposed tableFomIPC Arrow method ([ni/nimble@2214283](https://github.com/ni/nimble/commit/2214283df7d144fdb3fa2fa33f40d744aaac16b6))
 
 ## 29.7.5
 
