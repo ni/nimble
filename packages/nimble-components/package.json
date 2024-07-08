@@ -1,6 +1,6 @@
 {
   "name": "@ni/nimble-components",
-  "version": "29.7.4",
+  "version": "29.7.7",
   "description": "Styled web components for the NI Nimble Design System",
   "scripts": {
     "build": "npm run generate-icons && npm run generate-workers && npm run build-components && npm run bundle-components && npm run generate-scss",
@@ -66,7 +66,7 @@
     "@microsoft/fast-element": "^1.12.0",
     "@microsoft/fast-foundation": "^2.49.6",
     "@microsoft/fast-web-utilities": "^6.0.0",
-    "@ni/nimble-tokens": "^6.15.0",
+    "@ni/nimble-tokens": "^6.15.1",
     "@tanstack/table-core": "^8.19.2",
     "@tanstack/virtual-core": "^3.8.1",
     "@tiptap/core": "^2.2.2",
@@ -101,7 +101,7 @@
     "tslib": "^2.2.0"
   },
   "peerDependencies": {
-    "apache-arrow": "^15.0.0"
+    "apache-arrow": "16.1.0"
   },
   "devDependencies": {
     "@ni-private/eslint-config-nimble": "*",
@@ -114,7 +114,6 @@
     "@types/offscreencanvas": "^2019.7.3",
     "@types/webpack-env": "^1.15.2",
     "concurrently": "^8.2.2",
-    "css-loader": "^6.7.3",
     "jasmine-core": "^5.1.2",
     "karma": "^6.3.0",
     "karma-chrome-launcher": "^3.1.0",

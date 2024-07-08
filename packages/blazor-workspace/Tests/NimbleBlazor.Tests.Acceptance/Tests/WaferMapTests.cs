@@ -6,7 +6,6 @@ namespace NimbleBlazor.Tests.Acceptance;
 
 public class WaferMapTests : NimbleAcceptanceTestsBase
 {
-    private const int RenderingTimeout = 200;
     public WaferMapTests(PlaywrightFixture playwrightFixture, NimbleBlazorWebHostServerFixture blazorServerClassFixture)
         : base(playwrightFixture, blazorServerClassFixture)
     { }
@@ -16,10 +15,11 @@ public class WaferMapTests : NimbleAcceptanceTestsBase
     {
         await using var pageWrapper = await NewPageForRouteAsync("WaferMapRenderTest");
         var page = pageWrapper.Page;
+        var wafer = page.Locator("nimble-wafer-map");
         var canvas = page.Locator(".main-wafer");
 
+        await Assertions.Expect(wafer).ToBeVisibleAsync();
         await Assertions.Expect(canvas).ToBeVisibleAsync();
-        await Task.Delay(RenderingTimeout);
         var color = await page.EvaluateAsync<string>(
             @"document.getElementsByTagName('nimble-wafer-map')[0].canvas.getContext('2d').getImageData(249, 249, 1, 1).data.toString()");
 
@@ -31,12 +31,11 @@ public class WaferMapTests : NimbleAcceptanceTestsBase
     {
         await using var pageWrapper = await NewPageForRouteAsync("WaferMapRenderTest");
         var page = pageWrapper.Page;
-        var canvas = page.Locator(".main-wafer");
+        var wafer = page.Locator("nimble-wafer-map");
         var validButton = page.Locator("nimble-button");
         var textField = page.Locator("nimble-text-field");
 
-        await Assertions.Expect(canvas).ToBeVisibleAsync();
-        await Task.Delay(RenderingTimeout);
+        await Assertions.Expect(wafer).ToBeVisibleAsync();
         await validButton.ClickAsync();
 
         await Assertions.Expect(textField).ToHaveAttributeAsync("current-value", "False");
@@ -47,12 +46,11 @@ public class WaferMapTests : NimbleAcceptanceTestsBase
     {
         await using var pageWrapper = await NewPageForRouteAsync("WaferMapRenderTest");
         var page = pageWrapper.Page;
-        var canvas = page.Locator(".main-wafer");
+        var wafer = page.Locator("nimble-wafer-map");
         var textField = page.Locator("nimble-text-field");
 
-        await Assertions.Expect(canvas).ToBeVisibleAsync();
-        await Task.Delay(RenderingTimeout);
-        await canvas.HoverAsync();
+        await Assertions.Expect(wafer).ToBeVisibleAsync();
+        await wafer.HoverAsync();
 
         await Assertions.Expect(textField).ToHaveAttributeAsync("current-value", "4");
     }

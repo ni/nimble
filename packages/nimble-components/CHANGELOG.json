@@ -2,6 +2,66 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Mon, 08 Jul 2024 20:36:03 GMT",
+      "version": "29.7.7",
+      "tag": "@ni/nimble-components_v29.7.7",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/nimble-tokens to v6.15.1",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 03 Jul 2024 20:37:08 GMT",
+      "version": "29.7.6",
+      "tag": "@ni/nimble-components_v29.7.6",
+      "comments": {
+        "patch": [
+          {
+            "author": "33986780+munteannatan@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "2214283df7d144fdb3fa2fa33f40d744aaac16b6",
+            "comment": "Created internal input to set data as dies table and exposed tableFomIPC Arrow method"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 02 Jul 2024 20:52:45 GMT",
+      "version": "29.7.5",
+      "tag": "@ni/nimble-components_v29.7.5",
+      "comments": {
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "8c9b74b3511d4bb67bedf9b40b632b66be7b8e8f",
+            "comment": "remove unused css-loader dep"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 02 Jul 2024 00:04:53 GMT",
+      "version": "29.7.5",
+      "tag": "@ni/nimble-components_v29.7.5",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "7ec1678eb1f0d918198f5e32ab6b5f3e9d6682fc",
+            "comment": "Update breadcrumb styling"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 01 Jul 2024 23:05:23 GMT",
       "version": "29.7.4",
       "tag": "@ni/nimble-components_v29.7.4",
