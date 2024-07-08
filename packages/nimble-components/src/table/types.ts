@@ -219,6 +219,18 @@ export interface TableRowState<TData extends TableRecord = TableRecord> {
 
 /**
  * @internal
+ *
+ * Alignment of column header content
+ */
+export const TableColumnHeaderAlignment = {
+    left: 'left',
+    right: 'right'
+} as const;
+export type TableColumnHeaderAlignment =
+    (typeof TableColumnHeaderAlignment)[keyof typeof TableColumnHeaderAlignment];
+
+/**
+ * @internal
  * Table keyboard focus types
  */
 export const TableFocusType = {
@@ -236,6 +248,7 @@ export type TableFocusType =
 
 /**
  * @internal
+ *
  * Focusable elements of a table row
  */
 export interface TableRowFocusableElements {
@@ -248,6 +261,7 @@ export interface TableRowFocusableElements {
 
 /**
  * @internal
+ *
  * Focusable elements of a table's header
  */
 export interface TableHeaderFocusableElements {

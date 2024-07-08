@@ -26,6 +26,10 @@ export const styles = css`
         cursor: default;
     }
 
+    :host(.right-align) {
+        justify-content: flex-end;
+    }
+
     :host(${focusVisible}) {
         outline: calc(2 * ${borderWidth}) solid ${borderHoverColor};
         outline-offset: calc(-2 * ${borderWidth});

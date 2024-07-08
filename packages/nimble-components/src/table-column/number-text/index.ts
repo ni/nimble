@@ -12,7 +12,10 @@ import {
 } from '@microsoft/fast-element';
 import { styles } from '../base/styles';
 import { template } from './template';
-import type { TableNumberField } from '../../table/types';
+import {
+    TableColumnHeaderAlignment,
+    type TableNumberField
+} from '../../table/types';
 import { TableColumnTextBase, mixinTextBase } from '../text-base';
 import { TableColumnSortOperation } from '../base/types';
 import { tableColumnNumberTextGroupHeaderTag } from './group-header-view';
@@ -180,6 +183,9 @@ export class TableColumnNumberText extends mixinTextBase(
                 alignment: this.determineCellContentAlignment(),
                 placeholder: this.placeholder
             };
+            this.columnInternals.headerAlignment = columnConfig.alignment === TextCellViewBaseAlignment.right
+                ? TableColumnHeaderAlignment.right
+                : TableColumnHeaderAlignment.left;
             this.columnInternals.columnConfig = columnConfig;
         } else {
             this.columnInternals.columnConfig = undefined;

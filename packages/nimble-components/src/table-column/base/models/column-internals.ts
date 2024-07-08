@@ -1,6 +1,10 @@
 import { uniqueId } from '@microsoft/fast-web-utilities';
 import { ViewTemplate, observable } from '@microsoft/fast-element';
-import { TableColumnSortDirection, TableFieldName } from '../../../table/types';
+import {
+    type TableColumnHeaderAlignment,
+    TableColumnSortDirection,
+    TableFieldName
+} from '../../../table/types';
 import type { TableCell } from '../../../table/components/cell';
 import {
     TableColumnSortOperation,
@@ -152,6 +156,12 @@ export class ColumnInternals<
      */
     @observable
     public hideHeaderIndicators = false;
+
+    /**
+     * How to align the header content.
+     */
+    @observable
+    public headerAlignment?: TableColumnHeaderAlignment;
 
     /**
      * @internal Do not write to this value directly. It is used by the Table in order to store
