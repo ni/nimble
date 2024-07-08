@@ -338,6 +338,7 @@ export class Table<
         this.viewport.addEventListener('scroll', this.onViewPortScroll, {
             passive: true
         });
+        this.addEventListener('blur', this.onBlur);
         this.keyboardNavigationManager.connect();
         document.addEventListener('keydown', this.onKeyDown);
         document.addEventListener('keyup', this.onKeyUp);
@@ -774,16 +775,16 @@ export class Table<
         this.scrollX = (event.target as HTMLElement).scrollLeft;
     };
 
+    private readonly onBlur = (): void => {
+        this.documentShiftKeyDown = false;
+    };
+
     private readonly onKeyDown = (event: KeyboardEvent): void => {
-        if (event.key === keyShift) {
-            this.documentShiftKeyDown = true;
-        }
+        this.documentShiftKeyDown = event.shiftKey;
     };
 
     private readonly onKeyUp = (event: KeyboardEvent): void => {
-        if (event.key === keyShift) {
-            this.documentShiftKeyDown = false;
-        }
+        this.documentShiftKeyDown = event.shiftKey;
     };
 
     private removeColumnObservers(): void {

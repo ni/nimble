@@ -31,8 +31,9 @@ export class MultiSelectionManager<
                 return true;
             }
         }
-
-        this.shiftSelectStartRowId = rowState.id;
+        if (isSelecting) {
+            this.shiftSelectStartRowId = rowState.id;
+        }
         this.previousShiftSelectRowEndId = undefined;
         this.toggleIsRowSelected(rowState, isSelecting);
         return true;
