@@ -234,7 +234,7 @@ const metadata: Meta<RichTextEditorArgs> = {
                     {
                         flagName: 'invalidMentionConfiguration',
                         description:
-                            '`true` when a mention configuration is invalid. Call `checkValidity()` on each mention component to see which configuration is invalid, and read the `validity` property of that mention for details about why it\'s invalid.'
+                            "`true` when a mention configuration is invalid. Call `checkValidity()` on each mention component to see which configuration is invalid, and read the `validity` property of that mention for details about why it's invalid."
                     },
                     {
                         flagName: 'duplicateMentionConfiguration',

@@ -370,43 +370,53 @@ export const table: StoryObj<TableArgs> = {
                 validityFlags: [
                     {
                         flagName: 'duplicateRecordId',
-                        description: '`true` when multiple records were found with the same ID'
+                        description:
+                            '`true` when multiple records were found with the same ID'
                     },
                     {
                         flagName: 'missingRecordId',
-                        description: '`true` when a record was found that did not have a field with the name specified by `id-field-name`, or when `parent-id-field-name` is set but `id-field-name` is not'
+                        description:
+                            '`true` when a record was found that did not have a field with the name specified by `id-field-name`, or when `parent-id-field-name` is set but `id-field-name` is not'
                     },
                     {
                         flagName: 'invalidRecordId',
-                        description: '`true` when a record was found where `id-field-name` did not refer to a value of type `string`'
+                        description:
+                            '`true` when a record was found where `id-field-name` did not refer to a value of type `string`'
                     },
                     {
                         flagName: 'duplicateColumnId',
-                        description: '`true` when multiple columns were defined with the same `column-id`'
+                        description:
+                            '`true` when multiple columns were defined with the same `column-id`'
                     },
                     {
                         flagName: 'missingColumnId',
-                        description: '`true` when a `column-id` was specified for some, but not all, columns'
+                        description:
+                            '`true` when a `column-id` was specified for some, but not all, columns'
                     },
                     {
                         flagName: 'invalidColumnConfiguration',
-                        description: '`true` when one or more columns have an invalid configuration. Call `checkValidity()` on each column to see which configuration is invalid and read the `validity` property of a column for more information about why it\'s invalid.'
+                        description:
+                            "`true` when one or more columns have an invalid configuration. Call `checkValidity()` on each column to see which configuration is invalid and read the `validity` property of a column for more information about why it's invalid."
                     },
                     {
                         flagName: 'duplicateSortIndex',
-                        description: '`true` when `sort-index` is specified as the same value for multiple columns that have `sort-direction` set to a value other than `none`'
+                        description:
+                            '`true` when `sort-index` is specified as the same value for multiple columns that have `sort-direction` set to a value other than `none`'
                     },
                     {
                         flagName: 'duplicateGroupIndex',
-                        description: '`true` when `group-index` is specified as the same value for multiple columns'
+                        description:
+                            '`true` when `group-index` is specified as the same value for multiple columns'
                     },
                     {
                         flagName: 'idFieldNameNotConfigured',
-                        description: '`true` when a feature that requires `id-field-name` to be configured, such as row selection, is enabled but an `id-field-name` is not set'
+                        description:
+                            '`true` when a feature that requires `id-field-name` to be configured, such as row selection, is enabled but an `id-field-name` is not set'
                     },
                     {
                         flagName: 'invalidParentIdConfiguration',
-                        description: '`true` when the field specified by `parent-id-field-name` is not found in any record, or when there are circular references between field values in a record specified by `id-field-name` and `parent-id-field-name`.'
+                        description:
+                            '`true` when the field specified by `parent-id-field-name` is not found in any record, or when there are circular references between field values in a record specified by `id-field-name` and `parent-id-field-name`.'
                     }
                 ]
             }),

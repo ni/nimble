@@ -68,11 +68,13 @@ export const richTextMentionUsers: StoryObj = {
                 validityFlags: [
                     {
                         flagName: 'unsupportedMappingType',
-                        description: '`true` when the mention contains a mapping element other than `mapping-user`'
+                        description:
+                            '`true` when the mention contains a mapping element other than `mapping-user`'
                     },
                     {
                         flagName: 'duplicateMappingMentionHref',
-                        description: '`true` when multiple mappings have the same `key` value'
+                        description:
+                            '`true` when multiple mappings have the same `key` value'
                     },
                     {
                         flagName: 'missingMentionHrefValue',
@@ -80,23 +82,28 @@ export const richTextMentionUsers: StoryObj = {
                     },
                     {
                         flagName: 'mentionHrefNotValidUrl',
-                        description: '`true` when any one of the `key` is not a valid URL i.e. throws error if `new URL(key)`'
+                        description:
+                            '`true` when any one of the `key` is not a valid URL i.e. throws error if `new URL(key)`'
                     },
                     {
                         flagName: 'mentionHrefDoesNotMatchPattern',
-                        description: '`true` when any one of the `key` does not match the `pattern`'
+                        description:
+                            '`true` when any one of the `key` does not match the `pattern`'
                     },
                     {
                         flagName: 'missingPatternAttribute',
-                        description: '`true` when a configuration has no `pattern` value'
+                        description:
+                            '`true` when a configuration has no `pattern` value'
                     },
                     {
                         flagName: 'unsupportedPatternValue',
-                        description: '`true` when the `pattern` is not a valid Regex'
+                        description:
+                            '`true` when the `pattern` is not a valid Regex'
                     },
                     {
                         flagName: 'missingDisplayNameValue',
-                        description: '`true` when a mapping has no `display-name` value'
+                        description:
+                            '`true` when a mapping has no `display-name` value'
                     }
                 ]
             }),

@@ -83,10 +83,6 @@ This should only be set when the header contains a single icon (no text) and non
 to \`default\`, the column will be resizable and be sized based on its fractional-width and min-pixel-width values. A column with its \`width-mode\` set to \`iconSize\` should
 should not be the right-most column in the table.`;
 
-
-//-   \`invalidIconName\`: \`true\` when an icon mapping's \`icon\` value is not the tag name of a valid, loaded Nimble icon (e.g. \`nimble-icon-check\`)
-//`;
-
 export const mappingColumn: StoryObj<MappingColumnTableArgs> = {
     // prettier-ignore
     render: createUserSelectedThemeStory(html<MappingColumnTableArgs>`
@@ -177,17 +173,16 @@ export const mappingColumn: StoryObj<MappingColumnTableArgs> = {
                     },
                     {
                         flagName: 'missingKeyValue',
-                        description:
-                            '`true` when a mapping has no `key` value'
+                        description: '`true` when a mapping has no `key` value'
                     },
                     {
                         flagName: 'missingTextValue',
-                        description:
-                            '`true` when a mapping has no `text` value'
+                        description: '`true` when a mapping has no `text` value'
                     },
                     {
                         flagName: 'invalidIconName',
-                        description: '`true` when an icon mapping\'s `icon` value is not the tag name of a valid, loaded Nimble icon (e.g. `nimble-icon-check`)'
+                        description:
+                            "`true` when an icon mapping's `icon` value is not the tag name of a valid, loaded Nimble icon (e.g. `nimble-icon-check`)"
                     }
                 ]
             }),

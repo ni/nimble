@@ -249,9 +249,22 @@ export const numberTextColumn: StoryObj<NumberTextColumnTableArgs> = {
                 colloquialName: 'column',
                 validityObjectType: 'TableColumnValidity',
                 validityFlags: [
-                    { flagName: 'invalidDecimalDigits', description: '`true` when `format` is configured to `decimal` and `decimal-digits` is set to a number less than 0 or greater than 20.' },
-                    { flagName: 'invalidDecimalMaximumDigits', description: '`true` when `format` is configured to `decimal` and `decimal-maximum-digits` is set to a number less than 0 or greater than 20.' },
-                    { flagName: 'decimalDigitsMutuallyExclusiveWithDecimalMaximumDigits', description: '`true` when `format` is configured to `decimal` and both `decimal-digits` and `decimal-maximum-digits` are set.' }
+                    {
+                        flagName: 'invalidDecimalDigits',
+                        description:
+                            '`true` when `format` is configured to `decimal` and `decimal-digits` is set to a number less than 0 or greater than 20.'
+                    },
+                    {
+                        flagName: 'invalidDecimalMaximumDigits',
+                        description:
+                            '`true` when `format` is configured to `decimal` and `decimal-maximum-digits` is set to a number less than 0 or greater than 20.'
+                    },
+                    {
+                        flagName:
+                            'decimalDigitsMutuallyExclusiveWithDecimalMaximumDigits',
+                        description:
+                            '`true` when `format` is configured to `decimal` and both `decimal-digits` and `decimal-maximum-digits` are set.'
+                    }
                 ]
             }),
             control: false,

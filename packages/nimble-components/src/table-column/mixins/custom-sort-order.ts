@@ -55,7 +55,11 @@ export function mixinCustomSortOrderColumnAPI<
 
         /** @internal */
         public handleChange(_source: unknown, args: unknown): void {
-            if (args === 'groupingDisabled' || args === 'groupIndex' || args === 'sortingDisabled') {
+            if (
+                args === 'groupingDisabled'
+                || args === 'groupIndex'
+                || args === 'sortingDisabled'
+            ) {
                 this.updateCustomColumnSortingValidity();
             } else if (args === 'dataRecordFieldNames') {
                 this.updateOperandDataRecordFieldName();
@@ -64,7 +68,8 @@ export function mixinCustomSortOrderColumnAPI<
 
         /** @internal */
         public updateCustomColumnSortingValidity(): void {
-            const hasCustomColumnSorting = typeof this.sortByFieldName === 'string' && !this.columnInternals.sortingDisabled;
+            const hasCustomColumnSorting = typeof this.sortByFieldName === 'string'
+                && !this.columnInternals.sortingDisabled;
             const isGrouped = !this.columnInternals.groupingDisabled
                 && typeof this.columnInternals.groupIndex === 'number';
             const isValid = !isGrouped || !hasCustomColumnSorting;

@@ -373,7 +373,7 @@ export const dateTextColumn: StoryObj<TextColumnTableArgs> = {
                     {
                         flagName: 'invalidCustomOptionsCombination',
                         description:
-                            '`true` when an invalid combination of formatting options (i.e. `custom-*`) have been specified. To determine which specific options are in conflict, you may use [MDN\'s Try It widget](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat/DateTimeFormat#try_it) or a browser console to get a detailed exception message.'
+                            "`true` when an invalid combination of formatting options (i.e. `custom-*`) have been specified. To determine which specific options are in conflict, you may use [MDN's Try It widget](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat/DateTimeFormat#try_it) or a browser console to get a detailed exception message."
                     }
                 ]
             }),
