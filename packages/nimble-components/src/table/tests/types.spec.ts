@@ -35,4 +35,10 @@ describe('Table type', () => {
         const focusType: TableFocusType = 'hello';
         expect(focusType).toEqual('hello');
     });
+
+    it('TableColumnHeaderAlignment fails compile if assigning arbitrary string values', () => {
+        // @ts-expect-error This expect will fail if the enum-like type is missing "as const"
+        const alignment: TableColumnHeaderAlignment = 'hello';
+        expect(alignment).toEqual('hello');
+    });
 });

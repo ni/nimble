@@ -4,7 +4,10 @@ import { tableTag, type Table } from '../../../table';
 import { TableColumnNumberText, tableColumnNumberTextTag } from '..';
 import { waitForUpdatesAsync } from '../../../testing/async-helpers';
 import { type Fixture, fixture } from '../../../utilities/tests/fixture';
-import type { TableRecord } from '../../../table/types';
+import {
+    TableColumnHeaderAlignment,
+    type TableRecord
+} from '../../../table/types';
 import { TablePageObject } from '../../../table/testing/table.pageobject';
 import { NumberTextAlignment, NumberTextFormat } from '../types';
 import type { TableColumnNumberTextCellView } from '../cell-view';
@@ -713,6 +716,29 @@ describe('TableColumnNumberText', () => {
             await waitForUpdatesAsync();
             expect(cellView.alignment).toEqual(TextCellViewBaseAlignment.left);
         });
+    });
+
+    it('configures header alignment based on cell alignment', async () => {
+        const column = elementReferences.column1;
+        await table.setData([{ number1: 10 }]);
+        column.alignment = NumberTextAlignment.right;
+        await connect();
+        await waitForUpdatesAsync();
+        expect(column.columnInternals.headerAlignment).toEqual(
+            TableColumnHeaderAlignment.right
+        );
+
+        elementReferences.column1.alignment = NumberTextAlignment.left;
+        await waitForUpdatesAsync();
+        expect(column.columnInternals.headerAlignment).toEqual(
+            TableColumnHeaderAlignment.left
+        );
+
+        elementReferences.column1.alignment = NumberTextAlignment.right;
+        await waitForUpdatesAsync();
+        expect(column.columnInternals.headerAlignment).toEqual(
+            TableColumnHeaderAlignment.right
+        );
     });
 
     describe('placeholder', () => {
