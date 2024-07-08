@@ -241,7 +241,7 @@ export class Select
             newValue = this.firstSelectedOption?.value ?? newValue;
         }
 
-        if (prev !== newValue && !(this.open && this.selectedIndex < 0)) {
+        if (prev !== newValue) {
             this._value = newValue;
             super.valueChanged(prev, newValue);
             Observable.notify(this, 'value');
@@ -353,17 +353,14 @@ export class Select
         const previousSelectedIndex = this.selectedIndex;
         super.clickHandler(e);
 
-        this.open = this.collapsible && !this.open;
         if (
-            !this.open
+            this.open
             && this.selectedIndex !== previousSelectedIndex
             && optionClicked
         ) {
             this.updateValue(true);
         }
-        if (!this.open && this.filterMode !== FilterMode.none) {
-            this.emitFilterInputEvent();
-        }
+        this.open = this.collapsible && !this.open;
     }
 
     /**
@@ -482,13 +479,9 @@ export class Select
      * @internal
      */
     public clearClickHandler(e: MouseEvent): void {
-        const wasOpen = this.open;
         this.open = false;
         this.clearSelect();
         this.updateValue(true);
-        if (wasOpen && this.filterMode !== FilterMode.none) {
-            this.emitFilterInputEvent();
-        }
         e.stopPropagation();
     }
 
@@ -560,9 +553,6 @@ export class Select
         }
 
         this.open = false;
-        if (this.filterMode !== FilterMode.none) {
-            this.emitFilterInputEvent();
-        }
         const focusTarget = e.relatedTarget as HTMLElement;
         if (this.isSameNode(focusTarget)) {
             this.focus();
@@ -584,6 +574,7 @@ export class Select
         }
 
         let currentActiveIndex = this.openActiveIndex ?? this.selectedIndex;
+        let commitValueThenClose = false;
         switch (key) {
             case keySpace: {
                 // when dropdown is open allow user to enter a space for filter text
@@ -613,8 +604,12 @@ export class Select
                 ) {
                     return false;
                 }
-                this.open = !this.open;
-                if (!this.open) {
+                if (this.open) {
+                    commitValueThenClose = true;
+                } else {
+                    this.open = true;
+                }
+                if (this.open) {
                     this.focus();
                 }
                 break;
@@ -633,9 +628,6 @@ export class Select
                 if (this.collapsible && this.open) {
                     e.preventDefault();
                     this.open = false;
-                    if (this.filterMode !== FilterMode.none) {
-                        this.emitFilterInputEvent();
-                    }
                 }
 
                 currentActiveIndex = this.selectedIndex;
@@ -648,16 +640,21 @@ export class Select
             }
         }
 
-        if (!this.open && this.selectedIndex !== currentActiveIndex) {
+        if (
+            (!this.open || commitValueThenClose)
+            && this.selectedIndex !== currentActiveIndex
+        ) {
             this.selectedIndex = currentActiveIndex;
         }
 
-        if (!this.open && initialSelectedIndex !== this.selectedIndex) {
+        if (
+            commitValueThenClose
+            && initialSelectedIndex !== this.selectedIndex
+        ) {
             this.updateValue(true);
-            if (this.filterMode !== FilterMode.none) {
-                this.emitFilterInputEvent();
-            }
         }
+
+        this.open = commitValueThenClose ? false : this.open;
 
         return !(key === keyArrowDown || key === keyArrowUp);
     }
@@ -880,6 +877,9 @@ export class Select
             this.filterInput.value = '';
         }
 
+        if (this.filterMode !== FilterMode.none) {
+            this.emitFilterInputEvent();
+        }
         this.ariaControls = '';
         this.ariaExpanded = 'false';
     }
