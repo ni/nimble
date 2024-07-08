@@ -105,6 +105,7 @@ describe('CustomSortOrderColumn', () => {
 
     it('grouping a column with a custom sort order makes the column invalid', () => {
         element.sortByFieldName = 'customFieldName';
+        element.columnInternals.sortingDisabled = false;
         element.columnInternals.groupingDisabled = false;
         element.columnInternals.groupIndex = 0;
 
@@ -115,6 +116,7 @@ describe('CustomSortOrderColumn', () => {
 
     it('disabling grouping on an invalid column makes it valid', () => {
         element.sortByFieldName = 'customFieldName';
+        element.columnInternals.sortingDisabled = false;
         element.columnInternals.groupingDisabled = false;
         element.columnInternals.groupIndex = 0;
 
@@ -126,8 +128,23 @@ describe('CustomSortOrderColumn', () => {
         expect(element.validity.invalidCustomSortWithGrouping).toBeFalse();
     });
 
+    it('disabling sorting on an invalid column makes it valid', () => {
+        element.sortByFieldName = 'customFieldName';
+        element.columnInternals.sortingDisabled = false;
+        element.columnInternals.groupingDisabled = false;
+        element.columnInternals.groupIndex = 0;
+
+        expect(element.checkValidity()).toBeFalse();
+
+        element.columnInternals.sortingDisabled = true;
+        expect(element.checkValidity()).toBeTrue();
+        expect(element.columnInternals.validator.isColumnValid).toBeTrue();
+        expect(element.validity.invalidCustomSortWithGrouping).toBeFalse();
+    });
+
     it('clearing the group index on an invalid column makes it valid', () => {
         element.sortByFieldName = 'customFieldName';
+        element.columnInternals.sortingDisabled = false;
         element.columnInternals.groupingDisabled = false;
         element.columnInternals.groupIndex = 0;
 
@@ -141,6 +158,7 @@ describe('CustomSortOrderColumn', () => {
 
     it('clearing the custom sort order on a grouped column makes the column valid', () => {
         element.sortByFieldName = 'customFieldName';
+        element.columnInternals.sortingDisabled = false;
         element.columnInternals.groupingDisabled = false;
         element.columnInternals.groupIndex = 0;
 
