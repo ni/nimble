@@ -20,7 +20,8 @@ import {
 import {
     apiCategory,
     checkValidityDescription,
-    createUserSelectedThemeStory
+    createUserSelectedThemeStory,
+    validityDescription
 } from '../../utilities/storybook';
 import { isChromatic } from '../../utilities/isChromatic';
 
@@ -258,21 +259,6 @@ The attribute is invalid in the following conditions:
 -   When there are circular references between records discovered based on field values of \`parent-id-field-name\` for one record and \`id-field-name\` of another. This will cause \`validity.invalidParentIdConfiguration\` to be \`true\`.
 -   When an id specified by \`parent-id-field-name\` is not discovered in any record. This will cause \`validity.invalidParentIdConfiguration\` to be \`true\`.`;
 
-const validityDescription = `Readonly object of boolean values that represents the validity states that the table's configuration can be in.
-The object's type is \`TableValidity\`, and it contains the following boolean properties:
-
--   \`duplicateRecordId\`: \`true\` when multiple records were found with the same ID
--   \`missingRecordId\`: \`true\` when a record was found that did not have a field with the name specified by \`id-field-name\`, or when \`parent-id-field-name\` is set but \`id-field-name\` is not
--   \`invalidRecordId\`: \`true\` when a record was found where \`id-field-name\` did not refer to a value of type \`string\`
--   \`duplicateColumnId\`: \`true\` when multiple columns were defined with the same \`column-id\`
--   \`missingColumnId\`: \`true\` when a \`column-id\` was specified for some, but not all, columns
--   \`invalidColumnConfiguration\`: \`true\` when one or more columns have an invalid configuration. Call \`checkValidity()\` on each column to see which configuration is invalid and read the \`validity\` property of a column for more information about why it's invalid.
--   \`duplicateSortIndex\`: \`true\` when \`sort-index\` is specified as the same value for multiple columns that have \`sort-direction\` set to a value other than \`none\`
--   \`duplicateGroupIndex\`: \`true\` when \`group-index\` is specified as the same value for multiple columns
--   \`idFieldNameNotConfigured\`: \`true\` when a feature that requires \`id-field-name\` to be configured, such as row selection, is enabled but an \`id-field-name\` is not set
--   \`invalidParentIdConfiguration\`: \`true\` when the field specified by \`parent-id-field-name\` is not found in any record, or when there are circular references between field values in a record specified by \`id-field-name\` and \`parent-id-field-name\`.
-`;
-
 const setSelectedRecordIdsDescription = `A function that makes the rows associated with the provided record IDs selected in the table.
 If a record does not exist in the table's data, it will not be selected. If multiple record IDs are specified when the table's selection
 mode is \`single\`, only the first record that exists in the table's data will become selected.`;
@@ -378,7 +364,52 @@ export const table: StoryObj<TableArgs> = {
             table: { category: apiCategory.attributes }
         },
         validity: {
-            description: validityDescription,
+            description: validityDescription({
+                colloquialName: 'table',
+                validityObjectType: 'TableValidity',
+                validityFlags: [
+                    {
+                        flagName: 'duplicateRecordId',
+                        description: '`true` when multiple records were found with the same ID'
+                    },
+                    {
+                        flagName: 'missingRecordId',
+                        description: '`true` when a record was found that did not have a field with the name specified by `id-field-name`, or when `parent-id-field-name` is set but `id-field-name` is not'
+                    },
+                    {
+                        flagName: 'invalidRecordId',
+                        description: '`true` when a record was found where `id-field-name` did not refer to a value of type `string`'
+                    },
+                    {
+                        flagName: 'duplicateColumnId',
+                        description: '`true` when multiple columns were defined with the same `column-id`'
+                    },
+                    {
+                        flagName: 'missingColumnId',
+                        description: '`true` when a `column-id` was specified for some, but not all, columns'
+                    },
+                    {
+                        flagName: 'invalidColumnConfiguration',
+                        description: '`true` when one or more columns have an invalid configuration. Call `checkValidity()` on each column to see which configuration is invalid and read the `validity` property of a column for more information about why it\'s invalid.'
+                    },
+                    {
+                        flagName: 'duplicateSortIndex',
+                        description: '`true` when `sort-index` is specified as the same value for multiple columns that have `sort-direction` set to a value other than `none`'
+                    },
+                    {
+                        flagName: 'duplicateGroupIndex',
+                        description: '`true` when `group-index` is specified as the same value for multiple columns'
+                    },
+                    {
+                        flagName: 'idFieldNameNotConfigured',
+                        description: '`true` when a feature that requires `id-field-name` to be configured, such as row selection, is enabled but an `id-field-name` is not set'
+                    },
+                    {
+                        flagName: 'invalidParentIdConfiguration',
+                        description: '`true` when the field specified by `parent-id-field-name` is not found in any record, or when there are circular references between field values in a record specified by `id-field-name` and `parent-id-field-name`.'
+                    }
+                ]
+            }),
             control: false,
             table: { category: apiCategory.nonAttributeProperties }
         },
