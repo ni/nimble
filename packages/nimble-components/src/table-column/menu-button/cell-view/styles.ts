@@ -1,10 +1,5 @@
 import { css } from '@microsoft/fast-element';
-import {
-    bodyFont,
-    buttonLabelFont,
-    mediumPadding,
-    standardPadding
-} from '../../../theme-provider/design-tokens';
+import { controlSlimHeight } from '../../../theme-provider/design-tokens';
 
 export const styles = css`
     :host {
@@ -13,9 +8,8 @@ export const styles = css`
     }
 
     nimble-menu-button {
+        height: ${controlSlimHeight};
         width: 100%;
-        ${standardPadding.cssCustomProperty}: ${mediumPadding};
-        ${buttonLabelFont.cssCustomProperty}: ${bodyFont};
     }
 
     .value-label {
