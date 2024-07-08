@@ -459,7 +459,8 @@ export class TablePageObject<T extends TableRecord> {
     public clickRowSelectionCheckbox(rowIndex: number, shiftKey = false): void {
         if (shiftKey) {
             const shiftKeyDownEvent = new KeyboardEvent('keydown', {
-                key: keyShift
+                key: keyShift,
+                shiftKey: true
             } as KeyboardEventInit);
             document.dispatchEvent(shiftKeyDownEvent);
         }
@@ -488,7 +489,8 @@ export class TablePageObject<T extends TableRecord> {
     ): void {
         if (shiftKey) {
             const shiftKeyDownEvent = new KeyboardEvent('keydown', {
-                key: keyShift
+                key: keyShift,
+                shiftKey: true
             } as KeyboardEventInit);
             document.dispatchEvent(shiftKeyDownEvent);
         }
