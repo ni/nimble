@@ -1,8 +1,24 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Wed, 03 Jul 2024 20:37:08 GMT and should not be manually modified.
+This log was last generated on Mon, 08 Jul 2024 22:43:30 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 29.7.8
+
+Mon, 08 Jul 2024 22:43:30 GMT
+
+### Patches
+
+- Confine rich-text mention listbox to viewport ([ni/nimble@e892807](https://github.com/ni/nimble/commit/e89280785b3baf4f6acfc3c6677fe8580600ba09))
+
+## 29.7.7
+
+Mon, 08 Jul 2024 20:36:03 GMT
+
+### Patches
+
+- Bump @ni/nimble-tokens to v6.15.1
 
 ## 29.7.6
 
