@@ -103,10 +103,6 @@ export const styles = css`
         width: 0px;
     }
 
-    [part='start'] {
-        display: none;
-    }
-
     .control {
         align-items: center;
         cursor: pointer;
@@ -132,6 +128,56 @@ export const styles = css`
     :host([error-visible][open]) .control,
     :host([error-visible][disabled]) .control {
         border-bottom-color: ${failColor};
+    }
+
+    [part='start'] {
+        display: none;
+    }
+
+    .selected-value {
+        flex: auto;
+        font-family: inherit;
+        text-align: start;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        padding: 0px;
+        padding-left: ${mediumPadding};
+    }
+
+    .selected-value[disabled]::placeholder {
+        color: ${bodyDisabledFontColor};
+    }
+
+    .indicator {
+        flex: none;
+        margin-left: ${smallPadding};
+        padding-right: 8px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .indicator slot[name='indicator'] svg {
+        width: ${iconSize};
+        height: ${iconSize};
+        fill: ${bodyFontColor};
+    }
+
+    :host([disabled]) .indicator slot[name='indicator'] svg {
+        fill: ${bodyDisabledFontColor};
+    }
+
+    [part='end'] {
+        margin-inline-start: auto;
+    }
+
+    :host([open][position='above']) .anchored-region {
+        padding-bottom: ${smallPadding};
+    }
+
+    :host([open][position='below']) .anchored-region {
+        padding-top: ${smallPadding};
     }
 
     .listbox {
@@ -171,12 +217,6 @@ export const styles = css`
         --ni-private-listbox-loading-indicator-height: ${controlHeight};
     }
 
-    .listbox slot {
-        display: block;
-        background: transparent;
-        padding: var(--ni-private-listbox-padding);
-    }
-
     :host([open][position='above']) .listbox {
         border-bottom-left-radius: 0;
         border-bottom-right-radius: 0;
@@ -187,50 +227,10 @@ export const styles = css`
         border-top-right-radius: 0;
     }
 
-    :host([open][position='above']) .anchored-region {
-        padding-bottom: ${smallPadding};
-    }
-
-    :host([open][position='below']) .anchored-region {
-        padding-top: ${smallPadding};
-    }
-
-    .selected-value {
-        flex: auto;
-        font-family: inherit;
-        text-align: start;
-        white-space: nowrap;
-        text-overflow: ellipsis;
-        overflow: hidden;
-        padding: 0px;
-        padding-left: ${mediumPadding};
-    }
-
-    .selected-value[disabled]::placeholder {
-        color: ${bodyDisabledFontColor};
-    }
-
-    .indicator {
-        flex: none;
-        margin-left: ${smallPadding};
-        padding-right: 8px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .indicator slot[name='indicator'] svg {
-        width: ${iconSize};
-        height: ${iconSize};
-        fill: ${bodyFontColor};
-    }
-
-    :host([disabled]) .indicator slot[name='indicator'] svg {
-        fill: ${bodyDisabledFontColor};
-    }
-
-    [part='end'] {
-        margin-inline-start: auto;
+    .listbox slot {
+        display: block;
+        background: transparent;
+        padding: var(--ni-private-listbox-padding);
     }
 
     ::slotted([role='option']),
