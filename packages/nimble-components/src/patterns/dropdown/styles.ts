@@ -27,6 +27,7 @@ import { themeBehavior } from '../../utilities/style/theme';
 import { DropdownAppearance } from './types';
 import { userSelectNone } from '../../utilities/style/user-select';
 
+// prettier-ignore
 export const styles = css`
     ${display('inline-flex')}
 
@@ -138,18 +139,23 @@ export const styles = css`
         flex-direction: column;
         overflow-y: auto;
         width: 100%;
+        --ni-private-listbox-visible-option-count: 10.5;
+        --ni-private-listbox-anchor-element-gap: ${smallPadding};
         --ni-private-listbox-padding: ${smallPadding};
         --ni-private-listbox-filter-height: 0px;
         --ni-private-listbox-loading-indicator-height: 0px;
         max-height: min(
             calc(
-                ${smallPadding} + 2 * ${borderWidth} + ${controlHeight} * 10.5 +
-                    var(--ni-private-listbox-filter-height) +
-                    var(--ni-private-listbox-loading-indicator-height)
+                var(--ni-private-listbox-anchor-element-gap) + 
+                2 * ${borderWidth} + 
+                var(--ni-private-listbox-padding) +
+                ${controlHeight} * var(--ni-private-listbox-visible-option-count) +
+                var(--ni-private-listbox-filter-height) +
+                var(--ni-private-listbox-loading-indicator-height)
             ),
             calc(
-                var(--ni-private-listbox-available-viewport-height) -
-                    ${smallPadding}
+                var(--ni-private-listbox-available-viewport-height) - 
+                var(--ni-private-listbox-anchor-element-gap)
             )
         );
         box-shadow: ${elevation2BoxShadow};
