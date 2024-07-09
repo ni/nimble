@@ -116,6 +116,19 @@ describe('TableColumnMenuButton', () => {
         expect(tabbableChild).toBeInstanceOf(MenuButton);
     });
 
+    it('cell view tabbableChildren becomes empty when the data becomes empty', async () => {
+        await table.setData([{ field: 'value' }]);
+        await waitForUpdatesAsync();
+
+        let cellView = tablePageObject.getRenderedCellView(0, 0);
+        expect(cellView.tabbableChildren.length).toEqual(1);
+
+        await table.setData([{ field: null }]);
+        await waitForUpdatesAsync();
+        cellView = tablePageObject.getRenderedCellView(0, 0);
+        expect(cellView.tabbableChildren.length).toEqual(0);
+    });
+
     it('updating table data updates menu button text', async () => {
         await table.setData([{ field: 'value' }]);
         await waitForUpdatesAsync();

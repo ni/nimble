@@ -1,5 +1,5 @@
 import { DesignSystem } from '@microsoft/fast-foundation';
-import { observable } from '@microsoft/fast-element';
+import { observable, volatile } from '@microsoft/fast-element';
 import { TableCellView } from '../../base/cell-view';
 import type {
     TableColumnMenuButtonCellRecord,
@@ -35,9 +35,15 @@ TableColumnMenuButtonColumnConfig
     @observable
     public hasOverflow = false;
 
+    /** @internal */
+    @volatile
+    public get showMenuButton(): boolean {
+        return !!this.cellRecord?.value;
+    }
+
     public override get tabbableChildren(): HTMLElement[] {
-        if (this.menuButton) {
-            return [this.menuButton];
+        if (this.showMenuButton) {
+            return [this.menuButton!];
         }
         return [];
     }
