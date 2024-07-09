@@ -1,9 +1,6 @@
 import { attr, observable } from '@microsoft/fast-element';
 import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
-import {
-    TableColumnHeaderAlignment,
-    TableColumnSortDirection
-} from '../../types';
+import { TableColumnAlignment, TableColumnSortDirection } from '../../types';
 import { styles } from './styles';
 import { template } from './template';
 
@@ -28,7 +25,7 @@ export class TableHeader extends FoundationElement {
     public indicatorsHidden = false;
 
     @observable
-    public alignment: TableColumnHeaderAlignment = TableColumnHeaderAlignment.left;
+    public alignment: TableColumnAlignment = TableColumnAlignment.left;
 
     @observable
     public isGrouped = false;

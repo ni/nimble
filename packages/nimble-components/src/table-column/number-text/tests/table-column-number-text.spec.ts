@@ -4,14 +4,10 @@ import { tableTag, type Table } from '../../../table';
 import { TableColumnNumberText, tableColumnNumberTextTag } from '..';
 import { waitForUpdatesAsync } from '../../../testing/async-helpers';
 import { type Fixture, fixture } from '../../../utilities/tests/fixture';
-import {
-    TableColumnHeaderAlignment,
-    type TableRecord
-} from '../../../table/types';
+import { TableColumnAlignment, type TableRecord } from '../../../table/types';
 import { TablePageObject } from '../../../table/testing/table.pageobject';
 import { NumberTextAlignment, NumberTextFormat } from '../types';
 import type { TableColumnNumberTextCellView } from '../cell-view';
-import { TextCellViewBaseAlignment } from '../../text-base/cell-view/types';
 import { lang, themeProviderTag } from '../../../theme-provider';
 import { unitByteTag } from '../../../unit/byte';
 
@@ -570,7 +566,7 @@ describe('TableColumnNumberText', () => {
             decimalMaximumDigits: undefined,
             unit: false,
             configuredColumnAlignment: NumberTextAlignment.default,
-            expectedCellViewAlignment: TextCellViewBaseAlignment.left
+            expectedCellViewAlignment: TableColumnAlignment.left
         },
         {
             name: 'with default format and left alignment',
@@ -578,7 +574,7 @@ describe('TableColumnNumberText', () => {
             decimalMaximumDigits: undefined,
             unit: false,
             configuredColumnAlignment: NumberTextAlignment.left,
-            expectedCellViewAlignment: TextCellViewBaseAlignment.left
+            expectedCellViewAlignment: TableColumnAlignment.left
         },
         {
             name: 'with default format and right alignment',
@@ -586,7 +582,7 @@ describe('TableColumnNumberText', () => {
             decimalMaximumDigits: undefined,
             unit: false,
             configuredColumnAlignment: NumberTextAlignment.right,
-            expectedCellViewAlignment: TextCellViewBaseAlignment.right
+            expectedCellViewAlignment: TableColumnAlignment.right
         },
         {
             name: 'with default format, default alignment, and unit',
@@ -594,7 +590,7 @@ describe('TableColumnNumberText', () => {
             decimalMaximumDigits: undefined,
             unit: true,
             configuredColumnAlignment: NumberTextAlignment.default,
-            expectedCellViewAlignment: TextCellViewBaseAlignment.left
+            expectedCellViewAlignment: TableColumnAlignment.left
         },
         {
             name: 'with decimal format and default alignment',
@@ -602,7 +598,7 @@ describe('TableColumnNumberText', () => {
             decimalMaximumDigits: undefined,
             unit: false,
             configuredColumnAlignment: NumberTextAlignment.default,
-            expectedCellViewAlignment: TextCellViewBaseAlignment.right
+            expectedCellViewAlignment: TableColumnAlignment.right
         },
         {
             name: 'with decimal format and left alignment',
@@ -610,7 +606,7 @@ describe('TableColumnNumberText', () => {
             decimalMaximumDigits: undefined,
             unit: false,
             configuredColumnAlignment: NumberTextAlignment.left,
-            expectedCellViewAlignment: TextCellViewBaseAlignment.left
+            expectedCellViewAlignment: TableColumnAlignment.left
         },
         {
             name: 'with decimal format and right alignment',
@@ -618,7 +614,7 @@ describe('TableColumnNumberText', () => {
             decimalMaximumDigits: undefined,
             unit: false,
             configuredColumnAlignment: NumberTextAlignment.right,
-            expectedCellViewAlignment: TextCellViewBaseAlignment.right
+            expectedCellViewAlignment: TableColumnAlignment.right
         },
         {
             name: 'with decimal format, default alignment, and decimalMaximumDigits',
@@ -626,7 +622,7 @@ describe('TableColumnNumberText', () => {
             decimalMaximumDigits: 1,
             unit: false,
             configuredColumnAlignment: NumberTextAlignment.default,
-            expectedCellViewAlignment: TextCellViewBaseAlignment.left
+            expectedCellViewAlignment: TableColumnAlignment.left
         },
         {
             name: 'with decimal format, right alignment, and decimalMaximumDigits',
@@ -634,7 +630,7 @@ describe('TableColumnNumberText', () => {
             decimalMaximumDigits: 1,
             unit: false,
             configuredColumnAlignment: NumberTextAlignment.right,
-            expectedCellViewAlignment: TextCellViewBaseAlignment.right
+            expectedCellViewAlignment: TableColumnAlignment.right
         },
         {
             name: 'with decimal format, default alignment, and unit',
@@ -642,7 +638,7 @@ describe('TableColumnNumberText', () => {
             decimalMaximumDigits: undefined,
             unit: true,
             configuredColumnAlignment: NumberTextAlignment.default,
-            expectedCellViewAlignment: TextCellViewBaseAlignment.left
+            expectedCellViewAlignment: TableColumnAlignment.left
         }
     ] as const;
     describe('sets the correct initial alignment on the cell', () => {
@@ -684,19 +680,19 @@ describe('TableColumnNumberText', () => {
                 0,
                 0
             ) as TableColumnNumberTextCellView;
-            expect(cellView.alignment).toEqual(TextCellViewBaseAlignment.left);
+            expect(cellView.alignment).toEqual(TableColumnAlignment.left);
         });
 
         it('when alignment changes', async () => {
             elementReferences.column1.alignment = NumberTextAlignment.right;
             await waitForUpdatesAsync();
-            expect(cellView.alignment).toEqual(TextCellViewBaseAlignment.right);
+            expect(cellView.alignment).toEqual(TableColumnAlignment.right);
         });
 
         it('when format changes and alignment is set to "default"', async () => {
             elementReferences.column1.format = NumberTextFormat.decimal;
             await waitForUpdatesAsync();
-            expect(cellView.alignment).toEqual(TextCellViewBaseAlignment.right);
+            expect(cellView.alignment).toEqual(TableColumnAlignment.right);
         });
 
         it('when format is decimal, alignment is set to "default", and decimalMaximumDigits becomes set', async () => {
@@ -704,7 +700,7 @@ describe('TableColumnNumberText', () => {
             await waitForUpdatesAsync();
             elementReferences.column1.decimalMaximumDigits = 1;
             await waitForUpdatesAsync();
-            expect(cellView.alignment).toEqual(TextCellViewBaseAlignment.left);
+            expect(cellView.alignment).toEqual(TableColumnAlignment.left);
         });
 
         it('when format is decimal, alignment is set to "default", and unit element is appended', async () => {
@@ -714,7 +710,7 @@ describe('TableColumnNumberText', () => {
                 document.createElement(unitByteTag)
             );
             await waitForUpdatesAsync();
-            expect(cellView.alignment).toEqual(TextCellViewBaseAlignment.left);
+            expect(cellView.alignment).toEqual(TableColumnAlignment.left);
         });
     });
 
@@ -725,19 +721,19 @@ describe('TableColumnNumberText', () => {
         await connect();
         await waitForUpdatesAsync();
         expect(column.columnInternals.headerAlignment).toEqual(
-            TableColumnHeaderAlignment.right
+            TableColumnAlignment.right
         );
 
         elementReferences.column1.alignment = NumberTextAlignment.left;
         await waitForUpdatesAsync();
         expect(column.columnInternals.headerAlignment).toEqual(
-            TableColumnHeaderAlignment.left
+            TableColumnAlignment.left
         );
 
         elementReferences.column1.alignment = NumberTextAlignment.right;
         await waitForUpdatesAsync();
         expect(column.columnInternals.headerAlignment).toEqual(
-            TableColumnHeaderAlignment.right
+            TableColumnAlignment.right
         );
     });
 

@@ -220,14 +220,14 @@ export interface TableRowState<TData extends TableRecord = TableRecord> {
 /**
  * @internal
  *
- * Alignment of column header content
+ * Alignment of column content
  */
-export const TableColumnHeaderAlignment = {
+export const TableColumnAlignment = {
     left: 'left',
     right: 'right'
 } as const;
-export type TableColumnHeaderAlignment =
-    (typeof TableColumnHeaderAlignment)[keyof typeof TableColumnHeaderAlignment];
+export type TableColumnAlignment =
+    (typeof TableColumnAlignment)[keyof typeof TableColumnAlignment];
 
 /**
  * @internal

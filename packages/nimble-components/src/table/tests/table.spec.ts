@@ -13,7 +13,7 @@ import {
     uniqueElementName
 } from '../../utilities/tests/fixture';
 import {
-    TableColumnHeaderAlignment,
+    TableColumnAlignment,
     TableColumnSortDirection,
     TableRecord,
     TableRecordDelayedHierarchyState,
@@ -278,18 +278,18 @@ describe('Table', () => {
             await waitForUpdatesAsync();
 
             const header = pageObject.getHeaderElement(0);
-            expect(header.alignment).toEqual(TableColumnHeaderAlignment.left);
+            expect(header.alignment).toEqual(TableColumnAlignment.left);
         });
 
         it('sets column header alignment to right when configured as right in columnInternals', async () => {
             await connect();
             await waitForUpdatesAsync();
 
-            element.columns[0]!.columnInternals.headerAlignment = TableColumnHeaderAlignment.right;
+            element.columns[0]!.columnInternals.headerAlignment = TableColumnAlignment.right;
             await waitForUpdatesAsync();
 
             const header = pageObject.getHeaderElement(0);
-            expect(header.alignment).toEqual(TableColumnHeaderAlignment.right);
+            expect(header.alignment).toEqual(TableColumnAlignment.right);
         });
 
         it('can set data before the element is connected', async () => {

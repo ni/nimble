@@ -2,10 +2,7 @@ import { html } from '@microsoft/fast-element';
 import { TableHeader } from '..';
 import { waitForUpdatesAsync } from '../../../../testing/async-helpers';
 import { type Fixture, fixture } from '../../../../utilities/tests/fixture';
-import {
-    TableColumnHeaderAlignment,
-    TableColumnSortDirection
-} from '../../../types';
+import { TableColumnAlignment, TableColumnSortDirection } from '../../../types';
 import { TableHeaderPageObject } from './table-header-pageobject';
 
 async function setup(): Promise<Fixture<TableHeader>> {
@@ -152,6 +149,6 @@ describe('TableHeader', () => {
     });
 
     it('defaults to left-aligned', () => {
-        expect(element.alignment).toBe(TableColumnHeaderAlignment.left);
+        expect(element.alignment).toBe(TableColumnAlignment.left);
     });
 });
