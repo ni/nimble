@@ -2,6 +2,36 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Mon, 08 Jul 2024 22:43:30 GMT",
+      "version": "29.7.8",
+      "tag": "@ni/nimble-components_v29.7.8",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "e89280785b3baf4f6acfc3c6677fe8580600ba09",
+            "comment": "Confine rich-text mention listbox to viewport"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 08 Jul 2024 20:36:03 GMT",
+      "version": "29.7.7",
+      "tag": "@ni/nimble-components_v29.7.7",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/nimble-tokens to v6.15.1",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 03 Jul 2024 20:37:08 GMT",
       "version": "29.7.6",
       "tag": "@ni/nimble-components_v29.7.6",
