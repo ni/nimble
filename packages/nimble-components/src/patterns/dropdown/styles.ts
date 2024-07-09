@@ -17,7 +17,8 @@ import {
     borderRgbPartialColor,
     mediumPadding,
     failColor,
-    elevation2BoxShadow
+    elevation2BoxShadow,
+    placeholderFontColor
 } from '../../theme-provider/design-tokens';
 import { Theme } from '../../theme-provider/types';
 import { appearanceBehavior } from '../../utilities/style/appearance';
@@ -183,7 +184,6 @@ export const styles = css`
     .listbox {
         display: inline-flex;
         flex-direction: column;
-        overflow-y: auto;
         width: 100%;
         --ni-private-listbox-visible-option-count: 10.5;
         --ni-private-listbox-anchor-element-gap: ${smallPadding};
@@ -227,15 +227,31 @@ export const styles = css`
         border-top-right-radius: 0;
     }
 
+    .scrollable-region {
+        overflow-y: auto;
+    }
+
     .listbox slot {
         display: block;
         background: transparent;
         padding: var(--ni-private-listbox-padding);
     }
 
+    .empty slot {
+        display: none;
+    }
+
     ::slotted([role='option']),
     ::slotted(option) {
         flex: none;
+    }
+
+    .no-results-label {
+        color: ${placeholderFontColor};
+        height: ${controlHeight};
+        display: inline-flex;
+        align-items: center;
+        padding: ${smallPadding} ${mediumPadding};
     }
 `.withBehaviors(
     appearanceBehavior(

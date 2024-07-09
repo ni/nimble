@@ -86,10 +86,6 @@ export const styles = css`
     :host([disabled]) .dropdown-icon {
         fill: ${bodyDisabledFontColor};
     }
-
-    :host(:empty) .listbox {
-        display: none;
-    }
 `.withBehaviors(
     appearanceBehavior(
         DropdownAppearance.block,

@@ -136,6 +136,7 @@ export class Combobox
      *
      * The collection of currently filtered options.
      */
+    @observable
     public filteredOptions: ListboxOption[] = [];
 
     /** @internal */
