@@ -14,10 +14,8 @@ export const styles = css`
 
     .value-label {
         margin-right: auto;
-        overflow-x: hidden;
+        overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
-        height: 100%;
-        align-content: center;
     }
 `;
