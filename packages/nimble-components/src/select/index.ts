@@ -609,7 +609,8 @@ export class Select
                 } else {
                     this.open = true;
                 }
-                if (this.open) {
+
+                if (commitValueThenClose) {
                     this.focus();
                 }
                 break;
@@ -640,18 +641,14 @@ export class Select
             }
         }
 
-        if (
-            (!this.open || commitValueThenClose)
-            && this.selectedIndex !== currentActiveIndex
-        ) {
-            this.selectedIndex = currentActiveIndex;
-        }
+        if (!this.open || commitValueThenClose) {
+            if (this.selectedIndex !== currentActiveIndex) {
+                this.selectedIndex = currentActiveIndex;
+            }
 
-        if (
-            (!this.open || commitValueThenClose)
-            && initialSelectedIndex !== this.selectedIndex
-        ) {
-            this.updateValue(true);
+            if (initialSelectedIndex !== this.selectedIndex) {
+                this.updateValue(true);
+            }
         }
 
         this.open = commitValueThenClose ? false : this.open;
