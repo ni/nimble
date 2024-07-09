@@ -1423,9 +1423,9 @@ describe('Table row selection', () => {
                         expect(currentSelection).toEqual(
                             jasmine.arrayWithExactContents(expectedSelection)
                         );
-                        expect(
-                            shiftSelectListener.spy
-                        ).toHaveBeenCalledTimes(1);
+                        expect(shiftSelectListener.spy).toHaveBeenCalledTimes(
+                            1
+                        );
                         const emittedIds = getEmittedRecordIdsFromSpy(
                             shiftSelectListener.spy
                         );
@@ -1456,9 +1456,9 @@ describe('Table row selection', () => {
                         expect(currentSelection).toEqual(
                             jasmine.arrayWithExactContents(expectedSelection)
                         );
-                        expect(
-                            shiftSelectListener.spy
-                        ).toHaveBeenCalledTimes(1);
+                        expect(shiftSelectListener.spy).toHaveBeenCalledTimes(
+                            1
+                        );
                         const emittedIds = getEmittedRecordIdsFromSpy(
                             shiftSelectListener.spy
                         );
