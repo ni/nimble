@@ -32,7 +32,7 @@ export class MultiSelectionManager<
             }
         }
 
-        this.shiftSelectStartRowId = rowState.id;
+        this.shiftSelectStartRowId = isSelecting ? rowState.id : undefined;
         this.previousShiftSelectRowEndId = undefined;
         this.toggleIsRowSelected(rowState, isSelecting);
         return true;
@@ -44,7 +44,8 @@ export class MultiSelectionManager<
         ctrlKey: boolean
     ): boolean {
         if (ctrlKey) {
-            this.shiftSelectStartRowId = rowState.id;
+            const isSelecting = rowState.selectionState !== TableRowSelectionState.selected;
+            this.shiftSelectStartRowId = isSelecting ? rowState.id : undefined;
             this.previousShiftSelectRowEndId = undefined;
             this.toggleIsRowSelected(rowState);
             return true;

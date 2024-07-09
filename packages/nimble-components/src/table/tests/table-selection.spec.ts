@@ -1400,6 +1400,72 @@ describe('Table row selection', () => {
                             jasmine.arrayWithExactContents(expectedSelection)
                         );
                     });
+
+                    it('SHIFT + click only selects the clicked row when the previous click deselected the row clicking the selection checkbox', async () => {
+                        // Start with the first row selected
+                        await element.setSelectedRecordIds(['0']);
+                        await waitForUpdatesAsync();
+
+                        // Deselect the first row by clicking the selection checkbox
+                        pageObject.clickRowSelectionCheckbox(0);
+                        await selectionChangeListener.promise;
+
+                        // Shift + click a different row
+                        const shiftSelectListener = createEventListener(
+                            element,
+                            'selection-change'
+                        );
+                        await pageObject.clickRow(3, { shiftKey: true });
+                        await shiftSelectListener.promise;
+
+                        const expectedSelection = ['3'];
+                        const currentSelection = await element.getSelectedRecordIds();
+                        expect(currentSelection).toEqual(
+                            jasmine.arrayWithExactContents(expectedSelection)
+                        );
+                        expect(
+                            shiftSelectListener.spy
+                        ).toHaveBeenCalledTimes(1);
+                        const emittedIds = getEmittedRecordIdsFromSpy(
+                            shiftSelectListener.spy
+                        );
+                        expect(emittedIds).toEqual(
+                            jasmine.arrayWithExactContents(expectedSelection)
+                        );
+                    });
+
+                    it('SHIFT + click only selects the clicked row when the previous click deselected the row through CTRL + click', async () => {
+                        // Start with the first row selected
+                        await element.setSelectedRecordIds(['0']);
+                        await waitForUpdatesAsync();
+
+                        // Deselect the first row by CTRL + clicking it
+                        await pageObject.clickRow(0, { ctrlKey: true });
+                        await selectionChangeListener.promise;
+
+                        // Shift + click a different row
+                        const shiftSelectListener = createEventListener(
+                            element,
+                            'selection-change'
+                        );
+                        await pageObject.clickRow(3, { shiftKey: true });
+                        await shiftSelectListener.promise;
+
+                        const expectedSelection = ['3'];
+                        const currentSelection = await element.getSelectedRecordIds();
+                        expect(currentSelection).toEqual(
+                            jasmine.arrayWithExactContents(expectedSelection)
+                        );
+                        expect(
+                            shiftSelectListener.spy
+                        ).toHaveBeenCalledTimes(1);
+                        const emittedIds = getEmittedRecordIdsFromSpy(
+                            shiftSelectListener.spy
+                        );
+                        expect(emittedIds).toEqual(
+                            jasmine.arrayWithExactContents(expectedSelection)
+                        );
+                    });
                 });
 
                 it('can select multiple rows by clicking their selection checkboxes', async () => {
