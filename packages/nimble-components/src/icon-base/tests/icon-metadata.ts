@@ -13,6 +13,9 @@ export const iconMetadata: {
     IconAdd: {
         tags: ['add input field']
     },
+    IconAnchorBoxUpRightArrow: {
+        tags: []
+    },
     IconArrowDown: {
         tags: ['sort', 'arrow', 'down', 'descending']
     },
@@ -64,6 +67,12 @@ export const iconMetadata: {
     IconArrowUpRightFromSquare: {
         tags: ['open', 'external', 'link']
     },
+    IconArrowURedo: {
+        tags: ['redo', 'revert', 'forward']
+    },
+    IconArrowUUndo: {
+        tags: ['undo', 'revert', 'back']
+    },
     IconArrowsMaximize: {
         tags: ['resize', 'fullscreen']
     },
@@ -100,14 +109,29 @@ export const iconMetadata: {
     IconBookMagnifyingGlass: {
         tags: ['analyze']
     },
-    IconCalendar: {
+    IconCalendarMonth: {
         tags: ['schedule']
+    },
+    IconCalendarClockSchedulingAssistant: {
+        tags: []
     },
     IconCalendarCheckLines: {
         tags: ['test', 'plan', 'schedule']
     },
-    IconCalendarDay: {
-        tags: ['date', 'time', 'schedule']
+    IconCalendarFilledRectangleYear: {
+        tags: []
+    },
+    IconCalendarOneHollowSquareToday: {
+        tags: []
+    },
+    IconCalendarOneSquareDay: {
+        tags: []
+    },
+    IconCalendarThreeRectanglesAgenda: {
+        tags: []
+    },
+    IconCalendarTopRectangleWeek: {
+        tags: []
     },
     IconChartDiagram: {
         tags: ['oidc']
@@ -363,6 +387,9 @@ export const iconMetadata: {
     },
     IconLinkCancel: {
         tags: ['unlink']
+    },
+    IconLinkRightArrow: {
+        tags: ['link', 'open']
     },
     IconList: {
         tags: ['bullet', 'merged view']
