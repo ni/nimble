@@ -28,7 +28,7 @@ export class ComboboxPageObject {
         this.comboboxElement.control.value = text;
         const inputEvent = new InputEvent('input', {
             data: text,
-            inputType: asDelete ? 'deleteContent' : 'insertText'
+            inputType: asDelete ? 'deleteContentForward' : 'insertText'
         });
         this.comboboxElement.control.dispatchEvent(inputEvent);
     }
