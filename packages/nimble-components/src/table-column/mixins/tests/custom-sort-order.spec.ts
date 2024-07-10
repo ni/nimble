@@ -103,10 +103,9 @@ describe('CustomSortOrderColumn', () => {
         expect(element.columnInternals.validator.isColumnValid).toBeTrue();
     });
 
-    it('grouping a column with a custom sort order makes the column invalid', () => {
+    it('a groupable column with a custom sort order is invalid', () => {
         element.sortByFieldName = 'customFieldName';
         element.columnInternals.groupingDisabled = false;
-        element.columnInternals.groupIndex = 0;
 
         expect(element.checkValidity()).toBeFalse();
         expect(element.columnInternals.validator.isColumnValid).toBeFalse();
@@ -116,7 +115,6 @@ describe('CustomSortOrderColumn', () => {
     it('disabling grouping on an invalid column makes it valid', () => {
         element.sortByFieldName = 'customFieldName';
         element.columnInternals.groupingDisabled = false;
-        element.columnInternals.groupIndex = 0;
 
         expect(element.checkValidity()).toBeFalse();
 
@@ -126,23 +124,9 @@ describe('CustomSortOrderColumn', () => {
         expect(element.validity.invalidCustomSortWithGrouping).toBeFalse();
     });
 
-    it('clearing the group index on an invalid column makes it valid', () => {
+    it('clearing the custom sort order on a groupable column makes the column valid', () => {
         element.sortByFieldName = 'customFieldName';
         element.columnInternals.groupingDisabled = false;
-        element.columnInternals.groupIndex = 0;
-
-        expect(element.checkValidity()).toBeFalse();
-
-        element.columnInternals.groupIndex = undefined;
-        expect(element.checkValidity()).toBeTrue();
-        expect(element.columnInternals.validator.isColumnValid).toBeTrue();
-        expect(element.validity.invalidCustomSortWithGrouping).toBeFalse();
-    });
-
-    it('clearing the custom sort order on a grouped column makes the column valid', () => {
-        element.sortByFieldName = 'customFieldName';
-        element.columnInternals.groupingDisabled = false;
-        element.columnInternals.groupIndex = 0;
 
         expect(element.checkValidity()).toBeFalse();
 
