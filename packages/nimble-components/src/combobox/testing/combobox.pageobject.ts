@@ -22,11 +22,13 @@ export class ComboboxPageObject {
         await this.regionLoadedListener.promise;
     }
 
-    public setInputText(text: string): void {
+    // The Selection API currently isn't supported properly or consistently in shadow DOM,
+    // so unfortunately our delete API has to be passed the post-deletion text.
+    public setInputText(text: string, asDelete = false): void {
         this.comboboxElement.control.value = text;
         const inputEvent = new InputEvent('input', {
             data: text,
-            inputType: 'insertText'
+            inputType: asDelete ? 'deleteContent' : 'insertText'
         });
         this.comboboxElement.control.dispatchEvent(inputEvent);
     }
@@ -34,26 +36,6 @@ export class ComboboxPageObject {
     public commitValue(text: string): void {
         this.setInputText(text);
         this.pressEnterKey();
-    }
-
-    public deleteInputSelection(): void {
-        const selection = document.getSelection();
-        // The Selection API currently isn't supported properly in shadow DOM.
-        // We have to do some janky stuff here to simulate a selection delete.
-        if (
-            selection?.anchorNode?.childNodes[selection?.anchorOffset]
-            !== this.comboboxElement
-        ) {
-            throw new Error('No selection to delete');
-        }
-        const text = this.comboboxElement.control.value;
-        const updatedText = text.replace(selection.toString(), '');
-        this.comboboxElement.control.value = updatedText;
-        const inputEvent = new InputEvent('input', {
-            data: updatedText,
-            inputType: 'deleteContentForward'
-        });
-        this.comboboxElement.control.dispatchEvent(inputEvent);
     }
 
     /**

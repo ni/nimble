@@ -201,8 +201,8 @@ describe('Combobox', () => {
             pageObject.setInputText('O'); // should autocomplete to 'One'
             expect(element.value).toEqual('One');
 
-            // Autocomplete leaves the autocompleted text selected
-            pageObject.deleteInputSelection();
+            // Simulate deleting the selected text left by autocomplete (i.e. "ne")
+            pageObject.setInputText('O', true);
             expect(element.value).toEqual('O');
         });
 
