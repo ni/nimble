@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Mon, 08 Jul 2024 22:43:30 GMT and should not be manually modified.
+This log was last generated on Wed, 10 Jul 2024 15:47:23 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 29.7.9
+
+Wed, 10 Jul 2024 15:47:23 GMT
+
+### Patches
+
+- Change so that Select change event occurs before filter-input event ([ni/nimble@9abc399](https://github.com/ni/nimble/commit/9abc3991f4594534b5903e2a7c0913fce72b362f))
 
 ## 29.7.8
 
