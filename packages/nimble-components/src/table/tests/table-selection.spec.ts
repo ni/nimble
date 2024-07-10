@@ -1401,7 +1401,7 @@ describe('Table row selection', () => {
                         );
                     });
 
-                    it('SHIFT + click only selects the clicked row when the previous click deselected the row clicking the selection checkbox', async () => {
+                    it('SHIFT + click selects only the clicked row if the previous click deselected a row (by clicking the checkbox)', async () => {
                         // Start with the first row selected
                         await element.setSelectedRecordIds(['0']);
                         await waitForUpdatesAsync();
@@ -1434,7 +1434,7 @@ describe('Table row selection', () => {
                         );
                     });
 
-                    it('SHIFT + click only selects the clicked row when the previous click deselected the row through CTRL + click', async () => {
+                    it('SHIFT + click selects only the clicked row if the previous click deselected the row (by CTRL + click)', async () => {
                         // Start with the first row selected
                         await element.setSelectedRecordIds(['0']);
                         await waitForUpdatesAsync();
