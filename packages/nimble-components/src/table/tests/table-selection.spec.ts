@@ -1,4 +1,5 @@
 import { html } from '@microsoft/fast-element';
+import { keyArrowDown, keySpace, keyTab } from '@microsoft/fast-web-utilities';
 import { parameterizeSpec } from '@ni/jasmine-parameterized';
 import { Table, tableTag } from '..';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
@@ -1429,6 +1430,59 @@ describe('Table row selection', () => {
                     expect(selectedRecordIds).toEqual(
                         jasmine.arrayWithExactContents(recordIds)
                     );
+                });
+
+                describe('with SHIFT pressed in the document then let go outside the document', () => {
+                    beforeEach(() => {
+                        const shiftKeyDownEvent = new KeyboardEvent('keydown', {
+                            key: keyTab, // could be any key
+                            shiftKey: true
+                        } as KeyboardEventInit);
+                        document.dispatchEvent(shiftKeyDownEvent);
+                        document.dispatchEvent(new FocusEvent('focusout'));
+                        // No SHIFT keyup event. This simulates the user letting go of the SHIFT key outside the document.
+                    });
+
+                    it('selects only the rows whose checkboxes were clicked', async () => {
+                        pageObject.clickRowSelectionCheckbox(0);
+                        pageObject.clickRowSelectionCheckbox(3);
+                        await waitForUpdatesAsync();
+
+                        const selectedRecordIds = await element.getSelectedRecordIds();
+                        expect(selectedRecordIds).toEqual(
+                            jasmine.arrayWithExactContents([
+                                simpleTableData[0].id,
+                                simpleTableData[3].id
+                            ])
+                        );
+                    });
+
+                    it('selects only the rows that SPACE was pressed on', async () => {
+                        const downArrowKeyEvent = new KeyboardEvent('keydown', {
+                            key: keyArrowDown,
+                            bubbles: true
+                        });
+                        const spaceKeyEvent = new KeyboardEvent('keydown', {
+                            key: keySpace,
+                            bubbles: true
+                        });
+                        element.focus();
+                        element.dispatchEvent(downArrowKeyEvent);
+                        element.dispatchEvent(spaceKeyEvent);
+                        element.dispatchEvent(downArrowKeyEvent);
+                        element.dispatchEvent(downArrowKeyEvent);
+                        element.dispatchEvent(downArrowKeyEvent);
+                        element.dispatchEvent(spaceKeyEvent);
+                        await waitForUpdatesAsync();
+
+                        const selectedRecordIds = await element.getSelectedRecordIds();
+                        expect(selectedRecordIds).toEqual(
+                            jasmine.arrayWithExactContents([
+                                simpleTableData[0].id,
+                                simpleTableData[3].id
+                            ])
+                        );
+                    });
                 });
 
                 describe('header selection checkbox', () => {

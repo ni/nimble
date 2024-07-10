@@ -338,20 +338,20 @@ export class Table<
         this.viewport.addEventListener('scroll', this.onViewPortScroll, {
             passive: true
         });
-        this.addEventListener('blur', this.onBlur);
         this.keyboardNavigationManager.connect();
         document.addEventListener('keydown', this.onKeyDown);
         document.addEventListener('keyup', this.onKeyUp);
+        document.addEventListener('focusout', this.onFocusOut);
     }
 
     public override disconnectedCallback(): void {
         super.disconnectedCallback();
         this.virtualizer.disconnect();
         this.keyboardNavigationManager.disconnect();
-        this.removeEventListener('blur', this.onBlur);
         this.viewport.removeEventListener('scroll', this.onViewPortScroll);
         document.removeEventListener('keydown', this.onKeyDown);
         document.removeEventListener('keyup', this.onKeyUp);
+        document.removeEventListener('focusout', this.onFocusOut);
     }
 
     public checkValidity(): boolean {
@@ -776,16 +776,16 @@ export class Table<
         this.scrollX = (event.target as HTMLElement).scrollLeft;
     };
 
-    private readonly onBlur = (): void => {
-        this.documentShiftKeyDown = false;
-    };
-
     private readonly onKeyDown = (event: KeyboardEvent): void => {
         this.documentShiftKeyDown = event.shiftKey;
     };
 
     private readonly onKeyUp = (event: KeyboardEvent): void => {
         this.documentShiftKeyDown = event.shiftKey;
+    };
+
+    private readonly onFocusOut = (): void => {
+        this.documentShiftKeyDown = false;
     };
 
     private removeColumnObservers(): void {
