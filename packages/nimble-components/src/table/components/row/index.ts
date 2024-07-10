@@ -208,17 +208,6 @@ export class TableRow<
         );
     }
 
-    public closeOpenActionMenus(): void {
-        if (this.menuOpen) {
-            const cellWithMenuOpen = Array.from(
-                this.cellContainer.children
-            ).find(c => c instanceof TableCell && c.menuOpen) as TableCell;
-            if (cellWithMenuOpen?.actionMenuButton?.open) {
-                cellWithMenuOpen.actionMenuButton.toggleButton!.control.click();
-            }
-        }
-    }
-
     /** @internal */
     public handleChange(source: unknown, args: unknown): void {
         if (
