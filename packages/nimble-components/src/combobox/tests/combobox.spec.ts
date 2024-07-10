@@ -256,10 +256,7 @@ describe('Combobox', () => {
             pageObject.pressEnterKey(); // commit value
             expect(changeEvent).toHaveBeenCalledTimes(1);
 
-            const focusoutEvent = new FocusEvent('focusout', {
-                relatedTarget: element
-            });
-            element.dispatchEvent(focusoutEvent); // focusout should not also emit a change event
+            await pageObject.clickAway(); // focusout should not also emit a change event
             expect(changeEvent).toHaveBeenCalledTimes(1);
         });
 
@@ -275,12 +272,11 @@ describe('Combobox', () => {
             await waitForUpdatesAsync();
             expect(changeEvent).toHaveBeenCalledTimes(0);
 
-            const focusoutEvent = new FocusEvent('focusout');
-            element.dispatchEvent(focusoutEvent); // commit value
+            await pageObject.clickAway(); // commit value
             expect(changeEvent).toHaveBeenCalledTimes(1);
         });
 
-        it('should not emit change event if entered text matches value prior to typing', async () => {
+        it('should not emit change event if entered text matches value prior to typing', () => {
             element.autocomplete = ComboboxAutocomplete.none;
             pageObject.commitValue('O');
 
@@ -354,6 +350,29 @@ describe('Combobox', () => {
         });
     });
 
+    describe('configured before connecting', () => {
+        async function setup(): Promise<Fixture<Combobox>> {
+            const viewTemplate = html`
+                <nimble-combobox>
+                    <nimble-list-option value="one">One</nimble-list-option>
+                    <nimble-list-option value="two">Two</nimble-list-option>
+                </nimble-combobox>
+            `;
+            return fixture<Combobox>(viewTemplate);
+        }
+
+        it('should respect value set before connect is completed', async () => {
+            const { element, connect, disconnect } = await setup();
+
+            element.value = 'two';
+            await connect();
+
+            expect(element.value).toBe('Two');
+
+            await disconnect();
+        });
+    });
+
     describe('with template attributes', () => {
         async function setup(): Promise<Fixture<Combobox>> {
             // prettier-ignore
@@ -377,6 +396,17 @@ describe('Combobox', () => {
             expect(element.classList.contains('open')).toBeTrue();
             expect(element.classList.contains('disabled')).toBeTrue();
             expect(element.classList.contains('above')).toBeTrue();
+
+            await disconnect();
+        });
+
+        it('should respect "open" and "position" attributes when both set', async () => {
+            const { element, connect, disconnect } = await setup();
+            await connect();
+            await waitForUpdatesAsync();
+
+            expect(element.getAttribute('open')).not.toBeNull();
+            expect(element.getAttribute('position')).toBe('above');
 
             await disconnect();
         });
