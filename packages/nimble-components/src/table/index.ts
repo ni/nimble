@@ -348,6 +348,7 @@ export class Table<
         super.disconnectedCallback();
         this.virtualizer.disconnect();
         this.keyboardNavigationManager.disconnect();
+        this.removeEventListener('blur', this.onBlur);
         this.viewport.removeEventListener('scroll', this.onViewPortScroll);
         document.removeEventListener('keydown', this.onKeyDown);
         document.removeEventListener('keyup', this.onKeyUp);
