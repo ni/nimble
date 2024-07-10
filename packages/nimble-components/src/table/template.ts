@@ -110,7 +110,7 @@ export const template = html<Table>`
                                             ?indicators-hidden="${x => x.columnInternals.hideHeaderIndicators}"
                                             @keydown="${(x, c) => c.parent.onHeaderKeyDown(x, c.event as KeyboardEvent)}"
                                             @click="${(x, c) => c.parent.toggleColumnSort(x, (c.event as MouseEvent).shiftKey)}"
-                                            :alignment="${x => (typeof x.columnInternals.headerAlignment === 'string' ? x.columnInternals.headerAlignment : TableColumnAlignment.left)}"
+                                            :alignment="${x => x.columnInternals.headerAlignment}"
                                             :isGrouped=${x => (typeof x.columnInternals.groupIndex === 'number' && !x.columnInternals.groupingDisabled)}
                                         >
                                             <slot name="${x => x.slot}"></slot>

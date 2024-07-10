@@ -1,7 +1,7 @@
 import { uniqueId } from '@microsoft/fast-web-utilities';
 import { ViewTemplate, observable } from '@microsoft/fast-element';
 import {
-    type TableColumnAlignment,
+    TableColumnAlignment,
     TableColumnSortDirection,
     TableFieldName
 } from '../../../table/types';
@@ -161,7 +161,7 @@ export class ColumnInternals<
      * How to align the header content.
      */
     @observable
-    public headerAlignment?: TableColumnAlignment;
+    public headerAlignment: TableColumnAlignment = TableColumnAlignment.left;
 
     /**
      * @internal Do not write to this value directly. It is used by the Table in order to store
