@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Wed, 10 Jul 2024 16:23:39 GMT",
+      "version": "29.8.0",
+      "tag": "@ni/nimble-components_v29.8.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "1007f6dcaf1077a0e75d6202b631db24a7d39fda",
+            "comment": "Create menu-button table column"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 10 Jul 2024 15:47:23 GMT",
       "version": "29.7.9",
       "tag": "@ni/nimble-components_v29.7.9",

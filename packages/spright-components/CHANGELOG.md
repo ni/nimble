@@ -1,8 +1,16 @@
 # Change Log - @ni/spright-components
 
-This log was last generated on Wed, 10 Jul 2024 15:47:23 GMT and should not be manually modified.
+This log was last generated on Wed, 10 Jul 2024 16:23:39 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.0.37
+
+Wed, 10 Jul 2024 16:23:39 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v29.8.0
 
 ## 1.0.36
 
