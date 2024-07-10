@@ -102,6 +102,10 @@ export const styles = css`
             ${iconColor.cssCustomProperty}: ${buttonLabelFontColor};
         }
 
+        slot[name='start']::slotted(*) {
+            flex-shrink: 0;
+        }
+
         :host([content-hidden]) .content {
             ${accessiblyHidden}
         }
@@ -109,6 +113,10 @@ export const styles = css`
         [part='end'] {
             display: contents;
             ${iconColor.cssCustomProperty}: ${buttonLabelFontColor};
+        }
+
+        slot[name='end']::slotted(*) {
+            flex-shrink: 0;
         }
     }
 
