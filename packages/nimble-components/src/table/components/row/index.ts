@@ -21,7 +21,7 @@ import type {
 } from '../../types';
 import type { TableColumn } from '../../../table-column/base';
 import type { MenuButtonToggleEventDetail } from '../../../menu-button/types';
-import { TableCell, tableCellTag } from '../cell';
+import { tableCellTag } from '../cell';
 import {
     ColumnInternals,
     isColumnInternalsProperty
