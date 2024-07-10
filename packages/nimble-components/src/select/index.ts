@@ -651,7 +651,9 @@ export class Select
             }
         }
 
-        this.open = commitValueThenClose ? false : this.open;
+        if (commitValueThenClose) {
+            this.open = false;
+        }
 
         return !(key === keyArrowDown || key === keyArrowUp);
     }
