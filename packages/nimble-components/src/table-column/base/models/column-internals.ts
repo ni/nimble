@@ -31,12 +31,17 @@ export interface ColumnInternalsOptions<
      * The tag to use to render the group header content for a column.
      * The element this tag refers to must derive from TableGroupHeaderView.
      */
-    readonly groupHeaderViewTag: string;
+    readonly groupHeaderViewTag?: string;
 
     /**
      * The names of events that should be delegated from the cell view to the column.
      */
     readonly delegatedEvents: readonly string[];
+
+    /**
+     * The names of slots that need to be forwarded into a cell.
+     */
+    readonly slotNames?: readonly string[];
 
     /**
      * The sort operation to use for the column (defaults to TableColumnSortOperation.basic)
@@ -78,6 +83,11 @@ export class ColumnInternals<
     public readonly delegatedEvents: readonly string[];
 
     /**
+     * The names of slots that need to be forwarded into a cell.
+     */
+    public readonly slotNames: readonly string[];
+
+    /**
      * The relevant, static configuration a column requires its cell view to have access to.
      */
     @observable
@@ -105,13 +115,13 @@ export class ColumnInternals<
     /**
      * Template for the group header view
      */
-    public readonly groupHeaderViewTemplate: ViewTemplate<TableGroupRow>;
+    public readonly groupHeaderViewTemplate?: ViewTemplate<TableGroupRow>;
 
     /**
      * Whether or not this column can be used to group rows by
      */
     @observable
-    public groupingDisabled = false;
+    public groupingDisabled = true;
 
     /**
      * Specifies the grouping precedence of the column within the set of all columns participating in grouping.
@@ -171,7 +181,7 @@ export class ColumnInternals<
      * Whether or not this column can be sorted
      */
     @observable
-    public sortingDisabled = false;
+    public sortingDisabled = true;
 
     /**
      * @internal Do not write to this value directly. It is used by the Table in order to store
@@ -192,10 +202,13 @@ export class ColumnInternals<
     public constructor(options: ColumnInternalsOptions<TColumnValidator>) {
         this.cellRecordFieldNames = options.cellRecordFieldNames;
         this.cellViewTemplate = createCellViewTemplate(options.cellViewTag);
-        this.groupHeaderViewTemplate = createGroupHeaderViewTemplate(
-            options.groupHeaderViewTag
-        );
+        if (options.groupHeaderViewTag) {
+            this.groupHeaderViewTemplate = createGroupHeaderViewTemplate(
+                options.groupHeaderViewTag
+            );
+        }
         this.delegatedEvents = options.delegatedEvents;
+        this.slotNames = options.slotNames ?? [];
         this.sortOperation = options.sortOperation ?? TableColumnSortOperation.basic;
         this.validator = options.validator;
     }
