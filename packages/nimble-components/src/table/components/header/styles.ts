@@ -27,7 +27,7 @@ export const styles = css`
     }
 
     :host(.right-align) {
-        justify-content: flex-end;
+        flex-direction: row-reverse;
     }
 
     :host(${focusVisible}) {

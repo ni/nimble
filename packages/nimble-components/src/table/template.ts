@@ -13,7 +13,6 @@ import { tableRowTag } from './components/row';
 import type { TableColumn } from '../table-column/base';
 import {
     TableActionMenuToggleEventDetail,
-    TableColumnAlignment,
     TableColumnSortDirection,
     TableRowSelectionMode,
     TableRowSelectionState,

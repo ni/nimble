@@ -18,9 +18,7 @@ export const template = html<TableHeader>`
         ${'' /* Prevent header double clicks from selecting text */}
         @mousedown="${(_x, c) => !((c.event as MouseEvent).detail > 1)}"
     >
-        ${when(x => x.alignment === TableColumnAlignment.left, html`
-            <slot></slot>
-        `)}
+        <slot></slot>
 
         ${when(x => !x.indicatorsHidden, html<TableHeader>`
             ${'' /* Set aria-hidden="true" on sort indicators because aria-sort is set on the 1st sorted column */}
@@ -46,10 +44,6 @@ export const template = html<TableHeader>`
                     aria-label="${x => tableColumnHeaderGroupedLabel.getValueFor(x)}"
                 ></${iconTwoSquaresInBracketsTag}>
             `)}
-        `)}
-
-        ${when(x => x.alignment === TableColumnAlignment.right, html`
-            <slot></slot>
         `)}
     </template>
 `;

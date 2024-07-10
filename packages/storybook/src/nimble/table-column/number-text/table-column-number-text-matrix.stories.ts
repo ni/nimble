@@ -59,6 +59,8 @@ const component = (
         <${tableColumnNumberTextTag}
             field-name="number"
             group-index="0"
+            sort-index="0"
+            sort-direction="descending"
             alignment="${() => alignment}"
             placeholder="${() => placeholder}"
         >
@@ -69,6 +71,8 @@ const component = (
             decimal-digits="3"
             field-name="number"
             group-index="2"
+            sort-index="1"
+            sort-direction="ascending"
             alignment="${() => alignment}"
             placeholder="${() => placeholder}"
         >
