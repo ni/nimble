@@ -659,6 +659,10 @@ describe('Select', () => {
             const { element, connect, disconnect } = await setup500Options();
             await connect();
             await clickAndWaitForOpen(element);
+            element.listbox.style.setProperty(
+                '--ni-private-listbox-visible-option-count',
+                '10000'
+            );
             const fullyVisible = await checkFullyInViewport(element.listbox);
 
             expect(element.scrollableRegion.scrollHeight).toBeGreaterThan(

@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-tokens
 
-This log was last generated on Thu, 06 Jun 2024 17:29:15 GMT and should not be manually modified.
+This log was last generated on Mon, 08 Jul 2024 20:36:03 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 6.15.1
+
+Mon, 08 Jul 2024 20:36:03 GMT
+
+### Patches
+
+- Delete NimbleTokens Nuget and clean up generation scripts for @ni/nimble-tokens npm package ([ni/nimble@ecf2bf6](https://github.com/ni/nimble/commit/ecf2bf6f026ef1fbcfe8d81ef80ede7f9ed241b0))
 
 ## 6.15.0
 
