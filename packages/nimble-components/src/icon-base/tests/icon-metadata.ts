@@ -64,9 +64,6 @@ export const iconMetadata: {
     IconArrowUpRightFromSquare: {
         tags: ['open', 'external', 'link']
     },
-    IconLineArrowUpRightFromSquare: {
-        tags: ['open', 'external', 'link']
-    },
     IconArrowULeft: {
         tags: ['undo', 'revert', 'back']
     },
