@@ -116,10 +116,10 @@ export const iconMetadata: {
         tags: ['test', 'plan', 'schedule']
     },
     IconCalendarClock: {
-        tags: []
+        tags: ['time', 'schedule']
     },
     IconCalendarDay: {
-        tags: []
+        tags: ['date', 'time', 'schedule']
     },
     IconCalendarDays: {
         tags: ['schedule']
