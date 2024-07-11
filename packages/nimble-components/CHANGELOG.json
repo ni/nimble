@@ -2,6 +2,36 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Thu, 11 Jul 2024 21:23:39 GMT",
+      "version": "29.8.1",
+      "tag": "@ni/nimble-components_v29.8.1",
+      "comments": {
+        "none": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "cf20a5a7407d5920a943f507e57adeba660c4e30",
+            "comment": "Disable intermittent markdown serializer test"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 11 Jul 2024 17:41:14 GMT",
+      "version": "29.8.1",
+      "tag": "@ni/nimble-components_v29.8.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "8de093ee0bc7ba8978adfcefcef943971e3eb29b",
+            "comment": "Align column header based on cell content alignment"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 10 Jul 2024 16:23:39 GMT",
       "version": "29.8.0",
       "tag": "@ni/nimble-components_v29.8.0",
