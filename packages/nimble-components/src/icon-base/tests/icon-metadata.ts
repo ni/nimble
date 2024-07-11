@@ -13,9 +13,6 @@ export const iconMetadata: {
     IconAdd: {
         tags: ['add input field']
     },
-    IconAnchorBoxUpRightArrow: {
-        tags: []
-    },
     IconArrowDown: {
         tags: ['sort', 'arrow', 'down', 'descending']
     },
@@ -52,14 +49,14 @@ export const iconMetadata: {
     IconArrowPartialRotateLeft: {
         tags: ['reset']
     },
+    IconArrowRight: {
+        tags: ['link', 'open']
+    },
     IconArrowRightToLine: {
         tags: ['login']
     },
     IconArrowRotateRight: {
         tags: ['refresh']
-    },
-    IconArrowURotateLeft: {
-        tags: ['update']
     },
     IconArrowUpLeftAndArrowDownRight: {
         tags: ['resize', 'expand']
@@ -67,11 +64,17 @@ export const iconMetadata: {
     IconArrowUpRightFromSquare: {
         tags: ['open', 'external', 'link']
     },
-    IconArrowURedo: {
+    IconLineArrowUpRightFromSquare: {
+        tags: ['open', 'external', 'link']
+    },
+    IconArrowULeft: {
+        tags: ['undo', 'revert', 'back']
+    },
+    IconArrowURight: {
         tags: ['redo', 'revert', 'forward']
     },
-    IconArrowUUndo: {
-        tags: ['undo', 'revert', 'back']
+    IconArrowUUp: {
+        tags: ['update']
     },
     IconArrowsMaximize: {
         tags: ['resize', 'fullscreen']
@@ -109,28 +112,28 @@ export const iconMetadata: {
     IconBookMagnifyingGlass: {
         tags: ['analyze']
     },
-    IconCalendarMonth: {
+    IconCalendarToday: {
+        tags: []
+    },
+    IconCalendarDay: {
+        tags: []
+    },
+    IconCalendarDays: {
         tags: ['schedule']
     },
-    IconCalendarClockSchedulingAssistant: {
+    IconCalendarWeek: {
         tags: []
+    },
+    IconCalendarLines: {
+        tags: ['agenda']
     },
     IconCalendarCheckLines: {
         tags: ['test', 'plan', 'schedule']
     },
-    IconCalendarFilledRectangleYear: {
+    IconCalendarRectangle: {
         tags: []
     },
-    IconCalendarOneHollowSquareToday: {
-        tags: []
-    },
-    IconCalendarOneSquareDay: {
-        tags: []
-    },
-    IconCalendarThreeRectanglesAgenda: {
-        tags: []
-    },
-    IconCalendarTopRectangleWeek: {
+    IconCalendarClock: {
         tags: []
     },
     IconChartDiagram: {
@@ -387,9 +390,6 @@ export const iconMetadata: {
     },
     IconLinkCancel: {
         tags: ['unlink']
-    },
-    IconLinkRightArrow: {
-        tags: ['link', 'open']
     },
     IconList: {
         tags: ['bullet', 'merged view']
