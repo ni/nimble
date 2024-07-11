@@ -1,8 +1,49 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Wed, 03 Jul 2024 20:37:08 GMT and should not be manually modified.
+This log was last generated on Thu, 11 Jul 2024 17:41:14 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 24.6.2
+
+Thu, 11 Jul 2024 17:41:14 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v29.8.1
+
+## 24.6.1
+
+Wed, 10 Jul 2024 16:23:39 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v29.8.0
+
+## 24.6.0
+
+Wed, 10 Jul 2024 15:47:23 GMT
+
+### Minor changes
+
+- Select custom filtering integration to Angular. This adds new the 'loadingVisible' attribute to NimbleSelectDirective, and exports the SelectFilterInputEventDetail type. ([ni/nimble@9abc399](https://github.com/ni/nimble/commit/9abc3991f4594534b5903e2a7c0913fce72b362f))
+- Bump @ni/nimble-components to v29.7.9
+
+## 24.5.10
+
+Mon, 08 Jul 2024 22:43:30 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v29.7.8
+
+## 24.5.9
+
+Mon, 08 Jul 2024 20:36:03 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v29.7.7
 
 ## 24.5.8
 

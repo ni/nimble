@@ -1,10 +1,7 @@
 import { css } from '@microsoft/fast-element';
 import { styles as dropdownStyles } from '../../patterns/dropdown/styles';
 import { focusVisible } from '../../utilities/style/focus';
-import {
-    controlHeight,
-    menuMinWidth
-} from '../../theme-provider/design-tokens';
+import { menuMinWidth } from '../../theme-provider/design-tokens';
 
 export const styles = css`
     ${dropdownStyles}
@@ -19,7 +16,8 @@ export const styles = css`
     }
 
     .listbox {
+        --ni-private-listbox-visible-option-count: 5.5;
+        --ni-private-listbox-anchor-element-gap: 0px;
         min-width: ${menuMinWidth};
-        max-height: calc(5.5 * ${controlHeight});
     }
 `;

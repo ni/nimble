@@ -48,6 +48,7 @@ import './table-column/anchor';
 import './table-column/date-text';
 import './table-column/duration-text';
 import './table-column/mapping';
+import './table-column/menu-button';
 import './table-column/number-text';
 import './table-column/text';
 import './tabs';
