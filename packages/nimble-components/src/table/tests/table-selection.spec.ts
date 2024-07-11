@@ -1133,7 +1133,7 @@ describe('Table row selection', () => {
                         ).toBe(TableRowSelectionState.selected);
                     });
 
-                    it('selecting a range using SHIFT + click does not deselect existing selection', async () => {
+                    it('selecting a range using SHIFT + click does not deselect existing selection when ending the selection with a selection checkbox', async () => {
                         await element.setSelectedRecordIds(['0']);
                         await waitForUpdatesAsync();
 
@@ -1143,6 +1143,84 @@ describe('Table row selection', () => {
                             '0',
                             ...simpleTableData.slice(3, -1).map(x => x.id)
                         ];
+
+                        // Select the first row while pressing CTRL so that the initial selection isn't cleared
+                        await pageObject.clickRow(firstRowToSelect, {
+                            ctrlKey: true
+                        });
+                        await selectionChangeListener.promise;
+
+                        const multiSelectListener = createEventListener(
+                            element,
+                            'selection-change'
+                        );
+                        pageObject.clickRowSelectionCheckbox(lastRowToSelect, true);
+                        await multiSelectListener.promise;
+
+                        const currentSelection = await element.getSelectedRecordIds();
+                        expect(currentSelection).toEqual(
+                            jasmine.arrayWithExactContents(expectedSelection)
+                        );
+                        expect(multiSelectListener.spy).toHaveBeenCalledTimes(
+                            1
+                        );
+                        const emittedIds = getEmittedRecordIdsFromSpy(
+                            multiSelectListener.spy
+                        );
+                        expect(emittedIds).toEqual(
+                            jasmine.arrayWithExactContents(expectedSelection)
+                        );
+                    });
+
+                    it('selecting a range using SHIFT + CTRL + click does not deselect existing selection when ending the selection with a row click', async () => {
+                        await element.setSelectedRecordIds(['0']);
+                        await waitForUpdatesAsync();
+
+                        const firstRowToSelect = 3;
+                        const lastRowToSelect = simpleTableData.length - 2;
+                        const expectedSelection = [
+                            '0',
+                            ...simpleTableData.slice(3, -1).map(x => x.id)
+                        ];
+
+                        // Select the first row while pressing CTRL so that the initial selection isn't cleared
+                        await pageObject.clickRow(firstRowToSelect, {
+                            ctrlKey: true
+                        });
+                        await selectionChangeListener.promise;
+
+                        const multiSelectListener = createEventListener(
+                            element,
+                            'selection-change'
+                        );
+                        await pageObject.clickRow(lastRowToSelect, {
+                            shiftKey: true,
+                            ctrlKey: true
+                        });
+                        await multiSelectListener.promise;
+
+                        const currentSelection = await element.getSelectedRecordIds();
+                        expect(currentSelection).toEqual(
+                            jasmine.arrayWithExactContents(expectedSelection)
+                        );
+                        expect(multiSelectListener.spy).toHaveBeenCalledTimes(
+                            1
+                        );
+                        const emittedIds = getEmittedRecordIdsFromSpy(
+                            multiSelectListener.spy
+                        );
+                        expect(emittedIds).toEqual(
+                            jasmine.arrayWithExactContents(expectedSelection)
+                        );
+                    });
+
+                    it('selecting a range using SHIFT + click deselects existing selection when ending the selection with a row click', async () => {
+                        await element.setSelectedRecordIds(['0']);
+                        await waitForUpdatesAsync();
+
+                        const firstRowToSelect = 3;
+                        const lastRowToSelect = simpleTableData.length - 2;
+                        const expectedSelection = [...simpleTableData.slice(3, -1).map(x => x.id)];
 
                         // Select the first row while pressing CTRL so that the initial selection isn't cleared
                         await pageObject.clickRow(firstRowToSelect, {
