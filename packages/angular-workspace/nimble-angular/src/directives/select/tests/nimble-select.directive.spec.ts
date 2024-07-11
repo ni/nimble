@@ -82,6 +82,11 @@ describe('Nimble select', () => {
             expect(directive.errorVisible).toBeTrue();
             expect(nativeElement.errorVisible).toBeTrue();
         });
+
+        it('has expected defaults for loadingVisible', () => {
+            expect(directive.loadingVisible).toBeFalse();
+            expect(nativeElement.loadingVisible).toBeFalse();
+        });
     });
 
     describe('with template string values', () => {
@@ -94,6 +99,7 @@ describe('Nimble select', () => {
                     clearable
                     error-text="error text"
                     error-visible
+                    loading-visible
                 >
                 </nimble-select>
             `
@@ -147,6 +153,11 @@ describe('Nimble select', () => {
             expect(directive.errorVisible).toBeTrue();
             expect(nativeElement.errorVisible).toBeTrue();
         });
+
+        it('will use template string values for loadingVisible', () => {
+            expect(directive.errorVisible).toBeTrue();
+            expect(nativeElement.errorVisible).toBeTrue();
+        });
     });
 
     describe('with property bound values', () => {
@@ -159,6 +170,7 @@ describe('Nimble select', () => {
                     [clearable]="clearable"
                     [error-text]="errorText"
                     [error-visible]="errorVisible"
+                    [loading-visible]="loadingVisible"
                 >
                 </nimble-select>
             `
@@ -172,6 +184,7 @@ describe('Nimble select', () => {
             public clearable = false;
             public errorText = 'initial value';
             public errorVisible = false;
+            public loadingVisible = false;
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
@@ -254,6 +267,17 @@ describe('Nimble select', () => {
             expect(directive.errorVisible).toBeTrue();
             expect(nativeElement.errorVisible).toBeTrue();
         });
+
+        it('can be configured with property binding for loadingVisible', () => {
+            expect(directive.loadingVisible).toBeFalse();
+            expect(nativeElement.loadingVisible).toBeFalse();
+
+            fixture.componentInstance.loadingVisible = true;
+            fixture.detectChanges();
+
+            expect(directive.loadingVisible).toBeTrue();
+            expect(nativeElement.loadingVisible).toBeTrue();
+        });
     });
 
     describe('with attribute bound values', () => {
@@ -266,6 +290,7 @@ describe('Nimble select', () => {
                     [attr.clearable]="clearable"
                     [attr.error-text]="errorText"
                     [attr.error-visible]="errorVisible"
+                    [attr.loading-visible]="loadingVisible"
                 >
                 </nimble-select>
             `
@@ -279,6 +304,7 @@ describe('Nimble select', () => {
             public clearable: BooleanValueOrAttribute = null;
             public errorText = 'initial value';
             public errorVisible: BooleanValueOrAttribute = null;
+            public loadingVisible: BooleanValueOrAttribute = null;
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
@@ -360,6 +386,17 @@ describe('Nimble select', () => {
 
             expect(directive.errorVisible).toBeTrue();
             expect(nativeElement.errorVisible).toBeTrue();
+        });
+
+        it('can be configured with attribute binding for loadingVisible', () => {
+            expect(directive.loadingVisible).toBeFalse();
+            expect(nativeElement.loadingVisible).toBeFalse();
+
+            fixture.componentInstance.loadingVisible = '';
+            fixture.detectChanges();
+
+            expect(directive.loadingVisible).toBeTrue();
+            expect(nativeElement.loadingVisible).toBeTrue();
         });
     });
 });

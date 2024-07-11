@@ -1,8 +1,8 @@
 import { html } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
-import { richTextMentionUsersTag } from '@ni/nimble-components/src/rich-text-mention/users';
-import { mappingUserTag } from '@ni/nimble-components/src/mapping/user';
-import { mappingTextTag } from '@ni/nimble-components/src/mapping/text';
+import { richTextMentionUsersTag } from '../../../../../nimble-components/src/rich-text-mention/users';
+import { mappingUserTag } from '../../../../../nimble-components/src/mapping/user';
+import { mappingTextTag } from '../../../../../nimble-components/src/mapping/text';
 import { hiddenWrapper } from '../../../utilities/hidden';
 import {
     apiCategory,
