@@ -3,7 +3,10 @@ import { keyArrowDown, keySpace, keyTab } from '@microsoft/fast-web-utilities';
 import { parameterizeSpec } from '@ni/jasmine-parameterized';
 import { Table, tableTag } from '..';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
-import { createEventListener } from '../../utilities/tests/component';
+import {
+    createEventListener,
+    sendKeyDownEvents
+} from '../../utilities/tests/component';
 import { type Fixture, fixture } from '../../utilities/tests/fixture';
 import {
     TableRecord,
@@ -1458,22 +1461,15 @@ describe('Table row selection', () => {
                     });
 
                     it('selects only the rows that SPACE was pressed on', async () => {
-                        const downArrowKeyEvent = new KeyboardEvent('keydown', {
-                            key: keyArrowDown,
-                            bubbles: true
-                        });
-                        const spaceKeyEvent = new KeyboardEvent('keydown', {
-                            key: keySpace,
-                            bubbles: true
-                        });
                         element.focus();
-                        element.dispatchEvent(downArrowKeyEvent);
-                        element.dispatchEvent(spaceKeyEvent);
-                        element.dispatchEvent(downArrowKeyEvent);
-                        element.dispatchEvent(downArrowKeyEvent);
-                        element.dispatchEvent(downArrowKeyEvent);
-                        element.dispatchEvent(spaceKeyEvent);
-                        await waitForUpdatesAsync();
+                        await sendKeyDownEvents(element, [
+                            keyArrowDown,
+                            keySpace,
+                            keyArrowDown,
+                            keyArrowDown,
+                            keyArrowDown,
+                            keySpace
+                        ]);
 
                         const selectedRecordIds = await element.getSelectedRecordIds();
                         expect(selectedRecordIds).toEqual(

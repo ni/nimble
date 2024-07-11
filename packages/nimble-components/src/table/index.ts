@@ -232,7 +232,7 @@ export class Table<
     public tableScrollableMinWidth = 0;
 
     @observable
-    public documentShiftKeyDown = false;
+    public windowShiftKeyDown = false;
 
     private readonly table: TanStackTable<TableNode<TData>>;
     private options: TanStackTableOptionsResolved<TableNode<TData>>;
@@ -339,8 +339,8 @@ export class Table<
             passive: true
         });
         this.keyboardNavigationManager.connect();
-        document.addEventListener('keydown', this.onKeyDown);
-        document.addEventListener('keyup', this.onKeyUp);
+        window.addEventListener('keydown', this.onKeyDown);
+        window.addEventListener('keyup', this.onKeyUp);
         window.addEventListener('blur', this.onBlur);
     }
 
@@ -349,8 +349,8 @@ export class Table<
         this.virtualizer.disconnect();
         this.keyboardNavigationManager.disconnect();
         this.viewport.removeEventListener('scroll', this.onViewPortScroll);
-        document.removeEventListener('keydown', this.onKeyDown);
-        document.removeEventListener('keyup', this.onKeyUp);
+        window.removeEventListener('keydown', this.onKeyDown);
+        window.removeEventListener('keyup', this.onKeyUp);
         window.removeEventListener('blur', this.onBlur);
     }
 
@@ -398,7 +398,7 @@ export class Table<
         const selectionChanged = this.selectionManager.handleRowSelectionToggle(
             this.tableData[rowIndex],
             event.detail.newState,
-            this.documentShiftKeyDown
+            this.windowShiftKeyDown
         );
 
         if (selectionChanged) {
@@ -777,15 +777,15 @@ export class Table<
     };
 
     private readonly onKeyDown = (event: KeyboardEvent): void => {
-        this.documentShiftKeyDown = event.shiftKey;
+        this.windowShiftKeyDown = event.shiftKey;
     };
 
     private readonly onKeyUp = (event: KeyboardEvent): void => {
-        this.documentShiftKeyDown = event.shiftKey;
+        this.windowShiftKeyDown = event.shiftKey;
     };
 
     private readonly onBlur = (): void => {
-        this.documentShiftKeyDown = false;
+        this.windowShiftKeyDown = false;
     };
 
     private removeColumnObservers(): void {
