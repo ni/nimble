@@ -43,7 +43,9 @@ export const template = html<TableRow>`
                 `)}
             </span>
         `)}
-        <span class="row-front-spacer ${x => (x.isTopLevelParentRow ? 'top-level-parent' : '')}"></span>
+        ${when(x => x.reserveCollapseSpace, html<TableRow>`
+            <span class="row-front-spacer ${x => (x.isTopLevelParentRow ? 'top-level-parent' : '')}"></span>
+        `)}
         ${when(x => x.isParentRow, html<TableRow>`
             ${when(x => x.loading, html<TableRow>`
                 <span class="spinner-container">

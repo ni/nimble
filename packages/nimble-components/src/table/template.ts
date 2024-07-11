@@ -64,7 +64,7 @@ export const template = html<Table>`
                                         ${ref('selectionCheckbox')}
                                         ${'' /* tabindex managed dynamically by KeyboardNavigationManager */}
                                         tabindex="-1"
-                                        class="${x => `selection-checkbox ${x.selectionMode ? x.selectionMode : ''}`}"
+                                        class="selection-checkbox"
                                         @change="${(x, c) => x.onAllRowsSelectionChange(c.event as CustomEvent)}"
                                         title="${x => tableSelectAllLabel.getValueFor(x)}"
                                         aria-label="${x => tableSelectAllLabel.getValueFor(x)}"
@@ -76,7 +76,7 @@ export const template = html<Table>`
                                 ${ref('collapseAllButton')}
                                 ${'' /* tabindex managed dynamically by KeyboardNavigationManager */}
                                 tabindex="-1"
-                                class="collapse-all-button ${x => `${x.showCollapseAll ? 'visible' : ''}`}"
+                                class="collapse-all-button ${x => `${x.showCollapseAll ? 'visible' : ''}`} ${x => `${x.canHaveCollapsibleRows ? '' : 'hidden'}`}"
                                 content-hidden
                                 appearance="${ButtonAppearance.ghost}"
                                 title="${x => tableCollapseAllLabel.getValueFor(x)}"
@@ -167,6 +167,7 @@ export const template = html<Table>`
                                         ?selected="${(x, c) => c.parent.tableData[x.index]?.selectionState === TableRowSelectionState.selected}"
                                         ?expanded="${(x, c) => c.parent.tableData[x.index]?.isExpanded}"
                                         ?hide-selection="${(_, c) => c.parent.selectionMode !== TableRowSelectionMode.multiple}"
+                                        ?reserve-collapse-space="${(_, c) => c.parent.canHaveCollapsibleRows}"
                                         :dataRecord="${(x, c) => c.parent.tableData[x.index]?.record}"
                                         :columns="${(_, c) => c.parent.columns}"
                                         :isParentRow="${(x, c) => c.parent.tableData[x.index]?.isParentRow}"

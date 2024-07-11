@@ -101,6 +101,10 @@ export const styles = css`
         visibility: hidden;
     }
 
+    .collapse-all-button.hidden {
+        display: none;
+    }
+
     .collapse-all-button.visible {
         visibility: visible;
     }

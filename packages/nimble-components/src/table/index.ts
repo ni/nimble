@@ -144,6 +144,12 @@ export class Table<
     @observable
     public selectionState: TableRowSelectionState = TableRowSelectionState.notSelected;
 
+    /**
+     * @internal
+     */
+    @observable
+    public canHaveCollapsibleRows = false;
+
     public get validity(): TableValidity {
         return this.tableValidator.getValidity();
     }
@@ -580,6 +586,12 @@ export class Table<
         this.validate();
         if (this.tableUpdateTracker.requiresTanStackUpdate) {
             this.updateTanStack();
+        }
+
+        if (this.tableUpdateTracker.updateRowParentIds || this.tableUpdateTracker.updateGroupRows) {
+            const hierarchyEnabled = this.isHierarchyEnabled();
+            const hasGroupableColumns = this.columns.some(x => !x.columnInternals.groupingDisabled);
+            this.canHaveCollapsibleRows = hierarchyEnabled || hasGroupableColumns;
         }
 
         if (this.tableUpdateTracker.updateActionMenuSlots) {
