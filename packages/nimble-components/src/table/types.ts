@@ -217,6 +217,19 @@ export interface TableRowState<TData extends TableRecord = TableRecord> {
     slots: SlotMetadata[];
     resolvedRowIndex?: number;
 }
+
+/**
+ * @internal
+ *
+ * Alignment of column content
+ */
+export const TableColumnAlignment = {
+    left: 'left',
+    right: 'right'
+} as const;
+export type TableColumnAlignment =
+    (typeof TableColumnAlignment)[keyof typeof TableColumnAlignment];
+
 /**
  * Table keyboard focus types
  */
@@ -235,6 +248,7 @@ export type TableFocusType =
 
 /**
  * @internal
+ *
  * Focusable elements of a table row
  */
 export interface TableRowFocusableElements {
