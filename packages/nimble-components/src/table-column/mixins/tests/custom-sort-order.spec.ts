@@ -34,8 +34,8 @@ class CustomSortTableColumn extends mixinCustomSortOrderColumnAPI(
     private readonly defaultFieldName = 'defaultFieldName';
     private readonly defaultSortOperation = TableColumnSortOperation.localeAwareCaseSensitive;
 
-    public override handleSortByFieldNameChange(): void {
-        this.updateOperandDataRecordFieldName();
+    public override handleSortConfigurationChange(): void {
+        this.updateColumnInternalsSortConfiguration();
     }
 
     protected override getColumnInternalsOptions(): ColumnInternalsOptions<TestValidator> {
@@ -51,7 +51,7 @@ class CustomSortTableColumn extends mixinCustomSortOrderColumnAPI(
         };
     }
 
-    private updateOperandDataRecordFieldName(): void {
+    private updateColumnInternalsSortConfiguration(): void {
         this.columnInternals.operandDataRecordFieldName = this.getResolvedOperandDataRecordFieldName(this.defaultFieldName);
         this.columnInternals.sortOperation = this.getResolvedSortOperation(
             this.defaultSortOperation

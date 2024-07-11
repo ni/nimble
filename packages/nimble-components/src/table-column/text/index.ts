@@ -42,8 +42,8 @@ export class TableColumnText extends mixinCustomSortOrderColumnAPI(
         };
     }
 
-    public override handleSortByFieldNameChange(): void {
-        this.updateOperandDataRecordFieldName();
+    public override handleSortConfigurationChange(): void {
+        this.updateColumnInternalsSortConfiguration();
     }
 
     protected override getColumnInternalsOptions(): ColumnInternalsOptions<TableColumnTextValidator> {
@@ -61,10 +61,10 @@ export class TableColumnText extends mixinCustomSortOrderColumnAPI(
 
     protected override fieldNameChanged(): void {
         this.columnInternals.dataRecordFieldNames = [this.fieldName] as const;
-        this.updateOperandDataRecordFieldName();
+        this.updateColumnInternalsSortConfiguration();
     }
 
-    private updateOperandDataRecordFieldName(): void {
+    private updateColumnInternalsSortConfiguration(): void {
         this.columnInternals.operandDataRecordFieldName = this.getResolvedOperandDataRecordFieldName(this.fieldName);
         this.columnInternals.sortOperation = this.getResolvedSortOperation(
             this.defaultSortOperation

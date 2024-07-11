@@ -92,8 +92,8 @@ export class TableColumnAnchor extends mixinGroupableColumnAPI(
         this.updateColumnConfig();
     }
 
-    public override handleSortByFieldNameChange(): void {
-        this.updateOperandDataRecordFieldName();
+    public override handleSortConfigurationChange(): void {
+        this.updateColumnInternalsSortConfiguration();
     }
 
     protected override getColumnInternalsOptions(): ColumnInternalsOptions<TableColumnAnchorValidator> {
@@ -114,7 +114,7 @@ export class TableColumnAnchor extends mixinGroupableColumnAPI(
             this.labelFieldName,
             this.hrefFieldName
         ] as const;
-        this.updateOperandDataRecordFieldName();
+        this.updateColumnInternalsSortConfiguration();
     }
 
     protected hrefFieldNameChanged(): void {
@@ -175,7 +175,7 @@ export class TableColumnAnchor extends mixinGroupableColumnAPI(
         };
     }
 
-    private updateOperandDataRecordFieldName(): void {
+    private updateColumnInternalsSortConfiguration(): void {
         this.columnInternals.operandDataRecordFieldName = this.getResolvedOperandDataRecordFieldName(this.labelFieldName);
         this.columnInternals.sortOperation = this.getResolvedSortOperation(
             this.defaultSortOperation

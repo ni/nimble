@@ -50,7 +50,7 @@ export function mixinCustomSortOrderColumnAPI<
 
         /** @internal */
         public sortByFieldNameChanged(): void {
-            this.handleSortByFieldNameChange();
+            this.handleSortConfigurationChange();
             this.updateCustomColumnSortingValidity();
 
             if (
@@ -71,7 +71,7 @@ export function mixinCustomSortOrderColumnAPI<
             }
         }
 
-        public abstract handleSortByFieldNameChange(): void;
+        public abstract handleSortConfigurationChange(): void;
 
         /** @internal */
         public handleCustomSortOrderColumnChange(
