@@ -241,7 +241,7 @@ export class Select
             newValue = this.firstSelectedOption?.value ?? newValue;
         }
 
-        if (prev !== newValue && !(this.open && this.selectedIndex < 0)) {
+        if (prev !== newValue) {
             this._value = newValue;
             super.valueChanged(prev, newValue);
             Observable.notify(this, 'value');
@@ -353,14 +353,14 @@ export class Select
         const previousSelectedIndex = this.selectedIndex;
         super.clickHandler(e);
 
-        this.open = this.collapsible && !this.open;
         if (
-            !this.open
+            this.open
             && this.selectedIndex !== previousSelectedIndex
             && optionClicked
         ) {
             this.updateValue(true);
         }
+        this.open = this.collapsible && !this.open;
     }
 
     /**
@@ -574,6 +574,7 @@ export class Select
         }
 
         let currentActiveIndex = this.openActiveIndex ?? this.selectedIndex;
+        let commitValueThenClose = false;
         switch (key) {
             case keySpace: {
                 // when dropdown is open allow user to enter a space for filter text
@@ -603,8 +604,13 @@ export class Select
                 ) {
                     return false;
                 }
-                this.open = !this.open;
-                if (!this.open) {
+                if (this.open) {
+                    commitValueThenClose = true;
+                } else {
+                    this.open = true;
+                }
+
+                if (commitValueThenClose) {
                     this.focus();
                 }
                 break;
@@ -635,12 +641,18 @@ export class Select
             }
         }
 
-        if (!this.open && this.selectedIndex !== currentActiveIndex) {
-            this.selectedIndex = currentActiveIndex;
+        if (!this.open || commitValueThenClose) {
+            if (this.selectedIndex !== currentActiveIndex) {
+                this.selectedIndex = currentActiveIndex;
+            }
+
+            if (initialSelectedIndex !== this.selectedIndex) {
+                this.updateValue(true);
+            }
         }
 
-        if (!this.open && initialSelectedIndex !== this.selectedIndex) {
-            this.updateValue(true);
+        if (commitValueThenClose) {
+            this.open = false;
         }
 
         return !(key === keyArrowDown || key === keyArrowUp);

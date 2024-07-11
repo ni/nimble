@@ -1,4 +1,5 @@
 import {
+    ExecutionContext,
     children,
     elements,
     html,
@@ -12,6 +13,8 @@ import { tableHeaderTag } from './components/header';
 import { tableRowTag } from './components/row';
 import type { TableColumn } from '../table-column/base';
 import {
+    RowSlotRequestEventDetail,
+    SlotMetadata,
     TableActionMenuToggleEventDetail,
     TableColumnSortDirection,
     TableRowSelectionMode,
@@ -109,6 +112,7 @@ export const template = html<Table>`
                                             ?indicators-hidden="${x => x.columnInternals.hideHeaderIndicators}"
                                             @keydown="${(x, c) => c.parent.onHeaderKeyDown(x, c.event as KeyboardEvent)}"
                                             @click="${(x, c) => c.parent.toggleColumnSort(x, (c.event as MouseEvent).shiftKey)}"
+                                            :alignment="${x => x.columnInternals.headerAlignment}"
                                             :isGrouped=${x => (typeof x.columnInternals.groupIndex === 'number' && !x.columnInternals.groupingDisabled)}
                                         >
                                             <slot name="${x => x.slot}"></slot>
@@ -137,7 +141,7 @@ export const template = html<Table>`
                         role="rowgroup">
                         ${when(x => x.columns.length > 0 && x.canRenderRows, html<Table>`
                             ${repeat(x => x.virtualizer.visibleItems, html<VirtualItem<HTMLElement>, Table>`
-                                ${when((x, c) => (c.parent as Table).tableData[x.index]?.isGroupRow, html<VirtualItem<HTMLElement>, Table>`
+                                ${when((x, c: ExecutionContext<Table>) => c.parent.tableData[x.index]?.isGroupRow, html<VirtualItem<HTMLElement>, Table>`
                                     <${tableGroupRowTag}
                                         class="group-row"
                                         ${'' /* tabindex managed dynamically by KeyboardNavigationManager */}
@@ -157,7 +161,7 @@ export const template = html<Table>`
                                     >
                                     </${tableGroupRowTag}>
                                 `)}
-                                ${when((x, c) => !(c.parent as Table).tableData[x.index]?.isGroupRow, html<VirtualItem<HTMLElement>, Table>`
+                                ${when((x, c: ExecutionContext<Table>) => !c.parent.tableData[x.index]?.isGroupRow, html<VirtualItem<HTMLElement>, Table>`
                                     <${tableRowTag}
                                         class="row"
                                         ${'' /* tabindex managed dynamically by KeyboardNavigationManager */}
@@ -181,15 +185,22 @@ export const template = html<Table>`
                                         @row-selection-toggle="${(x, c) => c.parent.onRowSelectionToggle(x.index, c.event as CustomEvent<TableRowSelectionToggleEventDetail>)}"
                                         @row-action-menu-beforetoggle="${(x, c) => c.parent.onRowActionMenuBeforeToggle(x.index, c.event as CustomEvent<TableActionMenuToggleEventDetail>)}"
                                         @row-action-menu-toggle="${(_, c) => c.parent.onRowActionMenuToggle(c.event as CustomEvent<TableActionMenuToggleEventDetail>)}"
+                                        @row-slots-request="${(_, c) => c.parent.onRowSlotsRequest(c.event as CustomEvent<RowSlotRequestEventDetail>)}"
                                         @row-expand-toggle="${(x, c) => c.parent.handleRowExpanded(x.index)}"
                                     >
-                                    ${when((x, c) => (c.parent as Table).openActionMenuRecordId === (c.parent as Table).tableData[x.index]?.id, html<VirtualItem<HTMLElement>, Table>`
-                                        ${repeat((_, c) => (c.parent as Table).actionMenuSlots, html<string, Table>`
+                                    ${when((x, c: ExecutionContext<Table>) => c.parent.openActionMenuRecordId === c.parent.tableData[x.index]?.id, html<VirtualItem<HTMLElement>, Table>`
+                                        ${repeat((_, c: ExecutionContext<Table>) => c.parent.actionMenuSlots, html<string, Table>`
                                             <slot
                                                 name="${x => x}"
                                                 slot="${x => `row-action-menu-${x}`}">
                                             </slot>
                                         `)}
+                                    `)}
+                                    ${repeat((x, c: ExecutionContext<Table>) => (c.parent.tableData[x.index]?.slots || []), html<SlotMetadata>`
+                                        <slot
+                                            name="${x => x.name}"
+                                            slot="${x => x.slot}"
+                                        ></slot>
                                     `)}
                                     </${tableRowTag}>
                                 `)}

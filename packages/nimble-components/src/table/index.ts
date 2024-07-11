@@ -46,7 +46,9 @@ import {
     TableRowSelectionToggleEventDetail,
     TableRowState,
     TableValidity,
-    TableSetRecordHierarchyOptions
+    TableSetRecordHierarchyOptions,
+    RowSlotRequestEventDetail,
+    SlotMetadata
 } from './types';
 import { Virtualizer } from './models/virtualizer';
 import { getTanStackSortingFunction } from './models/sort-operations';
@@ -60,6 +62,7 @@ import { DataHierarchyManager } from './models/data-hierarchy-manager';
 import { ExpansionManager } from './models/expansion-manager';
 import { waitUntilCustomElementsDefinedAsync } from '../utilities/wait-until-custom-elements-defined-async';
 import { ColumnValidator } from '../table-column/base/models/column-validator';
+import { uniquifySlotNameForColumnId } from './models/utilities';
 import { KeyboardNavigationManager } from './models/keyboard-navigation-manager';
 import { TableCellView } from '../table-column/base/cell-view';
 
@@ -255,6 +258,12 @@ export class Table<
     // the selection checkbox 'checked' value should be ingored.
     // https://github.com/microsoft/fast/issues/5750
     private ignoreSelectionChangeEvents = false;
+    // Map from the external slot name to the record ID of the row that should have the slot
+    // and the unique slot name that the slot should be slotted into.
+    private readonly columnRequestedSlots: Map<
+    string,
+    { recordId: string, uniqueSlot: string }
+    > = new Map();
 
     public constructor() {
         super();
@@ -462,6 +471,26 @@ export class Table<
     ): void {
         event.stopImmediatePropagation();
         void this.handleRowActionMenuToggleEvent(event);
+    }
+
+    /** @internal */
+    public onRowSlotsRequest(
+        event: CustomEvent<RowSlotRequestEventDetail>
+    ): void {
+        event.stopImmediatePropagation();
+
+        for (const slotMetadata of event.detail.slots) {
+            const uniqueSlot = uniquifySlotNameForColumnId(
+                event.detail.columnInternalId,
+                slotMetadata.slot
+            );
+            this.columnRequestedSlots.set(slotMetadata.name, {
+                recordId: event.detail.recordId,
+                uniqueSlot
+            });
+        }
+
+        this.refreshRows();
     }
 
     /** @internal */
@@ -743,6 +772,14 @@ export class Table<
         this.tableUpdateTracker.trackColumnInstancesChanged();
     }
 
+    private removeActionMenuSlotsFromColumnRequestedSlots(): void {
+        for (const actionMenuSlot of this.actionMenuSlots) {
+            this.columnRequestedSlots.delete(actionMenuSlot);
+        }
+
+        this.refreshRows();
+    }
+
     private async handleActionMenuBeforeToggleEvent(
         rowIndex: number,
         event: CustomEvent<TableActionMenuToggleEventDetail>
@@ -755,6 +792,7 @@ export class Table<
         }
 
         this.openActionMenuRecordId = event.detail.recordIds[0];
+        this.removeActionMenuSlotsFromColumnRequestedSlots();
         const detail = await this.getActionMenuToggleEventDetail(event);
         this.$emit('action-menu-beforetoggle', detail);
     }
@@ -1031,6 +1069,7 @@ export class Table<
 
         let hasDataHierarchy = false;
         const rows = this.table.getRowModel().rows;
+        const slotsByRecordId = this.getRequestedSlotsByRecordId();
         this.tableData = rows.map(row => {
             const isGroupRow = row.getIsGrouped();
             const hasParentRow = isGroupRow ? false : row.getParentRow();
@@ -1058,7 +1097,8 @@ export class Table<
                 resolvedRowIndex: row.index,
                 isLoadingChildren: this.expansionManager.isLoadingChildren(
                     row.id
-                )
+                ),
+                slots: slotsByRecordId[row.id] ?? []
             };
             hasDataHierarchy = hasDataHierarchy || isParent;
             return rowState;
@@ -1066,6 +1106,27 @@ export class Table<
         this.showCollapseAll = hasDataHierarchy
             || this.getColumnsParticipatingInGrouping().length > 0;
         this.virtualizer.dataChanged();
+    }
+
+    private getRequestedSlotsByRecordId(): {
+        [recordId: string]: SlotMetadata[]
+    } {
+        const slotsByRecordId: { [recordId: string]: SlotMetadata[] } = {};
+
+        for (const [slotName, { recordId, uniqueSlot }] of this
+            .columnRequestedSlots) {
+            if (
+                !Object.prototype.hasOwnProperty.call(slotsByRecordId, recordId)
+            ) {
+                slotsByRecordId[recordId] = [];
+            }
+            slotsByRecordId[recordId]!.push({
+                name: slotName,
+                slot: uniqueSlot
+            });
+        }
+
+        return slotsByRecordId;
     }
 
     private getTableSelectionState(): TableRowSelectionState {
