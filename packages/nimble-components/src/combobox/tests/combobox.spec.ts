@@ -23,12 +23,12 @@ describe('Combobox', () => {
         async function setup(): Promise<Fixture<Combobox>> {
             // prettier-ignore
             const viewTemplate = html`
-                <nimble-combobox>
-                    <nimble-list-option value="one">One</nimble-list-option>
-                    <nimble-list-option value="two">Two</nimble-list-option>
-                    <nimble-list-option value="three">Three</nimble-list-option>
-                    <nimble-list-option value="four" disabled>Four</nimble-list-option>
-                </nimble-combobox>
+                <${comboboxTag}>
+                    <${listOptionTag} value="one">One</${listOptionTag}>
+                    <${listOptionTag} value="two">Two</${listOptionTag}>
+                    <${listOptionTag} value="three">Three</${listOptionTag}>
+                    <${listOptionTag} value="four" disabled>Four</${listOptionTag}>
+                </${comboboxTag}>
             `;
             return fixture<Combobox>(viewTemplate);
         }
@@ -42,7 +42,6 @@ describe('Combobox', () => {
             ({ element, connect, disconnect } = await setup());
             pageObject = new ComboboxPageObject(element);
             await connect();
-            await pageObject.waitForAnchoredRegionLoaded();
         });
 
         afterEach(async () => {
@@ -211,14 +210,16 @@ describe('Combobox', () => {
             pageObject.setInputText('Th');
             await pageObject.clickAway();
 
-            expect(element.filteredOptions.length).toEqual(1);
-            expect(element.filteredOptions[0]?.value).toEqual('three');
+            expect(pageObject.getOptions()).toEqual(
+                jasmine.arrayWithExactContents(['Three'])
+            );
 
             element.value = 'Two';
             await waitForUpdatesAsync();
 
-            expect(element.filteredOptions.length).toEqual(1);
-            expect(element.filteredOptions[0]?.value).toEqual('two');
+            expect(pageObject.getOptions()).toEqual(
+                jasmine.arrayWithExactContents(['Two'])
+            );
             expect(element.filteredOptions[0]?.classList).toContain('selected');
         });
 
@@ -227,8 +228,9 @@ describe('Combobox', () => {
             pageObject.setInputText('Two');
             await pageObject.clickAway();
 
-            expect(element.filteredOptions.length).toEqual(1);
-            expect(element.filteredOptions[0]?.value).toEqual('two');
+            expect(pageObject.getOptions()).toEqual(
+                jasmine.arrayWithExactContents(['Two'])
+            );
         });
 
         it('filters list after entering value and reselecting value from list', () => {
@@ -237,8 +239,9 @@ describe('Combobox', () => {
             pageObject.pressArrowDownKey();
             pageObject.pressEnterKey();
 
-            expect(element.filteredOptions.length).toEqual(1);
-            expect(element.filteredOptions[0]?.value).toEqual('two');
+            expect(pageObject.getOptions()).toEqual(
+                jasmine.arrayWithExactContents(['Two'])
+            );
         });
 
         it('emits one change event after changing value through text entry', async () => {
@@ -276,14 +279,14 @@ describe('Combobox', () => {
             expect(changeEvent).toHaveBeenCalledTimes(1);
         });
 
-        it('should not emit change event if entered text matches value prior to typing', () => {
+        it('should not emit change event if entered text matches value prior to typing', async () => {
             element.autocomplete = ComboboxAutocomplete.none;
-            pageObject.commitValue('O');
+            await pageObject.commitValue('O');
 
             const changeEvent = jasmine.createSpy();
             element.addEventListener('change', changeEvent);
             pageObject.setInputText('');
-            pageObject.commitValue('O');
+            await pageObject.commitValue('O');
             expect(changeEvent).toHaveBeenCalledTimes(0);
         });
 
@@ -353,10 +356,10 @@ describe('Combobox', () => {
     describe('configured before connecting', () => {
         async function setup(): Promise<Fixture<Combobox>> {
             const viewTemplate = html`
-                <nimble-combobox>
-                    <nimble-list-option value="one">One</nimble-list-option>
-                    <nimble-list-option value="two">Two</nimble-list-option>
-                </nimble-combobox>
+                <${comboboxTag}>
+                    <${listOptionTag} value="one">One</${listOptionTag}>
+                    <${listOptionTag} value="two">Two</${listOptionTag}>
+                </${comboboxTag}>
             `;
             return fixture<Combobox>(viewTemplate);
         }
@@ -377,13 +380,13 @@ describe('Combobox', () => {
         async function setup(): Promise<Fixture<Combobox>> {
             // prettier-ignore
             const viewTemplate = html`
-                <nimble-combobox
+                <${comboboxTag}
                     open
                     disabled
                     position="above"
                 >
-                    <nimble-list-option value="one">One</nimble-list-option>
-                </nimble-combobox>
+                    <${listOptionTag} value="one">One</${listOptionTag}>
+                </${comboboxTag}>
             `;
             return fixture<Combobox>(viewTemplate);
         }
@@ -416,14 +419,14 @@ describe('Combobox', () => {
         async function setupWithManyOptions(): Promise<Fixture<Combobox>> {
             // prettier-ignore
             const viewTemplate = html`
-                <nimble-combobox
+                <${comboboxTag}
                     autocomplete="inline"
                 >
                     ${repeat(() => [...Array(500).keys()], html<number>`
-                        <nimble-list-option>${x => x}</nimble-list-option>
+                        <${listOptionTag}>${x => x}</${listOptionTag}>
                     `)}
-                    <nimble-list-option>1000</nimble-list-option>
-                </nimble-combobox>
+                    <${listOptionTag}>1000</${listOptionTag}>
+                </${comboboxTag}>
             `;
             return fixture<Combobox>(viewTemplate);
         }
@@ -437,8 +440,6 @@ describe('Combobox', () => {
             ({ element, connect, disconnect } = await setupWithManyOptions());
             pageObject = new ComboboxPageObject(element);
             await connect();
-            // Necessary for scrolling to work properly
-            await pageObject.waitForAnchoredRegionLoaded();
         });
 
         afterEach(async () => {
@@ -446,11 +447,11 @@ describe('Combobox', () => {
         });
 
         it('should scroll the selected option into view when opened', async () => {
-            pageObject.commitValue('300');
+            await pageObject.commitValue('300');
             await pageObject.clickAndWaitForOpen();
             expect(element.listbox.scrollTop).toBeGreaterThan(9000);
 
-            pageObject.commitValue('0');
+            await pageObject.commitValue('0');
             await pageObject.clickAndWaitForOpen();
             expect(element.listbox.scrollTop).toBeCloseTo(4);
         });
@@ -473,10 +474,10 @@ describe('Combobox', () => {
             // prettier-ignore
             const viewTemplate = html`
                 <div style="overflow: auto;">
-                    <${comboboxTag}>
+                    <<${comboboxTag}>>
                         ${repeat(() => [...Array(5).keys()], html<number>`
                             <${listOptionTag} value="${x => x}">${x => x}</${listOptionTag}>`)}
-                    </${comboboxTag}>
+                    </<${comboboxTag}>>
                 </div>
             `;
             return fixture<Combobox>(viewTemplate);
