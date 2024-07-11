@@ -76,7 +76,10 @@ export class MultiSelectionManager<
         this.previousShiftSelectRowEndId = undefined;
     }
 
-    private tryUpdateRangeSelection(rowId: string, additiveSelection: boolean): boolean {
+    private tryUpdateRangeSelection(
+        rowId: string,
+        additiveSelection: boolean
+    ): boolean {
         if (this.shiftSelectStartRowId === undefined) {
             return false;
         }

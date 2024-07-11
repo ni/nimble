@@ -1154,7 +1154,10 @@ describe('Table row selection', () => {
                             element,
                             'selection-change'
                         );
-                        pageObject.clickRowSelectionCheckbox(lastRowToSelect, true);
+                        pageObject.clickRowSelectionCheckbox(
+                            lastRowToSelect,
+                            true
+                        );
                         await multiSelectListener.promise;
 
                         const currentSelection = await element.getSelectedRecordIds();
@@ -1220,7 +1223,9 @@ describe('Table row selection', () => {
 
                         const firstRowToSelect = 3;
                         const lastRowToSelect = simpleTableData.length - 2;
-                        const expectedSelection = [...simpleTableData.slice(3, -1).map(x => x.id)];
+                        const expectedSelection = [
+                            ...simpleTableData.slice(3, -1).map(x => x.id)
+                        ];
 
                         // Select the first row while pressing CTRL so that the initial selection isn't cleared
                         await pageObject.clickRow(firstRowToSelect, {
