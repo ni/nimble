@@ -784,7 +784,7 @@ export class Table<
         this.documentShiftKeyDown = event.shiftKey;
     };
 
-    private readonly onFocusOut = (): void => {
+    private readonly onBlur = (): void => {
         this.documentShiftKeyDown = false;
     };
 
