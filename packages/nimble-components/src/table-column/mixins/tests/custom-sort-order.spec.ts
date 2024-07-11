@@ -86,7 +86,6 @@ describe('CustomSortOrderColumn', () => {
 
     it('clearing sortByFieldName resets columnInternals.operandFieldName and columnInternals.sortOperation', () => {
         element.sortByFieldName = 'customFieldName';
-
         element.sortByFieldName = undefined;
 
         expect(element.columnInternals.operandDataRecordFieldName).toBe(

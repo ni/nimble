@@ -48,11 +48,9 @@ export function mixinCustomSortOrderColumnAPI<
             if (typeof this.sortByFieldName === 'string' && !this.customSortOrderColumnNotifier) {
                 this.customSortOrderColumnNotifier = Observable.getNotifier(this.columnInternals);
                 this.customSortOrderColumnNotifier.subscribe(this.customSortOrderColumnChangeHandler);
-                this.updateCustomColumnSortingValidity();
             } else {
                 this.customSortOrderColumnNotifier?.unsubscribe(this.customSortOrderColumnChangeHandler);
                 this.customSortOrderColumnNotifier = undefined;
-                this.updateCustomColumnSortingValidity();
             }
         }
 

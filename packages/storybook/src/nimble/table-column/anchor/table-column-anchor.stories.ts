@@ -183,7 +183,7 @@ export const anchorColumn: StoryObj<AnchorColumnTableArgs> = {
         sortByFieldName: {
             name: 'sort-by-field-name',
             description:
-                'Set this attribute to identify a numeric field to sort the column by. If not set, the column will sort by the `label-field-name` field. It is invalid to group by a column with `sort-by-field-name` configured.',
+                'Set this attribute to identify a numeric field to sort the column by. If not set, the column will sort by the `label-field-name` field. It is invalid for grouping to be enabled on a column with `sort-by-field-name` configured.',
             control: false,
             table: { category: apiCategory.attributes }
         },
