@@ -55,7 +55,11 @@ module.exports = config => {
             }
         },
         client: {
-            captureConsole: true
+            captureConsole: true,
+            jasmine: {
+                failSpecWithNoExpectations: true,
+                stopSpecOnExpectationFailure: false
+            },
         },
         // to disable the WARN 404 for image requests
         logLevel: config.LOG_ERROR,

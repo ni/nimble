@@ -144,6 +144,7 @@ module.exports = config => {
         },
         client: {
             jasmine: {
+                failSpecWithNoExpectations: true,
                 stopSpecOnExpectationFailure: false
             },
             captureConsole: true
