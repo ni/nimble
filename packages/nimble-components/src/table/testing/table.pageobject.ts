@@ -460,7 +460,8 @@ export class TablePageObject<T extends TableRecord> {
         if (shiftKey) {
             const shiftKeyDownEvent = new KeyboardEvent('keydown', {
                 key: keyShift,
-                shiftKey: true
+                shiftKey: true,
+                bubbles: true
             } as KeyboardEventInit);
             document.dispatchEvent(shiftKeyDownEvent);
         }
@@ -470,7 +471,8 @@ export class TablePageObject<T extends TableRecord> {
 
         if (shiftKey) {
             const shiftKeyUpEvent = new KeyboardEvent('keyup', {
-                key: keyShift
+                key: keyShift,
+                bubbles: true
             } as KeyboardEventInit);
             document.dispatchEvent(shiftKeyUpEvent);
         }
@@ -490,7 +492,8 @@ export class TablePageObject<T extends TableRecord> {
         if (shiftKey) {
             const shiftKeyDownEvent = new KeyboardEvent('keydown', {
                 key: keyShift,
-                shiftKey: true
+                shiftKey: true,
+                bubbles: true
             } as KeyboardEventInit);
             document.dispatchEvent(shiftKeyDownEvent);
         }
@@ -500,7 +503,8 @@ export class TablePageObject<T extends TableRecord> {
 
         if (shiftKey) {
             const shiftKeyUpEvent = new KeyboardEvent('keyup', {
-                key: keyShift
+                key: keyShift,
+                bubbles: true
             } as KeyboardEventInit);
             document.dispatchEvent(shiftKeyUpEvent);
         }
