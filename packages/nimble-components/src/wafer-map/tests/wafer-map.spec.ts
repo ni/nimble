@@ -266,7 +266,8 @@ describe('WaferMap', () => {
             expect(initialValue).toBe('translate(0,0) scale(1)');
         });
 
-        it('can still zoom after canvas height was changed', () => {
+        // Some browsers skipped, see: https://github.com/ni/nimble/issues/1936
+        it('can still zoom after canvas height was changed #SkipWebkit', () => {
             element.canvasHeight = 250;
             processUpdates();
             element.dispatchEvent(
@@ -276,7 +277,8 @@ describe('WaferMap', () => {
             expect(zoomedValue).toBe('translate(0,0) scale(4)');
         });
 
-        it('can still zoom after canvas width was changed', () => {
+        // Some browsers skipped, see: https://github.com/ni/nimble/issues/1936
+        it('can still zoom after canvas width was changed #SkipWebkit', () => {
             element.canvasWidth = 250;
             processUpdates();
             element.dispatchEvent(
