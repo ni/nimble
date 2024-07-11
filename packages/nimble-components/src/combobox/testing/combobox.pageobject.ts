@@ -33,6 +33,9 @@ export class ComboboxPageObject {
         this.comboboxElement.control.dispatchEvent(inputEvent);
     }
 
+    /**
+     * Sets the input text and commits the value by pressing Enter. Will emit a 'change' event.
+     */
     public commitValue(text: string): void {
         this.setInputText(text);
         this.pressEnterKey();
