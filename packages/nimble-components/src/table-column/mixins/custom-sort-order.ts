@@ -25,7 +25,12 @@ export function mixinCustomSortOrderColumnAPI<
         public sortByFieldName?: string;
 
         /** @internal */
-        public notifier?: Notifier;
+        public customSortOrderColumnNotifier?: Notifier;
+
+        /** @internal */
+        public customSortOrderColumnChangeHandler = {
+            handleChange: this.handleCustomSortOrderColumnChange.bind(this)
+        };
 
         public getResolvedOperandDataRecordFieldName(initialOperandFieldName: string | undefined): string | undefined {
             return typeof this.sortByFieldName === 'string' ? this.sortByFieldName : initialOperandFieldName;
@@ -40,13 +45,13 @@ export function mixinCustomSortOrderColumnAPI<
             this.handleSortByFieldNameChange();
             this.updateCustomColumnSortingValidity();
 
-            if (typeof this.sortByFieldName === 'string' && !this.notifier) {
-                this.notifier = Observable.getNotifier(this.columnInternals);
-                this.notifier.subscribe(this);
+            if (typeof this.sortByFieldName === 'string' && !this.customSortOrderColumnNotifier) {
+                this.customSortOrderColumnNotifier = Observable.getNotifier(this.columnInternals);
+                this.customSortOrderColumnNotifier.subscribe(this.customSortOrderColumnChangeHandler);
                 this.updateCustomColumnSortingValidity();
             } else {
-                this.notifier?.unsubscribe(this);
-                this.notifier = undefined;
+                this.customSortOrderColumnNotifier?.unsubscribe(this.customSortOrderColumnChangeHandler);
+                this.customSortOrderColumnNotifier = undefined;
                 this.updateCustomColumnSortingValidity();
             }
         }
@@ -54,7 +59,7 @@ export function mixinCustomSortOrderColumnAPI<
         public abstract handleSortByFieldNameChange(): void;
 
         /** @internal */
-        public handleChange(_source: unknown, args: unknown): void {
+        public handleCustomSortOrderColumnChange(_source: unknown, args: unknown): void {
             if (args === 'groupingDisabled') {
                 this.updateCustomColumnSortingValidity();
             }
