@@ -1,6 +1,6 @@
 {
   "type": "patch",
-  "comment": "Don't allow a range selection in the table to begin with a row that was deselected",
+  "comment": "Refinements to table selection when using SHIFT",
   "packageName": "@ni/nimble-components",
   "email": "20542556+mollykreis@users.noreply.github.com",
   "dependentChangeType": "patch"
