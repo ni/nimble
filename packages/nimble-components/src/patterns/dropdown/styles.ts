@@ -27,11 +27,11 @@ import { themeBehavior } from '../../utilities/style/theme';
 import { DropdownAppearance } from './types';
 import { userSelectNone } from '../../utilities/style/user-select';
 
+// prettier-ignore
 export const styles = css`
     ${display('inline-flex')}
 
     :host {
-        box-sizing: border-box;
         color: ${bodyFontColor};
         font: ${bodyFont};
         height: ${controlHeight};
@@ -109,7 +109,6 @@ export const styles = css`
 
     .control {
         align-items: center;
-        box-sizing: border-box;
         cursor: pointer;
         display: flex;
         min-height: 100%;
@@ -136,16 +135,40 @@ export const styles = css`
     }
 
     .listbox {
-        box-sizing: border-box;
         display: inline-flex;
         flex-direction: column;
         overflow-y: auto;
         width: 100%;
+        --ni-private-listbox-visible-option-count: 10.5;
+        --ni-private-listbox-anchor-element-gap: ${smallPadding};
         --ni-private-listbox-padding: ${smallPadding};
-        max-height: calc(var(--ni-private-select-max-height) - ${smallPadding});
+        --ni-private-listbox-filter-height: 0px;
+        --ni-private-listbox-loading-indicator-height: 0px;
+        max-height: min(
+            calc(
+                var(--ni-private-listbox-anchor-element-gap) + 
+                2 * ${borderWidth} + 
+                var(--ni-private-listbox-padding) +
+                ${controlHeight} * var(--ni-private-listbox-visible-option-count) +
+                var(--ni-private-listbox-filter-height) +
+                var(--ni-private-listbox-loading-indicator-height)
+            ),
+            calc(
+                var(--ni-private-listbox-available-viewport-height) - 
+                var(--ni-private-listbox-anchor-element-gap)
+            )
+        );
         box-shadow: ${elevation2BoxShadow};
-        border: 1px solid ${popupBorderColor};
+        border: ${borderWidth} solid ${popupBorderColor};
         background-color: ${applicationBackgroundColor};
+    }
+
+    .listbox:has(.filter-field) {
+        --ni-private-listbox-filter-height: ${controlHeight};
+    }
+
+    .listbox:has(.loading-container) {
+        --ni-private-listbox-loading-indicator-height: ${controlHeight};
     }
 
     .listbox slot {

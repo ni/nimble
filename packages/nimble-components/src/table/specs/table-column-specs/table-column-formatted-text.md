@@ -316,7 +316,7 @@ With the changes proposed in [HLD for programmatically sorting columns](../table
 
 ```ts
 const originalData = [{ progress: 0.1 }, { progress: 0.2 }];
-const tableData = originalData.map(x => {
+const tableData = originalData.map((x) => {
     progress: x.progress;
     formattedProgress: x ? `${100 * x.progress}%` : undefined;
 });

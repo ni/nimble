@@ -1,11 +1,12 @@
 import {
+    DOM,
     attr,
     nullableNumberConverter,
     observable
 } from '@microsoft/fast-element';
 import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
 import { zoomIdentity, ZoomTransform } from 'd3-zoom';
-import type { Table } from 'apache-arrow';
+import { type Table, tableFromIPC } from 'apache-arrow';
 import { template } from './template';
 import { styles } from './styles';
 import { DataManager } from './modules/data-manager';
@@ -42,6 +43,11 @@ declare global {
 export class WaferMap<
     T extends WaferRequiredFields = WaferRequiredFields
 > extends FoundationElement {
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    public static readonly Arrow = {
+        tableFromIPC
+    };
+
     /**
      * @internal
      * needs to be initialized before the properties trigger changes
@@ -282,13 +288,27 @@ export class WaferMap<
         return this.diesTable !== undefined;
     }
 
+    public async setData(data: Table | WaferMapDie[]): Promise<void> {
+        if (Array.isArray(data)) {
+            this.dies = data;
+        } else {
+            this.diesTable = data;
+        }
+        await DOM.nextUpdate();
+        if (this.currentTask !== undefined) {
+            await this.currentTask;
+        }
+    }
+
     private createSnapshot(): {
         canvasDimensions: Dimensions,
         renderConfig: RenderConfig,
         dieDimensions: Dimensions,
         transform: ZoomTransform,
+        dieLabelsHidden: boolean,
         columnIndices: Int32Array,
-        rowIndices: Int32Array
+        rowIndices: Int32Array,
+        values: Float64Array
     } {
         const canvasDimensions = {
             width: this.canvasWidth ?? 0,
@@ -301,31 +321,42 @@ export class WaferMap<
             horizontalCoefficient: this.computations.horizontalCoefficient,
             horizontalConstant: this.computations.horizontalConstant,
             verticalConstant: this.computations.verticalConstant,
+            gridMinX: this.computations.gridMinX,
+            gridMaxX: this.computations.gridMaxX,
+            gridMinY: this.computations.gridMinY,
+            gridMaxY: this.computations.gridMaxY,
             labelsFontSize: this.computations.labelsFontSize,
-            colorScale: this.computations.colorScale
+            colorScale: this.computations.colorScale,
+            dieLabelsSuffix: this.dieLabelsSuffix,
+            maxCharacters: this.maxCharacters
         };
         const dieDimensions = this.computations.dieDimensions;
         const transform = this.transform;
+        const dieLabelsHidden = this.dieLabelsHidden;
         if (this.diesTable === undefined) {
             return {
                 canvasDimensions,
                 renderConfig,
                 dieDimensions,
                 transform,
+                dieLabelsHidden,
                 columnIndices: Int32Array.from([]),
-                rowIndices: Int32Array.from([])
+                rowIndices: Int32Array.from([]),
+                values: Float64Array.from([])
             };
         }
         const columnIndices = this.diesTable.getChild('colIndex')!.toArray();
-
         const rowIndices = this.diesTable.getChild('rowIndex')!.toArray();
+        const values = this.diesTable.getChild('value')!.toArray();
         return {
             canvasDimensions,
             renderConfig,
             columnIndices,
             rowIndices,
+            values,
             dieDimensions,
-            transform
+            transform,
+            dieLabelsHidden
         };
     }
 

@@ -10,7 +10,6 @@ export const styles = css`
     ${display('block')}
 
     :host {
-        box-sizing: border-box;
         font: ${bodyFont};
         color: ${bodyFontColor};
         padding-top: ${standardPadding};

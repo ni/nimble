@@ -29,7 +29,6 @@ class TestTableColumn extends mixinFractionalWidthColumnAPI(TableColumn) {
     }
 }
 
-// prettier-ignore
 async function setup(): Promise<Fixture<TestTableColumn>> {
     return fixture(columnName);
 }

@@ -1,8 +1,187 @@
 # Change Log - @ni/spright-components
 
-This log was last generated on Fri, 07 Jun 2024 15:10:38 GMT and should not be manually modified.
+This log was last generated on Thu, 11 Jul 2024 17:41:14 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.0.38
+
+Thu, 11 Jul 2024 17:41:14 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v29.8.1
+
+## 1.0.37
+
+Wed, 10 Jul 2024 16:23:39 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v29.8.0
+
+## 1.0.36
+
+Wed, 10 Jul 2024 15:47:23 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v29.7.9
+
+## 1.0.35
+
+Mon, 08 Jul 2024 22:43:30 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v29.7.8
+
+## 1.0.34
+
+Mon, 08 Jul 2024 20:36:03 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v29.7.7
+- Bump @ni/nimble-tokens to v6.15.1
+
+## 1.0.33
+
+Wed, 03 Jul 2024 20:37:08 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v29.7.6
+
+## 1.0.32
+
+Tue, 02 Jul 2024 00:04:53 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v29.7.5
+
+## 1.0.31
+
+Mon, 01 Jul 2024 23:05:23 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v29.7.4
+
+## 1.0.30
+
+Mon, 01 Jul 2024 20:14:06 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v29.7.3
+
+## 1.0.29
+
+Thu, 27 Jun 2024 17:22:12 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v29.7.2
+
+## 1.0.28
+
+Wed, 26 Jun 2024 20:18:04 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v29.7.1
+
+## 1.0.27
+
+Tue, 25 Jun 2024 18:38:46 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v29.7.0
+
+## 1.0.26
+
+Thu, 20 Jun 2024 20:08:12 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v29.6.0
+
+## 1.0.25
+
+Tue, 18 Jun 2024 22:10:11 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v29.5.0
+
+## 1.0.24
+
+Tue, 18 Jun 2024 18:31:52 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v29.4.2
+
+## 1.0.23
+
+Mon, 17 Jun 2024 22:45:32 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v29.4.1
+
+## 1.0.22
+
+Mon, 17 Jun 2024 16:38:20 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v29.4.0
+
+## 1.0.21
+
+Mon, 17 Jun 2024 15:13:30 GMT
+
+### Patches
+
+- Remove unneeded rollup dependencies ([ni/nimble@4befcd5](https://github.com/ni/nimble/commit/4befcd5173fc83a2e3d352f5f69f1e45de4221e1))
+- Bump @ni/nimble-components to v29.3.7
+
+## 1.0.20
+
+Thu, 13 Jun 2024 17:01:39 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v29.3.6
+
+## 1.0.19
+
+Tue, 11 Jun 2024 19:27:14 GMT
+
+### Patches
+
+- Switch to custom box-sizing: border-box consistently ([ni/nimble@17ddea5](https://github.com/ni/nimble/commit/17ddea50b5accb353a0288c42d0e64ddc5df0d04))
+- Bump @ni/nimble-components to v29.3.5
+
+## 1.0.18
+
+Sat, 08 Jun 2024 17:53:59 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v29.3.4
+
+## 1.0.17
+
+Fri, 07 Jun 2024 20:34:51 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v29.3.3
 
 ## 1.0.16
 

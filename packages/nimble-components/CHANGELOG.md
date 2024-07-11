@@ -1,8 +1,184 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Fri, 07 Jun 2024 17:53:20 GMT and should not be manually modified.
+This log was last generated on Thu, 11 Jul 2024 17:41:14 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 29.8.1
+
+Thu, 11 Jul 2024 17:41:14 GMT
+
+### Patches
+
+- Align column header based on cell content alignment ([ni/nimble@8de093e](https://github.com/ni/nimble/commit/8de093ee0bc7ba8978adfcefcef943971e3eb29b))
+
+## 29.8.0
+
+Wed, 10 Jul 2024 16:23:39 GMT
+
+### Minor changes
+
+- Create menu-button table column ([ni/nimble@1007f6d](https://github.com/ni/nimble/commit/1007f6dcaf1077a0e75d6202b631db24a7d39fda))
+
+## 29.7.9
+
+Wed, 10 Jul 2024 15:47:23 GMT
+
+### Patches
+
+- Change so that Select change event occurs before filter-input event ([ni/nimble@9abc399](https://github.com/ni/nimble/commit/9abc3991f4594534b5903e2a7c0913fce72b362f))
+
+## 29.7.8
+
+Mon, 08 Jul 2024 22:43:30 GMT
+
+### Patches
+
+- Confine rich-text mention listbox to viewport ([ni/nimble@e892807](https://github.com/ni/nimble/commit/e89280785b3baf4f6acfc3c6677fe8580600ba09))
+
+## 29.7.7
+
+Mon, 08 Jul 2024 20:36:03 GMT
+
+### Patches
+
+- Bump @ni/nimble-tokens to v6.15.1
+
+## 29.7.6
+
+Wed, 03 Jul 2024 20:37:08 GMT
+
+### Patches
+
+- Created internal input to set data as dies table and exposed tableFomIPC Arrow method ([ni/nimble@2214283](https://github.com/ni/nimble/commit/2214283df7d144fdb3fa2fa33f40d744aaac16b6))
+
+## 29.7.5
+
+Tue, 02 Jul 2024 00:04:53 GMT
+
+### Patches
+
+- Update breadcrumb styling ([ni/nimble@7ec1678](https://github.com/ni/nimble/commit/7ec1678eb1f0d918198f5e32ab6b5f3e9d6682fc))
+
+## 29.7.4
+
+Mon, 01 Jul 2024 23:05:23 GMT
+
+### Patches
+
+- Update tanstack dependencies ([ni/nimble@40a4930](https://github.com/ni/nimble/commit/40a49301bf6784741f82cae3e07aa8741bd20317))
+
+## 29.7.3
+
+Mon, 01 Jul 2024 20:14:06 GMT
+
+### Patches
+
+- Fix Virtualizer usage for latest version ([ni/nimble@0f03ba3](https://github.com/ni/nimble/commit/0f03ba3f181a96a585bb01aaf7da3ce74f6aac22))
+
+## 29.7.2
+
+Thu, 27 Jun 2024 17:22:12 GMT
+
+### Patches
+
+- Make SelectPageObject clickOption reference only visible options. ([ni/nimble@b59758c](https://github.com/ni/nimble/commit/b59758cbfd774f09cb4dd610b08c4ef63c41a110))
+
+## 29.7.1
+
+Wed, 26 Jun 2024 20:18:04 GMT
+
+### Patches
+
+- Limit combobox and select dropdown to 10.5 visible options ([ni/nimble@fc8d514](https://github.com/ni/nimble/commit/fc8d51451dbc8fa1d460a19964fb1277958be4a3))
+
+## 29.7.0
+
+Tue, 25 Jun 2024 18:38:45 GMT
+
+### Minor changes
+
+- Add keyboard navigation functionality to the table component ([ni/nimble@5be33e3](https://github.com/ni/nimble/commit/5be33e36abffe890b932d57f8412f46f4df6714d))
+
+## 29.6.0
+
+Thu, 20 Jun 2024 20:08:12 GMT
+
+### Minor changes
+
+- Define graph trace color tokens ([ni/nimble@0084f69](https://github.com/ni/nimble/commit/0084f69eb791dc78ecd49dc586d783736e7f5c3d))
+
+## 29.5.0
+
+Tue, 18 Jun 2024 22:10:11 GMT
+
+### Minor changes
+
+- Create page object for menu button ([ni/nimble@9763ab0](https://github.com/ni/nimble/commit/9763ab025b9ad497025d67cf9e2a674159bf7b3f))
+
+## 29.4.2
+
+Tue, 18 Jun 2024 18:31:52 GMT
+
+### Patches
+
+- Adding new SelectPageObject API. ([ni/nimble@7de6721](https://github.com/ni/nimble/commit/7de67217535a774170e2af1f5794ba308a085c3d))
+
+## 29.4.1
+
+Mon, 17 Jun 2024 22:45:32 GMT
+
+### Patches
+
+- Fixing scenario where list option in a group would not call registerOwner on Select. ([ni/nimble@e3eff22](https://github.com/ni/nimble/commit/e3eff22ac6f9d523126c3834afcd90413c4a0b77))
+
+## 29.4.0
+
+Mon, 17 Jun 2024 16:38:20 GMT
+
+### Minor changes
+
+- Select manual filtering APIs ([ni/nimble@30fe9fc](https://github.com/ni/nimble/commit/30fe9fced9935c89e7e5f5b0a9c263eccdb77375))
+
+## 29.3.7
+
+Mon, 17 Jun 2024 15:13:30 GMT
+
+### Patches
+
+- Remove unneeded rollup dependencies ([ni/nimble@4befcd5](https://github.com/ni/nimble/commit/4befcd5173fc83a2e3d352f5f69f1e45de4221e1))
+
+## 29.3.6
+
+Thu, 13 Jun 2024 17:01:38 GMT
+
+### Patches
+
+- Move column sorting properties to a column mixin ([ni/nimble@659242f](https://github.com/ni/nimble/commit/659242fdcda04d270085e3a7e86493e9fc8a1fc5))
+
+## 29.3.5
+
+Tue, 11 Jun 2024 19:27:14 GMT
+
+### Patches
+
+- Switch to custom box-sizing: border-box consistently ([ni/nimble@17ddea5](https://github.com/ni/nimble/commit/17ddea50b5accb353a0288c42d0e64ddc5df0d04))
+
+## 29.3.4
+
+Sat, 08 Jun 2024 17:53:59 GMT
+
+### Patches
+
+- Worker generation tweaks ([ni/nimble@5a5891d](https://github.com/ni/nimble/commit/5a5891d245144ce82d5f39dd2c008ee3f1c5910e))
+
+## 29.3.3
+
+Fri, 07 Jun 2024 20:34:51 GMT
+
+### Patches
+
+- Created renderer capabilities for colors and text in the offscreen canvas ([ni/nimble@d5ad24b](https://github.com/ni/nimble/commit/d5ad24b089316112493858c00d16b248f129d9bd))
 
 ## 29.3.2
 

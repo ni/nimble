@@ -2,9 +2,6 @@ import { css } from '@microsoft/fast-element';
 import { display } from '../utilities/style/display';
 import {
     bodyEmphasizedFont,
-    linkActiveFontColor,
-    linkActiveProminentFontColor,
-    linkFont,
     linkFontColor,
     linkProminentFontColor
 } from '../theme-provider/design-tokens';
@@ -12,28 +9,17 @@ import {
 export const styles = css`
     ${display('inline-block')}
 
-    :host {
-        box-sizing: border-box;
-        font: ${linkFont};
-        --ni-private-breadcrumb-link-font-color: ${linkFontColor};
-        --ni-private-breadcrumb-link-active-font-color: ${linkActiveFontColor};
-    }
-
-    :host([appearance='prominent']) {
-        --ni-private-breadcrumb-link-font-color: ${linkProminentFontColor};
-        --ni-private-breadcrumb-link-active-font-color: ${linkActiveProminentFontColor};
-    }
-
     .list {
         display: flex;
         flex-wrap: wrap;
     }
 
-    ::slotted(*:first-child) {
-        padding-left: 0px;
+    ::slotted(:last-child) {
+        font: ${bodyEmphasizedFont};
+        color: ${linkFontColor};
     }
 
-    ::slotted(*:not([href]):last-child) {
-        font: ${bodyEmphasizedFont};
+    :host([appearance='prominent']) ::slotted(:last-child) {
+        color: ${linkProminentFontColor};
     }
 `;

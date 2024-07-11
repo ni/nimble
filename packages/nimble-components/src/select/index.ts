@@ -39,7 +39,7 @@ import type { ErrorPattern } from '../patterns/error/types';
 import { iconExclamationMarkTag } from '../icons/exclamation-mark';
 import { isListOption, isListOptionGroup, template } from './template';
 import type { ListOption } from '../list-option';
-import { FilterMode } from './types';
+import { FilterMode, SelectFilterInputEventDetail } from './types';
 import { diacriticInsensitiveStringNormalizer } from '../utilities/models/string-normalizers';
 import { FormAssociatedSelect } from './models/select-form-associated';
 import type { ListOptionGroup } from '../list-option-group';
@@ -101,6 +101,9 @@ export class Select
 
     @attr({ attribute: 'clearable', mode: 'boolean' })
     public clearable = false;
+
+    @attr({ attribute: 'loading-visible', mode: 'boolean' })
+    public loadingVisible = false;
 
     /**
      * @internal
@@ -179,12 +182,12 @@ export class Select
     public filter = '';
 
     /**
-     * The max height for the listbox when opened.
+     * The space available in the viewport for the listbox when opened.
      *
      * @internal
      */
     @observable
-    public maxHeight = 0;
+    public availableViewportHeight = 0;
 
     /**
      * The component is collapsible when in single-selection mode with no size attribute.
@@ -238,7 +241,7 @@ export class Select
             newValue = this.firstSelectedOption?.value ?? newValue;
         }
 
-        if (prev !== newValue && !(this.open && this.selectedIndex < 0)) {
+        if (prev !== newValue) {
             this._value = newValue;
             super.valueChanged(prev, newValue);
             Observable.notify(this, 'value');
@@ -350,14 +353,14 @@ export class Select
         const previousSelectedIndex = this.selectedIndex;
         super.clickHandler(e);
 
-        this.open = this.collapsible && !this.open;
         if (
-            !this.open
+            this.open
             && this.selectedIndex !== previousSelectedIndex
             && optionClicked
         ) {
             this.updateValue(true);
         }
+        this.open = this.collapsible && !this.open;
     }
 
     /**
@@ -468,8 +471,8 @@ export class Select
     /**
      * @internal
      */
-    public inputClickHandler(e: MouseEvent): void {
-        e.stopPropagation(); // clicking in filter input shouldn't close dropdown
+    public ignoreClickHandler(e: MouseEvent): void {
+        e.stopPropagation();
     }
 
     /**
@@ -507,22 +510,30 @@ export class Select
      */
     public inputHandler(e: InputEvent): boolean {
         this.filter = this.filterInput?.value ?? '';
-        this.filterOptions();
+        if (this.filterMode === FilterMode.standard) {
+            this.filterOptions();
 
-        const enabledOptions = this.filteredOptions.filter(o => !o.disabled);
-        let activeOptionIndex = this.filter !== ''
-            ? this.openActiveIndex ?? this.selectedIndex
-            : this.selectedIndex;
+            const enabledOptions = this.filteredOptions.filter(
+                o => !o.disabled
+            );
+            let activeOptionIndex = this.filter !== ''
+                ? this.openActiveIndex ?? this.selectedIndex
+                : this.selectedIndex;
 
-        if (
-            enabledOptions.length > 0
-            && !enabledOptions.find(o => o === this.options[activeOptionIndex])
-        ) {
-            activeOptionIndex = this.options.indexOf(enabledOptions[0]!);
-        } else if (enabledOptions.length === 0) {
-            activeOptionIndex = -1;
+            if (
+                enabledOptions.length > 0
+                && !enabledOptions.find(o => o === this.options[activeOptionIndex])
+            ) {
+                activeOptionIndex = this.options.indexOf(enabledOptions[0]!);
+            } else if (enabledOptions.length === 0) {
+                activeOptionIndex = -1;
+            }
+            this.setActiveOption(activeOptionIndex);
         }
-        this.setActiveOption(activeOptionIndex);
+
+        if (this.filterMode !== FilterMode.none) {
+            this.emitFilterInputEvent();
+        }
 
         if (e.inputType.includes('deleteContent') || !this.filter.length) {
             return true;
@@ -563,6 +574,7 @@ export class Select
         }
 
         let currentActiveIndex = this.openActiveIndex ?? this.selectedIndex;
+        let commitValueThenClose = false;
         switch (key) {
             case keySpace: {
                 // when dropdown is open allow user to enter a space for filter text
@@ -592,8 +604,13 @@ export class Select
                 ) {
                     return false;
                 }
-                this.open = !this.open;
-                if (!this.open) {
+                if (this.open) {
+                    commitValueThenClose = true;
+                } else {
+                    this.open = true;
+                }
+
+                if (commitValueThenClose) {
                     this.focus();
                 }
                 break;
@@ -624,12 +641,18 @@ export class Select
             }
         }
 
-        if (!this.open && this.selectedIndex !== currentActiveIndex) {
-            this.selectedIndex = currentActiveIndex;
+        if (!this.open || commitValueThenClose) {
+            if (this.selectedIndex !== currentActiveIndex) {
+                this.selectedIndex = currentActiveIndex;
+            }
+
+            if (initialSelectedIndex !== this.selectedIndex) {
+                this.updateValue(true);
+            }
         }
 
-        if (!this.open && initialSelectedIndex !== this.selectedIndex) {
-            this.updateValue(true);
+        if (commitValueThenClose) {
+            this.open = false;
         }
 
         return !(key === keyArrowDown || key === keyArrowUp);
@@ -853,6 +876,9 @@ export class Select
             this.filterInput.value = '';
         }
 
+        if (this.filterMode !== FilterMode.none) {
+            this.emitFilterInputEvent();
+        }
         this.ariaControls = '';
         this.ariaExpanded = 'false';
     }
@@ -1008,10 +1034,9 @@ export class Select
             ? this.positionAttribute
             : this.position;
 
-        this.maxHeight = this.position === SelectPosition.above
+        this.availableViewportHeight = this.position === SelectPosition.above
             ? Math.trunc(currentBox.top)
             : Math.trunc(availableBottom);
-        this.updateListboxMaxHeightCssVariable();
     }
 
     private updateAdjacentSeparatorState(
@@ -1092,7 +1117,9 @@ export class Select
         if (option.hidden) {
             return true;
         }
-        return !this.filterMatchesText(option.text);
+        return this.filterMode === FilterMode.standard
+            ? !this.filterMatchesText(option.text)
+            : false;
     }
 
     private filterMatchesText(text: string): boolean {
@@ -1207,8 +1234,12 @@ export class Select
         this.filterOptions();
     }
 
-    private maxHeightChanged(): void {
-        this.updateListboxMaxHeightCssVariable();
+    private emitFilterInputEvent(): void {
+        const eventDetail: SelectFilterInputEventDetail = {
+            filterText: this.filter
+        };
+
+        this.$emit('filter-input', eventDetail, { bubbles: true });
     }
 
     private initializeOpenState(): void {
@@ -1218,15 +1249,6 @@ export class Select
 
         this.setPositioning();
         this.focusAndScrollOptionIntoView();
-    }
-
-    private updateListboxMaxHeightCssVariable(): void {
-        if (this.listbox) {
-            this.listbox.style.setProperty(
-                '--ni-private-select-max-height',
-                `${this.maxHeight}px`
-            );
-        }
     }
 }
 

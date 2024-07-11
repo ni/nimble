@@ -29,7 +29,6 @@ class TestTableColumn extends mixinGroupableColumnAPI(TableColumn) {
     }
 }
 
-// prettier-ignore
 async function setup(): Promise<Fixture<TestTableColumn>> {
     return fixture(columnName);
 }

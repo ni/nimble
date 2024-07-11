@@ -8,20 +8,38 @@ namespace NimbleBlazor.Tests.Unit;
 public abstract class NimbleTableColumnTests<T> where T : NimbleTableColumn
 {
     [Fact]
-    public void NimbleTableColumn_WithSortIndexAttribute_HasTableMarkup()
+    public void NimbleTableColumn_WithColumnIdAttribute_HasTableMarkup()
     {
-        var table = RenderWithPropertySet(x => x.SortIndex!, 0);
+        var table = RenderWithPropertySet(x => x.ColumnId!, "my-column-id");
 
-        var expectedMarkup = @"sort-index=""0""";
+        var expectedMarkup = @"column-id=""my-column-id""";
         Assert.Contains(expectedMarkup, table.Markup);
     }
 
     [Fact]
-    public void NimbleTableColumn_WithSortDirectionAttribute_HasTableMarkup()
+    public void NimbleTableColumn_WithActionMenuSlotAttribute_HasTableMarkup()
     {
-        var table = RenderWithPropertySet(x => x.SortDirection!, TableColumnSortDirection.Descending);
+        var table = RenderWithPropertySet(x => x.ActionMenuSlot!, "my-slot");
 
-        var expectedMarkup = @"sort-direction=""descending""";
+        var expectedMarkup = @"action-menu-slot=""my-slot""";
+        Assert.Contains(expectedMarkup, table.Markup);
+    }
+
+    [Fact]
+    public void NimbleTableColumn_WithActionMenuLabelAttribute_HasTableMarkup()
+    {
+        var table = RenderWithPropertySet(x => x.ActionMenuLabel!, "Cell actions");
+
+        var expectedMarkup = @"action-menu-label=""Cell actions""";
+        Assert.Contains(expectedMarkup, table.Markup);
+    }
+
+    [Fact]
+    public void NimbleTableColumn_WithColumnHiddenAttribute_HasTableMarkup()
+    {
+        var table = RenderWithPropertySet(x => x.ColumnHidden!, true);
+
+        var expectedMarkup = "column-hidden";
         Assert.Contains(expectedMarkup, table.Markup);
     }
 

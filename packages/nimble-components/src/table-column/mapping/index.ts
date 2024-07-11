@@ -29,6 +29,7 @@ import { MappingTextConfig } from '../enum-base/models/mapping-text-config';
 import { MappingEmpty } from '../../mapping/empty';
 import { MappingEmptyConfig } from '../enum-base/models/mapping-empty-config';
 import { TableColumnMappingWidthMode } from './types';
+import { mixinSortableColumnAPI } from '../mixins/sortable-column';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -42,10 +43,12 @@ declare global {
  */
 export class TableColumnMapping extends mixinGroupableColumnAPI(
     mixinFractionalWidthColumnAPI(
-        TableColumnEnumBase<
-        TableColumnEnumColumnConfig,
-        TableColumnMappingValidator
-        >
+        mixinSortableColumnAPI(
+            TableColumnEnumBase<
+            TableColumnEnumColumnConfig,
+            TableColumnMappingValidator
+            >
+        )
     )
 ) {
     @attr({ attribute: 'width-mode' })

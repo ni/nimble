@@ -5,6 +5,7 @@ module.exports = {
         'dist',
         // Force inclusion of storybook dot file hidden folder
         '!/.storybook',
+        '/.storybook/blocks/StoryLayout.tsx',
         'src/nimble/icons'
     ],
     overrides: [
@@ -50,7 +51,7 @@ module.exports = {
                     {
                         patterns: [
                             {
-                                group: ['*/nimble-components/dist/esm/*', '*/spright-components/dist/esm/*'],
+                                group: ['*/nimble-components/dist/esm/*', '*/spright-components/dist/esm/*', '@ni/nimble-components/*', '@ni/spright-components/*'],
                                 message:
                                     'For storybook, link directly to the nimble-components or spright-components typescript source path in the monorepo with a relative path instead of dist build output.'
                             },
@@ -87,17 +88,6 @@ module.exports = {
             files: ['.storybook/*.js'],
             env: {
                 browser: true,
-            }
-        },
-        {
-            files: ['.storybook/blocks/**/*tsx'],
-            rules: {
-                // Improves readability of React Components to avoid return types in template expressions
-                '@typescript-eslint/explicit-function-return-type': 'off',
-                '@typescript-eslint/explicit-module-boundary-types': 'off',
-
-                // The React components should use PascalCase
-                '@typescript-eslint/naming-convention': 'off'
             }
         }
     ]

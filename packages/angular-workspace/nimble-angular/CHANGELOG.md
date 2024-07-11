@@ -1,8 +1,188 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Fri, 07 Jun 2024 15:10:38 GMT and should not be manually modified.
+This log was last generated on Thu, 11 Jul 2024 17:41:14 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 24.6.2
+
+Thu, 11 Jul 2024 17:41:14 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v29.8.1
+
+## 24.6.1
+
+Wed, 10 Jul 2024 16:23:39 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v29.8.0
+
+## 24.6.0
+
+Wed, 10 Jul 2024 15:47:23 GMT
+
+### Minor changes
+
+- Select custom filtering integration to Angular. This adds new the 'loadingVisible' attribute to NimbleSelectDirective, and exports the SelectFilterInputEventDetail type. ([ni/nimble@9abc399](https://github.com/ni/nimble/commit/9abc3991f4594534b5903e2a7c0913fce72b362f))
+- Bump @ni/nimble-components to v29.7.9
+
+## 24.5.10
+
+Mon, 08 Jul 2024 22:43:30 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v29.7.8
+
+## 24.5.9
+
+Mon, 08 Jul 2024 20:36:03 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v29.7.7
+
+## 24.5.8
+
+Wed, 03 Jul 2024 20:37:08 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v29.7.6
+
+## 24.5.7
+
+Tue, 02 Jul 2024 00:04:53 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v29.7.5
+
+## 24.5.6
+
+Mon, 01 Jul 2024 23:05:23 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v29.7.4
+
+## 24.5.5
+
+Mon, 01 Jul 2024 20:14:06 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v29.7.3
+
+## 24.5.4
+
+Thu, 27 Jun 2024 17:22:12 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v29.7.2
+
+## 24.5.3
+
+Wed, 26 Jun 2024 20:18:04 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v29.7.1
+
+## 24.5.2
+
+Tue, 25 Jun 2024 18:38:46 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v29.7.0
+
+## 24.5.1
+
+Thu, 20 Jun 2024 20:08:12 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v29.6.0
+
+## 24.5.0
+
+Tue, 18 Jun 2024 22:10:11 GMT
+
+### Minor changes
+
+- Export menu-button page object ([ni/nimble@9763ab0](https://github.com/ni/nimble/commit/9763ab025b9ad497025d67cf9e2a674159bf7b3f))
+- Bump @ni/nimble-components to v29.5.0
+
+## 24.4.11
+
+Tue, 18 Jun 2024 18:31:52 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v29.4.2
+
+## 24.4.10
+
+Mon, 17 Jun 2024 22:45:32 GMT
+
+### Patches
+
+- Fixing scenario where list option in a group would not call registerOwner on Select. ([ni/nimble@e3eff22](https://github.com/ni/nimble/commit/e3eff22ac6f9d523126c3834afcd90413c4a0b77))
+- Bump @ni/nimble-components to v29.4.1
+
+## 24.4.9
+
+Mon, 17 Jun 2024 16:38:20 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v29.4.0
+
+## 24.4.8
+
+Mon, 17 Jun 2024 15:13:30 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v29.3.7
+
+## 24.4.7
+
+Thu, 13 Jun 2024 17:01:38 GMT
+
+### Patches
+
+- Move column sorting properties to a column mixin ([ni/nimble@659242f](https://github.com/ni/nimble/commit/659242fdcda04d270085e3a7e86493e9fc8a1fc5))
+- Bump @ni/nimble-components to v29.3.6
+
+## 24.4.6
+
+Tue, 11 Jun 2024 19:27:14 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v29.3.5
+
+## 24.4.5
+
+Sat, 08 Jun 2024 17:53:59 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v29.3.4
+
+## 24.4.4
+
+Fri, 07 Jun 2024 20:34:51 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v29.3.3
 
 ## 24.4.3
 

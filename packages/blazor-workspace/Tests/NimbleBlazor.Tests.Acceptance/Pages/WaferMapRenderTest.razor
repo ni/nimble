@@ -14,7 +14,6 @@
                 GridMinX="0"
                 GridMinY="0"
                 HoverDieChanged="@ShowCurrentDie"
-                @bind-Dies="Dies"
                 @bind-ColorScale="ColorScale"
                 @bind-HighlightedTags="HighlightedTags">
 </NimbleWaferMap>
@@ -53,7 +52,7 @@
                 j--)
             {
                 var value = (i + j) % 100;
-                dies.Add(new WaferMapDie(i, j, value.ToString()));
+                dies.Add(new WaferMapDie(i, j, 0, value.ToString()));
             }
             // generate points right of centerX
             for (
@@ -63,7 +62,7 @@
                 j++)
             {
                 var value = (i + j) % 100;
-                dies.Add(new WaferMapDie(i, j, value.ToString()));
+                dies.Add(new WaferMapDie(i, j, 0, value.ToString()));
             }
         }
         Dies = dies;
@@ -80,6 +79,12 @@
 
         TextFieldText = validity.InvalidGridDimensions.ToString();
 
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await _waferMap!.SetDataAsync(Dies);
+        await base.OnAfterRenderAsync(firstRender);
     }
 
     private void ShowCurrentDie(WaferMapHoverDieChangedEventArgs e)
