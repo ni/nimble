@@ -32,12 +32,20 @@ export function mixinCustomSortOrderColumnAPI<
             handleChange: this.handleCustomSortOrderColumnChange.bind(this)
         };
 
-        public getResolvedOperandDataRecordFieldName(initialOperandFieldName: string | undefined): string | undefined {
-            return typeof this.sortByFieldName === 'string' ? this.sortByFieldName : initialOperandFieldName;
+        public getResolvedOperandDataRecordFieldName(
+            initialOperandFieldName: string | undefined
+        ): string | undefined {
+            return typeof this.sortByFieldName === 'string'
+                ? this.sortByFieldName
+                : initialOperandFieldName;
         }
 
-        public getResolvedSortOperation(initialSortOperation: TableColumnSortOperation): TableColumnSortOperation {
-            return typeof this.sortByFieldName === 'string' ? TableColumnSortOperation.basic : initialSortOperation;
+        public getResolvedSortOperation(
+            initialSortOperation: TableColumnSortOperation
+        ): TableColumnSortOperation {
+            return typeof this.sortByFieldName === 'string'
+                ? TableColumnSortOperation.basic
+                : initialSortOperation;
         }
 
         /** @internal */
@@ -45,11 +53,20 @@ export function mixinCustomSortOrderColumnAPI<
             this.handleSortByFieldNameChange();
             this.updateCustomColumnSortingValidity();
 
-            if (typeof this.sortByFieldName === 'string' && !this.customSortOrderColumnNotifier) {
-                this.customSortOrderColumnNotifier = Observable.getNotifier(this.columnInternals);
-                this.customSortOrderColumnNotifier.subscribe(this.customSortOrderColumnChangeHandler);
+            if (
+                typeof this.sortByFieldName === 'string'
+                && !this.customSortOrderColumnNotifier
+            ) {
+                this.customSortOrderColumnNotifier = Observable.getNotifier(
+                    this.columnInternals
+                );
+                this.customSortOrderColumnNotifier.subscribe(
+                    this.customSortOrderColumnChangeHandler
+                );
             } else {
-                this.customSortOrderColumnNotifier?.unsubscribe(this.customSortOrderColumnChangeHandler);
+                this.customSortOrderColumnNotifier?.unsubscribe(
+                    this.customSortOrderColumnChangeHandler
+                );
                 this.customSortOrderColumnNotifier = undefined;
             }
         }
@@ -57,7 +74,10 @@ export function mixinCustomSortOrderColumnAPI<
         public abstract handleSortByFieldNameChange(): void;
 
         /** @internal */
-        public handleCustomSortOrderColumnChange(_source: unknown, args: unknown): void {
+        public handleCustomSortOrderColumnChange(
+            _source: unknown,
+            args: unknown
+        ): void {
             if (args === 'groupingDisabled') {
                 this.updateCustomColumnSortingValidity();
             }

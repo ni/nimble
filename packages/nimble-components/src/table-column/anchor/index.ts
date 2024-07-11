@@ -102,7 +102,9 @@ export class TableColumnAnchor extends mixinGroupableColumnAPI(
             cellViewTag: tableColumnAnchorCellViewTag,
             groupHeaderViewTag: tableColumnTextGroupHeaderViewTag,
             delegatedEvents: ['click'],
-            sortOperation: this.getResolvedSortOperation(this.defaultSortOperation),
+            sortOperation: this.getResolvedSortOperation(
+                this.defaultSortOperation
+            ),
             validator: new TableColumnAnchorValidator()
         };
     }
@@ -175,7 +177,9 @@ export class TableColumnAnchor extends mixinGroupableColumnAPI(
 
     private updateOperandDataRecordFieldName(): void {
         this.columnInternals.operandDataRecordFieldName = this.getResolvedOperandDataRecordFieldName(this.labelFieldName);
-        this.columnInternals.sortOperation = this.getResolvedSortOperation(this.defaultSortOperation);
+        this.columnInternals.sortOperation = this.getResolvedSortOperation(
+            this.defaultSortOperation
+        );
     }
 }
 

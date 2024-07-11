@@ -45,13 +45,17 @@ class CustomSortTableColumn extends mixinCustomSortOrderColumnAPI(
             groupHeaderViewTag: tableColumnEmptyGroupHeaderViewTag,
             delegatedEvents: [],
             validator: new TestValidator(),
-            sortOperation: this.getResolvedSortOperation(this.defaultSortOperation)
+            sortOperation: this.getResolvedSortOperation(
+                this.defaultSortOperation
+            )
         };
     }
 
     private updateOperandDataRecordFieldName(): void {
         this.columnInternals.operandDataRecordFieldName = this.getResolvedOperandDataRecordFieldName(this.defaultFieldName);
-        this.columnInternals.sortOperation = this.getResolvedSortOperation(this.defaultSortOperation);
+        this.columnInternals.sortOperation = this.getResolvedSortOperation(
+            this.defaultSortOperation
+        );
     }
 }
 

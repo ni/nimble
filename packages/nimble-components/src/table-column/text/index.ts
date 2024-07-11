@@ -52,7 +52,9 @@ export class TableColumnText extends mixinCustomSortOrderColumnAPI(
             cellViewTag: tableColumnTextCellViewTag,
             groupHeaderViewTag: tableColumnTextGroupHeaderViewTag,
             delegatedEvents: [],
-            sortOperation: this.getResolvedSortOperation(this.defaultSortOperation),
+            sortOperation: this.getResolvedSortOperation(
+                this.defaultSortOperation
+            ),
             validator: new TableColumnTextValidator()
         };
     }
@@ -64,7 +66,9 @@ export class TableColumnText extends mixinCustomSortOrderColumnAPI(
 
     private updateOperandDataRecordFieldName(): void {
         this.columnInternals.operandDataRecordFieldName = this.getResolvedOperandDataRecordFieldName(this.fieldName);
-        this.columnInternals.sortOperation = this.getResolvedSortOperation(this.defaultSortOperation);
+        this.columnInternals.sortOperation = this.getResolvedSortOperation(
+            this.defaultSortOperation
+        );
     }
 }
 
