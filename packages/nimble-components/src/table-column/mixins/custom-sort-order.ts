@@ -27,9 +27,18 @@ export function mixinCustomSortOrderColumnAPI<
         /** @internal */
         public notifier?: Notifier;
 
+        public getResolvedOperandDataRecordFieldName(initialOperandFieldName: string | undefined): string | undefined {
+            return typeof this.sortByFieldName === 'string' ? this.sortByFieldName : initialOperandFieldName;
+        }
+
+        public getResolvedSortOperation(initialSortOperation: TableColumnSortOperation): TableColumnSortOperation {
+            return typeof this.sortByFieldName === 'string' ? TableColumnSortOperation.basic : initialSortOperation;
+        }
+
         /** @internal */
         public sortByFieldNameChanged(): void {
-            this.updateOperandDataRecordFieldName();
+            this.handleSortByFieldNameChange();
+            this.updateCustomColumnSortingValidity();
 
             if (typeof this.sortByFieldName === 'string' && !this.notifier) {
                 this.notifier = Observable.getNotifier(this.columnInternals);
@@ -42,23 +51,12 @@ export function mixinCustomSortOrderColumnAPI<
             }
         }
 
-        /** @internal */
-        public updateOperandDataRecordFieldName(): void {
-            if (typeof this.sortByFieldName === 'string') {
-                this.columnInternals.operandDataRecordFieldName = this.sortByFieldName;
-                this.columnInternals.sortOperation = TableColumnSortOperation.basic;
-            } else {
-                this.columnInternals.operandDataRecordFieldName = this.getDefaultSortFieldName();
-                this.columnInternals.sortOperation = this.getDefaultSortOperation();
-            }
-        }
+        public abstract handleSortByFieldNameChange(): void;
 
         /** @internal */
         public handleChange(_source: unknown, args: unknown): void {
             if (args === 'groupingDisabled') {
                 this.updateCustomColumnSortingValidity();
-            } else if (args === 'dataRecordFieldNames') {
-                this.updateOperandDataRecordFieldName();
             }
         }
 
@@ -77,12 +75,6 @@ export function mixinCustomSortOrderColumnAPI<
                 );
             }
         }
-
-        /** @internal */
-        public abstract getDefaultSortFieldName(): string | undefined;
-
-        /** @internal */
-        public abstract getDefaultSortOperation(): TableColumnSortOperation;
     }
 
     attr({ attribute: 'sort-by-field-name' })(

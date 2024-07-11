@@ -34,20 +34,16 @@ export class TableColumnText extends mixinCustomSortOrderColumnAPI(
         >
     )
 ) {
-    /** @internal */
-    public override getDefaultSortOperation(): TableColumnSortOperation {
-        return TableColumnSortOperation.localeAwareCaseSensitive;
-    }
-
-    /** @internal */
-    public override getDefaultSortFieldName(): string | undefined {
-        return this.fieldName;
-    }
+    private readonly defaultSortOperation = TableColumnSortOperation.localeAwareCaseSensitive;
 
     public placeholderChanged(): void {
         this.columnInternals.columnConfig = {
             placeholder: this.placeholder
         };
+    }
+
+    public override handleSortByFieldNameChange(): void {
+        this.updateOperandDataRecordFieldName();
     }
 
     protected override getColumnInternalsOptions(): ColumnInternalsOptions<TableColumnTextValidator> {
@@ -56,7 +52,7 @@ export class TableColumnText extends mixinCustomSortOrderColumnAPI(
             cellViewTag: tableColumnTextCellViewTag,
             groupHeaderViewTag: tableColumnTextGroupHeaderViewTag,
             delegatedEvents: [],
-            sortOperation: this.getDefaultSortOperation(),
+            sortOperation: this.getResolvedSortOperation(this.defaultSortOperation),
             validator: new TableColumnTextValidator()
         };
     }
@@ -64,6 +60,11 @@ export class TableColumnText extends mixinCustomSortOrderColumnAPI(
     protected override fieldNameChanged(): void {
         this.columnInternals.dataRecordFieldNames = [this.fieldName] as const;
         this.updateOperandDataRecordFieldName();
+    }
+
+    private updateOperandDataRecordFieldName(): void {
+        this.columnInternals.operandDataRecordFieldName = this.getResolvedOperandDataRecordFieldName(this.fieldName);
+        this.columnInternals.sortOperation = this.getResolvedSortOperation(this.defaultSortOperation);
     }
 }
 

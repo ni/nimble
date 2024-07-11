@@ -86,18 +86,14 @@ export class TableColumnAnchor extends mixinGroupableColumnAPI(
     @attr
     public download?: string;
 
-    /** @internal */
-    public override getDefaultSortOperation(): TableColumnSortOperation {
-        return TableColumnSortOperation.localeAwareCaseSensitive;
-    }
-
-    /** @internal */
-    public override getDefaultSortFieldName(): string | undefined {
-        return this.labelFieldName;
-    }
+    private readonly defaultSortOperation = TableColumnSortOperation.localeAwareCaseSensitive;
 
     public placeholderChanged(): void {
         this.updateColumnConfig();
+    }
+
+    public override handleSortByFieldNameChange(): void {
+        this.updateOperandDataRecordFieldName();
     }
 
     protected override getColumnInternalsOptions(): ColumnInternalsOptions<TableColumnAnchorValidator> {
@@ -106,7 +102,7 @@ export class TableColumnAnchor extends mixinGroupableColumnAPI(
             cellViewTag: tableColumnAnchorCellViewTag,
             groupHeaderViewTag: tableColumnTextGroupHeaderViewTag,
             delegatedEvents: ['click'],
-            sortOperation: this.getDefaultSortOperation(),
+            sortOperation: this.getResolvedSortOperation(this.defaultSortOperation),
             validator: new TableColumnAnchorValidator()
         };
     }
@@ -175,6 +171,11 @@ export class TableColumnAnchor extends mixinGroupableColumnAPI(
             download: this.download,
             placeholder: this.placeholder
         };
+    }
+
+    private updateOperandDataRecordFieldName(): void {
+        this.columnInternals.operandDataRecordFieldName = this.getResolvedOperandDataRecordFieldName(this.labelFieldName);
+        this.columnInternals.sortOperation = this.getResolvedSortOperation(this.defaultSortOperation);
     }
 }
 

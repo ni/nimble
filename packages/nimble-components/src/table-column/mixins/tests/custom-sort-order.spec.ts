@@ -31,12 +31,11 @@ const customSortColumnName = uniqueElementName();
 class CustomSortTableColumn extends mixinCustomSortOrderColumnAPI(
     TableColumn<unknown, TestValidator>
     ) {
-    public override getDefaultSortFieldName(): string | undefined {
-        return 'defaultSortFieldName';
-    }
+    private readonly defaultFieldName = 'defaultFieldName';
+    private readonly defaultSortOperation = TableColumnSortOperation.localeAwareCaseSensitive;
 
-    public override getDefaultSortOperation(): TableColumnSortOperation {
-        return TableColumnSortOperation.localeAwareCaseSensitive;
+    public override handleSortByFieldNameChange(): void {
+        this.updateOperandDataRecordFieldName();
     }
 
     protected override getColumnInternalsOptions(): ColumnInternalsOptions<TestValidator> {
@@ -45,8 +44,14 @@ class CustomSortTableColumn extends mixinCustomSortOrderColumnAPI(
             cellViewTag: tableColumnEmptyCellViewTag,
             groupHeaderViewTag: tableColumnEmptyGroupHeaderViewTag,
             delegatedEvents: [],
-            validator: new TestValidator()
+            validator: new TestValidator(),
+            sortOperation: this.getResolvedSortOperation(this.defaultSortOperation)
         };
+    }
+
+    private updateOperandDataRecordFieldName(): void {
+        this.columnInternals.operandDataRecordFieldName = this.getResolvedOperandDataRecordFieldName(this.defaultFieldName);
+        this.columnInternals.sortOperation = this.getResolvedSortOperation(this.defaultSortOperation);
     }
 }
 
@@ -85,10 +90,10 @@ describe('CustomSortOrderColumn', () => {
         element.sortByFieldName = undefined;
 
         expect(element.columnInternals.operandDataRecordFieldName).toBe(
-            element.getDefaultSortFieldName()
+            'defaultFieldName'
         );
         expect(element.columnInternals.sortOperation).toBe(
-            element.getDefaultSortOperation()
+            TableColumnSortOperation.localeAwareCaseSensitive
         );
     });
 
