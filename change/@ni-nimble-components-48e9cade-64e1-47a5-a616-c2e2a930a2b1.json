@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Align column header based on cell content alignment",
-  "packageName": "@ni/nimble-components",
-  "email": "7282195+m-akinc@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
