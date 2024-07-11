@@ -141,6 +141,7 @@ export const anchorColumn: StoryObj<AnchorColumnTableArgs> = {
                 appearance="${x => x.appearance}"
                 ?underline-hidden="${x => x.underlineHidden}"
                 sort-by-field-name="addressSortOrder"
+                grouping-disabled
             >
                 Address
             </${tableColumnAnchorTag}>

@@ -117,6 +117,7 @@ export const textColumn: StoryObj<TextColumnTableArgs> = {
             <${tableColumnTextTag}
                 field-name="address"
                 sort-by-field-name="addressSortOrder"
+                grouping-disabled
             >
                 Address
             </${tableColumnTextTag}>
