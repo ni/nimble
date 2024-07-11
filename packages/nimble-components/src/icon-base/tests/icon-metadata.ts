@@ -112,7 +112,10 @@ export const iconMetadata: {
     IconBookMagnifyingGlass: {
         tags: ['analyze']
     },
-    IconCalendarToday: {
+    IconCalendarCheckLines: {
+        tags: ['test', 'plan', 'schedule']
+    },
+    IconCalendarClock: {
         tags: []
     },
     IconCalendarDay: {
@@ -121,19 +124,16 @@ export const iconMetadata: {
     IconCalendarDays: {
         tags: ['schedule']
     },
-    IconCalendarWeek: {
-        tags: []
-    },
     IconCalendarLines: {
         tags: ['agenda']
-    },
-    IconCalendarCheckLines: {
-        tags: ['test', 'plan', 'schedule']
     },
     IconCalendarRectangle: {
         tags: []
     },
-    IconCalendarClock: {
+    IconCalendarToday: {
+        tags: []
+    },
+    IconCalendarWeek: {
         tags: []
     },
     IconChartDiagram: {
