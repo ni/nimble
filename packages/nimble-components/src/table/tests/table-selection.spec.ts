@@ -1432,15 +1432,15 @@ describe('Table row selection', () => {
                     );
                 });
 
-                describe('with SHIFT pressed in the document then let go outside the document', () => {
+                describe('with SHIFT pressed in the document then let go outside the window', () => {
                     beforeEach(() => {
                         const shiftKeyDownEvent = new KeyboardEvent('keydown', {
                             key: keyTab, // could be any key
                             shiftKey: true
                         } as KeyboardEventInit);
                         document.dispatchEvent(shiftKeyDownEvent);
-                        document.dispatchEvent(new FocusEvent('focusout'));
-                        // No SHIFT keyup event. This simulates the user letting go of the SHIFT key outside the document.
+                        window.dispatchEvent(new FocusEvent('blur'));
+                        // No SHIFT keyup event. This simulates the user letting go of the SHIFT key outside the window.
                     });
 
                     it('selects only the rows whose checkboxes were clicked', async () => {

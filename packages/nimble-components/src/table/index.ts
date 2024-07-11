@@ -341,7 +341,7 @@ export class Table<
         this.keyboardNavigationManager.connect();
         document.addEventListener('keydown', this.onKeyDown);
         document.addEventListener('keyup', this.onKeyUp);
-        document.addEventListener('focusout', this.onFocusOut);
+        window.addEventListener('blur', this.onBlur);
     }
 
     public override disconnectedCallback(): void {
@@ -351,7 +351,7 @@ export class Table<
         this.viewport.removeEventListener('scroll', this.onViewPortScroll);
         document.removeEventListener('keydown', this.onKeyDown);
         document.removeEventListener('keyup', this.onKeyUp);
-        document.removeEventListener('focusout', this.onFocusOut);
+        window.removeEventListener('blur', this.onBlur);
     }
 
     public checkValidity(): boolean {
