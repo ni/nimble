@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Thu, 11 Jul 2024 23:12:35 GMT",
+      "version": "29.8.2",
+      "tag": "@ni/nimble-components_v29.8.2",
+      "comments": {
+        "none": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "154703cef8c143fda335f706a1231979aea23031",
+            "comment": "Run webkit tests on pipeline builds"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 11 Jul 2024 22:05:01 GMT",
       "version": "29.8.2",
       "tag": "@ni/nimble-components_v29.8.2",

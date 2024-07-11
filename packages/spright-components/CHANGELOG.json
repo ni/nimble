@@ -2,6 +2,21 @@
   "name": "@ni/spright-components",
   "entries": [
     {
+      "date": "Thu, 11 Jul 2024 23:12:35 GMT",
+      "version": "1.0.39",
+      "tag": "@ni/spright-components_v1.0.39",
+      "comments": {
+        "none": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/spright-components",
+            "commit": "154703cef8c143fda335f706a1231979aea23031",
+            "comment": "Run webkit tests on pipeline builds"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 11 Jul 2024 22:05:01 GMT",
       "version": "1.0.39",
       "tag": "@ni/spright-components_v1.0.39",
