@@ -5,7 +5,6 @@
 # Nimble Tokens
 
 [![NPM Version](https://img.shields.io/npm/v/@ni/nimble-tokens.svg)](https://www.npmjs.com/package/@ni/nimble-tokens)
-[![Nuget Version](https://img.shields.io/nuget/v/NimbleTokens.svg)](https://www.nuget.org/packages/NimbleTokens)
 
 NI base design tokens. Design tokens are primitive elements of component style like color, typography, and spacing. **These should generally not be consumed directly by applications**. See below for guidance.
 
@@ -60,16 +59,9 @@ In your application JavaScript or TypeScript code, import the token strings you 
 import { White } from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
 ```
 
-#### Other formats
-
-Tokens values are also available as:
- - [C# strings](/packages/nimble-tokens/dist/styledictionary/csharp/colors.cs)
- - [XAML resources](/packages/nimble-tokens/dist/styledictionary/xaml/colors.xaml)
-
 #### Icons
 
-Icons are included in the `nimble-tokens` package, but (like tokens) icons should primarily consumed through framework-specific components. If your desktop application requires icons as `.ico` files, ask a Nimble team member for a copy of the `NimbleTokens.x.x.xx.nupkg` file.
-
+Icons are included in the `nimble-tokens` package, but (like tokens) icons should primarily consumed through framework-specific components.
 
 #### Font Faces
 
