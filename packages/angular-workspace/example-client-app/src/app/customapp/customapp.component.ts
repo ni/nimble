@@ -79,6 +79,7 @@ export class CustomAppComponent implements AfterViewInit {
 6. @mention: <user:1>
 `;
 
+    public possibleColors = colors;
     public currentColor?: Color;
     public openMenuButtonColumnRecordId?: string;
     public readonly tableData$: Observable<SimpleTableRecord[]>;
