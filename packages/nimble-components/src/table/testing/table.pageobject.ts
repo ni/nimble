@@ -423,9 +423,7 @@ export class TablePageObject<T extends TableRecord> {
     public isCollapseAllButtonSpaceReserved(): boolean {
         const collapseButton = this.getCollapseAllButton();
         if (collapseButton) {
-            return (
-                window.getComputedStyle(collapseButton).display !== 'none'
-            );
+            return window.getComputedStyle(collapseButton).display !== 'none';
         }
         return true;
     }

@@ -2328,19 +2328,26 @@ describe('Table', () => {
                     expectSpaceReserved: false
                 }
             ] as const;
-            parameterizeSpec(collapseAllButtonConfigurations, (spec, name, value) => {
-                spec(name, async () => {
-                    await connect();
-                    await waitForUpdatesAsync();
-                    element.columns.forEach(column => {
-                        column.columnInternals.groupingDisabled = !value.groupableColumns;
-                    });
-                    element.parentIdFieldName = value.hierarchy ? 'parentId' : undefined;
-                    await waitForUpdatesAsync();
+            parameterizeSpec(
+                collapseAllButtonConfigurations,
+                (spec, name, value) => {
+                    spec(name, async () => {
+                        await connect();
+                        await waitForUpdatesAsync();
+                        element.columns.forEach(column => {
+                            column.columnInternals.groupingDisabled = !value.groupableColumns;
+                        });
+                        element.parentIdFieldName = value.hierarchy
+                            ? 'parentId'
+                            : undefined;
+                        await waitForUpdatesAsync();
 
-                    expect(pageObject.isCollapseAllButtonSpaceReserved()).toBe(value.expectSpaceReserved);
-                });
-            });
+                        expect(
+                            pageObject.isCollapseAllButtonSpaceReserved()
+                        ).toBe(value.expectSpaceReserved);
+                    });
+                }
+            );
         });
     });
 

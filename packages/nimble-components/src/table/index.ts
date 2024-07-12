@@ -634,9 +634,14 @@ export class Table<
             this.updateTanStack();
         }
 
-        if (this.tableUpdateTracker.updateRowParentIds || this.tableUpdateTracker.updateGroupRows) {
+        if (
+            this.tableUpdateTracker.updateRowParentIds
+            || this.tableUpdateTracker.updateGroupRows
+        ) {
             const hierarchyEnabled = this.isHierarchyEnabled();
-            const hasGroupableColumns = this.columns.some(x => !x.columnInternals.groupingDisabled);
+            const hasGroupableColumns = this.columns.some(
+                x => !x.columnInternals.groupingDisabled
+            );
             this.canHaveCollapsibleRows = hierarchyEnabled || hasGroupableColumns;
         }
 
