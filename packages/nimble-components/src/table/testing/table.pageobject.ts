@@ -420,6 +420,16 @@ export class TablePageObject<T extends TableRecord> {
         return false;
     }
 
+    public isCollapseAllButtonSpaceReserved(): boolean {
+        const collapseButton = this.getCollapseAllButton();
+        if (collapseButton) {
+            return (
+                window.getComputedStyle(collapseButton).display !== 'none'
+            );
+        }
+        return true;
+    }
+
     public isDataRowExpandCollapseButtonVisible(rowIndex: number): boolean {
         const expandCollapseButton = this.getExpandCollapseButtonForRow(rowIndex);
         return expandCollapseButton !== null;
