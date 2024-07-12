@@ -75,19 +75,21 @@ export const template = html<Table>`
                                     </${checkboxTag}>
                                 </span>
                             `)}
-                            <${buttonTag}
-                                ${ref('collapseAllButton')}
-                                ${'' /* tabindex managed dynamically by KeyboardNavigationManager */}
-                                tabindex="-1"
-                                class="collapse-all-button ${x => x.collapseButtonVisibility}"
-                                content-hidden
-                                appearance="${ButtonAppearance.ghost}"
-                                title="${x => tableCollapseAllLabel.getValueFor(x)}"
-                                @click="${x => x.handleCollapseAllRows()}"
-                            >
-                                <${iconTriangleTwoLinesHorizontalTag} slot="start"></${iconTriangleTwoLinesHorizontalTag}>
-                                ${x => tableCollapseAllLabel.getValueFor(x)}
-                            </${buttonTag}>
+                            <span class="collapse-all-button-container">
+                                <${buttonTag}
+                                    ${ref('collapseAllButton')}
+                                    ${'' /* tabindex managed dynamically by KeyboardNavigationManager */}
+                                    tabindex="-1"
+                                    class="collapse-all-button ${x => x.collapseButtonVisibility}"
+                                    content-hidden
+                                    appearance="${ButtonAppearance.ghost}"
+                                    title="${x => tableCollapseAllLabel.getValueFor(x)}"
+                                    @click="${x => x.handleCollapseAllRows()}"
+                                >
+                                    <${iconTriangleTwoLinesHorizontalTag} slot="start"></${iconTriangleTwoLinesHorizontalTag}>
+                                    ${x => tableCollapseAllLabel.getValueFor(x)}
+                                </${buttonTag}>
+                            </span>
                         </span>
                         <span class="column-headers-container" ${ref('columnHeadersContainer')}>
                             ${repeat(x => x.visibleColumns, html<TableColumn, Table>`

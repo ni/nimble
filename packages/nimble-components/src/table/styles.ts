@@ -95,6 +95,11 @@ export const styles = css`
         grid-template-columns: var(--ni-private-table-row-grid-columns) auto;
     }
 
+    .collapse-all-button-container {
+        display: flex;
+        min-width: ${mediumPadding};
+    }
+
     .collapse-all-button {
         height: ${controlSlimHeight};
         margin-left: ${mediumPadding};
