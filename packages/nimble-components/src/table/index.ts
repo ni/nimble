@@ -3,7 +3,8 @@ import {
     Observable,
     observable,
     Notifier,
-    DOM
+    DOM,
+    volatile
 } from '@microsoft/fast-element';
 import {
     Checkbox,
@@ -147,12 +148,6 @@ export class Table<
     @observable
     public selectionState: TableRowSelectionState = TableRowSelectionState.notSelected;
 
-    /**
-     * @internal
-     */
-    @observable
-    public canHaveCollapsibleRows = false;
-
     public get validity(): TableValidity {
         return this.tableValidator.getValidity();
     }
@@ -189,6 +184,26 @@ export class Table<
      */
     @observable
     public showCollapseAll = false;
+
+    /**
+     * @internal
+     */
+    @observable
+    public canHaveCollapsibleRows = false;
+
+    /**
+     * @internal
+     */
+    @volatile
+    public get collapseButtonVisibility(): string {
+        if (!this.canHaveCollapsibleRows) {
+            return 'hidden';
+        }
+        if (this.showCollapseAll) {
+            return 'visible';
+        }
+        return '';
+    }
 
     /**
      * @internal

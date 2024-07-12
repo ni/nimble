@@ -79,7 +79,7 @@ export const template = html<Table>`
                                 ${ref('collapseAllButton')}
                                 ${'' /* tabindex managed dynamically by KeyboardNavigationManager */}
                                 tabindex="-1"
-                                class="collapse-all-button ${x => `${x.showCollapseAll ? 'visible' : ''}`} ${x => `${x.canHaveCollapsibleRows ? '' : 'hidden'}`}"
+                                class="collapse-all-button ${x => x.collapseButtonVisibility}"
                                 content-hidden
                                 appearance="${ButtonAppearance.ghost}"
                                 title="${x => tableCollapseAllLabel.getValueFor(x)}"
