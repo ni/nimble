@@ -5,6 +5,9 @@ import { DrawerLocation, MenuItem, NimbleDialogDirective, NimbleDrawerDirective,
 import { NimbleTableDirective, TableRecordDelayedHierarchyState, TableRecord, TableRowExpansionToggleEventDetail, TableSetRecordHierarchyOptions } from '@ni/nimble-angular/table';
 import { NimbleRichTextEditorDirective } from '@ni/nimble-angular/rich-text/editor';
 import { BehaviorSubject, Observable } from 'rxjs';
+import type { MenuButtonColumnToggleEventDetail } from '@ni/nimble-angular/table-column/menu-button';
+
+type Color = 'Red' | 'Green' | 'Blue' | 'Black' | 'Yellow';
 
 interface ComboboxItem {
     first: string;
@@ -23,6 +26,7 @@ interface SimpleTableRecord extends TableRecord {
     result: string;
     number: number;
     duration: number;
+    color: Color;
 }
 
 interface PersonTableRecord extends TableRecord {
@@ -74,6 +78,9 @@ export class CustomAppComponent implements AfterViewInit {
 6. @mention: <user:1>
 `;
 
+    public colors: Color[] = ['Black', 'Red', 'Green', 'Blue', 'Yellow'];
+    public currentColor?: Color;
+    public openMenuButtonColumnRecordId?: string;
     public readonly tableData$: Observable<SimpleTableRecord[]>;
     private readonly tableDataSubject = new BehaviorSubject<SimpleTableRecord[]>([]);
     private delayedHierarchyTableData: PersonTableRecord[] = [
@@ -217,10 +224,36 @@ export class CustomAppComponent implements AfterViewInit {
                 statusCode: (tableData.length % 2 === 0) ? 100 : 101,
                 result: possibleStatuses[tableData.length % 3],
                 number: tableData.length / 10,
-                duration: tableData.length * 1000 * (1.1 + 2 * 60 + 3 * 3600)
+                duration: tableData.length * 1000 * (1.1 + 2 * 60 + 3 * 3600),
+                color: (['Red', 'Green', 'Blue', 'Black', 'Yellow'] as const)[tableData.length % 5]
             });
         }
         this.tableDataSubject.next(tableData);
+    }
+
+    public onMenuButtonColumnBeforeToggle(event: Event): void {
+        const customEvent = event as CustomEvent<MenuButtonColumnToggleEventDetail>;
+        if (customEvent.detail.newState) {
+            this.openMenuButtonColumnRecordId = customEvent.detail.recordId;
+
+            const tableData = this.tableDataSubject.value;
+            const currentRecord = tableData.find(record => record.id === customEvent.detail.recordId)!;
+            this.currentColor = currentRecord.color;
+        }
+    }
+
+    public onColorSelected(color: Color): void {
+        if (!this.openMenuButtonColumnRecordId) {
+            return;
+        }
+
+        const updatedData = this.tableDataSubject.value.map(record => {
+            if (record.id === this.openMenuButtonColumnRecordId) {
+                return { ...record, color };
+            }
+            return record;
+        });
+        this.tableDataSubject.next(updatedData);
     }
 
     public loadRichTextEditorContent(): void {
