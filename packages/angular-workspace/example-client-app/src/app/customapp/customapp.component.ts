@@ -78,7 +78,7 @@ export class CustomAppComponent implements AfterViewInit {
 6. @mention: <user:1>
 `;
 
-    public colors: Color[] = ['Black', 'Red', 'Green', 'Blue', 'Yellow'];
+    public readonly possibleColors: readonly Color[] = ['Black', 'Red', 'Green', 'Blue', 'Yellow'] as const;
     public currentColor?: Color;
     public openMenuButtonColumnRecordId?: string;
     public readonly tableData$: Observable<SimpleTableRecord[]>;
@@ -225,7 +225,7 @@ export class CustomAppComponent implements AfterViewInit {
                 result: possibleStatuses[tableData.length % 3],
                 number: tableData.length / 10,
                 duration: tableData.length * 1000 * (1.1 + 2 * 60 + 3 * 3600),
-                color: (['Red', 'Green', 'Blue', 'Black', 'Yellow'] as const)[tableData.length % 5]
+                color: this.possibleColors[tableData.length % 5]
             });
         }
         this.tableDataSubject.next(tableData);

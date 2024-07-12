@@ -42,6 +42,10 @@ export class NimbleTableColumnMenuButtonDirective extends NimbleTableColumnBaseD
         return this.elementRef.nativeElement.minPixelWidth;
     }
 
+    @Input('min-pixel-width') public set minPixelWidth(value: NumberValueOrAttribute | null | undefined) {
+        this.renderer.setProperty(this.elementRef.nativeElement, 'minPixelWidth', toNullableNumberProperty(value));
+    }
+
     public constructor(renderer: Renderer2, elementRef: ElementRef<TableColumnMenuButton>) {
         super(renderer, elementRef);
     }

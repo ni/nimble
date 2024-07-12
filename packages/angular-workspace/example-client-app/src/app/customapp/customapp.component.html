@@ -311,7 +311,7 @@
                     Duration
                 </nimble-table-column-duration-text>
                 <nimble-table-column-text field-name="stringValue2" min-pixel-width="400" group-index="0">String 2</nimble-table-column-text>
-                <nimble-table-column-menu-button field-name="color" menu-slot="menu"
+                <nimble-table-column-menu-button field-name="color" menu-slot="color-menu"
                     (menu-button-column-beforetoggle)="onMenuButtonColumnBeforeToggle($event)"
                 >
                     Color
@@ -323,8 +323,8 @@
                     <nimble-menu-item>Item 3</nimble-menu-item>
                 </nimble-menu>
 
-                <nimble-menu slot="menu">
-                    <nimble-menu-item *ngFor="let color of colors" (change)="onColorSelected(color)">
+                <nimble-menu slot="color-menu">
+                    <nimble-menu-item *ngFor="let color of possibleColors" (change)="onColorSelected(color)">
                         <nimble-icon-check [style.visibility]="color === currentColor ? 'visible' : 'hidden'" slot="start"></nimble-icon-check>
                         {{ color }}
                     </nimble-menu-item>
