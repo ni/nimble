@@ -46,7 +46,6 @@ describe('NimbleTableColumnMenuButtonDirective', () => {
 
         it('has valid configuration by default', () => {
             expect(directive.checkValidity()).toBeTrue();
-            expect(directive.validity.invalidDecimalDigits).toBeFalse();
         });
     });
 
