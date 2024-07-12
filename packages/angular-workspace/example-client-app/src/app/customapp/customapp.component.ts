@@ -7,7 +7,8 @@ import { NimbleRichTextEditorDirective } from '@ni/nimble-angular/rich-text/edit
 import { BehaviorSubject, Observable } from 'rxjs';
 import type { MenuButtonColumnToggleEventDetail } from '@ni/nimble-angular/table-column/menu-button';
 
-type Color = 'Red' | 'Green' | 'Blue' | 'Black' | 'Yellow';
+const colors = ['Red', 'Green', 'Blue', 'Black', 'Yellow'] as const;
+type Color = typeof colors[number];
 
 interface ComboboxItem {
     first: string;
@@ -78,7 +79,6 @@ export class CustomAppComponent implements AfterViewInit {
 6. @mention: <user:1>
 `;
 
-    public readonly possibleColors: readonly Color[] = ['Black', 'Red', 'Green', 'Blue', 'Yellow'] as const;
     public currentColor?: Color;
     public openMenuButtonColumnRecordId?: string;
     public readonly tableData$: Observable<SimpleTableRecord[]>;
@@ -225,7 +225,7 @@ export class CustomAppComponent implements AfterViewInit {
                 result: possibleStatuses[tableData.length % 3],
                 number: tableData.length / 10,
                 duration: tableData.length * 1000 * (1.1 + 2 * 60 + 3 * 3600),
-                color: this.possibleColors[tableData.length % 5]
+                color: colors[tableData.length % colors.length]
             });
         }
         this.tableDataSubject.next(tableData);
