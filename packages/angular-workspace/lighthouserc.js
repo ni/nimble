@@ -11,7 +11,9 @@ module.exports = {
             settings: {
                 preset: 'desktop',
                 // Omit the pwa category
-                onlyCategories: ['accessibility', 'best-practices', 'performance', 'seo']
+                onlyCategories: ['accessibility', 'best-practices', 'performance', 'seo'],
+                // Ignore dom size for large example client app
+                skipAudits: ['dom-size']
             }
         },
         assert: {
