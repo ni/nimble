@@ -28,7 +28,7 @@ import {
     ExpandedState as TanStackExpandedState,
     OnChangeFn as TanStackOnChangeFn
 } from '@tanstack/table-core';
-import { keyEnter, keyShift } from '@microsoft/fast-web-utilities';
+import { keyEnter } from '@microsoft/fast-web-utilities';
 import { TableColumn } from '../table-column/base';
 import { TableValidator } from './models/table-validator';
 import { styles } from './styles';
@@ -241,7 +241,7 @@ export class Table<
     public tableScrollableMinWidth = 0;
 
     @observable
-    public documentShiftKeyDown = false;
+    public windowShiftKeyDown = false;
 
     private readonly table: TanStackTable<TableNode<TData>>;
     private options: TanStackTableOptionsResolved<TableNode<TData>>;
@@ -354,8 +354,9 @@ export class Table<
             passive: true
         });
         this.keyboardNavigationManager.connect();
-        document.addEventListener('keydown', this.onKeyDown);
-        document.addEventListener('keyup', this.onKeyUp);
+        window.addEventListener('keydown', this.onKeyDown);
+        window.addEventListener('keyup', this.onKeyUp);
+        window.addEventListener('blur', this.onBlur);
     }
 
     public override disconnectedCallback(): void {
@@ -363,8 +364,9 @@ export class Table<
         this.virtualizer.disconnect();
         this.keyboardNavigationManager.disconnect();
         this.viewport.removeEventListener('scroll', this.onViewPortScroll);
-        document.removeEventListener('keydown', this.onKeyDown);
-        document.removeEventListener('keyup', this.onKeyUp);
+        window.removeEventListener('keydown', this.onKeyDown);
+        window.removeEventListener('keyup', this.onKeyUp);
+        window.removeEventListener('blur', this.onBlur);
     }
 
     public checkValidity(): boolean {
@@ -411,7 +413,7 @@ export class Table<
         const selectionChanged = this.selectionManager.handleRowSelectionToggle(
             this.tableData[rowIndex],
             event.detail.newState,
-            this.documentShiftKeyDown
+            this.windowShiftKeyDown
         );
 
         if (selectionChanged) {
@@ -825,15 +827,15 @@ export class Table<
     };
 
     private readonly onKeyDown = (event: KeyboardEvent): void => {
-        if (event.key === keyShift) {
-            this.documentShiftKeyDown = true;
-        }
+        this.windowShiftKeyDown = event.shiftKey;
     };
 
     private readonly onKeyUp = (event: KeyboardEvent): void => {
-        if (event.key === keyShift) {
-            this.documentShiftKeyDown = false;
-        }
+        this.windowShiftKeyDown = event.shiftKey;
+    };
+
+    private readonly onBlur = (): void => {
+        this.windowShiftKeyDown = false;
     };
 
     private removeColumnObservers(): void {
