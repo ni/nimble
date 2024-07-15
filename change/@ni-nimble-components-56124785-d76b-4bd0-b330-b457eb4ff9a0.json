@@ -1,6 +1,6 @@
 {
   "type": "major",
-  "comment": "Adding eight icons, renaming two, and replacing two",
+  "comment": "Adding eight icons, renaming two, and replacing two. Clients using \"nimble-icon-calendar\" or \"nimble-icon-arrow-u-rotate-left\" must instead use \"nimble-icon-calendar-days\" and \"nimble-icon-arrow-u-up\" (respectively).",
   "packageName": "@ni/nimble-components",
   "email": "7282195+m-akinc@users.noreply.github.com",
   "dependentChangeType": "patch"
