@@ -758,7 +758,9 @@ export class Table<
         this.tableUpdateTracker.trackColumnInstancesChanged();
     }
 
-    private updateRequestedSlotsForOpeningActionMenu(openActionMenuRecordId: string): void {
+    private updateRequestedSlotsForOpeningActionMenu(
+        openActionMenuRecordId: string
+    ): void {
         for (const actionMenuSlot of this.actionMenuSlots) {
             this.columnRequestedSlots.set(actionMenuSlot, {
                 recordId: openActionMenuRecordId,
@@ -781,7 +783,9 @@ export class Table<
         }
 
         this.openActionMenuRecordId = event.detail.recordIds[0];
-        this.updateRequestedSlotsForOpeningActionMenu(this.openActionMenuRecordId!);
+        this.updateRequestedSlotsForOpeningActionMenu(
+            this.openActionMenuRecordId!
+        );
         const detail = await this.getActionMenuToggleEventDetail(event);
         this.$emit('action-menu-beforetoggle', detail);
     }
@@ -988,7 +992,9 @@ export class Table<
         if (this.openActionMenuRecordId !== undefined) {
             // If the action menu is open, create slots for all the new
             // action menu slots.
-            this.updateRequestedSlotsForOpeningActionMenu(this.openActionMenuRecordId);
+            this.updateRequestedSlotsForOpeningActionMenu(
+                this.openActionMenuRecordId
+            );
         }
     }
 
