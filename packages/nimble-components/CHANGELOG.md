@@ -1,8 +1,24 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Wed, 10 Jul 2024 16:23:39 GMT and should not be manually modified.
+This log was last generated on Thu, 11 Jul 2024 22:05:01 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 29.8.2
+
+Thu, 11 Jul 2024 22:05:01 GMT
+
+### Patches
+
+- Fix table phantom multi-select ([ni/nimble@47f4c51](https://github.com/ni/nimble/commit/47f4c51194812ee74369de1e96346793d52e3ac3))
+
+## 29.8.1
+
+Thu, 11 Jul 2024 17:41:14 GMT
+
+### Patches
+
+- Align column header based on cell content alignment ([ni/nimble@8de093e](https://github.com/ni/nimble/commit/8de093ee0bc7ba8978adfcefcef943971e3eb29b))
 
 ## 29.8.0
 

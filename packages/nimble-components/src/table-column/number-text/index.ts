@@ -12,7 +12,7 @@ import {
 } from '@microsoft/fast-element';
 import { styles } from '../base/styles';
 import { template } from './template';
-import type { TableNumberField } from '../../table/types';
+import { TableColumnAlignment, type TableNumberField } from '../../table/types';
 import { TableColumnTextBase, mixinTextBase } from '../text-base';
 import { TableColumnSortOperation } from '../base/types';
 import { tableColumnNumberTextGroupHeaderTag } from './group-header-view';
@@ -22,7 +22,6 @@ import { NumberTextAlignment, NumberTextFormat } from './types';
 import type { UnitFormat } from '../../utilities/unit-format/unit-format';
 import { NumberTextUnitFormat } from './models/number-text-unit-format';
 import { TableColumnNumberTextValidator } from './models/table-column-number-text-validator';
-import { TextCellViewBaseAlignment } from '../text-base/cell-view/types';
 import { lang } from '../../theme-provider';
 import { Unit } from '../../unit/base/unit';
 import { waitUntilCustomElementsDefinedAsync } from '../../utilities/wait-until-custom-elements-defined-async';
@@ -32,7 +31,7 @@ export type TableColumnNumberTextCellRecord = TableNumberField<'value'>;
 export interface TableColumnNumberTextColumnConfig
     extends TableColumnTextBaseColumnConfig {
     formatter: UnitFormat;
-    alignment: TextCellViewBaseAlignment;
+    alignment: TableColumnAlignment;
 }
 
 declare global {
@@ -180,6 +179,7 @@ export class TableColumnNumberText extends mixinTextBase(
                 alignment: this.determineCellContentAlignment(),
                 placeholder: this.placeholder
             };
+            this.columnInternals.headerAlignment = columnConfig.alignment;
             this.columnInternals.columnConfig = columnConfig;
         } else {
             this.columnInternals.columnConfig = undefined;
@@ -198,13 +198,13 @@ export class TableColumnNumberText extends mixinTextBase(
         });
     }
 
-    private determineCellContentAlignment(): TextCellViewBaseAlignment {
+    private determineCellContentAlignment(): TableColumnAlignment {
         if (this.alignment === NumberTextAlignment.left) {
-            return TextCellViewBaseAlignment.left;
+            return TableColumnAlignment.left;
         }
 
         if (this.alignment === NumberTextAlignment.right) {
-            return TextCellViewBaseAlignment.right;
+            return TableColumnAlignment.right;
         }
 
         // Look at format and decimal max digits and unit to determine the default alignment
@@ -213,9 +213,9 @@ export class TableColumnNumberText extends mixinTextBase(
             && typeof this.decimalMaximumDigits !== 'number'
             && !this.unit
         ) {
-            return TextCellViewBaseAlignment.right;
+            return TableColumnAlignment.right;
         }
-        return TextCellViewBaseAlignment.left;
+        return TableColumnAlignment.left;
     }
 }
 
