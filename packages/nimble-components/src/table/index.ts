@@ -115,12 +115,6 @@ export class Table<
      * @internal
      */
     @observable
-    public actionMenuSlots: string[] = [];
-
-    /**
-     * @internal
-     */
-    @observable
     public openActionMenuRecordId?: string;
 
     /**
@@ -258,6 +252,8 @@ export class Table<
     string,
     { recordId: string, uniqueSlot: string }
     > = new Map();
+
+    private actionMenuSlots: string[] = [];
 
     public constructor() {
         super();
@@ -762,9 +758,12 @@ export class Table<
         this.tableUpdateTracker.trackColumnInstancesChanged();
     }
 
-    private removeActionMenuSlotsFromColumnRequestedSlots(): void {
+    private updateRequestedSlotsForOpeningActionMenu(openActionMenuRecordId: string): void {
         for (const actionMenuSlot of this.actionMenuSlots) {
-            this.columnRequestedSlots.delete(actionMenuSlot);
+            this.columnRequestedSlots.set(actionMenuSlot, {
+                recordId: openActionMenuRecordId,
+                uniqueSlot: `row-action-menu-${actionMenuSlot}`
+            });
         }
 
         this.refreshRows();
@@ -782,7 +781,7 @@ export class Table<
         }
 
         this.openActionMenuRecordId = event.detail.recordIds[0];
-        this.removeActionMenuSlotsFromColumnRequestedSlots();
+        this.updateRequestedSlotsForOpeningActionMenu(this.openActionMenuRecordId!);
         const detail = await this.getActionMenuToggleEventDetail(event);
         this.$emit('action-menu-beforetoggle', detail);
     }
@@ -970,6 +969,14 @@ export class Table<
     }
 
     private updateActionMenuSlots(): void {
+        if (this.openActionMenuRecordId !== undefined) {
+            // If the action menu is open, delete all the slots associated
+            // with the old action menu slots.
+            for (const actionMenuSlot of this.actionMenuSlots) {
+                this.columnRequestedSlots.delete(actionMenuSlot);
+            }
+        }
+
         const slots = new Set<string>();
         for (const column of this.columns) {
             if (column.actionMenuSlot) {
@@ -977,6 +984,12 @@ export class Table<
             }
         }
         this.actionMenuSlots = Array.from(slots);
+
+        if (this.openActionMenuRecordId !== undefined) {
+            // If the action menu is open, create slots for all the new
+            // action menu slots.
+            this.updateRequestedSlotsForOpeningActionMenu(this.openActionMenuRecordId);
+        }
     }
 
     private validate(): void {
