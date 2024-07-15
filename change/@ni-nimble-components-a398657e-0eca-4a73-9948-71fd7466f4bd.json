@@ -1,7 +1,0 @@
-{
-  "type": "minor",
-  "comment": "Allow text column and anchor column to be sorted by custom data field",
-  "packageName": "@ni/nimble-components",
-  "email": "20542556+mollykreis@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
