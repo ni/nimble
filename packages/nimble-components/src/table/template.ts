@@ -41,7 +41,7 @@ export const template = html<Table>`
         aria-multiselectable="${x => x.ariaMultiSelectable}"
         ${children({ property: 'childItems', filter: elements() })}
     >
-        <div class="table-container ${x => (x.documentShiftKeyDown ? 'disable-select' : '')}"
+        <div class="table-container ${x => (x.windowShiftKeyDown ? 'disable-select' : '')}"
             style="
             --ni-private-table-scroll-x: -${x => x.scrollX}px;
             --ni-private-table-header-container-margin-right: ${x => x.virtualizer.headerContainerMarginRight}px;
@@ -112,6 +112,7 @@ export const template = html<Table>`
                                             ?indicators-hidden="${x => x.columnInternals.hideHeaderIndicators}"
                                             @keydown="${(x, c) => c.parent.onHeaderKeyDown(x, c.event as KeyboardEvent)}"
                                             @click="${(x, c) => c.parent.toggleColumnSort(x, (c.event as MouseEvent).shiftKey)}"
+                                            :alignment="${x => x.columnInternals.headerAlignment}"
                                             :isGrouped=${x => (typeof x.columnInternals.groupIndex === 'number' && !x.columnInternals.groupingDisabled)}
                                         >
                                             <slot name="${x => x.slot}"></slot>

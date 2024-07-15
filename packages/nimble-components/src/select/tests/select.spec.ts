@@ -655,7 +655,8 @@ describe('Select', () => {
             return fixture<Select>(viewTemplate);
         }
 
-        it('should limit dropdown height to viewport', async () => {
+        // Intermittent, see: https://github.com/ni/nimble/issues/2269
+        it('should limit dropdown height to viewport #SkipWebkit', async () => {
             const { element, connect, disconnect } = await setup500Options();
             await connect();
             await clickAndWaitForOpen(element);
@@ -708,7 +709,8 @@ describe('Select', () => {
             return fixture<Select>(viewTemplate);
         }
 
-        it('should not confine dropdown to div with "overflow: auto"', async () => {
+        // Intermittent, see: https://github.com/ni/nimble/issues/2272
+        it('should not confine dropdown to div with "overflow: auto" #SkipWebkit', async () => {
             const { element, connect, disconnect } = await setupInDiv();
             const select: Select = element.querySelector(selectTag)!;
             await connect();
