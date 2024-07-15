@@ -210,14 +210,14 @@ describe('Combobox', () => {
             pageObject.setInputText('Th');
             await pageObject.clickAway();
 
-            expect(pageObject.getOptions()).toEqual(
+            expect(pageObject.getFilteredOptions()).toEqual(
                 jasmine.arrayWithExactContents(['Three'])
             );
 
             element.value = 'Two';
             await waitForUpdatesAsync();
 
-            expect(pageObject.getOptions()).toEqual(
+            expect(pageObject.getFilteredOptions()).toEqual(
                 jasmine.arrayWithExactContents(['Two'])
             );
             expect(element.filteredOptions[0]?.classList).toContain('selected');
@@ -228,7 +228,7 @@ describe('Combobox', () => {
             pageObject.setInputText('Two');
             await pageObject.clickAway();
 
-            expect(pageObject.getOptions()).toEqual(
+            expect(pageObject.getFilteredOptions()).toEqual(
                 jasmine.arrayWithExactContents(['Two'])
             );
         });
@@ -239,7 +239,7 @@ describe('Combobox', () => {
             pageObject.pressArrowDownKey();
             pageObject.pressEnterKey();
 
-            expect(pageObject.getOptions()).toEqual(
+            expect(pageObject.getFilteredOptions()).toEqual(
                 jasmine.arrayWithExactContents(['Two'])
             );
         });

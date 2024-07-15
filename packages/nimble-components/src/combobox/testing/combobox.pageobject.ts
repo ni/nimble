@@ -22,7 +22,7 @@ export class ComboboxPageObject {
     /**
      * Gets the selectable options in the drop-down. Does not include options that are disabled or filtered out.
      */
-    public getOptions(): string[] {
+    public getFilteredOptions(): string[] {
         return this.comboboxElement.filteredOptions.map(x => x.text);
     }
 
