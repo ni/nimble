@@ -1,8 +1,12 @@
 import { html } from '@microsoft/fast-element';
+import { keyArrowDown, keySpace, keyTab } from '@microsoft/fast-web-utilities';
 import { parameterizeSpec } from '@ni/jasmine-parameterized';
 import { Table, tableTag } from '..';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
-import { createEventListener } from '../../utilities/tests/component';
+import {
+    createEventListener,
+    sendKeyDownEvents
+} from '../../utilities/tests/component';
 import { type Fixture, fixture } from '../../utilities/tests/fixture';
 import {
     TableRecord,
@@ -1578,6 +1582,53 @@ describe('Table row selection', () => {
                     expect(selectedRecordIds).toEqual(
                         jasmine.arrayWithExactContents(recordIds)
                     );
+                });
+
+                describe('with SHIFT pressed in the window then let go outside the window', () => {
+                    beforeEach(() => {
+                        const shiftKeyDownEvent = new KeyboardEvent('keydown', {
+                            key: keyTab, // could be any key
+                            shiftKey: true,
+                            bubbles: true
+                        } as KeyboardEventInit);
+                        window.dispatchEvent(shiftKeyDownEvent);
+                        window.dispatchEvent(new FocusEvent('blur'));
+                        // No SHIFT keyup event. This simulates the user letting go of the SHIFT key outside the window.
+                    });
+
+                    it('selects only the rows whose checkboxes were clicked', async () => {
+                        pageObject.clickRowSelectionCheckbox(0);
+                        pageObject.clickRowSelectionCheckbox(3);
+                        await waitForUpdatesAsync();
+
+                        const selectedRecordIds = await element.getSelectedRecordIds();
+                        expect(selectedRecordIds).toEqual(
+                            jasmine.arrayWithExactContents([
+                                simpleTableData[0].id,
+                                simpleTableData[3].id
+                            ])
+                        );
+                    });
+
+                    it('selects only the rows that SPACE was pressed on', async () => {
+                        element.focus();
+                        await sendKeyDownEvents(element, [
+                            keyArrowDown,
+                            keySpace,
+                            keyArrowDown,
+                            keyArrowDown,
+                            keyArrowDown,
+                            keySpace
+                        ]);
+
+                        const selectedRecordIds = await element.getSelectedRecordIds();
+                        expect(selectedRecordIds).toEqual(
+                            jasmine.arrayWithExactContents([
+                                simpleTableData[0].id,
+                                simpleTableData[3].id
+                            ])
+                        );
+                    });
                 });
 
                 describe('header selection checkbox', () => {

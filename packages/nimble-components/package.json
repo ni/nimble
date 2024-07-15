@@ -1,6 +1,6 @@
 {
   "name": "@ni/nimble-components",
-  "version": "29.8.1",
+  "version": "29.8.2",
   "description": "Styled web components for the NI Nimble Design System",
   "scripts": {
     "build": "npm run generate-icons && npm run generate-workers && npm run build-components && npm run bundle-components && npm run generate-scss",
@@ -44,7 +44,7 @@
     "test-webkit:verbose": "karma start karma.conf.verbose.js --browsers=WebkitHeadless --single-run --skip-tags SkipWebkit",
     "test-webkit:watch": "karma start karma.conf.js --browsers=WebkitHeadless --skip-tags SkipWebkit --watch-extensions js",
     "test-webkit": "karma start karma.conf.js --browsers=WebkitHeadless --single-run --skip-tags SkipWebkit",
-    "test-concurrent": "concurrently --timings --group \"npm:test-chrome:verbose\" \"npm:test-firefox:verbose\""
+    "test-concurrent": "concurrently --timings --group \"npm:test-chrome:verbose\" \"npm:test-firefox:verbose\" \"npm:test-webkit:verbose\""
   },
   "repository": {
     "type": "git",
@@ -124,7 +124,7 @@
     "karma-source-map-support": "^1.4.0",
     "karma-sourcemap-loader": "^0.4.0",
     "karma-spec-reporter": "^0.0.36",
-    "karma-webkit-launcher": "^2.1.0",
+    "karma-webkit-launcher": "^2.6.0",
     "karma-webpack": "^5.0.0",
     "playwright": "1.44.0",
     "prettier-eslint": "^16.3.0",

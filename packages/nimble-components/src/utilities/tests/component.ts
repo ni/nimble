@@ -10,15 +10,37 @@ export async function sendKeyDownEvent(
     key: string,
     init?: KeyboardEventInit
 ): Promise<KeyboardEvent> {
-    const event = new KeyboardEvent('keydown', {
-        key,
-        cancelable: true,
-        bubbles: true,
-        ...init
-    });
-    target.dispatchEvent(event);
+    return (
+        await sendKeyDownEvents(target, [key], init ? [init] : undefined)
+    )[0]!;
+}
+
+export async function sendKeyDownEvents(
+    target: HTMLElement,
+    keySequence: string[],
+    init?: KeyboardEventInit[]
+): Promise<KeyboardEvent[]> {
+    if (keySequence.length === 0) {
+        throw new Error('The key sequence must have at least one key.');
+    }
+    if (init && init.length !== keySequence.length) {
+        throw new Error(
+            'The length of the key sequence and the init array must match.'
+        );
+    }
+    const events: KeyboardEvent[] = [];
+    for (const [index, key] of keySequence.entries()) {
+        const event = new KeyboardEvent('keydown', {
+            key,
+            cancelable: true,
+            bubbles: true,
+            ...init?.[index]
+        });
+        target.dispatchEvent(event);
+        events.push(event);
+    }
     await waitForUpdatesAsync();
-    return event;
+    return events;
 }
 
 /** A helper function to abstract turning waiting for an event to fire into a promise.
