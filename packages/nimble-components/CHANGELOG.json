@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Mon, 15 Jul 2024 21:21:46 GMT",
+      "version": "29.9.0",
+      "tag": "@ni/nimble-components_v29.9.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "a25c549530f3a26e5954c1bcbe10c649747140e2",
+            "comment": "Allow text column and anchor column to be sorted by custom data field"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 15 Jul 2024 16:23:17 GMT",
       "version": "29.8.2",
       "tag": "@ni/nimble-components_v29.8.2",

@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Thu, 11 Jul 2024 22:05:01 GMT and should not be manually modified.
+This log was last generated on Mon, 15 Jul 2024 21:21:46 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 29.9.0
+
+Mon, 15 Jul 2024 21:21:46 GMT
+
+### Minor changes
+
+- Allow text column and anchor column to be sorted by custom data field ([ni/nimble@a25c549](https://github.com/ni/nimble/commit/a25c549530f3a26e5954c1bcbe10c649747140e2))
 
 ## 29.8.2
 
