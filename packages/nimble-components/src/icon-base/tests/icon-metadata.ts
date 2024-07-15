@@ -49,7 +49,7 @@ export const iconMetadata: {
     IconArrowPartialRotateLeft: {
         tags: ['reset']
     },
-    IconArrowRight: {
+    IconArrowRightThin: {
         tags: ['link', 'open']
     },
     IconArrowRightToLine: {
