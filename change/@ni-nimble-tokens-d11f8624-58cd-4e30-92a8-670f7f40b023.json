@@ -1,6 +1,6 @@
 {
   "type": "major",
-  "comment": "Adding several icons, renaming one, and replacing one",
+  "comment": "Adding eight icons, renaming two, and replacing two",
   "packageName": "@ni/nimble-tokens",
   "email": "7282195+m-akinc@users.noreply.github.com",
   "dependentChangeType": "patch"
