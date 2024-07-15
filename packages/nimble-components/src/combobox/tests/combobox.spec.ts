@@ -328,7 +328,8 @@ describe('Combobox', () => {
         await waitAnimationFrame(); // necessary because scrolling is queued with requestAnimationFrame
     }
 
-    it('should scroll the selected option into view when opened', async () => {
+    // Intermittent, see: https://github.com/ni/nimble/issues/2274
+    it('should scroll the selected option into view when opened #SkipWebkit', async () => {
         const { element, connect, disconnect } = await setupWithManyOptions();
         await connect();
         await clickAndWaitForOpen(element);
