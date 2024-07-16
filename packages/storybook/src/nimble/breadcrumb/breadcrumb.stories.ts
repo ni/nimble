@@ -46,6 +46,7 @@ const itemHrefDescription = `${defaultHrefDescription} If the last breadcrumb it
 export const _standardBreadcrumb: StoryObj<BreadcrumbArgs> = {
     // prettier-ignore
     render: createUserSelectedThemeStory(html`
+        <nimble-button>Before</nimble-button>
         <${breadcrumbTag}
             appearance="${x => BreadcrumbAppearance[x.appearance]}"
         >
@@ -57,6 +58,7 @@ export const _standardBreadcrumb: StoryObj<BreadcrumbArgs> = {
                 </${breadcrumbItemTag}>
             `)}
         </${breadcrumbTag}>
+        <nimble-button>After</nimble-button>
 `),
     // eslint-disable-next-line storybook/no-redundant-story-name
     name: 'Standard Breadcrumb',
@@ -79,14 +81,18 @@ With a standard breadcrumb containing multiple items, the last breadcrumb repres
         options: [
             {
                 href: '#',
-                label: 'Page 1'
+                label: 'Page 1111111111111111111111111111111111111111111111111111'
             },
             {
                 href: '#',
-                label: 'Page 2'
+                label: 'Page 222222222222222222222222222222222222222222222222222222222222222222222222'
             },
             {
-                label: 'Current (No Link)'
+                href: '#',
+                label: 'Page 33333333333333'
+            },
+            {
+                label: 'Current (No Link)99999999999999999999999999999999999999999999999999999999999999999999999999'
             }
         ],
         appearance: 'default'
