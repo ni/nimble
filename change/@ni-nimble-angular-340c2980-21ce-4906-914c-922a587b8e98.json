@@ -1,0 +1,7 @@
+{
+  "type": "minor",
+  "comment": "Add Angular support of sortByFieldName on anchor and text columns",
+  "packageName": "@ni/nimble-angular",
+  "email": "20542556+mollykreis@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
