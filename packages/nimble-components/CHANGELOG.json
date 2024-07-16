@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 16 Jul 2024 21:19:56 GMT",
+      "version": "29.9.0",
+      "tag": "@ni/nimble-components_v29.9.0",
+      "comments": {
+        "none": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "3fb3969f638fb6059890643bae0bda3af9939c47",
+            "comment": "Disable intermittent webkit tests"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 15 Jul 2024 23:54:04 GMT",
       "version": "29.9.0",
       "tag": "@ni/nimble-components_v29.9.0",
