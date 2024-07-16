@@ -88,7 +88,7 @@ export const icons: StoryObj<IconArgs> = {
             style="height: calc((34px * var(--data-length)) + 32px);"
             data-unused="${x => updateData(x.tableRef)}"
         >
-            <${tableColumnMappingTag} field-name="tag" key-type="string">
+            <${tableColumnMappingTag} field-name="tag" key-type="string" fractional-width="0.2" >
                 Icon
                 ${repeat(() => data, html<Data, IconArgs>`
                     <${mappingIconTag}

@@ -49,20 +49,29 @@ export const iconMetadata: {
     IconArrowPartialRotateLeft: {
         tags: ['reset']
     },
+    IconArrowRightThin: {
+        tags: ['link', 'open']
+    },
     IconArrowRightToLine: {
         tags: ['login']
     },
     IconArrowRotateRight: {
         tags: ['refresh']
     },
-    IconArrowURotateLeft: {
-        tags: ['update']
-    },
     IconArrowUpLeftAndArrowDownRight: {
         tags: ['resize', 'expand']
     },
     IconArrowUpRightFromSquare: {
         tags: ['open', 'external', 'link']
+    },
+    IconArrowULeft: {
+        tags: ['undo', 'revert', 'back']
+    },
+    IconArrowURight: {
+        tags: ['redo', 'revert', 'forward']
+    },
+    IconArrowUUp: {
+        tags: ['update']
     },
     IconArrowsMaximize: {
         tags: ['resize', 'fullscreen']
@@ -100,14 +109,29 @@ export const iconMetadata: {
     IconBookMagnifyingGlass: {
         tags: ['analyze']
     },
-    IconCalendar: {
-        tags: ['schedule']
-    },
     IconCalendarCheckLines: {
         tags: ['test', 'plan', 'schedule']
     },
+    IconCalendarClock: {
+        tags: ['time', 'schedule']
+    },
     IconCalendarDay: {
-        tags: ['date', 'time', 'schedule']
+        tags: ['date']
+    },
+    IconCalendarDays: {
+        tags: ['month', 'schedule']
+    },
+    IconCalendarLines: {
+        tags: ['agenda']
+    },
+    IconCalendarRectangle: {
+        tags: ['year']
+    },
+    IconCalendarDayOutline: {
+        tags: ['today']
+    },
+    IconCalendarWeek: {
+        tags: []
     },
     IconChartDiagram: {
         tags: ['oidc']
