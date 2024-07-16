@@ -2,6 +2,72 @@
   "name": "@ni/spright-components",
   "entries": [
     {
+      "date": "Tue, 16 Jul 2024 22:30:23 GMT",
+      "version": "2.0.0",
+      "tag": "@ni/spright-components_v2.0.0",
+      "comments": {
+        "major": [
+          {
+            "author": "beachball",
+            "package": "@ni/spright-components",
+            "comment": "Bump @ni/nimble-components to v30.0.0",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/spright-components",
+            "comment": "Bump @ni/nimble-tokens to v7.0.0",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 15 Jul 2024 21:21:46 GMT",
+      "version": "1.0.40",
+      "tag": "@ni/spright-components_v1.0.40",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/spright-components",
+            "comment": "Bump @ni/nimble-components to v29.9.0",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 11 Jul 2024 23:12:35 GMT",
+      "version": "1.0.39",
+      "tag": "@ni/spright-components_v1.0.39",
+      "comments": {
+        "none": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/spright-components",
+            "commit": "154703cef8c143fda335f706a1231979aea23031",
+            "comment": "Run webkit tests on pipeline builds"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 11 Jul 2024 22:05:01 GMT",
+      "version": "1.0.39",
+      "tag": "@ni/spright-components_v1.0.39",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/spright-components",
+            "comment": "Bump @ni/nimble-components to v29.8.2",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 11 Jul 2024 17:41:14 GMT",
       "version": "1.0.38",
       "tag": "@ni/spright-components_v1.0.38",
