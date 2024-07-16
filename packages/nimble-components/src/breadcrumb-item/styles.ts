@@ -32,6 +32,8 @@ export const styles = css`
 
         .listitem {
             display: flex;
+            overflow: hidden;
+            text-wrap: nowrap;
             align-items: center;
         }
 
@@ -39,7 +41,6 @@ export const styles = css`
             color: ${linkFontColor};
             display: flex;
             align-items: center;
-            justify-content: center;
             text-decoration: none;
         }
 
@@ -49,6 +50,12 @@ export const styles = css`
 
         .content {
             pointer-events: none;
+        }
+
+        slot {
+            display: block;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         [part='end'] {
