@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Mon, 15 Jul 2024 23:54:04 GMT",
+      "version": "29.9.0",
+      "tag": "@ni/nimble-components_v29.9.0",
+      "comments": {
+        "none": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "8765f6c226cdc3c0f50823a116a085825c1addcf",
+            "comment": "Add combobox page object and clean up combobox tests"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 15 Jul 2024 22:01:03 GMT",
       "version": "29.9.0",
       "tag": "@ni/nimble-components_v29.9.0",
