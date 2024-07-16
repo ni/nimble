@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Components;
 
 namespace NimbleBlazor;
 
-public partial class NimbleTableColumnAnchor : NimbleTableColumn, IFractionalWidthColumn, IGroupableColumn, ISortableColumn
+public partial class NimbleTableColumnAnchor : NimbleTableColumn, IFractionalWidthColumn, IGroupableColumn, ISortableColumn, ICustomSortOrderColumn
 {
     /// <summary>
     /// Gets or sets the link label field in the element representing a row of data in a <see cref="NimbleTable{TData}"/>to display
@@ -124,6 +124,13 @@ public partial class NimbleTableColumnAnchor : NimbleTableColumn, IFractionalWid
     /// </summary>
     [Parameter]
     public bool? SortingDisabled { get; set; }
+
+    /// <summary>
+    /// An optional numeric field to sort the column by. When not set, the column will sort
+    /// by the <see cref="LabelFieldName"/>.
+    /// </summary>
+    [Parameter]
+    public string? SortByFieldName { get; set; }
 
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
