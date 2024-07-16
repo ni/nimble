@@ -674,7 +674,8 @@ describe('Select', () => {
             await disconnect();
         });
 
-        it('should scroll the selected option into view when opened', async () => {
+        // Intermittent, see: https://github.com/ni/nimble/issues/2274
+        it('should scroll the selected option into view when opened #SkipWebkit', async () => {
             const { element, connect, disconnect } = await setup500Options();
             element.value = '300';
             await connect();
