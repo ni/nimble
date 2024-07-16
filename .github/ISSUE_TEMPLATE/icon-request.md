@@ -19,12 +19,12 @@ labels: 'visual design,triage,icon request'
 <!-- For each icon, include the following: -->
 <!-- Include examples from [Font Awesome](https://fontawesome.com/search), [Noun Project](https://thenounproject.com), or [IconFinder](https://www.iconfinder.com/search) -->
 <!-- Describe the research you've done to identify the correct icon metaphor and find existing best practices. -->
-<!-- Propose a name using the [icon naming guidance](/packages/nimble-tokens/CONTRIBUTING.md#icon-naming) -->
+<!-- Propose a name using the [icon naming guidance](https://github.com/ni/nimble/blob/main/packages/nimble-tokens/CONTRIBUTING.md#icon-naming) -->
 <!-- List icon metaphors. What will this icon mean in context? E.g. `nimble-icon-circle-check` represents _acknowledged status_. -->
 
 ## 🥅 Acceptance Criteria
 
-- [ ] Icon name approved by PO and owners
+- [ ] Icon [name](https://github.com/ni/nimble/blob/main/packages/nimble-tokens/CONTRIBUTING.md#icon-naming) approved by PO and owners
 - [ ] Icon reviewed by design team
 - [ ] Icon available in [Nimble_Iconography](https://www.figma.com/design/aOmrur2iA2Abc6Pp59NVGV/Nimble_Iconography?node-id=0-1&t=KGtldxWuPIvzgHCo-0) (link)
 - [ ] Icon published in Nimble Storybook (link)
