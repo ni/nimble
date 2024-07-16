@@ -187,7 +187,7 @@ export const template = html<Table>`
                                         @row-slots-request="${(_, c) => c.parent.onRowSlotsRequest(c.event as CustomEvent<RowSlotRequestEventDetail>)}"
                                         @row-expand-toggle="${(x, c) => c.parent.handleRowExpanded(x.index)}"
                                     >
-                                    ${repeat((x, c: ExecutionContext<Table>) => (c.parent.tableData[x.index]?.slots || []), html<SlotMetadata>`
+                                    ${repeat((x, c: ExecutionContext<Table>) => (c.parent.tableData[x.index]?.requestedSlots || []), html<SlotMetadata>`
                                         <slot
                                             name="${x => x.name}"
                                             slot="${x => x.slot}"

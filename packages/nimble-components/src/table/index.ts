@@ -248,7 +248,7 @@ export class Table<
     private ignoreSelectionChangeEvents = false;
     // Map from the external slot name to the record ID of the row that should have the slot
     // and the unique slot name that the slot should be slotted into.
-    private readonly columnRequestedSlots: Map<
+    private readonly requestedSlots: Map<
     string,
     { recordId: string, uniqueSlot: string }
     > = new Map();
@@ -476,7 +476,7 @@ export class Table<
                 event.detail.columnInternalId,
                 slotMetadata.slot
             );
-            this.columnRequestedSlots.set(slotMetadata.name, {
+            this.requestedSlots.set(slotMetadata.name, {
                 recordId: event.detail.recordId,
                 uniqueSlot
             });
@@ -762,7 +762,7 @@ export class Table<
         openActionMenuRecordId: string
     ): void {
         for (const actionMenuSlot of this.actionMenuSlots) {
-            this.columnRequestedSlots.set(actionMenuSlot, {
+            this.requestedSlots.set(actionMenuSlot, {
                 recordId: openActionMenuRecordId,
                 uniqueSlot: `row-action-menu-${actionMenuSlot}`
             });
@@ -977,7 +977,7 @@ export class Table<
             // If the action menu is open, delete all the slots associated
             // with the old action menu slots.
             for (const actionMenuSlot of this.actionMenuSlots) {
-                this.columnRequestedSlots.delete(actionMenuSlot);
+                this.requestedSlots.delete(actionMenuSlot);
             }
         }
 
@@ -1107,7 +1107,7 @@ export class Table<
                 isLoadingChildren: this.expansionManager.isLoadingChildren(
                     row.id
                 ),
-                slots: slotsByRecordId[row.id] ?? []
+                requestedSlots: slotsByRecordId[row.id] ?? []
             };
             hasDataHierarchy = hasDataHierarchy || isParent;
             return rowState;
@@ -1123,7 +1123,7 @@ export class Table<
         const slotsByRecordId: { [recordId: string]: SlotMetadata[] } = {};
 
         for (const [slotName, { recordId, uniqueSlot }] of this
-            .columnRequestedSlots) {
+            .requestedSlots) {
             if (
                 !Object.prototype.hasOwnProperty.call(slotsByRecordId, recordId)
             ) {
