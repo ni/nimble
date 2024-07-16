@@ -116,19 +116,19 @@ export const iconMetadata: {
         tags: ['time', 'schedule']
     },
     IconCalendarDay: {
-        tags: ['date', 'time', 'schedule']
+        tags: ['date']
     },
     IconCalendarDays: {
-        tags: ['schedule']
+        tags: ['month', 'schedule']
     },
     IconCalendarLines: {
         tags: ['agenda']
     },
     IconCalendarRectangle: {
-        tags: []
+        tags: ['year']
     },
-    IconCalendarToday: {
-        tags: []
+    IconCalendarDayOutline: {
+        tags: ['today']
     },
     IconCalendarWeek: {
         tags: []
