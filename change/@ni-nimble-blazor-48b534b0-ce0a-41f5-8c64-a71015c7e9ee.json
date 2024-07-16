@@ -1,0 +1,7 @@
+{
+  "type": "minor",
+  "comment": "Add Blazor support for the menu button table column",
+  "packageName": "@ni/nimble-blazor",
+  "email": "20542556+mollykreis@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
