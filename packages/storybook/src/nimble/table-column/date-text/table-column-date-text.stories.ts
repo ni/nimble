@@ -31,7 +31,8 @@ import {
 import {
     apiCategory,
     checkValidityDescription,
-    createUserSelectedThemeStory
+    createUserSelectedThemeStory,
+    validityDescription
 } from '../../../utilities/storybook';
 
 const simpleData = [
@@ -107,11 +108,6 @@ interface TextColumnTableArgs extends SharedTableArgs {
     checkValidity: () => void;
     validity: () => void;
 }
-
-const validityDescription = `Readonly object of boolean values that represents the validity states that the column's configuration can be in.
-The object's type is \`TableColumnValidity\`, and it contains the following boolean properties:
--   \`invalidCustomOptionsCombination\`: \`true\` when an invalid combination of formatting options (i.e. \`custom-*\`) have been specified. To determine which specific options are in conflict, you may use [MDN's Try It widget](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat/DateTimeFormat#try_it) or a browser console to get a detailed exception message.
-`;
 
 const formatDescription = `By default, dates are formatted similar to "Jan 1, 2023, 12:00:00 AM". To use a different format, set this attribute to
 \`custom\` and provide additional attributes corresponding to [\`Intl.DateTimeFormat()\` options](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat/DateTimeFormat).
@@ -370,7 +366,17 @@ export const dateTextColumn: StoryObj<TextColumnTableArgs> = {
             control: false
         },
         validity: {
-            description: validityDescription,
+            description: validityDescription({
+                colloquialName: 'column',
+                validityObjectType: 'TableColumnValidity',
+                validityFlags: [
+                    {
+                        flagName: 'invalidCustomOptionsCombination',
+                        description:
+                            "`true` when an invalid combination of formatting options (i.e. `custom-*`) have been specified. To determine which specific options are in conflict, you may use [MDN's Try It widget](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat/DateTimeFormat#try_it) or a browser console to get a detailed exception message."
+                    }
+                ]
+            }),
             table: { category: apiCategory.nonAttributeProperties },
             control: false
         }

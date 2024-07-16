@@ -132,6 +132,8 @@ export class Combobox
     public readonly dropdownButton?: ToggleButton;
 
     /**
+     * @internal
+     *
      * The collection of currently filtered options.
      */
     public filteredOptions: ListboxOption[] = [];
