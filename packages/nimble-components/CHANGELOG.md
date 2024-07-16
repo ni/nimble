@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Tue, 16 Jul 2024 22:30:23 GMT and should not be manually modified.
+This log was last generated on Tue, 16 Jul 2024 23:53:30 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 30.0.1
+
+Tue, 16 Jul 2024 23:53:30 GMT
+
+### Patches
+
+- Table: remove TableCellView.focusedRecycleCallback() and TableRow.closeOpenActionMenus(). The table now focuses the active cell when the table is scrolled, which has the same effect (closing open menus and blurring active cell content). ([ni/nimble@fdd35c7](https://github.com/ni/nimble/commit/fdd35c7fae80e1f3dacfb083a004bdeab0468c26))
 
 ## 30.0.0
 

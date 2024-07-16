@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Table: remove TableCellView.focusedRecycleCallback() and TableRow.closeOpenActionMenus(). The table now focuses the active cell when the table is scrolled, which has the same effect (closing open menus and blurring active cell content).",
-  "packageName": "@ni/nimble-components",
-  "email": "20709258+msmithNI@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
