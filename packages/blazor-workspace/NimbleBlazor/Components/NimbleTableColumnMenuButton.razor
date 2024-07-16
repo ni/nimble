@@ -1,0 +1,17 @@
+﻿@namespace NimbleBlazor
+@inherits NimbleTableColumn
+
+<nimble-table-column-menu-button
+    column-id="@ColumnId"
+    field-name="@FieldName"
+    menu-slot="@MenuSlot"
+    action-menu-slot="@ActionMenuSlot"
+    action-menu-label="@ActionMenuLabel"
+    column-hidden="@ColumnHidden"
+    fractional-width="@FractionalWidth"
+    min-pixel-width="@MinPixelWidth"
+    @attributes="AdditionalAttributes"
+>
+    @ChildContent
+</nimble-table-column-menu-button>
+
