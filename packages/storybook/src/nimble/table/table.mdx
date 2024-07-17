@@ -28,6 +28,15 @@ of a parent container. The <Tag name={tableTag}/> does not currently support
 being styled with `height: auto`. The ability to auto size the table is tracked
 with [issue 1624](https://github.com/ni/nimble/issues/1624).
 
+### Full bleed
+
+The table will reserve space for expand/collapse row buttons and the collapse all button in the header when there are no collapsible rows if the table is configured to have either:
+
+1. At least one column that supports grouping (i.e. `groupingDisabled` is false), or
+2. Has hierarchy (i.e. `parentIdFieldName` is defined)
+
+To prevent this space from being reserved and make the table data full bleed, set `groupingDisabled` to `true` on all groupable columns and do not set `parentIdFieldName` on the table.
+
 {/* ## Usage */}
 
 ## Examples
