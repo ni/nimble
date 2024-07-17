@@ -162,3 +162,10 @@ public class NimbleTableColumnAnchorGroupableTests : GroupableBaseTests<NimbleTa
 public class NimbleTableColumnAnchorSortableTests : SortableBaseTests<NimbleTableColumnAnchor>
 {
 }
+
+/// <summary>
+/// Tests for CustomSortOrderAPI on <see cref="NimbleTableColumnAnchor"/>
+/// </summary>
+public class NimbleTableColumnAnchorCustomSortOrderTests : CustomSortOrderBaseTests<NimbleTableColumnAnchor>
+{
+}
