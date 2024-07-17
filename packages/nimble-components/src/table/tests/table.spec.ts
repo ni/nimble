@@ -2268,6 +2268,55 @@ describe('Table', () => {
                 ]);
             });
         });
+
+        describe('collapse all button space reservation', () => {
+            const collapseAllButtonConfigurations = [
+                {
+                    name: 'with groupable columns and with hierarchy',
+                    groupableColumns: true,
+                    hierarchy: true,
+                    expectSpaceReserved: true
+                },
+                {
+                    name: 'with groupable columns and without hierarchy',
+                    groupableColumns: true,
+                    hierarchy: false,
+                    expectSpaceReserved: true
+                },
+                {
+                    name: 'without groupable columns and with hierarchy',
+                    groupableColumns: false,
+                    hierarchy: true,
+                    expectSpaceReserved: true
+                },
+                {
+                    name: 'without groupable columns and without hierarchy',
+                    groupableColumns: false,
+                    hierarchy: false,
+                    expectSpaceReserved: false
+                }
+            ] as const;
+            parameterizeSpec(
+                collapseAllButtonConfigurations,
+                (spec, name, value) => {
+                    spec(name, async () => {
+                        await connect();
+                        await waitForUpdatesAsync();
+                        element.columns.forEach(column => {
+                            column.columnInternals.groupingDisabled = !value.groupableColumns;
+                        });
+                        element.parentIdFieldName = value.hierarchy
+                            ? 'parentId'
+                            : undefined;
+                        await waitForUpdatesAsync();
+
+                        expect(
+                            pageObject.isCollapseAllButtonSpaceReserved()
+                        ).toBe(value.expectSpaceReserved);
+                    });
+                }
+            );
+        });
     });
 
     describe('without connection', () => {

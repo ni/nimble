@@ -87,8 +87,9 @@ const selectionModeStates = Object.values(TableRowSelectionMode);
 type SelectionModeState = (typeof selectionModeStates)[number];
 
 const groupedStates = [
-    ['Grouped', true],
-    ['Ungrouped', false]
+    ['Grouped', { grouped: true, groupingDisabled: false }],
+    ['Ungrouped', { grouped: false, groupingDisabled: false }],
+    ['Grouping Disabled', { grouped: false, groupingDisabled: true }]
 ] as const;
 type GroupedState = (typeof groupedStates)[number];
 
@@ -111,10 +112,10 @@ const component = (
         parent-id-field-name="${() => (hierarchyState ? 'parentId' : undefined)}"
         style="${isChromatic() ? '--ni-private-spinner-animation-play-state:paused' : ''}"
     >
-        <${tableColumnTextTag} field-name="firstName" sort-direction="ascending" sort-index="0" group-index="${() => (groupedState ? '0' : undefined)}"><${iconUserTag}></${iconUserTag}></${tableColumnTextTag}>
-        <${tableColumnTextTag} field-name="lastName">Last Name</${tableColumnTextTag}>
-        <${tableColumnNumberTextTag} field-name="age" sort-direction="descending" sort-index="1" fractional-width=".5">Age</${tableColumnNumberTextTag}>
-        <${tableColumnTextTag} field-name="quote" column-hidden>Hidden Quote</${tableColumnTextTag}>
+        <${tableColumnTextTag} field-name="firstName" sort-direction="ascending" sort-index="0" group-index="${() => (groupedState.grouped ? '0' : undefined)}" ?grouping-disabled="${() => groupedState.groupingDisabled}"><${iconUserTag}></${iconUserTag}></${tableColumnTextTag}>
+        <${tableColumnTextTag} field-name="lastName" ?grouping-disabled="${() => groupedState.groupingDisabled}">Last Name</${tableColumnTextTag}>
+        <${tableColumnNumberTextTag} field-name="age" sort-direction="descending" sort-index="1" fractional-width=".5" ?grouping-disabled="${() => groupedState.groupingDisabled}">Age</${tableColumnNumberTextTag}>
+        <${tableColumnTextTag} field-name="quote" column-hidden ?grouping-disabled="${() => groupedState.groupingDisabled}">Hidden Quote</${tableColumnTextTag}>
     </${tableTag}>
 `;
 

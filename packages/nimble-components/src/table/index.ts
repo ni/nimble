@@ -3,7 +3,8 @@ import {
     Observable,
     observable,
     Notifier,
-    DOM
+    DOM,
+    volatile
 } from '@microsoft/fast-element';
 import {
     Checkbox,
@@ -176,6 +177,26 @@ export class Table<
      */
     @observable
     public showCollapseAll = false;
+
+    /**
+     * @internal
+     */
+    @observable
+    public canHaveCollapsibleRows = false;
+
+    /**
+     * @internal
+     */
+    @volatile
+    public get collapseButtonVisibility(): string {
+        if (!this.canHaveCollapsibleRows) {
+            return 'hidden-size-reduced';
+        }
+        if (this.showCollapseAll) {
+            return 'visible';
+        }
+        return '';
+    }
 
     /**
      * @internal
@@ -606,6 +627,17 @@ export class Table<
         this.validate();
         if (this.tableUpdateTracker.requiresTanStackUpdate) {
             this.updateTanStack();
+        }
+
+        if (
+            this.tableUpdateTracker.updateRowParentIds
+            || this.tableUpdateTracker.updateGroupRows
+        ) {
+            const hierarchyEnabled = this.isHierarchyEnabled();
+            const hasGroupableColumns = this.columns.some(
+                x => !x.columnInternals.groupingDisabled
+            );
+            this.canHaveCollapsibleRows = hierarchyEnabled || hasGroupableColumns;
         }
 
         if (this.tableUpdateTracker.updateActionMenuSlots) {
