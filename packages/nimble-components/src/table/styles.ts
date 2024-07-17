@@ -106,7 +106,7 @@ export const styles = css`
         visibility: hidden;
     }
 
-    .collapse-all-button.hidden {
+    .collapse-all-button.hidden-size-reduced {
         display: none;
     }
 

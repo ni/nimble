@@ -196,7 +196,7 @@ export class Table<
     @volatile
     public get collapseButtonVisibility(): string {
         if (!this.canHaveCollapsibleRows) {
-            return 'hidden';
+            return 'hidden-size-reduced';
         }
         if (this.showCollapseAll) {
             return 'visible';
