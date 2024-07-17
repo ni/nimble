@@ -2,6 +2,21 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Wed, 17 Jul 2024 16:31:14 GMT",
+      "version": "25.1.0",
+      "tag": "@ni/nimble-angular_v25.1.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "7f9d617842b404812e18fb6d2bfdbc4443232f41",
+            "comment": "Angular support for the menu-button table column"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 16 Jul 2024 23:53:31 GMT",
       "version": "25.0.1",
       "tag": "@ni/nimble-angular_v25.0.1",

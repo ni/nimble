@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Tue, 16 Jul 2024 23:53:31 GMT and should not be manually modified.
+This log was last generated on Wed, 17 Jul 2024 16:31:14 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 25.1.0
+
+Wed, 17 Jul 2024 16:31:14 GMT
+
+### Minor changes
+
+- Angular support for the menu-button table column ([ni/nimble@7f9d617](https://github.com/ni/nimble/commit/7f9d617842b404812e18fb6d2bfdbc4443232f41))
 
 ## 25.0.1
 
