@@ -107,7 +107,7 @@ export const styles = css`
         flex: 0 0 auto;
     }
 
-    .row-front-spacer.top-level-parent {
+    .row-front-spacer.reduced-size-spacer {
         width: ${mediumPadding};
     }
 

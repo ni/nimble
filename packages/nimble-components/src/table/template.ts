@@ -67,7 +67,7 @@ export const template = html<Table>`
                                         ${ref('selectionCheckbox')}
                                         ${'' /* tabindex managed dynamically by KeyboardNavigationManager */}
                                         tabindex="-1"
-                                        class="${x => `selection-checkbox ${x.selectionMode ? x.selectionMode : ''}`}"
+                                        class="selection-checkbox"
                                         @change="${(x, c) => x.onAllRowsSelectionChange(c.event as CustomEvent)}"
                                         title="${x => tableSelectAllLabel.getValueFor(x)}"
                                         aria-label="${x => tableSelectAllLabel.getValueFor(x)}"
@@ -75,19 +75,21 @@ export const template = html<Table>`
                                     </${checkboxTag}>
                                 </span>
                             `)}
-                            <${buttonTag}
-                                ${ref('collapseAllButton')}
-                                ${'' /* tabindex managed dynamically by KeyboardNavigationManager */}
-                                tabindex="-1"
-                                class="collapse-all-button ${x => `${x.showCollapseAll ? 'visible' : ''}`}"
-                                content-hidden
-                                appearance="${ButtonAppearance.ghost}"
-                                title="${x => tableCollapseAllLabel.getValueFor(x)}"
-                                @click="${x => x.handleCollapseAllRows()}"
-                            >
-                                <${iconTriangleTwoLinesHorizontalTag} slot="start"></${iconTriangleTwoLinesHorizontalTag}>
-                                ${x => tableCollapseAllLabel.getValueFor(x)}
-                            </${buttonTag}>
+                            <span class="collapse-all-button-container">
+                                <${buttonTag}
+                                    ${ref('collapseAllButton')}
+                                    ${'' /* tabindex managed dynamically by KeyboardNavigationManager */}
+                                    tabindex="-1"
+                                    class="collapse-all-button ${x => x.collapseButtonVisibility}"
+                                    content-hidden
+                                    appearance="${ButtonAppearance.ghost}"
+                                    title="${x => tableCollapseAllLabel.getValueFor(x)}"
+                                    @click="${x => x.handleCollapseAllRows()}"
+                                >
+                                    <${iconTriangleTwoLinesHorizontalTag} slot="start"></${iconTriangleTwoLinesHorizontalTag}>
+                                    ${x => tableCollapseAllLabel.getValueFor(x)}
+                                </${buttonTag}>
+                            </span>
                         </span>
                         <span class="column-headers-container" ${ref('columnHeadersContainer')}>
                             ${repeat(x => x.visibleColumns, html<TableColumn, Table>`
@@ -171,6 +173,7 @@ export const template = html<Table>`
                                         ?selected="${(x, c) => c.parent.tableData[x.index]?.selectionState === TableRowSelectionState.selected}"
                                         ?expanded="${(x, c) => c.parent.tableData[x.index]?.isExpanded}"
                                         ?hide-selection="${(_, c) => c.parent.selectionMode !== TableRowSelectionMode.multiple}"
+                                        ?reserve-collapse-space="${(_, c) => c.parent.canHaveCollapsibleRows}"
                                         :dataRecord="${(x, c) => c.parent.tableData[x.index]?.record}"
                                         :columns="${(_, c) => c.parent.columns}"
                                         :isParentRow="${(x, c) => c.parent.tableData[x.index]?.isParentRow}"
@@ -187,15 +190,7 @@ export const template = html<Table>`
                                         @row-slots-request="${(_, c) => c.parent.onRowSlotsRequest(c.event as CustomEvent<RowSlotRequestEventDetail>)}"
                                         @row-expand-toggle="${(x, c) => c.parent.handleRowExpanded(x.index)}"
                                     >
-                                    ${when((x, c: ExecutionContext<Table>) => c.parent.openActionMenuRecordId === c.parent.tableData[x.index]?.id, html<VirtualItem<HTMLElement>, Table>`
-                                        ${repeat((_, c: ExecutionContext<Table>) => c.parent.actionMenuSlots, html<string, Table>`
-                                            <slot
-                                                name="${x => x}"
-                                                slot="${x => `row-action-menu-${x}`}">
-                                            </slot>
-                                        `)}
-                                    `)}
-                                    ${repeat((x, c: ExecutionContext<Table>) => (c.parent.tableData[x.index]?.slots || []), html<SlotMetadata>`
+                                    ${repeat((x, c: ExecutionContext<Table>) => (c.parent.tableData[x.index]?.requestedSlots || []), html<SlotMetadata>`
                                         <slot
                                             name="${x => x.name}"
                                             slot="${x => x.slot}"

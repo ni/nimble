@@ -105,10 +105,6 @@ interface ButtonColumnClickEventDetail extends PointerEvent {
 }
 ```
 
-### Focus Recycling
-
-_Will the cell view need to override `focusedRecycleCallback()` to perform any actions when the cell is recycled while it has focus? Cells are recycled during a virtualized scroll, and `focusedRecycleCallback()` gives columns the opportunity to commit changes and prevent cell view state from being transfered to a different cell. Note that this [may become a moot point](https://github.com/ni/nimble/issues/2202), at which point this section should be removed._
-
 ### Interactions
 
 _If the cell will render any interactive elements, indicate which ones will be marked focusable via the cell view's `tabbableChildren`. Confirm that those elements properly forward the `tabIndex` value to shadow DOM elements, or indicate that you will have to update them to do so._
