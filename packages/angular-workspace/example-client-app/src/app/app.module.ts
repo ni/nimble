@@ -27,6 +27,7 @@ import { NimbleTableColumnDateTextModule } from '@ni/nimble-angular/table-column
 import { NimbleTableColumnMappingModule } from '@ni/nimble-angular/table-column/mapping';
 import { NimbleTableColumnNumberTextModule } from '@ni/nimble-angular/table-column/number-text';
 import { NimbleTableColumnDurationTextModule } from '@ni/nimble-angular/table-column/duration-text';
+import { NimbleTableColumnMenuButtonModule } from '@ni/nimble-angular/table-column/menu-button';
 import { NimbleRichTextViewerModule } from '@ni/nimble-angular/rich-text/viewer';
 import { NimbleRichTextEditorModule } from '@ni/nimble-angular/rich-text/editor';
 import { NimbleRichTextMentionUsersModule } from '@ni/nimble-angular/rich-text-mention/users';
@@ -95,6 +96,7 @@ import { HeaderComponent } from './header/header.component';
         NimbleTableColumnDateTextModule,
         NimbleTableColumnNumberTextModule,
         NimbleTableColumnDurationTextModule,
+        NimbleTableColumnMenuButtonModule,
         NimbleMappingTextModule,
         NimbleBannerModule,
         NimbleRichTextViewerModule,
