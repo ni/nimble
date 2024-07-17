@@ -665,10 +665,6 @@ describe('Table', () => {
                 public override get tabbableChildren(): HTMLElement[] {
                     return [this.shadowRoot!.firstElementChild as HTMLElement];
                 }
-
-                public override focusedRecycleCallback(): void {
-                    (this.shadowRoot!.firstElementChild as HTMLElement).blur();
-                }
             }
             @customElement({
                 name: focusableColumnName
@@ -719,34 +715,6 @@ describe('Table', () => {
                 expect(actualRowCount).toBeLessThan(data.length);
                 const dataSubsetAtEnd = data.slice(-actualRowCount);
                 verifyRenderedData(dataSubsetAtEnd);
-            });
-
-            it('and calls focusedRecycleCallback on focused cell views when a scroll happens', async () => {
-                const focusableColumn = document.createElement(
-                    focusableColumnName
-                ) as TestFocusableTableColumn;
-                focusableColumn.fieldName = 'stringData';
-                column1.replaceWith(focusableColumn);
-                await connect();
-                const data = [...largeTableData];
-                await element.setData(data);
-                await waitForUpdatesAsync();
-
-                const firstCellView = pageObject.getRenderedCellView(0, 0);
-                const focusedRecycleSpy = spyOn(
-                    firstCellView,
-                    'focusedRecycleCallback'
-                ).and.callThrough();
-                const focusableElementInCell = pageObject.getRenderedCellView(
-                    0,
-                    0
-                ).shadowRoot!.firstElementChild! as HTMLElement;
-                focusableElementInCell.focus();
-                expect(focusedRecycleSpy).not.toHaveBeenCalled();
-
-                await pageObject.scrollToLastRowAsync();
-
-                expect(focusedRecycleSpy).toHaveBeenCalledTimes(1);
             });
 
             it('and closes open action menus when a scroll happens', async () => {

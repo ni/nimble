@@ -55,7 +55,7 @@ import { Virtualizer } from './models/virtualizer';
 import { getTanStackSortingFunction } from './models/sort-operations';
 import { TableLayoutManager } from './models/table-layout-manager';
 import { TableUpdateTracker } from './models/table-update-tracker';
-import { TableRow } from './components/row';
+import type { TableRow } from './components/row';
 import type { TableGroupRow } from './components/group-row';
 import { ColumnInternals } from '../table-column/base/models/column-internals';
 import { InteractiveSelectionManager } from './models/interactive-selection-manager';
@@ -65,7 +65,6 @@ import { waitUntilCustomElementsDefinedAsync } from '../utilities/wait-until-cus
 import { ColumnValidator } from '../table-column/base/models/column-validator';
 import { uniquifySlotNameForColumnId } from './models/utilities';
 import { KeyboardNavigationManager } from './models/keyboard-navigation-manager';
-import { TableCellView } from '../table-column/base/cell-view';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -716,37 +715,6 @@ export class Table<
             };
         }
         return tanStackUpdates;
-    }
-
-    /** @internal */
-    public handleFocusedCellRecycling(): void {
-        const hadActiveRowOrCellFocus = this.keyboardNavigationManager.hasActiveRowOrCellFocus;
-
-        let tableFocusedElement = this.shadowRoot!.activeElement;
-        while (
-            tableFocusedElement !== null
-            && !(tableFocusedElement instanceof TableCellView)
-        ) {
-            if (tableFocusedElement.shadowRoot) {
-                tableFocusedElement = tableFocusedElement.shadowRoot.activeElement;
-            } else {
-                break;
-            }
-        }
-        if (tableFocusedElement instanceof TableCellView) {
-            tableFocusedElement.focusedRecycleCallback();
-        }
-        if (this.openActionMenuRecordId !== undefined) {
-            const activeRow = this.rowElements.find(
-                row => row instanceof TableRow
-                    && row.recordId === this.openActionMenuRecordId
-            ) as TableRow | undefined;
-            activeRow?.closeOpenActionMenus();
-        }
-
-        this.keyboardNavigationManager.handleFocusedCellRecycling(
-            hadActiveRowOrCellFocus
-        );
     }
 
     protected selectionModeChanged(

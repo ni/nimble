@@ -7,7 +7,6 @@ import { iconCheckLargeTag } from '../../../../../nimble-components/src/icons/ch
 import { iconChartDiagramChildFocusTag } from '../../../../../nimble-components/src/icons/chart-diagram-child-focus';
 import { mappingIconTag } from '../../../../../nimble-components/src/mapping/icon';
 import { mappingSpinnerTag } from '../../../../../nimble-components/src/mapping/spinner';
-import { sharedMappingValidityDescription } from '../../../../../nimble-components/src/table-column/enum-base/tests/shared-storybook-docs';
 import { mappingTextTag } from '../../../../../nimble-components/src/mapping/text';
 import { mappingEmptyTag } from '../../../../../nimble-components/src/mapping/empty';
 import { TableColumnMappingWidthMode } from '../../../../../nimble-components/src/table-column/mapping/types';
@@ -21,7 +20,8 @@ import { isChromatic } from '../../../utilities/isChromatic';
 import {
     apiCategory,
     checkValidityDescription,
-    createUserSelectedThemeStory
+    createUserSelectedThemeStory,
+    validityDescription
 } from '../../../utilities/storybook';
 
 const simpleData = [
@@ -82,10 +82,6 @@ const widthModeDescription = `When set to \`iconSize\`, the column will have a f
 This should only be set when the header contains a single icon (no text) and none of the child mapping elements will result in text being rendered in a cell. When unset or set
 to \`default\`, the column will be resizable and be sized based on its fractional-width and min-pixel-width values. A column with its \`width-mode\` set to \`iconSize\` should
 should not be the right-most column in the table.`;
-
-const validityDescription = `${sharedMappingValidityDescription}
--   \`invalidIconName\`: \`true\` when an icon mapping's \`icon\` value is not the tag name of a valid, loaded Nimble icon (e.g. \`nimble-icon-check\`)
-`;
 
 export const mappingColumn: StoryObj<MappingColumnTableArgs> = {
     // prettier-ignore
@@ -156,7 +152,40 @@ export const mappingColumn: StoryObj<MappingColumnTableArgs> = {
             control: false
         },
         validity: {
-            description: validityDescription,
+            description: validityDescription({
+                colloquialName: 'column',
+                validityObjectType: 'TableColumnValidity',
+                validityFlags: [
+                    {
+                        flagName: 'invalidMappingKeyValueForType',
+                        description:
+                            '`true` when a mapping has a `key` that is not of the `key-type` declared by the column'
+                    },
+                    {
+                        flagName: 'unsupportedMappingType',
+                        description:
+                            '`true` when the column contains a mapping element other than `icon`, `spinner`, `text`, or `empty`'
+                    },
+                    {
+                        flagName: 'duplicateMappingKey',
+                        description:
+                            '`true` when multiple mappings have the same `key` value'
+                    },
+                    {
+                        flagName: 'missingKeyValue',
+                        description: '`true` when a mapping has no `key` value'
+                    },
+                    {
+                        flagName: 'missingTextValue',
+                        description: '`true` when a mapping has no `text` value'
+                    },
+                    {
+                        flagName: 'invalidIconName',
+                        description:
+                            "`true` when an icon mapping's `icon` value is not the tag name of a valid, loaded Nimble icon (e.g. `nimble-icon-check`)"
+                    }
+                ]
+            }),
             table: { category: apiCategory.nonAttributeProperties },
             control: false
         },

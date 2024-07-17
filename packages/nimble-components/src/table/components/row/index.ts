@@ -21,7 +21,7 @@ import type {
 } from '../../types';
 import type { TableColumn } from '../../../table-column/base';
 import type { MenuButtonToggleEventDetail } from '../../../menu-button/types';
-import { TableCell, tableCellTag } from '../cell';
+import { tableCellTag } from '../cell';
 import {
     ColumnInternals,
     isColumnInternalsProperty
@@ -209,17 +209,6 @@ export class TableRow<
             event.detail,
             column
         );
-    }
-
-    public closeOpenActionMenus(): void {
-        if (this.menuOpen) {
-            const cellWithMenuOpen = Array.from(
-                this.cellContainer.children
-            ).find(c => c instanceof TableCell && c.menuOpen) as TableCell;
-            if (cellWithMenuOpen?.actionMenuButton?.open) {
-                cellWithMenuOpen.actionMenuButton.toggleButton!.control.click();
-            }
-        }
     }
 
     /** @internal */

@@ -60,10 +60,6 @@ TableColumnAnchorColumnConfig
         return typeof this.cellRecord?.href === 'string';
     }
 
-    public override focusedRecycleCallback(): void {
-        this.anchor?.blur();
-    }
-
     public override get tabbableChildren(): HTMLElement[] {
         if (this.showAnchor) {
             return [this.anchor!];
