@@ -60,6 +60,9 @@ export class TableRow<
     @attr({ mode: 'boolean' })
     public expanded = false;
 
+    @attr({ attribute: 'reserve-collapse-space', mode: 'boolean' })
+    public reserveCollapseSpace = false;
+
     @observable
     public dataRecord?: TDataRecord;
 

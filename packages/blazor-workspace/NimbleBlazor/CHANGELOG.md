@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-blazor
 
-This log was last generated on Wed, 03 Jul 2024 20:37:08 GMT and should not be manually modified.
+This log was last generated on Wed, 17 Jul 2024 19:19:27 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 17.5.0
+
+Wed, 17 Jul 2024 19:19:27 GMT
+
+### Minor changes
+
+- Add Blazor support for sortByFieldName on anchor and text columns ([ni/nimble@e8b120f](https://github.com/ni/nimble/commit/e8b120ffd9f96987f47c8cd93fa8849e4228741a))
 
 ## 17.4.3
 

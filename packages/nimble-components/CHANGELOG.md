@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Wed, 17 Jul 2024 18:04:56 GMT and should not be manually modified.
+This log was last generated on Wed, 17 Jul 2024 20:17:16 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 30.0.3
+
+Wed, 17 Jul 2024 20:17:16 GMT
+
+### Patches
+
+- Remove reserved space for the table's "Collapse all" button when the table cannot have expandable rows ([ni/nimble@6984dd1](https://github.com/ni/nimble/commit/6984dd1666c287222e033decf8e8e911c6fe8757))
 
 ## 30.0.2
 
