@@ -48,6 +48,7 @@ import { mixinGroupableColumnAPI } from '../../table-column/mixins/groupable-col
 import type { ColumnInternalsOptions } from '../../table-column/base/models/column-internals';
 import { ColumnValidator } from '../../table-column/base/models/column-validator';
 import { mixinSortableColumnAPI } from '../../table-column/mixins/sortable-column';
+import { MenuButtonPageObject } from '../../menu-button/testing/menu-button.pageobject';
 
 interface SimpleTableRecord extends TableRecord {
     id: string;
@@ -96,6 +97,17 @@ describe('Table keyboard navigation', () => {
         element.appendChild(menu);
 
         await waitForUpdatesAsync();
+    }
+
+    function createTableData(rowCount: number): SimpleTableRecord[] {
+        const data: SimpleTableRecord[] = [];
+        for (let i = 0; i < rowCount; i++) {
+            data.push({
+                id: i.toString(),
+                value: `a${i}`
+            });
+        }
+        return data;
     }
 
     async function verifyLastTabKeyEventBehavior(
@@ -221,62 +233,15 @@ describe('Table keyboard navigation', () => {
         let column3: TestNonInteractiveTableColumn;
         const largeDataRowCount = 1000;
 
-        function createTableData(rowCount: number): SimpleTableRecord[] {
-            const data: SimpleTableRecord[] = [];
-            for (let i = 0; i < rowCount; i++) {
-                data.push({
-                    id: i.toString(),
-                    value: `a${i}`
-                });
-            }
-            return data;
-        }
-
         async function setupBasicTable(): Promise<void> {
-            const data: readonly SimpleTableRecord[] = [
-                {
-                    id: '1',
-                    value: 'a1'
-                },
-                {
-                    id: '2',
-                    value: 'a2'
-                },
-                {
-                    id: '3',
-                    value: 'a3'
-                },
-                {
-                    id: '4',
-                    value: 'a4'
-                }
-            ] as const;
-
+            const data = createTableData(4);
             await element.setData(data);
             await connect();
             await waitForUpdatesAsync();
         }
 
         async function setupTableWithGrouping(): Promise<void> {
-            const data: readonly SimpleTableRecord[] = [
-                {
-                    id: '1',
-                    value: 'a1'
-                },
-                {
-                    id: '2',
-                    value: 'a2'
-                },
-                {
-                    id: '3',
-                    value: 'a3'
-                },
-                {
-                    id: '4',
-                    value: 'a4'
-                }
-            ] as const;
-
+            const data = createTableData(4);
             await element.setData(data);
             column2.groupIndex = 0;
             await connect();
@@ -650,6 +615,54 @@ describe('Table keyboard navigation', () => {
                 await toggleListener.promise;
 
                 expect(pageObject.getCell(0, 0).menuOpen).toBe(true);
+            });
+
+            it('when a cell action menu is opened via keyboard, scrolling the table will close the action menu and focus the cell', async () => {
+                const tableData = createTableData(50);
+                await element.setData(tableData);
+                await waitForUpdatesAsync();
+                await addActionMenu(column1);
+                element.focus();
+                await sendKeyPressToTable(keyArrowDown);
+                let toggleListener = createEventListener(
+                    element,
+                    'action-menu-toggle'
+                );
+                pageObject.setRowHoverState(0, true);
+                await sendKeyPressToTable(keyEnter, { ctrlKey: true });
+                await toggleListener.promise;
+                toggleListener = createEventListener(
+                    element,
+                    'action-menu-toggle'
+                );
+
+                await pageObject.scrollToLastRowAsync();
+                await pageObject.scrollToFirstRowAsync();
+                await toggleListener.promise;
+
+                expect(pageObject.getCell(0, 0).menuOpen).toBe(false);
+                expect(currentFocusedElement()).toBe(pageObject.getCell(0, 0));
+            });
+
+            it('when a cell action menu is opened via mouse click, scrolling the table will close the action menu and focus the cell', async () => {
+                const tableData = createTableData(50);
+                await element.setData(tableData);
+                await waitForUpdatesAsync();
+                await addActionMenu(column1);
+                element.focus();
+                await sendKeyPressToTable(keyArrowDown);
+
+                pageObject.setRowHoverState(0, true);
+                const menuButtonPageObject = new MenuButtonPageObject(
+                    pageObject.getCellActionMenu(0, 0)!
+                );
+                await menuButtonPageObject.openMenu();
+
+                await pageObject.scrollToLastRowAsync();
+                await pageObject.scrollToFirstRowAsync();
+
+                expect(pageObject.getCell(0, 0).menuOpen).toBe(false);
+                expect(currentFocusedElement()).toBe(pageObject.getCell(0, 0));
             });
 
             it('when a cell with an action menu is focused, pressing Enter will focus the action menu (if the cell contains no other interactive elements)', async () => {
@@ -1235,10 +1248,6 @@ describe('Table keyboard navigation', () => {
             public override get tabbableChildren(): HTMLElement[] {
                 return [this.spanElement];
             }
-
-            public override focusedRecycleCallback(): void {
-                this.spanElement.blur();
-            }
         }
         // prettier-ignore
         @customElement({
@@ -1284,24 +1293,7 @@ describe('Table keyboard navigation', () => {
             ({ element, connect, disconnect } = await setupInteractiveTable());
             pageObject = new TablePageObject(element);
 
-            const tableData = [
-                {
-                    id: '1',
-                    value: 'a1'
-                },
-                {
-                    id: '2',
-                    value: 'a2'
-                },
-                {
-                    id: '3',
-                    value: 'a3'
-                },
-                {
-                    id: '4',
-                    value: 'a4'
-                }
-            ] as SimpleTableRecord[];
+            const tableData = createTableData(4);
             await element.setData(tableData);
             const column2 = element.querySelector<TableColumn>('#second-column')!;
             await addActionMenu(column2);
@@ -1385,41 +1377,54 @@ describe('Table keyboard navigation', () => {
                 );
             });
 
-            describe('when the interactive content in the cell is focused, pressing the given key will focus the cell:', () => {
-                const keyTests = [
-                    { name: 'Escape', key: keyEscape },
-                    { name: 'F2', key: keyFunction2 }
-                ];
-                parameterizeSpec(
-                    keyTests,
-                    (keyTestSpec, keyTestName, keyTestValue) => {
-                        keyTestSpec(keyTestName, async () => {
-                            await sendKeyPressToTable(keyEnter);
+            describe('when the interactive content in the cell is focused,', () => {
+                beforeEach(async () => {
+                    await sendKeyPressToTable(keyEnter);
+                });
 
-                            await sendKeyPressToTable(keyTestValue.key);
+                describe('pressing the given key will focus the cell:', () => {
+                    const keyTests = [
+                        { name: 'Escape', key: keyEscape },
+                        { name: 'F2', key: keyFunction2 }
+                    ];
+                    parameterizeSpec(
+                        keyTests,
+                        (keyTestSpec, keyTestName, keyTestValue) => {
+                            keyTestSpec(keyTestName, async () => {
+                                await sendKeyPressToTable(keyTestValue.key);
 
-                            expect(currentFocusedElement()).toBe(
-                                pageObject.getCell(0, 1)
-                            );
-                        });
-                    }
-                );
-            });
+                                expect(currentFocusedElement()).toBe(
+                                    pageObject.getCell(0, 1)
+                                );
+                            });
+                        }
+                    );
+                });
 
-            it('when the interactive content in the cell is focused, and a data update happens, the matching cell will be focused afterwards', async () => {
-                await sendKeyPressToTable(keyEnter);
+                it('and then a data update happens, the matching cell will be focused afterwards', async () => {
+                    const tableData = createTableData(20);
+                    await element.setData(tableData);
+                    await waitForUpdatesAsync();
 
-                const tableData: SimpleTableRecord[] = [];
-                for (let i = 0; i < 20; i++) {
-                    tableData.push({
-                        id: i.toString(),
-                        value: `a${i}`
-                    });
-                }
-                await element.setData(tableData);
-                await waitForUpdatesAsync();
+                    expect(currentFocusedElement()).toBe(
+                        pageObject.getCell(0, 1)
+                    );
+                });
 
-                expect(currentFocusedElement()).toBe(pageObject.getCell(0, 1));
+                it('and then a scroll happens, the interactive content is blurred', async () => {
+                    const tableData = createTableData(50);
+                    await element.setData(tableData);
+                    await waitForUpdatesAsync();
+                    await sendKeyPressToTable(keyEnter); // refocus cell content
+                    const cellContent = getRenderedCellContent(0, 1);
+                    const blurSpy = jasmine.createSpy('blur');
+                    cellContent.addEventListener('blur', blurSpy);
+
+                    await pageObject.scrollToLastRowAsync();
+
+                    expect(blurSpy).toHaveBeenCalledTimes(1);
+                    expect(currentFocusedElement()).not.toBe(cellContent);
+                });
             });
         });
     });

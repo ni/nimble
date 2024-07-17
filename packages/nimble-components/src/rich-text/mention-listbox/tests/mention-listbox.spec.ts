@@ -61,7 +61,8 @@ describe('RichTextMentionListbox', () => {
         await regionLoadedListener.promise;
     }
 
-    it('should scroll the selected option into view when opened', async () => {
+    // Intermittent, see: https://github.com/ni/nimble/issues/2274
+    it('should scroll the selected option into view when opened #SkipWebkit', async () => {
         const model = new Model();
         const { connect, disconnect } = await setup500Options(model);
         await connect();
@@ -80,7 +81,8 @@ describe('RichTextMentionListbox', () => {
         await disconnect();
     });
 
-    it('should limit dropdown height to viewport', async () => {
+    // Intermittent, see: https://github.com/ni/nimble/issues/2269
+    it('should limit dropdown height to viewport #SkipWebkit', async () => {
         const model = new Model();
         const { connect, disconnect } = await setup500Options(model);
         await connect();
