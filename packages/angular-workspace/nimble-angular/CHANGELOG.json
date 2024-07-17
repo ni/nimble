@@ -2,6 +2,21 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Wed, 17 Jul 2024 17:07:05 GMT",
+      "version": "25.2.0",
+      "tag": "@ni/nimble-angular_v25.2.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "a65623f67b294b2b5149b4592309572f34cdf4ba",
+            "comment": "Add Angular support for sortByFieldName on anchor and text columns"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 17 Jul 2024 16:31:14 GMT",
       "version": "25.1.0",
       "tag": "@ni/nimble-angular_v25.1.0",

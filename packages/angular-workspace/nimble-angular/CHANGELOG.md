@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Wed, 17 Jul 2024 16:31:14 GMT and should not be manually modified.
+This log was last generated on Wed, 17 Jul 2024 17:07:05 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 25.2.0
+
+Wed, 17 Jul 2024 17:07:05 GMT
+
+### Minor changes
+
+- Add Angular support for sortByFieldName on anchor and text columns ([ni/nimble@a65623f](https://github.com/ni/nimble/commit/a65623f67b294b2b5149b4592309572f34cdf4ba))
 
 ## 25.1.0
 
