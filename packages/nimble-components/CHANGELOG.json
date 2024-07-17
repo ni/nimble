@@ -2,6 +2,57 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 16 Jul 2024 23:53:30 GMT",
+      "version": "30.0.1",
+      "tag": "@ni/nimble-components_v30.0.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "20709258+msmithNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "fdd35c7fae80e1f3dacfb083a004bdeab0468c26",
+            "comment": "Table: remove TableCellView.focusedRecycleCallback() and TableRow.closeOpenActionMenus(). The table now focuses the active cell when the table is scrolled, which has the same effect (closing open menus and blurring active cell content)."
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 16 Jul 2024 22:30:23 GMT",
+      "version": "30.0.0",
+      "tag": "@ni/nimble-components_v30.0.0",
+      "comments": {
+        "major": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "b28b6513d47bd583e8767620cd6ef526fa3dddac",
+            "comment": "Updates to calendar and arrow icons. Clients using \"nimble-icon-calendar\" or \"nimble-icon-arrow-u-rotate-left\" must instead use \"nimble-icon-calendar-days\" and \"nimble-icon-arrow-u-up\" (respectively)."
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/nimble-tokens to v7.0.0",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 16 Jul 2024 21:19:56 GMT",
+      "version": "29.9.0",
+      "tag": "@ni/nimble-components_v29.9.0",
+      "comments": {
+        "none": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "3fb3969f638fb6059890643bae0bda3af9939c47",
+            "comment": "Disable intermittent webkit tests"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 15 Jul 2024 23:54:04 GMT",
       "version": "29.9.0",
       "tag": "@ni/nimble-components_v29.9.0",
