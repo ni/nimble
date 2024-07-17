@@ -21,7 +21,8 @@ import {
 import {
     apiCategory,
     checkValidityDescription,
-    createUserSelectedThemeStory
+    createUserSelectedThemeStory,
+    validityDescription
 } from '../../../utilities/storybook';
 
 const simpleData = [
@@ -111,13 +112,6 @@ const formatDescription = `Configures the way that the numeric value is formatte
         </li>
     </ul>
 </details>
-`;
-
-const validityDescription = `Readonly object of boolean values that represents the validity states that the column's configuration can be in.
-The object's type is \`TableColumnValidity\`, and it contains the following boolean properties:
--   \`invalidDecimalDigits\`: \`true\` when \`format\` is configured to \`decimal\` and \`decimal-digits\` is set to a number less than 0 or greater than 20.
--   \`invalidDecimalMaximumDigits\`: \`true\` when \`format\` is configured to \`decimal\` and \`decimal-maximum-digits\` is set to a number less than 0 or greater than 20.
--   \`decimalDigitsMutuallyExclusiveWithDecimalMaximumDigits\`: \`true\` when \`format\` is configured to \`decimal\` and both \`decimal-digits\` and \`decimal-maximum-digits\` are set.
 `;
 
 const alignmentDescription = `Configures the alignment of the value within the column.
@@ -251,7 +245,28 @@ export const numberTextColumn: StoryObj<NumberTextColumnTableArgs> = {
             table: { category: apiCategory.methods }
         },
         validity: {
-            description: validityDescription,
+            description: validityDescription({
+                colloquialName: 'column',
+                validityObjectType: 'TableColumnValidity',
+                validityFlags: [
+                    {
+                        flagName: 'invalidDecimalDigits',
+                        description:
+                            '`true` when `format` is configured to `decimal` and `decimal-digits` is set to a number less than 0 or greater than 20.'
+                    },
+                    {
+                        flagName: 'invalidDecimalMaximumDigits',
+                        description:
+                            '`true` when `format` is configured to `decimal` and `decimal-maximum-digits` is set to a number less than 0 or greater than 20.'
+                    },
+                    {
+                        flagName:
+                            'decimalDigitsMutuallyExclusiveWithDecimalMaximumDigits',
+                        description:
+                            '`true` when `format` is configured to `decimal` and both `decimal-digits` and `decimal-maximum-digits` are set.'
+                    }
+                ]
+            }),
             control: false,
             table: { category: apiCategory.nonAttributeProperties }
         }

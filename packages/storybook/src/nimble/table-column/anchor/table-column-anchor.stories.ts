@@ -13,7 +13,9 @@ import {
 } from '../base/table-column-stories-utils';
 import {
     apiCategory,
-    createUserSelectedThemeStory
+    checkValidityDescription,
+    createUserSelectedThemeStory,
+    validityDescription
 } from '../../../utilities/storybook';
 
 const metadata: Meta<SharedTableArgs> = {
@@ -41,38 +43,74 @@ const simpleData = [
     {
         firstName: 'Ralph',
         lastName: 'Wiggum',
-        url: 'https://www.google.com/search?q=ralph+wiggum'
+        url: 'https://www.google.com/search?q=ralph+wiggum',
+        address: '732 Evergreen Terrace',
+        addressSortOrder: 0,
+        addressUrl: 'https://www.google.com/search?q=732+Evergreen+Terrace'
     },
     {
         firstName: 'Milhouse',
         lastName: 'Van Houten',
-        url: 'https://www.google.com/search?q=milhouse+van+houten'
+        url: 'https://www.google.com/search?q=milhouse+van+houten',
+        address: '316 Pikeland Avenue',
+        addressSortOrder: 3,
+        addressUrl: 'https://www.google.com/search?q=316+Pikeland+Avenue'
     },
     {
         firstName: 'Ned',
         lastName: 'Flanders',
-        url: 'https://www.google.com/search?q=ned+flanders'
+        url: 'https://www.google.com/search?q=ned+flanders',
+        address: '744 Evergreen Terrace',
+        addressSortOrder: 2,
+        addressUrl: 'https://www.google.com/search?q=744+Evergreen+Terrace'
     },
     {
         firstName: 'Maggie (no link)',
-        lastName: 'Simpson'
+        lastName: 'Simpson',
+        address: '742 Evergreen Terrace',
+        addressSortOrder: 1,
+        addressUrl: 'https://www.google.com/search?q=742+Evergreen+Terrace'
     },
     {
         lastName: 'Simpson',
-        url: 'https://www.google.com/search?q=simpsons'
+        fullName: 'Unknown Simpson',
+        url: 'https://www.google.com/search?q=simpsons',
+        address: 'Unknown Address',
+        addressSortOrder: -1
     },
     {
-        lastName: 'Simpson'
+        lastName: 'Simpson',
+        fullName: 'Unknown Simpson',
+        address: 'Unknown Address',
+        addressSortOrder: -1
+    },
+    {
+        firstName: 'Agnes',
+        lastName: 'Skinner',
+        url: 'https://www.google.com/search?q=agnes+skinner',
+        address: '330 Pikeland Avenue',
+        addressSortOrder: 4,
+        addressUrl: 'https://www.google.com/search?q=330+Pikeland+Avenue'
+    },
+    {
+        firstName: 'Moe',
+        lastName: 'Szyslak',
+        url: 'https://www.google.com/search?q=moe+szyslak',
+        address: '57 Walnut Street',
+        addressSortOrder: 5,
+        addressUrl: 'https://www.google.com/search?q=57+Walnut+Street'
     }
 ] as const;
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface AnchorColumnTableArgs extends SharedTableArgs {
     labelFieldName: string;
     hrefFieldName: string;
     appearance: keyof typeof AnchorAppearance;
     underlineHidden: boolean;
     placeholder: string;
+    sortByFieldName: never;
+    checkValidity: never;
+    validity: never;
 }
 
 export const anchorColumn: StoryObj<AnchorColumnTableArgs> = {
@@ -90,13 +128,23 @@ export const anchorColumn: StoryObj<AnchorColumnTableArgs> = {
                 ?underline-hidden="${x => x.underlineHidden}"
                 placeholder="${x => x.placeholder}"
             >
-            Link Column
+                Link Column
             </${tableColumnAnchorTag}>
             <${tableColumnTextTag}
                 field-name="lastName"
             >
-            Last Name
+                Last Name
             </${tableColumnTextTag}>
+            <${tableColumnAnchorTag}
+                label-field-name="address"
+                href-field-name="addressUrl"
+                appearance="${x => x.appearance}"
+                ?underline-hidden="${x => x.underlineHidden}"
+                sort-by-field-name="addressSortOrder"
+                grouping-disabled
+            >
+                Address
+            </${tableColumnAnchorTag}>
         </${tableTag}>
     `),
     argTypes: {
@@ -132,6 +180,36 @@ export const anchorColumn: StoryObj<AnchorColumnTableArgs> = {
             description:
                 'The placeholder text to display when the label and href are both `undefined` or `null` for a record.',
             table: { category: apiCategory.attributes }
+        },
+        sortByFieldName: {
+            name: 'sort-by-field-name',
+            description:
+                'Set this attribute to identify a numeric field to sort the column by. If not set, the column will sort by the `label-field-name` field. It is invalid for grouping to be enabled on a column with `sort-by-field-name` configured.',
+            control: false,
+            table: { category: apiCategory.attributes }
+        },
+        checkValidity: {
+            name: 'checkValidity()',
+            description: checkValidityDescription({
+                componentName: 'anchor column'
+            }),
+            table: { category: apiCategory.methods },
+            control: false
+        },
+        validity: {
+            description: validityDescription({
+                colloquialName: 'column',
+                validityObjectType: 'TableColumnValidity',
+                validityFlags: [
+                    {
+                        flagName: 'invalidCustomSortWithGrouping',
+                        description:
+                            'true when sort-by-field-name is specified while the column used for grouping.'
+                    }
+                ]
+            }),
+            table: { category: apiCategory.nonAttributeProperties },
+            control: false
         }
     },
     args: {
