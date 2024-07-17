@@ -114,12 +114,6 @@ export class Table<
      * @internal
      */
     @observable
-    public actionMenuSlots: string[] = [];
-
-    /**
-     * @internal
-     */
-    @observable
     public openActionMenuRecordId?: string;
 
     /**
@@ -253,10 +247,12 @@ export class Table<
     private ignoreSelectionChangeEvents = false;
     // Map from the external slot name to the record ID of the row that should have the slot
     // and the unique slot name that the slot should be slotted into.
-    private readonly columnRequestedSlots: Map<
+    private readonly requestedSlots: Map<
     string,
     { recordId: string, uniqueSlot: string }
     > = new Map();
+
+    private actionMenuSlots: string[] = [];
 
     public constructor() {
         super();
@@ -479,7 +475,7 @@ export class Table<
                 event.detail.columnInternalId,
                 slotMetadata.slot
             );
-            this.columnRequestedSlots.set(slotMetadata.name, {
+            this.requestedSlots.set(slotMetadata.name, {
                 recordId: event.detail.recordId,
                 uniqueSlot
             });
@@ -730,9 +726,14 @@ export class Table<
         this.tableUpdateTracker.trackColumnInstancesChanged();
     }
 
-    private removeActionMenuSlotsFromColumnRequestedSlots(): void {
+    private updateRequestedSlotsForOpeningActionMenu(
+        openActionMenuRecordId: string
+    ): void {
         for (const actionMenuSlot of this.actionMenuSlots) {
-            this.columnRequestedSlots.delete(actionMenuSlot);
+            this.requestedSlots.set(actionMenuSlot, {
+                recordId: openActionMenuRecordId,
+                uniqueSlot: `row-action-menu-${actionMenuSlot}`
+            });
         }
 
         this.refreshRows();
@@ -750,7 +751,9 @@ export class Table<
         }
 
         this.openActionMenuRecordId = event.detail.recordIds[0];
-        this.removeActionMenuSlotsFromColumnRequestedSlots();
+        this.updateRequestedSlotsForOpeningActionMenu(
+            this.openActionMenuRecordId!
+        );
         const detail = await this.getActionMenuToggleEventDetail(event);
         this.$emit('action-menu-beforetoggle', detail);
     }
@@ -938,6 +941,14 @@ export class Table<
     }
 
     private updateActionMenuSlots(): void {
+        if (this.openActionMenuRecordId !== undefined) {
+            // If the action menu is open, delete all the slots associated
+            // with the old action menu slots.
+            for (const actionMenuSlot of this.actionMenuSlots) {
+                this.requestedSlots.delete(actionMenuSlot);
+            }
+        }
+
         const slots = new Set<string>();
         for (const column of this.columns) {
             if (column.actionMenuSlot) {
@@ -945,6 +956,14 @@ export class Table<
             }
         }
         this.actionMenuSlots = Array.from(slots);
+
+        if (this.openActionMenuRecordId !== undefined) {
+            // If the action menu is open, create slots for all the new
+            // action menu slots.
+            this.updateRequestedSlotsForOpeningActionMenu(
+                this.openActionMenuRecordId
+            );
+        }
     }
 
     private validate(): void {
@@ -1056,7 +1075,7 @@ export class Table<
                 isLoadingChildren: this.expansionManager.isLoadingChildren(
                     row.id
                 ),
-                slots: slotsByRecordId[row.id] ?? []
+                requestedSlots: slotsByRecordId[row.id] ?? []
             };
             hasDataHierarchy = hasDataHierarchy || isParent;
             return rowState;
@@ -1072,7 +1091,7 @@ export class Table<
         const slotsByRecordId: { [recordId: string]: SlotMetadata[] } = {};
 
         for (const [slotName, { recordId, uniqueSlot }] of this
-            .columnRequestedSlots) {
+            .requestedSlots) {
             if (
                 !Object.prototype.hasOwnProperty.call(slotsByRecordId, recordId)
             ) {

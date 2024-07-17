@@ -187,15 +187,7 @@ export const template = html<Table>`
                                         @row-slots-request="${(_, c) => c.parent.onRowSlotsRequest(c.event as CustomEvent<RowSlotRequestEventDetail>)}"
                                         @row-expand-toggle="${(x, c) => c.parent.handleRowExpanded(x.index)}"
                                     >
-                                    ${when((x, c: ExecutionContext<Table>) => c.parent.openActionMenuRecordId === c.parent.tableData[x.index]?.id, html<VirtualItem<HTMLElement>, Table>`
-                                        ${repeat((_, c: ExecutionContext<Table>) => c.parent.actionMenuSlots, html<string, Table>`
-                                            <slot
-                                                name="${x => x}"
-                                                slot="${x => `row-action-menu-${x}`}">
-                                            </slot>
-                                        `)}
-                                    `)}
-                                    ${repeat((x, c: ExecutionContext<Table>) => (c.parent.tableData[x.index]?.slots || []), html<SlotMetadata>`
+                                    ${repeat((x, c: ExecutionContext<Table>) => (c.parent.tableData[x.index]?.requestedSlots || []), html<SlotMetadata>`
                                         <slot
                                             name="${x => x.name}"
                                             slot="${x => x.slot}"
