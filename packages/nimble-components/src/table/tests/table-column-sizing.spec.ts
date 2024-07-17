@@ -197,12 +197,12 @@ describe('Table Column Sizing', () => {
         parameterizeSpec(columnSizeTests, (spec, name, value) => {
             spec(name, async () => {
                 await connect();
+                await waitForUpdatesAsync();
                 await pageObject.sizeTableToGivenRowWidth(
                     value.rowWidth,
                     element
                 );
                 await element.setData(simpleTableData);
-                await connect();
                 await waitForUpdatesAsync();
 
                 column1.columnInternals.fractionalWidth = value.column1FractionalWidth;
@@ -245,9 +245,9 @@ describe('Table Column Sizing', () => {
 
         it('resizing table with fractionalWidth columns changes column rendered widths', async () => {
             await connect();
+            await waitForUpdatesAsync();
             await pageObject.sizeTableToGivenRowWidth(400, element);
             await element.setData(simpleTableData);
-            await connect();
             await waitForUpdatesAsync();
 
             await pageObject.sizeTableToGivenRowWidth(300, element);
@@ -261,9 +261,9 @@ describe('Table Column Sizing', () => {
 
         it('hidden column results in other column filling whole space', async () => {
             await connect();
+            await waitForUpdatesAsync();
             await pageObject.sizeTableToGivenRowWidth(400, element);
             await element.setData(simpleTableData);
-            await connect();
             await waitForUpdatesAsync();
 
             column1.columnHidden = true;
@@ -298,9 +298,9 @@ describe('Table Column Sizing', () => {
         parameterizeSpec(tests, (spec, name, value) => {
             spec(name, async () => {
                 await connect();
+                await waitForUpdatesAsync();
                 await pageObject.sizeTableToGivenRowWidth(300, element);
                 await element.setData(largeTableData);
-                await connect();
                 await waitForUpdatesAsync();
 
                 column1.columnInternals.fractionalWidth = value.column1FractionalWidth;

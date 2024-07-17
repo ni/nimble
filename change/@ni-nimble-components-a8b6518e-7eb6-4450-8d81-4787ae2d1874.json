@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "Remove reserved space for the table's \"Collapse all\" button when the table cannot have expandable rows",
+  "packageName": "@ni/nimble-components",
+  "email": "20542556+mollykreis@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
