@@ -2,6 +2,42 @@
   "name": "@ni/spright-components",
   "entries": [
     {
+      "date": "Tue, 16 Jul 2024 23:53:31 GMT",
+      "version": "2.0.1",
+      "tag": "@ni/spright-components_v2.0.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/spright-components",
+            "comment": "Bump @ni/nimble-components to v30.0.1",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 16 Jul 2024 22:30:23 GMT",
+      "version": "2.0.0",
+      "tag": "@ni/spright-components_v2.0.0",
+      "comments": {
+        "major": [
+          {
+            "author": "beachball",
+            "package": "@ni/spright-components",
+            "comment": "Bump @ni/nimble-components to v30.0.0",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/spright-components",
+            "comment": "Bump @ni/nimble-tokens to v7.0.0",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 15 Jul 2024 21:21:46 GMT",
       "version": "1.0.40",
       "tag": "@ni/spright-components_v1.0.40",

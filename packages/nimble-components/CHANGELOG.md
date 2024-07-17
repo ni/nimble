@@ -1,8 +1,25 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Mon, 15 Jul 2024 21:21:46 GMT and should not be manually modified.
+This log was last generated on Tue, 16 Jul 2024 23:53:30 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 30.0.1
+
+Tue, 16 Jul 2024 23:53:30 GMT
+
+### Patches
+
+- Table: remove TableCellView.focusedRecycleCallback() and TableRow.closeOpenActionMenus(). The table now focuses the active cell when the table is scrolled, which has the same effect (closing open menus and blurring active cell content). ([ni/nimble@fdd35c7](https://github.com/ni/nimble/commit/fdd35c7fae80e1f3dacfb083a004bdeab0468c26))
+
+## 30.0.0
+
+Tue, 16 Jul 2024 22:30:23 GMT
+
+### Major changes
+
+- Updates to calendar and arrow icons. Clients using "nimble-icon-calendar" or "nimble-icon-arrow-u-rotate-left" must instead use "nimble-icon-calendar-days" and "nimble-icon-arrow-u-up" (respectively). ([ni/nimble@b28b651](https://github.com/ni/nimble/commit/b28b6513d47bd583e8767620cd6ef526fa3dddac))
+- Bump @ni/nimble-tokens to v7.0.0
 
 ## 29.9.0
 

@@ -185,9 +185,10 @@ implements Subscriber {
         }
 
         if (focusRowAndCell) {
-            // Focusable elements in cells, and action menus, are both blurred on scroll. To maintain our row/cell focus state,
-            // we focus the cell instead here. (We also don't want to refocus the cell content when the focusedRecycleCallback just
-            // blurred it.)
+            // We want open action menus to be closed, and focused interactive cell content blurred, on scroll. We also don't want to
+            // refocus the interactive cell content after the scroll, as the element no longer represents the same table data at that
+            // point. So in both those cases, we focus the cell here. This also lets us maintain what row/ cell the user had focused
+            // previously.
             if (
                 this.focusType === TableFocusType.cellActionMenu
                 || this.focusType === TableFocusType.cellContent
@@ -212,12 +213,6 @@ implements Subscriber {
                     this.focusCurrentRow(false);
                 }
             }
-        }
-    }
-
-    public handleFocusedCellRecycling(hadRowOrCellFocus: boolean): void {
-        if (hadRowOrCellFocus && !this.focusWithinTable) {
-            this.focusCurrentRow(false);
         }
     }
 
