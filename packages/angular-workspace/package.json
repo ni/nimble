@@ -47,7 +47,7 @@
     "@lhci/cli": "^0.14.0",
     "@microsoft/fast-web-utilities": "^6.0.0",
     "@ni-private/eslint-config-nimble": "*",
-    "@ni/eslint-config-angular": "^7.0.6",
+    "@ni/eslint-config-angular": "^7.0.7",
     "@ni/jasmine-parameterized": "*",
     "@ni/nimble-tokens": "*",
     "@rollup/plugin-node-resolve": "^15.0.1",
