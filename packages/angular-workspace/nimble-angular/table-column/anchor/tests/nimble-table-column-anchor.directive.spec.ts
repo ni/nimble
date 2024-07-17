@@ -141,6 +141,11 @@ describe('Nimble anchor table column', () => {
             expect(nativeElement.sortIndex).toBeUndefined();
         });
 
+        it('has expected defaults for sortByFieldName', () => {
+            expect(directive.sortByFieldName).toBeUndefined();
+            expect(nativeElement.sortByFieldName).toBeUndefined();
+        });
+
         it('has expected defaults for sortingDisabled', () => {
             expect(directive.sortingDisabled).toBeFalse();
             expect(nativeElement.sortingDisabled).toBeFalse();
@@ -194,6 +199,7 @@ describe('Nimble anchor table column', () => {
                     sort-direction="${TableColumnSortDirection.ascending}"
                     sort-index="0"
                     sorting-disabled
+                    sort-by-field-name="field2"
                     fractional-width="2"
                     min-pixel-width="40"
                     group-index="0"
@@ -313,6 +319,11 @@ describe('Nimble anchor table column', () => {
             expect(nativeElement.sortingDisabled).toBeTrue();
         });
 
+        it('will use template string value for sortByFieldName', () => {
+            expect(directive.sortByFieldName).toBe('field2');
+            expect(nativeElement.sortByFieldName).toBe('field2');
+        });
+
         it('will use template string values for fractionalWidth', () => {
             expect(directive.fractionalWidth).toBe(2);
             expect(nativeElement.fractionalWidth).toBe(2);
@@ -361,6 +372,7 @@ describe('Nimble anchor table column', () => {
                     [sort-direction]="sortDirection"
                     [sort-index]="sortIndex"
                     [sorting-disabled]="sortingDisabled"
+                    [sort-by-field-name]="sortByFieldName"
                     [fractional-width]="fractionalWidth"
                     [min-pixel-width]="minPixelWidth"
                     [group-index]="groupIndex"
@@ -391,6 +403,7 @@ describe('Nimble anchor table column', () => {
             public sortDirection: TableColumnSortDirection = TableColumnSortDirection.ascending;
             public sortIndex: number | null = 0;
             public sortingDisabled = false;
+            public sortByFieldName = 'field2';
             public fractionalWidth: number | null = 2;
             public minPixelWidth: number | null = 40;
             public groupIndex: number | null = 0;
@@ -622,6 +635,17 @@ describe('Nimble anchor table column', () => {
             expect(nativeElement.sortingDisabled).toBeTrue();
         });
 
+        it('can be configured with property binding for sortByFieldName', () => {
+            expect(directive.sortByFieldName).toBe('field2');
+            expect(nativeElement.sortByFieldName).toBe('field2');
+
+            fixture.componentInstance.sortByFieldName = 'anotherField';
+            fixture.detectChanges();
+
+            expect(directive.sortByFieldName).toBe('anotherField');
+            expect(nativeElement.sortByFieldName).toBe('anotherField');
+        });
+
         it('can be configured with property binding for fractionalWidth', () => {
             expect(directive.fractionalWidth).toBe(2);
             expect(nativeElement.fractionalWidth).toBe(2);
@@ -733,6 +757,7 @@ describe('Nimble anchor table column', () => {
                     [attr.sort-direction]="sortDirection"
                     [attr.sort-index]="sortIndex"
                     [attr.sorting-disabled]="sortingDisabled"
+                    [attr.sort-by-field-name]="sortByFieldName"
                     [attr.fractional-width]="fractionalWidth"
                     [attr.min-pixel-width]="minPixelWidth"
                     [attr.group-index]="groupIndex"
@@ -763,6 +788,7 @@ describe('Nimble anchor table column', () => {
             public sortDirection: TableColumnSortDirection = TableColumnSortDirection.ascending;
             public sortIndex: number | null = 0;
             public sortingDisabled = false;
+            public sortByFieldName = 'field2';
             public fractionalWidth: number | null = 2;
             public minPixelWidth: number | null = 40;
             public groupIndex: number | null = 0;
@@ -992,6 +1018,17 @@ describe('Nimble anchor table column', () => {
 
             expect(directive.sortingDisabled).toBeTrue();
             expect(nativeElement.sortingDisabled).toBeTrue();
+        });
+
+        it('can be configured with attribute binding for sortByFieldName', () => {
+            expect(directive.sortByFieldName).toBe('field2');
+            expect(nativeElement.sortByFieldName).toBe('field2');
+
+            fixture.componentInstance.sortByFieldName = 'anotherField';
+            fixture.detectChanges();
+
+            expect(directive.sortByFieldName).toBe('anotherField');
+            expect(nativeElement.sortByFieldName).toBe('anotherField');
         });
 
         it('can be configured with attribute binding for fractionalWidth', () => {

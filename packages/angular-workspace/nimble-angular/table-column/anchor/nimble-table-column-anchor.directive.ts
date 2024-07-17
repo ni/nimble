@@ -167,6 +167,14 @@ export class NimbleTableColumnAnchorDirective extends NimbleTableColumnBaseDirec
         this.renderer.setProperty(this.elementRef.nativeElement, 'sortIndex', toNullableNumberProperty(value));
     }
 
+    public get sortByFieldName(): string | undefined {
+        return this.elementRef.nativeElement.sortByFieldName;
+    }
+
+    @Input('sort-by-field-name') public set sortByFieldName(value: string | undefined) {
+        this.renderer.setProperty(this.elementRef.nativeElement, 'sortByFieldName', value);
+    }
+
     public constructor(renderer: Renderer2, elementRef: ElementRef<TableColumnAnchor>) {
         super(renderer, elementRef);
     }

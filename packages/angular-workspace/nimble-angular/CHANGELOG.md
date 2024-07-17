@@ -1,8 +1,48 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Mon, 15 Jul 2024 21:21:46 GMT and should not be manually modified.
+This log was last generated on Wed, 17 Jul 2024 18:04:56 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 25.2.1
+
+Wed, 17 Jul 2024 18:04:56 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v30.0.2
+
+## 25.2.0
+
+Wed, 17 Jul 2024 17:07:05 GMT
+
+### Minor changes
+
+- Add Angular support for sortByFieldName on anchor and text columns ([ni/nimble@a65623f](https://github.com/ni/nimble/commit/a65623f67b294b2b5149b4592309572f34cdf4ba))
+
+## 25.1.0
+
+Wed, 17 Jul 2024 16:31:14 GMT
+
+### Minor changes
+
+- Angular support for the menu-button table column ([ni/nimble@7f9d617](https://github.com/ni/nimble/commit/7f9d617842b404812e18fb6d2bfdbc4443232f41))
+
+## 25.0.1
+
+Tue, 16 Jul 2024 23:53:31 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v30.0.1
+
+## 25.0.0
+
+Tue, 16 Jul 2024 22:30:23 GMT
+
+### Major changes
+
+- Bump @ni/nimble-components to v30.0.0
 
 ## 24.6.4
 
