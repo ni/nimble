@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Tue, 16 Jul 2024 23:53:30 GMT and should not be manually modified.
+This log was last generated on Wed, 17 Jul 2024 18:04:56 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 30.0.2
+
+Wed, 17 Jul 2024 18:04:56 GMT
+
+### Patches
+
+- Consolidate tracking of slots in the table ([ni/nimble@6dcbd6c](https://github.com/ni/nimble/commit/6dcbd6c1e98c0d423374c9d0c866bc0771c42b8e))
 
 ## 30.0.1
 
