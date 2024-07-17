@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Wed, 17 Jul 2024 20:17:16 GMT",
+      "version": "30.0.3",
+      "tag": "@ni/nimble-components_v30.0.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "6984dd1666c287222e033decf8e8e911c6fe8757",
+            "comment": "Remove reserved space for the table's \"Collapse all\" button when the table cannot have expandable rows"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 17 Jul 2024 18:04:56 GMT",
       "version": "30.0.2",
       "tag": "@ni/nimble-components_v30.0.2",
