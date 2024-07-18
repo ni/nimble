@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "Move internal testing API to folder that gets included in build output",
+  "packageName": "@ni/nimble-components",
+  "email": "jattasNI@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
