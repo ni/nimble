@@ -250,6 +250,8 @@ export const styles = css`
         color: ${placeholderFontColor};
         height: ${controlHeight};
         display: inline-flex;
+        display: flex;
+        flex: 1 0 auto;
         align-items: center;
         padding: ${smallPadding} ${mediumPadding};
     }
