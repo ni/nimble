@@ -2,6 +2,21 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Thu, 18 Jul 2024 20:34:02 GMT",
+      "version": "25.3.0",
+      "tag": "@ni/nimble-angular_v25.3.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "ab2773599bd4d2765f00666bcf5ff07c4936dfa6",
+            "comment": "Export combobox page object from nimble-angular"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 17 Jul 2024 21:19:45 GMT",
       "version": "25.2.3",
       "tag": "@ni/nimble-angular_v25.2.3",

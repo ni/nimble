@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Wed, 17 Jul 2024 21:19:45 GMT and should not be manually modified.
+This log was last generated on Thu, 18 Jul 2024 20:34:02 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 25.3.0
+
+Thu, 18 Jul 2024 20:34:02 GMT
+
+### Minor changes
+
+- Export combobox page object from nimble-angular ([ni/nimble@ab27735](https://github.com/ni/nimble/commit/ab2773599bd4d2765f00666bcf5ff07c4936dfa6))
 
 ## 25.2.3
 
