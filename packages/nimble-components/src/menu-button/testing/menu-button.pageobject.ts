@@ -6,7 +6,7 @@ import {
     keySpace
 } from '@microsoft/fast-web-utilities';
 import type { MenuButton } from '..';
-import { waitForEventAsync } from '../../utilities/tests/component';
+import { waitForEventAsync } from '../../utilities/testing/component';
 
 /**
  * Page object for `nimble-menu-button` component to provide consistent ways

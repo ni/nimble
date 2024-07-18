@@ -7,7 +7,7 @@ import { wackyStrings } from '../../../utilities/tests/wacky-strings';
 import type { Button } from '../../../button';
 import type { ToggleButton } from '../../../toggle-button';
 import { ToolbarButton } from '../testing/types';
-import { createEventListener } from '../../../utilities/tests/component';
+import { createEventListener } from '../../../utilities/testing/component';
 import { waitForUpdatesAsync } from '../../../testing/async-helpers';
 
 async function setup(): Promise<Fixture<RichTextEditor>> {
