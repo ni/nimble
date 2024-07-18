@@ -34,4 +34,34 @@ public partial class NimbleTableColumnMenuButton : NimbleTableColumn, IFractiona
 
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
+
+    /// <summary>
+    /// Gets or sets a callback that's invoked when 'open' changes on a menu button within the column.
+    /// </summary>
+    [Parameter]
+    public EventCallback<TableColumnMenuButtonToggleEventArgs> MenuButtonColumnToggle { get; set; }
+
+    /// <summary>
+    /// Gets or sets a callback that's invoked before the 'open' state changes on a menu button within the column.
+    /// </summary>
+    [Parameter]
+    public EventCallback<TableColumnMenuButtonToggleEventArgs> MenuButtonColumnBeforeToggle { get; set; }
+
+    /// <summary>
+    /// Called when the 'menu-button-column-toggle' event is fired on the web component
+    /// </summary>
+    /// <param name="eventArgs">The details of the event.</param>
+    protected async void HandleMenuButtonColumnToggle(TableColumnMenuButtonToggleEventArgs eventArgs)
+    {
+        await MenuButtonColumnToggle.InvokeAsync(eventArgs);
+    }
+
+    /// <summary>
+    /// Called when the 'menu-button-column-beforetoggle' event is fired on the web component
+    /// </summary>
+    /// <param name="eventArgs">The details of the event.</param>
+    protected async void HandleMenuButtonColumnBeforeToggle(TableColumnMenuButtonToggleEventArgs eventArgs)
+    {
+        await MenuButtonColumnBeforeToggle.InvokeAsync(eventArgs);
+    }
 }

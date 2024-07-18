@@ -10,6 +10,8 @@
     column-hidden="@ColumnHidden"
     fractional-width="@FractionalWidth"
     min-pixel-width="@MinPixelWidth"
+    @onnimbletablecolumnmenubuttontoggle="(__value) => HandleMenuButtonColumnToggle(__value)"
+    @onnimbletablecolumnmenubuttonbeforetoggle="(__value) => HandleMenuButtonColumnBeforeToggle(__value)"
     @attributes="AdditionalAttributes"
 >
     @ChildContent
