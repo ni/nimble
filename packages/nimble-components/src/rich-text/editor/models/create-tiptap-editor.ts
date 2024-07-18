@@ -110,7 +110,7 @@ export function createTiptapEditor(
  * "parseHTML": https://tiptap.dev/guide/custom-extensions#parse-html
  * "renderHTML": https://tiptap.dev/guide/custom-extensions/#render-html
  */
-function createCustomLinkExtension(): Mark<LinkOptions> {
+function createCustomLinkExtension(): Mark {
     return Link.extend({
         // Excludes can be removed/enabled when hyperlink support added
         // See: https://github.com/ni/nimble/issues/1527
@@ -164,7 +164,7 @@ function createCustomMentionExtension(
     activeMentionCharacterEmitter: ActiveMentionCharacterEmitter,
     activeMentionCommandEmitter: ActiveMentionCommandEmitter,
     mentionListbox?: RichTextMentionListbox
-): Node<MentionOptions> {
+): Node {
     return Mention.extend({
         name: config.name,
         parseHTML() {
