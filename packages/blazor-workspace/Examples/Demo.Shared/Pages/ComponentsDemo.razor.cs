@@ -1,7 +1,5 @@
 ﻿using System.Diagnostics.CodeAnalysis;
-using System.Drawing;
 using System.Globalization;
-using System.Text.Json.Serialization;
 using Apache.Arrow;
 using Apache.Arrow.Types;
 using NimbleBlazor;
