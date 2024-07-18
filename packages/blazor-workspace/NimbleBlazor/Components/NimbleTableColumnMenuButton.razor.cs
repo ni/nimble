@@ -36,7 +36,7 @@ public partial class NimbleTableColumnMenuButton : NimbleTableColumn, IFractiona
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
-    /// Gets or sets a callback that's invoked when 'open' changes on a menu button within the column.
+    /// Gets or sets a callback that's invoked when then 'open' state changes on a menu button within the column.
     /// </summary>
     [Parameter]
     public EventCallback<TableColumnMenuButtonToggleEventArgs> MenuButtonColumnToggle { get; set; }

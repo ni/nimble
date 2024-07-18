@@ -68,7 +68,7 @@ public partial class ComponentsDemo
         await base.OnAfterRenderAsync(firstRender);
     }
 
-    private async Task OnMenuButtonColumnBeforeToggleAsync(TableColumnMenuButtonToggleEventArgs e)
+    private async void OnMenuButtonColumnBeforeToggle(TableColumnMenuButtonToggleEventArgs e)
     {
         if (e.NewState == false)
         {
@@ -84,7 +84,7 @@ public partial class ComponentsDemo
         CurrentColor = openRecord.Color;
     }
 
-    private void OnColorMenuItemChange(DemoColor color)
+    private void OnColorSelected(DemoColor color)
     {
         var openRecord = TableData.First(x => x.Id == OpenMenuButtonColumnRecordId);
         if (openRecord == null)
@@ -342,8 +342,7 @@ public class SimpleTableRecord
         Result = result;
         Number = number;
         Duration = duration;
-        ColorString = Enum.GetName(typeof(DemoColor), color)!;
-        Color = color;
+        UpdateColor(color);
     }
 
     public void UpdateColor(DemoColor newColor)

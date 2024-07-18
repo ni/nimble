@@ -275,7 +275,7 @@
                 <NimbleTableColumnNumberText FieldName="Number">Number</NimbleTableColumnNumberText>
                 <NimbleTableColumnDurationText FieldName="Duration">Duration</NimbleTableColumnDurationText>
                 <NimbleTableColumnText FieldName="StringValue2" MinPixelWidth="400" GroupIndex="0">String 2</NimbleTableColumnText>
-                <NimbleTableColumnMenuButton FieldName="ColorString" MenuSlot="color-menu" MenuButtonColumnBeforeToggle="OnMenuButtonColumnBeforeToggleAsync">Color</NimbleTableColumnMenuButton>
+                <NimbleTableColumnMenuButton FieldName="ColorString" MenuSlot="color-menu" MenuButtonColumnBeforeToggle="OnMenuButtonColumnBeforeToggle">Color</NimbleTableColumnMenuButton>
 
                 <NimbleMenu slot="action-menu">
                     <NimbleMenuItem>Item 1</NimbleMenuItem>
@@ -286,7 +286,7 @@
                 <NimbleMenu slot="color-menu">
                     @foreach(var color in PossibleColors)
                     {
-                        <NimbleMenuItem @onchange=@(_ => OnColorMenuItemChange(color))>
+                        <NimbleMenuItem @onchange=@(_ => OnColorSelected(color))>
                             <NimbleIconCheck style=@(color == CurrentColor ? "" : "visibility: hidden;") slot="start"></NimbleIconCheck>
                             @color
                         </NimbleMenuItem>
