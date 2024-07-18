@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Wed, 17 Jul 2024 21:19:45 GMT",
+      "version": "30.0.4",
+      "tag": "@ni/nimble-components_v30.0.4",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "120ac65f72158ebe9d906da156167eda14d3614b",
+            "comment": "Refinements to table selection when using SHIFT"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 17 Jul 2024 20:17:16 GMT",
       "version": "30.0.3",
       "tag": "@ni/nimble-components_v30.0.3",

@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Wed, 17 Jul 2024 20:17:16 GMT and should not be manually modified.
+This log was last generated on Wed, 17 Jul 2024 21:19:45 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 30.0.4
+
+Wed, 17 Jul 2024 21:19:45 GMT
+
+### Patches
+
+- Refinements to table selection when using SHIFT ([ni/nimble@120ac65](https://github.com/ni/nimble/commit/120ac65f72158ebe9d906da156167eda14d3614b))
 
 ## 30.0.3
 
