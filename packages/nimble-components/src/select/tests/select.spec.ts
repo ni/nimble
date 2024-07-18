@@ -1045,12 +1045,12 @@ describe('Select', () => {
                 expect(pageObject.isNoResultsLabelVisible()).toBeTrue();
             });
 
-            it('entering filter text with matches does not display "not items found" element', async () => {
+            it('entering filter text with matches does not display "no items found" element', async () => {
                 await pageObject.openAndSetFilterText('T');
                 expect(pageObject.isNoResultsLabelVisible()).toBeFalse();
             });
 
-            it('opening dropdown with no filter does not display "not items found" element', async () => {
+            it('opening dropdown with no filter does not display "no items found" element', async () => {
                 await clickAndWaitForOpen(element);
                 expect(pageObject.isNoResultsLabelVisible()).toBeFalse();
             });

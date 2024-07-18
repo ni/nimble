@@ -244,6 +244,33 @@ describe('Combobox', () => {
             );
         });
 
+        it('shows "no items found" in dropdown when typed text matches nothing', async () => {
+            element.autocomplete = ComboboxAutocomplete.both;
+            pageObject.setInputText('zzz');
+            await waitForUpdatesAsync();
+            expect(pageObject.isNoResultsLabelVisible()).toBeTrue();
+        });
+
+        it('does not show "no items found" in dropdown when typed text matches something', async () => {
+            element.autocomplete = ComboboxAutocomplete.both;
+            pageObject.setInputText('o'); // matches "One"
+            await waitForUpdatesAsync();
+            expect(pageObject.isNoResultsLabelVisible()).toBeFalse();
+        });
+
+        it('does not show "no items found" in dropdown when input is empty', async () => {
+            element.autocomplete = ComboboxAutocomplete.both;
+            await pageObject.clickAndWaitForOpen();
+            expect(pageObject.isNoResultsLabelVisible()).toBeFalse();
+        });
+
+        it('shows "no items found" in dropdown after hiding all options', async () => {
+            pageObject.hideAllOptions();
+            pageObject.setInputText('');
+            await pageObject.clickAndWaitForOpen();
+            expect(pageObject.isNoResultsLabelVisible()).toBeTrue();
+        });
+
         it('emits one change event after changing value through text entry', async () => {
             const changeEvent = jasmine.createSpy();
             element.addEventListener('change', changeEvent);
