@@ -360,7 +360,7 @@ public class SimpleTableRecord
     public string Result { get; }
     public double Number { get; }
     public double Duration { get; }
-    public string ColorString { get; private set; } = String.Empty;
+    public string ColorString { get; private set; } = string.Empty;
     public DemoColor Color { get; private set; }
 }
 
