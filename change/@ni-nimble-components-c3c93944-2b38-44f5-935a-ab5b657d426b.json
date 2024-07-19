@@ -1,6 +1,6 @@
 {
   "type": "patch",
-  "comment": "Update all dependencies and pin tanstack to avoid bug",
+  "comment": "Update all dependencies and pin tanstack to avoid bug.",
   "packageName": "@ni/nimble-components",
   "email": "7282195+m-akinc@users.noreply.github.com",
   "dependentChangeType": "patch"
