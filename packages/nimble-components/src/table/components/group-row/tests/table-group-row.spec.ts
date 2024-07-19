@@ -1,6 +1,6 @@
 import { html } from '@microsoft/fast-element';
 import { TableGroupRow } from '..';
-import { createEventListener } from '../../../../utilities/tests/component';
+import { createEventListener } from '../../../../utilities/testing/component';
 import { fixture, Fixture } from '../../../../utilities/tests/fixture';
 import { waitForUpdatesAsync } from '../../../../testing/async-helpers';
 import {

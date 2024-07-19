@@ -10,7 +10,7 @@ import type { TableCellRecord } from '../../../../table-column/base/types';
 import { TableCellPageObject } from './table-cell.pageobject';
 import { TableCellView } from '../../../../table-column/base/cell-view';
 import { createCellViewTemplate } from '../../../../table-column/base/cell-view/template';
-import { createEventListener } from '../../../../utilities/tests/component';
+import { createEventListener } from '../../../../utilities/testing/component';
 
 interface SimpleTableCellRecord extends TableCellRecord {
     stringData: string;

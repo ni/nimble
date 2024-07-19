@@ -33,7 +33,7 @@ import { TablePageObject } from '../testing/table.pageobject';
 import {
     createEventListener,
     sendKeyDownEvent
-} from '../../utilities/tests/component';
+} from '../../utilities/testing/component';
 import { TableRow } from '../components/row';
 import { TableCell } from '../components/cell';
 import { TableCellView } from '../../table-column/base/cell-view';

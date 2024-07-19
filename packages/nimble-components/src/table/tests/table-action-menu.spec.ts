@@ -8,7 +8,7 @@ import {
 import type { Table } from '..';
 import type { TableColumn } from '../../table-column/base';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
-import { createEventListener } from '../../utilities/tests/component';
+import { createEventListener } from '../../utilities/testing/component';
 import { type Fixture, fixture } from '../../utilities/tests/fixture';
 import {
     TableActionMenuToggleEventDetail,

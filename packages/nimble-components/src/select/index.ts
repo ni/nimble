@@ -517,7 +517,7 @@ export class Select
                 o => !o.disabled
             );
             let activeOptionIndex = this.filter !== ''
-                ? this.openActiveIndex ?? this.selectedIndex
+                ? (this.openActiveIndex ?? this.selectedIndex)
                 : this.selectedIndex;
 
             if (

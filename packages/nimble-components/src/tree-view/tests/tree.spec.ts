@@ -2,7 +2,7 @@ import { html, ref } from '@microsoft/fast-element';
 import { notebook16X16 } from '@ni/nimble-tokens/dist/icons/js';
 import { keyEnter } from '@microsoft/fast-web-utilities';
 import { fixture, Fixture } from '../../utilities/tests/fixture';
-import { clickElement } from '../../utilities/tests/component';
+import { clickElement } from '../../utilities/testing/component';
 import { TreeViewSelectionMode } from '../types';
 import { TreeView, treeViewTag } from '..';
 import type { TreeItem } from '../../tree-item';

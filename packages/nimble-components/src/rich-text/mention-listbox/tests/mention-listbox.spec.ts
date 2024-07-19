@@ -6,7 +6,7 @@ import { listOptionTag } from '../../../list-option';
 import {
     createEventListener,
     waitAnimationFrame
-} from '../../../utilities/tests/component';
+} from '../../../utilities/testing/component';
 import { checkFullyInViewport } from '../../../utilities/tests/intersection-observer';
 
 describe('RichTextMentionListbox', () => {

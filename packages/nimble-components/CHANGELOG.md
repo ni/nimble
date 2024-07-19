@@ -1,8 +1,32 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Wed, 17 Jul 2024 21:19:45 GMT and should not be manually modified.
+This log was last generated on Fri, 19 Jul 2024 17:10:26 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 30.0.7
+
+Fri, 19 Jul 2024 17:10:26 GMT
+
+### Patches
+
+- Move internal testing API to folder that gets included in build output ([ni/nimble@6f5c329](https://github.com/ni/nimble/commit/6f5c329f4e463b5c329b6f775073f1d2e4020287))
+
+## 30.0.6
+
+Fri, 19 Jul 2024 16:34:38 GMT
+
+### Patches
+
+- Add new SelectPageObject API for setting filter text. ([ni/nimble@93d147a](https://github.com/ni/nimble/commit/93d147ad124b395355397dd6639b519a38f60729))
+
+## 30.0.5
+
+Fri, 19 Jul 2024 15:56:58 GMT
+
+### Patches
+
+- Update all dependencies and pin tanstack to avoid bug. ([ni/nimble@2ce3e24](https://github.com/ni/nimble/commit/2ce3e24de6d0c80461b6a1c3aacb8ee0fd418e89))
 
 ## 30.0.4
 
