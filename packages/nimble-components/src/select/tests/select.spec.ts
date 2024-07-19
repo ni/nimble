@@ -2063,5 +2063,20 @@ describe('Select', () => {
             const optionLabels = pageObject.getGroupOptionLabelsByLabel('Group Two');
             expect(optionLabels).toEqual(['Three', 'Four']);
         });
+
+        fit('exercise setFilter', () => {
+            const filterInputListener = createEventListener(
+                element,
+                'filter-input'
+            );
+            pageObject.clickSelect();
+            pageObject.setFilter('Two');
+
+            expect(filterInputListener.spy).toHaveBeenCalledOnceWith(
+                jasmine.objectContaining({
+                    detail: { filterText: 'Two' }
+                })
+            );
+        });
     });
 });

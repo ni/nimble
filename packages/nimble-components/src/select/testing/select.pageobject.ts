@@ -277,17 +277,37 @@ export class SelectPageObject {
         await waitForUpdatesAsync();
     }
 
-    public clearFilter(): void {
+    /**
+     * This method will set the filter input value to the provided text, which
+     * will result in the synchronous dispatch of the 'filter-input' event. The
+     * dropdown must be open for this method to work.
+     * @param filterText
+     */
+    public setFilter(filterText: string): void {
         if (this.selectElement.filterMode === FilterMode.none) {
             throw new Error(
                 'Select has filterMode of "none" so there is no filter input'
             );
         }
+
+        if (!this.selectElement.open) {
+            throw new Error('Select must be open to set filter text');
+        }
+
         const filterInput = this.getFilterInput();
-        filterInput!.value = '';
+        filterInput!.value = filterText;
         filterInput?.dispatchEvent(
             new InputEvent('input', { inputType: 'deleteContentBackward' })
         );
+    }
+
+    /**
+     * This method will clear any present filter text, which will result in the
+     * synchronous dispatch of the 'filter-input' event. The dropdown must be
+     * open for this method to work.
+     */
+    public clearFilter(): void {
+        this.setFilter('');
     }
 
     public isDropdownVisible(): boolean {
