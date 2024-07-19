@@ -173,3 +173,4 @@ SelectOptions
         </${anchoredRegionTag}>
     </template>
 `;
+/* eslint-enable @typescript-eslint/indent */

@@ -117,3 +117,4 @@ export class ManuallyTranslatedScaledUnitFormat extends ScaledUnitFormat {
         );
     }
 }
+/* eslint-enable max-classes-per-file */
