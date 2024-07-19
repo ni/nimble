@@ -23,7 +23,8 @@ import {
     errorTextDescription,
     errorVisibleDescription,
     incubatingWarning,
-    placeholderDescription
+    placeholderDescription,
+    validityDescription
 } from '../../../utilities/storybook';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
@@ -84,12 +85,6 @@ Nimble will set the height of the buttons to \`$ni-nimble-control-slim-height\`.
 Note: The content in the \`footer-actions\` slot will not adjust based on the state of the rich text editor (e.g. disabled). It is the responsibility of the
 client application to make any necessary adjustments. For example, if the buttons should be disabled when the rich text editor is disabled, the
 client application must implement that functionality.
-`;
-
-const validityDescription = `Readonly object of boolean values that represents the validity states that the editor's configuration can be in.
-The object's type is \`RichTextValidity\`, and it contains the following boolean properties:
--   \`invalidMentionConfiguration\`: \`true\` when a mention configuration is invalid. Call \`checkValidity()\` on each mention component to see which configuration is invalid, and read the \`validity\` property of that mention for details about why it's invalid.
--   \`duplicateMentionConfiguration\`: \`true\` if more than one of the same type of mention configuration element is provided
 `;
 
 const metadata: Meta<RichTextEditorArgs> = {
@@ -232,7 +227,22 @@ const metadata: Meta<RichTextEditorArgs> = {
             table: { category: apiCategory.events }
         },
         validity: {
-            description: validityDescription,
+            description: validityDescription({
+                colloquialName: 'editor',
+                validityObjectType: 'RichTextValidity',
+                validityFlags: [
+                    {
+                        flagName: 'invalidMentionConfiguration',
+                        description:
+                            "`true` when a mention configuration is invalid. Call `checkValidity()` on each mention component to see which configuration is invalid, and read the `validity` property of that mention for details about why it's invalid."
+                    },
+                    {
+                        flagName: 'duplicateMentionConfiguration',
+                        description:
+                            '`true` if more than one of the same type of mention configuration element is provided'
+                    }
+                ]
+            }),
             control: false,
             table: { category: apiCategory.nonAttributeProperties }
         },

@@ -1,8 +1,105 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Wed, 03 Jul 2024 20:37:08 GMT and should not be manually modified.
+This log was last generated on Wed, 17 Jul 2024 21:19:45 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 30.0.4
+
+Wed, 17 Jul 2024 21:19:45 GMT
+
+### Patches
+
+- Refinements to table selection when using SHIFT ([ni/nimble@120ac65](https://github.com/ni/nimble/commit/120ac65f72158ebe9d906da156167eda14d3614b))
+
+## 30.0.3
+
+Wed, 17 Jul 2024 20:17:16 GMT
+
+### Patches
+
+- Remove reserved space for the table's "Collapse all" button when the table cannot have expandable rows ([ni/nimble@6984dd1](https://github.com/ni/nimble/commit/6984dd1666c287222e033decf8e8e911c6fe8757))
+
+## 30.0.2
+
+Wed, 17 Jul 2024 18:04:56 GMT
+
+### Patches
+
+- Consolidate tracking of slots in the table ([ni/nimble@6dcbd6c](https://github.com/ni/nimble/commit/6dcbd6c1e98c0d423374c9d0c866bc0771c42b8e))
+
+## 30.0.1
+
+Tue, 16 Jul 2024 23:53:30 GMT
+
+### Patches
+
+- Table: remove TableCellView.focusedRecycleCallback() and TableRow.closeOpenActionMenus(). The table now focuses the active cell when the table is scrolled, which has the same effect (closing open menus and blurring active cell content). ([ni/nimble@fdd35c7](https://github.com/ni/nimble/commit/fdd35c7fae80e1f3dacfb083a004bdeab0468c26))
+
+## 30.0.0
+
+Tue, 16 Jul 2024 22:30:23 GMT
+
+### Major changes
+
+- Updates to calendar and arrow icons. Clients using "nimble-icon-calendar" or "nimble-icon-arrow-u-rotate-left" must instead use "nimble-icon-calendar-days" and "nimble-icon-arrow-u-up" (respectively). ([ni/nimble@b28b651](https://github.com/ni/nimble/commit/b28b6513d47bd583e8767620cd6ef526fa3dddac))
+- Bump @ni/nimble-tokens to v7.0.0
+
+## 29.9.0
+
+Mon, 15 Jul 2024 21:21:46 GMT
+
+### Minor changes
+
+- Allow text column and anchor column to be sorted by custom data field ([ni/nimble@a25c549](https://github.com/ni/nimble/commit/a25c549530f3a26e5954c1bcbe10c649747140e2))
+
+## 29.8.2
+
+Thu, 11 Jul 2024 22:05:01 GMT
+
+### Patches
+
+- Fix table phantom multi-select ([ni/nimble@47f4c51](https://github.com/ni/nimble/commit/47f4c51194812ee74369de1e96346793d52e3ac3))
+
+## 29.8.1
+
+Thu, 11 Jul 2024 17:41:14 GMT
+
+### Patches
+
+- Align column header based on cell content alignment ([ni/nimble@8de093e](https://github.com/ni/nimble/commit/8de093ee0bc7ba8978adfcefcef943971e3eb29b))
+
+## 29.8.0
+
+Wed, 10 Jul 2024 16:23:39 GMT
+
+### Minor changes
+
+- Create menu-button table column ([ni/nimble@1007f6d](https://github.com/ni/nimble/commit/1007f6dcaf1077a0e75d6202b631db24a7d39fda))
+
+## 29.7.9
+
+Wed, 10 Jul 2024 15:47:23 GMT
+
+### Patches
+
+- Change so that Select change event occurs before filter-input event ([ni/nimble@9abc399](https://github.com/ni/nimble/commit/9abc3991f4594534b5903e2a7c0913fce72b362f))
+
+## 29.7.8
+
+Mon, 08 Jul 2024 22:43:30 GMT
+
+### Patches
+
+- Confine rich-text mention listbox to viewport ([ni/nimble@e892807](https://github.com/ni/nimble/commit/e89280785b3baf4f6acfc3c6677fe8580600ba09))
+
+## 29.7.7
+
+Mon, 08 Jul 2024 20:36:03 GMT
+
+### Patches
+
+- Bump @ni/nimble-tokens to v6.15.1
 
 ## 29.7.6
 

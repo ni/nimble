@@ -1,8 +1,24 @@
 # Change Log - @ni/nimble-tokens
 
-This log was last generated on Thu, 06 Jun 2024 17:29:15 GMT and should not be manually modified.
+This log was last generated on Tue, 16 Jul 2024 22:30:23 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 7.0.0
+
+Tue, 16 Jul 2024 22:30:23 GMT
+
+### Major changes
+
+- Updates to calendar and arrow icons. Clients using "nimble-icon-calendar" or "nimble-icon-arrow-u-rotate-left" must instead use "nimble-icon-calendar-days" and "nimble-icon-arrow-u-up" (respectively). ([ni/nimble@b28b651](https://github.com/ni/nimble/commit/b28b6513d47bd583e8767620cd6ef526fa3dddac))
+
+## 6.15.1
+
+Mon, 08 Jul 2024 20:36:03 GMT
+
+### Patches
+
+- Delete NimbleTokens Nuget and clean up generation scripts for @ni/nimble-tokens npm package ([ni/nimble@ecf2bf6](https://github.com/ni/nimble/commit/ecf2bf6f026ef1fbcfe8d81ef80ede7f9ed241b0))
 
 ## 6.15.0
 

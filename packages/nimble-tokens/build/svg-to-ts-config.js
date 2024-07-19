@@ -4,7 +4,7 @@ const iconAssetDir = path.resolve(__dirname, '../dist/icons/svg/*.svg');
 const outputDir = path.resolve(__dirname, '../dist/icons/ts/');
 
 console.log(`Icon asset directory :${iconAssetDir}`);
-console.log(`Output ico directory :${outputDir}`);
+console.log(`Output icon TypeScript directory :${outputDir}`);
 
 const svgToTsConfig = {
     srcFiles: [

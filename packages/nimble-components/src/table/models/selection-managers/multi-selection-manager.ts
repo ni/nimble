@@ -26,13 +26,13 @@ export class MultiSelectionManager<
         shiftKey: boolean
     ): boolean {
         if (shiftKey) {
-            if (this.tryUpdateRangeSelection(rowState.id)) {
+            if (this.tryUpdateRangeSelection(rowState.id, true)) {
                 // Made a range selection
                 return true;
             }
         }
 
-        this.shiftSelectStartRowId = rowState.id;
+        this.shiftSelectStartRowId = isSelecting ? rowState.id : undefined;
         this.previousShiftSelectRowEndId = undefined;
         this.toggleIsRowSelected(rowState, isSelecting);
         return true;
@@ -43,18 +43,20 @@ export class MultiSelectionManager<
         shiftKey: boolean,
         ctrlKey: boolean
     ): boolean {
-        if (ctrlKey) {
-            this.shiftSelectStartRowId = rowState.id;
-            this.previousShiftSelectRowEndId = undefined;
-            this.toggleIsRowSelected(rowState);
-            return true;
-        }
-
         if (shiftKey) {
-            if (this.tryUpdateRangeSelection(rowState.id)) {
+            const additiveSelection = ctrlKey;
+            if (this.tryUpdateRangeSelection(rowState.id, additiveSelection)) {
                 // Made a range selection
                 return true;
             }
+        }
+
+        if (ctrlKey) {
+            const isSelecting = rowState.selectionState !== TableRowSelectionState.selected;
+            this.shiftSelectStartRowId = isSelecting ? rowState.id : undefined;
+            this.previousShiftSelectRowEndId = undefined;
+            this.toggleIsRowSelected(rowState);
+            return true;
         }
 
         this.shiftSelectStartRowId = rowState.id;
@@ -74,7 +76,10 @@ export class MultiSelectionManager<
         this.previousShiftSelectRowEndId = undefined;
     }
 
-    private tryUpdateRangeSelection(rowId: string): boolean {
+    private tryUpdateRangeSelection(
+        rowId: string,
+        additiveSelection: boolean
+    ): boolean {
         if (this.shiftSelectStartRowId === undefined) {
             return false;
         }
@@ -88,12 +93,19 @@ export class MultiSelectionManager<
             return false;
         }
 
-        const selectionState = this.tanStackTable.getState().rowSelection;
-        this.removePreviousRangeSelection(
-            selectionState,
-            selectionStartIndex,
-            allRows
-        );
+        let selectionState: TanStackRowSelectionState = {};
+        if (additiveSelection) {
+            // If the range selection is additive to the existing selection, start with the initial selection state
+            // and remove the previous range selection, if any. Otherwise, the range selection will start empty and
+            // only contain the new range selection.
+            selectionState = this.tanStackTable.getState().rowSelection;
+            this.removePreviousRangeSelection(
+                selectionState,
+                selectionStartIndex,
+                allRows
+            );
+        }
+
         this.addNewRangeSelection(
             selectionState,
             rowId,

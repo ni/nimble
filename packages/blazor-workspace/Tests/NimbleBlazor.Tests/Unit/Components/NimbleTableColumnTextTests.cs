@@ -72,3 +72,10 @@ public class NimbleTableColumnTextGroupableTests : GroupableBaseTests<NimbleTabl
 public class NimbleTableColumnTextSortableTests : SortableBaseTests<NimbleTableColumnText>
 {
 }
+
+/// <summary>
+/// Tests for CustomSortOrderAPI on <see cref="NimbleTableColumnText"/>
+/// </summary>
+public class NimbleTableColumnTextCustomSortOrderTests : CustomSortOrderBaseTests<NimbleTableColumnText>
+{
+}

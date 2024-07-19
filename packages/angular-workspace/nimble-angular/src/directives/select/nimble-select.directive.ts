@@ -1,11 +1,11 @@
 import { Directive, ElementRef, Input, Renderer2 } from '@angular/core';
 import { type Select, selectTag } from '@ni/nimble-components/dist/esm/select';
-import { FilterMode } from '@ni/nimble-components/dist/esm/select/types';
+import { FilterMode, SelectFilterInputEventDetail } from '@ni/nimble-components/dist/esm/select/types';
 import type { DropdownAppearance } from '@ni/nimble-components/dist/esm/patterns/dropdown/types';
 import { BooleanValueOrAttribute, toBooleanProperty } from '@ni/nimble-angular/internal-utilities';
 
 export type { Select };
-export { FilterMode };
+export { FilterMode, SelectFilterInputEventDetail };
 export { selectTag };
 
 /**
@@ -61,6 +61,14 @@ export class NimbleSelectDirective {
 
     @Input('error-visible') public set errorVisible(value: BooleanValueOrAttribute) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'errorVisible', toBooleanProperty(value));
+    }
+
+    public get loadingVisible(): boolean {
+        return this.elementRef.nativeElement.loadingVisible;
+    }
+
+    @Input('loading-visible') public set loadingVisible(value: BooleanValueOrAttribute) {
+        this.renderer.setProperty(this.elementRef.nativeElement, 'loadingVisible', toBooleanProperty(value));
     }
 
     public constructor(private readonly renderer: Renderer2, private readonly elementRef: ElementRef<Select>) {}

@@ -183,6 +183,13 @@
                     <nimble-list-option>Option 4</nimble-list-option>
                 </nimble-list-option-group>
             </nimble-select>
+            <div class="sub-container">
+            <div class="container-label">Select with dynamic options</div>
+                <nimble-select #dynamicSelect appearance="underline" filter-mode="manual" [(ngModel)]="dynamicSelectValue" (filter-input)="onDynamicSelectFilterInput($event)">
+                    <nimble-list-option hidden selected disabled [ngValue]="dynamicSelectPlaceholderValue">Select an option</nimble-list-option>
+                    <nimble-list-option #dynamicOptions *ngFor="let item of dynamicSelectItems" [ngValue]="item" [hidden]="shouldHideItem(item)">{{ item.first }} {{ item.last }}</nimble-list-option>
+                </nimble-select>
+            </div>
         </div>
         <div class="sub-container">
             <div class="container-label">Combobox</div>
@@ -304,11 +311,23 @@
                     Duration
                 </nimble-table-column-duration-text>
                 <nimble-table-column-text field-name="stringValue2" min-pixel-width="400" group-index="0">String 2</nimble-table-column-text>
+                <nimble-table-column-menu-button field-name="color" menu-slot="color-menu"
+                    (menu-button-column-beforetoggle)="onMenuButtonColumnBeforeToggle($event)"
+                >
+                    Color
+                </nimble-table-column-menu-button>
 
                 <nimble-menu slot="action-menu">
                     <nimble-menu-item>Item 1</nimble-menu-item>
                     <nimble-menu-item>Item 2</nimble-menu-item>
                     <nimble-menu-item>Item 3</nimble-menu-item>
+                </nimble-menu>
+
+                <nimble-menu slot="color-menu">
+                    <nimble-menu-item *ngFor="let color of possibleColors" (change)="onColorSelected(color)">
+                        <nimble-icon-check [style.visibility]="color === currentColor ? 'visible' : 'hidden'" slot="start"></nimble-icon-check>
+                        {{ color }}
+                    </nimble-menu-item>
                 </nimble-menu>
             </nimble-table>
             <nimble-button class="add-table-row-button" (click)="addTableRows(10)">Add rows</nimble-button>

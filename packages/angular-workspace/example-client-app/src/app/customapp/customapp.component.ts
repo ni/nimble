@@ -1,10 +1,14 @@
 /* eslint-disable no-alert */
 import { AfterViewInit, Component, Inject, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { DrawerLocation, MenuItem, NimbleDialogDirective, NimbleDrawerDirective, OptionNotFound, OPTION_NOT_FOUND, UserDismissed } from '@ni/nimble-angular';
+import { DrawerLocation, MenuItem, NimbleDialogDirective, NimbleDrawerDirective, OptionNotFound, OPTION_NOT_FOUND, UserDismissed, SelectFilterInputEventDetail, NimbleSelectDirective } from '@ni/nimble-angular';
 import { NimbleTableDirective, TableRecordDelayedHierarchyState, TableRecord, TableRowExpansionToggleEventDetail, TableSetRecordHierarchyOptions } from '@ni/nimble-angular/table';
 import { NimbleRichTextEditorDirective } from '@ni/nimble-angular/rich-text/editor';
 import { BehaviorSubject, Observable } from 'rxjs';
+import type { MenuButtonColumnToggleEventDetail } from '@ni/nimble-angular/table-column/menu-button';
+
+const colors = ['Red', 'Green', 'Blue', 'Black', 'Yellow'] as const;
+type Color = typeof colors[number];
 
 interface ComboboxItem {
     first: string;
@@ -23,6 +27,7 @@ interface SimpleTableRecord extends TableRecord {
     result: string;
     number: number;
     duration: number;
+    color: Color;
 }
 
 interface PersonTableRecord extends TableRecord {
@@ -52,8 +57,12 @@ export class CustomAppComponent implements AfterViewInit {
         { first: 'Mister', last: 'Smithers' }
     ];
 
+    public dynamicSelectItems: ComboboxItem[] = [];
+
     public comboboxSelectedOption?: ComboboxItem;
     public comboboxSelectedLastName = this.comboboxSelectedOption?.last;
+    public dynamicSelectPlaceholderValue = null;
+    public dynamicSelectValue: ComboboxItem | null = null;
     public selectedRadio = 'mango';
     public activeTabId = 'tab-1';
     public activeAnchorTabId = 'a-tab-2';
@@ -70,6 +79,9 @@ export class CustomAppComponent implements AfterViewInit {
 6. @mention: <user:1>
 `;
 
+    public possibleColors = colors;
+    public currentColor?: Color;
+    public openMenuButtonColumnRecordId?: string;
     public readonly tableData$: Observable<SimpleTableRecord[]>;
     private readonly tableDataSubject = new BehaviorSubject<SimpleTableRecord[]>([]);
     private delayedHierarchyTableData: PersonTableRecord[] = [
@@ -99,6 +111,26 @@ export class CustomAppComponent implements AfterViewInit {
         },
     ];
 
+    private readonly availableSelectItems = [
+        { first: 'Homer', last: 'Simpson' },
+        { first: 'Marge', last: 'Simpson' },
+        { first: 'Bart', last: 'Simpson' },
+        { first: 'Lisa', last: 'Simpson' },
+        { first: 'Maggie', last: 'Simpson' },
+        { first: 'Mona', last: 'Simpson' },
+        { first: 'Jacqueline', last: 'Bouvier' },
+        { first: 'Selma', last: 'Bouvier' },
+        { first: 'Patty', last: 'Bouvier' },
+        { first: 'Abe', last: 'Simpson' },
+        { first: 'Ned', last: 'Flanders' },
+        { first: 'Maude', last: 'Flanders' },
+        { first: 'Rod', last: 'Flanders' },
+        { first: 'Todd', last: 'Flanders' }
+    ];
+
+    private readonly defaultDynamicSelectItems = this.availableSelectItems.slice(0, 5);
+    private dynamicSelectFilterTimeout?: number;
+    private hideSelectedItem = false;
     private readonly recordsLoadingChildren = new Set<string>();
     private readonly recordsWithLoadedChildren = new Set<string>();
 
@@ -106,10 +138,12 @@ export class CustomAppComponent implements AfterViewInit {
     @ViewChild('drawer', { read: NimbleDrawerDirective }) private readonly drawer: NimbleDrawerDirective<string>;
     @ViewChild('editor', { read: NimbleRichTextEditorDirective }) private readonly editor: NimbleRichTextEditorDirective;
     @ViewChild('delayedHierarchyTable', { read: NimbleTableDirective }) private readonly delayedHierarchyTable: NimbleTableDirective<PersonTableRecord>;
+    @ViewChild('dynamicSelect', { read: NimbleSelectDirective }) private readonly dynamicSelect: NimbleSelectDirective;
 
     public constructor(@Inject(ActivatedRoute) public readonly route: ActivatedRoute) {
         this.tableData$ = this.tableDataSubject.asObservable();
         this.addTableRows(10);
+        this.dynamicSelectItems = this.defaultDynamicSelectItems;
     }
 
     public ngAfterViewInit(): void {
@@ -119,6 +153,31 @@ export class CustomAppComponent implements AfterViewInit {
     public onMenuButtonMenuChange(event: Event): void {
         const menuItemText = (event.target as MenuItem).innerText;
         alert(`${menuItemText} selected`);
+    }
+
+    public onDynamicSelectFilterInput(e: Event): void {
+        const event = e as CustomEvent<SelectFilterInputEventDetail>;
+        const filter = event.detail.filterText;
+        if (filter.length > 0) {
+            window.clearTimeout(this.dynamicSelectFilterTimeout);
+            this.dynamicSelect.loadingVisible = true;
+            this.dynamicSelectFilterTimeout = window.setTimeout(() => {
+                // do your custom filtering here
+                const filteredItems = this.availableSelectItems.filter(item => item.first.concat(item.last).toLowerCase().includes(filter.toLowerCase()));
+                this.setDynamicSelectItems(filteredItems);
+                this.hideSelectedItem = this.dynamicSelectValue ? !filteredItems.includes(this.dynamicSelectValue) : false;
+                this.dynamicSelect.loadingVisible = false;
+            }, 2000); // simulate async loading with debounce
+        } else {
+            this.hideSelectedItem = false;
+            window.clearTimeout(this.dynamicSelectFilterTimeout);
+            this.setDynamicSelectItems(this.defaultDynamicSelectItems);
+            this.dynamicSelect.loadingVisible = false;
+        }
+    }
+
+    public shouldHideItem(value: ComboboxItem): boolean {
+        return this.hideSelectedItem && value === this.dynamicSelectValue;
     }
 
     public onComboboxChange(value: ComboboxItem | OptionNotFound): void {
@@ -166,10 +225,36 @@ export class CustomAppComponent implements AfterViewInit {
                 statusCode: (tableData.length % 2 === 0) ? 100 : 101,
                 result: possibleStatuses[tableData.length % 3],
                 number: tableData.length / 10,
-                duration: tableData.length * 1000 * (1.1 + 2 * 60 + 3 * 3600)
+                duration: tableData.length * 1000 * (1.1 + 2 * 60 + 3 * 3600),
+                color: colors[tableData.length % colors.length]
             });
         }
         this.tableDataSubject.next(tableData);
+    }
+
+    public onMenuButtonColumnBeforeToggle(event: Event): void {
+        const customEvent = event as CustomEvent<MenuButtonColumnToggleEventDetail>;
+        if (customEvent.detail.newState) {
+            this.openMenuButtonColumnRecordId = customEvent.detail.recordId;
+
+            const tableData = this.tableDataSubject.value;
+            const currentRecord = tableData.find(record => record.id === customEvent.detail.recordId)!;
+            this.currentColor = currentRecord.color;
+        }
+    }
+
+    public onColorSelected(color: Color): void {
+        if (!this.openMenuButtonColumnRecordId) {
+            return;
+        }
+
+        const updatedData = this.tableDataSubject.value.map(record => {
+            if (record.id === this.openMenuButtonColumnRecordId) {
+                return { ...record, color };
+            }
+            return record;
+        });
+        this.tableDataSubject.next(updatedData);
     }
 
     public loadRichTextEditorContent(): void {
@@ -197,6 +282,14 @@ export class CustomAppComponent implements AfterViewInit {
                 this.recordsWithLoadedChildren.add(recordId);
                 void this.updateDelayedHierarchyTable();
             }, 1500);
+        }
+    }
+
+    private setDynamicSelectItems(dynamicSelectItems: ComboboxItem[]): void {
+        if (this.dynamicSelectValue && !dynamicSelectItems.includes(this.dynamicSelectValue)) {
+            this.dynamicSelectItems = [...dynamicSelectItems, this.dynamicSelectValue];
+        } else {
+            this.dynamicSelectItems = dynamicSelectItems;
         }
     }
 

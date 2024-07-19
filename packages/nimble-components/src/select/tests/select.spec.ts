@@ -655,10 +655,15 @@ describe('Select', () => {
             return fixture<Select>(viewTemplate);
         }
 
-        it('should limit dropdown height to viewport', async () => {
+        // Intermittent, see: https://github.com/ni/nimble/issues/2269
+        it('should limit dropdown height to viewport #SkipWebkit', async () => {
             const { element, connect, disconnect } = await setup500Options();
             await connect();
             await clickAndWaitForOpen(element);
+            element.listbox.style.setProperty(
+                '--ni-private-listbox-visible-option-count',
+                '10000'
+            );
             const fullyVisible = await checkFullyInViewport(element.listbox);
 
             expect(element.scrollableRegion.scrollHeight).toBeGreaterThan(
@@ -669,7 +674,8 @@ describe('Select', () => {
             await disconnect();
         });
 
-        it('should scroll the selected option into view when opened', async () => {
+        // Intermittent, see: https://github.com/ni/nimble/issues/2274
+        it('should scroll the selected option into view when opened #SkipWebkit', async () => {
             const { element, connect, disconnect } = await setup500Options();
             element.value = '300';
             await connect();
@@ -704,7 +710,8 @@ describe('Select', () => {
             return fixture<Select>(viewTemplate);
         }
 
-        it('should not confine dropdown to div with "overflow: auto"', async () => {
+        // Intermittent, see: https://github.com/ni/nimble/issues/2272
+        it('should not confine dropdown to div with "overflow: auto" #SkipWebkit', async () => {
             const { element, connect, disconnect } = await setupInDiv();
             const select: Select = element.querySelector(selectTag)!;
             await connect();
@@ -1326,7 +1333,7 @@ describe('Select', () => {
                 const filterInputEvent = jasmine.createSpy();
                 element.addEventListener('filter-input', filterInputEvent);
                 await pageObject.openAndSetFilterText('o');
-                await pageObject.closeDropdown();
+                await pageObject.clickAway();
                 expect(filterInputEvent).toHaveBeenCalledTimes(2);
                 expect(
                     (
@@ -1988,6 +1995,71 @@ describe('Select', () => {
                 await pageObject.openAndSetFilterText('one');
                 const filteredOptions = pageObject.getFilteredOptions();
                 expect(filteredOptions.length).toBe(8);
+            });
+
+            it('when clicking value, filter-input event occurs after value has been updated', async () => {
+                await clickAndWaitForOpen(element);
+                const eventSpy = jasmine.createSpy();
+                element.addEventListener('filter-input', eventSpy);
+                element.addEventListener('change', eventSpy);
+
+                pageObject.clickOptionWithDisplayText('Two');
+                expect(eventSpy).toHaveBeenCalledTimes(2);
+                expect((eventSpy.calls.argsFor(0)[0] as CustomEvent).type).toBe(
+                    'change'
+                );
+                expect((eventSpy.calls.argsFor(1)[0] as CustomEvent).type).toBe(
+                    'filter-input'
+                );
+            });
+
+            it('when selecting a value with <Enter>, filter-input event occurs after value has been updated', async () => {
+                await clickAndWaitForOpen(element);
+                const eventSpy = jasmine.createSpy();
+                element.addEventListener('filter-input', eventSpy);
+                element.addEventListener('change', eventSpy);
+
+                pageObject.pressArrowDownKey();
+                pageObject.pressEnterKey();
+                expect(eventSpy).toHaveBeenCalledTimes(2);
+                expect((eventSpy.calls.argsFor(0)[0] as CustomEvent).type).toBe(
+                    'change'
+                );
+                expect((eventSpy.calls.argsFor(1)[0] as CustomEvent).type).toBe(
+                    'filter-input'
+                );
+            });
+
+            it('pressing <Esc> issues one filter-input event with empty filterText', async () => {
+                await clickAndWaitForOpen(element);
+                const filterInputEventListener = createEventListener(
+                    element,
+                    'filter-input'
+                );
+                pageObject.pressEscapeKey();
+                const expectedDetails: SelectFilterInputEventDetail = {
+                    filterText: ''
+                };
+                const event = filterInputEventListener.spy.calls.first()
+                    .args[0] as CustomEvent;
+                expect(filterInputEventListener.spy).toHaveBeenCalledTimes(1);
+                expect(event.detail).toEqual(expectedDetails);
+            });
+
+            it('clicking outside of dropdown issues one filter-input event with empty filterText', async () => {
+                await clickAndWaitForOpen(element);
+                const filterInputEventListener = createEventListener(
+                    element,
+                    'filter-input'
+                );
+                await pageObject.clickAway();
+                const expectedDetails: SelectFilterInputEventDetail = {
+                    filterText: ''
+                };
+                const event = filterInputEventListener.spy.calls.first()
+                    .args[0] as CustomEvent;
+                expect(filterInputEventListener.spy).toHaveBeenCalledTimes(1);
+                expect(event.detail).toEqual(expectedDetails);
             });
         });
     });

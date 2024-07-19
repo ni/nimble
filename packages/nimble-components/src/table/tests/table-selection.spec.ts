@@ -1,8 +1,12 @@
 import { html } from '@microsoft/fast-element';
+import { keyArrowDown, keySpace, keyTab } from '@microsoft/fast-web-utilities';
 import { parameterizeSpec } from '@ni/jasmine-parameterized';
 import { Table, tableTag } from '..';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
-import { createEventListener } from '../../utilities/tests/component';
+import {
+    createEventListener,
+    sendKeyDownEvents
+} from '../../utilities/tests/component';
 import { type Fixture, fixture } from '../../utilities/tests/fixture';
 import {
     TableRecord,
@@ -1133,7 +1137,7 @@ describe('Table row selection', () => {
                         ).toBe(TableRowSelectionState.selected);
                     });
 
-                    it('selecting a range using SHIFT + click does not deselect existing selection', async () => {
+                    it('selecting a range using SHIFT + click does not deselect existing selection when ending the selection with a selection checkbox', async () => {
                         await element.setSelectedRecordIds(['0']);
                         await waitForUpdatesAsync();
 
@@ -1141,6 +1145,89 @@ describe('Table row selection', () => {
                         const lastRowToSelect = simpleTableData.length - 2;
                         const expectedSelection = [
                             '0',
+                            ...simpleTableData.slice(3, -1).map(x => x.id)
+                        ];
+
+                        // Select the first row while pressing CTRL so that the initial selection isn't cleared
+                        await pageObject.clickRow(firstRowToSelect, {
+                            ctrlKey: true
+                        });
+                        await selectionChangeListener.promise;
+
+                        const multiSelectListener = createEventListener(
+                            element,
+                            'selection-change'
+                        );
+                        pageObject.clickRowSelectionCheckbox(
+                            lastRowToSelect,
+                            true
+                        );
+                        await multiSelectListener.promise;
+
+                        const currentSelection = await element.getSelectedRecordIds();
+                        expect(currentSelection).toEqual(
+                            jasmine.arrayWithExactContents(expectedSelection)
+                        );
+                        expect(multiSelectListener.spy).toHaveBeenCalledTimes(
+                            1
+                        );
+                        const emittedIds = getEmittedRecordIdsFromSpy(
+                            multiSelectListener.spy
+                        );
+                        expect(emittedIds).toEqual(
+                            jasmine.arrayWithExactContents(expectedSelection)
+                        );
+                    });
+
+                    it('selecting a range using SHIFT + CTRL + click does not deselect existing selection when ending the selection with a row click', async () => {
+                        await element.setSelectedRecordIds(['0']);
+                        await waitForUpdatesAsync();
+
+                        const firstRowToSelect = 3;
+                        const lastRowToSelect = simpleTableData.length - 2;
+                        const expectedSelection = [
+                            '0',
+                            ...simpleTableData.slice(3, -1).map(x => x.id)
+                        ];
+
+                        // Select the first row while pressing CTRL so that the initial selection isn't cleared
+                        await pageObject.clickRow(firstRowToSelect, {
+                            ctrlKey: true
+                        });
+                        await selectionChangeListener.promise;
+
+                        const multiSelectListener = createEventListener(
+                            element,
+                            'selection-change'
+                        );
+                        await pageObject.clickRow(lastRowToSelect, {
+                            shiftKey: true,
+                            ctrlKey: true
+                        });
+                        await multiSelectListener.promise;
+
+                        const currentSelection = await element.getSelectedRecordIds();
+                        expect(currentSelection).toEqual(
+                            jasmine.arrayWithExactContents(expectedSelection)
+                        );
+                        expect(multiSelectListener.spy).toHaveBeenCalledTimes(
+                            1
+                        );
+                        const emittedIds = getEmittedRecordIdsFromSpy(
+                            multiSelectListener.spy
+                        );
+                        expect(emittedIds).toEqual(
+                            jasmine.arrayWithExactContents(expectedSelection)
+                        );
+                    });
+
+                    it('selecting a range using SHIFT + click deselects existing selection when ending the selection with a row click', async () => {
+                        await element.setSelectedRecordIds(['0']);
+                        await waitForUpdatesAsync();
+
+                        const firstRowToSelect = 3;
+                        const lastRowToSelect = simpleTableData.length - 2;
+                        const expectedSelection = [
                             ...simpleTableData.slice(3, -1).map(x => x.id)
                         ];
 
@@ -1400,6 +1487,72 @@ describe('Table row selection', () => {
                             jasmine.arrayWithExactContents(expectedSelection)
                         );
                     });
+
+                    it('SHIFT + click selects only the clicked row if the previous click deselected a row (by clicking the checkbox)', async () => {
+                        // Start with the first row selected
+                        await element.setSelectedRecordIds(['0']);
+                        await waitForUpdatesAsync();
+
+                        // Deselect the first row by clicking the selection checkbox
+                        pageObject.clickRowSelectionCheckbox(0);
+                        await selectionChangeListener.promise;
+
+                        // Shift + click a different row
+                        const shiftSelectListener = createEventListener(
+                            element,
+                            'selection-change'
+                        );
+                        await pageObject.clickRow(3, { shiftKey: true });
+                        await shiftSelectListener.promise;
+
+                        const expectedSelection = ['3'];
+                        const currentSelection = await element.getSelectedRecordIds();
+                        expect(currentSelection).toEqual(
+                            jasmine.arrayWithExactContents(expectedSelection)
+                        );
+                        expect(shiftSelectListener.spy).toHaveBeenCalledTimes(
+                            1
+                        );
+                        const emittedIds = getEmittedRecordIdsFromSpy(
+                            shiftSelectListener.spy
+                        );
+                        expect(emittedIds).toEqual(
+                            jasmine.arrayWithExactContents(expectedSelection)
+                        );
+                    });
+
+                    it('SHIFT + click selects only the clicked row if the previous click deselected the row (by CTRL + click)', async () => {
+                        // Start with the first row selected
+                        await element.setSelectedRecordIds(['0']);
+                        await waitForUpdatesAsync();
+
+                        // Deselect the first row by CTRL + clicking it
+                        await pageObject.clickRow(0, { ctrlKey: true });
+                        await selectionChangeListener.promise;
+
+                        // Shift + click a different row
+                        const shiftSelectListener = createEventListener(
+                            element,
+                            'selection-change'
+                        );
+                        await pageObject.clickRow(3, { shiftKey: true });
+                        await shiftSelectListener.promise;
+
+                        const expectedSelection = ['3'];
+                        const currentSelection = await element.getSelectedRecordIds();
+                        expect(currentSelection).toEqual(
+                            jasmine.arrayWithExactContents(expectedSelection)
+                        );
+                        expect(shiftSelectListener.spy).toHaveBeenCalledTimes(
+                            1
+                        );
+                        const emittedIds = getEmittedRecordIdsFromSpy(
+                            shiftSelectListener.spy
+                        );
+                        expect(emittedIds).toEqual(
+                            jasmine.arrayWithExactContents(expectedSelection)
+                        );
+                    });
                 });
 
                 it('can select multiple rows by clicking their selection checkboxes', async () => {
@@ -1429,6 +1582,53 @@ describe('Table row selection', () => {
                     expect(selectedRecordIds).toEqual(
                         jasmine.arrayWithExactContents(recordIds)
                     );
+                });
+
+                describe('with SHIFT pressed in the window then let go outside the window', () => {
+                    beforeEach(() => {
+                        const shiftKeyDownEvent = new KeyboardEvent('keydown', {
+                            key: keyTab, // could be any key
+                            shiftKey: true,
+                            bubbles: true
+                        } as KeyboardEventInit);
+                        window.dispatchEvent(shiftKeyDownEvent);
+                        window.dispatchEvent(new FocusEvent('blur'));
+                        // No SHIFT keyup event. This simulates the user letting go of the SHIFT key outside the window.
+                    });
+
+                    it('selects only the rows whose checkboxes were clicked', async () => {
+                        pageObject.clickRowSelectionCheckbox(0);
+                        pageObject.clickRowSelectionCheckbox(3);
+                        await waitForUpdatesAsync();
+
+                        const selectedRecordIds = await element.getSelectedRecordIds();
+                        expect(selectedRecordIds).toEqual(
+                            jasmine.arrayWithExactContents([
+                                simpleTableData[0].id,
+                                simpleTableData[3].id
+                            ])
+                        );
+                    });
+
+                    it('selects only the rows that SPACE was pressed on', async () => {
+                        element.focus();
+                        await sendKeyDownEvents(element, [
+                            keyArrowDown,
+                            keySpace,
+                            keyArrowDown,
+                            keyArrowDown,
+                            keyArrowDown,
+                            keySpace
+                        ]);
+
+                        const selectedRecordIds = await element.getSelectedRecordIds();
+                        expect(selectedRecordIds).toEqual(
+                            jasmine.arrayWithExactContents([
+                                simpleTableData[0].id,
+                                simpleTableData[3].id
+                            ])
+                        );
+                    });
                 });
 
                 describe('header selection checkbox', () => {

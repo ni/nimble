@@ -2,6 +2,36 @@
   "name": "@ni/nimble-tokens",
   "entries": [
     {
+      "date": "Tue, 16 Jul 2024 22:30:23 GMT",
+      "version": "7.0.0",
+      "tag": "@ni/nimble-tokens_v7.0.0",
+      "comments": {
+        "major": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "b28b6513d47bd583e8767620cd6ef526fa3dddac",
+            "comment": "Updates to calendar and arrow icons. Clients using \"nimble-icon-calendar\" or \"nimble-icon-arrow-u-rotate-left\" must instead use \"nimble-icon-calendar-days\" and \"nimble-icon-arrow-u-up\" (respectively)."
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 08 Jul 2024 20:36:03 GMT",
+      "version": "6.15.1",
+      "tag": "@ni/nimble-tokens_v6.15.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "ecf2bf6f026ef1fbcfe8d81ef80ede7f9ed241b0",
+            "comment": "Delete NimbleTokens Nuget and clean up generation scripts for @ni/nimble-tokens npm package"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 07 Jun 2024 17:53:20 GMT",
       "version": "6.15.0",
       "tag": "@ni/nimble-tokens_v6.15.0",

@@ -3,7 +3,11 @@ import { RichTextMentionListbox, richTextMentionListboxTag } from '..';
 import { waitForUpdatesAsync } from '../../../testing/async-helpers';
 import { type Fixture, fixture } from '../../../utilities/tests/fixture';
 import { listOptionTag } from '../../../list-option';
-import { waitAnimationFrame } from '../../../utilities/tests/component';
+import {
+    createEventListener,
+    waitAnimationFrame
+} from '../../../utilities/tests/component';
+import { checkFullyInViewport } from '../../../utilities/tests/intersection-observer';
 
 describe('RichTextMentionListbox', () => {
     it('should export its tag', () => {
@@ -45,15 +49,24 @@ describe('RichTextMentionListbox', () => {
         await waitAnimationFrame(); // necessary because scrolling is queued with requestAnimationFrame
     }
 
-    // Intermittent: see https://github.com/ni/nimble/issues/1891
-    xit('should scroll the selected option into view when opened', async () => {
+    async function showAndWaitForOpen(
+        listbox: RichTextMentionListbox,
+        anchor: HTMLElement
+    ): Promise<void> {
+        const regionLoadedListener = createEventListener(listbox, 'loaded');
+        listbox.show({
+            anchorNode: anchor,
+            filter: ''
+        });
+        await regionLoadedListener.promise;
+    }
+
+    // Intermittent, see: https://github.com/ni/nimble/issues/2274
+    it('should scroll the selected option into view when opened #SkipWebkit', async () => {
         const model = new Model();
         const { connect, disconnect } = await setup500Options(model);
         await connect();
-        model.mentionListbox.show({
-            anchorNode: model.anchorDiv,
-            filter: ''
-        });
+        await showAndWaitForOpen(model.mentionListbox, model.anchorDiv);
         await waitForSelectionUpdateAsync(); // showing filters the options and modifies the selection
 
         model.mentionListbox.selectedIndex = 300;
@@ -64,6 +77,28 @@ describe('RichTextMentionListbox', () => {
         model.mentionListbox.selectedIndex = 0;
         await waitForSelectionUpdateAsync();
         expect(listbox.scrollTop).toBeCloseTo(4);
+
+        await disconnect();
+    });
+
+    // Intermittent, see: https://github.com/ni/nimble/issues/2269
+    it('should limit dropdown height to viewport #SkipWebkit', async () => {
+        const model = new Model();
+        const { connect, disconnect } = await setup500Options(model);
+        await connect();
+        await showAndWaitForOpen(model.mentionListbox, model.anchorDiv);
+        model.mentionListbox.listbox.style.setProperty(
+            '--ni-private-listbox-visible-option-count',
+            '10000'
+        );
+        const fullyVisible = await checkFullyInViewport(
+            model.mentionListbox.listbox
+        );
+
+        expect(model.mentionListbox.listbox.scrollHeight).toBeGreaterThan(
+            window.innerHeight
+        );
+        expect(fullyVisible).toBe(true);
 
         await disconnect();
     });

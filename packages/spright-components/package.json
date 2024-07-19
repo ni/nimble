@@ -1,6 +1,6 @@
 {
   "name": "@ni/spright-components",
-  "version": "1.0.33",
+  "version": "2.0.4",
   "description": "NI Spright Components",
   "scripts": {
     "build": "npm run build-components && npm run bundle-components",
@@ -33,7 +33,7 @@
     "test-webkit:verbose": "karma start karma.conf.verbose.js --browsers=WebkitHeadless --single-run --skip-tags SkipWebkit",
     "test-webkit:watch": "karma start karma.conf.js --browsers=WebkitHeadless --skip-tags SkipWebkit --watch-extensions js",
     "test-webkit": "karma start karma.conf.js --browsers=WebkitHeadless --single-run --skip-tags SkipWebkit",
-    "test": "npm run test-chrome:verbose && npm run test-firefox:verbose"
+    "test": "npm run test-chrome:verbose && npm run test-firefox:verbose && npm run test-webkit:verbose"
   },
   "repository": {
     "type": "git",
@@ -55,8 +55,8 @@
     "@microsoft/fast-element": "^1.12.0",
     "@microsoft/fast-foundation": "^2.49.6",
     "@microsoft/fast-web-utilities": "^6.0.0",
-    "@ni/nimble-components": "29.7.6",
-    "@ni/nimble-tokens": "^6.15.0",
+    "@ni/nimble-components": "30.0.4",
+    "@ni/nimble-tokens": "^7.0.0",
     "tslib": "^2.2.0"
   },
   "devDependencies": {
@@ -78,7 +78,7 @@
     "karma-source-map-support": "^1.4.0",
     "karma-sourcemap-loader": "^0.4.0",
     "karma-spec-reporter": "^0.0.36",
-    "karma-webkit-launcher": "^2.1.0",
+    "karma-webkit-launcher": "^2.6.0",
     "karma-webpack": "^5.0.0",
     "playwright": "1.44.0",
     "prettier-eslint": "^16.3.0",
