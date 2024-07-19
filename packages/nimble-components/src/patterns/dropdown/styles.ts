@@ -237,7 +237,7 @@ export const styles = css`
         padding: var(--ni-private-listbox-padding);
     }
 
-    .empty slot {
+    .listbox.empty slot {
         display: none;
     }
 
