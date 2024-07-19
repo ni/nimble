@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Fri, 19 Jul 2024 16:34:38 GMT and should not be manually modified.
+This log was last generated on Fri, 19 Jul 2024 17:10:26 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 30.0.7
+
+Fri, 19 Jul 2024 17:10:26 GMT
+
+### Patches
+
+- Move internal testing API to folder that gets included in build output ([ni/nimble@6f5c329](https://github.com/ni/nimble/commit/6f5c329f4e463b5c329b6f775073f1d2e4020287))
 
 ## 30.0.6
 

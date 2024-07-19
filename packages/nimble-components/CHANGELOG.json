@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Fri, 19 Jul 2024 17:10:26 GMT",
+      "version": "30.0.7",
+      "tag": "@ni/nimble-components_v30.0.7",
+      "comments": {
+        "patch": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "6f5c329f4e463b5c329b6f775073f1d2e4020287",
+            "comment": "Move internal testing API to folder that gets included in build output"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 19 Jul 2024 16:34:38 GMT",
       "version": "30.0.6",
       "tag": "@ni/nimble-components_v30.0.6",
