@@ -277,6 +277,34 @@ export class SelectPageObject {
         await waitForUpdatesAsync();
     }
 
+    /**
+     * This method will set the filter input value to the provided text, which
+     * will result in the synchronous dispatch of the 'filter-input' event. The
+     * dropdown must be open for this method to work.
+     * @param filterText
+     */
+    public setFilter(filterText: string): void {
+        if (this.selectElement.filterMode === FilterMode.none) {
+            throw new Error(
+                'Select has filterMode of "none" so there is no filter input'
+            );
+        }
+
+        if (!this.selectElement.open) {
+            throw new Error('Select must be open to set filter text');
+        }
+
+        const filterInput = this.getFilterInput();
+        filterInput!.value = filterText;
+        const inputEvent = new InputEvent('input');
+        filterInput?.dispatchEvent(inputEvent);
+    }
+
+    /**
+     * This method will clear any present filter text, which will result in the
+     * synchronous dispatch of the 'filter-input' event. The dropdown must be
+     * open for this method to work.
+     */
     public clearFilter(): void {
         if (this.selectElement.filterMode === FilterMode.none) {
             throw new Error(
