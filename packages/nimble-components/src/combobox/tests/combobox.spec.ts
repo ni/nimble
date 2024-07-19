@@ -1,5 +1,5 @@
 import { html, repeat } from '@microsoft/fast-element';
-import { parameterizeSpec } from '@ni/jasmine-parameterized';
+import { parameterizeSpec, parameterizeSuite } from '@ni/jasmine-parameterized';
 import { fixture, Fixture } from '../../utilities/tests/fixture';
 import { Combobox, comboboxTag } from '..';
 import { ComboboxAutocomplete } from '../types';
@@ -308,20 +308,28 @@ describe('Combobox', () => {
                 name: ComboboxAutocomplete.inline
             },
             {
+                name: ComboboxAutocomplete.list
+            },
+            {
                 name: ComboboxAutocomplete.both
             }
         ] as const;
-        parameterizeSpec(filterOptionTestData, (spec, name) => {
-            spec(
-                `disabled options will not be selected by keyboard input with autocomplete "${name}"`,
-                async () => {
+        parameterizeSuite(filterOptionTestData, (suite, name) => {
+            suite(`with autocomplete "${name}"`, () => {
+                it('will not autocomplete disabled option', async () => {
                     element.autocomplete = name;
                     pageObject.setInputText('F');
                     await pageObject.clickAway(); // attempt to commit typed value
 
                     expect(element.value).not.toEqual('Four');
-                }
-            );
+                });
+
+                it('allows setting disabled option if typed in', () => {
+                    element.autocomplete = name;
+                    pageObject.setInputText('four');
+                    expect(element.value).toEqual('four');
+                });
+            });
         });
 
         describe('title overflow', () => {

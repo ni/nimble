@@ -152,7 +152,7 @@ export class Combobox
         let updatedValue = next;
 
         if (this.$fastController.isConnected && this.options) {
-            const selectedIndex = this.options.findIndex(
+            const selectedIndex = this.filteredOptions.findIndex(
                 el => el.text.toLowerCase() === next.toLowerCase()
             );
 
