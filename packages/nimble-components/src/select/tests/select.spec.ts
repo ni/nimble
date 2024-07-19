@@ -2064,7 +2064,7 @@ describe('Select', () => {
             expect(optionLabels).toEqual(['Three', 'Four']);
         });
 
-        fit('exercise setFilter', () => {
+        it('exercise setFilter', () => {
             const filterInputListener = createEventListener(
                 element,
                 'filter-input'
