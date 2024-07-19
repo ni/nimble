@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Fri, 19 Jul 2024 16:34:38 GMT",
+      "version": "30.0.6",
+      "tag": "@ni/nimble-components_v30.0.6",
+      "comments": {
+        "patch": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "93d147ad124b395355397dd6639b519a38f60729",
+            "comment": "Add new SelectPageObject API for setting filter text."
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 19 Jul 2024 15:56:58 GMT",
       "version": "30.0.5",
       "tag": "@ni/nimble-components_v30.0.5",

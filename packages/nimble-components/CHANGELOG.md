@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Fri, 19 Jul 2024 15:56:58 GMT and should not be manually modified.
+This log was last generated on Fri, 19 Jul 2024 16:34:38 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 30.0.6
+
+Fri, 19 Jul 2024 16:34:38 GMT
+
+### Patches
+
+- Add new SelectPageObject API for setting filter text. ([ni/nimble@93d147a](https://github.com/ni/nimble/commit/93d147ad124b395355397dd6639b519a38f60729))
 
 ## 30.0.5
 
