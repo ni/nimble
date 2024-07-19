@@ -3,7 +3,8 @@ import {
     Observable,
     observable,
     Notifier,
-    DOM
+    DOM,
+    volatile
 } from '@microsoft/fast-element';
 import {
     Checkbox,
@@ -54,7 +55,7 @@ import { Virtualizer } from './models/virtualizer';
 import { getTanStackSortingFunction } from './models/sort-operations';
 import { TableLayoutManager } from './models/table-layout-manager';
 import { TableUpdateTracker } from './models/table-update-tracker';
-import { TableRow } from './components/row';
+import type { TableRow } from './components/row';
 import type { TableGroupRow } from './components/group-row';
 import { ColumnInternals } from '../table-column/base/models/column-internals';
 import { InteractiveSelectionManager } from './models/interactive-selection-manager';
@@ -64,7 +65,6 @@ import { waitUntilCustomElementsDefinedAsync } from '../utilities/wait-until-cus
 import { ColumnValidator } from '../table-column/base/models/column-validator';
 import { uniquifySlotNameForColumnId } from './models/utilities';
 import { KeyboardNavigationManager } from './models/keyboard-navigation-manager';
-import { TableCellView } from '../table-column/base/cell-view';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -110,12 +110,6 @@ export class Table<
      */
     @observable
     public readonly rowElements: (TableRow | TableGroupRow)[] = [];
-
-    /**
-     * @internal
-     */
-    @observable
-    public actionMenuSlots: string[] = [];
 
     /**
      * @internal
@@ -187,6 +181,26 @@ export class Table<
     /**
      * @internal
      */
+    @observable
+    public canHaveCollapsibleRows = false;
+
+    /**
+     * @internal
+     */
+    @volatile
+    public get collapseButtonVisibility(): string {
+        if (!this.canHaveCollapsibleRows) {
+            return 'hidden-size-reduced';
+        }
+        if (this.showCollapseAll) {
+            return 'visible';
+        }
+        return '';
+    }
+
+    /**
+     * @internal
+     */
     public readonly headerRowActionContainer!: HTMLElement;
 
     /**
@@ -254,10 +268,12 @@ export class Table<
     private ignoreSelectionChangeEvents = false;
     // Map from the external slot name to the record ID of the row that should have the slot
     // and the unique slot name that the slot should be slotted into.
-    private readonly columnRequestedSlots: Map<
+    private readonly requestedSlots: Map<
     string,
     { recordId: string, uniqueSlot: string }
     > = new Map();
+
+    private actionMenuSlots: string[] = [];
 
     public constructor() {
         super();
@@ -480,7 +496,7 @@ export class Table<
                 event.detail.columnInternalId,
                 slotMetadata.slot
             );
-            this.columnRequestedSlots.set(slotMetadata.name, {
+            this.requestedSlots.set(slotMetadata.name, {
                 recordId: event.detail.recordId,
                 uniqueSlot
             });
@@ -613,6 +629,17 @@ export class Table<
             this.updateTanStack();
         }
 
+        if (
+            this.tableUpdateTracker.updateRowParentIds
+            || this.tableUpdateTracker.updateGroupRows
+        ) {
+            const hierarchyEnabled = this.isHierarchyEnabled();
+            const hasGroupableColumns = this.columns.some(
+                x => !x.columnInternals.groupingDisabled
+            );
+            this.canHaveCollapsibleRows = hierarchyEnabled || hasGroupableColumns;
+        }
+
         if (this.tableUpdateTracker.updateActionMenuSlots) {
             this.updateActionMenuSlots();
         }
@@ -686,37 +713,6 @@ export class Table<
         return tanStackUpdates;
     }
 
-    /** @internal */
-    public handleFocusedCellRecycling(): void {
-        const hadActiveRowOrCellFocus = this.keyboardNavigationManager.hasActiveRowOrCellFocus;
-
-        let tableFocusedElement = this.shadowRoot!.activeElement;
-        while (
-            tableFocusedElement !== null
-            && !(tableFocusedElement instanceof TableCellView)
-        ) {
-            if (tableFocusedElement.shadowRoot) {
-                tableFocusedElement = tableFocusedElement.shadowRoot.activeElement;
-            } else {
-                break;
-            }
-        }
-        if (tableFocusedElement instanceof TableCellView) {
-            tableFocusedElement.focusedRecycleCallback();
-        }
-        if (this.openActionMenuRecordId !== undefined) {
-            const activeRow = this.rowElements.find(
-                row => row instanceof TableRow
-                    && row.recordId === this.openActionMenuRecordId
-            ) as TableRow | undefined;
-            activeRow?.closeOpenActionMenus();
-        }
-
-        this.keyboardNavigationManager.handleFocusedCellRecycling(
-            hadActiveRowOrCellFocus
-        );
-    }
-
     protected selectionModeChanged(
         _prev: string | undefined,
         _next: string | undefined
@@ -762,9 +758,14 @@ export class Table<
         this.tableUpdateTracker.trackColumnInstancesChanged();
     }
 
-    private removeActionMenuSlotsFromColumnRequestedSlots(): void {
+    private updateRequestedSlotsForOpeningActionMenu(
+        openActionMenuRecordId: string
+    ): void {
         for (const actionMenuSlot of this.actionMenuSlots) {
-            this.columnRequestedSlots.delete(actionMenuSlot);
+            this.requestedSlots.set(actionMenuSlot, {
+                recordId: openActionMenuRecordId,
+                uniqueSlot: `row-action-menu-${actionMenuSlot}`
+            });
         }
 
         this.refreshRows();
@@ -782,7 +783,9 @@ export class Table<
         }
 
         this.openActionMenuRecordId = event.detail.recordIds[0];
-        this.removeActionMenuSlotsFromColumnRequestedSlots();
+        this.updateRequestedSlotsForOpeningActionMenu(
+            this.openActionMenuRecordId!
+        );
         const detail = await this.getActionMenuToggleEventDetail(event);
         this.$emit('action-menu-beforetoggle', detail);
     }
@@ -970,6 +973,14 @@ export class Table<
     }
 
     private updateActionMenuSlots(): void {
+        if (this.openActionMenuRecordId !== undefined) {
+            // If the action menu is open, delete all the slots associated
+            // with the old action menu slots.
+            for (const actionMenuSlot of this.actionMenuSlots) {
+                this.requestedSlots.delete(actionMenuSlot);
+            }
+        }
+
         const slots = new Set<string>();
         for (const column of this.columns) {
             if (column.actionMenuSlot) {
@@ -977,6 +988,14 @@ export class Table<
             }
         }
         this.actionMenuSlots = Array.from(slots);
+
+        if (this.openActionMenuRecordId !== undefined) {
+            // If the action menu is open, create slots for all the new
+            // action menu slots.
+            this.updateRequestedSlotsForOpeningActionMenu(
+                this.openActionMenuRecordId
+            );
+        }
     }
 
     private validate(): void {
@@ -1088,7 +1107,7 @@ export class Table<
                 isLoadingChildren: this.expansionManager.isLoadingChildren(
                     row.id
                 ),
-                slots: slotsByRecordId[row.id] ?? []
+                requestedSlots: slotsByRecordId[row.id] ?? []
             };
             hasDataHierarchy = hasDataHierarchy || isParent;
             return rowState;
@@ -1104,7 +1123,7 @@ export class Table<
         const slotsByRecordId: { [recordId: string]: SlotMetadata[] } = {};
 
         for (const [slotName, { recordId, uniqueSlot }] of this
-            .columnRequestedSlots) {
+            .requestedSlots) {
             if (
                 !Object.prototype.hasOwnProperty.call(slotsByRecordId, recordId)
             ) {

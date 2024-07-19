@@ -39,13 +39,6 @@ export abstract class TableCellView<
 
     private delegatedEvents: readonly string[] = [];
 
-    /**
-     * Called if an element inside this cell view has focus, and this row/cell is being recycled.
-     * Expected implementation is to commit changes as needed, and blur the focusable element (or close
-     * the menu/popup/etc).
-     */
-    public focusedRecycleCallback(): void {}
-
     public columnChanged(): void {
         for (const eventName of this.delegatedEvents) {
             this.removeEventListener(eventName, this.delegatedEventHandler);
