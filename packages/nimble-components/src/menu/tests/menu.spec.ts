@@ -1,8 +1,9 @@
 import { html } from '@microsoft/fast-element';
 import { Menu, menuTag } from '..';
-import { MenuItem, menuItemTag } from '../../menu-item';
-import { Fixture, fixture } from '../../utilities/tests/fixture';
+import { menuItemTag } from '../../menu-item';
+import { anchorMenuItemTag } from '../../anchor-menu-item';
 import { iconCheckTag } from '../../icons/check';
+import { Fixture, fixture } from '../../utilities/tests/fixture';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 
 describe('Menu', () => {
@@ -10,7 +11,7 @@ describe('Menu', () => {
         return fixture<Menu>(html`
             <${menuTag}>
                 <${menuItemTag}>Item 1</${menuItemTag}>
-                <${menuItemTag}>Item 2</${menuItemTag}>
+                <${anchorMenuItemTag}>Item 2</${anchorMenuItemTag}>
             </${menuTag}>
         `);
     }
@@ -28,7 +29,7 @@ describe('Menu', () => {
         await connect();
         await waitForUpdatesAsync();
 
-        const items = element.querySelectorAll(menuItemTag);
+        const items = element.querySelectorAll('[role="menuitem"]');
         const item1 = items[0]!;
         const item2 = items[1]!;
         expect(item1.classList.contains('indent-0')).toBeTrue();
@@ -36,19 +37,27 @@ describe('Menu', () => {
 
         const icon = document.createElement(iconCheckTag);
         icon.slot = 'start';
-        item2.appendChild(icon);
+        // Ensure works with regular menu item
+        item1.appendChild(icon);
         await waitForUpdatesAsync();
 
         expect(item1.classList.contains('indent-1')).toBeTrue();
         expect(item2.classList.contains('indent-1')).toBeTrue();
 
-        item2.removeChild(icon);
+        item1.removeChild(icon);
         await waitForUpdatesAsync();
 
         expect(item1.classList.contains('indent-0')).toBeTrue();
         expect(item1.classList.contains('indent-1')).toBeFalse();
         expect(item2.classList.contains('indent-0')).toBeTrue();
         expect(item2.classList.contains('indent-1')).toBeFalse();
+
+        // Ensure works with anchor menu item
+        item2.appendChild(icon);
+        await waitForUpdatesAsync();
+
+        expect(item1.classList.contains('indent-1')).toBeTrue();
+        expect(item2.classList.contains('indent-1')).toBeTrue();
 
         await disconnect();
     });
