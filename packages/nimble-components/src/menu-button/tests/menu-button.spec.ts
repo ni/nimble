@@ -9,7 +9,7 @@ import {
     processUpdates,
     waitForUpdatesAsync
 } from '../../testing/async-helpers';
-import { createEventListener } from '../../utilities/tests/component';
+import { createEventListener } from '../../utilities/testing/component';
 import { MenuButtonPageObject } from '../testing/menu-button.pageobject';
 
 class TestSlottedElement extends FoundationElement {}

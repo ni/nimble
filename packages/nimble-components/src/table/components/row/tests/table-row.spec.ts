@@ -14,7 +14,7 @@ import type {
     TableRowSelectionToggleEventDetail
 } from '../../../types';
 import { TableRowPageObject } from './table-row.pageobject';
-import { createEventListener } from '../../../../utilities/tests/component';
+import { createEventListener } from '../../../../utilities/testing/component';
 import { tableTag, type Table } from '../../..';
 import {
     TableColumnDateText,
