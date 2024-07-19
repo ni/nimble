@@ -181,10 +181,10 @@ export class ComboboxPageObject {
      * @internal
      */
     public hideAllOptions(): void {
-        // eslint-disable-next-line @typescript-eslint/dot-notation
-        this.comboboxElement['_options'].forEach(o => {
+        this.comboboxElement.options.forEach(o => {
             o.hidden = true;
         });
+        this.comboboxElement.filterOptions();
     }
 
     /**

@@ -266,7 +266,6 @@ describe('Combobox', () => {
 
         it('shows "no items found" in dropdown after hiding all options', async () => {
             pageObject.hideAllOptions();
-            pageObject.setInputText('');
             await pageObject.clickAndWaitForOpen();
             expect(pageObject.isNoResultsLabelVisible()).toBeTrue();
         });
