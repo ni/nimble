@@ -296,9 +296,8 @@ export class SelectPageObject {
 
         const filterInput = this.getFilterInput();
         filterInput!.value = filterText;
-        filterInput?.dispatchEvent(
-            new InputEvent('input', { inputType: 'deleteContentBackward' })
-        );
+        const inputEvent = new InputEvent('input');
+        filterInput?.dispatchEvent(inputEvent);
     }
 
     /**
@@ -307,7 +306,16 @@ export class SelectPageObject {
      * open for this method to work.
      */
     public clearFilter(): void {
-        this.setFilter('');
+        if (this.selectElement.filterMode === FilterMode.none) {
+            throw new Error(
+                'Select has filterMode of "none" so there is no filter input'
+            );
+        }
+        const filterInput = this.getFilterInput();
+        filterInput!.value = '';
+        filterInput?.dispatchEvent(
+            new InputEvent('input', { inputType: 'deleteContentBackward' })
+        );
     }
 
     public isDropdownVisible(): boolean {
