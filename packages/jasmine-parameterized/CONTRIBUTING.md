@@ -2,7 +2,7 @@
 
 ## Getting Started
 
-Make sure you have the following requirements installed:
+Make sure you have the following prerequisites installed:
 - [`node.js` LTS release](https://nodejs.org/en/download/)
 
 ### Workflows
