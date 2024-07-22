@@ -303,7 +303,7 @@ describe('Combobox', () => {
             expect(changeEvent).toHaveBeenCalledTimes(1);
         });
 
-        const filterOptionTestData = [
+        const filterOptionSuiteData = [
             {
                 name: ComboboxAutocomplete.inline
             },
@@ -314,21 +314,33 @@ describe('Combobox', () => {
                 name: ComboboxAutocomplete.both
             }
         ] as const;
-        parameterizeSuite(filterOptionTestData, (suite, name) => {
+        const filterOptionTestData = [
+            {
+                name: 'will not autocomplete disabled option',
+                text: 'F'
+            },
+            {
+                name: 'allows committing disabled option from input (exact case)',
+                text: 'Four'
+            },
+            {
+                name: 'allows committing disabled option from input (with case difference)',
+                text: 'four'
+            }
+        ] as const;
+        parameterizeSuite(filterOptionSuiteData, (suite, name) => {
             suite(`with autocomplete "${name}"`, () => {
-                it('will not autocomplete disabled option', async () => {
-                    element.autocomplete = name;
-                    pageObject.setInputText('F');
-                    await pageObject.clickAway(); // attempt to commit typed value
-
-                    expect(element.value).not.toEqual('Four');
-                });
-
-                it('allows setting disabled option if typed in', () => {
-                    element.autocomplete = name;
-                    pageObject.setInputText('four');
-                    expect(element.value).toEqual('four');
-                });
+                parameterizeSpec(
+                    filterOptionTestData,
+                    (spec, testName, value) => {
+                        spec(testName, async () => {
+                            element.autocomplete = name;
+                            pageObject.setInputText(value.text);
+                            await pageObject.clickAway(); // attempt to commit typed value
+                            expect(element.value).toEqual(value.text);
+                        });
+                    }
+                );
             });
         });
 

@@ -152,7 +152,7 @@ export class Combobox
         let updatedValue = next;
 
         if (this.$fastController.isConnected && this.options) {
-            const selectedIndex = this.filteredOptions.findIndex(
+            const selectedIndex = this.options.findIndex(
                 el => el.text.toLowerCase() === next.toLowerCase()
             );
 
@@ -187,7 +187,7 @@ export class Combobox
      */
     public override get options(): ListboxOption[] {
         Observable.track(this, 'options');
-        return this.filteredOptions?.length
+        return this.filteredOptions && this.filter
             ? this.filteredOptions
             : this._options;
     }
