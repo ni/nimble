@@ -148,7 +148,7 @@ export class Combobox
     }
 
     public override set value(next: string) {
-        const prev = `${this._value}`;
+        const prev = this._value;
         let updatedValue = next;
 
         if (this.$fastController.isConnected && this.options) {
@@ -159,11 +159,11 @@ export class Combobox
             const prevSelectedValue = this.options[this.selectedIndex]?.text;
             const nextSelectedValue = this.options[selectedIndex]?.text;
 
-            this.selectedIndex = prevSelectedValue !== nextSelectedValue
-                ? selectedIndex
-                : this.selectedIndex;
+            if (prevSelectedValue !== nextSelectedValue) {
+                this.selectedIndex = selectedIndex;
+            }
 
-            updatedValue = this.firstSelectedOption?.text || next;
+            updatedValue = this.firstSelectedOption?.text || updatedValue;
         }
 
         if (prev !== updatedValue) {
