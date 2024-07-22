@@ -1,8 +1,10 @@
 import { html } from '@microsoft/fast-element';
 import { eventChange, keyEnter } from '@microsoft/fast-web-utilities';
-import { FoundationElement, Menu, MenuItem } from '@microsoft/fast-foundation';
+import { FoundationElement } from '@microsoft/fast-foundation';
 import { parameterizeSuite } from '@ni/jasmine-parameterized';
 import { fixture, Fixture } from '../../utilities/tests/fixture';
+import type { Menu } from '../../menu';
+import type { MenuItem } from '../../menu-item';
 import { MenuButton } from '..';
 import { MenuButtonToggleEventDetail, MenuButtonPosition } from '../types';
 import {

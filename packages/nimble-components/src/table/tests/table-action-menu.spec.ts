@@ -1,5 +1,4 @@
 import { html } from '@microsoft/fast-element';
-import type { MenuItem, Menu } from '@microsoft/fast-foundation';
 import {
     keyArrowDown,
     keyArrowUp,
@@ -7,6 +6,8 @@ import {
 } from '@microsoft/fast-web-utilities';
 import type { Table } from '..';
 import type { TableColumn } from '../../table-column/base';
+import type { Menu } from '../../menu';
+import type { MenuItem } from '../../menu-item';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import { createEventListener } from '../../utilities/testing/component';
 import { type Fixture, fixture } from '../../utilities/tests/fixture';
