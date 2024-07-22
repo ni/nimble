@@ -6,7 +6,7 @@ import { TableColumnText, tableColumnTextTag } from '../../table-column/text';
 import { TableColumnTextCellView } from '../../table-column/text/cell-view';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import { controlHeight } from '../../theme-provider/design-tokens';
-import { createEventListener } from '../../utilities/tests/component';
+import { createEventListener } from '../../utilities/testing/component';
 import {
     type Fixture,
     fixture,
