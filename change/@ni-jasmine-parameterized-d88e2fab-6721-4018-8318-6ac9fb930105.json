@@ -1,0 +1,7 @@
+{
+  "type": "major",
+  "comment": "Switch to full semver releases",
+  "packageName": "@ni/jasmine-parameterized",
+  "email": "rajsite@users.noreply.github.com",
+  "dependentChangeType": "none"
+}

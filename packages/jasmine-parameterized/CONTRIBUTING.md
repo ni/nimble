@@ -1,9 +1,11 @@
-# Contributing to Jasmine Parameterized
+# Contributing
 
-## Requirements
+## Getting Started
+
+Make sure you have the following prerequisites installed:
 - [`node.js` LTS release](https://nodejs.org/en/download/)
 
-## Workflows
+### Workflows
 
 All workflows are executed from the repo root:
 
@@ -34,4 +36,4 @@ All workflows are executed from the repo root:
 
 ### Running tests
 
-To build and run tests locally, run `npm run tdd -w @ni/jasmine-parameterized`. To run tests without rebuilding, `run npm run test -w @ni/jasmine-parameterized`.
+To build and run tests locally, run `npm run tdd -w @ni/jasmine-parameterized`. To run tests without rebuilding, `npm run test -w @ni/jasmine-parameterized`.
