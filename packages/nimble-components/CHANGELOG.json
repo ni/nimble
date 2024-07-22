@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Mon, 22 Jul 2024 20:22:39 GMT",
+      "version": "30.0.8",
+      "tag": "@ni/nimble-components_v30.0.8",
+      "comments": {
+        "none": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/jasmine-parameterized to v1.0.0",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 22 Jul 2024 15:45:21 GMT",
       "version": "30.0.8",
       "tag": "@ni/nimble-components_v30.0.8",

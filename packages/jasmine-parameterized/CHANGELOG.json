@@ -2,6 +2,21 @@
   "name": "@ni/jasmine-parameterized",
   "entries": [
     {
+      "date": "Mon, 22 Jul 2024 20:22:39 GMT",
+      "version": "1.0.0",
+      "tag": "@ni/jasmine-parameterized_v1.0.0",
+      "comments": {
+        "major": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/jasmine-parameterized",
+            "commit": "ee8642f186c83613decaaae77b965c3e9c955e70",
+            "comment": "Switch to full semver releases"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 22 Jul 2024 15:45:21 GMT",
       "version": "0.3.1",
       "tag": "@ni/jasmine-parameterized_v0.3.1",

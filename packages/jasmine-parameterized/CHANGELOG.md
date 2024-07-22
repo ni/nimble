@@ -1,8 +1,16 @@
 # Change Log - @ni/jasmine-parameterized
 
-This log was last generated on Mon, 22 Jul 2024 15:45:21 GMT and should not be manually modified.
+This log was last generated on Mon, 22 Jul 2024 20:22:39 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.0.0
+
+Mon, 22 Jul 2024 20:22:39 GMT
+
+### Major changes
+
+- Switch to full semver releases ([ni/nimble@ee8642f](https://github.com/ni/nimble/commit/ee8642f186c83613decaaae77b965c3e9c955e70))
 
 ## 0.3.1
 

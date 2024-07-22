@@ -60,7 +60,7 @@
     "tslib": "^2.2.0"
   },
   "devDependencies": {
-    "@ni/jasmine-parameterized": "^0.3.1",
+    "@ni/jasmine-parameterized": "^1.0.0",
     "@ni-private/eslint-config-nimble": "*",
     "@rollup/plugin-commonjs": "^25.0.7",
     "@rollup/plugin-node-resolve": "^15.0.1",
