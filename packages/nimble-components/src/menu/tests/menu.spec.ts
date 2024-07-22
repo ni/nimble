@@ -1,4 +1,5 @@
 import { html } from '@microsoft/fast-element';
+import { parameterizeSuite } from '@ni/jasmine-parameterized';
 import { Menu, menuTag } from '..';
 import { menuItemTag } from '../../menu-item';
 import { anchorMenuItemTag } from '../../anchor-menu-item';
@@ -7,15 +8,6 @@ import { Fixture, fixture } from '../../utilities/tests/fixture';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 
 describe('Menu', () => {
-    async function setup(): Promise<Fixture<Menu>> {
-        return fixture<Menu>(html`
-            <${menuTag}>
-                <${menuItemTag}>Item 1</${menuItemTag}>
-                <${anchorMenuItemTag}>Item 2</${anchorMenuItemTag}>
-            </${menuTag}>
-        `);
-    }
-
     it('should export its tag', () => {
         expect(menuTag).toBe('nimble-menu');
     });
@@ -24,41 +16,70 @@ describe('Menu', () => {
         expect(document.createElement('nimble-menu')).toBeInstanceOf(Menu);
     });
 
-    it('properly indents items when an icon is slotted or removed after connecting', async () => {
-        const { element, connect, disconnect } = await setup();
-        await connect();
-        await waitForUpdatesAsync();
+    const menuItemTypes = [
+        {
+            name: menuItemTag
+        },
+        {
+            name: anchorMenuItemTag
+        }
+    ] as const;
+    parameterizeSuite(menuItemTypes, (suite, name) => {
+        suite(`with ${name}s`, () => {
+            async function setup(): Promise<Fixture<Menu>> {
+                return fixture<Menu>(html`
+                    <${menuTag}>
+                        <${name}>Item 1</${name}>
+                        <${name}>Item 2</${name}>
+                    </${menuTag}>
+                `);
+            }
+            let element: Menu;
+            let item1: Element;
+            let item2: Element;
+            let connect: () => Promise<void>;
+            let disconnect: () => Promise<void>;
 
-        const items = element.querySelectorAll('[role="menuitem"]');
-        const item1 = items[0]!;
-        const item2 = items[1]!;
-        expect(item1.classList.contains('indent-0')).toBeTrue();
-        expect(item2.classList.contains('indent-0')).toBeTrue();
+            beforeEach(async () => {
+                ({ element, connect, disconnect } = await setup());
+                await connect();
+                await waitForUpdatesAsync();
+                const items = element.querySelectorAll('[role="menuitem"]');
+                item1 = items[0]!;
+                item2 = items[1]!;
+            });
 
-        const icon = document.createElement(iconCheckTag);
-        icon.slot = 'start';
-        // Ensure works with regular menu item
-        item1.appendChild(icon);
-        await waitForUpdatesAsync();
+            afterEach(async () => {
+                await disconnect();
+            });
 
-        expect(item1.classList.contains('indent-1')).toBeTrue();
-        expect(item2.classList.contains('indent-1')).toBeTrue();
+            it('properly indents items when an icon is slotted after connecting', async () => {
+                expect(item1.classList.contains('indent-0')).toBeTrue();
+                expect(item2.classList.contains('indent-0')).toBeTrue();
 
-        item1.removeChild(icon);
-        await waitForUpdatesAsync();
+                const icon = document.createElement(iconCheckTag);
+                icon.slot = 'start';
+                item1.appendChild(icon);
+                await waitForUpdatesAsync();
 
-        expect(item1.classList.contains('indent-0')).toBeTrue();
-        expect(item1.classList.contains('indent-1')).toBeFalse();
-        expect(item2.classList.contains('indent-0')).toBeTrue();
-        expect(item2.classList.contains('indent-1')).toBeFalse();
+                expect(item1.classList.contains('indent-1')).toBeTrue();
+                expect(item2.classList.contains('indent-1')).toBeTrue();
+            });
 
-        // Ensure works with anchor menu item
-        item2.appendChild(icon);
-        await waitForUpdatesAsync();
+            it('properly indents items when the only icon is removed', async () => {
+                const icon = document.createElement(iconCheckTag);
+                icon.slot = 'start';
+                item1.appendChild(icon);
+                await waitForUpdatesAsync();
 
-        expect(item1.classList.contains('indent-1')).toBeTrue();
-        expect(item2.classList.contains('indent-1')).toBeTrue();
+                item1.removeChild(icon);
+                await waitForUpdatesAsync();
 
-        await disconnect();
+                expect(item1.classList.contains('indent-0')).toBeTrue();
+                expect(item2.classList.contains('indent-0')).toBeTrue();
+                expect(item1.classList.contains('indent-1')).toBeFalse();
+                expect(item2.classList.contains('indent-1')).toBeFalse();
+            });
+        });
     });
 });
