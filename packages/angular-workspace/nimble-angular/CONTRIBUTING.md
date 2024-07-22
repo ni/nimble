@@ -47,4 +47,7 @@ The Angular directives need code coverage via unit tests.
 
 ## Updating Angular
 
-When updating the version of Angular used by the package, be sure to also update the versions of forked Angular files in `src/thirdparty/directives`. See the README in the thirdparty folder for details.
+When updating the version of Angular used by the package:
+- Because Angular tends to have many associated dependencies that update, first make sure that the nimble `package-lock.json` is up-to-date on `main` (i.e. very recently rebuilt from scratch) and then perform the Angular update by rebuilding `package-lock.json` again for the new Angular version PR
+- Align with [supported versions of associated libraries](https://angular.dev/reference/versions) (e.g. `typescript` and `rxjs`).
+- Update the versions of forked Angular files in `src/thirdparty/directives`. See the README in the thirdparty folder for details.

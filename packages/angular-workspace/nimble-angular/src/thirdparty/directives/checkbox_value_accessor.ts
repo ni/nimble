@@ -1,6 +1,6 @@
 /**
  * [Nimble]
- * Copied from https://github.com/angular/angular/blob/16.2.12/packages/forms/src/directives/checkbox_value_accessor.ts
+ * Copied from https://github.com/angular/angular/blob/17.3.11/packages/forms/src/directives/checkbox_value_accessor.ts
  * with the following modifications:
  * - Update imports
  * - Remove all configuration from the CheckboxControlValueAccessor's `@Directive` decorator
@@ -14,10 +14,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 
-import {Directive} from '@angular/core';
+import {Directive, forwardRef, Provider} from '@angular/core';
 
-import type { ControlValueAccessor } from '@angular/forms';
-import { BuiltInControlValueAccessor } from './control_value_accessor';
+import type {ControlValueAccessor} from '@angular/forms';
+import {BuiltInControlValueAccessor} from './control_value_accessor';
 
 /* [Nimble] Do not register as a value accessor provider
 const CHECKBOX_VALUE_ACCESSOR: Provider = {

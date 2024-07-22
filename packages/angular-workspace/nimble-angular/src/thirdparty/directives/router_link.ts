@@ -1,6 +1,6 @@
 /**
  * [Nimble]
- * Copied from https://github.com/angular/angular/blob/16.2.12/packages/router/src/directives/router_link.ts
+ * Copied from https://github.com/angular/angular/blob/17.3.11/packages/router/src/directives/router_link.ts
  * with the following modifications:
  * - Hardcode `isAnchorElement` to `true` so that the directive will correctly set the `href` on elements within nimble that represent anchors
  * - Make `href` a `@HostBindinding` to avoid using Angular's private sanitization APIs because `href` bindings automatically are sanitized by
@@ -19,7 +19,21 @@
  */
 
 import {LocationStrategy} from '@angular/common';
-import {Attribute, booleanAttribute, Directive, ElementRef, HostBinding, HostListener, Inject, Input, OnChanges, OnDestroy, Renderer2, SimpleChanges, ɵɵsanitizeUrlOrResourceUrl} from '@angular/core';
+import {
+  Attribute,
+  booleanAttribute,
+  Directive,
+  ElementRef,
+  HostBinding,
+  HostListener,
+  Inject,
+  Input,
+  OnChanges,
+  OnDestroy,
+  Renderer2,
+  SimpleChanges,
+  ɵɵsanitizeUrlOrResourceUrl,
+} from '@angular/core';
 import {Subject, Subscription} from 'rxjs';
 
 import { Event, Params, QueryParamsHandling, ActivatedRoute, Router, NavigationEnd, UrlTree } from '@angular/router';
@@ -135,7 +149,7 @@ export class RouterLink implements OnChanges, OnDestroy {
    * when a host element is `<a>`. For other tags, the value is `null`.
    */
   // [Nimble] Make `href` a `@HostBinding`
-  // href: string|null = null;
+  // href: string | null = null;
   @HostBinding('attr.href') href: string|null = null;
 
   /**
@@ -150,7 +164,7 @@ export class RouterLink implements OnChanges, OnDestroy {
    * @see {@link UrlCreationOptions#queryParams}
    * @see {@link Router#createUrlTree}
    */
-  @Input() queryParams?: Params|null;
+  @Input() queryParams?: Params | null;
   /**
    * Passed to {@link Router#createUrlTree} as part of the
    * `UrlCreationOptions`.
@@ -164,7 +178,7 @@ export class RouterLink implements OnChanges, OnDestroy {
    * @see {@link UrlCreationOptions#queryParamsHandling}
    * @see {@link Router#createUrlTree}
    */
-  @Input() queryParamsHandling?: QueryParamsHandling|null;
+  @Input() queryParamsHandling?: QueryParamsHandling | null;
   /**
    * Passed to {@link Router#navigateByUrl} as part of the
    * `NavigationBehaviorOptions`.
@@ -172,6 +186,13 @@ export class RouterLink implements OnChanges, OnDestroy {
    * @see {@link Router#navigateByUrl}
    */
   @Input() state?: {[k: string]: any};
+  /**
+   * Passed to {@link Router#navigateByUrl} as part of the
+   * `NavigationBehaviorOptions`.
+   * @see {@link NavigationBehaviorOptions#info}
+   * @see {@link Router#navigateByUrl}
+   */
+  @Input() info?: unknown;
   /**
    * Passed to {@link Router#createUrlTree} as part of the
    * `UrlCreationOptions`.
@@ -181,9 +202,9 @@ export class RouterLink implements OnChanges, OnDestroy {
    * @see {@link UrlCreationOptions#relativeTo}
    * @see {@link Router#createUrlTree}
    */
-  @Input() relativeTo?: ActivatedRoute|null;
+  @Input() relativeTo?: ActivatedRoute | null;
 
-  private commands: any[]|null = null;
+  private commands: any[] | null = null;
 
   /** Whether a host element is an `<a>` tag. */
   private isAnchorElement: boolean;
@@ -194,12 +215,14 @@ export class RouterLink implements OnChanges, OnDestroy {
   onChanges = new Subject<RouterLink>();
 
   constructor(
-      private router: Router, private route: ActivatedRoute,
-      @Attribute('tabindex') private readonly tabIndexAttribute: string|null|undefined,
-      private readonly renderer: Renderer2, private readonly el: ElementRef,
-      // [Nimble] Need Inject decorator
-      @Inject(LocationStrategy) private locationStrategy?: LocationStrategy) {
-
+    private router: Router,
+    private route: ActivatedRoute,
+    @Attribute('tabindex') private readonly tabIndexAttribute: string | null | undefined,
+    private readonly renderer: Renderer2,
+    private readonly el: ElementRef,
+    // [Nimble] Need Inject decorator
+    @Inject(LocationStrategy) private locationStrategy?: LocationStrategy,
+  ) {
     // [Nimble] Hard-coding `isAnchorElement` to `true`
     // const tagName = el.nativeElement.tagName?.toLowerCase();
     // this.isAnchorElement = tagName === 'a' || tagName === 'area';
@@ -244,7 +267,7 @@ export class RouterLink implements OnChanges, OnDestroy {
    * Modifies the tab index if there was not a tabindex attribute on the element during
    * instantiation.
    */
-  private setTabIndexIfNotOnNativeEl(newTabIndex: string|null) {
+  private setTabIndexIfNotOnNativeEl(newTabIndex: string | null) {
     if (this.tabIndexAttribute != null /* both `null` and `undefined` */ || this.isAnchorElement) {
       return;
     }
@@ -269,7 +292,7 @@ export class RouterLink implements OnChanges, OnDestroy {
    * @see {@link Router#createUrlTree}
    */
   @Input()
-  set routerLink(commands: any[]|string|null|undefined) {
+  set routerLink(commands: any[] | string | null | undefined) {
     if (commands != null) {
       this.commands = Array.isArray(commands) ? commands : [commands];
       this.setTabIndexIfNotOnNativeEl('0');
@@ -280,12 +303,23 @@ export class RouterLink implements OnChanges, OnDestroy {
   }
 
   /** @nodoc */
-  @HostListener(
-      'click',
-      ['$event.button', '$event.ctrlKey', '$event.shiftKey', '$event.altKey', '$event.metaKey'])
-  onClick(button: number, ctrlKey: boolean, shiftKey: boolean, altKey: boolean, metaKey: boolean):
-      boolean {
-    if (this.urlTree === null) {
+  @HostListener('click', [
+    '$event.button',
+    '$event.ctrlKey',
+    '$event.shiftKey',
+    '$event.altKey',
+    '$event.metaKey',
+  ])
+  onClick(
+    button: number,
+    ctrlKey: boolean,
+    shiftKey: boolean,
+    altKey: boolean,
+    metaKey: boolean,
+  ): boolean {
+    const urlTree = this.urlTree;
+
+    if (urlTree === null) {
       return true;
     }
 
@@ -303,8 +337,9 @@ export class RouterLink implements OnChanges, OnDestroy {
       skipLocationChange: this.skipLocationChange,
       replaceUrl: this.replaceUrl,
       state: this.state,
+      info: this.info,
     };
-    this.router.navigateByUrl(this.urlTree, extras);
+    this.router.navigateByUrl(urlTree, extras);
 
     // Return `false` for `<a>` elements to prevent default action
     // and cancel the native behavior, since the navigation is handled
@@ -318,31 +353,38 @@ export class RouterLink implements OnChanges, OnDestroy {
   }
 
   private updateHref(): void {
-    this.href = this.urlTree !== null && this.locationStrategy ?
-        this.locationStrategy?.prepareExternalUrl(this.router.serializeUrl(this.urlTree)) :
-        null;
+    const urlTree = this.urlTree;
+    this.href =
+      urlTree !== null && this.locationStrategy
+        ? this.locationStrategy?.prepareExternalUrl(this.router.serializeUrl(urlTree))
+        : null;
 
     /**
      * [Nimble] Remove sanitization code and applying the `href` attribute in favor of changing `href`
      * to be a `@HostBinding`. This avoids the need of calling into private Angular sanitization code.
      */
-    // const sanitizedValue = this.href === null ?
-    //     null :
-    //     // This class represents a directive that can be added to both `<a>` elements,
-    //     // as well as other elements. As a result, we can't define security context at
-    //     // compile time. So the security context is deferred to runtime.
-    //     // The `ɵɵsanitizeUrlOrResourceUrl` selects the necessary sanitizer function
-    //     // based on the tag and property names. The logic mimics the one from
-    //     // `packages/compiler/src/schema/dom_security_schema.ts`, which is used at compile time.
-    //     //
-    //     // Note: we should investigate whether we can switch to using `@HostBinding('attr.href')`
-    //     // instead of applying a value via a renderer, after a final merge of the
-    //     // `RouterLinkWithHref` directive.
-    //     ɵɵsanitizeUrlOrResourceUrl(this.href, this.el.nativeElement.tagName.toLowerCase(), 'href');
+    // const sanitizedValue =
+    // this.href === null
+    //    ? null
+    //    : // This class represents a directive that can be added to both `<a>` elements,
+    //      // as well as other elements. As a result, we can't define security context at
+    //      // compile time. So the security context is deferred to runtime.
+    //      // The `ɵɵsanitizeUrlOrResourceUrl` selects the necessary sanitizer function
+    //      // based on the tag and property names. The logic mimics the one from
+    //      // `packages/compiler/src/schema/dom_security_schema.ts`, which is used at compile time.
+    //      //
+    //      // Note: we should investigate whether we can switch to using `@HostBinding('attr.href')`
+    //      // instead of applying a value via a renderer, after a final merge of the
+    //      // `RouterLinkWithHref` directive.
+    //      ɵɵsanitizeUrlOrResourceUrl(
+    //        this.href,
+    //        this.el.nativeElement.tagName.toLowerCase(),
+    //        'href',
+    //      );
     // this.applyAttributeValue('href', sanitizedValue);
   }
 
-  private applyAttributeValue(attrName: string, attrValue: string|null) {
+  private applyAttributeValue(attrName: string, attrValue: string | null) {
     const renderer = this.renderer;
     const nativeElement = this.el.nativeElement;
     if (attrValue !== null) {
@@ -352,7 +394,7 @@ export class RouterLink implements OnChanges, OnDestroy {
     }
   }
 
-  get urlTree(): UrlTree|null {
+  get urlTree(): UrlTree | null {
     if (this.commands === null) {
       return null;
     }

@@ -2,6 +2,33 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Mon, 22 Jul 2024 15:45:21 GMT",
+      "version": "30.0.8",
+      "tag": "@ni/nimble-components_v30.0.8",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "f69586afcbdea5f4b8834d1123ec2b06d4eeecb3",
+            "comment": "Update to typescript 5.4.5"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/nimble-tokens to v7.0.1",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/jasmine-parameterized to v0.3.1",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 19 Jul 2024 17:10:26 GMT",
       "version": "30.0.7",
       "tag": "@ni/nimble-components_v30.0.7",
