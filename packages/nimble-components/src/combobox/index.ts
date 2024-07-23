@@ -575,7 +575,10 @@ export class Combobox
             }
 
             super.selectedIndexChanged(prev, pinnedSelectedIndex);
-            this.setSelectedOptions(); // the base class doesn't call this when no option is selected, but we need to
+            // the base class doesn't call this when no option is selected, but we need to,
+            // otherwise selectedOptions, ariaActiveDescendant, and the previously selected
+            // option's selected state won't be updated
+            this.setSelectedOptions();
         }
     }
 
@@ -686,7 +689,7 @@ export class Combobox
     /**
      * Need to update even when options is empty.
      * @internal
-     * @remarks
+     * @remarks Same as `Listbox.setSelectedOptions` except does not check if options is non-empty.
      * Overrides: `Listbox.setSelectedOptions`
      */
     protected override setSelectedOptions(): void {
