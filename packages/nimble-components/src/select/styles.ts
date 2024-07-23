@@ -98,7 +98,8 @@ export const styles = css`
     }
 
     .filter-icon {
-        padding-left: ${smallPadding};
+        flex-shrink: 0;
+        margin-left: ${smallPadding};
         ${iconColor.cssCustomProperty}: ${placeholderFontColor};
     }
 
