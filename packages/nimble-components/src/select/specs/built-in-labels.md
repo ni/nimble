@@ -11,8 +11,9 @@ Built-in labels will reduce the effort needed for clients to consume these contr
 [Built-in label for select and combobox](https://github.com/ni/nimble/issues/2183)
 
 Related issues:
-- [Resolve label accessibility issues](https://github.com/ni/nimble/issues/94)
-- [Fix accessibility issues in Angular Example app](https://github.com/ni/nimble/issues/280)
+
+-   [Resolve label accessibility issues](https://github.com/ni/nimble/issues/94)
+-   [Fix accessibility issues in Angular Example app](https://github.com/ni/nimble/issues/280)
 
 ## Implementation / Design
 
@@ -21,37 +22,41 @@ Implementation details apply to both `nimble-select` and `nimble-combobox`, unle
 ### API (Slots)
 
 Default Slot:
-- The `nimble-list-option`s in the control are placed in this slot currently.
-- We will add support for specifying the label as text content in the same slot. For example:
-  ```html
-  <nimble-select>
-    Select Label Text
-    <nimble-list-option>A</nimble-list-option>
-    <nimble-list-option>B</nimble-list-option>
-  </nimble-select>
-  ```
+
+-   The `nimble-list-option`s in the control are placed in this slot currently.
+-   We will add support for specifying the label as text content in the same slot. For example:
+    ```html
+    <nimble-select>
+        Select Label Text
+        <nimble-list-option>A</nimble-list-option>
+        <nimble-list-option>B</nimble-list-option>
+    </nimble-select>
+    ```
 
 ### Templates / Styling
 
 Template updates:
-- A new `label` element will be added at the root of the control template, which will reflect the default slotted content (minus the list options which are already handled elsewhere)
-- A new container `div` will be added at the same level, to contain the control part (`div[part="control"]`)
-- The element host will become `inline-block` so the label is laid out correctly. (Formerly `inline-flex`, which will move to the container `div`)
+
+-   A new `label` element will be added at the root of the control template, which will reflect the default slotted content (minus the list options which are already handled elsewhere)
+-   A new container `div` will be added at the same level, to contain the control part (`div[part="control"]`)
+-   The element host will become `inline-block` so the label is laid out correctly. (Formerly `inline-flex`, which will move to the container `div`)
 
 Currently our shared dropdown styling (`patterns/dropdown/styles.ts`) applies focus/error-visible styling directly on `::host` - most of those styles will instead target the container `div`.
 
 ### Accessibility / ARIA
 
 `nimble-combobox`: Currently has 2 ARIA/accessibility issues:
-- Elements must only use supported ARIA attributes: `nimble-combobox` `nimble-toggle-button`: ARIA attribute is not allowed: `aria-expanded="false"`
-  - Can be resolved via `aria-hidden="true"` on the dropdown toggle button, as it's not keyboard-focusable.
-- ARIA commands must have an accessible name: `nimble-combobox` `nimble-toggle-button` `div[role="button"]`
-  - Will be resolved by adding the `label` element
+
+-   Elements must only use supported ARIA attributes: `nimble-combobox` `nimble-toggle-button`: ARIA attribute is not allowed: `aria-expanded="false"`
+    -   Can be resolved via `aria-hidden="true"` on the dropdown toggle button, as it's not keyboard-focusable.
+-   ARIA commands must have an accessible name: `nimble-combobox` `nimble-toggle-button` `div[role="button"]`
+    -   Will be resolved by adding the `label` element
 
 `nimble-select`: Currently has 1 ARIA/accessibility issue:
-- ARIA input fields must have an accessible name: `nimble-select`
-  - The `label` element is not sufficient to resolve this, because it's in the shadow tree, whereas the ARIA role is on the `nimble-select` itself (unlike the combobox).
-  - Will be resolved by adding the `aria-label` attribute to `nimble-select`, which will be set to the same label text shown in the `label` element. (`nimble-list-option-group` [does something similar](https://github.com/ni/nimble/blob/4948838ca895a04d7ebe16f595176b2050863f15/packages/nimble-components/src/list-option-group/template.ts#L14))
+
+-   ARIA input fields must have an accessible name: `nimble-select`
+    -   The `label` element is not sufficient to resolve this, because it's in the shadow tree, whereas the ARIA role is on the `nimble-select` itself (unlike the combobox).
+    -   Will be resolved by adding the `aria-label` attribute to `nimble-select`, which will be set to the same label text shown in the `label` element. (`nimble-list-option-group` [does something similar](https://github.com/ni/nimble/blob/4948838ca895a04d7ebe16f595176b2050863f15/packages/nimble-components/src/list-option-group/template.ts#L14))
 
 ### Impact to nimble-rich-text-mention-listbox
 
@@ -61,11 +66,12 @@ However, since we have shared dropdown styling, its template may need minor upda
 ## Alternative Implementations / Designs
 
 **Label API:** We have several different paradigms for specifying label text in Nimble, in addition to the default slot:
-- A `label` slot, with the expectation clients will add a `label` element in it (`nimble-radio-group`)
-- A `label` attribute (`nimble-option-group`, though text content in the default slot is also supported)
+
+-   A `label` slot, with the expectation clients will add a `label` element in it (`nimble-radio-group`)
+-   A `label` attribute (`nimble-option-group`, though text content in the default slot is also supported)
 
 The default slot approach was chosen for this feature as it's the most common in Nimble, and the simplest to use.
 
 ## Open Issues
 
-- Should we add ARIA label support to the `nimble-rich-text-mention-listbox`? (If not, we can note it as a gap in the [Align rich-text mention listbox implementation behavior](https://github.com/ni/nimble/issues/1926) issue)
+-   Should we add ARIA label support to the `nimble-rich-text-mention-listbox`? (If not, we can note it as a gap in the [Align rich-text mention listbox implementation behavior](https://github.com/ni/nimble/issues/1926) issue)
