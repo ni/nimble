@@ -67,7 +67,7 @@
     "@microsoft/fast-foundation": "^2.49.6",
     "@microsoft/fast-web-utilities": "^6.0.0",
     "@ni/nimble-tokens": "^7.0.1",
-    "@tanstack/table-core": "8.19.2",
+    "@tanstack/table-core": "^8.19.3",
     "@tanstack/virtual-core": "^3.8.3",
     "@tiptap/core": "^2.2.2",
     "@tiptap/extension-bold": "^2.2.2",
