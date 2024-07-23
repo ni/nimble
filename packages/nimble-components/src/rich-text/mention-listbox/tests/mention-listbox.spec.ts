@@ -81,8 +81,7 @@ describe('RichTextMentionListbox', () => {
         await disconnect();
     });
 
-    // Intermittent, see: https://github.com/ni/nimble/issues/2269
-    it('should limit dropdown height to viewport #SkipWebkit', async () => {
+    it('should limit dropdown height to viewport', async () => {
         const model = new Model();
         const { connect, disconnect } = await setup500Options(model);
         await connect();
