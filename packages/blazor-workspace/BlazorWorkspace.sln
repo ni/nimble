@@ -27,7 +27,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SprightBlazor.Tests", "Test
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SprightBlazor.Tests.Acceptance", "Tests\SprightBlazor.Tests.Acceptance\SprightBlazor.Tests.Acceptance.csproj", "{8E335572-CD8B-4879-8760-73416CF103B1}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorWorkspace.Testing.Acceptance", "Tests\BlazorWorkspace.Testing.Acceptance\BlazorWorkspace.Testing.Acceptance.csproj", "{D94A4535-51B3-4E70-9582-3F3A44C7A798}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorWorkspace.Testing.Acceptance", "Tests\BlazorWorkspace.Testing.Acceptance\BlazorWorkspace.Testing.Acceptance.csproj", "{D94A4535-51B3-4E70-9582-3F3A44C7A798}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
