@@ -68,6 +68,7 @@ export class Menu extends FoundationElement {
         });
 
         this.addEventListener('change', this.changeHandler);
+        this.observeMenuItems();
     }
 
     /**
@@ -76,6 +77,7 @@ export class Menu extends FoundationElement {
     public override disconnectedCallback(): void {
         super.disconnectedCallback();
         this.removeItemListeners();
+        this.mutationObserver.disconnect();
         this.menuItems = undefined;
         this.removeEventListener('change', this.changeHandler);
     }
@@ -176,13 +178,6 @@ export class Menu extends FoundationElement {
         if (this.$fastController.isConnected && this.menuItems !== undefined) {
             this.setItems();
         }
-
-        this.mutationObserver.disconnect();
-        newValue
-            .filter(x => x.role === MenuItemRole.menuitem)
-            .forEach(x => {
-                this.mutationObserver.observe(x, { childList: true });
-            });
     }
 
     private readonly handleItemFocus = (e: Event): void => {
@@ -250,6 +245,7 @@ export class Menu extends FoundationElement {
     private readonly setItems = (): void => {
         const newItems: Element[] = this.domChildren();
 
+        this.mutationObserver.disconnect();
         this.removeItemListeners();
         this.menuItems = newItems;
 
@@ -292,6 +288,7 @@ export class Menu extends FoundationElement {
                 this.handleExpandedChanged
             );
             item.addEventListener('focus', this.handleItemFocus);
+            this.mutationObserver.observe(item, { childList: true });
 
             if (item instanceof MenuItem || 'startColumnCount' in item) {
                 (item as unknown as MenuItem).startColumnCount = indent;
