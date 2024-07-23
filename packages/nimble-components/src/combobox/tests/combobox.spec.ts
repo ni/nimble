@@ -251,6 +251,12 @@ describe('Combobox', () => {
             expect(pageObject.isNoResultsLabelVisible()).toBeTrue();
         });
 
+        it('does not show "no items found" in dropdown when typed text matches nothing but autocomplete mode is none', async () => {
+            pageObject.setInputText('zzz');
+            await waitForUpdatesAsync();
+            expect(pageObject.isNoResultsLabelVisible()).toBeFalse();
+        });
+
         it('does not show "no items found" in dropdown when typed text matches something', async () => {
             element.autocomplete = ComboboxAutocomplete.both;
             pageObject.setInputText('o'); // matches "One"
@@ -268,6 +274,20 @@ describe('Combobox', () => {
             pageObject.hideAllOptions();
             await pageObject.clickAndWaitForOpen();
             expect(pageObject.isNoResultsLabelVisible()).toBeTrue();
+        });
+
+        it('removes "no items found" from dropdown when a matching option is added', async () => {
+            element.autocomplete = ComboboxAutocomplete.both;
+            pageObject.setInputText('zzz'); // matches "One"
+            await waitForUpdatesAsync();
+
+            const matchingOption = document.createElement(listOptionTag);
+            matchingOption.value = 'zzzzzz';
+            matchingOption.innerHTML = 'Zzzzzz';
+            element.appendChild(matchingOption);
+            await waitForUpdatesAsync();
+
+            expect(pageObject.isNoResultsLabelVisible()).toBeFalse();
         });
 
         it('emits one change event after changing value through text entry', async () => {
