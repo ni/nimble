@@ -43,6 +43,11 @@ public class TableColumnConfigurationEventArgs : EventArgs
     public IEnumerable<TableColumnConfiguration>? Columns { get; set; }
 }
 
+public class TableColumnMenuButtonToggleEventArgs : MenuButtonToggleEventArgs
+{
+    public string RecordId { get; set; } = string.Empty;
+}
+
 public class TableColumnConfiguration
 {
     public string? ColumnId { get; set; }
@@ -82,6 +87,8 @@ public class WaferMapHoverDieChangedEventArgs : EventArgs
 [EventHandler("onnimbleactionmenubeforetoggle", typeof(TableActionMenuToggleEventArgs), enableStopPropagation: true, enablePreventDefault: false)]
 [EventHandler("onnimbletablerowselectionchange", typeof(TableRowSelectionEventArgs), enableStopPropagation: true, enablePreventDefault: false)]
 [EventHandler("onnimbletablecolumnconfigurationchange", typeof(TableColumnConfigurationEventArgs), enableStopPropagation: true, enablePreventDefault: false)]
+[EventHandler("onnimbletablecolumnmenubuttontoggle", typeof(TableColumnMenuButtonToggleEventArgs), enableStopPropagation: true, enablePreventDefault: false)]
+[EventHandler("onnimbletablecolumnmenubuttonbeforetoggle", typeof(TableColumnMenuButtonToggleEventArgs), enableStopPropagation: true, enablePreventDefault: false)]
 [EventHandler("onnimbletablerowexpandtoggle", typeof(TableRowExpandToggleEventArgs), enableStopPropagation: true, enablePreventDefault: false)]
 [EventHandler("onnimblewafermapdiehoverchange", typeof(WaferMapHoverDieChangedEventArgs), enableStopPropagation: true, enablePreventDefault: false)]
 public static class EventHandlers
