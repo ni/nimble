@@ -56,7 +56,7 @@ export function arrayToTree<TData extends TableRecord>(
         }
 
         // add the current item's data to the item in the lookup table
-        lookup[itemId]!.clientRecord = item;
+        lookup[itemId]!.clientRecord = { ...item };
         const treeItem = lookup[itemId]!;
 
         // Add the index to the item
