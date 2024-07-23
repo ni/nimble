@@ -168,10 +168,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "example-client-app:build:production"
+              "buildTarget": "example-client-app:build:production"
             },
             "development": {
-              "browserTarget": "example-client-app:build:development"
+              "buildTarget": "example-client-app:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -179,7 +179,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "example-client-app:build"
+            "buildTarget": "example-client-app:build"
           }
         },
         "test": {
