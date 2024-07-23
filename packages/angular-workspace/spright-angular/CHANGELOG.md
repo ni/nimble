@@ -1,8 +1,16 @@
 # Change Log - @ni/spright-angular
 
-This log was last generated on Mon, 22 Jul 2024 15:45:21 GMT and should not be manually modified.
+This log was last generated on Tue, 23 Jul 2024 20:28:50 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 3.0.1
+
+Tue, 23 Jul 2024 20:28:50 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v2.0.9
 
 ## 3.0.0
 
