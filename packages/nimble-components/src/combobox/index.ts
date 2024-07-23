@@ -575,6 +575,7 @@ export class Combobox
             }
 
             super.selectedIndexChanged(prev, pinnedSelectedIndex);
+            this.setSelectedOptions(); // the base class doesn't call this when no option is selected, but we need to
         }
     }
 
@@ -680,6 +681,18 @@ export class Combobox
         if (this.proxy instanceof HTMLInputElement) {
             this.proxy.placeholder = this.placeholder ?? '';
         }
+    }
+
+    /**
+     * Need to update even when options is empty.
+     * @internal
+     * @remarks
+     * Overrides: `Listbox.setSelectedOptions`
+     */
+    protected override setSelectedOptions(): void {
+        this.selectedOptions = this.selectedIndex > -1 ? [this.options[this.selectedIndex]!] : [];
+        this.ariaActiveDescendant = this.firstSelectedOption?.id ?? '';
+        this.focusAndScrollOptionIntoView();
     }
 
     /**
