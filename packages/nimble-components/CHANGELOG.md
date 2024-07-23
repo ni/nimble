@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Tue, 23 Jul 2024 20:28:50 GMT and should not be manually modified.
+This log was last generated on Tue, 23 Jul 2024 21:56:35 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 30.1.1
+
+Tue, 23 Jul 2024 21:56:35 GMT
+
+### Patches
+
+- Correct the size of the search icon in the select ([ni/nimble@1616ee0](https://github.com/ni/nimble/commit/1616ee0997b58206f9621957eb13a34e23715ca9))
 
 ## 30.1.0
 
