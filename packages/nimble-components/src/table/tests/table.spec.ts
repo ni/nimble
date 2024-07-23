@@ -972,7 +972,7 @@ describe('Table', () => {
                 await connect();
                 await waitForUpdatesAsync();
 
-                const data: SimpleTableRecord[] = [...hierarchicalData];
+                const data: SimpleTableRecord[] = hierarchicalData.map(x => ({ ...x }));
                 await element.setData(data);
                 await waitForUpdatesAsync();
                 const currentFieldValue = data[0]!.stringData;
