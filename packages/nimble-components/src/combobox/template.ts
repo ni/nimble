@@ -1,4 +1,10 @@
-import { type ViewTemplate, html, ref, slotted } from '@microsoft/fast-element';
+import {
+    type ViewTemplate,
+    html,
+    ref,
+    slotted,
+    when
+} from '@microsoft/fast-element';
 import {
     type FoundationElementTemplate,
     type ComboboxOptions,
@@ -10,7 +16,9 @@ import type { Combobox } from '.';
 import { anchoredRegionTag } from '../anchored-region';
 import { DropdownPosition } from '../patterns/dropdown/types';
 import { overflow } from '../utilities/directive/overflow';
+import { filterNoResultsLabel } from '../label-provider/core/label-tokens';
 
+/* eslint-disable @typescript-eslint/indent */
 // prettier-ignore
 export const template: FoundationElementTemplate<
 ViewTemplate<Combobox>,
@@ -69,7 +77,11 @@ ComboboxOptions
             horizontal-scaling="anchor"
             ?hidden="${x => !x.open}">
             <div
-                class="listbox"
+                class="
+                    listbox
+                    scrollable-region
+                    ${x => (x.filteredOptions.length === 0 ? 'empty' : '')}
+                "
                 id="${x => x.listboxId}"
                 part="listbox"
                 role="listbox"
@@ -79,11 +91,16 @@ ComboboxOptions
             >
                 <slot name="option"
                     ${slotted({
-        filter: (n: Node) => n instanceof HTMLElement && Listbox.slottedOptionFilter(n),
-        flatten: true,
-        property: 'slottedOptions',
-    })}
+                        filter: (n: Node) => n instanceof HTMLElement && Listbox.slottedOptionFilter(n),
+                        flatten: true,
+                        property: 'slottedOptions',
+                    })}
                 ></slot>
+                ${when(x => x.filteredOptions.length === 0, html<Combobox>`
+                    <span class="no-results-label">
+                        ${x => filterNoResultsLabel.getValueFor(x)}
+                    </span>
+                `)}
             </div>
         </${anchoredRegionTag}>
     </template>

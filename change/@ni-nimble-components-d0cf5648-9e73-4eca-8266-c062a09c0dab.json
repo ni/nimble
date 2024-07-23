@@ -1,0 +1,7 @@
+{
+  "type": "minor",
+  "comment": "Add dropdown placeholder for combobox and rich-text mention listbox",
+  "packageName": "@ni/nimble-components",
+  "email": "7282195+m-akinc@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}

@@ -61,10 +61,6 @@ export const styles = css`
         overflow-x: clip;
     }
 
-    .listbox.empty slot {
-        display: none;
-    }
-
     .listbox.above {
         flex-flow: column-reverse;
     }
@@ -124,10 +120,6 @@ export const styles = css`
         outline: 0px;
     }
 
-    .scrollable-region {
-        overflow: auto;
-    }
-
     ::slotted([role='option']) {
         background-color: transparent;
     }
@@ -142,14 +134,6 @@ export const styles = css`
 
     ::slotted([role='option'][active-option]:hover) {
         background-color: ${fillHoverSelectedColor};
-    }
-
-    .no-results-label {
-        color: ${placeholderFontColor};
-        height: ${controlHeight};
-        display: inline-flex;
-        align-items: center;
-        padding: ${smallPadding} ${mediumPadding};
     }
 
     .loading-container {
