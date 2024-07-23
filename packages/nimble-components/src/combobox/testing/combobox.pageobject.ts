@@ -5,7 +5,7 @@ import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import {
     createEventListener,
     waitAnimationFrame
-} from '../../utilities/tests/component';
+} from '../../utilities/testing/component';
 
 /**
  * Page object for the `nimble-combobox` component to provide consistent ways

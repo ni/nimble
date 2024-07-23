@@ -9,7 +9,7 @@ import type {
     TableRecord
 } from '../types';
 import { TablePageObject } from '../testing/table.pageobject';
-import { createEventListener } from '../../utilities/tests/component';
+import { createEventListener } from '../../utilities/testing/component';
 
 interface SimpleTableRecord extends TableRecord {
     stringData: string;
