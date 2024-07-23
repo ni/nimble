@@ -68,7 +68,6 @@ export class Menu extends FoundationElement {
         });
 
         this.addEventListener('change', this.changeHandler);
-        this.observeMenuItems();
     }
 
     /**
@@ -170,7 +169,7 @@ export class Menu extends FoundationElement {
 
     private itemsChanged(
         _oldValue: HTMLElement[],
-        newValue: HTMLElement[]
+        _newValue: HTMLElement[]
     ): void {
         // only update children after the component is connected and
         // the setItems has run on connectedCallback
