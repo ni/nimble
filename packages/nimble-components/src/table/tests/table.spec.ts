@@ -972,17 +972,23 @@ describe('Table', () => {
                 await connect();
                 await waitForUpdatesAsync();
 
-                const data: SimpleTableRecord[] = hierarchicalData.map(x => ({ ...x }));
+                const data: SimpleTableRecord[] = hierarchicalData.map(x => ({
+                    ...x
+                }));
                 await element.setData(data);
                 await waitForUpdatesAsync();
                 const currentFieldValue = data[0]!.stringData;
-                expect(pageObject.getRenderedCellTextContent(0, 0)).toEqual(currentFieldValue);
+                expect(pageObject.getRenderedCellTextContent(0, 0)).toEqual(
+                    currentFieldValue
+                );
 
                 const updatedFieldValue = `${currentFieldValue} - updated value`;
                 data[0]!.stringData = updatedFieldValue;
                 await element.setData(data);
                 await waitForUpdatesAsync();
-                expect(pageObject.getRenderedCellTextContent(0, 0)).toEqual(updatedFieldValue);
+                expect(pageObject.getRenderedCellTextContent(0, 0)).toEqual(
+                    updatedFieldValue
+                );
             });
 
             it('shows collapse all button with hierarchical data', async () => {
