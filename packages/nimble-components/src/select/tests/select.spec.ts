@@ -655,23 +655,28 @@ describe('Select', () => {
             return fixture<Select>(viewTemplate);
         }
 
-        it('should limit dropdown height to viewport', async () => {
-            const { element, connect, disconnect } = await setup500Options();
-            await connect();
-            await clickAndWaitForOpen(element);
-            element.listbox.style.setProperty(
-                '--ni-private-listbox-visible-option-count',
-                '10000'
-            );
-            const fullyVisible = await checkFullyInViewport(element.listbox);
+        for (let i = 0; i < 100; i++) {
+            // eslint-disable-next-line @typescript-eslint/no-loop-func
+            it(`should limit dropdown height to viewport ${i}`, async () => {
+                const { element, connect, disconnect } = await setup500Options();
+                await connect();
+                await clickAndWaitForOpen(element);
+                element.listbox.style.setProperty(
+                    '--ni-private-listbox-visible-option-count',
+                    '10000'
+                );
+                const fullyVisible = await checkFullyInViewport(
+                    element.listbox
+                );
 
-            expect(element.scrollableRegion.scrollHeight).toBeGreaterThan(
-                window.innerHeight
-            );
-            expect(fullyVisible).toBe(true);
+                expect(element.scrollableRegion.scrollHeight).toBeGreaterThan(
+                    window.innerHeight
+                );
+                expect(fullyVisible).toBe(true);
 
-            await disconnect();
-        });
+                await disconnect();
+            });
+        }
 
         // Intermittent, see: https://github.com/ni/nimble/issues/2274
         it('should scroll the selected option into view when opened #SkipWebkit', async () => {

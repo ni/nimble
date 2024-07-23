@@ -81,24 +81,27 @@ describe('RichTextMentionListbox', () => {
         await disconnect();
     });
 
-    it('should limit dropdown height to viewport', async () => {
-        const model = new Model();
-        const { connect, disconnect } = await setup500Options(model);
-        await connect();
-        await showAndWaitForOpen(model.mentionListbox, model.anchorDiv);
-        model.mentionListbox.listbox.style.setProperty(
-            '--ni-private-listbox-visible-option-count',
-            '10000'
-        );
-        const fullyVisible = await checkFullyInViewport(
-            model.mentionListbox.listbox
-        );
+    for (let i = 0; i < 100; i++) {
+        // eslint-disable-next-line @typescript-eslint/no-loop-func
+        it(`should limit dropdown height to viewport ${i}`, async () => {
+            const model = new Model();
+            const { connect, disconnect } = await setup500Options(model);
+            await connect();
+            await showAndWaitForOpen(model.mentionListbox, model.anchorDiv);
+            model.mentionListbox.listbox.style.setProperty(
+                '--ni-private-listbox-visible-option-count',
+                '10000'
+            );
+            const fullyVisible = await checkFullyInViewport(
+                model.mentionListbox.listbox
+            );
 
-        expect(model.mentionListbox.listbox.scrollHeight).toBeGreaterThan(
-            window.innerHeight
-        );
-        expect(fullyVisible).toBe(true);
+            expect(model.mentionListbox.listbox.scrollHeight).toBeGreaterThan(
+                window.innerHeight
+            );
+            expect(fullyVisible).toBe(true);
 
-        await disconnect();
-    });
+            await disconnect();
+        });
+    }
 });
