@@ -121,3 +121,4 @@ TestColumnValidator
         this.columnInternals.validator.validateBar(this.bar);
     }
 }
+/* eslint-enable max-classes-per-file, @typescript-eslint/no-unused-vars */

@@ -52,3 +52,4 @@ export const template = html<TableGroupRow>`
         </div>
     </template>
 `;
+/* eslint-enable @typescript-eslint/indent */

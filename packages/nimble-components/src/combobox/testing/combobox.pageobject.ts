@@ -177,6 +177,27 @@ export class ComboboxPageObject {
         );
     }
 
+    /**
+     * @internal
+     */
+    public hideAllOptions(): void {
+        this.comboboxElement.options.forEach(o => {
+            o.hidden = true;
+        });
+        this.comboboxElement.filterOptions();
+    }
+
+    /**
+     * @internal
+     */
+    public isNoResultsLabelVisible(): boolean {
+        return (
+            this.comboboxElement.shadowRoot?.querySelector(
+                '.no-results-label'
+            ) !== null
+        );
+    }
+
     private async waitForAnchoredRegionLoaded(): Promise<void> {
         await this.regionLoadedListener.promise;
     }
