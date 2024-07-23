@@ -14,7 +14,7 @@ import type { MenuButtonColumnToggleEventDetail } from '../types';
 import {
     createEventListener,
     sendKeyDownEvent
-} from '../../../utilities/tests/component';
+} from '../../../utilities/testing/component';
 import { Menu, menuTag } from '../../../menu';
 import { MenuItem, menuItemTag } from '../../../menu-item';
 import { MenuButton } from '../../../menu-button';

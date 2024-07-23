@@ -9,7 +9,7 @@ import { TableColumnSortDirection, TableRecord } from '../../../table/types';
 import { TablePageObject } from '../../../table/testing/table.pageobject';
 import { wackyStrings } from '../../../utilities/tests/wacky-strings';
 import type { Anchor } from '../../../anchor';
-import { sendKeyDownEvent } from '../../../utilities/tests/component';
+import { sendKeyDownEvent } from '../../../utilities/testing/component';
 
 interface SimpleTableRecord extends TableRecord {
     label?: string | null;

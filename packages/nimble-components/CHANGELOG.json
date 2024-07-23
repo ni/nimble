@@ -2,6 +2,93 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Mon, 22 Jul 2024 20:22:39 GMT",
+      "version": "30.0.8",
+      "tag": "@ni/nimble-components_v30.0.8",
+      "comments": {
+        "none": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/jasmine-parameterized to v1.0.0",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 22 Jul 2024 15:45:21 GMT",
+      "version": "30.0.8",
+      "tag": "@ni/nimble-components_v30.0.8",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "f69586afcbdea5f4b8834d1123ec2b06d4eeecb3",
+            "comment": "Update to typescript 5.4.5"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/nimble-tokens to v7.0.1",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/jasmine-parameterized to v0.3.1",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 19 Jul 2024 17:10:26 GMT",
+      "version": "30.0.7",
+      "tag": "@ni/nimble-components_v30.0.7",
+      "comments": {
+        "patch": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "6f5c329f4e463b5c329b6f775073f1d2e4020287",
+            "comment": "Move internal testing API to folder that gets included in build output"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 19 Jul 2024 16:34:38 GMT",
+      "version": "30.0.6",
+      "tag": "@ni/nimble-components_v30.0.6",
+      "comments": {
+        "patch": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "93d147ad124b395355397dd6639b519a38f60729",
+            "comment": "Add new SelectPageObject API for setting filter text."
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 19 Jul 2024 15:56:58 GMT",
+      "version": "30.0.5",
+      "tag": "@ni/nimble-components_v30.0.5",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "2ce3e24de6d0c80461b6a1c3aacb8ee0fd418e89",
+            "comment": "Update all dependencies and pin tanstack to avoid bug."
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 17 Jul 2024 21:19:45 GMT",
       "version": "30.0.4",
       "tag": "@ni/nimble-components_v30.0.4",

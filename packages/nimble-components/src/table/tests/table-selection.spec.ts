@@ -6,7 +6,7 @@ import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import {
     createEventListener,
     sendKeyDownEvents
-} from '../../utilities/tests/component';
+} from '../../utilities/testing/component';
 import { type Fixture, fixture } from '../../utilities/tests/fixture';
 import {
     TableRecord,

@@ -10,7 +10,7 @@ import { FilterMode, SelectFilterInputEventDetail } from '../types';
 import {
     createEventListener,
     waitAnimationFrame
-} from '../../utilities/tests/component';
+} from '../../utilities/testing/component';
 import { filterSearchLabel } from '../../label-provider/core/label-tokens';
 import { ListOptionGroup } from '../../list-option-group';
 import type { Button } from '../../button';
@@ -2134,6 +2134,21 @@ describe('Select', () => {
             await clickAndWaitForOpen(element);
             const optionLabels = pageObject.getGroupOptionLabelsByLabel('Group Two');
             expect(optionLabels).toEqual(['Three', 'Four']);
+        });
+
+        it('exercise setFilter', () => {
+            const filterInputListener = createEventListener(
+                element,
+                'filter-input'
+            );
+            pageObject.clickSelect();
+            pageObject.setFilter('Two');
+
+            expect(filterInputListener.spy).toHaveBeenCalledOnceWith(
+                jasmine.objectContaining({
+                    detail: { filterText: 'Two' }
+                })
+            );
         });
     });
 });

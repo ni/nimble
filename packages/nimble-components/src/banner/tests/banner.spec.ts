@@ -3,7 +3,7 @@ import { fixture, Fixture } from '../../utilities/tests/fixture';
 import { Banner, bannerTag } from '..';
 import { BannerSeverity } from '../types';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
-import { createEventListener } from '../../utilities/tests/component';
+import { createEventListener } from '../../utilities/testing/component';
 import { themeProviderTag, type ThemeProvider } from '../../theme-provider';
 import {
     LabelProviderCore,
