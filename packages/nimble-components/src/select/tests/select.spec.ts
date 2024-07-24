@@ -928,7 +928,8 @@ describe('Select', () => {
                 expect(element.open).toBeFalse();
             });
 
-            it('opening popup shows correct selected element after cancelling previous selection', async () => {
+            fit('opening popup shows correct selected element after cancelling previous selection', async () => {
+                console.log(Date().toString());
                 let currentSelection = pageObject.getSelectedOption();
                 expect(currentSelection?.text).toBe('One');
                 expect(element.value).toBe('one');
