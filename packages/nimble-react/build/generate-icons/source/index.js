@@ -1,3 +1,4 @@
+/* eslint-disable import/no-extraneous-dependencies */
 /**
  * Build script for generating React wrappers for Nimble icon components.
  */
