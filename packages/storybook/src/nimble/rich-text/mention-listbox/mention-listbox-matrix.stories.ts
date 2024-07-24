@@ -26,15 +26,27 @@ const playFunction = (): void => {
     );
     const anchorList = document.querySelectorAll('.anchor');
     editorNodeList.forEach((element, index) => {
+        const filter = anchorList[index]?.classList.contains('no-match')
+            ? 'zzz'
+            : '';
         element.show({
             anchorNode: anchorList[index] as HTMLElement,
-            filter: ''
+            filter
         });
     });
 };
 
 const component = (): ViewTemplate => html`
     <span class='anchor'></span>
+    <${richTextMentionListboxTag} style="height: 200px">
+        <${listOptionTag} value="1">Option 1</${listOptionTag}>
+        <${listOptionTag} value="2" disabled>Option 2</${listOptionTag}>
+        <${listOptionTag} value="3">Option 3</${listOptionTag}>
+        <${listOptionTag} value="6">${loremIpsum}</${listOptionTag}>
+        <${listOptionTag} value="4">Option 4</${listOptionTag}>
+        <${listOptionTag} value="5">Option 5</${listOptionTag}>
+    </${richTextMentionListboxTag}>
+    <span class='anchor no-match'></span>
     <${richTextMentionListboxTag} style="height: 200px">
         <${listOptionTag} value="1">Option 1</${listOptionTag}>
         <${listOptionTag} value="2" disabled>Option 2</${listOptionTag}>

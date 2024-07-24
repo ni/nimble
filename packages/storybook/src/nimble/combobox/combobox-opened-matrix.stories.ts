@@ -1,8 +1,12 @@
 import type { StoryFn, Meta } from '@storybook/html';
 import { html, repeat, ViewTemplate, when } from '@microsoft/fast-element';
+import { ComboboxAutocomplete } from '@microsoft/fast-foundation';
 import { DropdownPosition } from '../../../../nimble-components/src/patterns/dropdown/types';
 import { listOptionTag } from '../../../../nimble-components/src/list-option';
-import { comboboxTag } from '../../../../nimble-components/src/combobox';
+import {
+    Combobox,
+    comboboxTag
+} from '../../../../nimble-components/src/combobox';
 import { createFixedThemeStory } from '../../utilities/storybook';
 import { sharedMatrixParameters } from '../../utilities/matrix';
 import { backgroundStates } from '../../utilities/states';
@@ -31,6 +35,7 @@ const component = ({
 }: ComboboxMatrixStoryOptions): ViewTemplate => html`
     <${comboboxTag} open
         position="${() => position}" 
+        autocomplete="${ComboboxAutocomplete.both}"
         style="width: 250px; ${() => (position === DropdownPosition.below ? 'margin-bottom: 120px;' : `margin-top: ${manyOptions ? 360 : 120}px;`)}"
     >
         ${when(() => !manyOptions, html`
@@ -87,6 +92,23 @@ export const comboboxAboveOpenDarkThemeBlackBackground: StoryFn = createFixedThe
     component({ position: DropdownPosition.above }),
     darkThemeBlackBackground
 );
+
+const noMatchesPlayFunction = (): void => {
+    const combobox = document.querySelector<Combobox>(comboboxTag)!;
+    combobox.value = 'abc';
+};
+
+export const comboboxBelowOpenNoMatchLightTheme: StoryFn = createFixedThemeStory(
+    component({ position: DropdownPosition.below }),
+    lightThemeWhiteBackground
+);
+comboboxBelowOpenNoMatchLightTheme.play = noMatchesPlayFunction;
+
+export const comboboxAboveOpenNoMatchDarkTheme: StoryFn = createFixedThemeStory(
+    component({ position: DropdownPosition.above }),
+    darkThemeBlackBackground
+);
+comboboxAboveOpenNoMatchDarkTheme.play = noMatchesPlayFunction;
 
 export const comboboxBelowOpenManyOptions: StoryFn = createFixedThemeStory(
     component({

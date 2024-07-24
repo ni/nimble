@@ -1,8 +1,24 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Mon, 22 Jul 2024 15:45:21 GMT and should not be manually modified.
+This log was last generated on Tue, 23 Jul 2024 21:56:35 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 30.1.1
+
+Tue, 23 Jul 2024 21:56:35 GMT
+
+### Patches
+
+- Correct the size of the search icon in the select ([ni/nimble@1616ee0](https://github.com/ni/nimble/commit/1616ee0997b58206f9621957eb13a34e23715ca9))
+
+## 30.1.0
+
+Tue, 23 Jul 2024 20:28:50 GMT
+
+### Minor changes
+
+- Add dropdown placeholder for combobox and rich-text mention listbox ([ni/nimble@e3e202a](https://github.com/ni/nimble/commit/e3e202ae49421a95eab22669cb48cd2100aceb52))
 
 ## 30.0.8
 

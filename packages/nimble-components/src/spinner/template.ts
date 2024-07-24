@@ -20,3 +20,4 @@ export const template = html<Spinner>`
         </div>
     </template>
 `;
+/* eslint-enable @typescript-eslint/indent */
