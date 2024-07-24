@@ -23,6 +23,9 @@
   "homepage": "https://github.com/ni/nimble#readme",
   "exports": {
   },
+  "devDependencies": {
+    "@microsoft/fast-react-wrapper": "^0.3.24"
+  },
   "peerDependencies": {
   },
   "dependencies": {

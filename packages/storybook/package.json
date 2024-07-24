@@ -20,7 +20,6 @@
     "@chromatic-com/storybook": "^1.2.25",
     "@microsoft/fast-element": "^1.12.0",
     "@microsoft/fast-foundation": "^2.49.6",
-    "@microsoft/fast-react-wrapper": "^0.3.22",
     "@microsoft/fast-web-utilities": "^6.0.0",
     "@ni/nimble-components": "*",
     "@ni/spright-components": "*",
