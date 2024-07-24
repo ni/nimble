@@ -37,7 +37,6 @@
   "devDependencies": {
     "@microsoft/fast-react-wrapper": "^0.3.24",
     "@ni-private/eslint-config-nimble": "*",
-    "@ni/nimble-components": "*",
     "@rollup/plugin-node-resolve": "^15.0.1",
     "rollup": "^4.12.0",
     "prettier-eslint": "^16.3.0",
@@ -47,5 +46,6 @@
   "peerDependencies": {
   },
   "dependencies": {
+    "@ni/nimble-components": "*"
   }
 }

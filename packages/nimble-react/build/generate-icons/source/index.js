@@ -38,7 +38,7 @@ for (const key of Object.keys(icons)) {
     fileCount += 1;
 
     const iconReactWrapperContent = `${generatedFilePrefix}
-import { ${className} } from '../../../nimble-components/src/icons/${fileName}';
+import { ${className} } from '@ni/nimble-components/dist/esm/icons/${fileName}';
 import { wrap } from '../utilities/react-wrapper';
 
 export const Nimble${className} = wrap(${className});`;
