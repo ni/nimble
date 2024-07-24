@@ -15,7 +15,7 @@ const trimSizeFromName = text => {
 const generatedFilePrefix = `// AUTO-GENERATED FILE - DO NOT EDIT DIRECTLY
 // See generation source in storybook/build/generate-icons\n`;
 
-const iconsDirectory = path.resolve(__dirname, '../../../src/nimble/icons');
+const iconsDirectory = path.resolve(__dirname, '../../../src/icons');
 
 if (fs.existsSync(iconsDirectory)) {
     console.log(`Deleting existing icons directory "${iconsDirectory}"`);
@@ -38,8 +38,8 @@ for (const key of Object.keys(icons)) {
     fileCount += 1;
 
     const iconReactWrapperContent = `${generatedFilePrefix}
-import { ${className} } from '../../../../nimble-components/src/icons/${fileName}';
-import { wrap } from '../../utilities/react-wrapper';
+import { ${className} } from '../../../nimble-components/src/icons/${fileName}';
+import { wrap } from '../utilities/react-wrapper';
 
 export const Nimble${className} = wrap(${className});`;
 
