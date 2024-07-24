@@ -25,5 +25,5 @@
         "noPropertyAccessFromIndexSignature": false,
         "jsx": "preserve"
     },
-    "include": ["."]
+    "include": ["./src"]
 }
