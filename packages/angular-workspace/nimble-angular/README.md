@@ -6,7 +6,7 @@
 
 [![NPM Version](https://img.shields.io/npm/v/@ni/nimble-angular.svg)](https://www.npmjs.com/package/@ni/nimble-angular)
 
-NI-styled UI components for [Angular](https://angular.io) applications
+NI-styled UI components for [Angular](https://angular.dev) applications
 
 ## Getting started
 
