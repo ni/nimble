@@ -153,9 +153,7 @@ export class Combobox
         let updatedValue = next;
 
         if (this.$fastController.isConnected && this.options) {
-            const selectedIndex = this.options.findIndex(
-                el => el.text.toLowerCase() === next.toLowerCase()
-            );
+            const selectedIndex = this.findIndexOfValidOption(next);
 
             const prevSelectedValue = this.options[this.selectedIndex]?.text;
             const nextSelectedValue = this.options[selectedIndex]?.text;
@@ -176,9 +174,7 @@ export class Combobox
         // Can remove when following resolved: https://github.com/microsoft/fast/issues/6749
         this.filter = next;
         this.filterOptions();
-        this.selectedIndex = this.options
-            .map(option => option.text)
-            .indexOf(this.value);
+        this.selectedIndex = this.findIndexOfValidOption(this.value);
     }
 
     /**
@@ -363,12 +359,12 @@ export class Combobox
         this.filterOptions();
 
         if (!this.isAutocompleteInline) {
-            this.selectedIndex = this.options
-                .map(option => option.text)
-                .indexOf(this.control.value);
+            this.selectedIndex = this.findIndexOfValidOption(
+                this.control.value
+            );
         }
 
-        if (!(e.inputType.includes('deleteContent') || !this.filter.length)) {
+        if (!e.inputType.includes('deleteContent') && this.filter.length) {
             if (this.isAutocompleteList && !this.open) {
                 this.open = true;
             }
@@ -541,7 +537,7 @@ export class Combobox
      */
     public override setDefaultSelectedOption(): void {
         if (this.$fastController.isConnected && this.options) {
-            const selectedIndex = this.options.findIndex(
+            const selectedIndex = this.findIndexOfValidOption(
                 el => el.getAttribute('selected') !== null || el.selected
             );
 
@@ -561,11 +557,11 @@ export class Combobox
         next: number
     ): void {
         if (this.$fastController.isConnected) {
-            const pinnedSelectedIndex = limit(
-                -1,
-                this.options.length - 1,
-                next
-            );
+            let pinnedSelectedIndex = limit(-1, this.options.length - 1, next);
+            // Ensure selectedIndex doesn't get set to a disabled option
+            if (this.options[pinnedSelectedIndex]?.disabled) {
+                pinnedSelectedIndex = -1;
+            }
 
             // we only want to call the super method when the selectedIndex is in range
             if (pinnedSelectedIndex !== this.selectedIndex) {
@@ -825,6 +821,17 @@ export class Combobox
 
             this.valueUpdatedByInput = false;
         }
+    }
+
+    private findIndexOfValidOption(
+        optionTextOrPredicate: string | ((o: ListboxOption) => boolean)
+    ): number {
+        const predicate = typeof optionTextOrPredicate === 'string'
+            ? (o: ListboxOption) => !o.disabled
+                      && o.text.toLowerCase()
+                          === optionTextOrPredicate.toLowerCase()
+            : (o: ListboxOption) => !o.disabled && optionTextOrPredicate(o);
+        return this.options.findIndex(predicate);
     }
 }
 

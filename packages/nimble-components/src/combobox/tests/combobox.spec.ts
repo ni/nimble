@@ -358,6 +358,9 @@ describe('Combobox', () => {
             },
             {
                 name: ComboboxAutocomplete.both
+            },
+            {
+                name: ComboboxAutocomplete.none
             }
         ] as const;
         const filterOptionTestData = [
