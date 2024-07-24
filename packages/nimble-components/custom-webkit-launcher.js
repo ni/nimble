@@ -237,6 +237,7 @@ const WebkitBrowser = function (baseBrowserDecorator, args) {
 
     this._start = url => {
         const command = this._getCommand();
+        // const command = 'C:\\Users\\makinc\\AppData\\Local\\ms-playwright\\chromium-1124\\chrome-win\\chrome.exe';
 
         // Add used browser to test url.
         if (command?.includes('ms-playwright')) {
@@ -246,10 +247,10 @@ const WebkitBrowser = function (baseBrowserDecorator, args) {
         }
 
         const flags = args.flags || [];
-        this._execCommand(
-            this._getCommand(),
-            [testUrl, `--user-data-dir=${getTempDir()}`].concat(flags)
-        );
+        const argArray = [testUrl].concat(flags);
+
+        console.log([command].concat(argArray).join('\n    '));
+        this._execCommand(command, argArray);
     };
 
     this.on('kill', done => {
