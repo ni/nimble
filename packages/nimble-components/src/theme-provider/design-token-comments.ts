@@ -309,6 +309,6 @@ export const comments: { readonly [key in TokenName]: string } = {
     calendarDynamicEventHoverColor: 'Color while hovering dynamic calendar events',
     calendarTransientEventHoverColor: 'Color while hovering transient calendar events',
     calendarResourceSelectionBackgroundColor: 'Background color while calendar resource is selected',
-    calendarBlockedStrokeColor: 'Background fill to indicate the occupied clots in calendar resource rows',
-    calendarEventResizeRingColor: 'Background fill color for the editable calendar event resize ring',
+    calendarBlockedStrokeColor: 'Background fill to indicate the occupied slots in calendar resource rows',
+    calendarEventResizeRingColor: 'Background fill color for the calendar editable event resize ring',
 };
