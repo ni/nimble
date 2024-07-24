@@ -32,8 +32,6 @@
     "url": "https://github.com/ni/nimble/issues"
   },
   "homepage": "https://github.com/ni/nimble#readme",
-  "exports": {
-  },
   "devDependencies": {
     "@ni-private/eslint-config-nimble": "*",
     "@rollup/plugin-node-resolve": "^15.0.1",
