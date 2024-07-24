@@ -6,7 +6,7 @@ import { listOptionTag } from '../../../list-option';
 import {
     createEventListener,
     waitAnimationFrame
-} from '../../../utilities/tests/component';
+} from '../../../utilities/testing/component';
 import { checkFullyInViewport } from '../../../utilities/tests/intersection-observer';
 
 describe('RichTextMentionListbox', () => {
@@ -44,60 +44,82 @@ describe('RichTextMentionListbox', () => {
         );
     }
 
+    let element: RichTextMentionListbox;
+    let anchor: HTMLElement;
+    let connect: () => Promise<void>;
+    let disconnect: () => Promise<void>;
+
     async function waitForSelectionUpdateAsync(): Promise<void> {
         await waitForUpdatesAsync();
         await waitAnimationFrame(); // necessary because scrolling is queued with requestAnimationFrame
     }
 
-    async function showAndWaitForOpen(
-        listbox: RichTextMentionListbox,
-        anchor: HTMLElement
-    ): Promise<void> {
-        const regionLoadedListener = createEventListener(listbox, 'loaded');
-        listbox.show({
+    async function showAndWaitForOpen(filter = ''): Promise<void> {
+        const regionLoadedListener = createEventListener(element, 'loaded');
+        element.show({
             anchorNode: anchor,
-            filter: ''
+            filter
         });
         await regionLoadedListener.promise;
     }
 
-    it('should scroll the selected option into view when opened', async () => {
+    beforeEach(async () => {
         const model = new Model();
-        const { connect, disconnect } = await setup500Options(model);
+        ({ connect, disconnect } = await setup500Options(model));
+        element = model.mentionListbox;
+        anchor = model.anchorDiv;
         await connect();
-        await showAndWaitForOpen(model.mentionListbox, model.anchorDiv);
-        await waitForSelectionUpdateAsync(); // showing filters the options and modifies the selection
+    });
 
-        model.mentionListbox.selectedIndex = 300;
-        await waitForSelectionUpdateAsync();
-        const listbox = model.mentionListbox.region!.querySelector('.listbox')!;
-        expect(listbox.scrollTop).toBeGreaterThan(8000);
-
-        model.mentionListbox.selectedIndex = 0;
-        await waitForSelectionUpdateAsync();
-        expect(listbox.scrollTop).toBeCloseTo(4);
-
+    afterEach(async () => {
         await disconnect();
     });
 
-    it('should limit dropdown height to viewport', async () => {
-        const model = new Model();
-        const { connect, disconnect } = await setup500Options(model);
-        await connect();
-        await showAndWaitForOpen(model.mentionListbox, model.anchorDiv);
-        model.mentionListbox.listbox.style.setProperty(
+    // Intermittent, see: https://github.com/ni/nimble/issues/2274
+    it('should scroll the selected option into view when opened #SkipWebkit', async () => {
+        await showAndWaitForOpen();
+        await waitForSelectionUpdateAsync(); // showing filters the options and modifies the selection
+
+        element.selectedIndex = 300;
+        await waitForSelectionUpdateAsync();
+        expect(element.listbox.scrollTop).toBeGreaterThan(8000);
+
+        element.selectedIndex = 0;
+        await waitForSelectionUpdateAsync();
+        expect(element.listbox.scrollTop).toBeCloseTo(4);
+    });
+
+    // Intermittent, see: https://github.com/ni/nimble/issues/2269
+    it('should limit dropdown height to viewport #SkipWebkit', async () => {
+        element.listbox.style.setProperty(
             '--ni-private-listbox-visible-option-count',
             '10000'
         );
-        const fullyVisible = await checkFullyInViewport(
-            model.mentionListbox.listbox
-        );
+        await showAndWaitForOpen();
+        const fullyVisible = await checkFullyInViewport(element.listbox);
 
-        expect(model.mentionListbox.listbox.scrollHeight).toBeGreaterThan(
+        expect(element.listbox.scrollHeight).toBeGreaterThan(
             window.innerHeight
         );
         expect(fullyVisible).toBe(true);
 
         await disconnect();
+    });
+
+    it('does not show "no items found" in dropdown when no filter', async () => {
+        await showAndWaitForOpen();
+        expect(element.listbox.querySelector('.no-results-label')).toBeNull();
+    });
+
+    it('does not show "no items found" in dropdown when something matches filter', async () => {
+        await showAndWaitForOpen('1');
+        expect(element.listbox.querySelector('.no-results-label')).toBeNull();
+    });
+
+    it('shows "no items found" in dropdown when nothing matches filter', async () => {
+        await showAndWaitForOpen('zzz');
+        expect(
+            element.listbox.querySelector('.no-results-label')
+        ).toBeDefined();
     });
 });

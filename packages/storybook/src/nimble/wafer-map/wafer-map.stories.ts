@@ -31,7 +31,8 @@ import {
     apiCategory,
     checkValidityDescription,
     createUserSelectedThemeStory,
-    incubatingWarning
+    incubatingWarning,
+    validityDescription
 } from '../../utilities/storybook';
 
 interface WaferMapArgs {
@@ -387,12 +388,22 @@ const metadata: Meta<WaferMapArgs> = {
             table: { category: apiCategory.events }
         },
         validity: {
-            description: `Readonly object of boolean values that represents the validity states that the wafer map's configuration can be in.
-The object's type is \`WaferMapValidity\`, and it contains the following boolean properties:
-
--   \`invalidGridDimensions \`: \`true\` when some of the \`gridMinX\`, \`gridMinY\`, \`gridMaxX\` or \`gridMaxY\` are \`undefined\`, but \`false\` when all of them are provided or all of them are \`undefined\`
-
--   \`invalidDiesTableSchema \`: \`true\` when the \`diesTable\` does not have all of the three expected columns: \`colIndex\`, \`rowIndex\` and \`value\`, but \`false\` when all of them are provided or the \`diesTable\` is \`undefined\``,
+            description: validityDescription({
+                colloquialName: 'wafer map',
+                validityObjectType: 'WaferMapValidity',
+                validityFlags: [
+                    {
+                        flagName: 'invalidGridDimensions',
+                        description:
+                            '`true` when some of the `gridMinX`, `gridMinY`, `gridMaxX` or `gridMaxY` are `undefined`, but `false` when all of them are provided or all of them are `undefined`'
+                    },
+                    {
+                        flagName: 'invalidDiesTableSchema',
+                        description:
+                            '`true` when the `diesTable` does not have all of the three expected columns: `colIndex`, `rowIndex` and `value`, but `false` when all of them are provided or the `diesTable` is `undefined`'
+                    }
+                ]
+            }),
             control: false,
             table: { category: apiCategory.nonAttributeProperties }
         },

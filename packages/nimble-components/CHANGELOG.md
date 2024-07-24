@@ -1,8 +1,139 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Mon, 08 Jul 2024 22:43:30 GMT and should not be manually modified.
+This log was last generated on Tue, 23 Jul 2024 21:56:35 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 30.1.1
+
+Tue, 23 Jul 2024 21:56:35 GMT
+
+### Patches
+
+- Correct the size of the search icon in the select ([ni/nimble@1616ee0](https://github.com/ni/nimble/commit/1616ee0997b58206f9621957eb13a34e23715ca9))
+
+## 30.1.0
+
+Tue, 23 Jul 2024 20:28:50 GMT
+
+### Minor changes
+
+- Add dropdown placeholder for combobox and rich-text mention listbox ([ni/nimble@e3e202a](https://github.com/ni/nimble/commit/e3e202ae49421a95eab22669cb48cd2100aceb52))
+
+## 30.0.8
+
+Mon, 22 Jul 2024 15:45:21 GMT
+
+### Patches
+
+- Update to typescript 5.4.5 ([ni/nimble@f69586a](https://github.com/ni/nimble/commit/f69586afcbdea5f4b8834d1123ec2b06d4eeecb3))
+- Bump @ni/nimble-tokens to v7.0.1
+- Bump @ni/jasmine-parameterized to v0.3.1
+
+## 30.0.7
+
+Fri, 19 Jul 2024 17:10:26 GMT
+
+### Patches
+
+- Move internal testing API to folder that gets included in build output ([ni/nimble@6f5c329](https://github.com/ni/nimble/commit/6f5c329f4e463b5c329b6f775073f1d2e4020287))
+
+## 30.0.6
+
+Fri, 19 Jul 2024 16:34:38 GMT
+
+### Patches
+
+- Add new SelectPageObject API for setting filter text. ([ni/nimble@93d147a](https://github.com/ni/nimble/commit/93d147ad124b395355397dd6639b519a38f60729))
+
+## 30.0.5
+
+Fri, 19 Jul 2024 15:56:58 GMT
+
+### Patches
+
+- Update all dependencies and pin tanstack to avoid bug. ([ni/nimble@2ce3e24](https://github.com/ni/nimble/commit/2ce3e24de6d0c80461b6a1c3aacb8ee0fd418e89))
+
+## 30.0.4
+
+Wed, 17 Jul 2024 21:19:45 GMT
+
+### Patches
+
+- Refinements to table selection when using SHIFT ([ni/nimble@120ac65](https://github.com/ni/nimble/commit/120ac65f72158ebe9d906da156167eda14d3614b))
+
+## 30.0.3
+
+Wed, 17 Jul 2024 20:17:16 GMT
+
+### Patches
+
+- Remove reserved space for the table's "Collapse all" button when the table cannot have expandable rows ([ni/nimble@6984dd1](https://github.com/ni/nimble/commit/6984dd1666c287222e033decf8e8e911c6fe8757))
+
+## 30.0.2
+
+Wed, 17 Jul 2024 18:04:56 GMT
+
+### Patches
+
+- Consolidate tracking of slots in the table ([ni/nimble@6dcbd6c](https://github.com/ni/nimble/commit/6dcbd6c1e98c0d423374c9d0c866bc0771c42b8e))
+
+## 30.0.1
+
+Tue, 16 Jul 2024 23:53:30 GMT
+
+### Patches
+
+- Table: remove TableCellView.focusedRecycleCallback() and TableRow.closeOpenActionMenus(). The table now focuses the active cell when the table is scrolled, which has the same effect (closing open menus and blurring active cell content). ([ni/nimble@fdd35c7](https://github.com/ni/nimble/commit/fdd35c7fae80e1f3dacfb083a004bdeab0468c26))
+
+## 30.0.0
+
+Tue, 16 Jul 2024 22:30:23 GMT
+
+### Major changes
+
+- Updates to calendar and arrow icons. Clients using "nimble-icon-calendar" or "nimble-icon-arrow-u-rotate-left" must instead use "nimble-icon-calendar-days" and "nimble-icon-arrow-u-up" (respectively). ([ni/nimble@b28b651](https://github.com/ni/nimble/commit/b28b6513d47bd583e8767620cd6ef526fa3dddac))
+- Bump @ni/nimble-tokens to v7.0.0
+
+## 29.9.0
+
+Mon, 15 Jul 2024 21:21:46 GMT
+
+### Minor changes
+
+- Allow text column and anchor column to be sorted by custom data field ([ni/nimble@a25c549](https://github.com/ni/nimble/commit/a25c549530f3a26e5954c1bcbe10c649747140e2))
+
+## 29.8.2
+
+Thu, 11 Jul 2024 22:05:01 GMT
+
+### Patches
+
+- Fix table phantom multi-select ([ni/nimble@47f4c51](https://github.com/ni/nimble/commit/47f4c51194812ee74369de1e96346793d52e3ac3))
+
+## 29.8.1
+
+Thu, 11 Jul 2024 17:41:14 GMT
+
+### Patches
+
+- Align column header based on cell content alignment ([ni/nimble@8de093e](https://github.com/ni/nimble/commit/8de093ee0bc7ba8978adfcefcef943971e3eb29b))
+
+## 29.8.0
+
+Wed, 10 Jul 2024 16:23:39 GMT
+
+### Minor changes
+
+- Create menu-button table column ([ni/nimble@1007f6d](https://github.com/ni/nimble/commit/1007f6dcaf1077a0e75d6202b631db24a7d39fda))
+
+## 29.7.9
+
+Wed, 10 Jul 2024 15:47:23 GMT
+
+### Patches
+
+- Change so that Select change event occurs before filter-input event ([ni/nimble@9abc399](https://github.com/ni/nimble/commit/9abc3991f4594534b5903e2a7c0913fce72b362f))
 
 ## 29.7.8
 

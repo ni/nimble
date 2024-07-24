@@ -1,6 +1,6 @@
 /**
  * [Nimble]
- * Copied from https://github.com/angular/angular/blob/16.2.12/packages/forms/src/directives/default_value_accessor.ts
+ * Copied from https://github.com/angular/angular/blob/17.3.11/packages/forms/src/directives/default_value_accessor.ts
  * with the following modifications:
  * - Update imports
  * - Update implementation of `_isAndroid()` to not use private APIs
@@ -15,13 +15,14 @@
  * found in the LICENSE file at https://angular.io/license
  */
 
-import {Directive, ElementRef, Inject, Optional, Renderer2} from '@angular/core';
+import {ɵgetDOM as getDOM} from '@angular/common';
+import {Directive, ElementRef, forwardRef, Inject, InjectionToken, Optional, Provider, Renderer2} from '@angular/core';
 
-import { ControlValueAccessor, COMPOSITION_BUFFER_MODE } from '@angular/forms';
-import { BaseControlValueAccessor } from './control_value_accessor';
+import {ControlValueAccessor, COMPOSITION_BUFFER_MODE} from '@angular/forms';
+import {BaseControlValueAccessor} from './control_value_accessor';
 
 /* [Nimble] Do not register as a default value accessor provider
-export const DEFAULT_VALUE_ACCESSOR: any = {
+export const DEFAULT_VALUE_ACCESSOR: Provider = {
   provide: NG_VALUE_ACCESSOR,
   useExisting: forwardRef(() => DefaultValueAccessor),
   multi: true
@@ -46,7 +47,8 @@ function _isAndroid(): boolean {
  * the "compositionend" event occurs.
  * @publicApi
  *
-export const COMPOSITION_BUFFER_MODE = new InjectionToken<boolean>('CompositionEventMode');
+export const COMPOSITION_BUFFER_MODE =
+    new InjectionToken<boolean>(ngDevMode ? 'CompositionEventMode' : '');
 */
 
 /**

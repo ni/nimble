@@ -2,16 +2,16 @@ import { Editor, Mark, Node, mergeAttributes } from '@tiptap/core';
 import Bold from '@tiptap/extension-bold';
 import BulletList from '@tiptap/extension-bullet-list';
 import Document from '@tiptap/extension-document';
+import HardBreak from '@tiptap/extension-hard-break';
 import History from '@tiptap/extension-history';
 import Italic from '@tiptap/extension-italic';
-import Link, { LinkOptions } from '@tiptap/extension-link';
+import Link from '@tiptap/extension-link';
 import ListItem from '@tiptap/extension-list-item';
+import Mention from '@tiptap/extension-mention';
 import OrderedList from '@tiptap/extension-ordered-list';
 import Paragraph from '@tiptap/extension-paragraph';
 import Placeholder from '@tiptap/extension-placeholder';
 import Text from '@tiptap/extension-text';
-import Mention, { MentionOptions } from '@tiptap/extension-mention';
-import HardBreak from '@tiptap/extension-hard-break';
 import { Slice, Fragment, Node as FragmentNode } from 'prosemirror-model';
 import { PluginKey } from 'prosemirror-state';
 
@@ -110,7 +110,7 @@ export function createTiptapEditor(
  * "parseHTML": https://tiptap.dev/guide/custom-extensions#parse-html
  * "renderHTML": https://tiptap.dev/guide/custom-extensions/#render-html
  */
-function createCustomLinkExtension(): Mark<LinkOptions> {
+function createCustomLinkExtension(): Mark {
     return Link.extend({
         // Excludes can be removed/enabled when hyperlink support added
         // See: https://github.com/ni/nimble/issues/1527
@@ -164,7 +164,7 @@ function createCustomMentionExtension(
     activeMentionCharacterEmitter: ActiveMentionCharacterEmitter,
     activeMentionCommandEmitter: ActiveMentionCommandEmitter,
     mentionListbox?: RichTextMentionListbox
-): Node<MentionOptions> {
+): Node {
     return Mention.extend({
         name: config.name,
         parseHTML() {

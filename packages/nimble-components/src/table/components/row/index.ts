@@ -10,6 +10,8 @@ import { styles } from './styles';
 import { template } from './template';
 import type { TableCellState } from '../../../table-column/base/types';
 import type {
+    CellViewSlotRequestEventDetail,
+    RowSlotRequestEventDetail,
     TableActionMenuToggleEventDetail,
     TableFieldName,
     TableRecord,
@@ -19,7 +21,7 @@ import type {
 } from '../../types';
 import type { TableColumn } from '../../../table-column/base';
 import type { MenuButtonToggleEventDetail } from '../../../menu-button/types';
-import { TableCell, tableCellTag } from '../cell';
+import { tableCellTag } from '../cell';
 import {
     ColumnInternals,
     isColumnInternalsProperty
@@ -57,6 +59,9 @@ export class TableRow<
 
     @attr({ mode: 'boolean' })
     public expanded = false;
+
+    @attr({ attribute: 'reserve-collapse-space', mode: 'boolean' })
+    public reserveCollapseSpace = false;
 
     @observable
     public dataRecord?: TDataRecord;
@@ -206,17 +211,6 @@ export class TableRow<
         );
     }
 
-    public closeOpenActionMenus(): void {
-        if (this.menuOpen) {
-            const cellWithMenuOpen = Array.from(
-                this.cellContainer.children
-            ).find(c => c instanceof TableCell && c.menuOpen) as TableCell;
-            if (cellWithMenuOpen?.actionMenuButton?.open) {
-                cellWithMenuOpen.actionMenuButton.toggleButton!.control.click();
-            }
-        }
-    }
-
     /** @internal */
     public handleChange(source: unknown, args: unknown): void {
         if (
@@ -265,6 +259,25 @@ export class TableRow<
             'transitionend',
             this.removeAnimatingClass
         );
+    }
+
+    public onCellViewSlotsRequest(
+        column: TableColumn,
+        event: CustomEvent<CellViewSlotRequestEventDetail>
+    ): void {
+        event.stopImmediatePropagation();
+        if (typeof this.recordId !== 'string') {
+            // The recordId is expected to be defined on any row that can be interacted with, but if
+            // it isn't defined, nothing can be done with the request to slot content into the row.
+            return;
+        }
+
+        const eventDetails: RowSlotRequestEventDetail = {
+            recordId: this.recordId,
+            columnInternalId: column.columnInternals.uniqueId,
+            slots: event.detail.slots
+        };
+        this.$emit('row-slots-request', eventDetails);
     }
 
     private readonly removeAnimatingClass = (): void => {

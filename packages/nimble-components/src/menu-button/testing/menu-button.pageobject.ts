@@ -6,7 +6,7 @@ import {
     keySpace
 } from '@microsoft/fast-web-utilities';
 import type { MenuButton } from '..';
-import { waitForEventAsync } from '../../utilities/tests/component';
+import { waitForEventAsync } from '../../utilities/testing/component';
 
 /**
  * Page object for `nimble-menu-button` component to provide consistent ways
@@ -66,6 +66,13 @@ export class MenuButtonPageObject {
     }
 
     /**
+     * @returns Whether or not the menu button is focused.
+     */
+    public isFocused(): boolean {
+        return this.menuButtonElement.shadowRoot?.activeElement !== null;
+    }
+
+    /**
      * @internal
      * Focuses and clicks the menu button.
      */
@@ -81,6 +88,8 @@ export class MenuButtonPageObject {
      * Presses the Enter key on the menu button.
      */
     public pressEnterKey(): void {
+        // Focus the menu button before dispatching the event because a key event only makes sense on a focused element.
+        this.menuButtonElement.focus();
         const event = new KeyboardEvent('keypress', {
             key: keyEnter
         });
@@ -92,6 +101,8 @@ export class MenuButtonPageObject {
      * Presses the Space key on the menu button.
      */
     public pressSpaceKey(): void {
+        // Focus the menu button before dispatching the event because a key event only makes sense on a focused element.
+        this.menuButtonElement.focus();
         const event = new KeyboardEvent('keypress', {
             key: keySpace
         });
@@ -103,6 +114,8 @@ export class MenuButtonPageObject {
      * Presses the Arrow Up key on the menu button.
      */
     public pressArrowUpKey(): void {
+        // Focus the menu button before dispatching the event because a key event only makes sense on a focused element.
+        this.menuButtonElement.focus();
         const event = new KeyboardEvent('keydown', {
             key: keyArrowUp
         });
@@ -114,9 +127,25 @@ export class MenuButtonPageObject {
      * Presses the Arrow Down key on the menu button.
      */
     public pressArrowDownKey(): void {
+        // Focus the menu button before dispatching the event because a key event only makes sense on a focused element.
+        this.menuButtonElement.focus();
         const event = new KeyboardEvent('keydown', {
             key: keyArrowDown
         });
         this.menuButtonElement.toggleButton!.dispatchEvent(event);
+    }
+
+    /**
+     * @internal
+     */
+    public getTitle(): string {
+        return this.menuButtonElement.title;
+    }
+
+    /**
+     * @internal
+     */
+    public dispatchEvent(event: Event): void {
+        this.menuButtonElement.dispatchEvent(event);
     }
 }

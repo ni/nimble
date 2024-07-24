@@ -214,11 +214,23 @@ export interface TableRowState<TData extends TableRecord = TableRecord> {
     groupColumn?: TableColumn;
     isParentRow: boolean;
     isLoadingChildren: boolean;
+    requestedSlots: SlotMetadata[];
     resolvedRowIndex?: number;
 }
 
 /**
  * @internal
+ *
+ * Alignment of column content
+ */
+export const TableColumnAlignment = {
+    left: 'left',
+    right: 'right'
+} as const;
+export type TableColumnAlignment =
+    (typeof TableColumnAlignment)[keyof typeof TableColumnAlignment];
+
+/**
  * Table keyboard focus types
  */
 export const TableFocusType = {
@@ -236,6 +248,7 @@ export type TableFocusType =
 
 /**
  * @internal
+ *
  * Focusable elements of a table row
  */
 export interface TableRowFocusableElements {
@@ -247,10 +260,33 @@ export interface TableRowFocusableElements {
 }
 
 /**
- * @internal
  * Focusable elements of a table's header
  */
 export interface TableHeaderFocusableElements {
     headerActions: HTMLElement[];
     columnHeaders: HTMLElement[];
+}
+
+/**
+ * @internal
+ */
+export interface CellViewSlotRequestEventDetail {
+    slots: SlotMetadata[];
+}
+
+/**
+ * @internal
+ */
+export interface RowSlotRequestEventDetail {
+    columnInternalId: string;
+    recordId: string;
+    slots: SlotMetadata[];
+}
+
+/**
+ * @internal
+ */
+export interface SlotMetadata {
+    slot: string;
+    name: string;
 }

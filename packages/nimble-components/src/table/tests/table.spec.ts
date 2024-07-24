@@ -6,13 +6,14 @@ import { TableColumnText, tableColumnTextTag } from '../../table-column/text';
 import { TableColumnTextCellView } from '../../table-column/text/cell-view';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import { controlHeight } from '../../theme-provider/design-tokens';
-import { createEventListener } from '../../utilities/tests/component';
+import { createEventListener } from '../../utilities/testing/component';
 import {
     type Fixture,
     fixture,
     uniqueElementName
 } from '../../utilities/tests/fixture';
 import {
+    TableColumnAlignment,
     TableColumnSortDirection,
     TableRecord,
     TableRecordDelayedHierarchyState,
@@ -270,6 +271,25 @@ describe('Table', () => {
 
             const header = pageObject.getHeaderElement(0);
             expect(header.indicatorsHidden).toBeTrue();
+        });
+
+        it('sets column header alignment to left by default', async () => {
+            await connect();
+            await waitForUpdatesAsync();
+
+            const header = pageObject.getHeaderElement(0);
+            expect(header.alignment).toEqual(TableColumnAlignment.left);
+        });
+
+        it('sets column header alignment to right when configured as right in columnInternals', async () => {
+            await connect();
+            await waitForUpdatesAsync();
+
+            element.columns[0]!.columnInternals.headerAlignment = TableColumnAlignment.right;
+            await waitForUpdatesAsync();
+
+            const header = pageObject.getHeaderElement(0);
+            expect(header.alignment).toEqual(TableColumnAlignment.right);
         });
 
         it('can set data before the element is connected', async () => {
@@ -645,10 +665,6 @@ describe('Table', () => {
                 public override get tabbableChildren(): HTMLElement[] {
                     return [this.shadowRoot!.firstElementChild as HTMLElement];
                 }
-
-                public override focusedRecycleCallback(): void {
-                    (this.shadowRoot!.firstElementChild as HTMLElement).blur();
-                }
             }
             @customElement({
                 name: focusableColumnName
@@ -699,34 +715,6 @@ describe('Table', () => {
                 expect(actualRowCount).toBeLessThan(data.length);
                 const dataSubsetAtEnd = data.slice(-actualRowCount);
                 verifyRenderedData(dataSubsetAtEnd);
-            });
-
-            it('and calls focusedRecycleCallback on focused cell views when a scroll happens', async () => {
-                const focusableColumn = document.createElement(
-                    focusableColumnName
-                ) as TestFocusableTableColumn;
-                focusableColumn.fieldName = 'stringData';
-                column1.replaceWith(focusableColumn);
-                await connect();
-                const data = [...largeTableData];
-                await element.setData(data);
-                await waitForUpdatesAsync();
-
-                const firstCellView = pageObject.getRenderedCellView(0, 0);
-                const focusedRecycleSpy = spyOn(
-                    firstCellView,
-                    'focusedRecycleCallback'
-                ).and.callThrough();
-                const focusableElementInCell = pageObject.getRenderedCellView(
-                    0,
-                    0
-                ).shadowRoot!.firstElementChild! as HTMLElement;
-                focusableElementInCell.focus();
-                expect(focusedRecycleSpy).not.toHaveBeenCalled();
-
-                await pageObject.scrollToLastRowAsync();
-
-                expect(focusedRecycleSpy).toHaveBeenCalledTimes(1);
             });
 
             it('and closes open action menus when a scroll happens', async () => {
@@ -2279,6 +2267,55 @@ describe('Table', () => {
                     false
                 ]);
             });
+        });
+
+        describe('collapse all button space reservation', () => {
+            const collapseAllButtonConfigurations = [
+                {
+                    name: 'with groupable columns and with hierarchy',
+                    groupableColumns: true,
+                    hierarchy: true,
+                    expectSpaceReserved: true
+                },
+                {
+                    name: 'with groupable columns and without hierarchy',
+                    groupableColumns: true,
+                    hierarchy: false,
+                    expectSpaceReserved: true
+                },
+                {
+                    name: 'without groupable columns and with hierarchy',
+                    groupableColumns: false,
+                    hierarchy: true,
+                    expectSpaceReserved: true
+                },
+                {
+                    name: 'without groupable columns and without hierarchy',
+                    groupableColumns: false,
+                    hierarchy: false,
+                    expectSpaceReserved: false
+                }
+            ] as const;
+            parameterizeSpec(
+                collapseAllButtonConfigurations,
+                (spec, name, value) => {
+                    spec(name, async () => {
+                        await connect();
+                        await waitForUpdatesAsync();
+                        element.columns.forEach(column => {
+                            column.columnInternals.groupingDisabled = !value.groupableColumns;
+                        });
+                        element.parentIdFieldName = value.hierarchy
+                            ? 'parentId'
+                            : undefined;
+                        await waitForUpdatesAsync();
+
+                        expect(
+                            pageObject.isCollapseAllButtonSpaceReserved()
+                        ).toBe(value.expectSpaceReserved);
+                    });
+                }
+            );
         });
     });
 

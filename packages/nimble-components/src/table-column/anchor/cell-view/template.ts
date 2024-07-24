@@ -44,3 +44,4 @@ export const template = html<TableColumnAnchorCellView>`
             </span>`)}
     </template>
 `;
+/* eslint-enable @typescript-eslint/indent */

@@ -1,8 +1,162 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Mon, 08 Jul 2024 22:43:30 GMT and should not be manually modified.
+This log was last generated on Tue, 23 Jul 2024 21:56:35 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 26.0.2
+
+Tue, 23 Jul 2024 21:56:35 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v30.1.1
+
+## 26.0.1
+
+Tue, 23 Jul 2024 20:28:50 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v30.1.0
+
+## 26.0.0
+
+Mon, 22 Jul 2024 15:45:21 GMT
+
+### Major changes
+
+- Update to Angular 17 ([ni/nimble@f69586a](https://github.com/ni/nimble/commit/f69586afcbdea5f4b8834d1123ec2b06d4eeecb3))
+- Bump @ni/nimble-components to v30.0.8
+
+## 25.3.3
+
+Fri, 19 Jul 2024 17:10:26 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v30.0.7
+
+## 25.3.2
+
+Fri, 19 Jul 2024 16:34:38 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v30.0.6
+
+## 25.3.1
+
+Fri, 19 Jul 2024 15:56:58 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v30.0.5
+
+## 25.3.0
+
+Thu, 18 Jul 2024 20:34:02 GMT
+
+### Minor changes
+
+- Export combobox page object from nimble-angular ([ni/nimble@ab27735](https://github.com/ni/nimble/commit/ab2773599bd4d2765f00666bcf5ff07c4936dfa6))
+
+## 25.2.3
+
+Wed, 17 Jul 2024 21:19:45 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v30.0.4
+
+## 25.2.2
+
+Wed, 17 Jul 2024 20:17:16 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v30.0.3
+
+## 25.2.1
+
+Wed, 17 Jul 2024 18:04:56 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v30.0.2
+
+## 25.2.0
+
+Wed, 17 Jul 2024 17:07:05 GMT
+
+### Minor changes
+
+- Add Angular support for sortByFieldName on anchor and text columns ([ni/nimble@a65623f](https://github.com/ni/nimble/commit/a65623f67b294b2b5149b4592309572f34cdf4ba))
+
+## 25.1.0
+
+Wed, 17 Jul 2024 16:31:14 GMT
+
+### Minor changes
+
+- Angular support for the menu-button table column ([ni/nimble@7f9d617](https://github.com/ni/nimble/commit/7f9d617842b404812e18fb6d2bfdbc4443232f41))
+
+## 25.0.1
+
+Tue, 16 Jul 2024 23:53:31 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v30.0.1
+
+## 25.0.0
+
+Tue, 16 Jul 2024 22:30:23 GMT
+
+### Major changes
+
+- Bump @ni/nimble-components to v30.0.0
+
+## 24.6.4
+
+Mon, 15 Jul 2024 21:21:46 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v29.9.0
+
+## 24.6.3
+
+Thu, 11 Jul 2024 22:05:01 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v29.8.2
+
+## 24.6.2
+
+Thu, 11 Jul 2024 17:41:14 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v29.8.1
+
+## 24.6.1
+
+Wed, 10 Jul 2024 16:23:39 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v29.8.0
+
+## 24.6.0
+
+Wed, 10 Jul 2024 15:47:23 GMT
+
+### Minor changes
+
+- Select custom filtering integration to Angular. This adds new the 'loadingVisible' attribute to NimbleSelectDirective, and exports the SelectFilterInputEventDetail type. ([ni/nimble@9abc399](https://github.com/ni/nimble/commit/9abc3991f4594534b5903e2a7c0913fce72b362f))
+- Bump @ni/nimble-components to v29.7.9
 
 ## 24.5.10
 

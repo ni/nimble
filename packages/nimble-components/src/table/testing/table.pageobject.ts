@@ -420,6 +420,14 @@ export class TablePageObject<T extends TableRecord> {
         return false;
     }
 
+    public isCollapseAllButtonSpaceReserved(): boolean {
+        const collapseButton = this.getCollapseAllButton();
+        if (collapseButton) {
+            return window.getComputedStyle(collapseButton).display !== 'none';
+        }
+        return true;
+    }
+
     public isDataRowExpandCollapseButtonVisible(rowIndex: number): boolean {
         const expandCollapseButton = this.getExpandCollapseButtonForRow(rowIndex);
         return expandCollapseButton !== null;
@@ -459,7 +467,9 @@ export class TablePageObject<T extends TableRecord> {
     public clickRowSelectionCheckbox(rowIndex: number, shiftKey = false): void {
         if (shiftKey) {
             const shiftKeyDownEvent = new KeyboardEvent('keydown', {
-                key: keyShift
+                key: keyShift,
+                shiftKey: true,
+                bubbles: true
             } as KeyboardEventInit);
             document.dispatchEvent(shiftKeyDownEvent);
         }
@@ -469,7 +479,8 @@ export class TablePageObject<T extends TableRecord> {
 
         if (shiftKey) {
             const shiftKeyUpEvent = new KeyboardEvent('keyup', {
-                key: keyShift
+                key: keyShift,
+                bubbles: true
             } as KeyboardEventInit);
             document.dispatchEvent(shiftKeyUpEvent);
         }
@@ -488,7 +499,9 @@ export class TablePageObject<T extends TableRecord> {
     ): void {
         if (shiftKey) {
             const shiftKeyDownEvent = new KeyboardEvent('keydown', {
-                key: keyShift
+                key: keyShift,
+                shiftKey: true,
+                bubbles: true
             } as KeyboardEventInit);
             document.dispatchEvent(shiftKeyDownEvent);
         }
@@ -498,7 +511,8 @@ export class TablePageObject<T extends TableRecord> {
 
         if (shiftKey) {
             const shiftKeyUpEvent = new KeyboardEvent('keyup', {
-                key: keyShift
+                key: keyShift,
+                bubbles: true
             } as KeyboardEventInit);
             document.dispatchEvent(shiftKeyUpEvent);
         }

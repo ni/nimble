@@ -8,7 +8,8 @@ import {
     apiCategory,
     checkValidityDescription,
     createUserSelectedThemeStory,
-    incubatingWarning
+    incubatingWarning,
+    validityDescription
 } from '../../../utilities/storybook';
 
 interface RichTextViewerArgs {
@@ -33,12 +34,6 @@ const dataSets = {
         href: 'https://user/'
     }
 } as const;
-
-const validityDescription = `Readonly object of boolean values that represents the validity states that the viewer's configuration can be in.
-The object's type is \`RichTextValidity\`, and it contains the following boolean properties:
--   \`invalidMentionConfiguration\`: \`true\` when a mention configuration is invalid. Call \`checkValidity()\` on each mention component to see which configuration is invalid, and read the \`validity\` property of that mention for details about why it's invalid.
--   \`duplicateMentionConfiguration\`: \`true\` if more than one of the same type of mention configuration element is provided
-`;
 
 const metadata: Meta<RichTextViewerArgs> = {
     title: 'Incubating/Rich Text Viewer',
@@ -82,7 +77,22 @@ const metadata: Meta<RichTextViewerArgs> = {
             table: { category: apiCategory.slots }
         },
         validity: {
-            description: validityDescription,
+            description: validityDescription({
+                colloquialName: 'viewer',
+                validityObjectType: 'RichTextValidity',
+                validityFlags: [
+                    {
+                        flagName: 'invalidMentionConfiguration',
+                        description:
+                            "`true` when a mention configuration is invalid. Call `checkValidity()` on each mention component to see which configuration is invalid, and read the `validity` property of that mention for details about why it's invalid."
+                    },
+                    {
+                        flagName: 'duplicateMentionConfiguration',
+                        description:
+                            '`true` if more than one of the same type of mention configuration element is provided'
+                    }
+                ]
+            }),
             control: false,
             table: { category: apiCategory.nonAttributeProperties }
         },

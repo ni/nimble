@@ -132,8 +132,11 @@ export class Combobox
     public readonly dropdownButton?: ToggleButton;
 
     /**
+     * @internal
+     *
      * The collection of currently filtered options.
      */
+    @observable
     public filteredOptions: ListboxOption[] = [];
 
     /** @internal */
@@ -338,13 +341,11 @@ export class Combobox
 
         const filter = this.filter.toLowerCase();
 
-        this.filteredOptions = this._options.filter(o => o.text.toLowerCase().startsWith(filter));
+        this.filteredOptions = this._options.filter(
+            o => o.text.toLowerCase().startsWith(filter) && !o.hidden
+        );
 
         if (this.isAutocompleteList) {
-            if (!this.filteredOptions.length && !filter) {
-                this.filteredOptions = this._options;
-            }
-
             this._options.forEach(o => {
                 (o as ListOption).visuallyHidden = !this.filteredOptions.includes(o);
             });

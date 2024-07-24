@@ -8,7 +8,7 @@ import {
 import type { Table } from '..';
 import type { TableColumn } from '../../table-column/base';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
-import { createEventListener } from '../../utilities/tests/component';
+import { createEventListener } from '../../utilities/testing/component';
 import { type Fixture, fixture } from '../../utilities/tests/fixture';
 import {
     TableActionMenuToggleEventDetail,
@@ -458,6 +458,34 @@ describe('Table action menu', () => {
         expect(document.activeElement).toEqual(
             menuItems[menuItems.length - 1]!
         );
+    });
+
+    it('when open, closes if the table data is updated', async () => {
+        const slot1 = 'my-action-menu';
+        column1.actionMenuSlot = slot1;
+        const menuItems = createAndSlotMenu(slot1).items;
+        await connect();
+        await waitForUpdatesAsync();
+        pageObject.setRowHoverState(0, true);
+        await pageObject.clickCellActionMenu(0, 0);
+        await toggleListener.promise;
+
+        const closeToggleListener = createEventListener(
+            element,
+            'action-menu-toggle'
+        );
+        const newTableData: SimpleTableRecord[] = [
+            {
+                stringData: 'new string 1',
+                numericData: 8,
+                moreStringData: 'new string 2'
+            }
+        ];
+        await element.setData(newTableData);
+        await closeToggleListener.promise;
+
+        expect(pageObject.getCell(0, 0).menuOpen).toBeFalse();
+        expect(document.activeElement).not.toBe(menuItems[0]!);
     });
 
     describe('with single row selection', () => {

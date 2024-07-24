@@ -1,8 +1,140 @@
 # Change Log - @ni/spright-components
 
-This log was last generated on Mon, 08 Jul 2024 22:43:30 GMT and should not be manually modified.
+This log was last generated on Tue, 23 Jul 2024 21:56:35 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 2.0.10
+
+Tue, 23 Jul 2024 21:56:35 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v30.1.1
+
+## 2.0.9
+
+Tue, 23 Jul 2024 20:28:50 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v30.1.0
+
+## 2.0.8
+
+Mon, 22 Jul 2024 15:45:21 GMT
+
+### Patches
+
+- Update to typescript 5.4.5 ([ni/nimble@f69586a](https://github.com/ni/nimble/commit/f69586afcbdea5f4b8834d1123ec2b06d4eeecb3))
+- Bump @ni/nimble-components to v30.0.8
+- Bump @ni/nimble-tokens to v7.0.1
+- Bump @ni/jasmine-parameterized to v0.3.1
+
+## 2.0.7
+
+Fri, 19 Jul 2024 17:10:26 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v30.0.7
+
+## 2.0.6
+
+Fri, 19 Jul 2024 16:34:38 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v30.0.6
+
+## 2.0.5
+
+Fri, 19 Jul 2024 15:56:58 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v30.0.5
+
+## 2.0.4
+
+Wed, 17 Jul 2024 21:19:45 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v30.0.4
+
+## 2.0.3
+
+Wed, 17 Jul 2024 20:17:16 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v30.0.3
+
+## 2.0.2
+
+Wed, 17 Jul 2024 18:04:56 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v30.0.2
+
+## 2.0.1
+
+Tue, 16 Jul 2024 23:53:31 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v30.0.1
+
+## 2.0.0
+
+Tue, 16 Jul 2024 22:30:23 GMT
+
+### Major changes
+
+- Bump @ni/nimble-components to v30.0.0
+- Bump @ni/nimble-tokens to v7.0.0
+
+## 1.0.40
+
+Mon, 15 Jul 2024 21:21:46 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v29.9.0
+
+## 1.0.39
+
+Thu, 11 Jul 2024 22:05:01 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v29.8.2
+
+## 1.0.38
+
+Thu, 11 Jul 2024 17:41:14 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v29.8.1
+
+## 1.0.37
+
+Wed, 10 Jul 2024 16:23:39 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v29.8.0
+
+## 1.0.36
+
+Wed, 10 Jul 2024 15:47:23 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v29.7.9
 
 ## 1.0.35
 
