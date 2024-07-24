@@ -16,3 +16,4 @@ interface Select extends FormAssociated {}
 export class FormAssociatedSelect extends FormAssociated(Select) {
     public proxy = document.createElement('select');
 }
+/* eslint-enable max-classes-per-file */

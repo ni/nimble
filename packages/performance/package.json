@@ -17,7 +17,7 @@
   "devDependencies": {
     "@lhci/cli": "^0.14.0",
     "@ni-private/eslint-config-nimble": "*",
-    "typescript": "~5.1.6",
+    "typescript": "~5.4.5",
     "vite": "^5.1.5"
   },
   "files": [

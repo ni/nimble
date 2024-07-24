@@ -129,6 +129,28 @@ export function afterStarted(Blazor) {
             };
         }
     });
+    // Used by NimbleTableColumnMenuButton.razor
+    Blazor.registerCustomEventType('nimbletablecolumnmenubuttonbeforetoggle', {
+        browserEventName: 'menu-button-column-beforetoggle',
+        createEventArgs: event => {
+            return {
+                recordId: event.detail.recordId,
+                newState: event.detail.newState,
+                oldState: event.detail.oldState
+            };
+        }
+    });
+    // Used by NimbleTableColumnMenuButton.razor
+    Blazor.registerCustomEventType('nimbletablecolumnmenubuttontoggle', {
+        browserEventName: 'menu-button-column-toggle',
+        createEventArgs: event => {
+            return {
+                recordId: event.detail.recordId,
+                newState: event.detail.newState,
+                oldState: event.detail.oldState
+            };
+        }
+    });
     // Used by NimbleWaferMap.razor
     Blazor.registerCustomEventType('nimblewafermapdiehoverchange', {
         browserEventName: 'die-hover',

@@ -244,6 +244,52 @@ describe('Combobox', () => {
             );
         });
 
+        it('shows "no items found" in dropdown when typed text matches nothing', async () => {
+            element.autocomplete = ComboboxAutocomplete.both;
+            pageObject.setInputText('zzz');
+            await waitForUpdatesAsync();
+            expect(pageObject.isNoResultsLabelVisible()).toBeTrue();
+        });
+
+        it('does not show "no items found" in dropdown when typed text matches nothing but autocomplete mode is none', async () => {
+            pageObject.setInputText('zzz');
+            await waitForUpdatesAsync();
+            expect(pageObject.isNoResultsLabelVisible()).toBeFalse();
+        });
+
+        it('does not show "no items found" in dropdown when typed text matches something', async () => {
+            element.autocomplete = ComboboxAutocomplete.both;
+            pageObject.setInputText('o'); // matches "One"
+            await waitForUpdatesAsync();
+            expect(pageObject.isNoResultsLabelVisible()).toBeFalse();
+        });
+
+        it('does not show "no items found" in dropdown when input is empty', async () => {
+            element.autocomplete = ComboboxAutocomplete.both;
+            await pageObject.clickAndWaitForOpen();
+            expect(pageObject.isNoResultsLabelVisible()).toBeFalse();
+        });
+
+        it('shows "no items found" in dropdown after hiding all options', async () => {
+            pageObject.hideAllOptions();
+            await pageObject.clickAndWaitForOpen();
+            expect(pageObject.isNoResultsLabelVisible()).toBeTrue();
+        });
+
+        it('removes "no items found" from dropdown when a matching option is added', async () => {
+            element.autocomplete = ComboboxAutocomplete.both;
+            pageObject.setInputText('zzz'); // matches "One"
+            await waitForUpdatesAsync();
+
+            const matchingOption = document.createElement(listOptionTag);
+            matchingOption.value = 'zzzzzz';
+            matchingOption.innerHTML = 'Zzzzzz';
+            element.appendChild(matchingOption);
+            await waitForUpdatesAsync();
+
+            expect(pageObject.isNoResultsLabelVisible()).toBeFalse();
+        });
+
         it('emits one change event after changing value through text entry', async () => {
             const changeEvent = jasmine.createSpy();
             element.addEventListener('change', changeEvent);

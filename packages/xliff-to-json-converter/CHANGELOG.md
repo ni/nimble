@@ -1,8 +1,16 @@
 # Change Log - @ni/xliff-to-json-converter
 
-This log was last generated on Mon, 15 Apr 2024 17:36:54 GMT and should not be manually modified.
+This log was last generated on Mon, 22 Jul 2024 15:45:21 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.1.7
+
+Mon, 22 Jul 2024 15:45:21 GMT
+
+### Patches
+
+- Update to typescript 5.4.5 ([ni/nimble@f69586a](https://github.com/ni/nimble/commit/f69586afcbdea5f4b8834d1123ec2b06d4eeecb3))
 
 ## 1.1.6
 

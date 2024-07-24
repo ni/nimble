@@ -1,6 +1,6 @@
 {
   "name": "@ni/xliff-to-json-converter",
-  "version": "1.1.6",
+  "version": "1.1.7",
   "description": "A utility to convert translation files from XLIFF to JSON for Angular localization",
   "main": "dist/commonjs/cli.js",
   "bin": {
@@ -33,7 +33,7 @@
     "@types/yargs": "^17.0.10",
     "jasmine": "^5.1.0",
     "jasmine-core": "^5.1.2",
-    "typescript": "~5.1.6"
+    "typescript": "~5.4.5"
   },
   "dependencies": {
     "xliff": "^6.1.0",
