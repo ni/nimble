@@ -243,9 +243,12 @@ export const tokenNames: { readonly [key in TokenName]: string } = {
     mobiscrollBackgroundColor: 'mobiscroll-background-color',
     mobiscrollAccentColor: 'mobiscroll-accent-color',
     mobiscrollTextColor: 'mobiscroll-text-color',
-    calendarStaticEventBackgroundColor: 'calendar-static-event-background-color',
-    calendarDynamicEventBackgroundColor: 'calendar-dynamic-event-background-color',
-    calendarTransientEventBackgroundColor: 'calendar-transient-event-background-color',
+    calendarStaticEventBackgroundColor:
+        'calendar-static-event-background-color',
+    calendarDynamicEventBackgroundColor:
+        'calendar-dynamic-event-background-color',
+    calendarTransientEventBackgroundColor:
+        'calendar-transient-event-background-color',
     calendarStaticEventBorderColor: 'calendar-static-event-border-color',
     calendarTransientEventBorderColor: 'calendar-transient-event-border-color',
     calendarStaticEventTextColor: 'calendar-static-event-text-color',
@@ -254,10 +257,10 @@ export const tokenNames: { readonly [key in TokenName]: string } = {
     calendarStaticEventHoverColor: 'calendar-static-event-hover-color',
     calendarDynamicEventHoverColor: 'calendar-dynamic-event-hover-color',
     calendarTransientEventHoverColor: 'calendar-transient-event-hover-color',
-    calendarResourceSelectionBackgroundColor: 'calendar-resource-selection-background-color',
+    calendarResourceSelectionBackgroundColor:
+        'calendar-resource-selection-background-color',
     calendarBlockedStrokeColor: 'calendar-blocked-stroke-color',
     calendarEventResizeRingColor: 'calendar-event-resize-ring-color'
-
 };
 
 const prefix = 'ni-nimble';

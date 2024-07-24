@@ -297,18 +297,28 @@ export const comments: { readonly [key in TokenName]: string } = {
     mobiscrollBackgroundColor: 'Background color for mobiscroll components',
     mobiscrollAccentColor: 'Accent color for mobiscroll themes',
     mobiscrollTextColor: 'Text color for mobiscroll themes',
-    calendarStaticEventBackgroundColor: 'Background color for static calendar events',
-    calendarDynamicEventBackgroundColor: 'Background color for dynamic calendar events',
-    calendarTransientEventBackgroundColor: 'Background color for transient calendar events',
+    calendarStaticEventBackgroundColor:
+        'Background color for static calendar events',
+    calendarDynamicEventBackgroundColor:
+        'Background color for dynamic calendar events',
+    calendarTransientEventBackgroundColor:
+        'Background color for transient calendar events',
     calendarStaticEventBorderColor: 'Border color for static calendar events',
-    calendarTransientEventBorderColor: 'Border color for transient calendar events',
+    calendarTransientEventBorderColor:
+        'Border color for transient calendar events',
     calendarStaticEventTextColor: 'Font color for static calendar events',
     calendarDynamicEventTextColor: 'Font color for dynamic calendar events',
     calendarTransientEventTextColor: 'Font color for transient calendar events',
-    calendarStaticEventHoverColor: 'Color while hovering static calendar events',
-    calendarDynamicEventHoverColor: 'Color while hovering dynamic calendar events',
-    calendarTransientEventHoverColor: 'Color while hovering transient calendar events',
-    calendarResourceSelectionBackgroundColor: 'Background color while calendar resource is selected',
-    calendarBlockedStrokeColor: 'Background fill to indicate the occupied slots in calendar resource rows',
-    calendarEventResizeRingColor: 'Background fill color for the calendar editable event resize ring',
+    calendarStaticEventHoverColor:
+        'Color while hovering static calendar events',
+    calendarDynamicEventHoverColor:
+        'Color while hovering dynamic calendar events',
+    calendarTransientEventHoverColor:
+        'Color while hovering transient calendar events',
+    calendarResourceSelectionBackgroundColor:
+        'Background color while calendar resource is selected',
+    calendarBlockedStrokeColor:
+        'Background fill to indicate the occupied slots in calendar resource rows',
+    calendarEventResizeRingColor:
+        'Background fill color for the calendar editable event resize ring'
 };

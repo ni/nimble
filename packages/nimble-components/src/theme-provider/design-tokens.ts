@@ -358,71 +358,158 @@ export const buttonBorderAccentOutlineColor = DesignToken.create<string>(
 
 export const mobiscrollBackgroundColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.mobiscrollBackgroundColor)
-).withDefault((element: HTMLElement) => getColorForTheme(element, MobiscrollBackgroundLightTheme, MobiscrollBackgroundDarkTheme, MobiscrollBackgroundDarkTheme));
+).withDefault((element: HTMLElement) => getColorForTheme(
+    element,
+    MobiscrollBackgroundLightTheme,
+    MobiscrollBackgroundDarkTheme,
+    MobiscrollBackgroundDarkTheme
+));
 
 export const mobiscrollAccentColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.mobiscrollAccentColor)
-).withDefault((element: HTMLElement) => getColorForTheme(element, MobiscrollAccentLightTheme, MobiscrollAccentDarkTheme, MobiscrollAccentDarkTheme));
+).withDefault((element: HTMLElement) => getColorForTheme(
+    element,
+    MobiscrollAccentLightTheme,
+    MobiscrollAccentDarkTheme,
+    MobiscrollAccentDarkTheme
+));
 
 export const mobiscrollTextColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.mobiscrollTextColor)
-).withDefault((element: HTMLElement) => getColorForTheme(element, MobiscrollTextLightTheme, MobiscrollTextDarkTheme, MobiscrollTextDarkTheme));
+).withDefault((element: HTMLElement) => getColorForTheme(
+    element,
+    MobiscrollTextLightTheme,
+    MobiscrollTextDarkTheme,
+    MobiscrollTextDarkTheme
+));
 
 export const calendarStaticEventBackgroundColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.calendarStaticEventBackgroundColor)
-).withDefault((element: HTMLElement) => getColorForTheme(element, CalendarStaticEventBackgroundLightTheme, CalendarStaticEventBackgroundDarkTheme, CalendarStaticEventBackgroundDarkTheme));
+).withDefault((element: HTMLElement) => getColorForTheme(
+    element,
+    CalendarStaticEventBackgroundLightTheme,
+    CalendarStaticEventBackgroundDarkTheme,
+    CalendarStaticEventBackgroundDarkTheme
+));
 
 export const calendarDynamicEventBackgroundColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.calendarDynamicEventBackgroundColor)
-).withDefault((element: HTMLElement) => getColorForTheme(element, CalendarDynamicEventBackgroundLightTheme, CalendarDynamicEventBackgroundDarkTheme, CalendarDynamicEventBackgroundDarkTheme));
+).withDefault((element: HTMLElement) => getColorForTheme(
+    element,
+    CalendarDynamicEventBackgroundLightTheme,
+    CalendarDynamicEventBackgroundDarkTheme,
+    CalendarDynamicEventBackgroundDarkTheme
+));
 
 export const calendarTransientEventBackgroundColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.calendarTransientEventBackgroundColor)
-).withDefault((element: HTMLElement) => getColorForTheme(element, CalendarTransientEventBackgroundLightTheme, CalendarTransientEventBackgroundDarkTheme, CalendarTransientEventBackgroundDarkTheme));
+).withDefault((element: HTMLElement) => getColorForTheme(
+    element,
+    CalendarTransientEventBackgroundLightTheme,
+    CalendarTransientEventBackgroundDarkTheme,
+    CalendarTransientEventBackgroundDarkTheme
+));
 
 export const calendarStaticEventBorderColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.calendarStaticEventBorderColor)
-).withDefault((element: HTMLElement) => getColorForTheme(element, CalendarStaticEventBorder, CalendarStaticEventBorder, CalendarStaticEventBorder));
+).withDefault((element: HTMLElement) => getColorForTheme(
+    element,
+    CalendarStaticEventBorder,
+    CalendarStaticEventBorder,
+    CalendarStaticEventBorder
+));
 
 export const calendarTransientEventBorderColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.calendarTransientEventBorderColor)
-).withDefault((element: HTMLElement) => getColorForTheme(element, CalendarTransientEventBorderLightTheme, CalendarTransientEventBorderDarkTheme, CalendarTransientEventBorderDarkTheme));
+).withDefault((element: HTMLElement) => getColorForTheme(
+    element,
+    CalendarTransientEventBorderLightTheme,
+    CalendarTransientEventBorderDarkTheme,
+    CalendarTransientEventBorderDarkTheme
+));
 
 export const calendarStaticEventTextColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.calendarStaticEventTextColor)
-).withDefault((element: HTMLElement) => getColorForTheme(element, CalendarStaticEventTextLightTheme, CalendarStaticEventTextDarkTheme, CalendarStaticEventTextDarkTheme));
+).withDefault((element: HTMLElement) => getColorForTheme(
+    element,
+    CalendarStaticEventTextLightTheme,
+    CalendarStaticEventTextDarkTheme,
+    CalendarStaticEventTextDarkTheme
+));
 
 export const calendarDynamicEventTextColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.calendarDynamicEventTextColor)
-).withDefault((element: HTMLElement) => getColorForTheme(element, CalendarDynamicEventText, CalendarDynamicEventText, CalendarDynamicEventText));
+).withDefault((element: HTMLElement) => getColorForTheme(
+    element,
+    CalendarDynamicEventText,
+    CalendarDynamicEventText,
+    CalendarDynamicEventText
+));
 
 export const calendarTransientEventTextColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.calendarTransientEventTextColor)
-).withDefault((element: HTMLElement) => getColorForTheme(element, CalendarTransientEventText, CalendarTransientEventText, CalendarTransientEventText));
+).withDefault((element: HTMLElement) => getColorForTheme(
+    element,
+    CalendarTransientEventText,
+    CalendarTransientEventText,
+    CalendarTransientEventText
+));
 
 export const calendarStaticEventHoverColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.calendarStaticEventHoverColor)
-).withDefault((element: HTMLElement) => getColorForTheme(element, CalendarStaticEventHoverLightTheme, CalendarStaticEventHoverDarkTheme, CalendarStaticEventHoverDarkTheme));
+).withDefault((element: HTMLElement) => getColorForTheme(
+    element,
+    CalendarStaticEventHoverLightTheme,
+    CalendarStaticEventHoverDarkTheme,
+    CalendarStaticEventHoverDarkTheme
+));
 
 export const calendarDynamicEventHoverColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.calendarDynamicEventHoverColor)
-).withDefault((element: HTMLElement) => getColorForTheme(element, CalendarDynamicEventHoverLightTheme, CalendarDynamicEventHoverDarkTheme, CalendarDynamicEventHoverDarkTheme));
+).withDefault((element: HTMLElement) => getColorForTheme(
+    element,
+    CalendarDynamicEventHoverLightTheme,
+    CalendarDynamicEventHoverDarkTheme,
+    CalendarDynamicEventHoverDarkTheme
+));
 
 export const calendarTransientEventHoverColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.calendarTransientEventHoverColor)
-).withDefault((element: HTMLElement) => getColorForTheme(element, CalendarTransientEventHoverLightTheme, CalendarTransientEventHoverDarkTheme, CalendarTransientEventHoverDarkTheme));
+).withDefault((element: HTMLElement) => getColorForTheme(
+    element,
+    CalendarTransientEventHoverLightTheme,
+    CalendarTransientEventHoverDarkTheme,
+    CalendarTransientEventHoverDarkTheme
+));
 
 export const calendarResourceSelectionBackgroundColor = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.calendarResourceSelectionBackgroundColor)
-).withDefault((element: HTMLElement) => getColorForTheme(element, CalendarResourceSelectionBackgroundLightTheme, CalendarResourceSelectionBackgroundDarkTheme, CalendarResourceSelectionBackgroundDarkTheme));
+    styleNameFromTokenName(
+        tokenNames.calendarResourceSelectionBackgroundColor
+    )
+).withDefault((element: HTMLElement) => getColorForTheme(
+    element,
+    CalendarResourceSelectionBackgroundLightTheme,
+    CalendarResourceSelectionBackgroundDarkTheme,
+    CalendarResourceSelectionBackgroundDarkTheme
+));
 
 export const calendarBlockedStrokeColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.calendarBlockedStrokeColor)
-).withDefault((element: HTMLElement) => getColorForTheme(element, CalendarBlockedStrokeLightTheme, CalendarBlockedStrokeDarkTheme, CalendarBlockedStrokeDarkTheme));
+).withDefault((element: HTMLElement) => getColorForTheme(
+    element,
+    CalendarBlockedStrokeLightTheme,
+    CalendarBlockedStrokeDarkTheme,
+    CalendarBlockedStrokeDarkTheme
+));
 
 export const calendarEventResizeRingColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.calendarEventResizeRingColor)
-).withDefault((element: HTMLElement) => getColorForTheme(element, CalendarEventResizeRing, CalendarEventResizeRing, CalendarEventResizeRing));
+).withDefault((element: HTMLElement) => getColorForTheme(
+    element,
+    CalendarEventResizeRing,
+    CalendarEventResizeRing,
+    CalendarEventResizeRing
+));
 
 // Component Sizing Tokens
 export const controlHeight = DesignToken.create<string>(
