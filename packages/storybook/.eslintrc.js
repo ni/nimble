@@ -5,8 +5,7 @@ module.exports = {
         'dist',
         // Force inclusion of storybook dot file hidden folder
         '!/.storybook',
-        '/.storybook/blocks/StoryLayout.tsx',
-        'src/nimble/icons'
+        '/.storybook/blocks/StoryLayout.tsx'
     ],
     overrides: [
         {
@@ -62,19 +61,6 @@ module.exports = {
                 // Disables a rule from storybook recommended we have not followed
                 // No reason we couldn't other than low ROI
                 'storybook/prefer-pascal-case': 'off'
-            }
-        },
-        {
-            files: ['**/*.react.tsx'],
-            rules: {
-                // The React components should use PascalCase
-                '@typescript-eslint/naming-convention': [
-                    'error',
-                    {
-                        selector: 'objectLiteralProperty',
-                        format: ['PascalCase']
-                    }
-                ]
             }
         },
         {
