@@ -176,6 +176,96 @@
     },
     "NI Sea Dark 2": {
       "value": "#00685Fff"
+    },
+    "Mobiscroll Background Light Theme": {
+      "value": "#FFFFFFff"
+    },
+    "Mobiscroll Background Dark Theme": {
+      "value": "#363738ff"
+    },
+    "Mobiscroll Accent Light Theme": {
+      "value": "#009B65ff"
+    },
+    "Mobiscroll Accent Dark Theme": {
+      "value": "#26A97Cff"
+    },
+    "Mobiscroll Text Light Theme": {
+      "value": "#161617ff"
+    },
+    "Mobiscroll Text Dark Theme": {
+      "value": "#F1F1F2ff"
+    },
+    "Calendar Static Event Background Light Theme": {
+      "value": "#E6F5F0"
+    },
+    "Calendar Static Event Background Dark Theme": {
+      "value": "#364941"
+    },
+    "Calendar Static Event Text Light Theme": {
+      "value": "#00613F"
+    },
+    "Calendar Static Event Text Dark Theme": {
+      "value": "#FFFFFF"
+    },
+    "Calendar Static Event Hover Light Theme": {
+      "value": "#A3DBC7"
+    },
+    "Calendar Static Event Hover Dark Theme": {
+      "value": "#34785A"
+    },
+    "Calendar Dynamic Event Background Light Theme": {
+      "value": "#00734B"
+    },
+    "Calendar Dynamic Event Background Dark Theme": {
+      "value": "#008557"
+    },
+    "Calendar Dynamic Event Hover Light Theme": {
+      "value": "#00613F"
+    },
+    "Calendar Dynamic Event Hover Dark Theme": {
+      "value": "#00734B"
+    },
+    "Calendar Transient Event Background Light Theme": {
+      "value": "#00734B"
+    },
+    "Calendar Transient Event Background Dark Theme": {
+      "value": "#008557"
+    },
+    "Calendar Transient Event Border Light Theme": {
+      "value": "#009B65"
+    },
+    "Calendar Transient Event Border Dark Theme": {
+      "value": "#25D186"
+    },
+    "Calendar Transient Event Hover Light Theme": {
+      "value": "#00613F"
+    },
+    "Calendar Transient Event Hover Dark Theme": {
+      "value": "#00734B"
+    },
+    "Calendar Resource Selection Background Light Theme": {
+      "value": "#CCEBE0"
+    },
+    "Calendar Resource Selection Background Dark Theme": {
+      "value": "#355B4B"
+    },
+    "Calendar Blocked Stroke Light Theme": {
+      "value": "#EFEFEF"
+    },
+    "Calendar Blocked Stroke Dark Theme": {
+      "value": "#434445"
+    },
+    "Calendar Event Resize Ring": {
+      "value": "#009B65"
+    },
+    "Calendar Static Event Border": {
+      "value": "#009B65"
+    },
+    "Calendar Dynamic Event Text": {
+      "value": "#FFFFFF"
+    },
+    "Calendar Transient Event Text": {
+      "value": "#FFFFFF"
     }
   }
 }
