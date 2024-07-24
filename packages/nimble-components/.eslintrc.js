@@ -4,7 +4,8 @@ module.exports = {
         'node_modules',
         'dist',
         'src/icons',
-        'src/wafer-map/workers'
+        'src/wafer-map/workers',
+        'custom-webkit-launcher.js'
     ],
     overrides: [
         {
@@ -17,7 +18,7 @@ module.exports = {
             parserOptions: {
                 project: './tsconfig.json',
                 tsconfigRootDir: __dirname
-            },
+            }
         },
         {
             files: ['build/**/*.js'],
@@ -25,8 +26,8 @@ module.exports = {
                 // Build scripts should give verbose logging
                 'no-console': 'off',
                 // Rollup config files use default exports
-                'import/no-default-export': 'off',
-            },
+                'import/no-default-export': 'off'
+            }
         }
     ]
 };

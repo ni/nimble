@@ -44,6 +44,8 @@ const webpackEnvironmentPlugin = new webpack.EnvironmentPlugin({
     NODE_ENV: 'production'
 });
 
+const customWebkit = require('./custom-webkit-launcher.js');
+
 module.exports = config => {
     const options = {
         basePath,
@@ -64,7 +66,7 @@ module.exports = config => {
             'karma-sourcemap-loader',
             'karma-chrome-launcher',
             'karma-firefox-launcher',
-            'karma-webkit-launcher'
+            customWebkit
         ],
         files: ['dist/esm/utilities/tests/setup.js'],
         preprocessors: {
