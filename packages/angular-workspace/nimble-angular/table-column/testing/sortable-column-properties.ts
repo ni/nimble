@@ -8,7 +8,7 @@ export const sortingDisabled1 = true as const;
 export const sortingDisabled2 = false as const;
 
 export const sortableColumnProperties = [
-    { name: 'sortDirection', defaultValue: undefined, value1: sortDirection1, value2: sortDirection2 },
-    { name: 'sortIndex', defaultValue: undefined, value1: sortIndex1, value2: sortIndex2 },
-    { name: 'sortingDisabled', defaultValue: false, value1: sortingDisabled1, value2: sortingDisabled2 }
+    { name: 'sortDirection', property: 'sortDirection', defaultValue: undefined, value1: sortDirection1, value2: sortDirection2 },
+    { name: 'sortIndex', property: 'sortIndex', defaultValue: undefined, value1: sortIndex1, value2: sortIndex2 },
+    { name: 'sortingDisabled', property: 'sortingDisabled', defaultValue: false, value1: sortingDisabled1, value2: sortingDisabled2 }
 ] as const;
