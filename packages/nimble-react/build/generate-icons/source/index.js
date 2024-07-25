@@ -14,7 +14,7 @@ const trimSizeFromName = text => {
 };
 
 const generatedFilePrefix = `// AUTO-GENERATED FILE - DO NOT EDIT DIRECTLY
-// See generation source in storybook/build/generate-icons\n`;
+// See generation source in build/generate-icons\n`;
 
 const iconsDirectory = path.resolve(__dirname, '../../../src/icons');
 
