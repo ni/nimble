@@ -42,22 +42,6 @@ module.exports = {
                     { devDependencies: true }
                 ],
 
-                // This rule is disabled in order to allow linking directly to nimble-components and spright-components source
-                // Other files in the repo should NOT directly link to source and should resolve with the package identifier instead
-                'import/no-relative-packages': 'off',
-                'no-restricted-imports': [
-                    'error',
-                    {
-                        patterns: [
-                            {
-                                group: ['*/nimble-components/dist/esm/*', '*/spright-components/dist/esm/*', '@ni/nimble-components/*', '@ni/spright-components/*'],
-                                message:
-                                    'For storybook, link directly to the nimble-components or spright-components typescript source path in the monorepo with a relative path instead of dist build output.'
-                            },
-                        ]
-                    }
-                ],
-
                 // Disables a rule from storybook recommended we have not followed
                 // No reason we couldn't other than low ROI
                 'storybook/prefer-pascal-case': 'off'
