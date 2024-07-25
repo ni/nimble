@@ -33,7 +33,10 @@ export const styles = css`
     }
 
     :host([fit-height-to-rows]) {
-        height: min(calc(var(--ni-private-table-scroll-height) + ${controlHeight}), calc(100 * ${controlHeight}));
+        height: min(
+            calc(var(--ni-private-table-scroll-height) + ${controlHeight}),
+            calc(100 * ${controlHeight})
+        );
     }
 
     :host(${focusVisible}) {
