@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/html';
 import { html } from '@microsoft/fast-element';
-import { rectangleTag } from '../../../../spright-components/src/rectangle';
+import { rectangleTag } from '@ni/spright-components/dist/esm/rectangle';
 import {
     apiCategory,
     createUserSelectedThemeStory,
