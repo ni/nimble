@@ -1,4 +1,9 @@
-import { children, html, type ViewTemplate } from '@microsoft/fast-element';
+import {
+    children,
+    html,
+    slotted,
+    type ViewTemplate
+} from '@microsoft/fast-element';
 import type { FoundationElementTemplate } from '@microsoft/fast-foundation';
 import type { Menu } from '.';
 
@@ -11,8 +16,8 @@ ViewTemplate<Menu>
         role="menu"
         @keydown="${(x, c) => x.handleMenuKeyDown(c.event as KeyboardEvent)}"
         @focusout="${(x, c) => x.handleFocusOut(c.event as FocusEvent)}"
-        ${children({ property: 'descendants', subtree: true, selector: '*' })}
+        ${children({ property: 'itemIcons', subtree: true, selector: ':scope > * > [slot="start"]' })}
     >
-        <slot></slot>
+        <slot ${slotted('items')}></slot>
     </template>
 `;

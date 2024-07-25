@@ -53,7 +53,57 @@ describe('Menu', () => {
                 await disconnect();
             });
 
-            it('properly indents items when an icon is slotted after connecting', async () => {
+            it('indents items when an item with an icon is slotted after connecting', async () => {
+                expect(item1.classList.contains('indent-0')).toBeTrue();
+                expect(item2.classList.contains('indent-0')).toBeTrue();
+
+                const item3 = document.createElement(name);
+                const icon = document.createElement(iconCheckTag);
+                icon.slot = 'start';
+                item3.appendChild(icon);
+                element.appendChild(item3);
+                await waitForUpdatesAsync();
+
+                expect(item1.classList.contains('indent-1')).toBeTrue();
+                expect(item2.classList.contains('indent-1')).toBeTrue();
+                expect(item3.classList.contains('indent-1')).toBeTrue();
+            });
+
+            it('does not indent items when the only item with an icon is removed', async () => {
+                const icon = document.createElement(iconCheckTag);
+                icon.slot = 'start';
+                item1.appendChild(icon);
+                await waitForUpdatesAsync();
+
+                element.removeChild(item1);
+                await waitForUpdatesAsync();
+
+                expect(item2.classList.contains('indent-0')).toBeTrue();
+                expect(item2.classList.contains('indent-1')).toBeFalse();
+            });
+
+            it('indents newly added item (without icon) when there was already an item with an icon', async () => {
+                const icon = document.createElement(iconCheckTag);
+                icon.slot = 'start';
+                item1.appendChild(icon);
+                await waitForUpdatesAsync();
+
+                const item3 = document.createElement(name);
+                element.appendChild(item3);
+                await waitForUpdatesAsync();
+
+                expect(item3.classList.contains('indent-1')).toBeTrue();
+            });
+
+            it('does not indent newly added item (without icon) when there were no items with icons', async () => {
+                const item3 = document.createElement(name);
+                element.appendChild(item3);
+                await waitForUpdatesAsync();
+
+                expect(item3.classList.contains('indent-0')).toBeTrue();
+            });
+
+            it('indents items when an icon is slotted after connecting', async () => {
                 expect(item1.classList.contains('indent-0')).toBeTrue();
                 expect(item2.classList.contains('indent-0')).toBeTrue();
 
@@ -66,7 +116,7 @@ describe('Menu', () => {
                 expect(item2.classList.contains('indent-1')).toBeTrue();
             });
 
-            it('properly indents items when the only icon is removed', async () => {
+            it('does not indent items when the only icon is removed', async () => {
                 const icon = document.createElement(iconCheckTag);
                 icon.slot = 'start';
                 item1.appendChild(icon);

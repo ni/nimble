@@ -35,7 +35,7 @@ export class AnchorMenuItem extends AnchorBase {
      * @internal
      */
     @observable
-    public startColumnCount: MenuItemColumnCount = 0;
+    public startColumnCount?: MenuItemColumnCount;
 
     // The following two handlers are workarounds for issues with anchor menu items in submenus.
     // Events can bubble up the DOM and get handled by the menu item in the parent menu. When that happens,

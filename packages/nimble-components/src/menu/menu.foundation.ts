@@ -29,7 +29,13 @@ export class Menu extends FoundationElement {
      * @internal
      */
     @observable
-    public descendants?: Node[];
+    public items!: HTMLSlotElement;
+
+    /**
+     * @internal
+     */
+    @observable
+    public itemIcons?: Element[];
 
     private menuItems: Element[] | undefined;
 
@@ -218,14 +224,27 @@ export class Menu extends FoundationElement {
         }
     };
 
-    private descendantsChanged(
-        _oldValue: HTMLElement[],
-        _newValue: HTMLElement[]
-    ): void {
+    private itemsChanged(): void {
         // only update children after the component is connected and
         // the setItems has run on connectedCallback
         // (menuItems is undefined until then)
         if (this.$fastController.isConnected && this.menuItems !== undefined) {
+            this.setItems();
+        }
+    }
+
+    private itemIconsChanged(oldIcons: Element[], newIcons: Element[]): void {
+        // Unintuitively, providing a selector (i.e. ':scope > * > [slot="start"]') to
+        // the children directive does not limit when/how often itemIcons gets updated.
+        // All it does is filter the elements that are assigned to itemIcons.
+        // To avoid unneccessary calls to setItems, we need to check if there was actually a change.
+        if (
+            this.$fastController.isConnected
+            && this.menuItems !== undefined
+            && (oldIcons.length !== newIcons.length
+                || oldIcons.filter(x => newIcons.includes(x)).length
+                    !== oldIcons.length)
+        ) {
             this.setItems();
         }
     }
