@@ -1,3 +1,4 @@
+import NimbleButton from "@ni/nimble-react/dist/esm/";
 import Image from "next/image";
 import styles from "./page.module.css";
 
@@ -5,6 +6,7 @@ export default function Home() {
   return (
     <main className={styles.main}>
       <div className={styles.description}>
+        <NimbleButton>Click me</NimbleButton>
         <p>
           Get started by editing&nbsp;
           <code className={styles.code}>src/app/page.tsx</code>
