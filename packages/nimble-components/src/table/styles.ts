@@ -10,7 +10,8 @@ import {
     mediumPadding,
     standardPadding,
     tableRowBorderColor,
-    borderHoverColor
+    borderHoverColor,
+    controlHeight
 } from '../theme-provider/design-tokens';
 import { Theme } from '../theme-provider/types';
 import { hexToRgbaCssColor } from '../utilities/style/colors';
@@ -27,6 +28,12 @@ export const styles = css`
         height: 480px;
         --ni-private-column-divider-width: 2px;
         --ni-private-column-divider-padding: 3px;
+
+        background: lightblue;
+    }
+
+    :host([fit-height-to-rows]) {
+        height: min(calc(var(--ni-private-table-scroll-height) + ${controlHeight}), calc(100 * ${controlHeight}));
     }
 
     :host(${focusVisible}) {

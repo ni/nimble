@@ -39,10 +39,8 @@ export const template = html<Table>`
         ${'' /* tabindex managed dynamically by KeyboardNavigationManager */}
         tabindex="0"
         aria-multiselectable="${x => x.ariaMultiSelectable}"
-        ${children({ property: 'childItems', filter: elements() })}
-    >
-        <div class="table-container ${x => (x.windowShiftKeyDown ? 'disable-select' : '')}"
-            style="
+        ${children({ property: 'childItems', filter: elements() })}        
+        style="
             --ni-private-table-scroll-x: -${x => x.scrollX}px;
             --ni-private-table-header-container-margin-right: ${x => x.virtualizer.headerContainerMarginRight}px;
             --ni-private-table-scroll-height: ${x => x.virtualizer.scrollHeight}px;
@@ -51,7 +49,9 @@ export const template = html<Table>`
             --ni-private-table-cursor-override: ${x => (x.layoutManager.isColumnBeingSized ? 'col-resize' : 'default')};
             --ni-private-table-scrollable-min-width: ${x => x.tableScrollableMinWidth}px;
             --ni-private-glass-overlay-pointer-events: ${x => (x.layoutManager.isColumnBeingSized ? 'none' : 'default')};
-            ">
+            "
+    >
+        <div class="table-container ${x => (x.windowShiftKeyDown ? 'disable-select' : '')}">
             <div class="glass-overlay">
                 <div role="rowgroup" class="header-row-container">
                     <div class="header-row" role="row">
