@@ -46,6 +46,7 @@
     "packages/nimble-components",
     "packages/spright-components",
     "packages/nimble-react",
+    "packages/next-example-app",
     "packages/react-example-app",
     "packages/storybook",
     "packages/angular-workspace",
