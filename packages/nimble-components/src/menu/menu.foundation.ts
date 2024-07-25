@@ -29,7 +29,7 @@ export class Menu extends FoundationElement {
      * @internal
      */
     @observable
-    public items!: HTMLSlotElement;
+    public descendants?: Node[];
 
     private menuItems: Element[] | undefined;
 
@@ -151,6 +151,11 @@ export class Menu extends FoundationElement {
         }
     };
 
+    /** @internal */
+    public getSlot(): string {
+        return (this.slot ?? this.isNestedMenu()) ? 'submenu' : '';
+    }
+
     private readonly handleItemFocus = (e: Event): void => {
         const targetItem: HTMLElement = e.target as HTMLElement;
 
@@ -213,7 +218,7 @@ export class Menu extends FoundationElement {
         }
     };
 
-    private itemsChanged(
+    private descendantsChanged(
         _oldValue: HTMLElement[],
         _newValue: HTMLElement[]
     ): void {

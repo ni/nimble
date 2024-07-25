@@ -1,8 +1,6 @@
-import {
-    DesignSystem,
-    menuTemplate as template
-} from '@microsoft/fast-foundation';
+import { DesignSystem } from '@microsoft/fast-foundation';
 import { Menu as FoundationMenu } from './menu.foundation';
+import { template } from './template';
 import { styles } from './styles';
 
 declare global {
