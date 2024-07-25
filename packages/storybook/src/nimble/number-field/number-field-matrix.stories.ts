@@ -1,7 +1,7 @@
 import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate } from '@microsoft/fast-element';
-import { numberFieldTag } from '../../../../nimble-components/src/number-field';
-import { NumberFieldAppearance } from '../../../../nimble-components/src/number-field/types';
+import { numberFieldTag } from '@ni/nimble-components/dist/esm/number-field';
+import { NumberFieldAppearance } from '@ni/nimble-components/dist/esm/number-field/types';
 import { createStory } from '../../utilities/storybook';
 import {
     createMatrixThemeStory,

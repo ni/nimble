@@ -1,13 +1,13 @@
 import { html, ref } from '@microsoft/fast-element';
 import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html';
 import { withActions } from '@storybook/addon-actions/decorator';
-import { tableTag } from '../../../../../nimble-components/src/table';
-import type { TableRecord } from '../../../../../nimble-components/src/table/types';
-import { tableColumnTextTag } from '../../../../../nimble-components/src/table-column/text';
-import { tableColumnMenuButtonTag } from '../../../../../nimble-components/src/table-column/menu-button';
-import type { MenuButtonColumnToggleEventDetail } from '../../../../../nimble-components/src/table-column/menu-button/types';
-import { Menu, menuTag } from '../../../../../nimble-components/src/menu';
-import { menuItemTag } from '../../../../../nimble-components/src/menu-item';
+import { tableTag } from '@ni/nimble-components/dist/esm/table';
+import type { TableRecord } from '@ni/nimble-components/dist/esm/table/types';
+import { tableColumnTextTag } from '@ni/nimble-components/dist/esm/table-column/text';
+import { tableColumnMenuButtonTag } from '@ni/nimble-components/dist/esm/table-column/menu-button';
+import type { MenuButtonColumnToggleEventDetail } from '@ni/nimble-components/dist/esm/table-column/menu-button/types';
+import { Menu, menuTag } from '@ni/nimble-components/dist/esm/menu';
+import { menuItemTag } from '@ni/nimble-components/dist/esm/menu-item';
 import {
     SharedTableArgs,
     sharedTableActions,

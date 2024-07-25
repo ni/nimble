@@ -1,12 +1,12 @@
 import { html, repeat, when } from '@microsoft/fast-element';
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html';
-import { iconCogTag } from '../../../../nimble-components/src/icons/cog';
-import { iconDatabaseTag } from '../../../../nimble-components/src/icons/database';
-import { treeItemTag } from '../../../../nimble-components/src/tree-item';
-import { anchorTreeItemTag } from '../../../../nimble-components/src/anchor-tree-item';
-import { treeViewTag } from '../../../../nimble-components/src/tree-view';
-import { TreeViewSelectionMode } from '../../../../nimble-components/src/tree-view/types';
+import { iconCogTag } from '@ni/nimble-components/dist/esm/icons/cog';
+import { iconDatabaseTag } from '@ni/nimble-components/dist/esm/icons/database';
+import { treeItemTag } from '@ni/nimble-components/dist/esm/tree-item';
+import { anchorTreeItemTag } from '@ni/nimble-components/dist/esm/anchor-tree-item';
+import { treeViewTag } from '@ni/nimble-components/dist/esm/tree-view';
+import { TreeViewSelectionMode } from '@ni/nimble-components/dist/esm/tree-view/types';
 import {
     apiCategory,
     createUserSelectedThemeStory,

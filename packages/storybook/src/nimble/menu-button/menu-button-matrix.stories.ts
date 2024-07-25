@@ -1,8 +1,8 @@
 import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate, when } from '@microsoft/fast-element';
-import { iconArrowExpanderDownTag } from '../../../../nimble-components/src/icons/arrow-expander-down';
-import { iconKeyTag } from '../../../../nimble-components/src/icons/key';
-import { menuButtonTag } from '../../../../nimble-components/src/menu-button';
+import { iconArrowExpanderDownTag } from '@ni/nimble-components/dist/esm/icons/arrow-expander-down';
+import { iconKeyTag } from '@ni/nimble-components/dist/esm/icons/key';
+import { menuButtonTag } from '@ni/nimble-components/dist/esm/menu-button';
 import {
     appearanceStates,
     type AppearanceState,

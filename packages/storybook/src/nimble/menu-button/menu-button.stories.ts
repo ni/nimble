@@ -1,17 +1,17 @@
 import { html, when } from '@microsoft/fast-element';
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html';
-import { iconArrowExpanderDownTag } from '../../../../nimble-components/src/icons/arrow-expander-down';
-import { iconKeyTag } from '../../../../nimble-components/src/icons/key';
-import { menuTag } from '../../../../nimble-components/src/menu';
-import { anchorMenuItemTag } from '../../../../nimble-components/src/anchor-menu-item';
-import { menuItemTag } from '../../../../nimble-components/src/menu-item';
-import { menuButtonTag } from '../../../../nimble-components/src/menu-button';
+import { iconArrowExpanderDownTag } from '@ni/nimble-components/dist/esm/icons/arrow-expander-down';
+import { iconKeyTag } from '@ni/nimble-components/dist/esm/icons/key';
+import { menuTag } from '@ni/nimble-components/dist/esm/menu';
+import { anchorMenuItemTag } from '@ni/nimble-components/dist/esm/anchor-menu-item';
+import { menuItemTag } from '@ni/nimble-components/dist/esm/menu-item';
+import { menuButtonTag } from '@ni/nimble-components/dist/esm/menu-button';
 import {
     ButtonAppearance,
     ButtonAppearanceVariant,
     MenuButtonPosition
-} from '../../../../nimble-components/src/menu-button/types';
+} from '@ni/nimble-components/dist/esm/menu-button/types';
 import {
     appearanceDescription,
     appearanceVariantDescription,

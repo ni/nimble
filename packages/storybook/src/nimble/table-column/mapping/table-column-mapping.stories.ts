@@ -1,16 +1,16 @@
 import { html, ref } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
-import { tableTag } from '../../../../../nimble-components/src/table';
-import { iconXmarkTag } from '../../../../../nimble-components/src/icons/xmark';
-import { tableColumnTextTag } from '../../../../../nimble-components/src/table-column/text';
-import { iconCheckLargeTag } from '../../../../../nimble-components/src/icons/check-large';
-import { iconChartDiagramChildFocusTag } from '../../../../../nimble-components/src/icons/chart-diagram-child-focus';
-import { mappingIconTag } from '../../../../../nimble-components/src/mapping/icon';
-import { mappingSpinnerTag } from '../../../../../nimble-components/src/mapping/spinner';
-import { mappingTextTag } from '../../../../../nimble-components/src/mapping/text';
-import { mappingEmptyTag } from '../../../../../nimble-components/src/mapping/empty';
-import { TableColumnMappingWidthMode } from '../../../../../nimble-components/src/table-column/mapping/types';
-import { tableColumnMappingTag } from '../../../../../nimble-components/src/table-column/mapping';
+import { tableTag } from '@ni/nimble-components/dist/esm/table';
+import { iconXmarkTag } from '@ni/nimble-components/dist/esm/icons/xmark';
+import { tableColumnTextTag } from '@ni/nimble-components/dist/esm/table-column/text';
+import { iconCheckLargeTag } from '@ni/nimble-components/dist/esm/icons/check-large';
+import { iconChartDiagramChildFocusTag } from '@ni/nimble-components/dist/esm/icons/chart-diagram-child-focus';
+import { mappingIconTag } from '@ni/nimble-components/dist/esm/mapping/icon';
+import { mappingSpinnerTag } from '@ni/nimble-components/dist/esm/mapping/spinner';
+import { mappingTextTag } from '@ni/nimble-components/dist/esm/mapping/text';
+import { mappingEmptyTag } from '@ni/nimble-components/dist/esm/mapping/empty';
+import { TableColumnMappingWidthMode } from '@ni/nimble-components/dist/esm/table-column/mapping/types';
+import { tableColumnMappingTag } from '@ni/nimble-components/dist/esm/table-column/mapping';
 import {
     SharedTableArgs,
     sharedTableArgTypes,

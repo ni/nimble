@@ -1,9 +1,9 @@
 import { html, repeat, ViewTemplate, when } from '@microsoft/fast-element';
-import { themeProviderTag } from '../../../nimble-components/src/theme-provider';
+import { themeProviderTag } from '@ni/nimble-components/dist/esm/theme-provider';
 import {
     bodyFont,
     bodyFontColor
-} from '../../../nimble-components/src/theme-provider/design-tokens';
+} from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
 import { fastParameters, renderViewTemplate } from './storybook';
 import { type BackgroundState, backgroundStates } from './states';
 

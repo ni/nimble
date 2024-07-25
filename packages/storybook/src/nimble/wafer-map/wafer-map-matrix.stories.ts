@@ -1,11 +1,11 @@
 import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate } from '@microsoft/fast-element';
 import { tableFromArrays } from 'apache-arrow';
-import { waferMapTag } from '../../../../nimble-components/src/wafer-map';
+import { waferMapTag } from '@ni/nimble-components/dist/esm/wafer-map';
 import {
     WaferMapOrientation,
     WaferMapOriginLocation
-} from '../../../../nimble-components/src/wafer-map/types';
+} from '@ni/nimble-components/dist/esm/wafer-map/types';
 import {
     createMatrix,
     sharedMatrixParameters,

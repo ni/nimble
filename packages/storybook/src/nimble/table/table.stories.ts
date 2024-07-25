@@ -1,18 +1,18 @@
 import { html, ref } from '@microsoft/fast-element';
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html';
-import { iconUserTag } from '../../../../nimble-components/src/icons/user';
-import { menuTag } from '../../../../nimble-components/src/menu';
-import { menuItemTag } from '../../../../nimble-components/src/menu-item';
-import { tableColumnTextTag } from '../../../../nimble-components/src/table-column/text';
-import { labelProviderTableTag } from '../../../../nimble-components/src/label-provider/table';
-import { tableColumnNumberTextTag } from '../../../../nimble-components/src/table-column/number-text';
-import { Table, tableTag } from '../../../../nimble-components/src/table';
+import { iconUserTag } from '@ni/nimble-components/dist/esm/icons/user';
+import { menuTag } from '@ni/nimble-components/dist/esm/menu';
+import { menuItemTag } from '@ni/nimble-components/dist/esm/menu-item';
+import { tableColumnTextTag } from '@ni/nimble-components/dist/esm/table-column/text';
+import { labelProviderTableTag } from '@ni/nimble-components/dist/esm/label-provider/table';
+import { tableColumnNumberTextTag } from '@ni/nimble-components/dist/esm/table-column/number-text';
+import { Table, tableTag } from '@ni/nimble-components/dist/esm/table';
 import {
     TableRecordDelayedHierarchyState,
     TableRowSelectionMode
-} from '../../../../nimble-components/src/table/types';
-import { ExampleDataType } from '../../../../nimble-components/src/table/tests/types';
+} from '@ni/nimble-components/dist/esm/table/types';
+import { ExampleDataType } from '@ni/nimble-components/dist/esm/table/tests/types';
 import {
     addLabelUseMetadata,
     type LabelUserArgs

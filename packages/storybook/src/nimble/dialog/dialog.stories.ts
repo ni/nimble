@@ -3,9 +3,9 @@ import type { Meta, StoryObj } from '@storybook/html';
 import {
     TextField,
     textFieldTag
-} from '../../../../nimble-components/src/text-field';
-import { buttonTag } from '../../../../nimble-components/src/button';
-import { checkboxTag } from '../../../../nimble-components/src/checkbox';
+} from '@ni/nimble-components/dist/esm/text-field';
+import { buttonTag } from '@ni/nimble-components/dist/esm/button';
+import { checkboxTag } from '@ni/nimble-components/dist/esm/checkbox';
 import {
     bodyFont,
     bodyFontColor,
@@ -15,12 +15,12 @@ import {
     dialogSmallHeight,
     dialogSmallMaxHeight,
     dialogSmallWidth
-} from '../../../../nimble-components/src/theme-provider/design-tokens';
+} from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
 import {
     Dialog,
     dialogTag,
     UserDismissed
-} from '../../../../nimble-components/src/dialog';
+} from '@ni/nimble-components/dist/esm/dialog';
 import {
     DialogSizeOptions,
     ExampleContentType,

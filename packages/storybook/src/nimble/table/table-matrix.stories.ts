@@ -1,13 +1,13 @@
 import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate } from '@microsoft/fast-element';
-import { iconUserTag } from '../../../../nimble-components/src/icons/user';
-import { tableColumnTextTag } from '../../../../nimble-components/src/table-column/text';
-import { tableColumnNumberTextTag } from '../../../../nimble-components/src/table-column/number-text';
-import { Table, tableTag } from '../../../../nimble-components/src/table';
+import { iconUserTag } from '@ni/nimble-components/dist/esm/icons/user';
+import { tableColumnTextTag } from '@ni/nimble-components/dist/esm/table-column/text';
+import { tableColumnNumberTextTag } from '@ni/nimble-components/dist/esm/table-column/number-text';
+import { Table, tableTag } from '@ni/nimble-components/dist/esm/table';
 import {
     TableRecordDelayedHierarchyState,
     TableRowSelectionMode
-} from '../../../../nimble-components/src/table/types';
+} from '@ni/nimble-components/dist/esm/table/types';
 import { createStory } from '../../utilities/storybook';
 import {
     createMatrixThemeStory,

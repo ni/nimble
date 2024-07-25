@@ -1,9 +1,9 @@
 import type { Meta, StoryFn } from '@storybook/html';
 import { html, ViewTemplate, when } from '@microsoft/fast-element';
-import { anchorTabTag } from '../../../../nimble-components/src/anchor-tab';
-import { tabsToolbarTag } from '../../../../nimble-components/src/tabs-toolbar';
-import { buttonTag } from '../../../../nimble-components/src/button';
-import { anchorTabsTag } from '../../../../nimble-components/src/anchor-tabs';
+import { anchorTabTag } from '@ni/nimble-components/dist/esm/anchor-tab';
+import { tabsToolbarTag } from '@ni/nimble-components/dist/esm/tabs-toolbar';
+import { buttonTag } from '@ni/nimble-components/dist/esm/button';
+import { anchorTabsTag } from '@ni/nimble-components/dist/esm/anchor-tabs';
 import { createStory } from '../../utilities/storybook';
 import {
     createMatrix,

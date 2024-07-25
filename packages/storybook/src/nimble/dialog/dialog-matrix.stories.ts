@@ -1,6 +1,6 @@
 import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate } from '@microsoft/fast-element';
-import { buttonTag } from '../../../../nimble-components/src/button';
+import { buttonTag } from '@ni/nimble-components/dist/esm/button';
 import {
     bodyFont,
     dialogLargeHeight,
@@ -9,8 +9,8 @@ import {
     dialogSmallHeight,
     dialogSmallMaxHeight,
     dialogSmallWidth
-} from '../../../../nimble-components/src/theme-provider/design-tokens';
-import { dialogTag } from '../../../../nimble-components/src/dialog';
+} from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
+import { dialogTag } from '@ni/nimble-components/dist/esm/dialog';
 import { createFixedThemeStory } from '../../utilities/storybook';
 import { sharedMatrixParameters } from '../../utilities/matrix';
 import { backgroundStates } from '../../utilities/states';

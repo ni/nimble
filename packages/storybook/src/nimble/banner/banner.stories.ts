@@ -1,18 +1,18 @@
 import { html, when } from '@microsoft/fast-element';
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html';
-import { Theme } from '../../../../nimble-components/src/theme-provider/types';
-import { iconKeyTag } from '../../../../nimble-components/src/icons/key';
-import { buttonTag } from '../../../../nimble-components/src/button';
+import { Theme } from '@ni/nimble-components/dist/esm/theme-provider/types';
+import { iconKeyTag } from '@ni/nimble-components/dist/esm/icons/key';
+import { buttonTag } from '@ni/nimble-components/dist/esm/button';
 import {
     ButtonAppearance,
     ButtonAppearanceVariant
-} from '../../../../nimble-components/src/button/types';
-import { anchorTag } from '../../../../nimble-components/src/anchor';
-import { labelProviderCoreTag } from '../../../../nimble-components/src/label-provider/core';
-import { popupDismissLabel } from '../../../../nimble-components/src/label-provider/core/label-tokens';
-import { bannerTag } from '../../../../nimble-components/src/banner';
-import { BannerSeverity } from '../../../../nimble-components/src/banner/types';
+} from '@ni/nimble-components/dist/esm/button/types';
+import { anchorTag } from '@ni/nimble-components/dist/esm/anchor';
+import { labelProviderCoreTag } from '@ni/nimble-components/dist/esm/label-provider/core';
+import { popupDismissLabel } from '@ni/nimble-components/dist/esm/label-provider/core/label-tokens';
+import { bannerTag } from '@ni/nimble-components/dist/esm/banner';
+import { BannerSeverity } from '@ni/nimble-components/dist/esm/banner/types';
 import {
     LabelUserArgs,
     addLabelUseMetadata

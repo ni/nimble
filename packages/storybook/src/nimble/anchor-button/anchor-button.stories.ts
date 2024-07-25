@@ -1,12 +1,12 @@
 import type { Meta, StoryObj } from '@storybook/html';
 import { html, when } from '@microsoft/fast-element';
-import { iconLinkTag } from '../../../../nimble-components/src/icons/link';
-import { iconArrowExpanderRightTag } from '../../../../nimble-components/src/icons/arrow-expander-right';
-import { anchorButtonTag } from '../../../../nimble-components/src/anchor-button';
+import { iconLinkTag } from '@ni/nimble-components/dist/esm/icons/link';
+import { iconArrowExpanderRightTag } from '@ni/nimble-components/dist/esm/icons/arrow-expander-right';
+import { anchorButtonTag } from '@ni/nimble-components/dist/esm/anchor-button';
 import {
     ButtonAppearance,
     ButtonAppearanceVariant
-} from '../../../../nimble-components/src/patterns/button/types';
+} from '@ni/nimble-components/dist/esm/patterns/button/types';
 import {
     appearanceDescription,
     appearanceVariantDescription,

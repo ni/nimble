@@ -1,12 +1,12 @@
 import type { StoryFn, Meta } from '@storybook/html';
 import { html, repeat, ViewTemplate, when } from '@microsoft/fast-element';
 import { ComboboxAutocomplete } from '@microsoft/fast-foundation';
-import { DropdownPosition } from '../../../../nimble-components/src/patterns/dropdown/types';
-import { listOptionTag } from '../../../../nimble-components/src/list-option';
+import { DropdownPosition } from '@ni/nimble-components/dist/esm/patterns/dropdown/types';
+import { listOptionTag } from '@ni/nimble-components/dist/esm/list-option';
 import {
     Combobox,
     comboboxTag
-} from '../../../../nimble-components/src/combobox';
+} from '@ni/nimble-components/dist/esm/combobox';
 import { createFixedThemeStory } from '../../utilities/storybook';
 import { sharedMatrixParameters } from '../../utilities/matrix';
 import { backgroundStates } from '../../utilities/states';

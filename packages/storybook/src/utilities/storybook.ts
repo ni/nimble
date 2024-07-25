@@ -1,9 +1,9 @@
 import { html, ViewTemplate } from '@microsoft/fast-element';
-import { themeProviderTag } from '../../../nimble-components/src/theme-provider';
-import { bodyFont } from '../../../nimble-components/src/theme-provider/design-tokens';
-import type { Theme } from '../../../nimble-components/src/theme-provider/types';
-import { listOptionTag } from '../../../nimble-components/src/list-option';
-import { listOptionGroupTag } from '../../../nimble-components/src/list-option-group';
+import { themeProviderTag } from '@ni/nimble-components/dist/esm/theme-provider';
+import { bodyFont } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
+import type { Theme } from '@ni/nimble-components/dist/esm/theme-provider/types';
+import { listOptionTag } from '@ni/nimble-components/dist/esm/list-option';
+import { listOptionGroupTag } from '@ni/nimble-components/dist/esm/list-option-group';
 import {
     BackgroundState,
     backgroundStates,

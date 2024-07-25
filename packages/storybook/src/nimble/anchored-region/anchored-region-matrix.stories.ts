@@ -5,8 +5,8 @@ import {
     bodyFontColor,
     borderHoverColor,
     applicationBackgroundColor
-} from '../../../../nimble-components/src/theme-provider/design-tokens';
-import { anchoredRegionTag } from '../../../../nimble-components/src/anchored-region';
+} from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
+import { anchoredRegionTag } from '@ni/nimble-components/dist/esm/anchored-region';
 import { createMatrix, sharedMatrixParameters } from '../../utilities/matrix';
 import { createStory } from '../../utilities/storybook';
 import { hiddenWrapper } from '../../utilities/hidden';

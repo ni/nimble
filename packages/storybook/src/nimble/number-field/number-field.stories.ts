@@ -1,13 +1,13 @@
 import { html } from '@microsoft/fast-element';
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html';
-import { labelProviderCoreTag } from '../../../../nimble-components/src/label-provider/core';
+import { labelProviderCoreTag } from '@ni/nimble-components/dist/esm/label-provider/core';
 import {
     numericDecrementLabel,
     numericIncrementLabel
-} from '../../../../nimble-components/src/label-provider/core/label-tokens';
-import { numberFieldTag } from '../../../../nimble-components/src/number-field';
-import { NumberFieldAppearance } from '../../../../nimble-components/src/number-field/types';
+} from '@ni/nimble-components/dist/esm/label-provider/core/label-tokens';
+import { numberFieldTag } from '@ni/nimble-components/dist/esm/number-field';
+import { NumberFieldAppearance } from '@ni/nimble-components/dist/esm/number-field/types';
 import {
     addLabelUseMetadata,
     type LabelUserArgs

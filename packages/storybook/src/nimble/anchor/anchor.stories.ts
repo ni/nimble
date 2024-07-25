@@ -3,9 +3,9 @@ import { html } from '@microsoft/fast-element';
 import {
     bodyFont,
     bodyFontColor
-} from '../../../../nimble-components/src/theme-provider/design-tokens';
-import { anchorTag } from '../../../../nimble-components/src/anchor';
-import { AnchorAppearance } from '../../../../nimble-components/src/anchor/types';
+} from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
+import { anchorTag } from '@ni/nimble-components/dist/esm/anchor';
+import { AnchorAppearance } from '@ni/nimble-components/dist/esm/anchor/types';
 import {
     apiCategory,
     createUserSelectedThemeStory

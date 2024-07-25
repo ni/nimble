@@ -2,7 +2,7 @@ import { Table, tableFromArrays } from 'apache-arrow';
 import type {
     WaferMapDie,
     WaferMapColorScale
-} from '../../../../nimble-components/src/wafer-map/types';
+} from '@ni/nimble-components/dist/esm/wafer-map/types';
 
 export const highlightedTagsSets: string[][] = [
     [],

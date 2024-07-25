@@ -1,14 +1,14 @@
 import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate, when } from '@microsoft/fast-element';
-import { buttonTag } from '../../../../nimble-components/src/button';
-import { iconPencilTag } from '../../../../nimble-components/src/icons/pencil';
-import { iconTagTag } from '../../../../nimble-components/src/icons/tag';
-import { iconXmarkTag } from '../../../../nimble-components/src/icons/xmark';
-import { textFieldTag } from '../../../../nimble-components/src/text-field';
+import { buttonTag } from '@ni/nimble-components/dist/esm/button';
+import { iconPencilTag } from '@ni/nimble-components/dist/esm/icons/pencil';
+import { iconTagTag } from '@ni/nimble-components/dist/esm/icons/tag';
+import { iconXmarkTag } from '@ni/nimble-components/dist/esm/icons/xmark';
+import { textFieldTag } from '@ni/nimble-components/dist/esm/text-field';
 import {
     TextFieldAppearance,
     TextFieldType
-} from '../../../../nimble-components/src/text-field/types';
+} from '@ni/nimble-components/dist/esm/text-field/types';
 import { createStory, createFixedThemeStory } from '../../utilities/storybook';
 import {
     createMatrixThemeStory,

@@ -1,8 +1,8 @@
 import { html } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
-import { listOptionGroupTag } from '../../../../nimble-components/src/list-option-group';
-import { selectTag } from '../../../../nimble-components/src/select';
-import { listOptionTag } from '../../../../nimble-components/src/list-option';
+import { listOptionGroupTag } from '@ni/nimble-components/dist/esm/list-option-group';
+import { selectTag } from '@ni/nimble-components/dist/esm/select';
+import { listOptionTag } from '@ni/nimble-components/dist/esm/list-option';
 import {
     apiCategory,
     createUserSelectedThemeStory

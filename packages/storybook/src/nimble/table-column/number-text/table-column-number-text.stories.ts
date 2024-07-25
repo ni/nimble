@@ -1,17 +1,17 @@
 import { html, ref, when } from '@microsoft/fast-element';
 import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html';
 import { withActions } from '@storybook/addon-actions/decorator';
-import { tableTag } from '../../../../../nimble-components/src/table';
-import { tableColumnTextTag } from '../../../../../nimble-components/src/table-column/text';
-import { unitByteTag } from '../../../../../nimble-components/src/unit/byte';
-import { unitCelsiusTag } from '../../../../../nimble-components/src/unit/celsius';
-import { unitFahrenheitTag } from '../../../../../nimble-components/src/unit/fahrenheit';
-import { unitVoltTag } from '../../../../../nimble-components/src/unit/volt';
-import { tableColumnNumberTextTag } from '../../../../../nimble-components/src/table-column/number-text';
+import { tableTag } from '@ni/nimble-components/dist/esm/table';
+import { tableColumnTextTag } from '@ni/nimble-components/dist/esm/table-column/text';
+import { unitByteTag } from '@ni/nimble-components/dist/esm/unit/byte';
+import { unitCelsiusTag } from '@ni/nimble-components/dist/esm/unit/celsius';
+import { unitFahrenheitTag } from '@ni/nimble-components/dist/esm/unit/fahrenheit';
+import { unitVoltTag } from '@ni/nimble-components/dist/esm/unit/volt';
+import { tableColumnNumberTextTag } from '@ni/nimble-components/dist/esm/table-column/number-text';
 import {
     NumberTextAlignment,
     NumberTextFormat
-} from '../../../../../nimble-components/src/table-column/number-text/types';
+} from '@ni/nimble-components/dist/esm/table-column/number-text/types';
 import {
     SharedTableArgs,
     sharedTableActions,

@@ -1,10 +1,10 @@
 import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate, when } from '@microsoft/fast-element';
-import { iconCogTag } from '../../../../nimble-components/src/icons/cog';
-import { iconDatabaseTag } from '../../../../nimble-components/src/icons/database';
-import { treeItemTag } from '../../../../nimble-components/src/tree-item';
-import { anchorTreeItemTag } from '../../../../nimble-components/src/anchor-tree-item';
-import { treeViewTag } from '../../../../nimble-components/src/tree-view';
+import { iconCogTag } from '@ni/nimble-components/dist/esm/icons/cog';
+import { iconDatabaseTag } from '@ni/nimble-components/dist/esm/icons/database';
+import { treeItemTag } from '@ni/nimble-components/dist/esm/tree-item';
+import { anchorTreeItemTag } from '@ni/nimble-components/dist/esm/anchor-tree-item';
+import { treeViewTag } from '@ni/nimble-components/dist/esm/tree-view';
 import { createStory } from '../../utilities/storybook';
 import {
     createMatrixThemeStory,

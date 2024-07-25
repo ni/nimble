@@ -1,8 +1,8 @@
 import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate } from '@microsoft/fast-element';
 import { Orientation } from '@microsoft/fast-web-utilities';
-import { radioTag } from '../../../../nimble-components/src/radio';
-import { radioGroupTag } from '../../../../nimble-components/src/radio-group';
+import { radioTag } from '@ni/nimble-components/dist/esm/radio';
+import { radioGroupTag } from '@ni/nimble-components/dist/esm/radio-group';
 import {
     createMatrix,
     sharedMatrixParameters,

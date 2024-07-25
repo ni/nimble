@@ -1,16 +1,16 @@
 import type { Meta, StoryFn } from '@storybook/html';
 import { html, ViewTemplate } from '@microsoft/fast-element';
-import { buttonTag } from '../../../../../nimble-components/src/button';
-import { richTextMentionUsersTag } from '../../../../../nimble-components/src/rich-text-mention/users';
-import { mappingUserTag } from '../../../../../nimble-components/src/mapping/user';
+import { buttonTag } from '@ni/nimble-components/dist/esm/button';
+import { richTextMentionUsersTag } from '@ni/nimble-components/dist/esm/rich-text-mention/users';
+import { mappingUserTag } from '@ni/nimble-components/dist/esm/mapping/user';
 import {
     bodyFont,
     bodyFontColor
-} from '../../../../../nimble-components/src/theme-provider/design-tokens';
-import { toggleButtonTag } from '../../../../../nimble-components/src/toggle-button';
-import { menuButtonTag } from '../../../../../nimble-components/src/menu-button';
-import { anchorButtonTag } from '../../../../../nimble-components/src/anchor-button';
-import { richTextEditorTag } from '../../../../../nimble-components/src/rich-text/editor';
+} from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
+import { toggleButtonTag } from '@ni/nimble-components/dist/esm/toggle-button';
+import { menuButtonTag } from '@ni/nimble-components/dist/esm/menu-button';
+import { anchorButtonTag } from '@ni/nimble-components/dist/esm/anchor-button';
+import { richTextEditorTag } from '@ni/nimble-components/dist/esm/rich-text/editor';
 import {
     DisabledState,
     ErrorState,

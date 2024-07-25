@@ -1,10 +1,10 @@
 import { html, ref } from '@microsoft/fast-element';
 import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html';
 import { withActions } from '@storybook/addon-actions/decorator';
-import { tableTag } from '../../../../../nimble-components/src/table';
-import { tableColumnTextTag } from '../../../../../nimble-components/src/table-column/text';
-import { AnchorAppearance } from '../../../../../nimble-components/src/anchor/types';
-import { tableColumnAnchorTag } from '../../../../../nimble-components/src/table-column/anchor';
+import { tableTag } from '@ni/nimble-components/dist/esm/table';
+import { tableColumnTextTag } from '@ni/nimble-components/dist/esm/table-column/text';
+import { AnchorAppearance } from '@ni/nimble-components/dist/esm/anchor/types';
+import { tableColumnAnchorTag } from '@ni/nimble-components/dist/esm/table-column/anchor';
 import {
     sharedTableActions,
     SharedTableArgs,

@@ -1,20 +1,20 @@
 import { html, ref, when } from '@microsoft/fast-element';
 import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html';
 import { withActions } from '@storybook/addon-actions/decorator';
-import { tableTag } from '../../../../../nimble-components/src/table';
+import { tableTag } from '@ni/nimble-components/dist/esm/table';
 import {
     TableColumnSortDirection,
     TableRowSelectionMode
-} from '../../../../../nimble-components/src/table/types';
-import { iconUserTag } from '../../../../../nimble-components/src/icons/user';
-import { iconCommentTag } from '../../../../../nimble-components/src/icons/comment';
-import { tableColumnTextTag } from '../../../../../nimble-components/src/table-column/text';
+} from '@ni/nimble-components/dist/esm/table/types';
+import { iconUserTag } from '@ni/nimble-components/dist/esm/icons/user';
+import { iconCommentTag } from '@ni/nimble-components/dist/esm/icons/comment';
+import { tableColumnTextTag } from '@ni/nimble-components/dist/esm/table-column/text';
 import {
     ExampleColumnFractionalWidthType,
     ExampleGroupingDisabledType,
     ExampleGroupType,
     ExampleSortType
-} from '../../../../../nimble-components/src/table-column/base/tests/types';
+} from '@ni/nimble-components/dist/esm/table-column/base/tests/types';
 import {
     SharedTableArgs,
     sharedTableActions,

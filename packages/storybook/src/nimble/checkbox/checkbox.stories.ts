@@ -1,7 +1,7 @@
 import { html } from '@microsoft/fast-element';
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html';
-import { checkboxTag } from '../../../../nimble-components/src/checkbox';
+import { checkboxTag } from '@ni/nimble-components/dist/esm/checkbox';
 import {
     apiCategory,
     createUserSelectedThemeStory,
