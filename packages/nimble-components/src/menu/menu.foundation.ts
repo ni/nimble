@@ -23,23 +23,13 @@ import {
  * @public
  */
 export class Menu extends FoundationElement {
+    private static readonly focusableElementRoles: { [key: string]: string } = roleForMenuItem;
+
     /**
      * @internal
      */
     @observable
     public items!: HTMLSlotElement;
-
-    private itemsChanged(
-        oldValue: HTMLElement[],
-        newValue: HTMLElement[]
-    ): void {
-        // only update children after the component is connected and
-        // the setItems has run on connectedCallback
-        // (menuItems is undefined until then)
-        if (this.$fastController.isConnected && this.menuItems !== undefined) {
-            this.setItems();
-        }
-    }
 
     private menuItems: Element[] | undefined;
 
@@ -50,8 +40,6 @@ export class Menu extends FoundationElement {
      * defaults to -1
      */
     private focusIndex = -1;
-
-    private static readonly focusableElementRoles: { [key: string]: string } = roleForMenuItem;
 
     /**
      * @internal
@@ -112,27 +100,27 @@ export class Menu extends FoundationElement {
     /**
      * @internal
      */
-    public handleMenuKeyDown(e: KeyboardEvent): void | boolean {
+    public handleMenuKeyDown(e: KeyboardEvent): boolean {
         if (e.defaultPrevented || this.menuItems === undefined) {
-            return;
+            return false;
         }
         switch (e.key) {
             case keyArrowDown:
                 // go forward one index
                 this.setFocus(this.focusIndex + 1, 1);
-                return;
+                return false;
             case keyArrowUp:
                 // go back one index
                 this.setFocus(this.focusIndex - 1, -1);
-                return;
+                return false;
             case keyEnd:
                 // set focus on last item
                 this.setFocus(this.menuItems.length - 1, -1);
-                return;
+                return false;
             case keyHome:
                 // set focus on first item
                 this.setFocus(0, 1);
-                return;
+                return false;
 
             default:
                 // if we are not handling the event, do not prevent default
@@ -144,7 +132,7 @@ export class Menu extends FoundationElement {
      * if focus is moving out of the menu, reset to a stable initial state
      * @internal
      */
-    public handleFocusOut = (e: FocusEvent) => {
+    public handleFocusOut = (e: FocusEvent): void => {
         if (
             !this.contains(e.relatedTarget as Element)
             && this.menuItems !== undefined
@@ -163,7 +151,7 @@ export class Menu extends FoundationElement {
         }
     };
 
-    private readonly handleItemFocus = (e: Event) => {
+    private readonly handleItemFocus = (e: Event): void => {
         const targetItem: HTMLElement = e.target as HTMLElement;
 
         if (
@@ -187,7 +175,7 @@ export class Menu extends FoundationElement {
         }
 
         e.preventDefault();
-        const changedItem: MenuItem = e.target as any as MenuItem;
+        const changedItem: MenuItem = e.target as MenuItem;
 
         // closing an expanded item without opening another
         if (
@@ -225,6 +213,18 @@ export class Menu extends FoundationElement {
         }
     };
 
+    private itemsChanged(
+        _oldValue: HTMLElement[],
+        _newValue: HTMLElement[]
+    ): void {
+        // only update children after the component is connected and
+        // the setItems has run on connectedCallback
+        // (menuItems is undefined until then)
+        if (this.$fastController.isConnected && this.menuItems !== undefined) {
+            this.setItems();
+        }
+    }
+
     private readonly setItems = (): void => {
         const newItems: Element[] = this.domChildren();
 
@@ -254,14 +254,11 @@ export class Menu extends FoundationElement {
             return 0;
         }
 
-        const indent: MenuItemColumnCount = menuItems.reduce<MenuItemColumnCount>(
-            (accum, current) => {
-                const elementValue = elementIndent(current);
+        const indent: MenuItemColumnCount = menuItems.reduce<MenuItemColumnCount>((accum, current) => {
+            const elementValue = elementIndent(current);
 
-                return accum > elementValue ? accum : elementValue;
-            },
-            0
-        );
+            return accum > elementValue ? accum : elementValue;
+        }, 0);
 
         menuItems.forEach((item: HTMLElement, index: number) => {
             item.setAttribute('tabindex', index === 0 ? '0' : '-1');
@@ -334,7 +331,10 @@ export class Menu extends FoundationElement {
     private readonly isMenuItemElement = (el: Element): el is HTMLElement => {
         return (
             isHTMLElement(el)
-            && Menu.focusableElementRoles.hasOwnProperty(el.getAttribute('role')!)
+            && Object.prototype.hasOwnProperty.call(
+                Menu.focusableElementRoles,
+                el.getAttribute('role')!
+            )
         );
     };
 
@@ -350,8 +350,9 @@ export class Menu extends FoundationElement {
             return;
         }
 
-        while (focusIndex >= 0 && focusIndex < this.menuItems.length) {
-            const child: Element = this.menuItems[focusIndex]!;
+        let updatedIndex = focusIndex;
+        while (updatedIndex >= 0 && updatedIndex < this.menuItems.length) {
+            const child: Element = this.menuItems[updatedIndex]!;
 
             if (this.isFocusableElement(child)) {
                 // change the previous index to -1
@@ -366,7 +367,7 @@ export class Menu extends FoundationElement {
                 }
 
                 // update the focus index
-                this.focusIndex = focusIndex;
+                this.focusIndex = updatedIndex;
 
                 // update the tabindex of next focusable element
                 child.setAttribute('tabindex', '0');
@@ -377,7 +378,7 @@ export class Menu extends FoundationElement {
                 break;
             }
 
-            focusIndex += adjustment;
+            updatedIndex += adjustment;
         }
     }
 }
