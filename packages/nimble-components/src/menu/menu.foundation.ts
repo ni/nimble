@@ -7,12 +7,12 @@ import {
     keyHome
 } from '@microsoft/fast-web-utilities';
 import {
+    FoundationElement,
     MenuItem,
     MenuItemColumnCount,
     MenuItemRole,
     roleForMenuItem
-} from '../menu-item';
-import { FoundationElement } from '../foundation-element/foundation-element.js';
+} from '@microsoft/fast-foundation';
 
 /**
  * A Menu Custom HTML Element.
@@ -27,7 +27,7 @@ export class Menu extends FoundationElement {
      * @internal
      */
     @observable
-    public items: HTMLSlotElement;
+    public items!: HTMLSlotElement;
 
     private itemsChanged(
         oldValue: HTMLElement[],
@@ -56,7 +56,7 @@ export class Menu extends FoundationElement {
     /**
      * @internal
      */
-    public connectedCallback(): void {
+    public override connectedCallback(): void {
         super.connectedCallback();
         DOM.queueUpdate(() => {
             // wait until children have had a chance to
@@ -70,7 +70,7 @@ export class Menu extends FoundationElement {
     /**
      * @internal
      */
-    public disconnectedCallback(): void {
+    public override disconnectedCallback(): void {
         super.disconnectedCallback();
         this.removeItemListeners();
         this.menuItems = undefined;
@@ -93,7 +93,7 @@ export class Menu extends FoundationElement {
      *
      * @public
      */
-    public focus(): void {
+    public override focus(): void {
         this.setFocus(0, 1);
     }
 
@@ -155,22 +155,22 @@ export class Menu extends FoundationElement {
                 this.isFocusableElement
             );
             // set the current focus index's tabindex to -1
-            this.menuItems[this.focusIndex].setAttribute('tabindex', '-1');
+            this.menuItems[this.focusIndex]?.setAttribute('tabindex', '-1');
             // set the first focusable element tabindex to 0
-            this.menuItems[focusIndex].setAttribute('tabindex', '0');
+            this.menuItems[focusIndex]?.setAttribute('tabindex', '0');
             // set the focus index
             this.focusIndex = focusIndex;
         }
     };
 
-    private readonly handleItemFocus = (e: FocusEvent) => {
+    private readonly handleItemFocus = (e: Event) => {
         const targetItem: HTMLElement = e.target as HTMLElement;
 
         if (
             this.menuItems !== undefined
             && targetItem !== this.menuItems[this.focusIndex]
         ) {
-            this.menuItems[this.focusIndex].setAttribute('tabindex', '-1');
+            this.menuItems[this.focusIndex]?.setAttribute('tabindex', '-1');
             this.focusIndex = this.menuItems.indexOf(targetItem);
             targetItem.setAttribute('tabindex', '0');
         }
@@ -206,7 +206,7 @@ export class Menu extends FoundationElement {
             ) {
                 this.expandedItem.expanded = false;
             }
-            this.menuItems[this.focusIndex].setAttribute('tabindex', '-1');
+            this.menuItems[this.focusIndex]?.setAttribute('tabindex', '-1');
             this.expandedItem = changedItem;
             this.focusIndex = this.menuItems.indexOf(changedItem);
             changedItem.setAttribute('tabindex', '0');
@@ -215,7 +215,7 @@ export class Menu extends FoundationElement {
 
     private readonly removeItemListeners = (): void => {
         if (this.menuItems !== undefined) {
-            this.menuItems.forEach((item: HTMLElement) => {
+            this.menuItems.forEach((item: Element) => {
                 item.removeEventListener(
                     'expanded-change',
                     this.handleExpandedChanged
@@ -244,15 +244,17 @@ export class Menu extends FoundationElement {
 
             if (role !== MenuItemRole.menuitem && startSlot === null) {
                 return 1;
-            } if (role === MenuItemRole.menuitem && startSlot !== null) {
+            }
+            if (role === MenuItemRole.menuitem && startSlot !== null) {
                 return 1;
-            } if (role !== MenuItemRole.menuitem && startSlot !== null) {
+            }
+            if (role !== MenuItemRole.menuitem && startSlot !== null) {
                 return 2;
             }
             return 0;
         }
 
-        const indent: MenuItemColumnCount = menuItems.reduce(
+        const indent: MenuItemColumnCount = menuItems.reduce<MenuItemColumnCount>(
             (accum, current) => {
                 const elementValue = elementIndent(current);
 
@@ -278,7 +280,7 @@ export class Menu extends FoundationElement {
     /**
      * handle change from child element
      */
-    private readonly changeHandler = (e: CustomEvent): void => {
+    private readonly changeHandler = (e: Event): void => {
         if (this.menuItems === undefined) {
             return;
         }
@@ -294,7 +296,7 @@ export class Menu extends FoundationElement {
             && changedMenuItem.checked === true
         ) {
             for (let i = changeItemIndex - 1; i >= 0; --i) {
-                const item: Element = this.menuItems[i];
+                const item: Element = this.menuItems[i]!;
                 const role: string | null = item.getAttribute('role');
                 if (role === MenuItemRole.menuitemradio) {
                     (item as MenuItem).checked = false;
@@ -305,7 +307,7 @@ export class Menu extends FoundationElement {
             }
             const maxIndex: number = this.menuItems.length - 1;
             for (let i = changeItemIndex + 1; i <= maxIndex; ++i) {
-                const item: Element = this.menuItems[i];
+                const item: Element = this.menuItems[i]!;
                 const role: string | null = item.getAttribute('role');
                 if (role === MenuItemRole.menuitemradio) {
                     (item as MenuItem).checked = false;
@@ -332,9 +334,7 @@ export class Menu extends FoundationElement {
     private readonly isMenuItemElement = (el: Element): el is HTMLElement => {
         return (
             isHTMLElement(el)
-            && Menu.focusableElementRoles.hasOwnProperty(
-                el.getAttribute('role')!
-            )
+            && Menu.focusableElementRoles.hasOwnProperty(el.getAttribute('role')!)
         );
     };
 
@@ -351,7 +351,7 @@ export class Menu extends FoundationElement {
         }
 
         while (focusIndex >= 0 && focusIndex < this.menuItems.length) {
-            const child: Element = this.menuItems[focusIndex];
+            const child: Element = this.menuItems[focusIndex]!;
 
             if (this.isFocusableElement(child)) {
                 // change the previous index to -1
@@ -359,7 +359,7 @@ export class Menu extends FoundationElement {
                     this.focusIndex > -1
                     && this.menuItems.length >= this.focusIndex - 1
                 ) {
-                    this.menuItems[this.focusIndex].setAttribute(
+                    this.menuItems[this.focusIndex]?.setAttribute(
                         'tabindex',
                         '-1'
                     );
