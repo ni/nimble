@@ -487,7 +487,8 @@ export const table: StoryObj<TableArgs> = {
         },
         autoHeight: {
             name: 'auto-height',
-            description: 'When set to `true`, the table will automatically adjust its height to fit the number of rows in the table.',
+            description:
+                'When set to `true`, the table will automatically adjust its height to fit the number of rows in the table.',
             table: { category: apiCategory.attributes }
         }
     },

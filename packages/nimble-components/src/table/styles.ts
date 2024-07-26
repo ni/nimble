@@ -71,7 +71,9 @@ export const styles = css`
     }
 
     :host([auto-height]) .table-container {
-        flex-basis: calc(var(--ni-private-table-scroll-height) + ${controlHeight});
+        flex-basis: calc(
+            var(--ni-private-table-scroll-height) + ${controlHeight}
+        );
     }
 
     .glass-overlay {
