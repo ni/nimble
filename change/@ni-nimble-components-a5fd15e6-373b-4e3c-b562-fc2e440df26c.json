@@ -1,0 +1,7 @@
+{
+  "type": "minor",
+  "comment": "Add attribute to the table to make its height automatically adjust to the number of rows",
+  "packageName": "@ni/nimble-components",
+  "email": "20542556+mollykreis@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
