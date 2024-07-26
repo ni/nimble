@@ -157,11 +157,6 @@ export class Menu extends FoundationElement {
         }
     };
 
-    /** @internal */
-    public getSlot(): string {
-        return (this.slot ?? this.isNestedMenu()) ? 'submenu' : '';
-    }
-
     private readonly handleItemFocus = (e: Event): void => {
         const targetItem: HTMLElement = e.target as HTMLElement;
 

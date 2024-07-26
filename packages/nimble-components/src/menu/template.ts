@@ -7,12 +7,18 @@ import {
 import type { FoundationElementTemplate } from '@microsoft/fast-foundation';
 import type { Menu } from '.';
 
+/* eslint-disable @typescript-eslint/indent */
 // prettier-ignore
 export const template: FoundationElementTemplate<
 ViewTemplate<Menu>
 > = () => html`
     <template
-        slot="${x => x.getSlot()}"
+        slot="${x => {
+            if (x.slot) {
+                return x.slot;
+            }
+            return x.isNestedMenu() ? 'submenu' : '';
+        }}"
         role="menu"
         @keydown="${(x, c) => x.handleMenuKeyDown(c.event as KeyboardEvent)}"
         @focusout="${(x, c) => x.handleFocusOut(c.event as FocusEvent)}"
@@ -21,3 +27,4 @@ ViewTemplate<Menu>
         <slot ${slotted('items')}></slot>
     </template>
 `;
+/* eslint-enable @typescript-eslint/indent */
