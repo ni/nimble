@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-blazor
 
-This log was last generated on Wed, 17 Jul 2024 19:19:27 GMT and should not be manually modified.
+This log was last generated on Tue, 23 Jul 2024 22:35:26 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 17.6.0
+
+Tue, 23 Jul 2024 22:35:26 GMT
+
+### Minor changes
+
+- Add Blazor support for the menu button table column ([ni/nimble@d40763e](https://github.com/ni/nimble/commit/d40763edbb7a611e6bb0028089d9780f17b1f3bc))
 
 ## 17.5.0
 

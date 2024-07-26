@@ -941,7 +941,7 @@ export class Table<
             && this.tableUpdateTracker.requiresTanStackDataReset
         ) {
             if (
-                !this.parentIdFieldName
+                !this.isHierarchyEnabled()
                 && !this.tableUpdateTracker.updateRowParentIds
             ) {
                 // Perform a shallow copy of the data to trigger tanstack to regenerate the row models and columns.
@@ -1081,13 +1081,10 @@ export class Table<
         const slotsByRecordId = this.getRequestedSlotsByRecordId();
         this.tableData = rows.map(row => {
             const isGroupRow = row.getIsGrouped();
-            const hasParentRow = isGroupRow ? false : row.getParentRow();
             const isParent = !isGroupRow && this.getRowCanExpand(row);
-            const isChildOfGroupRowWithNoHierarchy = !isGroupRow
-                && !isParent
-                && !hasParentRow
-                && row.depth > 0
-                && !this.parentIdFieldName;
+            const isDataChildOfGroupRowWithNoHierarchy = !isGroupRow // is a data row (not a group row)
+                && !this.isHierarchyEnabled() // table does not have hierarchy enabled
+                && row.getParentRow()?.getIsGrouped(); // row has a parent that is a group row
             const rowState: TableRowState<TData> = {
                 record: row.original.clientRecord,
                 id: row.id,
@@ -1097,7 +1094,7 @@ export class Table<
                 groupRowValue: isGroupRow
                     ? row.getValue(row.groupingColumnId!)
                     : undefined,
-                nestingLevel: isChildOfGroupRowWithNoHierarchy
+                nestingLevel: isDataChildOfGroupRowWithNoHierarchy
                     ? row.depth - 1
                     : row.depth,
                 isParentRow: isParent,
