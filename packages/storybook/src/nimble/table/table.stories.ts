@@ -78,7 +78,7 @@ interface TableArgs extends BaseTableArgs {
     selectionChange: undefined;
     columnConfigurationChange: undefined;
     rowExpandToggle: undefined;
-    fitHeightToRows: boolean;
+    autoHeight: boolean;
 }
 
 const simpleData = [
@@ -273,7 +273,7 @@ export const table: StoryObj<TableArgs> = {
             id-field-name="id"
             data-unused="${x => x.updateData(x)}"
             parent-id-field-name="parentId"
-            ?fit-height-to-rows="${x => x.fitHeightToRows}"
+            ?auto-height="${x => x.autoHeight}"
         >
             <${tableColumnTextTag}
                 column-id="first-name-column"
@@ -484,6 +484,11 @@ export const table: StoryObj<TableArgs> = {
                 'Event emitted when the user expands or collapses a row in a table with hierarchy. This does not emit when group rows are expanded or collapsed.',
             control: false,
             table: { category: apiCategory.events }
+        },
+        autoHeight: {
+            name: 'auto-height',
+            description: 'When set to `true`, the table will automatically adjust its height to fit the number of rows in the table.',
+            table: { category: apiCategory.attributes }
         }
     },
     args: {
@@ -493,7 +498,7 @@ export const table: StoryObj<TableArgs> = {
         validity: undefined,
         checkValidity: undefined,
         tableRef: undefined,
-        fitHeightToRows: false,
+        autoHeight: false,
         updateData: x => {
             void (async () => {
                 // Safari workaround: the table element instance is made at this point

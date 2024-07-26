@@ -40,7 +40,7 @@ export const styles = css`
         --ni-private-column-divider-padding: 3px;
     }
 
-    :host([fit-height-to-rows]) {
+    :host([auto-height]) {
         height: auto;
     }
 
@@ -70,7 +70,7 @@ export const styles = css`
         flex-shrink: 1;
     }
 
-    :host([fit-height-to-rows]) .table-container {
+    :host([auto-height]) .table-container {
         flex-basis: calc(var(--ni-private-table-scroll-height) + ${controlHeight});
     }
 
