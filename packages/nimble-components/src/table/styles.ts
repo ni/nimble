@@ -26,17 +26,22 @@ export const styles = css`
 
     :host {
         height: 480px;
+        ${
+            /**
+             * Set a default maximum height for the table of 250 rows (including the header row) so
+             * that clients don't accidentally create a table that tries to render too many rows at once.
+             * If needed, the max-height can be overridden by the client, but setting a default ensures
+             * the max-height is explicitly considered by the client rather than overlooked.
+             */ ''
+        }
+        max-height: calc(250 * ${controlHeight});
+        flex-direction: column;
         --ni-private-column-divider-width: 2px;
         --ni-private-column-divider-padding: 3px;
-
-        background: lightblue;
     }
 
     :host([fit-height-to-rows]) {
-        height: min(
-            calc(var(--ni-private-table-scroll-height) + ${controlHeight}),
-            calc(100 * ${controlHeight})
-        );
+        height: auto;
     }
 
     :host(${focusVisible}) {
@@ -61,6 +66,12 @@ export const styles = css`
         font: ${bodyFont};
         color: ${bodyFontColor};
         cursor: var(--ni-private-table-cursor-override);
+        flex-grow: 1;
+        flex-shrink: 1;
+    }
+
+    :host([fit-height-to-rows]) .table-container {
+        flex-basis: calc(var(--ni-private-table-scroll-height) + ${controlHeight});
     }
 
     .glass-overlay {
