@@ -30,4 +30,4 @@ const nimbleRadioGroup = RadioGroup.compose({
 });
 
 DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleRadioGroup());
-export const radioGroupTag = DesignSystem.tagFor(RadioGroup);
+export const radioGroupTag = 'nimble-radio-group';

@@ -1,0 +1,46 @@
+import { Canvas, Meta, Controls, Title } from '@storybook/blocks';
+import ContentHiddenDocs from '../patterns/button/content-hidden-docs.mdx';
+import StylingDocs from '../patterns/button/styling-docs.mdx';
+import ComponentApisLink from '../../docs/component-apis-link.mdx';
+import { buttonTag } from '../../../../nimble-components/src/button';
+import { anchorButtonTag } from '../../../../nimble-components/src/anchor-button';
+import * as buttonStories from './button.stories';
+
+<Meta of={buttonStories} />
+<Title of={buttonStories} />
+
+Per [W3C](https://www.w3.org/WAI/ARIA/apg/patterns/button/) - A button is a
+widget that enables users to trigger an action or event, such as submitting a
+form, opening a dialog, canceling an action, or performing a delete operation.
+
+If you want a button that triggers navigation to a URL, use the
+
+<Tag name={anchorButtonTag} /> instead.
+
+<Canvas of={buttonStories.outlineButton} />
+
+## API
+
+<Controls of={buttonStories.outlineButton} />
+
+<ComponentApisLink />
+
+## Styling
+
+<StylingDocs components={{ Button: buttonTag }} />
+
+### Sizing
+
+Nimble Buttons are currently always 32px tall. Designs exist for other sizes; if
+you need these in an application, please comment on
+[Configurable height for nimble controls (#610)](https://github.com/ni/nimble/issues/610).
+
+{/* ## Usage */}
+
+{/* ## Examples */}
+
+## Accessibility
+
+<ContentHiddenDocs buttonElement="nimble-button" />
+
+{/* ## Resources */}

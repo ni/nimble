@@ -1,5 +1,4 @@
 import { css } from '@microsoft/fast-element';
-import { display } from '@microsoft/fast-foundation';
 import {
     BannerFail100DarkUi,
     Black75,
@@ -10,26 +9,21 @@ import {
     Warning100LightUi,
     White
 } from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
+import { display } from '../utilities/style/display';
 
 import {
-    actionRgbPartialColor,
     applicationBackgroundColor,
     bodyFont,
-    borderHoverColor,
-    buttonLabelFontColor,
+    bodyFontColor,
     controlHeight,
     controlSlimHeight,
-    fillSelectedColor,
-    iconColor,
-    iconSize,
-    linkActiveFontColor,
-    linkDisabledFontColor,
-    linkFontColor,
+    smallPadding,
     standardPadding
 } from '../theme-provider/design-tokens';
 import { Theme } from '../theme-provider/types';
 import { hexToRgbaCssColor } from '../utilities/style/colors';
 import { themeBehavior } from '../utilities/style/theme';
+import { accessiblyHidden } from '../utilities/style/accessibly-hidden';
 
 export const styles = css`
     ${display('flex')}
@@ -39,8 +33,7 @@ export const styles = css`
         font-size: 12.8px;
         align-items: top;
         overflow: hidden;
-        color: ${White};
-        ${iconColor.cssCustomProperty}: ${hexToRgbaCssColor(White, 0.6)};
+        overflow-wrap: anywhere;
     }
 
     :host(:not([open])) {
@@ -48,6 +41,7 @@ export const styles = css`
     }
 
     .container {
+        color: ${bodyFontColor};
         display: flex;
         width: 100%;
     }
@@ -58,6 +52,7 @@ export const styles = css`
         justify-content: center;
         margin-top: 8px;
         flex: 0 0 auto;
+        opacity: 0.6;
     }
 
     .text {
@@ -70,27 +65,10 @@ export const styles = css`
         display: inline;
         font-weight: bold;
         padding-right: 8px;
-        white-space: nowrap;
     }
 
     :host([title-hidden]) slot[name='title'] {
-        ${
-            /**
-             * Hide content visually while keeping it screen reader-accessible.
-             * Source: https://webaim.org/techniques/css/invisiblecontent/#techniques
-             * See discussion here: https://github.com/microsoft/fast/issues/5740#issuecomment-1068195035
-             */
-            ''
-        }
-        display: inline-block;
-        height: 1px;
-        width: 1px;
-        position: absolute;
-        margin: -1px;
-        clip: rect(1px, 1px, 1px, 1px);
-        clip-path: inset(50%);
-        overflow: hidden;
-        padding: 0;
+        ${accessiblyHidden}
     }
 
     .controls {
@@ -100,6 +78,8 @@ export const styles = css`
         align-items: center;
         justify-content: center;
         align-self: flex-start;
+        margin-top: ${smallPadding};
+        ${controlHeight.cssCustomProperty}: ${controlSlimHeight};
     }
 
     slot[name='action'] {
@@ -110,52 +90,13 @@ export const styles = css`
     }
 
     slot[name='action']::slotted(nimble-anchor) {
-        ${linkFontColor.cssCustomProperty}: ${White};
-        ${linkDisabledFontColor.cssCustomProperty}: ${White};
-        ${linkActiveFontColor.cssCustomProperty}: ${hexToRgbaCssColor(
-            White,
-            0.6
-        )};
         font-size: 12.8px;
-    }
-
-    slot[name='action']::slotted(nimble-button) {
-        ${controlHeight.cssCustomProperty}: ${controlSlimHeight};
-        ${buttonLabelFontColor.cssCustomProperty}: ${White};
-        ${fillSelectedColor.cssCustomProperty}: ${hexToRgbaCssColor(
-            White,
-            0.2
-        )};
-        ${borderHoverColor.cssCustomProperty}: ${White};
-    }
-
-    slot[name='action']::slotted(nimble-button[appearance='outline']) {
-        ${actionRgbPartialColor.cssCustomProperty}: ${White}
     }
 
     .dismiss {
         width: 48px;
         display: flex;
         justify-content: center;
-    }
-
-    .dismiss nimble-button {
-        ${controlHeight.cssCustomProperty}: 16px;
-        ${iconSize.cssCustomProperty}: 14px;
-        ${buttonLabelFontColor.cssCustomProperty}: ${White};
-        ${borderHoverColor.cssCustomProperty}: transparent;
-        ${fillSelectedColor.cssCustomProperty}: ${hexToRgbaCssColor(
-            White,
-            0.2
-        )};
-    }
-
-    .dismiss nimble-button:focus-within {
-        outline: 2px solid ${White};
-    }
-
-    .dismiss nimble-button:hover {
-        background: ${hexToRgbaCssColor(White, 0.2)};
     }
 `.withBehaviors(
     themeBehavior(

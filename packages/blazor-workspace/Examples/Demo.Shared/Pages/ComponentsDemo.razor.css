@@ -1,0 +1,69 @@
+﻿.root {
+    background-color: var(--ni-nimble-application-background-color);
+}
+
+.content {
+    font: var(--ni-nimble-body-font);
+    overflow-y: auto;
+}
+
+.container-label {
+    font: var(--ni-nimble-group-header-font);
+    color: var(--ni-nimble-group-header-font-color);
+    padding-bottom: var(--ni-nimble-standard-padding);
+}
+
+p, a {
+    color: var(--ni-nimble-control-label-font-color);
+}
+
+.container {
+    background-color: var(--ni-nimble-application-background-color);
+    display: inline-flex;
+    justify-content: left;
+    flex-direction: column;
+    padding: 0px 2px 0px 10px;
+}
+
+.sub-container {
+    margin: var(--ni-nimble-standard-padding);
+}
+
+::deep .table {
+    max-height: 500px;
+}
+
+::deep .table-update-button {
+    margin-top: var(--ni-nimble-small-padding);
+}
+
+.sub-container > * {
+    padding-right: var(--ni-nimble-standard-padding);
+}
+
+.theme-select {
+    display: block;
+    width: 150px;
+    min-width: unset;
+}
+
+.drawer-location-select {
+    width: 200px;
+}
+
+example-header {
+    display: block;
+}
+
+::deep nimble-toolbar::part(positioning-region) {
+    background-color: var(--ni-nimble-section-background-color);
+}
+
+.card-button-content {
+    display: flex;
+    margin: var(--ni-nimble-standard-padding);
+}
+
+.drawer-footer {
+    gap: var(--ni-nimble-standard-padding);
+}

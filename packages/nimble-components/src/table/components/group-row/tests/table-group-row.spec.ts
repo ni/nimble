@@ -1,6 +1,6 @@
 import { html } from '@microsoft/fast-element';
 import { TableGroupRow } from '..';
-import { createEventListener } from '../../../../utilities/tests/component';
+import { createEventListener } from '../../../../utilities/testing/component';
 import { fixture, Fixture } from '../../../../utilities/tests/fixture';
 import { waitForUpdatesAsync } from '../../../../testing/async-helpers';
 import {
@@ -182,5 +182,47 @@ describe('TableGroupRow', () => {
         await waitForUpdatesAsync();
 
         expect(groupExpandListener.spy).not.toHaveBeenCalled();
+    });
+
+    it('has aria-expanded attribute set to "true" when it is expanded', async () => {
+        element.expanded = true;
+        await connect();
+
+        expect(element.getAttribute('aria-expanded')).toBe('true');
+    });
+
+    it('has aria-expanded attribute set to "false" when it is not expanded', async () => {
+        element.expanded = false;
+        await connect();
+
+        expect(element.getAttribute('aria-expanded')).toBe('false');
+    });
+
+    it('getFocusableElements() includes an empty array for cells', async () => {
+        await connect();
+
+        const focusableElements = element.getFocusableElements();
+        expect(focusableElements.cells).toEqual([]);
+    });
+
+    it('getFocusableElements() includes the selection checkbox when row is selectable', async () => {
+        element.selectable = true;
+        await connect();
+
+        const focusableElements = element.getFocusableElements();
+        expect(focusableElements.selectionCheckbox).toBe(
+            element.selectionCheckbox
+        );
+    });
+
+    it('if row is set to selectable then subsequently not selectable, getFocusableElements() does not include a selection checkbox', async () => {
+        element.selectable = true;
+        await connect();
+        await waitForUpdatesAsync();
+        element.selectable = false;
+        await waitForUpdatesAsync();
+
+        const focusableElements = element.getFocusableElements();
+        expect(focusableElements.selectionCheckbox).toBeUndefined();
     });
 });

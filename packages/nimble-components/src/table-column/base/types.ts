@@ -1,4 +1,5 @@
 import type { TableRecord } from '../../table/types';
+import type { ValidityObject } from '../../utilities/models/validator';
 
 /**
  * An object whose fields are defined by a particular TableColumn, which is used by the column's
@@ -11,12 +12,8 @@ export interface TableCellState<
     TCellRecord extends TableCellRecord = TableCellRecord,
     TColumnConfig = unknown
 > {
-    cellRecord: TCellRecord;
-    columnConfig: TColumnConfig;
-}
-
-export interface TableColumnWithPlaceholderColumnConfig {
-    placeholder: string;
+    cellRecord?: TCellRecord;
+    columnConfig?: TColumnConfig;
 }
 
 /**
@@ -24,6 +21,7 @@ export interface TableColumnWithPlaceholderColumnConfig {
  */
 export interface DelegatedEventEventDetails {
     originalEvent: Event;
+    recordId: string;
 }
 
 /**
@@ -43,19 +41,25 @@ export const TableColumnSortOperation = {
 export type TableColumnSortOperation =
     (typeof TableColumnSortOperation)[keyof typeof TableColumnSortOperation];
 
-const groupIconSize = 16;
-const sortIconSize = 16;
-const spacing = 8;
-const menuDropdownSize = 24;
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+export interface TableColumnValidity extends ValidityObject {}
+
+const columnIconSize = 16; // `iconSize` token
+const columnSpacing = 8; // `mediumPadding` token
+const menuDropdownSize = 24; // `controlSlimHeight` token
 const oneCharPlusEllipsisSize = 21;
-export const defaultMinPixelWidth = spacing
+export const defaultMinPixelWidth = columnSpacing // left cell padding
     + oneCharPlusEllipsisSize
-    + spacing
-    + sortIconSize
-    + spacing
-    + groupIconSize
-    + spacing
+    + columnSpacing
+    + columnIconSize // sort icon
+    + columnSpacing
+    + columnIconSize // group icon
+    + columnSpacing
     + menuDropdownSize
-    + spacing;
+    + columnSpacing; // right cell padding
+
+export const singleIconColumnWidth = columnSpacing // left cell padding
+    + columnIconSize
+    + columnSpacing; // right cell padding
 
 export const defaultFractionalWidth = 1;

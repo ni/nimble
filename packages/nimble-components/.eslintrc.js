@@ -1,33 +1,32 @@
 module.exports = {
     root: true,
-    extends: '@ni/eslint-config-javascript',
-    parserOptions: {
-        ecmaVersion: 2020
-    },
     ignorePatterns: [
-        // Force inclusion of storybook dot file hidden folder
-        '!/.storybook',
         'node_modules',
-        'dist'
+        'dist',
+        'src/icons',
+        'src/wafer-map/workers'
     ],
-    rules: {
-        // Enabled to prevent accidental usage of async-await
-        'require-await': 'error'
-    },
     overrides: [
         {
-            files: ['.storybook/**'],
-            env: {
-                browser: true
+            files: ['*.js'],
+            extends: ['@ni-private/eslint-config-nimble/javascript']
+        },
+        {
+            files: ['*.ts'],
+            extends: ['@ni-private/eslint-config-nimble/components'],
+            parserOptions: {
+                project: './tsconfig.json',
+                tsconfigRootDir: __dirname
             },
+        },
+        {
+            files: ['build/**/*.js'],
             rules: {
-                // Storybook files will not be in published package and are allowed to use devDependencies
-                'import/no-extraneous-dependencies': [
-                    'error',
-                    { devDependencies: true }
-                ],
-                'import/no-default-export': 'off'
-            }
+                // Build scripts should give verbose logging
+                'no-console': 'off',
+                // Rollup config files use default exports
+                'import/no-default-export': 'off',
+            },
         }
     ]
 };

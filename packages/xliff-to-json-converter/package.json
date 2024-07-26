@@ -1,6 +1,6 @@
 {
   "name": "@ni/xliff-to-json-converter",
-  "version": "1.1.1",
+  "version": "1.1.7",
   "description": "A utility to convert translation files from XLIFF to JSON for Angular localization",
   "main": "dist/commonjs/cli.js",
   "bin": {
@@ -22,19 +22,21 @@
     "url": "git+https://github.com/ni/nimble.git",
     "directory": "packages/xliff-to-json-converter"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "author": "National Instruments",
   "license": "MIT",
   "devDependencies": {
-    "@ni/eslint-config-javascript": "^4.2.0",
-    "@ni/eslint-config-typescript": "^4.2.0",
-    "@types/jasmine": "^4.3.1",
+    "@ni-private/eslint-config-nimble": "*",
+    "@types/jasmine": "^5.1.4",
     "@types/yargs": "^17.0.10",
-    "jasmine": "^4.2.0",
-    "jasmine-core": "^4.5.0",
-    "typescript": "~4.7.4"
+    "jasmine": "^5.1.0",
+    "jasmine-core": "^5.1.2",
+    "typescript": "~5.4.5"
   },
   "dependencies": {
-    "xliff": "^6.0.3",
+    "xliff": "^6.1.0",
     "yargs": "^17.5.1"
   }
 }

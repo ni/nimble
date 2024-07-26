@@ -1,4 +1,8 @@
-import { attr, observable } from '@microsoft/fast-element';
+import {
+    attr,
+    nullableNumberConverter,
+    observable
+} from '@microsoft/fast-element';
 import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
 import {
     eventChange,
@@ -6,11 +10,15 @@ import {
     keyArrowUp,
     keyEscape
 } from '@microsoft/fast-web-utilities';
-import { ButtonAppearance } from '../button/types';
+import {
+    ButtonAppearance,
+    ButtonAppearanceVariant,
+    MenuButtonToggleEventDetail,
+    MenuButtonPosition
+} from './types';
 import type { ToggleButton } from '../toggle-button';
 import { styles } from './styles';
 import { template } from './template';
-import { MenuButtonToggleEventDetail, MenuButtonPosition } from './types';
 import type { ButtonPattern } from '../patterns/button/types';
 import type { AnchoredRegion } from '../anchored-region';
 
@@ -27,11 +35,17 @@ export class MenuButton extends FoundationElement implements ButtonPattern {
     @attr
     public appearance: ButtonAppearance = ButtonAppearance.outline;
 
+    @attr({ attribute: 'appearance-variant' })
+    public appearanceVariant: ButtonAppearanceVariant;
+
     @attr({ mode: 'boolean' })
     public disabled = false;
 
     @attr({ attribute: 'content-hidden', mode: 'boolean' })
     public contentHidden = false;
+
+    @attr({ attribute: 'tabindex', converter: nullableNumberConverter })
+    public override tabIndex!: number;
 
     /**
      * Specifies whether or not the menu is open.
@@ -258,4 +272,4 @@ const nimbleMenuButton = MenuButton.compose({
 });
 
 DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleMenuButton());
-export const menuButtonTag = DesignSystem.tagFor(MenuButton);
+export const menuButtonTag = 'nimble-menu-button';

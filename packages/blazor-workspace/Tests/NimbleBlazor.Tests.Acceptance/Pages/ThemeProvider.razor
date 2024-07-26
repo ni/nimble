@@ -1,0 +1,53 @@
+﻿@page "/ThemeProvider"
+@namespace NimbleBlazor.Tests.Acceptance.Pages
+@inherits LayoutComponentBase
+
+<NimbleButton @onclick="SetInvalidLang">Set Invalid Lang</NimbleButton>
+<NimbleButton @onclick="SetValidLang">Set Valid Lang</NimbleButton>
+
+<NimbleThemeProvider @ref="_themeProvider" Lang="@Lang"></NimbleThemeProvider>
+
+<NimbleCheckbox value="@IsValid">IsValid</NimbleCheckbox>
+<NimbleCheckbox value="@InvalidLang">InvalidLang</NimbleCheckbox>
+
+@code {
+    private NimbleThemeProvider? _themeProvider;
+    private string? Lang { get; set; }
+    private bool IsValid { get; set; }
+    private bool InvalidLang { get; set; }
+
+    public void SetInvalidLang()
+    {
+        Lang = "123";
+    }
+
+    public void SetValidLang()
+    {
+        Lang = "fr-FR";
+    }
+
+    protected override bool ShouldRender()
+    {
+        _ = UpdateValidityAsync();
+        return base.ShouldRender();
+    }
+
+    private async Task UpdateValidityAsync()
+    {
+        if (_themeProvider == null)
+        {
+            return;
+        }
+
+        var currentIsValid = await _themeProvider.CheckValidityAsync();
+        var currentInvalidLang = (await _themeProvider.GetValidityAsync()).InvalidLang;
+
+        if (currentIsValid != IsValid || currentInvalidLang != InvalidLang)
+        {
+            IsValid = currentIsValid;
+            InvalidLang = currentInvalidLang;
+            StateHasChanged();
+        }
+
+    }
+}

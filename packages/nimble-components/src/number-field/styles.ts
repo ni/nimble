@@ -1,5 +1,5 @@
 import { css } from '@microsoft/fast-element';
-import { display } from '@microsoft/fast-foundation';
+import { display } from '../utilities/style/display';
 import {
     borderRgbPartialColor,
     borderHoverColor,
@@ -12,7 +12,8 @@ import {
     smallDelay,
     bodyFont,
     failColor,
-    standardPadding,
+    mediumPadding,
+    smallPadding,
     controlLabelDisabledFontColor
 } from '../theme-provider/design-tokens';
 import { appearanceBehavior } from '../utilities/style/appearance';
@@ -51,7 +52,6 @@ export const styles = css`
     }
 
     .root {
-        box-sizing: border-box;
         position: relative;
         display: flex;
         flex-direction: row;
@@ -112,7 +112,7 @@ export const styles = css`
     }
 
     [part='start'] {
-        display: contents;
+        display: none;
     }
 
     .control {
@@ -124,7 +124,7 @@ export const styles = css`
         width: 100%;
         border: none;
         padding: 0px;
-        padding-left: calc(${standardPadding} / 2);
+        padding-left: ${mediumPadding};
     }
 
     .control:hover,
@@ -152,7 +152,7 @@ export const styles = css`
     }
     .step-up {
         order: 3;
-        padding-right: calc(${standardPadding} / 4);
+        padding-right: ${smallPadding};
     }
 
     .step-down {
@@ -169,7 +169,7 @@ export const styles = css`
 
     .error-icon {
         order: 1;
-        padding-right: calc(${standardPadding} / 4);
+        margin-right: ${smallPadding};
     }
 `.withBehaviors(
     appearanceBehavior(

@@ -1,5 +1,5 @@
 import { css } from '@microsoft/fast-element';
-import { display } from '@microsoft/fast-foundation';
+import { display } from '../utilities/style/display';
 
 import {
     borderRgbPartialColor,
@@ -14,7 +14,7 @@ import {
     bodyFont,
     controlLabelFontColor,
     controlLabelDisabledFontColor,
-    standardPadding
+    mediumPadding
 } from '../theme-provider/design-tokens';
 import { appearanceBehavior } from '../utilities/style/appearance';
 import { TextFieldAppearance } from './types';
@@ -53,7 +53,6 @@ export const styles = css`
     }
 
     .root {
-        box-sizing: border-box;
         position: relative;
         display: flex;
         flex-direction: row;
@@ -62,7 +61,7 @@ export const styles = css`
         align-items: center;
         justify-content: center;
         border: 0px solid rgba(${borderRgbPartialColor}, 0.3);
-        gap: calc(${standardPadding} / 2);
+        gap: ${mediumPadding};
         padding: ${borderWidth};
     }
 
@@ -117,6 +116,11 @@ export const styles = css`
 
     slot[name='start']::slotted(*) {
         flex: none;
+        opacity: 0.6;
+    }
+
+    :host([disabled]) slot[name='start']::slotted(*) {
+        opacity: 0.3;
     }
 
     .control {

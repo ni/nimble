@@ -1,6 +1,6 @@
 import { html } from '@microsoft/fast-element';
 import { fixture, Fixture } from '../../utilities/tests/fixture';
-import { Dialog, dialogTag, ExtendedDialog, UserDismissed } from '..';
+import { Dialog, dialogTag, UserDismissed } from '..';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 
 // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
@@ -19,10 +19,10 @@ async function setup<CloseReason = void>(
 }
 
 describe('Dialog', () => {
-    function nativeDialogElement(nimbleDialogElement: Dialog): ExtendedDialog {
-        return nimbleDialogElement.shadowRoot!.querySelector(
-            'dialog'
-        ) as ExtendedDialog;
+    function nativeDialogElement(
+        nimbleDialogElement: Dialog
+    ): HTMLDialogElement {
+        return nimbleDialogElement.shadowRoot!.querySelector('dialog')!;
     }
 
     it('should export its tag', () => {
@@ -173,6 +173,36 @@ describe('Dialog', () => {
         await disconnect();
     });
 
+    // This can potentially happen if the dialog is implemented with the CloseWatcher API
+    it('should resolve promise with UserDismissed when only close event fired', async () => {
+        const { element, connect, disconnect } = await setup();
+        await connect();
+        const dialogPromise = element.show();
+        await waitForUpdatesAsync();
+        // Simulate user dismiss events in browser
+        nativeDialogElement(element).dispatchEvent(new Event('close'));
+        await waitForUpdatesAsync();
+
+        await expectAsync(dialogPromise).toBeResolvedTo(UserDismissed);
+        expect(element.open).toBeFalse();
+
+        await disconnect();
+    });
+
+    it('should not resolve promise when close event bubbles from descendant', async () => {
+        const { element, connect, disconnect } = await setup();
+        await connect();
+        const dialogPromise = element.show();
+        const okButton = document.getElementById('ok')!;
+        okButton.dispatchEvent(new Event('close', { bubbles: true }));
+        await waitForUpdatesAsync();
+
+        await expectAsync(dialogPromise).toBePending();
+        expect(element.open).toBeTrue();
+
+        await disconnect();
+    });
+
     it('should dismiss an attempted cancel event when prevent-dismiss is enabled', async () => {
         const { element, connect, disconnect } = await setup(true);
         await connect();
@@ -242,8 +272,8 @@ describe('Dialog', () => {
         await disconnect();
     });
 
-    // Firefox skipped, see: https://github.com/ni/nimble/issues/1075
-    it('focuses the first button on the dialog when it opens #SkipFirefox', async () => {
+    // Some browsers skipped, see: https://github.com/ni/nimble/issues/1936
+    it('focuses the first button on the dialog when it opens #SkipFirefox #SkipWebkit', async () => {
         const { element, connect, disconnect } = await setup();
         await connect();
         const okButton = document.getElementById('ok')!;
@@ -255,8 +285,8 @@ describe('Dialog', () => {
         await disconnect();
     });
 
-    // Firefox skipped, see: https://github.com/ni/nimble/issues/1075
-    it('focuses the button with autofocus when the dialog opens #SkipFirefox', async () => {
+    // Some browsers skipped, see: https://github.com/ni/nimble/issues/1936
+    it('focuses the button with autofocus when the dialog opens #SkipFirefox #SkipWebkit', async () => {
         const { element, connect, disconnect } = await setup();
         await connect();
         const cancelButton = document.getElementById('cancel')!;
@@ -270,8 +300,8 @@ describe('Dialog', () => {
         await disconnect();
     });
 
-    // Firefox skipped, see: https://github.com/ni/nimble/issues/1075
-    it('supports opening multiple dialogs on top of each other #SkipFirefox', async () => {
+    // Some browsers skipped, see: https://github.com/ni/nimble/issues/1936
+    it('supports opening multiple dialogs on top of each other #SkipFirefox #SkipWebkit', async () => {
         const { element, connect, disconnect } = await setup();
         await connect();
         const secondDialog = document.createElement('nimble-dialog');

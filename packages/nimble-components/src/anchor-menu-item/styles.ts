@@ -1,5 +1,5 @@
 import { css } from '@microsoft/fast-element';
-import { display } from '@microsoft/fast-foundation';
+import { display } from '../utilities/style/display';
 
 import {
     bodyDisabledFontColor,
@@ -9,19 +9,16 @@ import {
     controlHeight,
     fillHoverColor,
     fillSelectedColor,
+    iconColor,
     iconSize
 } from '../theme-provider/design-tokens';
+import { focusVisible } from '../utilities/style/focus';
 
 export const styles = css`
     ${display('grid')}
 
     :host {
         font: ${bodyFont};
-    }
-
-    :host(:focus-within:not(:active)) {
-        outline: 2px solid ${borderHoverColor};
-        outline-offset: -2px;
     }
 
     :host(:hover) {
@@ -40,7 +37,6 @@ export const styles = css`
         display: grid;
         contain: layout;
         overflow: visible;
-        box-sizing: border-box;
         height: ${controlHeight};
         grid-template-columns: 1fr;
         column-gap: 8px;
@@ -54,6 +50,13 @@ export const styles = css`
         cursor: pointer;
         text-decoration: none;
         outline: none;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    a${focusVisible} {
+        outline: 2px solid ${borderHoverColor};
+        outline-offset: -2px;
     }
 
     :host([disabled]) a {
@@ -68,16 +71,21 @@ export const styles = css`
 
     [part='start'] {
         display: contents;
+        pointer-events: none;
     }
 
     slot[name='start']::slotted(*) {
-        fill: currentcolor;
+        ${iconColor.cssCustomProperty}: currentcolor;
         width: ${iconSize};
         height: ${iconSize};
     }
 
-    :host(.indent-1) .start {
+    :host(.indent-1) [part='start'] {
         grid-column: 1;
+    }
+
+    .content {
+        pointer-events: none;
     }
 
     :host(.indent-1) .content {

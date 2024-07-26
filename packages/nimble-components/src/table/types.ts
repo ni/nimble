@@ -1,4 +1,8 @@
+import type { Checkbox } from '../checkbox';
+import type { MenuButton } from '../menu-button';
 import type { TableColumn } from '../table-column/base';
+import type { ValidityObject } from '../utilities/models/validator';
+import type { TableCell } from './components/cell';
 
 /**
  * TableFieldName describes the type associated with keys within
@@ -19,6 +23,18 @@ export type TableFieldValue = string | number | boolean | null | undefined;
 export type TableStringFieldValue = string | null | undefined;
 
 /**
+ * TableBooleanFieldValue describes the type associated with values within
+ * a table's boolean records.
+ */
+export type TableBooleanFieldValue = boolean | null | undefined;
+
+/**
+ * TableNumberFieldValue describes the type associated with values within
+ * a table's number records.
+ */
+export type TableNumberFieldValue = number | null | undefined;
+
+/**
  * TableRecord describes the data structure that backs a single row in a table.
  * It is made up of fields, which are key/value pairs that have a key of type
  * TableFieldName and a value of type TableFieldValue.
@@ -27,11 +43,32 @@ export interface TableRecord {
     [key: TableFieldName]: TableFieldValue;
 }
 
+/**
+ * @internal
+ *
+ * Describes a hierarchical data structure that is used for
+ * the internal representation of the data, and allows us to represent data with
+ * parent-child relationships within Tanstack.
+ */
+export interface TableNode<TRecord extends TableRecord = TableRecord> {
+    subRows?: TableNode<TRecord>[];
+    originalIndex: number;
+    clientRecord: TRecord;
+}
+
 export type TableStringField<FieldName extends TableFieldName> = {
     [name in FieldName]: TableStringFieldValue;
 };
 
-export interface TableValidity {
+export type TableBooleanField<FieldName extends TableFieldName> = {
+    [name in FieldName]: TableBooleanFieldValue;
+};
+
+export type TableNumberField<FieldName extends TableFieldName> = {
+    [name in FieldName]: TableNumberFieldValue;
+};
+
+export interface TableValidity extends ValidityObject {
     readonly duplicateRecordId: boolean;
     readonly missingRecordId: boolean;
     readonly invalidRecordId: boolean;
@@ -40,7 +77,32 @@ export interface TableValidity {
     readonly duplicateSortIndex: boolean;
     readonly duplicateGroupIndex: boolean;
     readonly idFieldNameNotConfigured: boolean;
+    readonly invalidColumnConfiguration: boolean;
+    readonly invalidParentIdConfiguration: boolean;
 }
+
+/**
+ * The hierarachy options for a record in the table.
+ */
+export interface TableSetRecordHierarchyOptions {
+    recordId: string;
+    options: TableRecordHierarchyOptions;
+}
+
+/**
+ * Describes the hierarchy options that can be configured for a record in the table.
+ */
+export interface TableRecordHierarchyOptions {
+    delayedHierarchyState: TableRecordDelayedHierarchyState;
+}
+
+export const TableRecordDelayedHierarchyState = {
+    none: undefined,
+    canLoadChildren: 'can-load-children',
+    loadingChildren: 'loading-children'
+} as const;
+export type TableRecordDelayedHierarchyState =
+    (typeof TableRecordDelayedHierarchyState)[keyof typeof TableRecordDelayedHierarchyState];
 
 export interface TableActionMenuToggleEventDetail {
     newState: boolean;
@@ -77,9 +139,9 @@ export type TableRowSelectionMode =
  * The possible selection states that the table or a table row can be in.
  */
 export const TableRowSelectionState = {
-    notSelected: 'notSelected',
+    notSelected: 'not-selected',
     selected: 'selected',
-    partiallySelected: 'partiallySelected'
+    partiallySelected: 'partially-selected'
 } as const;
 export type TableRowSelectionState =
     (typeof TableRowSelectionState)[keyof typeof TableRowSelectionState];
@@ -99,6 +161,15 @@ export interface TableRowSelectionToggleEventDetail {
  */
 export interface TableRowSelectionEventDetail {
     selectedRecordIds: string[];
+}
+
+/**
+ * Event detail type for row toggle events in the table.
+ */
+export interface TableRowExpansionToggleEventDetail {
+    oldState: boolean;
+    newState: boolean;
+    recordId: string;
 }
 
 /**
@@ -135,10 +206,87 @@ export interface TableRowState<TData extends TableRecord = TableRecord> {
     record: TData;
     id: string;
     selectionState: TableRowSelectionState;
-    isGrouped: boolean;
+    isGroupRow: boolean;
     groupRowValue?: unknown;
     isExpanded: boolean;
     nestingLevel?: number;
-    leafItemCount?: number;
+    immediateChildCount?: number;
     groupColumn?: TableColumn;
+    isParentRow: boolean;
+    isLoadingChildren: boolean;
+    requestedSlots: SlotMetadata[];
+    resolvedRowIndex?: number;
+}
+
+/**
+ * @internal
+ *
+ * Alignment of column content
+ */
+export const TableColumnAlignment = {
+    left: 'left',
+    right: 'right'
+} as const;
+export type TableColumnAlignment =
+    (typeof TableColumnAlignment)[keyof typeof TableColumnAlignment];
+
+/**
+ * Table keyboard focus types
+ */
+export const TableFocusType = {
+    none: 'none',
+    columnHeader: 'columnHeader',
+    headerActions: 'headerActions',
+    row: 'row',
+    rowSelectionCheckbox: 'rowSelectionCheckbox',
+    cell: 'cell',
+    cellActionMenu: 'cellActionMenu',
+    cellContent: 'cellContent'
+} as const;
+export type TableFocusType =
+    (typeof TableFocusType)[keyof typeof TableFocusType];
+
+/**
+ * @internal
+ *
+ * Focusable elements of a table row
+ */
+export interface TableRowFocusableElements {
+    selectionCheckbox?: Checkbox;
+    cells: {
+        cell: TableCell,
+        actionMenuButton?: MenuButton
+    }[];
+}
+
+/**
+ * Focusable elements of a table's header
+ */
+export interface TableHeaderFocusableElements {
+    headerActions: HTMLElement[];
+    columnHeaders: HTMLElement[];
+}
+
+/**
+ * @internal
+ */
+export interface CellViewSlotRequestEventDetail {
+    slots: SlotMetadata[];
+}
+
+/**
+ * @internal
+ */
+export interface RowSlotRequestEventDetail {
+    columnInternalId: string;
+    recordId: string;
+    slots: SlotMetadata[];
+}
+
+/**
+ * @internal
+ */
+export interface SlotMetadata {
+    slot: string;
+    name: string;
 }

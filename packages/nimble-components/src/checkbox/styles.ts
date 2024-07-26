@@ -1,5 +1,5 @@
 import { css } from '@microsoft/fast-element';
-import { display } from '@microsoft/fast-foundation';
+import { display } from '../utilities/style/display';
 import { focusVisible } from '../utilities/style/focus';
 
 import {
@@ -12,7 +12,7 @@ import {
     iconSize,
     borderWidth,
     smallDelay,
-    buttonLabelFont
+    bodyFont
 } from '../theme-provider/design-tokens';
 import { userSelectNone } from '../utilities/style/user-select';
 
@@ -20,7 +20,7 @@ export const styles = css`
     ${display('inline-flex')}
 
     :host {
-        font: ${buttonLabelFont};
+        font: ${bodyFont};
         align-items: center;
         cursor: pointer;
         outline: none;
@@ -34,7 +34,6 @@ export const styles = css`
     .control {
         width: calc(${controlHeight} / 2);
         height: calc(${controlHeight} / 2);
-        box-sizing: border-box;
         flex-shrink: 0;
         border: ${borderWidth} solid ${borderColor};
         padding: 2px;

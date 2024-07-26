@@ -1,6 +1,30 @@
 # Contributing to Nimble
 
-⚠️ **Note**: Nimble doesn't yet support normal open source fork-pull workflows (see https://github.com/ni/nimble/issues/634). To contribute pull requests you must be granted access to the repo. See the [Community section of the README](/README.md#community) to get in touch if you need access.
+## Getting started
+
+To submit changes to Nimble, the first step is to build the monorepo which requires the following to be setup:
+
+- Sync down a copy of the nimble repository
+    - Note: For one-off small contributions you can consider using a fork-pull workflow. However [fork-pull workflows are not yet supported](https://github.com/ni/nimble/issues/634) for substantial development. For substantial development you should be added as a Contributor to the repository. See the [`README.md` Community section](/README.md#community) to get in touch if you need Contributor permissions. 
+- Install Node.js version 20+ (run `node --version`) and npm version 10+ (run `npm --version`) which can be downloaded from https://nodejs.org/en/download/
+- Install .NET 6 SDK (`6.0.418 <= version < 7`) which can be downloaded from https://dotnet.microsoft.com/en-us/download
+   - Run `dotnet --info` to verify the required version of the SDK is installed. A `v6` install is required, but it's fine if later versions are installed too.
+
+From the `nimble` directory:
+
+1. Run `npm install`
+2. Run `npm run build`
+3. Run `npm run storybook` to view the components in Storybook
+
+    Note: As you make style changes to components you will need to refresh your browser window to see the effect.
+
+For Visual Studio Code users, after running `npm install` you can:
+
+- Use `Terminal » Run Task…` to see a list of available tasks.
+- Use `Terminal » Run Build Task…` to do a full build of the Nimble monorepo.
+   - Alternatively, you can run a full build using the shortcuts `cmd+shift+B` on Mac / `ctrl+shift+B` on Windows.
+
+Now that you can build the monorepo see the `CONTRIBUTING.md` for the packages you would like to contribute to.
 
 ## Repository overview
 
@@ -8,31 +32,17 @@ This repository uses the following tooling. See below for more info.
 
 1. A monorepo containing multiple packages managed via [NPM workspaces](https://docs.npmjs.com/cli/v7/using-npm/workspaces).
 2. Linting via [ESLint](https://eslint.org/) following the [NI JavaScript and TypeScript Styleguide](https://github.com/ni/javascript-styleguide)
-3. Testing via [Karma](http://karma-runner.github.io/6.3/index.html) and [Jasmine](https://jasmine.github.io/)
+3. Testing via [Karma](http://karma-runner.github.io/6.3/index.html), [Jasmine](https://jasmine.github.io/), [bUnit](https://bunit.dev/), and [Playwright](https://playwright.dev/)
 4. Releases via [beachball](https://microsoft.github.io/beachball/)
 5. Pipelines automating the above via [GitHub Actions](https://github.com/features/actions)
+6. Automated dependency updates via [Renovate](https://docs.renovatebot.com/)
 
 ### Helpful links
 
 - [Nimble architecture](/docs/Architecture.md)
 - [Nimble Components XD Library](https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/)
-
-## Getting started
-
-First step in development is to build the monorepo which requires the following to be installed:
-
-- Node.js version 16+ (run `node --version`) and npm version 8+ (run `npm --version`) which can be downloaded from https://nodejs.org/en/download/
-- .NET 6 SDK version 6.0.202+  (run `dotnet --version`) which can be downloaded from https://dotnet.microsoft.com/en-us/download
-
-From the `nimble` directory:
-
-1. Run `npm install`
-2. Run `npm run build` (Alernatively in Visual Studio Code **Terminal » Run Build Task…** [Mac: `cmd+shift+B` Windows: `ctrl+shift+B`])
-3. Run `npm run storybook -w @ni/nimble-components` to view the components in Storybook
-
-    **Note**: You will need to refresh your browser window to see style changes made in source.
-
-Now that you can build the monorepo see the `CONTRIBUTING.md` for the packages you would like to contribute to.
+- [Nimble Components Figma Library](https://www.figma.com/file/PO9mFOu5BCl8aJvFchEeuN/Nimble_Components?node-id=1295%3A77205&mode=dev)
+- [Nimble technologies walkthrough video](https://nio365.sharepoint.com/:v:/s/SystemLinkDesignSystem/EY4c8IRUechPgBkomuIDwwEB2rl66Tg2CJxY0nfPsqSb8g?e=fWViGm) (NI internal)
 
 ## Develop new components
 
@@ -41,7 +51,7 @@ Now that you can build the monorepo see the `CONTRIBUTING.md` for the packages y
 1. Write a spec describing the API and behavior of the component. See instructions for [component specs](/specs/README.md).
 2. Ensure UX specs are up to date and tokens are generated. See instructions for [contributing to Nimble Tokens](/packages/nimble-tokens/CONTRIBUTING.md).
 3. Expose any tokens in the token provider and add web component logic. See instructions for [contributing to Nimble Components](/packages/nimble-components/CONTRIBUTING.md).
-4. Add wrappers for each framework. See instructions for [adding Angular wrappers](/angular-workspace/projects/ni/nimble-angular/CONTRIBUTING.md). See instructions for [adding Blazor wrappers](/packages/nimble-blazor/CONTRIBUTING.md).
+4. Add wrappers for each framework. See instructions for [adding Angular wrappers](/packages/angular-workspace/nimble-angular/CONTRIBUTING.md). See instructions for [adding Blazor wrappers](/packages/blazor-workspace/NimbleBlazor/CONTRIBUTING.md).
 5. Publish and use! 🎉
 
 ## Documentation policies
@@ -71,13 +81,25 @@ This repository uses [beachball](https://microsoft.github.io/beachball/) to auto
 3. A pipeline will run for each newly created git tag and invoke the `npm run publish` command for the associated package.
 
 When generating a change file, follow these guidelines:
-1. Follow [semantic versioning](https://semver.org) when choosing the change type. Components that are [marked as in-development](/packages/nimble-components/CONTRIBUTING.md/#Marking-a-component-as-in-development) may use `patch` version bumps even for breaking changes.
+1. Follow [semantic versioning](https://semver.org) when choosing the change type. Components that are [marked as incubating](/packages/nimble-components/CONTRIBUTING.md/#Marking-a-component-as-incubating) may use `patch` version bumps even for breaking changes.
 2. Write a brief but useful description with Nimble clients in mind. If making a major (breaking) change, explain what clients need to do to adopt it. The description can be plain text or [markdown](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax), with newlines specified via `\n` if needed.
 3. If you prefer not to expose your email address to the world, [configure GitHub to "Keep my email address private"](https://github.com/settings/emails) before generating the change file.
 
-### NPM audit
+#### Recovering from a failed beachball publish
 
-The repository runs [`npm audit`](https://docs.npmjs.com/cli/v8/commands/npm-audit) to prevent submissions if any dependencies have known vulnerabilities. This can occur during on a PR that introduces a new dependency version or on an unrelated PR if a vulnerability was recently reported on an existing dependency. If this check fails, our options include:
+If a beachball publish command fails on the pipeline so packages are partially published, perform the following steps to get the repo in a good state:
+
+1. Create a branch from main which should still have change files from the failed publish and, if applicable, fix the underlying issue in the branch.
+2. In the repo root run `npm run sync`. Beachball will:
+    - Find the latest packages that were published successfully to npm.
+    - Update the `package.json` for each of those packages to align with the latest published version. It also handles cross-dependencies, i.e. angular shows the latest version of components as its dependency.
+    - Note: It does not handle packages that are not published to npm at all. For example, you need to manually check nuget.org for `NimbleBlazor`'s published version and update the `package.json`.
+3. Commit the changes from `npm run sync` and run `npm run change` for those changes.
+4. Submit a PR for the branch and merge.
+
+### Dependency Review
+
+The repository runs the [Dependency Review](https://github.com/actions/dependency-review-action) action to prevent submissions if any dependencies have known vulnerabilities. This can occur during on a PR that introduces a new dependency version or on an unrelated PR if a vulnerability was recently reported on an existing dependency. If this check fails, our options include:
 
 #### Vulnerabilities with fixes available
 
@@ -89,15 +111,15 @@ The repository runs [`npm audit`](https://docs.npmjs.com/cli/v8/commands/npm-aud
 If a fix for the vulnerability isn't available or if it isn't practical to uptake the fix, our options include:
 
 1. Remove the vulnerable dependency and find a different way to achieve the same functionality.
-2. Temporarily use a more lenient [audit level](https://docs.npmjs.com/cli/v8/commands/npm-audit#audit-level) for this repository (e.g. allowing `low` or `moderate` vulnerabilities). We should ensure there is an issue on the dependency's repository asking them to fix the vulnerability and also file an issue against this repository to track fixing the vulnerability and restoring strict auditing.
+2. Dismiss the alert in the [GitHub Security - Dependabot](https://github.com/ni/nimble/security/dependabot) dashboard, and document your rationale for doing so. We should ensure there is an issue on the dependency's repository asking them to fix the vulnerability and also file an issue against this repository to track fixing the vulnerability and restoring strict auditing.
 
 
 ### Chromatic visual component tests
 
 This repository uses [Chromatic](https://www.chromatic.com) to facilitate visual component review, and adds GitHub status checks to the build pipeline. The workflow is as follows:
 
-1. The `UI Tests` status check is designed to highlight any visual changes included in the changeset. The developer (that's you!) should review the `UI Tests` status check in Chromatic, and if all changes are intentional or expected, mark the components as **approved**.
-2. The `UI Review` status check is designed to collect feedback from UX and visual designers. Rather than blocking PR completion on this feedback, you can also approve this check by validating the story changes yourself. However, you should still demo your changes to relevant designers either in a team meeting or one-on-one. This can happen either before or after the PR completes, as long as designer feedback is addressed promptly. If you don't have access to a designer, please reach out to Nimble team members for help.
+1. The `UI Tests` status check is designed to highlight any visual changes included in the changeset. The developer (that's you!) should review the `UI Tests` status check in Chromatic, and if all changes are intentional or expected, mark the components as **approved**. If you approve an initial build and then make further changes to a snapshot, this check will show the difference between those revisions, not between main and the latest revision.
+2. The `UI Review` status check is designed to collect feedback from UX and visual designers. It shows the difference between the latest revision and main. Rather than blocking PR completion on this feedback, you can also approve this check by validating the story changes yourself. However, you should still demo your changes to relevant designers either in a team meeting or one-on-one. This can happen either before or after the PR completes, as long as designer feedback is addressed promptly. If you don't have access to a designer, please reach out to Nimble team members for help.
 
 The PR pipeline also generates a live Storybook site for each PR. Developers, designers, and PR reviewers can also use this to inspect component appearance and behavior.
 
@@ -127,9 +149,21 @@ You can also configure this task to execute via a keyboard shortcut by [configur
 }
 ```
 
-### Code owners
+### Code review
 
-Each file in a pull request requires the approval of at least one of its code owners (though in general for interesting changes we wait for everyone to review). Owners for different files are listed in [`CODEOWNERS`](/.github/CODEOWNERS).
+This repo follows [the NI code submission workflow](https://ni.visualstudio.com/DevCentral/_wiki/wikis/AppCentral.wiki/15679/Code-Submission-Workflow#) (NI internal link) with some modifications. The general submission flow is:
+
+1. When your code is ready to submit, create a [Draft pull request](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests#draft-pull-requests).
+2. Perform a self review of the changes. Ensure they follow conventions and that the status checks are passing.
+3. Add a local peer reviewer. If you are new to Nimble, also add the contact from the Nimble team who has been helping you get familiar with the repo.
+4. Once those reviewers have approved, mark the PR as "Ready for review". This will add owners to the review.
+5. Each file in a pull request requires the approval of at least one of its code owners (though in general for interesting changes we wait for everyone to review). Owners for different files are listed in [`CODEOWNERS`](/.github/CODEOWNERS).
+
+If a PR requires significant refactoring at any point in this process, please move it back to Draft and re-do the steps before exiting draft.
+
+Some of these steps may be skipped for trivial changes; please use good judgement.
+
+Thanks for following this process! It helps reduce the burden on owners to catch smaller issues.
 
 ### Completing pull requests
 
@@ -161,6 +195,12 @@ Example: Add a monorepo package `nimble-tokens` as a dependency to another monor
 npm install @ni/nimble-tokens --workspace=@ni/nimble-components
 ```
 
+## Updating dependencies
+
+This repository uses [Renovate](https://docs.renovatebot.com/) to automatically create pull requests that bump the version of dependencies on a schedule. Renovate is configured via [`renovate.json`](./.github/renovate.json).
+
+Code owners are responsible for completing or rejecting Renovate PRs. Completing a PR may require manually adding a beachball change file to the branch. The change `type` will typically be `patch` if any `package.json` or `.csproj` is changing. The `comment` should summarize which set of dependencies are being updated. To complete a PR you may need to manually trigger a rebase by clicking the checkbox in the PR description. **Note:** prefer the checkbox over GitHub's "Update branch" button so that Renovate can remain in control of all commits to its branch.
+
 ## Handling intermittent test failures
 
 Intermittent test failures can be a huge drain on productivity as they can cause unrelated failures in builds and block merging PRs or creating releases. Particularly when accepting contributions from different timezones and from contributors outside of the Nimble team without the tribal knowledge of what tests fail intermittently.
@@ -170,7 +210,7 @@ The general policy is that intermittent failures that can fail a build, such as 
 Some resolutions for an intermittent test are:
 
 1. Immediately submit a PR to address the underlying issue causing the failure. This can be done if the change can be approved and merged by the end of the day that the issue was discovered and if there is high confidence in the change.
-2. If the underlying issue is not well-known or the fix does not give high confidence in resolving the intermittent test then the test should be disabled and a tech debt issue created to handle the intermittent test. The disabled test should include a comment linking to the corresponding issue. Then the new issue itself must be handled as follows.
+2. If the underlying issue is not well-known or the fix does not give high confidence in resolving the intermittent test then the test should be disabled with `xit` and a tech debt issue created to handle the intermittent test. The disabled test should include a comment linking to the corresponding issue. Then the new issue itself must be handled as follows.
 
 ### Handling new intermittent test tech debt issues
 

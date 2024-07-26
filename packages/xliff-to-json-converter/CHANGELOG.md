@@ -1,8 +1,56 @@
 # Change Log - @ni/xliff-to-json-converter
 
-This log was last generated on Wed, 05 Apr 2023 18:54:28 GMT and should not be manually modified.
+This log was last generated on Mon, 22 Jul 2024 15:45:21 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.1.7
+
+Mon, 22 Jul 2024 15:45:21 GMT
+
+### Patches
+
+- Update to typescript 5.4.5 ([ni/nimble@f69586a](https://github.com/ni/nimble/commit/f69586afcbdea5f4b8834d1123ec2b06d4eeecb3))
+
+## 1.1.6
+
+Mon, 15 Apr 2024 17:36:54 GMT
+
+### Patches
+
+- Update to typescript 5.1.6 ([ni/nimble@7254ddb](https://github.com/ni/nimble/commit/7254ddb339236dc1519033f88290491436a01aef))
+
+## 1.1.5
+
+Tue, 12 Mar 2024 21:01:54 GMT
+
+### Patches
+
+- Update typescript to 4.9.5 ([ni/nimble@bc825e1](https://github.com/ni/nimble/commit/bc825e1b057eafd8bc005d11e9a224aa9aee9619))
+
+## 1.1.4
+
+Thu, 22 Feb 2024 13:39:47 GMT
+
+### Patches
+
+- Preserve spaces between inline elements ([ni/nimble@5b43e0a](https://github.com/ni/nimble/commit/5b43e0a102d7a101a08d5aef8c0ffd880d132ec7))
+
+## 1.1.3
+
+Thu, 04 Jan 2024 16:50:24 GMT
+
+### Patches
+
+- Upgrade dependencies ([ni/nimble@341146c](https://github.com/ni/nimble/commit/341146ceef057386cea20419277073bd793270ef))
+
+## 1.1.2
+
+Mon, 16 Oct 2023 21:31:42 GMT
+
+### Patches
+
+- Update TypeScript dependency to 4.8 ([ni/nimble@8a42916](https://github.com/ni/nimble/commit/8a429164d4987cc1b932adb3c93727afdc8c5202))
 
 ## 1.1.1
 

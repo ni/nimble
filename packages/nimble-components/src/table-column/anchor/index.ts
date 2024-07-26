@@ -6,14 +6,18 @@ import { template } from '../base/template';
 import { TableColumnSortOperation } from '../base/types';
 import { mixinFractionalWidthColumnAPI } from '../mixins/fractional-width-column';
 import { mixinGroupableColumnAPI } from '../mixins/groupable-column';
+import { mixinColumnWithPlaceholderAPI } from '../mixins/placeholder';
 import type { TableStringField } from '../../table/types';
 import { tableColumnAnchorCellViewTag } from './cell-view';
-import { tableColumnTextGroupHeaderTag } from '../text/group-header-view';
+import { tableColumnTextGroupHeaderViewTag } from '../text/group-header-view';
 import type { AnchorAppearance } from '../../anchor/types';
+import type { ColumnInternalsOptions } from '../base/models/column-internals';
+import { mixinSortableColumnAPI } from '../mixins/sortable-column';
+import { mixinCustomSortOrderColumnAPI } from '../mixins/custom-sort-order';
+import { TableColumnAnchorValidator } from './models/table-column-anchor-validator';
 
 export type TableColumnAnchorCellRecord = TableStringField<'label' | 'href'>;
 export interface TableColumnAnchorColumnConfig {
-    placeholder: string;
     appearance: AnchorAppearance;
     underlineHidden?: boolean;
     hreflang?: string;
@@ -23,6 +27,7 @@ export interface TableColumnAnchorColumnConfig {
     target?: string;
     type?: string;
     download?: string;
+    placeholder?: string;
 }
 
 declare global {
@@ -35,16 +40,24 @@ declare global {
  * A table column for displaying links.
  */
 export class TableColumnAnchor extends mixinGroupableColumnAPI(
-    mixinFractionalWidthColumnAPI(TableColumn<TableColumnAnchorColumnConfig>)
+    mixinFractionalWidthColumnAPI(
+        mixinColumnWithPlaceholderAPI(
+            mixinSortableColumnAPI(
+                mixinCustomSortOrderColumnAPI(
+                    TableColumn<
+                    TableColumnAnchorColumnConfig,
+                    TableColumnAnchorValidator
+                    >
+                )
+            )
+        )
+    )
 ) {
     @attr({ attribute: 'label-field-name' })
     public labelFieldName?: string;
 
     @attr({ attribute: 'href-field-name' })
     public hrefFieldName?: string;
-
-    @attr
-    public placeholder?: string;
 
     @attr
     public appearance?: AnchorAppearance;
@@ -73,14 +86,27 @@ export class TableColumnAnchor extends mixinGroupableColumnAPI(
     @attr
     public download?: string;
 
-    public constructor() {
-        super({
+    private readonly defaultSortOperation = TableColumnSortOperation.localeAwareCaseSensitive;
+
+    public placeholderChanged(): void {
+        this.updateColumnConfig();
+    }
+
+    public override handleSortConfigurationChange(): void {
+        this.updateColumnInternalsSortConfiguration();
+    }
+
+    protected override getColumnInternalsOptions(): ColumnInternalsOptions<TableColumnAnchorValidator> {
+        return {
             cellRecordFieldNames: ['label', 'href'],
             cellViewTag: tableColumnAnchorCellViewTag,
-            groupHeaderViewTag: tableColumnTextGroupHeaderTag,
-            delegatedEvents: ['click']
-        });
-        this.columnInternals.sortOperation = TableColumnSortOperation.localeAwareCaseSensitive;
+            groupHeaderViewTag: tableColumnTextGroupHeaderViewTag,
+            delegatedEvents: ['click'],
+            sortOperation: this.getResolvedSortOperation(
+                this.defaultSortOperation
+            ),
+            validator: new TableColumnAnchorValidator()
+        };
     }
 
     protected labelFieldNameChanged(): void {
@@ -88,7 +114,7 @@ export class TableColumnAnchor extends mixinGroupableColumnAPI(
             this.labelFieldName,
             this.hrefFieldName
         ] as const;
-        this.columnInternals.operandDataRecordFieldName = this.labelFieldName;
+        this.updateColumnInternalsSortConfiguration();
     }
 
     protected hrefFieldNameChanged(): void {
@@ -96,10 +122,6 @@ export class TableColumnAnchor extends mixinGroupableColumnAPI(
             this.labelFieldName,
             this.hrefFieldName
         ] as const;
-    }
-
-    protected placeholderChanged(): void {
-        this.updateColumnConfig();
     }
 
     protected appearanceChanged(): void {
@@ -140,7 +162,6 @@ export class TableColumnAnchor extends mixinGroupableColumnAPI(
 
     private updateColumnConfig(): void {
         this.columnInternals.columnConfig = {
-            placeholder: this.placeholder ?? '',
             appearance: this.appearance,
             underlineHidden: this.underlineHidden,
             hreflang: this.hreflang,
@@ -149,8 +170,16 @@ export class TableColumnAnchor extends mixinGroupableColumnAPI(
             rel: this.rel,
             target: this.target,
             type: this.type,
-            download: this.download
+            download: this.download,
+            placeholder: this.placeholder
         };
+    }
+
+    private updateColumnInternalsSortConfiguration(): void {
+        this.columnInternals.operandDataRecordFieldName = this.getResolvedOperandDataRecordFieldName(this.labelFieldName);
+        this.columnInternals.sortOperation = this.getResolvedSortOperation(
+            this.defaultSortOperation
+        );
     }
 }
 
@@ -163,4 +192,4 @@ const nimbleTableColumnAnchor = TableColumnAnchor.compose({
 DesignSystem.getOrCreate()
     .withPrefix('nimble')
     .register(nimbleTableColumnAnchor());
-export const tableColumnAnchorTag = DesignSystem.tagFor(TableColumnAnchor);
+export const tableColumnAnchorTag = 'nimble-table-column-anchor';

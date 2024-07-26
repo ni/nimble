@@ -46,8 +46,11 @@ export class AnchorTab extends AnchorBase {
 const nimbleAnchorTab = AnchorTab.compose({
     baseName: 'anchor-tab',
     template,
-    styles
+    styles,
+    shadowOptions: {
+        delegatesFocus: true
+    }
 });
 
 DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleAnchorTab());
-export const anchorTabTag = DesignSystem.tagFor(AnchorTab);
+export const anchorTabTag = 'nimble-anchor-tab';

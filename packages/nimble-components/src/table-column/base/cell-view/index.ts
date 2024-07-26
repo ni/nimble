@@ -18,22 +18,26 @@ export abstract class TableCellView<
     extends FoundationElement
     implements TableCellState<TCellRecord, TColumnConfig> {
     @observable
-    public cellRecord!: TCellRecord;
+    public cellRecord?: TCellRecord;
 
     @observable
-    public columnConfig!: TColumnConfig;
+    public columnConfig?: TColumnConfig;
 
     @observable
     public column?: TableColumn<TColumnConfig>;
 
-    private delegatedEvents: readonly string[] = [];
+    @observable
+    public recordId?: string;
 
     /**
-     * Called if an element inside this cell view has focus, and this row/cell is being recycled.
-     * Expected implementation is to commit changes as needed, and blur the focusable element (or close
-     * the menu/popup/etc).
+     * Gets the child elements in this cell view that should be able to be reached via Tab/ Shift-Tab,
+     * if any.
      */
-    public focusedRecycleCallback(): void {}
+    public get tabbableChildren(): HTMLElement[] {
+        return [];
+    }
+
+    private delegatedEvents: readonly string[] = [];
 
     public columnChanged(): void {
         for (const eventName of this.delegatedEvents) {
@@ -47,11 +51,19 @@ export abstract class TableCellView<
         }
         this.delegatedEvents = this.column.columnInternals.delegatedEvents;
         this.delegatedEventHandler = (event: Event) => {
-            this.column?.dispatchEvent(
-                new CustomEvent<DelegatedEventEventDetails>('delegated-event', {
-                    detail: { originalEvent: event }
-                })
-            );
+            if (this.recordId) {
+                this.column?.dispatchEvent(
+                    new CustomEvent<DelegatedEventEventDetails>(
+                        'delegated-event',
+                        {
+                            detail: {
+                                originalEvent: event,
+                                recordId: this.recordId
+                            }
+                        }
+                    )
+                );
+            }
         };
 
         for (const delegatedEvent of this.delegatedEvents) {

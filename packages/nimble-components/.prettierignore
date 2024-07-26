@@ -1,27 +1,24 @@
 # Visit and ignore all objects in the root. 
-# Then explicitly allow all TypeScript, JavaScript, Markdown, and JSON files in the root, src, and .storybook folders.
+# Then explicitly allow specific file extensions to format.
 /*
 !*.ts
 !*.js
 !*.md
-!*.mdx
 !*.json
 !src/
-!docs/
-!/.storybook/
+!build/
 
 /src/**/*.*
 !src/**/*.ts
 !src/**/*.js
 !src/**/*.md
-!src/**/*.mdx
 !src/**/*.json
 
-/docs/**/*.*
-!docs/**/*.mdx
-
-/.storybook/*.*
-!/.storybook/*.js
+/build/**/*.*
+!build/**/*.ts
+!build/**/*.js
+!build/**/*.md
+!build/**/*.json
 
 # Explicitly exclude the below files and folders
 dist
@@ -31,5 +28,5 @@ CHANGELOG.*
 src/utilities/tests/tests/fixture.spec.ts
 src/utilities/tests/fixture.ts
 src/utilities/style/direction.ts
-src/icons/**/*.ts
-build/transform-fragments.js
+src/icons
+src/wafer-map/workers

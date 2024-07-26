@@ -1,29 +1,30 @@
 import { css } from '@microsoft/fast-element';
-import { display } from '@microsoft/fast-foundation';
 import { White } from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
+import { display } from '../../../utilities/style/display';
 import {
     applicationBackgroundColor,
+    borderHoverColor,
     borderWidth,
     controlHeight,
-    controlSlimHeight,
     fillHoverColor,
-    mediumDelay,
-    smallPadding,
+    mediumPadding,
     standardPadding
 } from '../../../theme-provider/design-tokens';
 import { Theme } from '../../../theme-provider/types';
 import { hexToRgbaCssColor } from '../../../utilities/style/colors';
 import { themeBehavior } from '../../../utilities/style/theme';
 import { userSelectNone } from '../../../utilities/style/user-select';
+import { styles as expandCollapseStyles } from '../../../patterns/expand-collapse/styles';
+import { focusVisible } from '../../../utilities/style/focus';
 
 export const styles = css`
     ${display('grid')}
+    ${expandCollapseStyles}
 
     :host {
         align-items: center;
         height: calc(${controlHeight} + 2 * ${borderWidth});
         border-top: calc(2 * ${borderWidth}) solid ${applicationBackgroundColor};
-        box-sizing: border-box;
         grid-template-columns:
             calc(
                 ${controlHeight} *
@@ -42,11 +43,6 @@ export const styles = css`
             1fr;
     }
 
-    :host([expanded]) .animating,
-    :host .animating {
-        transition: ${mediumDelay} ease-in-out;
-    }
-
     :host::before {
         content: '';
         width: 100%;
@@ -60,20 +56,16 @@ export const styles = css`
         background-color: ${fillHoverColor};
     }
 
+    :host(${focusVisible}) {
+        outline: calc(2 * ${borderWidth}) solid ${borderHoverColor};
+        outline-offset: calc(-2 * ${borderWidth});
+    }
+
     .expand-collapse-button {
         margin-left: calc(
-            ${smallPadding} * 2 + ${standardPadding} * 2 *
+            ${mediumPadding} + ${standardPadding} * 2 *
                 var(--ni-private-table-group-row-indent-level)
         );
-        height: ${controlSlimHeight};
-    }
-
-    :host([expanded]) .expander-icon {
-        transform: rotate(90deg);
-    }
-
-    .expander-icon {
-        transform: rotate(0deg);
     }
 
     .group-row-header-content {
@@ -82,24 +74,16 @@ export const styles = css`
     }
 
     .group-header-view {
-        padding-left: calc(${standardPadding} / 2);
+        padding-left: ${mediumPadding};
         ${userSelectNone}
         overflow: hidden;
-        display: flex;
     }
 
     .group-row-child-count {
         padding-left: 2px;
-        padding-right: calc(${standardPadding} / 2);
+        padding-right: ${mediumPadding};
         pointer-events: none;
         ${userSelectNone}
-    }
-
-    @media (prefers-reduced-motion) {
-        :host .animating,
-        :host([expanded]) .animating {
-            transition-duration: 0s;
-        }
     }
 
     .checkbox-container {

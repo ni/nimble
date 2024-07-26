@@ -1,0 +1,96 @@
+@import '@ni/nimble-angular/styles/tokens';
+
+.content {
+    width: 100%;
+    box-sizing: border-box;
+    font: $ni-nimble-body-font;
+}
+
+.container-label {
+    font: $ni-nimble-group-header-font;
+    color: $ni-nimble-group-header-font-color;
+    padding-bottom: $ni-nimble-standard-padding;
+}
+
+p, a {
+    color: $ni-nimble-control-label-font-color;
+}
+
+.container {
+    background-color: $ni-nimble-application-background-color;
+    display: inline-flex;
+    justify-content: left;
+    flex-direction: column;
+    padding: 0px 2px 0px 10px;
+}
+
+.sub-container {
+    margin: $ni-nimble-standard-padding;
+}
+
+.sub-container > * {
+    margin-right: $ni-nimble-standard-padding;
+}
+
+.theme-select {
+    display: block;
+    width: 150px;
+    min-width: unset;
+}
+
+.drawer-location-select {
+    width: 200px;
+}
+
+example-header {
+    display: block;
+}
+
+nimble-toolbar::part(positioning-region) {
+    background-color: $ni-nimble-section-background-color;
+}
+
+.card-button-content {
+    display: flex;
+    margin: $ni-nimble-standard-padding;
+}
+
+.drawer-footer {
+    gap: $ni-nimble-standard-padding;
+}
+
+.sub-container > nimble-anchor {
+    margin-right: 0;
+}
+
+nimble-drawer {
+    p {
+        color: $ni-nimble-body-font-color;
+    }
+}
+
+nimble-table {
+    max-height: 480px;
+}
+
+.query-param-word {
+    margin-top: $ni-nimble-standard-padding;
+}
+
+.rich-text-viewer-container {
+    border: $ni-nimble-border-width solid rgba($ni-nimble-action-rgb-partial-color, 0.3);
+    padding: $ni-nimble-small-padding;
+    width: 350px;
+}
+
+.rich-text-editor-container {
+    padding: $ni-nimble-small-padding;
+}
+
+.rich-text-editor {
+    height: 280px;
+}
+
+.add-table-row-button {
+    margin-top: $ni-nimble-small-padding;
+}

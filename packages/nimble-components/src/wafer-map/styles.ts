@@ -1,12 +1,24 @@
 import { css } from '@microsoft/fast-element';
 import { DigitalGreenLight } from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
 import { borderColor, borderWidth } from '../theme-provider/design-tokens';
+import { display } from '../utilities/style/display';
 
 export const styles = css`
+    ${display('inline-block')}
+
     :host {
-        display: inline-block;
         width: 500px;
         height: 500px;
+    }
+
+    .main-wafer {
+        display: inline-block;
+        position: absolute;
+    }
+
+    .worker-wafer {
+        display: inline-block;
+        position: absolute;
     }
 
     .wafer-map-container {
@@ -53,11 +65,6 @@ export const styles = css`
         vector-effect: non-scaling-stroke;
         stroke-width: ${borderWidth};
         stroke: ${borderColor};
-    }
-
-    .wafer-map-canvas {
-        display: inline-block;
-        position: absolute;
     }
 
     .hover-layer {

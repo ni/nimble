@@ -7,6 +7,8 @@ import {
 } from '@microsoft/fast-foundation';
 import type { ToggleButton } from '.';
 
+/* eslint-disable @typescript-eslint/indent */
+// prettier-ignore
 export const template: FoundationElementTemplate<
 ViewTemplate<ToggleButton>,
 ButtonOptions
@@ -14,23 +16,26 @@ ButtonOptions
     <div
         role="button"
         part="control"
-        tabindex="${x => (x.disabled ? null : 0)}"
+        tabindex="${x => x.resolvedTabindex}"
         @keypress="${(x, c) => x.keypressHandler(c.event as KeyboardEvent)}"
         @click="${(x, c) => x.clickHandler(c.event as MouseEvent)}"
         class="control ${x => (x.checked ? 'checked' : '')}"
-        ?disabled="${x => x.disabled}"
-        ${
-    '' /* Configure aria-disabled, aria-readonly, and aria-pressed based on the
-        toggle button's state to keep the ARIA attributes consistent with the component's
-        state without a client having to configure ARIA attributes directly */
-}
+        ${''
+            /**
+             * Configure aria-disabled, aria-readonly, and aria-pressed based on the
+             * toggle button's state to keep the ARIA attributes consistent with the component's
+             * state without a client having to configure ARIA attributes directly
+             */
+        }
         aria-disabled="${x => x.disabled}"
         aria-readonly="${x => x.readOnly}"
         aria-pressed="${x => x.checked}"
-        ${
-    '' /* Configure all other ARIA attributes based on the aria attributes
-        configured on the toggle button */
-}
+        ${''
+            /**
+             * Configure all other ARIA attributes based on the aria attributes
+             * configured on the toggle button
+             */
+        }
         aria-atomic="${x => x.ariaAtomic}"
         aria-busy="${x => x.ariaBusy}"
         aria-controls="${x => x.ariaControls}"
@@ -59,3 +64,4 @@ ButtonOptions
         ${endSlotTemplate(context, definition)}
     </div>
 `;
+/* eslint-enable @typescript-eslint/indent */

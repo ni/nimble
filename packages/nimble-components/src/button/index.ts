@@ -1,8 +1,7 @@
-import { attr } from '@microsoft/fast-element';
+import { attr, nullableNumberConverter } from '@microsoft/fast-element';
 import {
     Button as FoundationButton,
     ButtonOptions,
-    buttonTemplate as template,
     DesignSystem
 } from '@microsoft/fast-foundation';
 import type {
@@ -10,6 +9,7 @@ import type {
     ButtonAppearanceVariantPattern
 } from '../patterns/button/types';
 import { styles } from './styles';
+import { template } from './template';
 import { ButtonAppearance, ButtonAppearanceVariant } from './types';
 
 declare global {
@@ -47,6 +47,14 @@ export class Button
      */
     @attr({ attribute: 'content-hidden', mode: 'boolean' })
     public contentHidden = false;
+
+    /**
+     * @public
+     * @remarks
+     * HTML Attribute: tabindex
+     */
+    @attr({ attribute: 'tabindex', converter: nullableNumberConverter })
+    public override tabIndex!: number;
 }
 
 /**
@@ -69,4 +77,4 @@ const nimbleButton = Button.compose<ButtonOptions>({
 });
 
 DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleButton());
-export const buttonTag = DesignSystem.tagFor(Button);
+export const buttonTag = 'nimble-button';

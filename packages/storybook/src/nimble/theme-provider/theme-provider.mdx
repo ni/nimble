@@ -1,0 +1,16 @@
+import { Controls, Canvas, Meta, Title } from '@storybook/blocks';
+import { themeProvider } from './theme-provider.stories';
+import ComponentApisLink from '../../docs/component-apis-link.mdx';
+
+<Meta title="Tokens/Theme Provider" />
+<Title>Theme Provider</Title>
+
+The theme provider element allows configuring certain token values for the
+contained HTML tree.
+
+<Canvas of={themeProvider} />
+
+## API
+
+<Controls of={themeProvider} sourceState="none" />
+<ComponentApisLink />

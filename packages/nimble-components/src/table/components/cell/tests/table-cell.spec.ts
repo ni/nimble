@@ -10,6 +10,7 @@ import type { TableCellRecord } from '../../../../table-column/base/types';
 import { TableCellPageObject } from './table-cell.pageobject';
 import { TableCellView } from '../../../../table-column/base/cell-view';
 import { createCellViewTemplate } from '../../../../table-column/base/cell-view/template';
+import { createEventListener } from '../../../../utilities/testing/component';
 
 interface SimpleTableCellRecord extends TableCellRecord {
     stringData: string;
@@ -23,7 +24,6 @@ const columnCellViewName = uniqueElementName();
         >${x => x.cellRecord?.stringData}</span
     >`
 })
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 class TestTableColumnCellView extends TableCellView<SimpleTableCellRecord> {}
 
 // prettier-ignore
@@ -79,5 +79,68 @@ describe('TableCell', () => {
         await waitForUpdatesAsync();
         const renderedContent = pageObject.getRenderedCellContent();
         expect(renderedContent).toBe('bar');
+    });
+
+    it('fires cell-view-focus-in/cell-focus-in/cell-blur events when cell contents are focused/blurred', async () => {
+        await connect();
+        await waitForUpdatesAsync();
+
+        const cellViewFocusInListener = createEventListener(
+            element,
+            'cell-view-focus-in'
+        );
+        const cellFocusInListener = createEventListener(
+            element,
+            'cell-focus-in'
+        );
+        const cellBlurListener = createEventListener(element, 'cell-blur');
+        const renderedCellView = pageObject.getRenderedCellView();
+        const span = renderedCellView.shadowRoot
+            ?.firstElementChild as HTMLSpanElement;
+        span.tabIndex = 0;
+        span.focus();
+        await cellViewFocusInListener.promise;
+        await cellFocusInListener.promise;
+
+        expect(cellViewFocusInListener.spy).toHaveBeenCalledOnceWith(
+            jasmine.objectContaining({ detail: element })
+        );
+        expect(cellFocusInListener.spy).toHaveBeenCalledOnceWith(
+            jasmine.objectContaining({ detail: element })
+        );
+        expect(cellBlurListener.spy).not.toHaveBeenCalled();
+
+        span.blur();
+        await cellBlurListener.promise;
+
+        expect(cellBlurListener.spy).toHaveBeenCalledOnceWith(
+            jasmine.objectContaining({ detail: element })
+        );
+    });
+
+    it('fires the cell-view-focus-in event when cell contents are focused, after the cell is already focused', async () => {
+        await connect();
+        await waitForUpdatesAsync();
+
+        const cellViewFocusInListener = createEventListener(
+            element,
+            'cell-view-focus-in'
+        );
+        const renderedCellView = pageObject.getRenderedCellView();
+        element.tabIndex = 0;
+        element.focus();
+        await waitForUpdatesAsync();
+
+        expect(cellViewFocusInListener.spy).not.toHaveBeenCalled();
+
+        const span = renderedCellView.shadowRoot
+            ?.firstElementChild as HTMLSpanElement;
+        span.tabIndex = 0;
+        span.focus();
+        await cellViewFocusInListener.promise;
+
+        expect(cellViewFocusInListener.spy).toHaveBeenCalledOnceWith(
+            jasmine.objectContaining({ detail: element })
+        );
     });
 });

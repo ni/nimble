@@ -2,13 +2,8 @@ import type { ScaleBand, ScaleQuantile } from 'd3-scale';
 import { Computations } from './computations';
 import { Prerendering } from './prerendering';
 import type { WaferMap } from '..';
-import type {
-    Dimensions,
-    Margin,
-    DieRenderInfo,
-    WaferMapDie,
-    PointCoordinates
-} from '../types';
+import type { DieRenderInfo, WaferMapDie, PointCoordinates } from '../types';
+import type { Dimensions, Margin } from '../workers/types';
 
 /**
  * Data Manager uses Computations and Prerendering modules in order and exposes the results
@@ -54,27 +49,46 @@ export class DataManager {
         return this.prerendering.diesRenderInfo;
     }
 
+    public get data(): Map<string, WaferMapDie> {
+        return this.dataMap;
+    }
+
     private readonly computations: Computations;
     private readonly prerendering: Prerendering;
-    private readonly dataMap: Map<string, WaferMapDie>;
+    private dataMap!: Map<string, WaferMapDie>;
 
-    public constructor(wafermap: WaferMap) {
+    public constructor(private readonly wafermap: WaferMap) {
         this.computations = new Computations(wafermap);
+        this.prerendering = new Prerendering(wafermap);
+    }
 
-        this.prerendering = new Prerendering(
-            wafermap,
-            this.horizontalScale,
-            this.verticalScale,
-            this.dieDimensions,
-            this.margin
-        );
+    public updateContainerDimensions(): void {
+        this.computations.updateContainerDimensions();
+        this.updateDataMap();
+        this.updateLabelsFontSize();
+    }
 
-        this.dataMap = new Map(
-            wafermap.dies.map(die => [`${die.x}_${die.y}`, die])
-        );
+    public updateScales(): void {
+        this.computations.updateScales();
+        this.updateDataMap();
+        this.updateLabelsFontSize();
+    }
+
+    public updateLabelsFontSize(): void {
+        this.prerendering.updateLabelsFontSize();
+    }
+
+    public updateDiesRenderInfo(): void {
+        this.prerendering.updateDiesRenderInfo();
     }
 
     public getWaferMapDie(point: PointCoordinates): WaferMapDie | undefined {
         return this.dataMap.get(`${point.x}_${point.y}`);
+    }
+
+    private updateDataMap(): void {
+        this.dataMap = new Map(
+            this.wafermap.dies.map(die => [`${die.x}_${die.y}`, die])
+        );
     }
 }

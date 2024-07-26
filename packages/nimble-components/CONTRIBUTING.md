@@ -2,7 +2,7 @@
 
 ## Package overview
 
-This package contains a library of NI-styled web components.
+This package contains a library of NI-styled web components. Components are built using [custom elements](https://web.dev/custom-elements-v1/) and [Shadow DOM](https://web.dev/shadowdom-v1/) which are native features in modern browsers.
 
 The library is built on the open source [FAST Design System library](https://fast.design) created by Microsoft. This provides several useful starting points:
 
@@ -18,13 +18,13 @@ The library is built on the open source [FAST Design System library](https://fas
 
 ## Getting started
 
-From the `nimble` directory:
+From the repo root directory:
 
 1. Run `npm install`
 2. Run `npm run build`
 3. Run the different Nimble Components test configurations:
 
-    - To view the components and manually test behaviors in Storybook: `npm run storybook -w @ni/nimble-components`
+    - To view the components and manually test behaviors in Storybook: `npm run storybook`
 
         **Note**: You will need to refresh your browser window to see style changes made in source.
 
@@ -35,23 +35,24 @@ From the `nimble` directory:
 Before building a new component, 3 specification documents need to be created:
 
 1. An interaction design (IxD) spec to get agreement on the component's behavior and other core requirements. The spec process is described in the [`/specs` folder](/specs/README.md).
-2. A visual design (ViD) spec to get agreement on the component's appearance, spacing, icons, and tokens. The visual design spec can be created in Adobe XD or Figma, and linked to the component work item and Storybook documentation. See [Tips for using Adobe XD to inspect component designs](/packages/nimble-components/docs/xd-tips.md) to learn more about how to navigate these specs.
+2. A visual design (ViD) spec to get agreement on the component's appearance, spacing, icons, and tokens. The visual design spec should be created in Figma and linked to the component work item and Storybook [Component Status](https://nimble.ni.dev/storybook/?path=/docs/component-status--docs) page.
 3. A technical design spec to get agreement on the component's behavior, API, and high-level implementation. The spec process is described in the [`/specs` folder](/specs/README.md).
 
 ## Development workflow
 
 1. When creating new components, create the folder structure and decide how to implement the component as described in [Develop new components](#develop-new-components).
-2. Run the Storybook command from the `nimble` directory:
 
-    `npm run storybook -w @ni/nimble-components`
+2. Create Storybook documentation and tests for the component as described in [`@ni-private/storybook` CONTRIBUTING](/packages/storybook/CONTRIBUTING.md).
 
-    Storybook will build its own copy of the component in a temporary folder which is separate from the normal build.
+3. Run the Storybook command from the repo root: `npm run storybook`.
 
-3. Make functional and style changes to the component.
+    This command also causes `nimble-components` (and `spright-components`) to rebuild whenever a source file is changed so that Storybook can reflect the current state.
+
+4. Make functional and style changes to the component.
 
     The storybook will hot reload when you save changes, but the styles will not. On each save that changes `index.ts` or `styles.ts`, **you will need to refresh your browser window to see style changes**.
 
-4. Create or update tests.
+5. Create or update tests.
 
     To build and run the tests once, from the `nimble` directory run:
 
@@ -63,48 +64,61 @@ Before building a new component, 3 specification documents need to be created:
 
     See [Unit tests](#unit-tests) for additional available commands.
 
-5. Test out the component in each of the 3 major browsers: Chrome, Firefox, and Safari (WebKit).
+6. Test out the component in each of the 3 major browsers: Chrome, Firefox, and Safari (WebKit).
    For developers on non-Mac platforms, Safari/WebKit can be tested via the Playwright package:
 
-    - To open Storybook with WebKit, after running the Storybook command, run the command `npm run storybook-open-webkit -w @ni/nimble-components` from the `nimble` directory.
     - To run the unit tests with WebKit, use the command `npm run test-webkit -w @ni/nimble-components` from the `nimble` directory.
 
-6. Create change files for your work by running the following from the `nimble` directory:
+7. Create change files for your work by running the following from the `nimble` directory:
 
     `npm run change`
 
-7. Update the [Component Status table](/README.md#component-status) to reflect the new component state.
+8. Update the [Component Status table](./src/tests/component-status.stories.ts) to reflect the new component state.
 
 ## Develop new components
 
-### Marking a component as in development
+### Marking a component as incubating
 
-If a component will require multiple pull requests before having a complete and stable API, it should be marked as "in-development" to indicate to clients that they shouldn't start using it yet. To do this:
+If a component is not ready for general use, it should be marked as "incubating" to indicate that status to clients. A component could be in this state if any of the following are true:
+
+-   It is still in development.
+-   It is missing important features like interaction design, visual design, or accessibility.
+
+Incubating contributions may compromise on the above capabilities but they still must abide by other repository requirements. For example:
+
+-   Start development with a spec describing the high level plan and what's in or out of scope
+-   Coding conventions (element naming, linting, code quality)
+-   Unit and Chromatic test coverage
+-   Storybook documentation
+
+To mark a component as incubating:
 
 1. In the component status table, set its status to ⚠️
-2. In the component Storybook documentation, add a red text banner to the page indicating that the component should not be used
-3. Consider placing the component implementation in a sub-folder named `experimental` so that it will be obvious when importing it that it is incomplete
+2. In the component Storybook documentation:
+    - add a red text banner to the page indicating that the component is not ready for general use
+    - start the Storybook name with "Incubating/" so that it appears in a separate section of the documentation page
+3. Add CODEOWNERS from both the contributing team and the Nimble team.
 
-Be sure to remove these warnings when the component is complete!
+To move a component out of incubating status:
+
+1. Have a conversation with the Nimble team to decide if it is sufficiently complete. The requirements listed at the top of this section must be met. Some feature gaps like framework integration may be OK as long as we don't anticipate that filling them would cause major breaking changes.
+2. Update the markings described above to indicate that it is now ready for general use!
 
 ### Folder structure
 
 Create a new folder named after your component with some core files:
 
-| File                                   | Description                                                                                                                                                                                                                                                                |
-| -------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| specs/\*.md                            | Contains the original API and implementation specifications for the component.                                                                                                                                                                                             |
-| index.ts                               | Contains the component class definition and registration. All TypeScript logic contained in the component belongs here.                                                                                                                                                    |
-| styles.ts                              | Contains the styles relevant to this component. Note: Style property values that can be shared across components belong in [theme-provider/design-tokens.ts](/packages/nimble-components/src/theme-provider/design-tokens.ts).                                             |
-| template.ts                            | Contains the template definition for components that don't use a fast-foundation template.                                                                                                                                                                                 |
-| types.ts                               | Contains any enum-like types defined by the component                                                                                                                                                                                                                      |
-| models/                                | A folder containing any classes or interfaces that are part of the component API or implementation                                                                                                                                                                         |
-| components/                            | A folder containing any components that are used within the component but are not exported as public components themselves.                                                                                                                                                |
-| testing/component-name.pageobject.ts   | Page object to ease testing of this component.                                                                                                                                                                                                                             |
-| tests/component-name.spec.ts           | Unit tests for this component. Covers behaviors added to components on top of existing Foundation behaviors or behavior of new components.                                                                                                                                 |
-| tests/component-name.stories.ts        | Contains the component hosted in Storybook. This provides a live component view for development and testing. In the future, this will also provide API documentation.                                                                                                      |
-| tests/component-name-matrix.stories.ts | Contains a story that shows all component states for all themes hosted in Storybook. This is used by Chromatic visual tests to verify styling changes across all themes and states.                                                                                        |
-| tests/component-name-docs.stories.ts   | Contains the Storybook documentation for this component. This should provide design guidance and usage information. See [Creating Storybook Component Documentation](/packages/nimble-components/docs/creating-storybook-component-documentation.md) for more information. |
+| File                                 | Description                                                                                                                                                                                                                    |
+| ------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| specs/\*.md                          | Contains the original API and implementation specifications for the component.                                                                                                                                                 |
+| index.ts                             | Contains the component class definition and registration. All TypeScript logic contained in the component belongs here.                                                                                                        |
+| styles.ts                            | Contains the styles relevant to this component. Note: Style property values that can be shared across components belong in [theme-provider/design-tokens.ts](/packages/nimble-components/src/theme-provider/design-tokens.ts). |
+| template.ts                          | Contains the template definition for components that don't use a fast-foundation template.                                                                                                                                     |
+| types.ts                             | Contains any enum-like types defined by the component                                                                                                                                                                          |
+| models/                              | A folder containing any classes or interfaces that are part of the component API or implementation                                                                                                                             |
+| components/                          | A folder containing any components that are used within the component but are not exported as public components themselves.                                                                                                    |
+| testing/component-name.pageobject.ts | Page object to ease testing of this component.                                                                                                                                                                                 |
+| tests/component-name.spec.ts         | Unit tests for this component. Covers behaviors added to components on top of existing Foundation behaviors or behavior of new components.                                                                                     |
 
 ### Add to component bundle
 
@@ -118,7 +132,11 @@ If Fast Foundation contains a component similar to what you're adding, create a 
 
 If your component is the canonical representation of the FAST Foundation base class that it extends, then in the argument to `compose` provide a `baseClass` value. No two Nimble components should specify the same `baseClass` value.
 
-Sometimes you may want to extend a FAST component, but need to make changes to their template. If possible, you should submit a PR to FAST to make the necessary changes in their repo. As a last resort, you may instead copy the template over to the Nimble repo, then make your changes. If you do so, you must also copy over the FAST unit tests for the component (making any adjustments to account for your changes to the template).
+Sometimes you may want to extend a FAST component, but need to make changes to their template. If possible, you should submit a PR to FAST to make the necessary changes in their repo. As a last resort, you may instead copy the template over to the Nimble repo, then make your changes. If you do so, you must also copy over the FAST unit tests for the component (making any adjustments to account for your changes to the template). When copying over unit tests:
+
+1. Put the FAST tests in a separate file named `<component>.foundation.spec.ts`
+2. Update the code to follow NI coding conventions (i.e. linting and formatting)
+3. Add a comment at the top of the file that links to the original source in FAST
 
 Use the `css` tagged template helper to style the component according to Nimble guidelines. See [leveraging-css.md](https://github.com/microsoft/fast/blob/c94ad896dda3d4c806585d1d0bbfb37abdc3d758/packages/web-components/fast-element/docs/guide/leveraging-css.md) for (hopefully up-to-date) tips from FAST.
 
@@ -241,6 +259,19 @@ With an attribute defined there are several ways to react to updates. To minimiz
 
     Some valid use cases are reflecting correct aria values based on the updated attribute or forwarding updates to child components.
 
+#### Don't throw exceptions when a component is misconfigured
+
+Components should be robust to having their properties and attributes configured in invalid ways and should typically not throw exceptions. This matches native element behavior and helps avoid situations where client code must be set component state in a specific order.
+
+Instead of throwing an exceptions, components should ignore invalid state and render in a predictable way. This could mean reverting to a default or empty state. This behavior should be covered by auto tests.
+
+Components can also consider exposing an API that checks the validity of the component configuration. Clients can use this to assert about the validity in their tests and to discover why a component is invalid when debugging. See the `nimble-table` for an example of this.
+
+It is acceptable to throw exceptions in production code in other situations. For example:
+
+-   when a case gets hit that should be impossible, like an invalid enum value.
+-   from a component method when it shouldn't be called in the component's current state, like `show()` on a dialog that is already open.
+
 #### Comments
 
 At a minimum all classes should have a block comment and ultimately all parts of the public API should have a block comment as well.
@@ -301,7 +332,7 @@ The project uses a code generation build script to create a Nimble component for
 Every component should export its custom element tag (e.g. `nimble-button`) in a constant like this:
 
 ```ts
-export const buttonTag = DesignSystem.tagFor(Button);
+export const buttonTag = 'nimble-button';
 ```
 
 Client code can use this to refer to the component in an HTML template and having a dependency on the export will let a compiled application detect if a tag name changes.
@@ -342,6 +373,35 @@ const nimbleButton = Button.compose({
         delegatesFocus: true
     }
 });
+```
+
+If delegating focus, you must forward the `tabindex` attribute to any focusable elements in the shadow DOM. While some browsers (e.g. Chrome) will work properly without forwarding, others (e.g. Firefox) won't. Override the `tabIndex` property and mark it as an attribute:
+
+```ts
+export class MyComponent {
+    ...
+    @attr({ attribute: 'tabindex', converter: nullableNumberConverter })
+    public override tabIndex!: number;
+}
+```
+
+Then in the template, bind the focusable elements' `tabindex` to the host component's property:
+
+<!-- prettier-ignore -->
+```html
+html<MyComponent>`
+    <nimble-button 
+        ...
+        tabindex="${x => x.tabIndex}">
+    </nimble-button>
+    // or for an element that isn't focusable by default:
+    <div
+        ...
+        tabindex="${x => {
+            const tabindex = x.tabIndex ?? 0;
+            return x.disabled ? undefined : `${tabindex}`;
+        }">
+    </div>`;
 ```
 
 ### Leverage mixins for shared APIs across components
@@ -404,7 +464,28 @@ Before disabling a test, you **must** have investigated the failure and attempte
 
 Nimble includes three NI-brand aligned themes (i.e. `light`, `dark`, & `color`).
 
-When creating a new component, create a `*-matrix.stories.ts` Storybook file to confirm that the component reflects the design intent across all themes and states.
+## Localization
+
+Most user-visible strings displayed by Nimble components are provided by the client application and are expected to be localized by the application if necessary. However, some strings are built into Nimble components and are provided only in English. An application can provide localized versions of these strings by using design tokens set on label provider elements.
+
+The current label providers:
+
+-   `nimble-label-provider-core`: Used for labels for all components without a dedicated label provider
+-   `nimble-label-provider-rich-text`: Used for labels for the rich text components
+-   `nimble-label-provider-table`: Used for labels for the table (and table sub-components / column types)
+
+The expected format for label token names is:
+
+-   element/type(s) to which the token applies, e.g. `number-field` or `table`
+    -   This may not be an exact element name, if this label applies to multiple elements or will be used in multiple contexts
+-   component part/category (optional), e.g. `column-header`
+-   specific functionality or sub-part, e.g. `decrement`
+-   the suffix `label` (will be omitted from the label-provider properties/attributes)
+
+Components using localized labels should document them in Storybook. To add a "Localizable Labels" section:
+
+-   Their story `Args` should extend `LabelUserArgs`
+-   Call `addLabelUseMetadata()` and pass their declared metadata object, the applicable label provider tag, and the label tokens that they're using
 
 ## Component naming
 
@@ -417,13 +498,36 @@ Component custom element names are specified in `index.ts` when registering the 
 3. **variant** can be used to distinguish alternate configurations of one presentation. For example, `anchor-`, `card-`, `menu-`, and `toggle-` are all variants of the `button` presentation. The primary configuration can omit the `variant` segment (e.g. `nimble-button`).
 4. **presentation** describes the visual presentation of the component. For example, `button`, `tab`, or `text-field`.
 
-## Token naming
+## Theme-aware tokens
+
+Nimble maps [base tokens](/packages/nimble-tokens/CONTRIBUTING.md#editing-base-tokens) to theme-aware tokens which are then used to style components. These tokens automatically adjust to the theme set by the `theme-provider` and relate to specific contexts or components.
+
+To modify the generated tokens, complete these steps:
+
+1. Edit the `design-tokens*` typescript files in `src/theme-provider/`.
+2. Rebuild the generated token files by running the repository's build command, `npm run build`.
+3. Test your changes locally and create a PR using the normal process.
+
+### Naming
 
 Public names for theme-aware tokens are specified in `src/theme-provider/design-token-names.ts`. Use the following structure when creating new tokens.
 
-`[element]-[part]-[state]-[token_type]`
+`[element]-[part]-[interaction_states]-[remaining_states]-[token_type]`
 
 1. Where **element** is the type to which the token applies (e.g. 'application', 'body', or 'title-plus-1').
 2. Where **part** is the specific part of the element to which the token applies (e.g. 'border', 'background', or shadow).
-3. Where **state** is the more specific state descriptor (e.g. 'selected' or 'disabled'). Multiple states should be sorted alphabetically.
-4. Where **token_type** is the token category (e.g. 'color', 'font', 'font-color', 'height', 'width', or 'size').
+3. Where **interaction_states** is one or more interaction states (e.g. 'active', 'disabled', 'hover', or 'selected'). Multiple values should be sorted alphabetically.
+4. Where **remaining_states** the remaining, non-interaction states (e.g. 'accent', 'primary, or 'large'). Multiple values should be sorted alphabetically.
+5. Where **token_type** is the token category (e.g. 'color', 'font', 'font-color', 'height', 'width', or 'size').
+
+### Size ramp
+
+For tokens with multiple sizes, use the following structure for **element** names. E.g. for `title`:
+
+| Element name  |
+| ------------- |
+| title-plus-2  |
+| title-plus-1  |
+| title         |
+| title-minus-1 |
+| title-minus-2 |

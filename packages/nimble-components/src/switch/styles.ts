@@ -1,16 +1,16 @@
 import { css } from '@microsoft/fast-element';
-import { display } from '@microsoft/fast-foundation';
 import {
     Black15,
     Black7,
     Black91,
     White
 } from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
+import { display } from '../utilities/style/display';
 import {
+    bodyFont,
     borderHoverColor,
     borderWidth,
     buttonLabelDisabledFontColor,
-    buttonLabelFont,
     buttonLabelFontColor,
     controlHeight,
     controlLabelDisabledFontColor,
@@ -29,7 +29,7 @@ export const styles = css`
 
     :host {
         outline: none;
-        font: ${buttonLabelFont};
+        font: ${bodyFont};
         color: ${buttonLabelFontColor};
         flex-direction: column;
         cursor: pointer;
@@ -72,7 +72,6 @@ export const styles = css`
         display: flex;
         height: var(--ni-private-switch-height);
         width: calc(var(--ni-private-switch-height) * 2);
-        box-sizing: border-box;
         background-color: ${fillHoverColor};
         border-radius: calc(var(--ni-private-switch-height) / 2);
         align-items: center;
@@ -101,14 +100,14 @@ export const styles = css`
         justify-content: center;
         align-items: center;
         background-color: var(--ni-private-switch-indicator-background-color);
-        box-sizing: border-box;
         width: var(--ni-private-switch-indicator-size);
         height: var(--ni-private-switch-indicator-size);
         border-radius: calc(var(--ni-private-switch-indicator-size) / 2);
         margin: calc(
             calc(
-                    var(--ni-private-switch-height) -
-                        var(--ni-private-switch-indicator-size)
+                    var(--ni-private-switch-height) - var(
+                            --ni-private-switch-indicator-size
+                        )
                 ) / 2
         );
         border: ${borderWidth} solid

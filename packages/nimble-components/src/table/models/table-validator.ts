@@ -1,4 +1,10 @@
-import { TableRecord, TableRowSelectionMode, TableValidity } from '../types';
+import type { TableColumn } from '../../table-column/base';
+import {
+    TableRecord,
+    TableRowSelectionMode,
+    TableSetRecordHierarchyOptions,
+    TableValidity
+} from '../types';
 
 /**
  * Helper class for the nimble-table to validate that the table's configuration
@@ -13,6 +19,8 @@ export class TableValidator<TData extends TableRecord> {
     private duplicateSortIndex = false;
     private duplicateGroupIndex = false;
     private idFieldNameNotConfigured = false;
+    private invalidColumnConfiguration = false;
+    private invalidParentIdConfiguration = false;
 
     private readonly recordIds = new Set<string>();
 
@@ -25,7 +33,9 @@ export class TableValidator<TData extends TableRecord> {
             missingColumnId: this.missingColumnId,
             duplicateSortIndex: this.duplicateSortIndex,
             duplicateGroupIndex: this.duplicateGroupIndex,
-            idFieldNameNotConfigured: this.idFieldNameNotConfigured
+            idFieldNameNotConfigured: this.idFieldNameNotConfigured,
+            invalidColumnConfiguration: this.invalidColumnConfiguration,
+            invalidParentIdConfiguration: this.invalidParentIdConfiguration
         };
     }
 
@@ -42,21 +52,23 @@ export class TableValidator<TData extends TableRecord> {
         );
     }
 
-    public validateSelectionMode(
+    public validateIdFieldConfiguration(
         selectionMode: TableRowSelectionMode,
-        idFieldName: string | undefined
+        idFieldName: string | undefined,
+        parentIdFieldName: string | undefined
     ): boolean {
-        if (selectionMode === TableRowSelectionMode.none) {
-            this.idFieldNameNotConfigured = false;
-        } else {
+        const idFieldNameRequired = selectionMode !== TableRowSelectionMode.none
+            || typeof parentIdFieldName === 'string';
+        if (idFieldNameRequired) {
             this.idFieldNameNotConfigured = typeof idFieldName !== 'string';
+        } else {
+            this.idFieldNameNotConfigured = false;
         }
-
         return !this.idFieldNameNotConfigured;
     }
 
     public validateRecordIds(
-        data: TData[],
+        data: readonly TData[],
         idFieldName: string | undefined
     ): boolean {
         // Start off by assuming all IDs are valid.
@@ -94,7 +106,9 @@ export class TableValidator<TData extends TableRecord> {
         );
     }
 
-    public validateColumnIds(columnIds: (string | undefined)[]): boolean {
+    public validateColumnIds(
+        columnIds: readonly (string | undefined)[]
+    ): boolean {
         this.missingColumnId = false;
         this.duplicateColumnId = false;
 
@@ -120,21 +134,44 @@ export class TableValidator<TData extends TableRecord> {
         return !this.missingColumnId && !this.duplicateColumnId;
     }
 
-    public validateColumnSortIndices(sortIndices: number[]): boolean {
+    public validateColumnSortIndices(sortIndices: readonly number[]): boolean {
         this.duplicateSortIndex = !this.validateIndicesAreUnique(sortIndices);
         return !this.duplicateSortIndex;
     }
 
-    public validateColumnGroupIndices(groupIndices: number[]): boolean {
+    public validateColumnGroupIndices(
+        groupIndices: readonly number[]
+    ): boolean {
         this.duplicateGroupIndex = !this.validateIndicesAreUnique(groupIndices);
         return !this.duplicateGroupIndex;
     }
 
-    public getPresentRecordIds(requestedRecordIds: string[]): string[] {
+    public validateColumnConfigurations(
+        columns: readonly TableColumn[]
+    ): boolean {
+        this.invalidColumnConfiguration = columns.some(
+            x => !x.columnInternals.validator.isColumnValid
+        );
+        return !this.invalidColumnConfiguration;
+    }
+
+    public getPresentRecordIds(
+        requestedRecordIds: readonly string[]
+    ): string[] {
         return requestedRecordIds.filter(id => this.recordIds.has(id));
     }
 
-    private validateIndicesAreUnique(indices: number[]): boolean {
+    public getOptionsWithPresentIds(
+        requestedOptions: readonly TableSetRecordHierarchyOptions[]
+    ): TableSetRecordHierarchyOptions[] {
+        return requestedOptions.filter(item => this.recordIds.has(item.recordId));
+    }
+
+    public setParentIdConfigurationValidity(valid: boolean): void {
+        this.invalidParentIdConfiguration = !valid;
+    }
+
+    private validateIndicesAreUnique(indices: readonly number[]): boolean {
         const numberSet = new Set<number>(indices);
         return numberSet.size === indices.length;
     }

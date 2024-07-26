@@ -1,0 +1,90 @@
+﻿@page "/TableColumnMenuButton"
+@namespace NimbleBlazor.Tests.Acceptance.Pages
+@using System.Diagnostics.CodeAnalysis;
+@inherits LayoutComponentBase
+
+<NimbleTable TData="RowData" IdFieldName="Id" @ref="_table">
+    <NimbleTableColumnMenuButton
+        FieldName="Field1" MenuSlot="ColumnMenu"
+        MenuButtonColumnBeforeToggle="OnMenuButtonColumnBeforeToggle"
+        MenuButtonColumnToggle="OnMenuButtonColumnToggle"
+    >
+        Column 1
+    </NimbleTableColumnMenuButton>
+
+    <NimbleMenu slot="ColumnMenu">
+        <NimbleMenuItem>Item 1</NimbleMenuItem>
+        <NimbleMenuItem>Item 2</NimbleMenuItem>
+        <NimbleMenuItem>Item 3</NimbleMenuItem>
+    </NimbleMenu>
+</NimbleTable>
+
+<NimbleTextField id="beforeToggleOldState" @bind-Value="BeforeToggleOldState">Before Toggle Old State</NimbleTextField>
+<NimbleTextField id="beforeToggleNewState" @bind-Value="BeforeToggleNewState">Before Toggle New State</NimbleTextField>
+<NimbleTextField id="beforeToggleRecord" @bind-Value="BeforeToggleRecord">Before Toggle Record</NimbleTextField>
+
+<NimbleTextField id="toggleOldState" @bind-Value="ToggleOldState">Toggle Old State</NimbleTextField>
+<NimbleTextField id="toggleNewState" @bind-Value="ToggleNewState">Toggle New State</NimbleTextField>
+<NimbleTextField id="toggleRecord" @bind-Value="ToggleRecord">Toggle Record</NimbleTextField>
+
+@code {
+    [NotNull]
+    public IEnumerable<RowData> TableData { get; set; } = Enumerable.Empty<RowData>();
+
+    public string BeforeToggleOldState = string.Empty;
+    public string BeforeToggleNewState = string.Empty;
+    public string BeforeToggleRecord = string.Empty;
+    public string ToggleOldState = string.Empty;
+    public string ToggleNewState = string.Empty;
+    public string ToggleRecord = string.Empty;
+
+    private NimbleTable<RowData>? _table;
+
+    public TableColumnMenuButton()
+    {
+        UpdateTableData(2);
+    }
+
+    public void UpdateTableData(int numberOfRows)
+    {
+        var tableData = new RowData[numberOfRows];
+        for (int i = 0; i < numberOfRows; i++)
+        {
+            tableData[i] = new RowData(i);
+        }
+
+        TableData = tableData;
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await _table!.SetDataAsync(TableData);
+        await base.OnAfterRenderAsync(firstRender);
+    }
+
+    public class RowData
+    {
+        public RowData(int id)
+        {
+            Id = id.ToString();
+            Field1 = id;
+        }
+
+        public string Id { get; }
+        public int Field1 { get; }
+    }
+
+    public void OnMenuButtonColumnBeforeToggle(TableColumnMenuButtonToggleEventArgs e)
+    {
+        BeforeToggleOldState = e.OldState ? "true" : "false";
+        BeforeToggleNewState = e.NewState ? "true" : "false";
+        BeforeToggleRecord = e.RecordId;
+    }
+
+    public void OnMenuButtonColumnToggle(TableColumnMenuButtonToggleEventArgs e)
+    {
+        ToggleOldState = e.OldState ? "true" : "false";
+        ToggleNewState = e.NewState ? "true" : "false";
+        ToggleRecord = e.RecordId;
+    }
+}

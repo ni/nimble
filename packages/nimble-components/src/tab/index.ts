@@ -3,7 +3,7 @@ import {
     Tab as FoundationTab,
     tabTemplate as template
 } from '@microsoft/fast-foundation';
-import { styles } from '../patterns/tab/styles';
+import { styles } from './styles';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -24,4 +24,4 @@ const nimbleTab = Tab.compose({
 });
 
 DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleTab());
-export const tabTag = DesignSystem.tagFor(Tab);
+export const tabTag = 'nimble-tab';

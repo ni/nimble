@@ -75,7 +75,7 @@ export const styles = css`
         border-right: 2px solid rgba(${borderRgbPartialColor}, 0.15);
         height: calc(${controlHeight} - 12px);
         align-self: center;
-        padding-left: 4px;
+        margin-left: 4px;
     }
 
     .dropdown-button {
@@ -85,10 +85,6 @@ export const styles = css`
 
     :host([disabled]) .dropdown-icon {
         fill: ${bodyDisabledFontColor};
-    }
-
-    :host(:empty) .listbox {
-        display: none;
     }
 `.withBehaviors(
     appearanceBehavior(

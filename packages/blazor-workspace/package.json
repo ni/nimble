@@ -1,0 +1,43 @@
+{
+  "name": "@ni-private/blazor-workspace",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Workspace for Blazor projects",
+  "scripts": {
+    "build": "npm run generate-icons && npm run generate-hybrid && npm run build:release && npm run build:client",
+    "build:release": "dotnet build -c Release /p:TreatWarningsAsErrors=true /warnaserror",
+    "build:client": "dotnet publish -p:BlazorEnableCompression=false -c Release Examples/Demo.Client --output dist/blazor-client-app",
+    "generate-icons": "npm run generate-icons:bundle && npm run generate-icons:run",
+    "generate-icons:bundle": "rollup --bundleConfigAsCjs --config build/generate-icons/rollup.config.js",
+    "generate-icons:run": "node build/generate-icons/dist/index.js",
+    "generate-hybrid": "npm run generate-hybrid:nimble && npm run generate-hybrid:spright",
+    "generate-hybrid:nimble": "rollup --bundleConfigAsCjs --config build/generate-hybrid/rollup.nimble.config.js",
+    "generate-hybrid:spright": "rollup --bundleConfigAsCjs --config build/generate-hybrid/rollup.spright.config.js",
+    "lint": "npm run lint:cs && npm run lint:js",
+    "lint:cs": "dotnet format --verify-no-changes",
+    "lint:js": "eslint .",
+    "format": "npm run format:cs && npm run format:js",
+    "format:cs": "dotnet format",
+    "format:js": "eslint . --fix",
+    "test": "dotnet test -c Release",
+    "copy-resources:nimble": "node build/copyResources.js nimble",
+    "copy-resources:spright": "node build/copyResources.js spright",
+    "update-lock-files": "dotnet restore"
+  },
+  "files": [
+    "!*"
+  ],
+  "devDependencies": {
+    "@microsoft/fast-web-utilities": "^6.0.0",
+    "@ni-private/eslint-config-nimble": "*",
+    "@ni/nimble-components": "*",
+    "@ni/nimble-tokens": "*",
+    "@ni/spright-components": "*",
+    "@rollup/plugin-node-resolve": "^15.0.1",
+    "cross-env": "^7.0.3",
+    "glob": "^10.3.10",
+    "playwright": "1.44.0",
+    "rimraf": "^5.0.5",
+    "rollup": "^4.12.0"
+  }
+}

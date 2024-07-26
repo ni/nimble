@@ -3,7 +3,10 @@ import { eventAnimationEnd } from '@microsoft/fast-web-utilities';
 import { fixture, Fixture } from '../../utilities/tests/fixture';
 import { Drawer, UserDismissed } from '..';
 import { DrawerLocation } from '../types';
-import { processUpdates } from '../../testing/async-helpers';
+import {
+    processUpdates,
+    waitForUpdatesAsync
+} from '../../testing/async-helpers';
 
 // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 async function setup<CloseReason = void>(
@@ -130,8 +133,7 @@ describe('Drawer', () => {
             await expectAsync(promise).toBePending();
         });
 
-        // Firefox skipped, see: https://github.com/ni/nimble/issues/1075
-        it('should resolve promise if drawer completely opens before being closed #SkipFirefox', async () => {
+        it('should resolve promise if drawer completely opens before being closed', async () => {
             const promise = element.show();
             await completeAnimationAsync(element);
             element.close();
@@ -159,6 +161,24 @@ describe('Drawer', () => {
             nativeDialogElement(element).dispatchEvent(cancelEvent);
             await expectAsync(promise).toBeResolvedTo(UserDismissed);
             expect(element.open).toBeFalse();
+        });
+
+        // This can potentially happen if the dialog is implemented with the CloseWatcher API
+        it('should resolve promise with UserDismissed when only close event fired', async () => {
+            const promise = element.show();
+            // Simulate user dismiss events in browser
+            nativeDialogElement(element).dispatchEvent(new Event('close'));
+            await expectAsync(promise).toBeResolvedTo(UserDismissed);
+            expect(element.open).toBeFalse();
+        });
+
+        it('should not resolve promise when close event bubbles from descendant', async () => {
+            const promise = element.show();
+            const okButton = document.getElementById('ok')!;
+            okButton.dispatchEvent(new Event('close', { bubbles: true }));
+            await waitForUpdatesAsync();
+            await expectAsync(promise).toBePending();
+            expect(element.open).toBeTrue();
         });
 
         it('throws calling show() a second time', async () => {
@@ -214,15 +234,15 @@ describe('Drawer', () => {
             expect(afterDrawerCloseActiveElement).toBe(button2);
         });
 
-        // Firefox skipped, see: https://github.com/ni/nimble/issues/1075
-        it('focuses the first button on the drawer when it opens #SkipFirefox', () => {
+        // Some browsers skipped, see: https://github.com/ni/nimble/issues/1936
+        it('focuses the first button on the drawer when it opens #SkipFirefox #SkipWebkit', () => {
             const okButton = document.getElementById('ok')!;
             void element.show();
             expect(document.activeElement).toBe(okButton);
         });
 
-        // Firefox skipped, see: https://github.com/ni/nimble/issues/1075
-        it('focuses the button with autofocus when the drawer opens #SkipFirefox', () => {
+        // Some browsers skipped, see: https://github.com/ni/nimble/issues/1936
+        it('focuses the button with autofocus when the drawer opens #SkipFirefox #SkipWebkit', () => {
             const cancelButton = document.getElementById('cancel')!;
             cancelButton.setAttribute('autofocus', '');
             processUpdates();
@@ -230,8 +250,8 @@ describe('Drawer', () => {
             expect(document.activeElement).toBe(cancelButton);
         });
 
-        // Firefox skipped, see: https://github.com/ni/nimble/issues/1075
-        it('supports opening multiple drawers on top of each other #SkipFirefox', () => {
+        // Some browsers skipped, see: https://github.com/ni/nimble/issues/1936
+        it('supports opening multiple drawers on top of each other #SkipFirefox #SkipWebkit', () => {
             const secondDrawer = document.createElement('nimble-drawer');
             const secondDrawerButton = document.createElement('nimble-button');
             secondDrawer.append(secondDrawerButton);

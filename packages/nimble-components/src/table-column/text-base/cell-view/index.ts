@@ -1,44 +1,78 @@
-import { observable, volatile } from '@microsoft/fast-element';
+import { observable } from '@microsoft/fast-element';
 import { TableCellView } from '../../base/cell-view';
 import type { TableCellRecord } from '../../base/types';
+import { TableColumnAlignment, TableFieldValue } from '../../../table/types';
+
+export interface TableColumnTextBaseCellRecord extends TableCellRecord {
+    value: TableFieldValue;
+}
+
+export interface TableColumnTextBaseColumnConfig {
+    placeholder?: string;
+}
 
 /**
  * The cell view base class for displaying fields of any type as text.
  */
 export abstract class TableColumnTextCellViewBase<
-    TCellRecord extends TableCellRecord = TableCellRecord,
-    TColumnConfig = unknown
+    TCellRecord extends
+    TableColumnTextBaseCellRecord = TableColumnTextBaseCellRecord,
+    TColumnConfig extends
+    TableColumnTextBaseColumnConfig = TableColumnTextBaseColumnConfig
 > extends TableCellView<TCellRecord, TColumnConfig> {
     /** @internal */
     @observable
-    public isValidContentAndHasOverflow = false;
-
-    /** @internal */
-    public textSpan!: HTMLElement;
+    public hasOverflow = false;
 
     /**
-     * Returns the text to render in the cell when it contains a valid value (i.e. when shouldUsePlaceholder() is false).
-     * If the implementation has branching code paths then it must be marked with @volatile.
-     * https://www.fast.design/docs/fast-element/observables-and-state/#observable-features
+     * Text to render in the cell.
      */
-    public abstract get text(): string;
+    @observable
+    public text = '';
 
     /**
-     * Returns the text to render in the cell when it contains an invalid value (i.e. when shouldUsePlaceholder() is true).
-     * If the implementation has branching code paths then it must be marked with @volatile.
-     * https://www.fast.design/docs/fast-element/observables-and-state/#observable-features
+     * The alignment of the text within the cell.
      */
-    public abstract get placeholder(): string;
+    @observable
+    public alignment: TableColumnAlignment = TableColumnAlignment.left;
 
     /**
-     * Returns whether to display the placeholder value or the text value
-     * If the implementation has branching code paths then it must be marked with @volatile.
-     * https://www.fast.design/docs/fast-element/observables-and-state/#observable-features
-     * */
-    public abstract get shouldUsePlaceholder(): boolean;
+     * Whether or not the text being displayed in the cell view is a placeholder.
+     */
+    @observable
+    public isPlaceholder = false;
 
-    @volatile
-    public get content(): string {
-        return this.shouldUsePlaceholder ? this.placeholder : this.text;
+    protected abstract updateText(): void;
+
+    protected columnConfigChanged(): void {
+        if (!this.applyPlaceholderTextIfNeeded()) {
+            this.updateText();
+        }
+    }
+
+    private cellRecordChanged(): void {
+        if (!this.applyPlaceholderTextIfNeeded()) {
+            this.updateText();
+        }
+    }
+
+    /**
+     * Sets `this.text` to the appropriate placeholder if `cellValue` warrants it.
+     * @returns `true` if `this.text` was set to a placeholder, `false` otherwise.
+     */
+    private applyPlaceholderTextIfNeeded(): boolean {
+        const cellValue = this.cellRecord?.value;
+        const placeholder = this.columnConfig?.placeholder;
+        if (
+            typeof placeholder === 'string'
+            && (cellValue === null || cellValue === undefined)
+        ) {
+            this.text = placeholder;
+            this.isPlaceholder = true;
+        } else {
+            this.isPlaceholder = false;
+        }
+
+        return this.isPlaceholder;
     }
 }

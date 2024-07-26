@@ -6,7 +6,6 @@ import {
     FoundationElement
 } from '@microsoft/fast-foundation';
 import { eventAnimationEnd } from '@microsoft/fast-web-utilities';
-import type { ExtendedDialog } from '../dialog';
 import { UserDismissed } from '../patterns/dialog/types';
 import { styles } from './styles';
 import { template } from './template';
@@ -36,7 +35,7 @@ export class Drawer<CloseReason = void> extends FoundationElement {
     @attr({ attribute: 'prevent-dismiss', mode: 'boolean' })
     public preventDismiss = false;
 
-    public dialog!: ExtendedDialog;
+    public dialog!: HTMLDialogElement;
     private closing = false;
 
     private resolveShow?: (reason: CloseReason | UserDismissed) => void;
@@ -92,6 +91,33 @@ export class Drawer<CloseReason = void> extends FoundationElement {
         return true;
     }
 
+    /**
+     * @internal
+     */
+    public closeHandler(event: Event): void {
+        if (event.target !== this.dialog) {
+            return;
+        }
+        if (this.resolveShow) {
+            // If
+            // - the browser implements dialogs with the CloseWatcher API, and
+            // - the user presses ESC without first interacting with the drawer (e.g. clicking, scrolling),
+            // the cancel event is not fired, but the close event still is, and the drawer just closes.
+            // The animation is never started, so there is no animation end listener to clean up.
+            this.doResolveShow(UserDismissed);
+        }
+    }
+
+    private doResolveShow(reason: CloseReason | UserDismissed): void {
+        if (!this.resolveShow) {
+            throw new Error(
+                'Do not call doResolveShow unless there is a promise to resolve'
+            );
+        }
+        this.resolveShow(reason);
+        this.resolveShow = undefined;
+    }
+
     private readonly animationEndHandlerFunction = (): void => this.animationEndHandler();
 
     private openDialog(): void {
@@ -105,6 +131,13 @@ export class Drawer<CloseReason = void> extends FoundationElement {
     }
 
     private triggerAnimation(): void {
+        // Read the offsetHeight of the dialog to trigger a reflow. This guarantees that the browser
+        // has processed the 'animating' class being removed before trying to readd it, even if the previous
+        // animation has just finished. Otherwise, problems can occur. For example, trying to close the
+        // drawer immediately after the opening animation ends does not actually close the drawer.
+        // https://github.com/ni/nimble/issues/1994
+        void this.dialog.offsetHeight;
+
         this.dialog.classList.add('animating');
         if (this.closing) {
             this.dialog.classList.add('closing');
@@ -126,8 +159,7 @@ export class Drawer<CloseReason = void> extends FoundationElement {
             this.dialog.classList.remove('closing');
             this.dialog.close();
             this.closing = false;
-            this.resolveShow!(this.closeReason);
-            this.resolveShow = undefined;
+            this.doResolveShow(this.closeReason);
         }
     }
 }
@@ -142,4 +174,4 @@ const nimbleDrawer = Drawer.compose({
     styles
 });
 DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleDrawer());
-export const drawerTag = DesignSystem.tagFor(Drawer);
+export const drawerTag = 'nimble-drawer';

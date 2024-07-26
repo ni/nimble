@@ -1,5 +1,5 @@
 import { css } from '@microsoft/fast-element';
-import { display } from '@microsoft/fast-foundation';
+import { display } from '../utilities/style/display';
 import { focusVisible } from '../utilities/style/focus';
 
 import {
@@ -20,10 +20,6 @@ export const styles = css`
         cursor: pointer;
         justify-content: left;
         height: ${controlHeight};
-    }
-
-    .content {
-        padding: 8px 4px;
     }
 
     :host([aria-selected='true']) {
@@ -62,8 +58,27 @@ export const styles = css`
         cursor: default;
     }
 
+    :host([visually-hidden]) {
+        display: none;
+    }
+
+    [part='start'] {
+        display: none;
+    }
+
+    .content {
+        padding: 8px 4px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
     .content[disabled] {
         box-shadow: none;
         outline: none;
+    }
+
+    [part='end'] {
+        display: none;
     }
 `;

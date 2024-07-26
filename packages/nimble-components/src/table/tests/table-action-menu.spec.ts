@@ -8,7 +8,7 @@ import {
 import type { Table } from '..';
 import type { TableColumn } from '../../table-column/base';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
-import { createEventListener } from '../../utilities/tests/component';
+import { createEventListener } from '../../utilities/testing/component';
 import { type Fixture, fixture } from '../../utilities/tests/fixture';
 import {
     TableActionMenuToggleEventDetail,
@@ -196,6 +196,46 @@ describe('Table action menu', () => {
         await waitForUpdatesAsync();
         const menuButton = pageObject.getCellActionMenu(1, 0)!;
         expect(menuButton.textContent?.trim()).toEqual(label);
+    });
+
+    it('button is included in row getFocusableElements() result', async () => {
+        const slot = 'my-action-menu';
+        column1.actionMenuSlot = slot;
+        createAndSlotMenu(slot);
+        await connect();
+        await waitForUpdatesAsync();
+
+        const row = pageObject.getRow(0)!;
+        const focusableElements = row.getFocusableElements();
+        expect(focusableElements.cells.length).toBe(2);
+        expect(focusableElements.cells[0]!.actionMenuButton).toBe(
+            pageObject.getCellActionMenu(0, 0)!
+        );
+        expect(focusableElements.cells[1]!.actionMenuButton).toBeUndefined();
+    });
+
+    it('when action menu button is blurred, cell fires cell-action-menu-blur event', async () => {
+        const slot = 'my-action-menu';
+        column1.actionMenuSlot = slot;
+        createAndSlotMenu(slot);
+        await connect();
+        await waitForUpdatesAsync();
+        pageObject.setRowHoverState(1, true);
+        await waitForUpdatesAsync();
+        const cell = pageObject.getCell(1, 0)!;
+        const menuButton = pageObject.getCellActionMenu(1, 0)!;
+        const blurListener = createEventListener(cell, 'cell-action-menu-blur');
+        menuButton.focus();
+        await waitForUpdatesAsync();
+
+        expect(blurListener.spy).not.toHaveBeenCalled();
+
+        menuButton.blur();
+        await blurListener.promise;
+
+        expect(blurListener.spy).toHaveBeenCalledOnceWith(
+            jasmine.objectContaining({ detail: cell })
+        );
     });
 
     it('table creates two slots for two unique `action-menu-slot` values', async () => {
@@ -418,6 +458,34 @@ describe('Table action menu', () => {
         expect(document.activeElement).toEqual(
             menuItems[menuItems.length - 1]!
         );
+    });
+
+    it('when open, closes if the table data is updated', async () => {
+        const slot1 = 'my-action-menu';
+        column1.actionMenuSlot = slot1;
+        const menuItems = createAndSlotMenu(slot1).items;
+        await connect();
+        await waitForUpdatesAsync();
+        pageObject.setRowHoverState(0, true);
+        await pageObject.clickCellActionMenu(0, 0);
+        await toggleListener.promise;
+
+        const closeToggleListener = createEventListener(
+            element,
+            'action-menu-toggle'
+        );
+        const newTableData: SimpleTableRecord[] = [
+            {
+                stringData: 'new string 1',
+                numericData: 8,
+                moreStringData: 'new string 2'
+            }
+        ];
+        await element.setData(newTableData);
+        await closeToggleListener.promise;
+
+        expect(pageObject.getCell(0, 0).menuOpen).toBeFalse();
+        expect(document.activeElement).not.toBe(menuItems[0]!);
     });
 
     describe('with single row selection', () => {

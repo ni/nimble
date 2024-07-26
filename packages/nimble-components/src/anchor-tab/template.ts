@@ -20,7 +20,6 @@ TabOptions
             rel="${x => x.rel}"
             target="${x => x.target}"
             type="${x => x.type}"
-            tabindex="-1"
         >
             ${startSlotTemplate(context, definition)}
             <slot></slot>

@@ -1,80 +1,103 @@
 import { css } from '@microsoft/fast-element';
-import { display } from '@microsoft/fast-foundation';
+import { display } from '../utilities/style/display';
 import {
-    bodyFontColor,
     borderHoverColor,
-    borderWidth,
     controlHeight,
     iconSize,
+    linkActiveFontColor,
+    linkDisabledFontColor,
     linkFont,
+    linkFontColor,
+    mediumPadding,
     placeholderFontColor
 } from '../theme-provider/design-tokens';
 import { focusVisible } from '../utilities/style/focus';
 
 export const styles = css`
-    ${display('inline-flex')}
+    @layer base, hover, focusVisible, active, disabled;
 
-    :host {
-        height: ${controlHeight};
-        box-sizing: border-box;
-        padding-left: calc(4px - ${borderWidth});
+    @layer base {
+        ${display('inline-flex')}
 
-        ${
-            /* When href removed the .control element is also removed
-             so this becomes the fallback color for the slot */ ''
+        :host {
+            height: ${controlHeight};
+
+            ${
+                /* When href removed the .control element is also removed
+                so this becomes the fallback color for the slot */ ''
+            }
+            color: ${linkDisabledFontColor};
+            font: ${linkFont};
         }
-        color: ${bodyFontColor};
-        font: ${linkFont};
+
+        .listitem {
+            display: flex;
+            align-items: center;
+        }
+
+        .control {
+            color: ${linkFontColor};
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+        }
+
+        [part='start'] {
+            display: none;
+        }
+
+        .content {
+            pointer-events: none;
+        }
+
+        [part='end'] {
+            display: none;
+        }
+
+        .separator {
+            padding-left: ${mediumPadding};
+            padding-right: ${mediumPadding};
+        }
+
+        slot[name='separator'] {
+            display: flex;
+            align-items: center;
+        }
+
+        slot[name='separator'] svg {
+            width: ${iconSize};
+            height: ${iconSize};
+            fill: ${placeholderFontColor};
+        }
     }
 
-    .listitem {
-        display: flex;
-        align-items: center;
+    @layer hover {
+        .control:any-link:hover {
+            text-decoration: underline;
+        }
     }
 
-    .control {
-        color: var(--ni-private-breadcrumb-link-font-color);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border: ${borderWidth} solid transparent;
-        padding-right: calc(4px - ${borderWidth});
-        text-decoration: none;
+    @layer focusVisible {
+        .control${focusVisible} {
+            outline: none;
+            box-shadow: inset 0px -1px;
+            text-decoration: underline;
+            color: ${borderHoverColor};
+        }
     }
 
-    .control:hover {
-        text-decoration: underline;
+    @layer active {
+        .control:active {
+            color: ${linkActiveFontColor};
+            text-decoration: underline;
+            box-shadow: none;
+        }
     }
 
-    .control${focusVisible} {
-        border: ${borderWidth} solid ${borderHoverColor};
-        outline: 2px solid ${borderHoverColor};
-        outline-offset: 1px;
-    }
-
-    .control:active {
-        color: var(--ni-private-breadcrumb-link-active-font-color);
-        text-decoration: underline;
-    }
-
-    .start,
-    .end {
-        display: flex;
-        align-items: center;
-    }
-
-    .start {
-        margin-inline-end: 4px;
-    }
-
-    slot[name='separator'] {
-        display: flex;
-        align-items: center;
-    }
-
-    slot[name='separator'] svg {
-        width: ${iconSize};
-        height: ${iconSize};
-        fill: ${placeholderFontColor};
+    @layer disabled {
+        .control:not(:any-link) {
+            color: ${linkDisabledFontColor};
+        }
     }
 `;

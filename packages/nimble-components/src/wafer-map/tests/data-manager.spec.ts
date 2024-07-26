@@ -4,17 +4,13 @@ import { fixture, Fixture } from '../../utilities/tests/fixture';
 import { processUpdates } from '../../testing/async-helpers';
 import type { DataManager } from '../modules/data-manager';
 import type { WaferMap } from '..';
-import {
-    Dimensions,
-    Margin,
-    WaferMapColorScaleMode,
-    WaferMapQuadrant
-} from '../types';
+import { WaferMapColorScaleMode, WaferMapOriginLocation } from '../types';
 import {
     getColorScale,
-    getHighlightedValues,
+    getHighlightedTags,
     getWaferMapDies
 } from './utilities';
+import type { Dimensions, Margin } from '../workers/types';
 
 async function setup(): Promise<Fixture<WaferMap>> {
     return fixture<WaferMap>(html`<nimble-wafer-map></nimble-wafer-map>`);
@@ -45,18 +41,18 @@ describe('Wafermap Data Manager', () => {
         await connect();
         element.dies = getWaferMapDies();
         element.colorScale = getColorScale();
-        element.quadrant = WaferMapQuadrant.topLeft;
+        element.originLocation = WaferMapOriginLocation.bottomLeft;
         element.dieLabelsSuffix = dieLabelsSuffix;
         element.dieLabelsHidden = false;
         element.maxCharacters = 3;
         element.colorScaleMode = WaferMapColorScaleMode.ordinal;
-        element.highlightedValues = getHighlightedValues();
+        element.highlightedTags = getHighlightedTags();
         element.canvasWidth = canvasWidth;
         element.canvasHeight = canvasHeight;
 
         processUpdates();
 
-        dataManagerModule = element.dataManager!;
+        dataManagerModule = element.dataManager;
     });
 
     afterEach(async () => {
@@ -93,8 +89,9 @@ describe('Wafermap Data Manager', () => {
         expect(dataManagerModule.horizontalScale.range()).toEqual([0, 92]);
     });
 
-    it('should have increasing vertical range', () => {
-        expect(dataManagerModule.verticalScale.range()).toEqual([0, 92]);
+    it('should have decreasing vertical range', () => {
+        // because the canvas has top-left origin location we need to flip the vertical scale
+        expect(dataManagerModule.verticalScale.range()).toEqual([92, 0]);
     });
 
     it('should not have labelsFontSize larger than the die height', () => {
@@ -122,25 +119,25 @@ describe('Wafermap Data Manager', () => {
     });
 
     it('should have all dies with full opacity from the highlighted list', () => {
-        const highlightedValues = getHighlightedValues().map(
-            value => value + dieLabelsSuffix
-        );
+        const highlightedTags = getHighlightedTags();
+        const dies = getWaferMapDies().filter(die => die.tags?.some(dieTag => highlightedTags.some(
+            highlightedTag => dieTag === highlightedTag
+        )));
         const diesWithFullOpacity = dataManagerModule.diesRenderInfo.filter(x => x.fillStyle.endsWith(',1)'));
-        for (const dieRenderInfo of diesWithFullOpacity) {
-            expect(highlightedValues).toContain(dieRenderInfo.text);
-        }
+        expect(dies.length).toEqual(diesWithFullOpacity.length);
     });
 
     it('should not have any dies with partial opacity from the highlighted list', () => {
-        const highlightedValues = getHighlightedValues().map(
-            value => value + dieLabelsSuffix
+        const highlightedTags = getHighlightedTags();
+        const dies = getWaferMapDies().filter(
+            die => !die.tags?.some(dieTag => highlightedTags.some(
+                highlightedTag => dieTag === highlightedTag
+            ))
         );
         const diesWithPartialOpacity = dataManagerModule.diesRenderInfo.filter(
             x => !x.fillStyle.endsWith(',1)')
         );
-        for (const dieRenderInfo of diesWithPartialOpacity) {
-            expect(highlightedValues).not.toContain(dieRenderInfo.text);
-        }
+        expect(dies.length).toEqual(diesWithPartialOpacity.length);
     });
 
     it('should have all dies inside the canvas with margins', () => {

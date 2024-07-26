@@ -1,8 +1,2267 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Wed, 17 May 2023 21:33:40 GMT and should not be manually modified.
+This log was last generated on Wed, 24 Jul 2024 16:11:28 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 30.1.2
+
+Wed, 24 Jul 2024 16:11:28 GMT
+
+### Patches
+
+- Update TanStack and fix bug with row indentation in the table ([ni/nimble@d9d956e](https://github.com/ni/nimble/commit/d9d956e36236610dae7189cefd179eb5b397a22c))
+
+## 30.1.1
+
+Tue, 23 Jul 2024 21:56:35 GMT
+
+### Patches
+
+- Correct the size of the search icon in the select ([ni/nimble@1616ee0](https://github.com/ni/nimble/commit/1616ee0997b58206f9621957eb13a34e23715ca9))
+
+## 30.1.0
+
+Tue, 23 Jul 2024 20:28:50 GMT
+
+### Minor changes
+
+- Add dropdown placeholder for combobox and rich-text mention listbox ([ni/nimble@e3e202a](https://github.com/ni/nimble/commit/e3e202ae49421a95eab22669cb48cd2100aceb52))
+
+## 30.0.8
+
+Mon, 22 Jul 2024 15:45:21 GMT
+
+### Patches
+
+- Update to typescript 5.4.5 ([ni/nimble@f69586a](https://github.com/ni/nimble/commit/f69586afcbdea5f4b8834d1123ec2b06d4eeecb3))
+- Bump @ni/nimble-tokens to v7.0.1
+- Bump @ni/jasmine-parameterized to v0.3.1
+
+## 30.0.7
+
+Fri, 19 Jul 2024 17:10:26 GMT
+
+### Patches
+
+- Move internal testing API to folder that gets included in build output ([ni/nimble@6f5c329](https://github.com/ni/nimble/commit/6f5c329f4e463b5c329b6f775073f1d2e4020287))
+
+## 30.0.6
+
+Fri, 19 Jul 2024 16:34:38 GMT
+
+### Patches
+
+- Add new SelectPageObject API for setting filter text. ([ni/nimble@93d147a](https://github.com/ni/nimble/commit/93d147ad124b395355397dd6639b519a38f60729))
+
+## 30.0.5
+
+Fri, 19 Jul 2024 15:56:58 GMT
+
+### Patches
+
+- Update all dependencies and pin tanstack to avoid bug. ([ni/nimble@2ce3e24](https://github.com/ni/nimble/commit/2ce3e24de6d0c80461b6a1c3aacb8ee0fd418e89))
+
+## 30.0.4
+
+Wed, 17 Jul 2024 21:19:45 GMT
+
+### Patches
+
+- Refinements to table selection when using SHIFT ([ni/nimble@120ac65](https://github.com/ni/nimble/commit/120ac65f72158ebe9d906da156167eda14d3614b))
+
+## 30.0.3
+
+Wed, 17 Jul 2024 20:17:16 GMT
+
+### Patches
+
+- Remove reserved space for the table's "Collapse all" button when the table cannot have expandable rows ([ni/nimble@6984dd1](https://github.com/ni/nimble/commit/6984dd1666c287222e033decf8e8e911c6fe8757))
+
+## 30.0.2
+
+Wed, 17 Jul 2024 18:04:56 GMT
+
+### Patches
+
+- Consolidate tracking of slots in the table ([ni/nimble@6dcbd6c](https://github.com/ni/nimble/commit/6dcbd6c1e98c0d423374c9d0c866bc0771c42b8e))
+
+## 30.0.1
+
+Tue, 16 Jul 2024 23:53:30 GMT
+
+### Patches
+
+- Table: remove TableCellView.focusedRecycleCallback() and TableRow.closeOpenActionMenus(). The table now focuses the active cell when the table is scrolled, which has the same effect (closing open menus and blurring active cell content). ([ni/nimble@fdd35c7](https://github.com/ni/nimble/commit/fdd35c7fae80e1f3dacfb083a004bdeab0468c26))
+
+## 30.0.0
+
+Tue, 16 Jul 2024 22:30:23 GMT
+
+### Major changes
+
+- Updates to calendar and arrow icons. Clients using "nimble-icon-calendar" or "nimble-icon-arrow-u-rotate-left" must instead use "nimble-icon-calendar-days" and "nimble-icon-arrow-u-up" (respectively). ([ni/nimble@b28b651](https://github.com/ni/nimble/commit/b28b6513d47bd583e8767620cd6ef526fa3dddac))
+- Bump @ni/nimble-tokens to v7.0.0
+
+## 29.9.0
+
+Mon, 15 Jul 2024 21:21:46 GMT
+
+### Minor changes
+
+- Allow text column and anchor column to be sorted by custom data field ([ni/nimble@a25c549](https://github.com/ni/nimble/commit/a25c549530f3a26e5954c1bcbe10c649747140e2))
+
+## 29.8.2
+
+Thu, 11 Jul 2024 22:05:01 GMT
+
+### Patches
+
+- Fix table phantom multi-select ([ni/nimble@47f4c51](https://github.com/ni/nimble/commit/47f4c51194812ee74369de1e96346793d52e3ac3))
+
+## 29.8.1
+
+Thu, 11 Jul 2024 17:41:14 GMT
+
+### Patches
+
+- Align column header based on cell content alignment ([ni/nimble@8de093e](https://github.com/ni/nimble/commit/8de093ee0bc7ba8978adfcefcef943971e3eb29b))
+
+## 29.8.0
+
+Wed, 10 Jul 2024 16:23:39 GMT
+
+### Minor changes
+
+- Create menu-button table column ([ni/nimble@1007f6d](https://github.com/ni/nimble/commit/1007f6dcaf1077a0e75d6202b631db24a7d39fda))
+
+## 29.7.9
+
+Wed, 10 Jul 2024 15:47:23 GMT
+
+### Patches
+
+- Change so that Select change event occurs before filter-input event ([ni/nimble@9abc399](https://github.com/ni/nimble/commit/9abc3991f4594534b5903e2a7c0913fce72b362f))
+
+## 29.7.8
+
+Mon, 08 Jul 2024 22:43:30 GMT
+
+### Patches
+
+- Confine rich-text mention listbox to viewport ([ni/nimble@e892807](https://github.com/ni/nimble/commit/e89280785b3baf4f6acfc3c6677fe8580600ba09))
+
+## 29.7.7
+
+Mon, 08 Jul 2024 20:36:03 GMT
+
+### Patches
+
+- Bump @ni/nimble-tokens to v6.15.1
+
+## 29.7.6
+
+Wed, 03 Jul 2024 20:37:08 GMT
+
+### Patches
+
+- Created internal input to set data as dies table and exposed tableFomIPC Arrow method ([ni/nimble@2214283](https://github.com/ni/nimble/commit/2214283df7d144fdb3fa2fa33f40d744aaac16b6))
+
+## 29.7.5
+
+Tue, 02 Jul 2024 00:04:53 GMT
+
+### Patches
+
+- Update breadcrumb styling ([ni/nimble@7ec1678](https://github.com/ni/nimble/commit/7ec1678eb1f0d918198f5e32ab6b5f3e9d6682fc))
+
+## 29.7.4
+
+Mon, 01 Jul 2024 23:05:23 GMT
+
+### Patches
+
+- Update tanstack dependencies ([ni/nimble@40a4930](https://github.com/ni/nimble/commit/40a49301bf6784741f82cae3e07aa8741bd20317))
+
+## 29.7.3
+
+Mon, 01 Jul 2024 20:14:06 GMT
+
+### Patches
+
+- Fix Virtualizer usage for latest version ([ni/nimble@0f03ba3](https://github.com/ni/nimble/commit/0f03ba3f181a96a585bb01aaf7da3ce74f6aac22))
+
+## 29.7.2
+
+Thu, 27 Jun 2024 17:22:12 GMT
+
+### Patches
+
+- Make SelectPageObject clickOption reference only visible options. ([ni/nimble@b59758c](https://github.com/ni/nimble/commit/b59758cbfd774f09cb4dd610b08c4ef63c41a110))
+
+## 29.7.1
+
+Wed, 26 Jun 2024 20:18:04 GMT
+
+### Patches
+
+- Limit combobox and select dropdown to 10.5 visible options ([ni/nimble@fc8d514](https://github.com/ni/nimble/commit/fc8d51451dbc8fa1d460a19964fb1277958be4a3))
+
+## 29.7.0
+
+Tue, 25 Jun 2024 18:38:45 GMT
+
+### Minor changes
+
+- Add keyboard navigation functionality to the table component ([ni/nimble@5be33e3](https://github.com/ni/nimble/commit/5be33e36abffe890b932d57f8412f46f4df6714d))
+
+## 29.6.0
+
+Thu, 20 Jun 2024 20:08:12 GMT
+
+### Minor changes
+
+- Define graph trace color tokens ([ni/nimble@0084f69](https://github.com/ni/nimble/commit/0084f69eb791dc78ecd49dc586d783736e7f5c3d))
+
+## 29.5.0
+
+Tue, 18 Jun 2024 22:10:11 GMT
+
+### Minor changes
+
+- Create page object for menu button ([ni/nimble@9763ab0](https://github.com/ni/nimble/commit/9763ab025b9ad497025d67cf9e2a674159bf7b3f))
+
+## 29.4.2
+
+Tue, 18 Jun 2024 18:31:52 GMT
+
+### Patches
+
+- Adding new SelectPageObject API. ([ni/nimble@7de6721](https://github.com/ni/nimble/commit/7de67217535a774170e2af1f5794ba308a085c3d))
+
+## 29.4.1
+
+Mon, 17 Jun 2024 22:45:32 GMT
+
+### Patches
+
+- Fixing scenario where list option in a group would not call registerOwner on Select. ([ni/nimble@e3eff22](https://github.com/ni/nimble/commit/e3eff22ac6f9d523126c3834afcd90413c4a0b77))
+
+## 29.4.0
+
+Mon, 17 Jun 2024 16:38:20 GMT
+
+### Minor changes
+
+- Select manual filtering APIs ([ni/nimble@30fe9fc](https://github.com/ni/nimble/commit/30fe9fced9935c89e7e5f5b0a9c263eccdb77375))
+
+## 29.3.7
+
+Mon, 17 Jun 2024 15:13:30 GMT
+
+### Patches
+
+- Remove unneeded rollup dependencies ([ni/nimble@4befcd5](https://github.com/ni/nimble/commit/4befcd5173fc83a2e3d352f5f69f1e45de4221e1))
+
+## 29.3.6
+
+Thu, 13 Jun 2024 17:01:38 GMT
+
+### Patches
+
+- Move column sorting properties to a column mixin ([ni/nimble@659242f](https://github.com/ni/nimble/commit/659242fdcda04d270085e3a7e86493e9fc8a1fc5))
+
+## 29.3.5
+
+Tue, 11 Jun 2024 19:27:14 GMT
+
+### Patches
+
+- Switch to custom box-sizing: border-box consistently ([ni/nimble@17ddea5](https://github.com/ni/nimble/commit/17ddea50b5accb353a0288c42d0e64ddc5df0d04))
+
+## 29.3.4
+
+Sat, 08 Jun 2024 17:53:59 GMT
+
+### Patches
+
+- Worker generation tweaks ([ni/nimble@5a5891d](https://github.com/ni/nimble/commit/5a5891d245144ce82d5f39dd2c008ee3f1c5910e))
+
+## 29.3.3
+
+Fri, 07 Jun 2024 20:34:51 GMT
+
+### Patches
+
+- Created renderer capabilities for colors and text in the offscreen canvas ([ni/nimble@d5ad24b](https://github.com/ni/nimble/commit/d5ad24b089316112493858c00d16b248f129d9bd))
+
+## 29.3.2
+
+Fri, 07 Jun 2024 17:53:20 GMT
+
+### Patches
+
+- Minor wafer updates due to lint config changes ([ni/nimble@992217c](https://github.com/ni/nimble/commit/992217c62385db7dcc228d23a74658c6f8f6b44c))
+
+## 29.3.1
+
+Fri, 07 Jun 2024 15:10:38 GMT
+
+### Patches
+
+- Revert previous change as this causes a regression in Angular apps. ([ni/nimble@f0dd137](https://github.com/ni/nimble/commit/f0dd13720cee919ca0540ed26a99d6cfccbdd67f))
+
+## 29.3.0
+
+Thu, 06 Jun 2024 17:29:15 GMT
+
+### Minor changes
+
+- Add icons for AI, clean, expand, collapse, debug ([ni/nimble@d375e09](https://github.com/ni/nimble/commit/d375e092e3b2e627fba234136871d002aeb3c7b6))
+- Bump @ni/nimble-tokens to v6.15.0
+
+## 29.2.4
+
+Thu, 06 Jun 2024 15:56:25 GMT
+
+### Patches
+
+- Address issue with select not recognizing when group options are updated ([ni/nimble@c6b91bb](https://github.com/ni/nimble/commit/c6b91bb4a57bbc4b55a74d14f318886e55020348))
+
+## 29.2.3
+
+Wed, 05 Jun 2024 17:12:12 GMT
+
+### Patches
+
+- Allow very long words in banner to break to another line ([ni/nimble@1d6c2e9](https://github.com/ni/nimble/commit/1d6c2e938db2295416e2d22c47685d9da22fad0f))
+
+## 29.2.2
+
+Tue, 04 Jun 2024 17:40:32 GMT
+
+### Patches
+
+- Fix some icon metaphors and use larger check for checkbox ([ni/nimble@8ead53f](https://github.com/ni/nimble/commit/8ead53f722fc0ed9fde1b4b96417aedfff6fe1cc))
+
+## 29.2.1
+
+Tue, 04 Jun 2024 16:35:58 GMT
+
+### Patches
+
+- Bump @ni/nimble-tokens to v6.14.0
+
+## 29.2.0
+
+Tue, 04 Jun 2024 02:06:07 GMT
+
+### Minor changes
+
+- List option groups for Select ([ni/nimble@9ed4ff0](https://github.com/ni/nimble/commit/9ed4ff0f84ba6b696a1602816825e875a9ae618f))
+
+## 29.1.8
+
+Mon, 03 Jun 2024 22:25:43 GMT
+
+### Patches
+
+- Refactored experimental structure and update strategy for wafer map component ([ni/nimble@decce3d](https://github.com/ni/nimble/commit/decce3d5531d93d66fe608607dd0260602b3a2f9))
+
+## 29.1.7
+
+Fri, 31 May 2024 15:22:31 GMT
+
+### Patches
+
+- Remove listbox component as it is unused. ([ni/nimble@ad47a41](https://github.com/ni/nimble/commit/ad47a4137ef0a1a49b82b99fdbfdf4feb510d5fe))
+
+## 29.1.6
+
+Tue, 28 May 2024 20:13:14 GMT
+
+### Patches
+
+- Update banner styling to align with visual design spec ([ni/nimble@2855db4](https://github.com/ni/nimble/commit/2855db4fe58a8d1df112ea656215696d9582f9ea))
+
+## 29.1.5
+
+Wed, 22 May 2024 18:32:15 GMT
+
+### Patches
+
+- Fix anchor focus styling ([ni/nimble@5e4882a](https://github.com/ni/nimble/commit/5e4882a41568361919fc96a91243fc37cd831208))
+
+## 29.1.4
+
+Tue, 21 May 2024 22:53:18 GMT
+
+### Patches
+
+- Support tabindex overriding for Button, MenuButton, ToggleButton, Checkbox, and Anchor ([ni/nimble@32fcfaf](https://github.com/ni/nimble/commit/32fcfaf36e8b7383defe891dcb51664f3069a725))
+
+## 29.1.3
+
+Mon, 20 May 2024 15:39:22 GMT
+
+### Patches
+
+- Update 'start' slot of text field to match design spec ([ni/nimble@830231e](https://github.com/ni/nimble/commit/830231edf173fa68ba7dee2b0bd7ab16b543af7a))
+
+## 29.1.2
+
+Fri, 17 May 2024 20:05:45 GMT
+
+### Patches
+
+- Make clear select button match design spec ([ni/nimble@c057819](https://github.com/ni/nimble/commit/c05781966b2fde5db2445db93872fbcc3a1a27de))
+
+## 29.1.1
+
+Thu, 16 May 2024 18:44:46 GMT
+
+### Patches
+
+- Switch to custom display helper ([ni/nimble@17ddea5](https://github.com/ni/nimble/commit/17ddea50b5accb353a0288c42d0e64ddc5df0d04))
+
+## 29.1.0
+
+Wed, 15 May 2024 21:06:27 GMT
+
+### Minor changes
+
+- Add clear button for Select ([ni/nimble@f06b18a](https://github.com/ni/nimble/commit/f06b18a53a13a66af6ae47aa83df0a99ce8cffd0))
+
+## 29.0.0
+
+Tue, 14 May 2024 21:43:26 GMT
+
+### Major changes
+
+- Breaking change: Having an `undefined` icon on `nimble-mapping-icon` results in an invalid mapping column; Use `nimble-mapping-empty` or `nimble-mapping-text` instead. ([ni/nimble@3b47e51](https://github.com/ni/nimble/commit/3b47e5159c4b3fdcf2e6b2f57c2f4619a7298aaf))
+
+## 28.3.1
+
+Mon, 13 May 2024 09:49:02 GMT
+
+### Patches
+
+- Fixed hover die template error where width and height were NaN ([ni/nimble@dee0ac1](https://github.com/ni/nimble/commit/dee0ac1b99f0186fe45d416ed5604e0c27469d36))
+
+## 28.3.0
+
+Fri, 10 May 2024 22:37:40 GMT
+
+### Minor changes
+
+- Export nimble-mapping-empty from all-components ([ni/nimble@4e595cc](https://github.com/ni/nimble/commit/4e595cc0e67a9903510ba60da17afdb1bf2643d6))
+
+## 28.2.1
+
+Fri, 10 May 2024 16:42:46 GMT
+
+### Patches
+
+- Fix issue with clicking option in dropdown not updating display. ([ni/nimble@9714748](https://github.com/ni/nimble/commit/9714748c8963830a41b772796cb237262f26683b))
+
+## 28.2.0
+
+Fri, 10 May 2024 16:11:55 GMT
+
+### Minor changes
+
+- Create empty mapping element and support it in the icon column ([ni/nimble@090b724](https://github.com/ni/nimble/commit/090b724be133ceceb70e742207a74cf026988ae6))
+
+## 28.1.0
+
+Thu, 09 May 2024 20:39:47 GMT
+
+### Minor changes
+
+- Add Celsius and Fahrenheit number formatting unit support ([ni/nimble@89919ee](https://github.com/ni/nimble/commit/89919eef4f938c802e3160928000ef1b5d71b083))
+
+## 28.0.5
+
+Thu, 09 May 2024 18:40:41 GMT
+
+### Patches
+
+- Update Blazor docs for Spright and workspace change ([ni/nimble@43edba8](https://github.com/ni/nimble/commit/43edba8e90d0c5f414fd2b4cf19eee197b477829))
+- Bump @ni/nimble-tokens to v6.13.6
+
+## 28.0.4
+
+Wed, 08 May 2024 17:29:00 GMT
+
+### Patches
+
+- Don't change Select value on focusout. ([ni/nimble@7d71953](https://github.com/ni/nimble/commit/7d71953ecbd516120f930e13934ee713a06e5cff))
+
+## 28.0.3
+
+Tue, 07 May 2024 20:15:55 GMT
+
+### Patches
+
+- Fixing hover behavior for options in Select. ([ni/nimble@7feb69d](https://github.com/ni/nimble/commit/7feb69deda088c1fa771f836dedd627e33b4e63b))
+
+## 28.0.2
+
+Tue, 07 May 2024 16:24:36 GMT
+
+### Patches
+
+- Change Select to not update value as you navigate options in dropdown. ([ni/nimble@bbe2654](https://github.com/ni/nimble/commit/bbe265424e76e1824a5748b8bc6cb6d69a1b9a17))
+
+## 28.0.1
+
+Tue, 07 May 2024 13:17:00 GMT
+
+### Patches
+
+- Set Select and Combobox min-width to menuMinWidth token (176px) ([ni/nimble@799d392](https://github.com/ni/nimble/commit/799d39216faa9ad98c94627c6505439c846cbac9))
+
+## 28.0.0
+
+Mon, 06 May 2024 19:00:05 GMT
+
+### Major changes
+
+- Rename icon column to mapping column ([ni/nimble@d1c9125](https://github.com/ni/nimble/commit/d1c9125a77615d0364671a9e03a558c57b359ed7))
+
+## 27.2.3
+
+Thu, 02 May 2024 18:52:31 GMT
+
+### Patches
+
+- Fix the focus styling of the anchor menu item ([ni/nimble@022f1cb](https://github.com/ni/nimble/commit/022f1cbbe0054dd2432ddedacd4612fce244a0cb))
+
+## 27.2.2
+
+Wed, 01 May 2024 21:45:37 GMT
+
+### Patches
+
+- Update @types/markdown-it to remove @types/linkify-it peerDependency ([ni/nimble@c5f2626](https://github.com/ni/nimble/commit/c5f2626c97873c1f1aea9c18b06fef07cc8081bf))
+
+## 27.2.1
+
+Wed, 01 May 2024 20:33:43 GMT
+
+### Patches
+
+- Peer dependency on linkify-it type added to prevent issues for those using library type checking ([ni/nimble@d4204cf](https://github.com/ni/nimble/commit/d4204cf98575263a6ba7b22525f02beac109215b))
+
+## 27.2.0
+
+Wed, 01 May 2024 14:33:42 GMT
+
+### Minor changes
+
+- Added tag fill color token ([ni/nimble@27804b9](https://github.com/ni/nimble/commit/27804b9a6d29ff0adc600c94f2bf6822ad4d5e63))
+
+## 27.1.1
+
+Tue, 30 Apr 2024 22:26:12 GMT
+
+### Patches
+
+- Move anchored region import from menu to menu item ([ni/nimble@1ff549f](https://github.com/ni/nimble/commit/1ff549f91277bb7ab6949cfbc8af07c0a40d8d25))
+
+## 27.1.0
+
+Tue, 30 Apr 2024 21:26:44 GMT
+
+### Minor changes
+
+- Add configuration to make the icon column fixed width ([ni/nimble@6b0f337](https://github.com/ni/nimble/commit/6b0f3371aa6b49b802d2a0d9e79365e544cef161))
+
+## 27.0.5
+
+Fri, 26 Apr 2024 21:13:31 GMT
+
+### Patches
+
+- Bump @ni/jasmine-parameterized to v0.3.0
+
+## 27.0.4
+
+Fri, 26 Apr 2024 20:31:47 GMT
+
+### Patches
+
+- No API changes, validating release pipelines ([ni/nimble@ff7f847](https://github.com/ni/nimble/commit/ff7f847c0fb3834b5fdf4ce141bbe6bd94e1f0eb))
+- No API changes, validating release pipelines ([ni/nimble@c5a74e6](https://github.com/ni/nimble/commit/c5a74e68c2909e2f9a50bf0e6b0e4f1c5f0cbce8))
+- Updated wafer map web worker class to support offscreen rendering ([ni/nimble@a3865cb](https://github.com/ni/nimble/commit/a3865cb57e09ce6581d2dd10c5a61181ece73f59))
+- Bump @ni/nimble-tokens to v6.13.5
+
+## 27.0.0
+
+Wed, 24 Apr 2024 16:20:52 GMT
+
+### Major changes
+
+- Remove fallback design tokens. Use primary font tokens instead; they include fallback fonts after Nimble's font. ([ni/nimble@d72a0fa](https://github.com/ni/nimble/commit/d72a0faa81a649f70b72c9fcc8f2c4c201cfbe82))
+
+## 26.0.0
+
+Mon, 22 Apr 2024 15:13:13 GMT
+
+### Major changes
+
+- Remove enum-text table column. The icon column supports text mappings and should be used instead. ([ni/nimble@16b2c1b](https://github.com/ni/nimble/commit/16b2c1b2820d14e88474e26b17eefd7b7cdf0e9f))
+
+## 25.1.1
+
+Fri, 19 Apr 2024 16:57:31 GMT
+
+### Patches
+
+- Don't allow use of the nullish coalescing operator in templates ([ni/nimble@e3e5231](https://github.com/ni/nimble/commit/e3e523112cce7ebbc3fbf0fb3768f5740055891c))
+
+## 25.1.0
+
+Thu, 18 Apr 2024 21:47:19 GMT
+
+### Minor changes
+
+- Support text mappings in icon column ([ni/nimble@73a19a6](https://github.com/ni/nimble/commit/73a19a6a2d1ebe03eb4245ee2119529ce9066b03))
+
+## 25.0.0
+
+Wed, 17 Apr 2024 20:57:25 GMT
+
+### Major changes
+
+- Add configuration for icon mappings and spinner mappings to show/hide their text within a table's cells. **Breaking change:** The icon mappings and spinner mappings now default to showing their text within a table's cells in addition to on group rows. ([ni/nimble@6d50261](https://github.com/ni/nimble/commit/6d502618333981f4c5c2f72ddb5b329674d2e345))
+
+## 24.1.14
+
+Mon, 15 Apr 2024 17:36:54 GMT
+
+### Patches
+
+- Update to typescript 5.1.6 ([ni/nimble@7254ddb](https://github.com/ni/nimble/commit/7254ddb339236dc1519033f88290491436a01aef))
+- Bump @ni/nimble-tokens to v6.13.2
+- Bump @ni/jasmine-parameterized to v0.2.4
+
+## 24.1.13
+
+Wed, 10 Apr 2024 22:00:23 GMT
+
+### Patches
+
+- Move validator into MentionInternals ([ni/nimble@f83d076](https://github.com/ni/nimble/commit/f83d0762219a2f13d6a96f4241a6c57adf56e7a0))
+
+## 24.1.12
+
+Wed, 10 Apr 2024 19:37:06 GMT
+
+### Patches
+
+- Fix arrow key select issue for Select ([ni/nimble@6c71469](https://github.com/ni/nimble/commit/6c714694685c161e2066c700018ffb1cb42d27ea))
+
+## 24.1.11
+
+Wed, 10 Apr 2024 17:46:00 GMT
+
+### Patches
+
+- Fix a couple issues with anchor styling ([ni/nimble@8a76c28](https://github.com/ni/nimble/commit/8a76c28fbc7a700234b3629487816cb71709c4a4))
+
+## 24.1.10
+
+Wed, 10 Apr 2024 00:29:05 GMT
+
+### Patches
+
+- Update version of FAST ([ni/nimble@5832b42](https://github.com/ni/nimble/commit/5832b42172788170c01eb276eaaba1e6b47cbf92))
+
+## 24.1.9
+
+Mon, 08 Apr 2024 20:40:28 GMT
+
+### Patches
+
+- Move validator into ColumnInternals ([ni/nimble@d16c59e](https://github.com/ni/nimble/commit/d16c59ec133dcbf4d94198d3f26ff7472a143ea5))
+
+## 24.1.8
+
+Thu, 04 Apr 2024 21:33:43 GMT
+
+### Patches
+
+- Improve TColumnConfig typing on columns that extend TableColumnTextBase ([ni/nimble@2777f26](https://github.com/ni/nimble/commit/2777f26b80bbdfa68acf76e253e5ce5fcb094631))
+
+## 24.1.7
+
+Thu, 04 Apr 2024 18:11:08 GMT
+
+### Patches
+
+- Fork FAST Combobox. ([ni/nimble@53b2c45](https://github.com/ni/nimble/commit/53b2c4572f3e24fc862ab39e30808908b372e3e4))
+
+## 24.1.6
+
+Thu, 04 Apr 2024 14:57:17 GMT
+
+### Patches
+
+- Created new Experimental Prerendering Module and tests ([ni/nimble@b6e22fe](https://github.com/ni/nimble/commit/b6e22fee05e26937cb2bb0749de83def60c33bf3))
+
+## 24.1.5
+
+Tue, 02 Apr 2024 22:01:51 GMT
+
+### Patches
+
+- Reverting changes. ([ni/nimble@47d91bc](https://github.com/ni/nimble/commit/47d91bc3cb98a52843ffb9f0b7d3e3e1baaea344))
+
+## 24.1.4
+
+Tue, 02 Apr 2024 17:10:35 GMT
+
+### Patches
+
+- Fix race condition when closing the drawer immediately after it finishes opening ([ni/nimble@2319edc](https://github.com/ni/nimble/commit/2319edca45a8bf3aded03c62d77a4818c9c55d60))
+
+## 24.1.3
+
+Tue, 02 Apr 2024 15:32:11 GMT
+
+### Patches
+
+- Re-introduce ListOptionOwner to Combobox. ([ni/nimble@7f2f704](https://github.com/ni/nimble/commit/7f2f7042d7b4006b32a841c3c5124bf33489392a))
+
+## 24.1.2
+
+Thu, 28 Mar 2024 17:27:01 GMT
+
+### Patches
+
+- Update date-text column tests to pass on all browsers ([ni/nimble@0fa5905](https://github.com/ni/nimble/commit/0fa5905a80b1e3fcae91f7e1e25130bf3e5376cb))
+
+## 24.1.1
+
+Wed, 27 Mar 2024 21:22:02 GMT
+
+### Patches
+
+- Fix table scrolling test on WebKit ([ni/nimble@cc82598](https://github.com/ni/nimble/commit/cc82598544694002715db3383b75ed0c0f4793ae))
+
+## 24.1.0
+
+Wed, 27 Mar 2024 18:54:51 GMT
+
+### Minor changes
+
+- Add placeholders to table columns ([ni/nimble@a01932b](https://github.com/ni/nimble/commit/a01932bbdb941553a899b8b193af5acf6f67cadd))
+
+## 24.0.1
+
+Wed, 27 Mar 2024 12:05:29 GMT
+
+### Patches
+
+- Created new computations experimental module and tested it, created new data manager experimental and integrated with hover and old renderer ([ni/nimble@c6d99d8](https://github.com/ni/nimble/commit/c6d99d8923082bee7a68c244c60d36be339f0ee3))
+
+## 24.0.0
+
+Tue, 26 Mar 2024 20:45:41 GMT
+
+### Major changes
+
+- Support primary and accent variants for toggle and menu buttons. BREAKING CHANGE: Removed theme-aware tokens `buttonFillActivePrimaryColor` and `buttonFillAccentActiveColor`. Use `fillSelectedColor` instead. ([ni/nimble@594ac22](https://github.com/ni/nimble/commit/594ac221124cc1b52cd28113714bb8ff71e5820b))
+- Bump @ni/nimble-tokens to v6.13.1
+
+## 23.0.1
+
+Mon, 25 Mar 2024 17:03:11 GMT
+
+### Patches
+
+- Created new hover event for the new diesTable api and changed the zoom event ([ni/nimble@f56b73b](https://github.com/ni/nimble/commit/f56b73b45161a55b967dc03bbdd094a6527c814c))
+
+## 23.0.0
+
+Thu, 21 Mar 2024 17:13:38 GMT
+
+### Major changes
+
+- Breaking change: Renamed bodyEmphasizedPlus1 to bodyPlus1Emphasized to align with token conventions. Also, added bodyPlus1 font token ([ni/nimble@b93385a](https://github.com/ni/nimble/commit/b93385a27672ebc03e18a864e8fa268727595c66))
+- Bump @ni/nimble-tokens to v6.13.0
+
+## 22.1.1
+
+Wed, 20 Mar 2024 16:45:59 GMT
+
+### Patches
+
+- Remove ListOptionOwner from Combobox to address issue found in Angular ([ni/nimble@83f7fd9](https://github.com/ni/nimble/commit/83f7fd9e601eed789e8f6eb61a9d4a87a1d1835b))
+
+## 22.1.0
+
+Mon, 18 Mar 2024 17:12:34 GMT
+
+### Minor changes
+
+- Add placeholders for group rows in the table ([ni/nimble@3bbf8d7](https://github.com/ni/nimble/commit/3bbf8d7cd86d0129e9ad6bb0eed245ea2bfc0fda))
+
+## 22.0.1
+
+Thu, 14 Mar 2024 14:48:16 GMT
+
+### Patches
+
+- Fix bug where an anchor element's link couldn't be dragged correctly ([ni/nimble@a1eebb0](https://github.com/ni/nimble/commit/a1eebb02b4fb66ca77e0e32bb52497b2da1cb4cf))
+
+## 22.0.0
+
+Wed, 13 Mar 2024 23:07:24 GMT
+
+### Major changes
+
+- Rename icon labels to follow naming convention ([ni/nimble@518c229](https://github.com/ni/nimble/commit/518c229b964d2c4a2e77210692f5d367f2937ff4))
+
+## 21.10.2
+
+Tue, 12 Mar 2024 22:17:11 GMT
+
+### Patches
+
+- Adding DropdownOwner interface allowing Select to register options during connectedCallback. ([ni/nimble@19643f4](https://github.com/ni/nimble/commit/19643f4e13056e414aedd6b8ef89beb7ad1e95ab))
+
+## 21.10.1
+
+Tue, 12 Mar 2024 21:01:54 GMT
+
+### Patches
+
+- Update typescript to 4.9.5 ([ni/nimble@bc825e1](https://github.com/ni/nimble/commit/bc825e1b057eafd8bc005d11e9a224aa9aee9619))
+- Bump @ni/nimble-tokens to v6.12.1
+- Bump @ni/jasmine-parameterized to v0.2.3
+
+## 21.10.0
+
+Thu, 07 Mar 2024 21:20:52 GMT
+
+### Minor changes
+
+- New Wafer Map Component API. Introduced `diesTable` and two rendering strategies switched by this input ([ni/nimble@a9b5ced](https://github.com/ni/nimble/commit/a9b5cede5ebbb79127bf36e91b31d17d4bf241b9))
+
+## 21.9.1
+
+Wed, 06 Mar 2024 17:56:10 GMT
+
+### Patches
+
+- Minor updates from lint ([ni/nimble@dfd8acc](https://github.com/ni/nimble/commit/dfd8accc27d885df5eb8024d57e60f486066719a))
+
+## 21.9.0
+
+Tue, 05 Mar 2024 22:27:12 GMT
+
+### Minor changes
+
+- Adding placeholder behavior for Select ([ni/nimble@19643f4](https://github.com/ni/nimble/commit/19643f4e13056e414aedd6b8ef89beb7ad1e95ab))
+
+## 21.8.2
+
+Mon, 04 Mar 2024 19:02:52 GMT
+
+### Patches
+
+- Update column divider color on hover ([ni/nimble@4b05012](https://github.com/ni/nimble/commit/4b0501210e4096c23350dbe5cb2eb9e4d6901ed6))
+
+## 21.8.1
+
+Fri, 01 Mar 2024 23:02:58 GMT
+
+### Patches
+
+- Fix drawer/select animation bug ([ni/nimble@90df5dd](https://github.com/ni/nimble/commit/90df5dd14c1c5ad4116f6b43ae5fb99dc215c83e))
+
+## 21.8.0
+
+Thu, 29 Feb 2024 16:22:43 GMT
+
+### Minor changes
+
+- Allow icon mappings to specify an undefined icon ([ni/nimble@d4ca92e](https://github.com/ni/nimble/commit/d4ca92e5d7044d8be7b26ccbc52b91747663bfe2))
+
+## 21.7.1
+
+Wed, 28 Feb 2024 21:22:49 GMT
+
+### Patches
+
+- Create web worker class for future faster rendering wafer map ([ni/nimble@5269352](https://github.com/ni/nimble/commit/52693524c553f3b115e6c1004c902d10e7dd4050))
+
+## 21.7.0
+
+Wed, 28 Feb 2024 19:35:04 GMT
+
+### Minor changes
+
+- Add new icons for resume, generate, stop, deploy, undeploy, and hide ([ni/nimble@f4f3f45](https://github.com/ni/nimble/commit/f4f3f45c9107ff6d6c964fea69cd48247d6595fe))
+- Bump @ni/nimble-tokens to v6.12.0
+
+## 21.6.8
+
+Mon, 26 Feb 2024 22:26:36 GMT
+
+### Patches
+
+- Update usage of Intl.NumberFormat options ([ni/nimble@d74f49e](https://github.com/ni/nimble/commit/d74f49e65f2c63ef9eca571d9470b2a9d5c5d380))
+
+## 21.6.7
+
+Fri, 23 Feb 2024 22:56:07 GMT
+
+### Patches
+
+- Fix bug in Firefox where title on spinner isn't always displayed as expected ([ni/nimble@1e5b10c](https://github.com/ni/nimble/commit/1e5b10c7a247e13dcece70496b5ccbae322075a3))
+
+## 21.6.6
+
+Fri, 23 Feb 2024 22:17:56 GMT
+
+### Patches
+
+- Fix spacing between error text and component ([ni/nimble@c6e803c](https://github.com/ni/nimble/commit/c6e803caaa9757f7584281f096a94c4d58ef194d))
+
+## 21.6.5
+
+Fri, 23 Feb 2024 21:23:18 GMT
+
+### Patches
+
+- Only handle close events coming from dialog element ([ni/nimble@c1f4f8f](https://github.com/ni/nimble/commit/c1f4f8fb9bbb889608f1d2930f7a29d55fa31c79))
+
+## 21.6.4
+
+Fri, 23 Feb 2024 00:08:44 GMT
+
+### Patches
+
+- Tweak card to workaround lighthouse issue ([ni/nimble@b677d6b](https://github.com/ni/nimble/commit/b677d6b9ed7451715bb36043b245369060c8511b))
+
+## 21.6.3
+
+Thu, 22 Feb 2024 19:42:35 GMT
+
+### Patches
+
+- Clean up dialog/drawer properly if cancel event skipped ([ni/nimble@70e9234](https://github.com/ni/nimble/commit/70e9234b636b0a2e67a658ecef06008ac8e96fa2))
+
+## 21.6.2
+
+Thu, 22 Feb 2024 01:13:03 GMT
+
+### Patches
+
+- Bump @ni/nimble-tokens to v6.11.1
+
+## 21.6.1
+
+Wed, 21 Feb 2024 23:32:45 GMT
+
+### Patches
+
+- Update `TableRecordDelayedHierarchyState` enum values to follow kebab casing convention ([ni/nimble@ff99d91](https://github.com/ni/nimble/commit/ff99d91bbe3dd65e8595770c9ac05cbb8ad5282d))
+
+## 21.6.0
+
+Wed, 21 Feb 2024 21:18:20 GMT
+
+### Minor changes
+
+- Add bodyEmphasizedPlus1Font tokens ([ni/nimble@4037b7c](https://github.com/ni/nimble/commit/4037b7c13da51926e6fbfd774a4da19cd75cb98e))
+- Bump @ni/nimble-tokens to v6.11.0
+
+## 21.5.5
+
+Wed, 21 Feb 2024 19:48:20 GMT
+
+### Patches
+
+- Bump @ni/jasmine-parameterized to v0.2.2
+
+## 21.5.4
+
+Tue, 20 Feb 2024 17:54:12 GMT
+
+### Patches
+
+- Fix bug where nesting level of rows sometimes gets out of sync with data ([ni/nimble@c6c16de](https://github.com/ni/nimble/commit/c6c16de04b8387dbb999c62fbc3f35a2b3643427))
+
+## 21.5.3
+
+Mon, 19 Feb 2024 22:25:59 GMT
+
+### Patches
+
+- Fix bug where setting underline-hidden=false on the anchor column would sometimes still hide the underline ([ni/nimble@28825d1](https://github.com/ni/nimble/commit/28825d16c421175868f88992be64874e0d74b655))
+
+## 21.5.2
+
+Mon, 19 Feb 2024 19:14:51 GMT
+
+### Patches
+
+- Allow a row with a state of `canLoadChildren` to be expanded when it does not have children ([ni/nimble@15a30c5](https://github.com/ni/nimble/commit/15a30c5a9c04fae9c3f6d2eadb0b31056c87db56))
+
+## 21.5.1
+
+Fri, 16 Feb 2024 18:10:59 GMT
+
+### Patches
+
+- Inline sources into map files ([ni/nimble@2b6c327](https://github.com/ni/nimble/commit/2b6c327fd3bc4f49178ac370f695a8b941278c46))
+- Bump @ni/nimble-tokens to v6.10.1
+
+## 21.5.0
+
+Thu, 15 Feb 2024 20:48:52 GMT
+
+### Minor changes
+
+- Adding filter input to Select ([ni/nimble@f2ecb4e](https://github.com/ni/nimble/commit/f2ecb4e69a8c9569d9e19cacfa0533b8b170b3f9))
+
+## 21.4.0
+
+Wed, 14 Feb 2024 21:03:17 GMT
+
+### Minor changes
+
+- Add `loadingChildren` delayed hierarchy state ([ni/nimble@b3fc70e](https://github.com/ni/nimble/commit/b3fc70ec6857d24fcc257eeab7697ac89c663a55))
+
+## 21.3.3
+
+Tue, 13 Feb 2024 21:22:58 GMT
+
+### Patches
+
+- Fix performance issue for table with many grouped columns ([ni/nimble@0180d30](https://github.com/ni/nimble/commit/0180d30c8833d50eb529794c362cc476f305f88d))
+
+## 21.3.2
+
+Tue, 13 Feb 2024 17:44:00 GMT
+
+### Patches
+
+- Update dependency on Tiptap extensions to fix mention issue in rich text editor ([ni/nimble@34efe55](https://github.com/ni/nimble/commit/34efe55087a58bb99e4aa42873512946164b47d2))
+
+## 21.3.1
+
+Fri, 09 Feb 2024 02:02:53 GMT
+
+### Patches
+
+- Update Storybook to 7.6.13 ([ni/nimble@e68df6d](https://github.com/ni/nimble/commit/e68df6d348dcaa664e87db35725f9d30f2d2dca5))
+
+## 21.3.0
+
+Wed, 07 Feb 2024 21:48:45 GMT
+
+### Minor changes
+
+- Extend nimble-table API to allow specifying that a record has children that can be loaded when the row is expanded ([ni/nimble@8d58b01](https://github.com/ni/nimble/commit/8d58b0180a3fb2c5a837718a6da3489b67d821bc))
+
+## 21.2.1
+
+Wed, 07 Feb 2024 19:06:22 GMT
+
+### Patches
+
+- fixed wafer map component test warnings ([ni/nimble@9fdd20d](https://github.com/ni/nimble/commit/9fdd20db5366e435fc4576d5a4881959fa143e30))
+
+## 21.2.0
+
+Fri, 02 Feb 2024 21:51:03 GMT
+
+### Minor changes
+
+- New pause, play, stop, and external link icons. Updated running-arrow icon. ([ni/nimble@8ba4f05](https://github.com/ni/nimble/commit/8ba4f05ec0bd828265d2f74b16a278adf46db268))
+- Bump @ni/nimble-tokens to v6.10.0
+
+## 21.1.0
+
+Wed, 31 Jan 2024 20:22:58 GMT
+
+### Minor changes
+
+- Export new NumberTextUnitFormat and update documentation for new Angular number formatting pipe and existing duration pipe ([ni/nimble@bf9013d](https://github.com/ni/nimble/commit/bf9013d5cb92106ddd1fcf6fd84e6684930462b8))
+
+## 21.0.5
+
+Mon, 29 Jan 2024 11:31:46 GMT
+
+### Patches
+
+- Add validator, tracker and batch updates in rich text components for mention configuration ([ni/nimble@ec2e0dd](https://github.com/ni/nimble/commit/ec2e0ddef1d910d44097ccb2a976ad2343dbac63))
+
+## 21.0.4
+
+Thu, 25 Jan 2024 02:58:12 GMT
+
+### Patches
+
+- Pin fast-foundation version to avoid regression ([ni/nimble@d3f330a](https://github.com/ni/nimble/commit/d3f330a41625cfb3be92eff8fd150f4cac5e11e1))
+
+## 21.0.3
+
+Wed, 24 Jan 2024 00:18:26 GMT
+
+### Patches
+
+- Fix bug where table rows are not rendered correctly when the table is reattached to the DOM ([ni/nimble@c3ba509](https://github.com/ni/nimble/commit/c3ba50940c9aa158b21f6c0d78056985f4a7c1c0))
+
+## 21.0.2
+
+Tue, 23 Jan 2024 22:00:33 GMT
+
+### Patches
+
+- Bump @ni/jasmine-parameterized to v0.2.1
+
+## 21.0.1
+
+Tue, 23 Jan 2024 16:01:09 GMT
+
+### Patches
+
+- Bump @ni/jasmine-parameterized to v0.2.0
+
+## 21.0.0
+
+Fri, 19 Jan 2024 22:22:02 GMT
+
+### Major changes
+
+- Introducing data hierarchy to table. Renamed 'groupCollapseAll' on the table label provider to 'collapseAll'. ([ni/nimble@398b7ab](https://github.com/ni/nimble/commit/398b7ab7e2be2597de26e15e0ee463df4a02f228))
+
+## 20.18.1
+
+Thu, 18 Jan 2024 17:21:22 GMT
+
+### Patches
+
+- Unify unit scale types to single pattern ([ni/nimble@76dff67](https://github.com/ni/nimble/commit/76dff67e47387c2f938a324798f3ca29442360ec))
+
+## 20.18.0
+
+Wed, 17 Jan 2024 14:23:42 GMT
+
+### Minor changes
+
+- Unit support for number-text table column ([ni/nimble@3710e7e](https://github.com/ni/nimble/commit/3710e7e150786220099816fdea608b10b378956c))
+
+## 20.17.7
+
+Wed, 17 Jan 2024 00:48:57 GMT
+
+### Patches
+
+- Visual design improvements for rich text editor ([ni/nimble@4e5d877](https://github.com/ni/nimble/commit/4e5d8771d3f06c03245638b2cde54b00eaa27d60))
+
+## 20.17.6
+
+Tue, 16 Jan 2024 21:49:14 GMT
+
+### Patches
+
+- Fix disabled styling of tree items ([ni/nimble@1596be3](https://github.com/ni/nimble/commit/1596be39b8d3b495a2de713b0c0b3f355bf77897))
+
+## 20.17.5
+
+Tue, 16 Jan 2024 21:01:12 GMT
+
+### Patches
+
+- Make lifecycle callbacks in components call base class consistently ([ni/nimble@87f54f7](https://github.com/ni/nimble/commit/87f54f799117992b88b3b03c258d3d242e16bc34))
+
+## 20.17.4
+
+Wed, 10 Jan 2024 13:47:05 GMT
+
+### Patches
+
+- Removed disable-editing attribute from the rich text mention users view component for rendering @mention in editor and viewer ([ni/nimble@98c97d4](https://github.com/ni/nimble/commit/98c97d44a092e9fbbfe7710f381da77fe73ada1a))
+
+## 20.17.3
+
+Mon, 08 Jan 2024 17:18:14 GMT
+
+### Patches
+
+- Export tag names as literals to improve type inferencing ([ni/nimble@f45fdf7](https://github.com/ni/nimble/commit/f45fdf7826fb528ee131ace1802a02e94a8db411))
+
+## 20.17.2
+
+Fri, 05 Jan 2024 14:50:44 GMT
+
+### Patches
+
+- Add fix to retain rich text editor format button state when user configuration gets dynamically updated ([ni/nimble@8501f8f](https://github.com/ni/nimble/commit/8501f8f3c8283cb79926422aec253a967e5a9755))
+
+## 20.17.1
+
+Fri, 05 Jan 2024 00:37:04 GMT
+
+### Patches
+
+- Create enum for z-index values ([ni/nimble@fc2fd87](https://github.com/ni/nimble/commit/fc2fd8701eb880b1fad3bb7af641380311129fba))
+
+## 20.17.0
+
+Thu, 04 Jan 2024 21:21:59 GMT
+
+### Minor changes
+
+- - Update all tests to use `parameterizeNamedList` and delete deprecated `getSpecTypeByNamedList` function.
+- Update functions in the table page object and table validator to have `readonly` arrays as the parameters. ([ni/nimble@85b29ec](https://github.com/ni/nimble/commit/85b29ec1836a8bb00b51797c42e4f4cfa058accb))
+
+## 20.16.6
+
+Thu, 04 Jan 2024 19:22:21 GMT
+
+### Patches
+
+- Rich text editor fix for Safari browser issue in removing the suggestion text when pressing backspace ([ni/nimble@94f26ce](https://github.com/ni/nimble/commit/94f26ce2738e984870c6840fdc9557eff6e2b08f))
+
+## 20.16.5
+
+Thu, 04 Jan 2024 16:50:24 GMT
+
+### Patches
+
+- Upgrade dependencies ([ni/nimble@341146c](https://github.com/ni/nimble/commit/341146ceef057386cea20419277073bd793270ef))
+- Bump @ni/nimble-tokens to v6.9.1
+
+## 20.16.4
+
+Fri, 15 Dec 2023 14:08:18 GMT
+
+### Patches
+
+- Fix mention listbox when configuration dynamically changes and when cursor position change ([ni/nimble@abdb902](https://github.com/ni/nimble/commit/abdb902d39db785ec45d4aa14a9e9ce988a5d388))
+
+## 20.16.3
+
+Wed, 13 Dec 2023 14:06:08 GMT
+
+### Patches
+
+- Add support for @mention in nimble-rich-text-editor ([ni/nimble@c69a774](https://github.com/ni/nimble/commit/c69a7745d0a8223a479d79a2cabe6cdcd1e9ca1a))
+
+## 20.16.2
+
+Wed, 13 Dec 2023 13:27:41 GMT
+
+### Patches
+
+- Adding tags option to wafermap dies and ability to highlight dies based on tags using highlightedTags. Breaking change as users should switch from the removed highlightedValues property to the highlightedTags feature ([ni/nimble@faec5a4](https://github.com/ni/nimble/commit/faec5a459b8c93b2e5c05722e767fb8331d65857))
+
+## 20.16.1
+
+Mon, 11 Dec 2023 19:32:21 GMT
+
+### Patches
+
+- Make anchor behave like native anchor when contenteditable ([ni/nimble@487c344](https://github.com/ni/nimble/commit/487c3440588f7b331ea2e90131e41bbf4d4d84f0))
+
+## 20.16.0
+
+Mon, 11 Dec 2023 17:36:28 GMT
+
+### Minor changes
+
+- Add expand-collapse button to Table Row and Cell ([ni/nimble@824e321](https://github.com/ni/nimble/commit/824e321a9235b0bb98b1fd49e1167d154749a08d))
+
+## 20.15.1
+
+Thu, 07 Dec 2023 21:49:16 GMT
+
+### Patches
+
+- Add support for @mention in nimble-rich-text-editor ([ni/nimble@c69a774](https://github.com/ni/nimble/commit/c69a7745d0a8223a479d79a2cabe6cdcd1e9ca1a))
+
+## 20.15.0
+
+Thu, 07 Dec 2023 17:27:04 GMT
+
+### Minor changes
+
+- New icons for calendars and test plans ([ni/nimble@f4a4453](https://github.com/ni/nimble/commit/f4a4453cc34b004f34d4ffed5a9c674427560597))
+- Bump @ni/nimble-tokens to v6.9.0
+
+## 20.14.13
+
+Tue, 05 Dec 2023 11:06:30 GMT
+
+### Patches
+
+- spec for wafer highlight ([ni/nimble@83fa07f](https://github.com/ni/nimble/commit/83fa07f9caf7ec7aca9d7eef9a45bf93c7f13b26))
+
+## 20.14.12
+
+Mon, 04 Dec 2023 21:56:42 GMT
+
+### Patches
+
+- Update styling for incubating nimble-card ([ni/nimble@499b7e1](https://github.com/ni/nimble/commit/499b7e19fe8ddd6627cd36bae402b8c18a6feb10))
+
+## 20.14.11
+
+Tue, 28 Nov 2023 18:24:15 GMT
+
+### Patches
+
+- Add explicit dev dependency on source-map-loader ([ni/nimble@bf12590](https://github.com/ni/nimble/commit/bf1259004b9d362f0d04fa52695b0d430805cf99))
+
+## 20.14.10
+
+Mon, 27 Nov 2023 16:11:51 GMT
+
+### Patches
+
+- Fix overflow behavior of nimble-list-option ([ni/nimble@9047cd3](https://github.com/ni/nimble/commit/9047cd3f1c559b54f58d7bd9a4e3cf3ff401c0fb))
+
+## 20.14.9
+
+Thu, 23 Nov 2023 08:11:47 GMT
+
+### Patches
+
+- Add support for @mention in nimble-rich-text-viewer ([ni/nimble@c69a774](https://github.com/ni/nimble/commit/c69a7745d0a8223a479d79a2cabe6cdcd1e9ca1a))
+
+## 20.14.8
+
+Tue, 21 Nov 2023 19:16:40 GMT
+
+### Patches
+
+- Hide inc/dec buttons on numeric from a11y tree ([ni/nimble@f74e259](https://github.com/ni/nimble/commit/f74e2591ec02b4a60c873e9308f82ad96ca51f40))
+
+## 20.14.7
+
+Tue, 21 Nov 2023 17:02:30 GMT
+
+### Patches
+
+- Introduce table hierarchical datatype. ([ni/nimble@d268abf](https://github.com/ni/nimble/commit/d268abf77bd76a1fe7e707542f391e5bb4367291))
+
+## 20.14.6
+
+Fri, 17 Nov 2023 16:02:19 GMT
+
+### Patches
+
+- Add configuration component for rich text @mention support ([ni/nimble@045bb0a](https://github.com/ni/nimble/commit/045bb0a6749a64df4af2b28da161b79802c5f12b))
+
+## 20.14.5
+
+Fri, 17 Nov 2023 01:11:32 GMT
+
+### Patches
+
+- Fix the drawer's footer's border to match the visual design spec ([ni/nimble@ad97540](https://github.com/ni/nimble/commit/ad97540875589785cfce251af5213237ecf5778a))
+
+## 20.14.4
+
+Wed, 15 Nov 2023 16:52:07 GMT
+
+### Patches
+
+- Update internal mapping base class to be generic ([ni/nimble@1eea68e](https://github.com/ni/nimble/commit/1eea68e85e2c284cd4ebad9b910ea57c5b3f929b))
+
+## 20.14.3
+
+Mon, 13 Nov 2023 17:03:21 GMT
+
+### Patches
+
+- Nimble rich text mention users view component bring up ([ni/nimble@fac3e07](https://github.com/ni/nimble/commit/fac3e07a393880edccb9061778a15ba5e7597fcb))
+
+## 20.14.2
+
+Sat, 11 Nov 2023 11:03:03 GMT
+
+### Patches
+
+- Nimble list box component bring up ([ni/nimble@176130f](https://github.com/ni/nimble/commit/176130fee88b376f76c86b20294e9e44cca0c42f))
+
+## 20.14.1
+
+Wed, 08 Nov 2023 16:07:09 GMT
+
+### Patches
+
+- Workaround for Lighthouse accessibility error in nimble-card. Update Angular status of nimble-card component. ([ni/nimble@57ee0e9](https://github.com/ni/nimble/commit/57ee0e95855887e10034232f587be2e666c96414))
+
+## 20.14.0
+
+Fri, 03 Nov 2023 23:30:50 GMT
+
+### Minor changes
+
+- Expose width and height of nimble-dialog & add tokens ([ni/nimble@5207a2a](https://github.com/ni/nimble/commit/5207a2a24f7d383057b56a91add96e00e5c36d39))
+
+## 20.13.0
+
+Thu, 02 Nov 2023 18:26:57 GMT
+
+### Minor changes
+
+- New icons for "move in" and "move out" ([ni/nimble@91d75d9](https://github.com/ni/nimble/commit/91d75d9c7ce2f493b3ac69fefd5457ae3b83d3f9))
+- Bump @ni/nimble-tokens to v6.8.0
+
+### Patches
+
+- Update fast-foundation dependency ([ni/nimble@6f571be](https://github.com/ni/nimble/commit/6f571beaf840af895e5561765ce3fd1500c50c80))
+
+## 20.12.1
+
+Thu, 02 Nov 2023 17:33:16 GMT
+
+### Patches
+
+- Add a title slot to the nimble-card ([ni/nimble@67a2e37](https://github.com/ni/nimble/commit/67a2e37033905d15c8f779b2f1c553d9b4e3cedb))
+
+## 20.12.0
+
+Wed, 01 Nov 2023 20:45:20 GMT
+
+### Minor changes
+
+- New icon for @mention ([ni/nimble@5a8fe73](https://github.com/ni/nimble/commit/5a8fe731b494042bc8a5cf060338a05208e1075d))
+- Bump @ni/nimble-tokens to v6.7.0
+
+## 20.11.0
+
+Wed, 01 Nov 2023 16:39:22 GMT
+
+### Minor changes
+
+- Add an incubating `nimble-card` component ([ni/nimble@0049146](https://github.com/ni/nimble/commit/0049146975bb1b131394e2891fdafd40168d3ea4))
+
+## 20.10.3
+
+Wed, 01 Nov 2023 15:14:29 GMT
+
+### Patches
+
+- Update dependency @types/markdown-it to v13 ([ni/nimble@419b889](https://github.com/ni/nimble/commit/419b88960e85b0c666e7cbc57f0b78f712e2e5d4))
+
+## 20.10.2
+
+Thu, 26 Oct 2023 18:19:11 GMT
+
+### Patches
+
+- Update dependencies on tanstack ([ni/nimble@7a9a966](https://github.com/ni/nimble/commit/7a9a966fd9e37713e95ea9c7574e621e2df38b33))
+
+## 20.10.1
+
+Thu, 26 Oct 2023 00:29:31 GMT
+
+### Patches
+
+- Add duration table column to all-components bundle ([ni/nimble@244e2ca](https://github.com/ni/nimble/commit/244e2caca0117fae6448f7c130e3afd3771b03d5))
+
+## 20.10.0
+
+Mon, 23 Oct 2023 14:17:52 GMT
+
+### Minor changes
+
+- Add icon for Save As ([ni/nimble@62016ff](https://github.com/ni/nimble/commit/62016ff5a313a4c35f7850a2a4261251ceda51e0))
+- Bump @ni/nimble-tokens to v6.6.0
+
+## 20.9.0
+
+Thu, 19 Oct 2023 23:50:56 GMT
+
+### Minor changes
+
+- Add decimal-maximum-digits attr to number-text column ([ni/nimble@466d474](https://github.com/ni/nimble/commit/466d474d52d3eb8a0396a6e53365e32bfbbd2954))
+
+## 20.8.0
+
+Thu, 19 Oct 2023 15:08:49 GMT
+
+### Minor changes
+
+- Table Duration Column ([ni/nimble@f80db0b](https://github.com/ni/nimble/commit/f80db0b9334a11d4c76a57b0cc4850cea300f950))
+
+## 20.7.0
+
+Wed, 18 Oct 2023 18:51:54 GMT
+
+### Minor changes
+
+- add ni and systemlink logo icons ([ni/nimble@2a79981](https://github.com/ni/nimble/commit/2a799815ee5117c3cf863fc522333497e50ff355))
+- Bump @ni/nimble-tokens to v6.5.0
+
+## 20.6.3
+
+Mon, 16 Oct 2023 21:31:42 GMT
+
+### Patches
+
+- Update TypeScript dependency to 4.8 ([ni/nimble@8a42916](https://github.com/ni/nimble/commit/8a429164d4987cc1b932adb3c93727afdc8c5202))
+- Bump @ni/nimble-tokens to v6.4.1
+
+## 20.6.2
+
+Wed, 04 Oct 2023 07:38:20 GMT
+
+### Patches
+
+- Flipped the vertical scale and created wafer map mocks for tests ([ni/nimble@7063d3d](https://github.com/ni/nimble/commit/7063d3d5ae3d1b5e9e4d3e5952d10436b29788f4))
+
+## 20.6.1
+
+Tue, 03 Oct 2023 14:34:50 GMT
+
+### Patches
+
+- Column resize bug fix. ([ni/nimble@2c1247b](https://github.com/ni/nimble/commit/2c1247b7a9c46d7e10b36b9a53f3cff346e8d0d5))
+
+## 20.6.0
+
+Thu, 28 Sep 2023 22:20:40 GMT
+
+### Minor changes
+
+- Hide icons from accessibility tree by default ([ni/nimble@2b87882](https://github.com/ni/nimble/commit/2b8788206af0718623968a736ab30cb8ec8766da))
+
+## 20.5.5
+
+Thu, 28 Sep 2023 03:38:31 GMT
+
+### Patches
+
+- Support for pasting a hyperlink as an absolute link in the rich text editor ([ni/nimble@3d5285d](https://github.com/ni/nimble/commit/3d5285dc230dc7d5c859d948993b67788e57365a))
+
+## 20.5.4
+
+Tue, 26 Sep 2023 21:18:40 GMT
+
+### Patches
+
+- Fix bug where `undefined` and `null` were not sorted correctly when using the `basic` sort operation ([ni/nimble@d952598](https://github.com/ni/nimble/commit/d952598e0f68a4c7255c5c3aab818035002f7600))
+
+## 20.5.3
+
+Fri, 22 Sep 2023 14:24:47 GMT
+
+### Patches
+
+- Add reusable css for styling an element as visually hidden while keeping it available to the accessibility tree ([ni/nimble@8486724](https://github.com/ni/nimble/commit/8486724cf68c66210de0a180496e75b347391352))
+
+## 20.5.2
+
+Fri, 22 Sep 2023 00:01:31 GMT
+
+### Patches
+
+- Clean-up dist folder of nimble-components to remove duplicated type hierarchy ([ni/nimble@908204e](https://github.com/ni/nimble/commit/908204e252ee75affeedc355a46d13a3005d6770))
+
+## 20.5.1
+
+Thu, 21 Sep 2023 13:07:38 GMT
+
+### Patches
+
+- Avoid converting markdown syntax characters like star (*) and underscore(_) to format the editor content automatically while typing ([ni/nimble@94188a3](https://github.com/ni/nimble/commit/94188a36031bfd9a88374d9e201c695eab8727ae))
+
+## 20.5.0
+
+Wed, 20 Sep 2023 18:55:59 GMT
+
+### Minor changes
+
+- New icons for indent and outdent list level ([ni/nimble@f12cbc5](https://github.com/ni/nimble/commit/f12cbc59d683ae048a85750990cc4ae174464590))
+- Bump @ni/nimble-tokens to v6.4.0
+
+## 20.4.3
+
+Wed, 20 Sep 2023 16:38:20 GMT
+
+### Patches
+
+- Add additional localized labels to sub-elements in the table to improve accessibility ([ni/nimble@60947ef](https://github.com/ni/nimble/commit/60947ef38e170552c614f1affcd8e1e385ba9177))
+
+## 20.4.2
+
+Wed, 20 Sep 2023 15:22:26 GMT
+
+### Patches
+
+- Fix bug in table when reordering columns ([ni/nimble@f4dc2ea](https://github.com/ni/nimble/commit/f4dc2eaa9724bee9cf82c28d17ac57422679a1f8))
+
+## 20.4.1
+
+Wed, 20 Sep 2023 02:57:31 GMT
+
+### Patches
+
+- Fixes keyboard closing when rich-text editor toolbar buttons are clicked in mobile iOS browsers ([ni/nimble@36b9611](https://github.com/ni/nimble/commit/36b9611c258f1b5e6aa5d24dc5ca288327382348))
+
+## 20.4.0
+
+Tue, 19 Sep 2023 23:12:45 GMT
+
+### Minor changes
+
+- Add medium padding token and document size ramp ([ni/nimble@b6baa04](https://github.com/ni/nimble/commit/b6baa04c34007f4fad4e546c78505fa820fff6d1))
+
+## 20.3.2
+
+Fri, 15 Sep 2023 21:18:04 GMT
+
+### Patches
+
+- Shift/Ctrl/Cmd + Enter will add line break in editor ([ni/nimble@129af80](https://github.com/ni/nimble/commit/129af8084eab1d47df84d6ee7281fd28bbaef8ec))
+
+## 20.3.1
+
+Fri, 15 Sep 2023 20:36:47 GMT
+
+### Patches
+
+- Import number-text column in all-components.ts ([ni/nimble@2a98738](https://github.com/ni/nimble/commit/2a987381442f5076ea40ea8e60010e2a839bca5a))
+
+## 20.3.0
+
+Fri, 15 Sep 2023 14:38:16 GMT
+
+### Minor changes
+
+- Add partial token for fill hover color ([ni/nimble@b03b880](https://github.com/ni/nimble/commit/b03b880ff881d7046209e59cf4a9cbf74e2fcceb))
+
+## 20.2.16
+
+Thu, 14 Sep 2023 19:53:56 GMT
+
+### Patches
+
+- Remove unexpected whitespace at start/end of anchor ([ni/nimble@b73a610](https://github.com/ni/nimble/commit/b73a610e56ae33783ad662354ef28ef80ab38f70))
+
+## 20.2.15
+
+Thu, 14 Sep 2023 17:13:47 GMT
+
+### Patches
+
+- Support for absolute links in rich text components ([ni/nimble@f5dfad6](https://github.com/ni/nimble/commit/f5dfad6fbce2701e9fabab100c7e4ebf17e61f50))
+
+## 20.2.14
+
+Thu, 14 Sep 2023 13:22:30 GMT
+
+### Patches
+
+- Mixed bold and italics formatting corner cases fixed. Update dependency on prosemirror-markdown ([ni/nimble@e505291](https://github.com/ni/nimble/commit/e50529159ae06c89b97e270f459b7f6095721bb1))
+
+## 20.2.13
+
+Wed, 13 Sep 2023 20:54:15 GMT
+
+### Patches
+
+- Created new grid dimensions api for the wafer map component ([ni/nimble@6bb30f5](https://github.com/ni/nimble/commit/6bb30f55e68c85eac7225ee430920b0729c3feeb))
+
+## 20.2.12
+
+Wed, 13 Sep 2023 15:39:27 GMT
+
+### Patches
+
+- Remove roundToInteger format from number-text column ([ni/nimble@f442767](https://github.com/ni/nimble/commit/f4427670abfdc441c69cf9c753877231c641b268))
+
+## 20.2.11
+
+Wed, 13 Sep 2023 13:01:33 GMT
+
+### Patches
+
+- Rich-text viewer should recognize escape characters in markdown ([ni/nimble@3dc792f](https://github.com/ni/nimble/commit/3dc792f7f70d1732f645c309df0e2b3670b5eeda))
+
+## 20.2.10
+
+Wed, 13 Sep 2023 05:02:34 GMT
+
+### Patches
+
+- Wrap long words to the next line in rich-text viewer ([ni/nimble@407e6e8](https://github.com/ni/nimble/commit/407e6e880ab4dd2122d5e9e203025492529d0b1a))
+
+## 20.2.9
+
+Wed, 13 Sep 2023 04:11:27 GMT
+
+### Patches
+
+- Update tabindex when clicking icon of a button in rich text editor toolbar. ([ni/nimble@0940f82](https://github.com/ni/nimble/commit/0940f820436cf07df5a239dec50a1022c9c054ca))
+
+## 20.2.8
+
+Tue, 12 Sep 2023 17:22:19 GMT
+
+### Patches
+
+- Add locale support to number-text column ([ni/nimble@b49755b](https://github.com/ni/nimble/commit/b49755bcb4948910c5b896b7c11abb64c6aca2cf))
+
+## 20.2.7
+
+Fri, 08 Sep 2023 23:00:33 GMT
+
+### Patches
+
+- Refactored rich text components to use common models ([ni/nimble@fcbe79b](https://github.com/ni/nimble/commit/fcbe79bafc733fd35a4fcae6ebc6aee88388d1ad))
+
+## 20.2.6
+
+Thu, 07 Sep 2023 18:16:08 GMT
+
+### Patches
+
+- Update component rollup build configuration ([ni/nimble@3f637ad](https://github.com/ni/nimble/commit/3f637ad62b61475a9340c65e4923cb01e86de8ce))
+
+## 20.2.5
+
+Wed, 06 Sep 2023 20:42:14 GMT
+
+### Patches
+
+- Revamp folder structure for rich text components ([ni/nimble@97cc70d](https://github.com/ni/nimble/commit/97cc70d749dbca3251e3efc18920ada8b4cbdfee))
+
+## 20.2.4
+
+Wed, 06 Sep 2023 16:21:23 GMT
+
+### Patches
+
+- Fix bug in number-text column when the value rounds to -0 ([ni/nimble@1e44e91](https://github.com/ni/nimble/commit/1e44e9169c32bfbf7c4d69af57b2c848d4960b1d))
+
+## 20.2.3
+
+Wed, 06 Sep 2023 14:58:43 GMT
+
+### Patches
+
+- Revert firefox workaround for caret disappear ([ni/nimble@ff093f4](https://github.com/ni/nimble/commit/ff093f4490485f0ffe0eca8733f6a16957ecda86))
+
+## 20.2.2
+
+Wed, 06 Sep 2023 05:43:09 GMT
+
+### Patches
+
+- Add label provider for rich-text-editor ([ni/nimble@75dcf39](https://github.com/ni/nimble/commit/75dcf394df02a54bf85c6d41cdaab40963d9ef3f))
+
+## 20.2.1
+
+Fri, 01 Sep 2023 20:47:01 GMT
+
+### Patches
+
+- Update table page object to return spinner from icon column ([ni/nimble@a229bd6](https://github.com/ni/nimble/commit/a229bd60ac4258bf9f9cf67d2a2560fc4d2912fa))
+
+## 20.2.0
+
+Fri, 01 Sep 2023 19:43:28 GMT
+
+### Minor changes
+
+- Add locale support to theme provider and use in date-text column ([ni/nimble@5e462b1](https://github.com/ni/nimble/commit/5e462b1baf6d1867f4e273a753856568f514ba0f))
+
+## 20.1.22
+
+Fri, 01 Sep 2023 07:27:14 GMT
+
+### Patches
+
+- Changed quadrant to originLocation and default to bottomLeft ([ni/nimble@11a47cc](https://github.com/ni/nimble/commit/11a47cc637634d5b79e56088a7431bc4fbd2fcd2))
+
+## 20.1.21
+
+Fri, 01 Sep 2023 06:00:57 GMT
+
+### Patches
+
+- Fix bug with rich text editor nested list button state ([ni/nimble@903a5d2](https://github.com/ni/nimble/commit/903a5d25104c6e5bfa0439fb7f41c191f0048abb))
+
+## 20.1.20
+
+Thu, 31 Aug 2023 19:17:18 GMT
+
+### Patches
+
+- Fix for Firefox caret disappearing issue ([ni/nimble@fcc12d5](https://github.com/ni/nimble/commit/fcc12d554b6342d1751f6bc54d598189d5465fc3))
+
+## 20.1.19
+
+Thu, 31 Aug 2023 17:09:05 GMT
+
+### Patches
+
+- Implementation of additional APIs for rich text editor ([ni/nimble@ce10bda](https://github.com/ni/nimble/commit/ce10bda19b1b9cc4e935f22cfa2b0d7ca02ed20b))
+
+## 20.1.18
+
+Wed, 30 Aug 2023 18:22:20 GMT
+
+### Patches
+
+- Fix typo in file name ([ni/nimble@6343b16](https://github.com/ni/nimble/commit/6343b16415af699b84e911aa25506e58a03dbde9))
+
+## 20.1.17
+
+Tue, 29 Aug 2023 16:32:09 GMT
+
+### Patches
+
+- Make DateText columnConfig `undefined` when the column is invalid ([ni/nimble@6837caa](https://github.com/ni/nimble/commit/6837caaf36898d3537da8b2f352d7c1bdc31dce1))
+
+## 20.1.16
+
+Mon, 28 Aug 2023 21:12:37 GMT
+
+### Patches
+
+- Add 'decimal' format to number-text column ([ni/nimble@40b952e](https://github.com/ni/nimble/commit/40b952e1910a61a4532821033bfbd2de0e8309d4))
+
+## 20.1.15
+
+Thu, 24 Aug 2023 21:19:51 GMT
+
+### Patches
+
+- Implement `alignment` attribute on number-text column ([ni/nimble@2292048](https://github.com/ni/nimble/commit/2292048647dfcd1f61fbf897ec083eacb3e269db))
+
+## 20.1.14
+
+Tue, 22 Aug 2023 12:48:52 GMT
+
+### Patches
+
+- Add setMarkdown and getMarkdown methods in rich-text-editor ([ni/nimble@42928b3](https://github.com/ni/nimble/commit/42928b304ad9b9362501f6bc923f21b4e1e81ddc))
+
+## 20.1.13
+
+Mon, 21 Aug 2023 23:23:23 GMT
+
+### Patches
+
+- Icon table column ([ni/nimble@4f0f474](https://github.com/ni/nimble/commit/4f0f4745ba013ddfbb0dbf8820df2bb6f4fb4db5))
+
+## 20.1.12
+
+Mon, 21 Aug 2023 22:42:29 GMT
+
+### Patches
+
+- Export date-text column from all-components ([ni/nimble@0ab6b4f](https://github.com/ni/nimble/commit/0ab6b4f5df8d01f6734c824d65e62e3c88546000))
+
+## 20.1.11
+
+Fri, 18 Aug 2023 11:34:36 GMT
+
+### Patches
+
+- Initial component bring up by integrating tiptap editor along with the footer formatting options ([ni/nimble@733c77c](https://github.com/ni/nimble/commit/733c77c1a63c30bd698fb6b03b4f559ef621c7d9))
+
+## 20.1.10
+
+Thu, 17 Aug 2023 21:57:29 GMT
+
+### Patches
+
+- Initial implementation of nimble-table-column-number-text ([ni/nimble@270d7fe](https://github.com/ni/nimble/commit/270d7fe2085569c0dad6deee75160c774f6c3ecc))
+
+## 20.1.9
+
+Thu, 17 Aug 2023 00:10:58 GMT
+
+### Patches
+
+- Allow date-text column customHour12 to be undefined ([ni/nimble@d2ca08c](https://github.com/ni/nimble/commit/d2ca08cd621c10c0c8dbb13c4cc01c930d29392e))
+
+## 20.1.8
+
+Tue, 15 Aug 2023 16:05:54 GMT
+
+### Patches
+
+- Improve typing for cell view ([ni/nimble@4fbf1bc](https://github.com/ni/nimble/commit/4fbf1bcf9644d9cf515ac4032c2bffb6e10b937d))
+
+## 20.1.7
+
+Mon, 14 Aug 2023 14:35:00 GMT
+
+### Patches
+
+- Updated the default height of the component ([ni/nimble@e70768b](https://github.com/ni/nimble/commit/e70768bd1d42364f51a5e486be771e4c84b132d4))
+
+## 20.1.6
+
+Sat, 12 Aug 2023 08:35:41 GMT
+
+### Patches
+
+- New render update and canvas die filtering for the wafer map component ([ni/nimble@96f22af](https://github.com/ni/nimble/commit/96f22af9a8f8eeddc995237e06cb8622eea436b2))
+
+## 20.1.5
+
+Fri, 11 Aug 2023 22:00:19 GMT
+
+### Patches
+
+- Update dependency on fast-foundation ([ni/nimble@ffc6db5](https://github.com/ni/nimble/commit/ffc6db59108c21570fdca623ecd566313b09c595))
+
+## 20.1.4
+
+Fri, 11 Aug 2023 15:22:19 GMT
+
+### Patches
+
+- Set both aria-current and aria-selected on anchor tabs ([ni/nimble@511d982](https://github.com/ni/nimble/commit/511d982f0eedb7b2db4cf937d850d02720caa3c3))
+
+## 20.1.3
+
+Mon, 07 Aug 2023 22:54:53 GMT
+
+### Patches
+
+- Show url of focused anchor tab at bottom of page ([ni/nimble@48d64be](https://github.com/ni/nimble/commit/48d64be4f2beca10d2643c621970f88d34d5c5c6))
+
+## 20.1.2
+
+Thu, 03 Aug 2023 22:50:39 GMT
+
+### Patches
+
+- Enum-text table column ([ni/nimble@058f6cb](https://github.com/ni/nimble/commit/058f6cb563d5756a95ea06875c868719f87278d4))
+
+## 20.1.1
+
+Thu, 03 Aug 2023 16:47:18 GMT
+
+### Patches
+
+- Facilitate getting cells by row/column ID ([ni/nimble@e90a0dc](https://github.com/ni/nimble/commit/e90a0dc4df48e6e243cf67f528735397fdff4c9c))
+
+## 20.1.0
+
+Wed, 02 Aug 2023 19:10:45 GMT
+
+### Minor changes
+
+- Storybook integration for primary and accent appearance-variant buttons (#663) ([ni/nimble@3b37cf1](https://github.com/ni/nimble/commit/3b37cf1deb3377b36c069e884d2b938b11048acd))
+- Bump @ni/nimble-tokens to v6.3.0
+
+## 20.0.6
+
+Wed, 02 Aug 2023 00:19:04 GMT
+
+### Patches
+
+- Fix table bug where shift-selecting rows would highlight all cell content ([ni/nimble@aa64ac8](https://github.com/ni/nimble/commit/aa64ac8f7b8e200e07af05c88b5f45d9a2b560db))
+
+## 20.0.5
+
+Tue, 01 Aug 2023 20:43:24 GMT
+
+### Patches
+
+- Add formatting API to date column ([ni/nimble@0073be1](https://github.com/ni/nimble/commit/0073be19aed7f9b1efe428f5f9f5b261ab1983db))
+
+## 20.0.4
+
+Tue, 01 Aug 2023 19:55:33 GMT
+
+### Patches
+
+- Fix for table horizontal scrollbar issue. ([ni/nimble@cf57e40](https://github.com/ni/nimble/commit/cf57e402e2a16a1587b7950be19412228990a156))
+
+## 20.0.3
+
+Tue, 01 Aug 2023 16:43:05 GMT
+
+### Patches
+
+- Implemented the update tracker for the wafermap and split the render in the new update functions for each module ([ni/nimble@1b54a7b](https://github.com/ni/nimble/commit/1b54a7b10540afa5988c214af755362677de9fab))
+
+## 20.0.2
+
+Mon, 31 Jul 2023 22:52:43 GMT
+
+### Patches
+
+- Fix keyboard navigation with hidden anchor tabs ([ni/nimble@74c4a83](https://github.com/ni/nimble/commit/74c4a8348923a8f91717366976307852f90a0d1e))
+
+## 20.0.1
+
+Wed, 26 Jul 2023 21:12:22 GMT
+
+### Patches
+
+- Forward aria-label to icon svg ([ni/nimble@0063037](https://github.com/ni/nimble/commit/006303745acff09d70350faf2cac0cddf06d4121))
+
+## 20.0.0
+
+Tue, 25 Jul 2023 21:12:32 GMT
+
+### Major changes
+
+- Remove nimble-banner dismissButtonLabel (replaced by the popupDismiss label on nimble-label-provider-core) ([ni/nimble@2c77e8e](https://github.com/ni/nimble/commit/2c77e8e7b542572ca792c3d1aa00d8ac2010a888))
+
+## 19.9.2
+
+Tue, 25 Jul 2023 03:47:30 GMT
+
+### Patches
+
+- Implementation of markdown parser for converting markdown input to rich text content in the viewer ([ni/nimble@05f2975](https://github.com/ni/nimble/commit/05f297566e45e9589e1613b8a7b2c316f4b3bd68))
+
+## 19.9.1
+
+Mon, 24 Jul 2023 21:12:18 GMT
+
+### Patches
+
+- Fix tabs and anchor-tabs styling to allow tabs-toolbar content to be right aligned ([ni/nimble@55f48a5](https://github.com/ni/nimble/commit/55f48a51b88c5a8f0a0d3fa571fc2dbcbdb4a755))
+
+## 19.9.0
+
+Mon, 24 Jul 2023 15:02:47 GMT
+
+### Minor changes
+
+- Initial version of date column ([ni/nimble@44e7d0d](https://github.com/ni/nimble/commit/44e7d0d3a06dead27f48a98698aa78d1fd65f9e3))
+
+## 19.8.5
+
+Fri, 21 Jul 2023 17:06:05 GMT
+
+### Patches
+
+- Fire event when columns interactively resized ([ni/nimble@dc57f15](https://github.com/ni/nimble/commit/dc57f15fa0f70243372becffa791c9ed2e1c5986))
+
+## 19.8.4
+
+Thu, 20 Jul 2023 16:23:00 GMT
+
+### Patches
+
+- Remove placeholder support from table columns ([ni/nimble@a318010](https://github.com/ni/nimble/commit/a3180102e5798540621a0d60ef93ca827649a988))
+
+## 19.8.3
+
+Thu, 20 Jul 2023 03:09:06 GMT
+
+### Patches
+
+- Update tanstack dependency and configure undefined value sorting mode ([ni/nimble@0541d6d](https://github.com/ni/nimble/commit/0541d6d412dd3b011756e07719656f30b20dc234))
+
+## 19.8.2
+
+Wed, 19 Jul 2023 17:37:59 GMT
+
+### Patches
+
+- Adding interactive column sizing ([ni/nimble@e900711](https://github.com/ni/nimble/commit/e900711c560465f590c37753cf6769641b2d92a0))
+
+## 19.8.1
+
+Tue, 18 Jul 2023 18:56:23 GMT
+
+### Patches
+
+- Fix icon color for disabled menu items and disabled text fields ([ni/nimble@b6c4eda](https://github.com/ni/nimble/commit/b6c4edafd60eb2e7c37c1b296b846a3ef5bcdee3))
+
+## 19.8.0
+
+Tue, 18 Jul 2023 17:52:57 GMT
+
+### Minor changes
+
+- Add recordId to TableCell, TableCellView, and delegated event details ([ni/nimble@3e74c7c](https://github.com/ni/nimble/commit/3e74c7c767c44b51823449b6bfd0606838b99771))
+
+## 19.7.0
+
+Mon, 17 Jul 2023 17:19:39 GMT
+
+### Minor changes
+
+- Spinner Accent Appearance (#1298) ([ni/nimble@9ecabb3](https://github.com/ni/nimble/commit/9ecabb35fbca4f0c233eb2dd0c4adb78027e0add))
+
+## 19.6.3
+
+Mon, 17 Jul 2023 16:19:17 GMT
+
+### Patches
+
+- hide unused slots ([ni/nimble@05f9022](https://github.com/ni/nimble/commit/05f90223f3819e135ab38796f850814ac4c21a8e))
+
+## 19.6.2
+
+Mon, 17 Jul 2023 15:05:54 GMT
+
+### Patches
+
+- Initial code bring up for nimble-rich-text-editor component ([ni/nimble@733c77c](https://github.com/ni/nimble/commit/733c77c1a63c30bd698fb6b03b4f559ef621c7d9))
+
+## 19.6.1
+
+Fri, 14 Jul 2023 22:15:57 GMT
+
+### Patches
+
+- Default appearance for buttons better matches visual design spec. Text is now semi-bold, border is more prominent when focused, and border hover color is changed for dark theme ([ni/nimble@88248bc](https://github.com/ni/nimble/commit/88248bc22d9b50da299331a87863c65fe3c25cdb))
+- Bump @ni/nimble-tokens to v6.2.1
+
+## 19.6.0
+
+Fri, 14 Jul 2023 20:57:32 GMT
+
+### Minor changes
+
+- New icon with a clock and exclamation mark to represent an expired state ([ni/nimble@448a014](https://github.com/ni/nimble/commit/448a0147ee38c0f1cbe0ece06ecd103e4e3f5788))
+- Bump @ni/nimble-tokens to v6.2.0
+
+## 19.5.0
+
+Thu, 13 Jul 2023 23:41:13 GMT
+
+### Minor changes
+
+- Add nimble-label-provider-core and -table, along with localizable DesignTokens for labels/strings declared by Nimble components. Add docs for Localization. ([ni/nimble@d5b19d5](https://github.com/ni/nimble/commit/d5b19d5a7b4e2406209f8aed15fa4d0ea9658a09))
+
+## 19.4.5
+
+Thu, 13 Jul 2023 16:50:52 GMT
+
+### Patches
+
+- Fix combobox scroll issue. ([ni/nimble@fbb5df8](https://github.com/ni/nimble/commit/fbb5df8dda1a776a7ff7fd10d4b3157919ad34a6))
+
+## 19.4.4
+
+Fri, 30 Jun 2023 16:02:24 GMT
+
+### Patches
+
+- Overflow directive ([ni/nimble@0d17d95](https://github.com/ni/nimble/commit/0d17d95074479cad512f1dd0640ff0c3cad09f91))
+
+## 19.4.3
+
+Wed, 28 Jun 2023 22:34:33 GMT
+
+### Patches
+
+- Change text-column base class property behavior ([ni/nimble@a8148fe](https://github.com/ni/nimble/commit/a8148fe86743b45ac970c7a4c9fd2e46fd6280da))
+
+## 19.4.2
+
+Wed, 28 Jun 2023 13:37:50 GMT
+
+### Patches
+
+- Initial code bring up for nimble-rich-text-viewer component ([ni/nimble@c88e365](https://github.com/ni/nimble/commit/c88e3657b05f6b04a34115acdd13ecb6b7b9c0c6))
+
+## 19.4.1
+
+Tue, 27 Jun 2023 19:05:52 GMT
+
+### Patches
+
+- Add additional functions to table page object ([ni/nimble@137db4c](https://github.com/ni/nimble/commit/137db4ca75e10b5d8316e12ac86c59b0efd468a3))
+
+## 19.4.0
+
+Tue, 20 Jun 2023 14:17:25 GMT
+
+### Minor changes
+
+- New icons for bold, italic, and numbered list ([ni/nimble@d8a2f69](https://github.com/ni/nimble/commit/d8a2f6933982381c2724f87737873b2f9374a706))
+- Bump @ni/nimble-tokens to v6.1.0
+
+## 19.3.0
+
+Fri, 16 Jun 2023 19:24:51 GMT
+
+### Minor changes
+
+- Add tooltip to ellipsized table header ([ni/nimble@58ad3aa](https://github.com/ni/nimble/commit/58ad3aac8e3f7984bbbbde371dfca77527d90383))
+
+## 19.2.3
+
+Tue, 13 Jun 2023 14:50:08 GMT
+
+### Patches
+
+- Fix inconsistencies in combobox filtering ([ni/nimble@7efade9](https://github.com/ni/nimble/commit/7efade909a782e65cb256065ac5a9a59bae94ddf))
+
+## 19.2.2
+
+Mon, 12 Jun 2023 21:34:35 GMT
+
+### Patches
+
+- Fix GroupRow component template ([ni/nimble@562c2ec](https://github.com/ni/nimble/commit/562c2ec63b6c8391633f17d33a311535b61627f4))
+
+## 19.2.1
+
+Mon, 12 Jun 2023 13:16:59 GMT
+
+### Patches
+
+- Created a generic Tracker class, extended it to a validator and an update tracker and implemented them in the table ([ni/nimble@121a4f1](https://github.com/ni/nimble/commit/121a4f18d996f09af1f0db70b873f6d7cdda646d))
+
+## 19.2.0
+
+Fri, 02 Jun 2023 07:49:02 GMT
+
+### Minor changes
+
+- added a design token for graph gridlines ([ni/nimble@a3264e1](https://github.com/ni/nimble/commit/a3264e123c5c3170d3957c238b2bd793e6d294f1))
+
+## 19.1.3
+
+Thu, 01 Jun 2023 14:41:19 GMT
+
+### Patches
+
+- Clear combobox filter when value set programatically ([ni/nimble@2c5206b](https://github.com/ni/nimble/commit/2c5206bd71fd9e97ed0dffbe21fbaa253b893652))
+
+## 19.1.2
+
+Tue, 23 May 2023 20:18:10 GMT
+
+### Patches
+
+- Use anchored region in Select and Combobox ([ni/nimble@e9f0332](https://github.com/ni/nimble/commit/e9f03324de6ad96d901099b8cf0341b75c5fd881))
+
+## 19.1.1
+
+Tue, 23 May 2023 16:09:57 GMT
+
+### Patches
+
+- Move ColumnInternals to abstract property ([ni/nimble@c03b36b](https://github.com/ni/nimble/commit/c03b36bd9056ef9ad08b156bcaba4d8d2c591c2d))
+
+## 19.1.0
+
+Mon, 22 May 2023 18:39:33 GMT
+
+### Minor changes
+
+- Introduce column configuration validation ([ni/nimble@c23fbe5](https://github.com/ni/nimble/commit/c23fbe55a607508ecc94d7e9d475dc478629cf8a))
 
 ## 19.0.2
 

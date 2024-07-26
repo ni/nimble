@@ -1,6 +1,7 @@
-import { type ViewTemplate, html } from '@microsoft/fast-element';
+import { type ViewTemplate, html, repeat } from '@microsoft/fast-element';
 import type { TableCell } from '../../../table/components/cell';
 import { TableCellView } from '.';
+import { uniquifySlotNameForColumn } from '../../../table/models/utilities';
 
 const validateCellViewTemplate = (cellViewTag: string): void => {
     let instance;
@@ -16,6 +17,7 @@ const validateCellViewTemplate = (cellViewTag: string): void => {
     }
 };
 
+// prettier-ignore
 export const createCellViewTemplate = (
     cellViewTag: string
 ): ViewTemplate<TableCell> => {
@@ -25,8 +27,15 @@ export const createCellViewTemplate = (
             :cellRecord="${y => y.cellState?.cellRecord}"
             :columnConfig="${y => y.cellState?.columnConfig}"
             :column="${y => y.column}"
+            :recordId="${y => y.recordId}"
             class="cell-view"
         >
+            ${repeat(y => y.column?.columnInternals.slotNames || [], html<string, TableCell>`
+                <slot
+                    name="${(x, c) => uniquifySlotNameForColumn(c.parent.column!, x)}"
+                    slot="${x => x}"
+                ></slot>
+            `)}
         </${cellViewTag}>
     `;
 };
