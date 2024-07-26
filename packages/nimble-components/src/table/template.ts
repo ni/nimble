@@ -43,16 +43,15 @@ export const template = html<Table>`
     >
         <div class="table-container ${x => (x.windowShiftKeyDown ? 'disable-select' : '')}"
             style="
-                --ni-private-table-scroll-x: -${x => x.scrollX}px;
-                --ni-private-table-header-container-margin-right: ${x => x.virtualizer.headerContainerMarginRight}px;
-                --ni-private-table-scroll-height: ${x => x.virtualizer.scrollHeight}px;
-                --ni-private-table-row-container-top: ${x => x.virtualizer.rowContainerYOffset}px;
-                --ni-private-table-row-grid-columns: ${x => (x.rowGridColumns ? x.rowGridColumns : '')};
-                --ni-private-table-cursor-override: ${x => (x.layoutManager.isColumnBeingSized ? 'col-resize' : 'default')};
-                --ni-private-table-scrollable-min-width: ${x => x.tableScrollableMinWidth}px;
-                --ni-private-glass-overlay-pointer-events: ${x => (x.layoutManager.isColumnBeingSized ? 'none' : 'default')};
-                "
-        >
+            --ni-private-table-scroll-x: -${x => x.scrollX}px;
+            --ni-private-table-header-container-margin-right: ${x => x.virtualizer.headerContainerMarginRight}px;
+            --ni-private-table-scroll-height: ${x => x.virtualizer.scrollHeight}px;
+            --ni-private-table-row-container-top: ${x => x.virtualizer.rowContainerYOffset}px;
+            --ni-private-table-row-grid-columns: ${x => (x.rowGridColumns ? x.rowGridColumns : '')};
+            --ni-private-table-cursor-override: ${x => (x.layoutManager.isColumnBeingSized ? 'col-resize' : 'default')};
+            --ni-private-table-scrollable-min-width: ${x => x.tableScrollableMinWidth}px;
+            --ni-private-glass-overlay-pointer-events: ${x => (x.layoutManager.isColumnBeingSized ? 'none' : 'default')};
+            ">
             <div class="glass-overlay">
                 <div role="rowgroup" class="header-row-container">
                     <div class="header-row" role="row">
