@@ -346,9 +346,6 @@ export class Combobox
                 (o as ListOption).visuallyHidden = !this.filteredOptions.includes(o);
             });
         }
-
-        const enabledOptions = this.filteredOptions.filter(o => !o.disabled);
-        this.filteredOptions = enabledOptions;
     }
 
     /**
@@ -590,15 +587,42 @@ export class Combobox
     }
 
     /**
+     * Move focus to the next selectable option.
+     *
+     * @internal
+     * @remarks Has the same behavior as `Listbox.selectNextOption` except it skips disabled options.
+     * Overrides `Listbox.selectNextOption`
+     */
+    public override selectNextOption(): void {
+        if (!this.disabled) {
+            let newIndex = this.selectedIndex;
+            do {
+                if (newIndex + 1 >= this.options.length) {
+                    return;
+                }
+                newIndex += 1;
+            } while (this.options[newIndex]!.disabled);
+            this.selectedIndex = newIndex;
+        }
+    }
+
+    /**
      * Move focus to the previous selectable option.
      *
      * @internal
-     * @remarks
+     * @remarks Has the same behavior as `Listbox.selectPreviousOption` except it skips disabled options and allows moving focus to the input.
      * Overrides `Listbox.selectPreviousOption`
      */
     public override selectPreviousOption(): void {
-        if (!this.disabled && this.selectedIndex >= 0) {
-            this.selectedIndex -= 1;
+        if (!this.disabled) {
+            let newIndex = this.selectedIndex;
+            do {
+                newIndex -= 1;
+                if (newIndex === -1) {
+                    break;
+                }
+            } while (this.options[newIndex]!.disabled);
+            this.selectedIndex = newIndex;
         }
     }
 

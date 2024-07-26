@@ -257,9 +257,16 @@ describe('Combobox', () => {
             expect(pageObject.isNoResultsLabelVisible()).toBeFalse();
         });
 
-        it('does not show "no items found" in dropdown when typed text matches something', async () => {
+        it('does not show "no items found" in dropdown when typed text matches enabled option', async () => {
             element.autocomplete = ComboboxAutocomplete.both;
             pageObject.setInputText('o'); // matches "One"
+            await waitForUpdatesAsync();
+            expect(pageObject.isNoResultsLabelVisible()).toBeFalse();
+        });
+
+        it('does not show "no items found" in dropdown when typed text matches disabled option', async () => {
+            element.autocomplete = ComboboxAutocomplete.both;
+            pageObject.setInputText('fo'); // matches "Four"
             await waitForUpdatesAsync();
             expect(pageObject.isNoResultsLabelVisible()).toBeFalse();
         });
@@ -347,6 +354,35 @@ describe('Combobox', () => {
             await waitForUpdatesAsync();
 
             expect(changeEvent).toHaveBeenCalledTimes(1);
+        });
+
+        it('skips disabled option when navigating dropdown with down arrow key', async () => {
+            element.autocomplete = ComboboxAutocomplete.none;
+            element.options[2]!.disabled = true;
+            element.options[3]!.disabled = false;
+            // now option 'Three' is disabled and 'Four' is enabled
+
+            pageObject.pressArrowDownKey(); // open dropdown
+            pageObject.pressArrowDownKey(); // browse to 'One'
+            pageObject.pressArrowDownKey(); // browse to 'Two'
+            pageObject.pressArrowDownKey(); // skip disabled 'Three', browse to 'Four'
+            await waitForUpdatesAsync();
+
+            expect(element.options[3]!.ariaSelected).toEqual('true');
+        });
+
+        it('skips disabled option when navigating dropdown with up arrow key', async () => {
+            element.autocomplete = ComboboxAutocomplete.none;
+            element.options[2]!.disabled = true;
+            element.options[3]!.disabled = false;
+            // now option 'Three' is disabled and 'Four' is enabled
+
+            await pageObject.commitValue('Four');
+            pageObject.pressArrowDownKey(); // open dropdown
+            pageObject.pressArrowUpKey(); // skip disabled 'Three', browse to 'Two'
+            await waitForUpdatesAsync();
+
+            expect(element.options[1]!.ariaSelected).toEqual('true');
         });
 
         const filterOptionSuiteData = [
