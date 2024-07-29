@@ -24,10 +24,10 @@ describe('Combobox', () => {
             // prettier-ignore
             const viewTemplate = html`
                 <${comboboxTag}>
-                    <${listOptionTag} value="one">One</${listOptionTag}>
-                    <${listOptionTag} value="two">Two</${listOptionTag}>
-                    <${listOptionTag} value="three">Three</${listOptionTag}>
-                    <${listOptionTag} value="four" disabled>Four</${listOptionTag}>
+                    <${listOptionTag}>One</${listOptionTag}>
+                    <${listOptionTag}>Two</${listOptionTag}>
+                    <${listOptionTag}>Three</${listOptionTag}>
+                    <${listOptionTag} disabled>Four</${listOptionTag}>
                 </${comboboxTag}>
             `;
             return fixture<Combobox>(viewTemplate);
@@ -462,8 +462,8 @@ describe('Combobox', () => {
         async function setup(): Promise<Fixture<Combobox>> {
             const viewTemplate = html`
                 <${comboboxTag}>
-                    <${listOptionTag} value="one">One</${listOptionTag}>
-                    <${listOptionTag} value="two">Two</${listOptionTag}>
+                    <${listOptionTag}>One</${listOptionTag}>
+                    <${listOptionTag}>Two</${listOptionTag}>
                 </${comboboxTag}>
             `;
             return fixture<Combobox>(viewTemplate);
@@ -490,7 +490,7 @@ describe('Combobox', () => {
                     disabled
                     position="above"
                 >
-                    <${listOptionTag} value="one">One</${listOptionTag}>
+                    <${listOptionTag}>One</${listOptionTag}>
                 </${comboboxTag}>
             `;
             return fixture<Combobox>(viewTemplate);
@@ -582,7 +582,7 @@ describe('Combobox', () => {
                 <div style="overflow: auto;">
                     <<${comboboxTag}>>
                         ${repeat(() => [...Array(5).keys()], html<number>`
-                            <${listOptionTag} value="${x => x}">${x => x}</${listOptionTag}>`)}
+                            <${listOptionTag}>${x => x}</${listOptionTag}>`)}
                     </<${comboboxTag}>>
                 </div>
             `;
