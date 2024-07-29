@@ -1,6 +1,6 @@
 {
   "type": "minor",
-  "comment": "Add function to the table page object for getting the text content of a column header",
+  "comment": "Export mapping column page object; extend the table page object in Angular to have an async function to wait for data to render when using the `data$` property of the table directive",
   "packageName": "@ni/nimble-angular",
   "email": "20542556+mollykreis@users.noreply.github.com",
   "dependentChangeType": "patch"
