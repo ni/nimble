@@ -66,6 +66,9 @@
     "DigitalGreenLight": {
       "value": "#009B65ff"
     },
+    "DigitalGreenLight10": {
+      "value": "#E6F5F0ff"
+    },
     "Brand85": {
       "value": "#26A97Cff"
     },
@@ -101,6 +104,9 @@
     },
     "PowerGreen": {
       "value": "#32EB96ff"
+    },
+    "PowerGreen10": {
+      "value": "#364941ff"
     },
     "Black22": {
       "value": "#E6E6E6ff"
@@ -176,30 +182,6 @@
     },
     "NI Sea Dark 2": {
       "value": "#00685Fff"
-    },
-    "DigitalGreenLightOpaque10": {
-      "value": "#E6F5F0"
-    },
-    "PowerGreenDarkOpaque10": {
-      "value": "#364941"
-    },
-    "DigitalGreenLightOpaque30": {
-      "value": "#B3E1D1"
-    },
-    "DigitalGreenDarkOpaque30": {
-      "value": "#264E41"
-    },
-    "PowerGreenDarkOpaque85": {
-      "value": "#33D088"
-    },
-    "DigitalGreenLightOpaque20": {
-      "value": "#CCEBE0"
-    },
-    "PowerGreenDarkOpaque20": {
-      "value": "#355B4B"
-    },
-    "Black91LightOpaque7": {
-      "value": "#EFEFEF"
     }
   }
 }
