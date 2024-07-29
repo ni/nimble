@@ -31,7 +31,7 @@ export const styles = css`
              * Set a default maximum height for the table of 250 rows (including the header row) so
              * that clients don't accidentally create a table that tries to render too many rows at once.
              * If needed, the max-height can be overridden by the client, but setting a default ensures
-             * the max-height is explicitly considered by the client rather than overlooked.
+             * that the max-height is considered if a larger one is needed rather than being overlooked.
              */ ''
         }
         max-height: calc(250 * ${controlHeight});
