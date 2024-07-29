@@ -1,6 +1,6 @@
 import { TablePageObject as NimbleComponentsTablePageObject } from '@ni/nimble-components/dist/esm/table/testing/table.pageobject';
 import { waitForUpdatesAsync } from '@ni/nimble-angular';
-import { Table, TableRecord } from '../nimble-table.directive';
+import type { Table, TableRecord } from '@ni/nimble-angular/table';
 
 /**
  * The page object for the `nimble-table` component to provide consistent ways of querying
