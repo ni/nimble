@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Fri, 26 Jul 2024 22:12:40 GMT",
+      "version": "30.1.2",
+      "tag": "@ni/nimble-components_v30.1.2",
+      "comments": {
+        "none": [
+          {
+            "author": "20709258+msmithNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "608cf247a294ab61b717a437897979c99c9956b7",
+            "comment": "HLD for built-in labels for select/combobox"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 24 Jul 2024 16:11:28 GMT",
       "version": "30.1.2",
       "tag": "@ni/nimble-components_v30.1.2",
