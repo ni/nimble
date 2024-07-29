@@ -81,7 +81,7 @@ export class TablePageObject<T extends TableRecord> {
     }
 
     public getHeaderTextContent(columnIndex: number): string {
-        return this.getHeaderContent(columnIndex)?.textContent?.trim() ?? '';
+        return this.getHeaderContent(columnIndex)?.firstChild?.textContent?.trim() ?? '';
     }
 
     public dispatchEventToHeader(
