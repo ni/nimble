@@ -116,6 +116,24 @@ describe('Menu', () => {
                 expect(item2.classList.contains('indent-1')).toBeTrue();
             });
 
+            it("indents items when an icon's slot is changed to 'start'", async () => {
+                expect(item1.classList.contains('indent-0')).toBeTrue();
+                expect(item2.classList.contains('indent-0')).toBeTrue();
+
+                const icon = document.createElement(iconCheckTag);
+                item1.appendChild(icon);
+                await waitForUpdatesAsync();
+
+                expect(item1.classList.contains('indent-0')).toBeTrue();
+                expect(item2.classList.contains('indent-0')).toBeTrue();
+
+                icon.slot = 'start';
+                await waitForUpdatesAsync();
+
+                expect(item1.classList.contains('indent-1')).toBeTrue();
+                expect(item2.classList.contains('indent-1')).toBeTrue();
+            });
+
             it('does not indent items when the only icon is removed', async () => {
                 const icon = document.createElement(iconCheckTag);
                 icon.slot = 'start';

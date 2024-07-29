@@ -17,12 +17,12 @@ ViewTemplate<Menu>
             if (x.slot) {
                 return x.slot;
             }
-            return x.isNestedMenu() ? 'submenu' : '';
+            return x.isNestedMenu() ? 'submenu' : undefined;
         }}"
         role="menu"
         @keydown="${(x, c) => x.handleMenuKeyDown(c.event as KeyboardEvent)}"
         @focusout="${(x, c) => x.handleFocusOut(c.event as FocusEvent)}"
-        ${children({ property: 'itemIcons', subtree: true, selector: ':scope > * > [slot="start"]' })}
+        ${children({ property: 'itemIcons', subtree: true, attributeFilter: ['slot'], selector: ':scope > * > [slot="start"]' })}
     >
         <slot ${slotted('items')}></slot>
     </template>

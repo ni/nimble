@@ -1,3 +1,6 @@
+/**
+ * Based on implementation in FAST repo: https://github.com/microsoft/fast/blob/9c6dbb66615e6d229fc0ebf8065a67f109139f26/packages/web-components/fast-foundation/src/menu/menu.ts
+ */
 import { DOM, observable } from '@microsoft/fast-element';
 import {
     isHTMLElement,
@@ -237,8 +240,7 @@ export class Menu extends FoundationElement {
             this.$fastController.isConnected
             && this.menuItems !== undefined
             && (oldIcons.length !== newIcons.length
-                || oldIcons.filter(x => newIcons.includes(x)).length
-                    !== oldIcons.length)
+                || new Set(oldIcons.concat(newIcons)).size !== oldIcons.length)
         ) {
             this.setItems();
         }
