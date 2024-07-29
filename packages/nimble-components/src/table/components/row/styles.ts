@@ -56,7 +56,11 @@ export const styles = css`
 
     :host(${focusVisible}) {
         outline: none;
-        box-shadow: inset calc(2 * ${borderWidth}) calc(2 * ${borderWidth}) ${borderHoverColor}, inset calc(-2 * ${borderWidth}) calc(-2 * ${borderWidth}) ${borderHoverColor};
+        box-shadow:
+            inset calc(2 * ${borderWidth}) calc(2 * ${borderWidth})
+                ${borderHoverColor},
+            inset calc(-2 * ${borderWidth}) calc(-2 * ${borderWidth})
+                ${borderHoverColor};
     }
 
     .expand-collapse-button {
