@@ -475,7 +475,7 @@ describe('Combobox', () => {
             element.value = 'two';
             await connect();
 
-            expect(element.value).toBe('Two');
+            expect(element.value).toBe('two');
 
             await disconnect();
         });

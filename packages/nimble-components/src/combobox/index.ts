@@ -534,8 +534,9 @@ export class Combobox
      */
     public override setDefaultSelectedOption(): void {
         if (this.$fastController.isConnected && this.options) {
-            const selectedIndex = this.findIndexOfValidOption(
-                el => el.getAttribute('selected') !== null || el.selected
+            const selectedIndex = this.options.findIndex(
+                el => !el.disabled
+                    && (el.getAttribute('selected') !== null || el.selected)
             );
 
             this.selectedIndex = selectedIndex;
@@ -618,7 +619,7 @@ export class Combobox
             let newIndex = this.selectedIndex;
             do {
                 newIndex -= 1;
-                if (newIndex === -1) {
+                if (newIndex < 0) {
                     break;
                 }
             } while (this.options[newIndex]!.disabled);
@@ -847,15 +848,10 @@ export class Combobox
         }
     }
 
-    private findIndexOfValidOption(
-        optionTextOrPredicate: string | ((o: ListboxOption) => boolean)
-    ): number {
-        const predicate = typeof optionTextOrPredicate === 'string'
-            ? (o: ListboxOption) => !o.disabled
-                      && o.text.toLowerCase()
-                          === optionTextOrPredicate.toLowerCase()
-            : (o: ListboxOption) => !o.disabled && optionTextOrPredicate(o);
-        return this.options.findIndex(predicate);
+    private findIndexOfValidOption(optionText: string): number {
+        return this.options.findIndex(
+            o => !o.disabled && o.text === optionText
+        );
     }
 }
 
