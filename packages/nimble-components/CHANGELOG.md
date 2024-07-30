@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Tue, 30 Jul 2024 14:34:23 GMT and should not be manually modified.
+This log was last generated on Tue, 30 Jul 2024 16:53:07 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 30.1.4
+
+Tue, 30 Jul 2024 16:53:07 GMT
+
+### Patches
+
+- Fix bug where user can't type disabled option into combobox ([ni/nimble@383345a](https://github.com/ni/nimble/commit/383345a6f904ce11739e19e2dabb3c913db74bf2))
 
 ## 30.1.3
 
