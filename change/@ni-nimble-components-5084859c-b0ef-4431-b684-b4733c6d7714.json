@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "Fix bug where user can't type disabled option into combobox",
+  "packageName": "@ni/nimble-components",
+  "email": "7282195+m-akinc@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
