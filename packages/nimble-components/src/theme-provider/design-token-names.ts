@@ -246,7 +246,7 @@ export const tokenNames: { readonly [key in TokenName]: string } = {
         'calendar-dynamic-event-background-color',
     calendarTransientEventBackgroundColor:
         'calendar-transient-event-background-color',
-    calendarStaticEventBorderColor: 'calendar-staticevent-border-color',
+    calendarStaticEventBorderColor: 'calendar-static-event-border-color',
     calendarTransientEventBorderColor: 'calendar-transient-event-border-color',
     calendarStaticEventFontColor: 'calendar-static-event-font-color',
     calendarDynamicEventFontColor: 'calendar-dynamic-event-font-color',
