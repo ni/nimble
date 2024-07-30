@@ -1,8 +1,24 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Tue, 23 Jul 2024 21:56:35 GMT and should not be manually modified.
+This log was last generated on Tue, 30 Jul 2024 14:34:23 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 30.1.3
+
+Tue, 30 Jul 2024 14:34:23 GMT
+
+### Patches
+
+- Bump @ni/nimble-tokens to v7.1.0
+
+## 30.1.2
+
+Wed, 24 Jul 2024 16:11:28 GMT
+
+### Patches
+
+- Update TanStack and fix bug with row indentation in the table ([ni/nimble@d9d956e](https://github.com/ni/nimble/commit/d9d956e36236610dae7189cefd179eb5b397a22c))
 
 ## 30.1.1
 
