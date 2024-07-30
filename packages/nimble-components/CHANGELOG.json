@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 30 Jul 2024 20:21:00 GMT",
+      "version": "30.1.6",
+      "tag": "@ni/nimble-components_v30.1.6",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "eee47c414117bc18a6fb858c26ec8ea39f86f57d",
+            "comment": "Update menu-button column styles"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 30 Jul 2024 18:17:00 GMT",
       "version": "30.1.5",
       "tag": "@ni/nimble-components_v30.1.5",
