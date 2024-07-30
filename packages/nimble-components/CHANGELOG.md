@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Wed, 24 Jul 2024 16:11:28 GMT and should not be manually modified.
+This log was last generated on Tue, 30 Jul 2024 14:34:23 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 30.1.3
+
+Tue, 30 Jul 2024 14:34:23 GMT
+
+### Patches
+
+- Bump @ni/nimble-tokens to v7.1.0
 
 ## 30.1.2
 
