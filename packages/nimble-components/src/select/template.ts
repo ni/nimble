@@ -117,7 +117,7 @@ SelectOptions
             <div class="listbox-background">
                 <div
                     class="
-                        listbox 
+                        listbox
                         ${x => (x.filteredOptions.length === 0 ? 'empty' : '')}
                         ${x => x.positionAttribute}
                     "
@@ -153,12 +153,12 @@ SelectOptions
                                 property: 'slottedOptions',
                             })}
                         ></slot>
+                        ${when(x => (x.filterMode !== FilterMode.none && x.filteredOptions.length === 0 && !x.loadingVisible), html<Select>`
+                            <span class="no-results-label">
+                                ${x => filterNoResultsLabel.getValueFor(x)}
+                            </span>
+                        `)}
                     </div>
-                    ${when(x => (x.filterMode !== FilterMode.none && x.filteredOptions.length === 0 && !x.loadingVisible), html<Select>`
-                        <span class="no-results-label ${x => x.positionAttribute}">
-                            ${x => filterNoResultsLabel.getValueFor(x)}
-                        </span>
-                    `)}
                     ${when(x => x.loadingVisible, html<Select>`
                         <div class="loading-container ${x => x.positionAttribute} ${x => (x.filteredOptions.length === 0 ? 'empty' : '')}"
                             @click="${(x, c) => x.ignoreClickHandler(c.event as MouseEvent)}">
@@ -173,3 +173,4 @@ SelectOptions
         </${anchoredRegionTag}>
     </template>
 `;
+/* eslint-enable @typescript-eslint/indent */

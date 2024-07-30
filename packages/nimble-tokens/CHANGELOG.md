@@ -1,8 +1,24 @@
 # Change Log - @ni/nimble-tokens
 
-This log was last generated on Tue, 16 Jul 2024 22:30:23 GMT and should not be manually modified.
+This log was last generated on Tue, 30 Jul 2024 14:34:23 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 7.1.0
+
+Tue, 30 Jul 2024 14:34:23 GMT
+
+### Minor changes
+
+- Add color tokens for mobiscroll components ([ni/nimble@2488638](https://github.com/ni/nimble/commit/2488638308b5e511f247dc1d113f1b2b6d74c2d4))
+
+## 7.0.1
+
+Mon, 22 Jul 2024 15:45:21 GMT
+
+### Patches
+
+- Update to typescript 5.4.5 ([ni/nimble@f69586a](https://github.com/ni/nimble/commit/f69586afcbdea5f4b8834d1123ec2b06d4eeecb3))
 
 ## 7.0.0
 

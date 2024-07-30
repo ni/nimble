@@ -54,6 +54,7 @@ export class RichTextMentionListbox extends FoundationListbox {
      *
      * @internal
      */
+    @observable
     public filteredOptions: ListboxOption[] = [];
 
     /**

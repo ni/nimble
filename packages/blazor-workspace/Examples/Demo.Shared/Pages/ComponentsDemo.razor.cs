@@ -32,6 +32,17 @@ public partial class ComponentsDemo
     private readonly HashSet<string> _recordsLoadingChildren = new();
     private readonly HashSet<string> _recordsWithLoadedChildren = new();
 
+    public IEnumerable<DemoColor> PossibleColors
+    {
+        get
+        {
+            return (IEnumerable<DemoColor>)Enum.GetValues(typeof(DemoColor));
+        }
+    }
+
+    public DemoColor CurrentColor { get; private set; }
+    public string? OpenMenuButtonColumnRecordId { get; private set; }
+
     [NotNull]
     public IEnumerable<SimpleTableRecord> TableData { get; set; } = Enumerable.Empty<SimpleTableRecord>();
     [NotNull]
@@ -53,6 +64,32 @@ public partial class ComponentsDemo
         await _waferMap!.SetDataAsync(DiesTable);
         await UpdateDelayedHierarchyTableAsync();
         await base.OnAfterRenderAsync(firstRender);
+    }
+
+    private async void OnMenuButtonColumnBeforeToggle(TableColumnMenuButtonToggleEventArgs e)
+    {
+        if (e.NewState == false)
+        {
+            return;
+        }
+
+        OpenMenuButtonColumnRecordId = e.RecordId;
+        var openRecord = TableData.First(x => x.Id == OpenMenuButtonColumnRecordId);
+        if (openRecord == null)
+        {
+            return;
+        }
+        CurrentColor = openRecord.Color;
+    }
+
+    private void OnColorSelected(DemoColor color)
+    {
+        var openRecord = TableData.First(x => x.Id == OpenMenuButtonColumnRecordId);
+        if (openRecord == null)
+        {
+            return;
+        }
+        openRecord.UpdateColor(color);
     }
 
     private async Task OnRowExpandToggleAsync(TableRowExpandToggleEventArgs e)
@@ -173,6 +210,7 @@ public partial class ComponentsDemo
     {
         var tableData = new List<SimpleTableRecord>(TableData);
         List<string> possibleStatuses = new() { "success", "calculating", "unknown" };
+        int numberOfDemoColors = PossibleColors.Count();
 
         for (int i = 0; i < numberOfRowsToAdd; i++)
         {
@@ -190,7 +228,8 @@ public partial class ComponentsDemo
                 (rowCount % 2 == 0) ? 100 : 101,
                 possibleStatuses.ElementAt(rowCount % 3),
                 rowCount / 10.0,
-                rowCount * 1000.0 * (1.1 + (2 * 60) + (3 * 3600))));
+                rowCount * 1000.0 * (1.1 + (2 * 60) + (3 * 3600)),
+                (DemoColor)(rowCount % numberOfDemoColors)));
         }
 
         TableData = tableData;
@@ -265,6 +304,15 @@ public partial class ComponentsDemo
     }
 }
 
+public enum DemoColor
+{
+    Red,
+    Green,
+    Blue,
+    Black,
+    Yellow
+}
+
 public class SimpleTableRecord
 {
     public SimpleTableRecord(
@@ -278,7 +326,8 @@ public class SimpleTableRecord
         int statusCode,
         string result,
         double number,
-        double duration)
+        double duration,
+        DemoColor color)
     {
         Id = id;
         ParentId = parentId;
@@ -291,6 +340,13 @@ public class SimpleTableRecord
         Result = result;
         Number = number;
         Duration = duration;
+        UpdateColor(color);
+    }
+
+    public void UpdateColor(DemoColor newColor)
+    {
+        Color = newColor;
+        ColorString = Enum.GetName(typeof(DemoColor), newColor)!;
     }
 
     public string Id { get; }
@@ -304,6 +360,8 @@ public class SimpleTableRecord
     public string Result { get; }
     public double Number { get; }
     public double Duration { get; }
+    public string ColorString { get; private set; } = string.Empty;
+    public DemoColor Color { get; private set; }
 }
 
 public class PersonTableRecord

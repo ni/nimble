@@ -1,5 +1,5 @@
 import { html, repeat } from '@microsoft/fast-element';
-import { parameterizeSpec } from '@ni/jasmine-parameterized';
+import { parameterizeSpec, parameterizeSuite } from '@ni/jasmine-parameterized';
 import { fixture, Fixture } from '../../utilities/tests/fixture';
 import { Combobox, comboboxTag } from '..';
 import { ComboboxAutocomplete } from '../types';
@@ -24,10 +24,10 @@ describe('Combobox', () => {
             // prettier-ignore
             const viewTemplate = html`
                 <${comboboxTag}>
-                    <${listOptionTag} value="one">One</${listOptionTag}>
-                    <${listOptionTag} value="two">Two</${listOptionTag}>
-                    <${listOptionTag} value="three">Three</${listOptionTag}>
-                    <${listOptionTag} value="four" disabled>Four</${listOptionTag}>
+                    <${listOptionTag}>One</${listOptionTag}>
+                    <${listOptionTag}>Two</${listOptionTag}>
+                    <${listOptionTag}>Three</${listOptionTag}>
+                    <${listOptionTag} disabled>Four</${listOptionTag}>
                 </${comboboxTag}>
             `;
             return fixture<Combobox>(viewTemplate);
@@ -244,6 +244,59 @@ describe('Combobox', () => {
             );
         });
 
+        it('shows "no items found" in dropdown when typed text matches nothing', async () => {
+            element.autocomplete = ComboboxAutocomplete.both;
+            pageObject.setInputText('zzz');
+            await waitForUpdatesAsync();
+            expect(pageObject.isNoResultsLabelVisible()).toBeTrue();
+        });
+
+        it('does not show "no items found" in dropdown when typed text matches nothing but autocomplete mode is none', async () => {
+            pageObject.setInputText('zzz');
+            await waitForUpdatesAsync();
+            expect(pageObject.isNoResultsLabelVisible()).toBeFalse();
+        });
+
+        it('does not show "no items found" in dropdown when typed text matches enabled option', async () => {
+            element.autocomplete = ComboboxAutocomplete.both;
+            pageObject.setInputText('o'); // matches "One"
+            await waitForUpdatesAsync();
+            expect(pageObject.isNoResultsLabelVisible()).toBeFalse();
+        });
+
+        it('does not show "no items found" in dropdown when typed text matches disabled option', async () => {
+            element.autocomplete = ComboboxAutocomplete.both;
+            pageObject.setInputText('fo'); // matches "Four"
+            await waitForUpdatesAsync();
+            expect(pageObject.isNoResultsLabelVisible()).toBeFalse();
+        });
+
+        it('does not show "no items found" in dropdown when input is empty', async () => {
+            element.autocomplete = ComboboxAutocomplete.both;
+            await pageObject.clickAndWaitForOpen();
+            expect(pageObject.isNoResultsLabelVisible()).toBeFalse();
+        });
+
+        it('shows "no items found" in dropdown after hiding all options', async () => {
+            pageObject.hideAllOptions();
+            await pageObject.clickAndWaitForOpen();
+            expect(pageObject.isNoResultsLabelVisible()).toBeTrue();
+        });
+
+        it('removes "no items found" from dropdown when a matching option is added', async () => {
+            element.autocomplete = ComboboxAutocomplete.both;
+            pageObject.setInputText('zzz'); // matches "One"
+            await waitForUpdatesAsync();
+
+            const matchingOption = document.createElement(listOptionTag);
+            matchingOption.value = 'zzzzzz';
+            matchingOption.innerHTML = 'Zzzzzz';
+            element.appendChild(matchingOption);
+            await waitForUpdatesAsync();
+
+            expect(pageObject.isNoResultsLabelVisible()).toBeFalse();
+        });
+
         it('emits one change event after changing value through text entry', async () => {
             const changeEvent = jasmine.createSpy();
             element.addEventListener('change', changeEvent);
@@ -303,25 +356,77 @@ describe('Combobox', () => {
             expect(changeEvent).toHaveBeenCalledTimes(1);
         });
 
-        const filterOptionTestData = [
+        it('skips disabled option when navigating dropdown with down arrow key', async () => {
+            element.autocomplete = ComboboxAutocomplete.none;
+            element.options[2]!.disabled = true;
+            element.options[3]!.disabled = false;
+            // now option 'Three' is disabled and 'Four' is enabled
+
+            pageObject.pressArrowDownKey(); // open dropdown
+            pageObject.pressArrowDownKey(); // browse to 'One'
+            pageObject.pressArrowDownKey(); // browse to 'Two'
+            pageObject.pressArrowDownKey(); // skip disabled 'Three', browse to 'Four'
+            await waitForUpdatesAsync();
+
+            expect(element.options[3]!.ariaSelected).toEqual('true');
+        });
+
+        it('skips disabled option when navigating dropdown with up arrow key', async () => {
+            element.autocomplete = ComboboxAutocomplete.none;
+            element.options[2]!.disabled = true;
+            element.options[3]!.disabled = false;
+            // now option 'Three' is disabled and 'Four' is enabled
+
+            await pageObject.commitValue('Four');
+            pageObject.pressArrowDownKey(); // open dropdown
+            pageObject.pressArrowUpKey(); // skip disabled 'Three', browse to 'Two'
+            await waitForUpdatesAsync();
+
+            expect(element.options[1]!.ariaSelected).toEqual('true');
+        });
+
+        const filterOptionSuiteData = [
             {
                 name: ComboboxAutocomplete.inline
             },
             {
+                name: ComboboxAutocomplete.list
+            },
+            {
                 name: ComboboxAutocomplete.both
+            },
+            {
+                name: ComboboxAutocomplete.none
             }
         ] as const;
-        parameterizeSpec(filterOptionTestData, (spec, name) => {
-            spec(
-                `disabled options will not be selected by keyboard input with autocomplete "${name}"`,
-                async () => {
-                    element.autocomplete = name;
-                    pageObject.setInputText('F');
-                    await pageObject.clickAway(); // attempt to commit typed value
-
-                    expect(element.value).not.toEqual('Four');
-                }
-            );
+        const filterOptionTestData = [
+            {
+                name: 'will not autocomplete disabled option',
+                text: 'F'
+            },
+            {
+                name: 'allows committing disabled option from input (exact case)',
+                text: 'Four'
+            },
+            {
+                name: 'allows committing disabled option from input (with case difference)',
+                text: 'four'
+            }
+        ] as const;
+        parameterizeSuite(filterOptionSuiteData, (suite, name) => {
+            suite(`with autocomplete "${name}"`, () => {
+                parameterizeSpec(
+                    filterOptionTestData,
+                    (spec, testName, value) => {
+                        spec(testName, async () => {
+                            element.autocomplete = name;
+                            pageObject.setInputText(value.text);
+                            await pageObject.clickAway(); // attempt to commit typed value
+                            expect(element.value).toEqual(value.text);
+                        });
+                    }
+                );
+            });
         });
 
         describe('title overflow', () => {
@@ -357,8 +462,8 @@ describe('Combobox', () => {
         async function setup(): Promise<Fixture<Combobox>> {
             const viewTemplate = html`
                 <${comboboxTag}>
-                    <${listOptionTag} value="one">One</${listOptionTag}>
-                    <${listOptionTag} value="two">Two</${listOptionTag}>
+                    <${listOptionTag}>One</${listOptionTag}>
+                    <${listOptionTag}>Two</${listOptionTag}>
                 </${comboboxTag}>
             `;
             return fixture<Combobox>(viewTemplate);
@@ -370,7 +475,7 @@ describe('Combobox', () => {
             element.value = 'two';
             await connect();
 
-            expect(element.value).toBe('Two');
+            expect(element.value).toBe('two');
 
             await disconnect();
         });
@@ -385,7 +490,7 @@ describe('Combobox', () => {
                     disabled
                     position="above"
                 >
-                    <${listOptionTag} value="one">One</${listOptionTag}>
+                    <${listOptionTag}>One</${listOptionTag}>
                 </${comboboxTag}>
             `;
             return fixture<Combobox>(viewTemplate);
@@ -477,7 +582,7 @@ describe('Combobox', () => {
                 <div style="overflow: auto;">
                     <<${comboboxTag}>>
                         ${repeat(() => [...Array(5).keys()], html<number>`
-                            <${listOptionTag} value="${x => x}">${x => x}</${listOptionTag}>`)}
+                            <${listOptionTag}>${x => x}</${listOptionTag}>`)}
                     </<${comboboxTag}>>
                 </div>
             `;

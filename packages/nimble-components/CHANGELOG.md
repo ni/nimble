@@ -1,8 +1,58 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Fri, 19 Jul 2024 17:10:26 GMT and should not be manually modified.
+This log was last generated on Tue, 30 Jul 2024 16:53:07 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 30.1.4
+
+Tue, 30 Jul 2024 16:53:07 GMT
+
+### Patches
+
+- Fix bug where user can't type disabled option into combobox ([ni/nimble@383345a](https://github.com/ni/nimble/commit/383345a6f904ce11739e19e2dabb3c913db74bf2))
+
+## 30.1.3
+
+Tue, 30 Jul 2024 14:34:23 GMT
+
+### Patches
+
+- Bump @ni/nimble-tokens to v7.1.0
+
+## 30.1.2
+
+Wed, 24 Jul 2024 16:11:28 GMT
+
+### Patches
+
+- Update TanStack and fix bug with row indentation in the table ([ni/nimble@d9d956e](https://github.com/ni/nimble/commit/d9d956e36236610dae7189cefd179eb5b397a22c))
+
+## 30.1.1
+
+Tue, 23 Jul 2024 21:56:35 GMT
+
+### Patches
+
+- Correct the size of the search icon in the select ([ni/nimble@1616ee0](https://github.com/ni/nimble/commit/1616ee0997b58206f9621957eb13a34e23715ca9))
+
+## 30.1.0
+
+Tue, 23 Jul 2024 20:28:50 GMT
+
+### Minor changes
+
+- Add dropdown placeholder for combobox and rich-text mention listbox ([ni/nimble@e3e202a](https://github.com/ni/nimble/commit/e3e202ae49421a95eab22669cb48cd2100aceb52))
+
+## 30.0.8
+
+Mon, 22 Jul 2024 15:45:21 GMT
+
+### Patches
+
+- Update to typescript 5.4.5 ([ni/nimble@f69586a](https://github.com/ni/nimble/commit/f69586afcbdea5f4b8834d1123ec2b06d4eeecb3))
+- Bump @ni/nimble-tokens to v7.0.1
+- Bump @ni/jasmine-parameterized to v0.3.1
 
 ## 30.0.7
 
