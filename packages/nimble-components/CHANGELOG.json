@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 30 Jul 2024 18:17:00 GMT",
+      "version": "30.1.5",
+      "tag": "@ni/nimble-components_v30.1.5",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "aadc9dc600cbfc59b16001b97f928ea2753815f0",
+            "comment": "Fix menu item indentation bug with dynamically slotted icons"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 30 Jul 2024 16:53:07 GMT",
       "version": "30.1.4",
       "tag": "@ni/nimble-components_v30.1.4",

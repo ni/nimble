@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Fix menu item indentation bug with dynamically slotted icons",
-  "packageName": "@ni/nimble-components",
-  "email": "7282195+m-akinc@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}

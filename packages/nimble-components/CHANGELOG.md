@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Tue, 30 Jul 2024 16:53:07 GMT and should not be manually modified.
+This log was last generated on Tue, 30 Jul 2024 18:17:00 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 30.1.5
+
+Tue, 30 Jul 2024 18:17:00 GMT
+
+### Patches
+
+- Fix menu item indentation bug with dynamically slotted icons ([ni/nimble@aadc9dc](https://github.com/ni/nimble/commit/aadc9dc600cbfc59b16001b97f928ea2753815f0))
 
 ## 30.1.4
 
