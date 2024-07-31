@@ -1,11 +1,7 @@
 import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate } from '@microsoft/fast-element';
 import { keyArrowDown } from '@microsoft/fast-web-utilities';
-import {
-    controlLabelFont,
-    controlLabelFontColor,
-    standardPadding
-} from '../../../../nimble-components/src/theme-provider/design-tokens';
+import { standardPadding } from '../../../../nimble-components/src/theme-provider/design-tokens';
 import { listOptionTag } from '../../../../nimble-components/src/list-option';
 import { listOptionGroupTag } from '../../../../nimble-components/src/list-option-group';
 import { Select, selectTag } from '../../../../nimble-components/src/select';

@@ -1,10 +1,6 @@
 import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate } from '@microsoft/fast-element';
-import {
-    controlLabelFont,
-    controlLabelFontColor,
-    standardPadding
-} from '../../../../nimble-components/src/theme-provider/design-tokens';
+import { standardPadding } from '../../../../nimble-components/src/theme-provider/design-tokens';
 import { listOptionTag } from '../../../../nimble-components/src/list-option';
 import { comboboxTag } from '../../../../nimble-components/src/combobox';
 import { DropdownAppearance } from '../../../../nimble-components/src/patterns/dropdown/types';
