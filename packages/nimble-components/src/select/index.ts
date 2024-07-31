@@ -581,7 +581,11 @@ export class Select
         switch (key) {
             case keyArrowDown: {
                 const selectedOption = this.options[this.selectedIndex];
-                if (this.open && isListOption(selectedOption) && !isOptionOrGroupVisible(selectedOption)) {
+                if (
+                    this.open
+                    && isListOption(selectedOption)
+                    && !isOptionOrGroupVisible(selectedOption)
+                ) {
                     if (this.openActiveIndex === this.selectedIndex) {
                         this.selectFirstOption();
                     } else {
