@@ -1,4 +1,8 @@
-import { keyEnter, keyArrowDown } from '@microsoft/fast-web-utilities';
+import {
+    keyEnter,
+    keyArrowDown,
+    keyArrowUp
+} from '@microsoft/fast-web-utilities';
 import type { Combobox } from '..';
 import { listOptionTag } from '../../list-option';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
@@ -174,6 +178,36 @@ export class ComboboxPageObject {
     public pressArrowDownKey(): void {
         this.comboboxElement.dispatchEvent(
             new KeyboardEvent('keydown', { key: keyArrowDown })
+        );
+    }
+
+    /**
+     * @internal
+     */
+    public pressArrowUpKey(): void {
+        this.comboboxElement.dispatchEvent(
+            new KeyboardEvent('keydown', { key: keyArrowUp })
+        );
+    }
+
+    /**
+     * @internal
+     */
+    public hideAllOptions(): void {
+        this.comboboxElement.options.forEach(o => {
+            o.hidden = true;
+        });
+        this.comboboxElement.filterOptions();
+    }
+
+    /**
+     * @internal
+     */
+    public isNoResultsLabelVisible(): boolean {
+        return (
+            this.comboboxElement.shadowRoot?.querySelector(
+                '.no-results-label'
+            ) !== null
         );
     }
 

@@ -1,8 +1,64 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Mon, 22 Jul 2024 15:45:21 GMT and should not be manually modified.
+This log was last generated on Tue, 30 Jul 2024 20:21:00 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 30.1.6
+
+Tue, 30 Jul 2024 20:21:00 GMT
+
+### Patches
+
+- Update menu-button column styles ([ni/nimble@eee47c4](https://github.com/ni/nimble/commit/eee47c414117bc18a6fb858c26ec8ea39f86f57d))
+
+## 30.1.5
+
+Tue, 30 Jul 2024 18:17:00 GMT
+
+### Patches
+
+- Fix menu item indentation bug with dynamically slotted icons ([ni/nimble@aadc9dc](https://github.com/ni/nimble/commit/aadc9dc600cbfc59b16001b97f928ea2753815f0))
+
+## 30.1.4
+
+Tue, 30 Jul 2024 16:53:07 GMT
+
+### Patches
+
+- Fix bug where user can't type disabled option into combobox ([ni/nimble@383345a](https://github.com/ni/nimble/commit/383345a6f904ce11739e19e2dabb3c913db74bf2))
+
+## 30.1.3
+
+Tue, 30 Jul 2024 14:34:23 GMT
+
+### Patches
+
+- Bump @ni/nimble-tokens to v7.1.0
+
+## 30.1.2
+
+Wed, 24 Jul 2024 16:11:28 GMT
+
+### Patches
+
+- Update TanStack and fix bug with row indentation in the table ([ni/nimble@d9d956e](https://github.com/ni/nimble/commit/d9d956e36236610dae7189cefd179eb5b397a22c))
+
+## 30.1.1
+
+Tue, 23 Jul 2024 21:56:35 GMT
+
+### Patches
+
+- Correct the size of the search icon in the select ([ni/nimble@1616ee0](https://github.com/ni/nimble/commit/1616ee0997b58206f9621957eb13a34e23715ca9))
+
+## 30.1.0
+
+Tue, 23 Jul 2024 20:28:50 GMT
+
+### Minor changes
+
+- Add dropdown placeholder for combobox and rich-text mention listbox ([ni/nimble@e3e202a](https://github.com/ni/nimble/commit/e3e202ae49421a95eab22669cb48cd2100aceb52))
 
 ## 30.0.8
 

@@ -136,6 +136,7 @@ export class Combobox
      *
      * The collection of currently filtered options.
      */
+    @observable
     public filteredOptions: ListboxOption[] = [];
 
     /** @internal */
@@ -148,22 +149,20 @@ export class Combobox
     }
 
     public override set value(next: string) {
-        const prev = `${this._value}`;
+        const prev = this._value;
         let updatedValue = next;
 
         if (this.$fastController.isConnected && this.options) {
-            const selectedIndex = this.options.findIndex(
-                el => el.text.toLowerCase() === next.toLowerCase()
-            );
+            const selectedIndex = this.findIndexOfValidOption(next);
 
             const prevSelectedValue = this.options[this.selectedIndex]?.text;
             const nextSelectedValue = this.options[selectedIndex]?.text;
 
-            this.selectedIndex = prevSelectedValue !== nextSelectedValue
-                ? selectedIndex
-                : this.selectedIndex;
+            if (prevSelectedValue !== nextSelectedValue) {
+                this.selectedIndex = selectedIndex;
+            }
 
-            updatedValue = this.firstSelectedOption?.text || next;
+            updatedValue = this.firstSelectedOption?.text || updatedValue;
         }
 
         if (prev !== updatedValue) {
@@ -175,9 +174,7 @@ export class Combobox
         // Can remove when following resolved: https://github.com/microsoft/fast/issues/6749
         this.filter = next;
         this.filterOptions();
-        this.selectedIndex = this.options
-            .map(option => option.text)
-            .indexOf(this.value);
+        this.selectedIndex = this.findIndexOfValidOption(this.value);
     }
 
     /**
@@ -187,7 +184,7 @@ export class Combobox
      */
     public override get options(): ListboxOption[] {
         Observable.track(this, 'options');
-        return this.filteredOptions?.length
+        return this.filteredOptions && this.filter
             ? this.filteredOptions
             : this._options;
     }
@@ -340,20 +337,15 @@ export class Combobox
 
         const filter = this.filter.toLowerCase();
 
-        this.filteredOptions = this._options.filter(o => o.text.toLowerCase().startsWith(filter));
+        this.filteredOptions = this._options.filter(
+            o => o.text.toLowerCase().startsWith(filter) && !o.hidden
+        );
 
         if (this.isAutocompleteList) {
-            if (!this.filteredOptions.length && !filter) {
-                this.filteredOptions = this._options;
-            }
-
             this._options.forEach(o => {
                 (o as ListOption).visuallyHidden = !this.filteredOptions.includes(o);
             });
         }
-
-        const enabledOptions = this.filteredOptions.filter(o => !o.disabled);
-        this.filteredOptions = enabledOptions;
     }
 
     /**
@@ -364,12 +356,12 @@ export class Combobox
         this.filterOptions();
 
         if (!this.isAutocompleteInline) {
-            this.selectedIndex = this.options
-                .map(option => option.text)
-                .indexOf(this.control.value);
+            this.selectedIndex = this.findIndexOfValidOption(
+                this.control.value
+            );
         }
 
-        if (!(e.inputType.includes('deleteContent') || !this.filter.length)) {
+        if (!e.inputType.includes('deleteContent') && this.filter.length) {
             if (this.isAutocompleteList && !this.open) {
                 this.open = true;
             }
@@ -543,7 +535,8 @@ export class Combobox
     public override setDefaultSelectedOption(): void {
         if (this.$fastController.isConnected && this.options) {
             const selectedIndex = this.options.findIndex(
-                el => el.getAttribute('selected') !== null || el.selected
+                el => !el.disabled
+                    && (el.getAttribute('selected') !== null || el.selected)
             );
 
             this.selectedIndex = selectedIndex;
@@ -562,11 +555,11 @@ export class Combobox
         next: number
     ): void {
         if (this.$fastController.isConnected) {
-            const pinnedSelectedIndex = limit(
-                -1,
-                this.options.length - 1,
-                next
-            );
+            let pinnedSelectedIndex = limit(-1, this.options.length - 1, next);
+            // Ensure selectedIndex doesn't get set to a disabled option
+            if (this.options[pinnedSelectedIndex]?.disabled) {
+                pinnedSelectedIndex = -1;
+            }
 
             // we only want to call the super method when the selectedIndex is in range
             if (pinnedSelectedIndex !== this.selectedIndex) {
@@ -575,6 +568,10 @@ export class Combobox
             }
 
             super.selectedIndexChanged(prev, pinnedSelectedIndex);
+            // the base class doesn't call this when no option is selected, but we need to,
+            // otherwise selectedOptions, ariaActiveDescendant, and the previously selected
+            // option's selected state won't be updated
+            this.setSelectedOptions();
         }
     }
 
@@ -591,15 +588,42 @@ export class Combobox
     }
 
     /**
+     * Move focus to the next selectable option.
+     *
+     * @internal
+     * @remarks Has the same behavior as `Listbox.selectNextOption` except it skips disabled options.
+     * Overrides `Listbox.selectNextOption`
+     */
+    public override selectNextOption(): void {
+        if (!this.disabled) {
+            let newIndex = this.selectedIndex;
+            do {
+                if (newIndex + 1 >= this.options.length) {
+                    return;
+                }
+                newIndex += 1;
+            } while (this.options[newIndex]!.disabled);
+            this.selectedIndex = newIndex;
+        }
+    }
+
+    /**
      * Move focus to the previous selectable option.
      *
      * @internal
-     * @remarks
+     * @remarks Has the same behavior as `Listbox.selectPreviousOption` except it skips disabled options and allows moving focus to the input.
      * Overrides `Listbox.selectPreviousOption`
      */
     public override selectPreviousOption(): void {
-        if (!this.disabled && this.selectedIndex >= 0) {
-            this.selectedIndex -= 1;
+        if (!this.disabled) {
+            let newIndex = this.selectedIndex;
+            do {
+                newIndex -= 1;
+                if (newIndex < 0) {
+                    break;
+                }
+            } while (this.options[newIndex]!.disabled);
+            this.selectedIndex = newIndex;
         }
     }
 
@@ -680,6 +704,18 @@ export class Combobox
         if (this.proxy instanceof HTMLInputElement) {
             this.proxy.placeholder = this.placeholder ?? '';
         }
+    }
+
+    /**
+     * Need to update even when options is empty.
+     * @internal
+     * @remarks Same as `Listbox.setSelectedOptions` except does not check if options is non-empty.
+     * Overrides: `Listbox.setSelectedOptions`
+     */
+    protected override setSelectedOptions(): void {
+        this.selectedOptions = this.selectedIndex > -1 ? [this.options[this.selectedIndex]!] : [];
+        this.ariaActiveDescendant = this.firstSelectedOption?.id ?? '';
+        this.focusAndScrollOptionIntoView();
     }
 
     /**
@@ -810,6 +846,12 @@ export class Combobox
 
             this.valueUpdatedByInput = false;
         }
+    }
+
+    private findIndexOfValidOption(optionText: string): number {
+        return this.options.findIndex(
+            o => !o.disabled && o.text === optionText
+        );
     }
 }
 
