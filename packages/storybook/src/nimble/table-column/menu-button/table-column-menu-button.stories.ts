@@ -9,7 +9,10 @@ import { tableColumnTextTag } from '../../../../../nimble-components/src/table-c
 import { tableColumnMenuButtonTag } from '../../../../../nimble-components/src/table-column/menu-button';
 import type { MenuButtonColumnToggleEventDetail } from '../../../../../nimble-components/src/table-column/menu-button/types';
 import { Menu, menuTag } from '../../../../../nimble-components/src/menu';
-import { MenuItem, menuItemTag } from '../../../../../nimble-components/src/menu-item';
+import {
+    MenuItem,
+    menuItemTag
+} from '../../../../../nimble-components/src/menu-item';
 import {
     SharedTableArgs,
     sharedTableActions,
@@ -320,7 +323,9 @@ export const menuButtonColumn: StoryObj<MenuButtonColumnTableArgs> = {
         ): void => {
             if (e.detail.newState) {
                 const recordId = e.detail.recordId;
-                const record = storyArgs.currentData.find(d => d.id === recordId)!;
+                const record = storyArgs.currentData.find(
+                    d => d.id === recordId
+                )!;
 
                 const changeFavoriteColor = (color: string): void => {
                     record.favoriteColor = color;

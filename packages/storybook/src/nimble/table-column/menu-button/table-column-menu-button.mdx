@@ -36,14 +36,20 @@ responsibility to do the following:
 
 ### Menu Button Column vs Table Action Menu
 
-Both an action menu on a column and the <Tag name={tableColumnMenuButtonTag}/> provide ways to provide a menu associated with a row in the table. However, they are used in different contexts.
+Both an action menu on a column and the <Tag name={tableColumnMenuButtonTag}/>
+provide ways to provide a menu associated with a row in the table. However, they
+are used in different contexts.
 
 An action menu should be used in the table when:
--  the items in the menu are actions to be performed on the record
--  selecting an item in the menu does not change the value of the record
+
+-   the items in the menu are actions to be performed on the record
+-   selecting an item in the menu does not change the value of the record
 
 The <Tag name={tableColumnMenuButtonTag}/> should be used when:
--  the items in the menu represent values that can be assigned to the record
--  the currently selected value should be displayed in the table
 
-When using the <Tag name={tableColumnMenuButtonTag}/>, the currently selected value should also exist as an item in the menu and be marked as selected with the <Tag name={iconCheckTag}/>.
+-   the items in the menu represent values that can be assigned to the record
+-   the currently selected value should be displayed in the table
+
+When using the <Tag name={tableColumnMenuButtonTag}/>, the currently selected
+value should also exist as an item in the menu and be marked as selected with
+the <Tag name={iconCheckTag}/>.
