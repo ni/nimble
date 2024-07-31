@@ -572,7 +572,7 @@ export class Select
             return true;
         }
 
-        if (key !== keyArrowDown) {
+        if (key !== keyArrowDown && key !== keyArrowUp) {
             super.keydownHandler(e);
         }
 
@@ -590,6 +590,26 @@ export class Select
                         this.selectFirstOption();
                     } else {
                         this.selectNextOption();
+                    }
+                } else {
+                    super.keydownHandler(e);
+                }
+
+                // update currentActiveIndex again as dependent state may have changed
+                currentActiveIndex = this.openActiveIndex ?? this.selectedIndex;
+                break;
+            }
+            case keyArrowUp: {
+                const selectedOption = this.options[this.selectedIndex];
+                if (
+                    this.open
+                    && isListOption(selectedOption)
+                    && !isOptionOrGroupVisible(selectedOption)
+                ) {
+                    if (this.openActiveIndex === this.selectedIndex) {
+                        this.selectLastOption();
+                    } else {
+                        this.selectPreviousOption();
                     }
                 } else {
                     super.keydownHandler(e);

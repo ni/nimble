@@ -623,6 +623,43 @@ describe('Select', () => {
         await disconnect();
     });
 
+    it('when second option is selected and hidden, pressing arrow up while dropdown is open selects last option', async () => {
+        const { element, connect, disconnect } = await setup(
+            undefined,
+            false,
+            undefined,
+            'hidden selected'
+        );
+        const pageObject = new SelectPageObject(element);
+        await connect();
+        await waitForUpdatesAsync();
+        pageObject.clickSelect();
+        pageObject.pressArrowUpKey();
+
+        expect(pageObject.getActiveOption()?.value).toBe('has space');
+
+        await disconnect();
+    });
+
+    it('when second option is selected and hidden, pressing arrow up twice while dropdown is open selects second to last option', async () => {
+        const { element, connect, disconnect } = await setup(
+            undefined,
+            false,
+            undefined,
+            'hidden selected'
+        );
+        const pageObject = new SelectPageObject(element);
+        await connect();
+        await waitForUpdatesAsync();
+        pageObject.clickSelect();
+        pageObject.pressArrowUpKey();
+        pageObject.pressArrowUpKey();
+
+        expect(pageObject.getActiveOption()?.value).toBe('zürich');
+
+        await disconnect();
+    });
+
     describe('with all options disabled', () => {
         async function setupAllDisabled(): Promise<Fixture<Select>> {
             const viewTemplate = html`
