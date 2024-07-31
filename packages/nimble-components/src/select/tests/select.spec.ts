@@ -736,7 +736,6 @@ describe('Select', () => {
                 '--ni-private-listbox-visible-option-count',
                 '10000'
             );
-            // await waitForUpdatesAsync();
             const fullyVisible = await checkFullyInViewport(element.listbox);
 
             expect(element.scrollableRegion.scrollHeight).toBeGreaterThan(
