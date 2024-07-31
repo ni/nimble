@@ -55,10 +55,8 @@ export function arrayToTree<TData extends TableRecord>(
             orphanIds.delete(itemId);
         }
 
-        // Add the current item's data to the item in the lookup table.
-        // Make a shallow clone of the record to avoid holding a reference to the client's data object.
-        // This also ensures that a data update will always result in a row's record being a new object.
-        lookup[itemId]!.clientRecord = { ...item };
+        // add the current item's data to the item in the lookup table
+        lookup[itemId]!.clientRecord = item;
         const treeItem = lookup[itemId]!;
 
         // Add the index to the item

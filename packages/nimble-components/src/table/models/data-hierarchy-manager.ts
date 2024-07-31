@@ -20,7 +20,6 @@ export class DataHierarchyManager<TData extends TableRecord> {
             && typeof parentIdFieldName === 'string'
         ) {
             try {
-                // The arrayToTree algorithm will make a shallow clone of the records, so it does not need to be done here.
                 this._hierarchicalData = arrayToTree<TData>(records, {
                     id: idFieldName,
                     parentId: parentIdFieldName
@@ -30,9 +29,7 @@ export class DataHierarchyManager<TData extends TableRecord> {
             } catch {
                 this.isDataFlat = true;
                 this._hierarchicalData = records.map((record, index) => ({
-                    // Make a shallow clone of the record to avoid holding a reference to the client's data object.
-                    // This also ensures that a data update will always result in a row's record being a new object.
-                    clientRecord: { ...record },
+                    clientRecord: record,
                     originalIndex: index
                 }));
                 this._parentIdConfigurationValid = false;
@@ -40,9 +37,7 @@ export class DataHierarchyManager<TData extends TableRecord> {
         } else {
             this.isDataFlat = true;
             this._hierarchicalData = records.map((record, index) => ({
-                // Make a shallow clone of the record to avoid holding a reference to the client's data object.
-                // This also ensures that a data update will always result in a row's record being a new object.
-                clientRecord: { ...record },
+                clientRecord: record,
                 originalIndex: index
             }));
             this._parentIdConfigurationValid = true;
