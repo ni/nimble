@@ -591,6 +591,7 @@ export class Select
                     super.keydownHandler(e);
                 }
 
+                // update currentActiveIndex again as dependent state may have changed
                 currentActiveIndex = this.openActiveIndex ?? this.selectedIndex;
                 break;
             }
