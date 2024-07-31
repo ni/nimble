@@ -321,7 +321,10 @@ export class Table<
 
     public async setData(newData: readonly TData[]): Promise<void> {
         await this.processPendingUpdates();
-        const tanstackUpdates = this.calculateTanStackData(newData);
+        // Make a shallow clone of the record to avoid holding a reference to the client's data object.
+        // This also ensures that a data update will always result in a row's record being a new object.
+        const clonedData = newData.map(record => ({ ...record }));
+        const tanstackUpdates = this.calculateTanStackData(clonedData);
         this.updateTableOptions(tanstackUpdates);
     }
 

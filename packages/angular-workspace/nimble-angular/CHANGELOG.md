@@ -1,8 +1,25 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Tue, 30 Jul 2024 20:21:00 GMT and should not be manually modified.
+This log was last generated on Wed, 31 Jul 2024 20:23:24 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 26.1.0
+
+Wed, 31 Jul 2024 20:23:24 GMT
+
+### Minor changes
+
+- Export mapping column page object; extend the table page object in Angular to have an async function to wait for data to render when using the `data$` property of the table directive ([ni/nimble@50e5761](https://github.com/ni/nimble/commit/50e5761eb6df8cccbe1421c99b589bc6f6cf9dfe))
+- Bump @ni/nimble-components to v30.2.0
+
+## 26.0.8
+
+Wed, 31 Jul 2024 19:44:32 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v30.1.7
 
 ## 26.0.7
 

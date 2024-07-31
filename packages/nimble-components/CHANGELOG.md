@@ -1,8 +1,24 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Tue, 30 Jul 2024 20:21:00 GMT and should not be manually modified.
+This log was last generated on Wed, 31 Jul 2024 20:23:25 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 30.2.0
+
+Wed, 31 Jul 2024 20:23:25 GMT
+
+### Minor changes
+
+- Add function to the table page object for getting the text content of a column header ([ni/nimble@50e5761](https://github.com/ni/nimble/commit/50e5761eb6df8cccbe1421c99b589bc6f6cf9dfe))
+
+## 30.1.7
+
+Wed, 31 Jul 2024 19:44:32 GMT
+
+### Patches
+
+- Fix bug in nimble-table to avoid requiring a full copy of the data to be made when hierarchy is enabled ([ni/nimble@70d12f4](https://github.com/ni/nimble/commit/70d12f40e37e0600c802931b578a2288f4004b59))
 
 ## 30.1.6
 
