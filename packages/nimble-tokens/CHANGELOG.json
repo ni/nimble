@@ -2,6 +2,21 @@
   "name": "@ni/nimble-tokens",
   "entries": [
     {
+      "date": "Tue, 30 Jul 2024 14:34:23 GMT",
+      "version": "7.1.0",
+      "tag": "@ni/nimble-tokens_v7.1.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "123377167+aagash-ni@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "2488638308b5e511f247dc1d113f1b2b6d74c2d4",
+            "comment": "Add color tokens for mobiscroll components"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 22 Jul 2024 15:45:21 GMT",
       "version": "7.0.1",
       "tag": "@ni/nimble-tokens_v7.0.1",

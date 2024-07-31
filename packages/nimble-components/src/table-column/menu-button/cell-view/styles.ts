@@ -1,5 +1,4 @@
 import { css } from '@microsoft/fast-element';
-import { controlSlimHeight } from '../../../theme-provider/design-tokens';
 
 export const styles = css`
     :host {
@@ -8,7 +7,6 @@ export const styles = css`
     }
 
     nimble-menu-button {
-        height: ${controlSlimHeight};
         width: 100%;
     }
 
