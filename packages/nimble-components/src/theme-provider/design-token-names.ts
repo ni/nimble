@@ -240,24 +240,27 @@ export const tokenNames: { readonly [key in TokenName]: string } = {
     mentionFontSize: 'mention-font-size',
     mentionFontWeight: 'mention-font-weight',
     mentionFontLineHeight: 'mention-font-line-height',
-    calendarStaticEventBackgroundColor:
-        'calendar-static-event-background-color',
-    calendarDynamicEventBackgroundColor:
-        'calendar-dynamic-event-background-color',
-    calendarTransientEventBackgroundColor:
-        'calendar-transient-event-background-color',
-    calendarStaticEventBorderColor: 'calendar-static-event-border-color',
-    calendarTransientEventBorderColor: 'calendar-transient-event-border-color',
-    calendarStaticEventFontColor: 'calendar-static-event-font-color',
-    calendarDynamicEventFontColor: 'calendar-dynamic-event-font-color',
-    calendarTransientEventFontColor: 'calendar-transient-event-font-color',
-    calendarStaticEventHoverColor: 'calendar-static-event-hover-color',
-    calendarDynamicEventHoverColor: 'calendar-dynamic-event-hover-color',
-    calendarTransientEventHoverColor: 'calendar-transient-event-hover-color',
-    calendarResourceSelectionBackgroundColor:
-        'calendar-resource-selection-background-color',
-    calendarBlockedStrokeColor: 'calendar-blocked-stroke-color',
-    calendarEventResizeRingColor: 'calendar-event-resize-ring-color'
+    calendarEventBackgroundStaticColor:
+        'calendar-event-background-static-color',
+    calendarEventBackgroundDynamicColor:
+        'calendar-event-background-dynamic-color',
+    calendarEventBackgroundTransientColor:
+        'calendar-event-background-transient-color',
+    calendarEventBorderStaticColor: 'calendar-event-border-static-color',
+    calendarEventBorderTransientColor: 'calendar-event-border-transient-color',
+    calendarEventStaticFontColor: 'calendar-event-static-font-color',
+    calendarEventDynamicFontColor: 'calendar-event-dynamic-font-color',
+    calendarEventTransientFontColor: 'calendar-event-transient-font-color',
+    calendarEventBackgroundHoverStaticColor:
+        'calendar-event-background-hover-static-color',
+    calendarEventBackgroundHoverDynamicColor:
+        'calendar-event-background-hover-dynamic-color',
+    calendarEventBackgroundHoverTransientColor:
+        'calendar-event-background-hover-transient-color',
+    calendarResourceBackgroundHighlightColor:
+        'calendar-resource-background-highlight-color',
+    calendarEventStrokeBlockColor: 'calendar-event-stroke-block-color',
+    calendarGrabHandleBackgroundColor: 'calendar-grab-handle-background-color'
 };
 
 const prefix = 'ni-nimble';

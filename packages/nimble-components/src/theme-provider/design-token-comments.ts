@@ -294,28 +294,28 @@ export const comments: { readonly [key in TokenName]: string } = {
     mentionFontSize: 'Font size for mention views',
     mentionFontWeight: 'Font weight for mention views',
     mentionFontLineHeight: 'Font line height for mention views',
-    calendarStaticEventBackgroundColor:
+    calendarEventBackgroundStaticColor:
         'Background color for static calendar events',
-    calendarDynamicEventBackgroundColor:
+    calendarEventBackgroundDynamicColor:
         'Background color for dynamic calendar events',
-    calendarTransientEventBackgroundColor:
+    calendarEventBackgroundTransientColor:
         'Background color for transient calendar events',
-    calendarStaticEventBorderColor: 'Border color for static calendar events',
-    calendarTransientEventBorderColor:
+    calendarEventBorderStaticColor: 'Border color for static calendar events',
+    calendarEventBorderTransientColor:
         'Border color for transient calendar events',
-    calendarStaticEventFontColor: 'Font color for static calendar events',
-    calendarDynamicEventFontColor: 'Font color for dynamic calendar events',
-    calendarTransientEventFontColor: 'Font color for transient calendar events',
-    calendarStaticEventHoverColor:
+    calendarEventStaticFontColor: 'Font color for static calendar events',
+    calendarEventDynamicFontColor: 'Font color for dynamic calendar events',
+    calendarEventTransientFontColor: 'Font color for transient calendar events',
+    calendarEventBackgroundHoverStaticColor:
         'Color while hovering static calendar events',
-    calendarDynamicEventHoverColor:
+    calendarEventBackgroundHoverDynamicColor:
         'Color while hovering dynamic calendar events',
-    calendarTransientEventHoverColor:
+    calendarEventBackgroundHoverTransientColor:
         'Color while hovering transient calendar events',
-    calendarResourceSelectionBackgroundColor:
-        'Background color while calendar resource is selected',
-    calendarBlockedStrokeColor:
+    calendarResourceBackgroundHighlightColor:
+        'Background color while calendar resource is selected/highlighted',
+    calendarEventStrokeBlockColor:
         'Background fill to indicate the occupied slots in calendar resource rows',
-    calendarEventResizeRingColor:
-        'Background fill color for the editable calendar event resize ring'
+    calendarGrabHandleBackgroundColor:
+        'Background fill color for the editable calendar event grab handle'
 };
