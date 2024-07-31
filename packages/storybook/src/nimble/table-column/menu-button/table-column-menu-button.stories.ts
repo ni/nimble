@@ -1,6 +1,8 @@
 import { html, ref } from '@microsoft/fast-element';
 import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html';
 import { withActions } from '@storybook/addon-actions/decorator';
+import { iconCheckTag } from '../../../../../nimble-components/src/icons/check';
+import { iconCheckLargeTag } from '../../../../../nimble-components/src/icons/check-large';
 import { tableTag } from '../../../../../nimble-components/src/table';
 import type { TableRecord } from '../../../../../nimble-components/src/table/types';
 import { tableColumnTextTag } from '../../../../../nimble-components/src/table-column/text';
@@ -19,11 +21,8 @@ import {
     createUserSelectedThemeStory,
     disableStorybookZoomTransform
 } from '../../../utilities/storybook';
-import { iconCheckTag } from '@ni/nimble-components/src/icons/check';
-import { iconCheckLargeTag } from '@ni/nimble-components/src/icons/check-large';
 
 const colors = ['Red', 'Green', 'Blue', 'Black', 'Yellow'] as const;
-type Color = typeof colors[number];
 
 const simpleData = [
     {
