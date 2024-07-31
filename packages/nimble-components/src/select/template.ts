@@ -58,6 +58,7 @@ SelectOptions
         aria-disabled="${x => x.ariaDisabled}"
         aria-expanded="${x => x.ariaExpanded}"
         aria-haspopup="${x => (x.collapsible ? 'listbox' : null)}"
+        aria-label="${x => x.labelContent}"
         aria-multiselectable="${x => x.ariaMultiSelectable}"
         ?open="${x => x.open}"
         role="combobox"
@@ -69,6 +70,9 @@ SelectOptions
         @keydown="${(x, c) => x.keydownHandler(c.event as KeyboardEvent)}"
         @mousedown="${(x, c) => x.mousedownHandler(c.event as MouseEvent)}"
     >
+        <label part="label" class="label">
+            <slot ${ref('labelSlot')}></slot>
+        </label>
         ${when(x => x.collapsible, html<Select>`
             <div
                 class="control"

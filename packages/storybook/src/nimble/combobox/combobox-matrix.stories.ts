@@ -53,34 +53,24 @@ const component = (
     [errorName, errorVisible, errorText]: ErrorState,
     [valueName, value, placeholder]: ValueState
 ): ViewTemplate => html`
-    <div style="
-        display: inline-flex;
-        flex-direction: column;
-        margin: var(${standardPadding.cssCustomProperty});
-        font: var(${controlLabelFont.cssCustomProperty});
-        color: var(${controlLabelFontColor.cssCustomProperty});"
+    <${comboboxTag} 
+        ?disabled="${() => disabled}"
+        appearance="${() => appearance}"
+        ?error-visible="${() => errorVisible}"
+        error-text="${() => errorText}"
+        value="${() => value}"
+        placeholder="${() => placeholder}"
+        style="width: 250px; margin: var(${standardPadding.cssCustomProperty});"
     >
-        <label>
-            ${() => disabledName}
-            ${() => appearanceName}
-            ${() => errorName}
-            ${() => valueName}
-        </label>
-        <${comboboxTag} 
-            ?disabled="${() => disabled}"
-            appearance="${() => appearance}"
-            ?error-visible="${() => errorVisible}"
-            error-text="${() => errorText}"
-            value="${() => value}"
-            placeholder="${() => placeholder}"
-            style="width: 250px;"
-        >
-            <${listOptionTag} value="1">Option 1</${listOptionTag}>
-            <${listOptionTag} value="2" disabled>Option 2</${listOptionTag}>
-            <${listOptionTag} value="3">Option 3</${listOptionTag}>
-            <${listOptionTag} value="4" hidden>Option 4</${listOptionTag}>
-        </${comboboxTag}>
-    </div>
+        ${() => disabledName}
+        ${() => appearanceName}
+        ${() => errorName}
+        ${() => valueName}
+        <${listOptionTag} value="1">Option 1</${listOptionTag}>
+        <${listOptionTag} value="2" disabled>Option 2</${listOptionTag}>
+        <${listOptionTag} value="3">Option 3</${listOptionTag}>
+        <${listOptionTag} value="4" hidden>Option 4</${listOptionTag}>
+    </${comboboxTag}>
 `;
 
 export const comboboxThemeMatrix: StoryFn = createMatrixThemeStory(
@@ -105,4 +95,18 @@ export const blankListOption: StoryFn = createStory(
         <${listOptionTag} value="1">Option 1</${listOptionTag}>
         <${listOptionTag}></${listOptionTag}>
     </${comboboxTag}>`
+);
+
+export const heightTest: StoryFn = createStory(
+    html`
+        <div style="display: flex; flex-direction: column">
+            <${comboboxTag} style="border: 1px dashed; width: 250px">
+                With Label
+                <${listOptionTag} value="1">Option 1</${listOptionTag}>
+            </${comboboxTag}>
+            <${comboboxTag} style="border: 1px dashed; width: 250px">
+                <${listOptionTag} value="1">Option 1</${listOptionTag}>
+            </${comboboxTag}>
+        </div>
+    `
 );

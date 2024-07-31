@@ -63,28 +63,20 @@ const component = (
     [valueName, valueValue]: ValueState,
     [clearableName, clearable]: ClearableState
 ): ViewTemplate => html`
-    <div style="
-        display: inline-flex;
-        flex-direction: column;
-        margin: var(${standardPadding.cssCustomProperty});
-        font: var(${controlLabelFont.cssCustomProperty});
-        color: var(${controlLabelFontColor.cssCustomProperty});"
+    <${selectTag}
+        ?error-visible="${() => errorVisible}"
+        error-text="${() => errorText}"
+        ?disabled="${() => disabled}"
+        ?clearable="${() => clearable}"
+        appearance="${() => appearance}"
+        style="width: 250px; margin: var(${standardPadding.cssCustomProperty});"
     >
-        <label>${() => errorName} ${() => disabledName} ${() => appearanceName} ${() => valueName} ${() => clearableName}</label>
-        <${selectTag}
-            ?error-visible="${() => errorVisible}"
-            error-text="${() => errorText}"
-            ?disabled="${() => disabled}"
-            ?clearable="${() => clearable}"
-            appearance="${() => appearance}"
-            style="width: 250px;"
-        >
-            <${listOptionTag} value="1">${valueValue}</${listOptionTag}>
-            <${listOptionTag} value="2" disabled>Option 2</${listOptionTag}>
-            <${listOptionTag} value="3">Option 3</${listOptionTag}>
-            <${listOptionTag} value="4" hidden>Option 4</${listOptionTag}>
-        </${selectTag}>
-    </div>
+        ${() => errorName} ${() => disabledName} ${() => appearanceName} ${() => valueName} ${() => clearableName}
+        <${listOptionTag} value="1">${valueValue}</${listOptionTag}>
+        <${listOptionTag} value="2" disabled>Option 2</${listOptionTag}>
+        <${listOptionTag} value="3">Option 3</${listOptionTag}>
+        <${listOptionTag} value="4" hidden>Option 4</${listOptionTag}>
+    </${selectTag}>
 `;
 
 export const selectThemeMatrix: StoryFn = createMatrixThemeStory(
@@ -158,4 +150,18 @@ export const textCustomized: StoryFn = createMatrixThemeStory(
             </${selectTag}>
         `
     )
+);
+
+export const heightTest: StoryFn = createStory(
+    html`
+        <div style="display: flex; flex-direction: column">
+            <${selectTag} style="border: 1px dashed; width: 250px">
+                With Label
+                <${listOptionTag} value="1">Option 1</${listOptionTag}>
+            </${selectTag}>
+            <${selectTag} style="border: 1px dashed; width: 250px">
+                <${listOptionTag} value="1">Option 1</${listOptionTag}>
+            </${selectTag}>
+        </div>
+    `
 );

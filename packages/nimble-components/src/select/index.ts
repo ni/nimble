@@ -199,6 +199,23 @@ export class Select
         return !(this.multiple || typeof this.size === 'number');
     }
 
+    /** @internal */
+    public labelSlot!: HTMLSlotElement;
+
+    /** @internal */
+    @volatile
+    public get labelContent(): string {
+        if (!this.$fastController.isConnected) {
+            return '';
+        }
+
+        const nodes = this.labelSlot.assignedNodes();
+        return nodes
+            .filter(node => node.textContent?.trim() !== '')
+            .map(node => node.textContent?.trim())
+            .join(' ');
+    }
+
     private _value = '';
     private forcedPosition = false;
     private openActiveIndex?: number;
