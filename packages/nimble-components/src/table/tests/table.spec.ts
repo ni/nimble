@@ -195,14 +195,12 @@ describe('Table', () => {
             await element.setData(simpleTableData);
             await waitForUpdatesAsync();
 
-            let headerContent = pageObject.getHeaderContent(0)!.firstChild;
-            expect(headerContent?.textContent).toEqual('stringData');
+            expect(pageObject.getHeaderTextContent(0)).toEqual('stringData');
 
             element.columns[0]!.textContent = 'foo';
             await waitForUpdatesAsync();
 
-            headerContent = pageObject.getHeaderContent(0)!.firstChild;
-            expect(headerContent?.textContent).toEqual('foo');
+            expect(pageObject.getHeaderTextContent(0)).toEqual('foo');
         });
 
         it('sets title when header text is ellipsized', async () => {
