@@ -44,7 +44,7 @@
     "test-webkit:verbose": "karma start karma.conf.verbose.js --browsers=WebkitHeadless --single-run --skip-tags SkipWebkit",
     "test-webkit:watch": "karma start karma.conf.js --browsers=WebkitHeadless --skip-tags SkipWebkit --watch-extensions js",
     "test-webkit": "karma start karma.conf.js --browsers=WebkitHeadless --single-run --skip-tags SkipWebkit",
-    "test-concurrent": "concurrently --timings --group \"npm:test-chrome:verbose\" \"npm:test-firefox:verbose\" \"npm:test-webkit:verbose\""
+    "test-concurrent": "concurrently -m 2 --timings --group \"npm:test-chrome:verbose\" \"npm:test-firefox:verbose\" \"npm:test-webkit:verbose\""
   },
   "repository": {
     "type": "git",
