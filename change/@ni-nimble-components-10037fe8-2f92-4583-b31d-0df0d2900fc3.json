@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Fix bug in nimble-table to avoid requiring a full copy of the data to be made when hierarchy is enabled",
-  "packageName": "@ni/nimble-components",
-  "email": "20542556+mollykreis@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
