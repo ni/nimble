@@ -7,7 +7,7 @@ import { tableColumnTextTag } from '../../../../../nimble-components/src/table-c
 import { tableColumnMenuButtonTag } from '../../../../../nimble-components/src/table-column/menu-button';
 import type { MenuButtonColumnToggleEventDetail } from '../../../../../nimble-components/src/table-column/menu-button/types';
 import { Menu, menuTag } from '../../../../../nimble-components/src/menu';
-import { menuItemTag } from '../../../../../nimble-components/src/menu-item';
+import { MenuItem, menuItemTag } from '../../../../../nimble-components/src/menu-item';
 import {
     SharedTableArgs,
     sharedTableActions,
@@ -19,25 +19,30 @@ import {
     createUserSelectedThemeStory,
     disableStorybookZoomTransform
 } from '../../../utilities/storybook';
+import { iconCheckTag } from '@ni/nimble-components/src/icons/check';
+import { iconCheckLargeTag } from '@ni/nimble-components/src/icons/check-large';
+
+const colors = ['Red', 'Green', 'Blue', 'Black', 'Yellow'] as const;
+type Color = typeof colors[number];
 
 const simpleData = [
     {
         id: 'Ralph Wiggum',
         firstName: 'Ralph',
         lastName: 'Wiggum',
-        favoriteColor: 'Rainbow'
+        favoriteColor: 'Blue'
     },
     {
         id: 'Milhouse Van Houten',
         firstName: 'Milhouse',
         lastName: 'Van Houten',
-        favoriteColor: 'Crimson'
+        favoriteColor: 'Green'
     },
     {
         id: 'Ned Flanders',
         firstName: 'Ned',
         lastName: 'Flanders',
-        favoriteColor: 'Taupe'
+        favoriteColor: 'Red'
     },
     {
         id: 'Maggie Simpson',
@@ -55,7 +60,7 @@ const simpleData = [
         id: 'Marge Simpson',
         firstName: 'Marge',
         lastName: 'Simpson',
-        favoriteColor: 'Purple'
+        favoriteColor: 'Black'
     },
     {
         id: 'Bart Simpson',
@@ -73,13 +78,13 @@ const simpleData = [
         id: 'Moe Szyslak',
         firstName: 'Moe',
         lastName: 'Szyslak',
-        favoriteColor: 'Orange'
+        favoriteColor: 'Red'
     },
     {
         id: 'Barney Gumble',
         firstName: 'Barney',
         lastName: 'Gumble',
-        favoriteColor: 'Pink'
+        favoriteColor: 'Red'
     },
     {
         id: 'Lenny Leonard',
@@ -91,103 +96,103 @@ const simpleData = [
         id: 'Carl Carlson',
         firstName: 'Carl',
         lastName: 'Carlson',
-        favoriteColor: 'White'
+        favoriteColor: 'Yellow'
     },
     {
         id: 'Waylon Smithers',
         firstName: 'Waylon',
         lastName: 'Smithers',
-        favoriteColor: 'Brown'
+        favoriteColor: 'Black'
     },
     {
         id: 'Edna Krabappel',
         firstName: 'Edna',
         lastName: 'Krabappel',
-        favoriteColor: 'Gray'
+        favoriteColor: 'Black'
     },
     {
         id: 'Seymour Skinner',
         firstName: 'Seymour',
         lastName: 'Skinner',
-        favoriteColor: 'Beige'
+        favoriteColor: 'Green'
     },
     {
         id: 'Patty Bouvier',
         firstName: 'Patty',
         lastName: 'Bouvier',
-        favoriteColor: 'Teal'
+        favoriteColor: 'Green'
     },
     {
         id: 'Selma Bouvier',
         firstName: 'Selma',
         lastName: 'Bouvier',
-        favoriteColor: 'Lavender'
+        favoriteColor: 'Red'
     },
     {
         id: 'Nelson Muntz',
         firstName: 'Nelson',
         lastName: 'Muntz',
-        favoriteColor: 'Magenta'
+        favoriteColor: 'Blue'
     },
     {
         id: 'Jimbo Jones',
         firstName: 'Jimbo',
         lastName: 'Jones',
-        favoriteColor: 'Cyan'
+        favoriteColor: 'Blue'
     },
     {
         id: 'Kearney Zzyzwicz',
         firstName: 'Kearney',
         lastName: 'Zzyzwicz',
-        favoriteColor: 'Azure'
+        favoriteColor: 'Blue'
     },
     {
         id: 'Dolph Starbeam',
         firstName: 'Dolph',
         lastName: 'Starbeam',
-        favoriteColor: 'Aquamarine'
+        favoriteColor: 'Blue'
     },
     {
         id: 'Wendell Borton',
         firstName: 'Wendell',
         lastName: 'Borton',
-        favoriteColor: 'Turquoise'
+        favoriteColor: 'Green'
     },
     {
         id: 'Martin Prince',
         firstName: 'Martin',
         lastName: 'Prince',
-        favoriteColor: 'Sienna'
+        favoriteColor: 'Yellow'
     },
     {
         id: 'Sherri Mackleberry',
         firstName: 'Sherri',
         lastName: 'Mackleberry',
-        favoriteColor: 'Periwinkle'
+        favoriteColor: 'Red'
     },
     {
         id: 'Terri Mackleberry',
         firstName: 'Terri',
         lastName: 'Mackleberry',
-        favoriteColor: 'Coral'
+        favoriteColor: 'Black'
     },
     {
         id: 'Rod Flanders',
         firstName: 'Rod',
         lastName: 'Flanders',
-        favoriteColor: 'Cyan'
+        favoriteColor: 'Green'
     },
     {
         id: 'Todd Flanders',
         firstName: 'Todd',
         lastName: 'Flanders',
-        favoriteColor: 'Magenta'
+        favoriteColor: 'Red'
     },
     {
         id: 'Agnes Skinner',
         firstName: 'Agnes',
         lastName: 'Skinner',
-        favoriteColor: 'Azure'
+        favoriteColor: 'Blue'
     }
 ] as const;
 
@@ -316,34 +321,27 @@ export const menuButtonColumn: StoryObj<MenuButtonColumnTableArgs> = {
         ): void => {
             if (e.detail.newState) {
                 const recordId = e.detail.recordId;
+                const record = storyArgs.currentData.find(d => d.id === recordId)!;
 
                 const changeFavoriteColor = (color: string): void => {
-                    const newData = storyArgs.currentData.map(d => {
-                        if (d.id !== recordId) {
-                            return d;
-                        }
-                        return {
-                            ...d,
-                            favoriteColor: color
-                        };
-                    });
-                    storyArgs.currentData = newData;
-                    void storyArgs.tableRef.setData(newData);
+                    record.favoriteColor = color;
+                    void storyArgs.tableRef.setData(storyArgs.currentData);
                 };
 
-                const item1 = document.createElement(menuItemTag);
-                item1.textContent = `[${recordId}] Blue`;
-                item1.addEventListener('change', () => changeFavoriteColor('Blue'));
-
-                const item2 = document.createElement(menuItemTag);
-                item2.textContent = `[${recordId}] Green`;
-                item2.addEventListener('change', () => changeFavoriteColor('Green'));
-
-                const item3 = document.createElement(menuItemTag);
-                item3.textContent = `[${recordId}] Purple`;
-                item3.addEventListener('change', () => changeFavoriteColor('Purple'));
-
-                storyArgs.menuRef.replaceChildren(item1, item2, item3);
+                const menuItems: MenuItem[] = [];
+                for (const color of colors) {
+                    const item = document.createElement(menuItemTag);
+                    item.textContent = `${color}`;
+                    item.addEventListener('change', () => changeFavoriteColor(color));
+                    if (record.favoriteColor === color) {
+                        // const checkIcon = document.createElement(iconCheckTag);
+                        const checkIcon = document.createElement(iconCheckLargeTag);
+                        checkIcon.slot = 'start';
+                        item.appendChild(checkIcon);
+                    }
+                    menuItems.push(item);
+                }
+                storyArgs.menuRef.replaceChildren(...menuItems);
             }
         }
     }

@@ -3,6 +3,7 @@ import * as menuButtonColumnStories from './table-column-menu-button.stories';
 import ComponentApisLink from '../../../docs/component-apis-link.mdx';
 import TableColumnApisLink from '../../../docs/table-column-apis-link.mdx';
 import { tableColumnMenuButtonTag } from '../../../../../nimble-components/src/table-column/menu-button';
+import { iconCheckTag } from '../../../../../nimble-components/src/icons/all-icons';
 
 <Meta of={menuButtonColumnStories} />
 <Title of={menuButtonColumnStories} />
@@ -32,3 +33,17 @@ responsibility to do the following:
    `newState` is `true`.
 2. Update the data through a `setData()` call when a menu item is activated in
    order to update the text on the menu button in the column.
+
+### Menu Button Column vs Table Action Menu
+
+Both an action menu on a column and the <Tag name={tableColumnMenuButtonTag}/> provide ways to provide a menu associated with a row in the table. However, they are used in different contexts.
+
+An action menu should be used in the table when:
+-  the items in the menu are actions to be performed on the record
+-  selecting an item in the menu does not change the value of the record
+
+The <Tag name={tableColumnMenuButtonTag}/> should be used when:
+-  the items in the menu represent values that can be assigned to the record
+-  the currently selected value should be displayed in the table
+
+When using the <Tag name={tableColumnMenuButtonTag}/>, the currently selected value should also exist as an item in the menu and be marked as selected with the <Tag name={iconCheckTag}/>.
