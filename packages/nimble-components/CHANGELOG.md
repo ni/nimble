@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Thu, 01 Aug 2024 08:51:10 GMT and should not be manually modified.
+This log was last generated on Thu, 01 Aug 2024 16:52:17 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 30.3.1
+
+Thu, 01 Aug 2024 16:52:17 GMT
+
+### Patches
+
+- Update Select arrow down behavior to select first option in dropdown when selected option is visually hidden. ([ni/nimble@c3e3478](https://github.com/ni/nimble/commit/c3e347833ece9826f40e535d5a1b294f320a91c2))
 
 ## 30.3.0
 
