@@ -24,6 +24,7 @@ type TokenName = keyof typeof tokens;
 const tokenNames = Object.keys(tokens) as TokenName[];
 tokenNames.sort((a, b) => a.localeCompare(b));
 const graphTokenNames = tokenNames.filter(x => x.startsWith('graph'));
+const calendarTokenNames = tokenNames.filter(x => x.startsWith('calendar'));
 
 interface TokenArgs {
     metaTitle: string;
@@ -200,4 +201,8 @@ export const themeAwareTokens: StoryObj<TokenArgs> = {
 
 export const graphTokens: StoryObj<TokenArgs> = {
     args: { tokenNames: graphTokenNames }
+};
+
+export const calendarTokens: StoryObj<TokenArgs> = {
+    args: { tokenNames: calendarTokenNames }
 };

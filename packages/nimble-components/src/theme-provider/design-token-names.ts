@@ -239,7 +239,28 @@ export const tokenNames: { readonly [key in TokenName]: string } = {
     mentionFontFamily: 'mention-font-family',
     mentionFontSize: 'mention-font-size',
     mentionFontWeight: 'mention-font-weight',
-    mentionFontLineHeight: 'mention-font-line-height'
+    mentionFontLineHeight: 'mention-font-line-height',
+    calendarEventBackgroundStaticColor:
+        'calendar-event-background-static-color',
+    calendarEventBackgroundDynamicColor:
+        'calendar-event-background-dynamic-color',
+    calendarEventBackgroundTransientColor:
+        'calendar-event-background-transient-color',
+    calendarEventBorderStaticColor: 'calendar-event-border-static-color',
+    calendarEventBorderTransientColor: 'calendar-event-border-transient-color',
+    calendarEventStaticFontColor: 'calendar-event-static-font-color',
+    calendarEventDynamicFontColor: 'calendar-event-dynamic-font-color',
+    calendarEventTransientFontColor: 'calendar-event-transient-font-color',
+    calendarEventBackgroundHoverStaticColor:
+        'calendar-event-background-hover-static-color',
+    calendarEventBackgroundHoverDynamicColor:
+        'calendar-event-background-hover-dynamic-color',
+    calendarEventBackgroundHoverTransientColor:
+        'calendar-event-background-hover-transient-color',
+    calendarRowBackgroundSelectedColor:
+        'calendar-row-background-selected-color',
+    calendarEventFillBlockedColor: 'calendar-event-fill-blocked-color',
+    calendarGrabHandleBackgroundColor: 'calendar-grab-handle-background-color'
 };
 
 const prefix = 'ni-nimble';

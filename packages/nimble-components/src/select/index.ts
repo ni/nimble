@@ -584,15 +584,58 @@ export class Select
      */
     public override keydownHandler(e: KeyboardEvent): BooleanOrVoid {
         const initialSelectedIndex = this.selectedIndex;
-        super.keydownHandler(e);
         const key = e.key;
         if (e.ctrlKey || e.shiftKey) {
             return true;
         }
 
+        if (key !== keyArrowDown && key !== keyArrowUp) {
+            super.keydownHandler(e);
+        }
+
         let currentActiveIndex = this.openActiveIndex ?? this.selectedIndex;
         let commitValueThenClose = false;
         switch (key) {
+            case keyArrowDown: {
+                const selectedOption = this.options[this.selectedIndex];
+                if (
+                    this.open
+                    && isListOption(selectedOption)
+                    && !isOptionOrGroupVisible(selectedOption)
+                ) {
+                    if (this.openActiveIndex === this.selectedIndex) {
+                        this.selectFirstOption();
+                    } else {
+                        this.selectNextOption();
+                    }
+                } else {
+                    super.keydownHandler(e);
+                }
+
+                // update currentActiveIndex again as dependent state may have changed
+                currentActiveIndex = this.openActiveIndex ?? this.selectedIndex;
+                break;
+            }
+            case keyArrowUp: {
+                const selectedOption = this.options[this.selectedIndex];
+                if (
+                    this.open
+                    && isListOption(selectedOption)
+                    && !isOptionOrGroupVisible(selectedOption)
+                ) {
+                    if (this.openActiveIndex === this.selectedIndex) {
+                        this.selectLastOption();
+                    } else {
+                        this.selectPreviousOption();
+                    }
+                } else {
+                    super.keydownHandler(e);
+                }
+
+                // update currentActiveIndex again as dependent state may have changed
+                currentActiveIndex = this.openActiveIndex ?? this.selectedIndex;
+                break;
+            }
             case keySpace: {
                 // when dropdown is open allow user to enter a space for filter text
                 if (this.open && this.filterMode !== FilterMode.none) {
