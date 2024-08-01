@@ -58,7 +58,6 @@ SelectOptions
         aria-disabled="${x => x.ariaDisabled}"
         aria-expanded="${x => x.ariaExpanded}"
         aria-haspopup="${x => (x.collapsible ? 'listbox' : null)}"
-        aria-label="${x => x.labelContent}"
         aria-multiselectable="${x => x.ariaMultiSelectable}"
         ?open="${x => x.open}"
         role="combobox"
