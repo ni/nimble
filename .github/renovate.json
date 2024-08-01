@@ -27,7 +27,9 @@
       "matchDepTypes": ["dependencies", "devDependencies", "peerDependencies"],
       "excludePackagePatterns":[
         "^@angular",
+        "apache-arrow",
         "comlink",
+        "eslint",
         "ng-packagr",
         "playwright",
         "remark-gfm",
@@ -41,6 +43,7 @@
       "groupName": "nuget dependencies",
       "matchManagers": ["nuget"],
       "excludePackagePatterns":[
+        "Apache.Arrow",
         "NI.CSharp.Analyzers",
         "Microsoft.Playwright"
       ],
