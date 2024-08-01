@@ -2,6 +2,81 @@
   "name": "@ni/spright-components",
   "entries": [
     {
+      "date": "Wed, 31 Jul 2024 20:23:25 GMT",
+      "version": "2.0.17",
+      "tag": "@ni/spright-components_v2.0.17",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/spright-components",
+            "comment": "Bump @ni/nimble-components to v30.2.0",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 31 Jul 2024 19:44:32 GMT",
+      "version": "2.0.16",
+      "tag": "@ni/spright-components_v2.0.16",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/spright-components",
+            "comment": "Bump @ni/nimble-components to v30.1.7",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 30 Jul 2024 20:21:00 GMT",
+      "version": "2.0.15",
+      "tag": "@ni/spright-components_v2.0.15",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/spright-components",
+            "comment": "Bump @ni/nimble-components to v30.1.6",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 30 Jul 2024 18:17:01 GMT",
+      "version": "2.0.14",
+      "tag": "@ni/spright-components_v2.0.14",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/spright-components",
+            "comment": "Bump @ni/nimble-components to v30.1.5",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 30 Jul 2024 16:53:07 GMT",
+      "version": "2.0.13",
+      "tag": "@ni/spright-components_v2.0.13",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/spright-components",
+            "comment": "Bump @ni/nimble-components to v30.1.4",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 30 Jul 2024 14:34:23 GMT",
       "version": "2.0.12",
       "tag": "@ni/spright-components_v2.0.12",
