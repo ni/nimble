@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "Update Select arrow down behavior to select first option in dropdown when selected option is visually hidden.",
+  "packageName": "@ni/nimble-components",
+  "email": "26874831+atmgrifter00@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
