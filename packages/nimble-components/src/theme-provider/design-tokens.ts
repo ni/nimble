@@ -415,10 +415,8 @@ export const calendarEventBackgroundHoverTransientColor = DesignToken.create<str
     DigitalGreenDark105
 ));
 
-export const calendarResourceBackgroundHighlightColor = DesignToken.create<string>(
-    styleNameFromTokenName(
-        tokenNames.calendarResourceBackgroundHighlightColor
-    )
+export const calendarRowBackgroundSelectedColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.calendarRowBackgroundSelectedColor)
 ).withDefault((element: HTMLElement) => getColorForTheme(
     element,
     hexToRgbaCssColor(DigitalGreenLight, 0.2),
@@ -426,8 +424,8 @@ export const calendarResourceBackgroundHighlightColor = DesignToken.create<strin
     hexToRgbaCssColor(PowerGreen, 0.2)
 ));
 
-export const calendarEventStrokeBlockColor = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.calendarEventStrokeBlockColor)
+export const calendarEventFillBlockedColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.calendarEventFillBlockedColor)
 ).withDefault((element: HTMLElement) => getColorForTheme(
     element,
     hexToRgbaCssColor(Black91, 0.07),

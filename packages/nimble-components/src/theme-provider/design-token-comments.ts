@@ -312,9 +312,9 @@ export const comments: { readonly [key in TokenName]: string } = {
         'Color while hovering dynamic calendar events',
     calendarEventBackgroundHoverTransientColor:
         'Color while hovering transient calendar events',
-    calendarResourceBackgroundHighlightColor:
+    calendarRowBackgroundSelectedColor:
         'Background color while calendar resource is selected/highlighted',
-    calendarEventStrokeBlockColor:
+    calendarEventFillBlockedColor:
         'Background fill to indicate the occupied slots in calendar resource rows',
     calendarGrabHandleBackgroundColor:
         'Background fill color for the editable calendar event grab handle'

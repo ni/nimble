@@ -257,9 +257,9 @@ export const tokenNames: { readonly [key in TokenName]: string } = {
         'calendar-event-background-hover-dynamic-color',
     calendarEventBackgroundHoverTransientColor:
         'calendar-event-background-hover-transient-color',
-    calendarResourceBackgroundHighlightColor:
-        'calendar-resource-background-highlight-color',
-    calendarEventStrokeBlockColor: 'calendar-event-stroke-block-color',
+    calendarRowBackgroundSelectedColor:
+        'calendar-row-background-selected-color',
+    calendarEventFillBlockedColor: 'calendar-event-fill-blocked-color',
     calendarGrabHandleBackgroundColor: 'calendar-grab-handle-background-color'
 };
 
