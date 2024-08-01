@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Thu, 01 Aug 2024 16:52:17 GMT",
+      "version": "30.3.1",
+      "tag": "@ni/nimble-components_v30.3.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "c3e347833ece9826f40e535d5a1b294f320a91c2",
+            "comment": "Update Select arrow down behavior to select first option in dropdown when selected option is visually hidden."
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 01 Aug 2024 08:51:10 GMT",
       "version": "30.3.0",
       "tag": "@ni/nimble-components_v30.3.0",
