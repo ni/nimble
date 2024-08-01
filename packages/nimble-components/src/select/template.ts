@@ -70,7 +70,7 @@ SelectOptions
         @keydown="${(x, c) => x.keydownHandler(c.event as KeyboardEvent)}"
         @mousedown="${(x, c) => x.mousedownHandler(c.event as MouseEvent)}"
     >
-        <label part="label" class="label">
+        <label part="label" class="label" aria-hidden="true">
             <slot ${ref('labelSlot')}></slot>
         </label>
         ${when(x => x.collapsible, html<Select>`
