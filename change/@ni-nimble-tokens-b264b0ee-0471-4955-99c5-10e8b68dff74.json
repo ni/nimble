@@ -1,0 +1,7 @@
+{
+  "type": "minor",
+  "comment": "Add color tokens for mobiscroll components",
+  "packageName": "@ni/nimble-tokens",
+  "email": "123377167+aagash-ni@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}

@@ -1,0 +1,26 @@
+import { Canvas, Meta, Controls, Title } from '@storybook/blocks';
+import * as calendarStories from './calendar.stories';
+import * as tokenStories from '../theme-provider/tokens.stories';
+
+<Meta of={calendarStories} />
+<Title of={calendarStories} />
+
+The Nimble Design System does not provide a calendar component, but theme-aware
+tokens are available for styling custom or third-party calendar components to
+match the Nimble Design System.
+
+<Canvas of={tokenStories.calendarTokens} />
+<Controls of={tokenStories.calendarTokens} />
+
+## Usage
+
+For monochromatic UIs using the Color theme, it is recommended to override the
+default values of the calendar tokens with colors that work with the specific
+background color. Special care should be taken to ensure the colors pass
+accessibility standards. Consult with a visual designer for help.
+
+{/* ## Examples */}
+
+{/* ## Accessibility */}
+
+{/* ## Resources */}
