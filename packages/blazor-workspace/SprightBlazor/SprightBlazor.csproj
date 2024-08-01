@@ -47,7 +47,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.31" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="8.0.7" />
     <PackageReference Include="NI.CSharp.Analyzers" Version="[2.0.21]" PrivateAssets="all" />
   </ItemGroup>
 

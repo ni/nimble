@@ -47,8 +47,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Apache.Arrow" Version="[16.1.0]" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.31" />
+    <PackageReference Include="Apache.Arrow" Version="[17.0.0]" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="8.0.7" />
     <PackageReference Include="NI.CSharp.Analyzers" Version="[2.0.21]" PrivateAssets="all" />
   </ItemGroup>
 
