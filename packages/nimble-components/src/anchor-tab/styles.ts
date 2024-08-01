@@ -1,5 +1,5 @@
 import { css } from '@microsoft/fast-element';
-import { display } from '@microsoft/fast-foundation';
+import { display } from '../utilities/style/display';
 import { focusVisible } from '../utilities/style/focus';
 import {
     bodyDisabledFontColor,
@@ -20,7 +20,6 @@ export const styles = css`
 
     :host {
         position: relative;
-        box-sizing: border-box;
         font: ${buttonLabelFont};
         height: ${controlHeight};
         color: ${bodyFontColor};

@@ -2,6 +2,111 @@
   "name": "@ni/jasmine-parameterized",
   "entries": [
     {
+      "date": "Mon, 22 Jul 2024 20:22:39 GMT",
+      "version": "1.0.0",
+      "tag": "@ni/jasmine-parameterized_v1.0.0",
+      "comments": {
+        "major": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/jasmine-parameterized",
+            "commit": "ee8642f186c83613decaaae77b965c3e9c955e70",
+            "comment": "Switch to full semver releases"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 22 Jul 2024 15:45:21 GMT",
+      "version": "0.3.1",
+      "tag": "@ni/jasmine-parameterized_v0.3.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/jasmine-parameterized",
+            "commit": "f69586afcbdea5f4b8834d1123ec2b06d4eeecb3",
+            "comment": "Update to typescript 5.4.5"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 07 Jun 2024 17:53:20 GMT",
+      "version": "0.3.0",
+      "tag": "@ni/jasmine-parameterized_v0.3.0",
+      "comments": {
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/jasmine-parameterized",
+            "commit": "992217c62385db7dcc228d23a74658c6f8f6b44c",
+            "comment": "Switch to all nimble private linting"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 05 Jun 2024 18:54:09 GMT",
+      "version": "0.3.0",
+      "tag": "@ni/jasmine-parameterized_v0.3.0",
+      "comments": {
+        "none": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/jasmine-parameterized",
+            "commit": "1f0d3e634294c4fd54139e1181660c48cc3fe54c",
+            "comment": "Update Playwright version to 1.44.0"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 26 Apr 2024 21:13:31 GMT",
+      "version": "0.3.0",
+      "tag": "@ni/jasmine-parameterized_v0.3.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/jasmine-parameterized",
+            "commit": "116f0bc5bd4c14034f57070f3348b7c5142625d2",
+            "comment": "Create `parameterizeSuite` function"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 15 Apr 2024 22:18:55 GMT",
+      "version": "0.2.4",
+      "tag": "@ni/jasmine-parameterized_v0.2.4",
+      "comments": {
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/jasmine-parameterized",
+            "commit": "ef6c82cd1ababfb49057563abe8c9c044ec7ad9e",
+            "comment": "Add CSP headers to the karma run"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 15 Apr 2024 17:36:54 GMT",
+      "version": "0.2.4",
+      "tag": "@ni/jasmine-parameterized_v0.2.4",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/jasmine-parameterized",
+            "commit": "7254ddb339236dc1519033f88290491436a01aef",
+            "comment": "Update to typescript 5.1.6"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 22 Mar 2024 16:18:25 GMT",
       "version": "0.2.3",
       "tag": "@ni/jasmine-parameterized_v0.2.3",

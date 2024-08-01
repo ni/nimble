@@ -1,0 +1,36 @@
+import { Controls, Canvas, Meta, Title, Description } from '@storybook/blocks';
+import * as viewerStories from './rich-text-viewer.stories';
+import RichTextMentionUsersGuidance from '../../rich-text-mention/users/rich-text-mention-users-guidance.mdx';
+import ComponentApisLink from '../../../docs/component-apis-link.mdx';
+import * as mentionUserStories from '../../rich-text-mention/users/rich-text-mention-users.stories';
+import * as userMappingStories from '../../mapping/user/mapping-user.stories';
+import { richTextViewerTag } from '../../../../../nimble-components/src/rich-text/viewer';
+
+<Meta of={viewerStories} />
+<Title of={viewerStories} />
+
+The rich text viewer component allows users to view text formatted with various
+styling options including bold, italics, numbered lists, and bulleted lists. The
+rich text to render is provided as a markdown string.
+
+See the [rich text editor](?path=/docs/incubating-rich-text-editor--docs)
+component to enable users to modify the markdown contents.
+
+<Canvas of={viewerStories.richTextViewer} />
+
+## API
+
+<Controls of={viewerStories.richTextViewer} />
+<ComponentApisLink />
+
+### User configuration
+
+<Description of={mentionUserStories} />
+<Controls of={mentionUserStories.richTextMentionUsers} />
+
+### User mapping
+
+<Description of={userMappingStories} />
+<Controls of={userMappingStories.userMapping} />
+
+<RichTextMentionUsersGuidance />

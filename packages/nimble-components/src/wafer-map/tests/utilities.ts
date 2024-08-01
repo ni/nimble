@@ -9,9 +9,7 @@ import {
 import { type Table, tableFromArrays } from 'apache-arrow';
 import type { ZoomTransform } from 'd3-zoom';
 import {
-    Dimensions,
     HoverDie,
-    Margin,
     WaferMapColorScale,
     WaferMapColorScaleMode,
     WaferMapDie,
@@ -20,8 +18,8 @@ import {
     WaferRequiredFields
 } from '../types';
 import type { DataManager } from '../modules/data-manager';
-import type { DataManager as ExperimentalDataManager } from '../modules/experimental/data-manager';
 import type { WaferMap } from '..';
+import type { Dimensions, Margin } from '../workers/types';
 
 export function getWaferMapDies(): WaferMapDie[] {
     return [
@@ -134,23 +132,6 @@ export function getDataManagerMock(
     };
     return dataManagerMock as DataManager;
 }
-export function getExperimentalDataManagerMock(
-    dieDimensions: Dimensions,
-    margin: Margin,
-    horizontalScale: ScaleLinear<number, number> = getScaleLinear([], []),
-    verticalScale: ScaleLinear<number, number> = getScaleLinear([], [])
-): ExperimentalDataManager {
-    const dataManagerMock: Pick<
-    ExperimentalDataManager,
-    'horizontalScale' | 'verticalScale' | 'dieDimensions' | 'margin'
-    > = {
-        horizontalScale,
-        verticalScale,
-        dieDimensions,
-        margin
-    };
-    return dataManagerMock as ExperimentalDataManager;
-}
 
 export function getDataManagerMockForHover(
     margin: Margin,
@@ -174,38 +155,6 @@ export function getDataManagerMockForHover(
     return dataManagerMock as DataManager;
 }
 
-export function getExperimentalWaferMapMockPrerendering(
-    dies: WaferMapDie[] = getWaferMapDies(),
-    colorScale: WaferMapColorScale = { colors: [], values: [] },
-    highlightedTags: string[] = [],
-    colorScaleMode: WaferMapColorScaleMode = WaferMapColorScaleMode.linear,
-    dieLabelsHidden = true,
-    dieLabelsSuffix = '',
-    maxCharacters = 4,
-    experimentalDataManager = {} as ExperimentalDataManager
-): WaferMap {
-    const waferMapMock: Pick<
-    WaferMap,
-    | 'dies'
-    | 'colorScale'
-    | 'highlightedTags'
-    | 'colorScaleMode'
-    | 'dieLabelsHidden'
-    | 'dieLabelsSuffix'
-    | 'maxCharacters'
-    | 'experimentalDataManager'
-    > = {
-        dies,
-        colorScale,
-        highlightedTags,
-        colorScaleMode,
-        dieLabelsHidden,
-        dieLabelsSuffix,
-        maxCharacters,
-        experimentalDataManager
-    };
-    return waferMapMock as WaferMap;
-}
 export function getWaferMapMockPrerendering(
     dies: WaferMapDie[] = getWaferMapDies(),
     colorScale: WaferMapColorScale = { colors: [], values: [] },
@@ -288,29 +237,31 @@ export function getWaferMapMockComputations(
     return waferMapMock as WaferMap;
 }
 export function getWaferMapMockComputationsExperimental(
-    diesTable: Table = getWaferMapDiesTable(),
-    originLocation: WaferMapOriginLocation,
-    canvasWidth: number,
-    canvasHeight: number,
-    validity: WaferMapValidity = {
-        invalidGridDimensions: false,
-        invalidDiesTableSchema: false
+    props = {
+        diesTable: getWaferMapDiesTable(),
+        originLocation: WaferMapOriginLocation.topLeft,
+        colorScale: { colors: [], values: [] },
+        colorScaleMode: WaferMapColorScaleMode.linear,
+        maxCharacters: 4,
+        canvasWidth: 0,
+        canvasHeight: 0,
+        validity: {
+            invalidGridDimensions: false,
+            invalidDiesTableSchema: false
+        }
     }
 ): WaferMap {
     const waferMapMock: Pick<
     WaferMap,
     | 'diesTable'
+    | 'colorScale'
+    | 'colorScaleMode'
+    | 'maxCharacters'
     | 'originLocation'
     | 'canvasWidth'
     | 'canvasHeight'
     | 'validity'
-    > = {
-        diesTable,
-        originLocation,
-        canvasWidth,
-        canvasHeight,
-        validity
-    };
+    > = props;
     return waferMapMock as WaferMap;
 }
 

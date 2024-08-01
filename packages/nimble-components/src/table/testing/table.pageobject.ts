@@ -80,6 +80,14 @@ export class TablePageObject<T extends TableRecord> {
         );
     }
 
+    public getHeaderTextContent(columnIndex: number): string {
+        return (
+            this.getHeaderContent(
+                columnIndex
+            )?.firstChild?.textContent?.trim() ?? ''
+        );
+    }
+
     public dispatchEventToHeader(
         columnIndex: number,
         event: Event
@@ -142,7 +150,7 @@ export class TablePageObject<T extends TableRecord> {
         columnIndex: number
     ): TableCellView {
         const cell = this.getCell(rowIndex, columnIndex);
-        const cellView = cell.shadowRoot!.firstElementChild;
+        const cellView = cell.cellViewContainer.firstElementChild;
         if (!(cellView instanceof TableCellView)) {
             throw new Error(
                 'Cell view not found in cell - ensure cellViewTag is set for column'
@@ -156,7 +164,7 @@ export class TablePageObject<T extends TableRecord> {
         columnId: string
     ): TableCellView {
         const cell = this.getCellById(recordId, columnId);
-        const cellView = cell.shadowRoot!.firstElementChild;
+        const cellView = cell.cellViewContainer.firstElementChild;
         if (!(cellView instanceof TableCellView)) {
             throw new Error(
                 'Cell view not found in cell - ensure cellViewTag is set for column'
@@ -193,68 +201,14 @@ export class TablePageObject<T extends TableRecord> {
         return anchor;
     }
 
-    public getRenderedIconColumnCellIconSeverity(
+    public getRenderedMappingColumnCellIconTagName(
         rowIndex: number,
         columnIndex: number
     ): string {
-        const content = this.getRenderedCellView(rowIndex, columnIndex)
-            .shadowRoot!.firstElementChild;
-        if (!content || !(content instanceof Icon)) {
-            throw new Error(
-                `Icon not found at cell ${rowIndex},${columnIndex}`
-            );
-        }
-        return content.severity ?? '';
-    }
-
-    public getRenderedIconColumnCellIconAriaLabel(
-        rowIndex: number,
-        columnIndex: number
-    ): string {
-        const content = this.getRenderedCellView(rowIndex, columnIndex)
-            .shadowRoot!.firstElementChild;
-        if (
-            !content
-            || !(content instanceof Icon || content instanceof Spinner)
-        ) {
-            throw new Error(
-                `Icon or Spinner not found at cell ${rowIndex},${columnIndex}`
-            );
-        }
-        return content.getAttribute('aria-label') ?? '';
-    }
-
-    public getRenderedIconColumnCellIconTagName(
-        rowIndex: number,
-        columnIndex: number
-    ): string {
-        const content = this.getRenderedCellView(rowIndex, columnIndex)
-            .shadowRoot!.firstElementChild;
-        if (
-            !content
-            || !(content instanceof Icon || content instanceof Spinner)
-        ) {
-            throw new Error(
-                `Icon or Spinner not found at cell ${rowIndex},${columnIndex}`
-            );
-        }
-        return content.tagName.toLocaleLowerCase();
-    }
-
-    public getRenderedIconColumnGroupHeaderIconTagName(
-        groupRowIndex: number
-    ): string {
-        const content = this.getGroupRowHeaderView(groupRowIndex).shadowRoot!
-            .firstElementChild;
-        if (
-            !content
-            || !(content instanceof Icon || content instanceof Spinner)
-        ) {
-            throw new Error(
-                `Icon or Spinner not found at group header ${groupRowIndex}`
-            );
-        }
-        return content.tagName.toLocaleLowerCase();
+        const iconOrSpinner = this.getRenderedMappingColumnIconOrSpinner(
+            this.getRenderedCellView(rowIndex, columnIndex)
+        );
+        return iconOrSpinner.tagName.toLocaleLowerCase();
     }
 
     public getRenderedGroupHeaderTextContent(groupRowIndex: number): string {
@@ -353,6 +307,12 @@ export class TablePageObject<T extends TableRecord> {
         return Array.from(cells!).reduce((p, c) => {
             return p + c.getBoundingClientRect().width;
         }, 0);
+    }
+
+    public async scrollToFirstRowAsync(): Promise<void> {
+        const scrollElement = this.tableElement.viewport;
+        scrollElement.scroll({ top: 0 });
+        await waitForUpdatesAsync();
     }
 
     public async scrollToLastRowAsync(): Promise<void> {
@@ -468,6 +428,14 @@ export class TablePageObject<T extends TableRecord> {
         return false;
     }
 
+    public isCollapseAllButtonSpaceReserved(): boolean {
+        const collapseButton = this.getCollapseAllButton();
+        if (collapseButton) {
+            return window.getComputedStyle(collapseButton).display !== 'none';
+        }
+        return true;
+    }
+
     public isDataRowExpandCollapseButtonVisible(rowIndex: number): boolean {
         const expandCollapseButton = this.getExpandCollapseButtonForRow(rowIndex);
         return expandCollapseButton !== null;
@@ -507,7 +475,9 @@ export class TablePageObject<T extends TableRecord> {
     public clickRowSelectionCheckbox(rowIndex: number, shiftKey = false): void {
         if (shiftKey) {
             const shiftKeyDownEvent = new KeyboardEvent('keydown', {
-                key: keyShift
+                key: keyShift,
+                shiftKey: true,
+                bubbles: true
             } as KeyboardEventInit);
             document.dispatchEvent(shiftKeyDownEvent);
         }
@@ -517,7 +487,8 @@ export class TablePageObject<T extends TableRecord> {
 
         if (shiftKey) {
             const shiftKeyUpEvent = new KeyboardEvent('keyup', {
-                key: keyShift
+                key: keyShift,
+                bubbles: true
             } as KeyboardEventInit);
             document.dispatchEvent(shiftKeyUpEvent);
         }
@@ -536,7 +507,9 @@ export class TablePageObject<T extends TableRecord> {
     ): void {
         if (shiftKey) {
             const shiftKeyDownEvent = new KeyboardEvent('keydown', {
-                key: keyShift
+                key: keyShift,
+                shiftKey: true,
+                bubbles: true
             } as KeyboardEventInit);
             document.dispatchEvent(shiftKeyDownEvent);
         }
@@ -546,7 +519,8 @@ export class TablePageObject<T extends TableRecord> {
 
         if (shiftKey) {
             const shiftKeyUpEvent = new KeyboardEvent('keyup', {
-                key: keyShift
+                key: keyShift,
+                bubbles: true
             } as KeyboardEventInit);
             document.dispatchEvent(shiftKeyUpEvent);
         }
@@ -661,7 +635,7 @@ export class TablePageObject<T extends TableRecord> {
     public getSortedColumns(): SortedColumn[] {
         return this.tableElement.columns
             .filter(
-                x => !x.sortingDisabled
+                x => !x.columnInternals.sortingDisabled
                     && typeof x.columnInternals.currentSortIndex === 'number'
                     && x.columnInternals.currentSortDirection
                         !== TableColumnSortDirection.none
@@ -704,7 +678,14 @@ export class TablePageObject<T extends TableRecord> {
         return Number(countString);
     }
 
-    private getRow(rowIndex: number): TableRow {
+    /** @internal */
+    public getGroupRowHeaderView(groupRowIndex: number): TableGroupHeaderView {
+        const groupRow = this.getGroupRow(groupRowIndex);
+        return groupRow.shadowRoot!.querySelector('.group-header-view')!;
+    }
+
+    /** @internal */
+    public getRow(rowIndex: number): TableRow {
         const rows = this.tableElement.shadowRoot!.querySelectorAll('nimble-table-row');
         if (rowIndex >= rows.length) {
             throw new Error(
@@ -713,6 +694,19 @@ export class TablePageObject<T extends TableRecord> {
         }
 
         return rows.item(rowIndex);
+    }
+
+    /** @internal */
+    public getCell(rowIndex: number, columnIndex: number): TableCell {
+        const row = this.getRow(rowIndex);
+        const cells = row.shadowRoot!.querySelectorAll('nimble-table-cell');
+        if (columnIndex >= cells.length) {
+            throw new Error(
+                'Attempting to index past the total number of rendered columns'
+            );
+        }
+
+        return cells.item(columnIndex);
     }
 
     private getRowById(recordId: string): TableRow {
@@ -726,18 +720,6 @@ export class TablePageObject<T extends TableRecord> {
         }
 
         return row;
-    }
-
-    private getCell(rowIndex: number, columnIndex: number): TableCell {
-        const row = this.getRow(rowIndex);
-        const cells = row.shadowRoot!.querySelectorAll('nimble-table-cell');
-        if (columnIndex >= cells.length) {
-            throw new Error(
-                'Attempting to index past the total number of rendered columns'
-            );
-        }
-
-        return cells.item(columnIndex);
     }
 
     private getCellById(recordId: string, columnId: string): TableCell {
@@ -825,11 +807,6 @@ export class TablePageObject<T extends TableRecord> {
         return groupRows.item(groupRowIndex);
     }
 
-    private getGroupRowHeaderView(groupRowIndex: number): TableGroupHeaderView {
-        const groupRow = this.getGroupRow(groupRowIndex);
-        return groupRow.shadowRoot!.querySelector('.group-header-view')!;
-    }
-
     private getHeaderContentElement(
         element: HTMLElement | HTMLSlotElement
     ): Node | undefined {
@@ -848,6 +825,22 @@ export class TablePageObject<T extends TableRecord> {
         }
 
         return nodeChildren[0]; // header content should be first item in final slot element
+    }
+
+    private getRenderedMappingColumnIconOrSpinner(
+        view: TableCellView | TableGroupHeaderView
+    ): Icon | Spinner {
+        const viewShadowRoot = view.shadowRoot!;
+        const spinnerOrIcon = viewShadowRoot.querySelector(
+            '.reserve-icon-size'
+        )?.firstElementChild;
+        if (
+            !(spinnerOrIcon instanceof Icon || spinnerOrIcon instanceof Spinner)
+        ) {
+            throw new Error('Icon or Spinner not found');
+        }
+
+        return spinnerOrIcon;
     }
 
     private readonly isSlotElement = (

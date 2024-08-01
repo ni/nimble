@@ -1,8 +1,9 @@
 import { css } from '@microsoft/fast-element';
-import { display } from '@microsoft/fast-foundation';
 import { White } from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
+import { display } from '../../../utilities/style/display';
 import {
     applicationBackgroundColor,
+    borderHoverColor,
     borderWidth,
     controlHeight,
     fillHoverColor,
@@ -14,6 +15,7 @@ import { hexToRgbaCssColor } from '../../../utilities/style/colors';
 import { themeBehavior } from '../../../utilities/style/theme';
 import { userSelectNone } from '../../../utilities/style/user-select';
 import { styles as expandCollapseStyles } from '../../../patterns/expand-collapse/styles';
+import { focusVisible } from '../../../utilities/style/focus';
 
 export const styles = css`
     ${display('grid')}
@@ -23,7 +25,6 @@ export const styles = css`
         align-items: center;
         height: calc(${controlHeight} + 2 * ${borderWidth});
         border-top: calc(2 * ${borderWidth}) solid ${applicationBackgroundColor};
-        box-sizing: border-box;
         grid-template-columns:
             calc(
                 ${controlHeight} *
@@ -55,6 +56,11 @@ export const styles = css`
         background-color: ${fillHoverColor};
     }
 
+    :host(${focusVisible}) {
+        outline: calc(2 * ${borderWidth}) solid ${borderHoverColor};
+        outline-offset: calc(-2 * ${borderWidth});
+    }
+
     .expand-collapse-button {
         margin-left: calc(
             ${mediumPadding} + ${standardPadding} * 2 *
@@ -71,7 +77,6 @@ export const styles = css`
         padding-left: ${mediumPadding};
         ${userSelectNone}
         overflow: hidden;
-        display: flex;
     }
 
     .group-row-child-count {

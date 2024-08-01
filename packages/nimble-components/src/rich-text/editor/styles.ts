@@ -1,5 +1,5 @@
 import { css } from '@microsoft/fast-element';
-import { display } from '@microsoft/fast-foundation';
+import { display } from '../../utilities/style/display';
 import {
     bodyDisabledFontColor,
     bodyFont,
@@ -50,7 +50,6 @@ export const styles = css`
     }
 
     .container {
-        box-sizing: border-box;
         display: flex;
         flex-direction: column;
         position: relative;
@@ -132,7 +131,6 @@ export const styles = css`
             /* This padding ensures that showing/hiding the error icon doesn't affect text layout */ ''
         }
         padding-right: calc(${iconSize});
-        box-sizing: border-box;
         position: relative;
         color: inherit;
     }
@@ -258,7 +256,6 @@ export const styles = css`
     ${toolbarTag}::part(positioning-region) {
         background: transparent;
         padding-right: 8px;
-        box-sizing: border-box;
         gap: 0px;
         height: var(--ni-private-rich-text-editor-footer-section-height);
     }

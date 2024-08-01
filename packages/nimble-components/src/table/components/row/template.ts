@@ -17,6 +17,8 @@ import { buttonTag } from '../../../button';
 import { iconArrowExpanderRightTag } from '../../../icons/arrow-expander-right';
 import { spinnerTag } from '../../../spinner';
 import { SpinnerAppearance } from '../../../spinner/types';
+import type { CellViewSlotRequestEventDetail } from '../../types';
+import { uniquifySlotNameForColumn } from '../../models/utilities';
 
 // prettier-ignore
 export const template = html<TableRow>`
@@ -28,11 +30,13 @@ export const template = html<TableRow>`
     >
         ${when(x => !x.rowOperationGridCellHidden, html<TableRow>`
             <span role="gridcell" class="row-operations-container">
-                ${when(x => x.selectable && !x.hideSelection, html<TableRow>`
+                ${when(x => x.showSelectionCheckbox, html<TableRow>`
                     <${checkboxTag}
                         ${ref('selectionCheckbox')}
                         class="selection-checkbox"
-                        @change="${(x, c) => x.onSelectionChange(c.event as CustomEvent)}"
+                        ${'' /* tabindex managed dynamically by KeyboardNavigationManager */}
+                        tabindex="-1"
+                        @change="${(x, c) => x.onSelectionCheckboxChange(c.event as CustomEvent)}"
                         @click="${(_, c) => c.event.stopPropagation()}"
                         title="${x => tableRowSelectLabel.getValueFor(x)}"
                         aria-label="${x => tableRowSelectLabel.getValueFor(x)}"
@@ -41,7 +45,7 @@ export const template = html<TableRow>`
                 `)}
             </span>
         `)}
-        <span class="row-front-spacer ${x => (x.isTopLevelParentRow ? 'top-level-parent' : '')}"></span>
+        <span class="row-front-spacer ${x => (x.isTopLevelParentRow || !x.reserveCollapseSpace ? 'reduced-size-spacer' : '')}"></span>
         ${when(x => x.isParentRow, html<TableRow>`
             ${when(x => x.loading, html<TableRow>`
                 <span class="spinner-container">
@@ -84,6 +88,7 @@ export const template = html<TableRow>`
                         action-menu-label="${x => x.actionMenuLabel}"
                         @cell-action-menu-beforetoggle="${(x, c) => c.parent.onCellActionMenuBeforeToggle(c.event as CustomEvent<MenuButtonToggleEventDetail>, x)}"
                         @cell-action-menu-toggle="${(x, c) => c.parent.onCellActionMenuToggle(c.event as CustomEvent<MenuButtonToggleEventDetail>, x)}"
+                        @cell-view-slots-request="${(x, c) => c.parent.onCellViewSlotsRequest(x, c.event as CustomEvent<CellViewSlotRequestEventDetail>)}"
                         :nestingLevel="${(_, c) => c.parent.cellIndentLevels[c.index]}"
                     >
 
@@ -91,6 +96,13 @@ export const template = html<TableRow>`
                             <slot
                                 name="${x => `row-action-menu-${x.actionMenuSlot!}`}"
                                 slot="cellActionMenu"
+                            ></slot>
+                        `)}
+
+                        ${repeat(x => x.columnInternals.slotNames, html<string, TableColumn>`
+                            <slot
+                                name="${(x, c) => uniquifySlotNameForColumn(c.parent, x)}"
+                                slot="${(x, c) => uniquifySlotNameForColumn(c.parent, x)}"
                             ></slot>
                         `)}
                     </${tableCellTag}>

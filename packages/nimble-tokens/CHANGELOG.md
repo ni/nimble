@@ -1,8 +1,81 @@
 # Change Log - @ni/nimble-tokens
 
-This log was last generated on Tue, 26 Mar 2024 20:45:41 GMT and should not be manually modified.
+This log was last generated on Tue, 30 Jul 2024 14:34:23 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 7.1.0
+
+Tue, 30 Jul 2024 14:34:23 GMT
+
+### Minor changes
+
+- Add color tokens for mobiscroll components ([ni/nimble@2488638](https://github.com/ni/nimble/commit/2488638308b5e511f247dc1d113f1b2b6d74c2d4))
+
+## 7.0.1
+
+Mon, 22 Jul 2024 15:45:21 GMT
+
+### Patches
+
+- Update to typescript 5.4.5 ([ni/nimble@f69586a](https://github.com/ni/nimble/commit/f69586afcbdea5f4b8834d1123ec2b06d4eeecb3))
+
+## 7.0.0
+
+Tue, 16 Jul 2024 22:30:23 GMT
+
+### Major changes
+
+- Updates to calendar and arrow icons. Clients using "nimble-icon-calendar" or "nimble-icon-arrow-u-rotate-left" must instead use "nimble-icon-calendar-days" and "nimble-icon-arrow-u-up" (respectively). ([ni/nimble@b28b651](https://github.com/ni/nimble/commit/b28b6513d47bd583e8767620cd6ef526fa3dddac))
+
+## 6.15.1
+
+Mon, 08 Jul 2024 20:36:03 GMT
+
+### Patches
+
+- Delete NimbleTokens Nuget and clean up generation scripts for @ni/nimble-tokens npm package ([ni/nimble@ecf2bf6](https://github.com/ni/nimble/commit/ecf2bf6f026ef1fbcfe8d81ef80ede7f9ed241b0))
+
+## 6.15.0
+
+Thu, 06 Jun 2024 17:29:15 GMT
+
+### Minor changes
+
+- Add icons for AI, clean, expand, collapse, debug ([ni/nimble@d375e09](https://github.com/ni/nimble/commit/d375e092e3b2e627fba234136871d002aeb3c7b6))
+
+## 6.14.0
+
+Tue, 04 Jun 2024 16:35:58 GMT
+
+### Minor changes
+
+- Update button label font size from 12.8px to 14px to match current visual design in Figma ([ni/nimble@466a7b5](https://github.com/ni/nimble/commit/466a7b577ba7e8dc9f6e2adb5beb81b37d4bd9cd))
+
+## 6.13.6
+
+Thu, 09 May 2024 18:40:41 GMT
+
+### Patches
+
+- Update Blazor docs for Spright and workspace change ([ni/nimble@43edba8](https://github.com/ni/nimble/commit/43edba8e90d0c5f414fd2b4cf19eee197b477829))
+
+## 6.13.5
+
+Fri, 26 Apr 2024 20:31:47 GMT
+
+### Patches
+
+- No API changes, validating release pipelines ([ni/nimble@c5a74e6](https://github.com/ni/nimble/commit/c5a74e68c2909e2f9a50bf0e6b0e4f1c5f0cbce8))
+- No API changes, validating release pipelines ([ni/nimble@ff7f847](https://github.com/ni/nimble/commit/ff7f847c0fb3834b5fdf4ce141bbe6bd94e1f0eb))
+
+## 6.13.2
+
+Mon, 15 Apr 2024 17:36:54 GMT
+
+### Patches
+
+- Update to typescript 5.1.6 ([ni/nimble@7254ddb](https://github.com/ni/nimble/commit/7254ddb339236dc1519033f88290491436a01aef))
 
 ## 6.13.1
 

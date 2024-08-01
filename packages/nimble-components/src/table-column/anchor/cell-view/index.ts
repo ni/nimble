@@ -54,8 +54,17 @@ TableColumnAnchorColumnConfig
         return '';
     }
 
-    public override focusedRecycleCallback(): void {
-        this.anchor?.blur();
+    /** @internal */
+    @volatile
+    public get showAnchor(): boolean {
+        return typeof this.cellRecord?.href === 'string';
+    }
+
+    public override get tabbableChildren(): HTMLElement[] {
+        if (this.showAnchor) {
+            return [this.anchor!];
+        }
+        return [];
     }
 }
 

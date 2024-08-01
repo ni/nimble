@@ -1,19 +1,19 @@
-/* eslint-disable max-classes-per-file */
 import { attr, customElement, html } from '@microsoft/fast-element';
 import { parameterizeSpec } from '@ni/jasmine-parameterized';
 import { Table, tableTag } from '..';
 import { TableColumn } from '../../table-column/base';
-import { tableColumnTextTag } from '../../table-column/text';
+import { TableColumnText, tableColumnTextTag } from '../../table-column/text';
 import { TableColumnTextCellView } from '../../table-column/text/cell-view';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import { controlHeight } from '../../theme-provider/design-tokens';
-import { createEventListener } from '../../utilities/tests/component';
+import { createEventListener } from '../../utilities/testing/component';
 import {
     type Fixture,
     fixture,
     uniqueElementName
 } from '../../utilities/tests/fixture';
 import {
+    TableColumnAlignment,
     TableColumnSortDirection,
     TableRecord,
     TableRecordDelayedHierarchyState,
@@ -26,6 +26,7 @@ import {
     tableColumnValidationTestTag
 } from '../../table-column/base/tests/table-column.fixtures';
 import type { ColumnInternalsOptions } from '../../table-column/base/models/column-internals';
+import { ColumnValidator } from '../../table-column/base/models/column-validator';
 
 interface SimpleTableRecord extends TableRecord {
     stringData: string;
@@ -85,8 +86,8 @@ describe('Table', () => {
         let connect: () => Promise<void>;
         let disconnect: () => Promise<void>;
         let pageObject: TablePageObject<SimpleTableRecord>;
-        let column1: TableColumn;
-        let column2: TableColumn;
+        let column1: TableColumnText;
+        let column2: TableColumnText;
 
         // The assumption being made here is that the values in the data are equal to their
         // rendered representation (no formatting).
@@ -149,8 +150,8 @@ describe('Table', () => {
         beforeEach(async () => {
             ({ element, connect, disconnect } = await setup());
             pageObject = new TablePageObject<SimpleTableRecord>(element);
-            column1 = element.querySelector<TableColumn>('#first-column')!;
-            column2 = element.querySelector<TableColumn>('#second-column')!;
+            column1 = element.querySelector<TableColumnText>('#first-column')!;
+            column2 = element.querySelector<TableColumnText>('#second-column')!;
         });
 
         afterEach(async () => {
@@ -194,14 +195,12 @@ describe('Table', () => {
             await element.setData(simpleTableData);
             await waitForUpdatesAsync();
 
-            let headerContent = pageObject.getHeaderContent(0)!.firstChild;
-            expect(headerContent?.textContent).toEqual('stringData');
+            expect(pageObject.getHeaderTextContent(0)).toEqual('stringData');
 
             element.columns[0]!.textContent = 'foo';
             await waitForUpdatesAsync();
 
-            headerContent = pageObject.getHeaderContent(0)!.firstChild;
-            expect(headerContent?.textContent).toEqual('foo');
+            expect(pageObject.getHeaderTextContent(0)).toEqual('foo');
         });
 
         it('sets title when header text is ellipsized', async () => {
@@ -251,6 +250,44 @@ describe('Table', () => {
             pageObject.dispatchEventToHeader(0, new MouseEvent('mouseout'));
             await waitForUpdatesAsync();
             expect(pageObject.getHeaderTitle(0)).toBe('');
+        });
+
+        it('does not set indicators-hidden on a column header by default', async () => {
+            await connect();
+            await waitForUpdatesAsync();
+
+            const header = pageObject.getHeaderElement(0);
+            expect(header.indicatorsHidden).toBeFalse();
+        });
+
+        it('sets indicators-hidden to true on a column header when configured as hidden in columnInternals', async () => {
+            await connect();
+            await waitForUpdatesAsync();
+
+            element.columns[0]!.columnInternals.hideHeaderIndicators = true;
+            await waitForUpdatesAsync();
+
+            const header = pageObject.getHeaderElement(0);
+            expect(header.indicatorsHidden).toBeTrue();
+        });
+
+        it('sets column header alignment to left by default', async () => {
+            await connect();
+            await waitForUpdatesAsync();
+
+            const header = pageObject.getHeaderElement(0);
+            expect(header.alignment).toEqual(TableColumnAlignment.left);
+        });
+
+        it('sets column header alignment to right when configured as right in columnInternals', async () => {
+            await connect();
+            await waitForUpdatesAsync();
+
+            element.columns[0]!.columnInternals.headerAlignment = TableColumnAlignment.right;
+            await waitForUpdatesAsync();
+
+            const header = pageObject.getHeaderElement(0);
+            expect(header.alignment).toEqual(TableColumnAlignment.right);
         });
 
         it('can set data before the element is connected', async () => {
@@ -353,7 +390,7 @@ describe('Table', () => {
             verifyRenderedData(simpleTableData);
         });
 
-        it('can update a record without making a copy of the data', async () => {
+        it('can update a record without making a copy of the data without hierarchy enabled', async () => {
             await connect();
             await waitForUpdatesAsync();
 
@@ -623,8 +660,8 @@ describe('Table', () => {
             })
             // eslint-disable-next-line @typescript-eslint/no-unused-vars
             class TestFocusableCellView extends TableColumnTextCellView {
-                public override focusedRecycleCallback(): void {
-                    (this.shadowRoot!.firstElementChild as HTMLElement).blur();
+                public override get tabbableChildren(): HTMLElement[] {
+                    return [this.shadowRoot!.firstElementChild as HTMLElement];
                 }
             }
             @customElement({
@@ -640,7 +677,8 @@ describe('Table', () => {
                         cellViewTag: focusableCellViewName,
                         cellRecordFieldNames: ['value'],
                         groupHeaderViewTag: tableColumnEmptyGroupHeaderViewTag,
-                        delegatedEvents: []
+                        delegatedEvents: [],
+                        validator: new ColumnValidator<[]>([])
                     };
                 }
             }
@@ -675,34 +713,6 @@ describe('Table', () => {
                 expect(actualRowCount).toBeLessThan(data.length);
                 const dataSubsetAtEnd = data.slice(-actualRowCount);
                 verifyRenderedData(dataSubsetAtEnd);
-            });
-
-            it('and calls focusedRecycleCallback on focused cell views when a scroll happens', async () => {
-                const focusableColumn = document.createElement(
-                    focusableColumnName
-                ) as TestFocusableTableColumn;
-                focusableColumn.fieldName = 'stringData';
-                column1.replaceWith(focusableColumn);
-                await connect();
-                const data = [...largeTableData];
-                await element.setData(data);
-                await waitForUpdatesAsync();
-
-                const firstCellView = pageObject.getRenderedCellView(0, 0);
-                const focusedRecycleSpy = spyOn(
-                    firstCellView,
-                    'focusedRecycleCallback'
-                ).and.callThrough();
-                const focusableElementInCell = pageObject.getRenderedCellView(
-                    0,
-                    0
-                ).shadowRoot!.firstElementChild! as HTMLElement;
-                focusableElementInCell.focus();
-                expect(focusedRecycleSpy).not.toHaveBeenCalled();
-
-                await pageObject.scrollToLastRowAsync();
-
-                expect(focusedRecycleSpy).toHaveBeenCalledTimes(1);
             });
 
             it('and closes open action menus when a scroll happens', async () => {
@@ -953,6 +963,32 @@ describe('Table', () => {
                     parentId3: 'Parent 2'
                 }
             ];
+
+            it('can update a record without making a copy of the data with hierarchy enabled', async () => {
+                element.idFieldName = 'id';
+                element.parentIdFieldName = 'parentId';
+                await connect();
+                await waitForUpdatesAsync();
+
+                const data: SimpleTableRecord[] = hierarchicalData.map(x => ({
+                    ...x
+                }));
+                await element.setData(data);
+                await waitForUpdatesAsync();
+                const currentFieldValue = data[0]!.stringData;
+                expect(pageObject.getRenderedCellTextContent(0, 0)).toEqual(
+                    currentFieldValue
+                );
+
+                const updatedFieldValue = `${currentFieldValue} - updated value`;
+                data[0]!.stringData = updatedFieldValue;
+                await element.setData(data);
+                await waitForUpdatesAsync();
+                expect(pageObject.getRenderedCellTextContent(0, 0)).toEqual(
+                    updatedFieldValue
+                );
+            });
+
             it('shows collapse all button with hierarchical data', async () => {
                 await connect();
                 element.idFieldName = 'id';
@@ -2255,6 +2291,55 @@ describe('Table', () => {
                     false
                 ]);
             });
+        });
+
+        describe('collapse all button space reservation', () => {
+            const collapseAllButtonConfigurations = [
+                {
+                    name: 'with groupable columns and with hierarchy',
+                    groupableColumns: true,
+                    hierarchy: true,
+                    expectSpaceReserved: true
+                },
+                {
+                    name: 'with groupable columns and without hierarchy',
+                    groupableColumns: true,
+                    hierarchy: false,
+                    expectSpaceReserved: true
+                },
+                {
+                    name: 'without groupable columns and with hierarchy',
+                    groupableColumns: false,
+                    hierarchy: true,
+                    expectSpaceReserved: true
+                },
+                {
+                    name: 'without groupable columns and without hierarchy',
+                    groupableColumns: false,
+                    hierarchy: false,
+                    expectSpaceReserved: false
+                }
+            ] as const;
+            parameterizeSpec(
+                collapseAllButtonConfigurations,
+                (spec, name, value) => {
+                    spec(name, async () => {
+                        await connect();
+                        await waitForUpdatesAsync();
+                        element.columns.forEach(column => {
+                            column.columnInternals.groupingDisabled = !value.groupableColumns;
+                        });
+                        element.parentIdFieldName = value.hierarchy
+                            ? 'parentId'
+                            : undefined;
+                        await waitForUpdatesAsync();
+
+                        expect(
+                            pageObject.isCollapseAllButtonSpaceReserved()
+                        ).toBe(value.expectSpaceReserved);
+                    });
+                }
+            );
         });
     });
 

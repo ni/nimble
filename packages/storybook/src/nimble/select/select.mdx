@@ -1,0 +1,99 @@
+import { Canvas, Meta, Controls, Title, Description } from '@storybook/blocks';
+import { NimbleSelect } from './select.react';
+import * as selectStories from './select.stories';
+import * as listOptionStories from '../list-option/list-option.stories';
+import * as listOptionGroupStories from '../list-option-group/list-option-group.stories';
+import ComponentApisLink from '../../docs/component-apis-link.mdx';
+import { listOptionTag } from '../../../../nimble-components/src/list-option';
+import { listOptionGroupTag } from '../../../../nimble-components/src/list-option-group';
+
+<Meta of={selectStories} />
+<Title of={selectStories} />
+
+Select is a control for selecting amongst a set of options. Upon clicking on the
+element, the other options are visible in a dropdown.
+
+<Canvas of={selectStories.select} />
+
+## API
+
+<Controls of={selectStories.select} />
+<ComponentApisLink />
+
+### List Option
+
+<Description of={listOptionStories} />
+<Controls of={listOptionStories.listOption} />
+
+### List Option Group
+
+<Description of={listOptionGroupStories} />
+<Controls of={listOptionGroupStories.listOptionGroup} />
+
+{/* ## Styling */}
+
+{/* ## Usage */}
+
+## Examples
+
+### Placeholder
+
+To display placeholder text within the select you must provide an option that
+has the `disabled`, `selected` and `hidden` attributes set. This option will not
+be available in the dropdown, and its contents will be used as the placeholder
+text. Note that giving the placeholder an initial `selected` state is only
+necessary to display the placeholder initially. If another option is selected
+initially the placeholder will be displayed upon clearing the current value.
+
+Any select without a default selected option should provide placeholder text.
+Placeholder text should always follow the pattern "Select [thing(s)]", for
+example "Select country". Use sentence casing and don't include punctuation at
+the end of the prompt.
+
+<Canvas of={selectStories.placeholder} />
+
+### Dynamic options
+
+There are scenarios that require not all possible options to be available
+initially, such as when the set of all options is too large to be loaded at
+once. In such cases, users are expected to provide filter text to narrow down
+the list of options. It is recommended that when option sets exceed 1000 in
+number that this strategy is implemented.
+
+The select offers the `filter-input` event to allow clients to listen for
+changes to the filter input. When accompanied with the setting `filter-mode` to
+`manual`, clients can perform their own filtering and provide the set of options
+to the select dynamically.
+
+Typical steps for dynamic options are as follows:
+
+1. Set the `filter-mode` to `manual` on the select.
+1. Listen for the `filter-input` event on the select.
+1. In the event handler, do the following:
+    - Set the `loading-visible` attribute on the select.
+    - Retrieve the filter text from the event and populate the DOM with the set
+      of options that match the filter text by your own logic. This can be
+      asynchronous, as this often involves fetching data from a server. To
+      reduce unnecessary requests, consider debouncing the filter input.
+        - If the filter text is empty, the select should display all initial
+          options in the dropdown in addition to the current selected option if
+          it is not one of the initial options.
+        - If the current selected value doesn't match the filter text, you must
+          still include it among the options but set the `hidden` property so
+          that it does not appear in the list.
+    - Remove the `loading-visible` attribute on the select.
+    - It is important that one of the options in the DOM is the currently
+      selected option, as well as any option that is designated as the
+      placeholder.
+
+#### Groups
+
+When using groups with dynamic options, clients should also match the filter
+text against the group label. If the group label matches the filter text, the
+group should be displayed, and all options within the group should be displayed
+as well. If the group label does not match the filter text, then options within
+the group should only be displayed if they match the filter text.
+
+{/* ## Accessibility */}
+
+{/* ## Resources */}

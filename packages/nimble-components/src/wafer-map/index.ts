@@ -1,15 +1,15 @@
 import {
+    DOM,
     attr,
     nullableNumberConverter,
     observable
 } from '@microsoft/fast-element';
 import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
 import { zoomIdentity, ZoomTransform } from 'd3-zoom';
-import type { Table } from 'apache-arrow';
+import { type Table, tableFromIPC } from 'apache-arrow';
 import { template } from './template';
 import { styles } from './styles';
 import { DataManager } from './modules/data-manager';
-import { DataManager as ExperimentalDataManager } from './modules/experimental/data-manager';
 import { RenderingModule } from './modules/rendering';
 import {
     HoverDie,
@@ -24,10 +24,12 @@ import {
 } from './types';
 import { WaferMapUpdateTracker } from './modules/wafer-map-update-tracker';
 import { WaferMapValidator } from './modules/wafer-map-validator';
-import { WorkerRenderer } from './modules/experimental/worker-renderer';
+import { WorkerRenderer } from './experimental/worker-renderer';
 import { HoverHandler } from './modules/hover-handler';
-import { HoverHandler as ExperimentalHoverHandler } from './modules/experimental/hover-handler';
+import { HoverHandler as ExperimentalHoverHandler } from './experimental/hover-handler';
 import { ZoomHandler } from './modules/zoom-handler';
+import { Computations } from './experimental/computations';
+import type { Dimensions, RenderConfig } from './workers/types';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -41,6 +43,11 @@ declare global {
 export class WaferMap<
     T extends WaferRequiredFields = WaferRequiredFields
 > extends FoundationElement {
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    public static readonly Arrow = {
+        tableFromIPC
+    };
+
     /**
      * @internal
      * needs to be initialized before the properties trigger changes
@@ -80,6 +87,16 @@ export class WaferMap<
     /**
      * @internal
      */
+    public currentTask: Promise<void> | undefined;
+
+    /**
+     * @internal
+     */
+    public workerCanvas!: HTMLCanvasElement;
+
+    /**
+     * @internal
+     */
     public readonly canvas!: HTMLCanvasElement;
 
     /**
@@ -92,7 +109,9 @@ export class WaferMap<
      */
     public readonly zoomContainer!: HTMLElement;
 
-    public readonly experimentalDataManager: ExperimentalDataManager = new ExperimentalDataManager(this.asRequiredFieldsWaferMap);
+    public readonly computations: Computations = new Computations(
+        this.asRequiredFieldsWaferMap
+    );
 
     public dataManager: DataManager = new DataManager(
         this.asRequiredFieldsWaferMap
@@ -202,32 +221,25 @@ export class WaferMap<
      * @internal
      * Experimental update function called when an update is queued.
      */
-    public experimentalUpdate(): void {
+    public async experimentalUpdate(): Promise<void> {
         if (this.validity.invalidDiesTableSchema) {
             return;
         }
         if (this.waferMapUpdateTracker.requiresEventsUpdate) {
-            // zoom translateExtent needs to be recalculated when canvas size changes
-            this.zoomHandler.disconnect();
-            if (
-                this.waferMapUpdateTracker.requiresContainerDimensionsUpdate
-                || this.waferMapUpdateTracker.requiresScalesUpdate
-            ) {
-                this.experimentalDataManager.updateComputations();
-                this.workerRenderer.drawWafer();
-            } else if (
-                this.waferMapUpdateTracker.requiresLabelsFontSizeUpdate
-                || this.waferMapUpdateTracker.requiresDiesRenderInfoUpdate
-            ) {
-                this.experimentalDataManager.updatePrerendering();
-                this.workerRenderer.drawWafer();
-            } else if (this.waferMapUpdateTracker.requiresDrawnWaferUpdate) {
-                this.workerRenderer.drawWafer();
+            if (this.waferMapUpdateTracker.requiresComponentResizeUpdate) {
+                this.computations.componentResizeUpdate();
+            } else if (this.waferMapUpdateTracker.requiresInputDataUpdate) {
+                this.computations.inputDataUpdate();
+            } else if (this.waferMapUpdateTracker.requiresColorAndTextUpdate) {
+                this.computations.colorAndTextUpdate();
             }
-            this.zoomHandler.connect();
-        } else if (this.waferMapUpdateTracker.requiresRenderHoverUpdate) {
-            this.workerRenderer.renderHover();
+            const snapshot = this.createSnapshot();
+            if (this.waferMapUpdateTracker.requiresWorkerWaferSetup) {
+                await this.workerRenderer.setupWafer(snapshot);
+            }
+            await this.workerRenderer.drawWafer(snapshot);
         }
+        this.workerRenderer.renderHover();
     }
 
     /**
@@ -241,12 +253,10 @@ export class WaferMap<
     public update(): void {
         this.validate();
         if (this.isExperimentalUpdate()) {
-            this.experimentalUpdate();
+            this.currentTask = this.experimentalUpdate();
             return;
         }
         if (this.waferMapUpdateTracker.requiresEventsUpdate) {
-            // zoom translateExtent needs to be recalculated when canvas size changes
-            this.zoomHandler.disconnect();
             if (this.waferMapUpdateTracker.requiresContainerDimensionsUpdate) {
                 this.dataManager.updateContainerDimensions();
                 this.renderer.updateSortedDiesAndDrawWafer();
@@ -266,7 +276,6 @@ export class WaferMap<
             } else if (this.waferMapUpdateTracker.requiresDrawnWaferUpdate) {
                 this.renderer.drawWafer();
             }
-            this.zoomHandler.connect();
         } else if (this.waferMapUpdateTracker.requiresRenderHoverUpdate) {
             this.renderer.renderHover();
         }
@@ -277,6 +286,78 @@ export class WaferMap<
      */
     public isExperimentalUpdate(): boolean {
         return this.diesTable !== undefined;
+    }
+
+    public async setData(data: Table | WaferMapDie[]): Promise<void> {
+        if (Array.isArray(data)) {
+            this.dies = data;
+        } else {
+            this.diesTable = data;
+        }
+        await DOM.nextUpdate();
+        if (this.currentTask !== undefined) {
+            await this.currentTask;
+        }
+    }
+
+    private createSnapshot(): {
+        canvasDimensions: Dimensions,
+        renderConfig: RenderConfig,
+        dieDimensions: Dimensions,
+        transform: ZoomTransform,
+        dieLabelsHidden: boolean,
+        columnIndices: Int32Array,
+        rowIndices: Int32Array,
+        values: Float64Array
+    } {
+        const canvasDimensions = {
+            width: this.canvasWidth ?? 0,
+            height: this.canvasHeight ?? 0
+        };
+        const renderConfig: RenderConfig = {
+            dieDimensions: this.computations.dieDimensions,
+            margin: this.computations.margin,
+            verticalCoefficient: this.computations.verticalCoefficient,
+            horizontalCoefficient: this.computations.horizontalCoefficient,
+            horizontalConstant: this.computations.horizontalConstant,
+            verticalConstant: this.computations.verticalConstant,
+            gridMinX: this.computations.gridMinX,
+            gridMaxX: this.computations.gridMaxX,
+            gridMinY: this.computations.gridMinY,
+            gridMaxY: this.computations.gridMaxY,
+            labelsFontSize: this.computations.labelsFontSize,
+            colorScale: this.computations.colorScale,
+            dieLabelsSuffix: this.dieLabelsSuffix,
+            maxCharacters: this.maxCharacters
+        };
+        const dieDimensions = this.computations.dieDimensions;
+        const transform = this.transform;
+        const dieLabelsHidden = this.dieLabelsHidden;
+        if (this.diesTable === undefined) {
+            return {
+                canvasDimensions,
+                renderConfig,
+                dieDimensions,
+                transform,
+                dieLabelsHidden,
+                columnIndices: Int32Array.from([]),
+                rowIndices: Int32Array.from([]),
+                values: Float64Array.from([])
+            };
+        }
+        const columnIndices = this.diesTable.getChild('colIndex')!.toArray();
+        const rowIndices = this.diesTable.getChild('rowIndex')!.toArray();
+        const values = this.diesTable.getChild('value')!.toArray();
+        return {
+            canvasDimensions,
+            renderConfig,
+            columnIndices,
+            rowIndices,
+            values,
+            dieDimensions,
+            transform,
+            dieLabelsHidden
+        };
     }
 
     private validate(): void {

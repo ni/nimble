@@ -1,0 +1,197 @@
+import { Controls, Canvas, Meta, Title } from '@storybook/blocks';
+import * as tableStories from './table.stories';
+import ComponentApisLink from '../../docs/component-apis-link.mdx';
+import { tableTag } from '../../../../nimble-components/src/table';
+
+<Meta of={tableStories} />
+<Title of={tableStories} />
+
+The <Tag name={tableTag}/> is a component that offers a way to render tabular
+data in a variety of ways in each column. For information about configuring
+table columns, see
+[Table Column Configuration](?path=/docs/components-table-column-configuration--docs)
+and the **Table Column** pages for individual table column types.
+
+<Canvas of={tableStories.table} />
+
+## API
+
+<Controls of={tableStories.table} />
+<ComponentApisLink />
+
+## Styling
+
+### Sizing
+
+The <Tag name={tableTag}/> should be sized explicitly or sized to fill the space
+of a parent container. The <Tag name={tableTag}/> does not currently support
+being styled with `height: auto`. The ability to auto size the table is tracked
+with [issue 1624](https://github.com/ni/nimble/issues/1624).
+
+### Full bleed
+
+The table will reserve space for expand/collapse row buttons and the collapse
+all button in the header when there are no collapsible rows if the table is
+configured to have either:
+
+1. At least one column that supports grouping (i.e. `groupingDisabled` is
+   false), or
+2. Has hierarchy (i.e. `parentIdFieldName` is defined)
+
+To prevent this space from being reserved and make the table data full bleed,
+set `groupingDisabled` to `true` on all groupable columns and do not set
+`parentIdFieldName` on the table.
+
+{/* ## Usage */}
+
+## Examples
+
+### Delay-loaded hierarchy
+
+In some cases, it may be known that a record has children, but the records for
+those children are not known. For performance reasons, it may be preferred to
+load the children on demand when a user expands the parent row. To accomplish
+this, use the `setRecordHierarchyOptions()` function on the table to set the
+hierarchy options associated with records in the data.
+
+<Canvas of={tableStories.delayedHierarchy} />
+<Controls of={tableStories.delayedHierarchy} />
+
+#### Using delay-loaded hierarchy
+
+The expected usage of the dynamically loaded hierarchy is as follows:
+
+1. Configure `idFieldName` and `parentIdFieldName` on the table
+1. Call `setData` on the table with the records that are known
+1. Call `setRecordHierarchyOptions` with an option of
+   `{ delayedHierarchyState: TableRecordDelayedHierarchyState.canLoadChildren }`
+   for IDs associated with records that are known to have children that have not
+   been loaded.
+1. Handle the `row-expand-toggle` event on the table by doing the following for
+   rows that need to dynamically load their data:
+    1. Start loading the data in the background.
+    1. Call `setRecordHierarchyOptions` on the table to update the state of the
+       row whose data is being loaded to
+       `{ delayedHierarchyState: TableRecordDelayedHierarchyState.loadingChildren }`.
+       This call must include the current state of any records not in the
+       default state.
+1. When the dynamically loaded data has finished loading, do the following based
+   on the result of loading data:
+    - If loading the data succeeds:
+        1. Call `setData` on the table with the new data
+        1. Call `setRecordHierarchyOptions` with the current row options for
+           each row that is either still loading or still has data that hasn't
+           been loaded yet.
+    - If loading the data fails but can be tried again:
+        1. Call `setRecordHierarchyOptions` to change the row state back to
+           `{ delayedHierarchyState: TableRecordDelayedHierarchyState.canLoadChildren }`.
+           This call must include the current state of any records not in the
+           default state.
+    - If loading the data determines that the row doesn't actually have
+      children:
+        1. Call `setRecordHierarchyOptions` to change the row state to
+           `{ delayedHierarchyState: TableRecordDelayedHierarchyState.none }`.
+           This call must include the current state of any records not in the
+           default state.
+
+#### Behavior of setRecordHierarchyOptions
+
+`setRecordHierarchyOptions()` has the following behavior:
+
+-   all options will be cleared when the table's `idFieldName` changes
+-   an option passed to `setRecordHierarchyOptions` with an ID that does not
+    match a record in the data will be ignored
+-   the options passed to `setRecordHierarchyOptions` will override any options
+    previously set to become the complete set of options configured on the table
+-   the table will not render delayed hierarchy state (loading or expandable) if
+    the table's `parentIdFieldName` is not configured; however, the options will
+    remain cached within the table if the `parentIdFieldName` becomes
+    `undefined`, and that cached configuration will render in the table if the
+    table's `parentIdFieldName` is changed back to a non-`undefined` value
+-   calling `setData` will clear options associated with IDs that are no longer
+    present in the data
+
+## Accessibility
+
+### Keyboard navigation
+
+Once the table is focused, it supports navigation via keyboard keys.
+
+-   If the table is focused via `Tab`/`Shift-Tab`: focus starts on the first
+    action button in the header row (if any), the first column header (if any
+    columns are sortable), or the first row of data.
+-   If the table is focused via mouse-click on a row, keyboard navigation will
+    start from that row once a navigation key is pressed afterwards.
+
+Column sorting:
+
+-   If a column header is focused, `Enter` will toggle its sort mode between
+    ascending, descending, and no sorting.
+-   `Shift-Enter` will do the same but will maintain other columns as sorted if
+    they were already.
+
+Navigating the table:
+
+-   `UpArrow`, `DownArrow`, `LeftArrow`, `RightArrow` will navigate amongst the
+    table column headers, rows, and cells.
+-   When a row is focused:
+    -   If the row is expandable, `RightArrow` and `LeftArrow` will
+        expand/collapse the row.
+    -   If the row cannot be expanded (or is already expanded), a `RightArrow`
+        press will focus the first cell.
+    -   `Home` and `End` will focus the first and last rows in the dataset,
+        respectively.
+-   When a cell is focused:
+    -   If the leftmost cell of a row is focused, another `LeftArrow` press will
+        focus the entire row.
+    -   `Home` and `End` will focus the first and last cells of the row,
+        respectively.
+    -   `Ctrl-Home` and `Ctrl-End` will focus the cell in the same column of the
+        first and last rows of the dataset.
+-   `PgUp` and `PgDown` will navigate up or down by one page's worth of rows.
+    -   If a cell was focused, the cell in the same column in the new row will
+        be focused.
+    -   If a row was focused, the new row will be focused afterwards.
+
+Interacting with cell contents:
+
+-   When a cell is focused:
+    -   `Enter` or `F2` will focus the first interactive element inside a cell,
+        if there is one (such as an anchor).
+    -   `Ctrl-Enter` will open the cell's action menu, if it has one.
+-   When an action menu or element inside a cell has focus:
+    -   Arrow key presses will no longer navigate between rows/cells.
+    -   Pressing `Esc` or `F2` will return to row/cell navigation mode.
+
+Row selection and grouping:
+
+-   If a row is focused, `Space` will select the row.
+-   If a row or cell is focused, `Shift-Space` will select the row. (Note, in
+    multiple selection mode, this may result in ranges of rows being selected.)
+-   If a group header row is focused, `Space` will expand/collapse the group. To
+    select the group, navigate to the selection checkbox with `LeftArrow` and
+    `RightArrow`, and toggle it with `Space`.
+
+`Tab` and `Shift-Tab` can be used to navigate between the interactive elements
+in the current row or header, such as buttons or anchors. Once those elements in
+the current row have been traversed, `Tab`/`Shift-Tab` will move focus outside
+the table. When the table is focused again, navigation will resume from the
+previously focused element.
+
+### Selecting multiple rows
+
+When the table has a `selectionMode` of `multiple`, multiple rows can be
+selected using the selection checkboxes. Additionally, clicking on rows has the
+following behavior:
+
+-   Clicking on a row selects just that row.
+-   `CTRL` clicking on a row toggles the selection of that row while
+    maintaining. the selection of other rows
+    -   Note: On macOS, use the `Command` key (`⌘`) instead of `CTRL`.
+-   Selecting a row followed by `SHIFT` clicking on another row selects the
+    range of rows between the two rows.
+-   Selecting a row followed by `SHIFT-CTRL` clicking on a different row adds
+    the range of rows to the existing selection.
+    -   Note: On macOS, use the `Command` key (`⌘`) instead of `CTRL`.
+
+{/* ## Resources */}

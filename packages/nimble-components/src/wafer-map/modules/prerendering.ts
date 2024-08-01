@@ -1,13 +1,9 @@
 import { ScaleLinear, scaleLinear, ScaleOrdinal, scaleOrdinal } from 'd3-scale';
 import { ColorRGBA64, parseColor } from '@microsoft/fast-colors';
 import { WaferMapColorScaleMode } from '../types';
-import type {
-    Dimensions,
-    DieRenderInfo,
-    WaferMapColorScale,
-    WaferMapDie
-} from '../types';
+import type { DieRenderInfo, WaferMapColorScale, WaferMapDie } from '../types';
 import type { WaferMap } from '..';
+import type { Dimensions } from '../workers/types';
 
 /**
  * Prerendering prepares render-ready dies data to be used by the rendering module
@@ -51,9 +47,11 @@ export class Prerendering {
         const isDieRenderInfo = (
             info: DieRenderInfo | null
         ): info is DieRenderInfo => info !== null;
-        this._diesRenderInfo = this.wafermap.dies
-            .map(die => this.computeDieRenderInfo(die))
-            .filter(isDieRenderInfo);
+        if (this.wafermap.diesTable === undefined) {
+            this._diesRenderInfo = this.wafermap.dies
+                .map(die => this.computeDieRenderInfo(die))
+                .filter(isDieRenderInfo);
+        }
     }
 
     private computeDieRenderInfo(die: WaferMapDie): DieRenderInfo | null {

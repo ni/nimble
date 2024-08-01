@@ -1,0 +1,32 @@
+{
+  "name": "@ni/spright-angular",
+  "version": "3.0.9",
+  "description": "Angular components for NI Spright",
+  "scripts": {
+    "invoke-publish": "npm run invoke-publish:setup && cd ../dist/spright-angular && npm publish",
+    "invoke-publish:setup": "cd ../ && npm run build:spright"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ni/nimble.git"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "author": {
+    "name": "National Instruments"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ni/nimble/issues"
+  },
+  "homepage": "https://github.com/ni/nimble#readme",
+  "peerDependencies": {
+    "@angular/common": "^17.3.12",
+    "@angular/core": "^17.3.12",
+    "@ni/spright-components": "^2.0.17"
+  },
+  "dependencies": {
+    "tslib": "^2.2.0"
+  }
+}

@@ -1,6 +1,6 @@
 import { css } from '@microsoft/fast-element';
-import { display } from '@microsoft/fast-foundation';
 import { White } from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
+import { display } from '../utilities/style/display';
 
 import {
     applicationBackgroundColor,
@@ -18,6 +18,7 @@ import {
 import { Theme } from '../theme-provider/types';
 import { hexToRgbaCssColor } from '../utilities/style/colors';
 import { themeBehavior } from '../utilities/style/theme';
+import { anchorMenuItemTag } from '../anchor-menu-item';
 
 export const styles = css`
     ${display('grid')}
@@ -38,6 +39,7 @@ export const styles = css`
 
     :host([slot='submenu']) {
         margin: 0 ${mediumPadding};
+        cursor: default;
     }
 
     ::slotted(*) {
@@ -46,7 +48,7 @@ export const styles = css`
     }
 
     ::slotted(hr) {
-        box-sizing: content-box;
+        box-sizing: border-box;
         height: 2px;
         margin: ${smallPadding};
         border: none;
@@ -61,6 +63,10 @@ export const styles = css`
         text-transform: ${groupHeaderTextTransform};
         padding-top: ${smallPadding};
         padding-bottom: ${smallPadding};
+    }
+
+    ::slotted(${anchorMenuItemTag}) {
+        padding: 0px;
     }
 `.withBehaviors(
     themeBehavior(

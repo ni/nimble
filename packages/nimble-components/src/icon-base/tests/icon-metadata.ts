@@ -16,8 +16,14 @@ export const iconMetadata: {
     IconArrowDown: {
         tags: ['sort', 'arrow', 'down', 'descending']
     },
+    IconArrowDownLeftAndArrowUpRight: {
+        tags: ['collapse', 'shrink', 'reduce size']
+    },
     IconArrowDownRightAndArrowUpLeft: {
         tags: ['resize', 'collapse']
+    },
+    IconArrowUpRightAndArrowDownLeft: {
+        tags: ['expand', 'grow', 'enlarge size']
     },
     IconArrowExpanderDown: {
         tags: []
@@ -43,20 +49,29 @@ export const iconMetadata: {
     IconArrowPartialRotateLeft: {
         tags: ['reset']
     },
+    IconArrowRightThin: {
+        tags: ['link', 'open']
+    },
     IconArrowRightToLine: {
         tags: ['login']
     },
     IconArrowRotateRight: {
         tags: ['refresh']
     },
-    IconArrowURotateLeft: {
-        tags: ['update']
-    },
     IconArrowUpLeftAndArrowDownRight: {
         tags: ['resize', 'expand']
     },
     IconArrowUpRightFromSquare: {
         tags: ['open', 'external', 'link']
+    },
+    IconArrowULeft: {
+        tags: ['undo', 'revert', 'back']
+    },
+    IconArrowURight: {
+        tags: ['redo', 'revert', 'forward']
+    },
+    IconArrowUUp: {
+        tags: ['update']
     },
     IconArrowsMaximize: {
         tags: ['resize', 'fullscreen']
@@ -94,14 +109,29 @@ export const iconMetadata: {
     IconBookMagnifyingGlass: {
         tags: ['analyze']
     },
-    IconCalendar: {
-        tags: ['schedule']
-    },
     IconCalendarCheckLines: {
         tags: ['test', 'plan', 'schedule']
     },
+    IconCalendarClock: {
+        tags: ['time', 'schedule']
+    },
     IconCalendarDay: {
-        tags: ['date', 'time', 'schedule']
+        tags: ['date']
+    },
+    IconCalendarDays: {
+        tags: ['month', 'schedule']
+    },
+    IconCalendarLines: {
+        tags: ['agenda']
+    },
+    IconCalendarRectangle: {
+        tags: ['year']
+    },
+    IconCalendarDayOutline: {
+        tags: ['today']
+    },
+    IconCalendarWeek: {
+        tags: []
     },
     IconChartDiagram: {
         tags: ['oidc']
@@ -116,13 +146,13 @@ export const iconMetadata: {
         tags: ['assets']
     },
     IconCheck: {
-        tags: ['status', 'alarm acknowledged']
+        tags: ['status', 'success', 'alarm acknowledged']
     },
     IconCheckDot: {
         tags: ['status', 'done']
     },
     IconCheckLarge: {
-        tags: ['status']
+        tags: ['status', 'success']
     },
     IconCircle: {
         tags: ['status', 'connected']
@@ -216,6 +246,9 @@ export const iconMetadata: {
     },
     IconDatabaseCheck: {
         tags: ['system state manager']
+    },
+    IconDebug: {
+        tags: ['troubleshoot']
     },
     IconDesktop: {
         tags: ['monitor']
@@ -448,6 +481,12 @@ export const iconMetadata: {
     IconSkipArrow: {
         tags: ['status', 'skipped']
     },
+    IconSparkles: {
+        tags: ['clean up', 'stars']
+    },
+    IconSparkleSwirls: {
+        tags: ['ai', 'artificial intelligence', 'magic', 'advanced automate']
+    },
     IconSpinner: {
         tags: ['in progress']
     },
@@ -500,10 +539,10 @@ export const iconMetadata: {
         tags: []
     },
     IconTimes: {
-        tags: ['close']
+        tags: ['clear', 'close', 'delete', 'multiply', 'remove']
     },
     IconTrash: {
-        tags: ['clear', 'close', 'delete', 'remove', 'x']
+        tags: ['delete', 'remove']
     },
     IconTriangle: {
         tags: ['status', 'alarm active']

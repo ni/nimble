@@ -1,10 +1,13 @@
 import { css } from '@microsoft/fast-element';
-import { display } from '@microsoft/fast-foundation';
+import { display } from '../../../utilities/style/display';
 import {
+    borderHoverColor,
+    borderWidth,
     controlHeight,
     controlSlimHeight,
     mediumPadding
 } from '../../../theme-provider/design-tokens';
+import { focusVisible } from '../../../utilities/style/focus';
 
 export const styles = css`
     ${display('flex')}
@@ -22,10 +25,17 @@ export const styles = css`
         --ni-private-table-cell-action-menu-display: block;
     }
 
+    :host(${focusVisible}) {
+        outline: calc(2 * ${borderWidth}) solid ${borderHoverColor};
+        outline-offset: -2px;
+    }
+
+    .cell-view-container {
+        display: contents;
+    }
+
     .cell-view {
         overflow: hidden;
-        display: flex;
-        align-items: center;
     }
 
     .action-menu {
@@ -35,5 +45,12 @@ export const styles = css`
         flex-grow: 0;
         height: ${controlSlimHeight};
         align-self: center;
+    }
+
+    ${
+        /* This CSS class is applied dynamically by KeyboardNavigationManager */ ''
+    }
+    .action-menu.cell-action-menu-focused {
+        display: block;
     }
 `;

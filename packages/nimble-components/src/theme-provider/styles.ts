@@ -1,7 +1,6 @@
 import { css } from '@microsoft/fast-element';
+import { display } from '../utilities/style/display';
 
 export const styles = css`
-    :host {
-        display: contents;
-    }
+    ${display('contents')}
 `;

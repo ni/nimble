@@ -1,5 +1,8 @@
+import type { Checkbox } from '../checkbox';
+import type { MenuButton } from '../menu-button';
 import type { TableColumn } from '../table-column/base';
 import type { ValidityObject } from '../utilities/models/validator';
+import type { TableCell } from './components/cell';
 
 /**
  * TableFieldName describes the type associated with keys within
@@ -211,4 +214,79 @@ export interface TableRowState<TData extends TableRecord = TableRecord> {
     groupColumn?: TableColumn;
     isParentRow: boolean;
     isLoadingChildren: boolean;
+    requestedSlots: SlotMetadata[];
+    resolvedRowIndex?: number;
+}
+
+/**
+ * @internal
+ *
+ * Alignment of column content
+ */
+export const TableColumnAlignment = {
+    left: 'left',
+    right: 'right'
+} as const;
+export type TableColumnAlignment =
+    (typeof TableColumnAlignment)[keyof typeof TableColumnAlignment];
+
+/**
+ * Table keyboard focus types
+ */
+export const TableFocusType = {
+    none: 'none',
+    columnHeader: 'columnHeader',
+    headerActions: 'headerActions',
+    row: 'row',
+    rowSelectionCheckbox: 'rowSelectionCheckbox',
+    cell: 'cell',
+    cellActionMenu: 'cellActionMenu',
+    cellContent: 'cellContent'
+} as const;
+export type TableFocusType =
+    (typeof TableFocusType)[keyof typeof TableFocusType];
+
+/**
+ * @internal
+ *
+ * Focusable elements of a table row
+ */
+export interface TableRowFocusableElements {
+    selectionCheckbox?: Checkbox;
+    cells: {
+        cell: TableCell,
+        actionMenuButton?: MenuButton
+    }[];
+}
+
+/**
+ * Focusable elements of a table's header
+ */
+export interface TableHeaderFocusableElements {
+    headerActions: HTMLElement[];
+    columnHeaders: HTMLElement[];
+}
+
+/**
+ * @internal
+ */
+export interface CellViewSlotRequestEventDetail {
+    slots: SlotMetadata[];
+}
+
+/**
+ * @internal
+ */
+export interface RowSlotRequestEventDetail {
+    columnInternalId: string;
+    recordId: string;
+    slots: SlotMetadata[];
+}
+
+/**
+ * @internal
+ */
+export interface SlotMetadata {
+    slot: string;
+    name: string;
 }

@@ -1,0 +1,49 @@
+import { Canvas, Meta, Controls, Title } from '@storybook/blocks';
+import * as spinnerStories from './spinner.stories';
+import ComponentApisLink from '../../docs/component-apis-link.mdx';
+import { spinnerTag } from '../../../../nimble-components/src/spinner';
+
+<Meta of={spinnerStories} />
+<Title of={spinnerStories} />
+
+    The <Tag name={spinnerTag}/> is an animating indicator that can be placed in a
+    particular region of a page to represent loading progress, or an
+    ongoing operation, of an indeterminate / unknown duration.
+
+<Canvas of={spinnerStories.spinner} />
+
+## API
+
+<Controls of={spinnerStories.spinner} />
+<ComponentApisLink />
+
+## Styling
+
+### Sizing
+
+The 64px spinner is a less commonly used size reserved for large negative empty
+space. Only one 64px spinner should be used on a single screen at one time.
+
+The 32px spinner is a more commonly used size for negative empty space. No more
+than three 32px spinners should be used on a single screen at one time.
+
+The 16px spinner is the most compact option for tight spaces such as grid cells
+and dense UI interfaces without much negative empty space.
+
+Multiple 16px spinners can be used on a single screen at one time.
+
+### Appearances
+
+Use the `default` appearance and Color theme for UIs with a strong background
+color. Do not use the `accent` appearance with the Color theme.
+
+See the `size` and `appearance` usage details for information on customizing the
+spinner size and guidance for which appearance to use.
+
+## Accessibility
+
+A low-motion/low-frame rate version of the spinner is also available. It can be
+activated by enabling `prefers-reduced-motion`.
+
+When using colored backgrounds, confirm with your designer that a 3:1 contrast
+ratio is met.

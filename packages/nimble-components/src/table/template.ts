@@ -1,4 +1,5 @@
 import {
+    ExecutionContext,
     children,
     elements,
     html,
@@ -12,6 +13,8 @@ import { tableHeaderTag } from './components/header';
 import { tableRowTag } from './components/row';
 import type { TableColumn } from '../table-column/base';
 import {
+    RowSlotRequestEventDetail,
+    SlotMetadata,
     TableActionMenuToggleEventDetail,
     TableColumnSortDirection,
     TableRowSelectionMode,
@@ -33,16 +36,18 @@ import {
 export const template = html<Table>`
     <template
         role="treegrid"
+        ${'' /* tabindex managed dynamically by KeyboardNavigationManager */}
+        tabindex="0"
         aria-multiselectable="${x => x.ariaMultiSelectable}"
         ${children({ property: 'childItems', filter: elements() })}
     >
-        <div class="table-container ${x => (x.documentShiftKeyDown ? 'disable-select' : '')}"
+        <div class="table-container ${x => (x.windowShiftKeyDown ? 'disable-select' : '')}"
             style="
             --ni-private-table-scroll-x: -${x => x.scrollX}px;
             --ni-private-table-header-container-margin-right: ${x => x.virtualizer.headerContainerMarginRight}px;
             --ni-private-table-scroll-height: ${x => x.virtualizer.scrollHeight}px;
             --ni-private-table-row-container-top: ${x => x.virtualizer.rowContainerYOffset}px;
-            --ni-private-table-row-grid-columns: ${x => x.rowGridColumns ?? ''};
+            --ni-private-table-row-grid-columns: ${x => (x.rowGridColumns ? x.rowGridColumns : '')};
             --ni-private-table-cursor-override: ${x => (x.layoutManager.isColumnBeingSized ? 'col-resize' : 'default')};
             --ni-private-table-scrollable-min-width: ${x => x.tableScrollableMinWidth}px;
             --ni-private-glass-overlay-pointer-events: ${x => (x.layoutManager.isColumnBeingSized ? 'none' : 'default')};
@@ -60,7 +65,9 @@ export const template = html<Table>`
                                 <span class="checkbox-container">
                                     <${checkboxTag}
                                         ${ref('selectionCheckbox')}
-                                        class="${x => `selection-checkbox ${x.selectionMode ?? ''}`}"
+                                        ${'' /* tabindex managed dynamically by KeyboardNavigationManager */}
+                                        tabindex="-1"
+                                        class="selection-checkbox"
                                         @change="${(x, c) => x.onAllRowsSelectionChange(c.event as CustomEvent)}"
                                         title="${x => tableSelectAllLabel.getValueFor(x)}"
                                         aria-label="${x => tableSelectAllLabel.getValueFor(x)}"
@@ -68,16 +75,21 @@ export const template = html<Table>`
                                     </${checkboxTag}>
                                 </span>
                             `)}
-                            <${buttonTag}
-                                class="collapse-all-button ${x => `${x.showCollapseAll ? 'visible' : ''}`}"
-                                content-hidden
-                                appearance="${ButtonAppearance.ghost}"
-                                title="${x => tableCollapseAllLabel.getValueFor(x)}"
-                                @click="${x => x.handleCollapseAllRows()}"
-                            >
-                                <${iconTriangleTwoLinesHorizontalTag} slot="start"></${iconTriangleTwoLinesHorizontalTag}>
-                                ${x => tableCollapseAllLabel.getValueFor(x)}
-                            </${buttonTag}>
+                            <span class="collapse-all-button-container">
+                                <${buttonTag}
+                                    ${ref('collapseAllButton')}
+                                    ${'' /* tabindex managed dynamically by KeyboardNavigationManager */}
+                                    tabindex="-1"
+                                    class="collapse-all-button ${x => x.collapseButtonVisibility}"
+                                    content-hidden
+                                    appearance="${ButtonAppearance.ghost}"
+                                    title="${x => tableCollapseAllLabel.getValueFor(x)}"
+                                    @click="${x => x.handleCollapseAllRows()}"
+                                >
+                                    <${iconTriangleTwoLinesHorizontalTag} slot="start"></${iconTriangleTwoLinesHorizontalTag}>
+                                    ${x => tableCollapseAllLabel.getValueFor(x)}
+                                </${buttonTag}>
+                            </span>
                         </span>
                         <span class="column-headers-container" ${ref('columnHeadersContainer')}>
                             ${repeat(x => x.visibleColumns, html<TableColumn, Table>`
@@ -89,15 +101,20 @@ export const template = html<Table>`
                                                 left
                                                 ${(_, c) => `${c.parent.layoutManager.activeColumnIndex === c.index ? 'column-active' : ''}`}
                                                 ${(_, c) => `${c.parent.layoutManager.activeColumnDivider === c.parent.getLeftDividerIndex(c.index) ? 'divider-active' : ''}`}
+                                                ${(_, c) => `${c.parent.layoutManager.hasResizableColumnToLeft(c.index - 1) ? 'draggable' : ''}`}
                                             "
                                             @mousedown="${(_, c) => c.parent.onLeftDividerMouseDown(c.event as MouseEvent, c.index)}">
                                         </div>
                                     `)}
                                         <${tableHeaderTag}
                                             class="header"
+                                            ${'' /* tabindex managed dynamically by KeyboardNavigationManager (if column sorting not disabled) */}
                                             sort-direction="${x => (typeof x.columnInternals.currentSortIndex === 'number' ? x.columnInternals.currentSortDirection : TableColumnSortDirection.none)}"
                                             ?first-sorted-column="${(x, c) => x === c.parent.firstSortedColumn}"
+                                            ?indicators-hidden="${x => x.columnInternals.hideHeaderIndicators}"
+                                            @keydown="${(x, c) => c.parent.onHeaderKeyDown(x, c.event as KeyboardEvent)}"
                                             @click="${(x, c) => c.parent.toggleColumnSort(x, (c.event as MouseEvent).shiftKey)}"
+                                            :alignment="${x => x.columnInternals.headerAlignment}"
                                             :isGrouped=${x => (typeof x.columnInternals.groupIndex === 'number' && !x.columnInternals.groupingDisabled)}
                                         >
                                             <slot name="${x => x.slot}"></slot>
@@ -109,6 +126,7 @@ export const template = html<Table>`
                                                 right
                                                 ${(_, c) => `${c.parent.layoutManager.activeColumnIndex === c.index ? 'column-active' : ''}`}
                                                 ${(_, c) => `${c.parent.layoutManager.activeColumnDivider === c.parent.getRightDividerIndex(c.index) ? 'divider-active' : ''}`}
+                                                ${(_, c) => `${c.parent.layoutManager.hasResizableColumnToLeft(c.index) ? 'draggable' : ''}`}
                                             "
                                              @mousedown="${(_, c) => c.parent.onRightDividerMouseDown(c.event as MouseEvent, c.index)}">
                                         </div>
@@ -119,15 +137,17 @@ export const template = html<Table>`
                         </span>
                     </div>
                 </div>
-                <div class="table-viewport" ${ref('viewport')}>
+                <div class="table-viewport" tabindex="-1" ${ref('viewport')}>
                     <div class="table-scroll"></div>
-                    <div class="table-row-container" ${children({ property: 'rowElements', filter: elements(tableRowTag) })}
+                    <div class="table-row-container ${x => `${x.showCollapseAll ? 'collapse-all-visible' : ''}`}" ${children({ property: 'rowElements', filter: elements(`${tableRowTag}, ${tableGroupRowTag}`) })}
                         role="rowgroup">
                         ${when(x => x.columns.length > 0 && x.canRenderRows, html<Table>`
-                            ${repeat(x => x.virtualizer.visibleItems, html<VirtualItem, Table>`
-                                ${when((x, c) => (c.parent as Table).tableData[x.index]?.isGroupRow, html<VirtualItem, Table>`
+                            ${repeat(x => x.virtualizer.visibleItems, html<VirtualItem<HTMLElement>, Table>`
+                                ${when((x, c: ExecutionContext<Table>) => c.parent.tableData[x.index]?.isGroupRow, html<VirtualItem<HTMLElement>, Table>`
                                     <${tableGroupRowTag}
                                         class="group-row"
+                                        ${'' /* tabindex managed dynamically by KeyboardNavigationManager */}
+                                        tabindex="-1"
                                         :groupRowValue="${(x, c) => c.parent.tableData[x.index]?.groupRowValue}"
                                         ?expanded="${(x, c) => c.parent.tableData[x.index]?.isExpanded}"
                                         :nestingLevel="${(x, c) => c.parent.tableData[x.index]?.nestingLevel}"
@@ -135,39 +155,46 @@ export const template = html<Table>`
                                         :groupColumn="${(x, c) => c.parent.tableData[x.index]?.groupColumn}"
                                         ?selectable="${(_, c) => c.parent.selectionMode === TableRowSelectionMode.multiple}"
                                         selection-state="${(x, c) => c.parent.tableData[x.index]?.selectionState}"
+                                        :resolvedRowIndex="${x => x.index}"
+                                        @focusin="${(_, c) => c.parent.onRowFocusIn(c.event as FocusEvent)}"
+                                        @blur="${(_, c) => c.parent.onRowBlur(c.event as FocusEvent)}"
                                         @group-selection-toggle="${(x, c) => c.parent.onRowSelectionToggle(x.index, c.event as CustomEvent<TableRowSelectionToggleEventDetail>)}"
                                         @group-expand-toggle="${(x, c) => c.parent.handleGroupRowExpanded(x.index, c.event)}"
                                     >
                                     </${tableGroupRowTag}>
                                 `)}
-                                ${when((x, c) => !(c.parent as Table).tableData[x.index]?.isGroupRow, html<VirtualItem, Table>`
+                                ${when((x, c: ExecutionContext<Table>) => !c.parent.tableData[x.index]?.isGroupRow, html<VirtualItem<HTMLElement>, Table>`
                                     <${tableRowTag}
                                         class="row"
+                                        ${'' /* tabindex managed dynamically by KeyboardNavigationManager */}
+                                        tabindex="-1"
                                         record-id="${(x, c) => c.parent.tableData[x.index]?.id}"
                                         ?selectable="${(_, c) => c.parent.selectionMode !== TableRowSelectionMode.none}"
                                         ?selected="${(x, c) => c.parent.tableData[x.index]?.selectionState === TableRowSelectionState.selected}"
                                         ?expanded="${(x, c) => c.parent.tableData[x.index]?.isExpanded}"
                                         ?hide-selection="${(_, c) => c.parent.selectionMode !== TableRowSelectionMode.multiple}"
+                                        ?reserve-collapse-space="${(_, c) => c.parent.canHaveCollapsibleRows}"
                                         :dataRecord="${(x, c) => c.parent.tableData[x.index]?.record}"
                                         :columns="${(_, c) => c.parent.columns}"
                                         :isParentRow="${(x, c) => c.parent.tableData[x.index]?.isParentRow}"
                                         :nestingLevel="${(x, c) => c.parent.tableData[x.index]?.nestingLevel}"
                                         ?row-operation-grid-cell-hidden="${(_, c) => !c.parent.showRowOperationColumn}"
                                         ?loading="${(x, c) => c.parent.tableData[x.index]?.isLoadingChildren}"
+                                        :resolvedRowIndex="${x => x.index}"
                                         @click="${(x, c) => c.parent.onRowClick(x.index, c.event as MouseEvent)}"
+                                        @focusin="${(_, c) => c.parent.onRowFocusIn(c.event as FocusEvent)}"
+                                        @blur="${(_, c) => c.parent.onRowBlur(c.event as FocusEvent)}"
                                         @row-selection-toggle="${(x, c) => c.parent.onRowSelectionToggle(x.index, c.event as CustomEvent<TableRowSelectionToggleEventDetail>)}"
                                         @row-action-menu-beforetoggle="${(x, c) => c.parent.onRowActionMenuBeforeToggle(x.index, c.event as CustomEvent<TableActionMenuToggleEventDetail>)}"
                                         @row-action-menu-toggle="${(_, c) => c.parent.onRowActionMenuToggle(c.event as CustomEvent<TableActionMenuToggleEventDetail>)}"
+                                        @row-slots-request="${(_, c) => c.parent.onRowSlotsRequest(c.event as CustomEvent<RowSlotRequestEventDetail>)}"
                                         @row-expand-toggle="${(x, c) => c.parent.handleRowExpanded(x.index)}"
-                                        :dataIndex="${x => x.index}"
                                     >
-                                    ${when((x, c) => (c.parent as Table).openActionMenuRecordId === (c.parent as Table).tableData[x.index]?.id, html<VirtualItem, Table>`
-                                        ${repeat((_, c) => (c.parent as Table).actionMenuSlots, html<string, Table>`
-                                            <slot
-                                                name="${x => x}"
-                                                slot="${x => `row-action-menu-${x}`}">
-                                            </slot>
-                                        `)}
+                                    ${repeat((x, c: ExecutionContext<Table>) => (c.parent.tableData[x.index]?.requestedSlots || []), html<SlotMetadata>`
+                                        <slot
+                                            name="${x => x.name}"
+                                            slot="${x => x.slot}"
+                                        ></slot>
                                     `)}
                                     </${tableRowTag}>
                                 `)}

@@ -1,8 +1,9 @@
 import { css } from '@microsoft/fast-element';
-import { display } from '@microsoft/fast-foundation';
 import { White } from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
+import { display } from '../../../utilities/style/display';
 import {
     applicationBackgroundColor,
+    borderHoverColor,
     borderWidth,
     controlHeight,
     controlSlimHeight,
@@ -10,16 +11,18 @@ import {
     fillHoverSelectedColor,
     fillSelectedColor,
     mediumPadding,
+    smallPadding,
     standardPadding
 } from '../../../theme-provider/design-tokens';
 import { Theme } from '../../../theme-provider/types';
 import { hexToRgbaCssColor } from '../../../utilities/style/colors';
 import { themeBehavior } from '../../../utilities/style/theme';
 import { styles as expandCollapseStyles } from '../../../patterns/expand-collapse/styles';
+import { focusVisible } from '../../../utilities/style/focus';
 
 export const styles = css`
-    ${expandCollapseStyles}
     ${display('flex')}
+    ${expandCollapseStyles}
 
     :host {
         width: fit-content;
@@ -27,7 +30,6 @@ export const styles = css`
         background-color: ${applicationBackgroundColor};
         height: calc(${controlHeight} + 2 * ${borderWidth});
         border-top: calc(2 * ${borderWidth}) solid transparent;
-        box-sizing: border-box;
         background-clip: padding-box;
     }
 
@@ -36,7 +38,6 @@ export const styles = css`
         width: 100%;
         height: ${controlHeight};
         pointer-events: none;
-        box-sizing: border-box;
         bottom: 0px;
         position: absolute;
     }
@@ -53,11 +54,24 @@ export const styles = css`
         background-color: ${fillHoverSelectedColor};
     }
 
+    :host(${focusVisible}) {
+        outline: none;
+        box-shadow:
+            inset calc(2 * ${borderWidth}) calc(2 * ${borderWidth})
+                ${borderHoverColor},
+            inset calc(-2 * ${borderWidth}) calc(-2 * ${borderWidth})
+                ${borderHoverColor};
+    }
+
     .expand-collapse-button {
         flex: 0 0 auto;
-        padding-left: calc(
-            ${mediumPadding} + (var(--ni-private-table-row-indent-level) - 1) *
-                ${controlHeight}
+        margin-left: max(
+            calc(
+                ${mediumPadding} +
+                    (var(--ni-private-table-row-indent-level) - 1) *
+                    ${controlHeight}
+            ),
+            0px
         );
     }
 
@@ -69,9 +83,13 @@ export const styles = css`
         display: flex;
         align-items: center;
         justify-content: center;
-        padding-left: calc(
-            ${mediumPadding} + (var(--ni-private-table-row-indent-level) - 1) *
-                ${controlHeight}
+        margin-left: max(
+            calc(
+                ${mediumPadding} +
+                    (var(--ni-private-table-row-indent-level) - 1) *
+                    ${controlHeight}
+            ),
+            0px
         );
     }
 
@@ -93,7 +111,7 @@ export const styles = css`
         flex: 0 0 auto;
     }
 
-    .row-front-spacer.top-level-parent {
+    .row-front-spacer.reduced-size-spacer {
         width: ${mediumPadding};
     }
 
@@ -119,11 +137,43 @@ export const styles = css`
         --ni-private-table-cell-action-menu-display: block;
     }
 
+    nimble-table-cell${focusVisible} {
+        --ni-private-table-cell-action-menu-display: block;
+    }
+
+    nimble-table-cell:first-of-type${focusVisible} {
+        margin-left: calc(
+            -1 * (${controlHeight} - ${smallPadding}) * var(--ni-private-table-cell-focus-offset-multiplier)
+        );
+        padding-left: calc(
+            (${controlHeight} - ${mediumPadding}) *
+                var(--ni-private-table-cell-focus-offset-multiplier) +
+                ${mediumPadding}
+        );
+    }
+
+    nimble-table-cell:first-of-type${focusVisible}::before {
+        content: '';
+        display: block;
+        width: calc(
+            (
+                    ${controlHeight} *
+                        var(--ni-private-table-cell-nesting-level) +
+                        ${smallPadding}
+                ) * var(--ni-private-table-cell-focus-offset-multiplier)
+        );
+        height: ${controlHeight};
+    }
+
     :host(:hover) nimble-table-cell {
         --ni-private-table-cell-action-menu-display: block;
     }
 
     :host([selected]) nimble-table-cell {
+        --ni-private-table-cell-action-menu-display: block;
+    }
+
+    :host(${focusVisible}) nimble-table-cell {
         --ni-private-table-cell-action-menu-display: block;
     }
 `.withBehaviors(

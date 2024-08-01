@@ -3,6 +3,11 @@ import { RichTextMentionListbox, richTextMentionListboxTag } from '..';
 import { waitForUpdatesAsync } from '../../../testing/async-helpers';
 import { type Fixture, fixture } from '../../../utilities/tests/fixture';
 import { listOptionTag } from '../../../list-option';
+import {
+    createEventListener,
+    waitAnimationFrame
+} from '../../../utilities/testing/component';
+import { checkFullyInViewport } from '../../../utilities/tests/intersection-observer';
 
 describe('RichTextMentionListbox', () => {
     it('should export its tag', () => {
@@ -39,31 +44,82 @@ describe('RichTextMentionListbox', () => {
         );
     }
 
+    let element: RichTextMentionListbox;
+    let anchor: HTMLElement;
+    let connect: () => Promise<void>;
+    let disconnect: () => Promise<void>;
+
     async function waitForSelectionUpdateAsync(): Promise<void> {
         await waitForUpdatesAsync();
-        await waitForUpdatesAsync();
+        await waitAnimationFrame(); // necessary because scrolling is queued with requestAnimationFrame
     }
 
-    // Intermittent test tracked by https://github.com/ni/nimble/issues/1891
-    xit('should scroll the selected option into view when opened', async () => {
-        const model = new Model();
-        const { connect, disconnect } = await setup500Options(model);
-        await connect();
-        model.mentionListbox.show({
-            anchorNode: model.anchorDiv,
-            filter: ''
+    async function showAndWaitForOpen(filter = ''): Promise<void> {
+        const regionLoadedListener = createEventListener(element, 'loaded');
+        element.show({
+            anchorNode: anchor,
+            filter
         });
+        await regionLoadedListener.promise;
+    }
+
+    beforeEach(async () => {
+        const model = new Model();
+        ({ connect, disconnect } = await setup500Options(model));
+        element = model.mentionListbox;
+        anchor = model.anchorDiv;
+        await connect();
+    });
+
+    afterEach(async () => {
+        await disconnect();
+    });
+
+    // Intermittent, see: https://github.com/ni/nimble/issues/2274
+    it('should scroll the selected option into view when opened #SkipWebkit', async () => {
+        await showAndWaitForOpen();
         await waitForSelectionUpdateAsync(); // showing filters the options and modifies the selection
 
-        model.mentionListbox.selectedIndex = 300;
+        element.selectedIndex = 300;
         await waitForSelectionUpdateAsync();
-        const listbox = model.mentionListbox.region!.querySelector('.listbox')!;
-        expect(listbox.scrollTop).toBeGreaterThan(8000);
+        expect(element.listbox.scrollTop).toBeGreaterThan(8000);
 
-        model.mentionListbox.selectedIndex = 0;
+        element.selectedIndex = 0;
         await waitForSelectionUpdateAsync();
-        expect(listbox.scrollTop).toBeCloseTo(4);
+        expect(element.listbox.scrollTop).toBeCloseTo(4);
+    });
+
+    // Intermittent, see: https://github.com/ni/nimble/issues/2269
+    it('should limit dropdown height to viewport #SkipWebkit', async () => {
+        element.listbox.style.setProperty(
+            '--ni-private-listbox-visible-option-count',
+            '10000'
+        );
+        await showAndWaitForOpen();
+        const fullyVisible = await checkFullyInViewport(element.listbox);
+
+        expect(element.listbox.scrollHeight).toBeGreaterThan(
+            window.innerHeight
+        );
+        expect(fullyVisible).toBe(true);
 
         await disconnect();
+    });
+
+    it('does not show "no items found" in dropdown when no filter', async () => {
+        await showAndWaitForOpen();
+        expect(element.listbox.querySelector('.no-results-label')).toBeNull();
+    });
+
+    it('does not show "no items found" in dropdown when something matches filter', async () => {
+        await showAndWaitForOpen('1');
+        expect(element.listbox.querySelector('.no-results-label')).toBeNull();
+    });
+
+    it('shows "no items found" in dropdown when nothing matches filter', async () => {
+        await showAndWaitForOpen('zzz');
+        expect(
+            element.listbox.querySelector('.no-results-label')
+        ).toBeDefined();
     });
 });

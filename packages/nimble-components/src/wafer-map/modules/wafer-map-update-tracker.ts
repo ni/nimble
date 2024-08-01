@@ -33,8 +33,7 @@ export class WaferMapUpdateTracker extends UpdateTracker<typeof trackedItems> {
 
     public get requiresEventsUpdate(): boolean {
         return (
-            this.isTracked('highlightedTags')
-            || this.isTracked('canvasWidth')
+            this.isTracked('canvasWidth')
             || this.isTracked('canvasHeight')
             || this.isTracked('originLocation')
             || this.isTracked('gridMinX')
@@ -43,6 +42,7 @@ export class WaferMapUpdateTracker extends UpdateTracker<typeof trackedItems> {
             || this.isTracked('gridMaxY')
             || this.isTracked('dies')
             || this.isTracked('maxCharacters')
+            || this.isTracked('highlightedTags')
             || this.isTracked('colorScale')
             || this.isTracked('colorScaleMode')
             || this.isTracked('dieLabelsHidden')
@@ -51,11 +51,45 @@ export class WaferMapUpdateTracker extends UpdateTracker<typeof trackedItems> {
         );
     }
 
+    public get requiresWorkerWaferSetup(): boolean {
+        return (
+            this.isTracked('canvasWidth')
+            || this.isTracked('canvasHeight')
+            || this.isTracked('originLocation')
+            || this.isTracked('gridMinX')
+            || this.isTracked('gridMaxX')
+            || this.isTracked('gridMinY')
+            || this.isTracked('gridMaxY')
+            || this.isTracked('dies')
+            || this.isTracked('maxCharacters')
+            || this.isTracked('highlightedTags')
+            || this.isTracked('colorScale')
+            || this.isTracked('colorScaleMode')
+            || this.isTracked('dieLabelsHidden')
+            || this.isTracked('dieLabelsSuffix')
+        );
+    }
+
     public get requiresContainerDimensionsUpdate(): boolean {
         return this.isTracked('canvasWidth') || this.isTracked('canvasHeight');
     }
 
+    public get requiresComponentResizeUpdate(): boolean {
+        return this.isTracked('canvasWidth') || this.isTracked('canvasHeight');
+    }
+
     public get requiresScalesUpdate(): boolean {
+        return (
+            this.isTracked('originLocation')
+            || this.isTracked('gridMinX')
+            || this.isTracked('gridMaxX')
+            || this.isTracked('gridMinY')
+            || this.isTracked('gridMaxY')
+            || this.isTracked('dies')
+        );
+    }
+
+    public get requiresInputDataUpdate(): boolean {
         return (
             this.isTracked('originLocation')
             || this.isTracked('gridMinX')
@@ -80,6 +114,17 @@ export class WaferMapUpdateTracker extends UpdateTracker<typeof trackedItems> {
         );
     }
 
+    public get requiresColorAndTextUpdate(): boolean {
+        return (
+            this.isTracked('maxCharacters')
+            || this.isTracked('highlightedTags')
+            || this.isTracked('colorScale')
+            || this.isTracked('colorScaleMode')
+            || this.isTracked('dieLabelsHidden')
+            || this.isTracked('dieLabelsSuffix')
+        );
+    }
+
     public get requiresDrawnWaferUpdate(): boolean {
         return this.isTracked('transform');
     }
@@ -93,16 +138,26 @@ export class WaferMapUpdateTracker extends UpdateTracker<typeof trackedItems> {
      * After the update is finished, all the tracked items are reset.
      */
     public override queueUpdate(): void {
-        if (!this.wafermap.$fastController.isConnected) {
+        if (!this.wafermap.$fastController.isConnected || this.updateQueued) {
             return;
         }
-        if (!this.updateQueued) {
-            this.updateQueued = true;
+        this.updateQueued = true;
+        if (this.wafermap.currentTask === undefined) {
             DOM.queueUpdate(() => {
                 this.wafermap.update();
                 this.untrackAll();
                 this.updateQueued = false;
             });
+        } else {
+            void (async () => {
+                await this.wafermap.currentTask;
+                DOM.queueUpdate(() => {
+                    this.wafermap.update();
+                    this.untrackAll();
+                    this.updateQueued = false;
+                    this.wafermap.currentTask = undefined;
+                });
+            })();
         }
     }
 }

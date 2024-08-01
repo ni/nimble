@@ -15,10 +15,12 @@ export const template = html<TableColumnAnchorCellView>`
         }}"
         class="${x => (x.isPlaceholder ? 'placeholder' : '')}"
     >
-        ${when(x => typeof x.cellRecord?.href === 'string', html<TableColumnAnchorCellView>`
+        ${when(x => x.showAnchor, html<TableColumnAnchorCellView>`
             <${anchorTag}
                 ${ref('anchor')}
                 ${overflow('hasOverflow')}
+                ${'' /* tabindex managed dynamically by KeyboardNavigationManager */}
+                tabindex="-1"
                 href="${x => x.cellRecord?.href}"
                 hreflang="${x => x.columnConfig?.hreflang}"
                 ping="${x => x.columnConfig?.ping}"
@@ -33,7 +35,7 @@ export const template = html<TableColumnAnchorCellView>`
             >
                 ${x => x.text}
             </${anchorTag}>`)}
-        ${when(x => typeof x.cellRecord?.href !== 'string', html<TableColumnAnchorCellView>`
+        ${when(x => !x.showAnchor, html<TableColumnAnchorCellView>`
             <span
                 ${overflow('hasOverflow')}
                 title=${x => (x.hasOverflow ? x.text : null)}
@@ -42,3 +44,4 @@ export const template = html<TableColumnAnchorCellView>`
             </span>`)}
     </template>
 `;
+/* eslint-enable @typescript-eslint/indent */

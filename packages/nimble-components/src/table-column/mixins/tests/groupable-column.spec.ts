@@ -1,4 +1,3 @@
-/* eslint-disable max-classes-per-file */
 import { customElement } from '@microsoft/fast-element';
 import {
     fixture,
@@ -12,6 +11,7 @@ import {
     tableColumnEmptyGroupHeaderViewTag
 } from '../../base/tests/table-column.fixtures';
 import type { ColumnInternalsOptions } from '../../base/models/column-internals';
+import { ColumnValidator } from '../../base/models/column-validator';
 
 const columnName = uniqueElementName();
 @customElement({
@@ -23,12 +23,12 @@ class TestTableColumn extends mixinGroupableColumnAPI(TableColumn) {
             cellRecordFieldNames: [],
             cellViewTag: tableColumnEmptyCellViewTag,
             groupHeaderViewTag: tableColumnEmptyGroupHeaderViewTag,
-            delegatedEvents: []
+            delegatedEvents: [],
+            validator: new ColumnValidator<[]>([])
         };
     }
 }
 
-// prettier-ignore
 async function setup(): Promise<Fixture<TestTableColumn>> {
     return fixture(columnName);
 }

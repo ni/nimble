@@ -22,7 +22,9 @@ const trackedItems = [
     'rowParentIds',
     'groupRows',
     'columnIds',
+    'columnHidden',
     'columnSort',
+    'columnSortDisabled',
     'columnWidths',
     'columnDefinition',
     'actionMenuSlots',
@@ -97,6 +99,16 @@ export class TableUpdateTracker<
         );
     }
 
+    public get requiresKeyboardFocusReset(): boolean {
+        return (
+            this.isTracked('columnSortDisabled')
+            || this.isTracked('columnDefinition')
+            || this.isTracked('columnHidden')
+            || this.isTracked('selectionMode')
+            || this.isTracked('actionMenuSlots')
+        );
+    }
+
     public trackAllStateChanged(): void {
         this.trackAll();
         this.queueUpdate();
@@ -118,8 +130,12 @@ export class TableUpdateTracker<
         ) {
             this.track('columnDefinition');
         } else if (
-            isColumnProperty(changedColumnProperty, 'sortingDisabled')
-            || isColumnInternalsProperty(
+            isColumnInternalsProperty(changedColumnProperty, 'sortingDisabled')
+        ) {
+            this.track('columnSort');
+            this.track('columnSortDisabled');
+        } else if (
+            isColumnInternalsProperty(
                 changedColumnProperty,
                 'currentSortDirection',
                 'currentSortIndex'
@@ -127,15 +143,18 @@ export class TableUpdateTracker<
         ) {
             this.track('columnSort');
         } else if (
-            isColumnProperty(changedColumnProperty, 'columnHidden')
-            || isColumnInternalsProperty(
+            isColumnInternalsProperty(
                 changedColumnProperty,
                 'currentFractionalWidth',
                 'currentPixelWidth',
-                'minPixelWidth'
+                'minPixelWidth',
+                'resizingDisabled'
             )
         ) {
             this.track('columnWidths');
+        } else if (isColumnProperty(changedColumnProperty, 'columnHidden')) {
+            this.track('columnWidths');
+            this.track('columnHidden');
         } else if (isColumnProperty(changedColumnProperty, 'actionMenuSlot')) {
             this.track('actionMenuSlots');
         } else if (
@@ -155,6 +174,7 @@ export class TableUpdateTracker<
         this.track('columnIds');
         this.track('columnDefinition');
         this.track('columnSort');
+        this.track('columnSortDisabled');
         this.track('columnWidths');
         this.track('actionMenuSlots');
         this.track('groupRows');

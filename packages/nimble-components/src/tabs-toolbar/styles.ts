@@ -1,5 +1,5 @@
 import { css } from '@microsoft/fast-element';
-import { display } from '@microsoft/fast-foundation';
+import { display } from '../utilities/style/display';
 import {
     bodyFont,
     bodyFontColor,
@@ -16,7 +16,6 @@ export const styles = css`
     :host {
         align-items: center;
         height: ${controlHeight};
-        box-sizing: border-box;
         font: ${bodyFont};
         color: ${bodyFontColor};
     }

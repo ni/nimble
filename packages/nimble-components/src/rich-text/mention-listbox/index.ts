@@ -36,6 +36,14 @@ export class RichTextMentionListbox extends FoundationListbox {
     public region?: AnchoredRegion;
 
     /**
+     * The space available in the viewport for the listbox when opened.
+     *
+     * @internal
+     */
+    @observable
+    public availableViewportHeight = 0;
+
+    /**
      * @internal
      */
     public filter = '';
@@ -46,7 +54,15 @@ export class RichTextMentionListbox extends FoundationListbox {
      *
      * @internal
      */
+    @observable
     public filteredOptions: ListboxOption[] = [];
+
+    /**
+     * Reference to the internal listbox element.
+     *
+     * @internal
+     */
+    public listbox!: HTMLDivElement;
 
     @observable
     private anchorElement?: HTMLElement;
@@ -92,6 +108,10 @@ export class RichTextMentionListbox extends FoundationListbox {
      * @public
      */
     public show(options: MentionListboxShowOptions): void {
+        const listboxTop = options.anchorNode.getBoundingClientRect().bottom;
+        this.availableViewportHeight = Math.trunc(
+            window.innerHeight - listboxTop
+        );
         this.filter = options.filter;
         this.anchorElement = options.anchorNode;
         this.setOpen(true);
@@ -118,7 +138,8 @@ export class RichTextMentionListbox extends FoundationListbox {
                     href: this.firstSelectedOption.value,
                     displayName: this.firstSelectedOption.text
                 };
-                this.emitMentionSelected(mentionDetail);
+                this.$emit('mention-selected', mentionDetail);
+                this.setOpen(false);
                 return true;
             }
             case keyEscape: {
@@ -199,7 +220,8 @@ export class RichTextMentionListbox extends FoundationListbox {
             href: capturedListOption.value,
             displayName: capturedListOption.text
         };
-        this.emitMentionSelected(mentionDetail);
+        this.$emit('mention-selected', mentionDetail);
+        this.setOpen(false);
         return true;
     }
 
@@ -260,11 +282,6 @@ export class RichTextMentionListbox extends FoundationListbox {
                 this.firstSelectedOption?.scrollIntoView({ block: 'nearest' });
             });
         }
-    }
-
-    private emitMentionSelected(mentionDetail: MentionDetail): void {
-        this.$emit('mention-selected', mentionDetail);
-        this.setOpen(false);
     }
 
     private setOpen(value: boolean): void {

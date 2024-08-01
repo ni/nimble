@@ -1,5 +1,5 @@
 import { css } from '@microsoft/fast-element';
-import { display } from '@microsoft/fast-foundation';
+import { display } from '../utilities/style/display';
 import { focusVisible } from '../utilities/style/focus';
 
 import {
@@ -34,7 +34,6 @@ export const styles = css`
     .control {
         width: calc(${controlHeight} / 2);
         height: calc(${controlHeight} / 2);
-        box-sizing: border-box;
         flex-shrink: 0;
         border: ${borderWidth} solid ${borderColor};
         padding: 2px;

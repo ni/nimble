@@ -2,6 +2,51 @@
   "name": "@ni/xliff-to-json-converter",
   "entries": [
     {
+      "date": "Mon, 22 Jul 2024 15:45:21 GMT",
+      "version": "1.1.7",
+      "tag": "@ni/xliff-to-json-converter_v1.1.7",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/xliff-to-json-converter",
+            "commit": "f69586afcbdea5f4b8834d1123ec2b06d4eeecb3",
+            "comment": "Update to typescript 5.4.5"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 07 Jun 2024 17:53:21 GMT",
+      "version": "1.1.6",
+      "tag": "@ni/xliff-to-json-converter_v1.1.6",
+      "comments": {
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/xliff-to-json-converter",
+            "commit": "992217c62385db7dcc228d23a74658c6f8f6b44c",
+            "comment": "Switch to all nimble private linting"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 15 Apr 2024 17:36:54 GMT",
+      "version": "1.1.6",
+      "tag": "@ni/xliff-to-json-converter_v1.1.6",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/xliff-to-json-converter",
+            "commit": "7254ddb339236dc1519033f88290491436a01aef",
+            "comment": "Update to typescript 5.1.6"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 12 Mar 2024 21:01:54 GMT",
       "version": "1.1.5",
       "tag": "@ni/xliff-to-json-converter_v1.1.5",

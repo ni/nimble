@@ -1,5 +1,5 @@
 import { css } from '@microsoft/fast-element';
-import { display } from '@microsoft/fast-foundation';
+import { display } from '../utilities/style/display';
 
 import {
     bodyDisabledFontColor,
@@ -12,17 +12,13 @@ import {
     iconColor,
     iconSize
 } from '../theme-provider/design-tokens';
+import { focusVisible } from '../utilities/style/focus';
 
 export const styles = css`
     ${display('grid')}
 
     :host {
         font: ${bodyFont};
-    }
-
-    :host(:focus-within:not(:active)) {
-        outline: 2px solid ${borderHoverColor};
-        outline-offset: -2px;
     }
 
     :host(:hover) {
@@ -41,7 +37,6 @@ export const styles = css`
         display: grid;
         contain: layout;
         overflow: visible;
-        box-sizing: border-box;
         height: ${controlHeight};
         grid-template-columns: 1fr;
         column-gap: 8px;
@@ -55,6 +50,13 @@ export const styles = css`
         cursor: pointer;
         text-decoration: none;
         outline: none;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    a${focusVisible} {
+        outline: 2px solid ${borderHoverColor};
+        outline-offset: -2px;
     }
 
     :host([disabled]) a {

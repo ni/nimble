@@ -6,6 +6,11 @@ import {
     borderRgbPartialColor,
     borderWidth,
     controlHeight,
+    controlSlimHeight,
+    fillHoverColor,
+    fillHoverSelectedColor,
+    fillSelectedColor,
+    iconColor,
     mediumPadding,
     placeholderFontColor,
     smallPadding
@@ -34,8 +39,14 @@ export const styles = css`
         order: 1;
     }
 
-    [part='indicator'] {
+    .clear-button {
         order: 3;
+        height: ${controlSlimHeight};
+        margin-left: ${smallPadding};
+    }
+
+    [part='indicator'] {
+        order: 4;
     }
 
     .error-icon {
@@ -48,10 +59,6 @@ export const styles = css`
 
     .listbox {
         overflow-x: clip;
-    }
-
-    .listbox.empty slot {
-        display: none;
     }
 
     .listbox.above {
@@ -91,7 +98,9 @@ export const styles = css`
     }
 
     .filter-icon {
-        padding-left: ${smallPadding};
+        flex-shrink: 0;
+        margin-left: ${smallPadding};
+        ${iconColor.cssCustomProperty}: ${placeholderFontColor};
     }
 
     .filter-input {
@@ -112,16 +121,51 @@ export const styles = css`
         outline: 0px;
     }
 
-    .scrollable-region {
-        overflow: auto;
+    ::slotted([role='option']) {
+        background-color: transparent;
     }
 
-    .no-results-label {
-        color: ${placeholderFontColor};
+    ::slotted([role='option']:hover) {
+        background-color: ${fillHoverColor};
+    }
+
+    ::slotted([role='option'][active-option]) {
+        background-color: ${fillSelectedColor};
+    }
+
+    ::slotted([role='option'][active-option]:hover) {
+        background-color: ${fillHoverSelectedColor};
+    }
+
+    .loading-container {
+        padding-left: ${mediumPadding};
+        padding-right: ${mediumPadding};
+        display: flex;
         height: ${controlHeight};
-        display: inline-flex;
-        align-items: center;
+        flex: 1 0 auto;
+    }
+
+    .loading-container.above {
+        align-items: end;
+        padding-bottom: ${smallPadding};
+    }
+
+    .loading-container.below {
+        align-items: normal;
+        padding-top: ${smallPadding};
+    }
+
+    .loading-container.empty {
         padding: ${smallPadding} ${mediumPadding};
+        align-items: center;
+    }
+
+    .loading-label {
+        color: ${placeholderFontColor};
+    }
+
+    .loading-spinner {
+        margin-left: auto;
     }
 `.withBehaviors(
     appearanceBehavior(
@@ -137,7 +181,8 @@ export const styles = css`
         Theme.color,
         css`
             .filter-field,
-            .no-results-label {
+            .no-results-label,
+            .loading-container {
                 background: ${hexToRgbaCssColor(White, 0.15)};
             }
         `

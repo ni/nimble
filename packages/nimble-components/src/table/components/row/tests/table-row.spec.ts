@@ -14,7 +14,7 @@ import type {
     TableRowSelectionToggleEventDetail
 } from '../../../types';
 import { TableRowPageObject } from './table-row.pageobject';
-import { createEventListener } from '../../../../utilities/tests/component';
+import { createEventListener } from '../../../../utilities/testing/component';
 import { tableTag, type Table } from '../../..';
 import {
     TableColumnDateText,
@@ -476,6 +476,38 @@ describe('TableRow', () => {
 
             const updatedCell = pageObject.getRenderedCell(0);
             expect(originalCell).not.toBe(updatedCell);
+        });
+
+        it('getFocusableElements() includes array of cells', async () => {
+            await connect();
+
+            const focusableElements = row.getFocusableElements();
+            const actualCells = pageObject.getRenderedCells();
+            expect(focusableElements.cells).toEqual([
+                { cell: actualCells[0]!, actionMenuButton: undefined },
+                { cell: actualCells[1]!, actionMenuButton: undefined }
+            ]);
+        });
+
+        it('getFocusableElements() includes the selection checkbox when row is selectable', async () => {
+            row.selectable = true;
+            await connect();
+
+            const focusableElements = row.getFocusableElements();
+            expect(focusableElements.selectionCheckbox).toBe(
+                row.selectionCheckbox
+            );
+        });
+
+        it('if row is set to selectable then subsequently not selectable, getFocusableElements() does not include a selection checkbox', async () => {
+            row.selectable = true;
+            await connect();
+            await waitForUpdatesAsync();
+            row.selectable = false;
+            await waitForUpdatesAsync();
+
+            const focusableElements = row.getFocusableElements();
+            expect(focusableElements.selectionCheckbox).toBeUndefined();
         });
     });
 });

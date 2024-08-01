@@ -1,6 +1,6 @@
 import { css } from '@microsoft/fast-element';
-import { display } from '@microsoft/fast-foundation';
 import { White } from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
+import { display } from '../../utilities/style/display';
 import {
     applicationBackgroundColor,
     bodyFont,
@@ -10,13 +10,15 @@ import {
     borderWidth,
     controlHeight,
     iconSize,
+    menuMinWidth,
     popupBorderColor,
     smallDelay,
     smallPadding,
     borderRgbPartialColor,
     mediumPadding,
     failColor,
-    elevation2BoxShadow
+    elevation2BoxShadow,
+    placeholderFontColor
 } from '../../theme-provider/design-tokens';
 import { Theme } from '../../theme-provider/types';
 import { appearanceBehavior } from '../../utilities/style/appearance';
@@ -26,18 +28,18 @@ import { themeBehavior } from '../../utilities/style/theme';
 import { DropdownAppearance } from './types';
 import { userSelectNone } from '../../utilities/style/user-select';
 
+// prettier-ignore
 export const styles = css`
     ${display('inline-flex')}
 
     :host {
-        box-sizing: border-box;
         color: ${bodyFontColor};
         font: ${bodyFont};
         height: ${controlHeight};
         position: relative;
         justify-content: center;
         ${userSelectNone}
-        min-width: 250px;
+        min-width: ${menuMinWidth};
         outline: none;
         vertical-align: top;
         --ni-private-hover-indicator-width: calc(${borderWidth} + 1px);
@@ -102,13 +104,8 @@ export const styles = css`
         width: 0px;
     }
 
-    [part='start'] {
-        display: none;
-    }
-
     .control {
         align-items: center;
-        box-sizing: border-box;
         cursor: pointer;
         display: flex;
         min-height: 100%;
@@ -134,41 +131,8 @@ export const styles = css`
         border-bottom-color: ${failColor};
     }
 
-    .listbox {
-        box-sizing: border-box;
-        display: inline-flex;
-        flex-direction: column;
-        overflow-y: auto;
-        width: 100%;
-        --ni-private-listbox-padding: ${smallPadding};
-        max-height: calc(var(--ni-private-select-max-height) - ${smallPadding});
-        box-shadow: ${elevation2BoxShadow};
-        border: 1px solid ${popupBorderColor};
-        background-color: ${applicationBackgroundColor};
-    }
-
-    .listbox slot {
-        display: block;
-        background: transparent;
-        padding: var(--ni-private-listbox-padding);
-    }
-
-    :host([open][position='above']) .listbox {
-        border-bottom-left-radius: 0;
-        border-bottom-right-radius: 0;
-    }
-
-    :host([open][position='below']) .listbox {
-        border-top-left-radius: 0;
-        border-top-right-radius: 0;
-    }
-
-    :host([open][position='above']) .anchored-region {
-        padding-bottom: ${smallPadding};
-    }
-
-    :host([open][position='below']) .anchored-region {
-        padding-top: ${smallPadding};
+    [part='start'] {
+        display: none;
     }
 
     .selected-value {
@@ -188,7 +152,7 @@ export const styles = css`
 
     .indicator {
         flex: none;
-        margin-inline-start: 1em;
+        margin-left: ${smallPadding};
         padding-right: 8px;
         display: flex;
         justify-content: center;
@@ -209,9 +173,87 @@ export const styles = css`
         margin-inline-start: auto;
     }
 
+    :host([open][position='above']) .anchored-region {
+        padding-bottom: ${smallPadding};
+    }
+
+    :host([open][position='below']) .anchored-region {
+        padding-top: ${smallPadding};
+    }
+
+    .listbox {
+        display: inline-flex;
+        flex-direction: column;
+        width: 100%;
+        --ni-private-listbox-visible-option-count: 10.5;
+        --ni-private-listbox-anchor-element-gap: ${smallPadding};
+        --ni-private-listbox-padding: ${smallPadding};
+        --ni-private-listbox-filter-height: 0px;
+        --ni-private-listbox-loading-indicator-height: 0px;
+        max-height: min(
+            calc(
+                var(--ni-private-listbox-anchor-element-gap) + 
+                2 * ${borderWidth} + 
+                var(--ni-private-listbox-padding) +
+                ${controlHeight} * var(--ni-private-listbox-visible-option-count) +
+                var(--ni-private-listbox-filter-height) +
+                var(--ni-private-listbox-loading-indicator-height)
+            ),
+            calc(
+                var(--ni-private-listbox-available-viewport-height) - 
+                var(--ni-private-listbox-anchor-element-gap)
+            )
+        );
+        box-shadow: ${elevation2BoxShadow};
+        border: ${borderWidth} solid ${popupBorderColor};
+        background-color: ${applicationBackgroundColor};
+    }
+
+    .listbox:has(.filter-field) {
+        --ni-private-listbox-filter-height: ${controlHeight};
+    }
+
+    .listbox:has(.loading-container) {
+        --ni-private-listbox-loading-indicator-height: ${controlHeight};
+    }
+
+    :host([open][position='above']) .listbox {
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+
+    :host([open][position='below']) .listbox {
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+    }
+
+    .scrollable-region {
+        overflow-y: auto;
+    }
+
+    .listbox slot {
+        display: block;
+        background: transparent;
+        padding: var(--ni-private-listbox-padding);
+    }
+
+    .listbox.empty slot {
+        display: none;
+    }
+
     ::slotted([role='option']),
     ::slotted(option) {
         flex: none;
+    }
+
+    .no-results-label {
+        color: ${placeholderFontColor};
+        height: ${controlHeight};
+        display: inline-flex;
+        display: flex;
+        flex: 1 0 auto;
+        align-items: center;
+        padding: ${smallPadding} ${mediumPadding};
     }
 `.withBehaviors(
     appearanceBehavior(

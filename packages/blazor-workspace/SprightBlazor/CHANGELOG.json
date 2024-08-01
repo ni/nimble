@@ -1,0 +1,118 @@
+{
+  "name": "@ni/spright-blazor",
+  "entries": [
+    {
+      "date": "Sat, 01 Jun 2024 21:18:00 GMT",
+      "version": "1.0.1",
+      "tag": "@ni/spright-blazor_v1.0.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/spright-blazor",
+            "commit": "995204e955b75f06616df7020461ee6cba5ebe83",
+            "comment": "Update nuget dependencies"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 15 May 2024 18:50:42 GMT",
+      "version": "1.0.0",
+      "tag": "@ni/spright-blazor_v1.0.0",
+      "comments": {
+        "major": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/spright-blazor",
+            "commit": "1b7878b6ea02439299d77219762235972a07f276",
+            "comment": "Publishing version 1.0.0"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 09 May 2024 18:40:41 GMT",
+      "version": "0.0.5",
+      "tag": "@ni/spright-blazor_v0.0.5",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/spright-blazor",
+            "commit": "43edba8e90d0c5f414fd2b4cf19eee197b477829",
+            "comment": "Update Blazor docs for Spright and workspace change"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 08 May 2024 00:06:34 GMT",
+      "version": "0.0.4",
+      "tag": "@ni/spright-blazor_v0.0.4",
+      "comments": {
+        "none": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/spright-blazor",
+            "commit": "4f3336686f0c26bacbbb2a25232bc70a7e623fcf",
+            "comment": "Add Spright rectangle component to Blazor example"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 02 May 2024 23:33:54 GMT",
+      "version": "0.0.4",
+      "tag": "@ni/spright-blazor_v0.0.4",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/spright-blazor",
+            "commit": "358fef9cf0732360ecfbfdd624d056d116ea9f80",
+            "comment": "Test release from renamed Blazor workspace and solution"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 01 May 2024 22:28:21 GMT",
+      "version": "0.0.3",
+      "tag": "@ni/spright-blazor_v0.0.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/spright-blazor",
+            "commit": "5d398fc5873bcb530f0eb643eaaf2a3b5ee33568",
+            "comment": "Update nuget dependencies"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 01 May 2024 18:56:28 GMT",
+      "version": "0.0.2",
+      "tag": "@ni/spright-blazor_v0.0.2",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/spright-blazor",
+            "commit": "ed212673f9389e3e9b75a133b09e9fb29f28911a",
+            "comment": "Add SprightBlazor"
+          }
+        ],
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/spright-blazor",
+            "commit": "048123ec697da40e479793b7f8f0ad09a9bd712f",
+            "comment": "Invoke publish fix"
+          }
+        ]
+      }
+    }
+  ]
+}

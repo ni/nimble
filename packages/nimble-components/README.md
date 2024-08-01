@@ -14,8 +14,8 @@ NI-styled web components for web applications.
 
 If you are using one of the following frameworks see associated wrapper documentation:
 
-1. Angular: See the [nimble-angular](/angular-workspace/projects/ni/nimble-angular) documentation.
-2. Blazor WebAssembly or Blazor Server: See the [nimble-blazor](/packages/nimble-blazor) documentation.
+1. Angular: See the [nimble-angular](/packages/angular-workspace/nimble-angular) documentation.
+2. Blazor WebAssembly or Blazor Server: See the [nimble-blazor](/packages/blazor-workspace/NimbleBlazor) documentation.
 
 ### Using in a Webpack Application
 
@@ -120,6 +120,13 @@ If a client is localized, it should:
     </body>
     ```
 -   For each label token on the label provider API, localize the English string, and set the corresponding HTML attribute or JS property on the label provider to the localized values. A list of all label tokens for each label provider (and their corresponding attribute/property names and English strings) can be found in the [Tokens/Label Providers section of Storybook](http://nimble.ni.dev/storybook/?path=/docs/tokens-label-providers--docs).
+
+## Content Security Policy
+
+When using Nimble in an environment with a [Content Security Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy) enabled, the following are known required settings beyond "common" settings (such as the [OWASP Basic non-Strict CSP Policy](https://cheatsheetseries.owasp.org/cheatsheets/Content_Security_Policy_Cheat_Sheet.html#basic-non-strict-csp-policy)) for using Nimble:
+
+-   `style-src 'unsafe-inline'` is [needed to support style patterns in the FAST library](https://github.com/microsoft/fast/issues/4510) leveraged by Nimble.
+-   `worker-src blob:` is needed to support controls that leverage Web Workers (for example the Wafer Map).
 
 ## Accessibility
 

@@ -10,6 +10,7 @@ import type { Mapping } from '../../mapping/base';
 import type { MappingUserKey } from '../../mapping/base/types';
 import { RichTextMentionUsersValidator } from './models/rich-text-mention-users-validator';
 import { richTextMentionUsersViewTag } from './view';
+import { styles } from '../base/styles';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -21,15 +22,12 @@ declare global {
  * Rich Text user mention configuration element which will have MappingMentionUser elements as children
  */
 export class RichTextMentionUsers extends RichTextMention<RichTextMentionUsersValidator> {
-    protected override createValidator(): RichTextMentionUsersValidator {
-        return new RichTextMentionUsersValidator(this.mentionInternals);
-    }
-
-    protected override getMentionInternalsOptions(): MentionInternalsOptions {
+    protected override getMentionInternalsOptions(): MentionInternalsOptions<RichTextMentionUsersValidator> {
         return {
             icon: iconAtTag,
             character: '@',
-            viewElement: richTextMentionUsersViewTag
+            viewElement: richTextMentionUsersViewTag,
+            validator: new RichTextMentionUsersValidator()
         };
     }
 
@@ -50,7 +48,8 @@ export class RichTextMentionUsers extends RichTextMention<RichTextMentionUsersVa
 }
 const nimbleRichTextMentionUsers = RichTextMentionUsers.compose({
     baseName: 'rich-text-mention-users',
-    template
+    template,
+    styles
 });
 
 DesignSystem.getOrCreate()

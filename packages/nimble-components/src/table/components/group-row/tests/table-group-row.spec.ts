@@ -1,6 +1,6 @@
 import { html } from '@microsoft/fast-element';
 import { TableGroupRow } from '..';
-import { createEventListener } from '../../../../utilities/tests/component';
+import { createEventListener } from '../../../../utilities/testing/component';
 import { fixture, Fixture } from '../../../../utilities/tests/fixture';
 import { waitForUpdatesAsync } from '../../../../testing/async-helpers';
 import {
@@ -196,5 +196,33 @@ describe('TableGroupRow', () => {
         await connect();
 
         expect(element.getAttribute('aria-expanded')).toBe('false');
+    });
+
+    it('getFocusableElements() includes an empty array for cells', async () => {
+        await connect();
+
+        const focusableElements = element.getFocusableElements();
+        expect(focusableElements.cells).toEqual([]);
+    });
+
+    it('getFocusableElements() includes the selection checkbox when row is selectable', async () => {
+        element.selectable = true;
+        await connect();
+
+        const focusableElements = element.getFocusableElements();
+        expect(focusableElements.selectionCheckbox).toBe(
+            element.selectionCheckbox
+        );
+    });
+
+    it('if row is set to selectable then subsequently not selectable, getFocusableElements() does not include a selection checkbox', async () => {
+        element.selectable = true;
+        await connect();
+        await waitForUpdatesAsync();
+        element.selectable = false;
+        await waitForUpdatesAsync();
+
+        const focusableElements = element.getFocusableElements();
+        expect(focusableElements.selectionCheckbox).toBeUndefined();
     });
 });

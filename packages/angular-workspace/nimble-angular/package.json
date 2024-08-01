@@ -1,0 +1,40 @@
+{
+  "name": "@ni/nimble-angular",
+  "version": "26.1.0",
+  "description": "Angular components for the NI Nimble Design System",
+  "scripts": {
+    "invoke-publish": "npm run invoke-publish:setup && cd ../dist/nimble-angular && npm publish",
+    "invoke-publish:setup": "cd ../ && npm run build:nimble"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ni/nimble.git"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "author": {
+    "name": "National Instruments"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ni/nimble/issues"
+  },
+  "homepage": "https://github.com/ni/nimble#readme",
+  "exports": {
+    "./styles/*": {
+      "sass": "./styles/*.scss"
+    }
+  },
+  "peerDependencies": {
+    "@angular/common": "^17.3.12",
+    "@angular/core": "^17.3.12",
+    "@angular/forms": "^17.3.12",
+    "@angular/localize": "^17.3.12",
+    "@angular/router": "^17.3.12",
+    "@ni/nimble-components": "^30.2.0"
+  },
+  "dependencies": {
+    "tslib": "^2.2.0"
+  }
+}

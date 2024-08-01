@@ -1,5 +1,5 @@
 import { css } from '@microsoft/fast-element';
-import { display } from '@microsoft/fast-foundation';
+import { display } from '../utilities/style/display';
 import {
     applicationBackgroundColor,
     bodyFont,
@@ -67,7 +67,6 @@ export const styles = css`
     }
 
     .dialog-contents {
-        box-sizing: border-box;
         display: flex;
         flex-direction: column;
         position: absolute;
