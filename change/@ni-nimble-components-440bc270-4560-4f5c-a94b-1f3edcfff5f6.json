@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "Switch to rollup-plugin-sourcemaps2 and stop @types/markdown-it major updates",
+  "packageName": "@ni/nimble-components",
+  "email": "rajsite@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
