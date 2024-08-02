@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Fri, 02 Aug 2024 22:55:10 GMT",
+      "version": "31.1.0",
+      "tag": "@ni/nimble-components_v31.1.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "20709258+msmithNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "5068a59f17f70fe822c3c61026d611c6f548c507",
+            "comment": "nimble-select and nimble-combobox: Built-in label support (via default slot)"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 02 Aug 2024 22:15:53 GMT",
       "version": "31.0.0",
       "tag": "@ni/nimble-components_v31.0.0",

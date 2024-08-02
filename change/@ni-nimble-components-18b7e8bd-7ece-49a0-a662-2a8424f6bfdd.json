@@ -1,7 +1,0 @@
-{
-  "type": "minor",
-  "comment": "nimble-select and nimble-combobox: Built-in label support (via default slot)",
-  "packageName": "@ni/nimble-components",
-  "email": "20709258+msmithNI@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
