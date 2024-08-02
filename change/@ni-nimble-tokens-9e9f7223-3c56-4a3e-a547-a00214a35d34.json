@@ -1,7 +1,0 @@
-{
-  "type": "major",
-  "comment": "Remove icon-check and rename icon-check-large to icon-check",
-  "packageName": "@ni/nimble-tokens",
-  "email": "20542556+mollykreis@users.noreply.github.com",
-  "dependentChangeType": "major"
-}
