@@ -1,6 +1,6 @@
 {
-  "type": "major",
-  "comment": "Remove icon-check and rename icon-check-large to icon-check",
+  "type": "patch",
+  "comment": "Update checkbox component to use renamed check icon",
   "packageName": "@ni/nimble-components",
   "email": "20542556+mollykreis@users.noreply.github.com",
   "dependentChangeType": "patch"
