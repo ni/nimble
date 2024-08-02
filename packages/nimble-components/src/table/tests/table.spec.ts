@@ -195,14 +195,12 @@ describe('Table', () => {
             await element.setData(simpleTableData);
             await waitForUpdatesAsync();
 
-            let headerContent = pageObject.getHeaderContent(0)!.firstChild;
-            expect(headerContent?.textContent).toEqual('stringData');
+            expect(pageObject.getHeaderTextContent(0)).toEqual('stringData');
 
             element.columns[0]!.textContent = 'foo';
             await waitForUpdatesAsync();
 
-            headerContent = pageObject.getHeaderContent(0)!.firstChild;
-            expect(headerContent?.textContent).toEqual('foo');
+            expect(pageObject.getHeaderTextContent(0)).toEqual('foo');
         });
 
         it('sets title when header text is ellipsized', async () => {
@@ -392,7 +390,7 @@ describe('Table', () => {
             verifyRenderedData(simpleTableData);
         });
 
-        it('can update a record without making a copy of the data', async () => {
+        it('can update a record without making a copy of the data without hierarchy enabled', async () => {
             await connect();
             await waitForUpdatesAsync();
 
@@ -965,6 +963,32 @@ describe('Table', () => {
                     parentId3: 'Parent 2'
                 }
             ];
+
+            it('can update a record without making a copy of the data with hierarchy enabled', async () => {
+                element.idFieldName = 'id';
+                element.parentIdFieldName = 'parentId';
+                await connect();
+                await waitForUpdatesAsync();
+
+                const data: SimpleTableRecord[] = hierarchicalData.map(x => ({
+                    ...x
+                }));
+                await element.setData(data);
+                await waitForUpdatesAsync();
+                const currentFieldValue = data[0]!.stringData;
+                expect(pageObject.getRenderedCellTextContent(0, 0)).toEqual(
+                    currentFieldValue
+                );
+
+                const updatedFieldValue = `${currentFieldValue} - updated value`;
+                data[0]!.stringData = updatedFieldValue;
+                await element.setData(data);
+                await waitForUpdatesAsync();
+                expect(pageObject.getRenderedCellTextContent(0, 0)).toEqual(
+                    updatedFieldValue
+                );
+            });
+
             it('shows collapse all button with hierarchical data', async () => {
                 await connect();
                 element.idFieldName = 'id';

@@ -1,6 +1,6 @@
 {
   "name": "@ni/nimble-components",
-  "version": "30.1.2",
+  "version": "30.3.1",
   "description": "Styled web components for the NI Nimble Design System",
   "scripts": {
     "build": "npm run generate-icons && npm run generate-workers && npm run build-components && npm run bundle-components && npm run generate-scss",
@@ -66,7 +66,7 @@
     "@microsoft/fast-element": "^1.12.0",
     "@microsoft/fast-foundation": "^2.49.6",
     "@microsoft/fast-web-utilities": "^6.0.0",
-    "@ni/nimble-tokens": "^7.0.1",
+    "@ni/nimble-tokens": "^7.2.0",
     "@tanstack/table-core": "^8.19.3",
     "@tanstack/virtual-core": "^3.8.3",
     "@tiptap/core": "^2.2.2",
@@ -106,7 +106,7 @@
   "devDependencies": {
     "@ni-private/eslint-config-nimble": "*",
     "@ni/jasmine-parameterized": "^1.0.0",
-    "@rollup/plugin-commonjs": "^25.0.7",
+    "@rollup/plugin-commonjs": "^26.0.0",
     "@rollup/plugin-node-resolve": "^15.0.1",
     "@rollup/plugin-replace": "^5.0.1",
     "@rollup/plugin-terser": "^0.4.0",
