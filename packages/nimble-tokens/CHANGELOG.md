@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-tokens
 
-This log was last generated on Thu, 01 Aug 2024 08:51:10 GMT and should not be manually modified.
+This log was last generated on Fri, 02 Aug 2024 22:15:53 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 8.0.0
+
+Fri, 02 Aug 2024 22:15:53 GMT
+
+### Major changes
+
+- Remove icon-check and rename icon-check-large to icon-check ([ni/nimble@d634bc7](https://github.com/ni/nimble/commit/d634bc7bfd6bf10b25cc02d36e0b729dc596148b))
 
 ## 7.2.0
 
