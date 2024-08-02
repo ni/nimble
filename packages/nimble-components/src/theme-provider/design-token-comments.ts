@@ -293,5 +293,29 @@ export const comments: { readonly [key in TokenName]: string } = {
     mentionFontFamily: 'Font family for mention views',
     mentionFontSize: 'Font size for mention views',
     mentionFontWeight: 'Font weight for mention views',
-    mentionFontLineHeight: 'Font line height for mention views'
+    mentionFontLineHeight: 'Font line height for mention views',
+    calendarEventBackgroundStaticColor:
+        'Background color for static calendar events',
+    calendarEventBackgroundDynamicColor:
+        'Background color for dynamic calendar events',
+    calendarEventBackgroundTransientColor:
+        'Background color for transient calendar events',
+    calendarEventBorderStaticColor: 'Border color for static calendar events',
+    calendarEventBorderTransientColor:
+        'Border color for transient calendar events',
+    calendarEventStaticFontColor: 'Font color for static calendar events',
+    calendarEventDynamicFontColor: 'Font color for dynamic calendar events',
+    calendarEventTransientFontColor: 'Font color for transient calendar events',
+    calendarEventBackgroundHoverStaticColor:
+        'Color while hovering static calendar events',
+    calendarEventBackgroundHoverDynamicColor:
+        'Color while hovering dynamic calendar events',
+    calendarEventBackgroundHoverTransientColor:
+        'Color while hovering transient calendar events',
+    calendarRowBackgroundSelectedColor:
+        'Background color while calendar resource is selected/highlighted',
+    calendarEventFillBlockedColor:
+        'Background fill to indicate the occupied slots in calendar resource rows',
+    calendarGrabHandleBackgroundColor:
+        'Background fill color for the editable calendar event grab handle'
 };

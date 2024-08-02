@@ -27,6 +27,7 @@ type OptionInitialState =
     | 'disabled hidden'
     | 'disabled selected hidden'
     | 'hidden'
+    | 'hidden selected'
     | 'visually-hidden';
 
 async function setup(
@@ -581,6 +582,80 @@ describe('Select', () => {
         await waitForUpdatesAsync();
 
         expect(pageObject.isLoadingVisualVisible()).toBeTrue();
+
+        await disconnect();
+    });
+
+    it('when second option is selected and hidden, pressing arrow down while dropdown is open selects first option', async () => {
+        const { element, connect, disconnect } = await setup(
+            undefined,
+            false,
+            undefined,
+            'hidden selected'
+        );
+        const pageObject = new SelectPageObject(element);
+        await connect();
+        await waitForUpdatesAsync();
+        pageObject.clickSelect();
+        pageObject.pressArrowDownKey();
+
+        expect(pageObject.getActiveOption()?.value).toBe('one');
+
+        await disconnect();
+    });
+
+    it('when second option is selected and hidden, pressing arrow down twice while dropdown is open selects third option', async () => {
+        const { element, connect, disconnect } = await setup(
+            undefined,
+            false,
+            undefined,
+            'hidden selected'
+        );
+        const pageObject = new SelectPageObject(element);
+        await connect();
+        await waitForUpdatesAsync();
+        pageObject.clickSelect();
+        pageObject.pressArrowDownKey();
+        pageObject.pressArrowDownKey();
+
+        expect(pageObject.getActiveOption()?.value).toBe('three');
+
+        await disconnect();
+    });
+
+    it('when second option is selected and hidden, pressing arrow up while dropdown is open selects last option', async () => {
+        const { element, connect, disconnect } = await setup(
+            undefined,
+            false,
+            undefined,
+            'hidden selected'
+        );
+        const pageObject = new SelectPageObject(element);
+        await connect();
+        await waitForUpdatesAsync();
+        pageObject.clickSelect();
+        pageObject.pressArrowUpKey();
+
+        expect(pageObject.getActiveOption()?.value).toBe('has space');
+
+        await disconnect();
+    });
+
+    it('when second option is selected and hidden, pressing arrow up twice while dropdown is open selects second to last option', async () => {
+        const { element, connect, disconnect } = await setup(
+            undefined,
+            false,
+            undefined,
+            'hidden selected'
+        );
+        const pageObject = new SelectPageObject(element);
+        await connect();
+        await waitForUpdatesAsync();
+        pageObject.clickSelect();
+        pageObject.pressArrowUpKey();
+        pageObject.pressArrowUpKey();
+
+        expect(pageObject.getActiveOption()?.value).toBe('zürich');
 
         await disconnect();
     });

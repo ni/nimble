@@ -1,8 +1,33 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Wed, 31 Jul 2024 19:44:32 GMT and should not be manually modified.
+This log was last generated on Thu, 01 Aug 2024 16:52:17 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 30.3.1
+
+Thu, 01 Aug 2024 16:52:17 GMT
+
+### Patches
+
+- Update Select arrow down behavior to select first option in dropdown when selected option is visually hidden. ([ni/nimble@c3e3478](https://github.com/ni/nimble/commit/c3e347833ece9826f40e535d5a1b294f320a91c2))
+
+## 30.3.0
+
+Thu, 01 Aug 2024 08:51:10 GMT
+
+### Minor changes
+
+- Add theme aware tokens for calendar component ([ni/nimble@a7af7c3](https://github.com/ni/nimble/commit/a7af7c36234347f086f93b1045ecd9fc94009f2c))
+- Bump @ni/nimble-tokens to v7.2.0
+
+## 30.2.0
+
+Wed, 31 Jul 2024 20:23:25 GMT
+
+### Minor changes
+
+- Add function to the table page object for getting the text content of a column header ([ni/nimble@50e5761](https://github.com/ni/nimble/commit/50e5761eb6df8cccbe1421c99b589bc6f6cf9dfe))
 
 ## 30.1.7
 

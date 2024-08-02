@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-blazor
 
-This log was last generated on Tue, 23 Jul 2024 22:35:26 GMT and should not be manually modified.
+This log was last generated on Thu, 01 Aug 2024 19:51:20 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 17.6.1
+
+Thu, 01 Aug 2024 19:51:20 GMT
+
+### Patches
+
+- Update nuget dependencies ([ni/nimble@dcf2bc4](https://github.com/ni/nimble/commit/dcf2bc498565a7b7069dae14a46c9cd992a262a3))
 
 ## 17.6.0
 
