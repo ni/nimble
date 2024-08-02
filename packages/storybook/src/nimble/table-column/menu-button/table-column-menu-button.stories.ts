@@ -2,7 +2,6 @@ import { html, ref } from '@microsoft/fast-element';
 import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html';
 import { withActions } from '@storybook/addon-actions/decorator';
 import { iconCheckTag } from '../../../../../nimble-components/src/icons/check';
-import { iconCheckLargeTag } from '../../../../../nimble-components/src/icons/check-large';
 import { tableTag } from '../../../../../nimble-components/src/table';
 import type { TableRecord } from '../../../../../nimble-components/src/table/types';
 import { tableColumnTextTag } from '../../../../../nimble-components/src/table-column/text';
@@ -338,8 +337,7 @@ export const menuButtonColumn: StoryObj<MenuButtonColumnTableArgs> = {
                     item.textContent = `${color}`;
                     item.addEventListener('change', () => changeFavoriteColor(color));
                     if (record.favoriteColor === color) {
-                        // const checkIcon = document.createElement(iconCheckTag);
-                        const checkIcon = document.createElement(iconCheckLargeTag);
+                        const checkIcon = document.createElement(iconCheckTag);
                         checkIcon.slot = 'start';
                         item.appendChild(checkIcon);
                     }
