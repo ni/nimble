@@ -88,7 +88,7 @@
     "@types/d3-scale": "^4.0.2",
     "@types/d3-selection": "^3.0.0",
     "@types/d3-zoom": "^3.0.0",
-    "@types/markdown-it": "^13.0.8",
+    "@types/markdown-it": "^14.0.0",
     "comlink": "4.4.1",
     "d3-array": "^3.2.2",
     "d3-random": "^3.0.1",
@@ -106,7 +106,7 @@
   "devDependencies": {
     "@ni-private/eslint-config-nimble": "*",
     "@ni/jasmine-parameterized": "^1.0.0",
-    "@rollup/plugin-commonjs": "^25.0.7",
+    "@rollup/plugin-commonjs": "^26.0.0",
     "@rollup/plugin-node-resolve": "^15.0.1",
     "@rollup/plugin-replace": "^5.0.1",
     "@rollup/plugin-terser": "^0.4.0",
