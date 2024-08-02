@@ -151,9 +151,6 @@ export const iconMetadata: {
     IconCheckDot: {
         tags: ['status', 'done']
     },
-    IconCheckLarge: {
-        tags: ['status', 'success']
-    },
     IconCircle: {
         tags: ['status', 'connected']
     },
