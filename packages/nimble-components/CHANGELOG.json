@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Fri, 02 Aug 2024 19:57:56 GMT",
+      "version": "30.3.1",
+      "tag": "@ni/nimble-components_v30.3.1",
+      "comments": {
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "d4aed1c8770f7f7604fa6c35a952ab6fd85e913a",
+            "comment": "Update devDeps"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 01 Aug 2024 18:43:33 GMT",
       "version": "30.3.1",
       "tag": "@ni/nimble-components_v30.3.1",
