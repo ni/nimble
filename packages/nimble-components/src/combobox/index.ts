@@ -882,8 +882,6 @@ const nimbleCombobox = Combobox.compose<ComboboxOptions>({
                 class="dropdown-button"
                 part="button"
                 aria-hidden="true"
-                aria-haspopup="true"
-                aria-expanded="${x => x.open}"
                 tabindex="-1"
             >
                 <${iconArrowExpanderDownTag}
