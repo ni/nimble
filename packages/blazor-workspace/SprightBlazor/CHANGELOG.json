@@ -2,6 +2,21 @@
   "name": "@ni/spright-blazor",
   "entries": [
     {
+      "date": "Fri, 02 Aug 2024 19:57:56 GMT",
+      "version": "1.0.2",
+      "tag": "@ni/spright-blazor_v1.0.2",
+      "comments": {
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/spright-blazor",
+            "commit": "d4aed1c8770f7f7604fa6c35a952ab6fd85e913a",
+            "comment": "Update devDeps"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 01 Aug 2024 19:51:20 GMT",
       "version": "1.0.2",
       "tag": "@ni/spright-blazor_v1.0.2",
