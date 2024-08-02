@@ -881,8 +881,7 @@ const nimbleCombobox = Combobox.compose<ComboboxOptions>({
                 @keydown="${(x, c) => x.toggleButtonKeyDownHandler(c.event as KeyboardEvent)}"
                 class="dropdown-button"
                 part="button"
-                aria-haspopup="true"
-                aria-expanded="${x => x.open}"
+                aria-hidden="true"
                 tabindex="-1"
             >
                 <${iconArrowExpanderDownTag}
