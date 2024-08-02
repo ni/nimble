@@ -112,7 +112,11 @@ import {
     NiSeaLight,
     NiSeaDark2,
     NiSky,
-    NiTulip
+    NiTulip,
+    DigitalGreenLight10,
+    PowerGreen10,
+    DigitalGreenDark110,
+    Black82
 } from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
 import {
     modalBackdropColorThemeColorStatic,
@@ -324,6 +328,118 @@ export const buttonBorderAccentOutlineColor = DesignToken.create<string>(
     DigitalGreenLight,
     PowerGreen,
     hexToRgbaCssColor(White, 0.3)
+));
+
+export const calendarEventBackgroundStaticColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.calendarEventBackgroundStaticColor)
+).withDefault((element: HTMLElement) => getColorForTheme(element, DigitalGreenLight10, PowerGreen10, PowerGreen10));
+
+export const calendarEventBackgroundDynamicColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.calendarEventBackgroundDynamicColor)
+).withDefault((element: HTMLElement) => getColorForTheme(
+    element,
+    DigitalGreenDark105,
+    DigitalGreenDark,
+    DigitalGreenDark
+));
+
+export const calendarEventBackgroundTransientColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.calendarEventBackgroundTransientColor)
+).withDefault((element: HTMLElement) => getColorForTheme(
+    element,
+    DigitalGreenDark105,
+    DigitalGreenDark,
+    DigitalGreenDark
+));
+
+export const calendarEventBorderStaticColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.calendarEventBorderStaticColor)
+).withDefault((element: HTMLElement) => getColorForTheme(
+    element,
+    DigitalGreenLight,
+    DigitalGreenLight,
+    DigitalGreenLight
+));
+
+export const calendarEventBorderTransientColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.calendarEventBorderTransientColor)
+).withDefault((element: HTMLElement) => getColorForTheme(
+    element,
+    DigitalGreenLight,
+    hexToRgbaCssColor(PowerGreen, 0.85),
+    hexToRgbaCssColor(PowerGreen, 0.85)
+));
+
+export const calendarEventStaticFontColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.calendarEventStaticFontColor)
+).withDefault((element: HTMLElement) => getColorForTheme(element, DigitalGreenDark110, White, White));
+
+export const calendarEventDynamicFontColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.calendarEventDynamicFontColor)
+).withDefault((element: HTMLElement) => getColorForTheme(element, White, White, White));
+
+export const calendarEventTransientFontColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.calendarEventTransientFontColor)
+).withDefault((element: HTMLElement) => getColorForTheme(element, White, White, White));
+
+export const calendarEventBackgroundHoverStaticColor = DesignToken.create<string>(
+    styleNameFromTokenName(
+        tokenNames.calendarEventBackgroundHoverStaticColor
+    )
+).withDefault((element: HTMLElement) => getColorForTheme(
+    element,
+    hexToRgbaCssColor(DigitalGreenLight, 0.3),
+    hexToRgbaCssColor(PowerGreen, 0.3),
+    hexToRgbaCssColor(PowerGreen, 0.3)
+));
+
+export const calendarEventBackgroundHoverDynamicColor = DesignToken.create<string>(
+    styleNameFromTokenName(
+        tokenNames.calendarEventBackgroundHoverDynamicColor
+    )
+).withDefault((element: HTMLElement) => getColorForTheme(
+    element,
+    DigitalGreenDark110,
+    DigitalGreenDark105,
+    DigitalGreenDark105
+));
+
+export const calendarEventBackgroundHoverTransientColor = DesignToken.create<string>(
+    styleNameFromTokenName(
+        tokenNames.calendarEventBackgroundHoverTransientColor
+    )
+).withDefault((element: HTMLElement) => getColorForTheme(
+    element,
+    DigitalGreenDark110,
+    DigitalGreenDark105,
+    DigitalGreenDark105
+));
+
+export const calendarRowBackgroundSelectedColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.calendarRowBackgroundSelectedColor)
+).withDefault((element: HTMLElement) => getColorForTheme(
+    element,
+    hexToRgbaCssColor(DigitalGreenLight, 0.2),
+    hexToRgbaCssColor(PowerGreen, 0.2),
+    hexToRgbaCssColor(PowerGreen, 0.2)
+));
+
+export const calendarEventFillBlockedColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.calendarEventFillBlockedColor)
+).withDefault((element: HTMLElement) => getColorForTheme(
+    element,
+    hexToRgbaCssColor(Black91, 0.07),
+    Black82,
+    Black82
+));
+
+export const calendarGrabHandleBackgroundColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.calendarGrabHandleBackgroundColor)
+).withDefault((element: HTMLElement) => getColorForTheme(
+    element,
+    DigitalGreenLight,
+    DigitalGreenLight,
+    DigitalGreenLight
 ));
 
 // Component Sizing Tokens

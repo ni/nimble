@@ -31,8 +31,16 @@ If you have an existing application that incorporates a module bundler like [Web
 If you have a static webpage without a bundler, you can use `@ni/nimble-components` by including one of the bundled distribution files. For example:
 
 ```html
-<html>
+<!doctype html>
+<html lang="en">
     <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width" />
+        <title>Nimble Example</title>
+        <link
+            rel="stylesheet"
+            href="https://unpkg.com/@ni/nimble-tokens/dist/fonts/css/fonts.css"
+        />
         <script src="https://unpkg.com/@ni/nimble-components/dist/all-components-bundle.js"></script>
     </head>
     <body>
