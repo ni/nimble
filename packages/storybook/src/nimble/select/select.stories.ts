@@ -16,11 +16,13 @@ import {
     dropdownPositionDescription,
     errorTextDescription,
     errorVisibleDescription,
-    optionsDescription
+    optionsDescription,
+    slottedLabelDescription
 } from '../../utilities/storybook';
 import { ExampleOptionsType } from './types';
 
 interface SelectArgs {
+    label: string;
     disabled: boolean;
     errorVisible: boolean;
     errorText: string;
@@ -127,8 +129,9 @@ const metadata: Meta<SelectArgs> = {
             appearance="${x => x.appearance}"
             filter-mode="${x => (x.filterMode === 'none' ? undefined : x.filterMode)}"
             ?loading-visible="${x => x.loadingVisible}"
-            style="width: 250px;"
+            style="min-width: 250px;"
         >
+            ${x => x.label}
             ${when(x => x.optionsType === ExampleOptionsType.groupedOptions, html<SelectArgs>`
                 ${repeat(_ => getGroupedOptions(), html<GroupedOptionArgs>`
                     <${listOptionGroupTag}
@@ -154,6 +157,11 @@ const metadata: Meta<SelectArgs> = {
         </${selectTag}>
     `),
     argTypes: {
+        label: {
+            name: 'default',
+            description: `${slottedLabelDescription({ componentName: 'select' })}`,
+            table: { category: apiCategory.slots }
+        },
         dropDownPosition: {
             name: 'position',
             options: ['above', 'below'],
@@ -235,6 +243,7 @@ const metadata: Meta<SelectArgs> = {
         }
     },
     args: {
+        label: 'Select',
         disabled: false,
         errorVisible: false,
         errorText: 'Value is invalid',

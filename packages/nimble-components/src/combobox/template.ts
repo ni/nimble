@@ -34,6 +34,9 @@ ComboboxOptions
         @focusout="${(x, c) => x.focusoutHandler(c.event as FocusEvent)}"
         @keydown="${(x, c) => x.keydownHandler(c.event as KeyboardEvent)}"
     >
+        <label part="label" class="label">
+            <slot></slot>
+        </label>
         <div class="control" part="control" ${ref('controlWrapper')}>
             ${startSlotTemplate(context, definition)}
             <slot name="control">

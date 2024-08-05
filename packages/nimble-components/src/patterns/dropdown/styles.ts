@@ -18,7 +18,10 @@ import {
     mediumPadding,
     failColor,
     elevation2BoxShadow,
-    placeholderFontColor
+    placeholderFontColor,
+    controlLabelFontColor,
+    controlLabelFont,
+    controlLabelDisabledFontColor
 } from '../../theme-provider/design-tokens';
 import { Theme } from '../../theme-provider/types';
 import { appearanceBehavior } from '../../utilities/style/appearance';
@@ -35,9 +38,9 @@ export const styles = css`
     :host {
         color: ${bodyFontColor};
         font: ${bodyFont};
-        height: ${controlHeight};
         position: relative;
-        justify-content: center;
+        flex-direction: column;
+        justify-content: flex-start;
         ${userSelectNone}
         min-width: ${menuMinWidth};
         outline: none;
@@ -53,7 +56,7 @@ export const styles = css`
         bottom: calc(${borderWidth} + var(--ni-private-indicator-lines-gap));
         width: 0px;
         height: 0px;
-        justify-self: center;
+        align-self: center;
         border-bottom: ${borderHoverColor}
             var(--ni-private-focus-indicator-width) solid;
         transition: width ${smallDelay} ease-in;
@@ -79,7 +82,7 @@ export const styles = css`
         bottom: calc(-1 * ${borderWidth});
         width: 0px;
         height: 0px;
-        justify-self: center;
+        align-self: center;
         border-bottom: ${borderHoverColor}
             var(--ni-private-hover-indicator-width) solid;
         transition: width ${smallDelay} ease-in;
@@ -104,12 +107,22 @@ export const styles = css`
         width: 0px;
     }
 
+    .label {
+        display: flex;
+        color: ${controlLabelFontColor};
+        font: ${controlLabelFont};
+    }
+
+    :host([disabled]) .label {
+        color: ${controlLabelDisabledFontColor};
+    }
+
     .control {
         align-items: center;
         cursor: pointer;
         display: flex;
-        min-height: 100%;
         width: 100%;
+        height: ${controlHeight};
         border: 0px solid rgba(${borderRgbPartialColor}, 0.3);
         background-color: transparent;
         padding: ${borderWidth};

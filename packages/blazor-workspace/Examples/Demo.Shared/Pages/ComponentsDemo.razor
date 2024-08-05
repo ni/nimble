@@ -66,6 +66,7 @@
                 <NimbleNumberField>Numeric field 1</NimbleNumberField>
                 <NimbleNumberField>Numeric field 2</NimbleNumberField>
                 <NimbleSelect>
+                    Select
                     <NimbleListOption Value="1">Option 1</NimbleListOption>
                     <NimbleListOption Value="2">Option 2</NimbleListOption>
                     <NimbleListOption Value="3">Option 3</NimbleListOption>
@@ -111,6 +112,7 @@
             <div class="container-label">Drawer</div>
             <NimbleButton Appearance="ButtonAppearance.Outline" @onclick="OpenDrawerAsync">Open Drawer</NimbleButton>
             <NimbleSelect class="drawer-location-select" @bind-Value="@DrawerLocationAsString">
+                Drawer Location
                 <NimbleListOption Value="@DrawerLocation.Left.ToString()">Drawer: Left-side</NimbleListOption>
                 <NimbleListOption Value="@DrawerLocation.Right.ToString()">Drawer: Right-side</NimbleListOption>
             </NimbleSelect>
@@ -171,6 +173,7 @@
         <div class="sub-container">
             <div class="container-label">Select</div>
             <NimbleSelect Appearance="DropdownAppearance.Underline" FilterMode="FilterMode.Standard" Clearable="true">
+                Underline Select
                 <NimbleListOptionGroup Label="Group 1">
                     <NimbleListOption>Option 1</NimbleListOption>
                     <NimbleListOption>Option 2</NimbleListOption>
@@ -181,6 +184,7 @@
                 </NimbleListOptionGroup>
             </NimbleSelect>
             <NimbleSelect Appearance="DropdownAppearance.Outline">
+                Outline Select
                 <NimbleListOptionGroup Label="Group 1">
                     <NimbleListOption>Option 1</NimbleListOption>
                     <NimbleListOption>Option 2</NimbleListOption>
@@ -191,6 +195,7 @@
                 </NimbleListOptionGroup>
             </NimbleSelect>
             <NimbleSelect Appearance="DropdownAppearance.Block">
+                Block Select
                 <NimbleListOptionGroup Label="Group 1">
                     <NimbleListOption>Option 1</NimbleListOption>
                     <NimbleListOption>Option 2</NimbleListOption>
@@ -204,16 +209,19 @@
         <div class="sub-container">
             <div class="container-label">Combobox</div>
             <NimbleCombobox AutoComplete="AutoComplete.Both" Placeholder="Select value..." Appearance="DropdownAppearance.Underline">
+                Underline Combobox
                 <NimbleListOption>Mary</NimbleListOption>
                 <NimbleListOption>Sue</NimbleListOption>
                 <NimbleListOption>Dexter</NimbleListOption>
             </NimbleCombobox>
             <NimbleCombobox AutoComplete="AutoComplete.Both" Placeholder="Select value..." Appearance="DropdownAppearance.Outline">
+                Outline Combobox
                 <NimbleListOption>Mary</NimbleListOption>
                 <NimbleListOption>Sue</NimbleListOption>
                 <NimbleListOption>Dexter</NimbleListOption>
             </NimbleCombobox>
             <NimbleCombobox AutoComplete="AutoComplete.Both" Placeholder="Select value..." Appearance="DropdownAppearance.Block">
+                Block Combobox
                 <NimbleListOption>Mary</NimbleListOption>
                 <NimbleListOption>Sue</NimbleListOption>
                 <NimbleListOption>Dexter</NimbleListOption>

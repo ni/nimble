@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/html';
 import { tableTag } from '../../../../../nimble-components/src/table';
 import { iconXmarkTag } from '../../../../../nimble-components/src/icons/xmark';
 import { tableColumnTextTag } from '../../../../../nimble-components/src/table-column/text';
-import { iconCheckLargeTag } from '../../../../../nimble-components/src/icons/check-large';
+import { iconCheckTag } from '../../../../../nimble-components/src/icons/check';
 import { iconChartDiagramChildFocusTag } from '../../../../../nimble-components/src/icons/chart-diagram-child-focus';
 import { mappingIconTag } from '../../../../../nimble-components/src/mapping/icon';
 import { mappingSpinnerTag } from '../../../../../nimble-components/src/mapping/spinner';
@@ -97,7 +97,7 @@ export const mappingColumn: StoryObj<MappingColumnTableArgs> = {
             <${tableColumnMappingTag} field-name="status" group-index="0">
                 Status
                 <${mappingIconTag} key="fail" icon="${iconXmarkTag}" severity="error" text="Not a Simpson"></${mappingIconTag}>
-                <${mappingIconTag} key="success" icon="${iconCheckLargeTag}" severity="success" text="Is a Simpson"></${mappingIconTag}>
+                <${mappingIconTag} key="success" icon="${iconCheckTag}" severity="success" text="Is a Simpson"></${mappingIconTag}>
                 <${mappingSpinnerTag} key="calculating" text="Calculating" text-hidden></${mappingSpinnerTag}>
                 <${mappingEmptyTag} key="unknown" text="Unknown"></${mappingEmptyTag}>
             </${tableColumnMappingTag}>
@@ -105,7 +105,7 @@ export const mappingColumn: StoryObj<MappingColumnTableArgs> = {
                 <${iconChartDiagramChildFocusTag} title="Is child"></${iconChartDiagramChildFocusTag}> 
             
                 <${mappingIconTag} key="false" icon="${iconXmarkTag}" severity="error" text="Not a child" text-hidden></${mappingIconTag}>
-                <${mappingIconTag} key="true" icon="${iconCheckLargeTag}" severity="success" text="Is a child" text-hidden></${mappingIconTag}>
+                <${mappingIconTag} key="true" icon="${iconCheckTag}" severity="success" text="Is a child" text-hidden></${mappingIconTag}>
             </${tableColumnMappingTag}>
             <${tableColumnMappingTag} field-name="gender" key-type="string">
                 Gender
