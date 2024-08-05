@@ -1,4 +1,4 @@
-import { html, ref } from '@microsoft/fast-element';
+import { html, ref, repeat } from '@microsoft/fast-element';
 import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html';
 import { withActions } from '@storybook/addon-actions/decorator';
 import { iconCheckTag } from '../../../../../nimble-components/src/icons/check';
@@ -8,10 +8,7 @@ import { tableColumnTextTag } from '../../../../../nimble-components/src/table-c
 import { tableColumnMenuButtonTag } from '../../../../../nimble-components/src/table-column/menu-button';
 import type { MenuButtonColumnToggleEventDetail } from '../../../../../nimble-components/src/table-column/menu-button/types';
 import { Menu, menuTag } from '../../../../../nimble-components/src/menu';
-import {
-    MenuItem,
-    menuItemTag
-} from '../../../../../nimble-components/src/menu-item';
+import { menuItemTag } from '../../../../../nimble-components/src/menu-item';
 import {
     SharedTableArgs,
     sharedTableActions,
@@ -236,6 +233,8 @@ interface MenuButtonColumnTableArgs extends SharedTableArgs {
     toggleEvent: never;
     beforeToggleEvent: never;
     currentData: TableRecord[];
+    updateFavoriteColor: (storyArgs: MenuButtonColumnTableArgs, color: string) => void;
+    currentRecord?: TableRecord;
 }
 
 export const menuButtonColumn: StoryObj<MenuButtonColumnTableArgs> = {
@@ -263,6 +262,12 @@ export const menuButtonColumn: StoryObj<MenuButtonColumnTableArgs> = {
             </${tableColumnMenuButtonTag}>
 
             <${menuTag} ${ref('menuRef')} slot="${x => x.menuSlot}">
+                ${repeat(() => colors, html<string, MenuButtonColumnTableArgs>`
+                    <${menuItemTag} @change="${(x, c) => c.parent.updateFavoriteColor(c.parent, x)}">
+                        <${iconCheckTag} slot="start" class="${x => x}"></${iconCheckTag}>
+                        ${x => x}
+                    </${menuItemTag}>
+                `)}
             </${menuTag}>
         </${tableTag}>
     `),
@@ -296,6 +301,16 @@ export const menuButtonColumn: StoryObj<MenuButtonColumnTableArgs> = {
                 disable: true
             }
         },
+        updateFavoriteColor: {
+            table: {
+                disable: true
+            }
+        },
+        currentRecord: {
+            table: {
+                disable: true
+            }
+        },
         toggleEvent: {
             name: 'menu-button-column-toggle',
             description:
@@ -322,28 +337,28 @@ export const menuButtonColumn: StoryObj<MenuButtonColumnTableArgs> = {
         ): void => {
             if (e.detail.newState) {
                 const recordId = e.detail.recordId;
-                const record = storyArgs.currentData.find(
+                storyArgs.currentRecord = storyArgs.currentData.find(
                     d => d.id === recordId
                 )!;
 
-                const changeFavoriteColor = (color: string): void => {
-                    record.favoriteColor = color;
-                    void storyArgs.tableRef.setData(storyArgs.currentData);
-                };
-
-                const menuItems: MenuItem[] = [];
-                for (const color of colors) {
-                    const item = document.createElement(menuItemTag);
-                    item.textContent = `${color}`;
-                    item.addEventListener('change', () => changeFavoriteColor(color));
-                    if (record.favoriteColor === color) {
-                        const checkIcon = document.createElement(iconCheckTag);
-                        checkIcon.slot = 'start';
-                        item.appendChild(checkIcon);
+                const currentColor = storyArgs.currentRecord.favoriteColor as string;
+                storyArgs.menuRef.querySelectorAll(iconCheckTag).forEach(iconElement => {
+                    const isCurrentColor = iconElement.classList.contains(currentColor);
+                    if (isCurrentColor) {
+                        iconElement.style.visibility = 'visible';
+                    } else {
+                        iconElement.style.visibility = 'hidden';
                     }
-                    menuItems.push(item);
-                }
-                storyArgs.menuRef.replaceChildren(...menuItems);
+                });
+            }
+        },
+        updateFavoriteColor: (
+            storyArgs: MenuButtonColumnTableArgs,
+            color: string
+        ): void => {
+            if (storyArgs.currentRecord) {
+                storyArgs.currentRecord.favoriteColor = color;
+                void storyArgs.tableRef.setData(storyArgs.currentData);
             }
         }
     }
