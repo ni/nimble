@@ -295,7 +295,10 @@
                     @foreach(var color in PossibleColors)
                     {
                         <NimbleMenuItem @onchange=@(_ => OnColorSelected(color))>
-                            <NimbleIconCheck style=@(color == CurrentColor ? "" : "visibility: hidden;") slot="start"></NimbleIconCheck>
+                            @if (color == CurrentColor)
+                            {
+                                <NimbleIconCheck slot="start"></NimbleIconCheck>
+                            }
                             @color
                         </NimbleMenuItem>
                     }

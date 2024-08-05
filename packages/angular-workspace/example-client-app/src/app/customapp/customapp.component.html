@@ -333,7 +333,7 @@
 
                 <nimble-menu slot="color-menu">
                     <nimble-menu-item *ngFor="let color of possibleColors" (change)="onColorSelected(color)">
-                        <nimble-icon-check [style.visibility]="color === currentColor ? 'visible' : 'hidden'" slot="start"></nimble-icon-check>
+                        <nimble-icon-check *ngIf="color === currentColor" slot="start"></nimble-icon-check>
                         {{ color }}
                     </nimble-menu-item>
                 </nimble-menu>
