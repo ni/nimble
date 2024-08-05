@@ -1,8 +1,28 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Thu, 01 Aug 2024 16:52:17 GMT and should not be manually modified.
+This log was last generated on Fri, 02 Aug 2024 22:55:10 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 31.1.0
+
+Fri, 02 Aug 2024 22:55:10 GMT
+
+### Minor changes
+
+- nimble-select and nimble-combobox: Built-in label support (via default slot) ([ni/nimble@5068a59](https://github.com/ni/nimble/commit/5068a59f17f70fe822c3c61026d611c6f548c507))
+
+## 31.0.0
+
+Fri, 02 Aug 2024 22:15:53 GMT
+
+### Major changes
+
+- Bump @ni/nimble-tokens to v8.0.0
+
+### Patches
+
+- Update checkbox component to use renamed check icon ([ni/nimble@d634bc7](https://github.com/ni/nimble/commit/d634bc7bfd6bf10b25cc02d36e0b729dc596148b))
 
 ## 30.3.1
 

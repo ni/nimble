@@ -19,10 +19,12 @@ import {
     errorTextDescription,
     errorVisibleDescription,
     optionsDescription,
-    placeholderDescription
+    placeholderDescription,
+    slottedLabelDescription
 } from '../../utilities/storybook';
 
 interface ComboboxArgs {
+    label: string;
     disabled: boolean;
     dropDownPosition: DropdownPosition;
     autocomplete: ComboboxAutocomplete;
@@ -113,14 +115,20 @@ const metadata: Meta<ComboboxArgs> = {
             appearance="${x => x.appearance}"
             value="${x => x.currentValue}"
             placeholder="${x => x.placeholder}"
-            style="width: 250px;"
+            style="min-width: 250px;"
         >
+            ${x => x.label}
             ${repeat(x => optionSets[x.optionsType], html<OptionArgs>`
                 <${listOptionTag} ?disabled="${x => x.disabled}">${x => x.label}</${listOptionTag}>
             `)}
         </${comboboxTag}>
     `),
     argTypes: {
+        label: {
+            name: 'default',
+            description: `${slottedLabelDescription({ componentName: 'combobox' })}`,
+            table: { category: apiCategory.slots }
+        },
         autocomplete: {
             options: Object.values(ComboboxAutocomplete),
             control: { type: 'radio' },
@@ -191,6 +199,7 @@ const metadata: Meta<ComboboxArgs> = {
         }
     },
     args: {
+        label: 'Combobox',
         disabled: false,
         dropDownPosition: 'below',
         autocomplete: ComboboxAutocomplete.both,
