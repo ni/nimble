@@ -8,6 +8,7 @@ import {
 import { styles } from './styles';
 import { template } from './template';
 import { ListOption } from '../list-option';
+import { slotTextContent } from '../utilities/models/slot-text-content';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -85,11 +86,7 @@ export class ListOptionGroup extends FoundationElement {
             return '';
         }
 
-        const nodes = this.labelSlot.assignedNodes();
-        return nodes
-            .filter(node => node.textContent?.trim() !== '')
-            .map(node => node.textContent?.trim())
-            .join(' ');
+        return slotTextContent(this.labelSlot);
     }
 
     private readonly hiddenOptions: Set<ListOption> = new Set();
