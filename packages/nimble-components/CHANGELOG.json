@@ -2,6 +2,59 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Fri, 02 Aug 2024 22:55:10 GMT",
+      "version": "31.1.0",
+      "tag": "@ni/nimble-components_v31.1.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "20709258+msmithNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "5068a59f17f70fe822c3c61026d611c6f548c507",
+            "comment": "nimble-select and nimble-combobox: Built-in label support (via default slot)"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 02 Aug 2024 22:15:53 GMT",
+      "version": "31.0.0",
+      "tag": "@ni/nimble-components_v31.0.0",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "d634bc7bfd6bf10b25cc02d36e0b729dc596148b",
+            "comment": "Update checkbox component to use renamed check icon"
+          }
+        ],
+        "major": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/nimble-tokens to v8.0.0",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 02 Aug 2024 19:57:56 GMT",
+      "version": "30.3.1",
+      "tag": "@ni/nimble-components_v30.3.1",
+      "comments": {
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "d4aed1c8770f7f7604fa6c35a952ab6fd85e913a",
+            "comment": "Update devDeps"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 01 Aug 2024 18:43:33 GMT",
       "version": "30.3.1",
       "tag": "@ni/nimble-components_v30.3.1",

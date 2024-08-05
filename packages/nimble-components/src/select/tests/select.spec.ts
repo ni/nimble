@@ -586,6 +586,78 @@ describe('Select', () => {
         await disconnect();
     });
 
+    describe('labels', () => {
+        it('if slotted label is provided as a span, labelContent is set to slotted label', async () => {
+            const { element, connect, disconnect } = await setup();
+            await connect();
+            const slottedLabel = document.createElement('span');
+            slottedLabel.textContent = 'Slotted Label';
+            element.appendChild(slottedLabel);
+            await waitForUpdatesAsync();
+
+            expect(element.labelContent).toBe('Slotted Label');
+
+            await disconnect();
+        });
+
+        it('if slotted label is provided as text node, labelContent is set to slotted label', async () => {
+            const { element, connect, disconnect } = await setup();
+            await connect();
+            const slottedLabel = document.createTextNode('Slotted Label');
+            element.appendChild(slottedLabel);
+            await waitForUpdatesAsync();
+
+            expect(element.labelContent).toBe('Slotted Label');
+
+            await disconnect();
+        });
+
+        it('if multiple slotted labels are provided, labelContent is set to joined strings of slotted labels', async () => {
+            const { element, connect, disconnect } = await setup();
+            await connect();
+            const slottedLabel = document.createElement('span');
+            slottedLabel.textContent = 'Slotted Label';
+            element.appendChild(slottedLabel);
+            const slottedLabel2 = document.createElement('span');
+            slottedLabel2.textContent = 'Slotted Label 2';
+            element.appendChild(slottedLabel2);
+            await waitForUpdatesAsync();
+
+            expect(element.labelContent).toBe('Slotted Label Slotted Label 2');
+
+            await disconnect();
+        });
+
+        it('if multiple slotted labels are provided with extra whitespace, labelContent result is trimmed', async () => {
+            const { element, connect, disconnect } = await setup();
+            await connect();
+            const slottedLabel1 = document.createElement('span');
+            slottedLabel1.textContent = '  Slotted Label 1 ';
+            element.appendChild(slottedLabel1);
+            const slottedLabel2 = document.createElement('span');
+            slottedLabel2.textContent = '     Slotted Label 2 ';
+            element.appendChild(slottedLabel2);
+            await waitForUpdatesAsync();
+
+            expect(element.labelContent).toBe(
+                'Slotted Label 1 Slotted Label 2'
+            );
+            await disconnect();
+        });
+
+        it('label content is reflected to aria-label attribute on element', async () => {
+            const { element, connect, disconnect } = await setup();
+            await connect();
+            const slottedLabel = document.createTextNode('Slotted Label');
+            element.appendChild(slottedLabel);
+            await waitForUpdatesAsync();
+
+            expect(element.ariaLabel).toBe('Slotted Label');
+
+            await disconnect();
+        });
+    });
+
     it('when second option is selected and hidden, pressing arrow down while dropdown is open selects first option', async () => {
         const { element, connect, disconnect } = await setup(
             undefined,

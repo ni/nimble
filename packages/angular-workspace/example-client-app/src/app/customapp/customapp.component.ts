@@ -244,17 +244,13 @@ export class CustomAppComponent implements AfterViewInit {
     }
 
     public onColorSelected(color: Color): void {
-        if (!this.openMenuButtonColumnRecordId) {
+        const data = this.tableDataSubject.value;
+        const recordToUpdate = data.find(record => record.id === this.openMenuButtonColumnRecordId);
+        if (!recordToUpdate) {
             return;
         }
-
-        const updatedData = this.tableDataSubject.value.map(record => {
-            if (record.id === this.openMenuButtonColumnRecordId) {
-                return { ...record, color };
-            }
-            return record;
-        });
-        this.tableDataSubject.next(updatedData);
+        recordToUpdate.color = color;
+        this.tableDataSubject.next(data);
     }
 
     public loadRichTextEditorContent(): void {

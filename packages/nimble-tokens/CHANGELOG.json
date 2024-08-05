@@ -2,6 +2,21 @@
   "name": "@ni/nimble-tokens",
   "entries": [
     {
+      "date": "Fri, 02 Aug 2024 22:15:53 GMT",
+      "version": "8.0.0",
+      "tag": "@ni/nimble-tokens_v8.0.0",
+      "comments": {
+        "major": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "d634bc7bfd6bf10b25cc02d36e0b729dc596148b",
+            "comment": "Remove icon-check and rename icon-check-large to icon-check"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 01 Aug 2024 08:51:10 GMT",
       "version": "7.2.0",
       "tag": "@ni/nimble-tokens_v7.2.0",

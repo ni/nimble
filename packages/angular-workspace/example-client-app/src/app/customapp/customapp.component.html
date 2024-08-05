@@ -49,6 +49,7 @@
                 <nimble-number-field>Numeric field 1</nimble-number-field>
                 <nimble-number-field>Numeric field 2</nimble-number-field>
                 <nimble-select>
+                    Select
                     <nimble-list-option value="1">Option 1</nimble-list-option>
                     <nimble-list-option value="2">Option 2</nimble-list-option>
                     <nimble-list-option value="3">Option 3</nimble-list-option>
@@ -106,6 +107,7 @@
             <nimble-button (click)="openDrawer()">Open Drawer</nimble-button>
             <nimble-text-field readonly [ngModel]="drawerCloseReason">Closed Reason</nimble-text-field>
             <nimble-select class="drawer-location-select" [(ngModel)]="drawerLocation">
+                Drawer Location
                 <nimble-list-option [value]="drawerLocations.left">Drawer: Left-side</nimble-list-option>
                 <nimble-list-option [value]="drawerLocations.right">Drawer: Right-side</nimble-list-option>
             </nimble-select>
@@ -151,6 +153,7 @@
         <div class="sub-container">
             <div class="container-label">Select</div>
             <nimble-select filter-mode="standard" appearance="underline">
+                Underline Select
                 <nimble-list-option hidden selected disabled>Select an option</nimble-list-option>
                 <nimble-list-option-group label="Group 1">
                     <nimble-list-option>Option 1</nimble-list-option>
@@ -162,6 +165,7 @@
                 </nimble-list-option-group>
             </nimble-select>
             <nimble-select appearance="outline">
+                Outline Select
                 <nimble-list-option hidden selected disabled>Select an option</nimble-list-option>
                 <nimble-list-option-group label="Group 1">
                     <nimble-list-option>Option 1</nimble-list-option>
@@ -173,6 +177,7 @@
                 </nimble-list-option-group>
             </nimble-select>
             <nimble-select appearance="block">
+                Block Select
                 <nimble-list-option hidden selected disabled>Select an option</nimble-list-option>
                 <nimble-list-option-group label="Group 1">
                     <nimble-list-option>Option 1</nimble-list-option>
@@ -194,6 +199,7 @@
         <div class="sub-container">
             <div class="container-label">Combobox</div>
             <nimble-combobox aria-label="Combobox" [(ngModel)]="comboboxSelectedOption" (ngModelChange)="onComboboxChange($event)" appearance="underline" autocomplete="both" placeholder="Select value...">
+                Underline Combobox
                 <nimble-list-option *ngFor="let item of comboboxItems" [ngValue]="item">{{ item ? item.first : '' }}</nimble-list-option>
             </nimble-combobox>
             <div>
@@ -202,9 +208,11 @@
                 </span>
             </div>
             <nimble-combobox aria-label="Combobox" [(ngModel)]="comboboxSelectedOption" (ngModelChange)="onComboboxChange($event)" appearance="outline" autocomplete="both" placeholder="Select value...">
+                Outline Combobox
                 <nimble-list-option *ngFor="let item of comboboxItems" [ngValue]="item">{{ item ? item.first : '' }}</nimble-list-option>
             </nimble-combobox>
             <nimble-combobox aria-label="Combobox" [(ngModel)]="comboboxSelectedOption" (ngModelChange)="onComboboxChange($event)" appearance="block" autocomplete="both" placeholder="Select value...">
+                Block Combobox
                 <nimble-list-option *ngFor="let item of comboboxItems" [ngValue]="item">{{ item ? item.first : '' }}</nimble-list-option>
             </nimble-combobox>
         </div>
@@ -325,7 +333,7 @@
 
                 <nimble-menu slot="color-menu">
                     <nimble-menu-item *ngFor="let color of possibleColors" (change)="onColorSelected(color)">
-                        <nimble-icon-check [style.visibility]="color === currentColor ? 'visible' : 'hidden'" slot="start"></nimble-icon-check>
+                        <nimble-icon-check *ngIf="color === currentColor" slot="start"></nimble-icon-check>
                         {{ color }}
                     </nimble-menu-item>
                 </nimble-menu>

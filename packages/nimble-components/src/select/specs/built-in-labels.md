@@ -39,16 +39,15 @@ Default Slot:
 Template updates:
 
 -   A new `label` element will be added at the root of the control template, which will reflect the default slotted content (minus the list options which are already handled elsewhere)
--   A new container `div` will be added at the same level, to contain the control part (`div[part="control"]`)
--   Update element host `display` mode so the label is laid out correctly. (Formerly `inline-flex`, which will move to the container `div`. Prototyped as `inline-block`, but `inline-flex` / `inline-grid` is probably more in line with what we want for our controls layouts going forward.)
-
-Currently our shared dropdown styling (`patterns/dropdown/styles.ts`) applies focus/error-visible styling directly on `::host` - most of those styles will instead target the container `div`.
+-   Update shared dropdown styling as needed for label layout (`flex-direction` to `column`, move fixed height from `::host` down to the `div[part="control"]`)
 
 Other considerations:
 
 -   The label will get disabled visually if the control is disabled.
 -   If the label is not provided, vertical space should not be reserved for it.
--   Behavior if label length exceeds control width (most likely we'll grow to fit like our other controls)
+-   Behavior if label length exceeds control width will match our other controls:
+    -   If a fixed `width` style is not set, the control grows to fit the entire label on 1 line.
+    -   If a fixed `width` style is set, the label will wrap if needed to fit within that width.
 
 ### Accessibility / ARIA
 
@@ -67,8 +66,7 @@ Other considerations:
 
 ### Impact to nimble-rich-text-mention-listbox
 
-`nimble-rich-text-mention-listbox` will not support this feature, meaning it will not contain a `label` element in its template. The current plan is to not address any ARIA label issues on it either, but we should note the gap in [Align rich-text mention listbox implementation behavior](https://github.com/ni/nimble/issues/1926).  
-However, since we have shared dropdown styling, its template may need minor updates (e.g. to add the same parent/container `div` as select/combobox are getting), but we'll ensure it has the same visual appearance as before.
+`nimble-rich-text-mention-listbox` will not support this feature, meaning it will not contain a `label` element in its template. The current plan is to not address any ARIA label issues on it either, but we should note the gap in [Align rich-text mention listbox implementation behavior](https://github.com/ni/nimble/issues/1926).
 
 ## Alternative Implementations / Designs
 
