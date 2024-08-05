@@ -233,7 +233,10 @@ interface MenuButtonColumnTableArgs extends SharedTableArgs {
     toggleEvent: never;
     beforeToggleEvent: never;
     currentData: TableRecord[];
-    updateFavoriteColor: (storyArgs: MenuButtonColumnTableArgs, color: string) => void;
+    updateFavoriteColor: (
+        storyArgs: MenuButtonColumnTableArgs,
+        color: string
+    ) => void;
     currentRecord?: TableRecord;
 }
 
@@ -341,15 +344,17 @@ export const menuButtonColumn: StoryObj<MenuButtonColumnTableArgs> = {
                     d => d.id === recordId
                 )!;
 
-                const currentColor = storyArgs.currentRecord.favoriteColor as string;
-                storyArgs.menuRef.querySelectorAll(iconCheckTag).forEach(iconElement => {
-                    const isCurrentColor = iconElement.classList.contains(currentColor);
-                    if (isCurrentColor) {
-                        iconElement.style.visibility = 'visible';
-                    } else {
-                        iconElement.style.visibility = 'hidden';
-                    }
-                });
+                const currentColor = storyArgs.currentRecord
+                    .favoriteColor as string;
+                storyArgs.menuRef
+                    .querySelectorAll(iconCheckTag)
+                    .forEach(iconElement => {
+                        if (iconElement.classList.contains(currentColor)) {
+                            iconElement.style.visibility = 'visible';
+                        } else {
+                            iconElement.style.visibility = 'hidden';
+                        }
+                    });
             }
         },
         updateFavoriteColor: (
