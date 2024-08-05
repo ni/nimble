@@ -31,7 +31,9 @@ responsibility to do the following:
    which it was opened. This should be done by listening to the
    `menu-button-column-beforetoggle` event and updating the menu items when the
    `newState` is `true`.
-2. Update the data through a `setData()` call when a menu item is activated in
+1. Ensure the currently selected value for the open menu exists as an item in the menu
+   and is marked as selected with the <Tag name={iconCheckTag}/>.
+1. Update the data through a `setData()` call when a menu item is activated in
    order to update the text on the menu button in the column.
 
 ### Menu Button Column vs Table Action Menu
@@ -49,7 +51,3 @@ The <Tag name={tableColumnMenuButtonTag}/> should be used when:
 
 -   the items in the menu represent values that can be assigned to the record
 -   the currently selected value should be displayed in the table
-
-When using the <Tag name={tableColumnMenuButtonTag}/>, the currently selected
-value should also exist as an item in the menu and be marked as selected with
-the <Tag name={iconCheckTag}/>.
