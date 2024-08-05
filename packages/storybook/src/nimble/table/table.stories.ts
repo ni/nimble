@@ -79,6 +79,7 @@ interface TableArgs extends BaseTableArgs {
     columnConfigurationChange: undefined;
     rowExpandToggle: undefined;
     autoHeight: boolean;
+    resizable: boolean;
 }
 
 const simpleData = [
@@ -274,6 +275,7 @@ export const table: StoryObj<TableArgs> = {
             data-unused="${x => x.updateData(x)}"
             parent-id-field-name="parentId"
             ?auto-height="${x => x.autoHeight}"
+            style="${x => x.resizable && 'resize: both; overflow: hidden;'}"
         >
             <${tableColumnTextTag}
                 column-id="first-name-column"
@@ -490,6 +492,12 @@ export const table: StoryObj<TableArgs> = {
             description:
                 'When set to `true`, the table will automatically adjust its height to fit the number of rows in the table.',
             table: { category: apiCategory.attributes }
+        },
+        resizable: {
+            name: 'resizable',
+            description:
+                'Not a property on the table -- temporarily added to demonstrate how the table behaves when `resize: both` is set on the table element.',
+            table: { category: apiCategory.attributes }
         }
     },
     args: {
@@ -500,6 +508,7 @@ export const table: StoryObj<TableArgs> = {
         checkValidity: undefined,
         tableRef: undefined,
         autoHeight: false,
+        resizable: false,
         updateData: x => {
             void (async () => {
                 // Safari workaround: the table element instance is made at this point
