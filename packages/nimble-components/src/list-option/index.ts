@@ -6,6 +6,7 @@ import { observable, attr } from '@microsoft/fast-element';
 import { styles } from './styles';
 import { template } from './template';
 import type { ListOptionOwner } from '../patterns/dropdown/types';
+import { slotTextContent } from '../utilities/models/slot-text-content';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -58,10 +59,7 @@ export class ListOption extends FoundationListboxOption {
 
     /** @internal */
     public get elementTextContent(): string {
-        return this.contentSlot
-            .assignedNodes()
-            .map(node => node.textContent?.trim())
-            .join(' ');
+        return slotTextContent(this.contentSlot);
     }
 
     public override connectedCallback(): void {
