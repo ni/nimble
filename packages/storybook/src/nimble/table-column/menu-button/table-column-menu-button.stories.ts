@@ -1,4 +1,4 @@
-import { html, ref, repeat } from '@microsoft/fast-element';
+import { ExecutionContext, html, observable, ref, repeat, when } from '@microsoft/fast-element';
 import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html';
 import { withActions } from '@storybook/addon-actions/decorator';
 import { iconCheckTag } from '../../../../../nimble-components/src/icons/check';
@@ -222,6 +222,15 @@ const metadata: Meta<SharedTableArgs> = {
 
 export default metadata;
 
+/**
+ * A class to hold the state that the menu needs to render. This needs
+ * to be in a class so that it can have observable properties.
+ */
+class MenuState {
+    @observable
+    public currentColor?: string;
+}
+
 interface MenuButtonColumnTableArgs extends SharedTableArgs {
     fieldName: string;
     menuSlot: string;
@@ -238,6 +247,7 @@ interface MenuButtonColumnTableArgs extends SharedTableArgs {
         color: string
     ) => void;
     currentRecord?: TableRecord;
+    menuState: MenuState;
 }
 
 export const menuButtonColumn: StoryObj<MenuButtonColumnTableArgs> = {
@@ -267,7 +277,9 @@ export const menuButtonColumn: StoryObj<MenuButtonColumnTableArgs> = {
             <${menuTag} ${ref('menuRef')} slot="${x => x.menuSlot}">
                 ${repeat(() => colors, html<string, MenuButtonColumnTableArgs>`
                     <${menuItemTag} @change="${(x, c) => c.parent.updateFavoriteColor(c.parent, x)}">
-                        <${iconCheckTag} slot="start" class="${x => x}"></${iconCheckTag}>
+                        ${when((x, c: ExecutionContext<MenuButtonColumnTableArgs>) => x === c.parent.menuState.currentColor, html`
+                            <${iconCheckTag} slot="start"></${iconCheckTag}>
+                        `)}
                         ${x => x}
                     </${menuItemTag}>
                 `)}
@@ -334,6 +346,7 @@ export const menuButtonColumn: StoryObj<MenuButtonColumnTableArgs> = {
         menuSlot: 'color-menu',
         menuRef: undefined,
         currentData: [...simpleData],
+        menuState: new MenuState(),
         updateMenuItems: (
             storyArgs: MenuButtonColumnTableArgs,
             e: CustomEvent<MenuButtonColumnToggleEventDetail>
@@ -346,15 +359,7 @@ export const menuButtonColumn: StoryObj<MenuButtonColumnTableArgs> = {
 
                 const currentColor = storyArgs.currentRecord
                     .favoriteColor as string;
-                storyArgs.menuRef
-                    .querySelectorAll(iconCheckTag)
-                    .forEach(iconElement => {
-                        if (iconElement.classList.contains(currentColor)) {
-                            iconElement.style.visibility = 'visible';
-                        } else {
-                            iconElement.style.visibility = 'hidden';
-                        }
-                    });
+                storyArgs.menuState.currentColor = currentColor;
             }
         },
         updateFavoriteColor: (
