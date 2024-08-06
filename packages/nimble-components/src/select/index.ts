@@ -43,6 +43,7 @@ import { FilterMode, SelectFilterInputEventDetail } from './types';
 import { diacriticInsensitiveStringNormalizer } from '../utilities/models/string-normalizers';
 import { FormAssociatedSelect } from './models/select-form-associated';
 import type { ListOptionGroup } from '../list-option-group';
+import { slotTextContent } from '../utilities/models/slot-text-content';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -209,11 +210,7 @@ export class Select
             return '';
         }
 
-        const nodes = this.labelSlot.assignedNodes();
-        return nodes
-            .filter(node => node.textContent?.trim() !== '')
-            .map(node => node.textContent?.trim())
-            .join(' ');
+        return slotTextContent(this.labelSlot);
     }
 
     private _value = '';
