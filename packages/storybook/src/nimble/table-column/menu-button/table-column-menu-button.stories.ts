@@ -1,4 +1,11 @@
-import { ExecutionContext, html, observable, ref, repeat, when } from '@microsoft/fast-element';
+import {
+    ExecutionContext,
+    html,
+    observable,
+    ref,
+    repeat,
+    when
+} from '@microsoft/fast-element';
 import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html';
 import { withActions } from '@storybook/addon-actions/decorator';
 import { iconCheckTag } from '../../../../../nimble-components/src/icons/check';
