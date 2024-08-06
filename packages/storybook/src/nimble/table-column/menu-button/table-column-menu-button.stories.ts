@@ -30,6 +30,13 @@ import {
 
 const colors = ['Red', 'Green', 'Blue', 'Black', 'Yellow'] as const;
 
+interface SimpleRecord extends TableRecord {
+    id: string;
+    firstName: string;
+    lastName: string;
+    favoriteColor: string;
+}
+
 const simpleData = [
     {
         id: 'Ralph Wiggum',
@@ -248,12 +255,12 @@ interface MenuButtonColumnTableArgs extends SharedTableArgs {
     menuRef: Menu;
     toggleEvent: never;
     beforeToggleEvent: never;
-    currentData: TableRecord[];
+    currentData: SimpleRecord[];
     updateFavoriteColor: (
         storyArgs: MenuButtonColumnTableArgs,
         color: string
     ) => void;
-    currentRecord?: TableRecord;
+    currentRecord?: SimpleRecord;
     menuState: MenuState;
 }
 
@@ -333,6 +340,11 @@ export const menuButtonColumn: StoryObj<MenuButtonColumnTableArgs> = {
                 disable: true
             }
         },
+        menuState: {
+            table: {
+                disable: true
+            }
+        },
         toggleEvent: {
             name: 'menu-button-column-toggle',
             description:
@@ -364,8 +376,7 @@ export const menuButtonColumn: StoryObj<MenuButtonColumnTableArgs> = {
                     d => d.id === recordId
                 )!;
 
-                const currentColor = storyArgs.currentRecord
-                    .favoriteColor as string;
+                const currentColor = storyArgs.currentRecord.favoriteColor;
                 storyArgs.menuState.currentColor = currentColor;
             }
         },
