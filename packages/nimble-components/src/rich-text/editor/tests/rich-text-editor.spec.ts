@@ -7,7 +7,7 @@ import { wackyStrings } from '../../../utilities/tests/wacky-strings';
 import type { Button } from '../../../button';
 import type { ToggleButton } from '../../../toggle-button';
 import { ToolbarButton } from '../testing/types';
-import { createEventListener } from '../../../utilities/testing/component';
+import { waitForEvent } from '../../../utilities/testing/component';
 import { waitForUpdatesAsync } from '../../../testing/async-helpers';
 
 async function setup(): Promise<Fixture<RichTextEditor>> {
@@ -1771,34 +1771,38 @@ describe('RichTextEditor', () => {
     });
 
     it('should fire "input" event when there is an input to the editor', async () => {
-        const inputEventListener = createEventListener(element, 'input');
+        const spy = jasmine.createSpy();
+        const inputEventListener = waitForEvent(element, 'input', spy);
 
         await pageObject.setEditorTextContent('input');
-        await inputEventListener.promise;
+        await inputEventListener;
 
-        expect(inputEventListener.spy).toHaveBeenCalledTimes(1);
+        expect(spy).toHaveBeenCalledTimes(1);
     });
 
     it('should not fire "input" event when setting the content through "setMarkdown"', () => {
-        const inputEventListener = createEventListener(element, 'input');
+        const spy = jasmine.createSpy();
+        void waitForEvent(element, 'input', spy);
 
         element.setMarkdown('input');
 
-        expect(inputEventListener.spy).not.toHaveBeenCalled();
+        expect(spy).not.toHaveBeenCalled();
     });
 
     it('should fire "input" event when the text is updated/removed from the editor', async () => {
-        const inputEventListener = createEventListener(element, 'input');
-
+        const updateSpy = jasmine.createSpy();
+        const updatePromise = waitForEvent(element, 'input', updateSpy);
         await pageObject.setEditorTextContent('update');
-        await inputEventListener.promise;
+        await updatePromise;
 
-        expect(inputEventListener.spy).toHaveBeenCalledTimes(1);
+        expect(updateSpy).toHaveBeenCalledTimes(1);
 
+        const removedSpy = jasmine.createSpy();
+        const removedPromise = waitForEvent(element, 'input', removedSpy);
         await pageObject.replaceEditorContent('');
-        await inputEventListener.promise;
+        await removedPromise;
 
-        expect(inputEventListener.spy).toHaveBeenCalledTimes(1);
+        expect(removedSpy).toHaveBeenCalledTimes(1);
     });
 
     it('should initialize "empty" to true and set false when there is content', async () => {

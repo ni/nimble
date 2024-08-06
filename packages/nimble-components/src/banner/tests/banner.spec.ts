@@ -3,7 +3,7 @@ import { fixture, Fixture } from '../../utilities/tests/fixture';
 import { Banner, bannerTag } from '..';
 import { BannerSeverity } from '../types';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
-import { createEventListener } from '../../utilities/testing/component';
+import { waitForEvent } from '../../utilities/testing/component';
 import { themeProviderTag, type ThemeProvider } from '../../theme-provider';
 import {
     LabelProviderCore,
@@ -68,10 +68,11 @@ describe('Banner', () => {
 
     it("should fire 'toggle' when 'open' is changed", async () => {
         element.open = false;
-        const toggleListener = createEventListener(element, 'toggle');
+        const spy = jasmine.createSpy();
+        const toggleListener = waitForEvent(element, 'toggle', spy);
         element.open = true;
-        await toggleListener.promise;
-        expect(toggleListener.spy).toHaveBeenCalledOnceWith(
+        await toggleListener;
+        expect(spy).toHaveBeenCalledOnceWith(
             new CustomEvent('toggle', {
                 detail: { oldState: false, newState: true }
             })

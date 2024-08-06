@@ -8,7 +8,7 @@ import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import { checkFullyInViewport } from '../../utilities/tests/intersection-observer';
 import { FilterMode, SelectFilterInputEventDetail } from '../types';
 import {
-    createEventListener,
+    waitForEvent,
     waitAnimationFrame
 } from '../../utilities/testing/component';
 import { filterSearchLabel } from '../../label-provider/core/label-tokens';
@@ -85,9 +85,9 @@ async function setupWithGroups(): Promise<Fixture<Select>> {
 }
 
 async function clickAndWaitForOpen(select: Select): Promise<void> {
-    const regionLoadedListener = createEventListener(select, 'loaded');
+    const regionLoadedPromise = waitForEvent(select, 'loaded');
     select.click();
-    await regionLoadedListener.promise;
+    await regionLoadedPromise;
 }
 
 describe('Select', () => {
@@ -2179,33 +2179,39 @@ describe('Select', () => {
 
             it('pressing <Esc> issues one filter-input event with empty filterText', async () => {
                 await clickAndWaitForOpen(element);
-                const filterInputEventListener = createEventListener(
+                const spy = jasmine.createSpy();
+                const filterInputEventPromise = waitForEvent(
                     element,
-                    'filter-input'
+                    'filter-input',
+                    spy
                 );
                 pageObject.pressEscapeKey();
+                await filterInputEventPromise;
                 const expectedDetails: SelectFilterInputEventDetail = {
                     filterText: ''
                 };
-                const event = filterInputEventListener.spy.calls.first()
+                const event = spy.calls.first()
                     .args[0] as CustomEvent;
-                expect(filterInputEventListener.spy).toHaveBeenCalledTimes(1);
+                expect(spy).toHaveBeenCalledTimes(1);
                 expect(event.detail).toEqual(expectedDetails);
             });
 
             it('clicking outside of dropdown issues one filter-input event with empty filterText', async () => {
                 await clickAndWaitForOpen(element);
-                const filterInputEventListener = createEventListener(
+                const spy = jasmine.createSpy();
+                const filterInputEventPromise = waitForEvent(
                     element,
-                    'filter-input'
+                    'filter-input',
+                    spy
                 );
                 await pageObject.clickAway();
+                await filterInputEventPromise;
                 const expectedDetails: SelectFilterInputEventDetail = {
                     filterText: ''
                 };
-                const event = filterInputEventListener.spy.calls.first()
+                const event = spy.calls.first()
                     .args[0] as CustomEvent;
-                expect(filterInputEventListener.spy).toHaveBeenCalledTimes(1);
+                expect(spy).toHaveBeenCalledTimes(1);
                 expect(event.detail).toEqual(expectedDetails);
             });
         });
@@ -2284,14 +2290,16 @@ describe('Select', () => {
         });
 
         it('exercise setFilter', () => {
-            const filterInputListener = createEventListener(
-                element,
-                'filter-input'
+            const spy = jasmine.createSpy();
+            element.addEventListener(
+                'filter-input',
+                spy,
+                { once: true }
             );
             pageObject.clickSelect();
             pageObject.setFilter('Two');
 
-            expect(filterInputListener.spy).toHaveBeenCalledOnceWith(
+            expect(spy).toHaveBeenCalledOnceWith(
                 jasmine.objectContaining({
                     detail: { filterText: 'Two' }
                 })

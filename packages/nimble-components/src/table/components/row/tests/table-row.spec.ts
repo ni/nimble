@@ -14,7 +14,7 @@ import type {
     TableRowSelectionToggleEventDetail
 } from '../../../types';
 import { TableRowPageObject } from './table-row.pageobject';
-import { createEventListener } from '../../../../utilities/testing/component';
+import { waitForEvent } from '../../../../utilities/testing/component';
 import { tableTag, type Table } from '../../..';
 import {
     TableColumnDateText,
@@ -183,19 +183,21 @@ describe('TableRow', () => {
             element.selected = false;
             await connect();
 
-            const listener = createEventListener(
+            const spy = jasmine.createSpy();
+            const listener = waitForEvent(
                 element,
-                'row-selection-toggle'
+                'row-selection-toggle',
+                spy
             );
             element.selectionCheckbox!.click();
-            await listener.promise;
+            await listener;
 
-            expect(listener.spy).toHaveBeenCalledTimes(1);
+            expect(spy).toHaveBeenCalledTimes(1);
             const expectedDetails: TableRowSelectionToggleEventDetail = {
                 newState: true,
                 oldState: false
             };
-            const event = listener.spy.calls.first().args[0] as CustomEvent;
+            const event = spy.calls.first().args[0] as CustomEvent;
             expect(event.detail).toEqual(expectedDetails);
         });
 
@@ -205,19 +207,21 @@ describe('TableRow', () => {
             element.selected = true;
             await connect();
 
-            const listener = createEventListener(
+            const spy = jasmine.createSpy();
+            const listener = waitForEvent(
                 element,
-                'row-selection-toggle'
+                'row-selection-toggle',
+                spy
             );
             element.selectionCheckbox!.click();
-            await listener.promise;
+            await listener;
 
-            expect(listener.spy).toHaveBeenCalledTimes(1);
+            expect(spy).toHaveBeenCalledTimes(1);
             const expectedDetails: TableRowSelectionToggleEventDetail = {
                 newState: false,
                 oldState: true
             };
-            const event = listener.spy.calls.first().args[0] as CustomEvent;
+            const event = spy.calls.first().args[0] as CustomEvent;
             expect(event.detail).toEqual(expectedDetails);
         });
 
@@ -227,14 +231,19 @@ describe('TableRow', () => {
             element.selected = true;
             await connect();
 
-            const listener = createEventListener(
-                element,
-                'row-selection-toggle'
+            const spy = jasmine.createSpy();
+            element.addEventListener(
+                'row-selection-toggle',
+                spy
             );
             element.selected = false;
             await waitForUpdatesAsync();
 
-            expect(listener.spy).not.toHaveBeenCalled();
+            expect(spy).not.toHaveBeenCalled();
+            element.removeEventListener(
+                'row-selection-toggle',
+                spy
+            );
         });
 
         it('shows expand-collapse button when isParentRow is true', async () => {
@@ -265,17 +274,18 @@ describe('TableRow', () => {
             await waitForUpdatesAsync();
             const expandCollapseButton = pageObject.getExpandCollapseButton();
 
-            const listener = createEventListener(element, 'row-expand-toggle');
+            const spy = jasmine.createSpy();
+            const listener = waitForEvent(element, 'row-expand-toggle', spy);
             expandCollapseButton!.click();
-            await listener.promise;
+            await listener;
 
-            expect(listener.spy).toHaveBeenCalledTimes(1);
+            expect(spy).toHaveBeenCalledTimes(1);
             const expandDetails: TableRowExpansionToggleEventDetail = {
                 newState: true,
                 oldState: false,
                 recordId: 'foo'
             };
-            const event = listener.spy.calls.first().args[0] as CustomEvent;
+            const event = spy.calls.first().args[0] as CustomEvent;
             expect(event.detail).toEqual(expandDetails);
         });
 
@@ -287,17 +297,18 @@ describe('TableRow', () => {
             await waitForUpdatesAsync();
             const expandCollapseButton = pageObject.getExpandCollapseButton();
 
-            const listener = createEventListener(element, 'row-expand-toggle');
+            const spy = jasmine.createSpy();
+            const listener = waitForEvent(element, 'row-expand-toggle', spy);
             element.expanded = true;
             expandCollapseButton!.click();
-            await listener.promise;
-            expect(listener.spy).toHaveBeenCalledTimes(1);
+            await listener;
+            expect(spy).toHaveBeenCalledTimes(1);
             const collapseDetails: TableRowExpansionToggleEventDetail = {
                 newState: false,
                 oldState: true,
                 recordId: 'foo'
             };
-            const event = listener.spy.calls.first().args[0] as CustomEvent;
+            const event = spy.calls.first().args[0] as CustomEvent;
             expect(event.detail).toEqual(collapseDetails);
         });
 
