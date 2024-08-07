@@ -631,10 +631,7 @@ describe('Table keyboard navigation', () => {
                 pageObject.setRowHoverState(0, true);
                 await sendKeyPressToTable(keyEnter, { ctrlKey: true });
                 await toggleListener;
-                toggleListener = waitForEvent(
-                    element,
-                    'action-menu-toggle'
-                );
+                toggleListener = waitForEvent(element, 'action-menu-toggle');
 
                 await pageObject.scrollToLastRowAsync();
                 await pageObject.scrollToFirstRowAsync();

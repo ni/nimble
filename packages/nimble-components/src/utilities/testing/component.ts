@@ -56,13 +56,9 @@ export async function waitForEvent<T extends Event>(
             callback?.(evt);
             resolve();
         }) as EventListener;
-        element.addEventListener(
-            eventName,
-            handler,
-            {
-                once: true
-            }
-        );
+        element.addEventListener(eventName, handler, {
+            once: true
+        });
     });
 }
 

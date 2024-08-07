@@ -192,11 +192,7 @@ describe('TableRow', () => {
             await connect();
 
             const spy = jasmine.createSpy<TableRowSelectionToggleEventHandler>();
-            const listener = waitForEvent(
-                element,
-                'row-selection-toggle',
-                spy
-            );
+            const listener = waitForEvent(element, 'row-selection-toggle', spy);
             element.selectionCheckbox!.click();
             await listener;
 
@@ -216,11 +212,7 @@ describe('TableRow', () => {
             await connect();
 
             const spy = jasmine.createSpy<TableRowSelectionToggleEventHandler>();
-            const listener = waitForEvent(
-                element,
-                'row-selection-toggle',
-                spy
-            );
+            const listener = waitForEvent(element, 'row-selection-toggle', spy);
             element.selectionCheckbox!.click();
             await listener;
 
@@ -240,18 +232,12 @@ describe('TableRow', () => {
             await connect();
 
             const spy = jasmine.createSpy();
-            element.addEventListener(
-                'row-selection-toggle',
-                spy
-            );
+            element.addEventListener('row-selection-toggle', spy);
             element.selected = false;
             await waitForUpdatesAsync();
 
             expect(spy).not.toHaveBeenCalled();
-            element.removeEventListener(
-                'row-selection-toggle',
-                spy
-            );
+            element.removeEventListener('row-selection-toggle', spy);
         });
 
         it('shows expand-collapse button when isParentRow is true', async () => {

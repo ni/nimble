@@ -337,7 +337,9 @@ describe('TableColumnMenuButton', () => {
             };
             expect(spy).toHaveBeenCalledTimes(2);
             const beforetoggleEvent = spy.calls.argsFor(0)[0];
-            expect(beforetoggleEvent.type).toEqual('menu-button-column-beforetoggle');
+            expect(beforetoggleEvent.type).toEqual(
+                'menu-button-column-beforetoggle'
+            );
             expect(beforetoggleEvent.detail).toEqual(expectedDetails);
             const toggleEvent = spy.calls.argsFor(1)[0];
             expect(toggleEvent.type).toEqual('menu-button-column-toggle');
@@ -367,7 +369,9 @@ describe('TableColumnMenuButton', () => {
             };
             expect(spy).toHaveBeenCalledTimes(2);
             const beforetoggleEvent = spy.calls.argsFor(0)[0];
-            expect(beforetoggleEvent.type).toEqual('menu-button-column-beforetoggle');
+            expect(beforetoggleEvent.type).toEqual(
+                'menu-button-column-beforetoggle'
+            );
             expect(beforetoggleEvent.detail).toEqual(expectedDetails);
             const toggleEvent = spy.calls.argsFor(1)[0];
             expect(toggleEvent.type).toEqual('menu-button-column-toggle');
@@ -399,7 +403,9 @@ describe('TableColumnMenuButton', () => {
 
             expect(spy).toHaveBeenCalledTimes(2);
             const beforetoggleEvent = spy.calls.argsFor(0)[0];
-            expect(beforetoggleEvent.type).toEqual('menu-button-column-beforetoggle');
+            expect(beforetoggleEvent.type).toEqual(
+                'menu-button-column-beforetoggle'
+            );
             expect(beforetoggleEvent.detail).toEqual(expectedDetails);
             const toggleEvent = spy.calls.argsFor(1)[0];
             expect(toggleEvent.type).toEqual('menu-button-column-toggle');

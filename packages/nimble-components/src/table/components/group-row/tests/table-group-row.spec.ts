@@ -187,10 +187,7 @@ describe('TableGroupRow', () => {
         await connect();
 
         const spy = jasmine.createSpy();
-        element.addEventListener(
-            'group-expand-toggle',
-            spy
-        );
+        element.addEventListener('group-expand-toggle', spy);
         element.selectionCheckbox!.click();
         await waitForUpdatesAsync();
 

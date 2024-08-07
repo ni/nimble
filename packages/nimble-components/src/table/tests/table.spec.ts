@@ -846,10 +846,7 @@ describe('Table', () => {
                 await waitForUpdatesAsync();
 
                 // Reopen the menu so we can verify the slots (changing sort order causes a row recycle which closes action menus)
-                toggleListener = waitForEvent(
-                    element,
-                    'action-menu-toggle'
-                );
+                toggleListener = waitForEvent(element, 'action-menu-toggle');
                 await pageObject.clickCellActionMenu(1, 0);
                 await toggleListener;
 

@@ -114,9 +114,10 @@ describe('Table action menu', () => {
         return { menu, items: [menuItem1, menuItem2, menuItem3] };
     }
 
-    function getEmittedRecordIdsFromSpy(spy: jasmine.Spy<TableActionMenuToggleEventHandler>): string[] {
-        const event = spy.calls.first()
-            .args[0];
+    function getEmittedRecordIdsFromSpy(
+        spy: jasmine.Spy<TableActionMenuToggleEventHandler>
+    ): string[] {
+        const event = spy.calls.first().args[0];
         return event.detail.recordIds;
     }
 
@@ -335,8 +336,7 @@ describe('Table action menu', () => {
             columnId: column1.columnId,
             recordIds: [simpleTableData[1].stringData]
         };
-        const event = beforetoggleSpy.calls.first()
-            .args[0];
+        const event = beforetoggleSpy.calls.first().args[0];
         expect(event.detail).toEqual(expectedDetails);
     });
 
@@ -353,11 +353,7 @@ describe('Table action menu', () => {
         await pageObject.clickCellActionMenu(1, 0);
         await waitForUpdatesAsync();
         const spy = jasmine.createSpy<TableActionMenuToggleEventHandler>();
-        const listener = waitForEvent(
-            element,
-            'action-menu-beforetoggle',
-            spy
-        );
+        const listener = waitForEvent(element, 'action-menu-beforetoggle', spy);
         const escEvent = new KeyboardEvent('keydown', {
             key: keyEscape
         } as KeyboardEventInit);
@@ -372,8 +368,7 @@ describe('Table action menu', () => {
             columnId: column1.columnId,
             recordIds: [simpleTableData[1].stringData]
         };
-        const event = spy.calls.first()
-            .args[0];
+        const event = spy.calls.first().args[0];
         expect(event.detail).toEqual(expectedDetails);
     });
 
@@ -397,8 +392,7 @@ describe('Table action menu', () => {
             columnId: column1.columnId,
             recordIds: [simpleTableData[1].stringData]
         };
-        const event = toggleSpy.calls.first()
-            .args[0];
+        const event = toggleSpy.calls.first().args[0];
         expect(event.detail).toEqual(expectedDetails);
     });
 
@@ -428,8 +422,7 @@ describe('Table action menu', () => {
             columnId: column1.columnId,
             recordIds: [simpleTableData[1].stringData]
         };
-        const event = toggleSpy.calls.first()
-            .args[0];
+        const event = toggleSpy.calls.first().args[0];
         expect(event.detail).toEqual(expectedDetails);
     });
 
@@ -483,10 +476,7 @@ describe('Table action menu', () => {
         await pageObject.clickCellActionMenu(0, 0);
         await toggleListener;
 
-        const closeToggleListener = waitForEvent(
-            element,
-            'action-menu-toggle'
-        );
+        const closeToggleListener = waitForEvent(element, 'action-menu-toggle');
         const newTableData: SimpleTableRecord[] = [
             {
                 stringData: 'new string 1',
@@ -532,9 +522,9 @@ describe('Table action menu', () => {
             expect(currentSelection).toEqual([
                 simpleTableData[rowIndex].stringData
             ]);
-            expect(
-                getEmittedRecordIdsFromSpy(beforetoggleSpy)
-            ).toEqual(jasmine.arrayWithExactContents(currentSelection));
+            expect(getEmittedRecordIdsFromSpy(beforetoggleSpy)).toEqual(
+                jasmine.arrayWithExactContents(currentSelection)
+            );
             expect(getEmittedRecordIdsFromSpy(toggleSpy)).toEqual(
                 jasmine.arrayWithExactContents(currentSelection)
             );
@@ -552,9 +542,9 @@ describe('Table action menu', () => {
             expect(currentSelection).toEqual([
                 simpleTableData[rowIndex].stringData
             ]);
-            expect(
-                getEmittedRecordIdsFromSpy(beforetoggleSpy)
-            ).toEqual(jasmine.arrayWithExactContents(currentSelection));
+            expect(getEmittedRecordIdsFromSpy(beforetoggleSpy)).toEqual(
+                jasmine.arrayWithExactContents(currentSelection)
+            );
             expect(getEmittedRecordIdsFromSpy(toggleSpy)).toEqual(
                 jasmine.arrayWithExactContents(currentSelection)
             );
@@ -574,9 +564,9 @@ describe('Table action menu', () => {
             expect(currentSelection).toEqual([
                 simpleTableData[rowIndex].stringData
             ]);
-            expect(
-                getEmittedRecordIdsFromSpy(beforetoggleSpy)
-            ).toEqual(jasmine.arrayWithExactContents(currentSelection));
+            expect(getEmittedRecordIdsFromSpy(beforetoggleSpy)).toEqual(
+                jasmine.arrayWithExactContents(currentSelection)
+            );
             expect(getEmittedRecordIdsFromSpy(toggleSpy)).toEqual(
                 jasmine.arrayWithExactContents(currentSelection)
             );
@@ -616,9 +606,9 @@ describe('Table action menu', () => {
             expect(currentSelection).toEqual([
                 simpleTableData[rowIndex].stringData
             ]);
-            expect(
-                getEmittedRecordIdsFromSpy(beforetoggleSpy)
-            ).toEqual(jasmine.arrayWithExactContents(currentSelection));
+            expect(getEmittedRecordIdsFromSpy(beforetoggleSpy)).toEqual(
+                jasmine.arrayWithExactContents(currentSelection)
+            );
             expect(getEmittedRecordIdsFromSpy(toggleSpy)).toEqual(
                 jasmine.arrayWithExactContents(currentSelection)
             );
@@ -636,9 +626,9 @@ describe('Table action menu', () => {
             expect(currentSelection).toEqual([
                 simpleTableData[rowIndex].stringData
             ]);
-            expect(
-                getEmittedRecordIdsFromSpy(beforetoggleSpy)
-            ).toEqual(jasmine.arrayWithExactContents(currentSelection));
+            expect(getEmittedRecordIdsFromSpy(beforetoggleSpy)).toEqual(
+                jasmine.arrayWithExactContents(currentSelection)
+            );
             expect(getEmittedRecordIdsFromSpy(toggleSpy)).toEqual(
                 jasmine.arrayWithExactContents(currentSelection)
             );
@@ -658,9 +648,9 @@ describe('Table action menu', () => {
             expect(currentSelection).toEqual([
                 simpleTableData[rowIndex].stringData
             ]);
-            expect(
-                getEmittedRecordIdsFromSpy(beforetoggleSpy)
-            ).toEqual(jasmine.arrayWithExactContents(currentSelection));
+            expect(getEmittedRecordIdsFromSpy(beforetoggleSpy)).toEqual(
+                jasmine.arrayWithExactContents(currentSelection)
+            );
             expect(getEmittedRecordIdsFromSpy(toggleSpy)).toEqual(
                 jasmine.arrayWithExactContents(currentSelection)
             );
@@ -681,9 +671,9 @@ describe('Table action menu', () => {
                 simpleTableData[0].stringData,
                 simpleTableData[2].stringData
             ]);
-            expect(
-                getEmittedRecordIdsFromSpy(beforetoggleSpy)
-            ).toEqual(jasmine.arrayWithExactContents(currentSelection));
+            expect(getEmittedRecordIdsFromSpy(beforetoggleSpy)).toEqual(
+                jasmine.arrayWithExactContents(currentSelection)
+            );
             expect(getEmittedRecordIdsFromSpy(toggleSpy)).toEqual(
                 jasmine.arrayWithExactContents(currentSelection)
             );

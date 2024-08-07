@@ -218,9 +218,10 @@ async function setup(): Promise<Fixture<Table<SimpleTableRecord>>> {
 }
 
 describe('Table row selection', () => {
-    function getEmittedRecordIdsFromSpy(spy: jasmine.Spy<TableRowSelectionEventHandler>): string[] {
-        const event = spy.calls.first()
-            .args[0];
+    function getEmittedRecordIdsFromSpy(
+        spy: jasmine.Spy<TableRowSelectionEventHandler>
+    ): string[] {
+        const event = spy.calls.first().args[0];
         return event.detail.selectedRecordIds;
     }
 
@@ -796,12 +797,8 @@ describe('Table row selection', () => {
                                     value.expectedSelection
                                 )
                             );
-                            expect(
-                                selectionChangeSpy
-                            ).toHaveBeenCalledTimes(1);
-                            const emittedIds = getEmittedRecordIdsFromSpy(
-                                selectionChangeSpy
-                            );
+                            expect(selectionChangeSpy).toHaveBeenCalledTimes(1);
+                            const emittedIds = getEmittedRecordIdsFromSpy(selectionChangeSpy);
                             expect(emittedIds).toEqual(
                                 jasmine.arrayWithExactContents(
                                     value.expectedSelection
@@ -848,9 +845,7 @@ describe('Table row selection', () => {
                                     value.initialSelection
                                 )
                             );
-                            expect(
-                                selectionChangeSpy
-                            ).not.toHaveBeenCalled();
+                            expect(selectionChangeSpy).not.toHaveBeenCalled();
                         });
                     });
                 });
@@ -944,12 +939,8 @@ describe('Table row selection', () => {
                                 value.expectedSelection
                             )
                         );
-                        expect(
-                            selectionChangeSpy
-                        ).toHaveBeenCalledTimes(1);
-                        const emittedIds = getEmittedRecordIdsFromSpy(
-                            selectionChangeSpy
-                        );
+                        expect(selectionChangeSpy).toHaveBeenCalledTimes(1);
+                        const emittedIds = getEmittedRecordIdsFromSpy(selectionChangeSpy);
                         expect(emittedIds).toEqual(
                             jasmine.arrayWithExactContents(
                                 value.expectedSelection
@@ -995,12 +986,8 @@ describe('Table row selection', () => {
                         expect(currentSelection).toEqual(
                             jasmine.arrayWithExactContents(expectedSelection)
                         );
-                        expect(multiSelectSpy).toHaveBeenCalledTimes(
-                            1
-                        );
-                        const emittedIds = getEmittedRecordIdsFromSpy(
-                            multiSelectSpy
-                        );
+                        expect(multiSelectSpy).toHaveBeenCalledTimes(1);
+                        const emittedIds = getEmittedRecordIdsFromSpy(multiSelectSpy);
                         expect(emittedIds).toEqual(
                             jasmine.arrayWithExactContents(expectedSelection)
                         );
@@ -1031,12 +1018,8 @@ describe('Table row selection', () => {
                         expect(currentSelection).toEqual(
                             jasmine.arrayWithExactContents(expectedSelection)
                         );
-                        expect(multiSelectSpy).toHaveBeenCalledTimes(
-                            1
-                        );
-                        const emittedIds = getEmittedRecordIdsFromSpy(
-                            multiSelectSpy
-                        );
+                        expect(multiSelectSpy).toHaveBeenCalledTimes(1);
+                        const emittedIds = getEmittedRecordIdsFromSpy(multiSelectSpy);
                         expect(emittedIds).toEqual(
                             jasmine.arrayWithExactContents(expectedSelection)
                         );
@@ -1068,12 +1051,8 @@ describe('Table row selection', () => {
                         expect(currentSelection).toEqual(
                             jasmine.arrayWithExactContents(expectedSelection)
                         );
-                        expect(multiSelectSpy).toHaveBeenCalledTimes(
-                            1
-                        );
-                        const emittedIds = getEmittedRecordIdsFromSpy(
-                            multiSelectSpy
-                        );
+                        expect(multiSelectSpy).toHaveBeenCalledTimes(1);
+                        const emittedIds = getEmittedRecordIdsFromSpy(multiSelectSpy);
                         expect(emittedIds).toEqual(
                             jasmine.arrayWithExactContents(expectedSelection)
                         );
@@ -1110,12 +1089,8 @@ describe('Table row selection', () => {
                         expect(currentSelection).toEqual(
                             jasmine.arrayWithExactContents(expectedSelection)
                         );
-                        expect(
-                            secondMultiSelectSpy
-                        ).toHaveBeenCalledTimes(1);
-                        const emittedIds = getEmittedRecordIdsFromSpy(
-                            secondMultiSelectSpy
-                        );
+                        expect(secondMultiSelectSpy).toHaveBeenCalledTimes(1);
+                        const emittedIds = getEmittedRecordIdsFromSpy(secondMultiSelectSpy);
                         expect(emittedIds).toEqual(
                             jasmine.arrayWithExactContents(expectedSelection)
                         );
@@ -1184,12 +1159,8 @@ describe('Table row selection', () => {
                         expect(currentSelection).toEqual(
                             jasmine.arrayWithExactContents(expectedSelection)
                         );
-                        expect(multiSelectSpy).toHaveBeenCalledTimes(
-                            1
-                        );
-                        const emittedIds = getEmittedRecordIdsFromSpy(
-                            multiSelectSpy
-                        );
+                        expect(multiSelectSpy).toHaveBeenCalledTimes(1);
+                        const emittedIds = getEmittedRecordIdsFromSpy(multiSelectSpy);
                         expect(emittedIds).toEqual(
                             jasmine.arrayWithExactContents(expectedSelection)
                         );
@@ -1228,12 +1199,8 @@ describe('Table row selection', () => {
                         expect(currentSelection).toEqual(
                             jasmine.arrayWithExactContents(expectedSelection)
                         );
-                        expect(multiSelectSpy).toHaveBeenCalledTimes(
-                            1
-                        );
-                        const emittedIds = getEmittedRecordIdsFromSpy(
-                            multiSelectSpy
-                        );
+                        expect(multiSelectSpy).toHaveBeenCalledTimes(1);
+                        const emittedIds = getEmittedRecordIdsFromSpy(multiSelectSpy);
                         expect(emittedIds).toEqual(
                             jasmine.arrayWithExactContents(expectedSelection)
                         );
@@ -1270,12 +1237,8 @@ describe('Table row selection', () => {
                         expect(currentSelection).toEqual(
                             jasmine.arrayWithExactContents(expectedSelection)
                         );
-                        expect(multiSelectSpy).toHaveBeenCalledTimes(
-                            1
-                        );
-                        const emittedIds = getEmittedRecordIdsFromSpy(
-                            multiSelectSpy
-                        );
+                        expect(multiSelectSpy).toHaveBeenCalledTimes(1);
+                        const emittedIds = getEmittedRecordIdsFromSpy(multiSelectSpy);
                         expect(emittedIds).toEqual(
                             jasmine.arrayWithExactContents(expectedSelection)
                         );
@@ -1327,12 +1290,8 @@ describe('Table row selection', () => {
                         expect(currentSelection).toEqual(
                             jasmine.arrayWithExactContents(expectedSelection)
                         );
-                        expect(multiSelectSpy).toHaveBeenCalledTimes(
-                            1
-                        );
-                        const emittedIds = getEmittedRecordIdsFromSpy(
-                            multiSelectSpy
-                        );
+                        expect(multiSelectSpy).toHaveBeenCalledTimes(1);
+                        const emittedIds = getEmittedRecordIdsFromSpy(multiSelectSpy);
                         expect(emittedIds).toEqual(
                             jasmine.arrayWithExactContents(expectedSelection)
                         );
@@ -1399,12 +1358,8 @@ describe('Table row selection', () => {
                         expect(currentSelection).toEqual(
                             jasmine.arrayWithExactContents(expectedSelection)
                         );
-                        expect(multiSelectSpy).toHaveBeenCalledTimes(
-                            1
-                        );
-                        const emittedIds = getEmittedRecordIdsFromSpy(
-                            multiSelectSpy
-                        );
+                        expect(multiSelectSpy).toHaveBeenCalledTimes(1);
+                        const emittedIds = getEmittedRecordIdsFromSpy(multiSelectSpy);
                         expect(emittedIds).toEqual(
                             jasmine.arrayWithExactContents(expectedSelection)
                         );
@@ -1439,12 +1394,8 @@ describe('Table row selection', () => {
                         expect(currentSelection).toEqual(
                             jasmine.arrayWithExactContents(expectedSelection)
                         );
-                        expect(multiSelectSpy).toHaveBeenCalledTimes(
-                            1
-                        );
-                        const emittedIds = getEmittedRecordIdsFromSpy(
-                            multiSelectSpy
-                        );
+                        expect(multiSelectSpy).toHaveBeenCalledTimes(1);
+                        const emittedIds = getEmittedRecordIdsFromSpy(multiSelectSpy);
                         expect(emittedIds).toEqual(
                             jasmine.arrayWithExactContents(expectedSelection)
                         );
@@ -1474,12 +1425,8 @@ describe('Table row selection', () => {
                         expect(currentSelection).toEqual(
                             jasmine.arrayWithExactContents(expectedSelection)
                         );
-                        expect(multiSelectSpy).toHaveBeenCalledTimes(
-                            1
-                        );
-                        const emittedIds = getEmittedRecordIdsFromSpy(
-                            multiSelectSpy
-                        );
+                        expect(multiSelectSpy).toHaveBeenCalledTimes(1);
+                        const emittedIds = getEmittedRecordIdsFromSpy(multiSelectSpy);
                         expect(emittedIds).toEqual(
                             jasmine.arrayWithExactContents(expectedSelection)
                         );
@@ -1507,12 +1454,8 @@ describe('Table row selection', () => {
                         expect(currentSelection).toEqual(
                             jasmine.arrayWithExactContents(expectedSelection)
                         );
-                        expect(multiSelectSpy).toHaveBeenCalledTimes(
-                            1
-                        );
-                        const emittedIds = getEmittedRecordIdsFromSpy(
-                            multiSelectSpy
-                        );
+                        expect(multiSelectSpy).toHaveBeenCalledTimes(1);
+                        const emittedIds = getEmittedRecordIdsFromSpy(multiSelectSpy);
                         expect(emittedIds).toEqual(
                             jasmine.arrayWithExactContents(expectedSelection)
                         );
@@ -1542,12 +1485,8 @@ describe('Table row selection', () => {
                         expect(currentSelection).toEqual(
                             jasmine.arrayWithExactContents(expectedSelection)
                         );
-                        expect(shiftSelectSpy).toHaveBeenCalledTimes(
-                            1
-                        );
-                        const emittedIds = getEmittedRecordIdsFromSpy(
-                            shiftSelectSpy
-                        );
+                        expect(shiftSelectSpy).toHaveBeenCalledTimes(1);
+                        const emittedIds = getEmittedRecordIdsFromSpy(shiftSelectSpy);
                         expect(emittedIds).toEqual(
                             jasmine.arrayWithExactContents(expectedSelection)
                         );
@@ -1577,12 +1516,8 @@ describe('Table row selection', () => {
                         expect(currentSelection).toEqual(
                             jasmine.arrayWithExactContents(expectedSelection)
                         );
-                        expect(shiftSelectSpy).toHaveBeenCalledTimes(
-                            1
-                        );
-                        const emittedIds = getEmittedRecordIdsFromSpy(
-                            shiftSelectSpy
-                        );
+                        expect(shiftSelectSpy).toHaveBeenCalledTimes(1);
+                        const emittedIds = getEmittedRecordIdsFromSpy(shiftSelectSpy);
                         expect(emittedIds).toEqual(
                             jasmine.arrayWithExactContents(expectedSelection)
                         );
@@ -1722,12 +1657,8 @@ describe('Table row selection', () => {
                         expect(currentSelection).toEqual(
                             jasmine.arrayWithExactContents(allRecordIds)
                         );
-                        expect(
-                            selectionChangeSpy
-                        ).toHaveBeenCalledTimes(1);
-                        const emittedIds = getEmittedRecordIdsFromSpy(
-                            selectionChangeSpy
-                        );
+                        expect(selectionChangeSpy).toHaveBeenCalledTimes(1);
+                        const emittedIds = getEmittedRecordIdsFromSpy(selectionChangeSpy);
                         expect(emittedIds).toEqual(
                             jasmine.arrayWithExactContents(allRecordIds)
                         );
@@ -1748,12 +1679,8 @@ describe('Table row selection', () => {
                         expect(currentSelection).toEqual(
                             jasmine.arrayWithExactContents(allRecordIds)
                         );
-                        expect(
-                            selectionChangeSpy
-                        ).toHaveBeenCalledTimes(1);
-                        const emittedIds = getEmittedRecordIdsFromSpy(
-                            selectionChangeSpy
-                        );
+                        expect(selectionChangeSpy).toHaveBeenCalledTimes(1);
+                        const emittedIds = getEmittedRecordIdsFromSpy(selectionChangeSpy);
                         expect(emittedIds).toEqual(
                             jasmine.arrayWithExactContents(allRecordIds)
                         );
@@ -1770,9 +1697,7 @@ describe('Table row selection', () => {
 
                         const currentSelection = await element.getSelectedRecordIds();
                         expect(currentSelection).toEqual([]);
-                        const emittedIds = getEmittedRecordIdsFromSpy(
-                            selectionChangeSpy
-                        );
+                        const emittedIds = getEmittedRecordIdsFromSpy(selectionChangeSpy);
                         expect(emittedIds).toEqual([]);
                     });
                 });
@@ -1932,9 +1857,7 @@ describe('Table row selection', () => {
                     jasmine.arrayWithExactContents(allRecordIds)
                 );
                 expect(selectionChangeSpy).toHaveBeenCalledTimes(1);
-                const emittedIds = getEmittedRecordIdsFromSpy(
-                    selectionChangeSpy
-                );
+                const emittedIds = getEmittedRecordIdsFromSpy(selectionChangeSpy);
                 expect(emittedIds).toEqual(
                     jasmine.arrayWithExactContents(allRecordIds)
                 );
@@ -1950,9 +1873,7 @@ describe('Table row selection', () => {
                 const currentSelection = await element.getSelectedRecordIds();
                 expect(currentSelection).toEqual([]);
                 expect(selectionChangeSpy).toHaveBeenCalledTimes(1);
-                const emittedIds = getEmittedRecordIdsFromSpy(
-                    selectionChangeSpy
-                );
+                const emittedIds = getEmittedRecordIdsFromSpy(selectionChangeSpy);
                 expect(emittedIds).toEqual([]);
             });
 
@@ -1968,9 +1889,7 @@ describe('Table row selection', () => {
                     jasmine.arrayWithExactContents(allRecordIds)
                 );
                 expect(selectionChangeSpy).toHaveBeenCalledTimes(1);
-                const emittedIds = getEmittedRecordIdsFromSpy(
-                    selectionChangeSpy
-                );
+                const emittedIds = getEmittedRecordIdsFromSpy(selectionChangeSpy);
                 expect(emittedIds).toEqual(
                     jasmine.arrayWithExactContents(allRecordIds)
                 );
@@ -2012,9 +1931,7 @@ describe('Table row selection', () => {
                     jasmine.arrayWithExactContents(expectedSelection)
                 );
                 expect(multiSelectSpy).toHaveBeenCalledTimes(1);
-                const emittedIds = getEmittedRecordIdsFromSpy(
-                    multiSelectSpy
-                );
+                const emittedIds = getEmittedRecordIdsFromSpy(multiSelectSpy);
                 expect(emittedIds).toEqual(
                     jasmine.arrayWithExactContents(expectedSelection)
                 );
@@ -2060,9 +1977,7 @@ describe('Table row selection', () => {
                     jasmine.arrayWithExactContents(expectedSelection)
                 );
                 expect(multiSelectSpy).toHaveBeenCalledTimes(1);
-                const emittedIds = getEmittedRecordIdsFromSpy(
-                    multiSelectSpy
-                );
+                const emittedIds = getEmittedRecordIdsFromSpy(multiSelectSpy);
                 expect(emittedIds).toEqual(
                     jasmine.arrayWithExactContents(expectedSelection)
                 );
@@ -2103,9 +2018,7 @@ describe('Table row selection', () => {
                     jasmine.arrayWithExactContents(expectedSelection)
                 );
                 expect(multiSelectSpy).toHaveBeenCalledTimes(1);
-                const emittedIds = getEmittedRecordIdsFromSpy(
-                    multiSelectSpy
-                );
+                const emittedIds = getEmittedRecordIdsFromSpy(multiSelectSpy);
                 expect(emittedIds).toEqual(
                     jasmine.arrayWithExactContents(expectedSelection)
                 );
@@ -2148,9 +2061,7 @@ describe('Table row selection', () => {
                     jasmine.arrayWithExactContents(expectedSelection)
                 );
                 expect(multiSelectSpy).toHaveBeenCalledTimes(1);
-                const emittedIds = getEmittedRecordIdsFromSpy(
-                    multiSelectSpy
-                );
+                const emittedIds = getEmittedRecordIdsFromSpy(multiSelectSpy);
                 expect(emittedIds).toEqual(
                     jasmine.arrayWithExactContents(expectedSelection)
                 );
@@ -2177,12 +2088,8 @@ describe('Table row selection', () => {
                     expect(currentSelection).toEqual(
                         jasmine.arrayWithExactContents(allBlueRecordIds)
                     );
-                    expect(selectionChangeSpy).toHaveBeenCalledTimes(
-                        1
-                    );
-                    const emittedIds = getEmittedRecordIdsFromSpy(
-                        selectionChangeSpy
-                    );
+                    expect(selectionChangeSpy).toHaveBeenCalledTimes(1);
+                    const emittedIds = getEmittedRecordIdsFromSpy(selectionChangeSpy);
                     expect(emittedIds).toEqual(
                         jasmine.arrayWithExactContents(allBlueRecordIds)
                     );
@@ -2199,12 +2106,8 @@ describe('Table row selection', () => {
 
                     const currentSelection = await element.getSelectedRecordIds();
                     expect(currentSelection).toEqual([]);
-                    expect(selectionChangeSpy).toHaveBeenCalledTimes(
-                        1
-                    );
-                    const emittedIds = getEmittedRecordIdsFromSpy(
-                        selectionChangeSpy
-                    );
+                    expect(selectionChangeSpy).toHaveBeenCalledTimes(1);
+                    const emittedIds = getEmittedRecordIdsFromSpy(selectionChangeSpy);
                     expect(emittedIds).toEqual([]);
                 });
 
@@ -2224,12 +2127,8 @@ describe('Table row selection', () => {
 
                     const currentSelection = await element.getSelectedRecordIds();
                     expect(currentSelection).toEqual([firstGreenRecordId]);
-                    expect(selectionChangeSpy).toHaveBeenCalledTimes(
-                        1
-                    );
-                    const emittedIds = getEmittedRecordIdsFromSpy(
-                        selectionChangeSpy
-                    );
+                    expect(selectionChangeSpy).toHaveBeenCalledTimes(1);
+                    const emittedIds = getEmittedRecordIdsFromSpy(selectionChangeSpy);
                     expect(emittedIds).toEqual([firstGreenRecordId]);
                 });
 
@@ -2247,12 +2146,8 @@ describe('Table row selection', () => {
                     expect(currentSelection).toEqual(
                         jasmine.arrayWithExactContents(allBlueRecordIds)
                     );
-                    expect(selectionChangeSpy).toHaveBeenCalledTimes(
-                        1
-                    );
-                    const emittedIds = getEmittedRecordIdsFromSpy(
-                        selectionChangeSpy
-                    );
+                    expect(selectionChangeSpy).toHaveBeenCalledTimes(1);
+                    const emittedIds = getEmittedRecordIdsFromSpy(selectionChangeSpy);
                     expect(emittedIds).toEqual(
                         jasmine.arrayWithExactContents(allBlueRecordIds)
                     );
@@ -2343,9 +2238,7 @@ describe('Table row selection', () => {
                     jasmine.arrayWithExactContents(allRecordIds)
                 );
                 expect(selectionChangeSpy).toHaveBeenCalledTimes(1);
-                const emittedIds = getEmittedRecordIdsFromSpy(
-                    selectionChangeSpy
-                );
+                const emittedIds = getEmittedRecordIdsFromSpy(selectionChangeSpy);
                 expect(emittedIds).toEqual(
                     jasmine.arrayWithExactContents(allRecordIds)
                 );
@@ -2361,9 +2254,7 @@ describe('Table row selection', () => {
                 const currentSelection = await element.getSelectedRecordIds();
                 expect(currentSelection).toEqual([]);
                 expect(selectionChangeSpy).toHaveBeenCalledTimes(1);
-                const emittedIds = getEmittedRecordIdsFromSpy(
-                    selectionChangeSpy
-                );
+                const emittedIds = getEmittedRecordIdsFromSpy(selectionChangeSpy);
                 expect(emittedIds).toEqual([]);
             });
 
@@ -2379,9 +2270,7 @@ describe('Table row selection', () => {
                     jasmine.arrayWithExactContents(allRecordIds)
                 );
                 expect(selectionChangeSpy).toHaveBeenCalledTimes(1);
-                const emittedIds = getEmittedRecordIdsFromSpy(
-                    selectionChangeSpy
-                );
+                const emittedIds = getEmittedRecordIdsFromSpy(selectionChangeSpy);
                 expect(emittedIds).toEqual(
                     jasmine.arrayWithExactContents(allRecordIds)
                 );
@@ -2428,12 +2317,8 @@ describe('Table row selection', () => {
                     expect(currentSelection).toEqual(
                         jasmine.arrayWithExactContents(allBlueRecordIds)
                     );
-                    expect(selectionChangeSpy).toHaveBeenCalledTimes(
-                        1
-                    );
-                    const emittedIds = getEmittedRecordIdsFromSpy(
-                        selectionChangeSpy
-                    );
+                    expect(selectionChangeSpy).toHaveBeenCalledTimes(1);
+                    const emittedIds = getEmittedRecordIdsFromSpy(selectionChangeSpy);
                     expect(emittedIds).toEqual(
                         jasmine.arrayWithExactContents(allBlueRecordIds)
                     );
@@ -2450,12 +2335,8 @@ describe('Table row selection', () => {
 
                     const currentSelection = await element.getSelectedRecordIds();
                     expect(currentSelection).toEqual([]);
-                    expect(selectionChangeSpy).toHaveBeenCalledTimes(
-                        1
-                    );
-                    const emittedIds = getEmittedRecordIdsFromSpy(
-                        selectionChangeSpy
-                    );
+                    expect(selectionChangeSpy).toHaveBeenCalledTimes(1);
+                    const emittedIds = getEmittedRecordIdsFromSpy(selectionChangeSpy);
                     expect(emittedIds).toEqual([]);
                 });
 
@@ -2475,12 +2356,8 @@ describe('Table row selection', () => {
 
                     const currentSelection = await element.getSelectedRecordIds();
                     expect(currentSelection).toEqual([firstGreenRecordId]);
-                    expect(selectionChangeSpy).toHaveBeenCalledTimes(
-                        1
-                    );
-                    const emittedIds = getEmittedRecordIdsFromSpy(
-                        selectionChangeSpy
-                    );
+                    expect(selectionChangeSpy).toHaveBeenCalledTimes(1);
+                    const emittedIds = getEmittedRecordIdsFromSpy(selectionChangeSpy);
                     expect(emittedIds).toEqual([firstGreenRecordId]);
                 });
 
@@ -2498,12 +2375,8 @@ describe('Table row selection', () => {
                     expect(currentSelection).toEqual(
                         jasmine.arrayWithExactContents(allBlueRecordIds)
                     );
-                    expect(selectionChangeSpy).toHaveBeenCalledTimes(
-                        1
-                    );
-                    const emittedIds = getEmittedRecordIdsFromSpy(
-                        selectionChangeSpy
-                    );
+                    expect(selectionChangeSpy).toHaveBeenCalledTimes(1);
+                    const emittedIds = getEmittedRecordIdsFromSpy(selectionChangeSpy);
                     expect(emittedIds).toEqual(
                         jasmine.arrayWithExactContents(allBlueRecordIds)
                     );

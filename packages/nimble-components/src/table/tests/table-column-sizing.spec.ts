@@ -1138,8 +1138,7 @@ describe('Table Interactive Column Sizing', () => {
             undefined,
             undefined
         ];
-        const eventDetails = spy.calls.first().args[0]
-            .detail;
+        const eventDetails = spy.calls.first().args[0].detail;
         const actualFractionalWidths = eventDetails.columns.map(
             column => column.fractionalWidth
         );

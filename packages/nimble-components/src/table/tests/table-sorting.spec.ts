@@ -581,19 +581,13 @@ describe('Table sorting', () => {
         await waitForUpdatesAsync();
 
         const spy = jasmine.createSpy();
-        element.addEventListener(
-            'column-configuration-change',
-            spy
-        );
+        element.addEventListener('column-configuration-change', spy);
         column1.sortDirection = TableColumnSortDirection.ascending;
         column1.sortIndex = 0;
         await waitForUpdatesAsync();
 
         expect(spy).not.toHaveBeenCalled();
-        element.removeEventListener(
-            'column-configuration-change',
-            spy
-        );
+        element.removeEventListener('column-configuration-change', spy);
     });
 
     describe('sort index validation', () => {
@@ -984,8 +978,7 @@ describe('Table sorting', () => {
             await listener;
 
             expect(spy).toHaveBeenCalled();
-            const args = spy.calls.first()
-                .args[0];
+            const args = spy.calls.first().args[0];
             expect(args.detail).toEqual({
                 columns: [
                     {
@@ -1026,17 +1019,11 @@ describe('Table sorting', () => {
             await waitForUpdatesAsync();
 
             const spy = jasmine.createSpy();
-            element.addEventListener(
-                'column-configuration-change',
-                spy
-            );
+            element.addEventListener('column-configuration-change', spy);
             await pageObject.clickColumnHeader(0);
 
             expect(spy).not.toHaveBeenCalled();
-            element.removeEventListener(
-                'column-configuration-change',
-                spy
-            );
+            element.removeEventListener('column-configuration-change', spy);
         });
     });
 
