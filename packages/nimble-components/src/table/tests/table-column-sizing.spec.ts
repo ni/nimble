@@ -9,7 +9,7 @@ import type {
     TableRecord
 } from '../types';
 import { TablePageObject } from '../testing/table.pageobject';
-import { createEventListener } from '../../utilities/testing/component';
+import { waitForEvent } from '../../utilities/testing/component';
 
 interface SimpleTableRecord extends TableRecord {
     stringData: string;
@@ -17,6 +17,10 @@ interface SimpleTableRecord extends TableRecord {
     moreStringData2: string;
     moreStringData3: string;
 }
+
+type TableColumnConfigurationChangeEventHandler = (
+    evt: CustomEvent<TableColumnConfigurationChangeEventDetail>
+) => void;
 
 const simpleTableData = [
     {
@@ -1117,14 +1121,16 @@ describe('Table Interactive Column Sizing', () => {
     });
 
     it('resizing columns emits single "column-configuration-change" event with expected state', async () => {
-        const listener = createEventListener(
+        const spy = jasmine.createSpy<TableColumnConfigurationChangeEventHandler>();
+        const listener = waitForEvent(
             element,
-            'column-configuration-change'
+            'column-configuration-change',
+            spy
         );
         pageObject.dragSizeColumnByRightDivider(2, [1, 1, 1, 1]);
         await waitForUpdatesAsync();
-
-        expect(listener.spy).toHaveBeenCalledTimes(1);
+        await listener;
+        expect(spy).toHaveBeenCalledTimes(1);
         const expectedFractionalWidths = [1, 1, 1.04, 0.96];
         const expectedPixelWidths = [
             undefined,
@@ -1132,8 +1138,7 @@ describe('Table Interactive Column Sizing', () => {
             undefined,
             undefined
         ];
-        const eventDetails = (listener.spy.calls.first().args[0] as CustomEvent)
-            .detail as TableColumnConfigurationChangeEventDetail;
+        const eventDetails = spy.calls.first().args[0].detail;
         const actualFractionalWidths = eventDetails.columns.map(
             column => column.fractionalWidth
         );
