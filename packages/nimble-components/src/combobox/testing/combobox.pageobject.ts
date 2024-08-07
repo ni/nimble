@@ -16,12 +16,13 @@ import {
  * of querying and interacting with the component during tests.
  */
 export class ComboboxPageObject {
-    private readonly regionLoadedListener = waitForEvent(
-        this.comboboxElement,
-        'loaded'
-    );
+    private regionLoaded = false;
 
-    public constructor(protected readonly comboboxElement: Combobox) {}
+    public constructor(protected readonly comboboxElement: Combobox) {
+        comboboxElement.addEventListener('loaded', () => {
+            this.regionLoaded = true;
+        }, { once: true });
+    }
 
     /**
      * Gets the selectable options in the drop-down. Does not include options that are disabled or filtered out.
@@ -212,6 +213,8 @@ export class ComboboxPageObject {
     }
 
     private async waitForAnchoredRegionLoaded(): Promise<void> {
-        await this.regionLoadedListener;
+        if (!this.regionLoaded) {
+            await waitForEvent(this.comboboxElement, 'loaded');
+        }
     }
 }

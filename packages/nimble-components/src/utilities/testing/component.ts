@@ -43,6 +43,9 @@ export async function sendKeyDownEvents(
     return events;
 }
 
+let waitForEventCreateCount = 0;
+let waitForEventResolveCount = 0;
+
 /** A helper function to abstract turning waiting for an event to fire into a promise.
  * The returned promise should be resolved prior to completing a test.
  */
@@ -51,15 +54,25 @@ export async function waitForEvent<T extends Event>(
     eventName: string,
     callback?: (evt: T) => void
 ): Promise<void> {
+    waitForEventCreateCount += 1;
     return new Promise(resolve => {
         const handler = ((evt: T): void => {
             callback?.(evt);
+            waitForEventResolveCount += 1;
             resolve();
         }) as EventListener;
         element.addEventListener(eventName, handler, {
             once: true
         });
     });
+}
+
+export function assertAllWaitForEventResolved(): void {
+    if (waitForEventCreateCount !== waitForEventResolveCount) {
+        throw new Error(
+            `Not all waitForEvent promises were resolved. Created: ${waitForEventCreateCount}, Resolved: ${waitForEventResolveCount}`
+        );
+    }
 }
 
 /**
