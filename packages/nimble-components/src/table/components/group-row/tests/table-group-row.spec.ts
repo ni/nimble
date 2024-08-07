@@ -8,6 +8,10 @@ import {
     TableRowSelectionToggleEventDetail
 } from '../../../types';
 
+type TableRowSelectionToggleEventHandler = (
+    evt: CustomEvent<TableRowSelectionToggleEventDetail>
+) => void;
+
 // prettier-ignore
 async function setup(): Promise<Fixture<TableGroupRow>> {
     return fixture<TableGroupRow>(
@@ -111,7 +115,7 @@ describe('TableGroupRow', () => {
         element.selectionState = TableRowSelectionState.notSelected;
         await connect();
 
-        const spy = jasmine.createSpy();
+        const spy = jasmine.createSpy<TableRowSelectionToggleEventHandler>();
         const listener = waitForEvent(element, 'group-selection-toggle', spy);
         element.selectionCheckbox!.click();
         await listener;
@@ -121,7 +125,7 @@ describe('TableGroupRow', () => {
             newState: true,
             oldState: false
         };
-        const event = spy.calls.first().args[0] as CustomEvent;
+        const event = spy.calls.first().args[0];
         expect(event.detail).toEqual(expectedDetails);
     });
 
@@ -130,7 +134,7 @@ describe('TableGroupRow', () => {
         element.selectionState = TableRowSelectionState.selected;
         await connect();
 
-        const spy = jasmine.createSpy();
+        const spy = jasmine.createSpy<TableRowSelectionToggleEventHandler>();
         const listener = waitForEvent(element, 'group-selection-toggle', spy);
         element.selectionCheckbox!.click();
         await listener;
@@ -140,7 +144,7 @@ describe('TableGroupRow', () => {
             newState: false,
             oldState: true
         };
-        const event = spy.calls.first().args[0] as CustomEvent;
+        const event = spy.calls.first().args[0];
         expect(event.detail).toEqual(expectedDetails);
     });
 
@@ -149,7 +153,7 @@ describe('TableGroupRow', () => {
         element.selectionState = TableRowSelectionState.partiallySelected;
         await connect();
 
-        const spy = jasmine.createSpy();
+        const spy = jasmine.createSpy<TableRowSelectionToggleEventHandler>();
         const listener = waitForEvent(element, 'group-selection-toggle', spy);
         element.selectionCheckbox!.click();
         await listener;
@@ -159,7 +163,7 @@ describe('TableGroupRow', () => {
             newState: true,
             oldState: false
         };
-        const event = spy.calls.first().args[0] as CustomEvent;
+        const event = spy.calls.first().args[0];
         expect(event.detail).toEqual(expectedDetails);
     });
 

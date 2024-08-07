@@ -18,6 +18,10 @@ interface SimpleTableRecord extends TableRecord {
     moreStringData3: string;
 }
 
+type TableColumnConfigurationChangeEventHandler = (
+    evt: CustomEvent<TableColumnConfigurationChangeEventDetail>
+) => void;
+
 const simpleTableData = [
     {
         stringData: 'string 1',
@@ -1117,7 +1121,7 @@ describe('Table Interactive Column Sizing', () => {
     });
 
     it('resizing columns emits single "column-configuration-change" event with expected state', async () => {
-        const spy = jasmine.createSpy();
+        const spy = jasmine.createSpy<TableColumnConfigurationChangeEventHandler>();
         const listener = waitForEvent(
             element,
             'column-configuration-change',
@@ -1134,8 +1138,8 @@ describe('Table Interactive Column Sizing', () => {
             undefined,
             undefined
         ];
-        const eventDetails = (spy.calls.first().args[0] as CustomEvent)
-            .detail as TableColumnConfigurationChangeEventDetail;
+        const eventDetails = spy.calls.first().args[0]
+            .detail;
         const actualFractionalWidths = eventDetails.columns.map(
             column => column.fractionalWidth
         );

@@ -24,6 +24,10 @@ interface SimpleTableRecord extends TableRecord {
     parentId?: string;
 }
 
+type TableRowSelectionEventHandler = (
+    evt: CustomEvent<TableRowSelectionEventDetail>
+) => void;
+
 const simpleTableData = [
     {
         id: '0',
@@ -214,9 +218,9 @@ async function setup(): Promise<Fixture<Table<SimpleTableRecord>>> {
 }
 
 describe('Table row selection', () => {
-    function getEmittedRecordIdsFromSpy(spy: jasmine.Spy): string[] {
+    function getEmittedRecordIdsFromSpy(spy: jasmine.Spy<TableRowSelectionEventHandler>): string[] {
         const event = spy.calls.first()
-            .args[0] as CustomEvent<TableRowSelectionEventDetail>;
+            .args[0];
         return event.detail.selectedRecordIds;
     }
 

@@ -46,18 +46,19 @@ export async function sendKeyDownEvents(
 /** A helper function to abstract turning waiting for an event to fire into a promise.
  * The returned promise should be resolved prior to completing a test.
  */
-export async function waitForEvent(
+export async function waitForEvent<T extends Event>(
     element: HTMLElement,
     eventName: string,
-    callback?: (...args: unknown[]) => void
+    callback?: (evt: T) => void
 ): Promise<void> {
     return new Promise(resolve => {
+        const handler = ((evt: T): void => {
+            callback?.(evt);
+            resolve();
+        }) as EventListener;
         element.addEventListener(
             eventName,
-            (...args: unknown[]): void => {
-                callback?.(...args);
-                resolve();
-            },
+            handler,
             {
                 once: true
             }

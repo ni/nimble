@@ -25,6 +25,10 @@ interface SimpleTableRecord extends TableRecord {
     anotherField?: string | null;
 }
 
+type MenuButtonColumnToggleEvent = (
+    evt: CustomEvent<MenuButtonColumnToggleEventDetail>
+) => void;
+
 class ElementReferences {
     public table!: Table;
     public column1!: TableColumnMenuButton;
@@ -304,14 +308,6 @@ describe('TableColumnMenuButton', () => {
             { id: recordId, field: 'value', anotherField: 'another value' }
         ] as const;
 
-        function getEventDetailFromSpy(
-            spy: jasmine.Spy
-        ): MenuButtonColumnToggleEventDetail {
-            const event = spy.calls.first()
-                .args[0] as CustomEvent<MenuButtonColumnToggleEventDetail>;
-            return event.detail;
-        }
-
         beforeEach(async () => {
             table.idFieldName = 'id';
             await table.setData(originalData);
@@ -320,96 +316,80 @@ describe('TableColumnMenuButton', () => {
         });
 
         it('opening menu button fires "menu-button-column-beforetoggle" followed by "menu-button-column-toggle"', async () => {
-            const beforeToggleSpy = jasmine.createSpy();
-            const beforeTogglePromise = waitForEvent(
+            const spy = jasmine.createSpy<MenuButtonColumnToggleEvent>();
+            const beforetogglePromise = waitForEvent(
                 column,
                 'menu-button-column-beforetoggle',
-                beforeToggleSpy
+                spy
             );
-            const toggleSpy = jasmine.createSpy();
             const togglePromise = waitForEvent(
                 column,
                 'menu-button-column-toggle',
-                toggleSpy
+                spy
             );
-
             menuButton.clickMenuButton();
+            await Promise.all([beforetogglePromise, togglePromise]);
 
             const expectedDetails: MenuButtonColumnToggleEventDetail = {
                 recordId,
                 newState: true,
                 oldState: false
             };
-
-            await beforeTogglePromise;
-            expect(beforeToggleSpy).toHaveBeenCalledTimes(1);
-            let eventDetail = getEventDetailFromSpy(beforeToggleSpy);
-            expect(eventDetail).toEqual(expectedDetails);
-            beforeToggleSpy.calls.reset();
-
-            await togglePromise;
-            expect(beforeToggleSpy).not.toHaveBeenCalled();
-            expect(toggleSpy).toHaveBeenCalledTimes(1);
-            eventDetail = getEventDetailFromSpy(beforeToggleSpy);
-            expect(eventDetail).toEqual(expectedDetails);
+            expect(spy).toHaveBeenCalledTimes(2);
+            const beforetoggleEvent = spy.calls.argsFor(0)[0];
+            expect(beforetoggleEvent.type).toEqual('menu-button-column-beforetoggle');
+            expect(beforetoggleEvent.detail).toEqual(expectedDetails);
+            const toggleEvent = spy.calls.argsFor(1)[0];
+            expect(toggleEvent.type).toEqual('menu-button-column-toggle');
+            expect(toggleEvent.detail).toEqual(expectedDetails);
         });
 
         it('closing menu button with ESC fires "menu-button-column-beforetoggle" followed by "menu-button-column-toggle"', async () => {
             await menuButton.openMenu();
-
-            const beforeToggleSpy = jasmine.createSpy();
-            const beforeTogglePromise = waitForEvent(
+            const spy = jasmine.createSpy<MenuButtonColumnToggleEvent>();
+            const beforetogglePromise = waitForEvent(
                 column,
                 'menu-button-column-beforetoggle',
-                beforeToggleSpy
+                spy
             );
-            const toggleSpy = jasmine.createSpy();
             const togglePromise = waitForEvent(
                 column,
                 'menu-button-column-toggle',
-                toggleSpy
+                spy
             );
-
             menuButton.closeMenuWithEscape();
+            await Promise.all([beforetogglePromise, togglePromise]);
 
             const expectedDetails: MenuButtonColumnToggleEventDetail = {
                 recordId,
                 newState: false,
                 oldState: true
             };
-
-            await beforeTogglePromise;
-            expect(beforeToggleSpy).toHaveBeenCalledTimes(1);
-            let eventDetail = getEventDetailFromSpy(beforeToggleSpy);
-            expect(eventDetail).toEqual(expectedDetails);
-            beforeToggleSpy.calls.reset();
-
-            await togglePromise;
-            expect(beforeToggleSpy).not.toHaveBeenCalled();
-            expect(toggleSpy).toHaveBeenCalledTimes(1);
-            eventDetail = getEventDetailFromSpy(toggleSpy);
-            expect(eventDetail).toEqual(expectedDetails);
-
+            expect(spy).toHaveBeenCalledTimes(2);
+            const beforetoggleEvent = spy.calls.argsFor(0)[0];
+            expect(beforetoggleEvent.type).toEqual('menu-button-column-beforetoggle');
+            expect(beforetoggleEvent.detail).toEqual(expectedDetails);
+            const toggleEvent = spy.calls.argsFor(1)[0];
+            expect(toggleEvent.type).toEqual('menu-button-column-toggle');
+            expect(toggleEvent.detail).toEqual(expectedDetails);
             expect(menuButton.isOpen()).toBeFalse();
         });
 
         it('closing menu button by clicking fires "menu-button-column-beforetoggle" followed by "menu-button-column-toggle"', async () => {
             await menuButton.openMenu();
-
-            const beforeToggleSpy = jasmine.createSpy();
-            const beforeTogglePromise = waitForEvent(
+            const spy = jasmine.createSpy<MenuButtonColumnToggleEvent>();
+            const beforetogglePromise = waitForEvent(
                 column,
                 'menu-button-column-beforetoggle',
-                beforeToggleSpy
+                spy
             );
-            const toggleSpy = jasmine.createSpy();
             const togglePromise = waitForEvent(
                 column,
                 'menu-button-column-toggle',
-                toggleSpy
+                spy
             );
-
             menuButton.clickMenuButton();
+            await Promise.all([beforetogglePromise, togglePromise]);
 
             const expectedDetails: MenuButtonColumnToggleEventDetail = {
                 recordId,
@@ -417,18 +397,13 @@ describe('TableColumnMenuButton', () => {
                 oldState: true
             };
 
-            await beforeTogglePromise;
-            expect(beforeToggleSpy).toHaveBeenCalledTimes(1);
-            let eventDetail = getEventDetailFromSpy(beforeToggleSpy);
-            expect(eventDetail).toEqual(expectedDetails);
-            beforeToggleSpy.calls.reset();
-
-            await togglePromise;
-            expect(beforeToggleSpy).not.toHaveBeenCalled();
-            expect(toggleSpy).toHaveBeenCalledTimes(1);
-            eventDetail = getEventDetailFromSpy(toggleSpy);
-            expect(eventDetail).toEqual(expectedDetails);
-
+            expect(spy).toHaveBeenCalledTimes(2);
+            const beforetoggleEvent = spy.calls.argsFor(0)[0];
+            expect(beforetoggleEvent.type).toEqual('menu-button-column-beforetoggle');
+            expect(beforetoggleEvent.detail).toEqual(expectedDetails);
+            const toggleEvent = spy.calls.argsFor(1)[0];
+            expect(toggleEvent.type).toEqual('menu-button-column-toggle');
+            expect(toggleEvent.detail).toEqual(expectedDetails);
             expect(menuButton.isOpen()).toBeFalse();
         });
 

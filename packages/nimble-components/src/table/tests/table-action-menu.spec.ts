@@ -24,6 +24,10 @@ interface SimpleTableRecord extends TableRecord {
     moreStringData: string;
 }
 
+type TableActionMenuToggleEventHandler = (
+    evt: CustomEvent<TableActionMenuToggleEventDetail>
+) => void;
+
 const simpleTableData = [
     {
         stringData: 'string 1',
@@ -61,9 +65,9 @@ describe('Table action menu', () => {
     let pageObject: TablePageObject<SimpleTableRecord>;
     let column1: TableColumn;
     let column2: TableColumn;
-    let beforetoggleSpy: jasmine.Spy;
+    let beforetoggleSpy: jasmine.Spy<TableActionMenuToggleEventHandler>;
     let beforetoggleListener: Promise<void>;
-    let toggleSpy: jasmine.Spy;
+    let toggleSpy: jasmine.Spy<TableActionMenuToggleEventHandler>;
     let toggleListener: Promise<void>;
 
     beforeEach(async () => {
@@ -110,9 +114,9 @@ describe('Table action menu', () => {
         return { menu, items: [menuItem1, menuItem2, menuItem3] };
     }
 
-    function getEmittedRecordIdsFromSpy(spy: jasmine.Spy): string[] {
+    function getEmittedRecordIdsFromSpy(spy: jasmine.Spy<TableActionMenuToggleEventHandler>): string[] {
         const event = spy.calls.first()
-            .args[0] as CustomEvent<TableActionMenuToggleEventDetail>;
+            .args[0];
         return event.detail.recordIds;
     }
 
@@ -332,7 +336,7 @@ describe('Table action menu', () => {
             recordIds: [simpleTableData[1].stringData]
         };
         const event = beforetoggleSpy.calls.first()
-            .args[0] as CustomEvent<TableActionMenuToggleEventDetail>;
+            .args[0];
         expect(event.detail).toEqual(expectedDetails);
     });
 
@@ -348,7 +352,7 @@ describe('Table action menu', () => {
 
         await pageObject.clickCellActionMenu(1, 0);
         await waitForUpdatesAsync();
-        const spy = jasmine.createSpy();
+        const spy = jasmine.createSpy<TableActionMenuToggleEventHandler>();
         const listener = waitForEvent(
             element,
             'action-menu-beforetoggle',
@@ -369,7 +373,7 @@ describe('Table action menu', () => {
             recordIds: [simpleTableData[1].stringData]
         };
         const event = spy.calls.first()
-            .args[0] as CustomEvent<TableActionMenuToggleEventDetail>;
+            .args[0];
         expect(event.detail).toEqual(expectedDetails);
     });
 
@@ -394,7 +398,7 @@ describe('Table action menu', () => {
             recordIds: [simpleTableData[1].stringData]
         };
         const event = toggleSpy.calls.first()
-            .args[0] as CustomEvent<TableActionMenuToggleEventDetail>;
+            .args[0];
         expect(event.detail).toEqual(expectedDetails);
     });
 
@@ -425,7 +429,7 @@ describe('Table action menu', () => {
             recordIds: [simpleTableData[1].stringData]
         };
         const event = toggleSpy.calls.first()
-            .args[0] as CustomEvent<TableActionMenuToggleEventDetail>;
+            .args[0];
         expect(event.detail).toEqual(expectedDetails);
     });
 

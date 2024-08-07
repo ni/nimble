@@ -19,6 +19,10 @@ interface SimpleTableRecord extends TableRecord {
     parentId?: string;
 }
 
+type TableColumnConfigurationChangeEventHandler = (
+    evt: CustomEvent<TableColumnConfigurationChangeEventDetail>
+) => void;
+
 // prettier-ignore
 async function setup(): Promise<Fixture<Table<SimpleTableRecord>>> {
     return fixture<Table<SimpleTableRecord>>(
@@ -970,7 +974,7 @@ describe('Table sorting', () => {
             await connect();
             await waitForUpdatesAsync();
 
-            const spy = jasmine.createSpy();
+            const spy = jasmine.createSpy<TableColumnConfigurationChangeEventHandler>();
             const listener = waitForEvent(
                 element,
                 'column-configuration-change',
@@ -981,7 +985,7 @@ describe('Table sorting', () => {
 
             expect(spy).toHaveBeenCalled();
             const args = spy.calls.first()
-                .args[0] as CustomEvent<TableColumnConfigurationChangeEventDetail>;
+                .args[0];
             expect(args.detail).toEqual({
                 columns: [
                     {

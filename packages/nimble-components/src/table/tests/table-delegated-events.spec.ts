@@ -1,7 +1,6 @@
 import { customElement, html } from '@microsoft/fast-element';
 import type { Table } from '..';
 import { TableColumn } from '../../table-column/base';
-import type { DelegatedEventEventDetails } from '../../table-column/base/types';
 import { tableColumnTextCellViewTag } from '../../table-column/text/cell-view';
 import { tableColumnTextGroupHeaderViewTag } from '../../table-column/text/group-header-view';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
@@ -68,18 +67,18 @@ describe('Table delegated events', () => {
         await element.setData(data);
         await connect();
         await waitForUpdatesAsync();
-        let delegatedEvent: Event | null = null;
-        column1.addEventListener('delegated-event', event => {
-            delegatedEvent = (
-                (event as CustomEvent).detail as DelegatedEventEventDetails
-            ).originalEvent;
-        });
+        const spy = jasmine.createSpy();
+        column1.addEventListener('delegated-event', spy);
         const clickEvent = new PointerEvent('click', {
             bubbles: true,
             composed: true
         });
         pageObject.dispatchEventToCell(0, 0, clickEvent);
-        expect(delegatedEvent!).toBe(clickEvent);
+        expect(spy).toHaveBeenCalledOnceWith(
+            jasmine.objectContaining({
+                detail: { originalEvent: clickEvent }
+            })
+        );
     });
 
     it('allows original event to continue bubbling to table by default', async () => {
