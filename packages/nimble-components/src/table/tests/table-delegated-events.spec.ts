@@ -76,7 +76,7 @@ describe('Table delegated events', () => {
         pageObject.dispatchEventToCell(0, 0, clickEvent);
         expect(spy).toHaveBeenCalledOnceWith(
             jasmine.objectContaining({
-                detail: { originalEvent: clickEvent }
+                detail: { originalEvent: clickEvent, recordId: '0' }
             })
         );
     });
