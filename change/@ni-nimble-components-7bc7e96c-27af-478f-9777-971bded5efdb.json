@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Updates to underlying helpers used by page objects in nimble",
-  "packageName": "@ni/nimble-components",
-  "email": "rajsite@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
