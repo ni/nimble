@@ -55,8 +55,7 @@ export const styles = css`
     }
 
     dialog.animating::backdrop {
-        animation: ni-private-drawer-fade-in-keyframes ${largeDelay}
-            ease-in;
+        animation: ni-private-drawer-fade-in-keyframes ${largeDelay} ease-in;
     }
 
     dialog.closing::backdrop {
