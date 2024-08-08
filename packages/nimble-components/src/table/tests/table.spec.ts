@@ -650,39 +650,6 @@ describe('Table', () => {
         });
 
         describe('uses virtualization', () => {
-            const focusableCellViewName = uniqueElementName();
-            const focusableColumnName = uniqueElementName();
-            @customElement({
-                name: focusableCellViewName,
-                template: html<TestFocusableCellView>`<span tabindex="0"
-                    >${x => x.text}</span
-                >`
-            })
-            // eslint-disable-next-line @typescript-eslint/no-unused-vars
-            class TestFocusableCellView extends TableColumnTextCellView {
-                public override get tabbableChildren(): HTMLElement[] {
-                    return [this.shadowRoot!.firstElementChild as HTMLElement];
-                }
-            }
-            @customElement({
-                name: focusableColumnName
-            })
-            // eslint-disable-next-line @typescript-eslint/no-unused-vars
-            class TestFocusableTableColumn extends TableColumn {
-                @attr({ attribute: 'field-name' })
-                public fieldName?: string;
-
-                protected override getColumnInternalsOptions(): ColumnInternalsOptions {
-                    return {
-                        cellViewTag: focusableCellViewName,
-                        cellRecordFieldNames: ['value'],
-                        groupHeaderViewTag: tableColumnEmptyGroupHeaderViewTag,
-                        delegatedEvents: [],
-                        validator: new ColumnValidator<[]>([])
-                    };
-                }
-            }
-
             it('to render fewer rows (based on viewport size)', async () => {
                 await connect();
 

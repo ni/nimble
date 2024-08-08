@@ -1,5 +1,13 @@
 /* eslint-disable no-await-in-loop */
-import { customElement, html, observable, ref } from '@microsoft/fast-element';
+import {
+    children,
+    customElement,
+    elements,
+    html,
+    observable,
+    ref,
+    when
+} from '@microsoft/fast-element';
 import { FoundationElement } from '@microsoft/fast-foundation';
 import {
     keyArrowDown,
@@ -49,6 +57,7 @@ import type { ColumnInternalsOptions } from '../../table-column/base/models/colu
 import { ColumnValidator } from '../../table-column/base/models/column-validator';
 import { mixinSortableColumnAPI } from '../../table-column/mixins/sortable-column';
 import { MenuButtonPageObject } from '../../menu-button/testing/menu-button.pageobject';
+import { dynamicRef } from '../../utilities/directive/dynamic-ref';
 
 interface SimpleTableRecord extends TableRecord {
     id: string;
@@ -1238,15 +1247,18 @@ describe('Table keyboard navigation', () => {
         // prettier-ignore
         @customElement({
             name: interactiveCellViewName,
-            template: html<TestInteractiveCellView>`<span tabindex="-1" ${ref('spanElement')}>Test</span>`
+            template: html<TestInteractiveCellView>`${when(x => x.isTabbable, html<TestInteractiveCellView>`<span tabindex="-1" ${dynamicRef('spanElement')}>Test</span>`)}`
         })
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         class TestInteractiveCellView extends TableCellView {
             @observable
-            public spanElement!: HTMLSpanElement;
+            public isTabbable = true;
 
-            public override get tabbableChildren(): HTMLElement[] {
-                return [this.spanElement];
+            @observable
+            public spanElement?: HTMLSpanElement;
+
+            private spanElementChanged(): void {
+                this.tabbableChildren = this.spanElement ? [this.spanElement] : [];
             }
         }
         // prettier-ignore
@@ -1286,7 +1298,7 @@ describe('Table keyboard navigation', () => {
                     rowIndex,
                     columnIndex
                 ) as TestInteractiveCellView
-            ).spanElement;
+            ).spanElement!;
         }
 
         beforeEach(async () => {
@@ -1424,6 +1436,25 @@ describe('Table keyboard navigation', () => {
 
                     expect(blurSpy).toHaveBeenCalledTimes(1);
                     expect(currentFocusedElement()).not.toBe(cellContent);
+                });
+
+                it('and then the cell updates to no longer have tabbableChildren, the cell is focused instead', async () => {
+                    const cellView = pageObject.getRenderedCellView(
+                        0,
+                        1
+                    ) as TestInteractiveCellView;
+                    cellView.isTabbable = false;
+                    await waitForUpdatesAsync();
+
+                    // Note: At this point, the table lost focus already, because the focused element in the cell has been removed from the DOM, and
+                    // KeyboardNavigationManager will only set focus to new elements when the table is already focused (so we don't steal focus from
+                    // elsewhere on the page if the table isn't being interacted with).
+                    element.focus();
+                    await waitForUpdatesAsync();
+
+                    expect(currentFocusedElement()).toBe(
+                        pageObject.getCell(0, 1)
+                    );
                 });
             });
         });

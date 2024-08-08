@@ -40,6 +40,12 @@ interface TableFocusState {
     cellContentIndex?: number;
 }
 
+interface TableCellContentFocusState {
+    index: number;
+    columnId?: string;
+    recordId?: string;
+}
+
 /**
  * Manages the keyboard navigation and focus within the table.
  * @internal
@@ -49,13 +55,16 @@ implements Subscriber {
     private focusType: TableFocusType = TableFocusType.none;
     private headerActionIndex = -1;
     private rowIndex = -1;
-    private cellContentIndex = -1;
     private columnIndex = -1;
     private focusWithinTable = false;
     private isCurrentlyFocusingElement = false;
     private readonly tableNotifier: Notifier;
     private readonly virtualizerNotifier: Notifier;
     private visibleRowNotifiers: Notifier[] = [];
+    private readonly cellContentState: TableCellContentFocusState = {
+        index: -1
+    };
+
     private get inNavigationMode(): boolean {
         return (
             this.focusType !== TableFocusType.cellActionMenu
@@ -117,6 +126,10 @@ implements Subscriber {
             'cell-blur',
             this.onCellBlur as EventListener
         );
+        this.table.viewport.addEventListener(
+            'cell-tabbable-children-change',
+            this.onCellTabbableChildrenChange as EventListener
+        );
     }
 
     public disconnect(): void {
@@ -156,6 +169,10 @@ implements Subscriber {
         this.table.viewport.removeEventListener(
             'cell-blur',
             this.onCellBlur as EventListener
+        );
+        this.table.viewport.removeEventListener(
+            'cell-tabbable-children-change',
+            this.onCellTabbableChildrenChange as EventListener
         );
     }
 
@@ -321,6 +338,28 @@ implements Subscriber {
         event.stopPropagation();
         const cell = event.detail;
         this.setElementFocusable(cell, false);
+    };
+
+    private readonly onCellTabbableChildrenChange = (
+        event: CustomEvent<TableCellView>
+    ): void => {
+        event.stopPropagation();
+        const cellView = event.detail;
+        if (
+            this.focusType === TableFocusType.cellContent
+            && cellView.recordId === this.cellContentState.recordId
+            && cellView?.column?.columnId === this.cellContentState.columnId
+        ) {
+            if (
+                this.cellContentState.index >= cellView.tabbableChildren.length
+            ) {
+                this.setCellFocusState(
+                    this.columnIndex,
+                    this.rowIndex,
+                    this.focusWithinTable
+                );
+            }
+        }
     };
 
     private readonly onCaptureKeyDown = (event: KeyboardEvent): void => {
@@ -622,7 +661,14 @@ implements Subscriber {
             this.rowIndex = nextFocusState.rowIndex ?? this.rowIndex;
             this.columnIndex = nextFocusState.columnIndex ?? this.columnIndex;
             this.headerActionIndex = nextFocusState.headerActionIndex ?? this.headerActionIndex;
-            this.cellContentIndex = nextFocusState.cellContentIndex ?? this.cellContentIndex;
+            if (nextFocusState.cellContentIndex !== undefined) {
+                this.cellContentState.index = nextFocusState.cellContentIndex;
+                const row = this.getCurrentRow() as TableRow;
+                const elements = row?.getFocusableElements();
+                this.cellContentState.columnId = elements?.cells[this.columnIndex]?.cell.columnId;
+                this.cellContentState.recordId = row?.recordId;
+            }
+
             if (this.hasRowOrCellFocusType()) {
                 this.focusCurrentRow(false);
             } else {
@@ -666,7 +712,7 @@ implements Subscriber {
                 if (
                     this.focusType === TableFocusType.cellContent
                     && this.columnIndex === cellIndex
-                    && this.cellContentIndex === i
+                    && this.cellContentState.index === i
                 ) {
                     startIndex = focusStates.length - 1;
                 }
@@ -853,6 +899,7 @@ implements Subscriber {
                         );
                         if (contentIndex > -1) {
                             this.setCellContentFocusState(
+                                cell,
                                 contentIndex,
                                 row.resolvedRowIndex!,
                                 columnIndex,
@@ -1009,8 +1056,10 @@ implements Subscriber {
                 break;
             }
             case TableFocusType.cellContent: {
-                focusableElement = rowElements.cells[this.columnIndex]?.cell.cellView
-                    .tabbableChildren[this.cellContentIndex];
+                focusableElement = rowElements.cells[this.columnIndex]?.cell
+                    .cellView.tabbableChildren[
+                        this.cellContentState.index
+                    ] as HTMLElement;
                 break;
             }
             default:
@@ -1273,21 +1322,20 @@ implements Subscriber {
         }
         const newColumnIndex = columnIndex ?? this.columnIndex;
         const newRowIndex = rowIndex ?? this.rowIndex;
-
-        if (
-            newColumnIndex >= 0
-            && newColumnIndex < rowElements.cells.length
-            && cellContentIndex >= 0
-            && cellContentIndex
-                < rowElements.cells[newColumnIndex]!.cell.cellView
-                    .tabbableChildren.length
-        ) {
-            this.setCellContentFocusState(
-                cellContentIndex,
-                newRowIndex,
-                newColumnIndex,
-                true
-            );
+        if (newColumnIndex >= 0 && newColumnIndex < rowElements.cells.length) {
+            const cell = rowElements.cells[newColumnIndex]!.cell;
+            if (
+                cellContentIndex >= 0
+                && cellContentIndex < cell.cellView.tabbableChildren.length
+            ) {
+                this.setCellContentFocusState(
+                    cell,
+                    cellContentIndex,
+                    newRowIndex,
+                    newColumnIndex,
+                    true
+                );
+            }
             return true;
         }
 
@@ -1324,13 +1372,16 @@ implements Subscriber {
     }
 
     private setCellContentFocusState(
+        cell: TableCell,
         cellContentIndex: number,
         rowIndex: number,
         columnIndex: number,
         focusElement: boolean
     ): void {
+        this.cellContentState.recordId = cell.recordId;
+        this.cellContentState.columnId = cell.columnId;
         this.focusType = TableFocusType.cellContent;
-        this.cellContentIndex = cellContentIndex;
+        this.cellContentState.index = cellContentIndex;
         this.setRowCellFocusState(columnIndex, rowIndex, focusElement);
     }
 

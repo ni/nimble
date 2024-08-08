@@ -31,6 +31,7 @@ TableColumnAnchorColumnConfig
     public isPlaceholder = false;
 
     /** @internal */
+    @observable
     public anchor?: Anchor;
 
     @volatile
@@ -60,11 +61,8 @@ TableColumnAnchorColumnConfig
         return typeof this.cellRecord?.href === 'string';
     }
 
-    public override get tabbableChildren(): HTMLElement[] {
-        if (this.showAnchor) {
-            return [this.anchor!];
-        }
-        return [];
+    private anchorChanged(): void {
+        this.tabbableChildren = this.anchor ? [this.anchor] : [];
     }
 }
 
