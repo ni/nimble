@@ -8,16 +8,9 @@ import {
     titlePlus1Font,
     drawerWidth,
     largeDelay,
-    actionRgbPartialColor
+    actionRgbPartialColor,
+    modalBackdropColor
 } from '../theme-provider/design-tokens';
-import {
-    modalBackdropColorThemeColorStatic,
-    modalBackdropColorThemeDarkStatic,
-    modalBackdropColorThemeLightStatic,
-    largeDelayStatic
-} from '../theme-provider/design-tokens-static';
-import { Theme } from '../theme-provider/types';
-import { themeBehavior } from '../utilities/style/theme';
 
 export const styles = css`
     ${display('block')}
@@ -57,8 +50,12 @@ export const styles = css`
         }
     }
 
+    dialog::backdrop {
+        background: ${modalBackdropColor};
+    }
+
     dialog.animating::backdrop {
-        animation: ni-private-drawer-fade-in-keyframes ${largeDelayStatic}
+        animation: ni-private-drawer-fade-in-keyframes ${largeDelay}
             ease-in;
     }
 
@@ -153,33 +150,4 @@ export const styles = css`
         justify-content: flex-end;
         border-top: 2px solid rgba(${actionRgbPartialColor}, 0.1);
     }
-`.withBehaviors(
-    /*
-     * We cannot use the modalBackdropColor token directly because the backdrop
-     * element is not a descendant of the nimble-theme-provider element.
-     */
-    themeBehavior(
-        Theme.light,
-        css`
-            dialog::backdrop {
-                background: ${modalBackdropColorThemeLightStatic};
-            }
-        `
-    ),
-    themeBehavior(
-        Theme.dark,
-        css`
-            dialog::backdrop {
-                background: ${modalBackdropColorThemeDarkStatic};
-            }
-        `
-    ),
-    themeBehavior(
-        Theme.color,
-        css`
-            dialog::backdrop {
-                background: ${modalBackdropColorThemeColorStatic};
-            }
-        `
-    )
-);
+`;
