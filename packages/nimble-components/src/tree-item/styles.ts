@@ -14,7 +14,8 @@ import {
     iconSize,
     mediumDelay,
     bodyDisabledFontColor,
-    iconColor
+    iconColor,
+    standardPadding
 } from '../theme-provider/design-tokens';
 import { groupSelectedAttribute } from '../tree-view/types';
 import { DirectionalStyleSheetBehavior } from '../utilities/style/direction';
@@ -119,7 +120,7 @@ export const styles = css`
         padding: 0px;
         justify-content: center;
         align-items: center;
-        margin-left: 10px;
+        margin-left: ${standardPadding};
         position: absolute;
     }
 
