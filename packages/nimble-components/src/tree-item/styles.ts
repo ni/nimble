@@ -14,8 +14,7 @@ import {
     iconSize,
     mediumDelay,
     bodyDisabledFontColor,
-    iconColor,
-    standardPadding
+    iconColor
 } from '../theme-provider/design-tokens';
 import { groupSelectedAttribute } from '../tree-view/types';
 import { DirectionalStyleSheetBehavior } from '../utilities/style/direction';
@@ -99,7 +98,7 @@ export const styles = css`
         align-items: center;
         white-space: nowrap;
         width: 100%;
-        padding-left: 10px;
+        padding-left: ${iconSize};
         font: inherit;
         font-size: ${bodyFontSize};
         ${userSelectNone}
@@ -120,7 +119,7 @@ export const styles = css`
         padding: 0px;
         justify-content: center;
         align-items: center;
-        margin-left: ${standardPadding};
+        margin-left: ${iconSize};
         position: absolute;
     }
 
