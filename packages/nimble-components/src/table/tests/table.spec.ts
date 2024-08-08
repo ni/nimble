@@ -6,7 +6,7 @@ import { TableColumnText, tableColumnTextTag } from '../../table-column/text';
 import { TableColumnTextCellView } from '../../table-column/text/cell-view';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import { controlHeight } from '../../theme-provider/design-tokens';
-import { createEventListener } from '../../utilities/testing/component';
+import { waitForEvent } from '../../utilities/testing/component';
 import {
     type Fixture,
     fixture,
@@ -696,12 +696,12 @@ describe('Table', () => {
                 await element.setData(data);
                 await waitForUpdatesAsync();
 
-                const toggleListener = createEventListener(
+                const toggleListener = waitForEvent(
                     element,
                     'action-menu-toggle'
                 );
                 await pageObject.clickCellActionMenu(0, 0);
-                await toggleListener.promise;
+                await toggleListener;
                 expect(pageObject.getCellActionMenu(0, 0)!.open).toBe(true);
 
                 await pageObject.scrollToLastRowAsync();
@@ -799,13 +799,13 @@ describe('Table', () => {
                 await connect();
                 await waitForUpdatesAsync();
 
-                let toggleListener = createEventListener(
+                let toggleListener = waitForEvent(
                     element,
                     'action-menu-toggle'
                 );
                 // Open a menu button for the first row to cause all the menus to be slotted within that row
                 await pageObject.clickCellActionMenu(1, 0);
-                await toggleListener.promise;
+                await toggleListener;
 
                 const updatedSlot = 'my-new-slot';
                 column1.actionMenuSlot = updatedSlot;
@@ -813,12 +813,9 @@ describe('Table', () => {
                 await waitForUpdatesAsync();
 
                 // Reopen the menu so we can verify the slots (changing sort order causes a row recycle which closes action menus)
-                toggleListener = createEventListener(
-                    element,
-                    'action-menu-toggle'
-                );
+                toggleListener = waitForEvent(element, 'action-menu-toggle');
                 await pageObject.clickCellActionMenu(1, 0);
-                await toggleListener.promise;
+                await toggleListener;
 
                 // Verify the slot name is updated
                 const rowSlots = element

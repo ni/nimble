@@ -1,8 +1,24 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Fri, 02 Aug 2024 22:55:10 GMT and should not be manually modified.
+This log was last generated on Wed, 07 Aug 2024 16:58:22 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 31.1.2
+
+Wed, 07 Aug 2024 16:58:22 GMT
+
+### Patches
+
+- Updates to underlying helpers used by page objects in nimble ([ni/nimble@7ed14a0](https://github.com/ni/nimble/commit/7ed14a002f1315a2867144f4d828c2dcbe9c7f95))
+
+## 31.1.1
+
+Tue, 06 Aug 2024 16:12:52 GMT
+
+### Patches
+
+- Consistent slot text content ([ni/nimble@5411fb9](https://github.com/ni/nimble/commit/5411fb9e2a142414f2e5b378417cc733dc1c718f))
 
 ## 31.1.0
 

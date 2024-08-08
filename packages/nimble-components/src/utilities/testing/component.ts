@@ -46,42 +46,20 @@ export async function sendKeyDownEvents(
 /** A helper function to abstract turning waiting for an event to fire into a promise.
  * The returned promise should be resolved prior to completing a test.
  */
-export async function waitForEventAsync(
+export async function waitForEvent<T extends Event>(
     element: HTMLElement,
-    eventName: string
+    eventName: string,
+    callback?: (evt: T) => void
 ): Promise<void> {
     return new Promise(resolve => {
-        const handler = (): void => {
-            element.removeEventListener(eventName, handler);
+        const handler = ((evt: T): void => {
+            callback?.(evt);
             resolve();
-        };
-        element.addEventListener(eventName, handler);
+        }) as EventListener;
+        element.addEventListener(eventName, handler, {
+            once: true
+        });
     });
-}
-
-/** A helper function to abstract adding an event listener, spying
- * on the event being called, and removing the event listener. The returned promise
- * should be resolved prior to completing a test.
- */
-export function createEventListener(
-    element: HTMLElement,
-    eventName: string
-): {
-        promise: Promise<void>,
-        spy: jasmine.Spy
-    } {
-    const spy = jasmine.createSpy();
-    return {
-        promise: new Promise(resolve => {
-            const handler = (...args: unknown[]): void => {
-                element.removeEventListener(eventName, handler);
-                spy(...args);
-                resolve();
-            };
-            element.addEventListener(eventName, handler);
-        }),
-        spy
-    };
 }
 
 /**

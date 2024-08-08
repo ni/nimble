@@ -9,7 +9,7 @@ import type { TableColumn } from '../../table-column/base';
 import type { Menu } from '../../menu';
 import type { MenuItem } from '../../menu-item';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
-import { createEventListener } from '../../utilities/testing/component';
+import { waitForEvent } from '../../utilities/testing/component';
 import { type Fixture, fixture } from '../../utilities/tests/fixture';
 import {
     TableActionMenuToggleEventDetail,
@@ -23,6 +23,10 @@ interface SimpleTableRecord extends TableRecord {
     numericData: number;
     moreStringData: string;
 }
+
+type TableActionMenuToggleEventHandler = (
+    evt: CustomEvent<TableActionMenuToggleEventDetail>
+) => void;
 
 const simpleTableData = [
     {
@@ -61,8 +65,10 @@ describe('Table action menu', () => {
     let pageObject: TablePageObject<SimpleTableRecord>;
     let column1: TableColumn;
     let column2: TableColumn;
-    let beforetoggleListener: { promise: Promise<void>, spy: jasmine.Spy };
-    let toggleListener: { promise: Promise<void>, spy: jasmine.Spy };
+    let beforetoggleSpy: jasmine.Spy<TableActionMenuToggleEventHandler>;
+    let beforetoggleListener: Promise<void>;
+    let toggleSpy: jasmine.Spy<TableActionMenuToggleEventHandler>;
+    let toggleListener: Promise<void>;
 
     beforeEach(async () => {
         ({ element, connect, disconnect } = await setup());
@@ -70,11 +76,14 @@ describe('Table action menu', () => {
         column1 = element.querySelector<TableColumn>('#first-column')!;
         column2 = element.querySelector<TableColumn>('#second-column')!;
 
-        beforetoggleListener = createEventListener(
+        beforetoggleSpy = jasmine.createSpy();
+        beforetoggleListener = waitForEvent(
             element,
-            'action-menu-beforetoggle'
+            'action-menu-beforetoggle',
+            beforetoggleSpy
         );
-        toggleListener = createEventListener(element, 'action-menu-toggle');
+        toggleSpy = jasmine.createSpy();
+        toggleListener = waitForEvent(element, 'action-menu-toggle', toggleSpy);
     });
 
     afterEach(async () => {
@@ -105,9 +114,10 @@ describe('Table action menu', () => {
         return { menu, items: [menuItem1, menuItem2, menuItem3] };
     }
 
-    function getEmittedRecordIdsFromSpy(spy: jasmine.Spy): string[] {
-        const event = spy.calls.first()
-            .args[0] as CustomEvent<TableActionMenuToggleEventDetail>;
+    function getEmittedRecordIdsFromSpy(
+        spy: jasmine.Spy<TableActionMenuToggleEventHandler>
+    ): string[] {
+        const event = spy.calls.first().args[0];
         return event.detail.recordIds;
     }
 
@@ -154,7 +164,7 @@ describe('Table action menu', () => {
 
         // Open the menu button
         await pageObject.clickCellActionMenu(1, 0);
-        await toggleListener.promise;
+        await toggleListener;
 
         pageObject.setRowHoverState(1, false);
         await waitForUpdatesAsync();
@@ -225,16 +235,17 @@ describe('Table action menu', () => {
         await waitForUpdatesAsync();
         const cell = pageObject.getCell(1, 0)!;
         const menuButton = pageObject.getCellActionMenu(1, 0)!;
-        const blurListener = createEventListener(cell, 'cell-action-menu-blur');
+        const spy = jasmine.createSpy();
+        const blurListener = waitForEvent(cell, 'cell-action-menu-blur', spy);
         menuButton.focus();
         await waitForUpdatesAsync();
 
-        expect(blurListener.spy).not.toHaveBeenCalled();
+        expect(spy).not.toHaveBeenCalled();
 
         menuButton.blur();
-        await blurListener.promise;
+        await blurListener;
 
-        expect(blurListener.spy).toHaveBeenCalledOnceWith(
+        expect(spy).toHaveBeenCalledOnceWith(
             jasmine.objectContaining({ detail: cell })
         );
     });
@@ -251,7 +262,7 @@ describe('Table action menu', () => {
 
         // Open a menu button for the first row to cause all the menus to be slotted within that row
         await pageObject.clickCellActionMenu(1, 0);
-        await toggleListener.promise;
+        await toggleListener;
 
         const rowSlots = element
             .shadowRoot!.querySelectorAll('nimble-table-row')
@@ -272,7 +283,7 @@ describe('Table action menu', () => {
 
         // Open a menu button for the first row to cause all the menus to be slotted within that row
         await pageObject.clickCellActionMenu(1, 0);
-        await toggleListener.promise;
+        await toggleListener;
 
         const rowSlots = element
             .shadowRoot!.querySelectorAll('nimble-table-row')
@@ -291,7 +302,7 @@ describe('Table action menu', () => {
 
         // Open a menu button for the first row to cause all the menus to be slotted within that row
         await pageObject.clickCellActionMenu(1, 0);
-        await toggleListener.promise;
+        await toggleListener;
 
         const updatedSlot = 'my-new-slot';
         column1.actionMenuSlot = updatedSlot;
@@ -317,16 +328,15 @@ describe('Table action menu', () => {
 
         await pageObject.clickCellActionMenu(1, 0);
 
-        await beforetoggleListener.promise;
-        expect(beforetoggleListener.spy).toHaveBeenCalledTimes(1);
+        await beforetoggleListener;
+        expect(beforetoggleSpy).toHaveBeenCalledTimes(1);
         const expectedDetails: TableActionMenuToggleEventDetail = {
             newState: true,
             oldState: false,
             columnId: column1.columnId,
             recordIds: [simpleTableData[1].stringData]
         };
-        const event = beforetoggleListener.spy.calls.first()
-            .args[0] as CustomEvent<TableActionMenuToggleEventDetail>;
+        const event = beforetoggleSpy.calls.first().args[0];
         expect(event.detail).toEqual(expectedDetails);
     });
 
@@ -342,26 +352,23 @@ describe('Table action menu', () => {
 
         await pageObject.clickCellActionMenu(1, 0);
         await waitForUpdatesAsync();
-        const listener = createEventListener(
-            element,
-            'action-menu-beforetoggle'
-        );
+        const spy = jasmine.createSpy<TableActionMenuToggleEventHandler>();
+        const listener = waitForEvent(element, 'action-menu-beforetoggle', spy);
         const escEvent = new KeyboardEvent('keydown', {
             key: keyEscape
         } as KeyboardEventInit);
         const menuButton = pageObject.getCellActionMenu(1, 0)!;
         menuButton.region!.dispatchEvent(escEvent);
 
-        await listener.promise;
-        expect(listener.spy).toHaveBeenCalledTimes(1);
+        await listener;
+        expect(spy).toHaveBeenCalledTimes(1);
         const expectedDetails: TableActionMenuToggleEventDetail = {
             newState: false,
             oldState: true,
             columnId: column1.columnId,
             recordIds: [simpleTableData[1].stringData]
         };
-        const event = listener.spy.calls.first()
-            .args[0] as CustomEvent<TableActionMenuToggleEventDetail>;
+        const event = spy.calls.first().args[0];
         expect(event.detail).toEqual(expectedDetails);
     });
 
@@ -377,16 +384,15 @@ describe('Table action menu', () => {
 
         await pageObject.clickCellActionMenu(1, 0);
 
-        await toggleListener.promise;
-        expect(toggleListener.spy).toHaveBeenCalledTimes(1);
+        await toggleListener;
+        expect(toggleSpy).toHaveBeenCalledTimes(1);
         const expectedDetails: TableActionMenuToggleEventDetail = {
             newState: true,
             oldState: false,
             columnId: column1.columnId,
             recordIds: [simpleTableData[1].stringData]
         };
-        const event = toggleListener.spy.calls.first()
-            .args[0] as CustomEvent<TableActionMenuToggleEventDetail>;
+        const event = toggleSpy.calls.first().args[0];
         expect(event.detail).toEqual(expectedDetails);
     });
 
@@ -408,16 +414,15 @@ describe('Table action menu', () => {
         const menuButton = pageObject.getCellActionMenu(1, 0)!;
         menuButton.region!.dispatchEvent(escEvent);
 
-        await toggleListener.promise;
-        expect(toggleListener.spy).toHaveBeenCalledTimes(1);
+        await toggleListener;
+        expect(toggleSpy).toHaveBeenCalledTimes(1);
         const expectedDetails: TableActionMenuToggleEventDetail = {
             newState: false,
             oldState: true,
             columnId: column1.columnId,
             recordIds: [simpleTableData[1].stringData]
         };
-        const event = toggleListener.spy.calls.first()
-            .args[0] as CustomEvent<TableActionMenuToggleEventDetail>;
+        const event = toggleSpy.calls.first().args[0];
         expect(event.detail).toEqual(expectedDetails);
     });
 
@@ -436,7 +441,7 @@ describe('Table action menu', () => {
         } as KeyboardEventInit);
         menuButton.toggleButton!.dispatchEvent(event);
 
-        await toggleListener.promise;
+        await toggleListener;
         expect(document.activeElement).toEqual(menuItems[0]!);
     });
 
@@ -455,7 +460,7 @@ describe('Table action menu', () => {
         } as KeyboardEventInit);
         menuButton.toggleButton!.dispatchEvent(event);
 
-        await toggleListener.promise;
+        await toggleListener;
         expect(document.activeElement).toEqual(
             menuItems[menuItems.length - 1]!
         );
@@ -469,12 +474,9 @@ describe('Table action menu', () => {
         await waitForUpdatesAsync();
         pageObject.setRowHoverState(0, true);
         await pageObject.clickCellActionMenu(0, 0);
-        await toggleListener.promise;
+        await toggleListener;
 
-        const closeToggleListener = createEventListener(
-            element,
-            'action-menu-toggle'
-        );
+        const closeToggleListener = waitForEvent(element, 'action-menu-toggle');
         const newTableData: SimpleTableRecord[] = [
             {
                 stringData: 'new string 1',
@@ -483,7 +485,7 @@ describe('Table action menu', () => {
             }
         ];
         await element.setData(newTableData);
-        await closeToggleListener.promise;
+        await closeToggleListener;
 
         expect(pageObject.getCell(0, 0).menuOpen).toBeFalse();
         expect(document.activeElement).not.toBe(menuItems[0]!);
@@ -514,16 +516,16 @@ describe('Table action menu', () => {
             const rowIndex = 0;
             pageObject.setRowHoverState(rowIndex, true);
             await pageObject.clickCellActionMenu(rowIndex, 0);
-            await toggleListener.promise;
+            await toggleListener;
 
             const currentSelection = await element.getSelectedRecordIds();
             expect(currentSelection).toEqual([
                 simpleTableData[rowIndex].stringData
             ]);
-            expect(
-                getEmittedRecordIdsFromSpy(beforetoggleListener.spy)
-            ).toEqual(jasmine.arrayWithExactContents(currentSelection));
-            expect(getEmittedRecordIdsFromSpy(toggleListener.spy)).toEqual(
+            expect(getEmittedRecordIdsFromSpy(beforetoggleSpy)).toEqual(
+                jasmine.arrayWithExactContents(currentSelection)
+            );
+            expect(getEmittedRecordIdsFromSpy(toggleSpy)).toEqual(
                 jasmine.arrayWithExactContents(currentSelection)
             );
         });
@@ -534,16 +536,16 @@ describe('Table action menu', () => {
             const rowIndex = 0;
             pageObject.setRowHoverState(rowIndex, true);
             await pageObject.clickCellActionMenu(rowIndex, 0);
-            await toggleListener.promise;
+            await toggleListener;
 
             const currentSelection = await element.getSelectedRecordIds();
             expect(currentSelection).toEqual([
                 simpleTableData[rowIndex].stringData
             ]);
-            expect(
-                getEmittedRecordIdsFromSpy(beforetoggleListener.spy)
-            ).toEqual(jasmine.arrayWithExactContents(currentSelection));
-            expect(getEmittedRecordIdsFromSpy(toggleListener.spy)).toEqual(
+            expect(getEmittedRecordIdsFromSpy(beforetoggleSpy)).toEqual(
+                jasmine.arrayWithExactContents(currentSelection)
+            );
+            expect(getEmittedRecordIdsFromSpy(toggleSpy)).toEqual(
                 jasmine.arrayWithExactContents(currentSelection)
             );
         });
@@ -556,16 +558,16 @@ describe('Table action menu', () => {
 
             pageObject.setRowHoverState(rowIndex, true);
             await pageObject.clickCellActionMenu(rowIndex, 0);
-            await toggleListener.promise;
+            await toggleListener;
 
             const currentSelection = await element.getSelectedRecordIds();
             expect(currentSelection).toEqual([
                 simpleTableData[rowIndex].stringData
             ]);
-            expect(
-                getEmittedRecordIdsFromSpy(beforetoggleListener.spy)
-            ).toEqual(jasmine.arrayWithExactContents(currentSelection));
-            expect(getEmittedRecordIdsFromSpy(toggleListener.spy)).toEqual(
+            expect(getEmittedRecordIdsFromSpy(beforetoggleSpy)).toEqual(
+                jasmine.arrayWithExactContents(currentSelection)
+            );
+            expect(getEmittedRecordIdsFromSpy(toggleSpy)).toEqual(
                 jasmine.arrayWithExactContents(currentSelection)
             );
         });
@@ -598,16 +600,16 @@ describe('Table action menu', () => {
             const rowIndex = 0;
             pageObject.setRowHoverState(rowIndex, true);
             await pageObject.clickCellActionMenu(rowIndex, 0);
-            await toggleListener.promise;
+            await toggleListener;
 
             const currentSelection = await element.getSelectedRecordIds();
             expect(currentSelection).toEqual([
                 simpleTableData[rowIndex].stringData
             ]);
-            expect(
-                getEmittedRecordIdsFromSpy(beforetoggleListener.spy)
-            ).toEqual(jasmine.arrayWithExactContents(currentSelection));
-            expect(getEmittedRecordIdsFromSpy(toggleListener.spy)).toEqual(
+            expect(getEmittedRecordIdsFromSpy(beforetoggleSpy)).toEqual(
+                jasmine.arrayWithExactContents(currentSelection)
+            );
+            expect(getEmittedRecordIdsFromSpy(toggleSpy)).toEqual(
                 jasmine.arrayWithExactContents(currentSelection)
             );
         });
@@ -618,16 +620,16 @@ describe('Table action menu', () => {
             const rowIndex = 0;
             pageObject.setRowHoverState(rowIndex, true);
             await pageObject.clickCellActionMenu(rowIndex, 0);
-            await toggleListener.promise;
+            await toggleListener;
 
             const currentSelection = await element.getSelectedRecordIds();
             expect(currentSelection).toEqual([
                 simpleTableData[rowIndex].stringData
             ]);
-            expect(
-                getEmittedRecordIdsFromSpy(beforetoggleListener.spy)
-            ).toEqual(jasmine.arrayWithExactContents(currentSelection));
-            expect(getEmittedRecordIdsFromSpy(toggleListener.spy)).toEqual(
+            expect(getEmittedRecordIdsFromSpy(beforetoggleSpy)).toEqual(
+                jasmine.arrayWithExactContents(currentSelection)
+            );
+            expect(getEmittedRecordIdsFromSpy(toggleSpy)).toEqual(
                 jasmine.arrayWithExactContents(currentSelection)
             );
         });
@@ -640,16 +642,16 @@ describe('Table action menu', () => {
 
             pageObject.setRowHoverState(rowIndex, true);
             await pageObject.clickCellActionMenu(rowIndex, 0);
-            await toggleListener.promise;
+            await toggleListener;
 
             const currentSelection = await element.getSelectedRecordIds();
             expect(currentSelection).toEqual([
                 simpleTableData[rowIndex].stringData
             ]);
-            expect(
-                getEmittedRecordIdsFromSpy(beforetoggleListener.spy)
-            ).toEqual(jasmine.arrayWithExactContents(currentSelection));
-            expect(getEmittedRecordIdsFromSpy(toggleListener.spy)).toEqual(
+            expect(getEmittedRecordIdsFromSpy(beforetoggleSpy)).toEqual(
+                jasmine.arrayWithExactContents(currentSelection)
+            );
+            expect(getEmittedRecordIdsFromSpy(toggleSpy)).toEqual(
                 jasmine.arrayWithExactContents(currentSelection)
             );
         });
@@ -662,17 +664,17 @@ describe('Table action menu', () => {
 
             pageObject.setRowHoverState(2, true);
             await pageObject.clickCellActionMenu(2, 0);
-            await toggleListener.promise;
+            await toggleListener;
 
             const currentSelection = await element.getSelectedRecordIds();
             expect(currentSelection).toEqual([
                 simpleTableData[0].stringData,
                 simpleTableData[2].stringData
             ]);
-            expect(
-                getEmittedRecordIdsFromSpy(beforetoggleListener.spy)
-            ).toEqual(jasmine.arrayWithExactContents(currentSelection));
-            expect(getEmittedRecordIdsFromSpy(toggleListener.spy)).toEqual(
+            expect(getEmittedRecordIdsFromSpy(beforetoggleSpy)).toEqual(
+                jasmine.arrayWithExactContents(currentSelection)
+            );
+            expect(getEmittedRecordIdsFromSpy(toggleSpy)).toEqual(
                 jasmine.arrayWithExactContents(currentSelection)
             );
         });

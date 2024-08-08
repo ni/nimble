@@ -2,6 +2,36 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Wed, 07 Aug 2024 16:58:22 GMT",
+      "version": "31.1.2",
+      "tag": "@ni/nimble-components_v31.1.2",
+      "comments": {
+        "patch": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "7ed14a002f1315a2867144f4d828c2dcbe9c7f95",
+            "comment": "Updates to underlying helpers used by page objects in nimble"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 06 Aug 2024 16:12:52 GMT",
+      "version": "31.1.1",
+      "tag": "@ni/nimble-components_v31.1.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "5411fb9e2a142414f2e5b378417cc733dc1c718f",
+            "comment": "Consistent slot text content"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 02 Aug 2024 22:55:10 GMT",
       "version": "31.1.0",
       "tag": "@ni/nimble-components_v31.1.0",

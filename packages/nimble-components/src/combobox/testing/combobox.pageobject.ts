@@ -7,7 +7,7 @@ import type { Combobox } from '..';
 import { listOptionTag } from '../../list-option';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import {
-    createEventListener,
+    waitForEvent,
     waitAnimationFrame
 } from '../../utilities/testing/component';
 
@@ -16,7 +16,7 @@ import {
  * of querying and interacting with the component during tests.
  */
 export class ComboboxPageObject {
-    private readonly regionLoadedListener = createEventListener(
+    private readonly regionLoadedListener = waitForEvent(
         this.comboboxElement,
         'loaded'
     );
@@ -212,6 +212,6 @@ export class ComboboxPageObject {
     }
 
     private async waitForAnchoredRegionLoaded(): Promise<void> {
-        await this.regionLoadedListener.promise;
+        await this.regionLoadedListener;
     }
 }

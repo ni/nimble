@@ -6,6 +6,7 @@ import {
 } from './models/column-internals';
 import type { TableColumnValidity } from './types';
 import type { ColumnValidator } from './models/column-validator';
+import { slotTextContent } from '../../utilities/models/slot-text-content';
 
 /**
  * The base class for table columns
@@ -53,10 +54,7 @@ export abstract class TableColumn<
 
     /** @internal */
     public get headerTextContent(): string {
-        return this.contentSlot
-            .assignedNodes()
-            .map(node => node.textContent?.trim())
-            .join(' ');
+        return slotTextContent(this.contentSlot);
     }
 
     public override connectedCallback(): void {
