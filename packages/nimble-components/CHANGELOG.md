@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Wed, 07 Aug 2024 16:58:22 GMT and should not be manually modified.
+This log was last generated on Fri, 09 Aug 2024 15:08:21 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 31.1.3
+
+Fri, 09 Aug 2024 15:08:21 GMT
+
+### Patches
+
+- Switch to tokens for backdrop ([ni/nimble@29961fd](https://github.com/ni/nimble/commit/29961fd8275ca703dbdb44a62a6c6957728c0978))
 
 ## 31.1.2
 

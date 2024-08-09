@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Fri, 09 Aug 2024 15:08:21 GMT",
+      "version": "31.1.3",
+      "tag": "@ni/nimble-components_v31.1.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "29961fd8275ca703dbdb44a62a6c6957728c0978",
+            "comment": "Switch to tokens for backdrop"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 07 Aug 2024 16:58:22 GMT",
       "version": "31.1.2",
       "tag": "@ni/nimble-components_v31.1.2",
