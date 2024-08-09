@@ -87,6 +87,9 @@ export class Table<
     @attr({ attribute: 'selection-mode' })
     public selectionMode: TableRowSelectionMode = TableRowSelectionMode.none;
 
+    @attr({ attribute: 'auto-height', mode: 'boolean' })
+    public autoHeight = false;
+
     /**
      * @internal
      */
