@@ -7,12 +7,13 @@ import {
 } from '../../../menu-button/types';
 import { iconArrowExpanderDownTag } from '../../../icons/arrow-expander-down';
 import { cellViewMenuSlotName } from '../types';
+import { dynamicRef } from '../../../utilities/directive/dynamic-ref';
 
 // prettier-ignore
 export const template = html<TableColumnMenuButtonCellView>`
     ${when(x => x.showMenuButton, html<TableColumnMenuButtonCellView>`
         <${menuButtonTag}
-            ${ref('menuButton')}
+            ${dynamicRef('menuButton')}
             appearance="${ButtonAppearance.ghost}"
             @beforetoggle="${(x, c) => x.onMenuButtonBeforeToggle(c.event as CustomEvent<MenuButtonToggleEventDetail>)}"
             @mouseover="${x => x.onMenuButtonMouseOver()}"
