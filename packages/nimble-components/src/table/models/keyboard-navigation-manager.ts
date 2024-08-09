@@ -1335,8 +1335,8 @@ implements Subscriber {
                     newColumnIndex,
                     true
                 );
+                return true;
             }
-            return true;
         }
 
         return false;

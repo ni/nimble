@@ -1,17 +1,11 @@
-import { attr, customElement, html } from '@microsoft/fast-element';
+import { html } from '@microsoft/fast-element';
 import { parameterizeSpec } from '@ni/jasmine-parameterized';
 import { Table, tableTag } from '..';
-import { TableColumn } from '../../table-column/base';
 import { TableColumnText, tableColumnTextTag } from '../../table-column/text';
-import { TableColumnTextCellView } from '../../table-column/text/cell-view';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import { controlHeight } from '../../theme-provider/design-tokens';
 import { waitForEvent } from '../../utilities/testing/component';
-import {
-    type Fixture,
-    fixture,
-    uniqueElementName
-} from '../../utilities/tests/fixture';
+import { type Fixture, fixture } from '../../utilities/tests/fixture';
 import {
     TableColumnAlignment,
     TableColumnSortDirection,
@@ -21,12 +15,9 @@ import {
 } from '../types';
 import { TablePageObject } from '../testing/table.pageobject';
 import {
-    tableColumnEmptyGroupHeaderViewTag,
     TableColumnValidationTest,
     tableColumnValidationTestTag
 } from '../../table-column/base/tests/table-column.fixtures';
-import type { ColumnInternalsOptions } from '../../table-column/base/models/column-internals';
-import { ColumnValidator } from '../../table-column/base/models/column-validator';
 
 interface SimpleTableRecord extends TableRecord {
     stringData: string;

@@ -1,13 +1,5 @@
 /* eslint-disable no-await-in-loop */
-import {
-    children,
-    customElement,
-    elements,
-    html,
-    observable,
-    ref,
-    when
-} from '@microsoft/fast-element';
+import { customElement, html, observable, when } from '@microsoft/fast-element';
 import { FoundationElement } from '@microsoft/fast-foundation';
 import {
     keyArrowDown,
@@ -1443,11 +1435,14 @@ describe('Table keyboard navigation', () => {
                     cellView.isTabbable = false;
                     await waitForUpdatesAsync();
 
-                    // Note: At this point, the table lost focus already, because the focused element in the cell has been removed from the DOM, and
-                    // KeyboardNavigationManager will only set focus to new elements when the table is already focused (so we don't steal focus from
-                    // elsewhere on the page if the table isn't being interacted with).
-                    element.focus();
-                    await waitForUpdatesAsync();
+                    // Note: At this point, the focused element in the cell has been already removed from the DOM.
+                    // KeyboardNavigationManager will only set focus to new elements when the table is already focused (so we don't
+                    // steal focus from elsewhere on the page if the table isn't being interacted with).
+                    // In Chrome, the table loses focus entirely, but not in Firefox/WebKit.
+                    if (element.shadowRoot!.activeElement === null) {
+                        element.focus(); // Refocus table if it's been lost
+                        await waitForUpdatesAsync();
+                    }
 
                     expect(currentFocusedElement()).toBe(
                         pageObject.getCell(0, 1)
