@@ -1,6 +1,6 @@
 {
   "type": "patch",
-  "comment": "tree item padding from 10px to 16px (standardPadding)",
+  "comment": "Update tree item padding from 10px to 12px to match visual design",
   "packageName": "@ni/nimble-components",
   "email": "1458528+fredvisser@users.noreply.github.com",
   "dependentChangeType": "patch"

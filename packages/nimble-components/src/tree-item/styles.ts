@@ -98,7 +98,7 @@ export const styles = css`
         align-items: center;
         white-space: nowrap;
         width: 100%;
-        padding-left: ${iconSize};
+        padding-left: 12px;
         font: inherit;
         font-size: ${bodyFontSize};
         ${userSelectNone}
@@ -119,7 +119,7 @@ export const styles = css`
         padding: 0px;
         justify-content: center;
         align-items: center;
-        margin-left: ${iconSize};
+        margin-left: 12px;
         position: absolute;
     }
 
