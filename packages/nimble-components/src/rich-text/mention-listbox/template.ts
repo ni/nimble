@@ -22,7 +22,6 @@ export const template = html<RichTextMentionListbox>`
             <div
                 class="
                     listbox
-                    scrollable-region
                     ${x => (x.filteredOptions.length === 0 ? 'empty' : '')}
                 "
                 part="listbox"
@@ -32,19 +31,21 @@ export const template = html<RichTextMentionListbox>`
                 style="--ni-private-listbox-available-viewport-height: ${x => x.availableViewportHeight}px;"
                 ${ref('listbox')}
             >
-                <slot name="option"
-                    ${slotted({
-                        filter: (n: Node) => n instanceof HTMLElement && Listbox.slottedOptionFilter(n),
-                        flatten: true,
-                        property: 'slottedOptions'
-                    })}
-                >
-                </slot>
-                ${when(x => x.filteredOptions.length === 0, html<RichTextMentionListbox>`
-                    <span class="no-results-label">
-                        ${x => filterNoResultsLabel.getValueFor(x)}
-                    </span>
-                `)}
+                <div class="scrollable-region">
+                    <slot name="option"
+                        ${slotted({
+                            filter: (n: Node) => n instanceof HTMLElement && Listbox.slottedOptionFilter(n),
+                            flatten: true,
+                            property: 'slottedOptions'
+                        })}
+                    >
+                    </slot>
+                    ${when(x => x.filteredOptions.length === 0, html<RichTextMentionListbox>`
+                        <span class="no-results-label">
+                            ${x => filterNoResultsLabel.getValueFor(x)}
+                        </span>
+                    `)}
+                </div>
             </div>
         </${anchoredRegionTag}>
     </template>

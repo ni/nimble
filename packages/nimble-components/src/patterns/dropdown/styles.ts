@@ -220,6 +220,7 @@ export const styles = css`
         box-shadow: ${elevation2BoxShadow};
         border: ${borderWidth} solid ${popupBorderColor};
         background-color: ${applicationBackgroundColor};
+        padding: var(--ni-private-listbox-padding);
     }
 
     .listbox:has(.filter-field) {
@@ -247,7 +248,6 @@ export const styles = css`
     .listbox slot {
         display: block;
         background: transparent;
-        padding: var(--ni-private-listbox-padding);
     }
 
     .listbox.empty slot {
