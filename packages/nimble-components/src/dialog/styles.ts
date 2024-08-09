@@ -16,15 +16,9 @@ import {
     dialogSmallWidth,
     dialogSmallHeight,
     dialogSmallMaxHeight,
-    borderHoverColor
+    borderHoverColor,
+    modalBackdropColor
 } from '../theme-provider/design-tokens';
-import {
-    modalBackdropColorThemeColorStatic,
-    modalBackdropColorThemeDarkStatic,
-    modalBackdropColorThemeLightStatic
-} from '../theme-provider/design-tokens-static';
-import { Theme } from '../theme-provider/types';
-import { themeBehavior } from '../utilities/style/theme';
 import { accessiblyHidden } from '../utilities/style/accessibly-hidden';
 import { focusVisible } from '../utilities/style/focus';
 
@@ -48,6 +42,10 @@ export const styles = css`
 
     dialog${focusVisible} {
         outline: 2px solid ${borderHoverColor};
+    }
+
+    dialog::backdrop {
+        background: ${modalBackdropColor};
     }
 
     header {
@@ -116,33 +114,4 @@ export const styles = css`
     :host([footer-hidden]) footer {
         display: none;
     }
-`.withBehaviors(
-    /*
-     * We cannot use the modalBackdropColor token directly because the backdrop
-     * element is not a descendant of the nimble-theme-provider element.
-     */
-    themeBehavior(
-        Theme.light,
-        css`
-            dialog::backdrop {
-                background: ${modalBackdropColorThemeLightStatic};
-            }
-        `
-    ),
-    themeBehavior(
-        Theme.dark,
-        css`
-            dialog::backdrop {
-                background: ${modalBackdropColorThemeDarkStatic};
-            }
-        `
-    ),
-    themeBehavior(
-        Theme.color,
-        css`
-            dialog::backdrop {
-                background: ${modalBackdropColorThemeColorStatic};
-            }
-        `
-    )
-);
+`;
