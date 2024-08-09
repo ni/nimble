@@ -86,7 +86,7 @@ export const styles = css`
         align-items: center;
         white-space: nowrap;
         width: 100%;
-        padding-left: 10px;
+        padding-left: ${iconSize};
         font: inherit;
         font-size: ${bodyFontSize};
         ${userSelectNone}
