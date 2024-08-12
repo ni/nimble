@@ -555,11 +555,11 @@ describe('Combobox', () => {
         it('should scroll the selected option into view when opened #SkipWebkit', async () => {
             await pageObject.commitValue('300');
             await pageObject.clickAndWaitForOpen();
-            expect(element.listbox.scrollTop).toBeGreaterThan(9000);
+            expect(element.scrollableRegion.scrollTop).toBeGreaterThan(9000);
 
             await pageObject.commitValue('0');
             await pageObject.clickAndWaitForOpen();
-            expect(element.listbox.scrollTop).toBeCloseTo(4);
+            expect(element.scrollableRegion.scrollTop).toBeCloseTo(0);
         });
 
         it('when typing in value with inline autocomplete, option at bottom of list scrolls into view', async () => {

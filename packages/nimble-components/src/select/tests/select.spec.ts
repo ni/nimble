@@ -843,7 +843,7 @@ describe('Select', () => {
             await waitForUpdatesAsync();
             await waitAnimationFrame(); // necessary because scrolling is queued with requestAnimationFrame
 
-            expect(element.scrollableRegion.scrollTop).toBeCloseTo(4);
+            expect(element.scrollableRegion.scrollTop).toBeCloseTo(0);
 
             await disconnect();
         });

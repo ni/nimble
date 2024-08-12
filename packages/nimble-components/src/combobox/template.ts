@@ -91,7 +91,8 @@ ComboboxOptions
                 style="--ni-private-listbox-available-viewport-height: ${x => x.availableViewportHeight}px;"
                 ${ref('listbox')}
             >
-                <div class="scrollable-region">
+                <div ${ref('scrollableRegion')}
+                class="scrollable-region">
                     <slot name="option"
                         ${slotted({
                             filter: (n: Node) => n instanceof HTMLElement && Listbox.slottedOptionFilter(n),

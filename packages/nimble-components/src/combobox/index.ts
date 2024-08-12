@@ -129,6 +129,12 @@ export class Combobox
      * @internal
      */
     @observable
+    public scrollableRegion!: HTMLElement;
+
+    /**
+     * @internal
+     */
+    @observable
     public readonly dropdownButton?: ToggleButton;
 
     /**
