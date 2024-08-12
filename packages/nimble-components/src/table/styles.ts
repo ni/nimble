@@ -176,6 +176,7 @@ export const styles = css`
         display: block;
         height: 100%;
         position: relative;
+        scroll-snap-type: y mandatory;
     }
 
     .table-viewport${focusVisible} {
@@ -214,6 +215,7 @@ export const styles = css`
     .row {
         position: relative;
         --ni-private-table-cell-focus-offset-multiplier: 0;
+        scroll-snap-align: start none;
     }
 
     .collapse-all-visible .row,
