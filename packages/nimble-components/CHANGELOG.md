@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Sat, 10 Aug 2024 00:15:34 GMT and should not be manually modified.
+This log was last generated on Mon, 12 Aug 2024 21:44:15 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 31.2.0
+
+Mon, 12 Aug 2024 21:44:15 GMT
+
+### Minor changes
+
+- Add select/combobox page object methods to get label text ([ni/nimble@18f687c](https://github.com/ni/nimble/commit/18f687c6448d16d55adbb9311df860f32816fa94))
 
 ## 31.1.4
 

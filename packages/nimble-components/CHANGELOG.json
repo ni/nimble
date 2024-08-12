@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Mon, 12 Aug 2024 21:44:15 GMT",
+      "version": "31.2.0",
+      "tag": "@ni/nimble-components_v31.2.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "20709258+msmithNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "18f687c6448d16d55adbb9311df860f32816fa94",
+            "comment": "Add select/combobox page object methods to get label text"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sat, 10 Aug 2024 00:15:34 GMT",
       "version": "31.1.4",
       "tag": "@ni/nimble-components_v31.1.4",
