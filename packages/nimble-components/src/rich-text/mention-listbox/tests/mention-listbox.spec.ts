@@ -82,11 +82,11 @@ describe('RichTextMentionListbox', () => {
 
         element.selectedIndex = 300;
         await waitForSelectionUpdateAsync();
-        expect(element.listbox.scrollTop).toBeGreaterThan(8000);
+        expect(element.scrollableRegion.scrollTop).toBeGreaterThan(8000);
 
         element.selectedIndex = 0;
         await waitForSelectionUpdateAsync();
-        expect(element.listbox.scrollTop).toBeCloseTo(4);
+        expect(element.scrollableRegion.scrollTop).toBeCloseTo(0);
     });
 
     // Intermittent, see: https://github.com/ni/nimble/issues/2269
@@ -98,7 +98,7 @@ describe('RichTextMentionListbox', () => {
         await showAndWaitForOpen();
         const fullyVisible = await checkFullyInViewport(element.listbox);
 
-        expect(element.listbox.scrollHeight).toBeGreaterThan(
+        expect(element.scrollableRegion.scrollHeight).toBeGreaterThan(
             window.innerHeight
         );
         expect(fullyVisible).toBe(true);

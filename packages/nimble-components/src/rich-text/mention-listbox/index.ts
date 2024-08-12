@@ -64,6 +64,12 @@ export class RichTextMentionListbox extends FoundationListbox {
      */
     public listbox!: HTMLDivElement;
 
+    /**
+     * @internal
+     */
+    @observable
+    public scrollableRegion!: HTMLElement;
+
     @observable
     private anchorElement?: HTMLElement;
 
