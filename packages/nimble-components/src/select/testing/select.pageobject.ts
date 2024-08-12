@@ -104,6 +104,14 @@ export class SelectPageObject {
     }
 
     /**
+     * Gets the label text of the element
+     * @returns The current slotted label text, if any
+     */
+    public getLabelText(): string {
+        return this.selectElement.labelContent;
+    }
+
+    /**
      * Either opens or closes the dropdown depending on its current state
      */
     public clickSelect(): void {

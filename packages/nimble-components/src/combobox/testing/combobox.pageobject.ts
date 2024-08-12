@@ -10,6 +10,7 @@ import {
     waitForEvent,
     waitAnimationFrame
 } from '../../utilities/testing/component';
+import { slotTextContent } from '../../utilities/models/slot-text-content';
 
 /**
  * Page object for the `nimble-combobox` component to provide consistent ways
@@ -37,6 +38,17 @@ export class ComboboxPageObject {
         await this.waitForAnchoredRegionLoaded();
         this.setInputText(text);
         this.pressEnterKey();
+    }
+
+    /**
+     * Gets the label text of the element
+     * @returns The current slotted label text, if any
+     */
+    public getLabelText(): string {
+        const labelSlot = this.comboboxElement.shadowRoot!.querySelector<HTMLSlotElement>(
+            'label > slot'
+        )!;
+        return slotTextContent(labelSlot);
     }
 
     /**
