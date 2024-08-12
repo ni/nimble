@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-tokens
 
-This log was last generated on Fri, 02 Aug 2024 22:15:53 GMT and should not be manually modified.
+This log was last generated on Sat, 10 Aug 2024 00:15:34 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 8.0.1
+
+Sat, 10 Aug 2024 00:15:34 GMT
+
+### Patches
+
+- Remove unnecessary font precision ([ni/nimble@69abb8e](https://github.com/ni/nimble/commit/69abb8ebb0689fbc5eb307bc89a0926809e67d39))
 
 ## 8.0.0
 
