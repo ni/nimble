@@ -243,7 +243,6 @@ export const styles = css`
 
     .scrollable-region {
         overflow-y: auto;
-        scroll-snap-type: y mandatory;
     }
 
     .listbox slot {
@@ -258,7 +257,6 @@ export const styles = css`
     ::slotted([role='option']),
     ::slotted(option) {
         flex: none;
-        scroll-snap-align: start none;
     }
 
     .no-results-label {
