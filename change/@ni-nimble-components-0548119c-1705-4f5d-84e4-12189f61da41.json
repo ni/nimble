@@ -1,6 +1,6 @@
 {
   "type": "patch",
-  "comment": "Fix listbox padding. Add scroll-snap behavior.",
+  "comment": "Fix listbox padding",
   "packageName": "@ni/nimble-components",
   "email": "1458528+fredvisser@users.noreply.github.com",
   "dependentChangeType": "patch"
