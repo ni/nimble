@@ -1,6 +1,6 @@
 {
   "type": "patch",
-  "comment": "Update tree item padding from 10px to 8px (mediumPadding) to match standard layout requirements, and expose `treeViewLeftMargin` token to allow override for specific use cases.",
+  "comment": "Update tree item padding from 10px to 8px (mediumPadding) to match standard layout requirements, and expose `treeViewPaddingLeftSize` token to allow override for specific use cases.",
   "packageName": "@ni/nimble-components",
   "email": "1458528+fredvisser@users.noreply.github.com",
   "dependentChangeType": "patch"

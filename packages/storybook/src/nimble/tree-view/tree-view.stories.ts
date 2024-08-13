@@ -1,7 +1,7 @@
 import { html, repeat, when } from '@microsoft/fast-element';
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html';
-import { treeViewLeftMargin } from '../../../../nimble-components/src/theme-provider/design-tokens';
+import { treeViewPaddingLeftSize } from '../../../../nimble-components/src/theme-provider/design-tokens';
 import { iconCogTag } from '../../../../nimble-components/src/icons/cog';
 import { iconDatabaseTag } from '../../../../nimble-components/src/icons/database';
 import { treeItemTag } from '../../../../nimble-components/src/tree-item';
@@ -213,7 +213,7 @@ export const multipleTreeItems: StoryObj<TreeArgs> = {
     render: createUserSelectedThemeStory(html`
         <${treeViewTag}
             selection-mode="${x => x.selectionMode}"  
-            style="${x => `${treeViewLeftMargin.cssCustomProperty}:${x.leftMargin};`}"
+            style="${x => `${treeViewPaddingLeftSize.cssCustomProperty}:${x.leftMargin};`}"
         >
             ${repeat(x => x.options, html<ItemArgs>`
                 <${treeItemTag} ?expanded="${x => x.expanded}" value="${x => x.value}">
