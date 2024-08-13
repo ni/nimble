@@ -35,6 +35,7 @@ interface SelectArgs {
     value: string;
     change: undefined;
     filterInput: undefined;
+    width: string;
 }
 
 interface OptionArgs {
@@ -57,6 +58,20 @@ const simpleOptions: readonly OptionArgs[] = [
     { label: 'Option 2', value: '2', disabled: true },
     { label: 'Option 3', value: '3', disabled: false },
     { label: 'Option 4', value: '4', disabled: false },
+    { label: 'Zürich', value: '5', disabled: false }
+] as const;
+
+const placeholderOptions: readonly OptionArgs[] = [
+    {
+        label: 'Select an option',
+        value: '0',
+        disabled: true,
+        hidden: true,
+        selected: true
+    },
+    { label: 'Option 1', value: '1', disabled: false },
+    { label: 'Option 2', value: '2', disabled: true },
+    { label: 'Option 3', value: '3', disabled: false },
     { label: 'Zürich', value: '5', disabled: false }
 ] as const;
 
@@ -97,6 +112,7 @@ const getGroupedOptions = (): GroupedOptionArgs[] => {
 
 const optionSets = {
     [ExampleOptionsType.simpleOptions]: simpleOptions,
+    [ExampleOptionsType.placeholderOptions]: placeholderOptions,
     [ExampleOptionsType.wideOptions]: wideOptions,
     [ExampleOptionsType.manyOptions]: manyOptions,
     [ExampleOptionsType.groupedOptions]: getGroupedOptions()
@@ -129,7 +145,7 @@ const metadata: Meta<SelectArgs> = {
             appearance="${x => x.appearance}"
             filter-mode="${x => (x.filterMode === 'none' ? undefined : x.filterMode)}"
             ?loading-visible="${x => x.loadingVisible}"
-            style="min-width: 250px;"
+            style="width:${x => x.width};"
         >
             ${x => x.label}
             ${when(x => x.optionsType === ExampleOptionsType.groupedOptions, html<SelectArgs>`
@@ -149,6 +165,9 @@ const metadata: Meta<SelectArgs> = {
                 ${repeat(x => (optionSets[x.optionsType] as OptionArgs[]), html<OptionArgs>`
                     <${listOptionTag}
                         ?disabled="${x => x.disabled}"
+                        ?selected="${x => x.selected}"
+                        ?hidden="${x => x.hidden}"
+                        value="${x => x.value}"
                     >
                         ${x => x.label}
                     </${listOptionTag}>
@@ -240,6 +259,14 @@ const metadata: Meta<SelectArgs> = {
             description: 'Emitted when the user types in the filter input.',
             table: { category: apiCategory.events },
             control: false
+        },
+        width: {
+            name: 'width',
+            description:
+                'Width of the select control.<details><summary>Usage details</summary>To customize its size, set its CSS '
+                + '<span style="font-family: monospace;">width</span> to a design token or CSS length value</details>',
+            table: { category: apiCategory.styles },
+            control: { type: 'text' }
         }
     },
     args: {
@@ -252,7 +279,8 @@ const metadata: Meta<SelectArgs> = {
         appearance: DropdownAppearance.underline,
         optionsType: ExampleOptionsType.simpleOptions,
         clearable: false,
-        loadingVisible: false
+        loadingVisible: false,
+        width: '250px'
     }
 };
 
@@ -271,29 +299,8 @@ export const select: StoryObj<SelectArgs> = {
 };
 
 export const placeholder: StoryObj<SelectArgs> = {
-    // prettier-ignore
-    render: createUserSelectedThemeStory(html`
-        ${disableStorybookZoomTransform}
-        <div style="height: 100px;">
-            <${selectTag}
-                style="width: 250px;"
-                position="below"
-            >
-                <${listOptionTag}
-                    disabled
-                    selected
-                    hidden>
-                    Select an option
-                </${listOptionTag}>
-                <${listOptionTag}
-                    value="1">
-                    Option 1
-                </${listOptionTag}>
-                <${listOptionTag}
-                    value="2">
-                    Option 2
-                </${listOptionTag}>
-            </${selectTag}>
-        </div>
-    `)
+    args: {
+        optionsType: ExampleOptionsType.placeholderOptions,
+        clearable: true
+    }
 };
