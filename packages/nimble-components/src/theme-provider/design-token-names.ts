@@ -54,6 +54,7 @@ export const tokenNames: { readonly [key in TokenName]: string } = {
     dialogLargeWidth: 'dialog-large-width',
     dialogLargeHeight: 'dialog-large-height',
     dialogLargeMaxHeight: 'dialog-large-max-height',
+    treeViewLeftMargin: 'tree-view-left-margin',
     menuMinWidth: 'menu-min-width',
     bannerGapSize: 'banner-gap-size',
     spinnerSmallHeight: 'spinner-small-height',

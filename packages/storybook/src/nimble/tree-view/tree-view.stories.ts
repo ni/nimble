@@ -1,6 +1,7 @@
 import { html, repeat, when } from '@microsoft/fast-element';
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html';
+import { treeViewLeftMargin } from '../../../../nimble-components/src/theme-provider/design-tokens';
 import { iconCogTag } from '../../../../nimble-components/src/icons/cog';
 import { iconDatabaseTag } from '../../../../nimble-components/src/icons/database';
 import { treeItemTag } from '../../../../nimble-components/src/tree-item';
@@ -21,6 +22,7 @@ interface TreeArgs {
     options: ItemArgs[];
     expandedChange: undefined;
     selectedChange: undefined;
+    leftMargin: string;
 }
 
 interface ItemArgs {
@@ -199,11 +201,20 @@ export const multipleTreeItems: StoryObj<TreeArgs> = {
             description:
                 'Event emitted when an item is selected or deselected.',
             table: { category: apiCategory.events }
+        },
+        leftMargin: {
+            name: 'Left margin',
+            description: 'Overrides the default left margin of the tree view.',
+            table: { category: apiCategory.styles },
+            control: { type: 'text' }
         }
     },
     // prettier-ignore
     render: createUserSelectedThemeStory(html`
-        <${treeViewTag} selection-mode="${x => x.selectionMode}">
+        <${treeViewTag}
+            selection-mode="${x => x.selectionMode}"  
+            style="${x => `${treeViewLeftMargin.cssCustomProperty}:${x.leftMargin};`}"
+        >
             ${repeat(x => x.options, html<ItemArgs>`
                 <${treeItemTag} ?expanded="${x => x.expanded}" value="${x => x.value}">
                     ${when(x => x.icon, html`<${iconDatabaseTag} slot="start"></${iconDatabaseTag}>`)}
@@ -263,6 +274,7 @@ export const multipleTreeItems: StoryObj<TreeArgs> = {
                 selected: false,
                 expanded: false
             }
-        ]
+        ],
+        leftMargin: '8px'
     }
 };

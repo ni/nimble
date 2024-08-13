@@ -14,7 +14,8 @@ import {
     iconSize,
     mediumDelay,
     bodyDisabledFontColor,
-    iconColor
+    iconColor,
+    treeViewLeftMargin
 } from '../theme-provider/design-tokens';
 import { groupSelectedAttribute } from '../tree-view/types';
 import { DirectionalStyleSheetBehavior } from '../utilities/style/direction';
@@ -98,7 +99,7 @@ export const styles = css`
         align-items: center;
         white-space: nowrap;
         width: 100%;
-        padding-left: 12px;
+        padding-left: ${treeViewLeftMargin};
         font: inherit;
         font-size: ${bodyFontSize};
         ${userSelectNone}
@@ -119,7 +120,7 @@ export const styles = css`
         padding: 0px;
         justify-content: center;
         align-items: center;
-        margin-left: 12px;
+        margin-left: ${treeViewLeftMargin};
         position: absolute;
     }
 
