@@ -6,7 +6,7 @@ import {
     keySpace
 } from '@microsoft/fast-web-utilities';
 import type { MenuButton } from '..';
-import { waitForEventAsync } from '../../utilities/testing/component';
+import { waitForEvent } from '../../utilities/testing/component';
 
 /**
  * Page object for `nimble-menu-button` component to provide consistent ways
@@ -34,7 +34,7 @@ export class MenuButtonPageObject {
             return;
         }
 
-        const toggleEventPromise = waitForEventAsync(
+        const toggleEventPromise = waitForEvent(
             this.menuButtonElement,
             'toggle'
         );

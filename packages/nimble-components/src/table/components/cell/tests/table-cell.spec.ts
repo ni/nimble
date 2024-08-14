@@ -10,7 +10,7 @@ import type { TableCellRecord } from '../../../../table-column/base/types';
 import { TableCellPageObject } from './table-cell.pageobject';
 import { TableCellView } from '../../../../table-column/base/cell-view';
 import { createCellViewTemplate } from '../../../../table-column/base/cell-view/template';
-import { createEventListener } from '../../../../utilities/testing/component';
+import { waitForEvent } from '../../../../utilities/testing/component';
 
 interface SimpleTableCellRecord extends TableCellRecord {
     stringData: string;
@@ -85,35 +85,40 @@ describe('TableCell', () => {
         await connect();
         await waitForUpdatesAsync();
 
-        const cellViewFocusInListener = createEventListener(
+        const cellViewFocusInSpy = jasmine.createSpy();
+        const cellViewFocusInPromise = waitForEvent(
             element,
-            'cell-view-focus-in'
+            'cell-view-focus-in',
+            cellViewFocusInSpy
         );
-        const cellFocusInListener = createEventListener(
+        const cellFocusInSpy = jasmine.createSpy();
+        const cellFocusInPromise = waitForEvent(
             element,
-            'cell-focus-in'
+            'cell-focus-in',
+            cellFocusInSpy
         );
-        const cellBlurListener = createEventListener(element, 'cell-blur');
+        const cellBlurSpy = jasmine.createSpy();
+        const cellBlurPromise = waitForEvent(element, 'cell-blur', cellBlurSpy);
         const renderedCellView = pageObject.getRenderedCellView();
         const span = renderedCellView.shadowRoot
             ?.firstElementChild as HTMLSpanElement;
         span.tabIndex = 0;
         span.focus();
-        await cellViewFocusInListener.promise;
-        await cellFocusInListener.promise;
+        await cellViewFocusInPromise;
+        await cellFocusInPromise;
 
-        expect(cellViewFocusInListener.spy).toHaveBeenCalledOnceWith(
+        expect(cellViewFocusInSpy).toHaveBeenCalledOnceWith(
             jasmine.objectContaining({ detail: element })
         );
-        expect(cellFocusInListener.spy).toHaveBeenCalledOnceWith(
+        expect(cellFocusInSpy).toHaveBeenCalledOnceWith(
             jasmine.objectContaining({ detail: element })
         );
-        expect(cellBlurListener.spy).not.toHaveBeenCalled();
+        expect(cellBlurSpy).not.toHaveBeenCalled();
 
         span.blur();
-        await cellBlurListener.promise;
+        await cellBlurPromise;
 
-        expect(cellBlurListener.spy).toHaveBeenCalledOnceWith(
+        expect(cellBlurSpy).toHaveBeenCalledOnceWith(
             jasmine.objectContaining({ detail: element })
         );
     });
@@ -122,24 +127,26 @@ describe('TableCell', () => {
         await connect();
         await waitForUpdatesAsync();
 
-        const cellViewFocusInListener = createEventListener(
+        const spy = jasmine.createSpy();
+        const cellViewFocusInPromise = waitForEvent(
             element,
-            'cell-view-focus-in'
+            'cell-view-focus-in',
+            spy
         );
         const renderedCellView = pageObject.getRenderedCellView();
         element.tabIndex = 0;
         element.focus();
         await waitForUpdatesAsync();
 
-        expect(cellViewFocusInListener.spy).not.toHaveBeenCalled();
+        expect(spy).not.toHaveBeenCalled();
 
         const span = renderedCellView.shadowRoot
             ?.firstElementChild as HTMLSpanElement;
         span.tabIndex = 0;
         span.focus();
-        await cellViewFocusInListener.promise;
+        await cellViewFocusInPromise;
 
-        expect(cellViewFocusInListener.spy).toHaveBeenCalledOnceWith(
+        expect(spy).toHaveBeenCalledOnceWith(
             jasmine.objectContaining({ detail: element })
         );
     });

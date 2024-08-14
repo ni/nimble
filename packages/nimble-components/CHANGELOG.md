@@ -1,8 +1,48 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Fri, 02 Aug 2024 22:55:10 GMT and should not be manually modified.
+This log was last generated on Mon, 12 Aug 2024 21:44:15 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 31.2.0
+
+Mon, 12 Aug 2024 21:44:15 GMT
+
+### Minor changes
+
+- Add select/combobox page object methods to get label text ([ni/nimble@18f687c](https://github.com/ni/nimble/commit/18f687c6448d16d55adbb9311df860f32816fa94))
+
+## 31.1.4
+
+Sat, 10 Aug 2024 00:15:34 GMT
+
+### Patches
+
+- Bump @ni/nimble-tokens to v8.0.1
+
+## 31.1.3
+
+Fri, 09 Aug 2024 15:08:21 GMT
+
+### Patches
+
+- Switch to tokens for backdrop ([ni/nimble@29961fd](https://github.com/ni/nimble/commit/29961fd8275ca703dbdb44a62a6c6957728c0978))
+
+## 31.1.2
+
+Wed, 07 Aug 2024 16:58:22 GMT
+
+### Patches
+
+- Updates to underlying helpers used by page objects in nimble ([ni/nimble@7ed14a0](https://github.com/ni/nimble/commit/7ed14a002f1315a2867144f4d828c2dcbe9c7f95))
+
+## 31.1.1
+
+Tue, 06 Aug 2024 16:12:52 GMT
+
+### Patches
+
+- Consistent slot text content ([ni/nimble@5411fb9](https://github.com/ni/nimble/commit/5411fb9e2a142414f2e5b378417cc733dc1c718f))
 
 ## 31.1.0
 

@@ -31,7 +31,7 @@ import {
 } from '../types';
 import { TablePageObject } from '../testing/table.pageobject';
 import {
-    createEventListener,
+    waitForEvent,
     sendKeyDownEvent
 } from '../../utilities/testing/component';
 import { TableRow } from '../components/row';
@@ -607,12 +607,12 @@ describe('Table keyboard navigation', () => {
                 await addActionMenu(column1);
                 await sendKeyPressToTable(keyArrowDown);
 
-                const toggleListener = createEventListener(
+                const toggleListener = waitForEvent(
                     element,
                     'action-menu-toggle'
                 );
                 await sendKeyPressToTable(keyEnter, { ctrlKey: true });
-                await toggleListener.promise;
+                await toggleListener;
 
                 expect(pageObject.getCell(0, 0).menuOpen).toBe(true);
             });
@@ -624,21 +624,18 @@ describe('Table keyboard navigation', () => {
                 await addActionMenu(column1);
                 element.focus();
                 await sendKeyPressToTable(keyArrowDown);
-                let toggleListener = createEventListener(
+                let toggleListener = waitForEvent(
                     element,
                     'action-menu-toggle'
                 );
                 pageObject.setRowHoverState(0, true);
                 await sendKeyPressToTable(keyEnter, { ctrlKey: true });
-                await toggleListener.promise;
-                toggleListener = createEventListener(
-                    element,
-                    'action-menu-toggle'
-                );
+                await toggleListener;
+                toggleListener = waitForEvent(element, 'action-menu-toggle');
 
                 await pageObject.scrollToLastRowAsync();
                 await pageObject.scrollToFirstRowAsync();
-                await toggleListener.promise;
+                await toggleListener;
 
                 expect(pageObject.getCell(0, 0).menuOpen).toBe(false);
                 expect(currentFocusedElement()).toBe(pageObject.getCell(0, 0));
@@ -715,7 +712,7 @@ describe('Table keyboard navigation', () => {
                         `pressing ${name} will open the action menu, Esc will close the menu, and another Esc press will focus the (same) cell`,
                         async () => {
                             const actionMenuButton = pageObject.getCellActionMenu(0, 0)!;
-                            const toggleListener = createEventListener(
+                            const toggleListener = waitForEvent(
                                 element,
                                 'action-menu-toggle'
                             );
@@ -723,7 +720,7 @@ describe('Table keyboard navigation', () => {
                                 actionMenuButton.toggleButton!,
                                 value.key
                             );
-                            await toggleListener.promise;
+                            await toggleListener;
 
                             const firstCell = pageObject.getCell(0, 0);
                             expect(firstCell.menuOpen).toBe(true);

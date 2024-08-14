@@ -449,7 +449,10 @@ export const table: StoryObj<TableArgs> = {
         },
         actionMenuSlot: {
             name: 'Action menus',
-            description: `To add an action menu to a column, add a \`${menuTag}\` element as a child of the table and set its slot attribute to a custom value. Then configure the column's \`action-menu-slot\` attribute to the same value. You can configure different action menus for multiple columns by giving them unique slot names.`,
+            description: `To add an action menu to a column, add a \`${menuTag}\` element as a child of the table and set its slot attribute to a custom value.
+                Then configure the column's \`action-menu-slot\` attribute to the same value. You can configure different action menus for multiple columns by
+                giving them unique slot names.<br><br>For information about when to use an action menu rather than a menu button column, see
+                [here](./?path=/docs/components-table-column-menu-button--docs#menu-button-column-vs-table-action-menu)`,
             control: false,
             table: { category: apiCategory.slots }
         },

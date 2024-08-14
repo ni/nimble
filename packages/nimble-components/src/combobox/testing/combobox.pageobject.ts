@@ -7,16 +7,17 @@ import type { Combobox } from '..';
 import { listOptionTag } from '../../list-option';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import {
-    createEventListener,
+    waitForEvent,
     waitAnimationFrame
 } from '../../utilities/testing/component';
+import { slotTextContent } from '../../utilities/models/slot-text-content';
 
 /**
  * Page object for the `nimble-combobox` component to provide consistent ways
  * of querying and interacting with the component during tests.
  */
 export class ComboboxPageObject {
-    private readonly regionLoadedListener = createEventListener(
+    private readonly regionLoadedListener = waitForEvent(
         this.comboboxElement,
         'loaded'
     );
@@ -37,6 +38,17 @@ export class ComboboxPageObject {
         await this.waitForAnchoredRegionLoaded();
         this.setInputText(text);
         this.pressEnterKey();
+    }
+
+    /**
+     * Gets the label text of the element
+     * @returns The current slotted label text, if any
+     */
+    public getLabelText(): string {
+        const labelSlot = this.comboboxElement.shadowRoot!.querySelector<HTMLSlotElement>(
+            'label > slot'
+        )!;
+        return slotTextContent(labelSlot);
     }
 
     /**
@@ -212,6 +224,6 @@ export class ComboboxPageObject {
     }
 
     private async waitForAnchoredRegionLoaded(): Promise<void> {
-        await this.regionLoadedListener.promise;
+        await this.regionLoadedListener;
     }
 }

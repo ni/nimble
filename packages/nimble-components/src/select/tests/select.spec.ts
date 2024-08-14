@@ -8,7 +8,7 @@ import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import { checkFullyInViewport } from '../../utilities/tests/intersection-observer';
 import { FilterMode, SelectFilterInputEventDetail } from '../types';
 import {
-    createEventListener,
+    waitForEvent,
     waitAnimationFrame
 } from '../../utilities/testing/component';
 import { filterSearchLabel } from '../../label-provider/core/label-tokens';
@@ -19,6 +19,12 @@ import { isListOptionGroup } from '../template';
 const disabledOption = 'disabled';
 const disabledSelectedOption = 'disabled selected';
 const placeholderSelectedOption = 'disabled selected hidden';
+
+type SelectFilterInputEventHandler = (
+    evt: CustomEvent<SelectFilterInputEventDetail>
+) => void;
+
+type CustomEventHandler = (evt: CustomEvent) => void;
 
 type OptionInitialState =
     | 'selected'
@@ -85,9 +91,9 @@ async function setupWithGroups(): Promise<Fixture<Select>> {
 }
 
 async function clickAndWaitForOpen(select: Select): Promise<void> {
-    const regionLoadedListener = createEventListener(select, 'loaded');
+    const regionLoadedPromise = waitForEvent(select, 'loaded');
     select.click();
-    await regionLoadedListener.promise;
+    await regionLoadedPromise;
 }
 
 describe('Select', () => {
@@ -1461,9 +1467,6 @@ describe('Select', () => {
             });
 
             it('emits filter-input event when filter text is entered', async () => {
-                type SelectFilterInputEventHandler = (
-                    evt: CustomEvent<SelectFilterInputEventDetail>
-                ) => void;
                 const filterInputEvent = jasmine.createSpy<SelectFilterInputEventHandler>();
                 element.addEventListener(
                     'filter-input',
@@ -1477,16 +1480,16 @@ describe('Select', () => {
             });
 
             it('emits filter-input event with empty filterText when dropdown is closed', async () => {
-                const filterInputEvent = jasmine.createSpy();
-                element.addEventListener('filter-input', filterInputEvent);
+                const filterInputEvent = jasmine.createSpy<SelectFilterInputEventHandler>();
+                element.addEventListener(
+                    'filter-input',
+                    filterInputEvent as unknown as EventListener
+                );
                 await pageObject.openAndSetFilterText('o');
                 await pageObject.clickAway();
                 expect(filterInputEvent).toHaveBeenCalledTimes(2);
                 expect(
-                    (
-                        (filterInputEvent.calls.argsFor(1)[0] as CustomEvent)
-                            .detail as SelectFilterInputEventDetail
-                    ).filterText
+                    filterInputEvent.calls.argsFor(1)[0].detail.filterText
                 ).toBe('');
             });
         });
@@ -2146,66 +2149,74 @@ describe('Select', () => {
 
             it('when clicking value, filter-input event occurs after value has been updated', async () => {
                 await clickAndWaitForOpen(element);
-                const eventSpy = jasmine.createSpy();
-                element.addEventListener('filter-input', eventSpy);
-                element.addEventListener('change', eventSpy);
+                const eventSpy = jasmine.createSpy<CustomEventHandler>();
+                element.addEventListener(
+                    'filter-input',
+                    eventSpy as unknown as EventListener
+                );
+                element.addEventListener(
+                    'change',
+                    eventSpy as unknown as EventListener
+                );
 
                 pageObject.clickOptionWithDisplayText('Two');
                 expect(eventSpy).toHaveBeenCalledTimes(2);
-                expect((eventSpy.calls.argsFor(0)[0] as CustomEvent).type).toBe(
-                    'change'
-                );
-                expect((eventSpy.calls.argsFor(1)[0] as CustomEvent).type).toBe(
-                    'filter-input'
-                );
+                expect(eventSpy.calls.argsFor(0)[0].type).toBe('change');
+                expect(eventSpy.calls.argsFor(1)[0].type).toBe('filter-input');
             });
 
             it('when selecting a value with <Enter>, filter-input event occurs after value has been updated', async () => {
                 await clickAndWaitForOpen(element);
-                const eventSpy = jasmine.createSpy();
-                element.addEventListener('filter-input', eventSpy);
-                element.addEventListener('change', eventSpy);
+                const eventSpy = jasmine.createSpy<CustomEventHandler>();
+                element.addEventListener(
+                    'filter-input',
+                    eventSpy as unknown as EventListener
+                );
+                element.addEventListener(
+                    'change',
+                    eventSpy as unknown as EventListener
+                );
 
                 pageObject.pressArrowDownKey();
                 pageObject.pressEnterKey();
                 expect(eventSpy).toHaveBeenCalledTimes(2);
-                expect((eventSpy.calls.argsFor(0)[0] as CustomEvent).type).toBe(
-                    'change'
-                );
-                expect((eventSpy.calls.argsFor(1)[0] as CustomEvent).type).toBe(
-                    'filter-input'
-                );
+                expect(eventSpy.calls.argsFor(0)[0].type).toBe('change');
+                expect(eventSpy.calls.argsFor(1)[0].type).toBe('filter-input');
             });
 
             it('pressing <Esc> issues one filter-input event with empty filterText', async () => {
                 await clickAndWaitForOpen(element);
-                const filterInputEventListener = createEventListener(
+                const spy = jasmine.createSpy<SelectFilterInputEventHandler>();
+                const filterInputEventPromise = waitForEvent(
                     element,
-                    'filter-input'
+                    'filter-input',
+                    spy
                 );
                 pageObject.pressEscapeKey();
+                await filterInputEventPromise;
                 const expectedDetails: SelectFilterInputEventDetail = {
                     filterText: ''
                 };
-                const event = filterInputEventListener.spy.calls.first()
-                    .args[0] as CustomEvent;
-                expect(filterInputEventListener.spy).toHaveBeenCalledTimes(1);
+                const event = spy.calls.first().args[0];
+                expect(spy).toHaveBeenCalledTimes(1);
                 expect(event.detail).toEqual(expectedDetails);
             });
 
             it('clicking outside of dropdown issues one filter-input event with empty filterText', async () => {
                 await clickAndWaitForOpen(element);
-                const filterInputEventListener = createEventListener(
+                const spy = jasmine.createSpy<CustomEventHandler>();
+                const filterInputEventPromise = waitForEvent(
                     element,
-                    'filter-input'
+                    'filter-input',
+                    spy
                 );
                 await pageObject.clickAway();
+                await filterInputEventPromise;
                 const expectedDetails: SelectFilterInputEventDetail = {
                     filterText: ''
                 };
-                const event = filterInputEventListener.spy.calls.first()
-                    .args[0] as CustomEvent;
-                expect(filterInputEventListener.spy).toHaveBeenCalledTimes(1);
+                const event = spy.calls.first().args[0];
+                expect(spy).toHaveBeenCalledTimes(1);
                 expect(event.detail).toEqual(expectedDetails);
             });
         });
@@ -2284,14 +2295,12 @@ describe('Select', () => {
         });
 
         it('exercise setFilter', () => {
-            const filterInputListener = createEventListener(
-                element,
-                'filter-input'
-            );
+            const spy = jasmine.createSpy();
+            element.addEventListener('filter-input', spy, { once: true });
             pageObject.clickSelect();
             pageObject.setFilter('Two');
 
-            expect(filterInputListener.spy).toHaveBeenCalledOnceWith(
+            expect(spy).toHaveBeenCalledOnceWith(
                 jasmine.objectContaining({
                     detail: { filterText: 'Two' }
                 })

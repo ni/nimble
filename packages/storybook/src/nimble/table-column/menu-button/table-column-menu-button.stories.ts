@@ -1,6 +1,14 @@
-import { html, ref } from '@microsoft/fast-element';
+import {
+    ExecutionContext,
+    html,
+    observable,
+    ref,
+    repeat,
+    when
+} from '@microsoft/fast-element';
 import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html';
 import { withActions } from '@storybook/addon-actions/decorator';
+import { iconCheckTag } from '../../../../../nimble-components/src/icons/check';
 import { tableTag } from '../../../../../nimble-components/src/table';
 import type { TableRecord } from '../../../../../nimble-components/src/table/types';
 import { tableColumnTextTag } from '../../../../../nimble-components/src/table-column/text';
@@ -20,24 +28,33 @@ import {
     disableStorybookZoomTransform
 } from '../../../utilities/storybook';
 
+const colors = ['Red', 'Green', 'Blue', 'Black', 'Yellow'] as const;
+
+interface SimpleRecord extends TableRecord {
+    id: string;
+    firstName: string;
+    lastName: string;
+    favoriteColor: string;
+}
+
 const simpleData = [
     {
         id: 'Ralph Wiggum',
         firstName: 'Ralph',
         lastName: 'Wiggum',
-        favoriteColor: 'Rainbow'
+        favoriteColor: 'Blue'
     },
     {
         id: 'Milhouse Van Houten',
         firstName: 'Milhouse',
         lastName: 'Van Houten',
-        favoriteColor: 'Crimson'
+        favoriteColor: 'Green'
     },
     {
         id: 'Ned Flanders',
         firstName: 'Ned',
         lastName: 'Flanders',
-        favoriteColor: 'Taupe'
+        favoriteColor: 'Red'
     },
     {
         id: 'Maggie Simpson',
@@ -55,7 +72,7 @@ const simpleData = [
         id: 'Marge Simpson',
         firstName: 'Marge',
         lastName: 'Simpson',
-        favoriteColor: 'Purple'
+        favoriteColor: 'Black'
     },
     {
         id: 'Bart Simpson',
@@ -73,13 +90,13 @@ const simpleData = [
         id: 'Moe Szyslak',
         firstName: 'Moe',
         lastName: 'Szyslak',
-        favoriteColor: 'Orange'
+        favoriteColor: 'Red'
     },
     {
         id: 'Barney Gumble',
         firstName: 'Barney',
         lastName: 'Gumble',
-        favoriteColor: 'Pink'
+        favoriteColor: 'Red'
     },
     {
         id: 'Lenny Leonard',
@@ -91,103 +108,103 @@ const simpleData = [
         id: 'Carl Carlson',
         firstName: 'Carl',
         lastName: 'Carlson',
-        favoriteColor: 'White'
+        favoriteColor: 'Yellow'
     },
     {
         id: 'Waylon Smithers',
         firstName: 'Waylon',
         lastName: 'Smithers',
-        favoriteColor: 'Brown'
+        favoriteColor: 'Black'
     },
     {
         id: 'Edna Krabappel',
         firstName: 'Edna',
         lastName: 'Krabappel',
-        favoriteColor: 'Gray'
+        favoriteColor: 'Black'
     },
     {
         id: 'Seymour Skinner',
         firstName: 'Seymour',
         lastName: 'Skinner',
-        favoriteColor: 'Beige'
+        favoriteColor: 'Green'
     },
     {
         id: 'Patty Bouvier',
         firstName: 'Patty',
         lastName: 'Bouvier',
-        favoriteColor: 'Teal'
+        favoriteColor: 'Green'
     },
     {
         id: 'Selma Bouvier',
         firstName: 'Selma',
         lastName: 'Bouvier',
-        favoriteColor: 'Lavender'
+        favoriteColor: 'Red'
     },
     {
         id: 'Nelson Muntz',
         firstName: 'Nelson',
         lastName: 'Muntz',
-        favoriteColor: 'Magenta'
+        favoriteColor: 'Blue'
     },
     {
         id: 'Jimbo Jones',
         firstName: 'Jimbo',
         lastName: 'Jones',
-        favoriteColor: 'Cyan'
+        favoriteColor: 'Blue'
     },
     {
         id: 'Kearney Zzyzwicz',
         firstName: 'Kearney',
         lastName: 'Zzyzwicz',
-        favoriteColor: 'Azure'
+        favoriteColor: 'Blue'
     },
     {
         id: 'Dolph Starbeam',
         firstName: 'Dolph',
         lastName: 'Starbeam',
-        favoriteColor: 'Aquamarine'
+        favoriteColor: 'Blue'
     },
     {
         id: 'Wendell Borton',
         firstName: 'Wendell',
         lastName: 'Borton',
-        favoriteColor: 'Turquoise'
+        favoriteColor: 'Green'
     },
     {
         id: 'Martin Prince',
         firstName: 'Martin',
         lastName: 'Prince',
-        favoriteColor: 'Sienna'
+        favoriteColor: 'Yellow'
     },
     {
         id: 'Sherri Mackleberry',
         firstName: 'Sherri',
         lastName: 'Mackleberry',
-        favoriteColor: 'Periwinkle'
+        favoriteColor: 'Red'
     },
     {
         id: 'Terri Mackleberry',
         firstName: 'Terri',
         lastName: 'Mackleberry',
-        favoriteColor: 'Coral'
+        favoriteColor: 'Black'
     },
     {
         id: 'Rod Flanders',
         firstName: 'Rod',
         lastName: 'Flanders',
-        favoriteColor: 'Cyan'
+        favoriteColor: 'Green'
     },
     {
         id: 'Todd Flanders',
         firstName: 'Todd',
         lastName: 'Flanders',
-        favoriteColor: 'Magenta'
+        favoriteColor: 'Red'
     },
     {
         id: 'Agnes Skinner',
         firstName: 'Agnes',
         lastName: 'Skinner',
-        favoriteColor: 'Azure'
+        favoriteColor: 'Blue'
     }
 ] as const;
 
@@ -219,6 +236,15 @@ const metadata: Meta<SharedTableArgs> = {
 
 export default metadata;
 
+/**
+ * A class to hold the state that the menu needs to render. This needs
+ * to be in a class so that it can have observable properties.
+ */
+class MenuState {
+    @observable
+    public currentColor?: string;
+}
+
 interface MenuButtonColumnTableArgs extends SharedTableArgs {
     fieldName: string;
     menuSlot: string;
@@ -229,7 +255,13 @@ interface MenuButtonColumnTableArgs extends SharedTableArgs {
     menuRef: Menu;
     toggleEvent: never;
     beforeToggleEvent: never;
-    currentData: TableRecord[];
+    currentData: SimpleRecord[];
+    updateFavoriteColor: (
+        storyArgs: MenuButtonColumnTableArgs,
+        color: string
+    ) => void;
+    currentRecord?: SimpleRecord;
+    menuState: MenuState;
 }
 
 export const menuButtonColumn: StoryObj<MenuButtonColumnTableArgs> = {
@@ -257,6 +289,14 @@ export const menuButtonColumn: StoryObj<MenuButtonColumnTableArgs> = {
             </${tableColumnMenuButtonTag}>
 
             <${menuTag} ${ref('menuRef')} slot="${x => x.menuSlot}">
+                ${repeat(() => colors, html<string, MenuButtonColumnTableArgs>`
+                    <${menuItemTag} @change="${(x, c) => c.parent.updateFavoriteColor(c.parent, x)}">
+                        ${when((x, c: ExecutionContext<MenuButtonColumnTableArgs>) => x === c.parent.menuState.currentColor, html`
+                            <${iconCheckTag} slot="start"></${iconCheckTag}>
+                        `)}
+                        ${x => x}
+                    </${menuItemTag}>
+                `)}
             </${menuTag}>
         </${tableTag}>
     `),
@@ -290,6 +330,21 @@ export const menuButtonColumn: StoryObj<MenuButtonColumnTableArgs> = {
                 disable: true
             }
         },
+        updateFavoriteColor: {
+            table: {
+                disable: true
+            }
+        },
+        currentRecord: {
+            table: {
+                disable: true
+            }
+        },
+        menuState: {
+            table: {
+                disable: true
+            }
+        },
         toggleEvent: {
             name: 'menu-button-column-toggle',
             description:
@@ -310,40 +365,28 @@ export const menuButtonColumn: StoryObj<MenuButtonColumnTableArgs> = {
         menuSlot: 'color-menu',
         menuRef: undefined,
         currentData: [...simpleData],
+        menuState: new MenuState(),
         updateMenuItems: (
             storyArgs: MenuButtonColumnTableArgs,
             e: CustomEvent<MenuButtonColumnToggleEventDetail>
         ): void => {
             if (e.detail.newState) {
                 const recordId = e.detail.recordId;
+                storyArgs.currentRecord = storyArgs.currentData.find(
+                    d => d.id === recordId
+                )!;
 
-                const changeFavoriteColor = (color: string): void => {
-                    const newData = storyArgs.currentData.map(d => {
-                        if (d.id !== recordId) {
-                            return d;
-                        }
-                        return {
-                            ...d,
-                            favoriteColor: color
-                        };
-                    });
-                    storyArgs.currentData = newData;
-                    void storyArgs.tableRef.setData(newData);
-                };
-
-                const item1 = document.createElement(menuItemTag);
-                item1.textContent = `[${recordId}] Blue`;
-                item1.addEventListener('change', () => changeFavoriteColor('Blue'));
-
-                const item2 = document.createElement(menuItemTag);
-                item2.textContent = `[${recordId}] Green`;
-                item2.addEventListener('change', () => changeFavoriteColor('Green'));
-
-                const item3 = document.createElement(menuItemTag);
-                item3.textContent = `[${recordId}] Purple`;
-                item3.addEventListener('change', () => changeFavoriteColor('Purple'));
-
-                storyArgs.menuRef.replaceChildren(item1, item2, item3);
+                const currentColor = storyArgs.currentRecord.favoriteColor;
+                storyArgs.menuState.currentColor = currentColor;
+            }
+        },
+        updateFavoriteColor: (
+            storyArgs: MenuButtonColumnTableArgs,
+            color: string
+        ): void => {
+            if (storyArgs.currentRecord) {
+                storyArgs.currentRecord.favoriteColor = color;
+                void storyArgs.tableRef.setData(storyArgs.currentData);
             }
         }
     }

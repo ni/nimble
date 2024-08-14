@@ -118,11 +118,6 @@ import {
     DigitalGreenDark110,
     Black82
 } from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
-import {
-    modalBackdropColorThemeColorStatic,
-    modalBackdropColorThemeDarkStatic,
-    modalBackdropColorThemeLightStatic
-} from './design-tokens-static';
 import { Theme } from './types';
 import { tokenNames, styleNameFromTokenName } from './design-token-names';
 import { theme } from '.';
@@ -1127,12 +1122,12 @@ function getFillDownColorForTheme(element: HTMLElement): string {
 function getModalBackdropForTheme(element: HTMLElement): string {
     switch (theme.getValueFor(element)) {
         case Theme.light:
-            return modalBackdropColorThemeLightStatic;
+            return hexToRgbaCssColor(Black, 0.3);
         case Theme.dark:
-            return modalBackdropColorThemeDarkStatic;
+            return hexToRgbaCssColor(Black, 0.6);
         case Theme.color:
-            return modalBackdropColorThemeColorStatic;
+            return hexToRgbaCssColor(Black, 0.6);
         default:
-            return modalBackdropColorThemeLightStatic;
+            return hexToRgbaCssColor(Black, 0.3);
     }
 }

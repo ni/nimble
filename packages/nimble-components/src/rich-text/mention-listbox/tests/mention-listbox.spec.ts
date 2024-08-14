@@ -4,7 +4,7 @@ import { waitForUpdatesAsync } from '../../../testing/async-helpers';
 import { type Fixture, fixture } from '../../../utilities/tests/fixture';
 import { listOptionTag } from '../../../list-option';
 import {
-    createEventListener,
+    waitForEvent,
     waitAnimationFrame
 } from '../../../utilities/testing/component';
 import { checkFullyInViewport } from '../../../utilities/tests/intersection-observer';
@@ -55,12 +55,12 @@ describe('RichTextMentionListbox', () => {
     }
 
     async function showAndWaitForOpen(filter = ''): Promise<void> {
-        const regionLoadedListener = createEventListener(element, 'loaded');
+        const regionLoadedPromise = waitForEvent(element, 'loaded');
         element.show({
             anchorNode: anchor,
             filter
         });
-        await regionLoadedListener.promise;
+        await regionLoadedPromise;
     }
 
     beforeEach(async () => {
