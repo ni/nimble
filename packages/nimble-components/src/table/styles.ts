@@ -28,7 +28,7 @@ export const styles = css`
 
     :host {
         height: 480px;
-        ${tableFitToRowsHeight.cssCustomProperty}: calc(var(--ni-private-table-scroll-height) + 32px);
+        ${tableFitToRowsHeight.cssCustomProperty}: calc(var(--ni-private-table-scroll-height) + ${controlHeight});
         ${
             /**
              * Set a default maximum height for the table of 40.5 rows plus the header row so
@@ -38,11 +38,8 @@ export const styles = css`
              */ ''
         }
         max-height: calc(${controlHeight} + (40.5 * (2 * ${borderWidth} + ${controlHeight})));
-        flex-direction: column;
         --ni-private-column-divider-width: 2px;
         --ni-private-column-divider-padding: 3px;
-
-        background-color: lightblue;
     }
 
     :host(${focusVisible}) {
@@ -67,8 +64,6 @@ export const styles = css`
         font: ${bodyFont};
         color: ${bodyFontColor};
         cursor: var(--ni-private-table-cursor-override);
-        flex-grow: 1;
-        flex-shrink: 1;
     }
 
     .glass-overlay {

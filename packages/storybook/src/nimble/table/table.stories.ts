@@ -498,7 +498,7 @@ export const table: StoryObj<TableArgs> = {
         autoHeight: {
             name: 'auto-height',
             description:
-                'When set to `true`, the table will automatically adjust its height to fit the number of rows in the table.',
+                'TODO',
             table: { category: apiCategory.attributes }
         },
         resizable: {

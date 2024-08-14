@@ -503,10 +503,11 @@ export const spinnerLargeHeight = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.spinnerLargeHeight)
 ).withDefault('64px');
 
+// The token gets a default value of empty-string but is a value in
+// the table styles.
 export const tableFitToRowsHeight = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.tableFitToRowsHeight)
-// eslint-disable-next-line no-template-curly-in-string
-).withDefault('calc(var(--ni-private-table-scroll-height) + ${controlHeight})');
+).withDefault('');
 
 // Drop Shadow Tokens
 export const elevation1BoxShadow = DesignToken.create<string>(
