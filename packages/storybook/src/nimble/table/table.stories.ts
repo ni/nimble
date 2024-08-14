@@ -24,6 +24,7 @@ import {
     validityDescription
 } from '../../utilities/storybook';
 import { isChromatic } from '../../utilities/isChromatic';
+import { tableFitToRowsHeight } from '@ni/nimble-components/src/theme-provider/design-tokens';
 
 interface BaseTableArgs extends LabelUserArgs {
     tableRef: Table;
@@ -268,13 +269,17 @@ mode is \`single\`, only the first record that exists in the table's data will b
 export const table: StoryObj<TableArgs> = {
     // prettier-ignore
     render: createUserSelectedThemeStory(html<TableArgs>`
+        <style>
+            nimble-table {
+                ${x => (x.autoHeight ? `height: var(${tableFitToRowsHeight.cssCustomProperty})` : '')}
+            }
+        </style>
         <${tableTag}
             ${ref('tableRef')}
             selection-mode="${x => TableRowSelectionMode[x.selectionMode]}"
             id-field-name="id"
             data-unused="${x => x.updateData(x)}"
             parent-id-field-name="parentId"
-            ?auto-height="${x => x.autoHeight}"
             style="${x => x.resizable && 'resize: both; overflow: hidden;'}"
         >
             <${tableColumnTextTag}

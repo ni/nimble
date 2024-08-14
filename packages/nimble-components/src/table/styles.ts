@@ -11,7 +11,9 @@ import {
     standardPadding,
     tableRowBorderColor,
     borderHoverColor,
-    controlHeight
+    controlHeight,
+    tableFitToRowsHeight,
+    borderWidth
 } from '../theme-provider/design-tokens';
 import { Theme } from '../theme-provider/types';
 import { hexToRgbaCssColor } from '../utilities/style/colors';
@@ -26,22 +28,21 @@ export const styles = css`
 
     :host {
         height: 480px;
+        ${tableFitToRowsHeight.cssCustomProperty}: calc(var(--ni-private-table-scroll-height) + 32px);
         ${
             /**
-             * Set a default maximum height for the table of 250 rows (including the header row) so
+             * Set a default maximum height for the table of 40.5 rows plus the header row so
              * that clients don't accidentally create a table that tries to render too many rows at once.
              * If needed, the max-height can be overridden by the client, but setting a default ensures
              * that the max-height is considered if a larger one is needed rather than being overlooked.
              */ ''
         }
-        max-height: calc(250 * ${controlHeight});
+        max-height: calc(${controlHeight} + (40.5 * (2 * ${borderWidth} + ${controlHeight})));
         flex-direction: column;
         --ni-private-column-divider-width: 2px;
         --ni-private-column-divider-padding: 3px;
-    }
 
-    :host([auto-height]) {
-        height: auto;
+        background-color: lightblue;
     }
 
     :host(${focusVisible}) {
@@ -68,12 +69,6 @@ export const styles = css`
         cursor: var(--ni-private-table-cursor-override);
         flex-grow: 1;
         flex-shrink: 1;
-    }
-
-    :host([auto-height]) .table-container {
-        flex-basis: calc(
-            var(--ni-private-table-scroll-height) + ${controlHeight}
-        );
     }
 
     .glass-overlay {
