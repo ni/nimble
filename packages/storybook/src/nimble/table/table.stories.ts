@@ -1,6 +1,7 @@
 import { html, ref } from '@microsoft/fast-element';
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html';
+import { tableFitToRowsHeight } from '@ni/nimble-components/src/theme-provider/design-tokens';
 import { iconUserTag } from '../../../../nimble-components/src/icons/user';
 import { menuTag } from '../../../../nimble-components/src/menu';
 import { menuItemTag } from '../../../../nimble-components/src/menu-item';
@@ -24,7 +25,6 @@ import {
     validityDescription
 } from '../../utilities/storybook';
 import { isChromatic } from '../../utilities/isChromatic';
-import { tableFitToRowsHeight } from '@ni/nimble-components/src/theme-provider/design-tokens';
 
 interface BaseTableArgs extends LabelUserArgs {
     tableRef: Table;
@@ -497,8 +497,7 @@ export const table: StoryObj<TableArgs> = {
         },
         autoHeight: {
             name: 'auto-height',
-            description:
-                'TODO',
+            description: 'TODO',
             table: { category: apiCategory.attributes }
         },
         resizable: {
