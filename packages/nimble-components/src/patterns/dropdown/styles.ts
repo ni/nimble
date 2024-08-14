@@ -220,7 +220,26 @@ export const styles = css`
         box-shadow: ${elevation2BoxShadow};
         border: ${borderWidth} solid ${popupBorderColor};
         background-color: ${applicationBackgroundColor};
-        padding: var(--ni-private-listbox-padding);
+    }
+
+    .listbox::before {
+        content: '';
+        position: absolute;
+        display: block;
+        top: calc(${smallPadding} + ${borderWidth});
+        height: var(--ni-private-listbox-padding);
+        width: calc(100% - 2px);
+        background-color: ${applicationBackgroundColor};
+    }
+
+    .listbox::after {
+        content: '';
+        position: absolute;
+        display: block;
+        bottom: 0;
+        height: var(--ni-private-listbox-padding);
+        width: calc(100% - 2px);
+        background-color: ${applicationBackgroundColor};
     }
 
     .listbox:has(.filter-field) {
@@ -243,6 +262,7 @@ export const styles = css`
 
     .scrollable-region {
         overflow-y: auto;
+        padding: var(--ni-private-listbox-padding);
     }
 
     .listbox slot {
