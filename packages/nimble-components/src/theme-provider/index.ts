@@ -41,12 +41,6 @@ export class ThemeProvider extends ThemeBase {
     @attr()
     public override lang!: string;
 
-    @attr()
-    public direction?: Direction;
-
-    @attr()
-    public theme: Theme = Theme.light;
-
     public get validity(): ValidityObject {
         return {
             invalidLang: this.langIsInvalid
