@@ -1,95 +1,90 @@
 import { css } from '@microsoft/fast-element';
-import { display } from '@microsoft/fast-foundation';
+import { display } from '../utilities/style/display';
 import { focusVisible } from '../utilities/style/focus';
 import {
-    linkActiveDisabledFontColor,
+    borderHoverColor,
     linkActiveFontColor,
     linkActiveProminentFontColor,
     linkDisabledFontColor,
     linkFont,
     linkFontColor,
-    linkProminentDisabledFontColor,
     linkProminentFontColor
 } from '../theme-provider/design-tokens';
 
 export const styles = css`
-    ${display('inline')}
+    @layer base, hover, focusVisible, active, disabled;
 
-    :host {
-        box-sizing: border-box;
-        font: ${linkFont};
+    @layer base {
+        ${display('inline')}
+
+        :host {
+            font: ${linkFont};
+        }
+
+        .top-container {
+            display: contents;
+        }
+
+        .control {
+            color: ${linkFontColor};
+            text-decoration: underline;
+        }
+
+        :host([underline-hidden]) .control {
+            text-decoration: none;
+        }
+
+        :host([appearance='prominent']) .control {
+            color: ${linkProminentFontColor};
+        }
+
+        [part='start'] {
+            display: none;
+        }
+
+        .content {
+            pointer-events: none;
+        }
+
+        [part='end'] {
+            display: none;
+        }
     }
 
-    [part='start'] {
-        display: none;
+    @layer hover {
+        .control:any-link:hover {
+            text-decoration: underline;
+        }
     }
 
-    .control {
-        color: ${linkFontColor};
-        text-decoration: underline;
+    @layer focusVisible {
+        .control${focusVisible} {
+            outline: none;
+            box-shadow: inset 0px -1px;
+            text-decoration: underline;
+            color: ${borderHoverColor};
+        }
     }
 
-    .control${focusVisible} {
-        display: inline;
-        outline: none;
-        box-shadow: inset 0px -1px ${linkFontColor};
+    @layer active {
+        .control:active {
+            color: ${linkActiveFontColor};
+            text-decoration: underline;
+            box-shadow: none;
+        }
+
+        :host([appearance='prominent']) .control:active {
+            color: ${linkActiveProminentFontColor};
+        }
+
+        :host([underline-hidden]) .control:active {
+            text-decoration: none;
+        }
     }
 
-    .control:active {
-        color: ${linkActiveFontColor};
-        text-decoration: underline;
-    }
-
-    .control${focusVisible}:active {
-        box-shadow: inset 0px -1px ${linkActiveFontColor};
-    }
-
-    .control:not(:any-link) {
-        color: ${linkDisabledFontColor};
-        text-decoration: none;
-    }
-
-    .control:not(:any-link):active {
-        color: ${linkActiveDisabledFontColor};
-    }
-
-    :host([underline-hidden]) .control {
-        text-decoration: none;
-    }
-
-    :host([underline-hidden]) .control:hover {
-        text-decoration: underline;
-    }
-
-    :host([underline-hidden]) .control${focusVisible} {
-        text-decoration: underline;
-    }
-
-    :host([underline-hidden]) .control:not(:any-link) {
-        text-decoration: none;
-    }
-
-    :host([appearance='prominent']) .control {
-        color: ${linkProminentFontColor};
-    }
-
-    :host([appearance='prominent']) .control:active {
-        color: ${linkActiveProminentFontColor};
-    }
-
-    :host([appearance='prominent']) .control${focusVisible} {
-        box-shadow: inset 0px -1px ${linkProminentFontColor};
-    }
-
-    :host([appearance='prominent']) .control${focusVisible}:active {
-        box-shadow: inset 0px -1px ${linkActiveProminentFontColor};
-    }
-
-    :host([appearance='prominent']) .control:not(:any-link) {
-        color: ${linkProminentDisabledFontColor};
-    }
-
-    [part='end'] {
-        display: none;
+    @layer disabled {
+        .control:not(:any-link) {
+            color: ${linkDisabledFontColor};
+        }
     }
 `;

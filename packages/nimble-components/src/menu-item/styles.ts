@@ -1,5 +1,5 @@
 import { css } from '@microsoft/fast-element';
-import { display } from '@microsoft/fast-foundation';
+import { display } from '../utilities/style/display';
 import { focusVisible } from '../utilities/style/focus';
 
 import {
@@ -10,7 +10,8 @@ import {
     borderHoverColor,
     iconSize,
     bodyFont,
-    bodyDisabledFontColor
+    bodyDisabledFontColor,
+    iconColor
 } from '../theme-provider/design-tokens';
 
 export const styles = css`
@@ -19,7 +20,6 @@ export const styles = css`
     :host {
         contain: layout;
         overflow: visible;
-        box-sizing: border-box;
         height: ${controlHeight};
         grid-template-columns: 1fr;
         column-gap: 8px;
@@ -69,11 +69,11 @@ export const styles = css`
         display: contents;
     }
     slot[name='start']::slotted(*) {
-        fill: currentcolor;
+        ${iconColor.cssCustomProperty}: currentcolor;
         width: ${iconSize};
         height: ${iconSize};
     }
-    :host(.indent-1) .start {
+    :host(.indent-1) [part='start'] {
         grid-column: 1;
     }
     :host(.indent-1) .content {

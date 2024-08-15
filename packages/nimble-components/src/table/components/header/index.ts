@@ -1,6 +1,6 @@
 import { attr, observable } from '@microsoft/fast-element';
 import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
-import { TableColumnSortDirection } from '../../types';
+import { TableColumnAlignment, TableColumnSortDirection } from '../../types';
 import { styles } from './styles';
 import { template } from './template';
 
@@ -20,6 +20,12 @@ export class TableHeader extends FoundationElement {
 
     @attr({ attribute: 'first-sorted-column', mode: 'boolean' })
     public firstSortedColumn = false;
+
+    @attr({ attribute: 'indicators-hidden', mode: 'boolean' })
+    public indicatorsHidden = false;
+
+    @observable
+    public alignment: TableColumnAlignment = TableColumnAlignment.left;
 
     @observable
     public isGrouped = false;
@@ -59,4 +65,4 @@ const nimbleTableHeader = TableHeader.compose({
 });
 
 DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleTableHeader());
-export const tableHeaderTag = DesignSystem.tagFor(TableHeader);
+export const tableHeaderTag = 'nimble-table-header';

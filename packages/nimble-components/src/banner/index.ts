@@ -52,14 +52,6 @@ export class Banner extends FoundationElement {
     public preventDismiss = false;
 
     /**
-     * @public
-     * @description
-     * Label (not visible) for the dismiss button
-     */
-    @attr({ attribute: 'dismiss-button-label' })
-    public dismissButtonLabel?: string;
-
-    /**
      * @internal
      */
     public openChanged(): void {
@@ -89,4 +81,4 @@ const nimbleBanner = Banner.compose({
 });
 
 DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleBanner());
-export const bannerTag = DesignSystem.tagFor(Banner);
+export const bannerTag = 'nimble-banner';

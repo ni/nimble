@@ -1,16 +1,12 @@
-/* eslint-disable max-classes-per-file */
 import { customElement, html, ref } from '@microsoft/fast-element';
 import { MenuItem as FoundationMenuItem } from '@microsoft/fast-foundation';
-import { AnchorMenuItem, anchorMenuItemTag } from '..';
-import { anchorTag } from '../../anchor';
-import { buttonTag } from '../../button';
+import { parameterizeSpec } from '@ni/jasmine-parameterized';
+import { AnchorMenuItem } from '..';
 import type { IconCheck } from '../../icons/check';
 import type { IconXmark } from '../../icons/xmark';
-import { Menu, menuTag } from '../../menu';
-import { menuItemTag } from '../../menu-item';
+import type { Menu } from '../../menu';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import { fixture, Fixture } from '../../utilities/tests/fixture';
-import { getSpecTypeByNamedList } from '../../utilities/tests/parameterized';
 
 @customElement('foundation-menu-item')
 export class TestMenuItem extends FoundationMenuItem {}
@@ -70,7 +66,7 @@ describe('Anchor Menu Item', () => {
             expect(element.ariaDisabled).toBe('true');
         });
 
-        const attributeNames: { name: string }[] = [
+        const attributeNames = [
             { name: 'download' },
             { name: 'href' },
             { name: 'hreflang' },
@@ -79,28 +75,18 @@ describe('Anchor Menu Item', () => {
             { name: 'rel' },
             { name: 'target' },
             { name: 'type' }
-        ];
+        ] as const;
         describe('should reflect value to the internal control', () => {
-            const focused: string[] = [];
-            const disabled: string[] = [];
-            for (const attribute of attributeNames) {
-                const specType = getSpecTypeByNamedList(
-                    attribute,
-                    focused,
-                    disabled
-                );
-                // eslint-disable-next-line @typescript-eslint/no-loop-func
-                specType(`for attribute ${attribute.name}`, async () => {
+            parameterizeSpec(attributeNames, (spec, name) => {
+                spec(`for attribute ${name}`, async () => {
                     await connect();
 
-                    element.setAttribute(attribute.name, 'foo');
+                    element.setAttribute(name, 'foo');
                     await waitForUpdatesAsync();
 
-                    expect(element.anchor.getAttribute(attribute.name)).toBe(
-                        'foo'
-                    );
+                    expect(element.anchor.getAttribute(name)).toBe('foo');
                 });
-            }
+            });
         });
 
         it('should expose slotted content through properties', async () => {
@@ -182,45 +168,6 @@ describe('Anchor Menu Item', () => {
             expect(model.item2.startColumnCount).toBe(1);
             expect(model.item3.startColumnCount).toBe(1);
             expect(model.item4dot2.startColumnCount).toBe(0);
-        });
-    });
-
-    describe('FoundationMenuItem instanceof override', () => {
-        it('returns true for FoundationMenuItem', () => {
-            const foundationMenuItem = document.createElement(
-                'foundation-menu-item'
-            );
-            expect(foundationMenuItem instanceof FoundationMenuItem).toBeTrue();
-        });
-
-        it('returns true for AnchorMenuItem', () => {
-            const anchorMenuItem = document.createElement(anchorMenuItemTag);
-            expect(anchorMenuItem instanceof FoundationMenuItem).toBeTrue();
-        });
-
-        it('returns true for MenuItem', () => {
-            const menuItem = document.createElement(menuItemTag);
-            expect(menuItem instanceof FoundationMenuItem).toBeTrue();
-        });
-
-        it('returns false for Menu', () => {
-            const menu = document.createElement(menuTag);
-            expect(menu instanceof FoundationMenuItem).toBeFalse();
-        });
-
-        it('returns false for Anchor', () => {
-            const anchor = document.createElement(anchorTag);
-            expect(anchor instanceof FoundationMenuItem).toBeFalse();
-        });
-
-        it('returns false for Button', () => {
-            const button = document.createElement(buttonTag);
-            expect(button instanceof FoundationMenuItem).toBeFalse();
-        });
-
-        it('returns false for div', () => {
-            const div = document.createElement('div');
-            expect(div instanceof FoundationMenuItem).toBeFalse();
         });
     });
 });

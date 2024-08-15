@@ -1,11 +1,6 @@
 import { select } from 'd3-selection';
-import {
-    zoom,
-    ZoomBehavior,
-    zoomIdentity,
-    ZoomTransform,
-    zoomTransform
-} from 'd3-zoom';
+import { zoom, ZoomTransform } from 'd3-zoom';
+import { Observable, type Notifier } from '@microsoft/fast-element';
 import type { WaferMap } from '..';
 
 interface ZoomEvent {
@@ -16,64 +11,58 @@ interface ZoomEvent {
  * ZoomHandler deals with user interactions and events like zooming
  */
 export class ZoomHandler {
-    private zoomTransform: ZoomTransform = zoomIdentity;
-    private readonly minScale = 1.1;
-    private readonly minExtentPoint: [number, number] = [-100, -100];
-    private readonly extentPadding = 100;
-    private readonly zoomBehavior: ZoomBehavior<Element, unknown>;
+    private readonly scaleExtent: [number, number] = [1, 100];
+    private readonly minExtentPoint: [number, number] = [0, 0];
+    private readonly wafermapNotifier: Notifier;
 
     public constructor(private readonly wafermap: WaferMap) {
-        this.zoomBehavior = this.createZoomBehavior();
-        this.zoomBehavior(select(this.wafermap.canvas as Element));
+        this.wafermapNotifier = Observable.getNotifier(this.wafermap);
+        this.wafermapNotifier.subscribe(this, 'canvasWidth');
+        this.wafermapNotifier.subscribe(this, 'canvasHeight');
     }
 
-    private rescale(event: ZoomEvent): void {
-        const transform = event.transform;
-        if (transform.k === this.minScale) {
-            this.zoomTransform = zoomIdentity;
-            this.zoomBehavior.transform(
-                select(this.wafermap.canvas as Element),
-                zoomIdentity
-            );
-        } else {
-            this.zoomTransform = transform;
+    /**
+     * @internal
+     */
+    public connect(): void {
+        this.createZoomBehavior();
+        this.wafermap.addEventListener('wheel', this.onWheelMove, {
+            passive: false
+        });
+    }
+
+    /**
+     * @internal
+     */
+    public disconnect(): void {
+        zoom().on('zoom', null)(select(this.wafermap as Element));
+        this.wafermap.removeEventListener('wheel', this.onWheelMove);
+    }
+
+    public handleChange(source: WaferMap, propertyName: string): void {
+        if (
+            source === this.wafermap
+            && (propertyName === 'canvasWidth' || propertyName === 'canvasHeight')
+        ) {
+            this.createZoomBehavior();
         }
-
-        this.wafermap.transform = this.zoomTransform;
     }
 
-    private createZoomBehavior(): ZoomBehavior<Element, unknown> {
-        const zoomBehavior = zoom()
-            .scaleExtent([
-                1.1,
-                this.getZoomMax(
-                    this.wafermap.canvasWidth * this.wafermap.canvasHeight,
-                    this.wafermap.dataManager!.containerDimensions.width
-                        * this.wafermap.dataManager!.containerDimensions.height
-                )
-            ])
+    private createZoomBehavior(): void {
+        zoom()
+            .scaleExtent(this.scaleExtent)
             .translateExtent([
                 this.minExtentPoint,
-                [
-                    this.wafermap.canvasWidth + this.extentPadding,
-                    this.wafermap.canvasHeight + this.extentPadding
-                ]
+                [this.wafermap.canvasWidth, this.wafermap.canvasHeight]
             ])
-            .filter((event: Event) => {
-                const transform = zoomTransform(this.wafermap.canvas);
-                const filterEval = transform.k >= this.minScale || event.type === 'wheel';
-                return filterEval;
-            })
             .on('zoom', (event: ZoomEvent) => {
                 // D3 will automatically remove existing handlers when adding new ones
                 // See: https://github.com/d3/d3-zoom/blob/v3.0.0/README.md#zoom_on
-                this.rescale(event);
-            });
-
-        return zoomBehavior;
+                this.wafermap.transform = event.transform;
+            })(select(this.wafermap as Element));
     }
 
-    private getZoomMax(canvasArea: number, dataArea: number): number {
-        return Math.ceil((dataArea / canvasArea) * 100);
-    }
+    private readonly onWheelMove = (event: Event): void => {
+        event.preventDefault();
+    };
 }

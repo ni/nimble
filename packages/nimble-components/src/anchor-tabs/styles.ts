@@ -1,13 +1,16 @@
 import { css } from '@microsoft/fast-element';
-import { display } from '@microsoft/fast-foundation';
+import { display } from '../utilities/style/display';
 
 export const styles = css`
     ${display('grid')}
 
     :host {
-        box-sizing: border-box;
-        grid-template-columns: auto auto 1fr;
+        grid-template-columns: auto 1fr;
         grid-template-rows: auto 1fr;
+    }
+
+    [part='start'] {
+        display: none;
     }
 
     .tablist {

@@ -12,9 +12,11 @@ export const template = html<MenuButton>`
         <${toggleButtonTag}
             part="button"
             appearance="${x => x.appearance}"
+            appearance-variant="${x => x.appearanceVariant}"
             ?content-hidden="${x => x.contentHidden}"
             ?checked="${x => x.open}"
             ?disabled="${x => x.disabled}"
+            tabindex="${x => x.tabIndex}"
             aria-haspopup="true"
             aria-expanded="${x => x.open}"
             @change="${(x, c) => x.toggleButtonCheckedChangeHandler(c.event)}"

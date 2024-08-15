@@ -1,19 +1,22 @@
-import { html, ref } from '@microsoft/fast-element';
+import { html } from '@microsoft/fast-element';
 
 import type { TableColumnTextCellViewBase } from '.';
+import { overflow } from '../../../utilities/directive/overflow';
+import { TableColumnAlignment } from '../../../table/types';
 
+// prettier-ignore
 export const template = html<TableColumnTextCellViewBase>`
-    <span
-        ${ref('textSpan')}
-        class="${x => (x.shouldUsePlaceholder ? 'placeholder' : '')}"
-        @mouseover="${x => {
-        x.isValidContentAndHasOverflow = !!x.content && x.textSpan.offsetWidth < x.textSpan.scrollWidth;
-    }}"
-        @mouseout="${x => {
-        x.isValidContentAndHasOverflow = false;
-    }}"
-        title=${x => (x.isValidContentAndHasOverflow ? x.content : null)}
+    <template
+        class="
+            ${x => (x.alignment === TableColumnAlignment.right ? 'right-align' : '')}
+            ${x => (x.isPlaceholder ? 'placeholder' : '')}
+        "
     >
-        ${x => x.content}
-    </span>
+        <span
+            ${overflow('hasOverflow')}
+            title=${x => (x.hasOverflow && x.text ? x.text : null)}
+        >
+            ${x => x.text}
+        </span>
+    </template>
 `;

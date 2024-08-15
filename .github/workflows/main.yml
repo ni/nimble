@@ -6,52 +6,73 @@ on:
     branches:
       - '**'
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 env:
   GITHUB_SERVICE_USER: "rajsite"
   GITHUB_SERVICE_EMAIL: "rajsite@users.noreply.github.com"
+  LC_ALL: "en_US.UTF-8"
+  LANG: "en_US.UTF-8"
+  LANGUAGE: "en_US.UTF-8"
+  TZ: "America/Chicago"
+  HAS_GITHUBPAGESDEPLOYTOKEN: ${{secrets.GITHUBPAGESDEPLOYTOKEN != ''}}
+  HAS_CHROMATIC_PROJECT_TOKEN: ${{secrets.CHROMATIC_PROJECT_TOKEN != ''}}
+  HAS_LHCI_GITHUB_APP_TOKEN: ${{secrets.LHCI_GITHUB_APP_TOKEN != ''}}
+  HAS_NPM_TOKEN: ${{secrets.NPM_TOKEN != ''}}
+  HAS_NUGET_TOKEN: ${{secrets.NUGET_TOKEN != ''}}
 
 jobs:
   build:
     runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
+        if: env.HAS_GITHUBPAGESDEPLOYTOKEN == 'true'
         with:
-          # Required for beachball changelog detection
+          # Required for chromatic change detection
           fetch-depth: 0
           # Must checkout with a token that can push to protected branches for beachball
           # Cannot rely on GITHUB_TOKEN with workflow contents permission
           # See: https://github.com/orgs/community/discussions/40971
           token: ${{ secrets.GITHUBPAGESDEPLOYTOKEN }}
+      - uses: actions/checkout@v4
+        if: env.HAS_GITHUBPAGESDEPLOYTOKEN == 'false'
+        with:
+          # Required for chromatic change detection
+          fetch-depth: 0
 
       # Install dependencies
-      - uses: actions/setup-dotnet@v3
+      - uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: '6.0.x'
-      - uses: actions/setup-node@v3
+          global-json-file: packages/blazor-workspace/global.json
+      - uses: actions/setup-node@v4
         with:
-          node-version: '16'
+          node-version: '20'
           registry-url: 'https://registry.npmjs.org'
           cache: 'npm'
-      # Specify npm version
-      # See: https://github.com/actions/setup-node/issues/529
-      - run: npm i -g npm@8
       - run: npm ci
+      - run: dotnet restore --locked-mode
+        working-directory: packages/blazor-workspace/
+
+      # Print resolved dotnet info
+      - run: dotnet --info
+        working-directory: packages/blazor-workspace/
+      - run: dotnet --list-sdks
+        working-directory: packages/blazor-workspace/
+      - run: dotnet --version
+        working-directory: packages/blazor-workspace/
 
       # print a log of outdated npm dependencies
       # only informational so swallow error codes
       - run: npm outdated || exit 0
-
-      # Audit
-      - run: npm audit --only=prod
-      # https://github.com/ni/nimble/issues/801
-      # - run: npm audit --audit-level=critical
 
       # Build
       - run: npm run build
 
       # Pack
       - run: npm run pack
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           name: packages
           path: |
@@ -59,59 +80,59 @@ jobs:
             packages/**/*.nupkg
             angular-workspace/**/*.tgz
           if-no-files-found: error
-      # The actions/upload-pages-artifact@v1 results in unexpected warning messages, workaround for:
-      # https://github.com/actions/upload-pages-artifact/issues/45
-      - name: Pages file permission workaround
-        run: chmod -c -R +rX packages/site/dist
-      - uses: actions/upload-pages-artifact@v1
+      - uses: actions/upload-pages-artifact@v3
         with:
           path: 'packages/site/dist'
 
       # Publish to Chromatic (from any push)
       - name: Publish to Chromatic
-        if: github.event_name == 'push'
-        uses: chromaui/action@v1
+        if: env.HAS_CHROMATIC_PROJECT_TOKEN == 'true' && github.event_name == 'push'
+        uses: chromaui/action@v11
         with:
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
           onlyChanged: "!startsWith(github.ref, 'refs/heads/main')" # Use TurboSnap for PR builds
-          workingDir: ./packages/nimble-components
-          storybookBuildDir: ../../packages/site/dist/storybook
+          externals: |
+            - './packages/storybook/.storybook/public/**'
+            - './packages/nimble-tokens/dist/icons/svg/**'
+            - './packages/nimble-tokens/source/styledictionary/properties/**'
+          storybookBuildDir: ./packages/site/dist/storybook
+          storybookBaseDir: ./packages/storybook
           exitOnceUploaded: true # Do not wait for test results
           exitZeroOnChanges: true # Option to prevent the workflow from failing
 
-      # Lint
-      - run: npm run lint
-
-      # Test
-      - run: npm run test
+      # Validate (Lint and Test)
+      - run: npm run validate
 
       # Run Lighthouse audit (from any push)
       - name: Performance Audit with Lighthouse CI
-        if: github.event_name == 'push'
+        if: env.HAS_LHCI_GITHUB_APP_TOKEN == 'true' && github.event_name == 'push'
         run: npm run performance
         env:
           LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
 
       # Check Changelog
-      - run: npm run check
+      - if: github.repository_owner == 'ni'
+        run: npm run check
 
       - name: Validate no changes to tracked files
         run: |
           echo print files with changes:
           git diff-index --ignore-space-at-eol --stat HEAD
+          echo print diff or blank if no changes:
+          git diff
           echo exit with error if there are changes.
           git diff-index --quiet --ignore-space-at-eol --stat HEAD
 
       # Release
       - name: Set Git User
-        if: startsWith(github.ref, 'refs/heads/main')
+        if: env.HAS_GITHUBPAGESDEPLOYTOKEN == 'true' && startsWith(github.ref, 'refs/heads/main')
         run: |
           git config --global user.name "${{ env.GITHUB_SERVICE_USER }}"
           git config --global user.email "${{ env.GITHUB_SERVICE_EMAIL }}"
 
       # Update package versions, tag, and publish to npm (only from main)
       - name: Beachball publish
-        if: startsWith(github.ref, 'refs/heads/main')
+        if: env.HAS_GITHUBPAGESDEPLOYTOKEN == 'true' && env.HAS_NPM_TOKEN == 'true' && env.HAS_NUGET_TOKEN == 'true' && startsWith(github.ref, 'refs/heads/main')
         env:
           NPM_SECRET_TOKEN: ${{ secrets.NPM_TOKEN }}
           NUGET_SECRET_TOKEN: ${{ secrets.NUGET_TOKEN }}
@@ -119,7 +140,7 @@ jobs:
 
   pages:
     needs: build
-    if: startsWith(github.ref, 'refs/heads/main')
+    if: github.repository_owner == 'ni' && startsWith(github.ref, 'refs/heads/main')
     runs-on: ubuntu-22.04
     permissions:
       pages: write # to deploy to Pages
@@ -130,4 +151,4 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v1
+        uses: actions/deploy-pages@v4

@@ -1,5 +1,4 @@
 import { css } from '@microsoft/fast-element';
-import { display } from '@microsoft/fast-foundation';
 import {
     BannerFail100DarkUi,
     Black15,
@@ -10,11 +9,12 @@ import {
     Information100LightUi,
     White
 } from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
+import { display } from '../utilities/style/display';
 import {
     tooltipCaptionFont,
     tooltipCaptionFontColor,
     borderWidth,
-    standardPadding,
+    mediumPadding,
     smallPadding,
     elevation2BoxShadow
 } from '../theme-provider/design-tokens';
@@ -34,7 +34,6 @@ export const styles = css`
     }
 
     .tooltip {
-        box-sizing: border-box;
         flex-shrink: 0;
         max-width: 440px;
         box-shadow: ${elevation2BoxShadow};
@@ -42,8 +41,8 @@ export const styles = css`
         border: ${borderWidth} solid var(--ni-private-tooltip-border-color);
         background-color: var(--ni-private-tooltip-background-color);
         padding-bottom: 6px;
-        padding-left: calc(${standardPadding} / 2);
-        padding-right: calc(${standardPadding} / 2);
+        padding-left: ${mediumPadding};
+        padding-right: ${mediumPadding};
         padding-top: ${smallPadding};
     }
 

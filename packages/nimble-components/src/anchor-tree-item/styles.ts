@@ -1,5 +1,5 @@
 import { css } from '@microsoft/fast-element';
-import { display } from '@microsoft/fast-foundation';
+import { display } from '../utilities/style/display';
 import {
     bodyFontFamily,
     bodyFontWeight,
@@ -10,7 +10,9 @@ import {
     fillHoverColor,
     fillHoverSelectedColor,
     fillSelectedColor,
-    bodyFontSize
+    bodyFontSize,
+    bodyDisabledFontColor,
+    iconColor
 } from '../theme-provider/design-tokens';
 import { focusVisible } from '../utilities/style/focus';
 import { userSelectNone } from '../utilities/style/user-select';
@@ -32,10 +34,15 @@ export const styles = css`
         --ni-private-tree-item-nested-width: 0;
     }
 
+    :host([disabled]) {
+        color: ${bodyDisabledFontColor};
+        cursor: default;
+    }
+
     .control {
         display: flex;
         text-decoration: none;
-        color: ${bodyFontColor};
+        color: inherit;
     }
 
     .control${focusVisible} {
@@ -44,20 +51,19 @@ export const styles = css`
         outline-offset: -2px;
     }
 
-    :host([disabled]) .control {
-        cursor: not-allowed;
-    }
-
     .positioning-region {
         display: flex;
         position: relative;
-        box-sizing: border-box;
         height: calc(${iconSize} * 2);
         width: 100%;
     }
 
     .positioning-region:hover {
         background: ${fillHoverColor};
+    }
+
+    :host([disabled]) .positioning-region:hover {
+        background: transparent;
     }
 
     :host([selected]) .positioning-region {
@@ -88,35 +94,32 @@ export const styles = css`
         margin-inline-start: ${iconSize};
     }
 
-    :host([disabled]) .content-region {
-        opacity: 0.5;
-        cursor: not-allowed;
-    }
-
     ${
         /* this rule keeps children without an icon text aligned with parents */ ''
     }
-    span[part="start"] {
+    [part="start"] {
         width: ${iconSize};
+        pointer-events: none;
     }
 
     ${/* the start class is applied when the corresponding slot is filled */ ''}
     .start {
         display: flex;
-        fill: currentcolor;
         margin-inline-start: ${iconSize};
         margin-inline-end: ${iconSize};
     }
 
     slot[name='start']::slotted(*) {
+        ${iconColor.cssCustomProperty}: currentcolor;
         width: ${iconSize};
         height: ${iconSize};
     }
 
-    ${/* the end class is applied when the corresponding slot is filled */ ''}
-    .end {
-        display: flex;
-        fill: currentcolor;
-        margin-inline-start: ${iconSize};
+    .content {
+        pointer-events: none;
+    }
+
+    [part='end'] {
+        display: none;
     }
 `;

@@ -66,6 +66,9 @@
     "DigitalGreenLight": {
       "value": "#009B65ff"
     },
+    "DigitalGreenLight10": {
+      "value": "#E6F5F0ff"
+    },
     "Brand85": {
       "value": "#26A97Cff"
     },
@@ -91,10 +94,19 @@
       "value": "#AEB0B3ff"
     },
     "DigitalGreenDark": {
-      "value": "#006B46ff"
+      "value": "#008557ff"
+    },
+    "DigitalGreenDark105": {
+      "value": "#00734Bff"
+    },
+    "DigitalGreenDark110": {
+      "value": "#00613Fff"
     },
     "PowerGreen": {
       "value": "#32EB96ff"
+    },
+    "PowerGreen10": {
+      "value": "#364941ff"
     },
     "Black22": {
       "value": "#E6E6E6ff"

@@ -1,8 +1,265 @@
 # Change Log - @ni/nimble-tokens
 
-This log was last generated on Fri, 12 May 2023 17:59:07 GMT and should not be manually modified.
+This log was last generated on Sat, 10 Aug 2024 00:15:34 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 8.0.1
+
+Sat, 10 Aug 2024 00:15:34 GMT
+
+### Patches
+
+- Remove unnecessary font precision ([ni/nimble@69abb8e](https://github.com/ni/nimble/commit/69abb8ebb0689fbc5eb307bc89a0926809e67d39))
+
+## 8.0.0
+
+Fri, 02 Aug 2024 22:15:53 GMT
+
+### Major changes
+
+- Remove icon-check and rename icon-check-large to icon-check ([ni/nimble@d634bc7](https://github.com/ni/nimble/commit/d634bc7bfd6bf10b25cc02d36e0b729dc596148b))
+
+## 7.2.0
+
+Thu, 01 Aug 2024 08:51:10 GMT
+
+### Minor changes
+
+- Add color tokens for mobiscroll components ([ni/nimble@2488638](https://github.com/ni/nimble/commit/2488638308b5e511f247dc1d113f1b2b6d74c2d4))
+
+## 7.1.0
+
+Tue, 30 Jul 2024 14:34:23 GMT
+
+### Minor changes
+
+- Add color tokens for mobiscroll components ([ni/nimble@2488638](https://github.com/ni/nimble/commit/2488638308b5e511f247dc1d113f1b2b6d74c2d4))
+
+## 7.0.1
+
+Mon, 22 Jul 2024 15:45:21 GMT
+
+### Patches
+
+- Update to typescript 5.4.5 ([ni/nimble@f69586a](https://github.com/ni/nimble/commit/f69586afcbdea5f4b8834d1123ec2b06d4eeecb3))
+
+## 7.0.0
+
+Tue, 16 Jul 2024 22:30:23 GMT
+
+### Major changes
+
+- Updates to calendar and arrow icons. Clients using "nimble-icon-calendar" or "nimble-icon-arrow-u-rotate-left" must instead use "nimble-icon-calendar-days" and "nimble-icon-arrow-u-up" (respectively). ([ni/nimble@b28b651](https://github.com/ni/nimble/commit/b28b6513d47bd583e8767620cd6ef526fa3dddac))
+
+## 6.15.1
+
+Mon, 08 Jul 2024 20:36:03 GMT
+
+### Patches
+
+- Delete NimbleTokens Nuget and clean up generation scripts for @ni/nimble-tokens npm package ([ni/nimble@ecf2bf6](https://github.com/ni/nimble/commit/ecf2bf6f026ef1fbcfe8d81ef80ede7f9ed241b0))
+
+## 6.15.0
+
+Thu, 06 Jun 2024 17:29:15 GMT
+
+### Minor changes
+
+- Add icons for AI, clean, expand, collapse, debug ([ni/nimble@d375e09](https://github.com/ni/nimble/commit/d375e092e3b2e627fba234136871d002aeb3c7b6))
+
+## 6.14.0
+
+Tue, 04 Jun 2024 16:35:58 GMT
+
+### Minor changes
+
+- Update button label font size from 12.8px to 14px to match current visual design in Figma ([ni/nimble@466a7b5](https://github.com/ni/nimble/commit/466a7b577ba7e8dc9f6e2adb5beb81b37d4bd9cd))
+
+## 6.13.6
+
+Thu, 09 May 2024 18:40:41 GMT
+
+### Patches
+
+- Update Blazor docs for Spright and workspace change ([ni/nimble@43edba8](https://github.com/ni/nimble/commit/43edba8e90d0c5f414fd2b4cf19eee197b477829))
+
+## 6.13.5
+
+Fri, 26 Apr 2024 20:31:47 GMT
+
+### Patches
+
+- No API changes, validating release pipelines ([ni/nimble@c5a74e6](https://github.com/ni/nimble/commit/c5a74e68c2909e2f9a50bf0e6b0e4f1c5f0cbce8))
+- No API changes, validating release pipelines ([ni/nimble@ff7f847](https://github.com/ni/nimble/commit/ff7f847c0fb3834b5fdf4ce141bbe6bd94e1f0eb))
+
+## 6.13.2
+
+Mon, 15 Apr 2024 17:36:54 GMT
+
+### Patches
+
+- Update to typescript 5.1.6 ([ni/nimble@7254ddb](https://github.com/ni/nimble/commit/7254ddb339236dc1519033f88290491436a01aef))
+
+## 6.13.1
+
+Tue, 26 Mar 2024 20:45:41 GMT
+
+### Patches
+
+- Fix value of DigitalGreenDark ([ni/nimble@594ac22](https://github.com/ni/nimble/commit/594ac221124cc1b52cd28113714bb8ff71e5820b))
+
+## 6.13.0
+
+Thu, 21 Mar 2024 17:13:38 GMT
+
+### Minor changes
+
+- Add Body_2 base font token ([ni/nimble@b93385a](https://github.com/ni/nimble/commit/b93385a27672ebc03e18a864e8fa268727595c66))
+
+## 6.12.1
+
+Tue, 12 Mar 2024 21:01:54 GMT
+
+### Patches
+
+- Update typescript to 4.9.5 ([ni/nimble@bc825e1](https://github.com/ni/nimble/commit/bc825e1b057eafd8bc005d11e9a224aa9aee9619))
+
+## 6.12.0
+
+Wed, 28 Feb 2024 19:35:04 GMT
+
+### Minor changes
+
+- Add new icons for resume, generate, stop, deploy, undeploy, and hide ([ni/nimble@f4f3f45](https://github.com/ni/nimble/commit/f4f3f45c9107ff6d6c964fea69cd48247d6595fe))
+
+## 6.11.1
+
+Thu, 22 Feb 2024 01:13:03 GMT
+
+### Patches
+
+- Align nuget and npm package versions ([ni/nimble@bb9f7fc](https://github.com/ni/nimble/commit/bb9f7fcf5aeac256fe9c4bf39c782f64c26d1c52))
+
+## 6.11.0
+
+Wed, 21 Feb 2024 21:18:20 GMT
+
+### Minor changes
+
+- Add BodyEmphasized_2 font base token ([ni/nimble@4037b7c](https://github.com/ni/nimble/commit/4037b7c13da51926e6fbfd774a4da19cd75cb98e))
+
+## 6.10.1
+
+Fri, 16 Feb 2024 18:10:59 GMT
+
+### Patches
+
+- Inline sources into map files ([ni/nimble@2b6c327](https://github.com/ni/nimble/commit/2b6c327fd3bc4f49178ac370f695a8b941278c46))
+
+## 6.10.0
+
+Fri, 02 Feb 2024 21:51:03 GMT
+
+### Minor changes
+
+- New pause, play, stop, and external link icons. Updated running-arrow icon. ([ni/nimble@8ba4f05](https://github.com/ni/nimble/commit/8ba4f05ec0bd828265d2f74b16a278adf46db268))
+
+## 6.9.1
+
+Thu, 04 Jan 2024 16:50:24 GMT
+
+### Patches
+
+- Upgrade dependencies ([ni/nimble@341146c](https://github.com/ni/nimble/commit/341146ceef057386cea20419277073bd793270ef))
+
+## 6.9.0
+
+Thu, 07 Dec 2023 17:27:04 GMT
+
+### Minor changes
+
+- New icons for calendars and test plans ([ni/nimble@f4a4453](https://github.com/ni/nimble/commit/f4a4453cc34b004f34d4ffed5a9c674427560597))
+
+## 6.8.0
+
+Thu, 02 Nov 2023 18:26:57 GMT
+
+### Minor changes
+
+- New icons for "move in" and "move out" ([ni/nimble@91d75d9](https://github.com/ni/nimble/commit/91d75d9c7ce2f493b3ac69fefd5457ae3b83d3f9))
+
+## 6.7.0
+
+Wed, 01 Nov 2023 20:45:20 GMT
+
+### Minor changes
+
+- New icon for @mention ([ni/nimble@5a8fe73](https://github.com/ni/nimble/commit/5a8fe731b494042bc8a5cf060338a05208e1075d))
+
+## 6.6.0
+
+Mon, 23 Oct 2023 14:17:52 GMT
+
+### Minor changes
+
+- Add icon for Save As ([ni/nimble@62016ff](https://github.com/ni/nimble/commit/62016ff5a313a4c35f7850a2a4261251ceda51e0))
+
+## 6.5.0
+
+Wed, 18 Oct 2023 18:51:54 GMT
+
+### Minor changes
+
+- add ni and systemlink logo icons ([ni/nimble@2a79981](https://github.com/ni/nimble/commit/2a799815ee5117c3cf863fc522333497e50ff355))
+
+## 6.4.1
+
+Mon, 16 Oct 2023 21:31:42 GMT
+
+### Patches
+
+- Update TypeScript dependency to 4.8 ([ni/nimble@8a42916](https://github.com/ni/nimble/commit/8a429164d4987cc1b932adb3c93727afdc8c5202))
+
+## 6.4.0
+
+Wed, 20 Sep 2023 18:55:59 GMT
+
+### Minor changes
+
+- New icons for indent and outdent list level ([ni/nimble@f12cbc5](https://github.com/ni/nimble/commit/f12cbc59d683ae048a85750990cc4ae174464590))
+
+## 6.3.0
+
+Wed, 02 Aug 2023 19:10:45 GMT
+
+### Minor changes
+
+- Adding new DigitalGreenDark color tokens (105 and 110) for new button appearance variants (#663) ([ni/nimble@3b37cf1](https://github.com/ni/nimble/commit/3b37cf1deb3377b36c069e884d2b938b11048acd))
+
+## 6.2.1
+
+Fri, 14 Jul 2023 22:15:57 GMT
+
+### Patches
+
+- Changed button label font weight token from Regular to Semi-Bold ([ni/nimble@88248bc](https://github.com/ni/nimble/commit/88248bc22d9b50da299331a87863c65fe3c25cdb))
+
+## 6.2.0
+
+Fri, 14 Jul 2023 20:57:32 GMT
+
+### Minor changes
+
+- New icon with a clock and exclamation mark to represent an expired state ([ni/nimble@448a014](https://github.com/ni/nimble/commit/448a0147ee38c0f1cbe0ece06ecd103e4e3f5788))
+
+## 6.1.0
+
+Tue, 20 Jun 2023 14:17:25 GMT
+
+### Minor changes
+
+- New icons for bold, italic, and numbered list ([ni/nimble@d8a2f69](https://github.com/ni/nimble/commit/d8a2f6933982381c2724f87737873b2f9374a706))
 
 ## 6.0.0
 

@@ -101,3 +101,4 @@ export const themeBehavior = (
     theme: Theme | Theme[],
     styles: ElementStyles
 ): ThemeStyleSheetBehavior => new ThemeStyleSheetBehavior(theme, styles);
+/* eslint-enable max-classes-per-file */

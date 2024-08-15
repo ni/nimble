@@ -2,7 +2,11 @@ import type { Checkbox } from '@microsoft/fast-foundation';
 import { keyShift } from '@microsoft/fast-web-utilities';
 import type { Table } from '..';
 import type { TableHeader } from '../components/header';
-import { TableRecord, TableRowSelectionState } from '../types';
+import {
+    TableColumnSortDirection,
+    TableRecord,
+    TableRowSelectionState
+} from '../types';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import type { MenuButton } from '../../menu-button';
 import type { TableCell } from '../components/cell';
@@ -12,6 +16,16 @@ import type { TableRow } from '../components/row';
 import { Anchor, anchorTag } from '../../anchor';
 import type { TableGroupRow } from '../components/group-row';
 import type { Button } from '../../button';
+import { Icon } from '../../icon-base';
+import { Spinner, spinnerTag } from '../../spinner';
+
+/**
+ * Summary information about a column that is sorted in the table for use in the `TablePageObject`.
+ */
+export interface SortedColumn {
+    columnId?: string;
+    sortDirection: TableColumnSortDirection;
+}
 
 /**
  * Page object for the `nimble-table` component to provide consistent ways
@@ -59,6 +73,29 @@ export class TablePageObject<T extends TableRecord> {
         return headers.item(columnIndex);
     }
 
+    public getHeaderTitle(columnIndex: number): string {
+        const column = this.tableElement.columns[columnIndex];
+        return (
+            column?.shadowRoot!.firstElementChild?.getAttribute('title') ?? ''
+        );
+    }
+
+    public getHeaderTextContent(columnIndex: number): string {
+        return (
+            this.getHeaderContent(
+                columnIndex
+            )?.firstChild?.textContent?.trim() ?? ''
+        );
+    }
+
+    public dispatchEventToHeader(
+        columnIndex: number,
+        event: Event
+    ): boolean | undefined {
+        const column = this.tableElement.columns[columnIndex];
+        return column?.shadowRoot!.firstElementChild?.dispatchEvent(event);
+    }
+
     public getHeaderRenderedWidth(columnIndex: number): number {
         const headers = this.tableElement.shadowRoot!.querySelectorAll<TableHeader>(
             'nimble-table-header'
@@ -103,12 +140,17 @@ export class TablePageObject<T extends TableRecord> {
         return Array.from(groupRows).map(row => row.expanded);
     }
 
+    public getAllDataRowsExpandedState(): boolean[] {
+        const rows = this.tableElement.shadowRoot!.querySelectorAll('nimble-table-row');
+        return Array.from(rows).map(row => row.expanded);
+    }
+
     public getRenderedCellView(
         rowIndex: number,
         columnIndex: number
     ): TableCellView {
         const cell = this.getCell(rowIndex, columnIndex);
-        const cellView = cell.shadowRoot!.firstElementChild;
+        const cellView = cell.cellViewContainer.firstElementChild;
         if (!(cellView instanceof TableCellView)) {
             throw new Error(
                 'Cell view not found in cell - ensure cellViewTag is set for column'
@@ -117,7 +159,21 @@ export class TablePageObject<T extends TableRecord> {
         return cellView as TableCellView;
     }
 
-    public getRenderedCellContent(
+    public getRenderedCellViewById(
+        recordId: string,
+        columnId: string
+    ): TableCellView {
+        const cell = this.getCellById(recordId, columnId);
+        const cellView = cell.cellViewContainer.firstElementChild;
+        if (!(cellView instanceof TableCellView)) {
+            throw new Error(
+                'Cell view not found in cell - ensure cellViewTag is set for column'
+            );
+        }
+        return cellView as TableCellView;
+    }
+
+    public getRenderedCellTextContent(
         rowIndex: number,
         columnIndex: number
     ): string {
@@ -142,10 +198,20 @@ export class TablePageObject<T extends TableRecord> {
                 `Anchor not found at cell ${rowIndex},${columnIndex}`
             );
         }
-        return anchor as Anchor;
+        return anchor;
     }
 
-    public getRenderedGroupHeaderContent(groupRowIndex: number): string {
+    public getRenderedMappingColumnCellIconTagName(
+        rowIndex: number,
+        columnIndex: number
+    ): string {
+        const iconOrSpinner = this.getRenderedMappingColumnIconOrSpinner(
+            this.getRenderedCellView(rowIndex, columnIndex)
+        );
+        return iconOrSpinner.tagName.toLocaleLowerCase();
+    }
+
+    public getRenderedGroupHeaderTextContent(groupRowIndex: number): string {
         return (
             this.getGroupRowHeaderView(
                 groupRowIndex
@@ -153,12 +219,12 @@ export class TablePageObject<T extends TableRecord> {
         );
     }
 
-    public getAllRenderedGroupHeaderContent(): string[] {
+    public getAllRenderedGroupHeaderTextContent(): string[] {
         const groupRows = this.tableElement.shadowRoot!.querySelectorAll(
             'nimble-table-group-row'
         );
         return Array.from(groupRows).map((_, i) => {
-            return this.getRenderedGroupHeaderContent(i);
+            return this.getRenderedGroupHeaderTextContent(i);
         });
     }
 
@@ -218,35 +284,21 @@ export class TablePageObject<T extends TableRecord> {
             );
         }
 
-        const collapseButton = this.getCollapseAllButton();
-        const buttonWidth = collapseButton!.getBoundingClientRect().width;
-        const buttonStyle = window.getComputedStyle(collapseButton!);
         table.style.width = `${
             rowWidth
-            + buttonWidth
-            + parseFloat(buttonStyle.marginLeft)
-            + parseFloat(buttonStyle.marginRight)
+            + table.headerRowActionContainer.getBoundingClientRect().width
+            + table.virtualizer.headerContainerMarginRight
         }px`;
         await waitForUpdatesAsync();
     }
 
-    public getCellRenderedWidth(columnIndex: number, rowIndex = 0): number {
-        if (columnIndex >= this.tableElement.columns.length) {
-            throw new Error(
-                'Attempting to index past the total number of columns'
-            );
-        }
-
-        const row = this.getRow(rowIndex);
-        const cells = row?.shadowRoot?.querySelectorAll('nimble-table-cell');
-        if (columnIndex >= (cells?.length ?? 0)) {
-            throw new Error(
-                'Attempting to index past the total number of cells'
-            );
-        }
-
-        const columnCell = cells![columnIndex]!;
-        return columnCell.getBoundingClientRect().width;
+    public getCellRenderedWidth(rowIndex: number, columnIndex: number): number {
+        const cell = this.getCell(rowIndex, columnIndex);
+        const actualWidth = cell.getBoundingClientRect().width;
+        // Round to one decimal place. This is to work around a bug in Chrome related to
+        // fractional widths (e.g. '1fr') in grid layouts that results in some numerical
+        // precision issues. See: https://bugs.chromium.org/p/chromium/issues/detail?id=1515685
+        return Math.round(actualWidth * 10) / 10;
     }
 
     public getTotalCellRenderedWidth(): number {
@@ -257,9 +309,15 @@ export class TablePageObject<T extends TableRecord> {
         }, 0);
     }
 
+    public async scrollToFirstRowAsync(): Promise<void> {
+        const scrollElement = this.tableElement.viewport;
+        scrollElement.scroll({ top: 0 });
+        await waitForUpdatesAsync();
+    }
+
     public async scrollToLastRowAsync(): Promise<void> {
         const scrollElement = this.tableElement.viewport;
-        scrollElement.scrollTop = scrollElement.scrollHeight;
+        scrollElement.scroll({ top: scrollElement.scrollHeight });
         await waitForUpdatesAsync();
     }
 
@@ -349,6 +407,17 @@ export class TablePageObject<T extends TableRecord> {
         this.getCollapseAllButton()?.click();
     }
 
+    public clickDataRowExpandCollapseButton(rowIndex: number): void {
+        const expandCollapseButton = this.getExpandCollapseButtonForRow(rowIndex);
+        if (!expandCollapseButton) {
+            throw new Error(
+                'The provided row index has no visible expand collapse button associated with it.'
+            );
+        }
+
+        expandCollapseButton.click();
+    }
+
     public isCollapseAllButtonVisible(): boolean {
         const collapseButton = this.getCollapseAllButton();
         if (collapseButton) {
@@ -357,6 +426,25 @@ export class TablePageObject<T extends TableRecord> {
             );
         }
         return false;
+    }
+
+    public isCollapseAllButtonSpaceReserved(): boolean {
+        const collapseButton = this.getCollapseAllButton();
+        if (collapseButton) {
+            return window.getComputedStyle(collapseButton).display !== 'none';
+        }
+        return true;
+    }
+
+    public isDataRowExpandCollapseButtonVisible(rowIndex: number): boolean {
+        const expandCollapseButton = this.getExpandCollapseButtonForRow(rowIndex);
+        return expandCollapseButton !== null;
+    }
+
+    public isDataRowLoadingSpinnerVisible(rowIndex: number): boolean {
+        const row = this.getRow(rowIndex);
+        const spinner = row.shadowRoot!.querySelector(spinnerTag);
+        return spinner !== null;
     }
 
     public isTableSelectionCheckboxVisible(): boolean {
@@ -387,7 +475,9 @@ export class TablePageObject<T extends TableRecord> {
     public clickRowSelectionCheckbox(rowIndex: number, shiftKey = false): void {
         if (shiftKey) {
             const shiftKeyDownEvent = new KeyboardEvent('keydown', {
-                key: keyShift
+                key: keyShift,
+                shiftKey: true,
+                bubbles: true
             } as KeyboardEventInit);
             document.dispatchEvent(shiftKeyDownEvent);
         }
@@ -397,7 +487,8 @@ export class TablePageObject<T extends TableRecord> {
 
         if (shiftKey) {
             const shiftKeyUpEvent = new KeyboardEvent('keyup', {
-                key: keyShift
+                key: keyShift,
+                bubbles: true
             } as KeyboardEventInit);
             document.dispatchEvent(shiftKeyUpEvent);
         }
@@ -416,7 +507,9 @@ export class TablePageObject<T extends TableRecord> {
     ): void {
         if (shiftKey) {
             const shiftKeyDownEvent = new KeyboardEvent('keydown', {
-                key: keyShift
+                key: keyShift,
+                shiftKey: true,
+                bubbles: true
             } as KeyboardEventInit);
             document.dispatchEvent(shiftKeyDownEvent);
         }
@@ -426,13 +519,173 @@ export class TablePageObject<T extends TableRecord> {
 
         if (shiftKey) {
             const shiftKeyUpEvent = new KeyboardEvent('keyup', {
-                key: keyShift
+                key: keyShift,
+                bubbles: true
             } as KeyboardEventInit);
             document.dispatchEvent(shiftKeyUpEvent);
         }
     }
 
-    private getRow(rowIndex: number): TableRow {
+    /**
+     * @param columnIndex The index of the column to the left of a divider being dragged. Thus, this
+     * can not be given a value representing the last visible column index.
+     * @param deltas The series of mouse movements in the x-direction while sizing a column.
+     */
+    public dragSizeColumnByRightDivider(
+        columnIndex: number,
+        deltas: readonly number[]
+    ): void {
+        const divider = this.getColumnRightDivider(columnIndex);
+        if (!divider) {
+            throw new Error(
+                'The provided column index has no right divider associated with it.'
+            );
+        }
+        const dividerRect = divider.getBoundingClientRect();
+        let currentMouseX = (dividerRect.x + dividerRect.width) / 2;
+        const mouseDownEvent = new MouseEvent('mousedown', {
+            clientX: currentMouseX,
+            clientY: (dividerRect.y + dividerRect.height) / 2
+        });
+        divider.dispatchEvent(mouseDownEvent);
+
+        for (const delta of deltas) {
+            currentMouseX += delta;
+            const mouseMoveEvent = new MouseEvent('mousemove', {
+                clientX: currentMouseX
+            });
+            document.dispatchEvent(mouseMoveEvent);
+        }
+
+        const mouseUpEvent = new MouseEvent('mouseup');
+        document.dispatchEvent(mouseUpEvent);
+    }
+
+    /**
+     * @param columnIndex The index of the column to the right of a divider being dragged. Thus, this
+     * value must be greater than 0 and less than the total number of visible columns.
+     * @param deltas The series of mouse movements in the x-direction while sizing a column.
+     */
+    public dragSizeColumnByLeftDivider(
+        columnIndex: number,
+        deltas: readonly number[]
+    ): void {
+        const divider = this.getColumnLeftDivider(columnIndex);
+        if (!divider) {
+            throw new Error(
+                'The provided column index has no left divider associated with it.'
+            );
+        }
+        const dividerRect = divider.getBoundingClientRect();
+        let currentMouseX = (dividerRect.x + dividerRect.width) / 2;
+        const mouseDownEvent = new MouseEvent('mousedown', {
+            clientX: currentMouseX,
+            clientY: (dividerRect.y + dividerRect.height) / 2
+        });
+        divider.dispatchEvent(mouseDownEvent);
+
+        for (const delta of deltas) {
+            currentMouseX += delta;
+            const mouseMoveEvent = new MouseEvent('mousemove', {
+                clientX: currentMouseX
+            });
+            document.dispatchEvent(mouseMoveEvent);
+        }
+
+        const mouseUpEvent = new MouseEvent('mouseup');
+        document.dispatchEvent(mouseUpEvent);
+    }
+
+    public getColumnRightDivider(index: number): HTMLElement | null {
+        const headerContainers = this.tableElement.shadowRoot!.querySelectorAll('.header-container');
+        if (index < 0 || index >= headerContainers.length) {
+            throw new Error(
+                'Invalid column index. Index must be greater than or equal to 0 and less than the number of visible columns.'
+            );
+        }
+
+        return headerContainers[index]!.querySelector('.column-divider.right');
+    }
+
+    public getColumnLeftDivider(index: number): HTMLElement | null {
+        const headerContainers = this.tableElement.shadowRoot!.querySelectorAll('.header-container');
+        if (index < 0 || index >= headerContainers.length) {
+            throw new Error(
+                'Invalid column index. Index must be greater than or equal to 0 and less than the number of visible columns.'
+            );
+        }
+
+        return headerContainers[index]!.querySelector('.column-divider.left');
+    }
+
+    public isVerticalScrollbarVisible(): boolean {
+        return (
+            this.tableElement.viewport.clientHeight
+            < this.tableElement.viewport.scrollHeight
+        );
+    }
+
+    public isHorizontalScrollbarVisible(): boolean {
+        return (
+            this.tableElement.viewport.clientWidth
+            < this.tableElement.viewport.scrollWidth
+        );
+    }
+
+    public getSortedColumns(): SortedColumn[] {
+        return this.tableElement.columns
+            .filter(
+                x => !x.columnInternals.sortingDisabled
+                    && typeof x.columnInternals.currentSortIndex === 'number'
+                    && x.columnInternals.currentSortDirection
+                        !== TableColumnSortDirection.none
+            )
+            .sort(
+                (a, b) => a.columnInternals.currentSortIndex!
+                    - b.columnInternals.currentSortIndex!
+            )
+            .map(x => {
+                return {
+                    columnId: x.columnId,
+                    sortDirection: x.columnInternals.currentSortDirection
+                };
+            });
+    }
+
+    public getGroupedColumns(): string[] {
+        return this.tableElement.columns
+            .filter(
+                x => !x.columnInternals.groupingDisabled
+                    && typeof x.columnInternals.groupIndex === 'number'
+            )
+            .sort(
+                (a, b) => a.columnInternals.groupIndex!
+                    - b.columnInternals.groupIndex!
+            )
+            .map(x => x.columnId ?? '');
+    }
+
+    public getChildRowCountForGroup(groupRowIndex: number): number {
+        const groupRow = this.getGroupRow(groupRowIndex);
+        const countDisplayString = groupRow
+            .shadowRoot!.querySelector('.group-row-child-count')!
+            .textContent!.trim();
+        // Remove the parenthesis to get just the number as a string
+        const countString = countDisplayString.substring(
+            1,
+            countDisplayString.length - 1
+        );
+        return Number(countString);
+    }
+
+    /** @internal */
+    public getGroupRowHeaderView(groupRowIndex: number): TableGroupHeaderView {
+        const groupRow = this.getGroupRow(groupRowIndex);
+        return groupRow.shadowRoot!.querySelector('.group-header-view')!;
+    }
+
+    /** @internal */
+    public getRow(rowIndex: number): TableRow {
         const rows = this.tableElement.shadowRoot!.querySelectorAll('nimble-table-row');
         if (rowIndex >= rows.length) {
             throw new Error(
@@ -443,7 +696,8 @@ export class TablePageObject<T extends TableRecord> {
         return rows.item(rowIndex);
     }
 
-    private getCell(rowIndex: number, columnIndex: number): TableCell {
+    /** @internal */
+    public getCell(rowIndex: number, columnIndex: number): TableCell {
         const row = this.getRow(rowIndex);
         const cells = row.shadowRoot!.querySelectorAll('nimble-table-cell');
         if (columnIndex >= cells.length) {
@@ -455,10 +709,51 @@ export class TablePageObject<T extends TableRecord> {
         return cells.item(columnIndex);
     }
 
+    private getRowById(recordId: string): TableRow {
+        const row: TableRow | null = this.tableElement.shadowRoot!.querySelector(
+            `nimble-table-row[record-id="${CSS.escape(recordId)}"]`
+        );
+        if (!row) {
+            throw new Error(
+                'Row with given id was not found. It may not be scrolled into view.'
+            );
+        }
+
+        return row;
+    }
+
+    private getCellById(recordId: string, columnId: string): TableCell {
+        const row = this.getRowById(recordId);
+        const cell: TableCell | null = row.shadowRoot!.querySelector(
+            `nimble-table-cell[column-id="${CSS.escape(columnId)}"]`
+        );
+
+        if (!cell) {
+            throw new Error('Cell with given columnId was not found in row');
+        }
+
+        return cell;
+    }
+
     private getCollapseAllButton(): Button | null {
         return this.tableElement.shadowRoot!.querySelector<Button>(
             '.collapse-all-button'
         );
+    }
+
+    private getExpandCollapseButtonForRow(rowIndex: number): Button | null {
+        const row = this.getRow(rowIndex);
+        const rowExpandCollapseButton = row.shadowRoot!.querySelector<Button>(
+            '.expand-collapse-button'
+        );
+        if (!rowExpandCollapseButton) {
+            const firstCell = this.getCell(rowIndex, 0);
+            return firstCell?.shadowRoot!.querySelector<Button>(
+                '.expand-collapse-button'
+            );
+        }
+
+        return rowExpandCollapseButton;
     }
 
     private getSelectionCheckboxForRow(rowIndex: number): Checkbox | null {
@@ -512,20 +807,6 @@ export class TablePageObject<T extends TableRecord> {
         return groupRows.item(groupRowIndex);
     }
 
-    private getGroupRowHeaderView(groupRowIndex: number): TableGroupHeaderView {
-        const groupRows = this.tableElement.shadowRoot!.querySelectorAll(
-            'nimble-table-group-row'
-        );
-        if (groupRowIndex >= groupRows.length) {
-            throw new Error(
-                'Attempting to index past the total number of rendered rows'
-            );
-        }
-
-        const groupRow = groupRows[groupRowIndex];
-        return groupRow!.shadowRoot!.querySelector('.group-header-view')!;
-    }
-
     private getHeaderContentElement(
         element: HTMLElement | HTMLSlotElement
     ): Node | undefined {
@@ -544,6 +825,22 @@ export class TablePageObject<T extends TableRecord> {
         }
 
         return nodeChildren[0]; // header content should be first item in final slot element
+    }
+
+    private getRenderedMappingColumnIconOrSpinner(
+        view: TableCellView | TableGroupHeaderView
+    ): Icon | Spinner {
+        const viewShadowRoot = view.shadowRoot!;
+        const spinnerOrIcon = viewShadowRoot.querySelector(
+            '.reserve-icon-size'
+        )?.firstElementChild;
+        if (
+            !(spinnerOrIcon instanceof Icon || spinnerOrIcon instanceof Spinner)
+        ) {
+            throw new Error('Icon or Spinner not found');
+        }
+
+        return spinnerOrIcon;
     }
 
     private readonly isSlotElement = (

@@ -1,5 +1,5 @@
 import { css } from '@microsoft/fast-element';
-import { display } from '@microsoft/fast-foundation';
+import { display } from '../utilities/style/display';
 import {
     borderRgbPartialColor,
     borderHoverColor,
@@ -13,7 +13,8 @@ import {
     controlLabelDisabledFontColor,
     iconSize,
     failColor,
-    standardPadding
+    standardPadding,
+    mediumPadding
 } from '../theme-provider/design-tokens';
 import { appearanceBehavior } from '../utilities/style/appearance';
 import { TextAreaAppearance } from './types';
@@ -91,7 +92,6 @@ export const styles = css`
         font: inherit;
         flex-grow: 1;
         outline: none;
-        box-sizing: border-box;
         position: relative;
         color: inherit;
         border-radius: 0px;
@@ -159,7 +159,7 @@ export const styles = css`
     :host([error-visible]) .error-icon.scrollbar-width-calculated {
         display: inline-flex;
         position: absolute;
-        top: calc(${standardPadding} / 2);
+        top: ${mediumPadding};
         right: var(--ni-private-scrollbar-width);
     }
 `.withBehaviors(

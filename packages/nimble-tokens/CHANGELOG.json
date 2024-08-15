@@ -2,6 +2,635 @@
   "name": "@ni/nimble-tokens",
   "entries": [
     {
+      "date": "Sat, 10 Aug 2024 00:15:34 GMT",
+      "version": "8.0.1",
+      "tag": "@ni/nimble-tokens_v8.0.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "69abb8ebb0689fbc5eb307bc89a0926809e67d39",
+            "comment": "Remove unnecessary font precision"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 02 Aug 2024 22:15:53 GMT",
+      "version": "8.0.0",
+      "tag": "@ni/nimble-tokens_v8.0.0",
+      "comments": {
+        "major": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "d634bc7bfd6bf10b25cc02d36e0b729dc596148b",
+            "comment": "Remove icon-check and rename icon-check-large to icon-check"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 01 Aug 2024 08:51:10 GMT",
+      "version": "7.2.0",
+      "tag": "@ni/nimble-tokens_v7.2.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "123377167+aagash-ni@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "2488638308b5e511f247dc1d113f1b2b6d74c2d4",
+            "comment": "Add color tokens for mobiscroll components"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 30 Jul 2024 14:34:23 GMT",
+      "version": "7.1.0",
+      "tag": "@ni/nimble-tokens_v7.1.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "123377167+aagash-ni@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "2488638308b5e511f247dc1d113f1b2b6d74c2d4",
+            "comment": "Add color tokens for mobiscroll components"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 22 Jul 2024 15:45:21 GMT",
+      "version": "7.0.1",
+      "tag": "@ni/nimble-tokens_v7.0.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "f69586afcbdea5f4b8834d1123ec2b06d4eeecb3",
+            "comment": "Update to typescript 5.4.5"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 16 Jul 2024 22:30:23 GMT",
+      "version": "7.0.0",
+      "tag": "@ni/nimble-tokens_v7.0.0",
+      "comments": {
+        "major": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "b28b6513d47bd583e8767620cd6ef526fa3dddac",
+            "comment": "Updates to calendar and arrow icons. Clients using \"nimble-icon-calendar\" or \"nimble-icon-arrow-u-rotate-left\" must instead use \"nimble-icon-calendar-days\" and \"nimble-icon-arrow-u-up\" (respectively)."
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 08 Jul 2024 20:36:03 GMT",
+      "version": "6.15.1",
+      "tag": "@ni/nimble-tokens_v6.15.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "ecf2bf6f026ef1fbcfe8d81ef80ede7f9ed241b0",
+            "comment": "Delete NimbleTokens Nuget and clean up generation scripts for @ni/nimble-tokens npm package"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 07 Jun 2024 17:53:20 GMT",
+      "version": "6.15.0",
+      "tag": "@ni/nimble-tokens_v6.15.0",
+      "comments": {
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "992217c62385db7dcc228d23a74658c6f8f6b44c",
+            "comment": "Switch to all nimble private linting"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 06 Jun 2024 17:29:15 GMT",
+      "version": "6.15.0",
+      "tag": "@ni/nimble-tokens_v6.15.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "d375e092e3b2e627fba234136871d002aeb3c7b6",
+            "comment": "Add icons for AI, clean, expand, collapse, debug"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 04 Jun 2024 16:35:58 GMT",
+      "version": "6.14.0",
+      "tag": "@ni/nimble-tokens_v6.14.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "466a7b577ba7e8dc9f6e2adb5beb81b37d4bd9cd",
+            "comment": "Update button label font size from 12.8px to 14px to match current visual design in Figma"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 09 May 2024 18:40:41 GMT",
+      "version": "6.13.6",
+      "tag": "@ni/nimble-tokens_v6.13.6",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "43edba8e90d0c5f414fd2b4cf19eee197b477829",
+            "comment": "Update Blazor docs for Spright and workspace change"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 08 May 2024 22:21:34 GMT",
+      "version": "6.13.5",
+      "tag": "@ni/nimble-tokens_v6.13.5",
+      "comments": {
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "e83c8ba9f06850acd6a303d257ec9033c0c5d115",
+            "comment": "README updates"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 26 Apr 2024 20:31:47 GMT",
+      "version": "6.13.5",
+      "tag": "@ni/nimble-tokens_v6.13.5",
+      "comments": {
+        "patch": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "c5a74e68c2909e2f9a50bf0e6b0e4f1c5f0cbce8",
+            "comment": "No API changes, validating release pipelines"
+          },
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "ff7f847c0fb3834b5fdf4ce141bbe6bd94e1f0eb",
+            "comment": "No API changes, validating release pipelines"
+          }
+        ],
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "910414c73de07589bbb608b23d7cae603d704112",
+            "comment": "fixup"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 24 Apr 2024 16:20:52 GMT",
+      "version": "6.13.2",
+      "tag": "@ni/nimble-tokens_v6.13.2",
+      "comments": {
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "d72a0faa81a649f70b72c9fcc8f2c4c201cfbe82",
+            "comment": "Documentation update for Fallback tokens"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 15 Apr 2024 17:36:54 GMT",
+      "version": "6.13.2",
+      "tag": "@ni/nimble-tokens_v6.13.2",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "7254ddb339236dc1519033f88290491436a01aef",
+            "comment": "Update to typescript 5.1.6"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 26 Mar 2024 20:45:41 GMT",
+      "version": "6.13.1",
+      "tag": "@ni/nimble-tokens_v6.13.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "594ac221124cc1b52cd28113714bb8ff71e5820b",
+            "comment": "Fix value of DigitalGreenDark"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 21 Mar 2024 17:13:38 GMT",
+      "version": "6.13.0",
+      "tag": "@ni/nimble-tokens_v6.13.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "b93385a27672ebc03e18a864e8fa268727595c66",
+            "comment": "Add Body_2 base font token"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 12 Mar 2024 21:01:54 GMT",
+      "version": "6.12.1",
+      "tag": "@ni/nimble-tokens_v6.12.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "bc825e1b057eafd8bc005d11e9a224aa9aee9619",
+            "comment": "Update typescript to 4.9.5"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 06 Mar 2024 17:56:10 GMT",
+      "version": "6.12.0",
+      "tag": "@ni/nimble-tokens_v6.12.0",
+      "comments": {
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "dfd8accc27d885df5eb8024d57e60f486066719a",
+            "comment": "devDep updates"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 28 Feb 2024 19:35:04 GMT",
+      "version": "6.12.0",
+      "tag": "@ni/nimble-tokens_v6.12.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "f4f3f45c9107ff6d6c964fea69cd48247d6595fe",
+            "comment": "Add new icons for resume, generate, stop, deploy, undeploy, and hide"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 22 Feb 2024 01:13:03 GMT",
+      "version": "6.11.1",
+      "tag": "@ni/nimble-tokens_v6.11.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "bb9f7fcf5aeac256fe9c4bf39c782f64c26d1c52",
+            "comment": "Align nuget and npm package versions"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 21 Feb 2024 21:18:20 GMT",
+      "version": "6.11.0",
+      "tag": "@ni/nimble-tokens_v6.11.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "4037b7c13da51926e6fbfd774a4da19cd75cb98e",
+            "comment": "Add BodyEmphasized_2 font base token"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 16 Feb 2024 18:10:59 GMT",
+      "version": "6.10.1",
+      "tag": "@ni/nimble-tokens_v6.10.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "2b6c327fd3bc4f49178ac370f695a8b941278c46",
+            "comment": "Inline sources into map files"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 15 Feb 2024 01:01:57 GMT",
+      "version": "6.10.0",
+      "tag": "@ni/nimble-tokens_v6.10.0",
+      "comments": {
+        "none": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "19c97b51b82b32b95517a914d43a028860f1279a",
+            "comment": "Add publishConfig key to package files"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 02 Feb 2024 21:51:03 GMT",
+      "version": "6.10.0",
+      "tag": "@ni/nimble-tokens_v6.10.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "8ba4f05ec0bd828265d2f74b16a278adf46db268",
+            "comment": "New pause, play, stop, and external link icons. Updated running-arrow icon."
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 04 Jan 2024 16:50:24 GMT",
+      "version": "6.9.1",
+      "tag": "@ni/nimble-tokens_v6.9.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "341146ceef057386cea20419277073bd793270ef",
+            "comment": "Upgrade dependencies"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 11 Dec 2023 22:21:16 GMT",
+      "version": "6.9.0",
+      "tag": "@ni/nimble-tokens_v6.9.0",
+      "comments": {
+        "none": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "c2b7801ad71fd734b3e55e27315cc0792edd13d8",
+            "comment": "Updated new icon process in CONTRIBUTING doc"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 07 Dec 2023 17:27:04 GMT",
+      "version": "6.9.0",
+      "tag": "@ni/nimble-tokens_v6.9.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "f4a4453cc34b004f34d4ffed5a9c674427560597",
+            "comment": "New icons for calendars and test plans"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 02 Nov 2023 18:26:57 GMT",
+      "version": "6.8.0",
+      "tag": "@ni/nimble-tokens_v6.8.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "91d75d9c7ce2f493b3ac69fefd5457ae3b83d3f9",
+            "comment": "New icons for \"move in\" and \"move out\""
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 01 Nov 2023 20:45:20 GMT",
+      "version": "6.7.0",
+      "tag": "@ni/nimble-tokens_v6.7.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "5a8fe731b494042bc8a5cf060338a05208e1075d",
+            "comment": "New icon for @mention"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 23 Oct 2023 14:17:52 GMT",
+      "version": "6.6.0",
+      "tag": "@ni/nimble-tokens_v6.6.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "62016ff5a313a4c35f7850a2a4261251ceda51e0",
+            "comment": "Add icon for Save As"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 18 Oct 2023 18:51:54 GMT",
+      "version": "6.5.0",
+      "tag": "@ni/nimble-tokens_v6.5.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "2a799815ee5117c3cf863fc522333497e50ff355",
+            "comment": "add ni and systemlink logo icons"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 16 Oct 2023 21:31:42 GMT",
+      "version": "6.4.1",
+      "tag": "@ni/nimble-tokens_v6.4.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "8a429164d4987cc1b932adb3c93727afdc8c5202",
+            "comment": "Update TypeScript dependency to 4.8"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 20 Sep 2023 18:55:59 GMT",
+      "tag": "@ni/nimble-tokens_v6.4.0",
+      "version": "6.4.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "f12cbc59d683ae048a85750990cc4ae174464590",
+            "comment": "New icons for indent and outdent list level"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 02 Aug 2023 19:10:45 GMT",
+      "tag": "@ni/nimble-tokens_v6.3.0",
+      "version": "6.3.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "103057880+aidendk@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "3b37cf1deb3377b36c069e884d2b938b11048acd",
+            "comment": "Adding new DigitalGreenDark color tokens (105 and 110) for new button appearance variants (#663)"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 20 Jul 2023 03:09:06 GMT",
+      "tag": "@ni/nimble-tokens_v6.2.1",
+      "version": "6.2.1",
+      "comments": {
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "0541d6d412dd3b011756e07719656f30b20dc234",
+            "comment": "Lint disable without behavior change"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 14 Jul 2023 22:15:57 GMT",
+      "tag": "@ni/nimble-tokens_v6.2.1",
+      "version": "6.2.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "103057880+aidendk@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "88248bc22d9b50da299331a87863c65fe3c25cdb",
+            "comment": "Changed button label font weight token from Regular to Semi-Bold"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 14 Jul 2023 20:57:32 GMT",
+      "tag": "@ni/nimble-tokens_v6.2.0",
+      "version": "6.2.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "448a0147ee38c0f1cbe0ece06ecd103e4e3f5788",
+            "comment": "New icon with a clock and exclamation mark to represent an expired state"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 20 Jun 2023 21:10:06 GMT",
+      "tag": "@ni/nimble-tokens_v6.1.0",
+      "version": "6.1.0",
+      "comments": {
+        "none": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "fc39bf054f4863d1a3380f0d62740ca78cee662d",
+            "comment": "Fix intermittent hang in tokens build"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 20 Jun 2023 14:17:25 GMT",
+      "tag": "@ni/nimble-tokens_v6.1.0",
+      "version": "6.1.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "d8a2f6933982381c2724f87737873b2f9374a706",
+            "comment": "New icons for bold, italic, and numbered list"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 23 May 2023 16:41:52 GMT",
+      "tag": "@ni/nimble-tokens_v6.0.0",
+      "version": "6.0.0",
+      "comments": {
+        "none": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "eb414bd845ad761e5270f7499473f29cf75bb664",
+            "comment": "Minor improvements to contributing docs"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 12 May 2023 17:59:07 GMT",
       "tag": "@ni/nimble-tokens_v6.0.0",
       "version": "6.0.0",

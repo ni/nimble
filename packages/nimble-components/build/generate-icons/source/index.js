@@ -27,10 +27,12 @@ if (fs.existsSync(iconsDirectory)) {
 }
 console.log(`Creating icons directory "${iconsDirectory}"`);
 fs.mkdirSync(iconsDirectory);
+
 console.log('Finished creating icons directory');
 
 console.log('Writing icon component files');
 let allIconsFileContents = `${generatedFilePrefix}\n`;
+
 let fileCount = 0;
 for (const key of Object.keys(icons)) {
     const svgName = key; // e.g. "arrowExpanderLeft16X16"
@@ -43,7 +45,6 @@ for (const key of Object.keys(icons)) {
 
     const componentFileContents = `${generatedFilePrefix}
 import { ${svgName} } from '@ni/nimble-tokens/dist/icons/js';
-import { DesignSystem } from '@microsoft/fast-foundation';
 import { Icon, registerIcon } from '../icon-base';
 
 declare global {
@@ -62,14 +63,16 @@ export class ${className} extends Icon {
 }
 
 registerIcon('${elementBaseName}', ${className});
-export const ${tagName} = DesignSystem.tagFor(${className});
+export const ${tagName} = '${elementName}';
 `;
 
     const filePath = path.resolve(iconsDirectory, `${fileName}.ts`);
     fs.writeFileSync(filePath, componentFileContents, { encoding: 'utf-8' });
     fileCount += 1;
 
-    allIconsFileContents = allIconsFileContents.concat(`export { ${className} } from './${fileName}';\n`);
+    allIconsFileContents = allIconsFileContents.concat(
+        `export { ${className} } from './${fileName}';\n`
+    );
 }
 console.log(`Finshed writing ${fileCount} icon component files`);
 

@@ -2,10 +2,22 @@ import { css } from '@microsoft/fast-element';
 import {
     bodyFont,
     bodyFontColor,
-    controlLabelFontColor
+    placeholderFont,
+    placeholderFontColor
 } from '../../../theme-provider/design-tokens';
+import { display } from '../../../utilities/style/display';
 
 export const styles = css`
+    ${display('flex')}
+
+    :host {
+        align-items: center;
+    }
+
+    :host(.right-align) {
+        margin-left: auto;
+    }
+
     span {
         font: ${bodyFont};
         color: ${bodyFontColor};
@@ -14,7 +26,8 @@ export const styles = css`
         text-overflow: ellipsis;
     }
 
-    .placeholder {
-        color: ${controlLabelFontColor};
+    :host(.placeholder) span {
+        font: ${placeholderFont};
+        color: ${placeholderFontColor};
     }
 `;

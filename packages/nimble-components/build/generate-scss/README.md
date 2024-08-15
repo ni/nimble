@@ -2,9 +2,9 @@
 
 ## Behavior
 
-- Depends on the build output of the `npm run build-components` command to generate design token names.
-- Generates SCSS files in the nimble component dist with the design token names formatted as SCSS properties.
-- Generates an SCSS file for fonts that imports from Nimble Tokens.
+-   Depends on the build output of the `npm run build-components` command to generate design token names.
+-   Generates SCSS files in the nimble component dist with the design token names formatted as SCSS properties.
+-   Generates an SCSS file for fonts that imports from Nimble Tokens.
 
 ## How to run
 

@@ -13,12 +13,30 @@ interface SimpleTableRecord extends TableRecord {
     stringData3?: string | null;
 }
 
+interface HierarchicalTableRecord extends TableRecord {
+    id: string;
+    parentId?: string;
+    stringData1?: string | null;
+    stringData2?: string | null;
+    stringData3?: string | null;
+}
+
 // prettier-ignore
 async function setup(): Promise<Fixture<Table<SimpleTableRecord>>> {
     return fixture<Table<SimpleTableRecord>>(
         html`<nimble-table id-field-name="id">
-            <nimble-table-column-text id="first-column" field-name="stringData1"></nimble-table-column-text>
-            <nimble-table-column-text id="second-column" field-name="stringData2"></nimble-table-column-text>
+            <nimble-table-column-text id="first-column" field-name="stringData1" column-id="column-1"></nimble-table-column-text>
+            <nimble-table-column-text id="second-column" field-name="stringData2" column-id="column-2"></nimble-table-column-text>
+        </nimble-table>`
+    );
+}
+
+// prettier-ignore
+async function setupWithHierarchy(): Promise<Fixture<Table<SimpleTableRecord>>> {
+    return fixture<Table<SimpleTableRecord>>(
+        html`<nimble-table id-field-name="id" parent-id-field-name="parentId">
+            <nimble-table-column-text id="first-column" field-name="stringData1" column-id="column-1"></nimble-table-column-text>
+            <nimble-table-column-text id="second-column" field-name="stringData2" column-id="column-2"></nimble-table-column-text>
         </nimble-table>`
     );
 }
@@ -66,6 +84,7 @@ describe('Table grouping', () => {
         await connect();
         await waitForUpdatesAsync();
 
+        expect(pageObject.getGroupedColumns()).toEqual(['column-1']);
         expect(pageObject.getRenderedGroupRowCount()).toEqual(3);
     });
 
@@ -85,7 +104,29 @@ describe('Table grouping', () => {
         column1.groupIndex = 0;
         await waitForUpdatesAsync();
 
+        expect(pageObject.getGroupedColumns()).toEqual(['column-1']);
         expect(pageObject.getRenderedGroupRowCount()).toEqual(3);
+    });
+
+    it('shows correct child row counts on group rows', async () => {
+        const data: readonly SimpleTableRecord[] = [
+            { id: '1', stringData1: 'foo' },
+            { id: '2', stringData1: 'foo' },
+            { id: '3', stringData1: 'zzz' },
+            { id: '4', stringData1: 'hello' }
+        ] as const;
+
+        column1.fieldName = 'stringData1';
+        await element.setData(data);
+        await connect();
+        await waitForUpdatesAsync();
+
+        column1.groupIndex = 0;
+        await waitForUpdatesAsync();
+
+        expect(pageObject.getChildRowCountForGroup(0)).toBe(2);
+        expect(pageObject.getChildRowCountForGroup(1)).toBe(1);
+        expect(pageObject.getChildRowCountForGroup(2)).toBe(1);
     });
 
     it('changing column field updates rows', async () => {
@@ -108,6 +149,58 @@ describe('Table grouping', () => {
         await waitForUpdatesAsync();
 
         expect(getRenderedRecordIds()).toEqual(['1', '2', '4', '3']);
+    });
+
+    it('changing column field updates rows updates group row counts', async () => {
+        const data: readonly SimpleTableRecord[] = [
+            { id: '1', stringData1: 'foo', stringData2: 'elephant' },
+            { id: '2', stringData1: 'abc', stringData2: 'cat' },
+            { id: '3', stringData1: 'foo', stringData2: 'dog' },
+            { id: '4', stringData1: 'hello', stringData2: 'cat' }
+        ] as const;
+
+        column1.fieldName = 'stringData1';
+        column1.groupIndex = 0;
+        await element.setData(data);
+        await connect();
+        await waitForUpdatesAsync();
+
+        column1.fieldName = 'stringData2';
+        await waitForUpdatesAsync();
+
+        expect(pageObject.getChildRowCountForGroup(0)).toBe(1);
+        expect(pageObject.getChildRowCountForGroup(1)).toBe(2);
+        expect(pageObject.getChildRowCountForGroup(2)).toBe(1);
+    });
+
+    it('updating data updates group row counts', async () => {
+        const data: readonly SimpleTableRecord[] = [
+            { id: '1', stringData1: 'foo' },
+            { id: '2', stringData1: 'foo' },
+            { id: '3', stringData1: 'zzz' },
+            { id: '4', stringData1: 'hello' }
+        ] as const;
+
+        column1.fieldName = 'stringData1';
+        column1.groupIndex = 0;
+        await waitForUpdatesAsync();
+        await element.setData(data);
+        await connect();
+        await waitForUpdatesAsync();
+
+        await element.setData([
+            ...data,
+            { id: '5', stringData1: 'foo' },
+            { id: '6', stringData1: 'hello' },
+            { id: '7', stringData1: 'zzz' },
+            { id: '8', stringData1: 'zzz' },
+            { id: '9', stringData1: 'foo' }
+        ]);
+        await waitForUpdatesAsync();
+
+        expect(pageObject.getChildRowCountForGroup(0)).toBe(4);
+        expect(pageObject.getChildRowCountForGroup(1)).toBe(3);
+        expect(pageObject.getChildRowCountForGroup(2)).toBe(2);
     });
 
     it('removing grouping restores rows to default order based on data', async () => {
@@ -161,7 +254,6 @@ describe('Table grouping', () => {
             true,
             true
         ]);
-        expect(pageObject.getRenderedRowCount()).toBe(2);
 
         await element.setData(newData); // inserts row at beginning
         await waitForUpdatesAsync();
@@ -172,7 +264,6 @@ describe('Table grouping', () => {
             true,
             true
         ]);
-        expect(pageObject.getRenderedRowCount()).toBe(3);
     });
 
     it('updating grouping state expands all groups', async () => {
@@ -259,10 +350,14 @@ describe('Table grouping', () => {
         await connect();
         await waitForUpdatesAsync();
 
+        expect(pageObject.getGroupedColumns()).toEqual([
+            'column-2',
+            'column-1'
+        ]);
         expect(pageObject.getRenderedGroupRowCount()).toBe(6);
         expect(getRenderedRecordIds()).toEqual(['1', '4', '2', '3']);
-        expect(pageObject.getRenderedGroupHeaderContent(0)).toBe('world');
-        expect(pageObject.getRenderedGroupHeaderContent(1)).toBe('hello');
+        expect(pageObject.getRenderedGroupHeaderTextContent(0)).toBe('world');
+        expect(pageObject.getRenderedGroupHeaderTextContent(1)).toBe('hello');
     });
 
     it('can update group index', async () => {
@@ -432,12 +527,14 @@ describe('Table grouping', () => {
         }
 
         async function addNewColumn(
+            columnId: string,
             fieldName: string,
             groupIndex?: number
         ): Promise<TableColumnText> {
             const newColumn = document.createElement(
                 'nimble-table-column-text'
             );
+            newColumn.columnId = columnId;
             newColumn.fieldName = fieldName;
             if (typeof groupIndex === 'number') {
                 newColumn.groupIndex = groupIndex;
@@ -502,13 +599,17 @@ describe('Table grouping', () => {
             await connect();
             await waitForUpdatesAsync();
 
-            expect(pageObject.getRenderedGroupHeaderContent(0)).toEqual('foo');
+            expect(pageObject.getRenderedGroupHeaderTextContent(0)).toEqual(
+                'foo'
+            );
 
-            const newColumn = await addNewColumn('stringData3');
+            const newColumn = await addNewColumn('column-3', 'stringData3');
             newColumn.groupIndex = 0;
             await waitForUpdatesAsync();
 
-            expect(pageObject.getRenderedGroupHeaderContent(0)).toEqual('bar');
+            expect(pageObject.getRenderedGroupHeaderTextContent(0)).toEqual(
+                'bar'
+            );
         });
 
         it('hidden column can still be grouped by', async () => {
@@ -526,7 +627,7 @@ describe('Table grouping', () => {
             await connect();
             await waitForUpdatesAsync();
 
-            expect(pageObject.getAllRenderedGroupHeaderContent()).toEqual([
+            expect(pageObject.getAllRenderedGroupHeaderTextContent()).toEqual([
                 'foo',
                 'abc',
                 'zzz',
@@ -555,7 +656,7 @@ describe('Table grouping', () => {
             await connect();
             await waitForUpdatesAsync();
 
-            expect(pageObject.getAllRenderedGroupHeaderContent()).toEqual([
+            expect(pageObject.getAllRenderedGroupHeaderTextContent()).toEqual([
                 'jupiter',
                 'moon',
                 'saturn',
@@ -582,7 +683,7 @@ describe('Table grouping', () => {
             await connect();
             await waitForUpdatesAsync();
 
-            expect(pageObject.getAllRenderedGroupHeaderContent()).toEqual([
+            expect(pageObject.getAllRenderedGroupHeaderTextContent()).toEqual([
                 'world',
                 'saturn',
                 'moon',
@@ -612,7 +713,7 @@ describe('Table grouping', () => {
             await connect();
             await waitForUpdatesAsync();
 
-            expect(pageObject.getAllRenderedGroupHeaderContent()).toEqual([
+            expect(pageObject.getAllRenderedGroupHeaderTextContent()).toEqual([
                 'world',
                 'good bye',
                 'hello',
@@ -784,5 +885,103 @@ describe('Table grouping', () => {
             expect(pageObject.getRenderedRowCount()).toBe(0);
             expect(pageObject.getRenderedGroupRowCount()).toBe(4); // id 1 and 3 shown under 'hello' plus un-expanded 'good bye'
         });
+    });
+});
+
+describe('Table grouping with data hierarchy', () => {
+    let element: Table<SimpleTableRecord>;
+    let connect: () => Promise<void>;
+    let disconnect: () => Promise<void>;
+    let pageObject: TablePageObject<SimpleTableRecord>;
+    let column1: TableColumnText;
+    let column2: TableColumnText;
+
+    const hierarchicalData: readonly HierarchicalTableRecord[] = [
+        { id: '1', stringData1: 'foo' },
+        { id: '2', stringData1: 'foo', parentId: '1' },
+        { id: '3', stringData1: 'zzz' },
+        { id: '4', stringData1: 'hello', parentId: '3' }
+    ] as const;
+
+    beforeEach(async () => {
+        ({ element, connect, disconnect } = await setupWithHierarchy());
+        await element.setData(hierarchicalData);
+        pageObject = new TablePageObject<SimpleTableRecord>(element);
+        column1 = element.querySelector<TableColumnText>('#first-column')!;
+        column1.groupIndex = 0;
+        column2 = element.querySelector<TableColumnText>('#second-column')!;
+    });
+
+    afterEach(async () => {
+        await disconnect();
+    });
+
+    it('shows correct child row counts on group rows', async () => {
+        column1.fieldName = 'stringData1';
+        await connect();
+        await waitForUpdatesAsync();
+
+        column1.groupIndex = 0;
+        await waitForUpdatesAsync();
+
+        expect(pageObject.getChildRowCountForGroup(0)).toBe(1);
+        expect(pageObject.getChildRowCountForGroup(1)).toBe(1);
+    });
+
+    it('updating data maintains expanded state', async () => {
+        const newData: readonly HierarchicalTableRecord[] = [
+            { id: '5', stringData1: 'bar' },
+            { id: '1', stringData1: 'foo' },
+            { id: '2', stringData1: 'foo', parentId: '1' },
+            { id: '3', stringData1: 'zzz' },
+            { id: '4', stringData1: 'hello', parentId: '3' }
+        ] as const;
+
+        column1.fieldName = 'stringData1';
+        column1.groupIndex = 0;
+        await connect();
+        await waitForUpdatesAsync();
+
+        pageObject.toggleGroupRowExpandedState(0); // collapse first group
+        await waitForUpdatesAsync();
+
+        expect(pageObject.getAllGroupRowsExpandedState()).toEqual([
+            false,
+            true
+        ]);
+
+        await element.setData(newData); // inserts row at beginning
+        await waitForUpdatesAsync();
+
+        expect(pageObject.getAllGroupRowsExpandedState()).toEqual([
+            true,
+            false,
+            true
+        ]);
+    });
+
+    it('updating grouping state expands all groups', async () => {
+        const originalData: readonly HierarchicalTableRecord[] = [
+            { id: '1', stringData1: 'foo', stringData2: 'a' },
+            { id: '2', stringData1: 'abc', stringData2: 'a', parentId: '1' },
+            { id: '3', stringData1: 'foo', stringData2: 'a' },
+            { id: '4', stringData1: 'abc', stringData2: 'a', parentId: '2' }
+        ] as const;
+
+        column1.fieldName = 'stringData1';
+        column1.groupIndex = 0;
+        await element.setData(originalData);
+        await connect();
+        await waitForUpdatesAsync();
+
+        pageObject.toggleGroupRowExpandedState(0); // collapse first group
+        await waitForUpdatesAsync();
+
+        expect(pageObject.getAllGroupRowsExpandedState()).toEqual([false]);
+
+        column2.groupIndex = 1;
+        await waitForUpdatesAsync();
+
+        expect(pageObject.getAllGroupRowsExpandedState()).toEqual([true, true]);
     });
 });

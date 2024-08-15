@@ -24,6 +24,14 @@
         "value": "Regular"
       }
     },
+    "Body_2": {
+      "family": {
+        "value": "Source Sans Pro"
+      },
+      "weight": {
+        "value": "Regular"
+      }
+    },
     "Header0": {
       "family": {
         "value": "Noto Serif"
@@ -61,7 +69,7 @@
         "value": "Source Sans Pro"
       },
       "weight": {
-        "value": "Regular"
+        "value": "Semibold"
       }
     },
     "Title_1": {
@@ -113,6 +121,14 @@
       }
     },
     "BodyEmphasized": {
+      "family": {
+        "value": "Source Sans Pro"
+      },
+      "weight": {
+        "value": "Semibold"
+      }
+    },
+    "BodyEmphasized_2": {
       "family": {
         "value": "Source Sans Pro"
       },
@@ -252,6 +268,9 @@
       "Body": {
         "value": "14"
       },
+      "Body_2": {
+        "value": "16"
+      },
       "Header0": {
         "value": "36"
       },
@@ -265,7 +284,7 @@
         "value": "11"
       },
       "ButtonLabel_1": {
-        "value": "12.800000190734863"
+        "value": "14"
       },
       "Title_1": {
         "value": "19"
@@ -277,7 +296,7 @@
         "value": "14"
       },
       "Headline_2": {
-        "value": "29.100000381469727"
+        "value": "29.1"
       },
       "Placeholder": {
         "value": "14"
@@ -288,8 +307,11 @@
       "BodyEmphasized": {
         "value": "14"
       },
+      "BodyEmphasized_2": {
+        "value": "16"
+      },
       "Subtitle_1": {
-        "value": "12.800000190734863"
+        "value": "12.8"
       },
       "Title_3": {
         "value": "25"
@@ -328,7 +350,7 @@
         "value": "14"
       },
       "Grid_Header": {
-        "value": "12.800000190734863"
+        "value": "12.8"
       },
       "GroupLabel_Expander": {
         "value": "14"

@@ -1,11 +1,18 @@
 /* eslint-disable max-classes-per-file, @typescript-eslint/no-unused-vars */
 
-import { customElement } from '@microsoft/fast-element';
+import { attr, customElement } from '@microsoft/fast-element';
 import { TableCellView } from '../cell-view';
 import { TableGroupHeaderView } from '../group-header-view';
 import { TableColumn } from '..';
+import type { ColumnInternalsOptions } from '../models/column-internals';
+import { ColumnValidator } from '../models/column-validator';
 
 export const tableColumnEmptyCellViewTag = 'nimble-test-table-column-empty-cell-view';
+declare global {
+    interface HTMLElementTagNameMap {
+        [tableColumnEmptyCellViewTag]: TableCellView;
+    }
+}
 /**
  * Simple empty cell view for testing
  */
@@ -15,6 +22,11 @@ export const tableColumnEmptyCellViewTag = 'nimble-test-table-column-empty-cell-
 class EmptyTableCellView extends TableCellView {}
 
 export const tableColumnEmptyGroupHeaderViewTag = 'nimble-test-table-column-empty-group-header-view';
+declare global {
+    interface HTMLElementTagNameMap {
+        [tableColumnEmptyGroupHeaderViewTag]: EmptyTableGroupHeaderView;
+    }
+}
 /**
  * Simple empty group header view for testing
  */
@@ -24,6 +36,11 @@ export const tableColumnEmptyGroupHeaderViewTag = 'nimble-test-table-column-empt
 class EmptyTableGroupHeaderView extends TableGroupHeaderView {}
 
 export const tableColumnEmptyTag = 'nimble-test-table-column-empty';
+declare global {
+    interface HTMLElementTagNameMap {
+        [tableColumnEmptyTag]: TableColumnEmpty;
+    }
+}
 /**
  * Simple empty table column for testing
  */
@@ -31,30 +48,77 @@ export const tableColumnEmptyTag = 'nimble-test-table-column-empty';
     name: tableColumnEmptyTag
 })
 export class TableColumnEmpty extends TableColumn {
-    public constructor() {
-        super({
+    protected override getColumnInternalsOptions(): ColumnInternalsOptions {
+        return {
             cellRecordFieldNames: [],
             cellViewTag: tableColumnEmptyCellViewTag,
             groupHeaderViewTag: tableColumnEmptyGroupHeaderViewTag,
-            delegatedEvents: []
-        });
+            delegatedEvents: [],
+            validator: new ColumnValidator<[]>([])
+        };
     }
 }
 
-export const tableColumnDelegatesClickAndKeydownTag = 'nimble-test-table-column-delegates';
+const configValidity = ['invalidFoo', 'invalidBar'] as const;
+
 /**
- * Simple empty table column with 'click' and 'keydown' event delegation for testing
+ * Column validator used by TableColumnValidationTest
+ */
+export class TestColumnValidator extends ColumnValidator<
+    typeof configValidity
+> {
+    public constructor() {
+        super(configValidity);
+    }
+
+    public validateFoo(isValid: boolean): void {
+        this.setConditionValue('invalidFoo', !isValid);
+    }
+
+    public validateBar(isValid: boolean): void {
+        this.setConditionValue('invalidBar', !isValid);
+    }
+}
+
+export const tableColumnValidationTestTag = 'nimble-test-table-column-validation';
+declare global {
+    interface HTMLElementTagNameMap {
+        [tableColumnValidationTestTag]: TableColumnValidationTest;
+    }
+}
+/**
+ * Test column type used to verify column config validation.
+ * The foo and bar properties are only considered valid when their values are true.
  */
 @customElement({
-    name: tableColumnDelegatesClickAndKeydownTag
+    name: tableColumnValidationTestTag
 })
-export class TableColumnDelegatesClickAndKeydown extends TableColumn {
-    public constructor() {
-        super({
+export class TableColumnValidationTest extends TableColumn<
+unknown,
+TestColumnValidator
+> {
+    @attr({ mode: 'boolean' })
+    public foo = false;
+
+    @attr({ mode: 'boolean' })
+    public bar = false;
+
+    protected override getColumnInternalsOptions(): ColumnInternalsOptions<TestColumnValidator> {
+        return {
             cellRecordFieldNames: [],
             cellViewTag: tableColumnEmptyCellViewTag,
             groupHeaderViewTag: tableColumnEmptyGroupHeaderViewTag,
-            delegatedEvents: ['click', 'keydown']
-        });
+            delegatedEvents: [],
+            validator: new TestColumnValidator()
+        };
+    }
+
+    private fooChanged(): void {
+        this.columnInternals.validator.validateFoo(this.foo);
+    }
+
+    private barChanged(): void {
+        this.columnInternals.validator.validateBar(this.bar);
     }
 }
+/* eslint-enable max-classes-per-file, @typescript-eslint/no-unused-vars */

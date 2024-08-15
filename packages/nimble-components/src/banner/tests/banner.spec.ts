@@ -1,9 +1,15 @@
 import { html } from '@microsoft/fast-element';
 import { fixture, Fixture } from '../../utilities/tests/fixture';
-import { Banner } from '..';
+import { Banner, bannerTag } from '..';
 import { BannerSeverity } from '../types';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
-import { createEventListener } from '../../utilities/tests/component';
+import { waitForEvent } from '../../utilities/testing/component';
+import { themeProviderTag, type ThemeProvider } from '../../theme-provider';
+import {
+    LabelProviderCore,
+    labelProviderCoreTag
+} from '../../label-provider/core';
+import { buttonTag } from '../../button';
 
 async function setup(): Promise<Fixture<Banner>> {
     return fixture<Banner>(html`
@@ -11,6 +17,18 @@ async function setup(): Promise<Fixture<Banner>> {
             <span slot="title">Title</span>
             Message text
         </nimble-banner>
+    `);
+}
+
+async function setupWithLabelProvider(): Promise<Fixture<ThemeProvider>> {
+    return fixture<ThemeProvider>(html`
+        <${themeProviderTag}>
+            <${labelProviderCoreTag}></${labelProviderCoreTag}>
+            <nimble-banner>
+                <span slot="title">Title</span>
+                Message text
+            </nimble-banner>
+        </${themeProviderTag}>
     `);
 }
 
@@ -50,10 +68,11 @@ describe('Banner', () => {
 
     it("should fire 'toggle' when 'open' is changed", async () => {
         element.open = false;
-        const toggleListener = createEventListener(element, 'toggle');
+        const spy = jasmine.createSpy();
+        const toggleListener = waitForEvent(element, 'toggle', spy);
         element.open = true;
-        await toggleListener.promise;
-        expect(toggleListener.spy).toHaveBeenCalledOnceWith(
+        await toggleListener;
+        expect(spy).toHaveBeenCalledOnceWith(
             new CustomEvent('toggle', {
                 detail: { oldState: false, newState: true }
             })
@@ -84,21 +103,45 @@ describe('Banner', () => {
         ).toBeTrue();
     });
 
-    it("should set 'dismissButtonLabel' as label of dismiss button", async () => {
-        element.dismissButtonLabel = 'Dismiss';
-        await waitForUpdatesAsync();
-        expect(
-            element.shadowRoot
-                ?.querySelector('nimble-button')
-                ?.innerText.includes('Dismiss')
-        ).toBeTrue();
-    });
-
     it("should set the 'role' to 'status'", () => {
         expect(
             element.shadowRoot
                 ?.querySelector('.container')
                 ?.getAttribute('role')
         ).toBe('status');
+    });
+});
+
+describe('Banner with LabelProviderCore', () => {
+    let element: Banner;
+    let labelProvider: LabelProviderCore;
+    let connect: () => Promise<void>;
+    let disconnect: () => Promise<void>;
+
+    beforeEach(async () => {
+        let themeProvider: ThemeProvider;
+        ({
+            element: themeProvider,
+            connect,
+            disconnect
+        } = await setupWithLabelProvider());
+        await connect();
+        element = themeProvider.querySelector(bannerTag)!;
+        labelProvider = themeProvider.querySelector(labelProviderCoreTag)!;
+    });
+
+    afterEach(async () => {
+        await disconnect();
+    });
+
+    it('uses CoreLabelProvider popupDismissLabel for the close button label', async () => {
+        labelProvider.popupDismiss = 'Customized Close';
+        await waitForUpdatesAsync();
+
+        const actualCloseButtonText = element
+            .shadowRoot!.querySelector('.dismiss')!
+            .querySelector(buttonTag)!
+            .textContent!.trim();
+        expect(actualCloseButtonText).toBe('Customized Close');
     });
 });

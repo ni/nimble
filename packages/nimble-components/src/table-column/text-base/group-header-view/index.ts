@@ -1,55 +1,102 @@
-import { observable, volatile } from '@microsoft/fast-element';
+import type { DesignTokenSubscriber } from '@microsoft/fast-foundation';
+import { observable } from '@microsoft/fast-element';
 import { TableGroupHeaderView } from '../../base/group-header-view';
 import type { TableFieldValue } from '../../../table/types';
-import type { TableColumnWithPlaceholderColumnConfig } from '../../base/types';
+import {
+    tableGroupRowPlaceholderEmptyLabel,
+    tableGroupRowPlaceholderNoValueLabel
+} from '../../../label-provider/table/label-tokens';
 
 /**
  * The group header view base class for displaying fields of any type as text.
  */
 export abstract class TableColumnTextGroupHeaderViewBase<
     TGroupValue = TableFieldValue,
-    TColumnConfig = TableColumnWithPlaceholderColumnConfig
+    TColumnConfig = unknown
 > extends TableGroupHeaderView<TGroupValue, TColumnConfig> {
-    /** @internal */
-    public textSpan!: HTMLElement;
-
     /** @internal */
     @observable
     public hasOverflow = false;
 
     /**
-     * Returns the text to render in the cell when it contains a valid value (i.e. when shouldUsePlaceholder() is false).
-     * If the implementation has branching code paths then it must be marked with @volatile.
-     * https://www.fast.design/docs/fast-element/observables-and-state/#observable-features
+     * Text to render in the cell.
+     *
+     * The value is initialized to `tableGroupRowPlaceholderNoValue` because if the group
+     * row never has a value defined on it, the change handlers may never get called but
+     * the text needs to be correct.
      */
-    public abstract get text(): string;
+    @observable
+    public text = tableGroupRowPlaceholderNoValueLabel.getValueFor(this);
 
-    /**
-     * Returns the text to render in the cell when it contains an invalid value (i.e. when shouldUsePlaceholder() is true).
-     * If the implementation has branching code paths then it must be marked with @volatile.
-     * https://www.fast.design/docs/fast-element/observables-and-state/#observable-features
-     */
-    public abstract get placeholder(): string;
+    private readonly noValuePlaceholderLabelSubscriber: DesignTokenSubscriber<
+        typeof tableGroupRowPlaceholderNoValueLabel
+    > = {
+            handleChange: () => {
+                this.applyPlaceholderTextIfNeeded();
+            }
+        };
 
-    /**
-     * Returns whether to display the placeholder value or the text value
-     * If the implementation has branching code paths then it must be marked with @volatile.
-     * https://www.fast.design/docs/fast-element/observables-and-state/#observable-features
-     * */
-    public abstract get shouldUsePlaceholder(): boolean;
+    private readonly emptyPlaceholderLabelSubscriber: DesignTokenSubscriber<
+        typeof tableGroupRowPlaceholderEmptyLabel
+    > = {
+            handleChange: () => {
+                this.applyPlaceholderTextIfNeeded();
+            }
+        };
 
-    @volatile
-    public get content(): string {
-        return this.shouldUsePlaceholder ? this.placeholder : this.text;
+    public override connectedCallback(): void {
+        super.connectedCallback();
+        tableGroupRowPlaceholderNoValueLabel.subscribe(
+            this.noValuePlaceholderLabelSubscriber,
+            this
+        );
+        tableGroupRowPlaceholderEmptyLabel.subscribe(
+            this.emptyPlaceholderLabelSubscriber,
+            this
+        );
+        this.applyPlaceholderTextIfNeeded();
     }
 
-    /** @internal */
-    public updateTitleOverflow(): void {
-        this.hasOverflow = this.textSpan.offsetWidth < this.textSpan.scrollWidth;
+    public override disconnectedCallback(): void {
+        super.disconnectedCallback();
+        tableGroupRowPlaceholderNoValueLabel.unsubscribe(
+            this.noValuePlaceholderLabelSubscriber
+        );
+        tableGroupRowPlaceholderEmptyLabel.unsubscribe(
+            this.emptyPlaceholderLabelSubscriber
+        );
     }
 
-    /** @internal */
-    public clearTitleOverflow(): void {
-        this.hasOverflow = false;
+    protected abstract updateText(): void;
+
+    private columnConfigChanged(): void {
+        if (!this.applyPlaceholderTextIfNeeded()) {
+            this.updateText();
+        }
+    }
+
+    private groupHeaderValueChanged(): void {
+        if (!this.applyPlaceholderTextIfNeeded()) {
+            this.updateText();
+        }
+    }
+
+    /**
+     * Sets `this.text` to the appropriate placeholder if `groupHeaderValue` warrants it.
+     * @returns `true` if `this.text` was set to a placeholder, `false` otherwise.
+     */
+    private applyPlaceholderTextIfNeeded(): boolean {
+        if (
+            this.groupHeaderValue === null
+            || this.groupHeaderValue === undefined
+        ) {
+            this.text = tableGroupRowPlaceholderNoValueLabel.getValueFor(this);
+            return true;
+        }
+        if (this.groupHeaderValue === '') {
+            this.text = tableGroupRowPlaceholderEmptyLabel.getValueFor(this);
+            return true;
+        }
+        return false;
     }
 }

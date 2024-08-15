@@ -1,0 +1,53 @@
+import { Controls, Canvas, Meta, Title } from '@storybook/blocks';
+import * as menuButtonColumnStories from './table-column-menu-button.stories';
+import ComponentApisLink from '../../../docs/component-apis-link.mdx';
+import TableColumnApisLink from '../../../docs/table-column-apis-link.mdx';
+import { tableColumnMenuButtonTag } from '../../../../../nimble-components/src/table-column/menu-button';
+import { iconCheckTag } from '../../../../../nimble-components/src/icons/check';
+
+<Meta of={menuButtonColumnStories} />
+<Title of={menuButtonColumnStories} />
+
+The <Tag name={tableColumnMenuButtonTag}/> renders string values as the content
+of a menu button. A client can specify a slot name where they have provided the
+menu that is associated with the button.
+
+The column is neither sortable nor groupable.
+
+<Canvas of={menuButtonColumnStories.menuButtonColumn} />
+
+## API
+
+<TableColumnApisLink />
+<Controls of={menuButtonColumnStories.menuButtonColumn} />
+<ComponentApisLink />
+
+## Usage
+
+When using the <Tag name={tableColumnMenuButtonTag}/>, it is the client's
+responsibility to do the following:
+
+1. Ensure that the menu has the correct items in it based on the record for
+   which it was opened. This should be done by listening to the
+   `menu-button-column-beforetoggle` event and updating the menu items when the
+   `newState` is `true`.
+1. Ensure the currently selected value for the open menu exists as an item in
+   the menu and is marked as selected with the <Tag name={iconCheckTag}/>.
+1. Update the data through a `setData()` call when a menu item is activated in
+   order to update the text on the menu button in the column.
+
+### Menu Button Column vs Table Action Menu
+
+Both an action menu on a column and the <Tag name={tableColumnMenuButtonTag}/>
+can be used to provide a menu associated with a row in the table. However, they
+are used in different contexts.
+
+An action menu should be used in the table when:
+
+-   the items in the menu are actions to be performed on the record
+-   selecting an item in the menu does not change the value of the record
+
+The <Tag name={tableColumnMenuButtonTag}/> should be used when:
+
+-   the items in the menu represent values that can be assigned to the record
+-   the currently selected value should be displayed in the table

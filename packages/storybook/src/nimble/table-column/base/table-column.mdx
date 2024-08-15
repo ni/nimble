@@ -1,0 +1,50 @@
+import { Controls, Canvas, Meta, Title, Description } from '@storybook/blocks';
+import * as tableColumnStories from './table-column.stories';
+import ComponentApisLink from '../../../docs/component-apis-link.mdx';
+
+<Meta of={tableColumnStories} />
+<Title of={tableColumnStories} />
+<Description of={tableColumnStories} />
+
+## API
+
+<Controls of={tableColumnStories.api} />
+<ComponentApisLink />
+
+## Examples
+
+### Adding columns
+
+<Description of={tableColumnStories.addingColumns} />
+<Canvas of={tableColumnStories.addingColumns} />
+<Controls of={tableColumnStories.addingColumns} />
+
+### Setting header content
+
+<Description of={tableColumnStories.headerContent} />
+<Canvas of={tableColumnStories.headerContent} />
+<Controls of={tableColumnStories.headerContent} />
+
+### Hiding
+
+<Description of={tableColumnStories.columnHidden} />
+<Canvas of={tableColumnStories.columnHidden} />
+<Controls of={tableColumnStories.columnHidden} />
+
+### Sorting
+
+<Description of={tableColumnStories.sorting} />
+<Canvas of={tableColumnStories.sorting} />
+<Controls of={tableColumnStories.sorting} />
+
+### Grouping
+
+<Description of={tableColumnStories.grouping} />
+<Canvas of={tableColumnStories.grouping} />
+<Controls of={tableColumnStories.grouping} />
+
+### Column width
+
+<Description of={tableColumnStories.width} />
+<Canvas of={tableColumnStories.width} />
+<Controls of={tableColumnStories.width} />

@@ -127,7 +127,7 @@ TableColumnTextColumnConfig
     public get content(): string {
         return typeof this.groupHeaderValue === 'string'
             ? this.groupHeaderValue
-            : this.columnConfig.placeholder;
+            : '';
     }
 }
 
@@ -137,7 +137,6 @@ const tableColumnTextGroupHeaderView = TableColumnTextGroupHeaderView.compose({
         <nimble-text-field
             readonly="true"
             value="${x => x.groupHeaderValue}"
-            placeholder="${x => x.columnConfig.placeholder}"
         >
         </nimble-text-field>`,
     styles: /* styling */
@@ -158,7 +157,7 @@ export class TableGroupRow extends FoundationElement {
     public nestingLevel: number = 0;
 
     @observable
-    public leafItemCount?: number;
+    public immediateChildCount?: number;
 
     @observable
     public columnConfig?: unknown;
@@ -200,7 +199,7 @@ const tableGroupRowElement = TableGroupRow.compose({
             :rowGroupValue="${x => x.groupRowValue}"
             :columnConfig="${x => x.columnConfig}"
             >
-        </{x => x.rowGroupState.groupRowHeaderViewTag}> (${x => x.leafItemCount})
+        </{x => x.rowGroupState.groupRowHeaderViewTag}> (${x => x.immediateChildCount})
     </template>
     styles: /* styling */
 });
@@ -214,7 +213,7 @@ Table template.ts
 ```ts
     ...
     ${repeat(x => x.virtualizer.visibleItems, html<VirtualItem, Table>`
-        ${when((x, c) => (c.parent as Table).tableData[x.index]?.isGrouped, html<VirtualItem, Table>`
+        ${when((x, c) => (c.parent as Table).tableData[x.index]?.isGroupRow, html<VirtualItem, Table>`
             <${DesignSystem.tagFor(TableGroupRow)}
                 :groupRowValue="${(x, c) => c.parent.tableData[x.index]?.groupRowValue}"
                 ...
@@ -222,7 +221,7 @@ Table template.ts
                 >
             </${DesignSystem.tagFor(TableGroupRow)}>
         `)}
-        ${when((x, c) => !(c.parent as Table).tableData[x.index]?.isGrouped, html<VirtualItem, Table>`
+        ${when((x, c) => !(c.parent as Table).tableData[x.index]?.isGroupRow, html<VirtualItem, Table>`
             <${DesignSystem.tagFor(TableRow)}
     ...
 ```

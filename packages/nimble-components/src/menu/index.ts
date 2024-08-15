@@ -1,13 +1,7 @@
-import {
-    DesignSystem,
-    Menu as FoundationMenu,
-    menuTemplate as template
-} from '@microsoft/fast-foundation';
+import { DesignSystem } from '@microsoft/fast-foundation';
+import { Menu as FoundationMenu } from './menu.foundation';
+import { template } from './template';
 import { styles } from './styles';
-
-// FAST menu template requires an anchored region is available using tagFor DI
-// Register anchored region explicitly to make sure it is defined for the template
-import '../anchored-region';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -37,4 +31,4 @@ const nimbleMenu = Menu.compose({
 });
 
 DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleMenu());
-export const menuTag = DesignSystem.tagFor(Menu);
+export const menuTag = 'nimble-menu';

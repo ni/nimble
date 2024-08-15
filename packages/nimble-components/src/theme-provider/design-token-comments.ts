@@ -2,19 +2,33 @@ import type * as TokensNamespace from './design-tokens';
 
 type TokenName = keyof typeof TokensNamespace;
 
-export const comments: { readonly [key in TokenName]: string | null } = {
+export const comments: { readonly [key in TokenName]: string } = {
     actionRgbPartialColor:
         'DEPRECATED: *-partial tokens are used with rgba() to set color transparency in component stylesheets',
     applicationBackgroundColor: 'Primary background color for the application',
     dividerBackgroundColor: 'Divider background color',
     headerBackgroundColor: 'Background color for application headers',
     sectionBackgroundColor: 'Background color for sections',
+    buttonFillPrimaryColor:
+        'Control fill color for "primary" appearance-variant buttons',
+    buttonPrimaryFontColor:
+        'Font color for "primary" appearance-variant buttons',
+    buttonFillAccentColor:
+        'Control fill color for "accent" appearance-variant buttons',
+    buttonAccentBlockFontColor:
+        'Font color for "accent" appearance-variant block buttons',
+    buttonAccentOutlineFontColor:
+        'Font color for "accent" appearance-variant outline buttons',
+    buttonBorderAccentOutlineColor:
+        'Border color for "accent" appearance-variant outline buttons',
     fillSelectedColor: 'Control fill color when a control is selected',
     fillSelectedRgbPartialColor:
         'DEPRECATED: *-partial tokens are used with rgba() to set color transparency in component stylesheets',
     fillHoverSelectedColor:
         'Control fill color when hovering a selected control',
     fillHoverColor: 'Control fill color when hovering component',
+    fillHoverRgbPartialColor:
+        'DEPRECATED: *-partial tokens are used with rgba() to set color transparency in component stylesheets',
     fillDownColor: 'Control fill color when mousedown event occurs',
     borderColor: 'Standard control outline or border color',
     borderRgbPartialColor:
@@ -30,18 +44,32 @@ export const comments: { readonly [key in TokenName]: string | null } = {
     iconColor: 'Equivalent to the font color for icons',
     modalBackdropColor: 'Color of background overlay behind modal dialog boxes',
     popupBorderColor: 'Border color for menus and dialog boxes',
+    cardBorderColor: 'Border color for cards',
+    tagFillColor: 'Background fill color for tags, chips, or pills',
     controlHeight:
         'Standard layout height for all controls. Add "labelHeight" for labels on top.',
     controlSlimHeight:
         'Height of controls that are somewhat shorter than standard height.',
-    smallPadding: 'Small layout padding for components',
-    standardPadding: 'Standard layout padding for components',
+    smallPadding: 'Fixed 4px size ramp token for component layout',
+    mediumPadding: 'Fixed 8px size ramp token for component layout',
+    standardPadding: 'Fixed 16px size ramp token for component layout',
+    largePadding: 'Fixed 24px size ramp token for component layout',
     labelHeight:
         'Standard label height for components. Set the label font rather than explicitly setting the height for a label.',
     borderWidth: 'Standard border width for most components',
     iconSize: 'Standard layout height for all icons',
     groupHeaderTextTransform: 'CSS text-transform string to use for headers',
     drawerWidth: 'TODO: delete when able',
+    dialogSmallWidth:
+        'Standard width for small dialogs like a confirmation dialog.',
+    dialogSmallHeight:
+        'Standard height for small dialogs like a confirmation dialog.',
+    dialogSmallMaxHeight:
+        'Standard maximum height for small dialogs like a confirmation dialog.',
+    dialogLargeWidth: 'Standard width for large dialogs.',
+    dialogLargeHeight: 'Standard height for large dialogs.',
+    dialogLargeMaxHeight: 'Standard maximum height for large dialogs.',
+    menuMinWidth: 'Standard menu min width for menu popup.',
     bannerGapSize: 'Space between stacked banners',
     spinnerSmallHeight: 'Small height (16px) for a spinner component',
     spinnerMediumHeight: 'Medium height (32px) for a spinner component',
@@ -61,7 +89,6 @@ export const comments: { readonly [key in TokenName]: string | null } = {
     headlinePlus1FontWeight: 'Font weight for the "Headline_2" base token',
     headlinePlus1FontLineHeight:
         'Font line height for the "Headline_2" base token',
-    headlinePlus1FallbackFontFamily: null,
     headlineFont: 'Font shorthand for the "Headline_1" base token',
     headlineFontColor: 'Font color for the "Headline_1" base token',
     headlineDisabledFontColor:
@@ -70,8 +97,6 @@ export const comments: { readonly [key in TokenName]: string | null } = {
     headlineFontSize: 'Font size for the "Headline_1" base token',
     headlineFontWeight: 'Font weight for the "Headline_1" base token',
     headlineFontLineHeight: 'Font line height for the "Headline_1" base token',
-    headlineFallbackFontFamily:
-        'Fallback font family for the "Headline_1" base token',
     tableHeaderFont: 'Font shorthand for the "Grid_Header" base token',
     tableHeaderFontColor: 'Font color for the "Grid_Header" base token',
     tableHeaderDisabledFontColor:
@@ -81,8 +106,6 @@ export const comments: { readonly [key in TokenName]: string | null } = {
     tableHeaderFontWeight: 'Font weight for the "Grid_Header" base token',
     tableHeaderFontLineHeight:
         'Font line height for the "Grid_Header" base token',
-    tableHeaderFallbackFontFamily:
-        'Fallback font family for the "Grid_Header" base token',
     titlePlus2Font: 'Font shorthand for the "Title_3" base token',
     titlePlus2FontColor: 'Font color for the "Title_3" base token',
     titlePlus2DisabledFontColor:
@@ -91,8 +114,6 @@ export const comments: { readonly [key in TokenName]: string | null } = {
     titlePlus2FontSize: 'Font size for the "Title_3" base token',
     titlePlus2FontWeight: 'Font weight for the "Title_3" base token',
     titlePlus2FontLineHeight: 'Font line height for the "Title_3" base token',
-    titlePlus2FallbackFontFamily:
-        'Fallback font family for the "Title_3" base token',
     titlePlus1Font: 'Font shorthand for the "Title_2" base token',
     titlePlus1FontColor: 'Font color for the "Title_2" base token',
     titlePlus1DisabledFontColor:
@@ -101,8 +122,6 @@ export const comments: { readonly [key in TokenName]: string | null } = {
     titlePlus1FontSize: 'Font size for the "Title_2" base token',
     titlePlus1FontWeight: 'Font weight for the "Title_2" base token',
     titlePlus1FontLineHeight: 'Font line height for the "Title_2" base token',
-    titlePlus1FallbackFontFamily:
-        'Fallback font family for the "Title_2" base token',
     titleFont: 'Font shorthand for the "Title_1" base token',
     titleFontColor: 'Font color for the "Title_1" base token',
     titleDisabledFontColor: 'Disabled font color for the "Title_1" base token',
@@ -110,8 +129,6 @@ export const comments: { readonly [key in TokenName]: string | null } = {
     titleFontSize: 'Font size for the "Title_1" base token',
     titleFontWeight: 'Font weight for the "Title_1" base token',
     titleFontLineHeight: 'Font line height for the "Title_1" base token',
-    titleFallbackFontFamily:
-        'Fallback font family for the "Title_1" base token',
     subtitlePlus1Font: 'Font shorthand for the "Subtitle_2" base token',
     subtitlePlus1FontColor: 'Font color for the "Subtitle_2" base token',
     subtitlePlus1DisabledFontColor:
@@ -121,8 +138,6 @@ export const comments: { readonly [key in TokenName]: string | null } = {
     subtitlePlus1FontWeight: 'Font weight for the "Subtitle_2" base token',
     subtitlePlus1FontLineHeight:
         'Font line height for the "Subtitle_2" base token',
-    subtitlePlus1FallbackFontFamily:
-        'Fallback font family for the "Subtitle_2" base token',
     subtitleFont: 'Font shorthand for the "Subtitle_1" base token',
     subtitleFontColor: 'Font color for the "Subtitle_1" base token',
     subtitleDisabledFontColor:
@@ -131,8 +146,6 @@ export const comments: { readonly [key in TokenName]: string | null } = {
     subtitleFontSize: 'Font size for the "Subitle_1" base token',
     subtitleFontWeight: 'Font weight for the "Subtitle_1" base token',
     subtitleFontLineHeight: 'Font line height for the "Subtitle_1" base token',
-    subtitleFallbackFontFamily:
-        'Fallback font family for the "Subtitle_1" base token',
     linkFont: 'Font shorthand for links',
     linkFontColor: 'Font color for links',
     linkDisabledFontColor: 'Disabled font color for links',
@@ -140,7 +153,6 @@ export const comments: { readonly [key in TokenName]: string | null } = {
     linkFontSize: 'Font size for links',
     linkFontWeight: 'Font weight for links',
     linkFontLineHeight: 'Font line height for links',
-    linkFallbackFontFamily: 'Fallback font family for links',
     linkActiveFont: 'Font shorthand for active links',
     linkActiveFontColor: 'Font color for active links',
     linkActiveDisabledFontColor: 'Disabled font color for active links',
@@ -148,7 +160,6 @@ export const comments: { readonly [key in TokenName]: string | null } = {
     linkActiveFontSize: 'Font size for active links',
     linkActiveFontWeight: 'Font weight for active links',
     linkActiveFontLineHeight: 'Font line height for active links',
-    linkActiveFallbackFontFamily: 'Fallback font family for active links',
     linkProminentFont: 'Font shorthand for prominent links',
     linkProminentFontColor: 'Font color for prominent links',
     linkProminentDisabledFontColor: 'Disabled font color for prominent links',
@@ -156,7 +167,6 @@ export const comments: { readonly [key in TokenName]: string | null } = {
     linkProminentFontSize: 'Font size for prominent links',
     linkProminentFontWeight: 'Font weight for prominent links',
     linkProminentFontLineHeight: 'Font line height for prominent links',
-    linkProminentFallbackFontFamily: 'Fallback font family for prominent links',
     linkActiveProminentFont: 'Font shorthand for active prominent links',
     linkActiveProminentFontColor: 'Font color for active prominent links',
     linkActiveProminentDisabledFontColor:
@@ -166,8 +176,6 @@ export const comments: { readonly [key in TokenName]: string | null } = {
     linkActiveProminentFontWeight: 'Font weight for active prominent links',
     linkActiveProminentFontLineHeight:
         'Font line height for active prominent links',
-    linkActiveProminentFallbackFontFamily:
-        'Fallback font family for active prominent links',
     placeholderFont: 'Font shorthand for the "Placeholder" base token',
     placeholderFontColor: 'Font color for the "Placeholder" base token',
     placeholderDisabledFontColor:
@@ -177,21 +185,6 @@ export const comments: { readonly [key in TokenName]: string | null } = {
     placeholderFontWeight: 'Font weight for the "Placeholder" base token',
     placeholderFontLineHeight:
         'Font line height for the "Placeholder" base token',
-    placeholderFallbackFontFamily:
-        'Fallback font family for the "Placeholder" base token',
-    bodyEmphasizedFont: 'Font shorthand for the "Body_Emphasized" base token',
-    bodyEmphasizedFontColor: 'Font color for the "Body_Emphasized" base token',
-    bodyEmphasizedDisabledFontColor:
-        'Disabled font color for the "Body_Emphasized" base token',
-    bodyEmphasizedFontFamily:
-        'Font family for the "Body_Emphasized" base token',
-    bodyEmphasizedFontSize: 'Font size for the "Body_Emphasized" base token',
-    bodyEmphasizedFontWeight:
-        'Font weight for the "Body_Emphasized" base token',
-    bodyEmphasizedFontLineHeight:
-        'Font line height for the "Body_Emphasized" base token',
-    bodyEmphasizedFallbackFontFamily:
-        'Fallback font family for the "Body_Emphasized" base token',
     bodyFont: 'Font shorthand for the "Body" base token',
     bodyFontColor: 'Font color for the "Body" base token',
     bodyDisabledFontColor: 'Disabled font color for the "Body" base token',
@@ -199,7 +192,37 @@ export const comments: { readonly [key in TokenName]: string | null } = {
     bodyFontSize: 'Font size for the "Body" base token',
     bodyFontWeight: 'Font weight for the "Body" base token',
     bodyFontLineHeight: 'Font line height for the "Body" base token',
-    bodyFallbackFontFamily: 'Fallback font family for the "Body" base token',
+    bodyEmphasizedFont: 'Font shorthand for the "BodyEmphasized" base token',
+    bodyEmphasizedFontColor: 'Font color for the "BodyEmphasized" base token',
+    bodyEmphasizedDisabledFontColor:
+        'Disabled font color for the "BodyEmphasized" base token',
+    bodyEmphasizedFontFamily: 'Font family for the "BodyEmphasized" base token',
+    bodyEmphasizedFontSize: 'Font size for the "BodyEmphasized" base token',
+    bodyEmphasizedFontWeight: 'Font weight for the "BodyEmphasized" base token',
+    bodyEmphasizedFontLineHeight:
+        'Font line height for the "BodyEmphasized" base token',
+    bodyPlus1Font: 'Font shorthand for the "Body_2" base token',
+    bodyPlus1FontColor: 'Font color for the "Body_2" base token',
+    bodyPlus1DisabledFontColor:
+        'Disabled font color for the "Body_2" base token',
+    bodyPlus1FontFamily: 'Font family for the "Body_2" base token',
+    bodyPlus1FontSize: 'Font size for the "Body_2" base token',
+    bodyPlus1FontWeight: 'Font weight for the "Body_2" base token',
+    bodyPlus1FontLineHeight: 'Font line height for the "Body_2" base token',
+    bodyPlus1EmphasizedFont:
+        'Font shorthand for the "BodyEmphasized_2" base token',
+    bodyPlus1EmphasizedFontColor:
+        'Font color for the "BodyEmphasized_2" base token',
+    bodyPlus1EmphasizedDisabledFontColor:
+        'Disabled font color for the "BodyEmphasized_2" base token',
+    bodyPlus1EmphasizedFontFamily:
+        'Font family for the "BodyEmphasized_2" base token',
+    bodyPlus1EmphasizedFontSize:
+        'Font size for the "BodyEmphasized_2" base token',
+    bodyPlus1EmphasizedFontWeight:
+        'Font weight for the "BodyEmphasized_2" base token',
+    bodyPlus1EmphasizedFontLineHeight:
+        'Font line height for the "BodyEmphasized_2" base token',
     groupHeaderFont: 'Font shorthand for the "Group_Header_1" base token',
     groupHeaderFontColor: 'Font color for the "Group_Header_1" base token',
     groupHeaderDisabledFontColor:
@@ -209,8 +232,6 @@ export const comments: { readonly [key in TokenName]: string | null } = {
     groupHeaderFontWeight: 'Font weight for the "Group_Header_1" base token',
     groupHeaderFontLineHeight:
         'Font line height for the "Group_Header_1" base token',
-    groupHeaderFallbackFontFamily:
-        'Fallback font family for the "Group_Header_1" base token',
     controlLabelFont: 'Font shorthand for the "Control_Label_1" base token',
     controlLabelFontColor: 'Font color for the "Control_Label_1" base token',
     controlLabelDisabledFontColor:
@@ -220,8 +241,6 @@ export const comments: { readonly [key in TokenName]: string | null } = {
     controlLabelFontWeight: 'Font weight for the "Control_Label_1" base token',
     controlLabelFontLineHeight:
         'Font line height for the "Control_Label_1" base token',
-    controlLabelFallbackFontFamily:
-        'Fallback font family for the "Control_Label_1" base token',
     buttonLabelFont: 'Font shorthand for the "Button_Label_1" base token',
     buttonLabelFontColor: 'Font color for the "Button_Label_1" base token',
     buttonLabelDisabledFontColor:
@@ -231,8 +250,6 @@ export const comments: { readonly [key in TokenName]: string | null } = {
     buttonLabelFontWeight: 'Font weight for the "Button_Label_1" base token',
     buttonLabelFontLineHeight:
         'Font line height for the "Button_Label_1" base token',
-    buttonLabelFallbackFontFamily:
-        'Fallback font family for the "Button_Label_1" base token',
     tooltipCaptionFont: 'Font shorthand for the "Tooltip_Caption" base token',
     tooltipCaptionFontColor: 'Font color for the "Tooltip_Caption" base token',
     tooltipCaptionDisabledFontColor:
@@ -244,8 +261,6 @@ export const comments: { readonly [key in TokenName]: string | null } = {
         'Font weight for the "Tooltip_Caption" base token',
     tooltipCaptionFontLineHeight:
         'Font line height for the "Tooltip_Caption" base token',
-    tooltipCaptionFallbackFontFamily:
-        'Fallback font family for the "Tooltip_Caption" base token',
     tooltipBackgroundColor: 'Default background color for tooltips',
     errorTextFont: 'Font shorthand for the "Error_LightUi" base token',
     errorTextFontColor: 'Font color for the "Error_LightUi" base token',
@@ -256,13 +271,51 @@ export const comments: { readonly [key in TokenName]: string | null } = {
     errorTextFontWeight: 'Font weight for the "Error_LightUi" base token',
     errorTextFontLineHeight:
         'Font line height for the "Error_LightUi" base token',
-    errorTextFallbackFontFamily:
-        'Fallback font family for the "Error_LightUi" base token',
     tableRowBorderColor: 'Color for the border of rows in the table',
     elevation1BoxShadow:
         'The box shadow for elevation 1. Used for component hover states.',
     elevation2BoxShadow:
         'The box shadow for elevation 2. Used for components such as menus, banners, tooltips, error notifications, and scrolling.',
     elevation3BoxShadow:
-        'The box shadow for elevation 3. Used for components such as dialogs, overlays, and pop-ups.'
+        'The box shadow for elevation 3. Used for components such as dialogs, overlays, and pop-ups.',
+    graphGridlineColor: 'Gridline color for graphs',
+    graphTrace1Color: 'Color for the first graph trace',
+    graphTrace2Color: 'Color for the second graph trace',
+    graphTrace3Color: 'Color for the third graph trace',
+    graphTrace4Color: 'Color for the fourth graph trace',
+    graphTrace5Color: 'Color for the fifth graph trace',
+    graphTrace6Color: 'Color for the sixth graph trace',
+    graphTrace7Color: 'Color for the seventh graph trace',
+    graphTrace8Color: 'Color for the eighth graph trace',
+    mentionFont: 'Font shorthand for mention views',
+    mentionFontColor: 'Font color for mention views',
+    mentionDisabledFontColor: 'Disabled font color for mention views',
+    mentionFontFamily: 'Font family for mention views',
+    mentionFontSize: 'Font size for mention views',
+    mentionFontWeight: 'Font weight for mention views',
+    mentionFontLineHeight: 'Font line height for mention views',
+    calendarEventBackgroundStaticColor:
+        'Background color for static calendar events',
+    calendarEventBackgroundDynamicColor:
+        'Background color for dynamic calendar events',
+    calendarEventBackgroundTransientColor:
+        'Background color for transient calendar events',
+    calendarEventBorderStaticColor: 'Border color for static calendar events',
+    calendarEventBorderTransientColor:
+        'Border color for transient calendar events',
+    calendarEventStaticFontColor: 'Font color for static calendar events',
+    calendarEventDynamicFontColor: 'Font color for dynamic calendar events',
+    calendarEventTransientFontColor: 'Font color for transient calendar events',
+    calendarEventBackgroundHoverStaticColor:
+        'Color while hovering static calendar events',
+    calendarEventBackgroundHoverDynamicColor:
+        'Color while hovering dynamic calendar events',
+    calendarEventBackgroundHoverTransientColor:
+        'Color while hovering transient calendar events',
+    calendarRowBackgroundSelectedColor:
+        'Background color while calendar resource is selected/highlighted',
+    calendarEventFillBlockedColor:
+        'Background fill to indicate the occupied slots in calendar resource rows',
+    calendarGrabHandleBackgroundColor:
+        'Background fill color for the editable calendar event grab handle'
 };

@@ -1,6 +1,6 @@
-/* eslint-disable max-classes-per-file */
 import { customElement, html, ref } from '@microsoft/fast-element';
 import { TreeItem as FoundationTreeItem } from '@microsoft/fast-foundation';
+import { parameterizeSpec } from '@ni/jasmine-parameterized';
 import { AnchorTreeItem } from '..';
 import type { IconCheck } from '../../icons/check';
 import type { IconXmark } from '../../icons/xmark';
@@ -8,7 +8,6 @@ import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import type { TreeItem } from '../../tree-item';
 import type { TreeView } from '../../tree-view';
 import { fixture, Fixture } from '../../utilities/tests/fixture';
-import { getSpecTypeByNamedList } from '../../utilities/tests/parameterized';
 
 @customElement('foundation-tree-item')
 export class TestTreeItem extends FoundationTreeItem {}
@@ -72,10 +71,10 @@ describe('Anchor Tree Item', () => {
             await connect();
             element.disabled = true;
             await waitForUpdatesAsync();
-            expect(element.control.href).toBe('');
+            expect(element.control!.href).toBe('');
         });
 
-        const attributeNames: { name: string }[] = [
+        const attributeNames = [
             { name: 'download' },
             { name: 'href' },
             { name: 'hreflang' },
@@ -84,28 +83,18 @@ describe('Anchor Tree Item', () => {
             { name: 'rel' },
             { name: 'target' },
             { name: 'type' }
-        ];
+        ] as const;
         describe('should reflect value to the internal control', () => {
-            const focused: string[] = [];
-            const disabled: string[] = [];
-            for (const attribute of attributeNames) {
-                const specType = getSpecTypeByNamedList(
-                    attribute,
-                    focused,
-                    disabled
-                );
-                // eslint-disable-next-line @typescript-eslint/no-loop-func
-                specType(`for attribute ${attribute.name}`, async () => {
+            parameterizeSpec(attributeNames, (spec, name) => {
+                spec(`for attribute ${name}`, async () => {
                     await connect();
 
-                    element.setAttribute(attribute.name, 'foo');
+                    element.setAttribute(name, 'foo');
                     await waitForUpdatesAsync();
 
-                    expect(element.control.getAttribute(attribute.name)).toBe(
-                        'foo'
-                    );
+                    expect(element.control!.getAttribute(name)).toBe('foo');
                 });
-            }
+            });
         });
 
         it('should expose slotted content through properties', async () => {
@@ -114,15 +103,11 @@ describe('Anchor Tree Item', () => {
             expect(element.end.assignedElements()[0]).toBe(model.checkIcon);
         });
 
-        it('should set start and end slots visible', async () => {
+        it('should set start slot visible', async () => {
             await connect();
             expect(
                 getComputedStyle(element.start).display === 'none'
                     || getComputedStyle(element.startContainer).display === 'none'
-            ).toBeFalse();
-            expect(
-                getComputedStyle(element.end).display === 'none'
-                    || getComputedStyle(element.endContainer).display === 'none'
             ).toBeFalse();
         });
     });

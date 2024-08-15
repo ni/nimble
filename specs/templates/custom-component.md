@@ -1,4 +1,4 @@
-# Nimble Component Name [Template]
+# Component Name [Template]
 
 ## Overview
 
@@ -6,10 +6,14 @@
 
 ### Background
 
-*Relevant historical or background information*
-*Link to Interaction Design spec*
-*Link to Visual Design spec*
-*Link to relevant work items, related existing issues, etc.*
+- *Relevant historical or background information*
+- *Link to Interaction Design spec*
+- *Link to Visual Design spec*
+- *Link to relevant work items, related existing issues, etc.*
+
+### Containing Library
+
+*State whether this component be part of Nimble or Spright and provide justification or considerations leading to that decision.* 
 
 ### Non-goals
 
@@ -50,31 +54,36 @@
 - *Methods*
 - *Events*
 - *CSS Classes and CSS Custom Properties that affect the component*
+- *How native CSS Properties (height, width, etc.) affect the component*
 
 *Consider high and low-level APIs. Attempt to design a powerful and extensible low-level API with a high-level API for developer/designer ergonomics and simplicity.*
 
 ### Anatomy 
 
-*Outline the component structure with a diagram of its visual tree (shadow dom). Enumerate key areas of visual customization, such as:*
+*Outline the component structure with a diagram of its visual tree (shadow DOM). Enumerate key areas of visual customization, such as:*
 
 - *Slot Names*
 - *Host Classes*
 - *Slotted Content/Slotted Classes*
 - *CSS Parts*
 
-*Work closely with the visual design partner to co-develop the API and anatomy along side the visual design.*
+### Native form integration
 
-### Angular integration 
+*Describe the plan for custom element form integration or why it's not necessary.*
+
+*Components that are intended to replace a native form element (input, textarea, select) should generally behave like their native counterpart. See ["More capable form controls" on web.dev](https://web.dev/articles/more-capable-form-controls) for an overview of requirements. Leverage patterns from [FAST Form Associated Custom Elements](https://github.com/microsoft/fast/blob/master/packages/web-components/fast-foundation/src/form-associated/form-associated-custom-element.spec.md).*
+
+### Angular integration
 
 *Describe the plan for Angular support, including directives for attribute binding and ControlValueAccessor for form integration. Depending on the contributor's needs, implementing Angular integration may be deferred but the initial spec should still document what work will be needed.*
 
-### Blazor integration 
+### Blazor integration
 
-*Describe the plan for Blazor support. See the [nimble-blazor CONTRIBUTING.md](/packages/nimble-blazor/CONTRIBUTING.md) for details. Depending on the contributor's needs, implementing Blazor integration may be deferred but the initial spec should still document what work will be needed.*
+*Describe the plan for Blazor support, including form integration. See the [nimble-blazor CONTRIBUTING.md](/packages/blazor-workspace/NimbleBlazor/CONTRIBUTING.md) for details. Depending on the contributor's needs, implementing Blazor integration may be deferred but the initial spec should still document what work will be needed.*
 
 ### Visual Appearance
 
-*Work with Visual Design to create Adobe XD files and other design assets. Be sure to account for the various component states, including hover, active, etc. as well as validity, and appearance variants. Focus primarily on the officially supported design system as well as known community scenarios as appropriate. Consider other popular design systems during this process and, where possible, ensure that common design features that may not be part of the officially supported design system can be accommodated. Work closely with engineering to co-develop the visual design along side the API and anatomy.*
+*Work with Visual Design to create Figma files and other design assets. Be sure to account for the various component states, including hover, active, etc. as well as validity, and appearance variants.*
 
 ---
 
@@ -95,12 +104,22 @@
 *Consider the accessibility of the component, including:*
 
 - *Keyboard Navigation and Focus*
-- *Form Input*
+- *Form Input and Autofill*
 - *Use with Assistive Technology. For example:*
   - *All components should define a role and support labels / being labelled so that assistive technology can identify them*
-  - *The implications shadow dom might have on how roles and attributes are presented in the accessibility tree.*
-  - *Components which delegate focus require all global ARIA attributes to be enumerated.*
+  - *The implications shadow dom might have on how roles and attributes are presented in the accessibility tree*
+  - *Components which delegate focus require all global ARIA attributes to be enumerated*
+  - *Components should either follow an existing [ARIA Pattern](https://www.w3.org/WAI/ARIA/apg/patterns/) or provide thorough research indicating why a new pattern is appropriate. Research should include sources like [Open UI Community Group](https://github.com/openui/open-ui) and other popular design systems.*
 - *Behavior with browser configurations like "Prefers reduced motion"*
+- *Support for standard link behaviors if the component is an anchor or contains an anchor. These behaviors are enumerated in the [anchor-patterns story](/packages/nimble-components/src/patterns/anchor/tests/anchor-patterns.mdx). The story should be updated to include the new component.*
+
+### Mobile
+
+*Consider how the component will behave on mobile devices, including:*
+
+- *Overflow behavior when screen space is constrained*
+- *Interactions that are affected by touch rather than a pointer device (e.g. hover)*
+- *Integration with common mobile experiences like native pickers, on-screen keyboards, and dictation*
 
 ### Globalization
 

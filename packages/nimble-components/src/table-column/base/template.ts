@@ -1,10 +1,14 @@
-import { html } from '@microsoft/fast-element';
+import { html, ref } from '@microsoft/fast-element';
 import type { TableColumn } from '.';
+import { overflow } from '../../utilities/directive/overflow';
 
-export const template = html<TableColumn>`
-    <template slot="${x => x.columnInternals.uniqueId}">
-        <span class="header-content">
-            <slot></slot>
-        </span>
-    </template>
-`;
+// Avoiding a wrapping <template> and be careful about starting and ending whitspace
+// so the template can be composed into other column header templates
+// prettier-ignore
+export const template = html<TableColumn>`<span
+    ${overflow('hasOverflow')}
+    class="header-content"
+    title=${x => (x.hasOverflow && x.headerTextContent ? x.headerTextContent : null)}
+>
+    <slot ${ref('contentSlot')}></slot>
+</span>`;

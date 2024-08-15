@@ -1,60 +1,69 @@
 import * as nimbleIconsMap from '@ni/nimble-tokens/dist/icons/js';
-import type { NimbleIconName } from '@ni/nimble-tokens/dist/icons/js';
 import { DesignSystem } from '@microsoft/fast-foundation';
-import { getSpecTypeByNamedList } from '../../utilities/tests/parameterized';
+import { html } from '@microsoft/fast-element';
+import { parameterizeSpec } from '@ni/jasmine-parameterized';
 import * as allIconsNamespace from '../../icons/all-icons';
-import { iconMetadata } from '../icon-metadata';
+import { iconMetadata } from './icon-metadata';
+import { Fixture, fixture } from '../../utilities/tests/fixture';
+import { IconAdd, iconAddTag } from '../../icons/add';
 
 describe('Icons', () => {
-    describe('should have correct SVG structure', () => {
-        const nimbleIcons = Object.values(nimbleIconsMap);
-        const getSVGElement = (htmlString: string): SVGElement => {
-            const template = document.createElement('template');
-            template.innerHTML = htmlString;
-            const svg = template.content.querySelector('svg');
-            return svg!;
-        };
-        const getPaths = (svg: SVGElement): SVGPathElement[] => Array.from(svg.querySelectorAll('path'));
+    const nimbleIcons = Object.values(nimbleIconsMap);
+    const getSVGElement = (htmlString: string): SVGElement => {
+        const template = document.createElement('template');
+        template.innerHTML = htmlString;
+        const svg = template.content.querySelector('svg');
+        return svg!;
+    };
 
-        const focused: NimbleIconName[] = [];
-        const disabled: NimbleIconName[] = [];
-        for (const icon of nimbleIcons) {
-            const specType = getSpecTypeByNamedList(icon, focused, disabled);
-            specType(`for icon ${icon.name}`, () => {
-                const svg = getSVGElement(icon.data);
-                const paths = getPaths(svg);
+    describe('should have correct SVG structure', () => {
+        parameterizeSpec(nimbleIcons, (spec, name, value) => {
+            spec(`for icon ${name}`, () => {
+                const svg = getSVGElement(value.data);
                 expect(svg).toBeTruthy();
                 expect(svg.getAttribute('viewBox')).toBeTruthy();
                 expect(svg.getAttribute('height')).toBeNull();
                 expect(svg.getAttribute('width')).toBeNull();
+            });
+        });
+    });
+
+    describe('should not have inline style', () => {
+        const getPaths = (svg: SVGElement): SVGPathElement[] => Array.from(svg.querySelectorAll('path'));
+
+        const nimbleIconsWithStyle = ['sparkle_swirls_16_x_16'];
+        const nimbleIconsWithoutStyle = nimbleIcons.filter(
+            value => !nimbleIconsWithStyle.includes(value.name)
+        );
+        parameterizeSpec(nimbleIconsWithoutStyle, (spec, name, value) => {
+            spec(`for icon ${name}`, () => {
+                const svg = getSVGElement(value.data);
+                const paths = getPaths(svg);
+
                 expect(svg.querySelector('defs')).toBeNull();
                 for (const path of paths) {
                     expect(path.getAttribute('style')).toBeNull();
                 }
             });
-        }
+        });
     });
 
     describe('can be constructed', () => {
         type IconName = keyof typeof allIconsNamespace;
         const allIconNames = (Object.keys(allIconsNamespace) as IconName[]).map(
-            (x: IconName) => ({ name: x, klass: allIconsNamespace[x] })
+            (x: IconName) => ({ name: x, iconClass: allIconsNamespace[x] })
         );
 
-        const focused: IconName[] = [];
-        const disabled: IconName[] = [];
-        for (const icon of allIconNames) {
-            const specType = getSpecTypeByNamedList(icon, focused, disabled);
-            // eslint-disable-next-line @typescript-eslint/no-loop-func
-            specType(`for icon ${icon.name}`, () => {
-                const tagName = DesignSystem.tagFor(icon.klass);
+        parameterizeSpec(allIconNames, (spec, name, value) => {
+            spec(`for icon ${name}`, () => {
+                const tagName = DesignSystem.tagFor(value.iconClass);
                 expect(typeof tagName).toBe('string');
                 expect(tagName.length).toBeGreaterThan(0);
                 expect(document.createElement(tagName)).toBeInstanceOf(
-                    icon.klass
+                    value.iconClass
                 );
             });
-        }
+        });
     });
 
     describe('should have valid metadata', () => {
@@ -64,13 +73,33 @@ describe('Icons', () => {
             metadata: iconMetadata[name]
         }));
 
-        const focused: IconName[] = [];
-        const disabled: IconName[] = [];
-        for (const icon of icons) {
-            const specType = getSpecTypeByNamedList(icon, focused, disabled);
-            specType(`for icon ${icon.name}`, () => {
-                expect(icon.metadata.tags).not.toContain('');
+        parameterizeSpec(icons, (spec, name, value) => {
+            spec(`for icon ${name}`, () => {
+                expect(value.metadata.tags).not.toContain('');
             });
+        });
+    });
+
+    describe('Representative icon', () => {
+        async function setup(): Promise<Fixture<IconAdd>> {
+            return fixture<IconAdd>(html`<${iconAddTag}></${iconAddTag}>`);
         }
+        let element: IconAdd;
+        let connect: () => Promise<void>;
+        let disconnect: () => Promise<void>;
+
+        beforeEach(async () => {
+            ({ element, connect, disconnect } = await setup());
+        });
+
+        afterEach(async () => {
+            await disconnect();
+        });
+
+        it('sets aria-hidden on inner div', async () => {
+            await connect();
+            const div = element.shadowRoot!.querySelector('.icon');
+            expect(div?.getAttribute('aria-hidden')).toEqual('true');
+        });
     });
 });

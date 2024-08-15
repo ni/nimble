@@ -13,3 +13,9 @@ export const badValueGenerator = (seed: number): (() => number) => {
     const badRandom = randomUniform.source(source)(1, 50);
     return badRandom;
 };
+
+export const highlightedValueGenerator = (seed: number): (() => number) => {
+    const source = randomLcg(seed);
+    const goodRandom = randomUniform.source(source)(97, 122);
+    return goodRandom;
+};
