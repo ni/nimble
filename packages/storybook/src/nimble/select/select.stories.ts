@@ -145,7 +145,7 @@ const metadata: Meta<SelectArgs> = {
             appearance="${x => x.appearance}"
             filter-mode="${x => (x.filterMode === 'none' ? undefined : x.filterMode)}"
             ?loading-visible="${x => x.loadingVisible}"
-            style="width:${x => x.width};"
+            style="width:250px;"
         >
             ${x => x.label}
             ${when(x => x.optionsType === ExampleOptionsType.groupedOptions, html<SelectArgs>`
@@ -261,14 +261,6 @@ const metadata: Meta<SelectArgs> = {
             description: 'Emitted when the user types in the filter input.',
             table: { category: apiCategory.events },
             control: false
-        },
-        width: {
-            name: 'width',
-            description:
-                'Width of the select control.<details><summary>Usage details</summary>To customize its size, set its CSS '
-                + '<span style="font-family: monospace;">width</span> to a design token or CSS length value</details>',
-            table: { category: apiCategory.styles },
-            control: { type: 'text' }
         }
     },
     args: {
@@ -281,8 +273,7 @@ const metadata: Meta<SelectArgs> = {
         appearance: DropdownAppearance.underline,
         optionsType: ExampleOptionsType.simpleOptions,
         clearable: false,
-        loadingVisible: false,
-        width: '250px'
+        loadingVisible: false
     }
 };
 
