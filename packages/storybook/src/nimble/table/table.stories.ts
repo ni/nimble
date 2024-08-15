@@ -2,7 +2,6 @@ import { html, ref } from '@microsoft/fast-element';
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html';
 import { tableFitRowsHeight } from '../../../../nimble-components/src/theme-provider/design-tokens';
-import { scssPropertyFromTokenName } from '../../../../nimble-components/src/theme-provider/design-token-names';
 import { iconUserTag } from '../../../../nimble-components/src/icons/user';
 import { menuTag } from '../../../../nimble-components/src/menu';
 import { menuItemTag } from '../../../../nimble-components/src/menu-item';

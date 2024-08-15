@@ -1,6 +1,5 @@
 import type { Meta, StoryFn } from '@storybook/html';
 import { html, ViewTemplate } from '@microsoft/fast-element';
-import { waitForUpdatesAsync } from '../../../../nimble-components/src/testing/async-helpers';
 import { tableColumnTextTag } from '../../../../nimble-components/src/table-column/text';
 import { Table, tableTag } from '../../../../nimble-components/src/table';
 import type { TableRecord } from '../../../../nimble-components/src/table/types';
