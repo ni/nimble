@@ -1,7 +1,8 @@
 import { html, ref } from '@microsoft/fast-element';
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html';
-import { tableFitToRowsHeight } from '../../../../nimble-components/src/theme-provider/design-tokens';
+import { tableFitRowsHeight } from '../../../../nimble-components/src/theme-provider/design-tokens';
+import { scssPropertyFromTokenName } from '../../../../nimble-components/src/theme-provider/design-token-names';
 import { iconUserTag } from '../../../../nimble-components/src/icons/user';
 import { menuTag } from '../../../../nimble-components/src/menu';
 import { menuItemTag } from '../../../../nimble-components/src/menu-item';
@@ -79,8 +80,7 @@ interface TableArgs extends BaseTableArgs {
     selectionChange: undefined;
     columnConfigurationChange: undefined;
     rowExpandToggle: undefined;
-    autoHeight: boolean;
-    resizable: boolean;
+    fitRowsHeight: boolean;
 }
 
 const simpleData = [
@@ -266,12 +266,17 @@ const setSelectedRecordIdsDescription = `A function that makes the rows associat
 If a record does not exist in the table's data, it will not be selected. If multiple record IDs are specified when the table's selection
 mode is \`single\`, only the first record that exists in the table's data will become selected.`;
 
+const fitRowsHeightDescription = `Style the table's with \`height: $${tableFitRowsHeight.name};\` to make the table's height grow to fit all rows.
+
+Note: The table has a default maximum height that will render approximately 40 rows to avoid performance problems. Use caution when overriding the maximum height
+of the table because this may lead to performance issues.`;
+
 export const table: StoryObj<TableArgs> = {
     // prettier-ignore
     render: createUserSelectedThemeStory(html<TableArgs>`
         <style>
             nimble-table {
-                ${x => (x.autoHeight ? `height: var(${tableFitToRowsHeight.cssCustomProperty})` : '')}
+                ${x => (x.fitRowsHeight ? `height: var(${tableFitRowsHeight.cssCustomProperty})` : '')}
             }
         </style>
         <${tableTag}
@@ -280,7 +285,6 @@ export const table: StoryObj<TableArgs> = {
             id-field-name="id"
             data-unused="${x => x.updateData(x)}"
             parent-id-field-name="parentId"
-            style="${x => x.resizable && 'resize: both; overflow: hidden;'}"
         >
             <${tableColumnTextTag}
                 column-id="first-name-column"
@@ -495,16 +499,10 @@ export const table: StoryObj<TableArgs> = {
             control: false,
             table: { category: apiCategory.events }
         },
-        autoHeight: {
-            name: 'auto-height',
-            description: 'TODO',
-            table: { category: apiCategory.attributes }
-        },
-        resizable: {
-            name: 'resizable',
-            description:
-                'Not a property on the table -- temporarily added to demonstrate how the table behaves when `resize: both` is set on the table element.',
-            table: { category: apiCategory.attributes }
+        fitRowsHeight: {
+            name: 'Fit rows height',
+            description: fitRowsHeightDescription,
+            table: { category: apiCategory.styles }
         }
     },
     args: {
@@ -514,8 +512,7 @@ export const table: StoryObj<TableArgs> = {
         validity: undefined,
         checkValidity: undefined,
         tableRef: undefined,
-        autoHeight: false,
-        resizable: false,
+        fitRowsHeight: true,
         updateData: x => {
             void (async () => {
                 // Safari workaround: the table element instance is made at this point

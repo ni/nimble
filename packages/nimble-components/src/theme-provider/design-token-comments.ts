@@ -74,7 +74,7 @@ export const comments: { readonly [key in TokenName]: string } = {
     spinnerSmallHeight: 'Small height (16px) for a spinner component',
     spinnerMediumHeight: 'Medium height (32px) for a spinner component',
     spinnerLargeHeight: 'Large height (64px) for a spinner component',
-    tableFitToRowsHeight: 'The height of the table when all rows are visible',
+    tableFitRowsHeight: 'The height of the table when all rows are visible',
     smallDelay:
         'Elements with small transition areas, such as icons and selection controls, have short durations.',
     mediumDelay:
