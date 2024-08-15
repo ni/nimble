@@ -68,26 +68,20 @@ const playFunction = async (rowCount: number): Promise<void> => {
 };
 
 export const tableFitRowsHeightWith5Rows: StoryFn = createFixedThemeStory(
-    createMatrix(component, [
-        groupingStates
-    ]),
+    createMatrix(component, [groupingStates]),
     backgroundStates[0]
 );
 
 tableFitRowsHeightWith5Rows.play = async () => playFunction(5);
 
 export const tableFitRowsHeightWith10Rows: StoryFn = createFixedThemeStory(
-    createMatrix(component, [
-        groupingStates
-    ]),
+    createMatrix(component, [groupingStates]),
     backgroundStates[0]
 );
 tableFitRowsHeightWith10Rows.play = async () => playFunction(10);
 
 export const tableFitRowsHeightWith50Rows: StoryFn = createFixedThemeStory(
-    createMatrix(component, [
-        groupingStates
-    ]),
+    createMatrix(component, [groupingStates]),
     backgroundStates[0]
 );
 tableFitRowsHeightWith50Rows.play = async () => playFunction(50);

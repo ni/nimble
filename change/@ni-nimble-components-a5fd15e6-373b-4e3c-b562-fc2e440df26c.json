@@ -1,6 +1,6 @@
 {
   "type": "minor",
-  "comment": "Add attribute to the table to make its height automatically adjust to the number of rows",
+  "comment": "Add token to allow the table's height to be configured to the height of all table rows",
   "packageName": "@ni/nimble-components",
   "email": "20542556+mollykreis@users.noreply.github.com",
   "dependentChangeType": "patch"
