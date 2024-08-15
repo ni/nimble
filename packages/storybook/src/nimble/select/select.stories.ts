@@ -242,6 +242,8 @@ const metadata: Meta<SelectArgs> = {
                 type: 'radio',
                 labels: {
                     [ExampleOptionsType.simpleOptions]: 'Simple options',
+                    [ExampleOptionsType.placeholderOptions]:
+                        'Placeholder options',
                     [ExampleOptionsType.manyOptions]: 'Many options',
                     [ExampleOptionsType.wideOptions]: 'Wide options',
                     [ExampleOptionsType.groupedOptions]: 'Grouped options'
