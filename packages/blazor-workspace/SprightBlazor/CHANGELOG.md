@@ -1,8 +1,17 @@
 # Change Log - @ni/spright-blazor
 
-This log was last generated on Thu, 01 Aug 2024 19:51:20 GMT and should not be manually modified.
+This log was last generated on Fri, 16 Aug 2024 17:31:18 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.0.3
+
+Fri, 16 Aug 2024 17:31:18 GMT
+
+### Patches
+
+- Align blazor and component releases ([ni/nimble@ebd7d6e](https://github.com/ni/nimble/commit/ebd7d6ecc62819fdbbce8519322b178507e21385))
+- Bump @ni/spright-components to v3.0.7
 
 ## 1.0.2
 

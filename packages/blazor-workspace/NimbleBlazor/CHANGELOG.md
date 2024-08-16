@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-blazor
 
-This log was last generated on Thu, 01 Aug 2024 19:51:20 GMT and should not be manually modified.
+This log was last generated on Fri, 16 Aug 2024 17:31:18 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 17.6.2
+
+Fri, 16 Aug 2024 17:31:18 GMT
+
+### Patches
+
+- Align blazor and component releases ([ni/nimble@ebd7d6e](https://github.com/ni/nimble/commit/ebd7d6ecc62819fdbbce8519322b178507e21385))
 
 ## 17.6.1
 
