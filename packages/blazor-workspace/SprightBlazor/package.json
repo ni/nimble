@@ -25,6 +25,7 @@
     "!*"
   ],
   "peerDependencies": {
+    "@ni/spright-components": "^3.0.6",
     "cross-env": "^7.0.3",
     "rimraf": "^6.0.0"
   }
