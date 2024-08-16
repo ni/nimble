@@ -1,8 +1,16 @@
 # Change Log - @ni/spright-components
 
-This log was last generated on Mon, 12 Aug 2024 21:44:15 GMT and should not be manually modified.
+This log was last generated on Fri, 16 Aug 2024 17:31:18 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 3.0.7
+
+Fri, 16 Aug 2024 17:31:18 GMT
+
+### Patches
+
+- Remove unused dependencies ([ni/nimble@ebd7d6e](https://github.com/ni/nimble/commit/ebd7d6ecc62819fdbbce8519322b178507e21385))
 
 ## 3.0.6
 
