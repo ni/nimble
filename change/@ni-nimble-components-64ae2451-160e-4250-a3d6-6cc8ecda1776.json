@@ -1,7 +1,0 @@
-{
-  "type": "none",
-  "comment": "Use spec reporter for CI test commands",
-  "packageName": "@ni/nimble-components",
-  "email": "jattasNI@users.noreply.github.com",
-  "dependentChangeType": "none"
-}
