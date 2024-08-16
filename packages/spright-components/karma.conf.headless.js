@@ -1,5 +1,5 @@
 /**
- * A karma config file that sets up reporting for CI builds
+ * A karma config file that sets up reporting for headless test runs
  */
 
 const originalConfigFunction = require('./karma.conf');
