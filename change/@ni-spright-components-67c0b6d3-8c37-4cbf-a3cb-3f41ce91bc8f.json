@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "Remove unused dependencies",
+  "packageName": "@ni/spright-components",
+  "email": "rajsite@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
