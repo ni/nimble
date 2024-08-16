@@ -33,18 +33,18 @@
     "tdd-webkit": "npm run build-components && npm run test-webkit",
     "tdd-webkit:watch": "npm run build-components:watch & npm run test-webkit:watch",
     "test-chrome:debugger": "karma start karma.conf.js --browsers=ChromeDebugging --skip-tags SkipChrome",
-    "test-chrome:verbose": "karma start karma.conf.verbose.js --browsers=ChromeHeadlessOpt --single-run --skip-tags SkipChrome",
+    "test-chrome:ci": "karma start karma.conf.ci.js --browsers=ChromeHeadlessOpt --single-run --skip-tags SkipChrome",
     "test-chrome:watch": "karma start karma.conf.js --browsers=ChromeHeadlessOpt --skip-tags SkipChrome --watch-extensions js",
     "test-chrome": "karma start karma.conf.js --browsers=ChromeHeadlessOpt --single-run --skip-tags SkipChrome",
     "test-firefox:debugger": "karma start karma.conf.js --browsers=FirefoxDebugging --skip-tags SkipFirefox",
-    "test-firefox:verbose": "karma start karma.conf.verbose.js --browsers=FirefoxHeadless --single-run --skip-tags SkipFirefox",
+    "test-firefox:ci": "karma start karma.conf.ci.js --browsers=FirefoxHeadless --single-run --skip-tags SkipFirefox",
     "test-firefox:watch": "karma start karma.conf.js --browsers=FirefoxHeadless --skip-tags SkipFirefox --watch-extensions js",
     "test-firefox": "karma start karma.conf.js --browsers=FirefoxHeadless --single-run --skip-tags SkipFirefox",
     "test-webkit:debugger": "karma start karma.conf.js --browsers=WebkitDebugging --skip-tags SkipWebkit",
-    "test-webkit:verbose": "karma start karma.conf.verbose.js --browsers=WebkitHeadless --single-run --skip-tags SkipWebkit",
+    "test-webkit:ci": "karma start karma.conf.ci.js --browsers=WebkitHeadless --single-run --skip-tags SkipWebkit",
     "test-webkit:watch": "karma start karma.conf.js --browsers=WebkitHeadless --skip-tags SkipWebkit --watch-extensions js",
     "test-webkit": "karma start karma.conf.js --browsers=WebkitHeadless --single-run --skip-tags SkipWebkit",
-    "test-concurrent": "concurrently --timings --group \"npm:test-chrome:verbose\" \"npm:test-firefox:verbose\" \"npm:test-webkit:verbose\""
+    "test-concurrent": "concurrently --timings --group \"npm:test-chrome:ci\" \"npm:test-firefox:ci\" \"npm:test-webkit:ci\""
   },
   "repository": {
     "type": "git",
