@@ -35,7 +35,6 @@ interface SelectArgs {
     value: string;
     change: undefined;
     filterInput: undefined;
-    width: string;
 }
 
 interface OptionArgs {
