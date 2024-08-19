@@ -809,9 +809,9 @@ describe('Select', () => {
         }
 
         // Intermittent, see: https://github.com/ni/nimble/issues/2269
-        for (let i = 0; i < 500; i++) { /// no failures headed or headless
+        for (let i = 0; i < 100; i++) { /// no failures headed or headless
             // eslint-disable-next-line @typescript-eslint/no-loop-func
-            it('should limit dropdown height to viewport', async () => {
+            it(`should limit dropdown height to viewport ${i}`, async () => {
                 const { element, connect, disconnect } = await setup500Options();
                 await connect();
                 await clickAndWaitForOpen(element);
@@ -831,8 +831,8 @@ describe('Select', () => {
         }
 
         // Intermittent, see: https://github.com/ni/nimble/issues/2274
-        for (let i = 0; i < 500; i++) { // no failures in headed or headless
-            it('should scroll the selected option into view when opened', async () => {
+        for (let i = 0; i < 100; i++) { // no failures in headed or headless
+            it(`should scroll the selected option into view when opened ${i}`, async () => {
                 const { element, connect, disconnect } = await setup500Options();
                 element.value = '300';
                 await connect();
@@ -869,9 +869,9 @@ describe('Select', () => {
         }
 
         // Intermittent, see: https://github.com/ni/nimble/issues/2272
-        for (let i = 0; i < 1000; i++) {
+        for (let i = 0; i < 100; i++) {
             // fails when scrolled off screen
-            xit('should not confine dropdown to div with "overflow: auto"', async () => {
+            it(`should not confine dropdown to div with "overflow: auto" ${i}`, async () => {
                 const { element, connect, disconnect } = await setupInDiv();
                 const select: Select = element.querySelector(selectTag)!;
                 await connect();

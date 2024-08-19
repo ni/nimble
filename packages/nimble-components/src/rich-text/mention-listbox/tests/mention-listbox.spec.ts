@@ -76,9 +76,9 @@ describe('RichTextMentionListbox', () => {
     });
 
     // Intermittent, see: https://github.com/ni/nimble/issues/2274
-    for (let i = 0; i < 500; i++) {
+    for (let i = 0; i < 100; i++) {
         // eslint-disable-next-line @typescript-eslint/no-loop-func
-        it('should scroll the selected option into view when opened', async () => {
+        it(`should scroll the selected option into view when opened ${i}`, async () => {
             await showAndWaitForOpen();
             await waitForSelectionUpdateAsync(); // showing filters the options and modifies the selection
 
@@ -93,9 +93,9 @@ describe('RichTextMentionListbox', () => {
     }
 
     // Intermittent, see: https://github.com/ni/nimble/issues/2269
-    for (let i = 0; i < 500; i++) {
+    for (let i = 0; i < 100; i++) {
         // eslint-disable-next-line @typescript-eslint/no-loop-func
-        it('should limit dropdown height to viewport', async () => {
+        it(`should limit dropdown height to viewport ${i}`, async () => {
             element.listbox.style.setProperty(
                 '--ni-private-listbox-visible-option-count',
                 '10000'

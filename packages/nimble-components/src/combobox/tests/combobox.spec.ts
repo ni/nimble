@@ -552,9 +552,9 @@ describe('Combobox', () => {
         });
 
         // Intermittent, see: https://github.com/ni/nimble/issues/2274
-        for (let i = 0; i < 500; i++) {
+        for (let i = 0; i < 100; i++) {
             // eslint-disable-next-line @typescript-eslint/no-loop-func
-            it('should scroll the selected option into view when opened', async () => {
+            it(`should scroll the selected option into view when opened ${i}`, async () => {
                 await pageObject.commitValue('300');
                 await pageObject.clickAndWaitForOpen();
                 expect(element.listbox.scrollTop).toBeGreaterThan(9000);
