@@ -4,7 +4,7 @@ import { fixture, Fixture } from '../../utilities/tests/fixture';
 import { Select, selectTag } from '..';
 import { SelectPageObjectInternal as SelectPageObject } from './select.pageobject.internal';
 import { ListOption, listOptionTag } from '../../list-option';
-import { waitForUpdatesAsync } from '../../testing/async-helpers';
+import { waitForTrue, waitForUpdatesAsync } from '../../testing/async-helpers';
 import { checkFullyInViewport } from '../../utilities/tests/intersection-observer';
 import { FilterMode, SelectFilterInputEventDetail } from '../types';
 import {
@@ -840,6 +840,8 @@ describe('Select', () => {
                 await clickAndWaitForOpen(element);
                 await waitForUpdatesAsync();
                 await waitAnimationFrame(); // necessary because scrolling is queued with requestAnimationFrame
+
+                await waitForTrue(() => element.scrollableRegion.scrollTop > 8000);
 
                 expect(element.scrollableRegion.scrollTop).toBeGreaterThan(8000);
 
