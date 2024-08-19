@@ -809,44 +809,49 @@ describe('Select', () => {
         }
 
         // Intermittent, see: https://github.com/ni/nimble/issues/2269
-        it('should limit dropdown height to viewport #SkipWebkit', async () => {
-            const { element, connect, disconnect } = await setup500Options();
-            await connect();
-            await clickAndWaitForOpen(element);
-            element.listbox.style.setProperty(
-                '--ni-private-listbox-visible-option-count',
-                '10000'
-            );
-            const fullyVisible = await checkFullyInViewport(element.listbox);
+        for (let i = 0; i < 500; i++) { /// no failures headed or headless
+            // eslint-disable-next-line @typescript-eslint/no-loop-func
+            it('should limit dropdown height to viewport', async () => {
+                const { element, connect, disconnect } = await setup500Options();
+                await connect();
+                await clickAndWaitForOpen(element);
+                element.listbox.style.setProperty(
+                    '--ni-private-listbox-visible-option-count',
+                    '10000'
+                );
+                const fullyVisible = await checkFullyInViewport(element.listbox);
 
-            expect(element.scrollableRegion.scrollHeight).toBeGreaterThan(
-                window.innerHeight
-            );
-            expect(fullyVisible).toBe(true);
+                expect(element.scrollableRegion.scrollHeight).toBeGreaterThan(
+                    window.innerHeight
+                );
+                expect(fullyVisible).toBe(true);
 
-            await disconnect();
-        });
+                await disconnect();
+            });
+        }
 
         // Intermittent, see: https://github.com/ni/nimble/issues/2274
-        it('should scroll the selected option into view when opened #SkipWebkit', async () => {
-            const { element, connect, disconnect } = await setup500Options();
-            element.value = '300';
-            await connect();
-            element.focus();
-            await clickAndWaitForOpen(element);
-            await waitForUpdatesAsync();
-            await waitAnimationFrame(); // necessary because scrolling is queued with requestAnimationFrame
+        for (let i = 0; i < 500; i++) { // no failures in headed or headless
+            it('should scroll the selected option into view when opened', async () => {
+                const { element, connect, disconnect } = await setup500Options();
+                element.value = '300';
+                await connect();
+                element.focus();
+                await clickAndWaitForOpen(element);
+                await waitForUpdatesAsync();
+                await waitAnimationFrame(); // necessary because scrolling is queued with requestAnimationFrame
 
-            expect(element.scrollableRegion.scrollTop).toBeGreaterThan(8000);
+                expect(element.scrollableRegion.scrollTop).toBeGreaterThan(8000);
 
-            element.value = '0';
-            await waitForUpdatesAsync();
-            await waitAnimationFrame(); // necessary because scrolling is queued with requestAnimationFrame
+                element.value = '0';
+                await waitForUpdatesAsync();
+                await waitAnimationFrame(); // necessary because scrolling is queued with requestAnimationFrame
 
-            expect(element.scrollableRegion.scrollTop).toBeCloseTo(4);
+                expect(element.scrollableRegion.scrollTop).toBeCloseTo(4);
 
-            await disconnect();
-        });
+                await disconnect();
+            });
+        }
     });
 
     describe('within a div', () => {
@@ -864,17 +869,20 @@ describe('Select', () => {
         }
 
         // Intermittent, see: https://github.com/ni/nimble/issues/2272
-        it('should not confine dropdown to div with "overflow: auto" #SkipWebkit', async () => {
-            const { element, connect, disconnect } = await setupInDiv();
-            const select: Select = element.querySelector(selectTag)!;
-            await connect();
-            await clickAndWaitForOpen(select);
-            const fullyVisible = await checkFullyInViewport(select.listbox);
+        for (let i = 0; i < 1000; i++) {
+            // fails when scrolled off screen
+            xit('should not confine dropdown to div with "overflow: auto"', async () => {
+                const { element, connect, disconnect } = await setupInDiv();
+                const select: Select = element.querySelector(selectTag)!;
+                await connect();
+                await clickAndWaitForOpen(select);
+                const fullyVisible = await checkFullyInViewport(select.listbox);
 
-            expect(fullyVisible).toBe(true);
+                expect(fullyVisible).toBe(true);
 
-            await disconnect();
-        });
+                await disconnect();
+            });
+        }
     });
 
     it('should export its tag', () => {

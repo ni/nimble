@@ -552,15 +552,18 @@ describe('Combobox', () => {
         });
 
         // Intermittent, see: https://github.com/ni/nimble/issues/2274
-        it('should scroll the selected option into view when opened #SkipWebkit', async () => {
-            await pageObject.commitValue('300');
-            await pageObject.clickAndWaitForOpen();
-            expect(element.listbox.scrollTop).toBeGreaterThan(9000);
+        for (let i = 0; i < 500; i++) {
+            // eslint-disable-next-line @typescript-eslint/no-loop-func
+            it('should scroll the selected option into view when opened', async () => {
+                await pageObject.commitValue('300');
+                await pageObject.clickAndWaitForOpen();
+                expect(element.listbox.scrollTop).toBeGreaterThan(9000);
 
-            await pageObject.commitValue('0');
-            await pageObject.clickAndWaitForOpen();
-            expect(element.listbox.scrollTop).toBeCloseTo(4);
-        });
+                await pageObject.commitValue('0');
+                await pageObject.clickAndWaitForOpen();
+                expect(element.listbox.scrollTop).toBeCloseTo(4);
+            });
+        }
 
         it('when typing in value with inline autocomplete, option at bottom of list scrolls into view', async () => {
             const lastOption = element.options[element.options.length - 1]!;

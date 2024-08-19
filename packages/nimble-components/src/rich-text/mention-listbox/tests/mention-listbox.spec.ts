@@ -76,35 +76,41 @@ describe('RichTextMentionListbox', () => {
     });
 
     // Intermittent, see: https://github.com/ni/nimble/issues/2274
-    it('should scroll the selected option into view when opened #SkipWebkit', async () => {
-        await showAndWaitForOpen();
-        await waitForSelectionUpdateAsync(); // showing filters the options and modifies the selection
+    for (let i = 0; i < 500; i++) {
+        // eslint-disable-next-line @typescript-eslint/no-loop-func
+        it('should scroll the selected option into view when opened', async () => {
+            await showAndWaitForOpen();
+            await waitForSelectionUpdateAsync(); // showing filters the options and modifies the selection
 
-        element.selectedIndex = 300;
-        await waitForSelectionUpdateAsync();
-        expect(element.listbox.scrollTop).toBeGreaterThan(8000);
+            element.selectedIndex = 300;
+            await waitForSelectionUpdateAsync();
+            expect(element.listbox.scrollTop).toBeGreaterThan(8000);
 
-        element.selectedIndex = 0;
-        await waitForSelectionUpdateAsync();
-        expect(element.listbox.scrollTop).toBeCloseTo(4);
-    });
+            element.selectedIndex = 0;
+            await waitForSelectionUpdateAsync();
+            expect(element.listbox.scrollTop).toBeCloseTo(4);
+        });
+    }
 
     // Intermittent, see: https://github.com/ni/nimble/issues/2269
-    it('should limit dropdown height to viewport #SkipWebkit', async () => {
-        element.listbox.style.setProperty(
-            '--ni-private-listbox-visible-option-count',
-            '10000'
-        );
-        await showAndWaitForOpen();
-        const fullyVisible = await checkFullyInViewport(element.listbox);
+    for (let i = 0; i < 500; i++) {
+        // eslint-disable-next-line @typescript-eslint/no-loop-func
+        it('should limit dropdown height to viewport', async () => {
+            element.listbox.style.setProperty(
+                '--ni-private-listbox-visible-option-count',
+                '10000'
+            );
+            await showAndWaitForOpen();
+            const fullyVisible = await checkFullyInViewport(element.listbox);
 
-        expect(element.listbox.scrollHeight).toBeGreaterThan(
-            window.innerHeight
-        );
-        expect(fullyVisible).toBe(true);
+            expect(element.listbox.scrollHeight).toBeGreaterThan(
+                window.innerHeight
+            );
+            expect(fullyVisible).toBe(true);
 
-        await disconnect();
-    });
+            await disconnect();
+        });
+    }
 
     it('does not show "no items found" in dropdown when no filter', async () => {
         await showAndWaitForOpen();
