@@ -11,3 +11,10 @@ export const waitForUpdatesAsync = async (): Promise<void> => DOM.nextUpdate();
  * updates that resulted from DOM interactions like property or attribute changes.
  */
 export const processUpdates = (): void => DOM.processUpdates();
+
+export const waitForTrue = async (condition: () => boolean): Promise<void> => {
+    while (!condition()) {
+        // eslint-disable-next-line no-await-in-loop
+        await waitForUpdatesAsync();
+    }
+}
