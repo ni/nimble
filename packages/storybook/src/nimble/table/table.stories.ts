@@ -273,7 +273,7 @@ of the table because this may lead to performance issues.`;
 export const table: StoryObj<TableArgs> = {
     // prettier-ignore
     render: createUserSelectedThemeStory(html<TableArgs>`
-        <style>
+        <style class="code-hide">
             nimble-table {
                 ${x => (x.fitRowsHeight ? `height: var(${tableFitRowsHeight.cssCustomProperty})` : '')}
             }
@@ -511,7 +511,7 @@ export const table: StoryObj<TableArgs> = {
         validity: undefined,
         checkValidity: undefined,
         tableRef: undefined,
-        fitRowsHeight: true,
+        fitRowsHeight: false,
         updateData: x => {
             void (async () => {
                 // Safari workaround: the table element instance is made at this point

@@ -7,6 +7,7 @@ import { mappingIconTag } from '../../../nimble-components/src/mapping/icon';
 import { iconCheckTag } from '../../../nimble-components/src/icons/check';
 import { iconTriangleTag } from '../../../nimble-components/src/icons/triangle';
 import { iconXmarkTag } from '../../../nimble-components/src/icons/xmark';
+import { tableFitRowsHeight } from '../../../nimble-components/src/theme-provider/design-tokens';
 import { ComponentFrameworkStatus } from './types';
 import {
     createUserSelectedThemeStory,
@@ -559,11 +560,15 @@ const metadata: Meta<TableArgs> = {
     },
     // prettier-ignore
     render: createUserSelectedThemeStory(html<TableArgs>`
+        <style class="code-hide">
+            ${tableTag} {
+                height: var(${tableFitRowsHeight.cssCustomProperty});
+                max-height: unset;
+            }
+        </style>
         <${tableTag}
             ${ref('tableRef')}
             data-unused="${x => x.updateData(x)}"
-            ${/* Make the table big enough to remove vertical scrollbar */ ''}
-            style="height: calc((34px * var(--data-length)) + 32px);"
         >
             <${tableColumnAnchorTag} target="_top"
                 column-id="component-name-column"
@@ -650,10 +655,6 @@ const metadata: Meta<TableArgs> = {
                 const data = components.filter(component => (x.status === 'future'
                     ? isFuture(component)
                     : !isFuture(component)));
-                x.tableRef.style.setProperty(
-                    '--data-length',
-                    data.length.toString()
-                );
                 await x.tableRef.setData(data);
             })();
         },
