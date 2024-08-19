@@ -60,6 +60,20 @@ const simpleOptions: readonly OptionArgs[] = [
     { label: 'Zürich', value: '5', disabled: false }
 ] as const;
 
+const placeholderOptions: readonly OptionArgs[] = [
+    {
+        label: 'Select an option',
+        value: '0',
+        disabled: true,
+        hidden: true,
+        selected: true
+    },
+    { label: 'Option 1', value: '1', disabled: false },
+    { label: 'Option 2', value: '2', disabled: true },
+    { label: 'Option 3', value: '3', disabled: false },
+    { label: 'Zürich', value: '5', disabled: false }
+] as const;
+
 const wideOptions: readonly OptionArgs[] = [
     {
         label: 'Option 1 that is too long to fit in the drop down width',
@@ -97,6 +111,7 @@ const getGroupedOptions = (): GroupedOptionArgs[] => {
 
 const optionSets = {
     [ExampleOptionsType.simpleOptions]: simpleOptions,
+    [ExampleOptionsType.placeholderOptions]: placeholderOptions,
     [ExampleOptionsType.wideOptions]: wideOptions,
     [ExampleOptionsType.manyOptions]: manyOptions,
     [ExampleOptionsType.groupedOptions]: getGroupedOptions()
@@ -129,7 +144,7 @@ const metadata: Meta<SelectArgs> = {
             appearance="${x => x.appearance}"
             filter-mode="${x => (x.filterMode === 'none' ? undefined : x.filterMode)}"
             ?loading-visible="${x => x.loadingVisible}"
-            style="min-width: 250px;"
+            style="width:250px;"
         >
             ${x => x.label}
             ${when(x => x.optionsType === ExampleOptionsType.groupedOptions, html<SelectArgs>`
@@ -149,6 +164,9 @@ const metadata: Meta<SelectArgs> = {
                 ${repeat(x => (optionSets[x.optionsType] as OptionArgs[]), html<OptionArgs>`
                     <${listOptionTag}
                         ?disabled="${x => x.disabled}"
+                        ?selected="${x => x.selected}"
+                        ?hidden="${x => x.hidden}"
+                        value="${x => x.value}"
                     >
                         ${x => x.label}
                     </${listOptionTag}>
@@ -223,6 +241,8 @@ const metadata: Meta<SelectArgs> = {
                 type: 'radio',
                 labels: {
                     [ExampleOptionsType.simpleOptions]: 'Simple options',
+                    [ExampleOptionsType.placeholderOptions]:
+                        'Placeholder options',
                     [ExampleOptionsType.manyOptions]: 'Many options',
                     [ExampleOptionsType.wideOptions]: 'Wide options',
                     [ExampleOptionsType.groupedOptions]: 'Grouped options'
@@ -271,29 +291,8 @@ export const select: StoryObj<SelectArgs> = {
 };
 
 export const placeholder: StoryObj<SelectArgs> = {
-    // prettier-ignore
-    render: createUserSelectedThemeStory(html`
-        ${disableStorybookZoomTransform}
-        <div style="height: 100px;">
-            <${selectTag}
-                style="width: 250px;"
-                position="below"
-            >
-                <${listOptionTag}
-                    disabled
-                    selected
-                    hidden>
-                    Select an option
-                </${listOptionTag}>
-                <${listOptionTag}
-                    value="1">
-                    Option 1
-                </${listOptionTag}>
-                <${listOptionTag}
-                    value="2">
-                    Option 2
-                </${listOptionTag}>
-            </${selectTag}>
-        </div>
-    `)
+    args: {
+        optionsType: ExampleOptionsType.placeholderOptions,
+        clearable: true
+    }
 };
