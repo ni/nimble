@@ -14,6 +14,8 @@ export async function checkFullyInViewport(
                 ) {
                     resolve(true);
                 } else {
+                    // eslint-disable-next-line no-console
+                    console.log(`checkFullyInViewport element=${element.tagName} isIntersecting=${entries[0]?.isIntersecting ? 'true' : 'false'} intersectionRatio=${(entries[0] === undefined) ? 'undefined' : entries[0].intersectionRatio}`);
                     resolve(false);
                 }
             },
