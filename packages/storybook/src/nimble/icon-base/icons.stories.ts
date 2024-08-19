@@ -85,7 +85,7 @@ export const icons: StoryObj<IconArgs> = {
         <style class="code-hide">
             ${tableTag} {
                 height: var(${tableFitRowsHeight.cssCustomProperty});
-                max-height: unset;
+                max-height: none;
             }
         </style>
         <${tableTag}

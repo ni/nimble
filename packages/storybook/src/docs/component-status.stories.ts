@@ -563,7 +563,7 @@ const metadata: Meta<TableArgs> = {
         <style class="code-hide">
             ${tableTag} {
                 height: var(${tableFitRowsHeight.cssCustomProperty});
-                max-height: unset;
+                max-height: none;
             }
         </style>
         <${tableTag}
