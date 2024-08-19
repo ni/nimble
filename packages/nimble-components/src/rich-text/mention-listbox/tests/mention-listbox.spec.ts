@@ -1,6 +1,6 @@
 import { html, ref, repeat } from '@microsoft/fast-element';
 import { RichTextMentionListbox, richTextMentionListboxTag } from '..';
-import { waitForUpdatesAsync } from '../../../testing/async-helpers';
+import { waitForTrue, waitForUpdatesAsync } from '../../../testing/async-helpers';
 import { type Fixture, fixture } from '../../../utilities/tests/fixture';
 import { listOptionTag } from '../../../list-option';
 import {
@@ -84,6 +84,7 @@ describe('RichTextMentionListbox', () => {
 
             element.selectedIndex = 300;
             await waitForSelectionUpdateAsync();
+            await waitForTrue(() => element.listbox.scrollTop > 8000);
             expect(element.listbox.scrollTop).toBeGreaterThan(8000);
 
             element.selectedIndex = 0;

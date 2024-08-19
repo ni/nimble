@@ -3,7 +3,7 @@ import { parameterizeSpec, parameterizeSuite } from '@ni/jasmine-parameterized';
 import { fixture, Fixture } from '../../utilities/tests/fixture';
 import { Combobox, comboboxTag } from '..';
 import { ComboboxAutocomplete } from '../types';
-import { waitForUpdatesAsync } from '../../testing/async-helpers';
+import { waitForTrue, waitForUpdatesAsync } from '../../testing/async-helpers';
 import { checkFullyInViewport } from '../../utilities/tests/intersection-observer';
 import { listOptionTag } from '../../list-option';
 import { ComboboxPageObject } from '../testing/combobox.pageobject';
@@ -557,6 +557,7 @@ describe('Combobox', () => {
             it(`should scroll the selected option into view when opened ${i}`, async () => {
                 await pageObject.commitValue('300');
                 await pageObject.clickAndWaitForOpen();
+                await waitForTrue(() => element.listbox.scrollTop > 9000);
                 expect(element.listbox.scrollTop).toBeGreaterThan(9000);
 
                 await pageObject.commitValue('0');
