@@ -2,6 +2,36 @@
   "name": "@ni/spright-components",
   "entries": [
     {
+      "date": "Fri, 16 Aug 2024 20:57:09 GMT",
+      "version": "3.0.7",
+      "tag": "@ni/spright-components_v3.0.7",
+      "comments": {
+        "none": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/spright-components",
+            "commit": "8b92fdcab665082514643f51d5a280a60a1c73d9",
+            "comment": "Use spec reporter for CI test commands"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 16 Aug 2024 17:31:18 GMT",
+      "version": "3.0.7",
+      "tag": "@ni/spright-components_v3.0.7",
+      "comments": {
+        "patch": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/spright-components",
+            "commit": "ebd7d6ecc62819fdbbce8519322b178507e21385",
+            "comment": "Remove unused dependencies"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 12 Aug 2024 21:44:15 GMT",
       "version": "3.0.6",
       "tag": "@ni/spright-components_v3.0.6",

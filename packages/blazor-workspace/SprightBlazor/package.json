@@ -1,6 +1,6 @@
 {
   "name": "@ni/spright-blazor",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Blazor components for Spright",
   "scripts": {
     "pack": "cross-env-shell dotnet pack -c Release -p:PackageVersion=$npm_package_version --output ../dist",
@@ -25,6 +25,7 @@
     "!*"
   ],
   "peerDependencies": {
+    "@ni/spright-components": "^3.0.7",
     "cross-env": "^7.0.3",
     "rimraf": "^6.0.0"
   }

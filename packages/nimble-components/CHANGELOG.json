@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Fri, 16 Aug 2024 20:57:09 GMT",
+      "version": "31.2.0",
+      "tag": "@ni/nimble-components_v31.2.0",
+      "comments": {
+        "none": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "8b92fdcab665082514643f51d5a280a60a1c73d9",
+            "comment": "Use spec reporter for CI test commands"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 12 Aug 2024 21:44:15 GMT",
       "version": "31.2.0",
       "tag": "@ni/nimble-components_v31.2.0",
