@@ -1,8 +1,8 @@
-require('./config.cjs');
-require('./nimble-extensions.cjs');
-const StyleDictionary = require('style-dictionary');
+import './config.js';
+import './nimble-extensions.js';
+import StyleDictionary from 'style-dictionary';
 
-const coreStyleDictionary = StyleDictionary.extend(
+const coreStyleDictionary = new StyleDictionary(
     {
         source: [
             'properties/colors.json',
@@ -48,5 +48,7 @@ const coreStyleDictionary = StyleDictionary.extend(
         }
     }
 );
+
+await coreStyleDictionary.hasInitialized;
 
 coreStyleDictionary.buildAllPlatforms();

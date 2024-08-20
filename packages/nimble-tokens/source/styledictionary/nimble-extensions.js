@@ -4,14 +4,14 @@
  * and performs additional StyleDictionary builds for custom platforms.
  */
 
-const StyleDictionary = require('style-dictionary');
+import StyleDictionary from 'style-dictionary';
 
 StyleDictionary.registerTransform({
     type: 'value',
     transitive: true,
     name: 'font/weight',
-    matcher: token => token.attributes.category === 'font',
-    transformer: token => {
+    filter: token => token.attributes.category === 'font',
+    transform: token => {
         if (token.value === 'Light') {
             token.value = '300';
         } else if (token.value === 'Regular') {
@@ -27,13 +27,13 @@ StyleDictionary.registerTransform({
 
 // Workaround as name/dsp/kebab does not support prefixes
 // See: https://github.com/AdobeXD/design-system-package-dsp/issues/27
-const { type, matcher, transformer } = StyleDictionary.transform['name/dsp/kebab'];
+const { type, filter, transform } = StyleDictionary.hooks.transforms['name/dsp/kebab'];
 StyleDictionary.registerTransform({
     name: 'name/nimble/kebab',
     type,
-    matcher,
-    transformer: function (prop) {
-        return `ni-nimble-base-${transformer(prop)}`;
+    filter,
+    transform: function (prop) {
+        return `ni-nimble-base-${transform(prop)}`;
     }
 });
 
@@ -44,7 +44,7 @@ StyleDictionary.registerTransformGroup({
         'attribute/cti',
         'name/nimble/kebab', // replaces name/dsp/kebab from DSP config
         'time/seconds',
-        'content/icon',
+        'html/icon',
         'size/px', // replaces size/rem from DSP config
         'color/css',
         'font/weight'
@@ -58,7 +58,7 @@ StyleDictionary.registerTransformGroup({
         'attribute/cti',
         'name/nimble/kebab', // replaces name/dsp/kebab from DSP config
         'time/seconds',
-        'content/icon',
+        'html/icon',
         'size/px', // replaces size/rem from DSP config
         'color/css',
         'font/weight'

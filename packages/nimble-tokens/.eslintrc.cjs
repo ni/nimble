@@ -9,6 +9,25 @@ module.exports = {
         {
             files: ['*.js', '*.cjs'],
             extends: ['@ni-private/eslint-config-nimble/javascript'],
+            parserOptions: {
+                ecmaVersion: '2022'
+            },
+        },
+        {
+            files: ['*.js'],
+            rules: {
+                'import/extensions': ['error',
+                    'always',
+                    {
+                        ignorePackages: true,
+                    }
+                ],
+                'import/no-unresolved': ['error',
+                    {
+                        ignore: ['^style-dictionary$'],
+                    }
+                ],
+            }
         },
         {
             files: ['source/styledictionary/*.cjs'],

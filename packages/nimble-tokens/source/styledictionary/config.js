@@ -1,4 +1,4 @@
-const StyleDictionary = require('style-dictionary');
+import StyleDictionary from 'style-dictionary';
 
 // Lodash code inlined so we don't have to import another library
 
@@ -228,10 +228,10 @@ const getTokenNameFromProperty = function (prop) {
 StyleDictionary.registerTransform({
     name: 'name/dsp/kebab',
     type: 'name',
-    matcher: function (_prop) {
+    filter: function (_prop) {
         return true;
     },
-    transformer: function (prop) {
+    transform: function (prop) {
         return kebabCase(getTokenNameFromProperty(prop));
     }
 });
@@ -239,10 +239,10 @@ StyleDictionary.registerTransform({
 StyleDictionary.registerTransform({
     name: 'name/dsp/camel',
     type: 'name',
-    matcher: function (_prop) {
+    filter: function (_prop) {
         return true;
     },
-    transformer: function (prop) {
+    transform: function (prop) {
         return camelCase(getTokenNameFromProperty(prop));
     }
 });
@@ -250,10 +250,10 @@ StyleDictionary.registerTransform({
 StyleDictionary.registerTransform({
     name: 'name/dsp/snake',
     type: 'name',
-    matcher: function (_prop) {
+    filter: function (_prop) {
         return true;
     },
-    transformer: function (prop) {
+    transform: function (prop) {
         return snakeCase(getTokenNameFromProperty(prop));
     }
 });
@@ -261,10 +261,10 @@ StyleDictionary.registerTransform({
 StyleDictionary.registerTransform({
     name: 'name/dsp/pascal',
     type: 'name',
-    matcher: function (_prop) {
+    filter: function (_prop) {
         return true;
     },
-    transformer: function (prop) {
+    transform: function (prop) {
         return upperFirst(camelCase(getTokenNameFromProperty(prop)));
     }
 });
@@ -276,7 +276,7 @@ StyleDictionary.registerTransformGroup({
         'attribute/cti',
         'name/dsp/kebab', // replaces 'name/cti/kebab',
         'time/seconds',
-        'content/icon',
+        'html/icon',
         'size/rem',
         'color/css'
     ]
@@ -288,46 +288,9 @@ StyleDictionary.registerTransformGroup({
         'attribute/cti',
         'name/dsp/kebab', // replaces 'name/cti/kebab',
         'time/seconds',
-        'content/icon',
+        'html/icon',
         'size/rem',
         'color/css',
-    ]
-});
-
-StyleDictionary.registerTransformGroup({
-    name: 'android',
-    transforms: [
-        'attribute/cti',
-        'name/dsp/snake', // replaces 'name/cti/snake',
-        'color/hex8android',
-        'size/remToSp',
-        'size/remToDp',
-    ]
-});
-
-StyleDictionary.registerTransformGroup({
-    name: 'ios',
-    transforms: [
-        'attribute/cti',
-        'name/dsp/pascal', // replaces 'name/cti/pascal',
-        'color/UIColor',
-        'content/objC/literal',
-        'asset/objC/literal',
-        'size/remToPt',
-        'font/objC/literal',
-    ]
-});
-
-StyleDictionary.registerTransformGroup({
-    name: 'ios-swift',
-    transforms: [
-        'attribute/cti',
-        'name/dsp/camel', // replaces 'name/cti/camel',
-        'color/UIColorSwift',
-        'content/swift/literal',
-        'asset/swift/literal',
-        'size/swift/remToCGFloat',
-        'font/swift/literal',
     ]
 });
 
@@ -338,18 +301,5 @@ StyleDictionary.registerTransformGroup({
         'name/dsp/pascal', // replaces 'name/cti/pascal',
         'size/rem',
         'color/hex',
-    ]
-});
-
-StyleDictionary.registerTransformGroup({
-    name: 'flutter',
-    transforms: [
-        'attribute/cti',
-        'name/dsp/camel', // replaces 'name/cti/camel',
-        'color/hex8flutter',
-        'size/flutter/remToDouble',
-        'content/flutter/literal',
-        'asset/flutter/literal',
-        'font/flutter/literal',
     ]
 });
