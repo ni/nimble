@@ -1,4 +1,4 @@
-const StyleDictionary = require('style-dictionary');
+import StyleDictionary from 'style-dictionary';
 
 // Lodash code inlined so we don't have to import another library
 
@@ -228,21 +228,34 @@ const getTokenNameFromProperty = function (prop) {
 StyleDictionary.registerTransform({
     name: 'name/dsp/kebab',
     type: 'name',
-    matcher: function (_prop) {
+    filter: function (_prop) {
         return true;
     },
-    transformer: function (prop) {
+    transform: function (prop) {
         return kebabCase(getTokenNameFromProperty(prop));
+    }
+});
+
+// Workaround as name/dsp/kebab does not support prefixes
+// See: https://github.com/AdobeXD/design-system-package-dsp/issues/27
+StyleDictionary.registerTransform({
+    name: 'name/nimble/kebab',
+    type: 'name',
+    filter: function (_prop) {
+        return true;
+    },
+    transform: function (prop) {
+        return `ni-nimble-base-${kebabCase(getTokenNameFromProperty(prop))}`;
     }
 });
 
 StyleDictionary.registerTransform({
     name: 'name/dsp/camel',
     type: 'name',
-    matcher: function (_prop) {
+    filter: function (_prop) {
         return true;
     },
-    transformer: function (prop) {
+    transform: function (prop) {
         return camelCase(getTokenNameFromProperty(prop));
     }
 });
@@ -250,10 +263,10 @@ StyleDictionary.registerTransform({
 StyleDictionary.registerTransform({
     name: 'name/dsp/snake',
     type: 'name',
-    matcher: function (_prop) {
+    filter: function (_prop) {
         return true;
     },
-    transformer: function (prop) {
+    transform: function (prop) {
         return snakeCase(getTokenNameFromProperty(prop));
     }
 });
@@ -261,95 +274,69 @@ StyleDictionary.registerTransform({
 StyleDictionary.registerTransform({
     name: 'name/dsp/pascal',
     type: 'name',
-    matcher: function (_prop) {
+    filter: function (_prop) {
         return true;
     },
-    transformer: function (prop) {
+    transform: function (prop) {
         return upperFirst(camelCase(getTokenNameFromProperty(prop)));
     }
 });
 
-// Override default transform groups with custom name transform
-StyleDictionary.registerTransformGroup({
-    name: 'css',
-    transforms: [
-        'attribute/cti',
-        'name/dsp/kebab', // replaces 'name/cti/kebab',
-        'time/seconds',
-        'content/icon',
-        'size/rem',
-        'color/css'
-    ]
+StyleDictionary.registerTransform({
+    type: 'value',
+    transitive: true,
+    name: 'font/weight',
+    filter: token => token.attributes.category === 'font',
+    transform: token => {
+        if (token.value === 'Light') {
+            token.value = '300';
+        } else if (token.value === 'Regular') {
+            token.value = '400';
+        } else if (token.value === 'Semibold') {
+            token.value = '600';
+        } else if (token.value === 'Bold') {
+            token.value = '700';
+        }
+        return token.value;
+    }
 });
 
+// Combination of DSP & Nimble transform overrides
 StyleDictionary.registerTransformGroup({
-    name: 'scss',
+    name: 'nimble/css',
     transforms: [
         'attribute/cti',
-        'name/dsp/kebab', // replaces 'name/cti/kebab',
+        'name/nimble/kebab', // replaces name/dsp/kebab from DSP config
         'time/seconds',
-        'content/icon',
-        'size/rem',
+        'html/icon',
+        'size/px', // replaces size/rem from DSP config
         'color/css',
+        'font/weight'
     ]
 });
 
+// Combination of DSP & Nimble transform overrides
 StyleDictionary.registerTransformGroup({
-    name: 'android',
+    name: 'nimble/scss',
     transforms: [
         'attribute/cti',
-        'name/dsp/snake', // replaces 'name/cti/snake',
-        'color/hex8android',
-        'size/remToSp',
-        'size/remToDp',
+        'name/nimble/kebab', // replaces name/dsp/kebab from DSP config
+        'time/seconds',
+        'html/icon',
+        'size/px', // replaces size/rem from DSP config
+        'color/css',
+        'font/weight'
     ]
 });
 
+// Combination of DSP & Nimble transform overrides
 StyleDictionary.registerTransformGroup({
-    name: 'ios',
-    transforms: [
-        'attribute/cti',
-        'name/dsp/pascal', // replaces 'name/cti/pascal',
-        'color/UIColor',
-        'content/objC/literal',
-        'asset/objC/literal',
-        'size/remToPt',
-        'font/objC/literal',
-    ]
-});
-
-StyleDictionary.registerTransformGroup({
-    name: 'ios-swift',
-    transforms: [
-        'attribute/cti',
-        'name/dsp/camel', // replaces 'name/cti/camel',
-        'color/UIColorSwift',
-        'content/swift/literal',
-        'asset/swift/literal',
-        'size/swift/remToCGFloat',
-        'font/swift/literal',
-    ]
-});
-
-StyleDictionary.registerTransformGroup({
-    name: 'js',
+    name: 'nimble/js',
     transforms: [
         'attribute/cti',
         'name/dsp/pascal', // replaces 'name/cti/pascal',
-        'size/rem',
+        'size/px', // replaces size/rem from DSP config
         'color/hex',
-    ]
-});
-
-StyleDictionary.registerTransformGroup({
-    name: 'flutter',
-    transforms: [
-        'attribute/cti',
-        'name/dsp/camel', // replaces 'name/cti/camel',
-        'color/hex8flutter',
-        'size/flutter/remToDouble',
-        'content/flutter/literal',
-        'asset/flutter/literal',
-        'font/flutter/literal',
+        'font/weight'
     ]
 });
