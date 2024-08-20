@@ -1,7 +1,7 @@
 {
-  "type": "minor",
-  "comment": "Add token to allow the table's height to be configured to the height of all table rows",
+  "type": "breaking",
+  "comment": "Create token representing the table's height with all rows visible; **Breaking change:** the table now specifies a max-height; if a different max-height is required, it needs to be configured.",
   "packageName": "@ni/nimble-components",
   "email": "20542556+mollykreis@users.noreply.github.com",
-  "dependentChangeType": "patch"
+  "dependentChangeType": "breaking"
 }
