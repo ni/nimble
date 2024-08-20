@@ -1,5 +1,6 @@
 export const ExampleOptionsType = {
     simpleOptions: 'SimpleOptions',
+    placeholderOptions: 'PlaceholderOptions',
     wideOptions: 'WideOptions',
     manyOptions: 'ManyOptions',
     groupedOptions: 'GroupedOptions'
