@@ -431,21 +431,11 @@ export const calendarEventFillBlockedColor = DesignToken.create<string>(
 
 export const calendarGrabHandleBackgroundColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.calendarGrabHandleBackgroundColor)
-).withDefault((element: HTMLElement) => getColorForTheme(
-    element,
-    DigitalGreenLight,
-    PowerGreen,
-    PowerGreen
-));
+).withDefault((element: HTMLElement) => getColorForTheme(element, DigitalGreenLight, PowerGreen, PowerGreen));
 
 export const calendarGridBorderColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.calendarGridBorderColor)
-).withDefault((element: HTMLElement) => getColorForTheme(
-    element,
-    Black22,
-    Black80,
-    Black80
-));
+).withDefault((element: HTMLElement) => getColorForTheme(element, Black22, Black80, Black80));
 
 export const calendarParentRowBackgroundColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.calendarParentRowBackgroundColor)
@@ -453,7 +443,7 @@ export const calendarParentRowBackgroundColor = DesignToken.create<string>(
     element,
     Black7,
     hexToRgbaCssColor(Black91, 0.1),
-    hexToRgbaCssColor(Black91, 0.1),
+    hexToRgbaCssColor(Black91, 0.1)
 ));
 
 // Component Sizing Tokens
