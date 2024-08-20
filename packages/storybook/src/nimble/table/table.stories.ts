@@ -14,6 +14,7 @@ import {
     TableRowSelectionMode
 } from '../../../../nimble-components/src/table/types';
 import { ExampleDataType } from '../../../../nimble-components/src/table/tests/types';
+import { scssPropertySetterMarkdown, tokenNames } from '../../../../nimble-components/src/theme-provider/design-token-names';
 import {
     addLabelUseMetadata,
     type LabelUserArgs
@@ -265,10 +266,9 @@ const setSelectedRecordIdsDescription = `A function that makes the rows associat
 If a record does not exist in the table's data, it will not be selected. If multiple record IDs are specified when the table's selection
 mode is \`single\`, only the first record that exists in the table's data will become selected.`;
 
-const fitRowsHeightDescription = `Style the table's with \`height: $${tableFitRowsHeight.name};\` to make the table's height grow to fit all rows.
+const fitRowsHeightDescription = `Style the table with ${scssPropertySetterMarkdown(tokenNames.tableFitRowsHeight, 'height')} to make the table's height grow to fit all rows.
 
-Note: The table has a default maximum height that will render approximately 40 rows to avoid performance problems. Use caution when overriding the maximum height
-of the table because this may lead to performance issues.`;
+See the **Sizing** section for information on sizing the table.`;
 
 export const table: StoryObj<TableArgs> = {
     // prettier-ignore

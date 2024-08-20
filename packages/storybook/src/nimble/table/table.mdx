@@ -2,6 +2,7 @@ import { Controls, Canvas, Meta, Title } from '@storybook/blocks';
 import * as tableStories from './table.stories';
 import ComponentApisLink from '../../docs/component-apis-link.mdx';
 import { tableTag } from '../../../../nimble-components/src/table';
+import { tableFitRowsHeight } from '../../../../nimble-components/src/theme-provider/design-tokens';
 
 <Meta of={tableStories} />
 <Title of={tableStories} />
@@ -20,6 +21,13 @@ and the **Table Column** pages for individual table column types.
 <ComponentApisLink />
 
 ## Styling
+
+### Sizing
+
+The table's height can be configured to grow to fit all rows without a scrollbar
+by styling the table's height with the <code>{tableFitRowsHeight.name}</code> token.
+
+The table has a default maximum height that will render approximately 40 rows to avoid performance problems. Use caution when overriding the maximum height of the table because this may lead to performance issues.
 
 ### Full bleed
 
