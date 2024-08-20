@@ -260,7 +260,9 @@ export const tokenNames: { readonly [key in TokenName]: string } = {
     calendarRowBackgroundSelectedColor:
         'calendar-row-background-selected-color',
     calendarEventFillBlockedColor: 'calendar-event-fill-blocked-color',
-    calendarGrabHandleBackgroundColor: 'calendar-grab-handle-background-color'
+    calendarGrabHandleBackgroundColor: 'calendar-grab-handle-background-color',
+    calendarGridBorderColor: 'calendar-grid-border-color',
+    calendarParentRowBackgroundColor: 'calendar-parent-row-background-color'
 };
 
 const prefix = 'ni-nimble';

@@ -116,7 +116,8 @@ import {
     DigitalGreenLight10,
     PowerGreen10,
     DigitalGreenDark110,
-    Black82
+    Black82,
+    Black22
 } from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
 import { Theme } from './types';
 import { tokenNames, styleNameFromTokenName } from './design-token-names';
@@ -433,8 +434,26 @@ export const calendarGrabHandleBackgroundColor = DesignToken.create<string>(
 ).withDefault((element: HTMLElement) => getColorForTheme(
     element,
     DigitalGreenLight,
-    DigitalGreenLight,
-    DigitalGreenLight
+    PowerGreen,
+    PowerGreen
+));
+
+export const calendarGridBorderColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.calendarGridBorderColor)
+).withDefault((element: HTMLElement) => getColorForTheme(
+    element,
+    Black22,
+    Black80,
+    Black80
+));
+
+export const calendarParentRowBackgroundColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.calendarParentRowBackgroundColor)
+).withDefault((element: HTMLElement) => getColorForTheme(
+    element,
+    Black7,
+    hexToRgbaCssColor(Black91, 0.1),
+    hexToRgbaCssColor(Black91, 0.1),
 ));
 
 // Component Sizing Tokens

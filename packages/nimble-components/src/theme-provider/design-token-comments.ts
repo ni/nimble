@@ -317,5 +317,9 @@ export const comments: { readonly [key in TokenName]: string } = {
     calendarEventFillBlockedColor:
         'Background fill to indicate the occupied slots in calendar resource rows',
     calendarGrabHandleBackgroundColor:
-        'Background fill color for the editable calendar event grab handle'
+        'Background fill color for the editable calendar event grab handle',
+    calendarGridBorderColor:
+        'Border color for the calendar grid',
+    calendarParentRowBackgroundColor:
+        'Background color for the calendar resource parent row'
 };
