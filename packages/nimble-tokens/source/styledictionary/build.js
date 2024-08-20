@@ -1,5 +1,4 @@
 import './config.js';
-import './nimble-extensions.js';
 import StyleDictionary from 'style-dictionary';
 
 const coreStyleDictionary = new StyleDictionary(
@@ -18,7 +17,7 @@ const coreStyleDictionary = new StyleDictionary(
                         format: 'css/variables'
                     }
                 ],
-                transformGroup: 'css',
+                transformGroup: 'nimble/css',
                 buildPath: '../../dist/styledictionary/css/'
             },
             js: {
@@ -32,7 +31,7 @@ const coreStyleDictionary = new StyleDictionary(
                         format: 'typescript/es6-declarations'
                     }
                 ],
-                transformGroup: 'js',
+                transformGroup: 'nimble/js',
                 buildPath: '../../dist/styledictionary/js/'
             },
             scss: {
@@ -42,7 +41,7 @@ const coreStyleDictionary = new StyleDictionary(
                         format: 'scss/variables'
                     }
                 ],
-                transformGroup: 'scss',
+                transformGroup: 'nimble/scss',
                 buildPath: '../../dist/styledictionary/scss/'
             }
         }
