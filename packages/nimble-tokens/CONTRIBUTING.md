@@ -17,7 +17,7 @@
 
 ## Editing Base Tokens
 
-Base tokens are generated using the [Style Dictionary](https://amzn.github.io/style-dictionary/#/) build system, which transforms platform-agnostic token definition files into platform-specific output. These JSON definition files are the source of truth for the colors, fonts, and component design tokens in this repository. To modify the generated tokens, complete these steps:
+Base tokens are generated using the [Style Dictionary](https://styledictionary.com/) build system, which transforms platform-agnostic token definition files into platform-specific output. These JSON definition files are the source of truth for the colors, fonts, and component design tokens in this repository. To modify the generated tokens, complete these steps:
 
 1. Edit the JSON files in `source/styledictionary/properties`. Long term these tokens will be sourced from a Figma design spec but for now it's OK to make manual edits.
 2. Rebuild the generated token files by running the repository's build command, `npm run build`.
