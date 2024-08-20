@@ -5,7 +5,10 @@ import { TableColumn } from '../../table-column/base';
 import { TableColumnText, tableColumnTextTag } from '../../table-column/text';
 import { TableColumnTextCellView } from '../../table-column/text/cell-view';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
-import { controlHeight, tableFitRowsHeight } from '../../theme-provider/design-tokens';
+import {
+    controlHeight,
+    tableFitRowsHeight
+} from '../../theme-provider/design-tokens';
 import { waitForEvent } from '../../utilities/testing/component';
 import {
     type Fixture,
@@ -2367,7 +2370,9 @@ describe('Table', () => {
                 await waitForUpdatesAsync();
 
                 const tokenValue = getTableHeight();
-                const expectedHeight = getExpectedHeight(simpleTableData.length);
+                const expectedHeight = getExpectedHeight(
+                    simpleTableData.length
+                );
                 expect(tokenValue).toBe(expectedHeight);
             });
 
@@ -2378,7 +2383,9 @@ describe('Table', () => {
                 await waitForUpdatesAsync();
 
                 const tokenValue = getTableHeight();
-                const expectedHeight = getExpectedHeight(simpleTableData.length * 2); // Each record is grouped into its own group
+                const expectedHeight = getExpectedHeight(
+                    simpleTableData.length * 2
+                ); // Each record is grouped into its own group
                 expect(tokenValue).toBe(expectedHeight);
             });
 

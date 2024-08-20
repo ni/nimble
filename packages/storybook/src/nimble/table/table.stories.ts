@@ -14,7 +14,10 @@ import {
     TableRowSelectionMode
 } from '../../../../nimble-components/src/table/types';
 import { ExampleDataType } from '../../../../nimble-components/src/table/tests/types';
-import { scssPropertySetterMarkdown, tokenNames } from '../../../../nimble-components/src/theme-provider/design-token-names';
+import {
+    scssPropertySetterMarkdown,
+    tokenNames
+} from '../../../../nimble-components/src/theme-provider/design-token-names';
 import {
     addLabelUseMetadata,
     type LabelUserArgs
