@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Tue, 20 Aug 2024 22:19:56 GMT and should not be manually modified.
+This log was last generated on Wed, 21 Aug 2024 15:12:07 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 31.3.0
+
+Wed, 21 Aug 2024 15:12:07 GMT
+
+### Minor changes
+
+- Add new theme aware tokens for calendar component ([ni/nimble@608fab4](https://github.com/ni/nimble/commit/608fab4095450849d0948198ee7d4c745fdb5558))
 
 ## 31.2.1
 
