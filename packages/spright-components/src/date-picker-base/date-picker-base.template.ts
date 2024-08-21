@@ -160,7 +160,7 @@ function renderCalendarGrid(): ViewTemplate {
         html<CalendarGridDate>` <span role="gridcell">
                     <${buttonTag}
                         content-hidden
-                        appearance="${ButtonAppearance.ghost}"
+                        appearance="${(x, c) => ((c.parentContext.parentContext.parent as DatePickerBase)._isDateSelected(x.date) ? ButtonAppearance.block : ButtonAppearance.ghost)}"
                         class="${(x, c) => classNames(
         'calendar-day',
         'button',
@@ -237,7 +237,10 @@ function renderMonthPickerGrid(): ViewTemplate {
         html<MonthPickerGridCell>`
                             <span role="gridcell">
                                 <${buttonTag}
-                                    appearance="${ButtonAppearance.ghost}"
+                                    appearance="${(x, c) => (areMonthsEqual(
+        x.month,
+        (c.parentContext.parentContext.parent as DatePickerBase)._selectedMonth
+    ) ? ButtonAppearance.block : ButtonAppearance.ghost)}"
                                     class="${(x, c) => classNames(
         'month',
         'button',
@@ -313,7 +316,7 @@ export const datePickerBaseTemplate = html<DatePickerBase>`<div class="base" @ke
             id="calendar-button"
             ${ref('_calendarButtonEl')}
             slot="actions"
-            appearance="ghost"
+            appearance="${ButtonAppearance.ghost}"
             ?disabled="${x => x.disabled || x.readOnly}"
             title="${x => x._calendarButtonLabel}"
             aria-label="${x => x._calendarButtonLabel}"
@@ -357,7 +360,7 @@ export const datePickerBaseTemplate = html<DatePickerBase>`<div class="base" @ke
                 <${buttonTag}
                     tabindex="3"
                     appearance="${ButtonAppearance.block}"
-                    appearance-variant="${ButtonAppearanceVariant.primary}
+                    appearance-variant="${ButtonAppearanceVariant.accent}"
                     @click="${x => x._onOkClick()}"
                 >
                     ${x => x.locale.datePicker.okLabel}

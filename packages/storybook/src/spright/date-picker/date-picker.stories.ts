@@ -8,6 +8,9 @@ import { datePickerTag } from '../../../../spright-components/src/date-picker/da
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface DatePickerArgs {
+    disabled: boolean;
+    min: boolean;
+    max: boolean;
 }
 
 const metadata: Meta<DatePickerArgs> = {
@@ -19,12 +22,18 @@ const metadata: Meta<DatePickerArgs> = {
         ${disableStorybookZoomTransform}
         <div style="height: 300px;">
             <${datePickerTag}
+                ?disabled=${x => x.disabled}
+                min=${x => (x.min ? '2024-08-04' : undefined)}
+                max=${x => (x.max ? '2024-08-25' : undefined)}
             ></${datePickerTag}>
         </div>
     `),
     argTypes: {
     },
     args: {
+        disabled: false,
+        min: false,
+        max: false
     }
 };
 
