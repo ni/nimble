@@ -4,11 +4,11 @@ import { type DateStr, formatDateStr, parseDateStr } from './dateStr';
 
 /// Format to presentation date, which is the locale specific format (e.g. DD/MM/YYYY for en-GB)
 export const formatPresentationDate = (
-	dateStr: DateStr,
-	locale: DatePickerLocale
+    dateStr: DateStr,
+    locale: DatePickerLocale
 ): string => {
-	const date = parseDateStr(dateStr);
-	return format(date, locale.dateFormat);
+    const date = parseDateStr(dateStr);
+    return format(date, locale.dateFormat);
 };
 
 /**
@@ -17,9 +17,9 @@ export const formatPresentationDate = (
  * Will throw if the date is can't be parsed
  */
 export const parsePresentationDate = (
-	presentationDate: string,
-	locale: DatePickerLocale
+    presentationDate: string,
+    locale: DatePickerLocale
 ): DateStr => {
-	const date = parse(presentationDate, locale.dateFormat, new Date());
-	return formatDateStr(date);
+    const date = parse(presentationDate, locale.dateFormat, new Date());
+    return formatDateStr(date);
 };

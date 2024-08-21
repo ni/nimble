@@ -1,3 +1,3 @@
-import { registerDatePicker } from './definition';
+// import { registerDatePicker } from './definition';
 
-registerDatePicker();
+// registerDatePicker();

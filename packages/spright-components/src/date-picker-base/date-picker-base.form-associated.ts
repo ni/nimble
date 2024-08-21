@@ -5,7 +5,7 @@ class _DatePickerBase extends FoundationElement {}
 interface _DatePickerBase extends FormAssociated {}
 
 export class FormAssociatedDatePickerBase extends FormAssociated(
-	_DatePickerBase
+    _DatePickerBase
 ) {
-	proxy = document.createElement('input');
+    proxy = document.createElement('input');
 }

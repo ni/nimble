@@ -36,8 +36,8 @@ Add the `helper-text` to add some helper text below the date picker. If you need
 
 ```html preview locale-switcher 460px
 <vwc-date-picker
-	label="Start date"
-	helper-text="Select a date for the event to start"
+    label="Start date"
+    helper-text="Select a date for the event to start"
 ></vwc-date-picker>
 ```
 
@@ -51,8 +51,8 @@ Note that any current error state will be overridden by `error-text` (and, if ap
 
 ```html preview locale-switcher 460px
 <vwc-date-picker
-	label="Start date"
-	error-text="Please select a date for the event to start"
+    label="Start date"
+    error-text="Please select a date for the event to start"
 ></vwc-date-picker>
 ```
 
@@ -98,9 +98,9 @@ Set the `min` attribute to configure the earliest date to accept. The user will 
 
 ```html preview locale-switcher 460px
 <vwc-date-picker
-	label="Start date"
-	min="2023-06-10"
-	value="2023-06-15"
+    label="Start date"
+    min="2023-06-10"
+    value="2023-06-15"
 ></vwc-date-picker>
 ```
 
@@ -114,9 +114,9 @@ Set the `max` attribute to configure the latest date to accept. The user will be
 
 ```html preview locale-switcher 460px
 <vwc-date-picker
-	label="Start date"
-	max="2023-06-20"
-	value="2023-06-15"
+    label="Start date"
+    max="2023-06-20"
+    value="2023-06-15"
 ></vwc-date-picker>
 ```
 
@@ -128,7 +128,7 @@ The `helper-text` slot allows you to use rich content as the date picker's helpe
 
 ```html preview locale-switcher 460px
 <vwc-date-picker label="Start date">
-	<span slot="helper-text">Please see our <a href="#">opening times</a>.</span>
+    <span slot="helper-text">Please see our <a href="#">opening times</a>.</span>
 </vwc-date-picker>
 ```
 
@@ -150,24 +150,24 @@ The `helper-text` slot allows you to use rich content as the date picker's helpe
 
 ```html preview locale-switcher 460px
 <style>
-	.buttons {
-		display: flex;
-		gap: 12px;
-	}
+    .buttons {
+        display: flex;
+        gap: 12px;
+    }
 </style>
 <form>
-	<vwc-layout column-spacing="small" column-basis="block">
-		<div>
-			<vwc-date-picker
-				name="date"
-				label="Start date"
-				required
-			></vwc-date-picker>
-		</div>
-		<div class="buttons">
-			<vwc-button label="Reset" type="reset"></vwc-button>
-			<vwc-button label="Submit" appearance="filled" type="submit"></vwc-button>
-		</div>
-	</vwc-layout>
+    <vwc-layout column-spacing="small" column-basis="block">
+        <div>
+            <vwc-date-picker
+                name="date"
+                label="Start date"
+                required
+            ></vwc-date-picker>
+        </div>
+        <div class="buttons">
+            <vwc-button label="Reset" type="reset"></vwc-button>
+            <vwc-button label="Submit" appearance="filled" type="submit"></vwc-button>
+        </div>
+    </vwc-layout>
 </form>
 ```

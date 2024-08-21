@@ -6,4 +6,5 @@
 
 import '@ni/nimble-components/dist/esm/all-components';
 
+import './date-picker';
 import './rectangle';

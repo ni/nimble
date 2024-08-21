@@ -1,0 +1,17 @@
+import { Controls, Canvas, Meta, Title } from '@storybook/blocks';
+import * as datePickerStories from './date-picker.stories';
+import ComponentApisLink from '../../docs/component-apis-link.mdx';
+
+<Meta of={datePickerStories} />
+<Title of={datePickerStories} />
+
+This is an attempt to get a date picker working.
+
+<Canvas of={datePickerStories.datePicker} />
+
+## API
+
+<Controls of={datePickerStories.datePicker} />
+<ComponentApisLink />
+
+## Usage

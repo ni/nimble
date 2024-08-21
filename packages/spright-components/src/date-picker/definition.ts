@@ -9,24 +9,24 @@ import { DatePickerBaseTemplate as template } from '../../shared/date-picker/dat
 import { DatePicker } from './date-picker';
 
 export const datePickerDefinition =
-	DatePicker.compose<FoundationElementDefinition>({
-		baseName: 'date-picker',
-		template: template as any,
-		styles,
-		shadowOptions: {
-			delegatesFocus: true,
-		},
-	});
+    DatePicker.compose<FoundationElementDefinition>({
+        baseName: 'date-picker',
+        template: template as any,
+        styles,
+        shadowOptions: {
+            delegatesFocus: true,
+        },
+    });
 
 /**
  * @internal
  */
 export const datePickerRegistries = [
-	datePickerDefinition(),
-	...buttonRegistries,
-	...popupRegistries,
-	...textFieldRegistries,
-	...dividerRegistries,
+    datePickerDefinition(),
+    ...buttonRegistries,
+    ...popupRegistries,
+    ...textFieldRegistries,
+    ...dividerRegistries,
 ];
 
 /**

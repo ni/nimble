@@ -1,6 +1,6 @@
 import type { DateStr } from './dateStr';
 
 export interface DateRange {
-	start: DateStr;
-	end: DateStr;
+    start: DateStr;
+    end: DateStr;
 }
