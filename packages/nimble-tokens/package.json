@@ -1,11 +1,11 @@
 {
   "name": "@ni/nimble-tokens",
-  "version": "8.0.1",
+  "version": "8.0.2",
   "description": "Design tokens for the NI Nimble Design System",
   "scripts": {
     "build": "npm run build:svg-to-ts && npm run build:ts && npm run build:generate-font-scss && npm run build:style-dictionary",
-    "build:svg-to-ts": "svg-to-ts-constants --config build/svg-to-ts-config.js",
-    "build:generate-font-scss": "node build/generate-font-scss.js",
+    "build:svg-to-ts": "svg-to-ts-constants --config ./svg-to-ts-config.json",
+    "build:generate-font-scss": "node build/generate-font-scss.cjs",
     "build:style-dictionary": "cd source/styledictionary && node build.js",
     "build:ts": "tsc -p ./tsconfig.json",
     "build:ts:watch": "tsc -p ./tsconfig.json -w",
@@ -14,6 +14,7 @@
     "pack": "npm pack",
     "invoke-publish": "npm publish"
   },
+  "type": "module",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ni/nimble.git"
@@ -31,7 +32,7 @@
   "homepage": "https://github.com/ni/nimble#readme",
   "devDependencies": {
     "@ni-private/eslint-config-nimble": "*",
-    "style-dictionary": "^3.9.2",
+    "style-dictionary": "^4.0.0",
     "svg-to-ts": "^12.0.0",
     "typescript": "~5.4.5"
   },
