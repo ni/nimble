@@ -437,8 +437,8 @@ export const calendarGridBorderColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.calendarGridBorderColor)
 ).withDefault((element: HTMLElement) => getColorForTheme(element, Black22, Black80, Black80));
 
-export const calendarParentRowBackgroundColor = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.calendarParentRowBackgroundColor)
+export const calendarGroupHeaderBackgroundColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.calendarGroupHeaderBackgroundColor)
 ).withDefault((element: HTMLElement) => getColorForTheme(
     element,
     Black7,
