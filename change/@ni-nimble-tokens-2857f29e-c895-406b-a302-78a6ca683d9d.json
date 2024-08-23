@@ -1,7 +1,0 @@
-{
-  "type": "minor",
-  "comment": "Create token representing the table's height with all rows visible",
-  "packageName": "@ni/nimble-tokens",
-  "email": "20542556+mollykreis@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}

@@ -2,6 +2,27 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Fri, 23 Aug 2024 17:29:42 GMT",
+      "version": "32.0.0",
+      "tag": "@ni/nimble-components_v32.0.0",
+      "comments": {
+        "major": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "dc9d0058a9dd702d500e905b2db0b3185e3c4d46",
+            "comment": "Create token representing the table's height with all rows visible; **Breaking change:** the table now specifies a max-height; if a different max-height is required, it needs to be configured."
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/nimble-tokens to v8.1.0",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 21 Aug 2024 15:12:07 GMT",
       "version": "31.3.0",
       "tag": "@ni/nimble-components_v31.3.0",

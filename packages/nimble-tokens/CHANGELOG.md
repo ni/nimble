@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-tokens
 
-This log was last generated on Tue, 20 Aug 2024 22:19:56 GMT and should not be manually modified.
+This log was last generated on Fri, 23 Aug 2024 17:29:42 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 8.1.0
+
+Fri, 23 Aug 2024 17:29:42 GMT
+
+### Minor changes
+
+- Create token representing the table's height with all rows visible ([ni/nimble@dc9d005](https://github.com/ni/nimble/commit/dc9d0058a9dd702d500e905b2db0b3185e3c4d46))
 
 ## 8.0.2
 

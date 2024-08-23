@@ -1,8 +1,17 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Wed, 21 Aug 2024 15:12:07 GMT and should not be manually modified.
+This log was last generated on Fri, 23 Aug 2024 17:29:42 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 32.0.0
+
+Fri, 23 Aug 2024 17:29:42 GMT
+
+### Major changes
+
+- Create token representing the table's height with all rows visible; **Breaking change:** the table now specifies a max-height; if a different max-height is required, it needs to be configured. ([ni/nimble@dc9d005](https://github.com/ni/nimble/commit/dc9d0058a9dd702d500e905b2db0b3185e3c4d46))
+- Bump @ni/nimble-tokens to v8.1.0
 
 ## 31.3.0
 

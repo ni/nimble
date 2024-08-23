@@ -1,6 +1,6 @@
 {
   "name": "@ni/nimble-tokens",
-  "version": "8.0.2",
+  "version": "8.1.0",
   "description": "Design tokens for the NI Nimble Design System",
   "scripts": {
     "build": "npm run build:svg-to-ts && npm run build:ts && npm run build:generate-font-scss && npm run build:style-dictionary",
