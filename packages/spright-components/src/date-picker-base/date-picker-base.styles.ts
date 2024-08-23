@@ -1,7 +1,6 @@
-import { bodyFontColor, controlSlimHeight, smallPadding, applicationBackgroundColor, bodyFont, elevation2BoxShadow, popupBorderColor, dividerBackgroundColor } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
+import { controlHeight, mediumPadding, bodyFontColor, controlSlimHeight, smallPadding, applicationBackgroundColor, bodyFont, elevation2BoxShadow, popupBorderColor, dividerBackgroundColor } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
 import { css } from '@microsoft/fast-element';
 import { display } from '../utilities/style/display';
-import { controlHeight, mediumPadding } from '@ni/nimble-components/src/theme-provider/design-tokens';
 
 export const datePickerBaseStyles = css`
     ${display('inline-block')}

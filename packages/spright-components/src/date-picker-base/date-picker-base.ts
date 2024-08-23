@@ -9,8 +9,8 @@ import {
     type ValueConverter,
     volatile,
 } from '@microsoft/fast-element';
-import type { TextField } from '@ni/nimble-components/src/text-field';
-import type { Button } from '@ni/nimble-components/src/button';
+import type { TextField } from '@ni/nimble-components/dist/esm/text-field';
+import type { Button } from '@ni/nimble-components/dist/esm/button';
 import { FormElementHelperText } from '../patterns/form-elements';
 import { Localized } from '../patterns/localized';
 import { TrappedFocus } from '../patterns/trapped-focus';
