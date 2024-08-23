@@ -5,7 +5,10 @@ import { TableColumn } from '../../table-column/base';
 import { TableColumnText, tableColumnTextTag } from '../../table-column/text';
 import { TableColumnTextCellView } from '../../table-column/text/cell-view';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
-import { controlHeight } from '../../theme-provider/design-tokens';
+import {
+    controlHeight,
+    tableFitRowsHeight
+} from '../../theme-provider/design-tokens';
 import { waitForEvent } from '../../utilities/testing/component';
 import {
     type Fixture,
@@ -2337,6 +2340,75 @@ describe('Table', () => {
                     });
                 }
             );
+        });
+
+        describe('styling height with tableFitRowsHeight', () => {
+            function getExpectedHeight(rowCount: number): string {
+                const rowHeight = 34;
+                const headerHeight = 32;
+                return `${rowCount * rowHeight + headerHeight}px`;
+            }
+
+            function getTableHeight(): string {
+                return getComputedStyle(element).getPropertyValue('height');
+            }
+
+            beforeEach(async () => {
+                element.style.height = `var(${tableFitRowsHeight.cssCustomProperty})`;
+                await connect();
+                await waitForUpdatesAsync();
+            });
+
+            it('has correct height before data is applied', () => {
+                const tokenValue = getTableHeight();
+                const expectedHeight = getExpectedHeight(0);
+                expect(tokenValue).toBe(expectedHeight);
+            });
+
+            it('has correct height when height changes because of setting data', async () => {
+                await element.setData(simpleTableData);
+                await waitForUpdatesAsync();
+
+                const tokenValue = getTableHeight();
+                const expectedHeight = getExpectedHeight(
+                    simpleTableData.length
+                );
+                expect(tokenValue).toBe(expectedHeight);
+            });
+
+            it('has correct height when height changes because grouping is updated', async () => {
+                await element.setData(simpleTableData);
+                await waitForUpdatesAsync();
+                column1.groupIndex = 0;
+                await waitForUpdatesAsync();
+
+                const tokenValue = getTableHeight();
+                const expectedHeight = getExpectedHeight(
+                    simpleTableData.length * 2
+                ); // Each record is grouped into its own group
+                expect(tokenValue).toBe(expectedHeight);
+            });
+
+            it('has correct height when height changes because hierarchy is collapsed', async () => {
+                const hierarchicalData = [
+                    { id: '0', parentId: undefined, stringData: 'foo' },
+                    { id: '1', parentId: '0', stringData: 'foo' },
+                    { id: '2', parentId: '0', stringData: 'foo' },
+                    { id: '3', parentId: undefined, stringData: 'foo' }
+                ];
+
+                element.idFieldName = 'id';
+                element.parentIdFieldName = 'parentId';
+                await element.setData(hierarchicalData);
+                await waitForUpdatesAsync();
+
+                pageObject.clickCollapseAllButton();
+                await waitForUpdatesAsync();
+
+                const tokenValue = getTableHeight();
+                const expectedHeight = getExpectedHeight(2); // There are only 2 top-level parents
+                expect(tokenValue).toBe(expectedHeight);
+            });
         });
     });
 

@@ -59,6 +59,7 @@ export const tokenNames: { readonly [key in TokenName]: string } = {
     spinnerSmallHeight: 'spinner-small-height',
     spinnerMediumHeight: 'spinner-medium-height',
     spinnerLargeHeight: 'spinner-large-height',
+    tableFitRowsHeight: 'table-fit-rows-height',
     smallDelay: 'small-delay',
     mediumDelay: 'medium-delay',
     largeDelay: 'large-delay',

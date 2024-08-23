@@ -1,6 +1,7 @@
 import { html, ref } from '@microsoft/fast-element';
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html';
+import { tableFitRowsHeight } from '../../../../nimble-components/src/theme-provider/design-tokens';
 import { iconUserTag } from '../../../../nimble-components/src/icons/user';
 import { menuTag } from '../../../../nimble-components/src/menu';
 import { menuItemTag } from '../../../../nimble-components/src/menu-item';
@@ -13,6 +14,10 @@ import {
     TableRowSelectionMode
 } from '../../../../nimble-components/src/table/types';
 import { ExampleDataType } from '../../../../nimble-components/src/table/tests/types';
+import {
+    scssPropertySetterMarkdown,
+    tokenNames
+} from '../../../../nimble-components/src/theme-provider/design-token-names';
 import {
     addLabelUseMetadata,
     type LabelUserArgs
@@ -78,6 +83,7 @@ interface TableArgs extends BaseTableArgs {
     selectionChange: undefined;
     columnConfigurationChange: undefined;
     rowExpandToggle: undefined;
+    fitRowsHeight: boolean;
 }
 
 const simpleData = [
@@ -263,9 +269,18 @@ const setSelectedRecordIdsDescription = `A function that makes the rows associat
 If a record does not exist in the table's data, it will not be selected. If multiple record IDs are specified when the table's selection
 mode is \`single\`, only the first record that exists in the table's data will become selected.`;
 
+const fitRowsHeightDescription = `Style the table with ${scssPropertySetterMarkdown(tokenNames.tableFitRowsHeight, 'height')} to make the table's height grow to fit all rows.
+
+See the **Sizing** section for information on sizing the table.`;
+
 export const table: StoryObj<TableArgs> = {
     // prettier-ignore
     render: createUserSelectedThemeStory(html<TableArgs>`
+        <style class="code-hide">
+            nimble-table {
+                ${x => (x.fitRowsHeight ? `height: var(${tableFitRowsHeight.cssCustomProperty})` : '')}
+            }
+        </style>
         <${tableTag}
             ${ref('tableRef')}
             selection-mode="${x => TableRowSelectionMode[x.selectionMode]}"
@@ -485,6 +500,11 @@ export const table: StoryObj<TableArgs> = {
                 'Event emitted when the user expands or collapses a row in a table with hierarchy. This does not emit when group rows are expanded or collapsed.',
             control: false,
             table: { category: apiCategory.events }
+        },
+        fitRowsHeight: {
+            name: 'Fit rows height',
+            description: fitRowsHeightDescription,
+            table: { category: apiCategory.styles }
         }
     },
     args: {
@@ -494,6 +514,7 @@ export const table: StoryObj<TableArgs> = {
         validity: undefined,
         checkValidity: undefined,
         tableRef: undefined,
+        fitRowsHeight: false,
         updateData: x => {
             void (async () => {
                 // Safari workaround: the table element instance is made at this point

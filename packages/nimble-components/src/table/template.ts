@@ -41,11 +41,11 @@ export const template = html<Table>`
         aria-multiselectable="${x => x.ariaMultiSelectable}"
         ${children({ property: 'childItems', filter: elements() })}
     >
+        <style>:host{ --ni-private-table-scroll-height: ${x => x.virtualizer.scrollHeight}px; }</style>
         <div class="table-container ${x => (x.windowShiftKeyDown ? 'disable-select' : '')}"
             style="
             --ni-private-table-scroll-x: -${x => x.scrollX}px;
             --ni-private-table-header-container-margin-right: ${x => x.virtualizer.headerContainerMarginRight}px;
-            --ni-private-table-scroll-height: ${x => x.virtualizer.scrollHeight}px;
             --ni-private-table-row-container-top: ${x => x.virtualizer.rowContainerYOffset}px;
             --ni-private-table-row-grid-columns: ${x => (x.rowGridColumns ? x.rowGridColumns : '')};
             --ni-private-table-cursor-override: ${x => (x.layoutManager.isColumnBeingSized ? 'col-resize' : 'default')};
