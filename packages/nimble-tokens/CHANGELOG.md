@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-tokens
 
-This log was last generated on Sat, 10 Aug 2024 00:15:34 GMT and should not be manually modified.
+This log was last generated on Tue, 20 Aug 2024 22:19:56 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 8.0.2
+
+Tue, 20 Aug 2024 22:19:56 GMT
+
+### Patches
+
+- Migrate to style dictionary v4 ([ni/nimble@b3e8a10](https://github.com/ni/nimble/commit/b3e8a109792b9de2957a5c5fa301916133afa090))
 
 ## 8.0.1
 

@@ -2,6 +2,36 @@
   "name": "@ni/spright-angular",
   "entries": [
     {
+      "date": "Wed, 21 Aug 2024 15:12:07 GMT",
+      "version": "4.0.9",
+      "tag": "@ni/spright-angular_v4.0.9",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/spright-angular",
+            "comment": "Bump @ni/spright-components to v3.0.9",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 20 Aug 2024 22:19:56 GMT",
+      "version": "4.0.8",
+      "tag": "@ni/spright-angular_v4.0.8",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/spright-angular",
+            "comment": "Bump @ni/spright-components to v3.0.8",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 16 Aug 2024 17:31:18 GMT",
       "version": "4.0.7",
       "tag": "@ni/spright-angular_v4.0.7",

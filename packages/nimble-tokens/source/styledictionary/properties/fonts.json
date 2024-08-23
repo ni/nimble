@@ -260,100 +260,132 @@
   "size": {
     "font": {
       "Title_2": {
-        "value": "22"
+        "value": "22",
+        "type": "fontSize"
       },
       "ControlLabel_1": {
-        "value": "11"
+        "value": "11",
+        "type": "fontSize"
       },
       "Body": {
-        "value": "14"
+        "value": "14",
+        "type": "fontSize"
       },
       "Body_2": {
-        "value": "16"
+        "value": "16",
+        "type": "fontSize"
       },
       "Header0": {
-        "value": "36"
+        "value": "36",
+        "type": "fontSize"
       },
       "SubHeader": {
-        "value": "12"
+        "value": "12",
+        "type": "fontSize"
       },
       "Header1": {
-        "value": "24"
+        "value": "24",
+        "type": "fontSize"
       },
       "GroupLabel_1": {
-        "value": "11"
+        "value": "11",
+        "type": "fontSize"
       },
       "ButtonLabel_1": {
-        "value": "14"
+        "value": "14",
+        "type": "fontSize"
       },
       "Title_1": {
-        "value": "19"
+        "value": "19",
+        "type": "fontSize"
       },
       "Link_ColorUI": {
-        "value": "14"
+        "value": "14",
+        "type": "fontSize"
       },
       "Link_DarkUI": {
-        "value": "14"
+        "value": "14",
+        "type": "fontSize"
       },
       "Headline_2": {
-        "value": "29.1"
+        "value": "29.1",
+        "type": "fontSize"
       },
       "Placeholder": {
-        "value": "14"
+        "value": "14",
+        "type": "fontSize"
       },
       "Tooltip_Caption": {
-        "value": "11"
+        "value": "11",
+        "type": "fontSize"
       },
       "BodyEmphasized": {
-        "value": "14"
+        "value": "14",
+        "type": "fontSize"
       },
       "BodyEmphasized_2": {
-        "value": "16"
+        "value": "16",
+        "type": "fontSize"
       },
       "Subtitle_1": {
-        "value": "12.8"
+        "value": "12.8",
+        "type": "fontSize"
       },
       "Title_3": {
-        "value": "25"
+        "value": "25",
+        "type": "fontSize"
       },
       "Subtitle_2": {
-        "value": "16"
+        "value": "16",
+        "type": "fontSize"
       },
       "Link_LightUI": {
-        "value": "14"
+        "value": "14",
+        "type": "fontSize"
       },
       "Headline_1": {
-        "value": "25"
+        "value": "25",
+        "type": "fontSize"
       },
       "ControlLabel_1_Chinese_Mac": {
-        "value": "11"
+        "value": "11",
+        "type": "fontSize"
       },
       "ButtonLabel_1_Chinese_Mac": {
-        "value": "11"
+        "value": "11",
+        "type": "fontSize"
       },
       "Body_Chinese_Mac": {
-        "value": "13"
+        "value": "13",
+        "type": "fontSize"
       },
       "Error_ColorUI": {
-        "value": "11"
+        "value": "11",
+        "type": "fontSize"
       },
       "Link_Visited_LightUI": {
-        "value": "14"
+        "value": "14",
+        "type": "fontSize"
       },
       "Error_LightUI": {
-        "value": "11"
+        "value": "11",
+        "type": "fontSize"
       },
       "Error_DarkUI": {
-        "value": "11"
+        "value": "11",
+        "type": "fontSize"
       },
       "Link_Selection100_LightUI": {
-        "value": "14"
+        "value": "14",
+        "type": "fontSize"
       },
       "Grid_Header": {
-        "value": "12.8"
+        "value": "12.8",
+        "type": "fontSize"
       },
       "GroupLabel_Expander": {
-        "value": "14"
+        "value": "14",
+        "type": "fontSize"
       }
     }
   }
