@@ -4,6 +4,7 @@ import { Subject } from 'rxjs';
 import { waitForUpdatesAsync } from '@ni/nimble-angular';
 import { NimbleTableModule, Table, TableRecord } from '@ni/nimble-angular/table';
 import { NimbleTableColumnTextModule } from '@ni/nimble-angular/table-column/text';
+import { tableFitRowsHeight } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
 import { TablePageObject } from '../table.pageobject';
 
 describe('Table page object', () => {
@@ -22,7 +23,7 @@ describe('Table page object', () => {
             `,
             styles: [`
                 .fit-height {
-                    height: var(--ni-nimble-table-fit-rows-height);
+                    height: var(${tableFitRowsHeight.cssCustomProperty});
                 }
             `]
         })
