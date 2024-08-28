@@ -25,7 +25,6 @@ export class Virtualizer<TData extends TableRecord = TableRecord> {
     @observable
     public scrollHeight = 0;
 
-    @observable
     public get isScrolling(): boolean {
         return this._isScrolling;
     }
@@ -52,6 +51,7 @@ export class Virtualizer<TData extends TableRecord = TableRecord> {
     private readonly viewportResizeObserver: ResizeObserver;
     private virtualizer?: TanStackVirtualizer<HTMLElement, HTMLElement>;
     private _pageSize = 0;
+    @observable
     private _isScrolling = false;
 
     public constructor(
@@ -123,6 +123,7 @@ export class Virtualizer<TData extends TableRecord = TableRecord> {
             scrollToFn: elementScroll,
             observeElementOffset,
             observeElementRect,
+            isScrollingResetDelay: 0,
             onChange: () => this.handleVirtualizerChange()
         } as VirtualizerOptions<HTMLElement, HTMLElement>;
     }
