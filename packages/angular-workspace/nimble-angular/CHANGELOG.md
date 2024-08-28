@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Fri, 23 Aug 2024 17:29:42 GMT and should not be manually modified.
+This log was last generated on Wed, 28 Aug 2024 20:51:55 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 28.0.1
+
+Wed, 28 Aug 2024 20:51:55 GMT
+
+### Patches
+
+- Update waitForDataUpdatesToRender to work with fit-rows-height token ([ni/nimble@7648752](https://github.com/ni/nimble/commit/7648752b500d96917861cc8dc4ef1b670420beef))
 
 ## 28.0.0
 

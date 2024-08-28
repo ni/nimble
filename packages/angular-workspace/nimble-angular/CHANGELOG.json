@@ -2,6 +2,21 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Wed, 28 Aug 2024 20:51:55 GMT",
+      "version": "28.0.1",
+      "tag": "@ni/nimble-angular_v28.0.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "7648752b500d96917861cc8dc4ef1b670420beef",
+            "comment": "Update waitForDataUpdatesToRender to work with fit-rows-height token"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 23 Aug 2024 17:29:42 GMT",
       "version": "28.0.0",
       "tag": "@ni/nimble-angular_v28.0.0",
