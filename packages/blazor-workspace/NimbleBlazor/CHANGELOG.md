@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-blazor
 
-This log was last generated on Fri, 23 Aug 2024 17:29:42 GMT and should not be manually modified.
+This log was last generated on Wed, 28 Aug 2024 19:01:50 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 18.0.1
+
+Wed, 28 Aug 2024 19:01:50 GMT
+
+### Patches
+
+- Fix parsing of large exponent values for NimbleNumberField ([ni/nimble@d184f4c](https://github.com/ni/nimble/commit/d184f4ccd555e9e67ed4e9e39cb06fb99c303fc9))
 
 ## 18.0.0
 

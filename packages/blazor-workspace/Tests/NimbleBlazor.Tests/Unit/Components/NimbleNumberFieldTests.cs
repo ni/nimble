@@ -10,16 +10,34 @@ namespace NimbleBlazor.Tests.Unit.Components;
 /// </summary>
 public class NimbleNumberFieldTests
 {
+    private const string NumberFieldMarkup = "nimble-number-field";
+
     [Fact]
     public void NimbleNumberField_Rendered_HasNumberFieldMarkup()
     {
         var context = new TestContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
-        var expectedMarkup = "nimble-number-field";
 
         var textField = context.RenderComponent<NimbleNumberField>();
 
-        Assert.Contains(expectedMarkup, textField.Markup);
+        Assert.Contains(NumberFieldMarkup, textField.Markup);
+    }
+
+    [Theory]
+    [InlineData("42.42")]
+    [InlineData("1E+20")]
+    [InlineData("1E+50")]
+    [InlineData("1E+100")]
+    public void Render_ChangeValue_HasMatchingValue(string value)
+    {
+        var context = new TestContext();
+        context.JSInterop.Mode = JSRuntimeMode.Loose;
+        var field = context.RenderComponent<NimbleNumberField>();
+
+        field.Find(NumberFieldMarkup).Change(value);
+
+        Assert.NotNull(field.Instance.Value);
+        Assert.Equal(value, field.Instance.Value.ToString());
     }
 
     [Fact]
