@@ -34,7 +34,10 @@ describe('Drawer', () => {
         nimbleDrawerElement: Drawer | Drawer<string>
     ): boolean {
         const dialogElement = nativeDialogElement(nimbleDrawerElement);
-        return dialogElement.classList.contains('animating');
+        return (
+            dialogElement.classList.contains('opening')
+            || dialogElement.classList.contains('closing')
+        );
     }
 
     async function completeAnimationAsync(

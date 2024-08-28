@@ -131,16 +131,10 @@ export class Drawer<CloseReason = void> extends FoundationElement {
     }
 
     private triggerAnimation(): void {
-        // Read the offsetHeight of the dialog to trigger a reflow. This guarantees that the browser
-        // has processed the 'animating' class being removed before trying to readd it, even if the previous
-        // animation has just finished. Otherwise, problems can occur. For example, trying to close the
-        // drawer immediately after the opening animation ends does not actually close the drawer.
-        // https://github.com/ni/nimble/issues/1994
-        void this.dialog.offsetHeight;
-
-        this.dialog.classList.add('animating');
         if (this.closing) {
             this.dialog.classList.add('closing');
+        } else {
+            this.dialog.classList.add('opening');
         }
 
         this.dialog.addEventListener(
@@ -154,12 +148,13 @@ export class Drawer<CloseReason = void> extends FoundationElement {
             eventAnimationEnd,
             this.animationEndHandlerFunction
         );
-        this.dialog.classList.remove('animating');
         if (this.closing) {
             this.dialog.classList.remove('closing');
             this.dialog.close();
             this.closing = false;
             this.doResolveShow(this.closeReason);
+        } else {
+            this.dialog.classList.remove('opening');
         }
     }
 }
