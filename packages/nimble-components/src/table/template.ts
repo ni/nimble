@@ -145,7 +145,7 @@ export const template = html<Table>`
                             ${repeat(x => x.virtualizer.visibleItems, html<VirtualItem<HTMLElement>, Table>`
                                 ${when((x, c: ExecutionContext<Table>) => c.parent.tableData[x.index]?.isGroupRow, html<VirtualItem<HTMLElement>, Table>`
                                     <${tableGroupRowTag}
-                                        class="group-row"
+                                        class="group-row ${(_, c) => (c.parent.virtualizer.isScrolling ? '' : 'allow-hover')}"
                                         ${'' /* tabindex managed dynamically by KeyboardNavigationManager */}
                                         tabindex="-1"
                                         :groupRowValue="${(x, c) => c.parent.tableData[x.index]?.groupRowValue}"
@@ -165,7 +165,7 @@ export const template = html<Table>`
                                 `)}
                                 ${when((x, c: ExecutionContext<Table>) => !c.parent.tableData[x.index]?.isGroupRow, html<VirtualItem<HTMLElement>, Table>`
                                     <${tableRowTag}
-                                        class="row"
+                                        class="row ${(_, c) => (c.parent.virtualizer.isScrolling ? '' : 'allow-hover')}"
                                         ${'' /* tabindex managed dynamically by KeyboardNavigationManager */}
                                         tabindex="-1"
                                         record-id="${(x, c) => c.parent.tableData[x.index]?.id}"

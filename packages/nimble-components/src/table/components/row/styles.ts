@@ -42,7 +42,7 @@ export const styles = css`
         position: absolute;
     }
 
-    :host([selectable]:not([selected]):hover)::before {
+    :host([selectable]:not([selected]).allow-hover:hover)::before {
         background-color: ${fillHoverColor};
     }
 
@@ -165,7 +165,7 @@ export const styles = css`
         height: ${controlHeight};
     }
 
-    :host(:hover) nimble-table-cell {
+    :host(.allow-hover:hover) nimble-table-cell {
         --ni-private-table-cell-action-menu-display: block;
     }
 
