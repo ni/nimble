@@ -30,6 +30,10 @@ export class TablePageObject<T extends TableRecord> extends NimbleComponentsTabl
         if (this.mostRecentSetDataPromise) {
             await this.mostRecentSetDataPromise;
         }
+        // Wait for the rows to be rendered
+        await waitForUpdatesAsync();
+        // Wait for the table height to be updated, if necessary, when
+        // using the fit-rows-height token.
         await waitForUpdatesAsync();
     }
 }
