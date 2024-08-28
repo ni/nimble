@@ -26,7 +26,9 @@ export class Virtualizer<TData extends TableRecord = TableRecord> {
     public scrollHeight = 0;
 
     @observable
-    public isScrolling = false;
+    public get isScrolling(): boolean {
+        return this._isScrolling;
+    }
 
     @observable
     public headerContainerMarginRight = 0;
@@ -50,6 +52,7 @@ export class Virtualizer<TData extends TableRecord = TableRecord> {
     private readonly viewportResizeObserver: ResizeObserver;
     private virtualizer?: TanStackVirtualizer<HTMLElement, HTMLElement>;
     private _pageSize = 0;
+    private _isScrolling = false;
 
     public constructor(
         table: Table<TData>,
@@ -128,7 +131,7 @@ export class Virtualizer<TData extends TableRecord = TableRecord> {
         const virtualizer = this.virtualizer!;
         this.visibleItems = virtualizer.getVirtualItems();
         this.scrollHeight = virtualizer.getTotalSize();
-        this.isScrolling = virtualizer.isScrolling;
+        this._isScrolling = virtualizer.isScrolling;
         // We're using a separate div ('table-scroll') to represent the full height of all rows, and
         // the row container's height is only big enough to hold the virtualized rows. So we don't
         // use the TanStackVirtual-provided 'start' offset (which is in terms of the full height)

@@ -150,6 +150,17 @@ describe('Table', () => {
             }
         }
 
+        function addActionMenuToFirstColumn(): void {
+            const slot = 'my-action-menu';
+            column1.actionMenuSlot = slot;
+            const menu = document.createElement('nimble-menu');
+            const menuItem1 = document.createElement('nimble-menu-item');
+            menuItem1.textContent = 'menu item 1';
+            menu.appendChild(menuItem1);
+            menu.slot = slot;
+            element.appendChild(menu);
+        }
+
         beforeEach(async () => {
             ({ element, connect, disconnect } = await setup());
             pageObject = new TablePageObject<SimpleTableRecord>(element);
@@ -478,6 +489,29 @@ describe('Table', () => {
             expect(element.checkValidity()).toBeTrue();
         });
 
+        it('allows row hover styling when not scrolling', async () => {
+            await connect();
+            await element.setData(simpleTableData);
+            await waitForUpdatesAsync();
+            column1.groupIndex = 0;
+            await waitForUpdatesAsync();
+
+            expect(pageObject.isRowHoverStylingEnabled()).toBeTrue();
+        });
+
+        it('does not allow row hover styling while scrolling', async () => {
+            spyOnProperty(element.virtualizer, 'isScrolling').and.returnValue(
+                true
+            );
+            await connect();
+            await element.setData(simpleTableData);
+            await waitForUpdatesAsync();
+            column1.groupIndex = 0;
+            await waitForUpdatesAsync();
+
+            expect(pageObject.isRowHoverStylingEnabled()).toBeFalse();
+        });
+
         describe('record IDs', () => {
             it('setting ID field uses field value for ID', async () => {
                 await element.setData(simpleTableData);
@@ -719,14 +753,7 @@ describe('Table', () => {
             });
 
             it('and closes open action menus when a scroll happens', async () => {
-                const slot = 'my-action-menu';
-                column1.actionMenuSlot = slot;
-                const menu = document.createElement('nimble-menu');
-                const menuItem1 = document.createElement('nimble-menu-item');
-                menuItem1.textContent = 'menu item 1';
-                menu.appendChild(menuItem1);
-                menu.slot = slot;
-                element.appendChild(menu);
+                addActionMenuToFirstColumn();
                 await connect();
                 const data = [...largeTableData];
                 await element.setData(data);
