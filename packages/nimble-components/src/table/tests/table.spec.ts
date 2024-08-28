@@ -150,17 +150,6 @@ describe('Table', () => {
             }
         }
 
-        function addActionMenuToFirstColumn(): void {
-            const slot = 'my-action-menu';
-            column1.actionMenuSlot = slot;
-            const menu = document.createElement('nimble-menu');
-            const menuItem1 = document.createElement('nimble-menu-item');
-            menuItem1.textContent = 'menu item 1';
-            menu.appendChild(menuItem1);
-            menu.slot = slot;
-            element.appendChild(menu);
-        }
-
         beforeEach(async () => {
             ({ element, connect, disconnect } = await setup());
             pageObject = new TablePageObject<SimpleTableRecord>(element);
@@ -753,7 +742,14 @@ describe('Table', () => {
             });
 
             it('and closes open action menus when a scroll happens', async () => {
-                addActionMenuToFirstColumn();
+                const slot = 'my-action-menu';
+                column1.actionMenuSlot = slot;
+                const menu = document.createElement('nimble-menu');
+                const menuItem1 = document.createElement('nimble-menu-item');
+                menuItem1.textContent = 'menu item 1';
+                menu.appendChild(menuItem1);
+                menu.slot = slot;
+                element.appendChild(menu);
                 await connect();
                 const data = [...largeTableData];
                 await element.setData(data);
