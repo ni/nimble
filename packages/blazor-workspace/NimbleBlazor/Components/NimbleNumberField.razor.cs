@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
+using Microsoft.AspNetCore.Components;
 
 namespace NimbleBlazor;
 
@@ -75,4 +77,30 @@ public partial class NimbleNumberField : NimbleInputBase<double?>
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
+
+    /// <inheritdoc />
+    protected override bool TryParseValueFromString(string? value, [MaybeNullWhen(false)] out double? result, [NotNullWhen(false)] out string? validationErrorMessage)
+    {
+        if (TryConvertToDouble(value, out result))
+        {
+            validationErrorMessage = null;
+            return true;
+        }
+        validationErrorMessage = string.Format(CultureInfo.InvariantCulture, $"Could not convert {value} to type {typeof(double)}.");
+        return false;
+    }
+
+    private bool TryConvertToDouble(string? stringValue, out double? value)
+    {
+        if (string.IsNullOrEmpty(stringValue)
+            || !double.TryParse(stringValue, NumberStyles.Float | NumberStyles.Number, CultureInfo.InvariantCulture, out var converted)
+            || double.IsInfinity(converted)
+            || double.IsNaN(converted))
+        {
+            value = default;
+            return false;
+        }
+        value = converted;
+        return true;
+    }
 }
