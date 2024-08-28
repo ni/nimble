@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "Fix parsing of large exponent values for NimbleNumberField",
+  "packageName": "@ni/nimble-blazor",
+  "email": "eric.peterson@ni.com",
+  "dependentChangeType": "patch"
+}
