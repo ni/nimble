@@ -1542,43 +1542,95 @@ describe('RichTextEditorMentionListbox', () => {
             expect(pageObject.isMentionListboxOpened()).toBeTrue();
         });
 
-        // Intermittent, see https://github.com/ni/nimble/issues/2219
-        xit('should show mention popup for multiple mention configuration elements', async () => {
-            await appendUserMentionConfiguration(element, [
-                { key: 'user:1', displayName: 'username1' },
-                { key: 'user:2', displayName: 'username2' }
-            ]);
-            await pageObject.setEditorTextContent('@');
-            expect(pageObject.isMentionListboxOpened()).toBeTrue();
-            expect(pageObject.getMentionListboxItemsName()).toEqual([
-                'username1',
-                'username2'
-            ]);
-            await pageObject.clickMentionListboxOption(0);
-            await appendTestMentionConfiguration(element, [
-                { key: 'test:1', displayName: 'testname1' },
-                { key: 'test:2', displayName: 'testname2' }
-            ]);
-            await pageObject.setEditorTextContent('!');
-            expect(pageObject.isMentionListboxOpened()).toBeTrue();
-            expect(pageObject.getMentionListboxItemsName()).toEqual([
-                'testname1',
-                'testname2'
-            ]);
+        const secondaryClickTests = Array.from({ length: 100 }).map((_, index) => {
+            return {
+                name: `Test ${index}`
+            };
         });
 
-        it('mention listbox should be closed when cursor position is moved to start and configuration dynamically changes', async () => {
-            const { mappingElements } = await appendUserMentionConfiguration(
-                element,
-                [{ key: 'user:1', displayName: 'user name1' }]
-            );
-            await pageObject.setEditorTextContent('@user');
-            expect(pageObject.isMentionListboxOpened()).toBeTrue();
-            await pageObject.setCursorPosition(1);
-            expect(pageObject.isMentionListboxOpened()).toBeFalse();
-            mappingElements[0]!.displayName = 'user name2';
-            await waitForUpdatesAsync();
-            expect(pageObject.isMentionListboxOpened()).toBeFalse();
+        parameterizeSpec(secondaryClickTests, ({ name }) => {
+            // fit(`should close mention popup when updating to invalid key ${name}`, async () => {
+            //     const { mappingElements } = await appendUserMentionConfiguration(
+            //         element,
+            //         [
+            //             { key: 'user:1', displayName: 'username1' },
+            //             { key: 'user:2', displayName: 'username2' }
+            //         ]
+            //     );
+            //     await pageObject.setEditorTextContent('@');
+            //     expect(pageObject.getMentionListboxItemsName()).toEqual([
+            //         'username1',
+            //         'username2'
+            //     ]);
+            //     mappingElements[0]!.key = 'invalid';
+            //     await waitForUpdatesAsync();
+            //     expect(pageObject.getMentionListboxItemsName()).toEqual([]);
+            //     expect(pageObject.isMentionListboxOpened()).toBeFalse();
+            // });
+
+            // fit(`should retain mention popup list position in the same cursor position when configuration got updated ${name}`, async () => {
+            //     const { mappingElements } = await appendUserMentionConfiguration(
+            //         element,
+            //         [
+            //             { key: 'user:1', displayName: 'username1' },
+            //             { key: 'user:2', displayName: 'username2' }
+            //         ]
+            //     );
+            //     await pageObject.setEditorTextContent('First Line');
+            //     pageObject.moveCursorToStart();
+            //     await pageObject.clickUserMentionButton();
+            //     await waitForUpdatesAsync();
+            //     expect(pageObject.getMentionListboxItemsName()).toEqual([
+            //         'username1',
+            //         'username2'
+            //     ]);
+            //     mappingElements[0]!.displayName = 'New user';
+            //     await waitForUpdatesAsync();
+            //     expect(pageObject.getMentionListboxItemsName()).toEqual([
+            //         'New user',
+            //         'username2'
+            //     ]);
+            //     expect(pageObject.isMentionListboxOpened()).toBeTrue();
+            // });
+
+            // Intermittent, see https://github.com/ni/nimble/issues/2219
+            it(`should show mention popup for multiple mention configuration elements ${name}`, async () => {
+                await appendUserMentionConfiguration(element, [
+                    { key: 'user:1', displayName: 'username1' },
+                    { key: 'user:2', displayName: 'username2' }
+                ]);
+                await pageObject.setEditorTextContent('@');
+                expect(pageObject.isMentionListboxOpened()).toBeTrue();
+                expect(pageObject.getMentionListboxItemsName()).toEqual([
+                    'username1',
+                    'username2'
+                ]);
+                await pageObject.clickMentionListboxOption(0);
+                await appendTestMentionConfiguration(element, [
+                    { key: 'test:1', displayName: 'testname1' },
+                    { key: 'test:2', displayName: 'testname2' }
+                ]);
+                await pageObject.setEditorTextContent('!');
+                expect(pageObject.isMentionListboxOpened()).toBeTrue();
+                expect(pageObject.getMentionListboxItemsName()).toEqual([
+                    'testname1',
+                    'testname2'
+                ]);
+            });
         });
+
+        // fit('mention listbox should be closed when cursor position is moved to start and configuration dynamically changes', async () => {
+        //     const { mappingElements } = await appendUserMentionConfiguration(
+        //         element,
+        //         [{ key: 'user:1', displayName: 'user name1' }]
+        //     );
+        //     await pageObject.setEditorTextContent('@user');
+        //     expect(pageObject.isMentionListboxOpened()).toBeTrue();
+        //     await pageObject.setCursorPosition(1);
+        //     expect(pageObject.isMentionListboxOpened()).toBeFalse();
+        //     mappingElements[0]!.displayName = 'user name2';
+        //     await waitForUpdatesAsync();
+        //     expect(pageObject.isMentionListboxOpened()).toBeFalse();
+        // });
     });
 });
