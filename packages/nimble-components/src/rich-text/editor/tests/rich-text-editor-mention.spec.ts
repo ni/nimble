@@ -1374,181 +1374,181 @@ describe('RichTextEditorMentionListbox', () => {
     });
 
     describe('Dynamically update mention popup items based on configuration changes', () => {
-        it('should close mention popup when removing configuration element', async () => {
-            const { userMentionElement } = await appendUserMentionConfiguration(
-                element,
-                [
-                    { key: 'user:1', displayName: 'username1' },
-                    { key: 'user:2', displayName: 'username2' }
-                ]
-            );
-            await pageObject.setEditorTextContent('@');
-            expect(pageObject.isMentionListboxOpened()).toBeTrue();
-            expect(pageObject.getMentionListboxItemsName()).toEqual([
-                'username1',
-                'username2'
-            ]);
-            element.removeChild(userMentionElement);
-            await waitForUpdatesAsync();
-            expect(pageObject.isMentionListboxOpened()).toBeFalse();
-            expect(pageObject.getMentionListboxItemsName()).toEqual([]);
-        });
-
-        it('should update mention popup list when removing mapping element', async () => {
-            const { mappingElements, userMentionElement } = await appendUserMentionConfiguration(element, [
-                { key: 'user:1', displayName: 'username1' },
-                { key: 'user:2', displayName: 'username2' }
-            ]);
-            await pageObject.setEditorTextContent('@');
-            expect(pageObject.getMentionListboxItemsName()).toEqual([
-                'username1',
-                'username2'
-            ]);
-            userMentionElement.removeChild(mappingElements[0]!);
-            await waitForUpdatesAsync();
-            expect(pageObject.getMentionListboxItemsName()).toEqual([
-                'username2'
-            ]);
-            expect(pageObject.isMentionListboxOpened()).toBeTrue();
-        });
-
-        it('should update mention popup list when mapping elements get replaced', async () => {
-            const { userMentionElement } = await appendUserMentionConfiguration(
-                element,
-                [
-                    { key: 'user:1', displayName: 'username1' },
-                    { key: 'user:2', displayName: 'username2' }
-                ]
-            );
-            await pageObject.setEditorTextContent('@');
-            expect(pageObject.getMentionListboxItemsName()).toEqual([
-                'username1',
-                'username2'
-            ]);
-            await replaceUserMappingElements(userMentionElement, [
-                { key: 'user:3', displayName: 'username3' },
-                { key: 'user:4', displayName: 'username4' }
-            ]);
-            await waitForUpdatesAsync();
-            expect(pageObject.getMentionListboxItemsName()).toEqual([
-                'username3',
-                'username4'
-            ]);
-            expect(pageObject.isMentionListboxOpened()).toBeTrue();
-        });
-
-        it('should close mention popup when updating to invalid `pattern`', async () => {
-            const { userMentionElement } = await appendUserMentionConfiguration(
-                element,
-                [
-                    { key: 'user:1', displayName: 'username1' },
-                    { key: 'user:2', displayName: 'username2' }
-                ]
-            );
-            await pageObject.setEditorTextContent('@');
-            expect(pageObject.getMentionListboxItemsName()).toEqual([
-                'username1',
-                'username2'
-            ]);
-            userMentionElement.pattern = 'invalid';
-            await waitForUpdatesAsync();
-            expect(pageObject.getMentionListboxItemsName()).toEqual([]);
-            expect(pageObject.isMentionListboxOpened()).toBeFalse();
-        });
-
-        it('should update mention popup list when updating `display-name`', async () => {
-            const { mappingElements } = await appendUserMentionConfiguration(
-                element,
-                [
-                    { key: 'user:1', displayName: 'username1' },
-                    { key: 'user:2', displayName: 'username2' }
-                ]
-            );
-            await pageObject.setEditorTextContent('@');
-            expect(pageObject.getMentionListboxItemsName()).toEqual([
-                'username1',
-                'username2'
-            ]);
-            mappingElements[0]!.displayName = 'updated-name';
-            await waitForUpdatesAsync();
-            expect(pageObject.getMentionListboxItemsName()).toEqual([
-                'updated-name',
-                'username2'
-            ]);
-            expect(pageObject.isMentionListboxOpened()).toBeTrue();
-        });
-
-        it('should update mention popup list when updating valid `key`', async () => {
-            const { mappingElements } = await appendUserMentionConfiguration(
-                element,
-                [{ key: 'invalid', displayName: 'username1' }]
-            );
-            await pageObject.setEditorTextContent('@');
-            expect(pageObject.isMentionListboxOpened()).toBeFalse();
-            expect(pageObject.getMentionListboxItemsName()).toEqual([]);
-            mappingElements[0]!.key = 'user:1';
-            // After the first wait, `activeMappingConfigs` is updated,
-            // which is directly bound to the template for populating the `nimble-list-option`.
-            // But only after the second wait, `nimble-list-option` gets populated.
-            await waitForUpdatesAsync();
-            await waitForUpdatesAsync();
-            expect(pageObject.getMentionListboxItemsName()).toEqual([
-                'username1'
-            ]);
-            expect(pageObject.isMentionListboxOpened()).toBeTrue();
-        });
-
-        it('should close mention popup when updating to invalid `key`', async () => {
-            const { mappingElements } = await appendUserMentionConfiguration(
-                element,
-                [
-                    { key: 'user:1', displayName: 'username1' },
-                    { key: 'user:2', displayName: 'username2' }
-                ]
-            );
-            await pageObject.setEditorTextContent('@');
-            expect(pageObject.getMentionListboxItemsName()).toEqual([
-                'username1',
-                'username2'
-            ]);
-            mappingElements[0]!.key = 'invalid';
-            await waitForUpdatesAsync();
-            expect(pageObject.getMentionListboxItemsName()).toEqual([]);
-            expect(pageObject.isMentionListboxOpened()).toBeFalse();
-        });
-
-        it('should retain mention popup list position in the same cursor position when configuration got updated', async () => {
-            const { mappingElements } = await appendUserMentionConfiguration(
-                element,
-                [
-                    { key: 'user:1', displayName: 'username1' },
-                    { key: 'user:2', displayName: 'username2' }
-                ]
-            );
-            await pageObject.setEditorTextContent('First Line');
-            pageObject.moveCursorToStart();
-            await pageObject.clickUserMentionButton();
-            await waitForUpdatesAsync();
-            expect(pageObject.getMentionListboxItemsName()).toEqual([
-                'username1',
-                'username2'
-            ]);
-            mappingElements[0]!.displayName = 'New user';
-            await waitForUpdatesAsync();
-            expect(pageObject.getMentionListboxItemsName()).toEqual([
-                'New user',
-                'username2'
-            ]);
-            expect(pageObject.isMentionListboxOpened()).toBeTrue();
-        });
-
-        const secondaryClickTests = Array.from({ length: 30 }).map((_, index) => {
+        const secondaryClickTests = Array.from({ length: 20 }).map((_, index) => {
             return {
                 name: `Test ${index}`
             };
         });
 
         parameterizeSpec(secondaryClickTests, ({ name }) => {
+            it('should close mention popup when removing configuration element ' + `${name}`, async () => {
+                const { userMentionElement } = await appendUserMentionConfiguration(
+                    element,
+                    [
+                        { key: 'user:1', displayName: 'username1' },
+                        { key: 'user:2', displayName: 'username2' }
+                    ]
+                );
+                await pageObject.setEditorTextContent('@');
+                expect(pageObject.isMentionListboxOpened()).toBeTrue();
+                expect(pageObject.getMentionListboxItemsName()).toEqual([
+                    'username1',
+                    'username2'
+                ]);
+                element.removeChild(userMentionElement);
+                await waitForUpdatesAsync();
+                expect(pageObject.isMentionListboxOpened()).toBeFalse();
+                expect(pageObject.getMentionListboxItemsName()).toEqual([]);
+            });
+
+            it('should update mention popup list when removing mapping element' + `${name}`, async () => {
+                const { mappingElements, userMentionElement } = await appendUserMentionConfiguration(element, [
+                    { key: 'user:1', displayName: 'username1' },
+                    { key: 'user:2', displayName: 'username2' }
+                ]);
+                await pageObject.setEditorTextContent('@');
+                expect(pageObject.getMentionListboxItemsName()).toEqual([
+                    'username1',
+                    'username2'
+                ]);
+                userMentionElement.removeChild(mappingElements[0]!);
+                await waitForUpdatesAsync();
+                expect(pageObject.getMentionListboxItemsName()).toEqual([
+                    'username2'
+                ]);
+                expect(pageObject.isMentionListboxOpened()).toBeTrue();
+            });
+
+            it('should update mention popup list when mapping elements get replaced' + `${name}`, async () => {
+                const { userMentionElement } = await appendUserMentionConfiguration(
+                    element,
+                    [
+                        { key: 'user:1', displayName: 'username1' },
+                        { key: 'user:2', displayName: 'username2' }
+                    ]
+                );
+                await pageObject.setEditorTextContent('@');
+                expect(pageObject.getMentionListboxItemsName()).toEqual([
+                    'username1',
+                    'username2'
+                ]);
+                await replaceUserMappingElements(userMentionElement, [
+                    { key: 'user:3', displayName: 'username3' },
+                    { key: 'user:4', displayName: 'username4' }
+                ]);
+                await waitForUpdatesAsync();
+                expect(pageObject.getMentionListboxItemsName()).toEqual([
+                    'username3',
+                    'username4'
+                ]);
+                expect(pageObject.isMentionListboxOpened()).toBeTrue();
+            });
+
+            it('should close mention popup when updating to invalid `pattern`' + `${name}`, async () => {
+                const { userMentionElement } = await appendUserMentionConfiguration(
+                    element,
+                    [
+                        { key: 'user:1', displayName: 'username1' },
+                        { key: 'user:2', displayName: 'username2' }
+                    ]
+                );
+                await pageObject.setEditorTextContent('@');
+                expect(pageObject.getMentionListboxItemsName()).toEqual([
+                    'username1',
+                    'username2'
+                ]);
+                userMentionElement.pattern = 'invalid';
+                await waitForUpdatesAsync();
+                expect(pageObject.getMentionListboxItemsName()).toEqual([]);
+                expect(pageObject.isMentionListboxOpened()).toBeFalse();
+            });
+
+            it('should update mention popup list when updating `display-name`' + `${name}`, async () => {
+                const { mappingElements } = await appendUserMentionConfiguration(
+                    element,
+                    [
+                        { key: 'user:1', displayName: 'username1' },
+                        { key: 'user:2', displayName: 'username2' }
+                    ]
+                );
+                await pageObject.setEditorTextContent('@');
+                expect(pageObject.getMentionListboxItemsName()).toEqual([
+                    'username1',
+                    'username2'
+                ]);
+                mappingElements[0]!.displayName = 'updated-name';
+                await waitForUpdatesAsync();
+                expect(pageObject.getMentionListboxItemsName()).toEqual([
+                    'updated-name',
+                    'username2'
+                ]);
+                expect(pageObject.isMentionListboxOpened()).toBeTrue();
+            });
+
+            it('should update mention popup list when updating valid `key`' + `${name}`, async () => {
+                const { mappingElements } = await appendUserMentionConfiguration(
+                    element,
+                    [{ key: 'invalid', displayName: 'username1' }]
+                );
+                await pageObject.setEditorTextContent('@');
+                expect(pageObject.isMentionListboxOpened()).toBeFalse();
+                expect(pageObject.getMentionListboxItemsName()).toEqual([]);
+                mappingElements[0]!.key = 'user:1';
+                // After the first wait, `activeMappingConfigs` is updated,
+                // which is directly bound to the template for populating the `nimble-list-option`.
+                // But only after the second wait, `nimble-list-option` gets populated.
+                await waitForUpdatesAsync();
+                await waitForUpdatesAsync();
+                expect(pageObject.getMentionListboxItemsName()).toEqual([
+                    'username1'
+                ]);
+                expect(pageObject.isMentionListboxOpened()).toBeTrue();
+            });
+
+            it('should close mention popup when updating to invalid `key`' + `${name}`, async () => {
+                const { mappingElements } = await appendUserMentionConfiguration(
+                    element,
+                    [
+                        { key: 'user:1', displayName: 'username1' },
+                        { key: 'user:2', displayName: 'username2' }
+                    ]
+                );
+                await pageObject.setEditorTextContent('@');
+                expect(pageObject.getMentionListboxItemsName()).toEqual([
+                    'username1',
+                    'username2'
+                ]);
+                mappingElements[0]!.key = 'invalid';
+                await waitForUpdatesAsync();
+                expect(pageObject.getMentionListboxItemsName()).toEqual([]);
+                expect(pageObject.isMentionListboxOpened()).toBeFalse();
+            });
+
+            it('should retain mention popup list position in the same cursor position when configuration got updated' + `${name}`, async () => {
+                const { mappingElements } = await appendUserMentionConfiguration(
+                    element,
+                    [
+                        { key: 'user:1', displayName: 'username1' },
+                        { key: 'user:2', displayName: 'username2' }
+                    ]
+                );
+                await pageObject.setEditorTextContent('First Line');
+                pageObject.moveCursorToStart();
+                await pageObject.clickUserMentionButton();
+                await waitForUpdatesAsync();
+                expect(pageObject.getMentionListboxItemsName()).toEqual([
+                    'username1',
+                    'username2'
+                ]);
+                mappingElements[0]!.displayName = 'New user';
+                await waitForUpdatesAsync();
+                expect(pageObject.getMentionListboxItemsName()).toEqual([
+                    'New user',
+                    'username2'
+                ]);
+                expect(pageObject.isMentionListboxOpened()).toBeTrue();
+            });
+
             it(`should close mention popup when updating to invalid key ${name}`, async () => {
                 const { mappingElements } = await appendUserMentionConfiguration(
                     element,
@@ -1617,20 +1617,20 @@ describe('RichTextEditorMentionListbox', () => {
                     'testname2'
                 ]);
             });
-        });
 
-        it('mention listbox should be closed when cursor position is moved to start and configuration dynamically changes', async () => {
-            const { mappingElements } = await appendUserMentionConfiguration(
-                element,
-                [{ key: 'user:1', displayName: 'user name1' }]
-            );
-            await pageObject.setEditorTextContent('@user');
-            expect(pageObject.isMentionListboxOpened()).toBeTrue();
-            await pageObject.setCursorPosition(1);
-            expect(pageObject.isMentionListboxOpened()).toBeFalse();
-            mappingElements[0]!.displayName = 'user name2';
-            await waitForUpdatesAsync();
-            expect(pageObject.isMentionListboxOpened()).toBeFalse();
+            it('mention listbox should be closed when cursor position is moved to start and configuration dynamically changes' + `${name}`, async () => {
+                const { mappingElements } = await appendUserMentionConfiguration(
+                    element,
+                    [{ key: 'user:1', displayName: 'user name1' }]
+                );
+                await pageObject.setEditorTextContent('@user');
+                expect(pageObject.isMentionListboxOpened()).toBeTrue();
+                await pageObject.setCursorPosition(1);
+                expect(pageObject.isMentionListboxOpened()).toBeFalse();
+                mappingElements[0]!.displayName = 'user name2';
+                await waitForUpdatesAsync();
+                expect(pageObject.isMentionListboxOpened()).toBeFalse();
+            });
         });
     });
 });
