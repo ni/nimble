@@ -680,13 +680,13 @@ export class TablePageObject<T extends TableRecord> {
 
     /** @internal */
     public isRowHoverStylingEnabled(): boolean {
-        const rows = this.tableElement.shadowRoot!.querySelectorAll(
+        const rows: NodeListOf<TableRow | TableGroupRow> = this.tableElement.shadowRoot!.querySelectorAll(
             'nimble-table-row, nimble-table-group-row'
         );
-        const firstRowAllowsHover = rows[0]!.classList.contains('allow-hover');
+        const firstRowAllowsHover = rows[0]!.allowHoverStyling;
         if (
             Array.from(rows).some(
-                x => x.classList.contains('allow-hover') !== firstRowAllowsHover
+                x => x.allowHoverStyling !== firstRowAllowsHover
             )
         ) {
             throw new Error('Rows inconsistently allow hover styling');

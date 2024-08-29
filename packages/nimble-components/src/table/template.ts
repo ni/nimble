@@ -145,7 +145,7 @@ export const template = html<Table>`
                             ${repeat(x => x.virtualizer.visibleItems, html<VirtualItem<HTMLElement>, Table>`
                                 ${when((x, c: ExecutionContext<Table>) => c.parent.tableData[x.index]?.isGroupRow, html<VirtualItem<HTMLElement>, Table>`
                                     <${tableGroupRowTag}
-                                        class="group-row ${(_, c) => (c.parent.virtualizer.isScrolling ? '' : 'allow-hover')}"
+                                        class="group-row"
                                         ${'' /* tabindex managed dynamically by KeyboardNavigationManager */}
                                         tabindex="-1"
                                         :groupRowValue="${(x, c) => c.parent.tableData[x.index]?.groupRowValue}"
@@ -156,6 +156,7 @@ export const template = html<Table>`
                                         ?selectable="${(_, c) => c.parent.selectionMode === TableRowSelectionMode.multiple}"
                                         selection-state="${(x, c) => c.parent.tableData[x.index]?.selectionState}"
                                         :resolvedRowIndex="${x => x.index}"
+                                        ?allow-hover-styling="${(_, c) => !c.parent.virtualizer.isScrolling}"
                                         @focusin="${(_, c) => c.parent.onRowFocusIn(c.event as FocusEvent)}"
                                         @blur="${(_, c) => c.parent.onRowBlur(c.event as FocusEvent)}"
                                         @group-selection-toggle="${(x, c) => c.parent.onRowSelectionToggle(x.index, c.event as CustomEvent<TableRowSelectionToggleEventDetail>)}"
@@ -165,7 +166,7 @@ export const template = html<Table>`
                                 `)}
                                 ${when((x, c: ExecutionContext<Table>) => !c.parent.tableData[x.index]?.isGroupRow, html<VirtualItem<HTMLElement>, Table>`
                                     <${tableRowTag}
-                                        class="row ${(_, c) => (c.parent.virtualizer.isScrolling ? '' : 'allow-hover')}"
+                                        class="row"
                                         ${'' /* tabindex managed dynamically by KeyboardNavigationManager */}
                                         tabindex="-1"
                                         record-id="${(x, c) => c.parent.tableData[x.index]?.id}"
@@ -181,6 +182,7 @@ export const template = html<Table>`
                                         ?row-operation-grid-cell-hidden="${(_, c) => !c.parent.showRowOperationColumn}"
                                         ?loading="${(x, c) => c.parent.tableData[x.index]?.isLoadingChildren}"
                                         :resolvedRowIndex="${x => x.index}"
+                                        ?allow-hover-styling="${(_, c) => !c.parent.virtualizer.isScrolling}"
                                         @click="${(x, c) => c.parent.onRowClick(x.index, c.event as MouseEvent)}"
                                         @focusin="${(_, c) => c.parent.onRowFocusIn(c.event as FocusEvent)}"
                                         @blur="${(_, c) => c.parent.onRowBlur(c.event as FocusEvent)}"

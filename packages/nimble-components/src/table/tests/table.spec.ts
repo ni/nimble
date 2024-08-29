@@ -489,15 +489,14 @@ describe('Table', () => {
         });
 
         it('does not allow row hover styling while scrolling', async () => {
-            spyOnProperty(element.virtualizer, 'isScrolling').and.returnValue(
-                true
-            );
             await connect();
             await element.setData(simpleTableData);
             await waitForUpdatesAsync();
             column1.groupIndex = 0;
             await waitForUpdatesAsync();
 
+            element.viewport.dispatchEvent(new Event('scroll'));
+            await waitForUpdatesAsync();
             expect(pageObject.isRowHoverStylingEnabled()).toBeFalse();
         });
 

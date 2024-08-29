@@ -133,6 +133,12 @@ export class TableRow<
     @observable
     public animationClass = '';
 
+    /**
+     * @internal
+     */
+    @attr({ attribute: 'allow-hover-styling', mode: 'boolean' })
+    public allowHoverStyling = false;
+
     @volatile
     public get isTopLevelParentRow(): boolean {
         return this.isParentRow && this.nestingLevel === 0;
