@@ -137,7 +137,7 @@ export class TableRow<
      * @internal
      */
     @attr({ attribute: 'allow-hover-styling', mode: 'boolean' })
-    public allowHoverStyling = false;
+    public allowHoverStyling = true;
 
     @volatile
     public get isTopLevelParentRow(): boolean {
