@@ -1,4 +1,5 @@
 import { html } from '@microsoft/fast-element';
+import { parameterizeSpec } from '@ni/jasmine-parameterized';
 import type { RichTextEditor } from '../../editor';
 import { fixture, type Fixture } from '../../../utilities/tests/fixture';
 import { RichTextEditorPageObject } from '../../editor/testing/rich-text-editor.pageobject';
@@ -337,13 +338,21 @@ Plain text 3`);
 <user:1> `);
         });
 
+        const secondaryClickTests = Array.from({ length: 100 }).map((_, index) => {
+            return {
+                name: `Test ${index}`
+            };
+        });
+
+        parameterizeSpec(secondaryClickTests, ({ name }) => {
         // Intermittent, see https://github.com/ni/nimble/issues/2219
-        xit('Mention node', async () => {
-            await appendUserMentionConfiguration(element, [
-                { key: 'user:1', displayName: 'username1' }
-            ]);
-            await commitFirstMentionBoxOptionIntoEditor('@');
-            expect(element.getMarkdown()).toEqual('<user:1> ');
+            it(`Mention node${name}`, async () => {
+                await appendUserMentionConfiguration(element, [
+                    { key: 'user:1', displayName: 'username1' }
+                ]);
+                await commitFirstMentionBoxOptionIntoEditor('@');
+                expect(element.getMarkdown()).toEqual('<user:1> ');
+            });
         });
 
         it('Multiple Mention node of same type', async () => {
