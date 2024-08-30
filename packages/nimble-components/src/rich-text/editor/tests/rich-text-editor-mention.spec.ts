@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-concat */
 import { html } from '@microsoft/fast-element';
 import { parameterizeSpec } from '@ni/jasmine-parameterized';
 import { richTextEditorTag, RichTextEditor } from '..';
