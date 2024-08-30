@@ -116,7 +116,7 @@ export class Virtualizer<TData extends TableRecord = TableRecord> {
             estimateSize: (_: number) => rowHeight,
             enableSmoothScroll: true,
             overscan: 3,
-            isScrollingResetDelay: 0,
+            isScrollingResetDelay: 5,
             scrollToFn: elementScroll,
             observeElementOffset,
             observeElementRect,
