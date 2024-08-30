@@ -1,4 +1,4 @@
-/* eslint-disable max-classes-per-file, @typescript-eslint/no-unused-vars */
+/* eslint-disable max-classes-per-file */
 
 import { attr, customElement } from '@microsoft/fast-element';
 import { TableCellView } from '../cell-view';
@@ -10,7 +10,7 @@ import { ColumnValidator } from '../models/column-validator';
 export const tableColumnEmptyCellViewTag = 'nimble-test-table-column-empty-cell-view';
 declare global {
     interface HTMLElementTagNameMap {
-        [tableColumnEmptyCellViewTag]: TableCellView;
+        [tableColumnEmptyCellViewTag]: EmptyTableCellView;
     }
 }
 /**
@@ -121,4 +121,4 @@ TestColumnValidator
         this.columnInternals.validator.validateBar(this.bar);
     }
 }
-/* eslint-enable max-classes-per-file, @typescript-eslint/no-unused-vars */
+/* eslint-enable max-classes-per-file */

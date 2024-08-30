@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/html';
-import { html, repeat, ViewTemplate, when } from '@microsoft/fast-element';
+import { customElement, html, ref, repeat, ViewTemplate, when } from '@microsoft/fast-element';
 import { waitForUpdatesAsync } from '../../../../nimble-components/src/testing/async-helpers';
 import { PropertyFormat } from '../../../../nimble-components/src/theme-provider/tests/types';
 import {
@@ -16,9 +16,21 @@ import {
     bodyFontColor,
     groupHeaderFont,
     groupHeaderFontColor,
-    groupHeaderTextTransform
+    groupHeaderTextTransform,
+    tableFitRowsHeight
 } from '../../../../nimble-components/src/theme-provider/design-tokens';
 import { createUserSelectedThemeStory } from '../../utilities/storybook';
+import { Table, tableTag } from '../../../../nimble-components/src/table';
+import { TableCellView } from '../../../../nimble-components/src/table-column/base/cell-view';
+import { TableGroupHeaderView } from '../../../../nimble-components/src/table-column/base/group-header-view';
+import { TableColumn } from '../../../../nimble-components/src/table-column/base';
+import type { ColumnInternalsOptions } from '../../../../nimble-components/src/table-column/base/models/column-internals';
+import { ColumnValidator } from '../../../../nimble-components/src/table-column/base/models/column-validator';
+import { mappingIconTag } from '../../../../nimble-components/src/mapping/icon';
+import { tableColumnTextTag } from '../../../../nimble-components/src/table-column/text';
+import { IconSeverity } from '../../../../nimble-components/src/icon-base/types';
+import { iconMetadata } from '../../../../nimble-components/src/icon-base/tests/icon-metadata';
+import { tableColumnDesignTokenTag } from './table-column-design-token';
 
 type TokenName = keyof typeof tokens;
 const tokenNames = Object.keys(tokens) as TokenName[];
@@ -26,11 +38,6 @@ tokenNames.sort((a, b) => a.localeCompare(b));
 const graphTokenNames = tokenNames.filter(x => x.startsWith('graph'));
 const calendarTokenNames = tokenNames.filter(x => x.startsWith('calendar'));
 
-interface TokenArgs {
-    metaTitle: string;
-    tokenNames: TokenName[];
-    propertyFormat: PropertyFormat;
-}
 
 const computedCSSValueFromTokenName = (tokenName: string): string => {
     return getComputedStyle(document.documentElement).getPropertyValue(
@@ -117,6 +124,35 @@ const templateForTokenName = (
     return template;
 };
 
+const tokenData = tokenNames.map(tokenName => ({
+    id: tokenName,
+    name: tokenName,
+    description: comments[tokenName],
+    cssProperty: cssPropertyFromTokenName(tokens[tokenName]),
+    scssProperty: scssPropertyFromTokenName(tokens[tokenName]),
+}));
+
+const graphTokenData = tokenData.filter(x => x.name.startsWith('graph'));
+const calendarTokenData = tokenData.filter(x => x.name.startsWith('calendar'));
+
+type TokenData = typeof tokenData[number];
+
+interface TokenArgs {
+    metaTitle: string;
+    tokenData: TokenData[];
+    propertyFormat: PropertyFormat;
+    tableRef: Table<TokenData>;
+}
+
+const updateData = (tableRef: Table<TokenData>, data: TokenData[]): void => {
+    void (async () => {
+        // Safari workaround: the table element instance is made at this point
+        // but doesn't seem to be upgraded to a custom element yet
+        await customElements.whenDefined('nimble-table');
+        await tableRef.setData(data);
+    })();
+};
+
 // prettier-ignore
 const metadata: Meta<TokenArgs> = {
     title: 'Tokens/Theme-aware Tokens',
@@ -129,7 +165,8 @@ const metadata: Meta<TokenArgs> = {
         controls: { hideNoControlsWarning: true }
     },
     args: {
-        propertyFormat: PropertyFormat.scss
+        propertyFormat: PropertyFormat.scss,
+        tableRef: undefined
     },
     argTypes: {
         propertyFormat: {
@@ -137,72 +174,49 @@ const metadata: Meta<TokenArgs> = {
             control: { type: 'radio' },
             name: 'Property Format'
         },
-        tokenNames: {
+        tokenData: {
             table: { disable: true }
+        },
+        tableRef: {
+            table: {
+                disable: true
+            }
         }
     },
     render: createUserSelectedThemeStory(html`
-        <style>
-            table {
-                font: var(${bodyFont.cssCustomProperty});
-                color: var(${bodyFontColor.cssCustomProperty});
-            }
-            thead {
-                font: var(${groupHeaderFont.cssCustomProperty});
-                color: var(${groupHeaderFontColor.cssCustomProperty});
-                text-transform: var(${groupHeaderTextTransform.cssCustomProperty});
-            }
-            td { 
-                padding: 10px;
-                height: 32px;
+        <style class="code-hide">
+            ${tableTag} {
+                height: var(${tableFitRowsHeight.cssCustomProperty});
+                max-height: none;
             }
         </style>
-        <table>
-            <thead>
-                <tr>
-                    <th>${x => x.propertyFormat} Property</th>
-                    <th>Preview</th>
-                    <th>Description</th>
-                </tr>
-            </thead>
-            <tbody>
-            ${repeat(x => x.tokenNames, html<TokenName, TokenArgs>`
-                <tr>
-                    <td>
-                        ${when((_, c) => (c.parent as TokenArgs).propertyFormat === PropertyFormat.css, html<TokenName>`
-                            ${x => cssPropertyFromTokenName(tokens[x])}
-                        `)}
-                        ${when((_, c) => (c.parent as TokenArgs).propertyFormat === PropertyFormat.scss, html<TokenName>`
-                            ${x => scssPropertyFromTokenName(tokens[x])}
-                        `)}
-                    </td>
-                    <td>${x => templateForTokenName(x)}</td>
-                    <td>${x => comments[x]}</td>
-                </tr>
-            `)}
-            </tbody>
-        </table>
-    `),
-    // Setting token default values is done as part of the FAST render queue so it needs to be cleared before reading them
-    // https://github.com/microsoft/fast/blob/bbf4e532cf9263727ef1bd8afbc30d79d1104c03/packages/web-components/fast-foundation/src/design-token/custom-property-manager.ts#LL154C3-L154C3
-    // This uses Storybook's "loaders" feature to await the queue. https://storybook.js.org/docs/html/writing-stories/loaders
-    loaders: [
-        async (): Promise<void> => {
-            await waitForUpdatesAsync();
-        }
-    ]
+        <${tableTag}
+            ${ref('tableRef')}
+            data-unused="${x => updateData(x.tableRef, x.tokenData)}"
+        >
+            <${tableColumnTextTag} field-name="${x => (x.propertyFormat === PropertyFormat.css ? 'cssProperty' : 'scssProperty')}">
+                ${x => (x.propertyFormat === PropertyFormat.css ? 'CSS Property' : 'SCSS Property')}
+            </${tableColumnTextTag}>
+            <${tableColumnDesignTokenTag} field-name="name">
+                Preview
+            </${tableColumnDesignTokenTag}>
+            <${tableColumnTextTag} sorting-disabled field-name="description">
+                Description
+            </${tableColumnTextTag}>
+        </${tableTag}>
+    `)
 };
 
 export default metadata;
 
 export const themeAwareTokens: StoryObj<TokenArgs> = {
-    args: { tokenNames }
+    args: { tokenData }
 };
 
 export const graphTokens: StoryObj<TokenArgs> = {
-    args: { tokenNames: graphTokenNames }
+    args: { tokenData: graphTokenData }
 };
 
 export const calendarTokens: StoryObj<TokenArgs> = {
-    args: { tokenNames: calendarTokenNames }
+    args: { tokenData: calendarTokenData }
 };
