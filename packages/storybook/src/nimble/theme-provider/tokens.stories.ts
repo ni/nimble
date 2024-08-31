@@ -1,128 +1,24 @@
 import type { Meta, StoryObj } from '@storybook/html';
-import { customElement, html, ref, repeat, ViewTemplate, when } from '@microsoft/fast-element';
-import { waitForUpdatesAsync } from '../../../../nimble-components/src/testing/async-helpers';
+import { html, ref } from '@microsoft/fast-element';
 import { PropertyFormat } from '../../../../nimble-components/src/theme-provider/tests/types';
 import {
     tokenNames as tokens,
     cssPropertyFromTokenName,
-    scssPropertyFromTokenName,
-    TokenSuffix,
-    suffixFromTokenName
+    scssPropertyFromTokenName
 } from '../../../../nimble-components/src/theme-provider/design-token-names';
 import { comments } from '../../../../nimble-components/src/theme-provider/design-token-comments';
 
 import {
-    bodyFont,
-    bodyFontColor,
-    groupHeaderFont,
-    groupHeaderFontColor,
-    groupHeaderTextTransform,
     tableFitRowsHeight
 } from '../../../../nimble-components/src/theme-provider/design-tokens';
 import { createUserSelectedThemeStory } from '../../utilities/storybook';
 import { Table, tableTag } from '../../../../nimble-components/src/table';
-import { TableCellView } from '../../../../nimble-components/src/table-column/base/cell-view';
-import { TableGroupHeaderView } from '../../../../nimble-components/src/table-column/base/group-header-view';
-import { TableColumn } from '../../../../nimble-components/src/table-column/base';
-import type { ColumnInternalsOptions } from '../../../../nimble-components/src/table-column/base/models/column-internals';
-import { ColumnValidator } from '../../../../nimble-components/src/table-column/base/models/column-validator';
-import { mappingIconTag } from '../../../../nimble-components/src/mapping/icon';
 import { tableColumnTextTag } from '../../../../nimble-components/src/table-column/text';
-import { IconSeverity } from '../../../../nimble-components/src/icon-base/types';
-import { iconMetadata } from '../../../../nimble-components/src/icon-base/tests/icon-metadata';
 import { tableColumnDesignTokenTag } from './table-column-design-token';
 
 type TokenName = keyof typeof tokens;
 const tokenNames = Object.keys(tokens) as TokenName[];
 tokenNames.sort((a, b) => a.localeCompare(b));
-const graphTokenNames = tokenNames.filter(x => x.startsWith('graph'));
-const calendarTokenNames = tokenNames.filter(x => x.startsWith('calendar'));
-
-
-const computedCSSValueFromTokenName = (tokenName: string): string => {
-    return getComputedStyle(document.documentElement).getPropertyValue(
-        cssPropertyFromTokenName(tokenName)
-    );
-};
-
-const colorTemplate = html<TokenName>`
-    <div
-        title="${x => computedCSSValueFromTokenName(tokens[x])}"
-        style="
-        display: inline-block;
-        height: 24px;
-        width: 24px;
-        border: 1px solid black;
-        background-color: var(${x => cssPropertyFromTokenName(tokens[x])});
-    "
-    ></div>
-`;
-
-const rgbColorTemplate = html<TokenName>`
-    <div
-        title="${x => computedCSSValueFromTokenName(tokens[x])}"
-        style="
-        display: inline-block;
-        height: 24px;
-        width: 24px;
-        border: 1px solid black;
-        background-color: rgba(var(${x => cssPropertyFromTokenName(tokens[x])}), 1.0);
-    "
-    ></div>
-`;
-
-const stringValueTemplate = html<TokenName>`
-    <div style="display: inline-block;">
-        ${x => computedCSSValueFromTokenName(tokens[x])}
-    </div>
-`;
-
-const fontTemplate = html<TokenName>`
-    <div
-        style="
-        display: inline-block;
-        font: var(${x => cssPropertyFromTokenName(tokens[x])});
-    "
-    >
-        Nimble
-    </div>
-`;
-
-/* eslint-disable @typescript-eslint/naming-convention */
-const tokenTemplates: {
-    readonly [key in TokenSuffix]: ViewTemplate<TokenName>;
-} = {
-    Color: colorTemplate,
-    RgbPartialColor: rgbColorTemplate,
-    DisabledFontColor: colorTemplate,
-    FontColor: colorTemplate,
-    FontLineHeight: stringValueTemplate,
-    FontWeight: stringValueTemplate,
-    FontSize: stringValueTemplate,
-    TextTransform: stringValueTemplate,
-    FontFamily: stringValueTemplate,
-    BoxShadow: stringValueTemplate,
-    MaxHeight: stringValueTemplate,
-    MinWidth: stringValueTemplate,
-    Font: fontTemplate,
-    Size: stringValueTemplate,
-    Width: stringValueTemplate,
-    Height: stringValueTemplate,
-    Delay: stringValueTemplate,
-    Padding: stringValueTemplate
-};
-/* eslint-enable @typescript-eslint/naming-convention */
-
-const templateForTokenName = (
-    tokenName: TokenName
-): ViewTemplate<TokenName> => {
-    const suffix = suffixFromTokenName(tokenName);
-    if (suffix === undefined) {
-        throw new Error(`Cannot identify suffix for token: ${tokenName}`);
-    }
-    const template = tokenTemplates[suffix];
-    return template;
-};
 
 const tokenData = tokenNames.map(tokenName => ({
     id: tokenName,
