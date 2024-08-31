@@ -1,5 +1,11 @@
 /* eslint-disable max-classes-per-file */
-import { attr, css, customElement, html, ViewTemplate } from '@microsoft/fast-element';
+import {
+    attr,
+    css,
+    customElement,
+    html,
+    ViewTemplate
+} from '@microsoft/fast-element';
 
 import { TableCellView } from '../../../../nimble-components/src/table-column/base/cell-view';
 import { TableColumn } from '../../../../nimble-components/src/table-column/base';
@@ -67,7 +73,8 @@ const fontTemplate = html<TableColumnDesignTokenCellView>`
     </div>
 `;
 
-const errorTemplate = html<TableColumnDesignTokenCellView>`error ${x => x.tokenName}`;
+const errorTemplate = html<TableColumnDesignTokenCellView>`error
+${x => x.tokenName}`;
 
 /* eslint-disable @typescript-eslint/naming-convention */
 const tokenTemplates: {
@@ -124,7 +131,10 @@ const tableColumnDesignTokenCellViewTag = 'nimble-table-column-design-token-cell
         }
     `
 })
-class TableColumnDesignTokenCellView extends TableCellView<TableColumnDesignTokenCellRecord, TableColumnDesignTokenColumnConfig> {
+class TableColumnDesignTokenCellView extends TableCellView<
+    TableColumnDesignTokenCellRecord,
+    TableColumnDesignTokenColumnConfig
+    > {
     public updateContentTemplate(): ViewTemplate<TableColumnDesignTokenCellView> {
         const suffix = suffixFromTokenName(this.cellRecord?.value ?? '');
         if (!suffix) {

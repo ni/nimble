@@ -8,9 +8,7 @@ import {
 } from '../../../../nimble-components/src/theme-provider/design-token-names';
 import { comments } from '../../../../nimble-components/src/theme-provider/design-token-comments';
 
-import {
-    tableFitRowsHeight
-} from '../../../../nimble-components/src/theme-provider/design-tokens';
+import { tableFitRowsHeight } from '../../../../nimble-components/src/theme-provider/design-tokens';
 import { createUserSelectedThemeStory } from '../../utilities/storybook';
 import { Table, tableTag } from '../../../../nimble-components/src/table';
 import { tableColumnTextTag } from '../../../../nimble-components/src/table-column/text';
@@ -25,13 +23,13 @@ const tokenData = tokenNames.map(tokenName => ({
     name: tokenName,
     description: comments[tokenName],
     cssProperty: cssPropertyFromTokenName(tokens[tokenName]),
-    scssProperty: scssPropertyFromTokenName(tokens[tokenName]),
+    scssProperty: scssPropertyFromTokenName(tokens[tokenName])
 }));
 
 const graphTokenData = tokenData.filter(x => x.name.startsWith('graph'));
 const calendarTokenData = tokenData.filter(x => x.name.startsWith('calendar'));
 
-type TokenData = typeof tokenData[number];
+type TokenData = (typeof tokenData)[number];
 
 interface TokenArgs {
     metaTitle: string;
