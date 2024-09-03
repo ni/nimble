@@ -21,24 +21,6 @@
         "resolved": "6.0.33",
         "contentHash": "AY26o2x9bIFUtcI2frLEqVNeY/pfyEsREhW8uMAjUg5EDvqNrFGL4SGOkb+tVlCwL2pzMtlx1RxLOUGJBHU0YQ=="
       },
-      "Microsoft.NET.ILLink.Analyzers": {
-        "type": "Direct",
-        "requested": "[7.0.100-1.23401.1, )",
-        "resolved": "7.0.100-1.23401.1",
-        "contentHash": "XirkjOLc5Vc3HsXRc2Z6ZbQv6l0RvWgJa/31w7XqZ914MoSi3H3OCNRMWFw7H2EYfsnKbokFfhCcysAmUcEOgw=="
-      },
-      "Microsoft.NET.ILLink.Tasks": {
-        "type": "Direct",
-        "requested": "[7.0.100-1.23401.1, )",
-        "resolved": "7.0.100-1.23401.1",
-        "contentHash": "mI6vCdPEhluLtMn/GV0texEWg5oAPQWCCE4LWspM+Bmy75Nd4EQsziQXrdOFqNeSBQMrxDX9C/O5Xi3kpKSMIw=="
-      },
-      "Microsoft.NET.Sdk.WebAssembly.Pack": {
-        "type": "Direct",
-        "requested": "[8.0.8, )",
-        "resolved": "8.0.8",
-        "contentHash": "z2UxqxjssvxlcQ68KZorgQDITdV2u5H6CWOGhs3kiv+qqDtokhDpcK660TUMrX+FTDdRKie0l7EeZEdej26Ycw=="
-      },
       "NI.CSharp.Analyzers": {
         "type": "Direct",
         "requested": "[2.0.21, 2.0.21]",
