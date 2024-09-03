@@ -48,7 +48,7 @@
   },
   "homepage": "https://github.com/ni/nimble#readme",
   "dependencies": {
-    "@microsoft/fast-element": "^1.12.0",
+    "@microsoft/fast-element": "^2.0.0",
     "@microsoft/fast-foundation": "^2.49.6",
     "@ni/nimble-components": "^32.0.0",
     "tslib": "^2.2.0"
