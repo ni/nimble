@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 03 Sep 2024 22:09:19 GMT",
+      "version": "32.1.1",
+      "tag": "@ni/nimble-components_v32.1.1",
+      "comments": {
+        "none": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "a68fa2764f40e206e782d88e49d82397c813f45c",
+            "comment": "Add note about boolean attr defaults to CONTRIBUTING"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 03 Sep 2024 20:12:33 GMT",
       "version": "32.1.1",
       "tag": "@ni/nimble-components_v32.1.1",
