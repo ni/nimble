@@ -2,6 +2,21 @@
   "name": "@ni/nimble-blazor",
   "entries": [
     {
+      "date": "Tue, 03 Sep 2024 16:59:58 GMT",
+      "version": "18.0.3",
+      "tag": "@ni/nimble-blazor_v18.0.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "57c470b7841ddf6a18943aea150f1d426072070b",
+            "comment": "Update nuget dependencies"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 03 Sep 2024 15:34:50 GMT",
       "version": "18.0.2",
       "tag": "@ni/nimble-blazor_v18.0.2",
