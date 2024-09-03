@@ -27,6 +27,7 @@
       "matchDepTypes": ["dependencies", "devDependencies", "peerDependencies"],
       "excludePackagePatterns":[
         "^@angular",
+        "@microsoft/fast-element",
         "@types/markdown-it",
         "apache-arrow",
         "comlink",
