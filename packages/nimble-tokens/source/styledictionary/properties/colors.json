@@ -92,6 +92,10 @@
       "value": "#E6F5F0ff",
       "type": "color"
     },
+    "DigitalGreenLight30": {
+      "value": "#B3E1D1ff",
+      "type": "color"
+    },
     "Brand85": {
       "value": "#26A97Cff",
       "type": "color"
@@ -142,6 +146,10 @@
     },
     "PowerGreen10": {
       "value": "#364941ff",
+      "type": "color"
+    },
+    "PowerGreen30": {
+      "value": "#356D54ff",
       "type": "color"
     },
     "Black22": {
