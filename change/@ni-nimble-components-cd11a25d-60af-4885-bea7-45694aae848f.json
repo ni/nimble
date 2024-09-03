@@ -1,7 +1,0 @@
-{
-  "type": "minor",
-  "comment": "Update color tokens for hover state in mobiscroll component",
-  "packageName": "@ni/nimble-components",
-  "email": "175607614+aravindhan-ni@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}

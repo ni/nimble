@@ -1,8 +1,17 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Fri, 23 Aug 2024 17:29:42 GMT and should not be manually modified.
+This log was last generated on Tue, 03 Sep 2024 15:34:50 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 32.1.0
+
+Tue, 03 Sep 2024 15:34:50 GMT
+
+### Minor changes
+
+- Update color tokens for hover state in mobiscroll component ([ni/nimble@7fe0a81](https://github.com/ni/nimble/commit/7fe0a81054ee79875a0c0ff3d9d3b22e45418f17))
+- Bump @ni/nimble-tokens to v8.2.0
 
 ## 32.0.0
 
