@@ -2,6 +2,21 @@
   "name": "@ni/nimble-tokens",
   "entries": [
     {
+      "date": "Tue, 03 Sep 2024 15:34:50 GMT",
+      "version": "8.2.0",
+      "tag": "@ni/nimble-tokens_v8.2.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "175607614+aravindhan-ni@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "7fe0a81054ee79875a0c0ff3d9d3b22e45418f17",
+            "comment": "Update color tokens for hover state in mobiscroll component'"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 23 Aug 2024 17:29:42 GMT",
       "version": "8.1.0",
       "tag": "@ni/nimble-tokens_v8.1.0",
