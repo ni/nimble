@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 03 Sep 2024 20:12:33 GMT",
+      "version": "32.1.1",
+      "tag": "@ni/nimble-components_v32.1.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "1cd7c244c9a08a2a13e8405f1d085cb1b82a836d",
+            "comment": "Update for tanstack virtual type changes"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 03 Sep 2024 15:34:50 GMT",
       "version": "32.1.0",
       "tag": "@ni/nimble-components_v32.1.0",
