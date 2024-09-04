@@ -42,7 +42,7 @@ export const styles = css`
         position: absolute;
     }
 
-    :host([selectable]:not([selected]):hover)::before {
+    :host([selectable]:not([selected])[allow-hover]:hover)::before {
         background-color: ${fillHoverColor};
     }
 
@@ -50,7 +50,7 @@ export const styles = css`
         background-color: ${fillSelectedColor};
     }
 
-    :host([selected]:hover)::before {
+    :host([selected][allow-hover]:hover)::before {
         background-color: ${fillHoverSelectedColor};
     }
 
@@ -165,7 +165,7 @@ export const styles = css`
         height: ${controlHeight};
     }
 
-    :host(:hover) nimble-table-cell {
+    :host([allow-hover]:hover) nimble-table-cell {
         --ni-private-table-cell-action-menu-display: block;
     }
 
@@ -180,7 +180,7 @@ export const styles = css`
     themeBehavior(
         Theme.color,
         css`
-            :host([selectable]:not([selected]):hover)::before {
+            :host([selectable]:not([selected])[allow-hover]:hover)::before {
                 background-color: ${hexToRgbaCssColor(White, 0.05)};
             }
 
@@ -188,7 +188,7 @@ export const styles = css`
                 background-color: ${hexToRgbaCssColor(White, 0.25)};
             }
 
-            :host([selected]:hover)::before {
+            :host([selected][allow-hover]:hover)::before {
                 background-color: ${hexToRgbaCssColor(White, 0.2)};
             }
         `

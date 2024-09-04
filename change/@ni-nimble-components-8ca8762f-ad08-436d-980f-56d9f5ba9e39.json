@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "Disable table row hover styling while scrolling",
+  "packageName": "@ni/nimble-components",
+  "email": "7282195+m-akinc@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
