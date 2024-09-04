@@ -56,7 +56,7 @@
     "packages/site"
   ],
   "devDependencies": {
-    "beachball": "^2.31.0",
+    "beachball": "^2.45.0",
     "concurrently": "^8.2.2",
     "cross-env": "^7.0.3",
     "patch-package": "^8.0.0",

@@ -20,7 +20,7 @@ import type { TableNode, TableRecord } from '../types';
  */
 export class Virtualizer<TData extends TableRecord = TableRecord> {
     @observable
-    public visibleItems: VirtualItem<HTMLElement>[] = [];
+    public visibleItems: VirtualItem[] = [];
 
     @observable
     public scrollHeight = 0;

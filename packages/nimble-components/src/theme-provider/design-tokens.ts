@@ -117,7 +117,9 @@ import {
     PowerGreen10,
     DigitalGreenDark110,
     Black82,
-    Black22
+    Black22,
+    PowerGreen30,
+    DigitalGreenLight30
 } from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
 import { Theme } from './types';
 import { tokenNames, styleNameFromTokenName } from './design-token-names';
@@ -384,9 +386,9 @@ export const calendarEventBackgroundHoverStaticColor = DesignToken.create<string
     )
 ).withDefault((element: HTMLElement) => getColorForTheme(
     element,
-    hexToRgbaCssColor(DigitalGreenLight, 0.3),
-    hexToRgbaCssColor(PowerGreen, 0.3),
-    hexToRgbaCssColor(PowerGreen, 0.3)
+    DigitalGreenLight30,
+    PowerGreen30,
+    PowerGreen30
 ));
 
 export const calendarEventBackgroundHoverDynamicColor = DesignToken.create<string>(
