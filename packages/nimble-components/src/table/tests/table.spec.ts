@@ -490,7 +490,6 @@ describe('Table', () => {
         it('does not allow row hover styling while scrolling', async () => {
             await connect();
             await element.setData(simpleTableData);
-            await waitForUpdatesAsync();
             column1.groupIndex = 0;
             await waitForUpdatesAsync();
 
@@ -502,7 +501,6 @@ describe('Table', () => {
         it('re-enables row hover styling after scrolling ends', async () => {
             await connect();
             await element.setData(simpleTableData);
-            await waitForUpdatesAsync();
             column1.groupIndex = 0;
             await waitForUpdatesAsync();
 
