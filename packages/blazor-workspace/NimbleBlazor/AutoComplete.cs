@@ -4,7 +4,6 @@ public enum AutoComplete
 {
     Inline,
     List,
-    Both,
     None
 }
 
