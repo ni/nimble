@@ -55,10 +55,10 @@ describe('Combobox', () => {
         });
 
         it('should set autocomplete attribute when property is set', async () => {
-            element.autocomplete = ComboboxAutocomplete.both;
+            element.autocomplete = ComboboxAutocomplete.inline;
             await waitForUpdatesAsync();
             expect(element.getAttribute('autocomplete')).toBe(
-                ComboboxAutocomplete.both
+                ComboboxAutocomplete.inline
             );
         });
 
@@ -196,7 +196,7 @@ describe('Combobox', () => {
         });
 
         it('value updates on input', () => {
-            element.autocomplete = ComboboxAutocomplete.both;
+            element.autocomplete = ComboboxAutocomplete.inline;
             pageObject.setInputText('O'); // should autocomplete to 'One'
             expect(element.value).toEqual('One');
 
@@ -206,7 +206,7 @@ describe('Combobox', () => {
         });
 
         it('updates filter when value set programmatically', async () => {
-            element.autocomplete = ComboboxAutocomplete.both;
+            element.autocomplete = ComboboxAutocomplete.inline;
             pageObject.setInputText('Th');
             await pageObject.clickAway();
 
@@ -224,7 +224,7 @@ describe('Combobox', () => {
         });
 
         it('filters list after entering value and losing focus', async () => {
-            element.autocomplete = ComboboxAutocomplete.both;
+            element.autocomplete = ComboboxAutocomplete.list;
             pageObject.setInputText('Two');
             await pageObject.clickAway();
 
@@ -234,7 +234,7 @@ describe('Combobox', () => {
         });
 
         it('filters list after entering value and reselecting value from list', () => {
-            element.autocomplete = ComboboxAutocomplete.both;
+            element.autocomplete = ComboboxAutocomplete.list;
             pageObject.setInputText('Two');
             pageObject.pressArrowDownKey();
             pageObject.pressEnterKey();
@@ -245,7 +245,7 @@ describe('Combobox', () => {
         });
 
         it('shows "no items found" in dropdown when typed text matches nothing', async () => {
-            element.autocomplete = ComboboxAutocomplete.both;
+            element.autocomplete = ComboboxAutocomplete.list;
             pageObject.setInputText('zzz');
             await waitForUpdatesAsync();
             expect(pageObject.isNoResultsLabelVisible()).toBeTrue();
@@ -258,21 +258,21 @@ describe('Combobox', () => {
         });
 
         it('does not show "no items found" in dropdown when typed text matches enabled option', async () => {
-            element.autocomplete = ComboboxAutocomplete.both;
+            element.autocomplete = ComboboxAutocomplete.list;
             pageObject.setInputText('o'); // matches "One"
             await waitForUpdatesAsync();
             expect(pageObject.isNoResultsLabelVisible()).toBeFalse();
         });
 
         it('does not show "no items found" in dropdown when typed text matches disabled option', async () => {
-            element.autocomplete = ComboboxAutocomplete.both;
+            element.autocomplete = ComboboxAutocomplete.list;
             pageObject.setInputText('fo'); // matches "Four"
             await waitForUpdatesAsync();
             expect(pageObject.isNoResultsLabelVisible()).toBeFalse();
         });
 
         it('does not show "no items found" in dropdown when input is empty', async () => {
-            element.autocomplete = ComboboxAutocomplete.both;
+            element.autocomplete = ComboboxAutocomplete.list;
             await pageObject.clickAndWaitForOpen();
             expect(pageObject.isNoResultsLabelVisible()).toBeFalse();
         });
@@ -284,7 +284,7 @@ describe('Combobox', () => {
         });
 
         it('removes "no items found" from dropdown when a matching option is added', async () => {
-            element.autocomplete = ComboboxAutocomplete.both;
+            element.autocomplete = ComboboxAutocomplete.list;
             pageObject.setInputText('zzz'); // matches "One"
             await waitForUpdatesAsync();
 
@@ -391,9 +391,6 @@ describe('Combobox', () => {
             },
             {
                 name: ComboboxAutocomplete.list
-            },
-            {
-                name: ComboboxAutocomplete.both
             },
             {
                 name: ComboboxAutocomplete.none

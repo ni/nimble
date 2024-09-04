@@ -9,7 +9,6 @@ import {
 import {
     DesignSystem,
     ComboboxOptions,
-    ComboboxAutocomplete,
     SelectPosition,
     ListboxOption,
     DelegatesARIACombobox,
@@ -26,6 +25,7 @@ import {
     limit,
     uniqueId
 } from '@microsoft/fast-web-utilities';
+import { ComboboxAutocomplete } from './types';
 import { ToggleButton, toggleButtonTag } from '../toggle-button';
 import { errorTextTemplate } from '../patterns/error/template';
 import { iconArrowExpanderDownTag } from '../icons/arrow-expander-down';
@@ -222,19 +222,13 @@ export class Combobox
     private get isAutocompleteInline(): boolean {
         return (
             this.autocomplete === ComboboxAutocomplete.inline
-            || this.isAutocompleteBoth
         );
     }
 
     private get isAutocompleteList(): boolean {
         return (
             this.autocomplete === ComboboxAutocomplete.list
-            || this.isAutocompleteBoth
         );
-    }
-
-    private get isAutocompleteBoth(): boolean {
-        return this.autocomplete === ComboboxAutocomplete.both;
     }
 
     public override slottedOptionsChanged(
