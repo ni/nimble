@@ -547,7 +547,7 @@ describe('Combobox', () => {
         await disconnect();
     });
 
-    const noInlineAutocompleteModes: ComboboxAutocomplete[] = ['none', 'list'];
+    const noInlineAutocompleteModes = ['none', 'list'] as const;
     noInlineAutocompleteModes.forEach(mode => {
         it(`when autocomplete is ${mode}, typing should select exact match`, async () => {
             const { connect, disconnect, element, option2, option3 } = await setup();
