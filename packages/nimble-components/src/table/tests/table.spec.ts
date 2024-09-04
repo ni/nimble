@@ -481,7 +481,6 @@ describe('Table', () => {
         it('allows row hover styling when not scrolling', async () => {
             await connect();
             await element.setData(simpleTableData);
-            await waitForUpdatesAsync();
             column1.groupIndex = 0;
             await waitForUpdatesAsync();
 
@@ -498,6 +497,19 @@ describe('Table', () => {
             element.viewport.dispatchEvent(new Event('scroll'));
             await waitForUpdatesAsync();
             expect(pageObject.isRowHoverStylingEnabled()).toBeFalse();
+        });
+
+        it('re-enables row hover styling after scrolling ends', async () => {
+            await connect();
+            await element.setData(simpleTableData);
+            await waitForUpdatesAsync();
+            column1.groupIndex = 0;
+            await waitForUpdatesAsync();
+
+            element.viewport.dispatchEvent(new Event('scroll'));
+            element.viewport.dispatchEvent(new Event('scrollend'));
+            await waitForUpdatesAsync();
+            expect(pageObject.isRowHoverStylingEnabled()).toBeTrue();
         });
 
         describe('record IDs', () => {

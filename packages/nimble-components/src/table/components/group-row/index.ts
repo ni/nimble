@@ -69,8 +69,8 @@ export class TableGroupRow extends FoundationElement {
     /**
      * @internal
      */
-    @attr({ attribute: 'allow-hover-styling', mode: 'boolean' })
-    public allowHoverStyling = false;
+    @attr({ attribute: 'allow-hover', mode: 'boolean' })
+    public allowHover = false;
 
     // Programmatically updating the selection state of a checkbox fires the 'change' event.
     // Therefore, selection change events that occur due to programmatically updating

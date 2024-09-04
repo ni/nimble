@@ -50,7 +50,7 @@ export class Virtualizer<TData extends TableRecord = TableRecord> {
     private readonly viewportResizeObserver: ResizeObserver;
     private virtualizer?: TanStackVirtualizer<HTMLElement, HTMLElement>;
     private _pageSize = 0;
-    private isScrollingTimeout = 0;
+    private isScrollingTimer = 0;
 
     public constructor(
         table: Table<TData>,
@@ -132,9 +132,10 @@ export class Virtualizer<TData extends TableRecord = TableRecord> {
         this.isScrolling = virtualizer.isScrolling;
         // There are multiple browser bugs that can result in us getting stuck thinking that we're scrolling.
         // As a workaround, we assume scrolling stopped if we haven't received an update in 300ms.
-        window.clearTimeout(this.isScrollingTimeout);
+        // Tech debt item to remove this workaround: https://github.com/ni/nimble/issues/2382
+        window.clearTimeout(this.isScrollingTimer);
         if (this.isScrolling) {
-            this.isScrollingTimeout = window.setTimeout(() => {
+            this.isScrollingTimer = window.setTimeout(() => {
                 this.isScrolling = false;
             }, 300);
         }
