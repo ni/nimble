@@ -385,6 +385,8 @@ export class Combobox
                 this.emitChangeIfValueUpdated();
                 break;
             case keyEscape:
+                this.selectedIndex = -1;
+
                 if (this.open) {
                     this.open = false;
                     break;
