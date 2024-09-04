@@ -1,6 +1,6 @@
 {
   "type": "major",
-  "comment": "Remove combobox autocomplete mode \"both\". Clients should either use a different mode (e.g. \"list\") or switch to a filterable select.",
+  "comment": "Remove combobox autocomplete modes \"both\" and \"inline\". Clients should either use a different mode (e.g. \"list\") or switch to a filterable select.",
   "packageName": "@ni/nimble-blazor",
   "email": "jattasNI@users.noreply.github.com",
   "dependentChangeType": "patch"

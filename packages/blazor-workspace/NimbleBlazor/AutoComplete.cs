@@ -2,7 +2,6 @@
 
 public enum AutoComplete
 {
-    Inline,
     List,
     None
 }

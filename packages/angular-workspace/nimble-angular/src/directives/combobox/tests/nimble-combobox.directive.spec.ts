@@ -97,7 +97,7 @@ describe('Nimble combobox', () => {
             template: `
                 <nimble-combobox #combobox
                     disabled
-                    autocomplete="inline"
+                    autocomplete="list"
                     appearance="outline"
                     placeholder="Enter value:"
                     error-text="error text"
@@ -132,8 +132,8 @@ describe('Nimble combobox', () => {
         });
 
         it('will use template string values for autocomplete', () => {
-            expect(directive.autocomplete).toEqual(ComboboxAutocomplete.inline);
-            expect(nativeElement.autocomplete).toEqual(ComboboxAutocomplete.inline);
+            expect(directive.autocomplete).toEqual(ComboboxAutocomplete.list);
+            expect(nativeElement.autocomplete).toEqual(ComboboxAutocomplete.list);
         });
 
         it('will use template string values for appearance', () => {
@@ -219,11 +219,11 @@ describe('Nimble combobox', () => {
             expect(directive.autocomplete).toEqual(ComboboxAutocomplete.list);
             expect(nativeElement.autocomplete).toEqual(ComboboxAutocomplete.list);
 
-            fixture.componentInstance.autocomplete = ComboboxAutocomplete.inline;
+            fixture.componentInstance.autocomplete = ComboboxAutocomplete.none;
             fixture.detectChanges();
 
-            expect(directive.autocomplete).toEqual(ComboboxAutocomplete.inline);
-            expect(nativeElement.autocomplete).toEqual(ComboboxAutocomplete.inline);
+            expect(directive.autocomplete).toEqual(ComboboxAutocomplete.none);
+            expect(nativeElement.autocomplete).toEqual(ComboboxAutocomplete.none);
         });
 
         it('can be configured with property binding for appearance', () => {
@@ -340,11 +340,11 @@ describe('Nimble combobox', () => {
             expect(directive.autocomplete).toBeUndefined();
             expect(nativeElement.autocomplete).toBeUndefined();
 
-            fixture.componentInstance.autocomplete = ComboboxAutocomplete.inline;
+            fixture.componentInstance.autocomplete = ComboboxAutocomplete.list;
             fixture.detectChanges();
 
-            expect(directive.autocomplete).toEqual(ComboboxAutocomplete.inline);
-            expect(nativeElement.autocomplete).toEqual(ComboboxAutocomplete.inline);
+            expect(directive.autocomplete).toEqual(ComboboxAutocomplete.list);
+            expect(nativeElement.autocomplete).toEqual(ComboboxAutocomplete.list);
         });
 
         it('can be configured with attribute binding for appearance', () => {

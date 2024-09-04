@@ -219,12 +219,6 @@ export class Combobox
      */
     private forcedPosition = false;
 
-    private get isAutocompleteInline(): boolean {
-        return (
-            this.autocomplete === ComboboxAutocomplete.inline
-        );
-    }
-
     private get isAutocompleteList(): boolean {
         return (
             this.autocomplete === ComboboxAutocomplete.list
@@ -349,27 +343,13 @@ export class Combobox
         this.filter = this.control.value;
         this.filterOptions();
 
-        if (!this.isAutocompleteInline) {
-            this.selectedIndex = this.findIndexOfValidOption(
-                this.control.value
-            );
-        }
+        this.selectedIndex = this.findIndexOfValidOption(
+            this.control.value
+        );
 
         if (!e.inputType.includes('deleteContent') && this.filter.length) {
             if (this.isAutocompleteList && !this.open) {
                 this.open = true;
-            }
-
-            if (this.isAutocompleteInline) {
-                if (this.filteredOptions.length) {
-                    this.selectedOptions = [this.filteredOptions[0]!];
-                    this.selectedIndex = this.options.indexOf(
-                        this.firstSelectedOption
-                    );
-                    this.setInlineSelection();
-                } else {
-                    this.selectedIndex = -1;
-                }
             }
         }
 
@@ -399,19 +379,12 @@ export class Combobox
         switch (e.key) {
             case keyEnter:
                 this.syncValue();
-                if (this.isAutocompleteInline) {
-                    this.filter = this.value;
-                }
 
                 this.open = false;
                 this.clearSelectionRange();
                 this.emitChangeIfValueUpdated();
                 break;
             case keyEscape:
-                if (!this.isAutocompleteInline) {
-                    this.selectedIndex = -1;
-                }
-
                 if (this.open) {
                     this.open = false;
                     break;
@@ -443,10 +416,6 @@ export class Combobox
 
                 if (this.filteredOptions.length > 0) {
                     super.keydownHandler(e);
-                }
-
-                if (this.isAutocompleteInline) {
-                    this.setInlineSelection();
                 }
 
                 if (this.open && this.valueUpdatedByInput) {
@@ -781,20 +750,6 @@ export class Combobox
         if (this.firstSelectedOption) {
             this.control.value = this.firstSelectedOption.text;
             this.control.focus();
-        }
-    }
-
-    /**
-     * Focus, set and select the content of the control based on the first selected option.
-     */
-    private setInlineSelection(): void {
-        if (this.firstSelectedOption) {
-            this.setInputToSelection();
-            this.control.setSelectionRange(
-                this.filter.length,
-                this.control.value.length,
-                'backward'
-            );
         }
     }
 

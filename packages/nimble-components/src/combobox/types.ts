@@ -3,7 +3,6 @@
  * @public
  */
 export const ComboboxAutocomplete = {
-    inline: 'inline',
     list: 'list',
     none: 'none'
 } as const;
