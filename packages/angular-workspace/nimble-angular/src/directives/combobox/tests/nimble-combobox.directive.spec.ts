@@ -219,11 +219,11 @@ describe('Nimble combobox', () => {
             expect(directive.autocomplete).toEqual(ComboboxAutocomplete.list);
             expect(nativeElement.autocomplete).toEqual(ComboboxAutocomplete.list);
 
-            fixture.componentInstance.autocomplete = ComboboxAutocomplete.both;
+            fixture.componentInstance.autocomplete = ComboboxAutocomplete.inline;
             fixture.detectChanges();
 
-            expect(directive.autocomplete).toEqual(ComboboxAutocomplete.both);
-            expect(nativeElement.autocomplete).toEqual(ComboboxAutocomplete.both);
+            expect(directive.autocomplete).toEqual(ComboboxAutocomplete.inline);
+            expect(nativeElement.autocomplete).toEqual(ComboboxAutocomplete.inline);
         });
 
         it('can be configured with property binding for appearance', () => {
@@ -340,11 +340,11 @@ describe('Nimble combobox', () => {
             expect(directive.autocomplete).toBeUndefined();
             expect(nativeElement.autocomplete).toBeUndefined();
 
-            fixture.componentInstance.autocomplete = ComboboxAutocomplete.both;
+            fixture.componentInstance.autocomplete = ComboboxAutocomplete.inline;
             fixture.detectChanges();
 
-            expect(directive.autocomplete).toEqual(ComboboxAutocomplete.both);
-            expect(nativeElement.autocomplete).toEqual(ComboboxAutocomplete.both);
+            expect(directive.autocomplete).toEqual(ComboboxAutocomplete.inline);
+            expect(nativeElement.autocomplete).toEqual(ComboboxAutocomplete.inline);
         });
 
         it('can be configured with attribute binding for appearance', () => {
