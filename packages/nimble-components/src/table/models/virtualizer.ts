@@ -50,6 +50,7 @@ export class Virtualizer<TData extends TableRecord = TableRecord> {
     private readonly viewportResizeObserver: ResizeObserver;
     private virtualizer?: TanStackVirtualizer<HTMLElement, HTMLElement>;
     private _pageSize = 0;
+    private isScrollingTimeout = 0;
 
     public constructor(
         table: Table<TData>,
@@ -116,7 +117,7 @@ export class Virtualizer<TData extends TableRecord = TableRecord> {
             estimateSize: (_: number) => rowHeight,
             enableSmoothScroll: true,
             overscan: 3,
-            isScrollingResetDelay: 5,
+            isScrollingResetDelay: 250,
             scrollToFn: elementScroll,
             observeElementOffset,
             observeElementRect,
@@ -129,6 +130,14 @@ export class Virtualizer<TData extends TableRecord = TableRecord> {
         this.visibleItems = virtualizer.getVirtualItems();
         this.scrollHeight = virtualizer.getTotalSize();
         this.isScrolling = virtualizer.isScrolling;
+        // There are multiple browser bugs that can result in us getting stuck thinking that we're scrolling.
+        // As a workaround, we assume scrolling stopped if we haven't received an update in 300ms.
+        window.clearTimeout(this.isScrollingTimeout);
+        if (this.isScrolling) {
+            this.isScrollingTimeout = window.setTimeout(() => {
+                this.isScrolling = false;
+            }, 300);
+        }
         // We're using a separate div ('table-scroll') to represent the full height of all rows, and
         // the row container's height is only big enough to hold the virtualized rows. So we don't
         // use the TanStackVirtual-provided 'start' offset (which is in terms of the full height)
