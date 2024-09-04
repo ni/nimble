@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Wed, 04 Sep 2024 23:50:46 GMT",
+      "version": "32.1.2",
+      "tag": "@ni/nimble-components_v32.1.2",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "7e438f218cf3aed9700a85f53f5c533ab24ed131",
+            "comment": "Disable table row hover styling while scrolling"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 03 Sep 2024 22:09:19 GMT",
       "version": "32.1.1",
       "tag": "@ni/nimble-components_v32.1.1",

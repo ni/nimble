@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Tue, 03 Sep 2024 20:12:33 GMT and should not be manually modified.
+This log was last generated on Wed, 04 Sep 2024 23:50:46 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 32.1.2
+
+Wed, 04 Sep 2024 23:50:46 GMT
+
+### Patches
+
+- Disable table row hover styling while scrolling ([ni/nimble@7e438f2](https://github.com/ni/nimble/commit/7e438f218cf3aed9700a85f53f5c533ab24ed131))
 
 ## 32.1.1
 
