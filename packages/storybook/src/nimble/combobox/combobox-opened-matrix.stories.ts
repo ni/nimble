@@ -1,12 +1,12 @@
 import type { StoryFn, Meta } from '@storybook/html';
 import { html, repeat, ViewTemplate, when } from '@microsoft/fast-element';
-import { ComboboxAutocomplete } from '@microsoft/fast-foundation';
 import { DropdownPosition } from '../../../../nimble-components/src/patterns/dropdown/types';
 import { listOptionTag } from '../../../../nimble-components/src/list-option';
 import {
     Combobox,
     comboboxTag
 } from '../../../../nimble-components/src/combobox';
+import { ComboboxAutocomplete } from '../../../../nimble-components/src/combobox/types';
 import { createFixedThemeStory } from '../../utilities/storybook';
 import { sharedMatrixParameters } from '../../utilities/matrix';
 import { backgroundStates } from '../../utilities/states';
@@ -35,7 +35,7 @@ const component = ({
 }: ComboboxMatrixStoryOptions): ViewTemplate => html`
     <${comboboxTag} open
         position="${() => position}" 
-        autocomplete="${ComboboxAutocomplete.both}"
+        autocomplete="${ComboboxAutocomplete.list}"
         style="width: 250px; ${() => (position === DropdownPosition.below ? 'margin-bottom: 120px;' : `margin-top: ${manyOptions ? 360 : 120}px;`)}"
     >
         ${when(() => !manyOptions, html`

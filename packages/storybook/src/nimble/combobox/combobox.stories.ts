@@ -1,9 +1,9 @@
-import { ComboboxAutocomplete } from '@microsoft/fast-foundation';
 import { html, repeat } from '@microsoft/fast-element';
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html';
 import { listOptionTag } from '../../../../nimble-components/src/list-option';
 import { comboboxTag } from '../../../../nimble-components/src/combobox';
+import { ComboboxAutocomplete } from '../../../../nimble-components/src/combobox/types';
 import { ExampleOptionsType } from '../../../../nimble-components/src/combobox/tests/types';
 import {
     DropdownAppearance,
@@ -134,7 +134,6 @@ const metadata: Meta<ComboboxArgs> = {
             control: { type: 'radio' },
             description: `- inline: Automatically matches the first option that matches the start of the entered text.
 - list: Filters the dropdown to options that start with the entered text.
-- both: Automatically matches and filters list to options that start with the entered text.
 - none: No autocomplete (default).`,
             table: { category: apiCategory.attributes }
         },
@@ -202,7 +201,7 @@ const metadata: Meta<ComboboxArgs> = {
         label: 'Combobox',
         disabled: false,
         dropDownPosition: 'below',
-        autocomplete: ComboboxAutocomplete.both,
+        autocomplete: ComboboxAutocomplete.list,
         errorVisible: false,
         errorText: 'Value is invalid',
         appearance: DropdownAppearance.underline,
