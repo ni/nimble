@@ -3,5 +3,5 @@
   "comment": "Add new icons for install and uninstall software",
   "packageName": "@ni/nimble-components",
   "email": "jattasNI@users.noreply.github.com",
-  "dependentChangeType": "patch"
+  "dependentChangeType": "minor"
 }
