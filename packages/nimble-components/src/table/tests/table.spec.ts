@@ -478,6 +478,38 @@ describe('Table', () => {
             expect(element.checkValidity()).toBeTrue();
         });
 
+        it('allows row hover styling when not scrolling', async () => {
+            await connect();
+            await element.setData(simpleTableData);
+            column1.groupIndex = 0;
+            await waitForUpdatesAsync();
+
+            expect(pageObject.isRowHoverStylingEnabled()).toBeTrue();
+        });
+
+        it('does not allow row hover styling while scrolling', async () => {
+            await connect();
+            await element.setData(simpleTableData);
+            column1.groupIndex = 0;
+            await waitForUpdatesAsync();
+
+            element.viewport.dispatchEvent(new Event('scroll'));
+            await waitForUpdatesAsync();
+            expect(pageObject.isRowHoverStylingEnabled()).toBeFalse();
+        });
+
+        it('re-enables row hover styling after scrolling ends', async () => {
+            await connect();
+            await element.setData(simpleTableData);
+            column1.groupIndex = 0;
+            await waitForUpdatesAsync();
+
+            element.viewport.dispatchEvent(new Event('scroll'));
+            element.viewport.dispatchEvent(new Event('scrollend'));
+            await waitForUpdatesAsync();
+            expect(pageObject.isRowHoverStylingEnabled()).toBeTrue();
+        });
+
         describe('record IDs', () => {
             it('setting ID field uses field value for ID', async () => {
                 await element.setData(simpleTableData);
