@@ -52,7 +52,7 @@ export const styles = css`
         position: absolute;
     }
 
-    :host(:hover)::before {
+    :host([allow-hover]:hover)::before {
         background-color: ${fillHoverColor};
     }
 
@@ -101,7 +101,7 @@ export const styles = css`
     themeBehavior(
         Theme.color,
         css`
-            :host(:hover)::before {
+            :host([allow-hover]:hover)::before {
                 background-color: ${hexToRgbaCssColor(White, 0.05)};
             }
         `
@@ -109,7 +109,7 @@ export const styles = css`
     themeBehavior(
         Theme.dark,
         css`
-            :host(:hover)::before {
+            :host([allow-hover]:hover)::before {
                 background-color: ${hexToRgbaCssColor(White, 0.1)};
             }
         `

@@ -1,8 +1,75 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Mon, 12 Aug 2024 21:44:15 GMT and should not be manually modified.
+This log was last generated on Thu, 05 Sep 2024 17:34:12 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 32.2.1
+
+Thu, 05 Sep 2024 17:34:12 GMT
+
+### Patches
+
+- Fix animation jumping in right slide-in on Safari ([ni/nimble@741b11b](https://github.com/ni/nimble/commit/741b11ba2a79213aaab44937128b94816056f667))
+
+## 32.2.0
+
+Thu, 05 Sep 2024 16:43:39 GMT
+
+### Minor changes
+
+- Add new icons for install and uninstall software ([ni/nimble@aebf4f3](https://github.com/ni/nimble/commit/aebf4f3c222b8a404ecf0c3b5c9595205e1dc7a8))
+- Bump @ni/nimble-tokens to v8.3.0
+
+## 32.1.2
+
+Wed, 04 Sep 2024 23:50:46 GMT
+
+### Patches
+
+- Disable table row hover styling while scrolling ([ni/nimble@7e438f2](https://github.com/ni/nimble/commit/7e438f218cf3aed9700a85f53f5c533ab24ed131))
+
+## 32.1.1
+
+Tue, 03 Sep 2024 20:12:33 GMT
+
+### Patches
+
+- Update for tanstack virtual type changes ([ni/nimble@1cd7c24](https://github.com/ni/nimble/commit/1cd7c244c9a08a2a13e8405f1d085cb1b82a836d))
+
+## 32.1.0
+
+Tue, 03 Sep 2024 15:34:50 GMT
+
+### Minor changes
+
+- Update color tokens for hover state in mobiscroll component ([ni/nimble@7fe0a81](https://github.com/ni/nimble/commit/7fe0a81054ee79875a0c0ff3d9d3b22e45418f17))
+- Bump @ni/nimble-tokens to v8.2.0
+
+## 32.0.0
+
+Fri, 23 Aug 2024 17:29:42 GMT
+
+### Major changes
+
+- Create token representing the table's height with all rows visible; **Breaking change:** the table now specifies a max-height; if a different max-height is required, it needs to be configured. ([ni/nimble@dc9d005](https://github.com/ni/nimble/commit/dc9d0058a9dd702d500e905b2db0b3185e3c4d46))
+- Bump @ni/nimble-tokens to v8.1.0
+
+## 31.3.0
+
+Wed, 21 Aug 2024 15:12:07 GMT
+
+### Minor changes
+
+- Add new theme aware tokens for calendar component ([ni/nimble@608fab4](https://github.com/ni/nimble/commit/608fab4095450849d0948198ee7d4c745fdb5558))
+
+## 31.2.1
+
+Tue, 20 Aug 2024 22:19:56 GMT
+
+### Patches
+
+- Bump @ni/nimble-tokens to v8.0.2
 
 ## 31.2.0
 

@@ -12,6 +12,7 @@ import { mappingIconTag } from '../../../../nimble-components/src/mapping/icon';
 import { tableColumnTextTag } from '../../../../nimble-components/src/table-column/text';
 import { IconSeverity } from '../../../../nimble-components/src/icon-base/types';
 import { iconMetadata } from '../../../../nimble-components/src/icon-base/tests/icon-metadata';
+import { tableFitRowsHeight } from '../../../../nimble-components/src/theme-provider/design-tokens';
 import {
     apiCategory,
     createUserSelectedThemeStory,
@@ -57,7 +58,6 @@ const updateData = (tableRef: Table<Data>): void => {
         // Safari workaround: the table element instance is made at this point
         // but doesn't seem to be upgraded to a custom element yet
         await customElements.whenDefined('nimble-table');
-        tableRef.style.setProperty('--data-length', data.length.toString());
         await tableRef.setData(data);
     })();
 };
@@ -82,10 +82,14 @@ export const icons: StoryObj<IconArgs> = {
         }
     },
     render: createUserSelectedThemeStory(html`
+        <style class="code-hide">
+            ${tableTag} {
+                height: var(${tableFitRowsHeight.cssCustomProperty});
+                max-height: none;
+            }
+        </style>
         <${tableTag}
             ${ref('tableRef')}
-            ${/* Make the table big enough to remove vertical scrollbar */ ''}
-            style="height: calc((34px * var(--data-length)) + 32px);"
             data-unused="${x => updateData(x.tableRef)}"
         >
             <${tableColumnMappingTag} field-name="tag" key-type="string" fractional-width="0.2" >

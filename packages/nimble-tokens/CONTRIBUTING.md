@@ -17,7 +17,7 @@
 
 ## Editing Base Tokens
 
-Base tokens are generated using the [Style Dictionary](https://amzn.github.io/style-dictionary/#/) build system, which transforms platform-agnostic token definition files into platform-specific output. These JSON definition files are the source of truth for the colors, fonts, and component design tokens in this repository. To modify the generated tokens, complete these steps:
+Base tokens are generated using the [Style Dictionary](https://styledictionary.com/) build system, which transforms platform-agnostic token definition files into platform-specific output. These JSON definition files are the source of truth for the colors, fonts, and component design tokens in this repository. To modify the generated tokens, complete these steps:
 
 1. Edit the JSON files in `source/styledictionary/properties`. Long term these tokens will be sourced from a Figma design spec but for now it's OK to make manual edits.
 2. Rebuild the generated token files by running the repository's build command, `npm run build`.
@@ -65,15 +65,15 @@ These steps require access to Adobe Illustrator and Perforce so will typically b
 
 ### Adding icons to Nimble
 
-2. Search for all `<defs>.*</defs>` tags in the exported `.svg` files and remove them. This removes all color from the `.svg` files and allows us to dynamically change the fill color.
+1. Search for all `<defs>.*</defs>` tags in the exported `.svg` files and remove them. This removes all color from the `.svg` files and allows us to dynamically change the fill color.
 
       <img src="docs/find-replace-5.png" width="1000">
 
       - **Note:** In rare cases, icons will be provided with multiple fixed colors that are not intended to change with the theme or `severity`. These icons should retain the `<defs>` tags.
 
-3. Confirm the new icon files will build correctly by running: `npm run build -w @ni/nimble-tokens`.
-4. Generate and build icon components by running `npm run build -w @ni/nimble-components`. This step will report an error at this point but is necessary to enable the next step.
-5. Add metadata for the new icons to `nimble-components/src/icon-base/tests/icon-metadata.ts`.
-6. Run `npm run build -w @ni/nimble-components` again. It should now succeed.
-7. Preview the built files by running: `npm run storybook`, and review the **Icons** story to confirm that your changes appear correctly. Inspect the icons in each **Severity** and ensure their color changes. Ensure the table is large enough to see all icons without nested scrollbars.
-8. Publish a PR with your changes. If there are any new icons, set `changeType` and `dependentChangeType` to minor in the beachball change file.
+2. Confirm the new icon files will build correctly by running: `npm run build -w @ni/nimble-tokens`.
+3. Generate and build icon components by running `npm run build -w @ni/nimble-components`. This step will report an error at this point but is necessary to enable the next step.
+4. Add metadata for the new icons to `nimble-components/src/icon-base/tests/icon-metadata.ts`.
+5. Run `npm run build -w @ni/nimble-components` again. It should now succeed.
+6. Preview the built files by running: `npm run storybook`, and review the **Icons** story to confirm that your changes appear correctly. Inspect the icons in each **Severity** and ensure their color changes.
+7. Publish a PR with your changes. If there are any new icons, set `changeType` and `dependentChangeType` to minor in the beachball change file.

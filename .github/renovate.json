@@ -27,6 +27,7 @@
       "matchDepTypes": ["dependencies", "devDependencies", "peerDependencies"],
       "excludePackagePatterns":[
         "^@angular",
+        "@microsoft/fast-element",
         "@types/markdown-it",
         "apache-arrow",
         "comlink",
@@ -34,7 +35,6 @@
         "ng-packagr",
         "playwright",
         "remark-gfm",
-        "style-dictionary",
         "typescript",
         "zone.js"
       ],

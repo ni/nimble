@@ -41,11 +41,11 @@ export const template = html<Table>`
         aria-multiselectable="${x => x.ariaMultiSelectable}"
         ${children({ property: 'childItems', filter: elements() })}
     >
+        <style>:host{ --ni-private-table-scroll-height: ${x => x.virtualizer.scrollHeight}px; }</style>
         <div class="table-container ${x => (x.windowShiftKeyDown ? 'disable-select' : '')}"
             style="
             --ni-private-table-scroll-x: -${x => x.scrollX}px;
             --ni-private-table-header-container-margin-right: ${x => x.virtualizer.headerContainerMarginRight}px;
-            --ni-private-table-scroll-height: ${x => x.virtualizer.scrollHeight}px;
             --ni-private-table-row-container-top: ${x => x.virtualizer.rowContainerYOffset}px;
             --ni-private-table-row-grid-columns: ${x => (x.rowGridColumns ? x.rowGridColumns : '')};
             --ni-private-table-cursor-override: ${x => (x.layoutManager.isColumnBeingSized ? 'col-resize' : 'default')};
@@ -142,8 +142,8 @@ export const template = html<Table>`
                     <div class="table-row-container ${x => `${x.showCollapseAll ? 'collapse-all-visible' : ''}`}" ${children({ property: 'rowElements', filter: elements(`${tableRowTag}, ${tableGroupRowTag}`) })}
                         role="rowgroup">
                         ${when(x => x.columns.length > 0 && x.canRenderRows, html<Table>`
-                            ${repeat(x => x.virtualizer.visibleItems, html<VirtualItem<HTMLElement>, Table>`
-                                ${when((x, c: ExecutionContext<Table>) => c.parent.tableData[x.index]?.isGroupRow, html<VirtualItem<HTMLElement>, Table>`
+                            ${repeat(x => x.virtualizer.visibleItems, html<VirtualItem, Table>`
+                                ${when((x, c: ExecutionContext<Table>) => c.parent.tableData[x.index]?.isGroupRow, html<VirtualItem, Table>`
                                     <${tableGroupRowTag}
                                         class="group-row"
                                         ${'' /* tabindex managed dynamically by KeyboardNavigationManager */}
@@ -156,6 +156,7 @@ export const template = html<Table>`
                                         ?selectable="${(_, c) => c.parent.selectionMode === TableRowSelectionMode.multiple}"
                                         selection-state="${(x, c) => c.parent.tableData[x.index]?.selectionState}"
                                         :resolvedRowIndex="${x => x.index}"
+                                        ?allow-hover="${(_, c) => !c.parent.virtualizer.isScrolling}"
                                         @focusin="${(_, c) => c.parent.onRowFocusIn(c.event as FocusEvent)}"
                                         @blur="${(_, c) => c.parent.onRowBlur(c.event as FocusEvent)}"
                                         @group-selection-toggle="${(x, c) => c.parent.onRowSelectionToggle(x.index, c.event as CustomEvent<TableRowSelectionToggleEventDetail>)}"
@@ -163,7 +164,7 @@ export const template = html<Table>`
                                     >
                                     </${tableGroupRowTag}>
                                 `)}
-                                ${when((x, c: ExecutionContext<Table>) => !c.parent.tableData[x.index]?.isGroupRow, html<VirtualItem<HTMLElement>, Table>`
+                                ${when((x, c: ExecutionContext<Table>) => !c.parent.tableData[x.index]?.isGroupRow, html<VirtualItem, Table>`
                                     <${tableRowTag}
                                         class="row"
                                         ${'' /* tabindex managed dynamically by KeyboardNavigationManager */}
@@ -181,6 +182,7 @@ export const template = html<Table>`
                                         ?row-operation-grid-cell-hidden="${(_, c) => !c.parent.showRowOperationColumn}"
                                         ?loading="${(x, c) => c.parent.tableData[x.index]?.isLoadingChildren}"
                                         :resolvedRowIndex="${x => x.index}"
+                                        ?allow-hover="${(_, c) => !c.parent.virtualizer.isScrolling}"
                                         @click="${(x, c) => c.parent.onRowClick(x.index, c.event as MouseEvent)}"
                                         @focusin="${(_, c) => c.parent.onRowFocusIn(c.event as FocusEvent)}"
                                         @blur="${(_, c) => c.parent.onRowBlur(c.event as FocusEvent)}"

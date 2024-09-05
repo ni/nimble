@@ -1,8 +1,72 @@
 # Change Log - @ni/spright-components
 
-This log was last generated on Fri, 16 Aug 2024 17:31:18 GMT and should not be manually modified.
+This log was last generated on Thu, 05 Sep 2024 17:34:12 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 4.1.1
+
+Thu, 05 Sep 2024 17:34:12 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v32.2.1
+
+## 4.1.0
+
+Thu, 05 Sep 2024 16:43:39 GMT
+
+### Minor changes
+
+- Bump @ni/nimble-components to v32.2.0
+
+## 4.0.3
+
+Wed, 04 Sep 2024 23:50:47 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v32.1.2
+
+## 4.0.2
+
+Tue, 03 Sep 2024 20:12:33 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v32.1.1
+
+## 4.0.1
+
+Tue, 03 Sep 2024 15:34:50 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v32.1.0
+
+## 4.0.0
+
+Fri, 23 Aug 2024 17:29:42 GMT
+
+### Major changes
+
+- Bump @ni/nimble-components to v32.0.0
+
+## 3.0.9
+
+Wed, 21 Aug 2024 15:12:07 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v31.3.0
+
+## 3.0.8
+
+Tue, 20 Aug 2024 22:19:56 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v31.2.1
 
 ## 3.0.7
 

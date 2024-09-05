@@ -59,6 +59,7 @@ export const tokenNames: { readonly [key in TokenName]: string } = {
     spinnerSmallHeight: 'spinner-small-height',
     spinnerMediumHeight: 'spinner-medium-height',
     spinnerLargeHeight: 'spinner-large-height',
+    tableFitRowsHeight: 'table-fit-rows-height',
     smallDelay: 'small-delay',
     mediumDelay: 'medium-delay',
     largeDelay: 'large-delay',
@@ -260,7 +261,9 @@ export const tokenNames: { readonly [key in TokenName]: string } = {
     calendarRowBackgroundSelectedColor:
         'calendar-row-background-selected-color',
     calendarEventFillBlockedColor: 'calendar-event-fill-blocked-color',
-    calendarGrabHandleBackgroundColor: 'calendar-grab-handle-background-color'
+    calendarGrabHandleBackgroundColor: 'calendar-grab-handle-background-color',
+    calendarGridBorderColor: 'calendar-grid-border-color',
+    calendarGroupHeaderBackgroundColor: 'calendar-group-header-background-color'
 };
 
 const prefix = 'ni-nimble';

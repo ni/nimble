@@ -116,7 +116,10 @@ import {
     DigitalGreenLight10,
     PowerGreen10,
     DigitalGreenDark110,
-    Black82
+    Black82,
+    Black22,
+    PowerGreen30,
+    DigitalGreenLight30
 } from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
 import { Theme } from './types';
 import { tokenNames, styleNameFromTokenName } from './design-token-names';
@@ -383,9 +386,9 @@ export const calendarEventBackgroundHoverStaticColor = DesignToken.create<string
     )
 ).withDefault((element: HTMLElement) => getColorForTheme(
     element,
-    hexToRgbaCssColor(DigitalGreenLight, 0.3),
-    hexToRgbaCssColor(PowerGreen, 0.3),
-    hexToRgbaCssColor(PowerGreen, 0.3)
+    DigitalGreenLight30,
+    PowerGreen30,
+    PowerGreen30
 ));
 
 export const calendarEventBackgroundHoverDynamicColor = DesignToken.create<string>(
@@ -430,11 +433,19 @@ export const calendarEventFillBlockedColor = DesignToken.create<string>(
 
 export const calendarGrabHandleBackgroundColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.calendarGrabHandleBackgroundColor)
+).withDefault((element: HTMLElement) => getColorForTheme(element, DigitalGreenLight, PowerGreen, PowerGreen));
+
+export const calendarGridBorderColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.calendarGridBorderColor)
+).withDefault((element: HTMLElement) => getColorForTheme(element, Black22, Black80, Black80));
+
+export const calendarGroupHeaderBackgroundColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.calendarGroupHeaderBackgroundColor)
 ).withDefault((element: HTMLElement) => getColorForTheme(
     element,
-    DigitalGreenLight,
-    DigitalGreenLight,
-    DigitalGreenLight
+    Black7,
+    hexToRgbaCssColor(Black91, 0.1),
+    hexToRgbaCssColor(Black91, 0.1)
 ));
 
 // Component Sizing Tokens
@@ -502,6 +513,12 @@ export const spinnerMediumHeight = DesignToken.create<string>(
 export const spinnerLargeHeight = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.spinnerLargeHeight)
 ).withDefault('64px');
+
+// The token gets a default value of the table's default height (480px)
+// but is given a calculated value in the table styles.
+export const tableFitRowsHeight = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.tableFitRowsHeight)
+).withDefault('480px');
 
 // Drop Shadow Tokens
 export const elevation1BoxShadow = DesignToken.create<string>(

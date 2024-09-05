@@ -1,8 +1,40 @@
 # Change Log - @ni/nimble-tokens
 
-This log was last generated on Sat, 10 Aug 2024 00:15:34 GMT and should not be manually modified.
+This log was last generated on Thu, 05 Sep 2024 16:43:39 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 8.3.0
+
+Thu, 05 Sep 2024 16:43:39 GMT
+
+### Minor changes
+
+- Add new icons for install and uninstall software ([ni/nimble@aebf4f3](https://github.com/ni/nimble/commit/aebf4f3c222b8a404ecf0c3b5c9595205e1dc7a8))
+
+## 8.2.0
+
+Tue, 03 Sep 2024 15:34:50 GMT
+
+### Minor changes
+
+- Update color tokens for hover state in mobiscroll component' ([ni/nimble@7fe0a81](https://github.com/ni/nimble/commit/7fe0a81054ee79875a0c0ff3d9d3b22e45418f17))
+
+## 8.1.0
+
+Fri, 23 Aug 2024 17:29:42 GMT
+
+### Minor changes
+
+- Create token representing the table's height with all rows visible ([ni/nimble@dc9d005](https://github.com/ni/nimble/commit/dc9d0058a9dd702d500e905b2db0b3185e3c4d46))
+
+## 8.0.2
+
+Tue, 20 Aug 2024 22:19:56 GMT
+
+### Patches
+
+- Migrate to style dictionary v4 ([ni/nimble@b3e8a10](https://github.com/ni/nimble/commit/b3e8a109792b9de2957a5c5fa301916133afa090))
 
 ## 8.0.1
 
