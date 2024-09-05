@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Thu, 05 Sep 2024 16:43:39 GMT and should not be manually modified.
+This log was last generated on Thu, 05 Sep 2024 17:34:12 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 32.2.1
+
+Thu, 05 Sep 2024 17:34:12 GMT
+
+### Patches
+
+- Fix animation jumping in right slide-in on Safari ([ni/nimble@741b11b](https://github.com/ni/nimble/commit/741b11ba2a79213aaab44937128b94816056f667))
 
 ## 32.2.0
 
