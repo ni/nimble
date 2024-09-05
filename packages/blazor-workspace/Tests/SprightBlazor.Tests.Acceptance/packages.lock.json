@@ -35,9 +35,9 @@
       },
       "Microsoft.Playwright": {
         "type": "Direct",
-        "requested": "[1.44.0, 1.44.0]",
-        "resolved": "1.44.0",
-        "contentHash": "stag3Jv/FtjqR5/8UcVfyYyktPt9AHxBnNazyytu4cq5W8/J5DQDQEednk/cK2iGy2Y/dC0hUcCdxp9cFDckmA==",
+        "requested": "[1.46.0, 1.46.0]",
+        "resolved": "1.46.0",
+        "contentHash": "hf7eInNevQTFGdrq+iJI0ddUyvEDu0ENMw4eoCxiwsMaCsvhJ0/E8rHrCBFrc2JoUh2BQuASQYagToy7XvyQFA==",
         "dependencies": {
           "Microsoft.Bcl.AsyncInterfaces": "6.0.0",
           "System.ComponentModel.Annotations": "5.0.0",
@@ -1069,7 +1069,7 @@
           "Microsoft.AspNetCore.Mvc.Testing": "[6.0.33, )",
           "Microsoft.Extensions.Configuration": "[7.0.0, )",
           "Microsoft.NET.Test.Sdk": "[16.11.0, )",
-          "Microsoft.Playwright": "[1.44.0, 1.44.0]",
+          "Microsoft.Playwright": "[1.46.0, 1.46.0]",
           "NI.CSharp.Analyzers": "[2.0.21, 2.0.21]",
           "NimbleBlazor": "[1.0.0, )",
           "System.ComponentModel": "[4.3.0, )",
