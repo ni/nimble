@@ -39,7 +39,7 @@ export const styles = css`
         width: 100%;
     }
 
-    .clickable-region {        
+    .clickable-region {
         cursor: pointer;
         display: inline-grid;
         grid-template-columns: auto 1fr;

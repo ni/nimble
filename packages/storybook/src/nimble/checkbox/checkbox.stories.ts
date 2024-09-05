@@ -1,6 +1,7 @@
 import { html, when } from '@microsoft/fast-element';
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html';
+import { textFieldTag } from '../../../../nimble-components/src/text-field';
 import { checkboxTag } from '../../../../nimble-components/src/checkbox';
 import {
     apiCategory,
@@ -10,7 +11,6 @@ import {
     errorVisibleDescription,
     slottedLabelDescription
 } from '../../utilities/storybook';
-import { textFieldTag } from '@ni/nimble-components/src/text-field';
 
 interface CheckboxArgs {
     label: string;
@@ -59,14 +59,20 @@ const metadata: Meta<CheckboxArgs> = {
                 >
                     ${x => x.label}
                 </${checkboxTag}>
-                ${when(x => x.showTextField, html`
+                ${when(
+        x => x.showTextField,
+        html`
                     <${textFieldTag} style="width: 200px;" error-visible error-text="hello world">Text field 1</${textFieldTag}>
-                `)}
+                `
+    )}
             </div>
             
-            ${when(x => x.showTextField, html`
+            ${when(
+        x => x.showTextField,
+        html`
                 <${textFieldTag} style="width: 200px;" error-visible error-text="hello world">Text field 2</${textFieldTag}>
-            `)}
+            `
+    )}
         </div>
     `),
     argTypes: {
