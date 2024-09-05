@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Thu, 05 Sep 2024 17:34:12 GMT and should not be manually modified.
+This log was last generated on Thu, 05 Sep 2024 22:40:46 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 28.2.0
+
+Thu, 05 Sep 2024 22:40:46 GMT
+
+### Minor changes
+
+- Add missing string to core label provider ([ni/nimble@ff9ee54](https://github.com/ni/nimble/commit/ff9ee547c490e5b5ed6eb35ede2276489b9de082))
 
 ## 28.1.1
 
