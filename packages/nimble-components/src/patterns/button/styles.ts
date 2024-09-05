@@ -60,6 +60,7 @@ export const styles = css`
             display: inline-flex;
             align-items: center;
             justify-content: center;
+            white-space: nowrap;
             gap: 4px;
             cursor: inherit;
             font: inherit;
