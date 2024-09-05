@@ -41,11 +41,10 @@ export const styles = css`
 
     .clickable-region {        
         cursor: pointer;
-        display: inline-flex;
+        display: inline-grid;
+        grid-template-columns: auto 1fr;
         align-items: center;
-        overflow: hidden;
         grid-column: 1;
-        height: 22px;
     }
 
     :host([disabled]) .clickable-region {
