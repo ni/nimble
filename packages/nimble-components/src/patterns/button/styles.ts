@@ -37,6 +37,7 @@ export const styles = css`
             color: ${buttonLabelFontColor};
             font: ${buttonLabelFont};
             cursor: pointer;
+            white-space: nowrap;
             outline: none;
             border: none;
             ${
@@ -60,7 +61,6 @@ export const styles = css`
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            white-space: nowrap;
             gap: 4px;
             cursor: inherit;
             font: inherit;
