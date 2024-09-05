@@ -12,28 +12,49 @@ import {
     iconSize,
     borderWidth,
     smallDelay,
-    bodyFont
+    bodyFont,
+    smallPadding,
+    mediumPadding
 } from '../theme-provider/design-tokens';
 import { userSelectNone } from '../utilities/style/user-select';
+import { styles as errorStyles } from '../patterns/error/styles';
 
 export const styles = css`
     ${display('inline-flex')}
+    ${errorStyles}
 
     :host {
+        height: ${controlHeight};
         font: ${bodyFont};
-        align-items: center;
-        cursor: pointer;
         outline: none;
         ${userSelectNone}
+        align-items: center;
     }
 
-    :host([disabled]) {
+    .container {
+        position: relative;
+        display: grid;
+        grid-template-columns: auto 1fr auto;
+        align-items: center;
+        width: 100%;
+    }
+
+    .clickable-region {        
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        overflow: hidden;
+        grid-column: 1;
+        height: 22px;
+    }
+
+    :host([disabled]) .clickable-region {
         cursor: default;
     }
 
     .control {
-        width: calc(${controlHeight} / 2);
-        height: calc(${controlHeight} / 2);
+        width: 16px;
+        height: 16px;
         flex-shrink: 0;
         border: ${borderWidth} solid ${borderColor};
         padding: 2px;
@@ -61,7 +82,7 @@ export const styles = css`
         border-color: rgba(${borderRgbPartialColor}, 0.2);
     }
 
-    :host(:not([disabled]):not(:active):hover) .control {
+    :host(:not([disabled]):not(:active)) .clickable-region:hover .control {
         border-color: ${borderHoverColor};
         box-shadow: 0px 0px 0px ${borderWidth} ${borderHoverColor} inset;
     }
@@ -74,9 +95,15 @@ export const styles = css`
 
     .label {
         font: inherit;
+        line-height: 16px;
         color: ${bodyFontColor};
-        padding-left: 1ch;
+        padding-left: ${mediumPadding};
         cursor: inherit;
+        flex-grow: 1;
+
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
     }
 
     :host([disabled]) .label {
@@ -122,5 +149,10 @@ export const styles = css`
 
     :host([disabled]) slot[name='indeterminate-indicator'] svg {
         fill: rgba(${borderRgbPartialColor}, 0.3);
+    }
+
+    .error-icon {
+        grid-column: 3;
+        margin: 0px ${smallPadding};
     }
 `;

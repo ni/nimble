@@ -7,6 +7,7 @@ import {
 import { check16X16, minus16X16 } from '@ni/nimble-tokens/dist/icons/js';
 import { styles } from './styles';
 import { template } from './template';
+import type { ErrorPattern } from '../patterns/error/types';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -17,7 +18,7 @@ declare global {
 /**
  * A nimble-styled checkbox control.
  */
-export class Checkbox extends FoundationCheckbox {
+export class Checkbox extends FoundationCheckbox implements ErrorPattern {
     /**
      * @public
      * @remarks
@@ -25,6 +26,19 @@ export class Checkbox extends FoundationCheckbox {
      */
     @attr({ attribute: 'tabindex', converter: nullableNumberConverter })
     public override tabIndex!: number;
+
+    /**
+     * A message explaining why the value is invalid.
+     *
+     * @public
+     * @remarks
+     * HTML Attribute: error-text
+     */
+    @attr({ attribute: 'error-text' })
+    public errorText?: string;
+
+    @attr({ attribute: 'error-visible', mode: 'boolean' })
+    public errorVisible = false;
 
     /**
      * @internal
