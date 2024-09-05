@@ -16,6 +16,9 @@ export const iconMetadata: {
     IconArrowDown: {
         tags: ['sort', 'arrow', 'down', 'descending']
     },
+    IconArrowDownBox: {
+        tags: ['install', 'software', 'drive', 'package', 'rectangle']
+    },
     IconArrowDownLeftAndArrowUpRight: {
         tags: ['collapse', 'shrink', 'reduce size']
     },
@@ -72,6 +75,9 @@ export const iconMetadata: {
     },
     IconArrowUUp: {
         tags: ['update']
+    },
+    IconArrowUpBox: {
+        tags: ['uninstall', 'software', 'drive', 'package', 'rectangle']
     },
     IconArrowsMaximize: {
         tags: ['resize', 'fullscreen']
