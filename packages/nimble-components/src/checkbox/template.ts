@@ -22,27 +22,23 @@ CheckboxOptions
         class="${x => (x.readOnly ? 'readonly' : '')} ${x => (x.checked ? 'checked' : '')} ${x => (x.indeterminate ? 'indeterminate' : '')}"
     >
         <div class="container">
-            <div
-                class="clickable-region"
+            <div part="control" class="control" @click="${(x, c) => x.clickHandler(c.event as MouseEvent)}">
+                <slot name="checked-indicator">
+                    ${definition.checkedIndicator || ''}
+                </slot>
+                <slot name="indeterminate-indicator">
+                    ${definition.indeterminateIndicator || ''}
+                </slot>
+            </div>
+            <label
+                part="label"
                 @click="${(x, c) => x.clickHandler(c.event as MouseEvent)}"
-            >
-                <div part="control" class="control">
-                    <slot name="checked-indicator">
-                        ${definition.checkedIndicator || ''}
-                    </slot>
-                    <slot name="indeterminate-indicator">
-                        ${definition.indeterminateIndicator || ''}
-                    </slot>
-                </div>
-                <label
-                    part="label"
-                    class="${x => (x.defaultSlottedNodes?.length
+                class="${x => (x.defaultSlottedNodes?.length
         ? 'label'
         : 'label label__hidden')}"
-                >
-                    <slot ${slotted('defaultSlottedNodes')}></slot>
-                </label>
-            </div>
+            >
+                <slot ${slotted('defaultSlottedNodes')}></slot>
+            </label>
             <${iconExclamationMarkTag}
                 severity="error"
                 class="error-icon"

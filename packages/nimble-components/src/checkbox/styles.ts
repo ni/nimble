@@ -14,7 +14,8 @@ import {
     smallDelay,
     bodyFont,
     smallPadding,
-    mediumPadding
+    mediumPadding,
+    errorTextFontLineHeight
 } from '../theme-provider/design-tokens';
 import { userSelectNone } from '../utilities/style/user-select';
 import { styles as errorStyles } from '../patterns/error/styles';
@@ -24,36 +25,36 @@ export const styles = css`
     ${errorStyles}
 
     :host {
-        height: ${controlHeight};
         font: ${bodyFont};
         outline: none;
         ${userSelectNone}
-        align-items: center;
     }
 
     .container {
         position: relative;
         display: grid;
-        grid-template-columns: auto 1fr auto;
+        grid-template-columns: auto auto 1fr auto;
+        grid-template-rows: ${iconSize} auto;
         align-items: center;
         width: 100%;
+        margin-left: ${smallPadding};
+        margin-top: calc((${controlHeight} - ${iconSize}) / 2);
+        margin-bottom: calc((${controlHeight} - ${iconSize}) / 2);
     }
 
-    .clickable-region {
+    .control,
+    .label {
         cursor: pointer;
-        display: inline-grid;
-        grid-template-columns: auto 1fr;
-        align-items: center;
-        grid-column: 1;
     }
 
-    :host([disabled]) .clickable-region {
+    :host([disabled]) .control,
+    :host([disabled]) .label {
         cursor: default;
     }
 
     .control {
-        width: 16px;
-        height: 16px;
+        width: ${iconSize};
+        height: ${iconSize};
         flex-shrink: 0;
         border: ${borderWidth} solid ${borderColor};
         padding: 2px;
@@ -68,6 +69,8 @@ export const styles = css`
              */ ''
         }
         line-height: 0;
+        grid-column: 1;
+        grid-row: 1;
     }
 
     @media (prefers-reduced-motion) {
@@ -81,7 +84,8 @@ export const styles = css`
         border-color: rgba(${borderRgbPartialColor}, 0.2);
     }
 
-    :host(:not([disabled]):not(:active)) .clickable-region:hover .control {
+    :host(:not([disabled]):not(:active)) .control:hover,
+    :host(:not([disabled]):not(:active)) .control:has(+ .label:hover) {
         border-color: ${borderHoverColor};
         box-shadow: 0px 0px 0px ${borderWidth} ${borderHoverColor} inset;
     }
@@ -97,12 +101,8 @@ export const styles = css`
         line-height: 16px;
         color: ${bodyFontColor};
         padding-left: ${mediumPadding};
-        cursor: inherit;
-        flex-grow: 1;
-
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
+        grid-column: 2;
+        grid-row: 1 / span 2;
     }
 
     :host([disabled]) .label {
@@ -151,7 +151,12 @@ export const styles = css`
     }
 
     .error-icon {
-        grid-column: 3;
+        grid-column: 4;
+        grid-row: 1;
         margin: 0px ${smallPadding};
+    }
+
+    :host([error-visible]) .container .error-text {
+        bottom: calc(-1 * ${errorTextFontLineHeight});
     }
 `;
