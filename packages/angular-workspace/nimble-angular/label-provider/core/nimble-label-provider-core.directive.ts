@@ -77,4 +77,12 @@ export class NimbleLabelProviderCoreDirective {
     @Input('filter-no-results') public set filterNoResults(value: string | undefined) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'filterNoResults', value);
     }
+
+    public get loading(): string | undefined {
+        return this.elementRef.nativeElement.loading;
+    }
+
+    @Input('loading') public set loading(value: string | undefined) {
+        this.renderer.setProperty(this.elementRef.nativeElement, 'loading', value);
+    }
 }
