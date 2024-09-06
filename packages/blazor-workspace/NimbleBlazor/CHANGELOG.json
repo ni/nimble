@@ -2,6 +2,72 @@
   "name": "@ni/nimble-blazor",
   "entries": [
     {
+      "date": "Thu, 05 Sep 2024 22:40:46 GMT",
+      "version": "18.2.0",
+      "tag": "@ni/nimble-blazor_v18.2.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "ff9ee547c490e5b5ed6eb35ede2276489b9de082",
+            "comment": "Add missing string to core label provider"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 05 Sep 2024 17:34:12 GMT",
+      "version": "18.1.1",
+      "tag": "@ni/nimble-blazor_v18.1.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-blazor",
+            "comment": "Bump @ni/nimble-components to v32.2.1",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 05 Sep 2024 16:43:39 GMT",
+      "version": "18.1.0",
+      "tag": "@ni/nimble-blazor_v18.1.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-blazor",
+            "comment": "Bump @ni/nimble-components to v32.2.0",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-blazor",
+            "comment": "Bump @ni/nimble-tokens to v8.3.0",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 04 Sep 2024 23:50:47 GMT",
+      "version": "18.0.5",
+      "tag": "@ni/nimble-blazor_v18.0.5",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-blazor",
+            "comment": "Bump @ni/nimble-components to v32.1.2",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 03 Sep 2024 20:12:33 GMT",
       "version": "18.0.4",
       "tag": "@ni/nimble-blazor_v18.0.4",
