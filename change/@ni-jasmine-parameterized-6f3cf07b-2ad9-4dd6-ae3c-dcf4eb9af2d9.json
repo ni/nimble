@@ -1,7 +1,0 @@
-{
-  "type": "none",
-  "comment": "Update Playwright to 1.46.0",
-  "packageName": "@ni/jasmine-parameterized",
-  "email": "jattasNI@users.noreply.github.com",
-  "dependentChangeType": "none"
-}
