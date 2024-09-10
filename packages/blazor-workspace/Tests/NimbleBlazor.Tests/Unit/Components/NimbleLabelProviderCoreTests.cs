@@ -38,6 +38,7 @@ public class NimbleLabelProviderCoreTests
     [InlineData(nameof(NimbleLabelProviderCore.PopupIconInformation))]
     [InlineData(nameof(NimbleLabelProviderCore.FilterSearch))]
     [InlineData(nameof(NimbleLabelProviderCore.FilterNoResults))]
+    [InlineData(nameof(NimbleLabelProviderCore.Loading))]
     public void NimbleLabelProviderCore_LabelIsSet(string propertyName)
     {
         var labelValue = propertyName + "UpdatedValue";
