@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "Table: move row height computation out of virtualizer; row height recomputed if dependent tokens change.",
+  "packageName": "@ni/nimble-components",
+  "email": "20709258+msmithNI@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}

@@ -9,7 +9,6 @@ import {
     VirtualItem,
     ScrollToOptions
 } from '@tanstack/virtual-core';
-import { borderWidth, controlHeight } from '../../theme-provider/design-tokens';
 import type { Table } from '..';
 import type { TableNode, TableRecord } from '../types';
 
@@ -36,13 +35,6 @@ export class Virtualizer<TData extends TableRecord = TableRecord> {
 
     public get pageSize(): number {
         return this._pageSize;
-    }
-
-    private get rowHeight(): number {
-        return (
-            parseFloat(controlHeight.getValueFor(this.table))
-            + 2 * parseFloat(borderWidth.getValueFor(this.table))
-        );
     }
 
     private readonly table: Table<TData>;
@@ -93,6 +85,14 @@ export class Virtualizer<TData extends TableRecord = TableRecord> {
         this.virtualizer?.scrollToIndex(index, options);
     }
 
+    public updateRowHeight(): void {
+        this.updatePageSize();
+        if (this.virtualizer) {
+            this.updateVirtualizer();
+            this.virtualizer.measure();
+        }
+    }
+
     private updateVirtualizer(): void {
         const options = this.createVirtualizerOptions();
         if (this.virtualizer) {
@@ -108,7 +108,7 @@ export class Virtualizer<TData extends TableRecord = TableRecord> {
     HTMLElement,
     HTMLElement
     > {
-        const rowHeight = this.rowHeight;
+        const rowHeight = this.table.rowHeight;
         return {
             count: this.tanStackTable.getRowModel().rows.length,
             getScrollElement: () => {
@@ -154,7 +154,7 @@ export class Virtualizer<TData extends TableRecord = TableRecord> {
 
     private updatePageSize(): void {
         this._pageSize = Math.round(
-            this.table.viewport.clientHeight / this.rowHeight
+            this.table.viewport.clientHeight / this.table.rowHeight
         );
     }
 }
