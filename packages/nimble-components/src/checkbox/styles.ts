@@ -98,11 +98,17 @@ export const styles = css`
 
     .label {
         font: inherit;
-        line-height: 16px;
         color: ${bodyFontColor};
         padding-left: ${mediumPadding};
         grid-column: 2;
         grid-row: 1 / span 2;
+        ${
+            /*
+             * Set the top margin to -1px to account for the line height of the label not
+             * matching the height of the checkbox control.
+             */ ''
+        }
+        margin-top: -1px;
     }
 
     :host([disabled]) .label {
@@ -157,6 +163,6 @@ export const styles = css`
     }
 
     :host([error-visible]) .container .error-text {
-        bottom: calc(-1 * ${errorTextFontLineHeight});
+        bottom: calc(-1 * ${errorTextFontLineHeight} + 1px);
     }
 `;
