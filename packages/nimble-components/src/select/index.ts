@@ -227,6 +227,8 @@ export class Select
         if (this.open) {
             this.initializeOpenState();
         }
+
+        this.observeSelectedOptionTextContent();
     }
 
     public override disconnectedCallback(): void {
@@ -1333,7 +1335,8 @@ export class Select
             });
             this.selectedOptionObserver.observe(selectedOption, {
                 characterData: true,
-                subtree: true
+                subtree: true,
+                childList: true
             });
         }
     }
