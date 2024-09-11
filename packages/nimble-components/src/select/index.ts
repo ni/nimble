@@ -216,6 +216,7 @@ export class Select
     private _value = '';
     private forcedPosition = false;
     private openActiveIndex?: number;
+    private selectedOptionObserver?: MutationObserver;
 
     /**
      * @internal
@@ -225,6 +226,13 @@ export class Select
         this.forcedPosition = !!this.positionAttribute;
         if (this.open) {
             this.initializeOpenState();
+        }
+    }
+
+    public override disconnectedCallback(): void {
+        super.disconnectedCallback();
+        if (this.selectedOptionObserver) {
+            this.selectedOptionObserver.disconnect();
         }
     }
 
@@ -309,7 +317,6 @@ export class Select
             notifier.unsubscribe(this, 'value');
             notifier.unsubscribe(this, 'hidden');
             notifier.unsubscribe(this, 'disabled');
-            o.removeEventListener('display-changed', this.optionContentChanged);
         });
 
         prev?.filter<ListOptionGroup>(isListOptionGroup).forEach(el => {
@@ -326,7 +333,6 @@ export class Select
             notifier.subscribe(this, 'value');
             notifier.subscribe(this, 'hidden');
             notifier.subscribe(this, 'disabled');
-            o.addEventListener('display-changed', this.optionContentChanged);
         });
         next?.filter<ListOptionGroup>(isListOptionGroup).forEach(el => {
             this.updateAdjacentSeparatorState(el);
@@ -738,6 +744,7 @@ export class Select
             this.setActiveOption(this.selectedIndex);
         }
         this.updateValue();
+        this.observeSelectedOptionTextContent();
     }
 
     /**
@@ -1310,10 +1317,26 @@ export class Select
         this.focusAndScrollOptionIntoView();
     }
 
-    private readonly optionContentChanged = (e: Event): void => {
-        this.updateDisplayValue();
-        e.stopImmediatePropagation();
-    };
+    private observeSelectedOptionTextContent(): void {
+        if (this.selectedOptionObserver) {
+            this.selectedOptionObserver.disconnect();
+        }
+
+        if (this.selectedIndex === -1) {
+            return;
+        }
+
+        const selectedOption = this.firstSelectedOption;
+        if (selectedOption) {
+            this.selectedOptionObserver = new MutationObserver(() => {
+                this.updateDisplayValue();
+            });
+            this.selectedOptionObserver.observe(selectedOption, {
+                characterData: true,
+                subtree: true
+            });
+        }
+    }
 }
 
 const nimbleSelect = Select.compose<SelectOptions>({
