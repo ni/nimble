@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Add nowrap to button content styling",
-  "packageName": "@ni/nimble-components",
-  "email": "1458528+fredvisser@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}

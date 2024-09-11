@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Wed, 11 Sep 2024 11:58:13 GMT",
+      "version": "32.2.3",
+      "tag": "@ni/nimble-components_v32.2.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "6e6ee2134da94557d10d4fb76c7b2a6e697204c3",
+            "comment": "Add nowrap to button content styling"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 10 Sep 2024 23:42:06 GMT",
       "version": "32.2.2",
       "tag": "@ni/nimble-components_v32.2.2",
