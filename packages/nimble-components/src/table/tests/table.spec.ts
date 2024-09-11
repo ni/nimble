@@ -6,6 +6,7 @@ import { TableColumnText, tableColumnTextTag } from '../../table-column/text';
 import { TableColumnTextCellView } from '../../table-column/text/cell-view';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import {
+    borderWidth,
     controlHeight,
     tableFitRowsHeight
 } from '../../theme-provider/design-tokens';
@@ -2440,6 +2441,49 @@ describe('Table', () => {
                 const tokenValue = getTableHeight();
                 const expectedHeight = getExpectedHeight(2); // There are only 2 top-level parents
                 expect(tokenValue).toBe(expectedHeight);
+            });
+        });
+
+        describe('row height calculation', () => {
+            it('is computed with a positive value', async () => {
+                await connect();
+                await waitForUpdatesAsync();
+
+                expect(element.rowHeight).toBeGreaterThan(0);
+            });
+
+            it('rowHeight and pageSize are recomputed when the borderWidth design token changes', async () => {
+                await connect();
+                await waitForUpdatesAsync();
+
+                const initialRowHeight = element.rowHeight;
+                const initialPageSize = element.virtualizer.pageSize;
+                const initialBorderWidth = borderWidth.getValueFor(element);
+                const newBorderWidth = parseFloat(initialBorderWidth) + 8;
+                borderWidth.setValueFor(element, `${newBorderWidth}px`);
+                await waitForUpdatesAsync();
+
+                expect(element.rowHeight).toBeGreaterThan(initialRowHeight);
+                expect(element.virtualizer.pageSize).toBeLessThan(
+                    initialPageSize
+                );
+            });
+
+            it('rowHeight and pageSize are recomputed when the controlHeight design token changes', async () => {
+                await connect();
+                await waitForUpdatesAsync();
+
+                const initialRowHeight = element.rowHeight;
+                const initialPageSize = element.virtualizer.pageSize;
+                const initialControlHeight = controlHeight.getValueFor(element);
+                const newControlHeight = parseFloat(initialControlHeight) * 2;
+                controlHeight.setValueFor(element, `${newControlHeight}px`);
+                await waitForUpdatesAsync();
+
+                expect(element.rowHeight).toBeGreaterThan(initialRowHeight);
+                expect(element.virtualizer.pageSize).toBeLessThan(
+                    initialPageSize
+                );
             });
         });
     });

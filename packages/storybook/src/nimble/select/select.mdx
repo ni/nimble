@@ -4,14 +4,21 @@ import * as selectStories from './select.stories';
 import * as listOptionStories from '../list-option/list-option.stories';
 import * as listOptionGroupStories from '../list-option-group/list-option-group.stories';
 import ComponentApisLink from '../../docs/component-apis-link.mdx';
+import { comboboxTag } from '../../../../nimble-components/src/combobox';
 import { listOptionTag } from '../../../../nimble-components/src/list-option';
 import { listOptionGroupTag } from '../../../../nimble-components/src/list-option-group';
+import { radioTag } from '../../../../nimble-components/src/radio';
 
 <Meta of={selectStories} />
 <Title of={selectStories} />
 
 Select is a control for selecting amongst a set of options. Upon clicking on the
 element, the other options are visible in a dropdown.
+
+Consider using <Tag name={radioTag} /> to select from a small set of options.
+
+Consider using <Tag name={comboboxTag} /> to allow the user to enter a custom
+value.
 
 <Canvas of={selectStories.select} />
 
