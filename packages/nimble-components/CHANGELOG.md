@@ -1,8 +1,24 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Thu, 05 Sep 2024 17:34:12 GMT and should not be manually modified.
+This log was last generated on Wed, 11 Sep 2024 11:58:13 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 32.2.3
+
+Wed, 11 Sep 2024 11:58:13 GMT
+
+### Patches
+
+- Add nowrap to button content styling ([ni/nimble@6e6ee21](https://github.com/ni/nimble/commit/6e6ee2134da94557d10d4fb76c7b2a6e697204c3))
+
+## 32.2.2
+
+Tue, 10 Sep 2024 23:42:06 GMT
+
+### Patches
+
+- Table: move row height computation out of virtualizer; row height recomputed if dependent tokens change. ([ni/nimble@4cfd1a6](https://github.com/ni/nimble/commit/4cfd1a6c65d93d8377f1c1df79ca6ff6746cd2f5))
 
 ## 32.2.1
 
