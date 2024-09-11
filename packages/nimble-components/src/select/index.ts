@@ -1316,9 +1316,7 @@ export class Select
     }
 
     private observeSelectedOptionTextContent(): void {
-        if (this.selectedOptionObserver) {
-            this.selectedOptionObserver.disconnect();
-        }
+        this.selectedOptionObserver?.disconnect();
 
         if (this.selectedIndex === -1) {
             return;
