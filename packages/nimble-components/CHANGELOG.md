@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Wed, 11 Sep 2024 20:57:36 GMT and should not be manually modified.
+This log was last generated on Wed, 11 Sep 2024 21:31:24 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 32.2.5
+
+Wed, 11 Sep 2024 21:31:24 GMT
+
+### Patches
+
+- Fix two sources of references to detached rows ([ni/nimble@e14c27d](https://github.com/ni/nimble/commit/e14c27deefbb4cce9ea6563bc9ada9000b944ba7))
 
 ## 32.2.4
 

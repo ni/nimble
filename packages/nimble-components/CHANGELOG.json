@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Wed, 11 Sep 2024 21:31:24 GMT",
+      "version": "32.2.5",
+      "tag": "@ni/nimble-components_v32.2.5",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "e14c27deefbb4cce9ea6563bc9ada9000b944ba7",
+            "comment": "Fix two sources of references to detached rows"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 11 Sep 2024 20:57:36 GMT",
       "version": "32.2.4",
       "tag": "@ni/nimble-components_v32.2.4",
