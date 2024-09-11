@@ -745,7 +745,6 @@ describe('Select', () => {
         await waitForUpdatesAsync();
         element.value = 'two';
         await waitForUpdatesAsync();
-        await waitForUpdatesAsync();
         // update the textContent of the node directly to bypass FAST's textContent handling
         element.options[1]!.childNodes[0]!.textContent = 'foo';
         await waitForUpdatesAsync();
