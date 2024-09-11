@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "Fix for selected option display text being updated in DOM not being reflected in display of select.",
+  "packageName": "@ni/nimble-components",
+  "email": "26874831+atmgrifter00@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
