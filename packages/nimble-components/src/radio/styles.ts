@@ -13,16 +13,17 @@ import {
     smallDelay
 } from '../theme-provider/design-tokens';
 import { focusVisible } from '../utilities/style/focus';
+import { styles as errorStyles } from '../patterns/error/styles';
+import { userSelectNone } from '../utilities/style/user-select';
 
 export const styles = css`
     ${display('inline-flex')}
+    ${errorStyles}
 
     :host {
         font: ${bodyFont};
-        align-items: center;
         outline: none;
-        width: fit-content;
-        cursor: pointer;
+        ${userSelectNone}
     }
 
     :host([disabled]) {

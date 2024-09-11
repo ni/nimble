@@ -6,9 +6,11 @@ import {
     controlLabelFontColor,
     standardPadding
 } from '../theme-provider/design-tokens';
+import { styles as errorStyles } from '../patterns/error/styles';
 
 export const styles = css`
     ${display('inline-block')}
+    ${errorStyles}
 
     .positioning-region {
         display: flex;
