@@ -231,9 +231,7 @@ export class Select
 
     public override disconnectedCallback(): void {
         super.disconnectedCallback();
-        if (this.selectedOptionObserver) {
-            this.selectedOptionObserver.disconnect();
-        }
+        this.selectedOptionObserver?.disconnect();
     }
 
     public override get value(): string {
