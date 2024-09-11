@@ -8,7 +8,10 @@ import {
 } from '@microsoft/fast-web-utilities';
 import type { Select } from '..';
 import type { ListOption } from '../../list-option';
-import { processUpdates, waitForUpdatesAsync } from '../../testing/async-helpers';
+import {
+    processUpdates,
+    waitForUpdatesAsync
+} from '../../testing/async-helpers';
 import { FilterMode } from '../types';
 import type { Button } from '../../button';
 import type { ListOptionGroup } from '../../list-option-group';
