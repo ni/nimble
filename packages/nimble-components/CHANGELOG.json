@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Wed, 11 Sep 2024 20:57:36 GMT",
+      "version": "32.2.4",
+      "tag": "@ni/nimble-components_v32.2.4",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "b17e6b9e0422b902b1078e1a37db35d7695ce8d7",
+            "comment": "Add processUpdates call to select page object function clicking the clear button"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 11 Sep 2024 11:58:13 GMT",
       "version": "32.2.3",
       "tag": "@ni/nimble-components_v32.2.3",

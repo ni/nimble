@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Wed, 11 Sep 2024 11:58:13 GMT and should not be manually modified.
+This log was last generated on Wed, 11 Sep 2024 20:57:36 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 32.2.4
+
+Wed, 11 Sep 2024 20:57:36 GMT
+
+### Patches
+
+- Add processUpdates call to select page object function clicking the clear button ([ni/nimble@b17e6b9](https://github.com/ni/nimble/commit/b17e6b9e0422b902b1078e1a37db35d7695ce8d7))
 
 ## 32.2.3
 
