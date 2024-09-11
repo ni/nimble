@@ -4,7 +4,6 @@ import { withActions } from '@storybook/addon-actions/decorator';
 import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html';
 import { listOptionTag } from '../../../../nimble-components/src/list-option';
 import { comboboxTag } from '../../../../nimble-components/src/combobox';
-import { selectTag } from '../../../../nimble-components/src/select';
 import { ExampleOptionsType } from '../../../../nimble-components/src/combobox/tests/types';
 import {
     DropdownAppearance,
@@ -90,14 +89,6 @@ const metadata: Meta<ComboboxArgs> = {
     title: 'Components/Combobox',
     decorators: [withActions<HtmlRenderer>],
     parameters: {
-        docs: {
-            description: {
-                component: `Per [W3C](https://www.w3.org/WAI/ARIA/apg/patterns/combobox/), a combobox is an input widget that has an associated popup. The popup enables users to choose a value for the input from a collection.
-                The \`${comboboxTag}\` provides 'autocomplete' options that can help a user find and select a particular value.
-                
-                The user can enter arbitrary values in the input area, not just those that exist as autocomplete options. To limit values to those in the list, consider using \`${selectTag}\`.`
-            }
-        },
         actions: {
             handles: ['change', 'input']
         },
