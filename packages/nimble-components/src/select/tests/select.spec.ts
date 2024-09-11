@@ -802,8 +802,6 @@ describe('Select', () => {
         await disconnect();
     });
 
-
-
     describe('with all options disabled', () => {
         async function setupAllDisabled(): Promise<Fixture<Select>> {
             const viewTemplate = html`
