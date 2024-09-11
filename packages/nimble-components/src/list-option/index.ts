@@ -66,6 +66,13 @@ export class ListOption extends FoundationListboxOption {
         super.connectedCallback();
         const owner = this.getListOptionOwner();
         owner?.registerOption(this);
+        const observer = new MutationObserver(_ => {
+            this.$emit('display-changed');
+        });
+        observer.observe(this, {
+            characterData: true,
+            subtree: true
+        });
     }
 
     private getListOptionOwner(): ListOptionOwner | undefined {

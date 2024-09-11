@@ -309,6 +309,7 @@ export class Select
             notifier.unsubscribe(this, 'value');
             notifier.unsubscribe(this, 'hidden');
             notifier.unsubscribe(this, 'disabled');
+            o.removeEventListener('display-changed', this.optionContentChanged);
         });
 
         prev?.filter<ListOptionGroup>(isListOptionGroup).forEach(el => {
@@ -325,6 +326,7 @@ export class Select
             notifier.subscribe(this, 'value');
             notifier.subscribe(this, 'hidden');
             notifier.subscribe(this, 'disabled');
+            o.addEventListener('display-changed', this.optionContentChanged);
         });
         next?.filter<ListOptionGroup>(isListOptionGroup).forEach(el => {
             this.updateAdjacentSeparatorState(el);
@@ -1307,6 +1309,11 @@ export class Select
         this.setPositioning();
         this.focusAndScrollOptionIntoView();
     }
+
+    private readonly optionContentChanged = (e: Event): void => {
+        this.updateDisplayValue();
+        e.stopImmediatePropagation();
+    };
 }
 
 const nimbleSelect = Select.compose<SelectOptions>({

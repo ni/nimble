@@ -738,6 +738,23 @@ describe('Select', () => {
         await disconnect();
     });
 
+    it('when selected option textContent is updated directly in DOM, display text is updated', async () => {
+        const { element, connect, disconnect } = await setup();
+        const pageObject = new SelectPageObject(element);
+        await connect();
+        await waitForUpdatesAsync();
+        element.value = 'two';
+        await waitForUpdatesAsync();
+        await waitForUpdatesAsync();
+        // update the textContent of the node directly to bypass FAST's textContent handling
+        element.options[1]!.childNodes[0]!.textContent = 'foo';
+        await waitForUpdatesAsync();
+
+        expect(pageObject.getDisplayText()).toBe('foo');
+
+        await disconnect();
+    });
+
     describe('with all options disabled', () => {
         async function setupAllDisabled(): Promise<Fixture<Select>> {
             const viewTemplate = html`
