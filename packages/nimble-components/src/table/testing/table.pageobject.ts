@@ -679,6 +679,18 @@ export class TablePageObject<T extends TableRecord> {
     }
 
     /** @internal */
+    public isRowHoverStylingEnabled(): boolean {
+        const rows: NodeListOf<TableRow | TableGroupRow> = this.tableElement.shadowRoot!.querySelectorAll(
+            'nimble-table-row, nimble-table-group-row'
+        );
+        const firstRowAllowsHover = rows[0]!.allowHover;
+        if (Array.from(rows).some(x => x.allowHover !== firstRowAllowsHover)) {
+            throw new Error('Rows inconsistently allow hover styling');
+        }
+        return firstRowAllowsHover;
+    }
+
+    /** @internal */
     public getGroupRowHeaderView(groupRowIndex: number): TableGroupHeaderView {
         const groupRow = this.getGroupRow(groupRowIndex);
         return groupRow.shadowRoot!.querySelector('.group-header-view')!;
