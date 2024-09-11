@@ -91,7 +91,13 @@ export const styles = css`
 
     @keyframes ni-private-drawer-slide-in-right-keyframes {
         0% {
-            transform: translate(100%);
+            ${
+                /*
+                    Why 95% instead of 100%? See the following Safari bug:
+                    https://bugs.webkit.org/show_bug.cgi?id=279148
+                */ ''
+            }
+            transform: translate(95%);
         }
         100% {
             transform: translate(0%);

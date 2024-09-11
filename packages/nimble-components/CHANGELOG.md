@@ -1,8 +1,49 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Tue, 03 Sep 2024 20:12:33 GMT and should not be manually modified.
+This log was last generated on Wed, 11 Sep 2024 11:58:13 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 32.2.3
+
+Wed, 11 Sep 2024 11:58:13 GMT
+
+### Patches
+
+- Add nowrap to button content styling ([ni/nimble@6e6ee21](https://github.com/ni/nimble/commit/6e6ee2134da94557d10d4fb76c7b2a6e697204c3))
+
+## 32.2.2
+
+Tue, 10 Sep 2024 23:42:06 GMT
+
+### Patches
+
+- Table: move row height computation out of virtualizer; row height recomputed if dependent tokens change. ([ni/nimble@4cfd1a6](https://github.com/ni/nimble/commit/4cfd1a6c65d93d8377f1c1df79ca6ff6746cd2f5))
+
+## 32.2.1
+
+Thu, 05 Sep 2024 17:34:12 GMT
+
+### Patches
+
+- Fix animation jumping in right slide-in on Safari ([ni/nimble@741b11b](https://github.com/ni/nimble/commit/741b11ba2a79213aaab44937128b94816056f667))
+
+## 32.2.0
+
+Thu, 05 Sep 2024 16:43:39 GMT
+
+### Minor changes
+
+- Add new icons for install and uninstall software ([ni/nimble@aebf4f3](https://github.com/ni/nimble/commit/aebf4f3c222b8a404ecf0c3b5c9595205e1dc7a8))
+- Bump @ni/nimble-tokens to v8.3.0
+
+## 32.1.2
+
+Wed, 04 Sep 2024 23:50:46 GMT
+
+### Patches
+
+- Disable table row hover styling while scrolling ([ni/nimble@7e438f2](https://github.com/ni/nimble/commit/7e438f218cf3aed9700a85f53f5c533ab24ed131))
 
 ## 32.1.1
 

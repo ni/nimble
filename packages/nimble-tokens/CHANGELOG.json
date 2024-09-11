@@ -2,6 +2,21 @@
   "name": "@ni/nimble-tokens",
   "entries": [
     {
+      "date": "Thu, 05 Sep 2024 16:43:39 GMT",
+      "version": "8.3.0",
+      "tag": "@ni/nimble-tokens_v8.3.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "aebf4f3c222b8a404ecf0c3b5c9595205e1dc7a8",
+            "comment": "Add new icons for install and uninstall software"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 03 Sep 2024 15:34:50 GMT",
       "version": "8.2.0",
       "tag": "@ni/nimble-tokens_v8.2.0",
