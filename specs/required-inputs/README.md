@@ -42,7 +42,7 @@ We would expect this to already work, since the FAST components we derive from p
 
 - `nimble-combobox`: All that is needed is to forward the `required` attribute to the `input` in the template (which we have already forked from FAST). We will make this change.
 - `nimble-radio`:
-    - `required` on a radio button does not take other buttons in the group into account. It will result in a validation error if _that specific_ radio is unchecked.
+    - `required` on a radio button [does not take other buttons in the group into account](https://github.com/microsoft/fast/issues/6866). It will result in a validation error if _that specific_ radio is unchecked.
     - Validity is only updated when the value or checked state changes, so if the radio button is initially unchecked and remains unchecked, it will remain marked valid, even though it violates the `required` constraint.
 
 Because the `nimble-radio` support has never worked, would take significant work to fix, and FAST is no longer accepting submissions to the archive branch we use, we **will not fix radio button forms support** as part of this feature.
