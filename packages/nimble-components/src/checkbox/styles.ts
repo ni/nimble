@@ -20,7 +20,7 @@ import {
 import { userSelectNone } from '../utilities/style/user-select';
 import { styles as errorStyles } from '../patterns/error/styles';
 
-export const styles = css`
+export const commonStyles = css`
     ${display('inline-flex')}
     ${errorStyles}
 
@@ -91,12 +91,6 @@ export const styles = css`
         box-shadow: 0px 0px 0px ${borderWidth} ${borderHoverColor} inset;
     }
 
-    :host(${focusVisible}) .control {
-        border-color: ${borderHoverColor};
-        outline: 2px solid ${borderHoverColor};
-        outline-offset: 1px;
-    }
-
     .label {
         font: inherit;
         color: ${bodyFontColor};
@@ -109,8 +103,7 @@ export const styles = css`
         color: ${bodyDisabledFontColor};
     }
 
-    slot[name='checked-indicator'],
-    slot[name='indeterminate-indicator'] {
+    slot[name='checked-indicator']{
         display: none;
     }
 
@@ -118,6 +111,27 @@ export const styles = css`
         height: ${iconSize};
         width: ${iconSize};
         overflow: visible;
+    }
+
+    .error-icon {
+        grid-column: 4;
+        grid-row: 1;
+        margin-left: ${smallPadding};
+    }
+`;
+
+export const styles = css`
+    .control {
+    }
+
+    :host(${focusVisible}) .control {
+        border-color: ${borderHoverColor};
+        outline: 2px solid ${borderHoverColor};
+        outline-offset: 1px;
+    }
+
+    slot[name='indeterminate-indicator'] {
+        display: none;
     }
 
     :host(.checked:not(.indeterminate)) slot[name='checked-indicator'] {
@@ -148,11 +162,5 @@ export const styles = css`
 
     :host([disabled]) slot[name='indeterminate-indicator'] svg {
         fill: rgba(${borderRgbPartialColor}, 0.3);
-    }
-
-    .error-icon {
-        grid-column: 4;
-        grid-row: 1;
-        margin-left: ${smallPadding};
     }
 `;

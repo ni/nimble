@@ -15,10 +15,15 @@ export const styles = css`
     .positioning-region {
         display: flex;
         gap: ${standardPadding};
+        position: relative;
     }
 
     :host([orientation='vertical']) .positioning-region {
         flex-direction: column;
+    }
+
+    :host([orientation='vertical']) slotted([role='radio']) {
+        width: 100%;
     }
 
     :host([orientation='horizontal']) .positioning-region {
