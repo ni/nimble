@@ -15,7 +15,7 @@ import {
     bodyFont,
     smallPadding,
     mediumPadding,
-    errorTextFontLineHeight
+    bodyFontLineHeight
 } from '../theme-provider/design-tokens';
 import { userSelectNone } from '../utilities/style/user-select';
 import { styles as errorStyles } from '../patterns/error/styles';
@@ -28,23 +28,25 @@ export const styles = css`
         font: ${bodyFont};
         outline: none;
         ${userSelectNone}
+
+        outline: 1px solid blue;
     }
 
     .container {
         position: relative;
         display: grid;
         grid-template-columns: auto auto 1fr auto;
-        grid-template-rows: ${iconSize} auto;
+        grid-template-rows: ${bodyFontLineHeight} auto;
         align-items: center;
         width: 100%;
-        margin-left: ${smallPadding};
-        margin-top: calc((${controlHeight} - ${iconSize}) / 2);
-        margin-bottom: calc((${controlHeight} - ${iconSize}) / 2);
+        padding: calc((${controlHeight} - ${bodyFontLineHeight}) / 2) ${smallPadding};
     }
 
     .control,
     .label {
         cursor: pointer;
+
+        background: lightblue;
     }
 
     :host([disabled]) .control,
@@ -55,7 +57,6 @@ export const styles = css`
     .control {
         width: ${iconSize};
         height: ${iconSize};
-        flex-shrink: 0;
         border: ${borderWidth} solid ${borderColor};
         padding: 2px;
         display: inline-flex;
@@ -102,13 +103,6 @@ export const styles = css`
         padding-left: ${mediumPadding};
         grid-column: 2;
         grid-row: 1 / span 2;
-        ${
-            /*
-             * Set the top margin to -1px to account for the line height of the label not
-             * matching the height of the checkbox control.
-             */ ''
-        }
-        margin-top: -1px;
     }
 
     :host([disabled]) .label {
@@ -159,10 +153,6 @@ export const styles = css`
     .error-icon {
         grid-column: 4;
         grid-row: 1;
-        margin: 0px ${smallPadding};
-    }
-
-    :host([error-visible]) .container .error-text {
-        bottom: calc(-1 * ${errorTextFontLineHeight} + 1px);
+        margin-left: ${smallPadding};
     }
 `;
