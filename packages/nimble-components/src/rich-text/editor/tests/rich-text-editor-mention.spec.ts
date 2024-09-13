@@ -1377,13 +1377,10 @@ describe('RichTextEditorMentionListbox', () => {
     for (let i = 0; i < 30; i++) {
         describe(`Dynamically update mention popup items based on configuration changes${i}`, () => {
             it('should close mention popup when removing configuration element', async () => {
-                const { userMentionElement } = await appendUserMentionConfiguration(
-                    element,
-                    [
-                        { key: 'user:1', displayName: 'username1' },
-                        { key: 'user:2', displayName: 'username2' }
-                    ]
-                );
+                const { userMentionElement } = await appendUserMentionConfiguration(element, [
+                    { key: 'user:1', displayName: 'username1' },
+                    { key: 'user:2', displayName: 'username2' }
+                ]);
                 await pageObject.setEditorTextContent('@');
                 expect(pageObject.isMentionListboxOpened()).toBeTrue();
                 expect(pageObject.getMentionListboxItemsName()).toEqual([
@@ -1415,13 +1412,10 @@ describe('RichTextEditorMentionListbox', () => {
             });
 
             it('should update mention popup list when mapping elements get replaced', async () => {
-                const { userMentionElement } = await appendUserMentionConfiguration(
-                    element,
-                    [
-                        { key: 'user:1', displayName: 'username1' },
-                        { key: 'user:2', displayName: 'username2' }
-                    ]
-                );
+                const { userMentionElement } = await appendUserMentionConfiguration(element, [
+                    { key: 'user:1', displayName: 'username1' },
+                    { key: 'user:2', displayName: 'username2' }
+                ]);
                 await pageObject.setEditorTextContent('@');
                 expect(pageObject.getMentionListboxItemsName()).toEqual([
                     'username1',
@@ -1440,13 +1434,10 @@ describe('RichTextEditorMentionListbox', () => {
             });
 
             it('should close mention popup when updating to invalid `pattern`', async () => {
-                const { userMentionElement } = await appendUserMentionConfiguration(
-                    element,
-                    [
-                        { key: 'user:1', displayName: 'username1' },
-                        { key: 'user:2', displayName: 'username2' }
-                    ]
-                );
+                const { userMentionElement } = await appendUserMentionConfiguration(element, [
+                    { key: 'user:1', displayName: 'username1' },
+                    { key: 'user:2', displayName: 'username2' }
+                ]);
                 await pageObject.setEditorTextContent('@');
                 expect(pageObject.getMentionListboxItemsName()).toEqual([
                     'username1',
@@ -1459,13 +1450,10 @@ describe('RichTextEditorMentionListbox', () => {
             });
 
             it('should update mention popup list when updating `display-name`', async () => {
-                const { mappingElements } = await appendUserMentionConfiguration(
-                    element,
-                    [
-                        { key: 'user:1', displayName: 'username1' },
-                        { key: 'user:2', displayName: 'username2' }
-                    ]
-                );
+                const { mappingElements } = await appendUserMentionConfiguration(element, [
+                    { key: 'user:1', displayName: 'username1' },
+                    { key: 'user:2', displayName: 'username2' }
+                ]);
                 await pageObject.setEditorTextContent('@');
                 expect(pageObject.getMentionListboxItemsName()).toEqual([
                     'username1',
@@ -1481,10 +1469,9 @@ describe('RichTextEditorMentionListbox', () => {
             });
 
             it('should update mention popup list when updating valid `key`', async () => {
-                const { mappingElements } = await appendUserMentionConfiguration(
-                    element,
-                    [{ key: 'invalid', displayName: 'username1' }]
-                );
+                const { mappingElements } = await appendUserMentionConfiguration(element, [
+                    { key: 'invalid', displayName: 'username1' }
+                ]);
                 await pageObject.setEditorTextContent('@');
                 expect(pageObject.isMentionListboxOpened()).toBeFalse();
                 expect(pageObject.getMentionListboxItemsName()).toEqual([]);
@@ -1501,13 +1488,10 @@ describe('RichTextEditorMentionListbox', () => {
             });
 
             it('should close mention popup when updating to invalid `key`', async () => {
-                const { mappingElements } = await appendUserMentionConfiguration(
-                    element,
-                    [
-                        { key: 'user:1', displayName: 'username1' },
-                        { key: 'user:2', displayName: 'username2' }
-                    ]
-                );
+                const { mappingElements } = await appendUserMentionConfiguration(element, [
+                    { key: 'user:1', displayName: 'username1' },
+                    { key: 'user:2', displayName: 'username2' }
+                ]);
                 await pageObject.setEditorTextContent('@');
                 expect(pageObject.getMentionListboxItemsName()).toEqual([
                     'username1',
@@ -1520,13 +1504,10 @@ describe('RichTextEditorMentionListbox', () => {
             });
 
             it('should retain mention popup list position in the same cursor position when configuration got updated', async () => {
-                const { mappingElements } = await appendUserMentionConfiguration(
-                    element,
-                    [
-                        { key: 'user:1', displayName: 'username1' },
-                        { key: 'user:2', displayName: 'username2' }
-                    ]
-                );
+                const { mappingElements } = await appendUserMentionConfiguration(element, [
+                    { key: 'user:1', displayName: 'username1' },
+                    { key: 'user:2', displayName: 'username2' }
+                ]);
                 await pageObject.setEditorTextContent('First Line');
                 pageObject.moveCursorToStart();
                 await pageObject.clickUserMentionButton();
@@ -1570,10 +1551,9 @@ describe('RichTextEditorMentionListbox', () => {
             });
 
             it('mention listbox should be closed when cursor position is moved to start and configuration dynamically changes', async () => {
-                const { mappingElements } = await appendUserMentionConfiguration(
-                    element,
-                    [{ key: 'user:1', displayName: 'user name1' }]
-                );
+                const { mappingElements } = await appendUserMentionConfiguration(element, [
+                    { key: 'user:1', displayName: 'user name1' }
+                ]);
                 await pageObject.setEditorTextContent('@user');
                 expect(pageObject.isMentionListboxOpened()).toBeTrue();
                 await pageObject.setCursorPosition(1);
