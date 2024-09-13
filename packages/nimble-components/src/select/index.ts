@@ -216,7 +216,14 @@ export class Select
     private _value = '';
     private forcedPosition = false;
     private openActiveIndex?: number;
-    private selectedOptionObserver?: MutationObserver;
+    private readonly selectedOptionObserver: MutationObserver;
+
+    public constructor() {
+        super();
+        this.selectedOptionObserver = new MutationObserver(() => {
+            this.updateDisplayValue();
+        });
+    }
 
     /**
      * @internal
@@ -1326,9 +1333,6 @@ export class Select
 
         const selectedOption = this.firstSelectedOption;
         if (selectedOption) {
-            this.selectedOptionObserver = new MutationObserver(() => {
-                this.updateDisplayValue();
-            });
             this.selectedOptionObserver.observe(selectedOption, {
                 characterData: true,
                 subtree: true,
