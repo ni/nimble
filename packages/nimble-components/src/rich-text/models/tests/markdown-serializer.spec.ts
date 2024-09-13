@@ -62,9 +62,7 @@ describe('Markdown serializer', () => {
 
         it('Link', async () => {
             await pageObject.setEditorTextContent('https://nimble.ni.dev ');
-            expect(element.getMarkdown()).toEqual(
-                '<https://nimble.ni.dev> '
-            );
+            expect(element.getMarkdown()).toEqual('<https://nimble.ni.dev> ');
         });
 
         it('Bold and Italics', async () => {
@@ -79,10 +77,7 @@ describe('Markdown serializer', () => {
             await pageObject.setEditorTextContent('Bold');
             await pageObject.toggleFooterButton(ToolbarButton.italics);
             await pageObject.setEditorTextContent('italics');
-            await pageObject.toggleFooterButton(
-                ToolbarButton.italics,
-                false
-            );
+            await pageObject.toggleFooterButton(ToolbarButton.italics, false);
             await pageObject.setEditorTextContent('bold');
             expect(element.getMarkdown()).toEqual('**Bold*italics*bold**');
         });
@@ -92,14 +87,9 @@ describe('Markdown serializer', () => {
             await pageObject.setEditorTextContent('Bold ');
             await pageObject.toggleFooterButton(ToolbarButton.italics);
             await pageObject.setEditorTextContent('italics');
-            await pageObject.toggleFooterButton(
-                ToolbarButton.italics,
-                false
-            );
+            await pageObject.toggleFooterButton(ToolbarButton.italics, false);
             await pageObject.setEditorTextContent(' bold');
-            expect(element.getMarkdown()).toEqual(
-                '**Bold *italics* bold**'
-            );
+            expect(element.getMarkdown()).toEqual('**Bold *italics* bold**');
         });
 
         it('Bold without spaces in between italics texts', async () => {
@@ -109,9 +99,7 @@ describe('Markdown serializer', () => {
             await pageObject.setEditorTextContent('bold');
             await pageObject.toggleFooterButton(ToolbarButton.bold, false);
             await pageObject.setEditorTextContent('italics');
-            expect(element.getMarkdown()).toEqual(
-                '*Italics**bold**italics*'
-            );
+            expect(element.getMarkdown()).toEqual('*Italics**bold**italics*');
         });
 
         it('Bold with leading and trailing spaces in between italics texts', async () => {
@@ -121,9 +109,7 @@ describe('Markdown serializer', () => {
             await pageObject.setEditorTextContent('bold');
             await pageObject.toggleFooterButton(ToolbarButton.bold, false);
             await pageObject.setEditorTextContent(' italics');
-            expect(element.getMarkdown()).toEqual(
-                '*Italics **bold** italics*'
-            );
+            expect(element.getMarkdown()).toEqual('*Italics **bold** italics*');
         });
 
         it('Numbered list', async () => {
@@ -144,9 +130,7 @@ describe('Markdown serializer', () => {
 
         it('Numbered list with bold', async () => {
             await pageObject.toggleFooterButton(ToolbarButton.bold);
-            await pageObject.setEditorTextContent(
-                'Numbered list with bold'
-            );
+            await pageObject.setEditorTextContent('Numbered list with bold');
             await pageObject.toggleFooterButton(ToolbarButton.numberedList);
             expect(element.getMarkdown()).toEqual(
                 '1. **Numbered list with bold**'
@@ -155,9 +139,7 @@ describe('Markdown serializer', () => {
 
         it('Numbered list with italics', async () => {
             await pageObject.toggleFooterButton(ToolbarButton.italics);
-            await pageObject.setEditorTextContent(
-                'Numbered list with italics'
-            );
+            await pageObject.setEditorTextContent('Numbered list with italics');
             await pageObject.toggleFooterButton(ToolbarButton.numberedList);
             expect(element.getMarkdown()).toEqual(
                 '1. *Numbered list with italics*'
@@ -190,9 +172,7 @@ describe('Markdown serializer', () => {
 
         it('Bulleted list with bold', async () => {
             await pageObject.toggleFooterButton(ToolbarButton.bold);
-            await pageObject.setEditorTextContent(
-                'Bulleted list with bold'
-            );
+            await pageObject.setEditorTextContent('Bulleted list with bold');
             await pageObject.toggleFooterButton(ToolbarButton.bulletList);
             expect(element.getMarkdown()).toEqual(
                 '* **Bulleted list with bold**'
@@ -201,9 +181,7 @@ describe('Markdown serializer', () => {
 
         it('Bulleted list with italics', async () => {
             await pageObject.toggleFooterButton(ToolbarButton.italics);
-            await pageObject.setEditorTextContent(
-                'Bulleted list with italics'
-            );
+            await pageObject.setEditorTextContent('Bulleted list with italics');
             await pageObject.toggleFooterButton(ToolbarButton.bulletList);
             expect(element.getMarkdown()).toEqual(
                 '* *Bulleted list with italics*'
@@ -213,9 +191,7 @@ describe('Markdown serializer', () => {
         it('Bulleted list with link', async () => {
             await pageObject.setEditorTextContent('https://nimble.ni.dev ');
             await pageObject.toggleFooterButton(ToolbarButton.bulletList);
-            expect(element.getMarkdown()).toEqual(
-                '* <https://nimble.ni.dev> '
-            );
+            expect(element.getMarkdown()).toEqual('* <https://nimble.ni.dev> ');
         });
 
         it('Toggling off Bulleted list with bold', async () => {
@@ -253,9 +229,7 @@ describe('Markdown serializer', () => {
             await pageObject.pressTabKeyInEditor();
             await pageObject.toggleFooterButton(ToolbarButton.numberedList);
             await pageObject.toggleFooterButton(ToolbarButton.bold);
-            await pageObject.setEditorTextContent(
-                'Nested bold numbered list'
-            );
+            await pageObject.setEditorTextContent('Nested bold numbered list');
             expect(element.getMarkdown()).toEqual(r`* Bulleted list
 
   1. **Nested bold numbered list**`);
@@ -284,8 +258,7 @@ describe('Markdown serializer', () => {
             await pageObject.pressTabKeyInEditor();
             await pageObject.toggleFooterButton(ToolbarButton.bulletList);
             await pageObject.setEditorTextContent('Nested bulleted list');
-            expect(element.getMarkdown())
-                .toEqual(r`1. **Numbered list bold**
+            expect(element.getMarkdown()).toEqual(r`1. **Numbered list bold**
 
    * Nested bulleted list`);
         });
@@ -298,8 +271,7 @@ describe('Markdown serializer', () => {
             await pageObject.pressTabKeyInEditor();
             await pageObject.toggleFooterButton(ToolbarButton.bulletList);
             await pageObject.setEditorTextContent('Nested bulleted list');
-            expect(element.getMarkdown())
-                .toEqual(r`1. *Numbered list italics*
+            expect(element.getMarkdown()).toEqual(r`1. *Numbered list italics*
 
    * Nested bulleted list`);
         });
@@ -338,36 +310,49 @@ Plain text 3`);
             });
 
             // WebKit skipped, see https://github.com/ni/nimble/issues/1938
-            it('Hard break with bulleted list #SkipWebkit' + `${i}`, async () => {
-                await pageObject.setEditorTextContent('Bulleted');
-                await pageObject.toggleFooterButton(ToolbarButton.bulletList);
-                await pageObject.pressShiftEnterKeysInEditor();
-                await pageObject.setEditorTextContent('list');
-                expect(element.getMarkdown()).toEqual(r`* Bulleted\
+            it(
+                'Hard break with bulleted list #SkipWebkit' + `${i}`,
+                async () => {
+                    await pageObject.setEditorTextContent('Bulleted');
+                    await pageObject.toggleFooterButton(
+                        ToolbarButton.bulletList
+                    );
+                    await pageObject.pressShiftEnterKeysInEditor();
+                    await pageObject.setEditorTextContent('list');
+                    expect(element.getMarkdown()).toEqual(r`* Bulleted\
   list`);
-            });
+                }
+            );
 
             // WebKit skipped, see https://github.com/ni/nimble/issues/1938
-            it('Hard break with numbered list #SkipWebkit' + `${i}`, async () => {
-                await pageObject.setEditorTextContent('Numbered');
-                await pageObject.toggleFooterButton(ToolbarButton.numberedList);
-                await pageObject.pressShiftEnterKeysInEditor();
-                await pageObject.setEditorTextContent('list');
-                expect(element.getMarkdown()).toEqual(r`1. Numbered\
+            it(
+                'Hard break with numbered list #SkipWebkit' + `${i}`,
+                async () => {
+                    await pageObject.setEditorTextContent('Numbered');
+                    await pageObject.toggleFooterButton(
+                        ToolbarButton.numberedList
+                    );
+                    await pageObject.pressShiftEnterKeysInEditor();
+                    await pageObject.setEditorTextContent('list');
+                    expect(element.getMarkdown()).toEqual(r`1. Numbered\
    list`);
-            });
+                }
+            );
 
             // WebKit skipped, see https://github.com/ni/nimble/issues/1938
-            it('Hard break with mention node #SkipWebkit' + `${i}`, async () => {
-                await appendUserMentionConfiguration(element, [
-                    { key: 'user:1', displayName: 'username1' }
-                ]);
-                await commitFirstMentionBoxOptionIntoEditor('@');
-                await pageObject.pressShiftEnterKeysInEditor();
-                await commitFirstMentionBoxOptionIntoEditor('@');
-                expect(element.getMarkdown()).toEqual(r`<user:1> \
+            it(
+                'Hard break with mention node #SkipWebkit' + `${i}`,
+                async () => {
+                    await appendUserMentionConfiguration(element, [
+                        { key: 'user:1', displayName: 'username1' }
+                    ]);
+                    await commitFirstMentionBoxOptionIntoEditor('@');
+                    await pageObject.pressShiftEnterKeysInEditor();
+                    await commitFirstMentionBoxOptionIntoEditor('@');
+                    expect(element.getMarkdown()).toEqual(r`<user:1> \
 <user:1> `);
-            });
+                }
+            );
 
             // Intermittent, see https://github.com/ni/nimble/issues/2219
             it('Mention node' + `${i}`, async () => {
