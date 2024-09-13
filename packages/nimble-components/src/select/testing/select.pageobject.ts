@@ -8,7 +8,10 @@ import {
 } from '@microsoft/fast-web-utilities';
 import type { Select } from '..';
 import type { ListOption } from '../../list-option';
-import { waitForUpdatesAsync } from '../../testing/async-helpers';
+import {
+    processUpdates,
+    waitForUpdatesAsync
+} from '../../testing/async-helpers';
 import { FilterMode } from '../types';
 import type { Button } from '../../button';
 import type { ListOptionGroup } from '../../list-option-group';
@@ -199,6 +202,7 @@ export class SelectPageObject {
 
         const clearButton = this.getClearButton();
         clearButton?.click();
+        processUpdates();
     }
 
     public async clickAway(): Promise<void> {

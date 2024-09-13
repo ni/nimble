@@ -1678,7 +1678,6 @@ describe('Select', () => {
 
         it('clear button is visible after selecting an option', async () => {
             pageObject.clickClearButton();
-            await waitForUpdatesAsync();
             expect(pageObject.isClearButtonVisible()).toBeFalse();
             await clickAndWaitForOpen(element);
             pageObject.clickOptionWithDisplayText('Two');
@@ -1687,9 +1686,8 @@ describe('Select', () => {
             expect(pageObject.isClearButtonVisible()).toBeTrue();
         });
 
-        it('clicking clear button does not open dropdown', async () => {
+        it('clicking clear button does not open dropdown', () => {
             pageObject.clickClearButton();
-            await waitForUpdatesAsync();
             expect(element.open).toBeFalse();
         });
 
@@ -1724,9 +1722,8 @@ describe('Select', () => {
         });
 
         describe('without placeholder', () => {
-            it('after clicking clear button, display text is empty and clear button is hidden', async () => {
+            it('after clicking clear button, display text is empty and clear button is hidden', () => {
                 pageObject.clickClearButton();
-                await waitForUpdatesAsync();
 
                 expect(pageObject.getDisplayText()).toBe('');
                 expect(pageObject.isClearButtonVisible()).toBeFalse();
@@ -1758,7 +1755,6 @@ describe('Select', () => {
                 pageObject.clickOptionWithDisplayText('Two');
                 await waitForUpdatesAsync();
                 pageObject.clickClearButton();
-                await waitForUpdatesAsync();
 
                 expect(pageObject.getDisplayText()).toBe('One');
             });
@@ -1783,7 +1779,6 @@ describe('Select', () => {
                     await waitForUpdatesAsync();
                     expect(pageObject.isClearButtonVisible()).toBeTrue();
                     pageObject.clickClearButton();
-                    await waitForUpdatesAsync();
 
                     expect(pageObject.getDisplayText()).toBe('');
                 });
