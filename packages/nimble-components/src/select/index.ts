@@ -240,7 +240,7 @@ export class Select
 
     public override disconnectedCallback(): void {
         super.disconnectedCallback();
-        this.selectedOptionObserver?.disconnect();
+        this.selectedOptionObserver.disconnect();
     }
 
     public override get value(): string {
@@ -1325,7 +1325,7 @@ export class Select
     }
 
     private observeSelectedOptionTextContent(): void {
-        this.selectedOptionObserver?.disconnect();
+        this.selectedOptionObserver.disconnect();
 
         if (this.selectedIndex === -1) {
             return;
