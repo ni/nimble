@@ -89,13 +89,6 @@ const metadata: Meta<ComboboxArgs> = {
     title: 'Components/Combobox',
     decorators: [withActions<HtmlRenderer>],
     parameters: {
-        docs: {
-            description: {
-                component: `Per [W3C](https://www.w3.org/WAI/ARIA/apg/patterns/combobox/), a combobox is an input widget that has an associated popup. The popup enables users to choose a value for the input from a collection.
-                The \`nimble-combobox\` provides 'autocomplete' options that can help a user find and select a particular value. Unlike with the \`nimble-select\` component, the \`nimble-combobox\` allows the user to enter
-                arbitrary values in the input area, not just those that exist as autocomplete options.`
-            }
-        },
         actions: {
             handles: ['change', 'input']
         },
