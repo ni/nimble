@@ -216,14 +216,9 @@ export class Select
     private _value = '';
     private forcedPosition = false;
     private openActiveIndex?: number;
-    private readonly selectedOptionObserver: MutationObserver;
-
-    public constructor() {
-        super();
-        this.selectedOptionObserver = new MutationObserver(() => {
-            this.updateDisplayValue();
-        });
-    }
+    private readonly selectedOptionObserver? = new MutationObserver(() => {
+        this.updateDisplayValue();
+    });
 
     /**
      * @internal
@@ -240,7 +235,7 @@ export class Select
 
     public override disconnectedCallback(): void {
         super.disconnectedCallback();
-        this.selectedOptionObserver.disconnect();
+        this.selectedOptionObserver?.disconnect();
     }
 
     public override get value(): string {
@@ -1325,7 +1320,7 @@ export class Select
     }
 
     private observeSelectedOptionTextContent(): void {
-        this.selectedOptionObserver.disconnect();
+        this.selectedOptionObserver?.disconnect();
 
         if (this.selectedIndex === -1) {
             return;
@@ -1333,7 +1328,7 @@ export class Select
 
         const selectedOption = this.firstSelectedOption;
         if (selectedOption) {
-            this.selectedOptionObserver.observe(selectedOption, {
+            this.selectedOptionObserver?.observe(selectedOption, {
                 characterData: true,
                 subtree: true,
                 childList: true
