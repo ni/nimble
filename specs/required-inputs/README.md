@@ -28,7 +28,7 @@ Our FAST base components provide built-in forms support via the [same API](https
 
 - `required`: boolean attribute whose presence indicates that a value must be provided to submit
 
- For radio buttons/groups, only the button elements expose the `required` attribute. If any of the radio buttons in a group are marked required, the group is treated as required.
+ For radio buttons/groups, only the button elements expose the `required` attribute. If any of the radio buttons in a group are marked required, the group is treated as required. It does not matter if the button with `required` is disabled, hidden, etc. It is effectively as if the attribute is on the group of buttons, rather than a specific one. This matches the behavior of the native `input` with `type="radio"`. 
 
 ### Visuals
 
