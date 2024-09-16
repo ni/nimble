@@ -18,6 +18,7 @@ export const template = html<Spinner>`
             <div class="bit1"></div>
             <div class="bit2"></div>
         </div>
+        <span>Thinking</span>
     </template>
 `;
 /* eslint-enable @typescript-eslint/indent */
