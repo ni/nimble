@@ -14,7 +14,7 @@ import {
     bodyFont,
     controlLabelFontColor,
     controlLabelDisabledFontColor,
-    mediumPadding
+    smallPadding
 } from '../theme-provider/design-tokens';
 import { appearanceBehavior } from '../utilities/style/appearance';
 import { TextFieldAppearance } from './types';
@@ -61,7 +61,7 @@ export const styles = css`
         align-items: center;
         justify-content: center;
         border: 0px solid rgba(${borderRgbPartialColor}, 0.3);
-        gap: ${mediumPadding};
+        gap: ${smallPadding};
         padding: ${borderWidth};
     }
 
@@ -92,10 +92,7 @@ export const styles = css`
         color: transparent;
         width: 0px;
         ${userSelectNone}
-    }
-
-    :host([appearance='frameless'][full-bleed]) .root::before {
-        display: none;
+        margin-left: -1px;
     }
 
     .root::after {
@@ -104,10 +101,7 @@ export const styles = css`
         color: transparent;
         width: 0px;
         ${userSelectNone}
-    }
-
-    :host([appearance='frameless'][full-bleed]) .root::after {
-        display: none;
+        margin-left: -1px;
     }
 
     [part='start'] {
@@ -133,6 +127,7 @@ export const styles = css`
         width: 100%;
         margin-top: auto;
         margin-bottom: auto;
+        margin-left: ${smallPadding};
         border: none;
         text-overflow: ellipsis;
     }
