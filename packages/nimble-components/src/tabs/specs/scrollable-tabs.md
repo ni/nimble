@@ -23,6 +23,8 @@ The following decisions were agreed to in the comments section in the linked iss
 -   Keyboard navigation will work as it does today, but when a tab that isn't fully in view gets focus it should be scrolled into view
 -   When a scroll button is pressed we will scroll either a full "page width" or the remainder of the available space, and tab focus is not changed.
 
+Additionally, the mouse wheel should allow scrolling through the tabs, but instead of scrolling a page at a time, a single scroll "tick" will scroll by one tab.
+
 To accomplish this we will fork FAST's template in order to add the scroll buttons. A `ResizeObserver` will be used to track when the scrollable area exceeds the viewable area in order to show/hide the scroll buttons.
 
 There will be no new API to enable this behavior, and will simply be on by default.
@@ -38,6 +40,8 @@ Only the tabs themselves will be scrollable. The scroll buttons will only surrou
 #### `PageUp/PageDown`
 
 Now that the tabs will be able to be scrolled, it makes sense to add a keyboard interaction that will perform this scroll without the need of using the buttons. When a tab in the tab list has focus, pressing `PageUp/PageDown` will perform the same scroll behavior as pressing the scroll buttons _and additionally_ jump the tab focus by the same page amount (or to the first/last tab). This is needed to make the scrolling of the tabs useful for a keyboard-only user.
+
+_Note: For the `AnchorTabs` when tab focus moves via the `PageDown/PageUp` keys, no navigation will occur, just as with the `Home/End` keys._
 
 #### Scroll buttons
 
@@ -66,7 +70,7 @@ Related:
 
 -   The [Shoelace design system](https://shoelace.style/components/tab-group#scrolling-tabs) has an example of this approach
 
-**Roving tab strategy**:
+**Roving tab index strategy**:
 
 Pros:
 
