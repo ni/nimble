@@ -28,8 +28,6 @@ export const commonStyles = css`
         font: ${bodyFont};
         outline: none;
         ${userSelectNone}
-
-        outline: 1px solid blue;
     }
 
     .container {
@@ -45,8 +43,6 @@ export const commonStyles = css`
     .control,
     .label {
         cursor: pointer;
-
-        background: lightblue;
     }
 
     :host([disabled]) .control,
@@ -121,8 +117,7 @@ export const commonStyles = css`
 `;
 
 export const styles = css`
-    .control {
-    }
+    ${commonStyles}
 
     :host(${focusVisible}) .control {
         border-color: ${borderHoverColor};
