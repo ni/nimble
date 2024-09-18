@@ -92,7 +92,6 @@ export const styles = css`
         color: transparent;
         width: 0px;
         ${userSelectNone}
-        margin-left: -1px;
     }
 
     .root::after {
