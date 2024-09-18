@@ -216,6 +216,9 @@ export class Select
     private _value = '';
     private forcedPosition = false;
     private openActiveIndex?: number;
+    private readonly selectedOptionObserver? = new MutationObserver(() => {
+        this.updateDisplayValue();
+    });
 
     /**
      * @internal
@@ -226,6 +229,13 @@ export class Select
         if (this.open) {
             this.initializeOpenState();
         }
+
+        this.observeSelectedOptionTextContent();
+    }
+
+    public override disconnectedCallback(): void {
+        super.disconnectedCallback();
+        this.selectedOptionObserver?.disconnect();
     }
 
     public override get value(): string {
@@ -1248,6 +1258,7 @@ export class Select
     private updateValue(shouldEmit?: boolean): void {
         if (this.$fastController.isConnected) {
             this.value = this.firstSelectedOption?.value ?? '';
+            this.observeSelectedOptionTextContent();
         }
 
         if (shouldEmit) {
@@ -1306,6 +1317,23 @@ export class Select
 
         this.setPositioning();
         this.focusAndScrollOptionIntoView();
+    }
+
+    private observeSelectedOptionTextContent(): void {
+        this.selectedOptionObserver?.disconnect();
+
+        if (this.selectedIndex === -1) {
+            return;
+        }
+
+        const selectedOption = this.firstSelectedOption;
+        if (selectedOption) {
+            this.selectedOptionObserver?.observe(selectedOption, {
+                characterData: true,
+                subtree: true,
+                childList: true
+            });
+        }
     }
 }
 
