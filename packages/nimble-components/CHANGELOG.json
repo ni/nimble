@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Wed, 18 Sep 2024 20:24:09 GMT",
+      "version": "32.2.6",
+      "tag": "@ni/nimble-components_v32.2.6",
+      "comments": {
+        "patch": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "e83065ac2ed9b3bed2996e848c8223d31ea6890b",
+            "comment": "Fix for selected option display text being updated in DOM not being reflected in display of select."
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 11 Sep 2024 21:31:24 GMT",
       "version": "32.2.5",
       "tag": "@ni/nimble-components_v32.2.5",
