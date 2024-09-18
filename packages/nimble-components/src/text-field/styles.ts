@@ -94,6 +94,10 @@ export const styles = css`
         ${userSelectNone}
     }
 
+    :host([appearance='frameless'][full-bleed]) .root::before {
+        display: none;
+    }
+
     .root::after {
         ${/* Empty string causes alignment issue */ ''}
         content: ' ';
@@ -101,6 +105,10 @@ export const styles = css`
         width: 0px;
         ${userSelectNone}
         margin-left: -1px;
+    }
+
+    :host([appearance='frameless'][full-bleed]) .root::after {
+        display: none;
     }
 
     [part='start'] {
@@ -129,6 +137,10 @@ export const styles = css`
         margin-left: ${smallPadding};
         border: none;
         text-overflow: ellipsis;
+    }
+
+    :host([appearance='frameless'][full-bleed]) .control {
+        margin-left: 0px;
     }
 
     .control:hover,
