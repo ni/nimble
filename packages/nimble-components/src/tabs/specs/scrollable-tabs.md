@@ -23,7 +23,7 @@ The following decisions were agreed to in the comments section in the linked iss
 -   Keyboard navigation will work as it does today, but when a tab that isn't fully in view gets focus it should be scrolled into view
 -   When a scroll button is pressed we will scroll either a full "page width" or the remainder of the available space, and tab focus is not changed.
 
-Additionally, the mouse wheel should allow scrolling through the tabs, but instead of scrolling a page at a time, a single scroll "tick" will scroll by an amount that will feel aesthetically nice and sufficiently enough to not be cumbersome to progress through the tabs.
+Additionally, the mouse wheel should allow scrolling through the tabs. This should be handled natively by the browser by simply applying CSS of `overflow: scroll;` to the div containing the tabs. _Note: Mouse users would have to hold `<Shift>` while using the scroll wheel in order to scroll the tabs. This is consistent with other horizontally scrollable content._
 
 To accomplish this we will fork FAST's template in order to add the scroll buttons. A `ResizeObserver` will be used to track when the scrollable area exceeds the viewable area in order to show/hide the scroll buttons.
 
