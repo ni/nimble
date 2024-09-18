@@ -746,7 +746,6 @@ export class Select
             this.setActiveOption(this.selectedIndex);
         }
         this.updateValue();
-        this.observeSelectedOptionTextContent();
     }
 
     /**
@@ -1259,6 +1258,7 @@ export class Select
     private updateValue(shouldEmit?: boolean): void {
         if (this.$fastController.isConnected) {
             this.value = this.firstSelectedOption?.value ?? '';
+            this.observeSelectedOptionTextContent();
         }
 
         if (shouldEmit) {

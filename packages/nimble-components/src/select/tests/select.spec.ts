@@ -802,6 +802,26 @@ describe('Select', () => {
         await disconnect();
     });
 
+    it('when select replaces its options, updating newly selected option textContent in DOM updates display text', async () => {
+        const { element, connect, disconnect } = await setup();
+        const pageObject = new SelectPageObject(element);
+        await connect();
+        await waitForUpdatesAsync();
+        element.value = 'two';
+        await waitForUpdatesAsync();
+        await pageObject.setOptions([
+            new ListOption('one', 'one'),
+            new ListOption('two', 'two') // will keep the same value and selectedIndex, but a new option
+        ]);
+
+        element.options[1]!.childNodes[0]!.textContent = 'foo';
+        await waitForUpdatesAsync();
+
+        expect(pageObject.getDisplayText()).toBe('foo');
+
+        await disconnect();
+    });
+
     describe('with all options disabled', () => {
         async function setupAllDisabled(): Promise<Fixture<Select>> {
             const viewTemplate = html`
