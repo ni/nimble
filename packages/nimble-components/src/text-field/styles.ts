@@ -253,6 +253,7 @@ export const styles = css`
             .root {
                 border-width: ${borderWidth};
                 padding: 0;
+                padding-left: ${smallPadding};
             }
         `
     ),
