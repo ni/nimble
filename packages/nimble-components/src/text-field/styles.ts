@@ -63,6 +63,7 @@ export const styles = css`
         border: 0px solid rgba(${borderRgbPartialColor}, 0.3);
         gap: ${smallPadding};
         padding: ${borderWidth};
+        padding-left: calc(${borderWidth} + ${smallPadding});
     }
 
     :host([readonly]) .root {
@@ -118,6 +119,7 @@ export const styles = css`
     slot[name='start']::slotted(*) {
         flex: none;
         opacity: 0.6;
+        margin-right: ${smallPadding};
     }
 
     :host([disabled]) slot[name='start']::slotted(*) {
@@ -134,13 +136,8 @@ export const styles = css`
         width: 100%;
         margin-top: auto;
         margin-bottom: auto;
-        margin-left: ${smallPadding};
         border: none;
         text-overflow: ellipsis;
-    }
-
-    :host([appearance='frameless'][full-bleed]) .control {
-        margin-left: 0px;
     }
 
     .control:hover,
