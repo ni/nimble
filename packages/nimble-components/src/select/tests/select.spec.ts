@@ -68,6 +68,19 @@ async function setup(
     return fixture<Select>(viewTemplate);
 }
 
+async function setupWithSpanLabels(): Promise<Fixture<Select>> {
+    const viewTemplate = html`
+        <nimble-select>
+            <nimble-list-option value="one">
+                <span>One</span>
+            </nimble-list-option>
+            <nimble-list-option value="two">
+                <span>Two</span>
+            </nimble-list-option>
+        </nimble-select>
+    `;
+    return fixture<Select>(viewTemplate);
+}
 async function setupWithGroups(): Promise<Fixture<Select>> {
     const viewTemplate = html`
         <nimble-select>
@@ -734,6 +747,77 @@ describe('Select', () => {
         pageObject.pressArrowUpKey();
 
         expect(pageObject.getActiveOption()?.value).toBe('zürich');
+
+        await disconnect();
+    });
+
+    it('when selected option textContent is updated directly in DOM, display text is updated', async () => {
+        const { element, connect, disconnect } = await setup();
+        const pageObject = new SelectPageObject(element);
+        await connect();
+        await waitForUpdatesAsync();
+        element.value = 'two';
+        await waitForUpdatesAsync();
+        // update the textContent of the node directly to bypass FAST's textContent handling
+        element.options[1]!.childNodes[0]!.textContent = 'foo';
+        await waitForUpdatesAsync();
+
+        expect(pageObject.getDisplayText()).toBe('foo');
+
+        await disconnect();
+    });
+
+    it('when selection option textContent of child span is updated directly in DOM, display text is updated', async () => {
+        const { element, connect, disconnect } = await setupWithSpanLabels();
+        const pageObject = new SelectPageObject(element);
+        await connect();
+        await waitForUpdatesAsync();
+        element.value = 'two';
+        await waitForUpdatesAsync();
+        // update the textContent of the node directly to bypass FAST's textContent handling
+        element.options[1]!.childNodes[1]!.textContent = 'foo'; // span is at index 1 of childNodes
+        await waitForUpdatesAsync();
+
+        expect(pageObject.getDisplayText()).toBe('foo');
+
+        await disconnect();
+    });
+
+    it('when select is disconnected and reconnected, updating selected option textContent in DOM updates display text', async () => {
+        const { element, connect, disconnect } = await setup();
+        const pageObject = new SelectPageObject(element);
+        await connect();
+        await waitForUpdatesAsync();
+        element.value = 'two';
+        await waitForUpdatesAsync();
+        await disconnect();
+        await connect();
+
+        // update the textContent of the node directly to bypass FAST's textContent handling
+        element.options[1]!.childNodes[0]!.textContent = 'foo';
+        await waitForUpdatesAsync();
+
+        expect(pageObject.getDisplayText()).toBe('foo');
+
+        await disconnect();
+    });
+
+    it('when select replaces its options, updating newly selected option textContent in DOM updates display text', async () => {
+        const { element, connect, disconnect } = await setup();
+        const pageObject = new SelectPageObject(element);
+        await connect();
+        await waitForUpdatesAsync();
+        element.value = 'two';
+        await waitForUpdatesAsync();
+        await pageObject.setOptions([
+            new ListOption('one', 'one'),
+            new ListOption('two', 'two') // will keep the same value and selectedIndex, but a new option
+        ]);
+
+        element.options[1]!.childNodes[0]!.textContent = 'foo';
+        await waitForUpdatesAsync();
+
+        expect(pageObject.getDisplayText()).toBe('foo');
 
         await disconnect();
     });
