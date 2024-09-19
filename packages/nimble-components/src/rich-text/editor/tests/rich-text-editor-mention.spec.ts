@@ -1542,8 +1542,7 @@ describe('RichTextEditorMentionListbox', () => {
             expect(pageObject.isMentionListboxOpened()).toBeTrue();
         });
 
-        // Intermittent, see https://github.com/ni/nimble/issues/2219
-        xit('should show mention popup for multiple mention configuration elements', async () => {
+        it('should show mention popup for multiple mention configuration elements', async () => {
             await appendUserMentionConfiguration(element, [
                 { key: 'user:1', displayName: 'username1' },
                 { key: 'user:2', displayName: 'username2' }
