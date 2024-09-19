@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Wed, 11 Sep 2024 21:31:24 GMT and should not be manually modified.
+This log was last generated on Wed, 18 Sep 2024 20:24:09 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 32.2.6
+
+Wed, 18 Sep 2024 20:24:09 GMT
+
+### Patches
+
+- Fix for selected option display text being updated in DOM not being reflected in display of select. ([ni/nimble@e83065a](https://github.com/ni/nimble/commit/e83065ac2ed9b3bed2996e848c8223d31ea6890b))
 
 ## 32.2.5
 
