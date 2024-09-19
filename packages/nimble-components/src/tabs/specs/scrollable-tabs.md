@@ -47,7 +47,7 @@ With the introduction of a means to scroll through the tabs with the mouse, it s
 
 #### Focusable scroll buttons
 
-Making the scroll buttons focusable was decided against, as interacting them with the keyboard provides no utility to a keyboard-only user. 
+Making the scroll buttons focusable was decided against, as interacting them with the keyboard provides no utility to a keyboard-only user.
 
 ## Open Issues
 
