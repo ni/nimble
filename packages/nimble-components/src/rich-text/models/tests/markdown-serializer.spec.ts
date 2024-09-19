@@ -337,7 +337,8 @@ Plain text 3`);
 <user:1> `);
         });
 
-        it('Mention node', async () => {
+        // Firefox skipped, see https://github.com/ni/nimble/issues/2404
+        it('Mention node #SkipFirefox', async () => {
             await appendUserMentionConfiguration(element, [
                 { key: 'user:1', displayName: 'username1' }
             ]);

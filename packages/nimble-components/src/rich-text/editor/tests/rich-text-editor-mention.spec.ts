@@ -1542,7 +1542,8 @@ describe('RichTextEditorMentionListbox', () => {
             expect(pageObject.isMentionListboxOpened()).toBeTrue();
         });
 
-        it('should show mention popup for multiple mention configuration elements', async () => {
+        // Firefox skipped, see https://github.com/ni/nimble/issues/2404
+        it('should show mention popup for multiple mention configuration elements #SkipFirefox', async () => {
             await appendUserMentionConfiguration(element, [
                 { key: 'user:1', displayName: 'username1' },
                 { key: 'user:2', displayName: 'username2' }
