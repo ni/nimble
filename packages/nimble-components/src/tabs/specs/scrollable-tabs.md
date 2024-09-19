@@ -51,4 +51,4 @@ Making the scroll buttons focusable was decided against, as interacting them wit
 
 ## Open Issues
 
--   A decision on how we want the scroll buttons to react to the keyboard (i.e. accessible from tab stops, only via arrow keys, or not at all).
+None.
