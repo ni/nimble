@@ -59,6 +59,12 @@ export class AnchorTabs extends FoundationElement {
     public tabs!: HTMLElement[];
 
     /**
+     * @internal
+     */
+    @observable
+    public showScrollButtons = false;
+
+    /**
      * A reference to the active tab
      * @public
      */
@@ -68,9 +74,21 @@ export class AnchorTabs extends FoundationElement {
      * A reference to the tablist div
      * @internal
      */
-    public tablist!: HTMLElement;
+    public tabList!: HTMLElement;
 
+    private readonly tabListResizeObserver: ResizeObserver;
     private tabIds: string[] = [];
+
+    public constructor() {
+        super();
+        this.tabListResizeObserver = new ResizeObserver(entries => {
+            let tabsContainerWidth = entries[0]?.contentRect.width;
+            if (tabsContainerWidth) {
+                tabsContainerWidth = Math.ceil(tabsContainerWidth);
+                this.showScrollButtons = tabsContainerWidth < this.tabList.scrollWidth;
+            }
+        });
+    }
 
     /**
      * @internal
@@ -94,9 +112,31 @@ export class AnchorTabs extends FoundationElement {
     /**
      * @internal
      */
+    public onScrollLeftClick(): void {
+        this.tabList.scrollLeft = Math.max(
+            0,
+            this.tabList.scrollLeft - this.tabList.clientWidth
+        );
+    }
+
+    /**
+     * @internal
+     */
+    public onScrollRightClick(): void {
+        const scrollableWidth = this.tabList.clientWidth - this.tabList.scrollLeft;
+        if (scrollableWidth < this.tabList.scrollWidth) {
+            this.tabList.scrollLeft += this.tabList.clientWidth;
+        } else {
+            this.scrollLeft = this.tabList.scrollWidth - this.tabList.clientWidth;
+        }
+    }
+
+    /**
+     * @internal
+     */
     public override connectedCallback(): void {
         super.connectedCallback();
-
+        this.tabListResizeObserver.observe(this.tabList);
         this.tabIds = this.getTabIds();
     }
 

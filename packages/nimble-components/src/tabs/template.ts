@@ -1,20 +1,26 @@
-import { html, ref, slotted, ViewTemplate } from '@microsoft/fast-element';
+import { html, ref, slotted, when } from '@microsoft/fast-element';
+import type { ViewTemplate } from '@microsoft/fast-element';
 import {
     endSlotTemplate,
+    startSlotTemplate,
     FoundationElementTemplate,
-    startSlotTemplate
+    TabsOptions
 } from '@microsoft/fast-foundation';
-import type { AnchorTabs, TabsOptions } from '.';
+import type { Tabs } from '.';
 import { buttonTag } from '../button';
-import { iconArrowExpanderRightTag } from '../icons/arrow-expander-right';
-import { iconArrowExpanderLeftTag } from '../icons/arrow-expander-left';
 import { smallPadding } from '../theme-provider/design-tokens';
+import { iconArrowExpanderLeftTag } from '../icons/arrow-expander-left';
+import { iconArrowExpanderRightTag } from '../icons/arrow-expander-right';
 
+/**
+ * The template for the {@link @microsoft/fast-foundation#(Tabs:class)} component.
+ * @public
+ */
 export const template: FoundationElementTemplate<
-ViewTemplate<AnchorTabs>,
+ViewTemplate<Tabs>,
 TabsOptions
-> = (context, definition) => html<AnchorTabs>`
-    <template>
+> = (context, definition) => html`
+    <template class="${x => x.orientation}">
         <div class="tabsrootcontainer"
             style="
                 --ni-private-tabs-scroll-buttons-display: ${x => (x.showScrollButtons ? 'block' : 'none')};
@@ -30,8 +36,15 @@ TabsOptions
             >
                 <${iconArrowExpanderLeftTag} slot="start"></${iconArrowExpanderLeftTag}>
             </${buttonTag}>
-            <div ${ref('tabList')} class="tablist" part="tablist" role="tablist">
-                <slot name="anchortab" ${slotted('tabs')}></slot>
+            <div class="tablist" part="tablist" role="tablist" ${ref('tabsList')}>
+                <slot class="tab" name="tab" part="tab" ${slotted('tabs')}></slot>
+                ${when(x => x.showActiveIndicator, html<Tabs>`
+                    <div
+                        ${ref('activeIndicatorRef')}
+                        class="activeIndicator"
+                        part="activeIndicator"
+                    ></div>
+                `)}
             </div>
             <${buttonTag}
                 content-hidden
@@ -43,6 +56,9 @@ TabsOptions
                 <${iconArrowExpanderRightTag} slot="start"></${iconArrowExpanderRightTag}>
             </${buttonTag}>
             ${endSlotTemplate(context, definition)}
+        </div>
+        <div class="tabpanel" part="tabpanel">
+            <slot name="tabpanel" ${slotted('tabpanels')}></slot>
         </div>
     </template>
 `;

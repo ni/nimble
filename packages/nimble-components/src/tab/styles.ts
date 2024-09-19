@@ -30,6 +30,7 @@ export const styles = css`
         --ni-private-focus-indicator-width: 1px;
         --ni-private-indicator-lines-gap: 1px;
         --ni-private-focus-indicator-inset-width: 3px;
+        text-wrap: nowrap;
     }
 
     :host(:hover) {
