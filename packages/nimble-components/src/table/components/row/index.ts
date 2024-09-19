@@ -170,6 +170,11 @@ export class TableRow<
         return null;
     }
 
+    public override disconnectedCallback(): void {
+        super.disconnectedCallback();
+        this.removeColumnObservers();
+    }
+
     /** @internal */
     public onSelectionCheckboxChange(event: CustomEvent): void {
         if (this.ignoreSelectionChangeEvents) {
