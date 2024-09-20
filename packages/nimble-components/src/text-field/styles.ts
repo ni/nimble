@@ -171,6 +171,7 @@ export const styles = css`
     [part='end']::after {
         content: '';
         position: absolute;
+        margin-left: calc(-1 * (${borderWidth} + ${smallPadding}));
         bottom: calc(-1 * ${borderWidth});
         width: 0px;
         height: 0px;
