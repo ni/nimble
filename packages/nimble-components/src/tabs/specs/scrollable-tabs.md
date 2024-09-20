@@ -35,6 +35,10 @@ Only the tabs themselves will be scrollable. The scroll buttons will only surrou
 
 ![Scrollable Tabs with Toolbar](./spec-images/scrollable-tabs-toolbar.png)
 
+#### Minimum scroll area width
+
+As the tab list view width is now resizable, we must consider the scenario where the view is shrunk considerably. Preventing the scrollable area from disappearing completely seems desirable, and so we will set the CSS `minimum-width` property on the container of the tabs to be `4 * ${controlHeight}` (wide enough for both scroll buttons and extra space to see a good portion of at least one tab).
+
 ## Alternative Implementations / Designs
 
 Another way to display tabs that would otherwise exceed the horizontal visible area is to provide multiple rows of tabs. If we ever wanted to provide this ability to a user, we could always provide an API that allows them to switch between a `scrollable` and a `stacked` mode.
