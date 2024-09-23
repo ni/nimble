@@ -1,5 +1,5 @@
-import { AnchorTabs } from '..';
-import { Button } from '../../button';
+import type { AnchorTabs } from '..';
+import type { Button } from '../../button';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 
 /**

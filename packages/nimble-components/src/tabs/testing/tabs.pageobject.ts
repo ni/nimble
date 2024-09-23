@@ -1,5 +1,5 @@
-import { Tabs } from '..';
-import { Button } from '../../button';
+import type { Tabs } from '..';
+import type { Button } from '../../button';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 
 /**
