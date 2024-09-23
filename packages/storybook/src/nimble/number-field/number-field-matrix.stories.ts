@@ -19,7 +19,7 @@ import {
     errorStatesNoError,
     errorStatesErrorWithMessage,
     ReadOnlyState,
-    readOnlyStates,
+    readOnlyStates
 } from '../../utilities/states';
 import { hiddenWrapper } from '../../utilities/hidden';
 import { textCustomizationWrapper } from '../../utilities/text-customization';
