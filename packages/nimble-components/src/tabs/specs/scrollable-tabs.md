@@ -37,7 +37,7 @@ Only the tabs themselves will be scrollable. The scroll buttons will only surrou
 
 #### Minimum scroll area width
 
-As the tab list view width is now resizable, we must consider the scenario where the view is shrunk considerably. Preventing the scrollable area from disappearing completely seems desirable, and so we will set the CSS `minimum-width` property on the container of the tabs to be `4 * ${controlHeight}` (wide enough for both scroll buttons and extra space to see a good portion of at least one tab).
+As the tab list view width is now resizable, we must consider the scenario where the view is shrunk considerably. Preventing the scrollable area from disappearing completely seems desirable, and so we will set the CSS `min-width` property on the container of the tabs to be `4 * ${controlHeight}` (wide enough for both scroll buttons and extra space to see a good portion of at least one tab).
 
 ## Alternative Implementations / Designs
 
