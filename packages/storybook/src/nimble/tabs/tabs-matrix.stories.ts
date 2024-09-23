@@ -28,12 +28,20 @@ const metadata: Meta = {
 
 export default metadata;
 
+const widthStates = [
+    ['', false],
+    ['250px', true]
+] as const;
+type WidthState = (typeof widthStates)[number];
+
 // prettier-ignore
 const component = (
     toolbar: TabsToolbarState,
-    [disabledName, disabled]: DisabledState
+    [disabledName, disabled]: DisabledState,
+    [widthValue, setWidth]: WidthState
+
 ): ViewTemplate => html`
-    <${tabsTag} style="padding: 15px;">
+    <${tabsTag} style="padding: 15px; width: ${() => (setWidth ? widthValue : '')};">
         ${when(() => toolbar, html`
             <${tabsToolbarTag}>
                 <${buttonTag} appearance="ghost">Toolbar Button</${buttonTag}>
@@ -45,14 +53,16 @@ const component = (
             Tab Two ${() => disabledName}
         </${tabTag}>
         <${tabTag} hidden>Tab Three</${tabTag}>
+        <${tabTag}>Tab Four</${tabTag}>
         <${tabPanelTag}>Tab content one</${tabPanelTag}>
         <${tabPanelTag}>Tab content two</${tabPanelTag}>
         <${tabPanelTag}>Tab content three</${tabPanelTag}>
+        <${tabPanelTag}>Tab content four</${tabPanelTag}>
     </${tabsTag}>
 `;
 
 export const tabsThemeMatrix: StoryFn = createMatrixThemeStory(
-    createMatrix(component, [tabsToolbarStates, disabledStates])
+    createMatrix(component, [tabsToolbarStates, disabledStates, widthStates])
 );
 
 export const hiddenTabs: StoryFn = createStory(

@@ -1,5 +1,6 @@
 import { css } from '@microsoft/fast-element';
 import { display } from '../utilities/style/display';
+import { controlHeight } from '../theme-provider/design-tokens';
 
 export const styles = css`
     ${display('flex')}
@@ -16,15 +17,10 @@ export const styles = css`
         display: none;
     }
 
-    .scroll-button {
-        display: var(--ni-private-tabs-scroll-buttons-display);
-    }
-
     .tablist {
-        display: grid;
-        grid-template-rows: auto auto;
-        grid-template-columns: auto;
+        display: flex;
         width: max-content;
+        min-width: calc(2 * ${controlHeight});
         align-self: end;
         overflow-x: scroll;
         scrollbar-width: none;

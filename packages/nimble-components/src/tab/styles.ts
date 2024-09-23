@@ -26,11 +26,11 @@ export const styles = css`
         align-items: center;
         justify-content: center;
         cursor: pointer;
+        text-wrap: nowrap;
         --ni-private-active-indicator-width: 2px;
         --ni-private-focus-indicator-width: 1px;
         --ni-private-indicator-lines-gap: 1px;
         --ni-private-focus-indicator-inset-width: 3px;
-        text-wrap: nowrap;
     }
 
     :host(:hover) {

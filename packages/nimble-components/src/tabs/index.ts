@@ -53,6 +53,11 @@ export class Tabs extends FoundationTabs {
         this.tabListResizeObserver.observe(this.tabsList);
     }
 
+    public override activeidChanged(oldValue: string, newValue: string): void {
+        super.activeidChanged(oldValue, newValue);
+        this.activetab?.scrollIntoView();
+    }
+
     public onScrollLeftClick(): void {
         this.tabsList.scrollLeft = Math.max(
             0,

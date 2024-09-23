@@ -14,6 +14,7 @@ import '../../anchor-tab';
 import type { AnchorTab } from '../../anchor-tab';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import { fixture, Fixture } from '../../utilities/tests/fixture';
+import { AnchorTabsPageObject } from '../testing/anchor-tabs.pageobject';
 
 describe('AnchorTabs', () => {
     let element: AnchorTabs;
@@ -378,6 +379,107 @@ describe('AnchorTabs', () => {
             );
             await waitForUpdatesAsync();
             expect(document.activeElement).toBe(tab(0));
+        });
+    });
+
+    describe('scroll buttons', () => {
+        async function setup(): Promise<Fixture<AnchorTabs>> {
+            return fixture<AnchorTabs>(
+                html`<nimble-anchor-tabs activeid="tab-two">
+                    <nimble-anchor-tab>Tab One</nimble-anchor-tab>
+                    <nimble-anchor-tab id="tab-two">Tan Two</nimble-anchor-tab>
+                    <nimble-anchor-tab id="tab-three"
+                        >Tab Three</nimble-anchor-tab
+                    >
+                    <nimble-anchor-tab id="tab-four"
+                        >Tab Four</nimble-anchor-tab
+                    >
+                    <nimble-anchor-tab id="tab-five"
+                        >Tab Five</nimble-anchor-tab
+                    >
+                    <nimble-anchor-tab id="tab-six">Tab Six</nimble-anchor-tab>
+                </nimble-anchor-tabs>`
+            );
+        }
+
+        let tabsPageObject: AnchorTabsPageObject;
+
+        beforeEach(async () => {
+            ({ element, connect, disconnect } = await setup());
+            await connect();
+            tabsPageObject = new AnchorTabsPageObject(element);
+        });
+
+        it('should not show scroll buttons when the tabs fit within the container', async () => {
+            expect(tabsPageObject.areScrollButtonsVisible()).toBe(false);
+
+            await disconnect();
+        });
+
+        it('should show scroll buttons when the tabs overflow the container', async () => {
+            await tabsPageObject.setAnchorTabsWidth(300);
+            await waitForUpdatesAsync(); // wait for the resize observer to fire
+            expect(tabsPageObject.areScrollButtonsVisible()).toBe(true);
+
+            await disconnect();
+        });
+
+        it('should hide scroll buttons when the tabs no longer overflow the container', async () => {
+            await tabsPageObject.setAnchorTabsWidth(300);
+            await waitForUpdatesAsync(); // wait for the resize observer to fire
+            await tabsPageObject.setAnchorTabsWidth(1000);
+            await waitForUpdatesAsync(); // wait for the resize observer to fire
+            expect(tabsPageObject.areScrollButtonsVisible()).toBe(false);
+
+            await disconnect();
+        });
+
+        it('should scroll left when the left scroll button is clicked', async () => {
+            await tabsPageObject.setAnchorTabsWidth(300);
+            await waitForUpdatesAsync(); // wait for the resize observer to fire
+            element.activeid = 'tab-six'; // scrolls to the last tab
+            const currentScrollLeft = element.shadowRoot!.querySelector('.tablist')!.scrollLeft;
+            await tabsPageObject.clickScrollLeftButton();
+            expect(
+                element.shadowRoot!.querySelector('.tablist')!.scrollLeft
+            ).toBeLessThan(currentScrollLeft);
+
+            await disconnect();
+        });
+
+        it('should not scroll left when the left scroll button is clicked and the first tab is active', async () => {
+            await tabsPageObject.setAnchorTabsWidth(300);
+            await waitForUpdatesAsync(); // wait for the resize observer to fire
+            await tabsPageObject.clickScrollLeftButton();
+            expect(
+                element.shadowRoot!.querySelector('.tablist')!.scrollLeft
+            ).toBe(0);
+
+            await disconnect();
+        });
+
+        it('should scroll right when the right scroll button is clicked', async () => {
+            await tabsPageObject.setAnchorTabsWidth(300);
+            await waitForUpdatesAsync(); // wait for the resize observer to fire
+            await tabsPageObject.clickScrollRightButton();
+            expect(
+                element.shadowRoot!.querySelector('.tablist')!.scrollLeft
+            ).toBeGreaterThan(0);
+
+            await disconnect();
+        });
+
+        it('should not scroll right when the right scroll button is clicked and the last tab is active', async () => {
+            await tabsPageObject.setAnchorTabsWidth(300);
+            await waitForUpdatesAsync(); // wait for the resize observer to fire
+            element.activeid = 'tab-six'; // scrolls to the last tab
+            const currentScrollLeft = element.shadowRoot!.querySelector('.tablist')!.scrollLeft;
+            await tabsPageObject.clickScrollRightButton();
+            expect(
+                element.shadowRoot!.querySelector('.tablist')!.scrollLeft
+            ).toBe(currentScrollLeft);
+
+            await disconnect();
         });
     });
 });

@@ -96,6 +96,7 @@ export class AnchorTabs extends FoundationElement {
     public activeidChanged(_oldValue: string, _newValue: string): void {
         if (this.$fastController.isConnected) {
             this.setTabs();
+            this.activetab?.scrollIntoView();
         }
     }
 

@@ -21,23 +21,32 @@ ViewTemplate<Tabs>,
 TabsOptions
 > = (context, definition) => html`
     <template class="${x => x.orientation}">
-        <div class="tabsrootcontainer"
+        <div
+            class="tabsrootcontainer"
             style="
-                --ni-private-tabs-scroll-buttons-display: ${x => (x.showScrollButtons ? 'block' : 'none')};
                 --ni-private-tabs-container-padding: ${x => (x.showScrollButtons ? smallPadding.getValueFor(x) : '0px')};
-            ">
+            "
+        >
             ${startSlotTemplate(context, definition)}
-            <${buttonTag} 
-                content-hidden
-                class="scroll-button"
-                appearance="ghost"
-                tabindex="-1"
-                @click="${x => x.onScrollLeftClick()}"
+            ${when(x => x.showScrollButtons, html<Tabs>`
+                <${buttonTag} 
+                    content-hidden
+                    class="scroll-button left"
+                    appearance="ghost"
+                    tabindex="-1"
+                    @click="${x => x.onScrollLeftClick()}"
+                >
+                    <${iconArrowExpanderLeftTag} slot="start"></${iconArrowExpanderLeftTag}>
+                </${buttonTag}>
+            `)}
+            <div
+                class="tablist"
+                part="tablist"
+                role="tablist"
+                ${ref('tabsList')}
             >
-                <${iconArrowExpanderLeftTag} slot="start"></${iconArrowExpanderLeftTag}>
-            </${buttonTag}>
-            <div class="tablist" part="tablist" role="tablist" ${ref('tabsList')}>
-                <slot class="tab" name="tab" part="tab" ${slotted('tabs')}></slot>
+                <slot class="tab" name="tab" part="tab" ${slotted('tabs')}>
+                </slot>
                 ${when(x => x.showActiveIndicator, html<Tabs>`
                     <div
                         ${ref('activeIndicatorRef')}
@@ -46,15 +55,17 @@ TabsOptions
                     ></div>
                 `)}
             </div>
-            <${buttonTag}
-                content-hidden
-                class="scroll-button right"
-                appearance="ghost"
-                tabindex="-1"
-                @click="${x => x.onScrollRightClick()}"
-            >
-                <${iconArrowExpanderRightTag} slot="start"></${iconArrowExpanderRightTag}>
-            </${buttonTag}>
+            ${when(x => x.showScrollButtons, html<Tabs>`
+                <${buttonTag}
+                    content-hidden
+                    class="scroll-button right"
+                    appearance="ghost"
+                    tabindex="-1"
+                    @click="${x => x.onScrollRightClick()}"
+                >
+                    <${iconArrowExpanderRightTag} slot="start"></${iconArrowExpanderRightTag}>
+                </${buttonTag}>
+            `)}
             ${endSlotTemplate(context, definition)}
         </div>
         <div class="tabpanel" part="tabpanel">

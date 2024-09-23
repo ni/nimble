@@ -1,4 +1,10 @@
-import { html, ref, slotted, ViewTemplate } from '@microsoft/fast-element';
+import {
+    html,
+    ref,
+    slotted,
+    ViewTemplate,
+    when
+} from '@microsoft/fast-element';
 import {
     endSlotTemplate,
     FoundationElementTemplate,
@@ -15,33 +21,43 @@ ViewTemplate<AnchorTabs>,
 TabsOptions
 > = (context, definition) => html<AnchorTabs>`
     <template>
-        <div class="tabsrootcontainer"
+        <div
+            class="tabsrootcontainer"
             style="
-                --ni-private-tabs-scroll-buttons-display: ${x => (x.showScrollButtons ? 'block' : 'none')};
                 --ni-private-tabs-container-padding: ${x => (x.showScrollButtons ? smallPadding.getValueFor(x) : '0px')};
-            ">
+            "
+        >
             ${startSlotTemplate(context, definition)}
-            <${buttonTag} 
-                content-hidden
-                class="scroll-button"
-                appearance="ghost"
-                tabindex="-1"
-                @click="${x => x.onScrollLeftClick()}"
+            ${when(x => x.showScrollButtons, html<AnchorTabs>`
+                <${buttonTag} 
+                    content-hidden
+                    class="scroll-button left"
+                    appearance="ghost"
+                    tabindex="-1"
+                    @click="${x => x.onScrollLeftClick()}"
+                >
+                    <${iconArrowExpanderLeftTag} slot="start"></${iconArrowExpanderLeftTag}>
+                </${buttonTag}>
+            `)}
+            <div
+                ${ref('tabList')}
+                class="tablist"
+                part="tablist"
+                role="tablist"
             >
-                <${iconArrowExpanderLeftTag} slot="start"></${iconArrowExpanderLeftTag}>
-            </${buttonTag}>
-            <div ${ref('tabList')} class="tablist" part="tablist" role="tablist">
                 <slot name="anchortab" ${slotted('tabs')}></slot>
             </div>
-            <${buttonTag}
-                content-hidden
-                class="scroll-button right"
-                appearance="ghost"
-                tabindex="-1"
-                @click="${x => x.onScrollRightClick()}"
-            >
-                <${iconArrowExpanderRightTag} slot="start"></${iconArrowExpanderRightTag}>
-            </${buttonTag}>
+            ${when(x => x.showScrollButtons, html<AnchorTabs>`
+                <${buttonTag}
+                    content-hidden
+                    class="scroll-button right"
+                    appearance="ghost"
+                    tabindex="-1"
+                    @click="${x => x.onScrollRightClick()}"
+                >
+                    <${iconArrowExpanderRightTag} slot="start"></${iconArrowExpanderRightTag}>
+                </${buttonTag}>
+            `)}
             ${endSlotTemplate(context, definition)}
         </div>
     </template>
