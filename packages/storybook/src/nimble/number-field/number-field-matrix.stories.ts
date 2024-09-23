@@ -17,7 +17,9 @@ import {
     ErrorState,
     disabledStateIsEnabled,
     errorStatesNoError,
-    errorStatesErrorWithMessage
+    errorStatesErrorWithMessage,
+    ReadOnlyState,
+    readOnlyStates,
 } from '../../utilities/states';
 import { hiddenWrapper } from '../../utilities/hidden';
 import { textCustomizationWrapper } from '../../utilities/text-customization';
@@ -53,6 +55,7 @@ const metadata: Meta = {
 export default metadata;
 
 const component = (
+    [readOnlyName, readonly]: ReadOnlyState,
     [disabledName, disabled]: DisabledState,
     [hideStepName, hideStep]: HideStepState,
     [valueName, valueValue, placeholderValue]: ValueState,
@@ -65,17 +68,19 @@ const component = (
         placeholder="${() => placeholderValue}"
         appearance="${() => appearance}"
         ?hide-step="${() => hideStep}"
+        ?readonly="${() => readonly}"
         ?disabled="${() => disabled}"
         error-text="${() => errorText}"
         ?error-visible="${() => errorVisible}"
     >
         ${() => errorName} ${() => appearanceName} ${() => valueName}
-        ${() => hideStepName} ${() => disabledName}
+        ${() => hideStepName} ${() => disabledName} ${() => readOnlyName}
     </${numberFieldTag}>
 `;
 
 export const numberFieldThemeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(component, [
+        readOnlyStates,
         disabledStates,
         hideStepStates,
         valueStates,
@@ -85,6 +90,7 @@ export const numberFieldThemeMatrix: StoryFn = createMatrixThemeStory(
 );
 
 const interactionStatesHover = cartesianProduct([
+    readOnlyStates,
     disabledStates,
     [hideStepStateStepVisible],
     [valueStatesHasValue],
@@ -93,6 +99,7 @@ const interactionStatesHover = cartesianProduct([
 ] as const);
 
 const interactionStates = cartesianProduct([
+    readOnlyStates,
     [disabledStateIsEnabled],
     [hideStepStateStepVisible],
     [valueStatesHasValue],

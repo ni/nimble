@@ -181,6 +181,9 @@ export const iconDescription = 'Set `slot="start"` to include an icon before the
 export const disabledDescription = (options: {
     componentName: string
 }): string => `Styles the ${options.componentName} as disabled and prevents focus and user interaction.`;
+export const readonlyDescription = (options: {
+    componentName: string
+}): string => `Disallows input on the ${options.componentName} while maintaining enabled appearance.`;
 export const slottedLabelDescription = (options: {
     componentName: string
 }): string => `Label text to display adjacent to the ${options.componentName} describing its purpose to the user.`;
