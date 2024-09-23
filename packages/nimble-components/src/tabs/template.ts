@@ -12,10 +12,7 @@ import { smallPadding } from '../theme-provider/design-tokens';
 import { iconArrowExpanderLeftTag } from '../icons/arrow-expander-left';
 import { iconArrowExpanderRightTag } from '../icons/arrow-expander-right';
 
-/**
- * The template for the {@link @microsoft/fast-foundation#(Tabs:class)} component.
- * @public
- */
+// prettier-ignore
 export const template: FoundationElementTemplate<
 ViewTemplate<Tabs>,
 TabsOptions

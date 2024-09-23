@@ -16,6 +16,7 @@ import { iconArrowExpanderRightTag } from '../icons/arrow-expander-right';
 import { iconArrowExpanderLeftTag } from '../icons/arrow-expander-left';
 import { smallPadding } from '../theme-provider/design-tokens';
 
+// prettier-ignore
 export const template: FoundationElementTemplate<
 ViewTemplate<AnchorTabs>,
 TabsOptions
