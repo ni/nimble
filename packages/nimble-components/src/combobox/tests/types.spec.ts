@@ -4,6 +4,7 @@ describe('ComboboxAutocomplete type', () => {
     it('ComboboxAutocomplete fails compile if assigning arbitrary string values', () => {
         // @ts-expect-error This expect will fail if the enum-like type is missing "as const"
         const autocomplete: ComboboxAutocomplete = 'hello';
+        // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
         expect(autocomplete!).toEqual('hello');
     });
 });
