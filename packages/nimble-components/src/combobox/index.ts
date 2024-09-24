@@ -632,15 +632,12 @@ export class Combobox
      */
     protected override focusAndScrollOptionIntoView(): void {
         if (this.open) {
-            if (this.contains(document.activeElement)) {
-                this.control.focus();
-                if (this.firstSelectedOption) {
-                    requestAnimationFrame(() => {
-                        this.firstSelectedOption?.scrollIntoView({
-                            block: 'nearest'
-                        });
+            if (this.firstSelectedOption) {
+                requestAnimationFrame(() => {
+                    this.firstSelectedOption?.scrollIntoView({
+                        block: 'nearest'
                     });
-                }
+                });
             }
         }
     }

@@ -519,7 +519,7 @@ describe('Combobox', () => {
             // prettier-ignore
             const viewTemplate = html`
                 <${comboboxTag}
-                    autocomplete="list"
+                    autocomplete="none"
                 >
                     ${repeat(() => [...Array(500).keys()], html<number>`
                         <${listOptionTag}>${x => x}</${listOptionTag}>
