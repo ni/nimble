@@ -220,9 +220,7 @@ export class Combobox
     private forcedPosition = false;
 
     private get isAutocompleteList(): boolean {
-        return (
-            this.autocomplete === ComboboxAutocomplete.list
-        );
+        return this.autocomplete === ComboboxAutocomplete.list;
     }
 
     public override slottedOptionsChanged(
@@ -343,9 +341,7 @@ export class Combobox
         this.filter = this.control.value;
         this.filterOptions();
 
-        this.selectedIndex = this.findIndexOfValidOption(
-            this.control.value
-        );
+        this.selectedIndex = this.findIndexOfValidOption(this.control.value);
 
         if (!e.inputType.includes('deleteContent') && this.filter.length) {
             if (this.isAutocompleteList && !this.open) {
