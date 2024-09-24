@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-tokens
 
-This log was last generated on Tue, 03 Sep 2024 15:34:50 GMT and should not be manually modified.
+This log was last generated on Thu, 05 Sep 2024 16:43:39 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 8.3.0
+
+Thu, 05 Sep 2024 16:43:39 GMT
+
+### Minor changes
+
+- Add new icons for install and uninstall software ([ni/nimble@aebf4f3](https://github.com/ni/nimble/commit/aebf4f3c222b8a404ecf0c3b5c9595205e1dc7a8))
 
 ## 8.2.0
 

@@ -37,6 +37,7 @@ export const styles = css`
             color: ${buttonLabelFontColor};
             font: ${buttonLabelFont};
             cursor: pointer;
+            white-space: nowrap;
             outline: none;
             border: none;
             ${

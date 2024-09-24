@@ -9,6 +9,7 @@ import {
 import {
     Checkbox,
     DesignSystem,
+    DesignTokenSubscriber,
     FoundationElement
 } from '@microsoft/fast-foundation';
 import {
@@ -65,6 +66,7 @@ import { waitUntilCustomElementsDefinedAsync } from '../utilities/wait-until-cus
 import { ColumnValidator } from '../table-column/base/models/column-validator';
 import { uniquifySlotNameForColumnId } from './models/utilities';
 import { KeyboardNavigationManager } from './models/keyboard-navigation-manager';
+import { borderWidth, controlHeight } from '../theme-provider/design-tokens';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -251,6 +253,13 @@ export class Table<
     @observable
     public windowShiftKeyDown = false;
 
+    /**
+     * @internal
+     */
+    public get rowHeight(): number {
+        return this._rowHeight;
+    }
+
     private readonly table: TanStackTable<TableNode<TData>>;
     private options: TanStackTableOptionsResolved<TableNode<TData>>;
     private readonly tableValidator = new TableValidator<TData>();
@@ -260,6 +269,7 @@ export class Table<
     private readonly expansionManager: ExpansionManager<TData>;
     private columnNotifiers: Notifier[] = [];
     private readonly layoutManagerNotifier: Notifier;
+    private _rowHeight = 0;
     private isInitialized = false;
     // Programmatically updating the selection state of a checkbox fires the 'change' event.
     // Therefore, selection change events that occur due to programmatically updating
@@ -272,6 +282,22 @@ export class Table<
     string,
     { recordId: string, uniqueSlot: string }
     > = new Map();
+
+    private readonly borderWidthSubscriber: DesignTokenSubscriber<
+        typeof borderWidth
+    > = {
+            handleChange: () => {
+                this.updateRowHeight();
+            }
+        };
+
+    private readonly controlHeightSubscriber: DesignTokenSubscriber<
+        typeof controlHeight
+    > = {
+            handleChange: () => {
+                this.updateRowHeight();
+            }
+        };
 
     private actionMenuSlots: string[] = [];
 
@@ -362,6 +388,7 @@ export class Table<
     public override connectedCallback(): void {
         super.connectedCallback();
         this.initialize();
+        this.updateRowHeight();
         this.virtualizer.connect();
         this.viewport.addEventListener('scroll', this.onViewPortScroll, {
             passive: true
@@ -370,6 +397,8 @@ export class Table<
         window.addEventListener('keydown', this.onKeyDown);
         window.addEventListener('keyup', this.onKeyUp);
         window.addEventListener('blur', this.onBlur);
+        borderWidth.subscribe(this.borderWidthSubscriber, this);
+        controlHeight.subscribe(this.controlHeightSubscriber, this);
     }
 
     public override disconnectedCallback(): void {
@@ -380,6 +409,8 @@ export class Table<
         window.removeEventListener('keydown', this.onKeyDown);
         window.removeEventListener('keyup', this.onKeyUp);
         window.removeEventListener('blur', this.onBlur);
+        borderWidth.unsubscribe(this.borderWidthSubscriber);
+        controlHeight.unsubscribe(this.controlHeightSubscriber);
     }
 
     public checkValidity(): boolean {
@@ -1331,6 +1362,12 @@ export class Table<
         }
 
         return tanstackSelectionState;
+    }
+
+    private updateRowHeight(): void {
+        this._rowHeight = parseFloat(controlHeight.getValueFor(this))
+            + 2 * parseFloat(borderWidth.getValueFor(this));
+        this.virtualizer?.updateRowHeight();
     }
 }
 

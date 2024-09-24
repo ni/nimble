@@ -171,6 +171,7 @@ implements Subscriber {
             for (const visibleRow of this.table.rowElements) {
                 const rowNotifier = Observable.getNotifier(visibleRow);
                 rowNotifier.subscribe(this, 'resolvedRowIndex');
+                this.visibleRowNotifiers.push(rowNotifier);
                 if (visibleRow.resolvedRowIndex === this.rowIndex) {
                     focusRowAndCell = true;
                 }
