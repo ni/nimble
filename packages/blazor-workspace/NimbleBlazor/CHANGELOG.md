@@ -1,8 +1,81 @@
 # Change Log - @ni/nimble-blazor
 
-This log was last generated on Tue, 03 Sep 2024 20:12:33 GMT and should not be manually modified.
+This log was last generated on Wed, 18 Sep 2024 20:24:09 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 18.2.5
+
+Wed, 18 Sep 2024 20:24:09 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v32.2.6
+
+## 18.2.4
+
+Wed, 11 Sep 2024 21:31:24 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v32.2.5
+
+## 18.2.3
+
+Wed, 11 Sep 2024 20:57:36 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v32.2.4
+
+## 18.2.2
+
+Wed, 11 Sep 2024 11:58:13 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v32.2.3
+
+## 18.2.1
+
+Tue, 10 Sep 2024 23:42:07 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v32.2.2
+
+## 18.2.0
+
+Thu, 05 Sep 2024 22:40:46 GMT
+
+### Minor changes
+
+- Add missing string to core label provider ([ni/nimble@ff9ee54](https://github.com/ni/nimble/commit/ff9ee547c490e5b5ed6eb35ede2276489b9de082))
+
+## 18.1.1
+
+Thu, 05 Sep 2024 17:34:12 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v32.2.1
+
+## 18.1.0
+
+Thu, 05 Sep 2024 16:43:39 GMT
+
+### Minor changes
+
+- Bump @ni/nimble-components to v32.2.0
+- Bump @ni/nimble-tokens to v8.3.0
+
+## 18.0.5
+
+Wed, 04 Sep 2024 23:50:47 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v32.1.2
 
 ## 18.0.4
 

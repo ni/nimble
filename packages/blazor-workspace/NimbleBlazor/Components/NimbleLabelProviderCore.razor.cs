@@ -31,6 +31,9 @@ public partial class NimbleLabelProviderCore : ComponentBase
     [Parameter]
     public string? FilterNoResults { get; set; }
 
+    [Parameter]
+    public string? Loading { get; set; }
+
     /// <summary>
     /// Gets or sets a collection of additional attributes that will be applied to the created element.
     /// </summary>

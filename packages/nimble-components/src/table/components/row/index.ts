@@ -133,6 +133,12 @@ export class TableRow<
     @observable
     public animationClass = '';
 
+    /**
+     * @internal
+     */
+    @attr({ attribute: 'allow-hover', mode: 'boolean' })
+    public allowHover = false;
+
     @volatile
     public get isTopLevelParentRow(): boolean {
         return this.isParentRow && this.nestingLevel === 0;
@@ -162,6 +168,11 @@ export class TableRow<
         }
 
         return null;
+    }
+
+    public override disconnectedCallback(): void {
+        super.disconnectedCallback();
+        this.removeColumnObservers();
     }
 
     /** @internal */

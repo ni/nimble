@@ -35,7 +35,8 @@ describe('Nimble LabelProviderCore withDefaults directive', () => {
             [computeMsgId('Warning', 'Nimble popup icon - warning')]: 'Translated warning',
             [computeMsgId('Information', 'Nimble popup icon - information')]: 'Translated information',
             [computeMsgId('Search', 'Nimble select - search items')]: 'Translated search',
-            [computeMsgId('No items found', 'Nimble select - no items')]: 'Translated no items found'
+            [computeMsgId('No items found', 'Nimble select - no items')]: 'Translated no items found',
+            [computeMsgId('Loading…', 'Nimble loading - loading')]: 'Translated loading'
         });
         const fixture = TestBed.createComponent(TestHostComponent);
         const testHostComponent = fixture.componentInstance;
@@ -52,5 +53,6 @@ describe('Nimble LabelProviderCore withDefaults directive', () => {
         expect(labelProvider.popupIconInformation).toBe('Translated information');
         expect(labelProvider.filterSearch).toBe('Translated search');
         expect(labelProvider.filterNoResults).toBe('Translated no items found');
+        expect(labelProvider.loading).toBe('Translated loading');
     });
 });
