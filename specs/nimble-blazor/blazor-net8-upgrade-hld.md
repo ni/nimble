@@ -25,7 +25,10 @@ Related work items:
   - Update code analyzer package versions to latest versions
   - Resolve build warnings (mostly due to new code analysis rules)
   - Update/recreate demo projects based on newer Blazor .NET 8 templates
-  - Test all supported Blazor [render modes](https://learn.microsoft.com/en-us/aspnet/core/blazor/components/render-modes?view=aspnetcore-8.0#render-modes) with our components. Evaluate how to represent each in example projects/ docs/ acceptance tests (if possible).
+  - Blazor [render modes](https://learn.microsoft.com/en-us/aspnet/core/blazor/components/render-modes?view=aspnetcore-8.0#render-modes):
+    - Test each render mode with our components
+    - Evaluate how to represent each in example projects/ docs/ acceptance tests (if possible)
+    - Render modes: Static Server, Interactive Server, Interactive WebAssembly, Interactive Auto
   - Ensure adequate test coverage, especially of interactions with Blazor initialization / lifecycle code.
 - Update documentation and readme files
   - Ensure correct getting started instructions, required .NET SDK versions, etc.
