@@ -25,7 +25,11 @@ Related work items:
   - Update code analyzer package versions to latest versions
   - Resolve build warnings (mostly due to new code analysis rules)
   - Update/recreate demo projects based on newer Blazor .NET 8 templates
+  - Test all supported Blazor [render modes](https://learn.microsoft.com/en-us/aspnet/core/blazor/components/render-modes?view=aspnetcore-8.0#render-modes) with our components. Evaluate how to represent each in example projects/ docs/ acceptance tests (if possible).
   - Ensure adequate test coverage, especially of interactions with Blazor initialization / lifecycle code.
+- Update documentation and readme files
+  - Ensure correct getting started instructions, required .NET SDK versions, etc.
+  - Document which Blazor render modes are supported/ have been tested
 - Investigate and fix client-filed bugs associated with .NET 8
    - [nimble#2188: Possible race condition showing Blazor NimbleDialog during OnAfterRenderAsync](https://github.com/ni/nimble/issues/2188)
    - [nimble#2355: Blazor EventCallbacks are not invoked with apps using .NET 8 template](https://github.com/ni/nimble/issues/2355)
