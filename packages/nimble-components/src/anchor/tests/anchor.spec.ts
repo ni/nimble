@@ -5,7 +5,7 @@ import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import { fixture, Fixture } from '../../utilities/tests/fixture';
 
 async function setup(): Promise<Fixture<Anchor>> {
-    return fixture<Anchor>(html`<nimble-anchor></nimble-anchor>`);
+    return await fixture<Anchor>(html`<nimble-anchor></nimble-anchor>`);
 }
 
 describe('Anchor', () => {
@@ -156,7 +156,7 @@ describe('Anchor', () => {
 
     describe('with contenteditable without value', () => {
         async function setupWithContenteditable(): Promise<Fixture<Anchor>> {
-            return fixture<Anchor>(
+            return await fixture<Anchor>(
                 html`<nimble-anchor contenteditable></nimble-anchor>`
             );
         }

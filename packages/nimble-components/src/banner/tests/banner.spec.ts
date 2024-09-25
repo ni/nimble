@@ -12,7 +12,7 @@ import {
 import { buttonTag } from '../../button';
 
 async function setup(): Promise<Fixture<Banner>> {
-    return fixture<Banner>(html`
+    return await fixture<Banner>(html`
         <nimble-banner>
             <span slot="title">Title</span>
             Message text
@@ -21,7 +21,7 @@ async function setup(): Promise<Fixture<Banner>> {
 }
 
 async function setupWithLabelProvider(): Promise<Fixture<ThemeProvider>> {
-    return fixture<ThemeProvider>(html`
+    return await fixture<ThemeProvider>(html`
         <${themeProviderTag}>
             <${labelProviderCoreTag}></${labelProviderCoreTag}>
             <nimble-banner>

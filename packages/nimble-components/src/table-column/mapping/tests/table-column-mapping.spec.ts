@@ -447,7 +447,7 @@ describe('TableColumnMapping', () => {
 
         // prettier-ignore
         async function setupInvalidMappings(): Promise<Fixture<Table<SimpleTableRecord>>> {
-            return fixture<Table<SimpleTableRecord>>(
+            return await fixture<Table<SimpleTableRecord>>(
                 html`<${tableTag} style="width: 700px">
                         <${tableColumnMappingTag} field-name="field1">
                             Column 1

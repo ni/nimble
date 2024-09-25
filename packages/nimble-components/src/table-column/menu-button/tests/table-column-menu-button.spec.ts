@@ -49,7 +49,7 @@ describe('TableColumnMenuButton', () => {
 
     // prettier-ignore
     async function setup(source: ElementReferences): Promise<Fixture<Table<SimpleTableRecord>>> {
-        return fixture<Table<SimpleTableRecord>>(
+        return await fixture<Table<SimpleTableRecord>>(
             html`<${tableTag} ${ref('table')} style="width: 700px">
                     <${tableColumnMenuButtonTag} ${ref('column1')} field-name="field">
                         Menu button column 1

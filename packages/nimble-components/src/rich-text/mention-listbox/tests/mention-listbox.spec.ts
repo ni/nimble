@@ -31,7 +31,7 @@ describe('RichTextMentionListbox', () => {
         source: Model
     ): Promise<Fixture<RichTextMentionListbox>> {
         // prettier-ignore
-        return fixture<RichTextMentionListbox>(
+        return await fixture<RichTextMentionListbox>(
             html<Model>`
             <div>
                 <div ${ref('anchorDiv')}></div>

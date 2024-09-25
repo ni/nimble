@@ -60,7 +60,7 @@ class CustomSortTableColumn extends mixinCustomSortOrderColumnAPI(
 }
 
 async function setup(): Promise<Fixture<CustomSortTableColumn>> {
-    return fixture(customSortColumnName);
+    return await fixture(customSortColumnName);
 }
 
 describe('CustomSortOrderColumn', () => {

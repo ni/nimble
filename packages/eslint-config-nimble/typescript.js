@@ -32,7 +32,7 @@ module.exports = {
         'require-await': 'off',
         '@typescript-eslint/require-await': 'error',
         'no-return-await': 'off',
-        '@typescript-eslint/return-await': 'error',
+        '@typescript-eslint/return-await': ['error', 'always'],
 
         // This rule's configuration is based on the NI javascript styleguide:
         // https://github.com/ni/javascript-styleguide/blob/a1a6abd7adca7d9acd002705101b351d695b2442/packages/eslint-config-javascript/index.js

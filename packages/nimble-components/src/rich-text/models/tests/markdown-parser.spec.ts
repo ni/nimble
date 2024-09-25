@@ -958,7 +958,7 @@ describe('Markdown parser', () => {
             mappings: BasicUserMentionMapping[],
             pattern = ''
         ): Promise<Fixture<RichTextMentionUsers>> {
-            return fixture<RichTextMentionUsers>(html`
+            return await fixture<RichTextMentionUsers>(html`
                 <${richTextMentionUsersTag} pattern="${pattern}">
                     ${repeat(() => mappings, html<BasicUserMentionMapping>`
                         <${mappingUserTag}

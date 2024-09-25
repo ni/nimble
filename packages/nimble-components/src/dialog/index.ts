@@ -83,7 +83,7 @@ export class Dialog<CloseReason = void> extends FoundationElement {
             throw new Error('Dialog is already open');
         }
         this.dialogElement.showModal();
-        return new Promise((resolve, _reject) => {
+        return await new Promise((resolve, _reject) => {
             this.resolveShow = resolve;
         });
     }
