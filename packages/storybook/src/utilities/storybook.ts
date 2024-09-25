@@ -183,7 +183,7 @@ export const disabledDescription = (options: {
 }): string => `Styles the ${options.componentName} as disabled and prevents focus and user interaction.`;
 export const readonlyDescription = (options: {
     componentName: string
-}): string => `Disallows input on the ${options.componentName} while maintaining enabled appearance.`;
+}): string => `Styles the ${options.componentName} as readonly and prevents the user from changing the value.`;
 export const slottedLabelDescription = (options: {
     componentName: string
 }): string => `Label text to display adjacent to the ${options.componentName} describing its purpose to the user.`;
