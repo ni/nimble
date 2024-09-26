@@ -1,8 +1,32 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Wed, 18 Sep 2024 20:24:09 GMT and should not be manually modified.
+<!-- This log was last generated on Thu, 26 Sep 2024 17:20:39 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 32.2.9
+
+Thu, 26 Sep 2024 17:20:39 GMT
+
+### Patches
+
+- Update internal spacing between elements within the nimble-text-field ([ni/nimble@81ac3b9](https://github.com/ni/nimble/commit/81ac3b96a4247bb5c55989ffc1b784887b436227))
+
+## 32.2.8
+
+Thu, 26 Sep 2024 15:22:45 GMT
+
+### Patches
+
+- Dependency updates ([ni/nimble@c17dc0b](https://github.com/ni/nimble/commit/c17dc0b532d107a1866580ed8c8d3ef3e4f61e71))
+
+## 32.2.7
+
+Wed, 25 Sep 2024 22:17:40 GMT
+
+### Patches
+
+- Add styling for readonly number field ([ni/nimble@f43d473](https://github.com/ni/nimble/commit/f43d4732ed6245c610030066f7fc6e551b441725))
 
 ## 32.2.6
 
