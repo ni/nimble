@@ -51,7 +51,7 @@ export async function waitForEvent<T extends Event>(
     eventName: string,
     callback?: (evt: T) => void
 ): Promise<void> {
-    return new Promise(resolve => {
+    await new Promise<void>(resolve => {
         const handler = ((evt: T): void => {
             callback?.(evt);
             resolve();
@@ -66,7 +66,7 @@ export async function waitForEvent<T extends Event>(
  * Waits for a requested animation frame to occur.
  */
 export async function waitAnimationFrame(): Promise<void> {
-    return new Promise(resolve => {
+    await new Promise<void>(resolve => {
         requestAnimationFrame(() => resolve());
     });
 }

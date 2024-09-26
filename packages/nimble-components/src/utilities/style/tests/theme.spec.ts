@@ -148,7 +148,7 @@ describe('The ThemeStylesheetBehavior', () => {
                 </nimble-theme-provider>
             `;
 
-            return fixture<ThemeProvider>(fixtureTemplate, {
+            return await fixture<ThemeProvider>(fixtureTemplate, {
                 source: themeController
             });
         };
@@ -305,7 +305,7 @@ describe('The ThemeStylesheetBehavior', () => {
                 </nimble-theme-provider>
             `;
 
-            return fixture<ThemeProvider>(fixtureTemplate, {
+            return await fixture<ThemeProvider>(fixtureTemplate, {
                 source: themeController
             });
         };

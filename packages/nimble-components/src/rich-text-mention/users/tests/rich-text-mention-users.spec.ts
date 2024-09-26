@@ -59,7 +59,7 @@ describe('RichTextMentionUsers', () => {
         mappings: BasicUserMentionMapping[],
         pattern: string
     }): Promise<Fixture<RichTextMentionUsers>> {
-        return fixture<RichTextMentionUsers>(html`
+        return await fixture<RichTextMentionUsers>(html`
             <${richTextMentionUsersTag} pattern="${options.pattern}">
                 ${repeat(() => options.mappings, html<BasicUserMentionMapping>`
                     <${mappingUserTag}
@@ -345,7 +345,7 @@ describe('RichTextMentionUsers', () => {
         async function setupInvalidMappings(): Promise<
         Fixture<RichTextMentionUsers>
         > {
-            return fixture<RichTextMentionUsers>(html`
+            return await fixture<RichTextMentionUsers>(html`
                 <${richTextMentionUsersTag} pattern="">
                     <${mappingUserTag} key="foo" label="foo"></${mappingUserTag}>
                     <${mappingTextTag} key="foo" label="foo"></${mappingTextTag}>
@@ -363,7 +363,7 @@ describe('RichTextMentionUsers', () => {
         async function setupMissingPattern(): Promise<
         Fixture<RichTextMentionUsers>
         > {
-            return fixture<RichTextMentionUsers>(html`
+            return await fixture<RichTextMentionUsers>(html`
                 <${richTextMentionUsersTag}>
                     <${mappingUserTag} key="foo" display-name="foo"></${mappingUserTag}>
                 </${richTextMentionUsersTag}>`);

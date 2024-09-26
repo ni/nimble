@@ -9,7 +9,7 @@ import { ThemeProvider, themeProviderTag } from '../../theme-provider';
 import { fixture, type Fixture } from '../../utilities/tests/fixture';
 
 async function setupWithLabelProvider(): Promise<Fixture<ThemeProvider>> {
-    return fixture<ThemeProvider>(html`
+    return await fixture<ThemeProvider>(html`
         <${themeProviderTag}>
             <${labelProviderCoreTag}></${labelProviderCoreTag}>
             <${numberFieldTag}></${numberFieldTag}>

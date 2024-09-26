@@ -12,7 +12,7 @@ import { ToolbarButton } from '../testing/types';
 import { waitForUpdatesAsync } from '../../../testing/async-helpers';
 
 async function setup(): Promise<Fixture<ThemeProvider>> {
-    return fixture<ThemeProvider>(
+    return await fixture<ThemeProvider>(
         html`
       <${themeProviderTag}>
           <${labelProviderRichTextTag}></${labelProviderRichTextTag}>

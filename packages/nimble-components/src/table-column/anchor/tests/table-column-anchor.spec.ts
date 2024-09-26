@@ -25,7 +25,7 @@ class ElementReferences {
 
 // prettier-ignore
 async function setup(source: ElementReferences): Promise<Fixture<Table<SimpleTableRecord>>> {
-    return fixture<Table<SimpleTableRecord>>(
+    return await fixture<Table<SimpleTableRecord>>(
         html`<${tableTag} style="width: 700px" ${ref('table')}>
                 <${tableColumnAnchorTag}
                     ${ref('column')}

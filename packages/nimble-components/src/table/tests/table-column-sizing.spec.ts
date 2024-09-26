@@ -54,7 +54,7 @@ const largeTableData = Array.from(Array(500), (_, i) => {
 
 // prettier-ignore
 async function setup(): Promise<Fixture<Table<SimpleTableRecord>>> {
-    return fixture<Table<SimpleTableRecord>>(
+    return await fixture<Table<SimpleTableRecord>>(
         html`<nimble-table>
             <nimble-table-column-text id="first-column" field-name="stringData">
             </nimble-table-column-text>
@@ -66,7 +66,7 @@ async function setup(): Promise<Fixture<Table<SimpleTableRecord>>> {
 
 // prettier-ignore
 async function setupInteractiveTests(): Promise<Fixture<Table<SimpleTableRecord>>> {
-    return fixture<Table<SimpleTableRecord>>(
+    return await fixture<Table<SimpleTableRecord>>(
         html`<nimble-table>
             <nimble-table-column-text id="first-column" field-name="stringData" min-pixel-width="50">
             </nimble-table-column-text>

@@ -4,7 +4,7 @@
 export async function checkFullyInViewport(
     element: HTMLElement
 ): Promise<boolean> {
-    return new Promise((resolve, _reject) => {
+    return await new Promise((resolve, _reject) => {
         const intersectionObserver = new IntersectionObserver(
             entries => {
                 intersectionObserver.disconnect();
