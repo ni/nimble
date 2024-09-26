@@ -1,6 +1,7 @@
 import { Controls, Canvas, Meta, Title } from '@storybook/blocks';
 import * as radioGroupStories from './radio-group.stories';
 import ComponentApisLink from '../../docs/component-apis-link.mdx';
+import { selectTag } from '../../../../nimble-components/src/select';
 
 <Meta of={radioGroupStories} />
 <Title of={radioGroupStories} />
@@ -10,6 +11,9 @@ set of checkable buttons, known as radio buttons, where no more than one of the
 buttons can be checked at a time. Some implementations may initialize the set
 with all buttons in the unchecked state in order to force the user to check one
 of the buttons before moving past a certain point in the workflow.
+
+Consider using <Tag name={selectTag} /> if there are many options to select
+from.
 
 <Canvas of={radioGroupStories.radioGroup} />
 
