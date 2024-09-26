@@ -66,6 +66,7 @@ export const styles = css`
         border-bottom-color: ${borderHoverColor};
     }
 
+    :host([readonly]) .root,
     :host([disabled]) .root {
         border-color: rgba(${borderRgbPartialColor}, 0.1);
     }
@@ -107,6 +108,7 @@ export const styles = css`
         width: 100%;
     }
 
+    :host([readonly]:hover) .root::after,
     :host([disabled]:hover) .root::after {
         width: 0px;
     }
@@ -195,11 +197,20 @@ export const styles = css`
             }
 
             :host(:hover) .root {
+                border-bottom-width: ${borderWidth};
                 padding-bottom: 0;
             }
 
+            :host([readonly]) .root,
             :host([disabled]) .root {
                 background-color: rgba(${borderRgbPartialColor}, 0.07);
+                border-color: transparent;
+            }
+
+            :host([error-visible][readonly]) .root,
+            :host([error-visible][disabled]) .root {
+                padding-bottom: 0;
+                border-bottom-color: ${failColor};
             }
         `
     ),

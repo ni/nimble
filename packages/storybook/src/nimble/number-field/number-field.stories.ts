@@ -17,6 +17,7 @@ import {
     appearanceDescription,
     createUserSelectedThemeStory,
     disabledDescription,
+    readonlyDescription,
     errorTextDescription,
     errorVisibleDescription,
     slottedLabelDescription
@@ -30,6 +31,7 @@ interface NumberFieldArgs extends LabelUserArgs {
     min: number;
     max: number;
     appearance: NumberFieldAppearance;
+    readonly: boolean;
     disabled: boolean;
     errorVisible: boolean;
     errorText: string;
@@ -54,6 +56,7 @@ const metadata: Meta<NumberFieldArgs> = {
             min="${x => x.min}"
             max="${x => x.max}"
             appearance="${x => x.appearance}"
+            ?readonly="${x => x.readonly}"
             ?disabled="${x => x.disabled}"
             ?error-visible="${x => x.errorVisible}"
             error-text="${x => x.errorText}"
@@ -78,6 +81,10 @@ const metadata: Meta<NumberFieldArgs> = {
             description: appearanceDescription({
                 componentName: 'number field'
             }),
+            table: { category: apiCategory.attributes }
+        },
+        readonly: {
+            description: readonlyDescription({ componentName: 'number field' }),
             table: { category: apiCategory.attributes }
         },
         disabled: {
@@ -134,6 +141,7 @@ const metadata: Meta<NumberFieldArgs> = {
         min: -10,
         max: 50,
         appearance: NumberFieldAppearance.underline,
+        readonly: false,
         disabled: false,
         errorVisible: false,
         errorText: 'Value is invalid'

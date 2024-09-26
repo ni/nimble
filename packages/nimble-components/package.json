@@ -1,10 +1,10 @@
 {
   "name": "@ni/nimble-components",
-  "version": "32.2.6",
+  "version": "32.2.7",
   "description": "Styled web components for the NI Nimble Design System",
   "scripts": {
     "build": "npm run generate-icons && npm run generate-workers && npm run build-components && npm run bundle-components && npm run generate-scss",
-    "lint-concurrent": "concurrently --timings --group \"npm:eslint\" \"npm:prettier\"",
+    "lint-concurrent": "concurrently --pad-prefix --timings --group \"npm:eslint\" \"npm:prettier\"",
     "format": "npm run prettier-fix",
     "eslint": "eslint .",
     "eslint-fix": "eslint . --fix",
@@ -41,7 +41,7 @@
     "test-webkit:debugger": "karma start karma.conf.js --browsers=WebkitDebugging --skip-tags SkipWebkit",
     "test-webkit:watch": "karma start karma.conf.headless.js --browsers=WebkitHeadless --skip-tags SkipWebkit --watch-extensions js",
     "test-webkit": "karma start karma.conf.headless.js --browsers=WebkitHeadless --single-run --skip-tags SkipWebkit",
-    "test-concurrent": "concurrently --timings --group \"npm:test-chrome\" \"npm:test-firefox\" \"npm:test-webkit\""
+    "test-concurrent": "concurrently --pad-prefix --timings --group \"npm:test-chrome\" \"npm:test-firefox\" \"npm:test-webkit\""
   },
   "repository": {
     "type": "git",
@@ -103,14 +103,14 @@
   "devDependencies": {
     "@ni-private/eslint-config-nimble": "*",
     "@ni/jasmine-parameterized": "^1.0.0",
-    "@rollup/plugin-commonjs": "^26.0.0",
+    "@rollup/plugin-commonjs": "^28.0.0",
     "@rollup/plugin-node-resolve": "^15.0.1",
-    "@rollup/plugin-replace": "^5.0.1",
+    "@rollup/plugin-replace": "^6.0.0",
     "@rollup/plugin-terser": "^0.4.0",
     "@types/jasmine": "^5.1.4",
     "@types/offscreencanvas": "^2019.7.3",
     "@types/webpack-env": "^1.15.2",
-    "concurrently": "^8.2.2",
+    "concurrently": "^9.0.0",
     "jasmine-core": "^5.1.2",
     "karma": "^6.3.0",
     "karma-chrome-launcher": "^3.1.0",
@@ -127,7 +127,7 @@
     "prettier-eslint": "^16.3.0",
     "prettier-eslint-cli": "^8.0.1",
     "rollup": "^4.12.0",
-    "rollup-plugin-sourcemaps": "^0.6.3",
+    "rollup-plugin-sourcemaps2": "^0.4.1",
     "source-map-loader": "^5.0.0",
     "terser-webpack-plugin": "^5.3.10",
     "typescript": "~5.4.5",
