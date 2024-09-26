@@ -25,7 +25,7 @@ The following decisions were agreed to in the comments section in the linked iss
 
 Additionally, devices like mouse wheels and trackpads as well as pan gestures on mobile devices should allow scrolling through the tabs. This should be handled natively by the browser by simply applying CSS of `overflow: scroll;` to the div containing the tabs. _Note: Mouse users would have to hold `<Shift>` while using the scroll wheel in order to scroll the tabs. This is consistent with other horizontally scrollable content._
 
-To accomplish this we will fork FAST's template in order to add the scroll buttons. A `ResizeObserver` will be used to track when the scrollable area exceeds the viewable area in order to show/hide the scroll buttons.
+To accomplish this we will fork FAST's template in order to add the scroll buttons. Showing/hiding the buttons will be accomplished by observing when the container of the tabs extends beyond its own container, and reacting accordingly.
 
 There will be no new API to enable this behavior, and will simply be on by default.
 
@@ -37,7 +37,7 @@ Only the tabs themselves will be scrollable. The scroll buttons will only surrou
 
 #### Minimum scroll area width
 
-As the tab list view width is now resizable, we must consider the scenario where the view is shrunk considerably. Preventing the scrollable area from disappearing completely seems desirable, and so we will set the CSS `min-width` property on the container of the tabs to be `4 * ${controlHeight}` (wide enough for both scroll buttons and extra space to see a good portion of at least one tab).
+As the tab list view width is now resizable, we must consider the scenario where the view is shrunk considerably. Preventing the scrollable area from disappearing completely seems desirable, and so we will need to set a `min-width` on the `Tab` to a value that can accommodate at least both scroll buttons.
 
 ## Alternative Implementations / Designs
 
