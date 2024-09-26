@@ -31,8 +31,8 @@
     "./components.js": "./components.js"
   },
   "peerDependencies": {
-    "@ni/eslint-config-javascript": "^4.2.0",
-    "@ni/eslint-config-typescript": "^4.2.0",
+    "@ni/eslint-config-javascript": "^4.3.0",
+    "@ni/eslint-config-typescript": "^4.4.0",
     "eslint": "^8.7.0"
   }
 }

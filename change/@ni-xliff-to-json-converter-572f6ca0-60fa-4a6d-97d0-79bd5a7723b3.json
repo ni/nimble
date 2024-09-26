@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "Updated for async eslint rule change",
+  "packageName": "@ni/xliff-to-json-converter",
+  "email": "rajsite@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}

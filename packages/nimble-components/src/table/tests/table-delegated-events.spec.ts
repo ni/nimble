@@ -37,7 +37,7 @@ class TestTableColumn extends TableColumn {
 
 // prettier-ignore
 async function setup(): Promise<Fixture<Table<SimpleTableRecord>>> {
-    return fixture<Table<SimpleTableRecord>>(
+    return await fixture<Table<SimpleTableRecord>>(
         html`<nimble-table>
             <${columnName}>Column</${columnName}>
         </nimble-table>`

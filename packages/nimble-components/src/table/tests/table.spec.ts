@@ -74,7 +74,7 @@ const largeTableData = createLargeData(500);
 
 // prettier-ignore
 async function setup(): Promise<Fixture<Table<SimpleTableRecord>>> {
-    return fixture<Table<SimpleTableRecord>>(
+    return await fixture<Table<SimpleTableRecord>>(
         html`<nimble-table style="width: 700px">
             <nimble-table-column-text id="first-column" field-name="stringData">stringData</nimble-table-column-text>
             <nimble-table-column-text id="second-column" field-name="moreStringData">
@@ -2522,7 +2522,7 @@ describe('Table', () => {
 
         // prettier-ignore
         async function setupWithTestColumns(): Promise<Fixture<Table<SimpleTableRecord>>> {
-            return fixture<Table<SimpleTableRecord>>(
+            return await fixture<Table<SimpleTableRecord>>(
                 html`<nimble-table>
                     <${tableColumnValidationTestTag} foo bar id="first-column" field-name="stringData">Col 1</${tableColumnValidationTestTag}>
                     <${tableColumnValidationTestTag} foo bar id="second-column" field-name="moreStringData">Col 2</${tableColumnValidationTestTag}>

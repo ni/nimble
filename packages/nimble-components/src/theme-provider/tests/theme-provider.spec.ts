@@ -23,7 +23,7 @@ describe('Theme Provider', () => {
         async function setup(
             langValue: string | undefined
         ): Promise<Fixture<ThemeProvider>> {
-            return fixture<ThemeProvider>(
+            return await fixture<ThemeProvider>(
                 html`<${themeProviderTag} ${
                     langValue === undefined ? '' : `lang="${langValue}"`
                 }>

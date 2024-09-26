@@ -5,7 +5,7 @@ import { waitForUpdatesAsync } from '../../testing/async-helpers';
 
 describe('Checkbox', () => {
     async function setup(): Promise<Fixture<Checkbox>> {
-        return fixture<Checkbox>(html`<${checkboxTag}></${checkboxTag}>`);
+        return await fixture<Checkbox>(html`<${checkboxTag}></${checkboxTag}>`);
     }
 
     it('should export its tag', () => {

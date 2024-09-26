@@ -6,7 +6,7 @@ import { anchoredRegionTag } from '../../anchored-region';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 
 async function setup(): Promise<Fixture<Tooltip>> {
-    return fixture<Tooltip>(html`<nimble-tooltip></nimble-tooltip>`);
+    return await fixture<Tooltip>(html`<nimble-tooltip></nimble-tooltip>`);
 }
 
 describe('Tooltip', () => {
@@ -36,7 +36,7 @@ describe('Tooltip', () => {
         const region = tooltip.shadowRoot!.querySelector(
             'nimble-anchored-region'
         )!;
-        return new Promise((resolve, _reject) => {
+        await new Promise<void>((resolve, _reject) => {
             region.addEventListener('loaded', () => {
                 resolve();
             });

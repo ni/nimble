@@ -7,7 +7,7 @@ import { processUpdates } from '../../testing/async-helpers';
 import { Fixture, fixture } from '../../utilities/tests/fixture';
 
 async function setup(): Promise<Fixture<WaferMap>> {
-    return fixture<WaferMap>(html`<nimble-wafer-map></nimble-wafer-map>`);
+    return await fixture<WaferMap>(html`<nimble-wafer-map></nimble-wafer-map>`);
 }
 
 // OffscreenCanvas not supported in Playwright's Windows/Linux Webkit build: https://github.com/ni/nimble/issues/2169

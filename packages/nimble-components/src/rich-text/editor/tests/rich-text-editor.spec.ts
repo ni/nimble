@@ -11,13 +11,13 @@ import { waitForEvent } from '../../../utilities/testing/component';
 import { waitForUpdatesAsync } from '../../../testing/async-helpers';
 
 async function setup(): Promise<Fixture<RichTextEditor>> {
-    return fixture<RichTextEditor>(
+    return await fixture<RichTextEditor>(
         html`<nimble-rich-text-editor></nimble-rich-text-editor>`
     );
 }
 
 async function setupWithFooter(): Promise<Fixture<RichTextEditor>> {
-    return fixture<RichTextEditor>(
+    return await fixture<RichTextEditor>(
         // prettier-ignore
         html`<nimble-rich-text-editor>
             <nimble-button slot="footer-actions" id="cancel">Cancel</nimble-button>
