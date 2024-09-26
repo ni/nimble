@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Thu, 26 Sep 2024 23:15:53 GMT",
+      "version": "32.2.10",
+      "tag": "@ni/nimble-components_v32.2.10",
+      "comments": {
+        "none": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "ff8f8fdae071a4becd65d672c00eee61bcd166e1",
+            "comment": "Scrollable tabs HLD."
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 26 Sep 2024 18:24:50 GMT",
       "version": "32.2.10",
       "tag": "@ni/nimble-components_v32.2.10",
