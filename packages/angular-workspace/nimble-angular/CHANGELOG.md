@@ -1,8 +1,17 @@
 # Change Log - @ni/nimble-angular
 
-<!-- This log was last generated on Thu, 26 Sep 2024 17:20:39 GMT and should not be manually modified. -->
+<!-- This log was last generated on Thu, 26 Sep 2024 18:24:50 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 28.2.9
+
+Thu, 26 Sep 2024 18:24:50 GMT
+
+### Patches
+
+- Updates for async eslint rule change ([ni/nimble@7ab95a3](https://github.com/ni/nimble/commit/7ab95a37c760071310a52e0ac233978470168f44))
+- Bump @ni/nimble-components to v32.2.10
 
 ## 28.2.8
 

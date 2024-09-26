@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Updated for async eslint rule change",
-  "packageName": "@ni/nimble-components",
-  "email": "rajsite@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}

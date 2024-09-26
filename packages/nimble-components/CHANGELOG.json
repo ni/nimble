@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Thu, 26 Sep 2024 18:24:50 GMT",
+      "version": "32.2.10",
+      "tag": "@ni/nimble-components_v32.2.10",
+      "comments": {
+        "patch": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "7ab95a37c760071310a52e0ac233978470168f44",
+            "comment": "Updated for async eslint rule change"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 26 Sep 2024 17:20:39 GMT",
       "version": "32.2.9",
       "tag": "@ni/nimble-components_v32.2.9",
