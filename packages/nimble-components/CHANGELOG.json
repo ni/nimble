@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Thu, 26 Sep 2024 17:20:39 GMT",
+      "version": "32.2.9",
+      "tag": "@ni/nimble-components_v32.2.9",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "81ac3b96a4247bb5c55989ffc1b784887b436227",
+            "comment": "Update internal spacing between elements within the nimble-text-field"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 26 Sep 2024 15:22:45 GMT",
       "version": "32.2.8",
       "tag": "@ni/nimble-components_v32.2.8",
