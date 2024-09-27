@@ -23,6 +23,14 @@ At a high-level, the design of the component will be:
 
 Below are some examples of how the checkbox will look and behave with different configurations. The blue outline shows the bounds of the control, and the blue background indicates the interactable regions of the control.
 
+![](spec-images/radio-vertical.PNG)
+
+![](spec-images/radio-longError.PNG)
+
+![](spec-images/radio-longLabel.PNG)
+
+![](spec-images/radio-horizontal.PNG)
+
 ### API
 
 The `nimble-radio-group` will be updated to implement the `ErrorPattern` interface. This means it will have two new attributes:
