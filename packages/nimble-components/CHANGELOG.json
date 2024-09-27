@@ -2,6 +2,96 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Thu, 26 Sep 2024 23:15:53 GMT",
+      "version": "32.2.10",
+      "tag": "@ni/nimble-components_v32.2.10",
+      "comments": {
+        "none": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "ff8f8fdae071a4becd65d672c00eee61bcd166e1",
+            "comment": "Scrollable tabs HLD."
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 26 Sep 2024 18:24:50 GMT",
+      "version": "32.2.10",
+      "tag": "@ni/nimble-components_v32.2.10",
+      "comments": {
+        "patch": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "7ab95a37c760071310a52e0ac233978470168f44",
+            "comment": "Updated for async eslint rule change"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 26 Sep 2024 17:20:39 GMT",
+      "version": "32.2.9",
+      "tag": "@ni/nimble-components_v32.2.9",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "81ac3b96a4247bb5c55989ffc1b784887b436227",
+            "comment": "Update internal spacing between elements within the nimble-text-field"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 26 Sep 2024 15:22:45 GMT",
+      "version": "32.2.8",
+      "tag": "@ni/nimble-components_v32.2.8",
+      "comments": {
+        "patch": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "c17dc0b532d107a1866580ed8c8d3ef3e4f61e71",
+            "comment": "Dependency updates"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 25 Sep 2024 22:17:40 GMT",
+      "version": "32.2.7",
+      "tag": "@ni/nimble-components_v32.2.7",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "f43d4732ed6245c610030066f7fc6e551b441725",
+            "comment": "Add styling for readonly number field"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 18 Sep 2024 20:24:09 GMT",
+      "version": "32.2.6",
+      "tag": "@ni/nimble-components_v32.2.6",
+      "comments": {
+        "patch": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "e83065ac2ed9b3bed2996e848c8223d31ea6890b",
+            "comment": "Fix for selected option display text being updated in DOM not being reflected in display of select."
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 11 Sep 2024 21:31:24 GMT",
       "version": "32.2.5",
       "tag": "@ni/nimble-components_v32.2.5",

@@ -5,7 +5,7 @@ import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import { fixture, Fixture } from '../../utilities/tests/fixture';
 
 async function setup(): Promise<Fixture<TextArea>> {
-    return fixture<TextArea>(html`<nimble-text-area></nimble-text-area>`);
+    return await fixture<TextArea>(html`<nimble-text-area></nimble-text-area>`);
 }
 
 describe('Text Area', () => {

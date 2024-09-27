@@ -6,7 +6,7 @@ describe('User Mapping', () => {
     let element: MappingUser;
 
     async function setup(): Promise<Fixture<MappingUser>> {
-        return fixture<MappingUser>(html`
+        return await fixture<MappingUser>(html`
           <${mappingUserTag}
               key="foo"
               display-name="foo">

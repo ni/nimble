@@ -5,7 +5,7 @@ import { byte1024UnitScale } from '../../../utilities/unit-format/unit-scale/byt
 import { byteUnitScale } from '../../../utilities/unit-format/unit-scale/byte-unit-scale';
 
 async function setup(binary: boolean): Promise<Fixture<UnitByte>> {
-    return fixture<UnitByte>(html`
+    return await fixture<UnitByte>(html`
         <nimble-unit-byte ?binary="${() => binary}"></nimble-unit-byte>
     `);
 }

@@ -20,7 +20,7 @@ describe('Anchor Tree Item', () => {
         }
 
         async function setup(source: Model): Promise<Fixture<AnchorTreeItem>> {
-            return fixture<AnchorTreeItem>(
+            return await fixture<AnchorTreeItem>(
                 html`<nimble-anchor-tree-item href="#">
                     <nimble-xmark-icon
                         ${ref('xmarkIcon')}
@@ -125,7 +125,7 @@ describe('Anchor Tree Item', () => {
         }
 
         async function setup(source: Model): Promise<Fixture<TreeView>> {
-            return fixture<TreeView>(
+            return await fixture<TreeView>(
                 // prettier-ignore
                 html<Model>`
                 <nimble-tree-view ${ref('treeView')}>

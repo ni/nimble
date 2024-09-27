@@ -34,7 +34,7 @@ const simpleTableData = [
 
 // prettier-ignore
 async function setup(): Promise<Fixture<ThemeProvider>> {
-    return fixture<ThemeProvider>(
+    return await fixture<ThemeProvider>(
         html`
         <${themeProviderTag}>
             <${labelProviderTableTag}></${labelProviderTableTag}>

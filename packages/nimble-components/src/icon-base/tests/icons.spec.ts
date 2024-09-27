@@ -82,7 +82,9 @@ describe('Icons', () => {
 
     describe('Representative icon', () => {
         async function setup(): Promise<Fixture<IconAdd>> {
-            return fixture<IconAdd>(html`<${iconAddTag}></${iconAddTag}>`);
+            return await fixture<IconAdd>(
+                html`<${iconAddTag}></${iconAddTag}>`
+            );
         }
         let element: IconAdd;
         let connect: () => Promise<void>;

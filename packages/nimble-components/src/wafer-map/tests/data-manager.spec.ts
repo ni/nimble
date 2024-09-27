@@ -13,7 +13,7 @@ import {
 import type { Dimensions, Margin } from '../workers/types';
 
 async function setup(): Promise<Fixture<WaferMap>> {
-    return fixture<WaferMap>(html`<nimble-wafer-map></nimble-wafer-map>`);
+    return await fixture<WaferMap>(html`<nimble-wafer-map></nimble-wafer-map>`);
 }
 
 describe('Wafermap Data Manager', () => {

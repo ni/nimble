@@ -84,18 +84,18 @@ export class NimbleTableDirective<TData extends TableRecord = TableRecord> imple
     }
 
     public async setData(data: readonly TData[]): Promise<void> {
-        return this.elementRef.nativeElement.setData(data);
+        await this.elementRef.nativeElement.setData(data);
     }
 
     public async getSelectedRecordIds(): Promise<string[]> {
-        return this.elementRef.nativeElement.getSelectedRecordIds();
+        return await this.elementRef.nativeElement.getSelectedRecordIds();
     }
 
     public async setSelectedRecordIds(recordIds: string[]): Promise<void> {
-        return this.elementRef.nativeElement.setSelectedRecordIds(recordIds);
+        await this.elementRef.nativeElement.setSelectedRecordIds(recordIds);
     }
 
     public async setRecordHierarchyOptions(hierarchyOptions: TableSetRecordHierarchyOptions[]): Promise<void> {
-        return this.elementRef.nativeElement.setRecordHierarchyOptions(hierarchyOptions);
+        await this.elementRef.nativeElement.setRecordHierarchyOptions(hierarchyOptions);
     }
 }
