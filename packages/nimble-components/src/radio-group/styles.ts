@@ -34,6 +34,7 @@ export const styles = css`
     .label-container {
         display: flex;
         gap: ${smallPadding};
+        margin-bottom: ${smallPadding};
     }
 
     slot[name='label'] {
