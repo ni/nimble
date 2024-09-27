@@ -4,6 +4,7 @@ import {
     controlLabelDisabledFontColor,
     controlLabelFont,
     controlLabelFontColor,
+    smallPadding,
     standardPadding
 } from '../theme-provider/design-tokens';
 import { styles as errorStyles } from '../patterns/error/styles';
@@ -30,12 +31,22 @@ export const styles = css`
         flex-direction: row;
     }
 
+    .label-container {
+        display: flex;
+        gap: ${smallPadding};
+    }
+
     slot[name='label'] {
         font: ${controlLabelFont};
         color: ${controlLabelFontColor};
+        display: inline-flex;
     }
 
     :host([disabled]) slot[name='label'] {
         color: ${controlLabelDisabledFontColor};
+    }
+
+    .error-icon {
+        margin-left: auto;
     }
 `;

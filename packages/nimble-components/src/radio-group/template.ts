@@ -4,6 +4,7 @@ import { Orientation } from '@microsoft/fast-web-utilities';
 import type { FoundationElementTemplate } from '@microsoft/fast-foundation';
 import type { RadioGroup } from '.';
 import { errorTextTemplate } from '../patterns/error/template';
+import { iconExclamationMarkTag } from '../icons/exclamation-mark';
 
 export const template: FoundationElementTemplate<ViewTemplate<RadioGroup>> = (
     _context,
@@ -17,14 +18,20 @@ export const template: FoundationElementTemplate<ViewTemplate<RadioGroup>> = (
         @keydown="${(x, c) => x.keydownHandler(c.event as KeyboardEvent)}"
         @focusout="${(x, c) => x.focusOutHandler(c.event as FocusEvent)}"
     >
-        <slot name="label"></slot>
+        <div class="label-container">
+            <slot name="label"></slot>            
+            <${iconExclamationMarkTag}
+                severity="error"
+                class="error-icon"
+            ></${iconExclamationMarkTag}>
+        </div>
         <div
             class="positioning-region ${x => (x.orientation === Orientation.horizontal ? 'horizontal' : 'vertical')}"
             part="positioning-region"
         >
             <slot
                 ${slotted({
-        property: 'nimbleSlottedRadioButtons',
+        property: 'slottedRadioButtons',
         filter: elements('[role=radio]'),
     })}
             ></slot>

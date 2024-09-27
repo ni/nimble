@@ -22,12 +22,6 @@ export { Orientation };
  */
 export class RadioGroup extends FoundationRadioGroup implements ErrorPattern {
     /**
-     * @internal
-     */
-    @observable
-    public nimbleSlottedRadioButtons: HTMLElement[] = [];
-
-    /**
      * A message explaining why the value is invalid.
      *
      * @public
@@ -39,23 +33,6 @@ export class RadioGroup extends FoundationRadioGroup implements ErrorPattern {
 
     @attr({ attribute: 'error-visible', mode: 'boolean' })
     public errorVisible = false;
-
-    private nimbleSlottedRadioButtonsChanged(_oldValue: unknown, newValue: HTMLElement[]): void {
-        this.slottedRadioButtons = newValue;
-        this.updateErrorVisibleOnRadioButtons();
-    }
-
-    private errorVisibleChanged(): void {
-        this.updateErrorVisibleOnRadioButtons();
-    }
-
-    private updateErrorVisibleOnRadioButtons(): void {
-        this.nimbleSlottedRadioButtons.forEach(radio => {
-            if (radio instanceof Radio) {
-                radio.errorVisible = this.errorVisible;
-            }
-        });
-    }
 }
 
 const nimbleRadioGroup = RadioGroup.compose({

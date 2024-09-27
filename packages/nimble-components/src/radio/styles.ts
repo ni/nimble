@@ -1,20 +1,11 @@
 import { css } from '@microsoft/fast-element';
-import { display } from '../utilities/style/display';
 import {
-    bodyDisabledFontColor,
-    bodyFont,
-    bodyFontColor,
     borderColor,
     borderHoverColor,
     borderRgbPartialColor,
-    borderWidth,
-    controlHeight,
-    iconSize,
-    smallDelay
+    controlHeight
 } from '../theme-provider/design-tokens';
 import { focusVisible } from '../utilities/style/focus';
-import { styles as errorStyles } from '../patterns/error/styles';
-import { userSelectNone } from '../utilities/style/user-select';
 import { commonStyles } from '../checkbox/styles';
 
 export const styles = css`
