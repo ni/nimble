@@ -21,7 +21,7 @@ At a high-level, the design of the component will be:
     -   The `title` of the text is the full error string
 -   Red error icon (`nimble-icon-exclamation-mark`) on the right side of the group's control label with a 4px margin between the icon and the right edge of the control
 
-Below are some examples of how the checkbox will look and behave with different configurations. The blue outline shows the bounds of the control, and the blue background indicates the interactable regions of the control.
+Below are some examples of how the radio group will look with different configurations.
 
 ![](spec-images/radio-vertical.PNG)
 

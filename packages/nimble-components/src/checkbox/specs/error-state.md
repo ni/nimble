@@ -57,7 +57,7 @@ The Angular and Blazor wrappers for the `nimble-checkbox` will be updated to inc
 
 #### Checkbox Styling Updates
 
-The `nimble-checkbox` needs styling updates to align them with the current visual designs.
+The `nimble-checkbox` needs styling updates to align it with the current visual design.
 
 The styling changes include (but may not be limited to):
 
