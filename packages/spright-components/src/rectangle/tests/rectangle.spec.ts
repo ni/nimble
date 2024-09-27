@@ -3,7 +3,9 @@ import { Rectangle, rectangleTag } from '..';
 import { fixture, Fixture } from '../../utilities/tests/fixture';
 
 async function setup(): Promise<Fixture<Rectangle>> {
-    return fixture<Rectangle>(html`<spright-rectangle></spright-rectangle>`);
+    return await fixture<Rectangle>(
+        html`<spright-rectangle></spright-rectangle>`
+    );
 }
 
 describe('Rectangle', () => {

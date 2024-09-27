@@ -52,7 +52,7 @@ export class NimbleDrawerDirective<CloseReason = void> {
     public constructor(private readonly renderer: Renderer2, private readonly elementRef: ElementRef<Drawer<CloseReason>>) {}
 
     public async show(): Promise<CloseReason | UserDismissed> {
-        return this.elementRef.nativeElement.show();
+        return await this.elementRef.nativeElement.show();
     }
 
     public close(reason: CloseReason): void {

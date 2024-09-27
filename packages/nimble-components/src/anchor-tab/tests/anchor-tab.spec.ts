@@ -5,7 +5,9 @@ import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import { Fixture, fixture } from '../../utilities/tests/fixture';
 
 async function setup(): Promise<Fixture<AnchorTab>> {
-    return fixture<AnchorTab>(html`<nimble-anchor-tab></nimble-anchor-tab>`);
+    return await fixture<AnchorTab>(
+        html`<nimble-anchor-tab></nimble-anchor-tab>`
+    );
 }
 
 describe('AnchorTab', () => {

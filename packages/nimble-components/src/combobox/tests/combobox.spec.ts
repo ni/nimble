@@ -30,7 +30,7 @@ describe('Combobox', () => {
                     <${listOptionTag} disabled>Four</${listOptionTag}>
                 </${comboboxTag}>
             `;
-            return fixture<Combobox>(viewTemplate);
+            return await fixture<Combobox>(viewTemplate);
         }
 
         let element: Combobox;
@@ -466,7 +466,7 @@ describe('Combobox', () => {
                     <${listOptionTag}>Two</${listOptionTag}>
                 </${comboboxTag}>
             `;
-            return fixture<Combobox>(viewTemplate);
+            return await fixture<Combobox>(viewTemplate);
         }
 
         it('should respect value set before connect is completed', async () => {
@@ -493,7 +493,7 @@ describe('Combobox', () => {
                     <${listOptionTag}>One</${listOptionTag}>
                 </${comboboxTag}>
             `;
-            return fixture<Combobox>(viewTemplate);
+            return await fixture<Combobox>(viewTemplate);
         }
 
         it('should set classes based on open, disabled, and position', async () => {
@@ -533,7 +533,7 @@ describe('Combobox', () => {
                     <${listOptionTag}>1000</${listOptionTag}>
                 </${comboboxTag}>
             `;
-            return fixture<Combobox>(viewTemplate);
+            return await fixture<Combobox>(viewTemplate);
         }
 
         let element: Combobox;
@@ -586,7 +586,7 @@ describe('Combobox', () => {
                     </<${comboboxTag}>>
                 </div>
             `;
-            return fixture<Combobox>(viewTemplate);
+            return await fixture<Combobox>(viewTemplate);
         }
 
         it('should not confine dropdown to div with "overflow: auto"', async () => {

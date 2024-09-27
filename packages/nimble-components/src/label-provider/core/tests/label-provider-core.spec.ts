@@ -16,7 +16,7 @@ const designTokenPropertyNames = Object.keys(
 ) as DesignTokenPropertyName[];
 
 async function setup(): Promise<Fixture<ThemeProvider>> {
-    return fixture<ThemeProvider>(html`
+    return await fixture<ThemeProvider>(html`
         <${themeProviderTag}>
             <${labelProviderCoreTag}></${labelProviderCoreTag}>
         </${themeProviderTag}>
