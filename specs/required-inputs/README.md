@@ -26,17 +26,17 @@ Any other controls that could possibly be considered inputs are out of scope.
 
 ### API
 
-Our FAST base components provide built-in forms support via the [same API](https://www.w3schools.com/tags/att_input_required.asp) exposed by the native HTML `input`:
+Our FAST base components provide built-in forms support via the [same API](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/required) exposed by the native HTML `input`:
 
 - `required`: boolean attribute whose presence indicates that a value must be provided to submit
 
-For radio buttons/groups, only the button elements expose the `required` attribute. If any of the radio buttons in a group are marked required, the group is treated as required. It does not matter if the button with `required` is disabled, hidden, etc. It is effectively as if the attribute is on the group of buttons, rather than a specific one. This matches the behavior of the native `input` with `type="radio"`. 
+For radio buttons and radio button groups, only the radio button elements expose the `required` attribute. If any of the radio buttons in a radio button group are marked required, the radio button group is treated as required. It does not matter if the radio button with `required` is disabled, hidden, etc. It is effectively as if the attribute is on the radio button group, rather than a specific one. This matches the behavior of the native `input` with `type="radio"`. 
 
 ### Visuals
 
 We will update our templates so that setting `required` causes a red asterisk to be displayed after the label, as per the visual design. For radio buttons/groups, the asterisk is on the group label, not individual button labels. We have already forked some of the templates from FAST, but we will now need to fork the ones for `nimble-number-field`, `nimble-radio-group`, and `nimble-text-field`. 
 
-This will be implemented using a styled span containing the text "*". The span must be outside of the `label` element so that it is not included in the accessible name. We will wrap the two in a `div` so that we can force a horizontal layout (`flex-direction: row`). This structure will also ensure that whatever the wrapping/ellipsizing behavior of the label is, the asterisk will always appear at the far right:
+This will be implemented using a new `nimble-icon-asterisk` icon ([named consistently with Font Awesome](https://fontawesome.com/icons/asterisk)) that follows the `label` element. We will wrap the two in a `div` so that we can force a horizontal layout (`flex-direction: row`). This structure will also ensure that whatever the wrapping/ellipsizing behavior of the label is, the asterisk will always appear at the far right:
 
 ```html
 <div class="annotated-label">
@@ -44,7 +44,7 @@ This will be implemented using a styled span containing the text "*". The span m
         <slot></slot>
     </label>
     ${when(x => x.required, html`
-        <span class="required-indicator">*</span>
+        <nimble-icon-asterisk severity="error"></nimble-icon-asterisk>
     `)}
 </div>
 ```
