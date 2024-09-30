@@ -4,7 +4,7 @@ import { Spinner } from '..';
 
 async function setup(): Promise<Fixture<Spinner>> {
     const viewTemplate = html` <nimble-spinner> </nimble-spinner> `;
-    return fixture<Spinner>(viewTemplate);
+    return await fixture<Spinner>(viewTemplate);
 }
 
 describe('Spinner', () => {

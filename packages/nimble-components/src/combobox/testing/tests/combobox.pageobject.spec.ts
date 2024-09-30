@@ -10,7 +10,7 @@ async function setup(): Promise<Fixture<Combobox>> {
             <nimble-list-option value="two">Two</nimble-list-option>
         </nimble-combobox>
     `;
-    return fixture<Combobox>(viewTemplate);
+    return await fixture<Combobox>(viewTemplate);
 }
 
 async function setupWithLabel(): Promise<Fixture<Combobox>> {
@@ -21,7 +21,7 @@ async function setupWithLabel(): Promise<Fixture<Combobox>> {
             <nimble-list-option value="two">Two</nimble-list-option>
         </nimble-combobox>
     `;
-    return fixture<Combobox>(viewTemplate);
+    return await fixture<Combobox>(viewTemplate);
 }
 
 describe('Combobox Page Object', () => {

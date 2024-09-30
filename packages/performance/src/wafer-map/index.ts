@@ -4,7 +4,7 @@ import type { WaferMapDie } from '@ni/nimble-components/dist/esm/wafer-map/types
 document.addEventListener('DOMContentLoaded', main);
 
 async function waitAnimationFrame(): Promise<void> {
-    return new Promise(resolve => {
+    await new Promise<void>(resolve => {
         requestAnimationFrame(() => resolve());
     });
 }

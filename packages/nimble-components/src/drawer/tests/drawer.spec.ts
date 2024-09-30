@@ -20,7 +20,7 @@ async function setup<CloseReason = void>(
         <nimble-button id="button1">Button 1</nimble-button>
         <nimble-button id="button2">Button 2</nimble-button>
     `;
-    return fixture<Drawer<CloseReason>>(viewTemplate);
+    return await fixture<Drawer<CloseReason>>(viewTemplate);
 }
 
 describe('Drawer', () => {
@@ -40,7 +40,7 @@ describe('Drawer', () => {
     async function completeAnimationAsync(
         nimbleDrawerElement: Drawer | Drawer<string>
     ): Promise<void> {
-        return new Promise(resolve => {
+        await new Promise<void>(resolve => {
             const dialogElement = nativeDialogElement(nimbleDrawerElement);
             const handler = (): void => {
                 dialogElement.removeEventListener(eventAnimationEnd, handler);

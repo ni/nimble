@@ -132,7 +132,7 @@ describe('Table keyboard navigation', () => {
         key: string,
         init?: KeyboardEventInit
     ): Promise<KeyboardEvent> {
-        return sendKeyDownEvent(element, key, init);
+        return await sendKeyDownEvent(element, key, init);
     }
 
     async function sendKeyPressesToTable(...keys: string[]): Promise<void> {
@@ -219,7 +219,7 @@ describe('Table keyboard navigation', () => {
 
         // prettier-ignore
         async function setupNonInteractiveTable(): Promise<Fixture<Table<SimpleTableRecord>>> {
-            return fixture<Table<SimpleTableRecord>>(
+            return await fixture<Table<SimpleTableRecord>>(
                 html`<nimble-table id-field-name="id">
                 <${nonInteractiveColumnName} id="first-column" column-id="column-1"></${nonInteractiveColumnName}>
                 <${nonInteractiveColumnName} id="second-column" column-id="column-2"></${nonInteractiveColumnName}>
@@ -1265,7 +1265,7 @@ describe('Table keyboard navigation', () => {
 
         // prettier-ignore
         async function setupInteractiveTable(): Promise<Fixture<Table<SimpleTableRecord>>> {
-            return fixture<Table<SimpleTableRecord>>(
+            return await fixture<Table<SimpleTableRecord>>(
                 html`<nimble-table id-field-name="id">
                 <${interactiveColumnName} id="first-column" column-id="column-1"></${interactiveColumnName}>
                 <${interactiveColumnName} id="second-column" column-id="column-2"></${interactiveColumnName}>

@@ -15,7 +15,7 @@ async function setup<CloseReason = void>(
         <nimble-button id="button1">Button 1</nimble-button>
         <nimble-button id="button2">Button 2</nimble-button>
     `;
-    return fixture<Dialog<CloseReason>>(viewTemplate);
+    return await fixture<Dialog<CloseReason>>(viewTemplate);
 }
 
 describe('Dialog', () => {

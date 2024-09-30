@@ -8,6 +8,7 @@
     "build": "tsc && vite build src",
     "pack": "npm pack",
     "lint": "eslint .",
+    "format": "eslint . --fix",
     "start": "vite src",
     "performance": "lhci autorun"
   },

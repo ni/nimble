@@ -5,7 +5,7 @@ import { Switch, switchTag } from '..';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 
 async function setup(): Promise<Fixture<Switch>> {
-    return fixture<Switch>(html`<nimble-switch></nimble-switch>`);
+    return await fixture<Switch>(html`<nimble-switch></nimble-switch>`);
 }
 
 describe('Switch', () => {

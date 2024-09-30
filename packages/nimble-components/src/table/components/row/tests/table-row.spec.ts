@@ -39,7 +39,7 @@ describe('TableRow', () => {
     describe('standalone', () => {
         // prettier-ignore
         async function setup(): Promise<Fixture<TableRow<SimpleTableRecord>>> {
-            return fixture<TableRow<SimpleTableRecord>>(
+            return await fixture<TableRow<SimpleTableRecord>>(
                 html`<nimble-table-row>
                     </nimble-table-row>`
             );
@@ -359,7 +359,7 @@ describe('TableRow', () => {
 
         // prettier-ignore
         async function setupTable(source: ColumnReferences): Promise<Fixture<Table<SimpleTableRecord>>> {
-            return fixture<Table<SimpleTableRecord>>(
+            return await fixture<Table<SimpleTableRecord>>(
                 html`<${tableTag}>
                         <${tableColumnTextTag} ${ref('firstColumn')} field-name="stringData" column-id='foo'>Column 1</${tableColumnTextTag}>
                         <${tableColumnDateTextTag} ${ref('secondColumn')} field-name="numberData" column-id='bar'>Column 2</${tableColumnDateTextTag}>

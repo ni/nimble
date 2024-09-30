@@ -20,7 +20,7 @@ describe('ListboxOption', () => {
         let disconnect: () => Promise<void>;
 
         async function setup(): Promise<Fixture<ListOption>> {
-            return fixture<ListOption>(
+            return await fixture<ListOption>(
                 html`<nimble-list-option style="width: 200px">
                     Item 1
                 </nimble-list-option>`

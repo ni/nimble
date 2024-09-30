@@ -7,7 +7,7 @@ import { RichTextMentionUsersViewPageObject } from '../testing/rich-text-mention
 import { wackyStrings } from '../../../../utilities/tests/wacky-strings';
 
 async function setup(): Promise<Fixture<RichTextMentionUsersView>> {
-    return fixture<RichTextMentionUsersView>(
+    return await fixture<RichTextMentionUsersView>(
         html`<${richTextMentionUsersViewTag}
             mention-href="users:1"
             mention-label="John Doe"
