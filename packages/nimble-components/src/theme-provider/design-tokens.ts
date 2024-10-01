@@ -503,6 +503,9 @@ export const menuMinWidth = DesignToken.create<string>(
 export const bannerGapSize = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.bannerGapSize)
 ).withDefault('1px');
+export const treeViewPaddingLeftSize = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.treeViewPaddingLeftSize)
+).withDefault(mediumPadding);
 
 export const spinnerSmallHeight = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.spinnerSmallHeight)
