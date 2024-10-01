@@ -10,7 +10,7 @@ async function setup(): Promise<Fixture<Select>> {
             <nimble-list-option value="two">Two</nimble-list-option>
         </nimble-select>
     `;
-    return fixture<Select>(viewTemplate);
+    return await fixture<Select>(viewTemplate);
 }
 
 async function setupWithLabel(): Promise<Fixture<Select>> {
@@ -21,7 +21,7 @@ async function setupWithLabel(): Promise<Fixture<Select>> {
             <nimble-list-option value="two">Two</nimble-list-option>
         </nimble-select>
     `;
-    return fixture<Select>(viewTemplate);
+    return await fixture<Select>(viewTemplate);
 }
 
 describe('Select Page Object', () => {

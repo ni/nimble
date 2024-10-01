@@ -48,7 +48,7 @@ const simpleTableData = [
 
 // prettier-ignore
 async function setup(): Promise<Fixture<Table<SimpleTableRecord>>> {
-    return fixture<Table<SimpleTableRecord>>(
+    return await fixture<Table<SimpleTableRecord>>(
         html`<nimble-table>
             <nimble-table-column-text id="first-column" field-name="stringData">stringData</nimble-table-column-text>
             <nimble-table-column-text id="second-column" field-name="moreStringData">

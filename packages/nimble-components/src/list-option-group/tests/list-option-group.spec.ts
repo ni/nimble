@@ -7,7 +7,7 @@ import { listOptionTag } from '../../list-option';
 
 describe('ListOptionGroup', () => {
     async function setup(): Promise<Fixture<ListOptionGroup>> {
-        return fixture<ListOptionGroup>(
+        return await fixture<ListOptionGroup>(
             html`<nimble-list-option-group style="width: 200px" label="Group 1">
             </nimble-list-option-group>`
         );

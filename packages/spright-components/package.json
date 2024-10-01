@@ -1,6 +1,6 @@
 {
   "name": "@ni/spright-components",
-  "version": "4.1.6",
+  "version": "4.1.10",
   "description": "NI Spright Components",
   "scripts": {
     "build": "npm run build-components && npm run bundle-components",
@@ -50,15 +50,15 @@
   "dependencies": {
     "@microsoft/fast-element": "^1.12.0",
     "@microsoft/fast-foundation": "^2.49.6",
-    "@ni/nimble-components": "^32.2.6",
+    "@ni/nimble-components": "^32.2.10",
     "tslib": "^2.2.0"
   },
   "devDependencies": {
     "@ni/jasmine-parameterized": "^1.0.0",
     "@ni-private/eslint-config-nimble": "*",
-    "@rollup/plugin-commonjs": "^26.0.0",
+    "@rollup/plugin-commonjs": "^28.0.0",
     "@rollup/plugin-node-resolve": "^15.0.1",
-    "@rollup/plugin-replace": "^5.0.1",
+    "@rollup/plugin-replace": "^6.0.0",
     "@rollup/plugin-terser": "^0.4.0",
     "@types/jasmine": "^5.1.4",
     "@types/webpack-env": "^1.15.2",
@@ -78,7 +78,7 @@
     "prettier-eslint": "^16.3.0",
     "prettier-eslint-cli": "^8.0.1",
     "rollup": "^4.12.0",
-    "rollup-plugin-sourcemaps": "^0.6.3",
+    "rollup-plugin-sourcemaps2": "^0.4.1",
     "source-map-loader": "^5.0.0",
     "typescript": "~5.4.5",
     "webpack": "^5.75.0",

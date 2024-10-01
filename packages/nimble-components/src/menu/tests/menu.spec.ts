@@ -27,7 +27,7 @@ describe('Menu', () => {
     parameterizeSuite(menuItemTypes, (suite, name) => {
         suite(`with ${name}s`, () => {
             async function setup(): Promise<Fixture<Menu>> {
-                return fixture<Menu>(html`
+                return await fixture<Menu>(html`
                     <${menuTag}>
                         <${name}>Item 1</${name}>
                         <${name}>Item 2</${name}>

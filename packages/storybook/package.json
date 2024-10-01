@@ -17,7 +17,7 @@
     "prettier-fix": "prettier-eslint \"**/*.*\" --write --prettier-ignore"
   },
   "devDependencies": {
-    "@chromatic-com/storybook": "^1.2.25",
+    "@chromatic-com/storybook": "^2.0.2",
     "@microsoft/fast-element": "^1.12.0",
     "@microsoft/fast-foundation": "^2.49.6",
     "@microsoft/fast-react-wrapper": "^0.3.22",

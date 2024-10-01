@@ -5,7 +5,7 @@ import { waitForUpdatesAsync } from '../../testing/async-helpers';
 
 describe('Button', () => {
     async function setup(): Promise<Fixture<Button>> {
-        return fixture<Button>(html`<${buttonTag}></${buttonTag}>`);
+        return await fixture<Button>(html`<${buttonTag}></${buttonTag}>`);
     }
 
     it('should export its tag', () => {

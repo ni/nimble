@@ -15,7 +15,7 @@ import {
 import type { MatrixRenderer } from '../workers/matrix-renderer';
 
 async function setup(): Promise<Fixture<WaferMap>> {
-    return fixture<WaferMap>(html`<nimble-wafer-map></nimble-wafer-map>`);
+    return await fixture<WaferMap>(html`<nimble-wafer-map></nimble-wafer-map>`);
 }
 describe('WaferMap', () => {
     let element: WaferMap;

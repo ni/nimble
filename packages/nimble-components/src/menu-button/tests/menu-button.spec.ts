@@ -29,11 +29,13 @@ const composedTestSlottedElement = TestSlottedElement.compose({
 });
 
 async function setup(): Promise<Fixture<MenuButton>> {
-    return fixture<MenuButton>(html`<nimble-menu-button></nimble-menu-button>`);
+    return await fixture<MenuButton>(
+        html`<nimble-menu-button></nimble-menu-button>`
+    );
 }
 
 async function slottedSetup(): Promise<Fixture<TestSlottedElement>> {
-    return fixture(composedTestSlottedElement());
+    return await fixture(composedTestSlottedElement());
 }
 
 describe('MenuButton', () => {
