@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 01 Oct 2024 00:35:26 GMT",
+      "version": "32.2.10",
+      "tag": "@ni/nimble-components_v32.2.10",
+      "comments": {
+        "none": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "fa577f9c01d0435cbd823f48d98037df7667d931",
+            "comment": "Create HLDs for checkbox and radio group error states"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 26 Sep 2024 23:15:53 GMT",
       "version": "32.2.10",
       "tag": "@ni/nimble-components_v32.2.10",
