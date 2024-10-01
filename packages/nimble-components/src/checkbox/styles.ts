@@ -28,6 +28,8 @@ export const commonStyles = css`
         font: ${bodyFont};
         outline: none;
         ${userSelectNone}
+        min-height: ${controlHeight};
+        align-items: center;
     }
 
     .container {
@@ -37,7 +39,7 @@ export const commonStyles = css`
         grid-template-rows: ${bodyFontLineHeight} auto;
         align-items: center;
         width: 100%;
-        padding: calc((${controlHeight} - ${bodyFontLineHeight}) / 2) ${smallPadding};
+        padding: 0px ${smallPadding};
     }
 
     .control,
