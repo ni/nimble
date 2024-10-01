@@ -1,120 +1,50 @@
 import type { Meta, StoryObj } from '@storybook/html';
-import { html, repeat, ViewTemplate, when } from '@microsoft/fast-element';
-import { waitForUpdatesAsync } from '../../../../nimble-components/src/testing/async-helpers';
+import { html, ref } from '@microsoft/fast-element';
 import { PropertyFormat } from '../../../../nimble-components/src/theme-provider/tests/types';
 import {
     tokenNames as tokens,
     cssPropertyFromTokenName,
-    scssPropertyFromTokenName,
-    TokenSuffix,
-    suffixFromTokenName
+    scssPropertyFromTokenName
 } from '../../../../nimble-components/src/theme-provider/design-token-names';
 import { comments } from '../../../../nimble-components/src/theme-provider/design-token-comments';
 
-import {
-    bodyFont,
-    bodyFontColor,
-    groupHeaderFont,
-    groupHeaderFontColor,
-    groupHeaderTextTransform
-} from '../../../../nimble-components/src/theme-provider/design-tokens';
+import { tableFitRowsHeight } from '../../../../nimble-components/src/theme-provider/design-tokens';
 import { createUserSelectedThemeStory } from '../../utilities/storybook';
+import { Table, tableTag } from '../../../../nimble-components/src/table';
+import { tableColumnTextTag } from '../../../../nimble-components/src/table-column/text';
+import { tableColumnDesignTokenTag } from './table-column-design-token';
 
 type TokenName = keyof typeof tokens;
 const tokenNames = Object.keys(tokens) as TokenName[];
 tokenNames.sort((a, b) => a.localeCompare(b));
-const graphTokenNames = tokenNames.filter(x => x.startsWith('graph'));
-const calendarTokenNames = tokenNames.filter(x => x.startsWith('calendar'));
+
+const tokenData = tokenNames.map(tokenName => ({
+    id: tokenName,
+    name: tokenName,
+    description: comments[tokenName],
+    cssProperty: cssPropertyFromTokenName(tokens[tokenName]),
+    scssProperty: scssPropertyFromTokenName(tokens[tokenName])
+}));
+
+const graphTokenData = tokenData.filter(x => x.name.startsWith('graph'));
+const calendarTokenData = tokenData.filter(x => x.name.startsWith('calendar'));
+
+type TokenData = (typeof tokenData)[number];
 
 interface TokenArgs {
     metaTitle: string;
-    tokenNames: TokenName[];
+    tokenData: TokenData[];
     propertyFormat: PropertyFormat;
+    tableRef: Table<TokenData>;
 }
 
-const computedCSSValueFromTokenName = (tokenName: string): string => {
-    return getComputedStyle(document.documentElement).getPropertyValue(
-        cssPropertyFromTokenName(tokenName)
-    );
-};
-
-const colorTemplate = html<TokenName>`
-    <div
-        title="${x => computedCSSValueFromTokenName(tokens[x])}"
-        style="
-        display: inline-block;
-        height: 24px;
-        width: 24px;
-        border: 1px solid black;
-        background-color: var(${x => cssPropertyFromTokenName(tokens[x])});
-    "
-    ></div>
-`;
-
-const rgbColorTemplate = html<TokenName>`
-    <div
-        title="${x => computedCSSValueFromTokenName(tokens[x])}"
-        style="
-        display: inline-block;
-        height: 24px;
-        width: 24px;
-        border: 1px solid black;
-        background-color: rgba(var(${x => cssPropertyFromTokenName(tokens[x])}), 1.0);
-    "
-    ></div>
-`;
-
-const stringValueTemplate = html<TokenName>`
-    <div style="display: inline-block;">
-        ${x => computedCSSValueFromTokenName(tokens[x])}
-    </div>
-`;
-
-const fontTemplate = html<TokenName>`
-    <div
-        style="
-        display: inline-block;
-        font: var(${x => cssPropertyFromTokenName(tokens[x])});
-    "
-    >
-        Nimble
-    </div>
-`;
-
-/* eslint-disable @typescript-eslint/naming-convention */
-const tokenTemplates: {
-    readonly [key in TokenSuffix]: ViewTemplate<TokenName>;
-} = {
-    Color: colorTemplate,
-    RgbPartialColor: rgbColorTemplate,
-    DisabledFontColor: colorTemplate,
-    FontColor: colorTemplate,
-    FontLineHeight: stringValueTemplate,
-    FontWeight: stringValueTemplate,
-    FontSize: stringValueTemplate,
-    TextTransform: stringValueTemplate,
-    FontFamily: stringValueTemplate,
-    BoxShadow: stringValueTemplate,
-    MaxHeight: stringValueTemplate,
-    MinWidth: stringValueTemplate,
-    Font: fontTemplate,
-    Size: stringValueTemplate,
-    Width: stringValueTemplate,
-    Height: stringValueTemplate,
-    Delay: stringValueTemplate,
-    Padding: stringValueTemplate
-};
-/* eslint-enable @typescript-eslint/naming-convention */
-
-const templateForTokenName = (
-    tokenName: TokenName
-): ViewTemplate<TokenName> => {
-    const suffix = suffixFromTokenName(tokenName);
-    if (suffix === undefined) {
-        throw new Error(`Cannot identify suffix for token: ${tokenName}`);
-    }
-    const template = tokenTemplates[suffix];
-    return template;
+const updateData = (tableRef: Table<TokenData>, data: TokenData[]): void => {
+    void (async () => {
+        // Safari workaround: the table element instance is made at this point
+        // but doesn't seem to be upgraded to a custom element yet
+        await customElements.whenDefined('nimble-table');
+        await tableRef.setData(data);
+    })();
 };
 
 // prettier-ignore
@@ -129,7 +59,8 @@ const metadata: Meta<TokenArgs> = {
         controls: { hideNoControlsWarning: true }
     },
     args: {
-        propertyFormat: PropertyFormat.scss
+        propertyFormat: PropertyFormat.scss,
+        tableRef: undefined
     },
     argTypes: {
         propertyFormat: {
@@ -137,72 +68,49 @@ const metadata: Meta<TokenArgs> = {
             control: { type: 'radio' },
             name: 'Property Format'
         },
-        tokenNames: {
+        tokenData: {
             table: { disable: true }
+        },
+        tableRef: {
+            table: {
+                disable: true
+            }
         }
     },
     render: createUserSelectedThemeStory(html`
-        <style>
-            table {
-                font: var(${bodyFont.cssCustomProperty});
-                color: var(${bodyFontColor.cssCustomProperty});
-            }
-            thead {
-                font: var(${groupHeaderFont.cssCustomProperty});
-                color: var(${groupHeaderFontColor.cssCustomProperty});
-                text-transform: var(${groupHeaderTextTransform.cssCustomProperty});
-            }
-            td { 
-                padding: 10px;
-                height: 32px;
+        <style class="code-hide">
+            ${tableTag} {
+                height: var(${tableFitRowsHeight.cssCustomProperty});
+                max-height: none;
             }
         </style>
-        <table>
-            <thead>
-                <tr>
-                    <th>${x => x.propertyFormat} Property</th>
-                    <th>Preview</th>
-                    <th>Description</th>
-                </tr>
-            </thead>
-            <tbody>
-            ${repeat(x => x.tokenNames, html<TokenName, TokenArgs>`
-                <tr>
-                    <td>
-                        ${when((_, c) => (c.parent as TokenArgs).propertyFormat === PropertyFormat.css, html<TokenName>`
-                            ${x => cssPropertyFromTokenName(tokens[x])}
-                        `)}
-                        ${when((_, c) => (c.parent as TokenArgs).propertyFormat === PropertyFormat.scss, html<TokenName>`
-                            ${x => scssPropertyFromTokenName(tokens[x])}
-                        `)}
-                    </td>
-                    <td>${x => templateForTokenName(x)}</td>
-                    <td>${x => comments[x]}</td>
-                </tr>
-            `)}
-            </tbody>
-        </table>
-    `),
-    // Setting token default values is done as part of the FAST render queue so it needs to be cleared before reading them
-    // https://github.com/microsoft/fast/blob/bbf4e532cf9263727ef1bd8afbc30d79d1104c03/packages/web-components/fast-foundation/src/design-token/custom-property-manager.ts#LL154C3-L154C3
-    // This uses Storybook's "loaders" feature to await the queue. https://storybook.js.org/docs/html/writing-stories/loaders
-    loaders: [
-        async (): Promise<void> => {
-            await waitForUpdatesAsync();
-        }
-    ]
+        <${tableTag}
+            ${ref('tableRef')}
+            data-unused="${x => updateData(x.tableRef, x.tokenData)}"
+        >
+            <${tableColumnTextTag} field-name="${x => (x.propertyFormat === PropertyFormat.css ? 'cssProperty' : 'scssProperty')}">
+                ${x => (x.propertyFormat === PropertyFormat.css ? 'CSS Property' : 'SCSS Property')}
+            </${tableColumnTextTag}>
+            <${tableColumnDesignTokenTag} field-name="name">
+                Preview
+            </${tableColumnDesignTokenTag}>
+            <${tableColumnTextTag} sorting-disabled field-name="description">
+                Description
+            </${tableColumnTextTag}>
+        </${tableTag}>
+    `)
 };
 
 export default metadata;
 
 export const themeAwareTokens: StoryObj<TokenArgs> = {
-    args: { tokenNames }
+    args: { tokenData }
 };
 
 export const graphTokens: StoryObj<TokenArgs> = {
-    args: { tokenNames: graphTokenNames }
+    args: { tokenData: graphTokenData }
 };
 
 export const calendarTokens: StoryObj<TokenArgs> = {
-    args: { tokenNames: calendarTokenNames }
+    args: { tokenData: calendarTokenData }
 };
