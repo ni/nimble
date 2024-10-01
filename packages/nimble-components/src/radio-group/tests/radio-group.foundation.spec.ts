@@ -1,7 +1,10 @@
 // Based on tests in FAST repo: https://github.com/microsoft/fast/blob/913c27e7e8503de1f7cd50bdbc9388134f52ef5d/packages/web-components/fast-foundation/src/radio-group/radio-group.spec.ts
 
 import { DOM } from '@microsoft/fast-element';
-import { Radio, radioTemplate as itemTemplate } from '@microsoft/fast-foundation';
+import {
+    Radio,
+    radioTemplate as itemTemplate
+} from '@microsoft/fast-foundation';
 import { Orientation } from '@microsoft/fast-web-utilities';
 import { RadioGroup } from '..';
 import { fixture } from '../../utilities/tests/fixture';
@@ -22,8 +25,19 @@ describe('Radio Group', () => {
         template: itemTemplate
     });
 
-    async function setup(): Promise<{ element: RadioGroup, connect: () => Promise<void>, disconnect: () => Promise<void>, parent: HTMLElement, radio1: Radio, radio2: Radio, radio3: Radio }> {
-        const { element, connect, disconnect, parent } = await fixture([FASTRadioGroup(), FASTRadio()]);
+    async function setup(): Promise<{
+        element: RadioGroup,
+        connect: () => Promise<void>,
+        disconnect: () => Promise<void>,
+        parent: HTMLElement,
+        radio1: Radio,
+        radio2: Radio,
+        radio3: Radio
+    }> {
+        const { element, connect, disconnect, parent } = await fixture([
+            FASTRadioGroup(),
+            FASTRadio()
+        ]);
 
         const radio1 = document.createElement(radioTag);
         const radio2 = document.createElement(radioTag);
@@ -131,13 +145,19 @@ describe('Radio Group', () => {
         await connect();
         await DOM.nextUpdate();
 
-        expect((element.querySelector<Radio>('.one')!).disabled).toBeTrue();
-        expect((element.querySelector<Radio>('.two')!).disabled).toBeTrue();
-        expect((element.querySelector<Radio>('.three')!).disabled).toBeTrue();
+        expect(element.querySelector<Radio>('.one')!.disabled).toBeTrue();
+        expect(element.querySelector<Radio>('.two')!.disabled).toBeTrue();
+        expect(element.querySelector<Radio>('.three')!.disabled).toBeTrue();
 
-        expect(element.querySelector('.one')?.getAttribute('aria-disabled')).toBe('true');
-        expect(element.querySelector('.two')?.getAttribute('aria-disabled')).toBe('true');
-        expect(element.querySelector('.three')?.getAttribute('aria-disabled')).toBe('true');
+        expect(
+            element.querySelector('.one')?.getAttribute('aria-disabled')
+        ).toBe('true');
+        expect(
+            element.querySelector('.two')?.getAttribute('aria-disabled')
+        ).toBe('true');
+        expect(
+            element.querySelector('.three')?.getAttribute('aria-disabled')
+        ).toBe('true');
 
         await disconnect();
     });
@@ -177,19 +197,28 @@ describe('Radio Group', () => {
         await connect();
         await DOM.nextUpdate();
 
-        expect((element.querySelector<Radio>('.one')!).readOnly).toBeTrue();
-        expect((element.querySelector<Radio>('.two')!).readOnly).toBeTrue();
-        expect((element.querySelector<Radio>('.three')!).readOnly).toBeTrue();
+        expect(element.querySelector<Radio>('.one')!.readOnly).toBeTrue();
+        expect(element.querySelector<Radio>('.two')!.readOnly).toBeTrue();
+        expect(element.querySelector<Radio>('.three')!.readOnly).toBeTrue();
 
-        expect(element.querySelector('.one')?.getAttribute('aria-readonly')).toBe('true');
-        expect(element.querySelector('.two')?.getAttribute('aria-readonly')).toBe('true');
-        expect(element.querySelector('.three')?.getAttribute('aria-readonly')).toBe('true');
+        expect(
+            element.querySelector('.one')?.getAttribute('aria-readonly')
+        ).toBe('true');
+        expect(
+            element.querySelector('.two')?.getAttribute('aria-readonly')
+        ).toBe('true');
+        expect(
+            element.querySelector('.three')?.getAttribute('aria-readonly')
+        ).toBe('true');
 
         await disconnect();
     });
 
     it('should set tabindex of 0 to a child radio with a matching `value`', async () => {
-        const { element, connect, disconnect } = await fixture([FASTRadioGroup(), FASTRadio()]);
+        const { element, connect, disconnect } = await fixture([
+            FASTRadioGroup(),
+            FASTRadio()
+        ]);
 
         element.value = 'baz';
 
@@ -220,7 +249,10 @@ describe('Radio Group', () => {
     });
 
     it('should NOT set tabindex of 0 to a child radio if its value does not match the radiogroup `value`', async () => {
-        const { element, connect, disconnect } = await fixture([FASTRadioGroup(), FASTRadio()]);
+        const { element, connect, disconnect } = await fixture([
+            FASTRadioGroup(),
+            FASTRadio()
+        ]);
 
         element.value = 'baz';
 
@@ -254,7 +286,10 @@ describe('Radio Group', () => {
     });
 
     it('should set a child radio with a matching `value` to `checked`', async () => {
-        const { element, connect, disconnect } = await fixture([FASTRadioGroup(), FASTRadio()]);
+        const { element, connect, disconnect } = await fixture([
+            FASTRadioGroup(),
+            FASTRadio()
+        ]);
 
         element.value = 'baz';
 
@@ -277,7 +312,7 @@ describe('Radio Group', () => {
         await connect();
         await DOM.nextUpdate();
 
-        expect((element.querySelectorAll(radioTag)[2]!).checked).toBeTrue();
+        expect(element.querySelectorAll(radioTag)[2]!.checked).toBeTrue();
         expect(
             element.querySelectorAll(radioTag)[2]!.getAttribute('aria-checked')
         ).toBe('true');
@@ -286,7 +321,10 @@ describe('Radio Group', () => {
     });
 
     it('should set a child radio with a matching `value` to `checked` when value changes', async () => {
-        const { element, connect, disconnect } = await fixture([FASTRadioGroup(), FASTRadio()]);
+        const { element, connect, disconnect } = await fixture([
+            FASTRadioGroup(),
+            FASTRadio()
+        ]);
 
         element.value = 'baz';
 
@@ -313,7 +351,7 @@ describe('Radio Group', () => {
 
         await DOM.nextUpdate();
 
-        expect((element.querySelectorAll(radioTag)[0]!).checked).toBeTrue();
+        expect(element.querySelectorAll(radioTag)[0]!.checked).toBeTrue();
         expect(
             element.querySelectorAll(radioTag)[0]!.getAttribute('aria-checked')
         ).toBe('true');
@@ -322,7 +360,10 @@ describe('Radio Group', () => {
     });
 
     it('should mark the last radio defaulted to checked as checked, the rest should not be checked', async () => {
-        const { element, connect, disconnect } = await fixture([FASTRadioGroup(), FASTRadio()]);
+        const { element, connect, disconnect } = await fixture([
+            FASTRadioGroup(),
+            FASTRadio()
+        ]);
 
         const radio1 = document.createElement(radioTag);
         const radio2 = document.createElement(radioTag);
@@ -354,7 +395,10 @@ describe('Radio Group', () => {
     });
 
     it('should mark radio matching value on radio-group over any checked attributes', async () => {
-        const { element, connect, disconnect } = await fixture([FASTRadioGroup(), FASTRadio()]);
+        const { element, connect, disconnect } = await fixture([
+            FASTRadioGroup(),
+            FASTRadio()
+        ]);
 
         element.value = 'bar';
 
@@ -385,14 +429,19 @@ describe('Radio Group', () => {
 
         // radio-group explicitly sets non-matching radio's checked to false if a value match was found,
         // but the attribute should still persist.
-        expect((radios[2] as HTMLInputElement).hasAttribute('checked')).toBeTrue();
+        expect(
+            (radios[2] as HTMLInputElement).hasAttribute('checked')
+        ).toBeTrue();
         expect((radios[2] as HTMLInputElement).checked).toBeFalse();
 
         await disconnect();
     });
 
     it('should NOT set a child radio to `checked` if its value does not match the radiogroup `value`', async () => {
-        const { element, connect, disconnect } = await fixture([FASTRadioGroup(), FASTRadio()]);
+        const { element, connect, disconnect } = await fixture([
+            FASTRadioGroup(),
+            FASTRadio()
+        ]);
 
         element.value = 'baz';
 
@@ -415,12 +464,12 @@ describe('Radio Group', () => {
         await connect();
         await DOM.nextUpdate();
 
-        expect((element.querySelectorAll(radioTag)[0]!).checked).toBeFalse();
+        expect(element.querySelectorAll(radioTag)[0]!.checked).toBeFalse();
         expect(
             element.querySelectorAll(radioTag)[0]!.getAttribute('aria-checked')
         ).toBe('false');
 
-        expect((element.querySelectorAll(radioTag)[1]!).checked).toBeFalse();
+        expect(element.querySelectorAll(radioTag)[1]!.checked).toBeFalse();
         expect(
             element.querySelectorAll(radioTag)[1]!.getAttribute('aria-checked')
         ).toBe('false');
@@ -429,15 +478,7 @@ describe('Radio Group', () => {
     });
 
     it('should allow resetting of elements by the parent form', async () => {
-        const {
-            element,
-            connect,
-            disconnect,
-            parent,
-            radio1,
-            radio2,
-            radio3,
-        } = await setup();
+        const { element, connect, disconnect, parent, radio1, radio2, radio3 } = await setup();
 
         radio2.setAttribute('checked', '');
 

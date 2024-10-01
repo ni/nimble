@@ -41,7 +41,7 @@ export const styles = css`
     :host([disabled]) slot[name='label'] {
         color: ${controlLabelDisabledFontColor};
     }
-    
+
     .error-icon {
         margin-left: auto;
         margin-right: ${smallPadding};

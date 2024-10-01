@@ -33,7 +33,7 @@ export const template: FoundationElementTemplate<ViewTemplate<RadioGroup>> = (
             <slot
                 ${slotted({
                     property: 'slottedRadioButtons',
-                    filter: elements('[role=radio]'),
+                    filter: elements('[role=radio]')
                 })}
             ></slot>
             ${errorTextTemplate}
