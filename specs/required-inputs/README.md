@@ -85,6 +85,8 @@ We will file a Chromium bug for the issue affecting the `nimble-combobox` and `n
 
 The `required` attribute only plays a role in validation for template-driven forms (with reactive forms, it is only used for accessibility purposes). Nimble inputs already support setting the `required` attribute via template, but we will add it to the directive wrappers for completeness.
 
+Note also that Angular's form validation support [automatically disables the native HTML form validation](https://v17.angular.io/api/forms/NgForm#native-dom-validation-ui) that would otherwise be triggered by setting the `required` attribute. This means that our Angular clients are not exposed to any of the native HTML validation bugs listed earlier in this document.
+
 #### Blazor
 
 Typically, form validation is handled via a `DataAnnotationsValidator`, and an input is treated as required if it is bound to a model property annotated with `RequiredAttribute` (i.e. `[Required]`). The Nimble component's `required` attribute is still needed to turn on the visual affordance, though, so we will add it to the Razor API.
