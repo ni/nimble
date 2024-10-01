@@ -1,8 +1,9 @@
 /* eslint-disable @typescript-eslint/indent */
-import { html, ref, when } from '@microsoft/fast-element';
+import { html, when } from '@microsoft/fast-element';
 import type { TableColumnAnchorCellView } from '.';
 import { anchorTag } from '../../../anchor';
 import { overflow } from '../../../utilities/directive/overflow';
+import { dynamicRef } from '../../../utilities/directive/dynamic-ref';
 
 // prettier-ignore
 export const template = html<TableColumnAnchorCellView>`
@@ -17,7 +18,7 @@ export const template = html<TableColumnAnchorCellView>`
     >
         ${when(x => x.showAnchor, html<TableColumnAnchorCellView>`
             <${anchorTag}
-                ${ref('anchor')}
+                ${dynamicRef('anchor')}
                 ${overflow('hasOverflow')}
                 ${'' /* tabindex managed dynamically by KeyboardNavigationManager */}
                 tabindex="-1"

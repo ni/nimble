@@ -30,12 +30,11 @@ export abstract class TableCellView<
     public recordId?: string;
 
     /**
-     * Gets the child elements in this cell view that should be able to be reached via Tab/ Shift-Tab,
+     * The child elements in this cell view that should be able to be reached via Tab/ Shift-Tab,
      * if any.
      */
-    public get tabbableChildren(): HTMLElement[] {
-        return [];
-    }
+    @observable
+    public tabbableChildren: Element[] = [];
 
     private delegatedEvents: readonly string[] = [];
 
@@ -72,4 +71,8 @@ export abstract class TableCellView<
     }
 
     private delegatedEventHandler: (event: Event) => void = () => {};
+
+    private tabbableChildrenChanged(): void {
+        this.$emit('cell-tabbable-children-change', this);
+    }
 }
