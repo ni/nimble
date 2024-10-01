@@ -1,6 +1,7 @@
 import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate } from '@microsoft/fast-element';
 import { Orientation } from '@microsoft/fast-web-utilities';
+import { standardPadding } from '../../../../nimble-components/src/theme-provider/design-tokens';
 import { radioTag } from '../../../../nimble-components/src/radio';
 import { radioGroupTag } from '../../../../nimble-components/src/radio-group';
 import {
@@ -43,6 +44,7 @@ const component = (
     ?error-visible="${() => errorVisible}"
     error-text="${() => errorText}"
     value="1"
+    style="width: 250px; margin: var(${standardPadding.cssCustomProperty});"
 >
     <label slot="label">${orientationName} ${disabledName} ${errorName}</label>
     <${radioTag} value="1">Option 1</${radioTag}>
