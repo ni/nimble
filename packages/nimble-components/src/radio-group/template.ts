@@ -1,16 +1,11 @@
 import { elements, html, slotted } from '@microsoft/fast-element';
-import type { ViewTemplate } from '@microsoft/fast-element';
 import { Orientation } from '@microsoft/fast-web-utilities';
-import type { FoundationElementTemplate } from '@microsoft/fast-foundation';
 import type { RadioGroup } from '.';
 import { errorTextTemplate } from '../patterns/error/template';
 import { iconExclamationMarkTag } from '../icons/exclamation-mark';
 
 /* eslint-disable @typescript-eslint/indent */
-export const template: FoundationElementTemplate<ViewTemplate<RadioGroup>> = (
-    _context,
-    _definition
-) => html`
+export const template = html<RadioGroup>`
     <template
         role="radiogroup"
         aria-disabled="${x => x.disabled}"
