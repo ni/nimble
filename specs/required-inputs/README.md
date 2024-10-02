@@ -26,18 +26,14 @@ Any other controls that could possibly be considered inputs are out of scope.
 
 ### API
 
-The [native API](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/required) for marking an input required (which is also the [Angular API](https://v17.angular.io/guide/form-validation#validating-input-in-template-driven-forms)) is:
-
-- `required`: boolean attribute whose presence indicates that a value must be provided to submit
-
-There are behavioral and presentational aspects of making an input participate in validation. In an ideal world, validation-related attributes like `required`, `min`, `max`, etc. would control both behavior and presentation, and frameworks like Angular and Blazor would utilize native form association APIs rather than implementing their own systems. However, given that frameworks like Angular automatically opt out of native form validation ([by setting `novalidate` on the `form` element](https://v17.angular.io/api/forms/NgForm#native-dom-validation-ui)), we don't want our validation presentations (e.g. "required" asterisk, error text/icon, and associated accessibility) coupled to the native validation system. Instead, we introduce a new attribute that controls just the presentation:
+There are behavioral and presentational aspects of making an input participate in validation. In an ideal world, native, validation-related attributes like `required`, `min`, `max`, etc. would control both behavior and presentation, and frameworks like Angular and Blazor would utilize native form association APIs rather than implementing their own systems. However, given that frameworks like Angular automatically opt out of native form validation ([by setting `novalidate` on the `form` element](https://v17.angular.io/api/forms/NgForm#native-dom-validation-ui)), we don't want our validation presentations (e.g. "required" asterisk, error text/icon, and associated accessibility) coupled to the native validation system. Instead, we introduce a new attribute that controls just the presentation:
 
 - `required-visible`: boolean attribute whose presence turns on a visual affordance (red asterisk) and accessible indication (`aria-required="true"`) that an input is required
 
 This approach is consistent with our existing approach to validation error presentation. Rather than using the native validation state (e.g. via the `:invalid` CSS pseudo-selector) to trigger the display of error text or error icon (red exclamation mark), we have the `error-visible` attribute which gives explicit control over the error presentation. Today, `error-visible` does not manage ARIA properly (e.g. setting `aria-invalid` and `aria-errormessage`), which seems to be an oversight.
 
 #### Radio buttons
-`required-visible` will be exposed on radio button groups, but not radio buttons, since the visual only appears on the radio button group label. This is a departure from the the native API, where the `required` attribute is only exposed on radio buttons, but affects the entire radio button group. We are prioritizing an intuitive API over consistency with the native 
+`required-visible` will be exposed on radio button groups, but not radio buttons, since the visual only appears on the radio button group label. This is a departure from the the native API, where the `required` attribute is only exposed on radio buttons, but affects the entire radio button group. We are prioritizing an intuitive API over consistency with the native API.
 
 #### Readonly/disabled required inputs
 
