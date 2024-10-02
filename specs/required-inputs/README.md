@@ -85,7 +85,7 @@ When the user attempts to submit a form and a `required` input is missing a valu
 
 ![Missing value indicator](missing-value.png)
 
-We would expect this to already work, since the FAST components we derive from provide forms support. Unfortunately, this support is broken or incomplete for multiple components:
+Because of FAST's form-associated polyfill implementation we end up leveraging a native form control with validation properties forwarded to it. This results in the unexpected behavior of the native form presentation (ARIA and popups) being presented / conflicting with Nimble's defined presentation. The following are specific issues encountered:
 
 - `nimble-combobox`: 
     - In Chrome/Edge, a missing required value properly blocks form submission and updates the control's `validity` flags, but the visual indicator of the validation error is not shown, and instead an error is printed to the console: "An invalid form control with name='' is not focusable." Presumably, something is trying to focus the host element, though it delegates focus to the shadow DOM. The error comes from a call to [`form.requestSubmit()` in the FAST button code](https://github.com/microsoft/fast/blob/913c27e7e8503de1f7cd50bdbc9388134f52ef5d/packages/web-components/fast-foundation/src/button/button.ts#L221), which we cannot debug into. Things work properly in Firefox.
