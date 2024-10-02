@@ -30,11 +30,18 @@ The [native API](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/re
 
 - `required`: boolean attribute whose presence indicates that a value must be provided to submit
 
-We could key off of this existing attribute to show our visual "required" indicator (i.e. red asterisk), but we will instead introduce a new, parallel `required-visible` attribute, for the following reasons:
-- Consistency: We do not use the native validation state (e.g. via the `:invalid` CSS pseudo-selector) to trigger the display of error text or error icon (red exclamation mark). Instead, we have the `error-visible` attribute which gives explicit control over the error visuals without the client having to engage the native validation APIs. This is important for Angular and Blazor, since neither use native validation.
-- Separation of concerns: We want clients to be able to display our "required" visual without triggering everything that comes with setting the `required` attribute. Though vanilla HTML and Angular clients will generally be setting `required` anyway, there may be corner cases where a client wants to avoid doing so.
+There are behavioral and presentational aspects of making an input participate in validation. In an ideal world, validation-related attributes like `required`, `min`, `max`, etc. would control both behavior and presentation, and frameworks like Angular and Blazor would utilize native form association APIs rather than implementing their own systems. However, given that frameworks like Angular automatically opt out of native form validation ([by setting `novalidate` on the `form` element](https://v17.angular.io/api/forms/NgForm#native-dom-validation-ui)), we don't want our validation presentations (e.g. "required" asterisk, error text/icon, and associated accessibility) coupled to the native validation system. Instead, we introduce a new attribute that controls just the presentation:
 
-For radio buttons and radio button groups, our `required-visible` attribute will follow the same rules as the native `required` attribute. Specifically, the attribute only exists on radio button elements, and if any of the radio buttons in a radio button group have the attribute, the radio button group displays the visual indicator. It does not matter if the radio button with `required-visible` is disabled, hidden, etc. It is effectively as if the attribute is on the radio button group, rather than a specific one.
+- `required-visible`: boolean attribute whose presence turns on a visual affordance (red asterisk) and accessible indication (`aria-required="true"`) that an input is required
+
+This approach is consistent with our existing approach to validation error presentation. Rather than using the native validation state (e.g. via the `:invalid` CSS pseudo-selector) to trigger the display of error text or error icon (red exclamation mark), we have the `error-visible` attribute which gives explicit control over the error presentation. Today, `error-visible` does not manage ARIA properly (e.g. setting `aria-invalid` and `aria-errormessage`), which seems to be an oversight.
+
+#### Radio buttons
+`required-visible` will be exposed on radio button groups, but not radio buttons, since the visual only appears on the radio button group label. This is a departure from the the native API, where the `required` attribute is only exposed on radio buttons, but affects the entire radio button group. We are prioritizing an intuitive API over consistency with the native 
+
+#### Readonly/disabled required inputs
+
+`readonly` and/or `disabled` inputs [do not participate in native form validation](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/readonly#attribute_interactions). Because we are decoupling the "required" presentation from the validation behavior, it is up to clients to manage whether or not the presentation is shown when a combination of `required` and `readonly`/`disabled` are present on an input.
 
 ### Visuals
 
@@ -52,8 +59,6 @@ This will be implemented using a new `nimble-icon-asterisk` icon ([named consist
     `)}
 </div>
 ```
-
-Note that for text-field, text-area, and number-field, the `readonly` attribute will prevent the display of the asterisk icon, since [validation is not enforced on a readonly input](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/readonly#attribute_interactions). This doesn't apply to select, combobox, or radio buttons, because they do not support `readonly`.
 
 Styles will be shared.
 
@@ -76,7 +81,7 @@ None
 
 ## Form validation
 
-We are opting to keep our API separate from the API that actually triggers form validation, but for completeness, an overview of Nimble's support of the `required` attribute follows.
+We are opting to keep our presentational API separate from the behavioral API (i.e. `required`), but for completeness, an overview of Nimble's support of the `required` attribute follows.
 
 #### Vanilla HTML
 
