@@ -10,7 +10,7 @@ import {
 import { waitForUpdatesAsync } from '../../../testing/async-helpers';
 
 async function setup(): Promise<Fixture<RichTextEditor>> {
-    return await fixture<RichTextEditor>(
+    return fixture<RichTextEditor>(
         html`<nimble-rich-text-editor></nimble-rich-text-editor>`
     );
 }
@@ -358,7 +358,8 @@ Plain text 3`);
             expect(element.getMarkdown()).toEqual('<user:1> <user:2> ');
         });
 
-        it('Multiple Mention node of different type', async () => {
+        // Intermittent on Webkit (at least), see https://github.com/ni/nimble/issues/2426
+        it('Multiple Mention node of different type  #SkipWebkit', async () => {
             await appendUserMentionConfiguration(element, [
                 { key: 'user:1', displayName: 'username1' }
             ]);
