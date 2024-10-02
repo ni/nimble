@@ -26,15 +26,19 @@ Any other controls that could possibly be considered inputs are out of scope.
 
 ### API
 
-Our FAST base components provide built-in forms support via the [same API](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/required) exposed by the native HTML `input`:
+The [native API](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/required) for marking an input required (which is also the [Angular API](https://v17.angular.io/guide/form-validation#validating-input-in-template-driven-forms)) is:
 
 - `required`: boolean attribute whose presence indicates that a value must be provided to submit
 
-For radio buttons and radio button groups, only the radio button elements expose the `required` attribute. If any of the radio buttons in a radio button group are marked required, the radio button group is treated as required. It does not matter if the radio button with `required` is disabled, hidden, etc. It is effectively as if the attribute is on the radio button group, rather than a specific one. This matches the behavior of the native `input` with `type="radio"`. 
+We could key off of this existing attribute to show our visual "required" indicator (i.e. red asterisk), but we will instead introduce a new, parallel `required-visible` attribute, for the following reasons:
+- Consistency: We do not use the native validation state (e.g. via the `:invalid` CSS pseudo-selector) to trigger the display of error text or error icon (red exclamation mark). Instead, we have the `error-visible` attribute which gives explicit control over the error visuals without the client having to engage the native validation APIs. This is important for Angular and Blazor, since neither use native validation.
+- Separation of concerns: We want clients to be able to display our "required" visual without triggering everything that comes with setting the `required` attribute. Though vanilla HTML and Angular clients will generally be setting `required` anyway, there may be corner cases where a client wants to avoid doing so.
+
+For radio buttons and radio button groups, our `required-visible` attribute will follow the same rules as the native `required` attribute. Specifically, the attribute only exists on radio button elements, and if any of the radio buttons in a radio button group have the attribute, the radio button group displays the visual indicator. It does not matter if the radio button with `required-visible` is disabled, hidden, etc. It is effectively as if the attribute is on the radio button group, rather than a specific one.
 
 ### Visuals
 
-We will update our templates so that setting `required` causes a red asterisk to be displayed after the label, as per the visual design. For radio buttons/groups, the asterisk is on the group label, not individual button labels. We have already forked some of the templates from FAST, but we will now need to fork the ones for `nimble-number-field`, `nimble-radio-group`, and `nimble-text-field`. 
+We will update our templates so that setting `required-visible` causes a red asterisk to be displayed after the label, as per the visual design. For radio buttons/groups, the asterisk is on the group label, not individual button labels. We have already forked some of the templates from FAST, but we will now need to fork the ones for `nimble-number-field`, `nimble-radio-group`, and `nimble-text-field`. 
 
 This will be implemented using a new `nimble-icon-asterisk` icon ([named consistently with Font Awesome](https://fontawesome.com/icons/asterisk)) that follows the `label` element. We will wrap the two in a `div` so that we can force a horizontal layout (`flex-direction: row`). This structure will also ensure that whatever the wrapping/ellipsizing behavior of the label is, the asterisk will always appear at the far right:
 
@@ -43,17 +47,36 @@ This will be implemented using a new `nimble-icon-asterisk` icon ([named consist
     <label part="label" class="label">
         <slot></slot>
     </label>
-    ${when(x => x.required, html`
+    ${when(x => x.requiredVisible, html`
         <nimble-icon-asterisk severity="error"></nimble-icon-asterisk>
     `)}
 </div>
 ```
 
-Note that for text-field, text-area, and number-field, we will also remove the visual if the control has the `readonly` attribute set, since [validation is not enforced on a readonly input](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/readonly#attribute_interactions). This doesn't apply to select, combobox, or radio buttons, because they do not support `readonly`.
+Note that for text-field, text-area, and number-field, the `readonly` attribute will prevent the display of the asterisk icon, since [validation is not enforced on a readonly input](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/readonly#attribute_interactions). This doesn't apply to select, combobox, or radio buttons, because they do not support `readonly`.
 
 Styles will be shared.
 
-### Form validation
+
+### Angular & Blazor
+
+The `required-visible` attribute will be added to the wrappers.
+
+## Documentation
+
+We will document the new `required-visible` attribute, but we will not add comprehensive documentation about form validation or the `required` attribute.
+
+## Testing
+
+Visual matrix test cases will be added for the affected components.
+
+## Alternative Implementations / Designs
+
+None
+
+## Form validation
+
+We are opting to keep our API separate from the API that actually triggers form validation, but for completeness, an overview of Nimble's support of the `required` attribute follows.
 
 #### Vanilla HTML
 
@@ -69,7 +92,7 @@ We would expect this to already work, since the FAST components we derive from p
 - `nimble-text-area`:
     - Has same Chrome/Edge issue as `nimble-combobox`.
 - `nimble-select`:
-    - Validation incorrectly reports a missing value until a value change has occurred. I.e. the initial value is not seen. This happens because we try to mirror the initial value to the proxy native `select` element (within [a call to `super.slottedOptionsChanged()`](https://github.com/ni/nimble/blob/ddad57c4c97da9504f8146ad48668f290dae5301/packages/nimble-components/src/select/index.ts#L331)) before we have [mirrored the child option elements](https://github.com/ni/nimble/blob/ddad57c4c97da9504f8146ad48668f290dae5301/packages/nimble-components/src/select/index.ts#L346). The native `select` will reject/ignore setting `value` if it doesn't correspond to the value of one of its child options (of which it has none, at that point). Right after mirroring the child options, there is a call to `updateValue()`, but because the value has already been updated earlier, it [short-circuits](https://github.com/ni/nimble/blob/ddad57c4c97da9504f8146ad48668f290dae5301/packages/nimble-components/src/select/index.ts#L268), skipping the code path that would have updated the proxy. I suspect we can find a reasonable fix for this.
+    - Validation incorrectly reports a missing value until a value change has occurred. I.e. the initial value is not seen. This happens because we try to mirror the initial value to the proxy native `select` element (within [a call to `super.slottedOptionsChanged()`](https://github.com/ni/nimble/blob/ddad57c4c97da9504f8146ad48668f290dae5301/packages/nimble-components/src/select/index.ts#L331)) before we have [mirrored the child option elements](https://github.com/ni/nimble/blob/ddad57c4c97da9504f8146ad48668f290dae5301/packages/nimble-components/src/select/index.ts#L346). The native `select` will reject/ignore setting `value` if it doesn't correspond to the value of one of its child options (of which it has none, at that point). Right after mirroring the child options, there is a call to `updateValue()`, but because the value has already been updated earlier, it [short-circuits](https://github.com/ni/nimble/blob/ddad57c4c97da9504f8146ad48668f290dae5301/packages/nimble-components/src/select/index.ts#L268), skipping the code path that would have updated the proxy.
     - Accessibility: the control is not marked/announced as required. The accessible control (i.e. the one defining the `role`) is the `nimble-select` itself. Since this is not a native input, the accessibility tree doesn't see/understand the `required` attribute on it. We need to additionally set `aria-required` on it (bound to `required`).
 - `nimble-radio`:
     - `required` on a radio button [does not take other buttons in the group into account](https://github.com/microsoft/fast/issues/6866). It will result in a validation error if _that specific_ radio is unchecked.
@@ -77,31 +100,15 @@ We would expect this to already work, since the FAST components we derive from p
 
 Forms support is complete and functional for `nimble-number-field` and `nimble-text-field`.
 
-Because the `nimble-radio` support has never worked, would take significant work to fix, and FAST is no longer accepting submissions to the archive branch we use, we **will not fix radio button forms support** as part of this feature.
-
-We will file a Chromium bug for the issue affecting the `nimble-combobox` and `nimble-text-area` but **will not try to work around it.**
-
 #### Angular
 
-The `required` attribute only plays a role in validation for template-driven forms (with reactive forms, it is only used for accessibility purposes). Nimble inputs already support setting the `required` attribute via template, but we will add it to the directive wrappers for completeness.
+The `required` attribute only plays a role in validation for template-driven forms (with reactive forms, it is only used for accessibility purposes).
 
 Note also that Angular's form validation support [automatically disables the native HTML form validation](https://v17.angular.io/api/forms/NgForm#native-dom-validation-ui) that would otherwise be triggered by setting the `required` attribute. This means that our Angular clients are not exposed to any of the native HTML validation bugs listed earlier in this document.
 
 #### Blazor
 
-Typically, form validation is handled via a `DataAnnotationsValidator`, and an input is treated as required if it is bound to a model property annotated with `RequiredAttribute` (i.e. `[Required]`). The Nimble component's `required` attribute is still needed to turn on the visual affordance, though, so we will add it to the Razor API.
-
-## Documentation
-
-We will add documentation for the `required` attribute. No additional guidance is necessary.
-
-## Testing
-
-Visual matrix test cases will be added for the affected components.
-
-## Alternative Implementations / Designs
-
-None
+Typically, form validation is handled via a `DataAnnotationsValidator`, and an input is treated as required if it is bound to a model property annotated with `RequiredAttribute` (i.e. `[Required]`).
 
 ## Open Issues
 
