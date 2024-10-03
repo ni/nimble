@@ -276,9 +276,10 @@ describe('Markdown serializer', () => {
    * Nested bulleted list`);
         });
 
-        for (let i = 0; i < 30; i++) {
+        for (let i = 0; i < 10000; i++) {
             // WebKit skipped, see https://github.com/ni/nimble/issues/1938
-            it('Hard break #SkipWebkit' + `${i}`, async () => {
+            // eslint-disable-next-line no-restricted-globals
+            fit('Hard break #SkipWebkit' + `${i}`, async () => {
                 await pageObject.setEditorTextContent('Plain text 1');
                 await pageObject.pressShiftEnterKeysInEditor();
                 await pageObject.setEditorTextContent('Plain text 2');
