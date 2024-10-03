@@ -439,6 +439,11 @@ export class RichTextEditorPageObject {
     }
 
     public async clickMentionListboxOption(index: number): Promise<void> {
+        if (this.isMentionListboxOpened()) {
+            this.richTextEditorElement.tiptapEditor.commands.focus();
+            await waitForUpdatesAsync();
+        }
+
         const listOption = this.getAllListItemsInMentionBox()[index];
         listOption?.click();
         await waitForUpdatesAsync();

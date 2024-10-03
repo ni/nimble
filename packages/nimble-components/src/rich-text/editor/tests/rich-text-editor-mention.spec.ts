@@ -1542,29 +1542,34 @@ describe('RichTextEditorMentionListbox', () => {
             expect(pageObject.isMentionListboxOpened()).toBeTrue();
         });
 
-        // Firefox skipped, see https://github.com/ni/nimble/issues/2404
-        it('should show mention popup for multiple mention configuration elements #SkipFirefox', async () => {
+        it('should show mention popup for multiple mention configuration elements', async () => {
             await appendUserMentionConfiguration(element, [
                 { key: 'user:1', displayName: 'username1' },
                 { key: 'user:2', displayName: 'username2' }
             ]);
+
             await pageObject.setEditorTextContent('@');
-            expect(pageObject.isMentionListboxOpened()).toBeTrue();
+
             expect(pageObject.getMentionListboxItemsName()).toEqual([
                 'username1',
                 'username2'
             ]);
-            await pageObject.clickMentionListboxOption(0);
+            expect(pageObject.isMentionListboxOpened()).toBeTrue();
+
+            await pageObject.sliceEditorContent(0, 2);
+
             await appendTestMentionConfiguration(element, [
                 { key: 'test:1', displayName: 'testname1' },
                 { key: 'test:2', displayName: 'testname2' }
             ]);
+
             await pageObject.setEditorTextContent('!');
-            expect(pageObject.isMentionListboxOpened()).toBeTrue();
+
             expect(pageObject.getMentionListboxItemsName()).toEqual([
                 'testname1',
                 'testname2'
             ]);
+            expect(pageObject.isMentionListboxOpened()).toBeTrue();
         });
 
         it('mention listbox should be closed when cursor position is moved to start and configuration dynamically changes', async () => {

@@ -337,12 +337,13 @@ Plain text 3`);
 <user:1> `);
         });
 
-        // Firefox skipped, see https://github.com/ni/nimble/issues/2404
-        it('Mention node #SkipFirefox', async () => {
+        it('Mention node', async () => {
             await appendUserMentionConfiguration(element, [
                 { key: 'user:1', displayName: 'username1' }
             ]);
+
             await commitFirstMentionBoxOptionIntoEditor('@');
+
             expect(element.getMarkdown()).toEqual('<user:1> ');
         });
 
