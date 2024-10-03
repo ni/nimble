@@ -360,7 +360,9 @@ Plain text 3`);
                 await appendUserMentionConfiguration(element, [
                     { key: 'user:1', displayName: 'username1' }
                 ]);
+
                 await commitFirstMentionBoxOptionIntoEditor('@');
+
                 expect(element.getMarkdown()).toEqual('<user:1> ');
             });
         }

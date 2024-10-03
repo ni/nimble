@@ -1566,9 +1566,10 @@ describe('RichTextEditorMentionListbox', () => {
                         'username1',
                         'username2'
                     ]);
-                    // expect(pageObject.isMentionListboxOpened()).toBeTrue();
+                    expect(pageObject.isMentionListboxOpened()).toBeTrue();
 
-                    await pageObject.clickMentionListboxOption(0);
+                    // await pageObject.clickMentionListboxOption(0);
+                    await pageObject.sliceEditorContent(0, 2);
 
                     await appendTestMentionConfiguration(element, [
                         { key: 'test:1', displayName: 'testname1' },
@@ -1581,7 +1582,7 @@ describe('RichTextEditorMentionListbox', () => {
                         'testname1',
                         'testname2'
                     ]);
-                    // expect(pageObject.isMentionListboxOpened()).toBeTrue();
+                    expect(pageObject.isMentionListboxOpened()).toBeTrue();
                 }
             );
         }
