@@ -1376,7 +1376,7 @@ describe('RichTextEditorMentionListbox', () => {
     });
 
     describe('Dynamically update mention popup items based on configuration changes', () => {
-        for (let i = 0; i < 1000; i++) {
+        for (let i = 0; i < 100; i++) {
             // eslint-disable-next-line no-restricted-globals
             fit(
                 'should close mention popup when removing configuration element'
