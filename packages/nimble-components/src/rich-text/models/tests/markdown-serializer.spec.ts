@@ -276,7 +276,7 @@ describe('Markdown serializer', () => {
    * Nested bulleted list`);
         });
 
-        for (let i = 0; i < 10000; i++) {
+        for (let i = 0; i < 1000; i++) {
             // WebKit skipped, see https://github.com/ni/nimble/issues/1938
             // eslint-disable-next-line no-restricted-globals
             fit('Hard break #SkipWebkit' + `${i}`, async () => {
