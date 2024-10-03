@@ -353,7 +353,7 @@ Plain text 3`);
             }
         );
 
-        for (let i = 0; i < 1000; i++) {
+        for (let i = 0; i < 10000; i++) {
             // Intermittent, see https://github.com/ni/nimble/issues/2219
             // eslint-disable-next-line no-restricted-globals
             fit('Mention node' + `${i}`, async () => {
