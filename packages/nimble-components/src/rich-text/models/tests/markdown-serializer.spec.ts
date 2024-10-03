@@ -276,164 +276,164 @@ describe('Markdown serializer', () => {
    * Nested bulleted list`);
         });
 
-        for (let i = 0; i < 200; i++) {
-            // WebKit skipped, see https://github.com/ni/nimble/issues/1938
-            // eslint-disable-next-line no-restricted-globals
-            fit('Hard break #SkipWebkit' + `${i}`, async () => {
-                await pageObject.setEditorTextContent('Plain text 1');
-                await pageObject.pressShiftEnterKeysInEditor();
-                await pageObject.setEditorTextContent('Plain text 2');
-                await pageObject.pressShiftEnterKeysInEditor();
-                await pageObject.setEditorTextContent('Plain text 3');
-                expect(element.getMarkdown()).toEqual(r`Plain text 1\
+        // WebKit skipped, see https://github.com/ni/nimble/issues/1938
+        it('Hard break #SkipWebkit', async () => {
+            await pageObject.setEditorTextContent('Plain text 1');
+            await pageObject.pressShiftEnterKeysInEditor();
+            await pageObject.setEditorTextContent('Plain text 2');
+            await pageObject.pressShiftEnterKeysInEditor();
+            await pageObject.setEditorTextContent('Plain text 3');
+            expect(element.getMarkdown()).toEqual(r`Plain text 1\
 Plain text 2\
 Plain text 3`);
-            });
+        });
 
-            // WebKit skipped, see https://github.com/ni/nimble/issues/1938
-            it('Hard break with bold #SkipWebkit' + `${i}`, async () => {
-                await pageObject.toggleFooterButton(ToolbarButton.bold);
-                await pageObject.setEditorTextContent('Bold');
-                await pageObject.pressShiftEnterKeysInEditor();
-                await pageObject.setEditorTextContent('Bold');
-                expect(element.getMarkdown()).toEqual(r`**Bold**\
+        // WebKit skipped, see https://github.com/ni/nimble/issues/1938
+        it('Hard break with bold #SkipWebkit', async () => {
+            await pageObject.toggleFooterButton(ToolbarButton.bold);
+            await pageObject.setEditorTextContent('Bold');
+            await pageObject.pressShiftEnterKeysInEditor();
+            await pageObject.setEditorTextContent('Bold');
+            expect(element.getMarkdown()).toEqual(r`**Bold**\
 **Bold**`);
-            });
+        });
 
-            // WebKit skipped, see https://github.com/ni/nimble/issues/1938
-            it('Hard break with italics #SkipWebkit' + `${i}`, async () => {
-                await pageObject.toggleFooterButton(ToolbarButton.italics);
-                await pageObject.setEditorTextContent('Italics');
-                await pageObject.pressShiftEnterKeysInEditor();
-                await pageObject.setEditorTextContent('Italics');
-                expect(element.getMarkdown()).toEqual(r`*Italics*\
+        // WebKit skipped, see https://github.com/ni/nimble/issues/1938
+        it('Hard break with italics #SkipWebkit', async () => {
+            await pageObject.toggleFooterButton(ToolbarButton.italics);
+            await pageObject.setEditorTextContent('Italics');
+            await pageObject.pressShiftEnterKeysInEditor();
+            await pageObject.setEditorTextContent('Italics');
+            expect(element.getMarkdown()).toEqual(r`*Italics*\
 *Italics*`);
-            });
+        });
 
-            // WebKit skipped, see https://github.com/ni/nimble/issues/1938
-            it(
-                'Hard break with bulleted list #SkipWebkit' + `${i}`,
-                async () => {
-                    await pageObject.setEditorTextContent('Bulleted');
-                    await pageObject.toggleFooterButton(
-                        ToolbarButton.bulletList
-                    );
-                    await pageObject.pressShiftEnterKeysInEditor();
-                    await pageObject.setEditorTextContent('list');
-                    expect(element.getMarkdown()).toEqual(r`* Bulleted\
+        // WebKit skipped, see https://github.com/ni/nimble/issues/1938
+        it(
+            'Hard break with bulleted list #SkipWebkit',
+            async () => {
+                await pageObject.setEditorTextContent('Bulleted');
+                await pageObject.toggleFooterButton(
+                    ToolbarButton.bulletList
+                );
+                await pageObject.pressShiftEnterKeysInEditor();
+                await pageObject.setEditorTextContent('list');
+                expect(element.getMarkdown()).toEqual(r`* Bulleted\
   list`);
-                }
-            );
+            }
+        );
 
-            // WebKit skipped, see https://github.com/ni/nimble/issues/1938
-            it(
-                'Hard break with numbered list #SkipWebkit' + `${i}`,
-                async () => {
-                    await pageObject.setEditorTextContent('Numbered');
-                    await pageObject.toggleFooterButton(
-                        ToolbarButton.numberedList
-                    );
-                    await pageObject.pressShiftEnterKeysInEditor();
-                    await pageObject.setEditorTextContent('list');
-                    expect(element.getMarkdown()).toEqual(r`1. Numbered\
+        // WebKit skipped, see https://github.com/ni/nimble/issues/1938
+        it(
+            'Hard break with numbered list #SkipWebkit',
+            async () => {
+                await pageObject.setEditorTextContent('Numbered');
+                await pageObject.toggleFooterButton(
+                    ToolbarButton.numberedList
+                );
+                await pageObject.pressShiftEnterKeysInEditor();
+                await pageObject.setEditorTextContent('list');
+                expect(element.getMarkdown()).toEqual(r`1. Numbered\
    list`);
-                }
-            );
+            }
+        );
 
-            // WebKit skipped, see https://github.com/ni/nimble/issues/1938
-            it(
-                'Hard break with mention node #SkipWebkit' + `${i}`,
-                async () => {
-                    await appendUserMentionConfiguration(element, [
-                        { key: 'user:1', displayName: 'username1' }
-                    ]);
-                    await commitFirstMentionBoxOptionIntoEditor('@');
-                    await pageObject.pressShiftEnterKeysInEditor();
-                    await commitFirstMentionBoxOptionIntoEditor('@');
-                    expect(element.getMarkdown()).toEqual(r`<user:1> \
+        // WebKit skipped, see https://github.com/ni/nimble/issues/1938
+        it(
+            'Hard break with mention node #SkipWebkit',
+            async () => {
+                await appendUserMentionConfiguration(element, [
+                    { key: 'user:1', displayName: 'username1' }
+                ]);
+                await commitFirstMentionBoxOptionIntoEditor('@');
+                await pageObject.pressShiftEnterKeysInEditor();
+                await commitFirstMentionBoxOptionIntoEditor('@');
+                expect(element.getMarkdown()).toEqual(r`<user:1> \
 <user:1> `);
-                }
-            );
+            }
+        );
 
+        for (let i = 0; i < 1000; i++) {
             // Intermittent, see https://github.com/ni/nimble/issues/2219
-            it('Mention node' + `${i}`, async () => {
+            // eslint-disable-next-line no-restricted-globals
+            fit('Mention node' + `${i}`, async () => {
                 await appendUserMentionConfiguration(element, [
                     { key: 'user:1', displayName: 'username1' }
                 ]);
                 await commitFirstMentionBoxOptionIntoEditor('@');
                 expect(element.getMarkdown()).toEqual('<user:1> ');
             });
-
-            it('Multiple Mention node of same type' + `${i}`, async () => {
-                await appendUserMentionConfiguration(element, [
-                    { key: 'user:1', displayName: 'username1' },
-                    { key: 'user:2', displayName: 'username2' }
-                ]);
-                await commitFirstMentionBoxOptionIntoEditor('@');
-                await pageObject.setEditorTextContent('@');
-                await waitForUpdatesAsync();
-                await pageObject.clickMentionListboxOption(1);
-                expect(element.getMarkdown()).toEqual('<user:1> <user:2> ');
-            });
-
-            it('Multiple Mention node of different type' + `${i}`, async () => {
-                await appendUserMentionConfiguration(element, [
-                    { key: 'user:1', displayName: 'username1' }
-                ]);
-                await commitFirstMentionBoxOptionIntoEditor('@');
-                await appendTestMentionConfiguration(element, [
-                    { key: 'test:1', displayName: 'testname1' }
-                ]);
-                await commitFirstMentionBoxOptionIntoEditor('!');
-                expect(element.getMarkdown()).toEqual('<user:1><test:1> ');
-            });
-
-            it('Mention node between Bold text' + `${i}`, async () => {
-                await appendUserMentionConfiguration(element, [
-                    { key: 'user:1', displayName: 'username1' }
-                ]);
-                await pageObject.toggleFooterButton(ToolbarButton.bold);
-                await pageObject.setEditorTextContent('Bold ');
-                await commitFirstMentionBoxOptionIntoEditor('@');
-                await pageObject.toggleFooterButton(ToolbarButton.bold);
-                await pageObject.setEditorTextContent('Bold ');
-                expect(element.getMarkdown()).toEqual(
-                    '**Bold** <user:1> **Bold** '
-                );
-            });
-
-            it('Mention node between Italics text' + `${i}`, async () => {
-                await appendUserMentionConfiguration(element, [
-                    { key: 'user:1', displayName: 'username1' }
-                ]);
-                await pageObject.toggleFooterButton(ToolbarButton.italics);
-                await pageObject.setEditorTextContent('Italics ');
-                await commitFirstMentionBoxOptionIntoEditor('@');
-                await pageObject.toggleFooterButton(ToolbarButton.italics);
-                await pageObject.setEditorTextContent('Italics ');
-                expect(element.getMarkdown()).toEqual(
-                    '*Italics* <user:1> *Italics* '
-                );
-            });
-
-            it('Mention node under Numbered list' + `${i}`, async () => {
-                await appendUserMentionConfiguration(element, [
-                    { key: 'user:1', displayName: 'username1' }
-                ]);
-                await commitFirstMentionBoxOptionIntoEditor('@');
-                await pageObject.toggleFooterButton(ToolbarButton.numberedList);
-                expect(element.getMarkdown()).toEqual('1. <user:1> ');
-            });
-
-            it('Mention node under Bulleted list' + `${i}`, async () => {
-                await appendUserMentionConfiguration(element, [
-                    { key: 'user:1', displayName: 'username1' }
-                ]);
-                await commitFirstMentionBoxOptionIntoEditor('@');
-                await pageObject.toggleFooterButton(ToolbarButton.bulletList);
-                expect(element.getMarkdown()).toEqual('* <user:1> ');
-            });
         }
+
+        it('Multiple Mention node of same type', async () => {
+            await appendUserMentionConfiguration(element, [
+                { key: 'user:1', displayName: 'username1' },
+                { key: 'user:2', displayName: 'username2' }
+            ]);
+            await commitFirstMentionBoxOptionIntoEditor('@');
+            await pageObject.setEditorTextContent('@');
+            await waitForUpdatesAsync();
+            await pageObject.clickMentionListboxOption(1);
+            expect(element.getMarkdown()).toEqual('<user:1> <user:2> ');
+        });
+
+        it('Multiple Mention node of different type', async () => {
+            await appendUserMentionConfiguration(element, [
+                { key: 'user:1', displayName: 'username1' }
+            ]);
+            await commitFirstMentionBoxOptionIntoEditor('@');
+            await appendTestMentionConfiguration(element, [
+                { key: 'test:1', displayName: 'testname1' }
+            ]);
+            await commitFirstMentionBoxOptionIntoEditor('!');
+            expect(element.getMarkdown()).toEqual('<user:1><test:1> ');
+        });
+
+        it('Mention node between Bold text', async () => {
+            await appendUserMentionConfiguration(element, [
+                { key: 'user:1', displayName: 'username1' }
+            ]);
+            await pageObject.toggleFooterButton(ToolbarButton.bold);
+            await pageObject.setEditorTextContent('Bold ');
+            await commitFirstMentionBoxOptionIntoEditor('@');
+            await pageObject.toggleFooterButton(ToolbarButton.bold);
+            await pageObject.setEditorTextContent('Bold ');
+            expect(element.getMarkdown()).toEqual(
+                '**Bold** <user:1> **Bold** '
+            );
+        });
+
+        it('Mention node between Italics text', async () => {
+            await appendUserMentionConfiguration(element, [
+                { key: 'user:1', displayName: 'username1' }
+            ]);
+            await pageObject.toggleFooterButton(ToolbarButton.italics);
+            await pageObject.setEditorTextContent('Italics ');
+            await commitFirstMentionBoxOptionIntoEditor('@');
+            await pageObject.toggleFooterButton(ToolbarButton.italics);
+            await pageObject.setEditorTextContent('Italics ');
+            expect(element.getMarkdown()).toEqual(
+                '*Italics* <user:1> *Italics* '
+            );
+        });
+
+        it('Mention node under Numbered list', async () => {
+            await appendUserMentionConfiguration(element, [
+                { key: 'user:1', displayName: 'username1' }
+            ]);
+            await commitFirstMentionBoxOptionIntoEditor('@');
+            await pageObject.toggleFooterButton(ToolbarButton.numberedList);
+            expect(element.getMarkdown()).toEqual('1. <user:1> ');
+        });
+
+        it('Mention node under Bulleted list', async () => {
+            await appendUserMentionConfiguration(element, [
+                { key: 'user:1', displayName: 'username1' }
+            ]);
+            await commitFirstMentionBoxOptionIntoEditor('@');
+            await pageObject.toggleFooterButton(ToolbarButton.bulletList);
+            expect(element.getMarkdown()).toEqual('* <user:1> ');
+        });
     });
 
     describe('Excludes other marks in link while serializing', () => {
