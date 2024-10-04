@@ -248,7 +248,7 @@ export class RichTextEditorPageObject {
             .run();
         await waitForUpdatesAsync();
 
-        if (this.isMentionListboxOpened()) {
+        if (await this.isMentionListboxOpened()) {
             this.richTextEditorElement.tiptapEditor.commands.focus();
             await waitForUpdatesAsync();
         }
@@ -280,12 +280,31 @@ export class RichTextEditorPageObject {
         return getLastChildElementAttribute(attribute, this.getTiptapEditor());
     }
 
-    public isMentionListboxOpened(): boolean {
-        return (
-            !this.getMentionListbox()
-                ?.shadowRoot?.querySelector(anchoredRegionTag)
-                ?.hasAttribute('hidden') ?? false
-        );
+    public async isMentionListboxOpened(): Promise<boolean> {
+        const mentionListbox = this.getMentionListbox();
+        if (!mentionListbox) {
+            // eslint-disable-next-line no-console
+            console.log('Mention listbox not found');
+            return false;
+        }
+        const shadowRoot = mentionListbox.shadowRoot;
+        if (!shadowRoot) {
+            // eslint-disable-next-line no-console
+            console.log('Mention listbox shadow root not found');
+            return false;
+        }
+
+        const anchoredRegion = shadowRoot.querySelector(anchoredRegionTag);
+        if (!anchoredRegion) {
+            // eslint-disable-next-line no-console
+            console.log('Anchored region not found');
+            return false;
+        }
+        await waitForUpdatesAsync();
+
+        // eslint-disable-next-line no-console
+        console.log('Anchored region hidden attribute:', !anchoredRegion.hasAttribute('hidden'), anchoredRegion.getAttribute('hidden'));
+        return !anchoredRegion.hasAttribute('hidden');
     }
 
     public getEditorMentionViewAttributeValues(attribute: string): string[] {
@@ -439,11 +458,13 @@ export class RichTextEditorPageObject {
     }
 
     public async clickMentionListboxOption(index: number): Promise<void> {
-        if (this.isMentionListboxOpened()) {
-            this.richTextEditorElement.tiptapEditor.commands.focus();
-            await waitForUpdatesAsync();
-        }
+        // if (await this.isMentionListboxOpened()) {
+        //     this.richTextEditorElement.tiptapEditor.commands.focus();
+        //     await waitForUpdatesAsync();
+        // }
         const listOption = this.getAllListItemsInMentionBox()[index];
+        // eslint-disable-next-line no-console
+        console.log('Editor focus status:', this.richTextEditorElement.tiptapEditor.isFocused);
         listOption?.click();
         await waitForUpdatesAsync();
     }
