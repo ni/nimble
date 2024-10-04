@@ -65,7 +65,7 @@ async function setup(
             <nimble-list-option value="has space">Has Space</nimble-list-option>
         </nimble-select>
     `;
-    return fixture<Select>(viewTemplate);
+    return await fixture<Select>(viewTemplate);
 }
 
 async function setupWithSpanLabels(): Promise<Fixture<Select>> {
@@ -79,7 +79,7 @@ async function setupWithSpanLabels(): Promise<Fixture<Select>> {
             </nimble-list-option>
         </nimble-select>
     `;
-    return fixture<Select>(viewTemplate);
+    return await fixture<Select>(viewTemplate);
 }
 async function setupWithGroups(): Promise<Fixture<Select>> {
     const viewTemplate = html`
@@ -100,7 +100,7 @@ async function setupWithGroups(): Promise<Fixture<Select>> {
             </nimble-list-option-group>
         </nimble-select>
     `;
-    return fixture<Select>(viewTemplate);
+    return await fixture<Select>(viewTemplate);
 }
 
 async function clickAndWaitForOpen(select: Select): Promise<void> {
@@ -837,7 +837,7 @@ describe('Select', () => {
                     >
                 </nimble-select>
             `;
-            return fixture<Select>(viewTemplate);
+            return await fixture<Select>(viewTemplate);
         }
 
         it('when all options disabled, first option is selected', async () => {
@@ -866,7 +866,7 @@ describe('Select', () => {
                     >
                 </nimble-select>
             `;
-            return fixture<Select>(viewTemplate);
+            return await fixture<Select>(viewTemplate);
         }
 
         it('when all options hidden, first option is selected', async () => {
@@ -889,7 +889,7 @@ describe('Select', () => {
                         <nimble-list-option value="${x => x}">${x => x}</nimble-list-option>`)}
                 </${selectTag}>
             `;
-            return fixture<Select>(viewTemplate);
+            return await fixture<Select>(viewTemplate);
         }
 
         // Intermittent, see: https://github.com/ni/nimble/issues/2269
@@ -944,7 +944,7 @@ describe('Select', () => {
                     </${selectTag}>
                 </div>
             `;
-            return fixture<Select>(viewTemplate);
+            return await fixture<Select>(viewTemplate);
         }
 
         // Intermittent, see: https://github.com/ni/nimble/issues/2272

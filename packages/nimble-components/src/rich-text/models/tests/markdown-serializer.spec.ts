@@ -10,7 +10,7 @@ import {
 import { waitForUpdatesAsync } from '../../../testing/async-helpers';
 
 async function setup(): Promise<Fixture<RichTextEditor>> {
-    return fixture<RichTextEditor>(
+    return await fixture<RichTextEditor>(
         html`<nimble-rich-text-editor></nimble-rich-text-editor>`
     );
 }

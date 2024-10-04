@@ -25,7 +25,7 @@ class Model {
 }
 
 async function setup(source: Model): Promise<Fixture<TreeView>> {
-    return fixture<TreeView>(
+    return await fixture<TreeView>(
         // prettier-ignore
         html<Model>`
         <nimble-tree-view ${ref('treeView')}>

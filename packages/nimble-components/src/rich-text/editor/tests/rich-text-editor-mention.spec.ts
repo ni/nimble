@@ -22,13 +22,13 @@ const ICON_AT_TAG = iconAtTag.toUpperCase();
 const ICON_EXCLAMATION_TAG = iconExclamationMarkTag.toUpperCase();
 
 async function setup(): Promise<Fixture<RichTextEditor>> {
-    return fixture<RichTextEditor>(
+    return await fixture<RichTextEditor>(
         html`<nimble-rich-text-editor></nimble-rich-text-editor>`
     );
 }
 
 async function setupMentionConfig(): Promise<Fixture<RichTextEditor>> {
-    return fixture<RichTextEditor>(
+    return await fixture<RichTextEditor>(
         // prettier-ignore
         html`<${richTextEditorTag}>
           <${richTextMentionUsersTag} pattern="^user:(.*)">

@@ -18,7 +18,7 @@ describe('Icon Mapping', () => {
 
     // prettier-ignore
     async function setup(): Promise<Fixture<MappingIcon>> {
-        return fixture<MappingIcon>(html`
+        return await fixture<MappingIcon>(html`
         <${mappingIconTag}
             key="foo"
             text="foo"

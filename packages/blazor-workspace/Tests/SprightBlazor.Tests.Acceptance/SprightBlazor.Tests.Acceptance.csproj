@@ -37,8 +37,8 @@
     <PackageReference Include="Microsoft.Playwright" Version="[1.44.0]" />
     <PackageReference Include="NI.CSharp.Analyzers" Version="[2.0.21]" />
     <PackageReference Include="System.ComponentModel" Version="4.3.0" />
-    <PackageReference Include="xunit" Version="2.9.0" />
-    <PackageReference Include="xunit.extensibility.execution" Version="2.9.0" />
+    <PackageReference Include="xunit" Version="2.9.2" />
+    <PackageReference Include="xunit.extensibility.execution" Version="2.9.2" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.8.2">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>

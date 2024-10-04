@@ -109,7 +109,7 @@ describe('Nimble table', () => {
             }] as const;
 
             public async initializeTableData(): Promise<void> {
-                return this.directive.setData(this.originalData);
+                await this.directive.setData(this.originalData);
             }
         }
 
