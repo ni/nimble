@@ -94,7 +94,7 @@ The \`indeterminate\` state is not automatically changed when the user interacti
         indeterminate: false,
         disabled: false,
         errorVisible: false,
-        errorText: 'Value is invalid',
+        errorText: 'Value is invalid'
     }
 };
 
