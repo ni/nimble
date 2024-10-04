@@ -6,6 +6,8 @@ import {
     apiCategory,
     createUserSelectedThemeStory,
     disabledDescription,
+    errorTextDescription,
+    errorVisibleDescription,
     slottedLabelDescription
 } from '../../utilities/storybook';
 
@@ -16,6 +18,8 @@ interface CheckboxArgs {
     indeterminate: boolean;
     disabled: boolean;
     change: undefined;
+    errorVisible: boolean;
+    errorText: string;
 }
 
 const metadata: Meta<CheckboxArgs> = {
@@ -31,6 +35,8 @@ const metadata: Meta<CheckboxArgs> = {
             ?checked="${x => x.checked}"
             ?disabled="${x => x.disabled}"
             :indeterminate="${x => x.indeterminate}"
+            ?error-visible="${x => x.errorVisible}"
+            error-text="${x => x.errorText}"
         >
             ${x => x.label}
         </${checkboxTag}>
@@ -70,13 +76,25 @@ The \`indeterminate\` state is not automatically changed when the user interacti
                 'Event emitted when the user checks or unchecks the checkbox.',
             table: { category: apiCategory.events },
             control: false
+        },
+        errorText: {
+            name: 'error-text',
+            description: errorTextDescription,
+            table: { category: apiCategory.attributes }
+        },
+        errorVisible: {
+            name: 'error-visible',
+            description: errorVisibleDescription,
+            table: { category: apiCategory.attributes }
         }
     },
     args: {
         label: 'Checkbox label',
         checked: false,
         indeterminate: false,
-        disabled: false
+        disabled: false,
+        errorVisible: false,
+        errorText: 'Value is invalid',
     }
 };
 
