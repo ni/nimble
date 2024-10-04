@@ -1,0 +1,7 @@
+{
+  "type": "minor",
+  "comment": "Add error state to nimble-checkbox",
+  "packageName": "@ni/nimble-components",
+  "email": "20542556+mollykreis@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
