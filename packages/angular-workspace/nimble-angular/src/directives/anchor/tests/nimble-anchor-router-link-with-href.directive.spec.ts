@@ -9,7 +9,7 @@ import { processUpdates } from '../../../testing/async-helpers';
 import { NimbleAnchorModule } from '../nimble-anchor.module';
 import type { Anchor } from '../nimble-anchor.directive';
 
-fdescribe('Nimble anchor RouterLinkWithHrefDirective', () => {
+describe('Nimble anchor RouterLinkWithHrefDirective', () => {
     @Component({
         template: `
             <nimble-anchor #anchor nimbleRouterLink="page1" [queryParams]="{param1: true}" [state]="{stateProperty: 123}">
