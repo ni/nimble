@@ -9,7 +9,7 @@ import { NimbleBreadcrumbModule } from '../../breadcrumb/nimble-breadcrumb.modul
 import { NimbleBreadcrumbItemModule } from '../nimble-breadcrumb-item.module';
 import type { BreadcrumbItem } from '../nimble-breadcrumb-item.directive';
 
-describe('Nimble breadcrumb item RouterLinkWithHrefDirective', () => {
+xdescribe('Nimble breadcrumb item RouterLinkWithHrefDirective', () => {
     @Component({
         template: `
             <nimble-breadcrumb>

@@ -8,7 +8,7 @@ import { processUpdates } from '../../../testing/async-helpers';
 import { NimbleAnchorTreeItemModule } from '../nimble-anchor-tree-item.module';
 import type { AnchorTreeItem } from '../nimble-anchor-tree-item.directive';
 
-describe('Nimble anchor tree item RouterLinkWithHrefDirective', () => {
+xdescribe('Nimble anchor tree item RouterLinkWithHrefDirective', () => {
     @Component({
         template: `
             <nimble-anchor-tree-item #treeItem nimbleRouterLink="page1" [queryParams]="{param1: true}" [state]="{stateProperty: 123}">

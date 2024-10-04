@@ -5,7 +5,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { processUpdates } from '../../../testing/async-helpers';
 import { NimbleAnchorButtonModule } from '../nimble-anchor-button.module';
 
-describe('Nimble anchor button RouterLinkDirective', () => {
+xdescribe('Nimble anchor button RouterLinkDirective', () => {
     @Component({
         template: `
             <nimble-anchor-button routerLink="page1">

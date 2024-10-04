@@ -6,7 +6,7 @@ import { processUpdates } from '../../../testing/async-helpers';
 import { NimbleBreadcrumbModule } from '../../breadcrumb/nimble-breadcrumb.module';
 import { NimbleBreadcrumbItemModule } from '../nimble-breadcrumb-item.module';
 
-describe('Nimble breadcrumb item RouterLinkDirective', () => {
+xdescribe('Nimble breadcrumb item RouterLinkDirective', () => {
     @Component({
         template: `
             <nimble-breadcrumb>

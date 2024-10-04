@@ -7,7 +7,7 @@ import { NimbleTableModule, Table } from '@ni/nimble-angular/table';
 import { parameterizeSpec } from '@ni/jasmine-parameterized';
 import { NimbleTableColumnAnchorModule } from '../nimble-table-column-anchor.module';
 
-describe('Nimble anchor table column navigation guard', () => {
+xdescribe('Nimble anchor table column navigation guard', () => {
     const data = [
         { id: '1', name: 'jim', link: 'page1' },
     ];

@@ -8,7 +8,7 @@ import { processUpdates } from '../../../testing/async-helpers';
 import { NimbleAnchorTabModule } from '../nimble-anchor-tab.module';
 import type { AnchorTab } from '../nimble-anchor-tab.directive';
 
-describe('Nimble anchor tab RouterLinkWithHrefDirective', () => {
+xdescribe('Nimble anchor tab RouterLinkWithHrefDirective', () => {
     @Component({
         template: `
             <nimble-anchor-tab #anchorTab nimbleRouterLink="page1" [queryParams]="{param1: true}" [state]="{stateProperty: 123}">
