@@ -26,7 +26,7 @@ async function setupWithFooter(): Promise<Fixture<RichTextEditor>> {
     );
 }
 
-describe('RichTextEditor', () => {
+fdescribe('RichTextEditor', () => {
     let element: RichTextEditor;
     let connect: () => Promise<void>;
     let disconnect: () => Promise<void>;

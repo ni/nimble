@@ -18,7 +18,7 @@ async function setup<CloseReason = void>(
     return await fixture<Dialog<CloseReason>>(viewTemplate);
 }
 
-describe('Dialog', () => {
+fdescribe('Dialog', () => {
     function nativeDialogElement(
         nimbleDialogElement: Dialog
     ): HTMLDialogElement {

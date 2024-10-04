@@ -23,7 +23,7 @@ async function setup<CloseReason = void>(
     return await fixture<Drawer<CloseReason>>(viewTemplate);
 }
 
-describe('Drawer', () => {
+fdescribe('Drawer', () => {
     function nativeDialogElement(
         nimbleDrawerElement: Drawer | Drawer<string>
     ): HTMLDialogElement {

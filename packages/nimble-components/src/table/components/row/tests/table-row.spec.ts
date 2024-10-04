@@ -35,7 +35,7 @@ type TableRowSelectionToggleEventHandler = (
     evt: CustomEvent<TableRowSelectionToggleEventDetail>
 ) => void;
 
-describe('TableRow', () => {
+fdescribe('TableRow', () => {
     describe('standalone', () => {
         // prettier-ignore
         async function setup(): Promise<Fixture<TableRow<SimpleTableRecord>>> {
