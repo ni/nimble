@@ -15,7 +15,7 @@ import type { AnchorTab } from '../../anchor-tab';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import { fixture, Fixture } from '../../utilities/tests/fixture';
 
-fdescribe('AnchorTabs', () => {
+describe('AnchorTabs', () => {
     let element: AnchorTabs;
     let connect: () => Promise<void>;
     let disconnect: () => Promise<void>;

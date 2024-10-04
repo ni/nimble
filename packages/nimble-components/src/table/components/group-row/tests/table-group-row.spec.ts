@@ -20,7 +20,7 @@ async function setup(): Promise<Fixture<TableGroupRow>> {
     );
 }
 
-fdescribe('TableGroupRow', () => {
+describe('TableGroupRow', () => {
     let element: TableGroupRow;
     let connect: () => Promise<void>;
     let disconnect: () => Promise<void>;

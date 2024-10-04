@@ -34,7 +34,7 @@ async function setup(): Promise<Fixture<TableCell<SimpleTableCellRecord>>> {
     );
 }
 
-fdescribe('TableCell', () => {
+describe('TableCell', () => {
     let element: TableCell<SimpleTableCellRecord>;
     let connect: () => Promise<void>;
     let disconnect: () => Promise<void>;
