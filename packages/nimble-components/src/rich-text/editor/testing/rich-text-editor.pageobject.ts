@@ -248,10 +248,7 @@ export class RichTextEditorPageObject {
             .run();
         await waitForUpdatesAsync();
 
-        if (this.isMentionListboxOpened()) {
-            this.richTextEditorElement.tiptapEditor.commands.focus();
-            await waitForUpdatesAsync();
-        }
+        await this.focusEditorIfMentionListboxOpened();
     }
 
     public async setCursorPosition(position: number): Promise<void> {
@@ -439,10 +436,7 @@ export class RichTextEditorPageObject {
     }
 
     public async clickMentionListboxOption(index: number): Promise<void> {
-        if (this.isMentionListboxOpened()) {
-            this.richTextEditorElement.tiptapEditor.commands.focus();
-            await waitForUpdatesAsync();
-        }
+        await this.focusEditorIfMentionListboxOpened();
 
         const listOption = this.getAllListItemsInMentionBox()[index];
         listOption?.click();
@@ -534,5 +528,12 @@ export class RichTextEditorPageObject {
             mentionInternals
         );
         return parserMentionConfig;
+    }
+
+    private async focusEditorIfMentionListboxOpened(): Promise<void> {
+        if (this.isMentionListboxOpened()) {
+            this.richTextEditorElement.tiptapEditor.commands.focus();
+            await waitForUpdatesAsync();
+        }
     }
 }
