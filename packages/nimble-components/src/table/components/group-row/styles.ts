@@ -7,6 +7,7 @@ import {
     borderWidth,
     controlHeight,
     fillHoverColor,
+    iconSize,
     mediumPadding,
     standardPadding
 } from '../../../theme-provider/design-tokens';
@@ -92,10 +93,11 @@ export const styles = css`
 
     .selection-checkbox {
         margin-left: ${standardPadding};
+        width: ${iconSize};
     }
 
-    .selection-checkbox::part(label) {
-        padding-left: 0px;
+    .selection-checkbox::part(container) {
+        padding: 0px;
     }
 `.withBehaviors(
     themeBehavior(

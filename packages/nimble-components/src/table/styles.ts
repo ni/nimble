@@ -13,7 +13,8 @@ import {
     borderHoverColor,
     controlHeight,
     tableFitRowsHeight,
-    borderWidth
+    borderWidth,
+    iconSize
 } from '../theme-provider/design-tokens';
 import { Theme } from '../theme-provider/types';
 import { hexToRgbaCssColor } from '../utilities/style/colors';
@@ -213,10 +214,11 @@ export const styles = css`
 
     .selection-checkbox {
         margin-left: ${standardPadding};
+        width: ${iconSize};
     }
 
-    .selection-checkbox::part(label) {
-        padding-left: 0px;
+    .selection-checkbox::part(container) {
+        padding: 0px;
     }
 
     .group-row {

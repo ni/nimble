@@ -22,7 +22,7 @@ CheckboxOptions
         @click="${(x, c) => x.clickHandler(c.event as MouseEvent)}"
         class="${x => (x.readOnly ? 'readonly' : '')} ${x => (x.checked ? 'checked' : '')} ${x => (x.indeterminate ? 'indeterminate' : '')}"
     >
-        <div class="container">
+        <div part="container" class="container">
             <div part="control" class="control">
                 <slot name="checked-indicator">
                     ${definition.checkedIndicator || ''}
