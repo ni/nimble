@@ -4,6 +4,7 @@ import {
     controlLabelDisabledFontColor,
     controlLabelFont,
     controlLabelFontColor,
+    controlLabelFontLineHeight,
     smallPadding,
     standardPadding
 } from '../theme-provider/design-tokens';
@@ -29,6 +30,7 @@ export const styles = css`
 
     .label-container {
         display: flex;
+        height: ${controlLabelFontLineHeight};
         gap: ${smallPadding};
         margin-bottom: ${smallPadding};
     }
