@@ -26,10 +26,15 @@ export const styles = css`
 
     :host {
         font: ${bodyFont};
+        align-items: center;
+        cursor: pointer;
         outline: none;
         ${userSelectNone}
         min-height: ${controlHeight};
-        align-items: center;
+    }
+
+    :host([disabled]) {
+        cursor: default;
     }
 
     .container {
@@ -43,7 +48,6 @@ export const styles = css`
     }
 
     .control {
-        cursor: pointer;
         width: ${iconSize};
         height: ${iconSize};
         border: ${borderWidth} solid ${borderColor};
@@ -76,7 +80,6 @@ export const styles = css`
     }
 
     :host([disabled]) .control {
-        cursor: default;
         background-color: rgba(${borderRgbPartialColor}, 0.1);
         border-color: rgba(${borderRgbPartialColor}, 0.2);
     }
@@ -87,16 +90,15 @@ export const styles = css`
     }
 
     .label {
-        cursor: pointer;
         font: inherit;
         color: ${bodyFontColor};
         padding-left: ${mediumPadding};
         grid-column: 2;
         grid-row: 1 / span 2;
+        cursor: inherit;
     }
 
     :host([disabled]) .label {
-        cursor: default;
         color: ${bodyDisabledFontColor};
     }
 
