@@ -1,0 +1,7 @@
+{
+  "type": "none",
+  "comment": "Update checkbox error state HLD to move plan to update clickable region of the control to future work",
+  "packageName": "@ni/nimble-components",
+  "email": "20542556+mollykreis@users.noreply.github.com",
+  "dependentChangeType": "none"
+}
