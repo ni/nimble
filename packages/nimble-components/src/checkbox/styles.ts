@@ -81,8 +81,7 @@ export const styles = css`
         border-color: rgba(${borderRgbPartialColor}, 0.2);
     }
 
-    :host(:not([disabled]):not(:active)) .control:hover,
-    :host(:not([disabled]):not(:active)) .control:has(+ .label:hover) {
+    :host(:not([disabled]):not(:active):hover) .control {
         border-color: ${borderHoverColor};
         box-shadow: 0px 0px 0px ${borderWidth} ${borderHoverColor} inset;
     }

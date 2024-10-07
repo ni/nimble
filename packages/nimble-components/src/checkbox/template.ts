@@ -19,10 +19,11 @@ CheckboxOptions
         aria-readonly="${x => x.readOnly}"
         tabindex="${x => x.resolvedTabindex}"
         @keypress="${(x, c) => x.keypressHandler(c.event as KeyboardEvent)}"
+        @click="${(x, c) => x.clickHandler(c.event as MouseEvent)}"
         class="${x => (x.readOnly ? 'readonly' : '')} ${x => (x.checked ? 'checked' : '')} ${x => (x.indeterminate ? 'indeterminate' : '')}"
     >
         <div class="container">
-            <div part="control" class="control" @click="${(x, c) => x.clickHandler(c.event as MouseEvent)}">
+            <div part="control" class="control">
                 <slot name="checked-indicator">
                     ${definition.checkedIndicator || ''}
                 </slot>
@@ -32,7 +33,6 @@ CheckboxOptions
             </div>
             <label
                 part="label"
-                @click="${(x, c) => x.clickHandler(c.event as MouseEvent)}"
                 class="${x => (x.defaultSlottedNodes?.length
         ? 'label'
         : 'label label__hidden')}"
