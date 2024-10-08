@@ -9,7 +9,7 @@ import { processUpdates } from '../../../testing/async-helpers';
 import { NimbleAnchorMenuItemModule } from '../nimble-anchor-menu-item.module';
 import type { AnchorMenuItem } from '../nimble-anchor-menu-item.directive';
 
-xdescribe('Nimble anchor menu item RouterLinkWithHrefDirective', () => {
+describe('Nimble anchor menu item RouterLinkWithHrefDirective', () => {
     @Component({
         template: `
             <nimble-anchor-menu-item #menuItem nimbleRouterLink="page1" [queryParams]="{param1: true}" [state]="{stateProperty: 123}">
