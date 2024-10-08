@@ -1,4 +1,5 @@
 import { Component, ElementRef, Sanitizer, SecurityContext, ViewChild } from '@angular/core';
+import { provideLocationMocks } from '@angular/common/testing';
 import { fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { provideRouter, Router } from '@angular/router';
@@ -25,6 +26,7 @@ describe('Nimble anchor RouterLinkWithHrefDirective', () => {
     class BlankComponent { }
 
     let anchor: Anchor;
+    let testHostComponent: TestHostComponent;
     let router: Router;
     let location: Location;
     let innerAnchor: HTMLAnchorElement;
@@ -48,6 +50,7 @@ describe('Nimble anchor RouterLinkWithHrefDirective', () => {
                     { path: 'page1', component: BlankComponent },
                     { path: '', component: TestHostComponent }
                 ]),
+                provideLocationMocks()
             ]
         });
         harness = await RouterTestingHarness.create('');
@@ -56,10 +59,12 @@ describe('Nimble anchor RouterLinkWithHrefDirective', () => {
     beforeEach(() => {
         router = TestBed.inject(Router);
         location = TestBed.inject(Location);
-        anchor = harness.fixture.debugElement.query(By.css('nimble-anchor')).nativeElement as Anchor;
+        testHostComponent = harness.fixture.debugElement.query(By.directive(TestHostComponent)).componentInstance as TestHostComponent;
+        anchor = testHostComponent.anchor.nativeElement;
+        processUpdates();
         innerAnchor = anchor!.shadowRoot!.querySelector('a')!;
         routerNavigateByUrlSpy = spyOn(router, 'navigateByUrl').and.callThrough();
-        anchorClickHandlerSpy = jasmine.createSpy('click');
+        anchorClickHandlerSpy = jasmine.createSpy('click').and.callFake((event: Event) => event.preventDefault());
         innerAnchor!.addEventListener('click', anchorClickHandlerSpy);
     });
 
