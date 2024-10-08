@@ -55,7 +55,7 @@ describe('Nimble breadcrumb item RouterLinkWithHrefDirective', () => {
                 provideRouter([
                     { path: 'page1', component: BlankComponent },
                     { path: '', component: TestHostComponent }
-                ]),
+                ])
             ]
         });
         harness = await RouterTestingHarness.create('');
