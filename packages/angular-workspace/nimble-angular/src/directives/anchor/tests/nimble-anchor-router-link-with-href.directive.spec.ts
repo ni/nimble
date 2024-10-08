@@ -1,5 +1,4 @@
 import { Component, ElementRef, Sanitizer, SecurityContext, ViewChild } from '@angular/core';
-import { provideLocationMocks } from '@angular/common/testing';
 import { fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { provideRouter, Router } from '@angular/router';
@@ -50,7 +49,6 @@ describe('Nimble anchor RouterLinkWithHrefDirective', () => {
                     { path: 'page1', component: BlankComponent },
                     { path: '', component: TestHostComponent }
                 ]),
-                provideLocationMocks()
             ]
         });
         harness = await RouterTestingHarness.create('');
