@@ -66,7 +66,6 @@ describe('Nimble breadcrumb item RouterLinkWithHrefDirective', () => {
         location = TestBed.inject(Location);
         testHostComponent = harness.fixture.debugElement.query(By.directive(TestHostComponent)).componentInstance as TestHostComponent;
         breadcrumbItem1 = testHostComponent.breadcrumbItem1.nativeElement;
-        // tick();
         processUpdates();
         anchor = breadcrumbItem1!.shadowRoot!.querySelector('a')!;
         separator = breadcrumbItem1!.shadowRoot!.querySelector('.separator')!;
