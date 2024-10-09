@@ -2,6 +2,21 @@
   "name": "@ni/spright-angular",
   "entries": [
     {
+      "date": "Wed, 09 Oct 2024 19:24:18 GMT",
+      "version": "5.1.11",
+      "tag": "@ni/spright-angular_v5.1.11",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/spright-angular",
+            "comment": "Bump @ni/spright-components to v4.1.11",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 26 Sep 2024 18:24:50 GMT",
       "version": "5.1.10",
       "tag": "@ni/spright-angular_v5.1.10",

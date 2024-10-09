@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Wed, 09 Oct 2024 19:24:18 GMT",
+      "version": "32.3.0",
+      "tag": "@ni/nimble-components_v32.3.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "8aa7c1ee2a6fae665419b8a8d9c8f8e7e977c424",
+            "comment": "Implement error states on nimble-radio-group"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 08 Oct 2024 17:39:50 GMT",
       "version": "32.2.10",
       "tag": "@ni/nimble-components_v32.2.10",
