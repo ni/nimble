@@ -1,7 +1,0 @@
-{
-  "type": "minor",
-  "comment": "Implement error states on nimble-radio-group",
-  "packageName": "@ni/nimble-components",
-  "email": "20542556+mollykreis@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
