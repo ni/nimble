@@ -66,6 +66,22 @@ public class NimbleRadioGroupTests
         Assert.Contains("name", radioGroup.Markup);
     }
 
+    [Fact]
+    public void NimbleRadioGroupErrorText_AttributeIsSet()
+    {
+        var radioGroup = RenderWithPropertySet(x => x.ErrorText, "bad value");
+
+        Assert.Contains("error-text=\"bad value\"", radioGroup.Markup);
+    }
+
+    [Fact]
+    public void NimbleRadioGroupErrorVisible_AttributeIsSet()
+    {
+        var radioGroup = RenderWithPropertySet(x => x.ErrorVisible, true);
+
+        Assert.Contains("error-visible", radioGroup.Markup);
+    }
+
     private IRenderedComponent<NimbleRadioGroup> RenderNimbleRadioGroupWithPropertySet<TProperty>(Expression<Func<NimbleRadioGroup, TProperty>> propertyGetter, TProperty propertyValue)
     {
         var context = new TestContext();
