@@ -25,6 +25,7 @@ describe('Nimble anchor RouterLinkWithHrefDirective', () => {
     class BlankComponent { }
 
     let anchor: Anchor;
+    let testHostComponent: TestHostComponent;
     let router: Router;
     let location: Location;
     let innerAnchor: HTMLAnchorElement;
@@ -45,9 +46,8 @@ describe('Nimble anchor RouterLinkWithHrefDirective', () => {
             providers: [
                 { provide: Sanitizer, useValue: sanitizer },
                 provideRouter([
-                    // { path: '', redirectTo: '/start', pathMatch: 'full' },
                     { path: 'page1', component: BlankComponent },
-                    { path: '', component: TestHostComponent },
+                    { path: '', component: TestHostComponent }
                 ]),
             ]
         });
@@ -57,10 +57,12 @@ describe('Nimble anchor RouterLinkWithHrefDirective', () => {
     beforeEach(() => {
         router = TestBed.inject(Router);
         location = TestBed.inject(Location);
-        anchor = harness.fixture.debugElement.query(By.css('nimble-anchor')).nativeElement as Anchor;
+        testHostComponent = harness.fixture.debugElement.query(By.directive(TestHostComponent)).componentInstance as TestHostComponent;
+        anchor = testHostComponent.anchor.nativeElement;
+        processUpdates();
         innerAnchor = anchor!.shadowRoot!.querySelector('a')!;
         routerNavigateByUrlSpy = spyOn(router, 'navigateByUrl').and.callThrough();
-        anchorClickHandlerSpy = jasmine.createSpy('click');
+        anchorClickHandlerSpy = jasmine.createSpy('click').and.callFake((event: Event) => event.preventDefault());
         innerAnchor!.addEventListener('click', anchorClickHandlerSpy);
     });
 

@@ -76,7 +76,7 @@ xdescribe('Nimble anchor table column navigation guard', () => {
             const pageObject = new TablePageObject(testHostComponent.table.nativeElement);
             anchor = pageObject.getRenderedCellAnchor(0, 0);
             innerAnchor = anchor!.shadowRoot!.querySelector('a')!;
-            anchorClickHandlerSpy = jasmine.createSpy('click');
+            anchorClickHandlerSpy = jasmine.createSpy('click').and.callFake((event: Event) => event.preventDefault());
             innerAnchor!.addEventListener('click', anchorClickHandlerSpy);
             onClickSpy = spyOn(testHostComponent, 'onClick');
 
@@ -127,7 +127,7 @@ xdescribe('Nimble anchor table column navigation guard', () => {
             const pageObject = new TablePageObject(testHostComponent.table.nativeElement);
             anchor = pageObject.getRenderedCellAnchor(0, 0);
             innerAnchor = anchor!.shadowRoot!.querySelector('a')!;
-            anchorClickHandlerSpy = jasmine.createSpy('click');
+            anchorClickHandlerSpy = jasmine.createSpy('click').and.callFake((event: Event) => event.preventDefault());
             innerAnchor!.addEventListener('click', anchorClickHandlerSpy);
             onClickSpy = spyOn(testHostComponent, 'onClick');
 

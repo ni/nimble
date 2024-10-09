@@ -1,8 +1,9 @@
 import { Component, ElementRef, Sanitizer, SecurityContext, ViewChild } from '@angular/core';
-import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
-import { Router } from '@angular/router';
+import { fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { provideRouter, Router } from '@angular/router';
 import { CommonModule, Location } from '@angular/common';
-import { RouterTestingModule } from '@angular/router/testing';
+import { By } from '@angular/platform-browser';
+import { RouterTestingHarness } from '@angular/router/testing';
 import { parameterizeSpec } from '@ni/jasmine-parameterized';
 import { processUpdates } from '../../../testing/async-helpers';
 import { NimbleAnchorTabModule } from '../nimble-anchor-tab.module';
@@ -14,7 +15,6 @@ xdescribe('Nimble anchor tab RouterLinkWithHrefDirective', () => {
             <nimble-anchor-tab #anchorTab nimbleRouterLink="page1" [queryParams]="{param1: true}" [state]="{stateProperty: 123}">
                 Anchor text
             </nimble-anchor-tab>
-            <router-outlet></router-outlet>
          `
     })
     class TestHostComponent {
@@ -25,7 +25,6 @@ xdescribe('Nimble anchor tab RouterLinkWithHrefDirective', () => {
     class BlankComponent { }
 
     let anchorTab: AnchorTab;
-    let fixture: ComponentFixture<TestHostComponent>;
     let testHostComponent: TestHostComponent;
     let router: Router;
     let location: Location;
@@ -33,41 +32,40 @@ xdescribe('Nimble anchor tab RouterLinkWithHrefDirective', () => {
     let routerNavigateByUrlSpy: jasmine.Spy;
     let anchorClickHandlerSpy: jasmine.Spy;
     let sanitizer: jasmine.SpyObj<Sanitizer>;
+    let harness: RouterTestingHarness;
 
-    beforeEach(() => {
+    beforeEach(async () => {
         sanitizer = jasmine.createSpyObj<Sanitizer>('Sanitizer', ['sanitize']);
         sanitizer.sanitize.and.callFake((_, value: string) => value);
 
         TestBed.configureTestingModule({
             declarations: [TestHostComponent, BlankComponent],
-            imports: [NimbleAnchorTabModule,
+            imports: [
+                NimbleAnchorTabModule,
                 CommonModule,
-                RouterTestingModule.withRoutes([
-                    { path: '', redirectTo: '/start', pathMatch: 'full' },
-                    { path: 'page1', component: BlankComponent },
-                    { path: 'start', component: TestHostComponent }
-                ], { useHash: true })
             ],
             providers: [
-                { provide: Sanitizer, useValue: sanitizer }
+                { provide: Sanitizer, useValue: sanitizer },
+                provideRouter([
+                    { path: 'page1', component: BlankComponent },
+                    { path: '', component: TestHostComponent }
+                ]),
             ]
         });
+        harness = await RouterTestingHarness.create('');
     });
 
-    beforeEach(fakeAsync(() => {
+    beforeEach(() => {
         router = TestBed.inject(Router);
         location = TestBed.inject(Location);
-        fixture = TestBed.createComponent(TestHostComponent);
-        testHostComponent = fixture.componentInstance;
+        testHostComponent = harness.fixture.debugElement.query(By.directive(TestHostComponent)).componentInstance as TestHostComponent;
         anchorTab = testHostComponent.anchorTab.nativeElement;
-        fixture.detectChanges();
-        tick();
         processUpdates();
         innerAnchor = anchorTab!.shadowRoot!.querySelector('a')!;
         routerNavigateByUrlSpy = spyOn(router, 'navigateByUrl').and.callThrough();
-        anchorClickHandlerSpy = jasmine.createSpy('click');
+        anchorClickHandlerSpy = jasmine.createSpy('click').and.callFake((event: Event) => event.preventDefault());
         innerAnchor!.addEventListener('click', anchorClickHandlerSpy);
-    }));
+    });
 
     afterEach(() => {
         processUpdates();

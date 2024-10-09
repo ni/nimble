@@ -1,8 +1,9 @@
 import { Component, ElementRef, Sanitizer, SecurityContext, ViewChild } from '@angular/core';
-import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
-import { Router } from '@angular/router';
+import { fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
+import { provideRouter, Router } from '@angular/router';
 import { CommonModule, Location } from '@angular/common';
-import { RouterTestingModule } from '@angular/router/testing';
+import { RouterTestingHarness } from '@angular/router/testing';
 import { parameterizeSpec } from '@ni/jasmine-parameterized';
 import { processUpdates } from '../../../testing/async-helpers';
 import { NimbleBreadcrumbModule } from '../../breadcrumb/nimble-breadcrumb.module';
@@ -17,7 +18,6 @@ xdescribe('Nimble breadcrumb item RouterLinkWithHrefDirective', () => {
                     Breadcrumb Text
                 </nimble-breadcrumb-item>
             </nimble-breadcrumb>
-            <router-outlet></router-outlet>
          `
     })
     class TestHostComponent {
@@ -28,7 +28,6 @@ xdescribe('Nimble breadcrumb item RouterLinkWithHrefDirective', () => {
     class BlankComponent { }
 
     let breadcrumbItem1: BreadcrumbItem;
-    let fixture: ComponentFixture<TestHostComponent>;
     let testHostComponent: TestHostComponent;
     let router: Router;
     let location: Location;
@@ -38,44 +37,44 @@ xdescribe('Nimble breadcrumb item RouterLinkWithHrefDirective', () => {
     let anchorClickHandlerSpy: jasmine.Spy;
     let separatorClickHandlerSpy: jasmine.Spy;
     let sanitizer: jasmine.SpyObj<Sanitizer>;
+    let harness: RouterTestingHarness;
 
-    beforeEach(() => {
+    beforeEach(async () => {
         sanitizer = jasmine.createSpyObj<Sanitizer>('Sanitizer', ['sanitize']);
         sanitizer.sanitize.and.callFake((_, value: string) => value);
 
         TestBed.configureTestingModule({
             declarations: [TestHostComponent, BlankComponent],
-            imports: [NimbleBreadcrumbModule, NimbleBreadcrumbItemModule,
+            imports: [
+                NimbleBreadcrumbModule,
+                NimbleBreadcrumbItemModule,
                 CommonModule,
-                RouterTestingModule.withRoutes([
-                    { path: '', redirectTo: '/start', pathMatch: 'full' },
-                    { path: 'page1', component: BlankComponent },
-                    { path: 'start', component: TestHostComponent }
-                ], { useHash: true })
             ],
             providers: [
-                { provide: Sanitizer, useValue: sanitizer }
+                { provide: Sanitizer, useValue: sanitizer },
+                provideRouter([
+                    { path: 'page1', component: BlankComponent },
+                    { path: '', component: TestHostComponent }
+                ])
             ]
         });
+        harness = await RouterTestingHarness.create('');
     });
 
-    beforeEach(fakeAsync(() => {
+    beforeEach(() => {
         router = TestBed.inject(Router);
         location = TestBed.inject(Location);
-        fixture = TestBed.createComponent(TestHostComponent);
-        testHostComponent = fixture.componentInstance;
+        testHostComponent = harness.fixture.debugElement.query(By.directive(TestHostComponent)).componentInstance as TestHostComponent;
         breadcrumbItem1 = testHostComponent.breadcrumbItem1.nativeElement;
-        fixture.detectChanges();
-        tick();
         processUpdates();
         anchor = breadcrumbItem1!.shadowRoot!.querySelector('a')!;
         separator = breadcrumbItem1!.shadowRoot!.querySelector('.separator')!;
         routerNavigateByUrlSpy = spyOn(router, 'navigateByUrl').and.callThrough();
-        anchorClickHandlerSpy = jasmine.createSpy('click');
+        anchorClickHandlerSpy = jasmine.createSpy('click').and.callFake((event: Event) => event.preventDefault());
         separatorClickHandlerSpy = jasmine.createSpy('click');
         anchor.addEventListener('click', anchorClickHandlerSpy);
         separator.addEventListener('click', separatorClickHandlerSpy);
-    }));
+    });
 
     afterEach(() => {
         processUpdates();
