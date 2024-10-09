@@ -52,7 +52,7 @@ export const radioGroup: StoryObj<RadioGroupArgs> = {
             orientation="${x => x.orientation}"
             ?disabled="${x => x.disabled}"
             name="${x => x.name}"
-            value="${x => x.value}"
+            value="${x => (x.value === 'none' ? undefined : x.value)}"
             ?error-visible="${x => x.errorVisible}"
             error-text="${x => x.errorText}"
             style="min-width: 200px;"
