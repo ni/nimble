@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { CommonModule } from '@angular/common';
-import { RouterTestingModule } from '@angular/router/testing';
 import { processUpdates } from '../../../testing/async-helpers';
 import { NimbleBreadcrumbModule } from '../../breadcrumb/nimble-breadcrumb.module';
 import { NimbleBreadcrumbItemModule } from '../nimble-breadcrumb-item.module';
@@ -23,11 +22,11 @@ describe('Nimble breadcrumb item RouterLinkDirective', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             declarations: [TestHostComponent],
-            imports: [NimbleBreadcrumbModule, NimbleBreadcrumbItemModule,
+            imports: [
+                NimbleBreadcrumbModule,
+                NimbleBreadcrumbItemModule,
                 CommonModule,
-                RouterTestingModule.withRoutes([{ path: '', component: TestHostComponent, pathMatch: 'full' }
-                ], { useHash: true })
-            ]
+            ],
         });
     });
 
