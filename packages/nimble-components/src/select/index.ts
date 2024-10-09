@@ -213,6 +213,10 @@ export class Select
         return slotTextContent(this.labelSlot);
     }
 
+    /* @internal */
+    @observable
+    public errorHasOverflow = false;
+
     private _value = '';
     private forcedPosition = false;
     private openActiveIndex?: number;

@@ -196,6 +196,10 @@ export class RichTextEditor extends RichText implements ErrorPattern {
      */
     public editorContainer!: HTMLDivElement;
 
+    /* @internal */
+    @observable
+    public errorHasOverflow = false;
+
     private resizeObserver?: ResizeObserver;
     private updateScrollbarWidthQueued = false;
 

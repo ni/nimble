@@ -3,7 +3,7 @@ import {
     DesignSystem
 } from '@microsoft/fast-foundation';
 import { Orientation } from '@microsoft/fast-web-utilities';
-import { attr } from '@microsoft/fast-element';
+import { attr, observable } from '@microsoft/fast-element';
 import { styles } from './styles';
 import { template } from './template';
 import type { ErrorPattern } from '../patterns/error/types';
@@ -25,6 +25,10 @@ export class RadioGroup extends FoundationRadioGroup implements ErrorPattern {
 
     @attr({ attribute: 'error-visible', mode: 'boolean' })
     public errorVisible = false;
+
+    /* @internal */
+    @observable
+    public errorHasOverflow = false;
 }
 
 const nimbleRadioGroup = RadioGroup.compose({

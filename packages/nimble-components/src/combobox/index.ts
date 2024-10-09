@@ -143,6 +143,10 @@ export class Combobox
     @observable
     public hasOverflow = false;
 
+    /* @internal */
+    @observable
+    public errorHasOverflow = false;
+
     public override get value(): string {
         Observable.track(this, 'value');
         return this._value;

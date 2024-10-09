@@ -11,4 +11,11 @@ export interface ErrorPattern {
      * Show the error appearance of the control
      */
     errorVisible: boolean;
+
+    /* @internal
+     * Indicates if the error text has overflowed its container. The value should not be
+     * set directly. Instead, it is used with the `overflow` directive. When declared in an
+     * implementation of `ErrorPattern`, it must be declared as `@observable`.
+     */
+    errorHasOverflow: boolean;
 }
