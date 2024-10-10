@@ -78,7 +78,9 @@ export class TableLayoutManager<TData extends TableRecord> {
         this.initialColumnTotalWidth = this.getTotalColumnFixedWidth();
         this.isColumnBeingSized = true;
         document.addEventListener('mousemove', this.onDividerMouseMove);
-        document.addEventListener('mouseup', this.onDividerMouseUp);
+        document.addEventListener('touchmove', this.onDividerTouchMove);
+        document.addEventListener('mouseup', this.onDividerMoveEnd);
+        document.addEventListener('touchend', this.onDividerMoveEnd);
     }
 
     /**
@@ -96,12 +98,19 @@ export class TableLayoutManager<TData extends TableRecord> {
     }
 
     private readonly onDividerMouseMove = (event: Event): void => {
-        const mouseEvent = event as MouseEvent;
+        this.onDividerMove((event as MouseEvent).clientX);
+    };
+
+    private readonly onDividerTouchMove = (event: Event): void => {
+        this.onDividerMove((event as TouchEvent).targetTouches[0]!.clientX);
+    };
+
+    private onDividerMove(clientX: number): void {
         for (let i = 0; i < this.visibleColumns.length; i++) {
             this.visibleColumns[i]!.columnInternals.currentPixelWidth = this.initialColumnWidths[i]?.initialPixelWidth;
         }
         this.currentTotalDelta = this.getAllowedSizeDelta(
-            mouseEvent.clientX - this.dragStart
+            clientX - this.dragStart
         );
         this.performCascadeSizeLeft(
             this.leftColumnIndex!,
@@ -118,11 +127,13 @@ export class TableLayoutManager<TData extends TableRecord> {
         } else {
             this.table.tableScrollableMinWidth = this.initialTableScrollableMinWidth!;
         }
-    };
+    }
 
-    private readonly onDividerMouseUp = (): void => {
+    private readonly onDividerMoveEnd = (): void => {
         document.removeEventListener('mousemove', this.onDividerMouseMove);
-        document.removeEventListener('mouseup', this.onDividerMouseUp);
+        document.removeEventListener('touchmove', this.onDividerTouchMove);
+        document.removeEventListener('mouseup', this.onDividerMoveEnd);
+        document.removeEventListener('touchend', this.onDividerMoveEnd);
         this.resetGridSizedColumns();
         this.isColumnBeingSized = false;
         this.activeColumnIndex = undefined;

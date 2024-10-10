@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "Enable table column resizing on touch-based devices",
+  "packageName": "@ni/nimble-components",
+  "email": "7282195+m-akinc@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
