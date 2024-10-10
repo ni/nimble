@@ -187,7 +187,8 @@ describe('WaferMap', () => {
             ).and.returnValue(Promise.resolve());
         });
 
-        it('will call setupWafer and drawWafer after supported diesTable change', async () => {
+        // OffscreenCanvas not supported in Playwright's Windows/Linux Webkit build: https://github.com/ni/nimble/issues/2169
+        it('will call setupWafer and drawWafer after supported diesTable change #SkipWebkit', async () => {
             element.diesTable = tableFromArrays({
                 colIndex: Int32Array.from([]),
                 rowIndex: Int32Array.from([]),
@@ -208,7 +209,8 @@ describe('WaferMap', () => {
         });
     });
 
-    describe('worker renderer action', () => {
+    // OffscreenCanvas not supported in Playwright's Windows/Linux Webkit build: https://github.com/ni/nimble/issues/2169
+    describe('worker renderer action #SkipWebkit', () => {
         let renderHoverSpy: jasmine.Spy;
         let experimentalUpdateSpy: jasmine.Spy;
 
