@@ -437,8 +437,8 @@ describe('RichTextEditor', () => {
                 }
             ] as const;
             parameterizeSpec(markdownInput, (spec, name, value) => {
-                spec(`for ${name} markdown syntax to the editor`, () => {
-                    pageObject.pasteToEditor(value.input);
+                spec(`for ${name} markdown syntax to the editor`, async () => {
+                    await pageObject.pasteToEditor(value.input);
 
                     expect(pageObject.getEditorTagNames()).toEqual(['P']);
                     expect(pageObject.getEditorLeafContents()).toEqual([
@@ -1014,8 +1014,8 @@ describe('RichTextEditor', () => {
                 parameterizeSpec(differentValidLinks, (spec, name, value) => {
                     spec(
                         `${name} renders as absolute link(href and text content should be same) in editor`,
-                        () => {
-                            pageObject.pasteHTMLToEditor(value.input);
+                        async () => {
+                            await pageObject.pasteHTMLToEditor(value.input);
 
                             expect(pageObject.getEditorTagNames()).toEqual([
                                 'P',
@@ -1051,8 +1051,8 @@ describe('RichTextEditor', () => {
                 parameterizeSpec(validLinkNodes, (spec, name, value) => {
                     spec(
                         `${name} renders as absolute link(href and text content should be same) in editor`,
-                        () => {
-                            pageObject.pasteHTMLToEditor(value.input);
+                        async () => {
+                            await pageObject.pasteHTMLToEditor(value.input);
 
                             expect(
                                 pageObject.getEditorTagNamesWithClosingTags()
@@ -1134,8 +1134,8 @@ describe('RichTextEditor', () => {
                 ] as const;
 
                 parameterizeSpec(differentInvalidLinks, (spec, name, value) => {
-                    spec(`${name} renders as plain text in editor`, () => {
-                        pageObject.pasteHTMLToEditor(value.input);
+                    spec(`${name} renders as plain text in editor`, async () => {
+                        await pageObject.pasteHTMLToEditor(value.input);
 
                         expect(pageObject.getEditorTagNames()).toEqual(['P']);
                         expect(pageObject.getEditorLeafContents()).toEqual([
@@ -1145,8 +1145,8 @@ describe('RichTextEditor', () => {
                 });
             });
 
-            it('pasting a plain text URL should render as a plain text', () => {
-                pageObject.pasteToEditor('https://nimble.ni.dev/');
+            it('pasting a plain text URL should render as a plain text', async () => {
+                await pageObject.pasteToEditor('https://nimble.ni.dev/');
 
                 expect(pageObject.getEditorTagNames()).toEqual(['P']);
                 expect(pageObject.getEditorLeafContents()).toEqual([

@@ -216,25 +216,29 @@ export class RichTextEditorPageObject {
         toggleButton.control.dispatchEvent(event);
     }
 
-    public pasteToEditor(text: string): void {
+    public async pasteToEditor(text: string): Promise<void> {
         const editor = this.getTiptapEditor();
         const pasteEvent = new ClipboardEvent('paste', {
             clipboardData: new DataTransfer()
         });
         pasteEvent.clipboardData?.setData('text/plain', text);
         editor.dispatchEvent(pasteEvent);
+
+        await this.focusEditorIfMentionListboxOpened();
     }
 
     // Simulate the actual pasting of content by passing the extracted HTML string as an argument and setting the format to 'text/html',
     // as in the [DataFormat](https://developer.mozilla.org/en-US/docs/Web/API/DataTransfer) object.
     // For example, when copying a link, the clipboard stores information that includes the anchor tag, href attribute value etc, and paste it as an HTML string
-    public pasteHTMLToEditor(htmlString: string): void {
+    public async pasteHTMLToEditor(htmlString: string): Promise<void> {
         const editor = this.getTiptapEditor();
         const pasteEvent = new ClipboardEvent('paste', {
             clipboardData: new DataTransfer()
         });
         pasteEvent.clipboardData?.setData('text/html', htmlString);
         editor.dispatchEvent(pasteEvent);
+
+        await this.focusEditorIfMentionListboxOpened();
     }
 
     public async setEditorTextContent(value: string): Promise<void> {
@@ -262,6 +266,8 @@ export class RichTextEditorPageObject {
         const lastElement = this.getEditorLastChildElement();
         lastElement.parentElement!.textContent = value;
         await waitForUpdatesAsync();
+
+        await this.focusEditorIfMentionListboxOpened();
     }
 
     public async sliceEditorContent(from: number, to: number): Promise<void> {
@@ -271,17 +277,20 @@ export class RichTextEditorPageObject {
             .deleteRange({ from, to })
             .run();
         await waitForUpdatesAsync();
+
+        await this.focusEditorIfMentionListboxOpened();
     }
 
     public getEditorLastChildAttribute(attribute: string): string {
         return getLastChildElementAttribute(attribute, this.getTiptapEditor());
     }
 
-    public isMentionListboxOpened(): boolean {
+    public async isMentionListboxOpened(): Promise<boolean> {
+        await waitForUpdatesAsync();
+
         return (
             !this.getMentionListbox()
-                ?.shadowRoot?.querySelector(anchoredRegionTag)
-                ?.hasAttribute('hidden') ?? false
+                ?.shadowRoot?.querySelector(anchoredRegionTag)?.hidden
         );
     }
 
@@ -531,7 +540,7 @@ export class RichTextEditorPageObject {
     }
 
     private async focusEditorIfMentionListboxOpened(): Promise<void> {
-        if (this.isMentionListboxOpened()) {
+        if (await this.isMentionListboxOpened()) {
             this.richTextEditorElement.tiptapEditor.commands.focus();
             await waitForUpdatesAsync();
         }
