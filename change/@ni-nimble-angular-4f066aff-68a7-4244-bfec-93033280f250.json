@@ -1,0 +1,7 @@
+{
+  "type": "minor",
+  "comment": "Expose error state on radio-group",
+  "packageName": "@ni/nimble-angular",
+  "email": "20542556+mollykreis@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
