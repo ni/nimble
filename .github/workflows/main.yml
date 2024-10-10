@@ -25,7 +25,7 @@ env:
 
 jobs:
   build:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v4
         if: env.HAS_GITHUBPAGESDEPLOYTOKEN == 'true'
@@ -141,7 +141,7 @@ jobs:
   pages:
     needs: build
     if: github.repository_owner == 'ni' && startsWith(github.ref, 'refs/heads/main')
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-22.04
     permissions:
       pages: write # to deploy to Pages
       id-token: write # to verify the deployment originates from an appropriate source
