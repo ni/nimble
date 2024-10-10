@@ -288,10 +288,9 @@ export class RichTextEditorPageObject {
     public async isMentionListboxOpened(): Promise<boolean> {
         await waitForUpdatesAsync();
 
-        return (
-            !this.getMentionListbox()
-                ?.shadowRoot?.querySelector(anchoredRegionTag)?.hidden
-        );
+        return !this.getMentionListbox()?.shadowRoot?.querySelector(
+            anchoredRegionTag
+        )?.hidden;
     }
 
     public getEditorMentionViewAttributeValues(attribute: string): string[] {

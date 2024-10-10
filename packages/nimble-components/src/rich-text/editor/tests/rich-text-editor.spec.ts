@@ -1134,14 +1134,19 @@ describe('RichTextEditor', () => {
                 ] as const;
 
                 parameterizeSpec(differentInvalidLinks, (spec, name, value) => {
-                    spec(`${name} renders as plain text in editor`, async () => {
-                        await pageObject.pasteHTMLToEditor(value.input);
+                    spec(
+                        `${name} renders as plain text in editor`,
+                        async () => {
+                            await pageObject.pasteHTMLToEditor(value.input);
 
-                        expect(pageObject.getEditorTagNames()).toEqual(['P']);
-                        expect(pageObject.getEditorLeafContents()).toEqual([
-                            value.text
-                        ]);
-                    });
+                            expect(pageObject.getEditorTagNames()).toEqual([
+                                'P'
+                            ]);
+                            expect(pageObject.getEditorLeafContents()).toEqual([
+                                value.text
+                            ]);
+                        }
+                    );
                 });
             });
 
