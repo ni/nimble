@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-<!-- This log was last generated on Thu, 26 Sep 2024 18:24:50 GMT and should not be manually modified. -->
+<!-- This log was last generated on Wed, 09 Oct 2024 19:24:18 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 32.3.0
+
+Wed, 09 Oct 2024 19:24:18 GMT
+
+### Minor changes
+
+- Implement error states on nimble-radio-group ([ni/nimble@8aa7c1e](https://github.com/ni/nimble/commit/8aa7c1ee2a6fae665419b8a8d9c8f8e7e977c424))
 
 ## 32.2.10
 

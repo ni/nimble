@@ -4,15 +4,20 @@ import {
     controlLabelDisabledFontColor,
     controlLabelFont,
     controlLabelFontColor,
+    controlLabelFontLineHeight,
+    smallPadding,
     standardPadding
 } from '../theme-provider/design-tokens';
+import { styles as errorStyles } from '../patterns/error/styles';
 
 export const styles = css`
     ${display('inline-block')}
+    ${errorStyles}
 
     .positioning-region {
         display: flex;
         gap: ${standardPadding};
+        position: relative;
     }
 
     :host([orientation='vertical']) .positioning-region {
@@ -23,6 +28,13 @@ export const styles = css`
         flex-direction: row;
     }
 
+    .label-container {
+        display: flex;
+        height: ${controlLabelFontLineHeight};
+        gap: ${smallPadding};
+        margin-bottom: ${smallPadding};
+    }
+
     slot[name='label'] {
         font: ${controlLabelFont};
         color: ${controlLabelFontColor};
@@ -30,5 +42,10 @@ export const styles = css`
 
     :host([disabled]) slot[name='label'] {
         color: ${controlLabelDisabledFontColor};
+    }
+
+    .error-icon {
+        margin-left: auto;
+        margin-right: ${smallPadding};
     }
 `;
