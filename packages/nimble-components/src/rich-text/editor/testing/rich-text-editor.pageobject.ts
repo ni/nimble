@@ -274,6 +274,11 @@ export class RichTextEditorPageObject {
             .deleteRange({ from, to })
             .run();
         await waitForUpdatesAsync();
+
+        if (await this.isMentionListboxOpened()) {
+            this.richTextEditorElement.tiptapEditor.commands.focus();
+            await waitForUpdatesAsync();
+        }
     }
 
     public getEditorLastChildAttribute(attribute: string): string {
