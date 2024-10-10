@@ -337,12 +337,13 @@ Plain text 3`);
 <user:1> `);
         });
 
-        // Intermittent, see https://github.com/ni/nimble/issues/2219
-        xit('Mention node', async () => {
+        it('Mention node', async () => {
             await appendUserMentionConfiguration(element, [
                 { key: 'user:1', displayName: 'username1' }
             ]);
+
             await commitFirstMentionBoxOptionIntoEditor('@');
+
             expect(element.getMarkdown()).toEqual('<user:1> ');
         });
 
