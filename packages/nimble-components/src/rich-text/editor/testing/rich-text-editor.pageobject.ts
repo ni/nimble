@@ -37,7 +37,7 @@ import { RichTextMentionUsersValidator } from '../../../rich-text-mention/users/
 export class RichTextEditorPageObject {
     public constructor(
         private readonly richTextEditorElement: RichTextEditor
-    ) {}
+    ) { }
 
     public editorSectionHasChildNodes(): boolean {
         const editorSection = this.getEditorSection();
@@ -248,7 +248,7 @@ export class RichTextEditorPageObject {
             .run();
         await waitForUpdatesAsync();
 
-        if (this.isMentionListboxOpened()) {
+        if (await this.isMentionListboxOpened()) {
             this.richTextEditorElement.tiptapEditor.commands.focus();
             await waitForUpdatesAsync();
         }
@@ -274,18 +274,44 @@ export class RichTextEditorPageObject {
             .deleteRange({ from, to })
             .run();
         await waitForUpdatesAsync();
+
+        if (await this.isMentionListboxOpened()) {
+            this.richTextEditorElement.tiptapEditor.commands.focus();
+            await waitForUpdatesAsync();
+        }
     }
 
     public getEditorLastChildAttribute(attribute: string): string {
         return getLastChildElementAttribute(attribute, this.getTiptapEditor());
     }
 
-    public isMentionListboxOpened(): boolean {
-        return (
-            !this.getMentionListbox()
-                ?.shadowRoot?.querySelector(anchoredRegionTag)
-                ?.hasAttribute('hidden') ?? false
-        );
+    public async isMentionListboxOpened(): Promise<boolean> {
+        const mentionListbox = this.getMentionListbox();
+        if (!mentionListbox) {
+            // eslint-disable-next-line no-console
+            console.log('Mention listbox not found');
+            return false;
+        }
+        const shadowRoot = mentionListbox.shadowRoot;
+        if (!shadowRoot) {
+            // eslint-disable-next-line no-console
+            console.log('Mention listbox shadow root not found');
+            return false;
+        }
+
+        const anchoredRegion = shadowRoot.querySelector(anchoredRegionTag);
+        if (!anchoredRegion) {
+            // eslint-disable-next-line no-console
+            console.log('Anchored region not found');
+            return false;
+        }
+        await waitForUpdatesAsync();
+
+        // eslint-disable-next-line no-console
+        console.log('Anchored region hidden attribute:', !anchoredRegion.hasAttribute('hidden'));
+        // eslint-disable-next-line no-console
+        console.log('Anchored region hidden property:', !anchoredRegion.hidden);
+        return !anchoredRegion.hidden;
     }
 
     public getEditorMentionViewAttributeValues(attribute: string): string[] {
@@ -362,7 +388,7 @@ export class RichTextEditorPageObject {
         return (
             document.activeElement === this.richTextEditorElement
             && document.activeElement?.shadowRoot?.activeElement
-                === this.getTiptapEditor()
+            === this.getTiptapEditor()
         );
     }
 
@@ -439,7 +465,13 @@ export class RichTextEditorPageObject {
     }
 
     public async clickMentionListboxOption(index: number): Promise<void> {
+        // if (await this.isMentionListboxOpened()) {
+        //     this.richTextEditorElement.tiptapEditor.commands.focus();
+        //     await waitForUpdatesAsync();
+        // }
         const listOption = this.getAllListItemsInMentionBox()[index];
+        // eslint-disable-next-line no-console
+        console.log('Editor focus status:', this.richTextEditorElement.tiptapEditor.isFocused);
         listOption?.click();
         await waitForUpdatesAsync();
     }
@@ -512,7 +544,7 @@ export class RichTextEditorPageObject {
                 viewElement: richTextMentionUsersViewTag,
                 validator: new RichTextMentionUsersValidator()
             },
-            () => {}
+            () => { }
         );
         mentionInternals.pattern = '^user:(.*)';
         mappings.forEach(mapping => {
