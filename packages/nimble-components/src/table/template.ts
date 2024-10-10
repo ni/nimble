@@ -103,7 +103,8 @@ export const template = html<Table>`
                                                 ${(_, c) => `${c.parent.layoutManager.activeColumnDivider === c.parent.getLeftDividerIndex(c.index) ? 'divider-active' : ''}`}
                                                 ${(_, c) => `${c.parent.layoutManager.hasResizableColumnToLeft(c.index - 1) ? 'draggable' : ''}`}
                                             "
-                                            @mousedown="${(_, c) => c.parent.onLeftDividerMouseDown(c.event as MouseEvent, c.index)}">
+                                            @mousedown="${(_, c) => c.parent.onLeftDividerMouseDown(c.event as MouseEvent, c.index)}"
+                                            @touchstart="${(_, c) => c.parent.onLeftDividerTouchStart(c.event as TouchEvent, c.index)}">
                                         </div>
                                     `)}
                                         <${tableHeaderTag}
@@ -128,7 +129,8 @@ export const template = html<Table>`
                                                 ${(_, c) => `${c.parent.layoutManager.activeColumnDivider === c.parent.getRightDividerIndex(c.index) ? 'divider-active' : ''}`}
                                                 ${(_, c) => `${c.parent.layoutManager.hasResizableColumnToLeft(c.index) ? 'draggable' : ''}`}
                                             "
-                                             @mousedown="${(_, c) => c.parent.onRightDividerMouseDown(c.event as MouseEvent, c.index)}">
+                                             @mousedown="${(_, c) => c.parent.onRightDividerMouseDown(c.event as MouseEvent, c.index)}"
+                                            @touchstart="${(_, c) => c.parent.onRightDividerTouchStart(c.event as TouchEvent, c.index)}">
                                         </div>
                                     `)}                        
                                 </div>

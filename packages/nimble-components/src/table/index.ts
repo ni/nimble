@@ -558,6 +558,18 @@ export class Table<
     }
 
     /** @internal */
+    public onRightDividerTouchStart(
+        event: TouchEvent,
+        columnIndex: number
+    ): void {
+        this.layoutManager.beginColumnInteractiveSize(
+            event.targetTouches[0]!.clientX,
+            this.getRightDividerIndex(columnIndex)
+        );
+        event.preventDefault();
+    }
+
+    /** @internal */
     public onLeftDividerMouseDown(
         event: MouseEvent,
         columnIndex: number
@@ -568,6 +580,18 @@ export class Table<
                 this.getLeftDividerIndex(columnIndex)
             );
         }
+    }
+
+    /** @internal */
+    public onLeftDividerTouchStart(
+        event: TouchEvent,
+        columnIndex: number
+    ): void {
+        this.layoutManager.beginColumnInteractiveSize(
+            event.targetTouches[0]!.clientX,
+            this.getLeftDividerIndex(columnIndex)
+        );
+        event.preventDefault();
     }
 
     /** @internal */
