@@ -554,7 +554,6 @@ export class Table<
                 event.clientX,
                 this.getRightDividerIndex(columnIndex)
             );
-            event.preventDefault();
         }
     }
 
@@ -568,7 +567,6 @@ export class Table<
                 event.clientX,
                 this.getLeftDividerIndex(columnIndex)
             );
-            event.preventDefault();
         }
     }
 
