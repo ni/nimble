@@ -92,7 +92,6 @@ export const styles = css`
         );
         left: var(--ni-private-table-scroll-x);
         align-items: center;
-        touch-action: pan-y;
     }
 
     .header-row-action-container {
@@ -151,6 +150,7 @@ export const styles = css`
         cursor: col-resize;
         position: absolute;
         z-index: ${ZIndexLevels.zIndex1};
+        touch-action: pan-y;
     }
 
     .column-divider:hover,
