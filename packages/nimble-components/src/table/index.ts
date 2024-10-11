@@ -545,53 +545,31 @@ export class Table<
     }
 
     /** @internal */
-    public onRightDividerMouseDown(
-        event: MouseEvent,
+    public onRightDividerPointerDown(
+        event: PointerEvent,
         columnIndex: number
     ): void {
-        if (event.button === 0) {
+        if (event.pointerType !== 'mouse' || event.button === 0) {
             this.layoutManager.beginColumnInteractiveSize(
                 event.clientX,
                 this.getRightDividerIndex(columnIndex)
             );
+            event.preventDefault();
         }
     }
 
     /** @internal */
-    public onRightDividerTouchStart(
-        event: TouchEvent,
+    public onLeftDividerPointerDown(
+        event: PointerEvent,
         columnIndex: number
     ): void {
-        this.layoutManager.beginColumnInteractiveSize(
-            event.targetTouches[0]!.clientX,
-            this.getRightDividerIndex(columnIndex)
-        );
-        event.preventDefault();
-    }
-
-    /** @internal */
-    public onLeftDividerMouseDown(
-        event: MouseEvent,
-        columnIndex: number
-    ): void {
-        if (event.button === 0) {
+        if (event.pointerType !== 'mouse' || event.button === 0) {
             this.layoutManager.beginColumnInteractiveSize(
                 event.clientX,
                 this.getLeftDividerIndex(columnIndex)
             );
+            event.preventDefault();
         }
-    }
-
-    /** @internal */
-    public onLeftDividerTouchStart(
-        event: TouchEvent,
-        columnIndex: number
-    ): void {
-        this.layoutManager.beginColumnInteractiveSize(
-            event.targetTouches[0]!.clientX,
-            this.getLeftDividerIndex(columnIndex)
-        );
-        event.preventDefault();
     }
 
     /** @internal */

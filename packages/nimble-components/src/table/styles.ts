@@ -92,6 +92,7 @@ export const styles = css`
         );
         left: var(--ni-private-table-scroll-x);
         align-items: center;
+        touch-action: pan-y;
     }
 
     .header-row-action-container {

@@ -541,24 +541,7 @@ export class TablePageObject<T extends TableRecord> {
                 'The provided column index has no right divider associated with it.'
             );
         }
-        const dividerRect = divider.getBoundingClientRect();
-        let currentMouseX = (dividerRect.x + dividerRect.width) / 2;
-        const mouseDownEvent = new MouseEvent('mousedown', {
-            clientX: currentMouseX,
-            clientY: (dividerRect.y + dividerRect.height) / 2
-        });
-        divider.dispatchEvent(mouseDownEvent);
-
-        for (const delta of deltas) {
-            currentMouseX += delta;
-            const mouseMoveEvent = new MouseEvent('mousemove', {
-                clientX: currentMouseX
-            });
-            document.dispatchEvent(mouseMoveEvent);
-        }
-
-        const mouseUpEvent = new MouseEvent('mouseup');
-        document.dispatchEvent(mouseUpEvent);
+        this.dragSizeColumnByDivider(divider, deltas);
     }
 
     /**
@@ -576,24 +559,7 @@ export class TablePageObject<T extends TableRecord> {
                 'The provided column index has no left divider associated with it.'
             );
         }
-        const dividerRect = divider.getBoundingClientRect();
-        let currentMouseX = (dividerRect.x + dividerRect.width) / 2;
-        const mouseDownEvent = new MouseEvent('mousedown', {
-            clientX: currentMouseX,
-            clientY: (dividerRect.y + dividerRect.height) / 2
-        });
-        divider.dispatchEvent(mouseDownEvent);
-
-        for (const delta of deltas) {
-            currentMouseX += delta;
-            const mouseMoveEvent = new MouseEvent('mousemove', {
-                clientX: currentMouseX
-            });
-            document.dispatchEvent(mouseMoveEvent);
-        }
-
-        const mouseUpEvent = new MouseEvent('mouseup');
-        document.dispatchEvent(mouseUpEvent);
+        this.dragSizeColumnByDivider(divider, deltas);
     }
 
     public getColumnRightDivider(index: number): HTMLElement | null {
@@ -855,9 +821,33 @@ export class TablePageObject<T extends TableRecord> {
         return spinnerOrIcon;
     }
 
+    private dragSizeColumnByDivider(
+        divider: HTMLElement,
+        deltas: readonly number[]
+    ): void {
+        const dividerRect = divider.getBoundingClientRect();
+        let currentPointerX = (dividerRect.x + dividerRect.width) / 2;
+        const mouseDownEvent = new PointerEvent('pointerdown', {
+            clientX: currentPointerX,
+            clientY: (dividerRect.y + dividerRect.height) / 2
+        });
+        divider.dispatchEvent(mouseDownEvent);
+
+        for (const delta of deltas) {
+            currentPointerX += delta;
+            const pointerMoveEvent = new PointerEvent('pointermove', {
+                clientX: currentPointerX
+            });
+            document.dispatchEvent(pointerMoveEvent);
+        }
+
+        const pointerUpEvent = new PointerEvent('pointerup');
+        document.dispatchEvent(pointerUpEvent);
+    }
+
     private readonly isSlotElement = (
         element: Node | undefined
     ): element is HTMLSlotElement => {
-        return element?.nodeName === 'SLOT' ?? false;
+        return element?.nodeName === 'SLOT';
     };
 }
