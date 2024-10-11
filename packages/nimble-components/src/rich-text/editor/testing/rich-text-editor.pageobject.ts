@@ -37,7 +37,7 @@ import { RichTextMentionUsersValidator } from '../../../rich-text-mention/users/
 export class RichTextEditorPageObject {
     public constructor(
         private readonly richTextEditorElement: RichTextEditor
-    ) { }
+    ) {}
 
     public editorSectionHasChildNodes(): boolean {
         const editorSection = this.getEditorSection();
@@ -308,7 +308,10 @@ export class RichTextEditorPageObject {
         await waitForUpdatesAsync();
 
         // eslint-disable-next-line no-console
-        console.log('Anchored region hidden attribute:', !anchoredRegion.hasAttribute('hidden'));
+        console.log(
+            'Anchored region hidden attribute:',
+            !anchoredRegion.hasAttribute('hidden')
+        );
         // eslint-disable-next-line no-console
         console.log('Anchored region hidden property:', !anchoredRegion.hidden);
         return !anchoredRegion.hidden;
@@ -388,7 +391,7 @@ export class RichTextEditorPageObject {
         return (
             document.activeElement === this.richTextEditorElement
             && document.activeElement?.shadowRoot?.activeElement
-            === this.getTiptapEditor()
+                === this.getTiptapEditor()
         );
     }
 
@@ -471,7 +474,10 @@ export class RichTextEditorPageObject {
         // }
         const listOption = this.getAllListItemsInMentionBox()[index];
         // eslint-disable-next-line no-console
-        console.log('Editor focus status:', this.richTextEditorElement.tiptapEditor.isFocused);
+        console.log(
+            'Editor focus status:',
+            this.richTextEditorElement.tiptapEditor.isFocused
+        );
         listOption?.click();
         await waitForUpdatesAsync();
     }
@@ -544,7 +550,7 @@ export class RichTextEditorPageObject {
                 viewElement: richTextMentionUsersViewTag,
                 validator: new RichTextMentionUsersValidator()
             },
-            () => { }
+            () => {}
         );
         mentionInternals.pattern = '^user:(.*)';
         mappings.forEach(mapping => {

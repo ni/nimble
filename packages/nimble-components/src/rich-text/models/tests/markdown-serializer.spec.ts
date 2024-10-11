@@ -309,49 +309,36 @@ Plain text 3`);
         });
 
         // WebKit skipped, see https://github.com/ni/nimble/issues/1938
-        it(
-            'Hard break with bulleted list #SkipWebkit',
-            async () => {
-                await pageObject.setEditorTextContent('Bulleted');
-                await pageObject.toggleFooterButton(
-                    ToolbarButton.bulletList
-                );
-                await pageObject.pressShiftEnterKeysInEditor();
-                await pageObject.setEditorTextContent('list');
-                expect(element.getMarkdown()).toEqual(r`* Bulleted\
+        it('Hard break with bulleted list #SkipWebkit', async () => {
+            await pageObject.setEditorTextContent('Bulleted');
+            await pageObject.toggleFooterButton(ToolbarButton.bulletList);
+            await pageObject.pressShiftEnterKeysInEditor();
+            await pageObject.setEditorTextContent('list');
+            expect(element.getMarkdown()).toEqual(r`* Bulleted\
   list`);
-            }
-        );
+        });
 
         // WebKit skipped, see https://github.com/ni/nimble/issues/1938
-        it(
-            'Hard break with numbered list #SkipWebkit',
-            async () => {
-                await pageObject.setEditorTextContent('Numbered');
-                await pageObject.toggleFooterButton(
-                    ToolbarButton.numberedList
-                );
-                await pageObject.pressShiftEnterKeysInEditor();
-                await pageObject.setEditorTextContent('list');
-                expect(element.getMarkdown()).toEqual(r`1. Numbered\
+        it('Hard break with numbered list #SkipWebkit', async () => {
+            await pageObject.setEditorTextContent('Numbered');
+            await pageObject.toggleFooterButton(ToolbarButton.numberedList);
+            await pageObject.pressShiftEnterKeysInEditor();
+            await pageObject.setEditorTextContent('list');
+            expect(element.getMarkdown()).toEqual(r`1. Numbered\
    list`);
-            }
-        );
+        });
 
         // WebKit skipped, see https://github.com/ni/nimble/issues/1938
-        it(
-            'Hard break with mention node #SkipWebkit',
-            async () => {
-                await appendUserMentionConfiguration(element, [
-                    { key: 'user:1', displayName: 'username1' }
-                ]);
-                await commitFirstMentionBoxOptionIntoEditor('@');
-                await pageObject.pressShiftEnterKeysInEditor();
-                await commitFirstMentionBoxOptionIntoEditor('@');
-                expect(element.getMarkdown()).toEqual(r`<user:1> \
+        it('Hard break with mention node #SkipWebkit', async () => {
+            await appendUserMentionConfiguration(element, [
+                { key: 'user:1', displayName: 'username1' }
+            ]);
+            await commitFirstMentionBoxOptionIntoEditor('@');
+            await pageObject.pressShiftEnterKeysInEditor();
+            await commitFirstMentionBoxOptionIntoEditor('@');
+            expect(element.getMarkdown()).toEqual(r`<user:1> \
 <user:1> `);
-            }
-        );
+        });
 
         for (let i = 0; i < 2000; i++) {
             // Intermittent, see https://github.com/ni/nimble/issues/2219
