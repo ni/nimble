@@ -551,6 +551,8 @@ export class Table<
     ): void {
         if (event.pointerType !== 'mouse' || event.button === 0) {
             this.layoutManager.beginColumnInteractiveSize(
+                event.target as HTMLElement,
+                event.pointerId,
                 event.clientX,
                 this.getRightDividerIndex(columnIndex)
             );
@@ -564,6 +566,8 @@ export class Table<
     ): void {
         if (event.pointerType !== 'mouse' || event.button === 0) {
             this.layoutManager.beginColumnInteractiveSize(
+                event.target as HTMLElement,
+                event.pointerId,
                 event.clientX,
                 this.getLeftDividerIndex(columnIndex)
             );

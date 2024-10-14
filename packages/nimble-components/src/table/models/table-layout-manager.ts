@@ -22,6 +22,7 @@ export class TableLayoutManager<TData extends TableRecord> {
     private initialTableScrollableWidth?: number;
     private initialTableScrollableMinWidth?: number;
     private initialColumnTotalWidth?: number;
+    private activeColumnDividerElement?: HTMLElement;
     private currentTotalDelta = 0;
     private dragStart = 0;
     private leftColumnIndex?: number;
@@ -56,14 +57,19 @@ export class TableLayoutManager<TData extends TableRecord> {
 
     /**
      * Sets up state related to interactively sizing a column.
+     * @param divider The divider element that was clicked on
+     * @param pointerId The pointerId of the pointer that started the drag
      * @param dragStart The x-position from which a column size was started
-     * @param activeColumnDivider The divider that was clicked on
+     * @param activeColumnDivider The 1-based index of the divider that was clicked on
      */
     public beginColumnInteractiveSize(
+        divider: HTMLElement,
+        pointerId: number,
         dragStart: number,
         activeColumnDivider: number
     ): void {
         this.activeColumnDivider = activeColumnDivider;
+        this.activeColumnDividerElement = divider;
         this.leftColumnIndex = this.getLeftColumnIndexFromDivider(
             this.activeColumnDivider
         );
@@ -77,8 +83,9 @@ export class TableLayoutManager<TData extends TableRecord> {
         this.initialTableScrollableMinWidth = this.table.tableScrollableMinWidth;
         this.initialColumnTotalWidth = this.getTotalColumnFixedWidth();
         this.isColumnBeingSized = true;
-        document.addEventListener('pointermove', this.onDividerPointerMove);
-        document.addEventListener('pointerup', this.onDividerPointerUp);
+        divider.setPointerCapture(pointerId);
+        divider.addEventListener('pointermove', this.onDividerPointerMove);
+        divider.addEventListener('pointerup', this.onDividerPointerUp);
     }
 
     /**
@@ -120,8 +127,14 @@ export class TableLayoutManager<TData extends TableRecord> {
     };
 
     private readonly onDividerPointerUp = (): void => {
-        document.removeEventListener('pointermove', this.onDividerPointerMove);
-        document.removeEventListener('pointerup', this.onDividerPointerUp);
+        this.activeColumnDividerElement!.removeEventListener(
+            'pointermove',
+            this.onDividerPointerMove
+        );
+        this.activeColumnDividerElement!.removeEventListener(
+            'pointerup',
+            this.onDividerPointerUp
+        );
         this.resetGridSizedColumns();
         this.isColumnBeingSized = false;
         this.activeColumnIndex = undefined;
