@@ -181,6 +181,9 @@ export const iconDescription = 'Set `slot="start"` to include an icon before the
 export const disabledDescription = (options: {
     componentName: string
 }): string => `Styles the ${options.componentName} as disabled and prevents focus and user interaction.`;
+export const readonlyDescription = (options: {
+    componentName: string
+}): string => `Styles the ${options.componentName} as readonly and prevents the user from changing the value.`;
 export const slottedLabelDescription = (options: {
     componentName: string
 }): string => `Label text to display adjacent to the ${options.componentName} describing its purpose to the user.`;
@@ -192,7 +195,7 @@ export const placeholderDescription = (options: {
 }): string => `Placeholder text to display when no value has been entered in the ${options.componentName}.`;
 
 export const errorTextDescription = 'A message to be displayed explaining why the value is invalid. Only visible when `error-visible` is set.';
-export const errorVisibleDescription = 'When set to `true`, the `error-text` message will be displayed.';
+export const errorVisibleDescription = 'When set to `true`, an error indicator will be displayed within the control and the `error-text` message will be displayed.';
 
 export const dropdownPositionDescription = (options: {
     componentName: string

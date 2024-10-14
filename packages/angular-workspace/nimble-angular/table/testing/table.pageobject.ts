@@ -22,7 +22,7 @@ export class TablePageObject<T extends TableRecord> extends NimbleComponentsTabl
         const originalSetDataFn = tableElement.setData.bind(tableElement);
         tableElement.setData = async (...args): Promise<void> => {
             this.mostRecentSetDataPromise = originalSetDataFn(...args);
-            return this.mostRecentSetDataPromise;
+            await this.mostRecentSetDataPromise;
         };
     }
 

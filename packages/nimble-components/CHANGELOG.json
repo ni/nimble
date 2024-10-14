@@ -2,6 +2,186 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Wed, 09 Oct 2024 19:24:18 GMT",
+      "version": "32.3.0",
+      "tag": "@ni/nimble-components_v32.3.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "8aa7c1ee2a6fae665419b8a8d9c8f8e7e977c424",
+            "comment": "Implement error states on nimble-radio-group"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 08 Oct 2024 17:39:50 GMT",
+      "version": "32.2.10",
+      "tag": "@ni/nimble-components_v32.2.10",
+      "comments": {
+        "none": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "bfa3e3683f6e2e8a2ec6807fcdde7f15ae265a3a",
+            "comment": "Disable intermittent test"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 01 Oct 2024 00:35:26 GMT",
+      "version": "32.2.10",
+      "tag": "@ni/nimble-components_v32.2.10",
+      "comments": {
+        "none": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "fa577f9c01d0435cbd823f48d98037df7667d931",
+            "comment": "Create HLDs for checkbox and radio group error states"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 26 Sep 2024 23:15:53 GMT",
+      "version": "32.2.10",
+      "tag": "@ni/nimble-components_v32.2.10",
+      "comments": {
+        "none": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "ff8f8fdae071a4becd65d672c00eee61bcd166e1",
+            "comment": "Scrollable tabs HLD."
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 26 Sep 2024 18:24:50 GMT",
+      "version": "32.2.10",
+      "tag": "@ni/nimble-components_v32.2.10",
+      "comments": {
+        "patch": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "7ab95a37c760071310a52e0ac233978470168f44",
+            "comment": "Updated for async eslint rule change"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 26 Sep 2024 17:20:39 GMT",
+      "version": "32.2.9",
+      "tag": "@ni/nimble-components_v32.2.9",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "81ac3b96a4247bb5c55989ffc1b784887b436227",
+            "comment": "Update internal spacing between elements within the nimble-text-field"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 26 Sep 2024 15:22:45 GMT",
+      "version": "32.2.8",
+      "tag": "@ni/nimble-components_v32.2.8",
+      "comments": {
+        "patch": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "c17dc0b532d107a1866580ed8c8d3ef3e4f61e71",
+            "comment": "Dependency updates"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 25 Sep 2024 22:17:40 GMT",
+      "version": "32.2.7",
+      "tag": "@ni/nimble-components_v32.2.7",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "f43d4732ed6245c610030066f7fc6e551b441725",
+            "comment": "Add styling for readonly number field"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 18 Sep 2024 20:24:09 GMT",
+      "version": "32.2.6",
+      "tag": "@ni/nimble-components_v32.2.6",
+      "comments": {
+        "patch": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "e83065ac2ed9b3bed2996e848c8223d31ea6890b",
+            "comment": "Fix for selected option display text being updated in DOM not being reflected in display of select."
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 11 Sep 2024 21:31:24 GMT",
+      "version": "32.2.5",
+      "tag": "@ni/nimble-components_v32.2.5",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "e14c27deefbb4cce9ea6563bc9ada9000b944ba7",
+            "comment": "Fix two sources of references to detached rows"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 11 Sep 2024 20:57:36 GMT",
+      "version": "32.2.4",
+      "tag": "@ni/nimble-components_v32.2.4",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "b17e6b9e0422b902b1078e1a37db35d7695ce8d7",
+            "comment": "Add processUpdates call to select page object function clicking the clear button"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 11 Sep 2024 11:58:13 GMT",
+      "version": "32.2.3",
+      "tag": "@ni/nimble-components_v32.2.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "6e6ee2134da94557d10d4fb76c7b2a6e697204c3",
+            "comment": "Add nowrap to button content styling"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 10 Sep 2024 23:42:06 GMT",
       "version": "32.2.2",
       "tag": "@ni/nimble-components_v32.2.2",

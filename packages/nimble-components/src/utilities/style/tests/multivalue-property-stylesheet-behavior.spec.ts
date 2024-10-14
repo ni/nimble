@@ -148,7 +148,7 @@ describe('The MultivaluePropertyStyleSheetBehavior', () => {
                 </div>
             `;
 
-            return fixture(fixtureTemplate, {
+            return await fixture(fixtureTemplate, {
                 source: appearanceController
             });
         };
@@ -292,7 +292,7 @@ describe('The MultivaluePropertyStyleSheetBehavior', () => {
                 </div>
             `;
 
-            return fixture(fixtureTemplate, {
+            return await fixture(fixtureTemplate, {
                 source: appearanceController
             });
         };

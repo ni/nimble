@@ -1,8 +1,80 @@
 # Change Log - @ni/nimble-blazor
 
-This log was last generated on Tue, 10 Sep 2024 23:42:07 GMT and should not be manually modified.
+<!-- This log was last generated on Wed, 09 Oct 2024 19:24:18 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 18.2.10
+
+Wed, 09 Oct 2024 19:24:18 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v32.3.0
+
+## 18.2.9
+
+Thu, 26 Sep 2024 18:24:50 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v32.2.10
+
+## 18.2.8
+
+Thu, 26 Sep 2024 17:20:39 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v32.2.9
+
+## 18.2.7
+
+Thu, 26 Sep 2024 15:22:45 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v32.2.8
+
+## 18.2.6
+
+Wed, 25 Sep 2024 22:17:40 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v32.2.7
+
+## 18.2.5
+
+Wed, 18 Sep 2024 20:24:09 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v32.2.6
+
+## 18.2.4
+
+Wed, 11 Sep 2024 21:31:24 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v32.2.5
+
+## 18.2.3
+
+Wed, 11 Sep 2024 20:57:36 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v32.2.4
+
+## 18.2.2
+
+Wed, 11 Sep 2024 11:58:13 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v32.2.3
 
 ## 18.2.1
 

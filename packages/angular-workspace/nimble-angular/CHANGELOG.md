@@ -1,8 +1,81 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Tue, 10 Sep 2024 23:42:07 GMT and should not be manually modified.
+<!-- This log was last generated on Wed, 09 Oct 2024 19:24:18 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 28.2.10
+
+Wed, 09 Oct 2024 19:24:18 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v32.3.0
+
+## 28.2.9
+
+Thu, 26 Sep 2024 18:24:50 GMT
+
+### Patches
+
+- Updates for async eslint rule change ([ni/nimble@7ab95a3](https://github.com/ni/nimble/commit/7ab95a37c760071310a52e0ac233978470168f44))
+- Bump @ni/nimble-components to v32.2.10
+
+## 28.2.8
+
+Thu, 26 Sep 2024 17:20:39 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v32.2.9
+
+## 28.2.7
+
+Thu, 26 Sep 2024 15:22:45 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v32.2.8
+
+## 28.2.6
+
+Wed, 25 Sep 2024 22:17:40 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v32.2.7
+
+## 28.2.5
+
+Wed, 18 Sep 2024 20:24:09 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v32.2.6
+
+## 28.2.4
+
+Wed, 11 Sep 2024 21:31:24 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v32.2.5
+
+## 28.2.3
+
+Wed, 11 Sep 2024 20:57:36 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v32.2.4
+
+## 28.2.2
+
+Wed, 11 Sep 2024 11:58:13 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v32.2.3
 
 ## 28.2.1
 

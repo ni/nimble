@@ -19,7 +19,7 @@ describe('Anchor Menu Item', () => {
         }
 
         async function setup(source: Model): Promise<Fixture<AnchorMenuItem>> {
-            return fixture<AnchorMenuItem>(
+            return await fixture<AnchorMenuItem>(
                 html`<nimble-anchor-menu-item href="#">
                     <nimble-xmark-icon
                         ${ref('xmarkIcon')}
@@ -116,7 +116,7 @@ describe('Anchor Menu Item', () => {
         }
 
         async function setup(source: Model): Promise<Fixture<Menu>> {
-            return fixture<Menu>(
+            return await fixture<Menu>(
                 html`
                     <nimble-menu>
                         <nimble-menu-item>

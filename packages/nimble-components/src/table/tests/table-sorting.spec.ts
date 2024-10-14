@@ -25,7 +25,7 @@ type TableColumnConfigurationChangeEventHandler = (
 
 // prettier-ignore
 async function setup(): Promise<Fixture<Table<SimpleTableRecord>>> {
-    return fixture<Table<SimpleTableRecord>>(
+    return await fixture<Table<SimpleTableRecord>>(
         html`<nimble-table id-field-name="id">
             <nimble-table-column-text id="first-column" field-name="stringData1" column-id="column-1"></nimble-table-column-text>
             <nimble-table-column-text id="second-column" field-name="stringData2" column-id="column-2"></nimble-table-column-text>
