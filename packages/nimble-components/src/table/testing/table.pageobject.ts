@@ -827,11 +827,12 @@ export class TablePageObject<T extends TableRecord> {
     ): void {
         const dividerRect = divider.getBoundingClientRect();
         let currentPointerX = (dividerRect.x + dividerRect.width) / 2;
-        const mouseDownEvent = new PointerEvent('pointerdown', {
+        const pointerDownEvent = new PointerEvent('pointerdown', {
+            pointerId: 1,
             clientX: currentPointerX,
             clientY: (dividerRect.y + dividerRect.height) / 2
         });
-        divider.dispatchEvent(mouseDownEvent);
+        divider.dispatchEvent(pointerDownEvent);
 
         for (const delta of deltas) {
             currentPointerX += delta;
