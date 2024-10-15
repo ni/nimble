@@ -384,20 +384,14 @@ describe('AnchorTabs', () => {
 
     describe('scroll buttons', () => {
         async function setup(): Promise<Fixture<AnchorTabs>> {
-            return fixture<AnchorTabs>(
+            return await fixture<AnchorTabs>(
                 html`<nimble-anchor-tabs activeid="tab-two">
-                    <nimble-anchor-tab>Tab One</nimble-anchor-tab>
-                    <nimble-anchor-tab id="tab-two">Tan Two</nimble-anchor-tab>
-                    <nimble-anchor-tab id="tab-three"
-                        >Tab Three</nimble-anchor-tab
-                    >
-                    <nimble-anchor-tab id="tab-four"
-                        >Tab Four</nimble-anchor-tab
-                    >
-                    <nimble-anchor-tab id="tab-five"
-                        >Tab Five</nimble-anchor-tab
-                    >
-                    <nimble-anchor-tab id="tab-six">Tab Six</nimble-anchor-tab>
+                    <nimble-anchor-tab>Tab 1</nimble-anchor-tab>
+                    <nimble-anchor-tab id="tab-two">Tab 2</nimble-anchor-tab>
+                    <nimble-anchor-tab id="tab-three">Tab 3</nimble-anchor-tab>
+                    <nimble-anchor-tab id="tab-four">Tab 4</nimble-anchor-tab>
+                    <nimble-anchor-tab id="tab-five">Tab 5</nimble-anchor-tab>
+                    <nimble-anchor-tab id="tab-six">Tab 6</nimble-anchor-tab>
                 </nimble-anchor-tabs>`
             );
         }
@@ -410,18 +404,18 @@ describe('AnchorTabs', () => {
             tabsPageObject = new AnchorTabsPageObject(element);
         });
 
-        it('should not show scroll buttons when the tabs fit within the container', async () => {
-            expect(tabsPageObject.areScrollButtonsVisible()).toBe(false);
-
+        afterEach(async () => {
             await disconnect();
+        });
+
+        it('should not show scroll buttons when the tabs fit within the container', () => {
+            expect(tabsPageObject.areScrollButtonsVisible()).toBe(false);
         });
 
         it('should show scroll buttons when the tabs overflow the container', async () => {
             await tabsPageObject.setAnchorTabsWidth(300);
             await waitForUpdatesAsync(); // wait for the resize observer to fire
             expect(tabsPageObject.areScrollButtonsVisible()).toBe(true);
-
-            await disconnect();
         });
 
         it('should hide scroll buttons when the tabs no longer overflow the container', async () => {
@@ -430,8 +424,6 @@ describe('AnchorTabs', () => {
             await tabsPageObject.setAnchorTabsWidth(1000);
             await waitForUpdatesAsync(); // wait for the resize observer to fire
             expect(tabsPageObject.areScrollButtonsVisible()).toBe(false);
-
-            await disconnect();
         });
 
         it('should scroll left when the left scroll button is clicked', async () => {
@@ -443,8 +435,6 @@ describe('AnchorTabs', () => {
             expect(
                 element.shadowRoot!.querySelector('.tablist')!.scrollLeft
             ).toBeLessThan(currentScrollLeft);
-
-            await disconnect();
         });
 
         it('should not scroll left when the left scroll button is clicked and the first tab is active', async () => {
@@ -454,8 +444,6 @@ describe('AnchorTabs', () => {
             expect(
                 element.shadowRoot!.querySelector('.tablist')!.scrollLeft
             ).toBe(0);
-
-            await disconnect();
         });
 
         it('should scroll right when the right scroll button is clicked', async () => {
@@ -465,8 +453,6 @@ describe('AnchorTabs', () => {
             expect(
                 element.shadowRoot!.querySelector('.tablist')!.scrollLeft
             ).toBeGreaterThan(0);
-
-            await disconnect();
         });
 
         it('should not scroll right when the right scroll button is clicked and the last tab is active', async () => {
@@ -478,8 +464,43 @@ describe('AnchorTabs', () => {
             expect(
                 element.shadowRoot!.querySelector('.tablist')!.scrollLeft
             ).toBe(currentScrollLeft);
+        });
 
-            await disconnect();
+        it('should show scroll buttons when new tab is added and tabs overflow the container', async () => {
+            await tabsPageObject.setAnchorTabsWidth(450);
+            await waitForUpdatesAsync(); // wait for the resize observer to fire
+            expect(tabsPageObject.areScrollButtonsVisible()).toBe(false);
+            await tabsPageObject.addTab('New Tab With Extremely Long Name');
+            expect(tabsPageObject.areScrollButtonsVisible()).toBe(true);
+        });
+
+        it('should hide scroll buttons when tab is removed and tabs no longer overflow the container', async () => {
+            await tabsPageObject.setAnchorTabsWidth(500);
+            await waitForUpdatesAsync(); // wait for the resize observer to fire
+            await tabsPageObject.addTab('New Tab With Extremely Long Name');
+            expect(tabsPageObject.areScrollButtonsVisible()).toBe(true);
+            await tabsPageObject.removeTab(6);
+            expect(tabsPageObject.areScrollButtonsVisible()).toBe(false);
+        });
+
+        it('should show scroll buttons when tab label is updated and tabs overflow the container', async () => {
+            await tabsPageObject.setAnchorTabsWidth(450);
+            await waitForUpdatesAsync(); // wait for the resize observer to fire
+            expect(tabsPageObject.areScrollButtonsVisible()).toBe(false);
+            await tabsPageObject.updateTabLabel(
+                0,
+                'New Tab With Extremely Long Name'
+            );
+            expect(tabsPageObject.areScrollButtonsVisible()).toBe(true);
+        });
+
+        it('should hide scroll buttons when tab label is updated and tabs no longer overflow the container', async () => {
+            await tabsPageObject.setAnchorTabsWidth(550);
+            await waitForUpdatesAsync(); // wait for the resize observer to fire
+            await tabsPageObject.addTab('New Tab With Extremely Long Name');
+            expect(tabsPageObject.areScrollButtonsVisible()).toBe(true);
+            await tabsPageObject.updateTabLabel(6, 'Tab 6');
+            expect(tabsPageObject.areScrollButtonsVisible()).toBe(false);
         });
     });
 });

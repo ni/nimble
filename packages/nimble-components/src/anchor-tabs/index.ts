@@ -76,6 +76,16 @@ export class AnchorTabs extends FoundationElement {
      */
     public tabList!: HTMLElement;
 
+    /**
+     * @internal
+     */
+    public readonly leftScrollButton!: Element;
+
+    /**
+     * @internal
+     */
+    public readonly rightScrollButton!: Element;
+
     private readonly tabListResizeObserver: ResizeObserver;
     private tabIds: string[] = [];
 
@@ -84,7 +94,12 @@ export class AnchorTabs extends FoundationElement {
         this.tabListResizeObserver = new ResizeObserver(entries => {
             let tabsContainerWidth = entries[0]?.contentRect.width;
             if (tabsContainerWidth) {
+                const leftButtonWidth = this.leftScrollButton?.clientWidth ?? 0;
+                const rightButtonWidth = this.rightScrollButton?.clientWidth ?? 0;
                 tabsContainerWidth = Math.ceil(tabsContainerWidth);
+                if (this.showScrollButtons) {
+                    tabsContainerWidth += leftButtonWidth + rightButtonWidth;
+                }
                 this.showScrollButtons = tabsContainerWidth < this.tabList.scrollWidth;
             }
         });

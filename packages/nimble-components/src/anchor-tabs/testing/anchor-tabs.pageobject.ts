@@ -3,7 +3,7 @@ import type { Button } from '../../button';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 
 /**
- * Page object for the `nimble-tabs` component to provide consistent ways
+ * Page object for the `nimble-anchor-tabs` component to provide consistent ways
  * of querying and interacting with the component during tests.
  */
 export class AnchorTabsPageObject {
@@ -42,5 +42,33 @@ export class AnchorTabsPageObject {
                 '.scroll-button'
             ).length > 0
         );
+    }
+
+    public async addTab(label: string): Promise<void> {
+        const tab = document.createElement('nimble-anchor-tab');
+        tab.textContent = label;
+        const lastTab = this.anchorTabsElement.querySelector(
+            'nimble-anchor-tab:last-of-type'
+        )!;
+        lastTab.insertAdjacentElement('afterend', tab);
+        await waitForUpdatesAsync();
+    }
+
+    public async removeTab(index: number): Promise<void> {
+        if (index >= this.anchorTabsElement.tabs.length) {
+            throw new Error(`Tab with index ${index} not found`);
+        }
+        const tabToRemove = this.anchorTabsElement.tabs[index];
+        tabToRemove?.remove();
+        await waitForUpdatesAsync();
+    }
+
+    public async updateTabLabel(index: number, label: string): Promise<void> {
+        if (index >= this.anchorTabsElement.tabs.length) {
+            throw new Error(`Tab with index ${index} not found`);
+        }
+        const tab = this.anchorTabsElement.tabs[index]!;
+        tab.textContent = label;
+        await waitForUpdatesAsync();
     }
 }

@@ -19,6 +19,7 @@ TabsOptions
 > = (context, definition) => html`
     <template class="${x => x.orientation}">
         <div
+            ${ref('tabsContainer')}
             class="tabsrootcontainer"
             style="
                 --ni-private-tabs-container-padding: ${x => (x.showScrollButtons ? smallPadding.getValueFor(x) : '0px')};
@@ -32,6 +33,7 @@ TabsOptions
                     appearance="ghost"
                     tabindex="-1"
                     @click="${x => x.onScrollLeftClick()}"
+                    ${ref('leftScrollButton')}
                 >
                     <${iconArrowExpanderLeftTag} slot="start"></${iconArrowExpanderLeftTag}>
                 </${buttonTag}>
@@ -40,7 +42,7 @@ TabsOptions
                 class="tablist"
                 part="tablist"
                 role="tablist"
-                ${ref('tabsList')}
+                ${ref('tabList')}
             >
                 <slot class="tab" name="tab" part="tab" ${slotted('tabs')}>
                 </slot>
@@ -59,6 +61,7 @@ TabsOptions
                     appearance="ghost"
                     tabindex="-1"
                     @click="${x => x.onScrollRightClick()}"
+                    ${ref('rightScrollButton')}
                 >
                     <${iconArrowExpanderRightTag} slot="start"></${iconArrowExpanderRightTag}>
                 </${buttonTag}>

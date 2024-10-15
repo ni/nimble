@@ -36,6 +36,7 @@ TabsOptions
                     appearance="ghost"
                     tabindex="-1"
                     @click="${x => x.onScrollLeftClick()}"
+                    ${ref('leftScrollButton')}
                 >
                     <${iconArrowExpanderLeftTag} slot="start"></${iconArrowExpanderLeftTag}>
                 </${buttonTag}>
@@ -55,6 +56,7 @@ TabsOptions
                     appearance="ghost"
                     tabindex="-1"
                     @click="${x => x.onScrollRightClick()}"
+                    ${ref('rightScrollButton')}
                 >
                     <${iconArrowExpanderRightTag} slot="start"></${iconArrowExpanderRightTag}>
                 </${buttonTag}>

@@ -42,4 +42,40 @@ export class TabsPageObject {
                 .length > 0
         );
     }
+
+    public async addTab(label: string): Promise<void> {
+        const tab = document.createElement('nimble-tab');
+        tab.textContent = label;
+        const lastTab = this.tabsElement.querySelector(
+            'nimble-tab:last-of-type'
+        )!;
+        // lastTab.id = uniqueId();
+        lastTab.insertAdjacentElement('afterend', tab);
+        const tabPanel = document.createElement('nimble-tab-panel');
+        const lastTabPanel = this.tabsElement.querySelector(
+            'nimble-tab-panel:last-of-type'
+        )!;
+        lastTabPanel.insertAdjacentElement('afterend', tabPanel);
+        await waitForUpdatesAsync();
+    }
+
+    public async removeTab(index: number): Promise<void> {
+        if (index >= this.tabsElement.tabs.length) {
+            throw new Error(`Tab with index ${index} not found`);
+        }
+        const tabToRemove = this.tabsElement.tabs[index];
+        tabToRemove?.remove();
+        const tabPanelToRemove = this.tabsElement.querySelectorAll('nimble-tab-panel')[index];
+        tabPanelToRemove?.remove();
+        await waitForUpdatesAsync();
+    }
+
+    public async updateTabLabel(index: number, label: string): Promise<void> {
+        if (index >= this.tabsElement.tabs.length) {
+            throw new Error(`Tab with index ${index} not found`);
+        }
+        const tab = this.tabsElement.tabs[index]!;
+        tab.textContent = label;
+        await waitForUpdatesAsync();
+    }
 }

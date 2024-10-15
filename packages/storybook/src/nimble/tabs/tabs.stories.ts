@@ -51,8 +51,20 @@ export const tabs: StoryObj<TabsArgs> = {
             <${tabTag} id="1" disabled">Tab One</${tabTag}>
             <${tabTag} id="2">Tab Two</${tabTag}>
             <${tabTag} id="3">Tab Three</${tabTag}>
+            <${tabTag} id="4">Tab Three</${tabTag}>
+            <${tabTag} id="5">Tab Three</${tabTag}>
+            <${tabTag} id="6">Tab Three</${tabTag}>
+            <${tabTag} id="7">Tab Three</${tabTag}>
+            <${tabTag} id="8">Tab Three</${tabTag}>
+            <${tabTag} id="9">Tab Three</${tabTag}>
             <${tabPanelTag}>Content of the first tab</${tabPanelTag}>
             <${tabPanelTag}>Content of the second tab</${tabPanelTag}>
+            <${tabPanelTag}>Content of the third tab</${tabPanelTag}>
+            <${tabPanelTag}>Content of the third tab</${tabPanelTag}>
+            <${tabPanelTag}>Content of the third tab</${tabPanelTag}>
+            <${tabPanelTag}>Content of the third tab</${tabPanelTag}>
+            <${tabPanelTag}>Content of the third tab</${tabPanelTag}>
+            <${tabPanelTag}>Content of the third tab</${tabPanelTag}>
             <${tabPanelTag}>Content of the third tab</${tabPanelTag}>
         </${tabsTag}>
     `),

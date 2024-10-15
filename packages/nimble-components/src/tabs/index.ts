@@ -31,7 +31,17 @@ export class Tabs extends FoundationTabs {
     /**
      * @internal
      */
-    public readonly tabsList!: Element;
+    public readonly tabList!: Element;
+
+    /**
+     * @internal
+     */
+    public readonly leftScrollButton!: Element;
+
+    /**
+     * @internal
+     */
+    public readonly rightScrollButton!: Element;
 
     private readonly tabListResizeObserver: ResizeObserver;
 
@@ -42,15 +52,20 @@ export class Tabs extends FoundationTabs {
         this.tabListResizeObserver = new ResizeObserver(entries => {
             let tabsContainerWidth = entries[0]?.contentRect.width;
             if (tabsContainerWidth) {
+                const leftButtonWidth = this.leftScrollButton?.clientWidth ?? 0;
+                const rightButtonWidth = this.rightScrollButton?.clientWidth ?? 0;
                 tabsContainerWidth = Math.ceil(tabsContainerWidth);
-                this.showScrollButtons = tabsContainerWidth < this.tabsList.scrollWidth;
+                if (this.showScrollButtons) {
+                    tabsContainerWidth += leftButtonWidth + rightButtonWidth;
+                }
+                this.showScrollButtons = tabsContainerWidth < this.tabList.scrollWidth;
             }
         });
     }
 
     public override connectedCallback(): void {
         super.connectedCallback();
-        this.tabListResizeObserver.observe(this.tabsList);
+        this.tabListResizeObserver.observe(this.tabList);
     }
 
     public override activeidChanged(oldValue: string, newValue: string): void {
@@ -59,18 +74,18 @@ export class Tabs extends FoundationTabs {
     }
 
     public onScrollLeftClick(): void {
-        this.tabsList.scrollLeft = Math.max(
+        this.tabList.scrollLeft = Math.max(
             0,
-            this.tabsList.scrollLeft - this.tabsList.clientWidth
+            this.tabList.scrollLeft - this.tabList.clientWidth
         );
     }
 
     public onScrollRightClick(): void {
-        const scrollableWidth = this.tabsList.clientWidth - this.tabsList.scrollLeft;
-        if (scrollableWidth < this.tabsList.scrollWidth) {
-            this.tabsList.scrollLeft += this.tabsList.clientWidth;
+        const scrollableWidth = this.tabList.clientWidth - this.tabList.scrollLeft;
+        if (scrollableWidth < this.tabList.scrollWidth) {
+            this.tabList.scrollLeft += this.tabList.clientWidth;
         } else {
-            this.scrollLeft = this.tabsList.scrollWidth - this.tabsList.clientWidth;
+            this.scrollLeft = this.tabList.scrollWidth - this.tabList.clientWidth;
         }
     }
 }
