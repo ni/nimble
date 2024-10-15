@@ -75,3 +75,5 @@ To report a bug with an existing component, file an issue using the [**🐛 Bug 
 ## Contributing
 
 See `Getting Started` in [`Contributing.md`](/CONTRIBUTING.md#getting-started) to get started with building the monorepo.
+
+[![contributors](https://markupgo.com/github/ni/nimble/contributors?count=0&circleSize=40&circleRadius=40&center=false&width=800)](https://github.com/ni/nimble/graphs/contributors)
