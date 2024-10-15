@@ -839,11 +839,11 @@ export class TablePageObject<T extends TableRecord> {
             const pointerMoveEvent = new PointerEvent('pointermove', {
                 clientX: currentPointerX
             });
-            document.dispatchEvent(pointerMoveEvent);
+            divider.dispatchEvent(pointerMoveEvent);
         }
 
         const pointerUpEvent = new PointerEvent('pointerup');
-        document.dispatchEvent(pointerUpEvent);
+        divider.dispatchEvent(pointerUpEvent);
     }
 
     private readonly isSlotElement = (

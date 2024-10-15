@@ -1056,12 +1056,13 @@ describe('Table Interactive Column Sizing', () => {
                     );
                     const divider = dividers[value.dividerClickIndex]!;
                     const dividerRect = divider.getBoundingClientRect();
-                    const mouseDownEvent = new PointerEvent('pointerdown', {
+                    const pointerDownEvent = new PointerEvent('pointerdown', {
+                        pointerId: 1,
                         clientX: (dividerRect.x + dividerRect.width) / 2,
                         clientY: (dividerRect.y + dividerRect.height) / 2
                     });
-                    const mouseUpEvent = new PointerEvent('pointerup');
-                    divider.dispatchEvent(mouseDownEvent);
+                    const pointerUpEvent = new PointerEvent('pointerup');
+                    divider.dispatchEvent(pointerDownEvent);
                     await waitForUpdatesAsync();
                     const dividerActiveDividers = [];
                     const columnActiveDividers = [];
@@ -1073,7 +1074,7 @@ describe('Table Interactive Column Sizing', () => {
                             columnActiveDividers.push(i);
                         }
                     }
-                    document.dispatchEvent(mouseUpEvent); // clean up registered event handlers
+                    divider.dispatchEvent(pointerUpEvent); // clean up registered event handlers
 
                     expect(dividerActiveDividers.length).toEqual(1);
                     expect(dividerActiveDividers[0]).toEqual(
@@ -1105,16 +1106,17 @@ describe('Table Interactive Column Sizing', () => {
         it('after releasing divider, it is no longer marked as active', async () => {
             const divider = pageObject.getColumnRightDivider(0)!;
             const dividerRect = divider.getBoundingClientRect();
-            const mouseDownEvent = new PointerEvent('pointerdown', {
+            const pointerDownEvent = new PointerEvent('pointerdown', {
+                pointerId: 1,
                 clientX: (dividerRect.x + dividerRect.width) / 2,
                 clientY: (dividerRect.y + dividerRect.height) / 2
             });
-            divider.dispatchEvent(mouseDownEvent);
+            divider.dispatchEvent(pointerDownEvent);
             await waitForUpdatesAsync();
             expect(divider.classList.contains('divider-active')).toBeTruthy();
 
-            const mouseUpEvent = new PointerEvent('pointerup');
-            document.dispatchEvent(mouseUpEvent);
+            const pointerUpEvent = new PointerEvent('pointerup');
+            divider.dispatchEvent(pointerUpEvent);
             await waitForUpdatesAsync();
             expect(divider.classList.contains('divider-active')).toBeFalsy();
         });
