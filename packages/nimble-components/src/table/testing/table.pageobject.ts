@@ -561,10 +561,7 @@ export class TablePageObject<T extends TableRecord> {
     public async clickAndReleaseColumnDivider(
         columnIndex: number,
         rightDivider: boolean,
-        runWhileClicked?: (
-            divider: HTMLElement,
-            clickX: number
-        ) => void
+        runWhileClicked?: (divider: HTMLElement, clickX: number) => void
     ): Promise<void> {
         const divider = rightDivider
             ? this.getColumnRightDivider(columnIndex)
@@ -577,7 +574,8 @@ export class TablePageObject<T extends TableRecord> {
         const dividerRect = divider.getBoundingClientRect();
         const clickX = (dividerRect.x + dividerRect.width) / 2;
         const pointerDownEvent = new PointerEvent('pointerdown', {
-            pointerId: 1,
+            // -1 is a value reserved for synthetic events: https://w3c.github.io/pointerevents/#dom-pointerevent-pointerid
+            pointerId: -1,
             clientX: clickX,
             clientY: (dividerRect.y + dividerRect.height) / 2
         });

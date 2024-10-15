@@ -83,7 +83,10 @@ export class TableLayoutManager<TData extends TableRecord> {
         this.initialTableScrollableMinWidth = this.table.tableScrollableMinWidth;
         this.initialColumnTotalWidth = this.getTotalColumnFixedWidth();
         this.isColumnBeingSized = true;
-        divider.setPointerCapture(pointerId);
+        // pointerId of -1 indicates source was synthetic PointerEvent: https://w3c.github.io/pointerevents/#dom-pointerevent-pointerid
+        if (pointerId !== -1) {
+            divider.setPointerCapture(pointerId);
+        }
         divider.addEventListener('pointermove', this.onDividerPointerMove);
         divider.addEventListener('pointerup', this.onDividerPointerUp);
     }
