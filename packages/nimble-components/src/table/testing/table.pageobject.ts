@@ -528,20 +528,14 @@ export class TablePageObject<T extends TableRecord> {
 
     /**
      * @param columnIndex The index of the column to the left of a divider being dragged. Thus, this
-     * can not be given a value representing the last visible column index.
+     * cannot be given a value representing the last visible column index.
      * @param deltas The series of mouse movements in the x-direction while sizing a column.
      */
-    public dragSizeColumnByRightDivider(
+    public async dragSizeColumnByRightDivider(
         columnIndex: number,
         deltas: readonly number[]
-    ): void {
-        const divider = this.getColumnRightDivider(columnIndex);
-        if (!divider) {
-            throw new Error(
-                'The provided column index has no right divider associated with it.'
-            );
-        }
-        this.dragSizeColumnByDivider(divider, deltas);
+    ): Promise<void> {
+        await this.dragSizeColumnByDivider(columnIndex, true, deltas);
     }
 
     /**
@@ -549,17 +543,53 @@ export class TablePageObject<T extends TableRecord> {
      * value must be greater than 0 and less than the total number of visible columns.
      * @param deltas The series of mouse movements in the x-direction while sizing a column.
      */
-    public dragSizeColumnByLeftDivider(
+    public async dragSizeColumnByLeftDivider(
         columnIndex: number,
         deltas: readonly number[]
-    ): void {
-        const divider = this.getColumnLeftDivider(columnIndex);
+    ): Promise<void> {
+        await this.dragSizeColumnByDivider(columnIndex, false, deltas);
+    }
+
+    /**
+     * @param columnIndex The index of the column whose left or right divider is clicked.
+     * @param rightDivider True if the right divider of the column should be clicked, otherwise
+     * the left divider is clicked. If true, columnIndex cannot be the last visible column index.
+     * If false, columnIndex must be greater than 0.
+     * @param runWhileClicked Optional function to run after pressing down on column divider, but
+     * before releasing it.
+     */
+    public async clickAndReleaseColumnDivider(
+        columnIndex: number,
+        rightDivider: boolean,
+        runWhileClicked?: (
+            divider: HTMLElement,
+            clickX: number
+        ) => void
+    ): Promise<void> {
+        const divider = rightDivider
+            ? this.getColumnRightDivider(columnIndex)
+            : this.getColumnLeftDivider(columnIndex);
         if (!divider) {
             throw new Error(
-                'The provided column index has no left divider associated with it.'
+                `The provided column index has no ${rightDivider ? 'right' : 'left'} divider associated with it.`
             );
         }
-        this.dragSizeColumnByDivider(divider, deltas);
+        const dividerRect = divider.getBoundingClientRect();
+        const clickX = (dividerRect.x + dividerRect.width) / 2;
+        const pointerDownEvent = new PointerEvent('pointerdown', {
+            pointerId: 1,
+            clientX: clickX,
+            clientY: (dividerRect.y + dividerRect.height) / 2
+        });
+        divider.dispatchEvent(pointerDownEvent);
+        await waitForUpdatesAsync();
+
+        if (runWhileClicked) {
+            runWhileClicked(divider, clickX);
+        }
+
+        const pointerUpEvent = new PointerEvent('pointerup');
+        divider.dispatchEvent(pointerUpEvent);
     }
 
     public getColumnRightDivider(index: number): HTMLElement | null {
@@ -821,29 +851,25 @@ export class TablePageObject<T extends TableRecord> {
         return spinnerOrIcon;
     }
 
-    private dragSizeColumnByDivider(
-        divider: HTMLElement,
+    private async dragSizeColumnByDivider(
+        columnIndex: number,
+        rightDivider: boolean,
         deltas: readonly number[]
-    ): void {
-        const dividerRect = divider.getBoundingClientRect();
-        let currentPointerX = (dividerRect.x + dividerRect.width) / 2;
-        const pointerDownEvent = new PointerEvent('pointerdown', {
-            pointerId: 1,
-            clientX: currentPointerX,
-            clientY: (dividerRect.y + dividerRect.height) / 2
-        });
-        divider.dispatchEvent(pointerDownEvent);
-
-        for (const delta of deltas) {
-            currentPointerX += delta;
-            const pointerMoveEvent = new PointerEvent('pointermove', {
-                clientX: currentPointerX
-            });
-            divider.dispatchEvent(pointerMoveEvent);
-        }
-
-        const pointerUpEvent = new PointerEvent('pointerup');
-        divider.dispatchEvent(pointerUpEvent);
+    ): Promise<void> {
+        await this.clickAndReleaseColumnDivider(
+            columnIndex,
+            rightDivider,
+            (divider: HTMLElement, clickX: number): void => {
+                let currentPointerX = clickX;
+                for (const delta of deltas) {
+                    currentPointerX += delta;
+                    const pointerMoveEvent = new PointerEvent('pointermove', {
+                        clientX: currentPointerX
+                    });
+                    divider.dispatchEvent(pointerMoveEvent);
+                }
+            }
+        );
     }
 
     private readonly isSlotElement = (

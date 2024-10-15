@@ -528,7 +528,7 @@ describe('Table Interactive Column Sizing', () => {
                     column.columnInternals.resizingDisabled = value.resizingDisabled[i]!;
                 });
                 await waitForUpdatesAsync();
-                pageObject.dragSizeColumnByRightDivider(
+                await pageObject.dragSizeColumnByRightDivider(
                     value.columnDragIndex,
                     value.dragDeltas
                 );
@@ -602,14 +602,14 @@ describe('Table Interactive Column Sizing', () => {
         it('when table width is smaller than total column min width, dragging column still expands column', async () => {
             await pageObject.sizeTableToGivenRowWidth(100, element);
             await waitForUpdatesAsync();
-            pageObject.dragSizeColumnByRightDivider(2, [50]);
+            await pageObject.dragSizeColumnByRightDivider(2, [50]);
             await waitForUpdatesAsync();
             const cellWidth = pageObject.getCellRenderedWidth(0, 2);
             expect(cellWidth).toBe(100);
         });
 
         it('sizing column beyond table width creates horizontal scrollbar', async () => {
-            pageObject.dragSizeColumnByRightDivider(2, [100]);
+            await pageObject.dragSizeColumnByRightDivider(2, [100]);
             await waitForUpdatesAsync();
             expect(pageObject.isHorizontalScrollbarVisible()).toBeTrue();
         });
@@ -619,7 +619,7 @@ describe('Table Interactive Column Sizing', () => {
             // current fractional widths to 0.8, 0.8, 2, and 0.4, which keeps the columns widths as
             // integers when the table is resized later in the test. Otherwise, different browsers
             // may have slightly different rounding behaviors.
-            pageObject.dragSizeColumnByRightDivider(2, [150]);
+            await pageObject.dragSizeColumnByRightDivider(2, [150]);
             // size table below threshhold of total column widths
             await pageObject.sizeTableToGivenRowWidth(425, element);
             expect(pageObject.getTotalCellRenderedWidth()).toBe(500);
@@ -631,15 +631,15 @@ describe('Table Interactive Column Sizing', () => {
 
         it('after table gets horizontal scrollbar, growing right-most column to left does not remove scroll area', async () => {
             // create horizontal scrollbar with total column width of 450
-            pageObject.dragSizeColumnByRightDivider(2, [100]);
+            await pageObject.dragSizeColumnByRightDivider(2, [100]);
             await waitForUpdatesAsync();
-            pageObject.dragSizeColumnByRightDivider(2, [-100]);
+            await pageObject.dragSizeColumnByRightDivider(2, [-100]);
             await waitForUpdatesAsync();
             expect(pageObject.getTotalCellRenderedWidth()).toBe(450);
         });
 
-        it('sizing column results in updated currentFractionalWidths for columns', () => {
-            pageObject.dragSizeColumnByRightDivider(0, [150]);
+        it('sizing column results in updated currentFractionalWidths for columns', async () => {
+            await pageObject.dragSizeColumnByRightDivider(0, [150]);
             const updatedFractionalWidths = element.columns.map(
                 column => column.columnInternals.currentFractionalWidth
             );
@@ -653,7 +653,7 @@ describe('Table Interactive Column Sizing', () => {
                 0,
                 1
             );
-            pageObject.dragSizeColumnByRightDivider(0, [5]);
+            await pageObject.dragSizeColumnByRightDivider(0, [5]);
             await waitForUpdatesAsync();
             expect(pageObject.getCellRenderedWidth(0, 1)).toBe(
                 secondVisibleCellWidth - 5
@@ -667,7 +667,7 @@ describe('Table Interactive Column Sizing', () => {
                 0,
                 1
             );
-            pageObject.dragSizeColumnByRightDivider(1, [-5]);
+            await pageObject.dragSizeColumnByRightDivider(1, [-5]);
             await waitForUpdatesAsync();
             expect(pageObject.getCellRenderedWidth(0, 1)).toBe(
                 secondVisibleCellWidth - 5
@@ -676,7 +676,7 @@ describe('Table Interactive Column Sizing', () => {
 
         it('hiding column after creating horizontal scroll space does not change scroll area', async () => {
             // create horizontal scrollbar with total column width of 450
-            pageObject.dragSizeColumnByRightDivider(2, [100]);
+            await pageObject.dragSizeColumnByRightDivider(2, [100]);
             await waitForUpdatesAsync();
             element.columns[1]!.columnHidden = true;
             await waitForUpdatesAsync();
@@ -814,7 +814,7 @@ describe('Table Interactive Column Sizing', () => {
                         element.columns[columnIndex]!.columnHidden = true;
                     });
                     await waitForUpdatesAsync();
-                    pageObject.dragSizeColumnByRightDivider(
+                    await pageObject.dragSizeColumnByRightDivider(
                         value.dragColumnIndex,
                         value.dragDeltas
                     );
@@ -956,7 +956,7 @@ describe('Table Interactive Column Sizing', () => {
                         element.columns[columnIndex]!.columnHidden = true;
                     });
                     await waitForUpdatesAsync();
-                    pageObject.dragSizeColumnByLeftDivider(
+                    await pageObject.dragSizeColumnByLeftDivider(
                         value.dragColumnIndex,
                         value.dragDeltas
                     );
@@ -1017,32 +1017,43 @@ describe('Table Interactive Column Sizing', () => {
         const dividerActiveTests = [
             {
                 name: 'click on first column right divider',
+                columnIndex: 0,
+                rightDivider: true,
                 dividerClickIndex: 0,
-                leftDividerClick: false,
                 expectedColumnActiveDividerIndexes: [0]
             },
             {
                 name: 'click on second column left divider',
+                columnIndex: 1,
+                rightDivider: false,
                 dividerClickIndex: 1,
                 expectedColumnActiveDividerIndexes: [1, 2]
             },
             {
                 name: 'click on second column right divider',
+                columnIndex: 1,
+                rightDivider: true,
                 dividerClickIndex: 2,
                 expectedColumnActiveDividerIndexes: [1, 2]
             },
             {
                 name: 'click on third column left divider',
+                columnIndex: 2,
+                rightDivider: false,
                 dividerClickIndex: 3,
                 expectedColumnActiveDividerIndexes: [3, 4]
             },
             {
                 name: 'click on third column right divider',
+                columnIndex: 2,
+                rightDivider: true,
                 dividerClickIndex: 4,
                 expectedColumnActiveDividerIndexes: [3, 4]
             },
             {
                 name: 'click on last column left divider',
+                columnIndex: 3,
+                rightDivider: false,
                 dividerClickIndex: 5,
                 expectedColumnActiveDividerIndexes: [5]
             }
@@ -1051,30 +1062,26 @@ describe('Table Interactive Column Sizing', () => {
             spec(
                 `${name} updates expected dividers as "divider-active" and "column-active"`,
                 async () => {
+                    const dividerActiveDividers: number[] = [];
+                    const columnActiveDividers: number[] = [];
                     const dividers = Array.from(
                         element.shadowRoot!.querySelectorAll('.column-divider')
                     );
-                    const divider = dividers[value.dividerClickIndex]!;
-                    const dividerRect = divider.getBoundingClientRect();
-                    const pointerDownEvent = new PointerEvent('pointerdown', {
-                        pointerId: 1,
-                        clientX: (dividerRect.x + dividerRect.width) / 2,
-                        clientY: (dividerRect.y + dividerRect.height) / 2
-                    });
-                    const pointerUpEvent = new PointerEvent('pointerup');
-                    divider.dispatchEvent(pointerDownEvent);
-                    await waitForUpdatesAsync();
-                    const dividerActiveDividers = [];
-                    const columnActiveDividers = [];
-                    for (let i = 0; i < dividers.length; i++) {
-                        if (dividers[i]!.classList.contains('divider-active')) {
-                            dividerActiveDividers.push(i);
+                    await pageObject.clickAndReleaseColumnDivider(
+                        value.columnIndex,
+                        value.rightDivider,
+                        (): void => {
+                            for (let i = 0; i < dividers.length; i++) {
+                                const classes = dividers[i]!.classList;
+                                if (classes.contains('divider-active')) {
+                                    dividerActiveDividers.push(i);
+                                }
+                                if (classes.contains('column-active')) {
+                                    columnActiveDividers.push(i);
+                                }
+                            }
                         }
-                        if (dividers[i]!.classList.contains('column-active')) {
-                            columnActiveDividers.push(i);
-                        }
-                    }
-                    divider.dispatchEvent(pointerUpEvent); // clean up registered event handlers
+                    );
 
                     expect(dividerActiveDividers.length).toEqual(1);
                     expect(dividerActiveDividers[0]).toEqual(
@@ -1104,21 +1111,20 @@ describe('Table Interactive Column Sizing', () => {
         });
 
         it('after releasing divider, it is no longer marked as active', async () => {
-            const divider = pageObject.getColumnRightDivider(0)!;
-            const dividerRect = divider.getBoundingClientRect();
-            const pointerDownEvent = new PointerEvent('pointerdown', {
-                pointerId: 1,
-                clientX: (dividerRect.x + dividerRect.width) / 2,
-                clientY: (dividerRect.y + dividerRect.height) / 2
-            });
-            divider.dispatchEvent(pointerDownEvent);
+            let divider: HTMLElement;
+            let whilePressed: string[];
+            await pageObject.clickAndReleaseColumnDivider(
+                0,
+                true,
+                (dividerElement: HTMLElement): void => {
+                    divider = dividerElement;
+                    whilePressed = [...dividerElement.classList] as string[];
+                }
+            );
             await waitForUpdatesAsync();
-            expect(divider.classList.contains('divider-active')).toBeTruthy();
 
-            const pointerUpEvent = new PointerEvent('pointerup');
-            divider.dispatchEvent(pointerUpEvent);
-            await waitForUpdatesAsync();
-            expect(divider.classList.contains('divider-active')).toBeFalsy();
+            expect(whilePressed!.includes('divider-active')).toBeTruthy();
+            expect(divider!.classList.contains('divider-active')).toBeFalsy();
         });
     });
 
@@ -1129,7 +1135,7 @@ describe('Table Interactive Column Sizing', () => {
             'column-configuration-change',
             spy
         );
-        pageObject.dragSizeColumnByRightDivider(2, [1, 1, 1, 1]);
+        await pageObject.dragSizeColumnByRightDivider(2, [1, 1, 1, 1]);
         await waitForUpdatesAsync();
         await listener;
         expect(spy).toHaveBeenCalledTimes(1);
@@ -1155,7 +1161,7 @@ describe('Table Interactive Column Sizing', () => {
         await pageObject.sizeTableToGivenRowWidth(202, element); // columns now on half-pixel boundary
         const expectedColumnSizes = [50.5, 50.5, 50.5, 50.5];
         expectedColumnSizes.forEach((width, i) => expect(pageObject.getCellRenderedWidth(0, i)).toBe(width));
-        pageObject.dragSizeColumnByLeftDivider(3, [-1]);
+        await pageObject.dragSizeColumnByLeftDivider(3, [-1]);
         await waitForUpdatesAsync();
         const totalColumnPixelWidth = pageObject.getTotalCellRenderedWidth();
         expect(totalColumnPixelWidth).toBe(202);
