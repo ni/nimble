@@ -572,7 +572,7 @@ export class TablePageObject<T extends TableRecord> {
     public columnRightDividerHasActiveStyling(columnIndex: number): boolean {
         const divider = this.getColumnDivider(columnIndex, false);
         const currentColor = parseColor(
-            window.getComputedStyle(divider).borderColor
+            window.getComputedStyle(divider).borderLeftColor
         );
         const hoverColor = parseColor(borderHoverColor.getValueFor(divider))!;
         return currentColor!.equalValue(hoverColor);
