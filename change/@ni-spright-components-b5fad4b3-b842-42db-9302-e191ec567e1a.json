@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "Add DOM.Iterable to the build",
+  "packageName": "@ni/spright-components",
+  "email": "7282195+m-akinc@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
