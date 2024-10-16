@@ -42,7 +42,7 @@ TabsOptions
                 class="tablist"
                 part="tablist"
                 role="tablist"
-                ${ref('tabList')}
+                ${ref('tablist')}
             >
                 <slot class="tab" name="tab" part="tab" ${slotted('tabs')}>
                 </slot>

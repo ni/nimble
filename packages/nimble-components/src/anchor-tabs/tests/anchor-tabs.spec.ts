@@ -56,15 +56,15 @@ describe('AnchorTabs', () => {
         });
 
         it('should set the "tablist" class on the internal div', () => {
-            expect(element.tabList.classList.contains('tablist')).toBeTrue();
+            expect(element.tablist.classList.contains('tablist')).toBeTrue();
         });
 
         it('should set the `part` attribute to "tablist" on the internal div', () => {
-            expect(element.tabList.part.contains('tablist')).toBeTrue();
+            expect(element.tablist.part.contains('tablist')).toBeTrue();
         });
 
         it('should set the `role` attribute to "tablist" on the internal div', () => {
-            expect(element.tabList.getAttribute('role')).toBe('tablist');
+            expect(element.tablist.getAttribute('role')).toBe('tablist');
         });
 
         it('should have a slots named "start", "anchortab", and "end", in that order', () => {

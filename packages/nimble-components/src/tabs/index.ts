@@ -31,7 +31,7 @@ export class Tabs extends FoundationTabs {
     /**
      * @internal
      */
-    public readonly tabList!: Element;
+    public readonly tablist!: Element;
 
     /**
      * @internal
@@ -58,14 +58,14 @@ export class Tabs extends FoundationTabs {
                 if (this.showScrollButtons) {
                     tabsContainerWidth += leftButtonWidth + rightButtonWidth;
                 }
-                this.showScrollButtons = tabsContainerWidth < this.tabList.scrollWidth;
+                this.showScrollButtons = tabsContainerWidth < this.tablist.scrollWidth;
             }
         });
     }
 
     public override connectedCallback(): void {
         super.connectedCallback();
-        this.tabListResizeObserver.observe(this.tabList);
+        this.tabListResizeObserver.observe(this.tablist);
     }
 
     public override activeidChanged(oldValue: string, newValue: string): void {
@@ -74,18 +74,18 @@ export class Tabs extends FoundationTabs {
     }
 
     public onScrollLeftClick(): void {
-        this.tabList.scrollLeft = Math.max(
+        this.tablist.scrollLeft = Math.max(
             0,
-            this.tabList.scrollLeft - this.tabList.clientWidth
+            this.tablist.scrollLeft - this.tablist.clientWidth
         );
     }
 
     public onScrollRightClick(): void {
-        const scrollableWidth = this.tabList.clientWidth - this.tabList.scrollLeft;
-        if (scrollableWidth < this.tabList.scrollWidth) {
-            this.tabList.scrollLeft += this.tabList.clientWidth;
+        const scrollableWidth = this.tablist.clientWidth - this.tablist.scrollLeft;
+        if (scrollableWidth < this.tablist.scrollWidth) {
+            this.tablist.scrollLeft += this.tablist.clientWidth;
         } else {
-            this.scrollLeft = this.tabList.scrollWidth - this.tabList.clientWidth;
+            this.scrollLeft = this.tablist.scrollWidth - this.tablist.clientWidth;
         }
     }
 }

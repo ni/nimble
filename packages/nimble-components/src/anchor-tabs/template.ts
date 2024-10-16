@@ -42,7 +42,7 @@ TabsOptions
                 </${buttonTag}>
             `)}
             <div
-                ${ref('tabList')}
+                ${ref('tablist')}
                 class="tablist"
                 part="tablist"
                 role="tablist"
