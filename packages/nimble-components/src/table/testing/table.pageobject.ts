@@ -1,5 +1,6 @@
 import type { Checkbox } from '@microsoft/fast-foundation';
 import { keyShift } from '@microsoft/fast-web-utilities';
+import { parseColor } from '@microsoft/fast-colors';
 import type { Table } from '..';
 import type { TableHeader } from '../components/header';
 import {
@@ -18,6 +19,7 @@ import type { TableGroupRow } from '../components/group-row';
 import type { Button } from '../../button';
 import { Icon } from '../../icon-base';
 import { Spinner, spinnerTag } from '../../spinner';
+import { borderHoverColor } from '../../theme-provider/design-tokens';
 
 /**
  * Summary information about a column that is sorted in the table for use in the `TablePageObject`.
@@ -527,15 +529,43 @@ export class TablePageObject<T extends TableRecord> {
     }
 
     /**
+     * @param columnIndex The index of the column to the left of the divider to press.
+     */
+    public pressRightColumnDivider(columnIndex: number): void {
+        this.pressColumnDivider(this.getColumnDivider(columnIndex, false));
+    }
+
+    /**
+     * @param columnIndex The index of the column to the right of the divider to press.
+     */
+    public pressLeftColumnDivider(columnIndex: number): void {
+        this.pressColumnDivider(this.getColumnDivider(columnIndex, true));
+    }
+
+    /**
+     * @param columnIndex The index of the column to the left of the divider to release.
+     */
+    public releaseRightColumnDivider(columnIndex: number): void {
+        this.releaseColumnDivider(this.getColumnDivider(columnIndex, false));
+    }
+
+    /**
+     * @param columnIndex The index of the column to the right of the divider to release.
+     */
+    public releaseLeftColumnDivider(columnIndex: number): void {
+        this.releaseColumnDivider(this.getColumnDivider(columnIndex, true));
+    }
+
+    /**
      * @param columnIndex The index of the column to the left of a divider being dragged. Thus, this
      * cannot be given a value representing the last visible column index.
      * @param deltas The series of mouse movements in the x-direction while sizing a column.
      */
-    public async dragSizeColumnByRightDivider(
+    public dragSizeColumnByRightDivider(
         columnIndex: number,
         deltas: readonly number[]
-    ): Promise<void> {
-        await this.dragSizeColumnByDivider(columnIndex, true, deltas);
+    ): void {
+        this.dragSizeColumnByDivider(columnIndex, false, deltas);
     }
 
     /**
@@ -543,73 +573,35 @@ export class TablePageObject<T extends TableRecord> {
      * value must be greater than 0 and less than the total number of visible columns.
      * @param deltas The series of mouse movements in the x-direction while sizing a column.
      */
-    public async dragSizeColumnByLeftDivider(
+    public dragSizeColumnByLeftDivider(
         columnIndex: number,
         deltas: readonly number[]
-    ): Promise<void> {
-        await this.dragSizeColumnByDivider(columnIndex, false, deltas);
+    ): void {
+        this.dragSizeColumnByDivider(columnIndex, true, deltas);
     }
 
     /**
-     * @param columnIndex The index of the column whose left or right divider is clicked.
-     * @param rightDivider True if the right divider of the column should be clicked, otherwise
-     * the left divider is clicked. If true, columnIndex cannot be the last visible column index.
-     * If false, columnIndex must be greater than 0.
-     * @param runWhileClicked Optional function to run after pressing down on column divider, but
-     * before releasing it.
+     * @param columnIndex The index of the column whose right divider we're checking.
      */
-    public async clickAndReleaseColumnDivider(
-        columnIndex: number,
-        rightDivider: boolean,
-        runWhileClicked?: (divider: HTMLElement, clickX: number) => void
-    ): Promise<void> {
-        const divider = rightDivider
-            ? this.getColumnRightDivider(columnIndex)
-            : this.getColumnLeftDivider(columnIndex);
-        if (!divider) {
-            throw new Error(
-                `The provided column index has no ${rightDivider ? 'right' : 'left'} divider associated with it.`
-            );
-        }
-        const dividerRect = divider.getBoundingClientRect();
-        const clickX = (dividerRect.x + dividerRect.width) / 2;
-        const pointerDownEvent = new PointerEvent('pointerdown', {
-            // -1 is a value reserved for synthetic events: https://w3c.github.io/pointerevents/#dom-pointerevent-pointerid
-            pointerId: -1,
-            clientX: clickX,
-            clientY: (dividerRect.y + dividerRect.height) / 2
-        });
-        divider.dispatchEvent(pointerDownEvent);
-        await waitForUpdatesAsync();
-
-        if (runWhileClicked) {
-            runWhileClicked(divider, clickX);
-        }
-
-        const pointerUpEvent = new PointerEvent('pointerup');
-        divider.dispatchEvent(pointerUpEvent);
+    public columnRightDividerHasActiveStyling(columnIndex: number): boolean {
+        const divider = this.getColumnDivider(columnIndex, false);
+        const currentColor = parseColor(
+            window.getComputedStyle(divider).borderColor
+        );
+        const hoverColor = parseColor(borderHoverColor.getValueFor(divider))!;
+        return currentColor?.equalValue(hoverColor) ?? false;
     }
 
-    public getColumnRightDivider(index: number): HTMLElement | null {
-        const headerContainers = this.tableElement.shadowRoot!.querySelectorAll('.header-container');
-        if (index < 0 || index >= headerContainers.length) {
-            throw new Error(
-                'Invalid column index. Index must be greater than or equal to 0 and less than the number of visible columns.'
-            );
-        }
-
-        return headerContainers[index]!.querySelector('.column-divider.right');
-    }
-
-    public getColumnLeftDivider(index: number): HTMLElement | null {
-        const headerContainers = this.tableElement.shadowRoot!.querySelectorAll('.header-container');
-        if (index < 0 || index >= headerContainers.length) {
-            throw new Error(
-                'Invalid column index. Index must be greater than or equal to 0 and less than the number of visible columns.'
-            );
-        }
-
-        return headerContainers[index]!.querySelector('.column-divider.left');
+    /**
+     * @param columnIndex The index of the column whose left divider we're checking.
+     */
+    public columnLeftDividerHasActiveStyling(columnIndex: number): boolean {
+        const divider = this.getColumnDivider(columnIndex, true);
+        const currentColor = parseColor(
+            window.getComputedStyle(divider).borderColor
+        );
+        const hoverColor = parseColor(borderHoverColor.getValueFor(divider))!;
+        return currentColor?.equalValue(hoverColor) ?? false;
     }
 
     public isVerticalScrollbarVisible(): boolean {
@@ -849,25 +841,62 @@ export class TablePageObject<T extends TableRecord> {
         return spinnerOrIcon;
     }
 
-    private async dragSizeColumnByDivider(
+    private getColumnDivider(
         columnIndex: number,
-        rightDivider: boolean,
-        deltas: readonly number[]
-    ): Promise<void> {
-        await this.clickAndReleaseColumnDivider(
-            columnIndex,
-            rightDivider,
-            (divider: HTMLElement, clickX: number): void => {
-                let currentPointerX = clickX;
-                for (const delta of deltas) {
-                    currentPointerX += delta;
-                    const pointerMoveEvent = new PointerEvent('pointermove', {
-                        clientX: currentPointerX
-                    });
-                    divider.dispatchEvent(pointerMoveEvent);
-                }
-            }
+        leftDivider: boolean
+    ): HTMLElement {
+        const headerContainers = this.tableElement.shadowRoot!.querySelectorAll('.header-container');
+        if (columnIndex < 0 || columnIndex >= headerContainers.length) {
+            throw new Error(
+                'Invalid column index. Index must be greater than or equal to 0 and less than the number of visible columns.'
+            );
+        }
+        const side = leftDivider ? 'left' : 'right';
+        const divider = headerContainers[columnIndex]!.querySelector(
+            `.column-divider.${side}`
         );
+        if (!divider) {
+            throw new Error(
+                `The provided column index has no ${side} divider associated with it.`
+            );
+        }
+
+        return divider as HTMLElement;
+    }
+
+    private pressColumnDivider(divider: HTMLElement): number {
+        const dividerRect = divider.getBoundingClientRect();
+        const clickX = (dividerRect.x + dividerRect.width) / 2;
+        const pointerDownEvent = new PointerEvent('pointerdown', {
+            // -1 is a value reserved for synthetic events: https://w3c.github.io/pointerevents/#dom-pointerevent-pointerid
+            pointerId: -1,
+            clientX: clickX,
+            clientY: (dividerRect.y + dividerRect.height) / 2
+        });
+        divider.dispatchEvent(pointerDownEvent);
+
+        return clickX;
+    }
+
+    private releaseColumnDivider(divider: HTMLElement): void {
+        divider.dispatchEvent(new PointerEvent('pointerup'));
+    }
+
+    private dragSizeColumnByDivider(
+        columnIndex: number,
+        leftDivider: boolean,
+        deltas: readonly number[]
+    ): void {
+        const divider = this.getColumnDivider(columnIndex, leftDivider);
+        let currentPointerX = this.pressColumnDivider(divider);
+        for (const delta of deltas) {
+            currentPointerX += delta;
+            const pointerMoveEvent = new PointerEvent('pointermove', {
+                clientX: currentPointerX
+            });
+            divider.dispatchEvent(pointerMoveEvent);
+        }
+        this.releaseColumnDivider(divider);
     }
 
     private readonly isSlotElement = (
