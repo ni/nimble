@@ -575,19 +575,7 @@ export class TablePageObject<T extends TableRecord> {
             window.getComputedStyle(divider).borderColor
         );
         const hoverColor = parseColor(borderHoverColor.getValueFor(divider))!;
-        return currentColor?.equalValue(hoverColor) ?? false;
-    }
-
-    /**
-     * @param columnIndex The index of the column whose left divider we're checking.
-     */
-    public columnLeftDividerHasActiveStyling(columnIndex: number): boolean {
-        const divider = this.getColumnDivider(columnIndex, true);
-        const currentColor = parseColor(
-            window.getComputedStyle(divider).borderColor
-        );
-        const hoverColor = parseColor(borderHoverColor.getValueFor(divider))!;
-        return currentColor?.equalValue(hoverColor) ?? false;
+        return currentColor!.equalValue(hoverColor);
     }
 
     public isVerticalScrollbarVisible(): boolean {

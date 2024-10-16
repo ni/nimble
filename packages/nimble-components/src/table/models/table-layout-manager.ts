@@ -57,19 +57,19 @@ export class TableLayoutManager<TData extends TableRecord> {
 
     /**
      * Sets up state related to interactively sizing a column.
-     * @param divider The divider element that was clicked on
+     * @param activeColumnDividerElement The divider element that was clicked on
      * @param pointerId The pointerId of the pointer that started the drag
      * @param dragStart The x-position from which a column size was started
      * @param activeColumnDivider The 1-based index of the divider that was clicked on
      */
     public beginColumnInteractiveSize(
-        divider: HTMLElement,
+        activeColumnDividerElement: HTMLElement,
         pointerId: number,
         dragStart: number,
         activeColumnDivider: number
     ): void {
         this.activeColumnDivider = activeColumnDivider;
-        this.activeColumnDividerElement = divider;
+        this.activeColumnDividerElement = activeColumnDividerElement;
         this.leftColumnIndex = this.getLeftColumnIndexFromDivider(
             this.activeColumnDivider
         );
@@ -85,10 +85,16 @@ export class TableLayoutManager<TData extends TableRecord> {
         this.isColumnBeingSized = true;
         // pointerId of -1 indicates source was synthetic PointerEvent: https://w3c.github.io/pointerevents/#dom-pointerevent-pointerid
         if (pointerId !== -1) {
-            divider.setPointerCapture(pointerId);
+            activeColumnDividerElement.setPointerCapture(pointerId);
         }
-        divider.addEventListener('pointermove', this.onDividerPointerMove);
-        divider.addEventListener('pointerup', this.onDividerPointerUp);
+        activeColumnDividerElement.addEventListener(
+            'pointermove',
+            this.onDividerPointerMove
+        );
+        activeColumnDividerElement.addEventListener(
+            'pointerup',
+            this.onDividerPointerUp
+        );
     }
 
     /**
@@ -142,6 +148,7 @@ export class TableLayoutManager<TData extends TableRecord> {
         this.isColumnBeingSized = false;
         this.activeColumnIndex = undefined;
         this.activeColumnDivider = undefined;
+        this.activeColumnDividerElement = undefined;
         this.visibleColumns = [];
     };
 
