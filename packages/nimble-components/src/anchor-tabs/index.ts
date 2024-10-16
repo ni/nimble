@@ -156,6 +156,11 @@ export class AnchorTabs extends FoundationElement {
         this.tabIds = this.getTabIds();
     }
 
+    public override disconnectedCallback(): void {
+        super.disconnectedCallback();
+        this.tabListResizeObserver.disconnect();
+    }
+
     private readonly isDisabledElement = (el: Element): el is HTMLElement => {
         return el.getAttribute('aria-disabled') === 'true';
     };
