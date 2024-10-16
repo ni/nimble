@@ -2,6 +2,36 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Mon, 14 Oct 2024 13:37:04 GMT",
+      "version": "28.2.11",
+      "tag": "@ni/nimble-angular_v28.2.11",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v32.3.1",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 09 Oct 2024 22:13:53 GMT",
+      "version": "28.2.10",
+      "tag": "@ni/nimble-angular_v28.2.10",
+      "comments": {
+        "none": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "943ce38c3a94ac7e58c7d7c35e43a579be80547a",
+            "comment": "Angular router link test improvements"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 09 Oct 2024 19:24:18 GMT",
       "version": "28.2.10",
       "tag": "@ni/nimble-angular_v28.2.10",
