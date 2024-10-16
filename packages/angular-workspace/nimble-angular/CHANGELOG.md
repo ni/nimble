@@ -1,8 +1,24 @@
 # Change Log - @ni/nimble-angular
 
-<!-- This log was last generated on Wed, 09 Oct 2024 19:24:18 GMT and should not be manually modified. -->
+<!-- This log was last generated on Wed, 16 Oct 2024 21:20:29 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 28.3.0
+
+Wed, 16 Oct 2024 21:20:29 GMT
+
+### Minor changes
+
+- Expose error state on radio-group ([ni/nimble@280d85a](https://github.com/ni/nimble/commit/280d85aab3c4cb9c78d4a336d2babbfd9bc33b8d))
+
+## 28.2.11
+
+Mon, 14 Oct 2024 13:37:04 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v32.3.1
 
 ## 28.2.10
 
