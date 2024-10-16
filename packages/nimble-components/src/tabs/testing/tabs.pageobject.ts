@@ -49,7 +49,6 @@ export class TabsPageObject {
         const lastTab = this.tabsElement.querySelector(
             'nimble-tab:last-of-type'
         )!;
-        // lastTab.id = uniqueId();
         lastTab.insertAdjacentElement('afterend', tab);
         const tabPanel = document.createElement('nimble-tab-panel');
         const lastTabPanel = this.tabsElement.querySelector(
