@@ -536,24 +536,10 @@ export class TablePageObject<T extends TableRecord> {
     }
 
     /**
-     * @param columnIndex The index of the column to the right of the divider to press.
-     */
-    public pressLeftColumnDivider(columnIndex: number): void {
-        this.pressColumnDivider(this.getColumnDivider(columnIndex, true));
-    }
-
-    /**
      * @param columnIndex The index of the column to the left of the divider to release.
      */
     public releaseRightColumnDivider(columnIndex: number): void {
         this.releaseColumnDivider(this.getColumnDivider(columnIndex, false));
-    }
-
-    /**
-     * @param columnIndex The index of the column to the right of the divider to release.
-     */
-    public releaseLeftColumnDivider(columnIndex: number): void {
-        this.releaseColumnDivider(this.getColumnDivider(columnIndex, true));
     }
 
     /**
