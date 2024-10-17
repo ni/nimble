@@ -1,4 +1,4 @@
-import { attr, html } from '@microsoft/fast-element';
+import { attr, html, observable } from '@microsoft/fast-element';
 import {
     DesignSystem,
     TextField as FoundationTextField,
@@ -46,6 +46,10 @@ export class TextField extends FoundationTextField implements ErrorPattern {
 
     @attr({ attribute: 'full-bleed', mode: 'boolean' })
     public fullBleed = false;
+
+    /* @internal */
+    @observable
+    public errorHasOverflow = false;
 }
 
 const nimbleTextField = TextField.compose<TextFieldOptions>({
