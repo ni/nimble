@@ -26,8 +26,8 @@ import {
     FoundationElementDefinition,
     FoundationElement
 } from '@microsoft/fast-foundation';
-import { styles } from './styles';
-import { template } from './template';
+import { styles } from '../patterns/tabs/styles';
+import { template } from '../patterns/tabs/template';
 import type { AnchorTab } from '../anchor-tab';
 
 declare global {
@@ -59,6 +59,12 @@ export class AnchorTabs extends FoundationElement {
     public tabs!: HTMLElement[];
 
     /**
+     * @internal
+     */
+    @observable
+    public showScrollButtons = false;
+
+    /**
      * A reference to the active tab
      * @public
      */
@@ -70,7 +76,28 @@ export class AnchorTabs extends FoundationElement {
      */
     public tablist!: HTMLElement;
 
+    /**
+     * @internal
+     */
+    public readonly leftScrollButton!: Element;
+
+    private readonly tabListResizeObserver: ResizeObserver;
     private tabIds: string[] = [];
+
+    public constructor() {
+        super();
+        this.tabListResizeObserver = new ResizeObserver(entries => {
+            let tabListVisibleWidth = entries[0]?.contentRect.width;
+            if (tabListVisibleWidth !== undefined) {
+                const buttonWidth = this.leftScrollButton?.clientWidth ?? 0;
+                tabListVisibleWidth = Math.ceil(tabListVisibleWidth);
+                if (this.showScrollButtons) {
+                    tabListVisibleWidth += buttonWidth * 2;
+                }
+                this.showScrollButtons = tabListVisibleWidth < this.tablist.scrollWidth;
+            }
+        });
+    }
 
     /**
      * @internal
@@ -78,6 +105,7 @@ export class AnchorTabs extends FoundationElement {
     public activeidChanged(_oldValue: string, _newValue: string): void {
         if (this.$fastController.isConnected) {
             this.setTabs();
+            this.activetab?.scrollIntoView({ block: 'nearest' });
         }
     }
 
@@ -94,10 +122,32 @@ export class AnchorTabs extends FoundationElement {
     /**
      * @internal
      */
+    public onScrollLeftClick(): void {
+        this.tablist.scrollLeft -= this.tablist.clientWidth;
+    }
+
+    /**
+     * @internal
+     */
+    public onScrollRightClick(): void {
+        this.tablist.scrollLeft += this.tablist.clientWidth;
+    }
+
+    /**
+     * @internal
+     */
     public override connectedCallback(): void {
         super.connectedCallback();
-
+        this.tabListResizeObserver.observe(this.tablist);
         this.tabIds = this.getTabIds();
+    }
+
+    /**
+     * @internal
+     */
+    public override disconnectedCallback(): void {
+        super.disconnectedCallback();
+        this.tabListResizeObserver.disconnect();
     }
 
     private readonly isDisabledElement = (el: Element): el is HTMLElement => {
