@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-<!-- This log was last generated on Mon, 14 Oct 2024 13:37:04 GMT and should not be manually modified. -->
+<!-- This log was last generated on Wed, 16 Oct 2024 23:46:19 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 32.3.2
+
+Wed, 16 Oct 2024 23:46:19 GMT
+
+### Patches
+
+- Enable table column resizing on touch-based devices ([ni/nimble@cb9efb3](https://github.com/ni/nimble/commit/cb9efb36f733bed945425febab5e1a08d63d90ea))
 
 ## 32.3.1
 
