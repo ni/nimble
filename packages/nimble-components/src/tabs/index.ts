@@ -74,19 +74,11 @@ export class Tabs extends FoundationTabs {
     }
 
     public onScrollLeftClick(): void {
-        this.tablist.scrollLeft = Math.max(
-            0,
-            this.tablist.scrollLeft - this.tablist.clientWidth
-        );
+        this.tablist.scrollLeft -= this.tablist.clientWidth;
     }
 
     public onScrollRightClick(): void {
-        const scrollableWidth = this.tablist.clientWidth - this.tablist.scrollLeft;
-        if (scrollableWidth < this.tablist.scrollWidth) {
-            this.tablist.scrollLeft += this.tablist.clientWidth;
-        } else {
-            this.scrollLeft = this.tablist.scrollWidth - this.tablist.clientWidth;
-        }
+        this.tablist.scrollLeft += this.tablist.clientWidth;
     }
 }
 
