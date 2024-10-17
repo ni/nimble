@@ -92,7 +92,7 @@ export class AnchorTabs extends FoundationElement {
                 const buttonWidth = this.leftScrollButton?.clientWidth ?? 0;
                 tabListVisibleWidth = Math.ceil(tabListVisibleWidth);
                 if (this.showScrollButtons) {
-                    tabListVisibleWidth += (buttonWidth * 2);
+                    tabListVisibleWidth += buttonWidth * 2;
                 }
                 this.showScrollButtons = tabListVisibleWidth < this.tablist.scrollWidth;
             }
