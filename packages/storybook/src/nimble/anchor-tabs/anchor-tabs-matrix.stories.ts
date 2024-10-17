@@ -17,10 +17,7 @@ import { textCustomizationWrapper } from '../../utilities/text-customization';
 const tabsToolbarStates = [false, true] as const;
 type TabsToolbarState = (typeof tabsToolbarStates)[number];
 
-const widthStates = [
-    '',
-    '250px'
-] as const;
+const widthStates = ['', '250px'] as const;
 type WidthState = (typeof widthStates)[number];
 
 const metadata: Meta = {
