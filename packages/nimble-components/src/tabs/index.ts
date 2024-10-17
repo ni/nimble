@@ -4,8 +4,8 @@ import {
     Tabs as FoundationTabs,
     TabsOptions
 } from '@microsoft/fast-foundation';
-import { styles } from './styles';
-import { template } from './template';
+import { styles } from '../patterns/tabs/styles';
+import { template } from '../patterns/tabs/template';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -26,22 +26,12 @@ export class Tabs extends FoundationTabs {
     /**
      * @internal
      */
-    public readonly tabsContainer!: Element;
-
-    /**
-     * @internal
-     */
     public readonly tablist!: Element;
 
     /**
      * @internal
      */
     public readonly leftScrollButton!: Element;
-
-    /**
-     * @internal
-     */
-    public readonly rightScrollButton!: Element;
 
     private readonly tabListResizeObserver: ResizeObserver;
 
@@ -50,33 +40,52 @@ export class Tabs extends FoundationTabs {
         // We disable the built-in active indicator so that we can implement our own
         this.activeindicator = false;
         this.tabListResizeObserver = new ResizeObserver(entries => {
-            let tabsContainerWidth = entries[0]?.contentRect.width;
-            if (tabsContainerWidth) {
-                const leftButtonWidth = this.leftScrollButton?.clientWidth ?? 0;
-                const rightButtonWidth = this.rightScrollButton?.clientWidth ?? 0;
-                tabsContainerWidth = Math.ceil(tabsContainerWidth);
+            let tabListVisibleWidth = entries[0]?.contentRect.width;
+            if (tabListVisibleWidth !== undefined) {
+                const buttonWidth = this.leftScrollButton?.clientWidth ?? 0;
+                tabListVisibleWidth = Math.ceil(tabListVisibleWidth);
                 if (this.showScrollButtons) {
-                    tabsContainerWidth += leftButtonWidth + rightButtonWidth;
+                    tabListVisibleWidth += buttonWidth * 2;
                 }
-                this.showScrollButtons = tabsContainerWidth < this.tablist.scrollWidth;
+                this.showScrollButtons = tabListVisibleWidth < this.tablist.scrollWidth;
             }
         });
     }
 
+    /**
+     * @internal
+     */
     public override connectedCallback(): void {
         super.connectedCallback();
         this.tabListResizeObserver.observe(this.tablist);
     }
 
-    public override activeidChanged(oldValue: string, newValue: string): void {
-        super.activeidChanged(oldValue, newValue);
-        this.activetab?.scrollIntoView();
+    /**
+     * @internal
+     */
+    public override disconnectedCallback(): void {
+        super.disconnectedCallback();
+        this.tabListResizeObserver.disconnect();
     }
 
+    /**
+     * @internal
+     */
+    public override activeidChanged(oldValue: string, newValue: string): void {
+        super.activeidChanged(oldValue, newValue);
+        this.activetab?.scrollIntoView({ block: 'nearest' });
+    }
+
+    /**
+     * @internal
+     */
     public onScrollLeftClick(): void {
         this.tablist.scrollLeft -= this.tablist.clientWidth;
     }
 
+    /**
+     * @internal
+     */
     public onScrollRightClick(): void {
         this.tablist.scrollLeft += this.tablist.clientWidth;
     }

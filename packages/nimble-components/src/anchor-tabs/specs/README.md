@@ -57,7 +57,7 @@ We cannot extend FAST's tabs control because it has baked into it the idea that 
 -   _CSS Classes and CSS Custom Properties that affect the component_ - None
 -   _Slots_
     -   `start` - content placed to the left of tab list
-    -   `anchortab` - slot for anchor tab elements
+    -   `tab` - slot for anchor tab elements
     -   `end` - content placed to the right of tab list
 
 #### Anchor Tab
@@ -87,7 +87,7 @@ We cannot extend FAST's tabs control because it has baked into it the idea that 
 <template>
     <slot name="start"></slot>
     <div role="tablist">
-        <slot name="anchortab"></slot>
+        <slot name="tab"></slot>
     </div>
     <slot name="end"></slot>
 </template>
@@ -96,7 +96,7 @@ We cannot extend FAST's tabs control because it has baked into it the idea that 
 #### Anchor Tab
 
 ```html
-<template slot="anchortab">
+<template slot="tab">
     <div role="tab">
         <a>
             <slot></slot>

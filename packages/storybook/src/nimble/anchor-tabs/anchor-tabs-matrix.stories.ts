@@ -18,8 +18,8 @@ const tabsToolbarStates = [false, true] as const;
 type TabsToolbarState = (typeof tabsToolbarStates)[number];
 
 const widthStates = [
-    ['', false],
-    ['250px', true]
+    '',
+    '250px'
 ] as const;
 type WidthState = (typeof widthStates)[number];
 
@@ -36,9 +36,9 @@ export default metadata;
 const component = (
     toolbar: TabsToolbarState,
     [disabledName, disabled]: DisabledState,
-    [widthValue, setWidth]: WidthState
+    widthValue: WidthState
 ): ViewTemplate => html`
-    <${anchorTabsTag} activeid="tab1" style="padding: 15px; width: ${() => (setWidth ? widthValue : '')};">
+    <${anchorTabsTag} activeid="tab1" style="padding: 15px; width: ${() => (widthValue ?? '')};">
         ${when(() => toolbar, html`
             <${tabsToolbarTag}>
                 <${buttonTag} appearance="ghost">Toolbar Button</${buttonTag}>

@@ -1,5 +1,6 @@
 import { css } from '@microsoft/fast-element';
-import { display } from '../utilities/style/display';
+import { display } from '../../utilities/style/display';
+import { smallPadding } from '../../theme-provider/design-tokens';
 
 export const styles = css`
     ${display('flex')}
@@ -8,18 +9,22 @@ export const styles = css`
         flex-direction: column;
     }
 
-    .tabsrootcontainer {
+    .tab-bar {
         display: flex;
-        flex-direction: row;
     }
 
     [part='start'] {
         display: none;
     }
 
+    .scroll-button.left {
+        margin-right: ${smallPadding};
+    }
+
     .tablist {
         display: flex;
         width: max-content;
+        min-width: 
         align-self: end;
         overflow-x: scroll;
         scrollbar-width: none;
@@ -28,14 +33,7 @@ export const styles = css`
     }
 
     .scroll-button.right {
+        margin-left: ${smallPadding};
         position: relative;
-        right: 0;
-    }
-
-    .tabpanel {
-        grid-row: 2;
-        grid-column-start: 1;
-        grid-column-end: 4;
-        overflow: auto;
     }
 `;

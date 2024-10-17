@@ -1,35 +1,30 @@
-import {
-    html,
-    ref,
-    slotted,
-    ViewTemplate,
-    when
-} from '@microsoft/fast-element';
+import { html, ref, slotted, when } from '@microsoft/fast-element';
+import type { ViewTemplate } from '@microsoft/fast-element';
 import {
     endSlotTemplate,
+    startSlotTemplate,
     FoundationElementTemplate,
-    startSlotTemplate
+    TabsOptions
 } from '@microsoft/fast-foundation';
-import type { AnchorTabs, TabsOptions } from '.';
-import { buttonTag } from '../button';
-import { iconArrowExpanderRightTag } from '../icons/arrow-expander-right';
-import { iconArrowExpanderLeftTag } from '../icons/arrow-expander-left';
-import { smallPadding } from '../theme-provider/design-tokens';
+import type { Tabs } from '../../tabs';
+import type { AnchorTabs } from '../../anchor-tabs';
+import { buttonTag } from '../../button';
+import { iconArrowExpanderLeftTag } from '../../icons/arrow-expander-left';
+import { iconArrowExpanderRightTag } from '../../icons/arrow-expander-right';
+
+type TabsOrAnchorTabs = Tabs | AnchorTabs;
 
 // prettier-ignore
 export const template: FoundationElementTemplate<
-ViewTemplate<AnchorTabs>,
+ViewTemplate<TabsOrAnchorTabs>,
 TabsOptions
-> = (context, definition) => html<AnchorTabs>`
+> = (context, definition) => html`
     <template>
         <div
-            class="tabsrootcontainer"
-            style="
-                --ni-private-tabs-container-padding: ${x => (x.showScrollButtons ? smallPadding.getValueFor(x) : '0px')};
-            "
+            class="tab-bar"
         >
             ${startSlotTemplate(context, definition)}
-            ${when(x => x.showScrollButtons, html<AnchorTabs>`
+            ${when(x => x.showScrollButtons, html<Tabs>`
                 <${buttonTag} 
                     content-hidden
                     class="scroll-button left"
@@ -42,26 +37,31 @@ TabsOptions
                 </${buttonTag}>
             `)}
             <div
-                ${ref('tablist')}
                 class="tablist"
                 part="tablist"
                 role="tablist"
+                ${ref('tablist')}
             >
-                <slot name="anchortab" ${slotted('tabs')}></slot>
+                <slot class="tab" name="tab" part="tab" ${slotted('tabs')}>
+                </slot>
             </div>
-            ${when(x => x.showScrollButtons, html<AnchorTabs>`
+            ${when(x => x.showScrollButtons, html<Tabs>`
                 <${buttonTag}
                     content-hidden
                     class="scroll-button right"
                     appearance="ghost"
                     tabindex="-1"
                     @click="${x => x.onScrollRightClick()}"
-                    ${ref('rightScrollButton')}
                 >
                     <${iconArrowExpanderRightTag} slot="start"></${iconArrowExpanderRightTag}>
                 </${buttonTag}>
             `)}
             ${endSlotTemplate(context, definition)}
         </div>
+        ${when(x => 'tabpanels' in x, html<Tabs>`
+            <div class="tabpanel" part="tabpanel">
+                <slot name="tabpanel" ${slotted('tabpanels')}></slot>
+            </div>
+        `)}
     </template>
 `;

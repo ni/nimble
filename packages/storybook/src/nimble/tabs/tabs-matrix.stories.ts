@@ -29,8 +29,8 @@ const metadata: Meta = {
 export default metadata;
 
 const widthStates = [
-    ['', false],
-    ['250px', true]
+    '',
+    '250px'
 ] as const;
 type WidthState = (typeof widthStates)[number];
 
@@ -38,10 +38,10 @@ type WidthState = (typeof widthStates)[number];
 const component = (
     toolbar: TabsToolbarState,
     [disabledName, disabled]: DisabledState,
-    [widthValue, setWidth]: WidthState
+    widthValue: WidthState
 
 ): ViewTemplate => html`
-    <${tabsTag} style="padding: 15px; width: ${() => (setWidth ? widthValue : '')};">
+    <${tabsTag} style="padding: 15px; width: ${() => (widthValue ?? '')};">
         ${when(() => toolbar, html`
             <${tabsToolbarTag}>
                 <${buttonTag} appearance="ghost">Toolbar Button</${buttonTag}>

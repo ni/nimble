@@ -26,8 +26,8 @@ import {
     FoundationElementDefinition,
     FoundationElement
 } from '@microsoft/fast-foundation';
-import { styles } from './styles';
-import { template } from './template';
+import { styles } from '../patterns/tabs/styles';
+import { template } from '../patterns/tabs/template';
 import type { AnchorTab } from '../anchor-tab';
 
 declare global {
@@ -92,15 +92,15 @@ export class AnchorTabs extends FoundationElement {
     public constructor() {
         super();
         this.tabListResizeObserver = new ResizeObserver(entries => {
-            let tabsContainerWidth = entries[0]?.contentRect.width;
-            if (tabsContainerWidth) {
+            let tabListVisibleWidth = entries[0]?.contentRect.width;
+            if (tabListVisibleWidth !== undefined) {
                 const leftButtonWidth = this.leftScrollButton?.clientWidth ?? 0;
                 const rightButtonWidth = this.rightScrollButton?.clientWidth ?? 0;
-                tabsContainerWidth = Math.ceil(tabsContainerWidth);
+                tabListVisibleWidth = Math.ceil(tabListVisibleWidth);
                 if (this.showScrollButtons) {
-                    tabsContainerWidth += leftButtonWidth + rightButtonWidth;
+                    tabListVisibleWidth += leftButtonWidth + rightButtonWidth;
                 }
-                this.showScrollButtons = tabsContainerWidth < this.tablist.scrollWidth;
+                this.showScrollButtons = tabListVisibleWidth < this.tablist.scrollWidth;
             }
         });
     }
@@ -111,7 +111,7 @@ export class AnchorTabs extends FoundationElement {
     public activeidChanged(_oldValue: string, _newValue: string): void {
         if (this.$fastController.isConnected) {
             this.setTabs();
-            this.activetab?.scrollIntoView();
+            this.activetab?.scrollIntoView({ block: 'nearest' });
         }
     }
 
@@ -129,22 +129,14 @@ export class AnchorTabs extends FoundationElement {
      * @internal
      */
     public onScrollLeftClick(): void {
-        this.tablist.scrollLeft = Math.max(
-            0,
-            this.tablist.scrollLeft - this.tablist.clientWidth
-        );
+        this.tablist.scrollLeft -= this.tablist.clientWidth;
     }
 
     /**
      * @internal
      */
     public onScrollRightClick(): void {
-        const scrollableWidth = this.tablist.clientWidth - this.tablist.scrollLeft;
-        if (scrollableWidth < this.tablist.scrollWidth) {
-            this.tablist.scrollLeft += this.tablist.clientWidth;
-        } else {
-            this.scrollLeft = this.tablist.scrollWidth - this.tablist.clientWidth;
-        }
+        this.tablist.scrollLeft += this.tablist.clientWidth;
     }
 
     /**
@@ -156,6 +148,9 @@ export class AnchorTabs extends FoundationElement {
         this.tabIds = this.getTabIds();
     }
 
+    /**
+     * @internal
+     */
     public override disconnectedCallback(): void {
         super.disconnectedCallback();
         this.tabListResizeObserver.disconnect();
