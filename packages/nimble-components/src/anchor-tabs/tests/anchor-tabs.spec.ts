@@ -490,7 +490,7 @@ describe('AnchorTabs', () => {
             expect(tabsPageObject.areScrollButtonsVisible()).toBeTrue();
         });
 
-        fit('should hide scroll buttons when tab label is updated and tabs no longer overflow the container', async () => {
+        it('should hide scroll buttons when tab label is updated and tabs no longer overflow the container', async () => {
             await tabsPageObject.setTabsWidth(550);
             await waitForUpdatesAsync(); // wait for the resize observer to fire
             await tabsPageObject.addTab('New Tab With Extremely Long Name');
