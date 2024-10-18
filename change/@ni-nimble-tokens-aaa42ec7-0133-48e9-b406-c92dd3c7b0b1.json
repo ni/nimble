@@ -1,0 +1,7 @@
+{
+  "type": "minor",
+  "comment": "Add color token for calendar component",
+  "packageName": "@ni/nimble-tokens",
+  "email": "sandeep.appachiappan@ni.com",
+  "dependentChangeType": "patch"
+}
