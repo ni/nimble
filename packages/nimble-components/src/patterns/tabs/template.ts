@@ -19,51 +19,49 @@ export const template: FoundationElementTemplate<
 ViewTemplate<TabsOrAnchorTabs>,
 TabsOptions
 > = (context, definition) => html`
-    <template>
-        <div
-            class="tab-bar"
-        >
-            ${startSlotTemplate(context, definition)}
-            ${when(x => x.showScrollButtons, html<Tabs>`
-                <${buttonTag} 
-                    content-hidden
-                    class="scroll-button left"
-                    appearance="ghost"
-                    tabindex="-1"
-                    aria-hidden="true"
-                    @click="${x => x.onScrollLeftClick()}"
-                    ${ref('leftScrollButton')}
-                >
-                    <${iconArrowExpanderLeftTag} slot="start"></${iconArrowExpanderLeftTag}>
-                </${buttonTag}>
-            `)}
-            <div
-                class="tablist"
-                part="tablist"
-                role="tablist"
-                ${ref('tablist')}
+    <div
+        class="tab-bar"
+    >
+        ${startSlotTemplate(context, definition)}
+        ${when(x => x.showScrollButtons, html<Tabs>`
+            <${buttonTag} 
+                content-hidden
+                class="scroll-button left"
+                appearance="ghost"
+                tabindex="-1"
+                aria-hidden="true"
+                @click="${x => x.onScrollLeftClick()}"
+                ${ref('leftScrollButton')}
             >
-                <slot class="tab" name="${x => x.tabSlotName}" part="tab" ${slotted('tabs')}>
-                </slot>
-            </div>
-            ${when(x => x.showScrollButtons, html<Tabs>`
-                <${buttonTag}
-                    content-hidden
-                    class="scroll-button right"
-                    appearance="ghost"
-                    tabindex="-1"
-                    aria-hidden="true"
-                    @click="${x => x.onScrollRightClick()}"
-                >
-                    <${iconArrowExpanderRightTag} slot="start"></${iconArrowExpanderRightTag}>
-                </${buttonTag}>
-            `)}
-            ${endSlotTemplate(context, definition)}
-        </div>
-        ${when(x => 'tabpanels' in x, html<Tabs>`
-            <div class="tabpanel" part="tabpanel">
-                <slot name="tabpanel" ${slotted('tabpanels')}></slot>
-            </div>
+                <${iconArrowExpanderLeftTag} slot="start"></${iconArrowExpanderLeftTag}>
+            </${buttonTag}>
         `)}
-    </template>
+        <div
+            class="tablist"
+            part="tablist"
+            role="tablist"
+            ${ref('tablist')}
+        >
+            <slot class="tab" name="${x => x.tabSlotName}" part="tab" ${slotted('tabs')}>
+            </slot>
+        </div>
+        ${when(x => x.showScrollButtons, html<Tabs>`
+            <${buttonTag}
+                content-hidden
+                class="scroll-button right"
+                appearance="ghost"
+                tabindex="-1"
+                aria-hidden="true"
+                @click="${x => x.onScrollRightClick()}"
+            >
+                <${iconArrowExpanderRightTag} slot="start"></${iconArrowExpanderRightTag}>
+            </${buttonTag}>
+        `)}
+        ${endSlotTemplate(context, definition)}
+    </div>
+    ${when(x => 'tabpanels' in x, html<Tabs>`
+        <div class="tabpanel" part="tabpanel">
+            <slot name="tabpanel" ${slotted('tabpanels')}></slot>
+        </div>
+    `)}
 `;
