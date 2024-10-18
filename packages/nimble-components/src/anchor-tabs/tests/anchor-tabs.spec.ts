@@ -67,10 +67,10 @@ describe('AnchorTabs', () => {
             expect(element.tablist.getAttribute('role')).toBe('tablist');
         });
 
-        it('should have a slots named "start", "tab", and "end", in that order', () => {
+        it('should have a slots named "start", "anchortab", and "end", in that order', () => {
             const slots = element.shadowRoot?.querySelectorAll('slot');
             expect(slots![0]?.getAttribute('name')).toBe('start');
-            expect(slots![1]?.getAttribute('name')).toBe('tab');
+            expect(slots![1]?.getAttribute('name')).toBe('anchortab');
             expect(slots![2]?.getAttribute('name')).toBe('end');
         });
 
