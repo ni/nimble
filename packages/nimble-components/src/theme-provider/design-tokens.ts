@@ -120,7 +120,7 @@ import {
     Black22,
     PowerGreen30,
     DigitalGreenLight30,
-    PowerGreenText
+    PowerGreenDark50
 } from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
 import { Theme } from './types';
 import { tokenNames, styleNameFromTokenName } from './design-token-names';
@@ -374,8 +374,8 @@ export const calendarEventStaticFontColor = DesignToken.create<string>(
 ).withDefault((element: HTMLElement) => getColorForTheme(
     element,
     DigitalGreenDark110,
-    PowerGreenText,
-    PowerGreenText
+    PowerGreenDark50,
+    PowerGreenDark50
 ));
 
 export const calendarEventDynamicFontColor = DesignToken.create<string>(
