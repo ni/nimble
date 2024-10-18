@@ -55,6 +55,10 @@ export class TextArea extends FoundationTextArea implements ErrorPattern {
     @observable
     public scrollbarWidth = -1;
 
+    /* @internal */
+    @observable
+    public errorHasOverflow = false;
+
     private resizeObserver?: ResizeObserver;
     private updateScrollbarWidthQueued = false;
 

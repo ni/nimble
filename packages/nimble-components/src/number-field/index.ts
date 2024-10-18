@@ -1,4 +1,4 @@
-import { attr, html } from '@microsoft/fast-element';
+import { attr, html, observable } from '@microsoft/fast-element';
 import {
     DesignSystem,
     NumberField as FoundationNumberField,
@@ -43,6 +43,10 @@ export class NumberField extends FoundationNumberField implements ErrorPattern {
 
     @attr({ attribute: 'error-visible', mode: 'boolean' })
     public errorVisible = false;
+
+    /* @internal */
+    @observable
+    public errorHasOverflow = false;
 
     public override connectedCallback(): void {
         super.connectedCallback();
