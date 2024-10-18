@@ -10,7 +10,7 @@ export const template: FoundationElementTemplate<
 ViewTemplate<AnchorTab>,
 TabOptions
 > = (context, definition) => html<AnchorTab>`
-    <template slot="tab" role="tab" aria-disabled="${x => x.disabled}">
+    <template slot="anchortab" role="tab" aria-disabled="${x => x.disabled}">
         <a
             download="${x => x.download}"
             href=${x => (x.disabled ? null : x.href)}

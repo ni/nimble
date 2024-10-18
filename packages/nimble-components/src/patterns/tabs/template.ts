@@ -43,7 +43,7 @@ TabsOptions
                 role="tablist"
                 ${ref('tablist')}
             >
-                <slot class="tab" name="tab" part="tab" ${slotted('tabs')}>
+                <slot class="tab" name="${x => x.tabSlotName}" part="tab" ${slotted('tabs')}>
                 </slot>
             </div>
             ${when(x => x.showScrollButtons, html<Tabs>`

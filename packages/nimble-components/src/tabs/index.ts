@@ -33,6 +33,11 @@ export class Tabs extends FoundationTabs {
      */
     public readonly leftScrollButton!: Element;
 
+    /**
+     * @internal
+     */
+    public readonly tabSlotName = 'tab';
+
     private readonly tabListResizeObserver: ResizeObserver;
 
     public constructor() {

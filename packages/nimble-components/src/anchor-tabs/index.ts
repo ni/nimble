@@ -81,6 +81,11 @@ export class AnchorTabs extends FoundationElement {
      */
     public readonly leftScrollButton!: Element;
 
+    /**
+     * @internal
+     */
+    public readonly tabSlotName = 'anchortab';
+
     private readonly tabListResizeObserver: ResizeObserver;
     private tabIds: string[] = [];
 
