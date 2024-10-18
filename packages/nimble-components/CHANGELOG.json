@@ -2,6 +2,27 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Fri, 18 Oct 2024 20:38:35 GMT",
+      "version": "32.4.0",
+      "tag": "@ni/nimble-components_v32.4.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "sandeep.appachiappan@ni.com",
+            "package": "@ni/nimble-components",
+            "commit": "4323196b82407671a6305d74691a2a84a621a2b3",
+            "comment": "Update theme aware token for calendar component"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/nimble-tokens to v8.4.0",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 16 Oct 2024 23:46:19 GMT",
       "version": "32.3.2",
       "tag": "@ni/nimble-components_v32.3.2",

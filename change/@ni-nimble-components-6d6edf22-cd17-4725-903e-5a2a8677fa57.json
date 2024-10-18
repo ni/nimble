@@ -1,7 +1,0 @@
-{
-  "type": "minor",
-  "comment": "Update theme aware token for calendar component",
-  "packageName": "@ni/nimble-components",
-  "email": "sandeep.appachiappan@ni.com",
-  "dependentChangeType": "patch"
-}
