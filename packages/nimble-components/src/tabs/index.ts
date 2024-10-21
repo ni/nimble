@@ -31,7 +31,7 @@ export class Tabs extends FoundationTabs {
     /**
      * @internal
      */
-    public readonly leftScrollButton!: Element;
+    public readonly leftScrollButton?: Element;
 
     /**
      * @internal
@@ -78,7 +78,7 @@ export class Tabs extends FoundationTabs {
      */
     public override activeidChanged(oldValue: string, newValue: string): void {
         super.activeidChanged(oldValue, newValue);
-        this.activetab?.scrollIntoView({ block: 'nearest' });
+        this.activetab?.scrollIntoView({ block: 'nearest', inline: 'start' });
     }
 
     /**

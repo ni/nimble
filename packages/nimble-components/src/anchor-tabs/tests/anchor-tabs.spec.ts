@@ -20,6 +20,7 @@ describe('AnchorTabs', () => {
     let element: AnchorTabs;
     let connect: () => Promise<void>;
     let disconnect: () => Promise<void>;
+    let pageObject: AnchorTabsPageObject;
 
     function tab(index: number): AnchorTab {
         return element.children[index] as AnchorTab;
@@ -43,6 +44,7 @@ describe('AnchorTabs', () => {
         beforeEach(async () => {
             ({ element, connect, disconnect } = await setup());
             await connect();
+            pageObject = new AnchorTabsPageObject(element);
         });
 
         afterEach(async () => {
@@ -125,8 +127,7 @@ describe('AnchorTabs', () => {
             expect(tab(0).tabIndex).toBe(-1);
             expect(tab(1).tabIndex).toBe(0);
             expect(tab(2).tabIndex).toBe(-1);
-            tab(0).dispatchEvent(new Event('click'));
-            await waitForUpdatesAsync();
+            await pageObject.clickTab(0);
             expect(tab(0).tabIndex).toBe(0);
             expect(tab(1).tabIndex).toBe(-1);
             expect(tab(2).tabIndex).toBe(-1);
@@ -137,9 +138,7 @@ describe('AnchorTabs', () => {
             anchor(0).addEventListener('click', () => {
                 timesClicked += 1;
             });
-            tab(0).dispatchEvent(
-                new KeyboardEvent('keydown', { key: keySpace })
-            );
+            await pageObject.pressKeyOnTab(0, keySpace);
             await waitForUpdatesAsync();
             expect(timesClicked).toBe(1);
         });
@@ -149,9 +148,7 @@ describe('AnchorTabs', () => {
             anchor(0).addEventListener('click', () => {
                 timesClicked += 1;
             });
-            tab(0).dispatchEvent(
-                new KeyboardEvent('keydown', { key: keyEnter })
-            );
+            await pageObject.pressKeyOnTab(0, keyEnter);
             await waitForUpdatesAsync();
             expect(timesClicked).toBe(1);
         });

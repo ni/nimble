@@ -79,7 +79,7 @@ export class AnchorTabs extends FoundationElement {
     /**
      * @internal
      */
-    public readonly leftScrollButton!: Element;
+    public readonly leftScrollButton?: Element;
 
     /**
      * @internal
@@ -110,7 +110,10 @@ export class AnchorTabs extends FoundationElement {
     public activeidChanged(_oldValue: string, _newValue: string): void {
         if (this.$fastController.isConnected) {
             this.setTabs();
-            this.activetab?.scrollIntoView({ block: 'nearest' });
+            this.activetab?.scrollIntoView({
+                block: 'nearest',
+                inline: 'start'
+            });
         }
     }
 
@@ -332,6 +335,8 @@ export class AnchorTabs extends FoundationElement {
                 tab === focusedTab ? 'true' : 'false'
             );
         });
+
+        focusedTab.scrollIntoView({ block: 'nearest', inline: 'start' });
     };
 
     private getTabAnchor(tab: AnchorTab): HTMLAnchorElement {

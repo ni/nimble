@@ -24,7 +24,6 @@ export const styles = css`
     .tablist {
         display: flex;
         width: max-content;
-        min-width: 
         align-self: end;
         overflow-x: scroll;
         scrollbar-width: none;

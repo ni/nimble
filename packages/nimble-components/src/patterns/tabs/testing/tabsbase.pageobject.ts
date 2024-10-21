@@ -13,6 +13,23 @@ export abstract class TabsBasePageObject<T extends TabsOwner> {
         protected readonly tabPanelElementName?: string
     ) {}
 
+    public async clickTab(index: number): Promise<void> {
+        if (index >= this.tabsElement.tabs.length) {
+            throw new Error(`Tab with index ${index} not found`);
+        }
+        this.tabsElement.tabs[index]!.click();
+        await waitForUpdatesAsync();
+    }
+
+    public async pressKeyOnTab(index: number, key: string): Promise<void> {
+        if (index >= this.tabsElement.tabs.length) {
+            throw new Error(`Tab with index ${index} not found`);
+        }
+        const tab = this.tabsElement.tabs[index]!;
+        tab.dispatchEvent(new KeyboardEvent('keydown', { key }));
+        await waitForUpdatesAsync();
+    }
+
     public async setTabsWidth(width: number): Promise<void> {
         this.tabsElement.style.width = `${width}px`;
         await waitForUpdatesAsync();
