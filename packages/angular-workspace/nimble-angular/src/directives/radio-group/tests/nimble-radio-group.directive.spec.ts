@@ -70,11 +70,28 @@ describe('Nimble radio group', () => {
             directive.orientation = Orientation.vertical;
             expect(nativeElement.orientation).toBe(Orientation.vertical);
         });
+
+        it('has expected defaults for errorText', () => {
+            expect(directive.errorText).toBeUndefined();
+            expect(nativeElement.errorText).toBeUndefined();
+        });
+
+        it('can use the directive to set errorText', () => {
+            directive.errorText = 'new value';
+            expect(nativeElement.errorText).toBe('new value');
+        });
     });
 
     describe('with template string values', () => {
         @Component({
-            template: '<nimble-radio-group #radioGroup disabled name="foo" orientation="vertical"></nimble-radio-group>'
+            template: `
+                <nimble-radio-group #radioGroup
+                    disabled
+                    name="foo"
+                    orientation="vertical"
+                    error-text="error text"
+                    error-visible
+                ></nimble-radio-group>`
         })
         class TestHostComponent {
             @ViewChild('radioGroup', { read: NimbleRadioGroupDirective }) public directive: NimbleRadioGroupDirective;
@@ -110,11 +127,28 @@ describe('Nimble radio group', () => {
             expect(directive.orientation).toBe(Orientation.vertical);
             expect(nativeElement.orientation).toBe(Orientation.vertical);
         });
+
+        it('will use template string values for errorText', () => {
+            expect(directive.errorText).toBe('error text');
+            expect(nativeElement.errorText).toBe('error text');
+        });
+
+        it('will use template string values for errorVisible', () => {
+            expect(directive.errorVisible).toBeTrue();
+            expect(nativeElement.errorVisible).toBeTrue();
+        });
     });
 
     describe('with property bound values', () => {
         @Component({
-            template: '<nimble-radio-group #radioGroup [disabled]="disabled" [name]="name" [orientation]="orientation"></nimble-radio-group>'
+            template: `
+                <nimble-radio-group #radioGroup
+                    [disabled]="disabled"
+                    [name]="name"
+                    [orientation]="orientation"
+                    [error-text]="errorText"
+                    [error-visible]="errorVisible"
+                ></nimble-radio-group>`
         })
         class TestHostComponent {
             @ViewChild('radioGroup', { read: NimbleRadioGroupDirective }) public directive: NimbleRadioGroupDirective;
@@ -122,6 +156,8 @@ describe('Nimble radio group', () => {
             public disabled = false;
             public name = 'foo';
             public orientation: Orientation = Orientation.vertical;
+            public errorText = 'initial value';
+            public errorVisible = false;
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
@@ -171,11 +207,40 @@ describe('Nimble radio group', () => {
             expect(directive.orientation).toBe(Orientation.horizontal);
             expect(nativeElement.orientation).toBe(Orientation.horizontal);
         });
+
+        it('can be configured with property binding for errorText', () => {
+            expect(directive.errorText).toBe('initial value');
+            expect(nativeElement.errorText).toBe('initial value');
+
+            fixture.componentInstance.errorText = 'new value';
+            fixture.detectChanges();
+
+            expect(directive.errorText).toBe('new value');
+            expect(nativeElement.errorText).toBe('new value');
+        });
+
+        it('can be configured with property binding for errorVisible', () => {
+            expect(directive.errorVisible).toBeFalse();
+            expect(nativeElement.errorVisible).toBeFalse();
+
+            fixture.componentInstance.errorVisible = true;
+            fixture.detectChanges();
+
+            expect(directive.errorVisible).toBeTrue();
+            expect(nativeElement.errorVisible).toBeTrue();
+        });
     });
 
     describe('with attribute bound values', () => {
         @Component({
-            template: '<nimble-radio-group #radioGroup [attr.disabled]="disabled" [attr.name]="name" [attr.orientation]="orientation"></nimble-radio-group>'
+            template: `
+                <nimble-radio-group #radioGroup
+                    [attr.disabled]="disabled"
+                    [attr.name]="name"
+                    [attr.orientation]="orientation"
+                    [attr.error-text]="errorText"
+                    [attr.error-visible]="errorVisible"
+                ></nimble-radio-group>`
         })
         class TestHostComponent {
             @ViewChild('radioGroup', { read: NimbleRadioGroupDirective }) public directive: NimbleRadioGroupDirective;
@@ -183,6 +248,8 @@ describe('Nimble radio group', () => {
             public disabled: BooleanValueOrAttribute = null;
             public name = 'foo';
             public orientation: Orientation = Orientation.vertical;
+            public errorText = 'initial value';
+            public errorVisible: BooleanValueOrAttribute = null;
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
@@ -231,6 +298,28 @@ describe('Nimble radio group', () => {
 
             expect(directive.orientation).toBe(Orientation.horizontal);
             expect(nativeElement.orientation).toBe(Orientation.horizontal);
+        });
+
+        it('can be configured with attribute binding for errorText', () => {
+            expect(directive.errorText).toBe('initial value');
+            expect(nativeElement.errorText).toBe('initial value');
+
+            fixture.componentInstance.errorText = 'new value';
+            fixture.detectChanges();
+
+            expect(directive.errorText).toBe('new value');
+            expect(nativeElement.errorText).toBe('new value');
+        });
+
+        it('can be configured with attribute binding for errorVisible', () => {
+            expect(directive.errorVisible).toBeFalse();
+            expect(nativeElement.errorVisible).toBeFalse();
+
+            fixture.componentInstance.errorVisible = '';
+            fixture.detectChanges();
+
+            expect(directive.errorVisible).toBeTrue();
+            expect(nativeElement.errorVisible).toBeTrue();
         });
     });
 });

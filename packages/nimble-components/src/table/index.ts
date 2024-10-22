@@ -545,12 +545,14 @@ export class Table<
     }
 
     /** @internal */
-    public onRightDividerMouseDown(
-        event: MouseEvent,
+    public onRightDividerPointerDown(
+        event: PointerEvent,
         columnIndex: number
     ): void {
-        if (event.button === 0) {
+        if (event.pointerType !== 'mouse' || event.button === 0) {
             this.layoutManager.beginColumnInteractiveSize(
+                event.target as HTMLElement,
+                event.pointerId,
                 event.clientX,
                 this.getRightDividerIndex(columnIndex)
             );
@@ -558,12 +560,14 @@ export class Table<
     }
 
     /** @internal */
-    public onLeftDividerMouseDown(
-        event: MouseEvent,
+    public onLeftDividerPointerDown(
+        event: PointerEvent,
         columnIndex: number
     ): void {
-        if (event.button === 0) {
+        if (event.pointerType !== 'mouse' || event.button === 0) {
             this.layoutManager.beginColumnInteractiveSize(
+                event.target as HTMLElement,
+                event.pointerId,
                 event.clientX,
                 this.getLeftDividerIndex(columnIndex)
             );

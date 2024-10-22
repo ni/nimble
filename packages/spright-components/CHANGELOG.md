@@ -1,8 +1,25 @@
 # Change Log - @ni/spright-components
 
-<!-- This log was last generated on Mon, 14 Oct 2024 13:37:04 GMT and should not be manually modified. -->
+<!-- This log was last generated on Fri, 18 Oct 2024 20:38:35 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 4.1.14
+
+Fri, 18 Oct 2024 20:38:35 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v32.4.0
+
+## 4.1.13
+
+Wed, 16 Oct 2024 23:46:19 GMT
+
+### Patches
+
+- Add DOM.Iterable to the build ([ni/nimble@cb9efb3](https://github.com/ni/nimble/commit/cb9efb36f733bed945425febab5e1a08d63d90ea))
+- Bump @ni/nimble-components to v32.3.2
 
 ## 4.1.12
 
