@@ -52,6 +52,6 @@ export const scrollBackwardLabel = DesignToken.create<string>({
 }).withDefault(coreLabelDefaults.scrollBackwardLabel);
 
 export const scrollForwardLabel = DesignToken.create<string>({
-    name: 'scroll-right-button-label',
+    name: 'scroll-forward-label',
     cssCustomPropertyName: null
 }).withDefault(coreLabelDefaults.scrollForwardLabel);
