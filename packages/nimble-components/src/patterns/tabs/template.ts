@@ -13,8 +13,8 @@ import { iconArrowExpanderRightTag } from '../../icons/arrow-expander-right';
 import type { TabsOwner } from './types';
 import { ButtonAppearance } from '../button/types';
 import {
-    scrollLeftLabel,
-    scrollRightLabel
+    scrollLeftButtonLabel,
+    scrollRightButtonLabel
 } from '../../label-provider/core/label-tokens';
 
 // prettier-ignore
@@ -35,7 +35,7 @@ TabsOptions
                 @click="${x => x.onScrollLeftClick()}"
                 ${ref('leftScrollButton')}
             >
-                ${x => scrollLeftLabel.getValueFor(x)}
+                ${x => scrollLeftButtonLabel.getValueFor(x)}
                 <${iconArrowExpanderLeftTag} slot="start"></${iconArrowExpanderLeftTag}>
             </${buttonTag}>
         `)}
@@ -56,7 +56,7 @@ TabsOptions
                 tabindex="-1"
                 @click="${x => x.onScrollRightClick()}"
             >
-                ${x => scrollRightLabel.getValueFor(x)}
+                ${x => scrollRightButtonLabel.getValueFor(x)}
                 <${iconArrowExpanderRightTag} slot="start"></${iconArrowExpanderRightTag}>
             </${buttonTag}>
         `)}

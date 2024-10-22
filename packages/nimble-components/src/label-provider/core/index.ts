@@ -11,8 +11,8 @@ import {
     filterSearchLabel,
     filterNoResultsLabel,
     loadingLabel,
-    scrollLeftLabel,
-    scrollRightLabel
+    scrollLeftButtonLabel,
+    scrollRightButtonLabel
 } from './label-tokens';
 import { styles } from '../base/styles';
 
@@ -32,8 +32,8 @@ const supportedLabels = {
     filterSearch: filterSearchLabel,
     filterNoResults: filterNoResultsLabel,
     loading: loadingLabel,
-    scrollLeftLabel, // 'scrollLeft' is already reserved in the base class
-    scrollRightLabel
+    scrollLeftButton: scrollLeftButtonLabel,
+    scrollRightButton: scrollRightButtonLabel
 } as const;
 
 /**
@@ -69,11 +69,11 @@ export class LabelProviderCore
     @attr({ attribute: 'loading' })
     public loading: string | undefined;
 
-    @attr({ attribute: 'scroll-left-label' })
-    public scrollLeftLabel: string | undefined;
+    @attr({ attribute: 'scroll-left-button' })
+    public scrollLeftButton: string | undefined;
 
-    @attr({ attribute: 'scroll-right-label' })
-    public scrollRightLabel: string | undefined;
+    @attr({ attribute: 'scroll-right-button' })
+    public scrollRightButton: string | undefined;
 
     protected override readonly supportedLabels = supportedLabels;
 }
