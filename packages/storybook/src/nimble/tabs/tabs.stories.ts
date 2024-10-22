@@ -50,7 +50,7 @@ const simpleTabs = [
     { title: 'Tab 3', id: '3', disabled: false }
 ] as const;
 
-const wideTabs: readonly TabArgs[] = [
+const wideTabs  = [
     {
         title: 'Tab 1 that is too long to fit in the drop down width',
         id: '1',
