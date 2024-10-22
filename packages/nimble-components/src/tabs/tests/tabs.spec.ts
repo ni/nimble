@@ -42,9 +42,7 @@ describe('Tabs', () => {
         await waitForUpdatesAsync(); // wait for the resize observer to fire
         element.activeid = '6'; // scrolls to the last tab
         await waitForUpdatesAsync();
-        expect(
-            element.shadowRoot!.querySelector('.tablist')!.scrollLeft
-        ).toBeGreaterThan(0);
+        expect(tabsPageObject.getTabsViewScrollOffset()).toBeGreaterThan(0);
 
         await disconnect();
     });
@@ -57,7 +55,7 @@ describe('Tabs', () => {
         await waitForUpdatesAsync(); // wait for the resize observer to fire
         await tabsPageObject.clickTab(2); // clicks the third tab
         await waitForUpdatesAsync();
-        expect(element.shadowRoot!.querySelector('.tablist')!.scrollLeft).toBe(0);
+        expect(tabsPageObject.getTabsViewScrollOffset()).toBe(0);
 
         await disconnect();
     });
