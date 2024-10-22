@@ -3,7 +3,7 @@ import { fixture, Fixture } from '../../utilities/tests/fixture';
 import { Spinner, spinnerTag } from '..';
 
 async function setup(): Promise<Fixture<Spinner>> {
-    const viewTemplate = html` <nimble-spinner> </nimble-spinner> `;
+    const viewTemplate = html` <${spinnerTag}> </${spinnerTag}> `;
     return await fixture<Spinner>(viewTemplate);
 }
 

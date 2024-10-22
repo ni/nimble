@@ -23,15 +23,15 @@ class TestSlottedElement extends FoundationElement {}
 const composedTestSlottedElement = TestSlottedElement.compose({
     baseName: 'test-slotted-element',
     template: html`
-        <nimble-menu-button>
+        <${menuButtonTag}>
             <slot slot="menu" name="menu"></slot>
-        </nimble-menu-button>
+        </${menuButtonTag}>
     `
 });
 
 async function setup(): Promise<Fixture<MenuButton>> {
     return await fixture<MenuButton>(
-        html`<nimble-menu-button></nimble-menu-button>`
+        html`<${menuButtonTag}></${menuButtonTag}>`
     );
 }
 

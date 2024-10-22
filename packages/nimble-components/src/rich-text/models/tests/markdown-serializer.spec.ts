@@ -1,5 +1,5 @@
 import { html } from '@microsoft/fast-element';
-import type { RichTextEditor } from '../../editor';
+import { richTextEditorTag, type RichTextEditor } from '../../editor';
 import { fixture, type Fixture } from '../../../utilities/tests/fixture';
 import { RichTextEditorPageObject } from '../../editor/testing/rich-text-editor.pageobject';
 import { ToolbarButton } from '../../editor/testing/types';
@@ -11,7 +11,7 @@ import { waitForUpdatesAsync } from '../../../testing/async-helpers';
 
 async function setup(): Promise<Fixture<RichTextEditor>> {
     return await fixture<RichTextEditor>(
-        html`<nimble-rich-text-editor></nimble-rich-text-editor>`
+        html`<${richTextEditorTag}></${richTextEditorTag}>`
     );
 }
 

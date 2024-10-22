@@ -6,7 +6,7 @@ import { fixture, Fixture } from '../../utilities/tests/fixture';
 
 async function setup(): Promise<Fixture<AnchorButton>> {
     return await fixture<AnchorButton>(
-        html`<nimble-anchor-button></nimble-anchor-button>`
+        html`<${anchorButtonTag}></${anchorButtonTag}>`
     );
 }
 

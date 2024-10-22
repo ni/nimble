@@ -13,10 +13,10 @@ import { buttonTag } from '../../button';
 
 async function setup(): Promise<Fixture<Banner>> {
     return await fixture<Banner>(html`
-        <nimble-banner>
+        <${bannerTag}>
             <span slot="title">Title</span>
             Message text
-        </nimble-banner>
+        </${bannerTag}>
     `);
 }
 
@@ -24,10 +24,10 @@ async function setupWithLabelProvider(): Promise<Fixture<ThemeProvider>> {
     return await fixture<ThemeProvider>(html`
         <${themeProviderTag}>
             <${labelProviderCoreTag}></${labelProviderCoreTag}>
-            <nimble-banner>
+            <${bannerTag}>
                 <span slot="title">Title</span>
                 Message text
-            </nimble-banner>
+            </${bannerTag}>
         </${themeProviderTag}>
     `);
 }

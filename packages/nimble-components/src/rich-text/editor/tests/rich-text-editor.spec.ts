@@ -4,7 +4,7 @@ import { richTextEditorTag, RichTextEditor } from '..';
 import { type Fixture, fixture } from '../../../utilities/tests/fixture';
 import { RichTextEditorPageObject } from '../testing/rich-text-editor.pageobject';
 import { wackyStrings } from '../../../utilities/tests/wacky-strings';
-import type { Button } from '../../../button';
+import { buttonTag, type Button } from '../../../button';
 import { toggleButtonTag, type ToggleButton } from '../../../toggle-button';
 import { ToolbarButton } from '../testing/types';
 import { waitForEvent } from '../../../utilities/testing/component';
@@ -12,17 +12,17 @@ import { waitForUpdatesAsync } from '../../../testing/async-helpers';
 
 async function setup(): Promise<Fixture<RichTextEditor>> {
     return await fixture<RichTextEditor>(
-        html`<nimble-rich-text-editor></nimble-rich-text-editor>`
+        html`<${richTextEditorTag}></${richTextEditorTag}>`
     );
 }
 
 async function setupWithFooter(): Promise<Fixture<RichTextEditor>> {
     return await fixture<RichTextEditor>(
         // prettier-ignore
-        html`<nimble-rich-text-editor>
-            <nimble-button slot="footer-actions" id="cancel">Cancel</nimble-button>
-            <nimble-button slot="footer-actions" id="ok">OK</nimble-button>
-        </nimble-rich-text-editor>`
+        html`<${richTextEditorTag}>
+            <${buttonTag} slot="footer-actions" id="cancel">Cancel</${buttonTag}>
+            <${buttonTag} slot="footer-actions" id="ok">OK</${buttonTag}>
+        </${richTextEditorTag}>`
     );
 }
 

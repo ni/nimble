@@ -12,7 +12,7 @@ import {
     waitAnimationFrame
 } from '../../utilities/testing/component';
 import { filterSearchLabel } from '../../label-provider/core/label-tokens';
-import { ListOptionGroup } from '../../list-option-group';
+import { ListOptionGroup, listOptionGroupTag } from '../../list-option-group';
 import type { Button } from '../../button';
 import { isListOptionGroup } from '../template';
 
@@ -43,62 +43,62 @@ async function setup(
     secondOptionState?: OptionInitialState
 ): Promise<Fixture<Select>> {
     const viewTemplate = html`
-        <nimble-select
+        <${selectTag}
             ${position !== undefined ? `position="${position}"` : ''}
             ${open ? 'open' : ''}
         >
-            <nimble-list-option
+            <${listOptionTag}
                 value="one"
                 ${firstOptionState !== undefined ? firstOptionState : ''}
-                >One</nimble-list-option
+                >One</${listOptionTag}
             >
-            <nimble-list-option
+            <${listOptionTag}
                 value="two"
                 ${secondOptionState !== undefined ? secondOptionState : ''}
-                >Two</nimble-list-option
+                >Two</${listOptionTag}
             >
-            <nimble-list-option value="three">Three</nimble-list-option>
-            <nimble-list-option disabled value="t-disabled"
-                >T Disabled</nimble-list-option
+            <${listOptionTag} value="three">Three</${listOptionTag}>
+            <${listOptionTag} disabled value="t-disabled"
+                >T Disabled</${listOptionTag}
             >
-            <nimble-list-option value="zürich">Zürich</nimble-list-option>
-            <nimble-list-option value="has space">Has Space</nimble-list-option>
-        </nimble-select>
+            <${listOptionTag} value="zürich">Zürich</${listOptionTag}>
+            <${listOptionTag} value="has space">Has Space</${listOptionTag}>
+        </${selectTag}>
     `;
     return await fixture<Select>(viewTemplate);
 }
 
 async function setupWithSpanLabels(): Promise<Fixture<Select>> {
     const viewTemplate = html`
-        <nimble-select>
-            <nimble-list-option value="one">
+        <${selectTag}>
+            <${listOptionTag} value="one">
                 <span>One</span>
-            </nimble-list-option>
-            <nimble-list-option value="two">
+            </${listOptionTag}>
+            <${listOptionTag} value="two">
                 <span>Two</span>
-            </nimble-list-option>
-        </nimble-select>
+            </${listOptionTag}>
+        </${selectTag}>
     `;
     return await fixture<Select>(viewTemplate);
 }
 async function setupWithGroups(): Promise<Fixture<Select>> {
     const viewTemplate = html`
-        <nimble-select>
-            <nimble-list-option-group label="Group One">
-                <nimble-list-option value="one">One</nimble-list-option>
-                <nimble-list-option value="two">Two</nimble-list-option>
-                <nimble-list-option value="edge">Edge</nimble-list-option>
-            </nimble-list-option-group>
-            <nimble-list-option-group label="Group Two">
-                <nimble-list-option value="three">Three</nimble-list-option>
-                <nimble-list-option value="four">Four</nimble-list-option>
-            </nimble-list-option-group>
-            <nimble-list-option-group label="Gróup Three">
-                <nimble-list-option value="five">Five</nimble-list-option>
-                <nimble-list-option value="six">Six</nimble-list-option>
-                <nimble-list-option value="edge">Edge</nimble-list-option>
-            </nimble-list-option-group>
-        </nimble-select>
+        <${selectTag}>
+            <${listOptionGroupTag} label="Group One">
+                <${listOptionTag} value="one">One</${listOptionTag}>
+                <${listOptionTag} value="two">Two</${listOptionTag}>
+                <${listOptionTag} value="edge">Edge</${listOptionTag}>
+            </${listOptionGroupTag}>
+            <${listOptionGroupTag} label="Group Two">
+                <${listOptionTag} value="three">Three</${listOptionTag}>
+                <${listOptionTag} value="four">Four</${listOptionTag}>
+            </${listOptionGroupTag}>
+            <${listOptionGroupTag} label="Gróup Three">
+                <${listOptionTag} value="five">Five</${listOptionTag}>
+                <${listOptionTag} value="six">Six</${listOptionTag}>
+                <${listOptionTag} value="edge">Edge</${listOptionTag}>
+            </${listOptionGroupTag}>
+        </${selectTag}>
     `;
     return await fixture<Select>(viewTemplate);
 }
@@ -825,17 +825,17 @@ describe('Select', () => {
     describe('with all options disabled', () => {
         async function setupAllDisabled(): Promise<Fixture<Select>> {
             const viewTemplate = html`
-                <nimble-select>
-                    <nimble-list-option disabled value="one"
-                        >One</nimble-list-option
+                <${selectTag}>
+                    <${listOptionTag} disabled value="one"
+                        >One</${listOptionTag}
                     >
-                    <nimble-list-option disabled value="two"
-                        >Two</nimble-list-option
+                    <${listOptionTag} disabled value="two"
+                        >Two</${listOptionTag}
                     >
-                    <nimble-list-option disabled value="three"
-                        >Three</nimble-list-option
+                    <${listOptionTag} disabled value="three"
+                        >Three</${listOptionTag}
                     >
-                </nimble-select>
+                </${selectTag}>
             `;
             return await fixture<Select>(viewTemplate);
         }
@@ -854,17 +854,17 @@ describe('Select', () => {
     describe('with all options hidden', () => {
         async function setupAllHidden(): Promise<Fixture<Select>> {
             const viewTemplate = html`
-                <nimble-select>
-                    <nimble-list-option hidden value="one"
-                        >One</nimble-list-option
+                <${selectTag}>
+                    <${listOptionTag} hidden value="one"
+                        >One</${listOptionTag}
                     >
-                    <nimble-list-option hidden value="two"
-                        >Two</nimble-list-option
+                    <${listOptionTag} hidden value="two"
+                        >Two</${listOptionTag}
                     >
-                    <nimble-list-option hidden value="three"
-                        >Three</nimble-list-option
+                    <${listOptionTag} hidden value="three"
+                        >Three</${listOptionTag}
                     >
-                </nimble-select>
+                </${selectTag}>
             `;
             return await fixture<Select>(viewTemplate);
         }
@@ -886,7 +886,7 @@ describe('Select', () => {
             const viewTemplate = html`
                 <${selectTag}>
                     ${repeat(() => [...Array(500).keys()], html<number>`
-                        <nimble-list-option value="${x => x}">${x => x}</nimble-list-option>`)}
+                        <${listOptionTag} value="${x => x}">${x => x}</${listOptionTag}>`)}
                 </${selectTag}>
             `;
             return await fixture<Select>(viewTemplate);

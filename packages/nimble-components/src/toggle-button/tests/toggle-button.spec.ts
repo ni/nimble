@@ -6,7 +6,7 @@ import { waitForUpdatesAsync } from '../../testing/async-helpers';
 
 async function setup(): Promise<Fixture<ToggleButton>> {
     return await fixture<ToggleButton>(
-        html`<nimble-toggle-button></nimble-toggle-button>`
+        html`<${toggleButtonTag}></${toggleButtonTag}>`
     );
 }
 

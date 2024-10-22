@@ -34,6 +34,7 @@ import { ColumnValidator } from '../../table-column/base/models/column-validator
 import { menuTag } from '../../menu';
 import { menuItemTag } from '../../menu-item';
 import { tableRowTag } from '../components/row';
+import { iconCheckTag } from '../../icons/check';
 
 interface SimpleTableRecord extends TableRecord {
     stringData: string;
@@ -78,12 +79,12 @@ const largeTableData = createLargeData(500);
 // prettier-ignore
 async function setup(): Promise<Fixture<Table<SimpleTableRecord>>> {
     return await fixture<Table<SimpleTableRecord>>(
-        html`<nimble-table style="width: 700px">
-            <nimble-table-column-text id="first-column" field-name="stringData">stringData</nimble-table-column-text>
-            <nimble-table-column-text id="second-column" field-name="moreStringData">
-                <nimble-icon-check></nimble-icon-check>
-            </nimble-table-column-text>
-        </nimble-table>`
+        html`<${tableTag} style="width: 700px">
+            <${tableColumnTextTag} id="first-column" field-name="stringData">stringData</${tableColumnTextTag}>
+            <${tableColumnTextTag} id="second-column" field-name="moreStringData">
+                <${iconCheckTag}></${iconCheckTag}>
+            </${tableColumnTextTag}>
+        </${tableTag}>`
     );
 }
 
@@ -2524,10 +2525,10 @@ describe('Table', () => {
         // prettier-ignore
         async function setupWithTestColumns(): Promise<Fixture<Table<SimpleTableRecord>>> {
             return await fixture<Table<SimpleTableRecord>>(
-                html`<nimble-table>
+                html`<${tableTag}>
                     <${tableColumnValidationTestTag} foo bar id="first-column" field-name="stringData">Col 1</${tableColumnValidationTestTag}>
                     <${tableColumnValidationTestTag} foo bar id="second-column" field-name="moreStringData">Col 2</${tableColumnValidationTestTag}>
-                </nimble-table>`
+                </${tableTag}>`
             );
         }
 

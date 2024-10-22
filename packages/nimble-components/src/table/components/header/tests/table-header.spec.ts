@@ -7,7 +7,7 @@ import { TableHeaderPageObject } from './table-header-pageobject';
 
 async function setup(): Promise<Fixture<TableHeader>> {
     return await fixture<TableHeader>(
-        html`<nimble-table-header> </nimble-table-header>`
+        html`<${tableHeaderTag}> </${tableHeaderTag}>`
     );
 }
 

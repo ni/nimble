@@ -15,8 +15,8 @@ type TableRowSelectionToggleEventHandler = (
 // prettier-ignore
 async function setup(): Promise<Fixture<TableGroupRow>> {
     return await fixture<TableGroupRow>(
-        html`<nimble-table-group-row>
-            </nimble-table-group-row>`
+        html`<${tableGroupRowTag}>
+            </${tableGroupRowTag}>`
     );
 }
 

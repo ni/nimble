@@ -6,7 +6,7 @@ import { Fixture, fixture } from '../../utilities/tests/fixture';
 
 async function setup(): Promise<Fixture<AnchorTab>> {
     return await fixture<AnchorTab>(
-        html`<nimble-anchor-tab></nimble-anchor-tab>`
+        html`<${anchorTabTag}></${anchorTabTag}>`
     );
 }
 

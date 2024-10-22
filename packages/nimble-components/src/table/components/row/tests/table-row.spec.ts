@@ -40,8 +40,8 @@ describe('TableRow', () => {
         // prettier-ignore
         async function setup(): Promise<Fixture<TableRow<SimpleTableRecord>>> {
             return await fixture<TableRow<SimpleTableRecord>>(
-                html`<nimble-table-row>
-                    </nimble-table-row>`
+                html`<${tableRowTag}>
+                    </${tableRowTag}>`
             );
         }
 

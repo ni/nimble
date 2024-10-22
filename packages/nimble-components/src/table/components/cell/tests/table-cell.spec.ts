@@ -29,8 +29,8 @@ class TestTableColumnCellView extends TableCellView<SimpleTableCellRecord> {}
 // prettier-ignore
 async function setup(): Promise<Fixture<TableCell<SimpleTableCellRecord>>> {
     return await fixture<TableCell<SimpleTableCellRecord>>(
-        html`<nimble-table-cell>
-            </nimble-table-cell>`
+        html`<${tableCellTag}>
+            </${tableCellTag}>`
     );
 }
 

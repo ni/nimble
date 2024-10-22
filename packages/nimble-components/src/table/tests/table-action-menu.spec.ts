@@ -4,7 +4,7 @@ import {
     keyArrowUp,
     keyEscape
 } from '@microsoft/fast-web-utilities';
-import type { Table } from '..';
+import { tableTag, type Table } from '..';
 import type { TableColumn } from '../../table-column/base';
 import { menuTag, type Menu } from '../../menu';
 import { menuItemTag, type MenuItem } from '../../menu-item';
@@ -18,6 +18,8 @@ import {
 } from '../types';
 import { TablePageObject } from '../testing/table.pageobject';
 import { tableRowTag } from '../components/row';
+import { tableColumnTextTag } from '../../table-column/text';
+import { iconCheckTag } from '../../icons/check';
 
 interface SimpleTableRecord extends TableRecord {
     stringData: string;
@@ -50,12 +52,12 @@ const simpleTableData = [
 // prettier-ignore
 async function setup(): Promise<Fixture<Table<SimpleTableRecord>>> {
     return await fixture<Table<SimpleTableRecord>>(
-        html`<nimble-table>
-            <nimble-table-column-text id="first-column" field-name="stringData">stringData</nimble-table-column-text>
-            <nimble-table-column-text id="second-column" field-name="moreStringData">
-                <nimble-icon-check></nimble-icon-check>
-            </nimble-table-column-text>
-        </nimble-table>`
+        html`<${tableTag}>
+            <${tableColumnTextTag} id="first-column" field-name="stringData">stringData</${tableColumnTextTag}>
+            <${tableColumnTextTag} id="second-column" field-name="moreStringData">
+                <${iconCheckTag}></${iconCheckTag}>
+            </${tableColumnTextTag}>
+        </${tableTag}>`
     );
 }
 

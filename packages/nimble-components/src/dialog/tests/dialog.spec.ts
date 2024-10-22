@@ -9,12 +9,12 @@ async function setup<CloseReason = void>(
     preventDismiss = false
 ): Promise<Fixture<Dialog<CloseReason>>> {
     const viewTemplate = html`
-        <nimble-dialog ?prevent-dismiss="${() => preventDismiss}">
-            <nimble-button id="ok">OK</nimble-button>
-            <nimble-button id="cancel">Cancel</nimble-button>
-        </nimble-dialog>
-        <nimble-button id="button1">Button 1</nimble-button>
-        <nimble-button id="button2">Button 2</nimble-button>
+        <${dialogTag} ?prevent-dismiss="${() => preventDismiss}">
+            <${buttonTag} id="ok">OK</${buttonTag}>
+            <${buttonTag} id="cancel">Cancel</${buttonTag}>
+        </${dialogTag}>
+        <${buttonTag} id="button1">Button 1</${buttonTag}>
+        <${buttonTag} id="button2">Button 2</${buttonTag}>
     `;
     return await fixture<Dialog<CloseReason>>(viewTemplate);
 }

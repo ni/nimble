@@ -31,11 +31,11 @@ describe('AnchorTabs', () => {
     describe('without hrefs', () => {
         async function setup(): Promise<Fixture<AnchorTabs>> {
             return await fixture<AnchorTabs>(
-                html`<nimble-anchor-tabs activeid="tab-two">
-                    <nimble-anchor-tab></nimble-anchor-tab>
-                    <nimble-anchor-tab id="tab-two"></nimble-anchor-tab>
-                    <nimble-anchor-tab id="tab-three"></nimble-anchor-tab>
-                </nimble-anchor-tabs>`
+                html`<${anchorTabsTag} activeid="tab-two">
+                    <${anchorTabTag}></${anchorTabTag}>
+                    <${anchorTabTag} id="tab-two"></${anchorTabTag}>
+                    <${anchorTabTag} id="tab-three"></${anchorTabTag}>
+                </${anchorTabsTag}>`
             );
         }
 
@@ -153,17 +153,17 @@ describe('AnchorTabs', () => {
     describe('with hrefs', () => {
         async function setupWithHrefs(): Promise<Fixture<AnchorTabs>> {
             return await fixture<AnchorTabs>(
-                html`<nimble-anchor-tabs activeid="tab-two">
-                    <nimble-anchor-tab href="foo"></nimble-anchor-tab>
-                    <nimble-anchor-tab
+                html`<${anchorTabsTag} activeid="tab-two">
+                    <${anchorTabTag} href="foo"></${anchorTabTag}>
+                    <${anchorTabTag}
                         href="foo"
                         id="tab-two"
-                    ></nimble-anchor-tab>
-                    <nimble-anchor-tab
+                    ></${anchorTabTag}>
+                    <${anchorTabTag}
                         href="foo"
                         id="tab-three"
-                    ></nimble-anchor-tab>
-                </nimble-anchor-tabs>`
+                    ></${anchorTabTag}>
+                </${anchorTabsTag}>`
             );
         }
 

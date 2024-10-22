@@ -17,9 +17,9 @@ describe('ListboxOption', () => {
 
         async function setup(): Promise<Fixture<ListOption>> {
             return await fixture<ListOption>(
-                html`<nimble-list-option style="width: 200px">
+                html`<${listOptionTag} style="width: 200px">
                     Item 1
-                </nimble-list-option>`
+                </${listOptionTag}>`
             );
         }
 

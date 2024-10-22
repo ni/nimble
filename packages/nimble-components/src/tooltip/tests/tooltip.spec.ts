@@ -8,7 +8,7 @@ import { iconExclamationMarkTag } from '../../icons/exclamation-mark';
 import { iconInfoTag } from '../../icons/info';
 
 async function setup(): Promise<Fixture<Tooltip>> {
-    return await fixture<Tooltip>(html`<nimble-tooltip></nimble-tooltip>`);
+    return await fixture<Tooltip>(html`<${tooltipTag}></${tooltipTag}>`);
 }
 
 describe('Tooltip', () => {

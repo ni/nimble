@@ -2,11 +2,12 @@ import { customElement, html, ref } from '@microsoft/fast-element';
 import { MenuItem as FoundationMenuItem } from '@microsoft/fast-foundation';
 import { parameterizeSpec } from '@ni/jasmine-parameterized';
 import { AnchorMenuItem, anchorMenuItemTag } from '..';
-import type { IconCheck } from '../../icons/check';
-import type { IconXmark } from '../../icons/xmark';
-import type { Menu } from '../../menu';
+import { iconCheckTag, type IconCheck } from '../../icons/check';
+import { iconXmarkTag, type IconXmark } from '../../icons/xmark';
+import { menuTag, type Menu } from '../../menu';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import { fixture, Fixture } from '../../utilities/tests/fixture';
+import { menuItemTag } from '../../menu-item';
 
 @customElement('foundation-menu-item')
 export class TestMenuItem extends FoundationMenuItem {}
@@ -20,16 +21,16 @@ describe('Anchor Menu Item', () => {
 
         async function setup(source: Model): Promise<Fixture<AnchorMenuItem>> {
             return await fixture<AnchorMenuItem>(
-                html`<nimble-anchor-menu-item href="#">
-                    <nimble-xmark-icon
+                html`<${anchorMenuItemTag} href="#">
+                    <${iconXmarkTag}
                         ${ref('xmarkIcon')}
                         slot="start"
-                    ></nimble-xmark-icon>
-                    <nimble-check-icon
+                    ></${iconXmarkTag}>
+                    <${iconCheckTag}
                         ${ref('checkIcon')}
                         slot="end"
-                    ></nimble-check-icon>
-                </nimble-anchor-menu-item>`,
+                    ></${iconCheckTag}>
+                </${anchorMenuItemTag}>`,
                 { source }
             );
         }
@@ -118,32 +119,32 @@ describe('Anchor Menu Item', () => {
         async function setup(source: Model): Promise<Fixture<Menu>> {
             return await fixture<Menu>(
                 html`
-                    <nimble-menu>
-                        <nimble-menu-item>
-                            <nimble-icon-xmark slot="start"></nimble-icon-xmark>
+                    <${menuTag}>
+                        <${menuItemTag}>
+                            <${iconXmarkTag} slot="start"></${iconXmarkTag}>
                             Item 1
-                        </nimble-menu-item>
-                        <nimble-anchor-menu-item ${ref('item2')} href="a"
-                            >Item 2</nimble-anchor-menu-item
+                        </${menuItemTag}>
+                        <${anchorMenuItemTag} ${ref('item2')} href="a"
+                            >Item 2</${anchorMenuItemTag}
                         >
-                        <nimble-anchor-menu-item ${ref('item3')} href="b"
-                            >Item 3</nimble-anchor-menu-item
+                        <${anchorMenuItemTag} ${ref('item3')} href="b"
+                            >Item 3</${anchorMenuItemTag}
                         >
-                        <nimble-menu-item>
-                            <nimble-menu>
-                                <nimble-menu-item>Item 4.1</nimble-menu-item>
-                                <nimble-anchor-menu-item
+                        <${menuItemTag}>
+                            <${menuTag}>
+                                <${menuItemTag}>Item 4.1</${menuItemTag}>
+                                <${anchorMenuItemTag}
                                     ${ref('item4dot2')}
                                     href="c"
-                                    >Item 4.2</nimble-anchor-menu-item
+                                    >Item 4.2</${anchorMenuItemTag}
                                 >
-                                <nimble-anchor-menu-item href="d"
-                                    >Item 4.3</nimble-anchor-menu-item
+                                <${anchorMenuItemTag} href="d"
+                                    >Item 4.3</${anchorMenuItemTag}
                                 >
-                            </nimble-menu>
+                            </${menuTag}>
                             Item 4
-                        </nimble-menu-item>
-                    </nimble-menu>
+                        </${menuItemTag}>
+                    </${menuTag}>
                 `,
                 { source }
             );

@@ -15,7 +15,7 @@ import {
     TableRowSelectionState
 } from '../types';
 import { TablePageObject } from '../testing/table.pageobject';
-import type { TableColumnText } from '../../table-column/text';
+import { tableColumnTextTag, type TableColumnText } from '../../table-column/text';
 
 interface SimpleTableRecord extends TableRecord {
     id: string;
@@ -210,10 +210,10 @@ const hierarchicalData = [
 // prettier-ignore
 async function setup(): Promise<Fixture<Table<SimpleTableRecord>>> {
     return await fixture<Table<SimpleTableRecord>>(
-        html`<nimble-table>
-            <nimble-table-column-text id="column1" field-name="stringData">stringData</nimble-table-column-text>
-            <nimble-table-column-text id="column2" field-name="stringData2">stringData2</nimble-table-column-text>
-        </nimble-table>`
+        html`<${tableTag}>
+            <${tableColumnTextTag} id="column1" field-name="stringData">stringData</${tableColumnTextTag}>
+            <${tableColumnTextTag} id="column2" field-name="stringData2">stringData2</${tableColumnTextTag}>
+        </${tableTag}>`
     );
 }
 
