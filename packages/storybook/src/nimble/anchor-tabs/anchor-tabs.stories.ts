@@ -1,4 +1,4 @@
-import { html, when } from '@microsoft/fast-element';
+import { html, repeat, when } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
 import { anchorTabTag } from '../../../../nimble-components/src/anchor-tab';
 import { tabsToolbarTag } from '../../../../nimble-components/src/tabs-toolbar';
@@ -10,10 +10,12 @@ import {
     disabledDescription
 } from '../../utilities/storybook';
 import { hrefDescription } from '../patterns/anchor/anchor-docs';
+import { ExampleTabsType } from '../patterns/tabs/types';
 
 interface AnchorTabsArgs {
     activeid: string;
     content: undefined;
+    tabsType: ExampleTabsType;
 }
 
 interface AnchorTabArgs {
@@ -27,6 +29,44 @@ interface ToolbarArgs {
     toolbar: boolean;
 }
 
+const simpleTabs: readonly AnchorTabArgs[] = [
+    { title: 'Google', id: '1', disabled: true, href: 'https://www.google.com' },
+    { title: 'NI', id: '2', disabled: false, href: 'https://www.ni.com' },
+    { title: 'Nimble', id: '3', disabled: false, href: 'https://nimble.ni.dev' }
+] as const;
+
+const wideTabs: readonly AnchorTabArgs[] = [
+    {
+        title: 'Tab 1 that is too long to fit in the drop down width',
+        id: '0',
+        disabled: false,
+        href: 'https://nimble.ni.dev'
+    },
+    {
+        title: 'Tab 2 that is also too long but disabled',
+        id: '1',
+        disabled: true,
+        href: 'https://nimble.ni.dev'
+    },
+    { title: 'Short', id: '2', disabled: false, href: 'https://nimble.ni.dev' }
+] as const;
+
+const manyTabs: AnchorTabArgs[] = [];
+for (let i = 0; i < 100; i++) {
+    manyTabs.push({
+        title: `Tab ${i}`,
+        id: `${i}`,
+        disabled: false,
+        href: 'https://nimble.ni.dev'
+    });
+}
+
+const tabSets = {
+    [ExampleTabsType.simpleTabs]: simpleTabs,
+    [ExampleTabsType.wideTabs]: wideTabs,
+    [ExampleTabsType.manyTabs]: manyTabs
+} as const;
+
 const metadata: Meta<AnchorTabsArgs> = {
     title: 'Components/Anchor Tabs'
 };
@@ -36,9 +76,15 @@ export default metadata;
 export const anchorTabs: StoryObj<AnchorTabsArgs> = {
     render: createUserSelectedThemeStory(html`
     <${anchorTabsTag} activeid="${x => x.activeid}">
-        <${anchorTabTag} id="1" disabled href="https://www.google.com">Google</${anchorTabTag}>
-        <${anchorTabTag} id="2" href="https://www.ni.com">NI</${anchorTabTag}>
-        <${anchorTabTag} id="3" href="https://nimble.ni.dev">Nimble</${anchorTabTag}>
+        ${repeat(x => (tabSets[x.tabsType] as AnchorTabArgs[]), html<AnchorTabArgs>`
+            <${anchorTabTag}
+                ?disabled="${x => x.disabled}"
+                id="${x => x.id}"
+                href="${x => x.href}"
+            >
+                ${x => x.title}
+            </${anchorTabTag}>
+        `)}
     </${anchorTabsTag}>
     `),
     argTypes: {
@@ -48,16 +94,25 @@ export const anchorTabs: StoryObj<AnchorTabsArgs> = {
             description: `The \`id\` of the \`${anchorTabTag}\` that should be indicated as currently active/selected. It is the application's responsibility to set \`activeid\` to the tab matching the currently loaded URL.`,
             table: { category: apiCategory.attributes }
         },
-        content: {
+        tabsType: {
             name: 'default',
             description:
                 'Add tabs or a toolbar by slotting them as child content in the default slot.',
-            control: false,
+            options: Object.values(ExampleTabsType),
+            control: {
+                type: 'radio',
+                labels: {
+                    [ExampleTabsType.simpleTabs]: 'Simple tabs',
+                    [ExampleTabsType.manyTabs]: 'Many tabs',
+                    [ExampleTabsType.wideTabs]: 'Wide tabs'
+                }
+            },
             table: { category: apiCategory.slots }
         }
     },
     args: {
-        activeid: 'None'
+        activeid: 'None',
+        tabsType: ExampleTabsType.simpleTabs
     }
 };
 

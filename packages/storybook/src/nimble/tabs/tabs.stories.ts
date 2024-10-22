@@ -11,7 +11,7 @@ import {
     createUserSelectedThemeStory,
     disabledDescription
 } from '../../utilities/storybook';
-import { ExampleTabsType } from './types';
+import { ExampleTabsType } from '../patterns/tabs/types';
 
 interface TabsArgs {
     activeid: string;
@@ -45,9 +45,9 @@ const metadata: Meta<TabsArgs> = {
 };
 
 const simpleTabs: readonly TabArgs[] = [
-    { title: 'Tab 1', id: '0', disabled: false },
-    { title: 'Tab 2', id: '1', disabled: true },
-    { title: 'Tab 3', id: '2', disabled: false }
+    { title: 'Tab 1', id: '1', disabled: false },
+    { title: 'Tab 2', id: '2', disabled: true },
+    { title: 'Tab 3', id: '3', disabled: false }
 ] as const;
 
 const wideTabs: readonly TabArgs[] = [
