@@ -49,6 +49,19 @@ describe('Tabs', () => {
         await disconnect();
     });
 
+    it('clicking on a tab that is completely in view should not scroll the tablist', async () => {
+        const { element, connect, disconnect } = await setup();
+        await connect();
+        const tabsPageObject = new TabsPageObject(element);
+        await tabsPageObject.setTabsWidth(300);
+        await waitForUpdatesAsync(); // wait for the resize observer to fire
+        await tabsPageObject.clickTab(2); // clicks the third tab
+        await waitForUpdatesAsync();
+        expect(element.shadowRoot!.querySelector('.tablist')!.scrollLeft).toBe(0);
+
+        await disconnect();
+    });
+
     describe('Scroll buttons', () => {
         let tabsPageObject: TabsPageObject;
         let element: Tabs;
