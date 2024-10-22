@@ -43,13 +43,13 @@ const simpleTabs: readonly AnchorTabArgs[] = [
 const wideTabs: readonly AnchorTabArgs[] = [
     {
         title: 'Tab 1 that is too long to fit in the drop down width',
-        id: '0',
+        id: '1',
         disabled: false,
         href: 'https://nimble.ni.dev'
     },
     {
         title: 'Tab 2 that is also too long but disabled',
-        id: '1',
+        id: '2',
         disabled: true,
         href: 'https://nimble.ni.dev'
     },

@@ -52,22 +52,22 @@ const simpleTabs: readonly TabArgs[] = [
 
 const wideTabs: readonly TabArgs[] = [
     {
-        title: 'Option 1 that is too long to fit in the drop down width',
-        id: '0',
+        title: 'Tab 1 that is too long to fit in the drop down width',
+        id: '1',
         disabled: false
     },
     {
-        title: 'Option 2 that is also too long but disabled',
-        id: '1',
+        title: 'Tab 2 that is also too long but disabled',
+        id: '2',
         disabled: true
     },
-    { title: 'Short', id: '2', disabled: false }
+    { title: 'Short', id: '3', disabled: false }
 ] as const;
 
 const manyTabs: TabArgs[] = [];
 for (let i = 0; i < 100; i++) {
     manyTabs.push({
-        title: `Option ${i}`,
+        title: `Tab ${i}`,
         id: `${i}`,
         disabled: false
     });
@@ -93,8 +93,8 @@ export const tabs: StoryObj<TabsArgs> = {
                 ${x => x.title}
             </${tabTag}>
         `)}
-        ${repeat(x => (tabSets[x.tabsType] as TabArgs[]), html<TabPanelArgs>`
-            <${tabPanelTag}>Content of tab ${((_, c) => c.index)}</${tabPanelTag}>
+        ${repeat(x => (tabSets[x.tabsType] as TabArgs[]), html<TabArgs>`
+            <${tabPanelTag}>Content of tab ${x => x.id}</${tabPanelTag}>
         `, { positioning: true })}
         </${tabsTag}>
     `),
