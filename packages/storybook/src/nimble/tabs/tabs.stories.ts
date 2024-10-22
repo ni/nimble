@@ -76,7 +76,7 @@ for (let i = 0; i < 100; i++) {
 const tabSets = {
     [ExampleTabsType.simpleTabs]: simpleTabs,
     [ExampleTabsType.wideTabs]: wideTabs,
-    [ExampleTabsType.manyTabs]: manyTabs,
+    [ExampleTabsType.manyTabs]: manyTabs
 } as const;
 
 export default metadata;
