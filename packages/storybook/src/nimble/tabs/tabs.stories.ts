@@ -44,7 +44,7 @@ const metadata: Meta<TabsArgs> = {
     }
 };
 
-const simpleTabs: readonly TabArgs[] = [
+const simpleTabs = [
     { title: 'Tab 1', id: '1', disabled: false },
     { title: 'Tab 2', id: '2', disabled: true },
     { title: 'Tab 3', id: '3', disabled: false }
