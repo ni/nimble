@@ -29,7 +29,7 @@ interface ToolbarArgs {
     toolbar: boolean;
 }
 
-const simpleTabs: readonly AnchorTabArgs[] = [
+const simpleTabs = [
     {
         title: 'Google',
         id: '1',
