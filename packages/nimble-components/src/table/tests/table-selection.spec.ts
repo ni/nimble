@@ -15,7 +15,10 @@ import {
     TableRowSelectionState
 } from '../types';
 import { TablePageObject } from '../testing/table.pageobject';
-import { tableColumnTextTag, type TableColumnText } from '../../table-column/text';
+import {
+    tableColumnTextTag,
+    type TableColumnText
+} from '../../table-column/text';
 
 interface SimpleTableRecord extends TableRecord {
     id: string;

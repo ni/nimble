@@ -9,7 +9,10 @@ import {
     LabelProviderTable,
     labelProviderTableTag
 } from '../../label-provider/table';
-import { tableColumnTextTag, type TableColumnText } from '../../table-column/text';
+import {
+    tableColumnTextTag,
+    type TableColumnText
+} from '../../table-column/text';
 import { tableGroupRowTag } from '../components/group-row';
 import { menuTag } from '../../menu';
 import { menuItemTag } from '../../menu-item';
