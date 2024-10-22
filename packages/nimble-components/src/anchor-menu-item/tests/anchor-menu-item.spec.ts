@@ -1,7 +1,7 @@
 import { customElement, html, ref } from '@microsoft/fast-element';
 import { MenuItem as FoundationMenuItem } from '@microsoft/fast-foundation';
 import { parameterizeSpec } from '@ni/jasmine-parameterized';
-import { AnchorMenuItem } from '..';
+import { AnchorMenuItem, anchorMenuItemTag } from '..';
 import type { IconCheck } from '../../icons/check';
 import type { IconXmark } from '../../icons/xmark';
 import type { Menu } from '../../menu';
@@ -49,9 +49,9 @@ describe('Anchor Menu Item', () => {
         });
 
         it('can construct an element instance', () => {
-            expect(
-                document.createElement('nimble-anchor-menu-item')
-            ).toBeInstanceOf(AnchorMenuItem);
+            expect(document.createElement(anchorMenuItemTag)).toBeInstanceOf(
+                AnchorMenuItem
+            );
         });
 
         it('should set the role to menuitem', async () => {

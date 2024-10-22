@@ -102,15 +102,13 @@ export const blankListOption: StoryFn = createStory(
 
 const playFunction = async (): Promise<void> => {
     await Promise.all(
-        Array.from(document.querySelectorAll<Select>('nimble-select')).map(
-            async select => {
-                const arrowDownEvent = new KeyboardEvent('keydown', {
-                    key: keyArrowDown
-                });
-                select.dispatchEvent(arrowDownEvent);
-                await waitForUpdatesAsync();
-            }
-        )
+        Array.from(document.querySelectorAll(selectTag)).map(async select => {
+            const arrowDownEvent = new KeyboardEvent('keydown', {
+                key: keyArrowDown
+            });
+            select.dispatchEvent(arrowDownEvent);
+            await waitForUpdatesAsync();
+        })
     );
 };
 

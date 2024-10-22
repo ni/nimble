@@ -1,7 +1,7 @@
 import { customElement, html, ref } from '@microsoft/fast-element';
 import { TreeItem as FoundationTreeItem } from '@microsoft/fast-foundation';
 import { parameterizeSpec } from '@ni/jasmine-parameterized';
-import { AnchorTreeItem } from '..';
+import { AnchorTreeItem, anchorTreeItemTag } from '..';
 import type { IconCheck } from '../../icons/check';
 import type { IconXmark } from '../../icons/xmark';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
@@ -50,9 +50,9 @@ describe('Anchor Tree Item', () => {
         });
 
         it('can construct an element instance', () => {
-            expect(
-                document.createElement('nimble-anchor-tree-item')
-            ).toBeInstanceOf(AnchorTreeItem);
+            expect(document.createElement(anchorTreeItemTag)).toBeInstanceOf(
+                AnchorTreeItem
+            );
         });
 
         it('should set the role to treeitem', async () => {

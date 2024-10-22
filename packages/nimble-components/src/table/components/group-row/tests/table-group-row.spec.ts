@@ -1,5 +1,5 @@
 import { html } from '@microsoft/fast-element';
-import { TableGroupRow } from '..';
+import { TableGroupRow, tableGroupRowTag } from '..';
 import { waitForEvent } from '../../../../utilities/testing/component';
 import { fixture, Fixture } from '../../../../utilities/tests/fixture';
 import { waitForUpdatesAsync } from '../../../../testing/async-helpers';
@@ -33,8 +33,9 @@ describe('TableGroupRow', () => {
     });
 
     it('can construct an element instance', () => {
-        // prettier-ignore
-        expect(document.createElement('nimble-table-group-row')).toBeInstanceOf(TableGroupRow);
+        expect(document.createElement(tableGroupRowTag)).toBeInstanceOf(
+            TableGroupRow
+        );
     });
 
     it('should have role of row', async () => {

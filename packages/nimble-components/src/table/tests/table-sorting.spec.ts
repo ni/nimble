@@ -1,6 +1,9 @@
 import { html } from '@microsoft/fast-element';
 import type { Table } from '..';
-import type { TableColumnText } from '../../table-column/text';
+import {
+    tableColumnTextTag,
+    type TableColumnText
+} from '../../table-column/text';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import { type Fixture, fixture } from '../../utilities/tests/fixture';
 import {
@@ -707,9 +710,7 @@ describe('Table sorting', () => {
             element.removeChild(column2);
             element.removeChild(column3);
 
-            const newColumn = document.createElement(
-                'nimble-table-column-text'
-            );
+            const newColumn = document.createElement(tableColumnTextTag);
             newColumn.fieldName = fieldName;
             if (sortDirection !== TableColumnSortDirection.none) {
                 newColumn.sortDirection = sortDirection;

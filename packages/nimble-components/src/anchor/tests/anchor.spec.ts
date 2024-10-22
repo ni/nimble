@@ -21,12 +21,8 @@ describe('Anchor', () => {
         await disconnect();
     });
 
-    it('should export its tag', () => {
-        expect(anchorTag).toBe('nimble-anchor');
-    });
-
     it('can construct an element instance', () => {
-        expect(document.createElement('nimble-anchor')).toBeInstanceOf(Anchor);
+        expect(document.createElement(anchorTag)).toBeInstanceOf(Anchor);
     });
 
     it('should set the "control" class on the internal control', async () => {

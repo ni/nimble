@@ -31,6 +31,9 @@ import {
 } from '../../table-column/base/tests/table-column.fixtures';
 import type { ColumnInternalsOptions } from '../../table-column/base/models/column-internals';
 import { ColumnValidator } from '../../table-column/base/models/column-validator';
+import { menuTag } from '../../menu';
+import { menuItemTag } from '../../menu-item';
+import { tableRowTag } from '../components/row';
 
 interface SimpleTableRecord extends TableRecord {
     stringData: string;
@@ -163,9 +166,7 @@ describe('Table', () => {
         });
 
         it('can construct an element instance', () => {
-            expect(document.createElement('nimble-table')).toBeInstanceOf(
-                Table
-            );
+            expect(document.createElement(tableTag)).toBeInstanceOf(Table);
         });
 
         it('element has a role of "treegrid"', async () => {
@@ -754,8 +755,8 @@ describe('Table', () => {
             it('and closes open action menus when a scroll happens', async () => {
                 const slot = 'my-action-menu';
                 column1.actionMenuSlot = slot;
-                const menu = document.createElement('nimble-menu');
-                const menuItem1 = document.createElement('nimble-menu-item');
+                const menu = document.createElement(menuTag);
+                const menuItem1 = document.createElement(menuItemTag);
                 menuItem1.textContent = 'menu item 1';
                 menu.appendChild(menuItem1);
                 menu.slot = slot;
@@ -888,7 +889,7 @@ describe('Table', () => {
 
                 // Verify the slot name is updated
                 const rowSlots = element
-                    .shadowRoot!.querySelectorAll('nimble-table-row')
+                    .shadowRoot!.querySelectorAll(tableRowTag)
                     ?.item(1)
                     .querySelectorAll<HTMLSlotElement>('slot');
                 expect(rowSlots.length).toBe(1);

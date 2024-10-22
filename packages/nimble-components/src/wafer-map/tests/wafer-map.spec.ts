@@ -1,7 +1,7 @@
 import { html } from '@microsoft/fast-element';
 import { Table, tableFromArrays } from 'apache-arrow';
 import type { Remote } from 'comlink';
-import { WaferMap } from '..';
+import { WaferMap, waferMapTag } from '..';
 import {
     processUpdates,
     waitForUpdatesAsync
@@ -32,9 +32,7 @@ describe('WaferMap', () => {
     });
 
     it('can construct an element instance', () => {
-        expect(document.createElement('nimble-wafer-map')).toBeInstanceOf(
-            WaferMap
-        );
+        expect(document.createElement(waferMapTag)).toBeInstanceOf(WaferMap);
     });
 
     describe('update action', () => {

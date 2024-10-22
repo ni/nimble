@@ -72,7 +72,7 @@ if (remaining.length > 0) {
 }
 
 const playFunction = async (): Promise<void> => {
-    const table = document.querySelector<Table>('nimble-table')!;
+    const table = document.querySelector(tableTag)!;
     await table.setData(data);
     await waitForUpdatesAsync();
 

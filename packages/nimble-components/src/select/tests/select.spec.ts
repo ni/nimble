@@ -961,12 +961,8 @@ describe('Select', () => {
         });
     });
 
-    it('should export its tag', () => {
-        expect(selectTag).toBe('nimble-select');
-    });
-
     it('can construct an element instance', () => {
-        expect(document.createElement('nimble-select')).toBeInstanceOf(Select);
+        expect(document.createElement(selectTag)).toBeInstanceOf(Select);
     });
 
     describe('title overflow', () => {

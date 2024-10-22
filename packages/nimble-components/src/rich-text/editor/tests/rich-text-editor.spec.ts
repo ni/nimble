@@ -5,7 +5,7 @@ import { type Fixture, fixture } from '../../../utilities/tests/fixture';
 import { RichTextEditorPageObject } from '../testing/rich-text-editor.pageobject';
 import { wackyStrings } from '../../../utilities/tests/wacky-strings';
 import type { Button } from '../../../button';
-import type { ToggleButton } from '../../../toggle-button';
+import { toggleButtonTag, type ToggleButton } from '../../../toggle-button';
 import { ToolbarButton } from '../testing/types';
 import { waitForEvent } from '../../../utilities/testing/component';
 import { waitForUpdatesAsync } from '../../../testing/async-helpers';
@@ -44,13 +44,9 @@ describe('RichTextEditor', () => {
     });
 
     it('can construct an element instance', () => {
-        expect(
-            document.createElement('nimble-rich-text-editor')
-        ).toBeInstanceOf(RichTextEditor);
-    });
-
-    it('should export its tag', () => {
-        expect(richTextEditorTag).toBe('nimble-rich-text-editor');
+        expect(document.createElement(richTextEditorTag)).toBeInstanceOf(
+            RichTextEditor
+        );
     });
 
     it('should initialize Tiptap editor', () => {
@@ -245,9 +241,7 @@ describe('RichTextEditor', () => {
             spec(
                 `"${name}" button not propagate change event to parent element`,
                 () => {
-                    const buttons: NodeListOf<ToggleButton> = element.shadowRoot!.querySelectorAll(
-                        'nimble-toggle-button'
-                    );
+                    const buttons: NodeListOf<ToggleButton> = element.shadowRoot!.querySelectorAll(toggleButtonTag);
                     const button = buttons[value.toolbarButtonIndex];
                     const buttonParent = button!.parentElement;
                     const spy = jasmine.createSpy();

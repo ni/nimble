@@ -11,6 +11,8 @@ import {
 } from '../../label-provider/table';
 import type { TableColumnText } from '../../table-column/text';
 import { tableGroupRowTag } from '../components/group-row';
+import { menuTag } from '../../menu';
+import { menuItemTag } from '../../menu-item';
 
 interface SimpleTableRecord extends TableRecord {
     stringData: string;
@@ -110,8 +112,8 @@ describe('Table with LabelProviderTable', () => {
     it('uses correct labels when a column has an action menu (cellActionMenu)', async () => {
         const slot = 'my-action-menu';
         column1.actionMenuSlot = slot;
-        const menu = document.createElement('nimble-menu');
-        const menuItem1 = document.createElement('nimble-menu-item');
+        const menu = document.createElement(menuTag);
+        const menuItem1 = document.createElement(menuItemTag);
         menuItem1.textContent = 'menu item 1';
         menu.appendChild(menuItem1);
         menu.slot = slot;

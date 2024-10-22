@@ -1,5 +1,5 @@
 import { html, customElement } from '@microsoft/fast-element';
-import { TableCell } from '..';
+import { TableCell, tableCellTag } from '..';
 import { waitForUpdatesAsync } from '../../../../testing/async-helpers';
 import {
     fixture,
@@ -51,8 +51,7 @@ describe('TableCell', () => {
     });
 
     it('can construct an element instance', () => {
-        // prettier-ignore
-        expect(document.createElement('nimble-table-cell')).toBeInstanceOf(TableCell);
+        expect(document.createElement(tableCellTag)).toBeInstanceOf(TableCell);
     });
 
     it('renders correct cell view type', async () => {

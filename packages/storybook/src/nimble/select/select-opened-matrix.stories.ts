@@ -221,7 +221,7 @@ export const selectAboveOpenStandardFilterDarkThemeBlackBackground: StoryFn = cr
 );
 
 const noMatchesFilterPlayFunction = (): void => {
-    const select = document.querySelector<Select>('nimble-select');
+    const select = document.querySelector(selectTag);
     select!.filter = 'abc';
 };
 

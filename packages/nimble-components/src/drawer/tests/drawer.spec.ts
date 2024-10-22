@@ -1,12 +1,13 @@
 import { html } from '@microsoft/fast-element';
 import { eventAnimationEnd } from '@microsoft/fast-web-utilities';
 import { fixture, Fixture } from '../../utilities/tests/fixture';
-import { Drawer, UserDismissed } from '..';
+import { Drawer, drawerTag, UserDismissed } from '..';
 import { DrawerLocation } from '../types';
 import {
     processUpdates,
     waitForUpdatesAsync
 } from '../../testing/async-helpers';
+import { buttonTag } from '../../button';
 
 // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 async function setup<CloseReason = void>(
@@ -65,9 +66,7 @@ describe('Drawer', () => {
         });
 
         it('can construct an element instance', () => {
-            expect(document.createElement('nimble-drawer')).toBeInstanceOf(
-                Drawer
-            );
+            expect(document.createElement(drawerTag)).toBeInstanceOf(Drawer);
         });
 
         it('should default the location to right', () => {
@@ -252,8 +251,8 @@ describe('Drawer', () => {
 
         // Some browsers skipped, see: https://github.com/ni/nimble/issues/1936
         it('supports opening multiple drawers on top of each other #SkipFirefox #SkipWebkit', () => {
-            const secondDrawer = document.createElement('nimble-drawer');
-            const secondDrawerButton = document.createElement('nimble-button');
+            const secondDrawer = document.createElement(drawerTag);
+            const secondDrawerButton = document.createElement(buttonTag);
             secondDrawer.append(secondDrawerButton);
             element.parentElement!.append(secondDrawer);
             void element.show();

@@ -3,9 +3,9 @@ import { eventChange, keyEnter } from '@microsoft/fast-web-utilities';
 import { FoundationElement } from '@microsoft/fast-foundation';
 import { parameterizeSuite } from '@ni/jasmine-parameterized';
 import { fixture, Fixture } from '../../utilities/tests/fixture';
-import type { Menu } from '../../menu';
-import type { MenuItem } from '../../menu-item';
-import { MenuButton } from '..';
+import { menuTag, type Menu } from '../../menu';
+import { menuItemTag, type MenuItem } from '../../menu-item';
+import { MenuButton, menuButtonTag } from '..';
 import { MenuButtonToggleEventDetail, MenuButtonPosition } from '../types';
 import {
     processUpdates,
@@ -13,6 +13,7 @@ import {
 } from '../../testing/async-helpers';
 import { waitForEvent } from '../../utilities/testing/component';
 import { MenuButtonPageObject } from '../testing/menu-button.pageobject';
+import { anchoredRegionTag } from '../../anchored-region';
 
 type MenuButtonToggleEventHandler = (
     evt: CustomEvent<MenuButtonToggleEventDetail>
@@ -46,18 +47,18 @@ describe('MenuButton', () => {
     let menuItem3: MenuItem;
 
     function createAndSlotMenu(parentElement: HTMLElement): void {
-        menu = document.createElement('nimble-menu');
+        menu = document.createElement(menuTag);
         menu.slot = 'menu';
 
-        menuItem1 = document.createElement('nimble-menu-item');
+        menuItem1 = document.createElement(menuItemTag);
         menuItem1.textContent = 'menu item 1';
         menu.appendChild(menuItem1);
 
-        menuItem2 = document.createElement('nimble-menu-item');
+        menuItem2 = document.createElement(menuItemTag);
         menuItem2.textContent = 'menu item 2';
         menu.appendChild(menuItem2);
 
-        menuItem3 = document.createElement('nimble-menu-item');
+        menuItem3 = document.createElement(menuItemTag);
         menuItem3.textContent = 'menu item 3';
         menu.appendChild(menuItem3);
 
@@ -81,7 +82,7 @@ describe('MenuButton', () => {
         });
 
         it('can construct an element instance', () => {
-            expect(document.createElement('nimble-menu-button')).toBeInstanceOf(
+            expect(document.createElement(menuButtonTag)).toBeInstanceOf(
                 MenuButton
             );
         });
@@ -188,7 +189,7 @@ describe('MenuButton', () => {
         it('anchored-region should not exist in DOM when the menu is closed', async () => {
             await connect();
             expect(
-                element.shadowRoot?.querySelector('nimble-anchored-region')
+                element.shadowRoot?.querySelector(anchoredRegionTag)
             ).toBeNull();
         });
 
@@ -196,7 +197,7 @@ describe('MenuButton', () => {
             element.open = true;
             await connect();
             expect(
-                element.shadowRoot?.querySelector('nimble-anchored-region')
+                element.shadowRoot?.querySelector(anchoredRegionTag)
             ).not.toBeNull();
         });
 
@@ -327,7 +328,7 @@ describe('MenuButton', () => {
         {
             name: 'menu passed through slot of additional element',
             setupFunction: slottedSetup,
-            getMenuButton: (element: HTMLElement) => element.shadowRoot!.querySelector('nimble-menu-button')!
+            getMenuButton: (element: HTMLElement) => element.shadowRoot!.querySelector(menuButtonTag)!
         }
     ] as const;
     parameterizeSuite(menuSlotConfigurations, (suite, name, value) => {

@@ -22,12 +22,8 @@ describe('Switch', () => {
         await disconnect();
     });
 
-    it('should export its tag', () => {
-        expect(switchTag).toBe('nimble-switch');
-    });
-
     it('can construct an element instance', () => {
-        expect(document.createElement('nimble-switch')).toBeInstanceOf(Switch);
+        expect(document.createElement(switchTag)).toBeInstanceOf(Switch);
     });
 
     it('should have a role of `switch`', async () => {

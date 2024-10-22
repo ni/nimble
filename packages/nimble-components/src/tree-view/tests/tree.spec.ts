@@ -71,14 +71,8 @@ describe('TreeView', () => {
         await disconnect();
     });
 
-    it('should export its tag', () => {
-        expect(treeViewTag).toBe('nimble-tree-view');
-    });
-
     it('can construct an element instance', () => {
-        expect(document.createElement('nimble-tree-view')).toBeInstanceOf(
-            TreeView
-        );
+        expect(document.createElement(treeViewTag)).toBeInstanceOf(TreeView);
     });
 
     it('should include a role of `tree`', () => {

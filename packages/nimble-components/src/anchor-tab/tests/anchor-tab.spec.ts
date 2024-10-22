@@ -1,6 +1,6 @@
 import { html } from '@microsoft/fast-element';
 import { parameterizeSpec } from '@ni/jasmine-parameterized';
-import { AnchorTab } from '..';
+import { AnchorTab, anchorTabTag } from '..';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import { Fixture, fixture } from '../../utilities/tests/fixture';
 
@@ -24,9 +24,7 @@ describe('AnchorTab', () => {
     });
 
     it('can construct an element instance', () => {
-        expect(document.createElement('nimble-anchor-tab')).toBeInstanceOf(
-            AnchorTab
-        );
+        expect(document.createElement(anchorTabTag)).toBeInstanceOf(AnchorTab);
     });
 
     const attributeNames = [

@@ -15,14 +15,8 @@ describe('Byte unit', () => {
     let connect: () => Promise<void>;
     let disconnect: () => Promise<void>;
 
-    it('should export its tag', () => {
-        expect(unitByteTag).toBe('nimble-unit-byte');
-    });
-
     it('can construct an element instance', () => {
-        expect(document.createElement('nimble-unit-byte')).toBeInstanceOf(
-            UnitByte
-        );
+        expect(document.createElement(unitByteTag)).toBeInstanceOf(UnitByte);
     });
 
     it('returns Byte1024UnitScale when "binary" attribute is set', async () => {

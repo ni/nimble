@@ -1,6 +1,9 @@
 import { html } from '@microsoft/fast-element';
 import type { Table } from '..';
-import type { TableColumnText } from '../../table-column/text';
+import {
+    tableColumnTextTag,
+    type TableColumnText
+} from '../../table-column/text';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import { type Fixture, fixture } from '../../utilities/tests/fixture';
 import { TableColumnSortDirection, TableRecord } from '../types';
@@ -513,9 +516,7 @@ describe('Table grouping', () => {
             element.removeChild(column1);
             element.removeChild(column2);
 
-            const newColumn = document.createElement(
-                'nimble-table-column-text'
-            );
+            const newColumn = document.createElement(tableColumnTextTag);
             newColumn.fieldName = fieldName;
             if (typeof groupIndex === 'number') {
                 newColumn.groupIndex = groupIndex;
@@ -531,9 +532,7 @@ describe('Table grouping', () => {
             fieldName: string,
             groupIndex?: number
         ): Promise<TableColumnText> {
-            const newColumn = document.createElement(
-                'nimble-table-column-text'
-            );
+            const newColumn = document.createElement(tableColumnTextTag);
             newColumn.columnId = columnId;
             newColumn.fieldName = fieldName;
             if (typeof groupIndex === 'number') {

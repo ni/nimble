@@ -106,10 +106,8 @@ export const tableColumnMappingThemeMatrix: StoryFn = createMatrixThemeStory(com
 
 tableColumnMappingThemeMatrix.play = async (): Promise<void> => {
     await Promise.all(
-        Array.from(document.querySelectorAll<Table>('nimble-table')).map(
-            async table => {
-                await table.setData(data);
-            }
-        )
+        Array.from(document.querySelectorAll(tableTag)).map(async table => {
+            await table.setData(data);
+        })
     );
 };

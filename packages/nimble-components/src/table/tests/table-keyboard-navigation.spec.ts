@@ -49,6 +49,7 @@ import type { ColumnInternalsOptions } from '../../table-column/base/models/colu
 import { ColumnValidator } from '../../table-column/base/models/column-validator';
 import { mixinSortableColumnAPI } from '../../table-column/mixins/sortable-column';
 import { MenuButtonPageObject } from '../../menu-button/testing/menu-button.pageobject';
+import { menuTag } from '../../menu';
 
 interface SimpleTableRecord extends TableRecord {
     id: string;
@@ -87,10 +88,10 @@ describe('Table keyboard navigation', () => {
         column.actionMenuSlot = `${column.id}-action-menu-slot`;
         column.actionMenuLabel = 'Actions';
 
-        const menu = document.createElement('nimble-menu');
+        const menu = document.createElement(menuTag);
         menu.slot = column.actionMenuSlot;
 
-        const menuItem1 = document.createElement('nimble-menu-item');
+        const menuItem1 = document.createElement(menuItemTag);
         menuItem1.textContent = 'menu item 1';
         menu.appendChild(menuItem1);
 

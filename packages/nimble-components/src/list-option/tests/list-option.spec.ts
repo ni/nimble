@@ -4,12 +4,8 @@ import { fixture, type Fixture } from '../../utilities/tests/fixture';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 
 describe('ListboxOption', () => {
-    it('should export its tag', () => {
-        expect(listOptionTag).toBe('nimble-list-option');
-    });
-
     it('can construct an element instance', () => {
-        expect(document.createElement('nimble-list-option')).toBeInstanceOf(
+        expect(document.createElement(listOptionTag)).toBeInstanceOf(
             ListOption
         );
     });

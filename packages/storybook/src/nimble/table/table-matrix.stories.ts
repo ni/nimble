@@ -121,28 +121,26 @@ const component = (
 
 const playFunction = async (): Promise<void> => {
     await Promise.all(
-        Array.from(document.querySelectorAll<Table>('nimble-table')).map(
-            async table => {
-                await table.setData(data);
-                await table.setRecordHierarchyOptions([
-                    {
-                        recordId: '0',
-                        options: {
-                            delayedHierarchyState:
-                                TableRecordDelayedHierarchyState.canLoadChildren
-                        }
-                    },
-                    {
-                        recordId: '1',
-                        options: {
-                            delayedHierarchyState:
-                                TableRecordDelayedHierarchyState.loadingChildren
-                        }
+        Array.from(document.querySelectorAll(tableTag)).map(async table => {
+            await table.setData(data);
+            await table.setRecordHierarchyOptions([
+                {
+                    recordId: '0',
+                    options: {
+                        delayedHierarchyState:
+                            TableRecordDelayedHierarchyState.canLoadChildren
                     }
-                ]);
-                await table.setSelectedRecordIds(['', '2']);
-            }
-        )
+                },
+                {
+                    recordId: '1',
+                    options: {
+                        delayedHierarchyState:
+                            TableRecordDelayedHierarchyState.loadingChildren
+                    }
+                }
+            ]);
+            await table.setSelectedRecordIds(['', '2']);
+        })
     );
 };
 
