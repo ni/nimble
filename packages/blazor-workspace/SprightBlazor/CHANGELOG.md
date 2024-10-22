@@ -1,8 +1,16 @@
 # Change Log - @ni/spright-blazor
 
-<!-- This log was last generated on Wed, 16 Oct 2024 23:46:19 GMT and should not be manually modified. -->
+<!-- This log was last generated on Fri, 18 Oct 2024 20:38:35 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 2.1.14
+
+Fri, 18 Oct 2024 20:38:35 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v4.1.14
 
 ## 2.1.13
 

@@ -1,8 +1,17 @@
 # Change Log - @ni/nimble-blazor
 
-<!-- This log was last generated on Wed, 16 Oct 2024 23:46:19 GMT and should not be manually modified. -->
+<!-- This log was last generated on Fri, 18 Oct 2024 20:38:35 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 18.3.2
+
+Fri, 18 Oct 2024 20:38:35 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v32.4.0
+- Bump @ni/nimble-tokens to v8.4.0
 
 ## 18.3.1
 
