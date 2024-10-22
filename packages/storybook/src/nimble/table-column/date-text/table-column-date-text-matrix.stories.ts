@@ -1,7 +1,7 @@
 import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate } from '@microsoft/fast-element';
 import { iconUserTag } from '../../../../../nimble-components/src/icons/user';
-import { Table, tableTag } from '../../../../../nimble-components/src/table';
+import { tableTag } from '../../../../../nimble-components/src/table';
 import {
     controlLabelFont,
     controlLabelFontColor

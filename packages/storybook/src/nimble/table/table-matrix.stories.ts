@@ -3,7 +3,7 @@ import { html, ViewTemplate } from '@microsoft/fast-element';
 import { iconUserTag } from '../../../../nimble-components/src/icons/user';
 import { tableColumnTextTag } from '../../../../nimble-components/src/table-column/text';
 import { tableColumnNumberTextTag } from '../../../../nimble-components/src/table-column/number-text';
-import { Table, tableTag } from '../../../../nimble-components/src/table';
+import { tableTag } from '../../../../nimble-components/src/table';
 import {
     TableRecordDelayedHierarchyState,
     TableRowSelectionMode

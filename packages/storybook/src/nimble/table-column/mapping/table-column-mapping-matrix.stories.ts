@@ -1,6 +1,6 @@
 import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate } from '@microsoft/fast-element';
-import { Table, tableTag } from '../../../../../nimble-components/src/table';
+import { tableTag } from '../../../../../nimble-components/src/table';
 import { iconCheckTag } from '../../../../../nimble-components/src/icons/check';
 import { iconXmarkTag } from '../../../../../nimble-components/src/icons/xmark';
 import { iconQuestionTag } from '../../../../../nimble-components/src/icons/question';
