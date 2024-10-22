@@ -6,6 +6,7 @@ import {
 } from '@microsoft/fast-foundation';
 import { styles } from '../patterns/tabs/styles';
 import { template } from '../patterns/tabs/template';
+import type { TabsOwner } from '../patterns/tabs/types';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -16,7 +17,7 @@ declare global {
 /**
  * A nimble-styled tabs control
  */
-export class Tabs extends FoundationTabs {
+export class Tabs extends FoundationTabs implements TabsOwner {
     /**
      * @internal
      */
@@ -26,12 +27,12 @@ export class Tabs extends FoundationTabs {
     /**
      * @internal
      */
-    public readonly tablist!: Element;
+    public readonly tablist!: HTMLElement;
 
     /**
      * @internal
      */
-    public readonly leftScrollButton?: Element;
+    public readonly leftScrollButton?: HTMLElement;
 
     /**
      * @internal

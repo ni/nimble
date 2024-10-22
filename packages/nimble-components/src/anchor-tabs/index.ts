@@ -29,6 +29,7 @@ import {
 import { styles } from '../patterns/tabs/styles';
 import { template } from '../patterns/tabs/template';
 import type { AnchorTab } from '../anchor-tab';
+import type { TabsOwner } from '../patterns/tabs/types';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -41,7 +42,7 @@ export type TabsOptions = FoundationElementDefinition & StartEndOptions;
 /**
  * A nimble-styled set of anchor tabs
  */
-export class AnchorTabs extends FoundationElement {
+export class AnchorTabs extends FoundationElement implements TabsOwner {
     /**
      * The id of the active tab
      *
@@ -79,7 +80,7 @@ export class AnchorTabs extends FoundationElement {
     /**
      * @internal
      */
-    public readonly leftScrollButton?: Element;
+    public readonly leftScrollButton?: HTMLElement;
 
     /**
      * @internal

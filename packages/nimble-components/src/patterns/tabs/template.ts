@@ -7,32 +7,35 @@ import {
     TabsOptions
 } from '@microsoft/fast-foundation';
 import type { Tabs } from '../../tabs';
-import type { AnchorTabs } from '../../anchor-tabs';
 import { buttonTag } from '../../button';
 import { iconArrowExpanderLeftTag } from '../../icons/arrow-expander-left';
 import { iconArrowExpanderRightTag } from '../../icons/arrow-expander-right';
-
-type TabsOrAnchorTabs = Tabs | AnchorTabs;
+import type { TabsOwner } from './types';
+import { ButtonAppearance } from '../button/types';
+import {
+    scrollLeftLabel,
+    scrollRightLabel
+} from '../../label-provider/core/label-tokens';
 
 // prettier-ignore
 export const template: FoundationElementTemplate<
-ViewTemplate<TabsOrAnchorTabs>,
+ViewTemplate<TabsOwner>,
 TabsOptions
 > = (context, definition) => html`
     <div
         class="tab-bar"
     >
         ${startSlotTemplate(context, definition)}
-        ${when(x => x.showScrollButtons, html<Tabs>`
+        ${when(x => x.showScrollButtons, html<TabsOwner>`
             <${buttonTag} 
                 content-hidden
                 class="scroll-button left"
-                appearance="ghost"
+                appearance="${ButtonAppearance.ghost}"
                 tabindex="-1"
-                aria-hidden="true"
                 @click="${x => x.onScrollLeftClick()}"
                 ${ref('leftScrollButton')}
             >
+                ${x => scrollLeftLabel.getValueFor(x)}
                 <${iconArrowExpanderLeftTag} slot="start"></${iconArrowExpanderLeftTag}>
             </${buttonTag}>
         `)}
@@ -45,15 +48,15 @@ TabsOptions
             <slot class="tab" name="${x => x.tabSlotName}" part="tab" ${slotted('tabs')}>
             </slot>
         </div>
-        ${when(x => x.showScrollButtons, html<Tabs>`
+        ${when(x => x.showScrollButtons, html<TabsOwner>`
             <${buttonTag}
                 content-hidden
                 class="scroll-button right"
-                appearance="ghost"
+                appearance="${ButtonAppearance.ghost}"
                 tabindex="-1"
-                aria-hidden="true"
                 @click="${x => x.onScrollRightClick()}"
             >
+                ${x => scrollRightLabel.getValueFor(x)}
                 <${iconArrowExpanderRightTag} slot="start"></${iconArrowExpanderRightTag}>
             </${buttonTag}>
         `)}

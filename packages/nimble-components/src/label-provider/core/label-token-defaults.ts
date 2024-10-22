@@ -11,5 +11,7 @@ export const coreLabelDefaults: { readonly [key in TokenName]: string } = {
     popupIconInformationLabel: 'Information',
     filterSearchLabel: 'Search',
     filterNoResultsLabel: 'No items found',
-    loadingLabel: 'Loading…'
+    loadingLabel: 'Loading…',
+    scrollLeftLabel: 'Scroll left',
+    scrollRightLabel: 'Scroll right'
 };

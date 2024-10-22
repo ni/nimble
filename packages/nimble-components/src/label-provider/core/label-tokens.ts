@@ -45,3 +45,13 @@ export const loadingLabel = DesignToken.create<string>({
     name: 'loading-label',
     cssCustomPropertyName: null
 }).withDefault(coreLabelDefaults.loadingLabel);
+
+export const scrollLeftLabel = DesignToken.create<string>({
+    name: 'scroll-left-label',
+    cssCustomPropertyName: null
+}).withDefault(coreLabelDefaults.scrollLeftLabel);
+
+export const scrollRightLabel = DesignToken.create<string>({
+    name: 'scroll-right-label',
+    cssCustomPropertyName: null
+}).withDefault(coreLabelDefaults.scrollRightLabel);

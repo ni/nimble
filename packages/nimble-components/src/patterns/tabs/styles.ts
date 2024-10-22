@@ -27,8 +27,6 @@ export const styles = css`
         align-self: end;
         overflow-x: scroll;
         scrollbar-width: none;
-        margin-left: var(--ni-private-tabs-container-padding);
-        margin-right: var(--ni-private-tabs-container-padding);
     }
 
     .scroll-button.right {

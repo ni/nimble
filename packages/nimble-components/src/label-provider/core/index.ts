@@ -10,7 +10,9 @@ import {
     popupIconInformationLabel,
     filterSearchLabel,
     filterNoResultsLabel,
-    loadingLabel
+    loadingLabel,
+    scrollLeftLabel,
+    scrollRightLabel
 } from './label-tokens';
 import { styles } from '../base/styles';
 
@@ -29,7 +31,9 @@ const supportedLabels = {
     popupIconInformation: popupIconInformationLabel,
     filterSearch: filterSearchLabel,
     filterNoResults: filterNoResultsLabel,
-    loading: loadingLabel
+    loading: loadingLabel,
+    scrollLeftLabel, // 'scrollLeft' is already reserved in the base class
+    scrollRightLabel
 } as const;
 
 /**
@@ -64,6 +68,12 @@ export class LabelProviderCore
 
     @attr({ attribute: 'loading' })
     public loading: string | undefined;
+
+    @attr({ attribute: 'scroll-left-label' })
+    public scrollLeftLabel: string | undefined;
+
+    @attr({ attribute: 'scroll-right-label' })
+    public scrollRightLabel: string | undefined;
 
     protected override readonly supportedLabels = supportedLabels;
 }
