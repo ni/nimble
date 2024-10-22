@@ -30,7 +30,12 @@ interface ToolbarArgs {
 }
 
 const simpleTabs: readonly AnchorTabArgs[] = [
-    { title: 'Google', id: '1', disabled: true, href: 'https://www.google.com' },
+    {
+        title: 'Google',
+        id: '1',
+        disabled: true,
+        href: 'https://www.google.com'
+    },
     { title: 'NI', id: '2', disabled: false, href: 'https://www.ni.com' },
     { title: 'Nimble', id: '3', disabled: false, href: 'https://nimble.ni.dev' }
 ] as const;
@@ -76,7 +81,9 @@ export default metadata;
 export const anchorTabs: StoryObj<AnchorTabsArgs> = {
     render: createUserSelectedThemeStory(html`
     <${anchorTabsTag} activeid="${x => x.activeid}">
-        ${repeat(x => (tabSets[x.tabsType] as AnchorTabArgs[]), html<AnchorTabArgs>`
+        ${repeat(
+        x => tabSets[x.tabsType] as AnchorTabArgs[],
+        html<AnchorTabArgs>`
             <${anchorTabTag}
                 ?disabled="${x => x.disabled}"
                 id="${x => x.id}"
@@ -84,7 +91,8 @@ export const anchorTabs: StoryObj<AnchorTabsArgs> = {
             >
                 ${x => x.title}
             </${anchorTabTag}>
-        `)}
+        `
+    )}
     </${anchorTabsTag}>
     `),
     argTypes: {
