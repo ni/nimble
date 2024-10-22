@@ -62,7 +62,7 @@ for (let i = 0; i < 100; i++) {
         title: `Tab ${i}`,
         id: `${i}`,
         disabled: false,
-        href: 'https://nimble.ni.dev'
+        href: `https://nimble.ni.dev?tabid=${i}`
     });
 }
 
