@@ -39,7 +39,6 @@ describe('Tabs', () => {
         await connect();
         const tabsPageObject = new TabsPageObject(element);
         await tabsPageObject.setTabsWidth(300);
-        await waitForUpdatesAsync(); // wait for the resize observer to fire
         element.activeid = '6'; // scrolls to the last tab
         await waitForUpdatesAsync();
         expect(tabsPageObject.getTabsViewScrollOffset()).toBeGreaterThan(0);
@@ -52,7 +51,6 @@ describe('Tabs', () => {
         await connect();
         const tabsPageObject = new TabsPageObject(element);
         await tabsPageObject.setTabsWidth(300);
-        await waitForUpdatesAsync(); // wait for the resize observer to fire
         await tabsPageObject.clickTab(2); // clicks the third tab
         await waitForUpdatesAsync();
         expect(tabsPageObject.getTabsViewScrollOffset()).toBe(0);
@@ -82,21 +80,17 @@ describe('Tabs', () => {
 
         it('should show scroll buttons when the tabs overflow the container', async () => {
             await tabsPageObject.setTabsWidth(300);
-            await waitForUpdatesAsync(); // wait for the resize observer to fire
             expect(tabsPageObject.areScrollButtonsVisible()).toBeTrue();
         });
 
         it('should hide scroll buttons when the tabs no longer overflow the container', async () => {
-            await tabsPageObject.setTabsWidth(300);
-            await waitForUpdatesAsync(); // wait for the resize observer to fire
-            await tabsPageObject.setTabsWidth(1000);
-            await waitForUpdatesAsync(); // wait for the resize observer to fire
+            await tabsPageObject.setTabsWidth(300); // first make the tabs overflow
+            await tabsPageObject.setTabsWidth(1000); // then make the tabs fit
             expect(tabsPageObject.areScrollButtonsVisible()).toBeFalse();
         });
 
         it('should scroll left when the left scroll button is clicked', async () => {
             await tabsPageObject.setTabsWidth(300);
-            await waitForUpdatesAsync(); // wait for the resize observer to fire
             element.activeid = '6'; // scrolls to the last tab
             const currentScrollOffset = tabsPageObject.getTabsViewScrollOffset();
             await tabsPageObject.clickScrollLeftButton();
@@ -107,21 +101,18 @@ describe('Tabs', () => {
 
         it('should not scroll left when the left scroll button is clicked and the first tab is active', async () => {
             await tabsPageObject.setTabsWidth(300);
-            await waitForUpdatesAsync(); // wait for the resize observer to fire
             await tabsPageObject.clickScrollLeftButton();
             expect(tabsPageObject.getTabsViewScrollOffset()).toBe(0);
         });
 
         it('should scroll right when the right scroll button is clicked', async () => {
             await tabsPageObject.setTabsWidth(300);
-            await waitForUpdatesAsync(); // wait for the resize observer to fire
             await tabsPageObject.clickScrollRightButton();
             expect(tabsPageObject.getTabsViewScrollOffset()).toBeGreaterThan(0);
         });
 
         it('should not scroll right when the right scroll button is clicked and the last tab is active', async () => {
             await tabsPageObject.setTabsWidth(300);
-            await waitForUpdatesAsync(); // wait for the resize observer to fire
             element.activeid = '6'; // scrolls to the last tab
             const currentScrollOffset = tabsPageObject.getTabsViewScrollOffset();
             await tabsPageObject.clickScrollRightButton();
@@ -132,7 +123,6 @@ describe('Tabs', () => {
 
         it('should show scroll buttons when new tab is added and tabs overflow the container', async () => {
             await tabsPageObject.setTabsWidth(450);
-            await waitForUpdatesAsync(); // wait for the resize observer to fire
             expect(tabsPageObject.areScrollButtonsVisible()).toBeFalse();
             await tabsPageObject.addTab('New Tab With Extremely Long Name');
             expect(tabsPageObject.areScrollButtonsVisible()).toBeTrue();
@@ -140,7 +130,6 @@ describe('Tabs', () => {
 
         it('should hide scroll buttons when tab is removed and tabs no longer overflow the container', async () => {
             await tabsPageObject.setTabsWidth(500);
-            await waitForUpdatesAsync(); // wait for the resize observer to fire
             await tabsPageObject.addTab('New Tab With Extremely Long Name');
             expect(tabsPageObject.areScrollButtonsVisible()).toBeTrue();
             await tabsPageObject.removeTab(6);
@@ -149,7 +138,6 @@ describe('Tabs', () => {
 
         it('should show scroll buttons when tab label is updated and tabs overflow the container', async () => {
             await tabsPageObject.setTabsWidth(450);
-            await waitForUpdatesAsync(); // wait for the resize observer to fire
             expect(tabsPageObject.areScrollButtonsVisible()).toBeFalse();
             await tabsPageObject.updateTabLabel(
                 0,
@@ -160,7 +148,6 @@ describe('Tabs', () => {
 
         it('should hide scroll buttons when tab label is updated and tabs no longer overflow the container', async () => {
             await tabsPageObject.setTabsWidth(550);
-            await waitForUpdatesAsync(); // wait for the resize observer to fire
             await tabsPageObject.addTab('New Tab With Extremely Long Name');
             expect(tabsPageObject.areScrollButtonsVisible()).toBeTrue();
             await tabsPageObject.updateTabLabel(6, 'Tab 6');

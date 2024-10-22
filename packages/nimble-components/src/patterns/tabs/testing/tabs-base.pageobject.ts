@@ -33,6 +33,7 @@ export abstract class TabsBasePageObject<T extends TabsOwner> {
     public async setTabsWidth(width: number): Promise<void> {
         this.tabsElement.style.width = `${width}px`;
         await waitForUpdatesAsync();
+        await waitForUpdatesAsync(); // wait for the resize observer to fire
     }
 
     public async clickScrollLeftButton(): Promise<void> {
