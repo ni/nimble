@@ -88,7 +88,7 @@ if (remaining.length > 0) {
 }
 
 const playFunction = (): void => {
-    void document.querySelector('nimble-dialog')!.show();
+    void document.querySelector(dialogTag)!.show();
 };
 
 export const dialogLightThemeWhiteBackground: StoryFn = createFixedThemeStory(

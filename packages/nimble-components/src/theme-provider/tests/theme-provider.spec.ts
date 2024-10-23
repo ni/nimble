@@ -14,7 +14,7 @@ const designTokenPropertyNames = Object.keys(
 
 describe('Theme Provider', () => {
     it('can construct an element instance', () => {
-        expect(document.createElement('nimble-theme-provider')).toBeInstanceOf(
+        expect(document.createElement(themeProviderTag)).toBeInstanceOf(
             ThemeProvider
         );
     });

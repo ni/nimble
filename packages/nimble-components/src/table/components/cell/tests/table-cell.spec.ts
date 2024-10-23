@@ -1,5 +1,5 @@
 import { html, customElement } from '@microsoft/fast-element';
-import { TableCell } from '..';
+import { TableCell, tableCellTag } from '..';
 import { waitForUpdatesAsync } from '../../../../testing/async-helpers';
 import {
     fixture,
@@ -29,8 +29,8 @@ class TestTableColumnCellView extends TableCellView<SimpleTableCellRecord> {}
 // prettier-ignore
 async function setup(): Promise<Fixture<TableCell<SimpleTableCellRecord>>> {
     return await fixture<TableCell<SimpleTableCellRecord>>(
-        html`<nimble-table-cell>
-            </nimble-table-cell>`
+        html`<${tableCellTag}>
+            </${tableCellTag}>`
     );
 }
 
@@ -51,8 +51,7 @@ describe('TableCell', () => {
     });
 
     it('can construct an element instance', () => {
-        // prettier-ignore
-        expect(document.createElement('nimble-table-cell')).toBeInstanceOf(TableCell);
+        expect(document.createElement(tableCellTag)).toBeInstanceOf(TableCell);
     });
 
     it('renders correct cell view type', async () => {

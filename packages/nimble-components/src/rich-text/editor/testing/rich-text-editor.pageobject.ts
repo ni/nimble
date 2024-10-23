@@ -6,7 +6,7 @@ import {
 } from '@microsoft/fast-web-utilities';
 import type { RichTextEditor } from '..';
 import { waitForUpdatesAsync } from '../../../testing/async-helpers';
-import type { ToggleButton } from '../../../toggle-button';
+import { toggleButtonTag, type ToggleButton } from '../../../toggle-button';
 import {
     ArrowKeyButton,
     MappingConfiguration,
@@ -479,7 +479,7 @@ export class RichTextEditorPageObject {
         button: ToolbarButton
     ): ToggleButton | null | undefined {
         const buttons: NodeListOf<ToggleButton> = this.richTextEditorElement.shadowRoot!.querySelectorAll(
-            'nimble-toggle-button'
+            toggleButtonTag
         );
         return buttons[button];
     }

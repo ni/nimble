@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "Remove hard-coded nimble tag name strings",
+  "packageName": "@ni/nimble-components",
+  "email": "rajsite@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}

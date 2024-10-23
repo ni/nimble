@@ -40,9 +40,9 @@ describe('Label Provider Core', () => {
     });
 
     it('can construct an element instance', () => {
-        expect(
-            document.createElement('nimble-label-provider-core')
-        ).toBeInstanceOf(LabelProviderCore);
+        expect(document.createElement(labelProviderCoreTag)).toBeInstanceOf(
+            LabelProviderCore
+        );
     });
 
     describe('token JS key should match DesignToken.name', () => {

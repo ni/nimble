@@ -5,7 +5,7 @@ import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import { fixture, Fixture } from '../../utilities/tests/fixture';
 
 async function setup(): Promise<Fixture<TextArea>> {
-    return await fixture<TextArea>(html`<nimble-text-area></nimble-text-area>`);
+    return await fixture<TextArea>(html`<${textAreaTag}></${textAreaTag}>`);
 }
 
 describe('Text Area', () => {
@@ -21,14 +21,8 @@ describe('Text Area', () => {
         await disconnect();
     });
 
-    it('should export its tag', () => {
-        expect(textAreaTag).toBe('nimble-text-area');
-    });
-
     it('can construct an element instance', () => {
-        expect(document.createElement('nimble-text-area')).toBeInstanceOf(
-            TextArea
-        );
+        expect(document.createElement(textAreaTag)).toBeInstanceOf(TextArea);
     });
 
     it('should set the "control" class on the internal control', async () => {

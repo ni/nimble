@@ -62,15 +62,9 @@ describe('TableColumnDateText', () => {
             await disconnect();
         });
 
-        it('should export its tag', () => {
-            expect(tableColumnDateTextTag).toBe(
-                'nimble-table-column-date-text'
-            );
-        });
-
         it('can construct an element instance', () => {
             expect(
-                document.createElement('nimble-table-column-date-text')
+                document.createElement(tableColumnDateTextTag)
             ).toBeInstanceOf(TableColumnDateText);
         });
 
