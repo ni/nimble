@@ -52,7 +52,7 @@ const simpleTabs = [
 
 const wideTabs = [
     {
-        title: 'Tab 1 that is too long to fit in the drop down width',
+        title: 'Tab 1 that is too long and should probably be shorter but is not',
         id: '1',
         disabled: false
     },
