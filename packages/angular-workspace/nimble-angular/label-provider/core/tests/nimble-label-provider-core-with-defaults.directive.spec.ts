@@ -36,7 +36,9 @@ describe('Nimble LabelProviderCore withDefaults directive', () => {
             [computeMsgId('Information', 'Nimble popup icon - information')]: 'Translated information',
             [computeMsgId('Search', 'Nimble select - search items')]: 'Translated search',
             [computeMsgId('No items found', 'Nimble select - no items')]: 'Translated no items found',
-            [computeMsgId('Loading…', 'Nimble loading - loading')]: 'Translated loading'
+            [computeMsgId('Loading…', 'Nimble loading - loading')]: 'Translated loading',
+            [computeMsgId('Scroll backward', 'Nimble scroll backward')]: 'Translated scroll backward',
+            [computeMsgId('Scroll forward', 'Nimble scroll forward')]: 'Translated scroll forward'
         });
         const fixture = TestBed.createComponent(TestHostComponent);
         const testHostComponent = fixture.componentInstance;
@@ -54,5 +56,7 @@ describe('Nimble LabelProviderCore withDefaults directive', () => {
         expect(labelProvider.filterSearch).toBe('Translated search');
         expect(labelProvider.filterNoResults).toBe('Translated no items found');
         expect(labelProvider.loading).toBe('Translated loading');
+        expect(labelProvider.scrollBackward).toBe('Translated scroll backward');
+        expect(labelProvider.scrollForward).toBe('Translated scroll forward');
     });
 });
