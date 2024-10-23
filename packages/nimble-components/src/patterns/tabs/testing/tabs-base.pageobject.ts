@@ -1,6 +1,6 @@
 import type { Button } from '../../../button';
 import { waitForUpdatesAsync } from '../../../testing/async-helpers';
-import { timeout } from '../../../utilities/tests/timeout';
+import { timeout } from '../../../utilities/testing/timeout';
 import type { TabsOwner } from '../types';
 
 /**

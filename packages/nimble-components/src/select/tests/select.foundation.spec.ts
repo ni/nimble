@@ -15,7 +15,7 @@ import { fixture } from '../../utilities/tests/fixture';
 import { template } from '../template';
 import { ListOption, listOptionTag } from '../../list-option';
 import { template as listOptionTemplate } from '../../list-option/template';
-import { timeout } from '../../utilities/tests/timeout';
+import { timeout } from '../../utilities/testing/timeout';
 
 describe('Select', () => {
     const select = Select.compose({
