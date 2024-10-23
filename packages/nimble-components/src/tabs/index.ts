@@ -4,7 +4,7 @@ import {
     Tabs as FoundationTabs,
     TabsOptions
 } from '@microsoft/fast-foundation';
-import { styles } from '../patterns/tabs/styles';
+import { styles } from './styles';
 import { template } from '../patterns/tabs/template';
 import type { TabsOwner } from '../patterns/tabs/types';
 
