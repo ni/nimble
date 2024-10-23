@@ -18,9 +18,9 @@
       },
       "Microsoft.AspNetCore.Components.WebView.Wpf": {
         "type": "Direct",
-        "requested": "[8.0.91, )",
-        "resolved": "8.0.91",
-        "contentHash": "P05e9VmcIo2WNPz1bKrm38C2NObJXpPOMk6uDrCxXKQq+U739DKlo/5qJ7nOhoyOY+SWo2jdAFNJLQWqbrf2vg==",
+        "requested": "[8.0.92, )",
+        "resolved": "8.0.92",
+        "contentHash": "Mq2Ofj1WZYBqIx/VsChyUSMq5eZRnz3p7KRGTO6ElBb6jLyqNsievexyt/03NHU3aaYq7PoakJVrb1kobFtOkQ==",
         "dependencies": {
           "Microsoft.AspNetCore.Components.WebView": "8.0.0",
           "Microsoft.Web.WebView2": "1.0.2592.51"
@@ -334,7 +334,7 @@
       "demo.shared": {
         "type": "Project",
         "dependencies": {
-          "Microsoft.AspNetCore.Components.Web": "[8.0.8, )",
+          "Microsoft.AspNetCore.Components.Web": "[8.0.10, )",
           "NI.CSharp.Analyzers": "[2.0.27, )",
           "NimbleBlazor": "[1.0.0, )",
           "SprightBlazor": "[1.0.0, )"
@@ -344,13 +344,13 @@
         "type": "Project",
         "dependencies": {
           "Apache.Arrow": "[16.1.0, 16.1.0]",
-          "Microsoft.AspNetCore.Components.Web": "[8.0.8, )"
+          "Microsoft.AspNetCore.Components.Web": "[8.0.10, )"
         }
       },
       "sprightblazor": {
         "type": "Project",
         "dependencies": {
-          "Microsoft.AspNetCore.Components.Web": "[8.0.8, )"
+          "Microsoft.AspNetCore.Components.Web": "[8.0.10, )"
         }
       }
     }
