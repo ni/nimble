@@ -12,7 +12,8 @@ import {
     fillSelectedColor,
     bodyFontSize,
     bodyDisabledFontColor,
-    iconColor
+    iconColor,
+    treeViewPaddingLeftSize
 } from '../theme-provider/design-tokens';
 import { focusVisible } from '../utilities/style/focus';
 import { userSelectNone } from '../utilities/style/user-select';
@@ -86,7 +87,7 @@ export const styles = css`
         align-items: center;
         white-space: nowrap;
         width: 100%;
-        padding-left: 10px;
+        padding-left: ${treeViewPaddingLeftSize};
         font: inherit;
         font-size: ${bodyFontSize};
         ${userSelectNone}
