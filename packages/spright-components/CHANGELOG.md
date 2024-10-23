@@ -1,8 +1,17 @@
 # Change Log - @ni/spright-components
 
-<!-- This log was last generated on Fri, 18 Oct 2024 20:38:35 GMT and should not be manually modified. -->
+<!-- This log was last generated on Wed, 23 Oct 2024 13:33:54 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 4.1.15
+
+Wed, 23 Oct 2024 13:33:54 GMT
+
+### Patches
+
+- Remove hard-coded nimble tag name strings ([ni/nimble@858c553](https://github.com/ni/nimble/commit/858c553ea137e7c5ac2deebf12434a6efe0370ed))
+- Bump @ni/nimble-components to v32.4.1
 
 ## 4.1.14
 
