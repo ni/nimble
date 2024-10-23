@@ -53,7 +53,7 @@ const wideTabs = [
         disabled: true,
         href: 'https://nimble.ni.dev'
     },
-    { title: 'Short', id: '2', disabled: false, href: 'https://nimble.ni.dev' }
+    { title: 'Short', id: '3', disabled: false, href: 'https://nimble.ni.dev' }
 ] as const;
 
 const manyTabs: AnchorTabArgs[] = [];
