@@ -21,14 +21,8 @@ describe('Rectangle', () => {
         await disconnect();
     });
 
-    it('should export its tag', () => {
-        expect(rectangleTag).toBe('spright-rectangle');
-    });
-
     it('can construct an element instance', () => {
-        expect(document.createElement('spright-rectangle')).toBeInstanceOf(
-            Rectangle
-        );
+        expect(document.createElement(rectangleTag)).toBeInstanceOf(Rectangle);
     });
 
     it('should have a slot element in the shadow DOM', async () => {

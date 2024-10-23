@@ -1,6 +1,9 @@
 import { html } from '@microsoft/fast-element';
-import type { Table } from '..';
-import type { TableColumnText } from '../../table-column/text';
+import { tableTag, type Table } from '..';
+import {
+    tableColumnTextTag,
+    type TableColumnText
+} from '../../table-column/text';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import { type Fixture, fixture } from '../../utilities/tests/fixture';
 import { TableColumnSortDirection, TableRecord } from '../types';
@@ -24,20 +27,20 @@ interface HierarchicalTableRecord extends TableRecord {
 // prettier-ignore
 async function setup(): Promise<Fixture<Table<SimpleTableRecord>>> {
     return await fixture<Table<SimpleTableRecord>>(
-        html`<nimble-table id-field-name="id">
-            <nimble-table-column-text id="first-column" field-name="stringData1" column-id="column-1"></nimble-table-column-text>
-            <nimble-table-column-text id="second-column" field-name="stringData2" column-id="column-2"></nimble-table-column-text>
-        </nimble-table>`
+        html`<${tableTag} id-field-name="id">
+            <${tableColumnTextTag} id="first-column" field-name="stringData1" column-id="column-1"></${tableColumnTextTag}>
+            <${tableColumnTextTag} id="second-column" field-name="stringData2" column-id="column-2"></${tableColumnTextTag}>
+        </${tableTag}>`
     );
 }
 
 // prettier-ignore
 async function setupWithHierarchy(): Promise<Fixture<Table<SimpleTableRecord>>> {
     return await fixture<Table<SimpleTableRecord>>(
-        html`<nimble-table id-field-name="id" parent-id-field-name="parentId">
-            <nimble-table-column-text id="first-column" field-name="stringData1" column-id="column-1"></nimble-table-column-text>
-            <nimble-table-column-text id="second-column" field-name="stringData2" column-id="column-2"></nimble-table-column-text>
-        </nimble-table>`
+        html`<${tableTag} id-field-name="id" parent-id-field-name="parentId">
+            <${tableColumnTextTag} id="first-column" field-name="stringData1" column-id="column-1"></${tableColumnTextTag}>
+            <${tableColumnTextTag} id="second-column" field-name="stringData2" column-id="column-2"></${tableColumnTextTag}>
+        </${tableTag}>`
     );
 }
 
@@ -513,9 +516,7 @@ describe('Table grouping', () => {
             element.removeChild(column1);
             element.removeChild(column2);
 
-            const newColumn = document.createElement(
-                'nimble-table-column-text'
-            );
+            const newColumn = document.createElement(tableColumnTextTag);
             newColumn.fieldName = fieldName;
             if (typeof groupIndex === 'number') {
                 newColumn.groupIndex = groupIndex;
@@ -531,9 +532,7 @@ describe('Table grouping', () => {
             fieldName: string,
             groupIndex?: number
         ): Promise<TableColumnText> {
-            const newColumn = document.createElement(
-                'nimble-table-column-text'
-            );
+            const newColumn = document.createElement(tableColumnTextTag);
             newColumn.columnId = columnId;
             newColumn.fieldName = fieldName;
             if (typeof groupIndex === 'number') {

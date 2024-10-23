@@ -1,8 +1,24 @@
 # Change Log - @ni/nimble-components
 
-<!-- This log was last generated on Fri, 18 Oct 2024 20:38:35 GMT and should not be manually modified. -->
+<!-- This log was last generated on Wed, 23 Oct 2024 19:20:53 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 32.5.0
+
+Wed, 23 Oct 2024 19:20:53 GMT
+
+### Minor changes
+
+- Scrollable tabs for Tabs and AnchorTabs. ([ni/nimble@4173c31](https://github.com/ni/nimble/commit/4173c319a64f9c600b3cfbda2b90f2b336ea5f1c))
+
+## 32.4.1
+
+Wed, 23 Oct 2024 13:33:54 GMT
+
+### Patches
+
+- Remove hard-coded nimble tag name strings ([ni/nimble@858c553](https://github.com/ni/nimble/commit/858c553ea137e7c5ac2deebf12434a6efe0370ed))
 
 ## 32.4.0
 

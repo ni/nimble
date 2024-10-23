@@ -9,14 +9,8 @@ import { listOptionTag } from '../../list-option';
 import { ComboboxPageObject } from '../testing/combobox.pageobject';
 
 describe('Combobox', () => {
-    it('should export its tag', () => {
-        expect(comboboxTag).toBe('nimble-combobox');
-    });
-
     it('can construct an element instance', () => {
-        expect(document.createElement('nimble-combobox')).toBeInstanceOf(
-            Combobox
-        );
+        expect(document.createElement(comboboxTag)).toBeInstanceOf(Combobox);
     });
 
     describe('with common setup', () => {

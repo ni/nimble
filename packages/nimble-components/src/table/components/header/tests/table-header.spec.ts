@@ -1,5 +1,5 @@
 import { html } from '@microsoft/fast-element';
-import { TableHeader } from '..';
+import { TableHeader, tableHeaderTag } from '..';
 import { waitForUpdatesAsync } from '../../../../testing/async-helpers';
 import { type Fixture, fixture } from '../../../../utilities/tests/fixture';
 import { TableColumnAlignment, TableColumnSortDirection } from '../../../types';
@@ -7,7 +7,7 @@ import { TableHeaderPageObject } from './table-header-pageobject';
 
 async function setup(): Promise<Fixture<TableHeader>> {
     return await fixture<TableHeader>(
-        html`<nimble-table-header> </nimble-table-header>`
+        html`<${tableHeaderTag}> </${tableHeaderTag}>`
     );
 }
 
@@ -28,8 +28,9 @@ describe('TableHeader', () => {
     });
 
     it('can construct an element instance', () => {
-        // prettier-ignore
-        expect(document.createElement('nimble-table-header')).toBeInstanceOf(TableHeader);
+        expect(document.createElement(tableHeaderTag)).toBeInstanceOf(
+            TableHeader
+        );
     });
 
     it('has role of columnheader', () => {

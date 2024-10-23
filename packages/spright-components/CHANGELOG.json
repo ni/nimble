@@ -2,6 +2,42 @@
   "name": "@ni/spright-components",
   "entries": [
     {
+      "date": "Wed, 23 Oct 2024 19:20:53 GMT",
+      "version": "4.1.16",
+      "tag": "@ni/spright-components_v4.1.16",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/spright-components",
+            "comment": "Bump @ni/nimble-components to v32.5.0",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 23 Oct 2024 13:33:54 GMT",
+      "version": "4.1.15",
+      "tag": "@ni/spright-components_v4.1.15",
+      "comments": {
+        "patch": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/spright-components",
+            "commit": "858c553ea137e7c5ac2deebf12434a6efe0370ed",
+            "comment": "Remove hard-coded nimble tag name strings"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/spright-components",
+            "comment": "Bump @ni/nimble-components to v32.4.1",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 18 Oct 2024 20:38:35 GMT",
       "version": "4.1.14",
       "tag": "@ni/spright-components_v4.1.14",
