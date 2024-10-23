@@ -9,18 +9,18 @@
 1. IDE:
     - **Windows with Visual Studio**: For Blazor development on Windows, the suggested IDE is:
         - Visual Studio 2022 ([Enterprise, if available](https://my.visualstudio.com/Downloads?PId=8229)): Choose the "ASP.NET and Web Development" Workload in the installer
-        - Ensure Visual Studio is completely up to date (v17.1.6+): In Visual Studio click "Help" then "Check for Updates"
+        - Ensure Visual Studio is completely up to date (v17.11.2+): In Visual Studio click "Help" then "Check for Updates"
     - **Mac with Visual Studio Code**: Install [Visual Studio Code](https://code.visualstudio.com/) and open it. Open the Extensions pane ("Preferences" >> "Extensions"), and search for / install the `ms-dotnettools.csharp` extension.
 2. .NET SDK: See [the main contributing doc](/CONTRIBUTING.md) for the required version.
 
 ### Creating a new Blazor project
 
-The built-in Blazor template projects are good starting points. First, decide whether to create a Blazor Server or Blazor Client/WebAssembly application (see the [Blazor hosting model documentation](https://docs.microsoft.com/en-us/aspnet/core/blazor/hosting-models?view=aspnetcore-6.0) for more information on both models).
+The built-in Blazor template projects are good starting points. Starting with .NET 8, there's a unified Blazor Web App project type, which supports multiple render modes (see the [Blazor render modes documentation](https://learn.microsoft.com/en-us/aspnet/core/blazor/components/render-modes?view=aspnetcore-8.0) for more information). Also see the "Supported Render Modes" section below.
 
-**Visual Studio**: Choose "New" >> "Project", and pick "Blazor Server app" or "Blazor WebAssembly app".  
-**VS Code**: Create a new folder, then open it in VS Code. Choose "View" >> "Terminal", and type `dotnet new blazorserver -f net6.0` (for Blazor Server) or `dotnet new blazorwasm -f net6.0` (for Blazor WebAssembly) and press Enter. Open the Command Palette ("View" >> "Command Palette" or Ctrl-Shift-P), enter ".NET Generate Assets for Build and Debug" and press Enter.
+**Visual Studio**: Choose "New" >> "Project", and pick "Blazor Web App". Choose the appropriate settings for Interactive Render Mode and Interactivity Location, based on your project's needs.
+**VS Code**: Create a new folder, then open it in VS Code. Choose "View" >> "Terminal", and type `dotnet new blazor` and press Enter, to create a new Blazor Web App. Open the Command Palette ("View" >> "Command Palette" or Ctrl-Shift-P), enter ".NET Generate Assets for Build and Debug" and press Enter.
 
-Additional Resources: [Microsoft tutorial: Build a web app with Blazor](https://docs.microsoft.com/en-us/learn/modules/build-blazor-webassembly-visual-studio-code/); [`dotnet new` documentation](https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-new)
+Additional Resources: [Microsoft tutorial: Build a web app with Blazor](https://learn.microsoft.com/en-us/training/modules/build-your-first-blazor-web-app/); [`dotnet new` documentation](https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-new)
 
 ### Reference NimbleBlazor in a Blazor project
 
@@ -34,7 +34,7 @@ Additional Resources: [Microsoft tutorial: Build a web app with Blazor](https://
         - VS Code: Run the command `dotnet add package NimbleBlazor --source [NimbleRepoDirectory]\packages\blazor-workspace\dist` in the Terminal window.
 2. Add required references to Blazor code
     - Open `_Imports.razor`, and add a new line at the bottom: `@using NimbleBlazor`
-    - Open `_Layout.cshtml` (BlazorServer) / `wwwroot/index.html` (Blazor WebAssembly).  
+    - Open the HTML page (generally `App.razor` for Blazor Web Apps, or `wwwroot/index.html` for Blazor WebAssembly / Hybrid)  
     At the bottom of the `<head>` section (right before `</head>`), add  
         ```html
         <link href="_content/NimbleBlazor/nimble-tokens/css/fonts.css" rel="stylesheet" />
@@ -94,6 +94,15 @@ As the `NimbleTable` is generic a client must supply its generic type in the mar
 
 For more information regarding the Blazor component lifecycle mechanisms (such as `OnAfterRenderAsync`), please consult the [Microsoft Blazor docs](https://learn.microsoft.com/en-us/aspnet/core/blazor/components/lifecycle).
 
+### Supported Render Modes
+
+Nimble supports all of the [Blazor render modes](https://learn.microsoft.com/en-us/aspnet/core/blazor/components/render-modes?view=aspnetcore-8.0):
+- Interactive server-side rendering (interactive SSR) using Blazor Server: `RenderMode.InteractiveServer`
+- Interactive WebAssembly: Client-side rendering (CSR) using Blazor WebAssembly: `RenderMode.InteractiveWebAssembly`
+- Interactive Auto: Interactive SSR initially, then CSR on subsequent visits after the Blazor bundle is downloaded: `RenderMode.InteractiveAuto`
+- Static server-side rendering (static SSR): Default, when no render mode is specified
+  - ⚠️Warning: This render mode is not recommended for most use cases with Nimble. As the page is just rendered once server-side and then no state is maintained, you're unable to use event handlers or call methods on components. This also means that for components like the Nimble Table / Wafer Map, setting data can't be done easily (because the methods to do so will have no effect if called).
+
 ### Theming and Design Tokens
 
 To use Nimble's theme-aware design tokens in a Blazor app, you should have a `<NimbleThemeProvider>` element as an ancestor to all of the Nimble components you use. The app's default layout (`MainLayout.razor` in the examples) is a good place to put the theme provider (as the root content of the page).
@@ -132,18 +141,11 @@ To provide localized strings in a localized Blazor app:
 
 ### Using Nimble Blazor in a Blazor Hybrid app
 
-There is currently an [issue in ASP.NET Core](https://github.com/dotnet/aspnetcore/issues/42349) that prevents the necessary JavaScript that Nimble Blazor relies on from loading in a Blazor Hybrid application. The Demo.Hybrid project illustrates the current required steps for getting Nimble Blazor to work properly. This simply involves adding the script `NimbleBlazor.HybridWorkaround.js` in the `index.html` file in `wwwroot`:
+**Requirement:** Microsoft.AspNetCore.Components.WebView v8.0.4+
 
-wwwroot/index.html
-```html
-    ...
-    <script src="_framework/blazor.webview.js"></script>
-    <script src="_content/NimbleBlazor/nimble-components/all-components-bundle.min.js"></script>
-    <!-- This script is a workaround needed for Nimble Blazor to work in Blazor Hybrid.
-         See https://github.com/dotnet/aspnetcore/issues/42349 -->
-    <script src="_content/NimbleBlazor/NimbleBlazor.HybridWorkaround.js"></script>
-</body>
-```
+This updated WebView package include a fix so that the JavaScript initialization code that Nimble/Spright Blazor uses gets loaded correctly.
+Note that if using the Microsoft.AspNetCore.Components.WebView.Wpf package, it only specifies a dependency of Microsoft.AspNetCore.Components.WebView v8.0+, so you may to add need an explicit dependency on Microsoft.AspNetCore.Components.WebView to ensure a recent enough version is included.
+The Demo.Hybrid project in the Blazor solution illustrates this setup.
 
 ## Contributing
 

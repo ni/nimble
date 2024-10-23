@@ -8,7 +8,7 @@ namespace NimbleBlazor;
 /// A table component
 /// </summary>
 /// <typeparam name="TData">Represents the type for a row of data in the table (an element of the <see cref="Data"/>).</typeparam>
-/// <remarks>The type represented by <see cref="TData"/> should not have any hierarchy. All aspects that can be serialized
+/// <remarks>The type represented by <typeparamref ref="TData" /> should not have any hierarchy. All aspects that can be serialized
 /// should be at the top-level.</remarks>
 public partial class NimbleTable<TData> : ComponentBase
 {

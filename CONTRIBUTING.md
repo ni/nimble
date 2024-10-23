@@ -7,8 +7,8 @@ To submit changes to Nimble, the first step is to build the monorepo which requi
 - Sync down a copy of the nimble repository
     - Note: For one-off small contributions you can consider using a fork-pull workflow. However [fork-pull workflows are not yet supported](https://github.com/ni/nimble/issues/634) for substantial development. For substantial development you should be added as a Contributor to the repository. See the [`README.md` Community section](/README.md#community) to get in touch if you need Contributor permissions. 
 - Install Node.js version 22+ (run `node --version`) and npm version 10+ (run `npm --version`) which can be downloaded from https://nodejs.org/en/download/
-- Install .NET 6 SDK (`6.0.418 <= version < 7`) which can be downloaded from https://dotnet.microsoft.com/en-us/download
-   - Run `dotnet --info` to verify the required version of the SDK is installed. A `v6` install is required, but it's fine if later versions are installed too.
+- Install .NET 8 SDK (`8.0.401` or higher) which can be downloaded from https://dotnet.microsoft.com/en-us/download
+   - Run `dotnet --info` to verify the required version of the SDK is installed. A `v8` install is required, but it's fine if later versions are installed too.
 
 From the `nimble` directory:
 

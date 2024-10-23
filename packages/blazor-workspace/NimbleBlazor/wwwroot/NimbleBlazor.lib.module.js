@@ -5,11 +5,12 @@
  * Register the custom event types used by Nimble components.
  *
  * JavaScript initializer for NimbleBlazor project, see
- * https://docs.microsoft.com/en-us/aspnet/core/blazor/javascript-interoperability/?view=aspnetcore-6.0#javascript-initializers
+ * https://learn.microsoft.com/en-us/aspnet/core/blazor/javascript-interoperability/?view=aspnetcore-8.0 and
+ * https://learn.microsoft.com/en-us/aspnet/core/blazor/fundamentals/startup?view=aspnetcore-8.0
  */
 
-export function afterStarted(Blazor) {
-    if (window.NimbleBlazor.calledAfterStarted) {
+function initializeNimbleBlazor(Blazor) {
+    if (window.NimbleBlazor.hasInitialized) {
         console.warn('Attempted to initialize Nimble Blazor multiple times!'); // eslint-disable-line
         return;
     }
@@ -18,7 +19,7 @@ export function afterStarted(Blazor) {
         throw new Error('Blazor not ready to initialize Nimble with!');
     }
 
-    window.NimbleBlazor.calledAfterStarted = true;
+    window.NimbleBlazor.hasInitialized = true;
 
     // Used by NimbleCheckbox.razor, NimbleSwitch.razor, NimbleToggleButton.razor
     // Necessary because the control's value property is always just the value 'on', so we need to look
@@ -162,12 +163,33 @@ export function afterStarted(Blazor) {
     });
 }
 
+// Blazor Web Apps
+export function beforeWebStart(_Blazor) {
+    window.NimbleBlazor.isBlazorWebApp = true;
+}
+
+export function afterWebStarted(Blazor) {
+    initializeNimbleBlazor(Blazor);
+}
+
+// Blazor Server/WebAssembly/Hybrid apps
+export function afterStarted(Blazor) {
+    // In some cases afterStarted is called on Blazor Web Apps too, if Nimble is used in a component explicitly
+    // marked as InteractiveWebAssembly render mode. As long as afterWebStarted was already called, we've already
+    // initialized.
+    if (window.NimbleBlazor.isBlazorWebApp && window.NimbleBlazor.hasInitialized) {
+        return;
+    }
+    initializeNimbleBlazor(Blazor);
+}
+
 if (window.NimbleBlazor) {
     console.warn('Attempting to initialize NimbleBlazor multiple times!'); // eslint-disable-line
 }
 
 window.NimbleBlazor = window.NimbleBlazor ?? {
-    calledAfterStarted: false,
+    isBlazorWebApp: false,
+    hasInitialized: false,
     Dialog: {
         show: async function (dialogReference) {
             const reason = await dialogReference.show();

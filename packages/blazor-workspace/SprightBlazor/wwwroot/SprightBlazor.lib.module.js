@@ -5,11 +5,12 @@
  * Register the custom event types used by Spright components.
  *
  * JavaScript initializer for SprightBlazor project, see
- * https://docs.microsoft.com/en-us/aspnet/core/blazor/javascript-interoperability/?view=aspnetcore-6.0#javascript-initializers
+ * https://learn.microsoft.com/en-us/aspnet/core/blazor/javascript-interoperability/?view=aspnetcore-8.0 and
+ * https://learn.microsoft.com/en-us/aspnet/core/blazor/fundamentals/startup?view=aspnetcore-8.0
  */
 
-export function afterStarted(Blazor) {
-    if (window.SprightBlazor.calledAfterStarted) {
+export function initializeSprightBlazor(Blazor) {
+    if (window.SprightBlazor.hasInitialized) {
         console.warn('Attempted to initialize Spright Blazor multiple times!'); // eslint-disable-line
         return;
     }
@@ -18,7 +19,7 @@ export function afterStarted(Blazor) {
         throw new Error('Blazor not ready to initialize Spright with!');
     }
 
-    window.SprightBlazor.calledAfterStarted = true;
+    window.SprightBlazor.hasInitialized = true;
 
     /* Register any custom events here
     Blazor.registerCustomEventType('sprighteventname', {
@@ -33,10 +34,31 @@ export function afterStarted(Blazor) {
     */
 }
 
+// Blazor Web Apps
+export function beforeWebStart(_Blazor) {
+    window.SprightBlazor.isBlazorWebApp = true;
+}
+
+export function afterWebStarted(Blazor) {
+    initializeSprightBlazor(Blazor);
+}
+
+// Blazor Server/WebAssembly/Hybrid apps
+export function afterStarted(Blazor) {
+    // In some cases afterStarted is called on Blazor Web Apps too, if Spright is used in a component explicitly
+    // marked as InteractiveWebAssembly render mode. As long as afterWebStarted was already called, we've already
+    // initialized.
+    if (window.SprightBlazor.isBlazorWebApp && window.SprightBlazor.hasInitialized) {
+        return;
+    }
+    initializeSprightBlazor(Blazor);
+}
+
 if (window.SprightBlazor) {
     console.warn('Attempting to initialize SprightBlazor multiple times!'); // eslint-disable-line
 }
 
 window.SprightBlazor = window.SprightBlazor ?? {
-    calledAfterStarted: false
+    isBlazorWebApp: false,
+    hasInitialized: false,
 };

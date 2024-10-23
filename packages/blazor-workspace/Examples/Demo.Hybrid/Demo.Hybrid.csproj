@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net6.0-windows</TargetFramework>
+    <TargetFramework>net8.0-windows7.0</TargetFramework>
     <EnableWindowsTargeting>true</EnableWindowsTargeting>
     <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
     <DisableImplicitNuGetFallbackFolder>true</DisableImplicitNuGetFallbackFolder>
@@ -24,7 +24,6 @@
 
   <ItemGroup>
 	<AdditionalFiles Include="..\..\CodeAnalysisDictionary.xml" Link="CodeAnalysisDictionary.xml" />
-	<PackageReference Include="NI.CSharp.Analyzers" Version="[2.0.21]" />
   </ItemGroup>
 	
   <ItemGroup>
@@ -35,7 +34,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebView.Wpf" Version="6.0.553" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebView.Wpf" Version="8.0.91" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebView" Version="8.0.10" />
+    <PackageReference Include="NI.CSharp.Analyzers" Version="2.0.27" />
   </ItemGroup>
 
   <ItemGroup>

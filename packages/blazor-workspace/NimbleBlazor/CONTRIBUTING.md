@@ -10,18 +10,18 @@ Initialize and build the Nimble monorepo (`npm install` + `npm run build` from t
 
 For Nimble Blazor development on Windows, the suggested tools to install are:
 - Visual Studio 2022 ([Enterprise, if available](https://my.visualstudio.com/Downloads?PId=8229)): Choose the "ASP.NET and Web Development" Workload in the installer
-- Ensure Visual Studio is completely up to date (v17.1.6+): In Visual Studio click "Help" then "Check for Updates"
+- Ensure Visual Studio is completely up to date (v17.11.2+): In Visual Studio click "Help" then "Check for Updates"
 - (Optional) Enable IIS (see "Enabling IIS", below)
-- ASP.NET Core Runtime 6.0.4xx: Choose "Hosting Bundle" under ASP.NET Core Runtime, on the [.NET 6.0 Download Page](https://dotnet.microsoft.com/en-us/download/dotnet/6.0)
+- ASP.NET Core Runtime 8.0.x: Choose "Hosting Bundle" under ASP.NET Core Runtime, on the [.NET 8.0 Download Page](https://dotnet.microsoft.com/en-us/download/dotnet/8.0)
 
-In Visual Studio, run either the `Demo.Server` or `Demo.Client` project to see the Blazor demo apps.
+In Visual Studio, run the `Demo.Server`, `Demo.Client`, or `Demo.Hybrid` projects to see the Blazor demo apps.
 
 ### Mac / Visual Studio Code
 Install [Visual Studio Code](https://code.visualstudio.com/), and install the suggested extensions that appear once you open the NimbleBlazor project folders.
 
 ## Creating a Blazor wrapper for a Nimble element
 
-In Nimble Blazor, the Nimble web components are wrapped as [Razor Components](https://docs.microsoft.com/en-us/aspnet/core/blazor/?view=aspnetcore-6.0#components) that consist of a `.razor` template file and a corresponding `.razor.cs` C# implementation file.
+In Nimble Blazor, the Nimble web components are wrapped as [Razor Components](https://learn.microsoft.com/en-us/aspnet/core/blazor/?view=aspnetcore-8.0#components) that consist of a `.razor` template file and a corresponding `.razor.cs` C# implementation file.
 
 ### Example Component
 
@@ -59,7 +59,7 @@ public IDictionary<string, object>? AdditionalAttributes { get; set; }
 
 ### 2-way Binding Support, Handling DOM Events
 
-In order to support [2-way binding for a property](https://docs.microsoft.com/en-us/aspnet/core/blazor/components/data-binding?view=aspnetcore-6.0#binding-with-component-parameters) on a Nimble web component, the `.razor` template needs to bind an attribute on the DOM element to the given property, as well as bind to a DOM event that fires when that attribute changes (due to a user action, or another change on the web component).
+In order to support [2-way binding for a property](https://learn.microsoft.com/en-us/aspnet/core/blazor/components/data-binding?view=aspnetcore-8.0#binding-with-component-parameters) on a Nimble web component, the `.razor` template needs to bind an attribute on the DOM element to the given property, as well as bind to a DOM event that fires when that attribute changes (due to a user action, or another change on the web component).
 
 The C# code for a property supporting 2-way binding will look like this:
 ```cs
@@ -71,7 +71,7 @@ The C# code for a property supporting 2-way binding will look like this:
 ```
 
 - For a form/ input control (textbox, etc.,), the component should derive from `NimbleInputBase<TValue>`, the `.razor` file needs to bind a DOM element attribute to `CurrentValue` or `CurrentValueAsString`, and set one of those 2 properties in the DOM event listener (generally `@onchange`). `NimbleInputBase` will then handle invoking the `EventCallback`. See `NimbleTextField` for an example. Note that [Nimble has gaps in its `EditForm` support](https://github.com/ni/nimble/issues/766).
-- The `@onchange` event callback built-in to Blazor supports DOM elements that fire a `change` event, and provides only `element.value` (which must be `string`, `string[]`, or `boolean`) in the event args. Most other cases (custom events with different names, the need to pass additional info from the DOM element to C# in the event args, etc.) will require using Blazor's [custom event arguments/ custom event type](https://docs.microsoft.com/en-us/aspnet/core/blazor/components/event-handling?view=aspnetcore-6.0#custom-event-arguments) support. See `NimbleDrawer` for an example. The event and its event arg type are declared in `EventHandlers.cs`, and `NimbleBlazor.lib.module.js` should be updated to register the custom event type, and create the event args in JavaScript. The event listener (C#) in this case needs to invoke the `[PropertyName]Changed` `EventCallback` itself.
+- The `@onchange` event callback built-in to Blazor supports DOM elements that fire a `change` event, and provides only `element.value` (which must be `string`, `string[]`, or `boolean`) in the event args. Most other cases (custom events with different names, the need to pass additional info from the DOM element to C# in the event args, etc.) will require using Blazor's [custom event arguments/ custom event type](https://learn.microsoft.com/en-us/aspnet/core/blazor/components/event-handling?view=aspnetcore-8.0#custom-event-arguments) support. See `NimbleDrawer` for an example. The event and its event arg type are declared in `EventHandlers.cs`, and `NimbleBlazor.lib.module.js` should be updated to register the custom event type, and create the event args in JavaScript. The event listener (C#) in this case needs to invoke the `[PropertyName]Changed` `EventCallback` itself.
 
 ## Testing
 
@@ -87,11 +87,14 @@ Test Project: `NimbleBlazor.Tests.Acceptance`
 
 In order to fully test the Nimble Blazor components, consider writing new automated acceptance tests for new/modified components. Any component which requires custom JS code in `NimbleBlazor.lib.module.js` should generally have corresponding acceptance tests, because the bUnit tests in `NimbleBlazor.Tests` are unable to exercise/test that JavaScript code.
 
-The `NimbleBlazor.Tests.Acceptance` project starts a local Blazor.Server app which serves Razor pages that host the Nimble components. Then, xUnit-based acceptance tests start a Chromium instance using [Playwright](https://playwright.dev/), load those Razor pages, and interact with them.
+The `NimbleBlazor.Tests.Acceptance` project starts a local Blazor Web App which serves Razor pages that host the Nimble components. Then, xUnit-based acceptance tests start a Chromium instance using [Playwright](https://playwright.dev/), load those Razor pages, and interact with them. The majority of the tests use the `InteractiveServer` render mode, but the project also supports the Interactive Web Assembly render mode (and static server-side rendering mode) for tests.
 
-To add a new acceptance test:
-- Add a new Razor file that uses that component in the `Pages` subfolder, with the name `[ComponentName][FunctionalityUnderTest].razor`, e.g. `DialogOpenAndClose.razor`. Add any necessary code to initialize the component in a `@code` section in the same file. If you'll interact with the component as the test runs, you may need to add other Nimble components like buttons to trigger new actions on your component under test.
-- In the `Tests` subfolder, add a new class `[ComponentName]Tests.cs` if it doesn't already exist. Add a new test method in that class. Load your Razor file with the `NewPageForRouteAsync(routeName)` method. Using the Playwright APIs, interact with the components on the page, and make assertions about the state of the component under test.
+To add a new acceptance test (with the Interactive Server render mode):
+- Add a new Razor file that uses that component in the `Pages.InteractiveServer` subfolder, with the name `[ComponentName][FunctionalityUnderTest].razor`, e.g. `DialogOpenAndClose.razor`.
+  - Add any necessary code to initialize the component in a `@code` section in the same file. If you'll interact with the component as the test runs, you may need to add other Nimble components like buttons to trigger new actions on your component under test.
+  - Ensure that your Razor file has `@rendermode RenderMode.InteractiveServer` in the top section.
+  - Specify the page's URL route via a `@page` directive - for example, `@page "/InteractiveServer/DialogOpenAndClose"`.
+- In the `Tests.InteractiveServer` subfolder, add a new class `[ComponentName]Tests.cs` if it doesn't already exist. Add a new test method in that class. Load your Razor file with the `NewPageForRouteAsync(routeName)` method. Using the Playwright APIs, interact with the components on the page, and make assertions about the state of the component under test.
 
 See the existing acceptance tests for examples of using the Playwright APIs. Additionally, see [Getting Started with Playwright Tests (Skyline End2EndTests)](https://dev.azure.com/ni/DevCentral/_git/Skyline?path=/End2EndTests/Getting%20Started%20with%20Playwright%20Tests.md&_a=preview) and the [Playwright .NET docs on writing tests](https://playwright.dev/dotnet/docs/writing-tests).
 

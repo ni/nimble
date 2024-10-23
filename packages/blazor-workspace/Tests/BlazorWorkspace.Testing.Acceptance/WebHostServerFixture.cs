@@ -20,7 +20,7 @@ public abstract class WebHostServerFixture : IAsyncLifetime, IDisposable
         ServerAddress = new Uri(addressFeature!.Addresses.First());
     }
 
-    protected abstract Startup StartupFactory(WebHostBuilderContext context);
+    protected abstract IStartup StartupFactory(WebHostBuilderContext context);
 
     public async Task DisposeAsync()
     {
