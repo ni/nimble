@@ -132,14 +132,20 @@ export class AnchorTabs extends FoundationElement implements TabsOwner {
      * @internal
      */
     public onScrollLeftClick(): void {
-        this.tablist.scrollLeft -= this.tablist.clientWidth;
+        this.tablist.scrollBy({
+            left: -this.tablist.clientWidth,
+            behavior: 'smooth'
+        });
     }
 
     /**
      * @internal
      */
     public onScrollRightClick(): void {
-        this.tablist.scrollLeft += this.tablist.clientWidth;
+        this.tablist.scrollBy({
+            left: this.tablist.clientWidth,
+            behavior: 'smooth'
+        });
     }
 
     /**

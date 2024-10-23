@@ -15,18 +15,7 @@ import { fixture } from '../../utilities/tests/fixture';
 import { template } from '../template';
 import { ListOption, listOptionTag } from '../../list-option';
 import { template as listOptionTemplate } from '../../list-option/template';
-
-/**
- * Timeout for use in async tets.
- */
-export async function timeout(ms = 0): Promise<void> {
-    await new Promise((resolve, _reject) => {
-        window.setTimeout(() => {
-            // eslint-disable-next-line no-void
-            resolve(void 0);
-        }, ms);
-    });
-}
+import { timeout } from '../../utilities/tests/timeout';
 
 describe('Select', () => {
     const select = Select.compose({

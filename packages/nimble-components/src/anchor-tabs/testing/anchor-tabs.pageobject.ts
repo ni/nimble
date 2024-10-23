@@ -1,4 +1,5 @@
 import type { AnchorTabs } from '..';
+import { anchorTabTag } from '../../anchor-tab';
 import { TabsBasePageObject } from '../../patterns/tabs/testing/tabs-base.pageobject';
 
 /**
@@ -7,6 +8,6 @@ import { TabsBasePageObject } from '../../patterns/tabs/testing/tabs-base.pageob
  */
 export class AnchorTabsPageObject extends TabsBasePageObject<AnchorTabs> {
     public constructor(tabsElement: AnchorTabs) {
-        super(tabsElement, 'nimble-anchor-tab');
+        super(tabsElement, anchorTabTag);
     }
 }
