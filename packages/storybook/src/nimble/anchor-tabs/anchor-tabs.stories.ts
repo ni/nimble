@@ -57,7 +57,7 @@ const wideTabs = [
 ] as const;
 
 const manyTabs: AnchorTabArgs[] = [];
-for (let i = 0; i < 100; i++) {
+for (let i = 1; i <= 100; i++) {
     manyTabs.push({
         title: `Tab ${i}`,
         id: `${i}`,
