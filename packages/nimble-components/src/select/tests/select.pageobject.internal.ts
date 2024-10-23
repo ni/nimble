@@ -1,5 +1,8 @@
 import type { Select } from '..';
-import type { ListOptionGroup } from '../../list-option-group';
+import {
+    listOptionGroupTag,
+    type ListOptionGroup
+} from '../../list-option-group';
 import { SelectPageObject } from '../testing/select.pageobject';
 
 /**
@@ -17,7 +20,7 @@ export class SelectPageObjectInternal extends SelectPageObject {
     public getAllGroups(): ListOptionGroup[] {
         return Array.from(
             this.selectElement.querySelectorAll<ListOptionGroup>(
-                'nimble-list-option-group'
+                listOptionGroupTag
             )
         );
     }
@@ -32,7 +35,7 @@ export class SelectPageObjectInternal extends SelectPageObject {
 
     public getGroup(index: number): ListOptionGroup {
         const group = this.selectElement.querySelectorAll<ListOptionGroup>(
-            'nimble-list-option-group'
+            listOptionGroupTag
         )[index];
         if (!group) {
             throw new Error(`Group at index ${index} not found`);

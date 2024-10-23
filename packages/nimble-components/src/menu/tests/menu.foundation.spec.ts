@@ -9,7 +9,7 @@ import {
 } from '@microsoft/fast-foundation';
 import { keyArrowDown, keyArrowUp } from '@microsoft/fast-web-utilities';
 import { Menu } from '..';
-import { MenuItem } from '../../menu-item';
+import { MenuItem, menuItemTag } from '../../menu-item';
 import { fixture } from '../../utilities/tests/fixture';
 
 const menu = Menu.compose({
@@ -46,19 +46,19 @@ async function setup(): Promise<{
         menuItem()
     ]);
 
-    const menuItem1 = document.createElement('nimble-menu-item');
+    const menuItem1 = document.createElement(menuItemTag);
     menuItem1.textContent = 'Foo';
     menuItem1.id = 'id1';
 
-    const menuItem2 = document.createElement('nimble-menu-item');
+    const menuItem2 = document.createElement(menuItemTag);
     menuItem2.textContent = 'Bar';
     menuItem2.id = 'id2';
 
-    const menuItem3 = document.createElement('nimble-menu-item');
+    const menuItem3 = document.createElement(menuItemTag);
     menuItem3.textContent = 'Baz';
     menuItem3.id = 'id3';
 
-    const menuItem4 = document.createElement('nimble-menu-item');
+    const menuItem4 = document.createElement(menuItemTag);
     menuItem4.textContent = 'Bat';
     menuItem4.id = 'id4';
 

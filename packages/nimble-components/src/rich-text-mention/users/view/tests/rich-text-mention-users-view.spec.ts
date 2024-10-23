@@ -31,12 +31,6 @@ describe('RichTextMentionUsersView', () => {
         await disconnect();
     });
 
-    it('should export its tag', () => {
-        expect(richTextMentionUsersViewTag).toBe(
-            'nimble-rich-text-mention-users-view'
-        );
-    });
-
     it('can construct an element instance', () => {
         expect(
             document.createElement(richTextMentionUsersViewTag)

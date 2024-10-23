@@ -26,12 +26,8 @@ async function setup(): Promise<Fixture<Tabs>> {
 }
 
 describe('Tabs', () => {
-    it('should export its tag', () => {
-        expect(tabsTag).toBe('nimble-tabs');
-    });
-
     it('can construct an element instance', () => {
-        expect(document.createElement('nimble-tabs')).toBeInstanceOf(Tabs);
+        expect(document.createElement(tabsTag)).toBeInstanceOf(Tabs);
     });
 
     it('setting activeid should scroll the active tab into view', async () => {

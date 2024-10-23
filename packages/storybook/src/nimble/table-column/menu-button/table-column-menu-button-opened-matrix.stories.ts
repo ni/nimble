@@ -1,6 +1,6 @@
 import type { StoryFn, Meta } from '@storybook/html';
 import { html } from '@microsoft/fast-element';
-import { Table, tableTag } from '../../../../../nimble-components/src/table';
+import { tableTag } from '../../../../../nimble-components/src/table';
 import { menuTag } from '../../../../../nimble-components/src/menu';
 import { menuItemTag } from '../../../../../nimble-components/src/menu-item';
 import { tableColumnMenuButtonTag } from '../../../../../nimble-components/src/table-column/menu-button';
@@ -61,7 +61,7 @@ if (remaining.length > 0) {
 }
 
 const playFunction = async (): Promise<void> => {
-    const table = document.querySelector<Table>('nimble-table')!;
+    const table = document.querySelector(tableTag)!;
     await table.setData(data);
     await waitForUpdatesAsync();
 

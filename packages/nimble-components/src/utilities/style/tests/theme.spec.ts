@@ -6,7 +6,7 @@ import {
     ref,
     ElementStyles
 } from '@microsoft/fast-element';
-import type { ThemeProvider } from '../../../theme-provider';
+import { themeProviderTag, type ThemeProvider } from '../../../theme-provider';
 import { Theme } from '../../../theme-provider/types';
 import { uniqueElementName, fixture } from '../../tests/fixture';
 import type { Fixture } from '../../tests/fixture';
@@ -143,9 +143,9 @@ describe('The ThemeStylesheetBehavior', () => {
             FASTElement.define(ThemedElementVariation);
 
             const fixtureTemplate = html<ThemeController>`
-                <nimble-theme-provider theme=${x => x.theme}>
+                <${themeProviderTag} theme=${x => x.theme}>
                     <${name} ${ref('themedElement')}></${name}>
-                </nimble-theme-provider>
+                </${themeProviderTag}>
             `;
 
             return await fixture<ThemeProvider>(fixtureTemplate, {
@@ -297,12 +297,12 @@ describe('The ThemeStylesheetBehavior', () => {
             FASTElement.define(ThemedElementVariation);
 
             const fixtureTemplate = html<ThemeController>`
-                <nimble-theme-provider theme=${x => x.theme1}>
+                <${themeProviderTag} theme=${x => x.theme1}>
                     <${name} ${ref('themedElement1')}></${name}>
-                </nimble-theme-provider>
-                <nimble-theme-provider theme=${x => x.theme2}>
+                </${themeProviderTag}>
+                <${themeProviderTag} theme=${x => x.theme2}>
                     <${name} ${ref('themedElement2')}></${name}>
-                </nimble-theme-provider>
+                </${themeProviderTag}>
             `;
 
             return await fixture<ThemeProvider>(fixtureTemplate, {

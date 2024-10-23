@@ -9,9 +9,9 @@ import {
     keyTab
 } from '@microsoft/fast-web-utilities';
 import { parameterizeSpec } from '@ni/jasmine-parameterized';
-import { AnchorTabs } from '..';
+import { AnchorTabs, anchorTabsTag } from '..';
 import '../../anchor-tab';
-import type { AnchorTab } from '../../anchor-tab';
+import { anchorTabTag, type AnchorTab } from '../../anchor-tab';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import { fixture, Fixture } from '../../utilities/tests/fixture';
 import { AnchorTabsPageObject } from '../testing/anchor-tabs.pageobject';
@@ -33,11 +33,11 @@ describe('AnchorTabs', () => {
     describe('without hrefs', () => {
         async function setup(): Promise<Fixture<AnchorTabs>> {
             return await fixture<AnchorTabs>(
-                html`<nimble-anchor-tabs activeid="tab-two">
-                    <nimble-anchor-tab></nimble-anchor-tab>
-                    <nimble-anchor-tab id="tab-two"></nimble-anchor-tab>
-                    <nimble-anchor-tab id="tab-three"></nimble-anchor-tab>
-                </nimble-anchor-tabs>`
+                html`<${anchorTabsTag} activeid="tab-two">
+                    <${anchorTabTag}></${anchorTabTag}>
+                    <${anchorTabTag} id="tab-two"></${anchorTabTag}>
+                    <${anchorTabTag} id="tab-three"></${anchorTabTag}>
+                </${anchorTabsTag}>`
             );
         }
 
@@ -52,7 +52,7 @@ describe('AnchorTabs', () => {
         });
 
         it('can construct an element instance', () => {
-            expect(document.createElement('nimble-anchor-tabs')).toBeInstanceOf(
+            expect(document.createElement(anchorTabsTag)).toBeInstanceOf(
                 AnchorTabs
             );
         });
@@ -86,15 +86,9 @@ describe('AnchorTabs', () => {
 
         it('should populate tabs array with anchor tabs', () => {
             expect(element.tabs.length).toBe(3);
-            expect(element.tabs[0]?.nodeName.toLowerCase()).toBe(
-                'nimble-anchor-tab'
-            );
-            expect(element.tabs[1]?.nodeName.toLowerCase()).toBe(
-                'nimble-anchor-tab'
-            );
-            expect(element.tabs[2]?.nodeName.toLowerCase()).toBe(
-                'nimble-anchor-tab'
-            );
+            expect(element.tabs[0]?.nodeName.toLowerCase()).toBe(anchorTabTag);
+            expect(element.tabs[1]?.nodeName.toLowerCase()).toBe(anchorTabTag);
+            expect(element.tabs[2]?.nodeName.toLowerCase()).toBe(anchorTabTag);
         });
 
         it('should set activetab property based on activeid', () => {
@@ -157,17 +151,17 @@ describe('AnchorTabs', () => {
     describe('with hrefs', () => {
         async function setupWithHrefs(): Promise<Fixture<AnchorTabs>> {
             return await fixture<AnchorTabs>(
-                html`<nimble-anchor-tabs activeid="tab-two">
-                    <nimble-anchor-tab href="foo"></nimble-anchor-tab>
-                    <nimble-anchor-tab
+                html`<${anchorTabsTag} activeid="tab-two">
+                    <${anchorTabTag} href="foo"></${anchorTabTag}>
+                    <${anchorTabTag}
                         href="foo"
                         id="tab-two"
-                    ></nimble-anchor-tab>
-                    <nimble-anchor-tab
+                    ></${anchorTabTag}>
+                    <${anchorTabTag}
                         href="foo"
                         id="tab-three"
-                    ></nimble-anchor-tab>
-                </nimble-anchor-tabs>`
+                    ></${anchorTabTag}>
+                </${anchorTabsTag}>`
             );
         }
 

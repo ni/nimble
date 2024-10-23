@@ -1,12 +1,12 @@
 import { customElement, html, ref } from '@microsoft/fast-element';
 import { TreeItem as FoundationTreeItem } from '@microsoft/fast-foundation';
 import { parameterizeSpec } from '@ni/jasmine-parameterized';
-import { AnchorTreeItem } from '..';
-import type { IconCheck } from '../../icons/check';
-import type { IconXmark } from '../../icons/xmark';
+import { AnchorTreeItem, anchorTreeItemTag } from '..';
+import { iconCheckTag, type IconCheck } from '../../icons/check';
+import { iconXmarkTag, type IconXmark } from '../../icons/xmark';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
-import type { TreeItem } from '../../tree-item';
-import type { TreeView } from '../../tree-view';
+import { treeItemTag, type TreeItem } from '../../tree-item';
+import { treeViewTag, type TreeView } from '../../tree-view';
 import { fixture, Fixture } from '../../utilities/tests/fixture';
 
 @customElement('foundation-tree-item')
@@ -21,16 +21,16 @@ describe('Anchor Tree Item', () => {
 
         async function setup(source: Model): Promise<Fixture<AnchorTreeItem>> {
             return await fixture<AnchorTreeItem>(
-                html`<nimble-anchor-tree-item href="#">
-                    <nimble-xmark-icon
+                html`<${anchorTreeItemTag} href="#">
+                    <${iconXmarkTag}
                         ${ref('xmarkIcon')}
                         slot="start"
-                    ></nimble-xmark-icon>
-                    <nimble-check-icon
+                    ></${iconXmarkTag}>
+                    <${iconCheckTag}
                         ${ref('checkIcon')}
                         slot="end"
-                    ></nimble-check-icon>
-                </nimble-anchor-tree-item>`,
+                    ></${iconCheckTag}>
+                </${anchorTreeItemTag}>`,
                 { source }
             );
         }
@@ -50,9 +50,9 @@ describe('Anchor Tree Item', () => {
         });
 
         it('can construct an element instance', () => {
-            expect(
-                document.createElement('nimble-anchor-tree-item')
-            ).toBeInstanceOf(AnchorTreeItem);
+            expect(document.createElement(anchorTreeItemTag)).toBeInstanceOf(
+                AnchorTreeItem
+            );
         });
 
         it('should set the role to treeitem', async () => {
@@ -128,19 +128,19 @@ describe('Anchor Tree Item', () => {
             return await fixture<TreeView>(
                 // prettier-ignore
                 html<Model>`
-                <nimble-tree-view ${ref('treeView')}>
-                    <nimble-tree-item ${ref('root1')}>Root1
-                        <nimble-tree-item ${ref('subRoot1')}>SubRoot
-                            <nimble-anchor-tree-item ${ref('leaf1')} href="#" selected>Leaf1</nimble-anchor-tree-item>
-                        </nimble-tree-item>
-                        <nimble-anchor-tree-item ${ref('leaf2')} href="#">Leaf 2</nimble-anchor-tree-item>
-                    </nimble-tree-item>
-                    <nimble-tree-item ${ref('root2')}>Root2
-                        <nimble-tree-item ${ref('subRoot2')}>SubRoot 2
-                            <nimble-anchor-tree-item ${ref('leaf3')} href="#">Leaf 3</nimble-anchor-tree-item>
-                        </nimble-tree-item>
-                    </nimble-tree-item>
-                </nimble-tree-view>`,
+                <${treeViewTag} ${ref('treeView')}>
+                    <${treeItemTag} ${ref('root1')}>Root1
+                        <${treeItemTag} ${ref('subRoot1')}>SubRoot
+                            <${anchorTreeItemTag} ${ref('leaf1')} href="#" selected>Leaf1</${anchorTreeItemTag}>
+                        </${treeItemTag}>
+                        <${anchorTreeItemTag} ${ref('leaf2')} href="#">Leaf 2</${anchorTreeItemTag}>
+                    </${treeItemTag}>
+                    <${treeItemTag} ${ref('root2')}>Root2
+                        <${treeItemTag} ${ref('subRoot2')}>SubRoot 2
+                            <${anchorTreeItemTag} ${ref('leaf3')} href="#">Leaf 3</${anchorTreeItemTag}>
+                        </${treeItemTag}>
+                    </${treeItemTag}>
+                </${treeViewTag}>`,
                 { source }
             );
         }

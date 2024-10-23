@@ -1,12 +1,12 @@
 import { html } from '@microsoft/fast-element';
 import { keyEnter, keySpace } from '@microsoft/fast-web-utilities';
 import { fixture, Fixture } from '../../utilities/tests/fixture';
-import { ToggleButton } from '..';
+import { ToggleButton, toggleButtonTag } from '..';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 
 async function setup(): Promise<Fixture<ToggleButton>> {
     return await fixture<ToggleButton>(
-        html`<nimble-toggle-button></nimble-toggle-button>`
+        html`<${toggleButtonTag}></${toggleButtonTag}>`
     );
 }
 
@@ -24,7 +24,7 @@ describe('ToggleButton', () => {
     });
 
     it('can construct an element instance', () => {
-        expect(document.createElement('nimble-toggle-button')).toBeInstanceOf(
+        expect(document.createElement(toggleButtonTag)).toBeInstanceOf(
             ToggleButton
         );
     });
