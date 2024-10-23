@@ -5,7 +5,7 @@ import { iconUserTag } from '../../../../nimble-components/src/icons/user';
 import { menuTag } from '../../../../nimble-components/src/menu';
 import { menuItemTag } from '../../../../nimble-components/src/menu-item';
 import { tableColumnTextTag } from '../../../../nimble-components/src/table-column/text';
-import { Table, tableTag } from '../../../../nimble-components/src/table';
+import { tableTag } from '../../../../nimble-components/src/table';
 import { TablePageObject } from '../../../../nimble-components/src/table/testing/table.pageobject';
 import { createFixedThemeStory } from '../../utilities/storybook';
 import { sharedMatrixParameters } from '../../utilities/matrix';
@@ -72,7 +72,7 @@ if (remaining.length > 0) {
 }
 
 const playFunction = async (): Promise<void> => {
-    const table = document.querySelector<Table>('nimble-table')!;
+    const table = document.querySelector(tableTag)!;
     await table.setData(data);
     await waitForUpdatesAsync();
 

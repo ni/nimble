@@ -57,7 +57,7 @@ const updateData = (tableRef: Table<Data>): void => {
     void (async () => {
         // Safari workaround: the table element instance is made at this point
         // but doesn't seem to be upgraded to a custom element yet
-        await customElements.whenDefined('nimble-table');
+        await customElements.whenDefined(tableTag);
         await tableRef.setData(data);
     })();
 };

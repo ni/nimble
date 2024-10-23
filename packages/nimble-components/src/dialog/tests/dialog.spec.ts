@@ -2,18 +2,19 @@ import { html } from '@microsoft/fast-element';
 import { fixture, Fixture } from '../../utilities/tests/fixture';
 import { Dialog, dialogTag, UserDismissed } from '..';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
+import { buttonTag } from '../../button';
 
 // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 async function setup<CloseReason = void>(
     preventDismiss = false
 ): Promise<Fixture<Dialog<CloseReason>>> {
     const viewTemplate = html`
-        <nimble-dialog ?prevent-dismiss="${() => preventDismiss}">
-            <nimble-button id="ok">OK</nimble-button>
-            <nimble-button id="cancel">Cancel</nimble-button>
-        </nimble-dialog>
-        <nimble-button id="button1">Button 1</nimble-button>
-        <nimble-button id="button2">Button 2</nimble-button>
+        <${dialogTag} ?prevent-dismiss="${() => preventDismiss}">
+            <${buttonTag} id="ok">OK</${buttonTag}>
+            <${buttonTag} id="cancel">Cancel</${buttonTag}>
+        </${dialogTag}>
+        <${buttonTag} id="button1">Button 1</${buttonTag}>
+        <${buttonTag} id="button2">Button 2</${buttonTag}>
     `;
     return await fixture<Dialog<CloseReason>>(viewTemplate);
 }
@@ -25,12 +26,8 @@ describe('Dialog', () => {
         return nimbleDialogElement.shadowRoot!.querySelector('dialog')!;
     }
 
-    it('should export its tag', () => {
-        expect(dialogTag).toBe('nimble-dialog');
-    });
-
     it('can construct an element instance', () => {
-        expect(document.createElement('nimble-dialog')).toBeInstanceOf(Dialog);
+        expect(document.createElement(dialogTag)).toBeInstanceOf(Dialog);
     });
 
     it('should initially be hidden', async () => {
@@ -304,8 +301,8 @@ describe('Dialog', () => {
     it('supports opening multiple dialogs on top of each other #SkipFirefox #SkipWebkit', async () => {
         const { element, connect, disconnect } = await setup();
         await connect();
-        const secondDialog = document.createElement('nimble-dialog');
-        const secondDialogButton = document.createElement('nimble-button');
+        const secondDialog = document.createElement(dialogTag);
+        const secondDialogButton = document.createElement(buttonTag);
         secondDialog.append(secondDialogButton);
         element.parentElement!.append(secondDialog);
         await waitForUpdatesAsync();

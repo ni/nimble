@@ -23,7 +23,7 @@ const ICON_EXCLAMATION_TAG = iconExclamationMarkTag.toUpperCase();
 
 async function setup(): Promise<Fixture<RichTextEditor>> {
     return await fixture<RichTextEditor>(
-        html`<nimble-rich-text-editor></nimble-rich-text-editor>`
+        html`<${richTextEditorTag}></${richTextEditorTag}>`
     );
 }
 

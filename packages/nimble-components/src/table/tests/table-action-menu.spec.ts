@@ -4,10 +4,10 @@ import {
     keyArrowUp,
     keyEscape
 } from '@microsoft/fast-web-utilities';
-import type { Table } from '..';
+import { tableTag, type Table } from '..';
 import type { TableColumn } from '../../table-column/base';
-import type { Menu } from '../../menu';
-import type { MenuItem } from '../../menu-item';
+import { menuTag, type Menu } from '../../menu';
+import { menuItemTag, type MenuItem } from '../../menu-item';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import { waitForEvent } from '../../utilities/testing/component';
 import { type Fixture, fixture } from '../../utilities/tests/fixture';
@@ -17,6 +17,9 @@ import {
     TableRowSelectionMode
 } from '../types';
 import { TablePageObject } from '../testing/table.pageobject';
+import { tableRowTag } from '../components/row';
+import { tableColumnTextTag } from '../../table-column/text';
+import { iconCheckTag } from '../../icons/check';
 
 interface SimpleTableRecord extends TableRecord {
     stringData: string;
@@ -49,12 +52,12 @@ const simpleTableData = [
 // prettier-ignore
 async function setup(): Promise<Fixture<Table<SimpleTableRecord>>> {
     return await fixture<Table<SimpleTableRecord>>(
-        html`<nimble-table>
-            <nimble-table-column-text id="first-column" field-name="stringData">stringData</nimble-table-column-text>
-            <nimble-table-column-text id="second-column" field-name="moreStringData">
-                <nimble-icon-check></nimble-icon-check>
-            </nimble-table-column-text>
-        </nimble-table>`
+        html`<${tableTag}>
+            <${tableColumnTextTag} id="first-column" field-name="stringData">stringData</${tableColumnTextTag}>
+            <${tableColumnTextTag} id="second-column" field-name="moreStringData">
+                <${iconCheckTag}></${iconCheckTag}>
+            </${tableColumnTextTag}>
+        </${tableTag}>`
     );
 }
 
@@ -94,18 +97,18 @@ describe('Table action menu', () => {
         menu: Menu,
         items: MenuItem[]
     } {
-        const menu = document.createElement('nimble-menu');
+        const menu = document.createElement(menuTag);
         menu.slot = slot;
 
-        const menuItem1 = document.createElement('nimble-menu-item');
+        const menuItem1 = document.createElement(menuItemTag);
         menuItem1.textContent = 'menu item 1';
         menu.appendChild(menuItem1);
 
-        const menuItem2 = document.createElement('nimble-menu-item');
+        const menuItem2 = document.createElement(menuItemTag);
         menuItem2.textContent = 'menu item 2';
         menu.appendChild(menuItem2);
 
-        const menuItem3 = document.createElement('nimble-menu-item');
+        const menuItem3 = document.createElement(menuItemTag);
         menuItem3.textContent = 'menu item 3';
         menu.appendChild(menuItem3);
 
@@ -265,7 +268,7 @@ describe('Table action menu', () => {
         await toggleListener;
 
         const rowSlots = element
-            .shadowRoot!.querySelectorAll('nimble-table-row')
+            .shadowRoot!.querySelectorAll(tableRowTag)
             ?.item(1)
             .querySelectorAll<HTMLSlotElement>('slot');
         expect(rowSlots.length).toBe(2);
@@ -286,7 +289,7 @@ describe('Table action menu', () => {
         await toggleListener;
 
         const rowSlots = element
-            .shadowRoot!.querySelectorAll('nimble-table-row')
+            .shadowRoot!.querySelectorAll(tableRowTag)
             ?.item(1)
             .querySelectorAll<HTMLSlotElement>('slot');
         expect(rowSlots.length).toBe(1);
@@ -309,7 +312,7 @@ describe('Table action menu', () => {
         await waitForUpdatesAsync();
 
         const rowSlots = element
-            .shadowRoot!.querySelectorAll('nimble-table-row')
+            .shadowRoot!.querySelectorAll(tableRowTag)
             ?.item(1)
             .querySelectorAll<HTMLSlotElement>('slot');
         expect(rowSlots.length).toBe(1);

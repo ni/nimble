@@ -76,14 +76,10 @@ describe('RichTextMentionUsers', () => {
         }
     });
 
-    it('should export its tag', () => {
-        expect(richTextMentionUsersTag).toBe('nimble-rich-text-mention-users');
-    });
-
     it('can construct an element instance', () => {
-        expect(
-            document.createElement('nimble-rich-text-mention-users')
-        ).toBeInstanceOf(RichTextMentionUsers);
+        expect(document.createElement(richTextMentionUsersTag)).toBeInstanceOf(
+            RichTextMentionUsers
+        );
     });
 
     it('should have character, icon and pattern in mention internals', async () => {

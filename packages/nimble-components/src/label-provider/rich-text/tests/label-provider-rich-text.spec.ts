@@ -41,9 +41,9 @@ describe('Label Provider Rich Text', () => {
     });
 
     it('can construct an element instance', () => {
-        expect(
-            document.createElement('nimble-label-provider-rich-text')
-        ).toBeInstanceOf(LabelProviderRichText);
+        expect(document.createElement(labelProviderRichTextTag)).toBeInstanceOf(
+            LabelProviderRichText
+        );
     });
 
     describe('token JS key should match DesignToken.name', () => {

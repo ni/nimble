@@ -2,20 +2,20 @@ import type { Checkbox } from '@microsoft/fast-foundation';
 import { keyShift } from '@microsoft/fast-web-utilities';
 import { parseColor } from '@microsoft/fast-colors';
 import type { Table } from '..';
-import type { TableHeader } from '../components/header';
+import { tableHeaderTag, type TableHeader } from '../components/header';
 import {
     TableColumnSortDirection,
     TableRecord,
     TableRowSelectionState
 } from '../types';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
-import type { MenuButton } from '../../menu-button';
-import type { TableCell } from '../components/cell';
+import { menuButtonTag, type MenuButton } from '../../menu-button';
+import { tableCellTag, type TableCell } from '../components/cell';
 import type { TableGroupHeaderView } from '../../table-column/base/group-header-view';
 import { TableCellView } from '../../table-column/base/cell-view';
-import type { TableRow } from '../components/row';
+import { tableRowTag, type TableRow } from '../components/row';
 import { Anchor, anchorTag } from '../../anchor';
-import type { TableGroupRow } from '../components/group-row';
+import { tableGroupRowTag, type TableGroupRow } from '../components/group-row';
 import type { Button } from '../../button';
 import { Icon } from '../../icon-base';
 import { Spinner, spinnerTag } from '../../spinner';
@@ -37,21 +37,19 @@ export class TablePageObject<T extends TableRecord> {
     public constructor(private readonly tableElement: Table<T>) {}
 
     public getRenderedHeaderCount(): number {
-        const headers = this.tableElement.shadowRoot!.querySelectorAll(
-            'nimble-table-header'
-        )!;
+        const headers = this.tableElement.shadowRoot!.querySelectorAll(tableHeaderTag)!;
         return headers.length;
     }
 
     public getRenderedCellCountForRow(rowIndex: number): number {
         const row = this.getRow(rowIndex);
-        const cells = row.shadowRoot!.querySelectorAll('nimble-table-cell');
+        const cells = row.shadowRoot!.querySelectorAll(tableCellTag);
         return cells.length;
     }
 
     public getHeaderContent(columnIndex: number): Node | undefined {
         const headers = this.tableElement.shadowRoot!.querySelectorAll<TableHeader>(
-            'nimble-table-header'
+            tableHeaderTag
         )!;
         if (columnIndex >= headers.length) {
             throw new Error(
@@ -64,7 +62,7 @@ export class TablePageObject<T extends TableRecord> {
 
     public getHeaderElement(columnIndex: number): TableHeader {
         const headers = this.tableElement.shadowRoot!.querySelectorAll<TableHeader>(
-            'nimble-table-header'
+            tableHeaderTag
         )!;
         if (columnIndex >= headers.length) {
             throw new Error(
@@ -100,7 +98,7 @@ export class TablePageObject<T extends TableRecord> {
 
     public getHeaderRenderedWidth(columnIndex: number): number {
         const headers = this.tableElement.shadowRoot!.querySelectorAll<TableHeader>(
-            'nimble-table-header'
+            tableHeaderTag
         )!;
         if (columnIndex >= headers.length) {
             throw new Error(
@@ -124,26 +122,22 @@ export class TablePageObject<T extends TableRecord> {
     }
 
     public getRenderedRowCount(): number {
-        return this.tableElement.shadowRoot!.querySelectorAll(
-            'nimble-table-row'
-        ).length;
+        return this.tableElement.shadowRoot!.querySelectorAll(tableRowTag)
+            .length;
     }
 
     public getRenderedGroupRowCount(): number {
-        return this.tableElement.shadowRoot!.querySelectorAll(
-            'nimble-table-group-row'
-        ).length;
+        return this.tableElement.shadowRoot!.querySelectorAll(tableGroupRowTag)
+            .length;
     }
 
     public getAllGroupRowsExpandedState(): boolean[] {
-        const groupRows = this.tableElement.shadowRoot!.querySelectorAll(
-            'nimble-table-group-row'
-        );
+        const groupRows = this.tableElement.shadowRoot!.querySelectorAll(tableGroupRowTag);
         return Array.from(groupRows).map(row => row.expanded);
     }
 
     public getAllDataRowsExpandedState(): boolean[] {
-        const rows = this.tableElement.shadowRoot!.querySelectorAll('nimble-table-row');
+        const rows = this.tableElement.shadowRoot!.querySelectorAll(tableRowTag);
         return Array.from(rows).map(row => row.expanded);
     }
 
@@ -222,9 +216,7 @@ export class TablePageObject<T extends TableRecord> {
     }
 
     public getAllRenderedGroupHeaderTextContent(): string[] {
-        const groupRows = this.tableElement.shadowRoot!.querySelectorAll(
-            'nimble-table-group-row'
-        );
+        const groupRows = this.tableElement.shadowRoot!.querySelectorAll(tableGroupRowTag);
         return Array.from(groupRows).map((_, i) => {
             return this.getRenderedGroupHeaderTextContent(i);
         });
@@ -305,7 +297,7 @@ export class TablePageObject<T extends TableRecord> {
 
     public getTotalCellRenderedWidth(): number {
         const row = this.getRow(0);
-        const cells = row?.shadowRoot?.querySelectorAll('nimble-table-cell');
+        const cells = row?.shadowRoot?.querySelectorAll(tableCellTag);
         return Array.from(cells!).reduce((p, c) => {
             return p + c.getBoundingClientRect().width;
         }, 0);
@@ -327,10 +319,9 @@ export class TablePageObject<T extends TableRecord> {
         rowIndex: number,
         columnIndex: number
     ): MenuButton | null {
-        return this.getCell(
-            rowIndex,
-            columnIndex
-        ).shadowRoot!.querySelector<MenuButton>('nimble-menu-button');
+        return this.getCell(rowIndex, columnIndex).shadowRoot!.querySelector(
+            menuButtonTag
+        );
     }
 
     public async clickCellActionMenu(
@@ -362,7 +353,7 @@ export class TablePageObject<T extends TableRecord> {
 
     public setRowHoverState(rowIndex: number, hover: boolean): void {
         const row = this.getRow(rowIndex);
-        const cells = row.shadowRoot!.querySelectorAll('nimble-table-cell');
+        const cells = row.shadowRoot!.querySelectorAll(tableCellTag);
         if (hover) {
             cells.forEach(cell => cell.style.setProperty(
                 '--ni-private-table-cell-action-menu-display',
@@ -641,7 +632,7 @@ export class TablePageObject<T extends TableRecord> {
     /** @internal */
     public isRowHoverStylingEnabled(): boolean {
         const rows: NodeListOf<TableRow | TableGroupRow> = this.tableElement.shadowRoot!.querySelectorAll(
-            'nimble-table-row, nimble-table-group-row'
+            `${tableRowTag}, ${tableGroupRowTag}`
         );
         const firstRowAllowsHover = rows[0]!.allowHover;
         if (Array.from(rows).some(x => x.allowHover !== firstRowAllowsHover)) {
@@ -658,7 +649,7 @@ export class TablePageObject<T extends TableRecord> {
 
     /** @internal */
     public getRow(rowIndex: number): TableRow {
-        const rows = this.tableElement.shadowRoot!.querySelectorAll('nimble-table-row');
+        const rows = this.tableElement.shadowRoot!.querySelectorAll(tableRowTag);
         if (rowIndex >= rows.length) {
             throw new Error(
                 'Attempting to index past the total number of rendered rows'
@@ -671,7 +662,7 @@ export class TablePageObject<T extends TableRecord> {
     /** @internal */
     public getCell(rowIndex: number, columnIndex: number): TableCell {
         const row = this.getRow(rowIndex);
-        const cells = row.shadowRoot!.querySelectorAll('nimble-table-cell');
+        const cells = row.shadowRoot!.querySelectorAll(tableCellTag);
         if (columnIndex >= cells.length) {
             throw new Error(
                 'Attempting to index past the total number of rendered columns'
@@ -767,9 +758,7 @@ export class TablePageObject<T extends TableRecord> {
     }
 
     private getGroupRow(groupRowIndex: number): TableGroupRow {
-        const groupRows = this.tableElement.shadowRoot!.querySelectorAll(
-            'nimble-table-group-row'
-        );
+        const groupRows = this.tableElement.shadowRoot!.querySelectorAll(tableGroupRowTag);
         if (groupRowIndex >= groupRows.length) {
             throw new Error(
                 'Attempting to index past the total number of group rows'

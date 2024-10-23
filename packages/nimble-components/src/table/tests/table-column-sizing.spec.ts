@@ -1,6 +1,6 @@
 import { html } from '@microsoft/fast-element';
 import { parameterizeSpec } from '@ni/jasmine-parameterized';
-import type { Table } from '..';
+import { tableTag, type Table } from '..';
 import type { TableColumn } from '../../table-column/base';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import { type Fixture, fixture } from '../../utilities/tests/fixture';
@@ -10,6 +10,7 @@ import type {
 } from '../types';
 import { TablePageObject } from '../testing/table.pageobject';
 import { waitForEvent } from '../../utilities/testing/component';
+import { tableColumnTextTag } from '../../table-column/text';
 
 interface SimpleTableRecord extends TableRecord {
     stringData: string;
@@ -55,28 +56,28 @@ const largeTableData = Array.from(Array(500), (_, i) => {
 // prettier-ignore
 async function setup(): Promise<Fixture<Table<SimpleTableRecord>>> {
     return await fixture<Table<SimpleTableRecord>>(
-        html`<nimble-table>
-            <nimble-table-column-text id="first-column" field-name="stringData">
-            </nimble-table-column-text>
-            <nimble-table-column-text id="second-column" field-name="moreStringData">
-            </nimble-table-column-text>
-        </nimble-table>`
+        html`<${tableTag}>
+            <${tableColumnTextTag} id="first-column" field-name="stringData">
+            </${tableColumnTextTag}>
+            <${tableColumnTextTag} id="second-column" field-name="moreStringData">
+            </${tableColumnTextTag}>
+        </${tableTag}>`
     );
 }
 
 // prettier-ignore
 async function setupInteractiveTests(): Promise<Fixture<Table<SimpleTableRecord>>> {
     return await fixture<Table<SimpleTableRecord>>(
-        html`<nimble-table>
-            <nimble-table-column-text id="first-column" field-name="stringData" min-pixel-width="50">
-            </nimble-table-column-text>
-            <nimble-table-column-text id="second-column" field-name="moreStringData" min-pixel-width="50">
-            </nimble-table-column-text>
-            <nimble-table-column-text id="third-column" field-name="moreStringData2" min-pixel-width="50">
-            </nimble-table-column-text>
-            <nimble-table-column-text id="fourth-column" field-name="moreStringData3" min-pixel-width="50">
-            </nimble-table-column-text>
-        </nimble-table>`
+        html`<${tableTag}>
+            <${tableColumnTextTag} id="first-column" field-name="stringData" min-pixel-width="50">
+            </${tableColumnTextTag}>
+            <${tableColumnTextTag} id="second-column" field-name="moreStringData" min-pixel-width="50">
+            </${tableColumnTextTag}>
+            <${tableColumnTextTag} id="third-column" field-name="moreStringData2" min-pixel-width="50">
+            </${tableColumnTextTag}>
+            <${tableColumnTextTag} id="fourth-column" field-name="moreStringData3" min-pixel-width="50">
+            </${tableColumnTextTag}>
+        </${tableTag}>`
     );
 }
 
