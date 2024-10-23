@@ -42,9 +42,7 @@ public class NimbleComboboxTests
     }
 
     [Theory]
-    [InlineData(AutoComplete.Both, "both")]
     [InlineData(AutoComplete.List, "list")]
-    [InlineData(AutoComplete.Inline, "inline")]
     [InlineData(AutoComplete.None, "none")]
     public void ComboboxAutoComplete_AttributeIsSet(AutoComplete value, string expectedAttribute)
     {

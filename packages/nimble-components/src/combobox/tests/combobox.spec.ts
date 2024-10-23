@@ -49,10 +49,10 @@ describe('Combobox', () => {
         });
 
         it('should set autocomplete attribute when property is set', async () => {
-            element.autocomplete = ComboboxAutocomplete.both;
+            element.autocomplete = ComboboxAutocomplete.list;
             await waitForUpdatesAsync();
             expect(element.getAttribute('autocomplete')).toBe(
-                ComboboxAutocomplete.both
+                ComboboxAutocomplete.list
             );
         });
 
@@ -189,18 +189,18 @@ describe('Combobox', () => {
             expect(pageObject.getInputAriaLabel()).toEqual(null);
         });
 
-        it('value updates on input', () => {
-            element.autocomplete = ComboboxAutocomplete.both;
-            pageObject.setInputText('O'); // should autocomplete to 'One'
+        it('value updates on input of item in list', () => {
+            pageObject.setInputText('One');
             expect(element.value).toEqual('One');
+        });
 
-            // Simulate deleting the selected text left by autocomplete (i.e. "ne")
-            pageObject.setInputText('O', true);
+        it('value updates on input of item not in list', () => {
+            pageObject.setInputText('O');
             expect(element.value).toEqual('O');
         });
 
         it('updates filter when value set programmatically', async () => {
-            element.autocomplete = ComboboxAutocomplete.both;
+            element.autocomplete = ComboboxAutocomplete.list;
             pageObject.setInputText('Th');
             await pageObject.clickAway();
 
@@ -218,7 +218,7 @@ describe('Combobox', () => {
         });
 
         it('filters list after entering value and losing focus', async () => {
-            element.autocomplete = ComboboxAutocomplete.both;
+            element.autocomplete = ComboboxAutocomplete.list;
             pageObject.setInputText('Two');
             await pageObject.clickAway();
 
@@ -228,7 +228,7 @@ describe('Combobox', () => {
         });
 
         it('filters list after entering value and reselecting value from list', () => {
-            element.autocomplete = ComboboxAutocomplete.both;
+            element.autocomplete = ComboboxAutocomplete.list;
             pageObject.setInputText('Two');
             pageObject.pressArrowDownKey();
             pageObject.pressEnterKey();
@@ -239,7 +239,7 @@ describe('Combobox', () => {
         });
 
         it('shows "no items found" in dropdown when typed text matches nothing', async () => {
-            element.autocomplete = ComboboxAutocomplete.both;
+            element.autocomplete = ComboboxAutocomplete.list;
             pageObject.setInputText('zzz');
             await waitForUpdatesAsync();
             expect(pageObject.isNoResultsLabelVisible()).toBeTrue();
@@ -252,21 +252,21 @@ describe('Combobox', () => {
         });
 
         it('does not show "no items found" in dropdown when typed text matches enabled option', async () => {
-            element.autocomplete = ComboboxAutocomplete.both;
+            element.autocomplete = ComboboxAutocomplete.list;
             pageObject.setInputText('o'); // matches "One"
             await waitForUpdatesAsync();
             expect(pageObject.isNoResultsLabelVisible()).toBeFalse();
         });
 
         it('does not show "no items found" in dropdown when typed text matches disabled option', async () => {
-            element.autocomplete = ComboboxAutocomplete.both;
+            element.autocomplete = ComboboxAutocomplete.list;
             pageObject.setInputText('fo'); // matches "Four"
             await waitForUpdatesAsync();
             expect(pageObject.isNoResultsLabelVisible()).toBeFalse();
         });
 
         it('does not show "no items found" in dropdown when input is empty', async () => {
-            element.autocomplete = ComboboxAutocomplete.both;
+            element.autocomplete = ComboboxAutocomplete.list;
             await pageObject.clickAndWaitForOpen();
             expect(pageObject.isNoResultsLabelVisible()).toBeFalse();
         });
@@ -278,7 +278,7 @@ describe('Combobox', () => {
         });
 
         it('removes "no items found" from dropdown when a matching option is added', async () => {
-            element.autocomplete = ComboboxAutocomplete.both;
+            element.autocomplete = ComboboxAutocomplete.list;
             pageObject.setInputText('zzz'); // matches "One"
             await waitForUpdatesAsync();
 
@@ -381,13 +381,7 @@ describe('Combobox', () => {
 
         const filterOptionSuiteData = [
             {
-                name: ComboboxAutocomplete.inline
-            },
-            {
                 name: ComboboxAutocomplete.list
-            },
-            {
-                name: ComboboxAutocomplete.both
             },
             {
                 name: ComboboxAutocomplete.none
@@ -519,7 +513,7 @@ describe('Combobox', () => {
             // prettier-ignore
             const viewTemplate = html`
                 <${comboboxTag}
-                    autocomplete="inline"
+                    autocomplete="none"
                 >
                     ${repeat(() => [...Array(500).keys()], html<number>`
                         <${listOptionTag}>${x => x}</${listOptionTag}>
@@ -554,18 +548,6 @@ describe('Combobox', () => {
             await pageObject.commitValue('0');
             await pageObject.clickAndWaitForOpen();
             expect(element.listbox.scrollTop).toBeCloseTo(4);
-        });
-
-        it('when typing in value with inline autocomplete, option at bottom of list scrolls into view', async () => {
-            const lastOption = element.options[element.options.length - 1]!;
-            await pageObject.clickAndWaitForOpen();
-            let optionIsVisible = await checkFullyInViewport(lastOption);
-            expect(optionIsVisible).toBeFalse();
-
-            pageObject.setInputText('1000'); // last option in set
-            await waitForUpdatesAsync();
-            optionIsVisible = await checkFullyInViewport(lastOption);
-            expect(optionIsVisible).toBeTrue();
         });
     });
 
