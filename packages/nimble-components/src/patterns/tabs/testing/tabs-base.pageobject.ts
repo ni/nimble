@@ -1,6 +1,6 @@
 import type { Button } from '../../../button';
 import { waitForUpdatesAsync } from '../../../testing/async-helpers';
-import { timeout } from '../../../utilities/testing/timeout';
+import { waitTimeout } from '../../../utilities/testing/component';
 import type { TabsOwner } from '../types';
 
 /**
@@ -46,7 +46,7 @@ export abstract class TabsBasePageObject<T extends TabsOwner> {
         }
         leftButton.click();
         await waitForUpdatesAsync();
-        await timeout(50); // let animation run
+        await waitTimeout(50); // let animation run
     }
 
     public async clickScrollRightButton(): Promise<void> {
@@ -58,7 +58,7 @@ export abstract class TabsBasePageObject<T extends TabsOwner> {
         }
         rightButton.click();
         await waitForUpdatesAsync();
-        await timeout(50); // let animation run
+        await waitTimeout(50); // let animation run
     }
 
     public areScrollButtonsVisible(): boolean {
