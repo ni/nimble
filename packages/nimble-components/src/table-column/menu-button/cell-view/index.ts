@@ -26,6 +26,7 @@ TableColumnMenuButtonCellRecord,
 TableColumnMenuButtonColumnConfig
 > {
     /** @internal */
+    @observable
     public menuButton?: MenuButton;
 
     /** @internal */
@@ -39,13 +40,6 @@ TableColumnMenuButtonColumnConfig
     @volatile
     public get showMenuButton(): boolean {
         return !!this.cellRecord?.value;
-    }
-
-    public override get tabbableChildren(): HTMLElement[] {
-        if (this.showMenuButton) {
-            return [this.menuButton!];
-        }
-        return [];
     }
 
     /** @internal */
@@ -81,6 +75,10 @@ TableColumnMenuButtonColumnConfig
         // Stop propagation of the click event to prevent clicking the menu button
         // from affecting row selection.
         e.stopPropagation();
+    }
+
+    private menuButtonChanged(): void {
+        this.tabbableChildren = this.menuButton ? [this.menuButton] : [];
     }
 }
 
