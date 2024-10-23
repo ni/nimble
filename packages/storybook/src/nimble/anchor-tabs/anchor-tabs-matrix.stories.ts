@@ -35,7 +35,7 @@ const component = (
     [disabledName, disabled]: DisabledState,
     widthValue: WidthState
 ): ViewTemplate => html`
-    <${anchorTabsTag} activeid="tab1" style="padding: 15px; width: ${() => (widthValue ?? '')};">
+    <${anchorTabsTag} activeid="tab1" style="padding: 15px;${widthValue ? ` width: ${widthValue};` : ''}">
         ${when(() => toolbar, html`
             <${tabsToolbarTag}>
                 <${buttonTag} appearance="ghost">Toolbar Button</${buttonTag}>

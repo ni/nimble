@@ -38,7 +38,7 @@ const component = (
     widthValue: WidthState
 
 ): ViewTemplate => html`
-    <${tabsTag} style="padding: 15px; width: ${() => (widthValue ?? '')};">
+    <${tabsTag} style="padding: 15px;${widthValue ? ` width: ${widthValue};` : ''}">
         ${when(() => toolbar, html`
             <${tabsToolbarTag}>
                 <${buttonTag} appearance="ghost">Toolbar Button</${buttonTag}>
