@@ -376,14 +376,14 @@ describe('AnchorTabs', () => {
     describe('scroll buttons', () => {
         async function setup(): Promise<Fixture<AnchorTabs>> {
             return await fixture<AnchorTabs>(
-                html`<nimble-anchor-tabs activeid="tab-two">
-                    <nimble-anchor-tab>Tab 1</nimble-anchor-tab>
-                    <nimble-anchor-tab id="tab-two">Tab 2</nimble-anchor-tab>
-                    <nimble-anchor-tab id="tab-three">Tab 3</nimble-anchor-tab>
-                    <nimble-anchor-tab id="tab-four">Tab 4</nimble-anchor-tab>
-                    <nimble-anchor-tab id="tab-five">Tab 5</nimble-anchor-tab>
-                    <nimble-anchor-tab id="tab-six">Tab 6</nimble-anchor-tab>
-                </nimble-anchor-tabs>`
+                html`<${anchorTabsTag} activeid="tab-two">
+                    <${anchorTabTag}>Tab 1</${anchorTabTag}>
+                    <${anchorTabTag} id="tab-two">Tab 2</${anchorTabTag}>
+                    <${anchorTabTag} id="tab-three">Tab 3</${anchorTabTag}>
+                    <${anchorTabTag} id="tab-four">Tab 4</${anchorTabTag}>
+                    <${anchorTabTag} id="tab-five">Tab 5</${anchorTabTag}>
+                    <${anchorTabTag} id="tab-six">Tab 6</${anchorTabTag}>
+                </${anchorTabsTag}>`
             );
         }
 

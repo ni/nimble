@@ -3,23 +3,24 @@ import { Tabs, tabsTag } from '..';
 import { fixture, Fixture } from '../../utilities/tests/fixture';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import { TabsPageObject } from '../testing/tabs.pageobject';
+import { tabTag } from '../../tab';
 
 async function setup(): Promise<Fixture<Tabs>> {
     const viewTemplate = html`
-        <nimble-tabs>
-            <nimble-tab id="1">Tab 1</nimble-tab>
-            <nimble-tab id="2">Tab 2</nimble-tab>
-            <nimble-tab id="3">Tab 3</nimble-tab>
-            <nimble-tab id="4">Tab 4</nimble-tab>
-            <nimble-tab id="5">Tab 5</nimble-tab>
-            <nimble-tab id="6">Tab 6</nimble-tab>
-            <nimble-tab-panel>Panel 1</nimble-tab-panel>
-            <nimble-tab-panel>Panel 2</nimble-tab-panel>
-            <nimble-tab-panel>Panel 3</nimble-tab-panel>
-            <nimble-tab-panel>Panel 4</nimble-tab-panel>
-            <nimble-tab-panel>Panel 5</nimble-tab-panel>
-            <nimble-tab-panel>Panel 6</nimble-tab-panel>
-        </nimble-tabs>
+        <${tabsTag}>
+            <${tabTag} id="1">Tab 1</${tabTag}>
+            <${tabTag} id="2">Tab 2</${tabTag}>
+            <${tabTag} id="3">Tab 3</${tabTag}>
+            <${tabTag} id="4">Tab 4</${tabTag}>
+            <${tabTag} id="5">Tab 5</${tabTag}>
+            <${tabTag} id="6">Tab 6</${tabTag}>
+            <${tabTag}-panel>Panel 1</${tabTag}-panel>
+            <${tabTag}-panel>Panel 2</${tabTag}-panel>
+            <${tabTag}-panel>Panel 3</${tabTag}-panel>
+            <${tabTag}-panel>Panel 4</${tabTag}-panel>
+            <${tabTag}-panel>Panel 5</${tabTag}-panel>
+            <${tabTag}-panel>Panel 6</${tabTag}-panel>
+        </${tabsTag}>
     `;
 
     return await fixture<Tabs>(viewTemplate);
