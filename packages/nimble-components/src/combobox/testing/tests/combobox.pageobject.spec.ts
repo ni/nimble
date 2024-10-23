@@ -1,25 +1,26 @@
 import { html } from '@microsoft/fast-element';
 import { fixture, Fixture } from '../../../utilities/tests/fixture';
-import type { Combobox } from '../..';
+import { comboboxTag, type Combobox } from '../..';
 import { ComboboxPageObject } from '../combobox.pageobject';
+import { listOptionTag } from '../../../list-option';
 
 async function setup(): Promise<Fixture<Combobox>> {
     const viewTemplate = html`
-        <nimble-combobox>
-            <nimble-list-option value="one">One</nimble-list-option>
-            <nimble-list-option value="two">Two</nimble-list-option>
-        </nimble-combobox>
+        <${comboboxTag}>
+            <${listOptionTag} value="one">One</${listOptionTag}>
+            <${listOptionTag} value="two">Two</${listOptionTag}>
+        </${comboboxTag}>
     `;
     return await fixture<Combobox>(viewTemplate);
 }
 
 async function setupWithLabel(): Promise<Fixture<Combobox>> {
     const viewTemplate = html`
-        <nimble-combobox>
+        <${comboboxTag}>
             Custom Label Text
-            <nimble-list-option value="one">One</nimble-list-option>
-            <nimble-list-option value="two">Two</nimble-list-option>
-        </nimble-combobox>
+            <${listOptionTag} value="one">One</${listOptionTag}>
+            <${listOptionTag} value="two">Two</${listOptionTag}>
+        </${comboboxTag}>
     `;
     return await fixture<Combobox>(viewTemplate);
 }

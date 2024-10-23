@@ -4,25 +4,25 @@ import { richTextEditorTag, RichTextEditor } from '..';
 import { type Fixture, fixture } from '../../../utilities/tests/fixture';
 import { RichTextEditorPageObject } from '../testing/rich-text-editor.pageobject';
 import { wackyStrings } from '../../../utilities/tests/wacky-strings';
-import type { Button } from '../../../button';
-import type { ToggleButton } from '../../../toggle-button';
+import { buttonTag, type Button } from '../../../button';
+import { toggleButtonTag, type ToggleButton } from '../../../toggle-button';
 import { ToolbarButton } from '../testing/types';
 import { waitForEvent } from '../../../utilities/testing/component';
 import { waitForUpdatesAsync } from '../../../testing/async-helpers';
 
 async function setup(): Promise<Fixture<RichTextEditor>> {
     return await fixture<RichTextEditor>(
-        html`<nimble-rich-text-editor></nimble-rich-text-editor>`
+        html`<${richTextEditorTag}></${richTextEditorTag}>`
     );
 }
 
 async function setupWithFooter(): Promise<Fixture<RichTextEditor>> {
     return await fixture<RichTextEditor>(
         // prettier-ignore
-        html`<nimble-rich-text-editor>
-            <nimble-button slot="footer-actions" id="cancel">Cancel</nimble-button>
-            <nimble-button slot="footer-actions" id="ok">OK</nimble-button>
-        </nimble-rich-text-editor>`
+        html`<${richTextEditorTag}>
+            <${buttonTag} slot="footer-actions" id="cancel">Cancel</${buttonTag}>
+            <${buttonTag} slot="footer-actions" id="ok">OK</${buttonTag}>
+        </${richTextEditorTag}>`
     );
 }
 
@@ -44,13 +44,9 @@ describe('RichTextEditor', () => {
     });
 
     it('can construct an element instance', () => {
-        expect(
-            document.createElement('nimble-rich-text-editor')
-        ).toBeInstanceOf(RichTextEditor);
-    });
-
-    it('should export its tag', () => {
-        expect(richTextEditorTag).toBe('nimble-rich-text-editor');
+        expect(document.createElement(richTextEditorTag)).toBeInstanceOf(
+            RichTextEditor
+        );
     });
 
     it('should initialize Tiptap editor', () => {
@@ -245,9 +241,7 @@ describe('RichTextEditor', () => {
             spec(
                 `"${name}" button not propagate change event to parent element`,
                 () => {
-                    const buttons: NodeListOf<ToggleButton> = element.shadowRoot!.querySelectorAll(
-                        'nimble-toggle-button'
-                    );
+                    const buttons: NodeListOf<ToggleButton> = element.shadowRoot!.querySelectorAll(toggleButtonTag);
                     const button = buttons[value.toolbarButtonIndex];
                     const buttonParent = button!.parentElement;
                     const spy = jasmine.createSpy();
@@ -437,8 +431,8 @@ describe('RichTextEditor', () => {
                 }
             ] as const;
             parameterizeSpec(markdownInput, (spec, name, value) => {
-                spec(`for ${name} markdown syntax to the editor`, () => {
-                    pageObject.pasteToEditor(value.input);
+                spec(`for ${name} markdown syntax to the editor`, async () => {
+                    await pageObject.pasteToEditor(value.input);
 
                     expect(pageObject.getEditorTagNames()).toEqual(['P']);
                     expect(pageObject.getEditorLeafContents()).toEqual([
@@ -1014,8 +1008,8 @@ describe('RichTextEditor', () => {
                 parameterizeSpec(differentValidLinks, (spec, name, value) => {
                     spec(
                         `${name} renders as absolute link(href and text content should be same) in editor`,
-                        () => {
-                            pageObject.pasteHTMLToEditor(value.input);
+                        async () => {
+                            await pageObject.pasteHTMLToEditor(value.input);
 
                             expect(pageObject.getEditorTagNames()).toEqual([
                                 'P',
@@ -1051,8 +1045,8 @@ describe('RichTextEditor', () => {
                 parameterizeSpec(validLinkNodes, (spec, name, value) => {
                     spec(
                         `${name} renders as absolute link(href and text content should be same) in editor`,
-                        () => {
-                            pageObject.pasteHTMLToEditor(value.input);
+                        async () => {
+                            await pageObject.pasteHTMLToEditor(value.input);
 
                             expect(
                                 pageObject.getEditorTagNamesWithClosingTags()
@@ -1134,19 +1128,24 @@ describe('RichTextEditor', () => {
                 ] as const;
 
                 parameterizeSpec(differentInvalidLinks, (spec, name, value) => {
-                    spec(`${name} renders as plain text in editor`, () => {
-                        pageObject.pasteHTMLToEditor(value.input);
+                    spec(
+                        `${name} renders as plain text in editor`,
+                        async () => {
+                            await pageObject.pasteHTMLToEditor(value.input);
 
-                        expect(pageObject.getEditorTagNames()).toEqual(['P']);
-                        expect(pageObject.getEditorLeafContents()).toEqual([
-                            value.text
-                        ]);
-                    });
+                            expect(pageObject.getEditorTagNames()).toEqual([
+                                'P'
+                            ]);
+                            expect(pageObject.getEditorLeafContents()).toEqual([
+                                value.text
+                            ]);
+                        }
+                    );
                 });
             });
 
-            it('pasting a plain text URL should render as a plain text', () => {
-                pageObject.pasteToEditor('https://nimble.ni.dev/');
+            it('pasting a plain text URL should render as a plain text', async () => {
+                await pageObject.pasteToEditor('https://nimble.ni.dev/');
 
                 expect(pageObject.getEditorTagNames()).toEqual(['P']);
                 expect(pageObject.getEditorLeafContents()).toEqual([

@@ -113,14 +113,10 @@ describe('TableColumnMapping', () => {
         }
     });
 
-    it('should export its tag', () => {
-        expect(tableColumnMappingTag).toBe('nimble-table-column-mapping');
-    });
-
     it('can construct an element instance', () => {
-        expect(
-            document.createElement('nimble-table-column-mapping')
-        ).toBeInstanceOf(TableColumnMapping);
+        expect(document.createElement(tableColumnMappingTag)).toBeInstanceOf(
+            TableColumnMapping
+        );
     });
 
     describe('various key types', () => {

@@ -23,7 +23,7 @@ const ICON_EXCLAMATION_TAG = iconExclamationMarkTag.toUpperCase();
 
 async function setup(): Promise<Fixture<RichTextEditor>> {
     return await fixture<RichTextEditor>(
-        html`<nimble-rich-text-editor></nimble-rich-text-editor>`
+        html`<${richTextEditorTag}></${richTextEditorTag}>`
     );
 }
 
@@ -765,7 +765,7 @@ describe('RichTextEditorMention', () => {
         const { userMentionElement } = await appendUserMentionConfiguration(element);
         const mentionUpdateSpy = jasmine.createSpy('mention-update');
         userMentionElement.addEventListener('mention-update', mentionUpdateSpy);
-        pageObject.pasteToEditor('@test');
+        await pageObject.pasteToEditor('@test');
         await waitForUpdatesAsync();
         expect(mentionUpdateSpy).toHaveBeenCalledTimes(1);
     });
@@ -808,7 +808,7 @@ describe('RichTextEditorMention', () => {
         );
         const mentionUpdateSpy = jasmine.createSpy('mention-update');
         userMentionElement.addEventListener('mention-update', mentionUpdateSpy);
-        pageObject.pasteHTMLToEditor(htmlContent);
+        await pageObject.pasteHTMLToEditor(htmlContent);
         expect(mentionUpdateSpy).toHaveBeenCalledTimes(0);
     });
 
@@ -930,7 +930,7 @@ describe('RichTextEditorMention', () => {
                     value.input,
                     [{ key: 'user:1', displayName: value.content }]
                 );
-                pageObject.pasteHTMLToEditor(htmlContent);
+                await pageObject.pasteHTMLToEditor(htmlContent);
                 expect(pageObject.getEditorTagNamesWithClosingTags()).toEqual([
                     'P',
                     '/P'
@@ -1067,7 +1067,7 @@ describe('RichTextEditor user mention via template', () => {
         it('should open mention popup, when button clicked', async () => {
             await pageObject.clickUserMentionButton();
 
-            expect(pageObject.isMentionListboxOpened()).toBeTrue();
+            expect(await pageObject.isMentionListboxOpened()).toBeTrue();
         });
     });
 
@@ -1104,9 +1104,9 @@ describe('RichTextEditorMentionListbox', () => {
                 { key: 'user:1', displayName: 'username1' },
                 { key: 'user:2', displayName: 'username2' }
             ]);
-            expect(pageObject.isMentionListboxOpened()).toBeFalse();
+            expect(await pageObject.isMentionListboxOpened()).toBeFalse();
             await pageObject.setEditorTextContent('@');
-            expect(pageObject.isMentionListboxOpened()).toBeTrue();
+            expect(await pageObject.isMentionListboxOpened()).toBeTrue();
             expect(pageObject.getMentionListboxItemsName()).toEqual([
                 'username1',
                 'username2'
@@ -1143,9 +1143,9 @@ describe('RichTextEditorMentionListbox', () => {
                 { key: 'user:1', displayName: 'username1' },
                 { key: 'user:2', displayName: 'username2' }
             ]);
-            expect(pageObject.isMentionListboxOpened()).toBeFalse();
+            expect(await pageObject.isMentionListboxOpened()).toBeFalse();
             await pageObject.setEditorTextContent('@');
-            expect(pageObject.isMentionListboxOpened()).toBeTrue();
+            expect(await pageObject.isMentionListboxOpened()).toBeTrue();
             expect(pageObject.getMentionListboxItemsName()).toEqual([
                 'username1',
                 'username2'
@@ -1177,9 +1177,9 @@ describe('RichTextEditorMentionListbox', () => {
             await appendUserMentionConfiguration(element, [
                 { key: 'user:1', displayName: 'username1' }
             ]);
-            expect(pageObject.isMentionListboxOpened()).toBeFalse();
+            expect(await pageObject.isMentionListboxOpened()).toBeFalse();
             await pageObject.setEditorTextContent('@');
-            expect(pageObject.isMentionListboxOpened()).toBeTrue();
+            expect(await pageObject.isMentionListboxOpened()).toBeTrue();
             await pageObject.clickMentionListboxOption(0);
 
             expect(pageObject.getMarkdownRenderedTagNames()).toEqual([
@@ -1189,16 +1189,16 @@ describe('RichTextEditorMentionListbox', () => {
             expect(
                 pageObject.getEditorMentionViewAttributeValues('mention-label')
             ).toEqual(['username1']);
-            expect(pageObject.isMentionListboxOpened()).toBeFalse();
+            expect(await pageObject.isMentionListboxOpened()).toBeFalse();
         });
 
         it('should commit mention into the editor on Enter', async () => {
             await appendUserMentionConfiguration(element, [
                 { key: 'user:1', displayName: 'username1' }
             ]);
-            expect(pageObject.isMentionListboxOpened()).toBeFalse();
+            expect(await pageObject.isMentionListboxOpened()).toBeFalse();
             await pageObject.setEditorTextContent('@');
-            expect(pageObject.isMentionListboxOpened()).toBeTrue();
+            expect(await pageObject.isMentionListboxOpened()).toBeTrue();
             await pageObject.pressEnterKeyInEditor();
 
             expect(pageObject.getMarkdownRenderedTagNames()).toEqual([
@@ -1208,16 +1208,16 @@ describe('RichTextEditorMentionListbox', () => {
             expect(
                 pageObject.getEditorMentionViewAttributeValues('mention-label')
             ).toEqual(['username1']);
-            expect(pageObject.isMentionListboxOpened()).toBeFalse();
+            expect(await pageObject.isMentionListboxOpened()).toBeFalse();
         });
 
         it('should commit mention into the editor on Tab', async () => {
             await appendUserMentionConfiguration(element, [
                 { key: 'user:1', displayName: 'username1' }
             ]);
-            expect(pageObject.isMentionListboxOpened()).toBeFalse();
+            expect(await pageObject.isMentionListboxOpened()).toBeFalse();
             await pageObject.setEditorTextContent('@');
-            expect(pageObject.isMentionListboxOpened()).toBeTrue();
+            expect(await pageObject.isMentionListboxOpened()).toBeTrue();
             await pageObject.pressTabKeyInEditor();
 
             expect(pageObject.getMarkdownRenderedTagNames()).toEqual([
@@ -1227,7 +1227,7 @@ describe('RichTextEditorMentionListbox', () => {
             expect(
                 pageObject.getEditorMentionViewAttributeValues('mention-label')
             ).toEqual(['username1']);
-            expect(pageObject.isMentionListboxOpened()).toBeFalse();
+            expect(await pageObject.isMentionListboxOpened()).toBeFalse();
         });
 
         it('should close the popup when clicking Escape', async () => {
@@ -1235,11 +1235,11 @@ describe('RichTextEditorMentionListbox', () => {
                 { key: 'user:1', displayName: 'username1' },
                 { key: 'user:2', displayName: 'username2' }
             ]);
-            expect(pageObject.isMentionListboxOpened()).toBeFalse();
+            expect(await pageObject.isMentionListboxOpened()).toBeFalse();
             await pageObject.setEditorTextContent('@');
-            expect(pageObject.isMentionListboxOpened()).toBeTrue();
+            expect(await pageObject.isMentionListboxOpened()).toBeTrue();
             await pageObject.pressEscapeKeyInEditor();
-            expect(pageObject.isMentionListboxOpened()).toBeFalse();
+            expect(await pageObject.isMentionListboxOpened()).toBeFalse();
         });
 
         it('should filter and commit first mention into the editor on Enter', async () => {
@@ -1321,7 +1321,7 @@ describe('RichTextEditorMentionListbox', () => {
             expect(
                 pageObject.getEditorMentionViewAttributeValues('mention-label')
             ).toEqual(['username2']);
-            expect(pageObject.isMentionListboxOpened()).toBeFalse();
+            expect(await pageObject.isMentionListboxOpened()).toBeFalse();
         });
 
         it('should commit second option on arrow key down and tab', async () => {
@@ -1340,7 +1340,7 @@ describe('RichTextEditorMentionListbox', () => {
             expect(
                 pageObject.getEditorMentionViewAttributeValues('mention-label')
             ).toEqual(['username2']);
-            expect(pageObject.isMentionListboxOpened()).toBeFalse();
+            expect(await pageObject.isMentionListboxOpened()).toBeFalse();
         });
 
         it('focus out from the editor should close the mention popup', async () => {
@@ -1350,11 +1350,11 @@ describe('RichTextEditorMentionListbox', () => {
             ]);
             await pageObject.setEditorTextContent('@');
 
-            expect(pageObject.isMentionListboxOpened()).toBeTrue();
+            expect(await pageObject.isMentionListboxOpened()).toBeTrue();
 
             await pageObject.focusOutEditor();
 
-            expect(pageObject.isMentionListboxOpened()).toBeFalse();
+            expect(await pageObject.isMentionListboxOpened()).toBeFalse();
         });
 
         // WebKit skipped, see https://github.com/ni/nimble/issues/1938
@@ -1365,11 +1365,11 @@ describe('RichTextEditorMentionListbox', () => {
             ]);
             await pageObject.setEditorTextContent('@');
 
-            expect(pageObject.isMentionListboxOpened()).toBeTrue();
+            expect(await pageObject.isMentionListboxOpened()).toBeTrue();
 
             await pageObject.setDisabled(true);
 
-            expect(pageObject.isMentionListboxOpened()).toBeFalse();
+            expect(await pageObject.isMentionListboxOpened()).toBeFalse();
         });
     });
 
@@ -1383,14 +1383,14 @@ describe('RichTextEditorMentionListbox', () => {
                 ]
             );
             await pageObject.setEditorTextContent('@');
-            expect(pageObject.isMentionListboxOpened()).toBeTrue();
+            expect(await pageObject.isMentionListboxOpened()).toBeTrue();
             expect(pageObject.getMentionListboxItemsName()).toEqual([
                 'username1',
                 'username2'
             ]);
             element.removeChild(userMentionElement);
             await waitForUpdatesAsync();
-            expect(pageObject.isMentionListboxOpened()).toBeFalse();
+            expect(await pageObject.isMentionListboxOpened()).toBeFalse();
             expect(pageObject.getMentionListboxItemsName()).toEqual([]);
         });
 
@@ -1409,7 +1409,7 @@ describe('RichTextEditorMentionListbox', () => {
             expect(pageObject.getMentionListboxItemsName()).toEqual([
                 'username2'
             ]);
-            expect(pageObject.isMentionListboxOpened()).toBeTrue();
+            expect(await pageObject.isMentionListboxOpened()).toBeTrue();
         });
 
         it('should update mention popup list when mapping elements get replaced', async () => {
@@ -1434,7 +1434,7 @@ describe('RichTextEditorMentionListbox', () => {
                 'username3',
                 'username4'
             ]);
-            expect(pageObject.isMentionListboxOpened()).toBeTrue();
+            expect(await pageObject.isMentionListboxOpened()).toBeTrue();
         });
 
         it('should close mention popup when updating to invalid `pattern`', async () => {
@@ -1453,7 +1453,7 @@ describe('RichTextEditorMentionListbox', () => {
             userMentionElement.pattern = 'invalid';
             await waitForUpdatesAsync();
             expect(pageObject.getMentionListboxItemsName()).toEqual([]);
-            expect(pageObject.isMentionListboxOpened()).toBeFalse();
+            expect(await pageObject.isMentionListboxOpened()).toBeFalse();
         });
 
         it('should update mention popup list when updating `display-name`', async () => {
@@ -1475,7 +1475,7 @@ describe('RichTextEditorMentionListbox', () => {
                 'updated-name',
                 'username2'
             ]);
-            expect(pageObject.isMentionListboxOpened()).toBeTrue();
+            expect(await pageObject.isMentionListboxOpened()).toBeTrue();
         });
 
         it('should update mention popup list when updating valid `key`', async () => {
@@ -1484,7 +1484,7 @@ describe('RichTextEditorMentionListbox', () => {
                 [{ key: 'invalid', displayName: 'username1' }]
             );
             await pageObject.setEditorTextContent('@');
-            expect(pageObject.isMentionListboxOpened()).toBeFalse();
+            expect(await pageObject.isMentionListboxOpened()).toBeFalse();
             expect(pageObject.getMentionListboxItemsName()).toEqual([]);
             mappingElements[0]!.key = 'user:1';
             // After the first wait, `activeMappingConfigs` is updated,
@@ -1495,7 +1495,7 @@ describe('RichTextEditorMentionListbox', () => {
             expect(pageObject.getMentionListboxItemsName()).toEqual([
                 'username1'
             ]);
-            expect(pageObject.isMentionListboxOpened()).toBeTrue();
+            expect(await pageObject.isMentionListboxOpened()).toBeTrue();
         });
 
         it('should close mention popup when updating to invalid `key`', async () => {
@@ -1514,7 +1514,7 @@ describe('RichTextEditorMentionListbox', () => {
             mappingElements[0]!.key = 'invalid';
             await waitForUpdatesAsync();
             expect(pageObject.getMentionListboxItemsName()).toEqual([]);
-            expect(pageObject.isMentionListboxOpened()).toBeFalse();
+            expect(await pageObject.isMentionListboxOpened()).toBeFalse();
         });
 
         it('should retain mention popup list position in the same cursor position when configuration got updated', async () => {
@@ -1539,32 +1539,37 @@ describe('RichTextEditorMentionListbox', () => {
                 'New user',
                 'username2'
             ]);
-            expect(pageObject.isMentionListboxOpened()).toBeTrue();
+            expect(await pageObject.isMentionListboxOpened()).toBeTrue();
         });
 
-        // Intermittent, see https://github.com/ni/nimble/issues/2219
-        xit('should show mention popup for multiple mention configuration elements', async () => {
+        it('should show mention popup for multiple mention configuration elements', async () => {
             await appendUserMentionConfiguration(element, [
                 { key: 'user:1', displayName: 'username1' },
                 { key: 'user:2', displayName: 'username2' }
             ]);
+
             await pageObject.setEditorTextContent('@');
-            expect(pageObject.isMentionListboxOpened()).toBeTrue();
+
             expect(pageObject.getMentionListboxItemsName()).toEqual([
                 'username1',
                 'username2'
             ]);
-            await pageObject.clickMentionListboxOption(0);
+            expect(await pageObject.isMentionListboxOpened()).toBeTrue();
+
+            await pageObject.sliceEditorContent(0, 2);
+
             await appendTestMentionConfiguration(element, [
                 { key: 'test:1', displayName: 'testname1' },
                 { key: 'test:2', displayName: 'testname2' }
             ]);
+
             await pageObject.setEditorTextContent('!');
-            expect(pageObject.isMentionListboxOpened()).toBeTrue();
+
             expect(pageObject.getMentionListboxItemsName()).toEqual([
                 'testname1',
                 'testname2'
             ]);
+            expect(await pageObject.isMentionListboxOpened()).toBeTrue();
         });
 
         it('mention listbox should be closed when cursor position is moved to start and configuration dynamically changes', async () => {
@@ -1573,12 +1578,12 @@ describe('RichTextEditorMentionListbox', () => {
                 [{ key: 'user:1', displayName: 'user name1' }]
             );
             await pageObject.setEditorTextContent('@user');
-            expect(pageObject.isMentionListboxOpened()).toBeTrue();
+            expect(await pageObject.isMentionListboxOpened()).toBeTrue();
             await pageObject.setCursorPosition(1);
-            expect(pageObject.isMentionListboxOpened()).toBeFalse();
+            expect(await pageObject.isMentionListboxOpened()).toBeFalse();
             mappingElements[0]!.displayName = 'user name2';
             await waitForUpdatesAsync();
-            expect(pageObject.isMentionListboxOpened()).toBeFalse();
+            expect(await pageObject.isMentionListboxOpened()).toBeFalse();
         });
     });
 });

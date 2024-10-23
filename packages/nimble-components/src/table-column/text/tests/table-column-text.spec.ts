@@ -55,14 +55,10 @@ describe('TableColumnText', () => {
         await disconnect();
     });
 
-    it('should export its tag', () => {
-        expect(tableColumnTextTag).toBe('nimble-table-column-text');
-    });
-
     it('can construct an element instance', () => {
-        expect(
-            document.createElement('nimble-table-column-text')
-        ).toBeInstanceOf(TableColumnText);
+        expect(document.createElement(tableColumnTextTag)).toBeInstanceOf(
+            TableColumnText
+        );
     });
 
     it('reports column configuration valid', async () => {

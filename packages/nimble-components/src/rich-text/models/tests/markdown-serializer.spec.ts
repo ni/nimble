@@ -1,5 +1,5 @@
 import { html } from '@microsoft/fast-element';
-import type { RichTextEditor } from '../../editor';
+import { richTextEditorTag, type RichTextEditor } from '../../editor';
 import { fixture, type Fixture } from '../../../utilities/tests/fixture';
 import { RichTextEditorPageObject } from '../../editor/testing/rich-text-editor.pageobject';
 import { ToolbarButton } from '../../editor/testing/types';
@@ -11,7 +11,7 @@ import { waitForUpdatesAsync } from '../../../testing/async-helpers';
 
 async function setup(): Promise<Fixture<RichTextEditor>> {
     return await fixture<RichTextEditor>(
-        html`<nimble-rich-text-editor></nimble-rich-text-editor>`
+        html`<${richTextEditorTag}></${richTextEditorTag}>`
     );
 }
 
@@ -337,12 +337,13 @@ Plain text 3`);
 <user:1> `);
         });
 
-        // Intermittent, see https://github.com/ni/nimble/issues/2219
-        xit('Mention node', async () => {
+        it('Mention node', async () => {
             await appendUserMentionConfiguration(element, [
                 { key: 'user:1', displayName: 'username1' }
             ]);
+
             await commitFirstMentionBoxOptionIntoEditor('@');
+
             expect(element.getMarkdown()).toEqual('<user:1> ');
         });
 

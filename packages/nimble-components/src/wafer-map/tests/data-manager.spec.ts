@@ -3,7 +3,7 @@ import { html } from '@microsoft/fast-element';
 import { fixture, Fixture } from '../../utilities/tests/fixture';
 import { processUpdates } from '../../testing/async-helpers';
 import type { DataManager } from '../modules/data-manager';
-import type { WaferMap } from '..';
+import { waferMapTag, type WaferMap } from '..';
 import { WaferMapColorScaleMode, WaferMapOriginLocation } from '../types';
 import {
     getColorScale,
@@ -13,7 +13,7 @@ import {
 import type { Dimensions, Margin } from '../workers/types';
 
 async function setup(): Promise<Fixture<WaferMap>> {
-    return await fixture<WaferMap>(html`<nimble-wafer-map></nimble-wafer-map>`);
+    return await fixture<WaferMap>(html`<${waferMapTag}></${waferMapTag}>`);
 }
 
 describe('Wafermap Data Manager', () => {

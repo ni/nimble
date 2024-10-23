@@ -4,7 +4,7 @@ import { keyArrowDown } from '@microsoft/fast-web-utilities';
 import { standardPadding } from '../../../../nimble-components/src/theme-provider/design-tokens';
 import { listOptionTag } from '../../../../nimble-components/src/list-option';
 import { listOptionGroupTag } from '../../../../nimble-components/src/list-option-group';
-import { Select, selectTag } from '../../../../nimble-components/src/select';
+import { selectTag } from '../../../../nimble-components/src/select';
 import { DropdownAppearance } from '../../../../nimble-components/src/patterns/dropdown/types';
 import { waitForUpdatesAsync } from '../../../../nimble-components/src/testing/async-helpers';
 import { createStory } from '../../utilities/storybook';
@@ -102,15 +102,13 @@ export const blankListOption: StoryFn = createStory(
 
 const playFunction = async (): Promise<void> => {
     await Promise.all(
-        Array.from(document.querySelectorAll<Select>('nimble-select')).map(
-            async select => {
-                const arrowDownEvent = new KeyboardEvent('keydown', {
-                    key: keyArrowDown
-                });
-                select.dispatchEvent(arrowDownEvent);
-                await waitForUpdatesAsync();
-            }
-        )
+        Array.from(document.querySelectorAll(selectTag)).map(async select => {
+            const arrowDownEvent = new KeyboardEvent('keydown', {
+                key: keyArrowDown
+            });
+            select.dispatchEvent(arrowDownEvent);
+            await waitForUpdatesAsync();
+        })
     );
 };
 
