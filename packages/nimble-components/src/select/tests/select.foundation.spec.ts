@@ -15,18 +15,7 @@ import { fixture } from '../../utilities/tests/fixture';
 import { template } from '../template';
 import { ListOption, listOptionTag } from '../../list-option';
 import { template as listOptionTemplate } from '../../list-option/template';
-
-/**
- * Timeout for use in async tets.
- */
-export async function timeout(ms = 0): Promise<void> {
-    await new Promise((resolve, _reject) => {
-        window.setTimeout(() => {
-            // eslint-disable-next-line no-void
-            resolve(void 0);
-        }, ms);
-    });
-}
+import { waitTimeout } from '../../utilities/testing/component';
 
 describe('Select', () => {
     const select = Select.compose({
@@ -433,7 +422,7 @@ describe('Select', () => {
                     element.addEventListener('input', () => resolve(true));
                     element.dispatchEvent(event);
                 }),
-                timeout().then(() => false)
+                waitTimeout().then(() => false)
             ]);
 
             expect(wasInput).toBeFalse();
@@ -465,7 +454,7 @@ describe('Select', () => {
                     element.addEventListener('input', () => resolve(true));
                     element.dispatchEvent(event);
                 }),
-                timeout().then(() => false)
+                waitTimeout().then(() => false)
             ]);
 
             expect(wasInput).toBeFalse();
@@ -493,7 +482,7 @@ describe('Select', () => {
                     element.addEventListener('input', () => resolve(true));
                     element.dispatchEvent(event);
                 }),
-                timeout().then(() => false)
+                waitTimeout().then(() => false)
             ]);
 
             expect(wasInput).toBeFalse();
@@ -523,7 +512,7 @@ describe('Select', () => {
                     element.addEventListener('input', () => resolve(true));
                     element.dispatchEvent(event);
                 }),
-                timeout().then(() => false)
+                waitTimeout().then(() => false)
             ]);
 
             expect(wasInput).toBeFalse();
@@ -683,7 +672,7 @@ describe('Select', () => {
                         );
                         element.dispatchEvent(arrowUpEvent);
                     }),
-                    timeout().then(() => false)
+                    waitTimeout().then(() => false)
                 ])
             ).toBeTrue();
 
@@ -699,7 +688,7 @@ describe('Select', () => {
                         );
                         element.dispatchEvent(arrowDownEvent);
                     }),
-                    timeout().then(() => false)
+                    waitTimeout().then(() => false)
                 ])
             ).toBeTrue();
 
@@ -730,7 +719,7 @@ describe('Select', () => {
                     element.addEventListener('input', () => resolve(true));
                     element.dispatchEvent(event);
                 }),
-                timeout().then(() => false)
+                waitTimeout().then(() => false)
             ]);
 
             expect(wasInput).toBeTrue();
@@ -760,7 +749,7 @@ describe('Select', () => {
                     element.addEventListener('input', () => resolve(true));
                     element.dispatchEvent(event);
                 }),
-                timeout().then(() => false)
+                waitTimeout().then(() => false)
             ]);
 
             expect(wasInput).toBeTrue();
@@ -790,7 +779,7 @@ describe('Select', () => {
                     element.addEventListener('input', () => resolve(true));
                     element.dispatchEvent(event);
                 }),
-                timeout().then(() => false)
+                waitTimeout().then(() => false)
             ]);
 
             expect(wasInput).toBeTrue();
@@ -816,7 +805,7 @@ describe('Select', () => {
                     element.addEventListener('input', () => resolve(true));
                     element.dispatchEvent(event);
                 }),
-                timeout().then(() => false)
+                waitTimeout().then(() => false)
             ]);
 
             expect(wasInput).toBeTrue();

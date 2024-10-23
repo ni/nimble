@@ -70,3 +70,12 @@ export async function waitAnimationFrame(): Promise<void> {
         requestAnimationFrame(() => resolve());
     });
 }
+
+/**
+ * Timeout for use in async tets.
+ */
+export async function waitTimeout(ms = 0): Promise<void> {
+    await new Promise(resolve => {
+        window.setTimeout(() => resolve(undefined), ms);
+    });
+}
