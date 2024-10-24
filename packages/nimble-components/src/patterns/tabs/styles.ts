@@ -33,7 +33,7 @@ export const styles = css`
         margin-left: ${smallPadding};
     }
 
-    .end {
+    [part='end'] {
         flex: 1;
     }
 `;
