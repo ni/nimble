@@ -32,4 +32,8 @@ export const styles = css`
     .scroll-button.right {
         margin-left: ${smallPadding};
     }
+
+    .end {
+        flex: 1;
+    }
 `;
