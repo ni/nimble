@@ -85,4 +85,20 @@ export class NimbleLabelProviderCoreDirective {
     @Input('loading') public set loading(value: string | undefined) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'loading', value);
     }
+
+    public get scrollBackward(): string | undefined {
+        return this.elementRef.nativeElement.scrollBackward;
+    }
+
+    @Input('scrollBackward') public set scrollBackward(value: string | undefined) {
+        this.renderer.setProperty(this.elementRef.nativeElement, 'scrollBackward', value);
+    }
+
+    public get scrollForward(): string | undefined {
+        return this.elementRef.nativeElement.scrollForward;
+    }
+
+    @Input('scrollForward') public set scrollForward(value: string | undefined) {
+        this.renderer.setProperty(this.elementRef.nativeElement, 'scrollForward', value);
+    }
 }

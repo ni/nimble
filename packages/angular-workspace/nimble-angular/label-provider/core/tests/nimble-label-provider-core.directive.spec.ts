@@ -12,6 +12,9 @@ describe('Nimble Label Provider Core', () => {
     const label6 = 'String 6';
     const label7 = 'String 7';
     const label8 = 'String 8';
+    const label9 = 'String 9';
+    const label10 = 'String 10';
+    const label11 = 'String `11';
 
     beforeEach(() => {
         TestBed.configureTestingModule({
@@ -88,6 +91,21 @@ describe('Nimble Label Provider Core', () => {
             expect(directive.filterNoResults).toBeUndefined();
             expect(nativeElement.filterNoResults).toBeUndefined();
         });
+
+        it('has expected defaults for loading', () => {
+            expect(directive.loading).toBeUndefined();
+            expect(nativeElement.loading).toBeUndefined();
+        });
+
+        it('has expected defaults for scrollBackward', () => {
+            expect(directive.scrollBackward).toBeUndefined();
+            expect(nativeElement.scrollBackward).toBeUndefined();
+        });
+
+        it('has expected defaults for scrollForward', () => {
+            expect(directive.scrollForward).toBeUndefined();
+            expect(nativeElement.scrollForward).toBeUndefined();
+        });
     });
 
     describe('with template string values', () => {
@@ -102,6 +120,9 @@ describe('Nimble Label Provider Core', () => {
                     popup-icon-information="${label6}"
                     filter-search="${label7}"
                     filter-no-results="${label8}"
+                    loading="${label9}"
+                    scroll-backward="${label10}"
+                    scroll-forward="${label11}"
                     >
                 </nimble-label-provider-core>
             `
@@ -165,6 +186,21 @@ describe('Nimble Label Provider Core', () => {
             expect(directive.filterNoResults).toBe(label8);
             expect(nativeElement.filterNoResults).toBe(label8);
         });
+
+        it('will use template string values for loading', () => {
+            expect(directive.loading).toBe(label9);
+            expect(nativeElement.loading).toBe(label9);
+        });
+
+        it('will use template string values for scrollBackward', () => {
+            expect(directive.scrollBackward).toBe(label10);
+            expect(nativeElement.scrollBackward).toBe(label10);
+        });
+
+        it('will use template string values for scrollForward', () => {
+            expect(directive.scrollForward).toBe(label11);
+            expect(nativeElement.scrollForward).toBe(label11);
+        });
     });
 
     describe('with property bound values', () => {
@@ -179,6 +215,9 @@ describe('Nimble Label Provider Core', () => {
                     [popupIconInformation]="popupIconInformation"
                     [filterSearch]="filterSearch"
                     [filterNoResults]="filterNoResults"
+                    [loading]="loading"
+                    [scrollBackward]="scrollBackward"
+                    [scrollForward]="scrollForward"
                     >
                 </nimble-label-provider-core>
             `
@@ -194,6 +233,9 @@ describe('Nimble Label Provider Core', () => {
             public popupIconInformation = label1;
             public filterSearch = label1;
             public filterNoResults = label1;
+            public loading = label1;
+            public scrollBackward = label1;
+            public scrollForward = label1;
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
@@ -298,6 +340,39 @@ describe('Nimble Label Provider Core', () => {
             expect(directive.filterNoResults).toBe(label2);
             expect(nativeElement.filterNoResults).toBe(label2);
         });
+
+        it('can be configured with property binding for loading', () => {
+            expect(directive.loading).toBe(label1);
+            expect(nativeElement.loading).toBe(label1);
+
+            fixture.componentInstance.loading = label2;
+            fixture.detectChanges();
+
+            expect(directive.loading).toBe(label2);
+            expect(nativeElement.loading).toBe(label2);
+        });
+
+        it('can be configured with property binding for scrollBackward', () => {
+            expect(directive.scrollBackward).toBe(label1);
+            expect(nativeElement.scrollBackward).toBe(label1);
+
+            fixture.componentInstance.scrollBackward = label2;
+            fixture.detectChanges();
+
+            expect(directive.scrollBackward).toBe(label2);
+            expect(nativeElement.scrollBackward).toBe(label2);
+        });
+
+        it('can be configured with property binding for scrollForward', () => {
+            expect(directive.scrollForward).toBe(label1);
+            expect(nativeElement.scrollForward).toBe(label1);
+
+            fixture.componentInstance.scrollForward = label2;
+            fixture.detectChanges();
+
+            expect(directive.scrollForward).toBe(label2);
+            expect(nativeElement.scrollForward).toBe(label2);
+        });
     });
 
     describe('with attribute bound values', () => {
@@ -312,6 +387,9 @@ describe('Nimble Label Provider Core', () => {
                     [attr.popup-icon-information]="popupIconInformation"
                     [attr.filter-search]="filterSearch"
                     [attr.filter-no-results]="filterNoResults"
+                    [attr.loading]="loading"
+                    [attr.scroll-backward]="scrollBackward"
+                    [attr.scroll-forward]="scrollForward"
                     >
                 </nimble-label-provider-core>
             `
@@ -327,6 +405,9 @@ describe('Nimble Label Provider Core', () => {
             public popupIconInformation = label1;
             public filterSearch = label1;
             public filterNoResults = label1;
+            public loading = label1;
+            public scrollBackward = label1;
+            public scrollForward = label1;
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
@@ -430,6 +511,39 @@ describe('Nimble Label Provider Core', () => {
 
             expect(directive.filterNoResults).toBe(label2);
             expect(nativeElement.filterNoResults).toBe(label2);
+        });
+
+        it('can be configured with attribute binding for loading', () => {
+            expect(directive.loading).toBe(label1);
+            expect(nativeElement.loading).toBe(label1);
+
+            fixture.componentInstance.loading = label2;
+            fixture.detectChanges();
+
+            expect(directive.loading).toBe(label2);
+            expect(nativeElement.loading).toBe(label2);
+        });
+
+        it('can be configured with attribute binding for scrollBackward', () => {
+            expect(directive.scrollBackward).toBe(label1);
+            expect(nativeElement.scrollBackward).toBe(label1);
+
+            fixture.componentInstance.scrollBackward = label2;
+            fixture.detectChanges();
+
+            expect(directive.scrollBackward).toBe(label2);
+            expect(nativeElement.scrollBackward).toBe(label2);
+        });
+
+        it('can be configured with attribute binding for scrollForward', () => {
+            expect(directive.scrollForward).toBe(label1);
+            expect(nativeElement.scrollForward).toBe(label1);
+
+            fixture.componentInstance.scrollForward = label2;
+            fixture.detectChanges();
+
+            expect(directive.scrollForward).toBe(label2);
+            expect(nativeElement.scrollForward).toBe(label2);
         });
     });
 });
