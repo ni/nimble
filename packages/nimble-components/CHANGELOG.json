@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Thu, 24 Oct 2024 20:52:01 GMT",
+      "version": "32.5.1",
+      "tag": "@ni/nimble-components_v32.5.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "64ede95ba2420c6ef9a30d274ec7465d22b2959d",
+            "comment": "Fix tabs styling."
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 23 Oct 2024 19:20:53 GMT",
       "version": "32.5.0",
       "tag": "@ni/nimble-components_v32.5.0",
