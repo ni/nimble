@@ -1,4 +1,4 @@
-import { html, when } from '@microsoft/fast-element';
+import { html, repeat, when } from '@microsoft/fast-element';
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html';
 import { buttonTag } from '../../../../nimble-components/src/button';
@@ -11,11 +11,13 @@ import {
     createUserSelectedThemeStory,
     disabledDescription
 } from '../../utilities/storybook';
+import { ExampleTabsType } from '../patterns/tabs/types';
 
 interface TabsArgs {
     activeid: string;
     content: undefined;
     change: undefined;
+    tabsType: ExampleTabsType;
 }
 
 interface TabArgs {
@@ -42,18 +44,58 @@ const metadata: Meta<TabsArgs> = {
     }
 };
 
+const simpleTabs = [
+    { title: 'Tab 1', id: '1', disabled: false },
+    { title: 'Tab 2', id: '2', disabled: true },
+    { title: 'Tab 3', id: '3', disabled: false }
+] as const;
+
+const wideTabs = [
+    {
+        title: 'Tab 1 that is too long and should probably be shorter but is not',
+        id: '1',
+        disabled: false
+    },
+    {
+        title: 'Tab 2 that is also too long but disabled',
+        id: '2',
+        disabled: true
+    },
+    { title: 'Short', id: '3', disabled: false }
+] as const;
+
+const manyTabs: TabArgs[] = [];
+for (let i = 1; i <= 100; i++) {
+    manyTabs.push({
+        title: `Tab ${i}`,
+        id: `${i}`,
+        disabled: false
+    });
+}
+
+const tabSets = {
+    [ExampleTabsType.simpleTabs]: simpleTabs,
+    [ExampleTabsType.wideTabs]: wideTabs,
+    [ExampleTabsType.manyTabs]: manyTabs
+} as const;
+
 export default metadata;
 
 export const tabs: StoryObj<TabsArgs> = {
     // prettier-ignore
     render: createUserSelectedThemeStory(html`
         <${tabsTag} activeid="${x => x.activeid}">
-            <${tabTag} id="1" disabled">Tab One</${tabTag}>
-            <${tabTag} id="2">Tab Two</${tabTag}>
-            <${tabTag} id="3">Tab Three</${tabTag}>
-            <${tabPanelTag}>Content of the first tab</${tabPanelTag}>
-            <${tabPanelTag}>Content of the second tab</${tabPanelTag}>
-            <${tabPanelTag}>Content of the third tab</${tabPanelTag}>
+        ${repeat(x => (tabSets[x.tabsType] as TabArgs[]), html<TabArgs>`
+            <${tabTag}
+                ?disabled="${x => x.disabled}"
+                id="${x => x.id}"
+            >
+                ${x => x.title}
+            </${tabTag}>
+        `)}
+        ${repeat(x => (tabSets[x.tabsType] as TabArgs[]), html<TabArgs>`
+            <${tabPanelTag}>Content of tab ${x => x.id}</${tabPanelTag}>
+        `, { positioning: true })}
         </${tabsTag}>
     `),
     argTypes: {
@@ -63,11 +105,19 @@ export const tabs: StoryObj<TabsArgs> = {
             description: `The \`id\` of the \`${tabTag}\` that should be indicated as currently active/selected.`,
             table: { category: apiCategory.attributes }
         },
-        content: {
+        tabsType: {
             name: 'default',
             description:
                 'Add tabs, tab panels, or a toolbar by slotting them as child content in the default slot.',
-            control: false,
+            options: Object.values(ExampleTabsType),
+            control: {
+                type: 'radio',
+                labels: {
+                    [ExampleTabsType.simpleTabs]: 'Simple tabs',
+                    [ExampleTabsType.manyTabs]: 'Many tabs',
+                    [ExampleTabsType.wideTabs]: 'Wide tabs'
+                }
+            },
             table: { category: apiCategory.slots }
         },
         change: {
@@ -77,7 +127,8 @@ export const tabs: StoryObj<TabsArgs> = {
         }
     },
     args: {
-        activeid: '1'
+        activeid: '1',
+        tabsType: ExampleTabsType.simpleTabs
     }
 };
 

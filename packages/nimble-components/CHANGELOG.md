@@ -1,8 +1,24 @@
 # Change Log - @ni/nimble-components
 
-<!-- This log was last generated on Wed, 23 Oct 2024 13:33:54 GMT and should not be manually modified. -->
+<!-- This log was last generated on Thu, 24 Oct 2024 20:52:01 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 32.5.1
+
+Thu, 24 Oct 2024 20:52:01 GMT
+
+### Patches
+
+- Fix tabs styling. ([ni/nimble@64ede95](https://github.com/ni/nimble/commit/64ede95ba2420c6ef9a30d274ec7465d22b2959d))
+
+## 32.5.0
+
+Wed, 23 Oct 2024 19:20:53 GMT
+
+### Minor changes
+
+- Scrollable tabs for Tabs and AnchorTabs. ([ni/nimble@4173c31](https://github.com/ni/nimble/commit/4173c319a64f9c600b3cfbda2b90f2b336ea5f1c))
 
 ## 32.4.1
 
