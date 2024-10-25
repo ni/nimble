@@ -4,7 +4,7 @@ using Xunit;
 
 namespace NimbleBlazor.Tests.Acceptance.InteractiveServer;
 
-public class ThemeProviderTests : NimbleAcceptanceTestsBase
+public class ThemeProviderTests : NimbleInteractiveAcceptanceTestsBase
 {
     public ThemeProviderTests(PlaywrightFixture playwrightFixture, NimbleBlazorWebHostServerFixture blazorServerClassFixture)
         : base(playwrightFixture, blazorServerClassFixture)

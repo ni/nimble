@@ -4,7 +4,7 @@ using Xunit;
 
 namespace NimbleBlazor.Tests.Acceptance.InteractiveServer;
 
-public class DrawerTests : NimbleAcceptanceTestsBase
+public class DrawerTests : NimbleInteractiveAcceptanceTestsBase
 {
     public DrawerTests(PlaywrightFixture playwrightFixture, NimbleBlazorWebHostServerFixture blazorServerClassFixture)
         : base(playwrightFixture, blazorServerClassFixture)

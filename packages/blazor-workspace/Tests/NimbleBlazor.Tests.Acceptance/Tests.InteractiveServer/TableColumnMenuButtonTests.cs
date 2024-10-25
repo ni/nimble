@@ -4,7 +4,7 @@ using Xunit;
 
 namespace NimbleBlazor.Tests.Acceptance.InteractiveServer;
 
-public class TableColumnMenuButtonTests : NimbleAcceptanceTestsBase
+public class TableColumnMenuButtonTests : NimbleInteractiveAcceptanceTestsBase
 {
     public TableColumnMenuButtonTests(PlaywrightFixture playwrightFixture, NimbleBlazorWebHostServerFixture blazorServerClassFixture)
         : base(playwrightFixture, blazorServerClassFixture)

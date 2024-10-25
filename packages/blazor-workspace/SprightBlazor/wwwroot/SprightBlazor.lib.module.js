@@ -9,9 +9,9 @@
  * https://learn.microsoft.com/en-us/aspnet/core/blazor/fundamentals/startup?view=aspnetcore-8.0
  */
 
-export function initializeSprightBlazor(Blazor) {
-    if (window.SprightBlazor.hasInitialized) {
-        console.warn('Attempted to initialize Spright Blazor multiple times!'); // eslint-disable-line
+export function registerSprightEvents(Blazor) {
+    if (window.SprightBlazor.hasRegisteredEvents) {
+        console.warn('Attempted to register Spright Blazor events multiple times!'); // eslint-disable-line
         return;
     }
 
@@ -19,7 +19,7 @@ export function initializeSprightBlazor(Blazor) {
         throw new Error('Blazor not ready to initialize Spright with!');
     }
 
-    window.SprightBlazor.hasInitialized = true;
+    window.SprightBlazor.hasRegisteredEvents = true;
 
     /* Register any custom events here
     Blazor.registerCustomEventType('sprighteventname', {
@@ -35,23 +35,29 @@ export function initializeSprightBlazor(Blazor) {
 }
 
 // Blazor Web Apps
-export function beforeWebStart(_Blazor) {
-    window.SprightBlazor.isBlazorWebApp = true;
+export function afterWebStarted(Blazor) {
+    registerSprightEvents(Blazor);
+    // Note: For static SSR, this is the last event called, and hasRuntimeStarted
+    // will remain false.
 }
 
-export function afterWebStarted(Blazor) {
-    initializeSprightBlazor(Blazor);
+export function afterServerStarted(_Blazor) {
+    window.SprightBlazor.hasRuntimeStarted = true;
+}
+
+export function afterWebAssemblyStarted(_Blazor) {
+    window.SprightBlazor.hasRuntimeStarted = true;
 }
 
 // Blazor Server/WebAssembly/Hybrid apps
 export function afterStarted(Blazor) {
     // In some cases afterStarted is called on Blazor Web Apps too, if Spright is used in a component explicitly
-    // marked as InteractiveWebAssembly render mode. As long as afterWebStarted was already called, we've already
-    // initialized.
-    if (window.SprightBlazor.isBlazorWebApp && window.SprightBlazor.hasInitialized) {
-        return;
+    // marked as InteractiveWebAssembly render mode. So check if we've already registered our events first.
+    if (!window.SprightBlazor.hasRegisteredEvents) {
+        registerSprightEvents(Blazor);
     }
-    initializeSprightBlazor(Blazor);
+
+    window.NimbleBlazor.hasRuntimeStarted = true;
 }
 
 if (window.SprightBlazor) {
@@ -59,6 +65,6 @@ if (window.SprightBlazor) {
 }
 
 window.SprightBlazor = window.SprightBlazor ?? {
-    isBlazorWebApp: false,
-    hasInitialized: false,
+    hasRegisteredEvents: false,
+    hasRuntimeStarted: false,
 };

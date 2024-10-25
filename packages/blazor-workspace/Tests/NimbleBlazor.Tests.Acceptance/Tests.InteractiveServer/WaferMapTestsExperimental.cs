@@ -4,7 +4,7 @@ using Xunit;
 
 namespace NimbleBlazor.Tests.Acceptance.InteractiveServer;
 
-public class WaferMapTestsExperimental : NimbleAcceptanceTestsBase
+public class WaferMapTestsExperimental : NimbleInteractiveAcceptanceTestsBase
 {
     public WaferMapTestsExperimental(PlaywrightFixture playwrightFixture, NimbleBlazorWebHostServerFixture blazorServerClassFixture)
         : base(playwrightFixture, blazorServerClassFixture)

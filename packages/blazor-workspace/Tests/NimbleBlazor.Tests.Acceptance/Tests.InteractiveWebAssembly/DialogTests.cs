@@ -4,7 +4,7 @@ using Xunit;
 
 namespace NimbleBlazor.Tests.Acceptance.InteractiveWebAssembly;
 
-public class DialogTests : NimbleAcceptanceTestsBase
+public class DialogTests : NimbleInteractiveAcceptanceTestsBase
 {
     public DialogTests(PlaywrightFixture playwrightFixture, NimbleBlazorWebHostServerFixture blazorServerClassFixture)
         : base(playwrightFixture, blazorServerClassFixture)

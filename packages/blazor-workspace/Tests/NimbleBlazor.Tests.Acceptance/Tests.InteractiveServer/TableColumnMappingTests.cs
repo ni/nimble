@@ -4,7 +4,7 @@ using Xunit;
 
 namespace NimbleBlazor.Tests.Acceptance.InteractiveServer;
 
-public class TableColumnMappingTests : NimbleAcceptanceTestsBase
+public class TableColumnMappingTests : NimbleInteractiveAcceptanceTestsBase
 {
     public TableColumnMappingTests(PlaywrightFixture playwrightFixture, NimbleBlazorWebHostServerFixture blazorServerClassFixture)
         : base(playwrightFixture, blazorServerClassFixture)

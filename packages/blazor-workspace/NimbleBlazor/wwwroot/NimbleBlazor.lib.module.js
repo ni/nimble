@@ -9,9 +9,9 @@
  * https://learn.microsoft.com/en-us/aspnet/core/blazor/fundamentals/startup?view=aspnetcore-8.0
  */
 
-function initializeNimbleBlazor(Blazor) {
-    if (window.NimbleBlazor.hasInitialized) {
-        console.warn('Attempted to initialize Nimble Blazor multiple times!'); // eslint-disable-line
+function registerNimbleEvents(Blazor) {
+    if (window.NimbleBlazor.hasRegisteredEvents) {
+        console.warn('Attempted to register Nimble Blazor events multiple times!'); // eslint-disable-line
         return;
     }
 
@@ -19,7 +19,7 @@ function initializeNimbleBlazor(Blazor) {
         throw new Error('Blazor not ready to initialize Nimble with!');
     }
 
-    window.NimbleBlazor.hasInitialized = true;
+    window.NimbleBlazor.hasRegisteredEvents = true;
 
     // Used by NimbleCheckbox.razor, NimbleSwitch.razor, NimbleToggleButton.razor
     // Necessary because the control's value property is always just the value 'on', so we need to look
@@ -164,23 +164,29 @@ function initializeNimbleBlazor(Blazor) {
 }
 
 // Blazor Web Apps
-export function beforeWebStart(_Blazor) {
-    window.NimbleBlazor.isBlazorWebApp = true;
+export function afterWebStarted(Blazor) {
+    registerNimbleEvents(Blazor);
+    // Note: For static SSR, this is the last event called, and hasRuntimeStarted
+    // will remain false.
 }
 
-export function afterWebStarted(Blazor) {
-    initializeNimbleBlazor(Blazor);
+export function afterServerStarted(_Blazor) {
+    window.NimbleBlazor.hasRuntimeStarted = true;
+}
+
+export function afterWebAssemblyStarted(_Blazor) {
+    window.NimbleBlazor.hasRuntimeStarted = true;
 }
 
 // Blazor Server/WebAssembly/Hybrid apps
 export function afterStarted(Blazor) {
     // In some cases afterStarted is called on Blazor Web Apps too, if Nimble is used in a component explicitly
-    // marked as InteractiveWebAssembly render mode. As long as afterWebStarted was already called, we've already
-    // initialized.
-    if (window.NimbleBlazor.isBlazorWebApp && window.NimbleBlazor.hasInitialized) {
-        return;
+    // marked as InteractiveWebAssembly render mode. So check if we've already registered our events first.
+    if (!window.NimbleBlazor.hasRegisteredEvents) {
+        registerNimbleEvents(Blazor);
     }
-    initializeNimbleBlazor(Blazor);
+
+    window.NimbleBlazor.hasRuntimeStarted = true;
 }
 
 if (window.NimbleBlazor) {
@@ -188,8 +194,8 @@ if (window.NimbleBlazor) {
 }
 
 window.NimbleBlazor = window.NimbleBlazor ?? {
-    isBlazorWebApp: false,
-    hasInitialized: false,
+    hasRegisteredEvents: false,
+    hasRuntimeStarted: false,
     Dialog: {
         show: async function (dialogReference) {
             const reason = await dialogReference.show();
