@@ -34,6 +34,12 @@ export function registerSprightEvents(Blazor) {
     */
 }
 
+function handleRuntimeStarted() {
+    window.requestAnimationFrame(() => {
+        window.NimbleBlazor.hasRuntimeStarted = true;
+    });
+}
+
 // Blazor Web Apps
 export function afterWebStarted(Blazor) {
     registerSprightEvents(Blazor);
@@ -42,11 +48,11 @@ export function afterWebStarted(Blazor) {
 }
 
 export function afterServerStarted(_Blazor) {
-    window.SprightBlazor.hasRuntimeStarted = true;
+    handleRuntimeStarted();
 }
 
 export function afterWebAssemblyStarted(_Blazor) {
-    window.SprightBlazor.hasRuntimeStarted = true;
+    handleRuntimeStarted();
 }
 
 // Blazor Server/WebAssembly/Hybrid apps
@@ -57,7 +63,7 @@ export function afterStarted(Blazor) {
         registerSprightEvents(Blazor);
     }
 
-    window.NimbleBlazor.hasRuntimeStarted = true;
+    handleRuntimeStarted();
 }
 
 if (window.SprightBlazor) {

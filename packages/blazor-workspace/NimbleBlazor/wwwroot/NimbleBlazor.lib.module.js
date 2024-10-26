@@ -163,6 +163,12 @@ function registerNimbleEvents(Blazor) {
     });
 }
 
+function handleRuntimeStarted() {
+    window.requestAnimationFrame(() => {
+        window.NimbleBlazor.hasRuntimeStarted = true;
+    });
+}
+
 // Blazor Web Apps
 export function afterWebStarted(Blazor) {
     registerNimbleEvents(Blazor);
@@ -171,11 +177,11 @@ export function afterWebStarted(Blazor) {
 }
 
 export function afterServerStarted(_Blazor) {
-    window.NimbleBlazor.hasRuntimeStarted = true;
+    handleRuntimeStarted();
 }
 
 export function afterWebAssemblyStarted(_Blazor) {
-    window.NimbleBlazor.hasRuntimeStarted = true;
+    handleRuntimeStarted();
 }
 
 // Blazor Server/WebAssembly/Hybrid apps
@@ -186,7 +192,7 @@ export function afterStarted(Blazor) {
         registerNimbleEvents(Blazor);
     }
 
-    window.NimbleBlazor.hasRuntimeStarted = true;
+    handleRuntimeStarted();
 }
 
 if (window.NimbleBlazor) {
