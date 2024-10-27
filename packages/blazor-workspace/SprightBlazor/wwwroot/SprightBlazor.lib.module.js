@@ -35,9 +35,7 @@ export function registerSprightEvents(Blazor) {
 }
 
 function handleRuntimeStarted() {
-    window.requestAnimationFrame(() => {
-        window.NimbleBlazor.hasRuntimeStarted = true;
-    });
+    window.NimbleBlazor.hasRuntimeStarted = true;
 }
 
 // Blazor Web Apps

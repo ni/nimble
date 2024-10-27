@@ -33,6 +33,9 @@ public abstract class AcceptanceTestsBase
     private async Task WaitForComponentsInitializationAsync(IPage page)
     {
         await page.WaitForFunctionAsync(ComponentLibraryInitializationTestJavaScript);
+        // Have encountered some test intermittency when interacting with the components immediately
+        // after the JS scripts report ready. Added an extra wait here to mitigate.
+        await Task.Delay(150);
     }
 
     protected sealed class AsyncDisposablePage : IAsyncDisposable
