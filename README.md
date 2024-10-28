@@ -12,7 +12,7 @@ The NI Nimble Design System: Styled UI components for NI applications.
 [![example blazor app](https://img.shields.io/badge/example%20blazor%20application-572b8a.svg?logo=blazor)](https://ni.github.io/nimble/storybook/blazor-client-app/wwwroot)
 [![component status page](https://img.shields.io/badge/✔-component%20status%20table-074023.svg)](https://nimble.ni.dev/storybook/?path=/docs/component-status--docs)
 
-If you are at NI, lucky you! **Reach out to ask questions** via Microsoft Teams on the Design System [`General` channel](https://teams.microsoft.com/l/team/19%3awo8vmMKMsHfltKXxc0bczZo-X4JlQSV5VxpaRJdh13k1%40thread.tacv2/conversations?groupId=9ee065d7-3898-4245-82f6-76e86084b8b1&tenantId=87ba1f9a-44cd-43a6-b008-6fdb45a5204e) or via NI Stack Overflow with the [`nimble` tag](https://ni.stackenterprise.co/questions/tagged/813).
+If you are at NI, lucky you! **Reach out to ask questions** via Microsoft Teams on the Design System [`General` channel](https://teams.microsoft.com/l/channel/19%3ACb5zEPCpdADS7kC0XTWXJGwZCq0qHVxnjkiPEWeEz7k1%40thread.tacv2/General?groupId=180bf0c7-4ff2-405e-8330-fdbe8ab6eb52&tenantId=eb06985d-06ca-4a17-81da-629ab99f6505) or via NI Stack Overflow with the [`nimble` tag](https://ni.stackenterprise.co/questions/tagged/813).
 
 If you are outside NI, we want to hear from you too! See how to reach out in the [**Community**](#community) section below.
 
@@ -62,7 +62,7 @@ The above packages follow [Semantic Versioning](https://semver.org). Consult the
 
 We welcome feedback and contributions!
 
-The fastest way to ask questions is to [join the discussion on Teams](https://teams.microsoft.com/l/team/19%3awo8vmMKMsHfltKXxc0bczZo-X4JlQSV5VxpaRJdh13k1%40thread.tacv2/conversations?groupId=9ee065d7-3898-4245-82f6-76e86084b8b1&tenantId=87ba1f9a-44cd-43a6-b008-6fdb45a5204e) or the [NI Stack Overflow](https://ni.stackenterprise.co/questions/tagged/813) (accessible to NI employees only). You can also start a discussion on GitHub by filing an issue using the [**🎙 Discussion**](https://github.com/ni/nimble/issues/new/choose) template.
+The fastest way to ask questions is to [join the discussion on Teams](https://teams.microsoft.com/l/channel/19%3ACb5zEPCpdADS7kC0XTWXJGwZCq0qHVxnjkiPEWeEz7k1%40thread.tacv2/General?groupId=180bf0c7-4ff2-405e-8330-fdbe8ab6eb52&tenantId=eb06985d-06ca-4a17-81da-629ab99f6505) or the [NI Stack Overflow](https://ni.stackenterprise.co/questions/tagged/813) (accessible to NI employees only). You can also start a discussion on GitHub by filing an issue using the [**🎙 Discussion**](https://github.com/ni/nimble/issues/new/choose) template.
 
 ### Requesting New Components and Features
 
