@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-<!-- This log was last generated on Thu, 24 Oct 2024 20:52:01 GMT and should not be manually modified. -->
+<!-- This log was last generated on Mon, 28 Oct 2024 21:38:16 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 32.5.2
+
+Mon, 28 Oct 2024 21:38:16 GMT
+
+### Patches
+
+- Pin FAST foundation and element versions until new versions vetted ([ni/nimble@b83708f](https://github.com/ni/nimble/commit/b83708f2711f0055ae6511c402a804e6bdfb51a8))
 
 ## 32.5.1
 

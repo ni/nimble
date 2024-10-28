@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Pin FAST foundation and element versions until new versions vetted",
-  "packageName": "@ni/nimble-components",
-  "email": "7282195+m-akinc@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
