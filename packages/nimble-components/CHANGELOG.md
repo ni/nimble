@@ -1,8 +1,24 @@
 # Change Log - @ni/nimble-components
 
-<!-- This log was last generated on Mon, 28 Oct 2024 21:38:16 GMT and should not be manually modified. -->
+<!-- This log was last generated on Tue, 29 Oct 2024 18:50:54 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 32.6.0
+
+Tue, 29 Oct 2024 18:50:54 GMT
+
+### Minor changes
+
+- Add a table page object function to get an icon's severity ([ni/nimble@42ed262](https://github.com/ni/nimble/commit/42ed262d11e4c28f298ae87513861cc71a82a1a4))
+
+## 32.5.3
+
+Tue, 29 Oct 2024 16:39:58 GMT
+
+### Patches
+
+- Fix issue with tab panel not sizing to height of tabs component. ([ni/nimble@fae0aee](https://github.com/ni/nimble/commit/fae0aeeedc8d2d64dc778cb9f88eb307e286b2ba))
 
 ## 32.5.2
 
