@@ -27,7 +27,7 @@ public abstract class AcceptanceTestsBase
         });
         await NavigateToPageAsync(page, route);
         await WaitForComponentsInitializationAsync(page);
-        return new AsyncDisposablePage(page, browserContext);
+        return new AsyncDisposablePage(page, browserContext, route);
     }
 
     private async Task NavigateToPageAsync(IPage page, string route)
@@ -47,20 +47,30 @@ public abstract class AcceptanceTestsBase
         private readonly IBrowserContext _browserContext;
         private readonly string _traceName = string.Empty;
 
-        public AsyncDisposablePage(IPage page, IBrowserContext context)
+        public AsyncDisposablePage(IPage page, IBrowserContext context, string route)
         {
             Page = page;
             _browserContext = context;
             // _traceName = Uri.EscapeDataString(route.Replace("/", "_")) + "_" + pageCount;
-            _traceName = "failing-test";
+            if (route.Contains("InteractiveServer/DialogOpenAndClose"))
+            {
+                _traceName = "failing-test";
+            }
         }
 
         public async ValueTask DisposeAsync()
         {
-            await _browserContext.Tracing.StopAsync(new()
+            if (!string.IsNullOrEmpty(_traceName))
             {
-                Path = _traceName + ".zip"
-            });
+                await _browserContext.Tracing.StopAsync(new()
+                {
+                    Path = _traceName + ".zip"
+                });
+            }
+            else
+            {
+                await _browserContext.Tracing.StopAsync();
+            }
             await Page.CloseAsync();
         }
     }
