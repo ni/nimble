@@ -36,4 +36,8 @@ export const styles = css`
     [part='end'] {
         flex: 1;
     }
+
+    [part='tabpanel'] {
+        flex: 1;
+    }
 `;
