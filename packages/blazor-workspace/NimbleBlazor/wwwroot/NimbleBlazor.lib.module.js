@@ -178,7 +178,12 @@ export function afterServerStarted(_Blazor) {
     handleRuntimeStarted();
 }
 
+// Blazor Web Apps, WASM Standalone apps with .NET 8
 export function afterWebAssemblyStarted(_Blazor) {
+    if (!window.NimbleBlazor.hasRegisteredEvents) {
+        registerNimbleEvents(Blazor);
+    }
+
     handleRuntimeStarted();
 }
 
