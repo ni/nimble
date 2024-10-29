@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 29 Oct 2024 18:50:54 GMT",
+      "version": "32.6.0",
+      "tag": "@ni/nimble-components_v32.6.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "42ed262d11e4c28f298ae87513861cc71a82a1a4",
+            "comment": "Add a table page object function to get an icon's severity"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 29 Oct 2024 16:39:58 GMT",
       "version": "32.5.3",
       "tag": "@ni/nimble-components_v32.5.3",

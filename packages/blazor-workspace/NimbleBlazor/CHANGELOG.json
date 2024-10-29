@@ -2,6 +2,21 @@
   "name": "@ni/nimble-blazor",
   "entries": [
     {
+      "date": "Tue, 29 Oct 2024 18:50:54 GMT",
+      "version": "18.4.4",
+      "tag": "@ni/nimble-blazor_v18.4.4",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-blazor",
+            "comment": "Bump @ni/nimble-components to v32.6.0",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 29 Oct 2024 16:39:58 GMT",
       "version": "18.4.3",
       "tag": "@ni/nimble-blazor_v18.4.3",

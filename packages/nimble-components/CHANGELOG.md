@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-<!-- This log was last generated on Tue, 29 Oct 2024 16:39:58 GMT and should not be manually modified. -->
+<!-- This log was last generated on Tue, 29 Oct 2024 18:50:54 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 32.6.0
+
+Tue, 29 Oct 2024 18:50:54 GMT
+
+### Minor changes
+
+- Add a table page object function to get an icon's severity ([ni/nimble@42ed262](https://github.com/ni/nimble/commit/42ed262d11e4c28f298ae87513861cc71a82a1a4))
 
 ## 32.5.3
 
