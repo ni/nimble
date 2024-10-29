@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-<!-- This log was last generated on Mon, 28 Oct 2024 21:38:16 GMT and should not be manually modified. -->
+<!-- This log was last generated on Tue, 29 Oct 2024 16:39:58 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 32.5.3
+
+Tue, 29 Oct 2024 16:39:58 GMT
+
+### Patches
+
+- Fix issue with tab panel not sizing to height of tabs component. ([ni/nimble@fae0aee](https://github.com/ni/nimble/commit/fae0aeeedc8d2d64dc778cb9f88eb307e286b2ba))
 
 ## 32.5.2
 
