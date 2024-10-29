@@ -18,6 +18,7 @@ import { Anchor, anchorTag } from '../../anchor';
 import { tableGroupRowTag, type TableGroupRow } from '../components/group-row';
 import type { Button } from '../../button';
 import { Icon } from '../../icon-base';
+import type { IconSeverity } from '../../icon-base/types';
 import { Spinner, spinnerTag } from '../../spinner';
 import { borderHoverColor } from '../../theme-provider/design-tokens';
 
@@ -205,6 +206,19 @@ export class TablePageObject<T extends TableRecord> {
             this.getRenderedCellView(rowIndex, columnIndex)
         );
         return iconOrSpinner.tagName.toLocaleLowerCase();
+    }
+
+    public getRenderedMappingColumnCellIconSeverity(
+        rowIndex: number,
+        columnIndex: number
+    ): IconSeverity {
+        const iconOrSpinner = this.getRenderedMappingColumnIconOrSpinner(
+            this.getRenderedCellView(rowIndex, columnIndex)
+        );
+        if (iconOrSpinner instanceof Icon) {
+            return iconOrSpinner.severity;
+        }
+        throw new Error('Cell does not contain an icon');
     }
 
     public getRenderedGroupHeaderTextContent(groupRowIndex: number): string {
