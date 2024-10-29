@@ -10,6 +10,11 @@ public class WaferMapTests : NimbleInteractiveAcceptanceTestsBase
         : base(playwrightFixture, blazorServerClassFixture)
     { }
 
+    private async Task WaitForWaferMapRenderCompleteAsync(IPage page)
+    {
+        await Assertions.Expect(page.Locator(".render-text-field")).ToHaveAttributeAsync("current-value", "RenderComplete");
+    }
+
     [Fact]
     public async Task WaferMap_WithDiesAndColorScale_RendersColorsAsync()
     {
@@ -18,6 +23,7 @@ public class WaferMapTests : NimbleInteractiveAcceptanceTestsBase
         var wafer = page.Locator("nimble-wafer-map");
         var canvas = page.Locator(".main-wafer");
 
+        await WaitForWaferMapRenderCompleteAsync(page);
         await Assertions.Expect(wafer).ToBeVisibleAsync();
         await Assertions.Expect(canvas).ToBeVisibleAsync();
         var color = await page.EvaluateAsync<string>(
@@ -33,8 +39,9 @@ public class WaferMapTests : NimbleInteractiveAcceptanceTestsBase
         var page = pageWrapper.Page;
         var wafer = page.Locator("nimble-wafer-map");
         var validButton = page.Locator("nimble-button");
-        var textField = page.Locator("nimble-text-field");
+        var textField = page.Locator(".test-text-field");
 
+        await WaitForWaferMapRenderCompleteAsync(page);
         await Assertions.Expect(wafer).ToBeVisibleAsync();
         await validButton.ClickAsync();
 
@@ -47,8 +54,9 @@ public class WaferMapTests : NimbleInteractiveAcceptanceTestsBase
         await using var pageWrapper = await NewPageForRouteAsync("InteractiveServer/WaferMapRenderTest");
         var page = pageWrapper.Page;
         var wafer = page.Locator("nimble-wafer-map");
-        var textField = page.Locator("nimble-text-field");
+        var textField = page.Locator(".test-text-field");
 
+        await WaitForWaferMapRenderCompleteAsync(page);
         await Assertions.Expect(wafer).ToBeVisibleAsync();
         await wafer.HoverAsync();
 

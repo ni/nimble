@@ -10,6 +10,11 @@ public class WaferMapTestsExperimental : NimbleInteractiveAcceptanceTestsBase
         : base(playwrightFixture, blazorServerClassFixture)
     { }
 
+    private async Task WaitForWaferMapRenderCompleteAsync(IPage page)
+    {
+        await Assertions.Expect(page.Locator(".render-text-field")).ToHaveAttributeAsync("current-value", "RenderComplete");
+    }
+
     [Fact]
     public async Task WaferMap_WithGridDimensions_IsValidAsync()
     {
@@ -17,9 +22,9 @@ public class WaferMapTestsExperimental : NimbleInteractiveAcceptanceTestsBase
         var page = pageWrapper.Page;
         var wafer = page.Locator("nimble-wafer-map");
         var validButton = page.Locator("nimble-button");
-        var renderTextField = page.Locator(".render-text-field");
         var textField = page.Locator(".test-text-field");
 
+        await WaitForWaferMapRenderCompleteAsync(page);
         await Assertions.Expect(wafer).ToBeVisibleAsync();
         await validButton.ClickAsync();
 
@@ -32,9 +37,9 @@ public class WaferMapTestsExperimental : NimbleInteractiveAcceptanceTestsBase
         await using var pageWrapper = await NewPageForRouteAsync("InteractiveServer/WaferMapRenderTestExperimental");
         var page = pageWrapper.Page;
         var wafer = page.Locator("nimble-wafer-map");
-        var renderTextField = page.Locator(".render-text-field");
         var textField = page.Locator(".test-text-field");
 
+        await WaitForWaferMapRenderCompleteAsync(page);
         await Assertions.Expect(wafer).ToBeVisibleAsync();
         await wafer.HoverAsync();
 

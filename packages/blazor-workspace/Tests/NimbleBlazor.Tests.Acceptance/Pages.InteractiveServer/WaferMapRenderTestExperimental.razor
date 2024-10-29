@@ -20,8 +20,10 @@
                 @bind-ColorScale="ColorScale"
                 @bind-HighlightedTags="HighlightedTags">
 </NimbleWaferMap>
+<br/>
 <NimbleButton @onclick="GetValidityAsync">Get Validity Async</NimbleButton>
 <NimbleTextField class="test-text-field" @bind-Value="TextFieldText"></NimbleTextField>
+<br/>
 <NimbleTextField class="render-text-field" @bind-Value="RenderTextField"></NimbleTextField>
 @code {
     public NimbleWaferMap? _waferMap;
@@ -108,6 +110,11 @@
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         await _waferMap!.SetDataAsync(DiesTable);
+        if (firstRender)
+        {
+            RenderTextField = "RenderComplete";
+            StateHasChanged();
+        }
         await base.OnAfterRenderAsync(firstRender);
     }
 

@@ -18,11 +18,15 @@
                 @bind-ColorScale="ColorScale"
                 @bind-HighlightedTags="HighlightedTags">
 </NimbleWaferMap>
+<br/>
 <NimbleButton @onclick="GetValidityAsync">Get Validity Async</NimbleButton>
-<NimbleTextField @bind-Value="TextFieldText"></NimbleTextField>
+<NimbleTextField class="test-text-field" @bind-Value="TextFieldText"></NimbleTextField>
+<br/>
+<NimbleTextField class="render-text-field" @bind-Value="RenderTextField"></NimbleTextField>
 @code {
     public NimbleWaferMap? _waferMap;
     private string? TextFieldText { get; set; }
+    private string? RenderTextField { get; set; }
     [NotNull]
     public IEnumerable<WaferMapDie> Dies { get; set; } = Enumerable.Empty<WaferMapDie>();
     [NotNull]
@@ -85,6 +89,11 @@
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         await _waferMap!.SetDataAsync(Dies);
+        if (firstRender)
+        {
+            RenderTextField = "RenderComplete";
+            StateHasChanged();
+        }
         await base.OnAfterRenderAsync(firstRender);
     }
 
