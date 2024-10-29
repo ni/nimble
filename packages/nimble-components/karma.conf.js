@@ -148,7 +148,7 @@ module.exports = config => {
             },
             captureConsole: true
         },
-        logLevel: config.LOG_DEBUG, // to disable the WARN 404 for image requests
+        logLevel: config.LOG_ERROR, // to disable the WARN 404 for image requests
         customHeaders: [
             // Test under the OWASP Basic non-strict CSP Policy
             // See: https://cheatsheetseries.owasp.org/cheatsheets/Content_Security_Policy_Cheat_Sheet.html#basic-non-strict-csp-policy
