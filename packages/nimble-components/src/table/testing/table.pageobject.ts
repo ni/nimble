@@ -18,9 +18,9 @@ import { Anchor, anchorTag } from '../../anchor';
 import { tableGroupRowTag, type TableGroupRow } from '../components/group-row';
 import type { Button } from '../../button';
 import { Icon } from '../../icon-base';
+import type { IconSeverity } from '../../icon-base/types';
 import { Spinner, spinnerTag } from '../../spinner';
 import { borderHoverColor } from '../../theme-provider/design-tokens';
-import { IconSeverity } from '../../icon-base/types';
 
 /**
  * Summary information about a column that is sorted in the table for use in the `TablePageObject`.
@@ -215,9 +215,10 @@ export class TablePageObject<T extends TableRecord> {
         const iconOrSpinner = this.getRenderedMappingColumnIconOrSpinner(
             this.getRenderedCellView(rowIndex, columnIndex)
         );
-        return iconOrSpinner instanceof Icon
-            ? iconOrSpinner.severity
-            : undefined;
+        if (iconOrSpinner instanceof Icon) {
+            return iconOrSpinner.severity;
+        }
+        throw new Error('Cell does not contain an icon');
     }
 
     public getRenderedGroupHeaderTextContent(groupRowIndex: number): string {
