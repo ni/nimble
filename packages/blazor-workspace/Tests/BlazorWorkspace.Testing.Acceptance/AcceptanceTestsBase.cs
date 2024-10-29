@@ -18,10 +18,16 @@ public abstract class AcceptanceTestsBase
 
     protected async Task<AsyncDisposablePage> NewPageForRouteAsync(string route)
     {
-        var page = await _playwrightFixture.BrowserContext!.NewPageAsync();
+        var browserContext = _playwrightFixture.BrowserContext!;
+        var page = await browserContext.NewPageAsync();
+        await browserContext.Tracing.StartAsync(new()
+        {
+            Screenshots = true,
+            Snapshots = true
+        });
         await NavigateToPageAsync(page, route);
         await WaitForComponentsInitializationAsync(page);
-        return new AsyncDisposablePage(page);
+        return new AsyncDisposablePage(page, browserContext);
     }
 
     private async Task NavigateToPageAsync(IPage page, string route)
@@ -38,14 +44,23 @@ public abstract class AcceptanceTestsBase
     protected sealed class AsyncDisposablePage : IAsyncDisposable
     {
         public IPage Page { get; private set; }
+        private readonly IBrowserContext _browserContext;
+        private readonly string _traceName = string.Empty;
 
-        public AsyncDisposablePage(IPage page)
+        public AsyncDisposablePage(IPage page, IBrowserContext context)
         {
             Page = page;
+            _browserContext = context;
+            // _traceName = Uri.EscapeDataString(route.Replace("/", "_")) + "_" + pageCount;
+            _traceName = "failing-test";
         }
 
         public async ValueTask DisposeAsync()
         {
+            await _browserContext.Tracing.StopAsync(new()
+            {
+                Path = _traceName + ".zip"
+            });
             await Page.CloseAsync();
         }
     }

@@ -102,6 +102,13 @@ jobs:
 
       # Validate (Lint and Test)
       - run: npm run validate
+      
+      - uses: actions/upload-artifact@v4
+        with:
+          name: failed-blazor-acceptance-tests
+          path: |
+            packages/blazor-workspace/Tests/**/failing-test.zip
+          if-no-files-found: ignore
 
       # Run Lighthouse audit (from any push)
       - name: Performance Audit with Lighthouse CI
