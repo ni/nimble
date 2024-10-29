@@ -20,6 +20,7 @@ import type { Button } from '../../button';
 import { Icon } from '../../icon-base';
 import { Spinner, spinnerTag } from '../../spinner';
 import { borderHoverColor } from '../../theme-provider/design-tokens';
+import { IconSeverity } from '../../icon-base/types';
 
 /**
  * Summary information about a column that is sorted in the table for use in the `TablePageObject`.
@@ -205,6 +206,18 @@ export class TablePageObject<T extends TableRecord> {
             this.getRenderedCellView(rowIndex, columnIndex)
         );
         return iconOrSpinner.tagName.toLocaleLowerCase();
+    }
+
+    public getRenderedMappingColumnCellIconSeverity(
+        rowIndex: number,
+        columnIndex: number
+    ): IconSeverity {
+        const iconOrSpinner = this.getRenderedMappingColumnIconOrSpinner(
+            this.getRenderedCellView(rowIndex, columnIndex)
+        );
+        return iconOrSpinner instanceof Icon
+            ? iconOrSpinner.severity
+            : undefined;
     }
 
     public getRenderedGroupHeaderTextContent(groupRowIndex: number): string {
