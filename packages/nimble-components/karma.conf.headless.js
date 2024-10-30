@@ -12,7 +12,8 @@ module.exports = config => {
         specReporter: {
             suppressPassed: false,
             suppressSkipped: true,
-            showSpecTiming: true
+            showSpecTiming: true,
+            reportSlowerThan: 2000
         }
     };
 
