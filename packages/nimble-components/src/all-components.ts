@@ -4,7 +4,7 @@
  * that are required instead of leveraging this file.
  */
 
-import './anchor';
+import   './anchor';
 import './anchor-button';
 import './anchor-menu-item';
 import './anchor-tab';
