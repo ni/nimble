@@ -111,6 +111,10 @@ Visual Studio Code commands are included to build and run the example projects. 
 - `blazor-server-example:watch`: Run the `Demo.Server` project in watch mode (to automatically pick up code changes)
 - `blazor-wasm-example:build`: Build the `Demo.Client` project
 - `blazor-wasm-example:watch`: Run the `Demo.Client` project in watch mode (to automatically pick up code changes)
+- `blazor-hybrid-example:build`: Build the `Demo.Hybrid` project
+- `blazor-hybrid-example:watch`: Run the `Demo.Hybrid` project in watch mode (to automatically pick up code changes)
+
+Also see the [trusting the ASP.NET Core development certificate docs](https://learn.microsoft.com/en-us/aspnet/core/security/enforcing-ssl?view=aspnetcore-8.0&tabs=visual-studio%2Clinux-sles#trust-the-aspnet-core-https-development-certificate-on-windows-and-macos).
 
 ## Creating a New Project
 
