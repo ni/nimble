@@ -14,5 +14,4 @@ public abstract class NimbleAcceptanceTestsBase : AcceptanceTestsBase, IClassFix
     }
 
     protected override Uri ServerAddress { get; }
-    protected override string ComponentLibraryInitializationTestJavaScript => "window.NimbleBlazor && window.NimbleBlazor.hasRegisteredEvents === true";
 }

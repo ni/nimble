@@ -12,5 +12,5 @@ public abstract class NimbleInteractiveAcceptanceTestsBase : NimbleAcceptanceTes
     {
     }
 
-    protected override string ComponentLibraryInitializationTestJavaScript => "window.NimbleBlazor && window.NimbleBlazor.hasRegisteredEvents === true && window.NimbleBlazor.hasRuntimeStarted === true";
+    protected override string ComponentLibraryInitializationTestJavaScript => "window.NimbleBlazor && window.NimbleBlazor.isInitialized === true";
 }

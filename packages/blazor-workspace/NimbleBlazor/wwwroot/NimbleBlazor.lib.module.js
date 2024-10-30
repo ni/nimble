@@ -9,193 +9,192 @@
  * https://learn.microsoft.com/en-us/aspnet/core/blazor/fundamentals/startup?view=aspnetcore-8.0
  */
 
-function registerNimbleEvents(Blazor) {
-    if (window.NimbleBlazor.hasRegisteredEvents) {
-        console.warn('Attempted to register Nimble Blazor events multiple times!'); // eslint-disable-line
-        return;
-    }
+const initializer = (function () {
+    let hasRegisteredEvents = false;
 
-    if (!Blazor) {
-        throw new Error('Blazor not ready to initialize Nimble with!');
-    }
-
-    window.NimbleBlazor.hasRegisteredEvents = true;
-
-    // Used by NimbleCheckbox.razor, NimbleSwitch.razor, NimbleToggleButton.razor
-    // Necessary because the control's value property is always just the value 'on', so we need to look
-    // at the checked property to correctly get the value.
-    Blazor.registerCustomEventType('nimblecheckedchange', {
-        browserEventName: 'change',
-        createEventArgs: event => {
-            return {
-                checked: event.target.currentChecked
-            };
+    function registerEvents(Blazor) {
+        if (hasRegisteredEvents) {
+            return;
         }
-    });
-    // Used by NimbleTabs.razor
-    // Necessary because the tab control uses a 'change' event but not a value/currentValue property,
-    // and we do want to be notified of activeid changes (via the change event) for 2-way binding support.
-    // 'localName' check is required to guard against children's change event trickling into the NimbleTabs.
-    Blazor.registerCustomEventType('nimbletabsactiveidchange', {
-        browserEventName: 'change',
-        createEventArgs: event => {
-            if (event.target.localName === 'nimble-tabs') {
+
+        if (!Blazor) {
+            throw new Error('Blazor not ready to initialize Nimble with!');
+        }
+
+        hasRegisteredEvents = true;
+
+        // Used by NimbleCheckbox.razor, NimbleSwitch.razor, NimbleToggleButton.razor
+        // Necessary because the control's value property is always just the value 'on', so we need to look
+        // at the checked property to correctly get the value.
+        Blazor.registerCustomEventType('nimblecheckedchange', {
+            browserEventName: 'change',
+            createEventArgs: event => {
                 return {
-                    activeId: event.target.activeid
+                    checked: event.target.currentChecked
                 };
             }
-            return null;
-        }
-    });
-    // Used by NimbleMenuButton.razor
-    Blazor.registerCustomEventType('nimblemenubuttontoggle', {
-        browserEventName: 'toggle',
-        createEventArgs: event => {
-            return {
-                newState: event.detail.newState,
-                oldState: event.detail.oldState
-            };
-        }
-    });
-    // Used by NimbleMenuButton.razor
-    Blazor.registerCustomEventType('nimblemenubuttonbeforetoggle', {
-        browserEventName: 'beforetoggle',
-        createEventArgs: event => {
-            return {
-                newState: event.detail.newState,
-                oldState: event.detail.oldState
-            };
-        }
-    });
-    // Used by NimbleBanner.razor
-    Blazor.registerCustomEventType('nimblebannertoggle', {
-        browserEventName: 'toggle',
-        createEventArgs: event => {
-            return {
-                newState: event.detail.newState,
-                oldState: event.detail.oldState
-            };
-        }
-    });
-    // Used by NimbleTable.razor
-    Blazor.registerCustomEventType('nimbleactionmenubeforetoggle', {
-        browserEventName: 'action-menu-beforetoggle',
-        createEventArgs: event => {
-            return {
-                newState: event.detail.newState,
-                oldState: event.detail.oldState,
-                recordIds: event.detail.recordIds,
-                columnId: event.detail.columnId
-            };
-        }
-    });
-    // Used by NimbleTable.razor
-    Blazor.registerCustomEventType('nimbleactionmenutoggle', {
-        browserEventName: 'action-menu-toggle',
-        createEventArgs: event => {
-            return {
-                newState: event.detail.newState,
-                oldState: event.detail.oldState,
-                recordIds: event.detail.recordIds,
-                columnId: event.detail.columnId
-            };
-        }
-    });
-    // Used by NimbleTable.razor
-    Blazor.registerCustomEventType('nimbletablerowselectionchange', {
-        browserEventName: 'selection-change',
-        createEventArgs: event => {
-            return {
-                selectedRecordIds: event.detail.selectedRecordIds
-            };
-        }
-    });
-    // Used by NimbleTable.razor
-    Blazor.registerCustomEventType('nimbletablecolumnconfigurationchange', {
-        browserEventName: 'column-configuration-change',
-        createEventArgs: event => {
-            return {
-                columns: event.detail.columns
-            };
-        }
-    });
-    // Used by NimbleTable.razor
-    Blazor.registerCustomEventType('nimbletablerowexpandtoggle', {
-        browserEventName: 'row-expand-toggle',
-        createEventArgs: event => {
-            return {
-                recordId: event.detail.recordId,
-                newState: event.detail.newState,
-                oldState: event.detail.oldState
-            };
-        }
-    });
-    // Used by NimbleTableColumnMenuButton.razor
-    Blazor.registerCustomEventType('nimbletablecolumnmenubuttonbeforetoggle', {
-        browserEventName: 'menu-button-column-beforetoggle',
-        createEventArgs: event => {
-            return {
-                recordId: event.detail.recordId,
-                newState: event.detail.newState,
-                oldState: event.detail.oldState
-            };
-        }
-    });
-    // Used by NimbleTableColumnMenuButton.razor
-    Blazor.registerCustomEventType('nimbletablecolumnmenubuttontoggle', {
-        browserEventName: 'menu-button-column-toggle',
-        createEventArgs: event => {
-            return {
-                recordId: event.detail.recordId,
-                newState: event.detail.newState,
-                oldState: event.detail.oldState
-            };
-        }
-    });
-    // Used by NimbleWaferMap.razor
-    Blazor.registerCustomEventType('nimblewafermapdiehoverchange', {
-        browserEventName: 'die-hover',
-        createEventArgs: event => {
-            return {
-                currentDie: event.detail.currentDie
-            };
-        }
-    });
-}
+        });
+        // Used by NimbleTabs.razor
+        // Necessary because the tab control uses a 'change' event but not a value/currentValue property,
+        // and we do want to be notified of activeid changes (via the change event) for 2-way binding support.
+        // 'localName' check is required to guard against children's change event trickling into the NimbleTabs.
+        Blazor.registerCustomEventType('nimbletabsactiveidchange', {
+            browserEventName: 'change',
+            createEventArgs: event => {
+                if (event.target.localName === 'nimble-tabs') {
+                    return {
+                        activeId: event.target.activeid
+                    };
+                }
+                return null;
+            }
+        });
+        // Used by NimbleMenuButton.razor
+        Blazor.registerCustomEventType('nimblemenubuttontoggle', {
+            browserEventName: 'toggle',
+            createEventArgs: event => {
+                return {
+                    newState: event.detail.newState,
+                    oldState: event.detail.oldState
+                };
+            }
+        });
+        // Used by NimbleMenuButton.razor
+        Blazor.registerCustomEventType('nimblemenubuttonbeforetoggle', {
+            browserEventName: 'beforetoggle',
+            createEventArgs: event => {
+                return {
+                    newState: event.detail.newState,
+                    oldState: event.detail.oldState
+                };
+            }
+        });
+        // Used by NimbleBanner.razor
+        Blazor.registerCustomEventType('nimblebannertoggle', {
+            browserEventName: 'toggle',
+            createEventArgs: event => {
+                return {
+                    newState: event.detail.newState,
+                    oldState: event.detail.oldState
+                };
+            }
+        });
+        // Used by NimbleTable.razor
+        Blazor.registerCustomEventType('nimbleactionmenubeforetoggle', {
+            browserEventName: 'action-menu-beforetoggle',
+            createEventArgs: event => {
+                return {
+                    newState: event.detail.newState,
+                    oldState: event.detail.oldState,
+                    recordIds: event.detail.recordIds,
+                    columnId: event.detail.columnId
+                };
+            }
+        });
+        // Used by NimbleTable.razor
+        Blazor.registerCustomEventType('nimbleactionmenutoggle', {
+            browserEventName: 'action-menu-toggle',
+            createEventArgs: event => {
+                return {
+                    newState: event.detail.newState,
+                    oldState: event.detail.oldState,
+                    recordIds: event.detail.recordIds,
+                    columnId: event.detail.columnId
+                };
+            }
+        });
+        // Used by NimbleTable.razor
+        Blazor.registerCustomEventType('nimbletablerowselectionchange', {
+            browserEventName: 'selection-change',
+            createEventArgs: event => {
+                return {
+                    selectedRecordIds: event.detail.selectedRecordIds
+                };
+            }
+        });
+        // Used by NimbleTable.razor
+        Blazor.registerCustomEventType('nimbletablecolumnconfigurationchange', {
+            browserEventName: 'column-configuration-change',
+            createEventArgs: event => {
+                return {
+                    columns: event.detail.columns
+                };
+            }
+        });
+        // Used by NimbleTable.razor
+        Blazor.registerCustomEventType('nimbletablerowexpandtoggle', {
+            browserEventName: 'row-expand-toggle',
+            createEventArgs: event => {
+                return {
+                    recordId: event.detail.recordId,
+                    newState: event.detail.newState,
+                    oldState: event.detail.oldState
+                };
+            }
+        });
+        // Used by NimbleTableColumnMenuButton.razor
+        Blazor.registerCustomEventType('nimbletablecolumnmenubuttonbeforetoggle', {
+            browserEventName: 'menu-button-column-beforetoggle',
+            createEventArgs: event => {
+                return {
+                    recordId: event.detail.recordId,
+                    newState: event.detail.newState,
+                    oldState: event.detail.oldState
+                };
+            }
+        });
+        // Used by NimbleTableColumnMenuButton.razor
+        Blazor.registerCustomEventType('nimbletablecolumnmenubuttontoggle', {
+            browserEventName: 'menu-button-column-toggle',
+            createEventArgs: event => {
+                return {
+                    recordId: event.detail.recordId,
+                    newState: event.detail.newState,
+                    oldState: event.detail.oldState
+                };
+            }
+        });
+        // Used by NimbleWaferMap.razor
+        Blazor.registerCustomEventType('nimblewafermapdiehoverchange', {
+            browserEventName: 'die-hover',
+            createEventArgs: event => {
+                return {
+                    currentDie: event.detail.currentDie
+                };
+            }
+        });
+    }
 
-function handleRuntimeStarted() {
-    window.NimbleBlazor.hasRuntimeStarted = true;
-}
+    function handleRuntimeStarted() {
+        window.NimbleBlazor.isInitialized = true;
+    }
+
+    return {
+        registerEvents,
+        handleRuntimeStarted
+    };
+}());
 
 // Blazor Web Apps
 export function afterWebStarted(Blazor) {
-    registerNimbleEvents(Blazor);
-    // Note: For static SSR, this is the last event called, and hasRuntimeStarted
-    // will remain false.
+    initializer.registerEvents(Blazor);
 }
 
+// Blazor Web Apps using InteractiveServer render mode
 export function afterServerStarted(_Blazor) {
-    handleRuntimeStarted();
+    initializer.handleRuntimeStarted();
 }
 
-// Blazor Web Apps, WASM Standalone apps with .NET 8
+// Blazor Web Apps using InteractiveWebAssembly render mode; WASM Standalone apps
 export function afterWebAssemblyStarted(_Blazor) {
-    if (!window.NimbleBlazor.hasRegisteredEvents) {
-        registerNimbleEvents(Blazor);
-    }
-
-    handleRuntimeStarted();
+    initializer.registerEvents(Blazor);
+    initializer.handleRuntimeStarted();
 }
 
-// Blazor Server/WebAssembly/Hybrid apps
+// Blazor Hybrid apps
 export function afterStarted(Blazor) {
-    // In some cases afterStarted is called on Blazor Web Apps too, if Nimble is used in a component explicitly
-    // marked as InteractiveWebAssembly render mode. So check if we've already registered our events first.
-    if (!window.NimbleBlazor.hasRegisteredEvents) {
-        registerNimbleEvents(Blazor);
-    }
-
-    handleRuntimeStarted();
+    initializer.registerEvents(Blazor);
+    initializer.handleRuntimeStarted();
 }
 
 if (window.NimbleBlazor) {
@@ -203,8 +202,7 @@ if (window.NimbleBlazor) {
 }
 
 window.NimbleBlazor = window.NimbleBlazor ?? {
-    hasRegisteredEvents: false,
-    hasRuntimeStarted: false,
+    isInitialized: false,
     Dialog: {
         show: async function (dialogReference) {
             const reason = await dialogReference.show();

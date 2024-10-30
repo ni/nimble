@@ -9,64 +9,63 @@
  * https://learn.microsoft.com/en-us/aspnet/core/blazor/fundamentals/startup?view=aspnetcore-8.0
  */
 
-export function registerSprightEvents(Blazor) {
-    if (window.SprightBlazor.hasRegisteredEvents) {
-        console.warn('Attempted to register Spright Blazor events multiple times!'); // eslint-disable-line
-        return;
-    }
+const initializer = (function () {
+    let hasRegisteredEvents = false;
 
-    if (!Blazor) {
-        throw new Error('Blazor not ready to initialize Spright with!');
-    }
-
-    window.SprightBlazor.hasRegisteredEvents = true;
-
-    /* Register any custom events here
-    Blazor.registerCustomEventType('sprighteventname', {
-        browserEventName: 'foo',
-        createEventArgs: event => {
-            return {
-                newState: event.detail.newState,
-                oldState: event.detail.oldState
-            };
+    function registerEvents(Blazor) {
+        if (hasRegisteredEvents) {
+            return;
         }
-    });
-    */
-}
 
-function handleRuntimeStarted() {
-    window.NimbleBlazor.hasRuntimeStarted = true;
-}
+        if (!Blazor) {
+            throw new Error('Blazor not ready to initialize Spright with!');
+        }
+
+        hasRegisteredEvents = true;
+
+        /* Register any custom events here
+        Blazor.registerCustomEventType('sprighteventname', {
+            browserEventName: 'foo',
+            createEventArgs: event => {
+                return {
+                    newState: event.detail.newState,
+                    oldState: event.detail.oldState
+                };
+            }
+        });
+        */
+    }
+
+    function handleRuntimeStarted() {
+        window.SprightBlazor.isInitialized = true;
+    }
+
+    return {
+        registerEvents,
+        handleRuntimeStarted
+    };
+}());
 
 // Blazor Web Apps
 export function afterWebStarted(Blazor) {
-    registerSprightEvents(Blazor);
-    // Note: For static SSR, this is the last event called, and hasRuntimeStarted
-    // will remain false.
+    initializer.registerEvents(Blazor);
 }
 
+// Blazor Web Apps using InteractiveServer render mode
 export function afterServerStarted(_Blazor) {
-    handleRuntimeStarted();
+    initializer.handleRuntimeStarted();
 }
 
-// Blazor Web Apps, WASM Standalone apps with .NET 8
+// Blazor Web Apps using InteractiveWebAssembly render mode; WASM Standalone apps
 export function afterWebAssemblyStarted(_Blazor) {
-    if (!window.SprightBlazor.hasRegisteredEvents) {
-        registerSprightEvents(Blazor);
-    }
-
-    handleRuntimeStarted();
+    initializer.registerEvents(Blazor);
+    initializer.handleRuntimeStarted();
 }
 
-// Blazor Server/WebAssembly/Hybrid apps
+// Blazor Hybrid apps
 export function afterStarted(Blazor) {
-    // In some cases afterStarted is called on Blazor Web Apps too, if Spright is used in a component explicitly
-    // marked as InteractiveWebAssembly render mode. So check if we've already registered our events first.
-    if (!window.SprightBlazor.hasRegisteredEvents) {
-        registerSprightEvents(Blazor);
-    }
-
-    handleRuntimeStarted();
+    initializer.registerEvents(Blazor);
+    initializer.handleRuntimeStarted();
 }
 
 if (window.SprightBlazor) {
@@ -74,6 +73,5 @@ if (window.SprightBlazor) {
 }
 
 window.SprightBlazor = window.SprightBlazor ?? {
-    hasRegisteredEvents: false,
-    hasRuntimeStarted: false,
+    isInitialized: false
 };

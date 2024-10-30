@@ -3,9 +3,9 @@ using Xunit;
 
 namespace SprightBlazor.Tests.Acceptance;
 
-public abstract class SprightAcceptanceTestsBase : AcceptanceTestsBase, IClassFixture<SprightBlazorWebHostServerFixture>
+public abstract class SprightInteractiveAcceptanceTestsBase : AcceptanceTestsBase, IClassFixture<SprightBlazorWebHostServerFixture>
 {
-    protected SprightAcceptanceTestsBase(
+    protected SprightInteractiveAcceptanceTestsBase(
         PlaywrightFixture playwrightFixture,
         SprightBlazorWebHostServerFixture blazorServerClassFixture)
         : base(playwrightFixture)
@@ -14,5 +14,5 @@ public abstract class SprightAcceptanceTestsBase : AcceptanceTestsBase, IClassFi
     }
 
     protected override Uri ServerAddress { get; }
-    protected override string ComponentLibraryInitializationTestJavaScript => "window.SprightBlazor && window.SprightBlazor.hasRegisteredEvents === true";
+    protected override string ComponentLibraryInitializationTestJavaScript => "window.SprightBlazor && window.SprightBlazor.isInitialized === true";
 }
