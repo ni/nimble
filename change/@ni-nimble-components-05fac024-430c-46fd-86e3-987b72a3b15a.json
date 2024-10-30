@@ -1,6 +1,6 @@
 {
   "type": "patch",
-  "comment": "Update fast versions",
+  "comment": "Update fast versions [retrigger]",
   "packageName": "@ni/nimble-components",
   "email": "rajsite@users.noreply.github.com",
   "dependentChangeType": "patch"
