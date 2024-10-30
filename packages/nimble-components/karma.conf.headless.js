@@ -12,9 +12,9 @@ module.exports = config => {
         specReporter: {
             suppressPassed: false,
             suppressSkipped: true,
-            showSpecTiming: true,
-            reportSlowerThan: 2000
-        }
+            showSpecTiming: true
+        },
+        reportSlowerThan: 1000
     };
 
     config.set(options);
