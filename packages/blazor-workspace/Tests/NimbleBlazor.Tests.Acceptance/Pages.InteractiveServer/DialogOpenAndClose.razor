@@ -1,7 +1,7 @@
 ﻿@page "/InteractiveServer/DialogOpenAndClose"
 @namespace NimbleBlazor.Tests.Acceptance.Pages
 @inherits LayoutComponentBase
-@rendermode RenderMode.InteractiveServer
+@rendermode @(new InteractiveServerRenderMode(prerender: false))
 
 <NimbleButton @onclick="OpenDialogAsync">Open</NimbleButton>
 

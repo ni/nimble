@@ -1,7 +1,7 @@
 ﻿@page "/InteractiveServer/ThemeProvider"
 @namespace NimbleBlazor.Tests.Acceptance.Pages
 @inherits LayoutComponentBase
-@rendermode RenderMode.InteractiveServer
+@rendermode @(new InteractiveServerRenderMode(prerender: false))
 
 <NimbleButton @onclick="SetInvalidLang">Set Invalid Lang</NimbleButton>
 <NimbleButton @onclick="SetValidLang">Set Valid Lang</NimbleButton>

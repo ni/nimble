@@ -2,7 +2,7 @@
 @namespace NimbleBlazor.Tests.Acceptance.Pages
 @using System.Diagnostics.CodeAnalysis;
 @inherits LayoutComponentBase
-@rendermode RenderMode.InteractiveServer
+@rendermode @(new InteractiveServerRenderMode(prerender: false))
 
 <NimbleTable TData="RowData" IdFieldName="Id" @ref="_table">
     <NimbleTableColumnMapping TKey="bool" FieldName="Field1" ColumnId="1">

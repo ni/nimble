@@ -4,7 +4,7 @@
 @using Apache.Arrow;
 @using Apache.Arrow.Types;
 @inherits LayoutComponentBase
-@rendermode RenderMode.InteractiveServer
+@rendermode @(new InteractiveServerRenderMode(prerender: false))
 
 <NimbleWaferMap @ref="_waferMap"
                 OriginLocation="WaferMapOriginLocation.BottomLeft"
