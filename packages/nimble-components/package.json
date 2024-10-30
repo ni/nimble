@@ -41,7 +41,7 @@
     "test-webkit:debugger": "karma start karma.conf.js --browsers=WebkitDebugging --skip-tags SkipWebkit",
     "test-webkit:watch": "karma start karma.conf.headless.js --browsers=WebkitHeadless --skip-tags SkipWebkit --watch-extensions js",
     "test-webkit": "karma start karma.conf.headless.js --browsers=WebkitHeadless --single-run --skip-tags SkipWebkit",
-    "test-concurrent": "concurrently --pad-prefix --timings --group \"npm:test-chrome\" \"npm:test-firefox\" \"npm:test-webkit\""
+    "test-concurrent": "concurrently --raw --pad-prefix --timings --group \"npm:test-chrome\" \"npm:test-firefox\" \"npm:test-webkit\""
   },
   "repository": {
     "type": "git",
