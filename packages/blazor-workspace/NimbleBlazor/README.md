@@ -101,7 +101,13 @@ Nimble supports all of the [Blazor render modes](https://learn.microsoft.com/en-
 - Interactive WebAssembly: Client-side rendering (CSR) using Blazor WebAssembly: `RenderMode.InteractiveWebAssembly`
 - Interactive Auto: Interactive SSR initially, then CSR on subsequent visits after the Blazor bundle is downloaded: `RenderMode.InteractiveAuto`
 - Static server-side rendering (static SSR): Default, when no render mode is specified
-  - ⚠️Warning: This render mode is not recommended for most use cases with Nimble. As the page is just rendered once server-side and then no state is maintained, you're unable to use event handlers or call methods on components. This also means that for components like the Nimble Table / Wafer Map, setting data can't be done easily (because the methods to do so will have no effect if called).
+  - ⚠️Warning: This render mode is not recommended for most use cases with Nimble. As the page is just rendered once server-side and then no state is maintained, you're unable to use event handlers or call methods on components. This also means that for components like the Nimble Table / Wafer Map, setting data can't be done vi the component methods (because they'll have no effect if called).
+
+#### Prerendering
+
+Blazor with .NET 8 uses prerendering by default for interactive render modes. With it enabled, components are initially rendered server-side without event handlers connected, which could cause unexpected behavior (no effect when users interact with controls immediately after page load). 
+
+See the [Blazor prerendering docs](https://learn.microsoft.com/en-us/aspnet/core/blazor/components/render-modes?view=aspnetcore-8.0#prerendering) for information on how to opt out of prerendering.
 
 ### Theming and Design Tokens
 
@@ -141,11 +147,11 @@ To provide localized strings in a localized Blazor app:
 
 ### Using Nimble Blazor in a Blazor Hybrid app
 
-**Requirement:** Microsoft.AspNetCore.Components.WebView v8.0.4+
+**Requirement:** `Microsoft.AspNetCore.Components.WebView` v8.0.4+
 
 This updated WebView package include a fix so that the JavaScript initialization code that Nimble/Spright Blazor uses gets loaded correctly.
-Note that if using the Microsoft.AspNetCore.Components.WebView.Wpf package, it only specifies a dependency of Microsoft.AspNetCore.Components.WebView v8.0+, so you may to add need an explicit dependency on Microsoft.AspNetCore.Components.WebView to ensure a recent enough version is included.
-The Demo.Hybrid project in the Blazor solution illustrates this setup.
+Note that if using the `Microsoft.AspNetCore.Components.WebView.Wpf` package, it only specifies a dependency of `Microsoft.AspNetCore.Components.WebView` v8.0+, so you may to add need an explicit dependency on `Microsoft.AspNetCore.Components.WebView` to ensure a recent enough version is included.
+The `Demo.Hybrid` project in the Blazor solution illustrates this setup.
 
 ## Contributing
 

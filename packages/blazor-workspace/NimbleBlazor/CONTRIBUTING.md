@@ -16,6 +16,8 @@ For Nimble Blazor development on Windows, the suggested tools to install are:
 
 In Visual Studio, run the `Demo.Server`, `Demo.Client`, or `Demo.Hybrid` projects to see the Blazor demo apps.
 
+Note: If you get an error stating "Failed to launch debug adapter" / "Unable to launch browser" when debugging `Demo.Client`, ensure that Microsoft Edge is the browser being used (dropdown menu from the Run button).
+
 ### Mac / Visual Studio Code
 Install [Visual Studio Code](https://code.visualstudio.com/), and install the suggested extensions that appear once you open the NimbleBlazor project folders.
 
@@ -92,7 +94,7 @@ The `NimbleBlazor.Tests.Acceptance` project starts a local Blazor Web App which 
 To add a new acceptance test (with the Interactive Server render mode):
 - Add a new Razor file that uses that component in the `Pages.InteractiveServer` subfolder, with the name `[ComponentName][FunctionalityUnderTest].razor`, e.g. `DialogOpenAndClose.razor`.
   - Add any necessary code to initialize the component in a `@code` section in the same file. If you'll interact with the component as the test runs, you may need to add other Nimble components like buttons to trigger new actions on your component under test.
-  - Ensure that your Razor file has `@rendermode RenderMode.InteractiveServer` in the top section.
+  - Ensure that your Razor file has `@rendermode @(new InteractiveServerRenderMode(prerender: false))` in the top section.
   - Specify the page's URL route via a `@page` directive - for example, `@page "/InteractiveServer/DialogOpenAndClose"`.
 - In the `Tests.InteractiveServer` subfolder, add a new class `[ComponentName]Tests.cs` if it doesn't already exist. Add a new test method in that class. Load your Razor file with the `NewPageForRouteAsync(routeName)` method. Using the Playwright APIs, interact with the components on the page, and make assertions about the state of the component under test.
 
