@@ -2,6 +2,72 @@
   "name": "@ni/spright-components",
   "entries": [
     {
+      "date": "Tue, 29 Oct 2024 18:50:54 GMT",
+      "version": "4.1.20",
+      "tag": "@ni/spright-components_v4.1.20",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/spright-components",
+            "comment": "Bump @ni/nimble-components to v32.6.0",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 29 Oct 2024 16:39:58 GMT",
+      "version": "4.1.19",
+      "tag": "@ni/spright-components_v4.1.19",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/spright-components",
+            "comment": "Bump @ni/nimble-components to v32.5.3",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 28 Oct 2024 21:38:16 GMT",
+      "version": "4.1.18",
+      "tag": "@ni/spright-components_v4.1.18",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/spright-components",
+            "commit": "b83708f2711f0055ae6511c402a804e6bdfb51a8",
+            "comment": "Pin FAST foundation and element versions until new versions vetted"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/spright-components",
+            "comment": "Bump @ni/nimble-components to v32.5.2",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 24 Oct 2024 20:52:01 GMT",
+      "version": "4.1.17",
+      "tag": "@ni/spright-components_v4.1.17",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/spright-components",
+            "comment": "Bump @ni/nimble-components to v32.5.1",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 23 Oct 2024 19:20:53 GMT",
       "version": "4.1.16",
       "tag": "@ni/spright-components_v4.1.16",

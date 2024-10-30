@@ -32,4 +32,12 @@ export const styles = css`
     .scroll-button.right {
         margin-left: ${smallPadding};
     }
+
+    [part='end'] {
+        flex: 1;
+    }
+
+    [part='tabpanel'] {
+        flex: 1;
+    }
 `;

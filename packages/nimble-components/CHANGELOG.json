@@ -2,6 +2,66 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 29 Oct 2024 18:50:54 GMT",
+      "version": "32.6.0",
+      "tag": "@ni/nimble-components_v32.6.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "42ed262d11e4c28f298ae87513861cc71a82a1a4",
+            "comment": "Add a table page object function to get an icon's severity"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 29 Oct 2024 16:39:58 GMT",
+      "version": "32.5.3",
+      "tag": "@ni/nimble-components_v32.5.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "fae0aeeedc8d2d64dc778cb9f88eb307e286b2ba",
+            "comment": "Fix issue with tab panel not sizing to height of tabs component."
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 28 Oct 2024 21:38:16 GMT",
+      "version": "32.5.2",
+      "tag": "@ni/nimble-components_v32.5.2",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "b83708f2711f0055ae6511c402a804e6bdfb51a8",
+            "comment": "Pin FAST foundation and element versions until new versions vetted"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 24 Oct 2024 20:52:01 GMT",
+      "version": "32.5.1",
+      "tag": "@ni/nimble-components_v32.5.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "64ede95ba2420c6ef9a30d274ec7465d22b2959d",
+            "comment": "Fix tabs styling."
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 23 Oct 2024 19:20:53 GMT",
       "version": "32.5.0",
       "tag": "@ni/nimble-components_v32.5.0",
