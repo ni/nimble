@@ -9,63 +9,57 @@
  * https://learn.microsoft.com/en-us/aspnet/core/blazor/fundamentals/startup?view=aspnetcore-8.0
  */
 
-const initializer = (function () {
-    let hasRegisteredEvents = false;
+let hasRegisteredEvents = false;
+let isReady = false;
 
-    function registerEvents(Blazor) {
-        if (hasRegisteredEvents) {
-            return;
-        }
-
-        if (!Blazor) {
-            throw new Error('Blazor not ready to initialize Spright with!');
-        }
-
-        hasRegisteredEvents = true;
-
-        /* Register any custom events here
-        Blazor.registerCustomEventType('sprighteventname', {
-            browserEventName: 'foo',
-            createEventArgs: event => {
-                return {
-                    newState: event.detail.newState,
-                    oldState: event.detail.oldState
-                };
-            }
-        });
-        */
+function registerEvents(Blazor) {
+    if (hasRegisteredEvents) {
+        return;
     }
 
-    function handleRuntimeStarted() {
-        window.SprightBlazor.isInitialized = true;
+    if (!Blazor) {
+        throw new Error('Blazor not ready to initialize Spright with!');
     }
 
-    return {
-        registerEvents,
-        handleRuntimeStarted
-    };
-}());
+    hasRegisteredEvents = true;
+
+    /* Register any custom events here
+    Blazor.registerCustomEventType('sprighteventname', {
+        browserEventName: 'foo',
+        createEventArgs: event => {
+            return {
+                newState: event.detail.newState,
+                oldState: event.detail.oldState
+            };
+        }
+    });
+    */
+}
+
+function handleRuntimeStarted() {
+    isReady = true;
+}
 
 // Blazor Web Apps
 export function afterWebStarted(Blazor) {
-    initializer.registerEvents(Blazor);
+    registerEvents(Blazor);
 }
 
 // Blazor Web Apps using InteractiveServer render mode
 export function afterServerStarted(_Blazor) {
-    initializer.handleRuntimeStarted();
+    handleRuntimeStarted();
 }
 
 // Blazor Web Apps using InteractiveWebAssembly render mode; WASM Standalone apps
 export function afterWebAssemblyStarted(_Blazor) {
-    initializer.registerEvents(Blazor);
-    initializer.handleRuntimeStarted();
+    registerEvents(Blazor);
+    handleRuntimeStarted();
 }
 
 // Blazor Hybrid apps
 export function afterStarted(Blazor) {
-    initializer.registerEvents(Blazor);
-    initializer.handleRuntimeStarted();
+    registerEvents(Blazor);
+    handleRuntimeStarted();
 }
 
 if (window.SprightBlazor) {
@@ -73,5 +67,5 @@ if (window.SprightBlazor) {
 }
 
 window.SprightBlazor = window.SprightBlazor ?? {
-    isInitialized: false
+    isReady: () => isReady
 };

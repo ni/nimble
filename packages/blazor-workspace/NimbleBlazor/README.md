@@ -101,7 +101,7 @@ Nimble supports all of the [Blazor render modes](https://learn.microsoft.com/en-
 - Interactive WebAssembly: Client-side rendering (CSR) using Blazor WebAssembly: `RenderMode.InteractiveWebAssembly`
 - Interactive Auto: Interactive SSR initially, then CSR on subsequent visits after the Blazor bundle is downloaded: `RenderMode.InteractiveAuto`
 - Static server-side rendering (static SSR): Default, when no render mode is specified
-  - ⚠️Warning: This render mode is not recommended for most use cases with Nimble. As the page is just rendered once server-side and then no state is maintained, you're unable to use event handlers or call methods on components. This also means that for components like the Nimble Table / Wafer Map, setting data can't be done vi the component methods (because they'll have no effect if called).
+  - ⚠️Warning: This render mode is not recommended for most use cases with Nimble. As the page is just rendered once server-side and then no state is maintained, you're unable to use event handlers or call methods on components. This also means that for components like the Nimble Table / Wafer Map, setting data can't be done via the component methods (because they'll have no effect if called).
 
 #### Prerendering
 

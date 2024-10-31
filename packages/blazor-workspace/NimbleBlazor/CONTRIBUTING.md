@@ -89,7 +89,7 @@ Test Project: `NimbleBlazor.Tests.Acceptance`
 
 In order to fully test the Nimble Blazor components, consider writing new automated acceptance tests for new/modified components. Any component which requires custom JS code in `NimbleBlazor.lib.module.js` should generally have corresponding acceptance tests, because the bUnit tests in `NimbleBlazor.Tests` are unable to exercise/test that JavaScript code.
 
-The `NimbleBlazor.Tests.Acceptance` project starts a local Blazor Web App which serves Razor pages that host the Nimble components. Then, xUnit-based acceptance tests start a Chromium instance using [Playwright](https://playwright.dev/), load those Razor pages, and interact with them. The majority of the tests use the `InteractiveServer` render mode, but the project also supports the Interactive Web Assembly render mode (and static server-side rendering mode) for tests.
+The `NimbleBlazor.Tests.Acceptance` project starts a local Blazor Web App which serves Razor pages that host the Nimble components. Then, xUnit-based acceptance tests start a Chromium instance using [Playwright](https://playwright.dev/), load those Razor pages, and interact with them. The majority of the tests use the `InteractiveServer` render mode, but the project also supports the Interactive Web Assembly render mode (and static server-side rendering mode) for tests. Tests should disable prerendering (as shown in the steps below) to ensure the components are ready for interaction when the Playwright test starts.
 
 To add a new acceptance test (with the Interactive Server render mode):
 - Add a new Razor file that uses that component in the `Pages.InteractiveServer` subfolder, with the name `[ComponentName][FunctionalityUnderTest].razor`, e.g. `DialogOpenAndClose.razor`.
@@ -111,8 +111,8 @@ Visual Studio Code commands are included to build and run the example projects. 
 - `blazor-server-example:watch`: Run the `Demo.Server` project in watch mode (to automatically pick up code changes)
 - `blazor-wasm-example:build`: Build the `Demo.Client` project
 - `blazor-wasm-example:watch`: Run the `Demo.Client` project in watch mode (to automatically pick up code changes)
-- `blazor-hybrid-example:build`: Build the `Demo.Hybrid` project
-- `blazor-hybrid-example:watch`: Run the `Demo.Hybrid` project in watch mode (to automatically pick up code changes)
+- `blazor-hybrid-example:build`: (Windows only) Build the `Demo.Hybrid` project
+- `blazor-hybrid-example:watch`: (Windows only) Run the `Demo.Hybrid` project in watch mode (to automatically pick up code changes)
 
 Also see the [trusting the ASP.NET Core development certificate docs](https://learn.microsoft.com/en-us/aspnet/core/security/enforcing-ssl?view=aspnetcore-8.0&tabs=visual-studio%2Clinux-sles#trust-the-aspnet-core-https-development-certificate-on-windows-and-macos).
 

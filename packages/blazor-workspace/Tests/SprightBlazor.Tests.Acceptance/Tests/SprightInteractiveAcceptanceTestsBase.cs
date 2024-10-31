@@ -14,5 +14,5 @@ public abstract class SprightInteractiveAcceptanceTestsBase : AcceptanceTestsBas
     }
 
     protected override Uri ServerAddress { get; }
-    protected override string ComponentLibraryInitializationTestJavaScript => "window.SprightBlazor && window.SprightBlazor.isInitialized === true";
+    protected override string ComponentLibraryInitializationTestJavaScript => "window.SprightBlazor && window.SprightBlazor.isReady()";
 }
