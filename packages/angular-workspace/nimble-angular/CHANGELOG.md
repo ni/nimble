@@ -1,8 +1,48 @@
 # Change Log - @ni/nimble-angular
 
-<!-- This log was last generated on Wed, 23 Oct 2024 19:20:53 GMT and should not be manually modified. -->
+<!-- This log was last generated on Tue, 29 Oct 2024 18:50:54 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 28.4.4
+
+Tue, 29 Oct 2024 18:50:54 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v32.6.0
+
+## 28.4.3
+
+Tue, 29 Oct 2024 16:39:58 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v32.5.3
+
+## 28.4.2
+
+Mon, 28 Oct 2024 21:38:16 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v32.5.2
+
+## 28.4.1
+
+Thu, 24 Oct 2024 20:52:01 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v32.5.1
+
+## 28.4.0
+
+Thu, 24 Oct 2024 12:36:19 GMT
+
+### Minor changes
+
+- Angular and Blazor label provider changes for scrollable tabs. ([ni/nimble@868a8a6](https://github.com/ni/nimble/commit/868a8a67780160f0a224fbc62a27511ed97db2df))
 
 ## 28.3.4
 

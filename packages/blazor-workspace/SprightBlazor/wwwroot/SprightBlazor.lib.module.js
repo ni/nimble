@@ -5,12 +5,15 @@
  * Register the custom event types used by Spright components.
  *
  * JavaScript initializer for SprightBlazor project, see
- * https://docs.microsoft.com/en-us/aspnet/core/blazor/javascript-interoperability/?view=aspnetcore-6.0#javascript-initializers
+ * https://learn.microsoft.com/en-us/aspnet/core/blazor/javascript-interoperability/?view=aspnetcore-8.0 and
+ * https://learn.microsoft.com/en-us/aspnet/core/blazor/fundamentals/startup?view=aspnetcore-8.0
  */
 
-export function afterStarted(Blazor) {
-    if (window.SprightBlazor.calledAfterStarted) {
-        console.warn('Attempted to initialize Spright Blazor multiple times!'); // eslint-disable-line
+let hasRegisteredEvents = false;
+let isReady = false;
+
+function registerEvents(Blazor) {
+    if (hasRegisteredEvents) {
         return;
     }
 
@@ -18,7 +21,7 @@ export function afterStarted(Blazor) {
         throw new Error('Blazor not ready to initialize Spright with!');
     }
 
-    window.SprightBlazor.calledAfterStarted = true;
+    hasRegisteredEvents = true;
 
     /* Register any custom events here
     Blazor.registerCustomEventType('sprighteventname', {
@@ -33,10 +36,36 @@ export function afterStarted(Blazor) {
     */
 }
 
+function handleRuntimeStarted() {
+    isReady = true;
+}
+
+// Blazor Web Apps
+export function afterWebStarted(Blazor) {
+    registerEvents(Blazor);
+}
+
+// Blazor Web Apps using InteractiveServer render mode
+export function afterServerStarted(_Blazor) {
+    handleRuntimeStarted();
+}
+
+// Blazor Web Apps using InteractiveWebAssembly render mode; WASM Standalone apps
+export function afterWebAssemblyStarted(_Blazor) {
+    registerEvents(Blazor);
+    handleRuntimeStarted();
+}
+
+// Blazor Hybrid apps
+export function afterStarted(Blazor) {
+    registerEvents(Blazor);
+    handleRuntimeStarted();
+}
+
 if (window.SprightBlazor) {
     console.warn('Attempting to initialize SprightBlazor multiple times!'); // eslint-disable-line
 }
 
 window.SprightBlazor = window.SprightBlazor ?? {
-    calledAfterStarted: false
+    isReady: () => isReady
 };

@@ -89,3 +89,12 @@ export const panelOverflow: StoryFn = createStory(html`
         <${tabPanelTag} style="width: 450px;">${loremIpsum}</${tabPanelTag}>
     </${tabsTag}>
 `);
+
+export const panelSizeToContent: StoryFn = createStory(html`
+    <${tabsTag} style="width: 400px; height: 400px">
+        <${tabTag}>Tab One</${tabTag}>
+        <${tabPanelTag} style="width: 400px; height: 100%;">
+            <div style="width: 250px; height: 100%; background: red;"></div>
+        </${tabPanelTag}>
+    </${tabsTag}>
+`);

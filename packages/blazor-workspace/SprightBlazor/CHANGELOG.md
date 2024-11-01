@@ -1,8 +1,48 @@
 # Change Log - @ni/spright-blazor
 
-<!-- This log was last generated on Wed, 23 Oct 2024 19:20:53 GMT and should not be manually modified. -->
+<!-- This log was last generated on Fri, 01 Nov 2024 18:46:46 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 3.0.0
+
+Fri, 01 Nov 2024 18:46:46 GMT
+
+### Major changes
+
+- Spright Blazor targets (and requires) .NET 8. Update examples, docs, tests. See README for updated usage instructions. ([ni/nimble@cb7fd17](https://github.com/ni/nimble/commit/cb7fd177defa078dd44eafa3bd5b28eaa4f75dd7))
+
+## 2.1.20
+
+Tue, 29 Oct 2024 18:50:54 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v4.1.20
+
+## 2.1.19
+
+Tue, 29 Oct 2024 16:39:58 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v4.1.19
+
+## 2.1.18
+
+Mon, 28 Oct 2024 21:38:16 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v4.1.18
+
+## 2.1.17
+
+Thu, 24 Oct 2024 20:52:01 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v4.1.17
 
 ## 2.1.16
 
