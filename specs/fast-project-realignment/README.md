@@ -10,23 +10,44 @@ In April 2022 FAST shared a vision of [The Future of FAST Foundation](https://gi
 This roadmap caused the (expected to be temporary) uncomfortable situation of the stable releases of FAST to be placed in maintenance mode in an archive branch while the main branch was in beta.
 
 Placing the stable release of FAST in maintenance mode resulted in it being significantly harder to maintain deployed systems (submitting patches to work with new versions of toolchains), slowed uptake of bug fixes, and halted new control development (particularly menu button and date pickers were significant gaps).
-Unfortunately the foundation alpha in main never went stable and in May 2024 as part of [FAST Project Re-alignment](https://github.com/microsoft/fast/issues/6955) the foundation library concept and packages were abandoned altogether.
+Unfortunately the FAST Foundation alpha in main never went stable and in May 2024 as part of [FAST Project Re-alignment](https://github.com/microsoft/fast/issues/6955) the Foundation library concept and packages were abandoned altogether.
 
 ## Status of libraries
 
-### Foundation archive package
+Nimble relies on the following packages:
+- `@microsoft/fast-colors` ([`archives/fast-element-1`](https://github.com/microsoft/fast/tree/archives/fast-element-1/packages/web-components) contains v5.3.0, [direct commit for v5.3.1](https://github.com/microsoft/fast/blob/721426cbedafbdfed2b34f9a0e2d902802faa712/packages/utilities/fast-colors/package.json) which is actually used)
+- `@microsoft/fast-element` ([`archives/fast-element-1`](https://github.com/microsoft/fast/tree/archives/fast-element-1/packages/web-components))
+- `@microsoft/fast-foundation` ([`archives/fast-element-1`](https://github.com/microsoft/fast/tree/archives/fast-element-1/packages/web-components))
+- `@microsoft/fast-web-utilities` (we depend on both v5.4.1 transitively from [`archives/fast-element-1`](https://github.com/microsoft/fast/tree/archives/fast-element-1/packages/web-components) and v6 directly from [`archives/fast-foundation-3`](https://github.com/microsoft/fast/tree/archives/fast-foundation-3/packages/utilities/fast-web-utilities))
+- `@microsoft/fast-react-wrapper` ([`archives/fast-element-1`](https://github.com/microsoft/fast/tree/archives/fast-element-1/packages/web-components))
 
-- FAST is unwilling to accept future bug fix contributions
+### Archive packages
 
-### Foundation alpha package
+See [archives/fast-element-1](https://github.com/microsoft/fast/tree/archives/fast-element-1) branch.
 
-- Has removed several FAST features such as the dependency injection system
+- FAST has stated that they are [unwilling to accept](https://github.com/microsoft/fast/pull/6960#issuecomment-2344299634) future bug fix contributions in archive branches. Made an [exception for the memory leak bug](https://github.com/microsoft/fast/issues/7022#issuecomment-2344312698).
+- Bulk closed [~200 GitHub issues](https://github.com/microsoft/fast/issues?q=is%3Aissue%20label%3Aclosed%3Aobsolete%20closed%3A%3E2024-05-01%20%20) (bugs, new features, etc.) related to archived packages
 
-### FAST Fluet UI components
+Users:
+- NI Nimble
+- [Vonage Vivid 3](https://github.com/Vonage/vivid-3/tree/vivid-v4.10.0)
+- [Jupyter UI Toolkit](https://github.com/jupyterlab-contrib/jupyter-ui-toolkit/tree/v0.17.1/packages/components)
+- [Microsoft vscode webui toolkit](https://github.com/microsoft/vscode-webview-ui-toolkit/issues/561)
+- [GitHub search of fast-foundation users](https://github.com/search?q=fast-foundation+path%3Apackage.json+NOT+is%3Afork&type=code)
 
+### Next Packages
+
+- Has removed several FAST features such as the dependency injection system (i.e. [tagFor](https://github.com/microsoft/fast/pull/6160)).
+
+Users:
+- [Adaptive Web Components](https://github.com/Adaptive-Web-Community/Adaptive-Web-Components/tree/%40adaptive-web/adaptive-web-components_v0.8.1/packages/adaptive-web-components)
+
+### Stable Packages
+
+Users:
+- FluentUI
 - Have inlined the FAST Foundation implementations in a non-reusable way
 - Has removed several FAST Foundation features such as the Design Tokens infrastructure
-- Has a stable release
 
 ### State of Nimble components
 
