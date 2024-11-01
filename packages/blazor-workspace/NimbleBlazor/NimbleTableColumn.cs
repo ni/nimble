@@ -19,7 +19,7 @@ public abstract class NimbleTableColumn : ComponentBase
 
     /// <summary>
     /// The label to associate with the action menu on this column for accessibility purposes.
-    /// This should be specified if <see cref="ActionMenuSlot"> is specified, but should not be specified otherwise.
+    /// This should be specified if <see cref="ActionMenuSlot" /> is specified, but should not be specified otherwise.
     /// </summary>
     [Parameter]
     public string? ActionMenuLabel { get; set; }

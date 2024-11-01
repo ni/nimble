@@ -45,7 +45,6 @@
       "matchManagers": ["nuget"],
       "excludePackagePatterns":[
         "Apache.Arrow",
-        "NI.CSharp.Analyzers",
         "Microsoft.Playwright"
       ],
       "enabled": true

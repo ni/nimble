@@ -1,0 +1,7 @@
+{
+  "type": "major",
+  "comment": "Nimble Blazor targets (and requires) .NET 8. Update examples, docs, tests. See README for updated usage instructions.",
+  "packageName": "@ni/nimble-blazor",
+  "email": "20709258+msmithNI@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
