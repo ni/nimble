@@ -1,7 +1,0 @@
-{
-  "type": "major",
-  "comment": "Spright Blazor targets (and requires) .NET 8. Update examples, docs, tests. See README for updated usage instructions.",
-  "packageName": "@ni/spright-blazor",
-  "email": "20709258+msmithNI@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
