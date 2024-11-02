@@ -12,7 +12,7 @@ This roadmap caused the (expected to be temporary) uncomfortable situation of th
 Placing the stable release of FAST in maintenance mode resulted in it being significantly harder to maintain deployed systems (submitting patches to work with new versions of toolchains), slowed uptake of bug fixes, and halted new control development (particularly menu button and date pickers were significant gaps).
 Unfortunately the FAST Foundation alpha in main never went stable and in May 2024 as part of [FAST Project Re-alignment](https://github.com/microsoft/fast/issues/6955) the Foundation library concept and packages were abandoned altogether.
 
-## Status of libraries
+## Status of packages
 
 Nimble relies on the following packages:
 - `@microsoft/fast-colors` ([`archives/fast-element-1`](https://github.com/microsoft/fast/tree/archives/fast-element-1/packages/web-components) contains v5.3.0, [direct commit for v5.3.1](https://github.com/microsoft/fast/blob/721426cbedafbdfed2b34f9a0e2d902802faa712/packages/utilities/fast-colors/package.json) which is actually used)
@@ -23,31 +23,40 @@ Nimble relies on the following packages:
 
 ### Archive packages
 
-See [archives/fast-element-1](https://github.com/microsoft/fast/tree/archives/fast-element-1) branch.
+See [archives/fast-element-1](https://github.com/microsoft/fast/tree/archives/fast-element-1) branch and relevant packages: [`@microsoft/fast-element`](https://github.com/microsoft/fast/tree/archives/fast-element-1/packages/web-components/fast-element), [`@microsoft/fast-foundation`](https://github.com/microsoft/fast/tree/archives/fast-element-1/packages/web-components/fast-foundation), [`@microsoft/fast-web-utilities`](https://github.com/microsoft/fast/tree/archives/fast-element-1/packages/utilities/fast-web-utilities), [`@microsoft/fast-colors`](https://github.com/microsoft/fast/tree/archives/fast-element-1/packages/utilities/fast-colors), [`@microsoft/fast-react-wrapper`](https://github.com/microsoft/fast/tree/archives/fast-element-1/packages/utilities/fast-react-wrapper).
 
+Also see the [fast-components explorer](https://web.archive.org/web/20240126234746/https://explore.fast.design/components) via archive.org.
+
+#### State of archive packages
 - FAST has stated that they are [unwilling to accept](https://github.com/microsoft/fast/pull/6960#issuecomment-2344299634) future bug fix contributions in archive branches. Made an [exception for the memory leak bug](https://github.com/microsoft/fast/issues/7022#issuecomment-2344312698).
-- Bulk closed [~200 GitHub issues](https://github.com/microsoft/fast/issues?q=is%3Aissue%20label%3Aclosed%3Aobsolete%20closed%3A%3E2024-05-01%20%20) (bugs, new features, etc.) related to archived packages
+- Bulk closed [~200 GitHub issues](https://github.com/microsoft/fast/issues?q=is%3Aissue%20label%3Aclosed%3Aobsolete%20closed%3A%3E2024-05-01%20%20) (bugs, new features, etc.) related to archive packages
 
-Users:
+#### Users of archive packages
 - NI Nimble
 - [Vonage Vivid 3](https://github.com/Vonage/vivid-3/tree/vivid-v4.10.0)
 - [Jupyter UI Toolkit](https://github.com/jupyterlab-contrib/jupyter-ui-toolkit/tree/v0.17.1/packages/components)
-- [Microsoft vscode webui toolkit](https://github.com/microsoft/vscode-webview-ui-toolkit/issues/561)
-- [GitHub search of fast-foundation users](https://github.com/search?q=fast-foundation+path%3Apackage.json+NOT+is%3Afork&type=code)
+- [Microsoft vscode webui toolkit](https://github.com/microsoft/vscode-webview-ui-toolkit/issues/561) (sunset due to FAST re-alignment)
+- [National General](https://components.nationalgeneral.com/ui/?path=/story/components-design-system-provider--branding) (does not appear to be open source)
 
-### Next Packages
+### Next packages
 
-- Has removed several FAST features such as the dependency injection system (i.e. [tagFor](https://github.com/microsoft/fast/pull/6160)).
+See [archives/fast-foundation-3](https://github.com/microsoft/fast/tree/archives/fast-foundation-3) branch and relevant packages: [`@microsoft/fast-element`](https://github.com/microsoft/fast/tree/archives/fast-foundation-3/packages/web-components/fast-element), [`@microsoft/fast-foundation`](https://github.com/microsoft/fast/tree/archives/fast-foundation-3/packages/web-components/fast-foundation), [`@microsoft/fast-web-utilities`](https://github.com/microsoft/fast/tree/archives/fast-foundation-3/packages/utilities/fast-web-utilities)
 
-Users:
+#### State of next packages
+- [Removed FoundationElement and the dependency injection system](https://github.com/microsoft/fast/pull/6160) (i.e. `tagFor`).
+- Breaking [public API template changes](https://github.com/microsoft/fast/pull/6286) in Foundation
+
+#### Users of next packages
 - [Adaptive Web Components](https://github.com/Adaptive-Web-Community/Adaptive-Web-Components/tree/%40adaptive-web/adaptive-web-components_v0.8.1/packages/adaptive-web-components)
 
 ### Stable Packages
 
-Users:
-- FluentUI
-- Have inlined the FAST Foundation implementations in a non-reusable way
-- Has removed several FAST Foundation features such as the Design Tokens infrastructure
+See [FAST](https://github.com/microsoft/fast) and relevant package: [`@microsoft/fast-element`](https://github.com/microsoft/fast/tree/master/packages/web-components/fast-element)
+
+#### Users of stable packages
+- [`@fluentui/web-components`](https://github.com/microsoft/fluentui/tree/master/packages/web-components) v3 (in beta)
+- Have inlined the FAST Foundation [templates/classes](https://github.com/microsoft/fluentui/pull/30090) and [utilities](https://github.com/microsoft/fluentui/pull/31009) in a non-shareable way
+- [Removed Design Token infrastructure](https://github.com/microsoft/fluentui/pull/30002)
 
 ### State of Nimble components
 
