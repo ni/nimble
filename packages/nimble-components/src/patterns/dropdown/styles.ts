@@ -148,6 +148,48 @@ export const styles = css`
         display: none;
     }
 
+    [popover] {
+        margin: 0 !important;
+        border-style: none;
+    }
+
+    .listbox {
+        box-sizing: border-box;
+        display: inline-flex;
+        flex-direction: column;
+        overflow-y: auto;
+        width: 100%;
+        --ni-private-listbox-padding: ${smallPadding};
+        max-height: calc(var(--ni-private-select-max-height) - ${smallPadding});
+        box-shadow: ${elevation2BoxShadow};
+        border: 1px solid ${popupBorderColor};
+        background-color: ${applicationBackgroundColor};
+    }
+
+    .listbox slot {
+        display: block;
+        background: transparent;
+        padding: var(--ni-private-listbox-padding);
+    }
+
+    :host([open][position='above']) .listbox {
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+
+    :host([open][position='below']) .listbox {
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+    }
+
+    :host([open][position='above']) .anchored-region {
+        padding-bottom: ${smallPadding};
+    }
+
+    :host([open][position='below']) .anchored-region {
+        padding-top: ${smallPadding};
+    }
+
     .selected-value {
         flex: auto;
         font-family: inherit;

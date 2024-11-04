@@ -14,5 +14,7 @@ export const styles = css`
     :host([hidden]) {
         display: block;
         visibility: hidden;
+        /* Avoid using the 'display' helper to customize hidden behavior */
+        contain: layout;
     }
 `;

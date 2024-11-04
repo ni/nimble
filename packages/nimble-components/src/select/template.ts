@@ -106,18 +106,11 @@ SelectOptions
             </div>
             `)
         }
-        <${anchoredRegionTag}
+        <div
             ${ref('anchoredRegion')}
-            class="anchored-region"
-            fixed-placement
-            auto-update-mode="auto"
-            vertical-default-position="${x => (x.positionAttribute === DropdownPosition.above ? 'top' : 'bottom')}"
-            vertical-positioning-mode="${x => (!x.positionAttribute ? 'dynamic' : 'locktodefault')}"
-            horizontal-default-position="center"
-            horizontal-positioning-mode="locktodefault"
-            horizontal-scaling="anchor"
-            @loaded="${x => x.regionLoadedHandler()}"
-            ?hidden="${x => (x.collapsible ? !x.open : false)}">
+            id="dropdown"
+            popover
+            class="anchored-region">
             <div class="listbox-background">
                 <div
                     class="
@@ -174,7 +167,7 @@ SelectOptions
                     `)}
                 </div>
             </div>
-        </${anchoredRegionTag}>
+        </div>
     </template>
 `;
 /* eslint-enable @typescript-eslint/indent */

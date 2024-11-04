@@ -1,6 +1,7 @@
 // Based on: https://github.com/microsoft/fast/blob/%40microsoft/fast-foundation_v2.49.5/packages/web-components/fast-foundation/src/select/select.ts
 import {
     attr,
+    DOM,
     html,
     observable,
     Observable,
@@ -28,6 +29,7 @@ import {
     keySpace,
     uniqueId
 } from '@microsoft/fast-web-utilities';
+import { autoUpdate, computePosition, flip, hide, size } from '@floating-ui/dom';
 import { arrowExpanderDown16X16 } from '@ni/nimble-tokens/dist/icons/js';
 import { styles } from './styles';
 import {
@@ -164,7 +166,7 @@ export class Select
      * @internal
      */
     @observable
-    public anchoredRegion!: AnchoredRegion;
+    public anchoredRegion!: HTMLElement;
 
     /** @internal */
     @observable
@@ -219,6 +221,8 @@ export class Select
     private readonly selectedOptionObserver? = new MutationObserver(() => {
         this.updateDisplayValue();
     });
+    private indexWhenOpened?: number;
+    private cleanup?: () => void;
 
     /**
      * @internal
@@ -236,6 +240,8 @@ export class Select
     public override disconnectedCallback(): void {
         super.disconnectedCallback();
         this.selectedOptionObserver?.disconnect();
+        this.initializeOpenState();
+        this.anchoredRegion.addEventListener('toggle', this.positionDropdown);
     }
 
     public override get value(): string {
@@ -280,30 +286,6 @@ export class Select
     public get displayValue(): string {
         Observable.track(this, 'displayValue');
         return this.firstSelectedOption?.text ?? '';
-    }
-
-    /**
-     * @internal
-     */
-    public anchoredRegionChanged(
-        _prev: AnchoredRegion | undefined,
-        _next: AnchoredRegion | undefined
-    ): void {
-        if (this.anchoredRegion && this.control) {
-            this.anchoredRegion.anchorElement = this.control;
-        }
-    }
-
-    /**
-     * @internal
-     */
-    public controlChanged(
-        _prev: HTMLElement | undefined,
-        _next: HTMLElement | undefined
-    ): void {
-        if (this.anchoredRegion && this.control) {
-            this.anchoredRegion.anchorElement = this.control;
-        }
     }
 
     /**
@@ -928,6 +910,16 @@ export class Select
             return;
         }
 
+        if (this.anchoredRegion) {
+            if (this.open) {
+                // @ts-ignore
+                    this.anchoredRegion.showPopover();
+                } else {
+                // @ts-ignore
+                    this.anchoredRegion.hidePopover();
+            }
+        }
+
         if (this.open) {
             this.initializeOpenState();
             return;
@@ -938,6 +930,7 @@ export class Select
             activeOption.activeOption = false;
         }
         this.openActiveIndex = undefined;
+        this.cleanup?.();
         this.filter = '';
         if (this.filterInput) {
             this.filterInput.value = '';
@@ -1080,30 +1073,40 @@ export class Select
     }
 
     private setPositioning(): void {
-        if (!this.$fastController.isConnected) {
-            // Don't call setPositioning() until we're connected,
-            // since this.forcedPosition isn't initialized yet.
-            return;
+        if (this.$fastController.isConnected) {
+            this.cleanup = autoUpdate(this, this.anchoredRegion, async () => {
+                await computePosition(
+                    this.control,
+                    this.anchoredRegion,
+                    {
+                        placement: 'bottom',
+                        middleware: [
+                            flip(),
+                            size({
+                                apply: ({ availableHeight, rects }) => {
+                                    Object.assign(this.anchoredRegion.style, {
+                                        maxHeight: `${availableHeight}px`,
+                                        width: `${rects.reference.width}px`,
+                                    });
+                                },
+                            }),
+                            hide(),
+                        ],
+                    }
+                ).then(({ middlewareData, x, y }) => {
+                    if (middlewareData.hide?.referenceHidden) {
+                        this.open = false;
+                        return;
+                    }
+
+                    Object.assign(this.anchoredRegion.style, {
+                        position: 'relative',
+                        top: `${y}px`,
+                        left: `${x}px`
+                    });
+                }, () => {});
+            });
         }
-        const currentBox = this.getBoundingClientRect();
-        const viewportHeight = window.innerHeight;
-        const availableBottom = viewportHeight - currentBox.bottom;
-
-        if (this.forcedPosition) {
-            this.position = this.positionAttribute;
-        } else if (currentBox.top > availableBottom) {
-            this.position = SelectPosition.above;
-        } else {
-            this.position = SelectPosition.below;
-        }
-
-        this.positionAttribute = this.forcedPosition
-            ? this.positionAttribute
-            : this.position;
-
-        this.availableViewportHeight = this.position === SelectPosition.above
-            ? Math.trunc(currentBox.top)
-            : Math.trunc(availableBottom);
     }
 
     private updateAdjacentSeparatorState(
@@ -1314,9 +1317,6 @@ export class Select
         this.setActiveOption(this.selectedIndex);
         this.ariaControls = this.listboxId;
         this.ariaExpanded = 'true';
-
-        this.setPositioning();
-        this.focusAndScrollOptionIntoView();
     }
 
     private observeSelectedOptionTextContent(): void {
@@ -1335,6 +1335,14 @@ export class Select
             });
         }
     }
+
+    private readonly positionDropdown = (event: Event): void => {
+        // @ts-ignore
+        if (event.newState === 'open') {
+            this.setPositioning();
+            this.focusAndScrollOptionIntoView();
+        }
+    };
 }
 
 const nimbleSelect = Select.compose<SelectOptions>({
