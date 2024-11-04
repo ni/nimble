@@ -38,6 +38,27 @@ Also see the [fast-components explorer](https://web.archive.org/web/202401262347
 - [Microsoft vscode webui toolkit](https://github.com/microsoft/vscode-webview-ui-toolkit/issues/561) (sunset due to FAST re-alignment)
 - [National General](https://components.nationalgeneral.com/ui/?path=/story/components-design-system-provider--branding) (does not appear to be open source)
 
+#### Maintenance gaps of archive packages
+
+FAST was originally pitched as a tool that would align with modern browser standards however it seems like the release policy of infrequent major releases and pending rewrites to the underlying architecture resulted in stagnation of Foundation component base class development.
+
+Some areas where adoption of baseline features may have caused breaking changes but improved alignment with the web platform:
+
+- Leveraging the native dialog element in dialogs (for top-layer support of modals)
+- Migrating to popover api (for top-layer suport of popovers)
+- Native form association and polyfill removal (reduce template complexity by removing proxy targets and fix long-standing polyfill bugs)
+- Native element internals aria support (to avoid light dom sprouting of aria attributes)
+- Leveraging CSS CustomStateSet (to avoid light dom sprouting of classes)
+- Non-strict typing (avoid typing inconsistencies)
+- Poor property initialization behavior / default value behavior (avoid typing inconsistencies)
+- Poor attribute removal nullability behavior (avoid typing inconsistencies)
+- Does not have page object based testing pattern (non-reusable component manipulation for testing)
+- Poor inter-element communication patterns (pollutes public apis for intercomponent communication)
+- Strict content security policy support / removal of adopted stylesheets polyfill (running FAST based components in more CSP contexts).
+- Switch to standard decorators (reduce reliance on non-standard / TypeScript specific runtime logic)
+
+Note: Some of the above concerns are addressed in the next packages but that has not been thoroughly evaluated.
+
 ### Next packages
 
 See [archives/fast-foundation-3](https://github.com/microsoft/fast/tree/archives/fast-foundation-3) branch and relevant packages: [`@microsoft/fast-element`](https://github.com/microsoft/fast/tree/archives/fast-foundation-3/packages/web-components/fast-element), [`@microsoft/fast-foundation`](https://github.com/microsoft/fast/tree/archives/fast-foundation-3/packages/web-components/fast-foundation), [`@microsoft/fast-web-utilities`](https://github.com/microsoft/fast/tree/archives/fast-foundation-3/packages/utilities/fast-web-utilities)
@@ -58,24 +79,13 @@ See [FAST](https://github.com/microsoft/fast) and relevant package: [`@microsoft
 - Have inlined the FAST Foundation [templates/classes](https://github.com/microsoft/fluentui/pull/30090) and [utilities](https://github.com/microsoft/fluentui/pull/31009) in a non-shareable way
 - [Removed Design Token infrastructure](https://github.com/microsoft/fluentui/pull/30002)
 
-### State of Nimble components
-
-- Heavily leverage 
-
 ## Links To Relevant Work Items and Reference Material
 
-*Include links to the work items this design addresses.*
-*Include links to any other meaningful reference material.*
+HLD Work item: [#2207](https://github.com/ni/nimble/issues/2207)
 
 ## Implementation / Design
 
-*Describe the implementation and what systems will be affected. Items to consider include:*
-   - *Does the design follow an existing design in this codebase or FAST?*
-   - *Does the design align with web standards like web components, ARIA, etc?*
-   - *Does the design create new requirements on clients or break any APIs?*
-   - *How does the design affect testing, documentation, performance, security, etc?*
-
-*It may be useful to review the sections of the custom component spec template to remind you of other items to consider.*
+Guiding statement: Highest priority is to minimize short-term risk for bugs and issues that come up. Medium-term we need to be able to continue meaningful feature development.
 
 ## Alternative Implementations / Designs
 
