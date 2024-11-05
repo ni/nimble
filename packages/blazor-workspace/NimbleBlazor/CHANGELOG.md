@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-blazor
 
-<!-- This log was last generated on Tue, 29 Oct 2024 18:50:54 GMT and should not be manually modified. -->
+<!-- This log was last generated on Fri, 01 Nov 2024 18:46:46 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 19.0.0
+
+Fri, 01 Nov 2024 18:46:46 GMT
+
+### Major changes
+
+- Nimble Blazor targets (and requires) .NET 8. Update examples, docs, tests. See README for updated usage instructions. ([ni/nimble@cb7fd17](https://github.com/ni/nimble/commit/cb7fd177defa078dd44eafa3bd5b28eaa4f75dd7))
 
 ## 18.4.4
 

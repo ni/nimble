@@ -2,6 +2,21 @@
   "name": "@ni/spright-blazor",
   "entries": [
     {
+      "date": "Fri, 01 Nov 2024 18:46:46 GMT",
+      "version": "3.0.0",
+      "tag": "@ni/spright-blazor_v3.0.0",
+      "comments": {
+        "major": [
+          {
+            "author": "20709258+msmithNI@users.noreply.github.com",
+            "package": "@ni/spright-blazor",
+            "commit": "cb7fd177defa078dd44eafa3bd5b28eaa4f75dd7",
+            "comment": "Spright Blazor targets (and requires) .NET 8. Update examples, docs, tests. See README for updated usage instructions."
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 29 Oct 2024 18:50:54 GMT",
       "version": "2.1.20",
       "tag": "@ni/spright-blazor_v2.1.20",
