@@ -35,7 +35,7 @@ import {
     ListOptionOwner
 } from '../patterns/dropdown/types';
 import { errorTextTemplate } from '../patterns/error/template';
-import type { ErrorPattern } from '../patterns/error/types';
+import { mixinErrorPattern } from '../patterns/error/types';
 import { iconExclamationMarkTag } from '../icons/exclamation-mark';
 import { isListOption, isListOptionGroup, template } from './template';
 import type { ListOption } from '../list-option';
@@ -71,8 +71,8 @@ const isOptionOrGroupVisible = (el: ListOption | ListOptionGroup): boolean => {
  * A nimble-styled HTML select.
  */
 export class Select
-    extends FormAssociatedSelect
-    implements ErrorPattern, ListOptionOwner {
+    extends mixinErrorPattern(FormAssociatedSelect)
+    implements ListOptionOwner {
     @attr
     public appearance: DropdownAppearance = DropdownAppearance.underline;
 
@@ -83,19 +83,6 @@ export class Select
      */
     @attr({ attribute: 'position' })
     public positionAttribute?: SelectPosition;
-
-    /**
-     * A message explaining why the value is invalid.
-     *
-     * @public
-     * @remarks
-     * HTML Attribute: error-text
-     */
-    @attr({ attribute: 'error-text' })
-    public errorText: string | undefined;
-
-    @attr({ attribute: 'error-visible', mode: 'boolean' })
-    public errorVisible = false;
 
     @attr({ attribute: 'filter-mode' })
     public filterMode: FilterMode = FilterMode.none;
@@ -212,10 +199,6 @@ export class Select
 
         return slotTextContent(this.labelSlot);
     }
-
-    /* @internal */
-    @observable
-    public errorHasOverflow = false;
 
     private _value = '';
     private forcedPosition = false;

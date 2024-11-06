@@ -32,7 +32,7 @@ import { iconArrowExpanderDownTag } from '../icons/arrow-expander-down';
 import { iconExclamationMarkTag } from '../icons/exclamation-mark';
 
 import { styles } from './styles';
-import type { ErrorPattern } from '../patterns/error/types';
+import { mixinErrorPattern } from '../patterns/error/types';
 import {
     DropdownAppearance,
     type DropdownPattern
@@ -52,19 +52,10 @@ declare global {
  * A nimble-styed HTML combobox
  */
 export class Combobox
-    extends FormAssociatedCombobox
-    implements DropdownPattern, ErrorPattern {
+    extends mixinErrorPattern(FormAssociatedCombobox)
+    implements DropdownPattern {
     @attr
     public appearance: DropdownAppearance = DropdownAppearance.underline;
-
-    /**
-     * A message explaining why the value is invalid.
-     */
-    @attr({ attribute: 'error-text' })
-    public errorText?: string;
-
-    @attr({ attribute: 'error-visible', mode: 'boolean' })
-    public errorVisible = false;
 
     /**
      * The autocomplete attribute.
@@ -142,10 +133,6 @@ export class Combobox
     /** @internal */
     @observable
     public hasOverflow = false;
-
-    /* @internal */
-    @observable
-    public errorHasOverflow = false;
 
     public override get value(): string {
         Observable.track(this, 'value');

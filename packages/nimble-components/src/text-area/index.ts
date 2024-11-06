@@ -3,7 +3,7 @@ import {
     DesignSystem,
     TextArea as FoundationTextArea
 } from '@microsoft/fast-foundation';
-import type { ErrorPattern } from '../patterns/error/types';
+import { mixinErrorPattern } from '../patterns/error/types';
 import { styles } from './styles';
 import { template } from './template';
 import { TextAreaAppearance } from './types';
@@ -17,7 +17,7 @@ declare global {
 /**
  * A nimble-styed HTML text area
  */
-export class TextArea extends FoundationTextArea implements ErrorPattern {
+export class TextArea extends mixinErrorPattern(FoundationTextArea) {
     /**
      * The appearance the text area should have.
      *
@@ -29,35 +29,11 @@ export class TextArea extends FoundationTextArea implements ErrorPattern {
     public appearance: TextAreaAppearance = TextAreaAppearance.outline;
 
     /**
-     * A message explaining why the value is invalid.
-     *
-     * @public
-     * @remarks
-     * HTML Attribute: error-text
-     */
-    @attr({ attribute: 'error-text' })
-    public errorText?: string;
-
-    /**
-     * Whether to display the error state.
-     *
-     * @public
-     * @remarks
-     * HTML Attribute: error-visible
-     */
-    @attr({ attribute: 'error-visible', mode: 'boolean' })
-    public errorVisible = false;
-
-    /**
      * The width of the vertical scrollbar, if displayed.
      * @internal
      */
     @observable
     public scrollbarWidth = -1;
-
-    /* @internal */
-    @observable
-    public errorHasOverflow = false;
 
     private resizeObserver?: ResizeObserver;
     private updateScrollbarWidthQueued = false;
