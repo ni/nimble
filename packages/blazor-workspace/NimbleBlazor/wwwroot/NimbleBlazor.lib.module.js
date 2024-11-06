@@ -5,12 +5,15 @@
  * Register the custom event types used by Nimble components.
  *
  * JavaScript initializer for NimbleBlazor project, see
- * https://docs.microsoft.com/en-us/aspnet/core/blazor/javascript-interoperability/?view=aspnetcore-6.0#javascript-initializers
+ * https://learn.microsoft.com/en-us/aspnet/core/blazor/javascript-interoperability/?view=aspnetcore-8.0 and
+ * https://learn.microsoft.com/en-us/aspnet/core/blazor/fundamentals/startup?view=aspnetcore-8.0
  */
 
-export function afterStarted(Blazor) {
-    if (window.NimbleBlazor.calledAfterStarted) {
-        console.warn('Attempted to initialize Nimble Blazor multiple times!'); // eslint-disable-line
+let hasRegisteredEvents = false;
+let isReady = false;
+
+function registerEvents(Blazor) {
+    if (hasRegisteredEvents) {
         return;
     }
 
@@ -18,7 +21,7 @@ export function afterStarted(Blazor) {
         throw new Error('Blazor not ready to initialize Nimble with!');
     }
 
-    window.NimbleBlazor.calledAfterStarted = true;
+    hasRegisteredEvents = true;
 
     // Used by NimbleCheckbox.razor, NimbleSwitch.razor, NimbleToggleButton.razor
     // Necessary because the control's value property is always just the value 'on', so we need to look
@@ -162,12 +165,38 @@ export function afterStarted(Blazor) {
     });
 }
 
+function handleRuntimeStarted() {
+    isReady = true;
+}
+
+// Blazor Web Apps
+export function afterWebStarted(Blazor) {
+    registerEvents(Blazor);
+}
+
+// Blazor Web Apps using InteractiveServer render mode
+export function afterServerStarted(_Blazor) {
+    handleRuntimeStarted();
+}
+
+// Blazor Web Apps using InteractiveWebAssembly render mode; WASM Standalone apps
+export function afterWebAssemblyStarted(_Blazor) {
+    registerEvents(Blazor);
+    handleRuntimeStarted();
+}
+
+// Blazor Hybrid apps
+export function afterStarted(Blazor) {
+    registerEvents(Blazor);
+    handleRuntimeStarted();
+}
+
 if (window.NimbleBlazor) {
     console.warn('Attempting to initialize NimbleBlazor multiple times!'); // eslint-disable-line
 }
 
 window.NimbleBlazor = window.NimbleBlazor ?? {
-    calledAfterStarted: false,
+    isReady: () => isReady,
     Dialog: {
         show: async function (dialogReference) {
             const reason = await dialogReference.show();

@@ -1,14 +1,24 @@
-﻿namespace BlazorWorkspace.Testing.Acceptance;
+﻿using System.Reflection;
+
+namespace BlazorWorkspace.Testing.Acceptance;
 
 /// <summary>
 /// Web server initialization for Blazor Server
 /// </summary>
-public sealed class Startup
+public sealed class Startup<TApp> : IStartup
 {
+    private readonly List<Assembly> _additionalAssemblies = new List<Assembly>();
+
+    public void AddAdditionalAssemblies(params Assembly[] assemblies)
+    {
+        _additionalAssemblies.AddRange(assemblies);
+    }
+
     public void ConfigureServices(IServiceCollection services)
     {
-        services.AddRazorPages();
-        services.AddServerSideBlazor();
+        var razorBuilder = services.AddRazorComponents();
+        razorBuilder.AddInteractiveServerComponents();
+        razorBuilder.AddInteractiveWebAssemblyComponents();
     }
 
     public void Configure(IApplicationBuilder app)
@@ -16,10 +26,14 @@ public sealed class Startup
         app.UseDeveloperExceptionPage();
         app.UseStaticFiles();
         app.UseRouting();
-        app.UseEndpoints(endpoints =>
+        app.UseAntiforgery();
+        app.UseStatusCodePages();
+        app.UseEndpoints(app =>
         {
-            endpoints.MapBlazorHub();
-            endpoints.MapFallbackToPage("/_Host");
+            app.MapRazorComponents<TApp>()
+                .AddAdditionalAssemblies([.. _additionalAssemblies])
+                .AddInteractiveServerRenderMode()
+                .AddInteractiveWebAssemblyRenderMode();
         });
     }
 }
