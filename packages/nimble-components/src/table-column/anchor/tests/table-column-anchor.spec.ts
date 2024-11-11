@@ -70,14 +70,10 @@ describe('TableColumnAnchor', () => {
         await disconnect();
     });
 
-    it('should export its tag', () => {
-        expect(tableColumnAnchorTag).toBe('nimble-table-column-anchor');
-    });
-
     it('can construct an element instance', () => {
-        expect(
-            document.createElement('nimble-table-column-anchor')
-        ).toBeInstanceOf(TableColumnAnchor);
+        expect(document.createElement(tableColumnAnchorTag)).toBeInstanceOf(
+            TableColumnAnchor
+        );
     });
 
     it('reports column configuration valid', async () => {

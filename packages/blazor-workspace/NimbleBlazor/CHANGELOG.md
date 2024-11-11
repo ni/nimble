@@ -1,8 +1,121 @@
 # Change Log - @ni/nimble-blazor
 
-<!-- This log was last generated on Thu, 26 Sep 2024 18:24:50 GMT and should not be manually modified. -->
+<!-- This log was last generated on Tue, 05 Nov 2024 20:44:52 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 19.0.1
+
+Tue, 05 Nov 2024 20:44:52 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v32.6.1
+
+## 19.0.0
+
+Fri, 01 Nov 2024 18:46:46 GMT
+
+### Major changes
+
+- Nimble Blazor targets (and requires) .NET 8. Update examples, docs, tests. See README for updated usage instructions. ([ni/nimble@cb7fd17](https://github.com/ni/nimble/commit/cb7fd177defa078dd44eafa3bd5b28eaa4f75dd7))
+
+## 18.4.4
+
+Tue, 29 Oct 2024 18:50:54 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v32.6.0
+
+## 18.4.3
+
+Tue, 29 Oct 2024 16:39:58 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v32.5.3
+
+## 18.4.2
+
+Mon, 28 Oct 2024 21:38:16 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v32.5.2
+
+## 18.4.1
+
+Thu, 24 Oct 2024 20:52:01 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v32.5.1
+
+## 18.4.0
+
+Thu, 24 Oct 2024 12:36:19 GMT
+
+### Minor changes
+
+- Angular and Blazor label provider changes for scrollable tabs. ([ni/nimble@868a8a6](https://github.com/ni/nimble/commit/868a8a67780160f0a224fbc62a27511ed97db2df))
+
+## 18.3.4
+
+Wed, 23 Oct 2024 19:20:53 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v32.5.0
+
+## 18.3.3
+
+Wed, 23 Oct 2024 13:33:55 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v32.4.1
+
+## 18.3.2
+
+Fri, 18 Oct 2024 20:38:35 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v32.4.0
+- Bump @ni/nimble-tokens to v8.4.0
+
+## 18.3.1
+
+Wed, 16 Oct 2024 23:46:19 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v32.3.2
+
+## 18.3.0
+
+Wed, 16 Oct 2024 21:20:29 GMT
+
+### Minor changes
+
+- Expose error state on radio-group ([ni/nimble@280d85a](https://github.com/ni/nimble/commit/280d85aab3c4cb9c78d4a336d2babbfd9bc33b8d))
+
+## 18.2.11
+
+Mon, 14 Oct 2024 13:37:04 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v32.3.1
+
+## 18.2.10
+
+Wed, 09 Oct 2024 19:24:18 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v32.3.0
 
 ## 18.2.9
 

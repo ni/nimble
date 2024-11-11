@@ -1,6 +1,9 @@
 import { html } from '@microsoft/fast-element';
-import type { Table } from '..';
-import type { TableColumnText } from '../../table-column/text';
+import { tableTag, type Table } from '..';
+import {
+    tableColumnTextTag,
+    type TableColumnText
+} from '../../table-column/text';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import { type Fixture, fixture } from '../../utilities/tests/fixture';
 import {
@@ -26,11 +29,11 @@ type TableColumnConfigurationChangeEventHandler = (
 // prettier-ignore
 async function setup(): Promise<Fixture<Table<SimpleTableRecord>>> {
     return await fixture<Table<SimpleTableRecord>>(
-        html`<nimble-table id-field-name="id">
-            <nimble-table-column-text id="first-column" field-name="stringData1" column-id="column-1"></nimble-table-column-text>
-            <nimble-table-column-text id="second-column" field-name="stringData2" column-id="column-2"></nimble-table-column-text>
-            <nimble-table-column-text id="third-column" field-name="stringData3" column-id="column-3"></nimble-table-column-text>
-        </nimble-table>`
+        html`<${tableTag} id-field-name="id">
+            <${tableColumnTextTag} id="first-column" field-name="stringData1" column-id="column-1"></${tableColumnTextTag}>
+            <${tableColumnTextTag} id="second-column" field-name="stringData2" column-id="column-2"></${tableColumnTextTag}>
+            <${tableColumnTextTag} id="third-column" field-name="stringData3" column-id="column-3"></${tableColumnTextTag}>
+        </${tableTag}>`
     );
 }
 
@@ -707,9 +710,7 @@ describe('Table sorting', () => {
             element.removeChild(column2);
             element.removeChild(column3);
 
-            const newColumn = document.createElement(
-                'nimble-table-column-text'
-            );
+            const newColumn = document.createElement(tableColumnTextTag);
             newColumn.fieldName = fieldName;
             if (sortDirection !== TableColumnSortDirection.none) {
                 newColumn.sortDirection = sortDirection;

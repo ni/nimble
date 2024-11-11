@@ -119,7 +119,8 @@ import {
     Black82,
     Black22,
     PowerGreen30,
-    DigitalGreenLight30
+    DigitalGreenLight30,
+    PowerGreenDark50
 } from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
 import { Theme } from './types';
 import { tokenNames, styleNameFromTokenName } from './design-token-names';
@@ -370,7 +371,12 @@ export const calendarEventBorderTransientColor = DesignToken.create<string>(
 
 export const calendarEventStaticFontColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.calendarEventStaticFontColor)
-).withDefault((element: HTMLElement) => getColorForTheme(element, DigitalGreenDark110, White, White));
+).withDefault((element: HTMLElement) => getColorForTheme(
+    element,
+    DigitalGreenDark110,
+    PowerGreenDark50,
+    PowerGreenDark50
+));
 
 export const calendarEventDynamicFontColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.calendarEventDynamicFontColor)

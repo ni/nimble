@@ -84,16 +84,10 @@ describe('TableColumnMenuButton', () => {
         await disconnect();
     });
 
-    it('should export its tag', () => {
-        expect(tableColumnMenuButtonTag).toBe(
-            'nimble-table-column-menu-button'
-        );
-    });
-
     it('can construct an element instance', () => {
-        expect(
-            document.createElement('nimble-table-column-menu-button')
-        ).toBeInstanceOf(TableColumnMenuButton);
+        expect(document.createElement(tableColumnMenuButtonTag)).toBeInstanceOf(
+            TableColumnMenuButton
+        );
     });
 
     it('reports column configuration valid', async () => {

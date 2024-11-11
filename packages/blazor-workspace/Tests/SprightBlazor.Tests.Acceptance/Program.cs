@@ -12,7 +12,7 @@ public static class Program
     {
         var builder = WebApplication.CreateBuilder(arguments);
 
-        var startup = new Startup();
+        var startup = new Startup<App>();
         startup.ConfigureServices(builder.Services);
         var app = builder.Build();
         startup.Configure(app);

@@ -10,7 +10,9 @@ import {
     popupIconInformationLabel,
     filterSearchLabel,
     filterNoResultsLabel,
-    loadingLabel
+    loadingLabel,
+    scrollBackwardLabel,
+    scrollForwardLabel
 } from './label-tokens';
 import { styles } from '../base/styles';
 
@@ -29,7 +31,9 @@ const supportedLabels = {
     popupIconInformation: popupIconInformationLabel,
     filterSearch: filterSearchLabel,
     filterNoResults: filterNoResultsLabel,
-    loading: loadingLabel
+    loading: loadingLabel,
+    scrollBackward: scrollBackwardLabel,
+    scrollForward: scrollForwardLabel
 } as const;
 
 /**
@@ -64,6 +68,12 @@ export class LabelProviderCore
 
     @attr({ attribute: 'loading' })
     public loading: string | undefined;
+
+    @attr({ attribute: 'scroll-backward' })
+    public scrollBackward: string | undefined;
+
+    @attr({ attribute: 'scroll-forward' })
+    public scrollForward: string | undefined;
 
     protected override readonly supportedLabels = supportedLabels;
 }

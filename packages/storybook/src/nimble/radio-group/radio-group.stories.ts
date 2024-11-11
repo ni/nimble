@@ -8,6 +8,8 @@ import {
     apiCategory,
     createUserSelectedThemeStory,
     disabledDescription,
+    errorTextDescription,
+    errorVisibleDescription,
     slottedLabelDescription
 } from '../../utilities/storybook';
 
@@ -19,6 +21,8 @@ interface RadioGroupArgs {
     value: string;
     buttons: undefined;
     change: undefined;
+    errorVisible: boolean;
+    errorText: string;
 }
 
 interface RadioArgs {
@@ -48,7 +52,10 @@ export const radioGroup: StoryObj<RadioGroupArgs> = {
             orientation="${x => x.orientation}"
             ?disabled="${x => x.disabled}"
             name="${x => x.name}"
-            value="${x => x.value}"
+            value="${x => (x.value === 'none' ? undefined : x.value)}"
+            ?error-visible="${x => x.errorVisible}"
+            error-text="${x => x.errorText}"
+            style="min-width: 200px;"
         >
             <label slot="label">${x => x.label}</label>
             <${radioTag} value="apple">Apple</${radioTag}>
@@ -61,7 +68,9 @@ export const radioGroup: StoryObj<RadioGroupArgs> = {
         orientation: Orientation.horizontal,
         disabled: false,
         name: 'fruit',
-        value: 'none'
+        value: 'none',
+        errorVisible: false,
+        errorText: 'Value is invalid'
     },
     argTypes: {
         value: {
@@ -105,6 +114,16 @@ export const radioGroup: StoryObj<RadioGroupArgs> = {
                 'Event emitted when the user selects a new value in the radio group.',
             table: { category: apiCategory.events },
             control: false
+        },
+        errorText: {
+            name: 'error-text',
+            description: errorTextDescription,
+            table: { category: apiCategory.attributes }
+        },
+        errorVisible: {
+            name: 'error-visible',
+            description: errorVisibleDescription,
+            table: { category: apiCategory.attributes }
         }
     }
 };

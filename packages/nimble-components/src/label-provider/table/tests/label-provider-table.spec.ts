@@ -41,9 +41,9 @@ describe('Label Provider Table', () => {
     });
 
     it('can construct an element instance', () => {
-        expect(
-            document.createElement('nimble-label-provider-table')
-        ).toBeInstanceOf(LabelProviderTable);
+        expect(document.createElement(labelProviderTableTag)).toBeInstanceOf(
+            LabelProviderTable
+        );
     });
 
     describe('token JS key should match DesignToken.name', () => {

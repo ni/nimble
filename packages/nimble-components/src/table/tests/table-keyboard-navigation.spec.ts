@@ -17,7 +17,7 @@ import {
     keyTab
 } from '@microsoft/fast-web-utilities';
 import { parameterizeSpec } from '@ni/jasmine-parameterized';
-import type { Table } from '..';
+import { tableTag, type Table } from '..';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import {
     type Fixture,
@@ -49,6 +49,7 @@ import type { ColumnInternalsOptions } from '../../table-column/base/models/colu
 import { ColumnValidator } from '../../table-column/base/models/column-validator';
 import { mixinSortableColumnAPI } from '../../table-column/mixins/sortable-column';
 import { MenuButtonPageObject } from '../../menu-button/testing/menu-button.pageobject';
+import { menuTag } from '../../menu';
 
 interface SimpleTableRecord extends TableRecord {
     id: string;
@@ -87,10 +88,10 @@ describe('Table keyboard navigation', () => {
         column.actionMenuSlot = `${column.id}-action-menu-slot`;
         column.actionMenuLabel = 'Actions';
 
-        const menu = document.createElement('nimble-menu');
+        const menu = document.createElement(menuTag);
         menu.slot = column.actionMenuSlot;
 
-        const menuItem1 = document.createElement('nimble-menu-item');
+        const menuItem1 = document.createElement(menuItemTag);
         menuItem1.textContent = 'menu item 1';
         menu.appendChild(menuItem1);
 
@@ -220,11 +221,11 @@ describe('Table keyboard navigation', () => {
         // prettier-ignore
         async function setupNonInteractiveTable(): Promise<Fixture<Table<SimpleTableRecord>>> {
             return await fixture<Table<SimpleTableRecord>>(
-                html`<nimble-table id-field-name="id">
+                html`<${tableTag} id-field-name="id">
                 <${nonInteractiveColumnName} id="first-column" column-id="column-1"></${nonInteractiveColumnName}>
                 <${nonInteractiveColumnName} id="second-column" column-id="column-2"></${nonInteractiveColumnName}>
                 <${nonInteractiveColumnName} id="third-column" column-id="column-3"></${nonInteractiveColumnName}>
-            </nimble-table>`
+            </${tableTag}>`
             );
         }
 
@@ -1266,11 +1267,11 @@ describe('Table keyboard navigation', () => {
         // prettier-ignore
         async function setupInteractiveTable(): Promise<Fixture<Table<SimpleTableRecord>>> {
             return await fixture<Table<SimpleTableRecord>>(
-                html`<nimble-table id-field-name="id">
+                html`<${tableTag} id-field-name="id">
                 <${interactiveColumnName} id="first-column" column-id="column-1"></${interactiveColumnName}>
                 <${interactiveColumnName} id="second-column" column-id="column-2"></${interactiveColumnName}>
                 <${interactiveColumnName} id="third-column" column-id="column-3"></${interactiveColumnName}>
-            </nimble-table>`
+            </${tableTag}>`
             );
         }
 

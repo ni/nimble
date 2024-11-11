@@ -1,9 +1,9 @@
 import { html } from '@microsoft/fast-element';
 import { fixture, Fixture } from '../../utilities/tests/fixture';
-import { Spinner } from '..';
+import { Spinner, spinnerTag } from '..';
 
 async function setup(): Promise<Fixture<Spinner>> {
-    const viewTemplate = html` <nimble-spinner> </nimble-spinner> `;
+    const viewTemplate = html` <${spinnerTag}> </${spinnerTag}> `;
     return await fixture<Spinner>(viewTemplate);
 }
 
@@ -33,9 +33,7 @@ describe('Spinner', () => {
         });
 
         it('can construct an element instance', () => {
-            expect(document.createElement('nimble-spinner')).toBeInstanceOf(
-                Spinner
-            );
+            expect(document.createElement(spinnerTag)).toBeInstanceOf(Spinner);
         });
 
         it('should have size 16x16 by default', () => {

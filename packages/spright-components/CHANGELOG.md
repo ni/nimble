@@ -1,8 +1,100 @@
 # Change Log - @ni/spright-components
 
-<!-- This log was last generated on Thu, 26 Sep 2024 18:24:50 GMT and should not be manually modified. -->
+<!-- This log was last generated on Tue, 05 Nov 2024 20:44:52 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 4.1.21
+
+Tue, 05 Nov 2024 20:44:52 GMT
+
+### Patches
+
+- Update fast versions ([ni/nimble@fa9b9ce](https://github.com/ni/nimble/commit/fa9b9ce191be11cd8af7ba8abdb87b530ea47f69))
+- Bump @ni/nimble-components to v32.6.1
+
+## 4.1.20
+
+Tue, 29 Oct 2024 18:50:54 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v32.6.0
+
+## 4.1.19
+
+Tue, 29 Oct 2024 16:39:58 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v32.5.3
+
+## 4.1.18
+
+Mon, 28 Oct 2024 21:38:16 GMT
+
+### Patches
+
+- Pin FAST foundation and element versions until new versions vetted ([ni/nimble@b83708f](https://github.com/ni/nimble/commit/b83708f2711f0055ae6511c402a804e6bdfb51a8))
+- Bump @ni/nimble-components to v32.5.2
+
+## 4.1.17
+
+Thu, 24 Oct 2024 20:52:01 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v32.5.1
+
+## 4.1.16
+
+Wed, 23 Oct 2024 19:20:53 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v32.5.0
+
+## 4.1.15
+
+Wed, 23 Oct 2024 13:33:54 GMT
+
+### Patches
+
+- Remove hard-coded nimble tag name strings ([ni/nimble@858c553](https://github.com/ni/nimble/commit/858c553ea137e7c5ac2deebf12434a6efe0370ed))
+- Bump @ni/nimble-components to v32.4.1
+
+## 4.1.14
+
+Fri, 18 Oct 2024 20:38:35 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v32.4.0
+
+## 4.1.13
+
+Wed, 16 Oct 2024 23:46:19 GMT
+
+### Patches
+
+- Add DOM.Iterable to the build ([ni/nimble@cb9efb3](https://github.com/ni/nimble/commit/cb9efb36f733bed945425febab5e1a08d63d90ea))
+- Bump @ni/nimble-components to v32.3.2
+
+## 4.1.12
+
+Mon, 14 Oct 2024 13:37:04 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v32.3.1
+
+## 4.1.11
+
+Wed, 09 Oct 2024 19:24:18 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v32.3.0
 
 ## 4.1.10
 

@@ -26,12 +26,8 @@ describe('Icon Mapping', () => {
         </${mappingIconTag}>`);
     }
 
-    it('should export its tag', () => {
-        expect(mappingIconTag).toBe('nimble-mapping-icon');
-    });
-
     it('can construct an element instance', () => {
-        expect(document.createElement('nimble-mapping-icon')).toBeInstanceOf(
+        expect(document.createElement(mappingIconTag)).toBeInstanceOf(
             MappingIcon
         );
     });

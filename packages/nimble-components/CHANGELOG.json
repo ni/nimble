@@ -2,6 +2,192 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 05 Nov 2024 20:44:52 GMT",
+      "version": "32.6.1",
+      "tag": "@ni/nimble-components_v32.6.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "fa9b9ce191be11cd8af7ba8abdb87b530ea47f69",
+            "comment": "Update fast versions"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 29 Oct 2024 18:50:54 GMT",
+      "version": "32.6.0",
+      "tag": "@ni/nimble-components_v32.6.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "42ed262d11e4c28f298ae87513861cc71a82a1a4",
+            "comment": "Add a table page object function to get an icon's severity"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 29 Oct 2024 16:39:58 GMT",
+      "version": "32.5.3",
+      "tag": "@ni/nimble-components_v32.5.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "fae0aeeedc8d2d64dc778cb9f88eb307e286b2ba",
+            "comment": "Fix issue with tab panel not sizing to height of tabs component."
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 28 Oct 2024 21:38:16 GMT",
+      "version": "32.5.2",
+      "tag": "@ni/nimble-components_v32.5.2",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "b83708f2711f0055ae6511c402a804e6bdfb51a8",
+            "comment": "Pin FAST foundation and element versions until new versions vetted"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 24 Oct 2024 20:52:01 GMT",
+      "version": "32.5.1",
+      "tag": "@ni/nimble-components_v32.5.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "64ede95ba2420c6ef9a30d274ec7465d22b2959d",
+            "comment": "Fix tabs styling."
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 23 Oct 2024 19:20:53 GMT",
+      "version": "32.5.0",
+      "tag": "@ni/nimble-components_v32.5.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "4173c319a64f9c600b3cfbda2b90f2b336ea5f1c",
+            "comment": "Scrollable tabs for Tabs and AnchorTabs."
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 23 Oct 2024 13:33:54 GMT",
+      "version": "32.4.1",
+      "tag": "@ni/nimble-components_v32.4.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "858c553ea137e7c5ac2deebf12434a6efe0370ed",
+            "comment": "Remove hard-coded nimble tag name strings"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 18 Oct 2024 20:38:35 GMT",
+      "version": "32.4.0",
+      "tag": "@ni/nimble-components_v32.4.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "sandeep.appachiappan@ni.com",
+            "package": "@ni/nimble-components",
+            "commit": "4323196b82407671a6305d74691a2a84a621a2b3",
+            "comment": "Update theme aware token for calendar component"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/nimble-tokens to v8.4.0",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 16 Oct 2024 23:46:19 GMT",
+      "version": "32.3.2",
+      "tag": "@ni/nimble-components_v32.3.2",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "cb9efb36f733bed945425febab5e1a08d63d90ea",
+            "comment": "Enable table column resizing on touch-based devices"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 14 Oct 2024 13:37:04 GMT",
+      "version": "32.3.1",
+      "tag": "@ni/nimble-components_v32.3.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "123377167+aagash-ni@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "69ed3ce08edd32638ec858f59e6c09790b8c0281",
+            "comment": "Re-enable mention intermittently failed test cases"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 09 Oct 2024 19:24:18 GMT",
+      "version": "32.3.0",
+      "tag": "@ni/nimble-components_v32.3.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "8aa7c1ee2a6fae665419b8a8d9c8f8e7e977c424",
+            "comment": "Implement error states on nimble-radio-group"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 08 Oct 2024 17:39:50 GMT",
+      "version": "32.2.10",
+      "tag": "@ni/nimble-components_v32.2.10",
+      "comments": {
+        "none": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "bfa3e3683f6e2e8a2ec6807fcdde7f15ae265a3a",
+            "comment": "Disable intermittent test"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 01 Oct 2024 00:35:26 GMT",
       "version": "32.2.10",
       "tag": "@ni/nimble-components_v32.2.10",

@@ -78,10 +78,6 @@ describe('RichTextViewer', () => {
         );
     });
 
-    it('should export its tag', () => {
-        expect(richTextViewerTag).toBe('nimble-rich-text-viewer');
-    });
-
     it('set the markdown attribute and ensure the markdown property is not modified', () => {
         element.setAttribute('markdown', '**markdown string**');
 

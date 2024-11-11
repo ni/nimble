@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-tokens
 
-This log was last generated on Thu, 05 Sep 2024 16:43:39 GMT and should not be manually modified.
+<!-- This log was last generated on Fri, 18 Oct 2024 20:38:35 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 8.4.0
+
+Fri, 18 Oct 2024 20:38:35 GMT
+
+### Minor changes
+
+- Add color token for calendar component ([ni/nimble@4323196](https://github.com/ni/nimble/commit/4323196b82407671a6305d74691a2a84a621a2b3))
 
 ## 8.3.0
 

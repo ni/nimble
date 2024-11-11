@@ -22,6 +22,7 @@ export class TableLayoutManager<TData extends TableRecord> {
     private initialTableScrollableWidth?: number;
     private initialTableScrollableMinWidth?: number;
     private initialColumnTotalWidth?: number;
+    private activeColumnDividerElement?: HTMLElement;
     private currentTotalDelta = 0;
     private dragStart = 0;
     private leftColumnIndex?: number;
@@ -56,14 +57,19 @@ export class TableLayoutManager<TData extends TableRecord> {
 
     /**
      * Sets up state related to interactively sizing a column.
+     * @param activeColumnDividerElement The divider element that was clicked on
+     * @param pointerId The pointerId of the pointer that started the drag
      * @param dragStart The x-position from which a column size was started
-     * @param activeColumnDivider The divider that was clicked on
+     * @param activeColumnDivider The 1-based index of the divider that was clicked on
      */
     public beginColumnInteractiveSize(
+        activeColumnDividerElement: HTMLElement,
+        pointerId: number,
         dragStart: number,
         activeColumnDivider: number
     ): void {
         this.activeColumnDivider = activeColumnDivider;
+        this.activeColumnDividerElement = activeColumnDividerElement;
         this.leftColumnIndex = this.getLeftColumnIndexFromDivider(
             this.activeColumnDivider
         );
@@ -77,8 +83,18 @@ export class TableLayoutManager<TData extends TableRecord> {
         this.initialTableScrollableMinWidth = this.table.tableScrollableMinWidth;
         this.initialColumnTotalWidth = this.getTotalColumnFixedWidth();
         this.isColumnBeingSized = true;
-        document.addEventListener('mousemove', this.onDividerMouseMove);
-        document.addEventListener('mouseup', this.onDividerMouseUp);
+        // pointerId of -1 indicates source was synthetic PointerEvent: https://w3c.github.io/pointerevents/#dom-pointerevent-pointerid
+        if (pointerId !== -1) {
+            activeColumnDividerElement.setPointerCapture(pointerId);
+        }
+        activeColumnDividerElement.addEventListener(
+            'pointermove',
+            this.onDividerPointerMove
+        );
+        activeColumnDividerElement.addEventListener(
+            'pointerup',
+            this.onDividerPointerUp
+        );
     }
 
     /**
@@ -95,13 +111,12 @@ export class TableLayoutManager<TData extends TableRecord> {
         return this.getFirstRightResizableColumnIndex(columnIndex) !== -1;
     }
 
-    private readonly onDividerMouseMove = (event: Event): void => {
-        const mouseEvent = event as MouseEvent;
+    private readonly onDividerPointerMove = (event: PointerEvent): void => {
         for (let i = 0; i < this.visibleColumns.length; i++) {
             this.visibleColumns[i]!.columnInternals.currentPixelWidth = this.initialColumnWidths[i]?.initialPixelWidth;
         }
         this.currentTotalDelta = this.getAllowedSizeDelta(
-            mouseEvent.clientX - this.dragStart
+            event.clientX - this.dragStart
         );
         this.performCascadeSizeLeft(
             this.leftColumnIndex!,
@@ -120,13 +135,20 @@ export class TableLayoutManager<TData extends TableRecord> {
         }
     };
 
-    private readonly onDividerMouseUp = (): void => {
-        document.removeEventListener('mousemove', this.onDividerMouseMove);
-        document.removeEventListener('mouseup', this.onDividerMouseUp);
+    private readonly onDividerPointerUp = (): void => {
+        this.activeColumnDividerElement!.removeEventListener(
+            'pointermove',
+            this.onDividerPointerMove
+        );
+        this.activeColumnDividerElement!.removeEventListener(
+            'pointerup',
+            this.onDividerPointerUp
+        );
         this.resetGridSizedColumns();
         this.isColumnBeingSized = false;
         this.activeColumnIndex = undefined;
         this.activeColumnDivider = undefined;
+        this.activeColumnDividerElement = undefined;
         this.visibleColumns = [];
     };
 

@@ -88,12 +88,12 @@ const component = (
 `;
 
 const playFunction = (): void => {
-    const editorNodeList = document.querySelectorAll('nimble-rich-text-editor');
+    const editorNodeList = document.querySelectorAll(richTextEditorTag);
     editorNodeList.forEach(element => element.setMarkdown(richTextMarkdownString));
 };
 
 const longTextPlayFunction = (): void => {
-    const editorNodeList = document.querySelectorAll('nimble-rich-text-editor');
+    const editorNodeList = document.querySelectorAll(richTextEditorTag);
     editorNodeList.forEach(element => element.setMarkdown(
         `${loremIpsum}\n\n **${loremIpsum}**\n\n ${loremIpsum}`
     ));
@@ -204,7 +204,7 @@ const mobileWidthComponent = html`
 
 export const plainTextContentInMobileWidth: StoryFn = createStory(mobileWidthComponent);
 plainTextContentInMobileWidth.play = (): void => {
-    document.querySelector('nimble-rich-text-editor')!.setMarkdown(loremIpsum);
+    document.querySelector(richTextEditorTag)!.setMarkdown(loremIpsum);
 };
 
 const multipleSubPointsContent = `
@@ -221,7 +221,7 @@ const multipleSubPointsContent = `
 export const multipleSubPointsContentInMobileWidth: StoryFn = createStory(mobileWidthComponent);
 multipleSubPointsContentInMobileWidth.play = (): void => {
     document
-        .querySelector('nimble-rich-text-editor')!
+        .querySelector(richTextEditorTag)!
         .setMarkdown(multipleSubPointsContent);
 };
 
@@ -235,14 +235,14 @@ const differentListElementContentInSameLevel = `
 export const differentListElementInSameLevel: StoryFn = createStory(mobileWidthComponent);
 differentListElementInSameLevel.play = (): void => {
     document
-        .querySelector('nimble-rich-text-editor')!
+        .querySelector(richTextEditorTag)!
         .setMarkdown(differentListElementContentInSameLevel);
 };
 
 export const longWordContentInMobileWidth: StoryFn = createStory(mobileWidthComponent);
 longWordContentInMobileWidth.play = (): void => {
     document
-        .querySelector('nimble-rich-text-editor')!
+        .querySelector(richTextEditorTag)!
         .setMarkdown(
             'ThisIsALongWordWithoutSpaceToTestLongWordInSmallWidthThisIsALongWordWithoutSpaceToTestLongWordInSmallWidth'
         );
@@ -264,14 +264,14 @@ This line enters new line in paragraph tag
 export const newLineWithForceLineBreakInMobileWidth: StoryFn = createStory(mobileWidthComponent);
 newLineWithForceLineBreakInMobileWidth.play = (): void => {
     document
-        .querySelector('nimble-rich-text-editor')!
+        .querySelector(richTextEditorTag)!
         .setMarkdown(newLineWithForceLineBreakContent);
 };
 
 export const longLinkInMobileWidth: StoryFn = createStory(mobileWidthComponent);
 longLinkInMobileWidth.play = (): void => {
     document
-        .querySelector('nimble-rich-text-editor')!
+        .querySelector(richTextEditorTag)!
         .setMarkdown(
             '<https://www.google.com/search?q=what+is+nimble&rlz=1C1CHBF_enIN1007IN1007&oq=what+is+nimble&aqs=chrome..69i57j0i512l9.2837j1j7&sourceid=chrome&ie=UTF-8>'
         );

@@ -13,12 +13,8 @@ describe('User Mapping', () => {
           </${mappingUserTag}>`);
     }
 
-    it('should export its tag', () => {
-        expect(mappingUserTag).toBe('nimble-mapping-user');
-    });
-
     it('can construct an element instance', () => {
-        expect(document.createElement('nimble-mapping-user')).toBeInstanceOf(
+        expect(document.createElement(mappingUserTag)).toBeInstanceOf(
             MappingUser
         );
     });

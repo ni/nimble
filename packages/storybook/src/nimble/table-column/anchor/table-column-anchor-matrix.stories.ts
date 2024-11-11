@@ -1,7 +1,7 @@
 import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate } from '@microsoft/fast-element';
 import { iconUserTag } from '../../../../../nimble-components/src/icons/user';
-import { Table, tableTag } from '../../../../../nimble-components/src/table';
+import { tableTag } from '../../../../../nimble-components/src/table';
 import { AnchorAppearance } from '../../../../../nimble-components/src/anchor/types';
 import {
     controlLabelFont,
@@ -93,10 +93,8 @@ export const tableColumnAnchorThemeMatrix: StoryFn = createMatrixThemeStory(
 
 tableColumnAnchorThemeMatrix.play = async (): Promise<void> => {
     await Promise.all(
-        Array.from(document.querySelectorAll<Table>('nimble-table')).map(
-            async table => {
-                await table.setData(data);
-            }
-        )
+        Array.from(document.querySelectorAll(tableTag)).map(async table => {
+            await table.setData(data);
+        })
     );
 };

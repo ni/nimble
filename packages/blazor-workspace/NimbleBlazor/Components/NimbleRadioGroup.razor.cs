@@ -24,6 +24,18 @@ public partial class NimbleRadioGroup : NimbleInputBase<string>
     public Orientation? Orientation { get; set; }
 
     /// <summary>
+    /// Gets or sets whether the error state is displayed
+    /// </summary>
+    [Parameter]
+    public bool? ErrorVisible { get; set; }
+
+    /// <summary>
+    /// Gets or sets an error message describing the error state
+    /// </summary>
+    [Parameter]
+    public string? ErrorText { get; set; }
+
+    /// <summary>
     /// Gets or sets the child content to be rendered inside the <see cref="NimbleRadioGroup"/>.
     /// </summary>
     [Parameter]

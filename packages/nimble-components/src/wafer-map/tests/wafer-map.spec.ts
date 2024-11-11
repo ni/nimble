@@ -1,7 +1,7 @@
 import { html } from '@microsoft/fast-element';
 import { Table, tableFromArrays } from 'apache-arrow';
 import type { Remote } from 'comlink';
-import { WaferMap } from '..';
+import { WaferMap, waferMapTag } from '..';
 import {
     processUpdates,
     waitForUpdatesAsync
@@ -15,7 +15,7 @@ import {
 import type { MatrixRenderer } from '../workers/matrix-renderer';
 
 async function setup(): Promise<Fixture<WaferMap>> {
-    return await fixture<WaferMap>(html`<nimble-wafer-map></nimble-wafer-map>`);
+    return await fixture<WaferMap>(html`<${waferMapTag}></${waferMapTag}>`);
 }
 describe('WaferMap', () => {
     let element: WaferMap;
@@ -32,9 +32,7 @@ describe('WaferMap', () => {
     });
 
     it('can construct an element instance', () => {
-        expect(document.createElement('nimble-wafer-map')).toBeInstanceOf(
-            WaferMap
-        );
+        expect(document.createElement(waferMapTag)).toBeInstanceOf(WaferMap);
     });
 
     describe('update action', () => {

@@ -60,15 +60,9 @@ describe('TableColumnDurationText', () => {
         await disconnect();
     });
 
-    it('should export its tag', () => {
-        expect(tableColumnDurationTextTag).toBe(
-            'nimble-table-column-duration-text'
-        );
-    });
-
     it('can construct an element instance', () => {
         expect(
-            document.createElement('nimble-table-column-duration-text')
+            document.createElement(tableColumnDurationTextTag)
         ).toBeInstanceOf(TableColumnDurationText);
     });
 

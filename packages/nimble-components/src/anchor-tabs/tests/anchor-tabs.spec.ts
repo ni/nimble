@@ -9,16 +9,18 @@ import {
     keyTab
 } from '@microsoft/fast-web-utilities';
 import { parameterizeSpec } from '@ni/jasmine-parameterized';
-import { AnchorTabs } from '..';
+import { AnchorTabs, anchorTabsTag } from '..';
 import '../../anchor-tab';
-import type { AnchorTab } from '../../anchor-tab';
+import { anchorTabTag, type AnchorTab } from '../../anchor-tab';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import { fixture, Fixture } from '../../utilities/tests/fixture';
+import { AnchorTabsPageObject } from '../testing/anchor-tabs.pageobject';
 
 describe('AnchorTabs', () => {
     let element: AnchorTabs;
     let connect: () => Promise<void>;
     let disconnect: () => Promise<void>;
+    let pageObject: AnchorTabsPageObject;
 
     function tab(index: number): AnchorTab {
         return element.children[index] as AnchorTab;
@@ -31,17 +33,18 @@ describe('AnchorTabs', () => {
     describe('without hrefs', () => {
         async function setup(): Promise<Fixture<AnchorTabs>> {
             return await fixture<AnchorTabs>(
-                html`<nimble-anchor-tabs activeid="tab-two">
-                    <nimble-anchor-tab></nimble-anchor-tab>
-                    <nimble-anchor-tab id="tab-two"></nimble-anchor-tab>
-                    <nimble-anchor-tab id="tab-three"></nimble-anchor-tab>
-                </nimble-anchor-tabs>`
+                html`<${anchorTabsTag} activeid="tab-two">
+                    <${anchorTabTag}></${anchorTabTag}>
+                    <${anchorTabTag} id="tab-two"></${anchorTabTag}>
+                    <${anchorTabTag} id="tab-three"></${anchorTabTag}>
+                </${anchorTabsTag}>`
             );
         }
 
         beforeEach(async () => {
             ({ element, connect, disconnect } = await setup());
             await connect();
+            pageObject = new AnchorTabsPageObject(element);
         });
 
         afterEach(async () => {
@@ -49,7 +52,7 @@ describe('AnchorTabs', () => {
         });
 
         it('can construct an element instance', () => {
-            expect(document.createElement('nimble-anchor-tabs')).toBeInstanceOf(
+            expect(document.createElement(anchorTabsTag)).toBeInstanceOf(
                 AnchorTabs
             );
         });
@@ -83,15 +86,9 @@ describe('AnchorTabs', () => {
 
         it('should populate tabs array with anchor tabs', () => {
             expect(element.tabs.length).toBe(3);
-            expect(element.tabs[0]?.nodeName.toLowerCase()).toBe(
-                'nimble-anchor-tab'
-            );
-            expect(element.tabs[1]?.nodeName.toLowerCase()).toBe(
-                'nimble-anchor-tab'
-            );
-            expect(element.tabs[2]?.nodeName.toLowerCase()).toBe(
-                'nimble-anchor-tab'
-            );
+            expect(element.tabs[0]?.nodeName.toLowerCase()).toBe(anchorTabTag);
+            expect(element.tabs[1]?.nodeName.toLowerCase()).toBe(anchorTabTag);
+            expect(element.tabs[2]?.nodeName.toLowerCase()).toBe(anchorTabTag);
         });
 
         it('should set activetab property based on activeid', () => {
@@ -124,8 +121,7 @@ describe('AnchorTabs', () => {
             expect(tab(0).tabIndex).toBe(-1);
             expect(tab(1).tabIndex).toBe(0);
             expect(tab(2).tabIndex).toBe(-1);
-            tab(0).dispatchEvent(new Event('click'));
-            await waitForUpdatesAsync();
+            await pageObject.clickTab(0);
             expect(tab(0).tabIndex).toBe(0);
             expect(tab(1).tabIndex).toBe(-1);
             expect(tab(2).tabIndex).toBe(-1);
@@ -136,9 +132,7 @@ describe('AnchorTabs', () => {
             anchor(0).addEventListener('click', () => {
                 timesClicked += 1;
             });
-            tab(0).dispatchEvent(
-                new KeyboardEvent('keydown', { key: keySpace })
-            );
+            await pageObject.pressKeyOnTab(0, keySpace);
             await waitForUpdatesAsync();
             expect(timesClicked).toBe(1);
         });
@@ -148,9 +142,7 @@ describe('AnchorTabs', () => {
             anchor(0).addEventListener('click', () => {
                 timesClicked += 1;
             });
-            tab(0).dispatchEvent(
-                new KeyboardEvent('keydown', { key: keyEnter })
-            );
+            await pageObject.pressKeyOnTab(0, keyEnter);
             await waitForUpdatesAsync();
             expect(timesClicked).toBe(1);
         });
@@ -159,17 +151,17 @@ describe('AnchorTabs', () => {
     describe('with hrefs', () => {
         async function setupWithHrefs(): Promise<Fixture<AnchorTabs>> {
             return await fixture<AnchorTabs>(
-                html`<nimble-anchor-tabs activeid="tab-two">
-                    <nimble-anchor-tab href="foo"></nimble-anchor-tab>
-                    <nimble-anchor-tab
+                html`<${anchorTabsTag} activeid="tab-two">
+                    <${anchorTabTag} href="foo"></${anchorTabTag}>
+                    <${anchorTabTag}
                         href="foo"
                         id="tab-two"
-                    ></nimble-anchor-tab>
-                    <nimble-anchor-tab
+                    ></${anchorTabTag}>
+                    <${anchorTabTag}
                         href="foo"
                         id="tab-three"
-                    ></nimble-anchor-tab>
-                </nimble-anchor-tabs>`
+                    ></${anchorTabTag}>
+                </${anchorTabsTag}>`
             );
         }
 
@@ -378,6 +370,113 @@ describe('AnchorTabs', () => {
             );
             await waitForUpdatesAsync();
             expect(document.activeElement).toBe(tab(0));
+        });
+    });
+
+    describe('scroll buttons', () => {
+        async function setup(): Promise<Fixture<AnchorTabs>> {
+            return await fixture<AnchorTabs>(
+                html`<${anchorTabsTag} activeid="tab-two">
+                    <${anchorTabTag}>Tab 1</${anchorTabTag}>
+                    <${anchorTabTag} id="tab-two">Tab 2</${anchorTabTag}>
+                    <${anchorTabTag} id="tab-three">Tab 3</${anchorTabTag}>
+                    <${anchorTabTag} id="tab-four">Tab 4</${anchorTabTag}>
+                    <${anchorTabTag} id="tab-five">Tab 5</${anchorTabTag}>
+                    <${anchorTabTag} id="tab-six">Tab 6</${anchorTabTag}>
+                </${anchorTabsTag}>`
+            );
+        }
+
+        let tabsPageObject: AnchorTabsPageObject;
+
+        beforeEach(async () => {
+            ({ element, connect, disconnect } = await setup());
+            await connect();
+            tabsPageObject = new AnchorTabsPageObject(element);
+        });
+
+        afterEach(async () => {
+            await disconnect();
+        });
+
+        it('should not show scroll buttons when the tabs fit within the container', () => {
+            expect(tabsPageObject.areScrollButtonsVisible()).toBeFalse();
+        });
+
+        it('should show scroll buttons when the tabs overflow the container', async () => {
+            await tabsPageObject.setTabsWidth(300);
+            expect(tabsPageObject.areScrollButtonsVisible()).toBeTrue();
+        });
+
+        it('should hide scroll buttons when the tabs no longer overflow the container', async () => {
+            await tabsPageObject.setTabsWidth(300);
+            await tabsPageObject.setTabsWidth(1000);
+            expect(tabsPageObject.areScrollButtonsVisible()).toBeFalse();
+        });
+
+        it('should scroll left when the left scroll button is clicked', async () => {
+            await tabsPageObject.setTabsWidth(300);
+            element.activeid = 'tab-six'; // scrolls to the last tab
+            const currentScrollOffset = tabsPageObject.getTabsViewScrollOffset();
+            await tabsPageObject.clickScrollLeftButton();
+            expect(tabsPageObject.getTabsViewScrollOffset()).toBeLessThan(
+                currentScrollOffset
+            );
+        });
+
+        it('should not scroll left when the left scroll button is clicked and the first tab is active', async () => {
+            await tabsPageObject.setTabsWidth(300);
+            await tabsPageObject.clickScrollLeftButton();
+            expect(tabsPageObject.getTabsViewScrollOffset()).toBe(0);
+        });
+
+        it('should scroll right when the right scroll button is clicked', async () => {
+            await tabsPageObject.setTabsWidth(300);
+            await tabsPageObject.clickScrollRightButton();
+            expect(tabsPageObject.getTabsViewScrollOffset()).toBeGreaterThan(0);
+        });
+
+        it('should not scroll right when the right scroll button is clicked and the last tab is active', async () => {
+            await tabsPageObject.setTabsWidth(300);
+            element.activeid = 'tab-six'; // scrolls to the last tab
+            const currentScrollOffset = tabsPageObject.getTabsViewScrollOffset();
+            await tabsPageObject.clickScrollRightButton();
+            expect(tabsPageObject.getTabsViewScrollOffset()).toBe(
+                currentScrollOffset
+            );
+        });
+
+        it('should show scroll buttons when new tab is added and tabs overflow the container', async () => {
+            await tabsPageObject.setTabsWidth(450);
+            expect(tabsPageObject.areScrollButtonsVisible()).toBeFalse();
+            await tabsPageObject.addTab('New Tab With Extremely Long Name');
+            expect(tabsPageObject.areScrollButtonsVisible()).toBeTrue();
+        });
+
+        it('should hide scroll buttons when tab is removed and tabs no longer overflow the container', async () => {
+            await tabsPageObject.setTabsWidth(500);
+            await tabsPageObject.addTab('New Tab With Extremely Long Name');
+            expect(tabsPageObject.areScrollButtonsVisible()).toBeTrue();
+            await tabsPageObject.removeTab(6);
+            expect(tabsPageObject.areScrollButtonsVisible()).toBeFalse();
+        });
+
+        it('should show scroll buttons when tab label is updated and tabs overflow the container', async () => {
+            await tabsPageObject.setTabsWidth(450);
+            expect(tabsPageObject.areScrollButtonsVisible()).toBeFalse();
+            await tabsPageObject.updateTabLabel(
+                0,
+                'New Tab With Extremely Long Name'
+            );
+            expect(tabsPageObject.areScrollButtonsVisible()).toBeTrue();
+        });
+
+        it('should hide scroll buttons when tab label is updated and tabs no longer overflow the container', async () => {
+            await tabsPageObject.setTabsWidth(550);
+            await tabsPageObject.addTab('New Tab With Extremely Long Name');
+            expect(tabsPageObject.areScrollButtonsVisible()).toBeTrue();
+            await tabsPageObject.updateTabLabel(6, 'Tab 6');
+            expect(tabsPageObject.areScrollButtonsVisible()).toBeFalse();
         });
     });
 });

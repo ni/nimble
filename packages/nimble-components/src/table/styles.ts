@@ -66,13 +66,6 @@ export const styles = css`
         cursor: var(--ni-private-table-cursor-override);
     }
 
-    .glass-overlay {
-        width: 100%;
-        height: 100%;
-        display: contents;
-        pointer-events: var(--ni-private-glass-overlay-pointer-events);
-    }
-
     .header-row-container {
         position: sticky;
         top: 0;
@@ -150,6 +143,7 @@ export const styles = css`
         cursor: col-resize;
         position: absolute;
         z-index: ${ZIndexLevels.zIndex1};
+        touch-action: pan-y;
     }
 
     .column-divider:hover,

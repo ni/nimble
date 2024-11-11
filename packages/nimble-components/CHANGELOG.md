@@ -1,8 +1,97 @@
 # Change Log - @ni/nimble-components
 
-<!-- This log was last generated on Thu, 26 Sep 2024 18:24:50 GMT and should not be manually modified. -->
+<!-- This log was last generated on Tue, 05 Nov 2024 20:44:52 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 32.6.1
+
+Tue, 05 Nov 2024 20:44:52 GMT
+
+### Patches
+
+- Update fast versions ([ni/nimble@fa9b9ce](https://github.com/ni/nimble/commit/fa9b9ce191be11cd8af7ba8abdb87b530ea47f69))
+
+## 32.6.0
+
+Tue, 29 Oct 2024 18:50:54 GMT
+
+### Minor changes
+
+- Add a table page object function to get an icon's severity ([ni/nimble@42ed262](https://github.com/ni/nimble/commit/42ed262d11e4c28f298ae87513861cc71a82a1a4))
+
+## 32.5.3
+
+Tue, 29 Oct 2024 16:39:58 GMT
+
+### Patches
+
+- Fix issue with tab panel not sizing to height of tabs component. ([ni/nimble@fae0aee](https://github.com/ni/nimble/commit/fae0aeeedc8d2d64dc778cb9f88eb307e286b2ba))
+
+## 32.5.2
+
+Mon, 28 Oct 2024 21:38:16 GMT
+
+### Patches
+
+- Pin FAST foundation and element versions until new versions vetted ([ni/nimble@b83708f](https://github.com/ni/nimble/commit/b83708f2711f0055ae6511c402a804e6bdfb51a8))
+
+## 32.5.1
+
+Thu, 24 Oct 2024 20:52:01 GMT
+
+### Patches
+
+- Fix tabs styling. ([ni/nimble@64ede95](https://github.com/ni/nimble/commit/64ede95ba2420c6ef9a30d274ec7465d22b2959d))
+
+## 32.5.0
+
+Wed, 23 Oct 2024 19:20:53 GMT
+
+### Minor changes
+
+- Scrollable tabs for Tabs and AnchorTabs. ([ni/nimble@4173c31](https://github.com/ni/nimble/commit/4173c319a64f9c600b3cfbda2b90f2b336ea5f1c))
+
+## 32.4.1
+
+Wed, 23 Oct 2024 13:33:54 GMT
+
+### Patches
+
+- Remove hard-coded nimble tag name strings ([ni/nimble@858c553](https://github.com/ni/nimble/commit/858c553ea137e7c5ac2deebf12434a6efe0370ed))
+
+## 32.4.0
+
+Fri, 18 Oct 2024 20:38:35 GMT
+
+### Minor changes
+
+- Update theme aware token for calendar component ([ni/nimble@4323196](https://github.com/ni/nimble/commit/4323196b82407671a6305d74691a2a84a621a2b3))
+- Bump @ni/nimble-tokens to v8.4.0
+
+## 32.3.2
+
+Wed, 16 Oct 2024 23:46:19 GMT
+
+### Patches
+
+- Enable table column resizing on touch-based devices ([ni/nimble@cb9efb3](https://github.com/ni/nimble/commit/cb9efb36f733bed945425febab5e1a08d63d90ea))
+
+## 32.3.1
+
+Mon, 14 Oct 2024 13:37:04 GMT
+
+### Patches
+
+- Re-enable mention intermittently failed test cases ([ni/nimble@69ed3ce](https://github.com/ni/nimble/commit/69ed3ce08edd32638ec858f59e6c09790b8c0281))
+
+## 32.3.0
+
+Wed, 09 Oct 2024 19:24:18 GMT
+
+### Minor changes
+
+- Implement error states on nimble-radio-group ([ni/nimble@8aa7c1e](https://github.com/ni/nimble/commit/8aa7c1ee2a6fae665419b8a8d9c8f8e7e977c424))
 
 ## 32.2.10
 
