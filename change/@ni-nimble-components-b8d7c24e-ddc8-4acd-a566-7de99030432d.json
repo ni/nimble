@@ -1,0 +1,7 @@
+{
+  "type": "none",
+  "comment": "Increase Jasmine test timeout",
+  "packageName": "@ni/nimble-components",
+  "email": "jattasNI@users.noreply.github.com",
+  "dependentChangeType": "none"
+}
