@@ -25,20 +25,12 @@ At a high-level, the design of the component will be:
     -   The `title` of the text is the full error string
 -   Red error icon (`nimble-icon-exclamation-mark`) on the right side of the label with a 4px margin between the icon and the right edge of the control
 -   Control indicator (checkbox square) and error icon will both be center-aligned with the first line of label text, both when the label text wraps and when it fits on a single line.
--   Control indicator and label will both be interactable -- hovering over them will put the component in the "mouseover" state and clicking them will activate the control
--   The error icon along with the space between the label and the error icon will not be interactable
 
-Below are some examples of how the checkbox will look and behave with different configurations. The blue outline shows the bounds of the control, and the blue background indicates the interactable regions of the control.
+Below are some examples of how the checkbox will look with an error.
 
-![](spec-images/checkbox-no_error,no_wrap.PNG)
+![](spec-images/checkbox-with-error.PNG)
 
-![](spec-images/checkbox-no_error,wrap.PNG)
-
-![](spec-images/checkbox-error,no_wrap.PNG)
-
-![](spec-images/checkbox-error,wrap.PNG)
-
-![](spec-images/checkbox-long_error.PNG)
+![](spec-images/checkbox-with-long-error.PNG)
 
 ### API
 
@@ -65,6 +57,10 @@ The styling changes include (but may not be limited to):
 -   Correct the layout of the control when the label wraps. This includes:
     -   Verifying the label wraps when the label is longer than the allocated space for the control
     -   Ensuring the checked/selected indicator is center aligned with the first line of text
+
+### Future Work
+
+There are additional changes that should be made to the `nimble-checkbox` to align it with the design spec. Specifically, only the control indicator and the label should be interactable. Any other space within the `nimble-checkbox` should not be interactable, such as any whitespace to the right of the label or between the label and the error icon. This change however, has both unit test implications (because unit tests today simply call `click()` on the `nimble-checkbox` element) and ARIA implications (because the element with a role of `checkbox` should be clickable). Therefore, it is being considered out of scope for the error state feature.
 
 ## Open Issues
 
