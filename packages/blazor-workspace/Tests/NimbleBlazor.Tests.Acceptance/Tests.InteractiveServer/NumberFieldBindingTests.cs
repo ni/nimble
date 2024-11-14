@@ -12,7 +12,7 @@ public class NumberFieldBindingTests : NimbleInteractiveAcceptanceTestsBase
     }
 
     [Fact]
-    public async Task NumberField_CanUpdateBoundNumberFieldProgrammatically()
+    public async Task NumberField_CanUpdateBoundNumberFieldProgrammaticallyAsync()
     {
         await using (var pageWrapper = await NewPageForRouteAsync("InteractiveServer/NumberFieldBindings"))
         {
