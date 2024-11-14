@@ -12,7 +12,7 @@ public class NumberFieldBindingTests : NimbleInteractiveAcceptanceTestsBase
     }
 
     [Fact]
-    public async Task NumberField_TwoWayBindingsDontBreakAsync()
+    public async Task NumberField_CanUpdateBoundNumberFieldProgrammatically()
     {
         await using (var pageWrapper = await NewPageForRouteAsync("InteractiveServer/NumberFieldBindings"))
         {
@@ -25,7 +25,7 @@ public class NumberFieldBindingTests : NimbleInteractiveAcceptanceTestsBase
             await numberField1IncButton.ClickAsync();
             await Assertions.Expect(numberField2).ToHaveAttributeAsync("current-value", "0.5");
             await numberField2IncButton.ClickAsync();
-            await Assertions.Expect(numberField1).ToHaveAttributeAsync("current-value", "3"); // incrementing numberField2 to 1.5 should result in 3 for numberField1
+            await Assertions.Expect(numberField1).ToHaveAttributeAsync("current-value", "3");
         }
     }
 }
