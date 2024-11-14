@@ -17,8 +17,7 @@ export const addons = [
             outline: false,
             docs: false
         }
-    },
-    {
+    }, {
         name: getAbsolutePath('@storybook/addon-docs'),
         options: {
             mdxPluginOptions: {
@@ -32,8 +31,10 @@ export const addons = [
     getAbsolutePath('@storybook/addon-interactions'),
     getAbsolutePath('@chromatic-com/storybook'),
     getAbsolutePath('@storybook/addon-webpack5-compiler-swc'),
-    getAbsolutePath('storybook-addon-pseudo-states')
+    getAbsolutePath('storybook-addon-pseudo-states'),
+    getAbsolutePath('@storybook/addon-mdx-gfm')
 ];
+
 export function webpackFinal(config) {
     config.module.rules.push({
         test: /\.(ts|tsx)$/,
@@ -65,10 +66,6 @@ export function webpackFinal(config) {
 export const staticDirs = ['public'];
 export const framework = {
     name: getAbsolutePath('@storybook/html-webpack5')
-};
-
-export const docs = {
-    autodocs: false
 };
 
 function getAbsolutePath(value) {
