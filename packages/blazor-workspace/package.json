@@ -19,7 +19,7 @@
     "test": "dotnet test -c Release",
     "copy-resources:nimble": "node build/copyResources.js nimble",
     "copy-resources:spright": "node build/copyResources.js spright",
-    "update-lock-files": "dotnet restore"
+    "update-lock-files": "dotnet restore --force-evaluate"
   },
   "files": [
     "!*"
