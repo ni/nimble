@@ -1,8 +1,25 @@
 # Change Log - @ni/spright-components
 
-<!-- This log was last generated on Tue, 29 Oct 2024 18:50:54 GMT and should not be manually modified. -->
+<!-- This log was last generated on Thu, 14 Nov 2024 14:41:16 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 4.2.0
+
+Thu, 14 Nov 2024 14:41:16 GMT
+
+### Minor changes
+
+- Bump @ni/nimble-components to v32.7.0
+
+## 4.1.21
+
+Tue, 05 Nov 2024 20:44:52 GMT
+
+### Patches
+
+- Update fast versions ([ni/nimble@fa9b9ce](https://github.com/ni/nimble/commit/fa9b9ce191be11cd8af7ba8abdb87b530ea47f69))
+- Bump @ni/nimble-components to v32.6.1
 
 ## 4.1.20
 
