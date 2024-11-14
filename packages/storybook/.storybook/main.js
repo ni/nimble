@@ -68,7 +68,6 @@ export const framework = {
     name: getAbsolutePath('@storybook/html-webpack5')
 };
 
-export const docs = {};
 
 function getAbsolutePath(value) {
     return dirname(require.resolve(join(value, 'package.json')));
