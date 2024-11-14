@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Update deps to latest",
-  "packageName": "@ni/spright-blazor",
-  "email": "rajsite@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}

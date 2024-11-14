@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Bind to current-value instead of value on NimbleNumberField.",
-  "packageName": "@ni/nimble-blazor",
-  "email": "26874831+atmgrifter00@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}

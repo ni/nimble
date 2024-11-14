@@ -2,6 +2,27 @@
   "name": "@ni/nimble-blazor",
   "entries": [
     {
+      "date": "Thu, 14 Nov 2024 21:42:40 GMT",
+      "version": "19.1.1",
+      "tag": "@ni/nimble-blazor_v19.1.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "8ee317939cae88c40d8d96df6ed8381d5c286439",
+            "comment": "Update deps to latest"
+          },
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "614b921f42df11325689d25f6c0a98d0cf819eae",
+            "comment": "Bind to current-value instead of value on NimbleNumberField."
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 14 Nov 2024 14:41:16 GMT",
       "version": "19.1.0",
       "tag": "@ni/nimble-blazor_v19.1.0",

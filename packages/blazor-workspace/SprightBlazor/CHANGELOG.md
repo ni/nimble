@@ -1,8 +1,16 @@
 # Change Log - @ni/spright-blazor
 
-<!-- This log was last generated on Thu, 14 Nov 2024 14:41:16 GMT and should not be manually modified. -->
+<!-- This log was last generated on Thu, 14 Nov 2024 21:42:40 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 3.1.1
+
+Thu, 14 Nov 2024 21:42:40 GMT
+
+### Patches
+
+- Update deps to latest ([ni/nimble@8ee3179](https://github.com/ni/nimble/commit/8ee317939cae88c40d8d96df6ed8381d5c286439))
 
 ## 3.1.0
 
