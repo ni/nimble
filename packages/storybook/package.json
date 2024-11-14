@@ -34,7 +34,7 @@
     "@storybook/addon-interactions": "^8.4.3",
     "@storybook/addon-links": "^8.4.3",
     "@storybook/addon-mdx-gfm": "^8.4.3",
-    "@storybook/addon-webpack5-compiler-swc": "^1.0.2",
+    "@storybook/addon-webpack5-compiler-swc": "^1.0.5",
     "@storybook/cli": "^8.4.3",
     "@storybook/csf": "^0.1.2",
     "@storybook/html": "^8.4.3",
