@@ -1,8 +1,17 @@
 # Change Log - @ni/nimble-components
 
-<!-- This log was last generated on Tue, 05 Nov 2024 20:44:52 GMT and should not be manually modified. -->
+<!-- This log was last generated on Thu, 14 Nov 2024 14:41:16 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 32.7.0
+
+Thu, 14 Nov 2024 14:41:16 GMT
+
+### Minor changes
+
+- Add / update several icons ([ni/nimble@bd0d274](https://github.com/ni/nimble/commit/bd0d2742055c429d7c09fb3113fff651ccb0aa30))
+- Bump @ni/nimble-tokens to v8.5.0
 
 ## 32.6.1
 

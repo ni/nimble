@@ -2,6 +2,27 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Thu, 14 Nov 2024 14:41:16 GMT",
+      "version": "32.7.0",
+      "tag": "@ni/nimble-components_v32.7.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "bd0d2742055c429d7c09fb3113fff651ccb0aa30",
+            "comment": "Add / update several icons"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/nimble-tokens to v8.5.0",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 13 Nov 2024 17:55:52 GMT",
       "version": "32.6.1",
       "tag": "@ni/nimble-components_v32.6.1",
