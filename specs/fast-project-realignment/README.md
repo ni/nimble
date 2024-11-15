@@ -40,26 +40,29 @@ Also see the [fast-components explorer](https://web.archive.org/web/202401262347
 - [Microsoft vscode webui toolkit](https://github.com/microsoft/vscode-webview-ui-toolkit/issues/561) (sunset due to FAST re-alignment)
 - [National General](https://components.nationalgeneral.com/ui/?path=/story/components-design-system-provider--branding) (does not appear to be open source)
 
-#### Maintenance gaps of archive packages
+#### Platform alignment gaps of archive packages
 
-FAST was originally pitched as a tool that would align with modern browser standards however it seems like the release policy of infrequent major releases and pending rewrites to the underlying architecture resulted in stagnation of Foundation component base class development.
+FAST was originally pitched as a tool that would align with modern browser standards however it seems like the release policy of infrequent major releases and pending rewrites to the underlying architecture resulted in stagnation of foundation component base class development.
 
-Some areas where adoption of baseline features may have caused breaking changes but improved alignment with the web platform:
+Some areas where adoption of baseline features (as of November 2024) may have caused breaking changes but improved alignment with the web platform / common patterns:
 
-- Leveraging the native dialog element in dialogs (for top-layer support of modals)
-- Migrating to popover api (for top-layer suport of popovers)
-- Native form association and polyfill removal (reduce template complexity by removing proxy targets and fix long-standing polyfill bugs)
-- Native element internals aria support (to avoid light dom sprouting of aria attributes)
-- Leveraging CSS CustomStateSet (to avoid light dom sprouting of classes)
-- Switch to strict typing (avoid typing inconsistencies)
-- Poor property initialization behavior / default value behavior (avoid typing inconsistencies)
-- Poor attribute removal nullability behavior (avoid typing inconsistencies)
-- Does not have page object based testing pattern (non-reusable component manipulation for testing)
-- Poor inter-element communication patterns (pollutes public apis for intercomponent communication)
+- Leveraging the native dialog element in dialogs (for top-layer support of modals).
+- Migrating to popover api (for top-layer suport of popovers).
+- Native form association and polyfill removal (reduce template complexity by removing proxy targets and fix long-standing polyfill bugs).
+- Native element internals aria support (to avoid light dom sprouting of aria attributes).
+- Leveraging CSS CustomStateSet (to avoid light dom sprouting of classes).
+- Switch to strict typing (avoid typing inconsistencies).
+- Fix poor property initialization behavior / default value behavior (avoid inconsistencies with typing and with behavior of native component counterparts).
+- Fix poor attribute removal nullability behavior (avoid inconsistencies with typing and with behavior of native component counterparts).
+- Implement reusable page-object based testing pattern (currently non-reusable component manipulation for testing).
+- Fix poor inter-element communication patterns (currently pollutes public APIs for intercomponent communication).
 - Strict content security policy support / removal of adopted stylesheets polyfill (running FAST based components in more CSP contexts).
-- Switch to standard decorators (reduce reliance on non-standard / TypeScript specific runtime logic)
-- Avoiding barrel files (avoid complexities / reliance on tree-shaking for bundle size and potentially improve build times)
-- Leveraging modern TypeScript mixin patterns (better typing of mixed in attributes)
+- Avoiding barrel files (avoid complexities / reliance on tree-shaking for bundle size and potentially improve build times).
+- Leveraging modern TypeScript mixin patterns (better typing of mixed in attributes).
+- Switch to standard decorators (reduce reliance on legacy runtime logic, not yet in browsers, but [stage 3](https://tc39.es/process-document/)).
+    - [TypeScript 5 has support for native decorators](https://devblogs.microsoft.com/typescript/announcing-typescript-5-0/#decorators).
+    - [Angular currently does not plan to support native decorators](https://github.com/angular/angular/issues/48096#issuecomment-1319398602).
+    - [Lit supports legacy and native decorators](https://lit.dev/docs/components/decorators/).
 
 Note: Some of the above concerns are addressed in the next packages but that has not been thoroughly evaluated.
 
@@ -96,6 +99,8 @@ HLD Work item: [#2207](https://github.com/ni/nimble/issues/2207)
 
 ### Minimal Fork Proposal
 
+Work that should be done imminently (over the next 1-3 months).
+
  - Fork the `microsoft/fast` repo to `ni/fast` as a new top-level GitHub repository
 - Make the `archives/fast-element-1` branch the default branch
     - Keep the name `archives/fast-element-1` on the default branch
@@ -129,7 +134,8 @@ HLD Work item: [#2207](https://github.com/ni/nimble/issues/2207)
     - Treat the `ni/fast` repo similarly to how `microsoft/fast` was treated:
         - Bug fixes or generic changes could be in `fast`
         - Signficant new feature development may require forking from fast and adopting nimble patterns
-- Consider repatriating some changes back to fast where a fork was made for minimal bug fixes (not evaluated)
+- Notify teams directly leveraging `@microsoft/fast-*` to switch to `@ni/fast-*` (scope not evaluated).
+- Consider repatriating some changes back to fast where a fork was made for minimal bug fixes (scope not evaluated)
 
 ## Alternative Implementations / Designs
 
@@ -141,11 +147,19 @@ HLD Work item: [#2207](https://github.com/ni/nimble/issues/2207)
 
 ## Future work
 
-Long-term goals:
-- Decouple from non-standard infrastructure
-    - Minimize dependence on FAST-specific features
-    - Minimize dependence on TypeScript-specific features
+### Priorities
+
+- Closer alignment with native browser features
+- Closer alignment with standard patterns / libraries
+- Minimize risk for future Nimble feature development and maintenance
+
+### Mid-term goals
+
+Work that should should be done 
+
+### Long-term goals
+
 
 ## Open Issues
 
-🤦
+None.
