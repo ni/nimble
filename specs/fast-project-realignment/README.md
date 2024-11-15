@@ -4,12 +4,14 @@
 
 Nimble is built on the Microsoft FAST Design System libraries.
 A key feature of the libraries was `@microsoft/fast-foundation` which provided a set of custom element base classes to implement common controls (such as buttons, checkboxes, radio buttons, etc).
-This was a unique attribute of FAST that enabled Nimble to quickly build a set of common custom elements leveraging the quality of work of Microsoft controls (leveraging modern browser features, focus on accessibility, _fast_ performance).
+This was a unique attribute of FAST that:
+- enabled Nimble to quickly build a set of common custom elements leveraging the quality of work of Microsoft controls (leveraging modern browser features, focus on accessibility, _fast_ performance)
+- gave a shared library from which nimble could adopt new features and contribute fixes (as opposed to forking or writing from scratch).
 
-In April 2022 FAST shared a vision of [The Future of FAST Foundation](https://github.com/microsoft/fast/issues/5901) which presented a future with the potential to improve FAST Foundation integration (template and style extensibility, changes to enable emerging patterns such as Server-Side Rendering, changes to align with scoped custom element registries).
+In April 2022 FAST shared a vision of [The Future of FAST Foundation](https://github.com/microsoft/fast/issues/5901) which had the potential to improve FAST Foundation integration (template and style extensibility, changes to enable emerging patterns such as Server-Side Rendering, changes to align with scoped custom element registries).
 This roadmap caused the (expected to be temporary) uncomfortable situation of the stable releases of FAST to be placed in maintenance mode in an archive branch while the main branch was in beta.
 
-Placing the stable release of FAST in maintenance mode resulted in it being significantly harder to maintain deployed systems (submitting patches to work with new versions of toolchains), slowed uptake of bug fixes, and halted new control development (particularly menu button and date pickers were significant gaps).
+Placing the stable release of FAST in maintenance mode resulted in it being significantly harder to maintain deployed systems (submitting patches to work with new versions of toolchains), slowed uptake of bug fixes, and halted new control development (particularly menu button and date / time pickers were significant gaps).
 Unfortunately the FAST Foundation alpha in main never went stable and in May 2024 as part of [FAST Project Re-alignment](https://github.com/microsoft/fast/issues/6955) the Foundation library concept and packages were abandoned altogether.
 
 ## Status of packages
@@ -49,13 +51,15 @@ Some areas where adoption of baseline features may have caused breaking changes 
 - Native form association and polyfill removal (reduce template complexity by removing proxy targets and fix long-standing polyfill bugs)
 - Native element internals aria support (to avoid light dom sprouting of aria attributes)
 - Leveraging CSS CustomStateSet (to avoid light dom sprouting of classes)
-- Non-strict typing (avoid typing inconsistencies)
+- Switch to strict typing (avoid typing inconsistencies)
 - Poor property initialization behavior / default value behavior (avoid typing inconsistencies)
 - Poor attribute removal nullability behavior (avoid typing inconsistencies)
 - Does not have page object based testing pattern (non-reusable component manipulation for testing)
 - Poor inter-element communication patterns (pollutes public apis for intercomponent communication)
 - Strict content security policy support / removal of adopted stylesheets polyfill (running FAST based components in more CSP contexts).
 - Switch to standard decorators (reduce reliance on non-standard / TypeScript specific runtime logic)
+- Avoiding barrel files (avoid complexities / reliance on tree-shaking for bundle size and potentially improve build times)
+- Leveraging modern TypeScript mixin patterns (better typing of mixed in attributes)
 
 Note: Some of the above concerns are addressed in the next packages but that has not been thoroughly evaluated.
 
@@ -76,8 +80,8 @@ See [FAST](https://github.com/microsoft/fast) and relevant package: [`@microsoft
 
 #### Users of stable packages
 - [`@fluentui/web-components`](https://github.com/microsoft/fluentui/tree/master/packages/web-components) v3 (in beta)
-- Have inlined the FAST Foundation [templates/classes](https://github.com/microsoft/fluentui/pull/30090) and [utilities](https://github.com/microsoft/fluentui/pull/31009) in a non-shareable way
-- [Removed Design Token infrastructure](https://github.com/microsoft/fluentui/pull/30002)
+    - Have inlined the FAST Foundation [templates/classes](https://github.com/microsoft/fluentui/pull/30090) and [utilities](https://github.com/microsoft/fluentui/pull/31009) in a non-shareable way
+    - [Removed Design Token infrastructure](https://github.com/microsoft/fluentui/pull/30002)
 
 ## Links To Relevant Work Items and Reference Material
 
@@ -85,13 +89,63 @@ HLD Work item: [#2207](https://github.com/ni/nimble/issues/2207)
 
 ## Implementation / Design
 
-Guiding statement: Highest priority is to minimize short-term risk for bugs and issues that come up. Medium-term we need to be able to continue meaningful feature development.
+### Priorities
+
+- Unblock Nimble bug fixes and new feature development in the short-term (scope of this HLD)
+- Align on a path for long-term maintainability of Nimble (Future work)
+
+### Minimal Fork Proposal
+
+ - Fork the `microsoft/fast` repo to `ni/fast` as a new top-level GitHub repository
+- Make the `archives/fast-element-1` branch the default branch
+    - Keep the name `archives/fast-element-1` on the default branch
+    - Delete other branches
+- Update the packages to use the `ni` scope:
+    - `@microsoft/fast-colors` to `@ni/fast-colors`
+    - `@microsoft/fast-element` to `@ni/fast-element`
+    - `@microsoft/fast-foundation` to `@ni/fast-foundation`
+    - `@microsoft/fast-web-utilities` to `@ni/fast-web-utilities`
+    - `@microsoft/fast-react-wrapper` to `@ni/fast-react-wrapper`
+- Remove unused packages and code (refer to [`archives/fast-element-1`](https://github.com/microsoft/fast/tree/archives/fast-element-1))
+   
+   ```
+   /examples
+   /packages/tooling
+   /packages/utilities/fast-benchmarks
+   /packages/utilities/fast-eslint-rules
+   /packages/web-components/fast-router
+   /sites
+   /specs
+   ```
+
+- Update npm dependencies to latest
+- Update GitHub workflow
+    - Configure beachball to publish on each merge
+    - Make minimal changes (continue to use `yarn`, `lerna`, `chai`, etc)
+
+- Update top-level README to cover intentions of the repo / fork:
+    - A set of minimal changes to fast to continue to adopt bug fixes and potentially minor features only with the goal of alignment / consistency (for example adding start / end slots or label slots consistently)
+    - Not a place for significant new features or component development
+    - Treat the `ni/fast` repo similarly to how `microsoft/fast` was treated:
+        - Bug fixes or generic changes could be in `fast`
+        - Signficant new feature development may require forking from fast and adopting nimble patterns
+- Consider repatriating some changes back to fast where a fork was made for minimal bug fixes (not evaluated)
 
 ## Alternative Implementations / Designs
 
-*Describe any design alternatives and discuss why they were rejected.*
+### Fork Archives into Nimble
+
+### Fork Next
+
+### Follow Fluent UI
+
+## Future work
+
+Long-term goals:
+- Decouple from non-standard infrastructure
+    - Minimize dependence on FAST-specific features
+    - Minimize dependence on TypeScript-specific features
 
 ## Open Issues
 
-*Describe any open issues with the design that you need feedback on before proceeding.*
-*It is expected that these issues will be resolved during the review process and this section will be removed when this documented in pulled into source.*
+🤦
