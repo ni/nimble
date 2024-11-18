@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-<!-- This log was last generated on Thu, 14 Nov 2024 14:41:16 GMT and should not be manually modified. -->
+<!-- This log was last generated on Mon, 18 Nov 2024 21:17:24 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 32.7.1
+
+Mon, 18 Nov 2024 21:17:24 GMT
+
+### Patches
+
+- Update markdown-it types ([ni/nimble@bd1894c](https://github.com/ni/nimble/commit/bd1894c6aec64c1f8f830ed3fbe4a77c54080905))
 
 ## 32.7.0
 
