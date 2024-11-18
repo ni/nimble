@@ -30,7 +30,7 @@ describe('TableColumnDurationText', () => {
 
     // prettier-ignore
     async function setup(source: ElementReferences): Promise<Fixture<Table<SimpleTableRecord>>> {
-        return fixture<Table<SimpleTableRecord>>(
+        return await fixture<Table<SimpleTableRecord>>(
             html`<${themeProviderTag} lang="en-US">
                     <${tableTag} ${ref('table')} style="width: 700px">
                         <${tableColumnDurationTextTag} ${ref('column1')} field-name="field" group-index="0">
@@ -60,15 +60,9 @@ describe('TableColumnDurationText', () => {
         await disconnect();
     });
 
-    it('should export its tag', () => {
-        expect(tableColumnDurationTextTag).toBe(
-            'nimble-table-column-duration-text'
-        );
-    });
-
     it('can construct an element instance', () => {
         expect(
-            document.createElement('nimble-table-column-duration-text')
+            document.createElement(tableColumnDurationTextTag)
         ).toBeInstanceOf(TableColumnDurationText);
     });
 

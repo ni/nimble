@@ -21,9 +21,7 @@ const metadata: Meta = {
 export default metadata;
 
 const playFunction = (): void => {
-    const editorNodeList = document.querySelectorAll(
-        'nimble-rich-text-mention-listbox'
-    );
+    const editorNodeList = document.querySelectorAll(richTextMentionListboxTag);
     const anchorList = document.querySelectorAll('.anchor');
     editorNodeList.forEach((element, index) => {
         const filter = anchorList[index]?.classList.contains('no-match')

@@ -4,12 +4,8 @@ import { fixture, type Fixture } from '../../utilities/tests/fixture';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 
 describe('ListboxOption', () => {
-    it('should export its tag', () => {
-        expect(listOptionTag).toBe('nimble-list-option');
-    });
-
     it('can construct an element instance', () => {
-        expect(document.createElement('nimble-list-option')).toBeInstanceOf(
+        expect(document.createElement(listOptionTag)).toBeInstanceOf(
             ListOption
         );
     });
@@ -20,10 +16,10 @@ describe('ListboxOption', () => {
         let disconnect: () => Promise<void>;
 
         async function setup(): Promise<Fixture<ListOption>> {
-            return fixture<ListOption>(
-                html`<nimble-list-option style="width: 200px">
+            return await fixture<ListOption>(
+                html`<${listOptionTag} style="width: 200px">
                     Item 1
-                </nimble-list-option>`
+                </${listOptionTag}>`
             );
         }
 

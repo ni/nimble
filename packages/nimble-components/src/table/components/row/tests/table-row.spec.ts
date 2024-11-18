@@ -1,5 +1,5 @@
 import { html, ref } from '@microsoft/fast-element';
-import { TableRow } from '..';
+import { TableRow, tableRowTag } from '..';
 import {
     tableColumnTextTag,
     TableColumnText,
@@ -39,9 +39,9 @@ describe('TableRow', () => {
     describe('standalone', () => {
         // prettier-ignore
         async function setup(): Promise<Fixture<TableRow<SimpleTableRecord>>> {
-            return fixture<TableRow<SimpleTableRecord>>(
-                html`<nimble-table-row>
-                    </nimble-table-row>`
+            return await fixture<TableRow<SimpleTableRecord>>(
+                html`<${tableRowTag}>
+                    </${tableRowTag}>`
             );
         }
 
@@ -58,8 +58,9 @@ describe('TableRow', () => {
         });
 
         it('can construct an element instance', () => {
-            // prettier-ignore
-            expect(document.createElement('nimble-table-row')).toBeInstanceOf(TableRow);
+            expect(document.createElement(tableRowTag)).toBeInstanceOf(
+                TableRow
+            );
         });
 
         it('includes row operations gridcell when rowOperationGridCellHidden is false', async () => {
@@ -359,7 +360,7 @@ describe('TableRow', () => {
 
         // prettier-ignore
         async function setupTable(source: ColumnReferences): Promise<Fixture<Table<SimpleTableRecord>>> {
-            return fixture<Table<SimpleTableRecord>>(
+            return await fixture<Table<SimpleTableRecord>>(
                 html`<${tableTag}>
                         <${tableColumnTextTag} ${ref('firstColumn')} field-name="stringData" column-id='foo'>Column 1</${tableColumnTextTag}>
                         <${tableColumnDateTextTag} ${ref('secondColumn')} field-name="numberData" column-id='bar'>Column 2</${tableColumnDateTextTag}>
@@ -386,7 +387,7 @@ describe('TableRow', () => {
                 }
             ]);
             await waitForUpdatesAsync();
-            row = element.shadowRoot!.querySelector('nimble-table-row')!;
+            row = element.shadowRoot!.querySelector(tableRowTag)!;
             pageObject = new TableRowPageObject(row);
         });
 

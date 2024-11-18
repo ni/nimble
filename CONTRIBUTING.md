@@ -7,8 +7,8 @@ To submit changes to Nimble, the first step is to build the monorepo which requi
 - Sync down a copy of the nimble repository
     - Note: For one-off small contributions you can consider using a fork-pull workflow. However [fork-pull workflows are not yet supported](https://github.com/ni/nimble/issues/634) for substantial development. For substantial development you should be added as a Contributor to the repository. See the [`README.md` Community section](/README.md#community) to get in touch if you need Contributor permissions. 
 - Install Node.js version 22+ (run `node --version`) and npm version 10+ (run `npm --version`) which can be downloaded from https://nodejs.org/en/download/
-- Install .NET 6 SDK (`6.0.418 <= version < 7`) which can be downloaded from https://dotnet.microsoft.com/en-us/download
-   - Run `dotnet --info` to verify the required version of the SDK is installed. A `v6` install is required, but it's fine if later versions are installed too.
+- Install .NET 8 SDK (`8.0.403` or higher) which can be downloaded from https://dotnet.microsoft.com/en-us/download
+   - Run `dotnet --info` to verify the required version of the SDK is installed. A `v8` install is required, but it's fine if later versions are installed too.
 
 From the `nimble` directory:
 
@@ -48,9 +48,9 @@ This repository uses the following tooling. See below for more info.
 
 ### Adding a new component
 
-1. Write a spec describing the API and behavior of the component. See instructions for [component specs](/specs/README.md).
-2. Ensure UX specs are up to date and tokens are generated. See instructions for [contributing to Nimble Tokens](/packages/nimble-tokens/CONTRIBUTING.md).
-3. Expose any tokens in the token provider and add web component logic. See instructions for [contributing to Nimble Components](/packages/nimble-components/CONTRIBUTING.md).
+1. Follow the instructions in [component specs](/specs/README.md) to approve the direction and create specs for interaction design, visual design, and implementation.
+2. Ensure base tokens and icons are available. See instructions for [contributing to Nimble Tokens](/packages/nimble-tokens/CONTRIBUTING.md).
+3. Build the web component, including adding theme-aware tokens, documentation, and component logic. See instructions for [contributing to Nimble Components](/packages/nimble-components/CONTRIBUTING.md).
 4. Add wrappers for each framework. See instructions for [adding Angular wrappers](/packages/angular-workspace/nimble-angular/CONTRIBUTING.md). See instructions for [adding Blazor wrappers](/packages/blazor-workspace/NimbleBlazor/CONTRIBUTING.md).
 5. Publish and use! 🎉
 

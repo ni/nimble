@@ -1,6 +1,6 @@
 import commonJS from '@rollup/plugin-commonjs';
 import resolve from '@rollup/plugin-node-resolve';
-import sourcemaps from 'rollup-plugin-sourcemaps';
+import sourcemaps from 'rollup-plugin-sourcemaps2';
 import terser from '@rollup/plugin-terser';
 import replace from '@rollup/plugin-replace';
 

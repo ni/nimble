@@ -30,7 +30,7 @@ class TestTableColumn extends mixinFractionalWidthColumnAPI(TableColumn) {
 }
 
 async function setup(): Promise<Fixture<TestTableColumn>> {
-    return fixture(columnName);
+    return await fixture(columnName);
 }
 
 describe('FractionalWidthColumn', () => {

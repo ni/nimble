@@ -59,7 +59,7 @@ export class Drawer<CloseReason = void> extends FoundationElement {
             throw new Error('Drawer is already open');
         }
         this.openDialog();
-        return new Promise((resolve, _reject) => {
+        return await new Promise((resolve, _reject) => {
             this.resolveShow = resolve;
         });
     }

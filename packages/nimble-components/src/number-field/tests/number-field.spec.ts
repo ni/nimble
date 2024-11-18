@@ -9,7 +9,7 @@ import { ThemeProvider, themeProviderTag } from '../../theme-provider';
 import { fixture, type Fixture } from '../../utilities/tests/fixture';
 
 async function setupWithLabelProvider(): Promise<Fixture<ThemeProvider>> {
-    return fixture<ThemeProvider>(html`
+    return await fixture<ThemeProvider>(html`
         <${themeProviderTag}>
             <${labelProviderCoreTag}></${labelProviderCoreTag}>
             <${numberFieldTag}></${numberFieldTag}>
@@ -18,10 +18,6 @@ async function setupWithLabelProvider(): Promise<Fixture<ThemeProvider>> {
 }
 
 describe('NumberField', () => {
-    it('should export its tag', () => {
-        expect(numberFieldTag).toBe('nimble-number-field');
-    });
-
     it('can construct an element instance', () => {
         expect(document.createElement(numberFieldTag)).toBeInstanceOf(
             NumberField

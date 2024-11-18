@@ -14,7 +14,7 @@ import {
     bodyFont,
     controlLabelFontColor,
     controlLabelDisabledFontColor,
-    mediumPadding
+    smallPadding
 } from '../theme-provider/design-tokens';
 import { appearanceBehavior } from '../utilities/style/appearance';
 import { TextFieldAppearance } from './types';
@@ -61,8 +61,9 @@ export const styles = css`
         align-items: center;
         justify-content: center;
         border: 0px solid rgba(${borderRgbPartialColor}, 0.3);
-        gap: ${mediumPadding};
+        gap: ${smallPadding};
         padding: ${borderWidth};
+        padding-left: calc(${borderWidth} + ${smallPadding});
     }
 
     :host([readonly]) .root {
@@ -117,6 +118,7 @@ export const styles = css`
     slot[name='start']::slotted(*) {
         flex: none;
         opacity: 0.6;
+        margin-right: ${smallPadding};
     }
 
     :host([disabled]) slot[name='start']::slotted(*) {
@@ -168,6 +170,7 @@ export const styles = css`
     [part='end']::after {
         content: '';
         position: absolute;
+        margin-left: calc(-1 * (${borderWidth} + ${smallPadding}));
         bottom: calc(-1 * ${borderWidth});
         width: 0px;
         height: 0px;
@@ -250,6 +253,7 @@ export const styles = css`
             .root {
                 border-width: ${borderWidth};
                 padding: 0;
+                padding-left: ${smallPadding};
             }
         `
     ),

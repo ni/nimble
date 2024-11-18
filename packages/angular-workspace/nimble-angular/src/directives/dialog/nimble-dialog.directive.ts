@@ -50,7 +50,7 @@ export class NimbleDialogDirective<CloseReason = void> {
     public constructor(private readonly renderer: Renderer2, private readonly elementRef: ElementRef<Dialog<CloseReason>>) {}
 
     public async show(): Promise<CloseReason | UserDismissed> {
-        return this.elementRef.nativeElement.show();
+        return await this.elementRef.nativeElement.show();
     }
 
     public close(reason: CloseReason): void {

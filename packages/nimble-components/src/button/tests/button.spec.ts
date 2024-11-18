@@ -5,15 +5,11 @@ import { waitForUpdatesAsync } from '../../testing/async-helpers';
 
 describe('Button', () => {
     async function setup(): Promise<Fixture<Button>> {
-        return fixture<Button>(html`<${buttonTag}></${buttonTag}>`);
+        return await fixture<Button>(html`<${buttonTag}></${buttonTag}>`);
     }
 
-    it('should export its tag', () => {
-        expect(buttonTag).toBe('nimble-button');
-    });
-
     it('can construct an element instance', () => {
-        expect(document.createElement('nimble-button')).toBeInstanceOf(Button);
+        expect(document.createElement(buttonTag)).toBeInstanceOf(Button);
     });
 
     it('should default tabIndex on the internal button to 0', async () => {

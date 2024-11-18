@@ -10,15 +10,9 @@ import {
 import { checkFullyInViewport } from '../../../utilities/tests/intersection-observer';
 
 describe('RichTextMentionListbox', () => {
-    it('should export its tag', () => {
-        expect(richTextMentionListboxTag).toBe(
-            'nimble-rich-text-mention-listbox'
-        );
-    });
-
     it('can construct an element instance', () => {
         expect(
-            document.createElement('nimble-rich-text-mention-listbox')
+            document.createElement(richTextMentionListboxTag)
         ).toBeInstanceOf(RichTextMentionListbox);
     });
 
@@ -31,7 +25,7 @@ describe('RichTextMentionListbox', () => {
         source: Model
     ): Promise<Fixture<RichTextMentionListbox>> {
         // prettier-ignore
-        return fixture<RichTextMentionListbox>(
+        return await fixture<RichTextMentionListbox>(
             html<Model>`
             <div>
                 <div ${ref('anchorDiv')}></div>

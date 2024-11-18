@@ -9,7 +9,12 @@ public abstract class AcceptanceTestsBase
     private readonly PlaywrightFixture _playwrightFixture;
 
     protected abstract Uri ServerAddress { get; }
-    protected abstract string ComponentLibraryInitializationTestJavaScript { get; }
+
+    /// <summary>
+    /// Optional JavaScript code to test if the component library is ready for interactions
+    /// Can be left as default for static server-side rendering tests.
+    /// </summary>
+    protected virtual string ComponentLibraryInitializationTestJavaScript => string.Empty;
 
     protected AcceptanceTestsBase(PlaywrightFixture playwrightFixture)
     {
@@ -32,7 +37,10 @@ public abstract class AcceptanceTestsBase
 
     private async Task WaitForComponentsInitializationAsync(IPage page)
     {
-        await page.WaitForFunctionAsync(ComponentLibraryInitializationTestJavaScript);
+        if (!string.IsNullOrEmpty(ComponentLibraryInitializationTestJavaScript))
+        {
+            await page.WaitForFunctionAsync(ComponentLibraryInitializationTestJavaScript);
+        }
     }
 
     protected sealed class AsyncDisposablePage : IAsyncDisposable

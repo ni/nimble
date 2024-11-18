@@ -1,8 +1,136 @@
 # Change Log - @ni/spright-angular
 
-This log was last generated on Wed, 18 Sep 2024 20:24:09 GMT and should not be manually modified.
+<!-- This log was last generated on Thu, 14 Nov 2024 14:41:16 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 5.2.0
+
+Thu, 14 Nov 2024 14:41:16 GMT
+
+### Minor changes
+
+- Bump @ni/spright-components to v4.2.0
+
+## 5.1.21
+
+Tue, 05 Nov 2024 20:44:52 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v4.1.21
+
+## 5.1.20
+
+Tue, 29 Oct 2024 18:50:54 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v4.1.20
+
+## 5.1.19
+
+Tue, 29 Oct 2024 16:39:58 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v4.1.19
+
+## 5.1.18
+
+Mon, 28 Oct 2024 21:38:16 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v4.1.18
+
+## 5.1.17
+
+Thu, 24 Oct 2024 20:52:01 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v4.1.17
+
+## 5.1.16
+
+Wed, 23 Oct 2024 19:20:53 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v4.1.16
+
+## 5.1.15
+
+Wed, 23 Oct 2024 13:33:55 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v4.1.15
+
+## 5.1.14
+
+Fri, 18 Oct 2024 20:38:35 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v4.1.14
+
+## 5.1.13
+
+Wed, 16 Oct 2024 23:46:19 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v4.1.13
+
+## 5.1.12
+
+Mon, 14 Oct 2024 13:37:04 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v4.1.12
+
+## 5.1.11
+
+Wed, 09 Oct 2024 19:24:18 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v4.1.11
+
+## 5.1.10
+
+Thu, 26 Sep 2024 18:24:50 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v4.1.10
+
+## 5.1.9
+
+Thu, 26 Sep 2024 17:20:39 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v4.1.9
+
+## 5.1.8
+
+Thu, 26 Sep 2024 15:22:45 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v4.1.8
+
+## 5.1.7
+
+Wed, 25 Sep 2024 22:17:40 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v4.1.7
 
 ## 5.1.6
 

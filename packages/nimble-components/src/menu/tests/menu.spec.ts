@@ -8,12 +8,8 @@ import { Fixture, fixture } from '../../utilities/tests/fixture';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 
 describe('Menu', () => {
-    it('should export its tag', () => {
-        expect(menuTag).toBe('nimble-menu');
-    });
-
     it('can construct an element instance', () => {
-        expect(document.createElement('nimble-menu')).toBeInstanceOf(Menu);
+        expect(document.createElement(menuTag)).toBeInstanceOf(Menu);
     });
 
     const menuItemTypes = [
@@ -27,7 +23,7 @@ describe('Menu', () => {
     parameterizeSuite(menuItemTypes, (suite, name) => {
         suite(`with ${name}s`, () => {
             async function setup(): Promise<Fixture<Menu>> {
-                return fixture<Menu>(html`
+                return await fixture<Menu>(html`
                     <${menuTag}>
                         <${name}>Item 1</${name}>
                         <${name}>Item 2</${name}>

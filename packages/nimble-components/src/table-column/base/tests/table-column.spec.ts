@@ -15,7 +15,7 @@ import type { ColumnInternalsOptions } from '../models/column-internals';
 import { ColumnValidator } from '../models/column-validator';
 
 async function setup(): Promise<Fixture<TableColumnEmpty>> {
-    return fixture(tableColumnEmptyTag);
+    return await fixture(tableColumnEmptyTag);
 }
 
 describe('TableColumn', () => {

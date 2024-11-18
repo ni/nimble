@@ -16,7 +16,7 @@ import type { ColumnInternalsOptions } from '../models/column-internals';
 import { ColumnValidator } from '../models/column-validator';
 
 async function setup(): Promise<Fixture<TableCellView>> {
-    return fixture(tableColumnEmptyCellViewTag);
+    return await fixture(tableColumnEmptyCellViewTag);
 }
 
 describe('TableCellView', () => {

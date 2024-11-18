@@ -113,14 +113,10 @@ describe('TableColumnMapping', () => {
         }
     });
 
-    it('should export its tag', () => {
-        expect(tableColumnMappingTag).toBe('nimble-table-column-mapping');
-    });
-
     it('can construct an element instance', () => {
-        expect(
-            document.createElement('nimble-table-column-mapping')
-        ).toBeInstanceOf(TableColumnMapping);
+        expect(document.createElement(tableColumnMappingTag)).toBeInstanceOf(
+            TableColumnMapping
+        );
     });
 
     describe('various key types', () => {
@@ -447,7 +443,7 @@ describe('TableColumnMapping', () => {
 
         // prettier-ignore
         async function setupInvalidMappings(): Promise<Fixture<Table<SimpleTableRecord>>> {
-            return fixture<Table<SimpleTableRecord>>(
+            return await fixture<Table<SimpleTableRecord>>(
                 html`<${tableTag} style="width: 700px">
                         <${tableColumnMappingTag} field-name="field1">
                             Column 1

@@ -24,7 +24,7 @@ class ElementReferences {
 
 // prettier-ignore
 async function setup(source: ElementReferences): Promise<Fixture<Table<SimpleTableRecord>>> {
-    return fixture<Table<SimpleTableRecord>>(
+    return await fixture<Table<SimpleTableRecord>>(
         html`<${themeProviderTag} lang="en-US">
                 <${tableTag} ${ref('table')} style="width: 700px">
                     <${tableColumnNumberTextTag} ${ref('column1')} field-name="number1" group-index="0">
@@ -57,16 +57,10 @@ describe('TableColumnNumberText', () => {
         await disconnect();
     });
 
-    it('should export its tag', () => {
-        expect(tableColumnNumberTextTag).toBe(
-            'nimble-table-column-number-text'
-        );
-    });
-
     it('can construct an element instance', () => {
-        expect(
-            document.createElement('nimble-table-column-number-text')
-        ).toBeInstanceOf(TableColumnNumberText);
+        expect(document.createElement(tableColumnNumberTextTag)).toBeInstanceOf(
+            TableColumnNumberText
+        );
     });
 
     it('reports column configuration valid', async () => {

@@ -1,4 +1,7 @@
-import type { Table } from '../../../../../nimble-components/src/table';
+import {
+    tableTag,
+    type Table
+} from '../../../../../nimble-components/src/table';
 import {
     TableRecord,
     TableRowSelectionMode
@@ -42,7 +45,7 @@ export const sharedTableArgs = (
             void (async () => {
                 // Safari workaround: the table element instance is made at this point
                 // but doesn't seem to be upgraded to a custom element yet
-                await customElements.whenDefined('nimble-table');
+                await customElements.whenDefined(tableTag);
                 await x.tableRef.setData(data);
             })();
         }

@@ -6,19 +6,15 @@ describe('User Mapping', () => {
     let element: MappingUser;
 
     async function setup(): Promise<Fixture<MappingUser>> {
-        return fixture<MappingUser>(html`
+        return await fixture<MappingUser>(html`
           <${mappingUserTag}
               key="foo"
               display-name="foo">
           </${mappingUserTag}>`);
     }
 
-    it('should export its tag', () => {
-        expect(mappingUserTag).toBe('nimble-mapping-user');
-    });
-
     it('can construct an element instance', () => {
-        expect(document.createElement('nimble-mapping-user')).toBeInstanceOf(
+        expect(document.createElement(mappingUserTag)).toBeInstanceOf(
             MappingUser
         );
     });

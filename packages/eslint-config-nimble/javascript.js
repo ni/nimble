@@ -4,10 +4,6 @@ module.exports = {
         ecmaVersion: 2020
     },
     rules: {
-        // Enabled to prevent accidental usage of async-await
-        'require-await': 'error',
-        'no-return-await': 'off',
-
         // This rule's configuration is based on the NI javascript styleguide:
         // https://github.com/ni/javascript-styleguide/blob/a1a6abd7adca7d9acd002705101b351d695b2442/packages/eslint-config-javascript/index.js
         // The only difference is that we're increasing the value of minProperties (from 6) so

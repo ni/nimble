@@ -9,8 +9,13 @@ import {
     LabelProviderTable,
     labelProviderTableTag
 } from '../../label-provider/table';
-import type { TableColumnText } from '../../table-column/text';
+import {
+    tableColumnTextTag,
+    type TableColumnText
+} from '../../table-column/text';
 import { tableGroupRowTag } from '../components/group-row';
+import { menuTag } from '../../menu';
+import { menuItemTag } from '../../menu-item';
 
 interface SimpleTableRecord extends TableRecord {
     stringData: string;
@@ -34,14 +39,14 @@ const simpleTableData = [
 
 // prettier-ignore
 async function setup(): Promise<Fixture<ThemeProvider>> {
-    return fixture<ThemeProvider>(
+    return await fixture<ThemeProvider>(
         html`
         <${themeProviderTag}>
             <${labelProviderTableTag}></${labelProviderTableTag}>
-            <nimble-table style="width: 700px">
-                <nimble-table-column-text id="first-column" field-name="stringData">stringData</nimble-table-column-text>
-                <nimble-table-column-text id="second-column" field-name="moreStringData">moreStringData</nimble-table-column-text>
-            </nimble-table>
+            <${tableTag} style="width: 700px">
+                <${tableColumnTextTag} id="first-column" field-name="stringData">stringData</${tableColumnTextTag}>
+                <${tableColumnTextTag} id="second-column" field-name="moreStringData">moreStringData</${tableColumnTextTag}>
+            </${tableTag}>
         <${themeProviderTag}>`
     );
 }
@@ -110,8 +115,8 @@ describe('Table with LabelProviderTable', () => {
     it('uses correct labels when a column has an action menu (cellActionMenu)', async () => {
         const slot = 'my-action-menu';
         column1.actionMenuSlot = slot;
-        const menu = document.createElement('nimble-menu');
-        const menuItem1 = document.createElement('nimble-menu-item');
+        const menu = document.createElement(menuTag);
+        const menuItem1 = document.createElement(menuItemTag);
         menuItem1.textContent = 'menu item 1';
         menu.appendChild(menuItem1);
         menu.slot = slot;

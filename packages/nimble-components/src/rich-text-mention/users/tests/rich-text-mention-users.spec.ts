@@ -59,7 +59,7 @@ describe('RichTextMentionUsers', () => {
         mappings: BasicUserMentionMapping[],
         pattern: string
     }): Promise<Fixture<RichTextMentionUsers>> {
-        return fixture<RichTextMentionUsers>(html`
+        return await fixture<RichTextMentionUsers>(html`
             <${richTextMentionUsersTag} pattern="${options.pattern}">
                 ${repeat(() => options.mappings, html<BasicUserMentionMapping>`
                     <${mappingUserTag}
@@ -76,14 +76,10 @@ describe('RichTextMentionUsers', () => {
         }
     });
 
-    it('should export its tag', () => {
-        expect(richTextMentionUsersTag).toBe('nimble-rich-text-mention-users');
-    });
-
     it('can construct an element instance', () => {
-        expect(
-            document.createElement('nimble-rich-text-mention-users')
-        ).toBeInstanceOf(RichTextMentionUsers);
+        expect(document.createElement(richTextMentionUsersTag)).toBeInstanceOf(
+            RichTextMentionUsers
+        );
     });
 
     it('should have character, icon and pattern in mention internals', async () => {
@@ -345,7 +341,7 @@ describe('RichTextMentionUsers', () => {
         async function setupInvalidMappings(): Promise<
         Fixture<RichTextMentionUsers>
         > {
-            return fixture<RichTextMentionUsers>(html`
+            return await fixture<RichTextMentionUsers>(html`
                 <${richTextMentionUsersTag} pattern="">
                     <${mappingUserTag} key="foo" label="foo"></${mappingUserTag}>
                     <${mappingTextTag} key="foo" label="foo"></${mappingTextTag}>
@@ -363,7 +359,7 @@ describe('RichTextMentionUsers', () => {
         async function setupMissingPattern(): Promise<
         Fixture<RichTextMentionUsers>
         > {
-            return fixture<RichTextMentionUsers>(html`
+            return await fixture<RichTextMentionUsers>(html`
                 <${richTextMentionUsersTag}>
                     <${mappingUserTag} key="foo" display-name="foo"></${mappingUserTag}>
                 </${richTextMentionUsersTag}>`);

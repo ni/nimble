@@ -1,26 +1,27 @@
 import { html } from '@microsoft/fast-element';
 import { eventAnimationEnd } from '@microsoft/fast-web-utilities';
 import { fixture, Fixture } from '../../utilities/tests/fixture';
-import { Drawer, UserDismissed } from '..';
+import { Drawer, drawerTag, UserDismissed } from '..';
 import { DrawerLocation } from '../types';
 import {
     processUpdates,
     waitForUpdatesAsync
 } from '../../testing/async-helpers';
+import { buttonTag } from '../../button';
 
 // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 async function setup<CloseReason = void>(
     preventDismiss = false
 ): Promise<Fixture<Drawer<CloseReason>>> {
     const viewTemplate = html`
-        <nimble-drawer ?prevent-dismiss="${() => preventDismiss}">
-            <nimble-button id="ok">OK</nimble-button>
-            <nimble-button id="cancel">Cancel</nimble-button>
-        </nimble-drawer>
-        <nimble-button id="button1">Button 1</nimble-button>
-        <nimble-button id="button2">Button 2</nimble-button>
+        <${drawerTag} ?prevent-dismiss="${() => preventDismiss}">
+            <${buttonTag} id="ok">OK</${buttonTag}>
+            <${buttonTag} id="cancel">Cancel</${buttonTag}>
+        </${drawerTag}>
+        <${buttonTag} id="button1">Button 1</${buttonTag}>
+        <${buttonTag} id="button2">Button 2</${buttonTag}>
     `;
-    return fixture<Drawer<CloseReason>>(viewTemplate);
+    return await fixture<Drawer<CloseReason>>(viewTemplate);
 }
 
 describe('Drawer', () => {
@@ -40,7 +41,7 @@ describe('Drawer', () => {
     async function completeAnimationAsync(
         nimbleDrawerElement: Drawer | Drawer<string>
     ): Promise<void> {
-        return new Promise(resolve => {
+        await new Promise<void>(resolve => {
             const dialogElement = nativeDialogElement(nimbleDrawerElement);
             const handler = (): void => {
                 dialogElement.removeEventListener(eventAnimationEnd, handler);
@@ -65,9 +66,7 @@ describe('Drawer', () => {
         });
 
         it('can construct an element instance', () => {
-            expect(document.createElement('nimble-drawer')).toBeInstanceOf(
-                Drawer
-            );
+            expect(document.createElement(drawerTag)).toBeInstanceOf(Drawer);
         });
 
         it('should default the location to right', () => {
@@ -252,8 +251,8 @@ describe('Drawer', () => {
 
         // Some browsers skipped, see: https://github.com/ni/nimble/issues/1936
         it('supports opening multiple drawers on top of each other #SkipFirefox #SkipWebkit', () => {
-            const secondDrawer = document.createElement('nimble-drawer');
-            const secondDrawerButton = document.createElement('nimble-button');
+            const secondDrawer = document.createElement(drawerTag);
+            const secondDrawerButton = document.createElement(buttonTag);
             secondDrawer.append(secondDrawerButton);
             element.parentElement!.append(secondDrawer);
             void element.show();

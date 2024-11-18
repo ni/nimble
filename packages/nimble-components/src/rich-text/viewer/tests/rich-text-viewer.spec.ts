@@ -16,13 +16,13 @@ import type {
 } from '../../editor/testing/types';
 
 async function setup(): Promise<Fixture<RichTextViewer>> {
-    return fixture<RichTextViewer>(
+    return await fixture<RichTextViewer>(
         html`<${richTextViewerTag}></${richTextViewerTag}>`
     );
 }
 
 async function setupMentionConfig(): Promise<Fixture<RichTextViewer>> {
-    return fixture<RichTextViewer>(
+    return await fixture<RichTextViewer>(
         // prettier-ignore
         html`<${richTextViewerTag}>
             <${richTextMentionUsersTag} pattern="^user:(.*)">
@@ -76,10 +76,6 @@ describe('RichTextViewer', () => {
         expect(document.createElement(richTextViewerTag)).toBeInstanceOf(
             RichTextViewer
         );
-    });
-
-    it('should export its tag', () => {
-        expect(richTextViewerTag).toBe('nimble-rich-text-viewer');
     });
 
     it('set the markdown attribute and ensure the markdown property is not modified', () => {

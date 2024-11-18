@@ -4,7 +4,7 @@ using Xunit;
 
 namespace SprightBlazor.Tests.Acceptance;
 
-public class RectangleTests : SprightAcceptanceTestsBase
+public class RectangleTests : SprightInteractiveAcceptanceTestsBase
 {
     public RectangleTests(PlaywrightFixture playwrightFixture, SprightBlazorWebHostServerFixture blazorServerClassFixture)
         : base(playwrightFixture, blazorServerClassFixture)

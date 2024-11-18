@@ -30,7 +30,7 @@ describe('TableColumnTextCellViewBase', () => {
     }
 
     async function setup(): Promise<Fixture<TableColumnTextCellViewBase>> {
-        return fixture(testTextBaseCellViewTag);
+        return await fixture(testTextBaseCellViewTag);
     }
 
     beforeEach(async () => {

@@ -49,7 +49,7 @@ describe('TableColumnMenuButton', () => {
 
     // prettier-ignore
     async function setup(source: ElementReferences): Promise<Fixture<Table<SimpleTableRecord>>> {
-        return fixture<Table<SimpleTableRecord>>(
+        return await fixture<Table<SimpleTableRecord>>(
             html`<${tableTag} ${ref('table')} style="width: 700px">
                     <${tableColumnMenuButtonTag} ${ref('column1')} field-name="field">
                         Menu button column 1
@@ -84,16 +84,10 @@ describe('TableColumnMenuButton', () => {
         await disconnect();
     });
 
-    it('should export its tag', () => {
-        expect(tableColumnMenuButtonTag).toBe(
-            'nimble-table-column-menu-button'
-        );
-    });
-
     it('can construct an element instance', () => {
-        expect(
-            document.createElement('nimble-table-column-menu-button')
-        ).toBeInstanceOf(TableColumnMenuButton);
+        expect(document.createElement(tableColumnMenuButtonTag)).toBeInstanceOf(
+            TableColumnMenuButton
+        );
     });
 
     it('reports column configuration valid', async () => {

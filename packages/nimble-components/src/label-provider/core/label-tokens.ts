@@ -45,3 +45,13 @@ export const loadingLabel = DesignToken.create<string>({
     name: 'loading-label',
     cssCustomPropertyName: null
 }).withDefault(coreLabelDefaults.loadingLabel);
+
+export const scrollBackwardLabel = DesignToken.create<string>({
+    name: 'scroll-backward-label',
+    cssCustomPropertyName: null
+}).withDefault(coreLabelDefaults.scrollBackwardLabel);
+
+export const scrollForwardLabel = DesignToken.create<string>({
+    name: 'scroll-forward-label',
+    cssCustomPropertyName: null
+}).withDefault(coreLabelDefaults.scrollForwardLabel);

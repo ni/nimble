@@ -14,7 +14,7 @@ const designTokenPropertyNames = Object.keys(
 
 describe('Theme Provider', () => {
     it('can construct an element instance', () => {
-        expect(document.createElement('nimble-theme-provider')).toBeInstanceOf(
+        expect(document.createElement(themeProviderTag)).toBeInstanceOf(
             ThemeProvider
         );
     });
@@ -23,7 +23,7 @@ describe('Theme Provider', () => {
         async function setup(
             langValue: string | undefined
         ): Promise<Fixture<ThemeProvider>> {
-            return fixture<ThemeProvider>(
+            return await fixture<ThemeProvider>(
                 html`<${themeProviderTag} ${
                     langValue === undefined ? '' : `lang="${langValue}"`
                 }>

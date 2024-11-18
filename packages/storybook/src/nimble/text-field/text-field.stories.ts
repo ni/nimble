@@ -14,6 +14,7 @@ import {
     appearanceDescription,
     createUserSelectedThemeStory,
     disabledDescription,
+    readonlyDescription,
     errorTextDescription,
     errorVisibleDescription,
     placeholderDescription,
@@ -123,8 +124,7 @@ const metadata: Meta<TextFieldArgs> = {
             table: { category: apiCategory.attributes }
         },
         readonly: {
-            description:
-                'Disallows input on the text field while maintaining enabled appearance.',
+            description: readonlyDescription({ componentName: 'text field' }),
             table: { category: apiCategory.attributes }
         },
         disabled: {

@@ -21,5 +21,7 @@ export class NimbleLabelProviderCoreWithDefaultsDirective {
         this.elementRef.nativeElement.filterSearch = $localize`:Nimble select - search items|:Search`;
         this.elementRef.nativeElement.filterNoResults = $localize`:Nimble select - no items|:No items found`;
         this.elementRef.nativeElement.loading = $localize`:Nimble loading - loading|:Loading…`;
+        this.elementRef.nativeElement.scrollBackward = $localize`:Nimble scroll backward|:Scroll backward`;
+        this.elementRef.nativeElement.scrollForward = $localize`:Nimble scroll forward|:Scroll forward`;
     }
 }

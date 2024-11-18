@@ -382,6 +382,9 @@ export const iconMetadata: {
     IconLayerGroup: {
         tags: ['jobs']
     },
+    IconLightbulb: {
+        tags: ['suggested', 'prompt', 'idea', 'think']
+    },
     IconLightningBolt: {
         tags: ['active jobs']
     },
@@ -409,6 +412,9 @@ export const iconMetadata: {
     IconMarkdown: {
         tags: []
     },
+    IconMicrophone: {
+        tags: ['talk to text', 'speech', 'speak', 'sound', 'audio']
+    },
     IconMinus: {
         tags: ['mixed checkbox']
     },
@@ -417,6 +423,9 @@ export const iconMetadata: {
     },
     IconMobile: {
         tags: ['phone']
+    },
+    IconMountainSun: {
+        tags: ['image', 'browse']
     },
     IconNi: {
         tags: ['National Instruments', 'logo', 'product']
@@ -432,6 +441,12 @@ export const iconMetadata: {
     },
     IconOutwardSquaresThree: {
         tags: ['undeploy']
+    },
+    IconPaperclip: {
+        tags: ['attachment', 'add document', 'browse']
+    },
+    IconPaperPlane: {
+        tags: ['send', 'relay', 'submit']
     },
     IconPaste: {
         tags: ['clipboard']
@@ -453,6 +468,9 @@ export const iconMetadata: {
     },
     IconRectangleCheckLines: {
         tags: ['test', 'plan']
+    },
+    IconRectangleLines: {
+        tags: ['defined', 'paper', 'paragraph', 'sentence', 'words']
     },
     IconRunningArrow: {
         tags: ['status', 'running']
@@ -501,6 +519,9 @@ export const iconMetadata: {
     },
     IconSquareX: {
         tags: ['quit', 'end', 'abort', 'stop', 'terminate']
+    },
+    IconStar8Point: {
+        tags: ['create new', 'burst']
     },
     IconStopSquare: {
         tags: ['quit', 'end']

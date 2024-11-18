@@ -1,8 +1,16 @@
 # Change Log - @ni/xliff-to-json-converter
 
-This log was last generated on Mon, 22 Jul 2024 15:45:21 GMT and should not be manually modified.
+<!-- This log was last generated on Thu, 26 Sep 2024 18:24:50 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 1.1.8
+
+Thu, 26 Sep 2024 18:24:50 GMT
+
+### Patches
+
+- Updated for async eslint rule change ([ni/nimble@7ab95a3](https://github.com/ni/nimble/commit/7ab95a37c760071310a52e0ac233978470168f44))
 
 ## 1.1.7
 

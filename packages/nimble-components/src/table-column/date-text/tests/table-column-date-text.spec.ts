@@ -31,7 +31,7 @@ describe('TableColumnDateText', () => {
 
     // prettier-ignore
     async function setup(source: ElementReferences): Promise<Fixture<Table<SimpleTableRecord>>> {
-        return fixture<Table<SimpleTableRecord>>(
+        return await fixture<Table<SimpleTableRecord>>(
             html`<${themeProviderTag} lang="en-US">
                     <${tableTag} ${ref('table')} style="width: 700px">
                         <${tableColumnDateTextTag} ${ref('column1')} field-name="field" group-index="0">
@@ -62,15 +62,9 @@ describe('TableColumnDateText', () => {
             await disconnect();
         });
 
-        it('should export its tag', () => {
-            expect(tableColumnDateTextTag).toBe(
-                'nimble-table-column-date-text'
-            );
-        });
-
         it('can construct an element instance', () => {
             expect(
-                document.createElement('nimble-table-column-date-text')
+                document.createElement(tableColumnDateTextTag)
             ).toBeInstanceOf(TableColumnDateText);
         });
 
@@ -668,7 +662,7 @@ describe('TableColumnDateText', () => {
     describe('with static config', () => {
         // prettier-ignore
         async function setupWithConfig(source: ElementReferences): Promise<Fixture<Table<SimpleTableRecord>>> {
-            return fixture<Table<SimpleTableRecord>>(
+            return await fixture<Table<SimpleTableRecord>>(
                 html`<${tableTag} ${ref('table')} style="width: 700px">
                         <${tableColumnDateTextTag} ${ref('column1')} field-name="field" group-index="0"
                             format="custom"

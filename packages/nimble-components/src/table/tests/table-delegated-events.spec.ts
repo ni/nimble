@@ -1,5 +1,5 @@
 import { customElement, html } from '@microsoft/fast-element';
-import type { Table } from '..';
+import { tableTag, type Table } from '..';
 import { TableColumn } from '../../table-column/base';
 import { tableColumnTextCellViewTag } from '../../table-column/text/cell-view';
 import { tableColumnTextGroupHeaderViewTag } from '../../table-column/text/group-header-view';
@@ -37,10 +37,10 @@ class TestTableColumn extends TableColumn {
 
 // prettier-ignore
 async function setup(): Promise<Fixture<Table<SimpleTableRecord>>> {
-    return fixture<Table<SimpleTableRecord>>(
-        html`<nimble-table>
+    return await fixture<Table<SimpleTableRecord>>(
+        html`<${tableTag}>
             <${columnName}>Column</${columnName}>
-        </nimble-table>`
+        </${tableTag}>`
     );
 }
 
