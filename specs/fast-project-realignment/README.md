@@ -141,9 +141,29 @@ Work that should be done imminently (over the next 1-3 months).
 
 ### Fork Archives into Nimble
 
+This proposal would be to fork the FAST packages used by Nimble into the Nimble repository.
+
+Pros:
+- Don't need to maintain separate repository infrastructure
+- Monolithic test and build for changes introduced in Nimble
+
+Cons:
+- Would expect packages maintained in Nimble to follow Nimble conventions (linting, test infra, etc). Would either migrate FAST packages to Nimble's lint and test tooling or carve out exceptions and have inconsistency in the repo.
+- If following the convention of making minimal changes to the FAST packages then the added build, test, and lint time in CI has minimal benefit.
+- Nimble has stricter patterns than FAST (strict typing, patterns around state management and template design) that would be conflated in the same repository.
+
 ### Fork Next
 
-### Follow Fluent UI
+Migrate to the stable Fast element and the archived Foundation next packages.
+Similar to Adaptive Web Components (keeping foundation packages separate) or FluentUI (inlining used parts of foundation).
+
+Pros:
+- Foundation element maintained upstream
+
+Cons:
+- Likely significant effort to migrate to latest FAST element and foundation (scope not evaluated).
+- Known breaking changes in FAST Foundation that are ultimately low value if not aligned with an upstream
+- Packages not known to be released in large production scenarios yet (FluentUI usage still in beta)
 
 ## Future work
 
@@ -155,10 +175,29 @@ Work that should be done imminently (over the next 1-3 months).
 
 ### Mid-term goals
 
-Work that should should be done 
+The following are suggestions of higher priority mid-term (6-8 month) goals that are proposed to investigate. Just for documentation, approval of the HLD does not commit to / prioritize the goals.
+
+#### Migration to the popover api
+
+Leverage of the Foundation anchored region is the largest and one of the most critical polyfills in nimble. We should align with the native popover api which provides new capabilities that cannot be given consistently with the anchored region polyfill (the ability to place content in top-layer).
+
+#### Migrate away from foundation design token infrastructure
+
+The FASt Foundation Design Token infrastructure has thus far been fairly complex, a source of performance issues, and is no longer maintained upstream. The FuentUI library has completely removed the Design Token infrastructure.
+
+There are several major ways we leverage Foundation design tokens:
+- As CSS custom properties coupled to the theme token.
+- As non-CSS reflected custom properties for theme and localization tokens.
+- As non-CSS reflected custom properties for native attirbutes of lang and dir.
+
+#### Leverage heterogeneous base classes
+
+FAST is a relatively small community that no longer has a large shared resource of component development. Web components as a technology do not require us to ship only components built on FAST base classes. We should research utilitization of alternative base classes, such as lit element, being shipped with Nimble to give access to a larger community of shared component implementations.
+
 
 ### Long-term goals
 
+The following are suggestions of lower priority long-term goals that are proposed to investigate. Just for documentation, approval of the HLD does not commit to / prioritize the goals.
 
 ## Open Issues
 
