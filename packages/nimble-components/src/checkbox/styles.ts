@@ -73,12 +73,6 @@ export const styles = css`
         }
     }
 
-    :host(${focusVisible}) .control {
-        border-color: ${borderHoverColor};
-        outline: 2px solid ${borderHoverColor};
-        outline-offset: 1px;
-    }
-
     :host([disabled]) .control {
         background-color: rgba(${borderRgbPartialColor}, 0.1);
         border-color: rgba(${borderRgbPartialColor}, 0.2);
@@ -87,6 +81,12 @@ export const styles = css`
     :host(:not([disabled]):not(:active):hover) .control {
         border-color: ${borderHoverColor};
         box-shadow: 0px 0px 0px ${borderWidth} ${borderHoverColor} inset;
+    }
+
+    :host(${focusVisible}) .control {
+        border-color: ${borderHoverColor};
+        outline: 2px solid ${borderHoverColor};
+        outline-offset: 1px;
     }
 
     .label {
@@ -126,11 +126,14 @@ export const styles = css`
         height: ${iconSize};
         width: ${iconSize};
         overflow: visible;
-        fill: ${borderColor};
     }
 
     :host(.indeterminate) slot[name='indeterminate-indicator'] {
         display: contents;
+    }
+
+    slot[name='indeterminate-indicator'] svg {
+        fill: ${borderColor};
     }
 
     :host([disabled]) slot[name='indeterminate-indicator'] svg {
