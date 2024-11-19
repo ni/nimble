@@ -6,8 +6,8 @@ Nimble table support for interactive cell editing.
 
 ### Background
 
--   [ViD spec](https://www.figma.com/file/PO9mFOu5BCl8aJvFchEeuN/Nimble_Components?type=design&node-id=5308-156796&mode=dev)
--   [Component Issue](https://github.com/ni/nimble/issues/1876)
+-   [Figma worksheet](https://www.figma.com/design/r2yGNQNVFdE7cBO9CyHmQx/Nimble---IxD?node-id=1221-36463)
+-   [Input table columns (select, text field, etc) #1190](https://github.com/ni/nimble/issues/1190)
 
 ## Usage
 
@@ -72,6 +72,10 @@ This is particularly useful for scenarios where inline editing is required, such
 ![Editable cell escape key](./spec-images/editable-cell-escape-key.png)
 
 -   When a cell has Edit focus, pressing `ESCAPE` reverts any value change and transforms it into the Cell focus state.
+
+![Editable cell data error](./spec-images/editable-cell-error-data.png)
+
+-   When a cell has Edit focus, pressing `ENTER` validates the value, and if invalid, transforms the cell into the Cell error state.
 
 #### Touch-Screen Devices
 
