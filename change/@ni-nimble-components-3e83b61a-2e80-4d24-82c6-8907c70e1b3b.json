@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Update to apache arrow v18",
-  "packageName": "@ni/nimble-components",
-  "email": "rajsite@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
