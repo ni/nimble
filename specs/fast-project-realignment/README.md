@@ -14,7 +14,7 @@ This roadmap caused the (expected to be temporary) uncomfortable situation of th
 Placing the stable release of FAST in maintenance mode resulted in it being significantly harder to maintain deployed systems (submitting patches to work with new versions of toolchains), slowed uptake of bug fixes, and halted new control development (particularly menu button and date / time pickers were significant gaps).
 Unfortunately the FAST Foundation alpha in main never went stable and in May 2024 as part of [FAST Project Re-alignment](https://github.com/microsoft/fast/issues/6955) the Foundation library concept and packages were abandoned altogether.
 
-## Status of packages
+## Status of Packages
 
 Nimble relies on the following packages:
 - `@microsoft/fast-colors` ([`archives/fast-element-1`](https://github.com/microsoft/fast/tree/archives/fast-element-1/packages/web-components) contains v5.3.0, [direct commit for v5.3.1](https://github.com/microsoft/fast/blob/721426cbedafbdfed2b34f9a0e2d902802faa712/packages/utilities/fast-colors/package.json) which is actually used)
@@ -97,7 +97,7 @@ HLD Work item: [#2207](https://github.com/ni/nimble/issues/2207)
 - Unblock Nimble bug fixes and new feature development in the short-term (scope of this HLD)
 - Align on a path for long-term maintainability of Nimble (Future work)
 
-### Minimal Fork Proposal
+### Minimal fork proposal
 
 Work that should be done imminently (over the next 1-3 months).
 
@@ -139,18 +139,18 @@ Work that should be done imminently (over the next 1-3 months).
 
 ## Alternative Implementations / Designs
 
-### Fork Archives into Nimble
+### Nimble-owned Archives fork
 
 This proposal would be to fork the FAST packages used by Nimble into the Nimble repository.
 
 Pros:
 - Don't need to maintain separate repository infrastructure
-- Monolithic test and build for changes introduced in Nimble
+- Monolithic test and build for changes introduced in forked packages
 
 Cons:
-- Would expect packages maintained in Nimble to follow Nimble conventions (linting, test infra, etc). Would either migrate FAST packages to Nimble's lint and test tooling or carve out exceptions and have inconsistency in the repo.
+- Would expect packages maintained in Nimble to follow Nimble conventions (linting, test infra, etc). Would either migrate FAST packages to Nimble's lint and test tooling or carve out exceptions and have inconsistency in the repository.
 - If following the convention of making minimal changes to the FAST packages then the added build, test, and lint time in CI has minimal benefit.
-- Nimble has stricter patterns than FAST (strict typing, patterns around state management and template design) that would be conflated in the same repository.
+- Nimble has stricter patterns than FAST (strict typing, patterns around state management, and template design) that would be conflated in the same repository.
 
 ### Fork Next
 
@@ -162,8 +162,8 @@ Pros:
 
 Cons:
 - Likely significant effort to migrate to latest FAST element and foundation (scope not evaluated).
-- Known breaking changes in FAST Foundation that are ultimately low value if not aligned with an upstream
-- Packages not known to be released in large production scenarios yet (FluentUI usage still in beta)
+- Known breaking changes in FAST Foundation that are ultimately low value if not aligned with an upstream.
+- Packages not known to be released in large production scenarios yet (FluentUI usage still in beta).
 
 ## Future work
 
@@ -175,30 +175,36 @@ Cons:
 
 ### Mid-term goals
 
-The following are suggestions of higher priority mid-term (6-8 month) goals that are proposed to investigate. Just for documentation, approval of the HLD does not commit to / prioritize the goals.
+The following are suggestions of higher priority mid-term (6-8 month) goals that are proposed to investigate. Listed just for documentation. Approval of the HLD does not commit to / prioritize the mid-term goals.
 
-#### Migration to the popover api
+#### Migrate to the Popover API
 
 Leverage of the Foundation anchored region is the largest and one of the most critical polyfills in nimble. We should align with the native popover api which provides new capabilities that cannot be given consistently with the anchored region polyfill (the ability to place content in top-layer).
 
-#### Migrate away from foundation design token infrastructure
+#### Migrate off of Foundation Design Tokens
 
-The FASt Foundation Design Token infrastructure has thus far been fairly complex, a source of performance issues, and is no longer maintained upstream. The FuentUI library has completely removed the Design Token infrastructure.
+The Fast Foundation Design Token infrastructure has thus far been fairly complex, a source of performance issues, and is no longer maintained upstream. The FluentUI library has completely removed the Design Token infrastructure.
 
-There are several major ways we leverage Foundation design tokens:
+There are several major ways we leverage Foundation Design Tokens:
 - As CSS custom properties coupled to the theme token.
 - As non-CSS reflected custom properties for theme and localization tokens.
 - As non-CSS reflected custom properties for native attirbutes of lang and dir.
 
+Some research areas (likely more than one needed to fully replace and not comprehensive):
+- See how [FluentUI migrated away from Design Tokens](https://github.com/microsoft/fluentui/pull/30002).
+
+    Notes: Having token variable names shared in CSS seems reasonable, but solution lacks programmatic observability and seems to pollute inline styles on body tag / sprouts inline styles on user-owned elements.
+- See Lit documentation of [Community Context Protocol](https://lit.dev/docs/data/context/) which cites Themes and Localization as potential use-cases.
+
+    Notes: Likely a useful part of the solution. Is an open protocol that could potentially be used across frameworks / libraries but would need to validate. FAST had an implementation that added [context protocol support to the Foundation DI system in the Next packages](https://github.com/microsoft/fast/pull/6053).
+- See [`StyleObserver`](https://github.com/bramus/style-observer) library which enables programmatically observability of CSS custom property changes.
+
+    Notes: Potentially an interesting way to add observability to CSS custom property changes. Our Design Tokens that need observation are generally not reflected as CSS custom properties today (theme, localization, lang, dir) so we could make them CSS custom properties to leverage the pattern or replace them with an implementation on Community Context Protocol.
+
 #### Leverage heterogeneous base classes
 
-FAST is a relatively small community that no longer has a large shared resource of component development. Web components as a technology do not require us to ship only components built on FAST base classes. We should research utilitization of alternative base classes, such as lit element, being shipped with Nimble to give access to a larger community of shared component implementations.
+FAST is a relatively small community that no longer has a large shared resource of component development. Web components as a technology do not require us to ship only components built on FAST base classes. We should research utilitization of alternative base classes, such as Lit Element, being shipped with Nimble to give access to a larger community of shared component implementations.
 
-
-### Long-term goals
-
-The following are suggestions of lower priority long-term goals that are proposed to investigate. Just for documentation, approval of the HLD does not commit to / prioritize the goals.
-
-## Open Issues
+## Open issues
 
 None.
