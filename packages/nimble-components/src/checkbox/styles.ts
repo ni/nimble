@@ -40,7 +40,7 @@ export const styles = css`
     .container {
         position: relative;
         display: grid;
-        grid-template-columns: auto auto 1fr auto;
+        grid-template-columns: auto 1fr auto;
         grid-template-rows: ${bodyFontLineHeight} auto;
         align-items: center;
         width: 100%;
@@ -138,7 +138,7 @@ export const styles = css`
     }
 
     .error-icon {
-        grid-column: 4;
+        grid-column: 3;
         grid-row: 1;
         margin-left: ${smallPadding};
     }
