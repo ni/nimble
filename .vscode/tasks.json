@@ -112,6 +112,21 @@
             "problemMatcher": "$msCompile"
         },
         {
+            "label": "blazor-hybrid-example:build",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "${workspaceFolder}/packages/blazor-workspace/Examples/Demo.Hybrid/Demo.Hybrid.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}/packages/blazor-workspace/Examples/Demo.Hybrid/"
+            },
+            "problemMatcher": "$msCompile"
+        },
+        {
             "label": "blazor-server-example:watch",
             "command": "dotnet",
             "type": "process",
@@ -138,6 +153,21 @@
             ],
             "options": {
                 "cwd": "${workspaceFolder}/packages/blazor-workspace/Examples/Demo.Client/"
+            },
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "blazor-hybrid-example:watch",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "watch",
+                "run",
+                "--project",
+                "${workspaceFolder}/packages/blazor-workspace/Examples/Demo.Hybrid/Demo.Hybrid.csproj"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}/packages/blazor-workspace/Examples/Demo.Hybrid/"
             },
             "problemMatcher": "$msCompile"
         },

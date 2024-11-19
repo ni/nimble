@@ -269,7 +269,7 @@ const metadata: Meta<RichTextEditorArgs> = {
             void (async () => {
                 // Safari workaround: the nimble-rich-text-editor element instance is made at this point
                 // but doesn't seem to be upgraded to a custom element yet
-                await customElements.whenDefined('nimble-rich-text-editor');
+                await customElements.whenDefined(richTextEditorTag);
                 x.editorRef.setMarkdown(dataSets[x.data]);
             })();
         },

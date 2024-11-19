@@ -8,14 +8,8 @@ describe('Checkbox', () => {
         return await fixture<Checkbox>(html`<${checkboxTag}></${checkboxTag}>`);
     }
 
-    it('should export its tag', () => {
-        expect(checkboxTag).toBe('nimble-checkbox');
-    });
-
     it('can construct an element instance', () => {
-        expect(document.createElement('nimble-checkbox')).toBeInstanceOf(
-            Checkbox
-        );
+        expect(document.createElement(checkboxTag)).toBeInstanceOf(Checkbox);
     });
 
     it('should honor provided `tabindex` value', async () => {

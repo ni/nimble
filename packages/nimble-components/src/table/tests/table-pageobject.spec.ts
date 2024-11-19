@@ -1,10 +1,11 @@
 import { html } from '@microsoft/fast-element';
-import type { Table } from '..';
+import { tableTag, type Table } from '..';
 import type { TableColumn } from '../../table-column/base';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import { type Fixture, fixture } from '../../utilities/tests/fixture';
 import { TablePageObject } from '../testing/table.pageobject';
 import type { TableRecord } from '../types';
+import { tableColumnTextTag } from '../../table-column/text';
 
 interface SimpleTableRecord extends TableRecord {
     stringData: string;
@@ -29,10 +30,10 @@ const simpleTableData = [
 // prettier-ignore
 async function setup(): Promise<Fixture<Table<SimpleTableRecord>>> {
     return await fixture<Table<SimpleTableRecord>>(
-        html`<nimble-table>
-            <nimble-table-column-text id="first-column" field-name="stringData">Col1</nimble-table-column-text>
-            <nimble-table-column-text id="second-column" field-name="moreStringData">Col2</nimble-table-column-text>
-        </nimble-table>`
+        html`<${tableTag}>
+            <${tableColumnTextTag} id="first-column" field-name="stringData">Col1</${tableColumnTextTag}>
+            <${tableColumnTextTag} id="second-column" field-name="moreStringData">Col2</${tableColumnTextTag}>
+        </${tableTag}>`
     );
 }
 

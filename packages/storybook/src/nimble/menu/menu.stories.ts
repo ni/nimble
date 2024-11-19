@@ -44,7 +44,7 @@ interface AnchorMenuItemArgs {
 }
 
 interface ItemArgs extends MenuItemArgsBase {
-    type: 'nimble-menu-item' | 'header' | 'hr';
+    type: typeof menuItemTag | 'header' | 'hr';
 }
 
 const metadata: Meta<MenuArgs> = {
@@ -64,7 +64,7 @@ export const menu: StoryObj<MenuArgs> = {
     render: createUserSelectedThemeStory(html`
         <${menuTag}>
             ${repeat(x => x.itemOptions, html<ItemArgs>`
-                ${when(x => x.type === 'nimble-menu-item', html<ItemArgs>`
+                ${when(x => x.type === menuItemTag, html<ItemArgs>`
                     <${menuItemTag} ?disabled="${x => x.disabled}">
                         ${when(x => x.icon, html`<${iconUserTag} slot="start"></${iconUserTag}>`)}
                         ${x => x.text}
@@ -93,19 +93,19 @@ export const menu: StoryObj<MenuArgs> = {
                 text: 'Item 1',
                 disabled: false,
                 icon: false,
-                type: 'nimble-menu-item'
+                type: menuItemTag
             },
             {
                 text: 'Item 2',
                 disabled: false,
                 icon: false,
-                type: 'nimble-menu-item'
+                type: menuItemTag
             },
             {
                 text: 'Item 3',
                 disabled: false,
                 icon: false,
-                type: 'nimble-menu-item'
+                type: menuItemTag
             },
             {
                 text: 'Divider',
@@ -123,19 +123,19 @@ export const menu: StoryObj<MenuArgs> = {
                 text: 'Item 4',
                 disabled: false,
                 icon: false,
-                type: 'nimble-menu-item'
+                type: menuItemTag
             },
             {
                 text: 'Item 5',
                 disabled: false,
                 icon: false,
-                type: 'nimble-menu-item'
+                type: menuItemTag
             },
             {
                 text: 'Item 6',
                 disabled: false,
                 icon: false,
-                type: 'nimble-menu-item'
+                type: menuItemTag
             }
         ]
     },

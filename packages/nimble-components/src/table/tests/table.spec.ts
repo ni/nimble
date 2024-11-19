@@ -31,6 +31,10 @@ import {
 } from '../../table-column/base/tests/table-column.fixtures';
 import type { ColumnInternalsOptions } from '../../table-column/base/models/column-internals';
 import { ColumnValidator } from '../../table-column/base/models/column-validator';
+import { menuTag } from '../../menu';
+import { menuItemTag } from '../../menu-item';
+import { tableRowTag } from '../components/row';
+import { iconCheckTag } from '../../icons/check';
 
 interface SimpleTableRecord extends TableRecord {
     stringData: string;
@@ -75,12 +79,12 @@ const largeTableData = createLargeData(500);
 // prettier-ignore
 async function setup(): Promise<Fixture<Table<SimpleTableRecord>>> {
     return await fixture<Table<SimpleTableRecord>>(
-        html`<nimble-table style="width: 700px">
-            <nimble-table-column-text id="first-column" field-name="stringData">stringData</nimble-table-column-text>
-            <nimble-table-column-text id="second-column" field-name="moreStringData">
-                <nimble-icon-check></nimble-icon-check>
-            </nimble-table-column-text>
-        </nimble-table>`
+        html`<${tableTag} style="width: 700px">
+            <${tableColumnTextTag} id="first-column" field-name="stringData">stringData</${tableColumnTextTag}>
+            <${tableColumnTextTag} id="second-column" field-name="moreStringData">
+                <${iconCheckTag}></${iconCheckTag}>
+            </${tableColumnTextTag}>
+        </${tableTag}>`
     );
 }
 
@@ -163,9 +167,7 @@ describe('Table', () => {
         });
 
         it('can construct an element instance', () => {
-            expect(document.createElement('nimble-table')).toBeInstanceOf(
-                Table
-            );
+            expect(document.createElement(tableTag)).toBeInstanceOf(Table);
         });
 
         it('element has a role of "treegrid"', async () => {
@@ -754,8 +756,8 @@ describe('Table', () => {
             it('and closes open action menus when a scroll happens', async () => {
                 const slot = 'my-action-menu';
                 column1.actionMenuSlot = slot;
-                const menu = document.createElement('nimble-menu');
-                const menuItem1 = document.createElement('nimble-menu-item');
+                const menu = document.createElement(menuTag);
+                const menuItem1 = document.createElement(menuItemTag);
                 menuItem1.textContent = 'menu item 1';
                 menu.appendChild(menuItem1);
                 menu.slot = slot;
@@ -888,7 +890,7 @@ describe('Table', () => {
 
                 // Verify the slot name is updated
                 const rowSlots = element
-                    .shadowRoot!.querySelectorAll('nimble-table-row')
+                    .shadowRoot!.querySelectorAll(tableRowTag)
                     ?.item(1)
                     .querySelectorAll<HTMLSlotElement>('slot');
                 expect(rowSlots.length).toBe(1);
@@ -2523,10 +2525,10 @@ describe('Table', () => {
         // prettier-ignore
         async function setupWithTestColumns(): Promise<Fixture<Table<SimpleTableRecord>>> {
             return await fixture<Table<SimpleTableRecord>>(
-                html`<nimble-table>
+                html`<${tableTag}>
                     <${tableColumnValidationTestTag} foo bar id="first-column" field-name="stringData">Col 1</${tableColumnValidationTestTag}>
                     <${tableColumnValidationTestTag} foo bar id="second-column" field-name="moreStringData">Col 2</${tableColumnValidationTestTag}>
-                </nimble-table>`
+                </${tableTag}>`
             );
         }
 

@@ -520,7 +520,7 @@ export const table: StoryObj<TableArgs> = {
                 // Safari workaround: the table element instance is made at this point
                 // but doesn't seem to be upgraded to a custom element yet
                 const args = x as TableArgs;
-                await customElements.whenDefined('nimble-table');
+                await customElements.whenDefined(tableTag);
                 await args.tableRef.setData(dataSets[args.data]);
             })();
         }
@@ -577,7 +577,7 @@ export const delayedHierarchy: Meta<DelayedHierarchyTableArgs> = {
                 // Safari workaround: the table element instance is made at this point
                 // but doesn't seem to be upgraded to a custom element yet
                 const args = x as DelayedHierarchyTableArgs;
-                await customElements.whenDefined('nimble-table');
+                await customElements.whenDefined(tableTag);
                 await args.tableRef.setData(
                     dataSets[ExampleDataType.simpleData]
                 );

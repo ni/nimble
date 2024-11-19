@@ -4,9 +4,11 @@ import { fixture, Fixture } from '../../utilities/tests/fixture';
 import { Tooltip, tooltipTag } from '..';
 import { anchoredRegionTag } from '../../anchored-region';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
+import { iconExclamationMarkTag } from '../../icons/exclamation-mark';
+import { iconInfoTag } from '../../icons/info';
 
 async function setup(): Promise<Fixture<Tooltip>> {
-    return await fixture<Tooltip>(html`<nimble-tooltip></nimble-tooltip>`);
+    return await fixture<Tooltip>(html`<${tooltipTag}></${tooltipTag}>`);
 }
 
 describe('Tooltip', () => {
@@ -33,9 +35,7 @@ describe('Tooltip', () => {
         tooltip: Tooltip
     ): Promise<void> {
         await waitForUpdatesAsync();
-        const region = tooltip.shadowRoot!.querySelector(
-            'nimble-anchored-region'
-        )!;
+        const region = tooltip.shadowRoot!.querySelector(anchoredRegionTag)!;
         await new Promise<void>((resolve, _reject) => {
             region.addEventListener('loaded', () => {
                 resolve();
@@ -60,6 +60,10 @@ describe('Tooltip', () => {
 
     afterEach(async () => {
         await disconnect();
+    });
+
+    it('can construct an element instance', () => {
+        expect(document.createElement(tooltipTag)).toBeInstanceOf(Tooltip);
     });
 
     it('should not render the tooltip by default', async () => {
@@ -143,8 +147,8 @@ describe('Tooltip', () => {
         await connect();
         await waitUntilAnchoredRegionLoaded(element);
 
-        expect(isIconVisible('nimble-icon-exclamation-mark')).toBeFalse();
-        expect(isIconVisible('nimble-icon-info')).toBeFalse();
+        expect(isIconVisible(iconExclamationMarkTag)).toBeFalse();
+        expect(isIconVisible(iconInfoTag)).toBeFalse();
 
         await disconnect();
     });
@@ -156,8 +160,8 @@ describe('Tooltip', () => {
         await connect();
         await waitUntilAnchoredRegionLoaded(element);
 
-        expect(isIconVisible('nimble-icon-exclamation-mark')).toBeFalse();
-        expect(isIconVisible('nimble-icon-info')).toBeFalse();
+        expect(isIconVisible(iconExclamationMarkTag)).toBeFalse();
+        expect(isIconVisible(iconInfoTag)).toBeFalse();
 
         await disconnect();
     });
@@ -169,8 +173,8 @@ describe('Tooltip', () => {
         await connect();
         await waitUntilAnchoredRegionLoaded(element);
 
-        expect(isIconVisible('nimble-icon-exclamation-mark')).toBeFalse();
-        expect(isIconVisible('nimble-icon-info')).toBeFalse();
+        expect(isIconVisible(iconExclamationMarkTag)).toBeFalse();
+        expect(isIconVisible(iconInfoTag)).toBeFalse();
 
         await disconnect();
     });
@@ -183,8 +187,8 @@ describe('Tooltip', () => {
         await connect();
         await waitUntilAnchoredRegionLoaded(element);
 
-        expect(isIconVisible('nimble-icon-exclamation-mark')).toBeTrue();
-        expect(isIconVisible('nimble-icon-info')).toBeFalse();
+        expect(isIconVisible(iconExclamationMarkTag)).toBeTrue();
+        expect(isIconVisible(iconInfoTag)).toBeFalse();
 
         await disconnect();
     });
@@ -196,8 +200,8 @@ describe('Tooltip', () => {
         await connect();
         await waitUntilAnchoredRegionLoaded(element);
 
-        expect(isIconVisible('nimble-icon-exclamation-mark')).toBeFalse();
-        expect(isIconVisible('nimble-icon-info')).toBeFalse();
+        expect(isIconVisible(iconExclamationMarkTag)).toBeFalse();
+        expect(isIconVisible(iconInfoTag)).toBeFalse();
 
         await disconnect();
     });
@@ -210,13 +214,11 @@ describe('Tooltip', () => {
         await connect();
         await waitUntilAnchoredRegionLoaded(element);
 
-        expect(isIconVisible('nimble-icon-exclamation-mark')).toBeFalse();
-        expect(isIconVisible('nimble-icon-info')).toBeTrue();
+        expect(isIconVisible(iconExclamationMarkTag)).toBeFalse();
+        expect(isIconVisible(iconInfoTag)).toBeTrue();
 
         await disconnect();
     });
-
-    // top position settings
 
     it('should set vertical and horizontal positioning mode to locktodefault when position is set to top', async () => {
         element.position = TooltipPosition.top;
@@ -251,8 +253,6 @@ describe('Tooltip', () => {
         await disconnect();
     });
 
-    // bottom position settings
-
     it('should set vertical positioning mode to locked when position is set to bottom', async () => {
         element.position = TooltipPosition.bottom;
 
@@ -286,8 +286,6 @@ describe('Tooltip', () => {
         await disconnect();
     });
 
-    // left position settings
-
     it('should set positioning mode to locked when position is set to left', async () => {
         element.position = TooltipPosition.left;
 
@@ -320,8 +318,6 @@ describe('Tooltip', () => {
 
         await disconnect();
     });
-
-    // right position settings
 
     it('should set positioning mode to locked when position is set to right', async () => {
         element.position = TooltipPosition.right;
@@ -373,17 +369,5 @@ describe('Tooltip', () => {
         expect(element.anchorElement?.id).toEqual('anchor2');
 
         await disconnect();
-    });
-
-    // end of position tests ^
-
-    it('should export its tag', () => {
-        expect(tooltipTag).toBe('nimble-tooltip');
-    });
-
-    it('can construct an element instance', () => {
-        expect(document.createElement('nimble-tooltip')).toBeInstanceOf(
-            Tooltip
-        );
     });
 });

@@ -1,12 +1,12 @@
 import { html } from '@microsoft/fast-element';
 import { parameterizeSpec } from '@ni/jasmine-parameterized';
-import { AnchorButton } from '..';
+import { AnchorButton, anchorButtonTag } from '..';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import { fixture, Fixture } from '../../utilities/tests/fixture';
 
 async function setup(): Promise<Fixture<AnchorButton>> {
     return await fixture<AnchorButton>(
-        html`<nimble-anchor-button></nimble-anchor-button>`
+        html`<${anchorButtonTag}></${anchorButtonTag}>`
     );
 }
 
@@ -24,7 +24,7 @@ describe('AnchorButton', () => {
     });
 
     it('can construct an element instance', () => {
-        expect(document.createElement('nimble-anchor-button')).toBeInstanceOf(
+        expect(document.createElement(anchorButtonTag)).toBeInstanceOf(
             AnchorButton
         );
     });

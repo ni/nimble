@@ -1,25 +1,26 @@
 import { html } from '@microsoft/fast-element';
 import { fixture, Fixture } from '../../../utilities/tests/fixture';
 import { SelectPageObject } from '../select.pageobject';
-import type { Select } from '../..';
+import { selectTag, type Select } from '../..';
+import { listOptionTag } from '../../../list-option';
 
 async function setup(): Promise<Fixture<Select>> {
     const viewTemplate = html`
-        <nimble-select>
-            <nimble-list-option value="one">One</nimble-list-option>
-            <nimble-list-option value="two">Two</nimble-list-option>
-        </nimble-select>
+        <${selectTag}>
+            <${listOptionTag} value="one">One</${listOptionTag}>
+            <${listOptionTag} value="two">Two</${listOptionTag}>
+        </${selectTag}>
     `;
     return await fixture<Select>(viewTemplate);
 }
 
 async function setupWithLabel(): Promise<Fixture<Select>> {
     const viewTemplate = html`
-        <nimble-select>
+        <${selectTag}>
             Custom Label Text
-            <nimble-list-option value="one">One</nimble-list-option>
-            <nimble-list-option value="two">Two</nimble-list-option>
-        </nimble-select>
+            <${listOptionTag} value="one">One</${listOptionTag}>
+            <${listOptionTag} value="two">Two</${listOptionTag}>
+        </${selectTag}>
     `;
     return await fixture<Select>(viewTemplate);
 }

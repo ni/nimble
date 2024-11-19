@@ -1,8 +1,136 @@
 # Change Log - @ni/spright-blazor
 
-<!-- This log was last generated on Thu, 26 Sep 2024 18:24:50 GMT and should not be manually modified. -->
+<!-- This log was last generated on Tue, 19 Nov 2024 03:20:18 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 3.1.3
+
+Tue, 19 Nov 2024 03:20:18 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v4.2.2
+
+## 3.1.2
+
+Mon, 18 Nov 2024 21:17:24 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v4.2.1
+
+## 3.1.1
+
+Thu, 14 Nov 2024 21:42:40 GMT
+
+### Patches
+
+- Update deps to latest ([ni/nimble@8ee3179](https://github.com/ni/nimble/commit/8ee317939cae88c40d8d96df6ed8381d5c286439))
+
+## 3.1.0
+
+Thu, 14 Nov 2024 14:41:16 GMT
+
+### Minor changes
+
+- Bump @ni/spright-components to v4.2.0
+
+## 3.0.1
+
+Tue, 05 Nov 2024 20:44:52 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v4.1.21
+
+## 3.0.0
+
+Fri, 01 Nov 2024 18:46:46 GMT
+
+### Major changes
+
+- Spright Blazor targets (and requires) .NET 8. Update examples, docs, tests. See README for updated usage instructions. ([ni/nimble@cb7fd17](https://github.com/ni/nimble/commit/cb7fd177defa078dd44eafa3bd5b28eaa4f75dd7))
+
+## 2.1.20
+
+Tue, 29 Oct 2024 18:50:54 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v4.1.20
+
+## 2.1.19
+
+Tue, 29 Oct 2024 16:39:58 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v4.1.19
+
+## 2.1.18
+
+Mon, 28 Oct 2024 21:38:16 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v4.1.18
+
+## 2.1.17
+
+Thu, 24 Oct 2024 20:52:01 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v4.1.17
+
+## 2.1.16
+
+Wed, 23 Oct 2024 19:20:53 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v4.1.16
+
+## 2.1.15
+
+Wed, 23 Oct 2024 13:33:55 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v4.1.15
+
+## 2.1.14
+
+Fri, 18 Oct 2024 20:38:35 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v4.1.14
+
+## 2.1.13
+
+Wed, 16 Oct 2024 23:46:19 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v4.1.13
+
+## 2.1.12
+
+Mon, 14 Oct 2024 13:37:04 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v4.1.12
+
+## 2.1.11
+
+Wed, 09 Oct 2024 19:24:18 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v4.1.11
 
 ## 2.1.10
 

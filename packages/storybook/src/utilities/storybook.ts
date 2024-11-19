@@ -195,7 +195,7 @@ export const placeholderDescription = (options: {
 }): string => `Placeholder text to display when no value has been entered in the ${options.componentName}.`;
 
 export const errorTextDescription = 'A message to be displayed explaining why the value is invalid. Only visible when `error-visible` is set.';
-export const errorVisibleDescription = 'When set to `true`, the `error-text` message will be displayed.';
+export const errorVisibleDescription = 'When set to `true`, an error indicator will be displayed within the control and the `error-text` message will be displayed.';
 
 export const dropdownPositionDescription = (options: {
     componentName: string

@@ -2,12 +2,12 @@ import { html } from '@microsoft/fast-element';
 import { parameterizeSpec } from '@ni/jasmine-parameterized';
 import { WaferMapOriginLocation } from '../types';
 import { getWaferMapDiesTable } from './utilities';
-import type { WaferMap } from '..';
+import { waferMapTag, type WaferMap } from '..';
 import { processUpdates } from '../../testing/async-helpers';
 import { Fixture, fixture } from '../../utilities/tests/fixture';
 
 async function setup(): Promise<Fixture<WaferMap>> {
-    return await fixture<WaferMap>(html`<nimble-wafer-map></nimble-wafer-map>`);
+    return await fixture<WaferMap>(html`<${waferMapTag}></${waferMapTag}>`);
 }
 
 // OffscreenCanvas not supported in Playwright's Windows/Linux Webkit build: https://github.com/ni/nimble/issues/2169

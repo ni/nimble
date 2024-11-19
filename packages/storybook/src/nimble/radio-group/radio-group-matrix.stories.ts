@@ -1,6 +1,7 @@
 import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate } from '@microsoft/fast-element';
 import { Orientation } from '@microsoft/fast-web-utilities';
+import { standardPadding } from '../../../../nimble-components/src/theme-provider/design-tokens';
 import { radioTag } from '../../../../nimble-components/src/radio';
 import { radioGroupTag } from '../../../../nimble-components/src/radio-group';
 import {
@@ -8,7 +9,12 @@ import {
     sharedMatrixParameters,
     createMatrixThemeStory
 } from '../../utilities/matrix';
-import { disabledStates, DisabledState } from '../../utilities/states';
+import {
+    disabledStates,
+    DisabledState,
+    errorStates,
+    ErrorState
+} from '../../utilities/states';
 import { createStory } from '../../utilities/storybook';
 import { hiddenWrapper } from '../../utilities/hidden';
 import { textCustomizationWrapper } from '../../utilities/text-customization';
@@ -30,19 +36,23 @@ export default metadata;
 
 const component = (
     [disabledName, disabled]: DisabledState,
-    [orientationName, orientation]: OrientationState
+    [orientationName, orientation]: OrientationState,
+    [errorName, errorVisible, errorText]: ErrorState
 ): ViewTemplate => html`<${radioGroupTag}
     orientation="${() => orientation}"
     ?disabled="${() => disabled}"
+    ?error-visible="${() => errorVisible}"
+    error-text="${() => errorText}"
     value="1"
+    style="width: 250px; margin: var(${standardPadding.cssCustomProperty});"
 >
-    <label slot="label">${orientationName} ${disabledName}</label>
+    <label slot="label">${orientationName} ${disabledName} ${errorName}</label>
     <${radioTag} value="1">Option 1</${radioTag}>
     <${radioTag} value="2">Option 2</${radioTag}>
 </${radioGroupTag}>`;
 
 export const radioGroupThemeMatrix: StoryFn = createMatrixThemeStory(
-    createMatrix(component, [disabledStates, orientationStates])
+    createMatrix(component, [disabledStates, orientationStates, errorStates])
 );
 
 export const hiddenRadioGroup: StoryFn = createStory(

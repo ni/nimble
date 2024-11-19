@@ -13,10 +13,10 @@ import { buttonTag } from '../../button';
 
 async function setup(): Promise<Fixture<Banner>> {
     return await fixture<Banner>(html`
-        <nimble-banner>
+        <${bannerTag}>
             <span slot="title">Title</span>
             Message text
-        </nimble-banner>
+        </${bannerTag}>
     `);
 }
 
@@ -24,10 +24,10 @@ async function setupWithLabelProvider(): Promise<Fixture<ThemeProvider>> {
     return await fixture<ThemeProvider>(html`
         <${themeProviderTag}>
             <${labelProviderCoreTag}></${labelProviderCoreTag}>
-            <nimble-banner>
+            <${bannerTag}>
                 <span slot="title">Title</span>
                 Message text
-            </nimble-banner>
+            </${bannerTag}>
         </${themeProviderTag}>
     `);
 }
@@ -47,7 +47,7 @@ describe('Banner', () => {
     });
 
     it('can construct an element instance', () => {
-        expect(document.createElement('nimble-banner')).toBeInstanceOf(Banner);
+        expect(document.createElement(bannerTag)).toBeInstanceOf(Banner);
     });
 
     it("should initialize 'open' to false", () => {
@@ -81,7 +81,7 @@ describe('Banner', () => {
 
     it("should remove 'open' when dismiss button is clicked", () => {
         element.open = true;
-        element.shadowRoot?.querySelector('nimble-button')?.click();
+        element.shadowRoot?.querySelector(buttonTag)?.click();
         expect(element.open).toBeFalse();
     });
 
@@ -92,13 +92,13 @@ describe('Banner', () => {
     it("should hide dismiss button when 'preventDismiss' set", async () => {
         element.preventDismiss = true;
         await waitForUpdatesAsync();
-        expect(element.shadowRoot?.querySelector('nimble-button')).toBeNull();
+        expect(element.shadowRoot?.querySelector(buttonTag)).toBeNull();
     });
 
     it("should default label of dismiss button to 'Close'", () => {
         expect(
             element.shadowRoot
-                ?.querySelector('nimble-button')
+                ?.querySelector(buttonTag)
                 ?.innerText.includes('Close')
         ).toBeTrue();
     });

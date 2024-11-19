@@ -1,30 +1,10 @@
 import { css } from '@microsoft/fast-element';
-import { display } from '../utilities/style/display';
+import { styles as tabsStyles } from '../patterns/tabs/styles';
 
 export const styles = css`
-    ${display('grid')}
-
-    :host {
-        grid-template-columns: auto 1fr;
-        grid-template-rows: auto 1fr;
-    }
-
-    [part='start'] {
-        display: none;
-    }
-
-    .tablist {
-        display: grid;
-        grid-template-rows: auto auto;
-        grid-template-columns: auto;
-        width: max-content;
-        align-self: end;
-    }
+    ${tabsStyles}
 
     .tabpanel {
-        grid-row: 2;
-        grid-column-start: 1;
-        grid-column-end: 4;
         overflow: auto;
     }
 `;

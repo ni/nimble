@@ -143,7 +143,7 @@ const metadata: Meta<AnchorPatternsArgs> = {
             void (async () => {
                 // Safari workaround: the nimble-table element instance is made at this point
                 // but doesn't seem to be upgraded to a custom element yet
-                await customElements.whenDefined('nimble-table');
+                await customElements.whenDefined(tableTag);
                 const data = [
                     {
                         label: x.label,
@@ -159,7 +159,7 @@ const metadata: Meta<AnchorPatternsArgs> = {
             void (async () => {
                 // Safari workaround: the nimble-rich-text-viewer element instance is made at this point
                 // but doesn't seem to be upgraded to a custom element yet
-                await customElements.whenDefined('nimble-rich-text-viewer');
+                await customElements.whenDefined(richTextViewerTag);
                 const data = `Absolute link: <${x.disabled ? '' : 'https://nimble.ni.dev?type=nimble-rich-text-viewer'}>`;
                 x.richTextViewerRef.markdown = data;
             })();

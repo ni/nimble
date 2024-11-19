@@ -1,6 +1,6 @@
 {
   "name": "@ni/nimble-components",
-  "version": "32.2.10",
+  "version": "32.7.2",
   "description": "Styled web components for the NI Nimble Design System",
   "scripts": {
     "build": "npm run generate-icons && npm run generate-workers && npm run build-components && npm run bundle-components && npm run generate-scss",
@@ -60,10 +60,10 @@
   "homepage": "https://github.com/ni/nimble#readme",
   "dependencies": {
     "@microsoft/fast-colors": "^5.3.1",
-    "@microsoft/fast-element": "^1.12.0",
-    "@microsoft/fast-foundation": "^2.49.6",
+    "@microsoft/fast-element": "^1.14.0",
+    "@microsoft/fast-foundation": "^2.50.0",
     "@microsoft/fast-web-utilities": "^6.0.0",
-    "@ni/nimble-tokens": "^8.3.0",
+    "@ni/nimble-tokens": "^8.5.0",
     "@tanstack/table-core": "^8.19.3",
     "@tanstack/virtual-core": "^3.10.6",
     "@tiptap/core": "^2.2.2",
@@ -85,8 +85,8 @@
     "@types/d3-scale": "^4.0.2",
     "@types/d3-selection": "^3.0.0",
     "@types/d3-zoom": "^3.0.0",
-    "@types/markdown-it": "^13.0.8",
-    "comlink": "4.4.1",
+    "@types/markdown-it": "^14.1.2",
+    "comlink": "4.4.2",
     "d3-array": "^3.2.2",
     "d3-random": "^3.0.1",
     "d3-scale": "^4.0.2",
@@ -98,7 +98,7 @@
     "tslib": "^2.2.0"
   },
   "peerDependencies": {
-    "apache-arrow": "16.1.0"
+    "apache-arrow": "18.0.0"
   },
   "devDependencies": {
     "@ni-private/eslint-config-nimble": "*",

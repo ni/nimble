@@ -1,4 +1,5 @@
 using BlazorWorkspace.Testing.Acceptance;
+using IStartup = BlazorWorkspace.Testing.Acceptance.IStartup;
 
 namespace SprightBlazor.Tests.Acceptance;
 
@@ -8,8 +9,8 @@ namespace SprightBlazor.Tests.Acceptance;
 public class SprightBlazorWebHostServerFixture : WebHostServerFixture
 {
     // In order for components in this assembly to be discoverable, the Startup instance must be created in this assembly.
-    protected override Startup StartupFactory(WebHostBuilderContext context)
+    protected override IStartup StartupFactory(WebHostBuilderContext context)
     {
-        return new Startup();
+        return new Startup<App>();
     }
 }

@@ -1,6 +1,6 @@
 import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate } from '@microsoft/fast-element';
-import { Table, tableTag } from '../../../../../nimble-components/src/table';
+import { tableTag } from '../../../../../nimble-components/src/table';
 import { iconCheckTag } from '../../../../../nimble-components/src/icons/check';
 import { iconXmarkTag } from '../../../../../nimble-components/src/icons/xmark';
 import { iconQuestionTag } from '../../../../../nimble-components/src/icons/question';
@@ -106,10 +106,8 @@ export const tableColumnMappingThemeMatrix: StoryFn = createMatrixThemeStory(com
 
 tableColumnMappingThemeMatrix.play = async (): Promise<void> => {
     await Promise.all(
-        Array.from(document.querySelectorAll<Table>('nimble-table')).map(
-            async table => {
-                await table.setData(data);
-            }
-        )
+        Array.from(document.querySelectorAll(tableTag)).map(async table => {
+            await table.setData(data);
+        })
     );
 };

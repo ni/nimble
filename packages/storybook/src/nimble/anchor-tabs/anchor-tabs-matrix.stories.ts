@@ -17,6 +17,9 @@ import { textCustomizationWrapper } from '../../utilities/text-customization';
 const tabsToolbarStates = [false, true] as const;
 type TabsToolbarState = (typeof tabsToolbarStates)[number];
 
+const widthStates = ['', '250px'] as const;
+type WidthState = (typeof widthStates)[number];
+
 const metadata: Meta = {
     title: 'Tests/Anchor Tabs',
     parameters: {
@@ -29,9 +32,10 @@ export default metadata;
 // prettier-ignore
 const component = (
     toolbar: TabsToolbarState,
-    [disabledName, disabled]: DisabledState
+    [disabledName, disabled]: DisabledState,
+    widthValue: WidthState
 ): ViewTemplate => html`
-    <${anchorTabsTag} activeid="tab1" style="padding: 15px;">
+    <${anchorTabsTag} activeid="tab1" style="padding: 15px;${widthValue ? ` width: ${widthValue};` : ''}">
         ${when(() => toolbar, html`
             <${tabsToolbarTag}>
                 <${buttonTag} appearance="ghost">Toolbar Button</${buttonTag}>
@@ -43,11 +47,12 @@ const component = (
             Tab Two ${() => disabledName}
         </${anchorTabTag}>
         <${anchorTabTag} hidden>Tab Three</${anchorTabTag}>
+        <${anchorTabTag}>Tab Four</${anchorTabTag}>
     </${anchorTabsTag}>
 `;
 
 export const anchorTabsThemeMatrix: StoryFn = createMatrixThemeStory(
-    createMatrix(component, [tabsToolbarStates, disabledStates])
+    createMatrix(component, [tabsToolbarStates, disabledStates, widthStates])
 );
 
 export const hiddenTabs: StoryFn = createStory(

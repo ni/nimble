@@ -38,5 +38,21 @@ export class NimbleRadioGroupDirective {
         this.renderer.setProperty(this.elementRef.nativeElement, 'orientation', value);
     }
 
+    public get errorText(): string | undefined {
+        return this.elementRef.nativeElement.errorText;
+    }
+
+    @Input('error-text') public set errorText(value: string | undefined) {
+        this.renderer.setProperty(this.elementRef.nativeElement, 'errorText', value);
+    }
+
+    public get errorVisible(): boolean {
+        return this.elementRef.nativeElement.errorVisible;
+    }
+
+    @Input('error-visible') public set errorVisible(value: BooleanValueOrAttribute) {
+        this.renderer.setProperty(this.elementRef.nativeElement, 'errorVisible', toBooleanProperty(value));
+    }
+
     public constructor(private readonly renderer: Renderer2, private readonly elementRef: ElementRef<RadioGroup>) {}
 }

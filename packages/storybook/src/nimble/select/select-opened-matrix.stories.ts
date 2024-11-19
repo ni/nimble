@@ -3,7 +3,7 @@ import { html, repeat, ViewTemplate, when } from '@microsoft/fast-element';
 import { DropdownPosition } from '../../../../nimble-components/src/patterns/dropdown/types';
 import { listOptionTag } from '../../../../nimble-components/src/list-option';
 import { listOptionGroupTag } from '../../../../nimble-components/src/list-option-group';
-import { Select, selectTag } from '../../../../nimble-components/src/select';
+import { selectTag } from '../../../../nimble-components/src/select';
 import { FilterMode } from '../../../../nimble-components/src/select/types';
 import { createFixedThemeStory } from '../../utilities/storybook';
 import { sharedMatrixParameters } from '../../utilities/matrix';
@@ -221,7 +221,7 @@ export const selectAboveOpenStandardFilterDarkThemeBlackBackground: StoryFn = cr
 );
 
 const noMatchesFilterPlayFunction = (): void => {
-    const select = document.querySelector<Select>('nimble-select');
+    const select = document.querySelector(selectTag);
     select!.filter = 'abc';
 };
 
