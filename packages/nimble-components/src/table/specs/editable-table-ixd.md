@@ -77,6 +77,18 @@ This is particularly useful for scenarios where inline editing is required, such
 
 -   When a cell has Edit focus, pressing `ENTER` validates the value, and if invalid, transforms the cell into the Cell error state.
 
+### Out of scope
+
+The client application is responsible for defining and implementing workflows for adding, deleting, and moving rows, as well as saving data.
+
+Example row editing UX:
+
+![Table row editing](./spec-images/table-row-editing.png)
+
+Example save workflow:
+
+![Table save workflow](./spec-images/table-save-workflow.png)
+
 #### Touch-Screen Devices
 
 -   The edit workflow should support touch screen devices.
