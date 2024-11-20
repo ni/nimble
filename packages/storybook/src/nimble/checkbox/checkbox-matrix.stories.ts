@@ -30,10 +30,7 @@ const indeterminateStates = [
 ] as const;
 type IndeterminateState = (typeof indeterminateStates)[number];
 
-const wrappingStates = [
-    [''],
-    [loremIpsum]
-] as const;
+const wrappingStates = [[''], [loremIpsum]] as const;
 type WrappingState = (typeof wrappingStates)[number];
 
 const metadata: Meta = {
