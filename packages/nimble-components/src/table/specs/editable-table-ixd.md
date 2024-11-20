@@ -13,14 +13,14 @@ Nimble table support for interactive cell editing.
 
 **When to use:**
 
-Use an editable table when you need to allow users to modify individual cells directly within the table.
-This is particularly useful for scenarios where inline editing is required, such as data entry, spreadsheet-like applications, or any situation where quick and efficient data manipulation is necessary.
+-   When users need to quickly and efficiently update data directly within the table.
+-   When inline editing can improve the user experience by reducing the need for separate forms or dialogs.
+-   When the table is used in scenarios where data accuracy can be ensured through validation and error handling mechanisms.
 
 **When not to use:**
 
 -   When data integrity is critical and the table should not be modified by users.
 -   When the table is used for displaying static or read-only data.
--   When the table contains sensitive information that should not be editable.
 -   When the user interface requires a more complex data entry form.
 
 ## Anatomy
