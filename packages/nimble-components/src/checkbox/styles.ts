@@ -44,7 +44,6 @@ export const styles = css`
         grid-template-rows: ${bodyFontLineHeight} auto;
         align-items: center;
         width: 100%;
-        padding: 0px ${smallPadding};
     }
 
     .control {
@@ -143,6 +142,6 @@ export const styles = css`
     .error-icon {
         grid-column: 3;
         grid-row: 1;
-        margin-left: ${smallPadding};
+        margin: 0px ${smallPadding};
     }
 `;

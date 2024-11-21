@@ -10,7 +10,6 @@ import {
     fillHoverColor,
     fillHoverSelectedColor,
     fillSelectedColor,
-    iconSize,
     mediumPadding,
     smallPadding,
     standardPadding
@@ -101,11 +100,10 @@ export const styles = css`
 
     .selection-checkbox {
         margin-left: ${standardPadding};
-        width: ${iconSize};
     }
 
-    .selection-checkbox::part(container) {
-        padding: 0px;
+    .selection-checkbox::part(label) {
+        padding-left: 0px;
     }
 
     .row-front-spacer {

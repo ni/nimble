@@ -13,8 +13,7 @@ import {
     borderHoverColor,
     controlHeight,
     tableFitRowsHeight,
-    borderWidth,
-    iconSize
+    borderWidth
 } from '../theme-provider/design-tokens';
 import { Theme } from '../theme-provider/types';
 import { hexToRgbaCssColor } from '../utilities/style/colors';
@@ -90,7 +89,6 @@ export const styles = css`
 
     .header-row-action-container {
         display: flex;
-        align-items: center;
     }
 
     .checkbox-container {
@@ -209,11 +207,10 @@ export const styles = css`
 
     .selection-checkbox {
         margin-left: ${standardPadding};
-        width: ${iconSize};
     }
 
-    .selection-checkbox::part(container) {
-        padding: 0px;
+    .selection-checkbox::part(label) {
+        padding-left: 0px;
     }
 
     .group-row {
