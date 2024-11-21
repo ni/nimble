@@ -1,6 +1,6 @@
 {
   "type": "minor",
-  "comment": "Add error state to nimble-checkbox",
+  "comment": "Add error state to nimble-checkbox; Updating styling on nimble-checkbox, including correcting the default height of the checkbox and fixing the layout when the label wraps",
   "packageName": "@ni/nimble-components",
   "email": "20542556+mollykreis@users.noreply.github.com",
   "dependentChangeType": "patch"
