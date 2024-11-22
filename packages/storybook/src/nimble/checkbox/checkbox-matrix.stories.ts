@@ -1,15 +1,22 @@
 import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate } from '@microsoft/fast-element';
+import { standardPadding } from '../../../../nimble-components/src/theme-provider/design-tokens';
 import { checkboxTag } from '../../../../nimble-components/src/checkbox';
 import {
     createMatrix,
     sharedMatrixParameters,
     createMatrixThemeStory
 } from '../../utilities/matrix';
-import { disabledStates, DisabledState } from '../../utilities/states';
+import {
+    disabledStates,
+    DisabledState,
+    errorStates,
+    ErrorState
+} from '../../utilities/states';
 import { createStory } from '../../utilities/storybook';
 import { hiddenWrapper } from '../../utilities/hidden';
 import { textCustomizationWrapper } from '../../utilities/text-customization';
+import { loremIpsum } from '../../utilities/lorem-ipsum';
 
 const checkedStates = [
     ['Checked', true],
@@ -23,6 +30,9 @@ const indeterminateStates = [
 ] as const;
 type IndeterminateState = (typeof indeterminateStates)[number];
 
+const wrappingStates = [[''], [loremIpsum]] as const;
+type WrappingState = (typeof wrappingStates)[number];
+
 const metadata: Meta = {
     title: 'Tests/Checkbox',
     parameters: {
@@ -35,20 +45,27 @@ export default metadata;
 const component = (
     [disabledName, disabled]: DisabledState,
     [checkedName, checked]: CheckedState,
-    [indeterminateName, indeterminate]: IndeterminateState
+    [indeterminateName, indeterminate]: IndeterminateState,
+    [errorName, errorVisible, errorText]: ErrorState,
+    [extraText]: WrappingState
 ): ViewTemplate => html`<${checkboxTag}
     ?checked="${() => checked}"
     ?disabled="${() => disabled}"
+    ?error-visible="${() => errorVisible}"
+    error-text="${() => errorText}"
     :indeterminate="${() => indeterminate}"
+    style="width: 350px; margin: var(${standardPadding.cssCustomProperty});"
 >
-    ${checkedName} ${indeterminateName} ${disabledName}
+    ${checkedName} ${indeterminateName} ${disabledName} ${errorName} ${extraText}
 </${checkboxTag}>`;
 
 export const checkboxThemeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(component, [
         disabledStates,
         checkedStates,
-        indeterminateStates
+        indeterminateStates,
+        errorStates,
+        wrappingStates
     ])
 );
 
