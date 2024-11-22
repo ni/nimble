@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-<!-- This log was last generated on Tue, 19 Nov 2024 03:20:18 GMT and should not be manually modified. -->
+<!-- This log was last generated on Fri, 22 Nov 2024 22:50:22 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 32.8.0
+
+Fri, 22 Nov 2024 22:50:22 GMT
+
+### Minor changes
+
+- Add error state to nimble-checkbox; Updating styling on nimble-checkbox, including correcting the default height of the checkbox and fixing the layout when the label wraps ([ni/nimble@470f76d](https://github.com/ni/nimble/commit/470f76dbdf979ff91a1ce6d36878146def930472))
 
 ## 32.7.2
 
