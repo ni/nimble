@@ -1,7 +1,7 @@
 spright-ai-chat-text-bubble
     Props/Attrs
         actor: AIChatActor - controls corner rounding, expected by conversation. Always 'user', not settable
-        value: string (support newlines)
+        text: string (support newlines)
         timestamp: date string? (not yet, might belong to conversation)
     Slots
         not needed yet, could use for label/a11y

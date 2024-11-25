@@ -1,34 +1,30 @@
 import { css } from '@microsoft/fast-element';
 import {
-    bodyDisabledFontColor,
     bodyFont,
     bodyFontColor,
     borderHoverColor,
-    borderRgbPartialColor
+    borderWidth,
+    fillSelectedColor
 } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
 import { display } from '../utilities/style/display';
 
 export const styles = css`
-    ${display('inline-block')}
+    ${display('block')}
 
     :host {
-        border: 2px solid ${borderHoverColor};
+        min-width: 8px;
+        min-height: 8px;
     }
 
-    :host(:hover) {
-        border-width: 4px;
-    }
-
-    :host([disabled]) {
-        border-color: rgba(${borderRgbPartialColor}, 0.2);
-    }
-
-    slot {
+    div {
         font: ${bodyFont};
         color: ${bodyFontColor};
+        background: ${fillSelectedColor};
+        border: ${borderWidth} solid ${borderHoverColor};
+        border-radius: 8px;
     }
 
-    :host([disabled]) slot {
-        color: ${bodyDisabledFontColor};
+    :host[actor='user'] div {
+        border-radius: 8px 8px 8px 0px
     }
 `;
