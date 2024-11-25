@@ -13,7 +13,7 @@ interface AIChatTextBubbleArgs {
 }
 
 const metadata: Meta<AIChatTextBubbleArgs> = {
-    title: 'Spright/AI Chat Text Bubble',
+    title: 'Spright/AI Chat',
     parameters: {
         actions: {}
     },
