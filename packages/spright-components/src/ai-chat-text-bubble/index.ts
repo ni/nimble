@@ -13,7 +13,7 @@ declare global {
  */
 export class AIChatTextBubble extends FoundationElement {}
 
-const sprightAIChatTextBubble = Rectangle.compose({
+const sprightAIChatTextBubble = AIChatTextBubble.compose({
     baseName: 'ai-chat-text-bubble',
     template,
     styles
