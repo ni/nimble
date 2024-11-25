@@ -1,19 +1,19 @@
 import { Controls, Canvas, Meta, Title } from '@storybook/blocks';
-import * as aiChatStories from './ai-chat.stories';
+import * as chatStories from './chat.stories';
 import ComponentApisLink from '../../docs/component-apis-link.mdx';
-import { aiChatTextBubbleTag } from '../../../../spright-components/src/ai-chat-text-bubble';
+import { chatTextBubbleTag } from '../../../../spright-components/src/chat-text-bubble';
 
-<Meta of={aiChatStories} />
-<Title of={aiChatStories} />
+<Meta of={chatStories} />
+<Title of={chatStories} />
 
-AI chat components are used to conduct and display a conversation with an AI chat bot. 
+Chat components are used to conduct and display a conversation with a chat bot or other users.
 The components can collect user input and display responses; the application is responsible 
 for connecting them to a source of data.
 
 Components include low level chat bubbles and input fields and higher level composite components
 representing an entire conversation or chat window.
 
-<Canvas of={aiChatStories.aiChatTextBubble} />
+<Canvas of={chatStories.chatTextBubble} />
 
 ## API
 
@@ -21,12 +21,12 @@ TODO higher level window example
 
 <ComponentApisLink />
 
-### AI Chat Text Bubble
+### Chat Text Bubble
 
-Use the <Tag name={aiChatTextBubbleTag} /> element to display text in a cute little bubble.
+Use the <Tag name={chatTextBubbleTag} /> element to display text in a cute little bubble.
 
-<Canvas of={aiChatStories.aiChatTextBubble} />
-<Controls of={aiChatStories.aiChatTextBubble} />
+<Canvas of={chatStories.chatTextBubble} />
+<Controls of={chatStories.chatTextBubble} />
 
 {/* ## Usage */}
 

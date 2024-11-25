@@ -2,18 +2,18 @@ import { attr, observable } from '@microsoft/fast-element';
 import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
 import { styles } from './styles';
 import { template } from './template';
-import { AIChatActor } from '../ai-chat/types';
+import { ChatActor } from '../chat/types';
 
 declare global {
     interface HTMLElementTagNameMap {
-        'spright-ai-chat-text-bubble': AIChatTextBubble;
+        'spright-chat-text-bubble': ChatTextBubble;
     }
 }
 
 /**
- * A Spright component for displaying AI chat text in a bubble
+ * A Spright component for displaying chat text in a bubble
  */
-export class AIChatTextBubble extends FoundationElement {
+export class ChatTextBubble extends FoundationElement {
     /**
      * @public
      * The actor responsible for this conversation contribution
@@ -21,7 +21,7 @@ export class AIChatTextBubble extends FoundationElement {
      * HTML Attribute: actor
      */
     @attr
-    public readonly actor: AIChatActor = AIChatActor.user;
+    public readonly actor: ChatActor = ChatActor.user;
 
     /**
      *
@@ -32,11 +32,11 @@ export class AIChatTextBubble extends FoundationElement {
     public text = '';
 }
 
-const sprightAIChatTextBubble = AIChatTextBubble.compose({
-    baseName: 'ai-chat-text-bubble',
+const sprightChatTextBubble = ChatTextBubble.compose({
+    baseName: 'chat-text-bubble',
     template,
     styles
 });
 
-DesignSystem.getOrCreate().withPrefix('spright').register(sprightAIChatTextBubble());
-export const aiChatTextBubbleTag = 'spright-ai-chat-text-bubble';
+DesignSystem.getOrCreate().withPrefix('spright').register(sprightChatTextBubble());
+export const chatTextBubbleTag = 'spright-chat-text-bubble';

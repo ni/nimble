@@ -1,37 +1,39 @@
-spright-ai-chat-text-bubble
+spright-chat-text-bubble
     Props/Attrs
-        actor: AIChatActor - controls corner rounding, expected by conversation. Always 'user', not settable
+        actor: ChatActor - controls corner rounding, expected by conversation. Always 'user', not settable
         text: string (support newlines)
         timestamp: date string? (not yet, might belong to conversation)
     Slots
         not needed yet, could use for label/a11y
 
-spright-ai-chat-rich-text-bubble?
+spright-chat-rich-text-bubble?
     Props/Attrs
         actor - Always 'bot', not settable
         markdown?
 
-spright-ai-chat-content-bubble?
+spright-chat-content-bubble?
     Props/Attrs
         actor - Always 'bot', not settable
     Slots
         content - arbitrary HTML
 
-spright-ai-chat-prompt-buttons - lays out buttons
+spright-chat-prompt-buttons - lays out buttons
     Props/Attrs
         actor: always 'system', not settable
     Slots
         buttons
 
-spright-ai-chat-conversation - lays out text bubbles, rich text bubbles, prompt buttons, spinner
+spright-chat-load-more-button - button at top or bottom of conversation to "virtualize"
+
+spright-chat-conversation - lays out text bubbles, rich text bubbles, prompt buttons, spinner
     Props/Attrs
-        spinner-visible
+        order = newest-top or newest-bottom (or use DOM order?)
     Slots
         child order and 'actor' attribute determine layout
 
-spright-ai-chat-toolbar - top toolbar with buttons
+spright-chat-toolbar - top toolbar with buttons
 
-spright-ai-chat-input-toolbar - bottom toolbar with buttons, text input
+spright-chat-input-toolbar - bottom toolbar with buttons, text input
     Props/Attrs
         add-chat-button-disabled
         add-chat-button-disabled
@@ -48,8 +50,19 @@ spright-ai-chat-input-toolbar - bottom toolbar with buttons, text input
         text-input-change
         text-input-button-click
 
-spright-ai-chat-window - lays out conversation and toolbar. Probably no logic
+spright-chat-window - lays out conversation and toolbar. Probably no logic
     Slots
         default slot for toolbar, conversation, bottom toolbar?
 
-AIChatActor = 'user' | 'bot' | 'system'
+ChatActor = 'user' | 'bot' | 'system'
+
+
+Notes:
+ - remove "AI", "bot", "user"
+ - appearance (or variant) for color and position, remove "actor"
+ - bubble is responsible for layout, conversation just does vertical layout
+ - single chat bubble, slot in content, use rich text viewer for MD if needed
+ - rich text viewer would need more features for links, images
+ - research a11y patterns for chat widgets
+ - mention plugins for links
+ - 

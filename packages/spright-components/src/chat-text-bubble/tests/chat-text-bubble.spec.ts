@@ -1,15 +1,15 @@
 import { html } from '@microsoft/fast-element';
-import { AIChatTextBubble, aiChatTextBubbleTag } from '..';
+import { ChatTextBubble, chatTextBubbleTag } from '..';
 import { fixture, Fixture } from '../../utilities/tests/fixture';
 
-async function setup(): Promise<Fixture<AIChatTextBubble>> {
-    return await fixture<AIChatTextBubble>(
-        html`<${aiChatTextBubbleTag}></${aiChatTextBubbleTag}>`
+async function setup(): Promise<Fixture<ChatTextBubble>> {
+    return await fixture<ChatTextBubble>(
+        html`<${chatTextBubbleTag}></${chatTextBubbleTag}>`
     );
 }
 
-describe('AIChatTextBubble', () => {
-    let element: AIChatTextBubble;
+describe('ChatTextBubble', () => {
+    let element: ChatTextBubble;
     let connect: () => Promise<void>;
     let disconnect: () => Promise<void>;
 
@@ -22,7 +22,7 @@ describe('AIChatTextBubble', () => {
     });
 
     it('can construct an element instance', () => {
-        expect(document.createElement(aiChatTextBubbleTag)).toBeInstanceOf(AIChatTextBubble);
+        expect(document.createElement(chatTextBubbleTag)).toBeInstanceOf(ChatTextBubble);
     });
 
     it('should have a slot element in the shadow DOM', async () => {

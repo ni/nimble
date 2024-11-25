@@ -1,28 +1,28 @@
 import type { Meta, StoryObj } from '@storybook/html';
 import { html } from '@microsoft/fast-element';
-import { aiChatTextBubbleTag } from '../../../../spright-components/src/ai-chat-text-bubble';
+import { chatTextBubbleTag } from '../../../../spright-components/src/chat-text-bubble';
 import {
     apiCategory,
     createUserSelectedThemeStory,
 } from '../../utilities/storybook';
 
-interface AIChatTextBubbleArgs {
+interface ChatTextBubbleArgs {
     text: string;
 }
 
-const metadata: Meta<AIChatTextBubbleArgs> = {
-    title: 'Spright/AI Chat',
+const metadata: Meta<ChatTextBubbleArgs> = {
+    title: 'Spright/Chat',
     parameters: {
         actions: {}
     },
     render: createUserSelectedThemeStory(html`
-        <${aiChatTextBubbleTag}
+        <${chatTextBubbleTag}
             text="${x => x.text}"
-        ></${aiChatTextBubbleTag}>
+        ></${chatTextBubbleTag}>
     `),
     argTypes: {
         text: {
-            description: 'The text to display in the AI chat text bubble.',
+            description: 'The text to display in the chat text bubble.',
             table: { category: apiCategory.slots }
         },
     },
@@ -33,4 +33,4 @@ const metadata: Meta<AIChatTextBubbleArgs> = {
 
 export default metadata;
 
-export const aiChatTextBubble: StoryObj<AIChatTextBubbleArgs> = {};
+export const chatTextBubble: StoryObj<ChatTextBubbleArgs> = {};

@@ -1,9 +1,9 @@
 import { html } from '@microsoft/fast-element';
-import type { AIChatTextBubble } from '.';
+import type { ChatTextBubble } from '.';
 
 /* eslint-disable @typescript-eslint/indent */
 // prettier-ignore
-export const template = html<AIChatTextBubble>`
+export const template = html<ChatTextBubble>`
     <template>
         <div>
             ${x => x.text}
