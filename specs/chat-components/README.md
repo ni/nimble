@@ -10,6 +10,7 @@ spright-chat-message - draws outline/bg, sizes its content
 
 ChatMessageSource = 
 'me' | 'them' | 'system'   
+'sent' | 'received' | 'status'
 'outgoing' | 'incoming' | 'status'
 'right' | 'left' | 'center'
 'this-user' | 'other-user' | 'system'
@@ -58,3 +59,9 @@ Notes:
  - research a11y patterns for chat widgets
  - mention plugins for links
  - 
+
+
+ Other examples
+ https://daisyui.com/components/chat/
+ https://www.telerik.com/design-system/docs/components/chat/
+ https://carbondesignsystem.com/community/patterns/chatbot/usage/

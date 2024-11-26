@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/html';
 import { html } from '@microsoft/fast-element';
 import { chatMessageTag } from '../../../../spright-components/src/chat-message';
+import { ChatMessageStatus } from '../../../../spright-components/src/chat/types';
 import { richTextViewerTag } from '../../../../nimble-components/src/rich-text/viewer';
 import {
     apiCategory,
@@ -11,9 +12,13 @@ const metadata: Meta<ChatMessageTextArgs> = {
     title: 'Spright/Chat'
 };
 
+interface ChatMessageArgs {
+    status: ChatMessageStatus;
+}
+
 export default metadata;
 
-interface ChatMessageTextArgs {
+interface ChatMessageTextArgs extends ChatMessageArgs {
     text: string;
 }
 
@@ -22,7 +27,7 @@ export const chatMessageText: StoryObj<ChatMessageTextArgs> = {
         actions: {}
     },
     render: createUserSelectedThemeStory(html`
-        <${chatMessageTag}>
+        <${chatMessageTag} status=${x => x.status}>
             ${x => x.text}
         </${chatMessageTag}>
     `),
@@ -31,13 +36,20 @@ export const chatMessageText: StoryObj<ChatMessageTextArgs> = {
             description: 'The text to display in the chat message.',
             table: { category: apiCategory.slots }
         },
+        status: {
+            options: Object.keys(ChatMessageStatus),
+            control: { type: 'radio' },
+            description: 'The status of the chat message.',
+            table: { category: apiCategory.attributes }
+        }
     },
     args: {
         text: 'How do I choose which version of Python to execute my script?',
+        status: ChatMessageStatus.incoming
     }
 };
 
-interface ChatMessageRichTextArgs {
+interface ChatMessageRichTextArgs extends ChatMessageArgs {
     markdown: string;
 }
 export const chatMessageRichText: StoryObj<ChatMessageRichTextArgs> = {
@@ -45,7 +57,7 @@ export const chatMessageRichText: StoryObj<ChatMessageRichTextArgs> = {
         actions: {}
     },
     render: createUserSelectedThemeStory(html`
-        <${chatMessageTag}>
+        <${chatMessageTag} status=${x => x.status}>
             <${richTextViewerTag} :markdown="${x => x.markdown}"></${richTextViewerTag}>
         </${chatMessageTag}>
     `),
@@ -54,6 +66,12 @@ export const chatMessageRichText: StoryObj<ChatMessageRichTextArgs> = {
             description: 'Markdown text for the rich text viewer',
             table: { category: apiCategory.slots }
         },
+        status: {
+            options: Object.keys(ChatMessageStatus),
+            control: { type: 'radio' },
+            description: 'The status of the chat message.',
+            table: { category: apiCategory.attributes }
+        }
     },
     args: {
         markdown:
@@ -66,5 +84,6 @@ export const chatMessageRichText: StoryObj<ChatMessageRichTextArgs> = {
     3. Choose the desired version from the **Version** dropdown.
     
     You can also specify a Python version for a specific module call in the **Advanced Settings** of the Python adapter.`,
+        status: ChatMessageStatus.incoming
     }
 };

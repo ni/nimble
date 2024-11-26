@@ -2,7 +2,7 @@ import { attr, observable } from '@microsoft/fast-element';
 import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
 import { styles } from './styles';
 import { template } from './template';
-import { ChatActor } from '../chat/types';
+import { ChatMessageStatus } from '../chat/types';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -16,12 +16,12 @@ declare global {
 export class ChatMessage extends FoundationElement {
     /**
      * @public
-     * The actor responsible for this conversation contribution
+     * The status of this message in the chat conversation
      * @remarks
-     * HTML Attribute: actor
+     * HTML Attribute: status
      */
     @attr
-    public readonly actor: ChatActor = ChatActor.user;
+    public readonly status: ChatMessageStatus = ChatMessageStatus.outgoing;
 }
 
 const sprightChatMessage = ChatMessage.compose({

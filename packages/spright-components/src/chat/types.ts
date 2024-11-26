@@ -1,12 +1,12 @@
 /**
- * An actor in a chat conversation.
+ * A message status in a chat conversation.
  * @public
  */
-export const ChatActor = {
-    bot: 'bot',
+export const ChatMessageStatus = {
+    outgoing: 'outgoing',
+    incoming: 'incoming',
     system: 'system',
-    user: 'user',
 } as const;
 
-export type ChatActor =
-    (typeof ChatActor)[keyof typeof ChatActor];
+export type ChatMessageStatus =
+    (typeof ChatMessageStatus)[keyof typeof ChatMessageStatus];
