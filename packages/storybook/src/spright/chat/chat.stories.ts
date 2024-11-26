@@ -1,24 +1,24 @@
 import type { Meta, StoryObj } from '@storybook/html';
 import { html } from '@microsoft/fast-element';
-import { chatTextBubbleTag } from '../../../../spright-components/src/chat-text-bubble';
+import { chatMessageTag } from '../../../../spright-components/src/chat-message';
 import {
     apiCategory,
     createUserSelectedThemeStory,
 } from '../../utilities/storybook';
 
-interface ChatTextBubbleArgs {
+interface ChatMessageArgs {
     text: string;
 }
 
-const metadata: Meta<ChatTextBubbleArgs> = {
+const metadata: Meta<ChatMessageArgs> = {
     title: 'Spright/Chat',
     parameters: {
         actions: {}
     },
     render: createUserSelectedThemeStory(html`
-        <${chatTextBubbleTag}
+        <${chatMessageTag}
             text="${x => x.text}"
-        ></${chatTextBubbleTag}>
+        ></${chatMessageTag}>
     `),
     argTypes: {
         text: {
@@ -33,4 +33,4 @@ const metadata: Meta<ChatTextBubbleArgs> = {
 
 export default metadata;
 
-export const chatTextBubble: StoryObj<ChatTextBubbleArgs> = {};
+export const chatMessage: StoryObj<ChatMessageArgs> = {};

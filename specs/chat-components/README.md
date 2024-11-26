@@ -1,35 +1,28 @@
-spright-chat-text-bubble
+spright-chat-message - draws outline/bg, sizes its content
     Props/Attrs
-        actor: ChatActor - controls corner rounding, expected by conversation. Always 'user', not settable
-        text: string (support newlines)
+        source: ChatMessageSource - controls corner rounding.
         timestamp: date string? (not yet, might belong to conversation)
     Slots
-        not needed yet, could use for label/a11y
+        any content:
+            plain text, including new lines
+            rich text viewer populated via markdown
+            styled HTML
 
-spright-chat-rich-text-bubble?
-    Props/Attrs
-        actor - Always 'bot', not settable
-        markdown?
+ChatMessageSource = 
+'me' | 'them' | 'system'   
+'outgoing' | 'incoming' | 'status'
+'right' | 'left' | 'center'
+'this-user' | 'other-user' | 'system'
 
-spright-chat-content-bubble?
-    Props/Attrs
-        actor - Always 'bot', not settable
-    Slots
-        content - arbitrary HTML
-
-spright-chat-prompt-buttons - lays out buttons
-    Props/Attrs
-        actor: always 'system', not settable
-    Slots
-        buttons
+appearance='ghost' | 'block' and location = 'start' | 'end' | 'middle'
 
 spright-chat-load-more-button - button at top or bottom of conversation to "virtualize"
 
-spright-chat-conversation - lays out text bubbles, rich text bubbles, prompt buttons, spinner
+spright-chat-conversation - lays out text bubbles, rich text bubbles, prompt buttons, spinner vertically with 100% width
     Props/Attrs
         order = newest-top or newest-bottom (or use DOM order?)
     Slots
-        child order and 'actor' attribute determine layout
+        child order determine layout
 
 spright-chat-toolbar - top toolbar with buttons
 
@@ -54,7 +47,6 @@ spright-chat-window - lays out conversation and toolbar. Probably no logic
     Slots
         default slot for toolbar, conversation, bottom toolbar?
 
-ChatActor = 'user' | 'bot' | 'system'
 
 
 Notes:

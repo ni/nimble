@@ -1,6 +1,6 @@
 import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate } from '@microsoft/fast-element';
-import { chatTextBubbleTag } from '../../../../spright-components/src/chat-text-bubble';
+import { chatMessageTag } from '../../../../spright-components/src/chat-message';
 import {
     createMatrix,
     sharedMatrixParameters,
@@ -17,7 +17,7 @@ import {
 } from '../../utilities/states';
 
 const metadata: Meta = {
-    title: 'Tests Spright/Chat Text Bubble',
+    title: 'Tests Spright/Chat Message',
     parameters: {
         ...sharedMatrixParameters()
     }
@@ -29,13 +29,13 @@ const component = ([
     disabledName,
     disabled
 ]: DisabledState): ViewTemplate => html`
-    <${chatTextBubbleTag}
+    <${chatMessageTag}
         ?disabled=${() => disabled}
         style="margin-right: 8px;">
-            ${() => `${disabledName} Chat Text Bubble`}</${chatTextBubbleTag}>
+            ${() => `${disabledName} Chat Message`}</${chatMessageTag}>
 `;
 
-export const chatTextBubbleThemeMatrix: StoryFn = createMatrixThemeStory(
+export const chatMessageThemeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(component, [disabledStates])
 );
 
@@ -43,7 +43,7 @@ const interactionStatesHover = cartesianProduct([disabledStates] as const);
 
 const interactionStates = cartesianProduct([[disabledStateIsEnabled]] as const);
 
-export const chatTextBubbleInteractionsThemeMatrix: StoryFn = createMatrixThemeStory(
+export const chatMessageInteractionsThemeMatrix: StoryFn = createMatrixThemeStory(
     createMatrixInteractionsFromStates(component, {
         hover: interactionStatesHover,
         hoverActive: interactionStates,
@@ -52,8 +52,8 @@ export const chatTextBubbleInteractionsThemeMatrix: StoryFn = createMatrixThemeS
     })
 );
 
-export const hiddenChatTextBubble: StoryFn = createStory(
+export const hiddenChatMessage: StoryFn = createStory(
     hiddenWrapper(
-        html`<${chatTextBubbleTag} hidden>Hidden Chat Text Bubble</${chatTextBubbleTag}>`
+        html`<${chatMessageTag} hidden>Hidden Chat Message</${chatMessageTag}>`
     )
 );

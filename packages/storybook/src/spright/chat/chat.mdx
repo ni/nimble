@@ -1,7 +1,7 @@
 import { Controls, Canvas, Meta, Title } from '@storybook/blocks';
 import * as chatStories from './chat.stories';
 import ComponentApisLink from '../../docs/component-apis-link.mdx';
-import { chatTextBubbleTag } from '../../../../spright-components/src/chat-text-bubble';
+import { chatMessageTag } from '../../../../spright-components/src/chat-message';
 
 <Meta of={chatStories} />
 <Title of={chatStories} />
@@ -10,10 +10,10 @@ Chat components are used to conduct and display a conversation with a chat bot o
 The components can collect user input and display responses; the application is responsible 
 for connecting them to a source of data.
 
-Components include low level chat bubbles and input fields and higher level composite components
+Components include low level chat messages and input fields and higher level composite components
 representing an entire conversation or chat window.
 
-<Canvas of={chatStories.chatTextBubble} />
+<Canvas of={chatStories.chatMessage} />
 
 ## API
 
@@ -21,12 +21,12 @@ TODO higher level window example
 
 <ComponentApisLink />
 
-### Chat Text Bubble
+### Chat Message
 
-Use the <Tag name={chatTextBubbleTag} /> element to display text in a cute little bubble.
+Use the <Tag name={chatMessageTag} /> element to display content in a message.
 
-<Canvas of={chatStories.chatTextBubble} />
-<Controls of={chatStories.chatTextBubble} />
+<Canvas of={chatStories.chatMessage} />
+<Controls of={chatStories.chatMessage} />
 
 {/* ## Usage */}
 

@@ -6,14 +6,14 @@ import { ChatActor } from '../chat/types';
 
 declare global {
     interface HTMLElementTagNameMap {
-        'spright-chat-text-bubble': ChatTextBubble;
+        'spright-chat-message': ChatMessage;
     }
 }
 
 /**
- * A Spright component for displaying chat text in a bubble
+ * A Spright component for displaying a chat message
  */
-export class ChatTextBubble extends FoundationElement {
+export class ChatMessage extends FoundationElement {
     /**
      * @public
      * The actor responsible for this conversation contribution
@@ -32,11 +32,11 @@ export class ChatTextBubble extends FoundationElement {
     public text = '';
 }
 
-const sprightChatTextBubble = ChatTextBubble.compose({
-    baseName: 'chat-text-bubble',
+const sprightChatMessage = ChatMessage.compose({
+    baseName: 'chat-message',
     template,
     styles
 });
 
-DesignSystem.getOrCreate().withPrefix('spright').register(sprightChatTextBubble());
-export const chatTextBubbleTag = 'spright-chat-text-bubble';
+DesignSystem.getOrCreate().withPrefix('spright').register(sprightChatMessage());
+export const chatMessageTag = 'spright-chat-message';
