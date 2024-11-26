@@ -16,9 +16,9 @@ const metadata: Meta<ChatMessageArgs> = {
         actions: {}
     },
     render: createUserSelectedThemeStory(html`
-        <${chatMessageTag}
-            text="${x => x.text}"
-        ></${chatMessageTag}>
+        <${chatMessageTag}>
+            ${x => x.text}
+        </${chatMessageTag}>
     `),
     argTypes: {
         text: {

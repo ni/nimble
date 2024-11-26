@@ -22,14 +22,6 @@ export class ChatMessage extends FoundationElement {
      */
     @attr
     public readonly actor: ChatActor = ChatActor.user;
-
-    /**
-     *
-     * @public
-     * Text to render within the bubble.
-     */
-    @observable
-    public text = '';
 }
 
 const sprightChatMessage = ChatMessage.compose({

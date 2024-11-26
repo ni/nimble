@@ -4,10 +4,8 @@ import type { ChatMessage } from '.';
 /* eslint-disable @typescript-eslint/indent */
 // prettier-ignore
 export const template = html<ChatMessage>`
-    <template>
-        <div>
-            ${x => x.text}
-        </div>
-    </template>
+    <div>
+        <slot></slot>
+    </div>
 `;
 /* eslint-enable @typescript-eslint/indent */

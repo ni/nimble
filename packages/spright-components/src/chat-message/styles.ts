@@ -4,7 +4,8 @@ import {
     bodyFontColor,
     borderHoverColor,
     borderWidth,
-    fillSelectedColor
+    fillSelectedColor,
+    mediumPadding,
 } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
 import { display } from '../utilities/style/display';
 
@@ -12,11 +13,15 @@ export const styles = css`
     ${display('block')}
 
     :host {
-        min-width: 8px;
-        min-height: 8px;
+        min-width: 16px;
+        min-height: 16px;
     }
 
     div {
+        max-width: calc(100%-20px);
+        width: fit-content;
+        height: fit-content;
+        padding: ${mediumPadding};
         font: ${bodyFont};
         color: ${bodyFontColor};
         background: ${fillSelectedColor};
