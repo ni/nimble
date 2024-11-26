@@ -13,7 +13,7 @@ for connecting them to a source of data.
 Components include low level chat messages and input fields and higher level composite components
 representing an entire conversation or chat window.
 
-<Canvas of={chatStories.chatMessage} />
+<Canvas of={chatStories.chatMessageText} />
 
 ## API
 
@@ -25,8 +25,11 @@ TODO higher level window example
 
 Use the <Tag name={chatMessageTag} /> element to display content in a message.
 
-<Canvas of={chatStories.chatMessage} />
-<Controls of={chatStories.chatMessage} />
+<Canvas of={chatStories.chatMessageText} />
+<Controls of={chatStories.chatMessageText} />
+
+<Canvas of={chatStories.chatMessageRichText} />
+<Controls of={chatStories.chatMessageRichText} />
 
 {/* ## Usage */}
 
