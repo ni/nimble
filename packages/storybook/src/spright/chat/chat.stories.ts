@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/html';
 import { html } from '@microsoft/fast-element';
-import { chatMessageTag } from '../../../../spright-components/src/chat-message';
+import { chatMessageTag } from '../../../../spright-components/src/chat/message';
 import { ChatMessageStatus } from '../../../../spright-components/src/chat/types';
 import { richTextViewerTag } from '../../../../nimble-components/src/rich-text/viewer';
 import {
