@@ -35,12 +35,11 @@ export const styles = css`
         padding: ${mediumPadding};
         font: ${bodyFont};
         color: ${bodyFontColor};
-        background: ${fillSelectedColor};
-        border: ${borderWidth} solid ${borderHoverColor};
-        border-radius: 8px;
     }
 
     :host([status='outgoing']) div {
+        background: ${fillSelectedColor};
+        border: ${borderWidth} solid ${borderHoverColor};
         border-radius: 8px 8px 0px 8px;
     }
 
