@@ -4,6 +4,7 @@ import { buttonTag } from '../../../../nimble-components/src/button';
 import { chatConversationTag } from '../../../../spright-components/src/chat/conversation';
 import { chatMessageTag } from '../../../../spright-components/src/chat/message';
 import { ChatMessageStatus } from '../../../../spright-components/src/chat/types';
+import { chatWindowTag } from '../../../../spright-components/src/chat/window';
 import { richTextViewerTag } from '../../../../nimble-components/src/rich-text/viewer';
 import { spinnerTag } from '../../../../nimble-components/src/spinner';
 import {
@@ -27,6 +28,53 @@ const markdownExample = `To configure your Python version:
 3. Choose the desired version from the **Version** dropdown.
 
 You can also specify a Python version for a specific module call in the **Advanced Settings** of the Python adapter.`;
+
+export const chatWindow: StoryObj<ChatConversation> = {
+    parameters: {
+        actions: {}
+    },
+    render: createUserSelectedThemeStory(html`
+        <${chatWindowTag}>
+            <${chatConversationTag}>
+                <${chatMessageTag} status='outgoing'>
+                    Hi, can you please help me?
+                </${chatMessageTag}>
+                <${chatMessageTag} status='incoming'>
+                    Yeah sure, what do you need help with?
+                </${chatMessageTag}>
+                <${chatMessageTag} status='outgoing'>
+                    Can you show me an example of some rendered markdown content? It should include a list and some bold text. Maybe some italics too.
+                </${chatMessageTag}>
+                <${chatMessageTag} status='incoming'>
+                    <${richTextViewerTag} :markdown="${_x => markdownExample}"></${richTextViewerTag}>
+                </${chatMessageTag}>
+                <${chatMessageTag} status='system'>
+                    <${spinnerTag} appearance='accent'></${spinnerTag}>
+                </${chatMessageTag}>
+                <${chatMessageTag} status='system'>
+                    <${buttonTag} appearance='block'>Help with my taxes</${buttonTag}>
+                    <${buttonTag} appearance='block'>Provide me some life advice</${buttonTag}>
+                </${chatMessageTag}>
+            </${chatConversationTag}>
+        </${chatWindowTag}>
+    `),
+    argTypes: {
+        text: {
+            description: 'The text to display in the chat message.',
+            table: { category: apiCategory.slots }
+        },
+        status: {
+            options: Object.keys(ChatMessageStatus),
+            control: { type: 'radio' },
+            description: 'The status of the chat message.',
+            table: { category: apiCategory.attributes }
+        }
+    },
+    args: {
+        text: 'How do I choose which version of Python to execute my script?',
+        status: ChatMessageStatus.outgoing
+    }
+};
 
 export const chatConversation: StoryObj<ChatConversation> = {
     parameters: {
