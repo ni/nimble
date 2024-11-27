@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from '@storybook/html';
 import { html } from '@microsoft/fast-element';
 import { buttonTag } from '../../../../nimble-components/src/button';
 import { chatConversationTag } from '../../../../spright-components/src/chat/conversation';
+import { chatInputToolbarTag } from '../../../../spright-components/src/chat/input-toolbar';
 import { chatMessageTag } from '../../../../spright-components/src/chat/message';
 import { ChatMessageStatus } from '../../../../spright-components/src/chat/types';
 import { chatWindowTag } from '../../../../spright-components/src/chat/window';
@@ -247,4 +248,15 @@ export const chatMessagePrompts: StoryObj<ChatMessagePrompts> = {
         prompt1: 'Explain how to do my job',
         prompt2: 'Help me with my childhood trauma'
     }
+};
+
+export const chatInputToolbar: StoryObj<ChatConversation> = {
+    parameters: {
+        actions: {}
+    },
+    render: createUserSelectedThemeStory(html`
+        <${chatInputToolbarTag}>
+
+        </${chatInputToolbarTag}>
+    `),
 };
