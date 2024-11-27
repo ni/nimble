@@ -18,6 +18,7 @@ export const styles = css`
 
         flex-direction: row;
         justify-content: center;
+        flex-shrink: 0;
     }
 
     :host([status='outgoing']) {

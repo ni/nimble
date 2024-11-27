@@ -13,5 +13,6 @@ export const styles = css`
         justify-content: flex-start;
         row-gap: ${standardPadding};
         background: ${applicationBackgroundColor};
+        overflow-y: scroll;
     }
 `;
