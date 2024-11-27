@@ -1,9 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/html';
 import { html } from '@microsoft/fast-element';
+import { buttonTag } from '../../../../nimble-components/src/button';
 import { chatConversationTag } from '../../../../spright-components/src/chat/conversation';
 import { chatMessageTag } from '../../../../spright-components/src/chat/message';
 import { ChatMessageStatus } from '../../../../spright-components/src/chat/types';
 import { richTextViewerTag } from '../../../../nimble-components/src/rich-text/viewer';
+import { spinnerTag } from '../../../../nimble-components/src/spinner';
 import {
     apiCategory,
     createUserSelectedThemeStory,
@@ -44,6 +46,13 @@ export const chatConversation: StoryObj<ChatConversation> = {
             <${chatMessageTag} status='incoming'>
                 <${richTextViewerTag} :markdown="${_x => markdownExample}"></${richTextViewerTag}>
             </${chatMessageTag}>
+            <${chatMessageTag} status='system'>
+                <${spinnerTag} appearance='accent'></${spinnerTag}>
+            </${chatMessageTag}>
+            <${chatMessageTag} status='system'>
+                <${buttonTag} appearance='block'>Help with my taxes</${buttonTag}>
+                <${buttonTag} appearance='block'>Provide me some life advice</${buttonTag}>
+            </${chatMessageTag}>
         </${chatConversationTag}>
 
     `),
@@ -61,7 +70,7 @@ export const chatConversation: StoryObj<ChatConversation> = {
     },
     args: {
         text: 'How do I choose which version of Python to execute my script?',
-        status: ChatMessageStatus.incoming
+        status: ChatMessageStatus.outgoing
     }
 };
 
@@ -98,7 +107,7 @@ export const chatMessageText: StoryObj<ChatMessageTextArgs> = {
     },
     args: {
         text: 'How do I choose which version of Python to execute my script?',
-        status: ChatMessageStatus.incoming
+        status: ChatMessageStatus.outgoing
     }
 };
 
@@ -128,6 +137,66 @@ export const chatMessageRichText: StoryObj<ChatMessageRichTextArgs> = {
     },
     args: {
         markdown: markdownExample,
-        status: ChatMessageStatus.incoming
+        status: ChatMessageStatus.outgoing
+    }
+};
+
+export const chatMessageSpinner: StoryObj<ChatMessageArgs> = {
+    parameters: {
+        actions: {}
+    },
+    render: createUserSelectedThemeStory(html`
+        <${chatMessageTag} status=${x => x.status}>
+            <${spinnerTag} appearance='accent'></${spinnerTag}>
+        </${chatMessageTag}>
+    `),
+    argTypes: {
+        status: {
+            options: Object.keys(ChatMessageStatus),
+            control: { type: 'radio' },
+            description: 'The status of the chat message.',
+            table: { category: apiCategory.attributes }
+        }
+    },
+    args: {
+        status: ChatMessageStatus.system
+    }
+};
+
+interface ChatMessagePrompts extends ChatMessageArgs {
+    prompt1: string;
+    prompt2: string;
+}
+export const chatMessagePrompts: StoryObj<ChatMessagePrompts> = {
+    parameters: {
+        actions: {}
+    },
+    render: createUserSelectedThemeStory(html`
+        <${chatMessageTag} status=${x => x.status}>
+            <${buttonTag} appearance='block'>${x => x.prompt1}</${buttonTag}>
+            <${buttonTag} appearance='block'>${x => x.prompt2}</${buttonTag}>
+        </${chatMessageTag}>
+    `),
+    argTypes: {
+        status: {
+            options: Object.keys(ChatMessageStatus),
+            control: { type: 'radio' },
+            description: 'The status of the chat message.',
+            table: { category: apiCategory.attributes }
+        },
+        prompt1: {
+            description: 'The first prompt text',
+            table: { category: apiCategory.slots }
+        },
+        prompt2: {
+            description: 'The second prompt text',
+            table: { category: apiCategory.slots }
+        }
+
+    },
+    args: {
+        status: ChatMessageStatus.system,
+        prompt1: 'Explain how to do my job',
+        prompt2: 'Help me with my childhood trauma'
     }
 };
