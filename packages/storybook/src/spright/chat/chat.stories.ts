@@ -1,11 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/html';
-import { html } from '@microsoft/fast-element';
+import { html, ref } from '@microsoft/fast-element';
 import { buttonTag } from '../../../../nimble-components/src/button';
 import { chatConversationTag } from '../../../../spright-components/src/chat/conversation';
 import { chatInputToolbarTag } from '../../../../spright-components/src/chat/input-toolbar';
 import { chatMessageTag } from '../../../../spright-components/src/chat/message';
 import { ChatMessageStatus } from '../../../../spright-components/src/chat/types';
-import { chatWindowTag } from '../../../../spright-components/src/chat/window';
 import { richTextViewerTag } from '../../../../nimble-components/src/rich-text/viewer';
 import { spinnerTag } from '../../../../nimble-components/src/spinner';
 import {
@@ -17,7 +16,11 @@ const metadata: Meta<ChatMessageTextArgs> = {
     title: 'Spright/Chat'
 };
 
-interface ChatConversation {
+interface ChatWindow {
+    inputToolbarRef: ChatInputToolbar;
+    submitChatMessage: (
+        inputToolbarRef: ChatInputToolbar,
+    ) => void;
 }
 
 const markdownExample = `To configure your Python version:
@@ -30,53 +33,57 @@ const markdownExample = `To configure your Python version:
 
 You can also specify a Python version for a specific module call in the **Advanced Settings** of the Python adapter.`;
 
-export const chatWindow: StoryObj<ChatConversation> = {
+export const chatWindow: StoryObj<ChatWindow> = {
     parameters: {
         actions: {}
     },
     render: createUserSelectedThemeStory(html`
-        <${chatWindowTag}>
-            <${chatConversationTag}>
-                <${chatMessageTag} status='outgoing'>
-                    Hi, can you please help me?
-                </${chatMessageTag}>
-                <${chatMessageTag} status='incoming'>
-                    Yeah sure, what do you need help with?
-                </${chatMessageTag}>
-                <${chatMessageTag} status='outgoing'>
-                    Can you show me an example of some rendered markdown content? It should include a list and some bold text. Maybe some italics too.
-                </${chatMessageTag}>
-                <${chatMessageTag} status='incoming'>
-                    <${richTextViewerTag} :markdown="${_x => markdownExample}"></${richTextViewerTag}>
-                </${chatMessageTag}>
-                <${chatMessageTag} status='system'>
-                    <${spinnerTag} appearance='accent'></${spinnerTag}>
-                </${chatMessageTag}>
-                <${chatMessageTag} status='system'>
-                    <${buttonTag} appearance='block'>Help with my taxes</${buttonTag}>
-                    <${buttonTag} appearance='block'>Provide me some life advice</${buttonTag}>
-                </${chatMessageTag}>
-            </${chatConversationTag}>
-        </${chatWindowTag}>
-    `),
+        <${chatConversationTag}>
+            <${chatMessageTag} status='outgoing'>
+                Hi, can you please help me?
+            </${chatMessageTag}>
+            <${chatMessageTag} status='incoming'>
+                Yeah sure, what do you need help with?
+            </${chatMessageTag}>
+            <${chatMessageTag} status='outgoing'>
+                Can you show me an example of some rendered markdown content? It should include a list and some bold text. Maybe some italics too.
+            </${chatMessageTag}>
+            <${chatMessageTag} status='incoming'>
+                <${richTextViewerTag} :markdown="${_x => markdownExample}"></${richTextViewerTag}>
+            </${chatMessageTag}>
+            <${chatMessageTag} status='system'>
+                <${spinnerTag} appearance='accent'></${spinnerTag}>
+            </${chatMessageTag}>
+            <${chatMessageTag} status='system'>
+                <${buttonTag} appearance='block'>Help with my taxes</${buttonTag}>
+                <${buttonTag} appearance='block'>Provide me some life advice</${buttonTag}>
+            </${chatMessageTag}>
+        </${chatConversationTag}>
+        <${chatInputToolbarTag}
+            ${ref('inputToolbarRef')}
+            @submit="${x => x.submitChatMessage(x.inputToolbarRef)}"
+        >
+        </${chatInputToolbarTag}>`),
     argTypes: {
-        text: {
-            description: 'The text to display in the chat message.',
-            table: { category: apiCategory.slots }
-        },
-        status: {
-            options: Object.keys(ChatMessageStatus),
-            control: { type: 'radio' },
-            description: 'The status of the chat message.',
-            table: { category: apiCategory.attributes }
+        submitChatMessage: {
+            table: {
+                disable: true
+            }
         }
     },
     args: {
-        text: 'How do I choose which version of Python to execute my script?',
-        status: ChatMessageStatus.outgoing
+        submitChatMessage: (inputToolbarRef) => {
+            const chatMessage = document.createElement(chatMessageTag);
+            chatMessage.textContent = 'this is a test';
+
+            const chatConversationElement = document.querySelector(chatConversationTag)!;
+            chatConversationElement.appendChild(chatMessage);
+        }
     }
 };
 
+interface ChatConversation {
+}
 export const chatConversation: StoryObj<ChatConversation> = {
     parameters: {
         actions: {}
@@ -250,13 +257,21 @@ export const chatMessagePrompts: StoryObj<ChatMessagePrompts> = {
     }
 };
 
-export const chatInputToolbar: StoryObj<ChatConversation> = {
+interface ChatInputToolbar {
+}
+
+export const chatInputToolbar: StoryObj<ChatInputToolbar> = {
     parameters: {
         actions: {}
     },
     render: createUserSelectedThemeStory(html`
         <${chatInputToolbarTag}>
-
         </${chatInputToolbarTag}>
     `),
+    argTypes: {
+
+    },
+    args: {
+
+    }
 };
