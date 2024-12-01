@@ -35,7 +35,7 @@
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="8.0.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.11.0" />
     <PackageReference Include="Microsoft.Playwright" Version="[1.44.0]" />
-    <PackageReference Include="NI.CSharp.Analyzers" Version="2.0.27" />
+    <PackageReference Include="NI.CSharp.Analyzers" Version="2.0.28" />
     <PackageReference Include="System.ComponentModel" Version="4.3.0" />
     <PackageReference Include="xunit" Version="2.9.2" />
     <PackageReference Include="xunit.extensibility.execution" Version="2.9.2" />
