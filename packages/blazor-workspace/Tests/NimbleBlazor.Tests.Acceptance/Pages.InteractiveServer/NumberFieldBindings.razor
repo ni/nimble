@@ -1,0 +1,31 @@
+﻿@page "/InteractiveServer/NumberFieldBindings"
+@namespace NimbleBlazor.Tests.Acceptance.Pages
+@using System.Diagnostics.CodeAnalysis;
+@inherits LayoutComponentBase
+@rendermode @(new InteractiveServerRenderMode(prerender: false))
+
+<NimbleNumberField id="number1" Value="_value1" ValueChanged="Value1Changed"></NimbleNumberField>
+<NimbleNumberField id="number2" Value="_value2" ValueChanged="Value2Changed"></NimbleNumberField>
+
+@code {
+    private double _value1;
+    private double _value2;
+
+    private void Value1Changed(double? value)
+    {
+        double newValue = value / 2 ?? 0;
+        if (_value2 != newValue)
+        {
+            _value2 = newValue;
+        }
+    }
+
+    private void Value2Changed(double? value)
+    {
+        double newValue = value * 2 ?? 0;
+        if (_value1 != newValue)
+        {
+            _value1 = newValue;
+        }
+    }
+}

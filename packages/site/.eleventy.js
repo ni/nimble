@@ -8,12 +8,10 @@ module.exports = eleventyConfig => {
         '../../packages/performance/dist': 'storybook/performance'
     });
     eleventyConfig.setTemplateFormats([
-        'md',
-        'html',
     ]);
     return {
         dir: {
-            input: 'src',
+            input: '.',
             output: 'dist'
         }
     };

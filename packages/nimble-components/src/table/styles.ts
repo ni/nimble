@@ -89,6 +89,7 @@ export const styles = css`
 
     .header-row-action-container {
         display: flex;
+        align-items: center;
     }
 
     .checkbox-container {

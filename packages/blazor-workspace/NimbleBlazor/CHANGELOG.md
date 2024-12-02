@@ -1,8 +1,42 @@
 # Change Log - @ni/nimble-blazor
 
-<!-- This log was last generated on Thu, 14 Nov 2024 14:41:16 GMT and should not be manually modified. -->
+<!-- This log was last generated on Fri, 22 Nov 2024 22:50:22 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 19.1.4
+
+Fri, 22 Nov 2024 22:50:22 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v32.8.0
+
+## 19.1.3
+
+Tue, 19 Nov 2024 03:20:18 GMT
+
+### Patches
+
+- Update to apache arrow v18 ([ni/nimble@a43110a](https://github.com/ni/nimble/commit/a43110af132aa881befd04b459b53fae1eb77649))
+- Bump @ni/nimble-components to v32.7.2
+
+## 19.1.2
+
+Mon, 18 Nov 2024 21:17:24 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v32.7.1
+
+## 19.1.1
+
+Thu, 14 Nov 2024 21:42:40 GMT
+
+### Patches
+
+- Update deps to latest ([ni/nimble@8ee3179](https://github.com/ni/nimble/commit/8ee317939cae88c40d8d96df6ed8381d5c286439))
+- Bind to current-value instead of value on NimbleNumberField. ([ni/nimble@614b921](https://github.com/ni/nimble/commit/614b921f42df11325689d25f6c0a98d0cf819eae))
 
 ## 19.1.0
 
