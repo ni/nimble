@@ -2,6 +2,21 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Mon, 02 Dec 2024 19:38:59 GMT",
+      "version": "28.6.0",
+      "tag": "@ni/nimble-angular_v28.6.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "939a9e5dec1258a36a493369c02628e4fff26900",
+            "comment": "Angular support for checkbox errors"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 22 Nov 2024 22:50:22 GMT",
       "version": "28.5.3",
       "tag": "@ni/nimble-angular_v28.5.3",
