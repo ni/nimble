@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Fri, 22 Nov 2024 22:50:22 GMT",
+      "version": "32.8.0",
+      "tag": "@ni/nimble-components_v32.8.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "470f76dbdf979ff91a1ce6d36878146def930472",
+            "comment": "Add error state to nimble-checkbox; Updating styling on nimble-checkbox, including correcting the default height of the checkbox and fixing the layout when the label wraps"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 19 Nov 2024 03:20:18 GMT",
       "version": "32.7.2",
       "tag": "@ni/nimble-components_v32.7.2",
