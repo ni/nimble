@@ -6,6 +6,11 @@ import { display } from '../../utilities/style/display';
 export const styles = css`
     ${display('flex')}
 
+    /* TODO: Inline theme provider styles to work around build issue */
+    ni-nimble-theme-provider {
+        display: contents;
+    }
+
     ${toolbarTag} {
         width: 100%;
     }
