@@ -1,8 +1,24 @@
 # Change Log - @ni/nimble-angular
 
-<!-- This log was last generated on Tue, 19 Nov 2024 03:20:18 GMT and should not be manually modified. -->
+<!-- This log was last generated on Mon, 02 Dec 2024 19:38:59 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 28.6.0
+
+Mon, 02 Dec 2024 19:38:59 GMT
+
+### Minor changes
+
+- Angular support for checkbox errors ([ni/nimble@939a9e5](https://github.com/ni/nimble/commit/939a9e5dec1258a36a493369c02628e4fff26900))
+
+## 28.5.3
+
+Fri, 22 Nov 2024 22:50:22 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v32.8.0
 
 ## 28.5.2
 
