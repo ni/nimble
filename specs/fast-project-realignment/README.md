@@ -99,12 +99,13 @@ HLD Work item: [#2207](https://github.com/ni/nimble/issues/2207)
 
 ### Minimal fork proposal
 
-Work that should be done imminently (over the next 1-3 months).
+#### Implementation work
 
- - Fork the `microsoft/fast` repo to `ni/fast` as a new top-level GitHub repository.
+ - Fork the `microsoft/fast` repo to `ni/fast` as a new top-level open source GitHub repository.
+    - FAST is licensed similarly to Nimble as MIT. That will be preserved in the fork. License should be [updated](https://softwareengineering.stackexchange.com/a/277699) to reflect NI contributions.
 - Make the `archives/fast-element-1` branch the default branch:
     - Keep the name `archives/fast-element-1` on the default branch.
-    - Delete other branches.
+    - Delete branches other than the `archives/*` branches.
 - Update the packages to use the `ni` scope:
     - `@microsoft/fast-colors` to `@ni/fast-colors`.
     - `@microsoft/fast-element` to `@ni/fast-element`.
@@ -124,17 +125,29 @@ Work that should be done imminently (over the next 1-3 months).
    ```
 
 - Update npm dependencies to latest.
+- Enable renovate updates.
+- Add CODEOWNERS configuration (exact owners TBD).
 - Update GitHub workflow:
     - Configure beachball to publish on each merge.
     - Make minimal changes (continue to use `yarn`, `lerna`, `chai`, etc).
+        - If not a significant effort, switching external facing / globally required tools to align with Nimble would be preferable. In particular switching yarn and lerna to standard npm and npm workspaces would be beneficial for Nimble contributors.
 
-- Update top-level README to cover intentions of the repo / fork:
+- Update top-level README / CONTRIBUTING to cover intentions of the repo / fork:
     - A set of minimal changes to FAST to continue to adopt bug fixes and potentially minor features only with the goal of alignment / consistency (for example adding start / end slots or label slots consistently).
     - Not a place for significant new features or component development.
     - Treat the `ni/fast` repo similarly to how `microsoft/fast` was treated:
         - Bug fixes or generic changes could be in `fast`.
         - Signficant new feature development may require forking from fast and adopting nimble patterns.
-- Notify teams directly leveraging `@microsoft/fast-*` to switch to `@ni/fast-*` (scope not evaluated).
+    - External users are welcome to use the NI forks and contribute subject to alignment with the above intentions when documented.
+
+#### Adoption work
+
+- Update Nimble packages to refer to `@ni/fast-*` instead of `@microsoft/fast-*`.
+    - Expect the transition to be non-breaking / public APIs of packages to match.
+- Update README / CONTRIBUTING documenation to refer to Nimble's FAST Forks where relevant.
+- Notify teams directly leveraging `@microsoft/fast-*` to switch to `@ni/fast-*` (See [azdo search for fast](https://dev.azure.com/ni/_search?action=contents&type=code&text=%40microsoft/fast%20%20NOT%20file%3Apackage-lock.json) and [codesearch](https://codesearch.natinst.com/search/text?q=%40microsoft%2Ffast%20-file%3Apackage-lock.json%20-repo%3Agithub-skyline%2Fnimble%2Fmain&fold_case=auto&regex=true&context=true)).
+    - The FAST libraries do register a global (`window.FAST`). It is unknown if the Microsoft and NI FAST packages can co-exist in the same app build but I suspect it is likely to cause issues and should be avoided.
+    - Some libraries seem to have unnecessary direct dependencies on `@microsoft/fast-` libraries. When possible, unnecessary direct depedencies on anything `fast-` should be avoided and cleaned up.
 - Consider repatriating some changes back to FAST where a fork was made for minimal bug fixes (scope not evaluated).
 
 ## Alternative Implementations / Designs
@@ -207,4 +220,4 @@ FAST is a relatively small community that no longer has a large shared resource 
 
 ## Open issues
 
-None.
+- Should we publicize the fork in the FAST community / discord?
