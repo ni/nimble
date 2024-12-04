@@ -21,7 +21,7 @@ import { userSelectNone } from '../utilities/style/user-select';
 import { styles as errorStyles } from '../patterns/error/styles';
 
 export const styles = css`
-    ${display('grid')}
+    ${display('inline-grid')}
     ${errorStyles}
 
     :host {
