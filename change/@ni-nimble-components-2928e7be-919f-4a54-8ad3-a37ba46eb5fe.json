@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Update rich text dependencies",
-  "packageName": "@ni/nimble-components",
-  "email": "rajsite@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
