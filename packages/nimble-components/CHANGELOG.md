@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-<!-- This log was last generated on Fri, 22 Nov 2024 22:50:22 GMT and should not be manually modified. -->
+<!-- This log was last generated on Wed, 04 Dec 2024 19:53:29 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 32.8.1
+
+Wed, 04 Dec 2024 19:53:29 GMT
+
+### Patches
+
+- Update rich text dependencies ([ni/nimble@412acc5](https://github.com/ni/nimble/commit/412acc54f38fd667da60aaf1bfad4b30c5955887))
 
 ## 32.8.0
 

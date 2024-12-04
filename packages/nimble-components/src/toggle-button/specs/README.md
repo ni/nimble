@@ -26,8 +26,8 @@ _Properties/Attributes_
 
 Properties & attributes of the FAST switch and additionally:
 
--   appearance - will support same appearance modes as `nimble-button`
--   contentHidden - to support icon only toggle buttons in a consistent manner as `nimble-button`
+- appearance - will support same appearance modes as `nimble-button`
+- contentHidden - to support icon only toggle buttons in a consistent manner as `nimble-button`
 
 _Methods -- unchanged_
 
@@ -37,13 +37,13 @@ _CSS classes and custom properties that affect the component -- unchanged_
 
 _Slots_
 
--   start - the expected slot for the icon
--   _default_ - the expected slot for text content
+- start - the expected slot for the icon
+- _default_ - the expected slot for text content
 
 Unlike the FAST switch, the `nimble-toggle-button` will not support the following slots because [toggle buttons should not change their message based on whether or not they are checked](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-pressed):
 
--   unchecked-message
--   checked-message
+- unchecked-message
+- checked-message
 
 _Template_
 
@@ -79,9 +79,9 @@ An Angular directive will be created for the toggle button. Additionally Angular
 
 _Accessibility_
 
--   As with the `nimble-button`, the `nimble-toggle-button` will manage the internal ARIA labels to ensure that an icon-only button is accessible
--   The `nimble-toggle-button` can be pressed (and therefore toggled) in the same manners as a button: clicking, 'Enter' key, or 'Space' key
--   In the HTML template, the `role` will be specified as `button` and `aria-pressed` will be set to match the value of the `checked` attribute
+- As with the `nimble-button`, the `nimble-toggle-button` will manage the internal ARIA labels to ensure that an icon-only button is accessible
+- The `nimble-toggle-button` can be pressed (and therefore toggled) in the same manners as a button: clicking, 'Enter' key, or 'Space' key
+- In the HTML template, the `role` will be specified as `button` and `aria-pressed` will be set to match the value of the `checked` attribute
 
 _Testing_
 
@@ -100,4 +100,4 @@ Because the FAST switch's template will not be used directly, tests related to l
 
 ## Open Issues
 
--   None
+- None

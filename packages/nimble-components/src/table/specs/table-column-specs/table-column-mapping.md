@@ -12,26 +12,26 @@ The `nimble-table-column-mapping` is a component that supports rendering specifi
 
 ### Features
 
--   Supported input:
-    -   string
-    -   number
-    -   boolean
--   Supported output:
-    -   Text
-    -   Icon
-    -   Spinner
-    -   Icon with text
-    -   Spinner with text
-    -   (empty)
+- Supported input:
+    - string
+    - number
+    - boolean
+- Supported output:
+    - Text
+    - Icon
+    - Spinner
+    - Icon with text
+    - Spinner with text
+    - (empty)
 
 ### Non-goals
 
--   Non-Nimble icon support
--   Arbitrary icon colors
--   Hyperlink icons
--   Non-icon, non-spinner Nimble components
--   Specifying different text for an icon/spinner's label than the overall text of the mapping
--   Detecting that only icons/spinners can be rendered in the cells and column header and automatically making the column non-resizable and 32px
+- Non-Nimble icon support
+- Arbitrary icon colors
+- Hyperlink icons
+- Non-icon, non-spinner Nimble components
+- Specifying different text for an icon/spinner's label than the overall text of the mapping
+- Detecting that only icons/spinners can be rendered in the cells and column header and automatically making the column non-resizable and 32px
 
 ---
 
@@ -82,15 +82,15 @@ An earlier version of this spec proposed mapping elements with `template` elemen
 
 Pros:
 
--   It would not require updates to the API if we needed to support new types of mapped content (e.g. icon with text), or if the mapped content itself got new configuration options (e.g. a scaling factor for icons).
--   Undefined element types caught at compile time.
+- It would not require updates to the API if we needed to support new types of mapped content (e.g. icon with text), or if the mapped content itself got new configuration options (e.g. a scaling factor for icons).
+- Undefined element types caught at compile time.
 
 Cons:
 
--   Verbose. Requires user to create `template` element and wrap text in `span`s for styling purposes.
--   Requires difficult validation to ensure only supported elements are present in the `template`.
--   Could allow users to provide inline styling.
--   Blazor: cannot put Blazor components inside `template`--must use raw Nimble elements without type safety
+- Verbose. Requires user to create `template` element and wrap text in `span`s for styling purposes.
+- Requires difficult validation to ensure only supported elements are present in the `template`.
+- Could allow users to provide inline styling.
+- Blazor: cannot put Blazor components inside `template`--must use raw Nimble elements without type safety
 
 ### API
 
@@ -98,20 +98,20 @@ Cons:
 
 _Component Name_
 
--   `nimble-table-column-mapping`
+- `nimble-table-column-mapping`
 
 _Props/Attrs_
 
--   `field-name`: string
--   `key-type`: 'string' | 'number' | 'boolean'
--   `width-mode`: enum - `default` (`undefined`) | `iconSize` (`'icon-size'`) - When set to `iconSize`, the column will have a fixed width that makes the column the appropriate width to render only a single icon in the cell. This should only be set when the header contains a single icon (no text) and none of the child mapping elements will result in text being rendered in a cell. When unset or set to `default`, the column will be resizable and be sized based on its `fractional-width` and `min-pixel-width` values.
--   `fractional-width`: number (defaults to 1)
--   `min-pixel-width`: number (defaults to minimum supported by table)
+- `field-name`: string
+- `key-type`: 'string' | 'number' | 'boolean'
+- `width-mode`: enum - `default` (`undefined`) | `iconSize` (`'icon-size'`) - When set to `iconSize`, the column will have a fixed width that makes the column the appropriate width to render only a single icon in the cell. This should only be set when the header contains a single icon (no text) and none of the child mapping elements will result in text being rendered in a cell. When unset or set to `default`, the column will be resizable and be sized based on its `fractional-width` and `min-pixel-width` values.
+- `fractional-width`: number (defaults to 1)
+- `min-pixel-width`: number (defaults to minimum supported by table)
 
 _Content_
 
--   column title (icon and/or text)
--   1 or more `nimble-mapping-icon`, `nimble-mapping-spinner`, `nimble-mapping-text`, or `nimble-mapping-empty` elements
+- column title (icon and/or text)
+- 1 or more `nimble-mapping-icon`, `nimble-mapping-spinner`, `nimble-mapping-text`, or `nimble-mapping-empty` elements
 
 #### Mapping element (icon):
 
@@ -119,21 +119,21 @@ The icon mapping element will support displaying an icon, icon with text, or onl
 
 _Component Name_
 
--   `nimble-mapping-icon`
+- `nimble-mapping-icon`
 
 _Props/Attrs_
 
--   `key`: string | number | boolean | undefined
--   `icon`: string | undefined - name of the Nimble icon element. If `undefined`, no icon will be associated with the given `key`, but space will be reserved in the cell for an icon.
--   `severity`: string - one of the supported enum values. Controls color of the icon.
--   `text`: string - localized value associated with the given `key`.
--   `text-hidden`: boolean - When set, the mapping's text will not be rendered within a cell. When unset, the text will be rendered in a cell. This does not affect the rendering of group rows; group rows will always display the text associated with the mapping.
+- `key`: string | number | boolean | undefined
+- `icon`: string | undefined - name of the Nimble icon element. If `undefined`, no icon will be associated with the given `key`, but space will be reserved in the cell for an icon.
+- `severity`: string - one of the supported enum values. Controls color of the icon.
+- `text`: string - localized value associated with the given `key`.
+- `text-hidden`: boolean - When set, the mapping's text will not be rendered within a cell. When unset, the text will be rendered in a cell. This does not affect the rendering of group rows; group rows will always display the text associated with the mapping.
 
 The text will be used in the following places:
 
--   In the group row for a mapping
--   If `text-hidden` is set, as the accessible name and `title` of the icon within a cell
--   If `text-hidden` is not set, as text rendered next to the icon within a cell
+- In the group row for a mapping
+- If `text-hidden` is set, as the accessible name and `title` of the icon within a cell
+- If `text-hidden` is not set, as text rendered next to the icon within a cell
 
 #### Mapping element (spinner):
 
@@ -141,19 +141,19 @@ The spinner mapping element will support displaying a spinner or spinner with te
 
 _Component Name_
 
--   `nimble-mapping-spinner`
+- `nimble-mapping-spinner`
 
 _Props/Attrs_
 
--   `key`: string | number | boolean | undefined
--   `text`: string - localized value associated with the given `key`.
--   `text-hidden`: boolean - When set, the mapping's text will not be rendered within a cell. When unset, the text will be rendered in a cell. This does not affect the rendering of group rows; group rows will always display the text associated with the mapping.
+- `key`: string | number | boolean | undefined
+- `text`: string - localized value associated with the given `key`.
+- `text-hidden`: boolean - When set, the mapping's text will not be rendered within a cell. When unset, the text will be rendered in a cell. This does not affect the rendering of group rows; group rows will always display the text associated with the mapping.
 
 The text will be used in the following places:
 
--   In the group row for a mapping
--   If `text-hidden` is set, as the accessible name and `title` of the spinner within a cell
--   If `text-hidden` is not set, as text rendered next to the spinner within a cell
+- In the group row for a mapping
+- If `text-hidden` is set, as the accessible name and `title` of the spinner within a cell
+- If `text-hidden` is not set, as text rendered next to the spinner within a cell
 
 #### Mapping element (text):
 
@@ -161,12 +161,12 @@ The text mapping element will support displaying text in a cell. A group row ass
 
 _Component Name_
 
--   `nimble-mapping-text`
+- `nimble-mapping-text`
 
 _Props/Attrs_
 
--   `key`: string | number | boolean | undefined
--   `text`: string - display text
+- `key`: string | number | boolean | undefined
+- `text`: string - display text
 
 #### Mapping element (empty):
 
@@ -174,12 +174,12 @@ The empty mapping element will display an empty cell. A group row associated wit
 
 _Component Name_
 
--   `nimble-mapping-empty`
+- `nimble-mapping-empty`
 
 _Props/Attrs_
 
--   `key`: string | number | boolean | undefined
--   `text`: string - display text
+- `key`: string | number | boolean | undefined
+- `text`: string - display text
 
 #### `nimble-mapping-*`
 
@@ -246,15 +246,15 @@ By default, the `nimble-table-column-mapping` will be a fractional width column 
 
 When the column is a fixed 32px:
 
--   The grouping indicator and sorting indicator will be hidden in the column header.
--   A client is expected to only place an icon as the header content of an icon column.
--   A user cannot resize an icon column.
--   Column sizing configuration on the column, such as `fractional-width`, will be ignored.
+- The grouping indicator and sorting indicator will be hidden in the column header.
+- A client is expected to only place an icon as the header content of an icon column.
+- A user cannot resize an icon column.
+- Column sizing configuration on the column, such as `fractional-width`, will be ignored.
 
 This will be accomplished through the following configuration on the column:
 
--   The icon column will set `columnInternals.resizingDisabled` to `true`.
--   The icon column will set both `columnInternals.pixelWidth` and `columnInternals.minPixelWidth` to `32`, which is equal to the icon size plus left and right paddings of 8px
+- The icon column will set `columnInternals.resizingDisabled` to `true`.
+- The icon column will set both `columnInternals.pixelWidth` and `columnInternals.minPixelWidth` to `32`, which is equal to the icon size plus left and right paddings of 8px
 
 ### Angular integration
 
@@ -285,9 +285,9 @@ N/A
 
 ### Accessibility
 
--   Text, icons, and spinner are not interactive and cannot receive keyboard focus.
--   In group rows, the rendered icon/spinner will have `aria-hidden="true"` set because the text is displayed directly next to the icon. The icon/spinner is purely decorative, and it does not contain any additional information that needs to be available with a screen reader.
--   In table cells, if an icon/spinner is displayed with the text, the icon/spinner will have `aria-hidden="true"` set for the same reason explained for group rows above. However, if the text is not displayed, the icon/spinner will have a role of `img` and use the text as its `title` and `aria-label`.
+- Text, icons, and spinner are not interactive and cannot receive keyboard focus.
+- In group rows, the rendered icon/spinner will have `aria-hidden="true"` set because the text is displayed directly next to the icon. The icon/spinner is purely decorative, and it does not contain any additional information that needs to be available with a screen reader.
+- In table cells, if an icon/spinner is displayed with the text, the icon/spinner will have `aria-hidden="true"` set for the same reason explained for group rows above. However, if the text is not displayed, the icon/spinner will have a role of `img` and use the text as its `title` and `aria-label`.
 
 ### Globalization
 
@@ -307,15 +307,15 @@ None
 
 ### Test Plan
 
--   Unit tests will be written verifying the usual component expectations, plus:
-    -   renders mapping matching the cell value (string, number, and boolean)
-    -   nothing rendered when value matches no mappings
-    -   validation error when non-unique mapping keys exist
-    -   validation error when invalid icon name given
-    -   grouping header for icon column includes text
--   Verify manually that the column content appears in the accessibility tree and can be read by a screen reader.
--   Verify manually that several mapping columns with thousands of elements scrolls performantly.
--   Visual Chromatic tests will be created
+- Unit tests will be written verifying the usual component expectations, plus:
+    - renders mapping matching the cell value (string, number, and boolean)
+    - nothing rendered when value matches no mappings
+    - validation error when non-unique mapping keys exist
+    - validation error when invalid icon name given
+    - grouping header for icon column includes text
+- Verify manually that the column content appears in the accessibility tree and can be read by a screen reader.
+- Verify manually that several mapping columns with thousands of elements scrolls performantly.
+- Visual Chromatic tests will be created
 
 ### Tooling
 

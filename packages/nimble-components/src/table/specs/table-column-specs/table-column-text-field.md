@@ -14,8 +14,8 @@ The `nimble-table-column-text` is a component that defines how to render a cell 
 
 ### Non-goals
 
--   Defining an API that supports editable text. Once we need editable text we will determine if it makes sense to modify this component or introduce a new column type.
--   Provide API to customize styling of the column content. Styles will be defined statically in the implementation via the cell view element.
+- Defining an API that supports editable text. Once we need editable text we will determine if it makes sense to modify this component or introduce a new column type.
+- Provide API to customize styling of the column content. Styles will be defined statically in the implementation via the cell view element.
 
 ### Features
 
@@ -36,17 +36,17 @@ Below is an example of how the `nimble-table-column-text` would be used within a
 
 _Component Name_
 
--   `nimble-table-column-text`
+- `nimble-table-column-text`
 
 _*Props/Attrs*_
 
--   `field-name`: string
+- `field-name`: string
 
 _Type Reference_
 
--   [`TableColumn`](../table-columns-hld.md#tablecolumn)
--   [`TableStringField`](https://github.com/ni/nimble/blob/main/packages/nimble-components/src/table/specs/table-data-api.md#implementation--design) (section showing example types)
--   [`TableCellState`](../table-columns-hld.md#tablecellstate-interface)
+- [`TableColumn`](../table-columns-hld.md#tablecolumn)
+- [`TableStringField`](https://github.com/ni/nimble/blob/main/packages/nimble-components/src/table/specs/table-data-api.md#implementation--design) (section showing example types)
+- [`TableCellState`](../table-columns-hld.md#tablecellstate-interface)
 
 The `TableColumnText` will extend the `TableColumn` in a manner similar to the following:
 
@@ -113,10 +113,10 @@ const template = html<TableCellState<TableColumnTextCellRecord, TableColumnTextC
 
 Note that as we are using a `span` element for the visual we will not support many of the features native to the `nimble-text-field` component as they have little value. This includes:
 
--   No alternate appearance modes (always frameless)
--   No support for disabled state
--   No support for error states
--   No password display support
+- No alternate appearance modes (always frameless)
+- No support for disabled state
+- No support for error states
+- No password display support
 
 ## Sorting behavior
 
@@ -156,11 +156,11 @@ None.
 
 ### Test Plan
 
--   Unit tests will be written to test the component.
-    -   Test for cases where rendered value is HTML content (i.e. `"<button>Should not be a button</button>"`)
-    -   Test for case where rendered value is a non-standard charater (e.g. emoji, Asian character, etc...)
--   Verify manually that the column content appears in the accessibility tree and can be read by a screen reader.
--   Have a Chromatic test in place for this column
+- Unit tests will be written to test the component.
+    - Test for cases where rendered value is HTML content (i.e. `"<button>Should not be a button</button>"`)
+    - Test for case where rendered value is a non-standard charater (e.g. emoji, Asian character, etc...)
+- Verify manually that the column content appears in the accessibility tree and can be read by a screen reader.
+- Have a Chromatic test in place for this column
 
 ### Tooling
 

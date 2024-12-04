@@ -11,14 +11,14 @@ The `nimble-anchor-menu-item` is a link that can be used within a `nimble-menu` 
 
 ### Non-goals
 
--   Support for checked state (checkbox or radio button)
--   Support for nesting, expanding/collapsing
+- Support for checked state (checkbox or radio button)
+- Support for nesting, expanding/collapsing
 
 ### Features
 
--   Supports icon
--   Disabled state
--   Follows menu item navigation pattern
+- Supports icon
+- Disabled state
+- Follows menu item navigation pattern
 
 ### Risks and Challenges
 
@@ -40,22 +40,22 @@ GitHub menu with links:
 
 _The key elements of the component's public API surface:_
 
--   _Component Name_: `nimble-anchor-menu-item`
--   _Props/Attrs_:
-    -   `download` - see [HTML anchor doc](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#attributes)
-    -   `href` - see [HTML anchor doc](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#attributes).
-    -   `hreflang` - see [HTML anchor doc](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#attributes)
-    -   `ping` - see [HTML anchor doc](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#attributes)
-    -   `referrerpolicy` - see [HTML anchor doc](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#attributes)
-    -   `rel` - see [HTML anchor doc](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#attributes)
-    -   `target` - see [HTML anchor doc](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#attributes)
-    -   `type` - see [HTML anchor doc](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#attributes)
-    -   `disabled` - disables the item (this matches the API of `nimble-menu-item`). Setting it causes `aria-disabled` to be set as well.
--   _Methods_
--   _Events_
--   _CSS Classes and CSS Custom Properties that affect the component_
--   _Slots_:
-    -   We will provide a `start` slot, just like is available on the `nimble-menu-item`. That component also has an `end` slot, but we do not document it, so we will not define an `end` slot on the anchor menu item.
+- _Component Name_: `nimble-anchor-menu-item`
+- _Props/Attrs_:
+    - `download` - see [HTML anchor doc](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#attributes)
+    - `href` - see [HTML anchor doc](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#attributes).
+    - `hreflang` - see [HTML anchor doc](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#attributes)
+    - `ping` - see [HTML anchor doc](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#attributes)
+    - `referrerpolicy` - see [HTML anchor doc](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#attributes)
+    - `rel` - see [HTML anchor doc](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#attributes)
+    - `target` - see [HTML anchor doc](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#attributes)
+    - `type` - see [HTML anchor doc](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#attributes)
+    - `disabled` - disables the item (this matches the API of `nimble-menu-item`). Setting it causes `aria-disabled` to be set as well.
+- _Methods_
+- _Events_
+- _CSS Classes and CSS Custom Properties that affect the component_
+- _Slots_:
+    - We will provide a `start` slot, just like is available on the `nimble-menu-item`. That component also has an `end` slot, but we do not document it, so we will not define an `end` slot on the anchor menu item.
 
 ### Anatomy
 
@@ -87,8 +87,8 @@ The component will look just like a standard menu item. See the design doc linke
 
 ## Implementation
 
--   We will use the FAST menu item implementation as a starting point, as it provides keyboard navigation logic.
--   We will try to share the CSS used to style the standard menu item.
+- We will use the FAST menu item implementation as a starting point, as it provides keyboard navigation logic.
+- We will try to share the CSS used to style the standard menu item.
 
 ### States
 
@@ -96,15 +96,15 @@ N/A
 
 ### Accessibility
 
--   _Keyboard Navigation and Focus_
-    -   we will follow the [guidelines](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/menuitem_role#keyboard_interactions) for navigation prescribed for the `menuitem` role
--   _Form Input_
-    -   NA
--   _Use with Assistive Technology_
-    -   a `menuitem`'s accessible name comes from the element's contents by default
-    -   `aria-disabled` will be set whenever the `disabled` property is set
--   _Behavior with browser configurations like "Prefers reduced motion"_
-    -   NA
+- _Keyboard Navigation and Focus_
+    - we will follow the [guidelines](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/menuitem_role#keyboard_interactions) for navigation prescribed for the `menuitem` role
+- _Form Input_
+    - NA
+- _Use with Assistive Technology_
+    - a `menuitem`'s accessible name comes from the element's contents by default
+    - `aria-disabled` will be set whenever the `disabled` property is set
+- _Behavior with browser configurations like "Prefers reduced motion"_
+    - NA
 
 ### Globalization
 

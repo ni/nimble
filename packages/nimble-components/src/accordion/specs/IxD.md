@@ -8,24 +8,24 @@ The accordion component is used to present a large amount of information in a sm
 
 ### Background
 
--   [IxD recommendation for Tree, Accordion, Disclosure, Table row details (#1150)](https://github.com/orgs/ni/projects/7/views/13?pane=issue&itemId=24667320)
--   [ViD Accordion Styles (Figma)](https://www.figma.com/file/PO9mFOu5BCl8aJvFchEeuN/Nimble_Components?type=design&node-id=1295-85131&mode=design)
+- [IxD recommendation for Tree, Accordion, Disclosure, Table row details (#1150)](https://github.com/orgs/ni/projects/7/views/13?pane=issue&itemId=24667320)
+- [ViD Accordion Styles (Figma)](https://www.figma.com/file/PO9mFOu5BCl8aJvFchEeuN/Nimble_Components?type=design&node-id=1295-85131&mode=design)
 
 ## Usage
 
 When to use:
 
--   For a single panel of content
--   To organize large amounts of information into related panels
--   To shorten scrolled views when not all information is equally important
--   In views with reduced horizontal or vertical space
+- For a single panel of content
+- To organize large amounts of information into related panels
+- To shorten scrolled views when not all information is equally important
+- In views with reduced horizontal or vertical space
 
 When not to use:
 
--   For very brief content or content that does not take up a lot of vertical space
--   For a small number of content panels that don't require frequent showing and hiding
--   To organize unrelated information into panels
--   For selectable or navigable lists or trees
+- For very brief content or content that does not take up a lot of vertical space
+- For a small number of content panels that don't require frequent showing and hiding
+- To organize unrelated information into panels
+- For selectable or navigable lists or trees
 
 ### Anatomy
 

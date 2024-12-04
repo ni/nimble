@@ -66,21 +66,21 @@ because we don't know if we will require different tokens from the existing comp
 
 [`fast-card` spec](https://github.com/microsoft/fast/blob/b78c921ec4e49ec9d7ec980f079ec114045df42e/packages/web-components/fast-foundation/src/card/card.spec.md)
 
--   _Component Name_
-    -   `nimble-card`
--   _Properties/Attributes_
-    -   _(none)_
--   _Methods_
-    -   _(none)_
--   _Events_
-    -   _(none)_
--   _CSS Classes and Custom Properties that affect the component_
-    -   _(none)_
--   _Slots_
-    -   `title`
-        -   A title to display in the `nimble-card`
-    -   `(default)`
-        -   Arbitrary content to display in the `nimble-card`.
+- _Component Name_
+    - `nimble-card`
+- _Properties/Attributes_
+    - _(none)_
+- _Methods_
+    - _(none)_
+- _Events_
+    - _(none)_
+- _CSS Classes and Custom Properties that affect the component_
+    - _(none)_
+- _Slots_
+    - `title`
+        - A title to display in the `nimble-card`
+    - `(default)`
+        - Arbitrary content to display in the `nimble-card`.
 
 ### Angular integration
 
@@ -94,28 +94,28 @@ so it will need a `ChildContent` parameter.
 
 ### Additional requirements
 
--   _User interaction: Do the FAST component's behaviors match the visual design spec? When they differ, which approach is preferable and why?_
-    -   No additional requirements. The initial `nimble-card` will have no interactions.
--   _Styling: Does FAST provide APIs to achieve the styling in the visual design spec?_
-    -   No additional requirements expected here.
--   _Testing: Is FAST's coverage sufficient? Should we write any tests beyond Chromatic visual tests?_
-    -   No additional requirements
--   _Documentation: Any requirements besides standard Storybook docs and updating the Example Client App demo?_
-    -   No additional requirements
--   _Tooling: Any new tools, updates to tools, code generation, etc?_
-    -   No additional requirements
--   _Accessibility: keyboard navigation/focus, form input, use with assistive technology, etc._
-    -   We will use a `section` element in the template, which will use `aria-labelledby` to set the label to the text of the `title` slot.
-    -   The `nimble-card` itself does not receive keyboard focus and tabbing jumps to the first focusable component inside the `nimble-card`.
--   _Mobile: small screens, touch interactions, mobile-specific integrations_
-    -   No additional requirements. By default, the `nimble-card` will fit its height to its content and grow/shrink horizontally to
-        fit its parent container. Other mobile-friendly considerations are up to the client and the settings on the child components.
--   _Globalization: special RTL handling, swapping of icons/visuals, localization, etc._
-    -   No additional requirements
--   _Performance: does the FAST component meet Nimble's performance requirements?_
-    -   No additional requirements
--   _Security: Any requirements for security?_
-    -   No additional requirements
+- _User interaction: Do the FAST component's behaviors match the visual design spec? When they differ, which approach is preferable and why?_
+    - No additional requirements. The initial `nimble-card` will have no interactions.
+- _Styling: Does FAST provide APIs to achieve the styling in the visual design spec?_
+    - No additional requirements expected here.
+- _Testing: Is FAST's coverage sufficient? Should we write any tests beyond Chromatic visual tests?_
+    - No additional requirements
+- _Documentation: Any requirements besides standard Storybook docs and updating the Example Client App demo?_
+    - No additional requirements
+- _Tooling: Any new tools, updates to tools, code generation, etc?_
+    - No additional requirements
+- _Accessibility: keyboard navigation/focus, form input, use with assistive technology, etc._
+    - We will use a `section` element in the template, which will use `aria-labelledby` to set the label to the text of the `title` slot.
+    - The `nimble-card` itself does not receive keyboard focus and tabbing jumps to the first focusable component inside the `nimble-card`.
+- _Mobile: small screens, touch interactions, mobile-specific integrations_
+    - No additional requirements. By default, the `nimble-card` will fit its height to its content and grow/shrink horizontally to
+      fit its parent container. Other mobile-friendly considerations are up to the client and the settings on the child components.
+- _Globalization: special RTL handling, swapping of icons/visuals, localization, etc._
+    - No additional requirements
+- _Performance: does the FAST component meet Nimble's performance requirements?_
+    - No additional requirements
+- _Security: Any requirements for security?_
+    - No additional requirements
 
 ---
 

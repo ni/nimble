@@ -14,10 +14,10 @@ The anchored region is a dependency of some other components because the FAST te
 
 FAST components that rely on the anchored region:
 
--   Tooltip
--   Menu items that contain nested menus
--   Picker
--   Possibly the Select in the future ([see discussion on this issue](https://github.com/microsoft/fast/issues/4791))
+- Tooltip
+- Menu items that contain nested menus
+- Picker
+- Possibly the Select in the future ([see discussion on this issue](https://github.com/microsoft/fast/issues/4791))
 
 ## Design
 
@@ -25,12 +25,12 @@ FAST components that rely on the anchored region:
 
 [FAST achored region API](https://github.com/microsoft/fast/blob/5a3761ad4183d51ddb229952d3bd4daed87ff7fc/packages/web-components/fast-foundation/src/anchored-region/anchored-region.spec.md)
 
--   _Component Name:_ `nimble-anchored-region`
--   _Properties/Attributes:_ Unchanged
--   _Methods:_ Unchanged (none)
--   _Events:_ Unchanged
--   _CSS Classes and Custom Properties that affect the component:_ None
--   _Slots:_ Unchanged
+- _Component Name:_ `nimble-anchored-region`
+- _Properties/Attributes:_ Unchanged
+- _Methods:_ Unchanged (none)
+- _Events:_ Unchanged
+- _CSS Classes and Custom Properties that affect the component:_ None
+- _Slots:_ Unchanged
 
 ### Angular integration
 

@@ -6,10 +6,10 @@ We need to provide users the means for changing the widths of individual columns
 
 ## Links To Relevant Work Items and Reference Material
 
--   [#873 Programmatically resize column width](https://github.com/ni/nimble/issues/873)
--   [#846 Interactively resize column width](https://github.com/ni/nimble/issues/846)
--   [Table README](./README.md)
--   [Table Design Doc](https://xd.adobe.com/view/5b476816-dad1-4671-b20a-efe796631c72-0e14/screen/d389dc1e-da4f-4a63-957b-f8b3cc9591b4/specs/)
+- [#873 Programmatically resize column width](https://github.com/ni/nimble/issues/873)
+- [#846 Interactively resize column width](https://github.com/ni/nimble/issues/846)
+- [Table README](./README.md)
+- [Table Design Doc](https://xd.adobe.com/view/5b476816-dad1-4671-b20a-efe796631c72-0e14/screen/d389dc1e-da4f-4a63-957b-f8b3cc9591b4/specs/)
 
 ## Implementation / Design
 
@@ -17,19 +17,19 @@ We need to provide users the means for changing the widths of individual columns
 
 #### Column Sizing
 
--   Columns should be able to be configured to either maintain a fixed width, or grow proportionally with the table such as when the window resizes causing the table width to increase. Tables can consist of columns that are configured as a mixture of the two modes.
--   If a user drags a divider between two columns to the right, then the column on the left will grow larger, and the column on the right will grow smaller by the same pixel amount. Sub-behaviors to this are:
-    -   If a shrinking column has reached its minimum pixel size or is not resizable, then the next column in the direction of the sizing action will be affected up to the final column in a given direction.
-    -   A sizing action to the left will ultimately stop having an effect when the left-most column reaches its minimum size.
-    -   A sizing action to the right that would ultimately result in the final right column reaching its minimum size would begin to push columns out of the table viewport width resulting in a horizontal scrollbar on the table.
-    -   Within a single mouse interaction (i.e. drag-sizing without releasing mouse), if a cascade results in a column not adjacent to the divider being sized, then moving the mouse back in the opposite direction will "revert" the size made to the non-adjacent column.
-        ![Column resizing](spec-images/tableColumnResize.gif)
+- Columns should be able to be configured to either maintain a fixed width, or grow proportionally with the table such as when the window resizes causing the table width to increase. Tables can consist of columns that are configured as a mixture of the two modes.
+- If a user drags a divider between two columns to the right, then the column on the left will grow larger, and the column on the right will grow smaller by the same pixel amount. Sub-behaviors to this are:
+    - If a shrinking column has reached its minimum pixel size or is not resizable, then the next column in the direction of the sizing action will be affected up to the final column in a given direction.
+    - A sizing action to the left will ultimately stop having an effect when the left-most column reaches its minimum size.
+    - A sizing action to the right that would ultimately result in the final right column reaching its minimum size would begin to push columns out of the table viewport width resulting in a horizontal scrollbar on the table.
+    - Within a single mouse interaction (i.e. drag-sizing without releasing mouse), if a cascade results in a column not adjacent to the divider being sized, then moving the mouse back in the opposite direction will "revert" the size made to the non-adjacent column.
+      ![Column resizing](spec-images/tableColumnResize.gif)
 
 #### Table Sizing
 
--   If a horizontal scrollbar is present, the act of growing the table will first take away the available scrollbar area, and once completely removed will begin to grow the columns proportionally.
--   Once horizontal scrollable space has been created via column sizing, shrinking the table, while a horizontal scrollbar is present, will not update the sizes of the columns, as the current scrollable area will be maintained.
-    ![Table resizing](spec-images/tableResize.gif)
+- If a horizontal scrollbar is present, the act of growing the table will first take away the available scrollbar area, and once completely removed will begin to grow the columns proportionally.
+- Once horizontal scrollable space has been created via column sizing, shrinking the table, while a horizontal scrollbar is present, will not update the sizes of the columns, as the current scrollable area will be maintained.
+  ![Table resizing](spec-images/tableResize.gif)
 
 [Working branch](https://github.com/ni/nimble/tree/table-column-sizing-cascade-and-grow).
 
@@ -37,11 +37,11 @@ We need to provide users the means for changing the widths of individual columns
 
 There are some column sizing behaviors that we will ultimately expect to support, but the APIs presented here are not meant to address:
 
--   Auto-resizing: We will not describe how we intend to support the use-case of having a column auto-size to its contents
--   Different interactive sizing modes: While the APIs described in this HLD do not inherently prescribe to a particular interactive sizing behavior, it's worth saying that in order to support multiple sizing modes, there will likely be additional APIs required that this HLD does not address.
-    -   This includes the ability to prevent interactive resizing.
--   Ability to remove any horizontal scrollable space that has been created via column sizing (future work).
--   Mechanisms related to accessibility-centric interactive column sizing. One possible example is allowing a user to size a column by way of the keyboard, instead of using a mouse. Ultimately, such a scenario is not in conflict with the API presented here, nor the mouse-based approach we know we will require, and can thus be handled separately, if ever.
+- Auto-resizing: We will not describe how we intend to support the use-case of having a column auto-size to its contents
+- Different interactive sizing modes: While the APIs described in this HLD do not inherently prescribe to a particular interactive sizing behavior, it's worth saying that in order to support multiple sizing modes, there will likely be additional APIs required that this HLD does not address.
+    - This includes the ability to prevent interactive resizing.
+- Ability to remove any horizontal scrollable space that has been created via column sizing (future work).
+- Mechanisms related to accessibility-centric interactive column sizing. One possible example is allowing a user to size a column by way of the keyboard, instead of using a mouse. Ultimately, such a scenario is not in conflict with the API presented here, nor the mouse-based approach we know we will require, and can thus be handled separately, if ever.
 
 ### API
 
@@ -107,9 +107,9 @@ The properties with the `current` prefix are those that the `Table` will use to 
 
 #### `currentFractionalWidth` vs `currentPixelWidth` behavior
 
--   The values supplied to the `currentFractionalWidth` property have the same meaning as the values supplied with the [`fr` unit](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout/Basic_Concepts_of_Grid_Layout#the_fr_unit) for the CSS `grid-template-columns` property.
--   The values supplied to the `currentPixelWidth` property are meant to be pixel-based values.
--   The table will use `currentPixelWidth` over `currentFractionalWidth` when both are set.
+- The values supplied to the `currentFractionalWidth` property have the same meaning as the values supplied with the [`fr` unit](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout/Basic_Concepts_of_Grid_Layout#the_fr_unit) for the CSS `grid-template-columns` property.
+- The values supplied to the `currentPixelWidth` property are meant to be pixel-based values.
+- The table will use `currentPixelWidth` over `currentFractionalWidth` when both are set.
 
 #### Mixin Example
 

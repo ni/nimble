@@ -4,15 +4,15 @@
 
 Our clients have a need of a filterable dropdown component that does not allow arbitrary text as a value, but only values available in the dropdown. The filtering will have the following behaviors (in the initial feature set):
 
--   The filter text will match _any_ text within the `textContent` of each `ListOption` in a case insensitive way. Specifically, the filter text will match wholly against the target (e.g. filter text of "ad" will match "Add", but not "abcd").
--   Each time the dropdown is opened the filter text is cleared.
--   While the dropdown is opened all keystrokes except `<ArrowUp>`. `<ArrowDown>`, `<Enter>`, `<Home>` and `<End>` will apply to the filter.
--   Pressing `<Esc>` will close the dropdown and revert the value to what it was prior to opening dropdown.
+- The filter text will match _any_ text within the `textContent` of each `ListOption` in a case insensitive way. Specifically, the filter text will match wholly against the target (e.g. filter text of "ad" will match "Add", but not "abcd").
+- Each time the dropdown is opened the filter text is cleared.
+- While the dropdown is opened all keystrokes except `<ArrowUp>`. `<ArrowDown>`, `<Enter>`, `<Home>` and `<End>` will apply to the filter.
+- Pressing `<Esc>` will close the dropdown and revert the value to what it was prior to opening dropdown.
 
 ## Links To Relevant Work Items and Reference Material
 
--   [#1273: Filterable NimbleSelect](https://github.com/ni/nimble/issues/1273)
--   [Filterable Select IxD](./IxD.md#filter)
+- [#1273: Filterable NimbleSelect](https://github.com/ni/nimble/issues/1273)
+- [Filterable Select IxD](./IxD.md#filter)
 
 ## Implementation / Design
 
@@ -45,10 +45,10 @@ export const FilterMode  = {
 } as const;
 ```
 
--   The `standard` filterMode will result in case-insensitive, diacritic-insensitive filtering.
--   The `manual` filterMode will display a search input, but it won't automatically filter the options as the user types. Instead, clients can use the `filter-input` event described in the ['Dynamic Options'](#dynamic-options) section below to implement their own filtering logic.
--   The `none` filter mode results in no search input being shown in the dropdown.
--   `filterMode` will default to `none` so as not to affect existing clients.
+- The `standard` filterMode will result in case-insensitive, diacritic-insensitive filtering.
+- The `manual` filterMode will display a search input, but it won't automatically filter the options as the user types. Instead, clients can use the `filter-input` event described in the ['Dynamic Options'](#dynamic-options) section below to implement their own filtering logic.
+- The `none` filter mode results in no search input being shown in the dropdown.
+- `filterMode` will default to `none` so as not to affect existing clients.
 
 _Note: The `filterMode` isn't meant to mirror the `Combobox` `autocomplete` API, as they do serve slightly different purposes: The `autocomplete` for the `Combobox` ultimately helps set the actual value of the `Combobox` as the user types, and isn't necessarily performing any filtering (e.g. the `inline` mode). One possible concern, however, is that we are presenting an API that will allow different types of filter behaviors (i.e. case sensitive) that the `Combobox` does not support. Additionally, I am proposing diacritic insensitive filtering, which the `Combobox` also does not currently support, but I feel this is quite likely a better default experience._
 
@@ -66,15 +66,15 @@ Then, when handling the `filter-input` event, clients should perform the desired
 
 _IMPORTANT_: When using the `manual` filter mode, clients are responsible for the following:
 
--   Either adding/removing options to/from the DOM that do or do not match the filter and/or marking existing options as `hidden` when they don't match.
--   The currently selected option is included in the set of options placed in the DOM regardless of match against filter (and be marked as `hidden` if it doesn't match the filter)
--   If a placeholder option exists for the select, it should never be filtered out.
+- Either adding/removing options to/from the DOM that do or do not match the filter and/or marking existing options as `hidden` when they don't match.
+- The currently selected option is included in the set of options placed in the DOM regardless of match against filter (and be marked as `hidden` if it doesn't match the filter)
+- If a placeholder option exists for the select, it should never be filtered out.
 
 _Notes_:
 
--   When the `loading-visible` attribute is set, we will display localizable text at the bottom of the dropdown (defaulting to "Loading"), along with the spinner icon.
--   The `Select` will not peform any debouncing as the user types into the filter input. It is expected that clients can perform any debouncing that is needed easily at the app level.
--   The `filter-input` event will be emitted for all filter modes (except `none`)
+- When the `loading-visible` attribute is set, we will display localizable text at the bottom of the dropdown (defaulting to "Loading"), along with the spinner icon.
+- The `Select` will not peform any debouncing as the user types into the filter input. It is expected that clients can perform any debouncing that is needed easily at the app level.
+- The `filter-input` event will be emitted for all filter modes (except `none`)
 
 ##### Groups
 
@@ -99,9 +99,9 @@ export class LabelProviderCore
 
 The English strings used for these labels will be:
 
--   selectFilterSearch: "Search"
--   selectFilterNoResults: "No items found"
--   loading: "Loading"
+- selectFilterSearch: "Search"
+- selectFilterNoResults: "No items found"
+- loading: "Loading"
 
 ### Implementation details
 

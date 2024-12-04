@@ -155,7 +155,7 @@ function createCustomLinkExtension(): Mark {
         // linkOnPaste can be enabled when hyperlink support added
         // See: https://github.com/ni/nimble/issues/1527
         linkOnPaste: false,
-        validate: href => validAbsoluteLinkRegex.test(href)
+        shouldAutoLink: href => validAbsoluteLinkRegex.test(href)
     });
 }
 

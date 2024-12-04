@@ -16,18 +16,18 @@ Spinner component (`nimble-spinner`): Indeterminate progress indicator / loading
 
 Ability to show determinate progress:
 
--   The current visual design for the spinner is distinct/different from an indeterminate radial progress bar
--   We don't currently have visual designs for a linear or radial progress bar with determinate progress
--   If/when we want progress bar components in the future, at that point we'll probably create new Nimble components which extend the corresponding FAST components:
-    -   `nimble-progress` or `nimble-linear-progress`, deriving from `fast-progress`, for a linear progress bar; and
-    -   `nimble-progress-ring` or `nimble-radial-progress`, deriving from `fast-progress-ring`, for a radial progress bar
+- The current visual design for the spinner is distinct/different from an indeterminate radial progress bar
+- We don't currently have visual designs for a linear or radial progress bar with determinate progress
+- If/when we want progress bar components in the future, at that point we'll probably create new Nimble components which extend the corresponding FAST components:
+    - `nimble-progress` or `nimble-linear-progress`, deriving from `fast-progress`, for a linear progress bar; and
+    - `nimble-progress-ring` or `nimble-radial-progress`, deriving from `fast-progress-ring`, for a radial progress bar
 
 ### Features
 
--   Show indeterminate progress with an animation
-    -   Cannot be paused - assumption is that component will be added to/ removed from the page as needed
--   Supports 3 sizes: `small` (16x16), `medium` (32x32) (default), `large` (64x64)
-    -   Component will scale to other sizes if needed (if width/height styles are set on it directly), for advanced use cases
+- Show indeterminate progress with an animation
+    - Cannot be paused - assumption is that component will be added to/ removed from the page as needed
+- Supports 3 sizes: `small` (16x16), `medium` (32x32) (default), `large` (64x64)
+    - Component will scale to other sizes if needed (if width/height styles are set on it directly), for advanced use cases
 
 ### Risks and Challenges
 
@@ -51,11 +51,11 @@ Component Name: `nimble-spinner`
 
 Properties/Attributes:
 
--   `size`
-    -   String attribute controlling size of the component
-    -   Backed by an enum `SpinnerSize` with values `small` (16x16), `medium` (32x32), `large` (64x64)
-    -   If omitted, the default is `medium` (32x32)
-    -   If omitted, custom `width` and `height` styles can be set on the `nimble-spinner` and the animating elements will scale to that size. In this case, consumer should follow up with Design to doublecheck the padding needed.
+- `size`
+    - String attribute controlling size of the component
+    - Backed by an enum `SpinnerSize` with values `small` (16x16), `medium` (32x32), `large` (64x64)
+    - If omitted, the default is `medium` (32x32)
+    - If omitted, custom `width` and `height` styles can be set on the `nimble-spinner` and the animating elements will scale to that size. In this case, consumer should follow up with Design to doublecheck the padding needed.
 
 Methods, Events, CSS Classes, CSS Custom Properties: None
 
@@ -136,10 +136,10 @@ N/A - Standard updates of the component table in the README, and in Storybook.
 
 ## Potential Future Enhancements
 
--   Do we need to support the "Color UI Alt" (PowerGreen) spinner appearance, and do apps/consumers need a way to override the spinner color?
-    -   Original plan for supporting that appearance: adding a `theme-variant` attribute:
-        -   default (undefined): Standard appearance (light/dark/color themes)
-        -   `prominent`: Alternate appearance/color, for the color theme only ('Color UI Alt.' from XD design)
-        -   Backed by enum `SpinnerThemeVariant`
-    -   We could also follow the patterns from our icons (create a token `spinner-color` that can be overridden)
-    -   **Decision**: We will omit the Color UI Alt appearance for our initial implementation. Followup questions that need to be answered are captured in [Issue #916](https://github.com/ni/nimble/issues/916).
+- Do we need to support the "Color UI Alt" (PowerGreen) spinner appearance, and do apps/consumers need a way to override the spinner color?
+    - Original plan for supporting that appearance: adding a `theme-variant` attribute:
+        - default (undefined): Standard appearance (light/dark/color themes)
+        - `prominent`: Alternate appearance/color, for the color theme only ('Color UI Alt.' from XD design)
+        - Backed by enum `SpinnerThemeVariant`
+    - We could also follow the patterns from our icons (create a token `spinner-color` that can be overridden)
+    - **Decision**: We will omit the Color UI Alt appearance for our initial implementation. Followup questions that need to be answered are captured in [Issue #916](https://github.com/ni/nimble/issues/916).
