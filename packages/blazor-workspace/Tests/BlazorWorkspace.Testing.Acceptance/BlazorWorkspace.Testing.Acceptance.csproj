@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <NoWarn>CA1716;CS1591</NoWarn>
+    <NoWarn>CA1716;CS1591;CA1515</NoWarn>
     <AppDesignerFolder>Properties</AppDesignerFolder>
   </PropertyGroup>
 
