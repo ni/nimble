@@ -28,13 +28,13 @@ CSS constants for the `error`, `information`, and `default` states will be added
 
 The tooltip will have a custom template based on FAST's template. In addition to the HTML that is in FAST's template, the template wll contain the two icons needed for the information and error states as shown in the XD spec. These icons will always be part of the template and their visibility will be controlled by a combination of the `icon-visible` class and the state classes.
 
--   _Component Name:_ `nimble-tooltip`
--   _Properties/Attributes:_ Unchanged
--   _Methods:_ Unchanged
--   _Events:_ Unchanged
--   _CSS Classes and Custom Properties that affect the component:_ `icon-visible` and the special states of the tooltip (`error` and `information`)
--   _Slots:_ Unchanged
--   _Template:_ Unchanged
+- _Component Name:_ `nimble-tooltip`
+- _Properties/Attributes:_ Unchanged
+- _Methods:_ Unchanged
+- _Events:_ Unchanged
+- _CSS Classes and Custom Properties that affect the component:_ `icon-visible` and the special states of the tooltip (`error` and `information`)
+- _Slots:_ Unchanged
+- _Template:_ Unchanged
 
 ### Future Improvements
 
@@ -50,25 +50,25 @@ A Blazor wrapper will be created for the component.
 
 ### Additional requirements
 
--   _User interaction: Do the FAST component's behaviors match the visual design spec? When they differ, which approach is preferable and why?_
-    -   No additional requirements
--   _Styling: Does FAST provide APIs to achieve the styling in the visual design spec?_
-    -   No additional requirements
-    -   Version of error / information tooltips with icons will also be included.
--   _Testing: Is FAST's coverage sufficient? Should we write any tests beyond Chromatic visual tests?_
-    -   No additional requirements
--   _Documentation: Any requirements besides standard Storybook docs and updating the Example Client App demo?_
-    -   No additional requirements
--   _Tooling: Any new tools, updates to tools, code generation, etc?_
-    -   No additional requirements
--   _Accessibility: keyboard navigation/focus, form input, use with assistive technology, etc._
-    -   aria-describedby implementation will eventually need to be fixed- currently only works when tooltip attribute is set to visible
--   _Globalization: special RTL handling, swapping of icons/visuals, localization, etc._
-    -   No additional requirements
--   _Performance: does the FAST component meet Nimble's performance requirements?_
-    -   No additional requirements
--   _Security: Any requirements for security?_
-    -   No additional requirements
+- _User interaction: Do the FAST component's behaviors match the visual design spec? When they differ, which approach is preferable and why?_
+    - No additional requirements
+- _Styling: Does FAST provide APIs to achieve the styling in the visual design spec?_
+    - No additional requirements
+    - Version of error / information tooltips with icons will also be included.
+- _Testing: Is FAST's coverage sufficient? Should we write any tests beyond Chromatic visual tests?_
+    - No additional requirements
+- _Documentation: Any requirements besides standard Storybook docs and updating the Example Client App demo?_
+    - No additional requirements
+- _Tooling: Any new tools, updates to tools, code generation, etc?_
+    - No additional requirements
+- _Accessibility: keyboard navigation/focus, form input, use with assistive technology, etc._
+    - aria-describedby implementation will eventually need to be fixed- currently only works when tooltip attribute is set to visible
+- _Globalization: special RTL handling, swapping of icons/visuals, localization, etc._
+    - No additional requirements
+- _Performance: does the FAST component meet Nimble's performance requirements?_
+    - No additional requirements
+- _Security: Any requirements for security?_
+    - No additional requirements
 
 ---
 
@@ -76,9 +76,9 @@ A Blazor wrapper will be created for the component.
 
 When user is using nimble tooltip and nimble components, is there an easier way to add a tooltip so they wouldn't have to anchor to an html element every time they want a tooltip?
 
--   Update nimble controls to have tooltip show and be tooltip aware
--   Create a tooltip in the shadow dom internally, would not require a separate tooltip element.
--   If we don't do anything, at least provide an easy way to create unique ids.
+- Update nimble controls to have tooltip show and be tooltip aware
+- Create a tooltip in the shadow dom internally, would not require a separate tooltip element.
+- If we don't do anything, at least provide an easy way to create unique ids.
 
 Can tooltip be found by screen reader?
 

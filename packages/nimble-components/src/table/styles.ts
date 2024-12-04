@@ -166,8 +166,11 @@ export const styles = css`
         );
         height: 100%;
         left: calc(
-            -1 * (var(--ni-private-column-divider-width) +
-                        var(--ni-private-column-divider-padding))
+            -1 *
+                (
+                    var(--ni-private-column-divider-width) +
+                        var(--ni-private-column-divider-padding)
+                )
         );
     }
 

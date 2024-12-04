@@ -6,9 +6,9 @@ It is a common request to categorize the options that are present in the dropdow
 
 ## Links To Relevant Work Items and Reference Material
 
--   [Interaction Design](./IxD.md#groups)
--   [Sectioned Combobox (issue 791)](https://github.com/ni/nimble/issues/791)
--   [Prototype branch Storybook](https://60e89457a987cf003efc0a5b-cvmxlqwglb.chromatic.com/?path=/docs/components-select--docs) ([code](https://github.com/ni/nimble/tree/groupable-select))
+- [Interaction Design](./IxD.md#groups)
+- [Sectioned Combobox (issue 791)](https://github.com/ni/nimble/issues/791)
+- [Prototype branch Storybook](https://60e89457a987cf003efc0a5b-cvmxlqwglb.chromatic.com/?path=/docs/components-select--docs) ([code](https://github.com/ni/nimble/tree/groupable-select))
 
 ## Implementation / Design
 
@@ -92,10 +92,10 @@ It should be noted that when using groups with a `Combobox`, it is advised that 
 
 ### Accessibility
 
--   The `ListOptionGroup` element will have a [role of "group"](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/group_role), which matches the role given to the native `optgroup` element.
--   The `ListOptionGroup` should apply the `aria-label` attribute with a value that is the display text for the group.
--   The `ListOptionGroup` element is ignored during keyboard navigation of the dropdown.
--   Screen readers should report the group when the user navigates to an option within a group for the first time. This is achieved by ensuring the accessibility tree has a structure like the following:
+- The `ListOptionGroup` element will have a [role of "group"](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/group_role), which matches the role given to the native `optgroup` element.
+- The `ListOptionGroup` should apply the `aria-label` attribute with a value that is the display text for the group.
+- The `ListOptionGroup` element is ignored during keyboard navigation of the dropdown.
+- Screen readers should report the group when the user navigates to an option within a group for the first time. This is achieved by ensuring the accessibility tree has a structure like the following:
 
 ![](./spec-images/option-group-accessibility-tree.PNG)
 

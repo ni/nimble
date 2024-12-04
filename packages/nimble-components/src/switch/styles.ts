@@ -108,7 +108,8 @@ export const styles = css`
                     var(--ni-private-switch-height) - var(
                             --ni-private-switch-indicator-size
                         )
-                ) / 2
+                ) /
+                2
         );
         border: ${borderWidth} solid
             var(--ni-private-switch-indicator-border-color);

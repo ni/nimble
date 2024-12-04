@@ -10,8 +10,8 @@ Any decision/API around limiting the width of a particular tab. This is ultimate
 
 ## Links To Relevant Work Items and Reference Material
 
--   [Issue 1509: Scrollable Tabs](https://github.com/ni/nimble/issues/1509)
--   [Figma design](https://www.figma.com/design/PO9mFOu5BCl8aJvFchEeuN/Nimble_Components?node-id=11133-57220&node-type=instance&t=DlnrdRo7KWYlheFz-0)
+- [Issue 1509: Scrollable Tabs](https://github.com/ni/nimble/issues/1509)
+- [Figma design](https://www.figma.com/design/PO9mFOu5BCl8aJvFchEeuN/Nimble_Components?node-id=11133-57220&node-type=instance&t=DlnrdRo7KWYlheFz-0)
 
 ## Implementation / Design
 
@@ -19,9 +19,9 @@ Any decision/API around limiting the width of a particular tab. This is ultimate
 
 The following decisions were agreed to in the comments section in the linked issue above:
 
--   No scrollbar will be shown
--   Keyboard navigation will work as it does today, but when a tab that isn't fully in view gets focus it should be scrolled into view
--   When a scroll button is pressed we will scroll either a full "page width" or the remainder of the available space, and tab focus is not changed.
+- No scrollbar will be shown
+- Keyboard navigation will work as it does today, but when a tab that isn't fully in view gets focus it should be scrolled into view
+- When a scroll button is pressed we will scroll either a full "page width" or the remainder of the available space, and tab focus is not changed.
 
 Additionally, devices like mouse wheels and trackpads as well as pan gestures on mobile devices should allow scrolling through the tabs. This should be handled natively by the browser by simply applying CSS of `overflow: scroll;` to the div containing the tabs. _Note: Today, native scrolling behaviors in browsers require mouse users to hold `<Shift>` while using the scroll wheel in order to scroll the tabs. This is consistent with other horizontally scrollable content._
 

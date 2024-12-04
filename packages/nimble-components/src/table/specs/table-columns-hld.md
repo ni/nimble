@@ -82,9 +82,9 @@ Note that displaying data of different types but with the same presentation and 
 
 Columns should follow the [Nimble components naming scheme](/packages/nimble-components/CONTRIBUTING.md#component-naming) with these rules:
 
--   the "category" is `table-column`
--   the "presentation" describes the cell visual. For example, `text`, `anchor`, or `progress`
--   the "variant" can be different configurations of those presentations. For example, `numeric-text` or `date-text`.
+- the "category" is `table-column`
+- the "presentation" describes the cell visual. For example, `text`, `anchor`, or `progress`
+- the "variant" can be different configurations of those presentations. For example, `numeric-text` or `date-text`.
 
 Some potential column names following this convention are listed below.
 
@@ -200,9 +200,9 @@ export class ColumnInternals<TColumnConfig> {
 
 Requiring column plugins to create custom elements for use in the table cells has several implications:
 
--   The elements encapsulate any state needed by the cell
--   The cell element templates can use `ref` to get references to view elements from their templates, for use in their element code
--   Simplifies the API needed to respond to events from the table. One example is `TableCellView.focusedRecycleCallback()` which will be called before a row is recycled during a virtualized scroll, giving column plugins the opportunity to commit changes and blur the control in the cell.
+- The elements encapsulate any state needed by the cell
+- The cell element templates can use `ref` to get references to view elements from their templates, for use in their element code
+- Simplifies the API needed to respond to events from the table. One example is `TableCellView.focusedRecycleCallback()` which will be called before a row is recycled during a virtualized scroll, giving column plugins the opportunity to commit changes and blur the control in the cell.
 
 ```TS
 abstract class TableCellView<
@@ -519,7 +519,7 @@ A programmatic API was also considered either in place of, or along side the pro
 
 ## Open Issues
 
--   The current design doesn't offer any strict templating feedback (in Angular) for a particular `TableColumn` implementation. So, if a user provides a dataKey to a property of an `TableColumn` that wants the value for that dataKey to be a `DateTime` (i.e. its cell view implementation expects a `DateTime`), but the value in the actual table data for that key is a string, the user will be unaware of that mismatch at compile time.
+- The current design doesn't offer any strict templating feedback (in Angular) for a particular `TableColumn` implementation. So, if a user provides a dataKey to a property of an `TableColumn` that wants the value for that dataKey to be a `DateTime` (i.e. its cell view implementation expects a `DateTime`), but the value in the actual table data for that key is a string, the user will be unaware of that mismatch at compile time.
 
     It is unclear how we could provide such feedback, but it would be extremely nice if possible.
 

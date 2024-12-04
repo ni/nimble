@@ -12,10 +12,10 @@ In addition to just supporting data hierarchy with a fully provided set of data,
 
 ## Links To Relevant Work Items and Reference Material
 
--   [#890: Design for hierarchical data support in tables](https://github.com/ni/nimble/issues/890)
--   [#861: Table hierarchical data support](https://github.com/ni/nimble/issues/861)
--   [Prototype using flat list that includes a parentId](https://github.com/ni/nimble/tree/data-hierarchy-flat-list-prototype) with [Storybook](https://60e89457a987cf003efc0a5b-qzwoshcidz.chromatic.com/?path=/story/incubating-table--table&args=data:LargeDataSet)
--   [Prototype with user data being hierarchical](https://github.com/ni/nimble/tree/data-hierarchy-prototype) with [Storybook](https://60e89457a987cf003efc0a5b-yncupvnoes.chromatic.com/?path=/story/incubating-table--table&args=data:LargeDataSet)
+- [#890: Design for hierarchical data support in tables](https://github.com/ni/nimble/issues/890)
+- [#861: Table hierarchical data support](https://github.com/ni/nimble/issues/861)
+- [Prototype using flat list that includes a parentId](https://github.com/ni/nimble/tree/data-hierarchy-flat-list-prototype) with [Storybook](https://60e89457a987cf003efc0a5b-qzwoshcidz.chromatic.com/?path=/story/incubating-table--table&args=data:LargeDataSet)
+- [Prototype with user data being hierarchical](https://github.com/ni/nimble/tree/data-hierarchy-prototype) with [Storybook](https://60e89457a987cf003efc0a5b-yncupvnoes.chromatic.com/?path=/story/incubating-table--table&args=data:LargeDataSet)
 
 ## Implementation / Design
 
@@ -89,11 +89,11 @@ The loading state of a row will look as follows:
 
 Some notes about the `setRecordHierarchyOptions` API:
 
--   all options will be cleared when the table's `idFieldName` changes
--   an option passed to `setRecordHierarchyOptions` with an ID that does not match a record in the data will be ignored
--   the options passed to `setRecordHierarchyOptions` will override any options previously set to become the complete set of options configured on the table
--   the table will not render delayed hierarchy state (loading or expandable) if the table's `parentIdFieldName` is not configured; however, the options will remain cached within the table if the `parentIdFieldName` becomes `undefined`, and that cached configuration will render in the table if the table's `parentIdFieldName` is changed back to a non-`undefined` value
--   calling `setData` will clear options associated with IDs that are no longer present in the data
+- all options will be cleared when the table's `idFieldName` changes
+- an option passed to `setRecordHierarchyOptions` with an ID that does not match a record in the data will be ignored
+- the options passed to `setRecordHierarchyOptions` will override any options previously set to become the complete set of options configured on the table
+- the table will not render delayed hierarchy state (loading or expandable) if the table's `parentIdFieldName` is not configured; however, the options will remain cached within the table if the `parentIdFieldName` becomes `undefined`, and that cached configuration will render in the table if the table's `parentIdFieldName` is changed back to a non-`undefined` value
+- calling `setData` will clear options associated with IDs that are no longer present in the data
 
 The expected usage of the dynamically loaded hierarchy is as follows:
 
@@ -168,8 +168,8 @@ A parent row would have the same ARIA expectations of any child row, with the ad
 
 Things to consider:
 
--   Putting an appropriate label/title on the progress indicator for a row that is loading its children.
--   Expand/collapse button attributes for the parent row. Likely should just match what is done for the group row.
+- Putting an appropriate label/title on the progress indicator for a row that is loading its children.
+- Expand/collapse button attributes for the parent row. Likely should just match what is done for the group row.
 
 ### Future work
 
@@ -181,13 +181,13 @@ It is expected that this mode will involve creating a new API on the table in or
 
 Here are a few of the considerations that were made with respect to this mode:
 
--   grouping should group on leaf items, not parents (could be cumbersome to accomplish with Tanstack)
--   action menu only on leafs
--   single selection mode can only select leafs
--   selection state (when set to `multiple`) of parents (if selected) should become indetermine when new rows loaded (e.g. via delayed loading)
--   selection counts should ignore parents
--   (maybe?) leaf-mode + multi-selection + delayed loading is considered an invalid confiuguration. This could mean that the Table API of `forceExpandCollapseFieldName` should be more semantically associated with delayed loading.
-    -   (alternative?): Could we instead just hide the selection checkbox for parent rows that have no children?
+- grouping should group on leaf items, not parents (could be cumbersome to accomplish with Tanstack)
+- action menu only on leafs
+- single selection mode can only select leafs
+- selection state (when set to `multiple`) of parents (if selected) should become indetermine when new rows loaded (e.g. via delayed loading)
+- selection counts should ignore parents
+- (maybe?) leaf-mode + multi-selection + delayed loading is considered an invalid confiuguration. This could mean that the Table API of `forceExpandCollapseFieldName` should be more semantically associated with delayed loading.
+    - (alternative?): Could we instead just hide the selection checkbox for parent rows that have no children?
 
 ## Alternative Implementations / Designs
 
@@ -195,8 +195,8 @@ Here are a few of the considerations that were made with respect to this mode:
 
 By making the `TableRecord` support hierarchy in its structure, it seemed possible that there would have been a performance benefit, as there would be no need to reformat the data internally for Tanstack to consume it properly. However, I believe we can discard this option for the following reasons:
 
--   There is no clear way to provide a strong type for `TableRecord` that would have a reserved field name of something like `subRows` that itself would be typed to an array of `TableRecord`.
--   The performance profile between the prototypes of a hierarchical data structure, and a flat list were pretty close with one another.
+- There is no clear way to provide a strong type for `TableRecord` that would have a reserved field name of something like `subRows` that itself would be typed to an array of `TableRecord`.
+- The performance profile between the prototypes of a hierarchical data structure, and a flat list were pretty close with one another.
 
 ### Specify whether or not a row has delayed loaded children through the data records
 
@@ -206,13 +206,13 @@ Each record passed to the table could have a boolean field that indicates whethe
 
 The table could have a generic `setRowOptions` function instead of `setRecordHierarchyOptions`. The options set through that function could include delayed hierarchy information but also be extended easily in the future to include additional options. `setRecordHierarchyOptions` was chosen over a more generic `setRowOptions` function for the following reasons:
 
--   Hierarchy options should not be configurable without `parentIdFieldName` set, but it would be more complex to prevent a client from trying to configure hierarchy options if they are coupled with other row options.
--   Clients that are not using hierarchy in their table should be able to easily ignore the hierarchy options. Therefore, they shouldn't need to worry about setting default values for hierarchy state when configuring other row options.
--   `setRowOptions` can be added in the future, if desired, and it can contain more generic row options.
+- Hierarchy options should not be configurable without `parentIdFieldName` set, but it would be more complex to prevent a client from trying to configure hierarchy options if they are coupled with other row options.
+- Clients that are not using hierarchy in their table should be able to easily ignore the hierarchy options. Therefore, they shouldn't need to worry about setting default values for hierarchy state when configuring other row options.
+- `setRowOptions` can be added in the future, if desired, and it can contain more generic row options.
 
 ## Open Issues
 
--   We should also consider interactive/visual designs for situations where the client failed to load data for a row that was supposed to load its data when it expands. Some questions we should try to answer are:
-    -   Should the table represent the error state visually, and if so how?
-    -   Should the table surface any UI to "refresh" a data retrieval attempt. If so, what should that look like?
--   The set of proposed APIs and behaviors described so far don't seem to cover the SLE Steps Grid use case. **Resolved: Ultimately, the Steps grid should likely be using a significantly different UX than what it currently has, and we are opting to not introduce features and capabilities into the Nimble table to support a sub-optimal UX.**
+- We should also consider interactive/visual designs for situations where the client failed to load data for a row that was supposed to load its data when it expands. Some questions we should try to answer are:
+    - Should the table represent the error state visually, and if so how?
+    - Should the table surface any UI to "refresh" a data retrieval attempt. If so, what should that look like?
+- The set of proposed APIs and behaviors described so far don't seem to cover the SLE Steps Grid use case. **Resolved: Ultimately, the Steps grid should likely be using a significantly different UX than what it currently has, and we are opting to not introduce features and capabilities into the Nimble table to support a sub-optimal UX.**

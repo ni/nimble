@@ -19,37 +19,37 @@ Initially we will create two flavors of anchor: a standard anchor, and a button-
 
 [FAST's API documentation](https://github.com/microsoft/fast/blob/e576aa70c22780fffba03097277e2db9a2ec1cd8/packages/web-components/fast-foundation/src/anchor/README.md)
 
--   _Component Name_: `nimble-anchor`
--   _Properties/Attributes_: We will have the following properties/attributes in addition to the ones provided by the FAST anchor:
+- _Component Name_: `nimble-anchor`
+- _Properties/Attributes_: We will have the following properties/attributes in addition to the ones provided by the FAST anchor:
 
-    -   `appearance`:
-        -   `prominent`: the "loud" version from the design doc. Used to draw extra attention to the anchor. This matches the Breadcrumb's `appearance` attribute value.
-    -   `underline-hidden`: hides the anchor's underline except on hover or activation. This should be used except when an anchor is surrounded by other text or needs help being indentified as a link.
+    - `appearance`:
+        - `prominent`: the "loud" version from the design doc. Used to draw extra attention to the anchor. This matches the Breadcrumb's `appearance` attribute value.
+    - `underline-hidden`: hides the anchor's underline except on hover or activation. This should be used except when an anchor is surrounded by other text or needs help being indentified as a link.
 
     Instead of having a `disabled` property, users should remove the `href` in order to disable the anchor.
 
--   _Methods_: Unchanged (none)
--   _Events_: Unchanged (none)
--   _CSS Classes and Custom Properties that affect the component_: Unchanged (none)
--   _Slots_: We will not expose the start and end slots provided by the FAST anchor.
+- _Methods_: Unchanged (none)
+- _Events_: Unchanged (none)
+- _CSS Classes and Custom Properties that affect the component_: Unchanged (none)
+- _Slots_: We will not expose the start and end slots provided by the FAST anchor.
 
 The button-like anchor will also derive from the FAST anchor so that we use the same template and role. It will share most of its CSS with existing button components.
 
--   _Component Name_: `nimble-anchor-button`
--   _Properties/Attributes_: We will have the following properties/attributes in addition to the ones provided by the FAST anchor:
-    -   `appearance`:
-        -   `"outline"`: same as button design
-        -   `"ghost"`: same as button design
-        -   `"block"`: same as button design
-    -   `appearance-variant`:
-        -   `"default"`: `undefined` (as per our common attribute guidelines)
-        -   `"primary"`: applies only to button-based styles and has the same effect as on buttons
-    -   `content-hidden`: when set, hides the label and end slot
-    -   `disabled`: when set, makes the anchor inoperable and changes the styling
--   _Methods_: Unchanged (none)
--   _Events_: Unchanged (none)
--   _CSS Classes and Custom Properties that affect the component_: Unchanged (none)
--   _Slots_: We _will_ expose/document the start and end slots for the button-like anchor. For consistency with the button API, we will recommend the same method of slotting icons into these slots.
+- _Component Name_: `nimble-anchor-button`
+- _Properties/Attributes_: We will have the following properties/attributes in addition to the ones provided by the FAST anchor:
+    - `appearance`:
+        - `"outline"`: same as button design
+        - `"ghost"`: same as button design
+        - `"block"`: same as button design
+    - `appearance-variant`:
+        - `"default"`: `undefined` (as per our common attribute guidelines)
+        - `"primary"`: applies only to button-based styles and has the same effect as on buttons
+    - `content-hidden`: when set, hides the label and end slot
+    - `disabled`: when set, makes the anchor inoperable and changes the styling
+- _Methods_: Unchanged (none)
+- _Events_: Unchanged (none)
+- _CSS Classes and Custom Properties that affect the component_: Unchanged (none)
+- _Slots_: We _will_ expose/document the start and end slots for the button-like anchor. For consistency with the button API, we will recommend the same method of slotting icons into these slots.
 
 ### Angular integration
 
@@ -80,15 +80,15 @@ As shown above, clients using [routerLink] can also set queryParams dynamically,
 
 Angular has two directives handling [routerLink]:
 
--   [RouterLink](https://github.com/angular/angular/blob/0a2191f8e7e232087aab0a7a9eb9ee6871580267/packages/router/src/directives/router_link.ts#L119): Selector `:not(a):not(area)[routerLink]`. Does a router navigation on left-click; handles Ctrl-Click the same way; does not compute an href (as it doesn't target `<a>` elements)
--   [RouterLinkWithHref](https://github.com/angular/angular/blob/0a2191f8e7e232087aab0a7a9eb9ee6871580267/packages/router/src/directives/router_link.ts#L257): Selector `a[routerLink],area[routerLink]`: Computes an href for the anchor element it targets; left-click does a router navigation; Ctrl-click and middle-mouse-button click defer to the browser (to open a new tab/window)
+- [RouterLink](https://github.com/angular/angular/blob/0a2191f8e7e232087aab0a7a9eb9ee6871580267/packages/router/src/directives/router_link.ts#L119): Selector `:not(a):not(area)[routerLink]`. Does a router navigation on left-click; handles Ctrl-Click the same way; does not compute an href (as it doesn't target `<a>` elements)
+- [RouterLinkWithHref](https://github.com/angular/angular/blob/0a2191f8e7e232087aab0a7a9eb9ee6871580267/packages/router/src/directives/router_link.ts#L257): Selector `a[routerLink],area[routerLink]`: Computes an href for the anchor element it targets; left-click does a router navigation; Ctrl-click and middle-mouse-button click defer to the browser (to open a new tab/window)
 
 We want the behavior of RouterLinkWithHref, so we can subclass it and update the selector to target `nimble-anchor`.
 However, if we have clients use the existing `routerLink` attribute to opt into our directive, there'll still be a RouterLink directive active doing the wrong action too. In current Angular versions there's not a good way to disable RouterLink navigation ([see the comment on this Angular commit](https://github.com/angular/angular/commit/ccb09b4558a3864fb5b2fe2214d08f1c1fe2758f)).
 
 We will follow the same approach previously used for the BreadcrumbItem:
 
--   Our directive's selector will be `nimble-anchor[nimbleRouterLink]`, and the directive will define `@Input nimbleRouterLink` (which sets `routerLink`). This is a small change for clients which we will document (consistent with BreadcrumbItem), and other routerLink attributes can still be used as-is:
+- Our directive's selector will be `nimble-anchor[nimbleRouterLink]`, and the directive will define `@Input nimbleRouterLink` (which sets `routerLink`). This is a small change for clients which we will document (consistent with BreadcrumbItem), and other routerLink attributes can still be used as-is:
     ```html
     <nimble-anchor
         nimbleRouterLink="/customapp"
@@ -98,7 +98,7 @@ We will follow the same approach previously used for the BreadcrumbItem:
         Custom App Page
     </nimble-anchor>
     ```
--   A second directive will be provided to disable use of the `routerLink` attribute on `nimble-anchor` elements.
+- A second directive will be provided to disable use of the `routerLink` attribute on `nimble-anchor` elements.
 
 Another option would be to try to reuse the two directives created for the BreadcrumbLink for these purposes (i.e. NimbleBreadcrumbItemRouterLinkWithHrefDirective and NimbleBreadcrumbItemRouterLinkDirective). There is so little in these directives, though, that it is simpler just to create duplicates for the anchor.
 
@@ -108,20 +108,20 @@ We will create Blazor wrappers for the anchor and button-like anchor. Judging by
 
 ### Additional requirements
 
--   _User interaction:_ None
--   _Styling:_
-    -   When it has keyboard focus, the anchor will have a double underline.
-    -   CSS for button styles will be shared as much as possible
-    -   CSS for hyperlink styles will be shared as much as possible with the Breadcrumb
--   _Testing:_ None
--   _Documentation:_ Should direct users to set `inline` when using the anchor inline with text.
--   _Tooling:_ None
--   _Accessibility:_
-    -   Need to `applyMixins` on the Nimble anchor type, from the `DelegatesARIALink` class.
-    -   The anchor button is functionally closer to an anchor than to a button, so it will have the ARIA role of `link` (rather than `button`). This will be automatic, as the shadow root will contain a native HTML `<a>` element which naturally has the role `link`.
--   _Globalization:_ None
--   _Performance:_ None
--   _Security:_ None
+- _User interaction:_ None
+- _Styling:_
+    - When it has keyboard focus, the anchor will have a double underline.
+    - CSS for button styles will be shared as much as possible
+    - CSS for hyperlink styles will be shared as much as possible with the Breadcrumb
+- _Testing:_ None
+- _Documentation:_ Should direct users to set `inline` when using the anchor inline with text.
+- _Tooling:_ None
+- _Accessibility:_
+    - Need to `applyMixins` on the Nimble anchor type, from the `DelegatesARIALink` class.
+    - The anchor button is functionally closer to an anchor than to a button, so it will have the ARIA role of `link` (rather than `button`). This will be automatic, as the shadow root will contain a native HTML `<a>` element which naturally has the role `link`.
+- _Globalization:_ None
+- _Performance:_ None
+- _Security:_ None
 
 ---
 
@@ -133,13 +133,13 @@ We will create Blazor wrappers for the anchor and button-like anchor. Judging by
 
 In the future, we expect to support anchors within other controls, e.g.
 
--   tabs
--   menu
--   tree
+- tabs
+- menu
+- tree
 
 Unfortunately it's not as simple as dropping `nimble-anchor`s into the existing components. Each of these has its own considerations and challenges.
 
--   **Tabs**
+- **Tabs**
 
     The `nimble-tabs` component currently is structured with children having a 1-to-1 relationship between `nimble-tab` children and `nimble-tab-panel` children:
 
@@ -178,7 +178,7 @@ Unfortunately it's not as simple as dropping `nimble-anchor`s into the existing 
 
     Another thought might be to merge both approaches, having a `tablist` containing elements that are both `tab` and `link`. While the `role` attribute may be a list of multiple space-separated values, [only one value from the list is honored](https://stackoverflow.com/questions/27019753/can-i-use-multiple-aria-roles-on-a-parent-element).
 
--   **Menu**
+- **Menu**
 
     Should the ARIA role for a link in a menu be `link` or `menuitem`? The examples I have found go with the latter, and this is supported by the fact that the ARIA [spec](https://w3c.github.io/aria/#menu) for the `menu` role limits the roles of child items to `menuitem`, `menuitemcheckbox`, `menuitemradio`, or `group`s thereof. We can't give it both `link` and `menuitem` roles for the reason I gave in the preceeding section.
 
@@ -193,13 +193,13 @@ Unfortunately it's not as simple as dropping `nimble-anchor`s into the existing 
     </nimble-menu>
     ```
 
--   **Tree**
+- **Tree**
 
     The tree use case is very similar to the menu use case. I have not found examples of sites with trees (i.e. `role=tree`) with links, but based on the ARIA docs, I suspect the correct role for a link in a tree is `treeitem`. For the same reasons as the menu case, I suspect it would be cleaner and more maintainable to create a separate `nimble-anchor-tree-item`.
 
 If we are creating new components for anchors in tabs, menus, and trees, then for consistency, should we create a separate one for button-like links as well? Buttons and links are similar ARIA roles ([the](https://w3c.github.io/aria/#button) [spec](https://w3c.github.io/aria/#link) even links them to each other). We could model a button-link as just an appearance mode of the link. However, they are semantically distinct, and there are no obvious benefits to combining the two, except having one fewer component. Arguments for having a separate anchor button component include:
 
--   consistent with existing button variations:
+- consistent with existing button variations:
     ```html
     <nimble-button>
         <nimble-menu-button>
@@ -207,8 +207,8 @@ If we are creating new components for anchors in tabs, menus, and trees, then fo
                 <nimble-anchor-button></nimble-anchor-button></nimble-toggle-button></nimble-menu-button
     ></nimble-button>
     ```
--   easily switching between standard anchor and button-like appearance (API-wise) is not a significant benefit
--   allows us to have separate Angular directives, which gives us more freedom in case we need it
+- easily switching between standard anchor and button-like appearance (API-wise) is not a significant benefit
+- allows us to have separate Angular directives, which gives us more freedom in case we need it
 
 ---
 
