@@ -198,7 +198,6 @@ Multiple API changes need to be made to the table, its subcomponents, and the cl
         - Fired by cell view instances if they want to request that the column's slots to be placed within that cell. For example, the menu button column's cell view will fire this event when the cell's `menu-button` fires a `beforetoggle` event with the `newState` as `true`.
         - Handled by table rows. When handling this event, a table row will fire the `row-slots-request` event to request the table to slot the necessary elements within the row.
         - Event details:
-              <!-- prettier-ignore -->
             ```ts
             interface CellViewSlotRequestEventDetail {
                 slots: { slot: string; name: string }[];
@@ -208,7 +207,6 @@ Multiple API changes need to be made to the table, its subcomponents, and the cl
         - Fired by table rows to request that column's slots to be placed within that row. This event is fired in response to the row recieving a `cell-view-slots-request` event fired by one of its cell views.
         - Handled by table. When handling this event, the table will update its template to move the appropriate slots into the correct table row.
         - Event details:
-              <!-- prettier-ignore -->
             ```ts
             interface RowSlotRequestEventDetail {
                 columnInternalId: string;
