@@ -12,18 +12,18 @@ The `nimble-menu-button` is a button and a menu, where the menu is hidden until 
 
 ### Non-goals
 
--   We are specifically not supporting a client being able to provide any button for opening the menu. The `nimble-menu-button` will contain a button (specifically a `nimble-toggle-button`) within its template to enforce visual design consistency.
+- We are specifically not supporting a client being able to provide any button for opening the menu. The `nimble-menu-button` will contain a button (specifically a `nimble-toggle-button`) within its template to enforce visual design consistency.
 
 ### Features
 
--   The button will support the same appearance modes as the `nimble-button` and `nimble-toggle-button` -- outline, block, and ghost
--   The button will support the same content as the `nimble-button` and `nimble-toggle-button`. For example, it can contain text-only, icon-only, text + icon, etc.
--   When the menu is open, that state will be reflected in the styling of the button
--   The user will provide a menu to be displayed when the button is clicked. In most cases, it is expected that a `nimble-menu` will be provided, but any element with `[role=menu]` will be supported.
+- The button will support the same appearance modes as the `nimble-button` and `nimble-toggle-button` -- outline, block, and ghost
+- The button will support the same content as the `nimble-button` and `nimble-toggle-button`. For example, it can contain text-only, icon-only, text + icon, etc.
+- When the menu is open, that state will be reflected in the styling of the button
+- The user will provide a menu to be displayed when the button is clicked. In most cases, it is expected that a `nimble-menu` will be provided, but any element with `[role=menu]` will be supported.
 
 ### Risks and Challenges
 
--   FAST does not currently have a menu button or a toggle button. If they add support for either of these components, we will likely want update our component to leverage theirs. Depending on the differences between our API and FAST's API, adopoting their components will likely cause a breaking change within nimble.
+- FAST does not currently have a menu button or a toggle button. If they add support for either of these components, we will likely want update our component to leverage theirs. Depending on the differences between our API and FAST's API, adopoting their components will likely cause a breaking change within nimble.
 
 ### Prior Art/Examples
 
@@ -68,53 +68,53 @@ An example usage of the menu button is as follows:
 
 _Component Name_
 
--   `nimble-menu-button`
+- `nimble-menu-button`
 
 _Props/Attrs_
 
--   `open`: boolean
--   `disabled`: boolean
--   `appearance`: string
--   `content-hidden`: boolean
--   `position`: string
+- `open`: boolean
+- `disabled`: boolean
+- `appearance`: string
+- `content-hidden`: boolean
+- `position`: string
 
 _Methods_
 
--   none
+- none
 
 _Events_
 
--   `beforetoggle` (event) - event fired before the opened state has changed. The event detail contains:
-    -   `newState` - boolean - The value of `open` on the menu button that the element is transitioning in to.
-    -   `oldState` - boolean - The value of `open` on the menu button that the element is transitioning out of.
--   `toggle` (event) - event for when the opened state has changed
-    -   `newState` - boolean - The value of `open` on the menu button that the element transitioned in to.
-    -   `oldState` - boolean - The value of `open` on the menu button that the element transitioned out of.
+- `beforetoggle` (event) - event fired before the opened state has changed. The event detail contains:
+    - `newState` - boolean - The value of `open` on the menu button that the element is transitioning in to.
+    - `oldState` - boolean - The value of `open` on the menu button that the element is transitioning out of.
+- `toggle` (event) - event for when the opened state has changed
+    - `newState` - boolean - The value of `open` on the menu button that the element transitioned in to.
+    - `oldState` - boolean - The value of `open` on the menu button that the element transitioned out of.
 
 _CSS Classes and CSS Custom Properties that affect the component_
 
--   none
+- none
 
 ### Anatomy
 
 _Slot Names_
 
--   `start`: content that will get slotted into the `start` slot of the underlying `nimble-toggle-button`
--   _default slot (unnamed)_: content that will get slotted into the default slot of the underlying `nimble-toggle-button`
--   `end`: content that will get slotted into the `end` slot of the underlying `nimble-toggle-button`
--   `menu`: the menu that will be shown/hidden based on the `open` attribute of the component
+- `start`: content that will get slotted into the `start` slot of the underlying `nimble-toggle-button`
+- _default slot (unnamed)_: content that will get slotted into the default slot of the underlying `nimble-toggle-button`
+- `end`: content that will get slotted into the `end` slot of the underlying `nimble-toggle-button`
+- `menu`: the menu that will be shown/hidden based on the `open` attribute of the component
 
 _Host Classes_
 
--   none
+- none
 
 _Slotted Content/Slotted Classes_
 
--   none
+- none
 
 _CSS Parts_
 
--   `menu`
+- `menu`
 
 ### Angular integration
 
@@ -144,9 +144,9 @@ The menu will indicate that it is open by having the underlying toggle button in
 
 _Focus_
 
--   Focus state of the button will be the same as the `nimble-toggle-button`
--   Focus state of the menu and menu items will be defined by the slotted menu
--   Clicking the toggle button will open/close the menu. When the menu transitions to the open state, the menu will become focused, which should focus the first `[role=menuitem]` within it.
+- Focus state of the button will be the same as the `nimble-toggle-button`
+- Focus state of the menu and menu items will be defined by the slotted menu
+- Clicking the toggle button will open/close the menu. When the menu transitions to the open state, the menu will become focused, which should focus the first `[role=menuitem]` within it.
 
 _Keyboard navigation with button focused_
 
@@ -167,24 +167,24 @@ Note: When an item in the menu is selected, regardless of whether through keyboa
 
 _Form Input_
 
--   none
+- none
 
 _Use with Assistive Technology_
 
--   The inner toggle-button will have `aria-haspopup="true"`.
--   When the menu is open, the inner toggle-button will have `aria-expanded="true"`.
--   [Optional] The inner toggle-button will have `aria-controls` set to the ID of the menu.
-    -   As this is optional, this will not be configured in order to reduce the amount of manipulation required on the slotted menu element.
--   The menu should have an `aria-label` configured on it.
-    -   Open question: Is this the responsibility of the client?
+- The inner toggle-button will have `aria-haspopup="true"`.
+- When the menu is open, the inner toggle-button will have `aria-expanded="true"`.
+- [Optional] The inner toggle-button will have `aria-controls` set to the ID of the menu.
+    - As this is optional, this will not be configured in order to reduce the amount of manipulation required on the slotted menu element.
+- The menu should have an `aria-label` configured on it.
+    - Open question: Is this the responsibility of the client?
 
 ### Globalization
 
 _Consider whether the component has any special globalization needs such as:_
 
--   _Special RTL handling_
--   _Swapping of internal icons/visuals_
--   _Localization_
+- _Special RTL handling_
+- _Swapping of internal icons/visuals_
+- _Localization_
 
 ### Security
 
@@ -216,4 +216,4 @@ As with other nimble components, a story will be added in storybook for the new 
 
 ## Open Issues
 
--   Should nimble try to enforce that an aria-label is configured on the slotted menu?
+- Should nimble try to enforce that an aria-label is configured on the slotted menu?

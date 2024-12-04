@@ -58,21 +58,20 @@ table.
 
 ### Best practices
 
--   Provide a mapping for every expected record value. Because grouping is
-    performed on the record value, non-mapped record values can result in
-    multiple groups without group labels.
-    -   To improve grouping behavior of a value that shouldn't be rendered in
-        table cells, use a <Tag name={mappingEmptyTag}/> element to provide text
-        for that value's group row.
--   Avoid having multiple values that map to the same text value. This can lead
-    to confusion when grouping and sorting, as it would result in multiple
-    groups with the same text label representing different values or the same
-    text label showing up multiple times with a different sort order.
--   Don't mix and match icon-only, and icon and text mappings in the same
-    column. Choose whether to enable the `text-hidden` attribute for all
-    mappings or none.
-    -   Exception: You can use a spinner-only mapping in the same column as an
-        icon-only or icon and text mapping.
+- Provide a mapping for every expected record value. Because grouping is
+  performed on the record value, non-mapped record values can result in multiple
+  groups without group labels.
+    - To improve grouping behavior of a value that shouldn't be rendered in
+      table cells, use a <Tag name={mappingEmptyTag}/> element to provide text
+      for that value's group row.
+- Avoid having multiple values that map to the same text value. This can lead to
+  confusion when grouping and sorting, as it would result in multiple groups
+  with the same text label representing different values or the same text label
+  showing up multiple times with a different sort order.
+- Don't mix and match icon-only, and icon and text mappings in the same column.
+  Choose whether to enable the `text-hidden` attribute for all mappings or none.
+    - Exception: You can use a spinner-only mapping in the same column as an
+      icon-only or icon and text mapping.
 
 #### Choosing a mapping style
 

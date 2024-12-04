@@ -14,17 +14,17 @@ This is a fairly straightforward execution of our custom column type pattern. Th
 
 If a table record is missing a href value a text span will be rendered rather than a link.
 
--   _Element name_: `nimble-table-column-anchor`
--   _Attributes/properties_:
-    -   `labelFieldName`
-    -   `hrefFieldName`
-    -   `hreflang`
-    -   `ping`
-    -   `referrerpolicy`
-    -   `rel`
-    -   `target`
-    -   `type`
-    -   `download`
+- _Element name_: `nimble-table-column-anchor`
+- _Attributes/properties_:
+    - `labelFieldName`
+    - `hrefFieldName`
+    - `hreflang`
+    - `ping`
+    - `referrerpolicy`
+    - `rel`
+    - `target`
+    - `type`
+    - `download`
 
 ### Cell Template
 
@@ -99,15 +99,15 @@ The real challenge of this column type is integrating with the Angular router. T
 
 Note that this implies that these configuration parameters must be the same for each link in the column:
 
--   `target`
--   `queryParams`
--   `queryParamsHandling`
--   `fragment`
--   `state`
--   `relativeTo`
--   `preserveFragment`
--   `skipLocationChange`
--   `replaceUrl`
+- `target`
+- `queryParams`
+- `queryParamsHandling`
+- `fragment`
+- `state`
+- `relativeTo`
+- `preserveFragment`
+- `skipLocationChange`
+- `replaceUrl`
 
 Normally with RouterLink directives, you assign the url to `routerLink`/`nimbleRouterLink`, but in this case, the url is coming from the table data. `nimbleRouterLink` just has to be present for the directive to be applied.
 

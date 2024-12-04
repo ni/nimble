@@ -15,10 +15,10 @@ Clients will wish to display non-string data as text in table columns for use ca
 
 In all of the above cases:
 
--   data should be sortable and groupable by its actual value, not the string representation
--   text styling like font and alignment should be provided by Nimble
--   columns should support i18n behaviors like decimal separators, date/time formats, and localized content
--   there should be a way to show the full value of truncated text (likely via a title / tooltip on hover)
+- data should be sortable and groupable by its actual value, not the string representation
+- text styling like font and alignment should be provided by Nimble
+- columns should support i18n behaviors like decimal separators, date/time formats, and localized content
+- there should be a way to show the full value of truncated text (likely via a title / tooltip on hover)
 
 We may not choose to support all of the above initially but we should design our solutions with these use cases in mind.
 
@@ -38,11 +38,11 @@ We may not choose to support all of the above initially but we should design our
 
 ### Non-goals
 
--   Combinations of the use cases listed above in a single column. This will be needed in cases where the source data isn't uniformly typed (e.g. SLE tag values or notebook outputs). This HLD focuses on uniform data types; future HLDs may discuss ways to configure multiple types of columns to be conditionally displayed together.
--   Editable numbers. This is not supported by the text column yet either.
--   Numeric formatting for `nimble-number-field`. While we may choose to expose similar APIs for its numeric formatting, the complexities of it being an editable input control make this out of scope for now.
--   Customizing the styling of the column content (other than text alignment). This is not supported by the text column yet either.
--   Enum and boolean values formatted as localized strings (0 -> "Fail", 1 -> "Pass"). These will likely use the [mapping column](./table-column-mapping.md).
+- Combinations of the use cases listed above in a single column. This will be needed in cases where the source data isn't uniformly typed (e.g. SLE tag values or notebook outputs). This HLD focuses on uniform data types; future HLDs may discuss ways to configure multiple types of columns to be conditionally displayed together.
+- Editable numbers. This is not supported by the text column yet either.
+- Numeric formatting for `nimble-number-field`. While we may choose to expose similar APIs for its numeric formatting, the complexities of it being an editable input control make this out of scope for now.
+- Customizing the styling of the column content (other than text alignment). This is not supported by the text column yet either.
+- Enum and boolean values formatted as localized strings (0 -> "Fail", 1 -> "Pass"). These will likely use the [mapping column](./table-column-mapping.md).
 
 ---
 
@@ -56,24 +56,24 @@ Nimble will provide several columns that derive from these base classes and prov
 
 Nimble may add additional column types or configurations in future to support additional cases. These cases may be contributed by client teams or include application-specific logic (possibly as "incubating" components). Defining columns in Nimble and configuring their formatting in apps via attributes is preferable to applications defining custom columns with JS formatting logic for several reasons:
 
--   the columns can be made available to other applications written in any of the UI frameworks that Nimble supports
--   the columns can be built using Nimble infrastructure, saving apps from incorporating FAST or JS code (a particular challenge in Blazor)
--   clients don't need to manage the lifecycle of registering a new column custom element in their application
+- the columns can be made available to other applications written in any of the UI frameworks that Nimble supports
+- the columns can be built using Nimble infrastructure, saving apps from incorporating FAST or JS code (a particular challenge in Blazor)
+- clients don't need to manage the lifecycle of registering a new column custom element in their application
 
 ### Formatted text column base classes
 
 Nimble will provide abstract base classes, templates, and styles which handle rendering a string as text. Just like `nimble-table-column-text` today, these columns will:
 
--   offer attributes to control which field is displayed
--   sort and group by the field value, not the display value.
--   allow sizing by fractional widths with a minimum pixel width.
--   truncate using an ellipsis and show a tooltip on hover when the value is truncated
+- offer attributes to control which field is displayed
+- sort and group by the field value, not the display value.
+- allow sizing by fractional widths with a minimum pixel width.
+- truncate using an ellipsis and show a tooltip on hover when the value is truncated
 
 The base classes provided will be:
 
--   `TableColumnTextBase` - specifies the custom element logic to configure the column
--   `TableColumnTextCellViewBase` - derives from `TableCellView` to specify the custom element logic that renders a cell
--   `TableColumnTextGroupHeaderViewBase` - derives from `TableGroupHeaderView` to specify the custom element logic that renders a group row
+- `TableColumnTextBase` - specifies the custom element logic to configure the column
+- `TableColumnTextCellViewBase` - derives from `TableCellView` to specify the custom element logic that renders a cell
+- `TableColumnTextGroupHeaderViewBase` - derives from `TableGroupHeaderView` to specify the custom element logic that renders a group row
 
 Both clients and Nimble itself will derive from these base classes to specify the type of data that the column supports and how to convert it to a string. They will register the derived classes as custom elements using the same FAST APIs that Nimble itself uses.
 
@@ -151,9 +151,9 @@ All columns will offer standard Angular and Blazor integration.
 
 Follows the [Column Type Philosophy](/packages/nimble-components/src/table/specs/table-columns-hld.md#column-type-philosophy) where:
 
--   category: `table-column`
--   presentation: `text`
--   variants: Different variants are allowed for configurations that vary significantly / don't make sense to add to `table-column-text`, ie for a `table-column-number-text` or `table-column-date-text`
+- category: `table-column`
+- presentation: `text`
+- variants: Different variants are allowed for configurations that vary significantly / don't make sense to add to `table-column-text`, ie for a `table-column-number-text` or `table-column-date-text`
 
 #### Text column
 
@@ -165,18 +165,18 @@ Nimble will introduce `nimble-table-column-number-text` which formats a numeric 
 
 ##### API
 
--   `alignment` - a string value matching `"left"`, `"right"`, or `undefined` (the default, meaning `"automatic"`) which controls whether values and column headers are left or right aligned within the column. If set to `undefined` Nimble will choose left or right based on the value of other configuration. Clients should select `right` if it is known that the decimal separators of all values in the column will align in the given the `format`.
--   `format` - a string which controls how the number is formatted for display. It can take one of the following values:
-    -   `undefined` - use a default formatter that displays integers with no trailing zeros, limits to 6 digits, and uses exponential notation when the formatted value is large (\`>= 1e6\`) or small (\`< 1e-3\`) in magnitude. Will be displayed left-aligned by default (since numbers will display an inconsistent number of fractional digits).
-    -   `'decimal'` - format all values as decimal values (e.g. 123.45) with a number of digits after the separator determined by `decimal-digits` or `decimal-maximum-digits`. Exponential notation is never used. If required, values will be rounded to reach the specified number of decimial digits. Configuring `decimal-digits` to `0` will round the value to the nearest integer and display it with no decimal places. Default alignment will be left if either `decimal-maximum-digits` or a unit is set, otherwise right (since the decimal separators should align in that case).
-    -   This could be extended to other pre-configured formats in future. Their configuration attributes would be prefixed with the name of the format mode.
-    -   **Note:** all of the above will be implemented using a `Intl.NumberFormat` formatter. Nimble will configure the formatter with defaults to match the [visual design spec](https://github.com/ni/nimble/issues/887). The exception is that we will set `useGrouping: true` to achieve `1,000` rather than `1000` because this styles the values in a way that is more human readable.
--   `decimal-digits` - when format is `decimal`, a number that controls how many digits are shown to the right of the decimal separator. Possible values are from 0 to 20. Defaults to 2 (unless `decimal-maximum-digits` is specified).
-    -   It is invalid to specify both `decimal-digits` and `decimal-maximum-digits`.
-    -   Formats other than `decimal` ignore `decimal-digits`.
--   `decimal-maximum-digits` - when format is `decimal`, a number that controls the maximum number of possible digits shown to the right of the decimal separator (i.e. omits trailing zeros). Possible values are from 0 to 20.
-    -   It is invalid to specify both `decimal-digits` and `decimal-maximum-digits`.
-    -   Formats other than `decimal` ignore `decimal-maximum-digits`.
+- `alignment` - a string value matching `"left"`, `"right"`, or `undefined` (the default, meaning `"automatic"`) which controls whether values and column headers are left or right aligned within the column. If set to `undefined` Nimble will choose left or right based on the value of other configuration. Clients should select `right` if it is known that the decimal separators of all values in the column will align in the given the `format`.
+- `format` - a string which controls how the number is formatted for display. It can take one of the following values:
+    - `undefined` - use a default formatter that displays integers with no trailing zeros, limits to 6 digits, and uses exponential notation when the formatted value is large (\`>= 1e6\`) or small (\`< 1e-3\`) in magnitude. Will be displayed left-aligned by default (since numbers will display an inconsistent number of fractional digits).
+    - `'decimal'` - format all values as decimal values (e.g. 123.45) with a number of digits after the separator determined by `decimal-digits` or `decimal-maximum-digits`. Exponential notation is never used. If required, values will be rounded to reach the specified number of decimial digits. Configuring `decimal-digits` to `0` will round the value to the nearest integer and display it with no decimal places. Default alignment will be left if either `decimal-maximum-digits` or a unit is set, otherwise right (since the decimal separators should align in that case).
+    - This could be extended to other pre-configured formats in future. Their configuration attributes would be prefixed with the name of the format mode.
+    - **Note:** all of the above will be implemented using a `Intl.NumberFormat` formatter. Nimble will configure the formatter with defaults to match the [visual design spec](https://github.com/ni/nimble/issues/887). The exception is that we will set `useGrouping: true` to achieve `1,000` rather than `1000` because this styles the values in a way that is more human readable.
+- `decimal-digits` - when format is `decimal`, a number that controls how many digits are shown to the right of the decimal separator. Possible values are from 0 to 20. Defaults to 2 (unless `decimal-maximum-digits` is specified).
+    - It is invalid to specify both `decimal-digits` and `decimal-maximum-digits`.
+    - Formats other than `decimal` ignore `decimal-digits`.
+- `decimal-maximum-digits` - when format is `decimal`, a number that controls the maximum number of possible digits shown to the right of the decimal separator (i.e. omits trailing zeros). Possible values are from 0 to 20.
+    - It is invalid to specify both `decimal-digits` and `decimal-maximum-digits`.
+    - Formats other than `decimal` ignore `decimal-maximum-digits`.
 
 This column will display a blank cell when `typeof` the value is not `"number"` (i.e. if the value is `null`, `undefined`, not present, or has a different runtime data type). Note that IEE 754 numbers like Infinity, NaN, and -0 are type `"number"` so will be displayed how each formatter converts them. This will preserve values like `"∞"` and `"NaN"`.
 
@@ -186,9 +186,9 @@ This column will trigger `invalidColumnConfiguration` on the table's validity st
 
 A unit for the column may be configured by providing a `nimble-unit-<name>` element as content (in addition to the column label). Unit elements represent a set of related, scaled units, e.g. `nimble-unit-byte` represents bytes, KB, MB, etc. Values are converted from a source unit (e.g. bytes) to the largest scaled unit (e.g. KB, MB, etc.) that can represent that value with magnitude >= 1. The source data for the column is expected to be given in the base unit specified in the tag name, e.g. for `nimble-unit-byte`, a source value should be a number of bytes. Note that unit elements have no visual representation of their own. They are strictly configuration components, and by nature of being components, allow selective loading of translation data for only the needed units. The initial set of unit elements are:
 
--   `nimble-unit-byte` - Labels in this unit scale are base 1000 with metric prefixes `byte`/`bytes`, `KB`, `MB`, `GB`, `TB`, `PB`
-    -   `binary` - boolean attribute that indicates a base 1024 with binary prefixes resulting in unit labels `byte`/`bytes`, `KiB`, `MiB`, `GiB`, `TiB`, `PiB`.
--   `nimble-unit-volt` - Labels in this unit scale are `volt`/`volts`, plus `V` prefixed by all supported metric prefixes.
+- `nimble-unit-byte` - Labels in this unit scale are base 1000 with metric prefixes `byte`/`bytes`, `KB`, `MB`, `GB`, `TB`, `PB`
+    - `binary` - boolean attribute that indicates a base 1024 with binary prefixes resulting in unit labels `byte`/`bytes`, `KiB`, `MiB`, `GiB`, `TiB`, `PiB`.
+- `nimble-unit-volt` - Labels in this unit scale are `volt`/`volts`, plus `V` prefixed by all supported metric prefixes.
 
 Supported metric prefixes are f (femto), p (pico), n (nano), μ (micro), m (milli), c (centi), d (deci), k (kilo), M (mega), G (giga), T (tera), P (peta), and E (exa). This set is intended to be suitable for other units we may support in the future (e.g. ohms, amps), but any particular unit scale can diverge from this set as needed.
 
@@ -245,11 +245,11 @@ We considered allowing clients to provide date values using native date types li
 
 ##### API
 
--   `format` - a string which can take one of the following values
-    -   `undefined` - use the default formatter, which will display values similar to `Dec 19, 2020, 9:23:16 PM` and include support for localization. It will be implemented using `Intl.DateTimeFormat` with `options.dateStyle` and `options.timeStyle` set to `"medium"`.
-    -   `'custom'` - use [`Intl.DateTimeFormat`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat) configured with values specified in other attributes.
-    -   This could be extended to other pre-configured formats in future. Their configuration attributes would similarly be prefixed with the name of the format mode.
--   `custom-*` - when format is `custom`, these attribute-cased values will be passed to the equivalent camelCased fields of the `options` parameter of the `Intl.DateTimeFormat` constructor. For example, `options.dateStyle` will be set to the value of `custom-date-style`. These fields are all string, boolean, or number and their property equivalents will be strictly typed.
+- `format` - a string which can take one of the following values
+    - `undefined` - use the default formatter, which will display values similar to `Dec 19, 2020, 9:23:16 PM` and include support for localization. It will be implemented using `Intl.DateTimeFormat` with `options.dateStyle` and `options.timeStyle` set to `"medium"`.
+    - `'custom'` - use [`Intl.DateTimeFormat`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat) configured with values specified in other attributes.
+    - This could be extended to other pre-configured formats in future. Their configuration attributes would similarly be prefixed with the name of the format mode.
+- `custom-*` - when format is `custom`, these attribute-cased values will be passed to the equivalent camelCased fields of the `options` parameter of the `Intl.DateTimeFormat` constructor. For example, `options.dateStyle` will be set to the value of `custom-date-style`. These fields are all string, boolean, or number and their property equivalents will be strictly typed.
 
 This column will display a blank cell when the value is `null` or `isNaN(new Date(value))` returns `true` (i.e. if the value is `null`, `undefined`, not present, has a non-`number` runtime data type, or is a `number` that produces an invalid `Date` like `NaN`/`Infinity`) (see ["Detecting an invalid Date instance"](https://stackoverflow.com/a/1353711)). Note that `new Date(null)` is behaves the same as `new Date(0)` so Nimble treating `null` as invalid will require a special case.
 
@@ -325,20 +325,20 @@ table.setData(tableData);
 
 **Pros:**
 
--   formatted data is specified up front, guaranteeing fast scroll performance
--   powerful; clients can format data however they want, including via browser APIs which are i18n-friendly or via server-side logic
+- formatted data is specified up front, guaranteeing fast scroll performance
+- powerful; clients can format data however they want, including via browser APIs which are i18n-friendly or via server-side logic
 
 **Cons:**
 
--   Increased memory usage and data update time from clients pre-populating data with field for each formatted column
--   Added complexity of writing procedural code even for simple numeric formatting use cases
--   Potential cross-app inconsistency if numeric formatting code isn't shared (versus Alternative 3)
--   Difficult to enforce styling differences between string and numeric columns (e.g. right vs left text alignment)
+- Increased memory usage and data update time from clients pre-populating data with field for each formatted column
+- Added complexity of writing procedural code even for simple numeric formatting use cases
+- Potential cross-app inconsistency if numeric formatting code isn't shared (versus Alternative 3)
+- Difficult to enforce styling differences between string and numeric columns (e.g. right vs left text alignment)
 
 **Implementation Cost:**
 
--   Exposing `operand-data-record-name` to be set by client code rather than column definition
--   Exposing an API for clients to indicate their data should be styled as numeric data (right aligned)
+- Exposing `operand-data-record-name` to be set by client code rather than column definition
+- Exposing an API for clients to indicate their data should be styled as numeric data (right aligned)
 
 #### Client provides custom column implementation for each use case
 
@@ -346,14 +346,14 @@ Nimble already has a mechanism for clients to provide custom columns by deriving
 
 **Pros:**
 
--   Zero implementation cost to Nimble team
--   Powerful; clients can format data however they want, including via browser APIs which are i18n-friendly
+- Zero implementation cost to Nimble team
+- Powerful; clients can format data however they want, including via browser APIs which are i18n-friendly
 
 **Cons:**
 
--   Higher burden on clients to specify template, styling, numeric formatting, etc in JS. This is especially burdensome in frameworks like Blazor.
--   Difficult to enforce styling differences between string and numeric columns (e.g. right vs left text alignment)
--   Potential cross-app inconsistency if formatting code isn't shared
+- Higher burden on clients to specify template, styling, numeric formatting, etc in JS. This is especially burdensome in frameworks like Blazor.
+- Difficult to enforce styling differences between string and numeric columns (e.g. right vs left text alignment)
+- Potential cross-app inconsistency if formatting code isn't shared
 
 ### Other number/date/time formatting APIs
 
@@ -373,20 +373,20 @@ Other libraries considered for number conversion and/or unit label localization 
 
 An alternative to the `nimble-unit-<name>` element-based API is to just configure the unit through one or more attributes on the column:
 
--   `unit` - `'byte'`, `'volt'`, or `undefined` (no unit)
--   `unit-byte-binary` - (byte type only) boolean flag indicating to use 1024-based unit labels/conversions
+- `unit` - `'byte'`, `'volt'`, or `undefined` (no unit)
+- `unit-byte-binary` - (byte type only) boolean flag indicating to use 1024-based unit labels/conversions
 
 **Pros:**
 
--   More discoverable
--   Auto-complete support
--   More compact
+- More discoverable
+- Auto-complete support
+- More compact
 
 **Cons:**
 
--   All units' translated labels (for all languages) always loaded -- potential bloat
--   Any unit-specific configuration now part of the column API rather than encapsulated by a unit element
--   Clients cannot define their own custom types
+- All units' translated labels (for all languages) always loaded -- potential bloat
+- Any unit-specific configuration now part of the column API rather than encapsulated by a unit element
+- Clients cannot define their own custom types
 
 #### Expose unit and unitDisplay from the Intl.NumberFormatter
 
@@ -394,12 +394,12 @@ We could add attributes for `unit` and `unit-display` that mirror the `unit` and
 
 **Pros:**
 
--   Built-in localization support
+- Built-in localization support
 
 **Cons:**
 
--   `Intl.NumberFormatter` [supports a fairly limited amount of `unit` values](https://tc39.es/ecma402/#table-sanctioned-single-unit-identifiers) with no way to extend the supported set
--   Requires all records to have the same unit
+- `Intl.NumberFormatter` [supports a fairly limited amount of `unit` values](https://tc39.es/ecma402/#table-sanctioned-single-unit-identifiers) with no way to extend the supported set
+- Requires all records to have the same unit
 
 #### Add prefix and suffix attributes
 
@@ -407,14 +407,14 @@ We could add attributes for `prefix` and `suffix` that could be used to specify 
 
 **Pros:**
 
--   Fairly flexible, as it does not impose any restrictions on the units that are supported
+- Fairly flexible, as it does not impose any restrictions on the units that are supported
 
 **Cons:**
 
--   Poses localization challenges. For example:
-    -   The prefix or suffix might need to change based on the value of the number (e.g. `1 gram` vs `2 grams`)
-    -   A prefix in one locale might be a suffix in another locale (e.g. `56.8 degrees Celsius` in English will be represented as `摂氏 56.8 度` in Japanese)
--   Doesn't provide the flexibility of having different units for each record
+- Poses localization challenges. For example:
+    - The prefix or suffix might need to change based on the value of the number (e.g. `1 gram` vs `2 grams`)
+    - A prefix in one locale might be a suffix in another locale (e.g. `56.8 degrees Celsius` in English will be represented as `摂氏 56.8 度` in Japanese)
+- Doesn't provide the flexibility of having different units for each record
 
 #### Specify prefix and suffix through additional fields in the record
 
@@ -422,14 +422,14 @@ We could add attributes for `prefix-field-name` and `suffix-field-name` which wo
 
 **Pros:**
 
--   Flexible; allows different units per record and does not impose any restrictions on the units that are supported.
--   Solves the problem where units might change based on the value of the number (e.g `1 gram` vs `2 grams`)
+- Flexible; allows different units per record and does not impose any restrictions on the units that are supported.
+- Solves the problem where units might change based on the value of the number (e.g `1 gram` vs `2 grams`)
 
 **Cons:**
 
--   Requires adding additional fields to each record, which could significantly increase memory usage in the cases where there are many records, each of which has many numeric values requiring prefix and/or suffix fields
--   Poses localization challenges. For example:
-    -   A prefix in one locale might be a suffix in another locale (e.g. `56.8 degrees Celsius` in English will be represented as `摂氏 56.8 度` in Japanese)
+- Requires adding additional fields to each record, which could significantly increase memory usage in the cases where there are many records, each of which has many numeric values requiring prefix and/or suffix fields
+- Poses localization challenges. For example:
+    - A prefix in one locale might be a suffix in another locale (e.g. `56.8 degrees Celsius` in English will be represented as `摂氏 56.8 度` in Japanese)
 
 ### Expose all configuration options of Intl.NumberFormatter
 
@@ -467,17 +467,17 @@ We will add standard unit tests, Blazor/Angular tests, and Chromatic tests for n
 
 #### Number column
 
--   number edge cases (-Inf, Inf, -0, +0, NaN, Number.MAX_SAFE_INTEGER + n, Number.MIN_SAFE_INTEGER - n) should render as numbers (the exact presentation on the numbers will depend on the formatting options chosen)
--   non-number edge cases (e.g. strings containing numbers, undefined, null) should display blank
--   formatting should change with different locales
--   invalid formatter configuration should be reflected in column validity state
+- number edge cases (-Inf, Inf, -0, +0, NaN, Number.MAX_SAFE_INTEGER + n, Number.MIN_SAFE_INTEGER - n) should render as numbers (the exact presentation on the numbers will depend on the formatting options chosen)
+- non-number edge cases (e.g. strings containing numbers, undefined, null) should display blank
+- formatting should change with different locales
+- invalid formatter configuration should be reflected in column validity state
 
 #### Date column
 
--   date edge cases (min and max date, different time zones)
--   non-date edge cases (e.g. non-dates, invalid dates) should display blank
--   formatting should change with different locales
--   invalid formatter configuration should be reflected in column validity state
+- date edge cases (min and max date, different time zones)
+- non-date edge cases (e.g. non-dates, invalid dates) should display blank
+- formatting should change with different locales
+- invalid formatter configuration should be reflected in column validity state
 
 ### Tooling
 

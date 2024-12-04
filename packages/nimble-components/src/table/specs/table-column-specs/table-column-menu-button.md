@@ -10,15 +10,15 @@ In some tables, the user needs to make a selection associated with a cell in the
 
 ### Features
 
--   Add `nimble-menu-button` to a cell where the text on the menu button is populated from the table row's record
--   Allow a client application to specify custom menu items for each menu button instance
+- Add `nimble-menu-button` to a cell where the text on the menu button is populated from the table row's record
+- Allow a client application to specify custom menu items for each menu button instance
 
 ### Non-goals
 
--   Support client-specified icons in the menu button, including icon-only menu buttons
--   Allow configuration of the menu button's `appearance` or `appearance-variant`
--   Having the table or the column automatically update the row's record when an item in the menu is activated.
-    -   If a record needs to be updated, the expectation is that this will be done within client code in reaction to an event fired by the menu items.
+- Support client-specified icons in the menu button, including icon-only menu buttons
+- Allow configuration of the menu button's `appearance` or `appearance-variant`
+- Having the table or the column automatically update the row's record when an item in the menu is activated.
+    - If a record needs to be updated, the expectation is that this will be done within client code in reaction to an event fired by the menu items.
 
 ## Implementation / Design
 
@@ -78,23 +78,23 @@ Because the menu will only be shown for one menu button at a time, the same slot
 
 _Component Name_
 
--   `nimble-table-column-menu-button`
+- `nimble-table-column-menu-button`
 
 _Props/Attrs_
 
--   `field-name`: string - The name of the field in each record that contains the string that will be displayed in the menu button
--   `menu-slot`: string - The name of the slot within the `nimble-table` instance where the menu associated with the column's menu button will be provided
--   `fractional-width`: number (defaults to 1)
--   `min-pixel-width`: number (defaults to minimum supported by table)
+- `field-name`: string - The name of the field in each record that contains the string that will be displayed in the menu button
+- `menu-slot`: string - The name of the slot within the `nimble-table` instance where the menu associated with the column's menu button will be provided
+- `fractional-width`: number (defaults to 1)
+- `min-pixel-width`: number (defaults to minimum supported by table)
 
 _Content_
 
--   column title (icon and/or text)
+- column title (icon and/or text)
 
 _Events_
 
--   `menu-button-column-beforetoggle`: Fired when a menu button in a cell fires the `beforetoggle` event
--   `menu-button-column-toggle`: Fired when a menu button in a cell fires the `toggle` event
+- `menu-button-column-beforetoggle`: Fired when a menu button in a cell fires the `beforetoggle` event
+- `menu-button-column-toggle`: Fired when a menu button in a cell fires the `toggle` event
 
 The detail for each of these events will be as follows:
 
@@ -109,7 +109,7 @@ interface MenuButtonColumnToggleEventDetail
 
 _Component Name_
 
--   `nimble-table-column-menu-button-cell-view`
+- `nimble-table-column-menu-button-cell-view`
 
 _Rendering_
 
@@ -117,14 +117,14 @@ If the record value associated with the specified `field-name` is a non-empty st
 
 The menu button will have the following behaviors/styles:
 
--   Use `ghost` appearance mode
--   Have `nimble-icon-arrow-expander-down` slotted into the `end` slot
--   Grow to fill the width of the cell
--   Left-align the text (with padding) in the button to make the text within each button is aligned for a given column
-    -   By default, button text is centered, so custom styling will be written to handle this case.
--   Ellipsize text in the button if it doesn't fit in the button
--   Provide the full text within the button's `title` if the text is ellipsized
-    -   It is unlikely this can leverage the existing `overflow` directive as-is because the overflow will occur on the text within a `span` within the button, but the `title` should be added when the button is hovered. The best solution to this problem will be determined during implementation.
+- Use `ghost` appearance mode
+- Have `nimble-icon-arrow-expander-down` slotted into the `end` slot
+- Grow to fill the width of the cell
+- Left-align the text (with padding) in the button to make the text within each button is aligned for a given column
+    - By default, button text is centered, so custom styling will be written to handle this case.
+- Ellipsize text in the button if it doesn't fit in the button
+- Provide the full text within the button's `title` if the text is ellipsized
+    - It is unlikely this can leverage the existing `overflow` directive as-is because the overflow will occur on the text within a `span` within the button, but the `title` should be added when the button is hovered. The best solution to this problem will be determined during implementation.
 
 #### Group Header View Component
 
@@ -178,36 +178,36 @@ A Blazor wrapper will be created for the component. There are no special conside
 
 Multiple API changes need to be made to the table, its subcomponents, and the classes it uses to facilitate slotting a menu through the table and into a specific cell view. This includes the following:
 
--   The `ColumnInternalsOptions` interface will be updated to include an optional string array named `slotNames`, which allows a column to specify the names of any slots that need to be forwarded into a cell.
--   As with the `ColumnInternalsOptions`, the `ColumnInternals` class will be updated to have a `slotNames` array that specifies the names of any slots that need to be forwarded into a cell. The value will be readonly and will be populated by the `ColumnInternalsOptions` `slotNames` property. It will default to an empty array if a value is not provided in `ColumnInternalsOptions`.
--   Add slots to component templates:
-    -   table template - slots created within each table row element that has most recently requested the slot
-        -   slot's name: specified by client's column configuration (e.g. `software-version-menu`)
-        -   slot's slot: _unique-column-id_ + _column-requested-slot-name from column internal's slotNames array_ (e.g. table-column-slot2-menu)
-    -   row template - slots created within each table row element for each slot name that is specified in the column's `ColumnInternals.slotNames` array
-        -   slot's name: _unique-column-id_ + _column-requested-slot-name from column internal's slotNames array_ (e.g. table-column-slot2-menu)
-        -   slot's slot: _unique-column-id_ + _column-requested-slot-name from column internal's slotNames array_ (e.g. table-column-slot2-menu)
-    -   cell view, created via `createCellViewTemplate` - slots created within the cell view
-        -   slot's name: _unique-column-id_ + _column-requested-slot-name from column internal's slotNames array_ (e.g. table-column-slot2-menu)
-        -   slot's slot: _column-requested-slot-name from column internal's slotNames array_ (e.g. menu)
-    -   menu button column cell view - slot created within the menu button component
-        -   slot's name: _column-requested-slot-name from column internal's slotNames array_ (e.g. menu)
-        -   slot's slot: `"menu"`, which is the slot name required by the `nimble-menu-button` comonent
--   Add events to pass slot information between cell views, rows, and the table:
-    -   `cell-view-slots-request` event
-        -   Fired by cell view instances if they want to request that the column's slots to be placed within that cell. For example, the menu button column's cell view will fire this event when the cell's `menu-button` fires a `beforetoggle` event with the `newState` as `true`.
-        -   Handled by table rows. When handling this event, a table row will fire the `row-slots-request` event to request the table to slot the necessary elements within the row.
-        -   Event details:
+- The `ColumnInternalsOptions` interface will be updated to include an optional string array named `slotNames`, which allows a column to specify the names of any slots that need to be forwarded into a cell.
+- As with the `ColumnInternalsOptions`, the `ColumnInternals` class will be updated to have a `slotNames` array that specifies the names of any slots that need to be forwarded into a cell. The value will be readonly and will be populated by the `ColumnInternalsOptions` `slotNames` property. It will default to an empty array if a value is not provided in `ColumnInternalsOptions`.
+- Add slots to component templates:
+    - table template - slots created within each table row element that has most recently requested the slot
+        - slot's name: specified by client's column configuration (e.g. `software-version-menu`)
+        - slot's slot: _unique-column-id_ + _column-requested-slot-name from column internal's slotNames array_ (e.g. table-column-slot2-menu)
+    - row template - slots created within each table row element for each slot name that is specified in the column's `ColumnInternals.slotNames` array
+        - slot's name: _unique-column-id_ + _column-requested-slot-name from column internal's slotNames array_ (e.g. table-column-slot2-menu)
+        - slot's slot: _unique-column-id_ + _column-requested-slot-name from column internal's slotNames array_ (e.g. table-column-slot2-menu)
+    - cell view, created via `createCellViewTemplate` - slots created within the cell view
+        - slot's name: _unique-column-id_ + _column-requested-slot-name from column internal's slotNames array_ (e.g. table-column-slot2-menu)
+        - slot's slot: _column-requested-slot-name from column internal's slotNames array_ (e.g. menu)
+    - menu button column cell view - slot created within the menu button component
+        - slot's name: _column-requested-slot-name from column internal's slotNames array_ (e.g. menu)
+        - slot's slot: `"menu"`, which is the slot name required by the `nimble-menu-button` comonent
+- Add events to pass slot information between cell views, rows, and the table:
+    - `cell-view-slots-request` event
+        - Fired by cell view instances if they want to request that the column's slots to be placed within that cell. For example, the menu button column's cell view will fire this event when the cell's `menu-button` fires a `beforetoggle` event with the `newState` as `true`.
+        - Handled by table rows. When handling this event, a table row will fire the `row-slots-request` event to request the table to slot the necessary elements within the row.
+        - Event details:
             <!-- prettier-ignore -->
             ```ts
             interface CellViewSlotRequestEventDetail {
                 slots: { slot: string, name: string }[];
             }
             ```
-    -   `row-slots-request` event
-        -   Fired by table rows to request that column's slots to be placed within that row. This event is fired in response to the row recieving a `cell-view-slots-request` event fired by one of its cell views.
-        -   Handled by table. When handling this event, the table will update its template to move the appropriate slots into the correct table row.
-        -   Event details:
+    - `row-slots-request` event
+        - Fired by table rows to request that column's slots to be placed within that row. This event is fired in response to the row recieving a `cell-view-slots-request` event fired by one of its cell views.
+        - Handled by table. When handling this event, the table will update its template to move the appropriate slots into the correct table row.
+        - Event details:
             <!-- prettier-ignore -->
             ```ts
             interface RowSlotRequestEventDetail {
@@ -227,8 +227,8 @@ Rather than creating a menu button column, we could create a select column. Howe
 
 ## Open Issues
 
--   There is no visual design spec for this feature yet. Therefore there are a few open visual design questions, including the following:
-    -   If we only support one appearance for the menu-button, is `ghost` the appropriate one to support?
-    -   Is there any concern that the button text will not align with the column header because of the padding between the edge of the button and the text within the button?
--   If the menu is open in a cell, it needs to be closed when scrolling. However, the `focusedRecycleCallback()` doesn't provide the appropriate hook to do this today. The problem appears to be that the menu has focus when the menu button is open, which means the focus isn't actually in the cell view -- it's in the menu slotted into the cell view. We need to come up with a plan to address this.
--   There may be additional work to integrate this column with the table keyboard navigation work that is currently in progress.
+- There is no visual design spec for this feature yet. Therefore there are a few open visual design questions, including the following:
+    - If we only support one appearance for the menu-button, is `ghost` the appropriate one to support?
+    - Is there any concern that the button text will not align with the column header because of the padding between the edge of the button and the text within the button?
+- If the menu is open in a cell, it needs to be closed when scrolling. However, the `focusedRecycleCallback()` doesn't provide the appropriate hook to do this today. The problem appears to be that the menu has focus when the menu button is open, which means the focus isn't actually in the cell view -- it's in the menu slotted into the cell view. We need to come up with a plan to address this.
+- There may be additional work to integrate this column with the table keyboard navigation work that is currently in progress.

@@ -6,7 +6,7 @@ In some tables, such as many tables within SLE, there is a need to put a menu bu
 
 ### Out of scope of this HLD
 
--   The interaction of the menu opening and closing in coordination with row selection is out of scope for this HLD. This interaction will be discussed when row selection is defined.
+- The interaction of the menu opening and closing in coordination with row selection is out of scope for this HLD. This interaction will be discussed when row selection is defined.
 
 ## Links To Relevant Work Items and Reference Material
 
@@ -27,9 +27,9 @@ There are three pieces of configuration that must be provided by a client in ord
 
 The nimble design system will be opinionated about many details of the menu button within a table. Therefore, a client will not be able to configure the exact details of the menu button itself, such as:
 
--   The appearance mode of the button
--   The icon shown within the button
--   When the button becomes visible (e.g. always visible, visible on hover/selection only, etc.)
+- The appearance mode of the button
+- The icon shown within the button
+- When the button becomes visible (e.g. always visible, visible on hover/selection only, etc.)
 
 If the need arises for a client to have more control of the menu button's configuration, the API can be extended at a later time.
 
@@ -86,10 +86,10 @@ A menu can be shared between columns by specifying the same slot name for multip
 
 If an application requires different menu items or different menu item states for different records in the table, the client is responsible for ensuring that the items in the menu are correct for the records(s) and column that the menu is associated with. This can be done by handling the `action-menu-beforetoggle` event on the table and updating the menu items as appropriate. The `action-menu-beforetoggle` event will include the following in its details:
 
--   `newState` - boolean - The value of `open` on the menu button that the element is transitioning in to.
--   `oldState` - boolean - The value of `open` on the menu button that the element is transitioning out of.
--   `recordIds` - string array - The IDs of the records that the menu is associated with.
--   `columnId` - string | undefined - The column ID of the column that the menu is associated with.
+- `newState` - boolean - The value of `open` on the menu button that the element is transitioning in to.
+- `oldState` - boolean - The value of `open` on the menu button that the element is transitioning out of.
+- `recordIds` - string array - The IDs of the records that the menu is associated with.
+- `columnId` - string | undefined - The column ID of the column that the menu is associated with.
 
 When an item in the menu is activated, the standard events associated with the menu and menu items will be emitted. The event details will not contain any information about the table, its records, or its columns. Therefore, clients should use the `action-menu-beforetoggle` event to cache any necessary context about which records and column the menu is associated with in order to handle menu events appropriately.
 
@@ -122,8 +122,8 @@ Note: The template above has been simplified and uses references to `table` and 
 
 To implement the design described above, a few changes need to be made to the existing `nimble-menu-button`:
 
--   Add a `beforetoggle` event that gets fired immediately before the menu is opened or closed. This new event will allow the table to slot the menu into the correct row and cell prior to the menu actually opening. This is important to ensure that the menu items can be focused correctly upon the menu opening.
--   Update the code that gets the slotted menu. Currently, the code only looks for the first element in the `menu` slot. With the design above, the menu element will be nested within a few `slot` elements, so the code will be updated to handle both DOM structures.
+- Add a `beforetoggle` event that gets fired immediately before the menu is opened or closed. This new event will allow the table to slot the menu into the correct row and cell prior to the menu actually opening. This is important to ensure that the menu items can be focused correctly upon the menu opening.
+- Update the code that gets the slotted menu. Currently, the code only looks for the first element in the `menu` slot. With the design above, the menu element will be nested within a few `slot` elements, so the code will be updated to handle both DOM structures.
 
 ### Framework Integration
 
@@ -135,14 +135,14 @@ There is no framework-specific integration work necessary with this design. One 
 
 Rather than configuring a column to have a menu by adding an attribute to the column definition, a column could be configured to have a menu by adding a property to the table that is the array of column IDs that should have a menu. This is not ideal for a few different reasons:
 
--   It requires columns to have IDs when this may not otherwise be necessary.
--   It is more error prone because mistakes could be made keeping the configuration of column IDs in sync between the column definitions and table configuration.
+- It requires columns to have IDs when this may not otherwise be necessary.
+- It is more error prone because mistakes could be made keeping the configuration of column IDs in sync between the column definitions and table configuration.
 
 ## Open Issues
 
--   Can the action menu be opened for multiple rows at the same time? This doesn't become possible until the table supports row selection, but it can impact the API. To be the most future-proof, the API is designed such that the `action-menu-beforetoggle` event includes an array of row IDs rather than a single row ID string.
--   The details of the visual/interaction design still need to be finalized by the designers, but these details should have minimal impact on the implementation. Some items that need to be finalized are:
-    -   What icon will be used for the menu? Will it still be the three dots in a horizontal line?
-    -   What is the exact interaction with the menu being visible on hover?
-    -   Is the space of the menu-button always reserved within a column, or does the space collapse when the button is hidden?
-    -   How does the menu interact with row selection? This is a future-looking question because the table does not currently support selection.
+- Can the action menu be opened for multiple rows at the same time? This doesn't become possible until the table supports row selection, but it can impact the API. To be the most future-proof, the API is designed such that the `action-menu-beforetoggle` event includes an array of row IDs rather than a single row ID string.
+- The details of the visual/interaction design still need to be finalized by the designers, but these details should have minimal impact on the implementation. Some items that need to be finalized are:
+    - What icon will be used for the menu? Will it still be the three dots in a horizontal line?
+    - What is the exact interaction with the menu being visible on hover?
+    - Is the space of the menu-button always reserved within a column, or does the space collapse when the button is hidden?
+    - How does the menu interact with row selection? This is a future-looking question because the table does not currently support selection.

@@ -12,15 +12,15 @@ The banner is a component used to display a persistent notification to a user.
 
 ### Non-goals
 
--   Arbitrary HTML content
--   A container component that would enforce design constraints on multiple banners displayed together
--   Limiting length of displayed text and/or truncating text with ellipsis
+- Arbitrary HTML content
+- A container component that would enforce design constraints on multiple banners displayed together
+- Limiting length of displayed text and/or truncating text with ellipsis
 
 ### Features
 
--   Optionally dismissable
--   Optional link or button (only 1) to perform an action/navigation
--   Distinct designs for banners of severity Error, Warning, Info, or Default
+- Optionally dismissable
+- Optional link or button (only 1) to perform an action/navigation
+- Distinct designs for banners of severity Error, Warning, Info, or Default
 
 ### Risks and Challenges
 
@@ -44,20 +44,20 @@ When the user presses the dismiss button, we will hide the banner (`display:none
 
 _The key elements of the component's public API surface:_
 
--   _Component Name_: `nimble-banner`
--   _Props/Attrs_:
-    -   `open` - whether the banner is visible or not
-    -   `prevent-dismiss` - set to hide the dismiss button (attr name taken from Nimble dialog)
-    -   `severity` - one of `error`, `warning`, `info`, or undefined (default)
-    -   `title-hidden` - set to hide the title text, which should always be provided for a11y reasons
--   _Methods_
--   _Events_
-    -   `toggle` - fired when the banner is closed or opened. Event has `newState` and `oldState`.
--   _Slots_
-    -   `title` - for the title/header text
-    -   (default) - for the primary message text
-    -   `action` - for the action button/link
--   _CSS Classes and CSS Custom Properties that affect the component_
+- _Component Name_: `nimble-banner`
+- _Props/Attrs_:
+    - `open` - whether the banner is visible or not
+    - `prevent-dismiss` - set to hide the dismiss button (attr name taken from Nimble dialog)
+    - `severity` - one of `error`, `warning`, `info`, or undefined (default)
+    - `title-hidden` - set to hide the title text, which should always be provided for a11y reasons
+- _Methods_
+- _Events_
+    - `toggle` - fired when the banner is closed or opened. Event has `newState` and `oldState`.
+- _Slots_
+    - `title` - for the title/header text
+    - (default) - for the primary message text
+    - `action` - for the action button/link
+- _CSS Classes and CSS Custom Properties that affect the component_
 
 We only formally support spans of text in the `title` and default slots, but we will not explicitly prevent other HTML from being slotted there. The `action` slot only supports a single `nimble-button` or `nimble-anchor`, but again, we will not do anything to enforce this.
 
@@ -130,13 +130,13 @@ See XD document link at the top of this document.
 
 The biggest issue is that we will have to completely re-style the icons, link, and buttons:
 
--   Primary icon (error, warning, or info) color is transparent white (in all themes)
--   Action button height is 24px (instead of 32px)
--   Action button hover border color is white (in all themes)
--   Action link color is white (in all themes)
--   Close button is 16px square
--   Close button icon is 8px square
--   Close button hover effect is background color change (transparent white) rather than border
+- Primary icon (error, warning, or info) color is transparent white (in all themes)
+- Action button height is 24px (instead of 32px)
+- Action button hover border color is white (in all themes)
+- Action link color is white (in all themes)
+- Close button is 16px square
+- Close button icon is 8px square
+- Close button hover effect is background color change (transparent white) rather than border
 
 We are not able to directly style some of these elements, because they are in the shadow DOM of `nimble-icon-*` and `nimble-button`. We will have to resort to overriding Nimble token values, like `--ni-nimble-icon-color` and `--ni-nimble-icon-size`.
 
@@ -152,17 +152,17 @@ N/A
 
 _Consider the accessibility of the component, including:_
 
--   _Keyboard Navigation and Focus_
-    -   the action button/link and the dismiss button will be focusable tab stops
--   _Form Input_
-    -   N/A
--   _Use with Assistive Technology_
-    -   the banner will have the ARIA role of `status`. The role `alert` was considered, but it is too aggressive for the range of banner use cases.
-    -   the `status` role has implicit `aria-live` value of `polite`
-    -   if the user supplies a title, we will set `aria-label` to that value
-    -   the user may specify `aria-label` on the `nimble-banner`, but it is not required
--   _Behavior with browser configurations like "Prefers reduced motion"_
-    -   N/A
+- _Keyboard Navigation and Focus_
+    - the action button/link and the dismiss button will be focusable tab stops
+- _Form Input_
+    - N/A
+- _Use with Assistive Technology_
+    - the banner will have the ARIA role of `status`. The role `alert` was considered, but it is too aggressive for the range of banner use cases.
+    - the `status` role has implicit `aria-live` value of `polite`
+    - if the user supplies a title, we will set `aria-label` to that value
+    - the user may specify `aria-label` on the `nimble-banner`, but it is not required
+- _Behavior with browser configurations like "Prefers reduced motion"_
+    - N/A
 
 ### Globalization
 

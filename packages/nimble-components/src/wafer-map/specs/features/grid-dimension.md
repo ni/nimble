@@ -13,8 +13,8 @@ To mitigate these problems, we will reveal four new API inputs which will allow 
 
 ## Links To Relevant Work Items and Reference Material
 
--   [Wafer Map Spec](../README.md)
--   [Interactive Wafer Map Improvements](https://dev.azure.com/ni/DevCentral/_wiki/wikis/Stratus/66917/Interactive-Wafer-Map-Improvements)
+- [Wafer Map Spec](../README.md)
+- [Interactive Wafer Map Improvements](https://dev.azure.com/ni/DevCentral/_wiki/wikis/Stratus/66917/Interactive-Wafer-Map-Improvements)
 
 ## Implementation / Design
 
