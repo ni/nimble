@@ -36,7 +36,7 @@ public partial class ComponentsDemo
     {
         get
         {
-            return (IEnumerable<DemoColor>)Enum.GetValues(typeof(DemoColor));
+            return Enum.GetValues<DemoColor>();
         }
     }
 
@@ -179,7 +179,7 @@ public partial class ComponentsDemo
     private string DrawerLocationAsString
     {
         get => _drawerLocation.ToString();
-        set => _drawerLocation = (DrawerLocation)Enum.Parse(typeof(DrawerLocation), value);
+        set => _drawerLocation = Enum.Parse<DrawerLocation>(value);
     }
 
     public async Task OpenDialogAsync()
@@ -346,7 +346,7 @@ public class SimpleTableRecord
     public void UpdateColor(DemoColor newColor)
     {
         Color = newColor;
-        ColorString = Enum.GetName(typeof(DemoColor), newColor)!;
+        ColorString = Enum.GetName(newColor)!;
     }
 
     public string Id { get; }
