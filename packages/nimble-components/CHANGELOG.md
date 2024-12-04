@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-<!-- This log was last generated on Wed, 04 Dec 2024 19:53:29 GMT and should not be manually modified. -->
+<!-- This log was last generated on Wed, 04 Dec 2024 21:21:27 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 32.8.2
+
+Wed, 04 Dec 2024 21:21:27 GMT
+
+### Patches
+
+- Correct the position of error text on the nimble-checkbox ([ni/nimble@4e192f9](https://github.com/ni/nimble/commit/4e192f9c199222fde4c66ca08015b570e353caa6))
 
 ## 32.8.1
 
