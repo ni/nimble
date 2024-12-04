@@ -1,7 +1,0 @@
-{
-  "type": "none",
-  "comment": "Update dependency NI.CSharp.Analyzers to 2.0.28",
-  "packageName": "@ni/nimble-blazor",
-  "email": "rajsite@users.noreply.github.com",
-  "dependentChangeType": "none"
-}

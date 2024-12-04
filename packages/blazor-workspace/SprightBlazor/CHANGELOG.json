@@ -2,6 +2,21 @@
   "name": "@ni/spright-blazor",
   "entries": [
     {
+      "date": "Wed, 04 Dec 2024 18:13:00 GMT",
+      "version": "3.1.4",
+      "tag": "@ni/spright-blazor_v3.1.4",
+      "comments": {
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/spright-blazor",
+            "commit": "9857f98e84701b6c78caaf4b9a10c9bbd98aa176",
+            "comment": "Update dependency NI.CSharp.Analyzers to 2.0.28"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 22 Nov 2024 22:50:22 GMT",
       "version": "3.1.4",
       "tag": "@ni/spright-blazor_v3.1.4",
