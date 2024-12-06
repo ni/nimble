@@ -1,4 +1,4 @@
-import { attr, html, observable } from '@microsoft/fast-element';
+import { attr, html } from '@microsoft/fast-element';
 import {
     DesignSystem,
     TextField as FoundationTextField,
