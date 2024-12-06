@@ -17,7 +17,10 @@ export class ErrorPatternPageObject {
 
     public getDisplayedErrorText(): string {
         const errorTextDiv = this.getErrorTextElement();
-        if (!errorTextDiv || getComputedStyle(errorTextDiv).display === 'none') {
+        if (
+            !errorTextDiv
+            || getComputedStyle(errorTextDiv).display === 'none'
+        ) {
             return '';
         }
         return errorTextDiv.textContent?.trim() ?? '';

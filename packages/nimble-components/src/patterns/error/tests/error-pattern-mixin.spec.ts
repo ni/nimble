@@ -1,6 +1,10 @@
 import { customElement, html } from '@microsoft/fast-element';
 import { FoundationElement } from '@microsoft/fast-foundation';
-import { Fixture, fixture, uniqueElementName } from '../../../utilities/tests/fixture';
+import {
+    Fixture,
+    fixture,
+    uniqueElementName
+} from '../../../utilities/tests/fixture';
 import { mixinErrorPattern } from '../types';
 import { styles } from '../styles';
 import { errorTextTemplate } from '../template';
@@ -14,8 +18,7 @@ const elementName = uniqueElementName();
     template: html`<${iconExclamationMarkTag} class="error-icon"></${iconExclamationMarkTag}>${errorTextTemplate}`,
     styles
 })
-class TestErrorPatternElement extends mixinErrorPattern(FoundationElement) {
-}
+class TestErrorPatternElement extends mixinErrorPattern(FoundationElement) {}
 
 async function setup(): Promise<Fixture<TestErrorPatternElement>> {
     return await fixture(elementName);

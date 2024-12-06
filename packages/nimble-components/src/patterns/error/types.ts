@@ -11,7 +11,9 @@ type FASTElementConstructor = abstract new (...args: any[]) => FASTElement;
 
 // As the returned class is internal to the function, we can't write a signature that uses is directly, so rely on inference
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/explicit-function-return-type
-export function mixinErrorPattern<TBase extends FASTElementConstructor>(base: TBase) {
+export function mixinErrorPattern<TBase extends FASTElementConstructor>(
+    base: TBase
+) {
     /**
      * The Mixin that provides a concrete column with the API to support being resized
      * proportionally within a Table.
@@ -42,9 +44,6 @@ export function mixinErrorPattern<TBase extends FASTElementConstructor>(base: TB
         ErrorPatternElement.prototype,
         'errorVisible'
     );
-    observable(
-        ErrorPatternElement.prototype,
-        'errorHasOverflow'
-    );
+    observable(ErrorPatternElement.prototype, 'errorHasOverflow');
     return ErrorPatternElement;
 }
