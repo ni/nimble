@@ -88,6 +88,9 @@ export const iconMetadata: {
     IconArrowUp: {
         tags: ['sort', 'arrow', 'up', 'ascending']
     },
+    IconAsterisk: {
+        tags: ['star', 'required']
+    },
     IconAt: {
         tags: ['@', 'email', 'handle', 'mention']
     },
