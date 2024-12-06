@@ -24,11 +24,11 @@ _Component Name_ - `nimble-text-area`
 
 _Properties/Attributes_ - Unchanged, except for following:
 
--   `appearance` - enum
-    -   outline (default)
-    -   block
--   `list` - though this is part of the FAST `text-area` API, it does not make sense or appear to work. According to the [`datalist` spec](https://html.spec.whatwg.org/multipage/form-elements.html#the-datalist-element), `datalist`s are only supported for `input` elements.
--   `minlength`/`required` - while this affects the `:invalid` state of the control, we do not (yet?) do any styling for an invalid text area.
+- `appearance` - enum
+    - outline (default)
+    - block
+- `list` - though this is part of the FAST `text-area` API, it does not make sense or appear to work. According to the [`datalist` spec](https://html.spec.whatwg.org/multipage/form-elements.html#the-datalist-element), `datalist`s are only supported for `input` elements.
+- `minlength`/`required` - while this affects the `:invalid` state of the control, we do not (yet?) do any styling for an invalid text area.
 
 _Events_ - Unchanged
 

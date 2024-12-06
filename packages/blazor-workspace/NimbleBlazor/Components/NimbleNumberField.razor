@@ -2,7 +2,7 @@
 @inherits NimbleInputBase<double?>
 <nimble-number-field
     appearance="@Appearance.ToAttributeValue()"
-    value="@Value"
+    current-value="@CurrentValue"
     @onchange="@(EventCallback.Factory.CreateBinder<string?>(this, __value => CurrentValueAsString = __value, CurrentValueAsString))"
     readonly="@ReadOnly"
     disabled="@Disabled"

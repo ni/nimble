@@ -12,14 +12,14 @@ Anchor tabs are a sequence of links that are styled to look like tab elements, w
 
 ### Non-goals
 
--   Mixing regular tabs and anchor tabs together
--   Vertical tabs orientation
+- Mixing regular tabs and anchor tabs together
+- Vertical tabs orientation
 
 ### Features
 
--   Functions like an anchor (i.e. navigates) upon activation
--   Supports keyboard navigation within group of tabs without automatically activating each focused tab
--   Disable individual tabs
+- Functions like an anchor (i.e. navigates) upon activation
+- Supports keyboard navigation within group of tabs without automatically activating each focused tab
+- Disable individual tabs
 
 ### Risks and Challenges
 
@@ -49,35 +49,35 @@ We cannot extend FAST's tabs control because it has baked into it the idea that 
 
 #### Anchor Tabs
 
--   _Component Name_ - `nimble-anchor-tabs`
--   _Props/Attrs_
-    -   `activeid` - id of active tab. Defaults to the first tab.
--   _Methods_ - None
--   _Events_ - None
--   _CSS Classes and CSS Custom Properties that affect the component_ - None
--   _Slots_
-    -   `start` - content placed to the left of tab list
-    -   `anchortab` - slot for anchor tab elements
-    -   `end` - content placed to the right of tab list
+- _Component Name_ - `nimble-anchor-tabs`
+- _Props/Attrs_
+    - `activeid` - id of active tab. Defaults to the first tab.
+- _Methods_ - None
+- _Events_ - None
+- _CSS Classes and CSS Custom Properties that affect the component_ - None
+- _Slots_
+    - `start` - content placed to the left of tab list
+    - `anchortab` - slot for anchor tab elements
+    - `end` - content placed to the right of tab list
 
 #### Anchor Tab
 
--   _Component Name_ - `nimble-anchor-tab`
--   _Props/Attrs_
-    -   `download` - see [HTML anchor doc](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#attributes)
-    -   `href` - see [HTML anchor doc](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#attributes).
-    -   `hreflang` - see [HTML anchor doc](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#attributes)
-    -   `ping` - see [HTML anchor doc](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#attributes)
-    -   `referrerpolicy` - see [HTML anchor doc](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#attributes)
-    -   `rel` - see [HTML anchor doc](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#attributes)
-    -   `target` - see [HTML anchor doc](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#attributes)
-    -   `type` - see [HTML anchor doc](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#attributes)
-    -   `disabled` - disables the tab (this matches the API of the existing `nimble-tab`). Setting it causes `aria-disabled` to be set as well.
--   _Methods_ - None
--   _Events_ - None
--   _CSS Classes and CSS Custom Properties that affect the component_ - None
--   _Slots_
-    -   _default_
+- _Component Name_ - `nimble-anchor-tab`
+- _Props/Attrs_
+    - `download` - see [HTML anchor doc](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#attributes)
+    - `href` - see [HTML anchor doc](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#attributes).
+    - `hreflang` - see [HTML anchor doc](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#attributes)
+    - `ping` - see [HTML anchor doc](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#attributes)
+    - `referrerpolicy` - see [HTML anchor doc](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#attributes)
+    - `rel` - see [HTML anchor doc](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#attributes)
+    - `target` - see [HTML anchor doc](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#attributes)
+    - `type` - see [HTML anchor doc](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#attributes)
+    - `disabled` - disables the tab (this matches the API of the existing `nimble-tab`). Setting it causes `aria-disabled` to be set as well.
+- _Methods_ - None
+- _Events_ - None
+- _CSS Classes and CSS Custom Properties that affect the component_ - None
+- _Slots_
+    - _default_
 
 ### Anatomy
 
@@ -115,7 +115,7 @@ Tabs do not participate in forms, so there is no ControlValueAccessor.
 
 We will follow the same approach previously used for the BreadcrumbItem, Anchor, and AnchorButton:
 
--   We will create a directive that extends `RouterLinkWithHref`, and its selector will be `nimble-anchor-tab[nimbleRouterLink]`. The directive will define `@Input nimbleRouterLink` (which sets `routerLink`). This is a small change for clients which we will document (consistent with BreadcrumbItem, Anchor, and AnchorButton), and other routerLink attributes can still be used as-is:
+- We will create a directive that extends `RouterLinkWithHref`, and its selector will be `nimble-anchor-tab[nimbleRouterLink]`. The directive will define `@Input nimbleRouterLink` (which sets `routerLink`). This is a small change for clients which we will document (consistent with BreadcrumbItem, Anchor, and AnchorButton), and other routerLink attributes can still be used as-is:
     ```html
     <nimble-anchor-tab
         nimbleRouterLink="/customapp"
@@ -125,7 +125,7 @@ We will follow the same approach previously used for the BreadcrumbItem, Anchor,
         Custom App Page
     </nimble-anchor-tab>
     ```
--   A separate directive will be created to disable use of the `routerLink` attribute on `nimble-anchor-tab` elements.
+- A separate directive will be created to disable use of the `routerLink` attribute on `nimble-anchor-tab` elements.
 
 ### Blazor integration
 
@@ -149,12 +149,12 @@ We will start with the [FAST tabs implementation](https://github.com/microsoft/f
 
 We will modify the FAST implementation in the following ways:
 
--   Remove support for vertical orientation
--   Remove support for disabling the active indicator (`hide-active-indicator`)
--   Replace active indicator style/animation with our own version
--   Replace logic related to tab panel activation with URL navigation
--   Changing the focused tab does not activate that tab
--   We will not set the active tab when activating a tab. I.e. the visuals and state related to being the "active" tab will be independent of a client actually activating/navigating via a tab. The reason is that an application's router may alter the navigation in a way that makes it inconsistent with the tab that is marked active. Therefore, we leave it up to the application developer to manage the active tab state based on the loaded URL.
+- Remove support for vertical orientation
+- Remove support for disabling the active indicator (`hide-active-indicator`)
+- Replace active indicator style/animation with our own version
+- Replace logic related to tab panel activation with URL navigation
+- Changing the focused tab does not activate that tab
+- We will not set the active tab when activating a tab. I.e. the visuals and state related to being the "active" tab will be independent of a client actually activating/navigating via a tab. The reason is that an application's router may alter the navigation in a way that makes it inconsistent with the tab that is marked active. Therefore, we leave it up to the application developer to manage the active tab state based on the loaded URL.
 
 ### States
 
@@ -166,18 +166,18 @@ When tabbing to the `nimble-navigation-tabs`, it gets keyboard focus. To indicat
 
 We want the keyboard interactions to match those of the standard tabs control as much as possible. This means conforming to the keyboard interactions of the `tablist` and `tab` ARIA roles. Though we don't have any elements with the `tabpanel` role, we still follow the rest of the ARIA guidelines for the roles we do have. An alternative would be to use a `nav` container element (which has role `navigation`) and `link` roles on each of our tabs. However, this would imply a different keyboard navigation scheme (`tab` key moves to next tab), and that is not what we want. The application developer could still wrap a `nimble-anchor-tabs` in a `nav` element to indicate that the tabs represent a landmark navigation element.
 
--   _Keyboard Navigation and Focus_
-    -   The tabs control will have a visual indication of which tab is active (green underline).
-    -   Once focused, the tabs control will show a visual indication of which tab has focus, starting with the active tab.
-    -   Arrowing left or right will change the focused tab. Arrowing left on the first tab will wrap around to the last, and vice versa.
-    -   `Home` will move focus to the first (non-disabled) tab.
-    -   `End` will move focus to the last (non-disabled) tab.
-    -   The `Enter` or `Space` key will activate the focused tab, setting `aria-selected`, moving the active indicator, and loading the tab's associated URL.
--   _Form Input_
-    -   N/A
--   _Use with Assistive Technology_
-    -   We set the roles `tablist` and `tab` on divs we create.
-    -   `aria-selected`'s value matches the selected state of the tab
+- _Keyboard Navigation and Focus_
+    - The tabs control will have a visual indication of which tab is active (green underline).
+    - Once focused, the tabs control will show a visual indication of which tab has focus, starting with the active tab.
+    - Arrowing left or right will change the focused tab. Arrowing left on the first tab will wrap around to the last, and vice versa.
+    - `Home` will move focus to the first (non-disabled) tab.
+    - `End` will move focus to the last (non-disabled) tab.
+    - The `Enter` or `Space` key will activate the focused tab, setting `aria-selected`, moving the active indicator, and loading the tab's associated URL.
+- _Form Input_
+    - N/A
+- _Use with Assistive Technology_
+    - We set the roles `tablist` and `tab` on divs we create.
+    - `aria-selected`'s value matches the selected state of the tab
 
 ### Globalization
 

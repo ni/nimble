@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <NoWarn>CA1716;CS1591</NoWarn>
+    <NoWarn>CA1716;CS1591;CA1515</NoWarn>
     <AppDesignerFolder>Properties</AppDesignerFolder>
   </PropertyGroup>
 
@@ -17,12 +17,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="8.0.10" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="8.0.10" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="8.0.11" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="8.0.11" />
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="8.0.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.11.0" />
     <PackageReference Include="Microsoft.Playwright" Version="[1.44.0]" />
-    <PackageReference Include="NI.CSharp.Analyzers" Version="2.0.27" />
+    <PackageReference Include="NI.CSharp.Analyzers" Version="2.0.28" />
     <PackageReference Include="System.ComponentModel" Version="4.3.0" />
     <PackageReference Include="xunit" Version="2.9.2" />
     <PackageReference Include="xunit.extensibility.execution" Version="2.9.2" />

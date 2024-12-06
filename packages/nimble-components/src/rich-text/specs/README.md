@@ -2,9 +2,9 @@
 
 ## Overview
 
--   The `nimble-rich-text-editor` component is a text editing tool that offers a comprehensive range of functionalities for
-    incorporating rich text content. It provides users with the ability to apply different text styles and formats to their content.
--   The `nimble-rich-text-viewer` component is a way to view all the rich text content.
+- The `nimble-rich-text-editor` component is a text editing tool that offers a comprehensive range of functionalities for
+  incorporating rich text content. It provides users with the ability to apply different text styles and formats to their content.
+- The `nimble-rich-text-viewer` component is a way to view all the rich text content.
 
 ### Background
 
@@ -27,8 +27,8 @@ _Comments Feature in SLE_:
 
 ### Non-goals
 
--   Blazor integration will be initially out of scope for this component as we have no experience in Blazor component development or other
-    related technology. Blazor example app addition will also be not covered in this spec.
+- Blazor integration will be initially out of scope for this component as we have no experience in Blazor component development or other
+  related technology. Blazor example app addition will also be not covered in this spec.
 
 ### Features
 
@@ -58,26 +58,26 @@ The `nimble-rich-text-viewer` provides support for converting the input markdown
 
 #### _Additional features out of scope of this spec_
 
--   Support for adding images to the editor either by uploading or by pasting it.
--   Support for adding hyperlinks to the existing text in the editor. This allows users to add links to existing text in the editor. When the
-    link button in the formatting options is clicked, a dialog opens, providing a space to enter the hyperlink for the selected text.
--   Support for [striking out](https://tiptap.dev/api/marks/strike) and [underlining](https://tiptap.dev/api/marks/underline) text. We use the
-    [prosemirror-markdown](https://github.com/ProseMirror/prosemirror-markdown) serializer and parser to convert the text into markdown format and vice
-    versa. However, the supported functionality of prosemirror-markdown, as mentioned in their
-    [documentation](https://github.com/ProseMirror/prosemirror-markdown#documentation), does not include support for a strikeout and underline. To
-    address this limitation, we need to extend the class and add the necessary nodes to both the serializer and parser which will be added in the
-    subsequent releases.
--   Provide APIs to configure visibility/disabled state of toolbar buttons for a rich text editor.
+- Support for adding images to the editor either by uploading or by pasting it.
+- Support for adding hyperlinks to the existing text in the editor. This allows users to add links to existing text in the editor. When the
+  link button in the formatting options is clicked, a dialog opens, providing a space to enter the hyperlink for the selected text.
+- Support for [striking out](https://tiptap.dev/api/marks/strike) and [underlining](https://tiptap.dev/api/marks/underline) text. We use the
+  [prosemirror-markdown](https://github.com/ProseMirror/prosemirror-markdown) serializer and parser to convert the text into markdown format and vice
+  versa. However, the supported functionality of prosemirror-markdown, as mentioned in their
+  [documentation](https://github.com/ProseMirror/prosemirror-markdown#documentation), does not include support for a strikeout and underline. To
+  address this limitation, we need to extend the class and add the necessary nodes to both the serializer and parser which will be added in the
+  subsequent releases.
+- Provide APIs to configure visibility/disabled state of toolbar buttons for a rich text editor.
 
 ### Risks and Challenges
 
--   Due to immediate requirements for comments feature from a business customer, any additional enhancements or requirements apart from whatever is
-    mentioned in this spec are deferred to future scope.
--   Currently, we will begin by referring to the existing
-    [Interaction design workflow](https://www.figma.com/file/Q5SU1OwrnD08keon3zObRX/SystemLink?type=design&node-id=6280-94045&mode=design&t=aC5VQw42BYcOesm2-0)
-    of the comments feature. Once the visual design for these components is complete, we will then be implementing those specific changes within the defined
-    scope of development. However, we will still make use of existing nimble components such as `nimble-toggle-button` and `nimble-text-area` to maintain a
-    consistent design for the initial release.
+- Due to immediate requirements for comments feature from a business customer, any additional enhancements or requirements apart from whatever is
+  mentioned in this spec are deferred to future scope.
+- Currently, we will begin by referring to the existing
+  [Interaction design workflow](https://www.figma.com/file/Q5SU1OwrnD08keon3zObRX/SystemLink?type=design&node-id=6280-94045&mode=design&t=aC5VQw42BYcOesm2-0)
+  of the comments feature. Once the visual design for these components is complete, we will then be implementing those specific changes within the defined
+  scope of development. However, we will still make use of existing nimble components such as `nimble-toggle-button` and `nimble-text-area` to maintain a
+  consistent design for the initial release.
 
 ### Prior Art/Examples
 
@@ -116,28 +116,28 @@ Example usage of the `nimble-rich-text-editor` in the application layer is as fo
 
 _Props/Attrs_
 
--   `empty` - is a read-only property that indicates whether the editor is empty or not. This will be achieved by retrieving the current text
-    content from the editor and calculating its length. The component and the Angular directive will have a getter method
-    that can be used to bind it in the Angular application.
--   `fit-to-content` - is a boolean attribute allows the text area to expand vertically to fit the content.
--   `placeholder` - is a string attribute to include a placeholder text for the editor when it is empty. This text is passed as plain text (not markdown)
-    to a component. This can be achieved through Tiptap's [Placeholder extension](https://tiptap.dev/api/extensions/placeholder).
-    We can customize the styling of placeholder text with our own styles using Prosemirror's class as given in the provided link.
--   `footer-hidden` - is a boolean attribute that, when enabled, hides the footer section, which includes all formatting options and the `footer-actions` slot.
--   `disabled` - is a boolean attribute to disable the editor by preventing all user interactions within the component. When the component is
-    disabled, the editor's border and font color will resemble that of the disabled state of `nimble-text-area`, and the `nimble-toolbar` and `nimble-toggle-button`
-    will have their disabled attribute set to true. However, the behavior of the `footer-actions` slotted content will be handled
-    by the client according to their specific requirements and will not be affected by this attribute.
--   `error-visible` - is a boolean attribute used to visually change the component's border color with the error exclamation at the top right, indicating that an error has occurred, as per the current
-    [visual design](https://www.figma.com/file/PO9mFOu5BCl8aJvFchEeuN/Nimble_Components?type=design&node-id=2482-82389&mode=design&t=KwADu9QRoL7QAuIW-0)
--   `error-text` - is a string attribute that displays the error text at the bottom of the component when the `error-visible` is enabled.
+- `empty` - is a read-only property that indicates whether the editor is empty or not. This will be achieved by retrieving the current text
+  content from the editor and calculating its length. The component and the Angular directive will have a getter method
+  that can be used to bind it in the Angular application.
+- `fit-to-content` - is a boolean attribute allows the text area to expand vertically to fit the content.
+- `placeholder` - is a string attribute to include a placeholder text for the editor when it is empty. This text is passed as plain text (not markdown)
+  to a component. This can be achieved through Tiptap's [Placeholder extension](https://tiptap.dev/api/extensions/placeholder).
+  We can customize the styling of placeholder text with our own styles using Prosemirror's class as given in the provided link.
+- `footer-hidden` - is a boolean attribute that, when enabled, hides the footer section, which includes all formatting options and the `footer-actions` slot.
+- `disabled` - is a boolean attribute to disable the editor by preventing all user interactions within the component. When the component is
+  disabled, the editor's border and font color will resemble that of the disabled state of `nimble-text-area`, and the `nimble-toolbar` and `nimble-toggle-button`
+  will have their disabled attribute set to true. However, the behavior of the `footer-actions` slotted content will be handled
+  by the client according to their specific requirements and will not be affected by this attribute.
+- `error-visible` - is a boolean attribute used to visually change the component's border color with the error exclamation at the top right, indicating that an error has occurred, as per the current
+  [visual design](https://www.figma.com/file/PO9mFOu5BCl8aJvFchEeuN/Nimble_Components?type=design&node-id=2482-82389&mode=design&t=KwADu9QRoL7QAuIW-0)
+- `error-text` - is a string attribute that displays the error text at the bottom of the component when the `error-visible` is enabled.
 
 _Methods_
 
--   `getMarkdown()` - this will serialize the content by extracting the Node from the editor and return the converted markdown string
-    [prosemirror-markdown serializer](https://github.com/ProseMirror/prosemirror-markdown/blob/9049cd1ec20540d70352f8a3e8736fb0d1f9ce1b/src/to_markdown.ts#L30).
--   `setMarkdown(value)` - this will parse the input markdown string into a Node and load it back into the editor using
-    [prosemirror-markdown parser](https://github.com/ProseMirror/prosemirror-markdown/blob/9049cd1ec20540d70352f8a3e8736fb0d1f9ce1b/src/from_markdown.ts#L199).
+- `getMarkdown()` - this will serialize the content by extracting the Node from the editor and return the converted markdown string
+  [prosemirror-markdown serializer](https://github.com/ProseMirror/prosemirror-markdown/blob/9049cd1ec20540d70352f8a3e8736fb0d1f9ce1b/src/to_markdown.ts#L30).
+- `setMarkdown(value)` - this will parse the input markdown string into a Node and load it back into the editor using
+  [prosemirror-markdown parser](https://github.com/ProseMirror/prosemirror-markdown/blob/9049cd1ec20540d70352f8a3e8736fb0d1f9ce1b/src/from_markdown.ts#L199).
 
 _Alternatives_
 
@@ -174,8 +174,8 @@ empty. To achieve this, we retrieve the current text content value, trim the str
 
 _Events_
 
--   `input` - event emitted when there is a change in the editor. This can be achieved through Tiptap's [update event](https://tiptap.dev/api/events#update).
-    Below are a few scenarios to understand when this event will fire:
+- `input` - event emitted when there is a change in the editor. This can be achieved through Tiptap's [update event](https://tiptap.dev/api/events#update).
+  Below are a few scenarios to understand when this event will fire:
 
     1. This event will fired for every input in the content of the editor, including text inputs, text formatting changes, and text removals.
     2. This event will not fire when there are no changes made to the content of the editor. For example, all mouse events, selecting the texts, state
@@ -183,25 +183,25 @@ _Events_
 
 _CSS Classes and CSS Custom Properties that affect the component_
 
--   The minimum height of the component will be set to show at least one line in the text area along with a footer section. If the content exceeds
-    the current height (set by the client), a vertical scrollbar will appear, allowing users to view the hidden content.
--   The minimum width of the component will be determined based on ensuring all buttons in the footer are visible. We have arrived to this decision
-    to align with the minimal requirement for the initial release. However, adjustments will be made later based on the visual design for mobile view is complete.
--   The content in the text area will adjust its layout based on the width, potentially increasing the height of the editor. But in case of having
-    a long nested lists that is beyond the current width (set by the client), a horizontal scrollbar will appear within the text area to view the content.
-    If the `fitToContent` enabled, the text area will grow to fit the entered content in the editor section.
--   The client will determine the maximum height and width of the component. When the client does not override sizing, the component will have a default height and width.
--   The `formatting toolbar` in the footer section will occupy space based on the number of formatting buttons used. For the initial scope of this
-    component, four formatting buttons will be included, following standard size and spacing guidelines. The `footer-actions` section will occupy the remaining
-    space in the footer.
--   The footer section, which includes the formatting options, can be hidden by utilizing the `footer-hidden` attribute. When this attribute is
-    enabled, the footer's visibility will be set to hidden, leaving an empty space in its place. We came to this decision to ensure that the
-    component does not cause layout height shifts when the `footer-hidden` attribute changes dynamically based on conditions in the consumer
-    component.
--   An example use case for the `footer-hidden` functionality is:
-    The client can initially set `footer-hidden` to true. Upon focusing the editor using the element's `focus` event, the client can then set
-    `footer-hidden` to false, thereby displaying the footer section. Conversely, when the editor loses focus using the element's `blur` or any
-    click event occurs (`cancel` button click), the client can reset `footer-hidden` to true, consequently hiding the footer section once again.
+- The minimum height of the component will be set to show at least one line in the text area along with a footer section. If the content exceeds
+  the current height (set by the client), a vertical scrollbar will appear, allowing users to view the hidden content.
+- The minimum width of the component will be determined based on ensuring all buttons in the footer are visible. We have arrived to this decision
+  to align with the minimal requirement for the initial release. However, adjustments will be made later based on the visual design for mobile view is complete.
+- The content in the text area will adjust its layout based on the width, potentially increasing the height of the editor. But in case of having
+  a long nested lists that is beyond the current width (set by the client), a horizontal scrollbar will appear within the text area to view the content.
+  If the `fitToContent` enabled, the text area will grow to fit the entered content in the editor section.
+- The client will determine the maximum height and width of the component. When the client does not override sizing, the component will have a default height and width.
+- The `formatting toolbar` in the footer section will occupy space based on the number of formatting buttons used. For the initial scope of this
+  component, four formatting buttons will be included, following standard size and spacing guidelines. The `footer-actions` section will occupy the remaining
+  space in the footer.
+- The footer section, which includes the formatting options, can be hidden by utilizing the `footer-hidden` attribute. When this attribute is
+  enabled, the footer's visibility will be set to hidden, leaving an empty space in its place. We came to this decision to ensure that the
+  component does not cause layout height shifts when the `footer-hidden` attribute changes dynamically based on conditions in the consumer
+  component.
+- An example use case for the `footer-hidden` functionality is:
+  The client can initially set `footer-hidden` to true. Upon focusing the editor using the element's `focus` event, the client can then set
+  `footer-hidden` to false, thereby displaying the footer section. Conversely, when the editor loses focus using the element's `blur` or any
+  click event occurs (`cancel` button click), the client can reset `footer-hidden` to true, consequently hiding the footer section once again.
 
 _Note_: This initial component design serves as a starting point for implementation, and it may undergo changes once the visual design is completed.
 
@@ -232,7 +232,7 @@ _Shadow DOM template_
 
 _Slot Names_
 
--   `footer-actions`:
+- `footer-actions`:
     1. It is a container that allows a client to easily place buttons at the right bottom of the component to interact with the editor.
     2. If no content is slotted in the `footer-actions`, the element will be emptied and shrunk to accommodate buttons from the
        toolbar.
@@ -243,15 +243,15 @@ _Note_: The positioning of these slot elements in the mobile view of the compone
 
 _Host Classes_
 
--   none
+- none
 
 _Slotted Content/Slotted Classes_
 
--   none
+- none
 
 _CSS Parts_
 
--   none
+- none
 
 [Shadow DOM Template for API Components](./mention-hld.md#anatomy)
 
@@ -266,21 +266,21 @@ tasks to convert the markdown string to corresponding HTML nodes for each text f
 
 _Props/Attrs_
 
--   `markdown` - for retrieving and modifying the markdown value. If the client modifies the markdown value, it will be parsed into a Node using the
-    [prosemirror-markdown parser](https://github.com/ProseMirror/prosemirror-markdown/blob/9049cd1ec20540d70352f8a3e8736fb0d1f9ce1b/src/from_markdown.ts#L199).
-    The parsed node will then be rendered in the viewer component as rich text.
+- `markdown` - for retrieving and modifying the markdown value. If the client modifies the markdown value, it will be parsed into a Node using the
+  [prosemirror-markdown parser](https://github.com/ProseMirror/prosemirror-markdown/blob/9049cd1ec20540d70352f8a3e8736fb0d1f9ce1b/src/from_markdown.ts#L199).
+  The parsed node will then be rendered in the viewer component as rich text.
 
 _Events_
 
--   none
+- none
 
 _CSS Classes and CSS Custom Properties that affect the component_
 
--   The sizing behavior of the component will remain same as the editor component. The height of the component will grow to fit the content if
-    there is no height restrictions from the consumer. If there is any height set by the consumer, the vertical scrollbar will be
-    enabled when there is overflow of content in the component.
--   The width of the component will be determined by the client. Reducing the width will cause the content to reflow, resulting in an increased height
-    of the component or will enable the vertical scrollbar.
+- The sizing behavior of the component will remain same as the editor component. The height of the component will grow to fit the content if
+  there is no height restrictions from the consumer. If there is any height set by the consumer, the vertical scrollbar will be
+  enabled when there is overflow of content in the component.
+- The width of the component will be determined by the client. Reducing the width will cause the content to reflow, resulting in an increased height
+  of the component or will enable the vertical scrollbar.
 
 [APIs for `@mention` in Rich Text Viewer](./mention-hld.md#api-1)
 
@@ -288,19 +288,19 @@ _CSS Classes and CSS Custom Properties that affect the component_
 
 _Slot Names_
 
--   none
+- none
 
 _Host Classes_
 
--   none
+- none
 
 _Slotted Content/Slotted Classes_
 
--   none
+- none
 
 _CSS Parts_
 
--   none
+- none
 
 [Shadow DOM Template for API Components](./mention-hld.md#anatomy-1)
 
@@ -347,22 +347,22 @@ library. With that, we have access to all the APIs exposed, by utilizing some of
 other basic rich text formatting options. All these formatting options can also be accessed individually through Tiptap's
 [marks](https://tiptap.dev/api/marks) and [nodes](https://tiptap.dev/api/nodes).
 
--   The term `Marks` in the Tiptap are formatting styles applied to specific portions of text, such as bold, italic, or underlined.
--   `Nodes` in the Tiptap editor are the building blocks of the document structure, representing different types of content elements like paragraphs,
-    headings, lists, images, and more.
+- The term `Marks` in the Tiptap are formatting styles applied to specific portions of text, such as bold, italic, or underlined.
+- `Nodes` in the Tiptap editor are the building blocks of the document structure, representing different types of content elements like paragraphs,
+  headings, lists, images, and more.
 
 The rich text content entered in the editor is converted to markdown output using
 [prosemirror-markdown](https://github.com/ProseMirror/prosemirror-markdown) serializer. Here is the reference for the supported formatting schema in the
 markdown based on [CommonMark](http://commonmark.org/) flavor:
 
--   Bold - `**Bold**`
--   Italics - `*Italics*`
--   Numbered list - `1. Numbered list`
--   Bulleted list - `* Bulleted list`
--   Absolute URL links - `<Absolute URI link>` (For more details on the markdown syntax for absolute URL links, see [Autolinks in CommonMark](https://spec.commonmark.org/0.30/#autolink))
--   Hard line break - a backslash before the line ending `line1\\nline2` (For more details on the markdown syntax for Hard line breaks, see [Hard line breaks in CommanMark](https://spec.commonmark.org/0.30/#hard-line-breaks))
--   `@mention` - `<mention-url>` that follows [Autolinks in CommonMark](https://spec.commonmark.org/0.30/#autolink). For more details, see
-    [Markdown Format for `@mention`](./mention-hld.md#2-markdown-format)
+- Bold - `**Bold**`
+- Italics - `*Italics*`
+- Numbered list - `1. Numbered list`
+- Bulleted list - `* Bulleted list`
+- Absolute URL links - `<Absolute URI link>` (For more details on the markdown syntax for absolute URL links, see [Autolinks in CommonMark](https://spec.commonmark.org/0.30/#autolink))
+- Hard line break - a backslash before the line ending `line1\\nline2` (For more details on the markdown syntax for Hard line breaks, see [Hard line breaks in CommanMark](https://spec.commonmark.org/0.30/#hard-line-breaks))
+- `@mention` - `<mention-url>` that follows [Autolinks in CommonMark](https://spec.commonmark.org/0.30/#autolink). For more details, see
+  [Markdown Format for `@mention`](./mention-hld.md#2-markdown-format)
 
 ### _Implementation details for supporting absolute link:_
 
@@ -456,13 +456,13 @@ text in the editor.
 
 Accessibility for links in the component:
 
--   Accessibility guidelines to open link only in a new tab when required: <https://www.w3.org/TR/WCAG20-TECHS/G200.html>
--   Accessibility guidelines on opening a link in a new tab: <https://www.w3.org/TR/WCAG20-TECHS/G201.html>
+- Accessibility guidelines to open link only in a new tab when required: <https://www.w3.org/TR/WCAG20-TECHS/G200.html>
+- Accessibility guidelines on opening a link in a new tab: <https://www.w3.org/TR/WCAG20-TECHS/G201.html>
 
 _Focus_
 
--   Focus state of the editor will be the same as the `nimble-text-area`.
--   Focus state of the buttons will be the same as the `nimble-toggle-button`.
+- Focus state of the editor will be the same as the `nimble-text-area`.
+- Focus state of the buttons will be the same as the `nimble-toggle-button`.
 
 _Keyboard accessibility and shortcuts for text formatting_
 
@@ -504,13 +504,13 @@ Therefore, a new label provider will be created for rich text component.
 
 ### Security
 
--   Prose mirror uses markdown-it for converting markdown to HTML and HTML to markdown. We will follow the
-    [security guidelines of markdown-it](https://github.com/markdown-it/markdown-it/blob/master/docs/security.md#security) to turn
-    off HTML at source as given in the [API docs](https://markdown-it.github.io/markdown-it/#MarkdownIt.new). Prosemirror-markdown follows the same as
-    shown in this
-    [specific line of code](https://github.com/ProseMirror/prosemirror-markdown/blob/26e58302399b7d9a9b3bc8fc3bf5807627ca29e5/src/from_markdown.ts#L245).
--   For additional safety, we may use [sanitize-html](https://www.npmjs.com/package/sanitize-html) package on a need basis if HTML is turned on. This will
-    whitelist only specific HTML tags needed for rich text markdown.
+- Prose mirror uses markdown-it for converting markdown to HTML and HTML to markdown. We will follow the
+  [security guidelines of markdown-it](https://github.com/markdown-it/markdown-it/blob/master/docs/security.md#security) to turn
+  off HTML at source as given in the [API docs](https://markdown-it.github.io/markdown-it/#MarkdownIt.new). Prosemirror-markdown follows the same as
+  shown in this
+  [specific line of code](https://github.com/ProseMirror/prosemirror-markdown/blob/26e58302399b7d9a9b3bc8fc3bf5807627ca29e5/src/from_markdown.ts#L245).
+- For additional safety, we may use [sanitize-html](https://www.npmjs.com/package/sanitize-html) package on a need basis if HTML is turned on. This will
+  whitelist only specific HTML tags needed for rich text markdown.
 
 ### Performance
 
@@ -522,22 +522,22 @@ This component is dependent on the [`tiptap`](https://tiptap.dev/) third party l
 [tiptap](https://tiptap.dev/introduction#why-should-i-use-tiptap) is built on top of prosemirror, we might also use some of the prosemirror's
 library. For the currently supported features, we will include the following libraries that will be added to the package.json
 
--   [@tiptap/core](https://www.npmjs.com/package/@tiptap/core)
--   [@tiptap/extension-bold](https://www.npmjs.com/package/@tiptap/extension-bold)
--   [@tiptap/extension-bullet-list](https://www.npmjs.com/package/@tiptap/extension-bullet-list)
--   [@tiptap/extension-document](https://www.npmjs.com/package/@tiptap/extension-document)
--   [@tiptap/extension-hard-break](https://www.npmjs.com/package/@tiptap/extension-hard-break)
--   [@tiptap/extension-history](https://www.npmjs.com/package/@tiptap/extension-history)
--   [@tiptap/extension-italic](https://www.npmjs.com/package/@tiptap/extension-italic)
--   [@tiptap/extension-list-item](https://www.npmjs.com/package/@tiptap/extension-list-item)
--   [@tiptap/extension-ordered-list](https://www.npmjs.com/package/@tiptap/extension-ordered-list)
--   [@tiptap/extension-paragraph](https://www.npmjs.com/package/@tiptap/extension-paragraph)
--   [@tiptap/extension-text](https://www.npmjs.com/package/@tiptap/extension-text)
--   [@tiptap/extension-placeholder](https://www.npmjs.com/package/@tiptap/extension-placeholder)
--   [prosemirror-markdown](https://www.npmjs.com/package/prosemirror-markdown)
--   [prosemirror-model](https://www.npmjs.com/package/prosemirror-model)
--   [@tiptap/extension-link](https://www.npmjs.com/package/@tiptap/extension-link)
--   [@tiptap/extension-mention](https://www.npmjs.com/package/@tiptap/extension-mention)
+- [@tiptap/core](https://www.npmjs.com/package/@tiptap/core)
+- [@tiptap/extension-bold](https://www.npmjs.com/package/@tiptap/extension-bold)
+- [@tiptap/extension-bullet-list](https://www.npmjs.com/package/@tiptap/extension-bullet-list)
+- [@tiptap/extension-document](https://www.npmjs.com/package/@tiptap/extension-document)
+- [@tiptap/extension-hard-break](https://www.npmjs.com/package/@tiptap/extension-hard-break)
+- [@tiptap/extension-history](https://www.npmjs.com/package/@tiptap/extension-history)
+- [@tiptap/extension-italic](https://www.npmjs.com/package/@tiptap/extension-italic)
+- [@tiptap/extension-list-item](https://www.npmjs.com/package/@tiptap/extension-list-item)
+- [@tiptap/extension-ordered-list](https://www.npmjs.com/package/@tiptap/extension-ordered-list)
+- [@tiptap/extension-paragraph](https://www.npmjs.com/package/@tiptap/extension-paragraph)
+- [@tiptap/extension-text](https://www.npmjs.com/package/@tiptap/extension-text)
+- [@tiptap/extension-placeholder](https://www.npmjs.com/package/@tiptap/extension-placeholder)
+- [prosemirror-markdown](https://www.npmjs.com/package/prosemirror-markdown)
+- [prosemirror-model](https://www.npmjs.com/package/prosemirror-model)
+- [@tiptap/extension-link](https://www.npmjs.com/package/@tiptap/extension-link)
+- [@tiptap/extension-mention](https://www.npmjs.com/package/@tiptap/extension-mention)
 
 These packages will add up to a total space of approximately 900 KB in the components bundle. For more info see
 [this discussion on Teams](https://teams.microsoft.com/l/message/19:b6a61b8a7ffd451696e0cbbb8976c03b@thread.skype/1686833093592?tenantId=87ba1f9a-44cd-43a6-b008-6fdb45a5204e&groupId=41626d4a-3f1f-49e2-abdc-f590be4a329d&parentMessageId=1686833093592&teamName=ASW%20SystemLink&channelName=LIMS&createdTime=1686833093592).
@@ -563,4 +563,4 @@ As with other nimble components, a story will be added in storybook for the new 
 
 ## Open Issues
 
--   none
+- none

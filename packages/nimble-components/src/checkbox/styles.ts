@@ -12,29 +12,48 @@ import {
     iconSize,
     borderWidth,
     smallDelay,
-    bodyFont
+    bodyFont,
+    smallPadding,
+    mediumPadding,
+    bodyFontLineHeight
 } from '../theme-provider/design-tokens';
 import { userSelectNone } from '../utilities/style/user-select';
+import { styles as errorStyles } from '../patterns/error/styles';
 
 export const styles = css`
-    ${display('inline-flex')}
+    ${display('inline-grid')}
+    ${errorStyles}
 
     :host {
         font: ${bodyFont};
-        align-items: center;
         cursor: pointer;
         outline: none;
         ${userSelectNone}
+        min-height: ${controlHeight};
     }
 
     :host([disabled]) {
         cursor: default;
     }
 
+    .outer-container {
+        height: 100%;
+        display: flex;
+        align-items: center;
+        position: relative;
+    }
+
+    .container {
+        display: grid;
+        grid-template-columns: auto 1fr auto;
+        grid-template-rows: ${bodyFontLineHeight} auto;
+        align-items: center;
+        width: 100%;
+    }
+
     .control {
-        width: calc(${controlHeight} / 2);
-        height: calc(${controlHeight} / 2);
-        flex-shrink: 0;
+        width: ${iconSize};
+        height: ${iconSize};
         border: ${borderWidth} solid ${borderColor};
         padding: 2px;
         display: inline-flex;
@@ -48,6 +67,8 @@ export const styles = css`
              */ ''
         }
         line-height: 0;
+        grid-column: 1;
+        grid-row: 1;
     }
 
     @media (prefers-reduced-motion) {
@@ -75,7 +96,9 @@ export const styles = css`
     .label {
         font: inherit;
         color: ${bodyFontColor};
-        padding-left: 1ch;
+        padding-left: ${mediumPadding};
+        grid-column: 2;
+        grid-row: 1 / span 2;
         cursor: inherit;
     }
 
@@ -92,14 +115,11 @@ export const styles = css`
         height: ${iconSize};
         width: ${iconSize};
         overflow: visible;
+        fill: ${borderColor};
     }
 
     :host(.checked:not(.indeterminate)) slot[name='checked-indicator'] {
         display: contents;
-    }
-
-    slot[name='checked-indicator'] svg {
-        fill: ${borderColor};
     }
 
     :host([disabled]) slot[name='checked-indicator'] svg {
@@ -122,5 +142,11 @@ export const styles = css`
 
     :host([disabled]) slot[name='indeterminate-indicator'] svg {
         fill: rgba(${borderRgbPartialColor}, 0.3);
+    }
+
+    .error-icon {
+        grid-column: 3;
+        grid-row: 1;
+        margin: 0px ${smallPadding};
     }
 `;

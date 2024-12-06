@@ -6,15 +6,15 @@ There is a requirement to have table columns that can be sorted, both programmat
 
 ### Out of scope of this HLD
 
--   Keyboard interactions for interactive sorting (see [#1137](https://github.com/ni/nimble/issues/1137))
--   Focusable element behavior for the column header (see [#1151](https://github.com/ni/nimble/issues/1151))
+- Keyboard interactions for interactive sorting (see [#1137](https://github.com/ni/nimble/issues/1137))
+- Focusable element behavior for the column header (see [#1151](https://github.com/ni/nimble/issues/1151))
 
 ## Links To Relevant Work Items and Reference Material
 
--   [#874 Programmatically sort columns](https://github.com/ni/nimble/issues/874)
--   [#854 Interactively sort the columns in a table](https://github.com/ni/nimble/issues/854)
--   [Table README](./README.md)
--   [Table Design Doc](https://xd.adobe.com/view/5b476816-dad1-4671-b20a-efe796631c72-0e14/screen/d389dc1e-da4f-4a63-957b-f8b3cc9591b4/specs/)
+- [#874 Programmatically sort columns](https://github.com/ni/nimble/issues/874)
+- [#854 Interactively sort the columns in a table](https://github.com/ni/nimble/issues/854)
+- [Table README](./README.md)
+- [Table Design Doc](https://xd.adobe.com/view/5b476816-dad1-4671-b20a-efe796631c72-0e14/screen/d389dc1e-da4f-4a63-957b-f8b3cc9591b4/specs/)
 
 ## Implementation / Design
 
@@ -93,14 +93,14 @@ To summarize:
 
 Single-clicking a column header will cycle the column from unsorted, to ascending sort, descending sort, then back to unsorted.
 
--   Any other columns that were also sorted become unsorted (i.e. `currentSortDirection` => none/ `undefined`, `currentSortIndex` => `undefined` for those columns)
--   The clicked column gets a `currentSortIndex` of `0` when sorted, and `undefined` if it's transitioning back to unsorted.
+- Any other columns that were also sorted become unsorted (i.e. `currentSortDirection` => none/ `undefined`, `currentSortIndex` => `undefined` for those columns)
+- The clicked column gets a `currentSortIndex` of `0` when sorted, and `undefined` if it's transitioning back to unsorted.
 
 Shift-clicking a column header will cycle the column from unsorted, to ascending sort, descending sort, then back to unsorted.
 
--   Any other columns that were already sorted remain sorted (their `currentSortIndex` values will be normalized to `0..(n-1)`, for `n` sorted columns)
--   If the clicked column is transitioning to unsorted, its `currentSortIndex` will be set to `undefined`
--   If the clicked column is transitioning to being sorted, it will get a `currentSortIndex` of `0` if no other columns were already sorted, or `n` if there were `n` other columns already sorted
+- Any other columns that were already sorted remain sorted (their `currentSortIndex` values will be normalized to `0..(n-1)`, for `n` sorted columns)
+- If the clicked column is transitioning to unsorted, its `currentSortIndex` will be set to `undefined`
+- If the clicked column is transitioning to being sorted, it will get a `currentSortIndex` of `0` if no other columns were already sorted, or `n` if there were `n` other columns already sorted
 
 If sorting is enabled for a column, sorting menu items also appear in the column header menu:
 ![Sorting via Column Header Menu](./spec-images/HeaderMenuSorting.png)  
@@ -109,10 +109,10 @@ Updating sorting via the menu will always unsort any other columns that were alr
 
 For columns with `sorting-disabled` set to true:
 
--   Clicking/Shift-clicking the column header will not affect the sort state
--   The sort menu options will not appear in the column header menu
--   Programmatic sorting is disabled (setting `sortIndex`/`sortDirection` will have no effect if `sorting-disabled` is also `true`)
--   `currentSortDirection` and `currentSortIndex` will equal `undefined`
+- Clicking/Shift-clicking the column header will not affect the sort state
+- The sort menu options will not appear in the column header menu
+- Programmatic sorting is disabled (setting `sortIndex`/`sortDirection` will have no effect if `sorting-disabled` is also `true`)
+- `currentSortDirection` and `currentSortIndex` will equal `undefined`
 
 ## Testing Considerations
 
@@ -134,10 +134,10 @@ As we create additional column types and identify additional sorting requirement
 
 The table could enforce additional restrictions on the sort settings of the columns, for example:
 
--   All sorted columns must have sequencial sort orders starting at 0
--   No column can have a `sort-index` specified if its `sort-direction` is `none`
--   No column can have its `sort-direction` specified as `ascending` or `descending` without a `sort-index` specified
--   No two columns can specify the same field name to use for sorting
+- All sorted columns must have sequencial sort orders starting at 0
+- No column can have a `sort-index` specified if its `sort-direction` is `none`
+- No column can have its `sort-direction` specified as `ascending` or `descending` without a `sort-index` specified
+- No two columns can specify the same field name to use for sorting
 
 The purpose of the table's validation is to ensure that a user/client does not get into an inconsistent or non-deterministic state. For example, having two records with the same ID causes indeterministic event behavior. However, all of the cases listed above have well defined behavior associated with them, so there is no reason to add additional overhead and restrictions to the table to disallow those cases.
 

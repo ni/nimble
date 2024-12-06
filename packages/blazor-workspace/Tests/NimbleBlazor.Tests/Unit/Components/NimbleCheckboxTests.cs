@@ -1,3 +1,5 @@
+using System;
+using System.Linq.Expressions;
 using Bunit;
 using Xunit;
 
@@ -27,5 +29,28 @@ public class NimbleCheckboxTests
         context.JSInterop.Mode = JSRuntimeMode.Loose;
         var exception = Record.Exception(() => context.RenderComponent<NimbleCheckbox>(ComponentParameter.CreateParameter("class", "foo")));
         Assert.Null(exception);
+    }
+
+    [Fact]
+    public void NimbleCheckboxErrorText_AttributeIsSet()
+    {
+        var checkbox = RenderNimbleCheckboxWithPropertySet(x => x.ErrorText, "bad value");
+
+        Assert.Contains("error-text=\"bad value\"", checkbox.Markup);
+    }
+
+    [Fact]
+    public void NimbleCheckboxErrorVisible_AttributeIsSet()
+    {
+        var checkbox = RenderNimbleCheckboxWithPropertySet(x => x.ErrorVisible, true);
+
+        Assert.Contains("error-visible", checkbox.Markup);
+    }
+
+    private IRenderedComponent<NimbleCheckbox> RenderNimbleCheckboxWithPropertySet<TProperty>(Expression<Func<NimbleCheckbox, TProperty>> propertyGetter, TProperty propertyValue)
+    {
+        var context = new TestContext();
+        context.JSInterop.Mode = JSRuntimeMode.Loose;
+        return context.RenderComponent<NimbleCheckbox>(p => p.Add(propertyGetter, propertyValue));
     }
 }

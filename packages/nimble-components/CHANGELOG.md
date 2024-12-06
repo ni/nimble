@@ -1,8 +1,57 @@
 # Change Log - @ni/nimble-components
 
-<!-- This log was last generated on Tue, 05 Nov 2024 20:44:52 GMT and should not be manually modified. -->
+<!-- This log was last generated on Wed, 04 Dec 2024 21:21:27 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 32.8.2
+
+Wed, 04 Dec 2024 21:21:27 GMT
+
+### Patches
+
+- Correct the position of error text on the nimble-checkbox ([ni/nimble@4e192f9](https://github.com/ni/nimble/commit/4e192f9c199222fde4c66ca08015b570e353caa6))
+
+## 32.8.1
+
+Wed, 04 Dec 2024 19:53:29 GMT
+
+### Patches
+
+- Update rich text dependencies ([ni/nimble@412acc5](https://github.com/ni/nimble/commit/412acc54f38fd667da60aaf1bfad4b30c5955887))
+
+## 32.8.0
+
+Fri, 22 Nov 2024 22:50:22 GMT
+
+### Minor changes
+
+- Add error state to nimble-checkbox; Updating styling on nimble-checkbox, including correcting the default height of the checkbox and fixing the layout when the label wraps ([ni/nimble@470f76d](https://github.com/ni/nimble/commit/470f76dbdf979ff91a1ce6d36878146def930472))
+
+## 32.7.2
+
+Tue, 19 Nov 2024 03:20:18 GMT
+
+### Patches
+
+- Update to apache arrow v18 ([ni/nimble@a43110a](https://github.com/ni/nimble/commit/a43110af132aa881befd04b459b53fae1eb77649))
+
+## 32.7.1
+
+Mon, 18 Nov 2024 21:17:24 GMT
+
+### Patches
+
+- Update markdown-it types ([ni/nimble@bd1894c](https://github.com/ni/nimble/commit/bd1894c6aec64c1f8f830ed3fbe4a77c54080905))
+
+## 32.7.0
+
+Thu, 14 Nov 2024 14:41:16 GMT
+
+### Minor changes
+
+- Add / update several icons ([ni/nimble@bd0d274](https://github.com/ni/nimble/commit/bd0d2742055c429d7c09fb3113fff651ccb0aa30))
+- Bump @ni/nimble-tokens to v8.5.0
 
 ## 32.6.1
 

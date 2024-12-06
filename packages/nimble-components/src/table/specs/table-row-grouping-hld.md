@@ -14,13 +14,13 @@ This document will focus on the programmatic grouping of data rows.
 
 ## Links To Relevant Work Items and Reference Material
 
--   [#1003 Programmatic grouping of data rows](https://github.com/ni/nimble/issues/1003)
--   [Basic Interactions Spec](https://xd.adobe.com/view/6f3be15d-8503-4f1f-54b9-5bc27955b3e4-190a/screen/13edcacf-4e95-46b2-a7a8-83141afb3f2d)
--   [Keyboard Navigation](https://xd.adobe.com/view/fa09e396-dbb9-40b8-547f-1cf9eab35a0b-8c38/screen/61432aef-6dca-4b87-a62b-12ed17a927b4)
--   [Table README](./README.md)
--   [Table Design Doc](https://xd.adobe.com/view/5b476816-dad1-4671-b20a-efe796631c72-0e14/screen/d389dc1e-da4f-4a63-957b-f8b3cc9591b4/specs/)
--   [Icon Visual Designs](https://xd.adobe.com/view/1a9870c7-2510-4248-83a5-b0148e7a6763-4fcb/)
--   [Prototype branch](https://github.com/ni/nimble/tree/table-row-grouping-prototype) ([Storybook](https://60e89457a987cf003efc0a5b-bwzrahvxqm.chromatic.com/?path=/story/table--table))
+- [#1003 Programmatic grouping of data rows](https://github.com/ni/nimble/issues/1003)
+- [Basic Interactions Spec](https://xd.adobe.com/view/6f3be15d-8503-4f1f-54b9-5bc27955b3e4-190a/screen/13edcacf-4e95-46b2-a7a8-83141afb3f2d)
+- [Keyboard Navigation](https://xd.adobe.com/view/fa09e396-dbb9-40b8-547f-1cf9eab35a0b-8c38/screen/61432aef-6dca-4b87-a62b-12ed17a927b4)
+- [Table README](./README.md)
+- [Table Design Doc](https://xd.adobe.com/view/5b476816-dad1-4671-b20a-efe796631c72-0e14/screen/d389dc1e-da4f-4a63-957b-f8b3cc9591b4/specs/)
+- [Icon Visual Designs](https://xd.adobe.com/view/1a9870c7-2510-4248-83a5-b0148e7a6763-4fcb/)
+- [Prototype branch](https://github.com/ni/nimble/tree/table-row-grouping-prototype) ([Storybook](https://60e89457a987cf003efc0a5b-bwzrahvxqm.chromatic.com/?path=/story/table--table))
 
 ## Implementation / Design
 
@@ -230,13 +230,13 @@ The one change necessary to support this properly is to change the virtualizer t
 
 ### Row interaction summary
 
--   Group rows will perform an expand/collapse operation when clicked anywhere on the row.
--   The expand/collapse button for group rows will not have button hover/click visual state
--   The group row will change its background color on hover
--   No elements within a group row will be focusable.
--   To navigate between rows a user will click the UP or DOWN arrows
--   To expand/collapse rows a user will click ALT UP or ALT DOWN arrows
--   When a row is focused (via the UP or DOWN arrows), if a screen reader is active it should read the header text and the total row count.
+- Group rows will perform an expand/collapse operation when clicked anywhere on the row.
+- The expand/collapse button for group rows will not have button hover/click visual state
+- The group row will change its background color on hover
+- No elements within a group row will be focusable.
+- To navigate between rows a user will click the UP or DOWN arrows
+- To expand/collapse rows a user will click ALT UP or ALT DOWN arrows
+- When a row is focused (via the UP or DOWN arrows), if a screen reader is active it should read the header text and the total row count.
 
 ### Auto expanding groups
 
