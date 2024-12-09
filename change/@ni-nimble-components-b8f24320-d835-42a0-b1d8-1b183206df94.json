@@ -1,6 +1,6 @@
 {
   "type": "none",
-  "comment": "Disable failing rich-text tests in Firefox",
+  "comment": "Disable failing tests in Firefox",
   "packageName": "@ni/nimble-components",
   "email": "20542556+mollykreis@users.noreply.github.com",
   "dependentChangeType": "none"
