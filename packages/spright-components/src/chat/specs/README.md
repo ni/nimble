@@ -2,30 +2,51 @@
 
 ## Overview
 
-*The name of the component, along with a high-level description.*
+This spec describes a set of components that can be used to compose a chat interface. This includes:
+ - chat message: a single entry in a chat conversation, including some content and metadata about the message
+ - chat conversation: a collection of messages that are laid out to convey the order the messages were sent
 
 ### Background
 
-- *Relevant historical or background information*
-- *Link to Interaction Design spec*
-- *Link to Visual Design spec*
-- *Link to relevant work items, related existing issues, etc.*
+Some Intelligent Test application teams are beginning development on chat interfaces in early 2025.
+
+Initial designer-vetted visual designs exist in [Nimble_Components Figma](https://www.figma.com/design/PO9mFOu5BCl8aJvFchEeuN/Nimble_Components?node-id=12342-81782&node-type=canvas&t=L5GvLaC3injrqWrR-0).
+
+There is not yet an interaction design specification for these components.
+
+This work started with an innovation project ([branch](https://github.com/ni/nimble/compare/main...spright-chat-components)) and is not yet tracked with an issue.
 
 ### Containing Library
 
-*State whether this component be part of Nimble or Spright and provide justification or considerations leading to that decision.* 
+These components will initially be added to Spright. Per [Spright contributing guidelines](/packages/spright-components/CONTRIBUTING.md):
+1. there is not yet an approved interaction design
+2. we are unsure if the components are sufficiently atomic or general purpose to belong in Nimble
+3. there is a short development timeline so it may be necessary to defer fulfilling other Nimble requirements like accessibility and support for all frameworks
 
 ### Non-goals
 
-*A list of use cases, features, or functionality which are **not** goals for the component.*
+The components will only provide the presentation layer, not logic for interacting with each other or any service to add messages to a conversation.
+
+The message component will allow slotting arbitrary content, but any efforts to add content types to Nimble are out of scope of this document. For example, adding capabilities to the rich text viewer or adding styling for specific content types.
   
 ### Features
 
-*A list of the key features unique to this component.*
+#### Chat message
+
+1. Display arbitrary slotted content. For example: text, rich text, buttons, or a spinner.
+1. Layout content to the right, center, or left of parent container depending on metadata about who sent the message.
+1. Size based on content size with maximum width (but not height) based on parent's width.
+1. Change the styling of the message depending on metadata about who sent the message. For example: render user messages in a bubble with the tail pointing to the right but render system messages with no styling.
+
+#### Chat conversation
+
+1. Lays out messages vertically based on their order.
+1. Displays a vertical scrollbar if there are more messages than fit in the height allocated to the conversation.
+1. Only appearance of its own is to set a background color.
 
 ### Risks and Challenges
 
-*Notable risks or challenges associated with implementing the component. Would we need to make any breaking changes in order to achieve this component's goals?*
+These components are competing against possible implementations within applications. Depending on who implements these components, the overhead of learning the Nimble repo's tech stack could introduce a small risk.
 
 ### Prior Art/Examples
 
@@ -69,21 +90,23 @@
 
 ### Native form integration
 
-*Describe the plan for custom element form integration or why it's not necessary.*
-
-*Components that are intended to replace a native form element (input, textarea, select) should generally behave like their native counterpart. See ["More capable form controls" on web.dev](https://web.dev/articles/more-capable-form-controls) for an overview of requirements. Leverage patterns from [FAST Form Associated Custom Elements](https://github.com/microsoft/fast/blob/master/packages/web-components/fast-foundation/src/form-associated/form-associated-custom-element.spec.md).*
+Native form integration is not needed for these components.
 
 ### Angular integration
+
+Angular integration has not yet been evaluated.
 
 *Describe the plan for Angular support, including directives for attribute binding and ControlValueAccessor for form integration. Depending on the contributor's needs, implementing Angular integration may be deferred but the initial spec should still document what work will be needed.*
 
 ### Blazor integration
 
+Blazor integration has not yet been evaluated.
+
 *Describe the plan for Blazor support, including form integration. See the [nimble-blazor CONTRIBUTING.md](/packages/blazor-workspace/NimbleBlazor/CONTRIBUTING.md) for details. Depending on the contributor's needs, implementing Blazor integration may be deferred but the initial spec should still document what work will be needed.*
 
 ### Visual Appearance
 
-*Work with Visual Design to create Figma files and other design assets. Be sure to account for the various component states, including hover, active, etc. as well as validity, and appearance variants.*
+Initial designer-vetted visual designs exist in [Nimble_Components Figma](https://www.figma.com/design/PO9mFOu5BCl8aJvFchEeuN/Nimble_Components?node-id=12342-81782&node-type=canvas&t=L5GvLaC3injrqWrR-0).
 
 ---
 
@@ -101,6 +124,8 @@
 
 ### Accessibility
 
+Accessibility has not yet been evaluated.
+
 *Consider the accessibility of the component, including:*
 
 - *Keyboard Navigation and Focus*
@@ -115,51 +140,46 @@
 
 ### Mobile
 
-*Consider how the component will behave on mobile devices, including:*
-
-- *Overflow behavior when screen space is constrained*
-- *Interactions that are affected by touch rather than a pointer device (e.g. hover)*
-- *Integration with common mobile experiences like native pickers, on-screen keyboards, and dictation*
+Component layout will be tested at small screen sizes. The plans for content sizing and showing scrollbars should allow for adequate mobile layout.
 
 ### Globalization
 
-*Consider whether the component has any special globalization needs such as:*
+The content is provided by applications so they are responsible for localization.
 
-- *Special RTL handling*
-- *Swapping of internal icons/visuals*
-- *Localization*
+Defining the behavior for RTL languages is initially out of scope. But the API can easily be extended to support changing the layout for an RTL language when that is desired.
 
 ### Security
 
-*Are there any security implications surrounding the component?*
+Applications are responsible for the security of the content added to messages. These components will not provide any validation or sanitization.
 
 ### Performance
 
-*Are there any performance pitfalls or challenges with implementing the component?*
+Applications should consider the performance of conversations with large, complex, or numerous messages. Applications can add virtualization features like a "load more messages" button with no change to the chat components. Other virtualization features like loading more messages when scrolling near the end of a conversation should be trivial to add but are out of scope of this document.
 
 ### Dependencies
 
-*Will implementing the component require taking on any dependencies?*
-
-- *3rd party libraries*
-- *Upcoming standards we need to polyfill*
-- *Dependencies on other fast components or utilities*
-
-*Do any of these dependencies bring along an associated timeline?*
+No new dependencies.
 
 ### Test Plan
 
-*What is the plan for testing the component, if different from the normal path? Note that the normal plan includes unit tests for basic state/behavior as well as end-to-end tests to validate the specific user stories described above.*
+Typical unit tests and Chromatic visual tests. Spright maintains the same testing standards as Nimble.
 
 ### Tooling
 
-*Are there any special considerations for tooling? Will tooling changes need to be made? Is there a special way to light up this component in our tooling that would be compelling for developers/designers?*
+This is likely the first Spright components most applications will adopt so they will need to add a new dependency. Blazor applications should follow [the Spright Blazor README](https://github.com/ni/nimble/blob/spright-chat-components/packages/blazor-workspace/SprightBlazor/README.md#getting-started) to set up this dependency. 
 
 ### Documentation
 
-*What additions or changes are needed for user documentation and demos? Are there any architectural/engineering docs we should create as well, perhaps due to some interesting technical challenge or design decisions related to this component?*
+Standard Storybook documentation. Since these are a Spright components we should ensure the documentation conveys 
+
+There are parallel efforts to standardize and document other aspects of chat applications (for example the tone and language used by automated conversation participants) that are out of scope of this document.
 
 ---
 ## Open Issues
 
-*Highlight any open questions for discussion during the spec PR. Before the spec is approved these should typically be resolved with the answers being incorporated in the spec document.*
+1. Should we introduce an input toolbar component where a user can type messages and interact with related buttons? Or should applications construct this using the existing Nimble toolbar?
+   - Pros of dedicated component:
+      1. consistent layout and reduced implementation effort across applications
+      1. single implementation to change if requirements change
+   - Pros of applications leveraging Nimble toolbar:
+      1. dedicated component would require a large API surface area for configuring the visibility and enabled state of numerous buttons
