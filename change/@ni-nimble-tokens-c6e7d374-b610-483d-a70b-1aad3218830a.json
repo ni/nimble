@@ -3,5 +3,5 @@
   "comment": "Add asterisk icon",
   "packageName": "@ni/nimble-tokens",
   "email": "7282195+m-akinc@users.noreply.github.com",
-  "dependentChangeType": "patch"
+  "dependentChangeType": "minor"
 }
