@@ -142,7 +142,8 @@ describe('TableColumnDurationText', () => {
         expect(tablePageObject.getCellTitle(0, 0)).toEqual('');
     });
 
-    it('removes title on mouseout of cell', async () => {
+    // Firefox skipped, see https://github.com/ni/nimble/issues/2490
+    it('removes title on mouseout of cell #SkipFirefox', async () => {
         table.style.width = '100px';
         await table.setData([{ field: 8607022000 }]);
         await waitForUpdatesAsync();
@@ -161,7 +162,8 @@ describe('TableColumnDurationText', () => {
         );
     });
 
-    it('updates displayed date when lang token changes', async () => {
+    // Firefox skipped, see https://github.com/ni/nimble/issues/2490
+    it('updates displayed date when lang token changes #SkipFirefox', async () => {
         await table.setData([{ field: 8607022000 }]);
         await waitForUpdatesAsync();
         expect(tablePageObject.getRenderedCellTextContent(0, 0)).toBe(
