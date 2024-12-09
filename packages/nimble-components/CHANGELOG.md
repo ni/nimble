@@ -1,8 +1,17 @@
 # Change Log - @ni/nimble-components
 
-<!-- This log was last generated on Wed, 04 Dec 2024 21:21:27 GMT and should not be manually modified. -->
+<!-- This log was last generated on Mon, 09 Dec 2024 15:59:16 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 32.9.0
+
+Mon, 09 Dec 2024 15:59:16 GMT
+
+### Minor changes
+
+- Add asterisk icon ([ni/nimble@8c4686a](https://github.com/ni/nimble/commit/8c4686a1068dedbe62eb8eaaf9e20936960fa66a))
+- Bump @ni/nimble-tokens to v8.6.0
 
 ## 32.8.2
 

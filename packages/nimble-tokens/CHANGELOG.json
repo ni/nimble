@@ -2,6 +2,21 @@
   "name": "@ni/nimble-tokens",
   "entries": [
     {
+      "date": "Mon, 09 Dec 2024 15:59:16 GMT",
+      "version": "8.6.0",
+      "tag": "@ni/nimble-tokens_v8.6.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "8c4686a1068dedbe62eb8eaaf9e20936960fa66a",
+            "comment": "Add asterisk icon"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 14 Nov 2024 14:41:16 GMT",
       "version": "8.5.0",
       "tag": "@ni/nimble-tokens_v8.5.0",

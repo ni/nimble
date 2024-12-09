@@ -2,6 +2,27 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Mon, 09 Dec 2024 15:59:16 GMT",
+      "version": "32.9.0",
+      "tag": "@ni/nimble-components_v32.9.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "8c4686a1068dedbe62eb8eaaf9e20936960fa66a",
+            "comment": "Add asterisk icon"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/nimble-tokens to v8.6.0",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 04 Dec 2024 21:21:27 GMT",
       "version": "32.8.2",
       "tag": "@ni/nimble-components_v32.8.2",
