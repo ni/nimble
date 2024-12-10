@@ -10,12 +10,15 @@ import type { ColumnInternalsOptions } from '../base/models/column-internals';
 import type { TableColumnTextBaseColumnConfig } from '../text-base/cell-view';
 import { mixinCustomSortOrderColumnAPI } from '../mixins/custom-sort-order';
 import { TableColumnTextValidator } from './models/table-column-text-validator';
+import { mixinEditableColumnAPI } from '../mixins/editable-column';
 
 export type TableColumnTextCellRecord = TableStringField<'value'>;
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface TableColumnTextColumnConfig
-    extends TableColumnTextBaseColumnConfig {}
+    extends TableColumnTextBaseColumnConfig {
+    editable?: boolean;
+}
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -27,19 +30,23 @@ declare global {
  * The table column for displaying string fields as text.
  */
 export class TableColumnText extends mixinCustomSortOrderColumnAPI(
-    mixinTextBase(
-        TableColumnTextBase<
-        TableColumnTextColumnConfig,
-        TableColumnTextValidator
-        >
+    mixinEditableColumnAPI(
+        mixinTextBase(
+            TableColumnTextBase<
+            TableColumnTextColumnConfig,
+            TableColumnTextValidator
+            >
+        )
     )
 ) {
     private readonly defaultSortOperation = TableColumnSortOperation.localeAwareCaseSensitive;
 
     public placeholderChanged(): void {
-        this.columnInternals.columnConfig = {
-            placeholder: this.placeholder
-        };
+        this.updateColumnConfig();
+    }
+
+    public override editableChanged(): void {
+        this.updateColumnConfig();
     }
 
     public override handleSortConfigurationChange(): void {
@@ -69,6 +76,20 @@ export class TableColumnText extends mixinCustomSortOrderColumnAPI(
         this.columnInternals.sortOperation = this.getResolvedSortOperation(
             this.defaultSortOperation
         );
+    }
+
+    private updateColumnConfig(): void {
+        const validator = this.columnInternals.validator;
+
+        if (validator.isValid()) {
+            const columnConfig: TableColumnTextColumnConfig = {
+                editable: this.editable,
+                placeholder: this.placeholder
+            };
+            this.columnInternals.columnConfig = columnConfig;
+        } else {
+            this.columnInternals.columnConfig = undefined;
+        }
     }
 }
 

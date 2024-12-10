@@ -1,5 +1,6 @@
+import { observable } from '@microsoft/fast-element';
 import { DesignSystem } from '@microsoft/fast-foundation';
-import { template } from '../../text-base/cell-view/template';
+import { template } from './template';
 import type {
     TableColumnTextCellRecord,
     TableColumnTextColumnConfig
@@ -20,10 +21,18 @@ export class TableColumnTextCellView extends TableColumnTextCellViewBase<
 TableColumnTextCellRecord,
 TableColumnTextColumnConfig
 > {
+    @observable
+    public isEditable?: boolean;
+
     protected updateText(): void {
         this.text = typeof this.cellRecord?.value === 'string'
             ? this.cellRecord.value
             : '';
+    }
+
+    protected override columnConfigChanged(): void {
+        super.columnConfigChanged();
+        this.isEditable = this.columnConfig?.editable ?? false;
     }
 }
 

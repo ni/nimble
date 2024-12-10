@@ -94,6 +94,7 @@ interface TextColumnTableArgs extends SharedTableArgs {
     sortByFieldName: never;
     checkValidity: never;
     validity: never;
+    editable: boolean;
 }
 
 export const textColumn: StoryObj<TextColumnTableArgs> = {
@@ -124,6 +125,7 @@ export const textColumn: StoryObj<TextColumnTableArgs> = {
             <${tableColumnTextTag}
                 field-name="quote"
                 placeholder="${x => x.placeholder}"
+                ?editable="${x => x.editable}"
             >
                 Quote
             </${tableColumnTextTag}>
@@ -158,6 +160,11 @@ export const textColumn: StoryObj<TextColumnTableArgs> = {
             table: { category: apiCategory.methods },
             control: false
         },
+        editable: {
+            name: 'editable',
+            description: 'Determines if the cells in the column can be interactively edited.',
+            table: { category: apiCategory.attributes }
+        },
         validity: {
             description: validityDescription({
                 colloquialName: 'column',
@@ -175,6 +182,7 @@ export const textColumn: StoryObj<TextColumnTableArgs> = {
         }
     },
     args: {
-        placeholder: 'Did not respond to request for comment'
+        placeholder: 'Did not respond to request for comment',
+        editable: false
     }
 };
