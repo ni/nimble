@@ -2,14 +2,14 @@ import { attr, html } from '@microsoft/fast-element';
 import {
     DesignSystem,
     TextField as FoundationTextField,
-    TextFieldOptions,
-    textFieldTemplate as template
+    TextFieldOptions
 } from '@microsoft/fast-foundation';
 import { styles } from './styles';
 import { TextFieldAppearance } from './types';
 import { errorTextTemplate } from '../patterns/error/template';
 import type { ErrorPattern } from '../patterns/error/types';
 import { iconExclamationMarkTag } from '../icons/exclamation-mark';
+import { template } from './template';
 
 declare global {
     interface HTMLElementTagNameMap {

@@ -2,8 +2,7 @@ import { attr, html } from '@microsoft/fast-element';
 import {
     DesignSystem,
     NumberField as FoundationNumberField,
-    NumberFieldOptions,
-    numberFieldTemplate as template
+    NumberFieldOptions
 } from '@microsoft/fast-foundation';
 import { styles } from './styles';
 import { NumberFieldAppearance } from './types';
@@ -17,6 +16,7 @@ import {
     numericDecrementLabel,
     numericIncrementLabel
 } from '../label-provider/core/label-tokens';
+import { template } from './template';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -49,6 +49,8 @@ export class NumberField extends FoundationNumberField implements ErrorPattern {
 
         // This is a workaround for FAST issue: https://github.com/microsoft/fast/issues/6148
         this.control.setAttribute('role', 'spinbutton');
+
+        this.stepUp();
     }
 }
 
