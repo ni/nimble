@@ -17,6 +17,7 @@ import {
     errorTextDescription,
     errorVisibleDescription,
     optionsDescription,
+    requiredVisibleDescription,
     slottedLabelDescription
 } from '../../utilities/storybook';
 import { ExampleOptionsType } from './types';
@@ -230,7 +231,7 @@ const metadata: Meta<SelectArgs> = {
         },
         requiredVisible: {
             name: 'required-visible',
-            description: 'foo bar',
+            description: requiredVisibleDescription,
             table: { category: apiCategory.attributes }
         },
         value: {

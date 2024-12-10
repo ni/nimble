@@ -14,7 +14,9 @@ import {
     disabledStates,
     DisabledState,
     errorStates,
-    ErrorState
+    ErrorState,
+    RequiredVisibleState,
+    requiredVisibleStates
 } from '../../utilities/states';
 import { hiddenWrapper } from '../../utilities/hidden';
 import { loremIpsum } from '../../utilities/lorem-ipsum';
@@ -47,7 +49,8 @@ const component = (
     [disabledName, disabled]: DisabledState,
     [appearanceName, appearance]: AppearanceState,
     [errorName, errorVisible, errorText]: ErrorState,
-    [valueName, value, placeholder]: ValueState
+    [valueName, value, placeholder]: ValueState,
+    [requiredVisibleName, requiredVisible]: RequiredVisibleState
 ): ViewTemplate => html`
     <${comboboxTag} 
         ?disabled="${() => disabled}"
@@ -56,12 +59,14 @@ const component = (
         error-text="${() => errorText}"
         value="${() => value}"
         placeholder="${() => placeholder}"
+        ?required-visible="${() => requiredVisible}"
         style="width: 250px; margin: var(${standardPadding.cssCustomProperty});"
     >
         ${() => disabledName}
         ${() => appearanceName}
         ${() => errorName}
         ${() => valueName}
+        ${() => requiredVisibleName}
         <${listOptionTag} value="1">Option 1</${listOptionTag}>
         <${listOptionTag} value="2" disabled>Option 2</${listOptionTag}>
         <${listOptionTag} value="3">Option 3</${listOptionTag}>
@@ -74,7 +79,8 @@ export const comboboxThemeMatrix: StoryFn = createMatrixThemeStory(
         disabledStates,
         appearanceStates,
         errorStates,
-        valueStates
+        valueStates,
+        requiredVisibleStates
     ])
 );
 

@@ -14,7 +14,9 @@ import {
     ReadOnlyState,
     readOnlyStates,
     ErrorState,
-    errorStates
+    errorStates,
+    RequiredVisibleState,
+    requiredVisibleStates
 } from '../../utilities/states';
 import { hiddenWrapper } from '../../utilities/hidden';
 import { textCustomizationWrapper } from '../../utilities/text-customization';
@@ -47,7 +49,8 @@ const component = (
     [disabledName, disabled]: DisabledState,
     [appearanceName, appearance]: AppearanceState,
     [valueName, valueValue, placeholderValue]: ValueState,
-    [errorStateName, isError, errorText]: ErrorState
+    [errorStateName, isError, errorText]: ErrorState,
+    [requiredVisibleName, requiredVisible]: RequiredVisibleState
 ): ViewTemplate => html`
     <${textAreaTag}
         style="width: 250px; margin: 15px;"
@@ -56,11 +59,12 @@ const component = (
         value="${() => valueValue}"
         placeholder="${() => placeholderValue}"
         ?readonly="${() => readonly}"
-        error-visible="${() => isError}"
+        ?error-visible="${() => isError}"
         error-text="${() => errorText}"
+        ?required-visible="${() => requiredVisible}"
     >
         ${() => disabledName} ${() => appearanceName} ${() => valueName}
-        ${() => readOnlyName} ${() => errorStateName}
+        ${() => readOnlyName} ${() => errorStateName} ${() => requiredVisibleName}
     </${textAreaTag}>
 `;
 
@@ -70,7 +74,8 @@ export const textAreaThemeMatrix: StoryFn = createMatrixThemeStory(
         disabledStates,
         appearanceStates,
         valueStates,
-        errorStates
+        errorStates,
+        requiredVisibleStates
     ])
 );
 

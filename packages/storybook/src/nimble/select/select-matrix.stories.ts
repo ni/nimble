@@ -17,7 +17,9 @@ import {
     disabledStates,
     DisabledState,
     ErrorState,
-    errorStates
+    errorStates,
+    requiredVisibleStates,
+    RequiredVisibleState
 } from '../../utilities/states';
 import { hiddenWrapper } from '../../utilities/hidden';
 import { textCustomizationWrapper } from '../../utilities/text-customization';
@@ -57,7 +59,8 @@ const component = (
     [appearanceName, appearance]: AppearanceState,
     [errorName, errorVisible, errorText]: ErrorState,
     [valueName, valueValue]: ValueState,
-    [clearableName, clearable]: ClearableState
+    [clearableName, clearable]: ClearableState,
+    [requiredVisibleName, requiredVisible]: RequiredVisibleState
 ): ViewTemplate => html`
     <${selectTag}
         ?error-visible="${() => errorVisible}"
@@ -65,9 +68,10 @@ const component = (
         ?disabled="${() => disabled}"
         ?clearable="${() => clearable}"
         appearance="${() => appearance}"
+        ?required-visible="${() => requiredVisible}"
         style="width: 250px; margin: var(${standardPadding.cssCustomProperty});"
     >
-        ${() => errorName} ${() => disabledName} ${() => appearanceName} ${() => valueName} ${() => clearableName}
+        ${() => errorName} ${() => disabledName} ${() => appearanceName} ${() => valueName} ${() => clearableName} ${() => requiredVisibleName}
         <${listOptionTag} value="1">${valueValue}</${listOptionTag}>
         <${listOptionTag} value="2" disabled>Option 2</${listOptionTag}>
         <${listOptionTag} value="3">Option 3</${listOptionTag}>
@@ -81,7 +85,8 @@ export const selectThemeMatrix: StoryFn = createMatrixThemeStory(
         appearanceStates,
         errorStates,
         valueStates,
-        clearableStates
+        clearableStates,
+        requiredVisibleStates
     ])
 );
 

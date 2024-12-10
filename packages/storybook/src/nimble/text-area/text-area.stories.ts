@@ -14,6 +14,7 @@ import {
     errorTextDescription,
     errorVisibleDescription,
     placeholderDescription,
+    requiredVisibleDescription,
     slottedLabelDescription
 } from '../../utilities/storybook';
 import { loremIpsum } from '../../utilities/lorem-ipsum';
@@ -131,7 +132,7 @@ const metadata: Meta<TextAreaArgs> = {
         },
         requiredVisible: {
             name: 'required-visible',
-            description: 'Whether to display the required state.',
+            description: requiredVisibleDescription,
             table: { category: apiCategory.attributes }
         },
         change: {

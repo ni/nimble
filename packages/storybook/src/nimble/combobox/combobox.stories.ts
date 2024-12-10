@@ -20,6 +20,7 @@ import {
     errorVisibleDescription,
     optionsDescription,
     placeholderDescription,
+    requiredVisibleDescription,
     slottedLabelDescription
 } from '../../utilities/storybook';
 
@@ -168,7 +169,7 @@ const metadata: Meta<ComboboxArgs> = {
         },
         requiredVisible: {
             name: 'required-visible',
-            description: 'foo bar',
+            description: requiredVisibleDescription,
             table: { category: apiCategory.attributes }
         },
         optionsType: {
