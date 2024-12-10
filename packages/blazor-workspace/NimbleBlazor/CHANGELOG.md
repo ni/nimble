@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-blazor
 
-<!-- This log was last generated on Mon, 09 Dec 2024 15:59:16 GMT and should not be manually modified. -->
+<!-- This log was last generated on Tue, 10 Dec 2024 20:15:57 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 19.3.1
+
+Tue, 10 Dec 2024 20:15:57 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v32.9.1
 
 ## 19.3.0
 
