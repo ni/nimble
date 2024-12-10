@@ -5,8 +5,9 @@ import type {
     TableColumnTextCellRecord,
     TableColumnTextColumnConfig
 } from '..';
-import { styles } from '../../text-base/cell-view/styles';
+import { styles } from './styles';
 import { TableColumnTextCellViewBase } from '../../text-base/cell-view';
+import type { TextField } from '../../../text-field';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -24,6 +25,29 @@ TableColumnTextColumnConfig
     @observable
     public isEditable?: boolean;
 
+    @observable
+    public isEditing = false;
+
+    @observable
+    public isFocused = false;
+
+    @observable
+    public textField?: TextField;
+
+    public handleClick(): void {
+        if (this.isEditable && !this.isFocused) {
+            this.isFocused = true;
+        } else if (this.isEditable && this.isFocused) {
+            this.isEditing = true;
+            this.isFocused = false;
+        }
+    }
+
+    public handleBlur(): void {
+        this.isEditing = false;
+        this.isFocused = false;
+    }
+
     protected updateText(): void {
         this.text = typeof this.cellRecord?.value === 'string'
             ? this.cellRecord.value
@@ -33,6 +57,14 @@ TableColumnTextColumnConfig
     protected override columnConfigChanged(): void {
         super.columnConfigChanged();
         this.isEditable = this.columnConfig?.editable ?? false;
+    }
+
+    private isEditingChanged(): void {
+        if (this.isEditing) {
+            window.requestAnimationFrame(() => {
+                this.textField?.focus();
+            });
+        }
     }
 }
 
