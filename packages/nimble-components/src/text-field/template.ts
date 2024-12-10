@@ -7,7 +7,7 @@ import {
     startSlotTemplate,
     endSlotTemplate
 } from '@microsoft/fast-foundation';
-import { TextField } from '.';
+import type { TextField } from '.';
 
 /**
  * The template for the {@link @microsoft/fast-foundation#(TextField:class)} component.

@@ -6,7 +6,7 @@ import {
     NumberFieldOptions,
     startSlotTemplate
 } from '@microsoft/fast-foundation';
-import { NumberField } from '.';
+import type { NumberField } from '.';
 
 /**
  * The template for the {@link @microsoft/fast-foundation#(NumberField:class)} component.

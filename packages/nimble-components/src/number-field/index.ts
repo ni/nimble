@@ -49,8 +49,6 @@ export class NumberField extends FoundationNumberField implements ErrorPattern {
 
         // This is a workaround for FAST issue: https://github.com/microsoft/fast/issues/6148
         this.control.setAttribute('role', 'spinbutton');
-
-        this.stepUp();
     }
 }
 

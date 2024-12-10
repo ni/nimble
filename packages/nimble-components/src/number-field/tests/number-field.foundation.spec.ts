@@ -1,3 +1,5 @@
+// Based on tests in FAST repo: https://github.com/microsoft/fast/blob/fd9068b94e4aa8d2282f0cce613f58436fae955d/packages/web-components/fast-foundation/src/number-field/number-field.spec.ts
+
 import { DOM } from '@microsoft/fast-element';
 import { NumberField } from '..';
 import { template } from '../template';
@@ -18,8 +20,10 @@ async function setup(props?: Partial<NumberField>): Promise<{
     const { element, connect, disconnect, parent } = await fixture(FASTNumberField());
 
     if (props) {
+        // eslint-disable-next-line guard-for-in
         for (const key in props) {
-            element[key] = props[key].toString();
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-explicit-any
+            (element as any)[key] = (props as any)[key].toString();
         }
     }
 
