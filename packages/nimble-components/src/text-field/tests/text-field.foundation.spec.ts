@@ -6,7 +6,7 @@ import { template } from '../template';
 // eslint-disable-next-line @typescript-eslint/naming-convention
 const FASTTextField = TextField.compose({
     baseName: 'text-field',
-    template,
+    template
 });
 
 async function setup(): Promise<{
@@ -29,7 +29,9 @@ describe('TextField', () => {
 
         await connect();
         expect(
-            element.shadowRoot!.querySelector('.control')?.hasAttribute('autofocus')
+            element
+                .shadowRoot!.querySelector('.control')
+                ?.hasAttribute('autofocus')
         ).toBeTrue();
 
         await disconnect();
@@ -43,7 +45,9 @@ describe('TextField', () => {
 
         await connect();
         expect(
-            element.shadowRoot!.querySelector('.control')?.hasAttribute('disabled')
+            element
+                .shadowRoot!.querySelector('.control')
+                ?.hasAttribute('disabled')
         ).toBeTrue();
 
         await disconnect();
@@ -71,7 +75,9 @@ describe('TextField', () => {
 
         await connect();
         expect(
-            element.shadowRoot!.querySelector('.control')?.getAttribute('maxlength')
+            element
+                .shadowRoot!.querySelector('.control')
+                ?.getAttribute('maxlength')
         ).toEqual(maxlength.toString());
 
         await disconnect();
@@ -85,7 +91,9 @@ describe('TextField', () => {
 
         await connect();
         expect(
-            element.shadowRoot!.querySelector('.control')?.getAttribute('minlength')
+            element
+                .shadowRoot!.querySelector('.control')
+                ?.getAttribute('minlength')
         ).toEqual(minlength.toString());
 
         await disconnect();
@@ -99,7 +107,9 @@ describe('TextField', () => {
 
         await connect();
         expect(
-            element.shadowRoot!.querySelector('.control')?.getAttribute('placeholder')
+            element
+                .shadowRoot!.querySelector('.control')
+                ?.getAttribute('placeholder')
         ).toEqual(placeholder);
 
         await disconnect();
@@ -113,7 +123,9 @@ describe('TextField', () => {
 
         await connect();
         expect(
-            element.shadowRoot!.querySelector('.control')?.hasAttribute('readonly')
+            element
+                .shadowRoot!.querySelector('.control')
+                ?.hasAttribute('readonly')
         ).toBeTrue();
 
         await disconnect();
@@ -127,7 +139,9 @@ describe('TextField', () => {
 
         await connect();
         expect(
-            element.shadowRoot!.querySelector('.control')?.hasAttribute('required')
+            element
+                .shadowRoot!.querySelector('.control')
+                ?.hasAttribute('required')
         ).toBeTrue();
 
         await disconnect();
@@ -155,7 +169,9 @@ describe('TextField', () => {
 
         await connect();
         expect(
-            element.shadowRoot!.querySelector('.control')?.hasAttribute('spellcheck')
+            element
+                .shadowRoot!.querySelector('.control')
+                ?.hasAttribute('spellcheck')
         ).toBeTrue();
 
         await disconnect();
@@ -203,7 +219,9 @@ describe('TextField', () => {
     });
     it('should hide the label when start content is provided', async () => {
         const { element, connect, disconnect } = await setup();
-        const div: HTMLDivElement = document.createElement('svg') as HTMLDivElement;
+        const div: HTMLDivElement = document.createElement(
+            'svg'
+        ) as HTMLDivElement;
         div.setAttribute('height', '100px');
         div.setAttribute('width', '100px');
 
@@ -222,7 +240,9 @@ describe('TextField', () => {
 
     it('should hide the label when end content is provided', async () => {
         const { element, connect, disconnect } = await setup();
-        const div: HTMLDivElement = document.createElement('svg') as HTMLDivElement;
+        const div: HTMLDivElement = document.createElement(
+            'svg'
+        ) as HTMLDivElement;
         div.setAttribute('height', '100px');
         div.setAttribute('width', '100px');
 
@@ -240,7 +260,9 @@ describe('TextField', () => {
     });
     it('should hide the label when start and end content are provided', async () => {
         const { element, connect, disconnect } = await setup();
-        const div: HTMLDivElement = document.createElement('svg') as HTMLDivElement;
+        const div: HTMLDivElement = document.createElement(
+            'svg'
+        ) as HTMLDivElement;
         div.setAttribute('height', '100px');
         div.setAttribute('width', '100px');
 
@@ -304,7 +326,9 @@ describe('TextField', () => {
             await connect();
 
             expect(
-                element.shadowRoot!.querySelector('.control')?.getAttribute('aria-atomic')
+                element
+                    .shadowRoot!.querySelector('.control')
+                    ?.getAttribute('aria-atomic')
             ).toEqual(ariaAtomic);
 
             await disconnect();
@@ -319,7 +343,9 @@ describe('TextField', () => {
             await connect();
 
             expect(
-                element.shadowRoot!.querySelector('.control')?.getAttribute('aria-busy')
+                element
+                    .shadowRoot!.querySelector('.control')
+                    ?.getAttribute('aria-busy')
             ).toEqual(ariaBusy);
 
             await disconnect();
@@ -436,7 +462,9 @@ describe('TextField', () => {
             await connect();
 
             expect(
-                element.shadowRoot!.querySelector('.control')?.getAttribute('aria-flowto')
+                element
+                    .shadowRoot!.querySelector('.control')
+                    ?.getAttribute('aria-flowto')
             ).toEqual(ariaFlowto);
 
             await disconnect();
@@ -468,7 +496,9 @@ describe('TextField', () => {
             await connect();
 
             expect(
-                element.shadowRoot!.querySelector('.control')?.getAttribute('aria-hidden')
+                element
+                    .shadowRoot!.querySelector('.control')
+                    ?.getAttribute('aria-hidden')
             ).toEqual(ariaHidden);
 
             await disconnect();
@@ -517,7 +547,9 @@ describe('TextField', () => {
             await connect();
 
             expect(
-                element.shadowRoot!.querySelector('.control')?.getAttribute('aria-label')
+                element
+                    .shadowRoot!.querySelector('.control')
+                    ?.getAttribute('aria-label')
             ).toEqual(ariaLabel);
 
             await disconnect();
@@ -549,7 +581,9 @@ describe('TextField', () => {
             await connect();
 
             expect(
-                element.shadowRoot!.querySelector('.control')?.getAttribute('aria-live')
+                element
+                    .shadowRoot!.querySelector('.control')
+                    ?.getAttribute('aria-live')
             ).toEqual(ariaLive);
 
             await disconnect();
@@ -564,7 +598,9 @@ describe('TextField', () => {
             await connect();
 
             expect(
-                element.shadowRoot!.querySelector('.control')?.getAttribute('aria-owns')
+                element
+                    .shadowRoot!.querySelector('.control')
+                    ?.getAttribute('aria-owns')
             ).toEqual(ariaOwns);
 
             await disconnect();
@@ -609,7 +645,7 @@ describe('TextField', () => {
         it('should fire a change event the internal control emits a change event', async () => {
             const { element, connect, disconnect } = await setup();
             const event = new Event('change', {
-                key: 'a',
+                key: 'a'
             } as KeyboardEventInit);
             let wasChanged = false;
 
@@ -632,7 +668,9 @@ describe('TextField', () => {
 
     describe('with constraint validation', () => {
         Object.keys(TextFieldType)
-            .map((key): TextFieldType => TextFieldType[key as keyof typeof TextFieldType])
+            .map(
+                (key): TextFieldType => TextFieldType[key as keyof typeof TextFieldType]
+            )
             .forEach(type => {
                 describe(`of [type="${type}"]`, () => {
                     describe('that is [required]', () => {
@@ -736,7 +774,9 @@ describe('TextField', () => {
                             element.pattern = value;
                             element.value = value;
 
-                            expect(element.validity.patternMismatch).toBeFalse();
+                            expect(
+                                element.validity.patternMismatch
+                            ).toBeFalse();
                             await disconnect();
                         });
 

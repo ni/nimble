@@ -1,6 +1,12 @@
 import { html, ref, slotted } from '@microsoft/fast-element';
 import type { ViewTemplate } from '@microsoft/fast-element';
-import { FoundationElementTemplate, TextFieldOptions, whitespaceFilter, startSlotTemplate, endSlotTemplate } from '@microsoft/fast-foundation';
+import {
+    FoundationElementTemplate,
+    TextFieldOptions,
+    whitespaceFilter,
+    startSlotTemplate,
+    endSlotTemplate
+} from '@microsoft/fast-foundation';
 import { TextField } from '.';
 
 /**
@@ -24,7 +30,10 @@ TextFieldOptions
         : 'label label__hidden')}"
         >
             <slot
-                ${slotted({ property: 'defaultSlottedNodes', filter: whitespaceFilter })}
+                ${slotted({
+        property: 'defaultSlottedNodes',
+        filter: whitespaceFilter
+    })}
             ></slot>
         </label>
         <div class="root" part="root">

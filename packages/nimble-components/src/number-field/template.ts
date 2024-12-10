@@ -1,6 +1,11 @@
 import { html, ref, slotted, when } from '@microsoft/fast-element';
 import type { ViewTemplate } from '@microsoft/fast-element';
-import { endSlotTemplate, FoundationElementTemplate, NumberFieldOptions, startSlotTemplate } from '@microsoft/fast-foundation';
+import {
+    endSlotTemplate,
+    FoundationElementTemplate,
+    NumberFieldOptions,
+    startSlotTemplate
+} from '@microsoft/fast-foundation';
 import { NumberField } from '.';
 
 /**
@@ -70,7 +75,11 @@ NumberFieldOptions
         x => !x.hideStep && !x.readOnly && !x.disabled,
         html<NumberField>`
                     <div class="controls" part="controls">
-                        <div class="step-up" part="step-up" @click="${x => x.stepUp()}">
+                        <div
+                            class="step-up"
+                            part="step-up"
+                            @click="${x => x.stepUp()}"
+                        >
                             <slot name="step-up-glyph">
                                 ${definition.stepUpGlyph || ''}
                             </slot>

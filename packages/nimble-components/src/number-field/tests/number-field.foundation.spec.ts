@@ -6,7 +6,7 @@ import { fixture } from '../../utilities/tests/fixture';
 // eslint-disable-next-line @typescript-eslint/naming-convention
 const FASTNumberField = NumberField.compose({
     baseName: 'number-field',
-    template,
+    template
 });
 
 async function setup(props?: Partial<NumberField>): Promise<{
@@ -33,7 +33,9 @@ describe('NumberField', () => {
         const { element, disconnect } = await setup({ autofocus: true });
 
         expect(
-            element.shadowRoot!.querySelector('.control')?.hasAttribute('autofocus')
+            element
+                .shadowRoot!.querySelector('.control')
+                ?.hasAttribute('autofocus')
         ).toBeTrue();
 
         await disconnect();
@@ -43,7 +45,9 @@ describe('NumberField', () => {
         const { element, disconnect } = await setup({ disabled: true });
 
         expect(
-            element.shadowRoot!.querySelector('.control')?.hasAttribute('disabled')
+            element
+                .shadowRoot!.querySelector('.control')
+                ?.hasAttribute('disabled')
         ).toBeTrue();
 
         await disconnect();
@@ -65,7 +69,9 @@ describe('NumberField', () => {
         const { element, disconnect } = await setup({ maxlength });
 
         expect(
-            element.shadowRoot!.querySelector('.control')?.getAttribute('maxlength')
+            element
+                .shadowRoot!.querySelector('.control')
+                ?.getAttribute('maxlength')
         ).toBe(maxlength.toString());
 
         await disconnect();
@@ -76,7 +82,9 @@ describe('NumberField', () => {
         const { element, disconnect } = await setup({ minlength });
 
         expect(
-            element.shadowRoot!.querySelector('.control')?.getAttribute('minlength')
+            element
+                .shadowRoot!.querySelector('.control')
+                ?.getAttribute('minlength')
         ).toBe(minlength.toString());
 
         await disconnect();
@@ -87,7 +95,9 @@ describe('NumberField', () => {
         const { element, disconnect } = await setup({ placeholder });
 
         expect(
-            element.shadowRoot!.querySelector('.control')?.getAttribute('placeholder')
+            element
+                .shadowRoot!.querySelector('.control')
+                ?.getAttribute('placeholder')
         ).toBe(placeholder);
 
         await disconnect();
@@ -97,7 +107,9 @@ describe('NumberField', () => {
         const { element, disconnect } = await setup({ readOnly: true });
 
         expect(
-            element.shadowRoot!.querySelector('.control')?.hasAttribute('readonly')
+            element
+                .shadowRoot!.querySelector('.control')
+                ?.hasAttribute('readonly')
         ).toBeTrue();
 
         await disconnect();
@@ -107,7 +119,9 @@ describe('NumberField', () => {
         const { element, disconnect } = await setup({ required: true });
 
         expect(
-            element.shadowRoot!.querySelector('.control')?.hasAttribute('required')
+            element
+                .shadowRoot!.querySelector('.control')
+                ?.hasAttribute('required')
         ).toBeTrue();
 
         await disconnect();
@@ -166,7 +180,9 @@ describe('NumberField', () => {
             const { element, disconnect } = await setup({ ariaAtomic });
 
             expect(
-                element.shadowRoot!.querySelector('.control')?.getAttribute('aria-atomic')
+                element
+                    .shadowRoot!.querySelector('.control')
+                    ?.getAttribute('aria-atomic')
             ).toBe(ariaAtomic);
 
             await disconnect();
@@ -177,7 +193,9 @@ describe('NumberField', () => {
             const { element, disconnect } = await setup({ ariaBusy });
 
             expect(
-                element.shadowRoot!.querySelector('.control')?.getAttribute('aria-busy')
+                element
+                    .shadowRoot!.querySelector('.control')
+                    ?.getAttribute('aria-busy')
             ).toBe(ariaBusy);
 
             await disconnect();
@@ -266,7 +284,9 @@ describe('NumberField', () => {
             const { element, disconnect } = await setup({ ariaFlowto });
 
             expect(
-                element.shadowRoot!.querySelector('.control')?.getAttribute('aria-flowto')
+                element
+                    .shadowRoot!.querySelector('.control')
+                    ?.getAttribute('aria-flowto')
             ).toBe(ariaFlowto);
 
             await disconnect();
@@ -290,7 +310,9 @@ describe('NumberField', () => {
             const { element, disconnect } = await setup({ ariaHidden });
 
             expect(
-                element.shadowRoot!.querySelector('.control')?.getAttribute('aria-hidden')
+                element
+                    .shadowRoot!.querySelector('.control')
+                    ?.getAttribute('aria-hidden')
             ).toBe(ariaHidden);
 
             await disconnect();
@@ -327,7 +349,9 @@ describe('NumberField', () => {
             const { element, disconnect } = await setup({ ariaLabel });
 
             expect(
-                element.shadowRoot!.querySelector('.control')?.getAttribute('aria-label')
+                element
+                    .shadowRoot!.querySelector('.control')
+                    ?.getAttribute('aria-label')
             ).toBe(ariaLabel);
 
             await disconnect();
@@ -351,7 +375,9 @@ describe('NumberField', () => {
             const { element, disconnect } = await setup({ ariaLive });
 
             expect(
-                element.shadowRoot!.querySelector('.control')?.getAttribute('aria-live')
+                element
+                    .shadowRoot!.querySelector('.control')
+                    ?.getAttribute('aria-live')
             ).toBe(ariaLive);
 
             await disconnect();
@@ -362,7 +388,9 @@ describe('NumberField', () => {
             const { element, disconnect } = await setup({ ariaOwns });
 
             expect(
-                element.shadowRoot!.querySelector('.control')?.getAttribute('aria-owns')
+                element
+                    .shadowRoot!.querySelector('.control')
+                    ?.getAttribute('aria-owns')
             ).toBe(ariaOwns);
 
             await disconnect();
@@ -383,7 +411,9 @@ describe('NumberField', () => {
 
         it('should set the `aria-roledescription` attribute on the internal control when provided', async () => {
             const ariaRoledescription = 'slide';
-            const { element, disconnect } = await setup({ ariaRoledescription });
+            const { element, disconnect } = await setup({
+                ariaRoledescription
+            });
 
             expect(
                 element.shadowRoot
@@ -399,7 +429,7 @@ describe('NumberField', () => {
         it('should fire a change event when the internal control emits a change event', async () => {
             const { element, disconnect } = await setup();
             const event = new Event('change', {
-                key: '1',
+                key: '1'
             } as KeyboardEventInit);
             let wasChanged = false;
 
@@ -484,7 +514,8 @@ describe('NumberField', () => {
             const value = '10';
 
             expect(
-                (element.shadowRoot!.querySelector<HTMLInputElement>('.control')!).value
+                element.shadowRoot!.querySelector<HTMLInputElement>('.control')!
+                    .value
             ).toBe('');
 
             element.setAttribute('value', value);
@@ -492,7 +523,8 @@ describe('NumberField', () => {
             await DOM.nextUpdate();
 
             expect(
-                (element.shadowRoot!.querySelector<HTMLInputElement>('.control')!).value
+                element.shadowRoot!.querySelector<HTMLInputElement>('.control')!
+                    .value
             ).toBe(value);
 
             await disconnect();
@@ -525,7 +557,9 @@ describe('NumberField', () => {
             const { element, disconnect } = await setup({ min });
 
             expect(
-                element.shadowRoot!.querySelector('.control')?.getAttribute('min')
+                element
+                    .shadowRoot!.querySelector('.control')
+                    ?.getAttribute('min')
             ).toBe(min.toString());
 
             await disconnect();
@@ -536,7 +570,9 @@ describe('NumberField', () => {
             const { element, connect, disconnect } = await setup({ max });
 
             expect(
-                element.shadowRoot!.querySelector('.control')?.getAttribute('max')
+                element
+                    .shadowRoot!.querySelector('.control')
+                    ?.getAttribute('max')
             ).toBe(max.toString());
 
             await disconnect();
@@ -602,7 +638,9 @@ describe('NumberField', () => {
             const { element, disconnect } = await setup({ min, max });
 
             expect(
-                element.shadowRoot!.querySelector('.control')?.getAttribute('max')
+                element
+                    .shadowRoot!.querySelector('.control')
+                    ?.getAttribute('max')
             ).toBe(min.toString());
 
             await disconnect();
@@ -614,7 +652,9 @@ describe('NumberField', () => {
             const { element, disconnect } = await setup();
 
             expect(
-                element.shadowRoot!.querySelector('.control')?.getAttribute('step')
+                element
+                    .shadowRoot!.querySelector('.control')
+                    ?.getAttribute('step')
             ).toBe('1');
 
             await disconnect();
@@ -625,7 +665,9 @@ describe('NumberField', () => {
             const { element, disconnect } = await setup({ step });
 
             expect(
-                element.shadowRoot!.querySelector('.control')?.getAttribute('step')
+                element
+                    .shadowRoot!.querySelector('.control')
+                    ?.getAttribute('step')
             ).toBe(step.toString());
 
             await disconnect();
@@ -634,7 +676,10 @@ describe('NumberField', () => {
         it('should increment the value by the step amount', async () => {
             const step = 2;
             const value = 5;
-            const { element, disconnect } = await setup({ step, value: value.toString() });
+            const { element, disconnect } = await setup({
+                step,
+                value: value.toString()
+            });
 
             element.stepUp();
 
@@ -646,7 +691,10 @@ describe('NumberField', () => {
         it('should decrement the value by the step amount', async () => {
             const step = 2;
             const value = 5;
-            const { element, disconnect } = await setup({ step, value: value.toString() });
+            const { element, disconnect } = await setup({
+                step,
+                value: value.toString()
+            });
 
             element.stepDown();
 
@@ -755,7 +803,10 @@ describe('NumberField', () => {
         it('should update the proxy value when incrementing the value', async () => {
             const step = 2;
             const value = 5;
-            const { element, disconnect } = await setup({ step, value: value.toString() });
+            const { element, disconnect } = await setup({
+                step,
+                value: value.toString()
+            });
 
             element.stepUp();
 
@@ -768,7 +819,10 @@ describe('NumberField', () => {
         it('should update the proxy value when decrementing the value', async () => {
             const step = 2;
             const value = 5;
-            const { element, disconnect } = await setup({ step, value: value.toString() });
+            const { element, disconnect } = await setup({
+                step,
+                value: value.toString()
+            });
 
             element.stepDown();
 
@@ -780,7 +834,7 @@ describe('NumberField', () => {
 
         it('should correct rounding errors', async () => {
             const step = 0.1;
-            let value = 0.2.toString();
+            let value = (0.2).toString();
             const { element, disconnect } = await setup({ step, value });
             const incrementValue = (): void => {
                 element.stepUp();
@@ -860,15 +914,15 @@ describe('NumberField', () => {
         it('should not render step controls when `hide-step` attribute is present', async () => {
             const { element, disconnect } = await setup();
 
-            expect(element.shadowRoot!.querySelector('.controls')).not.toBe(null);
+            expect(element.shadowRoot!.querySelector('.controls')).not.toBe(
+                null
+            );
 
             element.setAttribute('hide-step', '');
 
             await DOM.nextUpdate();
 
-            expect(
-                element.shadowRoot!.querySelector('.controls')
-            ).toBe(null);
+            expect(element.shadowRoot!.querySelector('.controls')).toBe(null);
 
             await disconnect();
         });
@@ -878,15 +932,15 @@ describe('NumberField', () => {
         it('should not render step controls when `readonly` attribute is present', async () => {
             const { element, disconnect } = await setup();
 
-            expect(element.shadowRoot!.querySelector('.controls')).not.toBe(null);
+            expect(element.shadowRoot!.querySelector('.controls')).not.toBe(
+                null
+            );
 
             element.setAttribute('readonly', '');
 
             await DOM.nextUpdate();
 
-            expect(
-                element.shadowRoot!.querySelector('.controls')
-            ).toBe(null);
+            expect(element.shadowRoot!.querySelector('.controls')).toBe(null);
 
             await disconnect();
         });
