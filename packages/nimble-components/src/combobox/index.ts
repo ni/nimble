@@ -41,6 +41,7 @@ import type { AnchoredRegion } from '../anchored-region';
 import { template } from './template';
 import { FormAssociatedCombobox } from './models/combobox-form-associated';
 import type { ListOption } from '../list-option';
+import { mixinRequiredVisiblePattern } from '../patterns/required-visible/types';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -52,7 +53,7 @@ declare global {
  * A nimble-styed HTML combobox
  */
 export class Combobox
-    extends mixinErrorPattern(FormAssociatedCombobox)
+    extends mixinErrorPattern(mixinRequiredVisiblePattern(FormAssociatedCombobox))
     implements DropdownPattern {
     @attr
     public appearance: DropdownAppearance = DropdownAppearance.underline;

@@ -33,6 +33,7 @@ interface TextAreaArgs {
     cols: number;
     maxlength: number;
     change: undefined;
+    requiredVisible: boolean;
 }
 
 const metadata: Meta<TextAreaArgs> = {
@@ -57,6 +58,7 @@ const metadata: Meta<TextAreaArgs> = {
             rows="${x => x.rows}"
             cols="${x => x.cols}"
             maxlength="${x => x.maxlength}"
+            ?required-visible="${x => x.requiredVisible}"
         >
             ${x => x.label}
         </${textAreaTag}>
@@ -127,6 +129,11 @@ const metadata: Meta<TextAreaArgs> = {
                 'Maximum number of characters that may be entered by the user',
             table: { category: apiCategory.attributes }
         },
+        requiredVisible: {
+            name: 'required-visible',
+            description: 'Whether to display the required state.',
+            table: { category: apiCategory.attributes }
+        },
         change: {
             description:
                 'Event emitted when the user commits a new value to the text area.',
@@ -147,7 +154,8 @@ const metadata: Meta<TextAreaArgs> = {
         resize: TextAreaResize.both,
         rows: 3,
         cols: 20,
-        maxlength: 500
+        maxlength: 500,
+        requiredVisible: false
     }
 };
 

@@ -17,6 +17,13 @@ import { anchoredRegionTag } from '../anchored-region';
 import { DropdownPosition } from '../patterns/dropdown/types';
 import { overflow } from '../utilities/directive/overflow';
 import { filterNoResultsLabel } from '../label-provider/core/label-tokens';
+import { getLabelTemplate } from '../patterns/required-visible/template';
+
+const labelTemplate = getLabelTemplate(html<Combobox>`
+    <label part="label" class="label">
+        <slot></slot>
+    </label>
+`);
 
 /* eslint-disable @typescript-eslint/indent */
 // prettier-ignore
@@ -34,9 +41,7 @@ ComboboxOptions
         @focusout="${(x, c) => x.focusoutHandler(c.event as FocusEvent)}"
         @keydown="${(x, c) => x.keydownHandler(c.event as KeyboardEvent)}"
     >
-        <label part="label" class="label">
-            <slot></slot>
-        </label>
+        ${labelTemplate}
         <div class="control" part="control" ${ref('controlWrapper')}>
             ${startSlotTemplate(context, definition)}
             <slot name="control">
@@ -46,6 +51,7 @@ ComboboxOptions
                     aria-controls="${x => x.ariaControls}"
                     aria-disabled="${x => x.ariaDisabled}"
                     aria-expanded="${x => x.ariaExpanded}"
+                    aria-required=${x => x.requiredVisible}
                     aria-haspopup="listbox"
                     class="selected-value"
                     part="selected-value"

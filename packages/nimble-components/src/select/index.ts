@@ -44,6 +44,7 @@ import { diacriticInsensitiveStringNormalizer } from '../utilities/models/string
 import { FormAssociatedSelect } from './models/select-form-associated';
 import type { ListOptionGroup } from '../list-option-group';
 import { slotTextContent } from '../utilities/models/slot-text-content';
+import { mixinRequiredVisiblePattern } from '../patterns/required-visible/types';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -71,7 +72,7 @@ const isOptionOrGroupVisible = (el: ListOption | ListOptionGroup): boolean => {
  * A nimble-styled HTML select.
  */
 export class Select
-    extends mixinErrorPattern(FormAssociatedSelect)
+    extends mixinErrorPattern(mixinRequiredVisiblePattern(FormAssociatedSelect))
     implements ListOptionOwner {
     @attr
     public appearance: DropdownAppearance = DropdownAppearance.underline;

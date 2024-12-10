@@ -7,6 +7,7 @@ import { mixinErrorPattern } from '../patterns/error/types';
 import { styles } from './styles';
 import { template } from './template';
 import { TextAreaAppearance } from './types';
+import { mixinRequiredVisiblePattern } from '../patterns/required-visible/types';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -17,7 +18,7 @@ declare global {
 /**
  * A nimble-styed HTML text area
  */
-export class TextArea extends mixinErrorPattern(FoundationTextArea) {
+export class TextArea extends mixinErrorPattern(mixinRequiredVisiblePattern(FoundationTextArea)) {
     /**
      * The appearance the text area should have.
      *

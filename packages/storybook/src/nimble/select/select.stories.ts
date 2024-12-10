@@ -26,6 +26,7 @@ interface SelectArgs {
     disabled: boolean;
     errorVisible: boolean;
     errorText: string;
+    requiredVisible: boolean;
     dropDownPosition: string;
     optionsType: ExampleOptionsType;
     appearance: string;
@@ -144,6 +145,7 @@ const metadata: Meta<SelectArgs> = {
             appearance="${x => x.appearance}"
             filter-mode="${x => (x.filterMode === 'none' ? undefined : x.filterMode)}"
             ?loading-visible="${x => x.loadingVisible}"
+            ?required-visible="${x => x.requiredVisible}"
             style="width:250px;"
         >
             ${x => x.label}
@@ -226,6 +228,11 @@ const metadata: Meta<SelectArgs> = {
             description: loadingVisibleDescription,
             table: { category: apiCategory.attributes }
         },
+        requiredVisible: {
+            name: 'required-visible',
+            description: 'foo bar',
+            table: { category: apiCategory.attributes }
+        },
         value: {
             name: 'value',
             description:
@@ -272,7 +279,8 @@ const metadata: Meta<SelectArgs> = {
         appearance: DropdownAppearance.underline,
         optionsType: ExampleOptionsType.simpleOptions,
         clearable: false,
-        loadingVisible: false
+        loadingVisible: false,
+        requiredVisible: false
     }
 };
 
