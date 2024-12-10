@@ -53,7 +53,9 @@ declare global {
  * A nimble-styed HTML combobox
  */
 export class Combobox
-    extends mixinErrorPattern(mixinRequiredVisiblePattern(FormAssociatedCombobox))
+    extends mixinErrorPattern(
+        mixinRequiredVisiblePattern(FormAssociatedCombobox)
+    )
     implements DropdownPattern {
     @attr
     public appearance: DropdownAppearance = DropdownAppearance.underline;

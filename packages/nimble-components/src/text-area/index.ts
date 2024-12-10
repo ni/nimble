@@ -18,7 +18,9 @@ declare global {
 /**
  * A nimble-styed HTML text area
  */
-export class TextArea extends mixinErrorPattern(mixinRequiredVisiblePattern(FoundationTextArea)) {
+export class TextArea extends mixinErrorPattern(
+    mixinRequiredVisiblePattern(FoundationTextArea)
+) {
     /**
      * The appearance the text area should have.
      *
