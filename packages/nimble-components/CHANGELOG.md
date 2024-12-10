@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-<!-- This log was last generated on Mon, 09 Dec 2024 15:59:16 GMT and should not be manually modified. -->
+<!-- This log was last generated on Tue, 10 Dec 2024 20:15:57 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 32.9.1
+
+Tue, 10 Dec 2024 20:15:57 GMT
+
+### Patches
+
+- Update error text on components to only show a title when the error text overflows ([ni/nimble@2d0ceca](https://github.com/ni/nimble/commit/2d0ceca7989e6af257bef8ee939cf036a79c8925))
 
 ## 32.9.0
 
