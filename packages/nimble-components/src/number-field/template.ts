@@ -20,7 +20,7 @@ NumberFieldOptions
         <label
             part="label"
             for="control"
-            class="${x => (x.defaultSlottedNodes && x.defaultSlottedNodes.length
+            class="${x => (x.defaultSlottedNodes?.length
         ? 'label'
         : 'label label__hidden')}"
         >

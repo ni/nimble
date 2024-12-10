@@ -571,7 +571,7 @@ describe('NumberField', () => {
 
         it('should set max value', async () => {
             const max = 10;
-            const { element, connect, disconnect } = await setup({ max });
+            const { element, disconnect } = await setup({ max });
 
             expect(
                 element
