@@ -6,7 +6,7 @@
     "scripts": {
         "build": "npm run build:landing && npm run build:eleventy",
         "build:eleventy": "eleventy",
-        "build:landing": "tsc && vite build landing",
+        "build:landing": "tsc && vite --config ./vite.config.js build landing",
         "pack": "npm pack",
         "lint": "eslint .",
         "start:eleventy": "eleventy --serve",
