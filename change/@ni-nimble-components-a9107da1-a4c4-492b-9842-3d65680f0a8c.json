@@ -1,6 +1,6 @@
 {
-  "type": "patch",
-  "comment": "Add toobar standard height token",
+  "type": "minor",
+  "comment": "Add nimble token for toolbar height",
   "packageName": "@ni/nimble-components",
   "email": "123377167+aagash-ni@users.noreply.github.com",
   "dependentChangeType": "patch"
