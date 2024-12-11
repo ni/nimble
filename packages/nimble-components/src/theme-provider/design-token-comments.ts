@@ -322,5 +322,6 @@ export const comments: { readonly [key in TokenName]: string } = {
         'Background fill color for the editable calendar event grab handle',
     calendarGridBorderColor: 'Border color for the calendar grid',
     calendarGroupHeaderBackgroundColor:
-        'Background color for the calendar resource group header'
+        'Background color for the calendar resource group header',
+    toolbarHeight: 'Standard height for the toolbar'
 };

@@ -520,6 +520,10 @@ export const spinnerLargeHeight = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.spinnerLargeHeight)
 ).withDefault('64px');
 
+export const toolbarHeight = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.toolbarHeight)
+).withDefault('40px');
+
 // The token gets a default value of the table's default height (480px)
 // but is given a calculated value in the table styles.
 export const tableFitRowsHeight = DesignToken.create<string>(
