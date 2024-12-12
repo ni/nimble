@@ -1,9 +1,11 @@
-import { elements, html, slotted, when } from '@microsoft/fast-element';
+import { elements, html, slotted } from '@microsoft/fast-element';
 import { Orientation } from '@microsoft/fast-web-utilities';
 import type { RadioGroup } from '.';
 import { errorTextTemplate } from '../patterns/error/template';
 import { iconExclamationMarkTag } from '../icons/exclamation-mark';
-import { iconAsteriskTag } from '../icons/asterisk';
+import { getLabelTemplate } from '../patterns/required-visible/template';
+
+const labelTemplate = getLabelTemplate(html<RadioGroup>`<slot name="label"></slot>`);
 
 /* eslint-disable @typescript-eslint/indent */
 export const template = html<RadioGroup>`
@@ -15,16 +17,8 @@ export const template = html<RadioGroup>`
         @keydown="${(x, c) => x.keydownHandler(c.event as KeyboardEvent)}"
         @focusout="${(x, c) => x.focusOutHandler(c.event as FocusEvent)}"
     >
-        ${''
-        /**
-         * Don't use the shared label required-visible label template here because the error icon
-         * needs to be positioned within the label as well.
-         */}
         <div class="label-container">
-            <slot name="label"></slot>
-            ${when(x => x.requiredVisible, html`
-                <${iconAsteriskTag} class="required-icon" severity="error"></${iconAsteriskTag}>
-            `)}
+            ${labelTemplate}
             <${iconExclamationMarkTag}
                 severity="error"
                 class="error-icon"

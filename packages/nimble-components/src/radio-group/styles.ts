@@ -46,10 +46,6 @@ export const styles = css`
         color: ${controlLabelDisabledFontColor};
     }
 
-    .required-icon {
-        margin-left: 0px;
-    }
-
     .error-icon {
         margin-left: auto;
         margin-right: ${smallPadding};
