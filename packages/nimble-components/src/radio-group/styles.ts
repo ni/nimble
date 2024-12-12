@@ -9,10 +9,12 @@ import {
     standardPadding
 } from '../theme-provider/design-tokens';
 import { styles as errorStyles } from '../patterns/error/styles';
+import { styles as requiredVisibleStyles } from '../patterns/required-visible/styles';
 
 export const styles = css`
     ${display('inline-block')}
     ${errorStyles}
+    ${requiredVisibleStyles}
 
     .positioning-region {
         display: flex;
@@ -42,6 +44,10 @@ export const styles = css`
 
     :host([disabled]) slot[name='label'] {
         color: ${controlLabelDisabledFontColor};
+    }
+
+    .required-icon {
+        margin-left: 0px;
     }
 
     .error-icon {

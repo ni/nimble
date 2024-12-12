@@ -13,7 +13,9 @@ import {
     disabledStates,
     DisabledState,
     errorStates,
-    ErrorState
+    ErrorState,
+    requiredVisibleStates,
+    RequiredVisibleState
 } from '../../utilities/states';
 import { createStory } from '../../utilities/storybook';
 import { hiddenWrapper } from '../../utilities/hidden';
@@ -37,22 +39,24 @@ export default metadata;
 const component = (
     [disabledName, disabled]: DisabledState,
     [orientationName, orientation]: OrientationState,
-    [errorName, errorVisible, errorText]: ErrorState
+    [errorName, errorVisible, errorText]: ErrorState,
+    [requiredVisibleName, requiredVisible]: RequiredVisibleState
 ): ViewTemplate => html`<${radioGroupTag}
     orientation="${() => orientation}"
     ?disabled="${() => disabled}"
     ?error-visible="${() => errorVisible}"
     error-text="${() => errorText}"
+    ?required-visible="${() => requiredVisible}"
     value="1"
     style="width: 250px; margin: var(${standardPadding.cssCustomProperty});"
 >
-    <label slot="label">${orientationName} ${disabledName} ${errorName}</label>
+    <label slot="label">${orientationName} ${disabledName} ${errorName} ${requiredVisibleName}</label>
     <${radioTag} value="1">Option 1</${radioTag}>
     <${radioTag} value="2">Option 2</${radioTag}>
 </${radioGroupTag}>`;
 
 export const radioGroupThemeMatrix: StoryFn = createMatrixThemeStory(
-    createMatrix(component, [disabledStates, orientationStates, errorStates])
+    createMatrix(component, [disabledStates, orientationStates, errorStates, requiredVisibleStates])
 );
 
 export const hiddenRadioGroup: StoryFn = createStory(
