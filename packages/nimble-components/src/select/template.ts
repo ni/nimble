@@ -27,7 +27,7 @@ import { buttonTag } from '../button';
 import { iconTimesTag } from '../icons/times';
 import { ListOption } from '../list-option';
 import { spinnerTag } from '../spinner';
-import { getLabelTemplate } from '../patterns/required-visible/template';
+import { getRequiredVisibleLabelTemplate } from '../patterns/required-visible/template';
 
 export const isListOption = (
     el: Element | undefined | null
@@ -41,7 +41,7 @@ export const isListOptionGroup = (
     return n instanceof ListOptionGroup;
 };
 
-const labelTemplate = getLabelTemplate(html<Select>`
+const labelTemplate = getRequiredVisibleLabelTemplate(html<Select>`
     <label part="label" class="label" aria-hidden="true">
         <slot ${ref('labelSlot')}></slot>
     </label>
