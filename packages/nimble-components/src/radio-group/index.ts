@@ -19,7 +19,9 @@ export { Orientation };
 /**
  * A nimble-styled grouping element for radio buttons
  */
-export class RadioGroup extends mixinErrorPattern(mixinRequiredVisiblePattern(FoundationRadioGroup)) {}
+export class RadioGroup extends mixinErrorPattern(
+    mixinRequiredVisiblePattern(FoundationRadioGroup)
+) {}
 
 const nimbleRadioGroup = RadioGroup.compose({
     baseName: 'radio-group',

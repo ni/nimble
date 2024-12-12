@@ -3,7 +3,10 @@ import { parameterizeSpec, parameterizeSuite } from '@ni/jasmine-parameterized';
 import { fixture, Fixture } from '../../utilities/tests/fixture';
 import { Combobox, comboboxTag } from '..';
 import { ComboboxAutocomplete } from '../types';
-import { processUpdates, waitForUpdatesAsync } from '../../testing/async-helpers';
+import {
+    processUpdates,
+    waitForUpdatesAsync
+} from '../../testing/async-helpers';
 import { checkFullyInViewport } from '../../utilities/tests/intersection-observer';
 import { listOptionTag } from '../../list-option';
 import { ComboboxPageObject } from '../testing/combobox.pageobject';

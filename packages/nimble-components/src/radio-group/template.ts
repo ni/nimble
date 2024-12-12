@@ -5,7 +5,9 @@ import { errorTextTemplate } from '../patterns/error/template';
 import { iconExclamationMarkTag } from '../icons/exclamation-mark';
 import { getRequiredVisibleLabelTemplate } from '../patterns/required-visible/template';
 
-const labelTemplate = getRequiredVisibleLabelTemplate(html<RadioGroup>`<slot name="label"></slot>`);
+const labelTemplate = getRequiredVisibleLabelTemplate(
+    html<RadioGroup>`<slot name="label"></slot>`
+);
 
 /* eslint-disable @typescript-eslint/indent */
 export const template = html<RadioGroup>`

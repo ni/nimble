@@ -11,14 +11,18 @@ import { getRequiredVisibleLabelTemplate } from '../template';
 import { processUpdates } from '../../../testing/async-helpers';
 import { RequiredVisiblePatternPageObject } from '../testing/required-visible-pattern.pageobject';
 
-const labelTemplate = getRequiredVisibleLabelTemplate(html`<slot name="label"></slot>`);
+const labelTemplate = getRequiredVisibleLabelTemplate(
+    html`<slot name="label"></slot>`
+);
 const elementName = uniqueElementName();
 @customElement({
     name: elementName,
     template: html`${labelTemplate}`,
     styles
 })
-class TestErrorPatternElement extends mixinRequiredVisiblePattern(FoundationElement) {}
+class TestErrorPatternElement extends mixinRequiredVisiblePattern(
+        FoundationElement
+    ) {}
 
 async function setup(): Promise<Fixture<TestErrorPatternElement>> {
     return await fixture(elementName);

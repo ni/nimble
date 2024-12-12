@@ -1,5 +1,4 @@
 import type { FoundationElement } from '@microsoft/fast-foundation';
-import { processUpdates } from '../../../testing/async-helpers';
 
 /**
  * A page object for the elements that use the required-visible mixin.

@@ -4,7 +4,10 @@ import { fixture, Fixture } from '../../utilities/tests/fixture';
 import { Select, selectTag } from '..';
 import { SelectPageObjectInternal as SelectPageObject } from './select.pageobject.internal';
 import { ListOption, listOptionTag } from '../../list-option';
-import { processUpdates, waitForUpdatesAsync } from '../../testing/async-helpers';
+import {
+    processUpdates,
+    waitForUpdatesAsync
+} from '../../testing/async-helpers';
 import { checkFullyInViewport } from '../../utilities/tests/intersection-observer';
 import { FilterMode, SelectFilterInputEventDetail } from '../types';
 import {

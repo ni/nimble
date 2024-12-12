@@ -9,9 +9,12 @@ export function getRequiredVisibleLabelTemplate(
     return html`
         <div class="annotated-label">
             ${labelTemplate}
-            ${when(x => x.requiredVisible, html`
+            ${when(
+                x => x.requiredVisible,
+                html`
                 <${iconAsteriskTag} class="required-icon" severity="error"></${iconAsteriskTag}>
-            `)}
+            `
+            )}
         </div>
     `;
 }

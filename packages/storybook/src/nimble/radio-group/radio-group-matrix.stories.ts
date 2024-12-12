@@ -56,7 +56,12 @@ const component = (
 </${radioGroupTag}>`;
 
 export const radioGroupThemeMatrix: StoryFn = createMatrixThemeStory(
-    createMatrix(component, [disabledStates, orientationStates, errorStates, requiredVisibleStates])
+    createMatrix(component, [
+        disabledStates,
+        orientationStates,
+        errorStates,
+        requiredVisibleStates
+    ])
 );
 
 export const hiddenRadioGroup: StoryFn = createStory(

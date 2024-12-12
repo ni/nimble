@@ -4,7 +4,9 @@ import { Fixture, fixture } from '../../utilities/tests/fixture';
 import { processUpdates } from '../../testing/async-helpers';
 
 async function setup(): Promise<Fixture<RadioGroup>> {
-    return await fixture<RadioGroup>(html`<${radioGroupTag}></${radioGroupTag}>`);
+    return await fixture<RadioGroup>(
+        html`<${radioGroupTag}></${radioGroupTag}>`
+    );
 }
 
 describe('Radio Group', () => {
