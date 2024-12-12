@@ -2,8 +2,7 @@ import { attr, html } from '@microsoft/fast-element';
 import {
     DesignSystem,
     NumberField as FoundationNumberField,
-    NumberFieldOptions,
-    numberFieldTemplate as template
+    NumberFieldOptions
 } from '@microsoft/fast-foundation';
 import { styles } from './styles';
 import { NumberFieldAppearance } from './types';
@@ -17,6 +16,7 @@ import {
     numericDecrementLabel,
     numericIncrementLabel
 } from '../label-provider/core/label-tokens';
+import { template } from './template';
 
 declare global {
     interface HTMLElementTagNameMap {
