@@ -13,6 +13,7 @@ export const template = html<RadioGroup>`
         role="radiogroup"
         aria-disabled="${x => x.disabled}"
         aria-readonly="${x => x.readOnly}"
+        aria-required="${x => x.requiredVisible}"
         @click="${(x, c) => x.clickHandler(c.event as MouseEvent)}"
         @keydown="${(x, c) => x.keydownHandler(c.event as KeyboardEvent)}"
         @focusout="${(x, c) => x.focusOutHandler(c.event as FocusEvent)}"

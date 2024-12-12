@@ -51,7 +51,7 @@ ComboboxOptions
                     aria-controls="${x => x.ariaControls}"
                     aria-disabled="${x => x.ariaDisabled}"
                     aria-expanded="${x => x.ariaExpanded}"
-                    aria-required=${x => x.requiredVisible}
+                    aria-required="${x => x.requiredVisible}"
                     aria-haspopup="listbox"
                     class="selected-value"
                     part="selected-value"

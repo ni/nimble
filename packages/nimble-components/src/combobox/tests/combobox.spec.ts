@@ -3,7 +3,7 @@ import { parameterizeSpec, parameterizeSuite } from '@ni/jasmine-parameterized';
 import { fixture, Fixture } from '../../utilities/tests/fixture';
 import { Combobox, comboboxTag } from '..';
 import { ComboboxAutocomplete } from '../types';
-import { waitForUpdatesAsync } from '../../testing/async-helpers';
+import { processUpdates, waitForUpdatesAsync } from '../../testing/async-helpers';
 import { checkFullyInViewport } from '../../utilities/tests/intersection-observer';
 import { listOptionTag } from '../../list-option';
 import { ComboboxPageObject } from '../testing/combobox.pageobject';
@@ -104,6 +104,20 @@ describe('Combobox', () => {
             element.disabled = true;
             await waitForUpdatesAsync();
             expect(element.control.getAttribute('disabled')).not.toBeNull();
+        });
+
+        it('should set "aria-required" to true when "required-visible" is true', async () => {
+            await connect();
+            element.requiredVisible = true;
+            processUpdates();
+            expect(element.control.getAttribute('aria-required')).toBe('true');
+        });
+
+        it('should set "aria-required" to false when "required-visible" is false', async () => {
+            await connect();
+            element.requiredVisible = false;
+            processUpdates();
+            expect(element.control.getAttribute('aria-required')).toBe('false');
         });
 
         it('should forward value property to inner control', async () => {
