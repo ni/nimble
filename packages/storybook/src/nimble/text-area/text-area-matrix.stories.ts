@@ -45,12 +45,12 @@ const metadata: Meta = {
 export default metadata;
 
 const component = (
+    [requiredVisibleName, requiredVisible]: RequiredVisibleState,
     [readOnlyName, readonly]: ReadOnlyState,
     [disabledName, disabled]: DisabledState,
     [appearanceName, appearance]: AppearanceState,
     [valueName, valueValue, placeholderValue]: ValueState,
-    [errorStateName, isError, errorText]: ErrorState,
-    [requiredVisibleName, requiredVisible]: RequiredVisibleState
+    [errorStateName, isError, errorText]: ErrorState
 ): ViewTemplate => html`
     <${textAreaTag}
         style="width: 250px; margin: 15px;"
@@ -70,12 +70,12 @@ const component = (
 
 export const textAreaThemeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(component, [
+        requiredVisibleStates,
         readOnlyStates,
         disabledStates,
         appearanceStates,
         valueStates,
-        errorStates,
-        requiredVisibleStates
+        errorStates
     ])
 );
 

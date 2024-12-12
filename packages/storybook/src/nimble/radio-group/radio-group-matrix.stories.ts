@@ -37,10 +37,10 @@ const metadata: Meta = {
 export default metadata;
 
 const component = (
+    [requiredVisibleName, requiredVisible]: RequiredVisibleState,
     [disabledName, disabled]: DisabledState,
     [orientationName, orientation]: OrientationState,
-    [errorName, errorVisible, errorText]: ErrorState,
-    [requiredVisibleName, requiredVisible]: RequiredVisibleState
+    [errorName, errorVisible, errorText]: ErrorState
 ): ViewTemplate => html`<${radioGroupTag}
     orientation="${() => orientation}"
     ?disabled="${() => disabled}"
@@ -57,10 +57,10 @@ const component = (
 
 export const radioGroupThemeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(component, [
+        requiredVisibleStates,
         disabledStates,
         orientationStates,
-        errorStates,
-        requiredVisibleStates
+        errorStates
     ])
 );
 

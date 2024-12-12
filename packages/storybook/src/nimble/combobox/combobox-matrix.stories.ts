@@ -46,11 +46,11 @@ export default metadata;
 
 // prettier-ignore
 const component = (
+    [requiredVisibleName, requiredVisible]: RequiredVisibleState,
     [disabledName, disabled]: DisabledState,
     [appearanceName, appearance]: AppearanceState,
     [errorName, errorVisible, errorText]: ErrorState,
-    [valueName, value, placeholder]: ValueState,
-    [requiredVisibleName, requiredVisible]: RequiredVisibleState
+    [valueName, value, placeholder]: ValueState
 ): ViewTemplate => html`
     <${comboboxTag} 
         ?disabled="${() => disabled}"
@@ -76,11 +76,11 @@ const component = (
 
 export const comboboxThemeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(component, [
+        requiredVisibleStates,
         disabledStates,
         appearanceStates,
         errorStates,
-        valueStates,
-        requiredVisibleStates
+        valueStates
     ])
 );
 

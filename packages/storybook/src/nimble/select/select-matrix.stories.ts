@@ -55,12 +55,12 @@ export default metadata;
 
 // prettier-ignore
 const component = (
+    [requiredVisibleName, requiredVisible]: RequiredVisibleState
     [disabledName, disabled]: DisabledState,
     [appearanceName, appearance]: AppearanceState,
     [errorName, errorVisible, errorText]: ErrorState,
     [valueName, valueValue]: ValueState,
-    [clearableName, clearable]: ClearableState,
-    [requiredVisibleName, requiredVisible]: RequiredVisibleState
+    [clearableName, clearable]: ClearableState
 ): ViewTemplate => html`
     <${selectTag}
         ?error-visible="${() => errorVisible}"
@@ -81,12 +81,12 @@ const component = (
 
 export const selectThemeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(component, [
+        requiredVisibleStates,
         disabledStates,
         appearanceStates,
         errorStates,
         valueStates,
-        clearableStates,
-        requiredVisibleStates
+        clearableStates
     ])
 );
 
