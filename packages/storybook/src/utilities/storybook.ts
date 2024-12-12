@@ -197,7 +197,7 @@ export const placeholderDescription = (options: {
 export const errorTextDescription = 'A message to be displayed explaining why the value is invalid. Only visible when `error-visible` is set.';
 export const errorVisibleDescription = 'When set to `true`, an error indicator will be displayed within the control and the `error-text` message will be displayed.';
 
-export const requiredVisibleDescription = 'When set to `true`, an indicator will be displayed within the control to indicate that the field is required. A control should not set `required-visible` on disabled or readonly controls.';
+export const requiredVisibleDescription = 'When set to `true`, an indicator will be displayed within the control to indicate that the field is required. A disabled or readonly control should not also be marked as `required-visible`.';
 
 export const dropdownPositionDescription = (options: {
     componentName: string

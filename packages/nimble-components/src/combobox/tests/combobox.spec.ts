@@ -109,15 +109,13 @@ describe('Combobox', () => {
             expect(element.control.getAttribute('disabled')).not.toBeNull();
         });
 
-        it('should set "aria-required" to true when "required-visible" is true', async () => {
-            await connect();
+        it('should set "aria-required" to true when "required-visible" is true', () => {
             element.requiredVisible = true;
             processUpdates();
             expect(element.control.getAttribute('aria-required')).toBe('true');
         });
 
-        it('should set "aria-required" to false when "required-visible" is false', async () => {
-            await connect();
+        it('should set "aria-required" to false when "required-visible" is false', () => {
             element.requiredVisible = false;
             processUpdates();
             expect(element.control.getAttribute('aria-required')).toBe('false');
