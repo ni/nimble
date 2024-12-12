@@ -55,7 +55,7 @@ export default metadata;
 
 // prettier-ignore
 const component = (
-    [requiredVisibleName, requiredVisible]: RequiredVisibleState
+    [requiredVisibleName, requiredVisible]: RequiredVisibleState,
     [disabledName, disabled]: DisabledState,
     [appearanceName, appearance]: AppearanceState,
     [errorName, errorVisible, errorText]: ErrorState,
