@@ -20,10 +20,11 @@ async function setup(props?: Partial<NumberField>): Promise<{
     const { element, connect, disconnect, parent } = await fixture(FASTNumberField());
 
     if (props) {
-        // eslint-disable-next-line guard-for-in
         for (const key in props) {
-            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-explicit-any
-            (element as any)[key] = (props as any)[key].toString();
+            if (Object.prototype.hasOwnProperty.call(props, key)) {
+                // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-explicit-any
+                (element as any)[key] = (props as any)[key].toString();
+            }
         }
     }
 
