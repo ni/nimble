@@ -130,6 +130,7 @@ export const radioGroup: StoryObj<RadioGroupArgs> = {
             table: { category: apiCategory.attributes }
         },
         requiredVisible: {
+            name: 'required-visible',
             description: requiredVisibleDescription,
             table: { category: apiCategory.attributes }
         }
