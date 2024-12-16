@@ -29,6 +29,9 @@ export abstract class TableCellView<
     @observable
     public recordId?: string;
 
+    @observable
+    public isEditable?: boolean;
+
     /**
      * Gets the child elements in this cell view that should be able to be reached via Tab/ Shift-Tab,
      * if any.
@@ -70,6 +73,8 @@ export abstract class TableCellView<
             this.addEventListener(delegatedEvent, this.delegatedEventHandler);
         }
     }
+
+    public onEditStart(): void {}
 
     private delegatedEventHandler: (event: Event) => void = () => {};
 }

@@ -11,8 +11,12 @@ import { tableCellActionMenuLabel } from '../../../label-provider/table/label-to
 // prettier-ignore
 export const template = html<TableCell>`
     <template role="cell" style="--ni-private-table-cell-nesting-level: ${x => x.nestingLevel}"
+        class="${x => (x.isFocused ? 'focused' : '')}"
         @focusin="${x => x.onCellFocusIn()}"
+        @focusout="${x => x.onCellFocusOut()}"
+        @click="${x => x.handleClick()}"
         @blur="${x => x.onCellBlur()}"
+        @cell-editor-blur="${(x, c) => x.onCellEditorBlur(c.event as CustomEvent)}"
     >
         <div ${ref('cellViewContainer')} class="cell-view-container" @focusin="${x => x.onCellViewFocusIn()}">
             ${x => x.cellViewTemplate}

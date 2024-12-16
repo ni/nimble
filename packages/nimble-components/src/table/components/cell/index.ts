@@ -55,6 +55,12 @@ export class TableCell<
     @observable
     public nestingLevel = 0;
 
+    @observable
+    public isEditing = false;
+
+    @observable
+    public isFocused = false;
+
     public readonly actionMenuButton?: MenuButton;
 
     /** @internal */
@@ -88,8 +94,40 @@ export class TableCell<
         this.$emit('cell-focus-in', this);
     }
 
+    public onCellFocusOut(): void {
+        this.isFocused = false;
+    }
+
     public onCellBlur(): void {
         this.$emit('cell-blur', this);
+    }
+
+    public onCellEditorBlur(event: CustomEvent): void {
+        event.stopPropagation();
+        this.isEditing = false;
+        this.isFocused = false;
+        this.$emit('cell-edit-end', this);
+    }
+
+    public handleClick(): void {
+        const isEditable = this.cellView.isEditable;
+        if (isEditable && !this.isFocused) {
+            this.isFocused = true;
+        } else if (isEditable && this.isFocused) {
+            this.isEditing = true;
+            this.isFocused = false;
+        }
+    }
+
+    public startEdit(): void {
+        this.cellView.onEditStart();
+        this.$emit('cell-edit-start', this);
+    }
+
+    private isEditingChanged(): void {
+        if (this.isEditing) {
+            this.startEdit();
+        }
     }
 }
 

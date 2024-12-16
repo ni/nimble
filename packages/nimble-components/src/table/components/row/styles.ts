@@ -137,11 +137,11 @@ export const styles = css`
         --ni-private-table-cell-action-menu-display: block;
     }
 
-    nimble-table-cell${focusVisible} {
+    nimble-table-cell:focus {
         --ni-private-table-cell-action-menu-display: block;
     }
 
-    nimble-table-cell:first-of-type${focusVisible} {
+    nimble-table-cell:first-of-type:focus {
         margin-left: calc(
             -1 * (${controlHeight} - ${smallPadding}) *
                 var(--ni-private-table-cell-focus-offset-multiplier)
@@ -153,7 +153,7 @@ export const styles = css`
         );
     }
 
-    nimble-table-cell:first-of-type${focusVisible}::before {
+    nimble-table-cell:first-of-type:focus::before {
         content: '';
         display: block;
         width: calc(

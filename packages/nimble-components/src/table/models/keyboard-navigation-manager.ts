@@ -60,6 +60,7 @@ implements Subscriber {
         return (
             this.focusType !== TableFocusType.cellActionMenu
             && this.focusType !== TableFocusType.cellContent
+            && this.focusType !== TableFocusType.cellEditing
         );
     }
 
@@ -117,6 +118,14 @@ implements Subscriber {
             'cell-blur',
             this.onCellBlur as EventListener
         );
+        this.table.viewport.addEventListener(
+            'cell-edit-start',
+            this.onCellEditStart as EventListener
+        );
+        this.table.viewport.addEventListener(
+            'cell-edit-end',
+            this.onCellEditEnd as EventListener
+        );
     }
 
     public disconnect(): void {
@@ -157,6 +166,14 @@ implements Subscriber {
             'cell-blur',
             this.onCellBlur as EventListener
         );
+        this.table.viewport.removeEventListener(
+            'cell-edit-start',
+            this.onCellEditStart as EventListener
+        );
+        this.table.viewport.removeEventListener(
+            'cell-edit-end',
+            this.onCellEditEnd as EventListener
+        );
     }
 
     public handleChange(source: unknown, args: unknown): void {
@@ -193,6 +210,7 @@ implements Subscriber {
             if (
                 this.focusType === TableFocusType.cellActionMenu
                 || this.focusType === TableFocusType.cellContent
+                || this.focusType === TableFocusType.cellEditing
             ) {
                 this.setCellFocusState(this.columnIndex, this.rowIndex, false);
             }
@@ -322,6 +340,30 @@ implements Subscriber {
         event.stopPropagation();
         const cell = event.detail;
         this.setElementFocusable(cell, false);
+    };
+
+    private readonly onCellEditStart = (
+        event: CustomEvent<TableCell>
+    ): void => {
+        event.stopPropagation();
+        const cell = event.detail;
+        const row = this.getContainingRow(cell) as TableRow;
+        const columnIndex = this.table.visibleColumns.indexOf(cell.column!);
+        this.setCellEditingFocusState(
+            row.resolvedRowIndex!,
+            columnIndex,
+            false
+        );
+    };
+
+    private readonly onCellEditEnd = (event: CustomEvent<TableCell>): void => {
+        event.stopPropagation();
+        if (!this.isCurrentlyFocusingElement) {
+            const cell = event.detail;
+            const row = this.getContainingRow(cell) as TableRow;
+            const columnIndex = this.table.visibleColumns.indexOf(cell.column!);
+            this.setCellFocusState(columnIndex, row.resolvedRowIndex!, false);
+        }
     };
 
     private readonly onCaptureKeyDown = (event: KeyboardEvent): void => {
@@ -657,6 +699,18 @@ implements Subscriber {
         while (cellIndex < rowElements.cells.length) {
             const firstCellTabbableIndex = focusStates.length;
             const cellInfo = rowElements.cells[cellIndex]!;
+            if (cellInfo.cell.cellView.isEditable) {
+                focusStates.push({
+                    focusType: TableFocusType.cellEditing,
+                    columnIndex: cellIndex
+                });
+                if (
+                    this.focusType === TableFocusType.cellEditing
+                    && this.columnIndex === cellIndex
+                ) {
+                    startIndex = focusStates.length - 1;
+                }
+            }
             const cellViewTabbableChildren = cellInfo.cell.cellView.tabbableChildren;
             for (let i = 0; i < cellViewTabbableChildren.length; i++) {
                 focusStates.push({
@@ -835,10 +889,11 @@ implements Subscriber {
         if (activeElement) {
             const row = this.getContainingRow(activeElement);
             if (row) {
+                let columnIndex = -1;
                 if (!(row instanceof TableGroupRow)) {
                     const cell = this.getContainingCell(activeElement);
                     if (cell) {
-                        const columnIndex = this.table.visibleColumns.indexOf(
+                        columnIndex = this.table.visibleColumns.indexOf(
                             cell.column!
                         );
                         if (cell.actionMenuButton === activeElement) {
@@ -863,12 +918,16 @@ implements Subscriber {
                         }
                     }
                 }
-                if (
-                    setRowFocus
-                    && this.hasRowOrCellFocusType()
-                    && this.rowIndex !== row.resolvedRowIndex
-                ) {
-                    this.setRowFocusState(row.resolvedRowIndex);
+                if (setRowFocus && this.hasRowOrCellFocusType()) {
+                    if (columnIndex >= 0) {
+                        this.setCellFocusState(
+                            columnIndex,
+                            row.resolvedRowIndex!,
+                            false
+                        );
+                    } else if (this.rowIndex !== row.resolvedRowIndex) {
+                        this.setRowFocusState(row.resolvedRowIndex);
+                    }
                 }
             }
         }
@@ -1013,6 +1072,12 @@ implements Subscriber {
                 focusableElement = rowElements.cells[this.columnIndex]?.cell.cellView
                     .tabbableChildren[this.cellContentIndex];
                 break;
+            }
+            case TableFocusType.cellEditing: {
+                if (!rowElements.cells[this.columnIndex]?.cell.isEditing) {
+                    rowElements.cells[this.columnIndex]?.cell.startEdit();
+                }
+                return;
             }
             default:
                 break;
@@ -1172,7 +1237,8 @@ implements Subscriber {
             return false;
         }
         return (
-            this.trySetCellContentFocus(rowElements, 0)
+            this.tryStartCellEdit(rowElements)
+            || this.trySetCellContentFocus(rowElements, 0)
             || this.trySetCellActionMenuFocus(rowElements)
         );
     }
@@ -1182,6 +1248,7 @@ implements Subscriber {
             case TableFocusType.cell:
             case TableFocusType.cellActionMenu:
             case TableFocusType.cellContent:
+            case TableFocusType.cellEditing:
             case TableFocusType.row:
             case TableFocusType.rowSelectionCheckbox:
                 return true;
@@ -1315,6 +1382,26 @@ implements Subscriber {
         return false;
     }
 
+    private tryStartCellEdit(
+        rowElements: TableRowFocusableElements | undefined,
+        columnIndex?: number,
+        rowIndex?: number
+    ): boolean {
+        if (!rowElements) {
+            return false;
+        }
+        const newColumnIndex = columnIndex ?? this.columnIndex;
+        const newRowIndex = rowIndex ?? this.rowIndex;
+        const cell = rowElements.cells[newColumnIndex]!.cell;
+        if (cell.cellView.isEditable) {
+            this.setCellEditingFocusState(newRowIndex, newColumnIndex, false);
+            cell.startEdit();
+            return true;
+        }
+
+        return false;
+    }
+
     private setCellActionMenuFocusState(
         rowIndex: number,
         columnIndex: number,
@@ -1332,6 +1419,15 @@ implements Subscriber {
     ): void {
         this.focusType = TableFocusType.cellContent;
         this.cellContentIndex = cellContentIndex;
+        this.setRowCellFocusState(columnIndex, rowIndex, focusElement);
+    }
+
+    private setCellEditingFocusState(
+        rowIndex: number,
+        columnIndex: number,
+        focusElement: boolean
+    ): void {
+        this.focusType = TableFocusType.cellEditing;
         this.setRowCellFocusState(columnIndex, rowIndex, focusElement);
     }
 

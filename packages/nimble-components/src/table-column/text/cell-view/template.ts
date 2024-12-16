@@ -8,11 +8,9 @@ import { textFieldTag } from '../../../text-field';
 // prettier-ignore
 export const template = html<TableColumnTextCellView>`
     <template
-        @click=${x => x.handleClick()}
         class="
             ${x => (x.alignment === TableColumnAlignment.right ? 'right-align' : '')}
             ${x => (x.isPlaceholder ? 'placeholder' : '')}
-            ${x => (x.isFocused ? 'focused' : '')}
 
         "
     >
@@ -21,6 +19,7 @@ export const template = html<TableColumnTextCellView>`
         class="editable-field ${x => (!x.isEditing ? 'hidden' : '')}"
         value=${x => (!x.isPlaceholder ? x.text : '')}
         @blur=${x => x.handleBlur()}
+        @keydown=${(x, c) => x.onKeyDown(c.event as KeyboardEvent)}
     ></${textFieldTag}>
     ${when(x => !x.isEditing, html<TableColumnTextCellView>`
         <span

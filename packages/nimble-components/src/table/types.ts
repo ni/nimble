@@ -241,7 +241,8 @@ export const TableFocusType = {
     rowSelectionCheckbox: 'rowSelectionCheckbox',
     cell: 'cell',
     cellActionMenu: 'cellActionMenu',
-    cellContent: 'cellContent'
+    cellContent: 'cellContent',
+    cellEditing: 'cellEditing'
 } as const;
 export type TableFocusType =
     (typeof TableFocusType)[keyof typeof TableFocusType];

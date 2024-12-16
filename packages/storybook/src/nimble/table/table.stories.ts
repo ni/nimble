@@ -299,6 +299,7 @@ export const table: StoryObj<TableArgs> = {
                 column-id="last-name-column"
                 field-name="lastName"
                 action-menu-slot="name-menu" action-menu-label="Configure name"
+                editable
             >
                 Last Name
             </${tableColumnTextTag}>
@@ -312,6 +313,7 @@ export const table: StoryObj<TableArgs> = {
                 column-id="quote-column"
                 field-name="quote"
                 action-menu-slot="quote-menu" action-menu-label="Configure quote"
+                editable
             >
                 Quote
             </${tableColumnTextTag}>

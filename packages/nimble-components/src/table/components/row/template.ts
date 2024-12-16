@@ -86,6 +86,8 @@ export const template = html<TableRow>`
                         :recordId="${(_, c) => c.parent.recordId}"
                         ?has-action-menu="${x => !!x.actionMenuSlot}"
                         action-menu-label="${x => x.actionMenuLabel}"
+                        ${'' /* tabindex managed dynamically by KeyboardNavigationManager */}
+                        tabindex="-1"
                         @cell-action-menu-beforetoggle="${(x, c) => c.parent.onCellActionMenuBeforeToggle(c.event as CustomEvent<MenuButtonToggleEventDetail>, x)}"
                         @cell-action-menu-toggle="${(x, c) => c.parent.onCellActionMenuToggle(c.event as CustomEvent<MenuButtonToggleEventDetail>, x)}"
                         @cell-view-slots-request="${(x, c) => c.parent.onCellViewSlotsRequest(x, c.event as CustomEvent<CellViewSlotRequestEventDetail>)}"

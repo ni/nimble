@@ -23,29 +23,34 @@ TableColumnTextCellRecord,
 TableColumnTextColumnConfig
 > {
     @observable
-    public isEditable?: boolean;
+    public textField?: TextField;
 
     @observable
     public isEditing = false;
 
-    @observable
-    public isFocused = false;
-
-    @observable
-    public textField?: TextField;
-
-    public handleClick(): void {
-        if (this.isEditable && !this.isFocused) {
-            this.isFocused = true;
-        } else if (this.isEditable && this.isFocused) {
-            this.isEditing = true;
-            this.isFocused = false;
-        }
+    public override onEditStart(): void {
+        this.isEditing = true;
+        const textFieldControl = this.textField!.control;
+        window.requestAnimationFrame(() => {
+            textFieldControl.focus();
+            textFieldControl.setSelectionRange(
+                textFieldControl.value.length,
+                textFieldControl.value.length
+            );
+        });
     }
 
     public handleBlur(): void {
         this.isEditing = false;
-        this.isFocused = false;
+        this.$emit('cell-editor-blur');
+    }
+
+    public onKeyDown(event: KeyboardEvent): boolean {
+        if (event.key === 'Enter') {
+            this.textField!.control.blur();
+            return false;
+        }
+        return true;
     }
 
     protected updateText(): void {
@@ -57,14 +62,6 @@ TableColumnTextColumnConfig
     protected override columnConfigChanged(): void {
         super.columnConfigChanged();
         this.isEditable = this.columnConfig?.editable ?? false;
-    }
-
-    private isEditingChanged(): void {
-        if (this.isEditing) {
-            window.requestAnimationFrame(() => {
-                this.textField?.focus();
-            });
-        }
     }
 }
 

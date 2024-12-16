@@ -25,7 +25,8 @@ export const styles = css`
         --ni-private-table-cell-action-menu-display: block;
     }
 
-    :host(${focusVisible}) {
+    :host(:focus),
+    :host(.focused) {
         outline: calc(2 * ${borderWidth}) solid ${borderHoverColor};
         outline-offset: -2px;
     }
