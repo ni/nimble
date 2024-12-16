@@ -919,7 +919,7 @@ implements Subscriber {
                     }
                 }
                 if (setRowFocus && this.hasRowOrCellFocusType()) {
-                    if (columnIndex >= 0) {
+                    if (columnIndex >= 0 && this.columnIndex !== columnIndex) {
                         this.setCellFocusState(
                             columnIndex,
                             row.resolvedRowIndex!,
