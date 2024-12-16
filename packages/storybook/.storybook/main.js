@@ -31,8 +31,7 @@ export const addons = [
     getAbsolutePath('@storybook/addon-interactions'),
     getAbsolutePath('@chromatic-com/storybook'),
     getAbsolutePath('@storybook/addon-webpack5-compiler-swc'),
-    getAbsolutePath('storybook-addon-pseudo-states'),
-    getAbsolutePath('@storybook/addon-mdx-gfm')
+    getAbsolutePath('storybook-addon-pseudo-states')
 ];
 
 export function webpackFinal(config) {
