@@ -22,6 +22,10 @@ Nimble table support for interactive cell editing.
 -   When data integrity is critical and the table should not be modified by users.
 -   When the table is used for displaying static or read-only data.
 -   When the user interface requires a more complex data entry form.
+-   When the application requires spreadsheet features like
+    - pasting or filling data into a range of cells
+    - styling or formatting cells, rows, or columns
+    - cell formula or cell referencing
 
 ## Anatomy
 
@@ -34,6 +38,9 @@ Nimble table support for interactive cell editing.
 | Editable cell control | Text or numeric control that supports entering or editing cell data      |
 
 ## Behavior
+
+For a table to be editable, at least one column will be marked as editable. All cells within a particular column will have the same editing behavior. 
+Initial client applications need support for strings and numbers, so the `text` and `number-text` columns should be considered in-scope.
 
 ### States
 
