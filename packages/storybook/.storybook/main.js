@@ -1,4 +1,3 @@
-import { dirname, join } from 'path';
 import remarkGfm from 'remark-gfm';
 import CircularDependencyPlugin from 'circular-dependency-plugin';
 import TerserPlugin from 'terser-webpack-plugin';
@@ -12,13 +11,13 @@ export const stories = [
 ];
 export const addons = [
     {
-        name: getAbsolutePath('@storybook/addon-essentials'),
+        name: '@storybook/addon-essentials',
         options: {
             outline: false,
             docs: false
         }
     }, {
-        name: getAbsolutePath('@storybook/addon-docs'),
+        name: '@storybook/addon-docs',
         options: {
             mdxPluginOptions: {
                 mdxCompileOptions: {
@@ -27,12 +26,12 @@ export const addons = [
             }
         }
     },
-    getAbsolutePath('@storybook/addon-a11y'),
-    getAbsolutePath('@storybook/addon-interactions'),
-    getAbsolutePath('@chromatic-com/storybook'),
-    getAbsolutePath('@storybook/addon-webpack5-compiler-swc'),
-    getAbsolutePath('storybook-addon-pseudo-states'),
-    getAbsolutePath('@storybook/addon-mdx-gfm')
+    '@storybook/addon-a11y',
+    '@storybook/addon-interactions',
+    '@chromatic-com/storybook',
+    '@storybook/addon-webpack5-compiler-swc',
+    'storybook-addon-pseudo-states',
+    '@storybook/addon-mdx-gfm'
 ];
 
 export function webpackFinal(config) {
@@ -65,9 +64,5 @@ export function webpackFinal(config) {
 }
 export const staticDirs = ['public'];
 export const framework = {
-    name: getAbsolutePath('@storybook/html-webpack5')
+    name: '@storybook/html-webpack5'
 };
-
-function getAbsolutePath(value) {
-    return dirname(require.resolve(join(value, 'package.json')));
-}
