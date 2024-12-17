@@ -1,8 +1,48 @@
 # Change Log - @ni/spright-blazor
 
-<!-- This log was last generated on Tue, 19 Nov 2024 03:20:18 GMT and should not be manually modified. -->
+<!-- This log was last generated on Tue, 10 Dec 2024 20:15:57 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 3.2.1
+
+Tue, 10 Dec 2024 20:15:57 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v4.3.1
+
+## 3.2.0
+
+Mon, 09 Dec 2024 15:59:16 GMT
+
+### Minor changes
+
+- Bump @ni/spright-components to v4.3.0
+
+## 3.1.6
+
+Wed, 04 Dec 2024 21:21:27 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v4.2.5
+
+## 3.1.5
+
+Wed, 04 Dec 2024 19:53:29 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v4.2.4
+
+## 3.1.4
+
+Fri, 22 Nov 2024 22:50:22 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v4.2.3
 
 ## 3.1.3
 

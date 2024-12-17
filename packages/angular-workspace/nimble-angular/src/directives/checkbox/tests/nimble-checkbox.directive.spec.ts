@@ -57,6 +57,16 @@ describe('Nimble checkbox', () => {
             expect(directive.indeterminate).toBeFalse();
             expect(nativeElement.indeterminate).toBeFalse();
         });
+
+        it('has expected defaults for errorVisible', () => {
+            expect(directive.errorVisible).toBeFalse();
+            expect(nativeElement.errorVisible).toBeFalse();
+        });
+
+        it('has expected defaults for errorText', () => {
+            expect(directive.errorText).toBeUndefined();
+            expect(nativeElement.errorText).toBeUndefined();
+        });
     });
 
     describe('with template string values', () => {
@@ -65,7 +75,9 @@ describe('Nimble checkbox', () => {
                 <nimble-checkbox #checkbox
                     disabled
                     checked
-                    indeterminate>
+                    indeterminate
+                    error-visible
+                    error-text="Error message">
                 </nimble-checkbox>`
         })
         class TestHostComponent {
@@ -102,6 +114,16 @@ describe('Nimble checkbox', () => {
             expect(directive.indeterminate).toBeTrue();
             expect(nativeElement.indeterminate).toBeTrue();
         });
+
+        it('will use template string values for errorVisible', () => {
+            expect(directive.errorVisible).toBeTrue();
+            expect(nativeElement.errorVisible).toBeTrue();
+        });
+
+        it('will use template string values for errorText', () => {
+            expect(directive.errorText).toBe('Error message');
+            expect(nativeElement.errorText).toBe('Error message');
+        });
     });
 
     describe('with property bound values', () => {
@@ -110,7 +132,9 @@ describe('Nimble checkbox', () => {
                 <nimble-checkbox #checkbox
                     [disabled]="disabled"
                     [checked]="checked"
-                    [indeterminate]="indeterminate">
+                    [indeterminate]="indeterminate"
+                    [error-text]="errorText"
+                    [error-visible]="errorVisible">
                 </nimble-checkbox>
             `
         })
@@ -120,6 +144,8 @@ describe('Nimble checkbox', () => {
             public disabled = false;
             public checked = false;
             public indeterminate = false;
+            public errorText = 'initial value';
+            public errorVisible = false;
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
@@ -169,6 +195,28 @@ describe('Nimble checkbox', () => {
             expect(directive.indeterminate).toBeTrue();
             expect(nativeElement.indeterminate).toBeTrue();
         });
+
+        it('can be configured with property binding for errorText', () => {
+            expect(directive.errorText).toBe('initial value');
+            expect(nativeElement.errorText).toBe('initial value');
+
+            fixture.componentInstance.errorText = 'new value';
+            fixture.detectChanges();
+
+            expect(directive.errorText).toBe('new value');
+            expect(nativeElement.errorText).toBe('new value');
+        });
+
+        it('can be configured with property binding for errorVisible', () => {
+            expect(directive.errorVisible).toBeFalse();
+            expect(nativeElement.errorVisible).toBeFalse();
+
+            fixture.componentInstance.errorVisible = true;
+            fixture.detectChanges();
+
+            expect(directive.errorVisible).toBeTrue();
+            expect(nativeElement.errorVisible).toBeTrue();
+        });
     });
 
     describe('with attribute bound values', () => {
@@ -176,7 +224,9 @@ describe('Nimble checkbox', () => {
             template: `
                 <nimble-checkbox #checkbox
                     [attr.disabled]="disabled"
-                    [attr.checked]="checked">
+                    [attr.checked]="checked"
+                    [attr.error-text]="errorText"
+                    [attr.error-visible]="errorVisible">
                 </nimble-checkbox>
             `
         })
@@ -185,6 +235,8 @@ describe('Nimble checkbox', () => {
             @ViewChild('checkbox', { read: ElementRef }) public elementRef: ElementRef<Checkbox>;
             public disabled: BooleanValueOrAttribute = null;
             public checked: BooleanValueOrAttribute = null;
+            public errorText = 'initial value';
+            public errorVisible: BooleanValueOrAttribute = null;
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
@@ -222,6 +274,28 @@ describe('Nimble checkbox', () => {
 
             expect(directive.checked).toBeTrue();
             expect(nativeElement.checked).toBeTrue();
+        });
+
+        it('can be configured with attribute binding for errorText', () => {
+            expect(directive.errorText).toBe('initial value');
+            expect(nativeElement.errorText).toBe('initial value');
+
+            fixture.componentInstance.errorText = 'new value';
+            fixture.detectChanges();
+
+            expect(directive.errorText).toBe('new value');
+            expect(nativeElement.errorText).toBe('new value');
+        });
+
+        it('can be configured with attribute binding for errorVisible', () => {
+            expect(directive.errorVisible).toBeFalse();
+            expect(nativeElement.errorVisible).toBeFalse();
+
+            fixture.componentInstance.errorVisible = '';
+            fixture.detectChanges();
+
+            expect(directive.errorVisible).toBeTrue();
+            expect(nativeElement.errorVisible).toBeTrue();
         });
 
         // indeterminate property does not have a matching attribute

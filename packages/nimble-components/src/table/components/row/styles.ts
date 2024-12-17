@@ -143,7 +143,8 @@ export const styles = css`
 
     nimble-table-cell:first-of-type${focusVisible} {
         margin-left: calc(
-            -1 * (${controlHeight} - ${smallPadding}) * var(--ni-private-table-cell-focus-offset-multiplier)
+            -1 * (${controlHeight} - ${smallPadding}) *
+                var(--ni-private-table-cell-focus-offset-multiplier)
         );
         padding-left: calc(
             (${controlHeight} - ${mediumPadding}) *
@@ -160,7 +161,8 @@ export const styles = css`
                     ${controlHeight} *
                         var(--ni-private-table-cell-nesting-level) +
                         ${smallPadding}
-                ) * var(--ni-private-table-cell-focus-offset-multiplier)
+                ) *
+                var(--ni-private-table-cell-focus-offset-multiplier)
         );
         height: ${controlHeight};
     }

@@ -6,20 +6,20 @@ Tables are used widely throughout NI, and are a common component in design syste
 
 ## Links To Relevant Work Items and Reference Material
 
--   [Nimble Table Issue](https://github.com/ni/nimble/issues/283)
--   [Nimble Table Research Issue](https://github.com/ni/nimble/issues/285)
--   [Nimble Table Project Page](https://github.com/orgs/ni/projects/11)
--   [Nimble Table Research Lucid Board](https://lucid.app/lucidspark/31f2314d-dd8e-46fd-8fc1-6e9f66700bb3/edit?viewport_loc=-6023%2C-26311%2C35411%2C20921%2CloaYwcZLRray4&invitationId=inv_38839ad5-72b2-4975-ab7a-6d8be33c960c)
+- [Nimble Table Issue](https://github.com/ni/nimble/issues/283)
+- [Nimble Table Research Issue](https://github.com/ni/nimble/issues/285)
+- [Nimble Table Project Page](https://github.com/orgs/ni/projects/11)
+- [Nimble Table Research Lucid Board](https://lucid.app/lucidspark/31f2314d-dd8e-46fd-8fc1-6e9f66700bb3/edit?viewport_loc=-6023%2C-26311%2C35411%2C20921%2CloaYwcZLRray4&invitationId=inv_38839ad5-72b2-4975-ab7a-6d8be33c960c)
 
 ## Implementation / Design
 
 We have decided to build our table using [TanStack Table](https://tanstack.com/table/v8) as the data model, and create the UI ourselves using typical FAST-based templates. Using TanStack Table provides a lot of lift for the state management/API of the table, including:
 
--   Row selection
--   Column sizing/sorting/ordering/pinning
--   Grouping
--   Expand/collapse
--   Hierarchical data
+- Row selection
+- Column sizing/sorting/ordering/pinning
+- Grouping
+- Expand/collapse
+- Hierarchical data
 
 The bulk of the effort, then, comes from creating the expected UI pieces and then hooking them up to the TanStack model, along with the various APIs we need to design for the table component itself.
 
@@ -37,23 +37,23 @@ TanStack offers another library that helps out with this in [TanStack Virtual](h
 
 Pros
 
--   Architecture allows visualization to work with a dataset in the millions of rows without performance impact.
--   Plugin system allowing for the creation of various views that can be swapped out to visualize the underlying data.
--   Well tested
+- Architecture allows visualization to work with a dataset in the millions of rows without performance impact.
+- Plugin system allowing for the creation of various views that can be swapped out to visualize the underlying data.
+- Well tested
 
 Cons
 
--   Lack of support for hierarchical data
-    -   We could support hierarchical data by writing custom state management logic in the table component itself for features like grouping, sorting, and row selection. Some of which negates the performance benefits we would otherwise see for free.
--   Higher cost to implement a solution for, and more code to test/maintain.
+- Lack of support for hierarchical data
+    - We could support hierarchical data by writing custom state management logic in the table component itself for features like grouping, sorting, and row selection. Some of which negates the performance benefits we would otherwise see for free.
+- Higher cost to implement a solution for, and more code to test/maintain.
 
 Ultimately we decided against using Perspective as the general purpose table as one of its most appealing traits, its performance, would in many situations be neutralized by the implementation needed to support use cases like row selection and hierarchical data.
 
 We do see future potential for leveraging Perspective for more targeted data analysis use-cases like:
 
--   as a parametric data analysis engine with multi-visualization cross-filtering
--   client side visualization and analysis of large data sets (100k - 10M)
--   interactive analysis of massive server-side data sets (10M - 1B+).
+- as a parametric data analysis engine with multi-visualization cross-filtering
+- client side visualization and analysis of large data sets (100k - 10M)
+- interactive analysis of massive server-side data sets (10M - 1B+).
 
 There likely will be ways to leverage many of the general purpose table features (API, column configuration, styling, etc) in a theoretical future Perspective table if clients request that level of performance capability.
 
@@ -63,16 +63,16 @@ There likely will be ways to leverage many of the general purpose table features
 
 Pros
 
--   Extensive feature set
--   Good documentation/examples
+- Extensive feature set
+- Good documentation/examples
 
 Cons
 
--   Virtualization doesn't meet our requirements
--   Not TypeScript-based
--   Would need to fork such that we could make the necessary changes for it to meet our performance requirements
--   Zero tests
--   Styling could prove problematic
--   Lack of complete control over DOM introduces risk, or at the very least limits what the designers can ask for
+- Virtualization doesn't meet our requirements
+- Not TypeScript-based
+- Would need to fork such that we could make the necessary changes for it to meet our performance requirements
+- Zero tests
+- Styling could prove problematic
+- Lack of complete control over DOM introduces risk, or at the very least limits what the designers can ask for
 
 The cost and risk of changing Tabulator such that we could virtualize the rendering in an acceptable way was enough for us to remove it from consideration.

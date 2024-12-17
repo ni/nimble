@@ -2,6 +2,81 @@
   "name": "@ni/spright-angular",
   "entries": [
     {
+      "date": "Tue, 10 Dec 2024 20:15:57 GMT",
+      "version": "5.3.1",
+      "tag": "@ni/spright-angular_v5.3.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/spright-angular",
+            "comment": "Bump @ni/spright-components to v4.3.1",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 09 Dec 2024 15:59:16 GMT",
+      "version": "5.3.0",
+      "tag": "@ni/spright-angular_v5.3.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "beachball",
+            "package": "@ni/spright-angular",
+            "comment": "Bump @ni/spright-components to v4.3.0",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 04 Dec 2024 21:21:27 GMT",
+      "version": "5.2.5",
+      "tag": "@ni/spright-angular_v5.2.5",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/spright-angular",
+            "comment": "Bump @ni/spright-components to v4.2.5",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 04 Dec 2024 19:53:29 GMT",
+      "version": "5.2.4",
+      "tag": "@ni/spright-angular_v5.2.4",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/spright-angular",
+            "comment": "Bump @ni/spright-components to v4.2.4",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 22 Nov 2024 22:50:22 GMT",
+      "version": "5.2.3",
+      "tag": "@ni/spright-angular_v5.2.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/spright-angular",
+            "comment": "Bump @ni/spright-components to v4.2.3",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 19 Nov 2024 03:20:18 GMT",
       "version": "5.2.2",
       "tag": "@ni/spright-angular_v5.2.2",

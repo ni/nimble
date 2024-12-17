@@ -20,7 +20,7 @@ TODO: Link to visual design spec
 
 _Component Name_:
 
--   `nimble-slider`
+- `nimble-slider`
 
 _Attributes:_ Unchanged
 
@@ -34,7 +34,7 @@ The slider will have an Angular directive in the `nimble-angular` package which 
 
 ### Additional requirements
 
--   None
+- None
 
 # Slider Label
 
@@ -48,7 +48,7 @@ The `nimble-slider-label` component provides a default styled label to be placed
 
 _Component Name_
 
--   `nimble-slider-label`
+- `nimble-slider-label`
 
 _Attributes_: Unchanged
 
@@ -62,7 +62,7 @@ The slider label will have an Angular directive in the `nimble-angular` package 
 
 ### Additional Requirements
 
--   None
+- None
 
 ## Example usage
 

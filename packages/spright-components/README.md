@@ -10,10 +10,10 @@ NI-styled web components following [Nimble Design System](https://nimble.ni.dev)
 
 The `spright-components` package is intended for components that do not belong in [`nimble-components`](/packages/nimble-components) due to being: ["molecules"](https://atomicdesign.bradfrost.com/chapter-2/), product-specific, data-connected, or not "general utility". Some examples:
 
--   Molecule: a group of card buttons with a specific layout
--   Product-specific: a configuration pane that uses product-specific terminology or connects to a product-specific data model
--   Data-connected: a table that populates itself by making HTTP requests to a specific service
--   Experimental components that are trying out new UX patterns to see if they should someday be promoted to Nimble.
+- Molecule: a group of card buttons with a specific layout
+- Product-specific: a configuration pane that uses product-specific terminology or connects to a product-specific data model
+- Data-connected: a table that populates itself by making HTTP requests to a specific service
+- Experimental components that are trying out new UX patterns to see if they should someday be promoted to Nimble.
 
 ## Why Spright?
 

@@ -110,13 +110,13 @@ Most user-visible strings displayed by Nimble components are provided by the cli
 
 The current label providers:
 
--   `nimble-label-provider-core`: Used for labels for all components without a dedicated label provider
--   `nimble-label-provider-rich-text`: Used for labels for the rich text components
--   `nimble-label-provider-table`: Used for labels for the table (and table sub-components / column types)
+- `nimble-label-provider-core`: Used for labels for all components without a dedicated label provider
+- `nimble-label-provider-rich-text`: Used for labels for the rich text components
+- `nimble-label-provider-table`: Used for labels for the table (and table sub-components / column types)
 
 If a client is localized, it should:
 
--   Add the `label-provider` element(s) as children of their root theme provider:
+- Add the `label-provider` element(s) as children of their root theme provider:
     ```html
     <body>
         <nimble-theme-provider theme="light">
@@ -127,14 +127,14 @@ If a client is localized, it should:
         </nimble-theme-provider>
     </body>
     ```
--   For each label token on the label provider API, localize the English string, and set the corresponding HTML attribute or JS property on the label provider to the localized values. A list of all label tokens for each label provider (and their corresponding attribute/property names and English strings) can be found in the [Tokens/Label Providers section of Storybook](http://nimble.ni.dev/storybook/?path=/docs/tokens-label-providers--docs).
+- For each label token on the label provider API, localize the English string, and set the corresponding HTML attribute or JS property on the label provider to the localized values. A list of all label tokens for each label provider (and their corresponding attribute/property names and English strings) can be found in the [Tokens/Label Providers section of Storybook](http://nimble.ni.dev/storybook/?path=/docs/tokens-label-providers--docs).
 
 ## Content Security Policy
 
 When using Nimble in an environment with a [Content Security Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy) enabled, the following are known required settings beyond "common" settings (such as the [OWASP Basic non-Strict CSP Policy](https://cheatsheetseries.owasp.org/cheatsheets/Content_Security_Policy_Cheat_Sheet.html#basic-non-strict-csp-policy)) for using Nimble:
 
--   `style-src 'unsafe-inline'` is [needed to support style patterns in the FAST library](https://github.com/microsoft/fast/issues/4510) leveraged by Nimble.
--   `worker-src blob:` is needed to support controls that leverage Web Workers (for example the Wafer Map).
+- `style-src 'unsafe-inline'` is [needed to support style patterns in the FAST library](https://github.com/microsoft/fast/issues/4510) leveraged by Nimble.
+- `worker-src blob:` is needed to support controls that leverage Web Workers (for example the Wafer Map).
 
 ## Accessibility
 

@@ -7,6 +7,7 @@ import {
 import { check16X16, minus16X16 } from '@ni/nimble-tokens/dist/icons/js';
 import { styles } from './styles';
 import { template } from './template';
+import { mixinErrorPattern } from '../patterns/error/types';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -17,7 +18,7 @@ declare global {
 /**
  * A nimble-styled checkbox control.
  */
-export class Checkbox extends FoundationCheckbox {
+export class Checkbox extends mixinErrorPattern(FoundationCheckbox) {
     /**
      * @public
      * @remarks
