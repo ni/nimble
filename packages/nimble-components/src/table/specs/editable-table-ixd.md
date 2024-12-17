@@ -6,26 +6,39 @@ Nimble table support for interactive cell editing.
 
 ### Background
 
--   [Figma worksheet](https://www.figma.com/design/r2yGNQNVFdE7cBO9CyHmQx/Nimble---IxD?node-id=1221-36463)
--   [Input table columns (select, text field, etc) #1190](https://github.com/ni/nimble/issues/1190)
+- [Figma worksheet](https://www.figma.com/design/r2yGNQNVFdE7cBO9CyHmQx/Nimble---IxD?node-id=1221-36463)
+- [Input table columns (select, text field, etc) #1190](https://github.com/ni/nimble/issues/1190)
 
 ## Usage
 
 **When to use:**
 
--   When users need to quickly and efficiently update data directly within the table.
--   When inline editing can improve the user experience by reducing the need for separate forms or dialogs.
--   When the table is used in scenarios where data accuracy can be ensured through validation and error handling mechanisms.
+- When the table is used to display and edit structured engineering data such as measurements, specifications, or configurations.
+- When inline editing can improve the user experience by reducing the need for separate forms or dialogs.
+- When data accuracy can be ensured through validation and error handling mechanisms.
 
 **When not to use:**
 
--   When data integrity is critical and the table should not be modified by users.
--   When the table is used for displaying static or read-only data.
--   When the user interface requires a more complex data entry form.
--   When the application requires spreadsheet features like
-    - pasting or filling data into a range of cells
-    - styling or formatting cells, rows, or columns
-    - cell formula or cell referencing
+- When the table is used for displaying static or read-only data.
+- When the user requires guidance entering or modifying data and would be best served by a form or other UX pattern.
+- When the application requires spreadsheet features like pasting or filling data into a range of cells
+
+## Requirements
+
+- Inline editing support for table cells
+- Validation and error handling for input data
+- Initiate cell editing via keyboard or mouse
+- Support for strings and numbers (1st priority)
+- Support for enumerated values (2nd priority)
+- All cells within a particular column share the same edit view and configuration
+- Compatibility with assistive technologies (e.g., screen readers)
+
+### Out of scope
+
+- Support for complex data types (e.g., dates, times, custom objects)
+- Advanced spreadsheet functionalities (e.g., formulas, cell references)
+- Real-time collaboration or multi-user editing
+- Custom cell styling or formatting
 
 ## Anatomy
 
@@ -39,12 +52,12 @@ Nimble table support for interactive cell editing.
 
 ## Behavior
 
-For a table to be editable, at least one column will be marked as editable. All cells within a particular column will have the same editing behavior. 
-Initial client applications need support for strings and numbers, so the `text` and `number-text` columns should be considered in-scope.
-
 ### States
 
-![Editable cell states](./spec-images/editable-cell-states.png)
+![Editable cell states for text](./spec-images/text-editable-cell-states.png)
+![Editable cell states for numeric](./spec-images/numeric-editable-cell-states.png)
+![Editable cell states for select](./spec-images/select-editable-cell-states.png)
+![Editable cell states for checkbox](./spec-images/checkbox-editable-cell-states.png)
 
 #### Error State
 
@@ -52,37 +65,43 @@ Initial client applications need support for strings and numbers, so the `text` 
 
 ### ARIA Considerations
 
--   Maintain compatibility with existing keyboard navigation behavior
--   Consider resolving [existing ARIA gaps](https://github.com/ni/nimble/issues/2285)
+- Maintain compatibility with existing keyboard navigation behavior
+- Consider resolving [existing ARIA gaps](https://github.com/ni/nimble/issues/2285)
+- Consider adding `aria-readonly` for non-editable cells
 
 ### Mouse Interactions
 
 ![Editable cell mouse navigation](./spec-images/editable-cell-mouse-navigation.png)
 
--   Editable table cells show the same row hover state as non-editable cells on mouse hover.
-    -   I.e. When hovering over a row, the action menu button appears. Depending on the table's selection mode, the row may be highlighted.
--   Single clicking editable cell shows the cell focus state.
--   Double clicking the editable cell transforms the cell into an input control in the focus state.
--   Clicking away from a focused editable cell sets the value and transforms it into the Cell focus state.
+- Editable table cells show the same row hover state as non-editable cells on mouse hover.
+    - I.e. When hovering over a row, the action menu button appears. Depending on the table's selection mode, the row may be highlighted.
+- The cursor will change from an *arrow cursor* when hovering over editable cells
+    - To a *text cursor* when hovering over cells with editable text or numeric controls
+    - To a *hand cursor* when hovering over select or boolean controls
+- Single clicking editable cell shows the *edit focus* state.
+- Clicking away from a focused editable cell sets the value and removes *edit focus*.
 
-### Non-Mouse Interactions
+### Keyboard Interactions
 
 ![Editable cell key navigation](./spec-images/editable-cell-key-navigation.png)
 
--   When a cell has keyboard focus (Cell focus state), pressing `TAB` or `ENTER` transforms the cell into an input control in the focus state (Edit focus state).
--   When a cell has Edit focus, pressing `TAB` moves the focus to the action button, or to the next available focus target.
+- When a cell has keyboard focus (*cell focus* state), pressing `TAB` or `ENTER` transforms the cell into an input control in the *edit focus* state.
+- When a cell has *edit focus*, pressing `TAB` moves the focus to the action button, or to the next available focus target.
 
 ![Editable cell enter key](./spec-images/editable-cell-enter-key.png)
 
--   When a cell has Edit focus, pressing `ENTER` sets the value and transforms it into the Cell focus state.
+- When a cell has *edit focus*, pressing `ENTER` sets the value and transforms it into the *cell focus* state.
 
 ![Editable cell escape key](./spec-images/editable-cell-escape-key.png)
 
--   When a cell has Edit focus, pressing `ESCAPE` reverts any value change and transforms it into the Cell focus state.
+- When a cell has *edit focus*, pressing `ESCAPE` reverts any value change and transforms it into the *cell focus* state.
 
 ![Editable cell data error](./spec-images/editable-cell-error-data.png)
 
--   When a cell has Edit focus, pressing `ENTER` validates the value, and if invalid, transforms the cell into the Cell error state.
+- User edits are validated on entry. If the entered data is invalid,
+    - the error is shown in the *edit focus + error* state.
+    - pressing `TAB`, `ENTER` or `ESC` resets the cell to the most recent valid value.
+- Other invalid cell data is shown in the *cell error* state.
 
 ### Out of scope
 
@@ -98,7 +117,7 @@ Example save workflow:
 
 #### Touch-Screen Devices
 
--   The edit workflow should support touch screen devices.
+- The edit workflow should support touch screen devices.
 
 ## Open Issues
 
@@ -106,5 +125,5 @@ See content marked "**QUESTION**" or "**NOTE**".
 
 ## References
 
--   [AG Grid](https://www.ag-grid.com/example/)
--   [Patternfly](https://www.patternfly.org/components/table/react-deprecated/#editable-rows)
+- [AG Grid](https://www.ag-grid.com/example/)
+- [Patternfly](https://www.patternfly.org/components/table/react-deprecated/#editable-rows)
