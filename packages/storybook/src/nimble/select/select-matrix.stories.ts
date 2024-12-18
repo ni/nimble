@@ -17,7 +17,9 @@ import {
     disabledStates,
     DisabledState,
     ErrorState,
-    errorStates
+    errorStates,
+    requiredVisibleStates,
+    RequiredVisibleState
 } from '../../utilities/states';
 import { hiddenWrapper } from '../../utilities/hidden';
 import { textCustomizationWrapper } from '../../utilities/text-customization';
@@ -53,6 +55,7 @@ export default metadata;
 
 // prettier-ignore
 const component = (
+    [requiredVisibleName, requiredVisible]: RequiredVisibleState,
     [disabledName, disabled]: DisabledState,
     [appearanceName, appearance]: AppearanceState,
     [errorName, errorVisible, errorText]: ErrorState,
@@ -65,9 +68,10 @@ const component = (
         ?disabled="${() => disabled}"
         ?clearable="${() => clearable}"
         appearance="${() => appearance}"
+        ?required-visible="${() => requiredVisible}"
         style="width: 250px; margin: var(${standardPadding.cssCustomProperty});"
     >
-        ${() => errorName} ${() => disabledName} ${() => appearanceName} ${() => valueName} ${() => clearableName}
+        ${() => errorName} ${() => disabledName} ${() => appearanceName} ${() => valueName} ${() => clearableName} ${() => requiredVisibleName}
         <${listOptionTag} value="1">${valueValue}</${listOptionTag}>
         <${listOptionTag} value="2" disabled>Option 2</${listOptionTag}>
         <${listOptionTag} value="3">Option 3</${listOptionTag}>
@@ -77,6 +81,7 @@ const component = (
 
 export const selectThemeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(component, [
+        requiredVisibleStates,
         disabledStates,
         appearanceStates,
         errorStates,

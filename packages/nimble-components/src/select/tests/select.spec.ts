@@ -4,7 +4,10 @@ import { fixture, Fixture } from '../../utilities/tests/fixture';
 import { Select, selectTag } from '..';
 import { SelectPageObjectInternal as SelectPageObject } from './select.pageobject.internal';
 import { ListOption, listOptionTag } from '../../list-option';
-import { waitForUpdatesAsync } from '../../testing/async-helpers';
+import {
+    processUpdates,
+    waitForUpdatesAsync
+} from '../../testing/async-helpers';
 import { checkFullyInViewport } from '../../utilities/tests/intersection-observer';
 import { FilterMode, SelectFilterInputEventDetail } from '../types';
 import {
@@ -166,6 +169,24 @@ describe('Select', () => {
 
             await disconnect();
         });
+    });
+
+    it('should set "aria-required" to true when "required-visible" is true', async () => {
+        const { element, connect, disconnect } = await setup('above', true);
+        await connect();
+        element.requiredVisible = true;
+        processUpdates();
+        expect(element.getAttribute('aria-required')).toBe('true');
+        await disconnect();
+    });
+
+    it('should set "aria-required" to false when "required-visible" is false', async () => {
+        const { element, connect, disconnect } = await setup('above', true);
+        await connect();
+        element.requiredVisible = false;
+        processUpdates();
+        expect(element.getAttribute('aria-required')).toBe('false');
+        await disconnect();
     });
 
     it('should respect value set before connect is completed', async () => {

@@ -51,3 +51,9 @@ export const placeholderStates = [
     ['', undefined]
 ] as const;
 export type PlaceholderState = (typeof placeholderStates)[number];
+
+export const requiredVisibleStates = [
+    ['', false],
+    ['Required', true]
+] as const;
+export type RequiredVisibleState = (typeof requiredVisibleStates)[number];

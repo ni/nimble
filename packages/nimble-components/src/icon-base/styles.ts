@@ -42,6 +42,7 @@ export const styles = css`
     }
 
     .icon svg {
+        display: block;
         fill: ${iconColor};
         width: 100%;
         height: 100%;

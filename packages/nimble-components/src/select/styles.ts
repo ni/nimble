@@ -2,6 +2,7 @@ import { css } from '@microsoft/fast-element';
 import { White } from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
 import { styles as dropdownStyles } from '../patterns/dropdown/styles';
 import { styles as errorStyles } from '../patterns/error/styles';
+import { styles as requiredVisibleStyles } from '../patterns/required-visible/styles';
 import {
     borderRgbPartialColor,
     borderWidth,
@@ -25,6 +26,7 @@ import { hexToRgbaCssColor } from '../utilities/style/colors';
 export const styles = css`
     ${dropdownStyles}
     ${errorStyles}
+    ${requiredVisibleStyles}
 
     ${
         /* We are using flex `order` to define the visual ordering of the selected value,

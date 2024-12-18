@@ -10,6 +10,7 @@ import {
     disabledDescription,
     errorTextDescription,
     errorVisibleDescription,
+    requiredVisibleDescription,
     slottedLabelDescription
 } from '../../utilities/storybook';
 
@@ -23,6 +24,7 @@ interface RadioGroupArgs {
     change: undefined;
     errorVisible: boolean;
     errorText: string;
+    requiredVisible: boolean;
 }
 
 interface RadioArgs {
@@ -55,6 +57,7 @@ export const radioGroup: StoryObj<RadioGroupArgs> = {
             value="${x => (x.value === 'none' ? undefined : x.value)}"
             ?error-visible="${x => x.errorVisible}"
             error-text="${x => x.errorText}"
+            ?required-visible="${x => x.requiredVisible}"
             style="min-width: 200px;"
         >
             <label slot="label">${x => x.label}</label>
@@ -70,7 +73,8 @@ export const radioGroup: StoryObj<RadioGroupArgs> = {
         name: 'fruit',
         value: 'none',
         errorVisible: false,
-        errorText: 'Value is invalid'
+        errorText: 'Value is invalid',
+        requiredVisible: false
     },
     argTypes: {
         value: {
@@ -123,6 +127,11 @@ export const radioGroup: StoryObj<RadioGroupArgs> = {
         errorVisible: {
             name: 'error-visible',
             description: errorVisibleDescription,
+            table: { category: apiCategory.attributes }
+        },
+        requiredVisible: {
+            name: 'required-visible',
+            description: requiredVisibleDescription,
             table: { category: apiCategory.attributes }
         }
     }

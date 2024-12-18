@@ -1,7 +1,10 @@
 import { html } from '@microsoft/fast-element';
 import { parameterizeSpec } from '@ni/jasmine-parameterized';
 import { TextArea, textAreaTag } from '..';
-import { waitForUpdatesAsync } from '../../testing/async-helpers';
+import {
+    processUpdates,
+    waitForUpdatesAsync
+} from '../../testing/async-helpers';
 import { fixture, Fixture } from '../../utilities/tests/fixture';
 
 async function setup(): Promise<Fixture<TextArea>> {
@@ -33,6 +36,20 @@ describe('Text Area', () => {
     it('should set the `part` attribute to "control" on the internal control', async () => {
         await connect();
         expect(element.control.part.contains('control')).toBe(true);
+    });
+
+    it('should set "aria-required" to true when "required-visible" is true', async () => {
+        await connect();
+        element.requiredVisible = true;
+        processUpdates();
+        expect(element.control.getAttribute('aria-required')).toBe('true');
+    });
+
+    it('should set "aria-required" to false when "required-visible" is false', async () => {
+        await connect();
+        element.requiredVisible = false;
+        processUpdates();
+        expect(element.control.getAttribute('aria-required')).toBe('false');
     });
 
     const attributeNames: readonly {
