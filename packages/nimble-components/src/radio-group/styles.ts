@@ -32,7 +32,7 @@ export const styles = css`
 
     .label-container {
         display: flex;
-        height: ${controlLabelFontLineHeight};
+        min-height: ${controlLabelFontLineHeight};
         gap: ${smallPadding};
         margin-bottom: ${smallPadding};
     }
