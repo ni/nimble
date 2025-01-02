@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-<!-- This log was last generated on Tue, 10 Dec 2024 20:15:57 GMT and should not be manually modified. -->
+<!-- This log was last generated on Thu, 02 Jan 2025 21:45:49 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 32.9.2
+
+Thu, 02 Jan 2025 21:45:49 GMT
+
+### Patches
+
+- Update to rollup all-components build dependencies ([ni/nimble@0ca6cc0](https://github.com/ni/nimble/commit/0ca6cc0c1c819247397950ffaa535097147374c0))
 
 ## 32.9.1
 
