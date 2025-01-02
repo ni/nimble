@@ -54,7 +54,7 @@
     "@ni/eslint-config-angular": "^8.0.0",
     "@ni/jasmine-parameterized": "*",
     "@ni/nimble-tokens": "*",
-    "@rollup/plugin-node-resolve": "^15.0.1",
+    "@rollup/plugin-node-resolve": "^16.0.0",
     "@types/jasmine": "^5.1.4",
     "@types/node": ">18",
     "jasmine-core": "^5.1.2",
