@@ -1,6 +1,6 @@
 {
-  "type": "none",
-  "comment": "Only dev dependency updates",
+  "type": "patch",
+  "comment": "Update to rollup all-components build dependencies",
   "packageName": "@ni/spright-components",
   "email": "rajsite@users.noreply.github.com",
   "dependentChangeType": "none"
