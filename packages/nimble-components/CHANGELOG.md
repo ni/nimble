@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-<!-- This log was last generated on Thu, 02 Jan 2025 21:45:49 GMT and should not be manually modified. -->
+<!-- This log was last generated on Fri, 03 Jan 2025 17:23:02 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 32.9.3
+
+Fri, 03 Jan 2025 17:23:02 GMT
+
+### Patches
+
+- Fork number-field and text-field templates ([ni/nimble@6a8328d](https://github.com/ni/nimble/commit/6a8328dc976c6ba81f2a165309957dc5032519ae))
 
 ## 32.9.2
 
