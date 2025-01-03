@@ -22,8 +22,6 @@ export const styles = css`
 
     .icon {
         display: contents;
-        width: 100%;
-        height: 100%;
     }
 
     :host([severity='error']) {
