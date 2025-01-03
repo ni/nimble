@@ -3,6 +3,11 @@ import { Orientation } from '@microsoft/fast-web-utilities';
 import type { RadioGroup } from '.';
 import { errorTextTemplate } from '../patterns/error/template';
 import { iconExclamationMarkTag } from '../icons/exclamation-mark';
+import { createRequiredVisibleLabelTemplate } from '../patterns/required-visible/template';
+
+const labelTemplate = createRequiredVisibleLabelTemplate(
+    html<RadioGroup>`<slot name="label"></slot>`
+);
 
 /* eslint-disable @typescript-eslint/indent */
 export const template = html<RadioGroup>`
@@ -10,12 +15,13 @@ export const template = html<RadioGroup>`
         role="radiogroup"
         aria-disabled="${x => x.disabled}"
         aria-readonly="${x => x.readOnly}"
+        aria-required="${x => x.requiredVisible}"
         @click="${(x, c) => x.clickHandler(c.event as MouseEvent)}"
         @keydown="${(x, c) => x.keydownHandler(c.event as KeyboardEvent)}"
         @focusout="${(x, c) => x.focusOutHandler(c.event as FocusEvent)}"
     >
         <div class="label-container">
-            <slot name="label"></slot>            
+            ${labelTemplate}
             <${iconExclamationMarkTag}
                 severity="error"
                 class="error-icon"

@@ -20,6 +20,7 @@ import {
     errorVisibleDescription,
     optionsDescription,
     placeholderDescription,
+    requiredVisibleDescription,
     slottedLabelDescription
 } from '../../utilities/storybook';
 
@@ -31,6 +32,7 @@ interface ComboboxArgs {
     optionsType: ExampleOptionsType;
     errorVisible: boolean;
     errorText: string;
+    requiredVisible: boolean;
     currentValue: string;
     appearance: string;
     placeholder: string;
@@ -108,6 +110,7 @@ const metadata: Meta<ComboboxArgs> = {
             appearance="${x => x.appearance}"
             value="${x => x.currentValue}"
             placeholder="${x => x.placeholder}"
+            ?required-visible="${x => x.requiredVisible}"
             style="min-width: 250px;"
         >
             ${x => x.label}
@@ -164,6 +167,11 @@ const metadata: Meta<ComboboxArgs> = {
             description: placeholderDescription({ componentName: 'combobox' }),
             table: { category: apiCategory.attributes }
         },
+        requiredVisible: {
+            name: 'required-visible',
+            description: requiredVisibleDescription,
+            table: { category: apiCategory.attributes }
+        },
         optionsType: {
             name: 'default',
             description: optionsDescription({ includeGrouping: false }),
@@ -200,7 +208,8 @@ const metadata: Meta<ComboboxArgs> = {
         errorText: 'Value is invalid',
         appearance: DropdownAppearance.underline,
         placeholder: 'Select value...',
-        optionsType: ExampleOptionsType.simpleOptions
+        optionsType: ExampleOptionsType.simpleOptions,
+        requiredVisible: false
     }
 };
 
