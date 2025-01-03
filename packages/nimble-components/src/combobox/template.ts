@@ -17,9 +17,9 @@ import { anchoredRegionTag } from '../anchored-region';
 import { DropdownPosition } from '../patterns/dropdown/types';
 import { overflow } from '../utilities/directive/overflow';
 import { filterNoResultsLabel } from '../label-provider/core/label-tokens';
-import { getRequiredVisibleLabelTemplate } from '../patterns/required-visible/template';
+import { createRequiredVisibleLabelTemplate } from '../patterns/required-visible/template';
 
-const labelTemplate = getRequiredVisibleLabelTemplate(html<Combobox>`
+const labelTemplate = createRequiredVisibleLabelTemplate(html<Combobox>`
     <label part="label" class="label">
         <slot></slot>
     </label>

@@ -3,9 +3,9 @@ import { Orientation } from '@microsoft/fast-web-utilities';
 import type { RadioGroup } from '.';
 import { errorTextTemplate } from '../patterns/error/template';
 import { iconExclamationMarkTag } from '../icons/exclamation-mark';
-import { getRequiredVisibleLabelTemplate } from '../patterns/required-visible/template';
+import { createRequiredVisibleLabelTemplate } from '../patterns/required-visible/template';
 
-const labelTemplate = getRequiredVisibleLabelTemplate(
+const labelTemplate = createRequiredVisibleLabelTemplate(
     html<RadioGroup>`<slot name="label"></slot>`
 );
 

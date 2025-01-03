@@ -3,7 +3,7 @@ import { iconAsteriskTag } from '../../icons/asterisk';
 import type { RequiredVisiblePattern } from './types';
 
 /* eslint-disable @typescript-eslint/indent */
-export function getRequiredVisibleLabelTemplate(
+export function createRequiredVisibleLabelTemplate(
     labelTemplate: ViewTemplate<RequiredVisiblePattern>
 ): ViewTemplate<RequiredVisiblePattern> {
     return html`

@@ -3,9 +3,9 @@ import type { FoundationElementTemplate } from '@microsoft/fast-foundation';
 import type { TextArea } from '.';
 import { iconExclamationMarkTag } from '../icons/exclamation-mark';
 import { errorTextTemplate } from '../patterns/error/template';
-import { getRequiredVisibleLabelTemplate } from '../patterns/required-visible/template';
+import { createRequiredVisibleLabelTemplate } from '../patterns/required-visible/template';
 
-const labelTemplate = getRequiredVisibleLabelTemplate(html<TextArea>`
+const labelTemplate = createRequiredVisibleLabelTemplate(html<TextArea>`
     <label
         part="label"
         for="control"

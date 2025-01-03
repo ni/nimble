@@ -7,11 +7,11 @@ import {
 } from '../../../utilities/tests/fixture';
 import { mixinRequiredVisiblePattern } from '../types';
 import { styles } from '../styles';
-import { getRequiredVisibleLabelTemplate } from '../template';
+import { createRequiredVisibleLabelTemplate } from '../template';
 import { processUpdates } from '../../../testing/async-helpers';
 import { RequiredVisiblePatternPageObject } from '../testing/required-visible-pattern.pageobject';
 
-const labelTemplate = getRequiredVisibleLabelTemplate(
+const labelTemplate = createRequiredVisibleLabelTemplate(
     html`<slot name="label"></slot>`
 );
 const elementName = uniqueElementName();
