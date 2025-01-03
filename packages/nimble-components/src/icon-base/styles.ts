@@ -21,6 +21,7 @@ export const styles = css`
     }
 
     .icon {
+        display: contents;
         width: 100%;
         height: 100%;
     }
@@ -42,7 +43,7 @@ export const styles = css`
     }
 
     .icon svg {
-        display: block;
+        display: inline-flex;
         fill: ${iconColor};
         width: 100%;
         height: 100%;
