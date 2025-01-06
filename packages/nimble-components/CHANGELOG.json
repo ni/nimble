@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Mon, 06 Jan 2025 20:05:57 GMT",
+      "version": "32.10.0",
+      "tag": "@ni/nimble-components_v32.10.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "f558bd74afaeee9ea17bf0f8bdf8f1b239935887",
+            "comment": "Add `required-visible` attribute to radio-group, combobox, select, and text-area"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 03 Jan 2025 17:23:02 GMT",
       "version": "32.9.3",
       "tag": "@ni/nimble-components_v32.9.3",
