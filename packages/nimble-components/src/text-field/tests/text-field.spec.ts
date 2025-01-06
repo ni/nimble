@@ -4,9 +4,7 @@ import { fixture, Fixture } from '../../utilities/tests/fixture';
 import { processUpdates } from '../../testing/async-helpers';
 
 async function setup(): Promise<Fixture<TextField>> {
-    return await fixture<TextField>(
-        html`<${textFieldTag}></${textFieldTag}>`
-    );
+    return await fixture<TextField>(html`<${textFieldTag}></${textFieldTag}>`);
 }
 
 describe('TextField', () => {

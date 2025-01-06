@@ -4,7 +4,10 @@ import {
     LabelProviderCore,
     labelProviderCoreTag
 } from '../../label-provider/core';
-import { processUpdates, waitForUpdatesAsync } from '../../testing/async-helpers';
+import {
+    processUpdates,
+    waitForUpdatesAsync
+} from '../../testing/async-helpers';
 import { ThemeProvider, themeProviderTag } from '../../theme-provider';
 import { fixture, type Fixture } from '../../utilities/tests/fixture';
 
@@ -45,8 +48,7 @@ describe('NumberField', () => {
 
     it('prevents inc/dec buttons from being focusable', () => {
         const buttons = Array.from(
-            element
-                .shadowRoot!.querySelectorAll('.step-up-down-button')
+            element.shadowRoot!.querySelectorAll('.step-up-down-button')
         );
         expect(
             buttons.every(x => (x as HTMLElement).tabIndex === -1)
@@ -55,8 +57,7 @@ describe('NumberField', () => {
 
     it('hides inc/dec buttons from a11y tree', () => {
         const buttons = Array.from(
-            element
-                .shadowRoot!.querySelectorAll('.step-up-down-button')
+            element.shadowRoot!.querySelectorAll('.step-up-down-button')
         );
         expect(
             buttons.every(x => (x as HTMLElement).ariaHidden === 'true')
