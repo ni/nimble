@@ -7,6 +7,19 @@ import {
     startSlotTemplate
 } from '@microsoft/fast-foundation';
 import type { NumberField } from '.';
+import { createRequiredVisibleLabelTemplate } from '../patterns/required-visible/template';
+
+const labelTemplate = createRequiredVisibleLabelTemplate(
+    html<NumberField>`<label
+        part="label"
+        for="control"
+        class="${x => (x.defaultSlottedNodes?.length
+        ? 'label'
+        : 'label label__hidden')}"
+    >
+        <slot ${slotted('defaultSlottedNodes')}></slot>
+    </label>`
+);
 
 /**
  * The template for the {@link @microsoft/fast-foundation#(NumberField:class)} component.
@@ -17,15 +30,7 @@ ViewTemplate<NumberField>,
 NumberFieldOptions
 > = (context, definition) => html`
     <template class="${x => (x.readOnly ? 'readonly' : '')}">
-        <label
-            part="label"
-            for="control"
-            class="${x => (x.defaultSlottedNodes?.length
-        ? 'label'
-        : 'label label__hidden')}"
-        >
-            <slot ${slotted('defaultSlottedNodes')}></slot>
-        </label>
+        ${labelTemplate}
         <div class="root" part="root">
             ${startSlotTemplate(context, definition)}
             <input
@@ -69,6 +74,7 @@ NumberFieldOptions
                 aria-owns="${x => x.ariaOwns}"
                 aria-relevant="${x => x.ariaRelevant}"
                 aria-roledescription="${x => x.ariaRoledescription}"
+                aria-required="${x => x.requiredVisible}"
                 ${ref('control')}
             />
             ${when(

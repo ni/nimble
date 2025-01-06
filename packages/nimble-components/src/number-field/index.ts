@@ -17,6 +17,7 @@ import {
     numericIncrementLabel
 } from '../label-provider/core/label-tokens';
 import { template } from './template';
+import { mixinRequiredVisiblePattern } from '../patterns/required-visible/types';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -27,7 +28,9 @@ declare global {
 /**
  * A nimble-styled HTML number input
  */
-export class NumberField extends mixinErrorPattern(FoundationNumberField) {
+export class NumberField extends mixinErrorPattern(
+    mixinRequiredVisiblePattern(FoundationNumberField)
+) {
     @attr
     public appearance: NumberFieldAppearance = NumberFieldAppearance.underline;
 

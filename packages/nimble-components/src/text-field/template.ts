@@ -12,19 +12,19 @@ import { createRequiredVisibleLabelTemplate } from '../patterns/required-visible
 
 const labelTemplate = createRequiredVisibleLabelTemplate(
     html<TextField>`<label
-    part="label"
-    for="control"
-    class="${x => (x.defaultSlottedNodes?.length
+        part="label"
+        for="control"
+        class="${x => (x.defaultSlottedNodes?.length
         ? 'label'
         : 'label label__hidden')}"
->
-    <slot
-        ${slotted({
+    >
+        <slot
+            ${slotted({
         property: 'defaultSlottedNodes',
         filter: whitespaceFilter
     })}
-    ></slot>
-</label>`
+        ></slot>
+    </label>`
 );
 
 /**
