@@ -10,7 +10,10 @@ import { comboboxTag } from '../../../../../nimble-components/src/combobox';
 import { selectTag } from '../../../../../nimble-components/src/select';
 import { textAreaTag } from '../../../../../nimble-components/src/text-area';
 import { createUserSelectedThemeStory } from '../../../utilities/storybook';
-import { Orientation, radioGroupTag } from '../../../../../nimble-components/src/radio-group';
+import {
+    Orientation,
+    radioGroupTag
+} from '../../../../../nimble-components/src/radio-group';
 import { radioTag } from '../../../../../nimble-components/src/radio';
 
 interface RequiredVisiblePatternArgs {
