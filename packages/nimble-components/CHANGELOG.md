@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-<!-- This log was last generated on Fri, 03 Jan 2025 17:23:02 GMT and should not be manually modified. -->
+<!-- This log was last generated on Mon, 06 Jan 2025 20:05:57 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 32.10.0
+
+Mon, 06 Jan 2025 20:05:57 GMT
+
+### Minor changes
+
+- Add `required-visible` attribute to radio-group, combobox, select, and text-area ([ni/nimble@f558bd7](https://github.com/ni/nimble/commit/f558bd74afaeee9ea17bf0f8bdf8f1b239935887))
 
 ## 32.9.3
 

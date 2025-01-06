@@ -1,7 +1,0 @@
-{
-  "type": "minor",
-  "comment": "Add `required-visible` attribute to radio-group, combobox, select, and text-area",
-  "packageName": "@ni/nimble-components",
-  "email": "20542556+mollykreis@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
