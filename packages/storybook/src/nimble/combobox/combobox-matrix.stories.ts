@@ -14,7 +14,9 @@ import {
     disabledStates,
     DisabledState,
     errorStates,
-    ErrorState
+    ErrorState,
+    RequiredVisibleState,
+    requiredVisibleStates
 } from '../../utilities/states';
 import { hiddenWrapper } from '../../utilities/hidden';
 import { loremIpsum } from '../../utilities/lorem-ipsum';
@@ -44,6 +46,7 @@ export default metadata;
 
 // prettier-ignore
 const component = (
+    [requiredVisibleName, requiredVisible]: RequiredVisibleState,
     [disabledName, disabled]: DisabledState,
     [appearanceName, appearance]: AppearanceState,
     [errorName, errorVisible, errorText]: ErrorState,
@@ -56,12 +59,14 @@ const component = (
         error-text="${() => errorText}"
         value="${() => value}"
         placeholder="${() => placeholder}"
+        ?required-visible="${() => requiredVisible}"
         style="width: 250px; margin: var(${standardPadding.cssCustomProperty});"
     >
         ${() => disabledName}
         ${() => appearanceName}
         ${() => errorName}
         ${() => valueName}
+        ${() => requiredVisibleName}
         <${listOptionTag} value="1">Option 1</${listOptionTag}>
         <${listOptionTag} value="2" disabled>Option 2</${listOptionTag}>
         <${listOptionTag} value="3">Option 3</${listOptionTag}>
@@ -71,6 +76,7 @@ const component = (
 
 export const comboboxThemeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(component, [
+        requiredVisibleStates,
         disabledStates,
         appearanceStates,
         errorStates,
