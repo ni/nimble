@@ -132,6 +132,14 @@ public class NimbleNumberFieldTests
         Assert.Contains("readonly", numberField.Markup);
     }
 
+    [Fact]
+    public void NumberFieldRequiredVisible_AttributeIsSet()
+    {
+        var numberField = RenderWithPropertySet(x => x.RequiredVisible, true);
+
+        Assert.Contains("required-visible", numberField.Markup);
+    }
+
     private IRenderedComponent<NimbleNumberField> RenderWithPropertySet<TProperty>(Expression<Func<NimbleNumberField, TProperty>> propertyGetter, TProperty propertyValue)
     {
         var context = new TestContext();

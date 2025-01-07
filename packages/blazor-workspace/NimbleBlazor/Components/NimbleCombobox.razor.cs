@@ -58,6 +58,12 @@ public partial class NimbleCombobox : NimbleInputBase<string?>
     public bool? ErrorVisible { get; set; }
 
     /// <summary>
+    /// Gets or sets whether the combobox's required indicator is visible
+    /// </summary>
+    [Parameter]
+    public bool? RequiredVisible { get; set; }
+
+    /// <summary>
     /// Gets or sets the child content to be rendered inside the combobox
     /// </summary>
     [Parameter]

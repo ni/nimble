@@ -53,6 +53,12 @@ public partial class NimbleTextField : NimbleInputBase<string?>
     [Parameter]
     public bool? FullBleed { get; set; }
 
+    /// <summary>
+    /// Gets or sets whether the text field's required indicator is visible
+    /// </summary>
+    [Parameter]
+    public bool? RequiredVisible { get; set; }
+
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 

@@ -57,6 +57,12 @@ public partial class NimbleSelect : NimbleInputBase<string?>
     public bool? ErrorVisible { get; set; }
 
     /// <summary>
+    /// Gets or sets whether the select's required indicator is visible
+    /// </summary>
+    [Parameter]
+    public bool? RequiredVisible { get; set; }
+
+    /// <summary>
     /// Gets or sets the child content to be rendering inside the <see cref="NimbleSelect"/>.
     /// </summary>
     [Parameter]

@@ -73,6 +73,12 @@ public partial class NimbleNumberField : NimbleInputBase<double?>
     public bool? ErrorVisible { get; set; }
 
     /// <summary>
+    /// Gets or sets whether the number field's required indicator is visible
+    /// </summary>
+    [Parameter]
+    public bool? RequiredVisible { get; set; }
+
+    /// <summary>
     /// Gets or sets the child content to be rendered inside the combobox
     /// </summary>
     [Parameter]
