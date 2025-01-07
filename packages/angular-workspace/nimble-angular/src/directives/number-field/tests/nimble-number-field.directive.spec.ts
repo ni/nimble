@@ -131,6 +131,17 @@ describe('Nimble number field', () => {
             expect(directive.errorVisible).toBeTrue();
             expect(nativeElement.errorVisible).toBeTrue();
         });
+
+        it('has expected defaults for requiredVisible', () => {
+            expect(directive.requiredVisible).toBeFalse();
+            expect(nativeElement.requiredVisible).toBeFalse();
+        });
+
+        it('can use the directive to set requiredVisible', () => {
+            directive.requiredVisible = true;
+            expect(directive.requiredVisible).toBeTrue();
+            expect(nativeElement.requiredVisible).toBeTrue();
+        });
     });
 
     describe('with template string values', () => {
@@ -146,6 +157,7 @@ describe('Nimble number field', () => {
                     placeholder="Placeholder value"
                     error-text="error text"
                     error-visible
+                    required-visible
                 >
                 </nimble-number-field>`
         })
@@ -213,6 +225,11 @@ describe('Nimble number field', () => {
             expect(directive.errorVisible).toBeTrue();
             expect(nativeElement.errorVisible).toBeTrue();
         });
+
+        it('will use template string values for requiredVisible', () => {
+            expect(directive.requiredVisible).toBeTrue();
+            expect(nativeElement.requiredVisible).toBeTrue();
+        });
     });
 
     describe('with property bound values', () => {
@@ -228,6 +245,7 @@ describe('Nimble number field', () => {
                 [placeholder]="placeholder"
                 [error-text]="errorText"
                 [error-visible]="errorVisible"
+                [required-visible]="requiredVisible"
             >
             </nimble-number-field>`
         })
@@ -243,6 +261,7 @@ describe('Nimble number field', () => {
             public placeholder = 'initial';
             public errorText = 'initial value';
             public errorVisible = false;
+            public requiredVisible = false;
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
@@ -358,6 +377,17 @@ describe('Nimble number field', () => {
             expect(directive.errorVisible).toBeTrue();
             expect(nativeElement.errorVisible).toBeTrue();
         });
+
+        it('can be configured with property binding for requiredVisible', () => {
+            expect(directive.requiredVisible).toBeFalse();
+            expect(nativeElement.requiredVisible).toBeFalse();
+
+            fixture.componentInstance.requiredVisible = true;
+            fixture.detectChanges();
+
+            expect(directive.requiredVisible).toBeTrue();
+            expect(nativeElement.requiredVisible).toBeTrue();
+        });
     });
 
     describe('with attribute bound values', () => {
@@ -373,6 +403,7 @@ describe('Nimble number field', () => {
                     [attr.placeholder]="placeholder"
                     [attr.error-text]="errorText"
                     [attr.error-visible]="errorVisible"
+                    [attr.required-visible]="requiredVisible"
                 >
                 </nimble-number-field>`
         })
@@ -388,6 +419,7 @@ describe('Nimble number field', () => {
             public placeholder = 'initial';
             public errorText = 'initial value';
             public errorVisible: BooleanValueOrAttribute = null;
+            public requiredVisible: BooleanValueOrAttribute = null;
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
@@ -502,6 +534,17 @@ describe('Nimble number field', () => {
 
             expect(directive.errorVisible).toBeTrue();
             expect(nativeElement.errorVisible).toBeTrue();
+        });
+
+        it('can be configured with attribute binding for requiredVisible', () => {
+            expect(directive.requiredVisible).toBeFalse();
+            expect(nativeElement.requiredVisible).toBeFalse();
+
+            fixture.componentInstance.requiredVisible = '';
+            fixture.detectChanges();
+
+            expect(directive.requiredVisible).toBeTrue();
+            expect(nativeElement.requiredVisible).toBeTrue();
         });
     });
 });

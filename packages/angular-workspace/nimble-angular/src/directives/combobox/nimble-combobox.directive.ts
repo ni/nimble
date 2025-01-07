@@ -75,5 +75,13 @@ export class NimbleComboboxDirective {
         this.renderer.setProperty(this.elementRef.nativeElement, 'open', toBooleanProperty(value));
     }
 
+    public get requiredVisible(): boolean {
+        return this.elementRef.nativeElement.requiredVisible;
+    }
+
+    @Input('required-visible') public set requiredVisible(value: BooleanValueOrAttribute) {
+        this.renderer.setProperty(this.elementRef.nativeElement, 'requiredVisible', toBooleanProperty(value));
+    }
+
     public constructor(private readonly renderer: Renderer2, private readonly elementRef: ElementRef<Combobox>) {}
 }
