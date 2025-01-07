@@ -135,7 +135,7 @@ const component = (
 `;
 
 // prettier-ignore
-const reducedStateComponent = (
+const requiredVisibleStatesComponent = (
     [requiredVisibleName, requiredVisible]: RequiredVisibleState,
     [readOnlyName, readonly]: ReadOnlyState,
     [disabledName, disabled]: DisabledState,
@@ -520,7 +520,7 @@ export const colorThemeReadOnlyDisabledWithButtons: StoryFn = createFixedThemeSt
 );
 
 export const textFieldRequiredVisibleThemeMatrix: StoryFn = createMatrixThemeStory(
-    createMatrix(reducedStateComponent, [
+    createMatrix(requiredVisibleStatesComponent, [
         requiredVisibleStates,
         readOnlyStates,
         disabledStates,
