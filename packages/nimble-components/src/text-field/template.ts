@@ -8,6 +8,22 @@ import {
     endSlotTemplate
 } from '@microsoft/fast-foundation';
 import type { TextField } from '.';
+import { createRequiredVisibleLabelTemplate } from '../patterns/required-visible/template';
+
+const labelTemplate = createRequiredVisibleLabelTemplate(
+    html<TextField>`<label
+        part="label"
+        for="control"
+        class="${x => (x.defaultSlottedNodes?.length ? 'label' : 'label label__hidden')}"
+    >
+        <slot
+            ${slotted({
+        property: 'defaultSlottedNodes',
+        filter: whitespaceFilter
+    })}
+        ></slot>
+    </label>`
+);
 
 /**
  * The template for the {@link @microsoft/fast-foundation#(TextField:class)} component.
@@ -22,20 +38,7 @@ TextFieldOptions
             ${x => (x.readOnly ? 'readonly' : '')}
         "
     >
-        <label
-            part="label"
-            for="control"
-            class="${x => (x.defaultSlottedNodes?.length
-        ? 'label'
-        : 'label label__hidden')}"
-        >
-            <slot
-                ${slotted({
-        property: 'defaultSlottedNodes',
-        filter: whitespaceFilter
-    })}
-            ></slot>
-        </label>
+        ${labelTemplate}
         <div class="root" part="root">
             ${startSlotTemplate(context, definition)}
             <input
@@ -76,6 +79,7 @@ TextFieldOptions
                 aria-owns="${x => x.ariaOwns}"
                 aria-relevant="${x => x.ariaRelevant}"
                 aria-roledescription="${x => x.ariaRoledescription}"
+                aria-required="${x => x.requiredVisible}"
                 ${ref('control')}
             />
             ${endSlotTemplate(context, definition)}

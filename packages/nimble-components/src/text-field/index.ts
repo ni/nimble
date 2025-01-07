@@ -10,6 +10,7 @@ import { errorTextTemplate } from '../patterns/error/template';
 import { mixinErrorPattern } from '../patterns/error/types';
 import { iconExclamationMarkTag } from '../icons/exclamation-mark';
 import { template } from './template';
+import { mixinRequiredVisiblePattern } from '../patterns/required-visible/types';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -20,7 +21,9 @@ declare global {
 /**
  * A nimble-styed HTML text input
  */
-export class TextField extends mixinErrorPattern(FoundationTextField) {
+export class TextField extends mixinErrorPattern(
+    mixinRequiredVisiblePattern(FoundationTextField)
+) {
     /**
      * The appearance the text field should have.
      *
