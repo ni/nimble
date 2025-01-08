@@ -5,6 +5,7 @@
                     orientation="@Orientation.ToAttributeValue()"
                     error-visible="@ErrorVisible"
                     error-text="@ErrorText"
+                    required-visible="@RequiredVisible"
                     value="@Value"
                     @onchange="@(EventCallback.Factory.CreateBinder<string?>(this, __value => CurrentValue = __value, CurrentValue))"
                     @attributes="AdditionalAttributes">
