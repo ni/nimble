@@ -19,11 +19,13 @@ import {
 import { appearanceBehavior } from '../utilities/style/appearance';
 import { NumberFieldAppearance } from './types';
 import { styles as errorStyles } from '../patterns/error/styles';
+import { styles as requiredVisibleStyles } from '../patterns/required-visible/styles';
 import { userSelectNone } from '../utilities/style/user-select';
 
 export const styles = css`
     ${display('inline-block')}
     ${errorStyles}
+    ${requiredVisibleStyles}
 
     :host {
         font: ${bodyFont};

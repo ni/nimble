@@ -15,6 +15,8 @@ import {
     radioGroupTag
 } from '../../../../../nimble-components/src/radio-group';
 import { radioTag } from '../../../../../nimble-components/src/radio';
+import { textFieldTag } from '../../../../../nimble-components/src/text-field';
+import { numberFieldTag } from '../../../../../nimble-components/src/number-field';
 
 interface RequiredVisiblePatternArgs {
     shortLabel: string;
@@ -51,6 +53,11 @@ const metadata: Meta<RequiredVisiblePatternArgs> = {
             <${comboboxTag} class="fixed-width" required-visible>${x => x.longLabel}</${comboboxTag}>
         </div>
         <div class="control-container">
+            <div class="label">Number field</div>
+            <${numberFieldTag} class="fixed-width" required-visible>${x => x.shortLabel}</${numberFieldTag}>
+            <${numberFieldTag} class="fixed-width" required-visible>${x => x.longLabel}</${numberFieldTag}>
+        </div>
+        <div class="control-container">
             <div class="label">Radio group</div>
             <${radioGroupTag} class="fixed-width" orientation=${Orientation.horizontal} required-visible>
                 <span slot="label">${x => x.shortLabel}</span>
@@ -82,6 +89,11 @@ const metadata: Meta<RequiredVisiblePatternArgs> = {
             <div class="label">Text area</div>
             <${textAreaTag} class="fixed-width" required-visible>${x => x.shortLabel}</${textAreaTag}>
             <${textAreaTag} class="fixed-width" required-visible>${x => x.longLabel}</${textAreaTag}>
+        </div>
+        <div class="control-container">
+            <div class="label">Text field</div>
+            <${textFieldTag} class="fixed-width" required-visible>${x => x.shortLabel}</${textFieldTag}>
+            <${textFieldTag} class="fixed-width" required-visible>${x => x.longLabel}</${textFieldTag}>
         </div>
     `),
     args: {
