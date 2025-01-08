@@ -71,10 +71,6 @@ export class NimbleSelectDirective {
         this.renderer.setProperty(this.elementRef.nativeElement, 'loadingVisible', toBooleanProperty(value));
     }
 
-    @Input() public set open(value: BooleanValueOrAttribute) {
-        this.renderer.setProperty(this.elementRef.nativeElement, 'open', toBooleanProperty(value));
-    }
-
     public get requiredVisible(): boolean {
         return this.elementRef.nativeElement.requiredVisible;
     }
