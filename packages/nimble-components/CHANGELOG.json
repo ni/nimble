@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Wed, 08 Jan 2025 18:33:05 GMT",
+      "version": "32.11.0",
+      "tag": "@ni/nimble-components_v32.11.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "a0662f1b0d7a1fdff40d752f9455c91eb0ad5d5a",
+            "comment": "Add `required-visible` attribute to number-field and text-field"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 06 Jan 2025 20:05:57 GMT",
       "version": "32.10.0",
       "tag": "@ni/nimble-components_v32.10.0",
