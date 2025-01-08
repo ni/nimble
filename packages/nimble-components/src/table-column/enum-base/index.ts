@@ -4,7 +4,7 @@ import {
     Observable,
     observable,
     Subscriber
-} from '@microsoft/fast-element';
+} from '@ni/fast-element';
 import type {
     TableStringField,
     TableBooleanField,

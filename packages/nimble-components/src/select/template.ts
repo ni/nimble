@@ -4,13 +4,13 @@ import {
     slotted,
     ViewTemplate,
     when
-} from '@microsoft/fast-element';
+} from '@ni/fast-element';
 import {
     endSlotTemplate,
     FoundationElementTemplate,
     SelectOptions,
     startSlotTemplate
-} from '@microsoft/fast-foundation';
+} from '@ni/fast-foundation';
 import type { Select } from '.';
 import { anchoredRegionTag } from '../anchored-region';
 import { DropdownPosition } from '../patterns/dropdown/types';

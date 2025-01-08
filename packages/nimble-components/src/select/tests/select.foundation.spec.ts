@@ -8,7 +8,7 @@ import {
     keyArrowUp,
     keyEnd,
     keyHome
-} from '@microsoft/fast-web-utilities';
+} from '@ni/fast-web-utilities';
 import { Select } from '..';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import { fixture } from '../../utilities/tests/fixture';

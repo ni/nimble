@@ -1,9 +1,9 @@
-import { attr } from '@microsoft/fast-element';
+import { attr } from '@ni/fast-element';
 import {
     DesignSystem,
     Breadcrumb as FoundationBreadcrumb,
     breadcrumbTemplate as template
-} from '@microsoft/fast-foundation';
+} from '@ni/fast-foundation';
 import { styles } from './styles';
 import type { BreadcrumbAppearance } from './types';
 

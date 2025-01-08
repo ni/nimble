@@ -1,4 +1,4 @@
-import { html } from '@microsoft/fast-element';
+import { html } from '@ni/fast-element';
 import { type Fixture, fixture } from '../../../utilities/tests/fixture';
 import { UnitByte, unitByteTag } from '..';
 import { byte1024UnitScale } from '../../../utilities/unit-format/unit-scale/byte-1024-unit-scale';

@@ -1,4 +1,4 @@
-import { slotted, html } from '@microsoft/fast-element';
+import { slotted, html } from '@ni/fast-element';
 import { template as baseTemplate } from '../base/template';
 import type { TableColumnEnumBase, TableColumnEnumColumnConfig } from '.';
 import type { TableColumnEnumBaseValidator } from './models/table-column-enum-base-validator';

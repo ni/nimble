@@ -1,5 +1,5 @@
-import { DesignSystem } from '@microsoft/fast-foundation';
-import { observable, volatile } from '@microsoft/fast-element';
+import { DesignSystem } from '@ni/fast-foundation';
+import { observable, volatile } from '@ni/fast-element';
 import { TableCellView } from '../../base/cell-view';
 import type {
     TableColumnMenuButtonCellRecord,

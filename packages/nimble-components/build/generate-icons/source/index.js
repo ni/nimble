@@ -4,7 +4,7 @@
  * Iterates through icons provided by nimble-tokens, and generates a Nimble component for each in
  * src/icons. Also generates an all-icons barrel file.
  */
-import { pascalCase, spinalCase } from '@microsoft/fast-web-utilities';
+import { pascalCase, spinalCase } from '@ni/fast-web-utilities';
 import * as icons from '@ni/nimble-tokens/dist/icons/js';
 
 const fs = require('fs');

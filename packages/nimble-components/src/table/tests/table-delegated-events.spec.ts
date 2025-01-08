@@ -1,4 +1,4 @@
-import { customElement, html } from '@microsoft/fast-element';
+import { customElement, html } from '@ni/fast-element';
 import { tableTag, type Table } from '..';
 import { TableColumn } from '../../table-column/base';
 import { tableColumnTextCellViewTag } from '../../table-column/text/cell-view';

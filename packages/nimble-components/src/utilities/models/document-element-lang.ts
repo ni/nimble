@@ -1,4 +1,4 @@
-import { observable } from '@microsoft/fast-element';
+import { observable } from '@ni/fast-element';
 
 /**
  * Observable class to subscribe to changes in the page's lang attribute

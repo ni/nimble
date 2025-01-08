@@ -1,4 +1,4 @@
-import { Notifier, Subscriber, Observable } from '@microsoft/fast-element';
+import { Notifier, Subscriber, Observable } from '@ni/fast-element';
 import {
     keyArrowDown,
     keyArrowLeft,
@@ -13,8 +13,8 @@ import {
     keyPageUp,
     keySpace,
     keyTab
-} from '@microsoft/fast-web-utilities';
-import { FoundationElement } from '@microsoft/fast-foundation';
+} from '@ni/fast-web-utilities';
+import { FoundationElement } from '@ni/fast-foundation';
 import type { ScrollToOptions } from '@tanstack/virtual-core';
 import type { Table } from '..';
 import {

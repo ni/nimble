@@ -1,5 +1,5 @@
-import { html, ref, slotted, when } from '@microsoft/fast-element';
-import { Listbox } from '@microsoft/fast-foundation';
+import { html, ref, slotted, when } from '@ni/fast-element';
+import { Listbox } from '@ni/fast-foundation';
 import type { RichTextMentionListbox } from '.';
 import { anchoredRegionTag } from '../../anchored-region';
 import { filterNoResultsLabel } from '../../label-provider/core/label-tokens';

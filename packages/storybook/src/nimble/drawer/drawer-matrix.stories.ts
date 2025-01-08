@@ -1,5 +1,5 @@
 import type { StoryFn, Meta } from '@storybook/html';
-import { html } from '@microsoft/fast-element';
+import { html } from '@ni/fast-element';
 import { drawerTag } from '../../../../nimble-components/src/drawer';
 import { createFixedThemeStory } from '../../utilities/storybook';
 import { sharedMatrixParameters } from '../../utilities/matrix';

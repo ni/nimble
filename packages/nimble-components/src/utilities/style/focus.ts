@@ -3,7 +3,7 @@
  */
 
 // eslint-disable-next-line no-restricted-imports
-import { focusVisible as focusVisibleOriginal } from '@microsoft/fast-foundation';
+import { focusVisible as focusVisibleOriginal } from '@ni/fast-foundation';
 
 /**
  * The string representing the focus selector to be used. Value

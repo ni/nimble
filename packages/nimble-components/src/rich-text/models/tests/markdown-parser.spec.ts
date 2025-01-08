@@ -1,4 +1,4 @@
-import { html, repeat } from '@microsoft/fast-element';
+import { html, repeat } from '@ni/fast-element';
 import { parameterizeSpec } from '@ni/jasmine-parameterized';
 import { mappingUserTag } from '../../../mapping/user';
 import {

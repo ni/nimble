@@ -1,4 +1,4 @@
-import { DesignSystem } from '@microsoft/fast-foundation';
+import { DesignSystem } from '@ni/fast-foundation';
 import type { TableStringFieldValue } from '../../../table/types';
 import { TableColumnTextGroupHeaderViewBase } from '../../text-base/group-header-view';
 import { template } from '../../text-base/group-header-view/template';

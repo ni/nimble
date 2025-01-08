@@ -1,4 +1,4 @@
-import { html, when } from '@microsoft/fast-element';
+import { html, when } from '@ni/fast-element';
 import type { Banner } from '.';
 import { buttonTag } from '../button';
 import { iconExclamationMarkTag } from '../icons/exclamation-mark';

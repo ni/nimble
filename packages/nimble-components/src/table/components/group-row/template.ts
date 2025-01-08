@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/indent */
-import { html, ref, when } from '@microsoft/fast-element';
+import { html, ref, when } from '@ni/fast-element';
 import type { TableGroupRow } from '.';
 import { buttonTag } from '../../../button';
 import { ButtonAppearance } from '../../../button/types';

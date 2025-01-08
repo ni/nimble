@@ -1,4 +1,4 @@
-import { css } from '@microsoft/fast-element';
+import { css } from '@ni/fast-element';
 import { ZIndexLevels } from '../utilities/style/types';
 import { display } from '../utilities/style/display';
 

@@ -1,4 +1,4 @@
-import { children, html, ref, slotted } from '@microsoft/fast-element';
+import { children, html, ref, slotted } from '@ni/fast-element';
 import type { TreeView } from '.';
 
 // prettier-ignore

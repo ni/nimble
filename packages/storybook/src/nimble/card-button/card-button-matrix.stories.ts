@@ -1,5 +1,5 @@
 import type { StoryFn, Meta } from '@storybook/html';
-import { html, ViewTemplate } from '@microsoft/fast-element';
+import { html, ViewTemplate } from '@ni/fast-element';
 import { bodyFont } from '../../../../nimble-components/src/theme-provider/design-tokens';
 import { cardButtonTag } from '../../../../nimble-components/src/card-button';
 import {

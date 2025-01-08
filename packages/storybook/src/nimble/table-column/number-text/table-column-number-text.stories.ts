@@ -1,4 +1,4 @@
-import { html, ref, when } from '@microsoft/fast-element';
+import { html, ref, when } from '@ni/fast-element';
 import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html';
 import { withActions } from '@storybook/addon-actions/decorator';
 import { tableTag } from '../../../../../nimble-components/src/table';

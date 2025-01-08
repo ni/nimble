@@ -1,5 +1,5 @@
-import { attr, observable, ViewTemplate } from '@microsoft/fast-element';
-import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
+import { attr, observable, ViewTemplate } from '@ni/fast-element';
+import { DesignSystem, FoundationElement } from '@ni/fast-foundation';
 import type { MenuButton } from '../../../menu-button';
 import type { MenuButtonToggleEventDetail } from '../../../menu-button/types';
 import type { TableColumn } from '../../../table-column/base';

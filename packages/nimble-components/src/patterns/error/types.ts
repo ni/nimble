@@ -1,4 +1,4 @@
-import { attr, FASTElement, observable } from '@microsoft/fast-element';
+import { attr, FASTElement, observable } from '@ni/fast-element';
 
 export interface ErrorPattern {
     errorText?: string;

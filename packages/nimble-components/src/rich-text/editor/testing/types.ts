@@ -3,7 +3,7 @@ import {
     keyArrowLeft,
     keyArrowRight,
     keyArrowUp
-} from '@microsoft/fast-web-utilities';
+} from '@ni/fast-web-utilities';
 import type { MappingUser } from '../../../mapping/user';
 import type { RichTextMentionTest } from '../../../rich-text-mention/base/tests/rich-text-mention.fixtures';
 import type { RichTextMentionUsers } from '../../../rich-text-mention/users';

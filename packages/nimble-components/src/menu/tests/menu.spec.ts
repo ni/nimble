@@ -1,4 +1,4 @@
-import { html } from '@microsoft/fast-element';
+import { html } from '@ni/fast-element';
 import { parameterizeSuite } from '@ni/jasmine-parameterized';
 import { Menu, menuTag } from '..';
 import { menuItemTag } from '../../menu-item';

@@ -1,4 +1,4 @@
-import { DesignSystem } from '@microsoft/fast-foundation';
+import { DesignSystem } from '@ni/fast-foundation';
 import { template } from '../../text-base/cell-view/template';
 import type {
     TableColumnTextCellRecord,

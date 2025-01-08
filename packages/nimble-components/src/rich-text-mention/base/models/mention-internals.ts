@@ -1,4 +1,4 @@
-import { ViewTemplate, html, observable } from '@microsoft/fast-element';
+import { ViewTemplate, html, observable } from '@ni/fast-element';
 import type { MappingConfigs, MentionUpdateEmitter } from '../types';
 import type { RichTextMentionValidator } from './mention-validator';
 

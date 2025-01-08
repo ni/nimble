@@ -1,10 +1,10 @@
-import { html, ref, slotted, ViewTemplate } from '@microsoft/fast-element';
+import { html, ref, slotted, ViewTemplate } from '@ni/fast-element';
 import {
     AnchorOptions,
     endSlotTemplate,
     FoundationElementTemplate,
     startSlotTemplate
-} from '@microsoft/fast-foundation';
+} from '@ni/fast-foundation';
 import type { AnchorButton } from '.';
 
 export const template: FoundationElementTemplate<

@@ -1,4 +1,4 @@
-import { html } from '@microsoft/fast-element';
+import { html } from '@ni/fast-element';
 import { Table, tableFromArrays } from 'apache-arrow';
 import type { Remote } from 'comlink';
 import { WaferMap, waferMapTag } from '..';

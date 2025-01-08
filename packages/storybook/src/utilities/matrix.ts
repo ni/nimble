@@ -1,4 +1,4 @@
-import { html, repeat, ViewTemplate, when } from '@microsoft/fast-element';
+import { html, repeat, ViewTemplate, when } from '@ni/fast-element';
 import { themeProviderTag } from '../../../nimble-components/src/theme-provider';
 import {
     bodyFont,

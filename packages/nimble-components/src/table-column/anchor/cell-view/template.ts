@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/indent */
-import { html, ref, when } from '@microsoft/fast-element';
+import { html, ref, when } from '@ni/fast-element';
 import type { TableColumnAnchorCellView } from '.';
 import { anchorTag } from '../../../anchor';
 import { overflow } from '../../../utilities/directive/overflow';

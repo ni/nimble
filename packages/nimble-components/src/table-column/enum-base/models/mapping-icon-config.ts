@@ -1,4 +1,4 @@
-import { html, type ViewTemplate } from '@microsoft/fast-element';
+import { html, type ViewTemplate } from '@ni/fast-element';
 import type { IconSeverity } from '../../../icon-base/types';
 import { MappingConfig } from './mapping-config';
 

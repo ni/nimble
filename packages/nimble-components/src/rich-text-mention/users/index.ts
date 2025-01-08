@@ -1,4 +1,4 @@
-import { DesignSystem } from '@microsoft/fast-foundation';
+import { DesignSystem } from '@ni/fast-foundation';
 import type { MentionInternalsOptions } from '../base/models/mention-internals';
 import { RichTextMention } from '../base';
 import type { MappingConfig } from '../base/models/mapping-config';

@@ -1,5 +1,5 @@
-import { html, ref } from '@microsoft/fast-element';
-import type { AutoUpdateMode } from '@microsoft/fast-foundation';
+import { html, ref } from '@ni/fast-element';
+import type { AutoUpdateMode } from '@ni/fast-foundation';
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html';
 import {

@@ -5,13 +5,13 @@ import {
     Notifier,
     DOM,
     volatile
-} from '@microsoft/fast-element';
+} from '@ni/fast-element';
 import {
     Checkbox,
     DesignSystem,
     DesignTokenSubscriber,
     FoundationElement
-} from '@microsoft/fast-foundation';
+} from '@ni/fast-foundation';
 import {
     ColumnDef as TanStackColumnDef,
     TableState as TanStackTableState,
@@ -30,7 +30,7 @@ import {
     ExpandedState as TanStackExpandedState,
     OnChangeFn as TanStackOnChangeFn
 } from '@tanstack/table-core';
-import { keyEnter } from '@microsoft/fast-web-utilities';
+import { keyEnter } from '@ni/fast-web-utilities';
 import { TableColumn } from '../table-column/base';
 import { TableValidator } from './models/table-validator';
 import { styles } from './styles';

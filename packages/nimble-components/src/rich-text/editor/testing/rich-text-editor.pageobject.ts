@@ -3,7 +3,7 @@ import {
     keyEnter,
     keyTab,
     keyEscape
-} from '@microsoft/fast-web-utilities';
+} from '@ni/fast-web-utilities';
 import type { RichTextEditor } from '..';
 import { waitForUpdatesAsync } from '../../../testing/async-helpers';
 import { toggleButtonTag, type ToggleButton } from '../../../toggle-button';

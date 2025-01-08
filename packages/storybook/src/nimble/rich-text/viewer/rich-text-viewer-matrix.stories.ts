@@ -1,5 +1,5 @@
 import type { Meta, StoryFn } from '@storybook/html';
-import { html, ViewTemplate } from '@microsoft/fast-element';
+import { html, ViewTemplate } from '@ni/fast-element';
 import {
     cssPropertyFromTokenName,
     tokenNames

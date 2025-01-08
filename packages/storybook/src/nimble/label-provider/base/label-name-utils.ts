@@ -1,4 +1,4 @@
-import { spinalCase } from '@microsoft/fast-web-utilities';
+import { spinalCase } from '@ni/fast-web-utilities';
 
 export function getPropertyName(jsKey: string): string {
     return jsKey.replace(/Label$/, '');

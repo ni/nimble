@@ -1,4 +1,4 @@
-import { html } from '@microsoft/fast-element';
+import { html } from '@ni/fast-element';
 import { richTextEditorTag, type RichTextEditor } from '../../editor';
 import { fixture, type Fixture } from '../../../utilities/tests/fixture';
 import { RichTextEditorPageObject } from '../../editor/testing/rich-text-editor.pageobject';

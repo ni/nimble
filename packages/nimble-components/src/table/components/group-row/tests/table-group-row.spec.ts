@@ -1,4 +1,4 @@
-import { html } from '@microsoft/fast-element';
+import { html } from '@ni/fast-element';
 import { TableGroupRow, tableGroupRowTag } from '..';
 import { waitForEvent } from '../../../../utilities/testing/component';
 import { fixture, Fixture } from '../../../../utilities/tests/fixture';

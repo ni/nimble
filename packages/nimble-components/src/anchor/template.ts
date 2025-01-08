@@ -1,8 +1,8 @@
-import { html, ref, slotted, ViewTemplate } from '@microsoft/fast-element';
+import { html, ref, slotted, ViewTemplate } from '@ni/fast-element';
 import type {
     AnchorOptions,
     FoundationElementTemplate
-} from '@microsoft/fast-foundation';
+} from '@ni/fast-foundation';
 import type { Anchor } from '.';
 
 // prettier-ignore

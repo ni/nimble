@@ -1,4 +1,4 @@
-import { customElement, html, ref } from '@microsoft/fast-element';
+import { customElement, html, ref } from '@ni/fast-element';
 import { parameterizeSpec } from '@ni/jasmine-parameterized';
 import {
     uniqueElementName,

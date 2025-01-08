@@ -15,7 +15,7 @@ module.exports = {
                 'no-restricted-imports': ['error', {
                     patterns:
                 [{
-                    group: ['@microsoft/fast-*'],
+                    group: ['@ni/fast-*'],
                     message: 'Do not directly use underlying libraries of nimble. Instead rely on or add to exports of nimble packages.'
                 },
                 {

@@ -1,5 +1,5 @@
-import { html, ref, slotted, ViewTemplate } from '@microsoft/fast-element';
-import type { FoundationElementTemplate } from '@microsoft/fast-foundation';
+import { html, ref, slotted, ViewTemplate } from '@ni/fast-element';
+import type { FoundationElementTemplate } from '@ni/fast-foundation';
 import type { TextArea } from '.';
 import { iconExclamationMarkTag } from '../icons/exclamation-mark';
 import { errorTextTemplate } from '../patterns/error/template';

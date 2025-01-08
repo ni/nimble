@@ -10,7 +10,7 @@ import {
     FASTElement,
     html,
     observable
-} from '@microsoft/fast-element';
+} from '@ni/fast-element';
 import { waitForUpdatesAsync } from '@ni/nimble-components/dist/esm/testing/async-helpers';
 import { uniqueElementName, fixture } from '../fixture';
 

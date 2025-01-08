@@ -1,4 +1,4 @@
-import { css } from '@microsoft/fast-element';
+import { css } from '@ni/fast-element';
 import { styles as dropdownStyles } from '../../patterns/dropdown/styles';
 import { focusVisible } from '../../utilities/style/focus';
 import { menuMinWidth } from '../../theme-provider/design-tokens';

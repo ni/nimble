@@ -1,4 +1,4 @@
-import type { Behavior, ElementStyles } from '@microsoft/fast-element';
+import type { Behavior, ElementStyles } from '@ni/fast-element';
 import { MultivaluePropertyStyleSheetBehavior } from './multivalue-property-stylesheet-behavior';
 
 /**

@@ -1,5 +1,5 @@
 import type { StoryFn, Meta } from '@storybook/html';
-import { html, ViewTemplate } from '@microsoft/fast-element';
+import { html, ViewTemplate } from '@ni/fast-element';
 import { standardPadding } from '../../../../nimble-components/src/theme-provider/design-tokens';
 import { checkboxTag } from '../../../../nimble-components/src/checkbox';
 import {

@@ -1,5 +1,5 @@
-import { elements, html, slotted } from '@microsoft/fast-element';
-import { Orientation } from '@microsoft/fast-web-utilities';
+import { elements, html, slotted } from '@ni/fast-element';
+import { Orientation } from '@ni/fast-web-utilities';
 import type { RadioGroup } from '.';
 import { errorTextTemplate } from '../patterns/error/template';
 import { iconExclamationMarkTag } from '../icons/exclamation-mark';

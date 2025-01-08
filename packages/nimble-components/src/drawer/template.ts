@@ -1,4 +1,4 @@
-import { html, ref } from '@microsoft/fast-element';
+import { html, ref } from '@ni/fast-element';
 import type { Drawer } from '.';
 
 export const template = html<Drawer>`
