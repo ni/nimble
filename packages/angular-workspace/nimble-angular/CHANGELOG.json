@@ -2,6 +2,21 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Wed, 08 Jan 2025 20:22:05 GMT",
+      "version": "28.8.0",
+      "tag": "@ni/nimble-angular_v28.8.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "5f2245fc0a7bd252ef7cef2ceaa978c12d06808d",
+            "comment": "Angular support for required-visible"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 08 Jan 2025 18:33:06 GMT",
       "version": "28.7.4",
       "tag": "@ni/nimble-angular_v28.7.4",

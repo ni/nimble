@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-blazor
 
-<!-- This log was last generated on Wed, 08 Jan 2025 18:33:06 GMT and should not be manually modified. -->
+<!-- This log was last generated on Wed, 08 Jan 2025 20:22:05 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 19.4.0
+
+Wed, 08 Jan 2025 20:22:05 GMT
+
+### Minor changes
+
+- Blazor support for required-visible ([ni/nimble@5f2245f](https://github.com/ni/nimble/commit/5f2245fc0a7bd252ef7cef2ceaa978c12d06808d))
 
 ## 19.3.4
 
