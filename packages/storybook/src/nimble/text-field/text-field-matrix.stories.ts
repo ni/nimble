@@ -135,12 +135,12 @@ const component = (
 `;
 
 // prettier-ignore
-const reducedStateComponent = (
+const requiredVisibleStatesComponent = (
     [requiredVisibleName, requiredVisible]: RequiredVisibleState,
+    [appearanceName, appearance]: AppearanceState,
     [readOnlyName, readonly]: ReadOnlyState,
     [disabledName, disabled]: DisabledState,
-    [errorName, errorVisible, errorText]: ErrorState,
-    [appearanceName, appearance]: AppearanceState
+    [errorName, errorVisible, errorText]: ErrorState
 ): ViewTemplate => html`
     <${textFieldTag}
         style="width: 350px; margin: 8px;"
@@ -520,12 +520,12 @@ export const colorThemeReadOnlyDisabledWithButtons: StoryFn = createFixedThemeSt
 );
 
 export const textFieldRequiredVisibleThemeMatrix: StoryFn = createMatrixThemeStory(
-    createMatrix(reducedStateComponent, [
+    createMatrix(requiredVisibleStatesComponent, [
         requiredVisibleStates,
+        appearanceStates,
         readOnlyStates,
         disabledStates,
-        errorStates,
-        appearanceStates
+        errorStates
     ])
 );
 
