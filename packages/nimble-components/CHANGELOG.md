@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-<!-- This log was last generated on Mon, 06 Jan 2025 20:05:57 GMT and should not be manually modified. -->
+<!-- This log was last generated on Wed, 08 Jan 2025 18:33:05 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 32.11.0
+
+Wed, 08 Jan 2025 18:33:05 GMT
+
+### Minor changes
+
+- Add `required-visible` attribute to number-field and text-field ([ni/nimble@a0662f1](https://github.com/ni/nimble/commit/a0662f1b0d7a1fdff40d752f9455c91eb0ad5d5a))
 
 ## 32.10.0
 
