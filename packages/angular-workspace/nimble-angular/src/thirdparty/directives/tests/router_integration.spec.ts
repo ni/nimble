@@ -36,6 +36,7 @@ import {
   ViewChildren,
   ɵConsole as Console,
   ɵNoopNgZone as NoopNgZone,
+  Directive,
 } from '@angular/core';
 import {ComponentFixture, fakeAsync, inject, TestBed, tick} from '@angular/core/testing';
 import {By} from '@angular/platform-browser';
@@ -83,6 +84,7 @@ import {
   UrlSegment,
   UrlSegmentGroup,
   UrlTree,
+  provideRouter,
 } from '@angular/router';
 import {RouterLink} from '../router_link';
 import {RouterTestingHarness} from '@angular/router/testing';

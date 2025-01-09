@@ -23,7 +23,7 @@ import {
   Inject,
   InjectionToken,
   Optional,
-  Provider,
+  type Provider,
   Renderer2,
 } from '@angular/core';
 
