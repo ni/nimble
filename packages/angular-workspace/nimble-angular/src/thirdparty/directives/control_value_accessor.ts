@@ -1,6 +1,6 @@
 /**
  * [Nimble]
- * Copied from https://github.com/angular/angular/blob/17.3.11/packages/forms/src/directives/control_value_accessor.ts
+ * Copied from https://github.com/angular/angular/blob/18.2.13/packages/forms/src/directives/control_value_accessor.ts
  * with the following modifications:
  * - Update imports
  * - Commented out ControlValueAccessor which is exported from @angular/forms
@@ -12,7 +12,7 @@
  * Copyright Google LLC All Rights Reserved.
  *
  * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
+ * found in the LICENSE file at https://angular.dev/license
  */
 
 import {Directive, ElementRef, InjectionToken, Renderer2} from '@angular/core';
@@ -164,7 +164,10 @@ export class BaseControlValueAccessor {
    */
   onTouched = () => {};
 
-  constructor(private _renderer: Renderer2, private _elementRef: ElementRef) {}
+  constructor(
+    private _renderer: Renderer2,
+    private _elementRef: ElementRef,
+  ) {}
 
   /**
    * Helper method that sets a property on a target element using the current Renderer
@@ -210,8 +213,7 @@ export class BaseControlValueAccessor {
  * applications code.
  */
 @Directive()
-export class BuiltInControlValueAccessor extends BaseControlValueAccessor {
-}
+export class BuiltInControlValueAccessor extends BaseControlValueAccessor {}
 
 /**
  * Used to provide a `ControlValueAccessor` for form controls.
@@ -221,6 +223,7 @@ export class BuiltInControlValueAccessor extends BaseControlValueAccessor {
  * @publicApi
  */
 /* [Nimble] Commenting out public injection token
-export const NG_VALUE_ACCESSOR =
-    new InjectionToken<ReadonlyArray<ControlValueAccessor>>(ngDevMode ? 'NgValueAccessor' : '');
+export const NG_VALUE_ACCESSOR = new InjectionToken<ReadonlyArray<ControlValueAccessor>>(
+  ngDevMode ? 'NgValueAccessor' : '',
+);
 */
