@@ -1,5 +1,4 @@
 import type { Checkbox } from '@ni/fast-foundation';
-import { keyShift } from '@ni/fast-web-utilities';
 import { parseColor } from '@ni/fast-colors';
 import type { Table } from '..';
 import { tableHeaderTag, type TableHeader } from '../components/header';
@@ -21,6 +20,8 @@ import { Icon } from '../../icon-base';
 import type { IconSeverity } from '../../icon-base/types';
 import { Spinner, spinnerTag } from '../../spinner';
 import { borderHoverColor } from '../../theme-provider/design-tokens';
+
+const keyShift = 'Shift';
 
 /**
  * Summary information about a column that is sorted in the table for use in the `TablePageObject`.
