@@ -1,10 +1,7 @@
 // Based on tests in FAST repo: https://github.com/microsoft/fast/blob/913c27e7e8503de1f7cd50bdbc9388134f52ef5d/packages/web-components/fast-foundation/src/radio-group/radio-group.spec.ts
 
 import { DOM } from '@ni/fast-element';
-import {
-    Radio,
-    radioTemplate as itemTemplate
-} from '@ni/fast-foundation';
+import { Radio, radioTemplate as itemTemplate } from '@ni/fast-foundation';
 import { Orientation } from '@ni/fast-web-utilities';
 import { RadioGroup } from '..';
 import { fixture } from '../../utilities/tests/fixture';
