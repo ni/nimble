@@ -1,5 +1,5 @@
 import { Directive, ElementRef, Input, Renderer2 } from '@angular/core';
-import { NumberValueOrAttribute, toNullableNumberProperty } from '@ni/nimble-angular/internal-utilities';
+import { type NumberValueOrAttribute, toNullableNumberProperty } from '@ni/nimble-angular/internal-utilities';
 import { NimbleTableColumnBaseDirective } from '@ni/nimble-angular/table-column';
 import { TableColumnMenuButton, tableColumnMenuButtonTag } from '@ni/nimble-components/dist/esm/table-column/menu-button';
 import type { MenuButtonColumnToggleEventDetail } from '@ni/nimble-components/dist/esm/table-column/menu-button/types';

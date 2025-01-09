@@ -28,15 +28,15 @@ import {
   HostListener,
   Inject,
   Input,
-  OnChanges,
-  OnDestroy,
+  type OnChanges,
+  type OnDestroy,
   Renderer2,
-  SimpleChanges,
+  type SimpleChanges,
   ɵɵsanitizeUrlOrResourceUrl,
 } from '@angular/core';
 import {Subject, Subscription} from 'rxjs';
 
-import { Event, Params, QueryParamsHandling, ActivatedRoute, Router, NavigationEnd, UrlTree } from '@angular/router';
+import { type Event, type Params, type QueryParamsHandling, ActivatedRoute, Router, NavigationEnd, UrlTree } from '@angular/router';
 
 
 /**

@@ -16,9 +16,9 @@
  */
 
 import {ɵgetDOM as getDOM} from '@angular/common';
-import {Directive, ElementRef, forwardRef, Inject, InjectionToken, Optional, Provider, Renderer2} from '@angular/core';
+import {Directive, ElementRef, forwardRef, Inject, InjectionToken, Optional, type Provider, Renderer2} from '@angular/core';
 
-import {ControlValueAccessor, COMPOSITION_BUFFER_MODE} from '@angular/forms';
+import {type ControlValueAccessor, COMPOSITION_BUFFER_MODE} from '@angular/forms';
 import {BaseControlValueAccessor} from './control_value_accessor';
 
 /* [Nimble] Do not register as a default value accessor provider

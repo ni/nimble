@@ -3,7 +3,7 @@ import { type BooleanValueOrAttribute, toBooleanProperty } from '@ni/nimble-angu
 import type { ListOption, listOptionTag } from '@ni/nimble-components/dist/esm/list-option';
 
 export type { ListOption };
-export { listOptionTag };
+export type { listOptionTag };
 
 /**
  * Directive to provide Angular integration for the list option.
