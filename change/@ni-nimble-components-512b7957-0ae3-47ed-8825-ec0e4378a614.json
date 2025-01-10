@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Inline constant from external library for table pageobject",
-  "packageName": "@ni/nimble-components",
-  "email": "rajsite@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}

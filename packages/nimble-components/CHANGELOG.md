@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-<!-- This log was last generated on Wed, 08 Jan 2025 18:33:05 GMT and should not be manually modified. -->
+<!-- This log was last generated on Fri, 10 Jan 2025 16:45:51 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 32.11.1
+
+Fri, 10 Jan 2025 16:45:51 GMT
+
+### Patches
+
+- Inline constant from external library for table pageobject ([ni/nimble@cf916f9](https://github.com/ni/nimble/commit/cf916f9123a55947fa71b8e5b2bd07f6f00721bf))
 
 ## 32.11.0
 
