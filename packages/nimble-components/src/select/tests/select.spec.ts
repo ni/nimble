@@ -1,6 +1,6 @@
 import { html, repeat } from '@microsoft/fast-element';
 import { parameterizeSpec, parameterizeSuite } from '@ni/jasmine-parameterized';
-import { fixture, Fixture } from '../../utilities/tests/fixture';
+import { fixture, type Fixture } from '../../utilities/tests/fixture';
 import { Select, selectTag } from '..';
 import { SelectPageObjectInternal as SelectPageObject } from './select.pageobject.internal';
 import { ListOption, listOptionTag } from '../../list-option';
@@ -9,7 +9,7 @@ import {
     waitForUpdatesAsync
 } from '../../testing/async-helpers';
 import { checkFullyInViewport } from '../../utilities/tests/intersection-observer';
-import { FilterMode, SelectFilterInputEventDetail } from '../types';
+import { FilterMode, type SelectFilterInputEventDetail } from '../types';
 import {
     waitForEvent,
     waitAnimationFrame

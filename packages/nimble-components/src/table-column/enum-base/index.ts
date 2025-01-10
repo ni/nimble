@@ -1,9 +1,9 @@
 import {
     attr,
-    Notifier,
+    type Notifier,
     Observable,
     observable,
-    Subscriber
+    type Subscriber
 } from '@microsoft/fast-element';
 import type {
     TableStringField,

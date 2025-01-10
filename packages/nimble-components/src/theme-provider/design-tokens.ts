@@ -1,4 +1,4 @@
-import { CSSDesignToken, DesignToken } from '@microsoft/fast-foundation';
+import { type CSSDesignToken, DesignToken } from '@microsoft/fast-foundation';
 import { parseColorHexRGB } from '@microsoft/fast-colors';
 import {
     Black,

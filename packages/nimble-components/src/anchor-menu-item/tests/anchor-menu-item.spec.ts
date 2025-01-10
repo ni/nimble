@@ -6,7 +6,7 @@ import { iconCheckTag, type IconCheck } from '../../icons/check';
 import { iconXmarkTag, type IconXmark } from '../../icons/xmark';
 import { menuTag, type Menu } from '../../menu';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
-import { fixture, Fixture } from '../../utilities/tests/fixture';
+import { fixture, type Fixture } from '../../utilities/tests/fixture';
 import { menuItemTag } from '../../menu-item';
 
 @customElement('foundation-menu-item')

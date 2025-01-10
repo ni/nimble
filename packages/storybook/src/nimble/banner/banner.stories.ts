@@ -14,7 +14,7 @@ import { popupDismissLabel } from '../../../../nimble-components/src/label-provi
 import { bannerTag } from '../../../../nimble-components/src/banner';
 import { BannerSeverity } from '../../../../nimble-components/src/banner/types';
 import {
-    LabelUserArgs,
+    type LabelUserArgs,
     addLabelUseMetadata
 } from '../label-provider/base/label-user-stories-utils';
 import {

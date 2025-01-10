@@ -12,8 +12,8 @@ import { menuButtonTag } from '../../../../../nimble-components/src/menu-button'
 import { anchorButtonTag } from '../../../../../nimble-components/src/anchor-button';
 import { richTextEditorTag } from '../../../../../nimble-components/src/rich-text/editor';
 import {
-    DisabledState,
-    ErrorState,
+    type DisabledState,
+    type ErrorState,
     disabledStates,
     errorStates
 } from '../../../utilities/states';

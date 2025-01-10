@@ -1,7 +1,7 @@
 import {
     DesignSystem,
     Toolbar as FoundationToolbar,
-    ToolbarOptions,
+    type ToolbarOptions,
     toolbarTemplate as template
 } from '@microsoft/fast-foundation';
 import { styles } from './styles';

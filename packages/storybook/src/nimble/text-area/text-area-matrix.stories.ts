@@ -10,12 +10,12 @@ import {
 } from '../../utilities/matrix';
 import {
     disabledStates,
-    DisabledState,
-    ReadOnlyState,
+    type DisabledState,
+    type ReadOnlyState,
     readOnlyStates,
-    ErrorState,
+    type ErrorState,
     errorStates,
-    RequiredVisibleState,
+    type RequiredVisibleState,
     requiredVisibleStates
 } from '../../utilities/states';
 import { hiddenWrapper } from '../../utilities/hidden';

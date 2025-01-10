@@ -11,7 +11,7 @@ import {
     DesignSystem,
     Select as FoundationSelect,
     ListboxOption,
-    SelectOptions,
+    type SelectOptions,
     SelectPosition,
     applyMixins,
     StartEnd,
@@ -32,14 +32,14 @@ import { arrowExpanderDown16X16 } from '@ni/nimble-tokens/dist/icons/js';
 import { styles } from './styles';
 import {
     DropdownAppearance,
-    ListOptionOwner
+    type ListOptionOwner
 } from '../patterns/dropdown/types';
 import { errorTextTemplate } from '../patterns/error/template';
 import { mixinErrorPattern } from '../patterns/error/types';
 import { iconExclamationMarkTag } from '../icons/exclamation-mark';
 import { isListOption, isListOptionGroup, template } from './template';
 import type { ListOption } from '../list-option';
-import { FilterMode, SelectFilterInputEventDetail } from './types';
+import { FilterMode, type SelectFilterInputEventDetail } from './types';
 import { diacriticInsensitiveStringNormalizer } from '../utilities/models/string-normalizers';
 import { FormAssociatedSelect } from './models/select-form-associated';
 import type { ListOptionGroup } from '../list-option-group';

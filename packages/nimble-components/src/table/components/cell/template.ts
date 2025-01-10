@@ -4,7 +4,7 @@ import { iconThreeDotsLineTag } from '../../../icons/three-dots-line';
 import { menuButtonTag } from '../../../menu-button';
 import {
     ButtonAppearance,
-    MenuButtonToggleEventDetail
+    type MenuButtonToggleEventDetail
 } from '../../../menu-button/types';
 import { tableCellActionMenuLabel } from '../../../label-provider/table/label-tokens';
 

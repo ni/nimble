@@ -1,9 +1,9 @@
 import { parameterizeSpec } from '@ni/jasmine-parameterized';
 import {
-    TableRecord,
+    type TableRecord,
     TableRecordDelayedHierarchyState,
     TableRowSelectionMode,
-    TableSetRecordHierarchyOptions
+    type TableSetRecordHierarchyOptions
 } from '../../types';
 import { TableValidator } from '../table-validator';
 import {

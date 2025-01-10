@@ -4,7 +4,7 @@ import { Menu, menuTag } from '..';
 import { menuItemTag } from '../../menu-item';
 import { anchorMenuItemTag } from '../../anchor-menu-item';
 import { iconCheckTag } from '../../icons/check';
-import { Fixture, fixture } from '../../utilities/tests/fixture';
+import { type Fixture, fixture } from '../../utilities/tests/fixture';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 
 describe('Menu', () => {

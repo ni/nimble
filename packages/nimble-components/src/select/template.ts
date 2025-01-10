@@ -7,8 +7,8 @@ import {
 } from '@microsoft/fast-element';
 import {
     endSlotTemplate,
-    FoundationElementTemplate,
-    SelectOptions,
+    type FoundationElementTemplate,
+    type SelectOptions,
     startSlotTemplate
 } from '@microsoft/fast-foundation';
 import type { Select } from '.';

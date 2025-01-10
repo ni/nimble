@@ -2,7 +2,7 @@ import { attr, customElement, html } from '@microsoft/fast-element';
 import { DesignToken } from '@microsoft/fast-foundation';
 import { ThemeProvider, themeProviderTag } from '../../../theme-provider';
 import {
-    Fixture,
+    type Fixture,
     fixture,
     uniqueElementName
 } from '../../../utilities/tests/fixture';

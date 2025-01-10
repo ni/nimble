@@ -1,8 +1,8 @@
 import { html, ref, slotted } from '@microsoft/fast-element';
 import type { ViewTemplate } from '@microsoft/fast-element';
 import {
-    FoundationElementTemplate,
-    TextFieldOptions,
+    type FoundationElementTemplate,
+    type TextFieldOptions,
     whitespaceFilter,
     startSlotTemplate,
     endSlotTemplate

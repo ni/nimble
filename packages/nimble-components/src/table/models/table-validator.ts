@@ -1,9 +1,9 @@
 import type { TableColumn } from '../../table-column/base';
 import {
-    TableRecord,
+    type TableRecord,
     TableRowSelectionMode,
-    TableSetRecordHierarchyOptions,
-    TableValidity
+    type TableSetRecordHierarchyOptions,
+    type TableValidity
 } from '../types';
 
 /**

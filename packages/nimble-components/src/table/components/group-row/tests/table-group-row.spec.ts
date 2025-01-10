@@ -1,11 +1,11 @@
 import { html } from '@microsoft/fast-element';
 import { TableGroupRow, tableGroupRowTag } from '..';
 import { waitForEvent } from '../../../../utilities/testing/component';
-import { fixture, Fixture } from '../../../../utilities/tests/fixture';
+import { fixture, type Fixture } from '../../../../utilities/tests/fixture';
 import { waitForUpdatesAsync } from '../../../../testing/async-helpers';
 import {
     TableRowSelectionState,
-    TableRowSelectionToggleEventDetail
+    type TableRowSelectionToggleEventDetail
 } from '../../../types';
 
 type TableRowSelectionToggleEventHandler = (

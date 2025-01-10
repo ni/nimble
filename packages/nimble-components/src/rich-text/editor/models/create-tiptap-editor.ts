@@ -17,8 +17,8 @@ import { PluginKey } from 'prosemirror-state';
 
 import { keyEscape } from '@microsoft/fast-web-utilities';
 import {
-    ActiveMentionCommandEmitter,
-    ActiveMentionCharacterEmitter,
+    type ActiveMentionCommandEmitter,
+    type ActiveMentionCharacterEmitter,
     mentionPluginPrefix
 } from '../types';
 

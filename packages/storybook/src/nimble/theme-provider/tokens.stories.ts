@@ -6,7 +6,7 @@ import {
     tokenNames as tokens,
     cssPropertyFromTokenName,
     scssPropertyFromTokenName,
-    TokenSuffix,
+    type TokenSuffix,
     suffixFromTokenName
 } from '../../../../nimble-components/src/theme-provider/design-token-names';
 import { comments } from '../../../../nimble-components/src/theme-provider/design-token-comments';

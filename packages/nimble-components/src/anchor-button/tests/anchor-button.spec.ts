@@ -2,7 +2,7 @@ import { html } from '@microsoft/fast-element';
 import { parameterizeSpec } from '@ni/jasmine-parameterized';
 import { AnchorButton, anchorButtonTag } from '..';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
-import { fixture, Fixture } from '../../utilities/tests/fixture';
+import { fixture, type Fixture } from '../../utilities/tests/fixture';
 
 async function setup(): Promise<Fixture<AnchorButton>> {
     return await fixture<AnchorButton>(

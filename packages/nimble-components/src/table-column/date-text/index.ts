@@ -1,6 +1,6 @@
 import {
     DesignSystem,
-    DesignTokenSubscriber
+    type DesignTokenSubscriber
 } from '@microsoft/fast-foundation';
 import { attr } from '@microsoft/fast-element';
 import { styles } from '../base/styles';

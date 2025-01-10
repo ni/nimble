@@ -5,7 +5,10 @@ import { tableTag, type Table } from '../../../table';
 import { TableColumnAnchor, tableColumnAnchorTag } from '..';
 import { waitForUpdatesAsync } from '../../../testing/async-helpers';
 import { type Fixture, fixture } from '../../../utilities/tests/fixture';
-import { TableColumnSortDirection, TableRecord } from '../../../table/types';
+import {
+    TableColumnSortDirection,
+    type TableRecord
+} from '../../../table/types';
 import { TablePageObject } from '../../../table/testing/table.pageobject';
 import { wackyStrings } from '../../../utilities/tests/wacky-strings';
 import type { Anchor } from '../../../anchor';

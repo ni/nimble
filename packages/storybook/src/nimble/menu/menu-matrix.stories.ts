@@ -11,7 +11,10 @@ import {
     createMatrix,
     sharedMatrixParameters
 } from '../../utilities/matrix';
-import { IconVisibleState, iconVisibleStates } from '../../utilities/states';
+import {
+    type IconVisibleState,
+    iconVisibleStates
+} from '../../utilities/states';
 import { hiddenWrapper } from '../../utilities/hidden';
 import { textCustomizationWrapper } from '../../utilities/text-customization';
 

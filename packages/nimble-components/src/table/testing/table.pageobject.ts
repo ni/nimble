@@ -5,7 +5,7 @@ import type { Table } from '..';
 import { tableHeaderTag, type TableHeader } from '../components/header';
 import {
     TableColumnSortDirection,
-    TableRecord,
+    type TableRecord,
     TableRowSelectionState
 } from '../types';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';

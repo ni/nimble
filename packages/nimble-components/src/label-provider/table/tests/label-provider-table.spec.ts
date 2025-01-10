@@ -9,7 +9,7 @@ import {
     removePrefixAndCamelCase
 } from '../../base/tests/label-name-utils';
 import { ThemeProvider, themeProviderTag } from '../../../theme-provider';
-import { Fixture, fixture } from '../../../utilities/tests/fixture';
+import { type Fixture, fixture } from '../../../utilities/tests/fixture';
 
 type DesignTokenPropertyName = keyof typeof labelTokensNamespace;
 const designTokenPropertyNames = Object.keys(

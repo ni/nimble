@@ -7,7 +7,7 @@ import { AnchorAppearance } from '../../../../../nimble-components/src/anchor/ty
 import { tableColumnAnchorTag } from '../../../../../nimble-components/src/table-column/anchor';
 import {
     sharedTableActions,
-    SharedTableArgs,
+    type SharedTableArgs,
     sharedTableArgs,
     sharedTableArgTypes
 } from '../base/table-column-stories-utils';

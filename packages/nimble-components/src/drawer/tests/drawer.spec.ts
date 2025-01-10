@@ -1,6 +1,6 @@
 import { html } from '@microsoft/fast-element';
 import { eventAnimationEnd } from '@microsoft/fast-web-utilities';
-import { fixture, Fixture } from '../../utilities/tests/fixture';
+import { fixture, type Fixture } from '../../utilities/tests/fixture';
 import { Drawer, drawerTag, UserDismissed } from '..';
 import { DrawerLocation } from '../types';
 import {

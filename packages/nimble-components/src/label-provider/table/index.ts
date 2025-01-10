@@ -1,6 +1,6 @@
 import { attr } from '@microsoft/fast-element';
 import { DesignSystem } from '@microsoft/fast-foundation';
-import { DesignTokensFor, LabelProviderBase } from '../base';
+import { type DesignTokensFor, LabelProviderBase } from '../base';
 import {
     tableCellActionMenuLabel,
     tableColumnHeaderGroupedLabel,

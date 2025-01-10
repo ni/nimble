@@ -19,9 +19,9 @@ import {
 import {
     TableColumnAlignment,
     TableColumnSortDirection,
-    TableRecord,
+    type TableRecord,
     TableRecordDelayedHierarchyState,
-    TableRecordHierarchyOptions
+    type TableRecordHierarchyOptions
 } from '../types';
 import { TablePageObject } from '../testing/table.pageobject';
 import {

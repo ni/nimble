@@ -13,7 +13,7 @@ import {
 import {
     ButtonAppearance,
     ButtonAppearanceVariant,
-    MenuButtonToggleEventDetail,
+    type MenuButtonToggleEventDetail,
     MenuButtonPosition
 } from './types';
 import type { ToggleButton } from '../toggle-button';

@@ -23,7 +23,7 @@ import {
     WeekdayFormat
 } from '../../../../../nimble-components/src/table-column/date-text/types';
 import {
-    SharedTableArgs,
+    type SharedTableArgs,
     sharedTableActions,
     sharedTableArgTypes,
     sharedTableArgs

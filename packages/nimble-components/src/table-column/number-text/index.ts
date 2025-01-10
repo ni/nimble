@@ -1,14 +1,14 @@
 import {
     DesignSystem,
-    DesignTokenSubscriber
+    type DesignTokenSubscriber
 } from '@microsoft/fast-foundation';
 import {
     attr,
-    Notifier,
+    type Notifier,
     nullableNumberConverter,
     Observable,
     observable,
-    Subscriber
+    type Subscriber
 } from '@microsoft/fast-element';
 import { styles } from '../base/styles';
 import { template } from './template';

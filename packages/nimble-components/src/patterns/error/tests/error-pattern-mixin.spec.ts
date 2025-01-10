@@ -1,7 +1,7 @@
 import { customElement, html } from '@microsoft/fast-element';
 import { FoundationElement } from '@microsoft/fast-foundation';
 import {
-    Fixture,
+    type Fixture,
     fixture,
     uniqueElementName
 } from '../../../utilities/tests/fixture';
