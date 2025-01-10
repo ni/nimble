@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import type { BooleanValueOrAttribute } from '@ni/nimble-angular/internal-utilities';
 import { NimbleTabModule } from '../nimble-tab.module';
-import { NimbleTabDirective, Tab } from '../nimble-tab.directive';
+import { NimbleTabDirective, type Tab } from '../nimble-tab.directive';
 
 describe('Nimble tab', () => {
     describe('module', () => {

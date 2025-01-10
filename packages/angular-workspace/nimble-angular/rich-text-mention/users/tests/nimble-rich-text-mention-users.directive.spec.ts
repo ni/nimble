@@ -2,7 +2,7 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NimbleRichTextMentionUsersModule } from '../nimble-rich-text-mention-users.module';
 import { NimbleRichTextEditorModule } from '../../../rich-text/editor/nimble-rich-text-editor.module';
-import { NimbleRichTextMentionUsersDirective, RichTextMentionUsers } from '../nimble-rich-text-mention-users.directive';
+import { NimbleRichTextMentionUsersDirective, type RichTextMentionUsers } from '../nimble-rich-text-mention-users.directive';
 
 describe('NimbleRichTextMentionUsers', () => {
     describe('module', () => {

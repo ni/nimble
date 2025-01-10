@@ -1,7 +1,7 @@
 import { html, ref } from '@microsoft/fast-element';
 import { parameterizeSpec } from '@ni/jasmine-parameterized';
 import { tableTag, type Table } from '../../../table';
-import { TableColumnNumberText, tableColumnNumberTextTag } from '..';
+import { type TableColumnNumberText, tableColumnNumberTextTag } from '..';
 import { waitForUpdatesAsync } from '../../../testing/async-helpers';
 import { type Fixture, fixture } from '../../../utilities/tests/fixture';
 import { TableColumnAlignment, type TableRecord } from '../../../table/types';

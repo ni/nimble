@@ -1,7 +1,7 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { TableColumnSortDirection } from '@ni/nimble-angular/table-column';
-import { NimbleTableColumnAnchorDirective, TableColumnAnchor } from '../nimble-table-column-anchor.directive';
+import { NimbleTableColumnAnchorDirective, type TableColumnAnchor } from '../nimble-table-column-anchor.directive';
 import { NimbleTableColumnAnchorModule } from '../nimble-table-column-anchor.module';
 
 describe('Nimble anchor table column', () => {

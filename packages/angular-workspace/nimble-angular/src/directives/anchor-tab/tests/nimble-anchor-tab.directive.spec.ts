@@ -1,6 +1,6 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { AnchorTab, NimbleAnchorTabDirective } from '../nimble-anchor-tab.directive';
+import { type AnchorTab, NimbleAnchorTabDirective } from '../nimble-anchor-tab.directive';
 import { NimbleAnchorTabModule } from '../nimble-anchor-tab.module';
 
 describe('Nimble anchor tab', () => {

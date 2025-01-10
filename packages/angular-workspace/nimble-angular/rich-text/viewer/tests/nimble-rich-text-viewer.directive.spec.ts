@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { NimbleRichTextViewerModule } from '../nimble-rich-text-viewer.module';
-import { NimbleRichTextViewerDirective, RichTextViewer } from '../nimble-rich-text-viewer.directive';
+import { NimbleRichTextViewerDirective, type RichTextViewer } from '../nimble-rich-text-viewer.directive';
 
 describe('Nimble Rich Text Viewer', () => {
     describe('module', () => {

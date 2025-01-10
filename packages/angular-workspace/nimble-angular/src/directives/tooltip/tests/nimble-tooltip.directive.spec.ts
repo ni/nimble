@@ -1,7 +1,7 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import type { BooleanValueOrAttribute, type NumberValueOrAttribute } from '@ni/nimble-angular/internal-utilities';
-import { Tooltip, NimbleTooltipDirective, TooltipSeverity } from '../nimble-tooltip.directive';
+import type { BooleanValueOrAttribute, NumberValueOrAttribute } from '@ni/nimble-angular/internal-utilities';
+import { type Tooltip, NimbleTooltipDirective, TooltipSeverity } from '../nimble-tooltip.directive';
 import { NimbleTooltipModule } from '../nimble-tooltip.module';
 
 describe('Nimble tooltip', () => {

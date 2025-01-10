@@ -1,6 +1,6 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { Dialog, NimbleDialogDirective } from '../nimble-dialog.directive';
+import { type Dialog, NimbleDialogDirective } from '../nimble-dialog.directive';
 import { NimbleDialogModule } from '../nimble-dialog.module';
 
 describe('Nimble dialog', () => {

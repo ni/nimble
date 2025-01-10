@@ -1,6 +1,6 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { BreadcrumbItem, NimbleBreadcrumbItemDirective } from '../nimble-breadcrumb-item.directive';
+import { type BreadcrumbItem, NimbleBreadcrumbItemDirective } from '../nimble-breadcrumb-item.directive';
 import { NimbleBreadcrumbItemModule } from '../nimble-breadcrumb-item.module';
 
 describe('Nimble breadcrumb item', () => {

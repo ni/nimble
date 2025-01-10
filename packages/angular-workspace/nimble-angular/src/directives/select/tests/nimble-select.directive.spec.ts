@@ -2,7 +2,7 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import type { BooleanValueOrAttribute } from '@ni/nimble-angular/internal-utilities';
 import { DropdownAppearance } from '../../../public-api';
-import { FilterMode, NimbleSelectDirective, Select } from '../nimble-select.directive';
+import { FilterMode, NimbleSelectDirective, type Select } from '../nimble-select.directive';
 import { NimbleSelectModule } from '../nimble-select.module';
 
 describe('Nimble select', () => {
