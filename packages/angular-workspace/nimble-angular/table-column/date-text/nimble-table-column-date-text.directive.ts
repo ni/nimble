@@ -23,7 +23,7 @@ import type {
 
 export type { TableColumnDateText };
 export type { DateStyle };
-export type { DateTextFormat };
+export { DateTextFormat };
 export type { DayFormat };
 export type { DayPeriodFormat };
 export type { EraFormat };
