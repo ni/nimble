@@ -8,7 +8,7 @@ This spec describes a set of components that can be used to compose a chat inter
 
 ### Background
 
-Some Intelligent Test application teams are beginning development on chat interfaces in early 2025.
+Some Intelligent Test application teams are beginning development on chat interfaces in early 2025. Developers from one of those teams will build these components as their first Nimble contribution.
 
 Initial designer-vetted visual designs exist in [Nimble_Components Figma](https://www.figma.com/design/PO9mFOu5BCl8aJvFchEeuN/Nimble_Components?node-id=12342-81782&node-type=canvas&t=L5GvLaC3injrqWrR-0).
 
@@ -50,34 +50,80 @@ These components are competing against possible implementations within applicati
 
 ### Prior Art/Examples
 
-*Screenshots and/or links to existing, canonical, or exemplary implementations of the component.*
+*Screenshot of Figma design of chat and conversation component (light mode)*
+![ ](spec-images/chat-conversation.png)
 
+*Screenshot of Figma design of chat components embeded within larger pane (dark mode)*
+![ ](spec-images/chat-pane.png)
 ---
 
 ## Design
 
-*Describe the design of the component, thinking through several perspectives:*
+### Examples
 
-- *A customer using the component on a web page.*
-- *A developer building an app with the component and interacting through HTML/CSS/JavaScript.*
-- *A designer customizing the component.*
+#### Text conversation example
 
-*Include code snippets showing basic component use and any interesting configurations.*
+```html
+<spright-chat-conversation>
+    <spright-chat-message status="incoming">Hi, how can I help?</spright-chat-message>
+    <spright-chat-message status="outgoing">I need to analyze my data to find anomalies.</spright-chat-message>
+    <spright-chat-message status="system">
+        <nimble-spinner></nimble-spinner>
+    </spright-chat-message>
+</spright-chat-conversation>
+```
 
-*For each section below, consider adding an "Alternatives" sub-section to describe any design alternatives and discuss why they were rejected.*
+#### Rich text message example
+
+```html
+<spright-chat-conversation>
+    <spright-chat-message status="incoming">
+        <nimble-rich-text-viewer id="welcome"></nimble-rich-text-viewer>
+    </spright-chat-message>
+</spright-chat-conversation>
+```
+
+```js
+const richText = document.querySelector('#welcome');
+richText.markdown = 'Welcome **Homer**, how can I help?';
+```
+
+#### Prompt buttons message example
+
+```html
+<spright-chat-message status="system">
+    <nimble-button appearance="block">Help with my taxes</nimble-button>
+    <nimble-button appearance="block">Provide me some life advice</nimble-button>
+</spright-chat-message
+```
 
 ### API
 
-*The key elements of the component's public API surface:*
-
-- *Component Name*
-- *Props/Attrs: to match native element APIs, prefer primitive types rather than complex configuration objects and expose fields as both properties on the TypeScript class and attributes on the HTML element*
+- *Component Name* `spright-chat-message`
+- *Props/Attrs* 
+   - `status = "incoming" | "outgoing" | "system"`
 - *Methods*
 - *Events*
+- *Slots*
+   - arbitrary content can be added to the default slot to be displayed within the message
 - *CSS Classes and CSS Custom Properties that affect the component*
 - *How native CSS Properties (height, width, etc.) affect the component*
+   - A message will grow its width to fit its content, up to a maximum width.
+   - A message will grow its height to fit its content, with no maximum height.
+   - Clients could override this behavior but we don't anticipate use cases for doing so when the message is used within a conversation
 
-*Consider high and low-level APIs. Attempt to design a powerful and extensible low-level API with a high-level API for developer/designer ergonomics and simplicity.*
+- *Component Name* `spright-chat-conversation`
+- *Props/Attrs* 
+- *Methods*
+- *Events*
+- *Slots*
+   - chat messages can be added to the default slot. The DOM order of the messages controls their screen order within the conversation (earlier DOM order => earlier message => top of the conversation)
+- *CSS Classes and CSS Custom Properties that affect the component*
+- *How native CSS Properties (height, width, etc.) affect the component*
+   - Clients can size the conversation using normal CSS rules.
+   - The conversation will show a scrollbar if content overflows vertically.
+   - The conversation will have a minimum width that clients are discouraged from overriding.
+
 
 ### Anatomy 
 
@@ -94,13 +140,13 @@ Native form integration is not needed for these components.
 
 ### Angular integration
 
-Angular integration has not yet been evaluated.
+Angular integration has not yet been evaluated. It is not anticipated to be needed for initial clients.
 
 *Describe the plan for Angular support, including directives for attribute binding and ControlValueAccessor for form integration. Depending on the contributor's needs, implementing Angular integration may be deferred but the initial spec should still document what work will be needed.*
 
 ### Blazor integration
 
-Blazor integration has not yet been evaluated.
+Blazor integration has not yet been evaluated. It is anticipated to be needed for initial clients so this section will be completed before Blazor development begins.
 
 *Describe the plan for Blazor support, including form integration. See the [nimble-blazor CONTRIBUTING.md](/packages/blazor-workspace/NimbleBlazor/CONTRIBUTING.md) for details. Depending on the contributor's needs, implementing Blazor integration may be deferred but the initial spec should still document what work will be needed.*
 
@@ -140,7 +186,7 @@ Accessibility has not yet been evaluated.
 
 ### Mobile
 
-Component layout will be tested at small screen sizes. The plans for content sizing and showing scrollbars should allow for adequate mobile layout.
+Component layout will be tested at small screen sizes. The plans for content sizing and showing scrollbars should allow for adequate mobile layout. But initially there will be no specific testing of mobile behaviors as initial clients are desktop applications.
 
 ### Globalization
 
@@ -170,7 +216,7 @@ This is likely the first Spright components most applications will adopt so they
 
 ### Documentation
 
-Standard Storybook documentation. Since these are a Spright components we should ensure the documentation conveys 
+Standard Storybook documentation. Since these are a Spright components we should ensure the documentation conveys the component status and gaps.
 
 There are parallel efforts to standardize and document other aspects of chat applications (for example the tone and language used by automated conversation participants) that are out of scope of this document.
 
