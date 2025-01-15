@@ -4,8 +4,8 @@ import { withActions } from '@storybook/addon-actions/decorator';
 import { tableTag } from '../../../../../nimble-components/src/table';
 import { tableColumnTextTag } from '../../../../../nimble-components/src/table-column/text';
 import { tableColumnDateTextTag } from '../../../../../nimble-components/src/table-column/date-text';
-import {
-    DateTextFormat,
+import { DateTextFormat } from '../../../../../nimble-components/src/table-column/date-text/types';
+import type {
     DateStyle,
     DayPeriodFormat,
     EraFormat,
