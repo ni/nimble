@@ -68,12 +68,12 @@ _Screenshot of Figma design of chat components embeded within larger pane (dark 
 
 ```html
 <spright-chat-conversation>
-    <spright-chat-message status="incoming"
-        >Hi, how can I help?</spright-chat-message
-    >
-    <spright-chat-message status="outgoing"
-        >I need to analyze my data to find anomalies.</spright-chat-message
-    >
+    <spright-chat-message status="incoming">
+        Hi, how can I help?
+    </spright-chat-message>
+    <spright-chat-message status="outgoing">
+        I need to analyze my data to find anomalies.
+    </spright-chat-message>
     <spright-chat-message status="system">
         <nimble-spinner></nimble-spinner>
     </spright-chat-message>
@@ -106,6 +106,8 @@ richText.markdown = 'Welcome **Homer**, how can I help?';
 
 ### API
 
+#### Message
+
 - _Component Name_ `spright-chat-message`
 - _Props/Attrs_
     - `status = "incoming" | "outgoing" | "system"`
@@ -119,6 +121,8 @@ richText.markdown = 'Welcome **Homer**, how can I help?';
 - _Slots_
 
     - arbitrary content can be added to the default slot to be displayed within the message
+
+#### Conversation
 
 - _Component Name_ `spright-chat-conversation`
 - _Props/Attrs_
