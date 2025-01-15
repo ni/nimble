@@ -2654,7 +2654,8 @@ describe('Table', () => {
             );
         });
 
-        it('maintains scroll position if data length is increased while not attached', async () => {
+        // Firefox skipped, see https://github.com/ni/nimble/issues/2491
+        it('maintains scroll position if data length is increased while not attached #SkipFirefox', async () => {
             await setDataAndScrollToBottom(largeData200);
             const scrollTopBeforeDisconnect = element.viewport.scrollTop;
             const firstRenderedRowBeforeDisconnect = getFirstRenderedRowDataIndex(largeData200);
