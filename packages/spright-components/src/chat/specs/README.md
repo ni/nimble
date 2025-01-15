@@ -104,35 +104,49 @@ richText.markdown = 'Welcome **Homer**, how can I help?';
    - `status = "incoming" | "outgoing" | "system"`
 - *Methods*
 - *Events*
-- *Slots*
-   - arbitrary content can be added to the default slot to be displayed within the message
 - *CSS Classes and CSS Custom Properties that affect the component*
 - *How native CSS Properties (height, width, etc.) affect the component*
    - A message will grow its width to fit its content, up to a maximum width.
    - A message will grow its height to fit its content, with no maximum height.
    - Clients could override this behavior but we don't anticipate use cases for doing so when the message is used within a conversation
+- *Slots*
+   - arbitrary content can be added to the default slot to be displayed within the message
 
 - *Component Name* `spright-chat-conversation`
 - *Props/Attrs* 
 - *Methods*
 - *Events*
-- *Slots*
-   - chat messages can be added to the default slot. The DOM order of the messages controls their screen order within the conversation (earlier DOM order => earlier message => top of the conversation)
 - *CSS Classes and CSS Custom Properties that affect the component*
 - *How native CSS Properties (height, width, etc.) affect the component*
    - Clients can size the conversation using normal CSS rules.
    - The conversation will show a scrollbar if content overflows vertically.
    - The conversation will have a minimum width that clients are discouraged from overriding.
-
+- *Slots*
+   - chat messages are added to the default slot. The DOM order of the messages controls their screen order within the conversation (earlier DOM order => earlier message => top of the conversation)
 
 ### Anatomy 
 
-*Outline the component structure with a diagram of its visual tree (shadow DOM). Enumerate key areas of visual customization, such as:*
+#### Message
 
-- *Slot Names*
-- *Host Classes*
-- *Slotted Content/Slotted Classes*
-- *CSS Parts*
+A message is simply a `div` which will styled with background / border / rounded corners and the default slot for the message contents.
+
+```html
+<template>
+    <div>
+        <slot></slot>
+    </div>
+</template>
+```
+
+#### Conversation
+
+A conversation has no appearance of its own and simply contains the default slot for messages.
+
+```html
+<template>
+    <slot></slot>
+</template>
+```
 
 ### Native form integration
 
@@ -166,7 +180,7 @@ Initial designer-vetted visual designs exist in [Nimble_Components Figma](https:
 
 ### States
 
-*Key component states, valid state transitions, and how interactions trigger a state transition.*
+None.
 
 ### Accessibility
 
@@ -228,4 +242,4 @@ There are parallel efforts to standardize and document other aspects of chat app
       1. consistent layout and reduced implementation effort across applications
       1. single implementation to change if requirements change
    - Pros of applications leveraging Nimble toolbar:
-      1. dedicated component would require a large API surface area for configuring the visibility and enabled state of numerous buttons
+      1. dedicated component would require a large API surface area for configuring the visibility and enabled state of numerous buttons and firing events when the user interacts with the toolbar inputs.
