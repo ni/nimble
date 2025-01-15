@@ -3,8 +3,9 @@
 ## Overview
 
 This spec describes a set of components that can be used to compose a chat interface. This includes:
- - chat message: a single entry in a chat conversation, including some content and metadata about the message
- - chat conversation: a collection of messages that are laid out to convey the order the messages were sent
+
+- chat message: a single entry in a chat conversation, including some content and metadata about the message
+- chat conversation: a collection of messages that are laid out to convey the order the messages were sent
 
 ### Background
 
@@ -19,6 +20,7 @@ This work started with an innovation project ([branch](https://github.com/ni/nim
 ### Containing Library
 
 These components will initially be added to Spright. Per [Spright contributing guidelines](/packages/spright-components/CONTRIBUTING.md):
+
 1. there is not yet an approved interaction design
 2. we are unsure if the components are sufficiently atomic or general purpose to belong in Nimble
 3. there is a short development timeline so it may be necessary to defer fulfilling other Nimble requirements like accessibility and support for all frameworks
@@ -28,7 +30,7 @@ These components will initially be added to Spright. Per [Spright contributing g
 The components will only provide the presentation layer, not logic for interacting with each other or any service to add messages to a conversation.
 
 The message component will allow slotting arbitrary content, but any efforts to add content types to Nimble are out of scope of this document. For example, adding capabilities to the rich text viewer or adding styling for specific content types.
-  
+
 ### Features
 
 #### Chat message
@@ -50,11 +52,12 @@ These components are competing against possible implementations within applicati
 
 ### Prior Art/Examples
 
-*Screenshot of Figma design of chat and conversation component (light mode)*
+_Screenshot of Figma design of chat and conversation component (light mode)_
 ![ ](spec-images/chat-conversation.png)
 
-*Screenshot of Figma design of chat components embeded within larger pane (dark mode)*
+_Screenshot of Figma design of chat components embeded within larger pane (dark mode)_
 ![ ](spec-images/chat-pane.png)
+
 ---
 
 ## Design
@@ -65,8 +68,12 @@ These components are competing against possible implementations within applicati
 
 ```html
 <spright-chat-conversation>
-    <spright-chat-message status="incoming">Hi, how can I help?</spright-chat-message>
-    <spright-chat-message status="outgoing">I need to analyze my data to find anomalies.</spright-chat-message>
+    <spright-chat-message status="incoming"
+        >Hi, how can I help?</spright-chat-message
+    >
+    <spright-chat-message status="outgoing"
+        >I need to analyze my data to find anomalies.</spright-chat-message
+    >
     <spright-chat-message status="system">
         <nimble-spinner></nimble-spinner>
     </spright-chat-message>
@@ -99,32 +106,33 @@ richText.markdown = 'Welcome **Homer**, how can I help?';
 
 ### API
 
-- *Component Name* `spright-chat-message`
-- *Props/Attrs* 
-   - `status = "incoming" | "outgoing" | "system"`
-- *Methods*
-- *Events*
-- *CSS Classes and CSS Custom Properties that affect the component*
-- *How native CSS Properties (height, width, etc.) affect the component*
-   - A message will grow its width to fit its content, up to a maximum width.
-   - A message will grow its height to fit its content, with no maximum height.
-   - Clients could override this behavior but we don't anticipate use cases for doing so when the message is used within a conversation
-- *Slots*
-   - arbitrary content can be added to the default slot to be displayed within the message
+- _Component Name_ `spright-chat-message`
+- _Props/Attrs_
+    - `status = "incoming" | "outgoing" | "system"`
+- _Methods_
+- _Events_
+- _CSS Classes and CSS Custom Properties that affect the component_
+- _How native CSS Properties (height, width, etc.) affect the component_
+    - A message will grow its width to fit its content, up to a maximum width.
+    - A message will grow its height to fit its content, with no maximum height.
+    - Clients could override this behavior but we don't anticipate use cases for doing so when the message is used within a conversation
+- _Slots_
 
-- *Component Name* `spright-chat-conversation`
-- *Props/Attrs* 
-- *Methods*
-- *Events*
-- *CSS Classes and CSS Custom Properties that affect the component*
-- *How native CSS Properties (height, width, etc.) affect the component*
-   - Clients can size the conversation using normal CSS rules.
-   - The conversation will show a scrollbar if content overflows vertically.
-   - The conversation will have a minimum width that clients are discouraged from overriding.
-- *Slots*
-   - chat messages are added to the default slot. The DOM order of the messages controls their screen order within the conversation (earlier DOM order => earlier message => top of the conversation)
+    - arbitrary content can be added to the default slot to be displayed within the message
 
-### Anatomy 
+- _Component Name_ `spright-chat-conversation`
+- _Props/Attrs_
+- _Methods_
+- _Events_
+- _CSS Classes and CSS Custom Properties that affect the component_
+- _How native CSS Properties (height, width, etc.) affect the component_
+    - Clients can size the conversation using normal CSS rules.
+    - The conversation will show a scrollbar if content overflows vertically.
+    - The conversation will have a minimum width that clients are discouraged from overriding.
+- _Slots_
+    - chat messages are added to the default slot. The DOM order of the messages controls their screen order within the conversation (earlier DOM order => earlier message => top of the conversation)
+
+### Anatomy
 
 #### Message
 
@@ -156,13 +164,13 @@ Native form integration is not needed for these components.
 
 Angular integration has not yet been evaluated. It is not anticipated to be needed for initial clients.
 
-*Describe the plan for Angular support, including directives for attribute binding and ControlValueAccessor for form integration. Depending on the contributor's needs, implementing Angular integration may be deferred but the initial spec should still document what work will be needed.*
+_Describe the plan for Angular support, including directives for attribute binding and ControlValueAccessor for form integration. Depending on the contributor's needs, implementing Angular integration may be deferred but the initial spec should still document what work will be needed._
 
 ### Blazor integration
 
 Blazor integration has not yet been evaluated. It is anticipated to be needed for initial clients so this section will be completed before Blazor development begins.
 
-*Describe the plan for Blazor support, including form integration. See the [nimble-blazor CONTRIBUTING.md](/packages/blazor-workspace/NimbleBlazor/CONTRIBUTING.md) for details. Depending on the contributor's needs, implementing Blazor integration may be deferred but the initial spec should still document what work will be needed.*
+_Describe the plan for Blazor support, including form integration. See the [nimble-blazor CONTRIBUTING.md](/packages/blazor-workspace/NimbleBlazor/CONTRIBUTING.md) for details. Depending on the contributor's needs, implementing Blazor integration may be deferred but the initial spec should still document what work will be needed._
 
 ### Visual Appearance
 
@@ -172,11 +180,11 @@ Initial designer-vetted visual designs exist in [Nimble_Components Figma](https:
 
 ## Implementation
 
-*Important aspects of the planned implementation with careful consideration of web standards and integration.*
+_Important aspects of the planned implementation with careful consideration of web standards and integration._
 
-*Highlight any alternative implementations you considered in each section.*
+_Highlight any alternative implementations you considered in each section._
 
-*If you think a section doesn't apply or don't know what to write, please DO NOT delete it. Either mark it "N/A" or leave it blank and the Nimble team can help you fill it in.*
+_If you think a section doesn't apply or don't know what to write, please DO NOT delete it. Either mark it "N/A" or leave it blank and the Nimble team can help you fill it in._
 
 ### States
 
@@ -186,17 +194,17 @@ None.
 
 Accessibility has not yet been evaluated.
 
-*Consider the accessibility of the component, including:*
+_Consider the accessibility of the component, including:_
 
-- *Keyboard Navigation and Focus*
-- *Form Input and Autofill*
-- *Use with Assistive Technology. For example:*
-  - *All components should define a role and support labels / being labelled so that assistive technology can identify them*
-  - *The implications shadow dom might have on how roles and attributes are presented in the accessibility tree*
-  - *Components which delegate focus require all global ARIA attributes to be enumerated*
-  - *Components should either follow an existing [ARIA Pattern](https://www.w3.org/WAI/ARIA/apg/patterns/) or provide thorough research indicating why a new pattern is appropriate. Research should include sources like [Open UI Community Group](https://github.com/openui/open-ui) and other popular design systems.*
-- *Behavior with browser configurations like "Prefers reduced motion"*
-- *Support for standard link behaviors if the component is an anchor or contains an anchor. These behaviors are enumerated in the [anchor-patterns story](/packages/nimble-components/src/patterns/anchor/tests/anchor-patterns.mdx). The story should be updated to include the new component.*
+- _Keyboard Navigation and Focus_
+- _Form Input and Autofill_
+- _Use with Assistive Technology. For example:_
+    - _All components should define a role and support labels / being labelled so that assistive technology can identify them_
+    - _The implications shadow dom might have on how roles and attributes are presented in the accessibility tree_
+    - _Components which delegate focus require all global ARIA attributes to be enumerated_
+    - _Components should either follow an existing [ARIA Pattern](https://www.w3.org/WAI/ARIA/apg/patterns/) or provide thorough research indicating why a new pattern is appropriate. Research should include sources like [Open UI Community Group](https://github.com/openui/open-ui) and other popular design systems._
+- _Behavior with browser configurations like "Prefers reduced motion"_
+- _Support for standard link behaviors if the component is an anchor or contains an anchor. These behaviors are enumerated in the [anchor-patterns story](/packages/nimble-components/src/patterns/anchor/tests/anchor-patterns.mdx). The story should be updated to include the new component._
 
 ### Mobile
 
@@ -226,7 +234,7 @@ Typical unit tests and Chromatic visual tests. Spright maintains the same testin
 
 ### Tooling
 
-This is likely the first Spright components most applications will adopt so they will need to add a new dependency. Blazor applications should follow [the Spright Blazor README](https://github.com/ni/nimble/blob/spright-chat-components/packages/blazor-workspace/SprightBlazor/README.md#getting-started) to set up this dependency. 
+This is likely the first Spright components most applications will adopt so they will need to add a new dependency. Blazor applications should follow [the Spright Blazor README](https://github.com/ni/nimble/blob/spright-chat-components/packages/blazor-workspace/SprightBlazor/README.md#getting-started) to set up this dependency.
 
 ### Documentation
 
@@ -235,11 +243,12 @@ Standard Storybook documentation. Since these are a Spright components we should
 There are parallel efforts to standardize and document other aspects of chat applications (for example the tone and language used by automated conversation participants) that are out of scope of this document.
 
 ---
+
 ## Open Issues
 
 1. Should we introduce an input toolbar component where a user can type messages and interact with related buttons? Or should applications construct this using the existing Nimble toolbar?
-   - Pros of dedicated component:
-      1. consistent layout and reduced implementation effort across applications
-      1. single implementation to change if requirements change
-   - Pros of applications leveraging Nimble toolbar:
-      1. dedicated component would require a large API surface area for configuring the visibility and enabled state of numerous buttons and firing events when the user interacts with the toolbar inputs.
+    - Pros of dedicated component:
+        1. consistent layout and reduced implementation effort across applications
+        1. single implementation to change if requirements change
+    - Pros of applications leveraging Nimble toolbar:
+        1. dedicated component would require a large API surface area for configuring the visibility and enabled state of numerous buttons and firing events when the user interacts with the toolbar inputs.
