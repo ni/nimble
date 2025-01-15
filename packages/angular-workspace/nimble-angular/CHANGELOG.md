@@ -1,8 +1,56 @@
 # Change Log - @ni/nimble-angular
 
-<!-- This log was last generated on Mon, 09 Dec 2024 15:59:16 GMT and should not be manually modified. -->
+<!-- This log was last generated on Fri, 10 Jan 2025 16:45:51 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 28.8.1
+
+Fri, 10 Jan 2025 16:45:51 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v32.11.1
+
+## 28.8.0
+
+Wed, 08 Jan 2025 20:22:05 GMT
+
+### Minor changes
+
+- Angular support for required-visible ([ni/nimble@5f2245f](https://github.com/ni/nimble/commit/5f2245fc0a7bd252ef7cef2ceaa978c12d06808d))
+
+## 28.7.4
+
+Wed, 08 Jan 2025 18:33:06 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v32.11.0
+
+## 28.7.3
+
+Mon, 06 Jan 2025 20:05:57 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v32.10.0
+
+## 28.7.2
+
+Fri, 03 Jan 2025 17:23:02 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v32.9.3
+
+## 28.7.1
+
+Tue, 10 Dec 2024 20:15:57 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v32.9.1
 
 ## 28.7.0
 

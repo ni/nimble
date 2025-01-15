@@ -36,6 +36,12 @@ public partial class NimbleRadioGroup : NimbleInputBase<string>
     public string? ErrorText { get; set; }
 
     /// <summary>
+    /// Gets or sets whether the radio group's required indicator is visible
+    /// </summary>
+    [Parameter]
+    public bool? RequiredVisible { get; set; }
+
+    /// <summary>
     /// Gets or sets the child content to be rendered inside the <see cref="NimbleRadioGroup"/>.
     /// </summary>
     [Parameter]

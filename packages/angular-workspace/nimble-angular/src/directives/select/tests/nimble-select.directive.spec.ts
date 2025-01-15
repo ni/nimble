@@ -87,6 +87,17 @@ describe('Nimble select', () => {
             expect(directive.loadingVisible).toBeFalse();
             expect(nativeElement.loadingVisible).toBeFalse();
         });
+
+        it('has expected defaults for requiredVisible', () => {
+            expect(directive.requiredVisible).toBeFalse();
+            expect(nativeElement.requiredVisible).toBeFalse();
+        });
+
+        it('can use the directive to set requiredVisible', () => {
+            directive.requiredVisible = true;
+            expect(directive.requiredVisible).toBeTrue();
+            expect(nativeElement.requiredVisible).toBeTrue();
+        });
     });
 
     describe('with template string values', () => {
@@ -100,6 +111,7 @@ describe('Nimble select', () => {
                     error-text="error text"
                     error-visible
                     loading-visible
+                    required-visible
                 >
                 </nimble-select>
             `
@@ -158,6 +170,11 @@ describe('Nimble select', () => {
             expect(directive.errorVisible).toBeTrue();
             expect(nativeElement.errorVisible).toBeTrue();
         });
+
+        it('will use template string values for requiredVisible', () => {
+            expect(directive.requiredVisible).toBeTrue();
+            expect(nativeElement.requiredVisible).toBeTrue();
+        });
     });
 
     describe('with property bound values', () => {
@@ -171,6 +188,7 @@ describe('Nimble select', () => {
                     [error-text]="errorText"
                     [error-visible]="errorVisible"
                     [loading-visible]="loadingVisible"
+                    [required-visible]="requiredVisible"
                 >
                 </nimble-select>
             `
@@ -185,6 +203,7 @@ describe('Nimble select', () => {
             public errorText = 'initial value';
             public errorVisible = false;
             public loadingVisible = false;
+            public requiredVisible = false;
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
@@ -278,6 +297,17 @@ describe('Nimble select', () => {
             expect(directive.loadingVisible).toBeTrue();
             expect(nativeElement.loadingVisible).toBeTrue();
         });
+
+        it('can be configured with property binding for requiredVisible', () => {
+            expect(directive.requiredVisible).toBeFalse();
+            expect(nativeElement.requiredVisible).toBeFalse();
+
+            fixture.componentInstance.requiredVisible = true;
+            fixture.detectChanges();
+
+            expect(directive.requiredVisible).toBeTrue();
+            expect(nativeElement.requiredVisible).toBeTrue();
+        });
     });
 
     describe('with attribute bound values', () => {
@@ -291,6 +321,7 @@ describe('Nimble select', () => {
                     [attr.error-text]="errorText"
                     [attr.error-visible]="errorVisible"
                     [attr.loading-visible]="loadingVisible"
+                    [attr.required-visible]="requiredVisible"
                 >
                 </nimble-select>
             `
@@ -305,6 +336,7 @@ describe('Nimble select', () => {
             public errorText = 'initial value';
             public errorVisible: BooleanValueOrAttribute = null;
             public loadingVisible: BooleanValueOrAttribute = null;
+            public requiredVisible: BooleanValueOrAttribute = null;
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
@@ -397,6 +429,17 @@ describe('Nimble select', () => {
 
             expect(directive.loadingVisible).toBeTrue();
             expect(nativeElement.loadingVisible).toBeTrue();
+        });
+
+        it('can be configured with attribute binding for requiredVisible', () => {
+            expect(directive.requiredVisible).toBeFalse();
+            expect(nativeElement.requiredVisible).toBeFalse();
+
+            fixture.componentInstance.requiredVisible = '';
+            fixture.detectChanges();
+
+            expect(directive.requiredVisible).toBeTrue();
+            expect(nativeElement.requiredVisible).toBeTrue();
         });
     });
 });

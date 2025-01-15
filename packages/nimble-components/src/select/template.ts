@@ -27,6 +27,7 @@ import { buttonTag } from '../button';
 import { iconTimesTag } from '../icons/times';
 import { ListOption } from '../list-option';
 import { spinnerTag } from '../spinner';
+import { createRequiredVisibleLabelTemplate } from '../patterns/required-visible/template';
 
 export const isListOption = (
     el: Element | undefined | null
@@ -39,6 +40,12 @@ export const isListOptionGroup = (
 ): n is ListOptionGroup => {
     return n instanceof ListOptionGroup;
 };
+
+const labelTemplate = createRequiredVisibleLabelTemplate(html<Select>`
+    <label part="label" class="label" aria-hidden="true">
+        <slot ${ref('labelSlot')}></slot>
+    </label>
+`);
 
 /* eslint-disable @typescript-eslint/indent */
 // prettier-ignore
@@ -60,6 +67,7 @@ SelectOptions
         aria-haspopup="${x => (x.collapsible ? 'listbox' : null)}"
         aria-label="${x => x.labelContent}"
         aria-multiselectable="${x => x.ariaMultiSelectable}"
+        aria-required="${x => x.requiredVisible}"
         ?open="${x => x.open}"
         role="combobox"
         tabindex="${x => (!x.disabled ? '0' : null)}"
@@ -70,9 +78,7 @@ SelectOptions
         @keydown="${(x, c) => x.keydownHandler(c.event as KeyboardEvent)}"
         @mousedown="${(x, c) => x.mousedownHandler(c.event as MouseEvent)}"
     >
-        <label part="label" class="label" aria-hidden="true">
-            <slot ${ref('labelSlot')}></slot>
-        </label>
+        ${labelTemplate}
         ${when(x => x.collapsible, html<Select>`
             <div
                 class="control"

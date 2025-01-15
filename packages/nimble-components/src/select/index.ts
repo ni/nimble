@@ -35,7 +35,7 @@ import {
     ListOptionOwner
 } from '../patterns/dropdown/types';
 import { errorTextTemplate } from '../patterns/error/template';
-import type { ErrorPattern } from '../patterns/error/types';
+import { mixinErrorPattern } from '../patterns/error/types';
 import { iconExclamationMarkTag } from '../icons/exclamation-mark';
 import { isListOption, isListOptionGroup, template } from './template';
 import type { ListOption } from '../list-option';
@@ -44,6 +44,7 @@ import { diacriticInsensitiveStringNormalizer } from '../utilities/models/string
 import { FormAssociatedSelect } from './models/select-form-associated';
 import type { ListOptionGroup } from '../list-option-group';
 import { slotTextContent } from '../utilities/models/slot-text-content';
+import { mixinRequiredVisiblePattern } from '../patterns/required-visible/types';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -71,8 +72,8 @@ const isOptionOrGroupVisible = (el: ListOption | ListOptionGroup): boolean => {
  * A nimble-styled HTML select.
  */
 export class Select
-    extends FormAssociatedSelect
-    implements ErrorPattern, ListOptionOwner {
+    extends mixinErrorPattern(mixinRequiredVisiblePattern(FormAssociatedSelect))
+    implements ListOptionOwner {
     @attr
     public appearance: DropdownAppearance = DropdownAppearance.underline;
 
@@ -83,19 +84,6 @@ export class Select
      */
     @attr({ attribute: 'position' })
     public positionAttribute?: SelectPosition;
-
-    /**
-     * A message explaining why the value is invalid.
-     *
-     * @public
-     * @remarks
-     * HTML Attribute: error-text
-     */
-    @attr({ attribute: 'error-text' })
-    public errorText: string | undefined;
-
-    @attr({ attribute: 'error-visible', mode: 'boolean' })
-    public errorVisible = false;
 
     @attr({ attribute: 'filter-mode' })
     public filterMode: FilterMode = FilterMode.none;

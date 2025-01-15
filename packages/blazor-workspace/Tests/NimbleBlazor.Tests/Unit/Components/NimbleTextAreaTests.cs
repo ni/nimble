@@ -69,6 +69,14 @@ public class NimbleTextAreaTests
         Assert.Contains("error-visible", textArea.Markup);
     }
 
+    [Fact]
+    public void TextAreaRequiredVisible_AttributeIsSet()
+    {
+        var textArea = RenderWithPropertySet(x => x.RequiredVisible, true);
+
+        Assert.Contains("required-visible", textArea.Markup);
+    }
+
     private IRenderedComponent<NimbleTextArea> RenderNimbleTextArea(TextAreaResize textAreaResize)
     {
         var context = new TestContext();

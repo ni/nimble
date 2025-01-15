@@ -90,6 +90,14 @@ public class NimbleComboboxTests
     }
 
     [Fact]
+    public void ComboboxRequiredVisible_AttributeIsSet()
+    {
+        var combobox = RenderWithPropertySet(x => x.RequiredVisible, true);
+
+        Assert.Contains("required-visible", combobox.Markup);
+    }
+
+    [Fact]
     public void ComboboxWithOption_HasListOptionMarkup()
     {
         var expectedMarkup = "nimble-list-option";

@@ -82,6 +82,14 @@ public class NimbleRadioGroupTests
         Assert.Contains("error-visible", radioGroup.Markup);
     }
 
+    [Fact]
+    public void NimbleRadioGroupRequiredVisible_AttributeIsSet()
+    {
+        var radioGroup = RenderNimbleRadioGroupWithPropertySet(x => x.RequiredVisible, true);
+
+        Assert.Contains("required-visible", radioGroup.Markup);
+    }
+
     private IRenderedComponent<NimbleRadioGroup> RenderNimbleRadioGroupWithPropertySet<TProperty>(Expression<Func<NimbleRadioGroup, TProperty>> propertyGetter, TProperty propertyValue)
     {
         var context = new TestContext();
