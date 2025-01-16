@@ -8,7 +8,7 @@ import {
 } from '@microsoft/fast-element';
 import {
     DesignSystem,
-    ComboboxOptions,
+    type ComboboxOptions,
     ComboboxAutocomplete,
     SelectPosition,
     ListboxOption,

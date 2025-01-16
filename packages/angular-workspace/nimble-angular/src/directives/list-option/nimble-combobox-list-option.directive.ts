@@ -1,4 +1,4 @@
-import { Directive, ElementRef, Host, Inject, Input, Optional, AfterViewInit, OnDestroy } from '@angular/core';
+import { Directive, ElementRef, Host, Inject, Input, Optional, type AfterViewInit, type OnDestroy } from '@angular/core';
 import type { ListOption } from '@ni/nimble-components/dist/esm/list-option';
 import { NimbleComboboxControlValueAccessorDirective } from '../combobox/nimble-combobox-control-value-accessor.directive';
 

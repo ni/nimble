@@ -22,8 +22,8 @@ import {
     DesignSystem,
     StartEnd,
     applyMixins,
-    StartEndOptions,
-    FoundationElementDefinition,
+    type StartEndOptions,
+    type FoundationElementDefinition,
     FoundationElement
 } from '@microsoft/fast-foundation';
 import { styles } from '../patterns/tabs/styles';

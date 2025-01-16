@@ -15,11 +15,11 @@ import {
 } from '../../utilities/matrix';
 import {
     disabledStates,
-    DisabledState,
-    ErrorState,
+    type DisabledState,
+    type ErrorState,
     errorStates,
     requiredVisibleStates,
-    RequiredVisibleState
+    type RequiredVisibleState
 } from '../../utilities/states';
 import { hiddenWrapper } from '../../utilities/hidden';
 import { textCustomizationWrapper } from '../../utilities/text-customization';

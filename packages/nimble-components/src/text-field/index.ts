@@ -2,7 +2,7 @@ import { attr, html } from '@microsoft/fast-element';
 import {
     DesignSystem,
     TextField as FoundationTextField,
-    TextFieldOptions
+    type TextFieldOptions
 } from '@microsoft/fast-foundation';
 import { styles } from './styles';
 import { TextFieldAppearance } from './types';

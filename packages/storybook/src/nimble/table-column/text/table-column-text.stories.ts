@@ -4,7 +4,7 @@ import { withActions } from '@storybook/addon-actions/decorator';
 import { tableTag } from '../../../../../nimble-components/src/table';
 import { tableColumnTextTag } from '../../../../../nimble-components/src/table-column/text';
 import {
-    SharedTableArgs,
+    type SharedTableArgs,
     sharedTableActions,
     sharedTableArgTypes,
     sharedTableArgs

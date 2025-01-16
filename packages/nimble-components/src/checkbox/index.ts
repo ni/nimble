@@ -2,7 +2,7 @@ import { attr, nullableNumberConverter } from '@microsoft/fast-element';
 import {
     DesignSystem,
     Checkbox as FoundationCheckbox,
-    CheckboxOptions
+    type CheckboxOptions
 } from '@microsoft/fast-foundation';
 import { check16X16, minus16X16 } from '@ni/nimble-tokens/dist/icons/js';
 import { styles } from './styles';

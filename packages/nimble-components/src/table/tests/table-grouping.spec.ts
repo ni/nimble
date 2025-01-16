@@ -6,7 +6,7 @@ import {
 } from '../../table-column/text';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import { type Fixture, fixture } from '../../utilities/tests/fixture';
-import { TableColumnSortDirection, TableRecord } from '../types';
+import { TableColumnSortDirection, type TableRecord } from '../types';
 import { TablePageObject } from '../testing/table.pageobject';
 
 interface SimpleTableRecord extends TableRecord {

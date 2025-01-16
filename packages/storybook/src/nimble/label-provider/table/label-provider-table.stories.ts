@@ -2,7 +2,7 @@ import type { StoryObj, Meta } from '@storybook/html';
 import { labelProviderTableTag } from '../../../../../nimble-components/src/label-provider/table';
 import * as labelTokensNamespace from '../../../../../nimble-components/src/label-provider/table/label-tokens';
 import {
-    LabelProviderArgs,
+    type LabelProviderArgs,
     labelProviderMetadata
 } from '../base/label-provider-stories-utils';
 

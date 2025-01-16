@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "Replace deprectated importsNotUsedAsValues option with verbatimModuleSyntax",
+  "packageName": "@ni/spright-components",
+  "email": "7282195+m-akinc@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}

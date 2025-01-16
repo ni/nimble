@@ -17,7 +17,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 
-import {Directive, ElementRef, forwardRef, Host, Input, OnDestroy, Optional, Provider, Renderer2, ɵRuntimeError as RuntimeError, isDevMode} from '@angular/core';
+import {Directive, ElementRef, forwardRef, Host, Input, type OnDestroy, Optional, type Provider, Renderer2, ɵRuntimeError as RuntimeError, isDevMode} from '@angular/core';
 
 import type {ControlValueAccessor} from '@angular/forms';
 import {BuiltInControlValueAccessor} from './control_value_accessor';

@@ -8,13 +8,13 @@ import type {
     TableColumnEnumColumnConfig
 } from '../../enum-base';
 import {
-    IconView,
+    type IconView,
     MappingIconConfig
 } from '../../enum-base/models/mapping-icon-config';
 import { IconSeverity } from '../../../icon-base/types';
 import {
     MappingSpinnerConfig,
-    SpinnerView
+    type SpinnerView
 } from '../../enum-base/models/mapping-spinner-config';
 import { MappingTextConfig } from '../../enum-base/models/mapping-text-config';
 import { MappingEmptyConfig } from '../../enum-base/models/mapping-empty-config';

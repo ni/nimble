@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import type { BooleanValueOrAttribute } from '@ni/nimble-angular/internal-utilities';
 import { NimbleRichTextEditorModule } from '../nimble-rich-text-editor.module';
-import { NimbleRichTextEditorDirective, RichTextEditor } from '../nimble-rich-text-editor.directive';
+import { NimbleRichTextEditorDirective, type RichTextEditor } from '../nimble-rich-text-editor.directive';
 
 describe('Nimble Rich Text Editor', () => {
     describe('module', () => {

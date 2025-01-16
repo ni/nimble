@@ -16,7 +16,7 @@ import {
     ExampleSortType
 } from '../../../../../nimble-components/src/table-column/base/tests/types';
 import {
-    SharedTableArgs,
+    type SharedTableArgs,
     sharedTableActions,
     sharedTableArgTypes,
     sharedTableArgs

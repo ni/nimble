@@ -1,7 +1,7 @@
 import { attr } from '@microsoft/fast-element';
 import {
     DesignSystem,
-    AnchorOptions,
+    type AnchorOptions,
     isTreeItemElement,
     TreeItem as FoundationTreeItem
 } from '@microsoft/fast-foundation';

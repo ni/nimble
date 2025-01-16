@@ -1,7 +1,7 @@
 import { html, ViewTemplate } from '@microsoft/fast-element';
 import {
     endSlotTemplate,
-    FoundationElementTemplate,
+    type FoundationElementTemplate,
     startSlotTemplate
 } from '@microsoft/fast-foundation';
 import type { AnchorTab, TabOptions } from '.';

@@ -12,7 +12,7 @@ import { mappingEmptyTag } from '../../../../../nimble-components/src/mapping/em
 import { TableColumnMappingWidthMode } from '../../../../../nimble-components/src/table-column/mapping/types';
 import { tableColumnMappingTag } from '../../../../../nimble-components/src/table-column/mapping';
 import {
-    SharedTableArgs,
+    type SharedTableArgs,
     sharedTableArgTypes,
     sharedTableArgs
 } from '../base/table-column-stories-utils';

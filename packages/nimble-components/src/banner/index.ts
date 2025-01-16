@@ -7,7 +7,7 @@ import {
 } from '@microsoft/fast-foundation';
 import { styles } from './styles';
 import { template } from './template';
-import { BannerSeverity, BannerToggleEventDetail } from './types';
+import { BannerSeverity, type BannerToggleEventDetail } from './types';
 
 declare global {
     interface HTMLElementTagNameMap {

@@ -1,11 +1,11 @@
 import { Directive, ElementRef, Input, Renderer2 } from '@angular/core';
 import { type Select, selectTag } from '@ni/nimble-components/dist/esm/select';
-import { FilterMode, SelectFilterInputEventDetail } from '@ni/nimble-components/dist/esm/select/types';
+import { FilterMode, type SelectFilterInputEventDetail } from '@ni/nimble-components/dist/esm/select/types';
 import type { DropdownAppearance } from '@ni/nimble-components/dist/esm/patterns/dropdown/types';
-import { BooleanValueOrAttribute, toBooleanProperty } from '@ni/nimble-angular/internal-utilities';
+import { type BooleanValueOrAttribute, toBooleanProperty } from '@ni/nimble-angular/internal-utilities';
 
 export type { Select };
-export { FilterMode, SelectFilterInputEventDetail };
+export { FilterMode, type SelectFilterInputEventDetail };
 export { selectTag };
 
 /**

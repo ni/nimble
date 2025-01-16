@@ -13,13 +13,13 @@ import { tableHeaderTag } from './components/header';
 import { tableRowTag } from './components/row';
 import type { TableColumn } from '../table-column/base';
 import {
-    RowSlotRequestEventDetail,
-    SlotMetadata,
-    TableActionMenuToggleEventDetail,
+    type RowSlotRequestEventDetail,
+    type SlotMetadata,
+    type TableActionMenuToggleEventDetail,
     TableColumnSortDirection,
     TableRowSelectionMode,
     TableRowSelectionState,
-    TableRowSelectionToggleEventDetail
+    type TableRowSelectionToggleEventDetail
 } from './types';
 import { tableGroupRowTag } from './components/group-row';
 import { buttonTag } from '../button';

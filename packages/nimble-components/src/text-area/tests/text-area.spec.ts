@@ -5,7 +5,7 @@ import {
     processUpdates,
     waitForUpdatesAsync
 } from '../../testing/async-helpers';
-import { fixture, Fixture } from '../../utilities/tests/fixture';
+import { fixture, type Fixture } from '../../utilities/tests/fixture';
 
 async function setup(): Promise<Fixture<TextArea>> {
     return await fixture<TextArea>(html`<${textAreaTag}></${textAreaTag}>`);

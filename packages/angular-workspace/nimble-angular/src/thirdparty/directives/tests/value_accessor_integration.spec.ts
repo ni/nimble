@@ -19,7 +19,7 @@
 // [Nimble] Update imports
 import {ChangeDetectionStrategy, ChangeDetectorRef, Component, Directive, EventEmitter, Input, Output, Type, ViewChild, forwardRef} from '@angular/core';
 import {ComponentFixture, fakeAsync, TestBed, tick, waitForAsync} from '@angular/core/testing';
-import {AbstractControl, ControlValueAccessor, FormControl, FormGroup, FormsModule, NG_VALIDATORS, NG_VALUE_ACCESSOR, NgControl, NgForm, NgModel, ReactiveFormsModule, Validators, DefaultValueAccessor as AngularDefaultValueAccessor, CheckboxControlValueAccessor as AngularCheckboxControlValueAccessor, NumberValueAccessor as AngularNumberValueAccessor, RadioControlValueAccessor as AngularRadioControlValueAccessor, SelectControlValueAccessor as AngularSelectControlValueAccessor, NgSelectOption as AngularNgSelectOption} from '@angular/forms';
+import {AbstractControl, type ControlValueAccessor, FormControl, FormGroup, FormsModule, NG_VALIDATORS, NG_VALUE_ACCESSOR, NgControl, NgForm, NgModel, ReactiveFormsModule, Validators, DefaultValueAccessor as AngularDefaultValueAccessor, CheckboxControlValueAccessor as AngularCheckboxControlValueAccessor, NumberValueAccessor as AngularNumberValueAccessor, RadioControlValueAccessor as AngularRadioControlValueAccessor, SelectControlValueAccessor as AngularSelectControlValueAccessor, NgSelectOption as AngularNgSelectOption} from '@angular/forms';
 import {By} from '@angular/platform-browser';
 import {CheckboxControlValueAccessor} from '../checkbox_value_accessor';
 import {DefaultValueAccessor} from '../default_value_accessor';

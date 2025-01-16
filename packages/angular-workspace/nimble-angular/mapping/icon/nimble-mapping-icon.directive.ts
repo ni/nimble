@@ -3,7 +3,7 @@ import { NimbleMappingDirective } from '@ni/nimble-angular/mapping/base';
 import { type MappingIcon, mappingIconTag } from '@ni/nimble-components/dist/esm/mapping/icon';
 import type { MappingKey } from '@ni/nimble-components/dist/esm/mapping/base/types';
 import type { IconSeverity } from '@ni/nimble-components/dist/esm/icon-base/types';
-import { BooleanValueOrAttribute, toBooleanProperty } from '@ni/nimble-angular/internal-utilities';
+import { type BooleanValueOrAttribute, toBooleanProperty } from '@ni/nimble-angular/internal-utilities';
 
 export type { MappingIcon };
 export { mappingIconTag };

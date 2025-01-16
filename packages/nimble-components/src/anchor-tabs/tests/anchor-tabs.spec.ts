@@ -13,7 +13,7 @@ import { AnchorTabs, anchorTabsTag } from '..';
 import '../../anchor-tab';
 import { anchorTabTag, type AnchorTab } from '../../anchor-tab';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
-import { fixture, Fixture } from '../../utilities/tests/fixture';
+import { fixture, type Fixture } from '../../utilities/tests/fixture';
 import { AnchorTabsPageObject } from '../testing/anchor-tabs.pageobject';
 
 describe('AnchorTabs', () => {

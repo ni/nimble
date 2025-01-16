@@ -9,8 +9,8 @@ import {
 } from '../../utilities/testing/component';
 import { type Fixture, fixture } from '../../utilities/tests/fixture';
 import {
-    TableRecord,
-    TableRowSelectionEventDetail,
+    type TableRecord,
+    type TableRowSelectionEventDetail,
     TableRowSelectionMode,
     TableRowSelectionState
 } from '../types';

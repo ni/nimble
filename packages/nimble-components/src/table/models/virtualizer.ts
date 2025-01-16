@@ -2,12 +2,12 @@ import { observable } from '@microsoft/fast-element';
 import type { Table as TanStackTable } from '@tanstack/table-core';
 import {
     Virtualizer as TanStackVirtualizer,
-    VirtualizerOptions,
+    type VirtualizerOptions,
     elementScroll,
     observeElementOffset,
     observeElementRect,
-    VirtualItem,
-    ScrollToOptions
+    type VirtualItem,
+    type ScrollToOptions
 } from '@tanstack/virtual-core';
 import type { Table } from '..';
 import type { TableNode, TableRecord } from '../types';

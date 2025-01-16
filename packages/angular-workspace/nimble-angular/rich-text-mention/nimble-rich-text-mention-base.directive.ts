@@ -3,7 +3,7 @@ import type { RichTextMentionValidity } from '@ni/nimble-components/dist/esm/ric
 import type { MentionUpdateEventDetail } from '@ni/nimble-components/dist/esm/rich-text-mention/base/types';
 import type { RichTextMention } from '@ni/nimble-components/dist/esm/rich-text-mention/base';
 
-export { RichTextMentionValidity };
+export type { RichTextMentionValidity };
 export type { MentionUpdateEventDetail };
 
 /**

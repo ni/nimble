@@ -2,8 +2,8 @@ import { html, ref, slotted, when } from '@microsoft/fast-element';
 import type { ViewTemplate } from '@microsoft/fast-element';
 import {
     endSlotTemplate,
-    FoundationElementTemplate,
-    NumberFieldOptions,
+    type FoundationElementTemplate,
+    type NumberFieldOptions,
     startSlotTemplate
 } from '@microsoft/fast-foundation';
 import type { NumberField } from '.';

@@ -2,7 +2,7 @@ import { observable } from '@microsoft/fast-element';
 import {
     DesignSystem,
     Tabs as FoundationTabs,
-    TabsOptions
+    type TabsOptions
 } from '@microsoft/fast-foundation';
 import { styles } from './styles';
 import { template } from '../patterns/tabs/template';

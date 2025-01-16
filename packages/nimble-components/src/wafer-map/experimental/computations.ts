@@ -1,4 +1,4 @@
-import { scaleLinear, ScaleLinear } from 'd3-scale';
+import { scaleLinear, type ScaleLinear } from 'd3-scale';
 import { range } from 'd3-array';
 import type { WaferMap } from '..';
 import { WaferMapColorScaleMode, WaferMapOriginLocation } from '../types';

@@ -10,7 +10,7 @@ import {
     sharedMatrixParameters,
     createMatrixThemeStory
 } from '../../utilities/matrix';
-import { DisabledState, disabledStates } from '../../utilities/states';
+import { type DisabledState, disabledStates } from '../../utilities/states';
 import { hiddenWrapper } from '../../utilities/hidden';
 import { textCustomizationWrapper } from '../../utilities/text-customization';
 

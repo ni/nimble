@@ -7,7 +7,7 @@ import {
 } from '../../../../table-column/text';
 
 import { waitForUpdatesAsync } from '../../../../testing/async-helpers';
-import { fixture, Fixture } from '../../../../utilities/tests/fixture';
+import { fixture, type Fixture } from '../../../../utilities/tests/fixture';
 import type {
     TableRecord,
     TableRowExpansionToggleEventDetail,
@@ -18,7 +18,7 @@ import { waitForEvent } from '../../../../utilities/testing/component';
 import { tableTag, type Table } from '../../..';
 import {
     TableColumnDateText,
-    TableColumnDateTextCellRecord,
+    type TableColumnDateTextCellRecord,
     tableColumnDateTextTag
 } from '../../../../table-column/date-text';
 
