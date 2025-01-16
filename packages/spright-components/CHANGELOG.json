@@ -2,6 +2,27 @@
   "name": "@ni/spright-components",
   "entries": [
     {
+      "date": "Thu, 16 Jan 2025 23:05:03 GMT",
+      "version": "4.3.7",
+      "tag": "@ni/spright-components_v4.3.7",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/spright-components",
+            "commit": "8b17b15aa037f14375abaef6fa1c76190282efab",
+            "comment": "Replace deprectated importsNotUsedAsValues option with verbatimModuleSyntax"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/spright-components",
+            "comment": "Bump @ni/nimble-components to v32.11.2",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 10 Jan 2025 16:45:51 GMT",
       "version": "4.3.6",
       "tag": "@ni/spright-components_v4.3.6",
