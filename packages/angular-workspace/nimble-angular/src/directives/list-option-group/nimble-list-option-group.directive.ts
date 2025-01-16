@@ -1,9 +1,9 @@
 import { Directive, Input, ElementRef, Renderer2 } from '@angular/core';
 import { type BooleanValueOrAttribute, toBooleanProperty } from '@ni/nimble-angular/internal-utilities';
-import type { ListOptionGroup, listOptionGroupTag } from '@ni/nimble-components/dist/esm/list-option-group';
+import { type ListOptionGroup, listOptionGroupTag } from '@ni/nimble-components/dist/esm/list-option-group';
 
 export type { ListOptionGroup };
-export type { listOptionGroupTag };
+export { listOptionGroupTag };
 
 /**
  * Directive to provide Angular integration for the list option group.
