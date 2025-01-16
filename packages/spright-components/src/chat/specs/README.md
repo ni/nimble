@@ -52,10 +52,10 @@ These components are competing against possible implementations within applicati
 
 ### Prior Art/Examples
 
-_Screenshot of Figma design of chat and conversation component (light mode)_
+**Screenshot of Figma design of chat and conversation component (light mode)**
 ![ ](spec-images/chat-conversation.png)
 
-_Screenshot of Figma design of chat components embeded within larger pane (dark mode)_
+**Screenshot of Figma design of chat components embeded within larger pane (dark mode)**
 ![ ](spec-images/chat-pane.png)
 
 ---
@@ -152,7 +152,7 @@ A message is simply a `div` which will styled with background / border / rounded
 
 #### Conversation
 
-A conversation has no appearance of its own and simply contains the default slot for messages.
+Other than setting a background, a conversation has no appearance of its own and simply contains the default slot for messages.
 
 ```html
 <template>
@@ -183,12 +183,6 @@ Initial designer-vetted visual designs exist in [Nimble_Components Figma](https:
 ---
 
 ## Implementation
-
-_Important aspects of the planned implementation with careful consideration of web standards and integration._
-
-_Highlight any alternative implementations you considered in each section._
-
-_If you think a section doesn't apply or don't know what to write, please DO NOT delete it. Either mark it "N/A" or leave it blank and the Nimble team can help you fill it in._
 
 ### States
 
