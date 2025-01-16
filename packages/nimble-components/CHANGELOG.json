@@ -2,6 +2,36 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Thu, 16 Jan 2025 18:48:36 GMT",
+      "version": "32.11.1",
+      "tag": "@ni/nimble-components_v32.11.1",
+      "comments": {
+        "none": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "a4011ec7130d2aa601d2058660caed6f3d705f02",
+            "comment": "Disable a couple Table tests intermittent on Firefox"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 10 Jan 2025 16:45:51 GMT",
+      "version": "32.11.1",
+      "tag": "@ni/nimble-components_v32.11.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "cf916f9123a55947fa71b8e5b2bd07f6f00721bf",
+            "comment": "Inline constant from external library for table pageobject"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 08 Jan 2025 18:33:05 GMT",
       "version": "32.11.0",
       "tag": "@ni/nimble-components_v32.11.0",
