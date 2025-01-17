@@ -48,14 +48,16 @@
   },
   "homepage": "https://github.com/ni/nimble#readme",
   "dependencies": {
+    "@maskito/core": "^3.2.1",
+    "@maskito/kit": "^3.2.1",
     "@microsoft/fast-element": "^1.14.0",
     "@microsoft/fast-foundation": "^2.50.0",
     "@ni/nimble-components": "^32.11.2",
     "tslib": "^2.2.0"
   },
   "devDependencies": {
-    "@ni/jasmine-parameterized": "^1.0.0",
     "@ni-private/eslint-config-nimble": "*",
+    "@ni/jasmine-parameterized": "^1.0.0",
     "@rollup/plugin-commonjs": "^28.0.0",
     "@rollup/plugin-node-resolve": "^16.0.0",
     "@rollup/plugin-replace": "^6.0.0",
