@@ -1,6 +1,7 @@
 import { attr, html } from '@microsoft/fast-element';
 import {
     DesignSystem,
+    FoundationElement,
     NumberField as FoundationNumberField,
     type NumberFieldOptions
 } from '@microsoft/fast-foundation';
@@ -33,18 +34,39 @@ declare global {
  * A nimble-styled formatted number input
  */
 export class FormattedNumberField extends mixinErrorPattern(
-    mixinRequiredVisiblePattern(FoundationNumberField)
+    mixinRequiredVisiblePattern(FoundationElement)
 ) {
+    /**
+     * When true, the control will be immutable by user interaction. See {@link https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/readonly | readonly HTML attribute} for more information.
+     * @public
+     * @remarks
+     * HTML Attribute: readonly
+     */
+    public readOnly: boolean | undefined;
+
+    /**
+     * Sets the placeholder value of the element, generally used to provide a hint to the user.
+     * @public
+     * @remarks
+     * HTML Attribute: placeholder
+     * Using this attribute does is not a valid substitute for a labeling element.
+     */
+    public placeholder: string | undefined;
+
     @attr
     public appearance: FormattedNumberFieldAppearance = FormattedNumberFieldAppearance.underline;
+
+    /**
+     * A reference to the internal input element
+     * @internal
+     */
+    public control!: HTMLInputElement;
 
     private maskedInput: Maskito | undefined;
 
     public override connectedCallback(): void {
         super.connectedCallback();
 
-        // This is a workaround for FAST issue: https://github.com/microsoft/fast/issues/6148
-        this.control.setAttribute('role', 'spinbutton');
         const mask = maskitoNumberOptionsGenerator({
             decimalSeparator: ',',
             thousandSeparator: '.',
