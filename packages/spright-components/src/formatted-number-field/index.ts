@@ -96,5 +96,5 @@ const sprightFormattedNumberField = NumberField.compose<NumberFieldOptions>({
     `
 });
 
-DesignSystem.getOrCreate().withPrefix('spright').register(nimbleNumberField());
-export const numberFieldTag = 'spright-formatted-number-field';
+DesignSystem.getOrCreate().withPrefix('spright').register(sprightFormattedNumberField());
+export const formattedNumberFieldTag = 'spright-formatted-number-field';
