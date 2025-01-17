@@ -49,7 +49,7 @@
     "@angular/compiler-cli": "^17.3.12",
     "@angular/localize": "^17.3.12",
     "@lhci/cli": "^0.14.0",
-    "@ni/fast-web-utilities": "^0.0.3",
+    "@ni/fast-web-utilities": "^0.0.4",
     "@ni-private/eslint-config-nimble": "*",
     "@ni/eslint-config-angular": "^8.0.0",
     "@ni/jasmine-parameterized": "*",

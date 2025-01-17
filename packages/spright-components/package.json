@@ -48,8 +48,8 @@
   },
   "homepage": "https://github.com/ni/nimble#readme",
   "dependencies": {
-    "@ni/fast-element": "^0.0.3",
-    "@ni/fast-foundation": "^0.0.3",
+    "@ni/fast-element": "^0.0.4",
+    "@ni/fast-foundation": "^0.0.5",
     "@ni/nimble-components": "^32.11.0",
     "tslib": "^2.2.0"
   },
