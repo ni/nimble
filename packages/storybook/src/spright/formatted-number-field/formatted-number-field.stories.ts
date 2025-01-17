@@ -7,11 +7,11 @@ import {
     numericIncrementLabel
 } from '../../../../nimble-components/src/label-provider/core/label-tokens';
 import { formattedNumberFieldTag } from '../../../../spright-components/src/formatted-number-field';
-import { NumberFieldAppearance } from '../../../../nimble-components/src/number-field/types';
+import { FormattedNumberFieldAppearance } from '../../../../spright-components/src/formatted-number-field/types';
 import {
     addLabelUseMetadata,
     type LabelUserArgs
-} from '../label-provider/base/label-user-stories-utils';
+} from '../../nimble/label-provider/base/label-user-stories-utils';
 import {
     apiCategory,
     appearanceDescription,
@@ -31,7 +31,7 @@ interface NumberFieldArgs extends LabelUserArgs {
     hideStep: boolean;
     min: number;
     max: number;
-    appearance: NumberFieldAppearance;
+    appearance: FormattedNumberFieldAppearance;
     readonly: boolean;
     disabled: boolean;
     errorVisible: boolean;
@@ -42,7 +42,7 @@ interface NumberFieldArgs extends LabelUserArgs {
 }
 
 const metadata: Meta<NumberFieldArgs> = {
-    title: 'Components/Number Field',
+    title: 'Spright/Formatted Number Field',
     decorators: [withActions<HtmlRenderer>],
     parameters: {
         actions: {
@@ -79,7 +79,7 @@ const metadata: Meta<NumberFieldArgs> = {
             table: { category: apiCategory.nonAttributeProperties }
         },
         appearance: {
-            options: Object.values(NumberFieldAppearance),
+            options: Object.values(FormattedNumberFieldAppearance),
             control: { type: 'radio' },
             description: appearanceDescription({
                 componentName: 'number field'
@@ -148,7 +148,7 @@ const metadata: Meta<NumberFieldArgs> = {
         hideStep: false,
         min: -10,
         max: 50,
-        appearance: NumberFieldAppearance.underline,
+        appearance: FormattedNumberFieldAppearance.underline,
         readonly: false,
         disabled: false,
         errorVisible: false,
@@ -168,20 +168,20 @@ export default metadata;
 export const underlineNumberField: StoryObj<NumberFieldArgs> = {
     args: {
         label: 'Underline Number Field',
-        appearance: NumberFieldAppearance.underline
+        appearance: FormattedNumberFieldAppearance.underline
     }
 };
 
 export const outlineNumberField: StoryObj<NumberFieldArgs> = {
     args: {
         label: 'Outline Number Field',
-        appearance: NumberFieldAppearance.outline
+        appearance: FormattedNumberFieldAppearance.outline
     }
 };
 
 export const blockNumberField: StoryObj<NumberFieldArgs> = {
     args: {
         label: 'Block Number Field',
-        appearance: NumberFieldAppearance.block
+        appearance: FormattedNumberFieldAppearance.block
     }
 };
