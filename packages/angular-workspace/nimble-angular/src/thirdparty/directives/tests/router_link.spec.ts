@@ -5,6 +5,7 @@
  * - replace import of Angular's RouterLink with our forked version
  * - define TestRouterLinkDirective to use in tests, and add it to declarations of testing modules
  * - replace references to RouterLink with TestRouterLinkDirective in two tests
+ * - disable Zoneless change detection for these tests (use fixture.detectChanges() instead of await fixture.whenStable())
  */
 
 /**
@@ -25,9 +26,10 @@ describe('RouterLink', () => {
   @Directive({ selector: '[routerLink]' })
   class TestRouterLinkDirective extends RouterLink {}
 
-  beforeEach(() => {
-    TestBed.configureTestingModule({providers: [provideExperimentalZonelessChangeDetection()]});
-  });
+  // [Nimble] Don't use Zoneless change detection for these tests
+  // beforeEach(() => {
+  //   TestBed.configureTestingModule({providers: [provideExperimentalZonelessChangeDetection()]});
+  // });
 
   it('does not modify tabindex if already set on non-anchor element', async () => {
     @Component({template: `<div [routerLink]="link" tabindex="1"></div>`})
@@ -40,12 +42,14 @@ describe('RouterLink', () => {
       declarations: [LinkComponent, TestRouterLinkDirective],
     });
     const fixture = TestBed.createComponent(LinkComponent);
-    await fixture.whenStable();
+    // await fixture.whenStable();
+    fixture.detectChanges();
     const link = fixture.debugElement.query(By.css('div')).nativeElement;
     expect(link.tabIndex).toEqual(1);
 
     fixture.nativeElement.link = null;
-    await fixture.whenStable();
+    // await fixture.whenStable();
+    fixture.detectChanges();
     expect(link.tabIndex).toEqual(1);
   });
 
@@ -76,7 +80,8 @@ describe('RouterLink', () => {
         declarations: [LinkComponent, TestRouterLinkDirective],
       });
       fixture = TestBed.createComponent(LinkComponent);
-      await fixture.whenStable();
+      // await fixture.whenStable();
+      fixture.detectChanges();
       link = fixture.debugElement.query(By.css('div')).nativeElement;
       router = TestBed.inject(Router);
 
@@ -88,7 +93,8 @@ describe('RouterLink', () => {
 
     it('null, removes tabIndex and does not navigate', async () => {
       fixture.componentInstance.link.set(null);
-      await fixture.whenStable();
+      // await fixture.whenStable();
+      fixture.detectChanges();
       expect(link.tabIndex).toEqual(-1);
 
       link.click();
@@ -97,7 +103,8 @@ describe('RouterLink', () => {
 
     it('undefined, removes tabIndex and does not navigate', async () => {
       fixture.componentInstance.link.set(undefined);
-      await fixture.whenStable();
+      // await fixture.whenStable();
+      fixture.detectChanges();
       expect(link.tabIndex).toEqual(-1);
 
       link.click();
@@ -112,7 +119,8 @@ describe('RouterLink', () => {
         fixture.componentInstance.preserveFragment.set(truthy);
         fixture.componentInstance.skipLocationChange.set(truthy);
         fixture.componentInstance.replaceUrl.set(truthy);
-        await fixture.whenStable();
+        // await fixture.whenStable();
+        fixture.detectChanges();
         expect(dir.preserveFragment).toBeTrue();
         expect(dir.skipLocationChange).toBeTrue();
         expect(dir.replaceUrl).toBeTrue();
@@ -122,7 +130,8 @@ describe('RouterLink', () => {
         fixture.componentInstance.preserveFragment.set(falsy);
         fixture.componentInstance.skipLocationChange.set(falsy);
         fixture.componentInstance.replaceUrl.set(falsy);
-        await fixture.whenStable();
+        // await fixture.whenStable();
+        fixture.detectChanges();
         expect(dir.preserveFragment).toBeFalse();
         expect(dir.skipLocationChange).toBeFalse();
         expect(dir.replaceUrl).toBeFalse();
@@ -157,21 +166,24 @@ describe('RouterLink', () => {
           declarations: [LinkComponent, TestRouterLinkDirective],
         });
         fixture = TestBed.createComponent(LinkComponent);
-        await fixture.whenStable();
+        // await fixture.whenStable();
+        fixture.detectChanges();
         link = fixture.debugElement.query(By.css('a')).nativeElement;
       });
 
       it('null, removes href', async () => {
         expect(link.outerHTML).toContain('href');
         fixture.componentInstance.link.set(null);
-        await fixture.whenStable();
+        // await fixture.whenStable();
+        fixture.detectChanges();
         expect(link.outerHTML).not.toContain('href');
       });
 
       it('undefined, removes href', async () => {
         expect(link.outerHTML).toContain('href');
         fixture.componentInstance.link.set(undefined);
-        await fixture.whenStable();
+        // await fixture.whenStable();
+        fixture.detectChanges();
         expect(link.outerHTML).not.toContain('href');
       });
 
@@ -183,7 +195,8 @@ describe('RouterLink', () => {
           fixture.componentInstance.preserveFragment.set(truthy);
           fixture.componentInstance.skipLocationChange.set(truthy);
           fixture.componentInstance.replaceUrl.set(truthy);
-          await fixture.whenStable();
+          // await fixture.whenStable();
+          fixture.detectChanges();
           expect(dir.preserveFragment).toBeTrue();
           expect(dir.skipLocationChange).toBeTrue();
           expect(dir.replaceUrl).toBeTrue();
@@ -193,7 +206,8 @@ describe('RouterLink', () => {
           fixture.componentInstance.preserveFragment.set(falsy);
           fixture.componentInstance.skipLocationChange.set(falsy);
           fixture.componentInstance.replaceUrl.set(falsy);
-          await fixture.whenStable();
+          // await fixture.whenStable();
+          fixture.detectChanges();
           expect(dir.preserveFragment).toBeFalse();
           expect(dir.skipLocationChange).toBeFalse();
           expect(dir.replaceUrl).toBeFalse();
@@ -211,7 +225,8 @@ describe('RouterLink', () => {
         declarations: [LinkComponent, TestRouterLinkDirective],
       });
       const fixture = TestBed.createComponent(LinkComponent);
-      await fixture.whenStable();
+      // await fixture.whenStable();
+      fixture.detectChanges();
       const link = fixture.debugElement.query(By.css('a')).nativeElement;
 
       expect(link.outerHTML).toContain('href');
@@ -230,7 +245,8 @@ describe('RouterLink', () => {
     TestBed.configureTestingModule({providers: [provideRouter([])]});
 
     const fixture = TestBed.createComponent(WithUrlTree);
-    await fixture.whenStable();
+    // await fixture.whenStable();
+    fixture.detectChanges();
     expect(fixture.nativeElement.innerHTML).toContain('href="/a/b/c"');
   });
 
