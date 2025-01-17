@@ -1,4 +1,4 @@
-import type { NumberFieldAppearance } from '../types';
+import type { FormattedNumberFieldAppearance } from '../types';
 
 describe('NumberField type', () => {
     it('NumberFieldAppearance fails compile if assigning arbitrary string values', () => {

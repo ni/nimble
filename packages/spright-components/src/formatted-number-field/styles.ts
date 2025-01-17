@@ -20,7 +20,7 @@ import { appearanceBehavior } from '@ni/nimble-components/dist/esm/utilities/sty
 import { styles as errorStyles } from '@ni/nimble-components/dist/esm/patterns/error/styles';
 import { styles as requiredVisibleStyles } from '@ni/nimble-components/dist/esm/patterns/required-visible/styles';
 import { userSelectNone } from '@ni/nimble-components/dist/esm/utilities/style/user-select';
-import { NumberFieldAppearance } from './types';
+import { FormattedNumberFieldAppearance } from './types';
 
 export const styles = css`
     ${display('inline-block')}
@@ -177,7 +177,7 @@ export const styles = css`
     }
 `.withBehaviors(
     appearanceBehavior(
-        NumberFieldAppearance.underline,
+        FormattedNumberFieldAppearance.underline,
         css`
             .root {
                 border-bottom-width: ${borderWidth};
@@ -186,7 +186,7 @@ export const styles = css`
         `
     ),
     appearanceBehavior(
-        NumberFieldAppearance.block,
+        FormattedNumberFieldAppearance.block,
         css`
             .root {
                 background-color: rgba(${borderRgbPartialColor}, 0.1);
@@ -217,7 +217,7 @@ export const styles = css`
         `
     ),
     appearanceBehavior(
-        NumberFieldAppearance.outline,
+        FormattedNumberFieldAppearance.outline,
         css`
             .root {
                 border-width: ${borderWidth};

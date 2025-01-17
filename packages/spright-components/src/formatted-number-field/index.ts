@@ -16,7 +16,7 @@ import {
 } from '@ni/nimble-components/dist/esm/label-provider/core/label-tokens';
 import { mixinRequiredVisiblePattern } from '@ni/nimble-components/dist/esm/patterns/required-visible/types';
 import { template } from './template';
-import { NumberFieldAppearance } from './types';
+import { FormattedNumberFieldAppearance } from './types';
 import { styles } from './styles';
 
 declare global {
@@ -32,7 +32,7 @@ export class FormattedNumberField extends mixinErrorPattern(
     mixinRequiredVisiblePattern(FoundationNumberField)
 ) {
     @attr
-    public appearance: NumberFieldAppearance = NumberFieldAppearance.underline;
+    public appearance: FormattedNumberFieldAppearance = FormattedNumberFieldAppearance.underline;
 
     public override connectedCallback(): void {
         super.connectedCallback();

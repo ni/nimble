@@ -7,9 +7,9 @@ import { template } from '../template';
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 const FASTNumberField = FormattedNumberField.compose({
-    baseName: 'number-field',
+    baseName: 'formatted-number-field',
     template
-});
+});s
 
 async function setup(props?: Partial<FormattedNumberField>): Promise<{
     element: FormattedNumberField,
