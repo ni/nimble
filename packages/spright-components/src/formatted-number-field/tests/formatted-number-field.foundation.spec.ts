@@ -9,7 +9,7 @@ import { template } from '../template';
 const FASTNumberField = FormattedNumberField.compose({
     baseName: 'formatted-number-field',
     template
-});s
+});
 
 async function setup(props?: Partial<FormattedNumberField>): Promise<{
     element: FormattedNumberField,
