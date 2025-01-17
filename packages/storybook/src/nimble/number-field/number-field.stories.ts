@@ -6,7 +6,7 @@ import {
     numericDecrementLabel,
     numericIncrementLabel
 } from '../../../../nimble-components/src/label-provider/core/label-tokens';
-import { formattedNumberFieldTag } from '../../../../spright-components/src/formatted-number-field';
+import { numberFieldTag } from '../../../../nimble-components/src/number-field';
 import { NumberFieldAppearance } from '../../../../nimble-components/src/number-field/types';
 import {
     addLabelUseMetadata,
@@ -50,7 +50,7 @@ const metadata: Meta<NumberFieldArgs> = {
         }
     },
     render: createUserSelectedThemeStory(html`
-        <${formattedNumberFieldTag}
+        <${numberFieldTag}
             placeholder="${x => x.label}"
             value="${x => x.value}"
             step="${x => x.step}"
@@ -65,7 +65,7 @@ const metadata: Meta<NumberFieldArgs> = {
             ?required-visible="${x => x.requiredVisible}"
         >
             ${x => x.label}
-        </${formattedNumberFieldTag}>
+        </${numberFieldTag}>
     `),
     argTypes: {
         label: {
