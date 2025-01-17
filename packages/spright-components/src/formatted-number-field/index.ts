@@ -21,12 +21,12 @@ import { mixinRequiredVisiblePattern } from '../patterns/required-visible/types'
 
 declare global {
     interface HTMLElementTagNameMap {
-        'nimble-number-field': NumberField;
+        'spright-formatted-number-field': NumberField;
     }
 }
 
 /**
- * A nimble-styled HTML number input
+ * A nimble-styled formatted number input
  */
 export class NumberField extends mixinErrorPattern(
     mixinRequiredVisiblePattern(FoundationNumberField)
@@ -47,11 +47,11 @@ export class NumberField extends mixinErrorPattern(
  *
  * @public
  * @remarks
- * Generates HTML Element: \<nimble-number-field\>
+ * Generates HTML Element: \<spright-formatted-number-field\>
  *
  */
-const nimbleNumberField = NumberField.compose<NumberFieldOptions>({
-    baseName: 'number-field',
+const sprightFormattedNumberField = NumberField.compose<NumberFieldOptions>({
+    baseName: 'formatted-number-field',
     baseClass: FoundationNumberField,
     template,
     styles,
@@ -96,5 +96,5 @@ const nimbleNumberField = NumberField.compose<NumberFieldOptions>({
     `
 });
 
-DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleNumberField());
-export const numberFieldTag = 'nimble-number-field';
+DesignSystem.getOrCreate().withPrefix('spright').register(nimbleNumberField());
+export const numberFieldTag = 'spright-formatted-number-field';
