@@ -4,6 +4,10 @@ import {
     NumberField as FoundationNumberField,
     type NumberFieldOptions
 } from '@microsoft/fast-foundation';
+
+import { Maskito } from '@maskito/core';
+import { maskitoNumberOptionsGenerator } from '@maskito/kit';
+
 import { errorTextTemplate } from '@ni/nimble-components/dist/esm/patterns/error/template';
 import { mixinErrorPattern } from '@ni/nimble-components/dist/esm/patterns/error/types';
 import { buttonTag } from '@ni/nimble-components/dist/esm/button';
@@ -34,11 +38,24 @@ export class FormattedNumberField extends mixinErrorPattern(
     @attr
     public appearance: FormattedNumberFieldAppearance = FormattedNumberFieldAppearance.underline;
 
+    private maskedInput: Maskito | undefined;
+
     public override connectedCallback(): void {
         super.connectedCallback();
 
         // This is a workaround for FAST issue: https://github.com/microsoft/fast/issues/6148
         this.control.setAttribute('role', 'spinbutton');
+        const mask = maskitoNumberOptionsGenerator({
+            decimalSeparator: ',',
+            thousandSeparator: '.',
+            precision: 2,
+        });
+        this.maskedInput = new Maskito(this.control, mask);
+    }
+
+    public override disconnectedCallback(): void {
+        super.disconnectedCallback();
+        this.maskedInput?.destroy();
     }
 }
 
