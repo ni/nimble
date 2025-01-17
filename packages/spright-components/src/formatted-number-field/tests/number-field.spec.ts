@@ -9,10 +9,10 @@ import {
 } from '@ni/nimble-components/dist/esm/testing/async-helpers';
 import { ThemeProvider, themeProviderTag } from '@ni/nimble-components/dist/esm/theme-provider';
 import { fixture, type Fixture } from '@ni/nimble-components/dist/esm/utilities/tests/fixture';
-import { NumberField, formattedNumberFieldTag } from '..';
+import { FormattedNumberField, formattedNumberFieldTag } from '..';
 
-async function setup(): Promise<Fixture<NumberField>> {
-    return await fixture<NumberField>(
+async function setup(): Promise<Fixture<FormattedNumberField>> {
+    return await fixture<FormattedNumberField>(
         html`<${formattedNumberFieldTag}></${formattedNumberFieldTag}>`
     );
 }
@@ -27,7 +27,7 @@ async function setupWithLabelProvider(): Promise<Fixture<ThemeProvider>> {
 }
 
 describe('FormattedNumberField', () => {
-    let element: NumberField;
+    let element: FormattedNumberField;
     let connect: () => Promise<void>;
     let disconnect: () => Promise<void>;
 
@@ -42,7 +42,7 @@ describe('FormattedNumberField', () => {
 
     it('can construct an element instance', () => {
         expect(document.createElement(formattedNumberFieldTag)).toBeInstanceOf(
-            NumberField
+            FormattedNumberField
         );
     });
 
@@ -78,7 +78,7 @@ describe('FormattedNumberField', () => {
 });
 
 describe('NumberField with LabelProviderCore', () => {
-    let element: NumberField;
+    let element: FormattedNumberField;
     let labelProvider: LabelProviderCore;
     let connect: () => Promise<void>;
     let disconnect: () => Promise<void>;

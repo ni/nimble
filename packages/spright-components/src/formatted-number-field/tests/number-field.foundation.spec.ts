@@ -2,17 +2,17 @@
 
 import { DOM } from '@microsoft/fast-element';
 import { fixture } from '@ni/nimble-components/dist/esm/utilities/tests/fixture';
-import { NumberField } from '..';
+import { FormattedNumberField } from '..';
 import { template } from '../template';
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
-const FASTNumberField = NumberField.compose({
+const FASTNumberField = FormattedNumberField.compose({
     baseName: 'number-field',
     template
 });
 
-async function setup(props?: Partial<NumberField>): Promise<{
-    element: NumberField,
+async function setup(props?: Partial<FormattedNumberField>): Promise<{
+    element: FormattedNumberField,
     connect: () => Promise<void>,
     disconnect: () => Promise<void>,
     parent: HTMLElement

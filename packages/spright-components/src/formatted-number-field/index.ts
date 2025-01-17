@@ -21,14 +21,14 @@ import { styles } from './styles';
 
 declare global {
     interface HTMLElementTagNameMap {
-        'spright-formatted-number-field': NumberField;
+        'spright-formatted-number-field': FormattedNumberField;
     }
 }
 
 /**
  * A nimble-styled formatted number input
  */
-export class NumberField extends mixinErrorPattern(
+export class FormattedNumberField extends mixinErrorPattern(
     mixinRequiredVisiblePattern(FoundationNumberField)
 ) {
     @attr
@@ -50,7 +50,7 @@ export class NumberField extends mixinErrorPattern(
  * Generates HTML Element: \<spright-formatted-number-field\>
  *
  */
-const sprightFormattedNumberField = NumberField.compose<NumberFieldOptions>({
+const sprightFormattedNumberField = FormattedNumberField.compose<NumberFieldOptions>({
     baseName: 'formatted-number-field',
     baseClass: FoundationNumberField,
     template,
@@ -58,7 +58,7 @@ const sprightFormattedNumberField = NumberField.compose<NumberFieldOptions>({
     shadowOptions: {
         delegatesFocus: true
     },
-    stepDownGlyph: html<NumberField>`
+    stepDownGlyph: html<FormattedNumberField>`
         <${buttonTag}
             class="step-up-down-button"
             appearance="ghost"
@@ -73,7 +73,7 @@ const sprightFormattedNumberField = NumberField.compose<NumberFieldOptions>({
             </${iconMinusWideTag}>
         </${buttonTag}>
     `,
-    stepUpGlyph: html<NumberField>`
+    stepUpGlyph: html<FormattedNumberField>`
         <${buttonTag}
             class="step-up-down-button"
             appearance="ghost"
@@ -87,7 +87,7 @@ const sprightFormattedNumberField = NumberField.compose<NumberFieldOptions>({
             </${iconAddTag}>
         </${buttonTag}>
     `,
-    end: html<NumberField>`
+    end: html<FormattedNumberField>`
         <${iconExclamationMarkTag}
             severity="error"
             class="error-icon"

@@ -7,10 +7,10 @@ import {
     startSlotTemplate
 } from '@microsoft/fast-foundation';
 import { createRequiredVisibleLabelTemplate } from '@ni/nimble-components/dist/esm/patterns/required-visible/template';
-import type { NumberField } from '.';
+import type { FormattedNumberField } from '.';
 
 const labelTemplate = createRequiredVisibleLabelTemplate(
-    html<NumberField>`<label
+    html<FormattedNumberField>`<label
         part="label"
         for="control"
         class="${x => (x.defaultSlottedNodes?.length ? 'label' : 'label label__hidden')}"
@@ -24,7 +24,7 @@ const labelTemplate = createRequiredVisibleLabelTemplate(
  * @public
  */
 export const template: FoundationElementTemplate<
-ViewTemplate<NumberField>,
+ViewTemplate<FormattedNumberField>,
 NumberFieldOptions
 > = (context, definition) => html`
     <template class="${x => (x.readOnly ? 'readonly' : '')}">
@@ -77,7 +77,7 @@ NumberFieldOptions
             />
             ${when(
         x => !x.hideStep && !x.readOnly && !x.disabled,
-        html<NumberField>`
+        html<FormattedNumberField>`
                     <div class="controls" part="controls">
                         <div
                             class="step-up"
