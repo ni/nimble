@@ -7,7 +7,7 @@ import { iconXmarkTag, type IconXmark } from '../../icons/xmark';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import { treeItemTag, type TreeItem } from '../../tree-item';
 import { treeViewTag, type TreeView } from '../../tree-view';
-import { fixture, Fixture } from '../../utilities/tests/fixture';
+import { fixture, type Fixture } from '../../utilities/tests/fixture';
 
 @customElement('foundation-tree-item')
 export class TestTreeItem extends FoundationTreeItem {}

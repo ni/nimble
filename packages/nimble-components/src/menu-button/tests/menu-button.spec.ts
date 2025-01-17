@@ -2,11 +2,11 @@ import { html } from '@microsoft/fast-element';
 import { eventChange, keyEnter } from '@microsoft/fast-web-utilities';
 import { FoundationElement } from '@microsoft/fast-foundation';
 import { parameterizeSuite } from '@ni/jasmine-parameterized';
-import { fixture, Fixture } from '../../utilities/tests/fixture';
+import { fixture, type Fixture } from '../../utilities/tests/fixture';
 import { menuTag, type Menu } from '../../menu';
 import { menuItemTag, type MenuItem } from '../../menu-item';
 import { MenuButton, menuButtonTag } from '..';
-import { MenuButtonToggleEventDetail, MenuButtonPosition } from '../types';
+import { type MenuButtonToggleEventDetail, MenuButtonPosition } from '../types';
 import {
     processUpdates,
     waitForUpdatesAsync

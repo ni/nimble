@@ -18,7 +18,8 @@ import {
     errorTextDescription,
     errorVisibleDescription,
     placeholderDescription,
-    slottedLabelDescription
+    slottedLabelDescription,
+    requiredVisibleDescription
 } from '../../utilities/storybook';
 
 interface TextFieldArgs {
@@ -37,6 +38,7 @@ interface TextFieldArgs {
     leftIcon: boolean;
     change: undefined;
     input: undefined;
+    requiredVisible: boolean;
 }
 
 const leftIconDescription = 'An icon to display at the start of the text field.';
@@ -68,6 +70,7 @@ const metadata: Meta<TextFieldArgs> = {
             error-text="${x => x.errorText}"
             ?error-visible="${x => x.errorVisible}"
             ?full-bleed="${x => x.fullBleed}"
+            ?required-visible="${x => x.requiredVisible}"
         >
             ${when(x => x.leftIcon, html`
                 <${iconTagTag} slot="start"></${iconTagTag}>`)}
@@ -141,6 +144,11 @@ const metadata: Meta<TextFieldArgs> = {
             description: errorTextDescription,
             table: { category: apiCategory.attributes }
         },
+        requiredVisible: {
+            name: 'required-visible',
+            description: requiredVisibleDescription,
+            table: { category: apiCategory.attributes }
+        },
         actionButton: {
             name: 'actions',
             description: actionButtonDescription,
@@ -176,7 +184,8 @@ const metadata: Meta<TextFieldArgs> = {
         errorVisible: false,
         errorText: 'Value is invalid',
         actionButton: false,
-        leftIcon: false
+        leftIcon: false,
+        requiredVisible: false
     }
 };
 

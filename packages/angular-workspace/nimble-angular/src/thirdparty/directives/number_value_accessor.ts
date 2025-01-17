@@ -15,7 +15,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 
-import {Directive, ElementRef, forwardRef, Provider} from '@angular/core';
+import {Directive, ElementRef, forwardRef, type Provider} from '@angular/core';
 
 import type {ControlValueAccessor} from '@angular/forms';
 import {BuiltInControlValueAccessor} from './control_value_accessor';

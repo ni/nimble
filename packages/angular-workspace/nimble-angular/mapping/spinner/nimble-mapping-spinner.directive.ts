@@ -2,7 +2,7 @@ import { Directive, ElementRef, Input, Renderer2 } from '@angular/core';
 import { NimbleMappingDirective } from '@ni/nimble-angular/mapping/base';
 import { type MappingSpinner, mappingSpinnerTag } from '@ni/nimble-components/dist/esm/mapping/spinner';
 import type { MappingKey } from '@ni/nimble-components/dist/esm/mapping/base/types';
-import { BooleanValueOrAttribute, toBooleanProperty } from '@ni/nimble-angular/internal-utilities';
+import { type BooleanValueOrAttribute, toBooleanProperty } from '@ni/nimble-angular/internal-utilities';
 
 export type { MappingSpinner };
 export { mappingSpinnerTag };

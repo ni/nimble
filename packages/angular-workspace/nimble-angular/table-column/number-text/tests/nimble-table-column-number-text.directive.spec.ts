@@ -2,7 +2,7 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NimbleTableModule } from '../../../table/nimble-table.module';
 import { TableColumnSortDirection } from '../../nimble-table-column-base.directive';
-import { NimbleTableColumnNumberTextDirective, NumberTextAlignment, NumberTextFormat, TableColumnNumberText } from '../nimble-table-column-number-text.directive';
+import { NimbleTableColumnNumberTextDirective, NumberTextAlignment, NumberTextFormat, type TableColumnNumberText } from '../nimble-table-column-number-text.directive';
 import { NimbleTableColumnNumberTextModule } from '../nimble-table-column-number-text.module';
 
 describe('NimbleTableColumnNumberText', () => {

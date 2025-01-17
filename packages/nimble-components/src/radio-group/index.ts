@@ -3,10 +3,10 @@ import {
     DesignSystem
 } from '@microsoft/fast-foundation';
 import { Orientation } from '@microsoft/fast-web-utilities';
-import { attr } from '@microsoft/fast-element';
 import { styles } from './styles';
 import { template } from './template';
-import type { ErrorPattern } from '../patterns/error/types';
+import { mixinErrorPattern } from '../patterns/error/types';
+import { mixinRequiredVisiblePattern } from '../patterns/required-visible/types';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -19,13 +19,9 @@ export { Orientation };
 /**
  * A nimble-styled grouping element for radio buttons
  */
-export class RadioGroup extends FoundationRadioGroup implements ErrorPattern {
-    @attr({ attribute: 'error-text' })
-    public errorText?: string;
-
-    @attr({ attribute: 'error-visible', mode: 'boolean' })
-    public errorVisible = false;
-}
+export class RadioGroup extends mixinErrorPattern(
+    mixinRequiredVisiblePattern(FoundationRadioGroup)
+) {}
 
 const nimbleRadioGroup = RadioGroup.compose({
     baseName: 'radio-group',

@@ -4,18 +4,18 @@
 
 Some clients need to know when a user interactively changes the configuration of their table columns. This includes:
 
--   Sorting a column
--   Grouping by a column
--   Resizing a column
--   Reordering columns
--   Changing the visibility of a column
+- Sorting a column
+- Grouping by a column
+- Resizing a column
+- Reordering columns
+- Changing the visibility of a column
 
 ### Out of scope of this HLD
 
 There are some interactions on the table that will not be covered by this HLD. The rationale for that decision is that they are not interactions that affect a column state. These include:
 
--   Expanding/collapsing a group
--   Modifying row selection; row selection can already be observed by a client using the `selection-change` event on the table
+- Expanding/collapsing a group
+- Modifying row selection; row selection can already be observed by a client using the `selection-change` event on the table
 
 ## Implementation / Design
 

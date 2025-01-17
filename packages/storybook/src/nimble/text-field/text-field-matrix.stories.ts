@@ -17,12 +17,14 @@ import {
 } from '../../utilities/matrix';
 import {
     disabledStates,
-    DisabledState,
-    ReadOnlyState,
+    type DisabledState,
+    type ReadOnlyState,
     readOnlyStates,
     backgroundStates,
     errorStates,
-    ErrorState
+    type ErrorState,
+    type RequiredVisibleState,
+    requiredVisibleStates
 } from '../../utilities/states';
 import { hiddenWrapper } from '../../utilities/hidden';
 import { textCustomizationWrapper } from '../../utilities/text-customization';
@@ -129,6 +131,31 @@ const component = (
                 <${iconXmarkTag} slot="start"></${iconXmarkTag}>
                 Clear
             </${buttonTag}>`)}
+    </${textFieldTag}>
+`;
+
+// prettier-ignore
+const requiredVisibleStatesComponent = (
+    [requiredVisibleName, requiredVisible]: RequiredVisibleState,
+    [appearanceName, appearance]: AppearanceState,
+    [readOnlyName, readonly]: ReadOnlyState,
+    [disabledName, disabled]: DisabledState,
+    [errorName, errorVisible, errorText]: ErrorState
+): ViewTemplate => html`
+    <${textFieldTag}
+        style="width: 350px; margin: 8px;"
+        ?disabled="${() => disabled}"
+        appearance="${() => appearance}"
+        ?readonly="${() => readonly}"
+        ?error-visible="${() => errorVisible}"
+        error-text="${() => errorText}"
+        ?required-visible="${() => requiredVisible}"
+    >
+        ${() => readOnlyName}
+        ${() => disabledName}
+        ${() => errorName}
+        ${() => appearanceName}
+        ${() => requiredVisibleName}
     </${textFieldTag}>
 `;
 
@@ -490,6 +517,16 @@ export const colorThemeReadOnlyDisabledWithButtons: StoryFn = createFixedThemeSt
         valueStates
     ]),
     colorThemeDarkGreenBackground
+);
+
+export const textFieldRequiredVisibleThemeMatrix: StoryFn = createMatrixThemeStory(
+    createMatrix(requiredVisibleStatesComponent, [
+        requiredVisibleStates,
+        appearanceStates,
+        readOnlyStates,
+        disabledStates,
+        errorStates
+    ])
 );
 
 export const hiddenTextField: StoryFn = createStory(

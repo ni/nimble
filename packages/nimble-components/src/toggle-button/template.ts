@@ -2,8 +2,8 @@ import { html, ref, ViewTemplate } from '@microsoft/fast-element';
 import {
     endSlotTemplate,
     startSlotTemplate,
-    FoundationElementTemplate,
-    ButtonOptions
+    type FoundationElementTemplate,
+    type ButtonOptions
 } from '@microsoft/fast-foundation';
 import type { ToggleButton } from '.';
 

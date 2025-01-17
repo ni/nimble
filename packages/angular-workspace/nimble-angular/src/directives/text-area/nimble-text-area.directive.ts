@@ -1,7 +1,7 @@
 import { Directive, ElementRef, Input, Renderer2 } from '@angular/core';
 import { type TextArea, textAreaTag } from '@ni/nimble-components/dist/esm/text-area';
 import { TextAreaAppearance, TextAreaResize } from '@ni/nimble-components/dist/esm/text-area/types';
-import { BooleanValueOrAttribute, NumberValueOrAttribute, toBooleanProperty, toNumberProperty } from '@ni/nimble-angular/internal-utilities';
+import { type BooleanValueOrAttribute, type NumberValueOrAttribute, toBooleanProperty, toNumberProperty } from '@ni/nimble-angular/internal-utilities';
 
 export type { TextArea };
 export { textAreaTag };
@@ -136,6 +136,14 @@ export class NimbleTextAreaDirective {
 
     @Input() public set spellcheck(value: BooleanValueOrAttribute) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'spellcheck', toBooleanProperty(value));
+    }
+
+    public get requiredVisible(): boolean {
+        return this.elementRef.nativeElement.requiredVisible;
+    }
+
+    @Input('required-visible') public set requiredVisible(value: BooleanValueOrAttribute) {
+        this.renderer.setProperty(this.elementRef.nativeElement, 'requiredVisible', toBooleanProperty(value));
     }
 
     public constructor(private readonly renderer: Renderer2, private readonly elementRef: ElementRef<TextArea>) {}

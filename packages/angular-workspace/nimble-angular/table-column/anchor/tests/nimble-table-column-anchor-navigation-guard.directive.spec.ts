@@ -1,9 +1,9 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { CommonModule } from '@angular/common';
-import { Anchor, processUpdates, waitForUpdatesAsync } from '@ni/nimble-angular';
+import { type Anchor, processUpdates, waitForUpdatesAsync } from '@ni/nimble-angular';
 import { TablePageObject } from '@ni/nimble-angular/table/testing';
-import { NimbleTableModule, Table } from '@ni/nimble-angular/table';
+import { NimbleTableModule, type Table } from '@ni/nimble-angular/table';
 import { parameterizeSpec } from '@ni/jasmine-parameterized';
 import { NimbleTableColumnAnchorModule } from '../nimble-table-column-anchor.module';
 

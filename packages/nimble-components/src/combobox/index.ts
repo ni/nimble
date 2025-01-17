@@ -8,7 +8,7 @@ import {
 } from '@microsoft/fast-element';
 import {
     DesignSystem,
-    ComboboxOptions,
+    type ComboboxOptions,
     ComboboxAutocomplete,
     SelectPosition,
     ListboxOption,
@@ -32,7 +32,7 @@ import { iconArrowExpanderDownTag } from '../icons/arrow-expander-down';
 import { iconExclamationMarkTag } from '../icons/exclamation-mark';
 
 import { styles } from './styles';
-import type { ErrorPattern } from '../patterns/error/types';
+import { mixinErrorPattern } from '../patterns/error/types';
 import {
     DropdownAppearance,
     type DropdownPattern
@@ -41,6 +41,7 @@ import type { AnchoredRegion } from '../anchored-region';
 import { template } from './template';
 import { FormAssociatedCombobox } from './models/combobox-form-associated';
 import type { ListOption } from '../list-option';
+import { mixinRequiredVisiblePattern } from '../patterns/required-visible/types';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -52,19 +53,12 @@ declare global {
  * A nimble-styed HTML combobox
  */
 export class Combobox
-    extends FormAssociatedCombobox
-    implements DropdownPattern, ErrorPattern {
+    extends mixinErrorPattern(
+        mixinRequiredVisiblePattern(FormAssociatedCombobox)
+    )
+    implements DropdownPattern {
     @attr
     public appearance: DropdownAppearance = DropdownAppearance.underline;
-
-    /**
-     * A message explaining why the value is invalid.
-     */
-    @attr({ attribute: 'error-text' })
-    public errorText?: string;
-
-    @attr({ attribute: 'error-visible', mode: 'boolean' })
-    public errorVisible = false;
 
     /**
      * The autocomplete attribute.

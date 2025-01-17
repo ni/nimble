@@ -5,7 +5,7 @@ import { NimbleComboboxModule } from '../nimble-combobox.module';
 import { NimbleListOptionModule } from '../../list-option/nimble-list-option.module';
 import { processUpdates, waitForUpdatesAsync } from '../../../testing/async-helpers';
 import type { Combobox } from '../nimble-combobox.directive';
-import { OptionNotFound, OPTION_NOT_FOUND } from '../nimble-combobox-control-value-accessor.directive';
+import { type OptionNotFound, OPTION_NOT_FOUND } from '../nimble-combobox-control-value-accessor.directive';
 import type { ListOption } from '../../../public-api';
 
 function clickOnListOption(combobox: Combobox, index: number): void {

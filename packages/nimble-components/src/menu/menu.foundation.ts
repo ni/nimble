@@ -12,7 +12,7 @@ import {
 import {
     FoundationElement,
     MenuItem,
-    MenuItemColumnCount,
+    type MenuItemColumnCount,
     MenuItemRole,
     roleForMenuItem
 } from '@microsoft/fast-foundation';

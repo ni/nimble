@@ -28,8 +28,8 @@ A conversation with the design team will be started regarding this topic, but fo
 
 These are the features that would make sense to provide for a visualization widget component such as the wafer map, but will not be part of the current implementation:
 
--   Color legend
--   Die tooltips
+- Color legend
+- Die tooltips
 
 Currently our main goal is to bring in the existing wafer map component into the nimble library, but not to add features.
 
@@ -37,18 +37,18 @@ Currently our main goal is to bring in the existing wafer map component into the
 
 We consider now that the most important features of the current component would be:
 
--   Allowing to set the orientation of the wafer
--   Allowing an option to select specific color schemes for the wafer
--   Allowing to zoom in/out on the wafer-map widget
--   Allowing panning whilst the wafer is zoomed
--   Dynamic size adaptability
--   Scalable for very large number of data points
+- Allowing to set the orientation of the wafer
+- Allowing an option to select specific color schemes for the wafer
+- Allowing to zoom in/out on the wafer-map widget
+- Allowing panning whilst the wafer is zoomed
+- Dynamic size adaptability
+- Scalable for very large number of data points
 
 Additional implemented features:
 
--   [Nimble Wafer Map Hover Die](features/hover.md)
--   [Nimble Wafer Map Die Padding](features/die-padding.md)
--   [Nimble Wafer Map Grid Dimensions](features/grid-dimension.md)
+- [Nimble Wafer Map Hover Die](features/hover.md)
+- [Nimble Wafer Map Die Padding](features/die-padding.md)
+- [Nimble Wafer Map Grid Dimensions](features/grid-dimension.md)
 
 ### Risks and Challenges
 
@@ -71,9 +71,9 @@ While zooming in on the component, the user should also be able to pan (drag) th
 
 From a developer perspective, it's very important that the `nimble-wafer-map` component can be integrated with the MicroStrategy Custom plugin framework as this framework provides functionalities as follows:
 
--   Tooltip when hovering any of the datapoints within the wafer map
--   Wafer map legend
--   MicroStrategy specific context menus on right-click action
+- Tooltip when hovering any of the datapoints within the wafer map
+- Wafer map legend
+- MicroStrategy specific context menus on right-click action
 
 Information regarding the basic MicroStrategy **Custom Plugin Workflow** can be found [here](https://www2.microstrategy.com/producthelp/Current/VisSDK/Content/topics/HTML5/Understanding_the_workflow.htm)
 Also, the visualisation widget has no active controls, so there is no way to alter the visual aspect or data post rendering.
@@ -82,54 +82,54 @@ Also, the visualisation widget has no active controls, so there is no way to alt
 
 _The key elements of the component's public API surface:_
 
--   Component Name: `nimble-wafer-map`
--   Props/Attrs:
-    -   `dies` - this represents the input data, an array of `WaferMapDie`, which fills the wafer map with content.\
-        The **WaferMapDie** object contains the following attributes:
-        -   x: number
-        -   y: number
-        -   value: string
-        -   tags?: string[]
-    -   `originLocation` - represents the starting point and the direction of the two axes, X and Y, which are used for displaying the die grid on the wafer map canvas. The four possible combinations are represented with the position of the origin respective to the specific axes directions . It can be represented by a const (as suggested [here](https://github.com/ni/nimble/blob/12a84ea7ad9103ab848aa2cd9f724e8853751a10/packages/nimble-components/docs/coding-conventions.md#use-const-objects-instead-of-typescript-enums)) with the following values:
-    -   topLeft - ![Top Left Origin Location](./Resources/top_left.png)
-    -   bottomLeft - ![Bottom Left Origin Location](./Resources/bottom_left.png)
-    -   topRight - ![Top Right Origin Location](./Resources/top_right.png)
-    -   bottomRight - ![Bottom Right Origin Location](./Resources/bottom_right.png)
-    -   `orientation` - represents the orientation of the notch on the wafer map outline. As only four static orientations are possible, it can be represented by an Enum with the following values: `top`, `bottom`, `left`, `right`. This value does not influence the die grid display in any measure, it affects only the circle outline of the wafer.
-    -   `gridMinX` - represents the X coordinate of the minimum corner of the the grid bounding box for rendering the wafer map. Leaving the value `undefined` will set the value to the minimum X value of the bounding box of the input dies coordinates.
-    -   `gridMinY` - represents the Y coordinate of the minimum corner of the the grid bounding box for rendering the wafer map. Leaving the value `undefined` will set the value to the minimum Y value of the bounding box of the input dies coordinates.
-    -   `gridMaxX` - represents the X coordinate of the maximum corner of the the grid bounding box for rendering the wafer map. Leaving the value `undefined` will set the value to the maximum X value of the bounding box of the input dies coordinates.
-    -   `gridMaxY` - represents the Y coordinate of the maximum corner of the the grid bounding box for rendering the wafer map. Leaving the value `undefined` will set the value to the maximum Y value of the bounding box of the input dies coordinates.
-    -   `colorScale` - represents the color spectrum which shows the status of the dies on the wafer.\
-        The objects we use internally for the colorScale are [d3.scaleOrdinal](https://observablehq.com/@d3/d3-scaleordinal) and [d3.scaleLinear](https://observablehq.com/@d3/d3-scalelinear). Basically, what this does is it associates a specific string (or in our case a value) with a specific color. The values which are not specified in the array, will be calculated as a interpolation from the provided colors for the linear scale or will be assigned to one of the specified color values from the provided colors for the ordinal scale.
-        In the following example the colorScale object is defined as `WaferMapColorScale(['red', 'blue', 'green'], [1, 2, 8]);` and uses an internal linear scale\
-        The generated wafer using this color scale is: ![color_scale](./Resources/color_scale.png)
-    -   `maxCharacters` - represents the number of characters allowed to be displayed within a single die, including the label suffix. As the die values are strings, we must have the liberty of limiting how many characters we are willing to display within a single die.
-    -   `dieLabelsHidden` - a boolean value that determines if the die labels in the wafer map view are shown or not. Default value is false.
-    -   `dieLabelsSuffix` - represent a string that can be added as a label in the end of the each data information in the wafer map dies value.
-    -   `colorScaleMode` - represent an Enum value that determent if the colorScale is represent a continues gradient values (linear), or is set categorically (ordinal).
-    -   `highlightedTags` - represent a list of strings of dies that will be highlighted in the wafer map view. Each WaferMapDie has a tags?: string[] property, if at least one element of highlightedTags equals at least one element of WaferMapDie.tags the die will be highlighted. Highlighting changes the opacity of the dies. The non-highlighted ones will become faded and highlighted ones will maintain their color.
-    -   `disabled` - it's represented by a boolean value and refers to the state of the `nimble-wafer-map` component. If true, the component should be rendered dimmed out and no user interaction should be allowed.
-    -   `validity` - readonly object of boolean values that represents the validity states that the wafer map's configuration can be in. The object's type is `WaferMapValidity`, and it contains the following boolean properties:
-        -   `invalidGridDimensions` : true when any of the `gridMinX`, `gridMinY`, `gridMaxX` or `gridMaxY` is `undefined`, but false when all of them are `undefined`.
+- Component Name: `nimble-wafer-map`
+- Props/Attrs:
+    - `dies` - this represents the input data, an array of `WaferMapDie`, which fills the wafer map with content.\
+      The **WaferMapDie** object contains the following attributes:
+        - x: number
+        - y: number
+        - value: string
+        - tags?: string[]
+    - `originLocation` - represents the starting point and the direction of the two axes, X and Y, which are used for displaying the die grid on the wafer map canvas. The four possible combinations are represented with the position of the origin respective to the specific axes directions . It can be represented by a const (as suggested [here](https://github.com/ni/nimble/blob/12a84ea7ad9103ab848aa2cd9f724e8853751a10/packages/nimble-components/docs/coding-conventions.md#use-const-objects-instead-of-typescript-enums)) with the following values:
+    - topLeft - ![Top Left Origin Location](./Resources/top_left.png)
+    - bottomLeft - ![Bottom Left Origin Location](./Resources/bottom_left.png)
+    - topRight - ![Top Right Origin Location](./Resources/top_right.png)
+    - bottomRight - ![Bottom Right Origin Location](./Resources/bottom_right.png)
+    - `orientation` - represents the orientation of the notch on the wafer map outline. As only four static orientations are possible, it can be represented by an Enum with the following values: `top`, `bottom`, `left`, `right`. This value does not influence the die grid display in any measure, it affects only the circle outline of the wafer.
+    - `gridMinX` - represents the X coordinate of the minimum corner of the the grid bounding box for rendering the wafer map. Leaving the value `undefined` will set the value to the minimum X value of the bounding box of the input dies coordinates.
+    - `gridMinY` - represents the Y coordinate of the minimum corner of the the grid bounding box for rendering the wafer map. Leaving the value `undefined` will set the value to the minimum Y value of the bounding box of the input dies coordinates.
+    - `gridMaxX` - represents the X coordinate of the maximum corner of the the grid bounding box for rendering the wafer map. Leaving the value `undefined` will set the value to the maximum X value of the bounding box of the input dies coordinates.
+    - `gridMaxY` - represents the Y coordinate of the maximum corner of the the grid bounding box for rendering the wafer map. Leaving the value `undefined` will set the value to the maximum Y value of the bounding box of the input dies coordinates.
+    - `colorScale` - represents the color spectrum which shows the status of the dies on the wafer.\
+      The objects we use internally for the colorScale are [d3.scaleOrdinal](https://observablehq.com/@d3/d3-scaleordinal) and [d3.scaleLinear](https://observablehq.com/@d3/d3-scalelinear). Basically, what this does is it associates a specific string (or in our case a value) with a specific color. The values which are not specified in the array, will be calculated as a interpolation from the provided colors for the linear scale or will be assigned to one of the specified color values from the provided colors for the ordinal scale.
+      In the following example the colorScale object is defined as `WaferMapColorScale(['red', 'blue', 'green'], [1, 2, 8]);` and uses an internal linear scale\
+      The generated wafer using this color scale is: ![color_scale](./Resources/color_scale.png)
+    - `maxCharacters` - represents the number of characters allowed to be displayed within a single die, including the label suffix. As the die values are strings, we must have the liberty of limiting how many characters we are willing to display within a single die.
+    - `dieLabelsHidden` - a boolean value that determines if the die labels in the wafer map view are shown or not. Default value is false.
+    - `dieLabelsSuffix` - represent a string that can be added as a label in the end of the each data information in the wafer map dies value.
+    - `colorScaleMode` - represent an Enum value that determent if the colorScale is represent a continues gradient values (linear), or is set categorically (ordinal).
+    - `highlightedTags` - represent a list of strings of dies that will be highlighted in the wafer map view. Each WaferMapDie has a tags?: string[] property, if at least one element of highlightedTags equals at least one element of WaferMapDie.tags the die will be highlighted. Highlighting changes the opacity of the dies. The non-highlighted ones will become faded and highlighted ones will maintain their color.
+    - `disabled` - it's represented by a boolean value and refers to the state of the `nimble-wafer-map` component. If true, the component should be rendered dimmed out and no user interaction should be allowed.
+    - `validity` - readonly object of boolean values that represents the validity states that the wafer map's configuration can be in. The object's type is `WaferMapValidity`, and it contains the following boolean properties:
+        - `invalidGridDimensions` : true when any of the `gridMinX`, `gridMinY`, `gridMaxX` or `gridMaxY` is `undefined`, but false when all of them are `undefined`.
 
 The `originLocation`, `orientation`, `gridMinX`, `gridMinY`, `gridMaxX`, `gridMaxY`, `dieCharacterCount`, `disabled`, `waferDataType` and `colorBy` properties will be configurable via properties and attributes.
 The `dies`, `colorScale` and `highlightedTags` properties will be configurable only via properties and will not have attributes.
 
 Methods: The following methods will be exposed in the public API:
 
--   `focus()` - adds a green box around the component when it has tab focus.
+- `focus()` - adds a green box around the component when it has tab focus.
 
 Events: The events mentioned below will all be handled internally by the nimble component and they will not be part of the public API. In the initial implementation the following events should be handled:
 
--   Zoom in while hovering - this action gets executed whenever the mouse pointer hovers the `nimble-wafer-map` component and a wheel event (scroll up) gets triggered
--   Zoom out while hovering - this action gets executed whenever the mouse pointer hovers the `nimble-wafer-map` component and a wheel event (scroll down) gets triggered
--   Drag while zoomed - this event gets triggered whenever the `nimble-wafer-map` component is zoomed in (larger than 100%) and whilst the left mouse button is held the pointer moves to any direction within the wafer-map canvas
--   Mouse hover - this event gets triggered whenever the mouse pointer is hovering any of the die elements within the wafer map. We only must detect this in the nimble component, proper handling will be done in the MicroStrategy wrapper. (Tooltip triggering)
+- Zoom in while hovering - this action gets executed whenever the mouse pointer hovers the `nimble-wafer-map` component and a wheel event (scroll up) gets triggered
+- Zoom out while hovering - this action gets executed whenever the mouse pointer hovers the `nimble-wafer-map` component and a wheel event (scroll down) gets triggered
+- Drag while zoomed - this event gets triggered whenever the `nimble-wafer-map` component is zoomed in (larger than 100%) and whilst the left mouse button is held the pointer moves to any direction within the wafer-map canvas
+- Mouse hover - this event gets triggered whenever the mouse pointer is hovering any of the die elements within the wafer map. We only must detect this in the nimble component, proper handling will be done in the MicroStrategy wrapper. (Tooltip triggering)
 
 The public API will have a new custom event fired when the mouse will hover over a displayed die.
 
--   `die-hover` will be triggered to inform the user that the state of hoverin over a die has changed. The event `detail` will include `{currentDie: WaferMapDie}` when a new die is the target of mouse hovernig and `{currentDie: undefined}` when the hovering does not have a target.
+- `die-hover` will be triggered to inform the user that the state of hoverin over a die has changed. The event `detail` will include `{currentDie: WaferMapDie}` when a new die is the target of mouse hovernig and `{currentDie: undefined}` when the hovering does not have a target.
 
 ### Anatomy
 
@@ -159,16 +159,16 @@ Shadow DOM:
 
 The first SVG element with the "zoomContainer" class attribute contains two circles and a rectangle.
 
--   The first circle represents the outline of the wafer map component.
--   The second circle, together with the rectangle is part of a solution which creates the illusion that there is a notch present on the wafer map frame.
+- The first circle represents the outline of the wafer map component.
+- The second circle, together with the rectangle is part of a solution which creates the illusion that there is a notch present on the wafer map frame.
 
 The second SVG element with the "WaferMapArea" class attribute represents the area where the dies get rendered.
 The rectangle present here is used as the "highlight" which allows us to identify individual dies in the canvas.
 
--   Slot Names: (none)
--   Host Classes: (none)
--   Slotted Content/Slotted Classes: (none)
--   CSS Parts: (none)
+- Slot Names: (none)
+- Host Classes: (none)
+- Slotted Content/Slotted Classes: (none)
+- CSS Parts: (none)
 
 ### Angular integration
 
@@ -192,15 +192,15 @@ Original component: [wafermap](https://dev.azure.com/ni/DevCentral/_git/op-web-p
 
 Once the bloat removal is done, we split the component to smaller services as follows:
 
--   data service - responsible for initializing, by parsing the input and populating metadata properties such as the width, height, axes ranges, color, and linear scales. The service will expose an interface for requesting data access to the die list, individual die data, color data, scales, rows, and columns.
--   rendering service - by using the relevant information from the data service and being given an empty canvas it will populate it with the existing die list.
+- data service - responsible for initializing, by parsing the input and populating metadata properties such as the width, height, axes ranges, color, and linear scales. The service will expose an interface for requesting data access to the die list, individual die data, color data, scales, rows, and columns.
+- rendering service - by using the relevant information from the data service and being given an empty canvas it will populate it with the existing die list.
 
 ### Code submission strategy
 
 In order to make the process of submitting the re-written wafer map component easier for us and for the code reviewers as well, we propose the following bottom-up approach:
 
--   As an initial step, we submit a skeleton of the `nimble-wafer-map` component into the main branch. This will serve as a starting point on which the complete functionality will be built on.
--   As soon as the skeleton is in place, we start to work on and submit individual pieces of the functionality so it's not very overwhelming to review the code.
+- As an initial step, we submit a skeleton of the `nimble-wafer-map` component into the main branch. This will serve as a starting point on which the complete functionality will be built on.
+- As soon as the skeleton is in place, we start to work on and submit individual pieces of the functionality so it's not very overwhelming to review the code.
 
 ### States
 
@@ -239,10 +239,10 @@ Currently the only thing we would like to achieve is to measure (benchmark) the 
 During these manual benchmark runs we would like to obtain more details on:
 "How much time it takes to render a `nimble-wafer-map` component with":
 
--   100 data points
--   1000 data points
--   10000 data points
--   100000 data points
+- 100 data points
+- 1000 data points
+- 10000 data points
+- 100000 data points
 
 Based on this information we can plan how we would like to approach performance improvements in the future and probably detect major bottlenecks.
 
@@ -258,10 +258,10 @@ The only 3rd party dependency on which the current wafer map component depends o
 We use parts of this library in our zooming and rendering functionality.
 As we don't want to bloat the component with unused packages, only the following will be included in the package.json:
 
--   d3-zoom
--   d3-color
--   d3-scale
--   d3-selection
+- d3-zoom
+- d3-color
+- d3-scale
+- d3-selection
 
 ### Test Plan
 

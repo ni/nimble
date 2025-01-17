@@ -1,5 +1,5 @@
 import { html } from '@microsoft/fast-element';
-import { fixture, Fixture } from '../../utilities/tests/fixture';
+import { fixture, type Fixture } from '../../utilities/tests/fixture';
 import { Dialog, dialogTag, UserDismissed } from '..';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import { buttonTag } from '../../button';

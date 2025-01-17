@@ -2,7 +2,7 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NimbleTableModule } from '../../../table/nimble-table.module';
 import { NimbleTableColumnMenuButtonModule } from '../nimble-table-column-menu-button.module';
-import { NimbleTableColumnMenuButtonDirective, TableColumnMenuButton } from '../nimble-table-column-menu-button.directive';
+import { NimbleTableColumnMenuButtonDirective, type TableColumnMenuButton } from '../nimble-table-column-menu-button.directive';
 
 describe('NimbleTableColumnMenuButtonDirective', () => {
     describe('module', () => {

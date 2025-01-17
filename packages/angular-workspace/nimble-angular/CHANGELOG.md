@@ -1,8 +1,97 @@
 # Change Log - @ni/nimble-angular
 
-<!-- This log was last generated on Fri, 22 Nov 2024 22:50:22 GMT and should not be manually modified. -->
+<!-- This log was last generated on Thu, 16 Jan 2025 23:05:03 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 28.8.2
+
+Thu, 16 Jan 2025 23:05:03 GMT
+
+### Patches
+
+- Replace deprectated importsNotUsedAsValues option with verbatimModuleSyntax ([ni/nimble@8b17b15](https://github.com/ni/nimble/commit/8b17b15aa037f14375abaef6fa1c76190282efab))
+- Bump @ni/nimble-components to v32.11.2
+
+## 28.8.1
+
+Fri, 10 Jan 2025 16:45:51 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v32.11.1
+
+## 28.8.0
+
+Wed, 08 Jan 2025 20:22:05 GMT
+
+### Minor changes
+
+- Angular support for required-visible ([ni/nimble@5f2245f](https://github.com/ni/nimble/commit/5f2245fc0a7bd252ef7cef2ceaa978c12d06808d))
+
+## 28.7.4
+
+Wed, 08 Jan 2025 18:33:06 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v32.11.0
+
+## 28.7.3
+
+Mon, 06 Jan 2025 20:05:57 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v32.10.0
+
+## 28.7.2
+
+Fri, 03 Jan 2025 17:23:02 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v32.9.3
+
+## 28.7.1
+
+Tue, 10 Dec 2024 20:15:57 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v32.9.1
+
+## 28.7.0
+
+Mon, 09 Dec 2024 15:59:16 GMT
+
+### Minor changes
+
+- Bump @ni/nimble-components to v32.9.0
+
+## 28.6.2
+
+Wed, 04 Dec 2024 21:21:27 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v32.8.2
+
+## 28.6.1
+
+Wed, 04 Dec 2024 19:53:29 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v32.8.1
+
+## 28.6.0
+
+Mon, 02 Dec 2024 19:38:59 GMT
+
+### Minor changes
+
+- Angular support for checkbox errors ([ni/nimble@939a9e5](https://github.com/ni/nimble/commit/939a9e5dec1258a36a493369c02628e4fff26900))
 
 ## 28.5.3
 

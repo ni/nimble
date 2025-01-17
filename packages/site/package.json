@@ -6,7 +6,7 @@
     "scripts": {
         "build": "npm run build:landing && npm run build:eleventy",
         "build:eleventy": "eleventy",
-        "build:landing": "tsc && vite build landing",
+        "build:landing": "tsc && vite --config ./vite.config.js build landing",
         "pack": "npm pack",
         "lint": "eslint .",
         "start:eleventy": "eleventy --serve",
@@ -19,7 +19,7 @@
         "@11ty/eleventy": "^3.0.0",
         "@ni-private/eslint-config-nimble": "*",
         "typescript": "~5.4.5",
-        "vite": "^5.1.5"
+        "vite": "^6.0.0"
     },
     "files": [
         "dist",

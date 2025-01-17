@@ -19,9 +19,9 @@ import {
 import {
     TableColumnAlignment,
     TableColumnSortDirection,
-    TableRecord,
+    type TableRecord,
     TableRecordDelayedHierarchyState,
-    TableRecordHierarchyOptions
+    type TableRecordHierarchyOptions
 } from '../types';
 import { TablePageObject } from '../testing/table.pageobject';
 import {
@@ -2620,7 +2620,8 @@ describe('Table', () => {
             await waitForUpdatesAsync();
         }
 
-        it('maintains scroll position if data does not change', async () => {
+        // Firefox skipped, see https://github.com/ni/nimble/issues/2491
+        it('maintains scroll position if data does not change #SkipFirefox', async () => {
             await setDataAndScrollToBottom(largeData200);
             const scrollTopBeforeDisconnect = element.viewport.scrollTop;
             const firstRenderedRowBeforeDisconnect = getFirstRenderedRowDataIndex(largeData200);
@@ -2634,7 +2635,8 @@ describe('Table', () => {
             );
         });
 
-        it('updates scroll position if data length is reduced while not attached', async () => {
+        // Firefox skipped, see https://github.com/ni/nimble/issues/2491
+        it('updates scroll position if data length is reduced while not attached #SkipFirefox', async () => {
             await setDataAndScrollToBottom(largeData400);
             const scrollTopBeforeDisconnect = element.viewport.scrollTop;
             const firstRenderedRowBeforeDisconnect = getFirstRenderedRowDataIndex(largeData400);
@@ -2652,7 +2654,8 @@ describe('Table', () => {
             );
         });
 
-        it('maintains scroll position if data length is increased while not attached', async () => {
+        // Firefox skipped, see https://github.com/ni/nimble/issues/2491
+        it('maintains scroll position if data length is increased while not attached #SkipFirefox', async () => {
             await setDataAndScrollToBottom(largeData200);
             const scrollTopBeforeDisconnect = element.viewport.scrollTop;
             const firstRenderedRowBeforeDisconnect = getFirstRenderedRowDataIndex(largeData200);
@@ -2689,7 +2692,8 @@ describe('Table', () => {
             );
         });
 
-        it('adjusts the number of rendered rows when the table height decreases while not attached', async () => {
+        // Firefox skipped, see https://github.com/ni/nimble/issues/2491
+        it('adjusts the number of rendered rows when the table height decreases while not attached #SkipFirefox', async () => {
             element.style.height = '500px';
             await element.setData(largeData200);
             await waitForUpdatesAsync();

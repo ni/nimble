@@ -6,11 +6,11 @@ The problem we are addressing is the need for faster rendering in our applicatio
 
 The proposed design should consider the following factors:
 
--   Efficiently handle large datasets with multiple layers of metadata
--   Minimize rendering time and improve overall performance
--   Measure and improve performance metrics
--   Maintain compatibility with existing design patterns and web standards
--   Address any potential impact on testing, documentation, security, and other relevant areas
+- Efficiently handle large datasets with multiple layers of metadata
+- Minimize rendering time and improve overall performance
+- Measure and improve performance metrics
+- Maintain compatibility with existing design patterns and web standards
+- Address any potential impact on testing, documentation, security, and other relevant areas
 
 By addressing these challenges, we aim to enhance the rendering capabilities of our application and provide a smoother and more responsive user interface.
 
@@ -98,8 +98,8 @@ export class WaferMap extends FoundationElement {
 It will be using the [Apache Arrow Table](https://arrow.apache.org/docs/js/classes/Arrow_dom.Table.html).
 It will require at least three columns for the `diesTable`:
 
--   The `rowIndex` and `colIndex` will be `Int32` columns
--   The `value` will be a `Float64` column.
+- The `rowIndex` and `colIndex` will be `Int32` columns
+- The `value` will be a `Float64` column.
 
 They will be checked at runtime and a `WaferMapValidity` flag will be raised signaling an `invalidTableInput`.
 
@@ -122,15 +122,15 @@ The [C# implementation of Apache Arrow](https://github.com/apache/arrow/blob/mai
 
 An alternate renderer inside a worker thread will be created to live in parallel in the wafer-map :
 
--   During development the data assigned to the dies property will determine the renderer to use. The current WaferMapDie type will choose the current renderer and the new WaferDataFormat will pick the new renderer.
--   When development is complete the old renderer will be removed and the previous WaferMapDie format will be supported and map to the new format internally.
+- During development the data assigned to the dies property will determine the renderer to use. The current WaferMapDie type will choose the current renderer and the new WaferDataFormat will pick the new renderer.
+- When development is complete the old renderer will be removed and the previous WaferMapDie format will be supported and map to the new format internally.
 
 The render worker:
 
--   will be responsible for parsing each layer of the data set and it will render the information contained with the specific color codes and opacity.
--   will be using the [comlink](https://github.com/GoogleChromeLabs/comlink) library to communicate with the main thread.
--   will be precompiled by rollup in a library and sent as a Blob to the worker initializer. Workers normally require a separate script file that is downloaded dynamically to run. To avoid the need for dynamically fetched resources and enable static compilation the worker code will be precompiled by rollup in a library and sent as a Blob to the worker.
--   will function as a state automaton which will need some data after initialization, and it will render everything using an [OffscreenCanvas](https://developer.mozilla.org/en-US/docs/Web/API/OffscreenCanvas). `SharedArrayBuffers` can be used to efficiently share memory buffers across multiple web workers but require [strict server configuration](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/SharedArrayBuffer#security_requirements) to be enabled. As such they will not be leveraged and are not needed to meet the performance targets.
+- will be responsible for parsing each layer of the data set and it will render the information contained with the specific color codes and opacity.
+- will be using the [comlink](https://github.com/GoogleChromeLabs/comlink) library to communicate with the main thread.
+- will be precompiled by rollup in a library and sent as a Blob to the worker initializer. Workers normally require a separate script file that is downloaded dynamically to run. To avoid the need for dynamically fetched resources and enable static compilation the worker code will be precompiled by rollup in a library and sent as a Blob to the worker.
+- will function as a state automaton which will need some data after initialization, and it will render everything using an [OffscreenCanvas](https://developer.mozilla.org/en-US/docs/Web/API/OffscreenCanvas). `SharedArrayBuffers` can be used to efficiently share memory buffers across multiple web workers but require [strict server configuration](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/SharedArrayBuffer#security_requirements) to be enabled. As such they will not be leveraged and are not needed to meet the performance targets.
 
 The main thread will communicate with the worker by signaling any data changes or user events which will trigger full or partial renders. We will implement an event queue inside the worker which will batch events together.
 
@@ -233,10 +233,10 @@ This API will have [optimized byte-array interop from Blazor](https://learn.micr
 
 Pros of using Apache Arrow:
 
--   A row based format that aligns well with the existing public api
--   Well supported and tested format
--   Nice public API to use, we don't have to invent a new format, just document our schema for the arrow tables
--   Designed for large dataset visualizations
+- A row based format that aligns well with the existing public api
+- Well supported and tested format
+- Nice public API to use, we don't have to invent a new format, just document our schema for the arrow tables
+- Designed for large dataset visualizations
 
 Another option is to break each object property as a separate attribute for the wafer map component. This can also lead to increased complexity and confusion for the user which will need to pass several structured objects instead of a singular object.
 
@@ -345,20 +345,20 @@ Another option is using the existing `highlightedTags` API with a `List` column 
 
 Specific open questions:
 
--   For a highlightedTags table api:
-    -   Should the API be constrained in the [supported arrow types](https://arrow.apache.org/docs/status.html)?
-        -   Should just primitive types be supported?
-        -   Should just types supported in the JavaScript and C# languages be supported?
-        -   Should just types well-supported in all existing implementation be supported?
-        -   Would certain types, ex. like strings, lead to poor performance and be discouraged?
-        -   Are there implementation challenges transferring buffers of arbitrary types across the Web Worker boundary?
-    -   Should the API be constrained in the set of columns that participate in highlighting instead of all columns? Maybe columns with a specific name prefix like `highlighted_`?
-    -   Is there real known benefits for specifying per floating point `value`? Or specific `rowIndex` / `columnIndex` independently?
-    -   Does the highlightTable need to contain all columns used in diesTable? Can it just be a subset of columns?
--   For a tags columns api:
-    -   Do columns of List<string> work in tables?
-    -   Do dictionary columns work in tables to improve efficiency compared to List<string>?
-    -   What is the performance of a List<string> / Dictionary column api compared to the alternatives?
+- For a highlightedTags table api:
+    - Should the API be constrained in the [supported arrow types](https://arrow.apache.org/docs/status.html)?
+        - Should just primitive types be supported?
+        - Should just types supported in the JavaScript and C# languages be supported?
+        - Should just types well-supported in all existing implementation be supported?
+        - Would certain types, ex. like strings, lead to poor performance and be discouraged?
+        - Are there implementation challenges transferring buffers of arbitrary types across the Web Worker boundary?
+    - Should the API be constrained in the set of columns that participate in highlighting instead of all columns? Maybe columns with a specific name prefix like `highlighted_`?
+    - Is there real known benefits for specifying per floating point `value`? Or specific `rowIndex` / `columnIndex` independently?
+    - Does the highlightTable need to contain all columns used in diesTable? Can it just be a subset of columns?
+- For a tags columns api:
+    - Do columns of List<string> work in tables?
+    - Do dictionary columns work in tables to improve efficiency compared to List<string>?
+    - What is the performance of a List<string> / Dictionary column api compared to the alternatives?
 
 ### Rendering Iterating
 
@@ -375,12 +375,12 @@ If it will be apparent that it's not useful, we will resort to reusing and adapt
 
 User Indication for [interactions in progress (>200ms)](https://web.dev/articles/inp) possibilities:
 
--   the wafer-map itself will show a spinner
--   the wafer-map will fire an event to notify the app to present something that work is in progress
--   the wafer-map will use bitmap scaling in addition to a spinner
--   the wafer-map will immediately show the spinner / fire event or only after, for example 200ms
--   the renderer will report progress for larger wait times.
--   the rendering will be done sequentially in animation frames so the user will see the progress at 60Hz
+- the wafer-map itself will show a spinner
+- the wafer-map will fire an event to notify the app to present something that work is in progress
+- the wafer-map will use bitmap scaling in addition to a spinner
+- the wafer-map will immediately show the spinner / fire event or only after, for example 200ms
+- the renderer will report progress for larger wait times.
+- the rendering will be done sequentially in animation frames so the user will see the progress at 60Hz
 
 A follow-on HLD update will specify the approved decision.
 

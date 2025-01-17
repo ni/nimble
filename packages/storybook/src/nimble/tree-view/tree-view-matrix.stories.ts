@@ -13,8 +13,8 @@ import {
 } from '../../utilities/matrix';
 import {
     disabledStates,
-    DisabledState,
-    IconVisibleState,
+    type DisabledState,
+    type IconVisibleState,
     iconVisibleStates
 } from '../../utilities/states';
 import { hiddenWrapper } from '../../utilities/hidden';

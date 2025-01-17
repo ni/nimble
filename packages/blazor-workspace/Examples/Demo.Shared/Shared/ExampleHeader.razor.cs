@@ -19,7 +19,7 @@ public partial class ExampleHeader
     private string ThemeAsString
     {
         get => Theme.ToString();
-        set => Theme = (Theme)Enum.Parse(typeof(Theme), value);
+        set => Theme = Enum.Parse<Theme>(value);
     }
 
     private async void OnUserThemeChange(string newTheme)

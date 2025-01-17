@@ -8,7 +8,7 @@ import { keyEnter, keySpace } from '@microsoft/fast-web-utilities';
 import {
     findParentNode,
     isList,
-    AnyExtension,
+    type AnyExtension,
     Extension,
     Editor
 } from '@tiptap/core';
@@ -22,10 +22,10 @@ import type { ToggleButton } from '../../toggle-button';
 import {
     TipTapNodeName,
     mentionPluginPrefix,
-    MentionDetail,
-    FormatButtonsState
+    type MentionDetail,
+    type FormatButtonsState
 } from './types';
-import type { ErrorPattern } from '../../patterns/error/types';
+import { mixinErrorPattern } from '../../patterns/error/types';
 import { RichTextMarkdownParser } from '../models/markdown-parser';
 import { RichTextMarkdownSerializer } from '../models/markdown-serializer';
 import { RichText } from '../base';
@@ -44,7 +44,7 @@ declare global {
 /**
  * A nimble styled rich text editor
  */
-export class RichTextEditor extends RichText implements ErrorPattern {
+export class RichTextEditor extends mixinErrorPattern(RichText) {
     /**
      * @internal
      */
@@ -89,24 +89,6 @@ export class RichTextEditor extends RichText implements ErrorPattern {
      */
     @attr({ attribute: 'footer-hidden', mode: 'boolean' })
     public footerHidden = false;
-
-    /**
-     * Whether to display the error state.
-     *
-     * @public
-     * HTML Attribute: error-visible
-     */
-    @attr({ attribute: 'error-visible', mode: 'boolean' })
-    public errorVisible = false;
-
-    /**
-     * A message explaining why the value is invalid.
-     *
-     * @public
-     * HTML Attribute: error-text
-     */
-    @attr({ attribute: 'error-text' })
-    public errorText?: string;
 
     /**
      * @public

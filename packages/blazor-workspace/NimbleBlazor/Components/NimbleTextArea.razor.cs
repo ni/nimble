@@ -90,6 +90,12 @@ public partial class NimbleTextArea : NimbleInputBase<string?>
     public bool? Spellcheck { get; set; }
 
     /// <summary>
+    /// Gets or sets whether the text area's required indicator is visible
+    /// </summary>
+    [Parameter]
+    public bool? RequiredVisible { get; set; }
+
+    /// <summary>
     /// Gets or sets the child content of the control
     /// </summary>
     [Parameter]

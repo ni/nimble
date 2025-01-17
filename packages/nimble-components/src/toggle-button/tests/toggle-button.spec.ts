@@ -1,6 +1,6 @@
 import { html } from '@microsoft/fast-element';
 import { keyEnter, keySpace } from '@microsoft/fast-web-utilities';
-import { fixture, Fixture } from '../../utilities/tests/fixture';
+import { fixture, type Fixture } from '../../utilities/tests/fixture';
 import { ToggleButton, toggleButtonTag } from '..';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 

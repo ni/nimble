@@ -21,12 +21,11 @@ import { userSelectNone } from '../utilities/style/user-select';
 import { styles as errorStyles } from '../patterns/error/styles';
 
 export const styles = css`
-    ${display('inline-flex')}
+    ${display('inline-grid')}
     ${errorStyles}
 
     :host {
         font: ${bodyFont};
-        align-items: center;
         cursor: pointer;
         outline: none;
         ${userSelectNone}
@@ -37,8 +36,14 @@ export const styles = css`
         cursor: default;
     }
 
-    .container {
+    .outer-container {
+        height: 100%;
+        display: flex;
+        align-items: center;
         position: relative;
+    }
+
+    .container {
         display: grid;
         grid-template-columns: auto 1fr auto;
         grid-template-rows: ${bodyFontLineHeight} auto;

@@ -1,8 +1,91 @@
 # Change Log - @ni/spright-components
 
-<!-- This log was last generated on Fri, 22 Nov 2024 22:50:22 GMT and should not be manually modified. -->
+<!-- This log was last generated on Thu, 16 Jan 2025 23:05:03 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 4.3.7
+
+Thu, 16 Jan 2025 23:05:03 GMT
+
+### Patches
+
+- Replace deprectated importsNotUsedAsValues option with verbatimModuleSyntax ([ni/nimble@8b17b15](https://github.com/ni/nimble/commit/8b17b15aa037f14375abaef6fa1c76190282efab))
+- Bump @ni/nimble-components to v32.11.2
+
+## 4.3.6
+
+Fri, 10 Jan 2025 16:45:51 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v32.11.1
+
+## 4.3.5
+
+Wed, 08 Jan 2025 18:33:06 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v32.11.0
+
+## 4.3.4
+
+Mon, 06 Jan 2025 20:05:57 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v32.10.0
+
+## 4.3.3
+
+Fri, 03 Jan 2025 17:23:02 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v32.9.3
+
+## 4.3.2
+
+Thu, 02 Jan 2025 21:45:49 GMT
+
+### Patches
+
+- Update to rollup all-components build dependencies ([ni/nimble@0ca6cc0](https://github.com/ni/nimble/commit/0ca6cc0c1c819247397950ffaa535097147374c0))
+- Bump @ni/nimble-components to v32.9.2
+
+## 4.3.1
+
+Tue, 10 Dec 2024 20:15:57 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v32.9.1
+
+## 4.3.0
+
+Mon, 09 Dec 2024 15:59:16 GMT
+
+### Minor changes
+
+- Bump @ni/nimble-components to v32.9.0
+
+## 4.2.5
+
+Wed, 04 Dec 2024 21:21:27 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v32.8.2
+
+## 4.2.4
+
+Wed, 04 Dec 2024 19:53:29 GMT
+
+### Patches
+
+- Updates from lint changes ([ni/nimble@412acc5](https://github.com/ni/nimble/commit/412acc54f38fd667da60aaf1bfad4b30c5955887))
+- Bump @ni/nimble-components to v32.8.1
 
 ## 4.2.3
 

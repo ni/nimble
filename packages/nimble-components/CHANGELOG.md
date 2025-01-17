@@ -1,8 +1,89 @@
 # Change Log - @ni/nimble-components
 
-<!-- This log was last generated on Fri, 22 Nov 2024 22:50:22 GMT and should not be manually modified. -->
+<!-- This log was last generated on Thu, 16 Jan 2025 23:05:03 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 32.11.2
+
+Thu, 16 Jan 2025 23:05:03 GMT
+
+### Patches
+
+- Replace deprectated importsNotUsedAsValues option with verbatimModuleSyntax ([ni/nimble@8b17b15](https://github.com/ni/nimble/commit/8b17b15aa037f14375abaef6fa1c76190282efab))
+
+## 32.11.1
+
+Fri, 10 Jan 2025 16:45:51 GMT
+
+### Patches
+
+- Inline constant from external library for table pageobject ([ni/nimble@cf916f9](https://github.com/ni/nimble/commit/cf916f9123a55947fa71b8e5b2bd07f6f00721bf))
+
+## 32.11.0
+
+Wed, 08 Jan 2025 18:33:05 GMT
+
+### Minor changes
+
+- Add `required-visible` attribute to number-field and text-field ([ni/nimble@a0662f1](https://github.com/ni/nimble/commit/a0662f1b0d7a1fdff40d752f9455c91eb0ad5d5a))
+
+## 32.10.0
+
+Mon, 06 Jan 2025 20:05:57 GMT
+
+### Minor changes
+
+- Add `required-visible` attribute to radio-group, combobox, select, and text-area ([ni/nimble@f558bd7](https://github.com/ni/nimble/commit/f558bd74afaeee9ea17bf0f8bdf8f1b239935887))
+
+## 32.9.3
+
+Fri, 03 Jan 2025 17:23:02 GMT
+
+### Patches
+
+- Fork number-field and text-field templates ([ni/nimble@6a8328d](https://github.com/ni/nimble/commit/6a8328dc976c6ba81f2a165309957dc5032519ae))
+
+## 32.9.2
+
+Thu, 02 Jan 2025 21:45:49 GMT
+
+### Patches
+
+- Update to rollup all-components build dependencies ([ni/nimble@0ca6cc0](https://github.com/ni/nimble/commit/0ca6cc0c1c819247397950ffaa535097147374c0))
+
+## 32.9.1
+
+Tue, 10 Dec 2024 20:15:57 GMT
+
+### Patches
+
+- Update error text on components to only show a title when the error text overflows ([ni/nimble@2d0ceca](https://github.com/ni/nimble/commit/2d0ceca7989e6af257bef8ee939cf036a79c8925))
+
+## 32.9.0
+
+Mon, 09 Dec 2024 15:59:16 GMT
+
+### Minor changes
+
+- Add asterisk icon ([ni/nimble@8c4686a](https://github.com/ni/nimble/commit/8c4686a1068dedbe62eb8eaaf9e20936960fa66a))
+- Bump @ni/nimble-tokens to v8.6.0
+
+## 32.8.2
+
+Wed, 04 Dec 2024 21:21:27 GMT
+
+### Patches
+
+- Correct the position of error text on the nimble-checkbox ([ni/nimble@4e192f9](https://github.com/ni/nimble/commit/4e192f9c199222fde4c66ca08015b570e353caa6))
+
+## 32.8.1
+
+Wed, 04 Dec 2024 19:53:29 GMT
+
+### Patches
+
+- Update rich text dependencies ([ni/nimble@412acc5](https://github.com/ni/nimble/commit/412acc54f38fd667da60aaf1bfad4b30c5955887))
 
 ## 32.8.0
 

@@ -9,7 +9,7 @@ import { ColumnValidator } from '../base/models/column-validator';
 import { mixinFractionalWidthColumnAPI } from '../mixins/fractional-width-column';
 import { TableColumn } from '../base';
 import {
-    MenuButtonColumnToggleEventDetail,
+    type MenuButtonColumnToggleEventDetail,
     cellViewMenuSlotName
 } from './types';
 import type { DelegatedEventEventDetails } from '../base/types';
