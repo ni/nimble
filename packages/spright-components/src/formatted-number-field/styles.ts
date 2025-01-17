@@ -1,5 +1,5 @@
 import { css } from '@microsoft/fast-element';
-import { display } from '../utilities/style/display';
+import { display } from '@ni/nimble-components/dist/esm/utilities/style/display';
 import {
     borderRgbPartialColor,
     borderHoverColor,
@@ -15,12 +15,12 @@ import {
     mediumPadding,
     smallPadding,
     controlLabelDisabledFontColor
-} from '../theme-provider/design-tokens';
-import { appearanceBehavior } from '../utilities/style/appearance';
+} from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
+import { appearanceBehavior } from '@ni/nimble-components/dist/esm/utilities/style/appearance';
+import { styles as errorStyles } from '@ni/nimble-components/dist/esm/patterns/error/styles';
+import { styles as requiredVisibleStyles } from '@ni/nimble-components/dist/esm/patterns/required-visible/styles';
+import { userSelectNone } from '@ni/nimble-components/dist/esm/utilities/style/user-select';
 import { NumberFieldAppearance } from './types';
-import { styles as errorStyles } from '../patterns/error/styles';
-import { styles as requiredVisibleStyles } from '../patterns/required-visible/styles';
-import { userSelectNone } from '../utilities/style/user-select';
 
 export const styles = css`
     ${display('inline-block')}

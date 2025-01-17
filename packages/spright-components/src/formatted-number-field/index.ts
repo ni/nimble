@@ -4,20 +4,20 @@ import {
     NumberField as FoundationNumberField,
     type NumberFieldOptions
 } from '@microsoft/fast-foundation';
-import { styles } from './styles';
-import { NumberFieldAppearance } from './types';
-import { errorTextTemplate } from '../patterns/error/template';
-import { mixinErrorPattern } from '../patterns/error/types';
-import { buttonTag } from '../button';
-import { iconMinusWideTag } from '../icons/minus-wide';
-import { iconAddTag } from '../icons/add';
-import { iconExclamationMarkTag } from '../icons/exclamation-mark';
+import { errorTextTemplate } from '@ni/nimble-components/dist/esm/patterns/error/template';
+import { mixinErrorPattern } from '@ni/nimble-components/dist/esm/patterns/error/types';
+import { buttonTag } from '@ni/nimble-components/dist/esm/button';
+import { iconMinusWideTag } from '@ni/nimble-components/dist/esm/icons/minus-wide';
+import { iconAddTag } from '@ni/nimble-components/dist/esm/icons/add';
+import { iconExclamationMarkTag } from '@ni/nimble-components/dist/esm/icons/exclamation-mark';
 import {
     numericDecrementLabel,
     numericIncrementLabel
-} from '../label-provider/core/label-tokens';
+} from '@ni/nimble-components/dist/esm/label-provider/core/label-tokens';
+import { mixinRequiredVisiblePattern } from '@ni/nimble-components/dist/esm/patterns/required-visible/types';
 import { template } from './template';
-import { mixinRequiredVisiblePattern } from '../patterns/required-visible/types';
+import { NumberFieldAppearance } from './types';
+import { styles } from './styles';
 
 declare global {
     interface HTMLElementTagNameMap {

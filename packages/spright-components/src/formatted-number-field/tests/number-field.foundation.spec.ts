@@ -1,9 +1,9 @@
 // Based on tests in FAST repo: https://github.com/microsoft/fast/blob/fd9068b94e4aa8d2282f0cce613f58436fae955d/packages/web-components/fast-foundation/src/number-field/number-field.spec.ts
 
 import { DOM } from '@microsoft/fast-element';
+import { fixture } from '@ni/nimble-components/dist/esm/utilities/tests/fixture';
 import { NumberField } from '..';
 import { template } from '../template';
-import { fixture } from '../../utilities/tests/fixture';
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 const FASTNumberField = NumberField.compose({

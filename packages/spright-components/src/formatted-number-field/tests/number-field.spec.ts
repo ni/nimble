@@ -1,15 +1,15 @@
 import { html } from '@microsoft/fast-element';
-import { NumberField, numberFieldTag } from '..';
 import {
     LabelProviderCore,
     labelProviderCoreTag
-} from '../../label-provider/core';
+} from '@ni/nimble-components/dist/esm/label-provider/core';
 import {
     processUpdates,
     waitForUpdatesAsync
-} from '../../testing/async-helpers';
-import { ThemeProvider, themeProviderTag } from '../../theme-provider';
-import { fixture, type Fixture } from '../../utilities/tests/fixture';
+} from '@ni/nimble-components/dist/esm/testing/async-helpers';
+import { ThemeProvider, themeProviderTag } from '@ni/nimble-components/dist/esm/theme-provider';
+import { fixture, type Fixture } from '@ni/nimble-components/dist/esm/utilities/tests/fixture';
+import { NumberField, numberFieldTag } from '..';
 
 async function setup(): Promise<Fixture<NumberField>> {
     return await fixture<NumberField>(

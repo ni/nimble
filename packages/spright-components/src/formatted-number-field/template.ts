@@ -6,8 +6,8 @@ import {
     type NumberFieldOptions,
     startSlotTemplate
 } from '@microsoft/fast-foundation';
+import { createRequiredVisibleLabelTemplate } from '@ni/nimble-components/dist/esm/patterns/required-visible/template';
 import type { NumberField } from '.';
-import { createRequiredVisibleLabelTemplate } from '../patterns/required-visible/template';
 
 const labelTemplate = createRequiredVisibleLabelTemplate(
     html<NumberField>`<label
