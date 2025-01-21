@@ -35,7 +35,7 @@ The message component will allow slotting arbitrary content, but any efforts to 
 
 #### Chat message
 
-1. Display arbitrary slotted content. For example: text, rich text, buttons, or a spinner.
+1. Display arbitrary slotted content. For example: text, rich text, buttons, images, or a spinner.
 1. Layout content to the right, center, or left of parent container depending on metadata about who sent the message.
 1. Size based on content size with maximum width (but not height) based on parent's width.
 1. Change the styling of the message depending on metadata about who sent the message. For example: render user messages in a bubble with the tail pointing to the right but render system messages with no styling.
@@ -250,3 +250,4 @@ There are parallel efforts to standardize and document other aspects of chat app
         1. single implementation to change if requirements change
     - Pros of applications leveraging Nimble toolbar:
         1. dedicated component would require a large API surface area for configuring the visibility and enabled state of numerous buttons and firing events when the user interacts with the toolbar inputs.
+        1. allows more rapid experimentation while input use cases and interactions are still being solidified
