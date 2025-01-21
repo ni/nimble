@@ -10,11 +10,3 @@ export const ChatMessageStatus = {
 
 export type ChatMessageStatus =
     (typeof ChatMessageStatus)[keyof typeof ChatMessageStatus];
-
-/**
- * The type of the detail associated with the `submit`
- * event on the input toolbar.
- */
-export interface ChatInputToolbarSubmitMessageEventDetail {
-    message: string;
-}

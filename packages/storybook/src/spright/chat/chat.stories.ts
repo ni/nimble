@@ -1,8 +1,15 @@
 import type { Meta, StoryObj } from '@storybook/html';
-import { html, ref } from '@microsoft/fast-element';
+import { html } from '@microsoft/fast-element';
 import { buttonTag } from '../../../../nimble-components/src/button';
+import { ButtonAppearance } from '../../../../nimble-components/src/button/types';
+import { textFieldTag } from '../../../../nimble-components/src/text-field';
+import { TextFieldAppearance } from '../../../../nimble-components/src/text-field/types';
+import { themeProviderTag } from '../../../../nimble-components/src/theme-provider';
+import { Theme } from '../../../../nimble-components/src/theme-provider/types';
+import { toolbarTag } from '../../../../nimble-components/src/toolbar';
+import { iconLightbulbTag } from '../../../../nimble-components/src/icons/lightbulb';
+import { iconPaperPlaneTag } from '../../../../nimble-components/src/icons/paper-plane';
 import { chatConversationTag } from '../../../../spright-components/src/chat/conversation';
-import { chatInputToolbarTag } from '../../../../spright-components/src/chat/input-toolbar';
 import { chatMessageTag } from '../../../../spright-components/src/chat/message';
 import { ChatMessageStatus } from '../../../../spright-components/src/chat/types';
 import { richTextViewerTag } from '../../../../nimble-components/src/rich-text/viewer';
@@ -17,10 +24,6 @@ const metadata: Meta<ChatMessageTextArgs> = {
 };
 
 interface ChatWindow {
-    inputToolbarRef: ChatInputToolbar;
-    submitChatMessage: (
-        inputToolbarRef: ChatInputToolbar,
-    ) => void;
 }
 
 const markdownExample = `To configure your Python version:
@@ -59,25 +62,39 @@ export const chatWindow: StoryObj<ChatWindow> = {
                 <${buttonTag} appearance='block'>Provide me some life advice</${buttonTag}>
             </${chatMessageTag}>
         </${chatConversationTag}>
-        <${chatInputToolbarTag}
-            ${ref('inputToolbarRef')}
-            @submit="${x => x.submitChatMessage(x.inputToolbarRef)}"
-        >
-        </${chatInputToolbarTag}>`),
+            <${themeProviderTag} theme='${Theme.color}'>
+                <${toolbarTag} style="width: 100%;">
+                    <slot name="start"></slot>
+                    <${textFieldTag}
+                        placeholder='How can I assist you today?'
+                        appearance=${TextFieldAppearance.block}
+                        style="width: 100%;"
+                    >
+                        <${buttonTag}
+                            appearance='${ButtonAppearance.ghost}'
+                            content-hidden
+                            slot='start'
+                        >
+                            Prompt
+                            <${iconLightbulbTag} slot='start'></${iconLightbulbTag}>
+                        </${buttonTag}>
+                        <${buttonTag}
+                            appearance='${ButtonAppearance.ghost}'
+                            content-hidden
+                            slot='actions'
+                        >
+                            Submit
+                            <${iconPaperPlaneTag} slot='start'></${iconPaperPlaneTag}>
+                        </${buttonTag}>
+                    </${textFieldTag}>
+                    <slot name="end"></slot>
+                </${toolbarTag}>
+            </${themeProviderTag}>`),
     argTypes: {
         submitChatMessage: {
             table: {
                 disable: true
             }
-        }
-    },
-    args: {
-        submitChatMessage: (inputToolbarRef) => {
-            const chatMessage = document.createElement(chatMessageTag);
-            chatMessage.textContent = 'this is a test';
-
-            const chatConversationElement = document.querySelector(chatConversationTag)!;
-            chatConversationElement.appendChild(chatMessage);
         }
     }
 };
@@ -254,24 +271,5 @@ export const chatMessagePrompts: StoryObj<ChatMessagePrompts> = {
         status: ChatMessageStatus.system,
         prompt1: 'Explain how to do my job',
         prompt2: 'Help me with my childhood trauma'
-    }
-};
-
-interface ChatInputToolbar {
-}
-
-export const chatInputToolbar: StoryObj<ChatInputToolbar> = {
-    parameters: {
-        actions: {}
-    },
-    render: createUserSelectedThemeStory(html`
-        <${chatInputToolbarTag}>
-        </${chatInputToolbarTag}>
-    `),
-    argTypes: {
-
-    },
-    args: {
-
     }
 };
