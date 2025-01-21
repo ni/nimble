@@ -166,15 +166,11 @@ Native form integration is not needed for these components.
 
 ### Angular integration
 
-Angular integration has not yet been evaluated. It is not anticipated to be needed for initial clients.
-
-_Describe the plan for Angular support, including directives for attribute binding and ControlValueAccessor for form integration. Depending on the contributor's needs, implementing Angular integration may be deferred but the initial spec should still document what work will be needed._
+Angular integration has not yet been evaluated in detail, but is not expected to be complicated. It is not anticipated to be needed for initial clients.
 
 ### Blazor integration
 
-Blazor integration has not yet been evaluated. It is anticipated to be needed for initial clients so this section will be completed before Blazor development begins.
-
-_Describe the plan for Blazor support, including form integration. See the [nimble-blazor CONTRIBUTING.md](/packages/blazor-workspace/NimbleBlazor/CONTRIBUTING.md) for details. Depending on the contributor's needs, implementing Blazor integration may be deferred but the initial spec should still document what work will be needed._
+Blazor integration has not yet been evaluated, but is not expected to be complicated. It is anticipated to be needed for initial clients so this section will be updated when Blazor development begins if anything interesting is discovered.
 
 ### Visual Appearance
 
