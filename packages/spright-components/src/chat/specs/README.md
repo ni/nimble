@@ -166,11 +166,11 @@ Native form integration is not needed for these components.
 
 ### Angular integration
 
-Angular integration has not yet been evaluated in detail, but is not expected to be complicated. It is not anticipated to be needed for initial clients.
+Angular integration has not yet been evaluated in detail, but is expected to be able to follow existing patterns. It is not anticipated to be needed for initial clients.
 
 ### Blazor integration
 
-Blazor integration has not yet been evaluated, but is not expected to be complicated. It is anticipated to be needed for initial clients so this section will be updated when Blazor development begins if anything interesting is discovered.
+Blazor integration has not yet been evaluated, but is expected to be able to follow existing patterns. It is anticipated to be needed for initial clients so this section will be updated when Blazor development begins if anything interesting is discovered.
 
 ### Visual Appearance
 
