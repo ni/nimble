@@ -1,6 +1,6 @@
 /**
  * [Nimble]
- * Copied from https://github.com/angular/angular/blob/17.3.11/packages/forms/src/directives/select_control_value_accessor.ts
+ * Copied from https://github.com/angular/angular/blob/18.2.13/packages/forms/src/directives/select_control_value_accessor.ts
  * with the following modifications:
  * - Update imports
  * - Remove all configuration from SelectControlValueAccessor's `@Directive` decorator
@@ -14,23 +14,41 @@
  * Copyright Google LLC All Rights Reserved.
  *
  * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
+ * found in the LICENSE file at https://angular.dev/license
  */
 
-import {Directive, ElementRef, forwardRef, Host, Input, type OnDestroy, Optional, type Provider, Renderer2, ɵRuntimeError as RuntimeError, isDevMode} from '@angular/core';
+import {
+  Directive,
+  ElementRef,
+  forwardRef,
+  Host,
+  Input,
+  type OnDestroy,
+  Optional,
+  type Provider,
+  Renderer2,
+  ɵRuntimeError as RuntimeError,
+  isDevMode,
+} from '@angular/core';
+
+// import {RuntimeErrorCode} from '../errors';
 
 import type {ControlValueAccessor} from '@angular/forms';
-import {BuiltInControlValueAccessor} from './control_value_accessor';
+import {
+  BuiltInControlValueAccessor,
+  // ControlValueAccessor,
+  // NG_VALUE_ACCESSOR,
+} from './control_value_accessor';
 
 /* [Nimble] Do not register as a value accessor provider
 const SELECT_VALUE_ACCESSOR: Provider = {
   provide: NG_VALUE_ACCESSOR,
   useExisting: forwardRef(() => SelectControlValueAccessor),
-  multi: true
+  multi: true,
 };
 */
 
-function _buildValueString(id: string|null, value: any): string {
+function _buildValueString(id: string | null, value: any): string {
   if (id == null) return `${value}`;
   if (value && typeof value === 'object') value = 'Object';
   return `${id}: ${value}`.slice(0, 50);
@@ -99,14 +117,16 @@ function _extractId(valueString: string): string {
 /* [Nimble] Remove all configuration from @Directive decorator
 @Directive({
   selector:
-      'select:not([multiple])[formControlName],select:not([multiple])[formControl],select:not([multiple])[ngModel]',
+    'select:not([multiple])[formControlName],select:not([multiple])[formControl],select:not([multiple])[ngModel]',
   host: {'(change)': 'onChange($event.target.value)', '(blur)': 'onTouched()'},
-  providers: [SELECT_VALUE_ACCESSOR]
+  providers: [SELECT_VALUE_ACCESSOR],
 })
 */
 @Directive()
-export class SelectControlValueAccessor extends BuiltInControlValueAccessor implements
-    ControlValueAccessor {
+export class SelectControlValueAccessor
+  extends BuiltInControlValueAccessor
+  implements ControlValueAccessor
+{
   /** @nodoc */
   value: any;
 
@@ -126,8 +146,9 @@ export class SelectControlValueAccessor extends BuiltInControlValueAccessor impl
     // [Nimble] Update to use public APIs
     // if (typeof fn !== 'function' && (typeof ngDevMode === 'undefined' || ngDevMode)) {
     //   throw new RuntimeError(
-    //       RuntimeErrorCode.COMPAREWITH_NOT_A_FN,
-    //       `compareWith must be a function, but received ${JSON.stringify(fn)}`);
+    //     RuntimeErrorCode.COMPAREWITH_NOT_A_FN,
+    //     `compareWith must be a function, but received ${JSON.stringify(fn)}`,
+    //   );
     // }
     if (typeof fn !== 'function' && isDevMode()) {
         throw new Error(`compareWith must be a function, but received ${JSON.stringify(fn)}`);
@@ -143,7 +164,7 @@ export class SelectControlValueAccessor extends BuiltInControlValueAccessor impl
    */
   writeValue(value: any): void {
     this.value = value;
-    const id: string|null = this._getOptionId(value);
+    const id: string | null = this._getOptionId(value);
     const valueString = _buildValueString(id, value);
     this.setProperty('value', valueString);
   }
@@ -165,7 +186,7 @@ export class SelectControlValueAccessor extends BuiltInControlValueAccessor impl
   }
 
   /** @internal */
-  _getOptionId(value: any): string|null {
+  _getOptionId(value: any): string | null {
     for (const id of this._optionMap.keys()) {
       if (this._compareWith(this._optionMap.get(id), value)) return id;
     }
@@ -202,8 +223,10 @@ export class NgSelectOption implements OnDestroy {
   id!: string;
 
   constructor(
-      private _element: ElementRef, private _renderer: Renderer2,
-      @Optional() @Host() private _select: SelectControlValueAccessor) {
+    private _element: ElementRef,
+    private _renderer: Renderer2,
+    @Optional() @Host() private _select: SelectControlValueAccessor,
+  ) {
     if (this._select) this.id = this._select._registerOption();
   }
 

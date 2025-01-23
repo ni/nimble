@@ -1,6 +1,6 @@
 /**
  * [Nimble]
- * Copied from https://github.com/angular/angular/blob/17.3.11/packages/platform-browser/testing/src/browser_util.ts
+ * Copied from https://github.com/angular/angular/blob/18.2.13/packages/platform-browser/testing/src/browser_util.ts
  * with the following modifications:
  * - Comment out everything except childNodesAsList
  */
@@ -10,7 +10,7 @@
  * Copyright Google LLC All Rights Reserved.
  *
  * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
+ * found in the LICENSE file at https://angular.dev/license
  */
 
 /* [Nimble] Comment out code that is not needed
@@ -65,7 +65,12 @@ export function stringifyElement(el: Element): string {
       } else {
         // Browsers order style rules differently. Order them alphabetically for consistency.
         if (lowerCaseKey === 'style') {
-          attValue = attValue.split(/; ?/).filter(s => !!s).sort().map(s => `${s};`).join(' ');
+          attValue = attValue
+            .split(/; ?/)
+            .filter((s) => !!s)
+            .sort()
+            .map((s) => `${s};`)
+            .join(' ');
         }
 
         result += ` ${lowerCaseKey}="${attValue}"`;
@@ -123,7 +128,7 @@ export function setCookie(name: string, value: string) {
   document.cookie = encodeURIComponent(name) + '=' + encodeURIComponent(value);
 }
 
-export function hasStyle(element: any, styleName: string, styleValue?: string|null): boolean {
+export function hasStyle(element: any, styleName: string, styleValue?: string | null): boolean {
   const value = element.style[styleName] || '';
   return styleValue ? value == styleValue : value.length > 0;
 }

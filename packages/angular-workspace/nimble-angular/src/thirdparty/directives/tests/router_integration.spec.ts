@@ -1,6 +1,6 @@
 /**
  * [Nimble]
- * Copied from https://github.com/angular/angular/blob/17.3.11/packages/router/test/integration.spec.ts
+ * Copied from https://github.com/angular/angular/blob/18.2.13/packages/router/test/integration.spec.ts
  * with the following modifications:
  * - comment out all tests not involving RouterLink
  * - modify imports
@@ -13,7 +13,7 @@
  * Copyright Google LLC All Rights Reserved.
  *
  * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
+ * found in the LICENSE file at https://angular.dev/license
  */
 
 // [Nimble] Update imports
@@ -36,9 +36,11 @@ import {
   ViewChildren,
   ɵConsole as Console,
   ɵNoopNgZone as NoopNgZone,
-  Directive
+  Directive,
 } from '@angular/core';
 import {ComponentFixture, fakeAsync, inject, TestBed, tick} from '@angular/core/testing';
+import {By} from '@angular/platform-browser';
+import '../../testing/matchers';
 import {
   ActivatedRoute,
   ActivatedRouteSnapshot,
@@ -70,6 +72,7 @@ import {
   Router,
   RouteReuseStrategy,
   RouterEvent,
+  // RouterLink, // [Nimble] Import from local copy (below)
   RouterLinkActive,
   RouterModule,
   RouterOutlet,
@@ -81,14 +84,28 @@ import {
   UrlSegment,
   UrlSegmentGroup,
   UrlTree,
-  provideRouter
+  provideRouter,
 } from '@angular/router';
+import {RouterLink} from '../router_link';
 import {RouterTestingHarness} from '@angular/router/testing';
 import type {concat, EMPTY, firstValueFrom, Observable, Observer, of, Subscription} from 'rxjs';
 import {delay, filter, first, last, map, mapTo, takeWhile, tap} from 'rxjs/operators';
-import {RouterLink} from '../router_link';
-import {By} from '@angular/platform-browser';
-import '../../testing/matchers';
+
+/*
+import {
+  CanActivateChildFn,
+  CanActivateFn,
+  CanMatchFn,
+  Data,
+  ResolveFn,
+  RedirectCommand,
+  GuardResult,
+  MaybeAsync,
+} from '../src/models';
+import {provideRouter, withNavigationErrorHandler, withRouterConfig} from '../src/provide_router';
+import {wrapIntoObservable} from '../src/utils/collection';
+import {getLoadedRoutes} from '../src/utils/config';
+*/
 
 // [Nimble] Defining test directive and module to use instead of RouterLink
 @Directive({ selector: '[routerLink]' })
@@ -557,66 +574,6 @@ for (const browserAPI of ['history'] as const) {
           expect(router.url).toEqual('/b?b=true');
         }),
       ));
-    });
-
-    describe('navigation warning', () => {
-      const isInAngularZoneFn = NgZone.isInAngularZone;
-      let warnings: string[] = [];
-      let isInAngularZone = true;
-
-      class MockConsole {
-        warn(message: string) {
-          warnings.push(message);
-        }
-      }
-
-      beforeEach(() => {
-        warnings = [];
-        isInAngularZone = true;
-        NgZone.isInAngularZone = () => isInAngularZone;
-        TestBed.overrideProvider(Console, {useValue: new MockConsole()});
-      });
-
-      afterEach(() => {
-        NgZone.isInAngularZone = isInAngularZoneFn;
-      });
-
-      describe('with NgZone enabled', () => {
-        it('should warn when triggered outside Angular zone', fakeAsync(
-          inject([Router], (router: Router) => {
-            isInAngularZone = false;
-            router.navigateByUrl('/simple');
-
-            expect(warnings.length).toBe(1);
-            expect(warnings[0]).toBe(
-              `Navigation triggered outside Angular zone, did you forget to call 'ngZone.run()'?`,
-            );
-          }),
-        ));
-
-        it('should not warn when triggered inside Angular zone', fakeAsync(
-          inject([Router], (router: Router) => {
-            router.navigateByUrl('/simple');
-
-            expect(warnings.length).toBe(0);
-          }),
-        ));
-      });
-
-      describe('with NgZone disabled', () => {
-        beforeEach(() => {
-          TestBed.overrideProvider(NgZone, {useValue: new NoopNgZone()});
-        });
-
-        it('should not warn when triggered outside Angular zone', fakeAsync(
-          inject([Router], (router: Router) => {
-            isInAngularZone = false;
-            router.navigateByUrl('/simple');
-
-            expect(warnings.length).toBe(0);
-          }),
-        ));
-      });
     });
 
     describe('should execute navigations serially', () => {
@@ -1965,13 +1922,80 @@ for (const browserAPI of ['history'] as const) {
                 component: BlankCmp,
               },
             ],
+            withRouterConfig({resolveNavigationPromiseOnError: true}),
             withNavigationErrorHandler(() => (coreInject(Handler).handlerCalled = true)),
           ),
         ],
       });
       const router = TestBed.inject(Router);
-      await expectAsync(router.navigateByUrl('/throw')).toBeRejected();
+      await router.navigateByUrl('/throw');
       expect(TestBed.inject(Handler).handlerCalled).toBeTrue();
+    });
+
+    it('can redirect from error handler', async () => {
+      TestBed.configureTestingModule({
+        providers: [
+          provideRouter(
+            [
+              {
+                path: 'throw',
+                canMatch: [
+                  () => {
+                    throw new Error('');
+                  },
+                ],
+                component: BlankCmp,
+              },
+              {path: 'error', component: BlankCmp},
+            ],
+            withRouterConfig({resolveNavigationPromiseOnError: true}),
+            withNavigationErrorHandler(
+              () => new RedirectCommand(coreInject(Router).parseUrl('/error')),
+            ),
+          ),
+        ],
+      });
+      const router = TestBed.inject(Router);
+      let emitNavigationError = false;
+      let emitNavigationCancelWithRedirect = false;
+      router.events.subscribe((e) => {
+        if (e instanceof NavigationError) {
+          emitNavigationError = true;
+        }
+        if (e instanceof NavigationCancel && e.code === NavigationCancellationCode.Redirect) {
+          emitNavigationCancelWithRedirect = true;
+        }
+      });
+      await router.navigateByUrl('/throw');
+      expect(router.url).toEqual('/error');
+      expect(emitNavigationError).toBe(false);
+      expect(emitNavigationCancelWithRedirect).toBe(true);
+    });
+
+    it('should not break navigation if an error happens in NavigationErrorHandler', async () => {
+      TestBed.configureTestingModule({
+        providers: [
+          provideRouter(
+            [
+              {
+                path: 'throw',
+                canMatch: [
+                  () => {
+                    throw new Error('');
+                  },
+                ],
+                component: BlankCmp,
+              },
+              {path: '**', component: BlankCmp},
+            ],
+            withRouterConfig({resolveNavigationPromiseOnError: true}),
+            withNavigationErrorHandler(() => {
+              throw new Error('e');
+            }),
+          ),
+        ],
+      });
+      const router = TestBed.inject(Router);
     });
 
     // Errors should behave the same for both deferred and eager URL update strategies
@@ -2158,7 +2182,7 @@ for (const browserAPI of ['history'] as const) {
         let e: any;
         router.navigateByUrl('/invalid')!.then((_) => (e = _));
         advance(fixture);
-        expect(e).toEqual('resolvedValue');
+        expect(e).toEqual(true);
 
         expectEvents(recordedEvents, [
           [NavigationStart, '/invalid'],
@@ -3987,6 +4011,121 @@ for (const browserAPI of ['history'] as const) {
             tick();
             expect(resolvedPath).toBe('/redirected');
           }));
+
+          it('can redirect to 404 without changing the URL', fakeAsync(() => {
+            TestBed.configureTestingModule({
+              providers: [provideRouter([], withRouterConfig({urlUpdateStrategy: 'eager'}))],
+            });
+            const router = TestBed.inject(Router);
+            const location = TestBed.inject(Location);
+            router.resetConfig([
+              {path: '', component: SimpleCmp},
+              {
+                path: 'one',
+                component: RouteCmp,
+                canActivate: [
+                  () => new RedirectCommand(router.parseUrl('/404'), {skipLocationChange: true}),
+                ],
+              },
+              {path: '404', component: SimpleCmp},
+            ]);
+            const fixture = createRoot(router, RootCmp);
+            router.navigateByUrl('/one');
+
+            advance(fixture);
+
+            expect(location.path()).toEqual('/one');
+            expect(router.url.toString()).toEqual('/404');
+          }));
+
+          it('can redirect while changing state object', fakeAsync(() => {
+            TestBed.configureTestingModule({
+              providers: [provideRouter([], withRouterConfig({urlUpdateStrategy: 'eager'}))],
+            });
+            const router = TestBed.inject(Router);
+            const location = TestBed.inject(Location);
+            router.resetConfig([
+              {path: '', component: SimpleCmp},
+              {
+                path: 'one',
+                component: RouteCmp,
+                canActivate: [
+                  () => new RedirectCommand(router.parseUrl('/redirected'), {state: {test: 1}}),
+                ],
+              },
+              {path: 'redirected', component: SimpleCmp},
+            ]);
+            const fixture = createRoot(router, RootCmp);
+            router.navigateByUrl('/one');
+
+            advance(fixture);
+
+            expect(location.path()).toEqual('/redirected');
+            expect(location.getState()).toEqual(jasmine.objectContaining({test: 1}));
+          }));
+        });
+
+        it('can redirect to 404 without changing the URL', async () => {
+          TestBed.configureTestingModule({
+            providers: [
+              provideRouter([
+                {
+                  path: 'one',
+                  component: RouteCmp,
+                  canActivate: [
+                    () => {
+                      const router = coreInject(Router);
+                      router.navigateByUrl('/404', {
+                        browserUrl: router.getCurrentNavigation()?.finalUrl,
+                      });
+                      return false;
+                    },
+                  ],
+                },
+                {path: '404', component: SimpleCmp},
+              ]),
+            ],
+          });
+          const location = TestBed.inject(Location);
+          await RouterTestingHarness.create('/one');
+
+          expect(location.path()).toEqual('/one');
+          expect(TestBed.inject(Router).url.toString()).toEqual('/404');
+        });
+
+        it('can navigate to same internal route with different browser url', async () => {
+          TestBed.configureTestingModule({
+            providers: [provideRouter([{path: 'one', component: RouteCmp}])],
+          });
+          const location = TestBed.inject(Location);
+          const router = TestBed.inject(Router);
+          await RouterTestingHarness.create('/one');
+          await router.navigateByUrl('/one', {browserUrl: '/two'});
+
+          expect(location.path()).toEqual('/two');
+          expect(router.url.toString()).toEqual('/one');
+        });
+
+        it('retains browserUrl through UrlTree redirects', async () => {
+          TestBed.configureTestingModule({
+            providers: [
+              provideRouter([
+                {
+                  path: 'one',
+                  component: RouteCmp,
+                  canActivate: [() => coreInject(Router).parseUrl('/404')],
+                },
+                {path: '404', component: SimpleCmp},
+              ]),
+            ],
+          });
+          const router = TestBed.inject(Router);
+          const location = TestBed.inject(Location);
+          await RouterTestingHarness.create();
+          await router.navigateByUrl('/one', {browserUrl: router.parseUrl('abc123')});
+
+          expect(location.path()).toEqual('/abc123');
+          expect(TestBed.inject(Router).url.toString()).toEqual('/404');
         });
 
         describe('runGuardsAndResolvers', () => {

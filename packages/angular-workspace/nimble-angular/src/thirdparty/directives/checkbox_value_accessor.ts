@@ -1,6 +1,6 @@
 /**
  * [Nimble]
- * Copied from https://github.com/angular/angular/blob/17.3.11/packages/forms/src/directives/checkbox_value_accessor.ts
+ * Copied from https://github.com/angular/angular/blob/18.2.13/packages/forms/src/directives/checkbox_value_accessor.ts
  * with the following modifications:
  * - Update imports
  * - Remove all configuration from the CheckboxControlValueAccessor's `@Directive` decorator
@@ -11,13 +11,15 @@
  * Copyright Google LLC All Rights Reserved.
  *
  * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
+ * found in the LICENSE file at https://angular.dev/license
  */
 
 import {Directive, forwardRef, type Provider} from '@angular/core';
 
+import {
+  BuiltInControlValueAccessor,
+} from './control_value_accessor';
 import type {ControlValueAccessor} from '@angular/forms';
-import {BuiltInControlValueAccessor} from './control_value_accessor';
 
 /* [Nimble] Do not register as a value accessor provider
 const CHECKBOX_VALUE_ACCESSOR: Provider = {
@@ -53,14 +55,16 @@ const CHECKBOX_VALUE_ACCESSOR: Provider = {
 /* [Nimble] Remove all configuration from @Directive decorator
 @Directive({
   selector:
-      'input[type=checkbox][formControlName],input[type=checkbox][formControl],input[type=checkbox][ngModel]',
+    'input[type=checkbox][formControlName],input[type=checkbox][formControl],input[type=checkbox][ngModel]',
   host: {'(change)': 'onChange($event.target.checked)', '(blur)': 'onTouched()'},
-  providers: [CHECKBOX_VALUE_ACCESSOR]
+  providers: [CHECKBOX_VALUE_ACCESSOR],
 })
 */
 @Directive()
-export class CheckboxControlValueAccessor extends BuiltInControlValueAccessor implements
-    ControlValueAccessor {
+export class CheckboxControlValueAccessor
+  extends BuiltInControlValueAccessor
+  implements ControlValueAccessor
+{
   /**
    * Sets the "checked" property on the input element.
    * @nodoc
