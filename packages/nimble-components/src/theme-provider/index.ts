@@ -2,9 +2,9 @@ import {
     DesignSystem,
     DesignToken,
     FoundationElement
-} from '@microsoft/fast-foundation';
-import { attr } from '@microsoft/fast-element';
-import { Direction } from '@microsoft/fast-web-utilities';
+} from '@ni/fast-foundation';
+import { attr } from '@ni/fast-element';
+import { Direction } from '@ni/fast-web-utilities';
 import { template } from './template';
 import { styles } from './styles';
 import { Theme } from './types';

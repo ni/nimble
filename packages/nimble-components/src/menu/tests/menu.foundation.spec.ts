@@ -1,13 +1,13 @@
 /**
  * Based on tests in FAST repo: https://github.com/microsoft/fast/blob/9c6dbb66615e6d229fc0ebf8065a67f109139f26/packages/web-components/fast-foundation/src/menu/menu.spec.ts
  */
-import { DOM } from '@microsoft/fast-element';
+import { DOM } from '@ni/fast-element';
 import {
     menuTemplate as template,
     menuItemTemplate,
     MenuItemRole
-} from '@microsoft/fast-foundation';
-import { keyArrowDown, keyArrowUp } from '@microsoft/fast-web-utilities';
+} from '@ni/fast-foundation';
+import { keyArrowDown, keyArrowUp } from '@ni/fast-web-utilities';
 import { Menu } from '..';
 import { MenuItem, menuItemTag } from '../../menu-item';
 import { fixture } from '../../utilities/tests/fixture';

@@ -1,4 +1,4 @@
-import { html, ViewTemplate } from '@microsoft/fast-element';
+import { html, ViewTemplate } from '@ni/fast-element';
 
 /**
  * Wraps a given component template with a border and a message indicating

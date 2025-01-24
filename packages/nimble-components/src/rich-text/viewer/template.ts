@@ -1,4 +1,4 @@
-import { children, elements, html, ref } from '@microsoft/fast-element';
+import { children, elements, html, ref } from '@ni/fast-element';
 import type { RichTextViewer } from '.';
 
 export const template = html<RichTextViewer>`

@@ -1,4 +1,4 @@
-import { html, ViewTemplate } from '@microsoft/fast-element';
+import { html, ViewTemplate } from '@ni/fast-element';
 import type { TableGroupRow } from '../../../table/components/group-row';
 import { TableGroupHeaderView } from '.';
 

@@ -1,5 +1,5 @@
 import type { Meta, StoryFn } from '@storybook/html';
-import { html } from '@microsoft/fast-element';
+import { html } from '@ni/fast-element';
 import { waitForUpdatesAsync } from '../../../../nimble-components/src/testing/async-helpers';
 import { iconUserTag } from '../../../../nimble-components/src/icons/user';
 import { menuTag } from '../../../../nimble-components/src/menu';

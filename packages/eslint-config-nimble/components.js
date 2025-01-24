@@ -40,7 +40,7 @@ module.exports = {
                         paths: [
                             ...restrictedFastImports(),
                             {
-                                name: '@microsoft/fast-element',
+                                name: '@ni/fast-element',
                                 importNames: ['DOM'],
                                 message:
                                     'For tests, please use functions from src/testing/async-helpers instead.'
@@ -118,21 +118,21 @@ module.exports = {
 function restrictedFastImports() {
     return [
         {
-            name: '@microsoft/fast-foundation',
+            name: '@ni/fast-foundation',
             importNames: ['focusVisible'],
             message:
                 'Please use focusVisible from src/utilities/style/focus instead.'
         },
         {
-            name: '@microsoft/fast-foundation',
+            name: '@ni/fast-foundation',
             importNames: ['display'],
             message:
                 'Please use display from src/utilities/style/display instead.'
         },
         {
-            name: '@microsoft/fast-components',
+            name: '@ni/fast-components',
             message:
-                'It is not expected to leverage @microsoft/fast-components directly as they are coupled to FAST design tokens.'
+                'It is not expected to leverage @ni/fast-components directly as they are coupled to FAST design tokens.'
         }
     ];
 }

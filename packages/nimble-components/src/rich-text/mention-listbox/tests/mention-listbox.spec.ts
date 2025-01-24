@@ -1,4 +1,4 @@
-import { html, ref, repeat } from '@microsoft/fast-element';
+import { html, ref, repeat } from '@ni/fast-element';
 import { RichTextMentionListbox, richTextMentionListboxTag } from '..';
 import { waitForUpdatesAsync } from '../../../testing/async-helpers';
 import { type Fixture, fixture } from '../../../utilities/tests/fixture';

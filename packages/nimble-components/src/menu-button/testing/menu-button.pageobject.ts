@@ -4,7 +4,7 @@ import {
     keyEnter,
     keyEscape,
     keySpace
-} from '@microsoft/fast-web-utilities';
+} from '@ni/fast-web-utilities';
 import type { MenuButton } from '..';
 import { waitForEvent } from '../../utilities/testing/component';
 

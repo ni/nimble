@@ -1,5 +1,5 @@
-import { customElement, html, ref } from '@microsoft/fast-element';
-import { MenuItem as FoundationMenuItem } from '@microsoft/fast-foundation';
+import { customElement, html, ref } from '@ni/fast-element';
+import { MenuItem as FoundationMenuItem } from '@ni/fast-foundation';
 import { parameterizeSpec } from '@ni/jasmine-parameterized';
 import { AnchorMenuItem, anchorMenuItemTag } from '..';
 import { iconCheckTag, type IconCheck } from '../../icons/check';

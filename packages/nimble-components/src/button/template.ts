@@ -1,11 +1,11 @@
-import { html, ref, slotted } from '@microsoft/fast-element';
-import type { ViewTemplate } from '@microsoft/fast-element';
+import { html, ref, slotted } from '@ni/fast-element';
+import type { ViewTemplate } from '@ni/fast-element';
 import {
     type ButtonOptions,
     endSlotTemplate,
     type FoundationElementTemplate,
     startSlotTemplate
-} from '@microsoft/fast-foundation';
+} from '@ni/fast-foundation';
 import type { Button } from '.';
 
 export const template: FoundationElementTemplate<

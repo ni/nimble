@@ -3,7 +3,7 @@ import {
     BreadcrumbItem as FoundationBreadcrumbItem,
     breadcrumbItemTemplate as template,
     type BreadcrumbItemOptions
-} from '@microsoft/fast-foundation';
+} from '@ni/fast-foundation';
 import { forwardSlash16X16 } from '@ni/nimble-tokens/dist/icons/js';
 import { styles } from './styles';
 

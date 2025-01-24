@@ -1,4 +1,4 @@
-import { html, ref, slotted, when } from '@microsoft/fast-element';
+import { html, ref, slotted, when } from '@ni/fast-element';
 import type { ListOptionGroup } from '.';
 import { overflow } from '../utilities/directive/overflow';
 import { ListOption } from '../list-option';

@@ -1,5 +1,5 @@
-import { html } from '@microsoft/fast-element';
-import { Orientation } from '@microsoft/fast-web-utilities';
+import { html } from '@ni/fast-element';
+import { Orientation } from '@ni/fast-web-utilities';
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html';
 import { radioTag } from '../../../../nimble-components/src/radio';

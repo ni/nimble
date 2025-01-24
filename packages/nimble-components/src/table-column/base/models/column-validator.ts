@@ -1,4 +1,4 @@
-import { observable } from '@microsoft/fast-element';
+import { observable } from '@ni/fast-element';
 import { Validator } from '../../../utilities/models/validator';
 import type { TableColumnValidity } from '../types';
 

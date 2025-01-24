@@ -1,4 +1,4 @@
-import { attr } from '@microsoft/fast-element';
+import { attr } from '@ni/fast-element';
 import type { TableColumn } from '../base';
 
 // Pick just the relevant properties the mixin depends on (typescript complains if the mixin declares private / protected base exports)

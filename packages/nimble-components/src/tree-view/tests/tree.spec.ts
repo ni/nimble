@@ -1,6 +1,6 @@
-import { html, ref } from '@microsoft/fast-element';
+import { html, ref } from '@ni/fast-element';
 import { notebook16X16 } from '@ni/nimble-tokens/dist/icons/js';
-import { keyEnter } from '@microsoft/fast-web-utilities';
+import { keyEnter } from '@ni/fast-web-utilities';
 import { fixture, type Fixture } from '../../utilities/tests/fixture';
 import { clickElement } from '../../utilities/testing/component';
 import { TreeViewSelectionMode } from '../types';

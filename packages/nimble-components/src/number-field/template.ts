@@ -1,11 +1,11 @@
-import { html, ref, slotted, when } from '@microsoft/fast-element';
-import type { ViewTemplate } from '@microsoft/fast-element';
+import { html, ref, slotted, when } from '@ni/fast-element';
+import type { ViewTemplate } from '@ni/fast-element';
 import {
     endSlotTemplate,
     type FoundationElementTemplate,
     type NumberFieldOptions,
     startSlotTemplate
-} from '@microsoft/fast-foundation';
+} from '@ni/fast-foundation';
 import type { NumberField } from '.';
 import { createRequiredVisibleLabelTemplate } from '../patterns/required-visible/template';
 
@@ -20,7 +20,7 @@ const labelTemplate = createRequiredVisibleLabelTemplate(
 );
 
 /**
- * The template for the {@link @microsoft/fast-foundation#(NumberField:class)} component.
+ * The template for the {@link @ni/fast-foundation#(NumberField:class)} component.
  * @public
  */
 export const template: FoundationElementTemplate<

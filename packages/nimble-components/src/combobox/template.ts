@@ -4,14 +4,14 @@ import {
     ref,
     slotted,
     when
-} from '@microsoft/fast-element';
+} from '@ni/fast-element';
 import {
     type FoundationElementTemplate,
     type ComboboxOptions,
     startSlotTemplate,
     endSlotTemplate,
     Listbox
-} from '@microsoft/fast-foundation';
+} from '@ni/fast-foundation';
 import type { Combobox } from '.';
 import { anchoredRegionTag } from '../anchored-region';
 import { DropdownPosition } from '../patterns/dropdown/types';

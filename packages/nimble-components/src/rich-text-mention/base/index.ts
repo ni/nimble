@@ -4,8 +4,8 @@ import {
     Observable,
     observable,
     type Subscriber
-} from '@microsoft/fast-element';
-import { FoundationElement } from '@microsoft/fast-foundation';
+} from '@ni/fast-element';
+import { FoundationElement } from '@ni/fast-foundation';
 import type { MappingConfig } from './models/mapping-config';
 import type {
     RichTextMentionValidator,

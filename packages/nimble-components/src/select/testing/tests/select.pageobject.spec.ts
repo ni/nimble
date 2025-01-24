@@ -1,4 +1,4 @@
-import { html } from '@microsoft/fast-element';
+import { html } from '@ni/fast-element';
 import { fixture, type Fixture } from '../../../utilities/tests/fixture';
 import { SelectPageObject } from '../select.pageobject';
 import { selectTag, type Select } from '../..';

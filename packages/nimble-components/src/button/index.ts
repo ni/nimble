@@ -1,9 +1,9 @@
-import { attr, nullableNumberConverter } from '@microsoft/fast-element';
+import { attr, nullableNumberConverter } from '@ni/fast-element';
 import {
     Button as FoundationButton,
     type ButtonOptions,
     DesignSystem
-} from '@microsoft/fast-foundation';
+} from '@ni/fast-foundation';
 import type {
     ButtonPattern,
     ButtonAppearanceVariantPattern
@@ -59,7 +59,7 @@ export class Button
 
 /**
  * A function that returns a nimble-button registration for configuring the component with a DesignSystem.
- * Implements {@link @microsoft/fast-foundation#buttonTemplate}
+ * Implements {@link @ni/fast-foundation#buttonTemplate}
  *
  * @public
  * @remarks

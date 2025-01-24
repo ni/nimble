@@ -1,8 +1,8 @@
 import {
     RadioGroup as FoundationRadioGroup,
     DesignSystem
-} from '@microsoft/fast-foundation';
-import { Orientation } from '@microsoft/fast-web-utilities';
+} from '@ni/fast-foundation';
+import { Orientation } from '@ni/fast-web-utilities';
 import { styles } from './styles';
 import { template } from './template';
 import { mixinErrorPattern } from '../patterns/error/types';

@@ -1,12 +1,12 @@
-import { html, ref, slotted } from '@microsoft/fast-element';
-import type { ViewTemplate } from '@microsoft/fast-element';
+import { html, ref, slotted } from '@ni/fast-element';
+import type { ViewTemplate } from '@ni/fast-element';
 import {
     type FoundationElementTemplate,
     type TextFieldOptions,
     whitespaceFilter,
     startSlotTemplate,
     endSlotTemplate
-} from '@microsoft/fast-foundation';
+} from '@ni/fast-foundation';
 import type { TextField } from '.';
 import { createRequiredVisibleLabelTemplate } from '../patterns/required-visible/template';
 
@@ -26,7 +26,7 @@ const labelTemplate = createRequiredVisibleLabelTemplate(
 );
 
 /**
- * The template for the {@link @microsoft/fast-foundation#(TextField:class)} component.
+ * The template for the {@link @ni/fast-foundation#(TextField:class)} component.
  * @public
  */
 export const template: FoundationElementTemplate<

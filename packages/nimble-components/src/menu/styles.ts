@@ -1,4 +1,4 @@
-import { css } from '@microsoft/fast-element';
+import { css } from '@ni/fast-element';
 import { White } from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
 import { display } from '../utilities/style/display';
 

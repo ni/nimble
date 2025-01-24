@@ -1,10 +1,10 @@
-import { attr } from '@microsoft/fast-element';
+import { attr } from '@ni/fast-element';
 import {
     TreeItem as FoundationTreeItem,
     type TreeItemOptions,
     DesignSystem,
     treeItemTemplate as template
-} from '@microsoft/fast-foundation';
+} from '@ni/fast-foundation';
 import { arrowExpanderUp16X16 } from '@ni/nimble-tokens/dist/icons/js';
 import { styles } from './styles';
 
@@ -16,7 +16,7 @@ declare global {
 
 /**
  * A function that returns a nimble-tree-item registration for configuring the component with a DesignSystem.
- * Implements {@link @microsoft/fast-foundation#treeItemTemplate}
+ * Implements {@link @ni/fast-foundation#treeItemTemplate}
  *
  *
  * @public

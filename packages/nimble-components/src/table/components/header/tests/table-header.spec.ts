@@ -1,4 +1,4 @@
-import { html } from '@microsoft/fast-element';
+import { html } from '@ni/fast-element';
 import { TableHeader, tableHeaderTag } from '..';
 import { waitForUpdatesAsync } from '../../../../testing/async-helpers';
 import { type Fixture, fixture } from '../../../../utilities/tests/fixture';

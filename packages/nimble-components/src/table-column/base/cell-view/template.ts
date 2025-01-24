@@ -1,4 +1,4 @@
-import { type ViewTemplate, html, repeat } from '@microsoft/fast-element';
+import { type ViewTemplate, html, repeat } from '@ni/fast-element';
 import type { TableCell } from '../../../table/components/cell';
 import { TableCellView } from '.';
 import { uniquifySlotNameForColumn } from '../../../table/models/utilities';

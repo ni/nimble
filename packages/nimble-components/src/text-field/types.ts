@@ -1,4 +1,4 @@
-import { TextFieldType } from '@microsoft/fast-foundation';
+import { TextFieldType } from '@ni/fast-foundation';
 
 /**
  * Values for the 'type' property of the text field.

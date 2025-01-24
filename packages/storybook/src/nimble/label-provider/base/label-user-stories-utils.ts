@@ -1,5 +1,5 @@
 import type { Meta } from '@storybook/html';
-import type { DesignToken } from '@microsoft/fast-foundation';
+import type { DesignToken } from '@ni/fast-foundation';
 import { apiCategory } from '../../../utilities/storybook';
 
 export interface LabelUserArgs {

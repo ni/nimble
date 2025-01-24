@@ -1,4 +1,4 @@
-import { DesignSystem } from '@microsoft/fast-foundation';
+import { DesignSystem } from '@ni/fast-foundation';
 import { template } from '../base/template';
 import { Unit } from '../base/unit';
 import { celsiusUnitScale } from '../../utilities/unit-format/unit-scale/celsius-unit-scale';

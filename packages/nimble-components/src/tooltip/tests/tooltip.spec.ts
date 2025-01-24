@@ -1,5 +1,5 @@
-import { TooltipPosition } from '@microsoft/fast-foundation';
-import { html } from '@microsoft/fast-element';
+import { TooltipPosition } from '@ni/fast-foundation';
+import { html } from '@ni/fast-element';
 import { fixture, type Fixture } from '../../utilities/tests/fixture';
 import { Tooltip, tooltipTag } from '..';
 import { anchoredRegionTag } from '../../anchored-region';

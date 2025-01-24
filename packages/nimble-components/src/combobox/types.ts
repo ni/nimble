@@ -1,3 +1,3 @@
-import { ComboboxAutocomplete } from '@microsoft/fast-foundation';
+import { ComboboxAutocomplete } from '@ni/fast-foundation';
 
 export { ComboboxAutocomplete };

@@ -1,10 +1,10 @@
-import { html, ref, ViewTemplate } from '@microsoft/fast-element';
+import { html, ref, ViewTemplate } from '@ni/fast-element';
 import {
     type AnchorOptions,
     endSlotTemplate,
     type FoundationElementTemplate,
     startSlotTemplate
-} from '@microsoft/fast-foundation';
+} from '@ni/fast-foundation';
 import type { AnchorTreeItem } from '.';
 
 export const template: FoundationElementTemplate<

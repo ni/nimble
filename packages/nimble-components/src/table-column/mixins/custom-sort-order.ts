@@ -1,4 +1,4 @@
-import { type Notifier, Observable, attr } from '@microsoft/fast-element';
+import { type Notifier, Observable, attr } from '@ni/fast-element';
 import type { TableColumn } from '../base';
 import { TableColumnSortOperation } from '../base/types';
 import type { ColumnValidator } from '../base/models/column-validator';

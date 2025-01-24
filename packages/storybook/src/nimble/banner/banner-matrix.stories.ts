@@ -1,5 +1,5 @@
 import type { StoryFn, Meta } from '@storybook/html';
-import { html, ViewTemplate, when } from '@microsoft/fast-element';
+import { html, ViewTemplate, when } from '@ni/fast-element';
 import { bannerGapSize } from '../../../../nimble-components/src/theme-provider/design-tokens';
 import { buttonTag } from '../../../../nimble-components/src/button';
 import { anchorTag } from '../../../../nimble-components/src/anchor';

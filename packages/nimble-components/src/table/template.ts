@@ -6,7 +6,7 @@ import {
     ref,
     repeat,
     when
-} from '@microsoft/fast-element';
+} from '@ni/fast-element';
 import type { VirtualItem } from '@tanstack/virtual-core';
 import type { Table } from '.';
 import { tableHeaderTag } from './components/header';

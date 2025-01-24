@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/html';
-import { html, ref, repeat } from '@microsoft/fast-element';
-import { DesignSystem } from '@microsoft/fast-foundation';
+import { html, ref, repeat } from '@ni/fast-element';
+import { DesignSystem } from '@ni/fast-foundation';
 import * as nimbleIconComponentsMap from '../../../../nimble-components/src/icons/all-icons';
 import {
     tokenNames,

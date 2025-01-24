@@ -2,7 +2,7 @@ import {
     AttachedBehaviorHTMLDirective,
     type Behavior,
     type CaptureType
-} from '@microsoft/fast-element';
+} from '@ni/fast-element';
 
 /**
  * The runtime behavior for template overflow detection.

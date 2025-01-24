@@ -5,7 +5,7 @@ import {
     ref,
     repeat,
     when
-} from '@microsoft/fast-element';
+} from '@ni/fast-element';
 import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html';
 import { withActions } from '@storybook/addon-actions/decorator';
 import { iconCheckTag } from '../../../../../nimble-components/src/icons/check';

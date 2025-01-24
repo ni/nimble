@@ -1,4 +1,4 @@
-import { observable } from '@microsoft/fast-element';
+import { observable } from '@ni/fast-element';
 import type { Table } from '..';
 import type { TableColumn } from '../../table-column/base';
 import type { TableRecord } from '../types';

@@ -1,5 +1,5 @@
-import { attr, observable } from '@microsoft/fast-element';
-import { DesignSystem } from '@microsoft/fast-foundation';
+import { attr, observable } from '@ni/fast-element';
+import { DesignSystem } from '@ni/fast-foundation';
 import { Mapping } from '../base';
 import { template } from '../base/template';
 import type { IconSeverity } from '../../icon-base/types';

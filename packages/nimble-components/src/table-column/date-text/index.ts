@@ -1,8 +1,8 @@
 import {
     DesignSystem,
     type DesignTokenSubscriber
-} from '@microsoft/fast-foundation';
-import { attr } from '@microsoft/fast-element';
+} from '@ni/fast-foundation';
+import { attr } from '@ni/fast-element';
 import { styles } from '../base/styles';
 import { template } from '../base/template';
 import type { TableNumberField } from '../../table/types';

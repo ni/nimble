@@ -1,4 +1,4 @@
-import { elements, html, ref, slotted } from '@microsoft/fast-element';
+import { elements, html, ref, slotted } from '@ni/fast-element';
 import { overflow } from '../../utilities/directive/overflow';
 import type { TableColumnNumberText } from '.';
 

@@ -1,8 +1,8 @@
 /**
  * Based on tests in FAST repo: https://github.com/microsoft/fast/blob/9c6dbb66615e6d229fc0ebf8065a67f109139f26/packages/web-components/fast-foundation/src/button/button.spec.ts
  */
-import { DOM } from '@microsoft/fast-element';
-import { eventClick } from '@microsoft/fast-web-utilities';
+import { DOM } from '@ni/fast-element';
+import { eventClick } from '@ni/fast-web-utilities';
 import { fixture } from '../../utilities/tests/fixture';
 import { Button } from '..';
 import { template } from '../template';

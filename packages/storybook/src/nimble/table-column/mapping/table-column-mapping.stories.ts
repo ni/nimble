@@ -1,4 +1,4 @@
-import { html, ref } from '@microsoft/fast-element';
+import { html, ref } from '@ni/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
 import { tableTag } from '../../../../../nimble-components/src/table';
 import { iconXmarkTag } from '../../../../../nimble-components/src/icons/xmark';

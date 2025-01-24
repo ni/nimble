@@ -1,5 +1,5 @@
-import { attr } from '@microsoft/fast-element';
-import { DesignSystem } from '@microsoft/fast-foundation';
+import { attr } from '@ni/fast-element';
+import { DesignSystem } from '@ni/fast-foundation';
 import { type DesignTokensFor, LabelProviderBase } from '../base';
 import {
     tableCellActionMenuLabel,

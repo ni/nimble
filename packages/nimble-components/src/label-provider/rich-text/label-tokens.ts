@@ -1,4 +1,4 @@
-import { DesignToken } from '@microsoft/fast-foundation';
+import { DesignToken } from '@ni/fast-foundation';
 import { richTextLabelDefaults } from './label-token-defaults';
 
 export const richTextToggleBoldLabel = DesignToken.create<string>({

@@ -2,7 +2,7 @@ import {
     DesignSystem,
     Switch as FoundationSwitch,
     type SwitchOptions
-} from '@microsoft/fast-foundation';
+} from '@ni/fast-foundation';
 import { styles } from './styles';
 import { template } from './template';
 

@@ -1,4 +1,4 @@
-import { html } from '@microsoft/fast-element';
+import { html } from '@ni/fast-element';
 import { parameterizeSpec } from '@ni/jasmine-parameterized';
 import { AnchorTab, anchorTabTag } from '..';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';

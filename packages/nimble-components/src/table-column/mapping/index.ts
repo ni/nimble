@@ -1,5 +1,5 @@
-import { DesignSystem } from '@microsoft/fast-foundation';
-import { attr } from '@microsoft/fast-element';
+import { DesignSystem } from '@ni/fast-foundation';
+import { attr } from '@ni/fast-element';
 import {
     type MappingConfigs,
     TableColumnEnumBase,

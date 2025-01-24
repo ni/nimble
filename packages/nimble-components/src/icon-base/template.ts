@@ -1,4 +1,4 @@
-import { html } from '@microsoft/fast-element';
+import { html } from '@ni/fast-element';
 import type { Icon } from '.';
 
 // Avoiding any whitespace in the template because this is an inline element

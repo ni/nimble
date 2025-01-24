@@ -1,4 +1,4 @@
-import { html, repeat } from '@microsoft/fast-element';
+import { html, repeat } from '@ni/fast-element';
 import { parameterizeSpec, parameterizeSuite } from '@ni/jasmine-parameterized';
 import { fixture, type Fixture } from '../../utilities/tests/fixture';
 import { Combobox, comboboxTag } from '..';

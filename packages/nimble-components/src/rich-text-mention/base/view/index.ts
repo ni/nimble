@@ -1,5 +1,5 @@
-import { FoundationElement } from '@microsoft/fast-foundation';
-import { attr } from '@microsoft/fast-element';
+import { FoundationElement } from '@ni/fast-foundation';
+import { attr } from '@ni/fast-element';
 
 /**
  * The base class for Mention View Node

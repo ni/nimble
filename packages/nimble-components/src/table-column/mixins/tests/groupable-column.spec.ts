@@ -1,4 +1,4 @@
-import { customElement } from '@microsoft/fast-element';
+import { customElement } from '@ni/fast-element';
 import {
     fixture,
     type Fixture,

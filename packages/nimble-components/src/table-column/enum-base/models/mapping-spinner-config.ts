@@ -1,4 +1,4 @@
-import { type ViewTemplate, html } from '@microsoft/fast-element';
+import { type ViewTemplate, html } from '@ni/fast-element';
 import { MappingConfig } from './mapping-config';
 import { spinnerTag } from '../../../spinner';
 

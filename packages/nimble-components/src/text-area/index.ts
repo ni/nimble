@@ -1,8 +1,8 @@
-import { attr, DOM, observable } from '@microsoft/fast-element';
+import { attr, DOM, observable } from '@ni/fast-element';
 import {
     DesignSystem,
     TextArea as FoundationTextArea
-} from '@microsoft/fast-foundation';
+} from '@ni/fast-foundation';
 import { mixinErrorPattern } from '../patterns/error/types';
 import { styles } from './styles';
 import { template } from './template';

@@ -1,4 +1,4 @@
-import { html } from '@microsoft/fast-element';
+import { html } from '@ni/fast-element';
 import { RadioGroup, radioGroupTag } from '..';
 import { type Fixture, fixture } from '../../utilities/tests/fixture';
 import { processUpdates } from '../../testing/async-helpers';

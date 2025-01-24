@@ -1,4 +1,4 @@
-import { html, ref } from '@microsoft/fast-element';
+import { html, ref } from '@ni/fast-element';
 import { parameterizeSpec } from '@ni/jasmine-parameterized';
 import { tableTag, type Table } from '../../../table';
 import { TableColumnText, tableColumnTextTag } from '..';
