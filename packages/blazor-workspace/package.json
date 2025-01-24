@@ -25,7 +25,7 @@
     "!*"
   ],
   "devDependencies": {
-    "@microsoft/fast-web-utilities": "^6.0.0",
+    "@ni/fast-web-utilities": "^0.0.5",
     "@ni-private/eslint-config-nimble": "*",
     "@ni/nimble-components": "*",
     "@ni/nimble-tokens": "*",
