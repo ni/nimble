@@ -1,8 +1,4 @@
-import {
-    attr,
-    nullableNumberConverter,
-    observable
-} from '@ni/fast-element';
+import { attr, nullableNumberConverter, observable } from '@ni/fast-element';
 import { DesignSystem, FoundationElement } from '@ni/fast-foundation';
 import {
     eventChange,

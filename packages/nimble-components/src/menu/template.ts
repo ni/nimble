@@ -1,9 +1,4 @@
-import {
-    children,
-    html,
-    slotted,
-    type ViewTemplate
-} from '@ni/fast-element';
+import { children, html, slotted, type ViewTemplate } from '@ni/fast-element';
 import type { FoundationElementTemplate } from '@ni/fast-foundation';
 import type { Menu } from '.';
 

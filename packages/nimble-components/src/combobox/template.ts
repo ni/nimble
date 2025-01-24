@@ -1,10 +1,4 @@
-import {
-    type ViewTemplate,
-    html,
-    ref,
-    slotted,
-    when
-} from '@ni/fast-element';
+import { type ViewTemplate, html, ref, slotted, when } from '@ni/fast-element';
 import {
     type FoundationElementTemplate,
     type ComboboxOptions,

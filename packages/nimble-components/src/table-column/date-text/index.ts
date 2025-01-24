@@ -1,7 +1,4 @@
-import {
-    DesignSystem,
-    type DesignTokenSubscriber
-} from '@ni/fast-foundation';
+import { DesignSystem, type DesignTokenSubscriber } from '@ni/fast-foundation';
 import { attr } from '@ni/fast-element';
 import { styles } from '../base/styles';
 import { template } from '../base/template';

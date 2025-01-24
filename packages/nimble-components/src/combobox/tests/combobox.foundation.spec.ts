@@ -4,11 +4,7 @@ import {
     ListboxOption,
     listboxOptionTemplate
 } from '@ni/fast-foundation';
-import {
-    keyArrowDown,
-    keyArrowUp,
-    keyEnter
-} from '@ni/fast-web-utilities';
+import { keyArrowDown, keyArrowUp, keyEnter } from '@ni/fast-web-utilities';
 import { Combobox } from '..';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import { fixture } from '../../utilities/tests/fixture';
