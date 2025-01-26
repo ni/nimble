@@ -41,6 +41,7 @@
   "workspaces": [
     "packages/eslint-config-nimble",
     "packages/jasmine-parameterized",
+    "packages/unit-format",
     "packages/xliff-to-json-converter",
     "packages/nimble-tokens",
     "packages/nimble-components",
