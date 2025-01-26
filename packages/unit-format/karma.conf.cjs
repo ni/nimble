@@ -1,5 +1,10 @@
 process.env.CHROME_BIN = require('playwright').chromium.executablePath();
 
+const karmaVite = require('karma-vite');
+const karmaJasmine = require('karma-jasmine');
+const karmaJasmineHtmlReporter = require('karma-jasmine-html-reporter');
+const karmaChromeLauncher = require('karma-chrome-launcher');
+
 const path = require('path');
 
 const basePath = path.resolve(__dirname);
@@ -31,10 +36,10 @@ module.exports = config => {
             'jasmine',
         ],
         plugins: [
-            require('karma-vite'),
-            require('karma-jasmine'),
-            require('karma-jasmine-html-reporter'),
-            require('karma-chrome-launcher')
+            karmaVite,
+            karmaJasmine,
+            karmaJasmineHtmlReporter,
+            karmaChromeLauncher
         ],
         files: [
             // Test files
