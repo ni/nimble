@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "First draft",
+  "packageName": "@ni/unit-format",
+  "email": "rajsite@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
