@@ -2621,7 +2621,7 @@ describe('Table', () => {
         }
 
         // Firefox skipped, see https://github.com/ni/nimble/issues/2491
-        it('maintains scroll position if data does not change #SkipFirefox', async () => {
+        it('maintains scroll position if data does not change', async () => {
             await setDataAndScrollToBottom(largeData200);
             const scrollTopBeforeDisconnect = element.viewport.scrollTop;
             const firstRenderedRowBeforeDisconnect = getFirstRenderedRowDataIndex(largeData200);
@@ -2636,7 +2636,7 @@ describe('Table', () => {
         });
 
         // Firefox skipped, see https://github.com/ni/nimble/issues/2491
-        it('updates scroll position if data length is reduced while not attached #SkipFirefox', async () => {
+        it('updates scroll position if data length is reduced while not attached', async () => {
             await setDataAndScrollToBottom(largeData400);
             const scrollTopBeforeDisconnect = element.viewport.scrollTop;
             const firstRenderedRowBeforeDisconnect = getFirstRenderedRowDataIndex(largeData400);
@@ -2655,7 +2655,7 @@ describe('Table', () => {
         });
 
         // Firefox skipped, see https://github.com/ni/nimble/issues/2491
-        it('maintains scroll position if data length is increased while not attached #SkipFirefox', async () => {
+        it('maintains scroll position if data length is increased while not attached', async () => {
             await setDataAndScrollToBottom(largeData200);
             const scrollTopBeforeDisconnect = element.viewport.scrollTop;
             const firstRenderedRowBeforeDisconnect = getFirstRenderedRowDataIndex(largeData200);
@@ -2693,7 +2693,7 @@ describe('Table', () => {
         });
 
         // Firefox skipped, see https://github.com/ni/nimble/issues/2491
-        it('adjusts the number of rendered rows when the table height decreases while not attached #SkipFirefox', async () => {
+        it('adjusts the number of rendered rows when the table height decreases while not attached', async () => {
             element.style.height = '500px';
             await element.setData(largeData200);
             await waitForUpdatesAsync();
