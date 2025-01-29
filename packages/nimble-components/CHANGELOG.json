@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Wed, 29 Jan 2025 18:28:29 GMT",
+      "version": "32.11.3",
+      "tag": "@ni/nimble-components_v32.11.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "dcd42ac952ba3aec2bbf7f5bbffd091f69e47482",
+            "comment": "Allow an item in the toolbar to lose focus by clicking the toolbar itself"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 16 Jan 2025 23:05:03 GMT",
       "version": "32.11.2",
       "tag": "@ni/nimble-components_v32.11.2",

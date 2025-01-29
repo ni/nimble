@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Allow an item in the toolbar to lose focus by clicking the toolbar itself",
-  "packageName": "@ni/nimble-components",
-  "email": "20542556+mollykreis@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
