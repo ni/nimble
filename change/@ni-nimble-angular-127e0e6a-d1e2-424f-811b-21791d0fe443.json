@@ -1,0 +1,7 @@
+{
+  "type": "minor",
+  "comment": "Export DiacriticInsensitivePipe, Icon base, and Table SortedColumn types",
+  "packageName": "@ni/nimble-angular",
+  "email": "rajsite@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
