@@ -52,6 +52,9 @@ const component = (
     <style>
         ${tableTag} {
             height: var(${tableFitRowsHeight.cssCustomProperty});
+            /** Set a fixed width to guarantee that the large minimum column width
+            will cause the table to scroll horizontally. */
+            width: 600px;
             margin-bottom: 20px;
         }
     </style>
