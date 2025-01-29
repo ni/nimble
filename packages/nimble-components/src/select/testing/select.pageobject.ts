@@ -7,7 +7,7 @@ import {
     keyTab
 } from '@microsoft/fast-web-utilities';
 import type { Select } from '..';
-import type { ListOption } from '../../list-option';
+import { listOptionTag, type ListOption } from '../../list-option';
 import {
     processUpdates,
     waitForUpdatesAsync
@@ -378,7 +378,7 @@ export class SelectPageObject {
 
     private getVisibleOptions(): ListOption[] {
         const options = Array.from(
-            this.selectElement.querySelectorAll('nimble-list-option')
+            this.selectElement.querySelectorAll(listOptionTag)
         );
         return options.filter(o => !(o.hidden || o.visuallyHidden));
     }
