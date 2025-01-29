@@ -1,3 +1,4 @@
+export * from './diacritic-insensitive.pipe';
 export * from './duration.pipe';
 export * from './number-text.pipe';
 export { byteUnitScale } from '@ni/nimble-components/dist/esm/utilities/unit-format/unit-scale/byte-unit-scale';

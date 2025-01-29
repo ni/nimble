@@ -1,7 +1,7 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NimbleUnitByteModule } from '../nimble-unit-byte.module';
-import { NimbleUnitByteDirective, UnitByte } from '../nimble-unit-byte.directive';
+import { NimbleUnitByteDirective, type UnitByte } from '../nimble-unit-byte.directive';
 
 describe('Nimble byte unit', () => {
     describe('module', () => {

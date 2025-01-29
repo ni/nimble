@@ -1,7 +1,7 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import type { BooleanValueOrAttribute } from '@ni/nimble-angular/internal-utilities';
-import { NimbleRadioGroupDirective, RadioGroup, Orientation } from '../nimble-radio-group.directive';
+import { NimbleRadioGroupDirective, type RadioGroup, Orientation } from '../nimble-radio-group.directive';
 import { NimbleRadioGroupModule } from '../nimble-radio-group.module';
 
 describe('Nimble radio group', () => {
@@ -80,6 +80,17 @@ describe('Nimble radio group', () => {
             directive.errorText = 'new value';
             expect(nativeElement.errorText).toBe('new value');
         });
+
+        it('has expected defaults for requiredVisible', () => {
+            expect(directive.requiredVisible).toBeFalse();
+            expect(nativeElement.requiredVisible).toBeFalse();
+        });
+
+        it('can use the directive to set requiredVisible', () => {
+            directive.requiredVisible = true;
+            expect(directive.requiredVisible).toBeTrue();
+            expect(nativeElement.requiredVisible).toBeTrue();
+        });
     });
 
     describe('with template string values', () => {
@@ -91,6 +102,7 @@ describe('Nimble radio group', () => {
                     orientation="vertical"
                     error-text="error text"
                     error-visible
+                    required-visible
                 ></nimble-radio-group>`
         })
         class TestHostComponent {
@@ -137,6 +149,11 @@ describe('Nimble radio group', () => {
             expect(directive.errorVisible).toBeTrue();
             expect(nativeElement.errorVisible).toBeTrue();
         });
+
+        it('will use template string values for requiredVisible', () => {
+            expect(directive.requiredVisible).toBeTrue();
+            expect(nativeElement.requiredVisible).toBeTrue();
+        });
     });
 
     describe('with property bound values', () => {
@@ -148,6 +165,7 @@ describe('Nimble radio group', () => {
                     [orientation]="orientation"
                     [error-text]="errorText"
                     [error-visible]="errorVisible"
+                    [required-visible]="requiredVisible"
                 ></nimble-radio-group>`
         })
         class TestHostComponent {
@@ -158,6 +176,7 @@ describe('Nimble radio group', () => {
             public orientation: Orientation = Orientation.vertical;
             public errorText = 'initial value';
             public errorVisible = false;
+            public requiredVisible = false;
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
@@ -229,6 +248,17 @@ describe('Nimble radio group', () => {
             expect(directive.errorVisible).toBeTrue();
             expect(nativeElement.errorVisible).toBeTrue();
         });
+
+        it('can be configured with property binding for requiredVisible', () => {
+            expect(directive.requiredVisible).toBeFalse();
+            expect(nativeElement.requiredVisible).toBeFalse();
+
+            fixture.componentInstance.requiredVisible = true;
+            fixture.detectChanges();
+
+            expect(directive.requiredVisible).toBeTrue();
+            expect(nativeElement.requiredVisible).toBeTrue();
+        });
     });
 
     describe('with attribute bound values', () => {
@@ -240,6 +270,7 @@ describe('Nimble radio group', () => {
                     [attr.orientation]="orientation"
                     [attr.error-text]="errorText"
                     [attr.error-visible]="errorVisible"
+                    [attr.required-visible]="requiredVisible"
                 ></nimble-radio-group>`
         })
         class TestHostComponent {
@@ -250,6 +281,7 @@ describe('Nimble radio group', () => {
             public orientation: Orientation = Orientation.vertical;
             public errorText = 'initial value';
             public errorVisible: BooleanValueOrAttribute = null;
+            public requiredVisible: BooleanValueOrAttribute = null;
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
@@ -320,6 +352,17 @@ describe('Nimble radio group', () => {
 
             expect(directive.errorVisible).toBeTrue();
             expect(nativeElement.errorVisible).toBeTrue();
+        });
+
+        it('can be configured with attribute binding for requiredVisible', () => {
+            expect(directive.requiredVisible).toBeFalse();
+            expect(nativeElement.requiredVisible).toBeFalse();
+
+            fixture.componentInstance.requiredVisible = '';
+            fixture.detectChanges();
+
+            expect(directive.requiredVisible).toBeTrue();
+            expect(nativeElement.requiredVisible).toBeTrue();
         });
     });
 });

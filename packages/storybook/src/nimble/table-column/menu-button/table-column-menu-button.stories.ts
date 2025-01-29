@@ -17,7 +17,7 @@ import type { MenuButtonColumnToggleEventDetail } from '../../../../../nimble-co
 import { Menu, menuTag } from '../../../../../nimble-components/src/menu';
 import { menuItemTag } from '../../../../../nimble-components/src/menu-item';
 import {
-    SharedTableArgs,
+    type SharedTableArgs,
     sharedTableActions,
     sharedTableArgTypes,
     sharedTableArgs

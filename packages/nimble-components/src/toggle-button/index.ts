@@ -1,7 +1,7 @@
 import { attr, nullableNumberConverter } from '@microsoft/fast-element';
 import {
     applyMixins,
-    ButtonOptions,
+    type ButtonOptions,
     DelegatesARIAButton,
     DesignSystem,
     StartEnd,

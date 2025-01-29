@@ -10,11 +10,13 @@ import {
 } from '../../utilities/matrix';
 import {
     disabledStates,
-    DisabledState,
-    ReadOnlyState,
+    type DisabledState,
+    type ReadOnlyState,
     readOnlyStates,
-    ErrorState,
-    errorStates
+    type ErrorState,
+    errorStates,
+    type RequiredVisibleState,
+    requiredVisibleStates
 } from '../../utilities/states';
 import { hiddenWrapper } from '../../utilities/hidden';
 import { textCustomizationWrapper } from '../../utilities/text-customization';
@@ -43,6 +45,7 @@ const metadata: Meta = {
 export default metadata;
 
 const component = (
+    [requiredVisibleName, requiredVisible]: RequiredVisibleState,
     [readOnlyName, readonly]: ReadOnlyState,
     [disabledName, disabled]: DisabledState,
     [appearanceName, appearance]: AppearanceState,
@@ -56,16 +59,18 @@ const component = (
         value="${() => valueValue}"
         placeholder="${() => placeholderValue}"
         ?readonly="${() => readonly}"
-        error-visible="${() => isError}"
+        ?error-visible="${() => isError}"
         error-text="${() => errorText}"
+        ?required-visible="${() => requiredVisible}"
     >
         ${() => disabledName} ${() => appearanceName} ${() => valueName}
-        ${() => readOnlyName} ${() => errorStateName}
+        ${() => readOnlyName} ${() => errorStateName} ${() => requiredVisibleName}
     </${textAreaTag}>
 `;
 
 export const textAreaThemeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(component, [
+        requiredVisibleStates,
         readOnlyStates,
         disabledStates,
         appearanceStates,

@@ -2,7 +2,7 @@ import { html } from '@microsoft/fast-element';
 import { parameterizeSpec } from '@ni/jasmine-parameterized';
 import { AnchorTab, anchorTabTag } from '..';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
-import { Fixture, fixture } from '../../utilities/tests/fixture';
+import { type Fixture, fixture } from '../../utilities/tests/fixture';
 
 async function setup(): Promise<Fixture<AnchorTab>> {
     return await fixture<AnchorTab>(html`<${anchorTabTag}></${anchorTabTag}>`);

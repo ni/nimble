@@ -4,7 +4,7 @@ import { WaferMapOriginLocation } from '../types';
 import { getWaferMapDiesTable } from './utilities';
 import { waferMapTag, type WaferMap } from '..';
 import { processUpdates } from '../../testing/async-helpers';
-import { Fixture, fixture } from '../../utilities/tests/fixture';
+import { type Fixture, fixture } from '../../utilities/tests/fixture';
 
 async function setup(): Promise<Fixture<WaferMap>> {
     return await fixture<WaferMap>(html`<${waferMapTag}></${waferMapTag}>`);

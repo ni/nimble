@@ -57,7 +57,7 @@ public class NimbleTextFieldTests
     }
 
     [Fact]
-    public void ComboboxErrorText_AttributeIsSet()
+    public void TextFieldErrorText_AttributeIsSet()
     {
         var textField = RenderWithPropertySet(x => x.ErrorText, "bad number");
 
@@ -65,7 +65,7 @@ public class NimbleTextFieldTests
     }
 
     [Fact]
-    public void ComboboxErrorVisible_AttributeIsSet()
+    public void TextFieldErrorVisible_AttributeIsSet()
     {
         var textField = RenderWithPropertySet(x => x.ErrorVisible, true);
 
@@ -73,11 +73,19 @@ public class NimbleTextFieldTests
     }
 
     [Fact]
-    public void ComboboxFullBleed_AttributeIsSet()
+    public void TextFieldFullBleed_AttributeIsSet()
     {
         var textField = RenderWithPropertySet(x => x.FullBleed, true);
 
         Assert.Contains("full-bleed", textField.Markup);
+    }
+
+    [Fact]
+    public void TextFieldRequiredVisible_AttributeIsSet()
+    {
+        var textField = RenderWithPropertySet(x => x.RequiredVisible, true);
+
+        Assert.Contains("required-visible", textField.Markup);
     }
 
     private IRenderedComponent<NimbleTextField> RenderWithPropertySet<TProperty>(Expression<Func<NimbleTextField, TProperty>> propertyGetter, TProperty propertyValue)

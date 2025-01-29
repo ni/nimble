@@ -3,7 +3,7 @@ import { ViewTemplate, observable } from '@microsoft/fast-element';
 import {
     TableColumnAlignment,
     TableColumnSortDirection,
-    TableFieldName
+    type TableFieldName
 } from '../../../table/types';
 import type { TableCell } from '../../../table/components/cell';
 import {

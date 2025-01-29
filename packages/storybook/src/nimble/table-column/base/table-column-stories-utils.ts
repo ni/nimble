@@ -3,7 +3,7 @@ import {
     type Table
 } from '../../../../../nimble-components/src/table';
 import {
-    TableRecord,
+    type TableRecord,
     TableRowSelectionMode
 } from '../../../../../nimble-components/src/table/types';
 

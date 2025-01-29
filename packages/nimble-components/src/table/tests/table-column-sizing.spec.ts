@@ -139,7 +139,8 @@ describe('Table Column Sizing', () => {
                 column2ExpectedRenderedWidth: 400
             },
             {
-                name: 'second column set to use pixelWidth',
+                // Firefox skipped, see https://github.com/ni/nimble/issues/2491
+                name: 'second column set to use pixelWidth #SkipFirefox',
                 rowWidth: 600,
                 column1FractionalWidth: 1,
                 column1PixelWidth: undefined,
@@ -291,7 +292,8 @@ describe('Table Column Sizing', () => {
                 column2MinPixelWidth: 150
             },
             {
-                name: 'when columns have fractional widths',
+                // Firefox skipped, see https://github.com/ni/nimble/issues/2491
+                name: 'when columns have fractional widths #SkipFirefox',
                 column1FractionalWidth: 2,
                 column1PixelWidth: null,
                 column1MinPixelWidth: null,

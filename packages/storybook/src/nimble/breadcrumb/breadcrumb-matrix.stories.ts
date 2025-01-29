@@ -13,7 +13,7 @@ import {
 } from '../../utilities/matrix';
 import { hiddenWrapper } from '../../utilities/hidden';
 import { textCustomizationWrapper } from '../../utilities/text-customization';
-import { DisabledState, disabledStates } from '../../utilities/states';
+import { type DisabledState, disabledStates } from '../../utilities/states';
 
 const appearanceStates = [
     ['Default', BreadcrumbAppearance.default],

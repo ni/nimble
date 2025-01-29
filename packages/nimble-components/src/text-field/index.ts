@@ -2,14 +2,15 @@ import { attr, html } from '@microsoft/fast-element';
 import {
     DesignSystem,
     TextField as FoundationTextField,
-    TextFieldOptions,
-    textFieldTemplate as template
+    type TextFieldOptions
 } from '@microsoft/fast-foundation';
 import { styles } from './styles';
 import { TextFieldAppearance } from './types';
 import { errorTextTemplate } from '../patterns/error/template';
 import { mixinErrorPattern } from '../patterns/error/types';
 import { iconExclamationMarkTag } from '../icons/exclamation-mark';
+import { template } from './template';
+import { mixinRequiredVisiblePattern } from '../patterns/required-visible/types';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -20,7 +21,9 @@ declare global {
 /**
  * A nimble-styed HTML text input
  */
-export class TextField extends mixinErrorPattern(FoundationTextField) {
+export class TextField extends mixinErrorPattern(
+    mixinRequiredVisiblePattern(FoundationTextField)
+) {
     /**
      * The appearance the text field should have.
      *

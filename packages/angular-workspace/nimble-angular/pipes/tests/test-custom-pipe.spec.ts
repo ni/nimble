@@ -1,4 +1,4 @@
-import { Component, ElementRef, Pipe, PipeTransform, ViewChild } from '@angular/core';
+import { Component, ElementRef, Pipe, type PipeTransform, ViewChild } from '@angular/core';
 import { TestBed, type ComponentFixture } from '@angular/core/testing';
 
 describe('Custom pipe instantiation', () => {

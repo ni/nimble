@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { NimbleTreeViewModule } from '../nimble-tree-view.module';
-import { NimbleTreeViewDirective, TreeView, TreeViewSelectionMode } from '../nimble-tree-view.directive';
+import { NimbleTreeViewDirective, type TreeView, TreeViewSelectionMode } from '../nimble-tree-view.directive';
 
 describe('Nimble tree view', () => {
     describe('module', () => {

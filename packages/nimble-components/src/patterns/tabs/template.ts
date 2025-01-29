@@ -3,8 +3,8 @@ import type { ViewTemplate } from '@microsoft/fast-element';
 import {
     endSlotTemplate,
     startSlotTemplate,
-    FoundationElementTemplate,
-    TabsOptions
+    type FoundationElementTemplate,
+    type TabsOptions
 } from '@microsoft/fast-foundation';
 import type { Tabs } from '../../tabs';
 import { buttonTag } from '../../button';

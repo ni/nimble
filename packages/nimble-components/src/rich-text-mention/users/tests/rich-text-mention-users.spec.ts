@@ -3,7 +3,7 @@ import { RichTextMentionUsers, richTextMentionUsersTag } from '..';
 import type { MappingUserKey } from '../../../mapping/base/types';
 import { MappingUser, mappingUserTag } from '../../../mapping/user';
 import { mappingTextTag } from '../../../mapping/text';
-import { Fixture, fixture } from '../../../utilities/tests/fixture';
+import { type Fixture, fixture } from '../../../utilities/tests/fixture';
 import { iconAtTag } from '../../../icons/at';
 import { waitForUpdatesAsync } from '../../../testing/async-helpers';
 

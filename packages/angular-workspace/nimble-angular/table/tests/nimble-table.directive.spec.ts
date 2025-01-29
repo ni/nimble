@@ -2,7 +2,7 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { processUpdates } from '@ni/nimble-angular';
 import { Observable, Subject } from 'rxjs';
-import { NimbleTableDirective, TableRowSelectionMode, Table, TableRecord, TableValidity } from '../nimble-table.directive';
+import { NimbleTableDirective, TableRowSelectionMode, type Table, type TableRecord, type TableValidity } from '../nimble-table.directive';
 import { NimbleTableModule } from '../nimble-table.module';
 
 describe('Nimble table', () => {

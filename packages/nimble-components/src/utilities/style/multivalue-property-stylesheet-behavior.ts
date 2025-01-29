@@ -1,5 +1,5 @@
 import {
-    Behavior,
+    type Behavior,
     ElementStyles,
     FASTElement,
     Observable

@@ -1,8 +1,8 @@
 import { attr, observable } from '@microsoft/fast-element';
 import {
     DesignSystem,
-    AnchorOptions,
-    MenuItemColumnCount
+    type AnchorOptions,
+    type MenuItemColumnCount
 } from '@microsoft/fast-foundation';
 import { keyEnter } from '@microsoft/fast-web-utilities';
 import { AnchorBase } from '../anchor-base';

@@ -1,8 +1,73 @@
 # Change Log - @ni/nimble-angular
 
-<!-- This log was last generated on Tue, 10 Dec 2024 20:15:57 GMT and should not be manually modified. -->
+<!-- This log was last generated on Wed, 29 Jan 2025 18:28:30 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 28.9.1
+
+Wed, 29 Jan 2025 18:28:30 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v32.11.3
+
+## 28.9.0
+
+Wed, 29 Jan 2025 17:51:30 GMT
+
+### Minor changes
+
+- Export DiacriticInsensitivePipe, Icon base, and Table SortedColumn types ([ni/nimble@2da4a67](https://github.com/ni/nimble/commit/2da4a675fd278413bee4afbc7c7717f40c5cb93f))
+
+## 28.8.2
+
+Thu, 16 Jan 2025 23:05:03 GMT
+
+### Patches
+
+- Replace deprectated importsNotUsedAsValues option with verbatimModuleSyntax ([ni/nimble@8b17b15](https://github.com/ni/nimble/commit/8b17b15aa037f14375abaef6fa1c76190282efab))
+- Bump @ni/nimble-components to v32.11.2
+
+## 28.8.1
+
+Fri, 10 Jan 2025 16:45:51 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v32.11.1
+
+## 28.8.0
+
+Wed, 08 Jan 2025 20:22:05 GMT
+
+### Minor changes
+
+- Angular support for required-visible ([ni/nimble@5f2245f](https://github.com/ni/nimble/commit/5f2245fc0a7bd252ef7cef2ceaa978c12d06808d))
+
+## 28.7.4
+
+Wed, 08 Jan 2025 18:33:06 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v32.11.0
+
+## 28.7.3
+
+Mon, 06 Jan 2025 20:05:57 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v32.10.0
+
+## 28.7.2
+
+Fri, 03 Jan 2025 17:23:02 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v32.9.3
 
 ## 28.7.1
 

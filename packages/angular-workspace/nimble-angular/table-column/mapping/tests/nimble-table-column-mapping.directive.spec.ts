@@ -2,7 +2,7 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NimbleTableModule } from '../../../table/nimble-table.module';
 import { NimbleTableColumnMappingModule } from '../nimble-table-column-mapping.module';
-import { NimbleTableColumnMappingDirective, TableColumnMapping, TableColumnMappingWidthMode } from '../nimble-table-column-mapping.directive';
+import { NimbleTableColumnMappingDirective, type TableColumnMapping, TableColumnMappingWidthMode } from '../nimble-table-column-mapping.directive';
 import { TableColumnSortDirection } from '../../nimble-table-column-base.directive';
 
 describe('NimbleTableColumnMapping', () => {

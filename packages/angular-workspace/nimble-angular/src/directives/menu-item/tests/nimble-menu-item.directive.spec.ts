@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import type { BooleanValueOrAttribute } from '@ni/nimble-angular/internal-utilities';
 import { NimbleMenuItemModule } from '../nimble-menu-item.module';
-import { MenuItem, NimbleMenuItemDirective } from '../nimble-menu-item.directive';
+import { type MenuItem, NimbleMenuItemDirective } from '../nimble-menu-item.directive';
 
 describe('Nimble menu item', () => {
     describe('module', () => {

@@ -1,7 +1,10 @@
 import { observable } from '@microsoft/fast-element';
 import { TableCellView } from '../../base/cell-view';
 import type { TableCellRecord } from '../../base/types';
-import { TableColumnAlignment, TableFieldValue } from '../../../table/types';
+import {
+    TableColumnAlignment,
+    type TableFieldValue
+} from '../../../table/types';
 
 export interface TableColumnTextBaseCellRecord extends TableCellRecord {
     value: TableFieldValue;

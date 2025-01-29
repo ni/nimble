@@ -1,6 +1,6 @@
 import { html } from '@microsoft/fast-element';
 
-import { fixture, Fixture } from '../../utilities/tests/fixture';
+import { fixture, type Fixture } from '../../utilities/tests/fixture';
 import { processUpdates } from '../../testing/async-helpers';
 import type { DataManager } from '../modules/data-manager';
 import { waferMapTag, type WaferMap } from '..';

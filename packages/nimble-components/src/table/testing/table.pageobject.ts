@@ -1,11 +1,10 @@
 import type { Checkbox } from '@microsoft/fast-foundation';
-import { keyShift } from '@microsoft/fast-web-utilities';
 import { parseColor } from '@microsoft/fast-colors';
 import type { Table } from '..';
 import { tableHeaderTag, type TableHeader } from '../components/header';
 import {
     TableColumnSortDirection,
-    TableRecord,
+    type TableRecord,
     TableRowSelectionState
 } from '../types';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
@@ -482,7 +481,7 @@ export class TablePageObject<T extends TableRecord> {
     public clickRowSelectionCheckbox(rowIndex: number, shiftKey = false): void {
         if (shiftKey) {
             const shiftKeyDownEvent = new KeyboardEvent('keydown', {
-                key: keyShift,
+                key: 'Shift',
                 shiftKey: true,
                 bubbles: true
             } as KeyboardEventInit);
@@ -494,7 +493,7 @@ export class TablePageObject<T extends TableRecord> {
 
         if (shiftKey) {
             const shiftKeyUpEvent = new KeyboardEvent('keyup', {
-                key: keyShift,
+                key: 'Shift',
                 bubbles: true
             } as KeyboardEventInit);
             document.dispatchEvent(shiftKeyUpEvent);
@@ -514,7 +513,7 @@ export class TablePageObject<T extends TableRecord> {
     ): void {
         if (shiftKey) {
             const shiftKeyDownEvent = new KeyboardEvent('keydown', {
-                key: keyShift,
+                key: 'Shift',
                 shiftKey: true,
                 bubbles: true
             } as KeyboardEventInit);
@@ -526,7 +525,7 @@ export class TablePageObject<T extends TableRecord> {
 
         if (shiftKey) {
             const shiftKeyUpEvent = new KeyboardEvent('keyup', {
-                key: keyShift,
+                key: 'Shift',
                 bubbles: true
             } as KeyboardEventInit);
             document.dispatchEvent(shiftKeyUpEvent);

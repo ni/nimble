@@ -1,4 +1,4 @@
-import { Notifier, Observable, observable } from '@microsoft/fast-element';
+import { type Notifier, Observable, observable } from '@microsoft/fast-element';
 import {
     DesignSystem,
     ListboxElement as FoundationListbox,

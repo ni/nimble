@@ -3,7 +3,7 @@ import { UnitScale } from './unit-scale';
 import { metricPrefixes } from './utilities/metrix-prefixes';
 import {
     ManuallyTranslatedScaledUnitFormat,
-    UnitTranslations,
+    type UnitTranslations,
     UnitTranslation
 } from '../scaled-unit-format/manually-translated-scaled-unit-format';
 

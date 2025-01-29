@@ -1,5 +1,5 @@
 import { html } from '@microsoft/fast-element';
-import { fixture, Fixture } from '../../utilities/tests/fixture';
+import { fixture, type Fixture } from '../../utilities/tests/fixture';
 import { Spinner, spinnerTag } from '..';
 
 async function setup(): Promise<Fixture<Spinner>> {

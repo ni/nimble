@@ -1,7 +1,7 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import type { BooleanValueOrAttribute, NumberValueOrAttribute } from '@ni/nimble-angular/internal-utilities';
-import { NimbleTextAreaDirective, TextArea, TextAreaAppearance, TextAreaResize } from '../nimble-text-area.directive';
+import { NimbleTextAreaDirective, type TextArea, TextAreaAppearance, TextAreaResize } from '../nimble-text-area.directive';
 import { NimbleTextAreaModule } from '../nimble-text-area.module';
 
 describe('Nimble text area', () => {
@@ -117,6 +117,17 @@ describe('Nimble text area', () => {
             expect(directive.errorText).toBeUndefined();
             expect(nativeElement.errorText).toBeUndefined();
         });
+
+        it('has expected defaults for requiredVisible', () => {
+            expect(directive.requiredVisible).toBeFalse();
+            expect(nativeElement.requiredVisible).toBeFalse();
+        });
+
+        it('can use the directive to set requiredVisible', () => {
+            directive.requiredVisible = true;
+            expect(directive.requiredVisible).toBeTrue();
+            expect(nativeElement.requiredVisible).toBeTrue();
+        });
     });
 
     describe('with template string values', () => {
@@ -137,7 +148,9 @@ describe('Nimble text area', () => {
                     placeholder="Placeholder value"
                     cols="10"
                     rows="6"
-                    spellcheck>
+                    spellcheck
+                    required-visible
+                >
                 </nimble-text-area>`
         })
         class TestHostComponent {
@@ -234,6 +247,11 @@ describe('Nimble text area', () => {
             expect(directive.errorText).toBe('Error text');
             expect(nativeElement.errorText).toBe('Error text');
         });
+
+        it('will use template string values for requiredVisible', () => {
+            expect(directive.requiredVisible).toBeTrue();
+            expect(nativeElement.requiredVisible).toBeTrue();
+        });
     });
 
     describe('with property bound values', () => {
@@ -254,7 +272,9 @@ describe('Nimble text area', () => {
                     [placeholder]="placeholder"
                     [cols]="cols"
                     [rows]="rows"
-                    [spellcheck]="spellcheck">
+                    [spellcheck]="spellcheck"
+                    [required-visible]="requiredVisible"
+                >
                 </nimble-text-area>`
         })
         class TestHostComponent {
@@ -275,6 +295,7 @@ describe('Nimble text area', () => {
             public cols = 5;
             public rows = 2;
             public spellcheck = false;
+            public requiredVisible = false;
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
@@ -456,6 +477,17 @@ describe('Nimble text area', () => {
             expect(directive.errorText).toBe('et');
             expect(nativeElement.errorText).toBe('et');
         });
+
+        it('can be configured with property binding for requiredVisible', () => {
+            expect(directive.requiredVisible).toBeFalse();
+            expect(nativeElement.requiredVisible).toBeFalse();
+
+            fixture.componentInstance.requiredVisible = true;
+            fixture.detectChanges();
+
+            expect(directive.requiredVisible).toBeTrue();
+            expect(nativeElement.requiredVisible).toBeTrue();
+        });
     });
 
     describe('with attribute bound values', () => {
@@ -476,7 +508,9 @@ describe('Nimble text area', () => {
                     [attr.placeholder]="placeholder"
                     [attr.cols]="cols"
                     [attr.rows]="rows"
-                    [attr.spellcheck]="spellcheck">
+                    [attr.spellcheck]="spellcheck"
+                    [attr.required-visible]="requiredVisible"
+                >
                 </nimble-text-area>`
         })
         class TestHostComponent {
@@ -497,6 +531,7 @@ describe('Nimble text area', () => {
             public cols: NumberValueOrAttribute = 5;
             public rows: NumberValueOrAttribute = 2;
             public spellcheck: BooleanValueOrAttribute = null;
+            public requiredVisible: BooleanValueOrAttribute = null;
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
@@ -677,6 +712,17 @@ describe('Nimble text area', () => {
 
             expect(directive.errorText).toBe('foo');
             expect(nativeElement.errorText).toBe('foo');
+        });
+
+        it('can be configured with attribute binding for requiredVisible', () => {
+            expect(directive.requiredVisible).toBeFalse();
+            expect(nativeElement.requiredVisible).toBeFalse();
+
+            fixture.componentInstance.requiredVisible = '';
+            fixture.detectChanges();
+
+            expect(directive.requiredVisible).toBeTrue();
+            expect(nativeElement.requiredVisible).toBeTrue();
         });
     });
 });

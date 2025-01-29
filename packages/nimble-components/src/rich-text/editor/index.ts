@@ -8,7 +8,7 @@ import { keyEnter, keySpace } from '@microsoft/fast-web-utilities';
 import {
     findParentNode,
     isList,
-    AnyExtension,
+    type AnyExtension,
     Extension,
     Editor
 } from '@tiptap/core';
@@ -22,8 +22,8 @@ import type { ToggleButton } from '../../toggle-button';
 import {
     TipTapNodeName,
     mentionPluginPrefix,
-    MentionDetail,
-    FormatButtonsState
+    type MentionDetail,
+    type FormatButtonsState
 } from './types';
 import { mixinErrorPattern } from '../../patterns/error/types';
 import { RichTextMarkdownParser } from '../models/markdown-parser';
