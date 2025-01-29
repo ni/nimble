@@ -1,16 +1,16 @@
 import type { RichTextEditor } from '..';
 import { type MappingUser, mappingUserTag } from '../../../mapping/user';
-import { richTextMentionTestTag } from '../../../rich-text-mention/base/tests/rich-text-mention.fixtures';
+import {
+    RichTextMentionTest,
+    richTextMentionTestTag
+} from '../../../rich-text-mention/base/tests/rich-text-mention.fixtures';
 import {
     richTextMentionUsersTag,
     type RichTextMentionUsers
 } from '../../../rich-text-mention/users';
+import type { UserMentionElements } from '../../../rich-text-mention/users/types';
 import { waitForUpdatesAsync } from '../../../testing/async-helpers';
-import type {
-    MappingConfiguration,
-    UserMentionElements,
-    TestMentionElements
-} from './types';
+import type { MappingConfiguration } from './types';
 
 export async function appendUserMentionConfiguration(
     element: RichTextEditor,
@@ -32,6 +32,11 @@ export async function appendUserMentionConfiguration(
         userMentionElement,
         mappingElements
     };
+}
+
+export interface TestMentionElements {
+    testMentionElement: RichTextMentionTest;
+    mappingElements: MappingUser[];
 }
 
 export async function appendTestMentionConfiguration(
