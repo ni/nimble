@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Wed, 29 Jan 2025 20:44:10 GMT",
+      "version": "32.11.3",
+      "tag": "@ni/nimble-components_v32.11.3",
+      "comments": {
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "6040116d40c8cebc6418f5beaa98cc7eaf236e0c",
+            "comment": "Remove firefox from concurrent testing"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 29 Jan 2025 18:28:29 GMT",
       "version": "32.11.3",
       "tag": "@ni/nimble-components_v32.11.3",
