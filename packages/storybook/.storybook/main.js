@@ -30,7 +30,8 @@ export const addons = [
     '@storybook/addon-interactions',
     '@chromatic-com/storybook',
     '@storybook/addon-webpack5-compiler-swc',
-    'storybook-addon-pseudo-states'
+    'storybook-addon-pseudo-states',
+    'storybook-dark-mode'
 ];
 
 export function webpackFinal(config) {
