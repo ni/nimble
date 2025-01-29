@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-angular
 
-<!-- This log was last generated on Thu, 16 Jan 2025 23:05:03 GMT and should not be manually modified. -->
+<!-- This log was last generated on Wed, 29 Jan 2025 17:51:30 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 28.9.0
+
+Wed, 29 Jan 2025 17:51:30 GMT
+
+### Minor changes
+
+- Export DiacriticInsensitivePipe, Icon base, and Table SortedColumn types ([ni/nimble@2da4a67](https://github.com/ni/nimble/commit/2da4a675fd278413bee4afbc7c7717f40c5cb93f))
 
 ## 28.8.2
 
