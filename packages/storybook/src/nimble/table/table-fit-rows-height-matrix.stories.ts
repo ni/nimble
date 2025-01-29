@@ -31,7 +31,7 @@ type GroupingState = (typeof groupingStates)[number];
 
 const minColumnWidthStates = [
     ['Small Minimum', 100],
-    ['Large Minimum', 500]
+    ['Large Minimum (show horizontal scrollbar)', 500]
 ] as const;
 type MinColumnWidthState = (typeof minColumnWidthStates)[number];
 
