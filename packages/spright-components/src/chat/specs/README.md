@@ -68,13 +68,13 @@ These components are competing against possible implementations within applicati
 
 ```html
 <spright-chat-conversation>
-    <spright-chat-message status="incoming">
+    <spright-chat-message message-type="inbound">
         Hi, how can I help?
     </spright-chat-message>
-    <spright-chat-message status="outgoing">
+    <spright-chat-message message-type="outbound">
         I need to analyze my data to find anomalies.
     </spright-chat-message>
-    <spright-chat-message status="system">
+    <spright-chat-message message-type="system">
         <nimble-spinner></nimble-spinner>
     </spright-chat-message>
 </spright-chat-conversation>
@@ -84,7 +84,7 @@ These components are competing against possible implementations within applicati
 
 ```html
 <spright-chat-conversation>
-    <spright-chat-message status="incoming">
+    <spright-chat-message message-type="inbound">
         <nimble-rich-text-viewer id="welcome"></nimble-rich-text-viewer>
     </spright-chat-message>
 </spright-chat-conversation>
@@ -98,7 +98,7 @@ richText.markdown = 'Welcome **Homer**, how can I help?';
 #### Prompt buttons message example
 
 ```html
-<spright-chat-message status="system">
+<spright-chat-message message-type="system">
     <nimble-button appearance="block">Help with my taxes</nimble-button>
     <nimble-button appearance="block">Provide me some life advice</nimble-button>
 </spright-chat-message
@@ -110,7 +110,7 @@ richText.markdown = 'Welcome **Homer**, how can I help?';
 
 - _Component Name_ `spright-chat-message`
 - _Props/Attrs_
-    - `status = "incoming" | "outgoing" | "system"`
+    - `message-type = "inbound" | "outbound" | "system"`
 - _Methods_
 - _Events_
 - _CSS Classes and CSS Custom Properties that affect the component_
