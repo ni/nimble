@@ -377,9 +377,10 @@ export class SelectPageObject {
     }
 
     private getVisibleOptions(): ListOption[] {
-        return this.selectElement.options.filter(
-            o => !((o as ListOption).hidden || (o as ListOption).visuallyHidden)
-        ) as ListOption[];
+        const options = Array.from(
+            this.selectElement.querySelectorAll('nimble-list-option')
+        );
+        return options.filter(o => !(o.hidden || o.visuallyHidden));
     }
 
     private getFilterInput(): HTMLInputElement | null | undefined {
