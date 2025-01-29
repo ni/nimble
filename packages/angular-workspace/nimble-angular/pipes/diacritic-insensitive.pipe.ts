@@ -10,10 +10,7 @@ import { diacriticInsensitiveStringNormalizer } from '@ni/nimble-components/dist
     standalone: true
 })
 export class DiacriticInsensitivePipe implements PipeTransform {
-    public transform(value: string | null | undefined): string {
-        if (typeof value !== 'string') {
-            return '';
-        }
+    public transform(value: string): string {
         return diacriticInsensitiveStringNormalizer(value);
     }
 }
