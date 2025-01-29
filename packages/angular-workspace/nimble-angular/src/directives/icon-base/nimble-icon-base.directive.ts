@@ -1,6 +1,8 @@
 import { Directive, ElementRef, Input, Renderer2 } from '@angular/core';
-import type { Icon } from '@ni/nimble-components/dist/esm/icon-base';
+import { Icon } from '@ni/nimble-components/dist/esm/icon-base';
 import type { IconSeverity } from '@ni/nimble-components/dist/esm/icon-base/types';
+
+export { Icon };
 
 /**
  * Base class for the nimble icon directives
