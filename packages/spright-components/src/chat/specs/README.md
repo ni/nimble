@@ -31,6 +31,14 @@ The components will only provide the presentation layer, not logic for interacti
 
 The message component will allow slotting arbitrary content, but any efforts to add content types to Nimble are out of scope of this document. For example, adding capabilities to the rich text viewer or adding styling for specific content types.
 
+We will not yet introduce an input toolbar component where a user can type and send messages and interact with related buttons. For now applications can construct this using the existing Nimble toolbar.
+    - Pros of dedicated component:
+        1. consistent layout and reduced implementation effort across applications
+        1. single implementation to change if requirements change
+    - Pros of applications leveraging Nimble toolbar:
+        1. dedicated component would require a large API surface area for configuring the visibility and enabled state of numerous buttons and firing events when the user interacts with the toolbar inputs.
+        1. allows more rapid experimentation while input use cases and interactions are still being solidified
+
 ### Features
 
 #### Chat message
@@ -240,10 +248,4 @@ There are parallel efforts to standardize and document other aspects of chat app
 
 ## Open Issues
 
-1. Should we introduce an input toolbar component where a user can type messages and interact with related buttons? Or should applications construct this using the existing Nimble toolbar?
-    - Pros of dedicated component:
-        1. consistent layout and reduced implementation effort across applications
-        1. single implementation to change if requirements change
-    - Pros of applications leveraging Nimble toolbar:
-        1. dedicated component would require a large API surface area for configuring the visibility and enabled state of numerous buttons and firing events when the user interacts with the toolbar inputs.
-        1. allows more rapid experimentation while input use cases and interactions are still being solidified
+None
