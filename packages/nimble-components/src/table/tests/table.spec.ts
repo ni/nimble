@@ -2411,8 +2411,12 @@ describe('Table', () => {
                 const heightWithoutScrollbar = getExpectedHeight(
                     simpleTableData.length
                 );
-                expect(parseFloat(tokenValue)).toBeGreaterThanOrEqual(parseFloat(heightWithoutScrollbar));
-                expect(element.viewport.scrollHeight).toBe(element.viewport.clientHeight);
+                expect(parseFloat(tokenValue)).toBeGreaterThanOrEqual(
+                    parseFloat(heightWithoutScrollbar)
+                );
+                expect(element.viewport.scrollHeight).toBe(
+                    element.viewport.clientHeight
+                );
             });
 
             it('has correct height when height changes because of setting data', async () => {
