@@ -11,7 +11,7 @@ import {
 } from '../../enum-base/models/mapping-icon-config';
 import {
     MappingSpinnerConfig,
-    SpinnerView
+    type SpinnerView
 } from '../../enum-base/models/mapping-spinner-config';
 import { MappingTextConfig } from '../../enum-base/models/mapping-text-config';
 import { MappingEmptyConfig } from '../../enum-base/models/mapping-empty-config';

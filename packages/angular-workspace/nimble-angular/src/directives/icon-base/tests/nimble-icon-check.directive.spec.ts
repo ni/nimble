@@ -1,7 +1,7 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { IconSeverity } from '../../../public-api';
-import { IconCheck, NimbleIconCheckDirective } from '../../icons/check/nimble-icon-check.directive';
+import { type IconCheck, NimbleIconCheckDirective } from '../../icons/check/nimble-icon-check.directive';
 import { NimbleIconCheckModule } from '../../icons/check/nimble-icon-check.module';
 
 // As the icons are generated and have identical apis, testing every icon seemed unnecessary.

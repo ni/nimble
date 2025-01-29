@@ -1,6 +1,6 @@
 import { html } from '@microsoft/fast-element';
 import { TextField, textFieldTag } from '..';
-import { fixture, Fixture } from '../../utilities/tests/fixture';
+import { fixture, type Fixture } from '../../utilities/tests/fixture';
 import { processUpdates } from '../../testing/async-helpers';
 
 async function setup(): Promise<Fixture<TextField>> {

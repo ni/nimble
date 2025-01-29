@@ -2,7 +2,7 @@ import { customElement } from '@microsoft/fast-element';
 import { TableColumn } from '..';
 import {
     fixture,
-    Fixture,
+    type Fixture,
     uniqueElementName
 } from '../../../utilities/tests/fixture';
 import type { TableCellView } from '../cell-view';

@@ -26,7 +26,7 @@ import {
 } from '../../utilities/tests/fixture';
 import {
     TableColumnSortDirection,
-    TableRecord,
+    type TableRecord,
     TableRowSelectionMode
 } from '../types';
 import { TablePageObject } from '../testing/table.pageobject';

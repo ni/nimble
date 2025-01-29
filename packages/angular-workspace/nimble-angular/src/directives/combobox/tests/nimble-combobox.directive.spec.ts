@@ -3,7 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import type { BooleanValueOrAttribute } from '@ni/nimble-angular/internal-utilities';
 import { FormsModule } from '@angular/forms';
 import { ComboboxAutocomplete, DropdownAppearance, NimbleListOptionModule } from '../../../public-api';
-import { Combobox, NimbleComboboxDirective } from '../nimble-combobox.directive';
+import { type Combobox, NimbleComboboxDirective } from '../nimble-combobox.directive';
 import { NimbleComboboxModule } from '../nimble-combobox.module';
 import { waitForUpdatesAsync } from '../../../testing/async-helpers';
 

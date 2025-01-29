@@ -1,19 +1,18 @@
 import {
-    ScaleBand,
-    ScaleLinear,
-    ScaleQuantile,
+    type ScaleBand,
+    type ScaleLinear,
+    type ScaleQuantile,
     scaleBand,
     scaleLinear,
     scaleQuantile
 } from 'd3-scale';
 import { type Table, tableFromArrays } from 'apache-arrow';
 import type { ZoomTransform } from 'd3-zoom';
-import {
+import { WaferMapColorScaleMode, WaferMapOriginLocation } from '../types';
+import type {
     HoverDie,
     WaferMapColorScale,
-    WaferMapColorScaleMode,
     WaferMapDie,
-    WaferMapOriginLocation,
     WaferMapValidity,
     WaferRequiredFields
 } from '../types';

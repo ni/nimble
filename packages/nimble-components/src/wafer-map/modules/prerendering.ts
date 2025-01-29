@@ -1,4 +1,9 @@
-import { ScaleLinear, scaleLinear, ScaleOrdinal, scaleOrdinal } from 'd3-scale';
+import {
+    type ScaleLinear,
+    scaleLinear,
+    type ScaleOrdinal,
+    scaleOrdinal
+} from 'd3-scale';
 import { ColorRGBA64, parseColor } from '@microsoft/fast-colors';
 import { WaferMapColorScaleMode } from '../types';
 import type { DieRenderInfo, WaferMapColorScale, WaferMapDie } from '../types';

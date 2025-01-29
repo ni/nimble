@@ -1,5 +1,5 @@
-import { Inject, LOCALE_ID, Pipe, PipeTransform } from '@angular/core';
-import { NumberTextUnitFormat, NumberTextUnitFormatOptions } from '@ni/nimble-components/dist/esm/table-column/number-text/models/number-text-unit-format';
+import { Inject, LOCALE_ID, Pipe, type PipeTransform } from '@angular/core';
+import { NumberTextUnitFormat, type NumberTextUnitFormatOptions } from '@ni/nimble-components/dist/esm/table-column/number-text/models/number-text-unit-format';
 
 /**
  * A pipe that transforms a number into a string with optional unit

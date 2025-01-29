@@ -1,4 +1,8 @@
-import { Notifier, Subscriber, Observable } from '@microsoft/fast-element';
+import {
+    type Notifier,
+    type Subscriber,
+    Observable
+} from '@microsoft/fast-element';
 import {
     keyArrowDown,
     keyArrowLeft,
@@ -17,12 +21,12 @@ import {
 import { FoundationElement } from '@microsoft/fast-foundation';
 import type { ScrollToOptions } from '@tanstack/virtual-core';
 import type { Table } from '..';
-import {
+import { TableFocusType } from '../types';
+import type {
     TableActionMenuToggleEventDetail,
-    TableFocusType,
     TableHeaderFocusableElements,
     TableRowFocusableElements,
-    type TableRecord
+    TableRecord
 } from '../types';
 import type { Virtualizer } from './virtualizer';
 import { TableGroupRow } from '../components/group-row';

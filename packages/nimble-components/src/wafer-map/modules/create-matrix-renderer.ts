@@ -1,4 +1,4 @@
-import { wrap, Remote } from 'comlink';
+import { wrap, type Remote } from 'comlink';
 import { workerCode } from '../workers/worker-code';
 import type { MatrixRenderer } from '../workers/matrix-renderer';
 

@@ -1,10 +1,10 @@
 import { Directive, ElementRef, EventEmitter, HostListener, Input, Output, Renderer2 } from '@angular/core';
 import type { RichTextEditor } from '@ni/nimble-components/dist/esm/rich-text/editor';
-import { BooleanValueOrAttribute, toBooleanProperty } from '@ni/nimble-angular/internal-utilities';
+import { type BooleanValueOrAttribute, toBooleanProperty } from '@ni/nimble-angular/internal-utilities';
 import type { RichTextValidity } from '@ni/nimble-components/dist/esm/rich-text/base/types';
 
 export type { RichTextEditor };
-export { RichTextValidity };
+export type { RichTextValidity };
 
 /**
  * Directive to provide Angular integration for the rich text editor element.

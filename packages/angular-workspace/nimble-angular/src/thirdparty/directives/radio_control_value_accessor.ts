@@ -17,10 +17,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 
-import {Directive, ElementRef, forwardRef, inject, Injectable, Injector, Input, OnDestroy, OnInit, Provider, Renderer2, ɵRuntimeError as RuntimeError} from '@angular/core';
+import {Directive, ElementRef, forwardRef, inject, Injectable, Injector, Input, type OnDestroy, type OnInit, type Provider, Renderer2, ɵRuntimeError as RuntimeError} from '@angular/core';
 
 import {BuiltInControlValueAccessor} from './control_value_accessor';
-import {ControlValueAccessor, NgControl, SetDisabledStateOption} from '@angular/forms';
+import {type ControlValueAccessor, NgControl, type SetDisabledStateOption} from '@angular/forms';
 
 /* [Nimble] Do not register as a value accessor provider
 const RADIO_VALUE_ACCESSOR: Provider = {

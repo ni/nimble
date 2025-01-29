@@ -1,4 +1,4 @@
-import { UnitFormat, UnitFormatOptions } from './unit-format';
+import { UnitFormat, type UnitFormatOptions } from './unit-format';
 import type { ScaledUnitFormat } from './scaled-unit-format/scaled-unit-format';
 import type { UnitScale } from './unit-scale/unit-scale';
 import { passthroughUnitScale } from './unit-scale/passthrough-unit-scale';

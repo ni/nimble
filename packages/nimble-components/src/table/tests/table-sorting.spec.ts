@@ -7,11 +7,14 @@ import {
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import { type Fixture, fixture } from '../../utilities/tests/fixture';
 import {
-    TableColumnConfigurationChangeEventDetail,
+    type TableColumnConfigurationChangeEventDetail,
     TableColumnSortDirection,
-    TableRecord
+    type TableRecord
 } from '../types';
-import { SortedColumn, TablePageObject } from '../testing/table.pageobject';
+import {
+    type SortedColumn,
+    TablePageObject
+} from '../testing/table.pageobject';
 import { waitForEvent } from '../../utilities/testing/component';
 
 interface SimpleTableRecord extends TableRecord {

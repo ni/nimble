@@ -10,13 +10,13 @@
 // 3. Remove the option for a custom parent to be specified in the `FixtureOptions` so that the patch mentioned above will never be unintentially bypassed.
 
 import {
-    Constructable,
+    type Constructable,
     defaultExecutionContext,
     ExecutionContext,
     HTMLView,
     ViewTemplate,
 } from '@microsoft/fast-element';
-import { Container, DesignSystem, DesignSystemRegistrationContext, DI } from '@microsoft/fast-foundation';
+import { Container, DesignSystem, type DesignSystemRegistrationContext, DI } from '@microsoft/fast-foundation';
 
 import type {
     FoundationElementDefinition,

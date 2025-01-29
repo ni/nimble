@@ -36,8 +36,7 @@
       "es2020",
       "dom"
     ],
-    "importsNotUsedAsValues": "error",
-    "ignoreDeprecations": "5.0",
+    "verbatimModuleSyntax": true,
     "useDefineForClassFields": false
   },
   "angularCompilerOptions": {

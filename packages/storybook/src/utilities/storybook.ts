@@ -5,7 +5,7 @@ import type { Theme } from '../../../nimble-components/src/theme-provider/types'
 import { listOptionTag } from '../../../nimble-components/src/list-option';
 import { listOptionGroupTag } from '../../../nimble-components/src/list-option-group';
 import {
-    BackgroundState,
+    type BackgroundState,
     backgroundStates,
     defaultBackgroundState
 } from './states';

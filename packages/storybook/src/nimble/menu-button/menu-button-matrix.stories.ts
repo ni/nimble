@@ -21,7 +21,7 @@ import {
 } from '../../utilities/matrix';
 import {
     disabledStates,
-    DisabledState,
+    type DisabledState,
     disabledStateIsEnabled
 } from '../../utilities/states';
 import { createStory } from '../../utilities/storybook';

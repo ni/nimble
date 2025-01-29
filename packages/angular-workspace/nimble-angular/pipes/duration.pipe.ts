@@ -1,4 +1,4 @@
-import { Inject, LOCALE_ID, Pipe, PipeTransform } from '@angular/core';
+import { Inject, LOCALE_ID, Pipe, type PipeTransform } from '@angular/core';
 import { DurationFormatter } from '@ni/nimble-components/dist/esm/table-column/duration-text/models/duration-formatter';
 
 /**

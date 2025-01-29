@@ -11,11 +11,11 @@ import {
 } from '../../utilities/matrix';
 import {
     disabledStates,
-    DisabledState,
+    type DisabledState,
     errorStates,
-    ErrorState,
+    type ErrorState,
     requiredVisibleStates,
-    RequiredVisibleState
+    type RequiredVisibleState
 } from '../../utilities/states';
 import { createStory } from '../../utilities/storybook';
 import { hiddenWrapper } from '../../utilities/hidden';

@@ -2,7 +2,7 @@ import { attr, observable } from '@microsoft/fast-element';
 import { FoundationElement } from '@microsoft/fast-foundation';
 import {
     ColumnInternals,
-    ColumnInternalsOptions
+    type ColumnInternalsOptions
 } from './models/column-internals';
 import type { TableColumnValidity } from './types';
 import type { ColumnValidator } from './models/column-validator';

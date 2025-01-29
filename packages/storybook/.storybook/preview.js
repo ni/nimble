@@ -105,5 +105,5 @@ configureActions({
     depth: 1
 });
 
-// Update the GUID on this line to trigger a turbosnap full rebuild: 870f48a2-7101-46f3-b0e1-57c16e7c3313
+// Update the GUID on this line to trigger a turbosnap full rebuild: 3076af9e-b6b1-4315-a870-28b64a1e9cdb
 // See https://www.chromatic.com/docs/turbosnap/#full-rebuilds

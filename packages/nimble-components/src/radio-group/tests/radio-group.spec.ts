@@ -1,6 +1,6 @@
 import { html } from '@microsoft/fast-element';
 import { RadioGroup, radioGroupTag } from '..';
-import { Fixture, fixture } from '../../utilities/tests/fixture';
+import { type Fixture, fixture } from '../../utilities/tests/fixture';
 import { processUpdates } from '../../testing/async-helpers';
 
 async function setup(): Promise<Fixture<RadioGroup>> {

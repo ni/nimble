@@ -1,9 +1,9 @@
 import { html, ref, slotted } from '@microsoft/fast-element';
 import type { ViewTemplate } from '@microsoft/fast-element';
 import {
-    ButtonOptions,
+    type ButtonOptions,
     endSlotTemplate,
-    FoundationElementTemplate,
+    type FoundationElementTemplate,
     startSlotTemplate
 } from '@microsoft/fast-foundation';
 import type { Button } from '.';

@@ -2,7 +2,7 @@ import { attr, html } from '@microsoft/fast-element';
 import {
     DesignSystem,
     NumberField as FoundationNumberField,
-    NumberFieldOptions
+    type NumberFieldOptions
 } from '@microsoft/fast-foundation';
 import { styles } from './styles';
 import { NumberFieldAppearance } from './types';

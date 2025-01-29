@@ -1,4 +1,4 @@
-import { Remote, expose, transfer, wrap } from 'comlink';
+import { type Remote, expose, transfer, wrap } from 'comlink';
 import { MatrixRenderer } from '../matrix-renderer';
 
 // OffscreenCanvas not supported in Playwright's Windows/Linux Webkit build: https://github.com/ni/nimble/issues/2169

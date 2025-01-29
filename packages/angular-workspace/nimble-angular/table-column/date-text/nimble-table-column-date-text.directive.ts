@@ -1,9 +1,9 @@
 import { Directive, ElementRef, Input, Renderer2 } from '@angular/core';
 import { type TableColumnDateText, tableColumnDateTextTag } from '@ni/nimble-components/dist/esm/table-column/date-text';
-import { BooleanValueOrAttribute, NumberValueOrAttribute, toBooleanProperty, toNullableNumberProperty } from '@ni/nimble-angular/internal-utilities';
+import { type BooleanValueOrAttribute, type NumberValueOrAttribute, toBooleanProperty, toNullableNumberProperty } from '@ni/nimble-angular/internal-utilities';
 import { NimbleTableColumnBaseDirective, TableColumnSortDirection } from '@ni/nimble-angular/table-column';
-import {
-    DateTextFormat,
+import { DateTextFormat } from '@ni/nimble-components/dist/esm/table-column/date-text/types';
+import type {
     DateStyle,
     DayFormat,
     DayPeriodFormat,
@@ -22,22 +22,22 @@ import {
 } from '@ni/nimble-components/dist/esm/table-column/date-text/types';
 
 export type { TableColumnDateText };
-export { DateStyle };
+export type { DateStyle };
 export { DateTextFormat };
-export { DayFormat };
-export { DayPeriodFormat };
-export { EraFormat };
-export { FormatMatcherAlgorithm };
-export { HourCycleFormat };
-export { HourFormat };
-export { LocaleMatcherAlgorithm };
-export { MinuteFormat };
-export { MonthFormat };
-export { SecondFormat };
-export { TimeStyle };
-export { TimeZoneNameFormat };
-export { WeekdayFormat };
-export { YearFormat };
+export type { DayFormat };
+export type { DayPeriodFormat };
+export type { EraFormat };
+export type { FormatMatcherAlgorithm };
+export type { HourCycleFormat };
+export type { HourFormat };
+export type { LocaleMatcherAlgorithm };
+export type { MinuteFormat };
+export type { MonthFormat };
+export type { SecondFormat };
+export type { TimeStyle };
+export type { TimeZoneNameFormat };
+export type { WeekdayFormat };
+export type { YearFormat };
 export { tableColumnDateTextTag };
 
 /**

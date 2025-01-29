@@ -2,7 +2,7 @@ import {
     DesignSystem,
     MenuItem as FoundationMenuItem,
     menuItemTemplate as template,
-    MenuItemOptions
+    type MenuItemOptions
 } from '@microsoft/fast-foundation';
 import { arrowExpanderRight16X16 } from '@ni/nimble-tokens/dist/icons/js';
 import { styles } from './styles';

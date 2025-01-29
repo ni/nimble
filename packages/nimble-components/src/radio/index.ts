@@ -2,7 +2,7 @@ import {
     Radio as FoundationRadio,
     radioTemplate as template,
     DesignSystem,
-    RadioOptions
+    type RadioOptions
 } from '@microsoft/fast-foundation';
 import { circleFilled16X16 } from '@ni/nimble-tokens/dist/icons/js';
 import { styles } from './styles';

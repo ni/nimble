@@ -5,7 +5,7 @@ import {
     css,
     ref,
     ElementStyles,
-    Behavior,
+    type Behavior,
     attr
 } from '@microsoft/fast-element';
 import { uniqueElementName, fixture } from '../../tests/fixture';

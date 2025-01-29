@@ -1,5 +1,5 @@
 import {
-    Notifier,
+    type Notifier,
     Observable,
     attr,
     observable,
