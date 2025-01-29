@@ -1,7 +1,7 @@
 import { attr } from '@microsoft/fast-element';
 import {
     TreeItem as FoundationTreeItem,
-    TreeItemOptions,
+    type TreeItemOptions,
     DesignSystem,
     treeItemTemplate as template
 } from '@microsoft/fast-foundation';

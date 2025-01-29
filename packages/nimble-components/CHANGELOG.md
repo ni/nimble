@@ -1,8 +1,64 @@
 # Change Log - @ni/nimble-components
 
-<!-- This log was last generated on Tue, 10 Dec 2024 20:15:57 GMT and should not be manually modified. -->
+<!-- This log was last generated on Wed, 29 Jan 2025 18:28:29 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 32.11.3
+
+Wed, 29 Jan 2025 18:28:29 GMT
+
+### Patches
+
+- Allow an item in the toolbar to lose focus by clicking the toolbar itself ([ni/nimble@dcd42ac](https://github.com/ni/nimble/commit/dcd42ac952ba3aec2bbf7f5bbffd091f69e47482))
+
+## 32.11.2
+
+Thu, 16 Jan 2025 23:05:03 GMT
+
+### Patches
+
+- Replace deprectated importsNotUsedAsValues option with verbatimModuleSyntax ([ni/nimble@8b17b15](https://github.com/ni/nimble/commit/8b17b15aa037f14375abaef6fa1c76190282efab))
+
+## 32.11.1
+
+Fri, 10 Jan 2025 16:45:51 GMT
+
+### Patches
+
+- Inline constant from external library for table pageobject ([ni/nimble@cf916f9](https://github.com/ni/nimble/commit/cf916f9123a55947fa71b8e5b2bd07f6f00721bf))
+
+## 32.11.0
+
+Wed, 08 Jan 2025 18:33:05 GMT
+
+### Minor changes
+
+- Add `required-visible` attribute to number-field and text-field ([ni/nimble@a0662f1](https://github.com/ni/nimble/commit/a0662f1b0d7a1fdff40d752f9455c91eb0ad5d5a))
+
+## 32.10.0
+
+Mon, 06 Jan 2025 20:05:57 GMT
+
+### Minor changes
+
+- Add `required-visible` attribute to radio-group, combobox, select, and text-area ([ni/nimble@f558bd7](https://github.com/ni/nimble/commit/f558bd74afaeee9ea17bf0f8bdf8f1b239935887))
+
+## 32.9.3
+
+Fri, 03 Jan 2025 17:23:02 GMT
+
+### Patches
+
+- Fork number-field and text-field templates ([ni/nimble@6a8328d](https://github.com/ni/nimble/commit/6a8328dc976c6ba81f2a165309957dc5032519ae))
+
+## 32.9.2
+
+Thu, 02 Jan 2025 21:45:49 GMT
+
+### Patches
+
+- Update to rollup all-components build dependencies ([ni/nimble@0ca6cc0](https://github.com/ni/nimble/commit/0ca6cc0c1c819247397950ffaa535097147374c0))
 
 ## 32.9.1
 

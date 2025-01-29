@@ -58,6 +58,14 @@ public class NimbleSelectTests
     }
 
     [Fact]
+    public void SelectRequiredVisible_AttributeIsSet()
+    {
+        var select = RenderWithPropertySet(x => x.RequiredVisible, true);
+
+        Assert.Contains("required-visible", select.Markup);
+    }
+
+    [Fact]
     public void SelectWithOption_HasListOptionMarkup()
     {
         var expectedMarkup = "nimble-list-option";

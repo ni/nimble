@@ -1,7 +1,7 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { SpinnerAppearance } from '../../../public-api';
-import { Spinner, NimbleSpinnerDirective } from '../nimble-spinner.directive';
+import { type Spinner, NimbleSpinnerDirective } from '../nimble-spinner.directive';
 import { NimbleSpinnerModule } from '../nimble-spinner.module';
 
 describe('Nimble Spinner', () => {

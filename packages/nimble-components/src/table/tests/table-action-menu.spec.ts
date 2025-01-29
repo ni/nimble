@@ -12,8 +12,8 @@ import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import { waitForEvent } from '../../utilities/testing/component';
 import { type Fixture, fixture } from '../../utilities/tests/fixture';
 import {
-    TableActionMenuToggleEventDetail,
-    TableRecord,
+    type TableActionMenuToggleEventDetail,
+    type TableRecord,
     TableRowSelectionMode
 } from '../types';
 import { TablePageObject } from '../testing/table.pageobject';

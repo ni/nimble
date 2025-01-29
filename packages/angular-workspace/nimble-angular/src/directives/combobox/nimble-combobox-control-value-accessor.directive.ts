@@ -1,5 +1,5 @@
-import { AfterViewChecked, Directive, ElementRef, forwardRef, HostListener, Input, Renderer2 } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { type AfterViewChecked, Directive, ElementRef, forwardRef, HostListener, Input, Renderer2 } from '@angular/core';
+import { type ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import type { ListOption } from '@ni/nimble-components/dist/esm/list-option';
 import type { Combobox } from '../../public-api';
 

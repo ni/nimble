@@ -3,10 +3,9 @@ import type { FoundationElementTemplate } from '@microsoft/fast-foundation';
 import type { TextArea } from '.';
 import { iconExclamationMarkTag } from '../icons/exclamation-mark';
 import { errorTextTemplate } from '../patterns/error/template';
+import { createRequiredVisibleLabelTemplate } from '../patterns/required-visible/template';
 
-export const template: FoundationElementTemplate<
-ViewTemplate<TextArea>
-> = () => html<TextArea>`
+const labelTemplate = createRequiredVisibleLabelTemplate(html<TextArea>`
     <label
         part="label"
         for="control"
@@ -14,6 +13,12 @@ ViewTemplate<TextArea>
     >
         <slot ${slotted('defaultSlottedNodes')}></slot>
     </label>
+`);
+
+export const template: FoundationElementTemplate<
+ViewTemplate<TextArea>
+> = () => html<TextArea>`
+    ${labelTemplate}
     <div class="container">
         <textarea
             part="control"
@@ -52,6 +57,7 @@ ViewTemplate<TextArea>
             aria-owns="${x => x.ariaOwns}"
             aria-relevant="${x => x.ariaRelevant}"
             aria-roledescription="${x => x.ariaRoledescription}"
+            aria-required="${x => x.requiredVisible}"
             @input="${x => x.onTextAreaInput()}"
             @change="${x => x.handleChange()}"
             ${ref('control')}

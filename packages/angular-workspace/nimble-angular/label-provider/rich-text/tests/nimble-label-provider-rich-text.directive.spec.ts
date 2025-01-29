@@ -1,6 +1,6 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { LabelProviderRichText, NimbleLabelProviderRichTextDirective } from '../nimble-label-provider-rich-text.directive';
+import { type LabelProviderRichText, NimbleLabelProviderRichTextDirective } from '../nimble-label-provider-rich-text.directive';
 import { NimbleLabelProviderRichTextModule } from '../nimble-label-provider-rich-text.module';
 
 describe('Nimble Label Provider Rich text', () => {

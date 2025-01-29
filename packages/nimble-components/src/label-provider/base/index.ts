@@ -1,5 +1,9 @@
 import { DesignToken, FoundationElement } from '@microsoft/fast-foundation';
-import { Notifier, Observable, type Subscriber } from '@microsoft/fast-element';
+import {
+    type Notifier,
+    Observable,
+    type Subscriber
+} from '@microsoft/fast-element';
 import { themeProviderTag } from '../../theme-provider';
 
 export type DesignTokensFor<ObjectT> = {

@@ -1,8 +1,8 @@
 import { html, ref, slotted, ViewTemplate } from '@microsoft/fast-element';
 import {
-    AnchorOptions,
+    type AnchorOptions,
     endSlotTemplate,
-    FoundationElementTemplate,
+    type FoundationElementTemplate,
     startSlotTemplate
 } from '@microsoft/fast-foundation';
 import type { AnchorButton } from '.';

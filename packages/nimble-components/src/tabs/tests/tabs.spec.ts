@@ -1,6 +1,6 @@
 import { html } from '@microsoft/fast-element';
 import { Tabs, tabsTag } from '..';
-import { fixture, Fixture } from '../../utilities/tests/fixture';
+import { fixture, type Fixture } from '../../utilities/tests/fixture';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import { TabsPageObject } from '../testing/tabs.pageobject';
 import { tabTag } from '../../tab';

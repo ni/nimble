@@ -1,8 +1,8 @@
 /* eslint-disable no-alert */
-import { AfterViewInit, Component, Inject, ViewChild } from '@angular/core';
+import { type AfterViewInit, Component, Inject, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { DrawerLocation, MenuItem, NimbleDialogDirective, NimbleDrawerDirective, OptionNotFound, OPTION_NOT_FOUND, UserDismissed, SelectFilterInputEventDetail, NimbleSelectDirective } from '@ni/nimble-angular';
-import { NimbleTableDirective, TableRecordDelayedHierarchyState, TableRecord, TableRowExpansionToggleEventDetail, TableSetRecordHierarchyOptions } from '@ni/nimble-angular/table';
+import { DrawerLocation, type MenuItem, NimbleDialogDirective, NimbleDrawerDirective, type OptionNotFound, OPTION_NOT_FOUND, UserDismissed, type SelectFilterInputEventDetail, NimbleSelectDirective } from '@ni/nimble-angular';
+import { NimbleTableDirective, TableRecordDelayedHierarchyState, type TableRecord, type TableRowExpansionToggleEventDetail, type TableSetRecordHierarchyOptions } from '@ni/nimble-angular/table';
 import { NimbleRichTextEditorDirective } from '@ni/nimble-angular/rich-text/editor';
 import { BehaviorSubject, Observable } from 'rxjs';
 import type { MenuButtonColumnToggleEventDetail } from '@ni/nimble-angular/table-column/menu-button';

@@ -2,8 +2,7 @@ import { attr, html } from '@microsoft/fast-element';
 import {
     DesignSystem,
     NumberField as FoundationNumberField,
-    NumberFieldOptions,
-    numberFieldTemplate as template
+    type NumberFieldOptions
 } from '@microsoft/fast-foundation';
 import { styles } from './styles';
 import { NumberFieldAppearance } from './types';
@@ -17,6 +16,8 @@ import {
     numericDecrementLabel,
     numericIncrementLabel
 } from '../label-provider/core/label-tokens';
+import { template } from './template';
+import { mixinRequiredVisiblePattern } from '../patterns/required-visible/types';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -27,7 +28,9 @@ declare global {
 /**
  * A nimble-styled HTML number input
  */
-export class NumberField extends mixinErrorPattern(FoundationNumberField) {
+export class NumberField extends mixinErrorPattern(
+    mixinRequiredVisiblePattern(FoundationNumberField)
+) {
     @attr
     public appearance: NumberFieldAppearance = NumberFieldAppearance.underline;
 

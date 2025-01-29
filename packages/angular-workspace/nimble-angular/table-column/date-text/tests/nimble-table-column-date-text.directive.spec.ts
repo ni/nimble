@@ -2,8 +2,8 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NimbleTableModule } from '../../../table/nimble-table.module';
 import { NimbleTableColumnDateTextModule } from '../nimble-table-column-date-text.module';
-import {
-    NimbleTableColumnDateTextDirective,
+import { NimbleTableColumnDateTextDirective } from '../nimble-table-column-date-text.directive';
+import type {
     TableColumnDateText,
     DateStyle,
     DateTextFormat,

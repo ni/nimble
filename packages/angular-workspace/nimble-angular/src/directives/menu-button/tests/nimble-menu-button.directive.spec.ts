@@ -2,7 +2,7 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import type { BooleanValueOrAttribute } from '@ni/nimble-angular/internal-utilities';
 import { ButtonAppearance, ButtonAppearanceVariant } from '../../../public-api';
-import { NimbleMenuButtonDirective, MenuButton } from '../nimble-menu-button.directive';
+import { NimbleMenuButtonDirective, type MenuButton } from '../nimble-menu-button.directive';
 import { NimbleMenuButtonModule } from '../nimble-menu-button.module';
 
 describe('Nimble menu button', () => {

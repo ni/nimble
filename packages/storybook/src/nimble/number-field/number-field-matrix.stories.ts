@@ -12,14 +12,16 @@ import {
 } from '../../utilities/matrix';
 import {
     disabledStates,
-    DisabledState,
+    type DisabledState,
     errorStates,
-    ErrorState,
+    type ErrorState,
     disabledStateIsEnabled,
     errorStatesNoError,
     errorStatesErrorWithMessage,
-    ReadOnlyState,
-    readOnlyStates
+    type ReadOnlyState,
+    readOnlyStates,
+    type RequiredVisibleState,
+    requiredVisibleStates
 } from '../../utilities/states';
 import { hiddenWrapper } from '../../utilities/hidden';
 import { textCustomizationWrapper } from '../../utilities/text-customization';
@@ -55,6 +57,7 @@ const metadata: Meta = {
 export default metadata;
 
 const component = (
+    [requiredVisibleName, requiredVisible]: RequiredVisibleState,
     [readOnlyName, readonly]: ReadOnlyState,
     [disabledName, disabled]: DisabledState,
     [hideStepName, hideStep]: HideStepState,
@@ -72,14 +75,17 @@ const component = (
         ?disabled="${() => disabled}"
         error-text="${() => errorText}"
         ?error-visible="${() => errorVisible}"
+        ?required-visible="${() => requiredVisible}"
     >
         ${() => errorName} ${() => appearanceName} ${() => valueName}
         ${() => hideStepName} ${() => disabledName} ${() => readOnlyName}
+        ${() => requiredVisibleName}
     </${numberFieldTag}>
 `;
 
 export const numberFieldThemeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(component, [
+        requiredVisibleStates,
         readOnlyStates,
         disabledStates,
         hideStepStates,
@@ -89,7 +95,10 @@ export const numberFieldThemeMatrix: StoryFn = createMatrixThemeStory(
     ])
 );
 
+const notRequiredState = requiredVisibleStates[0];
+
 const interactionStatesHover = cartesianProduct([
+    [notRequiredState],
     readOnlyStates,
     disabledStates,
     [hideStepStateStepVisible],
@@ -99,6 +108,7 @@ const interactionStatesHover = cartesianProduct([
 ] as const);
 
 const interactionStates = cartesianProduct([
+    [notRequiredState],
     readOnlyStates,
     [disabledStateIsEnabled],
     [hideStepStateStepVisible],

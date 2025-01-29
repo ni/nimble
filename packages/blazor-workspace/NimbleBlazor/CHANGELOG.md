@@ -1,8 +1,64 @@
 # Change Log - @ni/nimble-blazor
 
-<!-- This log was last generated on Tue, 10 Dec 2024 20:15:57 GMT and should not be manually modified. -->
+<!-- This log was last generated on Wed, 29 Jan 2025 18:28:30 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 19.4.3
+
+Wed, 29 Jan 2025 18:28:30 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v32.11.3
+
+## 19.4.2
+
+Thu, 16 Jan 2025 23:05:03 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v32.11.2
+
+## 19.4.1
+
+Fri, 10 Jan 2025 16:45:51 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v32.11.1
+
+## 19.4.0
+
+Wed, 08 Jan 2025 20:22:05 GMT
+
+### Minor changes
+
+- Blazor support for required-visible ([ni/nimble@5f2245f](https://github.com/ni/nimble/commit/5f2245fc0a7bd252ef7cef2ceaa978c12d06808d))
+
+## 19.3.4
+
+Wed, 08 Jan 2025 18:33:06 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v32.11.0
+
+## 19.3.3
+
+Mon, 06 Jan 2025 20:05:57 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v32.10.0
+
+## 19.3.2
+
+Fri, 03 Jan 2025 17:23:02 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v32.9.3
 
 ## 19.3.1
 

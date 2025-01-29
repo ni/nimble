@@ -1,6 +1,6 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { Banner, BannerSeverity, NimbleBannerDirective } from '../nimble-banner.directive';
+import { type Banner, BannerSeverity, NimbleBannerDirective } from '../nimble-banner.directive';
 import { NimbleBannerModule } from '../nimble-banner.module';
 
 describe('Nimble banner', () => {

@@ -2,27 +2,29 @@ import {
     attr,
     Observable,
     observable,
-    Notifier,
+    type Notifier,
     DOM,
     volatile
 } from '@microsoft/fast-element';
 import {
     Checkbox,
     DesignSystem,
-    DesignTokenSubscriber,
+    type DesignTokenSubscriber,
     FoundationElement
 } from '@microsoft/fast-foundation';
 import {
+    createTable as tanStackCreateTable,
+    getCoreRowModel as tanStackGetCoreRowModel,
+    getSortedRowModel as tanStackGetSortedRowModel,
+    getGroupedRowModel as tanStackGetGroupedRowModel,
+    getExpandedRowModel as tanStackGetExpandedRowModel
+} from '@tanstack/table-core';
+import type {
     ColumnDef as TanStackColumnDef,
     TableState as TanStackTableState,
     Updater as TanStackUpdater,
     Table as TanStackTable,
     Row as TanStackRow,
-    createTable as tanStackCreateTable,
-    getCoreRowModel as tanStackGetCoreRowModel,
-    getSortedRowModel as tanStackGetSortedRowModel,
-    getGroupedRowModel as tanStackGetGroupedRowModel,
-    getExpandedRowModel as tanStackGetExpandedRowModel,
     TableOptionsResolved as TanStackTableOptionsResolved,
     SortingState as TanStackSortingState,
     RowSelectionState as TanStackRowSelectionState,
@@ -36,15 +38,17 @@ import { TableValidator } from './models/table-validator';
 import { styles } from './styles';
 import { template } from './template';
 import {
+    TableColumnSortDirection,
+    TableRowSelectionMode,
+    TableRowSelectionState
+} from './types';
+import type {
     TableNode,
     TableActionMenuToggleEventDetail,
     TableColumnConfigurationChangeEventDetail,
-    TableColumnSortDirection,
     TableFieldValue,
     TableRecord,
     TableRowSelectionEventDetail,
-    TableRowSelectionMode,
-    TableRowSelectionState,
     TableRowSelectionToggleEventDetail,
     TableRowState,
     TableValidity,

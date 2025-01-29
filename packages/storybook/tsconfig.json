@@ -24,8 +24,7 @@
         "types": ["jasmine", "webpack-env", "offscreencanvas"],
         // Require type only imports where possible
         // so imports with side-effects are explicit
-        "importsNotUsedAsValues": "error",
-        "ignoreDeprecations": "5.0",
+        "verbatimModuleSyntax": true,
         "noImplicitOverride": true,
         "noUncheckedIndexedAccess": true,
         "noPropertyAccessFromIndexSignature": false,

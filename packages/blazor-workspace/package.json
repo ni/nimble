@@ -30,7 +30,7 @@
     "@ni/nimble-components": "*",
     "@ni/nimble-tokens": "*",
     "@ni/spright-components": "*",
-    "@rollup/plugin-node-resolve": "^15.0.1",
+    "@rollup/plugin-node-resolve": "^16.0.0",
     "cross-env": "^7.0.3",
     "glob": "^11.0.0",
     "playwright": "1.44.0",

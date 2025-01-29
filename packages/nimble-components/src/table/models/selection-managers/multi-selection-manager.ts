@@ -3,10 +3,10 @@ import type {
     RowSelectionState as TanStackRowSelectionState
 } from '@tanstack/table-core';
 import {
-    TableNode,
-    TableRecord,
+    type TableNode,
+    type TableRecord,
     TableRowSelectionState,
-    TableRowState
+    type TableRowState
 } from '../../types';
 import { SelectionManagerBase } from './selection-manager-base';
 

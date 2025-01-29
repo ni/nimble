@@ -12,14 +12,14 @@ import { styles } from './styles';
 import { DataManager } from './modules/data-manager';
 import { RenderingModule } from './modules/rendering';
 import {
-    HoverDie,
+    type HoverDie,
     HoverDieOpacity,
-    WaferMapColorScale,
+    type WaferMapColorScale,
     WaferMapColorScaleMode,
-    WaferMapDie,
+    type WaferMapDie,
     WaferMapOrientation,
     WaferMapOriginLocation,
-    WaferMapValidity,
+    type WaferMapValidity,
     type WaferRequiredFields
 } from './types';
 import { WaferMapUpdateTracker } from './modules/wafer-map-update-tracker';

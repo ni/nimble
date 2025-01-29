@@ -1,7 +1,7 @@
 import { attr, nullableNumberConverter } from '@microsoft/fast-element';
 import {
     Button as FoundationButton,
-    ButtonOptions,
+    type ButtonOptions,
     DesignSystem
 } from '@microsoft/fast-foundation';
 import type {

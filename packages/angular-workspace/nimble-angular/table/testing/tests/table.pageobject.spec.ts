@@ -2,7 +2,7 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Subject } from 'rxjs';
 import { waitForUpdatesAsync } from '@ni/nimble-angular';
-import { NimbleTableModule, Table, TableRecord } from '@ni/nimble-angular/table';
+import { NimbleTableModule, type Table, type TableRecord } from '@ni/nimble-angular/table';
 import { NimbleTableColumnTextModule } from '@ni/nimble-angular/table-column/text';
 import { tableFitRowsHeight } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
 import { TablePageObject } from '../table.pageobject';

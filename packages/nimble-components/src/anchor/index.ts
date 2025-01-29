@@ -2,7 +2,7 @@ import { attr, nullableNumberConverter } from '@microsoft/fast-element';
 import {
     DesignSystem,
     Anchor as FoundationAnchor,
-    AnchorOptions
+    type AnchorOptions
 } from '@microsoft/fast-foundation';
 import { AnchorBase } from '../anchor-base';
 import { styles } from './styles';

@@ -1,5 +1,5 @@
 import { html } from '@microsoft/fast-element';
-import { fixture, Fixture } from '../../../utilities/tests/fixture';
+import { fixture, type Fixture } from '../../../utilities/tests/fixture';
 import { SelectPageObject } from '../select.pageobject';
 import { selectTag, type Select } from '../..';
 import { listOptionTag } from '../../../list-option';

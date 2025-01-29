@@ -1,9 +1,9 @@
 import { DesignSystem } from '@microsoft/fast-foundation';
 import { attr } from '@microsoft/fast-element';
 import {
-    MappingConfigs,
+    type MappingConfigs,
     TableColumnEnumBase,
-    TableColumnEnumColumnConfig
+    type TableColumnEnumColumnConfig
 } from '../enum-base';
 import { styles } from '../enum-base/styles';
 import { template } from '../enum-base/template';

@@ -1,6 +1,6 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { Drawer, DrawerLocation, NimbleDrawerDirective } from '../nimble-drawer.directive';
+import { type Drawer, DrawerLocation, NimbleDrawerDirective } from '../nimble-drawer.directive';
 import { NimbleDrawerModule } from '../nimble-drawer.module';
 
 describe('Nimble drawer', () => {

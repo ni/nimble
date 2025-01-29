@@ -6,6 +6,7 @@ import { Orientation } from '@microsoft/fast-web-utilities';
 import { styles } from './styles';
 import { template } from './template';
 import { mixinErrorPattern } from '../patterns/error/types';
+import { mixinRequiredVisiblePattern } from '../patterns/required-visible/types';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -18,7 +19,9 @@ export { Orientation };
 /**
  * A nimble-styled grouping element for radio buttons
  */
-export class RadioGroup extends mixinErrorPattern(FoundationRadioGroup) {}
+export class RadioGroup extends mixinErrorPattern(
+    mixinRequiredVisiblePattern(FoundationRadioGroup)
+) {}
 
 const nimbleRadioGroup = RadioGroup.compose({
     baseName: 'radio-group',

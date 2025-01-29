@@ -1,7 +1,7 @@
 import { Directive, ElementRef, Input, Renderer2 } from '@angular/core';
 import { Orientation, radioGroupTag } from '@ni/nimble-components/dist/esm/radio-group';
 import type { RadioGroup } from '@ni/nimble-components/dist/esm/radio-group';
-import { BooleanValueOrAttribute, toBooleanProperty } from '@ni/nimble-angular/internal-utilities';
+import { type BooleanValueOrAttribute, toBooleanProperty } from '@ni/nimble-angular/internal-utilities';
 
 export { Orientation };
 export type { RadioGroup };
@@ -52,6 +52,14 @@ export class NimbleRadioGroupDirective {
 
     @Input('error-visible') public set errorVisible(value: BooleanValueOrAttribute) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'errorVisible', toBooleanProperty(value));
+    }
+
+    public get requiredVisible(): boolean {
+        return this.elementRef.nativeElement.requiredVisible;
+    }
+
+    @Input('required-visible') public set requiredVisible(value: BooleanValueOrAttribute) {
+        this.renderer.setProperty(this.elementRef.nativeElement, 'requiredVisible', toBooleanProperty(value));
     }
 
     public constructor(private readonly renderer: Renderer2, private readonly elementRef: ElementRef<RadioGroup>) {}

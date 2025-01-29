@@ -1,6 +1,6 @@
 import { Directive, Input, ElementRef, Renderer2 } from '@angular/core';
 import { type BooleanValueOrAttribute, toBooleanProperty } from '@ni/nimble-angular/internal-utilities';
-import type { ListOption, listOptionTag } from '@ni/nimble-components/dist/esm/list-option';
+import { type ListOption, listOptionTag } from '@ni/nimble-components/dist/esm/list-option';
 
 export type { ListOption };
 export { listOptionTag };

@@ -9,9 +9,9 @@ import { waitForUpdatesAsync } from '../../../testing/async-helpers';
 import { toggleButtonTag, type ToggleButton } from '../../../toggle-button';
 import {
     ArrowKeyButton,
-    MappingConfiguration,
+    type MappingConfiguration,
     ToolbarButton,
-    ToolbarButtonKey
+    type ToolbarButtonKey
 } from './types';
 import {
     getTagsFromElement,

@@ -7,7 +7,7 @@ import {
     sharedMatrixParameters,
     createMatrixThemeStory
 } from '../../utilities/matrix';
-import { disabledStates, DisabledState } from '../../utilities/states';
+import { disabledStates, type DisabledState } from '../../utilities/states';
 import { createStory } from '../../utilities/storybook';
 import { hiddenWrapper } from '../../utilities/hidden';
 

@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import React, { type ReactNode } from 'react';
 import './story-layout.css';
 import { NimbleIconCheck } from '../../src/nimble/icons/check.react';
 import { NimbleIconExclamationMark } from '../../src/nimble/icons/exclamation-mark.react';

@@ -1,6 +1,6 @@
 import { html } from '@microsoft/fast-element';
 import { MappingUser, mappingUserTag } from '..';
-import { fixture, Fixture } from '../../../utilities/tests/fixture';
+import { fixture, type Fixture } from '../../../utilities/tests/fixture';
 
 describe('User Mapping', () => {
     let element: MappingUser;

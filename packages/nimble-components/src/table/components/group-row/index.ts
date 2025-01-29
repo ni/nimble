@@ -4,9 +4,9 @@ import type { TableColumn } from '../../../table-column/base';
 import { styles } from './styles';
 import { template } from './template';
 import {
-    TableRowFocusableElements,
+    type TableRowFocusableElements,
     TableRowSelectionState,
-    TableRowSelectionToggleEventDetail
+    type TableRowSelectionToggleEventDetail
 } from '../../types';
 import type { Checkbox } from '../../../checkbox';
 

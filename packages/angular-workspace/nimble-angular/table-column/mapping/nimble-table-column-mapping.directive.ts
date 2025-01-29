@@ -1,6 +1,6 @@
 import { Directive, ElementRef, Input, Renderer2 } from '@angular/core';
 import { type TableColumnMapping, tableColumnMappingTag } from '@ni/nimble-components/dist/esm/table-column/mapping';
-import { BooleanValueOrAttribute, NumberValueOrAttribute, toBooleanProperty, toNullableNumberProperty } from '@ni/nimble-angular/internal-utilities';
+import { type BooleanValueOrAttribute, type NumberValueOrAttribute, toBooleanProperty, toNullableNumberProperty } from '@ni/nimble-angular/internal-utilities';
 import { NimbleTableColumnBaseDirective, TableColumnSortDirection } from '@ni/nimble-angular/table-column';
 import { MappingKeyType } from '@ni/nimble-components/dist/esm/table-column/enum-base/types';
 import { TableColumnMappingWidthMode } from '@ni/nimble-components/dist/esm/table-column/mapping/types';
