@@ -1,6 +1,6 @@
 {
   "name": "@ni/nimble-components",
-  "version": "32.11.2",
+  "version": "32.11.3",
   "description": "Styled web components for the NI Nimble Design System",
   "scripts": {
     "build": "npm run generate-icons && npm run generate-workers && npm run build-components && npm run bundle-components && npm run generate-scss",
@@ -41,7 +41,7 @@
     "test-webkit:debugger": "karma start karma.conf.js --browsers=WebkitDebugging --skip-tags SkipWebkit",
     "test-webkit:watch": "karma start karma.conf.headless.js --browsers=WebkitHeadless --skip-tags SkipWebkit --watch-extensions js",
     "test-webkit": "karma start karma.conf.headless.js --browsers=WebkitHeadless --single-run --skip-tags SkipWebkit",
-    "test-concurrent": "concurrently --pad-prefix --timings --group \"npm:test-chrome\" \"npm:test-firefox\" \"npm:test-webkit\""
+    "test-concurrent": "concurrently --pad-prefix --timings --group \"npm:test-chrome\" \"npm:test-webkit\""
   },
   "repository": {
     "type": "git",

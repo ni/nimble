@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-<!-- This log was last generated on Thu, 16 Jan 2025 23:05:03 GMT and should not be manually modified. -->
+<!-- This log was last generated on Wed, 29 Jan 2025 18:28:29 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 32.11.3
+
+Wed, 29 Jan 2025 18:28:29 GMT
+
+### Patches
+
+- Allow an item in the toolbar to lose focus by clicking the toolbar itself ([ni/nimble@dcd42ac](https://github.com/ni/nimble/commit/dcd42ac952ba3aec2bbf7f5bbffd091f69e47482))
 
 ## 32.11.2
 
