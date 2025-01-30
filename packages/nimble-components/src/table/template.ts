@@ -41,7 +41,7 @@ export const template = html<Table>`
         aria-multiselectable="${x => x.ariaMultiSelectable}"
         ${children({ property: 'childItems', filter: elements() })}
     >
-        <style>:host{ --ni-private-table-scroll-height: ${x => x.virtualizer.scrollHeight}px; }</style>
+        <style>:host{ --ni-private-table-scroll-height: ${x => x.virtualizer.scrollHeight}px; --ni-private-table-horizontal-scrollbar-height: ${x => x.virtualizer.horizontalScrollbarHeight}px; }</style>
         <div class="table-container ${x => (x.windowShiftKeyDown ? 'disable-select' : '')}"
             style="
             --ni-private-table-scroll-x: -${x => x.scrollX}px;
