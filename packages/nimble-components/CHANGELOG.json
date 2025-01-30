@@ -2,6 +2,81 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Thu, 30 Jan 2025 22:22:52 GMT",
+      "version": "32.11.6",
+      "tag": "@ni/nimble-components_v32.11.6",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "f5f1883bf9dd9f1ee1f0fbcc22391c8682bc8326",
+            "comment": "Fix broken import of non-exported file"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 30 Jan 2025 19:42:04 GMT",
+      "version": "32.11.5",
+      "tag": "@ni/nimble-components_v32.11.5",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "1ae9e673328c3f03722ee2efd32e6d0f4ea8c6a5",
+            "comment": "Account for horizontal scrollbar when determining value of tableFitRowsHeight token"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 30 Jan 2025 18:42:36 GMT",
+      "version": "32.11.4",
+      "tag": "@ni/nimble-components_v32.11.4",
+      "comments": {
+        "patch": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "74c078a091d6ef4b2f80a4dcd03ff0cd168cd241",
+            "comment": "Fix for Select page object clickOption method."
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 29 Jan 2025 20:44:10 GMT",
+      "version": "32.11.3",
+      "tag": "@ni/nimble-components_v32.11.3",
+      "comments": {
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "6040116d40c8cebc6418f5beaa98cc7eaf236e0c",
+            "comment": "Remove firefox from concurrent testing"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 29 Jan 2025 18:28:29 GMT",
+      "version": "32.11.3",
+      "tag": "@ni/nimble-components_v32.11.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "dcd42ac952ba3aec2bbf7f5bbffd091f69e47482",
+            "comment": "Allow an item in the toolbar to lose focus by clicking the toolbar itself"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 16 Jan 2025 23:05:03 GMT",
       "version": "32.11.2",
       "tag": "@ni/nimble-components_v32.11.2",

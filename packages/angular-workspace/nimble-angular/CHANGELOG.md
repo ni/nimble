@@ -1,8 +1,48 @@
 # Change Log - @ni/nimble-angular
 
-<!-- This log was last generated on Thu, 16 Jan 2025 23:05:03 GMT and should not be manually modified. -->
+<!-- This log was last generated on Thu, 30 Jan 2025 22:22:52 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 28.9.4
+
+Thu, 30 Jan 2025 22:22:52 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v32.11.6
+
+## 28.9.3
+
+Thu, 30 Jan 2025 19:42:04 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v32.11.5
+
+## 28.9.2
+
+Thu, 30 Jan 2025 18:42:36 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v32.11.4
+
+## 28.9.1
+
+Wed, 29 Jan 2025 18:28:30 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v32.11.3
+
+## 28.9.0
+
+Wed, 29 Jan 2025 17:51:30 GMT
+
+### Minor changes
+
+- Export DiacriticInsensitivePipe, Icon base, and Table SortedColumn types ([ni/nimble@2da4a67](https://github.com/ni/nimble/commit/2da4a675fd278413bee4afbc7c7717f40c5cb93f))
 
 ## 28.8.2
 

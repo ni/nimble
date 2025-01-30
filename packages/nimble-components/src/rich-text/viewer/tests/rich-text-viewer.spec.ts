@@ -10,10 +10,8 @@ import {
 } from '../../../rich-text-mention/users';
 import { richTextMentionUsersViewTag } from '../../../rich-text-mention/users/view';
 import { MappingUser, mappingUserTag } from '../../../mapping/user';
-import type {
-    MappingConfiguration,
-    UserMentionElements
-} from '../../editor/testing/types';
+import type { MappingConfiguration } from '../../editor/testing/types';
+import type { UserMentionElements } from '../../editor/models/tests/rich-text-editor-utils';
 
 async function setup(): Promise<Fixture<RichTextViewer>> {
     return await fixture<RichTextViewer>(

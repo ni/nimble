@@ -1,8 +1,40 @@
 # Change Log - @ni/spright-components
 
-<!-- This log was last generated on Thu, 16 Jan 2025 23:05:03 GMT and should not be manually modified. -->
+<!-- This log was last generated on Thu, 30 Jan 2025 22:22:52 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 4.3.11
+
+Thu, 30 Jan 2025 22:22:52 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v32.11.6
+
+## 4.3.10
+
+Thu, 30 Jan 2025 19:42:04 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v32.11.5
+
+## 4.3.9
+
+Thu, 30 Jan 2025 18:42:36 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v32.11.4
+
+## 4.3.8
+
+Wed, 29 Jan 2025 18:28:30 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v32.11.3
 
 ## 4.3.7
 
