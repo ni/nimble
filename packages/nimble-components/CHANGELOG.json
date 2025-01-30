@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Thu, 30 Jan 2025 22:22:52 GMT",
+      "version": "32.11.6",
+      "tag": "@ni/nimble-components_v32.11.6",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "f5f1883bf9dd9f1ee1f0fbcc22391c8682bc8326",
+            "comment": "Fix broken import of non-exported file"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 30 Jan 2025 19:42:04 GMT",
       "version": "32.11.5",
       "tag": "@ni/nimble-components_v32.11.5",
