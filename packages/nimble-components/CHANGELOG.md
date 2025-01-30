@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-<!-- This log was last generated on Wed, 29 Jan 2025 18:28:29 GMT and should not be manually modified. -->
+<!-- This log was last generated on Thu, 30 Jan 2025 18:42:36 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 32.11.4
+
+Thu, 30 Jan 2025 18:42:36 GMT
+
+### Patches
+
+- Fix for Select page object clickOption method. ([ni/nimble@74c078a](https://github.com/ni/nimble/commit/74c078a091d6ef4b2f80a4dcd03ff0cd168cd241))
 
 ## 32.11.3
 
