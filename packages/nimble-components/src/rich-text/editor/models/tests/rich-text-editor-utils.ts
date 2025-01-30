@@ -1,15 +1,15 @@
-import type { RichTextEditor } from '..';
-import { type MappingUser, mappingUserTag } from '../../../mapping/user';
+import type { RichTextEditor } from '../..';
+import { type MappingUser, mappingUserTag } from '../../../../mapping/user';
 import {
     RichTextMentionTest,
     richTextMentionTestTag
-} from '../../../rich-text-mention/base/tests/rich-text-mention.fixtures';
+} from '../../../../rich-text-mention/base/tests/rich-text-mention.fixtures';
 import {
     richTextMentionUsersTag,
     type RichTextMentionUsers
-} from '../../../rich-text-mention/users';
-import { waitForUpdatesAsync } from '../../../testing/async-helpers';
-import type { MappingConfiguration } from './types';
+} from '../../../../rich-text-mention/users';
+import { waitForUpdatesAsync } from '../../../../testing/async-helpers';
+import type { MappingConfiguration } from '../../testing/types';
 
 export interface UserMentionElements {
     userMentionElement: RichTextMentionUsers;

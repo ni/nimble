@@ -11,7 +11,7 @@ import {
     appendTestMentionConfiguration,
     replaceUserMappingElements,
     appendUserMentionConfiguration
-} from '../testing/rich-text-editor-utils';
+} from '../models/tests/rich-text-editor-utils';
 import { iconAtTag } from '../../../icons/at';
 import { iconExclamationMarkTag } from '../../../icons/exclamation-mark';
 import { ArrowKeyButton, ToolbarButton } from '../testing/types';
