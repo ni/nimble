@@ -2400,6 +2400,28 @@ describe('Table', () => {
                 expect(tokenValue).toBe(expectedHeight);
             });
 
+            it('adjusts height when horizontal scrollbar is shown', async () => {
+                await element.setData(simpleTableData);
+                await waitForUpdatesAsync();
+
+                await pageObject.sizeTableToGivenRowWidth(100, element);
+                await waitForUpdatesAsync();
+
+                const tokenValue = getTableHeight();
+                const heightWithoutScrollbar = getExpectedHeight(
+                    simpleTableData.length
+                );
+                // Use the `toBeGreaterThanOrEqual` comparison because in browsers with overlay scrollbars,
+                // the heights will match. In other browsers, the token height will be larger than the
+                // calculated height of the rows + header by the width of the scrollbar.
+                expect(parseFloat(tokenValue)).toBeGreaterThanOrEqual(
+                    parseFloat(heightWithoutScrollbar)
+                );
+                expect(element.viewport.scrollHeight).toBe(
+                    element.viewport.clientHeight
+                );
+            });
+
             it('has correct height when height changes because of setting data', async () => {
                 await element.setData(simpleTableData);
                 await waitForUpdatesAsync();
