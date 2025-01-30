@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "Fix broken import of non-exported file",
+  "packageName": "@ni/nimble-components",
+  "email": "7282195+m-akinc@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
