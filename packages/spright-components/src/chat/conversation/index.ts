@@ -11,9 +11,7 @@ declare global {
 /**
  * A Spright component for displaying a series of chat messages
  */
-export class ChatConversation extends FoundationElement {
-
-}
+export class ChatConversation extends FoundationElement {}
 
 const sprightChatConversation = ChatConversation.compose({
     baseName: 'chat-conversation',

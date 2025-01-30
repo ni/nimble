@@ -1,12 +1,12 @@
 /**
- * A message status in a chat conversation.
+ * A message type in a chat conversation.
  * @public
  */
-export const ChatMessageStatus = {
-    outgoing: 'outgoing',
-    incoming: 'incoming',
+export const ChatMessageType = {
+    outbound: 'outbound',
+    inbound: 'inbound',
     system: 'system',
 } as const;
 
-export type ChatMessageStatus =
-    (typeof ChatMessageStatus)[keyof typeof ChatMessageStatus];
+export type ChatMessageType =
+    (typeof ChatMessageType)[keyof typeof ChatMessageType];

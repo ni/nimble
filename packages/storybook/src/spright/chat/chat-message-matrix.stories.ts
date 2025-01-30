@@ -1,20 +1,21 @@
 import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate } from '@microsoft/fast-element';
 import { chatMessageTag } from '../../../../spright-components/src/chat/message';
+import { ChatMessageType } from '../../../../spright-components/src/chat/types';
 import {
     createMatrix,
     sharedMatrixParameters,
-    createMatrixThemeStory,
-    cartesianProduct,
-    createMatrixInteractionsFromStates
+    createMatrixThemeStory
 } from '../../utilities/matrix';
 import { createStory } from '../../utilities/storybook';
 import { hiddenWrapper } from '../../utilities/hidden';
-import {
-    disabledStates,
-    type DisabledState,
-    disabledStateIsEnabled
-} from '../../utilities/states';
+
+const chatMessageTypes = [
+    ['outbound', ChatMessageType.outbound],
+    ['inbound', ChatMessageType.inbound],
+    ['system', ChatMessageType.system]
+] as const;
+type ChatMessageTypeState = (typeof chatMessageTypes)[number];
 
 const metadata: Meta = {
     title: 'Tests Spright/Chat Message',
@@ -25,31 +26,17 @@ const metadata: Meta = {
 
 export default metadata;
 
-const component = ([
-    disabledName,
-    disabled
-]: DisabledState): ViewTemplate => html`
+const component = (
+    [chatMessageTypeName, messageType]: ChatMessageTypeState,
+): ViewTemplate => html`
     <${chatMessageTag}
-        ?disabled=${() => disabled}
+        message-type=${() => messageType}
         style="margin-right: 8px;">
-            ${() => `${disabledName} Chat Message`}</${chatMessageTag}>
+            ${() => `${chatMessageTypeName} Chat Message`}</${chatMessageTag}>
 `;
 
 export const chatMessageThemeMatrix: StoryFn = createMatrixThemeStory(
-    createMatrix(component, [disabledStates])
-);
-
-const interactionStatesHover = cartesianProduct([disabledStates] as const);
-
-const interactionStates = cartesianProduct([[disabledStateIsEnabled]] as const);
-
-export const chatMessageInteractionsThemeMatrix: StoryFn = createMatrixThemeStory(
-    createMatrixInteractionsFromStates(component, {
-        hover: interactionStatesHover,
-        hoverActive: interactionStates,
-        active: interactionStates,
-        focus: interactionStates
-    })
+    createMatrix(component, [chatMessageTypes])
 );
 
 export const hiddenChatMessage: StoryFn = createStory(

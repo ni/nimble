@@ -2,7 +2,7 @@ import { attr } from '@microsoft/fast-element';
 import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
 import { styles } from './styles';
 import { template } from './template';
-import { ChatMessageStatus } from '../types';
+import { ChatMessageType } from '../types';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -16,12 +16,12 @@ declare global {
 export class ChatMessage extends FoundationElement {
     /**
      * @public
-     * The status of this message in the chat conversation
+     * The message type of this message in the chat conversation
      * @remarks
-     * HTML Attribute: status
+     * HTML Attribute: message-type
      */
-    @attr
-    public readonly status: ChatMessageStatus = ChatMessageStatus.outgoing;
+    @attr({ attribute: 'message-type' })
+    public readonly messageType: ChatMessageType = ChatMessageType.outbound;
 }
 
 const sprightChatMessage = ChatMessage.compose({

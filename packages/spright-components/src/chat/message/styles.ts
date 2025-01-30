@@ -21,11 +21,11 @@ export const styles = css`
         flex-shrink: 0;
     }
 
-    :host([status='outgoing']) {
+    :host([message-type='outbound']) {
         justify-content: flex-end;
     }
 
-    :host([status='incoming']) {
+    :host([message-type='inbound']) {
         justify-content: flex-start;
     }
 
@@ -38,13 +38,13 @@ export const styles = css`
         color: ${bodyFontColor};
     }
 
-    :host([status='outgoing']) div {
+    :host([message-type='outbound']) div {
         background: ${fillSelectedColor};
         border: ${borderWidth} solid ${borderHoverColor};
         border-radius: 8px 8px 0px 8px;
     }
 
-    :host([status='incoming']) div {
+    :host([message-type='inbound']) div {
         border-radius: 8px 8px 8px 0px;
     }
 `;

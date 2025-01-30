@@ -1,10 +1,11 @@
 import { html } from '@microsoft/fast-element';
 import { ChatMessage, chatMessageTag } from '..';
 import { fixture, type Fixture } from '../../../utilities/tests/fixture';
+import { ChatMessageType } from '../../types';
 
 async function setup(): Promise<Fixture<ChatMessage>> {
     return await fixture<ChatMessage>(
-        html`<${chatMessageTag}></${chatMessageTag}>`
+        html`<${chatMessageTag}>Some message</${chatMessageTag}>`
     );
 }
 
@@ -28,7 +29,12 @@ describe('ChatMessage', () => {
     it('should have a slot element in the shadow DOM', async () => {
         await connect();
         expect(
-            (element.shadowRoot?.childNodes.item(0) as HTMLElement).tagName
-        ).toBe('SLOT');
+            (element.shadowRoot?.querySelector('SLOT'))
+        ).not.toBeNull();
+    });
+
+    it("should initialize 'message-type' to default", async () => {
+        await connect();
+        expect(element.messageType).toBe(ChatMessageType.outbound);
     });
 });

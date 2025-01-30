@@ -28,7 +28,7 @@ describe('ChatConversation', () => {
     it('should have a slot element in the shadow DOM', async () => {
         await connect();
         expect(
-            (element.shadowRoot?.childNodes.item(0) as HTMLElement).tagName
-        ).toBe('SLOT');
+            (element.shadowRoot?.querySelector('SLOT'))
+        ).not.toBeNull();
     });
 });
