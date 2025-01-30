@@ -33,9 +33,6 @@ export const chatConversation: StoryObj<ChatConversation> = {
     },
     render: createUserSelectedThemeStory(html`
         <${chatConversationTag}>
-            <${chatMessageTag}>
-                Using default message-type attribute which is outbound.
-            </${chatMessageTag}>
             <${chatMessageTag} message-type='outbound'>
                 Hi, can you please help me?
             </${chatMessageTag}>
