@@ -2411,6 +2411,9 @@ describe('Table', () => {
                 const heightWithoutScrollbar = getExpectedHeight(
                     simpleTableData.length
                 );
+                // Use the `toBeGreaterThanOrEqual` comparison because in browsers with overlay scrollbars,
+                // the heights will match. In other browsers, the token height will be larger than the
+                // calculated height of the rows + header by the width of the scrollbar.
                 expect(parseFloat(tokenValue)).toBeGreaterThanOrEqual(
                     parseFloat(heightWithoutScrollbar)
                 );
