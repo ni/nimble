@@ -8,9 +8,13 @@ import {
     richTextMentionUsersTag,
     type RichTextMentionUsers
 } from '../../../rich-text-mention/users';
-import type { UserMentionElements } from '../../../rich-text-mention/users/types';
 import { waitForUpdatesAsync } from '../../../testing/async-helpers';
 import type { MappingConfiguration } from './types';
+
+export interface UserMentionElements {
+    userMentionElement: RichTextMentionUsers;
+    mappingElements: MappingUser[];
+}
 
 export async function appendUserMentionConfiguration(
     element: RichTextEditor,
