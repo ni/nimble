@@ -8,7 +8,7 @@ import { richTextViewerTag } from '../../../../nimble-components/src/rich-text/v
 import { spinnerTag } from '../../../../nimble-components/src/spinner';
 import {
     apiCategory,
-    createUserSelectedThemeStory,
+    createUserSelectedThemeStory
 } from '../../utilities/storybook';
 
 const metadata: Meta<ChatMessageTextArgs> = {
@@ -175,7 +175,6 @@ export const chatMessagePrompts: StoryObj<ChatMessagePrompts> = {
             description: 'The second prompt text',
             table: { category: apiCategory.slots }
         }
-
     },
     args: {
         messageType: ChatMessageType.system,

@@ -22,13 +22,13 @@ describe('ChatConversation', () => {
     });
 
     it('can construct an element instance', () => {
-        expect(document.createElement(chatConversationTag)).toBeInstanceOf(ChatConversation);
+        expect(document.createElement(chatConversationTag)).toBeInstanceOf(
+            ChatConversation
+        );
     });
 
     it('should have a slot element in the shadow DOM', async () => {
         await connect();
-        expect(
-            (element.shadowRoot?.querySelector('SLOT'))
-        ).not.toBeNull();
+        expect(element.shadowRoot?.querySelector('SLOT')).not.toBeNull();
     });
 });

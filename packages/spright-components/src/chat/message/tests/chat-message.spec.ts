@@ -23,14 +23,14 @@ describe('ChatMessage', () => {
     });
 
     it('can construct an element instance', () => {
-        expect(document.createElement(chatMessageTag)).toBeInstanceOf(ChatMessage);
+        expect(document.createElement(chatMessageTag)).toBeInstanceOf(
+            ChatMessage
+        );
     });
 
     it('should have a slot element in the shadow DOM', async () => {
         await connect();
-        expect(
-            (element.shadowRoot?.querySelector('SLOT'))
-        ).not.toBeNull();
+        expect(element.shadowRoot?.querySelector('SLOT')).not.toBeNull();
     });
 
     it("should initialize 'message-type' to default", async () => {

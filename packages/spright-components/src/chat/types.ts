@@ -5,7 +5,7 @@
 export const ChatMessageType = {
     outbound: 'outbound',
     inbound: 'inbound',
-    system: 'system',
+    system: 'system'
 } as const;
 
 export type ChatMessageType =

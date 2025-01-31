@@ -5,7 +5,7 @@ import {
     borderHoverColor,
     borderWidth,
     fillSelectedColor,
-    mediumPadding,
+    mediumPadding
 } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
 import { display } from '../../utilities/style/display';
 

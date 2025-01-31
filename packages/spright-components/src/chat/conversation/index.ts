@@ -19,5 +19,7 @@ const sprightChatConversation = ChatConversation.compose({
     styles
 });
 
-DesignSystem.getOrCreate().withPrefix('spright').register(sprightChatConversation());
+DesignSystem.getOrCreate()
+    .withPrefix('spright')
+    .register(sprightChatConversation());
 export const chatConversationTag = 'spright-chat-conversation';

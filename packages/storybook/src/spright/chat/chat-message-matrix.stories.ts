@@ -26,9 +26,10 @@ const metadata: Meta = {
 
 export default metadata;
 
-const component = (
-    [chatMessageTypeName, messageType]: ChatMessageTypeState,
-): ViewTemplate => html`
+const component = ([
+    chatMessageTypeName,
+    messageType
+]: ChatMessageTypeState): ViewTemplate => html`
     <${chatMessageTag}
         message-type=${() => messageType}
         style="margin-right: 8px;">
