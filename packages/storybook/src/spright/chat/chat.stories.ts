@@ -3,7 +3,7 @@ import { html } from '@microsoft/fast-element';
 import { buttonTag } from '../../../../nimble-components/src/button';
 import { chatConversationTag } from '../../../../spright-components/src/chat/conversation';
 import { chatMessageTag } from '../../../../spright-components/src/chat/message';
-import { ChatMessageType as ChatMessageType } from '../../../../spright-components/src/chat/types';
+import { ChatMessageType } from '../../../../spright-components/src/chat/types';
 import { richTextViewerTag } from '../../../../nimble-components/src/rich-text/viewer';
 import { spinnerTag } from '../../../../nimble-components/src/spinner';
 import {
@@ -25,8 +25,8 @@ const markdownExample = `To configure your Python version:
 
 You can also specify a Python version for a specific module call in the **Advanced Settings** of the Python adapter.`;
 
-interface ChatConversation {
-}
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+interface ChatConversation {}
 export const chatConversation: StoryObj<ChatConversation> = {
     parameters: {
         actions: {}
