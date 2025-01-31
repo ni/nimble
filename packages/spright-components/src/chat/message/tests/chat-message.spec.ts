@@ -31,6 +31,9 @@ describe('ChatMessage', () => {
     it('should have a slot element in the shadow DOM', async () => {
         await connect();
         expect(element.shadowRoot?.querySelector('SLOT')).not.toBeNull();
+        expect(
+            element?.innerText?.includes('Some message', undefined)
+        ).toBeTrue();
     });
 
     it("should initialize 'message-type' to default", async () => {
