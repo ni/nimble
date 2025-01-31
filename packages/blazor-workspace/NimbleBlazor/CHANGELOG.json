@@ -2,6 +2,51 @@
   "name": "@ni/nimble-blazor",
   "entries": [
     {
+      "date": "Thu, 30 Jan 2025 22:22:52 GMT",
+      "version": "19.4.6",
+      "tag": "@ni/nimble-blazor_v19.4.6",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-blazor",
+            "comment": "Bump @ni/nimble-components to v32.11.6",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 30 Jan 2025 19:42:04 GMT",
+      "version": "19.4.5",
+      "tag": "@ni/nimble-blazor_v19.4.5",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-blazor",
+            "comment": "Bump @ni/nimble-components to v32.11.5",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 30 Jan 2025 18:42:36 GMT",
+      "version": "19.4.4",
+      "tag": "@ni/nimble-blazor_v19.4.4",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-blazor",
+            "comment": "Bump @ni/nimble-components to v32.11.4",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 29 Jan 2025 18:28:30 GMT",
       "version": "19.4.3",
       "tag": "@ni/nimble-blazor_v19.4.3",
