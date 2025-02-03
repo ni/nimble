@@ -1,5 +1,6 @@
 export const ComponentFrameworkStatus = {
     ready: 'ready',
+    spright: 'spright',
     incubating: 'incubating',
     doesNotExist: 'does_not_exist'
 } as const;
