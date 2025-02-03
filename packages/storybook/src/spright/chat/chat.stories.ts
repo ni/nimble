@@ -15,15 +15,7 @@ const metadata: Meta<ChatMessageTextArgs> = {
     title: 'Spright/Chat'
 };
 
-const markdownExample = `To configure your Python version:
-
-1. Select **Adapters...** from the **Configure** menu.
-
-2. Configure the Python adapter.
-
-3. Choose the desired version from the **Version** dropdown.
-
-You can also specify a Python version for a specific module call in the **Advanced Settings** of the Python adapter.`;
+const markdownExample = 'I see **Esc**, **Crtl**, and **Pg Up**. There doesn\'t seem to be any **Any** key.';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface ChatConversation {}
@@ -33,24 +25,21 @@ export const chatConversation: StoryObj<ChatConversation> = {
     },
     render: createUserSelectedThemeStory(html`
         <${chatConversationTag}>
-            <${chatMessageTag} message-type='outbound'>
-                Hi, can you please help me?
-            </${chatMessageTag}>
             <${chatMessageTag} message-type='inbound'>
-                Yeah sure, what do you need help with?
+                To start, press any key.
             </${chatMessageTag}>
             <${chatMessageTag} message-type='outbound'>
-                Can you show me an example of some rendered markdown content? It should include a list and some bold text. Maybe some italics too.
+                Where is the Any key?
             </${chatMessageTag}>
-            <${chatMessageTag} message-type='inbound'>
+            <${chatMessageTag} message-type='outbound'>
                 <${richTextViewerTag} :markdown="${_x => markdownExample}"></${richTextViewerTag}>
             </${chatMessageTag}>
             <${chatMessageTag} message-type='system'>
                 <${spinnerTag} appearance='accent'></${spinnerTag}>
             </${chatMessageTag}>
             <${chatMessageTag} message-type='system'>
-                <${buttonTag} appearance='block'>Help with my taxes</${buttonTag}>
-                <${buttonTag} appearance='block'>Provide me some life advice</${buttonTag}>
+                <${buttonTag} appearance='block'>Order a tab</${buttonTag}>
+                <${buttonTag} appearance='block'>Check core temperature</${buttonTag}>
             </${chatMessageTag}>
         </${chatConversationTag}>
 
@@ -89,7 +78,7 @@ export const chatMessageText: StoryObj<ChatMessageTextArgs> = {
         }
     },
     args: {
-        text: 'How do I choose which version of Python to execute my script?',
+        text: 'Aurora Borealis? At this time of year? At this time of day? In this part of the country? Localized entirely within your kitchen?',
         messageType: ChatMessageType.outbound
     }
 };
@@ -178,7 +167,7 @@ export const chatMessagePrompts: StoryObj<ChatMessagePrompts> = {
     },
     args: {
         messageType: ChatMessageType.system,
-        prompt1: 'Explain how to do my job',
-        prompt2: 'What is the meaning of life?'
+        prompt1: 'Eat my shorts',
+        prompt2: 'Do the Bartman'
     }
 };
