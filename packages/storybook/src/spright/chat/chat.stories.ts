@@ -15,7 +15,7 @@ const metadata: Meta<ChatMessageTextArgs> = {
     title: 'Spright/Chat'
 };
 
-const markdownExample = 'I see **Esc**, **Crtl**, and **Pg Up**. There doesn\'t seem to be any **Any** key.';
+const markdownExample = "I see **Esc**, **Crtl**, and **Pg Up**. There doesn't seem to be any **Any** key.";
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface ChatConversation {}
@@ -46,10 +46,11 @@ export const chatConversation: StoryObj<ChatConversation> = {
     argTypes: {
         content: {
             name: 'default',
-            description: 'The messages to display in the chat conversation. The DOM order of the messages controls their screen order within the conversation (earlier DOM order implies older message)',
+            description:
+                'The messages to display in the chat conversation. The DOM order of the messages controls their screen order within the conversation (earlier DOM order implies older message)',
             table: { category: apiCategory.slots }
-        },
-    },
+        }
+    }
 };
 
 interface ChatMessageArgs {
@@ -159,9 +160,9 @@ export const chatMessagePrompts: StoryObj<ChatMessageArgs> = {
             control: { type: 'radio' },
             description: 'The status of the chat message.',
             table: { category: apiCategory.attributes }
-        },
+        }
     },
     args: {
-        messageType: ChatMessageType.system,
+        messageType: ChatMessageType.system
     }
 };
