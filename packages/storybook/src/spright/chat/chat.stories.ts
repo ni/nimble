@@ -42,8 +42,14 @@ export const chatConversation: StoryObj<ChatConversation> = {
                 <${buttonTag} appearance='block'>Check core temperature</${buttonTag}>
             </${chatMessageTag}>
         </${chatConversationTag}>
-
-    `)
+    `),
+    argTypes: {
+        content: {
+            name: 'default',
+            description: 'The messages to display in the chat conversation. The DOM order of the messages controls their screen order within the conversation (earlier DOM order implies older message)',
+            table: { category: apiCategory.slots }
+        },
+    },
 };
 
 interface ChatMessageArgs {
@@ -67,13 +73,15 @@ export const chatMessageText: StoryObj<ChatMessageTextArgs> = {
     `),
     argTypes: {
         text: {
-            description: 'The text to display in the chat message.',
+            name: 'default',
+            description: 'The content to display in the chat message.',
             table: { category: apiCategory.slots }
         },
         messageType: {
+            name: 'message-type',
             options: Object.keys(ChatMessageType),
             control: { type: 'radio' },
-            description: 'The status of the chat message.',
+            description: 'The type of the chat message.',
             table: { category: apiCategory.attributes }
         }
     },
@@ -135,18 +143,14 @@ export const chatMessageSpinner: StoryObj<ChatMessageArgs> = {
     }
 };
 
-interface ChatMessagePrompts extends ChatMessageArgs {
-    prompt1: string;
-    prompt2: string;
-}
-export const chatMessagePrompts: StoryObj<ChatMessagePrompts> = {
+export const chatMessagePrompts: StoryObj<ChatMessageArgs> = {
     parameters: {
         actions: {}
     },
     render: createUserSelectedThemeStory(html`
         <${chatMessageTag} message-type=${x => x.messageType}>
-            <${buttonTag} appearance='block'>${x => x.prompt1}</${buttonTag}>
-            <${buttonTag} appearance='block'>${x => x.prompt2}</${buttonTag}>
+            <${buttonTag} appearance='block'>Eat my shorts</${buttonTag}>
+            <${buttonTag} appearance='block'>Do the Bartman</${buttonTag}>
         </${chatMessageTag}>
     `),
     argTypes: {
@@ -156,18 +160,8 @@ export const chatMessagePrompts: StoryObj<ChatMessagePrompts> = {
             description: 'The status of the chat message.',
             table: { category: apiCategory.attributes }
         },
-        prompt1: {
-            description: 'The first prompt text',
-            table: { category: apiCategory.slots }
-        },
-        prompt2: {
-            description: 'The second prompt text',
-            table: { category: apiCategory.slots }
-        }
     },
     args: {
         messageType: ChatMessageType.system,
-        prompt1: 'Eat my shorts',
-        prompt2: 'Do the Bartman'
     }
 };

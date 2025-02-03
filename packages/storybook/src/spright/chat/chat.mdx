@@ -7,12 +7,11 @@ import { chatMessageTag } from '../../../../spright-components/src/chat/message'
 <Meta of={chatStories} />
 <Title of={chatStories} />
 
-Chat components are used to conduct and display a conversation with a chat bot
-or other users. The components can collect user input and display responses; the
+Chat components are used to display a conversation with a chat bot
+or other users. The components can display messages but the
 application is responsible for connecting them to a source of data.
 
-Components include low level chat messages and input fields and higher level
-composite components representing an entire conversation.
+Components include a chat message and a chat conversation, which is a collection of messages.
 
 ## API
 
@@ -29,20 +28,33 @@ messages in a conversation.
 ### Chat message
 
 Use the <Tag name={chatMessageTag} /> element to display content in a message.
+Clients can place any HTML content within the message.
+
+#### Text message content
 
 <Canvas of={chatStories.chatMessageText} />
 <Controls of={chatStories.chatMessageText} />
 
+#### Rich text message content
+
 <Canvas of={chatStories.chatMessageRichText} />
-<Controls of={chatStories.chatMessageRichText} />
+
+#### Spinner message content
 
 <Canvas of={chatStories.chatMessageSpinner} />
-<Controls of={chatStories.chatMessageSpinner} />
+
+#### Prompt buttons message content
 
 <Canvas of={chatStories.chatMessagePrompts} />
-<Controls of={chatStories.chatMessagePrompts} />
 
-{/* ## Usage */}
+## Usage
+
+These components are part of [Spright](?path=/docs/spright-docs--docs). They can be used in production
+applications but are not yet part of the core Nimble library for reasons including:
+
+1. the interaction and visual design are iterating rapidly
+2. we are unsure if the components are sufficiently atomic or general purpose to belong in Nimble
+3. the implementation has not yet prioritized Nimble requirements like accessibility and support for all frameworks
 
 {/* ## Accessibility */}
 
