@@ -202,7 +202,7 @@ export const tinyMessageSizing: StoryFn = createStory(html`
     ])}
 `);
 
-export const extraWideMessagSizing: StoryFn = createStory(html`
+export const extraWideMessageSizing: StoryFn = createStory(html`
     ${createMatrix(differentChatMessageSizeTestCase, [
         [[loremIpsum]],
         [['outbound'], ['inbound'], ['system']]
