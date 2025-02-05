@@ -68,10 +68,6 @@ When grouped, the header item should not be a link.
 
 The column will also support having a custom sort order, as detailed in the [Custom Sort Order HLD](../table-column-custom-sort-field-hld.md).
 
-### Clearing state
-
-Because the anchor in the cell can have focus, we must override `focusedRecycleCallback()` in our cell view and have it call `blur()` on our anchor. If we don't, the focus can pass to other cells as you scroll.
-
 ### Sizing
 
 The column should support the same sizing modes as the text column, which is fractional widths plus minimum pixel widths.
@@ -84,9 +80,9 @@ Arrowing to a anchor table cell should focus the link (if it is actually a link 
 
 In the accessibility tree, the cells of an anchor column are instances of [`nimble-table-cell`](https://github.com/ni/nimble/blob/f663c38741e731bef91aa58e8fb2d1cec653b679/packages/nimble-components/src/table/components/cell/template.ts#L6) which has a `role` of [`cell`](https://w3c.github.io/aria/#cell). The cell then has a child `nimble-anchor`, which has a `role` of [`link`](https://w3c.github.io/aria/#link).
 
-### Angular RouterLink Support
+### Angular Routing support
 
-The real challenge of this column type is integrating with the Angular router. The `RouterLink`/`RouterLinkWithHref` directives are used to intercept clicks on anchors and replace the default navigation action with a call to `Router.navigateByUrl()`. As we have done in the past for other anchor components, we will have our own directive deriving from `RouterLinkWithHref`. Our directive will apply based on the presence of the `nimbleRouterLink` attribute. As we have done in the past, we will also have a directive that throws an error if `routerLink` is used instead. Normally, you would specify the `nimbleRouterLink` and related attributes (e.g. `queryParams`, `replaceUrl`, etc.) directly on the anchor element, but that's not possible for anchors in generated table cells. Our options are to put the directive on `nimble-table` or `nimble-table-column-anchor`. Because we would like to allow different anchor columns to be configured differently, and because it is a more intuitive API, we want to put our directive on the column element:
+Using the `TableColumnAnchor` in Angular requires the use of the [`NavigationGuard`](https://github.com/ni/nimble/blob/main/packages/angular-workspace/nimble-angular/table-column/anchor/nimble-table-column-anchor-navigation-guard.directive.ts) in order to allow proper routing within the Angular application.
 
 ```html
 <nimble-table>
