@@ -30,8 +30,6 @@ const metadata: Meta = {
 export default metadata;
 
 const multiLineMessage = `
---------------------------------------------------------------------
-
 Introduction to TestStand
 
 NI TestStand is a flexible and open test management framework for building, customizing, and deploying a full-featured test management system.
@@ -149,13 +147,13 @@ Configuration entry points provide an interface for configuring the process mode
 Use the TestStand Deployment Utility to create a deployable image or a patch deployment of a TestStand system and an optional installer. The deployable image can contain sequence files, code modules, process models and supporting files, user interface applications, configuration files, and step types and supporting files the TestStand system uses. The installer can contain all files from a deployable image or contain only a subset of files to create a patch for a previously deployed image.
 
 You can also use the deployment utility to include the TestStand Engine and supporting files, LabVIEW and LabWindows/CVI Run-Time Engines, and hardware drivers in the installer you create. The installer that the deployment utility creates can also register ActiveX servers, replace existing files on the target computer, and create program shortcuts. You can configure the deployment utility to remove VI block diagrams or to lock the VIs you deploy.
-
---------------------------------------------------------------------`;
+`;
 
 const component = ([
     chatMessageTypeName,
     messageType
 ]: ChatMessageTypeState): ViewTemplate => html`
+
     <${chatMessageTag}
         message-type=${() => messageType}
         style="margin-right: 8px;">
@@ -166,26 +164,29 @@ const differentChatMessageSizeTestCase = (
     [message]: [string],
     [messageType]: [string]
 ): ViewTemplate => html`
-    <${chatMessageTag}
-        message-type=${() => messageType}
-        style="margin-right: 8px;">
-        <${richTextViewerTag}
-            :markdown="${_ => message}">
-        </${richTextViewerTag}
-    </${chatMessageTag}>
+    <div style="margin: 10px 0px;"> 
+        <${chatMessageTag}
+            message-type=${() => messageType}
+            style="outline: 1px dashed red;">
+            <${richTextViewerTag}
+                :markdown="${_ => message}">
+            </${richTextViewerTag}
+        </${chatMessageTag}>
+    </div>
 `;
 
 const differentChatConversationSizeTestCase = ([message]: [
     string
 ]): ViewTemplate => html`
-    <${chatConversationTag}>
-        <${chatMessageTag} message-type='outbound' style="margin-right: 8px;">
+    <${chatConversationTag}
+        style="width: 900px; height: 400px;">
+        <${chatMessageTag} message-type='outbound' style="outline: 1px dashed red;">
             <${richTextViewerTag} :markdown="${_x => message}"></${richTextViewerTag}>
         </${chatMessageTag}>
-        <${chatMessageTag} message-type='inbound' style="margin-right: 8px;">
+        <${chatMessageTag} message-type='inbound' style="outline: 1px dashed red;">
             <${richTextViewerTag} :markdown="${_x => message}"></${richTextViewerTag}>
         </${chatMessageTag}>
-        <${chatMessageTag} message-type='system' style="margin-right: 8px;">
+        <${chatMessageTag} message-type='system' style="outline: 1px dashed red;">
             <${richTextViewerTag} :markdown="${_x => message}"></${richTextViewerTag}>
         </${chatMessageTag}>
     </${chatConversationTag}>
