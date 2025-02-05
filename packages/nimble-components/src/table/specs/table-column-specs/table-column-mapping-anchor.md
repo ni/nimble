@@ -89,34 +89,30 @@ _Content_
 The cell template will essentially be a combination of the `TableColumnMappingCellView` and `TableColumnAnchorCellView`.
 
 ```html
-When cellRecord.href present ${when( x => x.visualizationTemplate,
-html<TableColumnMappingAnchorCellView
-    >`
-    <span class="reserve-icon-size"> ${x => x.visualizationTemplate} </span>
-    ` )}
-    <nimble-anchor
-        href="${x => x.cellRecord.href}"
-        hreflang="${x => x.columnConfig.hreflang}"
-        ping="${x => x.columnConfig.ping}"
-        referrerpolicy="${x => x.columnConfig.referrerpolicy}"
-        rel="${x => x.columnConfig.rel}"
-        target="${x => x.columnConfig.target}"
-        type="${x => x.columnConfig.type}"
-        download="${x => x.columnConfig.download}"
-        underline-hidden
-        @mouseover="${(x, c) => setTitleWhenOverflow(...)}"
-        @mouseout="${(x, c) => removeTitle(...)}"
-    >
-        ${cellState.cellRecord.label ?? cellState.cellRecord.href}
-    </nimble-anchor>
-    When cellRecord.href is missing
-    <span
-        @mouseover="${(x, c) => setTitleWhenOverflow(...)}"
-        @mouseout="${(_x, c) => removeTitle(...)}"
-    >
-        ${cellState.cellRecord.label}
-    </span></TableColumnMappingAnchorCellView
+<span class="reserve-icon-size"> ${x => x.visualizationTemplate} </span>
+When cellRecord.href present
+<nimble-anchor
+    href="${x => x.cellRecord.href}"
+    hreflang="${x => x.columnConfig.hreflang}"
+    ping="${x => x.columnConfig.ping}"
+    referrerpolicy="${x => x.columnConfig.referrerpolicy}"
+    rel="${x => x.columnConfig.rel}"
+    target="${x => x.columnConfig.target}"
+    type="${x => x.columnConfig.type}"
+    download="${x => x.columnConfig.download}"
+    underline-hidden
+    @mouseover="${(x, c) => setTitleWhenOverflow(...)}"
+    @mouseout="${(x, c) => removeTitle(...)}"
 >
+    ${cellState.cellRecord.label ?? cellState.cellRecord.href}
+</nimble-anchor>
+When cellRecord.href is missing
+<span
+    @mouseover="${(x, c) => setTitleWhenOverflow(...)}"
+    @mouseout="${(_x, c) => removeTitle(...)}"
+>
+    ${cellState.cellRecord.label}
+</span>
 ```
 
 ### Sorting
