@@ -107,7 +107,7 @@ export const iconMetadata: {
         tags: ['alarm', 'notification']
     },
     IconBellCheck: {
-        tags: ['acknowledged', 'alarm'],
+        tags: ['acknowledged', 'alarm']
     },
     IconBellCircle: {
         tags: ['alarm']
