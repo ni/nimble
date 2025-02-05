@@ -3,5 +3,5 @@
   "comment": "New icons for AI chat, alarms, and like/dislike. Updated icon rectangle-lines.",
   "packageName": "@ni/nimble-components",
   "email": "jattasNI@users.noreply.github.com",
-  "dependentChangeType": "patch"
+  "dependentChangeType": "minor"
 }
