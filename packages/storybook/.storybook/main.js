@@ -61,11 +61,7 @@ export function webpackFinal(config) {
     ];
     return config;
 }
-export const staticDirs = [
-    'public',
-    '../src/nimble',
-    '../src/spright'
-];
+export const staticDirs = ['public'];
 export const framework = {
     name: '@storybook/html-webpack5'
 };
