@@ -37,6 +37,9 @@ export const chatConversation: StoryObj<ChatConversation> = {
             <${chatMessageTag} message-type='system'>
                 <${spinnerTag} appearance='accent'></${spinnerTag}>
             </${chatMessageTag}>
+            <${chatMessageTag} message-type='inbound'>
+                <img src=/chat/images/VIConnectorPanelImage.png />
+            </${chatMessageTag}>
             <${chatMessageTag} message-type='system'>
                 <${buttonTag} appearance='block'>Order a tab</${buttonTag}>
                 <${buttonTag} appearance='block'>Check core temperature</${buttonTag}>
