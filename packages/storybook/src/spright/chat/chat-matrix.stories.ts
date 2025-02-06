@@ -68,7 +68,7 @@ const differentChatMessageSizeTestCase = (
 ): ViewTemplate => html`
     <${chatMessageTag}
         message-type=${() => messageType}
-        style="outline: 1px dashed red; margin: 10px">
+        style="outline: 1px dashed red; margin: 0px 20px 20px 0px">
         <${richTextViewerTag}
             :markdown="${_ => message}">
         </${richTextViewerTag}
