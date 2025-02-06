@@ -66,15 +66,13 @@ const differentChatMessageSizeTestCase = (
     [message]: [string],
     [messageType]: [string]
 ): ViewTemplate => html`
-    <div style="margin: 10px 0px;"> 
-        <${chatMessageTag}
-            message-type=${() => messageType}
-            style="outline: 1px dashed red;">
-            <${richTextViewerTag}
-                :markdown="${_ => message}">
-            </${richTextViewerTag}
-        </${chatMessageTag}>
-    </div>
+    <${chatMessageTag}
+        message-type=${() => messageType}
+        style="outline: 1px dashed red; margin: 10px">
+        <${richTextViewerTag}
+            :markdown="${_ => message}">
+        </${richTextViewerTag}
+    </${chatMessageTag}>
 `;
 
 const differentChatConversationSizeTestCase = ([message]: [
