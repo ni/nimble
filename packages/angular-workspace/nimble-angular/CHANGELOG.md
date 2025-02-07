@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-angular
 
-<!-- This log was last generated on Thu, 30 Jan 2025 22:22:52 GMT and should not be manually modified. -->
+<!-- This log was last generated on Fri, 07 Feb 2025 17:33:50 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 28.10.0
+
+Fri, 07 Feb 2025 17:33:50 GMT
+
+### Minor changes
+
+- Bump @ni/nimble-components to v32.12.0
 
 ## 28.9.4
 
