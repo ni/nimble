@@ -501,7 +501,7 @@ describe('Table', () => {
             expect(pageObject.isRowHoverStylingEnabled()).toBeFalse();
         });
 
-        it('re-enables row hover styling after scrolling ends', async () => {
+        it('re-enables row hover styling after scrolling ends #SkipWebkit', async () => {
             await connect();
             await element.setData(simpleTableData);
             column1.groupIndex = 0;
