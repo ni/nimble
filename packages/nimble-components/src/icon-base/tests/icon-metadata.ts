@@ -13,7 +13,7 @@ export const iconMetadata: {
     IconAdd: {
         tags: ['add input field']
     },
-    IconAiChatBot: {
+    IconMessageBot: {
         tags: ['assistance', 'information', 'help']
     },
     IconArrowDown: {
@@ -112,7 +112,7 @@ export const iconMetadata: {
     IconBellCircle: {
         tags: ['alarm']
     },
-    IconBellRadialLines: {
+    IconBellOn: {
         tags: ['set', 'urgent', 'notification', 'alarm']
     },
     IconBellSolidCircle: {
