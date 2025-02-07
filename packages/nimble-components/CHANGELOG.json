@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Fri, 07 Feb 2025 16:47:48 GMT",
+      "version": "32.11.6",
+      "tag": "@ni/nimble-components_v32.11.6",
+      "comments": {
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "42534fa9a6b856f434abf170e2e33ce1aa3a51e3",
+            "comment": "Disable test in webkit"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 30 Jan 2025 22:22:52 GMT",
       "version": "32.11.6",
       "tag": "@ni/nimble-components_v32.11.6",
