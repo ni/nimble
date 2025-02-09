@@ -21,7 +21,7 @@ export class ChatMessage extends FoundationElement {
      * HTML Attribute: message-type
      */
     @attr({ attribute: 'message-type' })
-    public readonly messageType: ChatMessageType = ChatMessageType.outbound;
+    public readonly messageType: ChatMessageType = ChatMessageType.system;
 }
 
 const sprightChatMessage = ChatMessage.compose({

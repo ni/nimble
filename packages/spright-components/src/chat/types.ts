@@ -3,9 +3,9 @@
  * @public
  */
 export const ChatMessageType = {
+    system: undefined,
     outbound: 'outbound',
-    inbound: 'inbound',
-    system: 'system'
+    inbound: 'inbound'
 } as const;
 
 export type ChatMessageType =

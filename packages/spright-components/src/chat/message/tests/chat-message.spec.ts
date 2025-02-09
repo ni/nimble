@@ -38,6 +38,6 @@ describe('ChatMessage', () => {
 
     it("should initialize 'message-type' to default", async () => {
         await connect();
-        expect(element.messageType).toBe(ChatMessageType.outbound);
+        expect(element.messageType).toBe(ChatMessageType.system);
     });
 });

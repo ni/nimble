@@ -12,6 +12,7 @@ import { hiddenWrapper } from '../../utilities/hidden';
 import { loremIpsum } from '../../utilities/lorem-ipsum';
 import { richTextViewerTag } from '../../../../nimble-components/src/rich-text/viewer';
 import { chatConversationTag } from '../../../../spright-components/src/chat/conversation';
+import { textCustomizationWrapper } from '../../utilities/text-customization';
 
 const chatMessageTypes = [
     ['outbound', ChatMessageType.outbound],
@@ -21,7 +22,7 @@ const chatMessageTypes = [
 type ChatMessageTypeState = (typeof chatMessageTypes)[number];
 
 const metadata: Meta = {
-    title: 'Tests Spright/Chat Message',
+    title: 'Tests Spright/Chat',
     parameters: {
         ...sharedMatrixParameters()
     }
@@ -75,6 +76,20 @@ const differentChatMessageSizeTestCase = (
     </${chatMessageTag}>
 `;
 
+const messageWithFixSizeTestCase = (
+    [message]: [string],
+    [messageType]: [string]
+): ViewTemplate => html`
+    <${chatMessageTag}
+        message-type=${() => messageType}
+        style="outline: 1px dashed red; margin: 0px 20px 20px 0px">
+        <${richTextViewerTag}
+            style="width: 400px; height: 80px;"
+            :markdown="${_ => message}">
+        </${richTextViewerTag}
+    </${chatMessageTag}>
+`;
+
 const differentChatConversationSizeTestCase = ([message]: [
     string
 ]): ViewTemplate => html`
@@ -92,47 +107,66 @@ const differentChatConversationSizeTestCase = ([message]: [
     </${chatConversationTag}>
 `;
 
-export const chatMessageThemeMatrix: StoryFn = createMatrixThemeStory(
+export const messageThemeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(component, [chatMessageTypes])
 );
 
-export const tinyMessageSizing: StoryFn = createStory(html`
+export const messageTinySizing: StoryFn = createStory(html`
     ${createMatrix(differentChatMessageSizeTestCase, [
         [['a']],
         [['outbound'], ['inbound'], ['system']]
     ])}
 `);
 
-export const extraWideMessageSizing: StoryFn = createStory(html`
+export const messageExtraWideSizing: StoryFn = createStory(html`
     ${createMatrix(differentChatMessageSizeTestCase, [
         [[loremIpsum]],
         [['outbound'], ['inbound'], ['system']]
     ])}
 `);
 
-export const manyLinesMessageSizing: StoryFn = createStory(html`
+export const messageWithFixedSizeSizing: StoryFn = createStory(html`
+    ${createMatrix(messageWithFixSizeTestCase, [
+        [[loremIpsum]],
+        [['outbound'], ['inbound'], ['system']]
+    ])}
+`);
+
+export const messageManyLinesSizing: StoryFn = createStory(html`
     ${createMatrix(differentChatMessageSizeTestCase, [
         [[multiLineMessage]],
         [['outbound'], ['inbound'], ['system']]
     ])}
 `);
 
-export const tinyConversationSizing: StoryFn = createStory(html`
+export const conversationTinySizing: StoryFn = createStory(html`
     ${createMatrix(differentChatConversationSizeTestCase, [[['a']]])}
 `);
 
-export const extraWideConversationSizing: StoryFn = createStory(html`
+export const conversationExtraWideSizing: StoryFn = createStory(html`
     ${createMatrix(differentChatConversationSizeTestCase, [[[loremIpsum]]])}
 `);
 
-export const manyLinesConversationSizing: StoryFn = createStory(html`
+export const conversationManyLinesSizing: StoryFn = createStory(html`
     ${createMatrix(differentChatConversationSizeTestCase, [
         [[multiLineMessage]]
     ])}
 `);
 
-export const hiddenChatMessage: StoryFn = createStory(
+export const messageHidden: StoryFn = createStory(
     hiddenWrapper(
         html`<${chatMessageTag} hidden>Hidden Chat Message</${chatMessageTag}>`
+    )
+);
+
+export const conversationHidden: StoryFn = createStory(
+    hiddenWrapper(
+        html`<${chatConversationTag} hidden>Hidden Chat Conversation</${chatConversationTag}>`
+    )
+);
+
+export const messageTextCustomized: StoryFn = createMatrixThemeStory(
+    textCustomizationWrapper(
+        html`<${chatMessageTag}>Message</${chatMessageTag}>`
     )
 );

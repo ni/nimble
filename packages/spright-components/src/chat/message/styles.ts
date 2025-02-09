@@ -19,6 +19,8 @@ export const styles = css`
         flex-direction: row;
         justify-content: center;
         flex-shrink: 0;
+        font: ${bodyFont};
+        color: ${bodyFontColor};
     }
 
     :host([message-type='outbound']) {
@@ -34,8 +36,6 @@ export const styles = css`
         width: fit-content;
         height: fit-content;
         padding: ${mediumPadding};
-        font: ${bodyFont};
-        color: ${bodyFontColor};
     }
 
     :host([message-type='outbound']) div {
