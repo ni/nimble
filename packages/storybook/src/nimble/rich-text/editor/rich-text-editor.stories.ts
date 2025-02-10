@@ -54,7 +54,7 @@ const exampleDataType = {
     markdownString: 'MarkdownString'
 } as const;
 
-const plainString = 'Plain text' as const;
+const plainString = 'Plain text';
 
 const dataSets = {
     [exampleDataType.plainString]: plainString,
