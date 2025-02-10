@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/html';
 import { html } from '@microsoft/fast-element';
+import { webviCustom16X16 } from '../../../../nimble-tokens/dist/icons/js';
 import { buttonTag } from '../../../../nimble-components/src/button';
 import { chatConversationTag } from '../../../../spright-components/src/chat/conversation';
 import { chatMessageTag } from '../../../../spright-components/src/chat/message';
@@ -17,17 +18,10 @@ const metadata: Meta<ChatMessageTextArgs> = {
 
 const markdownExample = "I see **Esc**, **Crtl**, and **Pg Up**. There doesn't seem to be any **Any** key.";
 
-// Vectors and icons by <a href="https://www.svgrepo.com" target="_blank">SVG Repo</a>
-const svgImage = `
-<svg fill="#000000" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
-width="100px" height="100px" viewBox="0 0 225 256" xml:space="preserve">
-<path d="M91.6,18.2c12.5,0,22.6,10.1,22.6,22.6s-10.1,22.6-22.6,22.6S69,53.3,69,40.8S79.1,18.2,91.6,18.2z M211.6,119.2l-25.9-67.9
-l-0.1,0L199.1,5l-10.4-3l-26.7,91.5l10.4,3l8.2-28.3l17.1,44.1h-25.3v6.9h-25.9c0-0.1,0-0.2,0-0.3c0-6.7-4.9-12.5-11.6-12.5l-41.6,0
-c0,0-11.7-32.4-15.9-39.4c-3.3-5.4-8.4-8.8-15.1-8.8c-10.3,0-18.1,8.5-23.7,20.8c-9.3,20.4-13.3,45.5-11,68.6
-c1.1,9.4,3.4,17.3,8.9,21.8H18V96.6H2.3V254H18v-68.9h74.6l-10.4,51.6c-1.6,7.8,3.5,15.4,11.3,17c1,0.2,1.9,0.3,2.9,0.3
-c6.7,0,12.7-4.7,14.1-11.6l8.8-43.7l11.2,30.1c2.2,5.8,7.7,9.4,13.5,9.4c1.7,0,3.4-0.3,5-0.9c7.5-2.8,11.2-11.1,8.5-18.5l-24.4-65.5
-c-2.1-5.6-7.5-9.4-13.5-9.4H81v-9.1h126V254h15.7V119.2H211.6z"/>
-</svg>`;
+const imgBlob = new Blob([webviCustom16X16.data], {
+    type: 'image/svg+xml'
+});
+const imgBlobUrl = URL.createObjectURL(imgBlob);
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface ChatConversation {}
@@ -50,7 +44,7 @@ export const chatConversation: StoryObj<ChatConversation> = {
                 <${spinnerTag} appearance='accent'></${spinnerTag}>
             </${chatMessageTag}>
             <${chatMessageTag} message-type='inbound'>
-                <img src='data:image/svg+xml;utf8,${encodeURIComponent(svgImage)}'/>
+                <img width="100" height="100" :src=${() => imgBlobUrl}>
             </${chatMessageTag}>
             <${chatMessageTag} message-type='system'>
                 <${buttonTag} appearance='block'>Order a tab</${buttonTag}>
@@ -165,7 +159,7 @@ export const chatMessageImage: StoryObj<ChatMessageArgs> = {
     },
     render: createUserSelectedThemeStory(html`
         <${chatMessageTag} message-type=${x => x.messageType}>
-            <img src='data:image/svg+xml;utf8,${encodeURIComponent(svgImage)}'/>
+            <img width="100" height="100" :src=${() => imgBlobUrl}>
         </${chatMessageTag}>
     `),
     argTypes: {
