@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-tokens
 
-<!-- This log was last generated on Mon, 09 Dec 2024 15:59:16 GMT and should not be manually modified. -->
+<!-- This log was last generated on Fri, 07 Feb 2025 17:33:50 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 8.7.0
+
+Fri, 07 Feb 2025 17:33:50 GMT
+
+### Minor changes
+
+- New icons for AI chat, alarms, and like/dislike. Updated icon rectangle-lines. ([ni/nimble@6fc86f5](https://github.com/ni/nimble/commit/6fc86f5b9832fb2c07d4a7d4868fadfc6312220b))
 
 ## 8.6.0
 
