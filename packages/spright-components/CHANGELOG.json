@@ -2,6 +2,96 @@
   "name": "@ni/spright-components",
   "entries": [
     {
+      "date": "Fri, 07 Feb 2025 17:33:50 GMT",
+      "version": "4.4.0",
+      "tag": "@ni/spright-components_v4.4.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "beachball",
+            "package": "@ni/spright-components",
+            "comment": "Bump @ni/nimble-components to v32.12.0",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 31 Jan 2025 17:55:56 GMT",
+      "version": "4.3.11",
+      "tag": "@ni/spright-components_v4.3.11",
+      "comments": {
+        "none": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/spright-components",
+            "commit": "28d859fe0d0386b8802dd38eaa608f06417cc352",
+            "comment": "Spec for Spright chat components"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 30 Jan 2025 22:22:52 GMT",
+      "version": "4.3.11",
+      "tag": "@ni/spright-components_v4.3.11",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/spright-components",
+            "comment": "Bump @ni/nimble-components to v32.11.6",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 30 Jan 2025 19:42:04 GMT",
+      "version": "4.3.10",
+      "tag": "@ni/spright-components_v4.3.10",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/spright-components",
+            "comment": "Bump @ni/nimble-components to v32.11.5",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 30 Jan 2025 18:42:36 GMT",
+      "version": "4.3.9",
+      "tag": "@ni/spright-components_v4.3.9",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/spright-components",
+            "comment": "Bump @ni/nimble-components to v32.11.4",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 29 Jan 2025 18:28:30 GMT",
+      "version": "4.3.8",
+      "tag": "@ni/spright-components_v4.3.8",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/spright-components",
+            "comment": "Bump @ni/nimble-components to v32.11.3",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 16 Jan 2025 23:05:03 GMT",
       "version": "4.3.7",
       "tag": "@ni/spright-components_v4.3.7",

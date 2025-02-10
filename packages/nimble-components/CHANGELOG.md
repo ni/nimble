@@ -1,8 +1,49 @@
 # Change Log - @ni/nimble-components
 
-<!-- This log was last generated on Thu, 16 Jan 2025 23:05:03 GMT and should not be manually modified. -->
+<!-- This log was last generated on Fri, 07 Feb 2025 17:33:50 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 32.12.0
+
+Fri, 07 Feb 2025 17:33:50 GMT
+
+### Minor changes
+
+- New icons for AI chat, alarms, and like/dislike. Updated icon rectangle-lines. ([ni/nimble@6fc86f5](https://github.com/ni/nimble/commit/6fc86f5b9832fb2c07d4a7d4868fadfc6312220b))
+- Bump @ni/nimble-tokens to v8.7.0
+
+## 32.11.6
+
+Thu, 30 Jan 2025 22:22:52 GMT
+
+### Patches
+
+- Fix broken import of non-exported file ([ni/nimble@f5f1883](https://github.com/ni/nimble/commit/f5f1883bf9dd9f1ee1f0fbcc22391c8682bc8326))
+
+## 32.11.5
+
+Thu, 30 Jan 2025 19:42:04 GMT
+
+### Patches
+
+- Account for horizontal scrollbar when determining value of tableFitRowsHeight token ([ni/nimble@1ae9e67](https://github.com/ni/nimble/commit/1ae9e673328c3f03722ee2efd32e6d0f4ea8c6a5))
+
+## 32.11.4
+
+Thu, 30 Jan 2025 18:42:36 GMT
+
+### Patches
+
+- Fix for Select page object clickOption method. ([ni/nimble@74c078a](https://github.com/ni/nimble/commit/74c078a091d6ef4b2f80a4dcd03ff0cd168cd241))
+
+## 32.11.3
+
+Wed, 29 Jan 2025 18:28:29 GMT
+
+### Patches
+
+- Allow an item in the toolbar to lose focus by clicking the toolbar itself ([ni/nimble@dcd42ac](https://github.com/ni/nimble/commit/dcd42ac952ba3aec2bbf7f5bbffd091f69e47482))
 
 ## 32.11.2
 

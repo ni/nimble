@@ -21,10 +21,7 @@ const nimbleToolbar = Toolbar.compose<ToolbarOptions>({
     baseName: 'toolbar',
     baseClass: FoundationToolbar,
     template,
-    styles,
-    shadowOptions: {
-        delegatesFocus: true
-    }
+    styles
 });
 
 DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleToolbar());

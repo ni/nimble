@@ -28,7 +28,7 @@ export const styles = css`
 
     :host {
         height: 480px;
-        ${tableFitRowsHeight.cssCustomProperty}: calc(var(--ni-private-table-scroll-height) + ${controlHeight});
+        ${tableFitRowsHeight.cssCustomProperty}: calc(var(--ni-private-table-scroll-height) + var(--ni-private-table-horizontal-scrollbar-height) + ${controlHeight});
         ${
             /**
              * Set a default maximum height for the table of 40.5 rows plus the header row so

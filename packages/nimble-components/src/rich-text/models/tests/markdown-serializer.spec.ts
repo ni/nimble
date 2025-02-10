@@ -6,7 +6,7 @@ import { ToolbarButton } from '../../editor/testing/types';
 import {
     appendTestMentionConfiguration,
     appendUserMentionConfiguration
-} from '../../editor/testing/rich-text-editor-utils';
+} from '../../editor/models/tests/rich-text-editor-utils';
 import { waitForUpdatesAsync } from '../../../testing/async-helpers';
 
 async function setup(): Promise<Fixture<RichTextEditor>> {

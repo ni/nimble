@@ -1,6 +1,8 @@
-import { TablePageObject as NimbleComponentsTablePageObject } from '@ni/nimble-components/dist/esm/table/testing/table.pageobject';
+import { TablePageObject as NimbleComponentsTablePageObject, type SortedColumn } from '@ni/nimble-components/dist/esm/table/testing/table.pageobject';
 import { waitForUpdatesAsync } from '@ni/nimble-angular';
 import type { Table, TableRecord } from '@ni/nimble-angular/table';
+
+export type { SortedColumn };
 
 /**
  * The page object for the `nimble-table` component to provide consistent ways of querying
