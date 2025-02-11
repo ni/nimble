@@ -14,7 +14,7 @@ describe('Spinner', () => {
         return Array.from(
             nimbleSpinnerElement.shadowRoot!.querySelectorAll(
                 'div.bit1, div.bit2'
-            )!
+            )
         );
     }
 

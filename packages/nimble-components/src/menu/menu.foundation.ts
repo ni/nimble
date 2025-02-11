@@ -177,8 +177,7 @@ export class Menu extends FoundationElement {
         if (
             e.defaultPrevented
             || e.target === null
-            || this.menuItems === undefined
-            || !this.menuItems.includes(e.target as Element)
+            || !this.menuItems?.includes(e.target as Element)
         ) {
             return;
         }

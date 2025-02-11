@@ -22,8 +22,8 @@
   },
   "homepage": "https://github.com/ni/nimble#readme",
   "peerDependencies": {
-    "@angular/common": "^17.3.12",
-    "@angular/core": "^17.3.12",
+    "@angular/common": "^18.2.13",
+    "@angular/core": "^18.2.13",
     "@ni/spright-components": "^4.4.0"
   },
   "dependencies": {
