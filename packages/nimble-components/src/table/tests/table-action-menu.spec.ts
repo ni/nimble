@@ -219,7 +219,7 @@ describe('Table action menu', () => {
         await connect();
         await waitForUpdatesAsync();
 
-        const row = pageObject.getRow(0)!;
+        const row = pageObject.getRow(0);
         const focusableElements = row.getFocusableElements();
         expect(focusableElements.cells.length).toBe(2);
         expect(focusableElements.cells[0]!.actionMenuButton).toBe(
@@ -236,7 +236,7 @@ describe('Table action menu', () => {
         await waitForUpdatesAsync();
         pageObject.setRowHoverState(1, true);
         await waitForUpdatesAsync();
-        const cell = pageObject.getCell(1, 0)!;
+        const cell = pageObject.getCell(1, 0);
         const menuButton = pageObject.getCellActionMenu(1, 0)!;
         const spy = jasmine.createSpy();
         const blurListener = waitForEvent(cell, 'cell-action-menu-blur', spy);

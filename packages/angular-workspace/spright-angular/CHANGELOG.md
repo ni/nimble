@@ -1,8 +1,17 @@
 # Change Log - @ni/spright-angular
 
-<!-- This log was last generated on Fri, 07 Feb 2025 17:33:50 GMT and should not be manually modified. -->
+<!-- This log was last generated on Tue, 11 Feb 2025 00:21:34 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 6.0.0
+
+Tue, 11 Feb 2025 00:21:34 GMT
+
+### Major changes
+
+- Update to Angular 18 ([ni/nimble@ed385c6](https://github.com/ni/nimble/commit/ed385c6cfae41867475940f40c684b29d694546b))
+- Bump @ni/spright-components to v4.4.1
 
 ## 5.4.0
 

@@ -297,7 +297,7 @@ describe('TableColumnMenuButton', () => {
 
     describe('menu button interactions', () => {
         let menuButton: MenuButtonPageObject;
-        const recordId = 'id-0' as const;
+        const recordId = 'id-0';
         const originalData = [
             { id: recordId, field: 'value', anotherField: 'another value' }
         ] as const;
