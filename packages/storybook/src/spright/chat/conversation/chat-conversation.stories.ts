@@ -1,19 +1,19 @@
 import type { Meta, StoryObj } from '@storybook/html';
 import { html } from '@microsoft/fast-element';
-import { webviCustom16X16 } from '../../../../nimble-tokens/dist/icons/js';
-import { buttonTag } from '../../../../nimble-components/src/button';
-import { chatConversationTag } from '../../../../spright-components/src/chat/conversation';
-import { chatMessageTag } from '../../../../spright-components/src/chat/message';
-import { ChatMessageType } from '../../../../spright-components/src/chat/types';
-import { richTextViewerTag } from '../../../../nimble-components/src/rich-text/viewer';
-import { spinnerTag } from '../../../../nimble-components/src/spinner';
+import { webviCustom16X16 } from '@ni/nimble-tokens/dist/icons/js';
+import { buttonTag } from '@ni/nimble-components/src/button';
+import { chatConversationTag } from '../../../../../spright-components/src/chat/conversation';
+import { chatMessageTag } from '../../../../../spright-components/src/chat/message';
+import { ChatMessageType } from '../../../../../spright-components/src/chat/types';
+import { richTextViewerTag } from '@ni/nimble-components/src/rich-text/viewer';
+import { spinnerTag } from '@ni/nimble-components/src/spinner';
 import {
     apiCategory,
     createUserSelectedThemeStory
-} from '../../utilities/storybook';
+} from '../../../utilities/storybook';
 
 const metadata: Meta<ChatMessageTextArgs> = {
-    title: 'Spright/Chat'
+    title: 'Spright/Chat Conversation'
 };
 
 const markdownExample = "I see **Esc**, **Crtl**, and **Pg Up**. There doesn't seem to be any **Any** key.";

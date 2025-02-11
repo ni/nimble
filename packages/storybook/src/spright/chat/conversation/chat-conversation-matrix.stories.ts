@@ -1,18 +1,18 @@
 import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate } from '@microsoft/fast-element';
-import { chatMessageTag } from '../../../../spright-components/src/chat/message';
-import { ChatMessageType } from '../../../../spright-components/src/chat/types';
+import { chatMessageTag } from '../../../../../spright-components/src/chat/message';
+import { ChatMessageType } from '../../../../../spright-components/src/chat/types';
 import {
     createMatrix,
     sharedMatrixParameters,
     createMatrixThemeStory
-} from '../../utilities/matrix';
-import { createStory } from '../../utilities/storybook';
-import { hiddenWrapper } from '../../utilities/hidden';
-import { loremIpsum } from '../../utilities/lorem-ipsum';
-import { richTextViewerTag } from '../../../../nimble-components/src/rich-text/viewer';
-import { chatConversationTag } from '../../../../spright-components/src/chat/conversation';
-import { textCustomizationWrapper } from '../../utilities/text-customization';
+} from '../../../utilities/matrix';
+import { createStory } from '../../../utilities/storybook';
+import { hiddenWrapper } from '../../../utilities/hidden';
+import { loremIpsum } from '../../../utilities/lorem-ipsum';
+import { richTextViewerTag } from '@ni/nimble-components/src/rich-text/viewer';
+import { chatConversationTag } from '../../../../../spright-components/src/chat/conversation';
+import { textCustomizationWrapper } from '../../../utilities/text-customization';
 
 const chatMessageTypes = [
     ['outbound', ChatMessageType.outbound],
@@ -22,7 +22,7 @@ const chatMessageTypes = [
 type ChatMessageTypeState = (typeof chatMessageTypes)[number];
 
 const metadata: Meta = {
-    title: 'Tests Spright/Chat',
+    title: 'Tests Spright/Chat Conversation',
     parameters: {
         ...sharedMatrixParameters()
     }
@@ -153,15 +153,15 @@ export const conversationManyLinesSizing: StoryFn = createStory(html`
     ])}
 `);
 
-export const messageHidden: StoryFn = createStory(
-    hiddenWrapper(
-        html`<${chatMessageTag} hidden>Hidden Chat Message</${chatMessageTag}>`
-    )
-);
-
 export const conversationHidden: StoryFn = createStory(
     hiddenWrapper(
         html`<${chatConversationTag} hidden>Hidden Chat Conversation</${chatConversationTag}>`
+    )
+);
+
+export const messageHidden: StoryFn = createStory(
+    hiddenWrapper(
+        html`<${chatMessageTag} hidden>Hidden Chat Message</${chatMessageTag}>`
     )
 );
 
