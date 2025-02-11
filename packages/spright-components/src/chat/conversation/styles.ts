@@ -15,6 +15,6 @@ export const styles = css`
         row-gap: ${standardPadding};
         padding: ${mediumPadding};
         background: ${applicationBackgroundColor};
-        overflow-y: scroll;
+        overflow-y: auto;
     }
 `;
