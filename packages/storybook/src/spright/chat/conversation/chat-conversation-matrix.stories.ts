@@ -1,7 +1,7 @@
 import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate } from '@microsoft/fast-element';
 import { chatMessageTag } from '../../../../../spright-components/src/chat/message';
-import { ChatMessageType } from '../../../../../spright-components/src/chat/types';
+import { ChatMessageType } from '../../../../../spright-components/src/chat/message/types';
 import {
     createMatrix,
     sharedMatrixParameters,

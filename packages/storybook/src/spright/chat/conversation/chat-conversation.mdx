@@ -1,11 +1,12 @@
 import { Controls, Canvas, Meta, Title } from '@storybook/blocks';
-import * as chatStories from './chat-conversation.stories';
+import * as conversationStories from './chat-conversation.stories';
+import * as messageStories from '../message/chat-message.stories';
 import ComponentApisLink from '../../../docs/component-apis-link.mdx';
 import { chatConversationTag } from '../../../../../spright-components/src/chat/conversation';
 import { chatMessageTag } from '../../../../../spright-components/src/chat/message';
 
-<Meta of={chatStories} />
-<Title of={chatStories} />
+<Meta of={conversationStories} />
+<Title of={conversationStories} />
 
 Chat components are used to display a conversation with a chat bot or other
 users. The components can display messages but the application is responsible
@@ -23,8 +24,8 @@ of messages.
 Use the <Tag name={chatConversationTag} /> element to display a series of
 messages in a conversation.
 
-<Canvas of={chatStories.chatConversation} />
-<Controls of={chatStories.chatConversation} />
+<Canvas of={conversationStories.chatConversation} />
+<Controls of={conversationStories.chatConversation} />
 
 ### Chat message
 
@@ -33,24 +34,24 @@ Clients can place any HTML content within the message.
 
 #### Text message content
 
-<Canvas of={chatStories.chatMessageText} />
-<Controls of={chatStories.chatMessageText} />
+<Canvas of={messageStories.chatMessageText} />
+<Controls of={messageStories.chatMessageText} />
 
 #### Rich text message content
 
-<Canvas of={chatStories.chatMessageRichText} />
+<Canvas of={messageStories.chatMessageRichText} />
 
 #### Spinner message content
 
-<Canvas of={chatStories.chatMessageSpinner} />
+<Canvas of={messageStories.chatMessageSpinner} />
 
 #### Image message content
 
-<Canvas of={chatStories.chatMessageImage} />
+<Canvas of={messageStories.chatMessageImage} />
 
 #### Prompt buttons message content
 
-<Canvas of={chatStories.chatMessagePrompts} />
+<Canvas of={messageStories.chatMessagePrompts} />
 
 ## Usage
 

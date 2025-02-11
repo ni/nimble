@@ -1,4 +1,4 @@
-import type { ChatMessageType } from '../../types';
+import type { ChatMessageType } from '../types';
 
 describe('ChatMessage message type', () => {
     it('ChatMessageType fails compile if assigning arbitrary string values', () => {

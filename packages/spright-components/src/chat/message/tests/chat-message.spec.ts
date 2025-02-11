@@ -1,7 +1,7 @@
 import { html } from '@microsoft/fast-element';
 import { ChatMessage, chatMessageTag } from '..';
 import { fixture, type Fixture } from '../../../utilities/tests/fixture';
-import { ChatMessageType } from '../../types';
+import { ChatMessageType } from '../types';
 
 async function setup(): Promise<Fixture<ChatMessage>> {
     return await fixture<ChatMessage>(
