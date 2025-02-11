@@ -11,13 +11,12 @@ import {
 } from '../../../utilities/storybook';
 import { imgBlobUrl, markdownExample } from './story-helpers';
 
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface ChatConversationArgs {}
 
 const metadata: Meta<ChatConversationArgs> = {
     title: 'Spright/Chat Conversation'
 };
-
-
 
 export const chatConversation: StoryObj<ChatConversationArgs> = {
     parameters: {

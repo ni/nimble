@@ -1,5 +1,6 @@
 import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate } from '@microsoft/fast-element';
+import { richTextViewerTag } from '../../../../../nimble-components/src/rich-text/viewer';
 import { chatMessageTag } from '../../../../../spright-components/src/chat/message';
 import { ChatMessageType } from '../../../../../spright-components/src/chat/message/types';
 import {
@@ -10,7 +11,6 @@ import {
 import { createStory } from '../../../utilities/storybook';
 import { hiddenWrapper } from '../../../utilities/hidden';
 import { loremIpsum } from '../../../utilities/lorem-ipsum';
-import { richTextViewerTag } from '@ni/nimble-components/src/rich-text/viewer';
 import { chatConversationTag } from '../../../../../spright-components/src/chat/conversation';
 import { textCustomizationWrapper } from '../../../utilities/text-customization';
 
