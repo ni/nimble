@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 11 Feb 2025 00:21:34 GMT",
+      "version": "32.12.1",
+      "tag": "@ni/nimble-components_v32.12.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "ed385c6cfae41867475940f40c684b29d694546b",
+            "comment": "Minor lint fixes"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 07 Feb 2025 17:33:50 GMT",
       "version": "32.12.0",
       "tag": "@ni/nimble-components_v32.12.0",

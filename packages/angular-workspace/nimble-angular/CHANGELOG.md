@@ -1,8 +1,17 @@
 # Change Log - @ni/nimble-angular
 
-<!-- This log was last generated on Fri, 07 Feb 2025 17:33:50 GMT and should not be manually modified. -->
+<!-- This log was last generated on Tue, 11 Feb 2025 00:21:34 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 29.0.0
+
+Tue, 11 Feb 2025 00:21:34 GMT
+
+### Major changes
+
+- Update to Angular 18 ([ni/nimble@ed385c6](https://github.com/ni/nimble/commit/ed385c6cfae41867475940f40c684b29d694546b))
+- Bump @ni/nimble-components to v32.12.1
 
 ## 28.10.0
 

@@ -2,6 +2,27 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Tue, 11 Feb 2025 00:21:34 GMT",
+      "version": "29.0.0",
+      "tag": "@ni/nimble-angular_v29.0.0",
+      "comments": {
+        "major": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "ed385c6cfae41867475940f40c684b29d694546b",
+            "comment": "Update to Angular 18"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v32.12.1",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 07 Feb 2025 17:33:50 GMT",
       "version": "28.10.0",
       "tag": "@ni/nimble-angular_v28.10.0",
