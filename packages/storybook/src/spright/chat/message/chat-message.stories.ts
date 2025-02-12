@@ -11,6 +11,8 @@ import { ChatMessageType } from '../../../../../spright-components/src/chat/mess
 import { richTextViewerTag } from '../../../../../nimble-components/src/rich-text/viewer';
 import { spinnerTag } from '../../../../../nimble-components/src/spinner';
 import { imgBlobUrl, markdownExample } from '../conversation/story-helpers';
+import { SpinnerAppearance } from '../../../../../nimble-components/src/spinner/types';
+import { ButtonAppearance } from '../../../../../nimble-components/src/menu-button/types';
 
 interface ChatMessageArgs {
     messageType: keyof typeof ChatMessageType;
@@ -40,7 +42,7 @@ interface ChatMessageTextArgs extends ChatMessageArgs {
 
 export const chatMessageText: StoryObj<ChatMessageTextArgs> = {
     render: createUserSelectedThemeStory(html`
-        <${chatMessageTag} message-type=${x => ChatMessageType[x.messageType]}>
+        <${chatMessageTag} message-type="${x => ChatMessageType[x.messageType]}">
             ${x => x.text}
         </${chatMessageTag}>
     `),
@@ -63,7 +65,7 @@ interface ChatMessageRichTextArgs extends ChatMessageArgs {
 }
 export const chatMessageRichText: StoryObj<ChatMessageRichTextArgs> = {
     render: createUserSelectedThemeStory(html`
-        <${chatMessageTag} message-type=${x => x.messageType}>
+        <${chatMessageTag} message-type="${x => ChatMessageType[x.messageType]}">
             <${richTextViewerTag} :markdown="${x => x.markdown}"></${richTextViewerTag}>
         </${chatMessageTag}>
     `),
@@ -81,8 +83,8 @@ export const chatMessageRichText: StoryObj<ChatMessageRichTextArgs> = {
 
 export const chatMessageSpinner: StoryObj<ChatMessageArgs> = {
     render: createUserSelectedThemeStory(html`
-        <${chatMessageTag} message-type=${x => x.messageType}>
-            <${spinnerTag} appearance='accent'></${spinnerTag}>
+        <${chatMessageTag} message-type="${x => ChatMessageType[x.messageType]}">
+            <${spinnerTag} appearance="${() => SpinnerAppearance.accent}"></${spinnerTag}>
         </${chatMessageTag}>
     `),
     args: {
@@ -92,8 +94,8 @@ export const chatMessageSpinner: StoryObj<ChatMessageArgs> = {
 
 export const chatMessageImage: StoryObj<ChatMessageArgs> = {
     render: createUserSelectedThemeStory(html`
-        <${chatMessageTag} message-type=${x => x.messageType}>
-            <img width="100" height="100" :src=${() => imgBlobUrl}>
+        <${chatMessageTag} message-type="${x => ChatMessageType[x.messageType]}">
+            <img width="100" height="100" :src="${() => imgBlobUrl}">
         </${chatMessageTag}>
     `),
     args: {
@@ -103,9 +105,9 @@ export const chatMessageImage: StoryObj<ChatMessageArgs> = {
 
 export const chatMessagePrompts: StoryObj<ChatMessageArgs> = {
     render: createUserSelectedThemeStory(html`
-        <${chatMessageTag} message-type=${x => x.messageType}>
-            <${buttonTag} appearance='block'>Eat my shorts</${buttonTag}>
-            <${buttonTag} appearance='block'>Do the Bartman</${buttonTag}>
+        <${chatMessageTag} message-type="${x => ChatMessageType[x.messageType]}">
+            <${buttonTag} appearance="${() => ButtonAppearance.block}">Eat my shorts</${buttonTag}>
+            <${buttonTag} appearance="${() => ButtonAppearance.block}">Do the Bartman</${buttonTag}>
         </${chatMessageTag}>
     `),
     args: {
