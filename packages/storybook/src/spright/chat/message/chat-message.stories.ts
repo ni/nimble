@@ -31,7 +31,7 @@ const metadata: Meta<ChatMessageArgs> = {
     },
     parameters: {
         actions: {}
-    },
+    }
 };
 
 export default metadata;
@@ -51,8 +51,7 @@ export const chatMessageText: StoryObj<ChatMessageTextArgs> = {
             name: 'default',
             description: 'The content to display in the chat message.',
             table: { category: apiCategory.slots }
-        },
-
+        }
     },
     args: {
         text: 'Aurora Borealis? At this time of year? At this time of day? In this part of the country? Localized entirely within your kitchen?',
@@ -73,7 +72,7 @@ export const chatMessageRichText: StoryObj<ChatMessageRichTextArgs> = {
         markdown: {
             description: 'Markdown text for the rich text viewer',
             table: { category: apiCategory.slots }
-        },
+        }
     },
     args: {
         markdown: markdownExample,

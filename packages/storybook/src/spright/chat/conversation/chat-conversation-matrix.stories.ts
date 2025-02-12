@@ -39,7 +39,7 @@ const viewportStates = [
     ['chat popup', '300px', '300px'],
     ['mobile vertical', '300px', '600px'],
     ['mobile horizontal', '600px', '300px'],
-    ['desktop', '600px', '600px'],
+    ['desktop', '600px', '600px']
 ] as const;
 type ViewportStates = (typeof viewportStates)[number];
 
