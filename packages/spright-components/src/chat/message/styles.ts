@@ -21,7 +21,6 @@ export const styles = css`
         flex-shrink: 0;
         font: ${bodyFont};
         color: ${bodyFontColor};
-        overflow-x: auto;
     }
 
     :host([message-type='outbound']) {
@@ -37,6 +36,7 @@ export const styles = css`
         width: fit-content;
         height: fit-content;
         padding: ${mediumPadding};
+        overflow-x: auto;
     }
 
     :host([message-type='outbound']) div {
