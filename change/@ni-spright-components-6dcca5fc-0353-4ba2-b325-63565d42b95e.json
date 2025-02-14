@@ -1,7 +1,0 @@
-{
-  "type": "minor",
-  "comment": "Productize ChatConversation and ChatMessage elements",
-  "packageName": "@ni/spright-components",
-  "email": "jose.a.hernandez@ni.com",
-  "dependentChangeType": "patch"
-}

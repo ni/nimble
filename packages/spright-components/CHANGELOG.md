@@ -1,8 +1,16 @@
 # Change Log - @ni/spright-components
 
-<!-- This log was last generated on Tue, 11 Feb 2025 00:21:34 GMT and should not be manually modified. -->
+<!-- This log was last generated on Fri, 14 Feb 2025 04:02:47 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 4.5.0
+
+Fri, 14 Feb 2025 04:02:47 GMT
+
+### Minor changes
+
+- Productize ChatConversation and ChatMessage elements ([ni/nimble@772266a](https://github.com/ni/nimble/commit/772266affe7d04ce8ef7197fa7367d1c75a740b1))
 
 ## 4.4.1
 

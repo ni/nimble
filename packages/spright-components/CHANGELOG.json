@@ -2,6 +2,21 @@
   "name": "@ni/spright-components",
   "entries": [
     {
+      "date": "Fri, 14 Feb 2025 04:02:47 GMT",
+      "version": "4.5.0",
+      "tag": "@ni/spright-components_v4.5.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "jose.a.hernandez@ni.com",
+            "package": "@ni/spright-components",
+            "commit": "772266affe7d04ce8ef7197fa7367d1c75a740b1",
+            "comment": "Productize ChatConversation and ChatMessage elements"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 11 Feb 2025 00:21:34 GMT",
       "version": "4.4.1",
       "tag": "@ni/spright-components_v4.4.1",
