@@ -431,5 +431,40 @@
             <div class="container-label">Rectangle (Spright)</div>
             <SprightRectangle>Spright!</SprightRectangle>
         </div>
+        <div class="sub-container">
+            <div class="container-label">Chat Conversation and Messages (Spright)</div>
+            <SprightChatConversation class="conversation">
+                <SprightChatMessage message-type="inbound">
+                    To start, press any key.
+                </SprightChatMessage>
+                <SprightChatMessage message-type="outbound">
+                    Where is the Any key?
+                </SprightChatMessage>
+                <SprightChatMessage message-type="outbound">
+                    <NimbleTextArea
+                        Placeholder="Text Area"
+                        Cols="50"
+                        Rows="5"
+                        TextAreaResize="TextAreaResize.Horizontal"
+                        Value="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.">
+                        Text Area Label
+                    </NimbleTextArea>
+                </SprightChatMessage>
+                <SprightChatMessage>
+                    <NimbleSpinner Appearance="SpinnerAppearance.Accent"></NimbleSpinner>
+                </SprightChatMessage>
+                <SprightChatMessage message-type="inbound">
+                    <NimbleIconWebviCustom style="height: 100px; width: 100px;"></NimbleIconWebviCustom>
+                </SprightChatMessage>
+                <SprightChatMessage>
+                    <NimbleButton Appearance=ButtonAppearance.Block>
+                        Order a tab
+                    </NimbleButton>
+                    <NimbleButton Appearance=ButtonAppearance.Block>
+                        Check core temperature
+                    </NimbleButton>
+                </SprightChatMessage>
+            </SprightChatConversation>
+        </div>
     </div>
 </div>

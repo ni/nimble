@@ -1,7 +1,7 @@
 {
   "type": "minor",
-  "comment": "Added Blazor wrappers for chat components",
+  "comment": "Added Blazor wrappers for the chat components",
   "packageName": "@ni/spright-blazor",
-  "email": "jose.a.hernandez@ni.com",
+  "email": "107654185+joseahdz@users.noreply.github.com",
   "dependentChangeType": "patch"
 }
