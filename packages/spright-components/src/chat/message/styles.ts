@@ -8,8 +8,7 @@ import {
     controlHeight,
     controlSlimHeight,
     fillSelectedColor,
-    mediumPadding,
-    standardPadding
+    mediumPadding
 } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
 import { display } from '../../utilities/style/display';
 
@@ -55,48 +54,36 @@ export const styles = css`
     .actions {
         display: flex;
         justify-content: space-between;
-        border: 0px none;
-        min-height: ${controlSlimHeight};
     }
 
-    .actions.top {
-        margin: 0px 0px -10px 0px;
-    }
-
-    .actions.bottom {
-        margin: -10px 0px 0px 0px;
-    }
-
-    :host([message-type='outbound']) .actions > slot {
+    :host .actions.center > slot {
         display: none;
     }
-   
-    :host([message-type='outbound']) :hover .actions > slot {
+
+    :host([message-type='outbound']):host(:hover) .actions.center > slot {
         display: flex;
-        background: lightgrey;
+        margin: auto;
     }
 
     .left {
         display: flex;
         justify-content: flex-start;
-        border-radius: 8px;
-        margin: 0px 5px 0px 0px;
     }
 
     .right {
         display: flex;
         justify-content: flex-end;
-        border-radius: 8px;
-        margin: 0px 0px 0px 5px;
     }
 
     .left::slotted(${buttonTag}) {
         height: ${controlSlimHeight};
         width: ${controlHeight};
+        margin: 0px 16px 0px 0px;
     }
 
     .right::slotted(${buttonTag}) {
         height: ${controlSlimHeight};
         width: ${controlHeight};
+        margin: 0px 0px 0px 16px;
     }
 `;

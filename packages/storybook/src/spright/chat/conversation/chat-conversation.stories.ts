@@ -11,6 +11,9 @@ import { iconThumbUpTag } from '../../../../../nimble-components/src/icons/thumb
 import { iconThumbDownTag } from '../../../../../nimble-components/src/icons/thumb-down';
 import { iconArrowRotateRightTag } from '../../../../../nimble-components/src/icons/arrow-rotate-right';
 import { iconThreeDotsLineTag } from '../../../../../nimble-components/src/icons/three-dots-line';
+import { iconStar8PointTag } from '../../../../../nimble-components/src/icons/star-8-point';
+import { iconPencilTag } from '../../../../../nimble-components/src/icons/pencil';
+import { iconInfoTag } from '../../../../../nimble-components/src/icons/info';
 import {
     apiCategory,
     createUserSelectedThemeStory
@@ -39,25 +42,17 @@ export const chatConversation: StoryObj<ChatConversationArgs> = {
                 Where is the Any key?
             </${chatMessageTag}>
             <${chatMessageTag} message-type="${() => ChatMessageType.outbound}">
-                <${buttonTag} slot='top-left' appearance='ghost' ContentHidden='true'>
+                <${buttonTag} slot='left' appearance='ghost' ContentHidden='true'>
+                    <${iconStar8PointTag} slot='start' />
+                    Copy
+                </${buttonTag}>
+                <${buttonTag} slot='left' appearance='ghost' ContentHidden='true'>
                     <${iconCopyTextTag} slot='start' />
                     Copy
                 </${buttonTag}>
-                <${buttonTag} slot='bottom-left' appearance='ghost' ContentHidden='true'>
-                    <${iconThumbUpTag} slot='start' />
-                    Like
-                </${buttonTag}>
-                <${buttonTag} slot='bottom-left' appearance='ghost'>
-                    <${iconThumbDownTag} slot='start' ContentHidden='true'/>
-                    Dislike
-                </${buttonTag}>
-                <${buttonTag} slot='bottom-right' appearance='ghost'>
-                    <${iconThreeDotsLineTag} slot='start' ContentHidden='true'/>
-                    Refresh
-                </${buttonTag}>
-                <${buttonTag} slot='top-right' appearance='ghost' ContentHidden='true'>
-                    <${iconArrowRotateRightTag} slot='start' ContentHidden='true'/>
-                    Refresh
+                <${buttonTag} slot='left' appearance='ghost' ContentHidden='true'>
+                    <${iconPencilTag} slot='start' />
+                    Copy
                 </${buttonTag}>
                 <${richTextViewerTag} :markdown="${() => markdownExample}"></${richTextViewerTag}>
             </${chatMessageTag}>
@@ -65,6 +60,14 @@ export const chatConversation: StoryObj<ChatConversationArgs> = {
                 <${spinnerTag} appearance="${() => SpinnerAppearance.accent}"></${spinnerTag}>
             </${chatMessageTag}>
             <${chatMessageTag} message-type="${() => ChatMessageType.inbound}">
+                <${buttonTag} slot='top-left' appearance='ghost' ContentHidden='true'>
+                    <${iconStar8PointTag} slot='start' />
+                    Copy
+                </${buttonTag}>
+                <${buttonTag} slot='top-right' appearance='ghost' ContentHidden='true'>
+                    <${iconInfoTag} slot='start' />
+                    Copy
+                </${buttonTag}>
                 <${buttonTag} slot='bottom-left' appearance='ghost' ContentHidden='true'>
                     <${iconCopyTextTag} slot='start' />
                     Copy

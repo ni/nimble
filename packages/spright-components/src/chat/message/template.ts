@@ -5,14 +5,17 @@ import type { ChatMessage } from '.';
 // prettier-ignore
 export const template = html<ChatMessage>`
     <div>
-        <span class="actions top">
+        <span class="actions">
             <slot class="left" name="top-left"></slot>
             <slot class="right" name="top-right"></slot>
         </span>
-        <div class="message-content">
-            <slot></slot>
-        </div>
-        <span class="actions bottom">
+        <span class="actions center">
+            <slot class="left" name="left"></slot>
+            <div class="message-content">
+                <slot></slot>
+            </div>
+        </span>
+        <span class="actions">
             <slot class="left" name="bottom-left"></slot>
             <slot class="right" name="bottom-right"></slot>
         </span>
