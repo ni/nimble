@@ -37,9 +37,9 @@ public class SprightChatMessageTests
     [InlineData(ChatMessageType.System, "message-type=\"system\"")]
     public void SprightChatMessageTypeVariant_AttributeIsSet(ChatMessageType value, string expectedAttribute)
     {
-        var button = RenderWithPropertySet(x => x.MessageType, value);
+        var message = RenderWithPropertySet(x => x.MessageType, value);
 
-        Assert.Contains(expectedAttribute, button.Markup);
+        Assert.Contains(expectedAttribute, message.Markup);
     }
 
     private IRenderedComponent<SprightChatMessage> RenderWithPropertySet<TProperty>(Expression<Func<SprightChatMessage, TProperty>> propertyGetter, TProperty propertyValue)
