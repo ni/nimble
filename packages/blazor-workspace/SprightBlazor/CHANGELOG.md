@@ -1,8 +1,16 @@
 # Change Log - @ni/spright-blazor
 
-<!-- This log was last generated on Fri, 14 Feb 2025 04:02:47 GMT and should not be manually modified. -->
+<!-- This log was last generated on Tue, 18 Feb 2025 17:59:37 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 3.4.0
+
+Tue, 18 Feb 2025 17:59:37 GMT
+
+### Minor changes
+
+- Added Blazor wrappers for the chat components ([ni/nimble@0a8c3b2](https://github.com/ni/nimble/commit/0a8c3b265c57dcfee6dd956ac3b659e61cbcf07b))
 
 ## 3.3.2
 
