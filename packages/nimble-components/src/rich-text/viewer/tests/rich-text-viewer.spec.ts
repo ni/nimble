@@ -76,16 +76,16 @@ describe('RichTextViewer', () => {
         );
     });
 
-    it('set the markdown attribute and ensure the markdown property is not modified', () => {
+    it('set the markdown attribute and ensure the markdown property is modified', () => {
         element.setAttribute('markdown', '**markdown string**');
 
-        expect(element.markdown).toBe('');
+        expect(element.markdown).toBe('**markdown string**');
     });
 
-    it('set the markdown property and ensure there is no markdown attribute', () => {
+    it('set the markdown property and ensure there is markdown attribute', () => {
         element.markdown = '**markdown string**';
 
-        expect(element.hasAttribute('markdown')).toBeFalse();
+        expect(element.hasAttribute('markdown')).toBeTrue();
     });
 
     it('set the markdown property and ensure that getting the markdown property returns the same value', () => {
