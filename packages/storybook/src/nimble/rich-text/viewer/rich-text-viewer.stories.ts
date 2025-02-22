@@ -60,7 +60,7 @@ const metadata: Meta<RichTextViewerArgs> = {
         markdown: {
             description:
                 'Input markdown string for the supported text formatting options in a [CommonMark](https://commonmark.org/) flavor.',
-            table: { category: apiCategory.nonAttributeProperties }
+            table: { category: apiCategory.attributes }
         },
         data: {
             name: 'default',
