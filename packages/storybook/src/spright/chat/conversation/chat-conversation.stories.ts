@@ -34,7 +34,7 @@ export const chatConversation: StoryObj<ChatConversationArgs> = {
                 Where is the Any key?
             </${chatMessageTag}>
             <${chatMessageTag} message-type="${() => ChatMessageType.outbound}">
-                <${richTextViewerTag} :markdown="${() => markdownExample}"></${richTextViewerTag}>
+                <${richTextViewerTag} markdown="${() => markdownExample}"></${richTextViewerTag}>
             </${chatMessageTag}>
             <${chatMessageTag} message-type="${() => ChatMessageType.system}">
                 <${spinnerTag} appearance="${() => SpinnerAppearance.accent}"></${spinnerTag}>

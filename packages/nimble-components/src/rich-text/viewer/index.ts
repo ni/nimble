@@ -22,7 +22,7 @@ export class RichTextViewer extends RichText {
      * @remarks
      * HTML Attribute: markdown
      */
-    @attr
+    @attr({ mode: 'fromView' })
     public markdown = '';
 
     /**

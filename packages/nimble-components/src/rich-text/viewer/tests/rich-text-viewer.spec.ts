@@ -82,10 +82,10 @@ describe('RichTextViewer', () => {
         expect(element.markdown).toBe('**markdown string**');
     });
 
-    it('set the markdown property and ensure there is markdown attribute', () => {
+    it('set the markdown property and ensure there is no markdown attribute', () => {
         element.markdown = '**markdown string**';
 
-        expect(element.hasAttribute('markdown')).toBeTrue();
+        expect(element.hasAttribute('markdown')).toBeFalse();
     });
 
     it('set the markdown property and ensure that getting the markdown property returns the same value', () => {
