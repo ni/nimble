@@ -28,7 +28,7 @@ export default metadata;
 
 // prettier-ignore
 const component = (): ViewTemplate => html`
-    <${richTextViewerTag} :markdown="${_ => richTextMarkdownString}">
+    <${richTextViewerTag} markdown="${_ => richTextMarkdownString}">
         <${richTextMentionUsersTag} pattern="^user:(.*)">
             <${mappingUserTag} key="user:1" display-name="John Doe"></${mappingUserTag}>
         </${richTextMentionUsersTag}>
@@ -45,7 +45,7 @@ const viewerSizingTestCase = (
     <div style="width: 500px; height: 150px; outline: 1px dotted black">
         <${richTextViewerTag}
             style="${widthStyle}; ${heightStyle}; outline: 1px dashed red;"
-            :markdown="${_ => richTextMarkdownString}"
+            markdown="${_ => richTextMarkdownString}"
         >
             <${richTextMentionUsersTag} pattern="^user:(.*)">
                 <${mappingUserTag} key="user:1" display-name="John Doe"></${mappingUserTag}>
@@ -63,7 +63,7 @@ const viewerDifferentContentTestCase = (
     )}); margin-bottom: 0px;">${label}; ${heightLabel}</p>
     <div style="width: 300px; outline: 1px dotted black; ${parentHeightStyle}">
         <${richTextViewerTag}
-            :markdown="${_ => markdownContent}"
+            markdown="${_ => markdownContent}"
         >
         </${richTextViewerTag}>
     </div>
@@ -77,7 +77,7 @@ const componentFitToContent = ([widthLabel, widthStyle]: [
         tokenNames.bodyFont
     )}); margin-bottom: 0px;">${widthLabel}</p>
     <${richTextViewerTag} style="${widthStyle}; outline: 1px dotted black" 
-        :markdown="${_ => `${loremIpsum}\n\n **${loremIpsum}**\n\n ${loremIpsum}`}">
+        markdown="${_ => `${loremIpsum}\n\n **${loremIpsum}**\n\n ${loremIpsum}`}">
     </${richTextViewerTag}>
 `;
 
