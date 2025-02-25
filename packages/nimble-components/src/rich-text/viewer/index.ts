@@ -1,5 +1,5 @@
 import { DesignSystem } from '@microsoft/fast-foundation';
-import { observable } from '@microsoft/fast-element';
+import { attr } from '@microsoft/fast-element';
 import { template } from './template';
 import { styles } from './styles';
 import { RichTextMarkdownParser } from '../models/markdown-parser';
@@ -19,8 +19,10 @@ export class RichTextViewer extends RichText {
      *
      * @public
      * Markdown string to render its corresponding rich text content in the component.
+     * @remarks
+     * HTML Attribute: markdown
      */
-    @observable
+    @attr({ mode: 'fromView' })
     public markdown = '';
 
     /**
