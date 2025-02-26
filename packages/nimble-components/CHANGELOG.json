@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Wed, 26 Feb 2025 00:08:30 GMT",
+      "version": "32.13.0",
+      "tag": "@ni/nimble-components_v32.13.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "107654185+joseahdz@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "2fbaf4237d146a6c152ab6aba1af74e5d76dea05",
+            "comment": "Changed Rich Text Viewer markdown property to an attribute"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 11 Feb 2025 00:21:34 GMT",
       "version": "32.12.1",
       "tag": "@ni/nimble-components_v32.12.1",

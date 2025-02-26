@@ -1,7 +1,0 @@
-{
-  "type": "minor",
-  "comment": "Changed Rich Text Viewer markdown property to an attribute",
-  "packageName": "@ni/nimble-components",
-  "email": "107654185+joseahdz@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
