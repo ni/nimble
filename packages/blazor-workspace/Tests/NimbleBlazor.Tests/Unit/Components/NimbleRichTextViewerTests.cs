@@ -45,5 +45,4 @@ public class NimbleRichTextViewerTests
         context.JSInterop.Mode = JSRuntimeMode.Loose;
         return context.RenderComponent<NimbleRichTextViewer>(p => p.Add(propertyGetter, propertyValue));
     }
-
 }
