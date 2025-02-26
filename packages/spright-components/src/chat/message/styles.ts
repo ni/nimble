@@ -34,6 +34,10 @@ export const styles = css`
         justify-content: flex-start;
     }
 
+    .root {
+        max-width: calc(90%);
+    }
+
     .message-content {
         width: fit-content;
         height: fit-content;
@@ -41,10 +45,12 @@ export const styles = css`
         overflow-x: auto;
     }
 
+
     :host([message-type='outbound']) .message-content {
         background: ${fillSelectedColor};
         border: ${borderWidth} solid ${borderHoverColor};
         border-radius: 8px 8px 0px 8px;
+        justify-self: flex-end;
     }
 
     :host([message-type='inbound']) .message-content {
@@ -53,37 +59,20 @@ export const styles = css`
 
     .actions {
         display: flex;
-        justify-content: space-between;
     }
 
-    :host .actions.center > slot {
+    :host .left.dynamic {
         display: none;
     }
 
-    :host([message-type='outbound']):host(:hover) .actions.center > slot {
+    :host([message-type='outbound']):host(:hover) .left.dynamic {
         display: flex;
         margin: auto;
-    }
-
-    .left {
-        display: flex;
-        justify-content: flex-start;
-    }
-
-    .right {
-        display: flex;
-        justify-content: flex-end;
     }
 
     .left::slotted(${buttonTag}) {
         height: ${controlSlimHeight};
         width: ${controlHeight};
         margin: 0px 16px 0px 0px;
-    }
-
-    .right::slotted(${buttonTag}) {
-        height: ${controlSlimHeight};
-        width: ${controlHeight};
-        margin: 0px 0px 0px 16px;
     }
 `;

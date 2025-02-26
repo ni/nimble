@@ -13,7 +13,6 @@ import { iconArrowRotateRightTag } from '../../../../../nimble-components/src/ic
 import { iconThreeDotsLineTag } from '../../../../../nimble-components/src/icons/three-dots-line';
 import { iconStar8PointTag } from '../../../../../nimble-components/src/icons/star-8-point';
 import { iconPencilTag } from '../../../../../nimble-components/src/icons/pencil';
-import { iconInfoTag } from '../../../../../nimble-components/src/icons/info';
 import {
     apiCategory,
     createUserSelectedThemeStory
@@ -21,6 +20,7 @@ import {
 import { imgBlobUrl, markdownExample } from './story-helpers';
 import { ButtonAppearance } from '../../../../../nimble-components/src/menu-button/types';
 import { SpinnerAppearance } from '../../../../../nimble-components/src/spinner/types';
+import { loremIpsum } from '../../../utilities/lorem-ipsum';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface ChatConversationArgs {}
@@ -60,35 +60,28 @@ export const chatConversation: StoryObj<ChatConversationArgs> = {
                 <${spinnerTag} appearance="${() => SpinnerAppearance.accent}"></${spinnerTag}>
             </${chatMessageTag}>
             <${chatMessageTag} message-type="${() => ChatMessageType.inbound}">
-                <${buttonTag} slot='top-left' appearance='ghost' ContentHidden='true'>
-                    <${iconStar8PointTag} slot='start' />
-                    Copy
-                </${buttonTag}>
-                <${buttonTag} slot='top-right' appearance='ghost' ContentHidden='true'>
-                    <${iconInfoTag} slot='start' />
-                    Copy
-                </${buttonTag}>
-                <${buttonTag} slot='bottom-left' appearance='ghost' ContentHidden='true'>
+                <${buttonTag} slot='left-bottom' appearance='ghost' ContentHidden='true'>
                     <${iconCopyTextTag} slot='start' />
                     Copy
                 </${buttonTag}>
-                <${buttonTag} slot='bottom-left' appearance='ghost' ContentHidden='true'>
+                <${buttonTag} slot='left-bottom' appearance='ghost' ContentHidden='true'>
                     <${iconThumbUpTag} slot='start' />
                     Like
                 </${buttonTag}>
-                <${buttonTag} slot='bottom-left' appearance='ghost'>
+                <${buttonTag} slot='left-bottom' appearance='ghost'>
                     <${iconThumbDownTag} slot='start' ContentHidden='true'/>
                     Dislike
                 </${buttonTag}>
-                <${buttonTag} slot='bottom-left' appearance='ghost' ContentHidden='true'>
+                <${buttonTag} slot='left-bottom' appearance='ghost' ContentHidden='true'>
                     <${iconArrowRotateRightTag} slot='start' ContentHidden='true'/>
                     Refresh
                 </${buttonTag}>
-                <${buttonTag} slot='bottom-left' appearance='ghost'>
+                <${buttonTag} slot='left-bottom' appearance='ghost'>
                     <${iconThreeDotsLineTag} slot='start' ContentHidden='true'/>
                     Refresh
                 </${buttonTag}>
                 <img width="100" height="100" :src=${() => imgBlobUrl}>
+                <div>${loremIpsum}</div>
             </${chatMessageTag}>
             <${chatMessageTag} message-type="${() => ChatMessageType.system}">
                 <${buttonTag} appearance="${() => ButtonAppearance.block}">
