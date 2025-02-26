@@ -2,6 +2,36 @@
   "name": "@ni/spright-blazor",
   "entries": [
     {
+      "date": "Wed, 26 Feb 2025 00:08:30 GMT",
+      "version": "3.4.1",
+      "tag": "@ni/spright-blazor_v3.4.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/spright-blazor",
+            "comment": "Bump @ni/spright-components to v4.5.1",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 18 Feb 2025 17:59:37 GMT",
+      "version": "3.4.0",
+      "tag": "@ni/spright-blazor_v3.4.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "107654185+joseahdz@users.noreply.github.com",
+            "package": "@ni/spright-blazor",
+            "commit": "0a8c3b265c57dcfee6dd956ac3b659e61cbcf07b",
+            "comment": "Added Blazor wrappers for the chat components"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 14 Feb 2025 04:02:47 GMT",
       "version": "3.3.2",
       "tag": "@ni/spright-blazor_v3.3.2",

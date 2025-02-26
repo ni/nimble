@@ -145,7 +145,7 @@ const components = [
         designLabel: 'Figma',
         componentStatus: ComponentFrameworkStatus.spright,
         angularStatus: ComponentFrameworkStatus.doesNotExist,
-        blazorStatus: ComponentFrameworkStatus.doesNotExist
+        blazorStatus: ComponentFrameworkStatus.ready
     },
     {
         componentName: 'Checkbox',

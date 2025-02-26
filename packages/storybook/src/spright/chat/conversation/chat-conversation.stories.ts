@@ -54,7 +54,7 @@ export const chatConversation: StoryObj<ChatConversationArgs> = {
                     <${iconPencilTag} slot='start' />
                     Copy
                 </${buttonTag}>
-                <${richTextViewerTag} :markdown="${() => markdownExample}"></${richTextViewerTag}>
+                <${richTextViewerTag} markdown="${() => markdownExample}"></${richTextViewerTag}>
             </${chatMessageTag}>
             <${chatMessageTag} message-type="${() => ChatMessageType.system}">
                 <${spinnerTag} appearance="${() => SpinnerAppearance.accent}"></${spinnerTag}>

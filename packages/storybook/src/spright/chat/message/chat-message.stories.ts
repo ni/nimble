@@ -65,7 +65,7 @@ interface ChatMessageRichTextArgs extends ChatMessageArgs {
 export const chatMessageRichText: StoryObj<ChatMessageRichTextArgs> = {
     render: createUserSelectedThemeStory(html`
         <${chatMessageTag} message-type="${x => ChatMessageType[x.messageType]}">
-            <${richTextViewerTag} :markdown="${x => x.markdown}"></${richTextViewerTag}>
+            <${richTextViewerTag} markdown="${x => x.markdown}"></${richTextViewerTag}>
         </${chatMessageTag}>
     `),
     argTypes: {
