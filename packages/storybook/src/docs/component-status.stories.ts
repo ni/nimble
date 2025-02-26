@@ -347,7 +347,7 @@ const components = [
         issueLabel: 'Issue',
         componentStatus: ComponentFrameworkStatus.incubating,
         angularStatus: ComponentFrameworkStatus.incubating,
-        blazorStatus: ComponentFrameworkStatus.incubating
+        blazorStatus: ComponentFrameworkStatus.doesNotExist
     },
     {
         componentName: 'Search Field',

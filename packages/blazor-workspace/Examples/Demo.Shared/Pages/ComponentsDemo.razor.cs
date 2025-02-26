@@ -41,10 +41,7 @@ public partial class ComponentsDemo
                                          "4. Bulleted lists\n" +
                                          "   * Option 1\n" +
                                          "   * Option 2\n" +
-                                         "5. Absolute link: <https://nimble.ni.dev/>\n" +
-                                         "6. @mention:\n" +
-                                         "    1. User pattern: <user:1>\n" +
-                                         "    2. HTTPS pattern: <https://user/2>";
+                                         "5. Absolute link: <https://nimble.ni.dev/>\n";
 
     public IEnumerable<DemoColor> PossibleColors
     {
