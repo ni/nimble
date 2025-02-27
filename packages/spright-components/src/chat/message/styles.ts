@@ -62,11 +62,11 @@ export const styles = css`
     }
 
     :host .left.dynamic {
-        display: none;
+        visibility: hidden;
     }
 
     :host([message-type='outbound']):host(:hover) .left.dynamic {
-        display: flex;
+        visibility: visible;
         margin: auto;
     }
 

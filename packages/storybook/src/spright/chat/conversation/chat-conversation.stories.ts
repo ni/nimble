@@ -43,16 +43,8 @@ export const chatConversation: StoryObj<ChatConversationArgs> = {
             </${chatMessageTag}>
             <${chatMessageTag} message-type="${() => ChatMessageType.outbound}">
                 <${buttonTag} slot='left' appearance='ghost' ContentHidden='true'>
-                    <${iconStar8PointTag} slot='start' />
-                    Copy
-                </${buttonTag}>
-                <${buttonTag} slot='left' appearance='ghost' ContentHidden='true'>
-                    <${iconCopyTextTag} slot='start' />
-                    Copy
-                </${buttonTag}>
-                <${buttonTag} slot='left' appearance='ghost' ContentHidden='true'>
                     <${iconPencilTag} slot='start' />
-                    Copy
+                    Edit
                 </${buttonTag}>
                 <${richTextViewerTag} markdown="${() => markdownExample}"></${richTextViewerTag}>
             </${chatMessageTag}>
