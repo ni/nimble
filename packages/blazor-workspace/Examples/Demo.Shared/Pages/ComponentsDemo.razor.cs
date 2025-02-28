@@ -32,6 +32,17 @@ public partial class ComponentsDemo
     private readonly HashSet<string> _recordsLoadingChildren = new();
     private readonly HashSet<string> _recordsWithLoadedChildren = new();
 
+    public const string MarkdownString = "Supported rich text formatting options:\n" +
+                                         "1. **Bold**\n" +
+                                         "2. *Italics*\n" +
+                                         "3. Numbered lists\n" +
+                                         "   1. Option 1\n" +
+                                         "   2. Option 2\n" +
+                                         "4. Bulleted lists\n" +
+                                         "   * Option 1\n" +
+                                         "   * Option 2\n" +
+                                         "5. Absolute link: <https://nimble.ni.dev/>\n";
+
     public IEnumerable<DemoColor> PossibleColors
     {
         get
