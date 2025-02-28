@@ -101,6 +101,12 @@
             <NimbleTextField @bind-Value="@SelectedRadio">Value</NimbleTextField>
         </div>
         <div class="sub-container">
+            <div class="container-label">Rich Text Viewer</div>
+            <div class="rich-text-viewer-container">
+                <NimbleRichTextViewer Markdown="@MarkdownString"></NimbleRichTextViewer>
+            </div>
+        </div>
+        <div class="sub-container">
             <div class="container-label">Dialog</div>
             <NimbleButton Appearance="ButtonAppearance.Outline" @onclick="OpenDialogAsync">Open Dialog</NimbleButton>
             <NimbleTextField readonly Value="@DialogClosedReason">Closed reason</NimbleTextField>

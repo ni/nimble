@@ -25,6 +25,12 @@ p, a {
     padding: 0px 2px 0px 10px;
 }
 
+.rich-text-viewer-container {
+    border: var(--ni-nimble-border-width) solid rgba(var(--ni-nimble-action-rgb-partial-color), 0.3);
+    padding: var(--ni-nimble-small-padding);
+    width: 350px;
+}
+
 .sub-container {
     margin: var(--ni-nimble-standard-padding);
 }

@@ -1,0 +1,7 @@
+{
+  "type": "minor",
+  "comment": "Added Blazor wrapper for nimble-rich-text-viewer",
+  "packageName": "@ni/nimble-blazor",
+  "email": "107654185+joseahdz@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
