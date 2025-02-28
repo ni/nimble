@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-blazor
 
-<!-- This log was last generated on Wed, 26 Feb 2025 00:08:30 GMT and should not be manually modified. -->
+<!-- This log was last generated on Fri, 28 Feb 2025 14:57:37 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 19.6.0
+
+Fri, 28 Feb 2025 14:57:37 GMT
+
+### Minor changes
+
+- Added Blazor wrapper for nimble-rich-text-viewer ([ni/nimble@a5233a6](https://github.com/ni/nimble/commit/a5233a6439cbb0e5d5b3552e735d1ca750e1862f))
 
 ## 19.5.2
 
