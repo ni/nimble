@@ -83,7 +83,9 @@ describe('TableColumn', () => {
                     document.createElement(columnName);
                     await Promise.resolve();
                     expect(globalErrorSpy).toHaveBeenCalledTimes(1);
-                    expect(globalErrorSpy.calls.first().args[0].message).toMatch(
+                    expect(
+                        globalErrorSpy.calls.first().args[0].message
+                    ).toMatch(
                         'must evaluate to an element extending TableCellView'
                     );
                 });
@@ -113,7 +115,9 @@ describe('TableColumn', () => {
                     document.createElement(columnName);
                     await Promise.resolve();
                     expect(globalErrorSpy).toHaveBeenCalledTimes(1);
-                    expect(globalErrorSpy.calls.first().args[0].message).toMatch(
+                    expect(
+                        globalErrorSpy.calls.first().args[0].message
+                    ).toMatch(
                         'must evaluate to an element extending TableGroupHeaderView'
                     );
                 });
