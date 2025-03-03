@@ -60,12 +60,6 @@ describe('TableColumn', () => {
         // element construction: https://github.com/WICG/webcomponents/issues/635
         // Right now they are propagated to the global error handler.
 
-        // Manually cast the globalErrorSpy
-        // See: https://github.com/DefinitelyTyped/DefinitelyTyped/issues/61819#issuecomment-1502152632
-        function castSpy(spy: Error): jasmine.Spy<(err: Error) => void> {
-            return spy as unknown as jasmine.Spy<(err: Error) => void>;
-        }
-
         describe('that passes an invalid cellViewTag', () => {
             const columnName = uniqueElementName();
             @customElement({
@@ -86,11 +80,10 @@ describe('TableColumn', () => {
 
             it('throws when instantiated', async () => {
                 await jasmine.spyOnGlobalErrorsAsync(async globalErrorSpy => {
-                    const spy = castSpy(globalErrorSpy);
                     document.createElement(columnName);
                     await Promise.resolve();
-                    expect(spy).toHaveBeenCalledTimes(1);
-                    expect(spy.calls.first().args[0].message).toMatch(
+                    expect(globalErrorSpy).toHaveBeenCalledTimes(1);
+                    expect(globalErrorSpy.calls.first().args[0].message).toMatch(
                         'must evaluate to an element extending TableCellView'
                     );
                 });
@@ -117,11 +110,10 @@ describe('TableColumn', () => {
 
             it('throws when instantiated', async () => {
                 await jasmine.spyOnGlobalErrorsAsync(async globalErrorSpy => {
-                    const spy = castSpy(globalErrorSpy);
                     document.createElement(columnName);
                     await Promise.resolve();
-                    expect(spy).toHaveBeenCalledTimes(1);
-                    expect(spy.calls.first().args[0].message).toMatch(
+                    expect(globalErrorSpy).toHaveBeenCalledTimes(1);
+                    expect(globalErrorSpy.calls.first().args[0].message).toMatch(
                         'must evaluate to an element extending TableGroupHeaderView'
                     );
                 });
