@@ -72,6 +72,10 @@ table.
   Choose whether to enable the `text-hidden` attribute for all mappings or none.
     - Exception: You can use a spinner-only mapping in the same column as an
       icon-only or icon and text mapping.
+- The number of mappings should be bounded and should not grow with the size of
+  the table data. For example, don't add a mapping for each record in order to
+  provide a custom string for each row. Too many mappings can hurt table update
+  performance. For more background, see [issue 2531](https://github.com/ni/nimble/issues/2531).
 
 #### Choosing a mapping style
 
