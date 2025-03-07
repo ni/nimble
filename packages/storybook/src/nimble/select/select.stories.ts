@@ -122,7 +122,7 @@ const optionSets = {
 const filterModeDescription = `
 Controls the filtering behavior of the select. The default of \`none\` results in a dropdown with no input for filtering. A non-'none' setting results in a search input placed at the top or the bottom of the dropdown when opened (depending on where the dropdown is shown relative to the component). The \`standard\` setting will perform a case-insensitive and diacritic-insensitive filtering of the available options anywhere within the text of each option. The \`manual\` setting will provide the search input in the dropdown, but performs no filtering of the options. This allows for custom filtering to be implemented by the consuming application.
 
-It is recommended that if the select has 15 or fewer options that you use the \`none\` setting for the \`filter-mode\`. It is recommended that each select should keep the same filter mode for its lifetime.
+If it is expected that the select will always have 15 or fewer options then use the \`none\` setting for \`filter-mode\`, otherwise some form of filtering should be enabled.
 `;
 const clearableDescription = `
 When the \`clearable\` attribute is set, a clear button will be displayed in the select when a value is selected. Clicking the clear button will clear the selected value and display the placeholder text, if available, or will result in a blank display.
