@@ -61,6 +61,13 @@ table.
 - Provide a mapping for every expected record value. Because grouping is
   performed on the record value, non-mapped record values can result in multiple
   groups without group labels.
+    - Do not create mappings that are are one-to-one for each record in the
+      table for large numbers of records (such as mappings with unique text per
+      record) or update a large number of mappings frequently (such as to show
+      progress in text). Mappings should represent clear groupings or
+      categorizations and large numbers of mappings or lots of mappings with
+      unique text cause poor grouping behaviors and potential performance
+      issues.
     - To improve grouping behavior of a value that shouldn't be rendered in
       table cells, use a <Tag name={mappingEmptyTag}/> element to provide text
       for that value's group row.
@@ -72,11 +79,6 @@ table.
   Choose whether to enable the `text-hidden` attribute for all mappings or none.
     - Exception: You can use a spinner-only mapping in the same column as an
       icon-only or icon and text mapping.
-- The number of mappings should be bounded and should not grow with the size of
-  the table data. For example, don't add a mapping for each record in order to
-  provide a custom string for each row. Too many mappings can hurt table update
-  performance. For more background, see
-  [issue 2531](https://github.com/ni/nimble/issues/2531).
 
 #### Choosing a mapping style
 
