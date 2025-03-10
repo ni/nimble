@@ -1,4 +1,4 @@
-import { html } from '@microsoft/fast-element';
+import { html } from '@ni/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
 import { mappingUserTag } from '../../../../../nimble-components/src/mapping/user';
 import { richTextMentionUsersTag } from '../../../../../nimble-components/src/rich-text-mention/users';

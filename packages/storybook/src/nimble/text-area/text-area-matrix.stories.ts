@@ -1,5 +1,5 @@
 import type { StoryFn, Meta } from '@storybook/html';
-import { html, ViewTemplate } from '@microsoft/fast-element';
+import { html, ViewTemplate } from '@ni/fast-element';
 import { textAreaTag } from '../../../../nimble-components/src/text-area';
 import { TextAreaAppearance } from '../../../../nimble-components/src/text-area/types';
 import { createStory } from '../../utilities/storybook';

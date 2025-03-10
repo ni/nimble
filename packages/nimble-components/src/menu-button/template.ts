@@ -1,4 +1,4 @@
-import { html, ref, slotted, when } from '@microsoft/fast-element';
+import { html, ref, slotted, when } from '@ni/fast-element';
 import type { MenuButton } from '.';
 import { toggleButtonTag } from '../toggle-button';
 import { anchoredRegionTag } from '../anchored-region';

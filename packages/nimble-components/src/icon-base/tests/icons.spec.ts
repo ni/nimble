@@ -1,6 +1,6 @@
 import * as nimbleIconsMap from '@ni/nimble-tokens/dist/icons/js';
-import { DesignSystem } from '@microsoft/fast-foundation';
-import { html } from '@microsoft/fast-element';
+import { DesignSystem } from '@ni/fast-foundation';
+import { html } from '@ni/fast-element';
 import { parameterizeSpec } from '@ni/jasmine-parameterized';
 import * as allIconsNamespace from '../../icons/all-icons';
 import { iconMetadata } from './icon-metadata';

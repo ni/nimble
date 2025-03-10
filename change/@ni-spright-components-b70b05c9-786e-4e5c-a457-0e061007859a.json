@@ -1,0 +1,7 @@
+{
+  "type": "major",
+  "comment": "Migrate to @ni/fast-* packages",
+  "packageName": "@ni/spright-components",
+  "email": "rajsite@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}

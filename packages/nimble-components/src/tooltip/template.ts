@@ -1,4 +1,4 @@
-import { html, ref, when } from '@microsoft/fast-element';
+import { html, ref, when } from '@ni/fast-element';
 import { anchoredRegionTag } from '../anchored-region';
 import { iconExclamationMarkTag } from '../icons/exclamation-mark';
 import { iconInfoTag } from '../icons/info';

@@ -1,4 +1,4 @@
-import { html, when } from '@microsoft/fast-element';
+import { html, when } from '@ni/fast-element';
 import type { TableColumnMappingCellView } from '.';
 import { overflow } from '../../../utilities/directive/overflow';
 

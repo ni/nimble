@@ -1,6 +1,6 @@
-import { html, ref } from '@microsoft/fast-element';
+import { html, ref } from '@ni/fast-element';
 import { parameterizeSpec } from '@ni/jasmine-parameterized';
-import { keyArrowDown, keyEscape, keyTab } from '@microsoft/fast-web-utilities';
+import { keyArrowDown, keyEscape, keyTab } from '@ni/fast-web-utilities';
 import { tableTag, type Table } from '../../../table';
 import { TableColumnAnchor, tableColumnAnchorTag } from '..';
 import { waitForUpdatesAsync } from '../../../testing/async-helpers';

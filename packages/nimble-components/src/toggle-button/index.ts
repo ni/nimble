@@ -1,4 +1,4 @@
-import { attr, nullableNumberConverter } from '@microsoft/fast-element';
+import { attr, nullableNumberConverter } from '@ni/fast-element';
 import {
     applyMixins,
     type ButtonOptions,
@@ -6,7 +6,7 @@ import {
     DesignSystem,
     StartEnd,
     Switch as FoundationSwitch
-} from '@microsoft/fast-foundation';
+} from '@ni/fast-foundation';
 import { styles } from './styles';
 import { template } from './template';
 import type { ButtonPattern } from '../patterns/button/types';

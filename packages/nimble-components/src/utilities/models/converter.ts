@@ -1,4 +1,4 @@
-import type { ValueConverter } from '@microsoft/fast-element';
+import type { ValueConverter } from '@ni/fast-element';
 
 // Should be used for attributes that are optional booleans, where true, false, and undefined all
 // have separate meanings and must have distinct representations.

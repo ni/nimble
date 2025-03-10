@@ -1,4 +1,4 @@
-import { DesignToken } from '@microsoft/fast-foundation';
+import { DesignToken } from '@ni/fast-foundation';
 import { tableLabelDefaults } from './label-token-defaults';
 
 export const tableGroupCollapseLabel = DesignToken.create<string>({

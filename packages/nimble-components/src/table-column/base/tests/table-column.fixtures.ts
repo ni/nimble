@@ -1,6 +1,6 @@
 /* eslint-disable max-classes-per-file, @typescript-eslint/no-unused-vars */
 
-import { attr, customElement } from '@microsoft/fast-element';
+import { attr, customElement } from '@ni/fast-element';
 import { TableCellView } from '../cell-view';
 import { TableGroupHeaderView } from '../group-header-view';
 import { TableColumn } from '..';

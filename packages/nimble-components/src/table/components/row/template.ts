@@ -1,4 +1,4 @@
-import { html, ref, repeat, when } from '@microsoft/fast-element';
+import { html, ref, repeat, when } from '@ni/fast-element';
 import type { TableRow } from '.';
 import {
     ButtonAppearance,

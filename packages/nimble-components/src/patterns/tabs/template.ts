@@ -1,11 +1,11 @@
-import { html, ref, slotted, when } from '@microsoft/fast-element';
-import type { ViewTemplate } from '@microsoft/fast-element';
+import { html, ref, slotted, when } from '@ni/fast-element';
+import type { ViewTemplate } from '@ni/fast-element';
 import {
     endSlotTemplate,
     startSlotTemplate,
     type FoundationElementTemplate,
     type TabsOptions
-} from '@microsoft/fast-foundation';
+} from '@ni/fast-foundation';
 import type { Tabs } from '../../tabs';
 import { buttonTag } from '../../button';
 import { iconArrowExpanderLeftTag } from '../../icons/arrow-expander-left';

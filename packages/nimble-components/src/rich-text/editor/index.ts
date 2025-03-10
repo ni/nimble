@@ -1,10 +1,10 @@
-import { observable, attr, DOM } from '@microsoft/fast-element';
+import { observable, attr, DOM } from '@ni/fast-element';
 import {
     applyMixins,
     ARIAGlobalStatesAndProperties,
     DesignSystem
-} from '@microsoft/fast-foundation';
-import { keyEnter, keySpace } from '@microsoft/fast-web-utilities';
+} from '@ni/fast-foundation';
+import { keyEnter, keySpace } from '@ni/fast-web-utilities';
 import {
     findParentNode,
     isList,

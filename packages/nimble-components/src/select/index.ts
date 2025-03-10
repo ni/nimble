@@ -1,11 +1,5 @@
 // Based on: https://github.com/microsoft/fast/blob/%40microsoft/fast-foundation_v2.49.5/packages/web-components/fast-foundation/src/select/select.ts
-import {
-    attr,
-    html,
-    observable,
-    Observable,
-    volatile
-} from '@microsoft/fast-element';
+import { attr, html, observable, Observable, volatile } from '@ni/fast-element';
 import {
     AnchoredRegion,
     DesignSystem,
@@ -16,7 +10,7 @@ import {
     applyMixins,
     StartEnd,
     DelegatesARIASelect
-} from '@microsoft/fast-foundation';
+} from '@ni/fast-foundation';
 import {
     findLastIndex,
     keyArrowDown,
@@ -27,7 +21,7 @@ import {
     keyHome,
     keySpace,
     uniqueId
-} from '@microsoft/fast-web-utilities';
+} from '@ni/fast-web-utilities';
 import { arrowExpanderDown16X16 } from '@ni/nimble-tokens/dist/icons/js';
 import { styles } from './styles';
 import {

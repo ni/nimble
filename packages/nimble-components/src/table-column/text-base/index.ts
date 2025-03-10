@@ -1,4 +1,4 @@
-import { attr } from '@microsoft/fast-element';
+import { attr } from '@ni/fast-element';
 import { TableColumn } from '../base';
 import { mixinFractionalWidthColumnAPI } from '../mixins/fractional-width-column';
 import { mixinGroupableColumnAPI } from '../mixins/groupable-column';

@@ -1,10 +1,10 @@
-import { attr, observable } from '@microsoft/fast-element';
+import { attr, observable } from '@ni/fast-element';
 import {
     DesignSystem,
     type AnchorOptions,
     type MenuItemColumnCount
-} from '@microsoft/fast-foundation';
-import { keyEnter } from '@microsoft/fast-web-utilities';
+} from '@ni/fast-foundation';
+import { keyEnter } from '@ni/fast-web-utilities';
 import { AnchorBase } from '../anchor-base';
 import { styles } from './styles';
 import { template } from './template';

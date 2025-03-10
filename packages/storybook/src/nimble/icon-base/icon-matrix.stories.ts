@@ -1,5 +1,5 @@
 import type { StoryFn, Meta } from '@storybook/html';
-import { html, ViewTemplate } from '@microsoft/fast-element';
+import { html, ViewTemplate } from '@ni/fast-element';
 import { bodyFontColor } from '../../../../nimble-components/src/theme-provider/design-tokens';
 import { iconCheckTag } from '../../../../nimble-components/src/icons/check';
 import { IconSeverity } from '../../../../nimble-components/src/icon-base/types';

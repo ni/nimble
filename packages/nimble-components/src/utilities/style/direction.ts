@@ -7,9 +7,9 @@ import type {
     ElementStyles,
     FASTElement,
     Subscriber
-} from '@microsoft/fast-element';
-import type { DesignTokenChangeRecord } from '@microsoft/fast-foundation';
-import type { Direction } from '@microsoft/fast-web-utilities';
+} from '@ni/fast-element';
+import type { DesignTokenChangeRecord } from '@ni/fast-foundation';
+import type { Direction } from '@ni/fast-web-utilities';
 import { direction as directionDesignToken } from '../../theme-provider';
 /**
  * Behavior to conditionally apply LTR and RTL stylesheets. To determine which to apply,
@@ -18,8 +18,8 @@ import { direction as directionDesignToken } from '../../theme-provider';
  * @public
  * @example
  * ```ts
- * import { css } from "@microsoft/fast-element";
- * import { DirectionalStyleSheetBehavior } from "@microsoft/fast-foundation";
+ * import { css } from "@ni/fast-element";
+ * import { DirectionalStyleSheetBehavior } from "@ni/fast-foundation";
  *
  * css`
  *  // ...

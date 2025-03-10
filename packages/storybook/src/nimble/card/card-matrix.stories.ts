@@ -1,4 +1,4 @@
-import { ViewTemplate, html } from '@microsoft/fast-element';
+import { ViewTemplate, html } from '@ni/fast-element';
 import type { Meta, StoryFn } from '@storybook/html';
 import { listOptionTag } from '../../../../nimble-components/src/list-option';
 import { numberFieldTag } from '../../../../nimble-components/src/number-field';

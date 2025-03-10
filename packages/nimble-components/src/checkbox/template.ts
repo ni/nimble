@@ -1,8 +1,8 @@
-import { html, slotted, type ViewTemplate } from '@microsoft/fast-element';
+import { html, slotted, type ViewTemplate } from '@ni/fast-element';
 import type {
     CheckboxOptions,
     FoundationElementTemplate
-} from '@microsoft/fast-foundation';
+} from '@ni/fast-foundation';
 import type { Checkbox } from '.';
 import { iconExclamationMarkTag } from '../icons/exclamation-mark';
 import { errorTextTemplate } from '../patterns/error/template';

@@ -1,8 +1,8 @@
 import {
     DesignSystem,
     ListboxOption as FoundationListboxOption
-} from '@microsoft/fast-foundation';
-import { observable, attr } from '@microsoft/fast-element';
+} from '@ni/fast-foundation';
+import { observable, attr } from '@ni/fast-element';
 import { styles } from './styles';
 import { template } from './template';
 import type { ListOptionOwner } from '../patterns/dropdown/types';

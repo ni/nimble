@@ -1,4 +1,4 @@
-import { DesignToken } from '@microsoft/fast-foundation';
+import { DesignToken } from '@ni/fast-foundation';
 import { coreLabelDefaults } from './label-token-defaults';
 
 export const popupDismissLabel = DesignToken.create<string>({

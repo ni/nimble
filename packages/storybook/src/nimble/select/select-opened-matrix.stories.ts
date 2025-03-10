@@ -1,5 +1,5 @@
 import type { StoryFn, Meta } from '@storybook/html';
-import { html, repeat, ViewTemplate, when } from '@microsoft/fast-element';
+import { html, repeat, ViewTemplate, when } from '@ni/fast-element';
 import { DropdownPosition } from '../../../../nimble-components/src/patterns/dropdown/types';
 import { listOptionTag } from '../../../../nimble-components/src/list-option';
 import { listOptionGroupTag } from '../../../../nimble-components/src/list-option-group';
