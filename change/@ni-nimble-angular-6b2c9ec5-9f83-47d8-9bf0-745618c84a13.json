@@ -1,7 +1,0 @@
-{
-  "type": "major",
-  "comment": "Migrate to @ni/fast-* packages",
-  "packageName": "@ni/nimble-angular",
-  "email": "rajsite@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}

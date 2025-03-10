@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Mon, 10 Mar 2025 21:33:38 GMT",
+      "version": "33.0.0",
+      "tag": "@ni/nimble-components_v33.0.0",
+      "comments": {
+        "major": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "fb0dea7daad3ea3fe53f630351ba3fe8f8c347ba",
+            "comment": "Migrate to @ni/fast-* packages"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 03 Mar 2025 23:02:01 GMT",
       "version": "32.13.0",
       "tag": "@ni/nimble-components_v32.13.0",

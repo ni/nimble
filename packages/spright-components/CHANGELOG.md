@@ -1,8 +1,17 @@
 # Change Log - @ni/spright-components
 
-<!-- This log was last generated on Wed, 26 Feb 2025 00:08:30 GMT and should not be manually modified. -->
+<!-- This log was last generated on Mon, 10 Mar 2025 21:33:38 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 5.0.0
+
+Mon, 10 Mar 2025 21:33:38 GMT
+
+### Major changes
+
+- Migrate to @ni/fast-* packages ([ni/nimble@fb0dea7](https://github.com/ni/nimble/commit/fb0dea7daad3ea3fe53f630351ba3fe8f8c347ba))
+- Bump @ni/nimble-components to v33.0.0
 
 ## 4.5.1
 
