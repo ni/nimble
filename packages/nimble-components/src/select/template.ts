@@ -1,10 +1,4 @@
-import {
-    html,
-    ref,
-    slotted,
-    ViewTemplate,
-    when
-} from '@ni/fast-element';
+import { html, ref, slotted, ViewTemplate, when } from '@ni/fast-element';
 import {
     endSlotTemplate,
     type FoundationElementTemplate,

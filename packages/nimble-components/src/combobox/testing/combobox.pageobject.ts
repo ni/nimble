@@ -1,8 +1,4 @@
-import {
-    keyEnter,
-    keyArrowDown,
-    keyArrowUp
-} from '@ni/fast-web-utilities';
+import { keyEnter, keyArrowDown, keyArrowUp } from '@ni/fast-web-utilities';
 import type { Combobox } from '..';
 import { listOptionTag } from '../../list-option';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';

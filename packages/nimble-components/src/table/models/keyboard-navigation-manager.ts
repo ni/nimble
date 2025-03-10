@@ -1,8 +1,4 @@
-import {
-    type Notifier,
-    type Subscriber,
-    Observable
-} from '@ni/fast-element';
+import { type Notifier, type Subscriber, Observable } from '@ni/fast-element';
 import {
     keyArrowDown,
     keyArrowLeft,

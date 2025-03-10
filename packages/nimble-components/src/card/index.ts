@@ -1,7 +1,4 @@
-import {
-    DesignSystem,
-    Card as FoundationCard
-} from '@ni/fast-foundation';
+import { DesignSystem, Card as FoundationCard } from '@ni/fast-foundation';
 import { styles } from './styles';
 import { template } from './template';
 

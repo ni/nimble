@@ -141,7 +141,7 @@ Sometimes you may want to extend a FAST component, but need to make changes to t
 Use the `css` tagged template helper to style the component according to Nimble guidelines. See [leveraging-css.md](https://github.com/microsoft/fast/blob/c94ad896dda3d4c806585d1d0bbfb37abdc3d758/packages/web-components/fast-element/docs/guide/leveraging-css.md) for (hopefully up-to-date) tips from FAST.
 
 ```ts
-import { Button as FoundationButton } from '@microsoft/fast-foundation';
+import { Button as FoundationButton } from '@ni/fast-foundation';
 const styles = css`
     ${/* My custom CSS for the nimble fancy button */ ''}
     :host {
@@ -240,7 +240,7 @@ With an attribute defined there are several ways to react to updates. To minimiz
 
     <!-- prettier-ignore -->
     ```ts
-    import { css } from '@microsoft/fast-element';
+    import { css } from '@ni/fast-element';
     css`
         /* ... */
     `.withBehaviors(

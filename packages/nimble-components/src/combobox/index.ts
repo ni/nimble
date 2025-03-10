@@ -1,11 +1,4 @@
-import {
-    DOM,
-    Observable,
-    attr,
-    html,
-    observable,
-    ref
-} from '@ni/fast-element';
+import { DOM, Observable, attr, html, observable, ref } from '@ni/fast-element';
 import {
     DesignSystem,
     type ComboboxOptions,

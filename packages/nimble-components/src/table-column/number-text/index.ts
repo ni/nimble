@@ -1,7 +1,4 @@
-import {
-    DesignSystem,
-    type DesignTokenSubscriber
-} from '@ni/fast-foundation';
+import { DesignSystem, type DesignTokenSubscriber } from '@ni/fast-foundation';
 import {
     attr,
     type Notifier,

@@ -1,9 +1,4 @@
-import {
-    keySpace,
-    keyEnter,
-    keyTab,
-    keyEscape
-} from '@ni/fast-web-utilities';
+import { keySpace, keyEnter, keyTab, keyEscape } from '@ni/fast-web-utilities';
 import type { RichTextEditor } from '..';
 import { waitForUpdatesAsync } from '../../../testing/async-helpers';
 import { toggleButtonTag, type ToggleButton } from '../../../toggle-button';
