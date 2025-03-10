@@ -61,6 +61,13 @@ table.
 - Provide a mapping for every expected record value. Because grouping is
   performed on the record value, non-mapped record values can result in multiple
   groups without group labels.
+    - Do not create mappings that are are one-to-one for each record in the
+      table for large numbers of records (such as mappings with unique text per
+      record) or update a large number of mappings frequently (such as to show
+      progress in text). Mappings should represent clear groupings or
+      categorizations and large numbers of mappings or lots of mappings with
+      unique text cause poor grouping behaviors and potential performance
+      issues.
     - To improve grouping behavior of a value that shouldn't be rendered in
       table cells, use a <Tag name={mappingEmptyTag}/> element to provide text
       for that value's group row.

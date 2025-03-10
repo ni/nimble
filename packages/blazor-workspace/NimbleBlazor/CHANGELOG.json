@@ -2,6 +2,21 @@
   "name": "@ni/nimble-blazor",
   "entries": [
     {
+      "date": "Fri, 28 Feb 2025 14:57:37 GMT",
+      "version": "19.6.0",
+      "tag": "@ni/nimble-blazor_v19.6.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "107654185+joseahdz@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "a5233a6439cbb0e5d5b3552e735d1ca750e1862f",
+            "comment": "Added Blazor wrapper for nimble-rich-text-viewer"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 26 Feb 2025 00:08:30 GMT",
       "version": "19.5.2",
       "tag": "@ni/nimble-blazor_v19.5.2",

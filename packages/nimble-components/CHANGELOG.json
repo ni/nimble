@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Mon, 03 Mar 2025 23:02:01 GMT",
+      "version": "32.13.0",
+      "tag": "@ni/nimble-components_v32.13.0",
+      "comments": {
+        "none": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "7403ed79ff09140920b39f47530010c185885b1a",
+            "comment": "Update dependencies"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 26 Feb 2025 00:08:30 GMT",
       "version": "32.13.0",
       "tag": "@ni/nimble-components_v32.13.0",
