@@ -1,4 +1,4 @@
-import { slotted, html } from '@microsoft/fast-element';
+import { slotted, html } from '@ni/fast-element';
 import type { RichTextMention } from '.';
 
 export const template = html<RichTextMention>`<slot

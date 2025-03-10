@@ -1,4 +1,4 @@
-import { html } from '@microsoft/fast-element';
+import { html } from '@ni/fast-element';
 import { MappingUser, mappingUserTag } from '..';
 import { fixture, type Fixture } from '../../../utilities/tests/fixture';
 

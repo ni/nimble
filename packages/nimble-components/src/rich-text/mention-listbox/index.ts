@@ -1,10 +1,10 @@
-import { type Notifier, Observable, observable } from '@microsoft/fast-element';
+import { type Notifier, Observable, observable } from '@ni/fast-element';
 import {
     DesignSystem,
     ListboxElement as FoundationListbox,
     ListboxOption
-} from '@microsoft/fast-foundation';
-import { keyEnter, keyEscape, keyTab } from '@microsoft/fast-web-utilities';
+} from '@ni/fast-foundation';
+import { keyEnter, keyEscape, keyTab } from '@ni/fast-web-utilities';
 import type { MentionDetail } from '../editor/types';
 import { styles } from './styles';
 import { template } from './template';

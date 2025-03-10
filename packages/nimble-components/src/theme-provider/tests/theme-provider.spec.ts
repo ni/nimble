@@ -1,5 +1,5 @@
-import { html } from '@microsoft/fast-element';
-import { spinalCase } from '@microsoft/fast-web-utilities';
+import { html } from '@ni/fast-element';
+import { spinalCase } from '@ni/fast-web-utilities';
 import { parameterizeSpec } from '@ni/jasmine-parameterized';
 import * as designTokensNamespace from '../design-tokens';
 import { tokenNames, suffixFromTokenName } from '../design-token-names';

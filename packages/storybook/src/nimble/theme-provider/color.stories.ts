@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/html';
-import { html, repeat } from '@microsoft/fast-element';
+import { html, repeat } from '@ni/fast-element';
 import * as tokens from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
 import {
     controlLabelFont,

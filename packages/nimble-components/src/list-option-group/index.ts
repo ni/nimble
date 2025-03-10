@@ -1,10 +1,10 @@
-import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
+import { DesignSystem, FoundationElement } from '@ni/fast-foundation';
 import {
     observable,
     attr,
     volatile,
     Observable
-} from '@microsoft/fast-element';
+} from '@ni/fast-element';
 import { styles } from './styles';
 import { template } from './template';
 import { ListOption } from '../list-option';

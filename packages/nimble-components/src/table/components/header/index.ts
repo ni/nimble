@@ -1,5 +1,5 @@
-import { attr, observable } from '@microsoft/fast-element';
-import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
+import { attr, observable } from '@ni/fast-element';
+import { DesignSystem, FoundationElement } from '@ni/fast-foundation';
 import { TableColumnAlignment, TableColumnSortDirection } from '../../types';
 import { styles } from './styles';
 import { template } from './template';

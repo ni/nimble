@@ -1,4 +1,4 @@
-import { html } from '@microsoft/fast-element';
+import { html } from '@ni/fast-element';
 import { ChatMessage, chatMessageTag } from '..';
 import { fixture, type Fixture } from '../../../utilities/tests/fixture';
 import { ChatMessageType } from '../types';

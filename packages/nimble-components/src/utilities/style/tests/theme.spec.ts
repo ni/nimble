@@ -5,7 +5,7 @@ import {
     css,
     ref,
     ElementStyles
-} from '@microsoft/fast-element';
+} from '@ni/fast-element';
 import { themeProviderTag, type ThemeProvider } from '../../../theme-provider';
 import { Theme } from '../../../theme-provider/types';
 import { uniqueElementName, fixture } from '../../tests/fixture';

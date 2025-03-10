@@ -1,9 +1,9 @@
-import { attr } from '@microsoft/fast-element';
+import { attr } from '@ni/fast-element';
 import {
     Button as FoundationButton,
     buttonTemplate as template,
     DesignSystem
-} from '@microsoft/fast-foundation';
+} from '@ni/fast-foundation';
 import { styles } from './styles';
 
 declare global {
@@ -27,7 +27,7 @@ export class CardButton extends FoundationButton {
 
 /**
  * A function that returns a nimble-card-button registration for configuring the component with a DesignSystem.
- * Implements {@link @microsoft/fast-foundation#buttonTemplate}
+ * Implements {@link @ni/fast-foundation#buttonTemplate}
  *
  * @public
  * @remarks

@@ -1,5 +1,5 @@
-import { uniqueId } from '@microsoft/fast-web-utilities';
-import { ViewTemplate, observable } from '@microsoft/fast-element';
+import { uniqueId } from '@ni/fast-web-utilities';
+import { ViewTemplate, observable } from '@ni/fast-element';
 import {
     TableColumnAlignment,
     TableColumnSortDirection,

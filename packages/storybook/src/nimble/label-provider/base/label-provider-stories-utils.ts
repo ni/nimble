@@ -1,6 +1,6 @@
-import { ViewTemplate, html, ref } from '@microsoft/fast-element';
+import { ViewTemplate, html, ref } from '@ni/fast-element';
 import type { Meta } from '@storybook/html';
-import type { DesignToken } from '@microsoft/fast-foundation';
+import type { DesignToken } from '@ni/fast-foundation';
 import { bodyFont } from '../../../../../nimble-components/src/theme-provider/design-tokens';
 import { Table, tableTag } from '../../../../../nimble-components/src/table';
 import { tableColumnTextTag } from '../../../../../nimble-components/src/table-column/text';

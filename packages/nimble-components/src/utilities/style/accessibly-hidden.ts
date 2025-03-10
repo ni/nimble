@@ -1,4 +1,4 @@
-import { cssPartial } from '@microsoft/fast-element';
+import { cssPartial } from '@ni/fast-element';
 
 /**
  * Hide content visually while keeping it screen reader-accessible.

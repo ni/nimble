@@ -1,5 +1,5 @@
-import type { Checkbox } from '@microsoft/fast-foundation';
-import { parseColor } from '@microsoft/fast-colors';
+import type { Checkbox } from '@ni/fast-foundation';
+import { parseColor } from '@ni/fast-colors';
 import type { Table } from '..';
 import { tableHeaderTag, type TableHeader } from '../components/header';
 import {

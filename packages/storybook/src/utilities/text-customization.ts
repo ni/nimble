@@ -1,4 +1,4 @@
-import { html, ViewTemplate } from '@microsoft/fast-element';
+import { html, ViewTemplate } from '@ni/fast-element';
 
 /**
  * Applies a style to customize text for all elements

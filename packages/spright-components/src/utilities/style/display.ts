@@ -2,7 +2,7 @@ import {
     type CSSDisplayPropertyValue,
     // eslint-disable-next-line no-restricted-imports
     display as foundationDisplay
-} from '@microsoft/fast-foundation';
+} from '@ni/fast-foundation';
 
 /**
  * Each element should use the display utility which will create styles to:

@@ -1,4 +1,4 @@
-import type { ViewTemplate } from '@microsoft/fast-element';
+import type { ViewTemplate } from '@ni/fast-element';
 import type { MentionInternals } from '../../rich-text-mention/base/models/mention-internals';
 import { mentionPluginPrefix } from '../editor/types';
 import type {

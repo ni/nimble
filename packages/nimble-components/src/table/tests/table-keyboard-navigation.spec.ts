@@ -1,6 +1,6 @@
 /* eslint-disable no-await-in-loop */
-import { customElement, html, observable, ref } from '@microsoft/fast-element';
-import { FoundationElement } from '@microsoft/fast-foundation';
+import { customElement, html, observable, ref } from '@ni/fast-element';
+import { FoundationElement } from '@ni/fast-foundation';
 import {
     keyArrowDown,
     keyArrowLeft,
@@ -15,7 +15,7 @@ import {
     keyPageUp,
     keySpace,
     keyTab
-} from '@microsoft/fast-web-utilities';
+} from '@ni/fast-web-utilities';
 import { parameterizeSpec } from '@ni/jasmine-parameterized';
 import { tableTag, type Table } from '..';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';

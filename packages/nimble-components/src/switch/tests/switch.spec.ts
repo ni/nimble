@@ -1,5 +1,5 @@
-import { html } from '@microsoft/fast-element';
-import { keyEnter, keySpace } from '@microsoft/fast-web-utilities';
+import { html } from '@ni/fast-element';
+import { keyEnter, keySpace } from '@ni/fast-web-utilities';
 import { fixture, type Fixture } from '../../utilities/tests/fixture';
 import { Switch, switchTag } from '..';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';

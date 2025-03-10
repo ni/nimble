@@ -1,5 +1,5 @@
-import { Observable, observable, type Notifier } from '@microsoft/fast-element';
-import { FoundationElement } from '@microsoft/fast-foundation';
+import { Observable, observable, type Notifier } from '@ni/fast-element';
+import { FoundationElement } from '@ni/fast-foundation';
 import { RichTextMention } from '../../rich-text-mention/base';
 import { MentionInternals } from '../../rich-text-mention/base/models/mention-internals';
 import { Configuration } from '../models/configuration';

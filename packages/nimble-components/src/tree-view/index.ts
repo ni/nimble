@@ -1,9 +1,9 @@
-import { attr, observable } from '@microsoft/fast-element';
+import { attr, observable } from '@ni/fast-element';
 import {
     TreeView as FoundationTreeView,
     DesignSystem,
     isTreeItemElement
-} from '@microsoft/fast-foundation';
+} from '@ni/fast-foundation';
 import { TreeItem } from '../tree-item';
 import { styles } from './styles';
 import { template } from './template';
@@ -17,7 +17,7 @@ declare global {
 
 /**
  * A function that returns a nimble-tree-view registration for configuring the component with a DesignSystem.
- * Implements {@link @microsoft/fast-foundation#treeViewTemplate}
+ * Implements {@link @ni/fast-foundation#treeViewTemplate}
  *
  *
  * @public

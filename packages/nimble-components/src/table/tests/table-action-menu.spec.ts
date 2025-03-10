@@ -1,9 +1,9 @@
-import { html } from '@microsoft/fast-element';
+import { html } from '@ni/fast-element';
 import {
     keyArrowDown,
     keyArrowUp,
     keyEscape
-} from '@microsoft/fast-web-utilities';
+} from '@ni/fast-web-utilities';
 import { tableTag, type Table } from '..';
 import type { TableColumn } from '../../table-column/base';
 import { menuTag, type Menu } from '../../menu';

@@ -1,4 +1,4 @@
-import { html, repeat, when } from '@microsoft/fast-element';
+import { html, repeat, when } from '@ni/fast-element';
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html';
 import { listOptionTag } from '../../../../nimble-components/src/list-option';

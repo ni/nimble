@@ -1,4 +1,4 @@
-import { html } from '@microsoft/fast-element';
+import { html } from '@ni/fast-element';
 import { NumberField, numberFieldTag } from '..';
 import {
     LabelProviderCore,

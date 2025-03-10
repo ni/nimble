@@ -1,4 +1,4 @@
-import { html } from '@microsoft/fast-element';
+import { html } from '@ni/fast-element';
 import type { ChatConversation } from '.';
 
 /* eslint-disable @typescript-eslint/indent */

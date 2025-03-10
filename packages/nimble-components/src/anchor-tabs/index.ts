@@ -8,7 +8,7 @@
 // - Removed support for vertical tab orientation
 // - Removed change event
 // - Conforms to our linter rules
-import { attr, observable } from '@microsoft/fast-element';
+import { attr, observable } from '@ni/fast-element';
 import {
     keyArrowLeft,
     keyArrowRight,
@@ -17,7 +17,7 @@ import {
     keyHome,
     keySpace,
     uniqueId
-} from '@microsoft/fast-web-utilities';
+} from '@ni/fast-web-utilities';
 import {
     DesignSystem,
     StartEnd,
@@ -25,7 +25,7 @@ import {
     type StartEndOptions,
     type FoundationElementDefinition,
     FoundationElement
-} from '@microsoft/fast-foundation';
+} from '@ni/fast-foundation';
 import { styles } from '../patterns/tabs/styles';
 import { template } from '../patterns/tabs/template';
 import type { AnchorTab } from '../anchor-tab';

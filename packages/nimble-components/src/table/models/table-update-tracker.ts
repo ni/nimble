@@ -1,4 +1,4 @@
-import { DOM } from '@microsoft/fast-element';
+import { DOM } from '@ni/fast-element';
 import type { Table } from '..';
 import type { TableColumn } from '../../table-column/base';
 import type { TableRecord } from '../types';

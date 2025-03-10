@@ -5,7 +5,7 @@ import {
     observable,
     Observable,
     volatile
-} from '@microsoft/fast-element';
+} from '@ni/fast-element';
 import {
     AnchoredRegion,
     DesignSystem,
@@ -16,7 +16,7 @@ import {
     applyMixins,
     StartEnd,
     DelegatesARIASelect
-} from '@microsoft/fast-foundation';
+} from '@ni/fast-foundation';
 import {
     findLastIndex,
     keyArrowDown,
@@ -27,7 +27,7 @@ import {
     keyHome,
     keySpace,
     uniqueId
-} from '@microsoft/fast-web-utilities';
+} from '@ni/fast-web-utilities';
 import { arrowExpanderDown16X16 } from '@ni/nimble-tokens/dist/icons/js';
 import { styles } from './styles';
 import {

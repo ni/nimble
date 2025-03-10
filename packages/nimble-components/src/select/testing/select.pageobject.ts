@@ -5,7 +5,7 @@ import {
     keyArrowUp,
     keySpace,
     keyTab
-} from '@microsoft/fast-web-utilities';
+} from '@ni/fast-web-utilities';
 import type { Select } from '..';
 import { listOptionTag, type ListOption } from '../../list-option';
 import {

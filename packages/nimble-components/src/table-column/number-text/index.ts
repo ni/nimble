@@ -1,7 +1,7 @@
 import {
     DesignSystem,
     type DesignTokenSubscriber
-} from '@microsoft/fast-foundation';
+} from '@ni/fast-foundation';
 import {
     attr,
     type Notifier,
@@ -9,7 +9,7 @@ import {
     Observable,
     observable,
     type Subscriber
-} from '@microsoft/fast-element';
+} from '@ni/fast-element';
 import { styles } from '../base/styles';
 import { template } from './template';
 import { TableColumnAlignment, type TableNumberField } from '../../table/types';

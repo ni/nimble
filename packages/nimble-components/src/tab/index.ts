@@ -2,7 +2,7 @@ import {
     DesignSystem,
     Tab as FoundationTab,
     tabTemplate as template
-} from '@microsoft/fast-foundation';
+} from '@ni/fast-foundation';
 import { styles } from './styles';
 
 declare global {

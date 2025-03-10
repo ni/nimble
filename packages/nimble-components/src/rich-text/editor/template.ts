@@ -1,4 +1,4 @@
-import { children, elements, html, ref, repeat } from '@microsoft/fast-element';
+import { children, elements, html, ref, repeat } from '@ni/fast-element';
 import type { RichTextEditor } from '.';
 import { toolbarTag } from '../../toolbar';
 import { toggleButtonTag } from '../../toggle-button';

@@ -1,4 +1,4 @@
-import { html } from '@microsoft/fast-element';
+import { html } from '@ni/fast-element';
 import type { TableColumnTextGroupHeaderViewBase } from '.';
 import { overflow } from '../../../utilities/directive/overflow';
 

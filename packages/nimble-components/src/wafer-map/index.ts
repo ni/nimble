@@ -3,8 +3,8 @@ import {
     attr,
     nullableNumberConverter,
     observable
-} from '@microsoft/fast-element';
-import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
+} from '@ni/fast-element';
+import { DesignSystem, FoundationElement } from '@ni/fast-foundation';
 import { zoomIdentity, ZoomTransform } from 'd3-zoom';
 import { type Table, tableFromIPC } from 'apache-arrow';
 import { template } from './template';

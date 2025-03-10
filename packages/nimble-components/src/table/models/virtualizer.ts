@@ -1,4 +1,4 @@
-import { observable } from '@microsoft/fast-element';
+import { observable } from '@ni/fast-element';
 import type { Table as TanStackTable } from '@tanstack/table-core';
 import {
     Virtualizer as TanStackVirtualizer,

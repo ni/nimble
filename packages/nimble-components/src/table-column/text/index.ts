@@ -1,4 +1,4 @@
-import { DesignSystem } from '@microsoft/fast-foundation';
+import { DesignSystem } from '@ni/fast-foundation';
 import { styles } from '../base/styles';
 import { template } from '../base/template';
 import type { TableStringField } from '../../table/types';
