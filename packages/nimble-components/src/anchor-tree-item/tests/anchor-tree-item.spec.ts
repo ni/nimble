@@ -1,5 +1,5 @@
-import { customElement, html, ref } from '@microsoft/fast-element';
-import { TreeItem as FoundationTreeItem } from '@microsoft/fast-foundation';
+import { customElement, html, ref } from '@ni/fast-element';
+import { TreeItem as FoundationTreeItem } from '@ni/fast-foundation';
 import { parameterizeSpec } from '@ni/jasmine-parameterized';
 import { AnchorTreeItem, anchorTreeItemTag } from '..';
 import { iconCheckTag, type IconCheck } from '../../icons/check';

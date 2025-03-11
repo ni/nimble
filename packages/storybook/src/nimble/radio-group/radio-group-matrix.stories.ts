@@ -1,6 +1,6 @@
 import type { StoryFn, Meta } from '@storybook/html';
-import { html, ViewTemplate } from '@microsoft/fast-element';
-import { Orientation } from '@microsoft/fast-web-utilities';
+import { html, ViewTemplate } from '@ni/fast-element';
+import { Orientation } from '@ni/fast-web-utilities';
 import { standardPadding } from '../../../../nimble-components/src/theme-provider/design-tokens';
 import { radioTag } from '../../../../nimble-components/src/radio';
 import { radioGroupTag } from '../../../../nimble-components/src/radio-group';

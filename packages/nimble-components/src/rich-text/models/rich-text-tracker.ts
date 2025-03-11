@@ -1,4 +1,4 @@
-import { DOM } from '@microsoft/fast-element';
+import { DOM } from '@ni/fast-element';
 import { UpdateTracker } from '../../utilities/models/update-tracker';
 import type { RichText } from '../base';
 

@@ -1,4 +1,4 @@
-import type { FoundationElement } from '@microsoft/fast-foundation';
+import type { FoundationElement } from '@ni/fast-foundation';
 import { processUpdates } from '../../../testing/async-helpers';
 
 /**

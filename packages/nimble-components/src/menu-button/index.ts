@@ -1,15 +1,11 @@
-import {
-    attr,
-    nullableNumberConverter,
-    observable
-} from '@microsoft/fast-element';
-import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
+import { attr, nullableNumberConverter, observable } from '@ni/fast-element';
+import { DesignSystem, FoundationElement } from '@ni/fast-foundation';
 import {
     eventChange,
     keyArrowDown,
     keyArrowUp,
     keyEscape
-} from '@microsoft/fast-web-utilities';
+} from '@ni/fast-web-utilities';
 import {
     ButtonAppearance,
     ButtonAppearanceVariant,

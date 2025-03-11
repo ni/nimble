@@ -1,5 +1,5 @@
-import { ComboboxAutocomplete } from '@microsoft/fast-foundation';
-import { html, repeat } from '@microsoft/fast-element';
+import { ComboboxAutocomplete } from '@ni/fast-foundation';
+import { html, repeat } from '@ni/fast-element';
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html';
 import { listOptionTag } from '../../../../nimble-components/src/list-option';

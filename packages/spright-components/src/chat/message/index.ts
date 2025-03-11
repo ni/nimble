@@ -1,5 +1,5 @@
-import { attr } from '@microsoft/fast-element';
-import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
+import { attr } from '@ni/fast-element';
+import { DesignSystem, FoundationElement } from '@ni/fast-foundation';
 import { styles } from './styles';
 import { template } from './template';
 import { ChatMessageType } from './types';

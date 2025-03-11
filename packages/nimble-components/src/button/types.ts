@@ -2,7 +2,7 @@
  * Types of button appearance.
  * @public
  */
-import type { Button } from '@microsoft/fast-foundation';
+import type { Button } from '@ni/fast-foundation';
 
 export {
     ButtonAppearance,

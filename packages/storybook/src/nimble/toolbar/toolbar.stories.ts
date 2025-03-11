@@ -1,4 +1,4 @@
-import { html } from '@microsoft/fast-element';
+import { html } from '@ni/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
 import { buttonTag } from '../../../../nimble-components/src/button';
 import { iconCogTag } from '../../../../nimble-components/src/icons/cog';

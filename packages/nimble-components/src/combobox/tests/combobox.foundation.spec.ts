@@ -3,12 +3,8 @@ import {
     ComboboxAutocomplete,
     ListboxOption,
     listboxOptionTemplate
-} from '@microsoft/fast-foundation';
-import {
-    keyArrowDown,
-    keyArrowUp,
-    keyEnter
-} from '@microsoft/fast-web-utilities';
+} from '@ni/fast-foundation';
+import { keyArrowDown, keyArrowUp, keyEnter } from '@ni/fast-web-utilities';
 import { Combobox } from '..';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import { fixture } from '../../utilities/tests/fixture';

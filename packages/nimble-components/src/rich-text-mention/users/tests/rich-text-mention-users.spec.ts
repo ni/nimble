@@ -1,4 +1,4 @@
-import { html, repeat } from '@microsoft/fast-element';
+import { html, repeat } from '@ni/fast-element';
 import { RichTextMentionUsers, richTextMentionUsersTag } from '..';
 import type { MappingUserKey } from '../../../mapping/base/types';
 import { MappingUser, mappingUserTag } from '../../../mapping/user';

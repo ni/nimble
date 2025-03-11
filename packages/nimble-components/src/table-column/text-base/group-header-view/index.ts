@@ -1,5 +1,5 @@
-import type { DesignTokenSubscriber } from '@microsoft/fast-foundation';
-import { observable } from '@microsoft/fast-element';
+import type { DesignTokenSubscriber } from '@ni/fast-foundation';
+import { observable } from '@ni/fast-element';
 import { TableGroupHeaderView } from '../../base/group-header-view';
 import type { TableFieldValue } from '../../../table/types';
 import {

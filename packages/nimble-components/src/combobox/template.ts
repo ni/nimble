@@ -1,17 +1,11 @@
-import {
-    type ViewTemplate,
-    html,
-    ref,
-    slotted,
-    when
-} from '@microsoft/fast-element';
+import { type ViewTemplate, html, ref, slotted, when } from '@ni/fast-element';
 import {
     type FoundationElementTemplate,
     type ComboboxOptions,
     startSlotTemplate,
     endSlotTemplate,
     Listbox
-} from '@microsoft/fast-foundation';
+} from '@ni/fast-foundation';
 import type { Combobox } from '.';
 import { anchoredRegionTag } from '../anchored-region';
 import { DropdownPosition } from '../patterns/dropdown/types';

@@ -1,5 +1,5 @@
-import { customElement, html } from '@microsoft/fast-element';
-import { FoundationElement } from '@microsoft/fast-foundation';
+import { customElement, html } from '@ni/fast-element';
+import { FoundationElement } from '@ni/fast-foundation';
 import {
     type Fixture,
     fixture,

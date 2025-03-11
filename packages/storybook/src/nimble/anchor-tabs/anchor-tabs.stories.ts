@@ -1,4 +1,4 @@
-import { html, repeat, when } from '@microsoft/fast-element';
+import { html, repeat, when } from '@ni/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
 import { anchorTabTag } from '../../../../nimble-components/src/anchor-tab';
 import { tabsToolbarTag } from '../../../../nimble-components/src/tabs-toolbar';

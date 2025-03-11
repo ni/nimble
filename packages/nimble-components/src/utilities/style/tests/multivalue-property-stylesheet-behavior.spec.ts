@@ -7,7 +7,7 @@ import {
     ElementStyles,
     type Behavior,
     attr
-} from '@microsoft/fast-element';
+} from '@ni/fast-element';
 import { uniqueElementName, fixture } from '../../tests/fixture';
 import type { Fixture } from '../../tests/fixture';
 import { TestAppearance } from './types';

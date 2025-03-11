@@ -1,6 +1,6 @@
-import { html } from '@microsoft/fast-element';
-import { eventChange, keyEnter } from '@microsoft/fast-web-utilities';
-import { FoundationElement } from '@microsoft/fast-foundation';
+import { html } from '@ni/fast-element';
+import { eventChange, keyEnter } from '@ni/fast-web-utilities';
+import { FoundationElement } from '@ni/fast-foundation';
 import { parameterizeSuite } from '@ni/jasmine-parameterized';
 import { fixture, type Fixture } from '../../utilities/tests/fixture';
 import { menuTag, type Menu } from '../../menu';

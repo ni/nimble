@@ -1,4 +1,4 @@
-import { html } from '@microsoft/fast-element';
+import { html } from '@ni/fast-element';
 import { buttonTag } from '@ni/nimble-components/src/button';
 import { iconPencilTag } from '@ni/nimble-components/src/icons/pencil';
 import { waitForUpdatesAsync } from '@ni/nimble-components/src/testing/async-helpers';

@@ -1,5 +1,5 @@
-import { attr, customElement, html } from '@microsoft/fast-element';
-import { DesignToken } from '@microsoft/fast-foundation';
+import { attr, customElement, html } from '@ni/fast-element';
+import { DesignToken } from '@ni/fast-foundation';
 import { ThemeProvider, themeProviderTag } from '../../../theme-provider';
 import {
     type Fixture,

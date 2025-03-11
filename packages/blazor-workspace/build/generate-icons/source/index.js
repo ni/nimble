@@ -5,7 +5,7 @@
  * file for each.
  */
 
-import { pascalCase, spinalCase } from '@microsoft/fast-web-utilities';
+import { pascalCase, spinalCase } from '@ni/fast-web-utilities';
 import * as icons from '@ni/nimble-tokens/dist/icons/js';
 
 const fs = require('fs');

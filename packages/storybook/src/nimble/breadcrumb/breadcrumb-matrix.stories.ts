@@ -1,5 +1,5 @@
 import type { StoryFn, Meta } from '@storybook/html';
-import { html, ViewTemplate } from '@microsoft/fast-element';
+import { html, ViewTemplate } from '@ni/fast-element';
 import { breadcrumbItemTag } from '../../../../nimble-components/src/breadcrumb-item';
 import { breadcrumbTag } from '../../../../nimble-components/src/breadcrumb';
 import { BreadcrumbAppearance } from '../../../../nimble-components/src/breadcrumb/types';

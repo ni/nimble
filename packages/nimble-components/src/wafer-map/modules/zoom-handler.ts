@@ -1,6 +1,6 @@
 import { select } from 'd3-selection';
 import { zoom, ZoomTransform } from 'd3-zoom';
-import { Observable, type Notifier } from '@microsoft/fast-element';
+import { Observable, type Notifier } from '@ni/fast-element';
 import type { WaferMap } from '..';
 
 interface ZoomEvent {

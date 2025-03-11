@@ -1,10 +1,10 @@
-import { html, ref, ViewTemplate } from '@microsoft/fast-element';
+import { html, ref, ViewTemplate } from '@ni/fast-element';
 import {
     endSlotTemplate,
     startSlotTemplate,
     type FoundationElementTemplate,
     type ButtonOptions
-} from '@microsoft/fast-foundation';
+} from '@ni/fast-foundation';
 import type { ToggleButton } from '.';
 
 /* eslint-disable @typescript-eslint/indent */

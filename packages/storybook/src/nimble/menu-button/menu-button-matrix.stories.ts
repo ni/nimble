@@ -1,5 +1,5 @@
 import type { StoryFn, Meta } from '@storybook/html';
-import { html, ViewTemplate, when } from '@microsoft/fast-element';
+import { html, ViewTemplate, when } from '@ni/fast-element';
 import { iconArrowExpanderDownTag } from '../../../../nimble-components/src/icons/arrow-expander-down';
 import { iconKeyTag } from '../../../../nimble-components/src/icons/key';
 import { menuButtonTag } from '../../../../nimble-components/src/menu-button';

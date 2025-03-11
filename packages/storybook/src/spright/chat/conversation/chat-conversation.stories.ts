@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/html';
-import { html } from '@microsoft/fast-element';
+import { html } from '@ni/fast-element';
 import { buttonTag } from '../../../../../nimble-components/src/button';
 import { chatConversationTag } from '../../../../../spright-components/src/chat/conversation';
 import { ChatMessageType } from '../../../../../spright-components/src/chat/message/types';

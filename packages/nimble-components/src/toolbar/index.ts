@@ -3,7 +3,7 @@ import {
     Toolbar as FoundationToolbar,
     type ToolbarOptions,
     toolbarTemplate as template
-} from '@microsoft/fast-foundation';
+} from '@ni/fast-foundation';
 import { styles } from './styles';
 
 declare global {

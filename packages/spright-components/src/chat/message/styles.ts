@@ -1,4 +1,4 @@
-import { css } from '@microsoft/fast-element';
+import { css } from '@ni/fast-element';
 import { buttonTag } from '@ni/nimble-components/dist/esm/button';
 import {
     bodyFont,

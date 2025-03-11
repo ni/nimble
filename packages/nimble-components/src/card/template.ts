@@ -1,4 +1,4 @@
-import { html } from '@microsoft/fast-element';
+import { html } from '@ni/fast-element';
 import type { Card } from '.';
 
 export const template = html<Card>`

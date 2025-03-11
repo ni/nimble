@@ -3,7 +3,7 @@ import {
     keyArrowLeft,
     keyArrowRight,
     keyArrowUp
-} from '@microsoft/fast-web-utilities';
+} from '@ni/fast-web-utilities';
 
 export const ToolbarButton = {
     bold: 0,

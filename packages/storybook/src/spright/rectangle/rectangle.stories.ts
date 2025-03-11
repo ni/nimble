@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/html';
-import { html } from '@microsoft/fast-element';
+import { html } from '@ni/fast-element';
 import { rectangleTag } from '../../../../spright-components/src/rectangle';
 import {
     apiCategory,

@@ -1,4 +1,4 @@
-import { html } from '@microsoft/fast-element';
+import { html } from '@ni/fast-element';
 import { TextField, textFieldTag } from '..';
 import { fixture, type Fixture } from '../../utilities/tests/fixture';
 import { processUpdates } from '../../testing/async-helpers';

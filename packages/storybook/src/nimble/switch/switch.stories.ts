@@ -1,4 +1,4 @@
-import { html, when } from '@microsoft/fast-element';
+import { html, when } from '@ni/fast-element';
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html';
 import { switchTag } from '../../../../nimble-components/src/switch';

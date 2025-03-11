@@ -1,4 +1,4 @@
-import { html } from '@microsoft/fast-element';
+import { html } from '@ni/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
 import { listOptionTag } from '../../../../nimble-components/src/list-option';
 import { numberFieldTag } from '../../../../nimble-components/src/number-field';

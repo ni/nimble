@@ -1,4 +1,4 @@
-import { TextAreaResize } from '@microsoft/fast-foundation';
+import { TextAreaResize } from '@ni/fast-foundation';
 
 export { TextAreaResize };
 

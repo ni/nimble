@@ -1,4 +1,4 @@
-import { css } from '@microsoft/fast-element';
+import { css } from '@ni/fast-element';
 import { bodyFont, bodyFontColor } from '../../../theme-provider/design-tokens';
 import { display } from '../../../utilities/style/display';
 

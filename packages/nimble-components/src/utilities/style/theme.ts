@@ -4,7 +4,7 @@ import type {
     ElementStyles,
     FASTElement,
     Subscriber
-} from '@microsoft/fast-element';
+} from '@ni/fast-element';
 import type { Theme } from '../../theme-provider/types';
 import { theme as themeToken } from '../../theme-provider';
 

@@ -3,7 +3,7 @@ import {
     MenuItem as FoundationMenuItem,
     menuItemTemplate as template,
     type MenuItemOptions
-} from '@microsoft/fast-foundation';
+} from '@ni/fast-foundation';
 import { arrowExpanderRight16X16 } from '@ni/nimble-tokens/dist/icons/js';
 import { styles } from './styles';
 
@@ -24,7 +24,7 @@ export class MenuItem extends FoundationMenuItem {}
 
 /**
  * A function that returns a nimble-menu-item registration for configuring the component with a DesignSystem.
- * Implements {@link @microsoft/fast-foundation#menuItemTemplate}
+ * Implements {@link @ni/fast-foundation#menuItemTemplate}
  *
  * @public
  * @remarks

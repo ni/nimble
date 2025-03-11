@@ -1,4 +1,4 @@
-import { parseColorHexRGB } from '@microsoft/fast-colors';
+import { parseColorHexRGB } from '@ni/fast-colors';
 
 /**
  * Convert a hexadecimal color string to an RGBA CSS color string

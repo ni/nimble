@@ -1,5 +1,5 @@
-import { DesignSystem } from '@microsoft/fast-foundation';
-import { attr } from '@microsoft/fast-element';
+import { DesignSystem } from '@ni/fast-foundation';
+import { attr } from '@ni/fast-element';
 import { template } from './template';
 import { styles } from './styles';
 import { RichTextMarkdownParser } from '../models/markdown-parser';

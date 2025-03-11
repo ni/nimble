@@ -1,16 +1,10 @@
-import {
-    html,
-    ref,
-    slotted,
-    ViewTemplate,
-    when
-} from '@microsoft/fast-element';
+import { html, ref, slotted, ViewTemplate, when } from '@ni/fast-element';
 import {
     endSlotTemplate,
     type FoundationElementTemplate,
     type SelectOptions,
     startSlotTemplate
-} from '@microsoft/fast-foundation';
+} from '@ni/fast-foundation';
 import type { Select } from '.';
 import { anchoredRegionTag } from '../anchored-region';
 import { DropdownPosition } from '../patterns/dropdown/types';

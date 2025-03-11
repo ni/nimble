@@ -1,5 +1,5 @@
-import { spinalCase } from '@microsoft/fast-web-utilities';
-import { html } from '@microsoft/fast-element';
+import { spinalCase } from '@ni/fast-web-utilities';
+import { html } from '@ni/fast-element';
 import { parameterizeSpec } from '@ni/jasmine-parameterized';
 import * as labelTokensNamespace from '../label-tokens';
 import { LabelProviderRichText, labelProviderRichTextTag } from '..';

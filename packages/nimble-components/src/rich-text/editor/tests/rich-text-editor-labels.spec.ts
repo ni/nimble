@@ -1,4 +1,4 @@
-import { html } from '@microsoft/fast-element';
+import { html } from '@ni/fast-element';
 import { parameterizeSpec } from '@ni/jasmine-parameterized';
 import { richTextEditorTag, type RichTextEditor } from '..';
 import { type Fixture, fixture } from '../../../utilities/tests/fixture';

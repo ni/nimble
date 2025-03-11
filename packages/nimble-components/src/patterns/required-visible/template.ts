@@ -1,4 +1,4 @@
-import { ViewTemplate, html, when } from '@microsoft/fast-element';
+import { ViewTemplate, html, when } from '@ni/fast-element';
 import { iconAsteriskTag } from '../../icons/asterisk';
 import type { RequiredVisiblePattern } from './types';
 

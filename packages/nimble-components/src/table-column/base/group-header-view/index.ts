@@ -1,5 +1,5 @@
-import { observable } from '@microsoft/fast-element';
-import { FoundationElement } from '@microsoft/fast-foundation';
+import { observable } from '@ni/fast-element';
+import { FoundationElement } from '@ni/fast-foundation';
 import type { TableFieldValue } from '../../../table/types';
 
 export interface TableGroupHeaderState<
