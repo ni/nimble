@@ -11,7 +11,6 @@ import { iconThumbUpTag } from '../../../../../nimble-components/src/icons/thumb
 import { iconThumbDownTag } from '../../../../../nimble-components/src/icons/thumb-down';
 import { iconArrowRotateRightTag } from '../../../../../nimble-components/src/icons/arrow-rotate-right';
 import { iconThreeDotsLineTag } from '../../../../../nimble-components/src/icons/three-dots-line';
-import { iconStar8PointTag } from '../../../../../nimble-components/src/icons/star-8-point';
 import { iconPencilTag } from '../../../../../nimble-components/src/icons/pencil';
 import {
     apiCategory,
@@ -35,7 +34,7 @@ export const chatConversation: StoryObj<ChatConversationArgs> = {
     },
     render: createUserSelectedThemeStory(html`
         <${chatConversationTag}>
-            <${chatMessageTag} message-type="${() => ChatMessageType.inbound}">
+            <${chatMessageTag} message-type="${() => ChatMessageType.system}">
                 To start, press any key.
             </${chatMessageTag}>
             <${chatMessageTag} message-type="${() => ChatMessageType.outbound}">
@@ -60,20 +59,26 @@ export const chatConversation: StoryObj<ChatConversationArgs> = {
                     <${iconThumbUpTag} slot='start' />
                     Like
                 </${buttonTag}>
-                <${buttonTag} slot='left-bottom' appearance='ghost'>
-                    <${iconThumbDownTag} slot='start' ContentHidden='true'/>
+                <${buttonTag} slot='left-bottom' appearance='ghost' ContentHidden='true'>
+                    <${iconThumbDownTag} slot='start' />
                     Dislike
                 </${buttonTag}>
                 <${buttonTag} slot='left-bottom' appearance='ghost' ContentHidden='true'>
-                    <${iconArrowRotateRightTag} slot='start' ContentHidden='true'/>
-                    Refresh
+                    <${iconArrowRotateRightTag} slot='start' />
+                    Regenerate
                 </${buttonTag}>
-                <${buttonTag} slot='left-bottom' appearance='ghost'>
-                    <${iconThreeDotsLineTag} slot='start' ContentHidden='true'/>
+                <${buttonTag} slot='left-bottom' appearance='ghost' ContentHidden='true'>
+                    <${iconThreeDotsLineTag} slot='start' />
                     Refresh
                 </${buttonTag}>
                 <img width="100" height="100" :src=${() => imgBlobUrl}>
                 <div>${loremIpsum}</div>
+                <${buttonTag} slot='followup-prompt'>
+                    Repeat that in English
+                </${buttonTag}>
+                <${buttonTag} slot='followup-prompt'>
+                    Elaborate more
+                </${buttonTag}>
             </${chatMessageTag}>
             <${chatMessageTag} message-type="${() => ChatMessageType.system}">
                 <${buttonTag} appearance="${() => ButtonAppearance.block}">

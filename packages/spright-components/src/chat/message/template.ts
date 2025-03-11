@@ -14,6 +14,7 @@ export const template = html<ChatMessage>`
         <span class="actions">
             <slot class="left" name="left-bottom"></slot>
         </span>
+        <slot class="followup" name="followup-prompt"></slot>
     </div>
 `;
 /* eslint-enable @typescript-eslint/indent */

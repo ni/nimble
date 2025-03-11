@@ -5,7 +5,6 @@ import {
     bodyFontColor,
     borderHoverColor,
     borderWidth,
-    controlHeight,
     controlSlimHeight,
     fillSelectedColor,
     mediumPadding
@@ -61,7 +60,7 @@ export const styles = css`
         display: flex;
     }
 
-    :host .left.dynamic {
+    :host([message-type='outbound']):host .left.dynamic {
         visibility: hidden;
     }
 
@@ -70,9 +69,16 @@ export const styles = css`
         margin: auto;
     }
 
+    .left::slotted(*) {
+        margin: 0px 10px 0px 0px;
+    } 
+
     .left::slotted(${buttonTag}) {
         height: ${controlSlimHeight};
-        width: ${controlHeight};
-        margin: 0px 16px 0px 0px;
+        width: ${controlSlimHeight};
+    }
+
+    .followup::slotted(*) {
+        margin: 10px 16px 0px 0px;
     }
 `;
