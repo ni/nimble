@@ -1,7 +1,7 @@
 import { html } from '@ni/fast-element';
-import { buttonTag } from '@ni/nimble-components/src/button';
-import { iconPencilTag } from '@ni/nimble-components/src/icons/pencil';
-import { waitForUpdatesAsync } from '@ni/nimble-components/src/testing/async-helpers';
+import { buttonTag } from '@ni/nimble-components/dist/esm/button';
+import { iconPencilTag } from '@ni/nimble-components/dist/esm/icons/pencil';
+import { waitForUpdatesAsync } from '@ni/nimble-components/dist/esm/testing/async-helpers';
 import { ChatMessage, chatMessageTag } from '..';
 import { fixture, type Fixture } from '../../../utilities/tests/fixture';
 import { ChatMessageType } from '../types';
@@ -66,7 +66,7 @@ describe('ChatMessage', () => {
             element.setAttribute('message-type', 'outbound');
             await waitForUpdatesAsync();
 
-            expect(element.querySelector('nimble-button')?.getAttribute('visible')).toBe('false');
+            expect(element.querySelector('nimble-button')?.getAttribute('visibility')).toBe('false');
         });
     });
 });
