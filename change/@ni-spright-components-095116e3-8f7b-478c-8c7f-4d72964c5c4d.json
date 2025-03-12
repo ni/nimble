@@ -1,6 +1,6 @@
 {
   "type": "minor",
-  "comment": "Adding action controls slots to spright-chat-message",
+  "comment": "Adding action button slots to spright-chat-message",
   "packageName": "@ni/spright-components",
   "email": "107654185+joseahdz@users.noreply.github.com",
   "dependentChangeType": "patch"
