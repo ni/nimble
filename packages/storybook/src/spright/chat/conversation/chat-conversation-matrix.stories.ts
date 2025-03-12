@@ -119,7 +119,7 @@ const componentSizing = (
     </div>
 `;
 
-const messageTypesHover = cartesianProduct([messageTypeStates] as const);
+const interactiveMessageTypes = cartesianProduct([messageTypeStates] as const);
 
 export const outboundSizing: StoryFn = createStory(html`
     ${createMatrix(componentSizing, [
@@ -150,9 +150,9 @@ export const systemSizing: StoryFn = createStory(html`
 
 export const messageInteractionsThemeMatrix: StoryFn = createMatrixThemeStory(
     createMatrixInteractionsFromStates(component, {
-        hover: messageTypesHover,
+        hover: interactiveMessageTypes,
         hoverActive: [],
-        active: messageTypesHover,
+        active: interactiveMessageTypes,
         focus: []
     })
 );
