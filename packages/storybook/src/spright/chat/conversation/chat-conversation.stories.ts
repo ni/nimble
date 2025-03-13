@@ -6,6 +6,12 @@ import { ChatMessageType } from '../../../../../spright-components/src/chat/mess
 import { chatMessageTag } from '../../../../../spright-components/src/chat/message';
 import { richTextViewerTag } from '../../../../../nimble-components/src/rich-text/viewer';
 import { spinnerTag } from '../../../../../nimble-components/src/spinner';
+import { iconCopyTextTag } from '../../../../../nimble-components/src/icons/copy-text';
+import { iconThumbUpTag } from '../../../../../nimble-components/src/icons/thumb-up';
+import { iconThumbDownTag } from '../../../../../nimble-components/src/icons/thumb-down';
+import { iconArrowRotateRightTag } from '../../../../../nimble-components/src/icons/arrow-rotate-right';
+import { iconThreeDotsLineTag } from '../../../../../nimble-components/src/icons/three-dots-line';
+import { iconPencilTag } from '../../../../../nimble-components/src/icons/pencil';
 import {
     apiCategory,
     createUserSelectedThemeStory
@@ -13,6 +19,7 @@ import {
 import { imgBlobUrl, markdownExample } from './story-helpers';
 import { ButtonAppearance } from '../../../../../nimble-components/src/menu-button/types';
 import { SpinnerAppearance } from '../../../../../nimble-components/src/spinner/types';
+import { loremIpsum } from '../../../utilities/lorem-ipsum';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface ChatConversationArgs {}
@@ -27,20 +34,51 @@ export const chatConversation: StoryObj<ChatConversationArgs> = {
     },
     render: createUserSelectedThemeStory(html`
         <${chatConversationTag}>
-            <${chatMessageTag} message-type="${() => ChatMessageType.inbound}">
+            <${chatMessageTag} message-type="${() => ChatMessageType.system}">
                 To start, press any key.
             </${chatMessageTag}>
             <${chatMessageTag} message-type="${() => ChatMessageType.outbound}">
                 Where is the Any key?
             </${chatMessageTag}>
             <${chatMessageTag} message-type="${() => ChatMessageType.outbound}">
+                <${buttonTag} slot='left' appearance='ghost' ContentHidden='true'>
+                    <${iconPencilTag} slot='start' />
+                    Edit
+                </${buttonTag}>
                 <${richTextViewerTag} markdown="${() => markdownExample}"></${richTextViewerTag}>
             </${chatMessageTag}>
             <${chatMessageTag} message-type="${() => ChatMessageType.system}">
                 <${spinnerTag} appearance="${() => SpinnerAppearance.accent}"></${spinnerTag}>
             </${chatMessageTag}>
             <${chatMessageTag} message-type="${() => ChatMessageType.inbound}">
+                <${buttonTag} slot='left-bottom' appearance='ghost' ContentHidden='true'>
+                    <${iconCopyTextTag} slot='start' />
+                    Copy
+                </${buttonTag}>
+                <${buttonTag} slot='left-bottom' appearance='ghost' ContentHidden='true'>
+                    <${iconThumbUpTag} slot='start' />
+                    Like
+                </${buttonTag}>
+                <${buttonTag} slot='left-bottom' appearance='ghost' ContentHidden='true'>
+                    <${iconThumbDownTag} slot='start' />
+                    Dislike
+                </${buttonTag}>
+                <${buttonTag} slot='left-bottom' appearance='ghost' ContentHidden='true'>
+                    <${iconArrowRotateRightTag} slot='start' />
+                    Regenerate
+                </${buttonTag}>
+                <${buttonTag} slot='left-bottom' appearance='ghost' ContentHidden='true'>
+                    <${iconThreeDotsLineTag} slot='start' />
+                    Refresh
+                </${buttonTag}>
                 <img width="100" height="100" :src=${() => imgBlobUrl}>
+                <div>${loremIpsum}</div>
+                <${buttonTag} slot='followup-prompt'>
+                    Repeat that in English
+                </${buttonTag}>
+                <${buttonTag} slot='followup-prompt'>
+                    Elaborate more
+                </${buttonTag}>
             </${chatMessageTag}>
             <${chatMessageTag} message-type="${() => ChatMessageType.system}">
                 <${buttonTag} appearance="${() => ButtonAppearance.block}">
