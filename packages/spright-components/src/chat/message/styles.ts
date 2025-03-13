@@ -5,6 +5,7 @@ import {
     bodyFontColor,
     borderHoverColor,
     borderWidth,
+    controlHeight,
     controlSlimHeight,
     fillSelectedColor,
     mediumPadding
@@ -75,6 +76,11 @@ export const styles = css`
     .left::slotted(${buttonTag}) {
         height: ${controlSlimHeight};
         width: ${controlSlimHeight};
+    }
+
+    .left.dynamic::slotted(${buttonTag}) {
+        height: ${controlHeight};
+        width: ${controlHeight};
     }
 
     .followup::slotted(*) {
