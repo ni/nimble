@@ -44,7 +44,6 @@ export const styles = css`
         overflow-x: auto;
     }
 
-
     :host([message-type='outbound']) .message-content {
         background: ${fillSelectedColor};
         border: ${borderWidth} solid ${borderHoverColor};
@@ -71,7 +70,7 @@ export const styles = css`
 
     .left::slotted(*) {
         margin: 0px 10px 0px 0px;
-    } 
+    }
 
     .left::slotted(${buttonTag}) {
         height: ${controlSlimHeight};

@@ -146,7 +146,7 @@ richText.markdown = 'Welcome **Homer**, how can I help?';
     - A message will grow its height to fit its content, with no maximum height.
     - Clients could override this behavior but we don't anticipate use cases for doing so when the message is used within a conversation
 - _Slots_
-     - `left`
+    - `left`
         - Action buttons to display to the left of a `spright-chat-message`. For `outbound` messages, the actions buttons will only be visible when hovering over the message.
     - `left-bottom`
         - Action buttons to display to the left bottom of a `spright-chat-message`.

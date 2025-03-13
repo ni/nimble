@@ -60,9 +60,10 @@ const contentHeightStates = [
 ] as const;
 type ContentHeightStates = (typeof contentHeightStates)[number];
 
-const component = (
-    [_messageTypeLabel, messageType]: MessageTypeStates
-): ViewTemplate => html`
+const component = ([
+    _messageTypeLabel,
+    messageType
+]: MessageTypeStates): ViewTemplate => html`
     <span>${() => `Message Type: ${_messageTypeLabel}`} </span>
     <${chatConversationTag}>
         <${chatMessageTag} message-type="${() => messageType}">
