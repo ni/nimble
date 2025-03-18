@@ -13,6 +13,7 @@ import { spinnerTag } from '../../../../../nimble-components/src/spinner';
 import { imgBlobUrl, markdownExample } from '../conversation/story-helpers';
 import { SpinnerAppearance } from '../../../../../nimble-components/src/spinner/types';
 import { ButtonAppearance } from '../../../../../nimble-components/src/menu-button/types';
+import { isChromatic } from '../../../utilities/isChromatic';
 
 interface ChatMessageArgs {
     messageType: keyof typeof ChatMessageType;
@@ -83,7 +84,10 @@ export const chatMessageRichText: StoryObj<ChatMessageRichTextArgs> = {
 export const chatMessageSpinner: StoryObj<ChatMessageArgs> = {
     render: createUserSelectedThemeStory(html`
         <${chatMessageTag} message-type="${x => ChatMessageType[x.messageType]}">
-            <${spinnerTag} appearance="${() => SpinnerAppearance.accent}"></${spinnerTag}>
+            <${spinnerTag}
+                style="${isChromatic() ? '--ni-private-spinner-animation-play-state:paused' : ''}"
+                appearance="${() => SpinnerAppearance.accent}"
+            ></${spinnerTag}>
         </${chatMessageTag}>
     `),
     args: {

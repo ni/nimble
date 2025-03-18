@@ -20,6 +20,7 @@ import { imgBlobUrl, markdownExample } from './story-helpers';
 import { ButtonAppearance } from '../../../../../nimble-components/src/menu-button/types';
 import { SpinnerAppearance } from '../../../../../nimble-components/src/spinner/types';
 import { loremIpsum } from '../../../utilities/lorem-ipsum';
+import { isChromatic } from '../../../utilities/isChromatic';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface ChatConversationArgs {}
@@ -48,7 +49,10 @@ export const chatConversation: StoryObj<ChatConversationArgs> = {
                 <${richTextViewerTag} markdown="${() => markdownExample}"></${richTextViewerTag}>
             </${chatMessageTag}>
             <${chatMessageTag} message-type="${() => ChatMessageType.system}">
-                <${spinnerTag} appearance="${() => SpinnerAppearance.accent}"></${spinnerTag}>
+                <${spinnerTag}
+                    style="${isChromatic() ? '--ni-private-spinner-animation-play-state:paused' : ''}"
+                    appearance="${() => SpinnerAppearance.accent}"
+                ></${spinnerTag}>
             </${chatMessageTag}>
             <${chatMessageTag} message-type="${() => ChatMessageType.inbound}">
                 <${buttonTag} slot='left-bottom' appearance='ghost' ContentHidden='true'>
