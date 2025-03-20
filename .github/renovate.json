@@ -40,6 +40,14 @@
       "enabled": true
     },
     {
+      "groupName": "npm NI dependencies update to latest",
+      "matchManagers": ["npm"],
+      "rangeStrategy": "update-lockfile",
+      "matchDepTypes": ["dependencies", "devDependencies", "peerDependencies"],
+      "matchPackageNames": "@ni/**",
+      "schedule": ["at any time"]
+    },
+    {
       "groupName": "nuget dependencies",
       "matchManagers": ["nuget"],
       "excludePackagePatterns":[
