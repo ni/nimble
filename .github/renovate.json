@@ -40,7 +40,7 @@
       "enabled": true
     },
     {
-      "groupName": "npm NI dependencies",
+      "groupName": "npm NI dependencies update to latest",
       "matchManagers": ["npm"],
       "rangeStrategy": "update-lockfile",
       "matchDepTypes": ["dependencies", "devDependencies", "peerDependencies"],
