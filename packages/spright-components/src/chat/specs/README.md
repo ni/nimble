@@ -47,12 +47,12 @@ We will not yet introduce an input toolbar component where a user can type and s
 
 #### Chat message
 
-The `spright-chat-message` is divided into four sections.
+The `spright-chat-message` has the following slot elements.
 
-1. `message-content` section is the actual message area. It displays arbitrary slotted content. For example: text, rich text, buttons, images, or a spinner.
 1. `left` slot element which is used to add action buttons to the left of the component.
 1. `left-bottom` slot element which is used to add actions buttons to the left bottom of the component.
 1. `followup-prompt` slot element which is used to add followup prompt buttons.
+1. `default` slot which contains the actual message area. It displays arbitrary slotted content. For example: text, rich text, buttons, images, or a spinner.
 
 All action buttons must meet the following criteria
 
