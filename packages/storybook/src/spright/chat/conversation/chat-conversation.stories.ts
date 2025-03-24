@@ -55,23 +55,23 @@ export const chatConversation: StoryObj<ChatConversationArgs> = {
                 ></${spinnerTag}>
             </${chatMessageTag}>
             <${chatMessageTag} message-type="${() => ChatMessageType.inbound}">
-                <${buttonTag} slot='left-bottom' appearance='ghost' content-hidden>
+                <${buttonTag} slot='bottom-left' appearance='ghost' content-hidden>
                     <${iconCopyTextTag} slot='start' />
                     Copy
                 </${buttonTag}>
-                <${buttonTag} slot='left-bottom' appearance='ghost' content-hidden>
+                <${buttonTag} slot='bottom-left' appearance='ghost' content-hidden>
                     <${iconThumbUpTag} slot='start' />
                     Like
                 </${buttonTag}>
-                <${buttonTag} slot='left-bottom' appearance='ghost' content-hidden>
+                <${buttonTag} slot='bottom-left' appearance='ghost' content-hidden>
                     <${iconThumbDownTag} slot='start' />
                     Dislike
                 </${buttonTag}>
-                <${buttonTag} slot='left-bottom' appearance='ghost' content-hidden>
+                <${buttonTag} slot='bottom-left' appearance='ghost' content-hidden>
                     <${iconArrowRotateRightTag} slot='start' />
                     Regenerate
                 </${buttonTag}>
-                <${buttonTag} slot='left-bottom' appearance='ghost' content-hidden>
+                <${buttonTag} slot='bottom-left' appearance='ghost' content-hidden>
                     <${iconThreeDotsLineTag} slot='start' />
                     Refresh
                 </${buttonTag}>

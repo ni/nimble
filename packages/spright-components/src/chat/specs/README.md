@@ -49,16 +49,16 @@ We will not yet introduce an input toolbar component where a user can type and s
 
 The `spright-chat-message` has the following slot elements.
 
+1. `bottom-left` slot element which is used to add actions buttons to the left bottom of the component.
 1. `left` slot element which is used to add action buttons to the left of the component.
-1. `left-bottom` slot element which is used to add actions buttons to the left bottom of the component.
 1. `followup-prompt` slot element which is used to add followup prompt buttons.
-1. `default` slot which contains the actual message area. It displays arbitrary slotted content. For example: text, rich text, buttons, images, or a spinner.
+1. `default` slot displays arbitrary slotted content. For example: text, rich text, buttons, images, or a spinner.
 
 All action buttons must meet the following criteria
 
 1. They are `nimble-button`s
 1. The `appearance` attribute is set to `ghost`
-1. The `contenthidden` attribute is set to `true`
+1. The `content-hidden` attribute is set to `true`
 
 The component also contains the following features:
 
@@ -146,10 +146,10 @@ richText.markdown = 'Welcome **Homer**, how can I help?';
     - A message will grow its height to fit its content, with no maximum height.
     - Clients could override this behavior but we don't anticipate use cases for doing so when the message is used within a conversation
 - _Slots_
+    - `bottom-left`
+        - Action buttons to display to the left bottom of a `spright-chat-message`.
     - `left`
         - Action buttons to display to the left of a `spright-chat-message`. For `outbound` messages, the actions buttons will only be visible when hovering over the message.
-    - `left-bottom`
-        - Action buttons to display to the left bottom of a `spright-chat-message`.
     - `followup-prompt`
         - Buttons with followup prompts that are display at the bottom of a `spring-chat-message`. They are below any action buttons.
     - `(default)`
@@ -185,7 +185,7 @@ A message is simply a `div` which will styled with background / border / rounded
             </span>
         </span>
         <span class="actions">
-            <slot class="left" name="left-bottom"></slot>
+            <slot class="left" name="bottom-left"></slot>
         </span>
         <slot class="followup" name="followup-prompt"></slot>
     </div>

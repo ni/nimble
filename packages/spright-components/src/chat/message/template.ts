@@ -12,7 +12,7 @@ export const template = html<ChatMessage>`
             </span>
         </span>
         <span class="actions">
-            <slot class="left" name="left-bottom"></slot>
+            <slot class="left" name="bottom-left"></slot>
         </span>
         <slot class="followup" name="followup-prompt"></slot>
     </div>

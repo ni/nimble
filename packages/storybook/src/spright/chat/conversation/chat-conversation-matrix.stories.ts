@@ -71,7 +71,7 @@ const component = ([
                 <${iconPencilTag} slot='start' />
                 Edit
             </${buttonTag}>
-            <${buttonTag} slot='left-bottom' appearance='ghost' ContentHidden='true'>
+            <${buttonTag} slot='bottom-left' appearance='ghost' ContentHidden='true'>
                 <${iconCopyTextTag} slot='start' />
                 Copy
             </${buttonTag}>
