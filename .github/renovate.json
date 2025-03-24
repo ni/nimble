@@ -1,56 +1,96 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
-    "config:base"
+    "config:recommended"
   ],
-  "enabledManagers": ["npm", "nuget", "github-actions"],
+  "enabledManagers": [
+    "npm",
+    "nuget",
+    "github-actions"
+  ],
   "rebaseWhen": "conflicted",
   "schedule": [
     "monthly"
   ],
   "packageRules": [
     {
-      "matchManagers": ["npm", "nuget", "github-actions"],
+      "matchManagers": [
+        "npm",
+        "nuget",
+        "github-actions"
+      ],
       "enabled": false
     },
     {
       "groupName": "npm dependencies lock update only",
-      "matchManagers": ["npm"],
+      "matchManagers": [
+        "npm"
+      ],
       "rangeStrategy": "in-range-only",
-      "matchDepTypes": ["dependencies", "devDependencies", "peerDependencies"],
+      "matchDepTypes": [
+        "dependencies",
+        "devDependencies",
+        "peerDependencies"
+      ],
       "enabled": true
     },
     {
       "groupName": "npm dependencies update to latest",
-      "matchManagers": ["npm"],
-      "rangeStrategy": "update-lockfile",
-      "matchDepTypes": ["dependencies", "devDependencies", "peerDependencies"],
-      "excludePackagePatterns":[
-        "^@angular",
-        "@types/markdown-it",
-        "apache-arrow",
-        "comlink",
-        "eslint",
-        "ng-packagr",
-        "playwright",
-        "remark-gfm",
-        "typescript",
-        "zone.js"
+      "matchManagers": [
+        "npm"
       ],
-      "enabled": true
+      "rangeStrategy": "update-lockfile",
+      "matchDepTypes": [
+        "dependencies",
+        "devDependencies",
+        "peerDependencies"
+      ],
+      "enabled": true,
+      "matchPackageNames": [
+        "!/^@angular/",
+        "!/@types/markdown-it/",
+        "!/apache-arrow/",
+        "!/comlink/",
+        "!/eslint/",
+        "!/ng-packagr/",
+        "!/playwright/",
+        "!/remark-gfm/",
+        "!/typescript/",
+        "!/zone.js/"
+      ]
+    },
+    {
+      "groupName": "npm NI dependencies update to latest",
+      "matchManagers": [
+        "npm"
+      ],
+      "rangeStrategy": "update-lockfile",
+      "matchDepTypes": [
+        "dependencies",
+        "devDependencies",
+        "peerDependencies"
+      ],
+      "matchPackageNames": "@ni/**",
+      "schedule": [
+        "at any time"
+      ]
     },
     {
       "groupName": "nuget dependencies",
-      "matchManagers": ["nuget"],
-      "excludePackagePatterns":[
-        "Apache.Arrow",
-        "Microsoft.Playwright"
+      "matchManagers": [
+        "nuget"
       ],
-      "enabled": true
+      "enabled": true,
+      "matchPackageNames": [
+        "!/Apache.Arrow/",
+        "!/Microsoft.Playwright/"
+      ]
     },
     {
       "groupName": "github actions dependencies",
-      "matchManagers": ["github-actions"],
+      "matchManagers": [
+        "github-actions"
+      ],
       "enabled": true
     }
   ]

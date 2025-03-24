@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-<!-- This log was last generated on Mon, 10 Mar 2025 21:33:38 GMT and should not be manually modified. -->
+<!-- This log was last generated on Thu, 20 Mar 2025 00:03:10 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 33.0.1
+
+Thu, 20 Mar 2025 00:03:10 GMT
+
+### Patches
+
+- Update to latest ni/fast packages ([ni/nimble@7c2c018](https://github.com/ni/nimble/commit/7c2c01810f262d2fac785d9e44f1229782c7e0c4))
 
 ## 33.0.0
 

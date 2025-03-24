@@ -1,6 +1,6 @@
 {
   "name": "@ni/spright-components",
-  "version": "5.0.0",
+  "version": "5.0.1",
   "description": "NI Spright Components",
   "scripts": {
     "build": "npm run build-components && npm run bundle-components",
@@ -48,9 +48,9 @@
   },
   "homepage": "https://github.com/ni/nimble#readme",
   "dependencies": {
-    "@ni/fast-element": "^0.0.5",
-    "@ni/fast-foundation": "^0.0.6",
-    "@ni/nimble-components": "^33.0.0",
+    "@ni/fast-element": "^10.0.0",
+    "@ni/fast-foundation": "^10.0.0",
+    "@ni/nimble-components": "^33.0.1",
     "tslib": "^2.2.0"
   },
   "devDependencies": {

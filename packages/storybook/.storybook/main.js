@@ -38,7 +38,7 @@ export function webpackFinal(config) {
         test: /\.(ts|tsx)$/,
         use: [
             {
-                loader: require.resolve('ts-loader')
+                loader: 'ts-loader'
             }
         ]
     });
