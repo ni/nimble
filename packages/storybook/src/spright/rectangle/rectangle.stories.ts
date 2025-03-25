@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/html';
 import { html } from '@ni/fast-element';
 import { rectangleTag } from '../../../../spright-components/src/rectangle';
+import { buttonTag } from '../../../../nimble-components/src/button';
 import {
     apiCategory,
     createUserSelectedThemeStory,
@@ -21,6 +22,7 @@ const metadata: Meta<RectangleArgs> = {
         <${rectangleTag}
             ?disabled="${x => x.disabled}"
         >${x => x.text}</${rectangleTag}>
+        <${buttonTag}>sdfsdf</${buttonTag}>
     `),
     argTypes: {
         text: {
