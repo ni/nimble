@@ -33,8 +33,9 @@ const appearanceStates = [
 type AppearanceState = (typeof appearanceStates)[number];
 
 const valueStates = [
-    ['Short Value', 'Option 1'],
-    ['Long Value', loremIpsum]
+    ['Short Value', 1],
+    ['Long Value', 2],
+    ['Placeholder', undefined]
 ] as const;
 type ValueState = (typeof valueStates)[number];
 
@@ -59,7 +60,7 @@ const component = (
     [disabledName, disabled]: DisabledState,
     [appearanceName, appearance]: AppearanceState,
     [errorName, errorVisible, errorText]: ErrorState,
-    [valueName, valueValue]: ValueState,
+    [valueName, selectedValue]: ValueState,
     [clearableName, clearable]: ClearableState
 ): ViewTemplate => html`
     <${selectTag}
@@ -69,13 +70,15 @@ const component = (
         ?clearable="${() => clearable}"
         appearance="${() => appearance}"
         ?required-visible="${() => requiredVisible}"
+        current-value="${() => selectedValue}"
         style="width: 250px; margin: var(${standardPadding.cssCustomProperty});"
     >
         ${() => errorName} ${() => disabledName} ${() => appearanceName} ${() => valueName} ${() => clearableName} ${() => requiredVisibleName}
-        <${listOptionTag} value="1">${valueValue}</${listOptionTag}>
-        <${listOptionTag} value="2" disabled>Option 2</${listOptionTag}>
-        <${listOptionTag} value="3">Option 3</${listOptionTag}>
+        <${listOptionTag} value="1">Option 1</${listOptionTag}>
+        <${listOptionTag} value="2">${loremIpsum}</${listOptionTag}>
+        <${listOptionTag} value="3" disabled>Option 3</${listOptionTag}>
         <${listOptionTag} value="4" hidden>Option 4</${listOptionTag}>
+        <${listOptionTag} value="5" disabled hidden>Placeholder</${listOptionTag}>
     </${selectTag}>
 `;
 
