@@ -18,8 +18,8 @@ import {
     type DisabledState,
     type ErrorState,
     errorStates,
-    errorStatesNoError,
-    errorStatesErrorNoMessage
+    requiredVisibleStates,
+    type RequiredVisibleState
 } from '../../utilities/states';
 import { hiddenWrapper } from '../../utilities/hidden';
 import { textCustomizationWrapper } from '../../utilities/text-customization';
@@ -33,8 +33,9 @@ const appearanceStates = [
 type AppearanceState = (typeof appearanceStates)[number];
 
 const valueStates = [
-    ['Short Value', 'Option 1'],
-    ['Long Value', loremIpsum]
+    ['Short Value', 1],
+    ['Long Value', 2],
+    ['Placeholder', undefined]
 ] as const;
 type ValueState = (typeof valueStates)[number];
 
@@ -55,10 +56,11 @@ export default metadata;
 
 // prettier-ignore
 const component = (
+    [requiredVisibleName, requiredVisible]: RequiredVisibleState,
     [disabledName, disabled]: DisabledState,
     [appearanceName, appearance]: AppearanceState,
     [errorName, errorVisible, errorText]: ErrorState,
-    [valueName, valueValue]: ValueState,
+    [valueName, selectedValue]: ValueState,
     [clearableName, clearable]: ClearableState
 ): ViewTemplate => html`
     <${selectTag}
@@ -67,18 +69,22 @@ const component = (
         ?disabled="${() => disabled}"
         ?clearable="${() => clearable}"
         appearance="${() => appearance}"
+        ?required-visible="${() => requiredVisible}"
+        current-value="${() => selectedValue}"
         style="width: 250px; margin: var(${standardPadding.cssCustomProperty});"
     >
-        ${() => errorName} ${() => disabledName} ${() => appearanceName} ${() => valueName} ${() => clearableName}
-        <${listOptionTag} value="1">${valueValue}</${listOptionTag}>
-        <${listOptionTag} value="2" disabled>Option 2</${listOptionTag}>
-        <${listOptionTag} value="3">Option 3</${listOptionTag}>
+        ${() => errorName} ${() => disabledName} ${() => appearanceName} ${() => valueName} ${() => clearableName} ${() => requiredVisibleName}
+        <${listOptionTag} value="1">Option 1</${listOptionTag}>
+        <${listOptionTag} value="2">${loremIpsum}</${listOptionTag}>
+        <${listOptionTag} value="3" disabled>Option 3</${listOptionTag}>
         <${listOptionTag} value="4" hidden>Option 4</${listOptionTag}>
+        <${listOptionTag} value="5" disabled hidden>Placeholder</${listOptionTag}>
     </${selectTag}>
 `;
 
 export const selectThemeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(component, [
+        requiredVisibleStates,
         disabledStates,
         appearanceStates,
         errorStates,
@@ -146,49 +152,6 @@ export const textCustomized: StoryFn = createMatrixThemeStory(
             </${selectTag}>
         `
     )
-);
-
-// prettier-ignore
-const requiredTestComponent = (
-    [disabledName, disabled]: DisabledState,
-): ViewTemplate => html`
-    <${selectTag}
-        ?disabled="${() => disabled}"
-        required-visible
-        style="width: 250px; margin: var(${standardPadding.cssCustomProperty});"
-    >
-        ${() => disabledName} Select Label
-        <${listOptionTag} value="1">Option 1</${listOptionTag}>
-    </${selectTag}>
-`;
-
-export const requiredAsterisk: StoryFn = createMatrixThemeStory(
-    createMatrix(requiredTestComponent, [disabledStates])
-);
-
-// prettier-ignore
-const placeholderTestComponent = (
-    [disabledName, disabled]: DisabledState,
-    [errorName, errorVisible, errorText]: ErrorState
-): ViewTemplate => html`
-    <${selectTag}
-        ?error-visible="${() => errorVisible}"
-        error-text="${() => errorText}"
-        ?disabled="${() => disabled}"
-        clearable
-        style="width: 250px; margin: var(${standardPadding.cssCustomProperty});"
-    >
-        ${() => errorName} ${() => disabledName} Clearable
-        <${listOptionTag} value="1" disabled hidden>${loremIpsum}</${listOptionTag}>
-        <${listOptionTag} value="2">Option 2</${listOptionTag}>
-    </${selectTag}>
-`;
-
-export const placeholder: StoryFn = createMatrixThemeStory(
-    createMatrix(placeholderTestComponent, [
-        disabledStates,
-        [errorStatesNoError, errorStatesErrorNoMessage]
-    ])
 );
 
 export const heightTest: StoryFn = createStory(
