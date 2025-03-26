@@ -11,7 +11,6 @@ import { iconThumbUpTag } from '../../../../../nimble-components/src/icons/thumb
 import { iconThumbDownTag } from '../../../../../nimble-components/src/icons/thumb-down';
 import { iconArrowRotateRightTag } from '../../../../../nimble-components/src/icons/arrow-rotate-right';
 import { iconThreeDotsLineTag } from '../../../../../nimble-components/src/icons/three-dots-line';
-import { iconPencilTag } from '../../../../../nimble-components/src/icons/pencil';
 import {
     apiCategory,
     createUserSelectedThemeStory
@@ -42,10 +41,6 @@ export const chatConversation: StoryObj<ChatConversationArgs> = {
                 Where is the Any key?
             </${chatMessageTag}>
             <${chatMessageTag} message-type="${() => ChatMessageType.outbound}">
-                <${buttonTag} slot='left' appearance='ghost' content-hidden>
-                    <${iconPencilTag} slot='start' />
-                    Edit
-                </${buttonTag}>
                 <${richTextViewerTag} markdown="${() => markdownExample}"></${richTextViewerTag}>
             </${chatMessageTag}>
             <${chatMessageTag} message-type="${() => ChatMessageType.system}">
@@ -55,23 +50,23 @@ export const chatConversation: StoryObj<ChatConversationArgs> = {
                 ></${spinnerTag}>
             </${chatMessageTag}>
             <${chatMessageTag} message-type="${() => ChatMessageType.inbound}">
-                <${buttonTag} slot='bottom-left' appearance='ghost' content-hidden>
+                <${buttonTag} slot='footer-actions' appearance='ghost' content-hidden>
                     <${iconCopyTextTag} slot='start' />
                     Copy
                 </${buttonTag}>
-                <${buttonTag} slot='bottom-left' appearance='ghost' content-hidden>
+                <${buttonTag} slot='footer-actions' appearance='ghost' content-hidden>
                     <${iconThumbUpTag} slot='start' />
                     Like
                 </${buttonTag}>
-                <${buttonTag} slot='bottom-left' appearance='ghost' content-hidden>
+                <${buttonTag} slot='footer-actions' appearance='ghost' content-hidden>
                     <${iconThumbDownTag} slot='start' />
                     Dislike
                 </${buttonTag}>
-                <${buttonTag} slot='bottom-left' appearance='ghost' content-hidden>
+                <${buttonTag} slot='footer-actions' appearance='ghost' content-hidden>
                     <${iconArrowRotateRightTag} slot='start' />
                     Regenerate
                 </${buttonTag}>
-                <${buttonTag} slot='bottom-left' appearance='ghost' content-hidden>
+                <${buttonTag} slot='footer-actions' appearance='ghost' content-hidden>
                     <${iconThreeDotsLineTag} slot='start' />
                     Refresh
                 </${buttonTag}>

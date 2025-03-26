@@ -14,30 +14,21 @@ import { imgBlobUrl, markdownExample } from '../conversation/story-helpers';
 import { SpinnerAppearance } from '../../../../../nimble-components/src/spinner/types';
 import { ButtonAppearance } from '../../../../../nimble-components/src/menu-button/types';
 import { isChromatic } from '../../../utilities/isChromatic';
-import { iconPencilTag } from '../../../../../nimble-components/src/icons/pencil';
 import { iconThumbUpTag } from '../../../../../nimble-components/src/icons/thumb-up';
 import { iconThumbDownTag } from '../../../../../nimble-components/src/icons/thumb-down';
 
-const leftButtonsDescription = `Display buttons which the user can click to invoke additional actions at the left side. 
-The buttons should have the \`ghost\` appearance and \`content-hidden\`.
- 
-For outbound message types, the buttons are only visible on hover.
+const footerActionsDescription = `Place a button at the bottom of the message to allow the user to invoke a custom action.
 
-Nimble will set the height of the buttons to \`$ni-nimble-control-slim-height\`.
-`;
-
-const bottomLeftButtonsDescription = `Display buttons which the user can click to invoke additional actions at the bottom-left side. 
 The buttons should have the \`ghost\` appearance and \`content-hidden\`.
 
 Nimble will set the height of the buttons to \`$ni-nimble-control-slim-height\`.
 `;
 
-const followUpPromptsDescription = 'Display buttons with followup prompts. They are below any action buttons.';
+const followUpPromptsDescription = 'Place buttons with followup prompts. They are below any action buttons.';
 
 interface ChatMessageArgs {
     messageType: keyof typeof ChatMessageType;
-    left: boolean;
-    bottomLeft: boolean;
+    footerActions: boolean;
     followupPrompt: boolean;
 }
 
@@ -51,13 +42,9 @@ const metadata: Meta<ChatMessageArgs> = {
             description: 'The type of the chat message.',
             table: { category: apiCategory.attributes }
         },
-        left: {
-            description: leftButtonsDescription,
-            table: { category: apiCategory.slots }
-        },
-        bottomLeft: {
-            name: 'bottom-left',
-            description: bottomLeftButtonsDescription,
+        footerActions: {
+            name: 'footer-actions',
+            description: footerActionsDescription,
             table: { category: apiCategory.slots }
         },
         followupPrompt: {
@@ -82,21 +69,13 @@ export const chatMessageText: StoryObj<ChatMessageTextArgs> = {
         <${chatMessageTag} message-type="${x => ChatMessageType[x.messageType]}">
             ${x => x.text}
             ${when(
-        x => x.left,
+        x => x.footerActions,
         html`
-                <${buttonTag} slot="left" appearance="ghost" content-hidden>
-                    <${iconPencilTag} slot="start"></${iconPencilTag}>
-                    Edit
-                </${buttonTag}>`
-    )}
-            ${when(
-        x => x.bottomLeft,
-        html`
-                <${buttonTag} slot="bottom-left" appearance="ghost" content-hidden>
+                <${buttonTag} slot="footer-actions" appearance="ghost" content-hidden>
                     <${iconThumbUpTag} slot="start"></${iconThumbUpTag}>
                     Like
                 </${buttonTag}>
-                <${buttonTag} slot="bottom-left" appearance="ghost" content-hidden>
+                <${buttonTag} slot="footer-actions" appearance="ghost" content-hidden>
                     <${iconThumbDownTag} slot="start"></${iconThumbDownTag}>
                     Dislike
                 </${buttonTag}>`
@@ -123,8 +102,7 @@ export const chatMessageText: StoryObj<ChatMessageTextArgs> = {
     args: {
         text: 'Aurora Borealis? At this time of year? At this time of day? In this part of the country? Localized entirely within your kitchen?',
         messageType: 'outbound',
-        left: false,
-        bottomLeft: false,
+        footerActions: false,
         followupPrompt: false
     }
 };
@@ -137,21 +115,13 @@ export const chatMessageRichText: StoryObj<ChatMessageRichTextArgs> = {
         <${chatMessageTag} message-type="${x => ChatMessageType[x.messageType]}">
             <${richTextViewerTag} markdown="${x => x.markdown}"></${richTextViewerTag}>
             ${when(
-        x => x.left,
+        x => x.footerActions,
         html`
-                <${buttonTag} slot="left" appearance="ghost" content-hidden>
-                    <${iconPencilTag} slot="start"></${iconPencilTag}>
-                    Edit
-                </${buttonTag}>`
-    )}
-            ${when(
-        x => x.bottomLeft,
-        html`
-                <${buttonTag} slot="bottom-left" appearance="ghost" content-hidden>
+                <${buttonTag} slot="footer-actions" appearance="ghost" content-hidden>
                     <${iconThumbUpTag} slot="start"></${iconThumbUpTag}>
                     Like
                 </${buttonTag}>
-                <${buttonTag} slot="bottom-left" appearance="ghost" content-hidden>
+                <${buttonTag} slot="footer-actions" appearance="ghost" content-hidden>
                     <${iconThumbDownTag} slot="start"></${iconThumbDownTag}>
                     Dislike
                 </${buttonTag}>`
@@ -177,8 +147,7 @@ export const chatMessageRichText: StoryObj<ChatMessageRichTextArgs> = {
     args: {
         markdown: markdownExample,
         messageType: 'outbound',
-        left: false,
-        bottomLeft: false,
+        footerActions: false,
         followupPrompt: false
     }
 };
@@ -191,21 +160,13 @@ export const chatMessageSpinner: StoryObj<ChatMessageArgs> = {
                 appearance="${() => SpinnerAppearance.accent}"
             ></${spinnerTag}>
             ${when(
-        x => x.left,
+        x => x.footerActions,
         html`
-                <${buttonTag} slot="left" appearance="ghost" content-hidden>
-                    <${iconPencilTag} slot="start"></${iconPencilTag}>
-                    Edit
-                </${buttonTag}>`
-    )}
-            ${when(
-        x => x.bottomLeft,
-        html`
-                <${buttonTag} slot="bottom-left" appearance="ghost" content-hidden>
+                <${buttonTag} slot="footer-actions" appearance="ghost" content-hidden>
                     <${iconThumbUpTag} slot="start"></${iconThumbUpTag}>
                     Like
                 </${buttonTag}>
-                <${buttonTag} slot="bottom-left" appearance="ghost" content-hidden>
+                <${buttonTag} slot="footer-actions" appearance="ghost" content-hidden>
                     <${iconThumbDownTag} slot="start"></${iconThumbDownTag}>
                     Dislike
                 </${buttonTag}>`
@@ -224,8 +185,7 @@ export const chatMessageSpinner: StoryObj<ChatMessageArgs> = {
     `),
     args: {
         messageType: 'system',
-        left: false,
-        bottomLeft: false,
+        footerActions: false,
         followupPrompt: false
     }
 };
@@ -235,21 +195,13 @@ export const chatMessageImage: StoryObj<ChatMessageArgs> = {
         <${chatMessageTag} message-type="${x => ChatMessageType[x.messageType]}">
             <img width="100" height="100" :src="${() => imgBlobUrl}">
             ${when(
-        x => x.left,
+        x => x.footerActions,
         html`
-                <${buttonTag} slot="left" appearance="ghost" content-hidden>
-                    <${iconPencilTag} slot="start"></${iconPencilTag}>
-                    Edit
-                </${buttonTag}>`
-    )}
-            ${when(
-        x => x.bottomLeft,
-        html`
-                <${buttonTag} slot="bottom-left" appearance="ghost" content-hidden>
+                <${buttonTag} slot="footer-actions" appearance="ghost" content-hidden>
                     <${iconThumbUpTag} slot="start"></${iconThumbUpTag}>
                     Like
                 </${buttonTag}>
-                <${buttonTag} slot="bottom-left" appearance="ghost" content-hidden>
+                <${buttonTag} slot="footer-actions" appearance="ghost" content-hidden>
                     <${iconThumbDownTag} slot="start"></${iconThumbDownTag}>
                     Dislike
                 </${buttonTag}>`
@@ -268,8 +220,7 @@ export const chatMessageImage: StoryObj<ChatMessageArgs> = {
     `),
     args: {
         messageType: 'inbound',
-        left: false,
-        bottomLeft: false,
+        footerActions: false,
         followupPrompt: false
     }
 };
@@ -280,21 +231,13 @@ export const chatMessagePrompts: StoryObj<ChatMessageArgs> = {
             <${buttonTag} appearance="${() => ButtonAppearance.block}">Eat my shorts</${buttonTag}>
             <${buttonTag} appearance="${() => ButtonAppearance.block}">Do the Bartman</${buttonTag}>
             ${when(
-        x => x.left,
+        x => x.footerActions,
         html`
-                <${buttonTag} slot="left" appearance="ghost" content-hidden>
-                    <${iconPencilTag} slot="start"></${iconPencilTag}>
-                    Edit
-                </${buttonTag}>`
-    )}
-            ${when(
-        x => x.bottomLeft,
-        html`
-                <${buttonTag} slot="bottom-left" appearance="ghost" content-hidden>
+                <${buttonTag} slot="footer-actions" appearance="ghost" content-hidden>
                     <${iconThumbUpTag} slot="start"></${iconThumbUpTag}>
                     Like
                 </${buttonTag}>
-                <${buttonTag} slot="bottom-left" appearance="ghost" content-hidden>
+                <${buttonTag} slot="footer-actions" appearance="ghost" content-hidden>
                     <${iconThumbDownTag} slot="start"></${iconThumbDownTag}>
                     Dislike
                 </${buttonTag}>`
@@ -313,8 +256,7 @@ export const chatMessagePrompts: StoryObj<ChatMessageArgs> = {
     `),
     args: {
         messageType: 'system',
-        left: false,
-        bottomLeft: false,
+        footerActions: false,
         followupPrompt: false
     }
 };

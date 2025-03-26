@@ -1,19 +1,19 @@
 import { html } from '@ni/fast-element';
+import { toolbarTag } from '@ni/nimble-components/dist/esm/toolbar';
 import type { ChatMessage } from '.';
 
 /* eslint-disable @typescript-eslint/indent */
 // prettier-ignore
 export const template = html<ChatMessage>`
     <div class="root">
-        <span class="actions">
-            <slot class="left dynamic" name="left"></slot>
-            <span class="message-content">
-                <slot></slot>
-            </span>
-        </span>
-        <span class="actions">
-            <slot class="left" name="bottom-left"></slot>
-        </span>
+        <section class="message-content">
+            <slot></slot>
+        </section>
+        <section class="footer-actions">
+            <${toolbarTag} >
+                <slot name="footer-actions"></slot>
+            </${toolbarTag}>
+        </section>
         <slot class="followup" name="followup-prompt"></slot>
     </div>
 `;

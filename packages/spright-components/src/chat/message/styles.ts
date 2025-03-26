@@ -1,11 +1,11 @@
 import { css } from '@ni/fast-element';
 import { buttonTag } from '@ni/nimble-components/dist/esm/button';
+import { toolbarTag } from '@ni/nimble-components/dist/esm/toolbar';
 import {
     bodyFont,
     bodyFontColor,
     borderHoverColor,
     borderWidth,
-    controlHeight,
     controlSlimHeight,
     fillSelectedColor,
     mediumPadding
@@ -49,38 +49,38 @@ export const styles = css`
         background: ${fillSelectedColor};
         border: ${borderWidth} solid ${borderHoverColor};
         border-radius: 8px 8px 0px 8px;
-        justify-self: flex-end;
     }
 
     :host([message-type='inbound']) .message-content {
         border-radius: 8px 8px 8px 0px;
     }
 
-    .actions {
+    ${toolbarTag} .positioning-region {
+        padding: 0px;
+    }
+
+    ${toolbarTag}::part(positioning-region) {
+        background: red;
+        padding-right: 8px;
+        gap: 0px;
+        height: var(--ni-private-rich-text-editor-footer-section-height);
+    }
+
+    ${toolbarTag}::part(start) {
+        gap: 8px;
+    }
+
+    .footer-actions {
         display: flex;
     }
 
-    :host([message-type='outbound']):host .left.dynamic {
-        visibility: hidden;
+    .footer-actions::slotted(*) {
+        slot: start
     }
 
-    :host([message-type='outbound']):host(:hover) .left.dynamic {
-        visibility: visible;
-        margin: auto;
-    }
-
-    .left::slotted(*) {
-        margin: 0px 10px 0px 0px;
-    }
-
-    .left::slotted(${buttonTag}) {
+    .footer-actions::slotted(${buttonTag}) {
         height: ${controlSlimHeight};
         width: ${controlSlimHeight};
-    }
-
-    .left.dynamic::slotted(${buttonTag}) {
-        height: ${controlHeight};
-        width: ${controlHeight};
     }
 
     .followup::slotted(*) {
