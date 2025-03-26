@@ -1,5 +1,4 @@
 import { DesignSystem, FoundationElement } from '@ni/fast-foundation';
-import type { TextField } from '@ni/nimble-components/dist/esm/text-field';
 import { styles } from './styles';
 import { template } from './template';
 
@@ -12,9 +11,7 @@ declare global {
 /**
  * A Spright demo component (not for production use)
  */
-export class Rectangle extends FoundationElement {
-    public textField?: TextField;
-}
+export class Rectangle extends FoundationElement {}
 
 const sprightRectangle = Rectangle.compose({
     baseName: 'rectangle',
