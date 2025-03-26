@@ -1,8 +1,17 @@
 # Change Log - @ni/nimble-components
 
-<!-- This log was last generated on Thu, 20 Mar 2025 00:03:10 GMT and should not be manually modified. -->
+<!-- This log was last generated on Wed, 26 Mar 2025 00:09:57 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 33.0.3
+
+Wed, 26 Mar 2025 00:09:57 GMT
+
+### Patches
+
+- Fix color of placeholder text in disabled select ([ni/nimble@4804deb](https://github.com/ni/nimble/commit/4804deba0b32f2f67a46ea03531ad135428515d5))
+- Re-release packages ([ni/nimble@80de722](https://github.com/ni/nimble/commit/80de7221c8a80a3459f38109bea5528657061fe0))
 
 ## 33.0.1
 

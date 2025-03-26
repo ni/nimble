@@ -1,8 +1,17 @@
 # Change Log - @ni/spright-angular
 
-<!-- This log was last generated on Thu, 20 Mar 2025 00:03:10 GMT and should not be manually modified. -->
+<!-- This log was last generated on Wed, 26 Mar 2025 00:09:57 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 7.0.2
+
+Wed, 26 Mar 2025 00:09:57 GMT
+
+### Patches
+
+- Re-release packages ([ni/nimble@80de722](https://github.com/ni/nimble/commit/80de7221c8a80a3459f38109bea5528657061fe0))
+- Bump @ni/spright-components to v5.0.3
 
 ## 7.0.1
 
