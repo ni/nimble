@@ -6,6 +6,7 @@ import {
     borderHoverColor,
     borderRgbPartialColor
 } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
+import { textFieldTag } from '@ni/nimble-components/dist/esm/text-field';
 import { display } from '../utilities/style/display';
 
 export const styles = css`
@@ -30,5 +31,9 @@ export const styles = css`
 
     :host([disabled]) slot {
         color: ${bodyDisabledFontColor};
+    }
+
+    ${textFieldTag} {
+        flex-grow: 1;
     }
 `;
