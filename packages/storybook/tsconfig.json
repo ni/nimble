@@ -28,11 +28,7 @@
         "noImplicitOverride": true,
         "noUncheckedIndexedAccess": true,
         "noPropertyAccessFromIndexSignature": false,
-        "jsx": "preserve",
-        "paths": {
-            "@ni/nimble-components/dist/esm/*": ["../nimble-components/src/*"],
-            "@ni/spright-components/dist/esm/*": ["../spright-components/src/*"]
-        }
+        "jsx": "preserve"
     },
     "include": ["src"]
 }
