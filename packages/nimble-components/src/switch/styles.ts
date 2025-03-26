@@ -38,6 +38,7 @@ export const styles = css`
         padding-bottom: calc(
             ${controlHeight} - var(--ni-private-switch-height)
         );
+        ${'' /* Comment */}
     }
 
     :host([disabled]) {
