@@ -2,6 +2,21 @@
   "name": "@ni/nimble-blazor",
   "entries": [
     {
+      "date": "Wed, 26 Mar 2025 16:17:35 GMT",
+      "version": "20.0.3",
+      "tag": "@ni/nimble-blazor_v20.0.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "4057768a378d0a8828534dee6b6d1230d93b8f4b",
+            "comment": "Add ContinuousIntegrationBuild"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 26 Mar 2025 00:09:57 GMT",
       "version": "20.0.2",
       "tag": "@ni/nimble-blazor_v20.0.2",
