@@ -1,6 +1,6 @@
 import { css } from '@ni/fast-element';
 import { buttonTag } from '@ni/nimble-components/dist/esm/button';
-import { toolbarTag } from '@ni/nimble-components/dist/esm/toolbar';
+
 import {
     bodyFont,
     bodyFontColor,
@@ -55,32 +55,10 @@ export const styles = css`
         border-radius: 8px 8px 8px 0px;
     }
 
-    ${toolbarTag} .positioning-region {
-        padding: 0px;
-    }
-
-    ${toolbarTag}::part(positioning-region) {
-        background: red;
-        padding-right: 8px;
-        gap: 0px;
-        height: var(--ni-private-rich-text-editor-footer-section-height);
-    }
-
-    ${toolbarTag}::part(start) {
-        gap: 8px;
-    }
-
-    .footer-actions {
-        display: flex;
-    }
-
-    .footer-actions::slotted(*) {
-        slot: start
-    }
-
     .footer-actions::slotted(${buttonTag}) {
         height: ${controlSlimHeight};
         width: ${controlSlimHeight};
+        margin: 0px 10px 0px 0px;
     }
 
     .followup::slotted(*) {

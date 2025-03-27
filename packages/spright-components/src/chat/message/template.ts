@@ -1,5 +1,4 @@
 import { html } from '@ni/fast-element';
-import { toolbarTag } from '@ni/nimble-components/dist/esm/toolbar';
 import type { ChatMessage } from '.';
 
 /* eslint-disable @typescript-eslint/indent */
@@ -9,10 +8,8 @@ export const template = html<ChatMessage>`
         <section class="message-content">
             <slot></slot>
         </section>
-        <section class="footer-actions">
-            <${toolbarTag} >
-                <slot name="footer-actions"></slot>
-            </${toolbarTag}>
+        <section>
+           <slot class="footer-actions" name="footer-actions"></slot>
         </section>
         <slot class="followup" name="followup-prompt"></slot>
     </div>

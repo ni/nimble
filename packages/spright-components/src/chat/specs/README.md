@@ -49,10 +49,9 @@ We will not yet introduce an input toolbar component where a user can type and s
 
 The `spright-chat-message` has the following slot elements.
 
-1. `bottom-left` slot element which is used to add actions buttons to the left bottom of the component.
-1. `left` slot element which is used to add action buttons to the left of the component.
-1. `followup-prompt` slot element which is used to add followup prompt buttons.
 1. `default` slot displays arbitrary slotted content. For example: text, rich text, buttons, images, or a spinner.
+1. `footer-actions` slot element which is used to add actions buttons after the main content.
+1. `followup-prompt` slot element which is used to add followup prompt buttons. They are below any action buttons.
 
 All action buttons must meet the following criteria
 
@@ -62,7 +61,6 @@ All action buttons must meet the following criteria
 
 The component also contains the following features:
 
-1. For a user (outbound) message, actions buttons on the `left` slot will only be shown when hovering over the message.
 1. Layout content to the right, center, or left of parent container depending on metadata about who sent the message.
 1. Size based on content size with maximum width (but not height) based on parent's width.
 1. Change the styling of the message depending on metadata about who sent the message. For example: render user messages in a bubble with the tail pointing to the right but render system messages with no styling.
@@ -146,12 +144,10 @@ richText.markdown = 'Welcome **Homer**, how can I help?';
     - A message will grow its height to fit its content, with no maximum height.
     - Clients could override this behavior but we don't anticipate use cases for doing so when the message is used within a conversation
 - _Slots_
-    - `bottom-left`
-        - Action buttons to display to the left bottom of a `spright-chat-message`.
-    - `left`
-        - Action buttons to display to the left of a `spright-chat-message`. For `outbound` messages, the actions buttons will only be visible when hovering over the message.
+    - `footer-actions`
+        - Action buttons to display after the main content.
     - `followup-prompt`
-        - Buttons with followup prompts that are display at the bottom of a `spring-chat-message`. They are below any action buttons.
+        - Buttons with followup prompts that are display at the bottom after any action buttons.
     - `(default)`
         - arbitrary content can be added to the default slot to be displayed within the message
 
@@ -178,15 +174,12 @@ A message is simply a `div` which will styled with background / border / rounded
 ```html
 <template>
     <div class="root">
-        <span class="actions">
-            <slot class="left dynamic" name="left"></slot>
-            <span class="message-content">
-                <slot></slot>
-            </span>
-        </span>
-        <span class="actions">
-            <slot class="left" name="bottom-left"></slot>
-        </span>
+        <section class="message-content">
+            <slot></slot>
+        </section>
+        <section>
+            <slot class="footer-actions" name="footer-actions"></slot>
+        </section>
         <slot class="followup" name="followup-prompt"></slot>
     </div>
 </template>
