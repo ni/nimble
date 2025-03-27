@@ -53,7 +53,7 @@ const metadata: Meta<NumberFieldArgs> = {
     },
     render: createUserSelectedThemeStory(html`
         <${numberFieldTag}
-            placeholder="${x => x.label}"
+            placeholder="${x => x.placeholder}"
             value="${x => x.value}"
             step="${x => x.step}"
             ?hide-step="${x => x.hideStep}"
@@ -152,6 +152,7 @@ const metadata: Meta<NumberFieldArgs> = {
     args: {
         label: 'default label',
         value: 42,
+        placeholder: 'Enter number...',
         step: 1,
         hideStep: false,
         min: -10,
