@@ -67,11 +67,7 @@ const component = ([
     <span>${() => `Message Type: ${_messageTypeLabel}`} </span>
     <${chatConversationTag}>
         <${chatMessageTag} message-type="${() => messageType}">
-            <${buttonTag} slot='left' appearance='ghost' ContentHidden='true'>
-                <${iconPencilTag} slot='start' />
-                Edit
-            </${buttonTag}>
-            <${buttonTag} slot='bottom-left' appearance='ghost' ContentHidden='true'>
+            <${buttonTag} slot='footer-actions' appearance='ghost' ContentHidden='true'>
                 <${iconCopyTextTag} slot='start' />
                 Copy
             </${buttonTag}>
