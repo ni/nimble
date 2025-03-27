@@ -1,6 +1,7 @@
 import remarkGfm from 'remark-gfm';
 import CircularDependencyPlugin from 'circular-dependency-plugin';
 import TerserPlugin from 'terser-webpack-plugin';
+import TsconfigPathsPlugin from 'tsconfig-paths-webpack-plugin';
 
 // All files participating in storybook should be in src
 // so that TypeScript and linters can track them correctly
@@ -42,6 +43,9 @@ export function webpackFinal(config) {
             }
         ]
     });
+    config.resolve.plugins = [
+        new TsconfigPathsPlugin(),
+    ];
     config.plugins.push(
         new CircularDependencyPlugin({
             exclude: /node_modules/,

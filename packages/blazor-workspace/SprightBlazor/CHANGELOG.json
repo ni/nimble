@@ -2,6 +2,42 @@
   "name": "@ni/spright-blazor",
   "entries": [
     {
+      "date": "Wed, 26 Mar 2025 16:17:35 GMT",
+      "version": "4.0.3",
+      "tag": "@ni/spright-blazor_v4.0.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/spright-blazor",
+            "commit": "4057768a378d0a8828534dee6b6d1230d93b8f4b",
+            "comment": "Add ContinuousIntegrationBuild"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 26 Mar 2025 00:09:57 GMT",
+      "version": "4.0.2",
+      "tag": "@ni/spright-blazor_v4.0.2",
+      "comments": {
+        "patch": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/spright-blazor",
+            "commit": "80de7221c8a80a3459f38109bea5528657061fe0",
+            "comment": "Re-release packages"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/spright-blazor",
+            "comment": "Bump @ni/spright-components to v5.0.3",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 20 Mar 2025 00:03:10 GMT",
       "version": "4.0.1",
       "tag": "@ni/spright-blazor_v4.0.1",

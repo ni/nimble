@@ -1,8 +1,25 @@
 # Change Log - @ni/spright-blazor
 
-<!-- This log was last generated on Thu, 20 Mar 2025 00:03:10 GMT and should not be manually modified. -->
+<!-- This log was last generated on Wed, 26 Mar 2025 16:17:35 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 4.0.3
+
+Wed, 26 Mar 2025 16:17:35 GMT
+
+### Patches
+
+- Add ContinuousIntegrationBuild ([ni/nimble@4057768](https://github.com/ni/nimble/commit/4057768a378d0a8828534dee6b6d1230d93b8f4b))
+
+## 4.0.2
+
+Wed, 26 Mar 2025 00:09:57 GMT
+
+### Patches
+
+- Re-release packages ([ni/nimble@80de722](https://github.com/ni/nimble/commit/80de7221c8a80a3459f38109bea5528657061fe0))
+- Bump @ni/spright-components to v5.0.3
 
 ## 4.0.1
 
