@@ -21,12 +21,14 @@ import {
     errorTextDescription,
     errorVisibleDescription,
     slottedLabelDescription,
-    requiredVisibleDescription
+    requiredVisibleDescription,
+    placeholderDescription
 } from '../../utilities/storybook';
 
 interface NumberFieldArgs extends LabelUserArgs {
     label: string;
     value: number;
+    placeholder: string;
     step: number;
     hideStep: boolean;
     min: number;
@@ -77,6 +79,12 @@ const metadata: Meta<NumberFieldArgs> = {
             description:
                 'The number displayed in the number field. Note that the property value is not synced to an attribute.',
             table: { category: apiCategory.nonAttributeProperties }
+        },
+        placeholder: {
+            description: placeholderDescription({
+                componentName: 'number field'
+            }),
+            table: { category: apiCategory.attributes }
         },
         appearance: {
             options: Object.values(NumberFieldAppearance),
