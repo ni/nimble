@@ -2,6 +2,21 @@
   "name": "@ni/jasmine-parameterized",
   "entries": [
     {
+      "date": "Fri, 28 Mar 2025 23:05:09 GMT",
+      "version": "1.0.0",
+      "tag": "@ni/jasmine-parameterized_v1.0.0",
+      "comments": {
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/jasmine-parameterized",
+            "commit": "c0c37938728b15d2dbba2274ed6604ae80332b99",
+            "comment": "Update ubuntu and playwright versions"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 22 Jul 2024 20:22:39 GMT",
       "version": "1.0.0",
       "tag": "@ni/jasmine-parameterized_v1.0.0",
