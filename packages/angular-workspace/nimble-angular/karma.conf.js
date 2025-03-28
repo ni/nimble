@@ -10,6 +10,24 @@ const karmaCoverage = require('karma-coverage');
 const karmaAngular = require('@angular-devkit/build-angular/plugins/karma');
 const path = require('path');
 
+const commonChromeFlags = [
+    '--no-default-browser-check',
+    '--no-first-run',
+    '--no-sandbox',
+    '--no-managed-user-acknowledgment-check',
+    '--disable-background-timer-throttling',
+    '--disable-backing-store-limit',
+    '--disable-boot-animation',
+    '--disable-cloud-import',
+    '--disable-contextual-search',
+    '--disable-default-apps',
+    '--disable-extensions',
+    '--disable-infobars',
+    '--disable-translate',
+    '--force-prefers-reduced-motion',
+    '--lang=en-US'
+];
+
 module.exports = config => {
     config.set({
         basePath: '',
@@ -53,7 +71,18 @@ module.exports = config => {
         colors: true,
         logLevel: config.LOG_INFO,
         autoWatch: true,
-        browsers: ['ChromeHeadless'],
+        browsers: ['ChromeHeadlessOpt'],
+        customLaunchers: {
+            ChromeDebugging: {
+                base: 'Chrome',
+                flags: [...commonChromeFlags, '--remote-debugging-port=9333'],
+                debug: true
+            },
+            ChromeHeadlessOpt: {
+                base: 'ChromeHeadless',
+                flags: [...commonChromeFlags]
+            }
+        },
         singleRun: false,
         restartOnFileChange: true,
         customHeaders: [
