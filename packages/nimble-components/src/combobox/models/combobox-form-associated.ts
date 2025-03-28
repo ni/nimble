@@ -1,6 +1,6 @@
 // Based on: https://github.com/microsoft/fast/blob/%40microsoft/fast-foundation_v2.49.5/packages/web-components/fast-foundation/src/combobox/combobox.form-associated.ts
 /* eslint-disable max-classes-per-file */
-import { FormAssociated, ListboxElement } from '@microsoft/fast-foundation';
+import { FormAssociated, ListboxElement } from '@ni/fast-foundation';
 
 // eslint-disable-next-line jsdoc/require-jsdoc
 class Combobox extends ListboxElement {}

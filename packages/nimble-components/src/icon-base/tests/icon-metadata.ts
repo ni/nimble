@@ -13,6 +13,9 @@ export const iconMetadata: {
     IconAdd: {
         tags: ['add input field']
     },
+    IconMessageBot: {
+        tags: ['assistance', 'information', 'help']
+    },
     IconArrowDown: {
         tags: ['sort', 'arrow', 'down', 'descending']
     },
@@ -103,8 +106,14 @@ export const iconMetadata: {
     IconBellAndComment: {
         tags: ['alarm', 'notification']
     },
+    IconBellCheck: {
+        tags: ['acknowledged', 'alarm']
+    },
     IconBellCircle: {
         tags: ['alarm']
+    },
+    IconBellOn: {
+        tags: ['set', 'urgent', 'notification', 'alarm']
     },
     IconBellSolidCircle: {
         tags: ['alarm']
@@ -171,6 +180,9 @@ export const iconMetadata: {
     },
     IconCircleFilled: {
         tags: []
+    },
+    IconCircleMinus: {
+        tags: ['not set', 'dash', 'hyphen']
     },
     IconCirclePartialBroken: {
         tags: ['status', 'partially connected']
@@ -559,8 +571,14 @@ export const iconMetadata: {
     IconThreeVerticalLines: {
         tags: []
     },
+    IconThumbDown: {
+        tags: ['dislike', 'disapprove', 'not good', 'no']
+    },
     IconThumbtack: {
         tags: []
+    },
+    IconThumbUp: {
+        tags: ['like', 'approve', 'good', 'yes']
     },
     IconTileSize: {
         tags: []

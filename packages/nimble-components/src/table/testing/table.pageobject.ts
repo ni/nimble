@@ -1,5 +1,5 @@
-import type { Checkbox } from '@microsoft/fast-foundation';
-import { parseColor } from '@microsoft/fast-colors';
+import type { Checkbox } from '@ni/fast-foundation';
+import { parseColor } from '@ni/fast-colors';
 import type { Table } from '..';
 import { tableHeaderTag, type TableHeader } from '../components/header';
 import {
@@ -37,7 +37,7 @@ export class TablePageObject<T extends TableRecord> {
     public constructor(private readonly tableElement: Table<T>) {}
 
     public getRenderedHeaderCount(): number {
-        const headers = this.tableElement.shadowRoot!.querySelectorAll(tableHeaderTag)!;
+        const headers = this.tableElement.shadowRoot!.querySelectorAll(tableHeaderTag);
         return headers.length;
     }
 
@@ -50,7 +50,7 @@ export class TablePageObject<T extends TableRecord> {
     public getHeaderContent(columnIndex: number): Node | undefined {
         const headers = this.tableElement.shadowRoot!.querySelectorAll<TableHeader>(
             tableHeaderTag
-        )!;
+        );
         if (columnIndex >= headers.length) {
             throw new Error(
                 'Attempting to index past the total number of rendered columns'
@@ -63,7 +63,7 @@ export class TablePageObject<T extends TableRecord> {
     public getHeaderElement(columnIndex: number): TableHeader {
         const headers = this.tableElement.shadowRoot!.querySelectorAll<TableHeader>(
             tableHeaderTag
-        )!;
+        );
         if (columnIndex >= headers.length) {
             throw new Error(
                 'Attempting to index past the total number of rendered columns'
@@ -99,7 +99,7 @@ export class TablePageObject<T extends TableRecord> {
     public getHeaderRenderedWidth(columnIndex: number): number {
         const headers = this.tableElement.shadowRoot!.querySelectorAll<TableHeader>(
             tableHeaderTag
-        )!;
+        );
         if (columnIndex >= headers.length) {
             throw new Error(
                 'Attempting to index past the total number of rendered columns'

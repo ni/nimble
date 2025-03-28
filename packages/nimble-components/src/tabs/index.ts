@@ -1,9 +1,9 @@
-import { observable } from '@microsoft/fast-element';
+import { observable } from '@ni/fast-element';
 import {
     DesignSystem,
     Tabs as FoundationTabs,
     type TabsOptions
-} from '@microsoft/fast-foundation';
+} from '@ni/fast-foundation';
 import { styles } from './styles';
 import { template } from '../patterns/tabs/template';
 import type { TabsOwner } from '../patterns/tabs/types';

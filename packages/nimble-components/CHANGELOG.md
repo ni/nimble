@@ -1,8 +1,67 @@
 # Change Log - @ni/nimble-components
 
-<!-- This log was last generated on Thu, 30 Jan 2025 22:22:52 GMT and should not be manually modified. -->
+<!-- This log was last generated on Fri, 28 Mar 2025 03:26:12 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 33.1.0
+
+Fri, 28 Mar 2025 03:26:12 GMT
+
+### Minor changes
+
+- Add new circle-minus icon ([ni/nimble@400e999](https://github.com/ni/nimble/commit/400e99951f0f38d6293cffd7df68cd73a185f2a6))
+- Bump @ni/nimble-tokens to v8.8.0
+
+## 33.0.3
+
+Wed, 26 Mar 2025 00:09:57 GMT
+
+### Patches
+
+- Fix color of placeholder text in disabled select ([ni/nimble@4804deb](https://github.com/ni/nimble/commit/4804deba0b32f2f67a46ea03531ad135428515d5))
+- Re-release packages ([ni/nimble@80de722](https://github.com/ni/nimble/commit/80de7221c8a80a3459f38109bea5528657061fe0))
+
+## 33.0.1
+
+Thu, 20 Mar 2025 00:03:10 GMT
+
+### Patches
+
+- Update to latest ni/fast packages ([ni/nimble@7c2c018](https://github.com/ni/nimble/commit/7c2c01810f262d2fac785d9e44f1229782c7e0c4))
+
+## 33.0.0
+
+Mon, 10 Mar 2025 21:33:38 GMT
+
+### Major changes
+
+- Migrate to @ni/fast-* packages ([ni/nimble@fb0dea7](https://github.com/ni/nimble/commit/fb0dea7daad3ea3fe53f630351ba3fe8f8c347ba))
+
+## 32.13.0
+
+Wed, 26 Feb 2025 00:08:30 GMT
+
+### Minor changes
+
+- Changed Rich Text Viewer markdown property to an attribute ([ni/nimble@2fbaf42](https://github.com/ni/nimble/commit/2fbaf4237d146a6c152ab6aba1af74e5d76dea05))
+
+## 32.12.1
+
+Tue, 11 Feb 2025 00:21:34 GMT
+
+### Patches
+
+- Minor lint fixes ([ni/nimble@ed385c6](https://github.com/ni/nimble/commit/ed385c6cfae41867475940f40c684b29d694546b))
+
+## 32.12.0
+
+Fri, 07 Feb 2025 17:33:50 GMT
+
+### Minor changes
+
+- New icons for AI chat, alarms, and like/dislike. Updated icon rectangle-lines. ([ni/nimble@6fc86f5](https://github.com/ni/nimble/commit/6fc86f5b9832fb2c07d4a7d4868fadfc6312220b))
+- Bump @ni/nimble-tokens to v8.7.0
 
 ## 32.11.6
 

@@ -203,7 +203,7 @@ Instead of styling based on `:invalid`, style the `[error-visible]` attribute. T
 For consistent styling, use the `display` utility when setting a `display` style on the host element.
 
 ```ts
-import { css } from '@microsoft/fast-element';
+import { css } from '@ni/fast-element';
 import { display } from '../utilities/style/display';
 
 export const styles = css`

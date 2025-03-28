@@ -1,0 +1,74 @@
+import { Controls, Canvas, Meta, Title } from '@storybook/blocks';
+import * as conversationStories from './chat-conversation.stories';
+import * as messageStories from '../message/chat-message.stories';
+import ComponentApisLink from '../../../docs/component-apis-link.mdx';
+import { chatConversationTag } from '../../../../../spright-components/src/chat/conversation';
+import { chatMessageTag } from '../../../../../spright-components/src/chat/message';
+
+<Meta of={conversationStories} />
+<Title of={conversationStories} />
+
+Chat components are used to display a conversation with a chat bot or other
+users. The components can display messages but the application is responsible
+for connecting them to a source of data.
+
+Components include a chat message and a chat conversation, which is a collection
+of messages.
+
+## API
+
+<ComponentApisLink />
+
+### Chat conversation
+
+Use the <Tag name={chatConversationTag} /> element to display a series of
+messages in a conversation.
+
+<Canvas of={conversationStories.chatConversation} />
+<Controls of={conversationStories.chatConversation} />
+
+### Chat message
+
+Use the <Tag name={chatMessageTag} /> element to display content in a message.
+Clients can place any HTML content within the message.
+
+#### Text message content
+
+<Canvas of={messageStories.chatMessageText} />
+<Controls of={messageStories.chatMessageText} />
+
+#### Rich text message content
+
+<Canvas of={messageStories.chatMessageRichText} />
+<Controls of={messageStories.chatMessageRichText} />
+
+#### Spinner message content
+
+<Canvas of={messageStories.chatMessageSpinner} />
+<Controls of={messageStories.chatMessageSpinner} />
+
+#### Image message content
+
+<Canvas of={messageStories.chatMessageImage} />
+<Controls of={messageStories.chatMessageImage} />
+
+#### Prompt buttons message content
+
+<Canvas of={messageStories.chatMessagePrompts} />
+<Controls of={messageStories.chatMessagePrompts} />
+
+## Usage
+
+These components are part of [Spright](?path=/docs/spright-docs--docs). They can
+be used in production applications but are not yet part of the core Nimble
+library for reasons including:
+
+1. the interaction and visual design are iterating rapidly
+2. we are unsure if the components are sufficiently atomic or general purpose to
+   belong in Nimble
+3. the implementation has not yet prioritized Nimble requirements like
+   accessibility and support for all frameworks
+
+{/* ## Accessibility */}
+
+{/* ## Resources */}

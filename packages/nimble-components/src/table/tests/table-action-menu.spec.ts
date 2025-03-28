@@ -1,9 +1,5 @@
-import { html } from '@microsoft/fast-element';
-import {
-    keyArrowDown,
-    keyArrowUp,
-    keyEscape
-} from '@microsoft/fast-web-utilities';
+import { html } from '@ni/fast-element';
+import { keyArrowDown, keyArrowUp, keyEscape } from '@ni/fast-web-utilities';
 import { tableTag, type Table } from '..';
 import type { TableColumn } from '../../table-column/base';
 import { menuTag, type Menu } from '../../menu';
@@ -219,7 +215,7 @@ describe('Table action menu', () => {
         await connect();
         await waitForUpdatesAsync();
 
-        const row = pageObject.getRow(0)!;
+        const row = pageObject.getRow(0);
         const focusableElements = row.getFocusableElements();
         expect(focusableElements.cells.length).toBe(2);
         expect(focusableElements.cells[0]!.actionMenuButton).toBe(
@@ -236,7 +232,7 @@ describe('Table action menu', () => {
         await waitForUpdatesAsync();
         pageObject.setRowHoverState(1, true);
         await waitForUpdatesAsync();
-        const cell = pageObject.getCell(1, 0)!;
+        const cell = pageObject.getCell(1, 0);
         const menuButton = pageObject.getCellActionMenu(1, 0)!;
         const spy = jasmine.createSpy();
         const blurListener = waitForEvent(cell, 'cell-action-menu-blur', spy);

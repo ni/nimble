@@ -1,9 +1,9 @@
-import { attr, html } from '@microsoft/fast-element';
+import { attr, html } from '@ni/fast-element';
 import {
     DesignSystem,
     NumberField as FoundationNumberField,
     type NumberFieldOptions
-} from '@microsoft/fast-foundation';
+} from '@ni/fast-foundation';
 import { styles } from './styles';
 import { NumberFieldAppearance } from './types';
 import { errorTextTemplate } from '../patterns/error/template';

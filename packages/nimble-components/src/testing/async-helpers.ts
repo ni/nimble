@@ -1,4 +1,4 @@
-import { DOM } from '@microsoft/fast-element';
+import { DOM } from '@ni/fast-element';
 
 /**
  * Allows test code to wait for components to complete pending asynchronous updates that resulted

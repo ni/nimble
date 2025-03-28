@@ -1,8 +1,67 @@
 # Change Log - @ni/nimble-angular
 
-<!-- This log was last generated on Thu, 30 Jan 2025 22:22:52 GMT and should not be manually modified. -->
+<!-- This log was last generated on Fri, 28 Mar 2025 03:26:12 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 30.1.0
+
+Fri, 28 Mar 2025 03:26:12 GMT
+
+### Minor changes
+
+- Bump @ni/nimble-components to v33.1.0
+
+## 30.0.3
+
+Wed, 26 Mar 2025 00:09:57 GMT
+
+### Patches
+
+- Re-release packages ([ni/nimble@80de722](https://github.com/ni/nimble/commit/80de7221c8a80a3459f38109bea5528657061fe0))
+- Bump @ni/nimble-components to v33.0.3
+
+## 30.0.1
+
+Thu, 20 Mar 2025 00:03:10 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v33.0.1
+
+## 30.0.0
+
+Mon, 10 Mar 2025 21:33:38 GMT
+
+### Major changes
+
+- Migrate to @ni/fast-* packages ([ni/nimble@fb0dea7](https://github.com/ni/nimble/commit/fb0dea7daad3ea3fe53f630351ba3fe8f8c347ba))
+- Bump @ni/nimble-components to v33.0.0
+
+## 29.0.1
+
+Wed, 26 Feb 2025 00:08:30 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v32.13.0
+
+## 29.0.0
+
+Tue, 11 Feb 2025 00:21:34 GMT
+
+### Major changes
+
+- Update to Angular 18 ([ni/nimble@ed385c6](https://github.com/ni/nimble/commit/ed385c6cfae41867475940f40c684b29d694546b))
+- Bump @ni/nimble-components to v32.12.1
+
+## 28.10.0
+
+Fri, 07 Feb 2025 17:33:50 GMT
+
+### Minor changes
+
+- Bump @ni/nimble-components to v32.12.0
 
 ## 28.9.4
 

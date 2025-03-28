@@ -1,4 +1,4 @@
-import { html, ref } from '@microsoft/fast-element';
+import { html, ref } from '@ni/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
 import { Table, tableTag } from '../../../nimble-components/src/table';
 import { tableColumnAnchorTag } from '../../../nimble-components/src/table-column/anchor';
@@ -6,6 +6,7 @@ import { tableColumnMappingTag } from '../../../nimble-components/src/table-colu
 import { mappingIconTag } from '../../../nimble-components/src/mapping/icon';
 import { iconCheckTag } from '../../../nimble-components/src/icons/check';
 import { iconTriangleTag } from '../../../nimble-components/src/icons/triangle';
+import { iconTriangleFilledTag } from '../../../nimble-components/src/icons/triangle-filled';
 import { iconXmarkTag } from '../../../nimble-components/src/icons/xmark';
 import { tableFitRowsHeight } from '../../../nimble-components/src/theme-provider/design-tokens';
 import { ComponentFrameworkStatus } from './types';
@@ -134,6 +135,16 @@ const components = [
         issueLabel: 'Issue',
         componentStatus: ComponentFrameworkStatus.ready,
         angularStatus: ComponentFrameworkStatus.ready,
+        blazorStatus: ComponentFrameworkStatus.ready
+    },
+    {
+        componentName: 'Chat',
+        componentHref: './?path=/docs/spright-chat--docs',
+        designHref:
+            'https://www.figma.com/design/PO9mFOu5BCl8aJvFchEeuN/Nimble_Components?node-id=12342-81782&node-type=canvas&t=L5GvLaC3injrqWrR-0',
+        designLabel: 'Figma',
+        componentStatus: ComponentFrameworkStatus.spright,
+        angularStatus: ComponentFrameworkStatus.doesNotExist,
         blazorStatus: ComponentFrameworkStatus.ready
     },
     {
@@ -547,6 +558,7 @@ const components = [
 
 const iconMappings = html`
     <${mappingIconTag} key="${ComponentFrameworkStatus.ready}" text="Ready" icon="${iconCheckTag}" severity="success" text-hidden></${mappingIconTag}>
+    <${mappingIconTag} key="${ComponentFrameworkStatus.spright}" text="Spright" icon="${iconTriangleFilledTag}" severity="success"></${mappingIconTag}>
     <${mappingIconTag} key="${ComponentFrameworkStatus.incubating}" text="Incubating" icon="${iconTriangleTag}" severity="warning"></${mappingIconTag}>
     <${mappingIconTag} key="${ComponentFrameworkStatus.doesNotExist}" text="Does not exist" icon="${iconXmarkTag}" severity="error"></${mappingIconTag}>
 `;

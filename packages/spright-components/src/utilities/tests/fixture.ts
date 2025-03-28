@@ -15,13 +15,13 @@ import {
     ExecutionContext,
     HTMLView,
     ViewTemplate,
-} from '@microsoft/fast-element';
-import { Container, DesignSystem, type DesignSystemRegistrationContext, DI } from '@microsoft/fast-foundation';
+} from '@ni/fast-element';
+import { Container, DesignSystem, type DesignSystemRegistrationContext, DI } from '@ni/fast-foundation';
 
 import type {
     FoundationElementDefinition,
     FoundationElementRegistry,
-} from '@microsoft/fast-foundation';
+} from '@ni/fast-foundation';
 
 /**
  * Options used to customize the creation of the test fixture.
@@ -41,7 +41,7 @@ export interface FixtureOptions {
 
     /**
      * The execution context to use during binding.
-     * @defaultValue {@link @microsoft/fast-element#defaultExecutionContext}
+     * @defaultValue {@link @ni/fast-element#defaultExecutionContext}
      */
     context?: ExecutionContext;
 

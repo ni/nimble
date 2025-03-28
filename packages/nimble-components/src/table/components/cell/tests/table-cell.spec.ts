@@ -1,4 +1,4 @@
-import { html, customElement } from '@microsoft/fast-element';
+import { html, customElement } from '@ni/fast-element';
 import { TableCell, tableCellTag } from '..';
 import { waitForUpdatesAsync } from '../../../../testing/async-helpers';
 import {

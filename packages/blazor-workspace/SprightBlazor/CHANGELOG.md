@@ -1,8 +1,89 @@
 # Change Log - @ni/spright-blazor
 
-<!-- This log was last generated on Thu, 30 Jan 2025 22:22:52 GMT and should not be manually modified. -->
+<!-- This log was last generated on Fri, 28 Mar 2025 03:26:12 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 4.1.0
+
+Fri, 28 Mar 2025 03:26:12 GMT
+
+### Minor changes
+
+- Bump @ni/spright-components to v5.1.0
+
+## 4.0.3
+
+Wed, 26 Mar 2025 16:17:35 GMT
+
+### Patches
+
+- Add ContinuousIntegrationBuild ([ni/nimble@4057768](https://github.com/ni/nimble/commit/4057768a378d0a8828534dee6b6d1230d93b8f4b))
+
+## 4.0.2
+
+Wed, 26 Mar 2025 00:09:57 GMT
+
+### Patches
+
+- Re-release packages ([ni/nimble@80de722](https://github.com/ni/nimble/commit/80de7221c8a80a3459f38109bea5528657061fe0))
+- Bump @ni/spright-components to v5.0.3
+
+## 4.0.1
+
+Thu, 20 Mar 2025 00:03:10 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v5.0.1
+
+## 4.0.0
+
+Mon, 10 Mar 2025 21:33:38 GMT
+
+### Major changes
+
+- Bump @ni/spright-components to v5.0.0
+
+## 3.4.1
+
+Wed, 26 Feb 2025 00:08:30 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v4.5.1
+
+## 3.4.0
+
+Tue, 18 Feb 2025 17:59:37 GMT
+
+### Minor changes
+
+- Added Blazor wrappers for the chat components ([ni/nimble@0a8c3b2](https://github.com/ni/nimble/commit/0a8c3b265c57dcfee6dd956ac3b659e61cbcf07b))
+
+## 3.3.2
+
+Fri, 14 Feb 2025 04:02:47 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v4.5.0
+
+## 3.3.1
+
+Tue, 11 Feb 2025 00:21:34 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v4.4.1
+
+## 3.3.0
+
+Fri, 07 Feb 2025 17:33:50 GMT
+
+### Minor changes
+
+- Bump @ni/spright-components to v4.4.0
 
 ## 3.2.10
 

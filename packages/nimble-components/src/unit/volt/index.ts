@@ -1,4 +1,4 @@
-import { DesignSystem } from '@microsoft/fast-foundation';
+import { DesignSystem } from '@ni/fast-foundation';
 import { template } from '../base/template';
 import { Unit } from '../base/unit';
 import { voltUnitScale } from '../../utilities/unit-format/unit-scale/volt-unit-scale';

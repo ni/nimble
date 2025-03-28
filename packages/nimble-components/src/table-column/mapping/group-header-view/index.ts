@@ -1,5 +1,5 @@
-import { DesignSystem } from '@microsoft/fast-foundation';
-import { ViewTemplate, observable } from '@microsoft/fast-element';
+import { DesignSystem } from '@ni/fast-foundation';
+import { ViewTemplate, observable } from '@ni/fast-element';
 import { styles } from './styles';
 import { template } from './template';
 import type { TableColumnEnumColumnConfig } from '../../enum-base';

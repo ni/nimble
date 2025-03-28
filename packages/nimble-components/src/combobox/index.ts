@@ -1,11 +1,4 @@
-import {
-    DOM,
-    Observable,
-    attr,
-    html,
-    observable,
-    ref
-} from '@microsoft/fast-element';
+import { DOM, Observable, attr, html, observable, ref } from '@ni/fast-element';
 import {
     DesignSystem,
     type ComboboxOptions,
@@ -15,7 +8,7 @@ import {
     DelegatesARIACombobox,
     applyMixins,
     StartEnd
-} from '@microsoft/fast-foundation';
+} from '@ni/fast-foundation';
 import {
     keyArrowDown,
     keyArrowUp,
@@ -25,7 +18,7 @@ import {
     keyTab,
     limit,
     uniqueId
-} from '@microsoft/fast-web-utilities';
+} from '@ni/fast-web-utilities';
 import { ToggleButton, toggleButtonTag } from '../toggle-button';
 import { errorTextTemplate } from '../patterns/error/template';
 import { iconArrowExpanderDownTag } from '../icons/arrow-expander-down';

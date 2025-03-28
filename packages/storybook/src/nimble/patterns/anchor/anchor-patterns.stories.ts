@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/html';
-import { html, ref } from '@microsoft/fast-element';
+import { html, ref } from '@ni/fast-element';
 import {
     bodyFont,
     bodyFontColor,

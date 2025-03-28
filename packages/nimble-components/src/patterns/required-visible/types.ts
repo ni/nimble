@@ -1,4 +1,4 @@
-import { attr, FASTElement } from '@microsoft/fast-element';
+import { attr, FASTElement } from '@ni/fast-element';
 
 export interface RequiredVisiblePattern {
     /**

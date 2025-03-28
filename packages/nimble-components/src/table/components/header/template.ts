@@ -1,4 +1,4 @@
-import { html, when } from '@microsoft/fast-element';
+import { html, when } from '@ni/fast-element';
 import type { TableHeader } from '.';
 import { iconArrowDownTag } from '../../../icons/arrow-down';
 import { iconArrowUpTag } from '../../../icons/arrow-up';

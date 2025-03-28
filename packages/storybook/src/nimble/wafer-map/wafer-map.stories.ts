@@ -1,4 +1,4 @@
-import { html } from '@microsoft/fast-element';
+import { html } from '@ni/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
 import type { Table } from 'apache-arrow';
 import { waferMapTag } from '../../../../nimble-components/src/wafer-map';

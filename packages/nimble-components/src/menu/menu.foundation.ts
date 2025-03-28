@@ -1,21 +1,21 @@
 /**
  * Based on implementation in FAST repo: https://github.com/microsoft/fast/blob/9c6dbb66615e6d229fc0ebf8065a67f109139f26/packages/web-components/fast-foundation/src/menu/menu.ts
  */
-import { DOM, observable } from '@microsoft/fast-element';
+import { DOM, observable } from '@ni/fast-element';
 import {
     isHTMLElement,
     keyArrowDown,
     keyArrowUp,
     keyEnd,
     keyHome
-} from '@microsoft/fast-web-utilities';
+} from '@ni/fast-web-utilities';
 import {
     FoundationElement,
     MenuItem,
     type MenuItemColumnCount,
     MenuItemRole,
     roleForMenuItem
-} from '@microsoft/fast-foundation';
+} from '@ni/fast-foundation';
 
 /**
  * A Menu Custom HTML Element.
@@ -177,8 +177,7 @@ export class Menu extends FoundationElement {
         if (
             e.defaultPrevented
             || e.target === null
-            || this.menuItems === undefined
-            || !this.menuItems.includes(e.target as Element)
+            || !this.menuItems?.includes(e.target as Element)
         ) {
             return;
         }

@@ -1,4 +1,4 @@
-import { css } from '@microsoft/fast-element';
+import { css } from '@ni/fast-element';
 import {
     Black15,
     Black91,
@@ -77,12 +77,14 @@ export const styles = css`
         }
 
         div.bit1 {
-            animation-name: ni-private-spinner-no-motion-opacity-keyframes,
+            animation-name:
+                ni-private-spinner-no-motion-opacity-keyframes,
                 ni-private-spinner-no-motion-transform-keyframes-1;
         }
 
         div.bit2 {
-            animation-name: ni-private-spinner-no-motion-opacity-keyframes,
+            animation-name:
+                ni-private-spinner-no-motion-opacity-keyframes,
                 ni-private-spinner-no-motion-transform-keyframes-2;
         }
     }

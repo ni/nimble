@@ -15,7 +15,7 @@ import Text from '@tiptap/extension-text';
 import { Slice, Fragment, Node as FragmentNode } from 'prosemirror-model';
 import { PluginKey } from 'prosemirror-state';
 
-import { keyEscape } from '@microsoft/fast-web-utilities';
+import { keyEscape } from '@ni/fast-web-utilities';
 import {
     type ActiveMentionCommandEmitter,
     type ActiveMentionCharacterEmitter,

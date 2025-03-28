@@ -1,8 +1,83 @@
 # Change Log - @ni/nimble-blazor
 
-<!-- This log was last generated on Thu, 30 Jan 2025 22:22:52 GMT and should not be manually modified. -->
+<!-- This log was last generated on Fri, 28 Mar 2025 03:26:12 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 20.1.0
+
+Fri, 28 Mar 2025 03:26:12 GMT
+
+### Minor changes
+
+- Bump @ni/nimble-components to v33.1.0
+- Bump @ni/nimble-tokens to v8.8.0
+
+## 20.0.3
+
+Wed, 26 Mar 2025 16:17:35 GMT
+
+### Patches
+
+- Add ContinuousIntegrationBuild ([ni/nimble@4057768](https://github.com/ni/nimble/commit/4057768a378d0a8828534dee6b6d1230d93b8f4b))
+
+## 20.0.2
+
+Wed, 26 Mar 2025 00:09:57 GMT
+
+### Patches
+
+- Re-release packages ([ni/nimble@80de722](https://github.com/ni/nimble/commit/80de7221c8a80a3459f38109bea5528657061fe0))
+- Bump @ni/nimble-components to v33.0.3
+
+## 20.0.1
+
+Thu, 20 Mar 2025 00:03:10 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v33.0.1
+
+## 20.0.0
+
+Mon, 10 Mar 2025 21:33:38 GMT
+
+### Major changes
+
+- Bump @ni/nimble-components to v33.0.0
+
+## 19.6.0
+
+Fri, 28 Feb 2025 14:57:37 GMT
+
+### Minor changes
+
+- Added Blazor wrapper for nimble-rich-text-viewer ([ni/nimble@a5233a6](https://github.com/ni/nimble/commit/a5233a6439cbb0e5d5b3552e735d1ca750e1862f))
+
+## 19.5.2
+
+Wed, 26 Feb 2025 00:08:30 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v32.13.0
+
+## 19.5.1
+
+Tue, 11 Feb 2025 00:21:34 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v32.12.1
+
+## 19.5.0
+
+Fri, 07 Feb 2025 17:33:50 GMT
+
+### Minor changes
+
+- Bump @ni/nimble-components to v32.12.0
+- Bump @ni/nimble-tokens to v8.7.0
 
 ## 19.4.6
 

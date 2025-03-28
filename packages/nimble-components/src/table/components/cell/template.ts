@@ -1,4 +1,4 @@
-import { html, ref, when } from '@microsoft/fast-element';
+import { html, ref, when } from '@ni/fast-element';
 import type { TableCell } from '.';
 import { iconThreeDotsLineTag } from '../../../icons/three-dots-line';
 import { menuButtonTag } from '../../../menu-button';

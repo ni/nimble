@@ -1,4 +1,4 @@
-import { html, ref, when } from '@microsoft/fast-element';
+import { html, ref, when } from '@ni/fast-element';
 import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html';
 import { withActions } from '@storybook/addon-actions/decorator';
 import { buttonTag } from '../../../../../nimble-components/src/button';
@@ -54,7 +54,7 @@ const exampleDataType = {
     markdownString: 'MarkdownString'
 } as const;
 
-const plainString = 'Plain text' as const;
+const plainString = 'Plain text';
 
 const dataSets = {
     [exampleDataType.plainString]: plainString,

@@ -1,8 +1,24 @@
 # Change Log - @ni/nimble-tokens
 
-<!-- This log was last generated on Mon, 09 Dec 2024 15:59:16 GMT and should not be manually modified. -->
+<!-- This log was last generated on Fri, 28 Mar 2025 03:26:12 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 8.8.0
+
+Fri, 28 Mar 2025 03:26:12 GMT
+
+### Minor changes
+
+- Add new circle-minus icon ([ni/nimble@400e999](https://github.com/ni/nimble/commit/400e99951f0f38d6293cffd7df68cd73a185f2a6))
+
+## 8.7.0
+
+Fri, 07 Feb 2025 17:33:50 GMT
+
+### Minor changes
+
+- New icons for AI chat, alarms, and like/dislike. Updated icon rectangle-lines. ([ni/nimble@6fc86f5](https://github.com/ni/nimble/commit/6fc86f5b9832fb2c07d4a7d4868fadfc6312220b))
 
 ## 8.6.0
 

@@ -28,7 +28,7 @@ module.exports = {
                 'import/no-extraneous-dependencies': ['error', { packageDir: __dirname }],
                 'no-restricted-imports': ['error', {
                     patterns: [{
-                        group: ['@microsoft/fast-*'],
+                        group: ['@ni/fast-*'],
                         message: 'Do not directly use underlying libraries of nimble. Instead rely on or add to exports of nimble packages.'
                     },
                     {
@@ -72,7 +72,7 @@ module.exports = {
                 'no-restricted-imports': [
                     'error', {
                         patterns: [{
-                            group: ['@microsoft/fast-*'],
+                            group: ['@ni/fast-*'],
                             message: 'Do not directly use underlying libraries of nimble. Instead rely on or add to exports of nimble packages.'
                         }, {
                             group: ['@ni/nimble-components', '@ni/spright-components'],
@@ -91,7 +91,7 @@ module.exports = {
                 'no-restricted-imports': [
                     'error', {
                         patterns: [{
-                            group: ['@microsoft/fast-*'],
+                            group: ['@ni/fast-*'],
                             message: 'Do not directly use underlying libraries of nimble. Instead rely on or add to exports of nimble packages.'
                         }]
                     }

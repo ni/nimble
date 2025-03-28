@@ -1,5 +1,5 @@
-import { html } from '@microsoft/fast-element';
-import { keyArrowDown, keySpace, keyTab } from '@microsoft/fast-web-utilities';
+import { html } from '@ni/fast-element';
+import { keyArrowDown, keySpace, keyTab } from '@ni/fast-web-utilities';
 import { parameterizeSpec } from '@ni/jasmine-parameterized';
 import { Table, tableTag } from '..';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';

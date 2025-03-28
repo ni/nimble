@@ -1,4 +1,4 @@
-import type { FoundationElement } from '@microsoft/fast-foundation';
+import type { FoundationElement } from '@ni/fast-foundation';
 
 /**
  * A page object for the elements that use the required-visible mixin.

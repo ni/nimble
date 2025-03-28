@@ -1,4 +1,4 @@
-import { attr, customElement, html } from '@microsoft/fast-element';
+import { attr, customElement, html } from '@ni/fast-element';
 import { parameterizeSpec } from '@ni/jasmine-parameterized';
 import { Table, tableTag } from '..';
 import { TableColumn } from '../../table-column/base';
@@ -501,7 +501,7 @@ describe('Table', () => {
             expect(pageObject.isRowHoverStylingEnabled()).toBeFalse();
         });
 
-        it('re-enables row hover styling after scrolling ends', async () => {
+        it('re-enables row hover styling after scrolling ends #SkipWebkit', async () => {
             await connect();
             await element.setData(simpleTableData);
             column1.groupIndex = 0;

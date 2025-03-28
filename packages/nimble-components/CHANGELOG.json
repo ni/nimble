@@ -2,6 +2,159 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Fri, 28 Mar 2025 03:26:12 GMT",
+      "version": "33.1.0",
+      "tag": "@ni/nimble-components_v33.1.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "400e99951f0f38d6293cffd7df68cd73a185f2a6",
+            "comment": "Add new circle-minus icon"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/nimble-tokens to v8.8.0",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 26 Mar 2025 00:09:57 GMT",
+      "version": "33.0.3",
+      "tag": "@ni/nimble-components_v33.0.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "4804deba0b32f2f67a46ea03531ad135428515d5",
+            "comment": "Fix color of placeholder text in disabled select"
+          },
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "80de7221c8a80a3459f38109bea5528657061fe0",
+            "comment": "Re-release packages"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 20 Mar 2025 00:03:10 GMT",
+      "version": "33.0.1",
+      "tag": "@ni/nimble-components_v33.0.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "7c2c01810f262d2fac785d9e44f1229782c7e0c4",
+            "comment": "Update to latest ni/fast packages"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 10 Mar 2025 21:33:38 GMT",
+      "version": "33.0.0",
+      "tag": "@ni/nimble-components_v33.0.0",
+      "comments": {
+        "major": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "fb0dea7daad3ea3fe53f630351ba3fe8f8c347ba",
+            "comment": "Migrate to @ni/fast-* packages"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 03 Mar 2025 23:02:01 GMT",
+      "version": "32.13.0",
+      "tag": "@ni/nimble-components_v32.13.0",
+      "comments": {
+        "none": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "7403ed79ff09140920b39f47530010c185885b1a",
+            "comment": "Update dependencies"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 26 Feb 2025 00:08:30 GMT",
+      "version": "32.13.0",
+      "tag": "@ni/nimble-components_v32.13.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "107654185+joseahdz@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "2fbaf4237d146a6c152ab6aba1af74e5d76dea05",
+            "comment": "Changed Rich Text Viewer markdown property to an attribute"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 11 Feb 2025 00:21:34 GMT",
+      "version": "32.12.1",
+      "tag": "@ni/nimble-components_v32.12.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "ed385c6cfae41867475940f40c684b29d694546b",
+            "comment": "Minor lint fixes"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 07 Feb 2025 17:33:50 GMT",
+      "version": "32.12.0",
+      "tag": "@ni/nimble-components_v32.12.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "6fc86f5b9832fb2c07d4a7d4868fadfc6312220b",
+            "comment": "New icons for AI chat, alarms, and like/dislike. Updated icon rectangle-lines."
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/nimble-tokens to v8.7.0",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 07 Feb 2025 16:47:48 GMT",
+      "version": "32.11.6",
+      "tag": "@ni/nimble-components_v32.11.6",
+      "comments": {
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "42534fa9a6b856f434abf170e2e33ce1aa3a51e3",
+            "comment": "Disable test in webkit"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 30 Jan 2025 22:22:52 GMT",
       "version": "32.11.6",
       "tag": "@ni/nimble-components_v32.11.6",

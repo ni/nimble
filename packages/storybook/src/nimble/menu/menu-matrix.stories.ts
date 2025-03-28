@@ -1,4 +1,4 @@
-import { html, ViewTemplate, when } from '@microsoft/fast-element';
+import { html, ViewTemplate, when } from '@ni/fast-element';
 import type { StoryFn, Meta } from '@storybook/html';
 import { iconUserTag } from '../../../../nimble-components/src/icons/user';
 import { iconXmarkTag } from '../../../../nimble-components/src/icons/xmark';

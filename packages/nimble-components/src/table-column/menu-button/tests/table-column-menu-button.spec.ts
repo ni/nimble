@@ -1,6 +1,6 @@
-import { html, ref } from '@microsoft/fast-element';
+import { html, ref } from '@ni/fast-element';
 import { parameterizeSpec, parameterizeSuite } from '@ni/jasmine-parameterized';
-import { keyArrowDown, keyEscape, keyTab } from '@microsoft/fast-web-utilities';
+import { keyArrowDown, keyEscape, keyTab } from '@ni/fast-web-utilities';
 import { tableTag, type Table } from '../../../table';
 import { TableColumnMenuButton, tableColumnMenuButtonTag } from '..';
 import { waitForUpdatesAsync } from '../../../testing/async-helpers';
@@ -297,7 +297,7 @@ describe('TableColumnMenuButton', () => {
 
     describe('menu button interactions', () => {
         let menuButton: MenuButtonPageObject;
-        const recordId = 'id-0' as const;
+        const recordId = 'id-0';
         const originalData = [
             { id: recordId, field: 'value', anotherField: 'another value' }
         ] as const;

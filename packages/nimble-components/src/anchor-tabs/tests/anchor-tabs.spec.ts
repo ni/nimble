@@ -1,4 +1,4 @@
-import { html } from '@microsoft/fast-element';
+import { html } from '@ni/fast-element';
 import {
     keyArrowLeft,
     keyArrowRight,
@@ -7,7 +7,7 @@ import {
     keyHome,
     keySpace,
     keyTab
-} from '@microsoft/fast-web-utilities';
+} from '@ni/fast-web-utilities';
 import { parameterizeSpec } from '@ni/jasmine-parameterized';
 import { AnchorTabs, anchorTabsTag } from '..';
 import '../../anchor-tab';

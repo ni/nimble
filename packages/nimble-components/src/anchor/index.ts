@@ -1,9 +1,9 @@
-import { attr, nullableNumberConverter } from '@microsoft/fast-element';
+import { attr, nullableNumberConverter } from '@ni/fast-element';
 import {
     DesignSystem,
     Anchor as FoundationAnchor,
     type AnchorOptions
-} from '@microsoft/fast-foundation';
+} from '@ni/fast-foundation';
 import { AnchorBase } from '../anchor-base';
 import { styles } from './styles';
 import { template } from './template';

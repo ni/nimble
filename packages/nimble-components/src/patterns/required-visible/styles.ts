@@ -1,4 +1,4 @@
-import { css } from '@microsoft/fast-element';
+import { css } from '@ni/fast-element';
 import { smallPadding } from '../../theme-provider/design-tokens';
 
 export const styles = css`

@@ -1,5 +1,5 @@
 import type { Meta, StoryFn } from '@storybook/html';
-import { html, ViewTemplate, when } from '@microsoft/fast-element';
+import { html, ViewTemplate, when } from '@ni/fast-element';
 import { anchorTabTag } from '../../../../nimble-components/src/anchor-tab';
 import { tabsToolbarTag } from '../../../../nimble-components/src/tabs-toolbar';
 import { buttonTag } from '../../../../nimble-components/src/button';

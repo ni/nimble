@@ -1,8 +1,75 @@
 # Change Log - @ni/spright-components
 
-<!-- This log was last generated on Thu, 30 Jan 2025 22:22:52 GMT and should not be manually modified. -->
+<!-- This log was last generated on Fri, 28 Mar 2025 03:26:12 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 5.1.0
+
+Fri, 28 Mar 2025 03:26:12 GMT
+
+### Minor changes
+
+- Bump @ni/nimble-components to v33.1.0
+
+## 5.0.3
+
+Wed, 26 Mar 2025 00:09:57 GMT
+
+### Patches
+
+- Re-release packages ([ni/nimble@80de722](https://github.com/ni/nimble/commit/80de7221c8a80a3459f38109bea5528657061fe0))
+- Bump @ni/nimble-components to v33.0.3
+
+## 5.0.1
+
+Thu, 20 Mar 2025 00:03:10 GMT
+
+### Patches
+
+- Update to latest ni/fast packages ([ni/nimble@7c2c018](https://github.com/ni/nimble/commit/7c2c01810f262d2fac785d9e44f1229782c7e0c4))
+- Bump @ni/nimble-components to v33.0.1
+
+## 5.0.0
+
+Mon, 10 Mar 2025 21:33:38 GMT
+
+### Major changes
+
+- Migrate to @ni/fast-* packages ([ni/nimble@fb0dea7](https://github.com/ni/nimble/commit/fb0dea7daad3ea3fe53f630351ba3fe8f8c347ba))
+- Bump @ni/nimble-components to v33.0.0
+
+## 4.5.1
+
+Wed, 26 Feb 2025 00:08:30 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v32.13.0
+
+## 4.5.0
+
+Fri, 14 Feb 2025 04:02:47 GMT
+
+### Minor changes
+
+- Productize ChatConversation and ChatMessage elements ([ni/nimble@772266a](https://github.com/ni/nimble/commit/772266affe7d04ce8ef7197fa7367d1c75a740b1))
+
+## 4.4.1
+
+Tue, 11 Feb 2025 00:21:34 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v32.12.1
+
+## 4.4.0
+
+Fri, 07 Feb 2025 17:33:50 GMT
+
+### Minor changes
+
+- Bump @ni/nimble-components to v32.12.0
 
 ## 4.3.11
 

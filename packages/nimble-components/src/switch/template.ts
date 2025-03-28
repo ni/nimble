@@ -1,4 +1,4 @@
-import { html, slotted } from '@microsoft/fast-element';
+import { html, slotted } from '@ni/fast-element';
 import type { Switch } from '.';
 
 // prettier-ignore

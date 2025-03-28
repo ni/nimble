@@ -23,15 +23,15 @@
       },
       "Microsoft.NET.ILLink.Tasks": {
         "type": "Direct",
-        "requested": "[8.0.12, )",
-        "resolved": "8.0.12",
-        "contentHash": "FV4HnQ3JI15PHnJ5PGTbz+rYvrih42oLi/7UMIshNwCwUZhTq13UzrggtXk4ygrcMcN+4jsS6hhshx2p/Zd0ig=="
+        "requested": "[8.0.14, )",
+        "resolved": "8.0.14",
+        "contentHash": "4U2fd7PexNKrK5ZqfqIcXZj9/lRRjFsLgA/pxuFQTuGQuLYP/+7yACz/j7EmWbEj/fspOf4mafi/vHIy/rKDzQ=="
       },
       "Microsoft.NET.Sdk.WebAssembly.Pack": {
         "type": "Direct",
-        "requested": "[8.0.12, )",
-        "resolved": "8.0.12",
-        "contentHash": "JS5B7ZJVqaBOjlbjDgOkg+COEy24CB6IdGiwNeZnPJMoIZFdxehGFUmlxl4Mz3GZaoIduOtMtwkEdy6jh+NUpg=="
+        "requested": "[8.0.14, )",
+        "resolved": "8.0.14",
+        "contentHash": "PVKBB7RYzYzCMnKKHjG/sVUhTHtToCO0ewuZvrRuATsmxYiG1e01m1p7Mbg9CTkbj72KPnrMuq9pBiypA7sOyg=="
       },
       "NI.CSharp.Analyzers": {
         "type": "Direct",

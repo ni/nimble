@@ -1,4 +1,4 @@
-import { html } from '@microsoft/fast-element';
+import { html } from '@ni/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
 import { mappingUserTag } from '../../../../../nimble-components/src/mapping/user';
 import { richTextMentionUsersTag } from '../../../../../nimble-components/src/rich-text-mention/users';
@@ -45,7 +45,7 @@ const metadata: Meta<RichTextViewerArgs> = {
         statusLink: 'https://github.com/ni/nimble/issues/1288'
     })}
     <${richTextViewerTag}
-        :markdown="${x => x.markdown}"
+        markdown="${x => x.markdown}"
     >
         <${richTextMentionUsersTag} pattern="${x => dataSets[x.data].pattern}">
             <${mappingUserTag} key="${x => dataSets[x.data].href}1" display-name="John Doe"></${mappingUserTag}>
@@ -60,7 +60,7 @@ const metadata: Meta<RichTextViewerArgs> = {
         markdown: {
             description:
                 'Input markdown string for the supported text formatting options in a [CommonMark](https://commonmark.org/) flavor.',
-            table: { category: apiCategory.nonAttributeProperties }
+            table: { category: apiCategory.attributes }
         },
         data: {
             name: 'default',

@@ -1,5 +1,5 @@
 import type { StoryFn, Meta } from '@storybook/html';
-import { html } from '@microsoft/fast-element';
+import { html } from '@ni/fast-element';
 import { buttonTag } from '../../../../nimble-components/src/button';
 import { iconArrowRotateRightTag } from '../../../../nimble-components/src/icons/arrow-rotate-right';
 import { iconCogTag } from '../../../../nimble-components/src/icons/cog';

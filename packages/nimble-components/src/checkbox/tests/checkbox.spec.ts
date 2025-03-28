@@ -1,4 +1,4 @@
-import { html } from '@microsoft/fast-element';
+import { html } from '@ni/fast-element';
 import { Checkbox, checkboxTag } from '..';
 import { fixture, type Fixture } from '../../utilities/tests/fixture';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';

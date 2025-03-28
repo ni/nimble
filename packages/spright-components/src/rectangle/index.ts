@@ -1,4 +1,4 @@
-import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
+import { DesignSystem, FoundationElement } from '@ni/fast-foundation';
 import { styles } from './styles';
 import { template } from './template';
 

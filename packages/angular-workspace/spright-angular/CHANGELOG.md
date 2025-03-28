@@ -1,8 +1,74 @@
 # Change Log - @ni/spright-angular
 
-<!-- This log was last generated on Thu, 30 Jan 2025 22:22:52 GMT and should not be manually modified. -->
+<!-- This log was last generated on Fri, 28 Mar 2025 03:26:12 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 7.1.0
+
+Fri, 28 Mar 2025 03:26:12 GMT
+
+### Minor changes
+
+- Bump @ni/spright-components to v5.1.0
+
+## 7.0.2
+
+Wed, 26 Mar 2025 00:09:57 GMT
+
+### Patches
+
+- Re-release packages ([ni/nimble@80de722](https://github.com/ni/nimble/commit/80de7221c8a80a3459f38109bea5528657061fe0))
+- Bump @ni/spright-components to v5.0.3
+
+## 7.0.1
+
+Thu, 20 Mar 2025 00:03:10 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v5.0.1
+
+## 7.0.0
+
+Mon, 10 Mar 2025 21:33:38 GMT
+
+### Major changes
+
+- Bump @ni/spright-components to v5.0.0
+
+## 6.0.2
+
+Wed, 26 Feb 2025 00:08:30 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v4.5.1
+
+## 6.0.1
+
+Fri, 14 Feb 2025 04:02:47 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v4.5.0
+
+## 6.0.0
+
+Tue, 11 Feb 2025 00:21:34 GMT
+
+### Major changes
+
+- Update to Angular 18 ([ni/nimble@ed385c6](https://github.com/ni/nimble/commit/ed385c6cfae41867475940f40c684b29d694546b))
+- Bump @ni/spright-components to v4.4.1
+
+## 5.4.0
+
+Fri, 07 Feb 2025 17:33:50 GMT
+
+### Minor changes
+
+- Bump @ni/spright-components to v4.4.0
 
 ## 5.3.10
 
