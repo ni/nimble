@@ -47,7 +47,20 @@ We will not yet introduce an input toolbar component where a user can type and s
 
 #### Chat message
 
-1. Display arbitrary slotted content. For example: text, rich text, buttons, images, or a spinner.
+The `spright-chat-message` has the following slot elements.
+
+1. `default` slot displays arbitrary slotted content. For example: text, rich text, buttons, images, or a spinner.
+1. `footer-actions` slot element which is used to add actions buttons after the main content.
+1. `followup-prompt` slot element which is used to add followup prompt buttons. They are below any action buttons.
+
+All action buttons must meet the following criteria
+
+1. They are `nimble-button`s
+1. The `appearance` attribute is set to `ghost`
+1. The `content-hidden` attribute is set to `true`
+
+The component also contains the following features:
+
 1. Layout content to the right, center, or left of parent container depending on metadata about who sent the message.
 1. Size based on content size with maximum width (but not height) based on parent's width.
 1. Change the styling of the message depending on metadata about who sent the message. For example: render user messages in a bubble with the tail pointing to the right but render system messages with no styling.
@@ -64,10 +77,10 @@ These components are competing against possible implementations within applicati
 
 ### Prior Art/Examples
 
-**Screenshot of Figma design of chat and conversation component (light mode)**
+**Screenshot of Figma design of chat and conversation component (light mode)**  
 ![ ](spec-images/chat-conversation.png)
 
-**Screenshot of Figma design of chat components embeded within larger pane (dark mode)**
+**Screenshot of Figma design of chat components embeded within larger pane (dark mode)**  
 ![ ](spec-images/chat-pane.png)
 
 ---
@@ -110,9 +123,9 @@ richText.markdown = 'Welcome **Homer**, how can I help?';
 #### Prompt buttons message example
 
 ```html
-<spright-chat-message message-type="system">
-    <nimble-button appearance="block">Help with my taxes</nimble-button>
-    <nimble-button appearance="block">Provide me some life advice</nimble-button>
+<spright-chat-message message-type="inbound">
+    <nimble-button appearance="block" slot="followup-prompt">Help with my taxes</nimble-button>
+    <nimble-button appearance="block" slot="followup-prompt">Provide me some life advice</nimble-button>
 </spright-chat-message
 ```
 
@@ -131,8 +144,12 @@ richText.markdown = 'Welcome **Homer**, how can I help?';
     - A message will grow its height to fit its content, with no maximum height.
     - Clients could override this behavior but we don't anticipate use cases for doing so when the message is used within a conversation
 - _Slots_
-
-    - arbitrary content can be added to the default slot to be displayed within the message
+    - `footer-actions`
+        - Action buttons to display after the main content.
+    - `followup-prompt`
+        - Buttons with followup prompts that are display at the bottom after any action buttons.
+    - `(default)`
+        - arbitrary content can be added to the default slot to be displayed within the message
 
 #### Conversation
 
@@ -156,8 +173,14 @@ A message is simply a `div` which will styled with background / border / rounded
 
 ```html
 <template>
-    <div>
-        <slot></slot>
+    <div class="root">
+        <section class="message-content">
+            <slot></slot>
+        </section>
+        <section>
+            <slot class="footer-actions" name="footer-actions"></slot>
+        </section>
+        <slot class="followup" name="followup-prompt"></slot>
     </div>
 </template>
 ```
@@ -182,7 +205,7 @@ Angular integration has not yet been evaluated in detail, but is expected to be 
 
 ### Blazor integration
 
-Blazor integration has not yet been evaluated, but is expected to be able to follow existing patterns. It is anticipated to be needed for initial clients so this section will be updated when Blazor development begins if anything interesting is discovered.
+The Blazor wrappers `SpringChatConversation` and `SprightChateMessage` have been created.
 
 ### Visual Appearance
 
