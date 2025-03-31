@@ -19,7 +19,6 @@ import {
 } from '../../../../../nimble-components/src/theme-provider/design-tokens';
 import { buttonTag } from '../../../../../nimble-components/src/button';
 import { iconCopyTextTag } from '../../../../../nimble-components/src/icons/copy-text';
-import { iconPencilTag } from '../../../../../nimble-components/src/icons/pencil';
 
 const messageTypeStates = [
     ['outbound', ChatMessageType.outbound],

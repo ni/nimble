@@ -1,5 +1,6 @@
 import { css } from '@ni/fast-element';
 import { buttonTag } from '@ni/nimble-components/dist/esm/button';
+import { toggleButtonTag } from '@ni/nimble-components/dist/esm/toggle-button';
 
 import {
     bodyFont,
@@ -55,7 +56,8 @@ export const styles = css`
         border-radius: 8px 8px 8px 0px;
     }
 
-    .footer-actions::slotted(${buttonTag}) {
+    .footer-actions::slotted(${buttonTag}),
+    .footer-actions::slotted(${toggleButtonTag}) {
         height: ${controlSlimHeight};
         width: ${controlSlimHeight};
         margin: 0px 10px 0px 0px;

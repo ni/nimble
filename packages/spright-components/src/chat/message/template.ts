@@ -4,7 +4,7 @@ import {
     endSlotTemplate,
     type FoundationElementTemplate
 } from '@ni/fast-foundation';
-import { ChatMessage, type ChatMessageOptions } from '.';
+import type { ChatMessage, ChatMessageOptions } from '.';
 
 /* eslint-disable @typescript-eslint/indent */
 // prettier-ignore
