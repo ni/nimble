@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/html';
 import { html } from '@ni/fast-element';
 import { buttonTag } from '../../../../../nimble-components/src/button';
+import { toggleButtonTag } from '../../../../../nimble-components/src/toggle-button';
 import { chatConversationTag } from '../../../../../spright-components/src/chat/conversation';
 import { ChatMessageType } from '../../../../../spright-components/src/chat/message/types';
 import { chatMessageTag } from '../../../../../spright-components/src/chat/message';
@@ -54,14 +55,14 @@ export const chatConversation: StoryObj<ChatConversationArgs> = {
                     <${iconCopyTextTag} slot='start' />
                     Copy
                 </${buttonTag}>
-                <${buttonTag} slot='footer-actions' appearance='ghost' title='Like' content-hidden>
+                <${toggleButtonTag} slot='footer-actions' appearance='ghost' title='Like' content-hidden>
                     <${iconThumbUpTag} slot='start' />
                     Like
-                </${buttonTag}>
-                <${buttonTag} slot='footer-actions' appearance='ghost' title='Dislike' content-hidden>
+                </${toggleButtonTag}>
+                <${toggleButtonTag} slot='footer-actions' appearance='ghost' title='Dislike' content-hidden>
                     <${iconThumbDownTag} slot='start' />
                     Dislike
-                </${buttonTag}>
+                </${toggleButtonTag}>
                 <${buttonTag} slot='footer-actions' appearance='ghost' title='Regenerate' content-hidden>
                     <${iconArrowRotateRightTag} slot='start' />
                     Regenerate
