@@ -41,13 +41,13 @@
       },
       "Microsoft.Playwright": {
         "type": "Direct",
-        "requested": "[1.44.0, 1.44.0]",
-        "resolved": "1.44.0",
-        "contentHash": "stag3Jv/FtjqR5/8UcVfyYyktPt9AHxBnNazyytu4cq5W8/J5DQDQEednk/cK2iGy2Y/dC0hUcCdxp9cFDckmA==",
+        "requested": "[1.51.0, 1.51.0]",
+        "resolved": "1.51.0",
+        "contentHash": "4nOOBtTwXyB+cE+XwkjnQGJVmjbrTrZ+nuKzLz+oCnv5z1FiB7PQLT9FH8wETmHLSawzXh/ucPdBeGA8mRGJEw==",
         "dependencies": {
           "Microsoft.Bcl.AsyncInterfaces": "6.0.0",
           "System.ComponentModel.Annotations": "5.0.0",
-          "System.Text.Json": "6.0.0"
+          "System.Text.Json": "6.0.10"
         }
       },
       "NI.CSharp.Analyzers": {
@@ -600,8 +600,8 @@
       },
       "System.Text.Json": {
         "type": "Transitive",
-        "resolved": "6.0.0",
-        "contentHash": "zaJsHfESQvJ11vbXnNlkrR46IaMULk/gHxYsJphzSF+07kTjPHv+Oc14w6QEOfo3Q4hqLJgStUaYB9DBl0TmWg==",
+        "resolved": "6.0.10",
+        "contentHash": "NSB0kDipxn2ychp88NXWfFRFlmi1bst/xynOutbnpEfRCT9JZkZ7KOmF/I/hNKo2dILiMGnqblm+j1sggdLB9g==",
         "dependencies": {
           "System.Runtime.CompilerServices.Unsafe": "6.0.0",
           "System.Text.Encodings.Web": "6.0.0"

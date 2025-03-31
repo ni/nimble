@@ -2,6 +2,36 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Fri, 28 Mar 2025 23:05:09 GMT",
+      "version": "30.1.0",
+      "tag": "@ni/nimble-angular_v30.1.0",
+      "comments": {
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "c0c37938728b15d2dbba2274ed6604ae80332b99",
+            "comment": "Update ubuntu and playwright versions"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 28 Mar 2025 03:26:12 GMT",
+      "version": "30.1.0",
+      "tag": "@ni/nimble-angular_v30.1.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v33.1.0",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 26 Mar 2025 00:09:57 GMT",
       "version": "30.0.3",
       "tag": "@ni/nimble-angular_v30.0.3",

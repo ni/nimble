@@ -1,8 +1,17 @@
 # Change Log - @ni/nimble-components
 
-<!-- This log was last generated on Wed, 26 Mar 2025 00:09:57 GMT and should not be manually modified. -->
+<!-- This log was last generated on Fri, 28 Mar 2025 03:26:12 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 33.1.0
+
+Fri, 28 Mar 2025 03:26:12 GMT
+
+### Minor changes
+
+- Add new circle-minus icon ([ni/nimble@400e999](https://github.com/ni/nimble/commit/400e99951f0f38d6293cffd7df68cd73a185f2a6))
+- Bump @ni/nimble-tokens to v8.8.0
 
 ## 33.0.3
 

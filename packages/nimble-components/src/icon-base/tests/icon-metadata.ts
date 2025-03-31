@@ -181,6 +181,9 @@ export const iconMetadata: {
     IconCircleFilled: {
         tags: []
     },
+    IconCircleMinus: {
+        tags: ['not set', 'dash', 'hyphen']
+    },
     IconCirclePartialBroken: {
         tags: ['status', 'partially connected']
     },

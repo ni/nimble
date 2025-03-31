@@ -2,6 +2,21 @@
   "name": "@ni/nimble-tokens",
   "entries": [
     {
+      "date": "Fri, 28 Mar 2025 03:26:12 GMT",
+      "version": "8.8.0",
+      "tag": "@ni/nimble-tokens_v8.8.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "400e99951f0f38d6293cffd7df68cd73a185f2a6",
+            "comment": "Add new circle-minus icon"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 07 Feb 2025 17:33:50 GMT",
       "version": "8.7.0",
       "tag": "@ni/nimble-tokens_v8.7.0",
