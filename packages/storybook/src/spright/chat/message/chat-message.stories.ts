@@ -113,9 +113,7 @@ export const chatMessageRichText: StoryObj<ChatMessageRichTextArgs> = {
     render: createUserSelectedThemeStory(html`
         <${chatMessageTag} message-type="${x => ChatMessageType[x.messageType]}">
             <${richTextViewerTag} markdown="${x => x.markdown}"></${richTextViewerTag}>
-            ${when(
-        x => x.footerActions,
-        html`
+            ${when(x => x.footerActions, html`
                 <${buttonTag} slot="footer-actions" appearance="ghost" title="Like" content-hidden>
                     <${iconThumbUpTag} slot="start"></${iconThumbUpTag}>
                     Like
@@ -124,19 +122,15 @@ export const chatMessageRichText: StoryObj<ChatMessageRichTextArgs> = {
                     <${iconThumbDownTag} slot="start"></${iconThumbDownTag}>
                     Dislike
                 </${buttonTag}>
-            `
-    )}
-            ${when(
-        x => x.endButtons,
-        html`
+            `)}
+            ${when(x => x.endButtons, html`
                 <${buttonTag} slot="end">
                     Elaborate more
                 </${buttonTag}>
                 <${buttonTag} slot="end">
                     Try again
                 </${buttonTag}>
-            `
-    )}
+            `)}
         </${chatMessageTag}>
     `),
     argTypes: {
@@ -160,9 +154,7 @@ export const chatMessageSpinner: StoryObj<ChatMessageArgs> = {
                 style="${isChromatic() ? '--ni-private-spinner-animation-play-state:paused' : ''}"
                 appearance="${() => SpinnerAppearance.accent}"
             ></${spinnerTag}>
-            ${when(
-        x => x.footerActions,
-        html`
+            ${when(x => x.footerActions, html`
                 <${buttonTag} slot="footer-actions" appearance="ghost" title="Like" content-hidden>
                     <${iconThumbUpTag} slot="start"></${iconThumbUpTag}>
                     Like
@@ -171,19 +163,15 @@ export const chatMessageSpinner: StoryObj<ChatMessageArgs> = {
                     <${iconThumbDownTag} slot="start"></${iconThumbDownTag}>
                     Dislike
                 </${buttonTag}>
-            `
-    )}
-            ${when(
-        x => x.endButtons,
-        html`
+            `)}
+            ${when(x => x.endButtons, html`
                 <${buttonTag} slot="end">
                     Elaborate more
                 </${buttonTag}>
                 <${buttonTag} slot="end">
                     Try again
                 </${buttonTag}>
-            `
-    )}
+            `)}
         </${chatMessageTag}>
     `),
     args: {
@@ -197,9 +185,7 @@ export const chatMessageImage: StoryObj<ChatMessageArgs> = {
     render: createUserSelectedThemeStory(html`
         <${chatMessageTag} message-type="${x => ChatMessageType[x.messageType]}">
             <img width="100" height="100" :src="${() => imgBlobUrl}">
-            ${when(
-        x => x.footerActions,
-        html`
+            ${when(x => x.footerActions, html`
                 <${buttonTag} slot="footer-actions" appearance="ghost" title="Like" content-hidden>
                     <${iconThumbUpTag} slot="start"></${iconThumbUpTag}>
                     Like
@@ -208,19 +194,15 @@ export const chatMessageImage: StoryObj<ChatMessageArgs> = {
                     <${iconThumbDownTag} slot="start"></${iconThumbDownTag}>
                     Dislike
                 </${buttonTag}>
-            `
-    )}
-            ${when(
-        x => x.endButtons,
-        html`
+            `)}
+            ${when(x => x.endButtons, html`
                 <${buttonTag} slot="end">
                     Elaborate more
                 </${buttonTag}>
                 <${buttonTag} slot="end">
                     Try again
                 </${buttonTag}>
-            `
-    )}
+            `)}
         </${chatMessageTag}>
     `),
     args: {
@@ -235,9 +217,7 @@ export const chatMessagePrompts: StoryObj<ChatMessageArgs> = {
         <${chatMessageTag} message-type="${x => ChatMessageType[x.messageType]}">
             <${buttonTag} appearance="${() => ButtonAppearance.block}">Eat my shorts</${buttonTag}>
             <${buttonTag} appearance="${() => ButtonAppearance.block}">Do the Bartman</${buttonTag}>
-            ${when(
-        x => x.footerActions,
-        html`
+            ${when(x => x.footerActions, html`
                 <${buttonTag} slot="footer-actions" appearance="ghost" title="Like" content-hidden>
                     <${iconThumbUpTag} slot="start"></${iconThumbUpTag}>
                     Like
@@ -246,19 +226,15 @@ export const chatMessagePrompts: StoryObj<ChatMessageArgs> = {
                     <${iconThumbDownTag} slot="start"></${iconThumbDownTag}>
                     Dislike
                 </${buttonTag}>
-            `
-    )}
-            ${when(
-        x => x.endButtons,
-        html`
+            `)}
+            ${when(x => x.endButtons, html`
                 <${buttonTag} slot="end">
                     Elaborate more
                 </${buttonTag}>
                 <${buttonTag} slot="end">
                     Try again
                 </${buttonTag}>
-            `
-    )}
+            `)}
         </${chatMessageTag}>
     `),
     args: {
