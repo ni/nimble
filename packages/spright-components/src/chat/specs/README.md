@@ -50,14 +50,21 @@ We will not yet introduce an input toolbar component where a user can type and s
 The `spright-chat-message` has the following slot elements.
 
 1. `default` slot displays arbitrary slotted content. For example: text, rich text, buttons, images, or a spinner.
-1. `footer-actions` slot element which is used to add actions buttons after the main content.
-1. `followup-prompt` slot element which is used to add followup prompt buttons. They are below any action buttons.
+1. `footer-actions` slot which is used to add actions buttons below the main content.
+1. `end` slot which is used to add text buttons. They are below any action buttons.
 
 All action buttons must meet the following criteria
 
-1. They are `nimble-button`s
+1. They are `nimble-button`s or `nimble-toggle-button`
 1. The `appearance` attribute is set to `ghost`
 1. The `content-hidden` attribute is set to `true`
+1. They contain only Nimble icons
+
+All end text buttons must meet the following criteria
+
+1. They are `nimble-button`s
+1. The `apperance` attribute is set to `Outline`
+1. The buttons only have text
 
 The component also contains the following features:
 
@@ -124,8 +131,8 @@ richText.markdown = 'Welcome **Homer**, how can I help?';
 
 ```html
 <spright-chat-message message-type="inbound">
-    <nimble-button appearance="block" slot="followup-prompt">Help with my taxes</nimble-button>
-    <nimble-button appearance="block" slot="followup-prompt">Provide me some life advice</nimble-button>
+    <nimble-button appearance="block" slot="end">Help with my taxes</nimble-button>
+    <nimble-button appearance="block" slot="end">Provide me some life advice</nimble-button>
 </spright-chat-message
 ```
 
@@ -146,8 +153,8 @@ richText.markdown = 'Welcome **Homer**, how can I help?';
 - _Slots_
     - `footer-actions`
         - Action buttons to display after the main content.
-    - `followup-prompt`
-        - Buttons with followup prompts that are display at the bottom after any action buttons.
+    - `end`
+        - Buttons with text that are display at the bottom after any action buttons.
     - `(default)`
         - arbitrary content can be added to the default slot to be displayed within the message
 
@@ -174,13 +181,14 @@ A message is simply a `div` which will styled with background / border / rounded
 ```html
 <template>
     <div class="root">
+        ${startSlotTemplate(context, definition)}
         <section class="message-content">
             <slot></slot>
         </section>
         <section>
             <slot class="footer-actions" name="footer-actions"></slot>
         </section>
-        <slot class="followup" name="followup-prompt"></slot>
+        ${endSlotTemplate(context, definition)}
     </div>
 </template>
 ```
@@ -205,7 +213,7 @@ Angular integration has not yet been evaluated in detail, but is expected to be 
 
 ### Blazor integration
 
-The Blazor wrappers `SpringChatConversation` and `SprightChateMessage` have been created.
+The Blazor wrappers `SpringChatConversation` and `SprightChatMessage` have been created.
 
 ### Visual Appearance
 
@@ -221,7 +229,9 @@ None.
 
 ### Accessibility
 
-Accessibility has not yet been evaluated.
+Only keyboard navigation has been evaluated. This has led to the removal of a showing an action button only on hover. Users cannot navigate to a hidden button. We wil revisit this in the future if desired behavior is required.
+
+For the footer actions elements, they need to be in a `nimble-toolbar`, however, the `nimble-toolbar` does not support content slotted across a shadow root. [This](https://github.com/ni/nimble/issues/2571) issue has been opened to fix it.
 
 _Consider the accessibility of the component, including:_
 

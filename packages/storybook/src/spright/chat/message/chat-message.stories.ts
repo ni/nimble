@@ -17,19 +17,20 @@ import { isChromatic } from '../../../utilities/isChromatic';
 import { iconThumbUpTag } from '../../../../../nimble-components/src/icons/thumb-up';
 import { iconThumbDownTag } from '../../../../../nimble-components/src/icons/thumb-down';
 
-const footerActionsDescription = `Place a button at the bottom of the message to allow the user to invoke a custom action.
+const footerActionsDescription = `Place 0 or more buttons at the bottom of the message to allow the user to invoke a custom action.
+Footer actions should only be added to inbound messages.
 
 The buttons should have the \`ghost\` appearance and \`content-hidden\`.
 
 Nimble will set the height of the buttons to \`$ni-nimble-control-slim-height\`.
 `;
 
-const followUpPromptsDescription = 'Place buttons with followup prompts. They are below any action buttons.';
+const endButtonDescription = 'Place 0 or more buttons with text. They appear below any action buttons. End buttons should only be added to inbound messages.';
 
 interface ChatMessageArgs {
     messageType: keyof typeof ChatMessageType;
     footerActions: boolean;
-    followupPrompt: boolean;
+    endButtons: boolean;
 }
 
 const metadata: Meta<ChatMessageArgs> = {
@@ -47,9 +48,9 @@ const metadata: Meta<ChatMessageArgs> = {
             description: footerActionsDescription,
             table: { category: apiCategory.slots }
         },
-        followupPrompt: {
-            name: 'followup-prompt',
-            description: followUpPromptsDescription,
+        endButtons: {
+            name: 'end',
+            description: endButtonDescription,
             table: { category: apiCategory.slots }
         }
     },
@@ -64,32 +65,30 @@ interface ChatMessageTextArgs extends ChatMessageArgs {
     text: string;
 }
 
+// prettier-ignore
+
 export const chatMessageText: StoryObj<ChatMessageTextArgs> = {
     render: createUserSelectedThemeStory(html`
         <${chatMessageTag} message-type="${x => ChatMessageType[x.messageType]}">
             ${x => x.text}
-            ${when(
-        x => x.footerActions,
-        html`
-                <${buttonTag} slot="footer-actions" appearance="ghost" content-hidden>
+            ${when(x => x.footerActions, html`
+                <${buttonTag} slot="footer-actions" appearance="ghost" title="Like" content-hidden>
                     <${iconThumbUpTag} slot="start"></${iconThumbUpTag}>
                     Like
                 </${buttonTag}>
-                <${buttonTag} slot="footer-actions" appearance="ghost" content-hidden>
+                <${buttonTag} slot="footer-actions" appearance="ghost" title="Dislike" content-hidden>
                     <${iconThumbDownTag} slot="start"></${iconThumbDownTag}>
                     Dislike
-                </${buttonTag}>`
-    )}
-            ${when(
-        x => x.followupPrompt,
-        html`
-                <${buttonTag} slot="followup-prompt">
+                </${buttonTag}>
+            `)}
+            ${when(x => x.endButtons, html`
+                <${buttonTag} slot="end">
                     Elaborate more
                 </${buttonTag}>
-                <${buttonTag} slot="followup-prompt">
+                <${buttonTag} slot="end">
                     Try again
-                </${buttonTag}>`
-    )}
+                </${buttonTag}>
+            `)}
         </${chatMessageTag}>
     `),
     argTypes: {
@@ -103,7 +102,7 @@ export const chatMessageText: StoryObj<ChatMessageTextArgs> = {
         text: 'Aurora Borealis? At this time of year? At this time of day? In this part of the country? Localized entirely within your kitchen?',
         messageType: 'outbound',
         footerActions: false,
-        followupPrompt: false
+        endButtons: false
     }
 };
 
@@ -117,24 +116,26 @@ export const chatMessageRichText: StoryObj<ChatMessageRichTextArgs> = {
             ${when(
         x => x.footerActions,
         html`
-                <${buttonTag} slot="footer-actions" appearance="ghost" content-hidden>
+                <${buttonTag} slot="footer-actions" appearance="ghost" title="Like" content-hidden>
                     <${iconThumbUpTag} slot="start"></${iconThumbUpTag}>
                     Like
                 </${buttonTag}>
-                <${buttonTag} slot="footer-actions" appearance="ghost" content-hidden>
+                <${buttonTag} slot="footer-actions" appearance="ghost" title="Dislike" content-hidden>
                     <${iconThumbDownTag} slot="start"></${iconThumbDownTag}>
                     Dislike
-                </${buttonTag}>`
+                </${buttonTag}>
+            `
     )}
             ${when(
-        x => x.followupPrompt,
+        x => x.endButtons,
         html`
-                <${buttonTag} slot="followup-prompt">
+                <${buttonTag} slot="end">
                     Elaborate more
                 </${buttonTag}>
-                <${buttonTag} slot="followup-prompt">
+                <${buttonTag} slot="end">
                     Try again
-                </${buttonTag}>`
+                </${buttonTag}>
+            `
     )}
         </${chatMessageTag}>
     `),
@@ -148,7 +149,7 @@ export const chatMessageRichText: StoryObj<ChatMessageRichTextArgs> = {
         markdown: markdownExample,
         messageType: 'outbound',
         footerActions: false,
-        followupPrompt: false
+        endButtons: false
     }
 };
 
@@ -162,31 +163,33 @@ export const chatMessageSpinner: StoryObj<ChatMessageArgs> = {
             ${when(
         x => x.footerActions,
         html`
-                <${buttonTag} slot="footer-actions" appearance="ghost" content-hidden>
+                <${buttonTag} slot="footer-actions" appearance="ghost" title="Like" content-hidden>
                     <${iconThumbUpTag} slot="start"></${iconThumbUpTag}>
                     Like
                 </${buttonTag}>
-                <${buttonTag} slot="footer-actions" appearance="ghost" content-hidden>
+                <${buttonTag} slot="footer-actions" appearance="ghost" title="Dislike" content-hidden>
                     <${iconThumbDownTag} slot="start"></${iconThumbDownTag}>
                     Dislike
-                </${buttonTag}>`
+                </${buttonTag}>
+            `
     )}
             ${when(
-        x => x.followupPrompt,
+        x => x.endButtons,
         html`
-                <${buttonTag} slot="followup-prompt">
+                <${buttonTag} slot="end">
                     Elaborate more
                 </${buttonTag}>
-                <${buttonTag} slot="followup-prompt">
+                <${buttonTag} slot="end">
                     Try again
-                </${buttonTag}>`
+                </${buttonTag}>
+            `
     )}
         </${chatMessageTag}>
     `),
     args: {
         messageType: 'system',
         footerActions: false,
-        followupPrompt: false
+        endButtons: false
     }
 };
 
@@ -197,31 +200,33 @@ export const chatMessageImage: StoryObj<ChatMessageArgs> = {
             ${when(
         x => x.footerActions,
         html`
-                <${buttonTag} slot="footer-actions" appearance="ghost" content-hidden>
+                <${buttonTag} slot="footer-actions" appearance="ghost" title="Like" content-hidden>
                     <${iconThumbUpTag} slot="start"></${iconThumbUpTag}>
                     Like
                 </${buttonTag}>
-                <${buttonTag} slot="footer-actions" appearance="ghost" content-hidden>
+                <${buttonTag} slot="footer-actions" appearance="ghost" title="Dislike" content-hidden>
                     <${iconThumbDownTag} slot="start"></${iconThumbDownTag}>
                     Dislike
-                </${buttonTag}>`
+                </${buttonTag}>
+            `
     )}
             ${when(
-        x => x.followupPrompt,
+        x => x.endButtons,
         html`
-                <${buttonTag} slot="followup-prompt">
+                <${buttonTag} slot="end">
                     Elaborate more
                 </${buttonTag}>
-                <${buttonTag} slot="followup-prompt">
+                <${buttonTag} slot="end">
                     Try again
-                </${buttonTag}>`
+                </${buttonTag}>
+            `
     )}
         </${chatMessageTag}>
     `),
     args: {
         messageType: 'inbound',
         footerActions: false,
-        followupPrompt: false
+        endButtons: false
     }
 };
 
@@ -233,30 +238,32 @@ export const chatMessagePrompts: StoryObj<ChatMessageArgs> = {
             ${when(
         x => x.footerActions,
         html`
-                <${buttonTag} slot="footer-actions" appearance="ghost" content-hidden>
+                <${buttonTag} slot="footer-actions" appearance="ghost" title="Like" content-hidden>
                     <${iconThumbUpTag} slot="start"></${iconThumbUpTag}>
                     Like
                 </${buttonTag}>
-                <${buttonTag} slot="footer-actions" appearance="ghost" content-hidden>
+                <${buttonTag} slot="footer-actions" appearance="ghost" title="Dislike" content-hidden>
                     <${iconThumbDownTag} slot="start"></${iconThumbDownTag}>
                     Dislike
-                </${buttonTag}>`
+                </${buttonTag}>
+            `
     )}
             ${when(
-        x => x.followupPrompt,
+        x => x.endButtons,
         html`
-                <${buttonTag} slot="followup-prompt">
+                <${buttonTag} slot="end">
                     Elaborate more
                 </${buttonTag}>
-                <${buttonTag} slot="followup-prompt">
+                <${buttonTag} slot="end">
                     Try again
-                </${buttonTag}>`
+                </${buttonTag}>
+            `
     )}
         </${chatMessageTag}>
     `),
     args: {
         messageType: 'system',
         footerActions: false,
-        followupPrompt: false
+        endButtons: false
     }
 };

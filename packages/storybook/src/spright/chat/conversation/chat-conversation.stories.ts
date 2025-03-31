@@ -50,32 +50,32 @@ export const chatConversation: StoryObj<ChatConversationArgs> = {
                 ></${spinnerTag}>
             </${chatMessageTag}>
             <${chatMessageTag} message-type="${() => ChatMessageType.inbound}">
-                <${buttonTag} slot='footer-actions' appearance='ghost' content-hidden>
+                <${buttonTag} slot='footer-actions' appearance='ghost' title='Copy' content-hidden>
                     <${iconCopyTextTag} slot='start' />
                     Copy
                 </${buttonTag}>
-                <${buttonTag} slot='footer-actions' appearance='ghost' content-hidden>
+                <${buttonTag} slot='footer-actions' appearance='ghost' title='Like' content-hidden>
                     <${iconThumbUpTag} slot='start' />
                     Like
                 </${buttonTag}>
-                <${buttonTag} slot='footer-actions' appearance='ghost' content-hidden>
+                <${buttonTag} slot='footer-actions' appearance='ghost' title='Dislike' content-hidden>
                     <${iconThumbDownTag} slot='start' />
                     Dislike
                 </${buttonTag}>
-                <${buttonTag} slot='footer-actions' appearance='ghost' content-hidden>
+                <${buttonTag} slot='footer-actions' appearance='ghost' title='Regenerate' content-hidden>
                     <${iconArrowRotateRightTag} slot='start' />
                     Regenerate
                 </${buttonTag}>
-                <${buttonTag} slot='footer-actions' appearance='ghost' content-hidden>
+                <${buttonTag} slot='footer-actions' appearance='ghost' title='More Options' content-hidden>
                     <${iconThreeDotsLineTag} slot='start' />
-                    Refresh
+                    More Options
                 </${buttonTag}>
                 <img width="100" height="100" :src=${() => imgBlobUrl}>
                 <div>${loremIpsum}</div>
-                <${buttonTag} slot='followup-prompt'>
+                <${buttonTag} slot='end'>
                     Repeat that in English
                 </${buttonTag}>
-                <${buttonTag} slot='followup-prompt'>
+                <${buttonTag} slot='end'>
                     Elaborate more
                 </${buttonTag}>
             </${chatMessageTag}>

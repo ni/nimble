@@ -71,7 +71,7 @@ const component = ([
                 <${iconCopyTextTag} slot='start' />
                 Copy
             </${buttonTag}>
-            <${buttonTag} slot='followup-prompt'>
+            <${buttonTag} slot='end'>
                 Follow-up Prompt
             </${buttonTag}>
             This is the message content.

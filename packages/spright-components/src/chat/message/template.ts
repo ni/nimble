@@ -1,17 +1,26 @@
-import { html } from '@ni/fast-element';
-import type { ChatMessage } from '.';
+import { html, ViewTemplate } from '@ni/fast-element';
+import {
+    startSlotTemplate,
+    endSlotTemplate,
+    type FoundationElementTemplate
+} from '@ni/fast-foundation';
+import { ChatMessage, type ChatMessageOptions } from '.';
 
 /* eslint-disable @typescript-eslint/indent */
 // prettier-ignore
-export const template = html<ChatMessage>`
+export const template: FoundationElementTemplate<
+ViewTemplate<ChatMessage>,
+ChatMessageOptions
+> = (context, definition) => html<ChatMessage>`
     <div class="root">
+        ${startSlotTemplate(context, definition)}
         <section class="message-content">
             <slot></slot>
         </section>
         <section>
            <slot class="footer-actions" name="footer-actions"></slot>
         </section>
-        <slot class="followup" name="followup-prompt"></slot>
+        ${endSlotTemplate(context, definition)}
     </div>
 `;
 /* eslint-enable @typescript-eslint/indent */

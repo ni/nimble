@@ -61,7 +61,11 @@ export const styles = css`
         margin: 0px 10px 0px 0px;
     }
 
-    .followup::slotted(*) {
+    [part='start'] {
+        display: none;
+    }
+
+    [part='end'] ::slotted(*) {
         margin: 10px 16px 0px 0px;
     }
 `;
