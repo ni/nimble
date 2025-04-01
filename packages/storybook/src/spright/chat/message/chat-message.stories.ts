@@ -66,7 +66,6 @@ interface ChatMessageTextArgs extends ChatMessageArgs {
 }
 
 // prettier-ignore
-
 export const chatMessageText: StoryObj<ChatMessageTextArgs> = {
     render: createUserSelectedThemeStory(html`
         <${chatMessageTag} message-type="${x => ChatMessageType[x.messageType]}">
@@ -109,6 +108,8 @@ export const chatMessageText: StoryObj<ChatMessageTextArgs> = {
 interface ChatMessageRichTextArgs extends ChatMessageArgs {
     markdown: string;
 }
+
+// prettier-ignore
 export const chatMessageRichText: StoryObj<ChatMessageRichTextArgs> = {
     render: createUserSelectedThemeStory(html`
         <${chatMessageTag} message-type="${x => ChatMessageType[x.messageType]}">
@@ -147,6 +148,7 @@ export const chatMessageRichText: StoryObj<ChatMessageRichTextArgs> = {
     }
 };
 
+// prettier-ignore
 export const chatMessageSpinner: StoryObj<ChatMessageArgs> = {
     render: createUserSelectedThemeStory(html`
         <${chatMessageTag} message-type="${x => ChatMessageType[x.messageType]}">
@@ -181,6 +183,7 @@ export const chatMessageSpinner: StoryObj<ChatMessageArgs> = {
     }
 };
 
+// prettier-ignore
 export const chatMessageImage: StoryObj<ChatMessageArgs> = {
     render: createUserSelectedThemeStory(html`
         <${chatMessageTag} message-type="${x => ChatMessageType[x.messageType]}">
@@ -212,6 +215,7 @@ export const chatMessageImage: StoryObj<ChatMessageArgs> = {
     }
 };
 
+// prettier-ignore
 export const chatMessagePrompts: StoryObj<ChatMessageArgs> = {
     render: createUserSelectedThemeStory(html`
         <${chatMessageTag} message-type="${x => ChatMessageType[x.messageType]}">
