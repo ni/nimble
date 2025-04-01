@@ -54,6 +54,7 @@ export const styles = css`
 
     :host([message-type='inbound']) .message-content {
         border-radius: 8px 8px 8px 0px;
+        padding: 6px;
     }
 
     .footer-actions::slotted(${buttonTag}),
@@ -68,6 +69,6 @@ export const styles = css`
     }
 
     [part='end'] ::slotted(*) {
-        margin: 32px 16px 0px 0px;
+        margin: 24px 16px 0px 0px;
     }
 `;

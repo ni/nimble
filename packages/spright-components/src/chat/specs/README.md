@@ -63,7 +63,7 @@ All action buttons must meet the following criteria
 All end text buttons must meet the following criteria
 
 1. They are `nimble-button`s
-1. The `apperance` attribute is set to `Outline`
+1. The `apperance` attribute is set to `block`
 1. The buttons only have text
 
 The component also contains the following features:

@@ -73,10 +73,10 @@ export const chatConversation: StoryObj<ChatConversationArgs> = {
                 </${buttonTag}>
                 <img width="100" height="100" :src=${() => imgBlobUrl}>
                 <div>${loremIpsum}</div>
-                <${buttonTag} slot='end'>
+                <${buttonTag} slot='end' appearance='block'>
                     Repeat that in English
                 </${buttonTag}>
-                <${buttonTag} slot='end'>
+                <${buttonTag} slot='end' appearance='block'>
                     Elaborate more
                 </${buttonTag}>
             </${chatMessageTag}>

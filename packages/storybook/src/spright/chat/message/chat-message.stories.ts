@@ -82,10 +82,10 @@ export const chatMessageText: StoryObj<ChatMessageTextArgs> = {
                 </${buttonTag}>
             `)}
             ${when(x => x.endButtons, html`
-                <${buttonTag} slot="end">
+                <${buttonTag} slot="end" appearance="block">
                     Elaborate more
                 </${buttonTag}>
-                <${buttonTag} slot="end">
+                <${buttonTag} slot="end" appearance="block">
                     Try again
                 </${buttonTag}>
             `)}
@@ -124,10 +124,10 @@ export const chatMessageRichText: StoryObj<ChatMessageRichTextArgs> = {
                 </${buttonTag}>
             `)}
             ${when(x => x.endButtons, html`
-                <${buttonTag} slot="end">
+                <${buttonTag} slot="end" appearance="block">
                     Elaborate more
                 </${buttonTag}>
-                <${buttonTag} slot="end">
+                <${buttonTag} slot="end" appearance="block">
                     Try again
                 </${buttonTag}>
             `)}
@@ -165,10 +165,10 @@ export const chatMessageSpinner: StoryObj<ChatMessageArgs> = {
                 </${buttonTag}>
             `)}
             ${when(x => x.endButtons, html`
-                <${buttonTag} slot="end">
+                <${buttonTag} slot="end" appearance="block">
                     Elaborate more
                 </${buttonTag}>
-                <${buttonTag} slot="end">
+                <${buttonTag} slot="end" appearance="block">
                     Try again
                 </${buttonTag}>
             `)}
@@ -196,10 +196,10 @@ export const chatMessageImage: StoryObj<ChatMessageArgs> = {
                 </${buttonTag}>
             `)}
             ${when(x => x.endButtons, html`
-                <${buttonTag} slot="end">
+                <${buttonTag} slot="end" appearance="block">
                     Elaborate more
                 </${buttonTag}>
-                <${buttonTag} slot="end">
+                <${buttonTag} slot="end" appearance="block">
                     Try again
                 </${buttonTag}>
             `)}
@@ -228,10 +228,10 @@ export const chatMessagePrompts: StoryObj<ChatMessageArgs> = {
                 </${buttonTag}>
             `)}
             ${when(x => x.endButtons, html`
-                <${buttonTag} slot="end">
+                <${buttonTag} slot="end" appearance="block">
                     Elaborate more
                 </${buttonTag}>
-                <${buttonTag} slot="end">
+                <${buttonTag} slot="end" appearance="block">
                     Try again
                 </${buttonTag}>
             `)}
