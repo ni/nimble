@@ -52,23 +52,23 @@ export const chatConversation: StoryObj<ChatConversationArgs> = {
             </${chatMessageTag}>
             <${chatMessageTag} message-type="${() => ChatMessageType.inbound}">
                 <${buttonTag} slot='footer-actions' appearance='ghost' title='Copy' content-hidden>
-                    <${iconCopyTextTag} slot='start' />
+                    <${iconCopyTextTag} slot='start'></${iconCopyTextTag}>
                     Copy
                 </${buttonTag}>
                 <${toggleButtonTag} slot='footer-actions' appearance='ghost' title='Like' content-hidden>
-                    <${iconThumbUpTag} slot='start' />
+                    <${iconThumbUpTag} slot='start'></${iconThumbUpTag}>
                     Like
                 </${toggleButtonTag}>
                 <${toggleButtonTag} slot='footer-actions' appearance='ghost' title='Dislike' content-hidden>
-                    <${iconThumbDownTag} slot='start' />
+                    <${iconThumbDownTag} slot='start'></${iconThumbDownTag}>
                     Dislike
                 </${toggleButtonTag}>
                 <${buttonTag} slot='footer-actions' appearance='ghost' title='Regenerate' content-hidden>
-                    <${iconArrowRotateRightTag} slot='start' />
+                    <${iconArrowRotateRightTag} slot='start'></${iconArrowRotateRightTag}>
                     Regenerate
                 </${buttonTag}>
                 <${buttonTag} slot='footer-actions' appearance='ghost' title='More Options' content-hidden>
-                    <${iconThreeDotsLineTag} slot='start' />
+                    <${iconThreeDotsLineTag} slot='start'></${iconThreeDotsLineTag}>
                     More Options
                 </${buttonTag}>
                 <img width="100" height="100" :src=${() => imgBlobUrl}>

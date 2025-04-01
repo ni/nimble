@@ -5,9 +5,7 @@ import { ChatMessageType } from '../../../../../spright-components/src/chat/mess
 import {
     createMatrix,
     sharedMatrixParameters,
-    createMatrixThemeStory,
-    cartesianProduct,
-    createMatrixInteractionsFromStates
+    createMatrixThemeStory
 } from '../../../utilities/matrix';
 import { createStory } from '../../../utilities/storybook';
 import { hiddenWrapper } from '../../../utilities/hidden';
@@ -17,8 +15,6 @@ import {
     bodyFont,
     bodyFontColor
 } from '../../../../../nimble-components/src/theme-provider/design-tokens';
-import { buttonTag } from '../../../../../nimble-components/src/button';
-import { iconCopyTextTag } from '../../../../../nimble-components/src/icons/copy-text';
 
 const messageTypeStates = [
     ['outbound', ChatMessageType.outbound],
@@ -59,25 +55,6 @@ const contentHeightStates = [
 ] as const;
 type ContentHeightStates = (typeof contentHeightStates)[number];
 
-const component = ([
-    _messageTypeLabel,
-    messageType
-]: MessageTypeStates): ViewTemplate => html`
-    <span>${() => `Message Type: ${_messageTypeLabel}`} </span>
-    <${chatConversationTag}>
-        <${chatMessageTag} message-type="${() => messageType}">
-            <${buttonTag} slot='footer-actions' appearance='ghost' ContentHidden='true'>
-                <${iconCopyTextTag} slot='start' />
-                Copy
-            </${buttonTag}>
-            <${buttonTag} slot='end'>
-                Follow-up Prompt
-            </${buttonTag}>
-            This is the message content.
-        </${chatMessageTag}>
-    </${chatConversationTag}>
-`;
-
 const componentSizing = (
     [_messageTypeLabel, messageType]: MessageTypeStates,
     [viewportLabel, viewportWidth, viewportHeight]: ViewportStates,
@@ -115,8 +92,6 @@ const componentSizing = (
     </div>
 `;
 
-const interactiveMessageTypes = cartesianProduct([messageTypeStates] as const);
-
 export const outboundSizing: StoryFn = createStory(html`
     ${createMatrix(componentSizing, [
         [outboundState],
@@ -143,15 +118,6 @@ export const systemSizing: StoryFn = createStory(html`
         contentHeightStates
     ])}
 `);
-
-export const messageInteractionsThemeMatrix: StoryFn = createMatrixThemeStory(
-    createMatrixInteractionsFromStates(component, {
-        hover: interactiveMessageTypes,
-        hoverActive: [],
-        active: interactiveMessageTypes,
-        focus: []
-    })
-);
 
 export const conversationHidden: StoryFn = createStory(
     hiddenWrapper(

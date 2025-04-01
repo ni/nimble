@@ -50,10 +50,10 @@ We will not yet introduce an input toolbar component where a user can type and s
 The `spright-chat-message` has the following slot elements.
 
 1. `default` slot displays arbitrary slotted content. For example: text, rich text, buttons, images, or a spinner.
-1. `footer-actions` slot which is used to add actions buttons below the main content.
+1. `footer-actions` slot which is used to add action buttons below the main content.
 1. `end` slot which is used to add text buttons. They are below any action buttons.
 
-All action buttons must meet the following criteria
+Nimble will set the height of the action buttons to `$ni-nimble-control-slim-height`. All action buttons must meet the following criteria
 
 1. They are `nimble-button`s or `nimble-toggle-button`
 1. The `appearance` attribute is set to `ghost`
@@ -154,7 +154,7 @@ richText.markdown = 'Welcome **Homer**, how can I help?';
     - `footer-actions`
         - Action buttons to display after the main content.
     - `end`
-        - Buttons with text that are display at the bottom after any action buttons.
+        - Buttons with text that are displayed at the bottom after any action buttons.
     - `(default)`
         - arbitrary content can be added to the default slot to be displayed within the message
 
@@ -229,9 +229,13 @@ None.
 
 ### Accessibility
 
-Only keyboard navigation has been evaluated. This has led to the removal of a showing an action button only on hover. Users cannot navigate to a hidden button. We wil revisit this in the future if desired behavior is required.
+Only keyboard navigation has been evaluated. The desired behavior is for each message's action buttons to be a single tab stop, with navigation between a message's action buttons accomplished using arrow keys. This should be achieved by placing the items within a `nimble-toolbar`, however the `nimble-toolbar` does not yet detect content in nested slots (see #2571). For scoping reasons the content will not initially be placed in a toolbar and thus each button will be a tab stop. Once that issue is addressed it should be possible to add a toolbar and achieve the desired behavior without breaking clients.
 
-For the footer actions elements, they need to be in a `nimble-toolbar`, however, the `nimble-toolbar` does not support content slotted across a shadow root. [This](https://github.com/ni/nimble/issues/2571) issue has been opened to fix it.
+Buttons placed in the `end` slot should each be their own tab stop and thus will not be placed in a toolbar.
+
+The design spec includes a proposal to add another "Edit" button to the left of some messages when the user hovers over the message. The button would be a tab stop and would become visible when keyboard focused. This work is currently out of scope.
+
+Other aspects of accessibility have not yet been evaluated.
 
 _Consider the accessibility of the component, including:_
 
