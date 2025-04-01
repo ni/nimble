@@ -33,14 +33,14 @@
     "@storybook/addon-essentials": "^8.4.3",
     "@storybook/addon-interactions": "^8.4.3",
     "@storybook/addon-links": "^8.4.3",
-    "@storybook/addon-webpack5-compiler-swc": "^2.0.0",
+    "@storybook/addon-webpack5-compiler-swc": "^3.0.0",
     "@storybook/cli": "^8.4.3",
     "@storybook/csf": "^0.1.11",
     "@storybook/html": "^8.4.3",
     "@storybook/html-webpack5": "^8.4.3",
     "@storybook/manager-api": "^8.4.3",
     "@storybook/theming": "^8.4.3",
-    "apache-arrow": "18.0.0",
+    "apache-arrow": "19.0.1",
     "circular-dependency-plugin": "^5.2.0",
     "js-beautify": "^1.15.1",
     "prettier-eslint": "^16.3.0",
@@ -56,7 +56,7 @@
   },
   "peerDependencies": {
     "@types/react": "^18",
-    "eslint-plugin-storybook": "^0.11.0",
+    "eslint-plugin-storybook": "^0.12.0",
     "react": "^18.3.1"
   }
 }
