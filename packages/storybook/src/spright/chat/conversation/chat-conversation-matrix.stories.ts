@@ -165,7 +165,7 @@ const slottedButtons = (
                 "
                 >Placehoder text</div>
                 ${repeat(() => footerActions, html<string>`
-                    <${buttonTag} content-hidden slot="footer-actions" appearance="block">
+                    <${buttonTag} content-hidden slot="footer-actions" appearance="ghost">
                         <${iconThumbUpTag} slot="start"></${iconThumbUpTag}>
                         ${x => x}
                     </${buttonTag}>
