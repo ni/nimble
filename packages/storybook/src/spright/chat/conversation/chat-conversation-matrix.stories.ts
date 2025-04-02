@@ -23,7 +23,7 @@ const messageTypeStates = [
 ] as const;
 type MessageTypeStates = (typeof messageTypeStates)[number];
 const outboundState = messageTypeStates[0];
-const inboudState = messageTypeStates[1];
+const inboundState = messageTypeStates[1];
 const systemState = messageTypeStates[2];
 
 const metadata: Meta = {
@@ -103,7 +103,7 @@ export const outboundSizing: StoryFn = createStory(html`
 
 export const inboundSizing: StoryFn = createStory(html`
     ${createMatrix(componentSizing, [
-        [inboudState],
+        [inboundState],
         viewportStates,
         contentWidthStates,
         contentHeightStates
