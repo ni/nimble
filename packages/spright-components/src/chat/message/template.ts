@@ -12,13 +12,13 @@ export const template: FoundationElementTemplate<
 ViewTemplate<ChatMessage>,
 ChatMessageOptions
 > = (context, definition) => html<ChatMessage>`
-    <div class="root">
+    <div class="container">
         ${startSlotTemplate(context, definition)}
         <section class="message-content">
             <slot></slot>
         </section>
-        <section>
-           <slot class="footer-actions" name="footer-actions"></slot>
+        <section class="footer-actions">
+           <slot name="footer-actions"></slot>
         </section>
         ${endSlotTemplate(context, definition)}
     </div>

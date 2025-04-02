@@ -1,5 +1,7 @@
 import { css } from '@ni/fast-element';
+import { anchorButtonTag } from '@ni/nimble-components/dist/esm/anchor-button';
 import { buttonTag } from '@ni/nimble-components/dist/esm/button';
+import { menuButtonTag } from '@ni/nimble-components/dist/esm/menu-button';
 import { toggleButtonTag } from '@ni/nimble-components/dist/esm/toggle-button';
 
 import {
@@ -9,7 +11,9 @@ import {
     borderWidth,
     controlSlimHeight,
     fillSelectedColor,
-    mediumPadding
+    largePadding,
+    mediumPadding,
+    standardPadding
 } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
 import { display } from '../../utilities/style/display';
 
@@ -35,40 +39,45 @@ export const styles = css`
         justify-content: flex-start;
     }
 
-    .root {
+    .container {
+        display: flex;
+        flex-direction: column;
         max-width: calc(90%);
     }
 
     .message-content {
         width: fit-content;
         height: fit-content;
-        padding: ${mediumPadding};
         overflow-x: auto;
     }
 
     :host([message-type='outbound']) .message-content {
         background: ${fillSelectedColor};
         border: ${borderWidth} solid ${borderHoverColor};
-        border-radius: 8px 8px 0px 8px;
+        border-radius: ${mediumPadding} ${mediumPadding} 0px ${mediumPadding};
+        padding: ${mediumPadding};
     }
 
-    :host([message-type='inbound']) .message-content {
-        border-radius: 8px 8px 8px 0px;
-        padding: 6px;
+    .footer-actions {
+        display: flex;
+        column-gap: ${standardPadding};
+        margin-top: ${mediumPadding};
     }
 
-    .footer-actions::slotted(${buttonTag}),
-    .footer-actions::slotted(${toggleButtonTag}) {
+    ::slotted(${buttonTag}),
+    ::slotted(${toggleButtonTag}),
+    ::slotted(${anchorButtonTag}),
+    ::slotted(${menuButtonTag}) {
         height: ${controlSlimHeight};
-        width: ${controlSlimHeight};
-        margin: 0px 16px 0px 0px;
+    }
+
+    .end {
+        display: flex;
+        column-gap: ${standardPadding};
+        margin-top: ${largePadding};
     }
 
     [part='start'] {
         display: none;
-    }
-
-    [part='end'] ::slotted(*) {
-        margin: 24px 16px 0px 0px;
     }
 `;
