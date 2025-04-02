@@ -501,14 +501,13 @@ describe('Table', () => {
             expect(pageObject.isRowHoverStylingEnabled()).toBeFalse();
         });
 
-        it('re-enables row hover styling after scrolling ends #SkipWebkit', async () => {
+        it('re-enables row hover styling after scrolling ends', async () => {
             await connect();
             await element.setData(simpleTableData);
             column1.groupIndex = 0;
             await waitForUpdatesAsync();
 
             element.viewport.dispatchEvent(new Event('scroll'));
-
             await waitTimeout(300);
             expect(pageObject.isRowHoverStylingEnabled()).toBeTrue();
         });
