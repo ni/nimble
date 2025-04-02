@@ -1,6 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/html';
 import { html } from '@ni/fast-element';
 import { buttonTag } from '../../../../../nimble-components/src/button';
+import { menuButtonTag } from '../../../../../nimble-components/src/menu-button';
+import { menuTag } from '../../../../../nimble-components/src/menu';
+import { menuItemTag } from '../../../../../nimble-components/src/menu-item';
 import { toggleButtonTag } from '../../../../../nimble-components/src/toggle-button';
 import { chatConversationTag } from '../../../../../spright-components/src/chat/conversation';
 import { ChatMessageType } from '../../../../../spright-components/src/chat/message/types';
@@ -66,10 +69,14 @@ export const chatConversation: StoryObj<ChatConversationArgs> = {
                     <${iconArrowRotateRightTag} slot='start'></${iconArrowRotateRightTag}>
                     Regenerate
                 </${buttonTag}>
-                <${buttonTag} slot='footer-actions' appearance='ghost' title='More Options' content-hidden>
+                <${menuButtonTag} slot='footer-actions' appearance='ghost' title='More Options' content-hidden>
                     <${iconThreeDotsLineTag} slot='start'></${iconThreeDotsLineTag}>
                     More Options
-                </${buttonTag}>
+                    <${menuTag} slot="menu">
+                        <${menuItemTag}>Embiggen</${menuItemTag}>
+                        <${menuItemTag}>Cromulent</${menuItemTag}>
+                    </${menuTag}>
+                </${menuButtonTag}>
                 <img width="100" height="100" :src=${() => imgBlobUrl}>
                 <div>${loremIpsum}</div>
                 <${buttonTag} slot='end' appearance='block'>
