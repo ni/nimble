@@ -126,21 +126,21 @@ const buttons = (count: number): string[] => [...Array(count).keys()].map(x => `
 const footerActionsStates = [
     ['none', []],
     ['wider than message', buttons(4)],
-    ['wider than conversation', buttons(20)],
+    ['wider than conversation', buttons(20)]
 ] as const;
 type FooterActionsStates = (typeof footerActionsStates)[number];
 
 const endButtonStates = [
     ['none', []],
     ['wider than message', buttons(2)],
-    ['wider than conversation', buttons(10)],
+    ['wider than conversation', buttons(10)]
 ] as const;
 type EndButtonStates = (typeof endButtonStates)[number];
 
 const slottedButtons = (
     [_messageTypeLabel, messageType]: MessageTypeStates,
     [footerActionsLabel, footerActions]: FooterActionsStates,
-    [endButtonsLabel, endButtons]: EndButtonStates,
+    [endButtonsLabel, endButtons]: EndButtonStates
 ): ViewTemplate => html`
     <p 
         style="

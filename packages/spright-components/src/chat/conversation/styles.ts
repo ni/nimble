@@ -1,7 +1,7 @@
 import { css } from '@ni/fast-element';
 import {
     applicationBackgroundColor,
-    mediumPadding,
+    mediumPadding
 } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
 import { display } from '../../utilities/style/display';
 

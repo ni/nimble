@@ -67,7 +67,8 @@ export const styles = css`
         display: none;
     }
 
-    :host([message-type='${ChatMessageType.inbound}']) .footer-actions.has-content {
+    :host([message-type='${ChatMessageType.inbound}'])
+        .footer-actions.has-content {
         display: flex;
         column-gap: ${standardPadding};
         margin-top: ${mediumPadding};
