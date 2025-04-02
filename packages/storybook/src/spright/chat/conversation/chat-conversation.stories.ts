@@ -17,7 +17,6 @@ import {
     createUserSelectedThemeStory
 } from '../../../utilities/storybook';
 import { imgBlobUrl, markdownExample } from './story-helpers';
-import { ButtonAppearance } from '../../../../../nimble-components/src/menu-button/types';
 import { SpinnerAppearance } from '../../../../../nimble-components/src/spinner/types';
 import { loremIpsum } from '../../../utilities/lorem-ipsum';
 import { isChromatic } from '../../../utilities/isChromatic';
