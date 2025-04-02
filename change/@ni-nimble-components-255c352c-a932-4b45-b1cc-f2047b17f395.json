@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Update dependencies and table row hover style hiding on scroll approach",
-  "packageName": "@ni/nimble-components",
-  "email": "rajsite@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}

@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-<!-- This log was last generated on Fri, 28 Mar 2025 03:26:12 GMT and should not be manually modified. -->
+<!-- This log was last generated on Wed, 02 Apr 2025 17:16:54 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 33.1.1
+
+Wed, 02 Apr 2025 17:16:54 GMT
+
+### Patches
+
+- Update dependencies and table row hover style hiding on scroll approach ([ni/nimble@86dd6f1](https://github.com/ni/nimble/commit/86dd6f1f15465dd5cdd2c4c058295d2eedc1060a))
 
 ## 33.1.0
 
