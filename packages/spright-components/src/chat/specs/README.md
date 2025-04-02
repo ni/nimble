@@ -55,7 +55,7 @@ The `spright-chat-message` has the following slot elements.
 
 Nimble will set the height of the action buttons to `$ni-nimble-control-slim-height`. All action buttons must meet the following criteria
 
-1. They are `nimble-button`s or `nimble-toggle-button`
+1. They are `nimble-button`s or any other button variant (toggle button, menu button, etc)
 1. The `appearance` attribute is set to `ghost`
 1. The `content-hidden` attribute is set to `true`
 1. They contain only Nimble icons
