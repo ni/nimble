@@ -681,7 +681,7 @@
       "nimbleblazor": {
         "type": "Project",
         "dependencies": {
-          "Apache.Arrow": "[18.0.0, 18.0.0]",
+          "Apache.Arrow": "[19.0.1, 19.0.1]",
           "Microsoft.AspNetCore.Components.Web": "[8.0.14, )"
         }
       },
