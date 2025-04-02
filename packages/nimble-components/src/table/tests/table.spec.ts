@@ -10,7 +10,7 @@ import {
     controlHeight,
     tableFitRowsHeight
 } from '../../theme-provider/design-tokens';
-import { waitForEvent } from '../../utilities/testing/component';
+import { waitForEvent, waitTimeout } from '../../utilities/testing/component';
 import {
     type Fixture,
     fixture,
@@ -501,15 +501,14 @@ describe('Table', () => {
             expect(pageObject.isRowHoverStylingEnabled()).toBeFalse();
         });
 
-        it('re-enables row hover styling after scrolling ends #SkipWebkit', async () => {
+        it('re-enables row hover styling after scrolling ends', async () => {
             await connect();
             await element.setData(simpleTableData);
             column1.groupIndex = 0;
             await waitForUpdatesAsync();
 
             element.viewport.dispatchEvent(new Event('scroll'));
-            element.viewport.dispatchEvent(new Event('scrollend'));
-            await waitForUpdatesAsync();
+            await waitTimeout(300);
             expect(pageObject.isRowHoverStylingEnabled()).toBeTrue();
         });
 
