@@ -137,6 +137,7 @@ const endButtonStates = [
 ] as const;
 type EndButtonStates = (typeof endButtonStates)[number];
 
+// prettier-ignore
 const slottedButtons = (
     [_messageTypeLabel, messageType]: MessageTypeStates,
     [footerActionsLabel, footerActions]: FooterActionsStates,
