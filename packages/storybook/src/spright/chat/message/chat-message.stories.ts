@@ -82,10 +82,10 @@ export const chatMessageText: StoryObj<ChatMessageTextArgs> = {
             `)}
             ${when(x => x.endButtons, html`
                 <${buttonTag} slot="end" appearance="block">
-                    Elaborate more
+                    Order a tab
                 </${buttonTag}>
                 <${buttonTag} slot="end" appearance="block">
-                    Try again
+                    Check core temperature
                 </${buttonTag}>
             `)}
         </${chatMessageTag}>
@@ -126,10 +126,10 @@ export const chatMessageRichText: StoryObj<ChatMessageRichTextArgs> = {
             `)}
             ${when(x => x.endButtons, html`
                 <${buttonTag} slot="end" appearance="block">
-                    Elaborate more
+                    Order a tab
                 </${buttonTag}>
                 <${buttonTag} slot="end" appearance="block">
-                    Try again
+                    Check core temperature
                 </${buttonTag}>
             `)}
         </${chatMessageTag}>
@@ -168,10 +168,10 @@ export const chatMessageSpinner: StoryObj<ChatMessageArgs> = {
             `)}
             ${when(x => x.endButtons, html`
                 <${buttonTag} slot="end" appearance="block">
-                    Elaborate more
+                    Order a tab
                 </${buttonTag}>
                 <${buttonTag} slot="end" appearance="block">
-                    Try again
+                    Check core temperature
                 </${buttonTag}>
             `)}
         </${chatMessageTag}>
@@ -200,10 +200,10 @@ export const chatMessageImage: StoryObj<ChatMessageArgs> = {
             `)}
             ${when(x => x.endButtons, html`
                 <${buttonTag} slot="end" appearance="block">
-                    Elaborate more
+                    Order a tab
                 </${buttonTag}>
                 <${buttonTag} slot="end" appearance="block">
-                    Try again
+                    Check core temperature
                 </${buttonTag}>
             `)}
         </${chatMessageTag}>
@@ -233,10 +233,10 @@ export const chatMessagePrompts: StoryObj<ChatMessageArgs> = {
             `)}
             ${when(x => x.endButtons, html`
                 <${buttonTag} slot="end" appearance="block">
-                    Elaborate more
+                    Order a tab
                 </${buttonTag}>
                 <${buttonTag} slot="end" appearance="block">
-                    Try again
+                    Check core temperature
                 </${buttonTag}>
             `)}
         </${chatMessageTag}>
