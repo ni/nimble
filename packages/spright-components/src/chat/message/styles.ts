@@ -64,10 +64,10 @@ export const styles = css`
         margin-top: ${mediumPadding};
     }
 
-    ::slotted(${buttonTag}),
-    ::slotted(${toggleButtonTag}),
-    ::slotted(${anchorButtonTag}),
-    ::slotted(${menuButtonTag}) {
+    .footer-actions ::slotted(${buttonTag}),
+    .footer-actions ::slotted(${toggleButtonTag}),
+    .footer-actions ::slotted(${anchorButtonTag}),
+    .footer-actions ::slotted(${menuButtonTag}) {
         height: ${controlSlimHeight};
     }
 
