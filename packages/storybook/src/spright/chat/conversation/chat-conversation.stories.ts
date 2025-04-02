@@ -74,17 +74,9 @@ export const chatConversation: StoryObj<ChatConversationArgs> = {
                 <img width="100" height="100" :src=${() => imgBlobUrl}>
                 <div>${loremIpsum}</div>
                 <${buttonTag} slot='end' appearance='block'>
-                    Repeat that in English
-                </${buttonTag}>
-                <${buttonTag} slot='end' appearance='block'>
-                    Elaborate more
-                </${buttonTag}>
-            </${chatMessageTag}>
-            <${chatMessageTag} message-type="${() => ChatMessageType.system}">
-                <${buttonTag} appearance="${() => ButtonAppearance.block}">
                     Order a tab
                 </${buttonTag}>
-                <${buttonTag} appearance="${() => ButtonAppearance.block}">
+                <${buttonTag} slot='end' appearance='block'>
                     Check core temperature
                 </${buttonTag}>
             </${chatMessageTag}>
