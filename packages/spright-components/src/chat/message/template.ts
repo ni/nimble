@@ -17,7 +17,7 @@ ChatMessageOptions
         <section class="message-content">
             <slot></slot>
         </section>
-        <section class="footer-actions">
+        <section class="${x => (x.footerActionsIsEmpty ? '' : 'footer-actions')}">
            <slot name="footer-actions"></slot>
         </section>
         ${endSlotTemplate(context, definition)}

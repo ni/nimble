@@ -1,4 +1,4 @@
-import { attr } from '@ni/fast-element';
+import { attr, observable } from '@ni/fast-element';
 import {
     applyMixins,
     DesignSystem,
@@ -35,6 +35,17 @@ export class ChatMessage extends FoundationElement {
      */
     @attr({ attribute: 'message-type' })
     public readonly messageType: ChatMessageType = ChatMessageType.system;
+
+    /** @internal */
+    @observable
+    public footerActionsIsEmpty = true;
+
+    public slottedFooterElementsChanged(
+        _prev: HTMLElement[] | undefined,
+        next: HTMLElement[] | undefined
+    ): void {
+        this.footerActionsIsEmpty = !next?.length;
+    }
 }
 applyMixins(ChatMessage, StartEnd);
 
