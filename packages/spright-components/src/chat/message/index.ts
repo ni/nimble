@@ -40,7 +40,11 @@ export class ChatMessage extends FoundationElement {
     @observable
     public footerActionsIsEmpty = true;
 
-    public slottedFooterElementsChanged(
+    /** @internal */
+    @observable
+    public readonly slottedFooterActionsElements?: HTMLElement[];
+
+    public slottedFooterActionsElementsChanged(
         _prev: HTMLElement[] | undefined,
         next: HTMLElement[] | undefined
     ): void {

@@ -16,6 +16,7 @@ import {
     standardPadding
 } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
 import { display } from '../../utilities/style/display';
+import { ChatMessageType } from './types';
 
 export const styles = css`
     ${display('flex')}
@@ -31,11 +32,11 @@ export const styles = css`
         color: ${bodyFontColor};
     }
 
-    :host([message-type='outbound']) {
+    :host([message-type='${ChatMessageType.outbound}']) {
         justify-content: flex-end;
     }
 
-    :host([message-type='inbound']) {
+    :host([message-type='${ChatMessageType.inbound}']) {
         justify-content: flex-start;
     }
 
@@ -45,13 +46,17 @@ export const styles = css`
         max-width: calc(90%);
     }
 
+    [part='start'] {
+        display: none;
+    }
+
     .message-content {
         width: fit-content;
         height: fit-content;
         overflow-x: auto;
     }
 
-    :host([message-type='outbound']) .message-content {
+    :host([message-type='${ChatMessageType.outbound}']) .message-content {
         background: ${fillSelectedColor};
         border: ${borderWidth} solid ${borderHoverColor};
         border-radius: ${mediumPadding} ${mediumPadding} 0px ${mediumPadding};
@@ -59,6 +64,10 @@ export const styles = css`
     }
 
     .footer-actions {
+        display: none;
+    }
+
+    :host([message-type='${ChatMessageType.inbound}']) .footer-actions.has-content {
         display: flex;
         column-gap: ${standardPadding};
         margin-top: ${mediumPadding};
@@ -72,12 +81,12 @@ export const styles = css`
     }
 
     .end {
+        display: none;
+    }
+
+    :host([message-type='${ChatMessageType.inbound}']) .end {
         display: flex;
         column-gap: ${standardPadding};
         margin-top: ${largePadding};
-    }
-
-    [part='start'] {
-        display: none;
     }
 `;

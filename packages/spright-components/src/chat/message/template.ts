@@ -1,4 +1,4 @@
-import { html, ViewTemplate } from '@ni/fast-element';
+import { html, slotted, ViewTemplate } from '@ni/fast-element';
 import {
     startSlotTemplate,
     endSlotTemplate,
@@ -17,8 +17,11 @@ ChatMessageOptions
         <section class="message-content">
             <slot></slot>
         </section>
-        <section class="${x => (x.footerActionsIsEmpty ? '' : 'footer-actions')}">
-           <slot name="footer-actions"></slot>
+        <section class="footer-actions ${x => (x.footerActionsIsEmpty ? '' : 'has-content')}">
+           <slot 
+                name="footer-actions"
+                ${slotted({ property: 'slottedFooterActionsElements' })}
+           ></slot>
         </section>
         ${endSlotTemplate(context, definition)}
     </div>
