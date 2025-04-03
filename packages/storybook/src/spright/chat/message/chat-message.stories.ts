@@ -12,7 +12,6 @@ import { richTextViewerTag } from '../../../../../nimble-components/src/rich-tex
 import { spinnerTag } from '../../../../../nimble-components/src/spinner';
 import { imgBlobUrl, markdownExample } from '../conversation/story-helpers';
 import { SpinnerAppearance } from '../../../../../nimble-components/src/spinner/types';
-import { ButtonAppearance } from '../../../../../nimble-components/src/menu-button/types';
 import { isChromatic } from '../../../utilities/isChromatic';
 import { iconThumbUpTag } from '../../../../../nimble-components/src/icons/thumb-up';
 import { iconThumbDownTag } from '../../../../../nimble-components/src/icons/thumb-down';
@@ -210,39 +209,6 @@ export const chatMessageImage: StoryObj<ChatMessageArgs> = {
     `),
     args: {
         messageType: 'inbound',
-        footerActions: false,
-        endButtons: false
-    }
-};
-
-// prettier-ignore
-export const chatMessagePrompts: StoryObj<ChatMessageArgs> = {
-    render: createUserSelectedThemeStory(html`
-        <${chatMessageTag} message-type="${x => ChatMessageType[x.messageType]}">
-            <${buttonTag} appearance="${() => ButtonAppearance.block}">Eat my shorts</${buttonTag}>
-            <${buttonTag} appearance="${() => ButtonAppearance.block}">Do the Bartman</${buttonTag}>
-            ${when(x => x.footerActions, html`
-                <${buttonTag} slot="footer-actions" appearance="ghost" title="Like" content-hidden>
-                    <${iconThumbUpTag} slot="start"></${iconThumbUpTag}>
-                    Like
-                </${buttonTag}>
-                <${buttonTag} slot="footer-actions" appearance="ghost" title="Dislike" content-hidden>
-                    <${iconThumbDownTag} slot="start"></${iconThumbDownTag}>
-                    Dislike
-                </${buttonTag}>
-            `)}
-            ${when(x => x.endButtons, html`
-                <${buttonTag} slot="end" appearance="block">
-                    Order a tab
-                </${buttonTag}>
-                <${buttonTag} slot="end" appearance="block">
-                    Check core temperature
-                </${buttonTag}>
-            `)}
-        </${chatMessageTag}>
-    `),
-    args: {
-        messageType: 'system',
         footerActions: false,
         endButtons: false
     }
