@@ -1,5 +1,5 @@
 import type { StoryFn, Meta } from '@storybook/html';
-import { html, ViewTemplate } from '@ni/fast-element';
+import { html, repeat, ViewTemplate } from '@ni/fast-element';
 import { chatMessageTag } from '../../../../../spright-components/src/chat/message';
 import { ChatMessageType } from '../../../../../spright-components/src/chat/message/types';
 import {
@@ -15,6 +15,8 @@ import {
     bodyFont,
     bodyFontColor
 } from '../../../../../nimble-components/src/theme-provider/design-tokens';
+import { buttonTag } from '../../../../../nimble-components/src/button';
+import { iconThumbUpTag } from '../../../../../nimble-components/src/icons/thumb-up';
 
 const messageTypeStates = [
     ['outbound', ChatMessageType.outbound],
@@ -23,7 +25,7 @@ const messageTypeStates = [
 ] as const;
 type MessageTypeStates = (typeof messageTypeStates)[number];
 const outboundState = messageTypeStates[0];
-const inboudState = messageTypeStates[1];
+const inboundState = messageTypeStates[1];
 const systemState = messageTypeStates[2];
 
 const metadata: Meta = {
@@ -103,7 +105,7 @@ export const outboundSizing: StoryFn = createStory(html`
 
 export const inboundSizing: StoryFn = createStory(html`
     ${createMatrix(componentSizing, [
-        [inboudState],
+        [inboundState],
         viewportStates,
         contentWidthStates,
         contentHeightStates
@@ -116,6 +118,73 @@ export const systemSizing: StoryFn = createStory(html`
         viewportStates,
         contentWidthStates,
         contentHeightStates
+    ])}
+`);
+
+const buttons = (count: number): string[] => [...Array(count).keys()].map(x => `Button ${x}`);
+
+const footerActionsStates = [
+    ['none', []],
+    ['wider than message', buttons(4)],
+    ['wider than conversation', buttons(20)]
+] as const;
+type FooterActionsStates = (typeof footerActionsStates)[number];
+
+const endButtonStates = [
+    ['none', []],
+    ['wider than message', buttons(2)],
+    ['wider than conversation', buttons(10)]
+] as const;
+type EndButtonStates = (typeof endButtonStates)[number];
+
+// prettier-ignore
+const slottedButtons = (
+    [_messageTypeLabel, messageType]: MessageTypeStates,
+    [footerActionsLabel, footerActions]: FooterActionsStates,
+    [endButtonsLabel, endButtons]: EndButtonStates
+): ViewTemplate => html`
+    <p 
+        style="
+        font: var(${bodyFont.cssCustomProperty});
+        color: var(${bodyFontColor.cssCustomProperty});
+        margin-bottom: 0px;
+        "
+    >
+        message-type:${() => messageType}, footer-actions:${() => footerActionsLabel}, end:${() => endButtonsLabel}
+    </p>
+    <div style="width: 600px;">
+        <${chatConversationTag} style="
+            width: 100%;
+            height: 100%;
+        ">
+            <${chatMessageTag} message-type="${() => messageType}">
+                <div style="
+                    width: 100px;
+                    border: 1px blue solid;
+                    display: inline-block;
+                "
+                >Placehoder text</div>
+                ${repeat(() => footerActions, html<string>`
+                    <${buttonTag} content-hidden slot="footer-actions" appearance="ghost">
+                        <${iconThumbUpTag} slot="start"></${iconThumbUpTag}>
+                        ${x => x}
+                    </${buttonTag}>
+                `)}
+                ${repeat(() => endButtons, html<string>`
+                    <${buttonTag} slot="end" appearance="block">
+                        ${x => x}
+                    </${buttonTag}>
+                `)}
+            </${chatMessageTag}>
+        </${chatConversationTag}>
+    </div>
+`;
+
+export const slottedButtonsSizing: StoryFn = createMatrixThemeStory(html`
+    ${createMatrix(slottedButtons, [
+        messageTypeStates,
+        footerActionsStates,
+        endButtonStates
     ])}
 `);
 

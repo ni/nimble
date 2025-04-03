@@ -47,7 +47,27 @@ We will not yet introduce an input toolbar component where a user can type and s
 
 #### Chat message
 
-1. Display arbitrary slotted content. For example: text, rich text, buttons, images, or a spinner.
+The `spright-chat-message` has the following slot elements.
+
+1. `default` slot displays arbitrary slotted content. For example: text, rich text, buttons, images, or a spinner.
+1. `footer-actions` slot which is used to add action buttons below the main content.
+1. `end` slot which is used to add text buttons. They are below any action buttons.
+
+Nimble will set the height of the action buttons to `$ni-nimble-control-slim-height`. All action buttons must meet the following criteria
+
+1. They are `nimble-button`s or any other button variant (toggle button, menu button, etc)
+1. The `appearance` attribute is set to `ghost`
+1. The `content-hidden` attribute is set to `true`
+1. They contain only Nimble icons
+
+All end text buttons must meet the following criteria
+
+1. They are `nimble-button`s
+1. The `apperance` attribute is set to `block`
+1. The buttons only have text
+
+The component also contains the following features:
+
 1. Layout content to the right, center, or left of parent container depending on metadata about who sent the message.
 1. Size based on content size with maximum width (but not height) based on parent's width.
 1. Change the styling of the message depending on metadata about who sent the message. For example: render user messages in a bubble with the tail pointing to the right but render system messages with no styling.
@@ -64,10 +84,10 @@ These components are competing against possible implementations within applicati
 
 ### Prior Art/Examples
 
-**Screenshot of Figma design of chat and conversation component (light mode)**
+**Screenshot of Figma design of chat and conversation component (light mode)**  
 ![ ](spec-images/chat-conversation.png)
 
-**Screenshot of Figma design of chat components embeded within larger pane (dark mode)**
+**Screenshot of Figma design of chat components embeded within larger pane (dark mode)**  
 ![ ](spec-images/chat-pane.png)
 
 ---
@@ -110,9 +130,9 @@ richText.markdown = 'Welcome **Homer**, how can I help?';
 #### Prompt buttons message example
 
 ```html
-<spright-chat-message message-type="system">
-    <nimble-button appearance="block">Help with my taxes</nimble-button>
-    <nimble-button appearance="block">Provide me some life advice</nimble-button>
+<spright-chat-message message-type="inbound">
+    <nimble-button appearance="block" slot="end">Help with my taxes</nimble-button>
+    <nimble-button appearance="block" slot="end">Provide me some life advice</nimble-button>
 </spright-chat-message
 ```
 
@@ -131,8 +151,12 @@ richText.markdown = 'Welcome **Homer**, how can I help?';
     - A message will grow its height to fit its content, with no maximum height.
     - Clients could override this behavior but we don't anticipate use cases for doing so when the message is used within a conversation
 - _Slots_
-
-    - arbitrary content can be added to the default slot to be displayed within the message
+    - `footer-actions`
+        - Action buttons to display after the main content.
+    - `end`
+        - Buttons with text that are displayed at the bottom after any action buttons.
+    - `(default)`
+        - arbitrary content can be added to the default slot to be displayed within the message
 
 #### Conversation
 
@@ -156,8 +180,15 @@ A message is simply a `div` which will styled with background / border / rounded
 
 ```html
 <template>
-    <div>
-        <slot></slot>
+    <div class="root">
+        ${startSlotTemplate(context, definition)}
+        <section class="message-content">
+            <slot></slot>
+        </section>
+        <section>
+            <slot class="footer-actions" name="footer-actions"></slot>
+        </section>
+        ${endSlotTemplate(context, definition)}
     </div>
 </template>
 ```
@@ -182,7 +213,7 @@ Angular integration has not yet been evaluated in detail, but is expected to be 
 
 ### Blazor integration
 
-Blazor integration has not yet been evaluated, but is expected to be able to follow existing patterns. It is anticipated to be needed for initial clients so this section will be updated when Blazor development begins if anything interesting is discovered.
+The Blazor wrappers `SpringChatConversation` and `SprightChatMessage` have been created.
 
 ### Visual Appearance
 
@@ -198,7 +229,13 @@ None.
 
 ### Accessibility
 
-Accessibility has not yet been evaluated.
+Only keyboard navigation has been evaluated. The desired behavior is for each message's action buttons to be a single tab stop, with navigation between a message's action buttons accomplished using arrow keys. This should be achieved by placing the items within a `nimble-toolbar`, however the `nimble-toolbar` does not yet detect content in nested slots (see #2571). For scoping reasons the content will not initially be placed in a toolbar and thus each button will be a tab stop. Once that issue is addressed it should be possible to add a toolbar and achieve the desired behavior without breaking clients.
+
+Buttons placed in the `end` slot should each be their own tab stop and thus will not be placed in a toolbar.
+
+The design spec includes a proposal to add another "Edit" button to the left of some messages when the user hovers over the message. The button would be a tab stop and would become visible when keyboard focused. This work is currently out of scope.
+
+Other aspects of accessibility have not yet been evaluated.
 
 _Consider the accessibility of the component, including:_
 
