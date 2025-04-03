@@ -1,8 +1,16 @@
 # Change Log - @ni/spright-components
 
-<!-- This log was last generated on Wed, 02 Apr 2025 17:16:54 GMT and should not be manually modified. -->
+<!-- This log was last generated on Thu, 03 Apr 2025 00:54:48 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 5.2.0
+
+Thu, 03 Apr 2025 00:54:48 GMT
+
+### Minor changes
+
+- Adding action button slots to spright-chat-message ([ni/nimble@a271c6f](https://github.com/ni/nimble/commit/a271c6f5a26a66889c654be5dc4de91350c58384))
 
 ## 5.1.1
 

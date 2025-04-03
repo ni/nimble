@@ -1,6 +1,6 @@
 {
   "name": "@ni/spright-components",
-  "version": "5.1.1",
+  "version": "5.2.0",
   "description": "NI Spright Components",
   "scripts": {
     "build": "npm run build-components && npm run bundle-components",
