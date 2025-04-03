@@ -12,7 +12,6 @@ import { richTextViewerTag } from '../../../../../nimble-components/src/rich-tex
 import { spinnerTag } from '../../../../../nimble-components/src/spinner';
 import { imgBlobUrl, markdownExample } from '../conversation/story-helpers';
 import { SpinnerAppearance } from '../../../../../nimble-components/src/spinner/types';
-import { ButtonAppearance } from '../../../../../nimble-components/src/menu-button/types';
 import { isChromatic } from '../../../utilities/isChromatic';
 import { iconThumbUpTag } from '../../../../../nimble-components/src/icons/thumb-up';
 import { iconThumbDownTag } from '../../../../../nimble-components/src/icons/thumb-down';
