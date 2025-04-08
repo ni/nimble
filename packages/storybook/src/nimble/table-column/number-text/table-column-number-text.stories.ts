@@ -224,6 +224,7 @@ export const numberTextColumn: StoryObj<NumberTextColumnTableArgs> = {
             table: { category: apiCategory.attributes }
         },
         unit: {
+            name: 'default',
             description: unitDescription,
             options: [
                 'default',
@@ -234,7 +235,7 @@ export const numberTextColumn: StoryObj<NumberTextColumnTableArgs> = {
                 'volt'
             ],
             control: { type: 'radio' },
-            table: { category: apiCategory.attributes }
+            table: { category: apiCategory.slots }
         },
         checkValidity: {
             name: 'checkValidity()',
