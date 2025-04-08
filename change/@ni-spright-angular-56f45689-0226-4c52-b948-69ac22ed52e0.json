@@ -1,7 +1,0 @@
-{
-  "type": "minor",
-  "comment": "Angular integration for chat components",
-  "packageName": "@ni/spright-angular",
-  "email": "jattasNI@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}

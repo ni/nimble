@@ -2,6 +2,21 @@
   "name": "@ni/spright-angular",
   "entries": [
     {
+      "date": "Tue, 08 Apr 2025 19:15:34 GMT",
+      "version": "7.2.0",
+      "tag": "@ni/spright-angular_v7.2.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/spright-angular",
+            "commit": "22362a78c4a8f51f15f154e6bb4668c00efae2b9",
+            "comment": "Angular integration for chat components"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 03 Apr 2025 00:54:48 GMT",
       "version": "7.1.2",
       "tag": "@ni/spright-angular_v7.1.2",

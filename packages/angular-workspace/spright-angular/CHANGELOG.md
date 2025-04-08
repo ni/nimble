@@ -1,8 +1,16 @@
 # Change Log - @ni/spright-angular
 
-<!-- This log was last generated on Thu, 03 Apr 2025 00:54:48 GMT and should not be manually modified. -->
+<!-- This log was last generated on Tue, 08 Apr 2025 19:15:34 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 7.2.0
+
+Tue, 08 Apr 2025 19:15:34 GMT
+
+### Minor changes
+
+- Angular integration for chat components ([ni/nimble@22362a7](https://github.com/ni/nimble/commit/22362a78c4a8f51f15f154e6bb4668c00efae2b9))
 
 ## 7.1.2
 
