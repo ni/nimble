@@ -1,18 +1,14 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { SprightChatModule } from '../spright-chat.module';
+import { SprightChatMessageModule } from '../spright-chat-message.module';
 import { ChatMessageType, SprightChatMessageDirective, type ChatMessage } from '../spright-chat-message.directive';
 
 describe('Spright chat', () => {
     describe('module', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
-                imports: [SprightChatModule]
+                imports: [SprightChatMessageModule]
             });
-        });
-
-        it('conversation custom element is defined', () => {
-            expect(customElements.get('spright-chat-conversation')).not.toBeUndefined();
         });
 
         it('message custom element is defined', () => {
@@ -38,7 +34,7 @@ describe('Spright chat', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [SprightChatModule]
+                imports: [SprightChatMessageModule]
             });
             fixture = TestBed.createComponent(TestHostComponent);
             fixture.detectChanges();
@@ -72,7 +68,7 @@ describe('Spright chat', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [SprightChatModule]
+                imports: [SprightChatMessageModule]
             });
             fixture = TestBed.createComponent(TestHostComponent);
             fixture.detectChanges();
@@ -107,7 +103,7 @@ describe('Spright chat', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [SprightChatModule]
+                imports: [SprightChatMessageModule]
             });
             fixture = TestBed.createComponent(TestHostComponent);
             fixture.detectChanges();
@@ -148,7 +144,7 @@ describe('Spright chat', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [SprightChatModule]
+                imports: [SprightChatMessageModule]
             });
             fixture = TestBed.createComponent(TestHostComponent);
             fixture.detectChanges();
