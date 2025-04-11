@@ -26,8 +26,8 @@ coercing user-entered values to fit within the specified range.
 In comparison, the HTML `<input type="number">` natively supports locale-aware
 _decimal separators_ and does not coerce values to the min/max limit.
 
-This IxD proposes updates to the Number Field to natively support localization,
-add coercion options, and define decimal precision.
+This IxD specifies requirements for a numeric control that will natively support
+localization, coercion, decimal precision, and other formatting options.
 
 ## Usage
 
@@ -92,9 +92,10 @@ Proposed attributes:
 
 | Attribute               | Description                                                                                                               |
 | ----------------------- | ------------------------------------------------------------------------------------------------------------------------- |
-| coerce-invalid          | Boolean - Whether to coerce invalid max/min values on blur.                                                               |
 | maximum-fraction-digits | Maximum number of digits after the decimal separator.                                                                     |
 | minimum-fraction-digits | Minimum number of fraction digits. Values with fewer digits will be right-padded with zeros to meet the specified length. |
+| min                     | The lowest permitted value.                                                                                               |
+| max                     | The greatest permitted value.                                                                                             |
 
 ### Behavior
 
@@ -106,22 +107,29 @@ Clicking on the field input focuses the input and places a caret. If no value
 exists, the caret is placed at the far left. Otherwise, it is placed where
 clicked.
 
+Double-clicking within the field input selects the closest contiguous
+characters.
+
+Triple-clicking within the field input selects all characters.
+
 ![mouse interactions](./spec-images/localized-number-input-cursor-click.png)
 
 #### Keyboard Interactions
 
-| Key           | Description                                                                                                                                      |
-| ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `ENTER`/`ESC` | No action.                                                                                                                                       |
-| `UP ARROW`    | (If `hide-step = false`) Increment the number by the step value. (If `hide-step = true`) Moves the caret to the beginning of the entered number. |
-| `HOME`        | Moves the caret to the beginning of the entered number.                                                                                          |
-| `DOWN ARROW`  | (If `hide-step = false`) Decrement the number by the step value. (If `hide-step = true`) Moves the caret to the end of the entered number.       |
-| `END`         | Moves the caret to the end of the entered number.                                                                                                |
-| _Numbers_     | (If focused) Adds number at cursor.                                                                                                              |
-| `SPACE`       | No action.                                                                                                                                       |
-| _Alphabetic_  | No action.                                                                                                                                       |
-| `COMMA`       | (As thousands separator) No action. (As decimal separator) Adds once at cursor.                                                                  |
-| `PERIOD`      | (As thousands separator) No action. (As decimal separator) Adds once at cursor.                                                                  |
+| Key                       | Description                                                                                                                                      |
+| ------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `ENTER`/`ESC`             | No action.                                                                                                                                       |
+| `UP ARROW`                | (If `hide-step = false`) Increment the number by the step value. (If `hide-step = true`) Moves the caret to the beginning of the entered number. |
+| `HOME`/`CMD + LEFT ARROW` | Moves the caret to the beginning of the entered number.                                                                                          |
+| `DOWN ARROW`              | (If `hide-step = false`) Decrement the number by the step value. (If `hide-step = true`) Moves the caret to the end of the entered number.       |
+| `END`/`CMD + RIGHT ARROW` | Moves the caret to the end of the entered number.                                                                                                |
+| _Numbers_                 | Adds number at cursor.                                                                                                                           |
+| `SPACE`                   | No action.                                                                                                                                       |
+| _Alphabetic_              | No action.                                                                                                                                       |
+| `e`/`E`                   | No action. This does not need to support scientific notation.                                                                                    |
+| `COMMA`                   | (As thousands separator) No action. (As decimal separator) Adds once at cursor.                                                                  |
+| `PERIOD`                  | (As thousands separator) No action. (As decimal separator) Adds once at cursor.                                                                  |
+| `-`                       | (If cursor at beginning of field) Add once at cursor.                                                                                            |
 
 Users can type valid numbers or the correct decimal separator for their locale
 into the number field.
@@ -137,6 +145,11 @@ Users can type more or fewer fractional digits than required.
 ![demonstrate the behavior of the maximum-fraction-digits and minimum-fraction-digits attributes](./spec-images/fraction-digits-number-input.png)
 
 ## Future Considerations
+
+- Mobile support, including specifying the `inputmode` so mobile users can enter
+  numbers using a numeric keyboard.
+- Support for a unit suffix.
+- Support for localized `thousand separators`.
 
 ## References
 
