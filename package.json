@@ -56,7 +56,6 @@
     "packages/site"
   ],
   "devDependencies": {
-    "@types/node": "22.13.17",
     "beachball": "^2.45.0",
     "concurrently": "^9.0.0",
     "cross-env": "^7.0.3",
