@@ -24,7 +24,7 @@ export class NimbleNumberFieldControlValueAccessorDirective extends NumberValueA
 
     public override setDisabledState(isDisabled: boolean): void {
         if (this.readonlyWhenDisabled) {
-            this.setProperty('readonly', isDisabled);
+            this.setProperty('readOnly', isDisabled);
         } else {
             super.setDisabledState(isDisabled);
         }

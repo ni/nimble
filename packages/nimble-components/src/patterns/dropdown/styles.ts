@@ -104,6 +104,11 @@ export const styles = css`
         width: 100%;
     }
 
+    :host(${focusVisible}[readonly])::before,
+    :host(${focusVisible}[readonly])::after {
+        width: 0px;
+    }
+
     :host([error-visible]):after {
         border-bottom-color: ${failColor};
     }

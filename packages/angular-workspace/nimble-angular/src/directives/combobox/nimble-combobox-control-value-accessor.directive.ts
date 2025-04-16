@@ -117,7 +117,7 @@ export class NimbleComboboxControlValueAccessorDirective implements ControlValue
      */
     public setDisabledState(isDisabled: boolean): void {
         if (this.readonlyWhenDisabled) {
-            this.setProperty('readonly', isDisabled);
+            this.setProperty('readOnly', isDisabled);
         } else {
             this.setProperty('disabled', isDisabled);
         }
