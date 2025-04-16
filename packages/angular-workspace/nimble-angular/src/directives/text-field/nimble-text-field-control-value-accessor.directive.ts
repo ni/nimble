@@ -1,4 +1,4 @@
-import { Directive, forwardRef } from '@angular/core';
+import { Directive, forwardRef, Input } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { DefaultValueAccessor } from '../../thirdparty/directives/default_value_accessor';
 
@@ -26,4 +26,14 @@ import { DefaultValueAccessor } from '../../thirdparty/directives/default_value_
         multi: true
     }]
 })
-export class NimbleTextFieldControlValueAccessorDirective extends DefaultValueAccessor { }
+export class NimbleTextFieldControlValueAccessorDirective extends DefaultValueAccessor {
+    @Input('readonly-when-disabled') public readonlyWhenDisabled: boolean;
+
+    public override setDisabledState(isDisabled: boolean): void {
+        if (this.readonlyWhenDisabled) {
+            this.setProperty('readonly', isDisabled);
+        } else {
+            super.setDisabledState(isDisabled);
+        }
+    }
+}

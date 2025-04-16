@@ -37,6 +37,7 @@ interface SelectArgs {
     value: string;
     change: undefined;
     filterInput: undefined;
+    readonly: boolean;
 }
 
 interface OptionArgs {
@@ -147,6 +148,7 @@ const metadata: Meta<SelectArgs> = {
             filter-mode="${x => (x.filterMode === 'none' ? undefined : x.filterMode)}"
             ?loading-visible="${x => x.loadingVisible}"
             ?required-visible="${x => x.requiredVisible}"
+            ?readonly="${x => x.readonly}"
             style="width:250px;"
         >
             ${x => x.label}
@@ -207,6 +209,10 @@ const metadata: Meta<SelectArgs> = {
         },
         disabled: {
             description: disabledDescription({ componentName: 'select' }),
+            table: { category: apiCategory.attributes }
+        },
+        readonly: {
+            description: 'TODO',
             table: { category: apiCategory.attributes }
         },
         errorText: {
@@ -281,7 +287,8 @@ const metadata: Meta<SelectArgs> = {
         optionsType: ExampleOptionsType.simpleOptions,
         clearable: false,
         loadingVisible: false,
-        requiredVisible: false
+        requiredVisible: false,
+        readonly: false
     }
 };
 

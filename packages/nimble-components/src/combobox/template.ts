@@ -53,6 +53,7 @@ ComboboxOptions
                     role="combobox"
                     type="text"
                     ?disabled="${x => x.disabled}"
+                    ?readonly="${x => x.readOnly}"
                     :value="${x => x.value}"
                     @input="${(x, c) => x.inputHandler(c.event as InputEvent)}"
                     @keyup="${(x, c) => x.keyupHandler(c.event as KeyboardEvent)}"

@@ -1,4 +1,4 @@
-import { Directive, forwardRef } from '@angular/core';
+import { Directive, forwardRef, Input } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { SelectControlValueAccessor } from '../../thirdparty/directives/select_control_value_accessor';
 
@@ -22,4 +22,13 @@ import { SelectControlValueAccessor } from '../../thirdparty/directives/select_c
     }]
 })
 export class NimbleSelectControlValueAccessorDirective extends SelectControlValueAccessor {
+    @Input('readonly-when-disabled') public readonlyWhenDisabled: boolean;
+
+    public override setDisabledState(isDisabled: boolean): void {
+        if (this.readonlyWhenDisabled) {
+            this.setProperty('readonly', isDisabled);
+        } else {
+            super.setDisabledState(isDisabled);
+        }
+    }
 }

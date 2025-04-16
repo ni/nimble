@@ -36,6 +36,11 @@ export class TextField extends mixinErrorPattern(
 
     @attr({ attribute: 'full-bleed', mode: 'boolean' })
     public fullBleed = false;
+
+    public constructor() {
+        super();
+        this.readOnly = false;
+    }
 }
 
 const nimbleTextField = TextField.compose<TextFieldOptions>({

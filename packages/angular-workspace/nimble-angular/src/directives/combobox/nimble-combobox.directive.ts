@@ -31,6 +31,16 @@ export class NimbleComboboxDirective {
         this.renderer.setProperty(this.elementRef.nativeElement, 'disabled', toBooleanProperty(value));
     }
 
+    public get readOnly(): boolean {
+        return this.elementRef.nativeElement.readOnly;
+    }
+
+    // readOnly property maps to the readonly attribute
+    // See: https://github.com/microsoft/fast/blob/46bb6d9aab2c37105f4434db3795e176c2354a4f/packages/web-components/fast-foundation/src/text-field/text-field.ts#L33
+    @Input('readonly') public set readOnly(value: BooleanValueOrAttribute) {
+        this.renderer.setProperty(this.elementRef.nativeElement, 'readOnly', toBooleanProperty(value));
+    }
+
     public get autocomplete(): ComboboxAutocomplete | undefined {
         return this.elementRef.nativeElement.autocomplete;
     }

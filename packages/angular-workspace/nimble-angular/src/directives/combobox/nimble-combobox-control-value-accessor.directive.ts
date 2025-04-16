@@ -28,6 +28,8 @@ export type OptionNotFound = typeof OPTION_NOT_FOUND;
     }]
 })
 export class NimbleComboboxControlValueAccessorDirective implements ControlValueAccessor, AfterViewChecked {
+    @Input('readonly-when-disabled') public readonlyWhenDisabled: boolean;
+
     /**
      * @description
      * Tracks the option comparison algorithm for tracking identities when
@@ -114,7 +116,11 @@ export class NimbleComboboxControlValueAccessorDirective implements ControlValue
      * @param isDisabled The disabled status to set on the combobox
      */
     public setDisabledState(isDisabled: boolean): void {
-        this.setProperty('disabled', isDisabled);
+        if (this.readonlyWhenDisabled) {
+            this.setProperty('readonly', isDisabled);
+        } else {
+            this.setProperty('disabled', isDisabled);
+        }
     }
 
     /**

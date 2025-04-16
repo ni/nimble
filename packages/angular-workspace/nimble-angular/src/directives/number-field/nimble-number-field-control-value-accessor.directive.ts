@@ -1,4 +1,4 @@
-import { Directive, forwardRef } from '@angular/core';
+import { Directive, forwardRef, Input } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { NumberValueAccessor } from '../../thirdparty/directives/number_value_accessor';
 
@@ -19,4 +19,14 @@ import { NumberValueAccessor } from '../../thirdparty/directives/number_value_ac
         multi: true
     }]
 })
-export class NimbleNumberFieldControlValueAccessorDirective extends NumberValueAccessor { }
+export class NimbleNumberFieldControlValueAccessorDirective extends NumberValueAccessor {
+    @Input('readonly-when-disabled') public readonlyWhenDisabled: boolean;
+
+    public override setDisabledState(isDisabled: boolean): void {
+        if (this.readonlyWhenDisabled) {
+            this.setProperty('readonly', isDisabled);
+        } else {
+            super.setDisabledState(isDisabled);
+        }
+    }
+}

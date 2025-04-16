@@ -88,6 +88,9 @@ export class Select
     @attr({ attribute: 'loading-visible', mode: 'boolean' })
     public loadingVisible = false;
 
+    @attr({ attribute: 'readonly', mode: 'boolean' })
+    public readOnly = false;
+
     /**
      * @internal
      */
@@ -340,7 +343,7 @@ export class Select
      */
     public override clickHandler(e: MouseEvent): BooleanOrVoid {
         // do nothing if the select is disabled
-        if (this.disabled) {
+        if (this.disabled || this.readOnly) {
             return;
         }
 
@@ -575,6 +578,10 @@ export class Select
         const initialSelectedIndex = this.selectedIndex;
         const key = e.key;
         if (e.ctrlKey || e.shiftKey) {
+            return true;
+        }
+
+        if (this.readOnly) {
             return true;
         }
 

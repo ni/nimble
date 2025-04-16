@@ -27,6 +27,7 @@ import {
 interface ComboboxArgs {
     label: string;
     disabled: boolean;
+    readonly: boolean;
     dropDownPosition: DropdownPosition;
     autocomplete: ComboboxAutocomplete;
     optionsType: ExampleOptionsType;
@@ -104,6 +105,7 @@ const metadata: Meta<ComboboxArgs> = {
         <${comboboxTag}
             autocomplete="${x => x.autocomplete}"
             ?disabled="${x => x.disabled}"
+            ?readonly="${x => x.readonly}"
             position="${x => x.dropDownPosition}"
             error-text="${x => x.errorText}"
             ?error-visible="${x => x.errorVisible}"
@@ -151,6 +153,10 @@ const metadata: Meta<ComboboxArgs> = {
         },
         disabled: {
             description: disabledDescription({ componentName: 'combobox' }),
+            table: { category: apiCategory.attributes }
+        },
+        readonly: {
+            description: 'TODO: Add description',
             table: { category: apiCategory.attributes }
         },
         errorText: {
@@ -209,7 +215,8 @@ const metadata: Meta<ComboboxArgs> = {
         appearance: DropdownAppearance.underline,
         placeholder: 'Select value...',
         optionsType: ExampleOptionsType.simpleOptions,
-        requiredVisible: false
+        requiredVisible: false,
+        readonly: false
     }
 };
 

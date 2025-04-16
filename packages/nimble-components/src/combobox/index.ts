@@ -1,4 +1,4 @@
-import { DOM, Observable, attr, html, observable, ref } from '@ni/fast-element';
+import { DOM, Observable, attr, html, observable, ref, when } from '@ni/fast-element';
 import {
     DesignSystem,
     type ComboboxOptions,
@@ -70,6 +70,12 @@ export class Combobox
      */
     @attr({ attribute: 'open', mode: 'boolean' })
     public open = false;
+
+    /**
+     * The readonly attribute.
+     */
+    @attr({ attribute: 'readonly', mode: 'boolean' })
+    public readOnly = false;
 
     /**
      * Sets the placeholder value of the element, generally used to provide a hint to the user.
@@ -251,7 +257,7 @@ export class Combobox
      * @internal
      */
     public override clickHandler(e: MouseEvent): boolean {
-        if (this.disabled) {
+        if (this.disabled || this.readOnly) {
             return false;
         }
 
@@ -386,6 +392,10 @@ export class Combobox
 
     public override keydownHandler(e: KeyboardEvent): boolean {
         if (e.ctrlKey || e.altKey) {
+            return true;
+        }
+
+        if (this.disabled || this.readOnly) {
             return true;
         }
 
@@ -856,28 +866,30 @@ const nimbleCombobox = Combobox.compose<ComboboxOptions>({
                 severity="error"
                 class="error-icon"
             ></${iconExclamationMarkTag}>
-            <div class="separator"></div>
-            <${toggleButtonTag}
-                ${ref('dropdownButton')}
-                appearance="ghost"
-                ?checked="${x => x.open}"
-                ?disabled="${x => x.disabled}"
-                content-hidden="true"
-                @click="${(x, c) => x.toggleButtonClickHandler(c.event)}"
-                @change="${(x, c) => x.toggleButtonChangeHandler(c.event)}"
-                @keydown="${(x, c) => x.toggleButtonKeyDownHandler(c.event as KeyboardEvent)}"
-                class="dropdown-button"
-                part="button"
-                aria-hidden="true"
-                tabindex="-1"
-            >
-                <${iconArrowExpanderDownTag}
-                    slot="start"
-                    class="dropdown-icon"
+            ${when(x => !x.readOnly, html<Combobox>`
+                <div class="separator"></div>
+                <${toggleButtonTag}
+                    ${ref('dropdownButton')}
+                    appearance="ghost"
+                    ?checked="${x => x.open}"
+                    ?disabled="${x => x.disabled}"
+                    content-hidden="true"
+                    @click="${(x, c) => x.toggleButtonClickHandler(c.event)}"
+                    @change="${(x, c) => x.toggleButtonChangeHandler(c.event)}"
+                    @keydown="${(x, c) => x.toggleButtonKeyDownHandler(c.event as KeyboardEvent)}"
+                    class="dropdown-button"
+                    part="button"
+                    aria-hidden="true"
+                    tabindex="-1"
                 >
-                </${iconArrowExpanderDownTag}>
-            </${toggleButtonTag}>
-        </div>
+                    <${iconArrowExpanderDownTag}
+                        slot="start"
+                        class="dropdown-icon"
+                    >
+                    </${iconArrowExpanderDownTag}>
+                </${toggleButtonTag}>
+            </div>
+        `)}
         ${errorTextTemplate}
     `
 });

@@ -50,6 +50,11 @@ export const styles = css`
         --ni-private-indicator-lines-gap: 1px;
     }
 
+    :host([readonly]) {
+        user-select: text;
+        -webkit-user-select: text;
+    }
+
     :host::before {
         content: '';
         position: absolute;
@@ -103,7 +108,8 @@ export const styles = css`
         border-bottom-color: ${failColor};
     }
 
-    :host([disabled]:hover)::after {
+    :host([disabled]:hover)::after,
+    :host([readonly]:hover)::after {
         width: 0px;
     }
 
@@ -138,6 +144,10 @@ export const styles = css`
         border-color: rgba(${borderRgbPartialColor}, 0.1);
     }
 
+    :host([readonly]) .control {
+        cursor: default;
+    }
+
     :host([error-visible]) .control,
     :host([error-visible][open]) .control,
     :host([error-visible][disabled]) .control {
@@ -170,6 +180,10 @@ export const styles = css`
         display: flex;
         justify-content: center;
         align-items: center;
+    }
+
+    :host([readonly]) .indicator {
+        display: none;
     }
 
     .indicator slot[name='indicator'] svg {
@@ -280,6 +294,16 @@ export const styles = css`
             :host([disabled]) .control {
                 border-color: rgba(${borderRgbPartialColor}, 0.1);
             }
+
+            :host([readonly]) .control {
+                border-width: 0px;
+                padding: ${borderWidth};
+            }
+
+            :host([readonly]):focus-within .control {
+                border-width: 0px;
+                padding: ${borderWidth};
+            }
         `
     ),
     appearanceBehavior(
@@ -288,6 +312,16 @@ export const styles = css`
             .control {
                 border-width: ${borderWidth};
                 padding: 0;
+            }
+
+            :host([readonly]) .control {
+                border-width: 0px;
+                padding: ${borderWidth};
+            }
+
+            :host([readonly]):focus-within .control {
+                border-width: 0px;
+                padding: ${borderWidth};
             }
         `
     ),
@@ -305,6 +339,16 @@ export const styles = css`
 
             :host([disabled]) .control {
                 background-color: rgba(${borderRgbPartialColor}, 0.07);
+            }
+
+            :host([readonly]) .control {
+                border-width: 0px;
+                padding: ${borderWidth};
+            }
+
+            :host([readonly]):focus-within .control {
+                border-width: 0px;
+                padding: ${borderWidth};
             }
         `
     ),
