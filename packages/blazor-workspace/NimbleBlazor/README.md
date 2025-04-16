@@ -73,7 +73,7 @@ More complete examples can be found in the Demo.Client/Server example projects.
 The `NimbleTable` requires that its data be set via the `SetDataAsync` method. The appropriate place to call this method is either in the `OnAfterRenderAsync` override of the hosting component or after that method has been called for the first time.
 
 As the `NimbleTable` is generic a client must supply its generic type in the markup using the `TData` property syntax. The following code represents a typical usage of the `NimbleTable`:
-```html
+```cs
 <NimbleTable TData="MyRecordType" @ref="_table">
 @code {
     private NimbleTable<MyRecordType>? _table;
@@ -94,6 +94,40 @@ As the `NimbleTable` is generic a client must supply its generic type in the mar
 
 For more information regarding the Blazor component lifecycle mechanisms (such as `OnAfterRenderAsync`), please consult the [Microsoft Blazor docs](https://learn.microsoft.com/en-us/aspnet/core/blazor/components/lifecycle).
 
+#### NimbleDialog usage
+
+Using the `NimbleDialog` in a Blazor app requires it to be placed in the template just like any other component. While it's location in the template doesn't tend to matter, it is conventional for it to be placed at the bottom. Opening and closing the dialog will be handled by calling the `ShowAsync` and `CloseAsync` methods on a `NimbleDialog` reference respectively.
+
+If your dialog contains elements that can have user-provided state (such as an editable `NimbleTextField` or a `NimbleToggleButton`), then if it is expected for the dialog to open in the same state each time you _must_ provide a means to reset that state between opens (the `NimbleDialog` can not do this itself). A common pattern to manage this is to bind the values of the elements in the dialog to some model state, and upon closing (or opening) the dialog, simply re-create the model the values are bound to.
+
+MyDialogOwner.razor
+```html
+<NimbleDialog @ref="_dialog">
+    <NimbleTextField Value="@_model.FirstName"></NimbleTextField>
+    <NimbleTextField Value="@_model.LastName"></NimbleTextField>
+    <NimbleButton slot="footer" @onclick="CloseDialogAsync(DialogResult.OK)">OK</NimbleButton>
+</NimbleDialog>
+```
+
+MyDialogOwner.razor.cs
+```cs
+private DialogData _model = new();
+private NimbleDialog! _dialog;
+
+private async Task CloseDialogAsync(DialogResult reason)
+{
+    await _dialog.CloseAsync(reason);
+    _model = new(); // reset model state 
+}
+
+private class DialogData
+{
+    public string FirstName { get; set; }
+    public string LastName { get; set; }
+}
+
+```
+
 ### Supported Render Modes
 
 Nimble supports all of the [Blazor render modes](https://learn.microsoft.com/en-us/aspnet/core/blazor/components/render-modes?view=aspnetcore-8.0):
@@ -112,6 +146,30 @@ See the [Blazor prerendering docs](https://learn.microsoft.com/en-us/aspnet/core
 ### Theming and Design Tokens
 
 To use Nimble's theme-aware design tokens in a Blazor app, you should have a `<NimbleThemeProvider>` element as an ancestor to all of the Nimble components you use. The app's default layout (`MainLayout.razor` in the examples) is a good place to put the theme provider (as the root content of the page).
+
+#### Best practices
+
+Custom Blazor components should provide their own scoped CSS file (in addition to a separate .cs file for the template-independent logic). Providing a separate CSS file is necessary to access other Blazor styling mechanisms that are helpful to use.
+
+#### Styling Blazor components
+
+Often you will need to provide CSS for the Nimble Blazor components (et. al) to control things like layout behaviors within a parent container. To accomplish this, in the scoped CSS file for the component containing the Nimble Blazor component (e.g. NimbleTextField), you must use the `::deep` pseudo-selector to target that Nimble component.
+
+MyComponent.razor
+```html
+<div>
+    <NimbleTextField class="text-field"></NimbleTextField>
+</div>
+```
+
+MyComponent.razor.css
+```css
+::deep .text-field {
+    flex: 1;
+}
+```
+
+Components _must_ be wrapped in a containing element in order to work with the `::deep` pseduo-selector. For more info see the [Microsoft docs](https://learn.microsoft.com/en-us/aspnet/core/blazor/components/css-isolation?view=aspnetcore-9.0#child-component-support).
 
 #### Using Nimble Design Tokens (CSS/SCSS)
 
