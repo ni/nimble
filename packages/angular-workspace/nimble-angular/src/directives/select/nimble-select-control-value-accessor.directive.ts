@@ -1,4 +1,4 @@
-import { Directive, forwardRef, Input } from '@angular/core';
+import { booleanAttribute, ChangeDetectorRef, Directive, ElementRef, forwardRef, Input, Optional, Renderer2, type OnChanges, type SimpleChanges } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { SelectControlValueAccessor } from '../../thirdparty/directives/select_control_value_accessor';
 
@@ -21,8 +21,14 @@ import { SelectControlValueAccessor } from '../../thirdparty/directives/select_c
         multi: true
     }]
 })
-export class NimbleSelectControlValueAccessorDirective extends SelectControlValueAccessor {
+export class NimbleSelectControlValueAccessorDirective extends SelectControlValueAccessor implements OnChanges {
     @Input('readonly-when-disabled') public readonlyWhenDisabled: boolean;
+
+    @Input('readonly') public isReadonly: boolean;
+
+    public constructor(renderer: Renderer2, elementRef: ElementRef, @Optional() private readonly changeDetectorRef: ChangeDetectorRef | null) {
+        super(renderer, elementRef);
+    }
 
     public override setDisabledState(isDisabled: boolean): void {
         if (this.readonlyWhenDisabled) {
@@ -30,5 +36,21 @@ export class NimbleSelectControlValueAccessorDirective extends SelectControlValu
         } else {
             super.setDisabledState(isDisabled);
         }
+    }
+
+    public ngOnChanges(changes: SimpleChanges): void {
+        if ('isReadonly' in changes && this.readonlyWhenDisabled) {
+            this.updateReadonly(changes);
+        }
+    }
+
+    private updateReadonly(changes: SimpleChanges): void {
+        const readonlyValue = changes.isReadonly.currentValue as unknown;
+        const isReadonly = readonlyValue !== false && booleanAttribute(readonlyValue);
+
+        setTimeout(() => {
+            this.setDisabledState(isReadonly);
+            this.changeDetectorRef?.markForCheck();
+        }, 0);
     }
 }
