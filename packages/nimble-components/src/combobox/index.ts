@@ -1,4 +1,12 @@
-import { DOM, Observable, attr, html, observable, ref, when } from '@ni/fast-element';
+import {
+    DOM,
+    Observable,
+    attr,
+    html,
+    observable,
+    ref,
+    when
+} from '@ni/fast-element';
 import {
     DesignSystem,
     type ComboboxOptions,
@@ -866,7 +874,9 @@ const nimbleCombobox = Combobox.compose<ComboboxOptions>({
                 severity="error"
                 class="error-icon"
             ></${iconExclamationMarkTag}>
-            ${when(x => !x.readOnly, html<Combobox>`
+            ${when(
+        x => !x.readOnly,
+        html<Combobox>`
                 <div class="separator"></div>
                 <${toggleButtonTag}
                     ${ref('dropdownButton')}
@@ -889,7 +899,8 @@ const nimbleCombobox = Combobox.compose<ComboboxOptions>({
                     </${iconArrowExpanderDownTag}>
                 </${toggleButtonTag}>
             </div>
-        `)}
+        `
+    )}
         ${errorTextTemplate}
     `
 });
