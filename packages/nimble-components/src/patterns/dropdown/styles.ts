@@ -174,6 +174,10 @@ export const styles = css`
         padding-left: ${mediumPadding};
     }
 
+    :host([readonly]) .selected-value {
+        padding-left: 0px;
+    }
+
     .selected-value[disabled]::placeholder {
         color: ${bodyDisabledFontColor};
     }
