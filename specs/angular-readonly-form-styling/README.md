@@ -42,6 +42,7 @@ When these components are read-only, they will have the following characteristic
 - ARIA updates when read-only:
     - `aria-haspopup` set to `null`
     - `aria-readonly` set to `"true"`
+    - Note: While the native select does not support `readonly`, the `combobox` role does support `aria-readonly`, so that can be used in combination with the existing role of both the `nimble-select` and `nimble-combobox`. With these two changes locally, storybook does not report any new accessibility violations.
 
 ### Frameless select, combobox, and number field
 
