@@ -18,7 +18,7 @@ Note that in the improved UI screenshot, there are likely still additional impro
 
 ## Links To Relevant Work Items and Reference Material
 
-[SLE control pattern docs](https://master--62431f379ac921003aaca05a.chromatic.com/?path=/docs/patterns-control-text--docs)
+[SLE control pattern docs](https://stratus-storybook.ni.dev/?path=/docs/patterns-control-text--docs)
 
 ## Implementation / Design
 
@@ -39,7 +39,7 @@ When these components are readonly, they will have the following characteristics
 - Cannot change their value using the mouse or keyboard
 - Cannot open their popup
 - Drop-down arrow (select) and drop-down button (combobox) will be hidden
-- Aria updates when readonly:
+- ARIA updates when readonly:
     - `role` set to `"textbox"`
     - `aria-expanded` set to `null`
     - `aria-haspopup` set to `null`
@@ -63,7 +63,7 @@ setDisabledState(isDisabled: boolean): void {
 }
 ```
 
-Because of the way that Angular injects an `NG_VALUE_ACCESSOR` for a control and because there should only be one `NG_VALUE_ACCESSOR` for a given control, the only way to change the behavior of a disabled form control is to change the control value accessor associated with it to have a different implementation of `setDisabledState`. Therefore, nimble's control value accessor directives will be updated to have the option to set `readOnly` on a control rather than `disabled`. This implemetnation will look like this:
+Because of the way that Angular injects an `NG_VALUE_ACCESSOR` for a control and because there should only be one `NG_VALUE_ACCESSOR` for a given control, the only way to change the behavior of a disabled form control is to change the control value accessor associated with it to have a different implementation of `setDisabledState`. Therefore, nimble's control value accessor directives will be updated to have the option to set `readOnly` on a control rather than `disabled`. This implementation will look like this:
 
 ```ts
 @Input('readonly-when-disabled') public readonlyWhenDisabled: boolean;
