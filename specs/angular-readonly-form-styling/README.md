@@ -46,7 +46,7 @@ When these components are read-only, they will have the following characteristic
 
 ### Frameless select, combobox, and number field
 
-The visual design for rea-donly controls in forms is for them to be rendered without any borders or backgrounds. This matches the `frameless` appearance nimble has today for the `nimble-text-field`. Therefore, the select, combobox, and number field will all be updated to also support a `frameless` appearance.
+The visual design for read-only controls in forms is for them to be rendered without any borders or backgrounds. This matches the `frameless` appearance nimble has today for the `nimble-text-field`. Therefore, the select, combobox, and number field will all be updated to also support a `frameless` appearance.
 
 ### Full-bleed select, combobox, and number field
 
@@ -94,7 +94,7 @@ This allows nimble to only make unopinionated changes. Nimble will be responsibl
 
 ## Angular updates
 
-In additional to the changes to the Angular control value accessors described above, all new `nimble-components` attributes will be exposed in the Angular directives.
+In addition to the changes to the Angular control value accessors described above, all new `nimble-components` attributes will be exposed in the Angular directives.
 
 ## Blazor updates
 
