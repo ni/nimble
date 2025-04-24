@@ -9,6 +9,7 @@ With some changes to nimble's controls and nimble's Angular control value access
 An example can be seen below of a page that currently has disabled controls and the ideal UI.
 
 Current UI with disabled controls:
+
 ![disabled form](disabled-form.png)
 
 Improved UI with read-only controls:
