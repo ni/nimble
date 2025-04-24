@@ -3,6 +3,7 @@ import * as conversationStories from './chat-conversation.stories';
 import * as messageStories from '../message/chat-message.stories';
 import ComponentApisLink from '../../../docs/component-apis-link.mdx';
 import { chatConversationTag } from '../../../../../spright-components/src/chat/conversation';
+import { chatInputTag } from '../../../../../spright-components/src/chat/input';
 import { chatMessageTag } from '../../../../../spright-components/src/chat/message';
 
 <Meta of={conversationStories} />
@@ -12,8 +13,7 @@ Chat components are used to display a conversation with a chat bot or other
 users. The components can display messages but the application is responsible
 for connecting them to a source of data.
 
-Components include a chat message and a chat conversation, which is a collection
-of messages.
+Components include a chat message, a chat conversation, and a chat input.
 
 ## API
 
@@ -51,6 +51,10 @@ Clients can place any HTML content within the message.
 
 <Canvas of={messageStories.chatMessageImage} />
 <Controls of={messageStories.chatMessageImage} />
+
+### Chat input
+
+Use the <Tag name={chatInputTag} /> element to allow the user to create and send chat messages.
 
 ## Usage
 

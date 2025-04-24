@@ -6,6 +6,7 @@ import { menuTag } from '../../../../../nimble-components/src/menu';
 import { menuItemTag } from '../../../../../nimble-components/src/menu-item';
 import { toggleButtonTag } from '../../../../../nimble-components/src/toggle-button';
 import { chatConversationTag } from '../../../../../spright-components/src/chat/conversation';
+import { chatInputTag } from '../../../../../spright-components/src/chat/input';
 import { ChatMessageType } from '../../../../../spright-components/src/chat/message/types';
 import { chatMessageTag } from '../../../../../spright-components/src/chat/message';
 import { richTextViewerTag } from '../../../../../nimble-components/src/rich-text/viewer';
@@ -87,6 +88,7 @@ export const chatConversation: StoryObj<ChatConversationArgs> = {
                 </${buttonTag}>
             </${chatMessageTag}>
         </${chatConversationTag}>
+        <${chatInputTag}></${chatInputTag}>
     `),
     argTypes: {
         content: {
