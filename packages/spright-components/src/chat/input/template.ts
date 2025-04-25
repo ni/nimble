@@ -1,4 +1,4 @@
-import { html } from '@ni/fast-element';
+import { html, ref } from '@ni/fast-element';
 import { buttonTag } from '@ni/nimble-components/dist/esm/button';
 import { iconPaperPlaneTag } from '@ni/nimble-components/dist/esm/icons/paper-plane';
 import type { ChatInput } from '.';
@@ -8,15 +8,16 @@ import type { ChatInput } from '.';
 export const template = html<ChatInput>`
 <div class="container">
     <textarea
-        class="input-control"
-        @ref="_textArea"
+        ${ref('textArea')}
         placeholder="Ask Nigel"
         rows="1"
-        @bind="InputPrompt.Text" @bind:event="oninput"></textarea>
+        @keydown="${(x, c) => x.keydownHandler(c.event as KeyboardEvent)}"
+    ></textarea>
     <${buttonTag}
         class="send-button"
         appearance="block"
         appearance-variant="accent"
+        @click=${x => x.onSubmit()}
     >
         Send
         <${iconPaperPlaneTag} slot="start"><${iconPaperPlaneTag}/>
