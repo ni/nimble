@@ -17,10 +17,6 @@ declare global {
  * A Spright component for displaying a series of chat messages
  */
 export class ChatInput extends FoundationElement {
-    public get text(): string {
-        return this.textArea.value;
-    }
-
     /**
      * @internal
      */
@@ -40,7 +36,7 @@ export class ChatInput extends FoundationElement {
 
     public onSubmit(): void {
         const eventDetail: ChatInputSubmitEventDetail = {
-            text: this.text
+            text: this.textArea.value
         };
         this.$emit('submit', eventDetail);
         this.textArea.value = '';
