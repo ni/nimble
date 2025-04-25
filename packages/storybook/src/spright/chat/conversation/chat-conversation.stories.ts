@@ -1,12 +1,13 @@
 import type { Meta, StoryObj } from '@storybook/html';
-import { html } from '@ni/fast-element';
+import { html, ref } from '@ni/fast-element';
 import { buttonTag } from '../../../../../nimble-components/src/button';
 import { menuButtonTag } from '../../../../../nimble-components/src/menu-button';
 import { menuTag } from '../../../../../nimble-components/src/menu';
 import { menuItemTag } from '../../../../../nimble-components/src/menu-item';
 import { toggleButtonTag } from '../../../../../nimble-components/src/toggle-button';
-import { chatConversationTag } from '../../../../../spright-components/src/chat/conversation';
+import { ChatConversation, chatConversationTag } from '../../../../../spright-components/src/chat/conversation';
 import { chatInputTag } from '../../../../../spright-components/src/chat/input';
+import type { ChatInputSubmitEventDetail } from '../../../../../spright-components/src/chat/input/types';
 import { ChatMessageType } from '../../../../../spright-components/src/chat/message/types';
 import { chatMessageTag } from '../../../../../spright-components/src/chat/message';
 import { richTextViewerTag } from '../../../../../nimble-components/src/rich-text/viewer';
@@ -26,7 +27,14 @@ import { loremIpsum } from '../../../utilities/lorem-ipsum';
 import { isChromatic } from '../../../utilities/isChromatic';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
-interface ChatConversationArgs {}
+interface ChatConversationArgs {
+    content: string;
+    conversationRef: ChatConversation;
+    submitMessage: (
+        event: CustomEvent<ChatInputSubmitEventDetail>,
+        conversationRef: ChatConversation,
+    ) => void;
+}
 
 const metadata: Meta<ChatConversationArgs> = {
     title: 'Spright/Chat Conversation'
@@ -37,7 +45,7 @@ export const chatConversation: StoryObj<ChatConversationArgs> = {
         actions: {}
     },
     render: createUserSelectedThemeStory(html`
-        <${chatConversationTag}>
+        <${chatConversationTag} ${ref('conversationRef')}>
             <${chatMessageTag} message-type="${() => ChatMessageType.system}">
                 To start, press any key.
             </${chatMessageTag}>
@@ -88,7 +96,9 @@ export const chatConversation: StoryObj<ChatConversationArgs> = {
                 </${buttonTag}>
             </${chatMessageTag}>
         </${chatConversationTag}>
-        <${chatInputTag}></${chatInputTag}>
+        <${chatInputTag}
+            @submit="${(x, c) => x.submitMessage(c.event as CustomEvent<ChatInputSubmitEventDetail>, x.conversationRef)}"
+        ></${chatInputTag}>
     `),
     argTypes: {
         content: {
@@ -96,8 +106,20 @@ export const chatConversation: StoryObj<ChatConversationArgs> = {
             description:
                 'The messages to display in the chat conversation. The DOM order of the messages controls their screen order within the conversation (earlier DOM order implies older message)',
             table: { category: apiCategory.slots }
+        },
+        submitMessage: {
+            table: { disable: true }
+        }
+    },
+    args: {
+        submitMessage: (event, conversationRef) => {
+            const newMessage = document.createElement(chatMessageTag);
+            newMessage.messageType = ChatMessageType.outbound;
+            newMessage.textContent = event.detail.text;
+            conversationRef.appendChild(newMessage);
         }
     }
+
 };
 
 export default metadata;
