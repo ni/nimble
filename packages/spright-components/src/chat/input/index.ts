@@ -1,7 +1,5 @@
 import { DesignSystem, FoundationElement } from '@ni/fast-foundation';
-import {
-    keyEnter,
-} from '@ni/fast-web-utilities';
+import { keyEnter } from '@ni/fast-web-utilities';
 import { observable } from '@ni/fast-element';
 import { styles } from './styles';
 import { template } from './template';
@@ -73,7 +71,5 @@ const sprightChatInput = ChatInput.compose({
     styles
 });
 
-DesignSystem.getOrCreate()
-    .withPrefix('spright')
-    .register(sprightChatInput());
+DesignSystem.getOrCreate().withPrefix('spright').register(sprightChatInput());
 export const chatInputTag = 'spright-chat-input';

@@ -7,7 +7,7 @@ import {
     controlLabelFontColor,
     elevation2BoxShadow,
     mediumPadding,
-    popupBorderColor,
+    popupBorderColor
 } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
 import { display } from '../../utilities/style/display';
 
@@ -53,6 +53,6 @@ export const styles = css`
         grid-row: 2;
         grid-column: 2;
         width: 80px;
-        margin: ${mediumPadding}
+        margin: ${mediumPadding};
     }
 `;

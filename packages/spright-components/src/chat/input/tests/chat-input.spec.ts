@@ -3,9 +3,7 @@ import { ChatInput, chatInputTag } from '..';
 import { fixture, type Fixture } from '../../../utilities/tests/fixture';
 
 async function setup(): Promise<Fixture<ChatInput>> {
-    return await fixture<ChatInput>(
-        html`<${chatInputTag}></${chatInputTag}>`
-    );
+    return await fixture<ChatInput>(html`<${chatInputTag}></${chatInputTag}>`);
 }
 
 describe('ChatInput', () => {
@@ -22,9 +20,7 @@ describe('ChatInput', () => {
     });
 
     it('can construct an element instance', () => {
-        expect(document.createElement(chatInputTag)).toBeInstanceOf(
-            ChatInput
-        );
+        expect(document.createElement(chatInputTag)).toBeInstanceOf(ChatInput);
     });
 
     it('should have a slot element in the shadow DOM', async () => {
