@@ -31,4 +31,8 @@ describe('ChatInput', () => {
         await connect();
         expect(element.shadowRoot?.querySelector('SLOT')).not.toBeNull();
     });
+
+    // test cases:
+    // if text empty: send is disabled, enter doesn't send, enter doesn't modify text
+    // text starts out empty and button starts out disabled
 });
