@@ -12,5 +12,7 @@ describe('Spright chat', () => {
         it('input custom element is defined', () => {
             expect(customElements.get('spright-chat-input')).not.toBeUndefined();
         });
+
+        // TODO: test for event
     });
 });

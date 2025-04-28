@@ -82,6 +82,8 @@ export class CustomAppComponent implements AfterViewInit {
     public possibleColors = colors;
     public currentColor?: Color;
     public openMenuButtonColumnRecordId?: string;
+
+    public chatUserMessages: string[] = [];
     public readonly tableData$: Observable<SimpleTableRecord[]>;
     private readonly tableDataSubject = new BehaviorSubject<SimpleTableRecord[]>([]);
     private delayedHierarchyTableData: PersonTableRecord[] = [
@@ -279,6 +281,10 @@ export class CustomAppComponent implements AfterViewInit {
                 void this.updateDelayedHierarchyTable();
             }, 1500);
         }
+    }
+
+    public onChatInputSubmit(message: string): void {
+        this.chatUserMessages.push(message);
     }
 
     private setDynamicSelectItems(dynamicSelectItems: ComboboxItem[]): void {
