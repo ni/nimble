@@ -49,7 +49,7 @@ export class ChatInput extends FoundationElement {
      * @internal
      */
     public sendButtonClickHandler(): void {
-        if (!this.shouldDisableSendButton()) {
+        if (this.shouldDisableSendButton()) {
             return;
         }
         const eventDetail: ChatInputSubmitEventDetail = {
