@@ -58,6 +58,7 @@ export class ChatInput extends FoundationElement {
         this.$emit('submit', eventDetail);
         this.textArea.value = '';
         this.textArea.focus();
+        this.disableSendButton = true;
     }
 
     private shouldDisableSendButton(): boolean {
