@@ -14,9 +14,7 @@ ChatMessageOptions
 > = (context, definition) => html<ChatMessage>`
     <div class="container">
         ${startSlotTemplate(context, definition)}
-        <section class="message-content">
-            <slot></slot>
-        </section>
+        <section class="message-content"><slot></slot></section>
         <section class="footer-actions ${x => (x.footerActionsIsEmpty ? '' : 'has-content')}">
            <slot 
                 name="footer-actions"

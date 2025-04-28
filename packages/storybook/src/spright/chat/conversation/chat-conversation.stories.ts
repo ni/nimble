@@ -116,6 +116,7 @@ export const chatConversation: StoryObj<ChatConversationArgs> = {
             const newMessage = document.createElement(chatMessageTag);
             newMessage.messageType = ChatMessageType.outbound;
             newMessage.textContent = event.detail.text;
+            newMessage.style.whiteSpace = 'pre-wrap';
             conversationRef.appendChild(newMessage);
         }
     }
