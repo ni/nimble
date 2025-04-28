@@ -113,14 +113,16 @@ export const chatConversation: StoryObj<ChatConversationArgs> = {
     },
     args: {
         submitMessage: (event, conversationRef) => {
-            const newMessage = document.createElement(chatMessageTag);
-            newMessage.messageType = ChatMessageType.outbound;
-            newMessage.textContent = event.detail.text;
-            newMessage.style.whiteSpace = 'pre-wrap';
-            conversationRef.appendChild(newMessage);
+            const message = document.createElement(chatMessageTag);
+            message.messageType = ChatMessageType.outbound;
+            const span = document.createElement('span');
+            span.textContent = event.detail.text;
+            // Preserves new lines and trailing spaces that the user entered
+            span.style.whiteSpace = 'pre-wrap';
+            message.appendChild(span);
+            conversationRef.appendChild(message);
         }
     }
-
 };
 
 export default metadata;
