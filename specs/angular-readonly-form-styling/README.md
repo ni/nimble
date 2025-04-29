@@ -57,7 +57,7 @@ Similar to the `nimble-text-field`, these components will only support `full-ble
 With the changes described above implemented in nimble, an application can do the following:
 
 - Create an Angular form with nimble controls configured with `readOnlyDisabledAppearance`
-- Update controls to use `frameless` appearance and `full-bleed` when they are read-only
+- Update controls to use `frameless` appearance and `full-bleed` when they are disabled and will be styled as read-only
     - Note: This can be done in a single-source way if a client creates an Angular directive that applies the desired attributes on nimble components based on the state of the `disabled` attribute on that component.
 
 This allows nimble to only make unopinionated changes. Nimble will be responsible for:
