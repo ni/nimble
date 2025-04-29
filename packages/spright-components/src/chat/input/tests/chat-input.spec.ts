@@ -26,4 +26,5 @@ describe('ChatInput', () => {
     // TODO: test cases
     // if text empty: send is disabled, enter doesn't send, enter doesn't modify text
     // text starts out empty and button starts out disabled
+    // after send, text is empty and button is disabled and enter doesn't submit
 });
