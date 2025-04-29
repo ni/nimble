@@ -50,6 +50,8 @@ The visual design for read-only controls in forms is for them to be rendered wit
 
 The visual design for read-only controls in forms is for them to be rendered without any left padding on the value (i.e. the value is aligned with the label). This matches the `full-bleed` configuration nimble has today for the `nimble-text-field`. Therefore, the select, combobox, and number field will all be updated to also support being `full-bleed`.
 
+Similar to the `nimble-text-field`, these components will only support `full-bleed` when their appearance is `frameless`.
+
 ## Separation of responsibility
 
 With the changes described above implemented in nimble, an application can do the following:
