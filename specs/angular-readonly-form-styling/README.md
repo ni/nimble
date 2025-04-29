@@ -25,13 +25,13 @@ Note that in the improved UI screenshot, there are likely still additional impro
 
 To enable this new design, the following changes need to be made within the nimble repo, each of which is discussed in more detail below:
 
-- Introduce `readonly-disabled-appearance` configuration on the `nimble-text-field`, `nimble-number-field`, `nimble-text-area`, `nimble-select`, and `nimble-combobox`
+- Introduce `appearance-readonly` configuration on the `nimble-text-field`, `nimble-number-field`, `nimble-text-area`, `nimble-select`, and `nimble-combobox`
 - Introduce `frameless` appearance to the `nimble-select`, `nimble-combobox`, and `nimble-number-field`
 - Introduce `full-bleed` configuration on the `nimble-select`, `nimble-combobox`, and `nimble-number-field`
 
 ### Read-only appearance when disabled
 
-The `nimble-text-field`, `nimble-number-field`, `nimble-text-area`, `nimble-select`, and `nimble-combobox` will be updated to have a new boolean attribute named `readonly-disabled-appearance`, which will be associated with a new `readOnlyDisabledAppearance` boolean property.
+The `nimble-text-field`, `nimble-number-field`, `nimble-text-area`, `nimble-select`, and `nimble-combobox` will be updated to have a new boolean attribute named `appearance-readonly`, which will be associated with a new `appearanceReadOnly` boolean property.
 
 When these components have this property set to `true` while being disabled, the component will remain disabled from an ARIA and focusability point of view, but it will be styled as a read-only control. This includes:
 
@@ -40,7 +40,7 @@ When these components have this property set to `true` while being disabled, the
 - [select] Hiding drop-down arrow
 - [combobox] Hiding drop-down button
 
-The `readOnlyDisabledAppearance` property will have no effect on a component that is not disabled.
+The `appearanceReadOnly` property will have no effect on a component that is not disabled.
 
 ### Frameless select, combobox, and number field
 
@@ -56,12 +56,12 @@ Similar to the `nimble-text-field`, these components will only support `full-ble
 
 With the changes described above implemented in nimble, an application can do the following:
 
-- Create an Angular form with nimble controls configured with `readOnlyDisabledAppearance`
+- Create an Angular form with nimble controls configured with `appearanceReadOnly`
 - Update controls to use `frameless` appearance and `full-bleed` when they are disabled and will be styled as read-only
     - Note: This can be done in a single-source way if a client creates an Angular directive that applies the desired attributes on nimble components based on the state of the `disabled` attribute on that component.
 
 This allows nimble to only make unopinionated changes. Nimble will be responsible for:
-- Styling the component correctly given the `readOnly`, `disabled`, `readOnlyDisabledAppearance`, `appearance`, and `fullBleed` states
+- Styling the component correctly given the `readOnly`, `disabled`, `appearanceReadOnly`, `appearance`, and `fullBleed` states
 
 ## Angular updates
 
