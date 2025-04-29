@@ -7,8 +7,6 @@ async function setup(): Promise<Fixture<ChatInput>> {
 }
 
 describe('ChatInput', () => {
-    let element: ChatInput;
-    let connect: () => Promise<void>;
     let disconnect: () => Promise<void>;
 
     beforeEach(async () => {
