@@ -7,6 +7,8 @@ async function setup(): Promise<Fixture<ChatInput>> {
 }
 
 describe('ChatInput', () => {
+    let element: ChatInput;
+    let connect: () => Promise<void>;
     let disconnect: () => Promise<void>;
 
     beforeEach(async () => {
@@ -19,6 +21,11 @@ describe('ChatInput', () => {
 
     it('can construct an element instance', () => {
         expect(document.createElement(chatInputTag)).toBeInstanceOf(ChatInput);
+    });
+
+    it('TODO', async () => {
+        await connect();
+        expect(element.shadowRoot).not.toBeNull();
     });
 
     // TODO: test cases
