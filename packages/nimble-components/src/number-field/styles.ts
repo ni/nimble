@@ -38,7 +38,7 @@ export const styles = css`
         );
     }
 
-    :host([disabled]) {
+    :host([disabled]:not([readonly-interaction])) {
         color: ${bodyDisabledFontColor};
         cursor: default;
     }
@@ -49,7 +49,7 @@ export const styles = css`
         font: ${controlLabelFont};
     }
 
-    :host([disabled]) .label {
+    :host([disabled]:not([readonly-interaction])) .label {
         color: ${controlLabelDisabledFontColor};
     }
 
@@ -224,5 +224,18 @@ export const styles = css`
                 padding: 0;
             }
         `
-    )
+    ),
+    appearanceBehavior(
+        NumberFieldAppearance.frameless,
+        css`
+            :host([full-bleed]) .control {
+                padding-left: 0px;
+            }
+
+            .root {
+                border: 0;
+                padding: ${borderWidth};
+            }
+        `
+    ),
 );

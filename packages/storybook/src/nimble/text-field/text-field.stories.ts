@@ -39,6 +39,7 @@ interface TextFieldArgs {
     change: undefined;
     input: undefined;
     requiredVisible: boolean;
+    readonlyInteraction: boolean;
 }
 
 const leftIconDescription = 'An icon to display at the start of the text field.';
@@ -71,6 +72,7 @@ const metadata: Meta<TextFieldArgs> = {
             ?error-visible="${x => x.errorVisible}"
             ?full-bleed="${x => x.fullBleed}"
             ?required-visible="${x => x.requiredVisible}"
+            ?readonly-interaction="${x => x.readonlyInteraction}"
         >
             ${when(x => x.leftIcon, html`
                 <${iconTagTag} slot="start"></${iconTagTag}>`)}
@@ -134,6 +136,12 @@ const metadata: Meta<TextFieldArgs> = {
             description: disabledDescription({ componentName: 'text field' }),
             table: { category: apiCategory.attributes }
         },
+        readonlyInteraction: {
+            name: 'readonly-interaction',
+            description:
+                'TODO',
+            table: { category: apiCategory.attributes }
+        },
         errorVisible: {
             name: 'error-visible',
             description: errorVisibleDescription,
@@ -185,7 +193,8 @@ const metadata: Meta<TextFieldArgs> = {
         errorText: 'Value is invalid',
         actionButton: false,
         leftIcon: false,
-        requiredVisible: false
+        requiredVisible: false,
+        readonlyInteraction: false
     }
 };
 

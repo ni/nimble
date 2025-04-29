@@ -44,6 +44,10 @@ export const styles = css`
         color: ${bodyDisabledFontColor};
     }
 
+    :host([disabled][readonly-interaction]) {
+        color: ${bodyFontColor};
+    }
+
     .label {
         display: flex;
         color: ${controlLabelFontColor};
@@ -52,6 +56,10 @@ export const styles = css`
 
     :host([disabled]) .label {
         color: ${controlLabelDisabledFontColor};
+    }
+
+    :host([disabled][readonly-interaction]) .label {
+        color: ${controlLabelFontColor};
     }
 
     .root {
@@ -68,7 +76,8 @@ export const styles = css`
         padding-left: calc(${borderWidth} + ${smallPadding});
     }
 
-    :host([readonly]) .root {
+    :host([readonly]) .root,
+    :host([disabled][readonly-interaction]) .root {
         border-color: rgba(${borderRgbPartialColor}, 0.1);
     }
 
@@ -127,6 +136,10 @@ export const styles = css`
         opacity: 0.3;
     }
 
+    :host([disabled][readonly-interaction]) slot[name='start']::slotted(*) {
+        opacity: 0.6;
+    }
+
     .control {
         -webkit-appearance: none;
         font: inherit;
@@ -163,6 +176,10 @@ export const styles = css`
 
     .control[disabled]::placeholder {
         color: ${bodyDisabledFontColor};
+    }
+
+    :host([readonly-interaction]) .control[disabled]::placeholder {
+        color: ${controlLabelFontColor};
     }
 
     [part='end'] {
@@ -239,7 +256,8 @@ export const styles = css`
                 padding-bottom: 0;
             }
 
-            :host([readonly]) .root {
+            :host([readonly]) .root,
+            :host([disabled][readonly-interaction]) .root {
                 background-color: rgba(${borderRgbPartialColor}, 0.07);
                 border-color: transparent;
             }
@@ -267,7 +285,8 @@ export const styles = css`
                 padding-right: ${borderWidth};
             }
 
-            :host([readonly]) .root {
+            :host([readonly]) .root,
+            :host([disabled]) .root {
                 border-color: transparent;
             }
         `

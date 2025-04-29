@@ -41,6 +41,8 @@ interface NumberFieldArgs extends LabelUserArgs {
     change: undefined;
     input: undefined;
     requiredVisible: boolean;
+    readonlyInteraction: boolean;
+    fullBleed: boolean;
 }
 
 const metadata: Meta<NumberFieldArgs> = {
@@ -65,6 +67,8 @@ const metadata: Meta<NumberFieldArgs> = {
             ?error-visible="${x => x.errorVisible}"
             error-text="${x => x.errorText}"
             ?required-visible="${x => x.requiredVisible}"
+            ?readonly-interaction="${x => x.readonlyInteraction}"
+            ?full-bleed="${x => x.fullBleed}"
         >
             ${x => x.label}
         </${numberFieldTag}>
@@ -94,12 +98,24 @@ const metadata: Meta<NumberFieldArgs> = {
             }),
             table: { category: apiCategory.attributes }
         },
+        fullBleed: {
+            name: 'full-bleed',
+            description:
+                'TODO',
+            table: { category: apiCategory.attributes }
+        },
         readonly: {
             description: readonlyDescription({ componentName: 'number field' }),
             table: { category: apiCategory.attributes }
         },
         disabled: {
             description: disabledDescription({ componentName: 'number field' }),
+            table: { category: apiCategory.attributes }
+        },
+        readonlyInteraction: {
+            name: 'readonly-interaction',
+            description:
+                'TODO',
             table: { category: apiCategory.attributes }
         },
         step: {
@@ -162,7 +178,9 @@ const metadata: Meta<NumberFieldArgs> = {
         disabled: false,
         errorVisible: false,
         errorText: 'Value is invalid',
-        requiredVisible: false
+        requiredVisible: false,
+        readonlyInteraction: false,
+        fullBleed: false
     }
 };
 addLabelUseMetadata(

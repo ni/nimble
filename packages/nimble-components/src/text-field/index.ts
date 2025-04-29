@@ -36,6 +36,9 @@ export class TextField extends mixinErrorPattern(
 
     @attr({ attribute: 'full-bleed', mode: 'boolean' })
     public fullBleed = false;
+
+    @attr({ attribute: 'readonly-interaction', mode: 'boolean' })
+    public readonlyInteraction = false;
 }
 
 const nimbleTextField = TextField.compose<TextFieldOptions>({
