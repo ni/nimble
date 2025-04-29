@@ -5,7 +5,10 @@ import { menuButtonTag } from '../../../../../nimble-components/src/menu-button'
 import { menuTag } from '../../../../../nimble-components/src/menu';
 import { menuItemTag } from '../../../../../nimble-components/src/menu-item';
 import { toggleButtonTag } from '../../../../../nimble-components/src/toggle-button';
-import { ChatConversation, chatConversationTag } from '../../../../../spright-components/src/chat/conversation';
+import {
+    ChatConversation,
+    chatConversationTag
+} from '../../../../../spright-components/src/chat/conversation';
 import { chatInputTag } from '../../../../../spright-components/src/chat/input';
 import type { ChatInputSubmitEventDetail } from '../../../../../spright-components/src/chat/input/types';
 import { ChatMessageType } from '../../../../../spright-components/src/chat/message/types';
@@ -32,7 +35,7 @@ interface ChatConversationArgs {
     conversationRef: ChatConversation;
     submitMessage: (
         event: CustomEvent<ChatInputSubmitEventDetail>,
-        conversationRef: ChatConversation,
+        conversationRef: ChatConversation
     ) => void;
 }
 
