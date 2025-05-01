@@ -69,12 +69,11 @@ export const styles = css`
         padding-left: calc(${borderWidth} + ${smallPadding});
     }
 
-    :host([readonly]) .root,
-    :host([disabled][appearance-readonly]) .root {
+    :host([readonly]) .root {
         border-color: rgba(${borderRgbPartialColor}, 0.1);
     }
 
-    :host([disabled]:not([appearance-readonly])) .root {
+    :host([disabled]) .root {
         border-color: rgba(${borderRgbPartialColor}, 0.1);
     }
 
