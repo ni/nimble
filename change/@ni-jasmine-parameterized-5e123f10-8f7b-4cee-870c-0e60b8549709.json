@@ -1,7 +1,0 @@
-{
-  "type": "none",
-  "comment": "Update playwright version",
-  "packageName": "@ni/jasmine-parameterized",
-  "email": "rajsite@users.noreply.github.com",
-  "dependentChangeType": "none"
-}
