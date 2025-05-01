@@ -24,6 +24,7 @@ import { styles as errorStyles } from '../patterns/error/styles';
 import { styles as requiredVisibleStyles } from '../patterns/required-visible/styles';
 import { userSelectNone } from '../utilities/style/user-select';
 
+// prettier-ignore
 export const styles = css`
     ${display('inline-block')}
     ${errorStyles}
@@ -240,7 +241,7 @@ export const styles = css`
                 padding-bottom: 0;
             }
 
-            :host([readonly]) .root
+            :host([readonly]) .root,
             :host([disabled][appearance-readonly]) .root {
                 background-color: rgba(${borderRgbPartialColor}, 0.07);
                 border-color: transparent;

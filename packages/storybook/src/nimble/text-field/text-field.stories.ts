@@ -139,7 +139,9 @@ const metadata: Meta<TextFieldArgs> = {
         },
         appearanceReadonly: {
             name: 'appearance-readonly',
-            description: appearanceReadonlyDescription({ componentName: 'text field' }),
+            description: appearanceReadonlyDescription({
+                componentName: 'text field'
+            }),
             table: { category: apiCategory.attributes }
         },
         errorVisible: {
