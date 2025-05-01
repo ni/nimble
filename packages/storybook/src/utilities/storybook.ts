@@ -184,6 +184,9 @@ export const disabledDescription = (options: {
 export const readonlyDescription = (options: {
     componentName: string
 }): string => `Styles the ${options.componentName} as readonly and prevents the user from changing the value.`;
+export const appearanceReadonlyDescription = (options: {
+    componentName: string
+}): string => `Styles the ${options.componentName} as readonly when the component is disabled. This property has no impact on the control when it is not disabled.`;
 export const slottedLabelDescription = (options: {
     componentName: string
 }): string => `Label text to display adjacent to the ${options.componentName} describing its purpose to the user.`;

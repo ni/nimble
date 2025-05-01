@@ -40,7 +40,7 @@ export const styles = css`
         );
     }
 
-    :host([disabled]) {
+    :host([disabled]:not([appearance-readonly])) {
         color: ${bodyDisabledFontColor};
     }
 
@@ -50,7 +50,7 @@ export const styles = css`
         font: ${controlLabelFont};
     }
 
-    :host([disabled]) .label {
+    :host([disabled]:not([appearance-readonly])) .label {
         color: ${controlLabelDisabledFontColor};
     }
 
@@ -68,11 +68,12 @@ export const styles = css`
         padding-left: calc(${borderWidth} + ${smallPadding});
     }
 
-    :host([readonly]) .root {
+    :host([readonly]) .root,
+    :host([disabled][appearance-readonly]) .root {
         border-color: rgba(${borderRgbPartialColor}, 0.1);
     }
 
-    :host([disabled]) .root {
+    :host([disabled]:not([appearance-readonly])) .root {
         border-color: rgba(${borderRgbPartialColor}, 0.1);
     }
 
@@ -123,7 +124,7 @@ export const styles = css`
         margin-right: ${smallPadding};
     }
 
-    :host([disabled]) slot[name='start']::slotted(*) {
+    :host([disabled]:not([appearance-readonly])) slot[name='start']::slotted(*) {
         opacity: 0.3;
     }
 
@@ -161,7 +162,7 @@ export const styles = css`
         color: ${controlLabelFontColor};
     }
 
-    .control[disabled]::placeholder {
+    :host(:not([appearance-readonly])) .control[disabled]::placeholder {
         color: ${bodyDisabledFontColor};
     }
 
@@ -239,12 +240,13 @@ export const styles = css`
                 padding-bottom: 0;
             }
 
-            :host([readonly]) .root {
+            :host([readonly]) .root
+            :host([disabled][appearance-readonly]) .root {
                 background-color: rgba(${borderRgbPartialColor}, 0.07);
                 border-color: transparent;
             }
 
-            :host([disabled]) .root {
+            :host([disabled]:not([appearance-readonly])) .root {
                 background-color: rgba(${borderRgbPartialColor}, 0.07);
             }
         `
@@ -267,7 +269,8 @@ export const styles = css`
                 padding-right: ${borderWidth};
             }
 
-            :host([readonly]) .root {
+            :host([readonly]) .root,
+            :host([disabled][appearance-readonly]) .root {
                 border-color: transparent;
             }
         `
