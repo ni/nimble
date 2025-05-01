@@ -1,8 +1,8 @@
-# Angular read-only form styling
+# Readonly appearance for disabled controls
 
 ## Problem Statement
 
-There is a desire to render Angular forms with read-only controls rather than disabled controls when the control in the Angular form is marked as disabled. This is because there are use cases where the configuration represented by nimble controls is not editable but is still relevant and should be easily readable. The only way to mark something in an Angular form as "not editable" is to mark it as disabled because there is no concept of "read only" in an Angular form. There is quite a bit of logic built into Angular forms and Angular's control value accessors around what it means to render a component bound to a disabled form control.
+There is a desire to render forms with read-only controls rather than disabled controls when the control in the form is marked as disabled. This is because there are use cases where the configuration represented by nimble controls is not editable but is still relevant and should be easily readable. The only way to mark something in a form as "not editable" is to mark it as disabled because there is no concept of "read only" in a form.
 
 With some changes to nimble's controls, applications could much more easily create forms with read-only controls rather than disabled controls.
 
@@ -56,9 +56,9 @@ Similar to the `nimble-text-field`, these components will only support `full-ble
 
 With the changes described above implemented in nimble, an application can do the following:
 
-- Create an Angular form with nimble controls configured with `appearanceReadOnly`
+- Create a form with nimble controls configured with `appearanceReadOnly`
 - Update controls to use `frameless` appearance and `full-bleed` when they are disabled and will be styled as read-only
-    - Note: This can be done in a single-source way if a client creates an Angular directive that applies the desired attributes on nimble components based on the state of the `disabled` attribute on that component.
+    - Note: This can be done in a single-source way, at least for Angular, if a client creates an Angular directive that applies the desired attributes on nimble components based on the state of the `disabled` attribute on that component.
 
 This allows nimble to only make unopinionated changes. Nimble will be responsible for:
 - Styling the component correctly given the `readOnly`, `disabled`, `appearanceReadOnly`, `appearance`, and `fullBleed` states
@@ -111,6 +111,10 @@ Rather than adding `full-bleed` and `frameless` to the select, combobox, and num
 **Repurpose the `disabled` state**
 
 Rather than adding a new attribute to control the readonly styling, we could restyle components such that their `disabled` state always looked like the `readonly` visual designs. However, there are likely valid reasons in application to have a control look disabled rather than readonly.
+
+**Add theme provider property**
+
+Instead of adding the `appearanceReadOnly` to individual components in nimble, it could be added to the `nimble-theme-provider`. This would have the advantage that an application wouldn't need to put `appearanceReadOnly` on each component. However, because the component likely still needs to be styled as `frameless` and `full-bleed` when it becomes disabled, each component could still need to have knowledge of the theme provider's state. As a result, this approach did not solve the problem in a better way as the chosen solution.
 
 ## Open Issues
 
