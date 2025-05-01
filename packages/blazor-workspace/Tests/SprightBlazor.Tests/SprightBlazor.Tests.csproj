@@ -25,9 +25,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="bunit" Version="1.38.5" />
-    <PackageReference Include="bunit.core" Version="1.38.5" />
-    <PackageReference Include="bunit.web" Version="1.38.5" />
+    <PackageReference Include="bunit" Version="1.39.5" />
+    <PackageReference Include="bunit.core" Version="1.39.5" />
+    <PackageReference Include="bunit.web" Version="1.39.5" />
     <PackageReference Include="coverlet.collector" Version="6.0.4" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.13.0" />
     <PackageReference Include="NI.CSharp.Analyzers" Version="2.0.28" />
