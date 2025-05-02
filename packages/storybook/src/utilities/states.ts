@@ -43,12 +43,6 @@ export const readOnlyStates = [
 ] as const;
 export type ReadOnlyState = (typeof readOnlyStates)[number];
 
-export const appearanceReadOnlyStates = [
-    ['', false],
-    ['Appearance Read-Only', true]
-] as const;
-export type AppearanceReadOnlyState = (typeof appearanceReadOnlyStates)[number];
-
 export const iconVisibleStates = [false, true] as const;
 export type IconVisibleState = (typeof iconVisibleStates)[number];
 
@@ -63,3 +57,15 @@ export const requiredVisibleStates = [
     ['Required', true]
 ] as const;
 export type RequiredVisibleState = (typeof requiredVisibleStates)[number];
+
+export const disabledReadOnlyStates = [
+    ['', false, false, false],
+    ['Appearance Read-Only', false, false, true],
+    ['Disabled', false, true, false],
+    ['Disabled Appearance Read-Only', false, true, true],
+    ['Read-Only', true, false, false],
+    ['Read-Only Appearance Read-Only', true, false, true],
+    ['Read-Only Disabled', true, true, false],
+    ['Read-Only Disabled Appearance Read-Only', true, true, true]
+] as const;
+export type DisabledReadOnlyState = (typeof disabledReadOnlyStates)[number];
