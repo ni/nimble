@@ -39,10 +39,15 @@ export const styles = css`
         --ni-private-height-within-border: calc(
             ${controlHeight} - 2 * ${borderWidth}
         );
+        --ni-private-default-start-slot-opacity: 0.6;
     }
 
-    :host([disabled]:not([appearance-readonly])) {
+    :host([disabled]) {
         color: ${bodyDisabledFontColor};
+    }
+
+    :host([disabled][appearance-readonly]) {
+        color: ${bodyFontColor};
     }
 
     .label {
@@ -51,8 +56,12 @@ export const styles = css`
         font: ${controlLabelFont};
     }
 
-    :host([disabled]:not([appearance-readonly])) .label {
+    :host([disabled]) .label {
         color: ${controlLabelDisabledFontColor};
+    }
+
+    :host([disabled][appearance-readonly]) .label {
+        color: ${controlLabelFontColor};
     }
 
     .root {
@@ -120,12 +129,16 @@ export const styles = css`
 
     slot[name='start']::slotted(*) {
         flex: none;
-        opacity: 0.6;
+        opacity: var(--ni-private-default-start-slot-opacity);
         margin-right: ${smallPadding};
     }
 
-    :host([disabled]:not([appearance-readonly])) slot[name='start']::slotted(*) {
+    :host([disabled]) slot[name='start']::slotted(*) {
         opacity: 0.3;
+    }
+
+    :host([disabled][appearance-readonly]) slot[name='start']::slotted(*) {
+        opacity: var(--ni-private-default-start-slot-opacity);
     }
 
     .control {
@@ -162,8 +175,12 @@ export const styles = css`
         color: ${controlLabelFontColor};
     }
 
-    :host(:not([appearance-readonly])) .control[disabled]::placeholder {
+    .control[disabled]::placeholder {
         color: ${bodyDisabledFontColor};
+    }
+
+    :host([appearance-readonly]) .control[disabled]::placeholder {
+        color: ${controlLabelFontColor};
     }
 
     [part='end'] {
@@ -240,13 +257,16 @@ export const styles = css`
                 padding-bottom: 0;
             }
 
-            :host([readonly]) .root,
-            :host([disabled][appearance-readonly]) .root {
+            :host([readonly]) .root {
                 background-color: rgba(${borderRgbPartialColor}, 0.07);
                 border-color: transparent;
             }
 
-            :host([disabled]:not([appearance-readonly])) .root {
+            :host([readonly][error-visible]) .root {
+                border-bottom-color: ${failColor};;
+            }
+
+            :host([disabled]) .root {
                 background-color: rgba(${borderRgbPartialColor}, 0.07);
             }
         `
@@ -269,9 +289,12 @@ export const styles = css`
                 padding-right: ${borderWidth};
             }
 
-            :host([readonly]) .root,
-            :host([disabled][appearance-readonly]) .root {
+            :host([readonly]) .root {
                 border-color: transparent;
+            }
+
+            :host([readonly][error-visible]) .root {
+                border-bottom-color: ${failColor};;
             }
         `
     ),

@@ -20,7 +20,7 @@ import {
     placeholderDescription,
     slottedLabelDescription,
     requiredVisibleDescription,
-    appearanceReadonlyDescription
+    appearanceReadOnlyDescription
 } from '../../utilities/storybook';
 
 interface TextFieldArgs {
@@ -40,7 +40,7 @@ interface TextFieldArgs {
     change: undefined;
     input: undefined;
     requiredVisible: boolean;
-    appearanceReadonly: boolean;
+    appearanceReadOnly: boolean;
 }
 
 const leftIconDescription = 'An icon to display at the start of the text field.';
@@ -73,7 +73,7 @@ const metadata: Meta<TextFieldArgs> = {
             ?error-visible="${x => x.errorVisible}"
             ?full-bleed="${x => x.fullBleed}"
             ?required-visible="${x => x.requiredVisible}"
-            ?appearance-readonly="${x => x.appearanceReadonly}"
+            ?appearance-readonly="${x => x.appearanceReadOnly}"
         >
             ${when(x => x.leftIcon, html`
                 <${iconTagTag} slot="start"></${iconTagTag}>`)}
@@ -137,9 +137,9 @@ const metadata: Meta<TextFieldArgs> = {
             description: disabledDescription({ componentName: 'text field' }),
             table: { category: apiCategory.attributes }
         },
-        appearanceReadonly: {
+        appearanceReadOnly: {
             name: 'appearance-readonly',
-            description: appearanceReadonlyDescription({
+            description: appearanceReadOnlyDescription({
                 componentName: 'text field'
             }),
             table: { category: apiCategory.attributes }
@@ -196,7 +196,7 @@ const metadata: Meta<TextFieldArgs> = {
         actionButton: false,
         leftIcon: false,
         requiredVisible: false,
-        appearanceReadonly: false
+        appearanceReadOnly: false
     }
 };
 
