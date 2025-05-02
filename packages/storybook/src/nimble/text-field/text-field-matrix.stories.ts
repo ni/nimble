@@ -92,7 +92,7 @@ export default metadata;
 
 // prettier-ignore
 const component = (
-    [_fooName, readOnly, disabled, appearanceReadOnly]: DisabledReadOnlyState,
+    [_disabledReadOnlyName, readOnly, disabled, appearanceReadOnly]: DisabledReadOnlyState,
     [_showActionButtonsName, showActionButtons]: ActionButtonState,
     [showLeftIconName, showLeftIcon]: LeftIconState,
     [errorName, errorVisible, errorText]: ErrorState,
