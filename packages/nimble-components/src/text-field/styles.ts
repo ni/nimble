@@ -262,10 +262,6 @@ export const styles = css`
                 border-color: transparent;
             }
 
-            :host([readonly][error-visible]) .root {
-                border-bottom-color: ${failColor};
-            }
-
             :host([disabled]) .root {
                 background-color: rgba(${borderRgbPartialColor}, 0.07);
             }
@@ -291,10 +287,6 @@ export const styles = css`
 
             :host([readonly]) .root {
                 border-color: transparent;
-            }
-
-            :host([readonly][error-visible]) .root {
-                border-bottom-color: ${failColor};
             }
         `
     ),
