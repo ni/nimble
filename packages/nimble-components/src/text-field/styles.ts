@@ -263,7 +263,7 @@ export const styles = css`
             }
 
             :host([readonly][error-visible]) .root {
-                border-bottom-color: ${failColor};;
+                border-bottom-color: ${failColor};
             }
 
             :host([disabled]) .root {
@@ -294,7 +294,7 @@ export const styles = css`
             }
 
             :host([readonly][error-visible]) .root {
-                border-bottom-color: ${failColor};;
+                border-bottom-color: ${failColor};
             }
         `
     ),
