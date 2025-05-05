@@ -1,7 +1,9 @@
+import { observable } from '@ni/fast-element';
 import {
     DesignSystem,
     AnchoredRegion as FoundationAnchoredRegion,
-    anchoredRegionTemplate as template
+    anchoredRegionTemplate as template,
+    type AnchoredRegionPositionLabel
 } from '@ni/fast-foundation';
 import { styles } from './styles';
 
@@ -22,7 +24,11 @@ declare global {
 /**
  * A nimble-styled anchored region control.
  */
-export class AnchoredRegion extends FoundationAnchoredRegion {}
+export class AnchoredRegion extends FoundationAnchoredRegion {
+    /* @internal */
+    @observable
+    public override verticalPosition: AnchoredRegionPositionLabel | undefined;
+}
 
 const nimbleAnchoredRegion = AnchoredRegion.compose({
     baseName: 'anchored-region',

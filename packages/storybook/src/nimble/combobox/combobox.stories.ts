@@ -141,8 +141,14 @@ const metadata: Meta<ComboboxArgs> = {
         },
         dropDownPosition: {
             name: 'position',
-            options: [DropdownPosition.above, DropdownPosition.below],
-            control: { type: 'select' },
+            options: [undefined, ...Object.values(DropdownPosition)],
+            type: 'string',
+            control: {
+                type: 'radio',
+                labels: {
+                    undefined: 'default'
+                }
+            },
             description: dropdownPositionDescription({
                 componentName: 'combobox'
             }),
@@ -221,7 +227,7 @@ const metadata: Meta<ComboboxArgs> = {
     args: {
         label: 'Combobox',
         disabled: false,
-        dropDownPosition: 'below',
+        dropDownPosition: undefined,
         autocomplete: ComboboxAutocomplete.both,
         errorVisible: false,
         errorText: 'Value is invalid',
