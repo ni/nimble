@@ -126,7 +126,7 @@ const metadata: Meta<TextFieldArgs> = {
         valueAttribute: {
             name: 'value',
             description:
-                'The initial string displayed in the text field. Changing this after the text field initializes has no effect. Note that the property behave differently.',
+                'The initial string displayed in the text field. Changing this after the text field initializes has no effect. Note that the property behaves differently.',
             table: { category: apiCategory.attributes }
         },
         readonly: {
