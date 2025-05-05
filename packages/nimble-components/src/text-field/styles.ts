@@ -175,11 +175,11 @@ export const styles = css`
         color: ${controlLabelFontColor};
     }
 
-    .control[disabled]::placeholder {
+    :host([disabled]) .control::placeholder {
         color: ${bodyDisabledFontColor};
     }
 
-    :host([appearance-readonly]) .control[disabled]::placeholder {
+    :host([disabled][appearance-readonly]) .control::placeholder {
         color: ${controlLabelFontColor};
     }
 

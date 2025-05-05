@@ -69,3 +69,14 @@ export const disabledReadOnlyStates = [
     ['Read-Only Disabled Appearance-Read-Only', true, true, true]
 ] as const;
 export type DisabledReadOnlyState = (typeof disabledReadOnlyStates)[number];
+
+export const disabledReadOnlyState = {
+    none: disabledReadOnlyStates[0],
+    appearanceReadOnly: disabledReadOnlyStates[1],
+    disabled: disabledReadOnlyStates[2],
+    disabledAppearanceReadOnly: disabledReadOnlyStates[3],
+    readOnly: disabledReadOnlyStates[4],
+    readOnlyAppearanceReadOnly: disabledReadOnlyStates[5],
+    readOnlyDisabled: disabledReadOnlyStates[6],
+    readOnlyDisabledAppearanceReadOnly: disabledReadOnlyStates[7],
+} as const;
