@@ -60,12 +60,12 @@ export type RequiredVisibleState = (typeof requiredVisibleStates)[number];
 
 export const disabledReadOnlyStates = [
     ['', false, false, false],
-    ['Appearance Read-Only', false, false, true],
+    ['Appearance-Read-Only', false, false, true],
     ['Disabled', false, true, false],
-    ['Disabled Appearance Read-Only', false, true, true],
+    ['Disabled Appearance-Read-Only', false, true, true],
     ['Read-Only', true, false, false],
-    ['Read-Only Appearance Read-Only', true, false, true],
+    ['Read-Only Appearance-Read-Only', true, false, true],
     ['Read-Only Disabled', true, true, false],
-    ['Read-Only Disabled Appearance Read-Only', true, true, true]
+    ['Read-Only Disabled Appearance-Read-Only', true, true, true]
 ] as const;
 export type DisabledReadOnlyState = (typeof disabledReadOnlyStates)[number];
