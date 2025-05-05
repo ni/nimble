@@ -210,15 +210,15 @@ markup using the `TData` property syntax. The following code represents a
 typical usage of the `NimbleTable`:
 
 MyComponent.razor
+
 ```html
 ...
-  <NimbleTable TData="MyRecordType" @ref="_table">
-    ...
-  </NimbleTable>
+<NimbleTable TData="MyRecordType" @ref="_table"> ... </NimbleTable>
 ...
 ```
 
 MyComponent.razor.cs
+
 ```cs
 ...
     private NimbleTable<MyRecordType>? _table;
@@ -234,7 +234,7 @@ MyComponent.razor.cs
     {
         ...
     }
-   
+
 ...
 ```
 

@@ -59,11 +59,11 @@ Opening and closing the dialog will be handled by calling the `ShowAsync` and
 `CloseAsync` methods on a `NimbleDialog` reference respectively.
 
 If your dialog contains elements that can have user-provided state (such as an
-editable `NimbleTextField` or a `NimbleToggleButton`), then if it is expected
-for the dialog to open in the same state each time you _must_ provide a means to
-reset that state between opens (the `NimbleDialog` can not do this itself). A
+editable `NimbleTextField` or a `NimbleToggleButton`), and it is expected for
+the dialog to open in the same state each time, then you _must_ provide a means
+to reset that state between opens (the `NimbleDialog` can not do this itself). A
 common pattern to manage this is to bind the values of the elements in the
-dialog to some model state, and upon closing (or opening) the dialog, simply
+dialog to some model state, and upon closing (or opening) the dialog simply
 re-create the model the values are bound to.
 
 MyDialogOwner.razor
