@@ -2,6 +2,21 @@
   "name": "@ni/nimble-blazor",
   "entries": [
     {
+      "date": "Mon, 05 May 2025 21:30:31 GMT",
+      "version": "20.1.3",
+      "tag": "@ni/nimble-blazor_v20.1.3",
+      "comments": {
+        "none": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "9fb5345ad977ae794419b6c799c0d606cfd516b3",
+            "comment": "Blazor doc updates."
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 01 May 2025 19:42:23 GMT",
       "version": "20.1.3",
       "tag": "@ni/nimble-blazor_v20.1.3",
