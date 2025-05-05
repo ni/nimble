@@ -108,9 +108,11 @@ export class RichTextMentionListbox extends FoundationListbox {
      * @public
      */
     public show(options: MentionListboxShowOptions): void {
-        const listboxTop = options.anchorNode.getBoundingClientRect().bottom;
+        const anchorRect = options.anchorNode.getBoundingClientRect();
+        const availableSpaceBelow = window.innerHeight - anchorRect.bottom;
+        const availableSpaceAbove = anchorRect.top;
         this.availableViewportHeight = Math.trunc(
-            window.innerHeight - listboxTop
+            Math.max(availableSpaceAbove, availableSpaceBelow)
         );
         this.filter = options.filter;
         this.anchorElement = options.anchorNode;
