@@ -209,9 +209,18 @@ As the `NimbleTable` is generic a client must supply its generic type in the
 markup using the `TData` property syntax. The following code represents a
 typical usage of the `NimbleTable`:
 
-```csharp
-<NimbleTable TData="MyRecordType" @ref="_table">
-@code {
+MyComponent.razor
+```html
+...
+  <NimbleTable TData="MyRecordType" @ref="_table">
+    ...
+  </NimbleTable>
+...
+```
+
+MyComponent.razor.cs
+```cs
+...
     private NimbleTable<MyRecordType>? _table;
     private IEnumerable<MyRecordType> TableData { get; set; } = Enumerable.Empty<MyRecordType>();
     ...
@@ -225,7 +234,8 @@ typical usage of the `NimbleTable`:
     {
         ...
     }
-}
+   
+...
 ```
 
 For more information regarding the Blazor component lifecycle mechanisms (such

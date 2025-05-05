@@ -91,9 +91,9 @@ To use Nimble's theme-aware design tokens in a Blazor app, you should have a `<N
 
 Custom Blazor components should provide their own scoped CSS file (in addition to a separate .cs file for the template-independent logic). Providing a separate CSS file is necessary to access other Blazor styling mechanisms that are helpful to use.
 
-#### Styling Blazor components
+#### Styling Razor components
 
-Often you will need to provide CSS for the Nimble Blazor components (et. al) to control things like layout behaviors within a parent container. To accomplish this, in the scoped CSS file for the component containing the Nimble Blazor component (e.g. NimbleTextField), you must use the `::deep` pseudo-selector to target that Nimble component.
+Often you will need to provide CSS for the Razor components to control things like layout behaviors within a parent container. To accomplish this, in the scoped CSS file for the component containing the Razor component (e.g. NimbleTextField), you must use the `::deep` pseudo-selector to target that component.
 
 MyComponent.razor
 ```html
