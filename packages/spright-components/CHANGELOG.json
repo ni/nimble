@@ -2,6 +2,21 @@
   "name": "@ni/spright-components",
   "entries": [
     {
+      "date": "Thu, 01 May 2025 19:42:23 GMT",
+      "version": "5.2.0",
+      "tag": "@ni/spright-components_v5.2.0",
+      "comments": {
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/spright-components",
+            "commit": "6e12e4d339045693c1b3facce93f353133151dac",
+            "comment": "Update playwright version"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 03 Apr 2025 00:54:48 GMT",
       "version": "5.2.0",
       "tag": "@ni/spright-components_v5.2.0",
