@@ -68,66 +68,6 @@ To test out your changes, do "Debug" >> "Start without Debugging" in Visual Stud
 
 More complete examples can be found in the Demo.Client/Server example projects.
 
-#### NimbleTable usage
-
-The `NimbleTable` requires that its data be set via the `SetDataAsync` method. The appropriate place to call this method is either in the `OnAfterRenderAsync` override of the hosting component or after that method has been called for the first time.
-
-As the `NimbleTable` is generic a client must supply its generic type in the markup using the `TData` property syntax. The following code represents a typical usage of the `NimbleTable`:
-```cs
-<NimbleTable TData="MyRecordType" @ref="_table">
-@code {
-    private NimbleTable<MyRecordType>? _table;
-    private IEnumerable<MyRecordType> TableData { get; set; } = Enumerable.Empty<MyRecordType>();
-    ...
-    public override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        await base.OnAfterRenderAsync(firstRender);
-        await _table.SetDataAsync(TableData); // populate TableData before here
-    }
-
-    public class MyRecordType
-    {
-        ...
-    }
-}
-```
-
-For more information regarding the Blazor component lifecycle mechanisms (such as `OnAfterRenderAsync`), please consult the [Microsoft Blazor docs](https://learn.microsoft.com/en-us/aspnet/core/blazor/components/lifecycle).
-
-#### NimbleDialog usage
-
-Using the `NimbleDialog` in a Blazor app requires it to be placed in the template just like any other component. While it's location in the template doesn't tend to matter, it is conventional for it to be placed at the bottom. Opening and closing the dialog will be handled by calling the `ShowAsync` and `CloseAsync` methods on a `NimbleDialog` reference respectively.
-
-If your dialog contains elements that can have user-provided state (such as an editable `NimbleTextField` or a `NimbleToggleButton`), then if it is expected for the dialog to open in the same state each time you _must_ provide a means to reset that state between opens (the `NimbleDialog` can not do this itself). A common pattern to manage this is to bind the values of the elements in the dialog to some model state, and upon closing (or opening) the dialog, simply re-create the model the values are bound to.
-
-MyDialogOwner.razor
-```html
-<NimbleDialog @ref="_dialog">
-    <NimbleTextField Value="@_model.FirstName"></NimbleTextField>
-    <NimbleTextField Value="@_model.LastName"></NimbleTextField>
-    <NimbleButton slot="footer" @onclick="CloseDialogAsync(DialogResult.OK)">OK</NimbleButton>
-</NimbleDialog>
-```
-
-MyDialogOwner.razor.cs
-```cs
-private DialogData _model = new();
-private NimbleDialog! _dialog;
-
-private async Task CloseDialogAsync(DialogResult reason)
-{
-    await _dialog.CloseAsync(reason);
-    _model = new(); // reset model state 
-}
-
-private class DialogData
-{
-    public string FirstName { get; set; }
-    public string LastName { get; set; }
-}
-
-```
-
 ### Supported Render Modes
 
 Nimble supports all of the [Blazor render modes](https://learn.microsoft.com/en-us/aspnet/core/blazor/components/render-modes?view=aspnetcore-8.0):
