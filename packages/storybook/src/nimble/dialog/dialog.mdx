@@ -50,6 +50,53 @@ nimble-dialog::part(control) {
 By default, the first focusable control gets focus when the dialog is opened. To
 focus a specific element instead, set the `autofocus` attribute on that element.
 
+### Blazor
+
+Using the `NimbleDialog` in a Blazor app requires it to be placed in the
+template just like any other component. While its location in the template
+doesn't tend to matter, it is conventional for it to be placed at the bottom.
+Opening and closing the dialog will be handled by calling the `ShowAsync` and
+`CloseAsync` methods on a `NimbleDialog` reference respectively.
+
+If your dialog contains elements that can have user-provided state (such as an
+editable `NimbleTextField` or a `NimbleToggleButton`), and it is expected for
+the dialog to open in the same state each time, then you _must_ provide a means
+to reset that state between opens (the `NimbleDialog` can not do this itself). A
+common pattern to manage this is to bind the values of the elements in the
+dialog to some model state, and upon closing (or opening) the dialog simply
+re-create the model the values are bound to.
+
+MyDialogOwner.razor
+
+```html
+<NimbleDialog @ref="_dialog">
+    <NimbleTextField Value="@_model.FirstName"></NimbleTextField>
+    <NimbleTextField Value="@_model.LastName"></NimbleTextField>
+    <NimbleButton slot="footer" @onclick="CloseDialogAsync(DialogResult.OK)"
+        >OK</NimbleButton
+    >
+</NimbleDialog>
+```
+
+MyDialogOwner.razor.cs
+
+```cs
+private DialogData _model = new();
+private NimbleDialog! _dialog;
+
+private async Task CloseDialogAsync(DialogResult reason)
+{
+    await _dialog.CloseAsync(reason);
+    _model = new(); // reset model state
+}
+
+private class DialogData
+{
+    public string FirstName { get; set; }
+    public string LastName { get; set; }
+}
+```
+
 {/* ## Examples */}
 
 {/* ## Accessibility */}
