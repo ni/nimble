@@ -6,7 +6,6 @@ import {
     Select as FoundationSelect,
     ListboxOption,
     type SelectOptions,
-    SelectPosition,
     applyMixins,
     StartEnd,
     DelegatesARIASelect
@@ -26,6 +25,7 @@ import { arrowExpanderDown16X16 } from '@ni/nimble-tokens/dist/icons/js';
 import { styles } from './styles';
 import {
     DropdownAppearance,
+    DropdownPosition,
     type ListOptionOwner
 } from '../patterns/dropdown/types';
 import { errorTextTemplate } from '../patterns/error/template';
@@ -77,7 +77,7 @@ export class Select
      * @public
      */
     @attr({ attribute: 'position' })
-    public positionAttribute?: SelectPosition;
+    public positionAttribute?: DropdownPosition;
 
     @attr({ attribute: 'filter-mode' })
     public filterMode: FilterMode = FilterMode.none;
@@ -106,7 +106,7 @@ export class Select
      * @public
      */
     @observable
-    public position?: SelectPosition;
+    public position?: DropdownPosition;
 
     /**
      * The ref to the internal `.control` element.
@@ -878,8 +878,8 @@ export class Select
     }
 
     protected positionChanged(
-        _: SelectPosition | undefined,
-        next: SelectPosition | undefined
+        _: DropdownPosition | undefined,
+        next: DropdownPosition | undefined
     ): void {
         this.positionAttribute = next;
         this.setPositioning();
@@ -1074,16 +1074,16 @@ export class Select
         if (this.forcedPosition) {
             this.position = this.positionAttribute;
         } else if (currentBox.top > availableBottom) {
-            this.position = SelectPosition.above;
+            this.position = DropdownPosition.above;
         } else {
-            this.position = SelectPosition.below;
+            this.position = DropdownPosition.below;
         }
 
         this.positionAttribute = this.forcedPosition
             ? this.positionAttribute
             : this.position;
 
-        this.availableViewportHeight = this.position === SelectPosition.above
+        this.availableViewportHeight = this.position === DropdownPosition.above
             ? Math.trunc(currentBox.top)
             : Math.trunc(availableBottom);
     }
