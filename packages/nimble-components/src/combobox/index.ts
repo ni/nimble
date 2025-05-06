@@ -3,7 +3,6 @@ import {
     DesignSystem,
     type ComboboxOptions,
     ComboboxAutocomplete,
-    SelectPosition,
     ListboxOption,
     DelegatesARIACombobox,
     applyMixins,
@@ -28,6 +27,7 @@ import { styles } from './styles';
 import { mixinErrorPattern } from '../patterns/error/types';
 import {
     DropdownAppearance,
+    DropdownPosition,
     type DropdownPattern
 } from '../patterns/dropdown/types';
 import type { AnchoredRegion } from '../anchored-region';
@@ -69,7 +69,7 @@ export class Combobox
      * The placement for the listbox when the combobox is open.
      */
     @attr({ attribute: 'position' })
-    public positionAttribute?: SelectPosition;
+    public positionAttribute?: DropdownPosition;
 
     /**
      * The open attribute.
@@ -92,7 +92,7 @@ export class Combobox
      * @public
      */
     @observable
-    public position?: SelectPosition;
+    public position?: DropdownPosition;
 
     /**
      * @internal
@@ -621,37 +621,6 @@ export class Combobox
     }
 
     /**
-     * @internal
-     */
-    public setPositioning(): void {
-        // Workaround for https://github.com/microsoft/fast/issues/5123
-        if (!this.$fastController.isConnected) {
-            // Don't call setPositioning() until we're connected,
-            // since this.forcedPosition isn't initialized yet.
-            return;
-        }
-        const currentBox = this.getBoundingClientRect();
-        const viewportHeight = window.innerHeight;
-        const availableBottom = viewportHeight - currentBox.bottom;
-
-        if (this.forcedPosition) {
-            this.position = this.positionAttribute;
-        } else if (currentBox.top > availableBottom) {
-            this.position = SelectPosition.above;
-        } else {
-            this.position = SelectPosition.below;
-        }
-
-        this.positionAttribute = this.forcedPosition
-            ? this.positionAttribute
-            : this.position;
-
-        this.availableViewportHeight = this.position === SelectPosition.above
-            ? Math.trunc(currentBox.top)
-            : Math.trunc(availableBottom);
-    }
-
-    /**
      * Focus the control and scroll the first selected option into view.
      *
      * @internal
@@ -729,8 +698,8 @@ export class Combobox
     }
 
     protected positionChanged(
-        _: SelectPosition | undefined,
-        next: SelectPosition | undefined
+        _: DropdownPosition | undefined,
+        next: DropdownPosition | undefined
     ): void {
         this.positionAttribute = next;
         this.setPositioning();
@@ -757,6 +726,33 @@ export class Combobox
     // Workaround for https://github.com/microsoft/fast/issues/6041.
     private ariaLabelChanged(_oldValue: string, _newValue: string): void {
         this.updateInputAriaLabel();
+    }
+
+    private setPositioning(): void {
+        if (!this.$fastController.isConnected) {
+            // Don't call setPositioning() until we're connected,
+            // since this.forcedPosition isn't initialized yet.
+            return;
+        }
+        const currentBox = this.getBoundingClientRect();
+        const viewportHeight = window.innerHeight;
+        const availableBottom = viewportHeight - currentBox.bottom;
+
+        if (this.forcedPosition) {
+            this.position = this.positionAttribute;
+        } else if (currentBox.top > availableBottom) {
+            this.position = DropdownPosition.above;
+        } else {
+            this.position = DropdownPosition.below;
+        }
+
+        this.positionAttribute = this.forcedPosition
+            ? this.positionAttribute
+            : this.position;
+
+        this.availableViewportHeight = this.position === DropdownPosition.above
+            ? Math.trunc(currentBox.top)
+            : Math.trunc(availableBottom);
     }
 
     /**

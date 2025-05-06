@@ -12,6 +12,7 @@ import type { AnchoredRegion } from '../../anchored-region';
 import { diacriticInsensitiveStringNormalizer } from '../../utilities/models/string-normalizers';
 import type { ListOption } from '../../list-option';
 import type { MentionListboxShowOptions } from './types';
+import { DropdownPosition } from '../../patterns/dropdown/types';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -108,12 +109,7 @@ export class RichTextMentionListbox extends FoundationListbox {
      * @public
      */
     public show(options: MentionListboxShowOptions): void {
-        const anchorRect = options.anchorNode.getBoundingClientRect();
-        const availableSpaceBelow = window.innerHeight - anchorRect.bottom;
-        const availableSpaceAbove = anchorRect.top;
-        this.availableViewportHeight = Math.trunc(
-            Math.max(availableSpaceAbove, availableSpaceBelow)
-        );
+        this.setPositioning(options);
         this.filter = options.filter;
         this.anchorElement = options.anchorNode;
         this.setOpen(true);
@@ -288,6 +284,25 @@ export class RichTextMentionListbox extends FoundationListbox {
 
     private setOpen(value: boolean): void {
         this.open = value;
+    }
+
+    // Aligns with select / combobox
+    // Modified to remove forced position concept
+    private setPositioning(options: MentionListboxShowOptions): void {
+        const currentBox = options.anchorNode.getBoundingClientRect();
+        const viewportHeight = window.innerHeight;
+        const availableBottom = viewportHeight - currentBox.bottom;
+
+        let position;
+        if (currentBox.top > availableBottom) {
+            position = DropdownPosition.above;
+        } else {
+            position = DropdownPosition.below;
+        }
+
+        this.availableViewportHeight = position === DropdownPosition.above
+            ? Math.trunc(currentBox.top)
+            : Math.trunc(availableBottom);
     }
 }
 
