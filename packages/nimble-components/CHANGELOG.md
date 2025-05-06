@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-<!-- This log was last generated on Wed, 02 Apr 2025 17:16:54 GMT and should not be manually modified. -->
+<!-- This log was last generated on Tue, 06 May 2025 21:28:46 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 33.2.0
+
+Tue, 06 May 2025 21:28:46 GMT
+
+### Minor changes
+
+- Add appearance-readonly to nimble-text-field ([ni/nimble@54e2dc7](https://github.com/ni/nimble/commit/54e2dc77bbdd3e8c0a68931930c670cc87d4b7ef))
 
 ## 33.1.1
 
