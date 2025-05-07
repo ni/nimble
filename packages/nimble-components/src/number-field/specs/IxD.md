@@ -127,12 +127,13 @@ Triple-clicking within the field input selects all characters.
 | `SPACE`                   | No action.                                                                                                                                       |
 | _Alphabetic_              | No action.                                                                                                                                       |
 | `e`/`E`                   | No action. This does not need to support scientific notation.                                                                                    |
-| `COMMA`                   | (As thousands separator) No action. (As decimal separator) Adds once at cursor.                                                                  |
-| `PERIOD`                  | (As thousands separator) No action. (As decimal separator) Adds once at cursor.                                                                  |
+| `COMMA`                   | (As thousands separator) No action. (As decimal separator) Adds comma at cursor. No action if decimal separator is already present.              |
+| `PERIOD`                  | (As thousands separator) No action. (As decimal separator) Adds period at cursor. No action if decimal separator is already present.             |
 | `-`                       | (If cursor at beginning of field) Add once at cursor.                                                                                            |
+| `+`                       | No action.                                                                                                                                       |
 
-Users can type valid numbers or the correct decimal separator for their locale
-into the number field.
+Users can type valid numbers and up to one decimal separator into the number
+field.
 
 ![demonstrate entering German and English numbers](./spec-images/localized-number-input.png)
 
@@ -146,8 +147,8 @@ Users can type more or fewer fractional digits than required.
 
 ## Future Considerations
 
-- Mobile support, including specifying the `inputmode` so mobile users can enter
-  numbers using a numeric keyboard.
+- Mobile support, including specifying `inputmode=decimal` to show a numeric
+  keyboard when `min >= 0` and `inputmode=url` when `min < 0`.
 - Support for a unit suffix.
 - Support for localized `thousand separators`.
 
