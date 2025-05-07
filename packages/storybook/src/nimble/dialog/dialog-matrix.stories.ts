@@ -98,7 +98,10 @@ export const lightTheme: StoryFn = createFixedThemeStory(
 
 lightTheme.play = playFunction;
 
-export const colorTheme: StoryFn = createFixedThemeStory(component, colorThemeDarkGreenBackground);
+export const colorTheme: StoryFn = createFixedThemeStory(
+    component,
+    colorThemeDarkGreenBackground
+);
 
 colorTheme.play = playFunction;
 

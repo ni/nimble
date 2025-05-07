@@ -72,11 +72,20 @@ const playFunction = async (): Promise<void> => {
     await columnPageObject.getMenuButton(0, 0)!.openMenu();
 };
 
-export const lightTheme$Open: StoryFn = createFixedThemeStory(component, lightThemeWhiteBackground);
+export const lightTheme$Open: StoryFn = createFixedThemeStory(
+    component,
+    lightThemeWhiteBackground
+);
 lightTheme$Open.play = playFunction;
 
-export const colorTheme$Open: StoryFn = createFixedThemeStory(component, colorThemeDarkGreenBackground);
+export const colorTheme$Open: StoryFn = createFixedThemeStory(
+    component,
+    colorThemeDarkGreenBackground
+);
 colorTheme$Open.play = playFunction;
 
-export const darkTheme$Open: StoryFn = createFixedThemeStory(component, darkThemeBlackBackground);
+export const darkTheme$Open: StoryFn = createFixedThemeStory(
+    component,
+    darkThemeBlackBackground
+);
 darkTheme$Open.play = playFunction;

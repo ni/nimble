@@ -56,7 +56,9 @@ const component = (): ViewTemplate => html`
 
 `;
 
-export const themeMatrix: StoryFn = createMatrixThemeStory(createMatrix(component));
+export const themeMatrix: StoryFn = createMatrixThemeStory(
+    createMatrix(component)
+);
 themeMatrix.play = playFunction;
 
 export const hidden: StoryFn = createStory(

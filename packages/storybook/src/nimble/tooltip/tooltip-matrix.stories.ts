@@ -106,11 +106,7 @@ lightTheme.parameters = {
 };
 
 export const colorTheme: StoryFn = createFixedThemeStory(
-    createMatrix(component, [
-        textStates,
-        severityStates,
-        iconVisibleStates
-    ]),
+    createMatrix(component, [textStates, severityStates, iconVisibleStates]),
     colorThemeDarkGreenBackground
 );
 

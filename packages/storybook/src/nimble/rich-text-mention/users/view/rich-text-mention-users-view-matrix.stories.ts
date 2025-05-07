@@ -50,4 +50,6 @@ const component = ([
     </div>
 `;
 
-export const themeMatrix: StoryFn = createMatrixThemeStory(createMatrix(component, [disabledStates]));
+export const themeMatrix: StoryFn = createMatrixThemeStory(
+    createMatrix(component, [disabledStates])
+);

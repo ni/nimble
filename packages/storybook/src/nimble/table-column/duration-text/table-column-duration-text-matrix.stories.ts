@@ -57,7 +57,9 @@ const component = (
     </${tableTag}>
 `;
 
-export const themeMatrix: StoryFn = createMatrixThemeStory(createMatrix(component, [placeholderStates]));
+export const themeMatrix: StoryFn = createMatrixThemeStory(
+    createMatrix(component, [placeholderStates])
+);
 
 themeMatrix.play = async (): Promise<void> => {
     await Promise.all(
