@@ -51,11 +51,11 @@ const component = (
     </${anchorTabsTag}>
 `;
 
-export const anchorTabsThemeMatrix: StoryFn = createMatrixThemeStory(
+export const themeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(component, [tabsToolbarStates, disabledStates, widthStates])
 );
 
-export const hiddenTabs: StoryFn = createStory(
+export const hidden: StoryFn = createStory(
     hiddenWrapper(
         html`<${anchorTabsTag} hidden>
             <${anchorTabTag}>Tab One</${anchorTabTag}>

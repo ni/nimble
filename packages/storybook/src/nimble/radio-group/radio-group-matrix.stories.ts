@@ -55,7 +55,7 @@ const component = (
     <${radioTag} value="2">Option 2</${radioTag}>
 </${radioGroupTag}>`;
 
-export const radioGroupThemeMatrix: StoryFn = createMatrixThemeStory(
+export const themeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(component, [
         requiredVisibleStates,
         disabledStates,
@@ -64,14 +64,10 @@ export const radioGroupThemeMatrix: StoryFn = createMatrixThemeStory(
     ])
 );
 
-export const hiddenRadioGroup: StoryFn = createStory(
+export const hidden: StoryFn = createStory(
     hiddenWrapper(
         html`<${radioGroupTag} hidden>Hidden Radio Group</${radioGroupTag}>`
     )
-);
-
-export const hiddenRadio: StoryFn = createStory(
-    hiddenWrapper(html`<${radioTag} hidden>Hidden Radio</${radioTag}>`)
 );
 
 export const textCustomized: StoryFn = createMatrixThemeStory(

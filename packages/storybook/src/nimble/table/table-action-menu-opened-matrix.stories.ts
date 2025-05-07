@@ -80,14 +80,14 @@ const playFunction = async (): Promise<void> => {
     await pageObject.clickCellActionMenu(0, 0);
 };
 
-export const tableActionMenuOpenedLightThemeWhiteBackground: StoryFn = createFixedThemeStory(component, lightThemeWhiteBackground);
+export const lightTheme$ActionMenuOpened: StoryFn = createFixedThemeStory(component, lightThemeWhiteBackground);
 
-tableActionMenuOpenedLightThemeWhiteBackground.play = playFunction;
+lightTheme$ActionMenuOpened.play = playFunction;
 
-export const tableActionMenuOpenedColorThemeDarkGreenBackground: StoryFn = createFixedThemeStory(component, colorThemeDarkGreenBackground);
+export const colorTheme$ActionMenuOpened: StoryFn = createFixedThemeStory(component, colorThemeDarkGreenBackground);
 
-tableActionMenuOpenedColorThemeDarkGreenBackground.play = playFunction;
+colorTheme$ActionMenuOpened.play = playFunction;
 
-export const tableActionMenuOpenedDarkThemeBlackBackground: StoryFn = createFixedThemeStory(component, darkThemeBlackBackground);
+export const darkTheme$ActionMenuOpened: StoryFn = createFixedThemeStory(component, darkThemeBlackBackground);
 
-tableActionMenuOpenedDarkThemeBlackBackground.play = playFunction;
+darkTheme$ActionMenuOpened.play = playFunction;
