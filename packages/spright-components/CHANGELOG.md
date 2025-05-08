@@ -1,8 +1,16 @@
 # Change Log - @ni/spright-components
 
-<!-- This log was last generated on Thu, 03 Apr 2025 00:54:48 GMT and should not be manually modified. -->
+<!-- This log was last generated on Tue, 06 May 2025 21:28:46 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 5.2.1
+
+Tue, 06 May 2025 21:28:46 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v33.2.0
 
 ## 5.2.0
 

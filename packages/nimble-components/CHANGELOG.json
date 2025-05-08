@@ -2,6 +2,36 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 06 May 2025 21:28:46 GMT",
+      "version": "33.2.0",
+      "tag": "@ni/nimble-components_v33.2.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "54e2dc77bbdd3e8c0a68931930c670cc87d4b7ef",
+            "comment": "Add appearance-readonly to nimble-text-field"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 01 May 2025 19:42:23 GMT",
+      "version": "33.1.1",
+      "tag": "@ni/nimble-components_v33.1.1",
+      "comments": {
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "6e12e4d339045693c1b3facce93f353133151dac",
+            "comment": "Update playwright version"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 02 Apr 2025 17:16:54 GMT",
       "version": "33.1.1",
       "tag": "@ni/nimble-components_v33.1.1",

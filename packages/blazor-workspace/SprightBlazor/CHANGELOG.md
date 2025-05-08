@@ -1,8 +1,24 @@
 # Change Log - @ni/spright-blazor
 
-<!-- This log was last generated on Thu, 03 Apr 2025 00:54:48 GMT and should not be manually modified. -->
+<!-- This log was last generated on Tue, 06 May 2025 21:28:46 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 4.1.5
+
+Tue, 06 May 2025 21:28:46 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v5.2.1
+
+## 4.1.4
+
+Thu, 01 May 2025 19:42:23 GMT
+
+### Patches
+
+- Update nuget dependencies ([ni/nimble@6e12e4d](https://github.com/ni/nimble/commit/6e12e4d339045693c1b3facce93f353133151dac))
 
 ## 4.1.3
 

@@ -6,7 +6,7 @@ import { NimbleTextAreaModule, NimbleTextFieldModule, NimbleNumberFieldModule, N
     NimbleButtonModule, NimbleTreeViewModule, NimbleTreeItemModule, NimbleDrawerModule, NimbleThemeProviderModule,
     NimbleTabModule, NimbleTabPanelModule, NimbleTabsModule, NimbleTabsToolbarModule, NimbleMenuModule,
     NimbleMenuItemModule, NimbleCheckboxModule, NimbleToggleButtonModule, NimbleBreadcrumbModule, NimbleBreadcrumbItemModule,
-    NimbleIconAddModule, NimbleSwitchModule, NimbleToolbarModule, NimbleMenuButtonModule, NimbleComboboxModule, NimbleTooltipModule,
+    NimbleIconAddModule, NimbleIconCopyTextModule, NimbleIconWebviCustomModule, NimbleSwitchModule, NimbleToolbarModule, NimbleMenuButtonModule, NimbleComboboxModule, NimbleTooltipModule,
     NimbleCardButtonModule, NimbleDialogModule, NimbleRadioGroupModule, NimbleRadioModule, NimbleSpinnerModule,
     NimbleAnchorModule, NimbleAnchorButtonModule, NimbleAnchorTabModule, NimbleAnchorTabsModule,
     NimbleIconCheckModule, NimbleBannerModule, NimbleAnchorMenuItemModule, NimbleAnchorTreeItemModule, NimbleIconXmarkCheckModule,
@@ -31,6 +31,8 @@ import { NimbleTableColumnMenuButtonModule } from '@ni/nimble-angular/table-colu
 import { NimbleRichTextViewerModule } from '@ni/nimble-angular/rich-text/viewer';
 import { NimbleRichTextEditorModule } from '@ni/nimble-angular/rich-text/editor';
 import { NimbleRichTextMentionUsersModule } from '@ni/nimble-angular/rich-text-mention/users';
+import { SprightChatConversationModule } from '@ni/spright-angular/chat/conversation';
+import { SprightChatMessageModule } from '@ni/spright-angular/chat/message';
 import { SprightRectangleModule } from '@ni/spright-angular/rectangle';
 import { AppComponent } from './app.component';
 import { CustomAppComponent } from './customapp/customapp.component';
@@ -73,6 +75,8 @@ import { HeaderComponent } from './header/header.component';
         NimbleBreadcrumbItemModule,
         NimbleIconAddModule,
         NimbleIconCheckModule,
+        NimbleIconCopyTextModule,
+        NimbleIconWebviCustomModule,
         NimbleIconXmarkCheckModule,
         NimbleSpinnerModule,
         NimbleSwitchModule,
@@ -107,6 +111,8 @@ import { HeaderComponent } from './header/header.component';
         NimbleRichTextMentionUsersModule,
         NimbleMappingSpinnerModule,
         NimbleMappingEmptyModule,
+        SprightChatConversationModule,
+        SprightChatMessageModule,
         SprightRectangleModule,
         RouterModule.forRoot(
             [

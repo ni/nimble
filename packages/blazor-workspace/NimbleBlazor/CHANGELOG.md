@@ -1,8 +1,24 @@
 # Change Log - @ni/nimble-blazor
 
-<!-- This log was last generated on Wed, 02 Apr 2025 17:16:54 GMT and should not be manually modified. -->
+<!-- This log was last generated on Tue, 06 May 2025 21:28:46 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 20.1.4
+
+Tue, 06 May 2025 21:28:46 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v33.2.0
+
+## 20.1.3
+
+Thu, 01 May 2025 19:42:23 GMT
+
+### Patches
+
+- Update nuget dependencies ([ni/nimble@6e12e4d](https://github.com/ni/nimble/commit/6e12e4d339045693c1b3facce93f353133151dac))
 
 ## 20.1.2
 
