@@ -68,32 +68,6 @@ To test out your changes, do "Debug" >> "Start without Debugging" in Visual Stud
 
 More complete examples can be found in the Demo.Client/Server example projects.
 
-#### NimbleTable usage
-
-The `NimbleTable` requires that its data be set via the `SetDataAsync` method. The appropriate place to call this method is either in the `OnAfterRenderAsync` override of the hosting component or after that method has been called for the first time.
-
-As the `NimbleTable` is generic a client must supply its generic type in the markup using the `TData` property syntax. The following code represents a typical usage of the `NimbleTable`:
-```html
-<NimbleTable TData="MyRecordType" @ref="_table">
-@code {
-    private NimbleTable<MyRecordType>? _table;
-    private IEnumerable<MyRecordType> TableData { get; set; } = Enumerable.Empty<MyRecordType>();
-    ...
-    public override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        await base.OnAfterRenderAsync(firstRender);
-        await _table.SetDataAsync(TableData); // populate TableData before here
-    }
-
-    public class MyRecordType
-    {
-        ...
-    }
-}
-```
-
-For more information regarding the Blazor component lifecycle mechanisms (such as `OnAfterRenderAsync`), please consult the [Microsoft Blazor docs](https://learn.microsoft.com/en-us/aspnet/core/blazor/components/lifecycle).
-
 ### Supported Render Modes
 
 Nimble supports all of the [Blazor render modes](https://learn.microsoft.com/en-us/aspnet/core/blazor/components/render-modes?view=aspnetcore-8.0):
@@ -112,6 +86,30 @@ See the [Blazor prerendering docs](https://learn.microsoft.com/en-us/aspnet/core
 ### Theming and Design Tokens
 
 To use Nimble's theme-aware design tokens in a Blazor app, you should have a `<NimbleThemeProvider>` element as an ancestor to all of the Nimble components you use. The app's default layout (`MainLayout.razor` in the examples) is a good place to put the theme provider (as the root content of the page).
+
+#### Best practices
+
+Custom Blazor components should provide their own scoped CSS file (in addition to a separate .cs file for the template-independent logic). Providing a separate CSS file is necessary to access other Blazor styling mechanisms that are helpful to use.
+
+#### Styling Razor components
+
+Often you will need to provide CSS for the Razor components to control things like layout behaviors within a parent container. To accomplish this, in the scoped CSS file for the component containing the Razor component (e.g. NimbleTextField), you must use the `::deep` pseudo-selector to target that component.
+
+MyComponent.razor
+```html
+<div>
+    <NimbleTextField class="text-field"></NimbleTextField>
+</div>
+```
+
+MyComponent.razor.css
+```css
+::deep .text-field {
+    flex: 1;
+}
+```
+
+Components _must_ be wrapped in a containing element in order to work with the `::deep` pseduo-selector. For more info see the [Microsoft docs](https://learn.microsoft.com/en-us/aspnet/core/blazor/components/css-isolation?view=aspnetcore-9.0#child-component-support).
 
 #### Using Nimble Design Tokens (CSS/SCSS)
 
