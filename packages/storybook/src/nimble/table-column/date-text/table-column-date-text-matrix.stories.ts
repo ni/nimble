@@ -58,11 +58,11 @@ const component = (
     </${tableTag}>
 `;
 
-export const tableColumnDateTextThemeMatrix: StoryFn = createMatrixThemeStory(
+export const themeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(component, [placeholderStates])
 );
 
-tableColumnDateTextThemeMatrix.play = async (): Promise<void> => {
+themeMatrix.play = async (): Promise<void> => {
     await Promise.all(
         Array.from(document.querySelectorAll(tableTag)).map(async table => {
             await table.setData(data);

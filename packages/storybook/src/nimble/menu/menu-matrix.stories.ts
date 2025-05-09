@@ -71,11 +71,11 @@ const component = (
     </span>
 `;
 
-export const menuThemeMatrix: StoryFn = createMatrixThemeStory(
+export const themeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(component, [iconVisibleStates, subMenuStates])
 );
 
-export const hiddenMenu: StoryFn = createStory(
+export const hidden: StoryFn = createStory(
     hiddenWrapper(
         html`<${menuTag} hidden>
             <${menuItemTag}>Item 1</${menuItemTag}>

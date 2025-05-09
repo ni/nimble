@@ -44,7 +44,7 @@ const component = (
         <${breadcrumbItemTag}>Current (No Link)</${breadcrumbItemTag}>
     </${breadcrumbTag}>
 `;
-export const breadcrumbThemeMatrix: StoryFn = createMatrixThemeStory(
+export const themeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(component, [appearanceStates, disabledStates])
 );
 
@@ -53,7 +53,7 @@ const interactionStates = cartesianProduct([
     disabledStates
 ] as const);
 
-export const breadcrumbInteractionsThemeMatrix: StoryFn = createMatrixThemeStory(
+export const interactionsThemeMatrix: StoryFn = createMatrixThemeStory(
     createMatrixInteractionsFromStates(component, {
         hover: interactionStates,
         hoverActive: interactionStates,
@@ -62,7 +62,7 @@ export const breadcrumbInteractionsThemeMatrix: StoryFn = createMatrixThemeStory
     })
 );
 
-export const hiddenBreadcrumb: StoryFn = createStory(
+export const hidden: StoryFn = createStory(
     hiddenWrapper(
         html`<${breadcrumbTag} hidden>
             <${breadcrumbItemTag} href="#">Item 1</${breadcrumbItemTag}>

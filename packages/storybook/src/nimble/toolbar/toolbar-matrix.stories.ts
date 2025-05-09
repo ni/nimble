@@ -61,8 +61,8 @@ const component = html`
     </${toolbarTag}>
 `;
 
-export const toolbarThemeMatrix: StoryFn = createMatrixThemeStory(component);
+export const themeMatrix: StoryFn = createMatrixThemeStory(component);
 
-export const hiddenToolbar: StoryFn = createStory(
+export const hidden: StoryFn = createStory(
     hiddenWrapper(html`<${toolbarTag} hidden>Hidden Toolbar</${toolbarTag}>`)
 );

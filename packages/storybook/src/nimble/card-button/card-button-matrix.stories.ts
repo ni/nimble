@@ -63,11 +63,11 @@ const component = (
 </${cardButtonTag}>
 `;
 
-export const buttonThemeMatrix: StoryFn = createMatrixThemeStory(
+export const themeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(component, [disabledStates, selectedStates])
 );
 
-export const hiddenButton: StoryFn = createStory(
+export const hidden: StoryFn = createStory(
     hiddenWrapper(
         html`<${cardButtonTag} hidden>Hidden Card Button</${cardButtonTag}>`
     )

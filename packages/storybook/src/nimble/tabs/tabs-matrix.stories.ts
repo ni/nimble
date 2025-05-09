@@ -58,11 +58,11 @@ const component = (
     </${tabsTag}>
 `;
 
-export const tabsThemeMatrix: StoryFn = createMatrixThemeStory(
+export const themeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(component, [tabsToolbarStates, disabledStates, widthStates])
 );
 
-export const hiddenTabs: StoryFn = createStory(
+export const hidden: StoryFn = createStory(
     hiddenWrapper(
         html`<${tabsTag} hidden>
             <${tabTag}>Tab One</${tabTag}>

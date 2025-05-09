@@ -74,7 +74,7 @@ const component = (
     </${comboboxTag}>
 `;
 
-export const comboboxThemeMatrix: StoryFn = createMatrixThemeStory(
+export const themeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(component, [
         requiredVisibleStates,
         disabledStates,
@@ -84,7 +84,7 @@ export const comboboxThemeMatrix: StoryFn = createMatrixThemeStory(
     ])
 );
 
-export const hiddenCombobox: StoryFn = createStory(
+export const hidden: StoryFn = createStory(
     hiddenWrapper(
         html`<${comboboxTag} hidden style="width: 250px;">
             <${listOptionTag} value="1">Option 1</${listOptionTag}>

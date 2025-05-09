@@ -90,11 +90,11 @@ const component = (
         <div></div>
     </div>`;
 
-export const anchoredRegionThemeMatrix: StoryFn = createStory(
+export const themeMatrix: StoryFn = createStory(
     createMatrix(component, [horizontalPositionStates, verticalPositionStates])
 );
 
-export const hiddenAnchoredRegion: StoryFn = createStory(
+export const hidden: StoryFn = createStory(
     hiddenWrapper(
         html`<${anchoredRegionTag} hidden>Hidden Anchored Region</${anchoredRegionTag}>`
     )

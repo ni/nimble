@@ -104,4 +104,4 @@ const metadata: Meta<RequiredVisiblePatternArgs> = {
 
 export default metadata;
 
-export const requiredVisiblePattern: StoryObj<RequiredVisiblePatternArgs> = {};
+export const pattern: StoryObj<RequiredVisiblePatternArgs> = {};

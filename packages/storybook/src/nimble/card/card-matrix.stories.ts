@@ -35,10 +35,10 @@ const component = (): ViewTemplate => html`
     </${cardTag}>
 `;
 
-export const cardThemeMatrix: StoryFn = createMatrixThemeStory(
+export const themeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(component)
 );
 
-export const hiddenCard: StoryFn = createStory(
+export const hidden: StoryFn = createStory(
     hiddenWrapper(html`<${cardTag} hidden>Hidden Card</${cardTag}>`)
 );
