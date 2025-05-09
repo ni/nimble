@@ -104,6 +104,32 @@ All other Markdown formatting is supported. See any
 [Markdown Cheatsheet](https://www.markdownguide.org/cheat-sheet/) for more
 information.
 
+### Matrix story naming
+
+The names of stories within matrix tests should conform to the following guidelines:
+
+1. Do not include component name in the story name.
+    - Do: `Hidden`, `Theme Matrix`
+    - Don't: `Hidden Text Field`, `Select Theme Matrix`
+1. Do not include tests for multiple components under one storybook group.
+    - Do: `Radio Group >> Hidden`, `Radio >> Hidden`
+    - Don't: `Radio Group >> Hidden Radio Group` and `Radio Group >> Hidden Radio`
+1. Use `$` as a delimiter in test names that have a constant value for a matrix dimension.
+    - Do: `LightTheme$ Open$ No Filter`
+    - Don't: `Light Theme Open No Filter`
+1. Consider including a "false" attribute in a story name when there is a story for the value being both "false" and "true". This name should be in the form of "BooleanPropertyName" and "BooleanPropertyNameAbsent".
+    - Do: `Read Only Absent$ Disabled`, `Read Only$ Disabled Absent`
+    - Don't: `Editable$ Disabled`, `ReadOnly$ Enabled`
+1. Specify the theme as the first segment of the story name when it is a fixed value.
+    - Do: `Light Theme$ Open $No Filter`
+    - Don't: `Open$ No Filter$ Light Theme`
+1. Do not include the theme in the story name if it isn't part of the test dimension. If a test is run only for a single theme to test something unrelated to theme, the theme should not be included in the story name.
+    - Do: `Light Theme$ Open$ No Filter` (if there are also  `Dark Theme$ Open$ No Filter` and  `Color Theme$ Open$ No Filter`)
+    - Don't: `Light Theme$ Open$ No Filter` (if there are not also  `Dark Theme$ Open$ No Filter` and  `Color Theme$ Open$ No Filter`)
+1. Do not include the background color in the story name.
+    - Do: `Light Theme$ Open$ No Filter`
+    - Don't: `Light Theme White Background$ Open$ No Filter`, `Light Theme$ White Background$ Open$ No Filter`
+
 ### Testing
 
 When you run Storybook (See **Getting Started** above), you should see the

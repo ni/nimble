@@ -163,7 +163,7 @@ const slottedButtons = (
                     border: 1px blue solid;
                     display: inline-block;
                 "
-                >Placehoder text</div>
+                >Placeholder text</div>
                 ${repeat(() => footerActions, html<string>`
                     <${buttonTag} content-hidden slot="footer-actions" appearance="ghost">
                         <${iconThumbUpTag} slot="start"></${iconThumbUpTag}>
@@ -188,20 +188,8 @@ export const slottedButtonsSizing: StoryFn = createMatrixThemeStory(html`
     ])}
 `);
 
-export const conversationHidden: StoryFn = createStory(
+export const hidden: StoryFn = createStory(
     hiddenWrapper(
         html`<${chatConversationTag} hidden>Hidden Chat Conversation</${chatConversationTag}>`
-    )
-);
-
-export const messageHidden: StoryFn = createStory(
-    hiddenWrapper(
-        html`<${chatMessageTag} hidden>Hidden Chat Message</${chatMessageTag}>`
-    )
-);
-
-export const messageTextCustomized: StoryFn = createMatrixThemeStory(
-    textCustomizationWrapper(
-        html`<${chatMessageTag}>Message</${chatMessageTag}>`
     )
 );
