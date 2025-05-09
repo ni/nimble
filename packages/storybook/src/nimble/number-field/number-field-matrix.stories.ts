@@ -12,16 +12,17 @@ import {
 } from '../../utilities/matrix';
 import {
     disabledStates,
-    type DisabledState,
     errorStates,
     type ErrorState,
     disabledStateIsEnabled,
     errorStatesNoError,
     errorStatesErrorWithMessage,
-    type ReadOnlyState,
     readOnlyStates,
     type RequiredVisibleState,
-    requiredVisibleStates
+    requiredVisibleStates,
+    type DisabledReadOnlyState,
+    disabledReadOnlyStates,
+    disabledReadOnlyState
 } from '../../utilities/states';
 import { hiddenWrapper } from '../../utilities/hidden';
 import { textCustomizationWrapper } from '../../utilities/text-customization';
@@ -58,8 +59,7 @@ export default metadata;
 
 const component = (
     [requiredVisibleName, requiredVisible]: RequiredVisibleState,
-    [readOnlyName, readonly]: ReadOnlyState,
-    [disabledName, disabled]: DisabledState,
+    [disabledReadOnlyName, readonly, disabled, appearanceReadOnly]: DisabledReadOnlyState,
     [hideStepName, hideStep]: HideStepState,
     [valueName, valueValue, placeholderValue]: ValueState,
     [errorName, errorVisible, errorText]: ErrorState,
@@ -73,12 +73,13 @@ const component = (
         ?hide-step="${() => hideStep}"
         ?readonly="${() => readonly}"
         ?disabled="${() => disabled}"
+        ?appearance-readonly="${() => appearanceReadOnly}"
         error-text="${() => errorText}"
         ?error-visible="${() => errorVisible}"
         ?required-visible="${() => requiredVisible}"
     >
         ${() => errorName} ${() => appearanceName} ${() => valueName}
-        ${() => hideStepName} ${() => disabledName} ${() => readOnlyName}
+        ${() => hideStepName} ${() => disabledReadOnlyName}
         ${() => requiredVisibleName}
     </${numberFieldTag}>
 `;
@@ -86,8 +87,7 @@ const component = (
 export const numberFieldThemeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(component, [
         requiredVisibleStates,
-        readOnlyStates,
-        disabledStates,
+        disabledReadOnlyStates,
         hideStepStates,
         valueStates,
         errorStates,
@@ -99,8 +99,7 @@ const notRequiredState = requiredVisibleStates[0];
 
 const interactionStatesHover = cartesianProduct([
     [notRequiredState],
-    readOnlyStates,
-    disabledStates,
+    disabledReadOnlyStates,
     [hideStepStateStepVisible],
     [valueStatesHasValue],
     [errorStatesNoError, errorStatesErrorWithMessage],
@@ -109,8 +108,7 @@ const interactionStatesHover = cartesianProduct([
 
 const interactionStates = cartesianProduct([
     [notRequiredState],
-    readOnlyStates,
-    [disabledStateIsEnabled],
+    disabledReadOnlyState.allNotDisabledStates,
     [hideStepStateStepVisible],
     [valueStatesHasValue],
     [errorStatesNoError, errorStatesErrorWithMessage],
