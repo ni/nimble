@@ -171,6 +171,10 @@ export const styles = css`
         text-overflow: clip;
     }
 
+    :host([disabled][appearance-readonly]) .control {
+        cursor: text;
+    }
+
     .control::placeholder {
         color: ${controlLabelFontColor};
     }
