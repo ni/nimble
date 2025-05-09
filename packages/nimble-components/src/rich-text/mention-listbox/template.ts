@@ -3,6 +3,7 @@ import { Listbox } from '@ni/fast-foundation';
 import type { RichTextMentionListbox } from '.';
 import { anchoredRegionTag } from '../../anchored-region';
 import { filterNoResultsLabel } from '../../label-provider/core/label-tokens';
+import { DropdownPosition } from '../../patterns/dropdown/types';
 
 /* eslint-disable @typescript-eslint/indent */
 // prettier-ignore
@@ -13,8 +14,8 @@ export const template = html<RichTextMentionListbox>`
             class="anchored-region"
             fixed-placement
             auto-update-mode="auto"
-            vertical-default-position="bottom"
-            vertical-positioning-mode="dynamic"
+            vertical-default-position="${x => (x.position === DropdownPosition.above ? 'top' : 'bottom')}"
+            vertical-positioning-mode="${x => (!x.position ? 'dynamic' : 'locktodefault')}"
             horizontal-default-position="center"
             horizontal-positioning-mode="locktodefault"
             horizontal-scaling="anchor"

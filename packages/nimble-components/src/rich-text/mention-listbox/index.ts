@@ -37,6 +37,12 @@ export class RichTextMentionListbox extends FoundationListbox {
     public region?: AnchoredRegion;
 
     /**
+     * @internal
+     */
+    @observable
+    public position?: DropdownPosition;
+
+    /**
      * The space available in the viewport for the listbox when opened.
      *
      * @internal
@@ -293,14 +299,13 @@ export class RichTextMentionListbox extends FoundationListbox {
         const viewportHeight = window.innerHeight;
         const availableBottom = viewportHeight - currentBox.bottom;
 
-        let position;
         if (currentBox.top > availableBottom) {
-            position = DropdownPosition.above;
+            this.position = DropdownPosition.above;
         } else {
-            position = DropdownPosition.below;
+            this.position = DropdownPosition.below;
         }
 
-        this.availableViewportHeight = position === DropdownPosition.above
+        this.availableViewportHeight = this.position === DropdownPosition.above
             ? Math.trunc(currentBox.top)
             : Math.trunc(availableBottom);
     }
