@@ -59,7 +59,12 @@ export default metadata;
 
 const component = (
     [requiredVisibleName, requiredVisible]: RequiredVisibleState,
-    [disabledReadOnlyName, readonly, disabled, appearanceReadOnly]: DisabledReadOnlyState,
+    [
+        disabledReadOnlyName,
+        readonly,
+        disabled,
+        appearanceReadOnly
+    ]: DisabledReadOnlyState,
     [hideStepName, hideStep]: HideStepState,
     [valueName, valueValue, placeholderValue]: ValueState,
     [errorName, errorVisible, errorText]: ErrorState,
