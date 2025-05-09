@@ -10,7 +10,6 @@ import {
 import { createStory } from '../../../utilities/storybook';
 import { hiddenWrapper } from '../../../utilities/hidden';
 import { chatConversationTag } from '../../../../../spright-components/src/chat/conversation';
-import { textCustomizationWrapper } from '../../../utilities/text-customization';
 import {
     bodyFont,
     bodyFontColor
