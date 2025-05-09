@@ -118,7 +118,7 @@ guidelines:
       `Radio Group >> Hidden Radio`
 1. Use `$` as a delimiter in test names that have a constant value for a matrix
    dimension.
-    - Do: `LightTheme$ Open$ No Filter`
+    - Do: `Light Theme$ Open$ No Filter`
     - Don't: `Light Theme Open No Filter`
 1. Consider including a "false" attribute in a story name when there is a story
    for the value being both "false" and "true". This name should be in the form
