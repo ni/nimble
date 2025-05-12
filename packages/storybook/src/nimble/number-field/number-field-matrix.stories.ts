@@ -147,7 +147,7 @@ const interactionStatesHover = cartesianProduct([
 
 const interactionStates = cartesianProduct([
     [notRequiredState],
-    disabledReadOnlyState.allNotDisabledStates,
+    disabledReadOnlyState.allDisabledAbsentStates,
     [hideStepStateStepVisible],
     [valueStatesHasValue],
     [errorStatesNoError, errorStatesErrorWithMessage],
