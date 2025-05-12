@@ -158,7 +158,9 @@ const metadata: Meta<ComboboxArgs> = {
         },
         appearanceReadOnly: {
             name: 'appearance-readonly',
-            description: appearanceReadOnlyDescription({ componentName: 'combobox' }),
+            description: appearanceReadOnlyDescription({
+                componentName: 'combobox'
+            }),
             table: { category: apiCategory.attributes }
         },
         errorText: {

@@ -54,7 +54,7 @@ export const styles = css`
     .selected-value${focusVisible} {
         outline: none;
     }
-        
+
     .selected-value::placeholder {
         color: ${placeholderFontColor};
     }

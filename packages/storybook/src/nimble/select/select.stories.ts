@@ -214,7 +214,9 @@ const metadata: Meta<SelectArgs> = {
         },
         appearanceReadOnly: {
             name: 'appearance-readonly',
-            description: appearanceReadOnlyDescription({ componentName: 'select' }),
+            description: appearanceReadOnlyDescription({
+                componentName: 'select'
+            }),
             table: { category: apiCategory.attributes }
         },
         errorText: {

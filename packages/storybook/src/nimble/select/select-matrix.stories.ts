@@ -19,7 +19,7 @@ import {
     type ErrorState,
     errorStates,
     requiredVisibleStates,
-    type RequiredVisibleState,
+    type RequiredVisibleState
 } from '../../utilities/states';
 import { hiddenWrapper } from '../../utilities/hidden';
 import { textCustomizationWrapper } from '../../utilities/text-customization';
