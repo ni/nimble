@@ -12,6 +12,7 @@ import {
 import {
     apiCategory,
     appearanceDescription,
+    appearanceReadOnlyDescription,
     createUserSelectedThemeStory,
     disableStorybookZoomTransform,
     disabledDescription,
@@ -38,6 +39,7 @@ interface ComboboxArgs {
     placeholder: string;
     change: undefined;
     input: undefined;
+    appearanceReadOnly: boolean;
 }
 
 interface OptionArgs {
@@ -111,6 +113,7 @@ const metadata: Meta<ComboboxArgs> = {
             value="${x => x.currentValue}"
             placeholder="${x => x.placeholder}"
             ?required-visible="${x => x.requiredVisible}"
+            ?appearance-readonly="${x => x.appearanceReadOnly}"
             style="min-width: 250px;"
         >
             ${x => x.label}
@@ -151,6 +154,11 @@ const metadata: Meta<ComboboxArgs> = {
         },
         disabled: {
             description: disabledDescription({ componentName: 'combobox' }),
+            table: { category: apiCategory.attributes }
+        },
+        appearanceReadOnly: {
+            name: 'appearance-readonly',
+            description: appearanceReadOnlyDescription({ componentName: 'combobox' }),
             table: { category: apiCategory.attributes }
         },
         errorText: {
@@ -209,7 +217,8 @@ const metadata: Meta<ComboboxArgs> = {
         appearance: DropdownAppearance.underline,
         placeholder: 'Select value...',
         optionsType: ExampleOptionsType.simpleOptions,
-        requiredVisible: false
+        requiredVisible: false,
+        appearanceReadOnly: false
     }
 };
 

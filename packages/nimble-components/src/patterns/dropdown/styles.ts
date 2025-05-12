@@ -50,12 +50,6 @@ export const styles = css`
         --ni-private-indicator-lines-gap: 1px;
     }
 
-    :host([disabled][appearance-readonly]) {
-        cursor: text;
-        user-select: text;
-        -webkit-user-select: text;
-    }
-
     :host::before {
         content: '';
         position: absolute;
@@ -176,19 +170,8 @@ export const styles = css`
     }
 
     :host([disabled][appearance-readonly]) .selected-value {
+        cursor: text;
         padding-right: ${smallPadding};
-    }
-    
-    .selected-value.placeholder {
-        color: ${placeholderFontColor};
-    }
-
-    :host([disabled]) .selected-value.placeholder {
-        color: ${bodyDisabledFontColor};
-    }
-
-    :host([disabled][appearnce-readonly]) .selected-value.placeholder {
-        color: ${placeholderFontColor};
     }
 
     .indicator {

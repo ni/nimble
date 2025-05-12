@@ -37,6 +37,18 @@ export const styles = css`
     .selected-value {
         order: 1;
     }
+    
+    .selected-value.placeholder {
+        color: ${placeholderFontColor};
+    }
+
+    :host([disabled]) .selected-value.placeholder {
+        color: ${bodyDisabledFontColor};
+    }
+
+    :host([disabled][appearance-readonly]) .selected-value.placeholder {
+        color: ${placeholderFontColor};
+    }
 
     .clear-button {
         order: 3;
