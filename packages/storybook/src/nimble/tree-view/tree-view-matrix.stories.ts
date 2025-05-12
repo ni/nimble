@@ -77,7 +77,7 @@ const component = (
     </${treeViewTag}>
 `;
 
-export const treeViewThemeMatrix: StoryFn = createMatrixThemeStory(
+export const themeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(component, [
         disabledStates,
         expandedStates,
@@ -86,7 +86,7 @@ export const treeViewThemeMatrix: StoryFn = createMatrixThemeStory(
     ])
 );
 
-export const hiddenTreeView: StoryFn = createStory(
+export const hidden: StoryFn = createStory(
     hiddenWrapper(
         html`<${treeViewTag} hidden>
             <${treeItemTag}>Item 1</${treeItemTag}>

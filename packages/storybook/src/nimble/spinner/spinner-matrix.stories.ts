@@ -56,10 +56,10 @@ const component = (
     </${spinnerTag}>
 `;
 
-export const spinnerThemeMatrix: StoryFn = createMatrixThemeStory(
+export const themeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(component, [sizeStates, appearanceStates])
 );
 
-export const hiddenSpinner: StoryFn = createStory(
+export const hidden: StoryFn = createStory(
     hiddenWrapper(html`<${spinnerTag} hidden></${spinnerTag}>`)
 );

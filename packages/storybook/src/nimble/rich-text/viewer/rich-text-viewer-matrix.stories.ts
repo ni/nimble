@@ -81,11 +81,11 @@ const componentFitToContent = ([widthLabel, widthStyle]: [
     </${richTextViewerTag}>
 `;
 
-export const richTextViewerThemeMatrix: StoryFn = createMatrixThemeStory(
+export const themeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(component)
 );
 
-export const richTextViewerSizing: StoryFn = createStory(html`
+export const sizing: StoryFn = createStory(html`
     ${createMatrix(viewerSizingTestCase, [
         [
             ['No width', ''],
@@ -100,7 +100,7 @@ export const richTextViewerSizing: StoryFn = createStory(html`
     ])}
 `);
 
-export const differentContentsInMobileWidth: StoryFn = createStory(html`
+export const differentContents$MobileWidth: StoryFn = createStory(html`
     ${createMatrix(viewerDifferentContentTestCase, [
         [
             ['No content', ''],
@@ -138,6 +138,6 @@ export const fitToContentTest: StoryFn = createStory(html`
     ])}
 `);
 
-export const hiddenRichTextViewer: StoryFn = createStory(
+export const hidden: StoryFn = createStory(
     hiddenWrapper(html`<${richTextViewerTag} hidden></${richTextViewerTag}>`)
 );

@@ -51,11 +51,11 @@ const component = (): ViewTemplate => html`
     </${tableTag}>
 `;
 
-export const tableColumnMenuButtonThemeMatrix: StoryFn = createMatrixThemeStory(
+export const themeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(component)
 );
 
-tableColumnMenuButtonThemeMatrix.play = async (): Promise<void> => {
+themeMatrix.play = async (): Promise<void> => {
     await Promise.all(
         Array.from(document.querySelectorAll(tableTag)).map(async table => {
             await table.setData(data);

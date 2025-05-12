@@ -68,7 +68,7 @@ const component = (
     </${textAreaTag}>
 `;
 
-export const textAreaThemeMatrix: StoryFn = createMatrixThemeStory(
+export const themeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(component, [
         requiredVisibleStates,
         readOnlyStates,
@@ -109,7 +109,7 @@ const heightSizingTestCase = (
     </div>
 `;
 
-export const textAreaSizing: StoryFn = createStory(html`
+export const sizing: StoryFn = createStory(html`
     ${createMatrix(widthSizingTestCase, [
         [
             ['No width', ''],
@@ -134,7 +134,7 @@ export const textAreaSizing: StoryFn = createStory(html`
     ])}
 `);
 
-export const hiddenTextArea: StoryFn = createStory(
+export const hidden: StoryFn = createStory(
     hiddenWrapper(
         html`<${textAreaTag} hidden>Hidden text area</${textAreaTag}>`
     )

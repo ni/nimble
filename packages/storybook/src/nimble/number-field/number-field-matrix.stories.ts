@@ -154,7 +154,7 @@ const interactionStates = cartesianProduct([
     appearanceStates
 ] as const);
 
-export const numberFieldInteractionsThemeMatrix: StoryFn = createMatrixThemeStory(
+export const interactionsThemeMatrix: StoryFn = createMatrixThemeStory(
     createMatrixInteractionsFromStates(component, {
         hover: interactionStatesHover,
         hoverActive: interactionStates,
@@ -163,7 +163,7 @@ export const numberFieldInteractionsThemeMatrix: StoryFn = createMatrixThemeStor
     })
 );
 
-export const hiddenNumberField: StoryFn = createStory(
+export const hidden: StoryFn = createStory(
     hiddenWrapper(
         html`
             <${numberFieldTag} hidden>

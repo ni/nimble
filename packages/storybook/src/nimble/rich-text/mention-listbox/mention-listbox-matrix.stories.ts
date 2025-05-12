@@ -56,10 +56,12 @@ const component = (): ViewTemplate => html`
 
 `;
 
-export const richTextMentionListboxThemeMatrix: StoryFn = createMatrixThemeStory(createMatrix(component));
-richTextMentionListboxThemeMatrix.play = playFunction;
+export const themeMatrix: StoryFn = createMatrixThemeStory(
+    createMatrix(component)
+);
+themeMatrix.play = playFunction;
 
-export const hiddenRichTextMentionListbox: StoryFn = createStory(
+export const hidden: StoryFn = createStory(
     hiddenWrapper(
         html`<${richTextMentionListboxTag} hidden>
             <${listOptionTag} value="1">Option 1</${listOptionTag}>

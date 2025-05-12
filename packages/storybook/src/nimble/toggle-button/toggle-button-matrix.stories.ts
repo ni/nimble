@@ -64,7 +64,7 @@ const component = (
     </${toggleButtonTag}>
 `;
 
-export const toggleButtonThemeMatrix: StoryFn = createMatrixThemeStory(
+export const themeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(component, [
         partVisibilityStates,
         checkedStates,
@@ -90,7 +90,7 @@ const interactionStates = cartesianProduct([
     appearanceVariantStates
 ] as const);
 
-export const toggleButtonInteractionsThemeMatrix: StoryFn = createMatrixThemeStory(
+export const interactionsThemeMatrix: StoryFn = createMatrixThemeStory(
     createMatrixInteractionsFromStates(component, {
         hover: interactionStatesHover,
         hoverActive: interactionStates,
@@ -99,7 +99,7 @@ export const toggleButtonInteractionsThemeMatrix: StoryFn = createMatrixThemeSto
     })
 );
 
-export const hiddenButton: StoryFn = createStory(
+export const hidden: StoryFn = createStory(
     hiddenWrapper(
         html`<${toggleButtonTag} hidden
             >Hidden Toggle Button</${toggleButtonTag}

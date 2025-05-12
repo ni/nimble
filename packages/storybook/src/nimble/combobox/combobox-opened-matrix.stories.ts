@@ -63,32 +63,32 @@ if (remaining.length > 0) {
     throw new Error('New backgrounds need to be supported');
 }
 
-export const comboboxBelowOpenLightThemeWhiteBackground: StoryFn = createFixedThemeStory(
+export const lightTheme$OpenBelow: StoryFn = createFixedThemeStory(
     component({ position: DropdownPosition.below }),
     lightThemeWhiteBackground
 );
 
-export const comboboxAboveOpenLightThemeWhiteBackground: StoryFn = createFixedThemeStory(
+export const lightTheme$OpenAbove: StoryFn = createFixedThemeStory(
     component({ position: DropdownPosition.above }),
     lightThemeWhiteBackground
 );
 
-export const comboboxBelowOpenColorThemeDarkGreenBackground: StoryFn = createFixedThemeStory(
+export const colorTheme$OpenBelow: StoryFn = createFixedThemeStory(
     component({ position: DropdownPosition.below }),
     colorThemeDarkGreenBackground
 );
 
-export const comboboxAboveOpenColorThemeDarkGreenBackground: StoryFn = createFixedThemeStory(
+export const colorTheme$OpenAbove: StoryFn = createFixedThemeStory(
     component({ position: DropdownPosition.above }),
     colorThemeDarkGreenBackground
 );
 
-export const comboboxBelowOpenDarkThemeBlackBackground: StoryFn = createFixedThemeStory(
+export const darkTheme$OpenBelow: StoryFn = createFixedThemeStory(
     component({ position: DropdownPosition.below }),
     darkThemeBlackBackground
 );
 
-export const comboboxAboveOpenDarkThemeBlackBackground: StoryFn = createFixedThemeStory(
+export const darkTheme$OpenAbove: StoryFn = createFixedThemeStory(
     component({ position: DropdownPosition.above }),
     darkThemeBlackBackground
 );
@@ -98,19 +98,19 @@ const noMatchesPlayFunction = (): void => {
     combobox.value = 'abc';
 };
 
-export const comboboxBelowOpenNoMatchLightTheme: StoryFn = createFixedThemeStory(
+export const openBelow$NoMatch: StoryFn = createFixedThemeStory(
     component({ position: DropdownPosition.below }),
     lightThemeWhiteBackground
 );
-comboboxBelowOpenNoMatchLightTheme.play = noMatchesPlayFunction;
+openBelow$NoMatch.play = noMatchesPlayFunction;
 
-export const comboboxAboveOpenNoMatchDarkTheme: StoryFn = createFixedThemeStory(
+export const openAbove$NoMatch: StoryFn = createFixedThemeStory(
     component({ position: DropdownPosition.above }),
     darkThemeBlackBackground
 );
-comboboxAboveOpenNoMatchDarkTheme.play = noMatchesPlayFunction;
+openAbove$NoMatch.play = noMatchesPlayFunction;
 
-export const comboboxBelowOpenManyOptions: StoryFn = createFixedThemeStory(
+export const openBelow$ManyOptions: StoryFn = createFixedThemeStory(
     component({
         position: DropdownPosition.below,
         manyOptions: true
@@ -118,7 +118,7 @@ export const comboboxBelowOpenManyOptions: StoryFn = createFixedThemeStory(
     lightThemeWhiteBackground
 );
 
-export const comboboxAboveOpenManyOptions: StoryFn = createFixedThemeStory(
+export const openAbove$ManyOptions: StoryFn = createFixedThemeStory(
     component({
         position: DropdownPosition.above,
         manyOptions: true
