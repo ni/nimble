@@ -143,7 +143,6 @@ export const styles = css`
     }
 
     :host([disabled][appearance-readonly]) .control {
-        cursor: text;
         color: ${bodyFontColor};
         border-color: rgba(${borderRgbPartialColor}, 0.3);
     }
