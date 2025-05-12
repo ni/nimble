@@ -34,14 +34,6 @@ export const styles = css`
          error icon, and dropdown arrow because they are not "interactive" i.e. part of the tab order */ ''
     }
 
-    .selected-value.placeholder {
-        color: ${placeholderFontColor};
-    }
-
-    :host([disabled]) .selected-value.placeholder {
-        color: ${bodyDisabledFontColor};
-    }
-
     .selected-value {
         order: 1;
     }

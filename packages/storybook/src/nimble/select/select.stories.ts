@@ -10,6 +10,7 @@ import { DropdownAppearance } from '../../../../nimble-components/src/patterns/d
 import {
     apiCategory,
     appearanceDescription,
+    appearanceReadOnlyDescription,
     createUserSelectedThemeStory,
     disableStorybookZoomTransform,
     disabledDescription,
@@ -37,6 +38,7 @@ interface SelectArgs {
     value: string;
     change: undefined;
     filterInput: undefined;
+    appearanceReadOnly: boolean;
 }
 
 interface OptionArgs {
@@ -147,6 +149,7 @@ const metadata: Meta<SelectArgs> = {
             filter-mode="${x => (x.filterMode === 'none' ? undefined : x.filterMode)}"
             ?loading-visible="${x => x.loadingVisible}"
             ?required-visible="${x => x.requiredVisible}"
+            ?appearance-readonly="${x => x.appearanceReadOnly}"
             style="width:250px;"
         >
             ${x => x.label}
@@ -207,6 +210,11 @@ const metadata: Meta<SelectArgs> = {
         },
         disabled: {
             description: disabledDescription({ componentName: 'select' }),
+            table: { category: apiCategory.attributes }
+        },
+        appearanceReadOnly: {
+            name: 'appearance-readonly',
+            description: appearanceReadOnlyDescription({ componentName: 'select' }),
             table: { category: apiCategory.attributes }
         },
         errorText: {
@@ -281,7 +289,8 @@ const metadata: Meta<SelectArgs> = {
         optionsType: ExampleOptionsType.simpleOptions,
         clearable: false,
         loadingVisible: false,
-        requiredVisible: false
+        requiredVisible: false,
+        appearanceReadOnly: false
     }
 };
 
