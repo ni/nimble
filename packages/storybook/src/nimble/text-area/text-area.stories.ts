@@ -99,7 +99,9 @@ const metadata: Meta<TextAreaArgs> = {
         },
         appearanceReadOnly: {
             name: 'appearance-readonly',
-            description: appearanceReadOnlyDescription({ componentName: 'text area' }),
+            description: appearanceReadOnlyDescription({
+                componentName: 'text area'
+            }),
             table: { category: apiCategory.attributes }
         },
         errorText: {
