@@ -55,17 +55,17 @@ const metadata: Meta = {
 export default metadata;
 
 const component = (
-    [appearanceName, appearance]: AppearanceState,
     [
         disabledReadOnlyName,
         readonly,
         disabled,
         appearanceReadOnly
     ]: DisabledReadOnlyState,
-    [errorName, errorVisible, errorText]: ErrorState,
-    [hideStepName, hideStep]: HideStepState,
+    [appearanceName, appearance]: AppearanceState,
     [requiredVisibleName, requiredVisible]: RequiredVisibleState,
-    [valueName, valueValue, placeholderValue]: ValueState
+    [hideStepName, hideStep]: HideStepState,
+    [valueName, valueValue, placeholderValue]: ValueState,
+    [errorName, errorVisible, errorText]: ErrorState
 ): ViewTemplate => html`
     <style>
         ${numberFieldTag} {
@@ -104,36 +104,36 @@ if (remaining.length > 0) {
 
 export const lightTheme: StoryFn = createFixedThemeStory(
     createMatrix(component, [
-        appearanceStates,
         disabledReadOnlyStates,
-        errorStates,
-        hideStepStates,
+        appearanceStates,
         requiredVisibleStates,
-        valueStates
+        hideStepStates,
+        valueStates,
+        errorStates
     ]),
     lightThemeWhiteBackground
 );
 
 export const colorTheme: StoryFn = createFixedThemeStory(
     createMatrix(component, [
-        appearanceStates,
         disabledReadOnlyStates,
-        errorStates,
-        hideStepStates,
+        appearanceStates,
         requiredVisibleStates,
-        valueStates
+        hideStepStates,
+        valueStates,
+        errorStates
     ]),
     colorThemeDarkGreenBackground
 );
 
 export const darkTheme: StoryFn = createFixedThemeStory(
     createMatrix(component, [
-        appearanceStates,
         disabledReadOnlyStates,
-        errorStates,
-        hideStepStates,
+        appearanceStates,
         requiredVisibleStates,
-        valueStates
+        hideStepStates,
+        valueStates,
+        errorStates
     ]),
     darkThemeBlackBackground
 );
@@ -141,21 +141,21 @@ export const darkTheme: StoryFn = createFixedThemeStory(
 const notRequiredState = requiredVisibleStates[0];
 
 const interactionStatesHover = cartesianProduct([
-    appearanceStates,
     disabledReadOnlyStates,
-    [errorStatesNoError, errorStatesErrorWithMessage],
-    [hideStepStateStepVisible],
+    appearanceStates,
     [notRequiredState],
-    [valueStatesHasValue]
+    [hideStepStateStepVisible],
+    [valueStatesHasValue],
+    [errorStatesNoError, errorStatesErrorWithMessage]
 ] as const);
 
 const interactionStates = cartesianProduct([
-    appearanceStates,
     disabledReadOnlyStates,
-    [errorStatesNoError, errorStatesErrorWithMessage],
-    [hideStepStateStepVisible],
+    appearanceStates,
     [notRequiredState],
-    [valueStatesHasValue]
+    [hideStepStateStepVisible],
+    [valueStatesHasValue],
+    [errorStatesNoError, errorStatesErrorWithMessage]
 ] as const);
 
 export const interactionsThemeMatrix: StoryFn = createMatrixThemeStory(
