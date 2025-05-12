@@ -170,6 +170,8 @@ export const styles = css`
 
     :host([disabled][appearance-readonly]) .selected-value {
         cursor: text;
+        user-select: text;
+        -webkit-user-select: text;
         padding-right: ${smallPadding};
     }
 

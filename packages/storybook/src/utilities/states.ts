@@ -78,5 +78,6 @@ export const disabledReadOnlyState = {
     readOnly: disabledReadOnlyStates[4],
     readOnlyAppearanceReadOnly: disabledReadOnlyStates[5],
     readOnlyDisabled: disabledReadOnlyStates[6],
-    readOnlyDisabledAppearanceReadOnly: disabledReadOnlyStates[7]
+    readOnlyDisabledAppearanceReadOnly: disabledReadOnlyStates[7],
+    allReadOnlyAbsentStates: disabledReadOnlyStates.filter(x => x[1] === false)
 } as const;

@@ -14,12 +14,12 @@ import {
     sharedMatrixParameters
 } from '../../utilities/matrix';
 import {
-    disabledStates,
-    type DisabledState,
+    type DisabledReadOnlyState,
+    disabledReadOnlyState,
     type ErrorState,
     errorStates,
     requiredVisibleStates,
-    type RequiredVisibleState
+    type RequiredVisibleState,
 } from '../../utilities/states';
 import { hiddenWrapper } from '../../utilities/hidden';
 import { textCustomizationWrapper } from '../../utilities/text-customization';
@@ -57,7 +57,7 @@ export default metadata;
 // prettier-ignore
 const component = (
     [requiredVisibleName, requiredVisible]: RequiredVisibleState,
-    [disabledName, disabled]: DisabledState,
+    [disabledReadOnlyName, _readOnly, disabled, appearanceReadOnly]: DisabledReadOnlyState,
     [appearanceName, appearance]: AppearanceState,
     [errorName, errorVisible, errorText]: ErrorState,
     [valueName, selectedValue]: ValueState,
@@ -67,13 +67,14 @@ const component = (
         ?error-visible="${() => errorVisible}"
         error-text="${() => errorText}"
         ?disabled="${() => disabled}"
+        ?appearance-readonly="${() => appearanceReadOnly}"
         ?clearable="${() => clearable}"
         appearance="${() => appearance}"
         ?required-visible="${() => requiredVisible}"
         current-value="${() => selectedValue}"
         style="width: 250px; margin: var(${standardPadding.cssCustomProperty});"
     >
-        ${() => errorName} ${() => disabledName} ${() => appearanceName} ${() => valueName} ${() => clearableName} ${() => requiredVisibleName}
+        ${() => errorName} ${() => disabledReadOnlyName} ${() => appearanceName} ${() => valueName} ${() => clearableName} ${() => requiredVisibleName}
         <${listOptionTag} value="1">Option 1</${listOptionTag}>
         <${listOptionTag} value="2">${loremIpsum}</${listOptionTag}>
         <${listOptionTag} value="3" disabled>Option 3</${listOptionTag}>
@@ -85,7 +86,7 @@ const component = (
 export const themeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(component, [
         requiredVisibleStates,
-        disabledStates,
+        disabledReadOnlyState.allReadOnlyAbsentStates,
         appearanceStates,
         errorStates,
         valueStates,

@@ -11,12 +11,12 @@ import {
     sharedMatrixParameters
 } from '../../utilities/matrix';
 import {
-    disabledStates,
-    type DisabledState,
     errorStates,
     type ErrorState,
     type RequiredVisibleState,
-    requiredVisibleStates
+    requiredVisibleStates,
+    type DisabledReadOnlyState,
+    disabledReadOnlyState
 } from '../../utilities/states';
 import { hiddenWrapper } from '../../utilities/hidden';
 import { loremIpsum } from '../../utilities/lorem-ipsum';
@@ -47,13 +47,14 @@ export default metadata;
 // prettier-ignore
 const component = (
     [requiredVisibleName, requiredVisible]: RequiredVisibleState,
-    [disabledName, disabled]: DisabledState,
+    [disabledReadOnlyName, _readOnly, disabled, appearanceReadOnly]: DisabledReadOnlyState,
     [appearanceName, appearance]: AppearanceState,
     [errorName, errorVisible, errorText]: ErrorState,
     [valueName, value, placeholder]: ValueState
 ): ViewTemplate => html`
     <${comboboxTag} 
         ?disabled="${() => disabled}"
+        ?appearance-readonly="${() => appearanceReadOnly}"
         appearance="${() => appearance}"
         ?error-visible="${() => errorVisible}"
         error-text="${() => errorText}"
@@ -62,7 +63,7 @@ const component = (
         ?required-visible="${() => requiredVisible}"
         style="width: 250px; margin: var(${standardPadding.cssCustomProperty});"
     >
-        ${() => disabledName}
+        ${() => disabledReadOnlyName}
         ${() => appearanceName}
         ${() => errorName}
         ${() => valueName}
@@ -77,7 +78,7 @@ const component = (
 export const themeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(component, [
         requiredVisibleStates,
-        disabledStates,
+        disabledReadOnlyState.allReadOnlyAbsentStates,
         appearanceStates,
         errorStates,
         valueStates
