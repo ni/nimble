@@ -9,6 +9,7 @@ import {
 import {
     apiCategory,
     appearanceDescription,
+    appearanceReadOnlyDescription,
     createUserSelectedThemeStory,
     disabledDescription,
     errorTextDescription,
@@ -35,6 +36,7 @@ interface TextAreaArgs {
     maxlength: number;
     change: undefined;
     requiredVisible: boolean;
+    appearanceReadOnly: boolean;
 }
 
 const metadata: Meta<TextAreaArgs> = {
@@ -60,6 +62,7 @@ const metadata: Meta<TextAreaArgs> = {
             cols="${x => x.cols}"
             maxlength="${x => x.maxlength}"
             ?required-visible="${x => x.requiredVisible}"
+            ?appearance-readonly="${x => x.appearanceReadOnly}"
         >
             ${x => x.label}
         </${textAreaTag}>
@@ -92,6 +95,11 @@ const metadata: Meta<TextAreaArgs> = {
         },
         disabled: {
             description: disabledDescription({ componentName: 'text area' }),
+            table: { category: apiCategory.attributes }
+        },
+        appearanceReadOnly: {
+            name: 'appearance-readonly',
+            description: appearanceReadOnlyDescription({ componentName: 'text area' }),
             table: { category: apiCategory.attributes }
         },
         errorText: {
@@ -156,7 +164,8 @@ const metadata: Meta<TextAreaArgs> = {
         rows: 3,
         cols: 20,
         maxlength: 500,
-        requiredVisible: false
+        requiredVisible: false,
+        appearanceReadOnly: false
     }
 };
 

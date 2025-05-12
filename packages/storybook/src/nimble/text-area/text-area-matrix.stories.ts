@@ -9,10 +9,8 @@ import {
     sharedMatrixParameters
 } from '../../utilities/matrix';
 import {
-    disabledStates,
-    type DisabledState,
-    type ReadOnlyState,
-    readOnlyStates,
+    type DisabledReadOnlyState,
+    disabledReadOnlyStates,
     type ErrorState,
     errorStates,
     type RequiredVisibleState,
@@ -46,8 +44,7 @@ export default metadata;
 
 const component = (
     [requiredVisibleName, requiredVisible]: RequiredVisibleState,
-    [readOnlyName, readonly]: ReadOnlyState,
-    [disabledName, disabled]: DisabledState,
+    [disabledReadOnlyName, readOnly, disabled, appearanceReadOnly]: DisabledReadOnlyState,
     [appearanceName, appearance]: AppearanceState,
     [valueName, valueValue, placeholderValue]: ValueState,
     [errorStateName, isError, errorText]: ErrorState
@@ -58,21 +55,21 @@ const component = (
         appearance="${() => appearance}"
         value="${() => valueValue}"
         placeholder="${() => placeholderValue}"
-        ?readonly="${() => readonly}"
+        ?readonly="${() => readOnly}"
+        ?appearance-readonly="${() => appearanceReadOnly}"
         ?error-visible="${() => isError}"
         error-text="${() => errorText}"
         ?required-visible="${() => requiredVisible}"
     >
-        ${() => disabledName} ${() => appearanceName} ${() => valueName}
-        ${() => readOnlyName} ${() => errorStateName} ${() => requiredVisibleName}
+        ${() => disabledReadOnlyName} ${() => appearanceName} ${() => valueName}
+        ${() => errorStateName} ${() => requiredVisibleName}
     </${textAreaTag}>
 `;
 
 export const themeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(component, [
         requiredVisibleStates,
-        readOnlyStates,
-        disabledStates,
+        disabledReadOnlyStates,
         appearanceStates,
         valueStates,
         errorStates
