@@ -2,26 +2,24 @@ import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate } from '@ni/fast-element';
 import { numberFieldTag } from '../../../../nimble-components/src/number-field';
 import { NumberFieldAppearance } from '../../../../nimble-components/src/number-field/types';
-import { createStory } from '../../utilities/storybook';
+import { createFixedThemeStory, createStory } from '../../utilities/storybook';
 import {
     createMatrixThemeStory,
-    createMatrix,
     sharedMatrixParameters,
     cartesianProduct,
-    createMatrixInteractionsFromStates
+    createMatrixInteractionsFromStates,
+    createMatrix
 } from '../../utilities/matrix';
 import {
-    disabledStates,
-    type DisabledState,
     errorStates,
     type ErrorState,
-    disabledStateIsEnabled,
     errorStatesNoError,
     errorStatesErrorWithMessage,
-    type ReadOnlyState,
-    readOnlyStates,
     type RequiredVisibleState,
-    requiredVisibleStates
+    requiredVisibleStates,
+    type DisabledReadOnlyState,
+    disabledReadOnlyStates,
+    backgroundStates
 } from '../../utilities/states';
 import { hiddenWrapper } from '../../utilities/hidden';
 import { textCustomizationWrapper } from '../../utilities/text-customization';
@@ -57,64 +55,107 @@ const metadata: Meta = {
 export default metadata;
 
 const component = (
+    [
+        disabledReadOnlyName,
+        readonly,
+        disabled,
+        appearanceReadOnly
+    ]: DisabledReadOnlyState,
+    [appearanceName, appearance]: AppearanceState,
     [requiredVisibleName, requiredVisible]: RequiredVisibleState,
-    [readOnlyName, readonly]: ReadOnlyState,
-    [disabledName, disabled]: DisabledState,
     [hideStepName, hideStep]: HideStepState,
     [valueName, valueValue, placeholderValue]: ValueState,
-    [errorName, errorVisible, errorText]: ErrorState,
-    [appearanceName, appearance]: AppearanceState
+    [errorName, errorVisible, errorText]: ErrorState
 ): ViewTemplate => html`
+    <style>
+        ${numberFieldTag} {
+            width: 250px;
+            margin: 0px 8px 16px 8px;
+        }
+    </style>
     <${numberFieldTag}
-        style="width: 250px; margin: 8px;"
         value="${() => valueValue}"
         placeholder="${() => placeholderValue}"
         appearance="${() => appearance}"
         ?hide-step="${() => hideStep}"
         ?readonly="${() => readonly}"
         ?disabled="${() => disabled}"
+        ?appearance-readonly="${() => appearanceReadOnly}"
         error-text="${() => errorText}"
         ?error-visible="${() => errorVisible}"
         ?required-visible="${() => requiredVisible}"
     >
         ${() => errorName} ${() => appearanceName} ${() => valueName}
-        ${() => hideStepName} ${() => disabledName} ${() => readOnlyName}
+        ${() => hideStepName} ${() => disabledReadOnlyName}
         ${() => requiredVisibleName}
     </${numberFieldTag}>
 `;
 
-export const themeMatrix: StoryFn = createMatrixThemeStory(
+const [
+    lightThemeWhiteBackground,
+    colorThemeDarkGreenBackground,
+    darkThemeBlackBackground,
+    ...remaining
+] = backgroundStates;
+
+if (remaining.length > 0) {
+    throw new Error('New backgrounds need to be supported');
+}
+
+export const lightTheme: StoryFn = createFixedThemeStory(
     createMatrix(component, [
+        disabledReadOnlyStates,
+        appearanceStates,
         requiredVisibleStates,
-        readOnlyStates,
-        disabledStates,
         hideStepStates,
         valueStates,
-        errorStates,
-        appearanceStates
-    ])
+        errorStates
+    ]),
+    lightThemeWhiteBackground
+);
+
+export const colorTheme: StoryFn = createFixedThemeStory(
+    createMatrix(component, [
+        disabledReadOnlyStates,
+        appearanceStates,
+        requiredVisibleStates,
+        hideStepStates,
+        valueStates,
+        errorStates
+    ]),
+    colorThemeDarkGreenBackground
+);
+
+export const darkTheme: StoryFn = createFixedThemeStory(
+    createMatrix(component, [
+        disabledReadOnlyStates,
+        appearanceStates,
+        requiredVisibleStates,
+        hideStepStates,
+        valueStates,
+        errorStates
+    ]),
+    darkThemeBlackBackground
 );
 
 const notRequiredState = requiredVisibleStates[0];
 
 const interactionStatesHover = cartesianProduct([
+    disabledReadOnlyStates,
+    appearanceStates,
     [notRequiredState],
-    readOnlyStates,
-    disabledStates,
     [hideStepStateStepVisible],
     [valueStatesHasValue],
-    [errorStatesNoError, errorStatesErrorWithMessage],
-    appearanceStates
+    [errorStatesNoError, errorStatesErrorWithMessage]
 ] as const);
 
 const interactionStates = cartesianProduct([
+    disabledReadOnlyStates,
+    appearanceStates,
     [notRequiredState],
-    readOnlyStates,
-    [disabledStateIsEnabled],
     [hideStepStateStepVisible],
     [valueStatesHasValue],
-    [errorStatesNoError, errorStatesErrorWithMessage],
-    appearanceStates
+    [errorStatesNoError, errorStatesErrorWithMessage]
 ] as const);
 
 export const interactionsThemeMatrix: StoryFn = createMatrixThemeStory(
