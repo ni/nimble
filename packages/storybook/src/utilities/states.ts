@@ -91,3 +91,4 @@ export const onlyDisabledAbsentStates = disabledReadOnlyStates.filter(
         ]
     ) => state[2] === false
 );
+export type OnlyDisabledAbsentState = (typeof onlyDisabledAbsentStates)[number];
