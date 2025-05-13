@@ -34,6 +34,9 @@ export class NumberField extends mixinErrorPattern(
     @attr
     public appearance: NumberFieldAppearance = NumberFieldAppearance.underline;
 
+    @attr({ attribute: 'full-bleed', mode: 'boolean' })
+    public fullBleed = false;
+
     @attr({ attribute: 'appearance-readonly', mode: 'boolean' })
     public appearanceReadOnly = false;
 
