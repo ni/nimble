@@ -44,7 +44,6 @@ const metadata: Meta = {
 export default metadata;
 
 const component = (
-    [requiredVisibleName, requiredVisible]: RequiredVisibleState,
     [
         disabledReadOnlyName,
         readOnly,
@@ -52,11 +51,17 @@ const component = (
         appearanceReadOnly
     ]: DisabledReadOnlyState,
     [appearanceName, appearance]: AppearanceState,
+    [requiredVisibleName, requiredVisible]: RequiredVisibleState,
     [valueName, valueValue, placeholderValue]: ValueState,
     [errorStateName, isError, errorText]: ErrorState
 ): ViewTemplate => html`
+    <style>
+        ${textAreaTag} {
+            width: 250px;
+            margin: 0px 8px 16px 8px;
+        }
+    </style>
     <${textAreaTag}
-        style="width: 250px; margin: 15px;"
         ?disabled="${() => disabled}"
         appearance="${() => appearance}"
         value="${() => valueValue}"
@@ -85,9 +90,9 @@ if (remaining.length > 0) {
 
 export const lightTheme: StoryFn = createFixedThemeStory(
     createMatrix(component, [
-        requiredVisibleStates,
         disabledReadOnlyStates,
         appearanceStates,
+        requiredVisibleStates,
         valueStates,
         errorStates
     ]),
@@ -96,9 +101,9 @@ export const lightTheme: StoryFn = createFixedThemeStory(
 
 export const colorTheme: StoryFn = createFixedThemeStory(
     createMatrix(component, [
-        requiredVisibleStates,
         disabledReadOnlyStates,
         appearanceStates,
+        requiredVisibleStates,
         valueStates,
         errorStates
     ]),
@@ -107,9 +112,9 @@ export const colorTheme: StoryFn = createFixedThemeStory(
 
 export const darkTheme: StoryFn = createFixedThemeStory(
     createMatrix(component, [
-        requiredVisibleStates,
         disabledReadOnlyStates,
         appearanceStates,
+        requiredVisibleStates,
         valueStates,
         errorStates
     ]),
