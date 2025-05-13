@@ -15,8 +15,8 @@ import {
     type ErrorState,
     type RequiredVisibleState,
     requiredVisibleStates,
-    type DisabledReadOnlyState,
-    disabledReadOnlyState
+    type OnlyReadOnlyAbsentState,
+    onlyReadOnlyAbsentStates
 } from '../../utilities/states';
 import { hiddenWrapper } from '../../utilities/hidden';
 import { loremIpsum } from '../../utilities/lorem-ipsum';
@@ -46,7 +46,7 @@ export default metadata;
 
 // prettier-ignore
 const component = (
-    [disabledReadOnlyName, _readOnly, disabled, appearanceReadOnly]: DisabledReadOnlyState,
+    [disabledReadOnlyName, _readOnly, disabled, appearanceReadOnly]: OnlyReadOnlyAbsentState,
     [appearanceName, appearance]: AppearanceState,
     [requiredVisibleName, requiredVisible]: RequiredVisibleState,
     [errorName, errorVisible, errorText]: ErrorState,
@@ -77,7 +77,7 @@ const component = (
 
 export const themeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(component, [
-        disabledReadOnlyState.allReadOnlyAbsentStates,
+        onlyReadOnlyAbsentStates,
         appearanceStates,
         requiredVisibleStates,
         errorStates,

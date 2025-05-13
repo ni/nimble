@@ -14,13 +14,13 @@ import {
     sharedMatrixParameters
 } from '../../utilities/matrix';
 import {
-    type DisabledReadOnlyState,
-    disabledReadOnlyState,
     type ErrorState,
     errorStates,
     requiredVisibleStates,
     type RequiredVisibleState,
-    backgroundStates
+    backgroundStates,
+    type OnlyReadOnlyAbsentState,
+    onlyReadOnlyAbsentStates
 } from '../../utilities/states';
 import { hiddenWrapper } from '../../utilities/hidden';
 import { textCustomizationWrapper } from '../../utilities/text-customization';
@@ -57,7 +57,7 @@ export default metadata;
 
 // prettier-ignore
 const component = (
-    [disabledReadOnlyName, _readOnly, disabled, appearanceReadOnly]: DisabledReadOnlyState,
+    [disabledReadOnlyName, _readOnly, disabled, appearanceReadOnly]: OnlyReadOnlyAbsentState,
     [appearanceName, appearance]: AppearanceState,
     [requiredVisibleName, requiredVisible]: RequiredVisibleState,
     [errorName, errorVisible, errorText]: ErrorState,
@@ -97,7 +97,7 @@ if (remaining.length > 0) {
 
 export const lightTheme: StoryFn = createFixedThemeStory(
     createMatrix(component, [
-        disabledReadOnlyState.allReadOnlyAbsentStates,
+        onlyReadOnlyAbsentStates,
         appearanceStates,
         requiredVisibleStates,
         errorStates,
@@ -109,7 +109,7 @@ export const lightTheme: StoryFn = createFixedThemeStory(
 
 export const colorTheme: StoryFn = createFixedThemeStory(
     createMatrix(component, [
-        disabledReadOnlyState.allReadOnlyAbsentStates,
+        onlyReadOnlyAbsentStates,
         appearanceStates,
         requiredVisibleStates,
         errorStates,
@@ -121,7 +121,7 @@ export const colorTheme: StoryFn = createFixedThemeStory(
 
 export const darkTheme: StoryFn = createFixedThemeStory(
     createMatrix(component, [
-        disabledReadOnlyState.allReadOnlyAbsentStates,
+        onlyReadOnlyAbsentStates,
         appearanceStates,
         requiredVisibleStates,
         errorStates,
