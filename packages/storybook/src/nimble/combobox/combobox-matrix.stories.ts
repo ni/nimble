@@ -46,9 +46,9 @@ export default metadata;
 
 // prettier-ignore
 const component = (
-    [requiredVisibleName, requiredVisible]: RequiredVisibleState,
     [disabledReadOnlyName, _readOnly, disabled, appearanceReadOnly]: DisabledReadOnlyState,
     [appearanceName, appearance]: AppearanceState,
+    [requiredVisibleName, requiredVisible]: RequiredVisibleState,
     [errorName, errorVisible, errorText]: ErrorState,
     [valueName, value, placeholder]: ValueState
 ): ViewTemplate => html`
@@ -77,9 +77,9 @@ const component = (
 
 export const themeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(component, [
-        requiredVisibleStates,
         disabledReadOnlyState.allReadOnlyAbsentStates,
         appearanceStates,
+        requiredVisibleStates,
         errorStates,
         valueStates
     ])

@@ -57,9 +57,9 @@ export default metadata;
 
 // prettier-ignore
 const component = (
-    [requiredVisibleName, requiredVisible]: RequiredVisibleState,
     [disabledReadOnlyName, _readOnly, disabled, appearanceReadOnly]: DisabledReadOnlyState,
     [appearanceName, appearance]: AppearanceState,
+    [requiredVisibleName, requiredVisible]: RequiredVisibleState,
     [errorName, errorVisible, errorText]: ErrorState,
     [valueName, selectedValue]: ValueState,
     [clearableName, clearable]: ClearableState
@@ -97,9 +97,9 @@ if (remaining.length > 0) {
 
 export const lightTheme: StoryFn = createFixedThemeStory(
     createMatrix(component, [
-        requiredVisibleStates,
         disabledReadOnlyState.allReadOnlyAbsentStates,
         appearanceStates,
+        requiredVisibleStates,
         errorStates,
         valueStates,
         clearableStates
@@ -109,9 +109,9 @@ export const lightTheme: StoryFn = createFixedThemeStory(
 
 export const colorTheme: StoryFn = createFixedThemeStory(
     createMatrix(component, [
-        requiredVisibleStates,
         disabledReadOnlyState.allReadOnlyAbsentStates,
         appearanceStates,
+        requiredVisibleStates,
         errorStates,
         valueStates,
         clearableStates
@@ -121,9 +121,9 @@ export const colorTheme: StoryFn = createFixedThemeStory(
 
 export const darkTheme: StoryFn = createFixedThemeStory(
     createMatrix(component, [
-        requiredVisibleStates,
         disabledReadOnlyState.allReadOnlyAbsentStates,
         appearanceStates,
+        requiredVisibleStates,
         errorStates,
         valueStates,
         clearableStates
