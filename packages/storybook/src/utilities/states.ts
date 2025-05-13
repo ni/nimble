@@ -80,3 +80,15 @@ export const disabledReadOnlyState = {
     readOnlyDisabled: disabledReadOnlyStates[6],
     readOnlyDisabledAppearanceReadOnly: disabledReadOnlyStates[7]
 } as const;
+
+export const onlyDisabledAbsentStates = disabledReadOnlyStates.filter(
+    (
+        state: readonly [
+            name: string,
+            readOnly: boolean,
+            disabled: boolean,
+            appearanceReadonly: boolean
+        ]
+    ) => state[2] === false
+);
+export type OnlyDisabledAbsentState = (typeof onlyDisabledAbsentStates)[number];

@@ -22,7 +22,8 @@ import {
     errorVisibleDescription,
     slottedLabelDescription,
     requiredVisibleDescription,
-    placeholderDescription
+    placeholderDescription,
+    appearanceReadOnlyDescription
 } from '../../utilities/storybook';
 
 interface NumberFieldArgs extends LabelUserArgs {
@@ -41,6 +42,7 @@ interface NumberFieldArgs extends LabelUserArgs {
     change: undefined;
     input: undefined;
     requiredVisible: boolean;
+    appearanceReadOnly: boolean;
 }
 
 const metadata: Meta<NumberFieldArgs> = {
@@ -62,6 +64,7 @@ const metadata: Meta<NumberFieldArgs> = {
             appearance="${x => x.appearance}"
             ?readonly="${x => x.readonly}"
             ?disabled="${x => x.disabled}"
+            ?appearance-readonly="${x => x.appearanceReadOnly}"
             ?error-visible="${x => x.errorVisible}"
             error-text="${x => x.errorText}"
             ?required-visible="${x => x.requiredVisible}"
@@ -100,6 +103,13 @@ const metadata: Meta<NumberFieldArgs> = {
         },
         disabled: {
             description: disabledDescription({ componentName: 'number field' }),
+            table: { category: apiCategory.attributes }
+        },
+        appearanceReadOnly: {
+            name: 'appearance-readonly',
+            description: appearanceReadOnlyDescription({
+                componentName: 'number field'
+            }),
             table: { category: apiCategory.attributes }
         },
         step: {
@@ -162,7 +172,8 @@ const metadata: Meta<NumberFieldArgs> = {
         disabled: false,
         errorVisible: false,
         errorText: 'Value is invalid',
-        requiredVisible: false
+        requiredVisible: false,
+        appearanceReadOnly: false
     }
 };
 addLabelUseMetadata(
