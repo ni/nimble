@@ -17,6 +17,7 @@ import {
     dropdownPositionDescription,
     errorTextDescription,
     errorVisibleDescription,
+    fullBleedDescription,
     optionsDescription,
     requiredVisibleDescription,
     slottedLabelDescription
@@ -39,6 +40,7 @@ interface SelectArgs {
     change: undefined;
     filterInput: undefined;
     appearanceReadOnly: boolean;
+    fullBleed: boolean;
 }
 
 interface OptionArgs {
@@ -150,6 +152,7 @@ const metadata: Meta<SelectArgs> = {
             ?loading-visible="${x => x.loadingVisible}"
             ?required-visible="${x => x.requiredVisible}"
             ?appearance-readonly="${x => x.appearanceReadOnly}"
+            ?full-bleed="${x => x.fullBleed}"
             style="width:250px;"
         >
             ${x => x.label}
@@ -278,6 +281,13 @@ const metadata: Meta<SelectArgs> = {
             description: 'Emitted when the user types in the filter input.',
             table: { category: apiCategory.events },
             control: false
+        },
+        fullBleed: {
+            name: 'full-bleed',
+            description: fullBleedDescription({
+                componentName: 'select'
+            }),
+            table: { category: apiCategory.attributes }
         }
     },
     args: {
@@ -292,7 +302,8 @@ const metadata: Meta<SelectArgs> = {
         clearable: false,
         loadingVisible: false,
         requiredVisible: false,
-        appearanceReadOnly: false
+        appearanceReadOnly: false,
+        fullBleed: false
     }
 };
 

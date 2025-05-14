@@ -320,6 +320,19 @@ export const styles = css`
             }
         `
     ),
+    appearanceBehavior(
+        DropdownAppearance.frameless,
+        css`
+            .control {
+                border-width: 0;
+                padding: ${borderWidth};
+            }
+
+            :host([full-bleed]) .selected-value {
+                padding-left: 0;
+            }
+        `
+    ),
     themeBehavior(
         Theme.color,
         css`

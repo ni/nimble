@@ -19,6 +19,7 @@ import {
     dropdownPositionDescription,
     errorTextDescription,
     errorVisibleDescription,
+    fullBleedDescription,
     optionsDescription,
     placeholderDescription,
     requiredVisibleDescription,
@@ -40,6 +41,7 @@ interface ComboboxArgs {
     change: undefined;
     input: undefined;
     appearanceReadOnly: boolean;
+    fullBleed: boolean;
 }
 
 interface OptionArgs {
@@ -114,6 +116,7 @@ const metadata: Meta<ComboboxArgs> = {
             placeholder="${x => x.placeholder}"
             ?required-visible="${x => x.requiredVisible}"
             ?appearance-readonly="${x => x.appearanceReadOnly}"
+            ?full-bleed="${x => x.fullBleed}"
             style="min-width: 250px;"
         >
             ${x => x.label}
@@ -150,6 +153,13 @@ const metadata: Meta<ComboboxArgs> = {
             options: Object.values(DropdownAppearance),
             control: { type: 'radio' },
             description: appearanceDescription({ componentName: 'combobox' }),
+            table: { category: apiCategory.attributes }
+        },
+        fullBleed: {
+            name: 'full-bleed',
+            description: fullBleedDescription({
+                componentName: 'combobox'
+            }),
             table: { category: apiCategory.attributes }
         },
         disabled: {
@@ -220,7 +230,8 @@ const metadata: Meta<ComboboxArgs> = {
         placeholder: 'Select value...',
         optionsType: ExampleOptionsType.simpleOptions,
         requiredVisible: false,
-        appearanceReadOnly: false
+        appearanceReadOnly: false,
+        fullBleed: false
     }
 };
 
