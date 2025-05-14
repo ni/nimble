@@ -7,19 +7,20 @@ import { listOptionGroupTag } from '../../../../nimble-components/src/list-optio
 import { selectTag } from '../../../../nimble-components/src/select';
 import { DropdownAppearance } from '../../../../nimble-components/src/patterns/dropdown/types';
 import { waitForUpdatesAsync } from '../../../../nimble-components/src/testing/async-helpers';
-import { createStory } from '../../utilities/storybook';
+import { createFixedThemeStory, createStory } from '../../utilities/storybook';
 import {
     createMatrixThemeStory,
     createMatrix,
     sharedMatrixParameters
 } from '../../utilities/matrix';
 import {
-    disabledStates,
-    type DisabledState,
     type ErrorState,
     errorStates,
     requiredVisibleStates,
-    type RequiredVisibleState
+    type RequiredVisibleState,
+    backgroundStates,
+    type OnlyReadOnlyAbsentState,
+    onlyReadOnlyAbsentStates
 } from '../../utilities/states';
 import { hiddenWrapper } from '../../utilities/hidden';
 import { textCustomizationWrapper } from '../../utilities/text-customization';
@@ -56,9 +57,9 @@ export default metadata;
 
 // prettier-ignore
 const component = (
-    [requiredVisibleName, requiredVisible]: RequiredVisibleState,
-    [disabledName, disabled]: DisabledState,
+    [disabledReadOnlyName, _readOnly, disabled, appearanceReadOnly]: OnlyReadOnlyAbsentState,
     [appearanceName, appearance]: AppearanceState,
+    [requiredVisibleName, requiredVisible]: RequiredVisibleState,
     [errorName, errorVisible, errorText]: ErrorState,
     [valueName, selectedValue]: ValueState,
     [clearableName, clearable]: ClearableState
@@ -67,13 +68,14 @@ const component = (
         ?error-visible="${() => errorVisible}"
         error-text="${() => errorText}"
         ?disabled="${() => disabled}"
+        ?appearance-readonly="${() => appearanceReadOnly}"
         ?clearable="${() => clearable}"
         appearance="${() => appearance}"
         ?required-visible="${() => requiredVisible}"
         current-value="${() => selectedValue}"
         style="width: 250px; margin: var(${standardPadding.cssCustomProperty});"
     >
-        ${() => errorName} ${() => disabledName} ${() => appearanceName} ${() => valueName} ${() => clearableName} ${() => requiredVisibleName}
+        ${() => errorName} ${() => disabledReadOnlyName} ${() => appearanceName} ${() => valueName} ${() => clearableName} ${() => requiredVisibleName}
         <${listOptionTag} value="1">Option 1</${listOptionTag}>
         <${listOptionTag} value="2">${loremIpsum}</${listOptionTag}>
         <${listOptionTag} value="3" disabled>Option 3</${listOptionTag}>
@@ -82,15 +84,51 @@ const component = (
     </${selectTag}>
 `;
 
-export const themeMatrix: StoryFn = createMatrixThemeStory(
+const [
+    lightThemeWhiteBackground,
+    colorThemeDarkGreenBackground,
+    darkThemeBlackBackground,
+    ...remaining
+] = backgroundStates;
+
+if (remaining.length > 0) {
+    throw new Error('New backgrounds need to be supported');
+}
+
+export const lightTheme: StoryFn = createFixedThemeStory(
     createMatrix(component, [
-        requiredVisibleStates,
-        disabledStates,
+        onlyReadOnlyAbsentStates,
         appearanceStates,
+        requiredVisibleStates,
         errorStates,
         valueStates,
         clearableStates
-    ])
+    ]),
+    lightThemeWhiteBackground
+);
+
+export const colorTheme: StoryFn = createFixedThemeStory(
+    createMatrix(component, [
+        onlyReadOnlyAbsentStates,
+        appearanceStates,
+        requiredVisibleStates,
+        errorStates,
+        valueStates,
+        clearableStates
+    ]),
+    colorThemeDarkGreenBackground
+);
+
+export const darkTheme: StoryFn = createFixedThemeStory(
+    createMatrix(component, [
+        onlyReadOnlyAbsentStates,
+        appearanceStates,
+        requiredVisibleStates,
+        errorStates,
+        valueStates,
+        clearableStates
+    ]),
+    darkThemeBlackBackground
 );
 
 export const hidden: StoryFn = createStory(

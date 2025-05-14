@@ -5,7 +5,8 @@ import {
     borderRgbPartialColor,
     smallPadding,
     borderHoverColor,
-    borderWidth
+    borderWidth,
+    placeholderFontColor
 } from '../theme-provider/design-tokens';
 
 import { styles as dropdownStyles } from '../patterns/dropdown/styles';
@@ -14,7 +15,6 @@ import { styles as requiredVisibleStyles } from '../patterns/required-visible/st
 import { focusVisible } from '../utilities/style/focus';
 import { appearanceBehavior } from '../utilities/style/appearance';
 import { DropdownAppearance } from '../select/types';
-import { userSelectNone } from '../utilities/style/user-select';
 
 export const styles = css`
     ${dropdownStyles}
@@ -27,12 +27,6 @@ export const styles = css`
         --ni-private-height-within-border: calc(
             ${controlHeight} - 2 * ${borderWidth}
         );
-    }
-
-    :host([disabled]) *,
-    :host([disabled]) {
-        ${userSelectNone}
-        color: ${bodyDisabledFontColor};
     }
 
     .control {
@@ -61,6 +55,18 @@ export const styles = css`
         outline: none;
     }
 
+    .selected-value::placeholder {
+        color: ${placeholderFontColor};
+    }
+
+    :host([disabled]) .selected-value::placeholder {
+        color: ${bodyDisabledFontColor};
+    }
+
+    :host([disabled][appearance-readonly]) .selected-value::placeholder {
+        color: ${placeholderFontColor};
+    }
+
     [part='indicator'] {
         display: none;
     }
@@ -69,6 +75,10 @@ export const styles = css`
         display: flex;
         align-items: baseline;
         padding-right: ${smallPadding};
+    }
+
+    :host([disabled][appearance-readonly]) .end-slot-container {
+        display: none;
     }
 
     .separator {
