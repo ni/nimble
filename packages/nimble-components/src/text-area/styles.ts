@@ -41,6 +41,10 @@ export const styles = css`
         color: ${bodyDisabledFontColor};
     }
 
+    :host([disabled][appearance-readonly]) {
+        color: ${bodyFontColor};
+    }
+
     .label {
         display: block;
         color: ${controlLabelFontColor};
@@ -49,6 +53,10 @@ export const styles = css`
 
     :host([disabled]) .label {
         color: ${controlLabelDisabledFontColor};
+    }
+
+    :host([disabled][appearance-readonly]) .label {
+        color: ${controlLabelFontColor};
     }
 
     .container {
@@ -128,6 +136,10 @@ export const styles = css`
         border-color: rgba(${borderRgbPartialColor}, 0.1);
     }
 
+    :host([disabled][appearance-readonly]) .control {
+        cursor: text;
+    }
+
     :host([error-visible]) .control {
         border-bottom-color: ${failColor};
     }
@@ -140,8 +152,12 @@ export const styles = css`
         color: ${controlLabelFontColor};
     }
 
-    .control[disabled]::placeholder {
+    :host([disabled]) .control::placeholder {
         color: ${controlLabelDisabledFontColor};
+    }
+
+    :host([disabled][appearance-readonly]) .control::placeholder {
+        color: ${controlLabelFontColor};
     }
 
     :host([resize='both']) .control {
@@ -188,6 +204,11 @@ export const styles = css`
             :host([disabled]) .control {
                 border-color: transparent;
                 background-color: rgba(${borderRgbPartialColor}, 0.1);
+            }
+
+            :host([disabled][appearance-readonly]) .control {
+                border-color: rgba(${borderRgbPartialColor}, 0.1);
+                background-color: transparent;
             }
 
             :host([error-visible][disabled]) .control {
