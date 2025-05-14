@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Wed, 14 May 2025 17:01:13 GMT",
+      "version": "33.3.0",
+      "tag": "@ni/nimble-components_v33.3.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "3a0e4f636c41b3844a1852c32091c4f96b2e8225",
+            "comment": "Add appearance-readonly to nimble-number-field"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 06 May 2025 21:28:46 GMT",
       "version": "33.2.0",
       "tag": "@ni/nimble-components_v33.2.0",
