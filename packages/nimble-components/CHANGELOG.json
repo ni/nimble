@@ -2,6 +2,29 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Wed, 14 May 2025 18:31:13 GMT",
+      "version": "33.4.0",
+      "tag": "@ni/nimble-components_v33.4.0",
+      "comments": {
+        "none": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "not available",
+            "comment": "Disable intermittent tabs/anchorTabs scroll tests"
+          }
+        ],
+        "minor": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "0170567a2176c1ab12c92157426b49ee573cb50b",
+            "comment": "Add appearance-readonly to nimble-text-area"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 14 May 2025 18:14:39 GMT",
       "version": "33.3.0",
       "tag": "@ni/nimble-components_v33.3.0",
