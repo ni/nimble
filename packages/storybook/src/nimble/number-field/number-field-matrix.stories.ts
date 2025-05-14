@@ -21,7 +21,8 @@ import {
     disabledReadOnlyStates,
     backgroundStates,
     fullBleedStates,
-    type FullBleedState
+    type FullBleedState,
+    onlyDisabledAbsentStates
 } from '../../utilities/states';
 import { hiddenWrapper } from '../../utilities/hidden';
 import { textCustomizationWrapper } from '../../utilities/text-customization';
@@ -201,7 +202,7 @@ const interactionStatesHover = cartesianProduct([
 ] as const);
 
 const interactionStates = cartesianProduct([
-    disabledReadOnlyStates,
+    onlyDisabledAbsentStates,
     appearanceStates,
     fullBleedStates,
     [notRequiredState],
