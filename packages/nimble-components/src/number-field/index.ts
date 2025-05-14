@@ -37,6 +37,9 @@ export class NumberField extends mixinErrorPattern(
     @attr({ attribute: 'appearance-readonly', mode: 'boolean' })
     public appearanceReadOnly = false;
 
+    @attr({ attribute: 'full-bleed', mode: 'boolean' })
+    public fullBleed = false;
+
     public override connectedCallback(): void {
         super.connectedCallback();
 

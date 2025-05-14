@@ -239,5 +239,17 @@ export const styles = css`
                 padding: 0;
             }
         `
+    ),
+    appearanceBehavior(
+        NumberFieldAppearance.frameless,
+        css`
+            .root {
+                padding-left: ${borderWidth};
+                padding-right: ${borderWidth};
+            }
+            :host([full-bleed]) .control {
+                padding-left: 0px;
+            }
+        `
     )
 );
