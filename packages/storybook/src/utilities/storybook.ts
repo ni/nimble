@@ -177,6 +177,9 @@ export const apiCategory = {
 export const appearanceDescription = (options: {
     componentName: string
 }): string => `This attribute affects the appearance of the ${options.componentName}.`;
+export const fullBleedDescription = (options: {
+    componentName: string
+}): string => `Removes the start and end margins of the ${options.componentName} causing the text to stretch across the full control width. This property only applies to the frameless appearance.`;
 export const iconDescription = 'Set `slot="start"` to include an icon before the text content.';
 export const disabledDescription = (options: {
     componentName: string

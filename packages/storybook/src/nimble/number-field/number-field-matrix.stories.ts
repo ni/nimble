@@ -19,7 +19,10 @@ import {
     requiredVisibleStates,
     type DisabledReadOnlyState,
     disabledReadOnlyStates,
-    backgroundStates
+    backgroundStates,
+    fullBleedStates,
+    type FullBleedState,
+    onlyDisabledAbsentStates
 } from '../../utilities/states';
 import { hiddenWrapper } from '../../utilities/hidden';
 import { textCustomizationWrapper } from '../../utilities/text-customization';
@@ -27,7 +30,8 @@ import { textCustomizationWrapper } from '../../utilities/text-customization';
 const appearanceStates = [
     ['Underline', NumberFieldAppearance.underline],
     ['Outline', NumberFieldAppearance.outline],
-    ['Block', NumberFieldAppearance.block]
+    ['Block', NumberFieldAppearance.block],
+    ['Frameless', NumberFieldAppearance.frameless]
 ] as const;
 type AppearanceState = (typeof appearanceStates)[number];
 
@@ -62,6 +66,7 @@ const component = (
         appearanceReadOnly
     ]: DisabledReadOnlyState,
     [appearanceName, appearance]: AppearanceState,
+    [fullBleedName, fullBleed]: FullBleedState,
     [requiredVisibleName, requiredVisible]: RequiredVisibleState,
     [hideStepName, hideStep]: HideStepState,
     [valueName, valueValue, placeholderValue]: ValueState,
@@ -84,10 +89,11 @@ const component = (
         error-text="${() => errorText}"
         ?error-visible="${() => errorVisible}"
         ?required-visible="${() => requiredVisible}"
+        ?full-bleed="${() => fullBleed}"
     >
-        ${() => errorName} ${() => appearanceName} ${() => valueName}
-        ${() => hideStepName} ${() => disabledReadOnlyName}
-        ${() => requiredVisibleName}
+        ${() => errorName} ${() => appearanceName} ${() => fullBleedName}
+        ${() => valueName} ${() => hideStepName}
+        ${() => disabledReadOnlyName} ${() => requiredVisibleName}
     </${numberFieldTag}>
 `;
 
@@ -102,36 +108,81 @@ if (remaining.length > 0) {
     throw new Error('New backgrounds need to be supported');
 }
 
-export const lightTheme: StoryFn = createFixedThemeStory(
+const stepsVisibleState = hideStepStates[0];
+const stepsHiddenState = hideStepStates[1];
+
+export const lightTheme$StepsHidden: StoryFn = createFixedThemeStory(
     createMatrix(component, [
         disabledReadOnlyStates,
         appearanceStates,
+        fullBleedStates,
         requiredVisibleStates,
-        hideStepStates,
+        [stepsHiddenState],
         valueStates,
         errorStates
     ]),
     lightThemeWhiteBackground
 );
 
-export const colorTheme: StoryFn = createFixedThemeStory(
+export const lightTheme$StepsVisible: StoryFn = createFixedThemeStory(
     createMatrix(component, [
         disabledReadOnlyStates,
         appearanceStates,
+        fullBleedStates,
         requiredVisibleStates,
-        hideStepStates,
+        [stepsVisibleState],
+        valueStates,
+        errorStates
+    ]),
+    lightThemeWhiteBackground
+);
+
+export const colorTheme$StepsHidden: StoryFn = createFixedThemeStory(
+    createMatrix(component, [
+        disabledReadOnlyStates,
+        appearanceStates,
+        fullBleedStates,
+        requiredVisibleStates,
+        [stepsHiddenState],
         valueStates,
         errorStates
     ]),
     colorThemeDarkGreenBackground
 );
 
-export const darkTheme: StoryFn = createFixedThemeStory(
+export const colorTheme$StepsVisible: StoryFn = createFixedThemeStory(
     createMatrix(component, [
         disabledReadOnlyStates,
         appearanceStates,
+        fullBleedStates,
         requiredVisibleStates,
-        hideStepStates,
+        [stepsVisibleState],
+        valueStates,
+        errorStates
+    ]),
+    colorThemeDarkGreenBackground
+);
+
+export const darkTheme$StepsHidden: StoryFn = createFixedThemeStory(
+    createMatrix(component, [
+        disabledReadOnlyStates,
+        appearanceStates,
+        fullBleedStates,
+        requiredVisibleStates,
+        [stepsHiddenState],
+        valueStates,
+        errorStates
+    ]),
+    darkThemeBlackBackground
+);
+
+export const darkTheme$StepsVisible: StoryFn = createFixedThemeStory(
+    createMatrix(component, [
+        disabledReadOnlyStates,
+        appearanceStates,
+        fullBleedStates,
+        requiredVisibleStates,
+        [stepsVisibleState],
         valueStates,
         errorStates
     ]),
@@ -143,6 +194,7 @@ const notRequiredState = requiredVisibleStates[0];
 const interactionStatesHover = cartesianProduct([
     disabledReadOnlyStates,
     appearanceStates,
+    fullBleedStates,
     [notRequiredState],
     [hideStepStateStepVisible],
     [valueStatesHasValue],
@@ -150,8 +202,9 @@ const interactionStatesHover = cartesianProduct([
 ] as const);
 
 const interactionStates = cartesianProduct([
-    disabledReadOnlyStates,
+    onlyDisabledAbsentStates,
     appearanceStates,
+    fullBleedStates,
     [notRequiredState],
     [hideStepStateStepVisible],
     [valueStatesHasValue],

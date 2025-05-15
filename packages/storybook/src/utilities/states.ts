@@ -58,6 +58,12 @@ export const requiredVisibleStates = [
 ] as const;
 export type RequiredVisibleState = (typeof requiredVisibleStates)[number];
 
+export const fullBleedStates = [
+    ['', false],
+    ['Full Bleed', true]
+] as const;
+export type FullBleedState = (typeof fullBleedStates)[number];
+
 export const disabledReadOnlyStates = [
     ['', false, false, false],
     ['Appearance-Read-Only', false, false, true],

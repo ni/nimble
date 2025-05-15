@@ -23,7 +23,8 @@ import {
     slottedLabelDescription,
     requiredVisibleDescription,
     placeholderDescription,
-    appearanceReadOnlyDescription
+    appearanceReadOnlyDescription,
+    fullBleedDescription
 } from '../../utilities/storybook';
 
 interface NumberFieldArgs extends LabelUserArgs {
@@ -43,6 +44,7 @@ interface NumberFieldArgs extends LabelUserArgs {
     input: undefined;
     requiredVisible: boolean;
     appearanceReadOnly: boolean;
+    fullBleed: boolean;
 }
 
 const metadata: Meta<NumberFieldArgs> = {
@@ -68,6 +70,7 @@ const metadata: Meta<NumberFieldArgs> = {
             ?error-visible="${x => x.errorVisible}"
             error-text="${x => x.errorText}"
             ?required-visible="${x => x.requiredVisible}"
+            ?full-bleed="${x => x.fullBleed}"
         >
             ${x => x.label}
         </${numberFieldTag}>
@@ -93,6 +96,13 @@ const metadata: Meta<NumberFieldArgs> = {
             options: Object.values(NumberFieldAppearance),
             control: { type: 'radio' },
             description: appearanceDescription({
+                componentName: 'number field'
+            }),
+            table: { category: apiCategory.attributes }
+        },
+        fullBleed: {
+            name: 'full-bleed',
+            description: fullBleedDescription({
                 componentName: 'number field'
             }),
             table: { category: apiCategory.attributes }
@@ -168,12 +178,13 @@ const metadata: Meta<NumberFieldArgs> = {
         min: -10,
         max: 50,
         appearance: NumberFieldAppearance.underline,
+        fullBleed: false,
         readonly: false,
         disabled: false,
+        appearanceReadOnly: false,
         errorVisible: false,
         errorText: 'Value is invalid',
-        requiredVisible: false,
-        appearanceReadOnly: false
+        requiredVisible: false
     }
 };
 addLabelUseMetadata(
@@ -203,5 +214,12 @@ export const blockNumberField: StoryObj<NumberFieldArgs> = {
     args: {
         label: 'Block Number Field',
         appearance: NumberFieldAppearance.block
+    }
+};
+
+export const framelessNumberField: StoryObj<NumberFieldArgs> = {
+    args: {
+        label: 'Frameless Number Field',
+        appearance: NumberFieldAppearance.frameless
     }
 };
