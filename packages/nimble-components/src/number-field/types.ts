@@ -5,7 +5,7 @@ export const NumberFieldAppearance = {
     underline: 'underline',
     outline: 'outline',
     block: 'block',
-    frameless: 'fameless'
+    frameless: 'frameless'
 } as const;
 
 export type NumberFieldAppearance =
