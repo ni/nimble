@@ -107,7 +107,7 @@ export const iconMetadata: {
         tags: ['status', 'alarm']
     },
     IconBellAndComment: {
-        tags: ['DEPRECATED']
+        tags: ['deprecated - prefer icon bell and message']
     },
     IconBellAndMessage: {
         tags: ['alarm', 'notification', 'comment']
@@ -245,7 +245,7 @@ export const iconMetadata: {
         tags: ['data indexing']
     },
     IconComment: {
-        tags: ['DEPRECATED']
+        tags: ['deprecated - prefer icon message']
     },
     IconComputerAndMonitor: {
         tags: ['devices and interfaces']

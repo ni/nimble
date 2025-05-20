@@ -1,6 +1,6 @@
 {
   "type": "minor",
-  "comment": "New icons for automate, dock, undock, ai-chat and specification",
+  "comment": "New icons for automate, dock, undock, ai-chat and specification. Icon comment deprecated in favor of icon message. . Icon bell and comment deprecated in favor of icon bell and message.",
   "packageName": "@ni/nimble-components",
   "email": "sandeep.appachiappan@ni.com",
   "dependentChangeType": "minor"
