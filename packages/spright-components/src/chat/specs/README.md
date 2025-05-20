@@ -147,12 +147,8 @@ richText.markdown = 'Welcome **Homer**, how can I help?';
 
 ```html
 <spright-chat-message message-type="inbound">
-    <nimble-button appearance="block" slot="end"
-        >Help with my taxes</nimble-button
-    >
-    <nimble-button appearance="block" slot="end"
-        >Provide me some life advice</nimble-button
-    >
+    <nimble-button appearance="block" slot="end">Help with my taxes</nimble-button>
+    <nimble-button appearance="block" slot="end">Provide me some life advice</nimble-button>
 </spright-chat-message>
 ```
 
@@ -379,4 +375,4 @@ There are parallel efforts to standardize and document other aspects of chat app
 
 ## Open Issues
 
-None.
+None
