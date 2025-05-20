@@ -10,7 +10,7 @@ This spec describes a set of components that can be used to compose a chat inter
 
 ### Background
 
-Some Intelligent Test application teams are beginning development on chat interfaces in early 2025. Developers from one of those teams will build these components as their first Nimble contribution.
+Some Intelligent Test application teams are beginning development on Blazor chat interfaces in early 2025. Developers from one of those teams will build these components as their first Nimble contribution. Additional products are expecting to leverage the same components in Angular.
 
 Initial designer-vetted visual designs exist in [Nimble_Components Figma](https://www.figma.com/design/PO9mFOu5BCl8aJvFchEeuN/Nimble_Components?node-id=12342-81782&node-type=canvas&t=L5GvLaC3injrqWrR-0).
 
@@ -77,7 +77,7 @@ The component also contains the following features:
 
 1. Accepts text input in a text area
     - the text area height is a single line initially but grows its height to fit the entered text up to a limit
-    - the text area has a configurable placeholder
+    - the text area has configurable placeholder text
 1. Includes a "Send" button for the user to submit the current input text
     - fires an event containing the current input content and then clears the content and sets keyboard focus back to the input
     - pressing Enter while the text area has focus will behave the same as clicking "Send"
@@ -202,7 +202,7 @@ richText.markdown = 'Welcome **Homer**, how can I help?';
 
 - _Component Name_ `spright-chat-input`
 - _Props/Attrs_
-    - `placeholder` - text to display in the text area when no text is available
+    - `placeholder` - text to display in the text area when no text has been entered
     - `send-button-label` - text to use for a `title` and ARIA attributes on the send button. See Accessibility section for more info.
 - _Methods_
 - _Events_
@@ -210,7 +210,7 @@ richText.markdown = 'Welcome **Homer**, how can I help?';
 - _CSS Classes and CSS Custom Properties that affect the component_
 - _How native CSS Properties (height, width, etc.) affect the component_
     - Clients can set the input width using normal CSS rules. The input will have a default minimum width that clients are discouraged from overriding.
-    - The input will have a default height to fit one line of text and will grow its height to fit more lines, up to a limit. After that limit. After that limit it will show a vertical scrollbar.
+    - The input will have a default height to fit one line of text and will grow its height to fit more lines, up to a limit. After that limit it will show a vertical scrollbar.
 - _Slots_
 
 ### Anatomy
@@ -254,7 +254,7 @@ One notable styling decision is that we plan to use [`field-sizing: content;`](h
 to implement the ability to grow the height of the text area as the user types. This
 [is not yet supported in Firefox or Safari](https://developer.mozilla.org/en-US/docs/Web/CSS/field-sizing#browser_compatibility).
 Initially clients will either use modern versions of Chromium-based browsers or will only leverage this component behind a feature flag. If
-that changes we will revisit this decision and consider implementing a JavaScript-based resizing solution.
+that changes before the feature is available in all supported browsers, we will revisit this decision and consider implementing a JavaScript-based resizing solution.
 
 ```html
 <div class="container">
@@ -313,20 +313,6 @@ The design spec includes a proposal to add another "Edit" button to the left of 
 
 Other aspects of accessibility have not yet been evaluated.
 
-#### Input
-
-The text field and button will each be keyboard focusable. This will be reflected visually to the user in accordance with the design spec.
-
-The Design team has requested a non-standard appearance for the send button: icon-only but rectangular shape. Nimble buttons support square icon-only buttons with an accessible label via `content-hidden` or rectangular buttons with text content visible. We will achieve the desired implementation by using a `nimble-button` with the following settings:
-
-- adding icon content in the `start` slot
-- not setting `content-hidden`
-- providing no text content
-- setting `aria-label` to the value of `send-button-label`
-- setting an explicit width
-
-The text area will have an ARIA role of `textbox` similar to other Nimble text input components.
-
 _Consider the accessibility of the component, including:_
 
 - _Keyboard Navigation and Focus_
@@ -338,6 +324,20 @@ _Consider the accessibility of the component, including:_
     - _Components should either follow an existing [ARIA Pattern](https://www.w3.org/WAI/ARIA/apg/patterns/) or provide thorough research indicating why a new pattern is appropriate. Research should include sources like [Open UI Community Group](https://github.com/openui/open-ui) and other popular design systems._
 - _Behavior with browser configurations like "Prefers reduced motion"_
 - _Support for standard link behaviors if the component is an anchor or contains an anchor. These behaviors are enumerated in the [anchor-patterns story](/packages/nimble-components/src/patterns/anchor/tests/anchor-patterns.mdx). The story should be updated to include the new component._
+
+#### Input
+
+The text field and button will each be keyboard focusable. This will be reflected visually to the user in accordance with the design spec.
+
+The Design team has requested a non-standard appearance for the "Send" button: icon-only but rectangular shape. Nimble buttons support square icon-only buttons with an accessible label via `content-hidden` or rectangular buttons with text content visible. We will achieve the desired implementation by using a `nimble-button` with the following settings:
+
+- adding icon content in the `start` slot
+- not setting `content-hidden`
+- providing no text content
+- setting `aria-label` to the value of `send-button-label`
+- setting an explicit width
+
+The text area will have an ARIA role of `textbox` similar to other Nimble text input components.
 
 ### Mobile
 
@@ -379,9 +379,4 @@ There are parallel efforts to standardize and document other aspects of chat app
 
 ## Open Issues
 
-These issues will not be resolved with the current planned work as they apply to the Chat Input Future Work features. They are captured
-
-1. Styling questions:
-    - how to clip text? currently visible in the padding area
-    - resize `field-sizing` only works on Chromium
-1.
+None.
