@@ -83,7 +83,7 @@ const component = (
     </${tableTag}>
 `;
 
-export const tableColumnAnchorThemeMatrix: StoryFn = createMatrixThemeStory(
+export const themeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(component, [
         appearanceStates,
         underlineHiddenStates,
@@ -91,7 +91,7 @@ export const tableColumnAnchorThemeMatrix: StoryFn = createMatrixThemeStory(
     ])
 );
 
-tableColumnAnchorThemeMatrix.play = async (): Promise<void> => {
+themeMatrix.play = async (): Promise<void> => {
     await Promise.all(
         Array.from(document.querySelectorAll(tableTag)).map(async table => {
             await table.setData(data);

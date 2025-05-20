@@ -84,7 +84,7 @@ const component = (
     <div style="height: var(${bannerGapSize.cssCustomProperty})"></div>
 `;
 
-export const bannerThemeMatrix: StoryFn = createMatrixThemeStory(
+export const themeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(component, [
         severityStates,
         actionStates,
@@ -93,7 +93,7 @@ export const bannerThemeMatrix: StoryFn = createMatrixThemeStory(
     ])
 );
 
-export const hiddenBanner: StoryFn = createStory(
+export const hidden: StoryFn = createStory(
     hiddenWrapper(
         html`<${bannerTag} hidden>
             <span slot="title">Hidden banner</span>

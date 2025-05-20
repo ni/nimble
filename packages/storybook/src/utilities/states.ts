@@ -57,3 +57,38 @@ export const requiredVisibleStates = [
     ['Required', true]
 ] as const;
 export type RequiredVisibleState = (typeof requiredVisibleStates)[number];
+
+export const disabledReadOnlyStates = [
+    ['', false, false, false],
+    ['Appearance-Read-Only', false, false, true],
+    ['Disabled', false, true, false],
+    ['Disabled Appearance-Read-Only', false, true, true],
+    ['Read-Only', true, false, false],
+    ['Read-Only Appearance-Read-Only', true, false, true],
+    ['Read-Only Disabled', true, true, false],
+    ['Read-Only Disabled Appearance-Read-Only', true, true, true]
+] as const;
+export type DisabledReadOnlyState = (typeof disabledReadOnlyStates)[number];
+
+export const disabledReadOnlyState = {
+    none: disabledReadOnlyStates[0],
+    appearanceReadOnly: disabledReadOnlyStates[1],
+    disabled: disabledReadOnlyStates[2],
+    disabledAppearanceReadOnly: disabledReadOnlyStates[3],
+    readOnly: disabledReadOnlyStates[4],
+    readOnlyAppearanceReadOnly: disabledReadOnlyStates[5],
+    readOnlyDisabled: disabledReadOnlyStates[6],
+    readOnlyDisabledAppearanceReadOnly: disabledReadOnlyStates[7]
+} as const;
+
+export const onlyDisabledAbsentStates = disabledReadOnlyStates.filter(
+    (
+        state: readonly [
+            name: string,
+            readOnly: boolean,
+            disabled: boolean,
+            appearanceReadonly: boolean
+        ]
+    ) => state[2] === false
+);
+export type OnlyDisabledAbsentState = (typeof onlyDisabledAbsentStates)[number];

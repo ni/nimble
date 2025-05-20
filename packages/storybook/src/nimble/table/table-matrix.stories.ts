@@ -144,28 +144,28 @@ const playFunction = async (): Promise<void> => {
     );
 };
 
-export const tableNoSelectionThemeMatrix: StoryFn = createMatrixThemeStory(
+export const noSelectionThemeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(component, [[undefined], groupedStates, hierarchyStates])
 );
-tableNoSelectionThemeMatrix.play = playFunction;
+noSelectionThemeMatrix.play = playFunction;
 
-export const tableSingleSelectionThemeMatrix: StoryFn = createMatrixThemeStory(
+export const singleSelectionThemeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(component, [
         [TableRowSelectionMode.single],
         groupedStates,
         hierarchyStates
     ])
 );
-tableSingleSelectionThemeMatrix.play = playFunction;
+singleSelectionThemeMatrix.play = playFunction;
 
-export const tableMultipleSelectionThemeMatrix: StoryFn = createMatrixThemeStory(
+export const multipleSelectionThemeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(component, [
         [TableRowSelectionMode.multiple],
         groupedStates,
         hierarchyStates
     ])
 );
-tableMultipleSelectionThemeMatrix.play = playFunction;
+multipleSelectionThemeMatrix.play = playFunction;
 
 const groupedStatesGroupingEnabled = groupedStates[0];
 const hierarchyStatesHierarchyEnabled = hierarchyStates[0];
@@ -174,7 +174,7 @@ const tableKeyboardFocusStates = cartesianProduct([
     [groupedStatesGroupingEnabled],
     [hierarchyStatesHierarchyEnabled]
 ] as const);
-export const tableKeyboardFocusThemeMatrix: StoryFn = createMatrixThemeStory(
+export const keyboardFocusThemeMatrix: StoryFn = createMatrixThemeStory(
     createMatrixInteractionsFromStates(component, {
         hover: [],
         hoverActive: [],
@@ -182,8 +182,8 @@ export const tableKeyboardFocusThemeMatrix: StoryFn = createMatrixThemeStory(
         focus: tableKeyboardFocusStates
     })
 );
-tableKeyboardFocusThemeMatrix.play = playFunction;
+keyboardFocusThemeMatrix.play = playFunction;
 
-export const hiddenTable: StoryFn = createStory(
+export const hidden: StoryFn = createStory(
     hiddenWrapper(html`<${tableTag} hidden></${tableTag}>`)
 );

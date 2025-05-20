@@ -76,21 +76,21 @@ const playFunction = async (rowCount: number): Promise<void> => {
     );
 };
 
-export const tableFitRowsHeightWith5Rows: StoryFn = createFixedThemeStory(
+export const fit5Rows: StoryFn = createFixedThemeStory(
     createMatrix(component, [groupingStates, minColumnWidthStates]),
     backgroundStates[0]
 );
 
-tableFitRowsHeightWith5Rows.play = async () => await playFunction(5);
+fit5Rows.play = async () => await playFunction(5);
 
-export const tableFitRowsHeightWith10Rows: StoryFn = createFixedThemeStory(
+export const fit10Rows: StoryFn = createFixedThemeStory(
     createMatrix(component, [groupingStates, minColumnWidthStates]),
     backgroundStates[0]
 );
-tableFitRowsHeightWith10Rows.play = async () => await playFunction(10);
+fit10Rows.play = async () => await playFunction(10);
 
-export const tableFitRowsHeightWith50Rows: StoryFn = createFixedThemeStory(
+export const fit50Rows: StoryFn = createFixedThemeStory(
     createMatrix(component, [groupingStates, minColumnWidthStates]),
     backgroundStates[0]
 );
-tableFitRowsHeightWith50Rows.play = async () => await playFunction(50);
+fit50Rows.play = async () => await playFunction(50);

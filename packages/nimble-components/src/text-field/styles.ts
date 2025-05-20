@@ -24,6 +24,7 @@ import { styles as errorStyles } from '../patterns/error/styles';
 import { styles as requiredVisibleStyles } from '../patterns/required-visible/styles';
 import { userSelectNone } from '../utilities/style/user-select';
 
+// prettier-ignore
 export const styles = css`
     ${display('inline-block')}
     ${errorStyles}
@@ -38,10 +39,15 @@ export const styles = css`
         --ni-private-height-within-border: calc(
             ${controlHeight} - 2 * ${borderWidth}
         );
+        --ni-private-default-start-slot-opacity: 0.6;
     }
 
     :host([disabled]) {
         color: ${bodyDisabledFontColor};
+    }
+
+    :host([disabled][appearance-readonly]) {
+        color: ${bodyFontColor};
     }
 
     .label {
@@ -52,6 +58,10 @@ export const styles = css`
 
     :host([disabled]) .label {
         color: ${controlLabelDisabledFontColor};
+    }
+
+    :host([disabled][appearance-readonly]) .label {
+        color: ${controlLabelFontColor};
     }
 
     .root {
@@ -119,12 +129,16 @@ export const styles = css`
 
     slot[name='start']::slotted(*) {
         flex: none;
-        opacity: 0.6;
+        opacity: var(--ni-private-default-start-slot-opacity);
         margin-right: ${smallPadding};
     }
 
     :host([disabled]) slot[name='start']::slotted(*) {
         opacity: 0.3;
+    }
+
+    :host([disabled][appearance-readonly]) slot[name='start']::slotted(*) {
+        opacity: var(--ni-private-default-start-slot-opacity);
     }
 
     .control {
@@ -157,12 +171,20 @@ export const styles = css`
         text-overflow: clip;
     }
 
+    :host([disabled][appearance-readonly]) .control {
+        cursor: text;
+    }
+
     .control::placeholder {
         color: ${controlLabelFontColor};
     }
 
-    .control[disabled]::placeholder {
+    :host([disabled]) .control::placeholder {
         color: ${bodyDisabledFontColor};
+    }
+
+    :host([disabled][appearance-readonly]) .control::placeholder {
+        color: ${controlLabelFontColor};
     }
 
     [part='end'] {

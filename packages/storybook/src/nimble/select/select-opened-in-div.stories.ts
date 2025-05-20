@@ -36,9 +36,9 @@ const component = ([
     </div>
 `;
 
-export const selectBelowNotConfinedByDiv: StoryFn = createStory(
+export const openBelow$NotConfinedByDiv: StoryFn = createStory(
     component(positionStates[0])
 );
-export const selectAboveNotConfinedByDiv: StoryFn = createStory(
+export const openAbove$NotConfinedByDiv: StoryFn = createStory(
     component(positionStates[1])
 );

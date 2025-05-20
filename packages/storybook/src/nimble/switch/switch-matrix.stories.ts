@@ -46,12 +46,12 @@ const component = (
     </${switchTag}>
 `;
 
-export const switchThemeMatrix: StoryFn = createMatrixThemeStory(
+export const themeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(component, [checkedStates, disabledStates, messagesStates])
 );
 
 // prettier-ignore
-export const hiddenSwitch: StoryFn = createStory(
+export const hidden: StoryFn = createStory(
     hiddenWrapper(
         html`<${switchTag} hidden>Hidden Switch</${switchTag}>`
     )

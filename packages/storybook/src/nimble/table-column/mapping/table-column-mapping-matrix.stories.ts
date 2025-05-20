@@ -102,9 +102,9 @@ const component = (): ViewTemplate => html`
     </${tableTag}>
 `;
 
-export const tableColumnMappingThemeMatrix: StoryFn = createMatrixThemeStory(component());
+export const themeMatrix: StoryFn = createMatrixThemeStory(component());
 
-tableColumnMappingThemeMatrix.play = async (): Promise<void> => {
+themeMatrix.play = async (): Promise<void> => {
     await Promise.all(
         Array.from(document.querySelectorAll(tableTag)).map(async table => {
             await table.setData(data);

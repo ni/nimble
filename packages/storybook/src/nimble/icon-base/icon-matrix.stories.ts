@@ -36,10 +36,10 @@ const component = ([stateName, state]: SeverityState): ViewTemplate => html`
     <${iconCheckTag} severity="${() => state}"></${iconCheckTag}>
 `;
 
-export const iconThemeMatrix: StoryFn = createMatrixThemeStory(
+export const themeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(component, [severityStates])
 );
 
-export const hiddenIcon: StoryFn = createStory(
+export const hidden: StoryFn = createStory(
     hiddenWrapper(html`<${iconCheckTag} hidden></${iconCheckTag}>`)
 );

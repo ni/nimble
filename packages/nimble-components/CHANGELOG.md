@@ -1,8 +1,32 @@
 # Change Log - @ni/nimble-components
 
-<!-- This log was last generated on Wed, 02 Apr 2025 17:16:54 GMT and should not be manually modified. -->
+<!-- This log was last generated on Wed, 14 May 2025 18:31:13 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 33.4.0
+
+Wed, 14 May 2025 18:31:13 GMT
+
+### Minor changes
+
+- Add appearance-readonly to nimble-text-area ([ni/nimble@0170567](https://github.com/ni/nimble/commit/0170567a2176c1ab12c92157426b49ee573cb50b))
+
+## 33.3.0
+
+Wed, 14 May 2025 17:01:13 GMT
+
+### Minor changes
+
+- Add appearance-readonly to nimble-number-field ([ni/nimble@3a0e4f6](https://github.com/ni/nimble/commit/3a0e4f636c41b3844a1852c32091c4f96b2e8225))
+
+## 33.2.0
+
+Tue, 06 May 2025 21:28:46 GMT
+
+### Minor changes
+
+- Add appearance-readonly to nimble-text-field ([ni/nimble@54e2dc7](https://github.com/ni/nimble/commit/54e2dc77bbdd3e8c0a68931930c670cc87d4b7ef))
 
 ## 33.1.1
 

@@ -59,7 +59,7 @@ const component = (
     ${checkedName} ${indeterminateName} ${disabledName} ${errorName} ${extraText}
 </${checkboxTag}>`;
 
-export const checkboxThemeMatrix: StoryFn = createMatrixThemeStory(
+export const themeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(component, [
         disabledStates,
         checkedStates,
@@ -69,7 +69,7 @@ export const checkboxThemeMatrix: StoryFn = createMatrixThemeStory(
     ])
 );
 
-export const hiddenCheckbox: StoryFn = createStory(
+export const hidden: StoryFn = createStory(
     hiddenWrapper(html`<${checkboxTag} hidden>Hidden Checkbox</${checkboxTag}>`)
 );
 

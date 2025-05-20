@@ -31,6 +31,9 @@ export class TextArea extends mixinErrorPattern(
     @attr
     public appearance: TextAreaAppearance = TextAreaAppearance.outline;
 
+    @attr({ attribute: 'appearance-readonly', mode: 'boolean' })
+    public appearanceReadOnly = false;
+
     /**
      * The width of the vertical scrollbar, if displayed.
      * @internal
