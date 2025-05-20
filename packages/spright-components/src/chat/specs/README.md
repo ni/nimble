@@ -75,7 +75,7 @@ The component also contains the following features:
 
 ##### In scope
 
-1. Accepts text input in a text area 
+1. Accepts text input in a text area
     - the text area height is a single line initially but grows its height to fit the entered text up to a limit
     - the text area has a configurable placeholder
 1. Includes a "Send" button for the user to submit the current input text
@@ -147,16 +147,19 @@ richText.markdown = 'Welcome **Homer**, how can I help?';
 
 ```html
 <spright-chat-message message-type="inbound">
-    <nimble-button appearance="block" slot="end">Help with my taxes</nimble-button>
-    <nimble-button appearance="block" slot="end">Provide me some life advice</nimble-button>
+    <nimble-button appearance="block" slot="end"
+        >Help with my taxes</nimble-button
+    >
+    <nimble-button appearance="block" slot="end"
+        >Provide me some life advice</nimble-button
+    >
 </spright-chat-message>
 ```
 
 #### Input example
 
 ```html
-<spright-chat-input placeholder="Ask Nigel">
-</spright-chat-input>
+<spright-chat-input placeholder="Ask Nigel"> </spright-chat-input>
 ```
 
 ### API
@@ -199,11 +202,11 @@ richText.markdown = 'Welcome **Homer**, how can I help?';
 
 - _Component Name_ `spright-chat-input`
 - _Props/Attrs_
-   - `placeholder` - text to display in the text area when no text is available
-   - `send-button-label` - text to use for a `title` and ARIA attributes on the send button. See Accessibility section for more info.
+    - `placeholder` - text to display in the text area when no text is available
+    - `send-button-label` - text to use for a `title` and ARIA attributes on the send button. See Accessibility section for more info.
 - _Methods_
 - _Events_
-   - `send` - emitted when the user clicks the button or presses Enter with text present. Includes `ChatInputSendEventDetail` which is an object with a `text` field containing the input contents.
+    - `send` - emitted when the user clicks the button or presses Enter with text present. Includes `ChatInputSendEventDetail` which is an object with a `text` field containing the input contents.
 - _CSS Classes and CSS Custom Properties that affect the component_
 - _How native CSS Properties (height, width, etc.) affect the component_
     - Clients can set the input width using normal CSS rules. The input will have a default minimum width that clients are discouraged from overriding.
@@ -252,7 +255,6 @@ to implement the ability to grow the height of the text area as the user types. 
 [is not yet supported in Firefox or Safari](https://developer.mozilla.org/en-US/docs/Web/CSS/field-sizing#browser_compatibility).
 Initially clients will either use modern versions of Chromium-based browsers or will only leverage this component behind a feature flag. If
 that changes we will revisit this decision and consider implementing a JavaScript-based resizing solution.
-        
 
 ```html
 <div class="container">
@@ -269,7 +271,7 @@ that changes we will revisit this decision and consider implementing a JavaScrip
         @click=${x => x.sendButtonClickHandler()}
     >
         <${iconPaperPlaneTag} slot="start"><${iconPaperPlaneTag}/>
-    </${buttonTag}>    
+    </${buttonTag}>
 </div>
 ```
 
@@ -316,11 +318,12 @@ Other aspects of accessibility have not yet been evaluated.
 The text field and button will each be keyboard focusable. This will be reflected visually to the user in accordance with the design spec.
 
 The Design team has requested a non-standard appearance for the send button: icon-only but rectangular shape. Nimble buttons support square icon-only buttons with an accessible label via `content-hidden` or rectangular buttons with text content visible. We will achieve the desired implementation by using a `nimble-button` with the following settings:
- - adding icon content in the `start` slot 
- - not setting `content-hidden`
- - providing no text content
- - setting `aria-label` to the value of `send-button-label`
- - setting an explicit width
+
+- adding icon content in the `start` slot
+- not setting `content-hidden`
+- providing no text content
+- setting `aria-label` to the value of `send-button-label`
+- setting an explicit width
 
 The text area will have an ARIA role of `textbox` similar to other Nimble text input components.
 
@@ -376,9 +379,9 @@ There are parallel efforts to standardize and document other aspects of chat app
 
 ## Open Issues
 
-These issues will not be resolved with the current planned work as they apply to the Chat Input Future Work features. They are captured 
+These issues will not be resolved with the current planned work as they apply to the Chat Input Future Work features. They are captured
 
 1. Styling questions:
-   - how to clip text? currently visible in the padding area
-   - resize `field-sizing` only works on Chromium
-1. 
+    - how to clip text? currently visible in the padding area
+    - resize `field-sizing` only works on Chromium
+1.
