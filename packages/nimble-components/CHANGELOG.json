@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 20 May 2025 21:01:44 GMT",
+      "version": "33.5.0",
+      "tag": "@ni/nimble-components_v33.5.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "bac11513d184d751b2f1595984ce2e52d2af5a54",
+            "comment": "Update nimble-number-field to support frameless and full-bleed styling"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 14 May 2025 18:31:13 GMT",
       "version": "33.4.0",
       "tag": "@ni/nimble-components_v33.4.0",
