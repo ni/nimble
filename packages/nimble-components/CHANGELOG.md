@@ -1,8 +1,24 @@
 # Change Log - @ni/nimble-components
 
-<!-- This log was last generated on Wed, 14 May 2025 18:31:13 GMT and should not be manually modified. -->
+<!-- This log was last generated on Tue, 20 May 2025 21:33:37 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 33.6.0
+
+Tue, 20 May 2025 21:33:37 GMT
+
+### Minor changes
+
+- Add appearance-readonly to nimble-select and nimble-combobox ([ni/nimble@f137a31](https://github.com/ni/nimble/commit/f137a31937d8d173005539f744a3bc379f85a99d))
+
+## 33.5.0
+
+Tue, 20 May 2025 21:01:44 GMT
+
+### Minor changes
+
+- Update nimble-number-field to support frameless and full-bleed styling ([ni/nimble@bac1151](https://github.com/ni/nimble/commit/bac11513d184d751b2f1595984ce2e52d2af5a54))
 
 ## 33.4.0
 
