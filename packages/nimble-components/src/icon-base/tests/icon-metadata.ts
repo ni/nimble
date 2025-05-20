@@ -107,7 +107,10 @@ export const iconMetadata: {
         tags: ['status', 'alarm']
     },
     IconBellAndComment: {
-        tags: ['alarm', 'notification']
+        tags: ['DEPRECATED']
+    },
+    IconBellAndMessage: {
+        tags: ['alarm', 'notification', 'comment']
     },
     IconBellCheck: {
         tags: ['acknowledged', 'alarm']
@@ -242,7 +245,7 @@ export const iconMetadata: {
         tags: ['data indexing']
     },
     IconComment: {
-        tags: ['notes', 'alarm notes', 'speech', 'bubble']
+        tags: ['DEPRECATED']
     },
     IconComputerAndMonitor: {
         tags: ['devices and interfaces']
@@ -432,6 +435,9 @@ export const iconMetadata: {
     },
     IconMarkdown: {
         tags: []
+    },
+    IconMessage: {
+        tags: ['comment', 'notes', 'alarm notes', 'speech', 'bubble']
     },
     IconMessagesSparkle: {
         tags: ['nigel-chatbot', 'ai', 'chat', 'help', 'conversation', 'comment']
