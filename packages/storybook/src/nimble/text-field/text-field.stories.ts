@@ -20,7 +20,8 @@ import {
     placeholderDescription,
     slottedLabelDescription,
     requiredVisibleDescription,
-    appearanceReadOnlyDescription
+    appearanceReadOnlyDescription,
+    fullBleedDescription
 } from '../../utilities/storybook';
 
 interface TextFieldArgs {
@@ -114,8 +115,7 @@ const metadata: Meta<TextFieldArgs> = {
         },
         fullBleed: {
             name: 'full-bleed',
-            description:
-                'Remove the start and end margins causing the text to stretch across the full control width. Only applies to the frameless appearance.',
+            description: fullBleedDescription({ componentName: 'text field' }),
             table: { category: apiCategory.attributes }
         },
         value: {
