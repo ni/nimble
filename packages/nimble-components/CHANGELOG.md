@@ -1,8 +1,17 @@
 # Change Log - @ni/nimble-components
 
-<!-- This log was last generated on Tue, 20 May 2025 21:33:37 GMT and should not be manually modified. -->
+<!-- This log was last generated on Tue, 20 May 2025 23:06:06 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 33.7.0
+
+Tue, 20 May 2025 23:06:06 GMT
+
+### Minor changes
+
+- New icons for automate, dock, undock, ai-chat and specification. Icon comment deprecated in favor of icon message. Icon bell and comment deprecated in favor of icon bell and message. ([ni/nimble@dbeed1f](https://github.com/ni/nimble/commit/dbeed1ff0038510c2d746bc8d3bdfe221c1b40cb))
+- Bump @ni/nimble-tokens to v8.9.0
 
 ## 33.6.0
 
