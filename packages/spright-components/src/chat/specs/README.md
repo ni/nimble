@@ -6,6 +6,7 @@ This spec describes a set of components that can be used to compose a chat inter
 
 - chat message: a single entry in a chat conversation, including some content and metadata about the message
 - chat conversation: a collection of messages that are laid out to convey the order the messages were sent
+- chat input: a text input, button, and related components for users to compose and send new messages
 
 ### Background
 
@@ -13,9 +14,13 @@ Some Intelligent Test application teams are beginning development on chat interf
 
 Initial designer-vetted visual designs exist in [Nimble_Components Figma](https://www.figma.com/design/PO9mFOu5BCl8aJvFchEeuN/Nimble_Components?node-id=12342-81782&node-type=canvas&t=L5GvLaC3injrqWrR-0).
 
-There is not yet an interaction design specification for these components.
+Initial application interaction designs exist in [a separate Figma](https://www.figma.com/design/G2KimFrkqrHMHQIFvKVDC4/AI-Chat-in-LabVIEW-TestStand-Specs).
 
-This work started with an innovation project ([branch](https://github.com/ni/nimble/compare/main...spright-chat-components)) and is not yet tracked with an issue.
+There is not yet a detailed Nimble interaction design specification for these components.
+
+A [Blazor implementation of the chat input component](https://dev.azure.com/ni/DevCentral/_git/ASW?path=%2FSource%2FMeasurementServices%2FAiAssistants%2FControls%2FComponents%2FInputTextArea.razor&version=GBfeatures%2FAIAssistants&_a=contents) exists in a client application.
+
+#2551 can be resolved with the addition of the input component.
 
 ### Containing Library
 
@@ -30,18 +35,6 @@ These components will initially be added to Spright. Per [Spright contributing g
 The components will only provide the presentation layer, not logic for interacting with each other or any service to add messages to a conversation.
 
 The message component will allow slotting arbitrary content, but any efforts to add content types to Nimble are out of scope of this document. For example, adding capabilities to the rich text viewer or adding styling for specific content types.
-
-We will not yet introduce an input toolbar component where a user can type and send messages and interact with related buttons. For now applications can construct this using the existing Nimble toolbar.
-
-    - Pros of dedicated component:
-
-        1. consistent layout and reduced implementation effort across applications
-        1. single implementation to change if requirements change
-
-    - Pros of applications leveraging Nimble toolbar:
-
-        1. dedicated component would require a large API surface area for configuring the visibility and enabled state of numerous buttons and firing events when the user interacts with the toolbar inputs.
-        1. allows more rapid experimentation while input use cases and interactions are still being solidified
 
 ### Features
 
@@ -77,6 +70,21 @@ The component also contains the following features:
 1. Lays out messages vertically based on their order.
 1. Displays a vertical scrollbar if there are more messages than fit in the height allocated to the conversation.
 1. Only appearance of its own is to set a background color.
+
+#### Chat input
+
+1. Accepts text input in a text area 
+    - the text area height is a single line initially but grows to fit the entered text
+    - the amount of text is limited and an indicator will show how close the user is to that limit
+    - the text area has a configurable placeholder
+1. Includes a "Send" button for the user to submit the current input text
+    - which fires an event containing the current input content and then clears the content
+    - pressing Enter while the text area has focus will behave the same as clicking "Send"
+    - pressing Shift-Enter will create a newline
+    - the button is disabled if the input text is empty
+1. Includes a "Stop" button for the user to abort a sent message
+1. Includes slots for specifying additional content like a button for attaching files and chips for viewing/clearing attached files
+1. Displays errors via the standard red `!` icon and error text
 
 ### Risks and Challenges
 
@@ -209,7 +217,7 @@ Native form integration is not needed for these components.
 
 ### Angular integration
 
-Angular integration has not yet been evaluated in detail, but is expected to be able to follow existing patterns. It is not anticipated to be needed for initial clients.
+Angular wrappers have been created.
 
 ### Blazor integration
 
@@ -289,4 +297,13 @@ There are parallel efforts to standardize and document other aspects of chat app
 
 ## Open Issues
 
-None
+1. Slots for attachments or dedicated APIs? Probably slots, UX anticipates more content.
+1. New chip/pill component?
+1. Responsive reflow
+1. Styling questions:
+   - how to clip text? currently visible in the padding area
+   - resize `field-sizing` only works on Chromium
+1. tab order / toolbar for buttons?
+1. Submit button: content-hidden but not square? Default title=send/submit/none?
+1. API for swapping to cancel button? For disabling send button?
+1. 
