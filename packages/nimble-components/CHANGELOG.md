@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-<!-- This log was last generated on Tue, 20 May 2025 21:01:44 GMT and should not be manually modified. -->
+<!-- This log was last generated on Tue, 20 May 2025 21:33:37 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 33.6.0
+
+Tue, 20 May 2025 21:33:37 GMT
+
+### Minor changes
+
+- Add appearance-readonly to nimble-select and nimble-combobox ([ni/nimble@f137a31](https://github.com/ni/nimble/commit/f137a31937d8d173005539f744a3bc379f85a99d))
 
 ## 33.5.0
 
