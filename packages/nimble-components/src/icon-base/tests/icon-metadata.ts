@@ -440,7 +440,7 @@ export const iconMetadata: {
         tags: ['comment', 'notes', 'alarm notes', 'speech', 'bubble']
     },
     IconMessagesSparkle: {
-        tags: ['nigel-chatbot', 'ai', 'chat', 'help', 'conversation', 'comment']
+        tags: ['nigel', 'chatbot', 'ai', 'chat', 'help', 'conversation', 'comment']
     },
     IconMicrophone: {
         tags: ['talk to text', 'speech', 'speak', 'sound', 'audio']
