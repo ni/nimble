@@ -3,5 +3,5 @@
   "comment": "New icons for automate, dock, undock, ai-chat and specification",
   "packageName": "@ni/nimble-tokens",
   "email": "sandeep.appachiappan@ni.com",
-  "dependentChangeType": "patch"
+  "dependentChangeType": "minor"
 }
