@@ -88,6 +88,9 @@ export const iconMetadata: {
     IconArrowsRepeat: {
         tags: ['status', 'looping']
     },
+    IconArrowsRotateReverseDot: {
+        tags: ['automatic', 'automate', 'auto']
+    },
     IconArrowUp: {
         tags: ['sort', 'arrow', 'up', 'ascending']
     },
@@ -127,14 +130,14 @@ export const iconMetadata: {
     IconBookMagnifyingGlass: {
         tags: ['analyze']
     },
+    IconCalendarArrowsRotateReverseDot: {
+        tags: ['auto-schedule', 'automate', 'automatic']
+    },
     IconCalendarCheckLines: {
         tags: ['test', 'plan', 'schedule']
     },
     IconCalendarClock: {
         tags: ['time', 'schedule']
-    },
-    IconCalendarCircleArrow: {
-        tags: ['auto-schedule', 'automate', 'automatic']
     },
     IconCalendarDay: {
         tags: ['date']
@@ -174,9 +177,6 @@ export const iconMetadata: {
     },
     IconCircle: {
         tags: ['status', 'connected']
-    },
-    IconCircleArrowDot: {
-        tags: ['automatic', 'automate', 'auto']
     },
     IconCircleBroken: {
         tags: ['status', 'disconnected']
@@ -276,9 +276,6 @@ export const iconMetadata: {
     },
     IconDesktop: {
         tags: ['monitor']
-    },
-    IconDockWindow: {
-        tags: ['dock', 'place', 'embed']
     },
     IconDonutChart: {
         tags: []
@@ -436,6 +433,9 @@ export const iconMetadata: {
     IconMarkdown: {
         tags: []
     },
+    IconMessagesSparkle: {
+        tags: ['nigel-chatbot', 'ai', 'chat', 'help', 'conversation', 'comment']
+    },
     IconMicrophone: {
         tags: ['talk to text', 'speech', 'speak', 'sound', 'audio']
     },
@@ -465,9 +465,6 @@ export const iconMetadata: {
     },
     IconOutwardSquaresThree: {
         tags: ['undeploy']
-    },
-    IconPageListCog: {
-        tags: ['specification', 'requirements']
     },
     IconPaperclip: {
         tags: ['attachment', 'add document', 'browse']
@@ -541,6 +538,9 @@ export const iconMetadata: {
     IconSquareCheck: {
         tags: ['test insights']
     },
+    IconSquareListCog: {
+        tags: ['specification', 'requirements']
+    },
     IconSquareT: {
         tags: ['static text']
     },
@@ -613,17 +613,11 @@ export const iconMetadata: {
     IconTriangleTwoLinesHorizontal: {
         tags: ['collapse all']
     },
-    IconTwoChatSparkle: {
-        tags: ['nigel-chatbot', 'ai', 'chat', 'help', 'conversation']
-    },
     IconTwoSquaresInBrackets: {
         tags: ['group by']
     },
     IconTwoTrianglesBetweenLines: {
         tags: ['size column to content']
-    },
-    IconUndockWindow: {
-        tags: ['undock', 'remove']
     },
     IconUnlink: {
         tags: ['link broken']
@@ -654,6 +648,12 @@ export const iconMetadata: {
     },
     IconWindowCode: {
         tags: ['http api']
+    },
+    IconWindowDock: {
+        tags: ['dock', 'place', 'embed', 'attach']
+    },
+    IconWindowRestore: {
+        tags: ['undock', 'remove']
     },
     IconWindowText: {
         tags: ['manual']
