@@ -133,6 +133,9 @@ export const iconMetadata: {
     IconCalendarClock: {
         tags: ['time', 'schedule']
     },
+    IconCalendarCircleArrow: {
+        tags: ['auto-schedule', 'automate', 'automatic']
+    },
     IconCalendarDay: {
         tags: ['date']
     },
@@ -171,6 +174,9 @@ export const iconMetadata: {
     },
     IconCircle: {
         tags: ['status', 'connected']
+    },
+    IconCircleArrowDot: {
+        tags: ['automatic', 'automate', 'auto']
     },
     IconCircleBroken: {
         tags: ['status', 'disconnected']
@@ -270,6 +276,9 @@ export const iconMetadata: {
     },
     IconDesktop: {
         tags: ['monitor']
+    },
+    IconDockWindow: {
+        tags: ['dock', 'place', 'embed']
     },
     IconDonutChart: {
         tags: []
@@ -457,6 +466,9 @@ export const iconMetadata: {
     IconOutwardSquaresThree: {
         tags: ['undeploy']
     },
+    IconPageListCog: {
+        tags: ['specification', 'requirements']
+    },
     IconPaperclip: {
         tags: ['attachment', 'add document', 'browse']
     },
@@ -601,11 +613,17 @@ export const iconMetadata: {
     IconTriangleTwoLinesHorizontal: {
         tags: ['collapse all']
     },
+    IconTwoChatSparkle: {
+        tags: ['nigel-chatbot', 'ai', 'chat', 'help', 'conversation']
+    },
     IconTwoSquaresInBrackets: {
         tags: ['group by']
     },
     IconTwoTrianglesBetweenLines: {
         tags: ['size column to content']
+    },
+    IconUndockWindow: {
+        tags: ['undock', 'remove']
     },
     IconUnlink: {
         tags: ['link broken']
