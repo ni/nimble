@@ -73,15 +73,20 @@ The component also contains the following features:
 
 #### Chat input
 
+##### In scope
+
 1. Accepts text input in a text area 
-    - the text area height is a single line initially but grows to fit the entered text
-    - the amount of text is limited and an indicator will show how close the user is to that limit
+    - the text area height is a single line initially but grows its height to fit the entered text up to a limit
     - the text area has a configurable placeholder
 1. Includes a "Send" button for the user to submit the current input text
-    - which fires an event containing the current input content and then clears the content
+    - fires an event containing the current input content and then clears the content and sets keyboard focus back to the input
     - pressing Enter while the text area has focus will behave the same as clicking "Send"
     - pressing Shift-Enter will create a newline
-    - the button is disabled if the input text is empty
+    - the button is disabled and Enter has no effect if the input text is empty
+1. Styling for default, focus, and rollover states
+
+##### Future work
+
 1. Includes a "Stop" button for the user to abort a sent message
 1. Includes slots for specifying additional content like a button for attaching files and chips for viewing/clearing attached files
 1. Displays errors via the standard red `!` icon and error text
@@ -92,8 +97,11 @@ These components are competing against possible implementations within applicati
 
 ### Prior Art/Examples
 
-**Screenshot of Figma design of chat and conversation component (light mode)**  
+**Screenshot of Figma design of message and conversation component (light mode)**  
 ![ ](spec-images/chat-conversation.png)
+
+**Screenshot of Figma design of chat input component (light mode)**  
+![ ](spec-images/chat-input.png)
 
 **Screenshot of Figma design of chat components embeded within larger pane (dark mode)**  
 ![ ](spec-images/chat-pane.png)
@@ -141,7 +149,14 @@ richText.markdown = 'Welcome **Homer**, how can I help?';
 <spright-chat-message message-type="inbound">
     <nimble-button appearance="block" slot="end">Help with my taxes</nimble-button>
     <nimble-button appearance="block" slot="end">Provide me some life advice</nimble-button>
-</spright-chat-message
+</spright-chat-message>
+```
+
+#### Input example
+
+```html
+<spright-chat-input placeholder="Ask Nigel">
+</spright-chat-input>
 ```
 
 ### API
@@ -180,6 +195,21 @@ richText.markdown = 'Welcome **Homer**, how can I help?';
 - _Slots_
     - chat messages are added to the default slot. The DOM order of the messages controls their screen order within the conversation (earlier DOM order => earlier message => top of the conversation)
 
+#### Input
+
+- _Component Name_ `spright-chat-input`
+- _Props/Attrs_
+   - `placeholder` - text to display in the text area when no text is available
+   - `send-button-label` - text to use for a `title` and ARIA attributes on the send button. See Accessibility section for more info.
+- _Methods_
+- _Events_
+   - `send` - emitted when the user clicks the button or presses Enter with text present. Includes `ChatInputSendEventDetail` which is an object with a `text` field containing the input contents.
+- _CSS Classes and CSS Custom Properties that affect the component_
+- _How native CSS Properties (height, width, etc.) affect the component_
+    - Clients can set the input width using normal CSS rules. The input will have a default minimum width that clients are discouraged from overriding.
+    - The input will have a default height to fit one line of text and will grow its height to fit more lines, up to a limit. After that limit. After that limit it will show a vertical scrollbar.
+- _Slots_
+
 ### Anatomy
 
 #### Message
@@ -211,17 +241,49 @@ Other than setting a background, a conversation has no appearance of its own and
 </template>
 ```
 
+#### Input
+
+The input contains a native `textarea` and a `nimble-button`. The code below is simplified to omit some classes / refs and ARIA info.
+
+Most of the styling will use standard Nimble tokens and CSS layout techniques.
+
+One notable styling decision is that we plan to use [`field-sizing: content;`](https://developer.mozilla.org/en-US/docs/Web/CSS/field-sizing)
+to implement the ability to grow the height of the text area as the user types. This
+[is not yet supported in Firefox or Safari](https://developer.mozilla.org/en-US/docs/Web/CSS/field-sizing#browser_compatibility).
+Initially clients will either use modern versions of Chromium-based browsers or will only leverage this component behind a feature flag. If
+that changes we will revisit this decision and consider implementing a JavaScript-based resizing solution.
+        
+
+```html
+<div class="container">
+    <textarea
+        placeholder="${x => x.placeholder}"
+        rows="1"
+        @keydown="${(x, c) => x.textAreaKeydownHandler(c.event as KeyboardEvent)}"
+        @input="${x => x.textAreaInputHandler()}"
+    ></textarea>
+    <${buttonTag}
+        appearance="block"
+        appearance-variant="accent"
+        ?disabled=${x => x.disableSendButton}
+        @click=${x => x.sendButtonClickHandler()}
+    >
+        <${iconPaperPlaneTag} slot="start"><${iconPaperPlaneTag}/>
+    </${buttonTag}>    
+</div>
+```
+
 ### Native form integration
 
 Native form integration is not needed for these components.
 
 ### Angular integration
 
-Angular wrappers have been created.
+Angular wrappers will be created for every component.
 
 ### Blazor integration
 
-The Blazor wrappers `SpringChatConversation` and `SprightChatMessage` have been created.
+Blazor wrappers will be created for every component.
 
 ### Visual Appearance
 
@@ -233,9 +295,13 @@ Initial designer-vetted visual designs exist in [Nimble_Components Figma](https:
 
 ### States
 
-None.
+Chat message and conversation don't support any states.
+
+Chat input supports a default state, a rollover state, and a focus state. These impact the visual appearance similar to other controls. More info available in the Figma spec.
 
 ### Accessibility
+
+#### Messages
 
 Only keyboard navigation has been evaluated. The desired behavior is for each message's action buttons to be a single tab stop, with navigation between a message's action buttons accomplished using arrow keys. This should be achieved by placing the items within a `nimble-toolbar`, however the `nimble-toolbar` does not yet detect content in nested slots (see #2571). For scoping reasons the content will not initially be placed in a toolbar and thus each button will be a tab stop. Once that issue is addressed it should be possible to add a toolbar and achieve the desired behavior without breaking clients.
 
@@ -244,6 +310,19 @@ Buttons placed in the `end` slot should each be their own tab stop and thus will
 The design spec includes a proposal to add another "Edit" button to the left of some messages when the user hovers over the message. The button would be a tab stop and would become visible when keyboard focused. This work is currently out of scope.
 
 Other aspects of accessibility have not yet been evaluated.
+
+#### Input
+
+The text field and button will each be keyboard focusable. This will be reflected visually to the user in accordance with the design spec.
+
+The Design team has requested a non-standard appearance for the send button: icon-only but rectangular shape. Nimble buttons support square icon-only buttons with an accessible label via `content-hidden` or rectangular buttons with text content visible. We will achieve the desired implementation by using a `nimble-button` with the following settings:
+ - adding icon content in the `start` slot 
+ - not setting `content-hidden`
+ - providing no text content
+ - setting `aria-label` to the value of `send-button-label`
+ - setting an explicit width
+
+The text area will have an ARIA role of `textbox` similar to other Nimble text input components.
 
 _Consider the accessibility of the component, including:_
 
@@ -297,13 +376,9 @@ There are parallel efforts to standardize and document other aspects of chat app
 
 ## Open Issues
 
-1. Slots for attachments or dedicated APIs? Probably slots, UX anticipates more content.
-1. New chip/pill component?
-1. Responsive reflow
+These issues will not be resolved with the current planned work as they apply to the Chat Input Future Work features. They are captured 
+
 1. Styling questions:
    - how to clip text? currently visible in the padding area
    - resize `field-sizing` only works on Chromium
-1. tab order / toolbar for buttons?
-1. Submit button: content-hidden but not square? Default title=send/submit/none?
-1. API for swapping to cancel button? For disabling send button?
 1. 
