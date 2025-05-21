@@ -1,5 +1,12 @@
 // Based on: https://github.com/microsoft/fast/blob/%40microsoft/fast-foundation_v2.49.5/packages/web-components/fast-foundation/src/select/select.ts
-import { attr, html, observable, Observable, volatile } from '@ni/fast-element';
+import {
+    attr,
+    html,
+    observable,
+    Observable,
+    volatile,
+    type Notifier
+} from '@ni/fast-element';
 import {
     AnchoredRegion,
     DesignSystem,
@@ -28,6 +35,7 @@ import {
     DropdownPosition,
     type ListOptionOwner
 } from '../patterns/dropdown/types';
+import { anchoredRegionPositionToDropdownPosition } from '../patterns/dropdown/utility';
 import { errorTextTemplate } from '../patterns/error/template';
 import { mixinErrorPattern } from '../patterns/error/types';
 import { iconExclamationMarkTag } from '../icons/exclamation-mark';
@@ -202,18 +210,18 @@ export class Select
     }
 
     private _value = '';
-    private forcedPosition = false;
     private openActiveIndex?: number;
     private readonly selectedOptionObserver? = new MutationObserver(() => {
         this.updateDisplayValue();
     });
+
+    private anchoredRegionNotifier?: Notifier;
 
     /**
      * @internal
      */
     public override connectedCallback(): void {
         super.connectedCallback();
-        this.forcedPosition = !!this.positionAttribute;
         if (this.open) {
             this.initializeOpenState();
         }
@@ -277,8 +285,16 @@ export class Select
         _prev: AnchoredRegion | undefined,
         _next: AnchoredRegion | undefined
     ): void {
+        if (this.anchoredRegionNotifier) {
+            this.anchoredRegionNotifier?.unsubscribe(this, 'verticalPosition');
+            this.anchoredRegionNotifier = undefined;
+        }
         if (this.anchoredRegion && this.control) {
             this.anchoredRegion.anchorElement = this.control;
+            this.anchoredRegionNotifier = Observable.getNotifier(
+                this.anchoredRegion
+            );
+            this.anchoredRegionNotifier.subscribe(this, 'verticalPosition');
         }
     }
 
@@ -432,6 +448,12 @@ export class Select
                 this.slottedOptionsChanged(
                     this.slottedOptions,
                     this.slottedOptions
+                );
+                break;
+            }
+            case 'verticalPosition': {
+                this.position = anchoredRegionPositionToDropdownPosition(
+                    this.anchoredRegion?.verticalPosition
                 );
                 break;
             }
@@ -884,11 +906,10 @@ export class Select
     }
 
     protected positionChanged(
-        _: DropdownPosition | undefined,
-        next: DropdownPosition | undefined
+        _prev: DropdownPosition | undefined,
+        _next: DropdownPosition | undefined
     ): void {
-        this.positionAttribute = next;
-        this.setPositioning();
+        this.updateAvailableViewportHeight();
     }
 
     /**
@@ -1067,31 +1088,27 @@ export class Select
         return this.options.find(o => o.hidden && o.disabled) as ListOption;
     }
 
-    private setPositioning(): void {
-        if (!this.$fastController.isConnected) {
-            // Don't call setPositioning() until we're connected,
-            // since this.forcedPosition isn't initialized yet.
-            return;
-        }
+    private updateAvailableViewportHeight(): void {
         const currentBox = this.getBoundingClientRect();
-        const viewportHeight = window.innerHeight;
-        const availableBottom = viewportHeight - currentBox.bottom;
+        const viewportHeight = document.documentElement.getBoundingClientRect().height;
+        const availableSpaceAbove = Math.trunc(currentBox.top);
+        const availableSpaceBelow = Math.trunc(
+            viewportHeight - currentBox.bottom
+        );
 
-        if (this.forcedPosition) {
-            this.position = this.positionAttribute;
-        } else if (currentBox.top > availableBottom) {
-            this.position = DropdownPosition.above;
-        } else {
-            this.position = DropdownPosition.below;
+        switch (this.positionAttribute) {
+            case DropdownPosition.above:
+                this.availableViewportHeight = availableSpaceAbove;
+                break;
+            case DropdownPosition.below:
+                this.availableViewportHeight = availableSpaceBelow;
+                break;
+            default:
+                this.availableViewportHeight = Math.max(
+                    availableSpaceAbove,
+                    availableSpaceBelow
+                );
         }
-
-        this.positionAttribute = this.forcedPosition
-            ? this.positionAttribute
-            : this.position;
-
-        this.availableViewportHeight = this.position === DropdownPosition.above
-            ? Math.trunc(currentBox.top)
-            : Math.trunc(availableBottom);
     }
 
     private updateAdjacentSeparatorState(
@@ -1303,7 +1320,7 @@ export class Select
         this.ariaControls = this.listboxId;
         this.ariaExpanded = 'true';
 
-        this.setPositioning();
+        this.updateAvailableViewportHeight();
         this.focusAndScrollOptionIntoView();
     }
 

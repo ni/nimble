@@ -70,7 +70,7 @@ ComboboxOptions
         </div>
         <${anchoredRegionTag}
             ${ref('region')}
-            class="anchored-region"
+            class="anchored-region confined-to-view"
             fixed-placement
             auto-update-mode="auto"
             vertical-default-position="${x => (x.positionAttribute === DropdownPosition.above ? 'top' : 'bottom')}"

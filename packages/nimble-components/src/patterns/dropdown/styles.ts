@@ -202,12 +202,9 @@ export const styles = css`
         margin-inline-start: auto;
     }
 
-    :host([open][position='above']) .anchored-region {
-        padding-bottom: ${smallPadding};
-    }
-
-    :host([open][position='below']) .anchored-region {
+    :host([open]) .anchored-region {
         padding-top: ${smallPadding};
+        padding-bottom: ${smallPadding};
     }
 
     .listbox {
@@ -219,23 +216,28 @@ export const styles = css`
         --ni-private-listbox-padding: ${smallPadding};
         --ni-private-listbox-filter-height: 0px;
         --ni-private-listbox-loading-indicator-height: 0px;
+        --ni-private-listbox-ideal-height: calc(
+            var(--ni-private-listbox-anchor-element-gap) + 
+            2 * ${borderWidth} + 
+            var(--ni-private-listbox-padding) +
+            ${controlHeight} * var(--ni-private-listbox-visible-option-count) +
+            var(--ni-private-listbox-filter-height) +
+            var(--ni-private-listbox-loading-indicator-height)
+        );
+        max-height: var(--ni-private-listbox-ideal-height);
+        box-shadow: ${elevation2BoxShadow};
+        border: ${borderWidth} solid ${popupBorderColor};
+        background-color: ${applicationBackgroundColor};
+    }
+
+    .anchored-region.confined-to-view .listbox {
         max-height: min(
-            calc(
-                var(--ni-private-listbox-anchor-element-gap) + 
-                2 * ${borderWidth} + 
-                var(--ni-private-listbox-padding) +
-                ${controlHeight} * var(--ni-private-listbox-visible-option-count) +
-                var(--ni-private-listbox-filter-height) +
-                var(--ni-private-listbox-loading-indicator-height)
-            ),
+            var(--ni-private-listbox-ideal-height),
             calc(
                 var(--ni-private-listbox-available-viewport-height) - 
                 var(--ni-private-listbox-anchor-element-gap)
             )
         );
-        box-shadow: ${elevation2BoxShadow};
-        border: ${borderWidth} solid ${popupBorderColor};
-        background-color: ${applicationBackgroundColor};
     }
 
     .listbox:has(.filter-field) {
@@ -246,12 +248,12 @@ export const styles = css`
         --ni-private-listbox-loading-indicator-height: ${controlHeight};
     }
 
-    :host([open][position='above']) .listbox {
+    :host([open]) .listbox.top{
         border-bottom-left-radius: 0;
         border-bottom-right-radius: 0;
     }
 
-    :host([open][position='below']) .listbox {
+    :host([open]) .listbox.bottom{
         border-top-left-radius: 0;
         border-top-right-radius: 0;
     }

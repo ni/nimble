@@ -108,7 +108,7 @@ SelectOptions
         }
         <${anchoredRegionTag}
             ${ref('anchoredRegion')}
-            class="anchored-region"
+            class="anchored-region confined-to-view"
             fixed-placement
             auto-update-mode="auto"
             vertical-default-position="${x => (x.positionAttribute === DropdownPosition.above ? 'top' : 'bottom')}"
@@ -123,7 +123,7 @@ SelectOptions
                     class="
                         listbox
                         ${x => (x.filteredOptions.length === 0 ? 'empty' : '')}
-                        ${x => x.positionAttribute}
+                        ${x => x.position || ''}
                     "
                     id="${x => x.listboxId}"
                     part="listbox"
@@ -133,7 +133,7 @@ SelectOptions
                     ${ref('listbox')}
                 >
                     ${when(x => x.filterMode !== FilterMode.none, html<Select>`
-                        <div class="filter-field ${x => x.positionAttribute}">
+                        <div class="filter-field ${x => x.position}">
                             <${iconMagnifyingGlassTag} class="filter-icon"></${iconMagnifyingGlassTag}>
                             <input
                                 ${ref('filterInput')}
@@ -164,7 +164,7 @@ SelectOptions
                         `)}
                     </div>
                     ${when(x => x.loadingVisible, html<Select>`
-                        <div class="loading-container ${x => x.positionAttribute} ${x => (x.filteredOptions.length === 0 ? 'empty' : '')}"
+                        <div class="loading-container ${x => x.position} ${x => (x.filteredOptions.length === 0 ? 'empty' : '')}"
                             @click="${(x, c) => x.ignoreClickHandler(c.event as MouseEvent)}">
                             <span class="loading-label">
                                 ${x => loadingLabel.getValueFor(x)}

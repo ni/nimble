@@ -1,4 +1,12 @@
-import { DOM, Observable, attr, html, observable, ref } from '@ni/fast-element';
+import {
+    attr,
+    DOM,
+    html,
+    observable,
+    Observable,
+    ref,
+    type Notifier
+} from '@ni/fast-element';
 import {
     DesignSystem,
     type ComboboxOptions,
@@ -30,6 +38,7 @@ import {
     DropdownPosition,
     type DropdownPattern
 } from '../patterns/dropdown/types';
+import { anchoredRegionPositionToDropdownPosition } from '../patterns/dropdown/utility';
 import type { AnchoredRegion } from '../anchored-region';
 import { template } from './template';
 import { FormAssociatedCombobox } from './models/combobox-form-associated';
@@ -206,11 +215,7 @@ export class Combobox
     private valueBeforeTextUpdate?: string;
     private _value = '';
     private filter = '';
-
-    /**
-     * The initial state of the position attribute.
-     */
-    private forcedPosition = false;
+    private anchoredRegionNotifier?: Notifier;
 
     private get isAutocompleteInline(): boolean {
         return (
@@ -245,11 +250,10 @@ export class Combobox
 
     public override connectedCallback(): void {
         super.connectedCallback();
-        this.forcedPosition = !!this.positionAttribute;
         if (this.value) {
             this.initialValue = this.value;
         }
-        this.setPositioning();
+        this.updateAvailableViewportHeight();
         this.updateInputAriaLabel();
     }
 
@@ -620,6 +624,16 @@ export class Combobox
         }
     }
 
+    /* @internal */
+    public override handleChange(source: unknown, propertyName: string): void {
+        super.handleChange(source, propertyName);
+        if (propertyName === 'verticalPosition') {
+            this.position = anchoredRegionPositionToDropdownPosition(
+                this.region?.verticalPosition
+            );
+        }
+    }
+
     /**
      * Focus the control and scroll the first selected option into view.
      *
@@ -647,7 +661,7 @@ export class Combobox
             this.ariaControls = this.listboxId;
             this.ariaExpanded = 'true';
 
-            this.setPositioning();
+            this.updateAvailableViewportHeight();
             this.focusAndScrollOptionIntoView();
 
             // focus is directed to the element when `open` is changed programmatically
@@ -698,19 +712,24 @@ export class Combobox
     }
 
     protected positionChanged(
-        _: DropdownPosition | undefined,
-        next: DropdownPosition | undefined
+        _prev: DropdownPosition | undefined,
+        _next: DropdownPosition | undefined
     ): void {
-        this.positionAttribute = next;
-        this.setPositioning();
+        this.updateAvailableViewportHeight();
     }
 
     private regionChanged(
         _prev: AnchoredRegion | undefined,
         _next: AnchoredRegion | undefined
     ): void {
+        if (this.anchoredRegionNotifier) {
+            this.anchoredRegionNotifier?.unsubscribe(this, 'verticalPosition');
+            this.anchoredRegionNotifier = undefined;
+        }
         if (this.region && this.controlWrapper) {
             this.region.anchorElement = this.controlWrapper;
+            this.anchoredRegionNotifier = Observable.getNotifier(this.region);
+            this.anchoredRegionNotifier.subscribe(this, 'verticalPosition');
         }
     }
 
@@ -728,31 +747,27 @@ export class Combobox
         this.updateInputAriaLabel();
     }
 
-    private setPositioning(): void {
-        if (!this.$fastController.isConnected) {
-            // Don't call setPositioning() until we're connected,
-            // since this.forcedPosition isn't initialized yet.
-            return;
-        }
+    private updateAvailableViewportHeight(): void {
         const currentBox = this.getBoundingClientRect();
-        const viewportHeight = window.innerHeight;
-        const availableBottom = viewportHeight - currentBox.bottom;
+        const viewportHeight = document.documentElement.getBoundingClientRect().height;
+        const availableSpaceAbove = Math.trunc(currentBox.top);
+        const availableSpaceBelow = Math.trunc(
+            viewportHeight - currentBox.bottom
+        );
 
-        if (this.forcedPosition) {
-            this.position = this.positionAttribute;
-        } else if (currentBox.top > availableBottom) {
-            this.position = DropdownPosition.above;
-        } else {
-            this.position = DropdownPosition.below;
+        switch (this.positionAttribute) {
+            case DropdownPosition.above:
+                this.availableViewportHeight = availableSpaceAbove;
+                break;
+            case DropdownPosition.below:
+                this.availableViewportHeight = availableSpaceBelow;
+                break;
+            default:
+                this.availableViewportHeight = Math.max(
+                    availableSpaceAbove,
+                    availableSpaceBelow
+                );
         }
-
-        this.positionAttribute = this.forcedPosition
-            ? this.positionAttribute
-            : this.position;
-
-        this.availableViewportHeight = this.position === DropdownPosition.above
-            ? Math.trunc(currentBox.top)
-            : Math.trunc(availableBottom);
     }
 
     /**
