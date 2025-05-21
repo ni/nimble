@@ -89,7 +89,7 @@ The component also contains the following features:
 
 This is included for informational purposes but doesn't yet have a proposed implementation in the Design section below.
 
-1. Includes a "Stop" button for the user to abort an in-progress sent message
+1. Includes a "Stop" button for the user to abort an action that was triggered in response to a sent message (e.g. a file upload or incoming response)
 1. Includes slots for specifying additional content like a button for attaching files and chips for viewing/clearing attached files
 1. Displays errors via the standard red `!` icon and error text
 
