@@ -5,7 +5,10 @@ import { listOptionTag } from '../../../../nimble-components/src/list-option';
 import { listOptionGroupTag } from '../../../../nimble-components/src/list-option-group';
 import { selectTag } from '../../../../nimble-components/src/select';
 import { FilterMode } from '../../../../nimble-components/src/select/types';
-import { DropdownAppearance } from '../../../../nimble-components/src/patterns/dropdown/types';
+import {
+    DropdownAppearance,
+    DropdownPosition
+} from '../../../../nimble-components/src/patterns/dropdown/types';
 
 import {
     apiCategory,
@@ -185,8 +188,14 @@ const metadata: Meta<SelectArgs> = {
         },
         dropDownPosition: {
             name: 'position',
-            options: ['above', 'below'],
-            control: { type: 'select' },
+            options: [undefined, ...Object.values(DropdownPosition)],
+            type: 'string',
+            control: {
+                type: 'radio',
+                labels: {
+                    undefined: 'default'
+                }
+            },
             description: dropdownPositionDescription({
                 componentName: 'select'
             }),
@@ -276,7 +285,7 @@ const metadata: Meta<SelectArgs> = {
         errorVisible: false,
         errorText: 'Value is invalid',
         filterMode: 'none',
-        dropDownPosition: 'below',
+        dropDownPosition: undefined,
         appearance: DropdownAppearance.underline,
         optionsType: ExampleOptionsType.simpleOptions,
         clearable: false,
