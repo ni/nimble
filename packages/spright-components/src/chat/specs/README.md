@@ -10,7 +10,7 @@ This spec describes a set of components that can be used to compose a chat inter
 
 ### Background
 
-Some Intelligent Test application teams are beginning development on Blazor chat interfaces in early 2025. Developers from one of those teams will build these components as their first Nimble contribution. Additional products are expecting to leverage the same components in Angular.
+Some Intelligent Test application teams are beginning development on Blazor chat interfaces in early 2025. Developers from one of those teams will build some of these components as their first Nimble contribution. Additional products are expecting to leverage the same components in Angular and will also contribute components.
 
 Initial designer-vetted visual designs exist in [Nimble_Components Figma](https://www.figma.com/design/PO9mFOu5BCl8aJvFchEeuN/Nimble_Components?node-id=12342-81782&node-type=canvas&t=L5GvLaC3injrqWrR-0).
 
@@ -76,7 +76,7 @@ The component also contains the following features:
 ##### In scope
 
 1. Accepts text input in a text area
-    - the text area height is a single line initially but grows its height to fit the entered text up to a limit
+    - the text area height is a single line initially but grows its height to fit the entered text up to its max-height
     - the text area has configurable placeholder text
 1. Includes a "Send" button for the user to submit the current input text
     - fires an event containing the current input content and then clears the content and sets keyboard focus back to the input
@@ -87,7 +87,9 @@ The component also contains the following features:
 
 ##### Future work
 
-1. Includes a "Stop" button for the user to abort a sent message
+This is included for informational purposes but doesn't yet have a proposed implementation in the Design section below.
+
+1. Includes a "Stop" button for the user to abort an in-progress sent message
 1. Includes slots for specifying additional content like a button for attaching files and chips for viewing/clearing attached files
 1. Displays errors via the standard red `!` icon and error text
 
@@ -159,7 +161,10 @@ richText.markdown = 'Welcome **Homer**, how can I help?';
 #### Input example
 
 ```html
-<spright-chat-input placeholder="Ask Nigel"> </spright-chat-input>
+<spright-chat-input
+    placeholder="Ask Nigel"
+    send-button-label="Send">
+</spright-chat-input>
 ```
 
 ### API
@@ -210,7 +215,7 @@ richText.markdown = 'Welcome **Homer**, how can I help?';
 - _CSS Classes and CSS Custom Properties that affect the component_
 - _How native CSS Properties (height, width, etc.) affect the component_
     - Clients can set the input width using normal CSS rules. The input will have a default minimum width that clients are discouraged from overriding.
-    - The input will have a default height to fit one line of text and will grow its height to fit more lines, up to a limit. After that limit it will show a vertical scrollbar.
+    - The input will have a default height to fit one line of text and will grow its height to fit more lines, up to a max-height. After that limit it will show a vertical scrollbar.
 - _Slots_
 
 ### Anatomy
@@ -246,15 +251,9 @@ Other than setting a background, a conversation has no appearance of its own and
 
 #### Input
 
+##### Template
+
 The input contains a native `textarea` and a `nimble-button`. The code below is simplified to omit some classes / refs and ARIA info.
-
-Most of the styling will use standard Nimble tokens and CSS layout techniques.
-
-One notable styling decision is that we plan to use [`field-sizing: content;`](https://developer.mozilla.org/en-US/docs/Web/CSS/field-sizing)
-to implement the ability to grow the height of the text area as the user types. This
-[is not yet supported in Firefox or Safari](https://developer.mozilla.org/en-US/docs/Web/CSS/field-sizing#browser_compatibility).
-Initially clients will either use modern versions of Chromium-based browsers or will only leverage this component behind a feature flag. If
-that changes before the feature is available in all supported browsers, we will revisit this decision and consider implementing a JavaScript-based resizing solution.
 
 ```html
 <div class="container">
@@ -274,6 +273,16 @@ that changes before the feature is available in all supported browsers, we will 
     </${buttonTag}>
 </div>
 ```
+
+##### Styles
+
+Most of the styling will use standard Nimble tokens and CSS layout techniques.
+
+One notable styling decision is that we plan to use [`field-sizing: content;`](https://developer.mozilla.org/en-US/docs/Web/CSS/field-sizing)
+to implement the ability to grow the height of the text area as the user types. This
+[is not yet supported in Firefox or Safari](https://developer.mozilla.org/en-US/docs/Web/CSS/field-sizing#browser_compatibility).
+Initially clients will either use modern versions of Chromium-based browsers or will only leverage this component behind a feature flag. If
+that changes before the feature is available in all supported browsers, we will revisit this decision and consider implementing a JavaScript-based resizing solution.
 
 ### Native form integration
 
@@ -329,12 +338,13 @@ _Consider the accessibility of the component, including:_
 
 The text field and button will each be keyboard focusable. This will be reflected visually to the user in accordance with the design spec.
 
-The Design team has requested a non-standard appearance for the "Send" button: icon-only but rectangular shape. Nimble buttons support square icon-only buttons with an accessible label via `content-hidden` or rectangular buttons with text content visible. We will achieve the desired implementation by using a `nimble-button` with the following settings:
+The Design team has requested a non-standard appearance for the "Send" button: icon-only but rectangular shape. Nimble buttons support square icon-only buttons with an accessible label via `content-hidden` or rectangular buttons with text content visible. We will achieve the desired appearance by using a `nimble-button` with the following settings:
 
 - adding icon content in the `start` slot
 - not setting `content-hidden`
 - providing no text content
 - setting `aria-label` to the value of `send-button-label`
+- setting `title` to the value of `send-button-label`
 - setting an explicit width
 
 The text area will have an ARIA role of `textbox` similar to other Nimble text input components.
