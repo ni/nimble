@@ -16,7 +16,9 @@ import {
     type RequiredVisibleState,
     requiredVisibleStates,
     type OnlyReadOnlyAbsentState,
-    onlyReadOnlyAbsentStates
+    onlyReadOnlyAbsentStates,
+    type FullBleedState,
+    fullBleedStates
 } from '../../utilities/states';
 import { hiddenWrapper } from '../../utilities/hidden';
 import { loremIpsum } from '../../utilities/lorem-ipsum';
@@ -24,7 +26,8 @@ import { loremIpsum } from '../../utilities/lorem-ipsum';
 const appearanceStates = [
     ['Underline', DropdownAppearance.underline],
     ['Outline', DropdownAppearance.outline],
-    ['Block', DropdownAppearance.block]
+    ['Block', DropdownAppearance.block],
+    ['Frameless', DropdownAppearance.frameless]
 ] as const;
 type AppearanceState = (typeof appearanceStates)[number];
 
@@ -48,6 +51,7 @@ export default metadata;
 const component = (
     [disabledReadOnlyName, _readOnly, disabled, appearanceReadOnly]: OnlyReadOnlyAbsentState,
     [appearanceName, appearance]: AppearanceState,
+    [fullBleedName, fullBleed]: FullBleedState,
     [requiredVisibleName, requiredVisible]: RequiredVisibleState,
     [errorName, errorVisible, errorText]: ErrorState,
     [valueName, value, placeholder]: ValueState
@@ -56,6 +60,7 @@ const component = (
         ?disabled="${() => disabled}"
         ?appearance-readonly="${() => appearanceReadOnly}"
         appearance="${() => appearance}"
+        ?full-bleed="${() => fullBleed}"
         ?error-visible="${() => errorVisible}"
         error-text="${() => errorText}"
         value="${() => value}"
@@ -65,6 +70,7 @@ const component = (
     >
         ${() => disabledReadOnlyName}
         ${() => appearanceName}
+        ${() => fullBleedName}
         ${() => errorName}
         ${() => valueName}
         ${() => requiredVisibleName}
@@ -79,6 +85,7 @@ export const themeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(component, [
         onlyReadOnlyAbsentStates,
         appearanceStates,
+        fullBleedStates,
         requiredVisibleStates,
         errorStates,
         valueStates
