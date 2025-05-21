@@ -56,6 +56,9 @@ export class Combobox
     @attr({ attribute: 'appearance-readonly', mode: 'boolean' })
     public appearanceReadOnly = false;
 
+    @attr({ attribute: 'full-bleed', mode: 'boolean' })
+    public fullBleed = false;
+
     /**
      * The autocomplete attribute.
      */
