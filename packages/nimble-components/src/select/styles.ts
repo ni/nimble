@@ -42,6 +42,10 @@ export const styles = css`
         color: ${bodyDisabledFontColor};
     }
 
+    :host([disabled][appearance-readonly]) .selected-value.placeholder {
+        color: ${placeholderFontColor};
+    }
+
     .selected-value {
         order: 1;
     }

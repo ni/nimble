@@ -88,6 +88,9 @@ export const iconMetadata: {
     IconArrowsRepeat: {
         tags: ['status', 'looping']
     },
+    IconArrowsRotateReverseDot: {
+        tags: ['automatic', 'automate', 'auto']
+    },
     IconArrowUp: {
         tags: ['sort', 'arrow', 'up', 'ascending']
     },
@@ -104,7 +107,10 @@ export const iconMetadata: {
         tags: ['status', 'alarm']
     },
     IconBellAndComment: {
-        tags: ['alarm', 'notification']
+        tags: ['deprecated - prefer icon bell and message']
+    },
+    IconBellAndMessage: {
+        tags: ['alarm', 'notification', 'comment']
     },
     IconBellCheck: {
         tags: ['acknowledged', 'alarm']
@@ -126,6 +132,9 @@ export const iconMetadata: {
     },
     IconBookMagnifyingGlass: {
         tags: ['analyze']
+    },
+    IconCalendarArrowsRotateReverseDot: {
+        tags: ['auto-schedule', 'automate', 'automatic']
     },
     IconCalendarCheckLines: {
         tags: ['test', 'plan', 'schedule']
@@ -236,7 +245,7 @@ export const iconMetadata: {
         tags: ['data indexing']
     },
     IconComment: {
-        tags: ['notes', 'alarm notes', 'speech', 'bubble']
+        tags: ['deprecated - prefer icon message']
     },
     IconComputerAndMonitor: {
         tags: ['devices and interfaces']
@@ -427,6 +436,20 @@ export const iconMetadata: {
     IconMarkdown: {
         tags: []
     },
+    IconMessage: {
+        tags: ['comment', 'notes', 'alarm notes', 'speech', 'bubble']
+    },
+    IconMessagesSparkle: {
+        tags: [
+            'nigel',
+            'chatbot',
+            'ai',
+            'chat',
+            'help',
+            'conversation',
+            'comment'
+        ]
+    },
     IconMicrophone: {
         tags: ['talk to text', 'speech', 'speak', 'sound', 'audio']
     },
@@ -528,6 +551,9 @@ export const iconMetadata: {
     },
     IconSquareCheck: {
         tags: ['test insights']
+    },
+    IconSquareListCog: {
+        tags: ['specification', 'requirements']
     },
     IconSquareT: {
         tags: ['static text']
@@ -636,6 +662,12 @@ export const iconMetadata: {
     },
     IconWindowCode: {
         tags: ['http api']
+    },
+    IconWindowDock: {
+        tags: ['dock', 'place', 'embed', 'attach']
+    },
+    IconWindowRestore: {
+        tags: ['undock', 'remove']
     },
     IconWindowText: {
         tags: ['manual']

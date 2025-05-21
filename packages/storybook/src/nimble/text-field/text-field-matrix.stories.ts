@@ -26,7 +26,9 @@ import {
     type RequiredVisibleState,
     requiredVisibleStates,
     type DisabledReadOnlyState,
-    disabledReadOnlyState
+    disabledReadOnlyState,
+    type FullBleedState,
+    fullBleedStates
 } from '../../utilities/states';
 import { hiddenWrapper } from '../../utilities/hidden';
 import { textCustomizationWrapper } from '../../utilities/text-customization';
@@ -56,12 +58,6 @@ const appearanceStates = [
     ['Frameless', TextFieldAppearance.frameless]
 ] as const;
 type AppearanceState = (typeof appearanceStates)[number];
-
-const fullBleedStates = [
-    ['', false],
-    ['Full Bleed', true]
-] as const;
-type FullBleedState = (typeof fullBleedStates)[number];
 
 const leftIconStates = [
     ['', false],
