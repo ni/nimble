@@ -207,7 +207,7 @@ export const requiredVisibleDescription = 'When set to `true`, an indicator will
 
 export const dropdownPositionDescription = (options: {
     componentName: string
-}): string => `Controls the position of the dropdown relative to the ${options.componentName}.`;
+}): string => `Controls the position of the dropdown relative to the ${options.componentName}. If unset, defaults to opening below when there is enough room and above otherwise.`;
 export const optionsDescription = (options: {
     includeGrouping: boolean
 }): string => `The \`${listOptionTag}\` items for the user to select from.${options.includeGrouping ? ` Each ${listOptionTag} can also be grouped using the \`${listOptionGroupTag}\` element.` : ''} `;
