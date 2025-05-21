@@ -161,9 +161,7 @@ richText.markdown = 'Welcome **Homer**, how can I help?';
 #### Input example
 
 ```html
-<spright-chat-input
-    placeholder="Ask Nigel"
-    send-button-label="Send">
+<spright-chat-input placeholder="Ask Nigel" send-button-label="Send">
 </spright-chat-input>
 ```
 
