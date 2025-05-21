@@ -1,6 +1,6 @@
 {
   "type": "patch",
-  "comment": "Allow rich-text mention listbox to open above the cursor",
+  "comment": "Align positioning behavior of rich-text mention listbox, combobox, select, and menu button",
   "packageName": "@ni/nimble-components",
   "email": "7282195+m-akinc@users.noreply.github.com",
   "dependentChangeType": "patch"
