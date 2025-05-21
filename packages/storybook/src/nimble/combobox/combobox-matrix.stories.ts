@@ -4,9 +4,8 @@ import { standardPadding } from '../../../../nimble-components/src/theme-provide
 import { listOptionTag } from '../../../../nimble-components/src/list-option';
 import { comboboxTag } from '../../../../nimble-components/src/combobox';
 import { DropdownAppearance } from '../../../../nimble-components/src/patterns/dropdown/types';
-import { createStory } from '../../utilities/storybook';
+import { createFixedThemeStory, createStory } from '../../utilities/storybook';
 import {
-    createMatrixThemeStory,
     createMatrix,
     sharedMatrixParameters
 } from '../../utilities/matrix';
@@ -18,7 +17,8 @@ import {
     type OnlyReadOnlyAbsentState,
     onlyReadOnlyAbsentStates,
     type FullBleedState,
-    fullBleedStates
+    fullBleedStates,
+    backgroundStates
 } from '../../utilities/states';
 import { hiddenWrapper } from '../../utilities/hidden';
 import { loremIpsum } from '../../utilities/lorem-ipsum';
@@ -81,7 +81,18 @@ const component = (
     </${comboboxTag}>
 `;
 
-export const themeMatrix: StoryFn = createMatrixThemeStory(
+const [
+    lightThemeWhiteBackground,
+    colorThemeDarkGreenBackground,
+    darkThemeBlackBackground,
+    ...remaining
+] = backgroundStates;
+
+if (remaining.length > 0) {
+    throw new Error('New backgrounds need to be supported');
+}
+
+export const lightTheme: StoryFn = createFixedThemeStory(
     createMatrix(component, [
         onlyReadOnlyAbsentStates,
         appearanceStates,
@@ -89,7 +100,32 @@ export const themeMatrix: StoryFn = createMatrixThemeStory(
         requiredVisibleStates,
         errorStates,
         valueStates
-    ])
+    ]),
+    lightThemeWhiteBackground
+);
+
+export const colorTheme: StoryFn = createFixedThemeStory(
+    createMatrix(component, [
+        onlyReadOnlyAbsentStates,
+        appearanceStates,
+        fullBleedStates,
+        requiredVisibleStates,
+        errorStates,
+        valueStates
+    ]),
+    colorThemeDarkGreenBackground
+);
+
+export const darkTheme: StoryFn = createFixedThemeStory(
+    createMatrix(component, [
+        onlyReadOnlyAbsentStates,
+        appearanceStates,
+        fullBleedStates,
+        requiredVisibleStates,
+        errorStates,
+        valueStates
+    ]),
+    darkThemeBlackBackground
 );
 
 export const hidden: StoryFn = createStory(

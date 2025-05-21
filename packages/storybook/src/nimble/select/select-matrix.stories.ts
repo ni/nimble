@@ -1,7 +1,7 @@
 import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate } from '@ni/fast-element';
 import { keyArrowDown } from '@ni/fast-web-utilities';
-import { standardPadding } from '../../../../nimble-components/src/theme-provider/design-tokens';
+import { mediumPadding } from '../../../../nimble-components/src/theme-provider/design-tokens';
 import { listOptionTag } from '../../../../nimble-components/src/list-option';
 import { listOptionGroupTag } from '../../../../nimble-components/src/list-option-group';
 import { selectTag } from '../../../../nimble-components/src/select';
@@ -66,7 +66,7 @@ const component = (
     [requiredVisibleName, requiredVisible]: RequiredVisibleState,
     [errorName, errorVisible, errorText]: ErrorState,
     [valueName, selectedValue]: ValueState,
-    [clearableName, clearable]: ClearableState
+    [_clearableName, clearable]: ClearableState
 ): ViewTemplate => html`
     <${selectTag}
         ?error-visible="${() => errorVisible}"
@@ -78,11 +78,11 @@ const component = (
         ?full-bleed="${() => fullBleed}"
         ?required-visible="${() => requiredVisible}"
         current-value="${() => selectedValue}"
-        style="width: 250px; margin: var(${standardPadding.cssCustomProperty});"
+        style="width: 250px; margin: var(${mediumPadding.cssCustomProperty});"
     >
         ${() => errorName} ${() => disabledReadOnlyName}
         ${() => appearanceName} ${() => fullBleedName}
-        ${() => valueName} ${() => clearableName} ${() => requiredVisibleName}
+        ${() => valueName} ${() => requiredVisibleName}
 
         <${listOptionTag} value="1">Option 1</${listOptionTag}>
         <${listOptionTag} value="2">${loremIpsum}</${listOptionTag}>
@@ -103,7 +103,10 @@ if (remaining.length > 0) {
     throw new Error('New backgrounds need to be supported');
 }
 
-export const lightTheme: StoryFn = createFixedThemeStory(
+const notClearableState = clearableStates[0];
+const clearableState = clearableStates[1];
+
+export const lightTheme$NotClearable: StoryFn = createFixedThemeStory(
     createMatrix(component, [
         onlyReadOnlyAbsentStates,
         appearanceStates,
@@ -111,12 +114,12 @@ export const lightTheme: StoryFn = createFixedThemeStory(
         requiredVisibleStates,
         errorStates,
         valueStates,
-        clearableStates
+        [notClearableState]
     ]),
     lightThemeWhiteBackground
 );
 
-export const colorTheme: StoryFn = createFixedThemeStory(
+export const lightTheme$Clearable: StoryFn = createFixedThemeStory(
     createMatrix(component, [
         onlyReadOnlyAbsentStates,
         appearanceStates,
@@ -124,12 +127,25 @@ export const colorTheme: StoryFn = createFixedThemeStory(
         requiredVisibleStates,
         errorStates,
         valueStates,
-        clearableStates
+        [clearableState]
+    ]),
+    lightThemeWhiteBackground
+);
+
+export const colorTheme$NotClearable: StoryFn = createFixedThemeStory(
+    createMatrix(component, [
+        onlyReadOnlyAbsentStates,
+        appearanceStates,
+        fullBleedStates,
+        requiredVisibleStates,
+        errorStates,
+        valueStates,
+        [notClearableState]
     ]),
     colorThemeDarkGreenBackground
 );
 
-export const darkTheme: StoryFn = createFixedThemeStory(
+export const colorTheme$Clearable: StoryFn = createFixedThemeStory(
     createMatrix(component, [
         onlyReadOnlyAbsentStates,
         appearanceStates,
@@ -137,7 +153,33 @@ export const darkTheme: StoryFn = createFixedThemeStory(
         requiredVisibleStates,
         errorStates,
         valueStates,
-        clearableStates
+        [clearableState]
+    ]),
+    colorThemeDarkGreenBackground
+);
+
+export const darkTheme$NotClearable: StoryFn = createFixedThemeStory(
+    createMatrix(component, [
+        onlyReadOnlyAbsentStates,
+        appearanceStates,
+        fullBleedStates,
+        requiredVisibleStates,
+        errorStates,
+        valueStates,
+        [notClearableState]
+    ]),
+    darkThemeBlackBackground
+);
+
+export const darkTheme$Clearable: StoryFn = createFixedThemeStory(
+    createMatrix(component, [
+        onlyReadOnlyAbsentStates,
+        appearanceStates,
+        fullBleedStates,
+        requiredVisibleStates,
+        errorStates,
+        valueStates,
+        [clearableState]
     ]),
     darkThemeBlackBackground
 );
