@@ -5,7 +5,7 @@
   "type": "module",
   "description": "A package to measure the performance of the Nimble Components",
   "scripts": {
-    "build": "tsc && vite build src",
+    "build": "tsgo && vite build src",
     "pack": "npm pack",
     "lint": "eslint .",
     "format": "eslint . --fix",

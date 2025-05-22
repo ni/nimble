@@ -10,7 +10,7 @@
     "testing"
   ],
   "scripts": {
-    "build": "tsc -b",
+    "build": "tsgo -b",
     "lint": "eslint .",
     "format": "eslint . --fix",
     "pack": "npm pack",
