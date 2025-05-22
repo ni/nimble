@@ -5,10 +5,7 @@ import { listOptionTag } from '../../../../nimble-components/src/list-option';
 import { comboboxTag } from '../../../../nimble-components/src/combobox';
 import { DropdownAppearance } from '../../../../nimble-components/src/patterns/dropdown/types';
 import { createFixedThemeStory, createStory } from '../../utilities/storybook';
-import {
-    createMatrix,
-    sharedMatrixParameters
-} from '../../utilities/matrix';
+import { createMatrix, sharedMatrixParameters } from '../../utilities/matrix';
 import {
     errorStates,
     type ErrorState,
