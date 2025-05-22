@@ -10,7 +10,7 @@
     "testing"
   ],
   "scripts": {
-    "build": "tsgo -b",
+    "build": "tsgo -p ./tsconfig.json",
     "lint": "eslint .",
     "format": "eslint . --fix",
     "pack": "npm pack",
