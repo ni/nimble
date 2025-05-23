@@ -1,7 +1,7 @@
 import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate } from '@ni/fast-element';
 import { keyArrowDown } from '@ni/fast-web-utilities';
-import { mediumPadding } from '../../../../nimble-components/src/theme-provider/design-tokens';
+import { standardPadding } from '../../../../nimble-components/src/theme-provider/design-tokens';
 import { listOptionTag } from '../../../../nimble-components/src/list-option';
 import { listOptionGroupTag } from '../../../../nimble-components/src/list-option-group';
 import { selectTag } from '../../../../nimble-components/src/select';
@@ -78,7 +78,7 @@ const component = (
         ?full-bleed="${() => fullBleed}"
         ?required-visible="${() => requiredVisible}"
         current-value="${() => selectedValue}"
-        style="width: 250px; margin: var(${mediumPadding.cssCustomProperty});"
+        style="width: 250px; margin: var(${standardPadding.cssCustomProperty});"
     >
         ${() => errorName} ${() => disabledReadOnlyName}
         ${() => appearanceName} ${() => fullBleedName}
