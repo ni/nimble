@@ -20,7 +20,9 @@ import {
     type RequiredVisibleState,
     backgroundStates,
     type OnlyReadOnlyAbsentState,
-    onlyReadOnlyAbsentStates
+    onlyReadOnlyAbsentStates,
+    type FullBleedState,
+    fullBleedStates
 } from '../../utilities/states';
 import { hiddenWrapper } from '../../utilities/hidden';
 import { textCustomizationWrapper } from '../../utilities/text-customization';
@@ -29,7 +31,8 @@ import { loremIpsum } from '../../utilities/lorem-ipsum';
 const appearanceStates = [
     ['Underline', DropdownAppearance.underline],
     ['Outline', DropdownAppearance.outline],
-    ['Block', DropdownAppearance.block]
+    ['Block', DropdownAppearance.block],
+    ['Frameless', DropdownAppearance.frameless]
 ] as const;
 type AppearanceState = (typeof appearanceStates)[number];
 
@@ -59,10 +62,11 @@ export default metadata;
 const component = (
     [disabledReadOnlyName, _readOnly, disabled, appearanceReadOnly]: OnlyReadOnlyAbsentState,
     [appearanceName, appearance]: AppearanceState,
+    [fullBleedName, fullBleed]: FullBleedState,
     [requiredVisibleName, requiredVisible]: RequiredVisibleState,
     [errorName, errorVisible, errorText]: ErrorState,
     [valueName, selectedValue]: ValueState,
-    [clearableName, clearable]: ClearableState
+    [_clearableName, clearable]: ClearableState
 ): ViewTemplate => html`
     <${selectTag}
         ?error-visible="${() => errorVisible}"
@@ -71,11 +75,15 @@ const component = (
         ?appearance-readonly="${() => appearanceReadOnly}"
         ?clearable="${() => clearable}"
         appearance="${() => appearance}"
+        ?full-bleed="${() => fullBleed}"
         ?required-visible="${() => requiredVisible}"
         current-value="${() => selectedValue}"
         style="width: 250px; margin: var(${standardPadding.cssCustomProperty});"
     >
-        ${() => errorName} ${() => disabledReadOnlyName} ${() => appearanceName} ${() => valueName} ${() => clearableName} ${() => requiredVisibleName}
+        ${() => errorName} ${() => disabledReadOnlyName}
+        ${() => appearanceName} ${() => fullBleedName}
+        ${() => valueName} ${() => requiredVisibleName}
+
         <${listOptionTag} value="1">Option 1</${listOptionTag}>
         <${listOptionTag} value="2">${loremIpsum}</${listOptionTag}>
         <${listOptionTag} value="3" disabled>Option 3</${listOptionTag}>
@@ -95,38 +103,83 @@ if (remaining.length > 0) {
     throw new Error('New backgrounds need to be supported');
 }
 
-export const lightTheme: StoryFn = createFixedThemeStory(
+const notClearableState = clearableStates[0];
+const clearableState = clearableStates[1];
+
+export const lightTheme$NotClearable: StoryFn = createFixedThemeStory(
     createMatrix(component, [
         onlyReadOnlyAbsentStates,
         appearanceStates,
+        fullBleedStates,
         requiredVisibleStates,
         errorStates,
         valueStates,
-        clearableStates
+        [notClearableState]
     ]),
     lightThemeWhiteBackground
 );
 
-export const colorTheme: StoryFn = createFixedThemeStory(
+export const lightTheme$Clearable: StoryFn = createFixedThemeStory(
     createMatrix(component, [
         onlyReadOnlyAbsentStates,
         appearanceStates,
+        fullBleedStates,
         requiredVisibleStates,
         errorStates,
         valueStates,
-        clearableStates
+        [clearableState]
+    ]),
+    lightThemeWhiteBackground
+);
+
+export const colorTheme$NotClearable: StoryFn = createFixedThemeStory(
+    createMatrix(component, [
+        onlyReadOnlyAbsentStates,
+        appearanceStates,
+        fullBleedStates,
+        requiredVisibleStates,
+        errorStates,
+        valueStates,
+        [notClearableState]
     ]),
     colorThemeDarkGreenBackground
 );
 
-export const darkTheme: StoryFn = createFixedThemeStory(
+export const colorTheme$Clearable: StoryFn = createFixedThemeStory(
     createMatrix(component, [
         onlyReadOnlyAbsentStates,
         appearanceStates,
+        fullBleedStates,
         requiredVisibleStates,
         errorStates,
         valueStates,
-        clearableStates
+        [clearableState]
+    ]),
+    colorThemeDarkGreenBackground
+);
+
+export const darkTheme$NotClearable: StoryFn = createFixedThemeStory(
+    createMatrix(component, [
+        onlyReadOnlyAbsentStates,
+        appearanceStates,
+        fullBleedStates,
+        requiredVisibleStates,
+        errorStates,
+        valueStates,
+        [notClearableState]
+    ]),
+    darkThemeBlackBackground
+);
+
+export const darkTheme$Clearable: StoryFn = createFixedThemeStory(
+    createMatrix(component, [
+        onlyReadOnlyAbsentStates,
+        appearanceStates,
+        fullBleedStates,
+        requiredVisibleStates,
+        errorStates,
+        valueStates,
+        [clearableState]
     ]),
     darkThemeBlackBackground
 );
