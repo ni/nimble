@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-<!-- This log was last generated on Tue, 20 May 2025 23:06:06 GMT and should not be manually modified. -->
+<!-- This log was last generated on Fri, 23 May 2025 21:40:15 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 33.8.0
+
+Fri, 23 May 2025 21:40:15 GMT
+
+### Minor changes
+
+- Update select and combobox to support frameless and full-bleed styling ([ni/nimble@9944f73](https://github.com/ni/nimble/commit/9944f730e092764a901046aca920cf3a6eacd743))
 
 ## 33.7.0
 
