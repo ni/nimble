@@ -1,10 +1,10 @@
 import { html, ref } from '@ni/fast-element';
 import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html';
 import { withActions } from '@storybook/addon-actions/decorator';
-import { tableTag } from '../../../../../nimble-components/src/table';
-import { tableColumnTextTag } from '../../../../../nimble-components/src/table-column/text';
-import { tableColumnDateTextTag } from '../../../../../nimble-components/src/table-column/date-text';
-import { DateTextFormat } from '../../../../../nimble-components/src/table-column/date-text/types';
+import { tableTag } from '@ni/nimble-components/dist/esm/table';
+import { tableColumnTextTag } from '@ni/nimble-components/dist/esm/table-column/text';
+import { tableColumnDateTextTag } from '@ni/nimble-components/dist/esm/table-column/date-text';
+import { DateTextFormat } from '@ni/nimble-components/dist/esm/table-column/date-text/types';
 import type {
     DateStyle,
     DayPeriodFormat,
@@ -21,7 +21,7 @@ import type {
     TimeStyle,
     TimeZoneNameFormat,
     WeekdayFormat
-} from '../../../../../nimble-components/src/table-column/date-text/types';
+} from '@ni/nimble-components/dist/esm/table-column/date-text/types';
 import {
     type SharedTableArgs,
     sharedTableActions,

@@ -1,11 +1,11 @@
 import {
     tableTag,
     type Table
-} from '../../../../../nimble-components/src/table';
+} from '@ni/nimble-components/dist/esm/table';
 import {
     type TableRecord,
     TableRowSelectionMode
-} from '../../../../../nimble-components/src/table/types';
+} from '@ni/nimble-components/dist/esm/table/types';
 
 export interface SharedTableArgs {
     selectionMode: keyof typeof TableRowSelectionMode;

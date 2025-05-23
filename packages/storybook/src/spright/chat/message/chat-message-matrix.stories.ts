@@ -1,6 +1,6 @@
 import type { StoryFn, Meta } from '@storybook/html';
 import { html } from '@ni/fast-element';
-import { chatMessageTag } from '../../../../../spright-components/src/chat/message';
+import { chatMessageTag } from '@ni/spright-components/dist/esm/chat/message';
 import {
     sharedMatrixParameters,
     createMatrixThemeStory

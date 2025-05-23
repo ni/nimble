@@ -1,9 +1,9 @@
 import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate } from '@ni/fast-element';
 import { Orientation } from '@ni/fast-web-utilities';
-import { standardPadding } from '../../../../nimble-components/src/theme-provider/design-tokens';
-import { radioTag } from '../../../../nimble-components/src/radio';
-import { radioGroupTag } from '../../../../nimble-components/src/radio-group';
+import { standardPadding } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
+import { radioTag } from '@ni/nimble-components/dist/esm/radio';
+import { radioGroupTag } from '@ni/nimble-components/dist/esm/radio-group';
 import {
     createMatrix,
     sharedMatrixParameters,

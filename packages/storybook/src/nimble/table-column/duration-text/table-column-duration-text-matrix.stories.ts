@@ -1,11 +1,11 @@
 import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate } from '@ni/fast-element';
-import { tableTag } from '../../../../../nimble-components/src/table';
+import { tableTag } from '@ni/nimble-components/dist/esm/table';
 import {
     controlLabelFont,
     controlLabelFontColor
-} from '../../../../../nimble-components/src/theme-provider/design-tokens';
-import { tableColumnDurationTextTag } from '../../../../../nimble-components/src/table-column/duration-text';
+} from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
+import { tableColumnDurationTextTag } from '@ni/nimble-components/dist/esm/table-column/duration-text';
 import {
     placeholderStates,
     type PlaceholderState

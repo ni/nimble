@@ -1,9 +1,9 @@
 import type { Meta, StoryFn } from '@storybook/html';
 import { html, ViewTemplate } from '@ni/fast-element';
-import { tableColumnTextTag } from '../../../../nimble-components/src/table-column/text';
-import { Table, tableTag } from '../../../../nimble-components/src/table';
-import type { TableRecord } from '../../../../nimble-components/src/table/types';
-import { tableFitRowsHeight } from '../../../../nimble-components/src/theme-provider/design-tokens';
+import { tableColumnTextTag } from '@ni/nimble-components/dist/esm/table-column/text';
+import { Table, tableTag } from '@ni/nimble-components/dist/esm/table';
+import type { TableRecord } from '@ni/nimble-components/dist/esm/table/types';
+import { tableFitRowsHeight } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
 import { createFixedThemeStory } from '../../utilities/storybook';
 import { createMatrix, sharedMatrixParameters } from '../../utilities/matrix';
 import { backgroundStates } from '../../utilities/states';

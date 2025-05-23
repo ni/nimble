@@ -1,6 +1,6 @@
 import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate, when } from '@ni/fast-element';
-import { switchTag } from '../../../../nimble-components/src/switch';
+import { switchTag } from '@ni/nimble-components/dist/esm/switch';
 import {
     createMatrix,
     sharedMatrixParameters,

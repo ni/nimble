@@ -1,18 +1,18 @@
 import type { Meta, StoryObj } from '@storybook/html';
 import { html, ref, repeat } from '@ni/fast-element';
 import { DesignSystem } from '@ni/fast-foundation';
-import * as nimbleIconComponentsMap from '../../../../nimble-components/src/icons/all-icons';
+import * as nimbleIconComponentsMap from '@ni/nimble-components/dist/esm/icons/all-icons';
 import {
     tokenNames,
     scssInternalPropertySetterMarkdown
-} from '../../../../nimble-components/src/theme-provider/design-token-names';
-import { Table, tableTag } from '../../../../nimble-components/src/table';
-import { tableColumnMappingTag } from '../../../../nimble-components/src/table-column/mapping';
-import { mappingIconTag } from '../../../../nimble-components/src/mapping/icon';
-import { tableColumnTextTag } from '../../../../nimble-components/src/table-column/text';
-import { IconSeverity } from '../../../../nimble-components/src/icon-base/types';
-import { iconMetadata } from '../../../../nimble-components/src/icon-base/tests/icon-metadata';
-import { tableFitRowsHeight } from '../../../../nimble-components/src/theme-provider/design-tokens';
+} from '@ni/nimble-components/dist/esm/theme-provider/design-token-names';
+import { Table, tableTag } from '@ni/nimble-components/dist/esm/table';
+import { tableColumnMappingTag } from '@ni/nimble-components/dist/esm/table-column/mapping';
+import { mappingIconTag } from '@ni/nimble-components/dist/esm/mapping/icon';
+import { tableColumnTextTag } from '@ni/nimble-components/dist/esm/table-column/text';
+import { IconSeverity } from '@ni/nimble-components/dist/esm/icon-base/types';
+import { iconMetadata } from '@ni/nimble-components/dist/esm/icon-base/tests/icon-metadata';
+import { tableFitRowsHeight } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
 import {
     apiCategory,
     createUserSelectedThemeStory,
