@@ -13,6 +13,7 @@ type TableNodePartial = Partial<TableNode>;
 
 /**
  * Unflattens an array to a tree with runtime O(n)
+ * Test
  */
 export function arrayToTree<TData extends TableRecord>(
     items: readonly TData[],
