@@ -1,9 +1,9 @@
 import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate } from '@ni/fast-element';
-import { standardPadding } from '../../../../nimble-components/src/theme-provider/design-tokens';
-import { listOptionTag } from '../../../../nimble-components/src/list-option';
-import { comboboxTag } from '../../../../nimble-components/src/combobox';
-import { DropdownAppearance } from '../../../../nimble-components/src/patterns/dropdown/types';
+import { standardPadding } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
+import { listOptionTag } from '@ni/nimble-components/dist/esm/list-option';
+import { comboboxTag } from '@ni/nimble-components/dist/esm/combobox';
+import { DropdownAppearance } from '@ni/nimble-components/dist/esm/patterns/dropdown/types';
 import { createFixedThemeStory, createStory } from '../../utilities/storybook';
 import { createMatrix, sharedMatrixParameters } from '../../utilities/matrix';
 import {

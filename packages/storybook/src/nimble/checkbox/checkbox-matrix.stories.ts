@@ -1,7 +1,7 @@
 import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate } from '@ni/fast-element';
-import { standardPadding } from '../../../../nimble-components/src/theme-provider/design-tokens';
-import { checkboxTag } from '../../../../nimble-components/src/checkbox';
+import { standardPadding } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
+import { checkboxTag } from '@ni/nimble-components/dist/esm/checkbox';
 import {
     createMatrix,
     sharedMatrixParameters,
