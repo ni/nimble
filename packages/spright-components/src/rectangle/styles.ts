@@ -11,7 +11,6 @@ import { display } from '../utilities/style/display';
 export const styles = css`
     ${display('inline-block')}
 
-    /* Test */
     :host {
         border: 2px solid ${borderHoverColor};
     }
