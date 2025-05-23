@@ -10,7 +10,7 @@ import {
     chatConversationTag
 } from '../../../../../spright-components/src/chat/conversation';
 import { chatInputTag } from '../../../../../spright-components/src/chat/input';
-import type { ChatInputSubmitEventDetail } from '../../../../../spright-components/src/chat/input/types';
+import type { ChatInputSendEventDetail } from '../../../../../spright-components/src/chat/input/types';
 import { ChatMessageType } from '../../../../../spright-components/src/chat/message/types';
 import { chatMessageTag } from '../../../../../spright-components/src/chat/message';
 import { richTextViewerTag } from '../../../../../nimble-components/src/rich-text/viewer';
@@ -33,8 +33,8 @@ import { isChromatic } from '../../../utilities/isChromatic';
 interface ChatConversationArgs {
     content: string;
     conversationRef: ChatConversation;
-    submitMessage: (
-        event: CustomEvent<ChatInputSubmitEventDetail>,
+    sendMessage: (
+        event: CustomEvent<ChatInputSendEventDetail>,
         conversationRef: ChatConversation
     ) => void;
 }
@@ -100,7 +100,7 @@ export const chatConversation: StoryObj<ChatConversationArgs> = {
             </${chatMessageTag}>
         </${chatConversationTag}>
         <${chatInputTag}
-            @submit="${(x, c) => x.submitMessage(c.event as CustomEvent<ChatInputSubmitEventDetail>, x.conversationRef)}"
+            @send="${(x, c) => x.sendMessage(c.event as CustomEvent<ChatInputSendEventDetail>, x.conversationRef)}"
         ></${chatInputTag}>
     `),
     argTypes: {
@@ -110,12 +110,12 @@ export const chatConversation: StoryObj<ChatConversationArgs> = {
                 'The messages to display in the chat conversation. The DOM order of the messages controls their screen order within the conversation (earlier DOM order implies older message)',
             table: { category: apiCategory.slots }
         },
-        submitMessage: {
+        sendMessage: {
             table: { disable: true }
         }
     },
     args: {
-        submitMessage: (event, conversationRef) => {
+        sendMessage: (event, conversationRef) => {
             const message = document.createElement(chatMessageTag);
             message.messageType = ChatMessageType.outbound;
             const span = document.createElement('span');

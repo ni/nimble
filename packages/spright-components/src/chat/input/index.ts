@@ -3,7 +3,7 @@ import { keyEnter } from '@ni/fast-web-utilities';
 import { observable } from '@ni/fast-element';
 import { styles } from './styles';
 import { template } from './template';
-import type { ChatInputSubmitEventDetail } from './types';
+import type { ChatInputSendEventDetail } from './types';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -52,10 +52,10 @@ export class ChatInput extends FoundationElement {
         if (this.shouldDisableSendButton()) {
             return;
         }
-        const eventDetail: ChatInputSubmitEventDetail = {
+        const eventDetail: ChatInputSendEventDetail = {
             text: this.textArea.value
         };
-        this.$emit('submit', eventDetail);
+        this.$emit('send', eventDetail);
         this.textArea.value = '';
         this.textArea.focus();
         this.disableSendButton = true;
