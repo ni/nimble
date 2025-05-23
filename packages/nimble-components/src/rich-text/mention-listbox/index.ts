@@ -12,6 +12,7 @@ import type { AnchoredRegion } from '../../anchored-region';
 import { diacriticInsensitiveStringNormalizer } from '../../utilities/models/string-normalizers';
 import type { ListOption } from '../../list-option';
 import type { MentionListboxShowOptions } from './types';
+import { DropdownPosition } from '../../patterns/dropdown/types';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -36,12 +37,10 @@ export class RichTextMentionListbox extends FoundationListbox {
     public region?: AnchoredRegion;
 
     /**
-     * The space available in the viewport for the listbox when opened.
-     *
      * @internal
      */
     @observable
-    public availableViewportHeight = 0;
+    public position?: DropdownPosition;
 
     /**
      * @internal
@@ -108,10 +107,6 @@ export class RichTextMentionListbox extends FoundationListbox {
      * @public
      */
     public show(options: MentionListboxShowOptions): void {
-        const listboxTop = options.anchorNode.getBoundingClientRect().bottom;
-        this.availableViewportHeight = Math.trunc(
-            window.innerHeight - listboxTop
-        );
         this.filter = options.filter;
         this.anchorElement = options.anchorNode;
         this.setOpen(true);
