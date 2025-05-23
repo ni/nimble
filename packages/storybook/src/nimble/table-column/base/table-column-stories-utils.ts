@@ -1,7 +1,4 @@
-import {
-    tableTag,
-    type Table
-} from '@ni/nimble-components/dist/esm/table';
+import { tableTag, type Table } from '@ni/nimble-components/dist/esm/table';
 import {
     type TableRecord,
     TableRowSelectionMode

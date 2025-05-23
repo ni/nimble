@@ -15,12 +15,12 @@ import { iconThumbUpTag } from '@ni/nimble-components/dist/esm/icons/thumb-up';
 import { iconThumbDownTag } from '@ni/nimble-components/dist/esm/icons/thumb-down';
 import { iconArrowRotateRightTag } from '@ni/nimble-components/dist/esm/icons/arrow-rotate-right';
 import { iconThreeDotsLineTag } from '@ni/nimble-components/dist/esm/icons/three-dots-line';
+import { SpinnerAppearance } from '@ni/nimble-components/dist/esm/spinner/types';
 import {
     apiCategory,
     createUserSelectedThemeStory
 } from '../../../utilities/storybook';
 import { imgBlobUrl, markdownExample } from './story-helpers';
-import { SpinnerAppearance } from '@ni/nimble-components/dist/esm/spinner/types';
 import { loremIpsum } from '../../../utilities/lorem-ipsum';
 import { isChromatic } from '../../../utilities/isChromatic';
 

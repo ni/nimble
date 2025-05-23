@@ -1,20 +1,20 @@
 import { html, when } from '@ni/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
-import {
-    apiCategory,
-    createUserSelectedThemeStory
-} from '../../../utilities/storybook';
 
 import { buttonTag } from '@ni/nimble-components/dist/esm/button';
 import { chatMessageTag } from '@ni/spright-components/dist/esm/chat/message';
 import { ChatMessageType } from '@ni/spright-components/dist/esm/chat/message/types';
 import { richTextViewerTag } from '@ni/nimble-components/dist/esm/rich-text/viewer';
 import { spinnerTag } from '@ni/nimble-components/dist/esm/spinner';
-import { imgBlobUrl, markdownExample } from '../conversation/story-helpers';
 import { SpinnerAppearance } from '@ni/nimble-components/dist/esm/spinner/types';
-import { isChromatic } from '../../../utilities/isChromatic';
 import { iconThumbUpTag } from '@ni/nimble-components/dist/esm/icons/thumb-up';
 import { iconThumbDownTag } from '@ni/nimble-components/dist/esm/icons/thumb-down';
+import { isChromatic } from '../../../utilities/isChromatic';
+import { imgBlobUrl, markdownExample } from '../conversation/story-helpers';
+import {
+    apiCategory,
+    createUserSelectedThemeStory
+} from '../../../utilities/storybook';
 
 const footerActionsDescription = `Place 0 or more buttons at the bottom of the message to allow the user to invoke a custom action.
 Footer actions should only be added to inbound messages.

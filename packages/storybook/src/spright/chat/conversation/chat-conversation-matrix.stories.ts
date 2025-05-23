@@ -2,13 +2,6 @@ import type { StoryFn, Meta } from '@storybook/html';
 import { html, repeat, ViewTemplate } from '@ni/fast-element';
 import { chatMessageTag } from '@ni/spright-components/dist/esm/chat/message';
 import { ChatMessageType } from '@ni/spright-components/dist/esm/chat/message/types';
-import {
-    createMatrix,
-    sharedMatrixParameters,
-    createMatrixThemeStory
-} from '../../../utilities/matrix';
-import { createStory } from '../../../utilities/storybook';
-import { hiddenWrapper } from '../../../utilities/hidden';
 import { chatConversationTag } from '@ni/spright-components/dist/esm/chat/conversation';
 import {
     bodyFont,
@@ -16,6 +9,13 @@ import {
 } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
 import { buttonTag } from '@ni/nimble-components/dist/esm/button';
 import { iconThumbUpTag } from '@ni/nimble-components/dist/esm/icons/thumb-up';
+import { hiddenWrapper } from '../../../utilities/hidden';
+import { createStory } from '../../../utilities/storybook';
+import {
+    createMatrix,
+    sharedMatrixParameters,
+    createMatrixThemeStory
+} from '../../../utilities/matrix';
 
 const messageTypeStates = [
     ['outbound', ChatMessageType.outbound],

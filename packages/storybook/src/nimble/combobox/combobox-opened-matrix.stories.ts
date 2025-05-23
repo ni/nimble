@@ -3,10 +3,7 @@ import { html, repeat, ViewTemplate, when } from '@ni/fast-element';
 import { ComboboxAutocomplete } from '@ni/fast-foundation';
 import { DropdownPosition } from '@ni/nimble-components/dist/esm/patterns/dropdown/types';
 import { listOptionTag } from '@ni/nimble-components/dist/esm/list-option';
-import {
-    Combobox,
-    comboboxTag
-} from '@ni/nimble-components/dist/esm/combobox';
+import { Combobox, comboboxTag } from '@ni/nimble-components/dist/esm/combobox';
 import { createFixedThemeStory } from '../../utilities/storybook';
 import { sharedMatrixParameters } from '../../utilities/matrix';
 import { backgroundStates } from '../../utilities/states';

@@ -9,7 +9,6 @@ import {
 import { comboboxTag } from '@ni/nimble-components/dist/esm/combobox';
 import { selectTag } from '@ni/nimble-components/dist/esm/select';
 import { textAreaTag } from '@ni/nimble-components/dist/esm/text-area';
-import { createUserSelectedThemeStory } from '../../../utilities/storybook';
 import {
     Orientation,
     radioGroupTag
@@ -17,6 +16,7 @@ import {
 import { radioTag } from '@ni/nimble-components/dist/esm/radio';
 import { textFieldTag } from '@ni/nimble-components/dist/esm/text-field';
 import { numberFieldTag } from '@ni/nimble-components/dist/esm/number-field';
+import { createUserSelectedThemeStory } from '../../../utilities/storybook';
 
 interface RequiredVisiblePatternArgs {
     shortLabel: string;
