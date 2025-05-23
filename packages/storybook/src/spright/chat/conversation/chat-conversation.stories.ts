@@ -48,6 +48,11 @@ export const chatConversation: StoryObj<ChatConversationArgs> = {
         actions: {}
     },
     render: createUserSelectedThemeStory(html`
+        <style class='code-hide'>
+            ${chatConversationTag} {
+                max-height: 500px;
+            }
+        </style>
         <${chatConversationTag} ${ref('conversationRef')}>
             <${chatMessageTag} message-type="${() => ChatMessageType.system}">
                 To start, press any key.
@@ -98,10 +103,10 @@ export const chatConversation: StoryObj<ChatConversationArgs> = {
                     Check core temperature
                 </${buttonTag}>
             </${chatMessageTag}>
+            <${chatInputTag} slot='input'
+                @send="${(x, c) => x.sendMessage(c.event as CustomEvent<ChatInputSendEventDetail>, x.conversationRef)}"
+            ></${chatInputTag}>
         </${chatConversationTag}>
-        <${chatInputTag}
-            @send="${(x, c) => x.sendMessage(c.event as CustomEvent<ChatInputSendEventDetail>, x.conversationRef)}"
-        ></${chatInputTag}>
     `),
     argTypes: {
         content: {
@@ -124,6 +129,7 @@ export const chatConversation: StoryObj<ChatConversationArgs> = {
             span.style.whiteSpace = 'pre-wrap';
             message.appendChild(span);
             conversationRef.appendChild(message);
+            message.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
         }
     }
 };
