@@ -1,0 +1,31 @@
+{
+  "name": "@ni/nimble-react",
+  "version": "1.0.0-alpha.0",
+  "description": "React components for the NI Nimble Design System",
+  "keywords": [
+    "nimble",
+    "react"
+  ],
+  "scripts": {
+    "build": "tsc -p ./tsconfig.json",
+    "lint": "eslint .",
+    "format": "eslint . --fix",
+    "pack": "npm pack",
+    "invoke-publish": "npm publish"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ni/nimble.git",
+    "directory": "packages/nimble-react"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "type": "module",
+  "author": "National Instruments",
+  "license": "MIT",
+  "devDependencies": {
+    "@ni-private/eslint-config-nimble": "*",
+    "typescript": "~5.4.5"
+  }
+}
