@@ -4,10 +4,7 @@
   "private": true,
   "description": "Storybook for the Nimble repo",
   "scripts": {
-    "build": "npm run generate-icons && tsc -p ./tsconfig.json && storybook build -o dist/storybook --webpack-stats-json",
-    "generate-icons": "npm run generate-icons:bundle && npm run generate-icons:run",
-    "generate-icons:bundle": "rollup --bundleConfigAsCjs --config build/generate-icons/rollup.config.js",
-    "generate-icons:run": "node build/generate-icons/dist/index.js",
+    "build": "storybook build -o dist/storybook --webpack-stats-json",
     "start": "storybook dev --quiet -p 6006",
     "lint": "npm run eslint && npm run prettier",
     "format": "npm run prettier-fix",

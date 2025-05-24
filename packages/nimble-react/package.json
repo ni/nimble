@@ -1,13 +1,17 @@
 {
   "name": "@ni/nimble-react",
   "version": "1.0.0-alpha.0",
+  "private": true,
   "description": "React components for the NI Nimble Design System",
   "keywords": [
     "nimble",
     "react"
   ],
   "scripts": {
-    "build": "tsc -p ./tsconfig.json",
+    "build": "npm run generate-icons && tsc -p ./tsconfig.json",
+    "generate-icons": "npm run generate-icons:bundle && npm run generate-icons:run",
+    "generate-icons:bundle": "rollup --bundleConfigAsCjs --config build/generate-icons/rollup.config.js",
+    "generate-icons:run": "node build/generate-icons/dist/index.js",
     "lint": "eslint .",
     "format": "eslint . --fix",
     "pack": "npm pack",
@@ -21,11 +25,19 @@
   "publishConfig": {
     "access": "public"
   },
-  "type": "module",
   "author": "National Instruments",
   "license": "MIT",
   "devDependencies": {
     "@ni-private/eslint-config-nimble": "*",
+    "@ni/fast-web-utilities": "^10.0.0",
+    "@ni/nimble-tokens": "^8.9.0",
+    "@rollup/plugin-node-resolve": "^16.0.0",
+    "rollup": "^4.12.0",
     "typescript": "~5.4.5"
+  },
+  "peerDependencies": {
+    "@ni/fast-react-wrapper": "^10.0.0",
+    "@ni/nimble-components": "^33.8.0",
+    "react": "^18"
   }
 }

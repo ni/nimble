@@ -49,19 +49,6 @@ module.exports = {
             }
         },
         {
-            files: ['**/*.react.tsx'],
-            rules: {
-                // The React components should use PascalCase
-                '@typescript-eslint/naming-convention': [
-                    'error',
-                    {
-                        selector: 'objectLiteralProperty',
-                        format: ['PascalCase']
-                    }
-                ]
-            }
-        },
-        {
             files: ['build/**/*.js'],
             rules: {
                 // Build scripts should give verbose logging

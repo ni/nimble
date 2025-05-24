@@ -31,7 +31,8 @@
         "jsx": "preserve",
         "paths": {
             "@ni/nimble-components/dist/esm/*": ["../nimble-components/src/*"],
-            "@ni/spright-components/dist/esm/*": ["../spright-components/src/*"]
+            "@ni/spright-components/dist/esm/*": ["../spright-components/src/*"],
+            "@ni/nimble-react/dist/esm/*": ["../nimble-react/src/*"],
         }
     },
     "include": ["src"]
