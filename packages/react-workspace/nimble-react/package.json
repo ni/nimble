@@ -19,7 +19,7 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ni/nimble.git",
-    "directory": "packages/nimble-react"
+    "directory": "packages/react-workspace/nimble-react"
   },
   "publishConfig": {
     "access": "public"
