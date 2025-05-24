@@ -1,7 +1,6 @@
 {
   "name": "@ni/nimble-react",
   "version": "1.0.0-alpha.0",
-  "private": true,
   "description": "React components for the NI Nimble Design System",
   "keywords": [
     "nimble",
