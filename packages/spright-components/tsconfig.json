@@ -25,7 +25,8 @@
         "verbatimModuleSyntax": true,
         "noImplicitOverride": true,
         "noUncheckedIndexedAccess": true,
-        "noPropertyAccessFromIndexSignature": false
+        "noPropertyAccessFromIndexSignature": false,
+        "jsx": "preserve"
     },
     "include": ["src"]
 }
