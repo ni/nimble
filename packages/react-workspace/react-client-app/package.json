@@ -1,5 +1,5 @@
 {
-  "name": "react-client-app",
+  "name": "@ni-private/react-client-app",
   "private": true,
   "version": "1.0.0",
   "type": "module",
