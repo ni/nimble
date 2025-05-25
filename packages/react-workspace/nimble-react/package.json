@@ -7,10 +7,11 @@
     "react"
   ],
   "scripts": {
-    "build": "npm run generate-icons && tsc -p ./tsconfig.json",
-    "generate-icons": "npm run generate-icons:bundle && npm run generate-icons:run",
-    "generate-icons:bundle": "rollup --bundleConfigAsCjs --config build/generate-icons/rollup.config.js",
-    "generate-icons:run": "node build/generate-icons/dist/index.js",
+    "build": "npm run build:icons && npm run build:components",
+    "build:icons": "npm run build:icons:bundle && npm run build:icons:run",
+    "build:icons:bundle": "rollup --bundleConfigAsCjs --config build/generate-icons/rollup.config.js",
+    "build:icons:run": "node build/generate-icons/dist/index.js",
+    "build:components": "tsc -p ./tsconfig.json",
     "lint": "eslint .",
     "format": "eslint . --fix",
     "pack": "npm pack",

@@ -1,6 +1,6 @@
 import { NimbleAnchor } from '@ni/nimble-react/dist/esm/anchor';
 import { NimbleButton } from '@ni/nimble-react/dist/esm/button';
-import { NimbleBanner } from '@ni/nimble-react/dist/esm/banner';
+import { NimbleBanner, type BannerToggleEvent } from '@ni/nimble-react/dist/esm/banner';
 import { NimbleBreadcrumb } from '@ni/nimble-react/dist/esm/breadcrumb';
 import { NimbleBreadcrumbItem } from '@ni/nimble-react/dist/esm/breadcrumb-item';
 import { NimbleToggleButton } from '@ni/nimble-react/dist/esm/toggle-button';
@@ -11,7 +11,7 @@ import { NimbleSelect } from '@ni/nimble-react/dist/esm/select';
 import { NimbleListOption } from '@ni/nimble-react/dist/esm/list-option';
 import { NimbleListOptionGroup } from '@ni/nimble-react/dist/esm/list-option-group';
 import { NimbleCardButton } from '@ni/nimble-react/dist/esm/card-button';
-import { NimbleCheckbox } from '@ni/nimble-react/dist/esm/checkbox';
+import { NimbleCheckbox, type CheckboxChangeEvent } from '@ni/nimble-react/dist/esm/checkbox';
 import { NimbleRadioGroup } from '@ni/nimble-react/dist/esm/radio-group';
 import { NimbleRadio } from '@ni/nimble-react/dist/esm/radio';
 import { NimbleTextField } from '@ni/nimble-react/dist/esm/text-field';
@@ -62,8 +62,11 @@ import { NimbleIconCopyText } from '@ni/nimble-react/dist/esm/icons/copy-text';
 import { NimbleIconWebviCustom } from '@ni/nimble-react/dist/esm/icons/webvi-custom';
 
 import './App.scss';
+import { useState } from 'react';
 
 export function App(): JSX.Element {
+    const [bannerOpen, setBannerOpen] = useState(true);
+
     return (
         <>
             <div className="content container">
@@ -81,13 +84,15 @@ export function App(): JSX.Element {
                     <div className="sub-container">
                         <div className="container-label">Banner</div>
                         <NimbleBanner
-                        //  [(open)]="bannerOpen"
+                            open={bannerOpen}
+                            onToggle={e => setBannerOpen((e as BannerToggleEvent).detail.newState)}
                             severity="information">
                             <span slot="title">Title of the banner</span>
                             This is the message text of this banner. It tells you something interesting.
                         </NimbleBanner>
                         <NimbleCheckbox
-                        // [(ngModel)]="bannerOpen"
+                            checked={bannerOpen}
+                            onChange={e => setBannerOpen((e as CheckboxChangeEvent).target.checked)}
                         >Show banner</NimbleCheckbox>
                     </div>
                     <div className="sub-container">
@@ -95,7 +100,7 @@ export function App(): JSX.Element {
                         <NimbleBreadcrumb>
                             <NimbleBreadcrumbItem href="#">Page 1</NimbleBreadcrumbItem>
                             <NimbleBreadcrumbItem
-                            // nimbleRouterLink="/customapp"
+                                href="#"
                             >Page 2</NimbleBreadcrumbItem>
                             <NimbleBreadcrumbItem>Current Page (No Link)</NimbleBreadcrumbItem>
                         </NimbleBreadcrumb>
@@ -115,13 +120,13 @@ export function App(): JSX.Element {
                     <div className="sub-container">
                         <div className="container-label">Buttons - Anchor</div>
                         <NimbleAnchorButton
-                        // nimbleRouterLink="/customapp"
+                            href="#"
                             appearance="outline">Outline Anchor Button</NimbleAnchorButton>
                         <NimbleAnchorButton
-                        // nimbleRouterLink="/customapp"
+                            href="#"
                             appearance="block">Block Anchor Button</NimbleAnchorButton>
                         <NimbleAnchorButton
-                        // nimbleRouterLink="/customapp"
+                            href="#"
                             appearance="ghost">Ghost Anchor Button</NimbleAnchorButton>
                     </div>
                     <div className="sub-container">
