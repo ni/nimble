@@ -7,3 +7,11 @@ export const NimbleTextField = wrap(TextField, {
         onInput: 'input',
     }
 });
+
+export interface TextFieldChangeEvent extends CustomEvent {
+    target: TextField;
+}
+
+export interface TextFieldInputEvent extends CustomEvent {
+    target: TextField;
+}

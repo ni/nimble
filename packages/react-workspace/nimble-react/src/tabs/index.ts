@@ -6,3 +6,7 @@ export const NimbleTabs = wrap(Tabs, {
         onChange: 'change',
     }
 });
+
+export interface TabsChangeEvent extends CustomEvent {
+    target: Tabs;
+}

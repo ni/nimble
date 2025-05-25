@@ -6,3 +6,7 @@ export const NimbleSwitch = wrap(Switch, {
         onChange: 'change',
     }
 });
+
+export interface SwitchChangeEvent extends CustomEvent {
+    target: Switch;
+}

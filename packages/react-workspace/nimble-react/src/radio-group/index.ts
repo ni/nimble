@@ -6,3 +6,7 @@ export const NimbleRadioGroup = wrap(RadioGroup, {
         onChange: 'change',
     }
 });
+
+export interface RadioGroupChangeEvent extends CustomEvent {
+    target: RadioGroup;
+}

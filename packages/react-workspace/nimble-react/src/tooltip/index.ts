@@ -6,3 +6,7 @@ export const NimbleTooltip = wrap(Tooltip, {
         onDismiss: 'dismiss',
     }
 });
+
+export interface TooltipDismissEvent extends CustomEvent {
+    target: Tooltip;
+}

@@ -6,3 +6,7 @@ export const NimbleToggleButton = wrap(ToggleButton, {
         onChange: 'change',
     }
 });
+
+export interface ToggleButtonChangeEvent extends CustomEvent {
+    target: ToggleButton;
+}

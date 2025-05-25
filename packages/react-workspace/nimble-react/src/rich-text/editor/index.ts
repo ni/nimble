@@ -4,6 +4,9 @@ import { wrap } from '../../utilities/react-wrapper';
 export const NimbleRichTextEditor = wrap(RichTextEditor, {
     events: {
         onInput: 'input',
-        onMentionUpdate: 'mention-update',
     }
 });
+
+export interface RichTextEditorInputEvent extends CustomEvent {
+    target: RichTextEditor;
+}

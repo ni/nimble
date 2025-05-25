@@ -40,6 +40,7 @@ interface MenuButtonArgs {
     menuPosition: string;
     toggle: undefined;
     beforetoggle: undefined;
+    change: undefined;
 }
 
 const metadata: Meta<MenuButtonArgs> = {
@@ -47,7 +48,11 @@ const metadata: Meta<MenuButtonArgs> = {
     decorators: [withActions<HtmlRenderer>],
     parameters: {
         actions: {
-            handles: ['toggle', 'beforetoggle', 'change']
+            handles: [
+                'toggle',
+                'beforetoggle',
+                'change' // nimble-menu-item event
+            ]
         },
         toolbar: {
             zoom: { hidden: true }
@@ -120,6 +125,12 @@ const metadata: Meta<MenuButtonArgs> = {
         beforetoggle: {
             description:
                 'Event emitted before the menu button is toggled. This can be used to populate the menu before it is opened.',
+            table: { category: apiCategory.events },
+            control: false
+        },
+        change: {
+            description:
+                'Bubbling event emitted by a menu item child when selected. Easier to listen for the event on parent menu button than on each menu item child.',
             table: { category: apiCategory.events },
             control: false
         }

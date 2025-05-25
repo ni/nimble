@@ -7,3 +7,11 @@ export const NimbleNumberField = wrap(NumberField, {
         onInput: 'input'
     }
 });
+
+export interface NumberFieldChangeEvent extends CustomEvent {
+    target: NumberField;
+}
+
+export interface NumberFieldInputEvent extends CustomEvent {
+    target: NumberField;
+}

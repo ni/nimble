@@ -7,3 +7,11 @@ export const NimbleCombobox = wrap(Combobox, {
         onInput: 'input'
     }
 });
+
+export interface ComboboxChangeEvent extends CustomEvent {
+    target: Combobox;
+}
+
+export interface ComboboxInputEvent extends CustomEvent {
+    target: Combobox;
+}

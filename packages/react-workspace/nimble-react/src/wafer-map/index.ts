@@ -6,3 +6,7 @@ export const NimbleWaferMap = wrap(WaferMap, {
         onDieHover: 'die-hover',
     }
 });
+
+export interface WaferMapDieHoverEvent extends CustomEvent {
+    target: WaferMap;
+}
