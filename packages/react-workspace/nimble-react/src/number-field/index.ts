@@ -1,4 +1,9 @@
 import { NumberField } from '@ni/nimble-components/dist/esm/number-field';
 import { wrap } from '../utilities/react-wrapper';
 
-export const NimbleNumberField = wrap(NumberField);
+export const NimbleNumberField = wrap(NumberField, {
+    events: {
+        onChange: 'change',
+        onInput: 'input'
+    }
+});
