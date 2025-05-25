@@ -5,6 +5,7 @@ module.exports = eleventyConfig => {
         '../../packages/storybook/dist/storybook': 'storybook',
         '../../packages/angular-workspace/dist/example-client-app': 'storybook/example-client-app',
         '../../packages/blazor-workspace/dist/blazor-client-app': 'storybook/blazor-client-app',
+        '../../packages/react-workspace/react-client-app/dist': 'storybook/react-client-app',
         '../../packages/performance/dist': 'storybook/performance'
     });
     eleventyConfig.setTemplateFormats([
