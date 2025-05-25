@@ -183,7 +183,8 @@ export const menuItem: StoryObj<MenuItemArgs> = {
             table: { category: apiCategory.attributes }
         },
         change: {
-            description: 'Bubbling event emitted by a menu item child when selected. Easier to listen for the event on parent menu than on each menu item child.',
+            description:
+                'Bubbling event emitted by a menu item child when selected. Easier to listen for the event on parent menu than on each menu item child.',
             table: { category: apiCategory.events },
             control: false
         }

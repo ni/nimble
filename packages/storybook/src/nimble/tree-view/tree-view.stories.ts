@@ -194,12 +194,14 @@ export const multipleTreeItems: StoryObj<TreeArgs> = {
         },
         expandedChange: {
             name: 'expanded-change',
-            description: 'Bubbling event emitted by a tree item child when expanded or collapsed. Easier to listen for the event on parent tree view than on each tree item child.',
+            description:
+                'Bubbling event emitted by a tree item child when expanded or collapsed. Easier to listen for the event on parent tree view than on each tree item child.',
             table: { category: apiCategory.events }
         },
         selectedChange: {
             name: 'selected-change',
-            description: 'Bubbling event emitted by a tree item child when selected or deselected. Easier to listen for the event on parent tree view than on each tree item child.',
+            description:
+                'Bubbling event emitted by a tree item child when selected or deselected. Easier to listen for the event on parent tree view than on each tree item child.',
             table: { category: apiCategory.events }
         }
     },
