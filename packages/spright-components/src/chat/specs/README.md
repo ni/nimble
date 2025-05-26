@@ -242,12 +242,16 @@ A message is simply a `div` which will styled with background / border / rounded
 
 #### Conversation
 
-Other than setting a background, a conversation has no appearance of its own and simply contains the default slot for messages and the input slot for the chat input.
+Other than setting a background, a conversation has no appearance of its own and simply contains the default slot for messages and the input slot for the chat input, along with wrapper `div`s for layout purposes.
 
 ```html
 <template>
-    <slot></slot>
-    <slot name="input"></slot>
+    <div class="messages">
+        <slot></slot>
+    </div>
+    <div class="input">
+        <slot name="input"></slot>
+    </div>
 </template>
 ```
 
