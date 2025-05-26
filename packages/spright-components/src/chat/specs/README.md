@@ -4,9 +4,9 @@
 
 This spec describes a set of components that can be used to compose a chat interface. This includes:
 
-- chat message: a single entry in a chat conversation, including some content and metadata about the message
-- chat conversation: a collection of messages that are laid out to convey the order the messages were sent
 - chat input: a text input, button, and related components for users to compose and send new messages
+- chat message: a single entry in a chat conversation, including some content and metadata about the message
+- chat conversation: a layout component that allows slotting messages and an input
 
 ### Background
 
@@ -69,6 +69,7 @@ The component also contains the following features:
 
 1. Lays out messages vertically based on their order.
 1. Displays a vertical scrollbar if there are more messages than fit in the height allocated to the conversation.
+1. Includes a slot to place an input component below the messages.
 1. Only appearance of its own is to set a background color.
 
 #### Chat input
@@ -127,6 +128,7 @@ These components are competing against possible implementations within applicati
     <spright-chat-message message-type="system">
         <nimble-spinner></nimble-spinner>
     </spright-chat-message>
+    <spright-chat-input slot="input></spright-chat-input>
 </spright-chat-conversation>
 ```
 
@@ -200,6 +202,7 @@ richText.markdown = 'Welcome **Homer**, how can I help?';
     - The conversation will have a minimum width that clients are discouraged from overriding.
 - _Slots_
     - chat messages are added to the default slot. The DOM order of the messages controls their screen order within the conversation (earlier DOM order => earlier message => top of the conversation)
+    - a single chat input can optionally be added to the `input` slot. It will be placed below the messages.
 
 #### Input
 
@@ -239,11 +242,12 @@ A message is simply a `div` which will styled with background / border / rounded
 
 #### Conversation
 
-Other than setting a background, a conversation has no appearance of its own and simply contains the default slot for messages.
+Other than setting a background, a conversation has no appearance of its own and simply contains the default slot for messages and the input slot for the chat input.
 
 ```html
 <template>
     <slot></slot>
+    <slot name="input"></slot>
 </template>
 ```
 
@@ -387,4 +391,4 @@ There are parallel efforts to standardize and document other aspects of chat app
 
 ## Open Issues
 
-None
+None.
