@@ -24,10 +24,12 @@ const metadata: Meta<ChatInputArgs> = {
     },
 };
 
-// TODO: send-button-label
 export const chatInput: StoryObj<ChatInputArgs> = {
     render: createUserSelectedThemeStory(html`
-        <${chatInputTag} placeholder="${x => x.placeholder}"></${chatInputTag}>
+        <${chatInputTag}
+            placeholder="${x => x.placeholder}"
+            send-button-label="${x => x.sendButtonLabel}">
+        </${chatInputTag}>
     `),
     argTypes: {
         placeholder: {

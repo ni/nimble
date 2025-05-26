@@ -18,6 +18,9 @@ export class ChatInput extends FoundationElement {
     @attr
     public placeholder?: string;
 
+    @attr({ attribute: 'send-button-label' })
+    public sendButtonLabel?: string;
+
     /**
      * @internal
      */

@@ -21,7 +21,7 @@ export const template = html<ChatInput>`
         ?disabled=${x => x.disableSendButton}
         @click=${x => x.sendButtonClickHandler()}
     >
-        Send
+        ${x => x.sendButtonLabel}
         <${iconPaperPlaneTag} slot="start"><${iconPaperPlaneTag}/>
     </${buttonTag}>    
 </div>`;
