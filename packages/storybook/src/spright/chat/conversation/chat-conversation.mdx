@@ -1,6 +1,7 @@
 import { Controls, Canvas, Meta, Title } from '@storybook/blocks';
 import * as conversationStories from './chat-conversation.stories';
 import * as messageStories from '../message/chat-message.stories';
+import * as inputStories from '../input/chat-input.stories';
 import ComponentApisLink from '../../../docs/component-apis-link.mdx';
 import { chatConversationTag } from '../../../../../spright-components/src/chat/conversation';
 import { chatInputTag } from '../../../../../spright-components/src/chat/input';
@@ -57,6 +58,9 @@ Clients can place any HTML content within the message.
 
 Use the <Tag name={chatInputTag} /> element to allow the user to create and send
 chat messages.
+
+<Canvas of={inputStories.chatInput} />
+<Controls of={inputStories.chatInput} />
 
 ## Usage
 
