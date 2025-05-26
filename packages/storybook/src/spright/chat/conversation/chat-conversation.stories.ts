@@ -29,7 +29,6 @@ import { SpinnerAppearance } from '../../../../../nimble-components/src/spinner/
 import { loremIpsum } from '../../../utilities/lorem-ipsum';
 import { isChromatic } from '../../../utilities/isChromatic';
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface ChatConversationArgs {
     content: string;
     input: boolean;

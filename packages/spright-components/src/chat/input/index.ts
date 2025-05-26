@@ -1,6 +1,6 @@
 import { DesignSystem, FoundationElement } from '@ni/fast-foundation';
 import { keyEnter } from '@ni/fast-web-utilities';
-import { observable } from '@ni/fast-element';
+import { attr, observable } from '@ni/fast-element';
 import { styles } from './styles';
 import { template } from './template';
 import type { ChatInputSendEventDetail } from './types';
@@ -15,6 +15,9 @@ declare global {
  * A Spright component for displaying a series of chat messages
  */
 export class ChatInput extends FoundationElement {
+    @attr
+    public placeholder?: string;
+
     /**
      * @internal
      */

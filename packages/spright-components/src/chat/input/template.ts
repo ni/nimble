@@ -9,7 +9,7 @@ export const template = html<ChatInput>`
 <div class="container">
     <textarea
         ${ref('textArea')}
-        placeholder="Ask Nigel"
+        placeholder="${x => x.placeholder}"
         rows="1"
         @keydown="${(x, c) => x.textAreaKeydownHandler(c.event as KeyboardEvent)}"
         @input="${x => x.textAreaInputHandler()}"

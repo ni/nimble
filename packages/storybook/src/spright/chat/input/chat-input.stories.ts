@@ -1,16 +1,17 @@
 import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html';
+import { withActions } from '@storybook/addon-actions/decorator';
 import { html } from '@ni/fast-element';
 import {
     apiCategory,
     createUserSelectedThemeStory,
+    placeholderDescription,
 } from '../../../utilities/storybook';
 import { chatInputTag } from '../../../../../spright-components/src/chat/input';
-import { withActions } from '@storybook/addon-actions/decorator';
 
 interface ChatInputArgs {
     placeholder: string;
     sendButtonLabel: string;
-    send: unknown;
+    send: undefined;
 }
 
 const metadata: Meta<ChatInputArgs> = {
@@ -23,13 +24,15 @@ const metadata: Meta<ChatInputArgs> = {
     },
 };
 
+// TODO: send-button-label
 export const chatInput: StoryObj<ChatInputArgs> = {
     render: createUserSelectedThemeStory(html`
-        <${chatInputTag}></${chatInputTag}>
+        <${chatInputTag} placeholder="${x => x.placeholder}"></${chatInputTag}>
     `),
     argTypes: {
         placeholder: {
-            description: 'Text to display in the text area when no text has been entered.',
+            description: placeholderDescription({ componentName: 'chat input' }),
+            control: { type: 'text' },
             table: { category: apiCategory.attributes }
         },
         sendButtonLabel: {
@@ -41,6 +44,10 @@ export const chatInput: StoryObj<ChatInputArgs> = {
             description: 'Emitted when the user clicks the button or presses Enter with text present. Includes `ChatInputSendEventDetail` which is an object with a `text` field containing the input',
             table: { category: apiCategory.events }
         },
+    },
+    args: {
+        placeholder: 'Ask Nigel',
+        sendButtonLabel: 'Send',
     }
 };
 
