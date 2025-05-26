@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/html';
-import { html, ref } from '@ni/fast-element';
+import { html, ref, when } from '@ni/fast-element';
 import { buttonTag } from '../../../../../nimble-components/src/button';
 import { menuButtonTag } from '../../../../../nimble-components/src/menu-button';
 import { menuTag } from '../../../../../nimble-components/src/menu';
@@ -9,7 +9,7 @@ import {
     ChatConversation,
     chatConversationTag
 } from '../../../../../spright-components/src/chat/conversation';
-import { chatInputTag } from '../../../../../spright-components/src/chat/input';
+import { ChatInput, chatInputTag } from '../../../../../spright-components/src/chat/input';
 import type { ChatInputSendEventDetail } from '../../../../../spright-components/src/chat/input/types';
 import { ChatMessageType } from '../../../../../spright-components/src/chat/message/types';
 import { chatMessageTag } from '../../../../../spright-components/src/chat/message';
@@ -32,6 +32,7 @@ import { isChromatic } from '../../../utilities/isChromatic';
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface ChatConversationArgs {
     content: string;
+    input: boolean;
     conversationRef: ChatConversation;
     sendMessage: (
         event: CustomEvent<ChatInputSendEventDetail>,
@@ -103,9 +104,11 @@ export const chatConversation: StoryObj<ChatConversationArgs> = {
                     Check core temperature
                 </${buttonTag}>
             </${chatMessageTag}>
-            <${chatInputTag} slot='input'
-                @send="${(x, c) => x.sendMessage(c.event as CustomEvent<ChatInputSendEventDetail>, x.conversationRef)}"
-            ></${chatInputTag}>
+            ${when(x => x.input, html<ChatConversationArgs, ChatInput>`
+                <${chatInputTag} slot='input'
+                    @send="${(x2, c2) => x2.sendMessage(c2.event as CustomEvent<ChatInputSendEventDetail>, x2.conversationRef)}"
+                ></${chatInputTag}>
+            `)}
         </${chatConversationTag}>
     `),
     argTypes: {
@@ -115,11 +118,16 @@ export const chatConversation: StoryObj<ChatConversationArgs> = {
                 'The messages to display in the chat conversation. The DOM order of the messages controls their screen order within the conversation (earlier DOM order implies older message)',
             table: { category: apiCategory.slots }
         },
+        input: {
+            description: `A slot to optionally include a \`${chatInputTag}\` which will be displayed below the messages`,
+            table: { category: apiCategory.slots }
+        },
         sendMessage: {
             table: { disable: true }
         }
     },
     args: {
+        input: true,
         sendMessage: (event, conversationRef) => {
             const message = document.createElement(chatMessageTag);
             message.messageType = ChatMessageType.outbound;

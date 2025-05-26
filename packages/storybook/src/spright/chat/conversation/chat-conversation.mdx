@@ -10,8 +10,8 @@ import { chatMessageTag } from '../../../../../spright-components/src/chat/messa
 <Title of={conversationStories} />
 
 Chat components are used to display a conversation with a chat bot or other
-users. The components can display messages but the application is responsible
-for connecting them to a source of data.
+users. The components can collect input and display messages but the application
+is responsible for managing the messages in the conversation.
 
 Components include a chat message, a chat conversation, and a chat input.
 
@@ -22,7 +22,8 @@ Components include a chat message, a chat conversation, and a chat input.
 ### Chat conversation
 
 Use the <Tag name={chatConversationTag} /> element to display a series of
-messages in a conversation.
+messages in a conversation. The conversation can also lay out other related
+components, like the input.
 
 <Canvas of={conversationStories.chatConversation} />
 <Controls of={conversationStories.chatConversation} />
@@ -67,7 +68,7 @@ library for reasons including:
 2. we are unsure if the components are sufficiently atomic or general purpose to
    belong in Nimble
 3. the implementation has not yet prioritized Nimble requirements like
-   accessibility and support for all frameworks
+   accessibility
 
 {/* ## Accessibility */}
 
