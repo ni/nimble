@@ -11,8 +11,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@ni/nimble-react": "^0.0.1",
-    "@ni/spright-react": "^0.0.1",
+    "@ni/nimble-react": "^0.0.2",
+    "@ni/spright-react": "^0.0.2",
     "react": "^18",
     "react-dom": "^18"
   },
