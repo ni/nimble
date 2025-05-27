@@ -192,7 +192,7 @@ export function App(): JSX.Element {
                     <div className="sub-container">
                         <div className="container-label">Dialog</div>
                         <NimbleDialog
-                            /* @ts-expect-error ref assignment */
+                            /* @ts-expect-error See: https://github.com/ni/nimble/issues/2617 */
                             ref={dialogRef}
                         >
                             <span slot="title">This is a dialog</span>
