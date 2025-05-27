@@ -144,5 +144,13 @@ export class NimbleTextFieldDirective {
         this.renderer.setProperty(this.elementRef.nativeElement, 'requiredVisible', toBooleanProperty(value));
     }
 
+    public get appearanceReadOnly(): boolean {
+        return this.elementRef.nativeElement.appearanceReadOnly;
+    }
+
+    @Input('appearance-readonly') public set appearanceReadOnly(value: BooleanValueOrAttribute) {
+        this.renderer.setProperty(this.elementRef.nativeElement, 'appearanceReadOnly', toBooleanProperty(value));
+    }
+
     public constructor(private readonly renderer: Renderer2, private readonly elementRef: ElementRef<TextField>) {}
 }

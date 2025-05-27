@@ -204,6 +204,17 @@ describe('Nimble text field', () => {
             expect(directive.requiredVisible).toBeTrue();
             expect(nativeElement.requiredVisible).toBeTrue();
         });
+
+        it('has expected defaults for appearanceReadOnly', () => {
+            expect(directive.appearanceReadOnly).toBeFalse();
+            expect(nativeElement.appearanceReadOnly).toBeFalse();
+        });
+
+        it('can use the directive to set appearanceReadOnly', () => {
+            directive.appearanceReadOnly = true;
+            expect(directive.appearanceReadOnly).toBeTrue();
+            expect(nativeElement.appearanceReadOnly).toBeTrue();
+        });
     });
 
     describe('with template string values', () => {
@@ -226,6 +237,7 @@ describe('Nimble text field', () => {
                     spellcheck
                     full-bleed
                     required-visible
+                    appearance-readonly
                 >
                 </nimble-text-field>`
         })
@@ -328,6 +340,11 @@ describe('Nimble text field', () => {
             expect(directive.requiredVisible).toBeTrue();
             expect(nativeElement.requiredVisible).toBeTrue();
         });
+
+        it('will use template string values for appearanceReadOnly', () => {
+            expect(directive.appearanceReadOnly).toBeTrue();
+            expect(nativeElement.appearanceReadOnly).toBeTrue();
+        });
     });
 
     describe('with property bound values', () => {
@@ -350,6 +367,7 @@ describe('Nimble text field', () => {
                     [spellcheck]="spellcheck"
                     [full-bleed]="fullBleed"
                     [required-visible]="requiredVisible"
+                    [appearance-readonly]="appearanceReadOnly"
                 >
                 </nimble-text-field>`
         })
@@ -372,6 +390,7 @@ describe('Nimble text field', () => {
             public spellcheck = false;
             public fullBleed = false;
             public requiredVisible = false;
+            public appearanceReadOnly = false;
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
@@ -564,6 +583,17 @@ describe('Nimble text field', () => {
             expect(directive.requiredVisible).toBeTrue();
             expect(nativeElement.requiredVisible).toBeTrue();
         });
+
+        it('can be configured with property binding for appearanceReadOnly', () => {
+            expect(directive.appearanceReadOnly).toBeFalse();
+            expect(nativeElement.appearanceReadOnly).toBeFalse();
+
+            fixture.componentInstance.appearanceReadOnly = true;
+            fixture.detectChanges();
+
+            expect(directive.appearanceReadOnly).toBeTrue();
+            expect(nativeElement.appearanceReadOnly).toBeTrue();
+        });
     });
 
     describe('with attribute bound values', () => {
@@ -586,6 +616,7 @@ describe('Nimble text field', () => {
                     [attr.spellcheck]="spellcheck"
                     [attr.full-bleed]="fullBleed"
                     [attr.required-visible]="requiredVisible"
+                    [attr.appearance-readonly]="appearanceReadOnly"
                 >
                 </nimble-text-field>`
         })
@@ -608,6 +639,7 @@ describe('Nimble text field', () => {
             public spellcheck: BooleanValueOrAttribute = null;
             public fullBleed: BooleanValueOrAttribute = null;
             public requiredVisible: BooleanValueOrAttribute = null;
+            public appearanceReadOnly: BooleanValueOrAttribute = null;
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
@@ -799,6 +831,17 @@ describe('Nimble text field', () => {
 
             expect(directive.requiredVisible).toBeTrue();
             expect(nativeElement.requiredVisible).toBeTrue();
+        });
+
+        it('can be configured with attribute binding for appearanceReadOnly', () => {
+            expect(directive.appearanceReadOnly).toBeFalse();
+            expect(nativeElement.appearanceReadOnly).toBeFalse();
+
+            fixture.componentInstance.appearanceReadOnly = '';
+            fixture.detectChanges();
+
+            expect(directive.appearanceReadOnly).toBeTrue();
+            expect(nativeElement.appearanceReadOnly).toBeTrue();
         });
     });
 });
