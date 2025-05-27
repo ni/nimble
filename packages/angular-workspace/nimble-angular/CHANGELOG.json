@@ -2,6 +2,21 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Tue, 27 May 2025 23:07:08 GMT",
+      "version": "30.3.0",
+      "tag": "@ni/nimble-angular_v30.3.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "f0b7dc3cf5ba1326de7f57147b228553df081e36",
+            "comment": "Update nimble-select, nimble-combobox, nimble-text-area, nimble-number-field, and nimble-text-field to support appearance-readonly and full-bleed"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 23 May 2025 21:40:15 GMT",
       "version": "30.2.1",
       "tag": "@ni/nimble-angular_v30.2.1",

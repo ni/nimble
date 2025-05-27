@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-angular
 
-<!-- This log was last generated on Fri, 23 May 2025 21:40:15 GMT and should not be manually modified. -->
+<!-- This log was last generated on Tue, 27 May 2025 23:07:08 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 30.3.0
+
+Tue, 27 May 2025 23:07:08 GMT
+
+### Minor changes
+
+- Update nimble-select, nimble-combobox, nimble-text-area, nimble-number-field, and nimble-text-field to support appearance-readonly and full-bleed ([ni/nimble@f0b7dc3](https://github.com/ni/nimble/commit/f0b7dc3cf5ba1326de7f57147b228553df081e36))
 
 ## 30.2.1
 
