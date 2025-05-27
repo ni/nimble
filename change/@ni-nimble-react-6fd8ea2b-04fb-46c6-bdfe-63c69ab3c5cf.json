@@ -1,6 +1,6 @@
 {
-  "type": "prerelease",
-  "comment": "Nimble react alpha release",
+  "type": "patch",
+  "comment": "Nimble react preview release",
   "packageName": "@ni/nimble-react",
   "email": "rajsite@users.noreply.github.com",
   "dependentChangeType": "patch"

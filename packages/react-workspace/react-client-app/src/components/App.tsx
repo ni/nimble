@@ -12,10 +12,10 @@ import { NimbleListOption } from '@ni/nimble-react/dist/esm/list-option';
 import { NimbleListOptionGroup } from '@ni/nimble-react/dist/esm/list-option-group';
 import { NimbleCardButton } from '@ni/nimble-react/dist/esm/card-button';
 import { NimbleCheckbox, type CheckboxChangeEvent } from '@ni/nimble-react/dist/esm/checkbox';
-import { NimbleRadioGroup } from '@ni/nimble-react/dist/esm/radio-group';
+import { NimbleRadioGroup, type RadioGroupChangeEvent } from '@ni/nimble-react/dist/esm/radio-group';
 import { NimbleRadio } from '@ni/nimble-react/dist/esm/radio';
 import { NimbleTextField } from '@ni/nimble-react/dist/esm/text-field';
-import { NimbleDialog } from '@ni/nimble-react/dist/esm/dialog';
+import { NimbleDialog, type Dialog, UserDismissed } from '@ni/nimble-react/dist/esm/dialog';
 import { NimbleDrawer } from '@ni/nimble-react/dist/esm/drawer';
 import { NimbleMenu } from '@ni/nimble-react/dist/esm/menu';
 import { NimbleMenuItem } from '@ni/nimble-react/dist/esm/menu-item';
@@ -62,10 +62,23 @@ import { NimbleIconCopyText } from '@ni/nimble-react/dist/esm/icons/copy-text';
 import { NimbleIconWebviCustom } from '@ni/nimble-react/dist/esm/icons/webvi-custom';
 
 import './App.scss';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 
 export function App(): JSX.Element {
     const [bannerOpen, setBannerOpen] = useState(true);
+    const [selectedRadio, setSelectedRadio] = useState('mango');
+    const dialogRef = useRef<Dialog<string>>(null);
+    const [dialogCloseReason, setDialogCloseReason] = useState('');
+    function openDialog(): void {
+        void (async (): Promise<void> => {
+            const closeReason = await dialogRef.current?.show() || 'unknown';
+            setDialogCloseReason((closeReason === UserDismissed) ? 'escape pressed' : closeReason);
+        })();
+    }
+
+    function closeDialog(reason: string): void {
+        dialogRef.current?.close(reason);
+    }
 
     return (
         <>
@@ -160,42 +173,42 @@ export function App(): JSX.Element {
                     </div>
                     <div className="sub-container">
                         <div className="container-label">Radio Buttons</div>
-                        <NimbleRadioGroup>
+                        <NimbleRadioGroup
+                            value={selectedRadio}
+                            onChange={e => setSelectedRadio((e as RadioGroupChangeEvent).target.value)}
+                        >
                             <span slot="label">Fruit</span>
                             <NimbleRadio name="fruit" value="apple"
-                            // [(ngModel)]="selectedRadio"
                             >Apple</NimbleRadio>
                             <NimbleRadio name="fruit" value="banana"
-                            // [(ngModel)]="selectedRadio"
                             >Banana</NimbleRadio>
                             <NimbleRadio name="fruit" value="mango"
-                            // [(ngModel)]="selectedRadio"
                             >Mango</NimbleRadio>
                         </NimbleRadioGroup>
                         <NimbleTextField
-                        // [(ngModel)]="selectedRadio"
+                            value={selectedRadio}
                         >Selected value</NimbleTextField>
                     </div>
                     <div className="sub-container">
                         <div className="container-label">Dialog</div>
                         <NimbleDialog
-                        //  #dialog
+                            /* @ts-expect-error ref assignment */
+                            ref={dialogRef}
                         >
                             <span slot="title">This is a dialog</span>
                             <div>It opened when you pushed the button</div>
                             <NimbleButton slot="footer"
-                            // (click)="closeDialog('cancel pressed')"
+                                onClick={_ => closeDialog('cancel pressed')}
                             >Cancel</NimbleButton>
                             <NimbleButton slot="footer"
-                            // (click)="closeDialog('OK pressed')"
+                                onClick={_ => closeDialog('OK pressed')}
                             >OK</NimbleButton>
                         </NimbleDialog>
                         <NimbleButton
-                        // (click)="openDialog()"
+                            onClick={openDialog}
                         >Open Dialog</NimbleButton>
                         <NimbleTextField
-                            // readonly
-                        // [ngModel]="dialogCloseReason"
+                            value={dialogCloseReason}
                         >Closed Reason</NimbleTextField>
                     </div>
                     <div className="sub-container">
