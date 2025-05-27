@@ -92,7 +92,7 @@ const metadata: Meta<RichTextEditorArgs> = {
     decorators: [withActions<HtmlRenderer>],
     parameters: {
         actions: {
-            handles: ['input', 'mention-update']
+            handles: ['input']
         }
     },
     // prettier-ignore

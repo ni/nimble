@@ -35,6 +35,7 @@ interface TextAreaArgs {
     cols: number;
     maxlength: number;
     change: undefined;
+    input: undefined;
     requiredVisible: boolean;
     appearanceReadOnly: boolean;
 }
@@ -44,7 +45,7 @@ const metadata: Meta<TextAreaArgs> = {
     decorators: [withActions<HtmlRenderer>],
     parameters: {
         actions: {
-            handles: ['change']
+            handles: ['change', 'input']
         }
     },
     render: createUserSelectedThemeStory(html`
@@ -148,6 +149,12 @@ const metadata: Meta<TextAreaArgs> = {
         change: {
             description:
                 'Event emitted when the user commits a new value to the text area.',
+            table: { category: apiCategory.events },
+            control: false
+        },
+        input: {
+            description:
+                'Event emitted on each user keystroke within the text area.',
             table: { category: apiCategory.events },
             control: false
         }

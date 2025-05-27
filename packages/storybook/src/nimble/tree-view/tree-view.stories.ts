@@ -53,7 +53,10 @@ const metadata: Meta<TreeArgs> = {
     decorators: [withActions<HtmlRenderer>],
     parameters: {
         actions: {
-            handles: ['expanded-change', 'selected-change']
+            handles: [
+                'expanded-change', // nimble-tree-item event
+                'selected-change' // nimble-tree-item event
+            ]
         }
     }
 };
@@ -191,13 +194,14 @@ export const multipleTreeItems: StoryObj<TreeArgs> = {
         },
         expandedChange: {
             name: 'expanded-change',
-            description: 'Event emitted when an item is expanded or collapsed.',
+            description:
+                'Bubbling event emitted by a tree item child when expanded or collapsed. Easier to listen for the event on parent tree view than on each tree item child.',
             table: { category: apiCategory.events }
         },
         selectedChange: {
             name: 'selected-change',
             description:
-                'Event emitted when an item is selected or deselected.',
+                'Bubbling event emitted by a tree item child when selected or deselected. Easier to listen for the event on parent tree view than on each tree item child.',
             table: { category: apiCategory.events }
         }
     },

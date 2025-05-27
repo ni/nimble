@@ -29,7 +29,6 @@ Each folder should include the following files:
 | component-name.stories.ts        | Contains the component hosted in Storybook. This provides a live component view for development and testing along with API documentation.                                            |
 | component-name-matrix.stories.ts | Contains a story that shows all component states for all themes hosted in Storybook. This is used by Chromatic visual tests to verify styling changes across all themes and states.  |
 | component-name.mdx               | Contains the Storybook documentation for this component. This should provide design guidance and usage information. See below for more information about the structure of this file. |
-| component-name.react.tsx         | Simple React wrapper for the component to be used in Storybook MDX documentation.                                                                                                    |
 
 ## Documentation Workflow
 
@@ -38,7 +37,6 @@ template:
 
 ```jsx
 import { Canvas, Meta, Controls, Title } from '@storybook/blocks';
-import { NimbleComponentName } from './component-name.react';
 import * as componentNameStories from './component-name.stories';
 
 <Meta of={componentNameStories} />
