@@ -41,6 +41,7 @@ for (const key of Object.keys(icons)) {
 import { ${className} } from '@ni/nimble-components/dist/esm/icons/${fileName}';
 import { wrap } from '../utilities/react-wrapper';
 
+export { type ${className} };
 export const Nimble${className} = wrap(${className});`;
 
     const outputPath = path.resolve(iconsDirectory, `${fileName}.ts`);
