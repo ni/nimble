@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "Spright react preview release",
+  "packageName": "@ni/spright-react",
+  "email": "rajsite@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
