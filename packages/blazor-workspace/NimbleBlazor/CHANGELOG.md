@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-blazor
 
-<!-- This log was last generated on Fri, 23 May 2025 21:40:15 GMT and should not be manually modified. -->
+<!-- This log was last generated on Wed, 28 May 2025 18:42:23 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 20.3.0
+
+Wed, 28 May 2025 18:42:23 GMT
+
+### Minor changes
+
+- Update nimble-select, nimble-combobox, nimble-text-area, nimble-number-field, and nimble-text-field to support appearance-readonly and full-bleed ([ni/nimble@aa1f90e](https://github.com/ni/nimble/commit/aa1f90eb0667bf96c730992d09aeb8c40e6addb7))
 
 ## 20.2.1
 

@@ -1,7 +1,0 @@
-{
-  "type": "minor",
-  "comment": "Update nimble-select, nimble-combobox, nimble-text-area, nimble-number-field, and nimble-text-field to support appearance-readonly and full-bleed",
-  "packageName": "@ni/nimble-blazor",
-  "email": "20542556+mollykreis@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
