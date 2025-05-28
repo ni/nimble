@@ -59,6 +59,13 @@ public partial class NimbleTextField : NimbleInputBase<string?>
     [Parameter]
     public bool? RequiredVisible { get; set; }
 
+    /// <summary>
+    /// Gets or set whether or not the text field should be rendered as
+    /// read only when it is disabled.
+    /// </summary>
+    [Parameter]
+    public bool? AppearanceReadOnly { get; set; }
+
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 

@@ -4,7 +4,8 @@ public enum DropdownAppearance
 {
     Underline,
     Outline,
-    Block
+    Block,
+    Frameless
 }
 
 internal static class DropdownAppearanceExtensions

@@ -96,6 +96,13 @@ public partial class NimbleTextArea : NimbleInputBase<string?>
     public bool? RequiredVisible { get; set; }
 
     /// <summary>
+    /// Gets or set whether or not the text area should be rendered as
+    /// read only when it is disabled.
+    /// </summary>
+    [Parameter]
+    public bool? AppearanceReadOnly { get; set; }
+
+    /// <summary>
     /// Gets or sets the child content of the control
     /// </summary>
     [Parameter]
