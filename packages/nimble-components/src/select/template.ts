@@ -133,7 +133,7 @@ SelectOptions
                     ${ref('listbox')}
                 >
                     ${when(x => x.filterMode !== FilterMode.none, html<Select>`
-                        <div class="filter-field ${x => x.position}">
+                        <div class="filter-field ${x => x.position || ''}">
                             <${iconMagnifyingGlassTag} class="filter-icon"></${iconMagnifyingGlassTag}>
                             <input
                                 ${ref('filterInput')}
@@ -164,7 +164,7 @@ SelectOptions
                         `)}
                     </div>
                     ${when(x => x.loadingVisible, html<Select>`
-                        <div class="loading-container ${x => x.position} ${x => (x.filteredOptions.length === 0 ? 'empty' : '')}"
+                        <div class="loading-container ${x => x.position || ''} ${x => (x.filteredOptions.length === 0 ? 'empty' : '')}"
                             @click="${(x, c) => x.ignoreClickHandler(c.event as MouseEvent)}">
                             <span class="loading-label">
                                 ${x => loadingLabel.getValueFor(x)}
