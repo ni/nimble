@@ -101,7 +101,7 @@ export const chatConversation: StoryObj<ChatConversationArgs> = {
                 </${buttonTag}>
             </${chatMessageTag}>
             ${when(x => x.input, html<ChatConversationArgs, ChatInput>`
-                <${chatInputTag} slot='input'
+                <${chatInputTag} slot='input' placeholder='Type a message' send-button-label='Send'
                     @send="${(x2, c2) => x2.sendMessage(c2.event as CustomEvent<ChatInputSendEventDetail>, x2.conversationRef)}"
                 ></${chatInputTag}>
             `)}

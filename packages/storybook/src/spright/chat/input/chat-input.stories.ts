@@ -48,7 +48,7 @@ export const chatInput: StoryObj<ChatInputArgs> = {
         },
     },
     args: {
-        placeholder: 'Ask Nigel',
+        placeholder: 'Type a message',
         sendButtonLabel: 'Send',
     }
 };
