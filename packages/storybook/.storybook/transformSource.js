@@ -79,8 +79,8 @@ export const transformSource = source => {
 
     const trimmedHTML = removeBlankLines(html);
     const emptyAttributesRemovedHTML = removeEmptyAttributes(trimmedHTML);
-    const formmattedHTML = beautifyHTML(emptyAttributesRemovedHTML, {
+    const formattedHTML = beautifyHTML(emptyAttributesRemovedHTML, {
         wrap_attributes: 'force-expand-multiline'
     });
-    return formmattedHTML;
+    return formattedHTML;
 };

@@ -1,14 +1,14 @@
 import { html, when } from '@ni/fast-element';
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html';
-import { buttonTag } from '../../../../nimble-components/src/button';
-import { iconPencilTag } from '../../../../nimble-components/src/icons/pencil';
-import { iconTagTag } from '../../../../nimble-components/src/icons/tag';
-import { textFieldTag } from '../../../../nimble-components/src/text-field';
+import { buttonTag } from '@ni/nimble-components/dist/esm/button';
+import { iconPencilTag } from '@ni/nimble-components/dist/esm/icons/pencil';
+import { iconTagTag } from '@ni/nimble-components/dist/esm/icons/tag';
+import { textFieldTag } from '@ni/nimble-components/dist/esm/text-field';
 import {
     TextFieldAppearance,
     TextFieldType
-} from '../../../../nimble-components/src/text-field/types';
+} from '@ni/nimble-components/dist/esm/text-field/types';
 import {
     apiCategory,
     appearanceDescription,
@@ -19,7 +19,9 @@ import {
     errorVisibleDescription,
     placeholderDescription,
     slottedLabelDescription,
-    requiredVisibleDescription
+    requiredVisibleDescription,
+    appearanceReadOnlyDescription,
+    fullBleedDescription
 } from '../../utilities/storybook';
 
 interface TextFieldArgs {
@@ -39,6 +41,7 @@ interface TextFieldArgs {
     change: undefined;
     input: undefined;
     requiredVisible: boolean;
+    appearanceReadOnly: boolean;
 }
 
 const leftIconDescription = 'An icon to display at the start of the text field.';
@@ -71,6 +74,7 @@ const metadata: Meta<TextFieldArgs> = {
             ?error-visible="${x => x.errorVisible}"
             ?full-bleed="${x => x.fullBleed}"
             ?required-visible="${x => x.requiredVisible}"
+            ?appearance-readonly="${x => x.appearanceReadOnly}"
         >
             ${when(x => x.leftIcon, html`
                 <${iconTagTag} slot="start"></${iconTagTag}>`)}
@@ -111,8 +115,7 @@ const metadata: Meta<TextFieldArgs> = {
         },
         fullBleed: {
             name: 'full-bleed',
-            description:
-                'Remove the start and end margins causing the text to stretch across the full control width. Only applies to the frameless appearance.',
+            description: fullBleedDescription({ componentName: 'text field' }),
             table: { category: apiCategory.attributes }
         },
         value: {
@@ -123,7 +126,7 @@ const metadata: Meta<TextFieldArgs> = {
         valueAttribute: {
             name: 'value',
             description:
-                'The initial string displayed in the text field. Changing this after the text field initializes has no effect. Note that the property behave differently.',
+                'The initial string displayed in the text field. Changing this after the text field initializes has no effect. Note that the property behaves differently.',
             table: { category: apiCategory.attributes }
         },
         readonly: {
@@ -132,6 +135,13 @@ const metadata: Meta<TextFieldArgs> = {
         },
         disabled: {
             description: disabledDescription({ componentName: 'text field' }),
+            table: { category: apiCategory.attributes }
+        },
+        appearanceReadOnly: {
+            name: 'appearance-readonly',
+            description: appearanceReadOnlyDescription({
+                componentName: 'text field'
+            }),
             table: { category: apiCategory.attributes }
         },
         errorVisible: {
@@ -185,7 +195,8 @@ const metadata: Meta<TextFieldArgs> = {
         errorText: 'Value is invalid',
         actionButton: false,
         leftIcon: false,
-        requiredVisible: false
+        requiredVisible: false,
+        appearanceReadOnly: false
     }
 };
 

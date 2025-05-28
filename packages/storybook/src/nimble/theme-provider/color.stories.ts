@@ -4,7 +4,7 @@ import * as tokens from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
 import {
     controlLabelFont,
     controlLabelFontColor
-} from '../../../../nimble-components/src/theme-provider/design-tokens';
+} from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
 import { createUserSelectedThemeStory } from '../../utilities/storybook';
 
 interface NimbleColor {

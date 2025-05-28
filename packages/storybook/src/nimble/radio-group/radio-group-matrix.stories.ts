@@ -1,9 +1,9 @@
 import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate } from '@ni/fast-element';
 import { Orientation } from '@ni/fast-web-utilities';
-import { standardPadding } from '../../../../nimble-components/src/theme-provider/design-tokens';
-import { radioTag } from '../../../../nimble-components/src/radio';
-import { radioGroupTag } from '../../../../nimble-components/src/radio-group';
+import { standardPadding } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
+import { radioTag } from '@ni/nimble-components/dist/esm/radio';
+import { radioGroupTag } from '@ni/nimble-components/dist/esm/radio-group';
 import {
     createMatrix,
     sharedMatrixParameters,
@@ -55,7 +55,7 @@ const component = (
     <${radioTag} value="2">Option 2</${radioTag}>
 </${radioGroupTag}>`;
 
-export const radioGroupThemeMatrix: StoryFn = createMatrixThemeStory(
+export const themeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(component, [
         requiredVisibleStates,
         disabledStates,
@@ -64,14 +64,10 @@ export const radioGroupThemeMatrix: StoryFn = createMatrixThemeStory(
     ])
 );
 
-export const hiddenRadioGroup: StoryFn = createStory(
+export const hidden: StoryFn = createStory(
     hiddenWrapper(
         html`<${radioGroupTag} hidden>Hidden Radio Group</${radioGroupTag}>`
     )
-);
-
-export const hiddenRadio: StoryFn = createStory(
-    hiddenWrapper(html`<${radioTag} hidden>Hidden Radio</${radioTag}>`)
 );
 
 export const textCustomized: StoryFn = createMatrixThemeStory(

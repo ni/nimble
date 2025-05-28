@@ -1,8 +1,8 @@
 import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate } from '@ni/fast-element';
-import { breadcrumbItemTag } from '../../../../nimble-components/src/breadcrumb-item';
-import { breadcrumbTag } from '../../../../nimble-components/src/breadcrumb';
-import { BreadcrumbAppearance } from '../../../../nimble-components/src/breadcrumb/types';
+import { breadcrumbItemTag } from '@ni/nimble-components/dist/esm/breadcrumb-item';
+import { breadcrumbTag } from '@ni/nimble-components/dist/esm/breadcrumb';
+import { BreadcrumbAppearance } from '@ni/nimble-components/dist/esm/breadcrumb/types';
 import { createStory } from '../../utilities/storybook';
 import {
     createMatrixThemeStory,
@@ -44,7 +44,7 @@ const component = (
         <${breadcrumbItemTag}>Current (No Link)</${breadcrumbItemTag}>
     </${breadcrumbTag}>
 `;
-export const breadcrumbThemeMatrix: StoryFn = createMatrixThemeStory(
+export const themeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(component, [appearanceStates, disabledStates])
 );
 
@@ -53,7 +53,7 @@ const interactionStates = cartesianProduct([
     disabledStates
 ] as const);
 
-export const breadcrumbInteractionsThemeMatrix: StoryFn = createMatrixThemeStory(
+export const interactionsThemeMatrix: StoryFn = createMatrixThemeStory(
     createMatrixInteractionsFromStates(component, {
         hover: interactionStates,
         hoverActive: interactionStates,
@@ -62,7 +62,7 @@ export const breadcrumbInteractionsThemeMatrix: StoryFn = createMatrixThemeStory
     })
 );
 
-export const hiddenBreadcrumb: StoryFn = createStory(
+export const hidden: StoryFn = createStory(
     hiddenWrapper(
         html`<${breadcrumbTag} hidden>
             <${breadcrumbItemTag} href="#">Item 1</${breadcrumbItemTag}>

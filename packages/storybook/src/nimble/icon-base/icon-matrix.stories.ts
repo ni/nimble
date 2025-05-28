@@ -1,8 +1,8 @@
 import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate } from '@ni/fast-element';
-import { bodyFontColor } from '../../../../nimble-components/src/theme-provider/design-tokens';
-import { iconCheckTag } from '../../../../nimble-components/src/icons/check';
-import { IconSeverity } from '../../../../nimble-components/src/icon-base/types';
+import { bodyFontColor } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
+import { iconCheckTag } from '@ni/nimble-components/dist/esm/icons/check';
+import { IconSeverity } from '@ni/nimble-components/dist/esm/icon-base/types';
 import {
     createMatrix,
     sharedMatrixParameters,
@@ -36,10 +36,10 @@ const component = ([stateName, state]: SeverityState): ViewTemplate => html`
     <${iconCheckTag} severity="${() => state}"></${iconCheckTag}>
 `;
 
-export const iconThemeMatrix: StoryFn = createMatrixThemeStory(
+export const themeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(component, [severityStates])
 );
 
-export const hiddenIcon: StoryFn = createStory(
+export const hidden: StoryFn = createStory(
     hiddenWrapper(html`<${iconCheckTag} hidden></${iconCheckTag}>`)
 );

@@ -1,6 +1,6 @@
 import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate, when } from '@ni/fast-element';
-import { switchTag } from '../../../../nimble-components/src/switch';
+import { switchTag } from '@ni/nimble-components/dist/esm/switch';
 import {
     createMatrix,
     sharedMatrixParameters,
@@ -46,12 +46,12 @@ const component = (
     </${switchTag}>
 `;
 
-export const switchThemeMatrix: StoryFn = createMatrixThemeStory(
+export const themeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(component, [checkedStates, disabledStates, messagesStates])
 );
 
 // prettier-ignore
-export const hiddenSwitch: StoryFn = createStory(
+export const hidden: StoryFn = createStory(
     hiddenWrapper(
         html`<${switchTag} hidden>Hidden Switch</${switchTag}>`
     )

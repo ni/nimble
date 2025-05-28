@@ -1,6 +1,6 @@
 import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate } from '@ni/fast-element';
-import { buttonTag } from '../../../../nimble-components/src/button';
+import { buttonTag } from '@ni/nimble-components/dist/esm/button';
 import {
     bodyFont,
     dialogLargeHeight,
@@ -9,8 +9,8 @@ import {
     dialogSmallHeight,
     dialogSmallMaxHeight,
     dialogSmallWidth
-} from '../../../../nimble-components/src/theme-provider/design-tokens';
-import { dialogTag } from '../../../../nimble-components/src/dialog';
+} from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
+import { dialogTag } from '@ni/nimble-components/dist/esm/dialog';
 import { createFixedThemeStory } from '../../utilities/storybook';
 import { sharedMatrixParameters } from '../../utilities/matrix';
 import { backgroundStates } from '../../utilities/states';
@@ -91,34 +91,37 @@ const playFunction = (): void => {
     void document.querySelector(dialogTag)!.show();
 };
 
-export const dialogLightThemeWhiteBackground: StoryFn = createFixedThemeStory(
+export const lightTheme: StoryFn = createFixedThemeStory(
     component,
     lightThemeWhiteBackground
 );
 
-dialogLightThemeWhiteBackground.play = playFunction;
+lightTheme.play = playFunction;
 
-export const dialogColorThemeDarkGreenBackground: StoryFn = createFixedThemeStory(component, colorThemeDarkGreenBackground);
+export const colorTheme: StoryFn = createFixedThemeStory(
+    component,
+    colorThemeDarkGreenBackground
+);
 
-dialogColorThemeDarkGreenBackground.play = playFunction;
+colorTheme.play = playFunction;
 
-export const dialogDarkThemeBlackBackground: StoryFn = createFixedThemeStory(
+export const darkTheme: StoryFn = createFixedThemeStory(
     component,
     darkThemeBlackBackground
 );
 
-dialogDarkThemeBlackBackground.play = playFunction;
+darkTheme.play = playFunction;
 
-export const dialogSmallSize: StoryFn = createFixedThemeStory(
+export const smallSize: StoryFn = createFixedThemeStory(
     dialogSizingTestCase(sizeStates[0]),
     lightThemeWhiteBackground
 );
 
-dialogSmallSize.play = playFunction;
+smallSize.play = playFunction;
 
-export const dialogLargeSize: StoryFn = createFixedThemeStory(
+export const largeSize: StoryFn = createFixedThemeStory(
     dialogSizingTestCase(sizeStates[1]),
     lightThemeWhiteBackground
 );
 
-dialogLargeSize.play = playFunction;
+largeSize.play = playFunction;

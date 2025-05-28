@@ -1,8 +1,8 @@
 import { Controls, Canvas, Meta, Title } from '@storybook/blocks';
 import * as tableStories from './table.stories';
 import ComponentApisLink from '../../docs/component-apis-link.mdx';
-import { tableTag } from '../../../../nimble-components/src/table';
-import { tableFitRowsHeight } from '../../../../nimble-components/src/theme-provider/design-tokens';
+import { tableTag } from '@ni/nimble-components/dist/esm/table';
+import { tableFitRowsHeight } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
 
 <Meta of={tableStories} />
 <Title of={tableStories} />
@@ -197,5 +197,49 @@ following behavior:
 - Selecting a row followed by `SHIFT-CTRL` clicking on a different row adds the
   range of rows to the existing selection.
     - Note: On macOS, use the `Command` key (`⌘`) instead of `CTRL`.
+
+## Blazor usage
+
+The `NimbleTable` requires that its data be set via the `SetDataAsync` method.
+The appropriate place to call this method is either in the `OnAfterRenderAsync`
+override of the hosting component or after that method has been called for the
+first time.
+
+As the `NimbleTable` is generic a client must supply its generic type in the
+markup using the `TData` property syntax. The following code represents a
+typical usage of the `NimbleTable`:
+
+MyComponent.razor
+
+```html
+...
+<NimbleTable TData="MyRecordType" @ref="_table"> ... </NimbleTable>
+...
+```
+
+MyComponent.razor.cs
+
+```cs
+...
+    private NimbleTable<MyRecordType>? _table;
+    private IEnumerable<MyRecordType> TableData { get; set; } = Enumerable.Empty<MyRecordType>();
+    ...
+    public override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+        await _table.SetDataAsync(TableData); // populate TableData before here
+    }
+
+    public class MyRecordType
+    {
+        ...
+    }
+
+...
+```
+
+For more information regarding the Blazor component lifecycle mechanisms (such
+as `OnAfterRenderAsync`) please consult the
+[Microsoft Blazor docs](https://learn.microsoft.com/en-us/aspnet/core/blazor/components/lifecycle).
 
 {/* ## Resources */}

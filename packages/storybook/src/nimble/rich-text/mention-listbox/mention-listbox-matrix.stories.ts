@@ -1,7 +1,7 @@
 import { ViewTemplate, html } from '@ni/fast-element';
 import type { Meta, StoryFn } from '@storybook/html';
-import { listOptionTag } from '../../../../../nimble-components/src/list-option';
-import { richTextMentionListboxTag } from '../../../../../nimble-components/src/rich-text/mention-listbox';
+import { listOptionTag } from '@ni/nimble-components/dist/esm/list-option';
+import { richTextMentionListboxTag } from '@ni/nimble-components/dist/esm/rich-text/mention-listbox';
 import { hiddenWrapper } from '../../../utilities/hidden';
 import { loremIpsum } from '../../../utilities/lorem-ipsum';
 import {
@@ -56,10 +56,12 @@ const component = (): ViewTemplate => html`
 
 `;
 
-export const richTextMentionListboxThemeMatrix: StoryFn = createMatrixThemeStory(createMatrix(component));
-richTextMentionListboxThemeMatrix.play = playFunction;
+export const themeMatrix: StoryFn = createMatrixThemeStory(
+    createMatrix(component)
+);
+themeMatrix.play = playFunction;
 
-export const hiddenRichTextMentionListbox: StoryFn = createStory(
+export const hidden: StoryFn = createStory(
     hiddenWrapper(
         html`<${richTextMentionListboxTag} hidden>
             <${listOptionTag} value="1">Option 1</${listOptionTag}>

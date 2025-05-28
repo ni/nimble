@@ -1,21 +1,23 @@
 import { html, repeat, when } from '@ni/fast-element';
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html';
-import { listOptionTag } from '../../../../nimble-components/src/list-option';
-import { listOptionGroupTag } from '../../../../nimble-components/src/list-option-group';
-import { selectTag } from '../../../../nimble-components/src/select';
-import { FilterMode } from '../../../../nimble-components/src/select/types';
-import { DropdownAppearance } from '../../../../nimble-components/src/patterns/dropdown/types';
+import { listOptionTag } from '@ni/nimble-components/dist/esm/list-option';
+import { listOptionGroupTag } from '@ni/nimble-components/dist/esm/list-option-group';
+import { selectTag } from '@ni/nimble-components/dist/esm/select';
+import { FilterMode } from '@ni/nimble-components/dist/esm/select/types';
+import { DropdownAppearance } from '@ni/nimble-components/dist/esm/patterns/dropdown/types';
 
 import {
     apiCategory,
     appearanceDescription,
+    appearanceReadOnlyDescription,
     createUserSelectedThemeStory,
     disableStorybookZoomTransform,
     disabledDescription,
     dropdownPositionDescription,
     errorTextDescription,
     errorVisibleDescription,
+    fullBleedDescription,
     optionsDescription,
     requiredVisibleDescription,
     slottedLabelDescription
@@ -37,6 +39,8 @@ interface SelectArgs {
     value: string;
     change: undefined;
     filterInput: undefined;
+    appearanceReadOnly: boolean;
+    fullBleed: boolean;
 }
 
 interface OptionArgs {
@@ -147,6 +151,8 @@ const metadata: Meta<SelectArgs> = {
             filter-mode="${x => (x.filterMode === 'none' ? undefined : x.filterMode)}"
             ?loading-visible="${x => x.loadingVisible}"
             ?required-visible="${x => x.requiredVisible}"
+            ?appearance-readonly="${x => x.appearanceReadOnly}"
+            ?full-bleed="${x => x.fullBleed}"
             style="width:250px;"
         >
             ${x => x.label}
@@ -198,6 +204,13 @@ const metadata: Meta<SelectArgs> = {
             description: appearanceDescription({ componentName: 'select' }),
             table: { category: apiCategory.attributes }
         },
+        fullBleed: {
+            name: 'full-bleed',
+            description: fullBleedDescription({
+                componentName: 'select'
+            }),
+            table: { category: apiCategory.attributes }
+        },
         filterMode: {
             options: Object.keys(FilterMode),
             control: { type: 'radio' },
@@ -207,6 +220,13 @@ const metadata: Meta<SelectArgs> = {
         },
         disabled: {
             description: disabledDescription({ componentName: 'select' }),
+            table: { category: apiCategory.attributes }
+        },
+        appearanceReadOnly: {
+            name: 'appearance-readonly',
+            description: appearanceReadOnlyDescription({
+                componentName: 'select'
+            }),
             table: { category: apiCategory.attributes }
         },
         errorText: {
@@ -281,7 +301,9 @@ const metadata: Meta<SelectArgs> = {
         optionsType: ExampleOptionsType.simpleOptions,
         clearable: false,
         loadingVisible: false,
-        requiredVisible: false
+        requiredVisible: false,
+        appearanceReadOnly: false,
+        fullBleed: false
     }
 };
 

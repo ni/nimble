@@ -1,12 +1,12 @@
 import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate } from '@ni/fast-element';
-import { iconUserTag } from '../../../../../nimble-components/src/icons/user';
-import { tableTag } from '../../../../../nimble-components/src/table';
+import { iconUserTag } from '@ni/nimble-components/dist/esm/icons/user';
+import { tableTag } from '@ni/nimble-components/dist/esm/table';
 import {
     controlLabelFont,
     controlLabelFontColor
-} from '../../../../../nimble-components/src/theme-provider/design-tokens';
-import { tableColumnDateTextTag } from '../../../../../nimble-components/src/table-column/date-text';
+} from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
+import { tableColumnDateTextTag } from '@ni/nimble-components/dist/esm/table-column/date-text';
 import {
     placeholderStates,
     type PlaceholderState
@@ -58,11 +58,11 @@ const component = (
     </${tableTag}>
 `;
 
-export const tableColumnDateTextThemeMatrix: StoryFn = createMatrixThemeStory(
+export const themeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(component, [placeholderStates])
 );
 
-tableColumnDateTextThemeMatrix.play = async (): Promise<void> => {
+themeMatrix.play = async (): Promise<void> => {
     await Promise.all(
         Array.from(document.querySelectorAll(tableTag)).map(async table => {
             await table.setData(data);

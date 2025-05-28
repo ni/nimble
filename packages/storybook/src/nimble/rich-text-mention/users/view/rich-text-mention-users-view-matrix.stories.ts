@@ -4,8 +4,8 @@ import {
     bodyFont,
     bodyFontColor,
     smallPadding
-} from '../../../../../../nimble-components/src/theme-provider/design-tokens';
-import { richTextMentionUsersViewTag } from '../../../../../../nimble-components/src/rich-text-mention/users/view';
+} from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
+import { richTextMentionUsersViewTag } from '@ni/nimble-components/dist/esm/rich-text-mention/users/view';
 import {
     createMatrix,
     sharedMatrixParameters,
@@ -50,4 +50,6 @@ const component = ([
     </div>
 `;
 
-export const richTextMentionUserViewThemeMatrix: StoryFn = createMatrixThemeStory(createMatrix(component, [disabledStates]));
+export const themeMatrix: StoryFn = createMatrixThemeStory(
+    createMatrix(component, [disabledStates])
+);

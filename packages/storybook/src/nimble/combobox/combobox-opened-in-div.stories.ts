@@ -1,7 +1,7 @@
 import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate } from '@ni/fast-element';
-import { listOptionTag } from '../../../../nimble-components/src/list-option';
-import { comboboxTag } from '../../../../nimble-components/src/combobox';
+import { listOptionTag } from '@ni/nimble-components/dist/esm/list-option';
+import { comboboxTag } from '@ni/nimble-components/dist/esm/combobox';
 import { createStory } from '../../utilities/storybook';
 import { sharedMatrixParameters } from '../../utilities/matrix';
 
@@ -36,9 +36,9 @@ const component = ([
     </div>
 `;
 
-export const comboboxBelowNotConfinedByDiv: StoryFn = createStory(
+export const openBelow$NotConfinedByDiv: StoryFn = createStory(
     component(positionStates[0])
 );
-export const comboboxAboveNotConfinedByDiv: StoryFn = createStory(
+export const openAbove$NotConfinedByDiv: StoryFn = createStory(
     component(positionStates[1])
 );

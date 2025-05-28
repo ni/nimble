@@ -4,9 +4,9 @@ import {
     bodyFontColor,
     spinnerLargeHeight,
     spinnerMediumHeight
-} from '../../../../nimble-components/src/theme-provider/design-tokens';
-import { spinnerTag } from '../../../../nimble-components/src/spinner';
-import { SpinnerAppearance } from '../../../../nimble-components/src/spinner/types';
+} from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
+import { spinnerTag } from '@ni/nimble-components/dist/esm/spinner';
+import { SpinnerAppearance } from '@ni/nimble-components/dist/esm/spinner/types';
 import { isChromatic } from '../../utilities/isChromatic';
 
 import {
@@ -56,10 +56,10 @@ const component = (
     </${spinnerTag}>
 `;
 
-export const spinnerThemeMatrix: StoryFn = createMatrixThemeStory(
+export const themeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(component, [sizeStates, appearanceStates])
 );
 
-export const hiddenSpinner: StoryFn = createStory(
+export const hidden: StoryFn = createStory(
     hiddenWrapper(html`<${spinnerTag} hidden></${spinnerTag}>`)
 );

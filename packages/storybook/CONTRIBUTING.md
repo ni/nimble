@@ -29,7 +29,6 @@ Each folder should include the following files:
 | component-name.stories.ts        | Contains the component hosted in Storybook. This provides a live component view for development and testing along with API documentation.                                            |
 | component-name-matrix.stories.ts | Contains a story that shows all component states for all themes hosted in Storybook. This is used by Chromatic visual tests to verify styling changes across all themes and states.  |
 | component-name.mdx               | Contains the Storybook documentation for this component. This should provide design guidance and usage information. See below for more information about the structure of this file. |
-| component-name.react.tsx         | Simple React wrapper for the component to be used in Storybook MDX documentation.                                                                                                    |
 
 ## Documentation Workflow
 
@@ -38,7 +37,6 @@ template:
 
 ```jsx
 import { Canvas, Meta, Controls, Title } from '@storybook/blocks';
-import { NimbleComponentName } from './component-name.react';
 import * as componentNameStories from './component-name.stories';
 
 <Meta of={componentNameStories} />
@@ -103,6 +101,43 @@ to the page and refer to the section using **Bold**, i.e.
 All other Markdown formatting is supported. See any
 [Markdown Cheatsheet](https://www.markdownguide.org/cheat-sheet/) for more
 information.
+
+### Matrix story naming
+
+The names of stories within matrix tests should conform to the following
+guidelines:
+
+1. Do not include component name in the story name.
+    - Do: `Hidden`, `Theme Matrix`
+    - Don't: `Hidden Text Field`, `Select Theme Matrix`
+1. Do not include tests for multiple components under one storybook group.
+    - Do: `Radio Group >> Hidden`, `Radio >> Hidden`
+    - Don't: `Radio Group >> Hidden Radio Group` and
+      `Radio Group >> Hidden Radio`
+1. Use `$` as a delimiter in test names that have a constant value for a matrix
+   dimension.
+    - Do: `Light Theme$ Open$ No Filter`
+    - Don't: `Light Theme Open No Filter`
+1. Consider including a "false" attribute in a story name when there is a story
+   for the value being both "false" and "true". This name should be in the form
+   of "BooleanPropertyName" and "BooleanPropertyNameAbsent".
+    - Do: `Read Only Absent$ Disabled`, `Read Only$ Disabled Absent`
+    - Don't: `Editable$ Disabled`, `ReadOnly$ Enabled`
+1. Specify the theme as the first segment of the story name when it is a fixed
+   value.
+    - Do: `Light Theme$ Open $No Filter`
+    - Don't: `Open$ No Filter$ Light Theme`
+1. Do not include the theme in the story name if it isn't part of the test
+   dimension. If a test is run only for a single theme to test something
+   unrelated to theme, the theme should not be included in the story name.
+    - Do: `Light Theme$ Open$ No Filter` (if there are also
+      `Dark Theme$ Open$ No Filter` and `Color Theme$ Open$ No Filter`)
+    - Don't: `Light Theme$ Open$ No Filter` (if there are not also
+      `Dark Theme$ Open$ No Filter` and `Color Theme$ Open$ No Filter`)
+1. Do not include the background color in the story name.
+    - Do: `Light Theme$ Open$ No Filter`
+    - Don't: `Light Theme White Background$ Open$ No Filter`,
+      `Light Theme$ White Background$ Open$ No Filter`
 
 ### Testing
 

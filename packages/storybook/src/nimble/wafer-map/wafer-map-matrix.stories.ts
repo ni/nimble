@@ -1,11 +1,11 @@
 import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate } from '@ni/fast-element';
 import { tableFromArrays } from 'apache-arrow';
-import { waferMapTag } from '../../../../nimble-components/src/wafer-map';
+import { waferMapTag } from '@ni/nimble-components/dist/esm/wafer-map';
 import {
     WaferMapOrientation,
     WaferMapOriginLocation
-} from '../../../../nimble-components/src/wafer-map/types';
+} from '@ni/nimble-components/dist/esm/wafer-map/types';
 import {
     createMatrix,
     sharedMatrixParameters,
@@ -255,64 +255,64 @@ const componentWaferWithHighlightedTags = (
 >
 </${waferMapTag}>`;
 
-export const waferMapThemeMatrix: StoryFn = createMatrixThemeStory(
+export const themeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(simpleWaferWithDies)
 );
 
-export const experimentalWaferMapThemeMatrix: StoryFn = createMatrixThemeStory(
+export const experimentalThemeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(simpleExperimentalWaferWithDies)
 );
 
-export const waferMapDiesAndOrientationTest: StoryFn = createStory(
+export const diesAndOrientationTest: StoryFn = createStory(
     createMatrix(componentWaferWithOrientation, [orientationStates])
 );
 
-export const experimentalWaferMapDiesAndOrientationTest: StoryFn = createStory(
+export const experimental$DiesAndOrientationTest: StoryFn = createStory(
     createMatrix(componentExperimentalWaferWithOrientation, [orientationStates])
 );
 
-export const waferMapDieLabelAndColorScaleTest: StoryFn = createStory(
+export const dieLabelAndColorScaleTest: StoryFn = createStory(
     createMatrix(componentWaferWithHiddenDieLabel, [
         colorsScaleStates,
         dieLabelHiddenStates
     ])
 );
 
-export const experimentalWaferMapDieLabelAndColorScaleTest: StoryFn = createStory(
+export const experimental$DieLabelAndColorScaleTest: StoryFn = createStory(
     createMatrix(componentExperimentalWaferWithHiddenDieLabel, [
         colorsScaleStates,
         dieLabelHiddenStates
     ])
 );
 
-export const waferMapOriginLocationTest: StoryFn = createStory(
+export const originLocationTest: StoryFn = createStory(
     createMatrix(componentWaferWithOriginLocation, [originLocationStates])
 );
 
-export const experimentalWaferMapOriginLocationTest: StoryFn = createStory(
+export const experimental$OriginLocationTest: StoryFn = createStory(
     createMatrix(componentExperimentalWaferWithOriginLocation, [
         originLocationStates
     ])
 );
 
-export const waferMapResizeTest: StoryFn = createStory(
+export const resizeTest: StoryFn = createStory(
     createMatrix(componentWaferResize, [sizeStates])
 );
 
-export const experimentalWaferMapResizeTest: StoryFn = createStory(
+export const experimental$ResizeTest: StoryFn = createStory(
     createMatrix(componentExperimentalWaferResize, [sizeStates])
 );
 
-export const waferMapGridDimensionsTest: StoryFn = createStory(
+export const gridDimensionsTest: StoryFn = createStory(
     createMatrix(componentWaferWithGridDimensions, [gridDimensionStates])
 );
 
-export const experimentalWaferMapGridDimensionsTest: StoryFn = createStory(
+export const experimental$GridDimensionsTest: StoryFn = createStory(
     createMatrix(componentExperimentalWaferWithGridDimensions, [
         gridDimensionStates
     ])
 );
 
-export const waferMapHighlightedTest: StoryFn = createStory(
+export const highlightedTest: StoryFn = createStory(
     createMatrix(componentWaferWithHighlightedTags, [highlightedTagStates])
 );

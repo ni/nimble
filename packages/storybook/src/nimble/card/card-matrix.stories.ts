@@ -1,9 +1,9 @@
 import { ViewTemplate, html } from '@ni/fast-element';
 import type { Meta, StoryFn } from '@storybook/html';
-import { listOptionTag } from '../../../../nimble-components/src/list-option';
-import { numberFieldTag } from '../../../../nimble-components/src/number-field';
-import { selectTag } from '../../../../nimble-components/src/select';
-import { cardTag } from '../../../../nimble-components/src/card';
+import { listOptionTag } from '@ni/nimble-components/dist/esm/list-option';
+import { numberFieldTag } from '@ni/nimble-components/dist/esm/number-field';
+import { selectTag } from '@ni/nimble-components/dist/esm/select';
+import { cardTag } from '@ni/nimble-components/dist/esm/card';
 import {
     createMatrix,
     sharedMatrixParameters,
@@ -35,10 +35,10 @@ const component = (): ViewTemplate => html`
     </${cardTag}>
 `;
 
-export const cardThemeMatrix: StoryFn = createMatrixThemeStory(
+export const themeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(component)
 );
 
-export const hiddenCard: StoryFn = createStory(
+export const hidden: StoryFn = createStory(
     hiddenWrapper(html`<${cardTag} hidden>Hidden Card</${cardTag}>`)
 );

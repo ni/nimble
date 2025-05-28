@@ -1,9 +1,9 @@
 import { html, ViewTemplate } from '@ni/fast-element';
-import { themeProviderTag } from '../../../nimble-components/src/theme-provider';
-import { bodyFont } from '../../../nimble-components/src/theme-provider/design-tokens';
-import type { Theme } from '../../../nimble-components/src/theme-provider/types';
-import { listOptionTag } from '../../../nimble-components/src/list-option';
-import { listOptionGroupTag } from '../../../nimble-components/src/list-option-group';
+import { themeProviderTag } from '@ni/nimble-components/dist/esm/theme-provider';
+import { bodyFont } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
+import type { Theme } from '@ni/nimble-components/dist/esm/theme-provider/types';
+import { listOptionTag } from '@ni/nimble-components/dist/esm/list-option';
+import { listOptionGroupTag } from '@ni/nimble-components/dist/esm/list-option-group';
 import {
     type BackgroundState,
     backgroundStates,
@@ -177,6 +177,9 @@ export const apiCategory = {
 export const appearanceDescription = (options: {
     componentName: string
 }): string => `This attribute affects the appearance of the ${options.componentName}.`;
+export const fullBleedDescription = (options: {
+    componentName: string
+}): string => `Removes the start and end margins of the ${options.componentName} causing the text to stretch across the full control width. This property only applies to the frameless appearance.`;
 export const iconDescription = 'Set `slot="start"` to include an icon before the text content.';
 export const disabledDescription = (options: {
     componentName: string
@@ -184,6 +187,9 @@ export const disabledDescription = (options: {
 export const readonlyDescription = (options: {
     componentName: string
 }): string => `Styles the ${options.componentName} as readonly and prevents the user from changing the value.`;
+export const appearanceReadOnlyDescription = (options: {
+    componentName: string
+}): string => `Styles the ${options.componentName} as readonly when the component is disabled. This is useful for applications that use a forms library that sets \`disabled\` on components but don't want those components to have a disabled appearance. This property has no impact on the control when it is not disabled.`;
 export const slottedLabelDescription = (options: {
     componentName: string
 }): string => `Label text to display adjacent to the ${options.componentName} describing its purpose to the user.`;

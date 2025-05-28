@@ -1,22 +1,21 @@
 import type { StoryFn, Meta } from '@storybook/html';
 import { html, repeat, ViewTemplate } from '@ni/fast-element';
-import { chatMessageTag } from '../../../../../spright-components/src/chat/message';
-import { ChatMessageType } from '../../../../../spright-components/src/chat/message/types';
+import { chatMessageTag } from '@ni/spright-components/dist/esm/chat/message';
+import { ChatMessageType } from '@ni/spright-components/dist/esm/chat/message/types';
+import { chatConversationTag } from '@ni/spright-components/dist/esm/chat/conversation';
+import {
+    bodyFont,
+    bodyFontColor
+} from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
+import { buttonTag } from '@ni/nimble-components/dist/esm/button';
+import { iconThumbUpTag } from '@ni/nimble-components/dist/esm/icons/thumb-up';
+import { hiddenWrapper } from '../../../utilities/hidden';
+import { createStory } from '../../../utilities/storybook';
 import {
     createMatrix,
     sharedMatrixParameters,
     createMatrixThemeStory
 } from '../../../utilities/matrix';
-import { createStory } from '../../../utilities/storybook';
-import { hiddenWrapper } from '../../../utilities/hidden';
-import { chatConversationTag } from '../../../../../spright-components/src/chat/conversation';
-import { textCustomizationWrapper } from '../../../utilities/text-customization';
-import {
-    bodyFont,
-    bodyFontColor
-} from '../../../../../nimble-components/src/theme-provider/design-tokens';
-import { buttonTag } from '../../../../../nimble-components/src/button';
-import { iconThumbUpTag } from '../../../../../nimble-components/src/icons/thumb-up';
 
 const messageTypeStates = [
     ['outbound', ChatMessageType.outbound],
@@ -163,7 +162,7 @@ const slottedButtons = (
                     border: 1px blue solid;
                     display: inline-block;
                 "
-                >Placehoder text</div>
+                >Placeholder text</div>
                 ${repeat(() => footerActions, html<string>`
                     <${buttonTag} content-hidden slot="footer-actions" appearance="ghost">
                         <${iconThumbUpTag} slot="start"></${iconThumbUpTag}>
@@ -188,20 +187,8 @@ export const slottedButtonsSizing: StoryFn = createMatrixThemeStory(html`
     ])}
 `);
 
-export const conversationHidden: StoryFn = createStory(
+export const hidden: StoryFn = createStory(
     hiddenWrapper(
         html`<${chatConversationTag} hidden>Hidden Chat Conversation</${chatConversationTag}>`
-    )
-);
-
-export const messageHidden: StoryFn = createStory(
-    hiddenWrapper(
-        html`<${chatMessageTag} hidden>Hidden Chat Message</${chatMessageTag}>`
-    )
-);
-
-export const messageTextCustomized: StoryFn = createMatrixThemeStory(
-    textCustomizationWrapper(
-        html`<${chatMessageTag}>Message</${chatMessageTag}>`
     )
 );

@@ -1,12 +1,12 @@
 import { html, repeat, when } from '@ni/fast-element';
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html';
-import { iconCogTag } from '../../../../nimble-components/src/icons/cog';
-import { iconDatabaseTag } from '../../../../nimble-components/src/icons/database';
-import { treeItemTag } from '../../../../nimble-components/src/tree-item';
-import { anchorTreeItemTag } from '../../../../nimble-components/src/anchor-tree-item';
-import { treeViewTag } from '../../../../nimble-components/src/tree-view';
-import { TreeViewSelectionMode } from '../../../../nimble-components/src/tree-view/types';
+import { iconCogTag } from '@ni/nimble-components/dist/esm/icons/cog';
+import { iconDatabaseTag } from '@ni/nimble-components/dist/esm/icons/database';
+import { treeItemTag } from '@ni/nimble-components/dist/esm/tree-item';
+import { anchorTreeItemTag } from '@ni/nimble-components/dist/esm/anchor-tree-item';
+import { treeViewTag } from '@ni/nimble-components/dist/esm/tree-view';
+import { TreeViewSelectionMode } from '@ni/nimble-components/dist/esm/tree-view/types';
 import {
     apiCategory,
     createUserSelectedThemeStory,
@@ -53,7 +53,10 @@ const metadata: Meta<TreeArgs> = {
     decorators: [withActions<HtmlRenderer>],
     parameters: {
         actions: {
-            handles: ['expanded-change', 'selected-change']
+            handles: [
+                'expanded-change', // nimble-tree-item event
+                'selected-change' // nimble-tree-item event
+            ]
         }
     }
 };
@@ -191,13 +194,14 @@ export const multipleTreeItems: StoryObj<TreeArgs> = {
         },
         expandedChange: {
             name: 'expanded-change',
-            description: 'Event emitted when an item is expanded or collapsed.',
+            description:
+                'Bubbling event emitted by a tree item child when expanded or collapsed. Easier to listen for the event on parent tree view than on each tree item child.',
             table: { category: apiCategory.events }
         },
         selectedChange: {
             name: 'selected-change',
             description:
-                'Event emitted when an item is selected or deselected.',
+                'Bubbling event emitted by a tree item child when selected or deselected. Easier to listen for the event on parent tree view than on each tree item child.',
             table: { category: apiCategory.events }
         }
     },

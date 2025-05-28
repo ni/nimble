@@ -1,18 +1,18 @@
 import { html, repeat, when } from '@ni/fast-element';
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html';
-import { iconArrowLeftFromLineTag } from '../../../../nimble-components/src/icons/arrow-left-from-line';
-import { iconUserTag } from '../../../../nimble-components/src/icons/user';
-import { menuItemTag } from '../../../../nimble-components/src/menu-item';
-import { anchorMenuItemTag } from '../../../../nimble-components/src/anchor-menu-item';
+import { iconArrowLeftFromLineTag } from '@ni/nimble-components/dist/esm/icons/arrow-left-from-line';
+import { iconUserTag } from '@ni/nimble-components/dist/esm/icons/user';
+import { menuItemTag } from '@ni/nimble-components/dist/esm/menu-item';
+import { anchorMenuItemTag } from '@ni/nimble-components/dist/esm/anchor-menu-item';
 import {
     bodyEmphasizedFont,
     bodyEmphasizedFontColor,
     bodyEmphasizedFontWeight,
     bodyFont,
     bodyFontColor
-} from '../../../../nimble-components/src/theme-provider/design-tokens';
-import { menuTag } from '../../../../nimble-components/src/menu';
+} from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
+import { menuTag } from '@ni/nimble-components/dist/esm/menu';
 import {
     apiCategory,
     createUserSelectedThemeStory,
@@ -52,7 +52,9 @@ const metadata: Meta<MenuArgs> = {
     decorators: [withActions<HtmlRenderer>],
     parameters: {
         actions: {
-            handles: ['change']
+            handles: [
+                'change' // nimble-menu-item event
+            ]
         }
     }
 };
@@ -181,7 +183,8 @@ export const menuItem: StoryObj<MenuItemArgs> = {
             table: { category: apiCategory.attributes }
         },
         change: {
-            description: 'Event emitted after the menu item is selected.',
+            description:
+                'Bubbling event emitted by a menu item child when selected. Easier to listen for the event on parent menu than on each menu item child.',
             table: { category: apiCategory.events },
             control: false
         }

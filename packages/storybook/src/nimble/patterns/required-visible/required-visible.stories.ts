@@ -5,18 +5,18 @@ import {
     groupHeaderFontColor,
     largePadding,
     standardPadding
-} from '../../../../../nimble-components/src/theme-provider/design-tokens';
-import { comboboxTag } from '../../../../../nimble-components/src/combobox';
-import { selectTag } from '../../../../../nimble-components/src/select';
-import { textAreaTag } from '../../../../../nimble-components/src/text-area';
-import { createUserSelectedThemeStory } from '../../../utilities/storybook';
+} from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
+import { comboboxTag } from '@ni/nimble-components/dist/esm/combobox';
+import { selectTag } from '@ni/nimble-components/dist/esm/select';
+import { textAreaTag } from '@ni/nimble-components/dist/esm/text-area';
 import {
     Orientation,
     radioGroupTag
-} from '../../../../../nimble-components/src/radio-group';
-import { radioTag } from '../../../../../nimble-components/src/radio';
-import { textFieldTag } from '../../../../../nimble-components/src/text-field';
-import { numberFieldTag } from '../../../../../nimble-components/src/number-field';
+} from '@ni/nimble-components/dist/esm/radio-group';
+import { radioTag } from '@ni/nimble-components/dist/esm/radio';
+import { textFieldTag } from '@ni/nimble-components/dist/esm/text-field';
+import { numberFieldTag } from '@ni/nimble-components/dist/esm/number-field';
+import { createUserSelectedThemeStory } from '../../../utilities/storybook';
 
 interface RequiredVisiblePatternArgs {
     shortLabel: string;
@@ -104,4 +104,4 @@ const metadata: Meta<RequiredVisiblePatternArgs> = {
 
 export default metadata;
 
-export const requiredVisiblePattern: StoryObj<RequiredVisiblePatternArgs> = {};
+export const pattern: StoryObj<RequiredVisiblePatternArgs> = {};

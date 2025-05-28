@@ -1,8 +1,72 @@
 # Change Log - @ni/nimble-angular
 
-<!-- This log was last generated on Wed, 02 Apr 2025 17:16:54 GMT and should not be manually modified. -->
+<!-- This log was last generated on Tue, 27 May 2025 23:07:08 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 30.3.0
+
+Tue, 27 May 2025 23:07:08 GMT
+
+### Minor changes
+
+- Update nimble-select, nimble-combobox, nimble-text-area, nimble-number-field, and nimble-text-field to support appearance-readonly and full-bleed ([ni/nimble@f0b7dc3](https://github.com/ni/nimble/commit/f0b7dc3cf5ba1326de7f57147b228553df081e36))
+
+## 30.2.1
+
+Fri, 23 May 2025 21:40:15 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v33.8.0
+
+## 30.2.0
+
+Tue, 20 May 2025 23:06:06 GMT
+
+### Minor changes
+
+- Bump @ni/nimble-components to v33.7.0
+
+## 30.1.6
+
+Tue, 20 May 2025 21:33:37 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v33.6.0
+
+## 30.1.5
+
+Tue, 20 May 2025 21:01:44 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v33.5.0
+
+## 30.1.4
+
+Wed, 14 May 2025 18:31:13 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v33.4.0
+
+## 30.1.3
+
+Wed, 14 May 2025 17:01:13 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v33.3.0
+
+## 30.1.2
+
+Tue, 06 May 2025 21:28:46 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v33.2.0
 
 ## 30.1.1
 

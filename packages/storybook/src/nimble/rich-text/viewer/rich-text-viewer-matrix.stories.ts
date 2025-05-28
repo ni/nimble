@@ -3,10 +3,10 @@ import { html, ViewTemplate } from '@ni/fast-element';
 import {
     cssPropertyFromTokenName,
     tokenNames
-} from '../../../../../nimble-components/src/theme-provider/design-token-names';
-import { mappingUserTag } from '../../../../../nimble-components/src/mapping/user';
-import { richTextMentionUsersTag } from '../../../../../nimble-components/src/rich-text-mention/users';
-import { richTextViewerTag } from '../../../../../nimble-components/src/rich-text/viewer';
+} from '@ni/nimble-components/dist/esm/theme-provider/design-token-names';
+import { mappingUserTag } from '@ni/nimble-components/dist/esm/mapping/user';
+import { richTextMentionUsersTag } from '@ni/nimble-components/dist/esm/rich-text-mention/users';
+import { richTextViewerTag } from '@ni/nimble-components/dist/esm/rich-text/viewer';
 import { createStory } from '../../../utilities/storybook';
 import {
     createMatrixThemeStory,
@@ -81,11 +81,11 @@ const componentFitToContent = ([widthLabel, widthStyle]: [
     </${richTextViewerTag}>
 `;
 
-export const richTextViewerThemeMatrix: StoryFn = createMatrixThemeStory(
+export const themeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(component)
 );
 
-export const richTextViewerSizing: StoryFn = createStory(html`
+export const sizing: StoryFn = createStory(html`
     ${createMatrix(viewerSizingTestCase, [
         [
             ['No width', ''],
@@ -100,7 +100,7 @@ export const richTextViewerSizing: StoryFn = createStory(html`
     ])}
 `);
 
-export const differentContentsInMobileWidth: StoryFn = createStory(html`
+export const differentContents$MobileWidth: StoryFn = createStory(html`
     ${createMatrix(viewerDifferentContentTestCase, [
         [
             ['No content', ''],
@@ -138,6 +138,6 @@ export const fitToContentTest: StoryFn = createStory(html`
     ])}
 `);
 
-export const hiddenRichTextViewer: StoryFn = createStory(
+export const hidden: StoryFn = createStory(
     hiddenWrapper(html`<${richTextViewerTag} hidden></${richTextViewerTag}>`)
 );

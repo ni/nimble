@@ -2,6 +2,21 @@
   "name": "@ni/nimble-tokens",
   "entries": [
     {
+      "date": "Tue, 20 May 2025 23:06:06 GMT",
+      "version": "8.9.0",
+      "tag": "@ni/nimble-tokens_v8.9.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "sandeep.appachiappan@ni.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "dbeed1ff0038510c2d746bc8d3bdfe221c1b40cb",
+            "comment": "New icons for automate, dock, undock, ai-chat and specification. Icon comment deprecated in favor of icon message. Icon bell and comment deprecated in favor of icon bell and message."
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 28 Mar 2025 03:26:12 GMT",
       "version": "8.8.0",
       "tag": "@ni/nimble-tokens_v8.8.0",

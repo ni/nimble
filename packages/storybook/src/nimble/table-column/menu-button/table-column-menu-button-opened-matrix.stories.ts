@@ -1,12 +1,12 @@
 import type { StoryFn, Meta } from '@storybook/html';
 import { html } from '@ni/fast-element';
-import { tableTag } from '../../../../../nimble-components/src/table';
-import { menuTag } from '../../../../../nimble-components/src/menu';
-import { menuItemTag } from '../../../../../nimble-components/src/menu-item';
-import { tableColumnMenuButtonTag } from '../../../../../nimble-components/src/table-column/menu-button';
-import { TableColumnMenuButtonPageObject } from '../../../../../nimble-components/src/table-column/menu-button/testing/table-column-menu-button.pageobject';
-import { TablePageObject } from '../../../../../nimble-components/src/table/testing/table.pageobject';
-import { waitForUpdatesAsync } from '../../../../../nimble-components/src/testing/async-helpers';
+import { tableTag } from '@ni/nimble-components/dist/esm/table';
+import { menuTag } from '@ni/nimble-components/dist/esm/menu';
+import { menuItemTag } from '@ni/nimble-components/dist/esm/menu-item';
+import { tableColumnMenuButtonTag } from '@ni/nimble-components/dist/esm/table-column/menu-button';
+import { TableColumnMenuButtonPageObject } from '@ni/nimble-components/dist/esm/table-column/menu-button/testing/table-column-menu-button.pageobject';
+import { TablePageObject } from '@ni/nimble-components/dist/esm/table/testing/table.pageobject';
+import { waitForUpdatesAsync } from '@ni/nimble-components/dist/esm/testing/async-helpers';
 import { sharedMatrixParameters } from '../../../utilities/matrix';
 import { backgroundStates } from '../../../utilities/states';
 import { createFixedThemeStory } from '../../../utilities/storybook';
@@ -72,14 +72,20 @@ const playFunction = async (): Promise<void> => {
     await columnPageObject.getMenuButton(0, 0)!.openMenu();
 };
 
-export const tableColumnMenuButtonOpenedLightThemeWhiteBackground: StoryFn = createFixedThemeStory(component, lightThemeWhiteBackground);
+export const lightTheme$Open: StoryFn = createFixedThemeStory(
+    component,
+    lightThemeWhiteBackground
+);
+lightTheme$Open.play = playFunction;
 
-tableColumnMenuButtonOpenedLightThemeWhiteBackground.play = playFunction;
+export const colorTheme$Open: StoryFn = createFixedThemeStory(
+    component,
+    colorThemeDarkGreenBackground
+);
+colorTheme$Open.play = playFunction;
 
-export const tableColumnMenuButtonOpenedColorThemeDarkGreenBackground: StoryFn = createFixedThemeStory(component, colorThemeDarkGreenBackground);
-
-tableColumnMenuButtonOpenedColorThemeDarkGreenBackground.play = playFunction;
-
-export const tableColumnMenuButtonOpenedDarkThemeBlackBackground: StoryFn = createFixedThemeStory(component, darkThemeBlackBackground);
-
-tableColumnMenuButtonOpenedDarkThemeBlackBackground.play = playFunction;
+export const darkTheme$Open: StoryFn = createFixedThemeStory(
+    component,
+    darkThemeBlackBackground
+);
+darkTheme$Open.play = playFunction;

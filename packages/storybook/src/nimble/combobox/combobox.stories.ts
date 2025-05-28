@@ -2,22 +2,24 @@ import { ComboboxAutocomplete } from '@ni/fast-foundation';
 import { html, repeat } from '@ni/fast-element';
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html';
-import { listOptionTag } from '../../../../nimble-components/src/list-option';
-import { comboboxTag } from '../../../../nimble-components/src/combobox';
-import { ExampleOptionsType } from '../../../../nimble-components/src/combobox/tests/types';
+import { listOptionTag } from '@ni/nimble-components/dist/esm/list-option';
+import { comboboxTag } from '@ni/nimble-components/dist/esm/combobox';
+import { ExampleOptionsType } from '@ni/nimble-components/dist/esm/combobox/tests/types';
 import {
     DropdownAppearance,
     DropdownPosition
-} from '../../../../nimble-components/src/patterns/dropdown/types';
+} from '@ni/nimble-components/dist/esm/patterns/dropdown/types';
 import {
     apiCategory,
     appearanceDescription,
+    appearanceReadOnlyDescription,
     createUserSelectedThemeStory,
     disableStorybookZoomTransform,
     disabledDescription,
     dropdownPositionDescription,
     errorTextDescription,
     errorVisibleDescription,
+    fullBleedDescription,
     optionsDescription,
     placeholderDescription,
     requiredVisibleDescription,
@@ -38,6 +40,8 @@ interface ComboboxArgs {
     placeholder: string;
     change: undefined;
     input: undefined;
+    appearanceReadOnly: boolean;
+    fullBleed: boolean;
 }
 
 interface OptionArgs {
@@ -111,6 +115,8 @@ const metadata: Meta<ComboboxArgs> = {
             value="${x => x.currentValue}"
             placeholder="${x => x.placeholder}"
             ?required-visible="${x => x.requiredVisible}"
+            ?appearance-readonly="${x => x.appearanceReadOnly}"
+            ?full-bleed="${x => x.fullBleed}"
             style="min-width: 250px;"
         >
             ${x => x.label}
@@ -149,8 +155,22 @@ const metadata: Meta<ComboboxArgs> = {
             description: appearanceDescription({ componentName: 'combobox' }),
             table: { category: apiCategory.attributes }
         },
+        fullBleed: {
+            name: 'full-bleed',
+            description: fullBleedDescription({
+                componentName: 'combobox'
+            }),
+            table: { category: apiCategory.attributes }
+        },
         disabled: {
             description: disabledDescription({ componentName: 'combobox' }),
+            table: { category: apiCategory.attributes }
+        },
+        appearanceReadOnly: {
+            name: 'appearance-readonly',
+            description: appearanceReadOnlyDescription({
+                componentName: 'combobox'
+            }),
             table: { category: apiCategory.attributes }
         },
         errorText: {
@@ -209,7 +229,9 @@ const metadata: Meta<ComboboxArgs> = {
         appearance: DropdownAppearance.underline,
         placeholder: 'Select value...',
         optionsType: ExampleOptionsType.simpleOptions,
-        requiredVisible: false
+        requiredVisible: false,
+        appearanceReadOnly: false,
+        fullBleed: false
     }
 };
 

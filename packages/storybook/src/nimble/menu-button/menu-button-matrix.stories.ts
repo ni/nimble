@@ -1,8 +1,8 @@
 import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate, when } from '@ni/fast-element';
-import { iconArrowExpanderDownTag } from '../../../../nimble-components/src/icons/arrow-expander-down';
-import { iconKeyTag } from '../../../../nimble-components/src/icons/key';
-import { menuButtonTag } from '../../../../nimble-components/src/menu-button';
+import { iconArrowExpanderDownTag } from '@ni/nimble-components/dist/esm/icons/arrow-expander-down';
+import { iconKeyTag } from '@ni/nimble-components/dist/esm/icons/key';
+import { menuButtonTag } from '@ni/nimble-components/dist/esm/menu-button';
 import {
     appearanceStates,
     type AppearanceState,
@@ -63,7 +63,7 @@ const component = (
     </${menuButtonTag}>
 `;
 
-export const menuButtonThemeMatrix: StoryFn = createMatrixThemeStory(
+export const themeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(component, [
         openStates,
         partVisibilityStates,
@@ -89,7 +89,7 @@ const interactionStates = cartesianProduct([
     appearanceVariantStates
 ] as const);
 
-export const menuButtonInteractionsThemeMatrix: StoryFn = createMatrixThemeStory(
+export const interactionsThemeMatrix: StoryFn = createMatrixThemeStory(
     createMatrixInteractionsFromStates(component, {
         hover: interactionStatesHover,
         hoverActive: interactionStates,
@@ -98,7 +98,7 @@ export const menuButtonInteractionsThemeMatrix: StoryFn = createMatrixThemeStory
     })
 );
 
-export const hiddenMenuButton: StoryFn = createStory(
+export const hidden: StoryFn = createStory(
     hiddenWrapper(
         html`<${menuButtonTag} hidden>Hidden Menu Button</${menuButtonTag}>`
     )

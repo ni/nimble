@@ -1,13 +1,13 @@
 import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate } from '@ni/fast-element';
-import { iconUserTag } from '../../../../nimble-components/src/icons/user';
-import { tableColumnTextTag } from '../../../../nimble-components/src/table-column/text';
-import { tableColumnNumberTextTag } from '../../../../nimble-components/src/table-column/number-text';
-import { tableTag } from '../../../../nimble-components/src/table';
+import { iconUserTag } from '@ni/nimble-components/dist/esm/icons/user';
+import { tableColumnTextTag } from '@ni/nimble-components/dist/esm/table-column/text';
+import { tableColumnNumberTextTag } from '@ni/nimble-components/dist/esm/table-column/number-text';
+import { tableTag } from '@ni/nimble-components/dist/esm/table';
 import {
     TableRecordDelayedHierarchyState,
     TableRowSelectionMode
-} from '../../../../nimble-components/src/table/types';
+} from '@ni/nimble-components/dist/esm/table/types';
 import { createStory } from '../../utilities/storybook';
 import {
     createMatrixThemeStory,
@@ -144,28 +144,28 @@ const playFunction = async (): Promise<void> => {
     );
 };
 
-export const tableNoSelectionThemeMatrix: StoryFn = createMatrixThemeStory(
+export const noSelectionThemeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(component, [[undefined], groupedStates, hierarchyStates])
 );
-tableNoSelectionThemeMatrix.play = playFunction;
+noSelectionThemeMatrix.play = playFunction;
 
-export const tableSingleSelectionThemeMatrix: StoryFn = createMatrixThemeStory(
+export const singleSelectionThemeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(component, [
         [TableRowSelectionMode.single],
         groupedStates,
         hierarchyStates
     ])
 );
-tableSingleSelectionThemeMatrix.play = playFunction;
+singleSelectionThemeMatrix.play = playFunction;
 
-export const tableMultipleSelectionThemeMatrix: StoryFn = createMatrixThemeStory(
+export const multipleSelectionThemeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(component, [
         [TableRowSelectionMode.multiple],
         groupedStates,
         hierarchyStates
     ])
 );
-tableMultipleSelectionThemeMatrix.play = playFunction;
+multipleSelectionThemeMatrix.play = playFunction;
 
 const groupedStatesGroupingEnabled = groupedStates[0];
 const hierarchyStatesHierarchyEnabled = hierarchyStates[0];
@@ -174,7 +174,7 @@ const tableKeyboardFocusStates = cartesianProduct([
     [groupedStatesGroupingEnabled],
     [hierarchyStatesHierarchyEnabled]
 ] as const);
-export const tableKeyboardFocusThemeMatrix: StoryFn = createMatrixThemeStory(
+export const keyboardFocusThemeMatrix: StoryFn = createMatrixThemeStory(
     createMatrixInteractionsFromStates(component, {
         hover: [],
         hoverActive: [],
@@ -182,8 +182,8 @@ export const tableKeyboardFocusThemeMatrix: StoryFn = createMatrixThemeStory(
         focus: tableKeyboardFocusStates
     })
 );
-tableKeyboardFocusThemeMatrix.play = playFunction;
+keyboardFocusThemeMatrix.play = playFunction;
 
-export const hiddenTable: StoryFn = createStory(
+export const hidden: StoryFn = createStory(
     hiddenWrapper(html`<${tableTag} hidden></${tableTag}>`)
 );
