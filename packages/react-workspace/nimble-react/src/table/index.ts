@@ -1,13 +1,17 @@
 import { Table } from '@ni/nimble-components/dist/esm/table';
-import type {
-    TableActionMenuToggleEventDetail,
-    TableRowExpansionToggleEventDetail,
-    TableColumnConfigurationChangeEventDetail,
-    TableRowSelectionEventDetail
+import {
+    type TableRecord,
+    type TableSetRecordHierarchyOptions,
+    TableRecordDelayedHierarchyState,
+    type TableActionMenuToggleEventDetail,
+    type TableRowExpansionToggleEventDetail,
+    type TableColumnConfigurationChangeEventDetail,
+    type TableRowSelectionEventDetail,
 } from '@ni/nimble-components/dist/esm/table/types';
 import { wrap } from '../utilities/react-wrapper';
 
 export { type Table };
+export { type TableRecord, type TableSetRecordHierarchyOptions, TableRecordDelayedHierarchyState };
 export const NimbleTable = wrap(Table, {
     events: {
         onActionMenuBeforeToggle: 'action-menu-beforetoggle',

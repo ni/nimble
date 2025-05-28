@@ -26,7 +26,7 @@ import { NimbleIconCheck } from '@ni/nimble-react/dist/esm/icons/check';
 import { NimbleIconXmarkCheck } from '@ni/nimble-react/dist/esm/icons/xmark-check';
 import { NimbleSpinner } from '@ni/nimble-react/dist/esm/spinner';
 import { NimbleSwitch } from '@ni/nimble-react/dist/esm/switch';
-import { NimbleTable } from '@ni/nimble-react/dist/esm/table';
+import { NimbleTable, type Table, type TableRecord } from '@ni/nimble-react/dist/esm/table';
 import { NimbleTableColumnText } from '@ni/nimble-react/dist/esm/table-column/text';
 import { NimbleTableColumnAnchor } from '@ni/nimble-react/dist/esm/table-column/anchor';
 import { NimbleTableColumnDateText } from '@ni/nimble-react/dist/esm/table-column/date-text';
@@ -64,9 +64,51 @@ import { NimbleIconWebviCustom } from '@ni/nimble-react/dist/esm/icons/webvi-cus
 import './App.scss';
 import { useRef, useState } from 'react';
 
+const colors = ['Red', 'Green', 'Blue', 'Black', 'Yellow'] as const;
+type Color = typeof colors[number];
+interface SimpleTableRecord extends TableRecord {
+    id: string;
+    parentId?: string;
+    stringValue1: string;
+    stringValue2: string;
+    href?: string;
+    linkLabel?: string;
+    date: number;
+    statusCode: number;
+    result: 'success' | 'calculating' | 'unknown';
+    number: number;
+    duration: number;
+    color: Color;
+}
+
+const generateRows = (startId: number, count: number): SimpleTableRecord[] => {
+    const rows: SimpleTableRecord[] = [];
+    for (let i = 0; i < count; i++) {
+        const id = (startId + i).toString();
+
+        rows.push({
+            id,
+            stringValue1: `String 1 - ${id}`,
+            stringValue2: `String 2 - ${id}`,
+            href: `#row-${id}`,
+            linkLabel: `Link ${id}`,
+            date: Date.now() - (i * 1000 * 60 * 60 * 24), // One day earlier for each row
+            statusCode: 100 + (i % 2), // Alternating status codes
+            // eslint-disable-next-line no-nested-ternary
+            result: i % 3 === 0 ? 'success' : (i % 3 === 1 ? 'calculating' : 'unknown'),
+            number: Math.floor(Math.random() * 100),
+            duration: Math.floor(Math.random() * 1000),
+            color: colors[i % colors.length],
+        });
+    }
+    return rows;
+};
+
 export function App(): JSX.Element {
     const [bannerOpen, setBannerOpen] = useState(true);
+
     const [selectedRadio, setSelectedRadio] = useState('mango');
+
     const dialogRef = useRef<Dialog<string>>(null);
     const [dialogCloseReason, setDialogCloseReason] = useState('');
     function openDialog(): void {
@@ -75,9 +117,16 @@ export function App(): JSX.Element {
             setDialogCloseReason((closeReason === UserDismissed) ? 'escape pressed' : closeReason);
         })();
     }
-
     function closeDialog(reason: string): void {
         dialogRef.current?.close(reason);
+    }
+
+    const tableRef = useRef<Table>(null);
+    const tableData: SimpleTableRecord[] = [];
+    function addTableRows(): void {
+        const startId = tableData.length;
+        tableData.push(...generateRows(startId, 10));
+        void tableRef.current?.setData(tableData);
     }
 
     return (
@@ -432,12 +481,15 @@ export function App(): JSX.Element {
                     <div className="sub-container">
                         <div className="container-label">Table</div>
                         <NimbleTable
-                        // [data$]="tableData$"
-                            id-field-name="id" parent-id-field-name="parentId" selection-mode="multiple">
+                            /* @ts-expect-error See: https://github.com/ni/nimble/issues/2617 */
+                            ref={tableRef}
+                            id-field-name="id"
+                            // parent-id-field-name="parentId"
+                            selection-mode="multiple">
                             <NimbleTableColumnText
                                 field-name="stringValue1"
-                                action-menu-slot="action-menu"
-                                action-menu-label="Action menu"
+                                // action-menu-slot="action-menu"
+                                // action-menu-label="Action menu"
                                 fractional-width="2"
                                 min-pixel-width="300"
                                 sort-direction="ascending"
@@ -456,7 +508,7 @@ export function App(): JSX.Element {
                             >
                                 Date
                             </NimbleTableColumnDateText>
-                            <NimbleTableColumnMapping
+                            {/* <NimbleTableColumnMapping
                                 field-name="statusCode"
                                 key-type="number"
                             >
@@ -486,7 +538,7 @@ export function App(): JSX.Element {
                                     text="Unknown">
                                 </NimbleMappingEmpty>
                                 <NimbleIconXmarkCheck title="Result"></NimbleIconXmarkCheck>
-                            </NimbleTableColumnMapping>
+                            </NimbleTableColumnMapping> */}
                             <NimbleTableColumnNumberText
                                 field-name="number"
                             >
@@ -497,32 +549,36 @@ export function App(): JSX.Element {
                             >
                                 Duration
                             </NimbleTableColumnDurationText>
-                            <NimbleTableColumnText field-name="stringValue2" min-pixel-width="400" group-index="0">String 2</NimbleTableColumnText>
-                            <NimbleTableColumnMenuButton field-name="color" menu-slot="color-menu"
+                            <NimbleTableColumnText field-name="stringValue2" min-pixel-width="400" 
+                            // group-index="0"
+                            >String 2</NimbleTableColumnText>
+                            {/* <NimbleTableColumnMenuButton field-name="color" menu-slot="color-menu"
                                 // (menu-button-column-beforetoggle)="onMenuButtonColumnBeforeToggle($event)"
                             >
                                 Color
-                            </NimbleTableColumnMenuButton>
+                            </NimbleTableColumnMenuButton> */}
 
-                            <NimbleMenu slot="action-menu">
+                            {/* <NimbleMenu slot="action-menu">
                                 <NimbleMenuItem>Item 1</NimbleMenuItem>
                                 <NimbleMenuItem>Item 2</NimbleMenuItem>
                                 <NimbleMenuItem>Item 3</NimbleMenuItem>
                             </NimbleMenu>
 
                             <NimbleMenu slot="color-menu">
-                                <NimbleMenuItem
-                                // *ngFor="let color of possibleColors" (change)="onColorSelected(color)"
-                                >
-                                    <NimbleIconCheck
-                                    //  *ngIf="color === currentColor"
-                                        slot="start"></NimbleIconCheck>
-                                    {/* {{ color }} */}
-                                </NimbleMenuItem>
-                            </NimbleMenu>
+                                {colors.map(color => (
+                                    <NimbleMenuItem
+                                    // *ngFor="let color of possibleColors" (change)="onColorSelected(color)"
+                                    >
+                                        <NimbleIconCheck
+                                        //  *ngIf="color === currentColor"
+                                            slot="start"></NimbleIconCheck>
+                                        {color}
+                                    </NimbleMenuItem>
+                                ))}
+                            </NimbleMenu> */}
                         </NimbleTable>
                         <NimbleButton className="add-table-row-button"
-                        //  (click)="addTableRows(10)"
+                            onClick={addTableRows}
                         >Add rows</NimbleButton>
                     </div>
                     <div className="sub-container">
