@@ -111,11 +111,11 @@ export const chatConversation: StoryObj<ChatConversationArgs> = {
         content: {
             name: 'default',
             description:
-                'The messages to display in the chat conversation. The DOM order of the messages controls their screen order within the conversation (earlier DOM order implies older message)',
+                'The messages to display in the chat conversation. The DOM order of the messages controls their screen order within the conversation (earlier DOM order implies older message).',
             table: { category: apiCategory.slots }
         },
         input: {
-            description: `A slot to optionally include a \`${chatInputTag}\` which will be displayed below the messages`,
+            description: `A slot to optionally include a \`${chatInputTag}\` which will be displayed below the messages.`,
             table: { category: apiCategory.slots }
         },
         sendMessage: {
