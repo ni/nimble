@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/html';
-import { html } from '@ni/fast-element';
+import { html, ref, when } from '@ni/fast-element';
 import { buttonTag } from '@ni/nimble-components/dist/esm/button';
 import { menuButtonTag } from '@ni/nimble-components/dist/esm/menu-button';
 import { menuTag } from '@ni/nimble-components/dist/esm/menu';
