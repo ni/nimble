@@ -74,24 +74,20 @@ The component also contains the following features:
 
 #### Chat input
 
-##### In scope
-
 1. Accepts text input in a text area
     - the text area height is a single line initially but grows its height to fit the entered text up to its max-height
     - the text area has configurable placeholder text
 1. Includes a "Send" button for the user to submit the current input text
-    - fires an event containing the current input content and then clears the content and sets keyboard focus back to the input
+    - fires an event containing the current input content
     - pressing Enter while the text area has focus will behave the same as clicking "Send"
     - pressing Shift-Enter will create a newline
-    - the button is disabled and Enter has no effect if the input text is empty
-1. Styling for default, focus, and rollover states
-
-##### Future work
-
-This is included for informational purposes but doesn't yet have a proposed implementation in the Design section below.
-
+    - the button is disabled and Enter has no effect if the input text and attachments slot are both empty or if the client has set an attribute to explicitly disable it
 1. Includes a "Stop" button for the user to abort an action that was triggered in response to a sent message (e.g. a file upload or incoming response)
+    - fires an event when clicked. This event contains no data. Does not fire an event if the user presses Enter in the text area while this button is visible.
+    - only one of the "Stop" or "Send" buttons will be visible at a given time
+    - when it's visible, this button is always enabled
 1. Includes slots for specifying additional content like a button for attaching files and chips for viewing/clearing attached files
+1. Styling for default, focus, and rollover states
 1. Displays errors via the standard red `!` icon and error text
 
 ### Risks and Challenges
@@ -208,16 +204,27 @@ richText.markdown = 'Welcome **Homer**, how can I help?';
 
 - _Component Name_ `spright-chat-input`
 - _Props/Attrs_
+    - `processing` - boolean attribute that causes the "Stop" button to be shown rather than the "Send" button
     - `placeholder` - text to display in the text area when no text has been entered
-    - `send-button-label` - text to use for a `title` and ARIA attributes on the send button. See Accessibility section for more info.
+    - `send-button-label` - text to use for a `title` and ARIA attributes on the "Send" button. See Accessibility section for more info.
+    - `stop-button-label` - text to use for a `title` and ARIA attributes on the "Stop" button. See Accessibility section for more info.
+    - `send-disabled` - boolean attribute that causes the "Send" button to be disabled even if there is text or other slotted content
+    - `error-visible` and `error-text` - standard attributes for showing an error icon and red text below the control
 - _Methods_
+    - `resetInput()` - clears the text input and gives it focus
 - _Events_
-    - `send` - emitted when the user clicks the button or presses Enter with text present. Includes `ChatInputSendEventDetail` which is an object with a `text` field containing the input contents.
+    - `send` - emitted when the user clicks the "send" button or presses Enter with text present. Includes `ChatInputSendEventDetail` which is an object with a `text` field containing the input contents. Not cancelable.
+    - `stop` - emitted when the user clicks the "stop" button. Not cancelable.
 - _CSS Classes and CSS Custom Properties that affect the component_
 - _How native CSS Properties (height, width, etc.) affect the component_
     - Clients can set the input width using normal CSS rules. The input will have a default minimum width that clients are discouraged from overriding.
     - The input will have a default height to fit one line of text and will grow its height to fit more lines, up to a max-height. After that limit it will show a vertical scrollbar.
 - _Slots_
+    - `footer-actions`
+        - Action buttons to display left of the send/stop button.
+    - `attachments`
+        - An area to slot arbitrary content adjacent to the text input area. Intended to be used for adding chips that represent attached files.
+
 
 ### Anatomy
 
@@ -260,6 +267,8 @@ Other than setting a background, a conversation has no appearance of its own and
 ##### Template
 
 The input contains a native `textarea` and a `nimble-button`. The code below is simplified to omit some classes / refs and ARIA info.
+
+Not yet shown: "Stop" button, `footer-actions` slot, `attachments` slot, error text and icon.
 
 ```html
 <div class="container">
@@ -344,7 +353,7 @@ _Consider the accessibility of the component, including:_
 
 The text field and button will each be keyboard focusable. This will be reflected visually to the user in accordance with the design spec.
 
-The Design team has requested a non-standard appearance for the "Send" button: icon-only but rectangular shape. Nimble buttons support square icon-only buttons with an accessible label via `content-hidden` or rectangular buttons with text content visible. We will achieve the desired appearance by using a `nimble-button` with the following settings:
+The Design team has requested a non-standard appearance for the "Send" and "Stop" buttons: icon-only but rectangular shape. Nimble buttons support square icon-only buttons with an accessible label via `content-hidden` or rectangular buttons with text content visible. We will achieve the desired appearance by using a `nimble-button` with the following settings:
 
 - adding icon content in the `start` slot
 - not setting `content-hidden`
