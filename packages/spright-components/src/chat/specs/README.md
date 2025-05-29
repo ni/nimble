@@ -225,7 +225,6 @@ richText.markdown = 'Welcome **Homer**, how can I help?';
     - `attachments`
         - An area to slot arbitrary content adjacent to the text input area. Intended to be used for adding chips that represent attached files.
 
-
 ### Anatomy
 
 #### Message
