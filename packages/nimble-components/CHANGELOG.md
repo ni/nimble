@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-<!-- This log was last generated on Fri, 23 May 2025 21:40:15 GMT and should not be manually modified. -->
+<!-- This log was last generated on Thu, 29 May 2025 01:50:59 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 33.8.1
+
+Thu, 29 May 2025 01:50:59 GMT
+
+### Patches
+
+- Add additional icon metaphors ([ni/nimble@f91f53d](https://github.com/ni/nimble/commit/f91f53dfacde850e16f95f7f7840f8b0649e7698))
 
 ## 33.8.0
 
