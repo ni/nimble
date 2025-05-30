@@ -294,7 +294,7 @@ Most of the styling will use standard Nimble tokens and CSS layout techniques.
 
 One notable styling decision is that we plan to use [`field-sizing: content;`](https://developer.mozilla.org/en-US/docs/Web/CSS/field-sizing)
 to implement the ability to grow the height of the text area as the user types. This
-[is not yet supported in Firefox or Safari](https://developer.mozilla.org/en-US/docs/Web/CSS/field-sizing#browser_compatibility).
+[is not yet supported in Firefox or Safari](https://developer.mozilla.org/en-US/docs/Web/CSS/field-sizing#browser_compatibility) (though it should land in Safari soon).
 Initially clients will either use modern versions of Chromium-based browsers or will only leverage this component behind a feature flag. If
 that changes before the feature is available in all supported browsers, we will revisit this decision and consider implementing a JavaScript-based resizing solution.
 
