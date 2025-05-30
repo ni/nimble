@@ -88,6 +88,14 @@ public class NimbleTextFieldTests
         Assert.Contains("required-visible", textField.Markup);
     }
 
+    [Fact]
+    public void TextFieldAppearanceReadOnly_AttributeIsSet()
+    {
+        var textField = RenderWithPropertySet(x => x.AppearanceReadOnly, true);
+
+        Assert.Contains("appearance-readonly", textField.Markup);
+    }
+
     private IRenderedComponent<NimbleTextField> RenderWithPropertySet<TProperty>(Expression<Func<NimbleTextField, TProperty>> propertyGetter, TProperty propertyValue)
     {
         var context = new TestContext();

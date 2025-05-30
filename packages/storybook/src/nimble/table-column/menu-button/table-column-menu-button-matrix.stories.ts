@@ -1,7 +1,7 @@
 import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate } from '@ni/fast-element';
-import { tableTag } from '../../../../../nimble-components/src/table';
-import { tableColumnMenuButtonTag } from '../../../../../nimble-components/src/table-column/menu-button';
+import { tableTag } from '@ni/nimble-components/dist/esm/table';
+import { tableColumnMenuButtonTag } from '@ni/nimble-components/dist/esm/table-column/menu-button';
 import {
     createMatrixThemeStory,
     createMatrix,

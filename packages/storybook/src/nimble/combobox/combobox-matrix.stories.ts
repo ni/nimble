@@ -1,22 +1,21 @@
 import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate } from '@ni/fast-element';
-import { standardPadding } from '../../../../nimble-components/src/theme-provider/design-tokens';
-import { listOptionTag } from '../../../../nimble-components/src/list-option';
-import { comboboxTag } from '../../../../nimble-components/src/combobox';
-import { DropdownAppearance } from '../../../../nimble-components/src/patterns/dropdown/types';
-import { createStory } from '../../utilities/storybook';
-import {
-    createMatrixThemeStory,
-    createMatrix,
-    sharedMatrixParameters
-} from '../../utilities/matrix';
+import { standardPadding } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
+import { listOptionTag } from '@ni/nimble-components/dist/esm/list-option';
+import { comboboxTag } from '@ni/nimble-components/dist/esm/combobox';
+import { DropdownAppearance } from '@ni/nimble-components/dist/esm/patterns/dropdown/types';
+import { createFixedThemeStory, createStory } from '../../utilities/storybook';
+import { createMatrix, sharedMatrixParameters } from '../../utilities/matrix';
 import {
     errorStates,
     type ErrorState,
     type RequiredVisibleState,
     requiredVisibleStates,
     type OnlyReadOnlyAbsentState,
-    onlyReadOnlyAbsentStates
+    onlyReadOnlyAbsentStates,
+    type FullBleedState,
+    fullBleedStates,
+    backgroundStates
 } from '../../utilities/states';
 import { hiddenWrapper } from '../../utilities/hidden';
 import { loremIpsum } from '../../utilities/lorem-ipsum';
@@ -24,7 +23,8 @@ import { loremIpsum } from '../../utilities/lorem-ipsum';
 const appearanceStates = [
     ['Underline', DropdownAppearance.underline],
     ['Outline', DropdownAppearance.outline],
-    ['Block', DropdownAppearance.block]
+    ['Block', DropdownAppearance.block],
+    ['Frameless', DropdownAppearance.frameless]
 ] as const;
 type AppearanceState = (typeof appearanceStates)[number];
 
@@ -48,6 +48,7 @@ export default metadata;
 const component = (
     [disabledReadOnlyName, _readOnly, disabled, appearanceReadOnly]: OnlyReadOnlyAbsentState,
     [appearanceName, appearance]: AppearanceState,
+    [fullBleedName, fullBleed]: FullBleedState,
     [requiredVisibleName, requiredVisible]: RequiredVisibleState,
     [errorName, errorVisible, errorText]: ErrorState,
     [valueName, value, placeholder]: ValueState
@@ -56,6 +57,7 @@ const component = (
         ?disabled="${() => disabled}"
         ?appearance-readonly="${() => appearanceReadOnly}"
         appearance="${() => appearance}"
+        ?full-bleed="${() => fullBleed}"
         ?error-visible="${() => errorVisible}"
         error-text="${() => errorText}"
         value="${() => value}"
@@ -65,6 +67,7 @@ const component = (
     >
         ${() => disabledReadOnlyName}
         ${() => appearanceName}
+        ${() => fullBleedName}
         ${() => errorName}
         ${() => valueName}
         ${() => requiredVisibleName}
@@ -75,14 +78,51 @@ const component = (
     </${comboboxTag}>
 `;
 
-export const themeMatrix: StoryFn = createMatrixThemeStory(
+const [
+    lightThemeWhiteBackground,
+    colorThemeDarkGreenBackground,
+    darkThemeBlackBackground,
+    ...remaining
+] = backgroundStates;
+
+if (remaining.length > 0) {
+    throw new Error('New backgrounds need to be supported');
+}
+
+export const lightTheme: StoryFn = createFixedThemeStory(
     createMatrix(component, [
         onlyReadOnlyAbsentStates,
         appearanceStates,
+        fullBleedStates,
         requiredVisibleStates,
         errorStates,
         valueStates
-    ])
+    ]),
+    lightThemeWhiteBackground
+);
+
+export const colorTheme: StoryFn = createFixedThemeStory(
+    createMatrix(component, [
+        onlyReadOnlyAbsentStates,
+        appearanceStates,
+        fullBleedStates,
+        requiredVisibleStates,
+        errorStates,
+        valueStates
+    ]),
+    colorThemeDarkGreenBackground
+);
+
+export const darkTheme: StoryFn = createFixedThemeStory(
+    createMatrix(component, [
+        onlyReadOnlyAbsentStates,
+        appearanceStates,
+        fullBleedStates,
+        requiredVisibleStates,
+        errorStates,
+        valueStates
+    ]),
+    darkThemeBlackBackground
 );
 
 export const hidden: StoryFn = createStory(

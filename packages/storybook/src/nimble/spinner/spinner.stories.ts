@@ -3,14 +3,14 @@ import type { Meta, StoryObj } from '@storybook/html';
 import {
     spinnerLargeHeight,
     spinnerMediumHeight
-} from '../../../../nimble-components/src/theme-provider/design-tokens';
+} from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
 import {
     scssPropertyFromTokenName,
     scssPropertySetterMarkdown,
     tokenNames
-} from '../../../../nimble-components/src/theme-provider/design-token-names';
-import { spinnerTag } from '../../../../nimble-components/src/spinner';
-import { SpinnerAppearance } from '../../../../nimble-components/src/spinner/types';
+} from '@ni/nimble-components/dist/esm/theme-provider/design-token-names';
+import { spinnerTag } from '@ni/nimble-components/dist/esm/spinner';
+import { SpinnerAppearance } from '@ni/nimble-components/dist/esm/spinner/types';
 import { isChromatic } from '../../utilities/isChromatic';
 
 import {

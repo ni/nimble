@@ -1,20 +1,20 @@
 import { html, when } from '@ni/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
+
+import { buttonTag } from '@ni/nimble-components/dist/esm/button';
+import { chatMessageTag } from '@ni/spright-components/dist/esm/chat/message';
+import { ChatMessageType } from '@ni/spright-components/dist/esm/chat/message/types';
+import { richTextViewerTag } from '@ni/nimble-components/dist/esm/rich-text/viewer';
+import { spinnerTag } from '@ni/nimble-components/dist/esm/spinner';
+import { SpinnerAppearance } from '@ni/nimble-components/dist/esm/spinner/types';
+import { iconThumbUpTag } from '@ni/nimble-components/dist/esm/icons/thumb-up';
+import { iconThumbDownTag } from '@ni/nimble-components/dist/esm/icons/thumb-down';
+import { isChromatic } from '../../../utilities/isChromatic';
+import { imgBlobUrl, markdownExample } from '../conversation/story-helpers';
 import {
     apiCategory,
     createUserSelectedThemeStory
 } from '../../../utilities/storybook';
-
-import { buttonTag } from '../../../../../nimble-components/src/button';
-import { chatMessageTag } from '../../../../../spright-components/src/chat/message';
-import { ChatMessageType } from '../../../../../spright-components/src/chat/message/types';
-import { richTextViewerTag } from '../../../../../nimble-components/src/rich-text/viewer';
-import { spinnerTag } from '../../../../../nimble-components/src/spinner';
-import { imgBlobUrl, markdownExample } from '../conversation/story-helpers';
-import { SpinnerAppearance } from '../../../../../nimble-components/src/spinner/types';
-import { isChromatic } from '../../../utilities/isChromatic';
-import { iconThumbUpTag } from '../../../../../nimble-components/src/icons/thumb-up';
-import { iconThumbDownTag } from '../../../../../nimble-components/src/icons/thumb-down';
 
 const footerActionsDescription = `Place 0 or more buttons at the bottom of the message to allow the user to invoke a custom action.
 Footer actions should only be added to inbound messages.

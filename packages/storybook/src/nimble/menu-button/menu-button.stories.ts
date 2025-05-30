@@ -1,17 +1,17 @@
 import { html, when } from '@ni/fast-element';
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html';
-import { iconArrowExpanderDownTag } from '../../../../nimble-components/src/icons/arrow-expander-down';
-import { iconKeyTag } from '../../../../nimble-components/src/icons/key';
-import { menuTag } from '../../../../nimble-components/src/menu';
-import { anchorMenuItemTag } from '../../../../nimble-components/src/anchor-menu-item';
-import { menuItemTag } from '../../../../nimble-components/src/menu-item';
-import { menuButtonTag } from '../../../../nimble-components/src/menu-button';
+import { iconArrowExpanderDownTag } from '@ni/nimble-components/dist/esm/icons/arrow-expander-down';
+import { iconKeyTag } from '@ni/nimble-components/dist/esm/icons/key';
+import { menuTag } from '@ni/nimble-components/dist/esm/menu';
+import { anchorMenuItemTag } from '@ni/nimble-components/dist/esm/anchor-menu-item';
+import { menuItemTag } from '@ni/nimble-components/dist/esm/menu-item';
+import { menuButtonTag } from '@ni/nimble-components/dist/esm/menu-button';
 import {
     ButtonAppearance,
     ButtonAppearanceVariant,
     MenuButtonPosition
-} from '../../../../nimble-components/src/menu-button/types';
+} from '@ni/nimble-components/dist/esm/menu-button/types';
 import {
     appearanceDescription,
     appearanceVariantDescription,
@@ -40,6 +40,7 @@ interface MenuButtonArgs {
     menuPosition: string;
     toggle: undefined;
     beforetoggle: undefined;
+    change: undefined;
 }
 
 const metadata: Meta<MenuButtonArgs> = {
@@ -47,7 +48,11 @@ const metadata: Meta<MenuButtonArgs> = {
     decorators: [withActions<HtmlRenderer>],
     parameters: {
         actions: {
-            handles: ['toggle', 'beforetoggle', 'change']
+            handles: [
+                'toggle',
+                'beforetoggle',
+                'change' // nimble-menu-item event
+            ]
         },
         toolbar: {
             zoom: { hidden: true }
@@ -120,6 +125,12 @@ const metadata: Meta<MenuButtonArgs> = {
         beforetoggle: {
             description:
                 'Event emitted before the menu button is toggled. This can be used to populate the menu before it is opened.',
+            table: { category: apiCategory.events },
+            control: false
+        },
+        change: {
+            description:
+                'Bubbling event emitted by a menu item child when selected. Easier to listen for the event on parent menu button than on each menu item child.',
             table: { category: apiCategory.events },
             control: false
         }

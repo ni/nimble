@@ -1,26 +1,26 @@
 import type { Meta, StoryObj } from '@storybook/html';
 import { html } from '@ni/fast-element';
-import { buttonTag } from '../../../../../nimble-components/src/button';
-import { menuButtonTag } from '../../../../../nimble-components/src/menu-button';
-import { menuTag } from '../../../../../nimble-components/src/menu';
-import { menuItemTag } from '../../../../../nimble-components/src/menu-item';
-import { toggleButtonTag } from '../../../../../nimble-components/src/toggle-button';
-import { chatConversationTag } from '../../../../../spright-components/src/chat/conversation';
-import { ChatMessageType } from '../../../../../spright-components/src/chat/message/types';
-import { chatMessageTag } from '../../../../../spright-components/src/chat/message';
-import { richTextViewerTag } from '../../../../../nimble-components/src/rich-text/viewer';
-import { spinnerTag } from '../../../../../nimble-components/src/spinner';
-import { iconCopyTextTag } from '../../../../../nimble-components/src/icons/copy-text';
-import { iconThumbUpTag } from '../../../../../nimble-components/src/icons/thumb-up';
-import { iconThumbDownTag } from '../../../../../nimble-components/src/icons/thumb-down';
-import { iconArrowRotateRightTag } from '../../../../../nimble-components/src/icons/arrow-rotate-right';
-import { iconThreeDotsLineTag } from '../../../../../nimble-components/src/icons/three-dots-line';
+import { buttonTag } from '@ni/nimble-components/dist/esm/button';
+import { menuButtonTag } from '@ni/nimble-components/dist/esm/menu-button';
+import { menuTag } from '@ni/nimble-components/dist/esm/menu';
+import { menuItemTag } from '@ni/nimble-components/dist/esm/menu-item';
+import { toggleButtonTag } from '@ni/nimble-components/dist/esm/toggle-button';
+import { chatConversationTag } from '@ni/spright-components/dist/esm/chat/conversation';
+import { ChatMessageType } from '@ni/spright-components/dist/esm/chat/message/types';
+import { chatMessageTag } from '@ni/spright-components/dist/esm/chat/message';
+import { richTextViewerTag } from '@ni/nimble-components/dist/esm/rich-text/viewer';
+import { spinnerTag } from '@ni/nimble-components/dist/esm/spinner';
+import { iconCopyTextTag } from '@ni/nimble-components/dist/esm/icons/copy-text';
+import { iconThumbUpTag } from '@ni/nimble-components/dist/esm/icons/thumb-up';
+import { iconThumbDownTag } from '@ni/nimble-components/dist/esm/icons/thumb-down';
+import { iconArrowRotateRightTag } from '@ni/nimble-components/dist/esm/icons/arrow-rotate-right';
+import { iconThreeDotsLineTag } from '@ni/nimble-components/dist/esm/icons/three-dots-line';
+import { SpinnerAppearance } from '@ni/nimble-components/dist/esm/spinner/types';
 import {
     apiCategory,
     createUserSelectedThemeStory
 } from '../../../utilities/storybook';
 import { imgBlobUrl, markdownExample } from './story-helpers';
-import { SpinnerAppearance } from '../../../../../nimble-components/src/spinner/types';
 import { loremIpsum } from '../../../utilities/lorem-ipsum';
 import { isChromatic } from '../../../utilities/isChromatic';
 

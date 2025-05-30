@@ -128,6 +128,17 @@ describe('Nimble text area', () => {
             expect(directive.requiredVisible).toBeTrue();
             expect(nativeElement.requiredVisible).toBeTrue();
         });
+
+        it('has expected defaults for appearanceReadOnly', () => {
+            expect(directive.appearanceReadOnly).toBeFalse();
+            expect(nativeElement.appearanceReadOnly).toBeFalse();
+        });
+
+        it('can use the directive to set appearanceReadOnly', () => {
+            directive.appearanceReadOnly = true;
+            expect(directive.appearanceReadOnly).toBeTrue();
+            expect(nativeElement.appearanceReadOnly).toBeTrue();
+        });
     });
 
     describe('with template string values', () => {
@@ -150,6 +161,7 @@ describe('Nimble text area', () => {
                     rows="6"
                     spellcheck
                     required-visible
+                    appearance-readonly
                 >
                 </nimble-text-area>`
         })
@@ -252,6 +264,11 @@ describe('Nimble text area', () => {
             expect(directive.requiredVisible).toBeTrue();
             expect(nativeElement.requiredVisible).toBeTrue();
         });
+
+        it('will use template string values for appearanceReadOnly', () => {
+            expect(directive.appearanceReadOnly).toBeTrue();
+            expect(nativeElement.appearanceReadOnly).toBeTrue();
+        });
     });
 
     describe('with property bound values', () => {
@@ -274,6 +291,7 @@ describe('Nimble text area', () => {
                     [rows]="rows"
                     [spellcheck]="spellcheck"
                     [required-visible]="requiredVisible"
+                    [appearance-readonly]="appearanceReadOnly"
                 >
                 </nimble-text-area>`
         })
@@ -296,6 +314,7 @@ describe('Nimble text area', () => {
             public rows = 2;
             public spellcheck = false;
             public requiredVisible = false;
+            public appearanceReadOnly = false;
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
@@ -488,6 +507,17 @@ describe('Nimble text area', () => {
             expect(directive.requiredVisible).toBeTrue();
             expect(nativeElement.requiredVisible).toBeTrue();
         });
+
+        it('can be configured with property binding for appearanceReadOnly', () => {
+            expect(directive.appearanceReadOnly).toBeFalse();
+            expect(nativeElement.appearanceReadOnly).toBeFalse();
+
+            fixture.componentInstance.appearanceReadOnly = true;
+            fixture.detectChanges();
+
+            expect(directive.appearanceReadOnly).toBeTrue();
+            expect(nativeElement.appearanceReadOnly).toBeTrue();
+        });
     });
 
     describe('with attribute bound values', () => {
@@ -510,6 +540,7 @@ describe('Nimble text area', () => {
                     [attr.rows]="rows"
                     [attr.spellcheck]="spellcheck"
                     [attr.required-visible]="requiredVisible"
+                    [attr.appearance-readonly]="appearanceReadOnly"
                 >
                 </nimble-text-area>`
         })
@@ -532,6 +563,7 @@ describe('Nimble text area', () => {
             public rows: NumberValueOrAttribute = 2;
             public spellcheck: BooleanValueOrAttribute = null;
             public requiredVisible: BooleanValueOrAttribute = null;
+            public appearanceReadOnly: BooleanValueOrAttribute = null;
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
@@ -723,6 +755,17 @@ describe('Nimble text area', () => {
 
             expect(directive.requiredVisible).toBeTrue();
             expect(nativeElement.requiredVisible).toBeTrue();
+        });
+
+        it('can be configured with attribute binding for appearanceReadOnly', () => {
+            expect(directive.appearanceReadOnly).toBeFalse();
+            expect(nativeElement.appearanceReadOnly).toBeFalse();
+
+            fixture.componentInstance.appearanceReadOnly = '';
+            fixture.detectChanges();
+
+            expect(directive.appearanceReadOnly).toBeTrue();
+            expect(nativeElement.appearanceReadOnly).toBeTrue();
         });
     });
 });

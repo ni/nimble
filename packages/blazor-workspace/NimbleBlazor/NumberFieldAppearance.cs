@@ -4,7 +4,8 @@ public enum NumberFieldAppearance
 {
     Underline,
     Outline,
-    Block
+    Block,
+    Frameless
 }
 
 internal static class NumberFieldAppearanceExtensions

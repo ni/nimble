@@ -1,11 +1,11 @@
 import { html, repeat, when } from '@ni/fast-element';
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html';
-import { listOptionTag } from '../../../../nimble-components/src/list-option';
-import { listOptionGroupTag } from '../../../../nimble-components/src/list-option-group';
-import { selectTag } from '../../../../nimble-components/src/select';
-import { FilterMode } from '../../../../nimble-components/src/select/types';
-import { DropdownAppearance } from '../../../../nimble-components/src/patterns/dropdown/types';
+import { listOptionTag } from '@ni/nimble-components/dist/esm/list-option';
+import { listOptionGroupTag } from '@ni/nimble-components/dist/esm/list-option-group';
+import { selectTag } from '@ni/nimble-components/dist/esm/select';
+import { FilterMode } from '@ni/nimble-components/dist/esm/select/types';
+import { DropdownAppearance } from '@ni/nimble-components/dist/esm/patterns/dropdown/types';
 
 import {
     apiCategory,
@@ -17,6 +17,7 @@ import {
     dropdownPositionDescription,
     errorTextDescription,
     errorVisibleDescription,
+    fullBleedDescription,
     optionsDescription,
     requiredVisibleDescription,
     slottedLabelDescription
@@ -39,6 +40,7 @@ interface SelectArgs {
     change: undefined;
     filterInput: undefined;
     appearanceReadOnly: boolean;
+    fullBleed: boolean;
 }
 
 interface OptionArgs {
@@ -150,6 +152,7 @@ const metadata: Meta<SelectArgs> = {
             ?loading-visible="${x => x.loadingVisible}"
             ?required-visible="${x => x.requiredVisible}"
             ?appearance-readonly="${x => x.appearanceReadOnly}"
+            ?full-bleed="${x => x.fullBleed}"
             style="width:250px;"
         >
             ${x => x.label}
@@ -199,6 +202,13 @@ const metadata: Meta<SelectArgs> = {
             options: Object.values(DropdownAppearance),
             control: { type: 'radio' },
             description: appearanceDescription({ componentName: 'select' }),
+            table: { category: apiCategory.attributes }
+        },
+        fullBleed: {
+            name: 'full-bleed',
+            description: fullBleedDescription({
+                componentName: 'select'
+            }),
             table: { category: apiCategory.attributes }
         },
         filterMode: {
@@ -292,7 +302,8 @@ const metadata: Meta<SelectArgs> = {
         clearable: false,
         loadingVisible: false,
         requiredVisible: false,
-        appearanceReadOnly: false
+        appearanceReadOnly: false,
+        fullBleed: false
     }
 };
 
