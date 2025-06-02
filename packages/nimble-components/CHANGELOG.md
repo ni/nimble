@@ -1,8 +1,65 @@
 # Change Log - @ni/nimble-components
 
-<!-- This log was last generated on Tue, 06 May 2025 21:28:46 GMT and should not be manually modified. -->
+<!-- This log was last generated on Thu, 29 May 2025 01:50:59 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 33.8.1
+
+Thu, 29 May 2025 01:50:59 GMT
+
+### Patches
+
+- Add additional icon metaphors ([ni/nimble@f91f53d](https://github.com/ni/nimble/commit/f91f53dfacde850e16f95f7f7840f8b0649e7698))
+
+## 33.8.0
+
+Fri, 23 May 2025 21:40:15 GMT
+
+### Minor changes
+
+- Update select and combobox to support frameless and full-bleed styling ([ni/nimble@9944f73](https://github.com/ni/nimble/commit/9944f730e092764a901046aca920cf3a6eacd743))
+
+## 33.7.0
+
+Tue, 20 May 2025 23:06:06 GMT
+
+### Minor changes
+
+- New icons for automate, dock, undock, ai-chat and specification. Icon comment deprecated in favor of icon message. Icon bell and comment deprecated in favor of icon bell and message. ([ni/nimble@dbeed1f](https://github.com/ni/nimble/commit/dbeed1ff0038510c2d746bc8d3bdfe221c1b40cb))
+- Bump @ni/nimble-tokens to v8.9.0
+
+## 33.6.0
+
+Tue, 20 May 2025 21:33:37 GMT
+
+### Minor changes
+
+- Add appearance-readonly to nimble-select and nimble-combobox ([ni/nimble@f137a31](https://github.com/ni/nimble/commit/f137a31937d8d173005539f744a3bc379f85a99d))
+
+## 33.5.0
+
+Tue, 20 May 2025 21:01:44 GMT
+
+### Minor changes
+
+- Update nimble-number-field to support frameless and full-bleed styling ([ni/nimble@bac1151](https://github.com/ni/nimble/commit/bac11513d184d751b2f1595984ce2e52d2af5a54))
+
+## 33.4.0
+
+Wed, 14 May 2025 18:31:13 GMT
+
+### Minor changes
+
+- Add appearance-readonly to nimble-text-area ([ni/nimble@0170567](https://github.com/ni/nimble/commit/0170567a2176c1ab12c92157426b49ee573cb50b))
+
+## 33.3.0
+
+Wed, 14 May 2025 17:01:13 GMT
+
+### Minor changes
+
+- Add appearance-readonly to nimble-number-field ([ni/nimble@3a0e4f6](https://github.com/ni/nimble/commit/3a0e4f636c41b3844a1852c32091c4f96b2e8225))
 
 ## 33.2.0
 

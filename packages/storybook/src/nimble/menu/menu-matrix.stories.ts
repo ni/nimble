@@ -1,10 +1,10 @@
 import { html, ViewTemplate, when } from '@ni/fast-element';
 import type { StoryFn, Meta } from '@storybook/html';
-import { iconUserTag } from '../../../../nimble-components/src/icons/user';
-import { iconXmarkTag } from '../../../../nimble-components/src/icons/xmark';
-import { menuItemTag } from '../../../../nimble-components/src/menu-item';
-import { anchorMenuItemTag } from '../../../../nimble-components/src/anchor-menu-item';
-import { menuTag } from '../../../../nimble-components/src/menu';
+import { iconUserTag } from '@ni/nimble-components/dist/esm/icons/user';
+import { iconXmarkTag } from '@ni/nimble-components/dist/esm/icons/xmark';
+import { menuItemTag } from '@ni/nimble-components/dist/esm/menu-item';
+import { anchorMenuItemTag } from '@ni/nimble-components/dist/esm/anchor-menu-item';
+import { menuTag } from '@ni/nimble-components/dist/esm/menu';
 import { createStory } from '../../utilities/storybook';
 import {
     createMatrixThemeStory,
@@ -71,11 +71,11 @@ const component = (
     </span>
 `;
 
-export const menuThemeMatrix: StoryFn = createMatrixThemeStory(
+export const themeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(component, [iconVisibleStates, subMenuStates])
 );
 
-export const hiddenMenu: StoryFn = createStory(
+export const hidden: StoryFn = createStory(
     hiddenWrapper(
         html`<${menuTag} hidden>
             <${menuItemTag}>Item 1</${menuItemTag}>

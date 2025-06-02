@@ -78,6 +78,7 @@ public class NimbleSelectTests
     [InlineData(DropdownAppearance.Outline, "outline")]
     [InlineData(DropdownAppearance.Block, "block")]
     [InlineData(DropdownAppearance.Underline, "underline")]
+    [InlineData(DropdownAppearance.Frameless, "frameless")]
     public void DropdownAppearance_AttributeIsSet(DropdownAppearance value, string expectedAttribute)
     {
         var select = RenderWithPropertySet(x => x.Appearance, value);
@@ -108,6 +109,22 @@ public class NimbleSelectTests
         var select = RenderWithPropertySet(x => x.Clearable, true);
 
         Assert.Contains("clearable", select.Markup);
+    }
+
+    [Fact]
+    public void SelectAppearanceReadOnly_AttributeIsSet()
+    {
+        var select = RenderWithPropertySet(x => x.AppearanceReadOnly, true);
+
+        Assert.Contains("appearance-readonly", select.Markup);
+    }
+
+    [Fact]
+    public void SelectFullBleed_AttributeIsSet()
+    {
+        var select = RenderWithPropertySet(x => x.FullBleed, true);
+
+        Assert.Contains("full-bleed", select.Markup);
     }
 
     private IRenderedComponent<NimbleSelect> RenderWithPropertySet<TProperty>(Expression<Func<NimbleSelect, TProperty>> propertyGetter, TProperty propertyValue)

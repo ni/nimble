@@ -79,5 +79,21 @@ export class NimbleSelectDirective {
         this.renderer.setProperty(this.elementRef.nativeElement, 'requiredVisible', toBooleanProperty(value));
     }
 
+    public get appearanceReadOnly(): boolean {
+        return this.elementRef.nativeElement.appearanceReadOnly;
+    }
+
+    @Input('appearance-readonly') public set appearanceReadOnly(value: BooleanValueOrAttribute) {
+        this.renderer.setProperty(this.elementRef.nativeElement, 'appearanceReadOnly', toBooleanProperty(value));
+    }
+
+    public get fullBleed(): boolean {
+        return this.elementRef.nativeElement.fullBleed;
+    }
+
+    @Input('full-bleed') public set fullBleed(value: BooleanValueOrAttribute) {
+        this.renderer.setProperty(this.elementRef.nativeElement, 'fullBleed', toBooleanProperty(value));
+    }
+
     public constructor(private readonly renderer: Renderer2, private readonly elementRef: ElementRef<Select>) {}
 }

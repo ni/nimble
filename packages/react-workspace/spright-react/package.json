@@ -1,0 +1,35 @@
+{
+  "name": "@ni/spright-react",
+  "version": "0.0.3",
+  "description": "React components for NI Spright",
+  "keywords": [
+    "spright",
+    "react"
+  ],
+  "scripts": {
+    "build": "tsc -p ./tsconfig.json",
+    "lint": "eslint .",
+    "format": "eslint . --fix",
+    "pack": "npm pack",
+    "invoke-publish": "npm publish"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ni/nimble.git",
+    "directory": "packages/react-workspace/spright-react"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "author": "National Instruments",
+  "license": "MIT",
+  "devDependencies": {
+    "@ni-private/eslint-config-nimble": "*",
+    "typescript": "~5.4.5"
+  },
+  "peerDependencies": {
+    "@ni/fast-react-wrapper": "^10.1.0",
+    "@ni/spright-components": "^5.3.2",
+    "react": "^16 || ^17 || ^18"
+  }
+}

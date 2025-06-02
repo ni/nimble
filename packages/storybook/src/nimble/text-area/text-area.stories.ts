@@ -1,14 +1,15 @@
 import { html } from '@ni/fast-element';
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html';
-import { textAreaTag } from '../../../../nimble-components/src/text-area';
+import { textAreaTag } from '@ni/nimble-components/dist/esm/text-area';
 import {
     TextAreaAppearance,
     TextAreaResize
-} from '../../../../nimble-components/src/text-area/types';
+} from '@ni/nimble-components/dist/esm/text-area/types';
 import {
     apiCategory,
     appearanceDescription,
+    appearanceReadOnlyDescription,
     createUserSelectedThemeStory,
     disabledDescription,
     errorTextDescription,
@@ -34,7 +35,9 @@ interface TextAreaArgs {
     cols: number;
     maxlength: number;
     change: undefined;
+    input: undefined;
     requiredVisible: boolean;
+    appearanceReadOnly: boolean;
 }
 
 const metadata: Meta<TextAreaArgs> = {
@@ -42,7 +45,7 @@ const metadata: Meta<TextAreaArgs> = {
     decorators: [withActions<HtmlRenderer>],
     parameters: {
         actions: {
-            handles: ['change']
+            handles: ['change', 'input']
         }
     },
     render: createUserSelectedThemeStory(html`
@@ -60,6 +63,7 @@ const metadata: Meta<TextAreaArgs> = {
             cols="${x => x.cols}"
             maxlength="${x => x.maxlength}"
             ?required-visible="${x => x.requiredVisible}"
+            ?appearance-readonly="${x => x.appearanceReadOnly}"
         >
             ${x => x.label}
         </${textAreaTag}>
@@ -92,6 +96,13 @@ const metadata: Meta<TextAreaArgs> = {
         },
         disabled: {
             description: disabledDescription({ componentName: 'text area' }),
+            table: { category: apiCategory.attributes }
+        },
+        appearanceReadOnly: {
+            name: 'appearance-readonly',
+            description: appearanceReadOnlyDescription({
+                componentName: 'text area'
+            }),
             table: { category: apiCategory.attributes }
         },
         errorText: {
@@ -140,6 +151,12 @@ const metadata: Meta<TextAreaArgs> = {
                 'Event emitted when the user commits a new value to the text area.',
             table: { category: apiCategory.events },
             control: false
+        },
+        input: {
+            description:
+                'Event emitted on each user keystroke within the text area.',
+            table: { category: apiCategory.events },
+            control: false
         }
     },
     args: {
@@ -156,7 +173,8 @@ const metadata: Meta<TextAreaArgs> = {
         rows: 3,
         cols: 20,
         maxlength: 500,
-        requiredVisible: false
+        requiredVisible: false,
+        appearanceReadOnly: false
     }
 };
 

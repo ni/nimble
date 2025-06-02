@@ -1,4 +1,4 @@
-import { Theme } from '../../../nimble-components/src/theme-provider/types';
+import { Theme } from '@ni/nimble-components/dist/esm/theme-provider/types';
 
 export const backgroundStates = [
     {
@@ -58,6 +58,12 @@ export const requiredVisibleStates = [
 ] as const;
 export type RequiredVisibleState = (typeof requiredVisibleStates)[number];
 
+export const fullBleedStates = [
+    ['', false],
+    ['Full Bleed', true]
+] as const;
+export type FullBleedState = (typeof fullBleedStates)[number];
+
 export const disabledReadOnlyStates = [
     ['', false, false, false],
     ['Appearance-Read-Only', false, false, true],
@@ -80,3 +86,27 @@ export const disabledReadOnlyState = {
     readOnlyDisabled: disabledReadOnlyStates[6],
     readOnlyDisabledAppearanceReadOnly: disabledReadOnlyStates[7]
 } as const;
+
+export const onlyDisabledAbsentStates = disabledReadOnlyStates.filter(
+    (
+        state: readonly [
+            name: string,
+            readOnly: boolean,
+            disabled: boolean,
+            appearanceReadonly: boolean
+        ]
+    ) => state[2] === false
+);
+export type OnlyDisabledAbsentState = (typeof onlyDisabledAbsentStates)[number];
+
+export const onlyReadOnlyAbsentStates = disabledReadOnlyStates.filter(
+    (
+        state: readonly [
+            name: string,
+            readOnly: boolean,
+            disabled: boolean,
+            appearanceReadonly: boolean
+        ]
+    ) => state[1] === false
+);
+export type OnlyReadOnlyAbsentState = (typeof onlyReadOnlyAbsentStates)[number];

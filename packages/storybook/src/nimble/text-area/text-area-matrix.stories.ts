@@ -1,22 +1,21 @@
 import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate } from '@ni/fast-element';
-import { textAreaTag } from '../../../../nimble-components/src/text-area';
-import { TextAreaAppearance } from '../../../../nimble-components/src/text-area/types';
-import { createStory } from '../../utilities/storybook';
+import { textAreaTag } from '@ni/nimble-components/dist/esm/text-area';
+import { TextAreaAppearance } from '@ni/nimble-components/dist/esm/text-area/types';
+import { createFixedThemeStory, createStory } from '../../utilities/storybook';
 import {
     createMatrixThemeStory,
     createMatrix,
     sharedMatrixParameters
 } from '../../utilities/matrix';
 import {
-    disabledStates,
-    type DisabledState,
-    type ReadOnlyState,
-    readOnlyStates,
+    type DisabledReadOnlyState,
+    disabledReadOnlyStates,
     type ErrorState,
     errorStates,
     type RequiredVisibleState,
-    requiredVisibleStates
+    requiredVisibleStates,
+    backgroundStates
 } from '../../utilities/states';
 import { hiddenWrapper } from '../../utilities/hidden';
 import { textCustomizationWrapper } from '../../utilities/text-customization';
@@ -45,38 +44,81 @@ const metadata: Meta = {
 export default metadata;
 
 const component = (
-    [requiredVisibleName, requiredVisible]: RequiredVisibleState,
-    [readOnlyName, readonly]: ReadOnlyState,
-    [disabledName, disabled]: DisabledState,
+    [
+        disabledReadOnlyName,
+        readOnly,
+        disabled,
+        appearanceReadOnly
+    ]: DisabledReadOnlyState,
     [appearanceName, appearance]: AppearanceState,
+    [requiredVisibleName, requiredVisible]: RequiredVisibleState,
     [valueName, valueValue, placeholderValue]: ValueState,
     [errorStateName, isError, errorText]: ErrorState
 ): ViewTemplate => html`
+    <style>
+        ${textAreaTag} {
+            width: 250px;
+            margin: 0px 8px 16px 8px;
+        }
+    </style>
     <${textAreaTag}
-        style="width: 250px; margin: 15px;"
         ?disabled="${() => disabled}"
         appearance="${() => appearance}"
         value="${() => valueValue}"
         placeholder="${() => placeholderValue}"
-        ?readonly="${() => readonly}"
+        ?readonly="${() => readOnly}"
+        ?appearance-readonly="${() => appearanceReadOnly}"
         ?error-visible="${() => isError}"
         error-text="${() => errorText}"
         ?required-visible="${() => requiredVisible}"
     >
-        ${() => disabledName} ${() => appearanceName} ${() => valueName}
-        ${() => readOnlyName} ${() => errorStateName} ${() => requiredVisibleName}
+        ${() => disabledReadOnlyName} ${() => appearanceName} ${() => valueName}
+        ${() => errorStateName} ${() => requiredVisibleName}
     </${textAreaTag}>
 `;
 
-export const textAreaThemeMatrix: StoryFn = createMatrixThemeStory(
+const [
+    lightThemeWhiteBackground,
+    colorThemeDarkGreenBackground,
+    darkThemeBlackBackground,
+    ...remaining
+] = backgroundStates;
+
+if (remaining.length > 0) {
+    throw new Error('New backgrounds need to be supported');
+}
+
+export const lightTheme: StoryFn = createFixedThemeStory(
     createMatrix(component, [
-        requiredVisibleStates,
-        readOnlyStates,
-        disabledStates,
+        disabledReadOnlyStates,
         appearanceStates,
+        requiredVisibleStates,
         valueStates,
         errorStates
-    ])
+    ]),
+    lightThemeWhiteBackground
+);
+
+export const colorTheme: StoryFn = createFixedThemeStory(
+    createMatrix(component, [
+        disabledReadOnlyStates,
+        appearanceStates,
+        requiredVisibleStates,
+        valueStates,
+        errorStates
+    ]),
+    colorThemeDarkGreenBackground
+);
+
+export const darkTheme: StoryFn = createFixedThemeStory(
+    createMatrix(component, [
+        disabledReadOnlyStates,
+        appearanceStates,
+        requiredVisibleStates,
+        valueStates,
+        errorStates
+    ]),
+    darkThemeBlackBackground
 );
 
 const widthSizingTestCase = (
@@ -109,7 +151,7 @@ const heightSizingTestCase = (
     </div>
 `;
 
-export const textAreaSizing: StoryFn = createStory(html`
+export const sizing: StoryFn = createStory(html`
     ${createMatrix(widthSizingTestCase, [
         [
             ['No width', ''],
@@ -134,7 +176,7 @@ export const textAreaSizing: StoryFn = createStory(html`
     ])}
 `);
 
-export const hiddenTextArea: StoryFn = createStory(
+export const hidden: StoryFn = createStory(
     hiddenWrapper(
         html`<${textAreaTag} hidden>Hidden text area</${textAreaTag}>`
     )

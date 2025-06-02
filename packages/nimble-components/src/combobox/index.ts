@@ -53,6 +53,12 @@ export class Combobox
     @attr
     public appearance: DropdownAppearance = DropdownAppearance.underline;
 
+    @attr({ attribute: 'appearance-readonly', mode: 'boolean' })
+    public appearanceReadOnly = false;
+
+    @attr({ attribute: 'full-bleed', mode: 'boolean' })
+    public fullBleed = false;
+
     /**
      * The autocomplete attribute.
      */

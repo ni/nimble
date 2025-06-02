@@ -1,10 +1,10 @@
 import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate, when } from '@ni/fast-element';
-import { iconCogTag } from '../../../../nimble-components/src/icons/cog';
-import { iconDatabaseTag } from '../../../../nimble-components/src/icons/database';
-import { treeItemTag } from '../../../../nimble-components/src/tree-item';
-import { anchorTreeItemTag } from '../../../../nimble-components/src/anchor-tree-item';
-import { treeViewTag } from '../../../../nimble-components/src/tree-view';
+import { iconCogTag } from '@ni/nimble-components/dist/esm/icons/cog';
+import { iconDatabaseTag } from '@ni/nimble-components/dist/esm/icons/database';
+import { treeItemTag } from '@ni/nimble-components/dist/esm/tree-item';
+import { anchorTreeItemTag } from '@ni/nimble-components/dist/esm/anchor-tree-item';
+import { treeViewTag } from '@ni/nimble-components/dist/esm/tree-view';
 import { createStory } from '../../utilities/storybook';
 import {
     createMatrixThemeStory,
@@ -77,7 +77,7 @@ const component = (
     </${treeViewTag}>
 `;
 
-export const treeViewThemeMatrix: StoryFn = createMatrixThemeStory(
+export const themeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(component, [
         disabledStates,
         expandedStates,
@@ -86,7 +86,7 @@ export const treeViewThemeMatrix: StoryFn = createMatrixThemeStory(
     ])
 );
 
-export const hiddenTreeView: StoryFn = createStory(
+export const hidden: StoryFn = createStory(
     hiddenWrapper(
         html`<${treeViewTag} hidden>
             <${treeItemTag}>Item 1</${treeItemTag}>

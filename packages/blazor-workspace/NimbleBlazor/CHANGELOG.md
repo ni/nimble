@@ -1,8 +1,73 @@
 # Change Log - @ni/nimble-blazor
 
-<!-- This log was last generated on Tue, 06 May 2025 21:28:46 GMT and should not be manually modified. -->
+<!-- This log was last generated on Thu, 29 May 2025 01:50:59 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 20.3.1
+
+Thu, 29 May 2025 01:50:59 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v33.8.1
+
+## 20.3.0
+
+Wed, 28 May 2025 18:42:23 GMT
+
+### Minor changes
+
+- Update nimble-select, nimble-combobox, nimble-text-area, nimble-number-field, and nimble-text-field to support appearance-readonly and full-bleed ([ni/nimble@aa1f90e](https://github.com/ni/nimble/commit/aa1f90eb0667bf96c730992d09aeb8c40e6addb7))
+
+## 20.2.1
+
+Fri, 23 May 2025 21:40:15 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v33.8.0
+
+## 20.2.0
+
+Tue, 20 May 2025 23:06:06 GMT
+
+### Minor changes
+
+- Bump @ni/nimble-components to v33.7.0
+- Bump @ni/nimble-tokens to v8.9.0
+
+## 20.1.8
+
+Tue, 20 May 2025 21:33:37 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v33.6.0
+
+## 20.1.7
+
+Tue, 20 May 2025 21:01:44 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v33.5.0
+
+## 20.1.6
+
+Wed, 14 May 2025 18:31:13 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v33.4.0
+
+## 20.1.5
+
+Wed, 14 May 2025 17:01:13 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v33.3.0
 
 ## 20.1.4
 

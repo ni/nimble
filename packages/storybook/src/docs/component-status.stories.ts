@@ -1,14 +1,14 @@
 import { html, ref } from '@ni/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
-import { Table, tableTag } from '../../../nimble-components/src/table';
-import { tableColumnAnchorTag } from '../../../nimble-components/src/table-column/anchor';
-import { tableColumnMappingTag } from '../../../nimble-components/src/table-column/mapping';
-import { mappingIconTag } from '../../../nimble-components/src/mapping/icon';
-import { iconCheckTag } from '../../../nimble-components/src/icons/check';
-import { iconTriangleTag } from '../../../nimble-components/src/icons/triangle';
-import { iconTriangleFilledTag } from '../../../nimble-components/src/icons/triangle-filled';
-import { iconXmarkTag } from '../../../nimble-components/src/icons/xmark';
-import { tableFitRowsHeight } from '../../../nimble-components/src/theme-provider/design-tokens';
+import { Table, tableTag } from '@ni/nimble-components/dist/esm/table';
+import { tableColumnAnchorTag } from '@ni/nimble-components/dist/esm/table-column/anchor';
+import { tableColumnMappingTag } from '@ni/nimble-components/dist/esm/table-column/mapping';
+import { mappingIconTag } from '@ni/nimble-components/dist/esm/mapping/icon';
+import { iconCheckTag } from '@ni/nimble-components/dist/esm/icons/check';
+import { iconTriangleTag } from '@ni/nimble-components/dist/esm/icons/triangle';
+import { iconTriangleFilledTag } from '@ni/nimble-components/dist/esm/icons/triangle-filled';
+import { iconXmarkTag } from '@ni/nimble-components/dist/esm/icons/xmark';
+import { tableFitRowsHeight } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
 import { ComponentFrameworkStatus } from './types';
 import {
     createUserSelectedThemeStory,

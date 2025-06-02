@@ -1,13 +1,13 @@
 import { html } from '@ni/fast-element';
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html';
-import { labelProviderCoreTag } from '../../../../nimble-components/src/label-provider/core';
+import { labelProviderCoreTag } from '@ni/nimble-components/dist/esm/label-provider/core';
 import {
     numericDecrementLabel,
     numericIncrementLabel
-} from '../../../../nimble-components/src/label-provider/core/label-tokens';
-import { numberFieldTag } from '../../../../nimble-components/src/number-field';
-import { NumberFieldAppearance } from '../../../../nimble-components/src/number-field/types';
+} from '@ni/nimble-components/dist/esm/label-provider/core/label-tokens';
+import { numberFieldTag } from '@ni/nimble-components/dist/esm/number-field';
+import { NumberFieldAppearance } from '@ni/nimble-components/dist/esm/number-field/types';
 import {
     addLabelUseMetadata,
     type LabelUserArgs
@@ -22,7 +22,9 @@ import {
     errorVisibleDescription,
     slottedLabelDescription,
     requiredVisibleDescription,
-    placeholderDescription
+    placeholderDescription,
+    appearanceReadOnlyDescription,
+    fullBleedDescription
 } from '../../utilities/storybook';
 
 interface NumberFieldArgs extends LabelUserArgs {
@@ -41,6 +43,8 @@ interface NumberFieldArgs extends LabelUserArgs {
     change: undefined;
     input: undefined;
     requiredVisible: boolean;
+    appearanceReadOnly: boolean;
+    fullBleed: boolean;
 }
 
 const metadata: Meta<NumberFieldArgs> = {
@@ -62,9 +66,11 @@ const metadata: Meta<NumberFieldArgs> = {
             appearance="${x => x.appearance}"
             ?readonly="${x => x.readonly}"
             ?disabled="${x => x.disabled}"
+            ?appearance-readonly="${x => x.appearanceReadOnly}"
             ?error-visible="${x => x.errorVisible}"
             error-text="${x => x.errorText}"
             ?required-visible="${x => x.requiredVisible}"
+            ?full-bleed="${x => x.fullBleed}"
         >
             ${x => x.label}
         </${numberFieldTag}>
@@ -94,12 +100,26 @@ const metadata: Meta<NumberFieldArgs> = {
             }),
             table: { category: apiCategory.attributes }
         },
+        fullBleed: {
+            name: 'full-bleed',
+            description: fullBleedDescription({
+                componentName: 'number field'
+            }),
+            table: { category: apiCategory.attributes }
+        },
         readonly: {
             description: readonlyDescription({ componentName: 'number field' }),
             table: { category: apiCategory.attributes }
         },
         disabled: {
             description: disabledDescription({ componentName: 'number field' }),
+            table: { category: apiCategory.attributes }
+        },
+        appearanceReadOnly: {
+            name: 'appearance-readonly',
+            description: appearanceReadOnlyDescription({
+                componentName: 'number field'
+            }),
             table: { category: apiCategory.attributes }
         },
         step: {
@@ -158,8 +178,10 @@ const metadata: Meta<NumberFieldArgs> = {
         min: -10,
         max: 50,
         appearance: NumberFieldAppearance.underline,
+        fullBleed: false,
         readonly: false,
         disabled: false,
+        appearanceReadOnly: false,
         errorVisible: false,
         errorText: 'Value is invalid',
         requiredVisible: false
@@ -192,5 +214,12 @@ export const blockNumberField: StoryObj<NumberFieldArgs> = {
     args: {
         label: 'Block Number Field',
         appearance: NumberFieldAppearance.block
+    }
+};
+
+export const framelessNumberField: StoryObj<NumberFieldArgs> = {
+    args: {
+        label: 'Frameless Number Field',
+        appearance: NumberFieldAppearance.frameless
     }
 };

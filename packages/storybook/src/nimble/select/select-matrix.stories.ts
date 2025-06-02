@@ -1,25 +1,28 @@
 import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate } from '@ni/fast-element';
 import { keyArrowDown } from '@ni/fast-web-utilities';
-import { standardPadding } from '../../../../nimble-components/src/theme-provider/design-tokens';
-import { listOptionTag } from '../../../../nimble-components/src/list-option';
-import { listOptionGroupTag } from '../../../../nimble-components/src/list-option-group';
-import { selectTag } from '../../../../nimble-components/src/select';
-import { DropdownAppearance } from '../../../../nimble-components/src/patterns/dropdown/types';
-import { waitForUpdatesAsync } from '../../../../nimble-components/src/testing/async-helpers';
-import { createStory } from '../../utilities/storybook';
+import { standardPadding } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
+import { listOptionTag } from '@ni/nimble-components/dist/esm/list-option';
+import { listOptionGroupTag } from '@ni/nimble-components/dist/esm/list-option-group';
+import { selectTag } from '@ni/nimble-components/dist/esm/select';
+import { DropdownAppearance } from '@ni/nimble-components/dist/esm/patterns/dropdown/types';
+import { waitForUpdatesAsync } from '@ni/nimble-components/dist/esm/testing/async-helpers';
+import { createFixedThemeStory, createStory } from '../../utilities/storybook';
 import {
     createMatrixThemeStory,
     createMatrix,
     sharedMatrixParameters
 } from '../../utilities/matrix';
 import {
-    disabledStates,
-    type DisabledState,
     type ErrorState,
     errorStates,
     requiredVisibleStates,
-    type RequiredVisibleState
+    type RequiredVisibleState,
+    backgroundStates,
+    type OnlyReadOnlyAbsentState,
+    onlyReadOnlyAbsentStates,
+    type FullBleedState,
+    fullBleedStates
 } from '../../utilities/states';
 import { hiddenWrapper } from '../../utilities/hidden';
 import { textCustomizationWrapper } from '../../utilities/text-customization';
@@ -28,7 +31,8 @@ import { loremIpsum } from '../../utilities/lorem-ipsum';
 const appearanceStates = [
     ['Underline', DropdownAppearance.underline],
     ['Outline', DropdownAppearance.outline],
-    ['Block', DropdownAppearance.block]
+    ['Block', DropdownAppearance.block],
+    ['Frameless', DropdownAppearance.frameless]
 ] as const;
 type AppearanceState = (typeof appearanceStates)[number];
 
@@ -56,24 +60,30 @@ export default metadata;
 
 // prettier-ignore
 const component = (
-    [requiredVisibleName, requiredVisible]: RequiredVisibleState,
-    [disabledName, disabled]: DisabledState,
+    [disabledReadOnlyName, _readOnly, disabled, appearanceReadOnly]: OnlyReadOnlyAbsentState,
     [appearanceName, appearance]: AppearanceState,
+    [fullBleedName, fullBleed]: FullBleedState,
+    [requiredVisibleName, requiredVisible]: RequiredVisibleState,
     [errorName, errorVisible, errorText]: ErrorState,
     [valueName, selectedValue]: ValueState,
-    [clearableName, clearable]: ClearableState
+    [_clearableName, clearable]: ClearableState
 ): ViewTemplate => html`
     <${selectTag}
         ?error-visible="${() => errorVisible}"
         error-text="${() => errorText}"
         ?disabled="${() => disabled}"
+        ?appearance-readonly="${() => appearanceReadOnly}"
         ?clearable="${() => clearable}"
         appearance="${() => appearance}"
+        ?full-bleed="${() => fullBleed}"
         ?required-visible="${() => requiredVisible}"
         current-value="${() => selectedValue}"
         style="width: 250px; margin: var(${standardPadding.cssCustomProperty});"
     >
-        ${() => errorName} ${() => disabledName} ${() => appearanceName} ${() => valueName} ${() => clearableName} ${() => requiredVisibleName}
+        ${() => errorName} ${() => disabledReadOnlyName}
+        ${() => appearanceName} ${() => fullBleedName}
+        ${() => valueName} ${() => requiredVisibleName}
+
         <${listOptionTag} value="1">Option 1</${listOptionTag}>
         <${listOptionTag} value="2">${loremIpsum}</${listOptionTag}>
         <${listOptionTag} value="3" disabled>Option 3</${listOptionTag}>
@@ -82,18 +92,99 @@ const component = (
     </${selectTag}>
 `;
 
-export const selectThemeMatrix: StoryFn = createMatrixThemeStory(
+const [
+    lightThemeWhiteBackground,
+    colorThemeDarkGreenBackground,
+    darkThemeBlackBackground,
+    ...remaining
+] = backgroundStates;
+
+if (remaining.length > 0) {
+    throw new Error('New backgrounds need to be supported');
+}
+
+const notClearableState = clearableStates[0];
+const clearableState = clearableStates[1];
+
+export const lightTheme$NotClearable: StoryFn = createFixedThemeStory(
     createMatrix(component, [
-        requiredVisibleStates,
-        disabledStates,
+        onlyReadOnlyAbsentStates,
         appearanceStates,
+        fullBleedStates,
+        requiredVisibleStates,
         errorStates,
         valueStates,
-        clearableStates
-    ])
+        [notClearableState]
+    ]),
+    lightThemeWhiteBackground
 );
 
-export const hiddenSelect: StoryFn = createStory(
+export const lightTheme$Clearable: StoryFn = createFixedThemeStory(
+    createMatrix(component, [
+        onlyReadOnlyAbsentStates,
+        appearanceStates,
+        fullBleedStates,
+        requiredVisibleStates,
+        errorStates,
+        valueStates,
+        [clearableState]
+    ]),
+    lightThemeWhiteBackground
+);
+
+export const colorTheme$NotClearable: StoryFn = createFixedThemeStory(
+    createMatrix(component, [
+        onlyReadOnlyAbsentStates,
+        appearanceStates,
+        fullBleedStates,
+        requiredVisibleStates,
+        errorStates,
+        valueStates,
+        [notClearableState]
+    ]),
+    colorThemeDarkGreenBackground
+);
+
+export const colorTheme$Clearable: StoryFn = createFixedThemeStory(
+    createMatrix(component, [
+        onlyReadOnlyAbsentStates,
+        appearanceStates,
+        fullBleedStates,
+        requiredVisibleStates,
+        errorStates,
+        valueStates,
+        [clearableState]
+    ]),
+    colorThemeDarkGreenBackground
+);
+
+export const darkTheme$NotClearable: StoryFn = createFixedThemeStory(
+    createMatrix(component, [
+        onlyReadOnlyAbsentStates,
+        appearanceStates,
+        fullBleedStates,
+        requiredVisibleStates,
+        errorStates,
+        valueStates,
+        [notClearableState]
+    ]),
+    darkThemeBlackBackground
+);
+
+export const darkTheme$Clearable: StoryFn = createFixedThemeStory(
+    createMatrix(component, [
+        onlyReadOnlyAbsentStates,
+        appearanceStates,
+        fullBleedStates,
+        requiredVisibleStates,
+        errorStates,
+        valueStates,
+        [clearableState]
+    ]),
+    darkThemeBlackBackground
+);
+
+export const hidden: StoryFn = createStory(
     hiddenWrapper(
         html`<${selectTag} hidden style="width: 250px;">
             <${listOptionTag} value="1">Option 1</${listOptionTag}>

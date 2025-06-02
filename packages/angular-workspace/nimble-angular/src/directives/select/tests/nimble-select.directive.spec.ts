@@ -98,6 +98,28 @@ describe('Nimble select', () => {
             expect(directive.requiredVisible).toBeTrue();
             expect(nativeElement.requiredVisible).toBeTrue();
         });
+
+        it('has expected defaults for appearanceReadOnly', () => {
+            expect(directive.appearanceReadOnly).toBeFalse();
+            expect(nativeElement.appearanceReadOnly).toBeFalse();
+        });
+
+        it('can use the directive to set appearanceReadOnly', () => {
+            directive.appearanceReadOnly = true;
+            expect(directive.appearanceReadOnly).toBeTrue();
+            expect(nativeElement.appearanceReadOnly).toBeTrue();
+        });
+
+        it('has expected defaults for fullBleed', () => {
+            expect(directive.fullBleed).toBeFalse();
+            expect(nativeElement.fullBleed).toBeFalse();
+        });
+
+        it('can use the directive to set fullBleed', () => {
+            directive.fullBleed = true;
+            expect(directive.fullBleed).toBeTrue();
+            expect(nativeElement.fullBleed).toBeTrue();
+        });
     });
 
     describe('with template string values', () => {
@@ -112,6 +134,8 @@ describe('Nimble select', () => {
                     error-visible
                     loading-visible
                     required-visible
+                    appearance-readonly
+                    full-bleed
                 >
                 </nimble-select>
             `
@@ -175,6 +199,16 @@ describe('Nimble select', () => {
             expect(directive.requiredVisible).toBeTrue();
             expect(nativeElement.requiredVisible).toBeTrue();
         });
+
+        it('will use template string values for appearanceReadOnly', () => {
+            expect(directive.appearanceReadOnly).toBeTrue();
+            expect(nativeElement.appearanceReadOnly).toBeTrue();
+        });
+
+        it('will use template string values for fullBleed', () => {
+            expect(directive.fullBleed).toBeTrue();
+            expect(nativeElement.fullBleed).toBeTrue();
+        });
     });
 
     describe('with property bound values', () => {
@@ -189,6 +223,8 @@ describe('Nimble select', () => {
                     [error-visible]="errorVisible"
                     [loading-visible]="loadingVisible"
                     [required-visible]="requiredVisible"
+                    [appearance-readonly]="appearanceReadOnly"
+                    [full-bleed]="fullBleed"
                 >
                 </nimble-select>
             `
@@ -204,6 +240,8 @@ describe('Nimble select', () => {
             public errorVisible = false;
             public loadingVisible = false;
             public requiredVisible = false;
+            public appearanceReadOnly = false;
+            public fullBleed = false;
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
@@ -308,6 +346,28 @@ describe('Nimble select', () => {
             expect(directive.requiredVisible).toBeTrue();
             expect(nativeElement.requiredVisible).toBeTrue();
         });
+
+        it('can be configured with property binding for appearanceReadOnly', () => {
+            expect(directive.appearanceReadOnly).toBeFalse();
+            expect(nativeElement.appearanceReadOnly).toBeFalse();
+
+            fixture.componentInstance.appearanceReadOnly = true;
+            fixture.detectChanges();
+
+            expect(directive.appearanceReadOnly).toBeTrue();
+            expect(nativeElement.appearanceReadOnly).toBeTrue();
+        });
+
+        it('can be configured with property binding for fullBleed', () => {
+            expect(directive.fullBleed).toBeFalse();
+            expect(nativeElement.fullBleed).toBeFalse();
+
+            fixture.componentInstance.fullBleed = true;
+            fixture.detectChanges();
+
+            expect(directive.fullBleed).toBeTrue();
+            expect(nativeElement.fullBleed).toBeTrue();
+        });
     });
 
     describe('with attribute bound values', () => {
@@ -322,6 +382,8 @@ describe('Nimble select', () => {
                     [attr.error-visible]="errorVisible"
                     [attr.loading-visible]="loadingVisible"
                     [attr.required-visible]="requiredVisible"
+                    [attr.appearance-readonly]="appearanceReadOnly"
+                    [attr.full-bleed]="fullBleed"
                 >
                 </nimble-select>
             `
@@ -337,6 +399,8 @@ describe('Nimble select', () => {
             public errorVisible: BooleanValueOrAttribute = null;
             public loadingVisible: BooleanValueOrAttribute = null;
             public requiredVisible: BooleanValueOrAttribute = null;
+            public appearanceReadOnly: BooleanValueOrAttribute = null;
+            public fullBleed: BooleanValueOrAttribute = null;
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
@@ -440,6 +504,28 @@ describe('Nimble select', () => {
 
             expect(directive.requiredVisible).toBeTrue();
             expect(nativeElement.requiredVisible).toBeTrue();
+        });
+
+        it('can be configured with attribute binding for appearanceReadOnly', () => {
+            expect(directive.appearanceReadOnly).toBeFalse();
+            expect(nativeElement.appearanceReadOnly).toBeFalse();
+
+            fixture.componentInstance.appearanceReadOnly = '';
+            fixture.detectChanges();
+
+            expect(directive.appearanceReadOnly).toBeTrue();
+            expect(nativeElement.appearanceReadOnly).toBeTrue();
+        });
+
+        it('can be configured with attribute binding for fullBleed', () => {
+            expect(directive.fullBleed).toBeFalse();
+            expect(nativeElement.fullBleed).toBeFalse();
+
+            fixture.componentInstance.fullBleed = '';
+            fixture.detectChanges();
+
+            expect(directive.fullBleed).toBeTrue();
+            expect(nativeElement.fullBleed).toBeTrue();
         });
     });
 });

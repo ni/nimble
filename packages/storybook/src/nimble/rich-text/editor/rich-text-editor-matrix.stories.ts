@@ -1,16 +1,16 @@
 import type { Meta, StoryFn } from '@storybook/html';
 import { html, ViewTemplate } from '@ni/fast-element';
-import { buttonTag } from '../../../../../nimble-components/src/button';
-import { richTextMentionUsersTag } from '../../../../../nimble-components/src/rich-text-mention/users';
-import { mappingUserTag } from '../../../../../nimble-components/src/mapping/user';
+import { buttonTag } from '@ni/nimble-components/dist/esm/button';
+import { richTextMentionUsersTag } from '@ni/nimble-components/dist/esm/rich-text-mention/users';
+import { mappingUserTag } from '@ni/nimble-components/dist/esm/mapping/user';
 import {
     bodyFont,
     bodyFontColor
-} from '../../../../../nimble-components/src/theme-provider/design-tokens';
-import { toggleButtonTag } from '../../../../../nimble-components/src/toggle-button';
-import { menuButtonTag } from '../../../../../nimble-components/src/menu-button';
-import { anchorButtonTag } from '../../../../../nimble-components/src/anchor-button';
-import { richTextEditorTag } from '../../../../../nimble-components/src/rich-text/editor';
+} from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
+import { toggleButtonTag } from '@ni/nimble-components/dist/esm/toggle-button';
+import { menuButtonTag } from '@ni/nimble-components/dist/esm/menu-button';
+import { anchorButtonTag } from '@ni/nimble-components/dist/esm/anchor-button';
+import { richTextEditorTag } from '@ni/nimble-components/dist/esm/rich-text/editor';
 import {
     type DisabledState,
     type ErrorState,
@@ -136,7 +136,7 @@ const slotButtonsTextCase = (
     </${richTextEditorTag}>
 `;
 
-export const richTextEditorThemeMatrix: StoryFn = createMatrixThemeStory(
+export const themeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(component, [
         disabledStates,
         footerHiddenStates,
@@ -144,9 +144,9 @@ export const richTextEditorThemeMatrix: StoryFn = createMatrixThemeStory(
         [placeholderValueStates[0]]
     ])
 );
-richTextEditorThemeMatrix.play = playFunction;
+themeMatrix.play = playFunction;
 
-export const errorStateThemeMatrixWithLengthyContent: StoryFn = createMatrixThemeStory(
+export const errorState$LongContent: StoryFn = createMatrixThemeStory(
     createMatrix(component, [
         [disabledStates[0]],
         [footerHiddenStates[0]],
@@ -154,9 +154,9 @@ export const errorStateThemeMatrixWithLengthyContent: StoryFn = createMatrixThem
         [placeholderValueStates[0]]
     ])
 );
-errorStateThemeMatrixWithLengthyContent.play = longTextPlayFunction;
+errorState$LongContent.play = longTextPlayFunction;
 
-export const placeholderStateThemeMatrix: StoryFn = createMatrixThemeStory(
+export const placeholder: StoryFn = createMatrixThemeStory(
     createMatrix(component, [
         disabledStates,
         [footerHiddenStates[0]],
@@ -165,7 +165,7 @@ export const placeholderStateThemeMatrix: StoryFn = createMatrixThemeStory(
     ])
 );
 
-export const richTextEditorSizing: StoryFn = createStory(html`
+export const sizing: StoryFn = createStory(html`
     ${createMatrix(editorSizingTestCase, [
         [
             ['No width', ''],
@@ -180,7 +180,7 @@ export const richTextEditorSizing: StoryFn = createStory(html`
     ])}
 `);
 
-export const richTextEditorSlotButtons: StoryFn = createStory(html`
+export const slottedButtons: StoryFn = createStory(html`
     ${createMatrix(slotButtonsTextCase, [slotButtons])}
 `);
 
@@ -202,8 +202,8 @@ const mobileWidthComponent = html`
     </${richTextEditorTag}>
 `;
 
-export const plainTextContentInMobileWidth: StoryFn = createStory(mobileWidthComponent);
-plainTextContentInMobileWidth.play = (): void => {
+export const plainTextContent$MobileWidth: StoryFn = createStory(mobileWidthComponent);
+plainTextContent$MobileWidth.play = (): void => {
     document.querySelector(richTextEditorTag)!.setMarkdown(loremIpsum);
 };
 
@@ -218,8 +218,8 @@ const multipleSubPointsContent = `
                      1. Sub point 8
                         1. Sub point 9`;
 
-export const multipleSubPointsContentInMobileWidth: StoryFn = createStory(mobileWidthComponent);
-multipleSubPointsContentInMobileWidth.play = (): void => {
+export const multipleSubPointsContent$MobileWidth: StoryFn = createStory(mobileWidthComponent);
+multipleSubPointsContent$MobileWidth.play = (): void => {
     document
         .querySelector(richTextEditorTag)!
         .setMarkdown(multipleSubPointsContent);
@@ -239,8 +239,8 @@ differentListElementInSameLevel.play = (): void => {
         .setMarkdown(differentListElementContentInSameLevel);
 };
 
-export const longWordContentInMobileWidth: StoryFn = createStory(mobileWidthComponent);
-longWordContentInMobileWidth.play = (): void => {
+export const longWordContent$MobileWidth: StoryFn = createStory(mobileWidthComponent);
+longWordContent$MobileWidth.play = (): void => {
     document
         .querySelector(richTextEditorTag)!
         .setMarkdown(
@@ -261,15 +261,15 @@ This line enters new line in paragraph tag
       Hard break sub point content
 `;
 
-export const newLineWithForceLineBreakInMobileWidth: StoryFn = createStory(mobileWidthComponent);
-newLineWithForceLineBreakInMobileWidth.play = (): void => {
+export const newLineWithForceLineBreak$MobileWidth: StoryFn = createStory(mobileWidthComponent);
+newLineWithForceLineBreak$MobileWidth.play = (): void => {
     document
         .querySelector(richTextEditorTag)!
         .setMarkdown(newLineWithForceLineBreakContent);
 };
 
-export const longLinkInMobileWidth: StoryFn = createStory(mobileWidthComponent);
-longLinkInMobileWidth.play = (): void => {
+export const longLink$MobileWidth: StoryFn = createStory(mobileWidthComponent);
+longLink$MobileWidth.play = (): void => {
     document
         .querySelector(richTextEditorTag)!
         .setMarkdown(
@@ -277,6 +277,6 @@ longLinkInMobileWidth.play = (): void => {
         );
 };
 
-export const hiddenRichTextEditor: StoryFn = createStory(
+export const hidden: StoryFn = createStory(
     hiddenWrapper(html`<${richTextEditorTag} hidden></${richTextEditorTag}>`)
 );

@@ -1,15 +1,15 @@
 import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate } from '@ni/fast-element';
-import { tableTag } from '../../../../../nimble-components/src/table';
-import { iconCheckTag } from '../../../../../nimble-components/src/icons/check';
-import { iconXmarkTag } from '../../../../../nimble-components/src/icons/xmark';
-import { iconQuestionTag } from '../../../../../nimble-components/src/icons/question';
-import { mappingIconTag } from '../../../../../nimble-components/src/mapping/icon';
-import { mappingSpinnerTag } from '../../../../../nimble-components/src/mapping/spinner';
-import { mappingTextTag } from '../../../../../nimble-components/src/mapping/text';
-import { tableColumnMappingTag } from '../../../../../nimble-components/src/table-column/mapping';
-import { TableColumnMappingWidthMode } from '../../../../../nimble-components/src/table-column/mapping/types';
-import { mappingEmptyTag } from '../../../../../nimble-components/src/mapping/empty';
+import { tableTag } from '@ni/nimble-components/dist/esm/table';
+import { iconCheckTag } from '@ni/nimble-components/dist/esm/icons/check';
+import { iconXmarkTag } from '@ni/nimble-components/dist/esm/icons/xmark';
+import { iconQuestionTag } from '@ni/nimble-components/dist/esm/icons/question';
+import { mappingIconTag } from '@ni/nimble-components/dist/esm/mapping/icon';
+import { mappingSpinnerTag } from '@ni/nimble-components/dist/esm/mapping/spinner';
+import { mappingTextTag } from '@ni/nimble-components/dist/esm/mapping/text';
+import { tableColumnMappingTag } from '@ni/nimble-components/dist/esm/table-column/mapping';
+import { TableColumnMappingWidthMode } from '@ni/nimble-components/dist/esm/table-column/mapping/types';
+import { mappingEmptyTag } from '@ni/nimble-components/dist/esm/mapping/empty';
 import { isChromatic } from '../../../utilities/isChromatic';
 import {
     createMatrixThemeStory,
@@ -102,9 +102,9 @@ const component = (): ViewTemplate => html`
     </${tableTag}>
 `;
 
-export const tableColumnMappingThemeMatrix: StoryFn = createMatrixThemeStory(component());
+export const themeMatrix: StoryFn = createMatrixThemeStory(component());
 
-tableColumnMappingThemeMatrix.play = async (): Promise<void> => {
+themeMatrix.play = async (): Promise<void> => {
     await Promise.all(
         Array.from(document.querySelectorAll(tableTag)).map(async table => {
             await table.setData(data);

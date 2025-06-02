@@ -1,12 +1,12 @@
 import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate } from '@ni/fast-element';
-import { tableTag } from '../../../../../nimble-components/src/table';
+import { tableTag } from '@ni/nimble-components/dist/esm/table';
 import {
     controlLabelFont,
     controlLabelFontColor
-} from '../../../../../nimble-components/src/theme-provider/design-tokens';
-import { tableColumnNumberTextTag } from '../../../../../nimble-components/src/table-column/number-text';
-import { NumberTextAlignment } from '../../../../../nimble-components/src/table-column/number-text/types';
+} from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
+import { tableColumnNumberTextTag } from '@ni/nimble-components/dist/esm/table-column/number-text';
+import { NumberTextAlignment } from '@ni/nimble-components/dist/esm/table-column/number-text/types';
 import {
     placeholderStates,
     type PlaceholderState
@@ -81,11 +81,11 @@ const component = (
     </${tableTag}>
 `;
 
-export const tableColumnNumberTextThemeMatrix: StoryFn = createMatrixThemeStory(
+export const themeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(component, [alignmentStates, placeholderStates])
 );
 
-tableColumnNumberTextThemeMatrix.play = async (): Promise<void> => {
+themeMatrix.play = async (): Promise<void> => {
     await Promise.all(
         Array.from(document.querySelectorAll(tableTag)).map(async table => {
             await table.setData(data);

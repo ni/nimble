@@ -1,7 +1,7 @@
 import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate } from '@ni/fast-element';
-import { tableTag } from '../../../../../nimble-components/src/table';
-import { tableColumnMenuButtonTag } from '../../../../../nimble-components/src/table-column/menu-button';
+import { tableTag } from '@ni/nimble-components/dist/esm/table';
+import { tableColumnMenuButtonTag } from '@ni/nimble-components/dist/esm/table-column/menu-button';
 import {
     createMatrixThemeStory,
     createMatrix,
@@ -51,11 +51,11 @@ const component = (): ViewTemplate => html`
     </${tableTag}>
 `;
 
-export const tableColumnMenuButtonThemeMatrix: StoryFn = createMatrixThemeStory(
+export const themeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(component)
 );
 
-tableColumnMenuButtonThemeMatrix.play = async (): Promise<void> => {
+themeMatrix.play = async (): Promise<void> => {
     await Promise.all(
         Array.from(document.querySelectorAll(tableTag)).map(async table => {
             await table.setData(data);

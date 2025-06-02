@@ -1,8 +1,8 @@
 import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate, when } from '@ni/fast-element';
-import { iconLinkTag } from '../../../../nimble-components/src/icons/link';
-import { iconArrowExpanderRightTag } from '../../../../nimble-components/src/icons/arrow-expander-right';
-import { anchorButtonTag } from '../../../../nimble-components/src/anchor-button';
+import { iconLinkTag } from '@ni/nimble-components/dist/esm/icons/link';
+import { iconArrowExpanderRightTag } from '@ni/nimble-components/dist/esm/icons/arrow-expander-right';
+import { anchorButtonTag } from '@ni/nimble-components/dist/esm/anchor-button';
 import {
     appearanceStates,
     type AppearanceState,
@@ -57,7 +57,7 @@ const component = (
     </${anchorButtonTag}>
 `;
 
-export const anchorButtonThemeMatrix: StoryFn = createMatrixThemeStory(
+export const themeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(component, [
         disabledStates,
         appearanceStates,
@@ -80,7 +80,7 @@ const interactionStates = cartesianProduct([
     [partVisibilityStatesOnlyLabel]
 ] as const);
 
-export const anchorButtonInteractionsThemeMatrix: StoryFn = createMatrixThemeStory(
+export const interactionsThemeMatrix: StoryFn = createMatrixThemeStory(
     createMatrixInteractionsFromStates(component, {
         hover: interactionStatesHover,
         hoverActive: interactionStates,
@@ -89,7 +89,7 @@ export const anchorButtonInteractionsThemeMatrix: StoryFn = createMatrixThemeSto
     })
 );
 
-export const hiddenAnchorButton: StoryFn = createStory(
+export const hidden: StoryFn = createStory(
     hiddenWrapper(
         html`<${anchorButtonTag} hidden
             >Hidden Anchor Button</${anchorButtonTag}

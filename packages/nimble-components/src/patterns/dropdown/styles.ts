@@ -117,6 +117,10 @@ export const styles = css`
         color: ${controlLabelDisabledFontColor};
     }
 
+    :host([disabled][appearance-readonly]) .label {
+        color: ${controlLabelFontColor};
+    }
+
     .control {
         align-items: center;
         cursor: pointer;
@@ -136,6 +140,11 @@ export const styles = css`
         cursor: default;
         color: ${bodyDisabledFontColor};
         border-color: rgba(${borderRgbPartialColor}, 0.1);
+    }
+
+    :host([disabled][appearance-readonly]) .control {
+        color: ${bodyFontColor};
+        border-color: rgba(${borderRgbPartialColor}, 0.3);
     }
 
     :host([error-visible]) .control,
@@ -159,8 +168,11 @@ export const styles = css`
         padding-left: ${mediumPadding};
     }
 
-    .selected-value[disabled]::placeholder {
-        color: ${bodyDisabledFontColor};
+    :host([disabled][appearance-readonly]) .selected-value {
+        cursor: text;
+        user-select: text;
+        -webkit-user-select: text;
+        padding-right: ${smallPadding};
     }
 
     .indicator {
@@ -170,6 +182,10 @@ export const styles = css`
         display: flex;
         justify-content: center;
         align-items: center;
+    }
+
+    :host([disabled][appearance-readonly]) .indicator {
+        display: none;
     }
 
     .indicator slot[name='indicator'] svg {
@@ -276,10 +292,6 @@ export const styles = css`
                 border-bottom-width: ${borderWidth};
                 padding-bottom: 0;
             }
-
-            :host([disabled]) .control {
-                border-color: rgba(${borderRgbPartialColor}, 0.1);
-            }
         `
     ),
     appearanceBehavior(
@@ -305,6 +317,19 @@ export const styles = css`
 
             :host([disabled]) .control {
                 background-color: rgba(${borderRgbPartialColor}, 0.07);
+            }
+        `
+    ),
+    appearanceBehavior(
+        DropdownAppearance.frameless,
+        css`
+            .control {
+                border-width: 0;
+                padding: ${borderWidth};
+            }
+
+            :host([full-bleed]) .selected-value {
+                padding-left: 0;
             }
         `
     ),

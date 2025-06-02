@@ -1,7 +1,7 @@
 import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate } from '@ni/fast-element';
-import { standardPadding } from '../../../../nimble-components/src/theme-provider/design-tokens';
-import { checkboxTag } from '../../../../nimble-components/src/checkbox';
+import { standardPadding } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
+import { checkboxTag } from '@ni/nimble-components/dist/esm/checkbox';
 import {
     createMatrix,
     sharedMatrixParameters,
@@ -59,7 +59,7 @@ const component = (
     ${checkedName} ${indeterminateName} ${disabledName} ${errorName} ${extraText}
 </${checkboxTag}>`;
 
-export const checkboxThemeMatrix: StoryFn = createMatrixThemeStory(
+export const themeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(component, [
         disabledStates,
         checkedStates,
@@ -69,7 +69,7 @@ export const checkboxThemeMatrix: StoryFn = createMatrixThemeStory(
     ])
 );
 
-export const hiddenCheckbox: StoryFn = createStory(
+export const hidden: StoryFn = createStory(
     hiddenWrapper(html`<${checkboxTag} hidden>Hidden Checkbox</${checkboxTag}>`)
 );
 

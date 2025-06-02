@@ -71,6 +71,12 @@ export class Select
     @attr
     public appearance: DropdownAppearance = DropdownAppearance.underline;
 
+    @attr({ attribute: 'appearance-readonly', mode: 'boolean' })
+    public appearanceReadOnly = false;
+
+    @attr({ attribute: 'full-bleed', mode: 'boolean' })
+    public fullBleed = false;
+
     /**
      * Reflects the placement for the listbox when the select is open.
      *

@@ -40,7 +40,10 @@ export const styles = css`
 
     :host([disabled]) {
         color: ${bodyDisabledFontColor};
-        cursor: default;
+    }
+
+    :host([disabled][appearance-readonly]) {
+        color: ${bodyFontColor};
     }
 
     .label {
@@ -51,6 +54,10 @@ export const styles = css`
 
     :host([disabled]) .label {
         color: ${controlLabelDisabledFontColor};
+    }
+
+    :host([disabled][appearance-readonly]) .label {
+        color: ${controlLabelFontColor};
     }
 
     .root {
@@ -138,12 +145,20 @@ export const styles = css`
         outline: none;
     }
 
+    :host([disabled][appearance-readonly]) .control {
+        cursor: text;
+    }
+
     .control::placeholder {
         color: ${controlLabelFontColor};
     }
 
-    .control[disabled]::placeholder {
+    :host([disabled]) .control::placeholder {
         color: ${bodyDisabledFontColor};
+    }
+
+    :host([disabled][appearance-readonly]) .control::placeholder {
+        color: ${controlLabelFontColor};
     }
 
     .controls {
@@ -222,6 +237,19 @@ export const styles = css`
             .root {
                 border-width: ${borderWidth};
                 padding: 0;
+            }
+        `
+    ),
+    appearanceBehavior(
+        NumberFieldAppearance.frameless,
+        css`
+            .root {
+                padding-left: ${borderWidth};
+                padding-right: ${borderWidth};
+            }
+
+            :host([full-bleed]) .control {
+                padding-left: 0px;
             }
         `
     )

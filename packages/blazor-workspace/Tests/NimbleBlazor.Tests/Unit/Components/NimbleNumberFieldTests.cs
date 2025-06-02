@@ -53,6 +53,7 @@ public class NimbleNumberFieldTests
     [InlineData(NumberFieldAppearance.Outline, "outline")]
     [InlineData(NumberFieldAppearance.Block, "block")]
     [InlineData(NumberFieldAppearance.Underline, "underline")]
+    [InlineData(NumberFieldAppearance.Frameless, "frameless")]
     public void NumberFieldAppearance_AttributeIsSet(NumberFieldAppearance value, string expectedAttribute)
     {
         var numberField = RenderWithPropertySet(x => x.Appearance, value);
@@ -138,6 +139,22 @@ public class NimbleNumberFieldTests
         var numberField = RenderWithPropertySet(x => x.RequiredVisible, true);
 
         Assert.Contains("required-visible", numberField.Markup);
+    }
+
+    [Fact]
+    public void NumberFieldAppearanceReadOnly_AttributeIsSet()
+    {
+        var numberField = RenderWithPropertySet(x => x.AppearanceReadOnly, true);
+
+        Assert.Contains("appearance-readonly", numberField.Markup);
+    }
+
+    [Fact]
+    public void NumberFieldFullBleed_AttributeIsSet()
+    {
+        var numberField = RenderWithPropertySet(x => x.FullBleed, true);
+
+        Assert.Contains("full-bleed", numberField.Markup);
     }
 
     private IRenderedComponent<NimbleNumberField> RenderWithPropertySet<TProperty>(Expression<Func<NimbleNumberField, TProperty>> propertyGetter, TProperty propertyValue)

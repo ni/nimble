@@ -1,9 +1,9 @@
 import type { Meta, StoryFn } from '@storybook/html';
 import { html, ViewTemplate, when } from '@ni/fast-element';
-import { anchorTabTag } from '../../../../nimble-components/src/anchor-tab';
-import { tabsToolbarTag } from '../../../../nimble-components/src/tabs-toolbar';
-import { buttonTag } from '../../../../nimble-components/src/button';
-import { anchorTabsTag } from '../../../../nimble-components/src/anchor-tabs';
+import { anchorTabTag } from '@ni/nimble-components/dist/esm/anchor-tab';
+import { tabsToolbarTag } from '@ni/nimble-components/dist/esm/tabs-toolbar';
+import { buttonTag } from '@ni/nimble-components/dist/esm/button';
+import { anchorTabsTag } from '@ni/nimble-components/dist/esm/anchor-tabs';
 import { createStory } from '../../utilities/storybook';
 import {
     createMatrix,
@@ -51,11 +51,11 @@ const component = (
     </${anchorTabsTag}>
 `;
 
-export const anchorTabsThemeMatrix: StoryFn = createMatrixThemeStory(
+export const themeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(component, [tabsToolbarStates, disabledStates, widthStates])
 );
 
-export const hiddenTabs: StoryFn = createStory(
+export const hidden: StoryFn = createStory(
     hiddenWrapper(
         html`<${anchorTabsTag} hidden>
             <${anchorTabTag}>Tab One</${anchorTabTag}>
