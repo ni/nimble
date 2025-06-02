@@ -18,8 +18,8 @@
       },
       "Apache.Arrow": {
         "type": "Transitive",
-        "resolved": "19.0.1",
-        "contentHash": "Hi0U1hytIAspaiCFCpI25Y/WfalhYnaexcyfMAk13jm8UZMHMpsfH32TfhbocQ/BI8LPFwU0vm+y2ZZHuhKCKQ=="
+        "resolved": "20.0.0",
+        "contentHash": "kagv7fSLVe6i/llNqSeH5g8i7BjbTejolMzsDLNyxrlNy9gGN/G3otpn5YfvrW7xdlZdP43PGvz2Gb/gMYHkPA=="
       },
       "Microsoft.AspNetCore.Authorization": {
         "type": "Transitive",
@@ -216,7 +216,7 @@
       "nimbleblazor": {
         "type": "Project",
         "dependencies": {
-          "Apache.Arrow": "[19.0.1, 19.0.1]",
+          "Apache.Arrow": "[20.0.0, 20.0.0]",
           "Microsoft.AspNetCore.Components.Web": "[8.0.16, )"
         }
       },
