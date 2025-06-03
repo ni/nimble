@@ -352,6 +352,10 @@ _Consider the accessibility of the component, including:_
 
 The text field and button will each be keyboard focusable. This will be reflected visually to the user in accordance with the design spec.
 
+If the input changes state between `processing` and not when focus was on the "Send" or "Stop" button, the newly visible button will not receive focus. This is a scoping decision since most clients will call `resetInput()` at the same time as this state change, causing the button to lose focus anyway.
+
+The application will not announce the state change between `processing` and not to screen readers. This is a scoping decision which should be reconsidered if these components are promoted from Spright to Nimble.
+
 The Design team has requested a non-standard appearance for the "Send" and "Stop" buttons: icon-only but rectangular shape. Nimble buttons support square icon-only buttons with an accessible label via `content-hidden` or rectangular buttons with text content visible. We will achieve the desired appearance by using a `nimble-button` with the following settings:
 
 - adding icon content in the `start` slot
