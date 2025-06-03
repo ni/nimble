@@ -213,8 +213,8 @@ richText.markdown = 'Welcome **Homer**, how can I help?';
 - _Methods_
     - `resetInput()` - clears the text input and gives it focus
 - _Events_
-    - `send` - emitted when the user clicks the "send" button or presses Enter with text present. Includes `ChatInputSendEventDetail` which is an object with a `text` field containing the input contents. Not cancelable.
-    - `stop` - emitted when the user clicks the "stop" button. Not cancelable.
+    - `send` - emitted when the user clicks the "Send" button or presses Enter with text present. Includes `ChatInputSendEventDetail` which is an object with a `text` field containing the input contents. Not cancelable.
+    - `stop` - emitted when the user clicks the "Stop" button. Not cancelable.
 - _CSS Classes and CSS Custom Properties that affect the component_
 - _How native CSS Properties (height, width, etc.) affect the component_
     - Clients can set the input width using normal CSS rules. The input will have a default minimum width that clients are discouraged from overriding.
@@ -407,4 +407,4 @@ There are parallel efforts to standardize and document other aspects of chat app
 
 ## Open Issues
 
-None.
+None
