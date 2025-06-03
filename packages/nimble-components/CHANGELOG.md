@@ -1,8 +1,17 @@
 # Change Log - @ni/nimble-components
 
-<!-- This log was last generated on Thu, 29 May 2025 01:50:59 GMT and should not be manually modified. -->
+<!-- This log was last generated on Tue, 03 Jun 2025 16:23:41 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 33.8.2
+
+Tue, 03 Jun 2025 16:23:41 GMT
+
+### Patches
+
+- Dependencies updated ([ni/nimble@a12609f](https://github.com/ni/nimble/commit/a12609f3ed3d318f851382d186282fb6f8d5f427))
+- Bump @ni/nimble-tokens to v8.9.1
 
 ## 33.8.1
 
