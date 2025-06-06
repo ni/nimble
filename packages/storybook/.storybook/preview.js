@@ -99,9 +99,7 @@ export default {
             createOrUpdateBackgroundWorkaround(style);
             return story();
         }
-    ],
-
-    tags: ['autodocs']
+    ]
 };
 
 // Storybook's default serialization of events includes the serialized event target. This can
