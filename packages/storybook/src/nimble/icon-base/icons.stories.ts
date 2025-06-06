@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/html';
+import type { Meta, StoryObj } from '@storybook/html-vite';
 import { html, ref, repeat } from '@ni/fast-element';
 import { DesignSystem } from '@ni/fast-foundation';
 import * as nimbleIconComponentsMap from '@ni/nimble-components/dist/esm/icons/all-icons';

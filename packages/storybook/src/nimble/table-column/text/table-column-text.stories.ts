@@ -1,6 +1,6 @@
 import { html, ref } from '@ni/fast-element';
-import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html';
-import { withActions } from '@storybook/addon-actions/decorator';
+import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html-vite';
+import { withActions } from 'storybook/actions/decorator';
 import { tableTag } from '@ni/nimble-components/dist/esm/table';
 import { tableColumnTextTag } from '@ni/nimble-components/dist/esm/table-column/text';
 import {

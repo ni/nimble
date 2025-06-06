@@ -1,4 +1,10 @@
-import { Canvas, Meta, Controls, Title, Description } from '@storybook/blocks';
+import {
+    Canvas,
+    Meta,
+    Controls,
+    Title,
+    Description
+} from '@storybook/addon-docs/blocks';
 import * as selectStories from './select.stories';
 import * as listOptionStories from '../list-option/list-option.stories';
 import * as listOptionGroupStories from '../list-option-group/list-option-group.stories';
@@ -11,13 +17,13 @@ import { radioTag } from '@ni/nimble-components/dist/esm/radio';
 <Meta of={selectStories} />
 <Title of={selectStories} />
 
-Select is a control for selecting amongst a set of options. Upon clicking on the
-element, the other options are visible in a dropdown.
+The Select control allows users to choose from a list of options displayed in a
+dropdown menu.
 
-Consider using <Tag name={radioTag} /> to select from a small set of options.
+Use <Tag name={radioTag} /> when you need to present a small set of options.
 
-Consider using <Tag name={comboboxTag} /> to allow the user to enter a custom
-value.
+Use <Tag name={comboboxTag} /> if users should be able to enter a custom value
+in addition to selecting from the list.
 
 <Canvas of={selectStories.select} />
 

@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/html';
+import type { Meta, StoryObj } from '@storybook/html-vite';
 import { html, repeat } from '@ni/fast-element';
 import * as tokens from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
 import {

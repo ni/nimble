@@ -1,5 +1,5 @@
 import { html } from '@ni/fast-element';
-import type { Meta, StoryObj } from '@storybook/html';
+import type { Meta, StoryObj } from '@storybook/html-vite';
 import { buttonTag } from '@ni/nimble-components/dist/esm/button';
 import { iconCogTag } from '@ni/nimble-components/dist/esm/icons/cog';
 import { iconEyeTag } from '@ni/nimble-components/dist/esm/icons/eye';
