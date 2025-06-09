@@ -40,7 +40,7 @@ export async function viteFinal(config, { configType }) {
         circleImportThrowErr: configType === 'PRODUCTION'
     }));
 
-    config.plugins.push(tsconfigPaths());
+    // config.plugins = [tsconfigPaths()];
 
     return mergeConfig(config);
 }
