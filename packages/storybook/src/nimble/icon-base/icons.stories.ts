@@ -23,7 +23,9 @@ import {
 type IconName = keyof typeof nimbleIconComponentsMap;
 const data = Object.values(nimbleIconComponentsMap).map(iconClass => ({
     tag: DesignSystem.tagFor(iconClass),
-    metaphor: iconMetadata[iconClass.name as IconName].tags.join(', ')
+    metaphor: iconMetadata[iconClass.name as IconName]?.tags
+        ? iconMetadata[iconClass.name as IconName].tags.join(', ')
+        : 'Metaphor not found. Likely a build minification issue.'
 }));
 
 type Data = (typeof data)[number];
