@@ -148,6 +148,9 @@ export const iconMetadata: {
     IconCalendarDays: {
         tags: ['month', 'schedule']
     },
+    IconCalendarExclamation: {
+        tags: ['conflict', 'schedule']
+    },
     IconCalendarLines: {
         tags: ['agenda']
     },
