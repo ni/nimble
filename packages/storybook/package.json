@@ -44,7 +44,8 @@
     "storybook-addon-pseudo-states": "^9.0.5",
     "typescript": "~5.4.5",
     "vite":"6.3.5",
-    "vite-plugin-circular-dependency": "^0.5.0"
+    "vite-plugin-circular-dependency": "^0.5.0",
+    "vite-tsconfig-paths": "^5.1.4"
   },
   "peerDependencies": {
     "@types/react": "^18",
