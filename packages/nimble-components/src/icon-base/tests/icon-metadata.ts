@@ -139,6 +139,9 @@ export const iconMetadata: {
     IconCalendarCheckLines: {
         tags: ['test', 'plan', 'schedule']
     },
+    IconCalendarCircleExclamation: {
+        tags: ['conflict', 'schedule']
+    },
     IconCalendarClock: {
         tags: ['time', 'schedule']
     },
