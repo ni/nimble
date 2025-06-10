@@ -66,6 +66,8 @@ The `nimble-number-field` internally uses an HTML `input` element with `type="te
 
     ![Native input behavior](native_number_input.png)
 
+- A number of other issues, listed [here](https://technology.blog.gov.uk/2020/02/24/why-the-gov-uk-design-system-team-changed-the-input-type-for-numbers/) as the reasons the GOV.UK Design System team switched to `type="text"` from `type="number"`
+
 ## Open Issues
 
 None
