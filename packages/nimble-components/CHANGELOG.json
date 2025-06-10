@@ -2,6 +2,27 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 10 Jun 2025 20:39:08 GMT",
+      "version": "33.9.0",
+      "tag": "@ni/nimble-components_v33.9.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "f7e28f84e7a8cb3255ec53aa71cfe444f4489747",
+            "comment": "Add icon calendar-circle-exclamation"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/nimble-tokens to v8.10.0",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 03 Jun 2025 16:23:41 GMT",
       "version": "33.8.2",
       "tag": "@ni/nimble-components_v33.8.2",

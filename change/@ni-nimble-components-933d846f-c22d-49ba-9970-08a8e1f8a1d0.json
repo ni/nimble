@@ -1,7 +1,0 @@
-{
-  "type": "minor",
-  "comment": "Add icon calendar-circle-exclamation",
-  "packageName": "@ni/nimble-components",
-  "email": "jattasNI@users.noreply.github.com",
-  "dependentChangeType": "minor"
-}

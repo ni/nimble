@@ -1,8 +1,16 @@
 # Change Log - @ni/spright-angular
 
-<!-- This log was last generated on Tue, 03 Jun 2025 16:23:41 GMT and should not be manually modified. -->
+<!-- This log was last generated on Tue, 10 Jun 2025 20:39:08 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 7.4.0
+
+Tue, 10 Jun 2025 20:39:08 GMT
+
+### Minor changes
+
+- Bump @ni/spright-components to v5.4.0
 
 ## 7.3.3
 
