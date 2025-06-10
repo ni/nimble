@@ -57,16 +57,23 @@ New unit test cases will be added that validate the above requirements. Specific
 
 ### HTML `input` with `number` type
 
-The `nimble-number-field` internally uses an HTML `input` element with `type="text"` and makes it behave as a numeric input (e.g. input restrictions and range limit enforcement) via custom logic (in `@ni/fast-foundation`). An `input` with `type="number"` natively supports locale-aware decimal separators (to an extent), but there are significant limitations and quirks that make it unsuitable for our purposes:
+The `nimble-number-field` internally uses an HTML `input` element with `type="text"` and makes it behave as a numeric input (e.g. input restrictions and range limit enforcement) via custom logic (in `@ni/fast-foundation`). An `input` with `type="number"` natively supports locale-aware decimal separators (to an extent), but there are significant quirks and inconsistencies across browsers that make it unsuitable for our purposes.
 
-- Inconsistent behavior across browsers:
-    - In Chrome, the choice of decimal separator is based on the language of the _browser_, not the `lang` of the page, whereas in Firefox, it honors the `lang` of the page.
-    - In Firefox, allows input of any characters (vs. limiting to only digits, `e`/`E`, `.`, `,`, `+`, and `-`)
-- Even with French language/locale, for example, accepts user input of a dot (`.`) and treats it as a decimal separator (rather than a thousands separator). The dot remains even after the control loses focus. Upon incrementing the value, the dot is replaced with a comma.
+According to the [specification](<https://html.spec.whatwg.org/multipage/input.html#number-state-(type=number)>), the `input`'s `value` must be a _valid floating-point number_, which exclusively allows dot as the separator, but [it merely "encourages" browsers to handle the presentation (and input) of those values based on the locale of _either_ the page/element language or the "user's preferred locale,"](https://html.spec.whatwg.org/multipage/input.html#input-impl-notes) which could mean the system locale, browser language, or something else.
+
+The table in this [blog post](https://www.ctrl.blog/entry/html5-input-number-localization.html), while outdated, gives an idea of the range of inconsistent behaviors exhibited by various browsers on various platforms. This [Gist](https://gist.github.com/georgiee/3dad946733779d0b30c58f7d24270319) documents another developer's exploration of these inconsistencies.
+
+From my local testing, I found that:
+
+- Chrome (v137.0.7151.104) ignores the `lang` set on an element in the HTML, but follows the language set in the browser settings. Firefox (v139.0.1), on the other hand, honors the `lang` of the page/element.
+
+- In both Chrome and Firefox, when the language is determined to be French, numeric `input`s accept _either_ a dot or comma as the decimal separator (even though, in French, a dot in a number represents a thousands separator). A typed-in dot remains even after the control loses focus. Upon incrementing the value, though, the dot is replaced with a comma:
 
     ![Native input behavior](native_number_input.png)
 
-- A number of other issues, listed [here](https://technology.blog.gov.uk/2020/02/24/why-the-gov-uk-design-system-team-changed-the-input-type-for-numbers/) as the reasons the GOV.UK Design System team switched to `type="text"` from `type="number"`
+- Regardless of language/locale, Firefox allows the input of _any_ characters. If the entered character sequence can't be parsed to a number, the `value` is an empty string.
+
+A number of other issues are discussed [here](https://technology.blog.gov.uk/2020/02/24/why-the-gov-uk-design-system-team-changed-the-input-type-for-numbers/) as the reasons the GOV.UK Design System team switched to using `type="text"` from `type="number"` for their numeric control.
 
 ## Open Issues
 
