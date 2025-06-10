@@ -1,6 +1,6 @@
 {
   "type": "minor",
-  "comment": "Add icon calendar-exclamation",
+  "comment": "Add icon calendar-circle-exclamation",
   "packageName": "@ni/nimble-tokens",
   "email": "jattasNI@users.noreply.github.com",
   "dependentChangeType": "patch"
