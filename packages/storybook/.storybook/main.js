@@ -1,7 +1,7 @@
 import { dirname, join } from 'path';
 import remarkGfm from 'remark-gfm';
 import circleDependency from 'vite-plugin-circular-dependency';
-import tsconfigPaths from 'vite-tsconfig-paths';
+// import tsconfigPaths from 'vite-tsconfig-paths';
 
 // All files participating in storybook should be in src
 // so that TypeScript and linters can track them correctly
@@ -35,10 +35,12 @@ export async function viteFinal(config, { configType }) {
         keep_fnames: true
     };
 
-    config.plugins.push(circleDependency({
-        exclude: /node_modules/,
-        circleImportThrowErr: configType === 'PRODUCTION'
-    }));
+    config.plugins.push(
+        circleDependency({
+            exclude: /node_modules/,
+            circleImportThrowErr: configType === 'PRODUCTION'
+        })
+    );
 
     // config.plugins = [tsconfigPaths()];
 
