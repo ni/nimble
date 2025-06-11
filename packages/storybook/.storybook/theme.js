@@ -1,4 +1,5 @@
-import { create } from '@storybook/theming/create';
+// eslint-disable-next-line import/no-unresolved
+import { create } from 'storybook/theming';
 import {
     Black91,
     Brand85,

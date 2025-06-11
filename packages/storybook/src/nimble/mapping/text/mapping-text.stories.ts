@@ -1,5 +1,5 @@
 import { html } from '@ni/fast-element';
-import type { Meta, StoryObj } from '@storybook/html';
+import type { Meta, StoryObj } from '@storybook/html-vite';
 import { mappingKeyDescription } from '../base/story-helpers';
 import {
     apiCategory,

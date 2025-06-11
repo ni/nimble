@@ -1,5 +1,5 @@
 import { html } from '@ni/fast-element';
-import type { Meta, StoryObj } from '@storybook/html';
+import type { Meta, StoryObj } from '@storybook/html-vite';
 import { listOptionGroupTag } from '@ni/nimble-components/dist/esm/list-option-group';
 import { selectTag } from '@ni/nimble-components/dist/esm/select';
 import { listOptionTag } from '@ni/nimble-components/dist/esm/list-option';

@@ -1,4 +1,4 @@
-import type { StoryFn, Meta } from '@storybook/html';
+import type { StoryFn, Meta } from '@storybook/html-vite';
 import { html, ViewTemplate, when } from '@ni/fast-element';
 import { iconLinkTag } from '@ni/nimble-components/dist/esm/icons/link';
 import { iconArrowExpanderRightTag } from '@ni/nimble-components/dist/esm/icons/arrow-expander-right';
