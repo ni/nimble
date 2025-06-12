@@ -23,7 +23,34 @@ This is currently accomplished by the [handler](https://github.com/ni/fast/blob/
 
 In order to control which separator character gets filtered, we have to override `handleTextInput` (since the FAST implementation just hardcodes the regex pattern to filter out `,`). We could modify the function directly in `@ni/fast-foundation`, but I think we prefer to minimize divergence from the original FAST files.
 
-To know which separator character to use, we will simply parse the primary language subtag out of the [BCP 47 language tag](https://developer.mozilla.org/en-US/docs/Glossary/BCP_47_language_tag) that dictates the number-field's language, and use `,` if it is `fr` or `de`, otherwise `.`. There are more robust ways to determine a separator character for a given language tag, but this simple approach is fast, easy, and sufficient.
+#### Determining the separator character for the language
+
+I surveyed a handful of other design systems to see what kind of localized separator behaviors they support and how they implement separator choice. Essentially, they all fell into one of two categories:
+
+- No specific localized number support, other than what is provided by the wrapped HTML `input` when the user sets the `type` attribute to `"number"`. See [Alternatives section](#html-input-with-number-type) for why we're not going that route.
+
+- Relies on `Intl.NumberFormat` for localization support
+
+The following table lists the design systems surveyed and links to relevant references.
+
+| Name                                                     | Localized numeric input implementation                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| -------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [Calcite](https://github.com/Esri/calcite-design-system) | [Uses `Intl.NumberFormat().formatToParts()` to get the separator for the given locale](https://github.com/Esri/calcite-design-system/blob/46bb953e0482dccf53e96a04cb2bc2e55976ea98/packages/calcite-components/src/utils/locale.ts#L276)                                                                                                                                                                                                                            |
+| Spectrum (Adobe)                                         | `NumberParser` from [`@internationalized/number` library](https://github.com/adobe/react-spectrum/tree/main/packages/%40internationalized/number#numberparser) provides locale-aware parsing of full and partial input strings, with support for currencies and units. Internally, [uses `Intl.NumberFormat`](https://github.com/adobe/react-spectrum/blob/2c29e2d1d5d25fc548cfcc7da91d8793f1696441/packages/%40internationalized/number/src/NumberParser.ts#L124). |
+| [Carbon](https://carbondesignsystem.com/)                | [Number input](https://carbondesignsystem.com/components/number-input/usage/) is thin wrapper around [native `input` with `type="number"`](https://github.com/carbon-design-system/carbon/blob/0f19e6a9b75d36931da476b6ccf33380fe5fc525/packages/web-components/src/components/number-input/number-input.ts#L295)                                                                                                                                                   |
+| [Material](https://m3.material.io/components)            | No input specifically for numbers (only general text field)                                                                                                                                                                                                                                                                                                                                                                                                         |
+| [Base](https://baseweb.design/components/input/) (Uber)  | No input specifically for numbers (only general text field)                                                                                                                                                                                                                                                                                                                                                                                                         |
+| Atlassian                                                | No input specifically for numbers. `Textfield` is a [thin wrapper around native HTML `input`](https://bitbucket.org/atlassian/atlassian-frontend-mirror/src/26f65cec1c4261aa99e319a5dd4adb17e99747cc/design-system/textfield/src/text-field.tsx#lines-460).                                                                                                                                                                                                         |
+
+StackOverflow also seems to recommend either `Intl.NumberFormat().formatToParts()` or `toLocaleString()` ([here](https://stackoverflow.com/questions/1074660/with-a-browser-how-do-i-know-which-decimal-separator-the-operating-system-uses) and [here](https://stackoverflow.com/questions/33159354/how-do-i-find-the-decimal-separator-for-current-locale-in-javascript)). We will use the recommended `Intl.NumberFormat` approach:
+
+```ts
+function getDecimalSeparator(locale: string): string {
+    return Intl.NumberFormat(locale)
+        .formatToParts(1.1)
+        .find((x) => x.type === 'decimal').value;
+}
+```
 
 ### 2. Language is based on `lang` design token value for the `nimble-number-field` element
 
@@ -35,11 +62,13 @@ We will follow the same pattern established by the locale-sensitive table column
 
 ### 4. Value handling
 
-The number-field and the inner `input` each have a `value` property. The number-field's `value` corresponds to the data value of the control, while the `input`'s `value` determines what is displayed in the UI. Until now, those two values have been the same, but that won't always be the case anymore. When the current language uses a comma separator, the number-field's value may be assigned a `number` or a string with _either_ a comma or dot separator. When the value is read back out, it will always be a string with a dot separator. This is consistent with the behavior of the HTML `input` with `type="number"`. The inner `input`'s `value` must always use a comma separator, since this is what is displayed to the user. Therefore, some conversions must be made when propagating values between the two `value` properties:
+The number-field and the inner `input` each have a `value` property. The number-field's `value` corresponds to the data value of the control, while the `input`'s `value` determines what is displayed in the UI. Until now, those two values have been the same, but that won't always be the case anymore. The number-field's `value` will always be a string that can be parsed by `parseFloat()`, i.e. will exclusively use a dot as the decimal separator. However, the inner `input`'s `value` is what is displayed to the user, so when the locale dictates a comma separator, it will use a comma. Therefore, some conversions must be made when propagating values between the two `value` properties:
 
 ![Value handling](value_shuffle.png)
 
 We can achieve this by overriding the FAST `NumberField`'s `handleTextInput()` method (which we already need to override to modify the regex character filter) and `valueChanged()` method. Because we will maintain the current invariant that the `nimble-text-field`'s `value` property always uses the dot separator, no other existing `NumberField` code needs to change.
+
+Note that we will be diverging from the native HTML numeric `input`'s behavior for locales that use a comma separator. Specifically, it allows the input or assignment of a string value with _either_ a comma or dot separator. There doesn't seem to be much value in this, so for the sake of a simpler, more consistent API, we will expect all values assigned to the `value` attribute/property to be implicitly convertable to a `number` without locale-aware parsing.
 
 ### Other considerations
 
@@ -74,6 +103,10 @@ From my local testing, I found that:
 - Regardless of language/locale, Firefox allows the input of _any_ characters. If the entered character sequence can't be parsed to a number, the `value` is an empty string.
 
 A number of other issues are discussed [here](https://technology.blog.gov.uk/2020/02/24/why-the-gov-uk-design-system-team-changed-the-input-type-for-numbers/) as the reasons the GOV.UK Design System team switched to using `type="text"` from `type="number"` for their numeric control.
+
+### Overhaul number-field
+
+While out of scope for this minor feature, we would like to revisit the choice of implementation for our number-field. There are a number of behaviors that aren't ideal (e.g. pasting unsupported characters just removes them, so pasting nonsense like "Me+U 4-eva" results in "e+4-e") and other desired features that are missing (see IxD spec linked at top). Adopting another implementation could be a good alternative to cooking up our own solutions. One candidate to explore is the [Lit-based version of the Adobe Spectrum `NumberField`](https://github.com/adobe/spectrum-web-components/blob/5f9b64a79c4312f038889cb2991453aa2105b5c9/packages/number-field/src/NumberField.ts#L102).
 
 ## Open Issues
 
