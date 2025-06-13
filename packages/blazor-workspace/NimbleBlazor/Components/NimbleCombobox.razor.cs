@@ -64,6 +64,20 @@ public partial class NimbleCombobox : NimbleInputBase<string?>
     public bool? RequiredVisible { get; set; }
 
     /// <summary>
+    /// Gets or set whether or not the combobox should be rendered as
+    /// read only when it is disabled.
+    /// </summary>
+    [Parameter]
+    public bool? AppearanceReadOnly { get; set; }
+
+    /// <summary>
+    /// Gets or set whether or not the start and end margins of the control are removed.
+    /// This only applies when the <see cref="Appearance"/> is <see cref="DropdownAppearance.Frameless"/>.
+    /// </summary>
+    [Parameter]
+    public bool? FullBleed { get; set; }
+
+    /// <summary>
     /// Gets or sets the child content to be rendered inside the combobox
     /// </summary>
     [Parameter]

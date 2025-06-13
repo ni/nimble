@@ -57,6 +57,7 @@ public class NimbleComboboxTests
     [InlineData(DropdownAppearance.Block, "block")]
     [InlineData(DropdownAppearance.Underline, "underline")]
     [InlineData(DropdownAppearance.Outline, "outline")]
+    [InlineData(DropdownAppearance.Frameless, "frameless")]
     public void ComboboxAppearance_AttributeIsSet(DropdownAppearance value, string expectedAttribute)
     {
         var combobox = RenderWithPropertySet(x => x.Appearance, value);
@@ -95,6 +96,22 @@ public class NimbleComboboxTests
         var combobox = RenderWithPropertySet(x => x.RequiredVisible, true);
 
         Assert.Contains("required-visible", combobox.Markup);
+    }
+
+    [Fact]
+    public void ComboboxAppearanceReadOnly_AttributeIsSet()
+    {
+        var combobox = RenderWithPropertySet(x => x.AppearanceReadOnly, true);
+
+        Assert.Contains("appearance-readonly", combobox.Markup);
+    }
+
+    [Fact]
+    public void ComboboxFullBleed_AttributeIsSet()
+    {
+        var combobox = RenderWithPropertySet(x => x.FullBleed, true);
+
+        Assert.Contains("full-bleed", combobox.Markup);
     }
 
     [Fact]
