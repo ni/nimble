@@ -12,7 +12,7 @@ declare global {
 }
 
 /**
- * A Spright component for displaying a series of chat messages
+ * A Spright component for composing and sending a chat message
  */
 export class ChatInput extends FoundationElement {
     @attr
