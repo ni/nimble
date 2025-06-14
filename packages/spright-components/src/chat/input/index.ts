@@ -21,6 +21,18 @@ export class ChatInput extends FoundationElement {
     @attr({ attribute: 'send-button-label' })
     public sendButtonLabel?: string;
 
+    @observable
+    public get value(): string {
+        return this.textArea?.value ?? '';
+    }
+
+    public set value(newValue: string) {
+        if (this.textArea) {
+            this.textArea.value = newValue;
+            this.textAreaInputHandler();
+        }
+    }
+
     /**
      * @internal
      */

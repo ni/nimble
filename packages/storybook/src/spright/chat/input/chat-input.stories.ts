@@ -11,6 +11,7 @@ import {
 interface ChatInputArgs {
     placeholder: string;
     sendButtonLabel: string;
+    value: string;
     send: undefined;
 }
 
@@ -41,6 +42,11 @@ export const chatInput: StoryObj<ChatInputArgs> = {
             name: 'send-button-label',
             description: 'Text to use for a `title` and ARIA attributes on the send button.',
             table: { category: apiCategory.attributes }
+        },
+        value: {
+            description: 'The string within the chat input.',
+            control: { type: 'text' },
+            table: { category: apiCategory.nonAttributeProperties }
         },
         send: {
             description: 'Emitted when the user clicks the button or presses Enter with text present. Includes `ChatInputSendEventDetail` which is an object with a `text` field containing the input',

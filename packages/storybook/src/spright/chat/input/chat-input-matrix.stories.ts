@@ -12,7 +12,7 @@ import { textCustomizationWrapper } from '../../../utilities/text-customization'
 import { loremIpsum } from '../../../utilities/lorem-ipsum';
 
 const textStates = [
-    ['', ''],
+    ['empty', ''],
     ['one line', 'My cat\'s breath smells like cat food.'],
     ['multi line', loremIpsum]
 ] as const;
@@ -29,12 +29,12 @@ export default metadata;
 
 // prettier-ignore
 const component = (
-    [textLabel, text]: LongTextState
+    [_textLabel, text]: LongTextState
 ): ViewTemplate => html`
     <${chatInputTag}
         placeholder="This is the placeholder"
+        :value="${text}"
     >
-        ${textLabel} ${text}
     </${chatInputTag}>
 `;
 
