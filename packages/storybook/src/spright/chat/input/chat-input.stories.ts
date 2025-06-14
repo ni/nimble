@@ -1,12 +1,12 @@
 import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html';
 import { withActions } from '@storybook/addon-actions/decorator';
 import { html } from '@ni/fast-element';
+import { chatInputTag } from '@ni/spright-components/dist/esm/chat/input';
 import {
     apiCategory,
     createUserSelectedThemeStory,
     placeholderDescription,
 } from '../../../utilities/storybook';
-import { chatInputTag } from '../../../../../spright-components/src/chat/input';
 
 interface ChatInputArgs {
     placeholder: string;
