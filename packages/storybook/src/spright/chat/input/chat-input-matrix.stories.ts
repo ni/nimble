@@ -33,7 +33,7 @@ const component = (
 ): ViewTemplate => html`
     <${chatInputTag}
         placeholder="This is the placeholder"
-        :value="${text}"
+        value="${text}"
     >
     </${chatInputTag}>
 `;

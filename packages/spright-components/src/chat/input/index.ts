@@ -21,17 +21,8 @@ export class ChatInput extends FoundationElement {
     @attr({ attribute: 'send-button-label' })
     public sendButtonLabel?: string;
 
-    @observable
-    public get value(): string {
-        return this.textArea?.value ?? '';
-    }
-
-    public set value(newValue: string) {
-        if (this.textArea) {
-            this.textArea.value = newValue;
-            this.textAreaInputHandler();
-        }
-    }
+    @attr
+    public value = '';
 
     /**
      * @internal
@@ -60,6 +51,20 @@ export class ChatInput extends FoundationElement {
      * @internal
      */
     public textAreaInputHandler(): void {
+        this.value = this.textArea.value;
+        this.disableSendButton = this.shouldDisableSendButton();
+    }
+
+    public valueChanged(): void {
+        if (this.textArea) {
+            this.textArea.value = this.value;
+            this.disableSendButton = this.shouldDisableSendButton();
+        }
+    }
+
+    public override connectedCallback(): void {
+        super.connectedCallback();
+        this.textArea.value = this.value;
         this.disableSendButton = this.shouldDisableSendButton();
     }
 
@@ -74,6 +79,7 @@ export class ChatInput extends FoundationElement {
             text: this.textArea.value
         };
         this.$emit('send', eventDetail);
+        this.value = '';
         this.textArea.value = '';
         this.textArea.focus();
         this.disableSendButton = true;

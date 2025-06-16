@@ -29,7 +29,9 @@ export const chatInput: StoryObj<ChatInputArgs> = {
     render: createUserSelectedThemeStory(html`
         <${chatInputTag}
             placeholder="${x => x.placeholder}"
-            send-button-label="${x => x.sendButtonLabel}">
+            send-button-label="${x => x.sendButtonLabel}"
+            value="${x => x.value}"    
+        >
         </${chatInputTag}>
     `),
     argTypes: {
@@ -46,7 +48,7 @@ export const chatInput: StoryObj<ChatInputArgs> = {
         value: {
             description: 'The string within the chat input.',
             control: { type: 'text' },
-            table: { category: apiCategory.nonAttributeProperties }
+            table: { category: apiCategory.attributes }
         },
         send: {
             description: 'Emitted when the user clicks the button or presses Enter with text present. Includes `ChatInputSendEventDetail` which is an object with a `text` field containing the input',
