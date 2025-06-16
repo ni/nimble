@@ -72,7 +72,9 @@ Note that we will be diverging from the native HTML numeric `input`'s behavior f
 
 ### Other considerations
 
-No documentation changes are needed.
+Storybook documentation for the number-field will be updated to include a sentence about localization similar to what we have for the numeric table column, i.e. "Numbers are formatted in a locale-specific way based on the value of the lang token, which can be set via the `nimble-theme-provider`." We will also update the `value` property/attribute documentation to clarify that the value will have a dot separator regardless of what the display shows.
+
+Because this will result in a behavior change for clients whose users are using French or German (i.e. they will need to enter comma as their separator rather than dot), we will mark this a breaking change in Nimble. It could break client tests, for example. SLE, specifically, will include a note about the behavior change in the release notes.
 
 As there are no API changes, there will be no changes to the Angular or Blazor packages.
 
