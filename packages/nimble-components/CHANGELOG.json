@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Mon, 16 Jun 2025 18:11:26 GMT",
+      "version": "33.9.0",
+      "tag": "@ni/nimble-components_v33.9.0",
+      "comments": {
+        "none": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "374385d1670c6e11916b840ef7cf13b402ae7b68",
+            "comment": "HLD for localized decimal separator in number-field"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 10 Jun 2025 20:39:08 GMT",
       "version": "33.9.0",
       "tag": "@ni/nimble-components_v33.9.0",
