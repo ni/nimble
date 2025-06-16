@@ -229,11 +229,13 @@ richText.markdown = 'Welcome **Homer**, how can I help?';
 ##### Input API alternatives
 
 The `value` API above is interesting because users can change it interactively while clients may wish to get or set it programmatically. Nimble has several patterns for properties and attributes related to state that the user can modify interactively:
+
 1. The text field and number field have a `value` property and a `current-value` attribute which are synced with user input and a `value` attribute which is only used to set the initial value. This approach comes from FAST. The `value` property and attribute match native form-associated input behavior while the `current-value` attribute adds the ability to read and write the current value from an attribute without overwriting a client-provided `value`.
 2. The rich text editor has `getMarkdown()` and `setMarkdown()` methods. This approach was selected partly to avoid the cost and noise of synchronizing possibly large values back to the DOM.
 3. The combobox has an (internal) `open` property and attribute which reflect the interactive state of the dropdown but can also be updated programmatically.
 
 Any of these approaches would achieve the goal of exposing the ability to get and set the chat input display value programmatically. We're proposing an option similar to 3 because:
+
 - the chat input doesn't need form association or parity with a native component API and having multiple attributes adds implementation complexity versus a single attribute
 - users aren't expected to be interactively modifying large values in the chat input so performance is less of a concern than with the rich text editor
 
