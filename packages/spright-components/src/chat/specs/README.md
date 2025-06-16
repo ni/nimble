@@ -235,7 +235,7 @@ The `value` API above is interesting because users can change it interactively w
 
 Any of these approaches would achieve the goal of exposing the ability to get and set the chat input display value programmatically. We're proposing an option similar to 3 because:
 - the chat input doesn't need form association or parity with a native component API and having multiple attributes adds implementation complexity versus a single attribute
-- users aren't expected to be interactively modifying large values in the chat input so performance is less of a concern
+- users aren't expected to be interactively modifying large values in the chat input so performance is less of a concern than with the rich text editor
 
 ### Anatomy
 
