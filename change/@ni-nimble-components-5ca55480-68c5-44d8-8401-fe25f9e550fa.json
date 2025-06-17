@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "Add theme aware token for calendar event outline",
+  "packageName": "@ni/nimble-components",
+  "email": "aagash.maridas@emerson.com",
+  "dependentChangeType": "patch"
+}
