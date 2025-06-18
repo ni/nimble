@@ -55,6 +55,9 @@ export class ChatInput extends FoundationElement {
         this.disableSendButton = this.shouldDisableSendButton();
     }
 
+    /**
+     * @internal
+     */
     public valueChanged(): void {
         if (this.textArea) {
             this.textArea.value = this.value;
@@ -62,6 +65,9 @@ export class ChatInput extends FoundationElement {
         }
     }
 
+    /**
+     * @internal
+     */
     public override connectedCallback(): void {
         super.connectedCallback();
         this.textArea.value = this.value;
