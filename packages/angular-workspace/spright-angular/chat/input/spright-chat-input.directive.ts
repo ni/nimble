@@ -16,8 +16,8 @@ export class SprightChatInputDirective {
     @Output() public sendEvent = new EventEmitter<string>();
     public constructor(private readonly renderer: Renderer2, private readonly elementRef: ElementRef<ChatInput>) {}
 
-    @HostListener('submit', ['$event'])
-    public onSubmit($event: CustomEvent<ChatInputSendEventDetail>): void {
+    @HostListener('send', ['$event'])
+    public onSend($event: CustomEvent<ChatInputSendEventDetail>): void {
         if ($event.target === this.elementRef.nativeElement) {
             this.sendEvent.emit($event.detail.text);
         }

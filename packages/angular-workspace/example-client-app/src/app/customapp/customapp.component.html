@@ -484,7 +484,7 @@
                     </spright-chat-message>
                     <spright-chat-message message-type="outbound" *ngFor="let message of chatUserMessages"><span>{{message}}</span></spright-chat-message>
                 </spright-chat-conversation>
-                <spright-chat-input (submitEvent)="onChatInputSubmit($event)"></spright-chat-input>
+                <spright-chat-input (sendEvent)="onChatInputSend($event)"></spright-chat-input>
             </div>
         </div>
         <div class="sub-container">

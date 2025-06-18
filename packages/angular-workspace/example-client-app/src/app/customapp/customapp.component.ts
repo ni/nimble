@@ -283,7 +283,7 @@ export class CustomAppComponent implements AfterViewInit {
         }
     }
 
-    public onChatInputSubmit(message: string): void {
+    public onChatInputSend(message: string): void {
         this.chatUserMessages.push(message);
     }
 
