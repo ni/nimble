@@ -167,15 +167,19 @@ fdescribe('ChatInput', () => {
     //     });
     // });
 
-    // describe('sendButtonLabel', () => {
-    //     beforeEach(async () => {
-    //         await connect();
-    //     });
+    describe('sendButtonLabel', () => {
+        beforeEach(async () => {
+            await connect();
+        });
 
-    //     it('defaults to empty', () => {
-    //     });
+        it('defaults to undefined', () => {
+            expect(element.sendButtonLabel).toBeUndefined();
+        });
 
-    //     it('affects button title and ARIA', () => {
-    //     });
-    // });
+        it('affects button title and ARIA', () => {
+            element.sendButtonLabel = 'Send it!';
+            expect(page.getSendButtonTitle()).toEqual('Send it!');
+            expect(page.getSendButtonAriaLabel()).toEqual('Send it!');
+        });
+    });
 });

@@ -17,6 +17,14 @@ export class ChatInputPageObject {
         this.getSendButton().click();
     }
 
+    public getSendButtonTitle(): string {
+        return this.getSendButton().title;
+    }
+
+    public getSendButtonAriaLabel(): string | null {
+        return this.getSendButton().ariaLabel;
+    }
+
     public getPlaceholder(): string {
         if (!this.element.matches(':placeholder-shown')) {
             throw Error('Placeholder not visible');
