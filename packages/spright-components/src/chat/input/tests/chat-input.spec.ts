@@ -3,6 +3,7 @@ import { ChatInput, chatInputTag } from '..';
 import { fixture, type Fixture } from '../../../utilities/tests/fixture';
 import { ChatInputPageObject } from '../testing/chat-input.pageobject';
 import type { ChatInputSendEventDetail } from '../types';
+import { processUpdates } from '@ni/nimble-components/dist/esm/testing/async-helpers';
 
 async function setup(): Promise<Fixture<ChatInput>> {
     return await fixture<ChatInput>(html`<${chatInputTag}></${chatInputTag}>`);
@@ -12,7 +13,7 @@ type ChatInputSendEventHandler = (
     evt: CustomEvent<ChatInputSendEventDetail>
 ) => void;
 
-fdescribe('ChatInput', () => {
+describe('ChatInput', () => {
     let element: ChatInput;
     let page: ChatInputPageObject;
     let connect: () => Promise<void>;
@@ -43,6 +44,7 @@ fdescribe('ChatInput', () => {
         it('shows placeholder', () => {
             const placeholder = 'My placeholder';
             element.placeholder = placeholder;
+            processUpdates();
             expect(page.getPlaceholder()).toEqual(placeholder);
         });
 
@@ -63,6 +65,7 @@ fdescribe('ChatInput', () => {
 
         it('affects rendered text', () => {
             element.value = 'new value';
+            processUpdates();
             expect(page.getRenderedText()).toEqual('new value');
         });
 
@@ -70,17 +73,21 @@ fdescribe('ChatInput', () => {
             await disconnect();
             element.value = 'new value';
             await connect();
+            processUpdates();
             expect(page.getRenderedText()).toEqual('new value');
         });
 
         it('to non-empty value enables send button', () => {
             element.value = 'new value';
+            processUpdates();
             expect(page.isSendButtonEnabled()).toBeTrue();
         });
 
         it('to empty value disables send button', () => {
             element.value = 'new value';
+            processUpdates();
             element.value = '';
+            processUpdates();
             expect(page.isSendButtonEnabled()).toBeFalse();
         });
     });

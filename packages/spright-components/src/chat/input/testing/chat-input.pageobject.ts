@@ -1,6 +1,7 @@
 import { keyEnter } from '@ni/fast-web-utilities';
 import { Button } from '@ni/nimble-components/dist/esm/button';
 import type { ChatInput } from '..';
+import { processUpdates } from '@ni/nimble-components/dist/esm/testing/async-helpers';
 
 /**
  * Page object for the `spright-chat-input` component to provide consistent ways
@@ -26,7 +27,7 @@ export class ChatInputPageObject {
     }
 
     public getPlaceholder(): string {
-        if (!this.element.matches(':placeholder-shown')) {
+        if (this.element.textArea.value) {
             throw Error('Placeholder not visible');
         }
         return this.element.textArea.placeholder;
@@ -40,6 +41,7 @@ export class ChatInputPageObject {
         this.element.textArea.focus();
         this.element.textArea.value = text;
         this.element.textAreaInputHandler();
+        processUpdates();
     }
 
     public pressEnterKey(): void {
@@ -57,7 +59,7 @@ export class ChatInputPageObject {
     }
 
     private getSendButton(): Button {
-        const sendButton = this.element.querySelector<Button>('.send-button')!;
+        const sendButton = this.element.shadowRoot!.querySelector<Button>('.send-button')!;
         return sendButton;
     }
 }
