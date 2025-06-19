@@ -5,7 +5,7 @@
 
 # Nimble
 
-The NI Nimble Design System: Styled UI components for NI applications.
+The NI Nimble Design System: Styled UI components for NI applications is awesome.
 
 [![storybook page](https://img.shields.io/badge/storybook%20documentation-white.svg?logo=storybook)](https://ni.github.io/nimble/storybook)
 [![example angular app](https://img.shields.io/badge/example%20angular%20application-dd0031.svg?logo=angular)](https://ni.github.io/nimble/storybook/example-client-app)
