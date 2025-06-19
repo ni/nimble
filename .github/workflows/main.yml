@@ -43,6 +43,10 @@ jobs:
           fetch-depth: 0
 
       # Install dependencies
+      - run: sudo apt remove --purge dotnet-sdk-8.0
+        working-directory: packages/blazor-workspace/
+      - run: dotnet --list-sdks
+        working-directory: packages/blazor-workspace/
       - uses: actions/setup-dotnet@v4
         with:
           global-json-file: packages/blazor-workspace/global.json
