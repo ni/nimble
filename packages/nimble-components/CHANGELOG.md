@@ -1,8 +1,17 @@
 # Change Log - @ni/nimble-components
 
-<!-- This log was last generated on Tue, 03 Jun 2025 16:23:41 GMT and should not be manually modified. -->
+<!-- This log was last generated on Tue, 10 Jun 2025 20:39:08 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 33.9.0
+
+Tue, 10 Jun 2025 20:39:08 GMT
+
+### Minor changes
+
+- Add icon calendar-circle-exclamation ([ni/nimble@f7e28f8](https://github.com/ni/nimble/commit/f7e28f84e7a8cb3255ec53aa71cfe444f4489747))
+- Bump @ni/nimble-tokens to v8.10.0
 
 ## 33.8.2
 
