@@ -43,9 +43,8 @@ jobs:
           fetch-depth: 0
 
       # Install dependencies
-      - run: sudo apt remove --purge dotnet-sdk-8.0
-        working-directory: packages/blazor-workspace/
-      - run: dotnet --list-sdks
+      - name: Remove pre-existing dotnet sdk 8 installs
+        run: sudo apt remove --purge dotnet-sdk-8.0
         working-directory: packages/blazor-workspace/
       - uses: actions/setup-dotnet@v4
         with:
@@ -57,14 +56,6 @@ jobs:
           cache: 'npm'
       - run: npm ci
       - run: dotnet restore --locked-mode
-        working-directory: packages/blazor-workspace/
-
-      # Print resolved dotnet info
-      - run: dotnet --info
-        working-directory: packages/blazor-workspace/
-      - run: dotnet --list-sdks
-        working-directory: packages/blazor-workspace/
-      - run: dotnet --version
         working-directory: packages/blazor-workspace/
 
       # print a log of outdated npm dependencies
