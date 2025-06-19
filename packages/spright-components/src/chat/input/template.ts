@@ -20,8 +20,9 @@ export const template = html<ChatInput>`
         appearance-variant="accent"
         ?disabled=${x => x.disableSendButton}
         @click=${x => x.sendButtonClickHandler()}
+        title=${x => x.sendButtonLabel}
+        aria-label=${x => x.sendButtonLabel}
     >
-        ${x => x.sendButtonLabel}
         <${iconPaperPlaneTag} slot="start"><${iconPaperPlaneTag}/>
     </${buttonTag}>    
 </div>`;

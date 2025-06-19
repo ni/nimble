@@ -185,6 +185,7 @@ describe('ChatInput', () => {
 
         it('affects button title and ARIA', () => {
             element.sendButtonLabel = 'Send it!';
+            processUpdates();
             expect(page.getSendButtonTitle()).toEqual('Send it!');
             expect(page.getSendButtonAriaLabel()).toEqual('Send it!');
         });
