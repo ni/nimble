@@ -54,8 +54,10 @@ export class ChatInputPageObject {
     public pressShiftEnterKey(): void {
         this.element.textArea.focus();
         this.element.textArea.dispatchEvent(
-            new KeyboardEvent('keydown', { key: keyEnter })
+            new KeyboardEvent('keydown', { key: keyEnter, shiftKey: true })
         );
+
+        processUpdates();
     }
 
     private getSendButton(): Button {
