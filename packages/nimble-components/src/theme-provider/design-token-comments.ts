@@ -314,7 +314,7 @@ export const comments: { readonly [key in TokenName]: string } = {
         'Color while hovering dynamic calendar events',
     calendarEventBackgroundHoverTransientColor:
         'Color while hovering transient calendar events',
-    calendarEventOuterBorderColor:
+    calendarEventOuterBorderHighlightedColor:
         'Outer border color for calendar events when highlighted',
     calendarRowBackgroundSelectedColor:
         'Background color while calendar resource is selected/highlighted',

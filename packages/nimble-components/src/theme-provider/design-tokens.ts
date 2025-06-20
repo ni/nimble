@@ -419,8 +419,10 @@ export const calendarEventBackgroundHoverTransientColor = DesignToken.create<str
     DigitalGreenDark105
 ));
 
-export const calendarEventOuterBorderColor = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.calendarEventOuterBorderColor)
+export const calendarEventOuterBorderHighlightedColor = DesignToken.create<string>(
+    styleNameFromTokenName(
+        tokenNames.calendarEventOuterBorderHighlightedColor
+    )
 ).withDefault((element: HTMLElement) => getColorForTheme(
     element,
     Black88,
