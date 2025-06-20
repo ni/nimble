@@ -135,7 +135,7 @@ describe('ChatInput', () => {
             sendSpy.calls.reset();
         });
 
-        it('via button click triggers send event with value as data', async () => {
+        it('via button click triggers send event with value as data', () => {
             element.value = 'new value';
             processUpdates();
 
