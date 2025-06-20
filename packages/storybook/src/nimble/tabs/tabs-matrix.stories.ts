@@ -16,7 +16,33 @@ import { hiddenWrapper } from '../../utilities/hidden';
 import { textCustomizationWrapper } from '../../utilities/text-customization';
 import { loremIpsum } from '../../utilities/lorem-ipsum';
 
-const tabsToolbarStates = [false, true] as const;
+const tabsToolbarStates = [
+    {
+        showToolbar: false,
+        showLeftButton: false,
+        showRightButton: false
+    },
+    {
+        showToolbar: true,
+        showLeftButton: false,
+        showRightButton: false
+    },
+    {
+        showToolbar: true,
+        showLeftButton: true,
+        showRightButton: false
+    },
+    {
+        showToolbar: true,
+        showLeftButton: false,
+        showRightButton: true
+    },
+    {
+        showToolbar: true,
+        showLeftButton: true,
+        showRightButton: true
+    }
+] as const;
 type TabsToolbarState = (typeof tabsToolbarStates)[number];
 
 const metadata: Meta = {
@@ -39,10 +65,14 @@ const component = (
 
 ): ViewTemplate => html`
     <${tabsTag} style="padding: 15px;${widthValue ? ` width: ${widthValue};` : ''}">
-        ${when(() => toolbar, html`
+        ${when(() => toolbar.showToolbar, html`
             <${tabsToolbarTag}>
-                <${buttonTag} appearance="ghost">Toolbar Button</${buttonTag}>
-                <${buttonTag} appearance="ghost" style="margin-left: auto;">Right-aligned Button</${buttonTag}>
+                ${when(() => toolbar.showLeftButton, html`
+                    <${buttonTag} appearance="ghost">Start slot Button</${buttonTag}>
+                `)}
+                ${when(() => toolbar.showRightButton, html`
+                    <${buttonTag} appearance="ghost" slot="end">End slot Button</${buttonTag}>
+                `)}
             </${tabsToolbarTag}>
         `)}
         <${tabTag}>Tab One</${tabTag}>

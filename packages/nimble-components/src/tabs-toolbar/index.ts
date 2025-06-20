@@ -1,3 +1,4 @@
+import { observable } from '@ni/fast-element';
 import { DesignSystem, FoundationElement } from '@ni/fast-foundation';
 import { styles } from './styles';
 import { template } from './template';
@@ -11,7 +12,11 @@ declare global {
 /**
  * A nimble-styled container for toolbar content next to tabs.
  */
-export class TabsToolbar extends FoundationElement {}
+export class TabsToolbar extends FoundationElement {
+    /** @internal */
+    @observable
+    public slottedStartElements: Element[] = [];
+}
 
 const nimbleTabsToolbar = TabsToolbar.compose({
     baseName: 'tabs-toolbar',

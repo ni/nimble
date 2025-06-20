@@ -1,9 +1,21 @@
-import { html } from '@ni/fast-element';
+import { html, slotted, when } from '@ni/fast-element';
 import type { TabsToolbar } from '.';
 
+/* eslint-disable @typescript-eslint/indent */
+// prettier-ignore
 export const template = html<TabsToolbar>`
     <template slot="end">
-        <div class="separator"></div>
-        <slot></slot>
+        ${when(x => x.slottedStartElements.length > 0, html`
+            <div class="separator"></div>
+        `)}
+        <slot
+            ${slotted({
+                filter: (n: Node) => n instanceof HTMLElement,
+                property: 'slottedStartElements',
+            })}
+        >
+        </slot>
+        <slot name="end">
+        </slot>
     </template>
 `;

@@ -27,4 +27,8 @@ export const styles = css`
             rgba(${borderRgbPartialColor}, 0.3);
         margin: ${smallPadding} ${mediumPadding};
     }
+
+    slot[name='end']::slotted(*) {
+        margin-left: auto;
+    }
 `;

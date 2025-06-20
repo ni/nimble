@@ -32,6 +32,8 @@ interface TabPanelArgs {
 
 interface ToolbarArgs {
     toolbar: boolean;
+    start: boolean;
+    end: boolean;
 }
 
 const metadata: Meta<TabsArgs> = {
@@ -190,8 +192,16 @@ export const tabPanel: StoryObj<TabPanelArgs> = {
 export const tabToolbar: StoryObj<ToolbarArgs> = {
     // prettier-ignore
     render: createUserSelectedThemeStory(html`
-        <${tabsTag}>
-            ${when(x => x.toolbar, html<TabsArgs>`<${tabsToolbarTag}><${buttonTag} appearance="ghost">Toolbar Button</${buttonTag}></${tabsToolbarTag}>`)}
+        <${tabsTag} style="width: 800px;">
+            ${when(x => x.toolbar, html<ToolbarArgs>`
+                <${tabsToolbarTag}>
+                    ${when(x => x.start, html`
+                        <${buttonTag} appearance="ghost">Toolbar Button</${buttonTag}>
+                    `)}
+                    ${when(x => x.end, html`
+                        <${buttonTag} appearance="ghost" slot="end">Toolbar Button 2</${buttonTag}>
+                    `)}
+                </${tabsToolbarTag}>`)}
             <${tabTag}>Tab One</${tabTag}>
             <${tabTag}>Tab Two</${tabTag}>
             <${tabPanelTag}>Content of the first tab</${tabPanelTag}>
@@ -203,9 +213,21 @@ export const tabToolbar: StoryObj<ToolbarArgs> = {
             name: 'default',
             description: `Add a tabs toolbar as a child of the tabs and populate its content with \`${buttonTag}\` elements.`,
             table: { category: apiCategory.slots }
+        },
+        start: {
+            name: 'start',
+            description: `Slot to display elements on the left side of the \`${tabsToolbarTag}\`. This is also the default slot.`,
+            table: { category: apiCategory.slots }
+        },
+        end: {
+            name: 'end',
+            description: `Slot to display elements on the right side of the \`${tabsToolbarTag}\`. If slotted content is only in the end slot, the separator will be hidden.`,
+            table: { category: apiCategory.slots }
         }
     },
     args: {
-        toolbar: true
+        toolbar: true,
+        start: true,
+        end: true
     }
 };
