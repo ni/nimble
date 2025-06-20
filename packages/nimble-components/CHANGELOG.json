@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Fri, 20 Jun 2025 06:07:44 GMT",
+      "version": "33.10.0",
+      "tag": "@ni/nimble-components_v33.10.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "123377167+aagash-ni@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "3946d5cbe190276f9373a4d3b72ee47ee3681d75",
+            "comment": "Add theme aware token for calendar event outer border"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 16 Jun 2025 18:11:26 GMT",
       "version": "33.9.0",
       "tag": "@ni/nimble-components_v33.9.0",
