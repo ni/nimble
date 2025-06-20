@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-<!-- This log was last generated on Tue, 10 Jun 2025 20:39:08 GMT and should not be manually modified. -->
+<!-- This log was last generated on Fri, 20 Jun 2025 06:07:44 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 33.10.0
+
+Fri, 20 Jun 2025 06:07:44 GMT
+
+### Minor changes
+
+- Add theme aware token for calendar event outer border ([ni/nimble@3946d5c](https://github.com/ni/nimble/commit/3946d5cbe190276f9373a4d3b72ee47ee3681d75))
 
 ## 33.9.0
 

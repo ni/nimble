@@ -1,7 +1,0 @@
-{
-  "type": "minor",
-  "comment": "Add theme aware token for calendar event outer border",
-  "packageName": "@ni/nimble-components",
-  "email": "123377167+aagash-ni@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
