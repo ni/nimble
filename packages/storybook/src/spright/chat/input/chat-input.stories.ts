@@ -13,6 +13,7 @@ interface ChatInputArgs {
     sendButtonLabel: string;
     value: string;
     send: undefined;
+    resetInput: undefined;
 }
 
 const metadata: Meta<ChatInputArgs> = {
@@ -55,8 +56,14 @@ export const chatInput: StoryObj<ChatInputArgs> = {
         },
         send: {
             description:
-                'Emitted when the user clicks the button or presses Enter with text present. Includes `ChatInputSendEventDetail` which is an object with a `text` field containing the input',
+                'Emitted when the user clicks the button or presses Enter with text present. Includes `ChatInputSendEventDetail` which is an object with a `text` field containing the input.',
             table: { category: apiCategory.events }
+        },
+        resetInput: {
+            name: 'resetInput()',
+            description:
+                'Clear the input and gives it focus. This should typically be called from the `send` event handler.',
+            table: { category: apiCategory.methods }
         }
     },
     args: {
