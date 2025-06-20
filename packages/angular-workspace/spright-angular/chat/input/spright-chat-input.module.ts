@@ -5,12 +5,8 @@ import { SprightChatInputDirective } from './spright-chat-input.directive';
 import '@ni/spright-components/dist/esm/chat/input';
 
 @NgModule({
-    declarations: [
-        SprightChatInputDirective,
-    ],
+    declarations: [SprightChatInputDirective],
     imports: [CommonModule],
-    exports: [
-        SprightChatInputDirective,
-    ]
+    exports: [SprightChatInputDirective]
 })
 export class SprightChatInputModule { }
