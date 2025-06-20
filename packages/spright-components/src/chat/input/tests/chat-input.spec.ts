@@ -142,7 +142,8 @@ describe('ChatInput', () => {
             page.clickSendButton();
 
             expect(sendSpy).toHaveBeenCalledTimes(1);
-            const event = sendSpy.calls.mostRecent().args[0] as CustomEvent<ChatInputSendEventDetail>;
+            const event = sendSpy.calls.mostRecent()
+                .args[0] as CustomEvent<ChatInputSendEventDetail>;
             expect(event.detail.text).toEqual('new value');
         });
 
@@ -153,7 +154,8 @@ describe('ChatInput', () => {
             await page.pressEnterKey();
 
             expect(sendSpy).toHaveBeenCalledTimes(1);
-            const event = sendSpy.calls.mostRecent().args[0] as CustomEvent<ChatInputSendEventDetail>;
+            const event = sendSpy.calls.mostRecent()
+                .args[0] as CustomEvent<ChatInputSendEventDetail>;
             expect(event.detail.text).toEqual('new value');
         });
 
