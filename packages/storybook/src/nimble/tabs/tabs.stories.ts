@@ -12,7 +12,10 @@ import {
     disabledDescription
 } from '../../utilities/storybook';
 import { ExampleTabsType } from '../patterns/tabs/types';
-import { defaultSlotDescription, endSlotDescription } from '../patterns/tabs/doc-strings';
+import {
+    defaultSlotDescription,
+    endSlotDescription
+} from '../patterns/tabs/doc-strings';
 
 interface TabsArgs {
     activeid: string;

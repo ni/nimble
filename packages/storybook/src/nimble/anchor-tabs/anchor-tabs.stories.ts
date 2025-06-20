@@ -11,7 +11,10 @@ import {
 } from '../../utilities/storybook';
 import { hrefDescription } from '../patterns/anchor/anchor-docs';
 import { ExampleTabsType } from '../patterns/tabs/types';
-import { defaultSlotDescription, endSlotDescription } from '../patterns/tabs/doc-strings';
+import {
+    defaultSlotDescription,
+    endSlotDescription
+} from '../patterns/tabs/doc-strings';
 
 interface AnchorTabsArgs {
     activeid: string;
@@ -167,6 +170,7 @@ export const anchorTab: StoryObj<AnchorTabArgs> = {
 };
 
 export const tabsToolbar: StoryObj<ToolbarArgs> = {
+    // prettier-ignore
     render: createUserSelectedThemeStory(html`
         <${anchorTabsTag} activeid="1" style="width: 800px;">
             ${when(x => x.toolbar, html<ToolbarArgs>`
