@@ -28,8 +28,12 @@ export const styles = css`
         margin: ${smallPadding} ${mediumPadding};
     }
 
-    .end-slot-container {
-        display: flex;
+    [part='start'] {
+        display: none;
+    }
+
+    [part='end'] {
         margin-left: auto;
+        display: flex;
     }
 `;

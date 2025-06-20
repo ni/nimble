@@ -1,5 +1,5 @@
 import { observable } from '@ni/fast-element';
-import { DesignSystem, FoundationElement } from '@ni/fast-foundation';
+import { applyMixins, DesignSystem, FoundationElement, StartEnd } from '@ni/fast-foundation';
 import { styles } from './styles';
 import { template } from './template';
 
@@ -26,3 +26,5 @@ const nimbleTabsToolbar = TabsToolbar.compose({
 
 DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleTabsToolbar());
 export const tabsToolbarTag = 'nimble-tabs-toolbar';
+
+applyMixins(TabsToolbar, StartEnd);

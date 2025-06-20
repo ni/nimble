@@ -1,13 +1,20 @@
-import { html, slotted, when } from '@ni/fast-element';
+import { html, slotted, ViewTemplate, when } from '@ni/fast-element';
+import { endSlotTemplate, startSlotTemplate, type FoundationElementDefinition, type FoundationElementTemplate, type StartEndOptions } from '@ni/fast-foundation';
 import type { TabsToolbar } from '.';
+
+type TabsToolbarOptions = FoundationElementDefinition & StartEndOptions;
 
 /* eslint-disable @typescript-eslint/indent */
 // prettier-ignore
-export const template = html<TabsToolbar>`
+export const template: FoundationElementTemplate<
+ViewTemplate<TabsToolbar>,
+TabsToolbarOptions
+> = (context, definition) => html<TabsToolbar>`
     <template slot="end">
         ${when(x => x.slottedStartElements.length > 0, html`
             <div class="separator"></div>
         `)}
+        ${startSlotTemplate(context, definition)}
         <slot
             ${slotted({
                 filter: (n: Node) => n instanceof HTMLElement,
@@ -15,9 +22,6 @@ export const template = html<TabsToolbar>`
             })}
         >
         </slot>
-        <div class="end-slot-container">
-            <slot name="end">
-            </slot>
-        </div>
+        ${endSlotTemplate(context, definition)}
     </template>
 `;
