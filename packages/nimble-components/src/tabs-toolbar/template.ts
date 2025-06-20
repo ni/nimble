@@ -11,14 +11,14 @@ ViewTemplate<TabsToolbar>,
 TabsToolbarOptions
 > = (context, definition) => html<TabsToolbar>`
     <template slot="end">
-        ${when(x => x.slottedStartElements.length > 0, html`
+        ${when(x => x.defaultSlottedElements.length > 0, html`
             <div class="separator"></div>
         `)}
         ${startSlotTemplate(context, definition)}
         <slot
             ${slotted({
                 filter: (n: Node) => n instanceof HTMLElement,
-                property: 'slottedStartElements',
+                property: 'defaultSlottedElements',
             })}
         >
         </slot>

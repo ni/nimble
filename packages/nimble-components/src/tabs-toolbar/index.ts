@@ -15,7 +15,7 @@ declare global {
 export class TabsToolbar extends FoundationElement {
     /** @internal */
     @observable
-    public slottedStartElements: Element[] = [];
+    public defaultSlottedElements: Element[] = [];
 }
 
 const nimbleTabsToolbar = TabsToolbar.compose({
