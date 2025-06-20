@@ -15,7 +15,9 @@ export const template = html<TabsToolbar>`
             })}
         >
         </slot>
-        <slot name="end">
-        </slot>
+        <div class="end-slot-container">
+            <slot name="end">
+            </slot>
+        </div>
     </template>
 `;

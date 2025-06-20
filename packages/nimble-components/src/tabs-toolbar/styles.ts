@@ -28,7 +28,8 @@ export const styles = css`
         margin: ${smallPadding} ${mediumPadding};
     }
 
-    slot[name='end']::slotted(*) {
+    .end-slot-container {
+        display: flex;
         margin-left: auto;
     }
 `;

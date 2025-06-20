@@ -68,10 +68,11 @@ const component = (
         ${when(() => toolbar.showToolbar, html`
             <${tabsToolbarTag}>
                 ${when(() => toolbar.showLeftButton, html`
-                    <${buttonTag} appearance="ghost">Start slot Button</${buttonTag}>
+                    <${buttonTag} appearance="ghost">Left Button</${buttonTag}>
                 `)}
                 ${when(() => toolbar.showRightButton, html`
-                    <${buttonTag} appearance="ghost" slot="end">End slot Button</${buttonTag}>
+                    <${buttonTag} appearance="ghost" slot="end">Right Button 1</${buttonTag}>
+                    <${buttonTag} appearance="ghost" slot="end">Right Button 2</${buttonTag}>
                 `)}
             </${tabsToolbarTag}>
         `)}

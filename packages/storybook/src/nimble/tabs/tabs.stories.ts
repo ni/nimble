@@ -200,6 +200,7 @@ export const tabToolbar: StoryObj<ToolbarArgs> = {
                     `)}
                     ${when(x => x.end, html`
                         <${buttonTag} appearance="ghost" slot="end">Toolbar Button 2</${buttonTag}>
+                        <${buttonTag} appearance="ghost" slot="end">Toolbar Button 3</${buttonTag}>
                     `)}
                 </${tabsToolbarTag}>`)}
             <${tabTag}>Tab One</${tabTag}>
