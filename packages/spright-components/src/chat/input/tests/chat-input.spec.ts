@@ -142,7 +142,8 @@ describe('ChatInput', () => {
             page.clickSendButton();
 
             expect(sendSpy).toHaveBeenCalledTimes(1);
-            expect((sendSpy.calls.mostRecent().args[0] as CustomEvent<ChatInputSendEventDetail>).detail.text).toEqual('new value');
+            const event = sendSpy.calls.mostRecent().args[0] as CustomEvent<ChatInputSendEventDetail>;
+            expect(event.detail.text).toEqual('new value');
         });
 
         it('via Enter triggers send event with value as data', async () => {
@@ -152,7 +153,8 @@ describe('ChatInput', () => {
             await page.pressEnterKey();
 
             expect(sendSpy).toHaveBeenCalledTimes(1);
-            expect((sendSpy.calls.mostRecent().args[0] as CustomEvent<ChatInputSendEventDetail>).detail.text).toEqual('new value');
+            const event = sendSpy.calls.mostRecent().args[0] as CustomEvent<ChatInputSendEventDetail>;
+            expect(event.detail.text).toEqual('new value');
         });
 
         it('via button click with no text triggers no send event', () => {
