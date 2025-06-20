@@ -5,8 +5,14 @@ import { menuButtonTag } from '@ni/nimble-components/dist/esm/menu-button';
 import { menuTag } from '@ni/nimble-components/dist/esm/menu';
 import { menuItemTag } from '@ni/nimble-components/dist/esm/menu-item';
 import { toggleButtonTag } from '@ni/nimble-components/dist/esm/toggle-button';
-import { ChatConversation, chatConversationTag } from '@ni/spright-components/dist/esm/chat/conversation';
-import { ChatInput, chatInputTag } from '@ni/spright-components/dist/esm/chat/input';
+import {
+    ChatConversation,
+    chatConversationTag
+} from '@ni/spright-components/dist/esm/chat/conversation';
+import {
+    ChatInput,
+    chatInputTag
+} from '@ni/spright-components/dist/esm/chat/input';
 import type { ChatInputSendEventDetail } from '@ni/spright-components/dist/esm/chat/input/types';
 import { ChatMessageType } from '@ni/spright-components/dist/esm/chat/message/types';
 import { chatMessageTag } from '@ni/spright-components/dist/esm/chat/message';
@@ -46,6 +52,7 @@ export const chatConversation: StoryObj<ChatConversationArgs> = {
     parameters: {
         actions: {}
     },
+    // prettier-ignore
     render: createUserSelectedThemeStory(html`
         <style class='code-hide'>
             ${chatConversationTag} {
@@ -136,7 +143,11 @@ export const chatConversation: StoryObj<ChatConversationArgs> = {
             span.style.whiteSpace = 'pre-wrap';
             message.appendChild(span);
             conversationRef.appendChild(message);
-            message.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
+            message.scrollIntoView({
+                behavior: 'smooth',
+                block: 'nearest',
+                inline: 'start'
+            });
         }
     }
 };

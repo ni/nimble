@@ -5,7 +5,7 @@ import { chatInputTag } from '@ni/spright-components/dist/esm/chat/input';
 import {
     apiCategory,
     createUserSelectedThemeStory,
-    placeholderDescription,
+    placeholderDescription
 } from '../../../utilities/storybook';
 
 interface ChatInputArgs {
@@ -22,7 +22,7 @@ const metadata: Meta<ChatInputArgs> = {
         actions: {
             handles: ['send']
         }
-    },
+    }
 };
 
 export const chatInput: StoryObj<ChatInputArgs> = {
@@ -36,13 +36,16 @@ export const chatInput: StoryObj<ChatInputArgs> = {
     `),
     argTypes: {
         placeholder: {
-            description: placeholderDescription({ componentName: 'chat input' }),
+            description: placeholderDescription({
+                componentName: 'chat input'
+            }),
             control: { type: 'text' },
             table: { category: apiCategory.attributes }
         },
         sendButtonLabel: {
             name: 'send-button-label',
-            description: 'Text to use for a `title` and ARIA attributes on the send button.',
+            description:
+                'Text to use for a `title` and ARIA attributes on the send button.',
             table: { category: apiCategory.attributes }
         },
         value: {
@@ -51,13 +54,14 @@ export const chatInput: StoryObj<ChatInputArgs> = {
             table: { category: apiCategory.attributes }
         },
         send: {
-            description: 'Emitted when the user clicks the button or presses Enter with text present. Includes `ChatInputSendEventDetail` which is an object with a `text` field containing the input',
+            description:
+                'Emitted when the user clicks the button or presses Enter with text present. Includes `ChatInputSendEventDetail` which is an object with a `text` field containing the input',
             table: { category: apiCategory.events }
-        },
+        }
     },
     args: {
         placeholder: 'Type a message',
-        sendButtonLabel: 'Send',
+        sendButtonLabel: 'Send'
     }
 };
 

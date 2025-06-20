@@ -13,7 +13,7 @@ import { loremIpsum } from '../../../utilities/lorem-ipsum';
 
 const textStates = [
     ['empty', ''],
-    ['one line', 'My cat\'s breath smells like cat food.'],
+    ['one line', "My cat's breath smells like cat food."],
     ['multi line', loremIpsum]
 ] as const;
 type LongTextState = (typeof textStates)[number];
@@ -39,9 +39,7 @@ const component = (
 `;
 
 export const themeMatrix: StoryFn = createMatrixThemeStory(
-    createMatrix(component, [
-        textStates,
-    ])
+    createMatrix(component, [textStates])
 );
 
 export const hidden: StoryFn = createStory(
@@ -51,7 +49,5 @@ export const hidden: StoryFn = createStory(
 );
 
 export const textCustomized: StoryFn = createMatrixThemeStory(
-    textCustomizationWrapper(
-        html`<${chatInputTag}></${chatInputTag}>`
-    )
+    textCustomizationWrapper(html`<${chatInputTag}></${chatInputTag}>`)
 );

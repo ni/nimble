@@ -118,7 +118,7 @@ describe('ChatInput', () => {
             expect(page.isSendButtonEnabled()).toBeFalse();
         });
 
-        it('Enter doesn\'t modify value', async () => {
+        it("Enter doesn't modify value", async () => {
             page.setText('new value');
             await page.pressEnterKey();
             expect(element.value).toEqual('new value');

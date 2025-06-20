@@ -1,6 +1,9 @@
 import { keyEnter } from '@ni/fast-web-utilities';
 import { Button } from '@ni/nimble-components/dist/esm/button';
-import { processUpdates, waitForUpdatesAsync } from '@ni/nimble-components/dist/esm/testing/async-helpers';
+import {
+    processUpdates,
+    waitForUpdatesAsync
+} from '@ni/nimble-components/dist/esm/testing/async-helpers';
 import { sendKeyDownEvent } from '@ni/nimble-components/dist/esm/utilities/testing/component';
 import type { ChatInput } from '..';
 
@@ -28,8 +31,10 @@ export class ChatInputPageObject {
     }
 
     public textAreaHasFocus(): boolean {
-        return document.activeElement === this.element
-        && this.element.shadowRoot?.activeElement === this.element.textArea;
+        return (
+            document.activeElement === this.element
+            && this.element.shadowRoot?.activeElement === this.element.textArea
+        );
     }
 
     public getPlaceholder(): string {
@@ -66,12 +71,14 @@ export class ChatInputPageObject {
     }
 
     private async sendEnterKeyEvents(shiftKey: boolean): Promise<void> {
-        const keyDownEvent = await sendKeyDownEvent(this.element.textArea, keyEnter, { shiftKey });
+        const keyDownEvent = await sendKeyDownEvent(
+            this.element.textArea,
+            keyEnter,
+            { shiftKey }
+        );
         if (!keyDownEvent.defaultPrevented) {
             this.element.textArea.value += '\n';
-            this.element.textArea.dispatchEvent(
-                new InputEvent('input')
-            );
+            this.element.textArea.dispatchEvent(new InputEvent('input'));
         }
 
         await waitForUpdatesAsync();
