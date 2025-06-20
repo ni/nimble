@@ -1,7 +1,8 @@
 import { keyEnter } from '@ni/fast-web-utilities';
 import { Button } from '@ni/nimble-components/dist/esm/button';
+import { processUpdates, waitForUpdatesAsync } from '@ni/nimble-components/dist/esm/testing/async-helpers';
+import { sendKeyDownEvent } from '@ni/nimble-components/dist/esm/utilities/testing/component';
 import type { ChatInput } from '..';
-import { processUpdates } from '@ni/nimble-components/dist/esm/testing/async-helpers';
 
 /**
  * Page object for the `spright-chat-input` component to provide consistent ways
@@ -44,24 +45,30 @@ export class ChatInputPageObject {
         processUpdates();
     }
 
-    public pressEnterKey(): void {
+    public async pressEnterKey(): Promise<void> {
         this.element.textArea.focus();
-        this.element.textArea.dispatchEvent(
-            new KeyboardEvent('keydown', { key: keyEnter })
-        );
+        await this.sendEnterKeyEvents(false);
     }
 
-    public pressShiftEnterKey(): void {
+    public async pressShiftEnterKey(): Promise<void> {
         this.element.textArea.focus();
-        this.element.textArea.dispatchEvent(
-            new KeyboardEvent('keydown', { key: keyEnter, shiftKey: true })
-        );
-
-        processUpdates();
+        await this.sendEnterKeyEvents(true);
     }
 
     private getSendButton(): Button {
         const sendButton = this.element.shadowRoot!.querySelector<Button>('.send-button')!;
         return sendButton;
+    }
+
+    private async sendEnterKeyEvents(shiftKey: boolean): Promise<void> {
+        const keyDownEvent = await sendKeyDownEvent(this.element.textArea, keyEnter, { shiftKey });
+        if (!keyDownEvent.defaultPrevented) {
+            this.element.textArea.value += '\n';
+            this.element.textArea.dispatchEvent(
+                new InputEvent('input')
+            );
+        }
+
+        await waitForUpdatesAsync();
     }
 }

@@ -118,15 +118,15 @@ describe('ChatInput', () => {
             expect(page.isSendButtonEnabled()).toBeFalse();
         });
 
-        it('Enter doesn\'t modify value', () => {
+        it('Enter doesn\'t modify value', async () => {
             page.setText('new value');
-            page.pressEnterKey();
+            await page.pressEnterKey();
             expect(element.value).toEqual('new value');
         });
 
-        it('Shift-Enter adds newline', () => {
+        it('Shift-Enter adds newline', async () => {
             page.setText('new value');
-            page.pressShiftEnterKey();
+            await page.pressShiftEnterKey();
             expect(element.value).toEqual('new value\n');
         });
     });
