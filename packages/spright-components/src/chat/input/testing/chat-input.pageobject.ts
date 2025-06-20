@@ -27,6 +27,11 @@ export class ChatInputPageObject {
         return this.getSendButton().ariaLabel;
     }
 
+    public textAreaHasFocus(): boolean {
+        return document.activeElement === this.element
+        && this.element.shadowRoot?.activeElement === this.element.textArea;
+    }
+
     public getPlaceholder(): string {
         if (this.element.textArea.value) {
             throw Error('Placeholder not visible');

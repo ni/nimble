@@ -37,6 +37,16 @@ export class ChatInput extends FoundationElement {
     public disableSendButton = true;
 
     /**
+     * Clears the text input and gives it focus.
+     */
+    public resetInput(): void {
+        this.value = '';
+        this.textArea.value = '';
+        this.textArea.focus();
+        this.disableSendButton = true;
+    }
+
+    /**
      * @internal
      */
     public textAreaKeydownHandler(e: KeyboardEvent): boolean {
@@ -85,10 +95,6 @@ export class ChatInput extends FoundationElement {
             text: this.textArea.value
         };
         this.$emit('send', eventDetail);
-        this.value = '';
-        this.textArea.value = '';
-        this.textArea.focus();
-        this.disableSendButton = true;
     }
 
     private shouldDisableSendButton(): boolean {

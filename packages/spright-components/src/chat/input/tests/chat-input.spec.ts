@@ -1,9 +1,9 @@
 import { html } from '@ni/fast-element';
+import { processUpdates } from '@ni/nimble-components/dist/esm/testing/async-helpers';
 import { ChatInput, chatInputTag } from '..';
 import { fixture, type Fixture } from '../../../utilities/tests/fixture';
 import { ChatInputPageObject } from '../testing/chat-input.pageobject';
 import type { ChatInputSendEventDetail } from '../types';
-import { processUpdates } from '@ni/nimble-components/dist/esm/testing/async-helpers';
 
 async function setup(): Promise<Fixture<ChatInput>> {
     return await fixture<ChatInput>(html`<${chatInputTag}></${chatInputTag}>`);
@@ -162,17 +162,26 @@ describe('ChatInput', () => {
     //     });
     // });
 
-    // describe('reset method', () => {
-    //     beforeEach(async () => {
-    //         await connect();
-    //     });
+    describe('resetInput method', () => {
+        beforeEach(async () => {
+            await connect();
+        });
 
-    //     it('clears the input contents, sets focus, and disables the button', () => {
-    //     });
+        it('clears the input contents, sets focus, and disables the button', () => {
+            page.setText('new value');
+            element.resetInput();
+            processUpdates();
 
-    //     it('can be called from send event handler', () => {
-    //     });
-    // });
+            expect(element.value).toEqual('');
+            expect(page.getRenderedText()).toEqual('');
+            expect(page.textAreaHasFocus()).toBeTrue();
+            expect(page.isSendButtonEnabled()).toBeFalse();
+        });
+
+        it('can be called from send event handler', () => {
+            expect(false).toBeTrue();
+        });
+    });
 
     describe('sendButtonLabel', () => {
         beforeEach(async () => {
