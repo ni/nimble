@@ -12,6 +12,7 @@ import {
     disabledDescription
 } from '../../utilities/storybook';
 import { ExampleTabsType } from '../patterns/tabs/types';
+import { defaultSlotDescription, endSlotDescription } from '../patterns/tabs/doc-strings';
 
 interface TabsArgs {
     activeid: string;
@@ -202,7 +203,8 @@ export const tabToolbar: StoryObj<ToolbarArgs> = {
                         <${buttonTag} appearance="ghost" slot="end">Toolbar Button 2</${buttonTag}>
                         <${buttonTag} appearance="ghost" slot="end">Toolbar Button 3</${buttonTag}>
                     `)}
-                </${tabsToolbarTag}>`)}
+                </${tabsToolbarTag}>
+            `)}
             <${tabTag}>Tab One</${tabTag}>
             <${tabTag}>Tab Two</${tabTag}>
             <${tabPanelTag}>Content of the first tab</${tabPanelTag}>
@@ -217,12 +219,12 @@ export const tabToolbar: StoryObj<ToolbarArgs> = {
         },
         start: {
             name: 'start',
-            description: `Slot to display elements on the left side of the \`${tabsToolbarTag}\`. This is also the default slot.`,
+            description: defaultSlotDescription,
             table: { category: apiCategory.slots }
         },
         end: {
             name: 'end',
-            description: `Slot to display elements on the right side of the \`${tabsToolbarTag}\`. If slotted content is only in the end slot, the separator will be hidden.`,
+            description: endSlotDescription,
             table: { category: apiCategory.slots }
         }
     },

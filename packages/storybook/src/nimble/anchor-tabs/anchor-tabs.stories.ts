@@ -11,6 +11,7 @@ import {
 } from '../../utilities/storybook';
 import { hrefDescription } from '../patterns/anchor/anchor-docs';
 import { ExampleTabsType } from '../patterns/tabs/types';
+import { defaultSlotDescription, endSlotDescription } from '../patterns/tabs/doc-strings';
 
 interface AnchorTabsArgs {
     activeid: string;
@@ -27,6 +28,8 @@ interface AnchorTabArgs {
 
 interface ToolbarArgs {
     toolbar: boolean;
+    start: boolean;
+    end: boolean;
 }
 
 const simpleTabs = [
@@ -165,8 +168,18 @@ export const anchorTab: StoryObj<AnchorTabArgs> = {
 
 export const tabsToolbar: StoryObj<ToolbarArgs> = {
     render: createUserSelectedThemeStory(html`
-        <${anchorTabsTag} activeid="1">
-            ${when(x => x.toolbar, html<ToolbarArgs>`<${tabsToolbarTag}><${buttonTag} appearance="ghost">Toolbar Button</${buttonTag}></${tabsToolbarTag}>`)}
+        <${anchorTabsTag} activeid="1" style="width: 800px;">
+            ${when(x => x.toolbar, html<ToolbarArgs>`
+                <${tabsToolbarTag}>
+                    ${when(x => x.start, html`
+                        <${buttonTag} appearance="ghost">Toolbar Button 1</${buttonTag}>
+                    `)}
+                    ${when(x => x.end, html`
+                        <${buttonTag} slot="end" appearance="ghost">Toolbar Button 2</${buttonTag}>
+                        <${buttonTag} slot="end" appearance="ghost">Toolbar Button 3</${buttonTag}>
+                    `)}
+                </${tabsToolbarTag}>
+            `)}
             <${anchorTabTag} id="1" disabled href="https://www.google.com">Google</${anchorTabTag}>
             <${anchorTabTag} id="2" href="https://www.ni.com">NI</${anchorTabTag}>
             <${anchorTabTag} id="3" href="https://nimble.ni.dev">Nimble</${anchorTabTag}>
@@ -177,9 +190,21 @@ export const tabsToolbar: StoryObj<ToolbarArgs> = {
             name: 'default',
             description: `Add a tabs toolbar as a child of the tabs and populate its content with \`${buttonTag}\` elements.`,
             table: { category: apiCategory.slots }
+        },
+        start: {
+            name: 'start',
+            description: defaultSlotDescription,
+            table: { category: apiCategory.slots }
+        },
+        end: {
+            name: 'end',
+            description: endSlotDescription,
+            table: { category: apiCategory.slots }
         }
     },
     args: {
-        toolbar: true
+        toolbar: true,
+        start: true,
+        end: true
     }
 };
