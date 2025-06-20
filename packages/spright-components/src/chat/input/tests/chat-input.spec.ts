@@ -1,6 +1,5 @@
 import { html } from '@ni/fast-element';
 import { processUpdates } from '@ni/nimble-components/dist/esm/testing/async-helpers';
-import { waitForEvent } from '@ni/nimble-components/dist/esm/utilities/testing/component';
 import { ChatInput, chatInputTag } from '..';
 import { fixture, type Fixture } from '../../../utilities/tests/fixture';
 import { ChatInputPageObject } from '../testing/chat-input.pageobject';
@@ -9,10 +8,6 @@ import type { ChatInputSendEventDetail } from '../types';
 async function setup(): Promise<Fixture<ChatInput>> {
     return await fixture<ChatInput>(html`<${chatInputTag}></${chatInputTag}>`);
 }
-
-type ChatInputSendEventHandler = (
-    evt: CustomEvent<ChatInputSendEventDetail>
-) => void;
 
 describe('ChatInput', () => {
     let element: ChatInput;
@@ -132,46 +127,55 @@ describe('ChatInput', () => {
         });
     });
 
-    fdescribe('send', () => {
-        const spy = jasmine.createSpy<ChatInputSendEventHandler>();
+    describe('send', () => {
+        const sendSpy = jasmine.createSpy();
         beforeEach(async () => {
             await connect();
-            spy.calls.reset();
+            element.addEventListener('send', sendSpy);
+            sendSpy.calls.reset();
         });
 
         it('via button click triggers send event with value as data', async () => {
-            const sendListener = waitForEvent(element, 'send', spy);
             element.value = 'new value';
             processUpdates();
 
             page.clickSendButton();
-            await sendListener;
 
-            expect(spy).toHaveBeenCalledTimes(1);
-            expect(spy.calls.mostRecent().args[0].detail.text).toEqual('new value');
+            expect(sendSpy).toHaveBeenCalledTimes(1);
+            expect((sendSpy.calls.mostRecent().args[0] as CustomEvent<ChatInputSendEventDetail>).detail.text).toEqual('new value');
         });
 
         it('via Enter triggers send event with value as data', async () => {
-            const sendListener = waitForEvent(element, 'send', spy);
             element.value = 'new value';
             processUpdates();
 
             await page.pressEnterKey();
-            await sendListener;
 
-            expect(spy).toHaveBeenCalledTimes(1);
-            expect(spy.calls.mostRecent().args[0].detail.text).toEqual('new value');
+            expect(sendSpy).toHaveBeenCalledTimes(1);
+            expect((sendSpy.calls.mostRecent().args[0] as CustomEvent<ChatInputSendEventDetail>).detail.text).toEqual('new value');
         });
-    //     it('via button click with no text triggers no send event', () => {
-    //     });
 
-    //     it('via Enter with no text triggers no send event', () => {
-    //     });
+        it('via button click with no text triggers no send event', () => {
+            processUpdates();
+            page.clickSendButton();
 
-    //     it('Shift-Enter triggers no send event', () => {
-    //         page.setText('new value');
-    //         page.pressShiftEnterKey();
-    //     });
+            expect(sendSpy).not.toHaveBeenCalled();
+        });
+
+        it('via Enter with no text triggers no send event', async () => {
+            processUpdates();
+            await page.pressEnterKey();
+
+            expect(sendSpy).not.toHaveBeenCalled();
+        });
+
+        it('Shift-Enter triggers no send event', async () => {
+            element.value = 'new value';
+            processUpdates();
+            await page.pressShiftEnterKey();
+
+            expect(sendSpy).not.toHaveBeenCalled();
+        });
     });
 
     describe('resetInput method', () => {
@@ -190,8 +194,23 @@ describe('ChatInput', () => {
             expect(page.isSendButtonEnabled()).toBeFalse();
         });
 
-        it('can be called from send event handler', () => {
-            expect(false).toBeTrue();
+        it('can be called from send event handler', async () => {
+            const spy = jasmine.createSpy('send', () => {
+                element.resetInput();
+                processUpdates();
+
+                expect(element.value).toEqual('');
+                expect(page.getRenderedText()).toEqual('');
+                expect(page.textAreaHasFocus()).toBeTrue();
+                expect(page.isSendButtonEnabled()).toBeFalse();
+            });
+
+            element.addEventListener('send', spy);
+            element.value = 'new value';
+            processUpdates();
+
+            await page.pressEnterKey();
+            expect(spy).toHaveBeenCalledTimes(1);
         });
     });
 
