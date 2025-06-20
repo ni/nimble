@@ -6,6 +6,7 @@ import { NimbleTableDirective, TableRecordDelayedHierarchyState, type TableRecor
 import { NimbleRichTextEditorDirective } from '@ni/nimble-angular/rich-text/editor';
 import { BehaviorSubject, Observable } from 'rxjs';
 import type { MenuButtonColumnToggleEventDetail } from '@ni/nimble-angular/table-column/menu-button';
+import type { ChatInput, ChatInputSendEventDetail } from '@ni/spright-angular/chat/input';
 
 const colors = ['Red', 'Green', 'Blue', 'Black', 'Yellow'] as const;
 type Color = typeof colors[number];
@@ -283,8 +284,10 @@ export class CustomAppComponent implements AfterViewInit {
         }
     }
 
-    public onChatInputSend(message: string): void {
-        this.chatUserMessages.push(message);
+    public onChatInputSend(e: Event): void {
+        const chatInputSendEvent = (e as CustomEvent<ChatInputSendEventDetail>);
+        (chatInputSendEvent.target as ChatInput).resetInput();
+        this.chatUserMessages.push(chatInputSendEvent.detail.text);
     }
 
     private setDynamicSelectItems(dynamicSelectItems: ComboboxItem[]): void {

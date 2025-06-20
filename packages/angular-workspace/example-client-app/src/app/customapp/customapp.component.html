@@ -483,7 +483,7 @@
                         <nimble-button slot="end" appearance="block">Check core temperature</nimble-button>
                     </spright-chat-message>
                     <spright-chat-message message-type="outbound" *ngFor="let message of chatUserMessages"><span>{{message}}</span></spright-chat-message>
-                    <spright-chat-input slot="input" (sendEvent)="onChatInputSend($event)"></spright-chat-input>
+                    <spright-chat-input slot="input" (send)="onChatInputSend($event)"></spright-chat-input>
                 </spright-chat-conversation>
             </div>
         </div>
