@@ -95,7 +95,11 @@ nimble-table {
     margin-top: $ni-nimble-small-padding;
 }
 
-spright-chat-conversation {
+.chat {
     border: dashed lightgray;
     max-width: 700px;
+}
+
+spright-chat-message span {
+    white-space: pre-wrap;
 }

@@ -5,7 +5,7 @@ const imgBlob = new Blob([webviCustom16X16.data], {
 });
 export const imgBlobUrl = URL.createObjectURL(imgBlob);
 
-export const markdownExample = "I see **Esc**, **Crtl**, and **Pg Up**. There doesn't seem to be any **Any** key.";
+export const markdownExample = "I see **Esc**, **Ctrl**, and **Pg Up**. There doesn't seem to be any **Any** key.";
 
 export const multiLineMarkdownExample = `
 Introduction to TestStand

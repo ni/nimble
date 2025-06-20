@@ -7,5 +7,6 @@
 import '@ni/nimble-components/dist/esm/all-components';
 
 import './chat/conversation';
+import './chat/input';
 import './chat/message';
 import './rectangle';
