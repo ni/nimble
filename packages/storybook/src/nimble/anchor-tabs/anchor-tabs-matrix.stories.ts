@@ -14,7 +14,33 @@ import { type DisabledState, disabledStates } from '../../utilities/states';
 import { hiddenWrapper } from '../../utilities/hidden';
 import { textCustomizationWrapper } from '../../utilities/text-customization';
 
-const tabsToolbarStates = [false, true] as const;
+const tabsToolbarStates = [
+    {
+        showToolbar: false,
+        showLeftButton: false,
+        showRightButton: false
+    },
+    {
+        showToolbar: true,
+        showLeftButton: false,
+        showRightButton: false
+    },
+    {
+        showToolbar: true,
+        showLeftButton: true,
+        showRightButton: false
+    },
+    {
+        showToolbar: true,
+        showLeftButton: false,
+        showRightButton: true
+    },
+    {
+        showToolbar: true,
+        showLeftButton: true,
+        showRightButton: true
+    }
+] as const;
 type TabsToolbarState = (typeof tabsToolbarStates)[number];
 
 const widthStates = ['', '250px'] as const;
@@ -36,10 +62,15 @@ const component = (
     widthValue: WidthState
 ): ViewTemplate => html`
     <${anchorTabsTag} activeid="tab1" style="padding: 15px;${widthValue ? ` width: ${widthValue};` : ''}">
-        ${when(() => toolbar, html`
+        ${when(() => toolbar.showToolbar, html`
             <${tabsToolbarTag}>
-                <${buttonTag} appearance="ghost">Toolbar Button</${buttonTag}>
-                <${buttonTag} appearance="ghost" style="margin-left: auto;">Right-aligned Button</${buttonTag}>
+                ${when(() => toolbar.showLeftButton, html`
+                    <${buttonTag} appearance="ghost">Left Button</${buttonTag}>
+                `)}
+                ${when(() => toolbar.showRightButton, html`
+                    <${buttonTag} appearance="ghost">Right Button</${buttonTag}>
+                    <${buttonTag} appearance="ghost">Right Button 2</${buttonTag}>
+                `)}
             </${tabsToolbarTag}>
         `)}
         <${anchorTabTag} id="tab1">Tab One</${anchorTabTag}>
