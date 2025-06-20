@@ -139,6 +139,9 @@ export const iconMetadata: {
     IconCalendarCheckLines: {
         tags: ['test', 'plan', 'schedule']
     },
+    IconCalendarCircleExclamation: {
+        tags: ['conflict', 'schedule']
+    },
     IconCalendarClock: {
         tags: ['time', 'schedule']
     },
@@ -173,7 +176,7 @@ export const iconMetadata: {
         tags: ['assets']
     },
     IconCheck: {
-        tags: ['status', 'success', 'alarm acknowledged']
+        tags: ['status', 'success', 'alarm acknowledged', 'approve']
     },
     IconCheckDot: {
         tags: ['status', 'done']
@@ -185,7 +188,7 @@ export const iconMetadata: {
         tags: ['status', 'disconnected']
     },
     IconCircleCheck: {
-        tags: ['status', 'acknowledged']
+        tags: ['status', 'acknowledged', 'ready']
     },
     IconCircleFilled: {
         tags: []
@@ -676,7 +679,7 @@ export const iconMetadata: {
         tags: ['status', 'custom']
     },
     IconXmark: {
-        tags: ['status', 'fail']
+        tags: ['status', 'fail', 'cancel']
     },
     IconXmarkCheck: {
         tags: ['self test']

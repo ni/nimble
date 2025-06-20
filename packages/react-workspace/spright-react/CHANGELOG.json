@@ -2,6 +2,66 @@
   "name": "@ni/spright-react",
   "entries": [
     {
+      "date": "Fri, 20 Jun 2025 06:07:44 GMT",
+      "version": "0.1.1",
+      "tag": "@ni/spright-react_v0.1.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/spright-react",
+            "comment": "Bump @ni/spright-components to v5.4.1",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 10 Jun 2025 20:39:08 GMT",
+      "version": "0.1.0",
+      "tag": "@ni/spright-react_v0.1.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "beachball",
+            "package": "@ni/spright-react",
+            "comment": "Bump @ni/spright-components to v5.4.0",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 03 Jun 2025 16:23:41 GMT",
+      "version": "0.0.4",
+      "tag": "@ni/spright-react_v0.0.4",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/spright-react",
+            "comment": "Bump @ni/spright-components to v5.3.3",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 29 May 2025 01:50:59 GMT",
+      "version": "0.0.3",
+      "tag": "@ni/spright-react_v0.0.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/spright-react",
+            "comment": "Bump @ni/spright-components to v5.3.2",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 27 May 2025 20:25:14 GMT",
       "version": "0.0.2",
       "tag": "@ni/spright-react_v0.0.2",
