@@ -1,5 +1,6 @@
 import { html } from '@ni/fast-element';
 import { processUpdates } from '@ni/nimble-components/dist/esm/testing/async-helpers';
+import { waitForEvent } from '@ni/nimble-components/dist/esm/utilities/testing/component';
 import { ChatInput, chatInputTag } from '..';
 import { fixture, type Fixture } from '../../../utilities/tests/fixture';
 import { ChatInputPageObject } from '../testing/chat-input.pageobject';
@@ -131,26 +132,37 @@ describe('ChatInput', () => {
         });
     });
 
-    // describe('send', () => {
-    //     const spy = jasmine.createSpy<ChatInputSendEventHandler>();
-    //     const sendListener = waitForEvent(element, 'send', spy);
-    //     beforeEach(async () => {
-    //         await connect();
-    //         spy.calls.reset();
-    //     });
+    fdescribe('send', () => {
+        const spy = jasmine.createSpy<ChatInputSendEventHandler>();
+        beforeEach(async () => {
+            await connect();
+            spy.calls.reset();
+        });
 
-    //     it('via button click triggers send event with value as data', async () => {
-    //         element.value = 'new value';
-    //         page.clickSendButton();
-    //         await sendListener;
-    //         expect(spy).toHaveBeenCalledTimes(1);
-    //         expect(spy.calls.mostRecent().args[0].detail.text).toEqual('new value');
-    //     });
+        it('via button click triggers send event with value as data', async () => {
+            const sendListener = waitForEvent(element, 'send', spy);
+            element.value = 'new value';
+            processUpdates();
 
+            page.clickSendButton();
+            await sendListener;
+
+            expect(spy).toHaveBeenCalledTimes(1);
+            expect(spy.calls.mostRecent().args[0].detail.text).toEqual('new value');
+        });
+
+        it('via Enter triggers send event with value as data', async () => {
+            const sendListener = waitForEvent(element, 'send', spy);
+            element.value = 'new value';
+            processUpdates();
+
+            await page.pressEnterKey();
+            await sendListener;
+
+            expect(spy).toHaveBeenCalledTimes(1);
+            expect(spy.calls.mostRecent().args[0].detail.text).toEqual('new value');
+        });
     //     it('via button click with no text triggers no send event', () => {
-    //     });
-
-    //     it('via Enter triggers send event with value as data', () => {
     //     });
 
     //     it('via Enter with no text triggers no send event', () => {
@@ -160,7 +172,7 @@ describe('ChatInput', () => {
     //         page.setText('new value');
     //         page.pressShiftEnterKey();
     //     });
-    // });
+    });
 
     describe('resetInput method', () => {
         beforeEach(async () => {
