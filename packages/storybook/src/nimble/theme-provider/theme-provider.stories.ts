@@ -1,5 +1,5 @@
 import { html, ref } from '@ni/fast-element';
-import type { Meta, StoryObj } from '@storybook/html';
+import type { Meta, StoryObj } from '@storybook/html-vite';
 import { tableTag } from '@ni/nimble-components/dist/esm/table';
 import { tableColumnDateTextTag } from '@ni/nimble-components/dist/esm/table-column/date-text';
 import {

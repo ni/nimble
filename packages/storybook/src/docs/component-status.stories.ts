@@ -1,5 +1,5 @@
 import { html, ref } from '@ni/fast-element';
-import type { Meta, StoryObj } from '@storybook/html';
+import type { Meta, StoryObj } from '@storybook/html-vite';
 import { Table, tableTag } from '@ni/nimble-components/dist/esm/table';
 import { tableColumnAnchorTag } from '@ni/nimble-components/dist/esm/table-column/anchor';
 import { tableColumnMappingTag } from '@ni/nimble-components/dist/esm/table-column/mapping';

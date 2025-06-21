@@ -1,4 +1,4 @@
-import type { StoryFn, Meta } from '@storybook/html';
+import type { StoryFn, Meta } from '@storybook/html-vite';
 import { html, ViewTemplate } from '@ni/fast-element';
 import { iconUserTag } from '@ni/nimble-components/dist/esm/icons/user';
 import { tableTag } from '@ni/nimble-components/dist/esm/table';

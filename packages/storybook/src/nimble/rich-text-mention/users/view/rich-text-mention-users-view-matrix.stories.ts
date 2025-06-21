@@ -1,5 +1,5 @@
 import { ViewTemplate, html } from '@ni/fast-element';
-import type { Meta, StoryFn } from '@storybook/html';
+import type { Meta, StoryFn } from '@storybook/html-vite';
 import {
     bodyFont,
     bodyFontColor,
