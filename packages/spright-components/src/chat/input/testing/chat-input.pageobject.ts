@@ -38,30 +38,30 @@ export class ChatInputPageObject {
     }
 
     public getPlaceholder(): string {
-        if (this.element.textArea.value) {
+        if (this.element.textArea!.value) {
             throw Error('Placeholder not visible');
         }
-        return this.element.textArea.placeholder;
+        return this.element.textArea!.placeholder;
     }
 
     public getRenderedText(): string {
-        return this.element.textArea.value;
+        return this.element.textArea!.value;
     }
 
     public setText(text: string): void {
-        this.element.textArea.focus();
-        this.element.textArea.value = text;
+        this.element.textArea!.focus();
+        this.element.textArea!.value = text;
         this.element.textAreaInputHandler();
         processUpdates();
     }
 
     public async pressEnterKey(): Promise<void> {
-        this.element.textArea.focus();
+        this.element.textArea!.focus();
         await this.sendEnterKeyEvents(false);
     }
 
     public async pressShiftEnterKey(): Promise<void> {
-        this.element.textArea.focus();
+        this.element.textArea!.focus();
         await this.sendEnterKeyEvents(true);
     }
 
@@ -72,13 +72,13 @@ export class ChatInputPageObject {
 
     private async sendEnterKeyEvents(shiftKey: boolean): Promise<void> {
         const keyDownEvent = await sendKeyDownEvent(
-            this.element.textArea,
+            this.element.textArea!,
             keyEnter,
             { shiftKey }
         );
         if (!keyDownEvent.defaultPrevented) {
-            this.element.textArea.value += '\n';
-            this.element.textArea.dispatchEvent(new InputEvent('input'));
+            this.element.textArea!.value += '\n';
+            this.element.textArea!.dispatchEvent(new InputEvent('input'));
         }
 
         await waitForUpdatesAsync();
