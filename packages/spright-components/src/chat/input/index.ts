@@ -28,7 +28,7 @@ export class ChatInput extends FoundationElement {
      * @internal
      */
     @observable
-    public textArea!: HTMLTextAreaElement;
+    public textArea?: HTMLTextAreaElement;
 
     /**
      * @internal
@@ -41,9 +41,11 @@ export class ChatInput extends FoundationElement {
      */
     public resetInput(): void {
         this.value = '';
-        this.textArea.value = '';
-        this.textArea.focus();
         this.disableSendButton = true;
+        if (this.textArea) {
+            this.textArea.value = '';
+            this.textArea.focus();
+        }
     }
 
     /**
@@ -61,7 +63,7 @@ export class ChatInput extends FoundationElement {
      * @internal
      */
     public textAreaInputHandler(): void {
-        this.value = this.textArea.value;
+        this.value = this.textArea!.value;
         this.disableSendButton = this.shouldDisableSendButton();
     }
 
@@ -80,7 +82,7 @@ export class ChatInput extends FoundationElement {
      */
     public override connectedCallback(): void {
         super.connectedCallback();
-        this.textArea.value = this.value;
+        this.textArea!.value = this.value;
         this.disableSendButton = this.shouldDisableSendButton();
     }
 
@@ -92,13 +94,13 @@ export class ChatInput extends FoundationElement {
             return;
         }
         const eventDetail: ChatInputSendEventDetail = {
-            text: this.textArea.value
+            text: this.textArea!.value
         };
         this.$emit('send', eventDetail);
     }
 
     private shouldDisableSendButton(): boolean {
-        return this.textArea.value.length === 0;
+        return this.textArea!.value.length === 0;
     }
 }
 
