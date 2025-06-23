@@ -127,7 +127,8 @@ export const tabs: StoryObj<TabsArgs> = {
                 type: 'radio',
                 labels: {
                     [ExampleTabsType.simpleTabs]: 'Simple tabs',
-                    [ExampleTabsType.simpleTabsWithToolbar]: 'Simple tabs with toolbar',
+                    [ExampleTabsType.simpleTabsWithToolbar]:
+                        'Simple tabs with toolbar',
                     [ExampleTabsType.manyTabs]: 'Many tabs',
                     [ExampleTabsType.wideTabs]: 'Wide tabs'
                 }
