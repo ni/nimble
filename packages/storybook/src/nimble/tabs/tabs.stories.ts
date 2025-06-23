@@ -35,8 +35,7 @@ interface TabPanelArgs {
 }
 
 interface ToolbarArgs {
-    toolbar: boolean;
-    start: boolean;
+    default: boolean;
     end: boolean;
 }
 
@@ -81,6 +80,7 @@ for (let i = 1; i <= 100; i++) {
 
 const tabSets = {
     [ExampleTabsType.simpleTabs]: simpleTabs,
+    [ExampleTabsType.simpleTabsWithToolbar]: simpleTabs,
     [ExampleTabsType.wideTabs]: wideTabs,
     [ExampleTabsType.manyTabs]: manyTabs
 } as const;
@@ -102,6 +102,13 @@ export const tabs: StoryObj<TabsArgs> = {
         ${repeat(x => (tabSets[x.tabsType] as TabArgs[]), html<TabArgs>`
             <${tabPanelTag}>Content of tab ${x => x.id}</${tabPanelTag}>
         `, { positioning: true })}
+        ${when(x => x.tabsType === ExampleTabsType.simpleTabsWithToolbar, html<TabsArgs>`
+            <${tabsToolbarTag}>
+                <${buttonTag} appearance="ghost">Toolbar Button</${buttonTag}>
+                <${buttonTag} appearance="ghost" slot="end">Toolbar Button 2</${buttonTag}>
+                <${buttonTag} appearance="ghost" slot="end">Toolbar Button 3</${buttonTag}>
+            </${tabsToolbarTag}>
+        `)}
         </${tabsTag}>
     `),
     argTypes: {
@@ -197,17 +204,15 @@ export const tabToolbar: StoryObj<ToolbarArgs> = {
     // prettier-ignore
     render: createUserSelectedThemeStory(html`
         <${tabsTag} style="width: 800px;">
-            ${when(x => x.toolbar, html<ToolbarArgs>`
-                <${tabsToolbarTag}>
-                    ${when(x => x.start, html`
-                        <${buttonTag} appearance="ghost">Toolbar Button</${buttonTag}>
-                    `)}
-                    ${when(x => x.end, html`
-                        <${buttonTag} appearance="ghost" slot="end">Toolbar Button 2</${buttonTag}>
-                        <${buttonTag} appearance="ghost" slot="end">Toolbar Button 3</${buttonTag}>
-                    `)}
-                </${tabsToolbarTag}>
-            `)}
+            <${tabsToolbarTag}>
+                ${when(x => x.default, html`
+                    <${buttonTag} appearance="ghost">Toolbar Button</${buttonTag}>
+                `)}
+                ${when(x => x.end, html`
+                    <${buttonTag} appearance="ghost" slot="end">Toolbar Button 2</${buttonTag}>
+                    <${buttonTag} appearance="ghost" slot="end">Toolbar Button 3</${buttonTag}>
+                `)}
+            </${tabsToolbarTag}>
             <${tabTag}>Tab One</${tabTag}>
             <${tabTag}>Tab Two</${tabTag}>
             <${tabPanelTag}>Content of the first tab</${tabPanelTag}>
@@ -215,13 +220,8 @@ export const tabToolbar: StoryObj<ToolbarArgs> = {
         </${tabsTag}>
     `),
     argTypes: {
-        toolbar: {
+        default: {
             name: 'default',
-            description: `Add a tabs toolbar as a child of the tabs and populate its content with \`${buttonTag}\` elements.`,
-            table: { category: apiCategory.slots }
-        },
-        start: {
-            name: 'start',
             description: defaultSlotDescription,
             table: { category: apiCategory.slots }
         },
@@ -232,8 +232,7 @@ export const tabToolbar: StoryObj<ToolbarArgs> = {
         }
     },
     args: {
-        toolbar: true,
-        start: true,
+        default: true,
         end: true
     }
 };

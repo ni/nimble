@@ -30,8 +30,7 @@ interface AnchorTabArgs {
 }
 
 interface ToolbarArgs {
-    toolbar: boolean;
-    start: boolean;
+    default: boolean;
     end: boolean;
 }
 
@@ -74,6 +73,7 @@ for (let i = 1; i <= 100; i++) {
 
 const tabSets = {
     [ExampleTabsType.simpleTabs]: simpleTabs,
+    [ExampleTabsType.simpleTabsWithToolbar]: simpleTabs,
     [ExampleTabsType.wideTabs]: wideTabs,
     [ExampleTabsType.manyTabs]: manyTabs
 } as const;
@@ -85,11 +85,10 @@ const metadata: Meta<AnchorTabsArgs> = {
 export default metadata;
 
 export const anchorTabs: StoryObj<AnchorTabsArgs> = {
+    // prettier-ignore
     render: createUserSelectedThemeStory(html`
-    <${anchorTabsTag} activeid="${x => x.activeid}">
-        ${repeat(
-        x => tabSets[x.tabsType] as AnchorTabArgs[],
-        html<AnchorTabArgs>`
+        <${anchorTabsTag} activeid="${x => x.activeid}">
+        ${repeat(x => tabSets[x.tabsType] as AnchorTabArgs[], html<AnchorTabArgs>`
             <${anchorTabTag}
                 ?disabled="${x => x.disabled}"
                 id="${x => x.id}"
@@ -97,8 +96,14 @@ export const anchorTabs: StoryObj<AnchorTabsArgs> = {
             >
                 ${x => x.title}
             </${anchorTabTag}>
-        `
-    )}
+        `)}
+        ${when(x => x.tabsType === ExampleTabsType.simpleTabsWithToolbar, html`
+            <${tabsToolbarTag}>
+                <${buttonTag} appearance="ghost">Toolbar Button</${buttonTag}>
+                <${buttonTag} appearance="ghost" slot="end">Toolbar Button 2</${buttonTag}>
+                <${buttonTag} appearance="ghost" slot="end">Toolbar Button 3</${buttonTag}>
+            </${tabsToolbarTag}>
+        `)}
     </${anchorTabsTag}>
     `),
     argTypes: {
@@ -173,30 +178,23 @@ export const tabsToolbar: StoryObj<ToolbarArgs> = {
     // prettier-ignore
     render: createUserSelectedThemeStory(html`
         <${anchorTabsTag} activeid="1" style="width: 800px;">
-            ${when(x => x.toolbar, html<ToolbarArgs>`
-                <${tabsToolbarTag}>
-                    ${when(x => x.start, html`
-                        <${buttonTag} appearance="ghost">Toolbar Button 1</${buttonTag}>
-                    `)}
-                    ${when(x => x.end, html`
-                        <${buttonTag} slot="end" appearance="ghost">Toolbar Button 2</${buttonTag}>
-                        <${buttonTag} slot="end" appearance="ghost">Toolbar Button 3</${buttonTag}>
-                    `)}
-                </${tabsToolbarTag}>
-            `)}
+            <${tabsToolbarTag}>
+                ${when(x => x.default, html`
+                    <${buttonTag} appearance="ghost">Toolbar Button 1</${buttonTag}>
+                `)}
+                ${when(x => x.end, html`
+                    <${buttonTag} slot="end" appearance="ghost">Toolbar Button 2</${buttonTag}>
+                    <${buttonTag} slot="end" appearance="ghost">Toolbar Button 3</${buttonTag}>
+                `)}
+            </${tabsToolbarTag}>
             <${anchorTabTag} id="1" disabled href="https://www.google.com">Google</${anchorTabTag}>
             <${anchorTabTag} id="2" href="https://www.ni.com">NI</${anchorTabTag}>
             <${anchorTabTag} id="3" href="https://nimble.ni.dev">Nimble</${anchorTabTag}>
         </${anchorTabsTag}>
     `),
     argTypes: {
-        toolbar: {
+        default: {
             name: 'default',
-            description: `Add a tabs toolbar as a child of the tabs and populate its content with \`${buttonTag}\` elements.`,
-            table: { category: apiCategory.slots }
-        },
-        start: {
-            name: 'start',
             description: defaultSlotDescription,
             table: { category: apiCategory.slots }
         },
@@ -207,8 +205,7 @@ export const tabsToolbar: StoryObj<ToolbarArgs> = {
         }
     },
     args: {
-        toolbar: true,
-        start: true,
+        default: true,
         end: true
     }
 };
