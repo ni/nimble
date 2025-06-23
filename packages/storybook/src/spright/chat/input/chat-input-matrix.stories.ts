@@ -14,7 +14,7 @@ import { loremIpsum } from '../../../utilities/lorem-ipsum';
 const textStates = [
     ['empty', ''],
     ['one line', "My cat's breath smells like cat food."],
-    ['multi line', loremIpsum]
+    ['multi line', `${loremIpsum} ${loremIpsum} ${loremIpsum}`]
 ] as const;
 type LongTextState = (typeof textStates)[number];
 
