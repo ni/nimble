@@ -122,6 +122,7 @@ export const anchorTabs: StoryObj<AnchorTabsArgs> = {
                 type: 'radio',
                 labels: {
                     [ExampleTabsType.simpleTabs]: 'Simple tabs',
+                    [ExampleTabsType.simpleTabsWithToolbar]: 'Simple tabs with toolbar',
                     [ExampleTabsType.manyTabs]: 'Many tabs',
                     [ExampleTabsType.wideTabs]: 'Wide tabs'
                 }
