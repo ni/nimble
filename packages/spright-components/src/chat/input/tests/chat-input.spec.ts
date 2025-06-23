@@ -216,6 +216,18 @@ describe('ChatInput', () => {
             await page.pressEnterKey();
             expect(spy).toHaveBeenCalledTimes(1);
         });
+
+        it('can be called when not connected', async () => {
+            element.value = 'hello';
+            await disconnect();
+            element.resetInput();
+            await connect();
+            processUpdates();
+            expect(element.value).toEqual('');
+            expect(page.getRenderedText()).toEqual('');
+            expect(page.textAreaHasFocus()).toBeTrue();
+            expect(page.isSendButtonEnabled()).toBeFalse();
+        });
     });
 
     describe('sendButtonLabel', () => {
