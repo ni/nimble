@@ -3,7 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { SprightChatMessageModule } from '../spright-chat-message.module';
 import { ChatMessageType, SprightChatMessageDirective, type ChatMessage } from '../spright-chat-message.directive';
 
-describe('Spright chat', () => {
+describe('Spright chat message', () => {
     describe('module', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
@@ -11,12 +11,12 @@ describe('Spright chat', () => {
             });
         });
 
-        it('message custom element is defined', () => {
+        it('custom element is defined', () => {
             expect(customElements.get('spright-chat-message')).not.toBeUndefined();
         });
     });
 
-    describe('message with no values in template', () => {
+    describe('with no values in template', () => {
         @Component({
             template: `
                 <spright-chat-message #message>Content</spright-chat-message>
@@ -48,7 +48,7 @@ describe('Spright chat', () => {
         });
     });
 
-    describe('message with template string values', () => {
+    describe('with template string values', () => {
         @Component({
             template: `
                 <spright-chat-message #message
@@ -82,7 +82,7 @@ describe('Spright chat', () => {
         });
     });
 
-    describe('message with property bound values', () => {
+    describe('with property bound values', () => {
         @Component({
             template: `
                 <spright-chat-message #message
@@ -123,7 +123,7 @@ describe('Spright chat', () => {
         });
     });
 
-    describe('message with attribute bound values', () => {
+    describe('with attribute bound values', () => {
         @Component({
             template: `
                 <spright-chat-message #message

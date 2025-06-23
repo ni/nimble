@@ -3,7 +3,7 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
 import { SprightChatInputDirective, type ChatInput } from '../spright-chat-input.directive';
 import { SprightChatInputModule } from '../spright-chat-input.module';
 
-describe('Spright chat', () => {
+describe('Spright chat input', () => {
     describe('module', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
@@ -11,7 +11,7 @@ describe('Spright chat', () => {
             });
         });
 
-        it('input custom element is defined', () => {
+        it('custom element is defined', () => {
             expect(customElements.get('spright-chat-input')).not.toBeUndefined();
         });
     });
