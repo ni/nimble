@@ -464,28 +464,26 @@
         </div>
         <div class="sub-container">
             <div class="container-label">Chat Conversation and Messages (Spright)</div>
-            <div class="chat">
-                <spright-chat-conversation>
-                    <spright-chat-message>To start, press any key.</spright-chat-message>
-                    <spright-chat-message message-type="outbound">Where is the Any key?</spright-chat-message>
-                    <spright-chat-message>
-                        <nimble-spinner appearance="accent"></nimble-spinner>
-                    </spright-chat-message>
-                    <spright-chat-message message-type="inbound">
-                        <nimble-button slot="footer-actions" appearance='ghost' content-hidden>
-                            <nimble-icon-copy-text slot="start"></nimble-icon-copy-text>
-                            Copy
-                        </nimble-button>
-                        <nimble-icon-webvi-custom style="height: 100px; width: 100px;"></nimble-icon-webvi-custom>
-                        <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                        Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
-                        <nimble-button slot="end" appearance="block">Order a tab</nimble-button>
-                        <nimble-button slot="end" appearance="block">Check core temperature</nimble-button>
-                    </spright-chat-message>
-                    <spright-chat-message message-type="outbound" *ngFor="let message of chatUserMessages"><span>{{message}}</span></spright-chat-message>
-                    <spright-chat-input slot="input" placeholder="Type here" (send)="onChatInputSend($event)"></spright-chat-input>
-                </spright-chat-conversation>
-            </div>
+            <spright-chat-conversation>
+                <spright-chat-message>To start, press any key.</spright-chat-message>
+                <spright-chat-message message-type="outbound">Where is the Any key?</spright-chat-message>
+                <spright-chat-message>
+                    <nimble-spinner appearance="accent"></nimble-spinner>
+                </spright-chat-message>
+                <spright-chat-message message-type="inbound">
+                    <nimble-button slot="footer-actions" appearance='ghost' content-hidden>
+                        <nimble-icon-copy-text slot="start"></nimble-icon-copy-text>
+                        Copy
+                    </nimble-button>
+                    <nimble-icon-webvi-custom style="height: 100px; width: 100px;"></nimble-icon-webvi-custom>
+                    <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                    Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
+                    <nimble-button slot="end" appearance="block">Order a tab</nimble-button>
+                    <nimble-button slot="end" appearance="block">Check core temperature</nimble-button>
+                </spright-chat-message>
+                <spright-chat-message message-type="outbound" *ngFor="let message of chatUserMessages"><span>{{message}}</span></spright-chat-message>
+                <spright-chat-input slot="input" placeholder="Type here" (send)="onChatInputSend($event)"></spright-chat-input>
+            </spright-chat-conversation>
         </div>
         <div class="sub-container">
             <div class="container-label">Rectangle (Spright)</div>
