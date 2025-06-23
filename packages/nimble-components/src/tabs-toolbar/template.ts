@@ -1,5 +1,11 @@
 import { html, slotted, ViewTemplate, when } from '@ni/fast-element';
-import { endSlotTemplate, startSlotTemplate, type FoundationElementDefinition, type FoundationElementTemplate, type StartEndOptions } from '@ni/fast-foundation';
+import {
+    endSlotTemplate,
+    startSlotTemplate,
+    type FoundationElementDefinition,
+    type FoundationElementTemplate,
+    type StartEndOptions
+} from '@ni/fast-foundation';
 import type { TabsToolbar } from '.';
 
 type TabsToolbarOptions = FoundationElementDefinition & StartEndOptions;
