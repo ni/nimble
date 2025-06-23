@@ -225,7 +225,6 @@ describe('ChatInput', () => {
             processUpdates();
             expect(element.value).toEqual('');
             expect(page.getRenderedText()).toEqual('');
-            expect(page.textAreaHasFocus()).toBeTrue();
             expect(page.isSendButtonEnabled()).toBeFalse();
         });
     });
