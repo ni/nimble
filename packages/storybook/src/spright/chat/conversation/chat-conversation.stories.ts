@@ -143,11 +143,14 @@ export const chatConversation: StoryObj<ChatConversationArgs> = {
             span.style.whiteSpace = 'pre-wrap';
             message.appendChild(span);
             conversationRef.appendChild(message);
-            message.scrollIntoView({
-                behavior: 'smooth',
-                block: 'nearest',
-                inline: 'start'
-            });
+
+            // message.scrollIntoView({
+            //     behavior: 'smooth',
+            //     block: 'nearest',
+            //     inline: 'start'
+            // });
+
+            // conversationRef.scrollToBottom();
         }
     }
 };

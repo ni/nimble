@@ -11,7 +11,17 @@ declare global {
 /**
  * A Spright component for displaying a series of chat messages
  */
-export class ChatConversation extends FoundationElement {}
+export class ChatConversation extends FoundationElement {
+    public readonly afterMessages!: HTMLDivElement;
+
+    public scrollToBottom(): void {
+        this.afterMessages.scrollIntoView({
+            behavior: 'smooth',
+            block: 'nearest',
+            inline: 'start'
+        });
+    }
+}
 
 const sprightChatConversation = ChatConversation.compose({
     baseName: 'chat-conversation',

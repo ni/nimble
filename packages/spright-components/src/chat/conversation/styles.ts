@@ -21,4 +21,15 @@ export const styles = css`
         background: ${applicationBackgroundColor};
         overflow-y: auto;
     }
+
+    .after-messages {
+        width: 1px;
+        height: 1px;
+        background-color: red;
+        overflow-anchor: auto;
+    }
+
+    spright-chat-message {
+        overflow-anchor: none;
+    }
 `;
