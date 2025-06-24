@@ -5,6 +5,10 @@ import { tabTag } from '@ni/nimble-components/dist/esm/tab';
 import { tabPanelTag } from '@ni/nimble-components/dist/esm/tab-panel';
 import { tabsToolbarTag } from '@ni/nimble-components/dist/esm/tabs-toolbar';
 import { tabsTag } from '@ni/nimble-components/dist/esm/tabs';
+import {
+    controlLabelFont,
+    controlLabelFontColor
+} from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
 import { createStory } from '../../utilities/storybook';
 import {
     createMatrixThemeStory,
@@ -20,27 +24,32 @@ const tabsToolbarStates = [
     {
         showToolbar: false,
         showLeftButton: false,
-        showRightButton: false
+        showRightButtons: false,
+        label: 'No Toolbar'
     },
     {
         showToolbar: true,
         showLeftButton: false,
-        showRightButton: false
+        showRightButtons: false,
+        label: 'Toolbar with no buttons'
     },
     {
         showToolbar: true,
         showLeftButton: true,
-        showRightButton: false
+        showRightButtons: false,
+        label: 'Toolbar with left button'
     },
     {
         showToolbar: true,
         showLeftButton: false,
-        showRightButton: true
+        showRightButtons: true,
+        label: 'Toolbar with right buttons'
     },
     {
         showToolbar: true,
         showLeftButton: true,
-        showRightButton: true
+        showRightButtons: true,
+        label: 'Toolbar with left and right buttons'
     }
 ] as const;
 type TabsToolbarState = (typeof tabsToolbarStates)[number];
@@ -64,13 +73,16 @@ const component = (
     widthValue: WidthState
 
 ): ViewTemplate => html`
+    <label style="color: var(${controlLabelFontColor.cssCustomProperty}); font: var(${controlLabelFont.cssCustomProperty})">
+        ${toolbar.label} ${disabledName ? `(${disabledName})` : ''} ${widthValue ? `(${widthValue})` : ''}
+    </label>
     <${tabsTag} style="padding: 15px;${widthValue ? ` width: ${widthValue};` : ''}">
         ${when(() => toolbar.showToolbar, html`
             <${tabsToolbarTag}>
                 ${when(() => toolbar.showLeftButton, html`
                     <${buttonTag} appearance="ghost">Left Button</${buttonTag}>
                 `)}
-                ${when(() => toolbar.showRightButton, html`
+                ${when(() => toolbar.showRightButtons, html`
                     <${buttonTag} appearance="ghost" slot="end">Right Button 1</${buttonTag}>
                     <${buttonTag} appearance="ghost" slot="end">Right Button 2</${buttonTag}>
                 `)}
@@ -107,7 +119,7 @@ export const textCustomized: StoryFn = createMatrixThemeStory(
         html`
             <${tabsTag}>
                 Inner text
-                <${tabsToolbarTag}>Tabs toolbar</${tabsToolbarTag}>
+                <${tabsToolbarTag}><${buttonTag} appearance="ghost">Tabs toolbar</${buttonTag}></${tabsToolbarTag}>
                 <${tabTag}>Tab</${tabTag}>
             </${tabsTag}>
         `
