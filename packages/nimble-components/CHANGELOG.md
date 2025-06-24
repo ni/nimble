@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-<!-- This log was last generated on Fri, 20 Jun 2025 06:07:44 GMT and should not be manually modified. -->
+<!-- This log was last generated on Tue, 24 Jun 2025 16:53:02 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 33.11.0
+
+Tue, 24 Jun 2025 16:53:02 GMT
+
+### Minor changes
+
+- Provide start/end slots for tabs toolbar. ([ni/nimble@198d94f](https://github.com/ni/nimble/commit/198d94f59fad1d05605048ade29ede19cb8b8c32))
 
 ## 33.10.0
 
