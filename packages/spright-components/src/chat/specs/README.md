@@ -370,14 +370,7 @@ If the input changes state between `processing` and not when focus was on the "S
 
 The application will not announce the state change between `processing` and not to screen readers. This is a scoping decision which should be reconsidered if these components are promoted from Spright to Nimble.
 
-The Design team has requested a non-standard appearance for the "Send" and "Stop" buttons: icon-only but rectangular shape. Nimble buttons support square icon-only buttons with an accessible label via `content-hidden` or rectangular buttons with text content visible. We will achieve the desired appearance by using a `nimble-button` with the following settings:
-
-- adding icon content in the `start` slot
-- not setting `content-hidden`
-- providing no text content
-- setting `aria-label` to the value of `send-button-label`
-- setting `title` to the value of `send-button-label`
-- setting an explicit width
+The Design team has requested a non-standard appearance for the "Send" and "Stop" buttons: icon-only but rectangular shape. Nimble icon-only buttons  are square by default but allow setting an explicit width to make them rectangular. We will also set the text content and `title` to the value of `send-button-label` in accordance with Nimble's accessibility guidance.
 
 The text area will have an ARIA role of `textbox` similar to other Nimble text input components.
 
