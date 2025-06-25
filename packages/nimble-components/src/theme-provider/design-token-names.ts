@@ -19,6 +19,10 @@ export const tokenNames: { readonly [key in TokenName]: string } = {
     buttonAccentBlockFontColor: 'button-accent-block-font-color',
     buttonAccentOutlineFontColor: 'button-accent-outline-font-color',
     buttonBorderAccentOutlineColor: 'button-border-accent-outline-color',
+    chatConversationBackgroundGradientStartColor:
+        'chat-conversation-background-gradient-start-color',
+    chatConversationBackgroundGradientEndColor:
+        'chat-conversation-background-gradient-end-color',
     fillSelectedColor: 'fill-selected-color',
     fillSelectedRgbPartialColor: 'fill-selected-rgb-partial-color',
     fillHoverSelectedColor: 'fill-hover-selected-color',
