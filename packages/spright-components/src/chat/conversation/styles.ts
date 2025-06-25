@@ -13,6 +13,7 @@ export const styles = css`
     }
 
     .messages {
+        flex: 1;
         display: flex;
         flex-direction: column;
         justify-content: flex-start;
