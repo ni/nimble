@@ -56,7 +56,7 @@ import { NimbleRichTextMentionUsers } from '@ni/nimble-react/dist/esm/rich-text-
 import { NimbleMappingUser } from '@ni/nimble-react/dist/esm/mapping/user';
 import { NimbleRichTextViewer } from '@ni/nimble-react/dist/esm/rich-text/viewer';
 import { SprightChatConversation } from '@ni/spright-react/dist/esm/chat/conversation';
-import { SprightChatInput, type ChatInputSendEvent } from '@ni/spright-react/dist/esm/chat/input';
+import { SprightChatInput } from '@ni/spright-react/dist/esm/chat/input';
 import { SprightChatMessage } from '@ni/spright-react/dist/esm/chat/message';
 import { SprightRectangle } from '@ni/spright-react/dist/esm/rectangle';
 import { NimbleIconCopyText } from '@ni/nimble-react/dist/esm/icons/copy-text';
@@ -684,10 +684,6 @@ export function App(): JSX.Element {
                             <SprightChatInput
                                 slot="input"
                                 placeholder="Type here"
-                                onSend={e => {
-                                    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-                                    const unused = (e as ChatInputSendEvent).detail.text;
-                                }}
                             ></SprightChatInput>
                         </SprightChatConversation>
                     </div>
