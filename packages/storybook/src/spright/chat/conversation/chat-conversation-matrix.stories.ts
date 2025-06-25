@@ -215,9 +215,7 @@ const conversationWithInput = (
 `;
 
 export const conversationWithInputSizing: StoryFn = createMatrixThemeStory(html`
-    ${createMatrix(conversationWithInput, [
-        heightStates
-    ])}
+    ${createMatrix(conversationWithInput, [heightStates])}
 `);
 
 export const hidden: StoryFn = createStory(
