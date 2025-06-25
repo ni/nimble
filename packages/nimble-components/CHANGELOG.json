@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 24 Jun 2025 16:53:02 GMT",
+      "version": "33.11.0",
+      "tag": "@ni/nimble-components_v33.11.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "198d94f59fad1d05605048ade29ede19cb8b8c32",
+            "comment": "Provide start/end slots for tabs toolbar."
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 20 Jun 2025 06:07:44 GMT",
       "version": "33.10.0",
       "tag": "@ni/nimble-components_v33.10.0",
