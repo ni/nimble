@@ -21,8 +21,9 @@ export const template = html<ChatInput>`
         ?disabled=${x => x.disableSendButton}
         @click=${x => x.sendButtonClickHandler()}
         title=${x => x.sendButtonLabel}
-        aria-label=${x => x.sendButtonLabel}
+        content-hidden
     >
+        ${x => x.sendButtonLabel}
         <${iconPaperPlaneTag} slot="start"><${iconPaperPlaneTag}/>
     </${buttonTag}>    
 </div>`;

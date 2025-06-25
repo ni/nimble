@@ -242,7 +242,7 @@ describe('ChatInput', () => {
             element.sendButtonLabel = 'Send it!';
             processUpdates();
             expect(page.getSendButtonTitle()).toEqual('Send it!');
-            expect(page.getSendButtonAriaLabel()).toEqual('Send it!');
+            expect(page.getSendButtonTextContent()).toEqual('Send it!');
         });
     });
 });

@@ -26,8 +26,8 @@ export class ChatInputPageObject {
         return this.getSendButton().title;
     }
 
-    public getSendButtonAriaLabel(): string | null {
-        return this.getSendButton().ariaLabel;
+    public getSendButtonTextContent(): string {
+        return this.getSendButton().textContent?.trim() ?? '';
     }
 
     public textAreaHasFocus(): boolean {
