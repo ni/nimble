@@ -21,10 +21,6 @@ export class TabsToolbar extends FoundationElement {
     /** @internal */
     @observable
     public defaultSlottedElements: Element[] = [];
-
-    /** @internal */
-    @observable
-    public endSlottedElements: Element[] = [];
 }
 
 const nimbleTabsToolbar = TabsToolbar.compose({
