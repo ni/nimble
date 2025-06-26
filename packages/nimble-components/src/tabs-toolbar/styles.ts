@@ -32,8 +32,12 @@ export const styles = css`
         display: none;
     }
 
-    [part='end'] {
+    slot[name='end'] {
         margin-left: auto;
         display: flex;
+    }
+
+    slot[name='end'].empty {
+        display: none;
     }
 `;

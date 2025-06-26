@@ -1,6 +1,5 @@
 import { html, slotted, ViewTemplate, when } from '@ni/fast-element';
 import {
-    endSlotTemplate,
     startSlotTemplate,
     type FoundationElementDefinition,
     type FoundationElementTemplate,
@@ -28,6 +27,12 @@ TabsToolbarOptions
             })}
         >
         </slot>
-        ${endSlotTemplate(context, definition)}
+        <slot name="end" class="${x => (x.endSlottedElements.length === 0 ? 'empty' : '')}"
+            ${slotted({
+                filter: (n: Node) => n instanceof HTMLElement,
+                property: 'endSlottedElements',
+            })}
+        >
+        </slot>
     </template>
 `;
