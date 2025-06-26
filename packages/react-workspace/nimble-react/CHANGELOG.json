@@ -2,6 +2,21 @@
   "name": "@ni/nimble-react",
   "entries": [
     {
+      "date": "Thu, 26 Jun 2025 19:20:55 GMT",
+      "version": "0.1.3",
+      "tag": "@ni/nimble-react_v0.1.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-react",
+            "comment": "Bump @ni/nimble-components to v33.11.1",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 24 Jun 2025 16:53:02 GMT",
       "version": "0.1.2",
       "tag": "@ni/nimble-react_v0.1.2",

@@ -33,6 +33,10 @@ export const styles = css`
     }
 
     [part='end'] {
+        display: none;
+    }
+
+    [part='end'].end {
         margin-left: auto;
         display: flex;
     }
