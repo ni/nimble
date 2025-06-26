@@ -1,11 +1,13 @@
 import { configureActions } from '@storybook/addon-actions';
+import { SyntaxHighlighter } from '@storybook/components';
+import csharp from 'react-syntax-highlighter/dist/esm/languages/prism/csharp';
 import '@ni/nimble-tokens/dist/fonts/css/fonts.css';
 import './preview.css';
 import { transformSource } from './transformSource';
 import {
     backgroundStates,
     defaultBackgroundState
-} from '../dist/esm/utilities/states';
+} from '../src/utilities/states.ts';
 import {
     Container,
     Column,
@@ -15,6 +17,8 @@ import {
     Divider,
     Tag
 } from './blocks/StoryLayout.tsx';
+
+SyntaxHighlighter.registerLanguage('cs', csharp);
 
 export const parameters = {
     backgrounds: {
@@ -104,3 +108,6 @@ export default {
 configureActions({
     depth: 1
 });
+
+// Update the GUID on this line to trigger a turbosnap full rebuild: b7f3e8d2-4c5e-4a8b-9f3e-2b6e1a7d9c33
+// See https://www.chromatic.com/docs/turbosnap/#full-rebuilds

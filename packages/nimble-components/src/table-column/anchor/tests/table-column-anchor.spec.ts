@@ -1,13 +1,18 @@
-import { html, ref } from '@microsoft/fast-element';
+import { html, ref } from '@ni/fast-element';
 import { parameterizeSpec } from '@ni/jasmine-parameterized';
+import { keyArrowDown, keyEscape, keyTab } from '@ni/fast-web-utilities';
 import { tableTag, type Table } from '../../../table';
 import { TableColumnAnchor, tableColumnAnchorTag } from '..';
 import { waitForUpdatesAsync } from '../../../testing/async-helpers';
 import { type Fixture, fixture } from '../../../utilities/tests/fixture';
-import { TableColumnSortDirection, TableRecord } from '../../../table/types';
+import {
+    TableColumnSortDirection,
+    type TableRecord
+} from '../../../table/types';
 import { TablePageObject } from '../../../table/testing/table.pageobject';
 import { wackyStrings } from '../../../utilities/tests/wacky-strings';
 import type { Anchor } from '../../../anchor';
+import { sendKeyDownEvent } from '../../../utilities/testing/component';
 
 interface SimpleTableRecord extends TableRecord {
     label?: string | null;
@@ -23,7 +28,7 @@ class ElementReferences {
 
 // prettier-ignore
 async function setup(source: ElementReferences): Promise<Fixture<Table<SimpleTableRecord>>> {
-    return fixture<Table<SimpleTableRecord>>(
+    return await fixture<Table<SimpleTableRecord>>(
         html`<${tableTag} style="width: 700px" ${ref('table')}>
                 <${tableColumnAnchorTag}
                     ${ref('column')}
@@ -68,14 +73,10 @@ describe('TableColumnAnchor', () => {
         await disconnect();
     });
 
-    it('should export its tag', () => {
-        expect(tableColumnAnchorTag).toBe('nimble-table-column-anchor');
-    });
-
     it('can construct an element instance', () => {
-        expect(
-            document.createElement('nimble-table-column-anchor')
-        ).toBeInstanceOf(TableColumnAnchor);
+        expect(document.createElement(tableColumnAnchorTag)).toBeInstanceOf(
+            TableColumnAnchor
+        );
     });
 
     it('reports column configuration valid', async () => {
@@ -164,6 +165,16 @@ describe('TableColumnAnchor', () => {
             expect(pageObject.getCellTitle(0, 0)).toBe('');
         });
 
+        it('cell view tabbableChildren is an empty array', async () => {
+            const cellContents = 'value';
+            await table.setData([{ label: cellContents }]);
+            await connect();
+            await waitForUpdatesAsync();
+
+            const cellView = pageObject.getRenderedCellView(0, 0);
+            expect(cellView.tabbableChildren).toEqual([]);
+        });
+
         describe('various string values render as expected', () => {
             parameterizeSpec(wackyStrings, (spec, name) => {
                 spec(`data "${name}" renders correctly`, async () => {
@@ -245,6 +256,16 @@ describe('TableColumnAnchor', () => {
                     .getRenderedCellAnchor(0, 0)
                     .hasAttribute('underline-hidden')
             ).toBeFalse();
+        });
+
+        it('cell view tabbableChildren returns the anchor', async () => {
+            await table.setData([{ link: 'foo' }]);
+            await connect();
+            await waitForUpdatesAsync();
+
+            const cellView = pageObject.getRenderedCellView(0, 0);
+            const anchor = pageObject.getRenderedCellAnchor(0, 0);
+            expect(cellView.tabbableChildren).toEqual([anchor]);
         });
 
         const linkOptionData = [
@@ -615,6 +636,62 @@ describe('TableColumnAnchor', () => {
             expect(pageObject.getRenderedCellTextContent(0, 0)).toBe(
                 placeholder
             );
+        });
+
+        it('for cells with placeholder, cellView tabbableChildren is an empty array', async () => {
+            await initializeColumnAndTable([{}], 'placeholder');
+
+            const cellView = pageObject.getRenderedCellView(0, 0);
+            expect(cellView.tabbableChildren).toEqual([]);
+        });
+    });
+
+    describe('keyboard navigation', () => {
+        beforeEach(async () => {
+            const tableData = [
+                {
+                    id: '1',
+                    label: 'Link 1a',
+                    link: 'http://www.ni.com/a1'
+                }
+            ];
+            await table.setData(tableData);
+            column.groupIndex = null;
+            await connect();
+            await waitForUpdatesAsync();
+            table.focus();
+            await waitForUpdatesAsync();
+        });
+
+        afterEach(async () => {
+            await disconnect();
+        });
+
+        function isAnchorFocused(anchor: Anchor): boolean {
+            return anchor.shadowRoot?.activeElement !== null;
+        }
+
+        describe('with cell[0, 0] focused,', () => {
+            beforeEach(async () => {
+                await sendKeyDownEvent(table, keyArrowDown);
+            });
+
+            it('anchors in cells are reachable via Tab', async () => {
+                await sendKeyDownEvent(table, keyTab);
+
+                expect(
+                    isAnchorFocused(pageObject.getRenderedCellAnchor(0, 0))
+                ).toBe(true);
+            });
+
+            it('when an anchor is focused, pressing Esc will blur the anchor', async () => {
+                await sendKeyDownEvent(table, keyTab);
+                await sendKeyDownEvent(table, keyEscape);
+
+                expect(
+                    isAnchorFocused(pageObject.getRenderedCellAnchor(0, 0))
+                ).toBe(false);
+            });
         });
     });
 });

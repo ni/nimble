@@ -1,18 +1,26 @@
-import { html, when } from '@microsoft/fast-element';
+import { html, when } from '@ni/fast-element';
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html';
 import { iconArrowExpanderDownTag } from '@ni/nimble-components/dist/esm/icons/arrow-expander-down';
 import { iconKeyTag } from '@ni/nimble-components/dist/esm/icons/key';
 import { buttonTag } from '@ni/nimble-components/dist/esm/button';
-import { ButtonAppearance, ButtonAppearanceVariant } from '@ni/nimble-components/dist/esm/button/types';
+import {
+    ButtonAppearance,
+    ButtonAppearanceVariant
+} from '@ni/nimble-components/dist/esm/button/types';
 import {
     appearanceDescription,
     appearanceVariantDescription,
     contentHiddenDescription,
     endIconDescription,
-    iconDescription
+    iconDescription,
+    textContentDescription
 } from '../patterns/button/doc-strings';
-import { createUserSelectedThemeStory } from '../../utilities/storybook';
+import {
+    apiCategory,
+    createUserSelectedThemeStory,
+    disabledDescription
+} from '../../utilities/storybook';
 
 interface ButtonArgs {
     label: string;
@@ -22,6 +30,7 @@ interface ButtonArgs {
     icon: boolean;
     contentHidden: boolean;
     endIcon: boolean;
+    click: undefined;
 }
 
 const metadata: Meta<ButtonArgs> = {
@@ -36,22 +45,45 @@ const metadata: Meta<ButtonArgs> = {
         appearance: {
             options: Object.keys(ButtonAppearance),
             control: { type: 'radio' },
-            description: appearanceDescription
+            description: appearanceDescription,
+            table: { category: apiCategory.attributes }
         },
         appearanceVariant: {
             name: 'appearance-variant',
             options: Object.keys(ButtonAppearanceVariant),
             control: { type: 'radio' },
-            description: appearanceVariantDescription
+            description: appearanceVariantDescription,
+            table: { category: apiCategory.attributes }
         },
         contentHidden: {
-            description: contentHiddenDescription
+            name: 'content-hidden',
+            description: contentHiddenDescription,
+            table: { category: apiCategory.attributes }
+        },
+        disabled: {
+            description: disabledDescription({ componentName: 'button' }),
+            table: { category: apiCategory.attributes }
+        },
+        label: {
+            name: 'default',
+            description: textContentDescription({ componentName: 'button' }),
+            table: { category: apiCategory.slots }
         },
         icon: {
-            description: iconDescription
+            name: 'start',
+            description: iconDescription,
+            table: { category: apiCategory.slots }
         },
         endIcon: {
-            description: endIconDescription
+            name: 'end',
+            description: endIconDescription,
+            table: { category: apiCategory.slots }
+        },
+        click: {
+            description:
+                'Event emitted when the button is activated by either keyboard or mouse.',
+            table: { category: apiCategory.events },
+            control: false
         }
     },
     // prettier-ignore

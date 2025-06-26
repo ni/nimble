@@ -1,32 +1,32 @@
 import {
-    Notifier,
+    type Notifier,
     Observable,
     attr,
     observable,
     volatile
-} from '@microsoft/fast-element';
-import {
-    Checkbox,
-    DesignSystem,
-    FoundationElement
-} from '@microsoft/fast-foundation';
+} from '@ni/fast-element';
+import { DesignSystem, FoundationElement } from '@ni/fast-foundation';
 import { styles } from './styles';
 import { template } from './template';
 import type { TableCellState } from '../../../table-column/base/types';
 import type {
+    CellViewSlotRequestEventDetail,
+    RowSlotRequestEventDetail,
     TableActionMenuToggleEventDetail,
     TableFieldName,
     TableRecord,
     TableRowExpansionToggleEventDetail,
+    TableRowFocusableElements,
     TableRowSelectionToggleEventDetail
 } from '../../types';
 import type { TableColumn } from '../../../table-column/base';
 import type { MenuButtonToggleEventDetail } from '../../../menu-button/types';
-import { TableCell } from '../cell';
+import { tableCellTag } from '../cell';
 import {
     ColumnInternals,
     isColumnInternalsProperty
 } from '../../../table-column/base/models/column-internals';
+import type { Checkbox } from '../../../checkbox';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -60,6 +60,9 @@ export class TableRow<
     @attr({ mode: 'boolean' })
     public expanded = false;
 
+    @attr({ attribute: 'reserve-collapse-space', mode: 'boolean' })
+    public reserveCollapseSpace = false;
+
     @observable
     public dataRecord?: TDataRecord;
 
@@ -76,6 +79,13 @@ export class TableRow<
 
     @observable
     public nestingLevel = 0;
+
+    /**
+     * Row index in the flattened set of all regular and group header rows.
+     * Represents the index in table.tableData (TableRowState[]).
+     */
+    @observable
+    public resolvedRowIndex?: number;
 
     @attr({ attribute: 'is-parent-row', mode: 'boolean' })
     public isParentRow = false;
@@ -123,6 +133,12 @@ export class TableRow<
     @observable
     public animationClass = '';
 
+    /**
+     * @internal
+     */
+    @attr({ attribute: 'allow-hover', mode: 'boolean' })
+    public allowHover = false;
+
     @volatile
     public get isTopLevelParentRow(): boolean {
         return this.isParentRow && this.nestingLevel === 0;
@@ -131,6 +147,12 @@ export class TableRow<
     @volatile
     public get isNestedParent(): boolean {
         return this.isParentRow && this.nestingLevel > 0;
+    }
+
+    /** @internal */
+    @volatile
+    public get showSelectionCheckbox(): boolean {
+        return this.selectable && !this.hideSelection;
     }
 
     // Programmatically updating the selection state of a checkbox fires the 'change' event.
@@ -148,18 +170,28 @@ export class TableRow<
         return null;
     }
 
+    public override disconnectedCallback(): void {
+        super.disconnectedCallback();
+        this.removeColumnObservers();
+    }
+
     /** @internal */
-    public onSelectionChange(event: CustomEvent): void {
+    public onSelectionCheckboxChange(event: CustomEvent): void {
         if (this.ignoreSelectionChangeEvents) {
             return;
         }
 
         const checkbox = event.target as Checkbox;
         const checked = checkbox.checked;
-        this.selected = checked;
+        this.onSelectionChange(!checked, checked);
+    }
+
+    /** @internal */
+    public onSelectionChange(oldState: boolean, newState: boolean): void {
+        this.selected = newState;
         const detail: TableRowSelectionToggleEventDetail = {
-            oldState: !checked,
-            newState: checked
+            oldState,
+            newState
         };
         this.$emit('row-selection-toggle', detail);
     }
@@ -190,17 +222,6 @@ export class TableRow<
         );
     }
 
-    public closeOpenActionMenus(): void {
-        if (this.menuOpen) {
-            const cellWithMenuOpen = Array.from(
-                this.cellContainer.children
-            ).find(c => c instanceof TableCell && c.menuOpen) as TableCell;
-            if (cellWithMenuOpen?.actionMenuButton?.open) {
-                cellWithMenuOpen.actionMenuButton.toggleButton!.control.click();
-            }
-        }
-    }
-
     /** @internal */
     public handleChange(source: unknown, args: unknown): void {
         if (
@@ -213,14 +234,31 @@ export class TableRow<
         }
     }
 
-    public onRowExpandToggle(event: Event): void {
+    /** @internal */
+    public getFocusableElements(): TableRowFocusableElements {
+        return {
+            selectionCheckbox: this.showSelectionCheckbox
+                ? this.selectionCheckbox
+                : undefined,
+            cells: Array.from(
+                this.cellContainer.querySelectorAll(tableCellTag)
+            ).map(cell => ({
+                cell,
+                actionMenuButton: cell.hasActionMenu
+                    ? cell.actionMenuButton
+                    : undefined
+            }))
+        };
+    }
+
+    public onRowExpandToggle(event?: Event): void {
         const expandEventDetail: TableRowExpansionToggleEventDetail = {
             oldState: this.expanded,
             newState: !this.expanded,
             recordId: this.recordId!
         };
         this.$emit('row-expand-toggle', expandEventDetail);
-        event.stopImmediatePropagation();
+        event?.stopImmediatePropagation();
         // To avoid a visual glitch with improper expand/collapse icons performing an
         // animation (due to visual re-use apparently), we apply a class to the
         // contained expand-collapse button temporarily. We use the 'transitionend' event
@@ -232,6 +270,25 @@ export class TableRow<
             'transitionend',
             this.removeAnimatingClass
         );
+    }
+
+    public onCellViewSlotsRequest(
+        column: TableColumn,
+        event: CustomEvent<CellViewSlotRequestEventDetail>
+    ): void {
+        event.stopImmediatePropagation();
+        if (typeof this.recordId !== 'string') {
+            // The recordId is expected to be defined on any row that can be interacted with, but if
+            // it isn't defined, nothing can be done with the request to slot content into the row.
+            return;
+        }
+
+        const eventDetails: RowSlotRequestEventDetail = {
+            recordId: this.recordId,
+            columnInternalId: column.columnInternals.uniqueId,
+            slots: event.detail.slots
+        };
+        this.$emit('row-slots-request', eventDetails);
     }
 
     private readonly removeAnimatingClass = (): void => {

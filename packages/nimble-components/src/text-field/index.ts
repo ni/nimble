@@ -1,15 +1,16 @@
-import { attr, html } from '@microsoft/fast-element';
+import { attr, html } from '@ni/fast-element';
 import {
     DesignSystem,
     TextField as FoundationTextField,
-    TextFieldOptions,
-    textFieldTemplate as template
-} from '@microsoft/fast-foundation';
+    type TextFieldOptions
+} from '@ni/fast-foundation';
 import { styles } from './styles';
 import { TextFieldAppearance } from './types';
 import { errorTextTemplate } from '../patterns/error/template';
-import type { ErrorPattern } from '../patterns/error/types';
+import { mixinErrorPattern } from '../patterns/error/types';
 import { iconExclamationMarkTag } from '../icons/exclamation-mark';
+import { template } from './template';
+import { mixinRequiredVisiblePattern } from '../patterns/required-visible/types';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -20,7 +21,9 @@ declare global {
 /**
  * A nimble-styed HTML text input
  */
-export class TextField extends FoundationTextField implements ErrorPattern {
+export class TextField extends mixinErrorPattern(
+    mixinRequiredVisiblePattern(FoundationTextField)
+) {
     /**
      * The appearance the text field should have.
      *
@@ -31,21 +34,11 @@ export class TextField extends FoundationTextField implements ErrorPattern {
     @attr
     public appearance: TextFieldAppearance = TextFieldAppearance.underline;
 
-    /**
-     * A message explaining why the value is invalid.
-     *
-     * @public
-     * @remarks
-     * HTML Attribute: error-text
-     */
-    @attr({ attribute: 'error-text' })
-    public errorText?: string;
-
-    @attr({ attribute: 'error-visible', mode: 'boolean' })
-    public errorVisible = false;
-
     @attr({ attribute: 'full-bleed', mode: 'boolean' })
     public fullBleed = false;
+
+    @attr({ attribute: 'appearance-readonly', mode: 'boolean' })
+    public appearanceReadOnly = false;
 }
 
 const nimbleTextField = TextField.compose<TextFieldOptions>({

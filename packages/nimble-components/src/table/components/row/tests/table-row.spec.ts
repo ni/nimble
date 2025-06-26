@@ -1,5 +1,5 @@
-import { html, ref } from '@microsoft/fast-element';
-import { TableRow } from '..';
+import { html, ref } from '@ni/fast-element';
+import { TableRow, tableRowTag } from '..';
 import {
     tableColumnTextTag,
     TableColumnText,
@@ -7,18 +7,18 @@ import {
 } from '../../../../table-column/text';
 
 import { waitForUpdatesAsync } from '../../../../testing/async-helpers';
-import { fixture, Fixture } from '../../../../utilities/tests/fixture';
+import { fixture, type Fixture } from '../../../../utilities/tests/fixture';
 import type {
     TableRecord,
     TableRowExpansionToggleEventDetail,
     TableRowSelectionToggleEventDetail
 } from '../../../types';
 import { TableRowPageObject } from './table-row.pageobject';
-import { createEventListener } from '../../../../utilities/tests/component';
+import { waitForEvent } from '../../../../utilities/testing/component';
 import { tableTag, type Table } from '../../..';
 import {
     TableColumnDateText,
-    TableColumnDateTextCellRecord,
+    type TableColumnDateTextCellRecord,
     tableColumnDateTextTag
 } from '../../../../table-column/date-text';
 
@@ -27,13 +27,21 @@ interface SimpleTableRecord extends TableRecord {
     numberData: number;
 }
 
+type TableRowExpansionToggleEventHandler = (
+    evt: CustomEvent<TableRowExpansionToggleEventDetail>
+) => void;
+
+type TableRowSelectionToggleEventHandler = (
+    evt: CustomEvent<TableRowSelectionToggleEventDetail>
+) => void;
+
 describe('TableRow', () => {
     describe('standalone', () => {
         // prettier-ignore
         async function setup(): Promise<Fixture<TableRow<SimpleTableRecord>>> {
-            return fixture<TableRow<SimpleTableRecord>>(
-                html`<nimble-table-row>
-                    </nimble-table-row>`
+            return await fixture<TableRow<SimpleTableRecord>>(
+                html`<${tableRowTag}>
+                    </${tableRowTag}>`
             );
         }
 
@@ -50,8 +58,9 @@ describe('TableRow', () => {
         });
 
         it('can construct an element instance', () => {
-            // prettier-ignore
-            expect(document.createElement('nimble-table-row')).toBeInstanceOf(TableRow);
+            expect(document.createElement(tableRowTag)).toBeInstanceOf(
+                TableRow
+            );
         });
 
         it('includes row operations gridcell when rowOperationGridCellHidden is false', async () => {
@@ -183,19 +192,17 @@ describe('TableRow', () => {
             element.selected = false;
             await connect();
 
-            const listener = createEventListener(
-                element,
-                'row-selection-toggle'
-            );
+            const spy = jasmine.createSpy<TableRowSelectionToggleEventHandler>();
+            const listener = waitForEvent(element, 'row-selection-toggle', spy);
             element.selectionCheckbox!.click();
-            await listener.promise;
+            await listener;
 
-            expect(listener.spy).toHaveBeenCalledTimes(1);
+            expect(spy).toHaveBeenCalledTimes(1);
             const expectedDetails: TableRowSelectionToggleEventDetail = {
                 newState: true,
                 oldState: false
             };
-            const event = listener.spy.calls.first().args[0] as CustomEvent;
+            const event = spy.calls.first().args[0];
             expect(event.detail).toEqual(expectedDetails);
         });
 
@@ -205,19 +212,17 @@ describe('TableRow', () => {
             element.selected = true;
             await connect();
 
-            const listener = createEventListener(
-                element,
-                'row-selection-toggle'
-            );
+            const spy = jasmine.createSpy<TableRowSelectionToggleEventHandler>();
+            const listener = waitForEvent(element, 'row-selection-toggle', spy);
             element.selectionCheckbox!.click();
-            await listener.promise;
+            await listener;
 
-            expect(listener.spy).toHaveBeenCalledTimes(1);
+            expect(spy).toHaveBeenCalledTimes(1);
             const expectedDetails: TableRowSelectionToggleEventDetail = {
                 newState: false,
                 oldState: true
             };
-            const event = listener.spy.calls.first().args[0] as CustomEvent;
+            const event = spy.calls.first().args[0];
             expect(event.detail).toEqual(expectedDetails);
         });
 
@@ -227,14 +232,13 @@ describe('TableRow', () => {
             element.selected = true;
             await connect();
 
-            const listener = createEventListener(
-                element,
-                'row-selection-toggle'
-            );
+            const spy = jasmine.createSpy();
+            element.addEventListener('row-selection-toggle', spy);
             element.selected = false;
             await waitForUpdatesAsync();
 
-            expect(listener.spy).not.toHaveBeenCalled();
+            expect(spy).not.toHaveBeenCalled();
+            element.removeEventListener('row-selection-toggle', spy);
         });
 
         it('shows expand-collapse button when isParentRow is true', async () => {
@@ -265,17 +269,18 @@ describe('TableRow', () => {
             await waitForUpdatesAsync();
             const expandCollapseButton = pageObject.getExpandCollapseButton();
 
-            const listener = createEventListener(element, 'row-expand-toggle');
+            const spy = jasmine.createSpy<TableRowExpansionToggleEventHandler>();
+            const listener = waitForEvent(element, 'row-expand-toggle', spy);
             expandCollapseButton!.click();
-            await listener.promise;
+            await listener;
 
-            expect(listener.spy).toHaveBeenCalledTimes(1);
+            expect(spy).toHaveBeenCalledTimes(1);
             const expandDetails: TableRowExpansionToggleEventDetail = {
                 newState: true,
                 oldState: false,
                 recordId: 'foo'
             };
-            const event = listener.spy.calls.first().args[0] as CustomEvent;
+            const event = spy.calls.first().args[0];
             expect(event.detail).toEqual(expandDetails);
         });
 
@@ -287,17 +292,18 @@ describe('TableRow', () => {
             await waitForUpdatesAsync();
             const expandCollapseButton = pageObject.getExpandCollapseButton();
 
-            const listener = createEventListener(element, 'row-expand-toggle');
+            const spy = jasmine.createSpy<TableRowExpansionToggleEventHandler>();
+            const listener = waitForEvent(element, 'row-expand-toggle', spy);
             element.expanded = true;
             expandCollapseButton!.click();
-            await listener.promise;
-            expect(listener.spy).toHaveBeenCalledTimes(1);
+            await listener;
+            expect(spy).toHaveBeenCalledTimes(1);
             const collapseDetails: TableRowExpansionToggleEventDetail = {
                 newState: false,
                 oldState: true,
                 recordId: 'foo'
             };
-            const event = listener.spy.calls.first().args[0] as CustomEvent;
+            const event = spy.calls.first().args[0];
             expect(event.detail).toEqual(collapseDetails);
         });
 
@@ -354,7 +360,7 @@ describe('TableRow', () => {
 
         // prettier-ignore
         async function setupTable(source: ColumnReferences): Promise<Fixture<Table<SimpleTableRecord>>> {
-            return fixture<Table<SimpleTableRecord>>(
+            return await fixture<Table<SimpleTableRecord>>(
                 html`<${tableTag}>
                         <${tableColumnTextTag} ${ref('firstColumn')} field-name="stringData" column-id='foo'>Column 1</${tableColumnTextTag}>
                         <${tableColumnDateTextTag} ${ref('secondColumn')} field-name="numberData" column-id='bar'>Column 2</${tableColumnDateTextTag}>
@@ -381,7 +387,7 @@ describe('TableRow', () => {
                 }
             ]);
             await waitForUpdatesAsync();
-            row = element.shadowRoot!.querySelector('nimble-table-row')!;
+            row = element.shadowRoot!.querySelector(tableRowTag)!;
             pageObject = new TableRowPageObject(row);
         });
 
@@ -476,6 +482,38 @@ describe('TableRow', () => {
 
             const updatedCell = pageObject.getRenderedCell(0);
             expect(originalCell).not.toBe(updatedCell);
+        });
+
+        it('getFocusableElements() includes array of cells', async () => {
+            await connect();
+
+            const focusableElements = row.getFocusableElements();
+            const actualCells = pageObject.getRenderedCells();
+            expect(focusableElements.cells).toEqual([
+                { cell: actualCells[0]!, actionMenuButton: undefined },
+                { cell: actualCells[1]!, actionMenuButton: undefined }
+            ]);
+        });
+
+        it('getFocusableElements() includes the selection checkbox when row is selectable', async () => {
+            row.selectable = true;
+            await connect();
+
+            const focusableElements = row.getFocusableElements();
+            expect(focusableElements.selectionCheckbox).toBe(
+                row.selectionCheckbox
+            );
+        });
+
+        it('if row is set to selectable then subsequently not selectable, getFocusableElements() does not include a selection checkbox', async () => {
+            row.selectable = true;
+            await connect();
+            await waitForUpdatesAsync();
+            row.selectable = false;
+            await waitForUpdatesAsync();
+
+            const focusableElements = row.getFocusableElements();
+            expect(focusableElements.selectionCheckbox).toBeUndefined();
         });
     });
 });

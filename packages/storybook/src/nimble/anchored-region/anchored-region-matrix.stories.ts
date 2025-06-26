@@ -1,5 +1,5 @@
 import type { StoryFn, Meta } from '@storybook/html';
-import { html, ViewTemplate } from '@microsoft/fast-element';
+import { html, ViewTemplate } from '@ni/fast-element';
 import {
     bodyFont,
     bodyFontColor,
@@ -7,10 +7,7 @@ import {
     applicationBackgroundColor
 } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
 import { anchoredRegionTag } from '@ni/nimble-components/dist/esm/anchored-region';
-import {
-    createMatrix,
-    sharedMatrixParameters
-} from '../../utilities/matrix';
+import { createMatrix, sharedMatrixParameters } from '../../utilities/matrix';
 import { createStory } from '../../utilities/storybook';
 import { hiddenWrapper } from '../../utilities/hidden';
 
@@ -93,11 +90,11 @@ const component = (
         <div></div>
     </div>`;
 
-export const anchoredRegionThemeMatrix: StoryFn = createStory(
+export const themeMatrix: StoryFn = createStory(
     createMatrix(component, [horizontalPositionStates, verticalPositionStates])
 );
 
-export const hiddenAnchoredRegion: StoryFn = createStory(
+export const hidden: StoryFn = createStory(
     hiddenWrapper(
         html`<${anchoredRegionTag} hidden>Hidden Anchored Region</${anchoredRegionTag}>`
     )

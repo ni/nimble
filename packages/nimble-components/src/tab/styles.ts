@@ -1,5 +1,5 @@
-import { css } from '@microsoft/fast-element';
-import { display } from '@microsoft/fast-foundation';
+import { css } from '@ni/fast-element';
+import { display } from '../utilities/style/display';
 import {
     borderHoverColor,
     borderWidth,
@@ -20,13 +20,13 @@ export const styles = css`
 
     :host {
         position: relative;
-        box-sizing: border-box;
         font: ${buttonLabelFont};
         height: ${controlHeight};
         color: ${bodyFontColor};
         align-items: center;
         justify-content: center;
         cursor: pointer;
+        text-wrap: nowrap;
         --ni-private-active-indicator-width: 2px;
         --ni-private-focus-indicator-width: 1px;
         --ni-private-indicator-lines-gap: 1px;

@@ -1,8 +1,6 @@
-import {
-    DesignSystem,
-    Menu as FoundationMenu,
-    menuTemplate as template
-} from '@microsoft/fast-foundation';
+import { DesignSystem } from '@ni/fast-foundation';
+import { Menu as FoundationMenu } from './menu.foundation';
+import { template } from './template';
 import { styles } from './styles';
 
 declare global {
@@ -18,7 +16,7 @@ export class Menu extends FoundationMenu {}
 
 /**
  * A function that returns a nimble-menu registration for configuring the component with a DesignSystem.
- * Implements {@link @microsoft/fast-foundation#menuTemplate}
+ * Implements {@link @ni/fast-foundation#menuTemplate}
  *
  * @public
  * @remarks

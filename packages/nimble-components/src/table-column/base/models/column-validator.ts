@@ -1,4 +1,4 @@
-import { observable } from '@microsoft/fast-element';
+import { observable } from '@ni/fast-element';
 import { Validator } from '../../../utilities/models/validator';
 import type { TableColumnValidity } from '../types';
 
@@ -22,6 +22,11 @@ export class ColumnValidator<
         return this.getValidationFlags();
     }
 
+    public override onTrackingChange(): void {
+        super.onTrackingChange();
+        this.isColumnValid = this.isValid();
+    }
+
     /**
      * Sets a particular validity condition flag's value, e.g. "hasInvalidFooValue" = true
      */
@@ -34,10 +39,5 @@ export class ColumnValidator<
         } else {
             this.untrack(name);
         }
-        this.updateColumnInternalsFlag();
-    }
-
-    private updateColumnInternalsFlag(): void {
-        this.isColumnValid = this.isValid();
     }
 }

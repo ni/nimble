@@ -29,7 +29,7 @@ export class DataHierarchyManager<TData extends TableRecord> {
             } catch {
                 this.isDataFlat = true;
                 this._hierarchicalData = records.map((record, index) => ({
-                    clientRecord: { ...record },
+                    clientRecord: record,
                     originalIndex: index
                 }));
                 this._parentIdConfigurationValid = false;
@@ -37,7 +37,7 @@ export class DataHierarchyManager<TData extends TableRecord> {
         } else {
             this.isDataFlat = true;
             this._hierarchicalData = records.map((record, index) => ({
-                clientRecord: { ...record },
+                clientRecord: record,
                 originalIndex: index
             }));
             this._parentIdConfigurationValid = true;

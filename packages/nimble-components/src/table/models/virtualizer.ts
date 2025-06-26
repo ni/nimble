@@ -1,17 +1,16 @@
-import { observable } from '@microsoft/fast-element';
+import { observable } from '@ni/fast-element';
 import type { Table as TanStackTable } from '@tanstack/table-core';
 import {
     Virtualizer as TanStackVirtualizer,
-    VirtualizerOptions,
+    type VirtualizerOptions,
     elementScroll,
     observeElementOffset,
     observeElementRect,
-    VirtualItem
+    type VirtualItem,
+    type ScrollToOptions
 } from '@tanstack/virtual-core';
-import { borderWidth, controlHeight } from '../../theme-provider/design-tokens';
 import type { Table } from '..';
 import type { TableNode, TableRecord } from '../types';
-import { TableCellView } from '../../table-column/base/cell-view';
 
 /**
  * Helper class for the nimble-table for row virtualization.
@@ -26,15 +25,26 @@ export class Virtualizer<TData extends TableRecord = TableRecord> {
     public scrollHeight = 0;
 
     @observable
+    public horizontalScrollbarHeight = 0;
+
+    @observable
+    public isScrolling = false;
+
+    @observable
     public headerContainerMarginRight = 0;
 
     @observable
     public rowContainerYOffset = 0;
 
+    public get pageSize(): number {
+        return this._pageSize;
+    }
+
     private readonly table: Table<TData>;
     private readonly tanStackTable: TanStackTable<TableNode<TData>>;
     private readonly viewportResizeObserver: ResizeObserver;
     private virtualizer?: TanStackVirtualizer<HTMLElement, HTMLElement>;
+    private _pageSize = 0;
 
     public constructor(
         table: Table<TData>,
@@ -45,10 +55,12 @@ export class Virtualizer<TData extends TableRecord = TableRecord> {
         this.viewportResizeObserver = new ResizeObserver(entries => {
             const borderBoxSize = entries[0]?.borderBoxSize[0];
             if (borderBoxSize) {
+                this.updatePageSize();
                 // If we have enough rows that a vertical scrollbar is shown, we need to offset the header widths
                 // by the same margin so the column headers align with the corresponding rendered cells
                 const viewportBoundingWidth = borderBoxSize.inlineSize;
                 this.headerContainerMarginRight = viewportBoundingWidth - this.table.viewport.clientWidth;
+                this.horizontalScrollbarHeight = borderBoxSize.blockSize - this.table.viewport.clientHeight;
             }
         });
     }
@@ -56,7 +68,10 @@ export class Virtualizer<TData extends TableRecord = TableRecord> {
     public connect(): void {
         this.viewportResizeObserver.observe(this.table.viewport);
         this.updateVirtualizer();
-        this.table.viewport.scrollTo({ top: this.virtualizer!.scrollOffset });
+        const scrollOffset = this.virtualizer!.scrollOffset;
+        if (scrollOffset !== null) {
+            this.table.viewport.scrollTo({ top: scrollOffset });
+        }
     }
 
     public disconnect(): void {
@@ -66,6 +81,18 @@ export class Virtualizer<TData extends TableRecord = TableRecord> {
     public dataChanged(): void {
         if (this.table.$fastController.isConnected) {
             this.updateVirtualizer();
+        }
+    }
+
+    public scrollToIndex(index: number, options?: ScrollToOptions): void {
+        this.virtualizer?.scrollToIndex(index, options);
+    }
+
+    public updateRowHeight(): void {
+        this.updatePageSize();
+        if (this.virtualizer) {
+            this.updateVirtualizer();
+            this.virtualizer.measure();
         }
     }
 
@@ -84,8 +111,7 @@ export class Virtualizer<TData extends TableRecord = TableRecord> {
     HTMLElement,
     HTMLElement
     > {
-        const rowHeight = parseFloat(controlHeight.getValueFor(this.table))
-            + 2 * parseFloat(borderWidth.getValueFor(this.table));
+        const rowHeight = this.table.rowHeight;
         return {
             count: this.tanStackTable.getRowModel().rows.length,
             getScrollElement: () => {
@@ -94,7 +120,8 @@ export class Virtualizer<TData extends TableRecord = TableRecord> {
             estimateSize: (_: number) => rowHeight,
             enableSmoothScroll: true,
             overscan: 3,
-            scrollingDelay: 5,
+            isScrollingResetDelay: 250,
+            useScrollendEvent: false,
             scrollToFn: elementScroll,
             observeElementOffset,
             observeElementRect,
@@ -103,10 +130,10 @@ export class Virtualizer<TData extends TableRecord = TableRecord> {
     }
 
     private handleVirtualizerChange(): void {
-        this.notifyFocusedCellRecycling();
         const virtualizer = this.virtualizer!;
         this.visibleItems = virtualizer.getVirtualItems();
         this.scrollHeight = virtualizer.getTotalSize();
+        this.isScrolling = virtualizer.isScrolling;
         // We're using a separate div ('table-scroll') to represent the full height of all rows, and
         // the row container's height is only big enough to hold the virtualized rows. So we don't
         // use the TanStackVirtual-provided 'start' offset (which is in terms of the full height)
@@ -120,26 +147,9 @@ export class Virtualizer<TData extends TableRecord = TableRecord> {
         this.rowContainerYOffset = rowContainerYOffset;
     }
 
-    private notifyFocusedCellRecycling(): void {
-        let tableFocusedElement = this.table.shadowRoot!.activeElement;
-        while (
-            tableFocusedElement !== null
-            && !(tableFocusedElement instanceof TableCellView)
-        ) {
-            if (tableFocusedElement.shadowRoot) {
-                tableFocusedElement = tableFocusedElement.shadowRoot.activeElement;
-            } else {
-                break;
-            }
-        }
-        if (tableFocusedElement instanceof TableCellView) {
-            tableFocusedElement.focusedRecycleCallback();
-        }
-        if (this.table.openActionMenuRecordId !== undefined) {
-            const activeRow = this.table.rowElements.find(
-                row => row.recordId === this.table.openActionMenuRecordId
-            );
-            activeRow?.closeOpenActionMenus();
-        }
+    private updatePageSize(): void {
+        this._pageSize = Math.round(
+            this.table.viewport.clientHeight / this.table.rowHeight
+        );
     }
 }

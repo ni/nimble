@@ -1,8 +1,5 @@
-import {
-    DesignSystem,
-    DesignTokenSubscriber
-} from '@microsoft/fast-foundation';
-import { attr } from '@microsoft/fast-element';
+import { DesignSystem, type DesignTokenSubscriber } from '@ni/fast-foundation';
+import { attr } from '@ni/fast-element';
 import { styles } from '../base/styles';
 import { template } from '../base/template';
 import type { TableNumberField } from '../../table/types';
@@ -11,8 +8,8 @@ import { TableColumnSortOperation } from '../base/types';
 import { tableColumnDateTextGroupHeaderViewTag } from './group-header-view';
 import { tableColumnDateTextCellViewTag } from './cell-view';
 import type { ColumnInternalsOptions } from '../base/models/column-internals';
-import {
-    DateTextFormat,
+import { DateTextFormat } from './types';
+import type {
     LocaleMatcherAlgorithm,
     EraFormat,
     YearFormat,

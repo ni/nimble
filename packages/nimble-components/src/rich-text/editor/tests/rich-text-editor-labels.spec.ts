@@ -1,4 +1,4 @@
-import { html } from '@microsoft/fast-element';
+import { html } from '@ni/fast-element';
 import { parameterizeSpec } from '@ni/jasmine-parameterized';
 import { richTextEditorTag, type RichTextEditor } from '..';
 import { type Fixture, fixture } from '../../../utilities/tests/fixture';
@@ -12,7 +12,7 @@ import { ToolbarButton } from '../testing/types';
 import { waitForUpdatesAsync } from '../../../testing/async-helpers';
 
 async function setup(): Promise<Fixture<ThemeProvider>> {
-    return fixture<ThemeProvider>(
+    return await fixture<ThemeProvider>(
         html`
       <${themeProviderTag}>
           <${labelProviderRichTextTag}></${labelProviderRichTextTag}>

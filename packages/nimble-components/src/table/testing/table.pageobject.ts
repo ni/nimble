@@ -1,23 +1,25 @@
-import type { Checkbox } from '@microsoft/fast-foundation';
-import { keyShift } from '@microsoft/fast-web-utilities';
+import type { Checkbox } from '@ni/fast-foundation';
+import { parseColor } from '@ni/fast-colors';
 import type { Table } from '..';
-import type { TableHeader } from '../components/header';
+import { tableHeaderTag, type TableHeader } from '../components/header';
 import {
     TableColumnSortDirection,
-    TableRecord,
+    type TableRecord,
     TableRowSelectionState
 } from '../types';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
-import type { MenuButton } from '../../menu-button';
-import type { TableCell } from '../components/cell';
+import { menuButtonTag, type MenuButton } from '../../menu-button';
+import { tableCellTag, type TableCell } from '../components/cell';
 import type { TableGroupHeaderView } from '../../table-column/base/group-header-view';
 import { TableCellView } from '../../table-column/base/cell-view';
-import type { TableRow } from '../components/row';
+import { tableRowTag, type TableRow } from '../components/row';
 import { Anchor, anchorTag } from '../../anchor';
-import type { TableGroupRow } from '../components/group-row';
+import { tableGroupRowTag, type TableGroupRow } from '../components/group-row';
 import type { Button } from '../../button';
 import { Icon } from '../../icon-base';
+import type { IconSeverity } from '../../icon-base/types';
 import { Spinner, spinnerTag } from '../../spinner';
+import { borderHoverColor } from '../../theme-provider/design-tokens';
 
 /**
  * Summary information about a column that is sorted in the table for use in the `TablePageObject`.
@@ -35,22 +37,20 @@ export class TablePageObject<T extends TableRecord> {
     public constructor(private readonly tableElement: Table<T>) {}
 
     public getRenderedHeaderCount(): number {
-        const headers = this.tableElement.shadowRoot!.querySelectorAll(
-            'nimble-table-header'
-        )!;
+        const headers = this.tableElement.shadowRoot!.querySelectorAll(tableHeaderTag);
         return headers.length;
     }
 
     public getRenderedCellCountForRow(rowIndex: number): number {
         const row = this.getRow(rowIndex);
-        const cells = row.shadowRoot!.querySelectorAll('nimble-table-cell');
+        const cells = row.shadowRoot!.querySelectorAll(tableCellTag);
         return cells.length;
     }
 
     public getHeaderContent(columnIndex: number): Node | undefined {
         const headers = this.tableElement.shadowRoot!.querySelectorAll<TableHeader>(
-            'nimble-table-header'
-        )!;
+            tableHeaderTag
+        );
         if (columnIndex >= headers.length) {
             throw new Error(
                 'Attempting to index past the total number of rendered columns'
@@ -62,8 +62,8 @@ export class TablePageObject<T extends TableRecord> {
 
     public getHeaderElement(columnIndex: number): TableHeader {
         const headers = this.tableElement.shadowRoot!.querySelectorAll<TableHeader>(
-            'nimble-table-header'
-        )!;
+            tableHeaderTag
+        );
         if (columnIndex >= headers.length) {
             throw new Error(
                 'Attempting to index past the total number of rendered columns'
@@ -80,6 +80,14 @@ export class TablePageObject<T extends TableRecord> {
         );
     }
 
+    public getHeaderTextContent(columnIndex: number): string {
+        return (
+            this.getHeaderContent(
+                columnIndex
+            )?.firstChild?.textContent?.trim() ?? ''
+        );
+    }
+
     public dispatchEventToHeader(
         columnIndex: number,
         event: Event
@@ -90,8 +98,8 @@ export class TablePageObject<T extends TableRecord> {
 
     public getHeaderRenderedWidth(columnIndex: number): number {
         const headers = this.tableElement.shadowRoot!.querySelectorAll<TableHeader>(
-            'nimble-table-header'
-        )!;
+            tableHeaderTag
+        );
         if (columnIndex >= headers.length) {
             throw new Error(
                 'Attempting to index past the total number of rendered columns'
@@ -114,26 +122,22 @@ export class TablePageObject<T extends TableRecord> {
     }
 
     public getRenderedRowCount(): number {
-        return this.tableElement.shadowRoot!.querySelectorAll(
-            'nimble-table-row'
-        ).length;
+        return this.tableElement.shadowRoot!.querySelectorAll(tableRowTag)
+            .length;
     }
 
     public getRenderedGroupRowCount(): number {
-        return this.tableElement.shadowRoot!.querySelectorAll(
-            'nimble-table-group-row'
-        ).length;
+        return this.tableElement.shadowRoot!.querySelectorAll(tableGroupRowTag)
+            .length;
     }
 
     public getAllGroupRowsExpandedState(): boolean[] {
-        const groupRows = this.tableElement.shadowRoot!.querySelectorAll(
-            'nimble-table-group-row'
-        );
+        const groupRows = this.tableElement.shadowRoot!.querySelectorAll(tableGroupRowTag);
         return Array.from(groupRows).map(row => row.expanded);
     }
 
     public getAllDataRowsExpandedState(): boolean[] {
-        const rows = this.tableElement.shadowRoot!.querySelectorAll('nimble-table-row');
+        const rows = this.tableElement.shadowRoot!.querySelectorAll(tableRowTag);
         return Array.from(rows).map(row => row.expanded);
     }
 
@@ -142,7 +146,7 @@ export class TablePageObject<T extends TableRecord> {
         columnIndex: number
     ): TableCellView {
         const cell = this.getCell(rowIndex, columnIndex);
-        const cellView = cell.shadowRoot!.firstElementChild;
+        const cellView = cell.cellViewContainer.firstElementChild;
         if (!(cellView instanceof TableCellView)) {
             throw new Error(
                 'Cell view not found in cell - ensure cellViewTag is set for column'
@@ -156,7 +160,7 @@ export class TablePageObject<T extends TableRecord> {
         columnId: string
     ): TableCellView {
         const cell = this.getCellById(recordId, columnId);
-        const cellView = cell.shadowRoot!.firstElementChild;
+        const cellView = cell.cellViewContainer.firstElementChild;
         if (!(cellView instanceof TableCellView)) {
             throw new Error(
                 'Cell view not found in cell - ensure cellViewTag is set for column'
@@ -193,14 +197,27 @@ export class TablePageObject<T extends TableRecord> {
         return anchor;
     }
 
-    public getRenderedIconColumnCellIconTagName(
+    public getRenderedMappingColumnCellIconTagName(
         rowIndex: number,
         columnIndex: number
     ): string {
-        const iconOrSpinner = this.getRenderedIconColumnIconOrSpinner(
+        const iconOrSpinner = this.getRenderedMappingColumnIconOrSpinner(
             this.getRenderedCellView(rowIndex, columnIndex)
         );
         return iconOrSpinner.tagName.toLocaleLowerCase();
+    }
+
+    public getRenderedMappingColumnCellIconSeverity(
+        rowIndex: number,
+        columnIndex: number
+    ): IconSeverity {
+        const iconOrSpinner = this.getRenderedMappingColumnIconOrSpinner(
+            this.getRenderedCellView(rowIndex, columnIndex)
+        );
+        if (iconOrSpinner instanceof Icon) {
+            return iconOrSpinner.severity;
+        }
+        throw new Error('Cell does not contain an icon');
     }
 
     public getRenderedGroupHeaderTextContent(groupRowIndex: number): string {
@@ -212,9 +229,7 @@ export class TablePageObject<T extends TableRecord> {
     }
 
     public getAllRenderedGroupHeaderTextContent(): string[] {
-        const groupRows = this.tableElement.shadowRoot!.querySelectorAll(
-            'nimble-table-group-row'
-        );
+        const groupRows = this.tableElement.shadowRoot!.querySelectorAll(tableGroupRowTag);
         return Array.from(groupRows).map((_, i) => {
             return this.getRenderedGroupHeaderTextContent(i);
         });
@@ -295,10 +310,16 @@ export class TablePageObject<T extends TableRecord> {
 
     public getTotalCellRenderedWidth(): number {
         const row = this.getRow(0);
-        const cells = row?.shadowRoot?.querySelectorAll('nimble-table-cell');
+        const cells = row?.shadowRoot?.querySelectorAll(tableCellTag);
         return Array.from(cells!).reduce((p, c) => {
             return p + c.getBoundingClientRect().width;
         }, 0);
+    }
+
+    public async scrollToFirstRowAsync(): Promise<void> {
+        const scrollElement = this.tableElement.viewport;
+        scrollElement.scroll({ top: 0 });
+        await waitForUpdatesAsync();
     }
 
     public async scrollToLastRowAsync(): Promise<void> {
@@ -311,10 +332,9 @@ export class TablePageObject<T extends TableRecord> {
         rowIndex: number,
         columnIndex: number
     ): MenuButton | null {
-        return this.getCell(
-            rowIndex,
-            columnIndex
-        ).shadowRoot!.querySelector<MenuButton>('nimble-menu-button');
+        return this.getCell(rowIndex, columnIndex).shadowRoot!.querySelector(
+            menuButtonTag
+        );
     }
 
     public async clickCellActionMenu(
@@ -346,7 +366,7 @@ export class TablePageObject<T extends TableRecord> {
 
     public setRowHoverState(rowIndex: number, hover: boolean): void {
         const row = this.getRow(rowIndex);
-        const cells = row.shadowRoot!.querySelectorAll('nimble-table-cell');
+        const cells = row.shadowRoot!.querySelectorAll(tableCellTag);
         if (hover) {
             cells.forEach(cell => cell.style.setProperty(
                 '--ni-private-table-cell-action-menu-display',
@@ -414,6 +434,14 @@ export class TablePageObject<T extends TableRecord> {
         return false;
     }
 
+    public isCollapseAllButtonSpaceReserved(): boolean {
+        const collapseButton = this.getCollapseAllButton();
+        if (collapseButton) {
+            return window.getComputedStyle(collapseButton).display !== 'none';
+        }
+        return true;
+    }
+
     public isDataRowExpandCollapseButtonVisible(rowIndex: number): boolean {
         const expandCollapseButton = this.getExpandCollapseButtonForRow(rowIndex);
         return expandCollapseButton !== null;
@@ -453,7 +481,9 @@ export class TablePageObject<T extends TableRecord> {
     public clickRowSelectionCheckbox(rowIndex: number, shiftKey = false): void {
         if (shiftKey) {
             const shiftKeyDownEvent = new KeyboardEvent('keydown', {
-                key: keyShift
+                key: 'Shift',
+                shiftKey: true,
+                bubbles: true
             } as KeyboardEventInit);
             document.dispatchEvent(shiftKeyDownEvent);
         }
@@ -463,7 +493,8 @@ export class TablePageObject<T extends TableRecord> {
 
         if (shiftKey) {
             const shiftKeyUpEvent = new KeyboardEvent('keyup', {
-                key: keyShift
+                key: 'Shift',
+                bubbles: true
             } as KeyboardEventInit);
             document.dispatchEvent(shiftKeyUpEvent);
         }
@@ -482,7 +513,9 @@ export class TablePageObject<T extends TableRecord> {
     ): void {
         if (shiftKey) {
             const shiftKeyDownEvent = new KeyboardEvent('keydown', {
-                key: keyShift
+                key: 'Shift',
+                shiftKey: true,
+                bubbles: true
             } as KeyboardEventInit);
             document.dispatchEvent(shiftKeyDownEvent);
         }
@@ -492,45 +525,37 @@ export class TablePageObject<T extends TableRecord> {
 
         if (shiftKey) {
             const shiftKeyUpEvent = new KeyboardEvent('keyup', {
-                key: keyShift
+                key: 'Shift',
+                bubbles: true
             } as KeyboardEventInit);
             document.dispatchEvent(shiftKeyUpEvent);
         }
     }
 
     /**
+     * @param columnIndex The index of the column to the left of the divider to press.
+     */
+    public pressRightColumnDivider(columnIndex: number): void {
+        this.pressColumnDivider(this.getColumnDivider(columnIndex, false));
+    }
+
+    /**
+     * @param columnIndex The index of the column to the left of the divider to release.
+     */
+    public releaseRightColumnDivider(columnIndex: number): void {
+        this.releaseColumnDivider(this.getColumnDivider(columnIndex, false));
+    }
+
+    /**
      * @param columnIndex The index of the column to the left of a divider being dragged. Thus, this
-     * can not be given a value representing the last visible column index.
+     * cannot be given a value representing the last visible column index.
      * @param deltas The series of mouse movements in the x-direction while sizing a column.
      */
     public dragSizeColumnByRightDivider(
         columnIndex: number,
         deltas: readonly number[]
     ): void {
-        const divider = this.getColumnRightDivider(columnIndex);
-        if (!divider) {
-            throw new Error(
-                'The provided column index has no right divider associated with it.'
-            );
-        }
-        const dividerRect = divider.getBoundingClientRect();
-        let currentMouseX = (dividerRect.x + dividerRect.width) / 2;
-        const mouseDownEvent = new MouseEvent('mousedown', {
-            clientX: currentMouseX,
-            clientY: (dividerRect.y + dividerRect.height) / 2
-        });
-        divider.dispatchEvent(mouseDownEvent);
-
-        for (const delta of deltas) {
-            currentMouseX += delta;
-            const mouseMoveEvent = new MouseEvent('mousemove', {
-                clientX: currentMouseX
-            });
-            document.dispatchEvent(mouseMoveEvent);
-        }
-
-        const mouseUpEvent = new MouseEvent('mouseup');
-        document.dispatchEvent(mouseUpEvent);
+        this.dragSizeColumnByDivider(columnIndex, false, deltas);
     }
 
     /**
@@ -542,52 +567,19 @@ export class TablePageObject<T extends TableRecord> {
         columnIndex: number,
         deltas: readonly number[]
     ): void {
-        const divider = this.getColumnLeftDivider(columnIndex);
-        if (!divider) {
-            throw new Error(
-                'The provided column index has no left divider associated with it.'
-            );
-        }
-        const dividerRect = divider.getBoundingClientRect();
-        let currentMouseX = (dividerRect.x + dividerRect.width) / 2;
-        const mouseDownEvent = new MouseEvent('mousedown', {
-            clientX: currentMouseX,
-            clientY: (dividerRect.y + dividerRect.height) / 2
-        });
-        divider.dispatchEvent(mouseDownEvent);
-
-        for (const delta of deltas) {
-            currentMouseX += delta;
-            const mouseMoveEvent = new MouseEvent('mousemove', {
-                clientX: currentMouseX
-            });
-            document.dispatchEvent(mouseMoveEvent);
-        }
-
-        const mouseUpEvent = new MouseEvent('mouseup');
-        document.dispatchEvent(mouseUpEvent);
+        this.dragSizeColumnByDivider(columnIndex, true, deltas);
     }
 
-    public getColumnRightDivider(index: number): HTMLElement | null {
-        const headerContainers = this.tableElement.shadowRoot!.querySelectorAll('.header-container');
-        if (index < 0 || index >= headerContainers.length) {
-            throw new Error(
-                'Invalid column index. Index must be greater than or equal to 0 and less than the number of visible columns.'
-            );
-        }
-
-        return headerContainers[index]!.querySelector('.column-divider.right');
-    }
-
-    public getColumnLeftDivider(index: number): HTMLElement | null {
-        const headerContainers = this.tableElement.shadowRoot!.querySelectorAll('.header-container');
-        if (index < 0 || index >= headerContainers.length) {
-            throw new Error(
-                'Invalid column index. Index must be greater than or equal to 0 and less than the number of visible columns.'
-            );
-        }
-
-        return headerContainers[index]!.querySelector('.column-divider.left');
+    /**
+     * @param columnIndex The index of the column whose right divider we're checking.
+     */
+    public columnRightDividerHasActiveStyling(columnIndex: number): boolean {
+        const divider = this.getColumnDivider(columnIndex, false);
+        const currentColor = parseColor(
+            window.getComputedStyle(divider).borderLeftColor
+        );
+        const hoverColor = parseColor(borderHoverColor.getValueFor(divider))!;
+        return currentColor!.equalValue(hoverColor);
     }
 
     public isVerticalScrollbarVisible(): boolean {
@@ -607,7 +599,7 @@ export class TablePageObject<T extends TableRecord> {
     public getSortedColumns(): SortedColumn[] {
         return this.tableElement.columns
             .filter(
-                x => !x.sortingDisabled
+                x => !x.columnInternals.sortingDisabled
                     && typeof x.columnInternals.currentSortIndex === 'number'
                     && x.columnInternals.currentSortDirection
                         !== TableColumnSortDirection.none
@@ -651,13 +643,26 @@ export class TablePageObject<T extends TableRecord> {
     }
 
     /** @internal */
+    public isRowHoverStylingEnabled(): boolean {
+        const rows: NodeListOf<TableRow | TableGroupRow> = this.tableElement.shadowRoot!.querySelectorAll(
+            `${tableRowTag}, ${tableGroupRowTag}`
+        );
+        const firstRowAllowsHover = rows[0]!.allowHover;
+        if (Array.from(rows).some(x => x.allowHover !== firstRowAllowsHover)) {
+            throw new Error('Rows inconsistently allow hover styling');
+        }
+        return firstRowAllowsHover;
+    }
+
+    /** @internal */
     public getGroupRowHeaderView(groupRowIndex: number): TableGroupHeaderView {
         const groupRow = this.getGroupRow(groupRowIndex);
         return groupRow.shadowRoot!.querySelector('.group-header-view')!;
     }
 
-    private getRow(rowIndex: number): TableRow {
-        const rows = this.tableElement.shadowRoot!.querySelectorAll('nimble-table-row');
+    /** @internal */
+    public getRow(rowIndex: number): TableRow {
+        const rows = this.tableElement.shadowRoot!.querySelectorAll(tableRowTag);
         if (rowIndex >= rows.length) {
             throw new Error(
                 'Attempting to index past the total number of rendered rows'
@@ -665,6 +670,19 @@ export class TablePageObject<T extends TableRecord> {
         }
 
         return rows.item(rowIndex);
+    }
+
+    /** @internal */
+    public getCell(rowIndex: number, columnIndex: number): TableCell {
+        const row = this.getRow(rowIndex);
+        const cells = row.shadowRoot!.querySelectorAll(tableCellTag);
+        if (columnIndex >= cells.length) {
+            throw new Error(
+                'Attempting to index past the total number of rendered columns'
+            );
+        }
+
+        return cells.item(columnIndex);
     }
 
     private getRowById(recordId: string): TableRow {
@@ -678,18 +696,6 @@ export class TablePageObject<T extends TableRecord> {
         }
 
         return row;
-    }
-
-    private getCell(rowIndex: number, columnIndex: number): TableCell {
-        const row = this.getRow(rowIndex);
-        const cells = row.shadowRoot!.querySelectorAll('nimble-table-cell');
-        if (columnIndex >= cells.length) {
-            throw new Error(
-                'Attempting to index past the total number of rendered columns'
-            );
-        }
-
-        return cells.item(columnIndex);
     }
 
     private getCellById(recordId: string, columnId: string): TableCell {
@@ -765,9 +771,7 @@ export class TablePageObject<T extends TableRecord> {
     }
 
     private getGroupRow(groupRowIndex: number): TableGroupRow {
-        const groupRows = this.tableElement.shadowRoot!.querySelectorAll(
-            'nimble-table-group-row'
-        );
+        const groupRows = this.tableElement.shadowRoot!.querySelectorAll(tableGroupRowTag);
         if (groupRowIndex >= groupRows.length) {
             throw new Error(
                 'Attempting to index past the total number of group rows'
@@ -797,7 +801,7 @@ export class TablePageObject<T extends TableRecord> {
         return nodeChildren[0]; // header content should be first item in final slot element
     }
 
-    private getRenderedIconColumnIconOrSpinner(
+    private getRenderedMappingColumnIconOrSpinner(
         view: TableCellView | TableGroupHeaderView
     ): Icon | Spinner {
         const viewShadowRoot = view.shadowRoot!;
@@ -813,9 +817,67 @@ export class TablePageObject<T extends TableRecord> {
         return spinnerOrIcon;
     }
 
+    private getColumnDivider(
+        columnIndex: number,
+        leftDivider: boolean
+    ): HTMLElement {
+        const headerContainers = this.tableElement.shadowRoot!.querySelectorAll('.header-container');
+        if (columnIndex < 0 || columnIndex >= headerContainers.length) {
+            throw new Error(
+                'Invalid column index. Index must be greater than or equal to 0 and less than the number of visible columns.'
+            );
+        }
+        const side = leftDivider ? 'left' : 'right';
+        const divider = headerContainers[columnIndex]!.querySelector(
+            `.column-divider.${side}`
+        );
+        if (!divider) {
+            throw new Error(
+                `The provided column index has no ${side} divider associated with it.`
+            );
+        }
+
+        return divider as HTMLElement;
+    }
+
+    private pressColumnDivider(divider: HTMLElement): number {
+        const dividerRect = divider.getBoundingClientRect();
+        const clickX = (dividerRect.x + dividerRect.width) / 2;
+        const pointerDownEvent = new PointerEvent('pointerdown', {
+            // -1 is a value reserved for synthetic events: https://w3c.github.io/pointerevents/#dom-pointerevent-pointerid
+            pointerId: -1,
+            clientX: clickX,
+            clientY: (dividerRect.y + dividerRect.height) / 2
+        });
+        divider.dispatchEvent(pointerDownEvent);
+
+        return clickX;
+    }
+
+    private releaseColumnDivider(divider: HTMLElement): void {
+        divider.dispatchEvent(new PointerEvent('pointerup'));
+    }
+
+    private dragSizeColumnByDivider(
+        columnIndex: number,
+        leftDivider: boolean,
+        deltas: readonly number[]
+    ): void {
+        const divider = this.getColumnDivider(columnIndex, leftDivider);
+        let currentPointerX = this.pressColumnDivider(divider);
+        for (const delta of deltas) {
+            currentPointerX += delta;
+            const pointerMoveEvent = new PointerEvent('pointermove', {
+                clientX: currentPointerX
+            });
+            divider.dispatchEvent(pointerMoveEvent);
+        }
+        this.releaseColumnDivider(divider);
+    }
+
     private readonly isSlotElement = (
         element: Node | undefined
     ): element is HTMLSlotElement => {
-        return element?.nodeName === 'SLOT' ?? false;
+        return element?.nodeName === 'SLOT';
     };
 }

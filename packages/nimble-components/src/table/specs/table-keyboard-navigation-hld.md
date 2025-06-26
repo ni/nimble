@@ -6,13 +6,13 @@ It is desirable for the table to support navigating and interacting with its con
 
 ## Links To Relevant Work Items and Reference Material
 
--   [Previous HLD and discussions on pull request](https://github.com/ni/nimble/pull/1506)
--   [ARIA Treegrid Pattern](https://www.w3.org/WAI/ARIA/apg/patterns/treegrid/#keyboardinteraction)
--   [ARIA Focus/Edit/Navigation guidance for cells](https://www.w3.org/WAI/ARIA/apg/patterns/grid/#gridNav_focus)
--   [ARIA treegrid example](https://codepen.io/atmgrifter00/pen/oNJLMQr)
--   Outdated:
-    -   [Prototype branch](https://github.com/ni/nimble/tree/table-keyboard-interactions-treegrid) ([Storybook](https://60e89457a987cf003efc0a5b-vtowbhsqmj.chromatic.com/?path=/story/incubating-table--table&args=selectionMode:multiple))
-    -   [IxD Keyboard interactions](https://xd.adobe.com/view/fa09e396-dbb9-40b8-547f-1cf9eab35a0b-8c38/)
+- [Previous HLD and discussions on pull request](https://github.com/ni/nimble/pull/1506)
+- [ARIA Treegrid Pattern](https://www.w3.org/WAI/ARIA/apg/patterns/treegrid/#keyboardinteraction)
+- [ARIA Focus/Edit/Navigation guidance for cells](https://www.w3.org/WAI/ARIA/apg/patterns/grid/#gridNav_focus)
+- [ARIA treegrid example](https://codepen.io/atmgrifter00/pen/oNJLMQr)
+- Outdated:
+    - [Prototype branch](https://github.com/ni/nimble/tree/table-keyboard-interactions-treegrid) ([Storybook](https://60e89457a987cf003efc0a5b-vtowbhsqmj.chromatic.com/?path=/story/incubating-table--table&args=selectionMode:multiple))
+    - [IxD Keyboard interactions](https://xd.adobe.com/view/fa09e396-dbb9-40b8-547f-1cf9eab35a0b-8c38/)
 
 ## Implementation / Design
 
@@ -37,8 +37,8 @@ There's also guidance about whether cells themselves, or the elements inside the
 > ARIA: "For assistive technology users, the quality of experience when navigating a grid heavily depends on both what a cell contains and on where keyboard focus is set. For example, if a cell contains a button and a grid navigation key places focus on the cell instead of the button, screen readers announce the button label but do not tell users a button is present.  
 > There are two optimal cell design and focus behavior combinations:
 >
-> -   When a cell contains _one widget_ whose operation _does not require arrow keys_, the grid navigation keys **will set focus on that widget**. Examples of such widgets include link, button, menubutton, toggle button, radio button (not radio group), switch, and checkbox.
-> -   When a cell contains _text or a single graphic_, the grid navigation keys will **set focus on the cell**."
+> - When a cell contains _one widget_ whose operation _does not require arrow keys_, the grid navigation keys **will set focus on that widget**. Examples of such widgets include link, button, menubutton, toggle button, radio button (not radio group), switch, and checkbox.
+> - When a cell contains _text or a single graphic_, the grid navigation keys will **set focus on the cell**."
 
 ### Specifics for nimble-table
 
@@ -46,17 +46,17 @@ There's also guidance about whether cells themselves, or the elements inside the
 
 `Tab` or `Shift-Tab`, from neighboring elements on the page (according to tab order), will focus the table:
 
--   If the table header contains any interactive/focusable elements, the 1st will be focused. Examples: 'Select all rows' checkbox, 'Collapse all groups' button, column headers (if any are sortable)
--   Otherwise, the 1st table row will be focused
--   (If no header elements are focusable, and the table has no rows, the table cannot be focused)
+- If the table header contains any interactive/focusable elements, the 1st will be focused. Examples: 'Select all rows' checkbox, 'Collapse all groups' button, column headers (if any are sortable)
+- Otherwise, the 1st table row will be focused
+- (If no header elements are focusable, and the table has no rows, the table cannot be focused)
 
 As noted above, `Tab` / `Shift-Tab` key moves focus between the focusable elements in a row or the header (not the cells). When focus has reached the end (or beginning) of the row/header, a continued `Tab` (or `Shift-Tab`) will move focus outside of the table.
 
 **Losing and regaining focus**:
 
--   If a particular table row has been focused, then tab focus leaves the table and later returns, we will return focus to that row (based on row index), rather than it restarting at the first row/ header.
--   If the previously focused row index is not currently in view, we'll scroll so that it's in view.
--   If there is no longer a row at the previous row index (e.g. data updates resulted in fewer rows), we'll return focus to the first row (not the header).
+- If a particular table row has been focused, then tab focus leaves the table and later returns, we will return focus to that row (based on row index), rather than it restarting at the first row/ header.
+- If the previously focused row index is not currently in view, we'll scroll so that it's in view.
+- If there is no longer a row at the previous row index (e.g. data updates resulted in fewer rows), we'll return focus to the first row (not the header).
 
 #### Navigating rows/cells
 
@@ -64,52 +64,48 @@ Once focused, by default the table is in 'navigation mode', allowing the user to
 
 When a row is focused:
 
--   If the row can be expanded and is collapsed, pressing `ArrowRight` will expand the row
--   If the row is expanded and can be collapsed, pressing `ArrowLeft` will collapse the row
--   If the row cannot be expanded (or is already expanded), pressing `ArrowRight` will move focus to the first cell
--   If the row cannot be collapsed (or is already collapsed), pressing `ArrowLeft` does nothing
--   If `ArrowDown` or `ArrowUp` is pressed, the next or previous row will be focused (if a row is available in the given direction to move to)
--   Action menus: All cell action menu buttons for the given row will be visible
+- If the row can be expanded and is collapsed, pressing `ArrowRight` will expand the row
+- If the row is expanded and can be collapsed, pressing `ArrowLeft` will collapse the row
+- If the row cannot be expanded (or is already expanded), pressing `ArrowRight` will move focus to the first cell
+- If the row cannot be collapsed (or is already collapsed), pressing `ArrowLeft` does nothing
+- If `ArrowDown` or `ArrowUp` is pressed, the next or previous row will be focused (if a row is available in the given direction to move to)
+- Action menus: All cell action menu buttons for the given row will be visible
 
 When a cell is focused:
 
--   If the focus is on the first cell, pressing `ArrowLeft` will focus the entire row
--   If the focus is on any cell other than the first cell, pressing `ArrowLeft` will move focus one cell to the left
--   If the focus is on any cell other than the last, pressing `ArrowRight` will move focus to the next cell to the right
--   If the focus is on the last cell, pressing `ArrowRight` does nothing
--   Note: If a focused cell has multiple interactive elements for its contents, those elements will _not_ receive focus from pressing `ArrowLeft` or `ArrowRight`, and instead focus will be shifted to the appropriate neighboring cell (or do nothing if focus is at the extents of the row).
--   If `ArrowDown` or `ArrowUp` is pressed, when there is an available row in the navigation direction, focus will move to the cell in the current focused column of the new row (next row or previous row, respectively)
--   Action menus: The cell menu for the given cell will be visible. Any other action menu buttons for the row will be hidden as usual (unless the row is also mouse-hovered)
+- If the focus is on the first cell, pressing `ArrowLeft` will focus the entire row
+- If the focus is on any cell other than the first cell, pressing `ArrowLeft` will move focus one cell to the left
+- If the focus is on any cell other than the last, pressing `ArrowRight` will move focus to the next cell to the right
+- If the focus is on the last cell, pressing `ArrowRight` does nothing
+- Note: If a focused cell has multiple interactive elements for its contents, those elements will _not_ receive focus from pressing `ArrowLeft` or `ArrowRight`, and instead focus will be shifted to the appropriate neighboring cell (or do nothing if focus is at the extents of the row).
+- If `ArrowDown` or `ArrowUp` is pressed, when there is an available row in the navigation direction, focus will move to the cell in the current focused column of the new row (next row or previous row, respectively)
+- Action menus: The cell menu for the given cell will be visible. Any other action menu buttons for the row will be hidden as usual (unless the row is also mouse-hovered)
 
 To navigate by multiple rows/cells, when a row or cell is focused:
 
--   `PageUp`: Navigate up by a table height's worth of rows. If a cell was selected, the matching cell (in the same column) of the new row will be selected.
--   `PageDown`: Navigate down by a table height's worth of rows. If a cell was selected, the matching cell (in the same column) of the new row will be selected.
--   `Home`: Navigate to the 1st row (if a row is selected), or the 1st cell of the row (if a cell is selected)
--   `End`: Navigate to the last row (if a row is selected), or the last cell of the row (if a cell is selected)
--   `Ctrl-Home`: Navigate to the first row. If a cell was selected, the matching cell (in the same column) of the new row will be selected.
--   `Ctrl-End`: Navigate to the last row. If a cell was selected, the matching cell (in the same column) of the new row will be selected.
-
-Special case of focusing a cell:
-
--   If a cell does not have an action menu, and only contains a single interactive/focusable element of the following types: button (and variants), switch, checkbox, or anchor/link: that child element will be focused _instead_ of the cell.
+- `PageUp`: Navigate up by a table height's worth of rows. If a cell was selected, the matching cell (in the same column) of the new row will be selected.
+- `PageDown`: Navigate down by a table height's worth of rows. If a cell was selected, the matching cell (in the same column) of the new row will be selected.
+- `Home`: Navigate to the 1st row (if a row is selected), or the 1st cell of the row (if a cell is selected)
+- `End`: Navigate to the last row (if a row is selected), or the last cell of the row (if a cell is selected)
+- `Ctrl-Home`: Navigate to the first row. If a cell was selected, the matching cell (in the same column) of the new row will be selected.
+- `Ctrl-End`: Navigate to the last row. If a cell was selected, the matching cell (in the same column) of the new row will be selected.
 
 To interact with a cell's interactive contents, starting from the state of a cell being focused:
 
--   If the cell has an interactive element (including the action menu button):
-    -   Pressing `Enter` will focus the 1st/ primary interactive element, _and_ trigger its functionality (e.g. button press, link navigation)
-    -   Pressing `F2` will focus the 1st/ primary interactive element, but not trigger its functionality
-    -   At this point, the table is no longer in 'navigation mode' (will not handle arrow key presses). `Tab`/`Shift-Tab` will also be handled by the active element by default, but may bubble up and be handled by the table (resulting in a focus change) if the content does not process `Tab`/`Shift-Tab` presses. To return to 'navigation mode', and focus the cell again:
-        -   `Esc` is pressed: If the user had edited content (e.g. textbox), it may be reverted.
-        -   `Enter` is pressed: If the user was editing content or interacting with a control, those changes will be committed.
--   For all cells with action menu buttons:
-    -   `Ctrl-Enter` will trigger the action menu button and open the action menu. Note: If the action menu button is the only interactive element in the cell, `Enter` will do the same thing.
--   Pressing `Tab` will focus the 1st/ primary interactive element in the cell. Subsequent `Tab` presses will focus subsequent interactive elements in the cell, including the action menu button. `Shift-Tab` will focus the previous interactive element. Note: `Tab` will not cycle within the cell (it will go to the next focusable elements in the row, or focus will leave the table, as outlined in the "`Tab`/`Shift-Tab` behavior" section above).
+- If the cell has an interactive element (including the action menu button):
+    - Pressing `Enter` or `F2` will focus the 1st/ primary interactive element, but not trigger its functionality. Once the element is focused, it can be triggered using standard keys (`Enter` for most elements).
+    - At this point, the table is no longer in 'navigation mode' (will not handle arrow key presses). `Tab`/`Shift-Tab` will also be handled by the active element by default, but may bubble up and be handled by the table (resulting in a focus change) if the content does not process `Tab`/`Shift-Tab` presses. To return to 'navigation mode', and focus the cell again:
+        - `Esc` is pressed: If the user had edited content (e.g. textbox), it may be reverted.
+        - `Enter` is pressed: If the user was editing content or interacting with a control, those changes will be committed.
+- For all cells with action menu buttons:
+    - `Ctrl-Enter` will trigger the action menu button and open the action menu. Note: If the action menu button is the only interactive element in the cell, `Enter` will do the same thing.
+- Pressing `Tab` will focus the 1st/ primary interactive element in the cell. Subsequent `Tab` presses will focus subsequent interactive elements in the cell, including the action menu button. `Shift-Tab` will focus the previous interactive element. Note: `Tab` will not cycle within the cell (it will go to the next focusable elements in the row, or focus will leave the table, as outlined in the "`Tab`/`Shift-Tab` behavior" section above).
 
 Scrolling the table:
 
--   If a row or cell is focused, and the table is scrolled such that the focused row/cell is no longer visible, then it's scrolled back, the same row/cell should be focused again.
--   The row/cell keyboard navigation actions will scroll the table if required, such that the newly focused row/cell is visible.
+- If a row or cell is focused, and the table is scrolled such that the focused row/cell is no longer visible, then it's scrolled back, the same row/cell should be focused again.
+- The row/cell keyboard navigation actions will scroll the table if required, such that the newly focused row/cell is visible.
+- If an element in a cell (or the cell action menu) is focused when a scroll occurs, after the scroll, the cell will be focused instead.
 
 `Ctrl-Alt modifiers`: It appears to be a common convention for screen readers to leverage `Ctrl-Alt Arrows` to move the screen reader focus to each of the cells in a row. As such, it may be desirable for our implementation to explicitly not handle keyboard interactions that involve both modifier keys, and instead respond to any resulting focus change, and update any internal state as needed based on the newly focused element. This is what the ARIA `treegrid` example does. It's not clear whether this behavior will require special handling by us or not, but we should test this scenario.
 
@@ -117,10 +113,10 @@ Scrolling the table:
 
 If the table has `selection-mode` of `single` or `multiple`:
 
--   If a row is focused, pressing `Space` will select/unselect that row
-    -   One exception: group header rows will require focusing the selection checkbox to select/unselect, as `Space` is used for group interactions (see below)
--   If a row's selection checkbox is focused, pressing `Space` will toggle the checkbox, selecting/unselecting that row
--   (Optional but suggested by ARIA WPG) If a row or cell is focused, `Shift-Space` will select/unselect the associated row
+- If a row is focused, pressing `Space` will select/unselect that row
+    - One exception: group header rows will require focusing the selection checkbox to select/unselect, as `Space` is used for group interactions (see below)
+- If a row's selection checkbox is focused, pressing `Space` will toggle the checkbox, selecting/unselecting that row
+- (Optional but suggested by ARIA WPG) If a row or cell is focused, `Shift-Space` will select/unselect the associated row
 
 Since a row's selection checkbox is currently `role=gridcell`, it will be able to be navigated to with `LeftArrow`/`RightArrow`.
 
@@ -130,9 +126,9 @@ If at least one column can be sorted, all of the column headers will be keyboard
 
 In this scenario:
 
--   `ArrowLeft` and `ArrowRight` will navigate between the selection checkbox and expand/collapse button, and each of the column headers, following similar semantics as the cell navigation (above).
--   `Enter` will toggle column sorting (between ascending/descending/none, in the same way a mouse click does)
--   `Shift-Enter` will add/remove the given column from sorting, while maintaining any other sorted columns (e.g. multi-sort), in the same way a Shift-mouse-click does
+- `ArrowLeft` and `ArrowRight` will navigate between the selection checkbox and expand/collapse button, and each of the column headers, following similar semantics as the cell navigation (above).
+- `Enter` will toggle column sorting (between ascending/descending/none, in the same way a mouse click does)
+- `Shift-Enter` will add/remove the given column from sorting, while maintaining any other sorted columns (e.g. multi-sort), in the same way a Shift-mouse-click does
 
 #### Grouping
 
@@ -140,20 +136,29 @@ Since the entire group header row is a button, the explicit expand/collapse butt
 
 If a group header row is focused:
 
--   `Space` / `Enter` will expand or collapse that group (toggling the expansion state)
--   `ArrowLeft` will collapse the group, and `ArrowRight` will expand it (for consistency with the row interactions)
+- `Space` / `Enter` will expand or collapse that group (toggling the expansion state)
+- `ArrowLeft` will collapse the group, and `ArrowRight` will expand it (for consistency with the row interactions)
+
+#### Effects of mouse interactions on keyboard navigation
+
+If the user interacts with the table with the mouse (e.g. clicks a row, cell, or cell action menu button), subsequent keyboard navigation will start from the row/cell that was interacted with. Focus visuals will not be shown when a row/cell is clicked, until any keyboard navigation after that occurs.
 
 #### Unsupported Functionality
 
 **Column sizing:** Currently we don't plan to support column sizing via the keyboard. In the future, one way we may support this is via a column header action menu, with Size to Fit or similar functions.
 
+**Focusing single interactive element of a cell**
+
+- If a cell does not have an action menu, and only contains a single interactive/focusable element of the following types: button (and variants), switch, checkbox, or anchor/link: it may be desirable to focus the child element _instead_ of the cell. (See ARIA guidance from above)
+- We opted against implementing this behavior, partially due to complications with virtualization (wanting to blur the previously focused control on scroll).
+
 ### ARIA roles
 
 Assigning appropriate ARIA roles to the various elements inside the table is critical for technologies like screen readers to work as intended. We believe the following ARIA designations will provide the expected behaviors:
 
--   `role="row"` : Provided to `TableRow` and `TableGroupRow` elements, and the element hosting all of the column header content
--   `role="columnheader"` : Provided to each `TableHeader` element as well as the container for the components responsible for various row actions like selection and collapse-all.
--   `role="gridcell"` : Provided to each `TableCell` element. This is the recommended role for cells in a `treegrid`. This would also be applied to the container element at the front of each row that would host the row selection checkbox.
+- `role="row"` : Provided to `TableRow` and `TableGroupRow` elements, and the element hosting all of the column header content
+- `role="columnheader"` : Provided to each `TableHeader` element as well as the container for the components responsible for various row actions like selection and collapse-all.
+- `role="gridcell"` : Provided to each `TableCell` element. This is the recommended role for cells in a `treegrid`. This would also be applied to the container element at the front of each row that would host the row selection checkbox.
 
 Note: For each `gridcell` in a row, there should be a corresponding `columnheader`.
 

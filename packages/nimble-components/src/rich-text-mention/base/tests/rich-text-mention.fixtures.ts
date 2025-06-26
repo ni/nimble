@@ -1,5 +1,5 @@
 // eslint-disable-next-line max-classes-per-file
-import { customElement, html, slotted } from '@microsoft/fast-element';
+import { customElement, html, slotted } from '@ni/fast-element';
 import { RichTextMention } from '..';
 import type { Mapping } from '../../../mapping/base';
 import { MappingUser } from '../../../mapping/user';
@@ -10,6 +10,7 @@ import {
     RichTextMentionValidator,
     baseValidityFlagNames
 } from '../models/mention-validator';
+import { iconExclamationMarkTag } from '../../../icons/exclamation-mark';
 
 export const richTextMentionTestTag = 'nimble-rich-text-test-mention';
 
@@ -40,7 +41,7 @@ class MappingTestConfig extends MappingConfig {}
 export class RichTextMentionTest extends RichTextMention {
     protected override getMentionInternalsOptions(): MentionInternalsOptions {
         return {
-            icon: 'nimble-icon-exclamation-mark',
+            icon: iconExclamationMarkTag,
             character: '!',
             viewElement: richTextMentionUsersViewTag,
             validator: new RichTextMentionTestValidator()

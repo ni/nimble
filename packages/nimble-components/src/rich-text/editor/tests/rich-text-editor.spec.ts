@@ -1,28 +1,28 @@
-import { html } from '@microsoft/fast-element';
+import { html } from '@ni/fast-element';
 import { parameterizeSpec } from '@ni/jasmine-parameterized';
 import { richTextEditorTag, RichTextEditor } from '..';
 import { type Fixture, fixture } from '../../../utilities/tests/fixture';
 import { RichTextEditorPageObject } from '../testing/rich-text-editor.pageobject';
 import { wackyStrings } from '../../../utilities/tests/wacky-strings';
-import type { Button } from '../../../button';
-import type { ToggleButton } from '../../../toggle-button';
+import { buttonTag, type Button } from '../../../button';
+import { toggleButtonTag, type ToggleButton } from '../../../toggle-button';
 import { ToolbarButton } from '../testing/types';
-import { createEventListener } from '../../../utilities/tests/component';
+import { waitForEvent } from '../../../utilities/testing/component';
 import { waitForUpdatesAsync } from '../../../testing/async-helpers';
 
 async function setup(): Promise<Fixture<RichTextEditor>> {
-    return fixture<RichTextEditor>(
-        html`<nimble-rich-text-editor></nimble-rich-text-editor>`
+    return await fixture<RichTextEditor>(
+        html`<${richTextEditorTag}></${richTextEditorTag}>`
     );
 }
 
 async function setupWithFooter(): Promise<Fixture<RichTextEditor>> {
-    return fixture<RichTextEditor>(
+    return await fixture<RichTextEditor>(
         // prettier-ignore
-        html`<nimble-rich-text-editor>
-            <nimble-button slot="footer-actions" id="cancel">Cancel</nimble-button>
-            <nimble-button slot="footer-actions" id="ok">OK</nimble-button>
-        </nimble-rich-text-editor>`
+        html`<${richTextEditorTag}>
+            <${buttonTag} slot="footer-actions" id="cancel">Cancel</${buttonTag}>
+            <${buttonTag} slot="footer-actions" id="ok">OK</${buttonTag}>
+        </${richTextEditorTag}>`
     );
 }
 
@@ -44,13 +44,9 @@ describe('RichTextEditor', () => {
     });
 
     it('can construct an element instance', () => {
-        expect(
-            document.createElement('nimble-rich-text-editor')
-        ).toBeInstanceOf(RichTextEditor);
-    });
-
-    it('should export its tag', () => {
-        expect(richTextEditorTag).toBe('nimble-rich-text-editor');
+        expect(document.createElement(richTextEditorTag)).toBeInstanceOf(
+            RichTextEditor
+        );
     });
 
     it('should initialize Tiptap editor', () => {
@@ -245,9 +241,7 @@ describe('RichTextEditor', () => {
             spec(
                 `"${name}" button not propagate change event to parent element`,
                 () => {
-                    const buttons: NodeListOf<ToggleButton> = element.shadowRoot!.querySelectorAll(
-                        'nimble-toggle-button'
-                    );
+                    const buttons: NodeListOf<ToggleButton> = element.shadowRoot!.querySelectorAll(toggleButtonTag);
                     const button = buttons[value.toolbarButtonIndex];
                     const buttonParent = button!.parentElement;
                     const spy = jasmine.createSpy();
@@ -437,8 +431,8 @@ describe('RichTextEditor', () => {
                 }
             ] as const;
             parameterizeSpec(markdownInput, (spec, name, value) => {
-                spec(`for ${name} markdown syntax to the editor`, () => {
-                    pageObject.pasteToEditor(value.input);
+                spec(`for ${name} markdown syntax to the editor`, async () => {
+                    await pageObject.pasteToEditor(value.input);
 
                     expect(pageObject.getEditorTagNames()).toEqual(['P']);
                     expect(pageObject.getEditorLeafContents()).toEqual([
@@ -1014,8 +1008,8 @@ describe('RichTextEditor', () => {
                 parameterizeSpec(differentValidLinks, (spec, name, value) => {
                     spec(
                         `${name} renders as absolute link(href and text content should be same) in editor`,
-                        () => {
-                            pageObject.pasteHTMLToEditor(value.input);
+                        async () => {
+                            await pageObject.pasteHTMLToEditor(value.input);
 
                             expect(pageObject.getEditorTagNames()).toEqual([
                                 'P',
@@ -1051,8 +1045,8 @@ describe('RichTextEditor', () => {
                 parameterizeSpec(validLinkNodes, (spec, name, value) => {
                     spec(
                         `${name} renders as absolute link(href and text content should be same) in editor`,
-                        () => {
-                            pageObject.pasteHTMLToEditor(value.input);
+                        async () => {
+                            await pageObject.pasteHTMLToEditor(value.input);
 
                             expect(
                                 pageObject.getEditorTagNamesWithClosingTags()
@@ -1134,19 +1128,24 @@ describe('RichTextEditor', () => {
                 ] as const;
 
                 parameterizeSpec(differentInvalidLinks, (spec, name, value) => {
-                    spec(`${name} renders as plain text in editor`, () => {
-                        pageObject.pasteHTMLToEditor(value.input);
+                    spec(
+                        `${name} renders as plain text in editor`,
+                        async () => {
+                            await pageObject.pasteHTMLToEditor(value.input);
 
-                        expect(pageObject.getEditorTagNames()).toEqual(['P']);
-                        expect(pageObject.getEditorLeafContents()).toEqual([
-                            value.text
-                        ]);
-                    });
+                            expect(pageObject.getEditorTagNames()).toEqual([
+                                'P'
+                            ]);
+                            expect(pageObject.getEditorLeafContents()).toEqual([
+                                value.text
+                            ]);
+                        }
+                    );
                 });
             });
 
-            it('pasting a plain text URL should render as a plain text', () => {
-                pageObject.pasteToEditor('https://nimble.ni.dev/');
+            it('pasting a plain text URL should render as a plain text', async () => {
+                await pageObject.pasteToEditor('https://nimble.ni.dev/');
 
                 expect(pageObject.getEditorTagNames()).toEqual(['P']);
                 expect(pageObject.getEditorLeafContents()).toEqual([
@@ -1771,34 +1770,38 @@ describe('RichTextEditor', () => {
     });
 
     it('should fire "input" event when there is an input to the editor', async () => {
-        const inputEventListener = createEventListener(element, 'input');
+        const spy = jasmine.createSpy();
+        const inputEventListener = waitForEvent(element, 'input', spy);
 
         await pageObject.setEditorTextContent('input');
-        await inputEventListener.promise;
+        await inputEventListener;
 
-        expect(inputEventListener.spy).toHaveBeenCalledTimes(1);
+        expect(spy).toHaveBeenCalledTimes(1);
     });
 
     it('should not fire "input" event when setting the content through "setMarkdown"', () => {
-        const inputEventListener = createEventListener(element, 'input');
+        const spy = jasmine.createSpy();
+        void waitForEvent(element, 'input', spy);
 
         element.setMarkdown('input');
 
-        expect(inputEventListener.spy).not.toHaveBeenCalled();
+        expect(spy).not.toHaveBeenCalled();
     });
 
     it('should fire "input" event when the text is updated/removed from the editor', async () => {
-        const inputEventListener = createEventListener(element, 'input');
-
+        const updateSpy = jasmine.createSpy();
+        const updatePromise = waitForEvent(element, 'input', updateSpy);
         await pageObject.setEditorTextContent('update');
-        await inputEventListener.promise;
+        await updatePromise;
 
-        expect(inputEventListener.spy).toHaveBeenCalledTimes(1);
+        expect(updateSpy).toHaveBeenCalledTimes(1);
 
+        const removedSpy = jasmine.createSpy();
+        const removedPromise = waitForEvent(element, 'input', removedSpy);
         await pageObject.replaceEditorContent('');
-        await inputEventListener.promise;
+        await removedPromise;
 
-        expect(inputEventListener.spy).toHaveBeenCalledTimes(1);
+        expect(removedSpy).toHaveBeenCalledTimes(1);
     });
 
     it('should initialize "empty" to true and set false when there is content', async () => {

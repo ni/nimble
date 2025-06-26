@@ -1,17 +1,17 @@
 // Based on template in FAST repo: https://github.com/microsoft/fast/blob/2ea80697bc3a5193e6123fb08ac3be2a76571aeb/packages/web-components/fast-foundation/src/listbox-option/listbox-option.template.ts
-import { html, ref, slotted } from '@microsoft/fast-element';
-import type { ViewTemplate } from '@microsoft/fast-element';
+import { html, ref, slotted } from '@ni/fast-element';
+import type { ViewTemplate } from '@ni/fast-element';
 import {
     startSlotTemplate,
     type FoundationElementTemplate,
     type ListboxOptionOptions,
     endSlotTemplate
-} from '@microsoft/fast-foundation';
+} from '@ni/fast-foundation';
 import type { ListOption } from '.';
 import { overflow } from '../utilities/directive/overflow';
 
 /**
- * The template for the {@link @microsoft/fast-foundation#(ListboxOption:class)} component.
+ * The template for the {@link @ni/fast-foundation#(ListboxOption:class)} component.
  * @public
  */
 // prettier-ignore
@@ -29,6 +29,7 @@ ListboxOptionOptions
         .filter(Boolean)
         .join(' ')}"
         role="option"
+        slot="option"
     >
         ${startSlotTemplate(context, definition)}
         <span

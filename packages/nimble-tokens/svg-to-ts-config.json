@@ -1,0 +1,26 @@
+
+{
+    "srcFiles": [
+        "./dist/icons/svg/*.svg"
+    ],
+    "prefix": "",
+    "svgoConfig": {
+        "plugins": [
+            {
+                "name": "preset-default",
+                "params": {
+                    "overrides": {
+                        "removeUnknownsAndDefaults": {
+                            "keepDataAttrs": false
+                        }
+                    }
+                }
+            }
+        ]
+    },
+    "fileName": "index",
+    "outputDirectory": "./dist/icons/ts/",
+    "interfaceName": "NimbleIcon",
+    "typeName": "NimbleIconName",
+    "exportCompleteIconSet": false
+}

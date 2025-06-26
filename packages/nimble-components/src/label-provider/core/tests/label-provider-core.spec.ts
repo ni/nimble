@@ -1,5 +1,5 @@
-import { spinalCase } from '@microsoft/fast-web-utilities';
-import { html } from '@microsoft/fast-element';
+import { spinalCase } from '@ni/fast-web-utilities';
+import { html } from '@ni/fast-element';
 import { parameterizeSpec } from '@ni/jasmine-parameterized';
 import * as labelTokensNamespace from '../label-tokens';
 import { LabelProviderCore, labelProviderCoreTag } from '..';
@@ -8,7 +8,7 @@ import {
     getPropertyName
 } from '../../base/tests/label-name-utils';
 import { ThemeProvider, themeProviderTag } from '../../../theme-provider';
-import { Fixture, fixture } from '../../../utilities/tests/fixture';
+import { type Fixture, fixture } from '../../../utilities/tests/fixture';
 
 type DesignTokenPropertyName = keyof typeof labelTokensNamespace;
 const designTokenPropertyNames = Object.keys(
@@ -16,7 +16,7 @@ const designTokenPropertyNames = Object.keys(
 ) as DesignTokenPropertyName[];
 
 async function setup(): Promise<Fixture<ThemeProvider>> {
-    return fixture<ThemeProvider>(html`
+    return await fixture<ThemeProvider>(html`
         <${themeProviderTag}>
             <${labelProviderCoreTag}></${labelProviderCoreTag}>
         </${themeProviderTag}>
@@ -40,9 +40,9 @@ describe('Label Provider Core', () => {
     });
 
     it('can construct an element instance', () => {
-        expect(
-            document.createElement('nimble-label-provider-core')
-        ).toBeInstanceOf(LabelProviderCore);
+        expect(document.createElement(labelProviderCoreTag)).toBeInstanceOf(
+            LabelProviderCore
+        );
     });
 
     describe('token JS key should match DesignToken.name', () => {

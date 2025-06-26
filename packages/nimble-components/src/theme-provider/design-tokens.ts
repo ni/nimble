@@ -1,5 +1,5 @@
-import { CSSDesignToken, DesignToken } from '@microsoft/fast-foundation';
-import { parseColorHexRGB } from '@microsoft/fast-colors';
+import { type CSSDesignToken, DesignToken } from '@ni/fast-foundation';
+import { parseColorHexRGB } from '@ni/fast-colors';
 import {
     Black,
     Black7,
@@ -98,13 +98,30 @@ import {
     GridHeaderFamily,
     GridHeaderWeight,
     GridHeaderSize,
-    DigitalGreenDark105
+    DigitalGreenDark105,
+    NiFern,
+    NiFernDark1,
+    NiHoneyLight,
+    NiIndigo,
+    NiIndigoDark2,
+    NiPlumDark1,
+    NiScarlet,
+    NiScarletDark1,
+    NiScarletDark3,
+    NiSea,
+    NiSeaLight,
+    NiSeaDark2,
+    NiSky,
+    NiTulip,
+    DigitalGreenLight10,
+    PowerGreen10,
+    DigitalGreenDark110,
+    Black82,
+    Black22,
+    PowerGreen30,
+    DigitalGreenLight30,
+    PowerGreenDark50
 } from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
-import {
-    modalBackdropColorThemeColorStatic,
-    modalBackdropColorThemeDarkStatic,
-    modalBackdropColorThemeLightStatic
-} from './design-tokens-static';
 import { Theme } from './types';
 import { tokenNames, styleNameFromTokenName } from './design-token-names';
 import { theme } from '.';
@@ -204,6 +221,63 @@ export const graphGridlineColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.graphGridlineColor)
 ).withDefault((element: HTMLElement) => hexToRgbaCssColor(getColorForTheme(element, Black91, Black15, White), 0.2));
 
+export const graphTrace1Color = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.graphTrace1Color)
+).withDefault((element: HTMLElement) => getColorForTheme(element, NiIndigoDark2, NiSky, White));
+
+export const graphTrace2Color = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.graphTrace2Color)
+).withDefault((element: HTMLElement) => getColorForTheme(
+    element,
+    NiScarletDark1,
+    NiScarlet,
+    hexToRgbaCssColor(White, 0.7)
+));
+
+export const graphTrace3Color = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.graphTrace3Color)
+).withDefault((element: HTMLElement) => getColorForTheme(
+    element,
+    NiFernDark1,
+    NiFern,
+    hexToRgbaCssColor(White, 0.4)
+));
+
+export const graphTrace4Color = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.graphTrace4Color)
+).withDefault((element: HTMLElement) => getColorForTheme(
+    element,
+    NiPlumDark1,
+    NiSeaLight,
+    hexToRgbaCssColor(White, 0.25)
+));
+
+export const graphTrace5Color = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.graphTrace5Color)
+).withDefault((element: HTMLElement) => getColorForTheme(element, NiSeaDark2, NiSea, hexToRgbaCssColor(White, 0.55)));
+
+export const graphTrace6Color = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.graphTrace6Color)
+).withDefault((element: HTMLElement) => getColorForTheme(element, NiTulip, NiTulip, hexToRgbaCssColor(White, 0.85)));
+
+export const graphTrace7Color = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.graphTrace7Color)
+).withDefault((element: HTMLElement) => getColorForTheme(
+    element,
+    NiScarletDark3,
+    NiHoneyLight,
+    hexToRgbaCssColor(White, 0.325)
+));
+
+export const graphTrace8Color = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.graphTrace8Color)
+).withDefault((element: HTMLElement) => getColorForTheme(
+    element,
+    NiIndigo,
+    NiIndigo,
+    hexToRgbaCssColor(White, 0.625)
+));
+
 export const tooltipBackgroundColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.tooltipBackgroundColor)
 ).withDefault((element: HTMLElement) => getColorForTheme(element, Black15, Black85, ForestGreen));
@@ -253,6 +327,142 @@ export const buttonBorderAccentOutlineColor = DesignToken.create<string>(
     DigitalGreenLight,
     PowerGreen,
     hexToRgbaCssColor(White, 0.3)
+));
+
+export const calendarEventBackgroundStaticColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.calendarEventBackgroundStaticColor)
+).withDefault((element: HTMLElement) => getColorForTheme(element, DigitalGreenLight10, PowerGreen10, PowerGreen10));
+
+export const calendarEventBackgroundDynamicColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.calendarEventBackgroundDynamicColor)
+).withDefault((element: HTMLElement) => getColorForTheme(
+    element,
+    DigitalGreenDark105,
+    DigitalGreenDark,
+    DigitalGreenDark
+));
+
+export const calendarEventBackgroundTransientColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.calendarEventBackgroundTransientColor)
+).withDefault((element: HTMLElement) => getColorForTheme(
+    element,
+    DigitalGreenDark105,
+    DigitalGreenDark,
+    DigitalGreenDark
+));
+
+export const calendarEventBorderStaticColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.calendarEventBorderStaticColor)
+).withDefault((element: HTMLElement) => getColorForTheme(
+    element,
+    DigitalGreenLight,
+    DigitalGreenLight,
+    DigitalGreenLight
+));
+
+export const calendarEventBorderTransientColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.calendarEventBorderTransientColor)
+).withDefault((element: HTMLElement) => getColorForTheme(
+    element,
+    DigitalGreenLight,
+    hexToRgbaCssColor(PowerGreen, 0.85),
+    hexToRgbaCssColor(PowerGreen, 0.85)
+));
+
+export const calendarEventStaticFontColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.calendarEventStaticFontColor)
+).withDefault((element: HTMLElement) => getColorForTheme(
+    element,
+    DigitalGreenDark110,
+    PowerGreenDark50,
+    PowerGreenDark50
+));
+
+export const calendarEventDynamicFontColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.calendarEventDynamicFontColor)
+).withDefault((element: HTMLElement) => getColorForTheme(element, White, White, White));
+
+export const calendarEventTransientFontColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.calendarEventTransientFontColor)
+).withDefault((element: HTMLElement) => getColorForTheme(element, White, White, White));
+
+export const calendarEventBackgroundHoverStaticColor = DesignToken.create<string>(
+    styleNameFromTokenName(
+        tokenNames.calendarEventBackgroundHoverStaticColor
+    )
+).withDefault((element: HTMLElement) => getColorForTheme(
+    element,
+    DigitalGreenLight30,
+    PowerGreen30,
+    PowerGreen30
+));
+
+export const calendarEventBackgroundHoverDynamicColor = DesignToken.create<string>(
+    styleNameFromTokenName(
+        tokenNames.calendarEventBackgroundHoverDynamicColor
+    )
+).withDefault((element: HTMLElement) => getColorForTheme(
+    element,
+    DigitalGreenDark110,
+    DigitalGreenDark105,
+    DigitalGreenDark105
+));
+
+export const calendarEventBackgroundHoverTransientColor = DesignToken.create<string>(
+    styleNameFromTokenName(
+        tokenNames.calendarEventBackgroundHoverTransientColor
+    )
+).withDefault((element: HTMLElement) => getColorForTheme(
+    element,
+    DigitalGreenDark110,
+    DigitalGreenDark105,
+    DigitalGreenDark105
+));
+
+export const calendarEventOuterBorderHighlightedColor = DesignToken.create<string>(
+    styleNameFromTokenName(
+        tokenNames.calendarEventOuterBorderHighlightedColor
+    )
+).withDefault((element: HTMLElement) => getColorForTheme(
+    element,
+    Black88,
+    hexToRgbaCssColor(White, 0.85),
+    hexToRgbaCssColor(White, 0.85)
+));
+
+export const calendarRowBackgroundSelectedColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.calendarRowBackgroundSelectedColor)
+).withDefault((element: HTMLElement) => getColorForTheme(
+    element,
+    hexToRgbaCssColor(DigitalGreenLight, 0.2),
+    hexToRgbaCssColor(PowerGreen, 0.2),
+    hexToRgbaCssColor(PowerGreen, 0.2)
+));
+
+export const calendarEventFillBlockedColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.calendarEventFillBlockedColor)
+).withDefault((element: HTMLElement) => getColorForTheme(
+    element,
+    hexToRgbaCssColor(Black91, 0.07),
+    Black82,
+    Black82
+));
+
+export const calendarGrabHandleBackgroundColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.calendarGrabHandleBackgroundColor)
+).withDefault((element: HTMLElement) => getColorForTheme(element, DigitalGreenLight, PowerGreen, PowerGreen));
+
+export const calendarGridBorderColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.calendarGridBorderColor)
+).withDefault((element: HTMLElement) => getColorForTheme(element, Black22, Black80, Black80));
+
+export const calendarGroupHeaderBackgroundColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.calendarGroupHeaderBackgroundColor)
+).withDefault((element: HTMLElement) => getColorForTheme(
+    element,
+    Black7,
+    hexToRgbaCssColor(Black91, 0.1),
+    hexToRgbaCssColor(Black91, 0.1)
 ));
 
 // Component Sizing Tokens
@@ -320,6 +530,12 @@ export const spinnerMediumHeight = DesignToken.create<string>(
 export const spinnerLargeHeight = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.spinnerLargeHeight)
 ).withDefault('64px');
+
+// The token gets a default value of the table's default height (480px)
+// but is given a calculated value in the table styles.
+export const tableFitRowsHeight = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.tableFitRowsHeight)
+).withDefault('480px');
 
 // Drop Shadow Tokens
 export const elevation1BoxShadow = DesignToken.create<string>(
@@ -508,7 +724,7 @@ export const [
         element,
         DigitalGreenLight,
         DigitalGreenLight,
-        hexToRgbaCssColor(White, 0.6)
+        hexToRgbaCssColor(White, 0.75)
     ),
     (element: HTMLElement) => hexToRgbaCssColor(getDefaultFontColorForTheme(element), 0.3),
     LinkLightUiFamily,
@@ -527,7 +743,7 @@ export const [
     linkProminentFontLineHeight
 ] = createFontTokens(
     tokenNames.linkProminentFont,
-    (element: HTMLElement) => getColorForTheme(element, DigitalGreenDark105, PowerGreen, PowerGreen),
+    (element: HTMLElement) => getColorForTheme(element, DigitalGreenDark105, PowerGreen, White),
     (element: HTMLElement) => hexToRgbaCssColor(getDefaultFontColorForTheme(element), 0.3),
     LinkLightUiFamily,
     LinkLightUiWeight,
@@ -549,7 +765,7 @@ export const [
         element,
         DigitalGreenLight,
         DigitalGreenLight,
-        hexToRgbaCssColor(White, 0.6)
+        hexToRgbaCssColor(White, 0.75)
     ),
     (element: HTMLElement) => hexToRgbaCssColor(getDefaultFontColorForTheme(element), 0.3),
     LinkLightUiFamily,
@@ -940,12 +1156,12 @@ function getFillDownColorForTheme(element: HTMLElement): string {
 function getModalBackdropForTheme(element: HTMLElement): string {
     switch (theme.getValueFor(element)) {
         case Theme.light:
-            return modalBackdropColorThemeLightStatic;
+            return hexToRgbaCssColor(Black, 0.3);
         case Theme.dark:
-            return modalBackdropColorThemeDarkStatic;
+            return hexToRgbaCssColor(Black, 0.6);
         case Theme.color:
-            return modalBackdropColorThemeColorStatic;
+            return hexToRgbaCssColor(Black, 0.6);
         default:
-            return modalBackdropColorThemeLightStatic;
+            return hexToRgbaCssColor(Black, 0.3);
     }
 }

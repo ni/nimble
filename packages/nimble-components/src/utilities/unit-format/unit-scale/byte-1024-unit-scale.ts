@@ -2,7 +2,7 @@ import { ScaledUnit } from '../scaled-unit/scaled-unit';
 import { UnitScale } from './unit-scale';
 import {
     ManuallyTranslatedScaledUnitFormat,
-    UnitTranslations,
+    type UnitTranslations,
     UnitTranslation
 } from '../scaled-unit-format/manually-translated-scaled-unit-format';
 

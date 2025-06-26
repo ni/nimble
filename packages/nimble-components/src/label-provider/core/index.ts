@@ -1,6 +1,6 @@
-import { attr } from '@microsoft/fast-element';
-import { DesignSystem } from '@microsoft/fast-foundation';
-import { DesignTokensFor, LabelProviderBase } from '../base';
+import { attr } from '@ni/fast-element';
+import { DesignSystem } from '@ni/fast-foundation';
+import { type DesignTokensFor, LabelProviderBase } from '../base';
 import {
     popupDismissLabel,
     numericDecrementLabel,
@@ -9,8 +9,12 @@ import {
     popupIconWarningLabel,
     popupIconInformationLabel,
     filterSearchLabel,
-    filterNoResultsLabel
+    filterNoResultsLabel,
+    loadingLabel,
+    scrollBackwardLabel,
+    scrollForwardLabel
 } from './label-tokens';
+import { styles } from '../base/styles';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -26,7 +30,10 @@ const supportedLabels = {
     popupIconWarning: popupIconWarningLabel,
     popupIconInformation: popupIconInformationLabel,
     filterSearch: filterSearchLabel,
-    filterNoResults: filterNoResultsLabel
+    filterNoResults: filterNoResultsLabel,
+    loading: loadingLabel,
+    scrollBackward: scrollBackwardLabel,
+    scrollForward: scrollForwardLabel
 } as const;
 
 /**
@@ -59,11 +66,21 @@ export class LabelProviderCore
     @attr({ attribute: 'filter-no-results' })
     public filterNoResults: string | undefined;
 
+    @attr({ attribute: 'loading' })
+    public loading: string | undefined;
+
+    @attr({ attribute: 'scroll-backward' })
+    public scrollBackward: string | undefined;
+
+    @attr({ attribute: 'scroll-forward' })
+    public scrollForward: string | undefined;
+
     protected override readonly supportedLabels = supportedLabels;
 }
 
 const nimbleLabelProviderCore = LabelProviderCore.compose({
-    baseName: 'label-provider-core'
+    baseName: 'label-provider-core',
+    styles
 });
 
 DesignSystem.getOrCreate()

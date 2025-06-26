@@ -1,4 +1,4 @@
-import { html, repeat, when } from '@microsoft/fast-element';
+import { html, repeat, when } from '@ni/fast-element';
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html';
 import { iconArrowLeftFromLineTag } from '@ni/nimble-components/dist/esm/icons/arrow-left-from-line';
@@ -13,16 +13,27 @@ import {
     bodyFontColor
 } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
 import { menuTag } from '@ni/nimble-components/dist/esm/menu';
-import { createUserSelectedThemeStory } from '../../utilities/storybook';
+import {
+    apiCategory,
+    createUserSelectedThemeStory,
+    disabledDescription,
+    iconDescription,
+    textContentDescription
+} from '../../utilities/storybook';
+import { hrefDescription } from '../patterns/anchor/anchor-docs';
 
 interface MenuArgs {
     itemOptions: ItemArgs[];
 }
 
-interface MenuItemArgs {
+interface MenuItemArgsBase {
     text: string;
     disabled: boolean;
     icon: boolean;
+}
+
+interface MenuItemArgs extends MenuItemArgsBase {
+    change: undefined;
 }
 
 interface AnchorMenuItemArgs {
@@ -32,8 +43,8 @@ interface AnchorMenuItemArgs {
     icon: boolean;
 }
 
-interface ItemArgs extends MenuItemArgs {
-    type: 'nimble-menu-item' | 'header' | 'hr';
+interface ItemArgs extends MenuItemArgsBase {
+    type: typeof menuItemTag | 'header' | 'hr';
 }
 
 const metadata: Meta<MenuArgs> = {
@@ -41,7 +52,9 @@ const metadata: Meta<MenuArgs> = {
     decorators: [withActions<HtmlRenderer>],
     parameters: {
         actions: {
-            handles: ['change']
+            handles: [
+                'change' // nimble-menu-item event
+            ]
         }
     }
 };
@@ -53,7 +66,7 @@ export const menu: StoryObj<MenuArgs> = {
     render: createUserSelectedThemeStory(html`
         <${menuTag}>
             ${repeat(x => x.itemOptions, html<ItemArgs>`
-                ${when(x => x.type === 'nimble-menu-item', html<ItemArgs>`
+                ${when(x => x.type === menuItemTag, html<ItemArgs>`
                     <${menuItemTag} ?disabled="${x => x.disabled}">
                         ${when(x => x.icon, html`<${iconUserTag} slot="start"></${iconUserTag}>`)}
                         ${x => x.text}
@@ -82,19 +95,19 @@ export const menu: StoryObj<MenuArgs> = {
                 text: 'Item 1',
                 disabled: false,
                 icon: false,
-                type: 'nimble-menu-item'
+                type: menuItemTag
             },
             {
                 text: 'Item 2',
                 disabled: false,
                 icon: false,
-                type: 'nimble-menu-item'
+                type: menuItemTag
             },
             {
                 text: 'Item 3',
                 disabled: false,
                 icon: false,
-                type: 'nimble-menu-item'
+                type: menuItemTag
             },
             {
                 text: 'Divider',
@@ -112,21 +125,29 @@ export const menu: StoryObj<MenuArgs> = {
                 text: 'Item 4',
                 disabled: false,
                 icon: false,
-                type: 'nimble-menu-item'
+                type: menuItemTag
             },
             {
                 text: 'Item 5',
                 disabled: false,
                 icon: false,
-                type: 'nimble-menu-item'
+                type: menuItemTag
             },
             {
                 text: 'Item 6',
                 disabled: false,
                 icon: false,
-                type: 'nimble-menu-item'
+                type: menuItemTag
             }
         ]
+    },
+    argTypes: {
+        itemOptions: {
+            name: 'default',
+            description: `The \`${menuTag}\` supports several child elements including \`<header>\`, \`<hr>\`, \`<${menuItemTag}>\`, and \`<${anchorMenuItemTag}>\``,
+            control: false,
+            table: { category: apiCategory.slots }
+        }
     }
 };
 
@@ -143,12 +164,29 @@ export const menuItem: StoryObj<MenuItemArgs> = {
     args: {
         text: 'Menu Item',
         disabled: false,
-        icon: true
+        icon: true,
+        change: undefined
     },
     argTypes: {
+        text: {
+            name: 'default',
+            description: textContentDescription({ componentName: 'menu item' }),
+            table: { category: apiCategory.slots }
+        },
         icon: {
+            name: 'start',
+            description: iconDescription,
+            table: { category: apiCategory.slots }
+        },
+        disabled: {
+            description: disabledDescription({ componentName: 'menu item' }),
+            table: { category: apiCategory.attributes }
+        },
+        change: {
             description:
-                'When including an icon, set `slot="start"` on the icon to ensure proper styling.'
+                'Bubbling event emitted by a menu item child when selected. Easier to listen for the event on parent menu than on each menu item child.',
+            table: { category: apiCategory.events },
+            control: false
         }
     }
 };
@@ -164,15 +202,37 @@ export const anchorMenuItem: StoryObj<AnchorMenuItemArgs> = {
         </${menuTag}>
         `),
     args: {
-        text: 'Menu Item',
+        text: 'Anchor Menu Item',
         href: 'https://nimble.ni.dev',
         disabled: false,
         icon: true
     },
     argTypes: {
+        text: {
+            name: 'default',
+            description: textContentDescription({
+                componentName: 'anchor menu item'
+            }),
+            table: { category: apiCategory.slots }
+        },
+        href: {
+            name: 'href',
+            description: hrefDescription({
+                componentName: 'anchor menu item',
+                includeDisable: false
+            }),
+            table: { category: apiCategory.attributes }
+        },
         icon: {
-            description:
-                'When including an icon, set `slot="start"` on the icon to ensure proper styling.'
+            name: 'start',
+            description: iconDescription,
+            table: { category: apiCategory.slots }
+        },
+        disabled: {
+            description: disabledDescription({
+                componentName: 'anchor menu item'
+            }),
+            table: { category: apiCategory.attributes }
         }
     }
 };

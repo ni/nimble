@@ -1,11 +1,11 @@
-import { html } from '@microsoft/fast-element';
+import { html } from '@ni/fast-element';
 import { parameterizeSpec } from '@ni/jasmine-parameterized';
 import { Anchor, anchorTag } from '..';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
-import { fixture, Fixture } from '../../utilities/tests/fixture';
+import { fixture, type Fixture } from '../../utilities/tests/fixture';
 
 async function setup(): Promise<Fixture<Anchor>> {
-    return fixture<Anchor>(html`<nimble-anchor></nimble-anchor>`);
+    return await fixture<Anchor>(html`<${anchorTag}></${anchorTag}>`);
 }
 
 describe('Anchor', () => {
@@ -21,12 +21,8 @@ describe('Anchor', () => {
         await disconnect();
     });
 
-    it('should export its tag', () => {
-        expect(anchorTag).toBe('nimble-anchor');
-    });
-
     it('can construct an element instance', () => {
-        expect(document.createElement('nimble-anchor')).toBeInstanceOf(Anchor);
+        expect(document.createElement(anchorTag)).toBeInstanceOf(Anchor);
     });
 
     it('should set the "control" class on the internal control', async () => {
@@ -80,6 +76,25 @@ describe('Anchor', () => {
                 expect(element.control!.getAttribute(name)).toBe('foo');
             });
         });
+
+        it('for attribute tabindex', async () => {
+            await connect();
+
+            element.setAttribute('tabindex', '-1');
+            await waitForUpdatesAsync();
+
+            expect(element.control!.getAttribute('tabindex')).toBe('-1');
+        });
+    });
+
+    it('should clear tabindex attribute from the internal control when cleared from the host', async () => {
+        element.setAttribute('tabindex', '-1');
+        await connect();
+
+        element.removeAttribute('tabindex');
+        await waitForUpdatesAsync();
+
+        expect(element.control!.hasAttribute('tabindex')).toBeFalse();
     });
 
     describe('contenteditable behavior', () => {
@@ -137,8 +152,8 @@ describe('Anchor', () => {
 
     describe('with contenteditable without value', () => {
         async function setupWithContenteditable(): Promise<Fixture<Anchor>> {
-            return fixture<Anchor>(
-                html`<nimble-anchor contenteditable></nimble-anchor>`
+            return await fixture<Anchor>(
+                html`<${anchorTag} contenteditable></${anchorTag}>`
             );
         }
 

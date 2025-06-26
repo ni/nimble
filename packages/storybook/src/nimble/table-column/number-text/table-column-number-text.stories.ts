@@ -1,19 +1,29 @@
-import { html, ref, when } from '@microsoft/fast-element';
+import { html, ref, when } from '@ni/fast-element';
 import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html';
 import { withActions } from '@storybook/addon-actions/decorator';
 import { tableTag } from '@ni/nimble-components/dist/esm/table';
 import { tableColumnTextTag } from '@ni/nimble-components/dist/esm/table-column/text';
 import { unitByteTag } from '@ni/nimble-components/dist/esm/unit/byte';
+import { unitCelsiusTag } from '@ni/nimble-components/dist/esm/unit/celsius';
+import { unitFahrenheitTag } from '@ni/nimble-components/dist/esm/unit/fahrenheit';
 import { unitVoltTag } from '@ni/nimble-components/dist/esm/unit/volt';
 import { tableColumnNumberTextTag } from '@ni/nimble-components/dist/esm/table-column/number-text';
-import { NumberTextAlignment, NumberTextFormat } from '@ni/nimble-components/dist/esm/table-column/number-text/types';
 import {
-    SharedTableArgs,
+    NumberTextAlignment,
+    NumberTextFormat
+} from '@ni/nimble-components/dist/esm/table-column/number-text/types';
+import {
+    type SharedTableArgs,
     sharedTableActions,
     sharedTableArgTypes,
     sharedTableArgs
 } from '../base/table-column-stories-utils';
-import { createUserSelectedThemeStory } from '../../../utilities/storybook';
+import {
+    apiCategory,
+    checkValidityDescription,
+    createUserSelectedThemeStory,
+    validityDescription
+} from '../../../utilities/storybook';
 
 const simpleData = [
     {
@@ -104,13 +114,6 @@ const formatDescription = `Configures the way that the numeric value is formatte
 </details>
 `;
 
-const validityDescription = `Readonly object of boolean values that represents the validity states that the column's configuration can be in.
-The object's type is \`TableColumnValidity\`, and it contains the following boolean properties:
--   \`invalidDecimalDigits\`: \`true\` when \`format\` is configured to \`decimal\` and \`decimal-digits\` is set to a number less than 0 or greater than 20.
--   \`invalidDecimalMaximumDigits\`: \`true\` when \`format\` is configured to \`decimal\` and \`decimal-maximum-digits\` is set to a number less than 0 or greater than 20.
--   \`decimalDigitsMutuallyExclusiveWithDecimalMaximumDigits\`: \`true\` when \`format\` is configured to \`decimal\` and both \`decimal-digits\` and \`decimal-maximum-digits\` are set.
-`;
-
 const alignmentDescription = `Configures the alignment of the value within the column.
 
 To improve the ability for users to visually scan values, applications should select \`right\` if it is known that the decimal separators of all values in the column will align in the given the format.
@@ -138,6 +141,10 @@ const unitDescription = `A unit for the column may be configured by providing a 
             <ul>
                 <li>\`binary\` - boolean attribute that indicates a binary conversion factor of 1024 should be used rather than 1000. The resulting unit labels are \`byte\`/\`bytes\`, \`KiB\`, \`MiB\`, \`GiB\`, \`TiB\`, and \`PiB\`. Translations exist for English, French, German, Japanese, and Chinese.</li>
             </ul>
+        </li>
+        <li>\`nimble-unit-celsius\`: This unit label is \`°C\`. Translations exist for all languages supported by the runtime environment.
+        </li>
+        <li>\`nimble-unit-fahrenheit\`: This unit label is \`°F\`. Translations exist for all languages supported by the runtime environment.
         </li>
         <li>\`nimble-unit-volt\`: Labels in this unit scale are \`fV\`, \`pV\`, \`nV\`, \`μV\`, \`mV\`, \`cV\`, \`dV\`, \`volt\`/\`volts\`, \`kV\`, \`MV\`, \`GV\`, \`TV\`, \`PV\`, and \`EV\`. Translations exist for English, French, German, Japanese, and Chinese.
         </li>
@@ -169,6 +176,8 @@ export const numberTextColumn: StoryObj<NumberTextColumnTableArgs> = {
                 Measurement
                 ${when(x => x.unit === 'byte', html`<${unitByteTag}></${unitByteTag}>`)}
                 ${when(x => x.unit === 'byte (1024)', html`<${unitByteTag} binary></${unitByteTag}>`)}
+                ${when(x => x.unit === 'degrees Celsius', html`<${unitCelsiusTag}></${unitCelsiusTag}>`)}
+                ${when(x => x.unit === 'degrees Fahrenheit', html`<${unitFahrenheitTag}></${unitFahrenheitTag}>`)}
                 ${when(x => x.unit === 'volt', html`<${unitVoltTag}></${unitVoltTag}>`)}
             </${tableColumnNumberTextTag}>
         </${tableTag}>
@@ -178,48 +187,89 @@ export const numberTextColumn: StoryObj<NumberTextColumnTableArgs> = {
             name: 'field-name',
             description:
                 'Set this attribute to identify which field in the data record should be displayed in each column. The field values must be of type `number`.',
-            control: { type: 'none' }
+            control: false,
+            table: { category: apiCategory.attributes }
         },
         placeholder: {
             description:
-                'The placeholder text to display when the field value is `undefined` or `null` for a record.'
+                'The placeholder text to display when the field value is `undefined` or `null` for a record.',
+            table: { category: apiCategory.attributes }
         },
         format: {
             description: formatDescription,
             options: Object.keys(NumberTextFormat),
-            control: { type: 'radio' }
+            control: { type: 'radio' },
+            table: { category: apiCategory.attributes }
         },
         alignment: {
             description: alignmentDescription,
             options: Object.keys(NumberTextAlignment),
-            control: { type: 'radio' }
+            control: { type: 'radio' },
+            table: { category: apiCategory.attributes }
         },
         decimalDigits: {
             name: 'decimal-digits',
             description:
                 "The number of decimal places to format values to when the column's `format` is configured to be `decimal`. If neither `decimal-digits` or `decimal-maximum-digits` are set, a default value of `2` is used. `decimal-digits` and `decimal-maximum-digits` cannot both be set at the same time. The value must be in the range 0 - 20 (inclusive).",
             options: [undefined, 0, 1, 2, 3],
-            control: { type: 'select' }
+            control: { type: 'select' },
+            table: { category: apiCategory.attributes }
         },
         decimalMaximumDigits: {
             name: 'decimal-maximum-digits',
             description:
                 "The maximum number of decimal places to format values to when the column's `format` is configured to be `decimal`. This differs from `decimal-digits` in that trailing zeros are omitted. `decimal-digits` and `decimal-maximum-digits` cannot both be set at the same time. The value must be in the range 0 - 20 (inclusive).",
             options: [undefined, 0, 1, 2, 3, 20],
-            control: { type: 'select' }
+            control: { type: 'select' },
+            table: { category: apiCategory.attributes }
         },
         unit: {
+            name: 'default',
             description: unitDescription,
-            options: ['default', 'byte', 'byte (1024)', 'volt'],
-            control: { type: 'radio' }
+            options: [
+                'default',
+                'byte',
+                'byte (1024)',
+                'degrees Celsius',
+                'degrees Fahrenheit',
+                'volt'
+            ],
+            control: { type: 'radio' },
+            table: { category: apiCategory.slots }
         },
         checkValidity: {
             name: 'checkValidity()',
-            description:
-                'Returns `true` if the column configuration is valid, otherwise `false`.'
+            description: checkValidityDescription({
+                componentName: 'number text column'
+            }),
+            control: false,
+            table: { category: apiCategory.methods }
         },
         validity: {
-            description: validityDescription
+            description: validityDescription({
+                colloquialName: 'column',
+                validityObjectType: 'TableColumnValidity',
+                validityFlags: [
+                    {
+                        flagName: 'invalidDecimalDigits',
+                        description:
+                            '`true` when `format` is configured to `decimal` and `decimal-digits` is set to a number less than 0 or greater than 20.'
+                    },
+                    {
+                        flagName: 'invalidDecimalMaximumDigits',
+                        description:
+                            '`true` when `format` is configured to `decimal` and `decimal-maximum-digits` is set to a number less than 0 or greater than 20.'
+                    },
+                    {
+                        flagName:
+                            'decimalDigitsMutuallyExclusiveWithDecimalMaximumDigits',
+                        description:
+                            '`true` when `format` is configured to `decimal` and both `decimal-digits` and `decimal-maximum-digits` are set.'
+                    }
+                ]
+            }),
+            control: false,
+            table: { category: apiCategory.nonAttributeProperties }
         }
     },
     args: {

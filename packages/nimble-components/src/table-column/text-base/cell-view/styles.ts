@@ -1,12 +1,19 @@
-import { css } from '@microsoft/fast-element';
+import { css } from '@ni/fast-element';
 import {
     bodyFont,
     bodyFontColor,
     placeholderFont,
     placeholderFontColor
 } from '../../../theme-provider/design-tokens';
+import { display } from '../../../utilities/style/display';
 
 export const styles = css`
+    ${display('flex')}
+
+    :host {
+        align-items: center;
+    }
+
     :host(.right-align) {
         margin-left: auto;
     }

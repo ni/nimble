@@ -1,9 +1,9 @@
-import { html } from '@microsoft/fast-element';
-import { fixture, Fixture } from '../../utilities/tests/fixture';
+import { html } from '@ni/fast-element';
+import { fixture, type Fixture } from '../../utilities/tests/fixture';
 import { Banner, bannerTag } from '..';
 import { BannerSeverity } from '../types';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
-import { createEventListener } from '../../utilities/tests/component';
+import { waitForEvent } from '../../utilities/testing/component';
 import { themeProviderTag, type ThemeProvider } from '../../theme-provider';
 import {
     LabelProviderCore,
@@ -12,22 +12,22 @@ import {
 import { buttonTag } from '../../button';
 
 async function setup(): Promise<Fixture<Banner>> {
-    return fixture<Banner>(html`
-        <nimble-banner>
+    return await fixture<Banner>(html`
+        <${bannerTag}>
             <span slot="title">Title</span>
             Message text
-        </nimble-banner>
+        </${bannerTag}>
     `);
 }
 
 async function setupWithLabelProvider(): Promise<Fixture<ThemeProvider>> {
-    return fixture<ThemeProvider>(html`
+    return await fixture<ThemeProvider>(html`
         <${themeProviderTag}>
             <${labelProviderCoreTag}></${labelProviderCoreTag}>
-            <nimble-banner>
+            <${bannerTag}>
                 <span slot="title">Title</span>
                 Message text
-            </nimble-banner>
+            </${bannerTag}>
         </${themeProviderTag}>
     `);
 }
@@ -47,7 +47,7 @@ describe('Banner', () => {
     });
 
     it('can construct an element instance', () => {
-        expect(document.createElement('nimble-banner')).toBeInstanceOf(Banner);
+        expect(document.createElement(bannerTag)).toBeInstanceOf(Banner);
     });
 
     it("should initialize 'open' to false", () => {
@@ -68,10 +68,11 @@ describe('Banner', () => {
 
     it("should fire 'toggle' when 'open' is changed", async () => {
         element.open = false;
-        const toggleListener = createEventListener(element, 'toggle');
+        const spy = jasmine.createSpy();
+        const toggleListener = waitForEvent(element, 'toggle', spy);
         element.open = true;
-        await toggleListener.promise;
-        expect(toggleListener.spy).toHaveBeenCalledOnceWith(
+        await toggleListener;
+        expect(spy).toHaveBeenCalledOnceWith(
             new CustomEvent('toggle', {
                 detail: { oldState: false, newState: true }
             })
@@ -80,7 +81,7 @@ describe('Banner', () => {
 
     it("should remove 'open' when dismiss button is clicked", () => {
         element.open = true;
-        element.shadowRoot?.querySelector('nimble-button')?.click();
+        element.shadowRoot?.querySelector(buttonTag)?.click();
         expect(element.open).toBeFalse();
     });
 
@@ -91,13 +92,13 @@ describe('Banner', () => {
     it("should hide dismiss button when 'preventDismiss' set", async () => {
         element.preventDismiss = true;
         await waitForUpdatesAsync();
-        expect(element.shadowRoot?.querySelector('nimble-button')).toBeNull();
+        expect(element.shadowRoot?.querySelector(buttonTag)).toBeNull();
     });
 
     it("should default label of dismiss button to 'Close'", () => {
         expect(
             element.shadowRoot
-                ?.querySelector('nimble-button')
+                ?.querySelector(buttonTag)
                 ?.innerText.includes('Close')
         ).toBeTrue();
     });

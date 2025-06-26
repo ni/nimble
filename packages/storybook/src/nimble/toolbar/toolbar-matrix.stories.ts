@@ -1,5 +1,5 @@
 import type { StoryFn, Meta } from '@storybook/html';
-import { html } from '@microsoft/fast-element';
+import { html } from '@ni/fast-element';
 import { buttonTag } from '@ni/nimble-components/dist/esm/button';
 import { iconArrowRotateRightTag } from '@ni/nimble-components/dist/esm/icons/arrow-rotate-right';
 import { iconCogTag } from '@ni/nimble-components/dist/esm/icons/cog';
@@ -61,8 +61,8 @@ const component = html`
     </${toolbarTag}>
 `;
 
-export const toolbarThemeMatrix: StoryFn = createMatrixThemeStory(component);
+export const themeMatrix: StoryFn = createMatrixThemeStory(component);
 
-export const hiddenToolbar: StoryFn = createStory(
+export const hidden: StoryFn = createStory(
     hiddenWrapper(html`<${toolbarTag} hidden>Hidden Toolbar</${toolbarTag}>`)
 );

@@ -10,18 +10,18 @@
 // 3. Remove the option for a custom parent to be specified in the `FixtureOptions` so that the patch mentioned above will never be unintentially bypassed.
 
 import {
-    Constructable,
+    type Constructable,
     defaultExecutionContext,
     ExecutionContext,
     HTMLView,
     ViewTemplate,
-} from '@microsoft/fast-element';
-import { Container, DesignSystem, DesignSystemRegistrationContext, DI } from '@microsoft/fast-foundation';
+} from '@ni/fast-element';
+import { Container, DesignSystem, type DesignSystemRegistrationContext, DI } from '@ni/fast-foundation';
 
 import type {
     FoundationElementDefinition,
     FoundationElementRegistry,
-} from '@microsoft/fast-foundation';
+} from '@ni/fast-foundation';
 
 /**
  * Options used to customize the creation of the test fixture.
@@ -41,7 +41,7 @@ export interface FixtureOptions {
 
     /**
      * The execution context to use during binding.
-     * @defaultValue {@link @microsoft/fast-element#defaultExecutionContext}
+     * @defaultValue {@link @ni/fast-element#defaultExecutionContext}
      */
     context?: ExecutionContext;
 

@@ -3,16 +3,13 @@ import {
     ComboboxAutocomplete,
     ListboxOption,
     listboxOptionTemplate
-} from '@microsoft/fast-foundation';
-import {
-    keyArrowDown,
-    keyArrowUp,
-    keyEnter
-} from '@microsoft/fast-web-utilities';
+} from '@ni/fast-foundation';
+import { keyArrowDown, keyArrowUp, keyEnter } from '@ni/fast-web-utilities';
 import { Combobox } from '..';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import { fixture } from '../../utilities/tests/fixture';
 import { template } from '../template';
+import { listOptionTag } from '../../list-option';
 
 describe('Combobox', () => {
     const combobox = Combobox.compose({
@@ -42,13 +39,13 @@ describe('Combobox', () => {
 
         element.id = 'combobox';
 
-        const option1 = document.createElement('fast-option') as ListboxOption;
+        const option1 = document.createElement(listOptionTag) as ListboxOption;
         option1.textContent = 'one';
 
-        const option2 = document.createElement('fast-option') as ListboxOption;
+        const option2 = document.createElement(listOptionTag) as ListboxOption;
         option2.textContent = 'two';
 
-        const option3 = document.createElement('fast-option') as ListboxOption;
+        const option3 = document.createElement(listOptionTag) as ListboxOption;
         option3.textContent = 'three';
 
         element.appendChild(option1);
@@ -453,9 +450,7 @@ describe('Combobox', () => {
     });
 
     it("should set the control's `aria-activedescendant` property to the ID of the currently selected option while open", async () => {
-        const {
-            connect, disconnect, element, option1, option2, option3
-        } = await setup();
+        const { connect, disconnect, element, option1, option2, option3 } = await setup();
 
         await connect();
 

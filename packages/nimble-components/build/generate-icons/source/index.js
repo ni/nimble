@@ -4,7 +4,7 @@
  * Iterates through icons provided by nimble-tokens, and generates a Nimble component for each in
  * src/icons. Also generates an all-icons barrel file.
  */
-import { pascalCase, spinalCase } from '@microsoft/fast-web-utilities';
+import { pascalCase, spinalCase } from '@ni/fast-web-utilities';
 import * as icons from '@ni/nimble-tokens/dist/icons/js';
 
 const fs = require('fs');
@@ -70,7 +70,9 @@ export const ${tagName} = '${elementName}';
     fs.writeFileSync(filePath, componentFileContents, { encoding: 'utf-8' });
     fileCount += 1;
 
-    allIconsFileContents = allIconsFileContents.concat(`export { ${className} } from './${fileName}';\n`);
+    allIconsFileContents = allIconsFileContents.concat(
+        `export { ${className} } from './${fileName}';\n`
+    );
 }
 console.log(`Finshed writing ${fileCount} icon component files`);
 

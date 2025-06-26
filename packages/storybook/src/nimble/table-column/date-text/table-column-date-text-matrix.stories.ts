@@ -1,7 +1,7 @@
 import type { StoryFn, Meta } from '@storybook/html';
-import { html, ViewTemplate } from '@microsoft/fast-element';
+import { html, ViewTemplate } from '@ni/fast-element';
 import { iconUserTag } from '@ni/nimble-components/dist/esm/icons/user';
-import { Table, tableTag } from '@ni/nimble-components/dist/esm/table';
+import { tableTag } from '@ni/nimble-components/dist/esm/table';
 import {
     controlLabelFont,
     controlLabelFontColor
@@ -58,16 +58,14 @@ const component = (
     </${tableTag}>
 `;
 
-export const tableColumnDateTextThemeMatrix: StoryFn = createMatrixThemeStory(
+export const themeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(component, [placeholderStates])
 );
 
-tableColumnDateTextThemeMatrix.play = async (): Promise<void> => {
+themeMatrix.play = async (): Promise<void> => {
     await Promise.all(
-        Array.from(document.querySelectorAll<Table>('nimble-table')).map(
-            async table => {
-                await table.setData(data);
-            }
-        )
+        Array.from(document.querySelectorAll(tableTag)).map(async table => {
+            await table.setData(data);
+        })
     );
 };

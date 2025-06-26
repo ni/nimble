@@ -1,8 +1,184 @@
 # Change Log - @ni/nimble-tokens
 
-This log was last generated on Fri, 26 Apr 2024 20:31:47 GMT and should not be manually modified.
+<!-- This log was last generated on Tue, 10 Jun 2025 20:39:08 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 8.10.0
+
+Tue, 10 Jun 2025 20:39:08 GMT
+
+### Minor changes
+
+- Add icon calendar-circle-exclamation ([ni/nimble@f7e28f8](https://github.com/ni/nimble/commit/f7e28f84e7a8cb3255ec53aa71cfe444f4489747))
+
+## 8.9.1
+
+Tue, 03 Jun 2025 16:23:41 GMT
+
+### Patches
+
+- Dependencies updated ([ni/nimble@a12609f](https://github.com/ni/nimble/commit/a12609f3ed3d318f851382d186282fb6f8d5f427))
+
+## 8.9.0
+
+Tue, 20 May 2025 23:06:06 GMT
+
+### Minor changes
+
+- New icons for automate, dock, undock, ai-chat and specification. Icon comment deprecated in favor of icon message. Icon bell and comment deprecated in favor of icon bell and message. ([ni/nimble@dbeed1f](https://github.com/ni/nimble/commit/dbeed1ff0038510c2d746bc8d3bdfe221c1b40cb))
+
+## 8.8.0
+
+Fri, 28 Mar 2025 03:26:12 GMT
+
+### Minor changes
+
+- Add new circle-minus icon ([ni/nimble@400e999](https://github.com/ni/nimble/commit/400e99951f0f38d6293cffd7df68cd73a185f2a6))
+
+## 8.7.0
+
+Fri, 07 Feb 2025 17:33:50 GMT
+
+### Minor changes
+
+- New icons for AI chat, alarms, and like/dislike. Updated icon rectangle-lines. ([ni/nimble@6fc86f5](https://github.com/ni/nimble/commit/6fc86f5b9832fb2c07d4a7d4868fadfc6312220b))
+
+## 8.6.0
+
+Mon, 09 Dec 2024 15:59:16 GMT
+
+### Minor changes
+
+- Add asterisk icon ([ni/nimble@8c4686a](https://github.com/ni/nimble/commit/8c4686a1068dedbe62eb8eaaf9e20936960fa66a))
+
+## 8.5.0
+
+Thu, 14 Nov 2024 14:41:16 GMT
+
+### Minor changes
+
+- Add / update several icons ([ni/nimble@bd0d274](https://github.com/ni/nimble/commit/bd0d2742055c429d7c09fb3113fff651ccb0aa30))
+
+## 8.4.0
+
+Fri, 18 Oct 2024 20:38:35 GMT
+
+### Minor changes
+
+- Add color token for calendar component ([ni/nimble@4323196](https://github.com/ni/nimble/commit/4323196b82407671a6305d74691a2a84a621a2b3))
+
+## 8.3.0
+
+Thu, 05 Sep 2024 16:43:39 GMT
+
+### Minor changes
+
+- Add new icons for install and uninstall software ([ni/nimble@aebf4f3](https://github.com/ni/nimble/commit/aebf4f3c222b8a404ecf0c3b5c9595205e1dc7a8))
+
+## 8.2.0
+
+Tue, 03 Sep 2024 15:34:50 GMT
+
+### Minor changes
+
+- Update color tokens for hover state in mobiscroll component' ([ni/nimble@7fe0a81](https://github.com/ni/nimble/commit/7fe0a81054ee79875a0c0ff3d9d3b22e45418f17))
+
+## 8.1.0
+
+Fri, 23 Aug 2024 17:29:42 GMT
+
+### Minor changes
+
+- Create token representing the table's height with all rows visible ([ni/nimble@dc9d005](https://github.com/ni/nimble/commit/dc9d0058a9dd702d500e905b2db0b3185e3c4d46))
+
+## 8.0.2
+
+Tue, 20 Aug 2024 22:19:56 GMT
+
+### Patches
+
+- Migrate to style dictionary v4 ([ni/nimble@b3e8a10](https://github.com/ni/nimble/commit/b3e8a109792b9de2957a5c5fa301916133afa090))
+
+## 8.0.1
+
+Sat, 10 Aug 2024 00:15:34 GMT
+
+### Patches
+
+- Remove unnecessary font precision ([ni/nimble@69abb8e](https://github.com/ni/nimble/commit/69abb8ebb0689fbc5eb307bc89a0926809e67d39))
+
+## 8.0.0
+
+Fri, 02 Aug 2024 22:15:53 GMT
+
+### Major changes
+
+- Remove icon-check and rename icon-check-large to icon-check ([ni/nimble@d634bc7](https://github.com/ni/nimble/commit/d634bc7bfd6bf10b25cc02d36e0b729dc596148b))
+
+## 7.2.0
+
+Thu, 01 Aug 2024 08:51:10 GMT
+
+### Minor changes
+
+- Add color tokens for mobiscroll components ([ni/nimble@2488638](https://github.com/ni/nimble/commit/2488638308b5e511f247dc1d113f1b2b6d74c2d4))
+
+## 7.1.0
+
+Tue, 30 Jul 2024 14:34:23 GMT
+
+### Minor changes
+
+- Add color tokens for mobiscroll components ([ni/nimble@2488638](https://github.com/ni/nimble/commit/2488638308b5e511f247dc1d113f1b2b6d74c2d4))
+
+## 7.0.1
+
+Mon, 22 Jul 2024 15:45:21 GMT
+
+### Patches
+
+- Update to typescript 5.4.5 ([ni/nimble@f69586a](https://github.com/ni/nimble/commit/f69586afcbdea5f4b8834d1123ec2b06d4eeecb3))
+
+## 7.0.0
+
+Tue, 16 Jul 2024 22:30:23 GMT
+
+### Major changes
+
+- Updates to calendar and arrow icons. Clients using "nimble-icon-calendar" or "nimble-icon-arrow-u-rotate-left" must instead use "nimble-icon-calendar-days" and "nimble-icon-arrow-u-up" (respectively). ([ni/nimble@b28b651](https://github.com/ni/nimble/commit/b28b6513d47bd583e8767620cd6ef526fa3dddac))
+
+## 6.15.1
+
+Mon, 08 Jul 2024 20:36:03 GMT
+
+### Patches
+
+- Delete NimbleTokens Nuget and clean up generation scripts for @ni/nimble-tokens npm package ([ni/nimble@ecf2bf6](https://github.com/ni/nimble/commit/ecf2bf6f026ef1fbcfe8d81ef80ede7f9ed241b0))
+
+## 6.15.0
+
+Thu, 06 Jun 2024 17:29:15 GMT
+
+### Minor changes
+
+- Add icons for AI, clean, expand, collapse, debug ([ni/nimble@d375e09](https://github.com/ni/nimble/commit/d375e092e3b2e627fba234136871d002aeb3c7b6))
+
+## 6.14.0
+
+Tue, 04 Jun 2024 16:35:58 GMT
+
+### Minor changes
+
+- Update button label font size from 12.8px to 14px to match current visual design in Figma ([ni/nimble@466a7b5](https://github.com/ni/nimble/commit/466a7b577ba7e8dc9f6e2adb5beb81b37d4bd9cd))
+
+## 6.13.6
+
+Thu, 09 May 2024 18:40:41 GMT
+
+### Patches
+
+- Update Blazor docs for Spright and workspace change ([ni/nimble@43edba8](https://github.com/ni/nimble/commit/43edba8e90d0c5f414fd2b4cf19eee197b477829))
 
 ## 6.13.5
 

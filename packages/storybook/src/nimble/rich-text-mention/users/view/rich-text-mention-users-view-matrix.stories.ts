@@ -1,4 +1,4 @@
-import { ViewTemplate, html } from '@microsoft/fast-element';
+import { ViewTemplate, html } from '@ni/fast-element';
 import type { Meta, StoryFn } from '@storybook/html';
 import {
     bodyFont,
@@ -50,4 +50,6 @@ const component = ([
     </div>
 `;
 
-export const richTextMentionUserViewThemeMatrix: StoryFn = createMatrixThemeStory(createMatrix(component, [disabledStates]));
+export const themeMatrix: StoryFn = createMatrixThemeStory(
+    createMatrix(component, [disabledStates])
+);

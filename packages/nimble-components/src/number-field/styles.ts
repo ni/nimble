@@ -1,5 +1,5 @@
-import { css } from '@microsoft/fast-element';
-import { display } from '@microsoft/fast-foundation';
+import { css } from '@ni/fast-element';
+import { display } from '../utilities/style/display';
 import {
     borderRgbPartialColor,
     borderHoverColor,
@@ -19,11 +19,13 @@ import {
 import { appearanceBehavior } from '../utilities/style/appearance';
 import { NumberFieldAppearance } from './types';
 import { styles as errorStyles } from '../patterns/error/styles';
+import { styles as requiredVisibleStyles } from '../patterns/required-visible/styles';
 import { userSelectNone } from '../utilities/style/user-select';
 
 export const styles = css`
     ${display('inline-block')}
     ${errorStyles}
+    ${requiredVisibleStyles}
 
     :host {
         font: ${bodyFont};
@@ -38,7 +40,10 @@ export const styles = css`
 
     :host([disabled]) {
         color: ${bodyDisabledFontColor};
-        cursor: default;
+    }
+
+    :host([disabled][appearance-readonly]) {
+        color: ${bodyFontColor};
     }
 
     .label {
@@ -51,8 +56,11 @@ export const styles = css`
         color: ${controlLabelDisabledFontColor};
     }
 
+    :host([disabled][appearance-readonly]) .label {
+        color: ${controlLabelFontColor};
+    }
+
     .root {
-        box-sizing: border-box;
         position: relative;
         display: flex;
         flex-direction: row;
@@ -67,6 +75,7 @@ export const styles = css`
         border-bottom-color: ${borderHoverColor};
     }
 
+    :host([readonly]) .root,
     :host([disabled]) .root {
         border-color: rgba(${borderRgbPartialColor}, 0.1);
     }
@@ -108,6 +117,7 @@ export const styles = css`
         width: 100%;
     }
 
+    :host([readonly]:hover) .root::after,
     :host([disabled]:hover) .root::after {
         width: 0px;
     }
@@ -135,12 +145,20 @@ export const styles = css`
         outline: none;
     }
 
+    :host([disabled][appearance-readonly]) .control {
+        cursor: text;
+    }
+
     .control::placeholder {
         color: ${controlLabelFontColor};
     }
 
-    .control[disabled]::placeholder {
+    :host([disabled]) .control::placeholder {
         color: ${bodyDisabledFontColor};
+    }
+
+    :host([disabled][appearance-readonly]) .control::placeholder {
+        color: ${controlLabelFontColor};
     }
 
     .controls {
@@ -170,7 +188,7 @@ export const styles = css`
 
     .error-icon {
         order: 1;
-        padding-right: ${smallPadding};
+        margin-right: ${smallPadding};
     }
 `.withBehaviors(
     appearanceBehavior(
@@ -196,11 +214,20 @@ export const styles = css`
             }
 
             :host(:hover) .root {
+                border-bottom-width: ${borderWidth};
                 padding-bottom: 0;
             }
 
+            :host([readonly]) .root,
             :host([disabled]) .root {
                 background-color: rgba(${borderRgbPartialColor}, 0.07);
+                border-color: transparent;
+            }
+
+            :host([error-visible][readonly]) .root,
+            :host([error-visible][disabled]) .root {
+                padding-bottom: 0;
+                border-bottom-color: ${failColor};
             }
         `
     ),
@@ -210,6 +237,19 @@ export const styles = css`
             .root {
                 border-width: ${borderWidth};
                 padding: 0;
+            }
+        `
+    ),
+    appearanceBehavior(
+        NumberFieldAppearance.frameless,
+        css`
+            .root {
+                padding-left: ${borderWidth};
+                padding-right: ${borderWidth};
+            }
+
+            :host([full-bleed]) .control {
+                padding-left: 0px;
             }
         `
     )

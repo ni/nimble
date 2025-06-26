@@ -1,5 +1,5 @@
 import type { WaferMap } from '..';
-import { DieRenderInfo, HoverDieOpacity } from '../types';
+import { type DieRenderInfo, HoverDieOpacity } from '../types';
 
 /**
  * Responsible for drawing the dies inside the wafer map, adding dieText and scaling the canvas
@@ -35,6 +35,12 @@ export class RenderingModule {
     }
 
     public renderHover(): void {
+        if (
+            this.wafermap.dataManager.dieDimensions === undefined
+            || this.wafermap.transform === undefined
+        ) {
+            return;
+        }
         this.wafermap.hoverWidth = this.wafermap.dataManager.dieDimensions.width
             * this.wafermap.transform.k;
         this.wafermap.hoverHeight = this.wafermap.dataManager.dieDimensions.height

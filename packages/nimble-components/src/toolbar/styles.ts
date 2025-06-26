@@ -1,11 +1,14 @@
-import { css } from '@microsoft/fast-element';
+import { css } from '@ni/fast-element';
 import {
     applicationBackgroundColor,
     smallPadding,
     standardPadding
 } from '../theme-provider/design-tokens';
+import { display } from '../utilities/style/display';
 
 export const styles = css`
+    ${display('inline')}
+
     .positioning-region {
         display: flex;
         padding: ${smallPadding} ${standardPadding};

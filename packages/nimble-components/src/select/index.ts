@@ -1,23 +1,18 @@
 // Based on: https://github.com/microsoft/fast/blob/%40microsoft/fast-foundation_v2.49.5/packages/web-components/fast-foundation/src/select/select.ts
-import {
-    attr,
-    html,
-    observable,
-    Observable,
-    volatile
-} from '@microsoft/fast-element';
+import { attr, html, observable, Observable, volatile } from '@ni/fast-element';
 import {
     AnchoredRegion,
     DesignSystem,
     Select as FoundationSelect,
     ListboxOption,
-    SelectOptions,
+    type SelectOptions,
     SelectPosition,
     applyMixins,
     StartEnd,
     DelegatesARIASelect
-} from '@microsoft/fast-foundation';
+} from '@ni/fast-foundation';
 import {
+    findLastIndex,
     keyArrowDown,
     keyArrowUp,
     keyEnd,
@@ -25,23 +20,25 @@ import {
     keyEscape,
     keyHome,
     keySpace,
-    keyTab,
     uniqueId
-} from '@microsoft/fast-web-utilities';
+} from '@ni/fast-web-utilities';
 import { arrowExpanderDown16X16 } from '@ni/nimble-tokens/dist/icons/js';
 import { styles } from './styles';
 import {
     DropdownAppearance,
-    ListOptionOwner
+    type ListOptionOwner
 } from '../patterns/dropdown/types';
 import { errorTextTemplate } from '../patterns/error/template';
-import type { ErrorPattern } from '../patterns/error/types';
+import { mixinErrorPattern } from '../patterns/error/types';
 import { iconExclamationMarkTag } from '../icons/exclamation-mark';
-import { template } from './template';
-import { ListOption } from '../list-option';
-import { FilterMode } from './types';
+import { isListOption, isListOptionGroup, template } from './template';
+import type { ListOption } from '../list-option';
+import { FilterMode, type SelectFilterInputEventDetail } from './types';
 import { diacriticInsensitiveStringNormalizer } from '../utilities/models/string-normalizers';
 import { FormAssociatedSelect } from './models/select-form-associated';
+import type { ListOptionGroup } from '../list-option-group';
+import { slotTextContent } from '../utilities/models/slot-text-content';
+import { mixinRequiredVisiblePattern } from '../patterns/required-visible/types';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -53,22 +50,32 @@ declare global {
 // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 type BooleanOrVoid = boolean | void;
 
-const isNimbleListOption = (el: Element): el is ListOption => {
-    return el instanceof ListOption;
-};
-
 const isOptionSelectable = (el: ListOption): boolean => {
     return !el.visuallyHidden && !el.disabled && !el.hidden;
+};
+
+const isOptionPlaceholder = (el: ListboxOption): boolean => {
+    return el.disabled && el.hidden;
+};
+
+const isOptionOrGroupVisible = (el: ListOption | ListOptionGroup): boolean => {
+    return !el.visuallyHidden && !el.hidden;
 };
 
 /**
  * A nimble-styled HTML select.
  */
 export class Select
-    extends FormAssociatedSelect
-    implements ErrorPattern, ListOptionOwner {
+    extends mixinErrorPattern(mixinRequiredVisiblePattern(FormAssociatedSelect))
+    implements ListOptionOwner {
     @attr
     public appearance: DropdownAppearance = DropdownAppearance.underline;
+
+    @attr({ attribute: 'appearance-readonly', mode: 'boolean' })
+    public appearanceReadOnly = false;
+
+    @attr({ attribute: 'full-bleed', mode: 'boolean' })
+    public fullBleed = false;
 
     /**
      * Reflects the placement for the listbox when the select is open.
@@ -78,21 +85,14 @@ export class Select
     @attr({ attribute: 'position' })
     public positionAttribute?: SelectPosition;
 
-    /**
-     * A message explaining why the value is invalid.
-     *
-     * @public
-     * @remarks
-     * HTML Attribute: error-text
-     */
-    @attr({ attribute: 'error-text' })
-    public errorText: string | undefined;
-
-    @attr({ attribute: 'error-visible', mode: 'boolean' })
-    public errorVisible = false;
-
     @attr({ attribute: 'filter-mode' })
     public filterMode: FilterMode = FilterMode.none;
+
+    @attr({ attribute: 'clearable', mode: 'boolean' })
+    public clearable = false;
+
+    @attr({ attribute: 'loading-visible', mode: 'boolean' })
+    public loadingVisible = false;
 
     /**
      * @internal
@@ -171,18 +171,12 @@ export class Select
     public filter = '';
 
     /**
-     * @internal
-     */
-    @observable
-    public committedSelectedOption?: ListboxOption;
-
-    /**
-     * The max height for the listbox when opened.
+     * The space available in the viewport for the listbox when opened.
      *
      * @internal
      */
     @observable
-    public maxHeight = 0;
+    public availableViewportHeight = 0;
 
     /**
      * The component is collapsible when in single-selection mode with no size attribute.
@@ -194,9 +188,25 @@ export class Select
         return !(this.multiple || typeof this.size === 'number');
     }
 
+    /** @internal */
+    public labelSlot!: HTMLSlotElement;
+
+    /** @internal */
+    @volatile
+    public get labelContent(): string {
+        if (!this.$fastController.isConnected) {
+            return '';
+        }
+
+        return slotTextContent(this.labelSlot);
+    }
+
     private _value = '';
     private forcedPosition = false;
-    private indexWhenOpened?: number;
+    private openActiveIndex?: number;
+    private readonly selectedOptionObserver? = new MutationObserver(() => {
+        this.updateDisplayValue();
+    });
 
     /**
      * @internal
@@ -204,7 +214,16 @@ export class Select
     public override connectedCallback(): void {
         super.connectedCallback();
         this.forcedPosition = !!this.positionAttribute;
-        this.initializeOpenState();
+        if (this.open) {
+            this.initializeOpenState();
+        }
+
+        this.observeSelectedOptionTextContent();
+    }
+
+    public override disconnectedCallback(): void {
+        super.disconnectedCallback();
+        this.selectedOptionObserver?.disconnect();
     }
 
     public override get value(): string {
@@ -234,18 +253,11 @@ export class Select
             newValue = this.firstSelectedOption?.value ?? newValue;
         }
 
-        if (prev !== newValue && !(this.open && this.selectedIndex < 0)) {
+        if (prev !== newValue) {
             this._value = newValue;
             super.valueChanged(prev, newValue);
-            if (!this.open) {
-                this.committedSelectedOption = this.options.find(
-                    o => o.value === newValue
-                );
-            }
             Observable.notify(this, 'value');
-            if (this.collapsible) {
-                Observable.notify(this, 'displayValue');
-            }
+            this.updateDisplayValue();
         }
     }
 
@@ -255,7 +267,7 @@ export class Select
     @volatile
     public get displayValue(): string {
         Observable.track(this, 'displayValue');
-        return this.committedSelectedOption?.text ?? '';
+        return this.firstSelectedOption?.text ?? '';
     }
 
     /**
@@ -286,8 +298,8 @@ export class Select
      * @internal
      */
     public override slottedOptionsChanged(
-        prev: Element[],
-        next: Element[]
+        prev: Element[] | undefined,
+        next: Element[] | undefined
     ): void {
         const value = this.value;
         this.options.forEach(o => {
@@ -297,13 +309,27 @@ export class Select
             notifier.unsubscribe(this, 'disabled');
         });
 
-        super.slottedOptionsChanged(prev, next);
+        prev?.filter<ListOptionGroup>(isListOptionGroup).forEach(el => {
+            const notifier = Observable.getNotifier(el);
+            notifier.unsubscribe(this, 'hidden');
+            notifier.unsubscribe(this, 'visuallyHidden');
+            notifier.unsubscribe(this, 'listOptions');
+        });
+        const options = this.getSlottedOptions(next);
+        super.slottedOptionsChanged(prev, options);
 
-        this.options.forEach(o => {
+        options.forEach(o => {
             const notifier = Observable.getNotifier(o);
             notifier.subscribe(this, 'value');
             notifier.subscribe(this, 'hidden');
             notifier.subscribe(this, 'disabled');
+        });
+        next?.filter<ListOptionGroup>(isListOptionGroup).forEach(el => {
+            this.updateAdjacentSeparatorState(el);
+            const notifier = Observable.getNotifier(el);
+            notifier.subscribe(this, 'hidden');
+            notifier.subscribe(this, 'visuallyHidden');
+            notifier.subscribe(this, 'listOptions');
         });
         this.setProxyOptions();
         this.updateValue();
@@ -313,7 +339,6 @@ export class Select
         if (value) {
             this.value = value;
         }
-        this.committedSelectedOption = this.options[this.selectedIndex];
     }
 
     /**
@@ -325,23 +350,29 @@ export class Select
             return;
         }
 
+        let optionClicked = false;
         if (this.open) {
             const captured = (e.target as HTMLElement).closest<ListOption>(
                 'option,[role=option]'
             );
+            optionClicked = captured !== null;
 
             if (captured?.disabled) {
                 return;
             }
         }
 
+        const previousSelectedIndex = this.selectedIndex;
         super.clickHandler(e);
 
-        this.open = this.collapsible && !this.open;
-
-        if (!this.open && this.indexWhenOpened !== this.selectedIndex) {
+        if (
+            this.open
+            && this.selectedIndex !== previousSelectedIndex
+            && optionClicked
+        ) {
             this.updateValue(true);
         }
+        this.open = this.collapsible && !this.open;
     }
 
     /**
@@ -362,22 +393,46 @@ export class Select
                 break;
             }
             case 'selected': {
-                if (isNimbleListOption(sourceElement)) {
+                if (isListOption(sourceElement) && sourceElement.selected) {
                     this.selectedIndex = this.options.indexOf(sourceElement);
+                } else {
+                    this.clearSelect();
                 }
-                this.setSelectedOptions();
-                this.updateDisplayValue();
                 break;
             }
             case 'hidden': {
-                if (isNimbleListOption(sourceElement)) {
+                if (isListOption(sourceElement)) {
                     sourceElement.visuallyHidden = sourceElement.hidden;
+                    this.updateAdjacentSeparatorState(sourceElement);
+                } else if (isListOptionGroup(sourceElement)) {
+                    sourceElement.listOptions.forEach(e => {
+                        e.visuallyHidden = sourceElement.hidden;
+                    });
+                    this.updateAdjacentSeparatorState(sourceElement);
                 }
+                this.filterOptions();
                 this.updateDisplayValue();
+                break;
+            }
+            case 'visuallyHidden': {
+                if (
+                    isListOptionGroup(sourceElement)
+                    || isListOption(sourceElement)
+                ) {
+                    this.updateAdjacentSeparatorState(sourceElement);
+                }
                 break;
             }
             case 'disabled': {
                 this.updateDisplayValue();
+                break;
+            }
+            case 'listOptions': {
+                // force refresh of slotted options for groups
+                this.slottedOptionsChanged(
+                    this.slottedOptions,
+                    this.slottedOptions
+                );
                 break;
             }
             default:
@@ -428,36 +483,35 @@ export class Select
     /**
      * @internal
      */
-    public inputClickHandler(e: MouseEvent): void {
-        e.stopPropagation(); // clicking in filter input shouldn't close dropdown
+    public ignoreClickHandler(e: MouseEvent): void {
+        e.stopPropagation();
     }
 
     /**
      * @internal
      */
-    public changeValueHandler(): void {
-        this.committedSelectedOption = this.options.find(
-            option => option.selected
-        );
+    public clearClickHandler(e: MouseEvent): void {
+        this.open = false;
+        this.clearSelect();
+        this.updateValue(true);
+        e.stopPropagation();
     }
 
     /**
      * @internal
      */
     public updateDisplayValue(): void {
+        const placeholderOption = this.getPlaceholderOption();
         if (
-            this.committedSelectedOption?.disabled
-            && this.committedSelectedOption?.hidden
-            && this.committedSelectedOption?.selected
+            placeholderOption
+            && this.firstSelectedOption === placeholderOption
         ) {
             this.displayPlaceholder = true;
         } else {
             this.displayPlaceholder = false;
         }
 
-        if (this.collapsible) {
-            Observable.notify(this, 'displayValue');
-        }
+        Observable.notify(this, 'displayValue');
     }
 
     /**
@@ -468,22 +522,29 @@ export class Select
      */
     public inputHandler(e: InputEvent): boolean {
         this.filter = this.filterInput?.value ?? '';
-        this.clearSelection();
-        this.filterOptions();
+        if (this.filterMode === FilterMode.standard) {
+            this.filterOptions();
 
-        if (this.filteredOptions.length > 0) {
             const enabledOptions = this.filteredOptions.filter(
                 o => !o.disabled
             );
-            if (enabledOptions.length > 0) {
-                enabledOptions[0]!.selected = true;
-            } else {
-                // only filtered option is disabled
-                this.selectedOptions = [];
-                this.selectedIndex = -1;
+            let activeOptionIndex = this.filter !== ''
+                ? (this.openActiveIndex ?? this.selectedIndex)
+                : this.selectedIndex;
+
+            if (
+                enabledOptions.length > 0
+                && !enabledOptions.find(o => o === this.options[activeOptionIndex])
+            ) {
+                activeOptionIndex = this.options.indexOf(enabledOptions[0]!);
+            } else if (enabledOptions.length === 0) {
+                activeOptionIndex = -1;
             }
-        } else if (this.committedSelectedOption) {
-            this.committedSelectedOption.selected = true;
+            this.setActiveOption(activeOptionIndex);
+        }
+
+        if (this.filterMode !== FilterMode.none) {
+            this.emitFilterInputEvent();
         }
 
         if (e.inputType.includes('deleteContent') || !this.filter.length) {
@@ -503,22 +564,13 @@ export class Select
             return true;
         }
 
+        this.open = false;
         const focusTarget = e.relatedTarget as HTMLElement;
         if (this.isSameNode(focusTarget)) {
             this.focus();
             return true;
         }
 
-        if (!this.options?.includes(focusTarget as ListboxOption)) {
-            this.open = false;
-            if (this.selectedIndex === -1) {
-                this.selectedIndex = this.indexWhenOpened!;
-            }
-
-            if (this.indexWhenOpened !== this.selectedIndex) {
-                this.updateValue(true);
-            }
-        }
         return true;
     }
 
@@ -526,13 +578,59 @@ export class Select
      * @internal
      */
     public override keydownHandler(e: KeyboardEvent): BooleanOrVoid {
-        super.keydownHandler(e);
+        const initialSelectedIndex = this.selectedIndex;
         const key = e.key;
         if (e.ctrlKey || e.shiftKey) {
             return true;
         }
 
+        if (key !== keyArrowDown && key !== keyArrowUp) {
+            super.keydownHandler(e);
+        }
+
+        let currentActiveIndex = this.openActiveIndex ?? this.selectedIndex;
+        let commitValueThenClose = false;
         switch (key) {
+            case keyArrowDown: {
+                const selectedOption = this.options[this.selectedIndex];
+                if (
+                    this.open
+                    && isListOption(selectedOption)
+                    && !isOptionOrGroupVisible(selectedOption)
+                ) {
+                    if (this.openActiveIndex === this.selectedIndex) {
+                        this.selectFirstOption();
+                    } else {
+                        this.selectNextOption();
+                    }
+                } else {
+                    super.keydownHandler(e);
+                }
+
+                // update currentActiveIndex again as dependent state may have changed
+                currentActiveIndex = this.openActiveIndex ?? this.selectedIndex;
+                break;
+            }
+            case keyArrowUp: {
+                const selectedOption = this.options[this.selectedIndex];
+                if (
+                    this.open
+                    && isListOption(selectedOption)
+                    && !isOptionOrGroupVisible(selectedOption)
+                ) {
+                    if (this.openActiveIndex === this.selectedIndex) {
+                        this.selectLastOption();
+                    } else {
+                        this.selectPreviousOption();
+                    }
+                } else {
+                    super.keydownHandler(e);
+                }
+
+                // update currentActiveIndex again as dependent state may have changed
+                currentActiveIndex = this.openActiveIndex ?? this.selectedIndex;
+                break;
+            }
             case keySpace: {
                 // when dropdown is open allow user to enter a space for filter text
                 if (this.open && this.filterMode !== FilterMode.none) {
@@ -561,35 +659,36 @@ export class Select
                 ) {
                     return false;
                 }
-                this.open = !this.open;
-                if (!this.open) {
+                if (this.open) {
+                    commitValueThenClose = true;
+                } else {
+                    this.open = true;
+                }
+
+                if (commitValueThenClose) {
                     this.focus();
                 }
                 break;
             }
             case keyEscape: {
                 if (!this.open) {
+                    if (this.clearable) {
+                        this.clearSelect();
+                        this.updateValue(true);
+                        return true;
+                    }
+
                     break;
                 }
+
                 if (this.collapsible && this.open) {
                     e.preventDefault();
                     this.open = false;
                 }
 
-                if (this.selectedIndex !== this.indexWhenOpened!) {
-                    this.options[this.selectedIndex]!.selected = false;
-                    this.selectedIndex = this.indexWhenOpened!;
-                }
+                currentActiveIndex = this.selectedIndex;
                 this.focus();
                 break;
-            }
-            case keyTab: {
-                if (this.collapsible && this.open) {
-                    e.preventDefault();
-                    this.open = false;
-                }
-
-                return true;
             }
 
             default: {
@@ -597,9 +696,18 @@ export class Select
             }
         }
 
-        if (!this.open && this.indexWhenOpened !== this.selectedIndex) {
-            this.updateValue(true);
-            this.indexWhenOpened = this.selectedIndex;
+        if (!this.open || commitValueThenClose) {
+            if (this.selectedIndex !== currentActiveIndex) {
+                this.selectedIndex = currentActiveIndex;
+            }
+
+            if (initialSelectedIndex !== this.selectedIndex) {
+                this.updateValue(true);
+            }
+        }
+
+        if (commitValueThenClose) {
+            this.open = false;
         }
 
         return !(key === keyArrowDown || key === keyArrowUp);
@@ -622,7 +730,32 @@ export class Select
         // implementation handles skipping non-selected disabled options for the initial
         // selected value.
         this.setSelectedOptions();
+        if (this.open) {
+            this.setActiveOption(this.selectedIndex);
+        }
         this.updateValue();
+    }
+
+    /**
+     * @internal
+     * Fork of Listbox implementation, so that the selectedIndex is not changed while the dropdown
+     * is open.
+     */
+    public override typeaheadBufferChanged(_: string, __: string): void {
+        if (this.$fastController.isConnected) {
+            const typeaheadMatches = this.getTypeaheadMatches();
+
+            if (typeaheadMatches.length) {
+                const activeOptionIndex = this.options.indexOf(
+                    typeaheadMatches[0] as ListOption
+                );
+                if (!(this.open && this.filterMode !== FilterMode.none)) {
+                    this.setActiveOption(activeOptionIndex);
+                }
+            }
+
+            this.typeaheadExpired = false;
+        }
     }
 
     /**
@@ -655,34 +788,57 @@ export class Select
         }
     }
 
+    /**
+     * @internal
+     */
     public override selectNextOption(): void {
         // don't call super.selectNextOption as that relies on side-effecty
         // behavior to not select disabled option (which no longer works)
-        for (let i = this.selectedIndex + 1; i < this.options.length; i++) {
+        const startIndex = this.openActiveIndex ?? this.selectedIndex;
+        for (let i = startIndex + 1; i < this.options.length; i++) {
             const listOption = this.options[i]!;
-            if (
-                isNimbleListOption(listOption)
-                && isOptionSelectable(listOption)
-            ) {
-                this.selectedIndex = i;
+            if (isListOption(listOption) && isOptionSelectable(listOption)) {
+                this.setActiveOption(i);
                 break;
             }
         }
     }
 
+    /**
+     * @internal
+     */
     public override selectPreviousOption(): void {
         // don't call super.selectPreviousOption as that relies on side-effecty
         // behavior to not select disabled option (which no longer works)
-        for (let i = this.selectedIndex - 1; i >= 0; i--) {
+        const startIndex = this.openActiveIndex ?? this.selectedIndex;
+        for (let i = startIndex - 1; i >= 0; i--) {
             const listOption = this.options[i]!;
-            if (
-                isNimbleListOption(listOption)
-                && isOptionSelectable(listOption)
-            ) {
-                this.selectedIndex = i;
+            if (isListOption(listOption) && isOptionSelectable(listOption)) {
+                this.setActiveOption(i);
                 break;
             }
         }
+    }
+
+    /**
+     * @internal
+     */
+    public override selectFirstOption(): void {
+        const newActiveOptionIndex = this.options.findIndex(
+            o => isListOption(o) && isOptionSelectable(o)
+        );
+        this.setActiveOption(newActiveOptionIndex);
+    }
+
+    /**
+     * @internal
+     */
+    public override selectLastOption(): void {
+        const newActiveOptionIndex = findLastIndex(
+            this.options,
+            o => isListOption(o) && isOptionSelectable(o)
+        );
+        this.setActiveOption(newActiveOptionIndex);
     }
 
     /**
@@ -702,14 +858,13 @@ export class Select
         this.options.push(option);
     }
 
-    // Prevents parent classes from resetting selectedIndex to a positive
-    // value while filtering, which can result in a disabled option being
-    // selected.
     protected override setSelectedOptions(): void {
+        // Prevents parent classes from resetting selectedIndex to a positive
+        // value while filtering, which can result in a disabled option being
+        // selected.
         if (this.open && this.selectedIndex === -1) {
             return;
         }
-
         super.setSelectedOptions();
     }
 
@@ -720,6 +875,12 @@ export class Select
                 this.filterInput?.focus();
             });
         }
+    }
+
+    protected override getTypeaheadMatches(): ListboxOption[] {
+        const matches = super.getTypeaheadMatches();
+        // Don't allow placeholder to be matched
+        return matches.filter(o => !o.hidden && !o.disabled);
     }
 
     protected positionChanged(
@@ -757,16 +918,22 @@ export class Select
 
         if (this.open) {
             this.initializeOpenState();
-            this.indexWhenOpened = this.selectedIndex;
-
             return;
         }
 
+        const activeOption = this.options[this.openActiveIndex ?? this.selectedIndex];
+        if (isListOption(activeOption)) {
+            activeOption.activeOption = false;
+        }
+        this.openActiveIndex = undefined;
         this.filter = '';
         if (this.filterInput) {
             this.filterInput.value = '';
         }
 
+        if (this.filterMode !== FilterMode.none) {
+            this.emitFilterInputEvent();
+        }
         this.ariaControls = '';
         this.ariaExpanded = 'false';
     }
@@ -807,21 +974,24 @@ export class Select
      */
     protected override setDefaultSelectedOption(): void {
         const options: ListboxOption[] = this.options
-            ?? Array.from(this.children).filter(o => isNimbleListOption(o));
+            ?? Array.from(this.children).filter(o => isListOption(o));
 
         const optionIsSelected = (option: ListboxOption): boolean => {
             return option.hasAttribute('selected') || option.selected;
         };
         let selectedIndex = -1;
         let firstValidOptionIndex = -1;
+        let placeholderIndex = -1;
         for (let i = 0; i < options?.length; i++) {
-            const option = options[i];
-            if (optionIsSelected(option!) || option?.value === this.value) {
+            const option = options[i]!;
+            if (optionIsSelected(option) || option.value === this.value) {
                 selectedIndex = i;
-            }
-            if (
+                break;
+            } else if (placeholderIndex === -1 && isOptionPlaceholder(option)) {
+                placeholderIndex = i;
+            } else if (
                 firstValidOptionIndex === -1
-                && isOptionSelectable(option! as ListOption)
+                && isOptionSelectable(option as ListOption)
             ) {
                 firstValidOptionIndex = i;
             }
@@ -829,16 +999,72 @@ export class Select
 
         if (selectedIndex !== -1) {
             this.selectedIndex = selectedIndex;
+        } else if (placeholderIndex !== -1) {
+            this.selectedIndex = placeholderIndex;
         } else if (firstValidOptionIndex !== -1) {
             this.selectedIndex = firstValidOptionIndex;
         } else {
             this.selectedIndex = 0;
         }
-        this.committedSelectedOption = options[this.selectedIndex];
     }
 
-    private committedSelectedOptionChanged(): void {
-        this.updateDisplayValue();
+    private getSlottedOptions(
+        slottedElements: Element[] | undefined
+    ): ListboxOption[] {
+        const options: ListOption[] = [];
+        slottedElements?.forEach(el => {
+            if (isListOption(el)) {
+                options.push(el);
+            } else if (isListOptionGroup(el)) {
+                options.push(...this.getGroupOptions(el));
+            }
+        });
+
+        return options;
+    }
+
+    private setActiveOption(newActiveIndex: number): void {
+        const activeOption = this.options[newActiveIndex];
+        if (this.open) {
+            if (isListOption(activeOption)) {
+                activeOption.activeOption = true;
+            }
+
+            const previousActiveIndex = this.openActiveIndex ?? this.selectedIndex;
+            const previousActiveOption = this.options[previousActiveIndex];
+            if (
+                previousActiveIndex !== newActiveIndex
+                && isListOption(previousActiveOption)
+            ) {
+                previousActiveOption.activeOption = false;
+            }
+
+            this.openActiveIndex = newActiveIndex;
+            this.focusAndScrollActiveOptionIntoView();
+        } else {
+            this.selectedIndex = newActiveIndex;
+        }
+
+        this.ariaActiveDescendant = activeOption?.id ?? '';
+    }
+
+    private focusAndScrollActiveOptionIntoView(): void {
+        const optionToFocus = this.options[this.openActiveIndex ?? this.selectedIndex];
+        // Copied from FAST: To ensure that the browser handles both `focus()` and
+        // `scrollIntoView()`, the timing here needs to guarantee that they happen on
+        // different frames. Since this function is typically called from the `openChanged`
+        // observer, `DOM.queueUpdate` causes the calls to be grouped into the same frame.
+        // To prevent this, `requestAnimationFrame` is used instead of `DOM.queueUpdate`.
+        if (optionToFocus !== undefined && this.contains(optionToFocus)) {
+            optionToFocus.focus();
+            requestAnimationFrame(() => {
+                optionToFocus.scrollIntoView({ block: 'nearest' });
+            });
+        }
+    }
+
+    private getPlaceholderOption(): ListOption | undefined {
+        return this.options.find(o => o.hidden && o.disabled) as ListOption;
     }
 
     private setPositioning(): void {
@@ -863,10 +1089,100 @@ export class Select
             ? this.positionAttribute
             : this.position;
 
-        this.maxHeight = this.position === SelectPosition.above
+        this.availableViewportHeight = this.position === SelectPosition.above
             ? Math.trunc(currentBox.top)
             : Math.trunc(availableBottom);
-        this.updateListboxMaxHeightCssVariable();
+    }
+
+    private updateAdjacentSeparatorState(
+        element: ListOptionGroup | ListOption
+    ): void {
+        const previousElement = this.getPreviousVisibleOptionOrGroup(element);
+        const nextElement = this.getNextVisibleOptionOrGroup(element);
+
+        if (isOptionOrGroupVisible(element)) {
+            const topSeparatorVisible = isListOption(previousElement);
+            this.setTopSeparatorState(element, topSeparatorVisible);
+            const bottomSeparatorVisible = nextElement !== null;
+            this.setBottomSeparatorState(element, bottomSeparatorVisible);
+            this.setBottomSeparatorState(previousElement, true);
+        } else {
+            const nextTopSeparatorVisible = isListOption(previousElement);
+            this.setTopSeparatorState(nextElement, nextTopSeparatorVisible);
+            const previousBottomSeparatorVisible = nextElement !== null;
+            this.setBottomSeparatorState(
+                previousElement,
+                previousBottomSeparatorVisible
+            );
+        }
+    }
+
+    private setTopSeparatorState(
+        element: ListOptionGroup | ListOption | null,
+        visible: boolean
+    ): void {
+        if (isListOptionGroup(element)) {
+            element.topSeparatorVisible = visible;
+        }
+    }
+
+    private setBottomSeparatorState(
+        element: ListOptionGroup | ListOption | null,
+        visible: boolean
+    ): void {
+        if (isListOptionGroup(element)) {
+            element.bottomSeparatorVisible = visible;
+        }
+    }
+
+    private getPreviousVisibleOptionOrGroup(
+        element: HTMLElement
+    ): ListOption | ListOptionGroup | null {
+        let previousElement = element.previousElementSibling;
+        while (previousElement) {
+            if (
+                (isListOption(previousElement)
+                    || isListOptionGroup(previousElement))
+                && isOptionOrGroupVisible(previousElement)
+            ) {
+                return previousElement;
+            }
+            previousElement = previousElement.previousElementSibling;
+        }
+        return null;
+    }
+
+    private getNextVisibleOptionOrGroup(
+        element: HTMLElement
+    ): ListOption | ListOptionGroup | null {
+        let nextElement = element.nextElementSibling;
+        while (nextElement) {
+            if (
+                (isListOption(nextElement) || isListOptionGroup(nextElement))
+                && isOptionOrGroupVisible(nextElement)
+            ) {
+                return nextElement;
+            }
+            nextElement = nextElement.nextElementSibling;
+        }
+        return null;
+    }
+
+    private isOptionHiddenOrFilteredOut(option: ListOption): boolean {
+        if (option.hidden) {
+            return true;
+        }
+        return this.filterMode === FilterMode.standard
+            ? !this.filterMatchesText(option.text)
+            : false;
+    }
+
+    private filterMatchesText(text: string): boolean {
+        const filter = this.filter.toLowerCase();
+        const normalizedFilter = diacriticInsensitiveStringNormalizer(filter);
+        return diacriticInsensitiveStringNormalizer(text).includes(
+            normalizedFilter
+        );
     }
 
     /**
@@ -875,33 +1191,49 @@ export class Select
      * @public
      */
     private filterOptions(): void {
-        const filter = this.filter.toLowerCase();
-
-        if (filter) {
-            this.filteredOptions = this.options.filter(option => {
-                const normalizedFilter = diacriticInsensitiveStringNormalizer(filter);
-                return (
-                    !option.hidden
-                    && diacriticInsensitiveStringNormalizer(option.text).includes(
-                        normalizedFilter
-                    )
-                );
-            });
-        } else {
-            this.filteredOptions = this.options.filter(
-                option => !option.hidden
-            );
+        if (!this.$fastController.isConnected) {
+            return;
         }
 
-        this.options.forEach(o => {
-            if (isNimbleListOption(o)) {
-                if (!this.filteredOptions.includes(o)) {
-                    o.visuallyHidden = true;
-                } else {
-                    o.visuallyHidden = false;
+        const filteredOptions: ListOption[] = [];
+        for (const element of this.slottedOptions) {
+            if (isListOptionGroup(element)) {
+                if (element.hidden) {
+                    continue; // no need to process hidden groups
+                }
+                const groupOptions = this.getGroupOptions(element);
+                const groupMatchesFilter = this.filterMatchesText(
+                    element.labelContent
+                );
+                groupOptions.forEach(option => {
+                    option.visuallyHidden = groupMatchesFilter
+                        ? false
+                        : this.isOptionHiddenOrFilteredOut(option);
+                    if (!option.visuallyHidden) {
+                        filteredOptions.push(option);
+                    }
+                });
+            } else if (isListOption(element)) {
+                element.visuallyHidden = this.isOptionHiddenOrFilteredOut(element);
+                if (!element.visuallyHidden) {
+                    filteredOptions.push(element);
                 }
             }
-        });
+        }
+
+        this.filteredOptions = filteredOptions;
+    }
+
+    private getGroupOptions(group: ListOptionGroup): ListOption[] {
+        return Array.from(group.children)
+            .filter(el => isListOption(el))
+            .map(el => {
+                if (group.hidden && isListOption(el)) {
+                    el.visuallyHidden = true;
+                }
+
+                return el;
+            }) as ListOption[];
     }
 
     /**
@@ -914,6 +1246,7 @@ export class Select
     private updateValue(shouldEmit?: boolean): void {
         if (this.$fastController.isConnected) {
             this.value = this.firstSelectedOption?.value ?? '';
+            this.observeSelectedOptionTextContent();
         }
 
         if (shouldEmit) {
@@ -923,6 +1256,13 @@ export class Select
                 composed: undefined
             });
         }
+    }
+
+    private clearSelect(): void {
+        const placeholder = this.getPlaceholderOption();
+        this.selectedIndex = placeholder
+            ? this.options.indexOf(placeholder)
+            : -1;
     }
 
     /**
@@ -946,28 +1286,20 @@ export class Select
         }
     }
 
-    private clearSelection(): void {
-        this.options.forEach(option => {
-            option.selected = false;
-        });
-    }
-
     private filterChanged(): void {
         this.filterOptions();
     }
 
-    private maxHeightChanged(): void {
-        this.updateListboxMaxHeightCssVariable();
+    private emitFilterInputEvent(): void {
+        const eventDetail: SelectFilterInputEventDetail = {
+            filterText: this.filter
+        };
+
+        this.$emit('filter-input', eventDetail, { bubbles: true });
     }
 
     private initializeOpenState(): void {
-        if (!this.open) {
-            this.ariaExpanded = 'false';
-            this.ariaControls = '';
-            return;
-        }
-
-        this.committedSelectedOption = this.options[this.selectedIndex];
+        this.setActiveOption(this.selectedIndex);
         this.ariaControls = this.listboxId;
         this.ariaExpanded = 'true';
 
@@ -975,12 +1307,20 @@ export class Select
         this.focusAndScrollOptionIntoView();
     }
 
-    private updateListboxMaxHeightCssVariable(): void {
-        if (this.listbox) {
-            this.listbox.style.setProperty(
-                '--ni-private-select-max-height',
-                `${this.maxHeight}px`
-            );
+    private observeSelectedOptionTextContent(): void {
+        this.selectedOptionObserver?.disconnect();
+
+        if (this.selectedIndex === -1) {
+            return;
+        }
+
+        const selectedOption = this.firstSelectedOption;
+        if (selectedOption) {
+            this.selectedOptionObserver?.observe(selectedOption, {
+                characterData: true,
+                subtree: true,
+                childList: true
+            });
         }
     }
 }

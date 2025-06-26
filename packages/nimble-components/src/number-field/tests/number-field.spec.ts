@@ -1,15 +1,24 @@
-import { html } from '@microsoft/fast-element';
+import { html } from '@ni/fast-element';
 import { NumberField, numberFieldTag } from '..';
 import {
     LabelProviderCore,
     labelProviderCoreTag
 } from '../../label-provider/core';
-import { waitForUpdatesAsync } from '../../testing/async-helpers';
+import {
+    processUpdates,
+    waitForUpdatesAsync
+} from '../../testing/async-helpers';
 import { ThemeProvider, themeProviderTag } from '../../theme-provider';
 import { fixture, type Fixture } from '../../utilities/tests/fixture';
 
+async function setup(): Promise<Fixture<NumberField>> {
+    return await fixture<NumberField>(
+        html`<${numberFieldTag}></${numberFieldTag}>`
+    );
+}
+
 async function setupWithLabelProvider(): Promise<Fixture<ThemeProvider>> {
-    return fixture<ThemeProvider>(html`
+    return await fixture<ThemeProvider>(html`
         <${themeProviderTag}>
             <${labelProviderCoreTag}></${labelProviderCoreTag}>
             <${numberFieldTag}></${numberFieldTag}>
@@ -18,8 +27,17 @@ async function setupWithLabelProvider(): Promise<Fixture<ThemeProvider>> {
 }
 
 describe('NumberField', () => {
-    it('should export its tag', () => {
-        expect(numberFieldTag).toBe('nimble-number-field');
+    let element: NumberField;
+    let connect: () => Promise<void>;
+    let disconnect: () => Promise<void>;
+
+    beforeEach(async () => {
+        ({ element, connect, disconnect } = await setup());
+        await connect();
+    });
+
+    afterEach(async () => {
+        await disconnect();
     });
 
     it('can construct an element instance', () => {
@@ -30,9 +48,7 @@ describe('NumberField', () => {
 
     it('prevents inc/dec buttons from being focusable', () => {
         const buttons = Array.from(
-            document
-                .createElement(numberFieldTag)
-                .shadowRoot!.querySelectorAll('.step-up-down-button')
+            element.shadowRoot!.querySelectorAll('.step-up-down-button')
         );
         expect(
             buttons.every(x => (x as HTMLElement).tabIndex === -1)
@@ -41,13 +57,23 @@ describe('NumberField', () => {
 
     it('hides inc/dec buttons from a11y tree', () => {
         const buttons = Array.from(
-            document
-                .createElement(numberFieldTag)
-                .shadowRoot!.querySelectorAll('.step-up-down-button')
+            element.shadowRoot!.querySelectorAll('.step-up-down-button')
         );
         expect(
             buttons.every(x => (x as HTMLElement).ariaHidden === 'true')
         ).toBeTrue();
+    });
+
+    it('should set "aria-required" to true when "required-visible" is true', () => {
+        element.requiredVisible = true;
+        processUpdates();
+        expect(element.control.getAttribute('aria-required')).toBe('true');
+    });
+
+    it('should set "aria-required" to false when "required-visible" is false', () => {
+        element.requiredVisible = false;
+        processUpdates();
+        expect(element.control.getAttribute('aria-required')).toBe('false');
     });
 });
 

@@ -1,11 +1,11 @@
-import { attr } from '@microsoft/fast-element';
-import { DesignSystem, AnchorOptions } from '@microsoft/fast-foundation';
+import { attr } from '@ni/fast-element';
+import { DesignSystem, type AnchorOptions } from '@ni/fast-foundation';
 import { AnchorBase } from '../anchor-base';
 import {
     ButtonAppearance,
     ButtonAppearanceVariant,
-    ButtonPattern,
-    ButtonAppearanceVariantPattern
+    type ButtonPattern,
+    type ButtonAppearanceVariantPattern
 } from '../patterns/button/types';
 import { styles } from './styles';
 import { template } from './template';

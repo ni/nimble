@@ -8,24 +8,24 @@ The select component is used to present a pre-defined list of options that end-u
 
 ### Background
 
--   [Select and Combobox Refresh HLD (#1303)](https://github.com/ni/nimble/issues/1303)
--   [ViD Select Styles (Figma)](https://www.figma.com/file/PO9mFOu5BCl8aJvFchEeuN/Nimble_Components?type=design&node-id=2597-83231&mode=design)
+- [Select and Combobox Refresh HLD (#1303)](https://github.com/ni/nimble/issues/1303)
+- [ViD Select Styles (Figma)](https://www.figma.com/file/PO9mFOu5BCl8aJvFchEeuN/Nimble_Components?type=design&node-id=2597-83231&mode=design)
 
 ## Usage
 
 When to use:
 
--   To present a pre-defined list of options
--   For filtering or sorting data in tables or lists
--   For selecting settings or preferences
--   For single selection
+- To present a pre-defined list of options
+- For filtering or sorting data in tables or lists
+- For selecting settings or preferences
+- For single selection
 
 When not to use:
 
--   To allow end-users to add custom options
--   When there are fewer than three options
--   For complex and/or hierarchical data
--   For multi selection
+- To allow end-users to add custom options
+- When there are fewer than three options
+- For complex and/or hierarchical data
+- For multi selection
 
 ### Anatomy
 
@@ -283,16 +283,16 @@ From a focused list option, `UP ARROW` moves focus and selects the previous list
 
 ## Future Considerations
 
--   Helper text for input components (where it should be located, how it should be accessed)
--   Mega-menus (combining static information, selectable options, action-based commands, etc.)
--   Capturing usage guidelines/UI patterns for a "load more" experience in the dropdown
--   Should the client-user be able to specify whether they want to display selection with or without a check mark?
--   On touch-screen devices, it would be nice for the select component to bring up the dropdown in a Nimble or native popover. More exploration is needed to support all sets of features.
--   Do we need to provide a "load more" UX pattern for clients to implement (we have decided not to implement anything related to this in the component, as it is overly prescriptive)
+- Helper text for input components (where it should be located, how it should be accessed)
+- Mega-menus (combining static information, selectable options, action-based commands, etc.)
+- Capturing usage guidelines/UI patterns for a "load more" experience in the dropdown
+- Should the client-user be able to specify whether they want to display selection with or without a check mark?
+- On touch-screen devices, it would be nice for the select component to bring up the dropdown in a Nimble or native popover. More exploration is needed to support all sets of features.
+- Do we need to provide a "load more" UX pattern for clients to implement (we have decided not to implement anything related to this in the component, as it is overly prescriptive)
 
 ## References
 
--   [ARIA – Combobox Pattern](https://www.w3.org/WAI/ARIA/apg/patterns/combobox/)
--   [Shoelace – Select](https://shoelace.style/components/select)
--   [Dash - Select](https://dash.plotly.com/dash-core-components/dropdown)
--   [Monday - Select](https://style.monday.com/?path=/story/inputs-dropdown--dropdown-value-selection)
+- [ARIA – Combobox Pattern](https://www.w3.org/WAI/ARIA/apg/patterns/combobox/)
+- [Shoelace – Select](https://shoelace.style/components/select)
+- [Dash - Select](https://dash.plotly.com/dash-core-components/dropdown)
+- [Monday - Select](https://style.monday.com/?path=/story/inputs-dropdown--dropdown-value-selection)

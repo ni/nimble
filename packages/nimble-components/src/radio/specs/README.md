@@ -25,13 +25,13 @@ The state of the radio button can be changed by clicking the button or accompani
 
 The two components will expose common attributes shared by all components. In addition the 'Radio Group' component exposes an 'orientation' attribute. This will set the visual orientation of the radio group as either vertical or horizontal.
 
--   _Component Name:_ `nimble-radio` and `nimble-radio-group`
--   _Properties/Attributes:_ We will not expose the `readOnly` property since we don't have a design or a use case to distinguish it from `disabled`. We will document this in the Storybook page. If it is needed at a future time, it can be added then.
--   _Methods:_ Unchanged
--   _Events:_ Unchanged
--   _CSS Classes and Custom Properties that affect the component:_ Unchanged
--   _Slots:_ Unchanged
--   _Template:_ Unchanged
+- _Component Name:_ `nimble-radio` and `nimble-radio-group`
+- _Properties/Attributes:_ We will not expose the `readOnly` property since we don't have a design or a use case to distinguish it from `disabled`. We will document this in the Storybook page. If it is needed at a future time, it can be added then.
+- _Methods:_ Unchanged
+- _Events:_ Unchanged
+- _CSS Classes and Custom Properties that affect the component:_ Unchanged
+- _Slots:_ Unchanged
+- _Template:_ Unchanged
 
 ### Angular integration
 
@@ -43,24 +43,24 @@ A Blazor wrapper will be created for the component.
 
 ### Additional requirements
 
--   _User interaction: Do the FAST component's behaviors match the visual design spec? When they differ, which approach is preferable and why?_
-    -   No additional requirements
--   _Styling: Does FAST provide APIs to achieve the styling in the visual design spec?_
-    -   We believe all styles are possible to achieve.
--   _Testing: Is FAST's coverage sufficient? Should we write any tests beyond Chromatic visual tests?_
-    -   No additional requirements, their tests have good coverage and our component is not adding any custom functionality that requires additional testing
--   _Documentation: Any requirements besides standard Storybook docs and updating the Example Client App demo?_
-    -   No additional requirements
--   _Tooling: Any new tools, updates to tools, code generation, etc?_
-    -   No additional requirements
--   _Accessibility: keyboard navigation/focus, form input, use with assistive technology, etc._
-    -   In its implementation for keyboard naviagtion, FAST uses arrow keys to navigate radio items. FAST also sets the ARIA role to `radio` for radio buttons and `radiogroup` for radio groups. No additional requirements needed as of now.
--   _Globalization: special RTL handling, swapping of icons/visuals, localization, etc._
-    -   No additional requirements
--   _Performance: does the FAST component meet Nimble's performance requirements?_
-    -   No additional requirements
--   _Security: Any requirements for security?_
-    -   No additional requirements
+- _User interaction: Do the FAST component's behaviors match the visual design spec? When they differ, which approach is preferable and why?_
+    - No additional requirements
+- _Styling: Does FAST provide APIs to achieve the styling in the visual design spec?_
+    - We believe all styles are possible to achieve.
+- _Testing: Is FAST's coverage sufficient? Should we write any tests beyond Chromatic visual tests?_
+    - No additional requirements, their tests have good coverage and our component is not adding any custom functionality that requires additional testing
+- _Documentation: Any requirements besides standard Storybook docs and updating the Example Client App demo?_
+    - No additional requirements
+- _Tooling: Any new tools, updates to tools, code generation, etc?_
+    - No additional requirements
+- _Accessibility: keyboard navigation/focus, form input, use with assistive technology, etc._
+    - In its implementation for keyboard naviagtion, FAST uses arrow keys to navigate radio items. FAST also sets the ARIA role to `radio` for radio buttons and `radiogroup` for radio groups. No additional requirements needed as of now.
+- _Globalization: special RTL handling, swapping of icons/visuals, localization, etc._
+    - No additional requirements
+- _Performance: does the FAST component meet Nimble's performance requirements?_
+    - No additional requirements
+- _Security: Any requirements for security?_
+    - No additional requirements
 
 ---
 

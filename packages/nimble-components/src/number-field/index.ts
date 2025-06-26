@@ -1,14 +1,13 @@
-import { attr, html } from '@microsoft/fast-element';
+import { attr, html } from '@ni/fast-element';
 import {
     DesignSystem,
     NumberField as FoundationNumberField,
-    NumberFieldOptions,
-    numberFieldTemplate as template
-} from '@microsoft/fast-foundation';
+    type NumberFieldOptions
+} from '@ni/fast-foundation';
 import { styles } from './styles';
 import { NumberFieldAppearance } from './types';
 import { errorTextTemplate } from '../patterns/error/template';
-import type { ErrorPattern } from '../patterns/error/types';
+import { mixinErrorPattern } from '../patterns/error/types';
 import { buttonTag } from '../button';
 import { iconMinusWideTag } from '../icons/minus-wide';
 import { iconAddTag } from '../icons/add';
@@ -17,6 +16,8 @@ import {
     numericDecrementLabel,
     numericIncrementLabel
 } from '../label-provider/core/label-tokens';
+import { template } from './template';
+import { mixinRequiredVisiblePattern } from '../patterns/required-visible/types';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -27,22 +28,17 @@ declare global {
 /**
  * A nimble-styled HTML number input
  */
-export class NumberField extends FoundationNumberField implements ErrorPattern {
+export class NumberField extends mixinErrorPattern(
+    mixinRequiredVisiblePattern(FoundationNumberField)
+) {
     @attr
     public appearance: NumberFieldAppearance = NumberFieldAppearance.underline;
 
-    /**
-     * A message explaining why the value is invalid.
-     *
-     * @public
-     * @remarks
-     * HTML Attribute: error-text
-     */
-    @attr({ attribute: 'error-text' })
-    public errorText?: string;
+    @attr({ attribute: 'full-bleed', mode: 'boolean' })
+    public fullBleed = false;
 
-    @attr({ attribute: 'error-visible', mode: 'boolean' })
-    public errorVisible = false;
+    @attr({ attribute: 'appearance-readonly', mode: 'boolean' })
+    public appearanceReadOnly = false;
 
     public override connectedCallback(): void {
         super.connectedCallback();

@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/html';
-import { html, ref } from '@microsoft/fast-element';
+import { html, ref } from '@ni/fast-element';
 import {
     bodyFont,
     bodyFontColor,
@@ -14,7 +14,10 @@ import { anchorTabsTag } from '@ni/nimble-components/dist/esm/anchor-tabs';
 import { anchorTabTag } from '@ni/nimble-components/dist/esm/anchor-tab';
 import { breadcrumbTag } from '@ni/nimble-components/dist/esm/breadcrumb';
 import { breadcrumbItemTag } from '@ni/nimble-components/dist/esm/breadcrumb-item';
-import { RichTextViewer, richTextViewerTag } from '@ni/nimble-components/dist/esm/rich-text/viewer';
+import {
+    RichTextViewer,
+    richTextViewerTag
+} from '@ni/nimble-components/dist/esm/rich-text/viewer';
 import { anchorTreeItemTag } from '@ni/nimble-components/dist/esm/anchor-tree-item';
 import { treeViewTag } from '@ni/nimble-components/dist/esm/tree-view';
 import { anchorMenuItemTag } from '@ni/nimble-components/dist/esm/anchor-menu-item';
@@ -140,7 +143,7 @@ const metadata: Meta<AnchorPatternsArgs> = {
             void (async () => {
                 // Safari workaround: the nimble-table element instance is made at this point
                 // but doesn't seem to be upgraded to a custom element yet
-                await customElements.whenDefined('nimble-table');
+                await customElements.whenDefined(tableTag);
                 const data = [
                     {
                         label: x.label,
@@ -156,7 +159,7 @@ const metadata: Meta<AnchorPatternsArgs> = {
             void (async () => {
                 // Safari workaround: the nimble-rich-text-viewer element instance is made at this point
                 // but doesn't seem to be upgraded to a custom element yet
-                await customElements.whenDefined('nimble-rich-text-viewer');
+                await customElements.whenDefined(richTextViewerTag);
                 const data = `Absolute link: <${x.disabled ? '' : 'https://nimble.ni.dev?type=nimble-rich-text-viewer'}>`;
                 x.richTextViewerRef.markdown = data;
             })();

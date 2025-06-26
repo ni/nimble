@@ -1,23 +1,25 @@
-import { css } from '@microsoft/fast-element';
+import { css } from '@ni/fast-element';
 import {
     controlHeight,
     bodyDisabledFontColor,
     borderRgbPartialColor,
     smallPadding,
     borderHoverColor,
-    borderWidth
+    borderWidth,
+    placeholderFontColor
 } from '../theme-provider/design-tokens';
 
 import { styles as dropdownStyles } from '../patterns/dropdown/styles';
 import { styles as errorStyles } from '../patterns/error/styles';
+import { styles as requiredVisibleStyles } from '../patterns/required-visible/styles';
 import { focusVisible } from '../utilities/style/focus';
 import { appearanceBehavior } from '../utilities/style/appearance';
 import { DropdownAppearance } from '../select/types';
-import { userSelectNone } from '../utilities/style/user-select';
 
 export const styles = css`
     ${dropdownStyles}
     ${errorStyles}
+    ${requiredVisibleStyles}
 
     :host {
         --ni-private-hover-bottom-border-width: 2px;
@@ -25,12 +27,6 @@ export const styles = css`
         --ni-private-height-within-border: calc(
             ${controlHeight} - 2 * ${borderWidth}
         );
-    }
-
-    :host([disabled]) *,
-    :host([disabled]) {
-        ${userSelectNone}
-        color: ${bodyDisabledFontColor};
     }
 
     .control {
@@ -59,6 +55,18 @@ export const styles = css`
         outline: none;
     }
 
+    .selected-value::placeholder {
+        color: ${placeholderFontColor};
+    }
+
+    :host([disabled]) .selected-value::placeholder {
+        color: ${bodyDisabledFontColor};
+    }
+
+    :host([disabled][appearance-readonly]) .selected-value::placeholder {
+        color: ${placeholderFontColor};
+    }
+
     [part='indicator'] {
         display: none;
     }
@@ -69,13 +77,17 @@ export const styles = css`
         padding-right: ${smallPadding};
     }
 
+    :host([disabled][appearance-readonly]) .end-slot-container {
+        display: none;
+    }
+
     .separator {
         display: inline;
         width: 2px;
         border-right: 2px solid rgba(${borderRgbPartialColor}, 0.15);
         height: calc(${controlHeight} - 12px);
         align-self: center;
-        padding-left: 4px;
+        margin-left: 4px;
     }
 
     .dropdown-button {
@@ -85,10 +97,6 @@ export const styles = css`
 
     :host([disabled]) .dropdown-icon {
         fill: ${bodyDisabledFontColor};
-    }
-
-    :host(:empty) .listbox {
-        display: none;
     }
 `.withBehaviors(
     appearanceBehavior(

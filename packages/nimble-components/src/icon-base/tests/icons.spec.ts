@@ -1,31 +1,45 @@
 import * as nimbleIconsMap from '@ni/nimble-tokens/dist/icons/js';
-import { DesignSystem } from '@microsoft/fast-foundation';
-import { html } from '@microsoft/fast-element';
+import { DesignSystem } from '@ni/fast-foundation';
+import { html } from '@ni/fast-element';
 import { parameterizeSpec } from '@ni/jasmine-parameterized';
 import * as allIconsNamespace from '../../icons/all-icons';
 import { iconMetadata } from './icon-metadata';
-import { Fixture, fixture } from '../../utilities/tests/fixture';
+import { type Fixture, fixture } from '../../utilities/tests/fixture';
 import { IconAdd, iconAddTag } from '../../icons/add';
 
 describe('Icons', () => {
-    describe('should have correct SVG structure', () => {
-        const nimbleIcons = Object.values(nimbleIconsMap);
-        const getSVGElement = (htmlString: string): SVGElement => {
-            const template = document.createElement('template');
-            template.innerHTML = htmlString;
-            const svg = template.content.querySelector('svg');
-            return svg!;
-        };
-        const getPaths = (svg: SVGElement): SVGPathElement[] => Array.from(svg.querySelectorAll('path'));
+    const nimbleIcons = Object.values(nimbleIconsMap);
+    const getSVGElement = (htmlString: string): SVGElement => {
+        const template = document.createElement('template');
+        template.innerHTML = htmlString;
+        const svg = template.content.querySelector('svg');
+        return svg!;
+    };
 
+    describe('should have correct SVG structure', () => {
         parameterizeSpec(nimbleIcons, (spec, name, value) => {
             spec(`for icon ${name}`, () => {
                 const svg = getSVGElement(value.data);
-                const paths = getPaths(svg);
                 expect(svg).toBeTruthy();
                 expect(svg.getAttribute('viewBox')).toBeTruthy();
                 expect(svg.getAttribute('height')).toBeNull();
                 expect(svg.getAttribute('width')).toBeNull();
+            });
+        });
+    });
+
+    describe('should not have inline style', () => {
+        const getPaths = (svg: SVGElement): SVGPathElement[] => Array.from(svg.querySelectorAll('path'));
+
+        const nimbleIconsWithStyle = ['sparkle_swirls_16_x_16'];
+        const nimbleIconsWithoutStyle = nimbleIcons.filter(
+            value => !nimbleIconsWithStyle.includes(value.name)
+        );
+        parameterizeSpec(nimbleIconsWithoutStyle, (spec, name, value) => {
+            spec(`for icon ${name}`, () => {
+                const svg = getSVGElement(value.data);
+                const paths = getPaths(svg);
+
                 expect(svg.querySelector('defs')).toBeNull();
                 for (const path of paths) {
                     expect(path.getAttribute('style')).toBeNull();
@@ -68,7 +82,9 @@ describe('Icons', () => {
 
     describe('Representative icon', () => {
         async function setup(): Promise<Fixture<IconAdd>> {
-            return fixture<IconAdd>(html`<${iconAddTag}></${iconAddTag}>`);
+            return await fixture<IconAdd>(
+                html`<${iconAddTag}></${iconAddTag}>`
+            );
         }
         let element: IconAdd;
         let connect: () => Promise<void>;

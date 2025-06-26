@@ -1,5 +1,5 @@
-import { observable, volatile } from '@microsoft/fast-element';
-import { DesignSystem } from '@microsoft/fast-foundation';
+import { observable, volatile } from '@ni/fast-element';
+import { DesignSystem } from '@ni/fast-foundation';
 import type {
     TableColumnAnchorCellRecord,
     TableColumnAnchorColumnConfig
@@ -54,8 +54,17 @@ TableColumnAnchorColumnConfig
         return '';
     }
 
-    public override focusedRecycleCallback(): void {
-        this.anchor?.blur();
+    /** @internal */
+    @volatile
+    public get showAnchor(): boolean {
+        return typeof this.cellRecord?.href === 'string';
+    }
+
+    public override get tabbableChildren(): HTMLElement[] {
+        if (this.showAnchor) {
+            return [this.anchor!];
+        }
+        return [];
     }
 }
 

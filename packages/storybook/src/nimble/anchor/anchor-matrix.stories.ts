@@ -1,5 +1,5 @@
 import type { StoryFn, Meta } from '@storybook/html';
-import { html, ViewTemplate } from '@microsoft/fast-element';
+import { html, ViewTemplate } from '@ni/fast-element';
 import { bodyFont } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
 import { anchorTag } from '@ni/nimble-components/dist/esm/anchor';
 import { AnchorAppearance } from '@ni/nimble-components/dist/esm/anchor/types';
@@ -54,7 +54,7 @@ const component = (
             ${() => `${underlineHiddenName} ${appearanceName} ${disabledName} Link`}</${anchorTag}>
 `;
 
-export const anchorThemeMatrix: StoryFn = createMatrixThemeStory(
+export const themeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(component, [
         disabledStates,
         underlineHiddenStates,
@@ -74,7 +74,7 @@ const interactionStates = cartesianProduct([
     appearanceStates
 ] as const);
 
-export const anchorInteractionsThemeMatrix: StoryFn = createMatrixThemeStory(
+export const interactionsThemeMatrix: StoryFn = createMatrixThemeStory(
     createMatrixInteractionsFromStates(component, {
         hover: interactionStatesHover,
         hoverActive: interactionStates,
@@ -83,7 +83,7 @@ export const anchorInteractionsThemeMatrix: StoryFn = createMatrixThemeStory(
     })
 );
 
-export const hiddenAnchor: StoryFn = createStory(
+export const hidden: StoryFn = createStory(
     hiddenWrapper(html`<${anchorTag} hidden>Hidden Anchor</${anchorTag}>`)
 );
 

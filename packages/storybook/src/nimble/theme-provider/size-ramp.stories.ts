@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/html';
-import { html, repeat, when } from '@microsoft/fast-element';
+import { html, repeat, when } from '@ni/fast-element';
 import { waitForUpdatesAsync } from '@ni/nimble-components/dist/esm/testing/async-helpers';
 import { PropertyFormat } from '@ni/nimble-components/dist/esm/theme-provider/tests/types';
 import {

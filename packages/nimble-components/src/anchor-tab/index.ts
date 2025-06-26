@@ -1,9 +1,9 @@
-import { attr } from '@microsoft/fast-element';
+import { attr } from '@ni/fast-element';
 import {
     DesignSystem,
-    FoundationElementDefinition,
-    StartEndOptions
-} from '@microsoft/fast-foundation';
+    type FoundationElementDefinition,
+    type StartEndOptions
+} from '@ni/fast-foundation';
 import { AnchorBase } from '../anchor-base';
 import { styles } from './styles';
 import { template } from './template';

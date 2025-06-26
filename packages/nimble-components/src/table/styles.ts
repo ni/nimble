@@ -1,6 +1,6 @@
-import { css } from '@microsoft/fast-element';
-import { display } from '@microsoft/fast-foundation';
+import { css } from '@ni/fast-element';
 import { White } from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
+import { display } from '../utilities/style/display';
 import {
     applicationBackgroundColor,
     bodyFont,
@@ -10,7 +10,10 @@ import {
     mediumPadding,
     standardPadding,
     tableRowBorderColor,
-    borderHoverColor
+    borderHoverColor,
+    controlHeight,
+    tableFitRowsHeight,
+    borderWidth
 } from '../theme-provider/design-tokens';
 import { Theme } from '../theme-provider/types';
 import { hexToRgbaCssColor } from '../utilities/style/colors';
@@ -18,14 +21,35 @@ import { themeBehavior } from '../utilities/style/theme';
 import { userSelectNone } from '../utilities/style/user-select';
 import { accessiblyHidden } from '../utilities/style/accessibly-hidden';
 import { ZIndexLevels } from '../utilities/style/types';
+import { focusVisible } from '../utilities/style/focus';
 
 export const styles = css`
     ${display('flex')}
 
     :host {
         height: 480px;
+        ${tableFitRowsHeight.cssCustomProperty}: calc(var(--ni-private-table-scroll-height) + var(--ni-private-table-horizontal-scrollbar-height) + ${controlHeight});
+        ${
+            /**
+             * Set a default maximum height for the table of 40.5 rows plus the header row so
+             * that clients don't accidentally create a table that tries to render too many rows at once.
+             * If needed, the max-height can be overridden by the client, but setting a default ensures
+             * that the max-height is considered if a larger one is needed rather than being overlooked.
+             */ ''
+        }
+        max-height: calc(${controlHeight} + (40.5 * (2 * ${borderWidth} + ${controlHeight})));
         --ni-private-column-divider-width: 2px;
         --ni-private-column-divider-padding: 3px;
+    }
+
+    :host(${focusVisible}) {
+        ${
+            /* The table can briefly be focused in some keyboard nav cases (e.g. regaining focus and we
+            need to scroll to the previously focused row first). Ensure that we don't get the browser-default
+            focus outline in that case.
+        ) */ ''
+        }
+        outline: none;
     }
 
     .disable-select {
@@ -40,13 +64,6 @@ export const styles = css`
         font: ${bodyFont};
         color: ${bodyFontColor};
         cursor: var(--ni-private-table-cursor-override);
-    }
-
-    .glass-overlay {
-        width: 100%;
-        height: 100%;
-        display: contents;
-        pointer-events: var(--ni-private-glass-overlay-pointer-events);
     }
 
     .header-row-container {
@@ -72,6 +89,7 @@ export const styles = css`
 
     .header-row-action-container {
         display: flex;
+        align-items: center;
     }
 
     .checkbox-container {
@@ -84,10 +102,19 @@ export const styles = css`
         grid-template-columns: var(--ni-private-table-row-grid-columns) auto;
     }
 
+    .collapse-all-button-container {
+        display: flex;
+        min-width: ${mediumPadding};
+    }
+
     .collapse-all-button {
         height: ${controlSlimHeight};
         margin-left: ${mediumPadding};
         visibility: hidden;
+    }
+
+    .collapse-all-button.hidden-size-reduced {
+        display: none;
     }
 
     .collapse-all-button.visible {
@@ -117,6 +144,7 @@ export const styles = css`
         cursor: col-resize;
         position: absolute;
         z-index: ${ZIndexLevels.zIndex1};
+        touch-action: pan-y;
     }
 
     .column-divider:hover,
@@ -138,8 +166,11 @@ export const styles = css`
         );
         height: 100%;
         left: calc(
-            -1 * (var(--ni-private-column-divider-width) +
-                        var(--ni-private-column-divider-padding))
+            -1 *
+                (
+                    var(--ni-private-column-divider-width) +
+                        var(--ni-private-column-divider-padding)
+                )
         );
     }
 
@@ -156,6 +187,10 @@ export const styles = css`
         display: block;
         height: 100%;
         position: relative;
+    }
+
+    .table-viewport${focusVisible} {
+        outline: none;
     }
 
     .table-scroll {
@@ -184,10 +219,17 @@ export const styles = css`
 
     .group-row {
         position: relative;
+        --ni-private-table-cell-focus-offset-multiplier: 0;
     }
 
     .row {
         position: relative;
+        --ni-private-table-cell-focus-offset-multiplier: 0;
+    }
+
+    .collapse-all-visible .row,
+    .collapse-all-visible .group-row {
+        --ni-private-table-cell-focus-offset-multiplier: 1;
     }
 
     .accessibly-hidden {

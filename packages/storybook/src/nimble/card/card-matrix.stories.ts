@@ -1,4 +1,4 @@
-import { ViewTemplate, html } from '@microsoft/fast-element';
+import { ViewTemplate, html } from '@ni/fast-element';
 import type { Meta, StoryFn } from '@storybook/html';
 import { listOptionTag } from '@ni/nimble-components/dist/esm/list-option';
 import { numberFieldTag } from '@ni/nimble-components/dist/esm/number-field';
@@ -35,10 +35,10 @@ const component = (): ViewTemplate => html`
     </${cardTag}>
 `;
 
-export const cardThemeMatrix: StoryFn = createMatrixThemeStory(
+export const themeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(component)
 );
 
-export const hiddenCard: StoryFn = createStory(
+export const hidden: StoryFn = createStory(
     hiddenWrapper(html`<${cardTag} hidden>Hidden Card</${cardTag}>`)
 );

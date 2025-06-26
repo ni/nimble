@@ -10,7 +10,7 @@ export class TableCellPageObject<T extends TableCellRecord = TableCellRecord> {
     public constructor(private readonly tableCellElement: TableCell<T>) {}
 
     public getRenderedCellView(): TableCellView {
-        const cellView = this.tableCellElement.shadowRoot!.firstElementChild;
+        const cellView = this.tableCellElement.cellViewContainer.firstElementChild;
         if (!(cellView instanceof TableCellView)) {
             throw new Error(
                 'Cell view not found in cell - ensure cellViewTag is set for column'

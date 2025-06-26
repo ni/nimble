@@ -1,8 +1,8 @@
-import { attr, customElement, html } from '@microsoft/fast-element';
-import { DesignToken } from '@microsoft/fast-foundation';
+import { attr, customElement, html } from '@ni/fast-element';
+import { DesignToken } from '@ni/fast-foundation';
 import { ThemeProvider, themeProviderTag } from '../../../theme-provider';
 import {
-    Fixture,
+    type Fixture,
     fixture,
     uniqueElementName
 } from '../../../utilities/tests/fixture';
@@ -39,7 +39,7 @@ describe('Label Provider Base', () => {
 
     describe('with single theme provider', () => {
         async function setup(): Promise<Fixture<ThemeProvider>> {
-            return fixture<ThemeProvider>(html`
+            return await fixture<ThemeProvider>(html`
                 <${themeProviderTag}>
                 </${themeProviderTag}>
             `);
@@ -68,7 +68,7 @@ describe('Label Provider Base', () => {
 
     describe('with 2 nested theme providers and initial label values', () => {
         async function setup(): Promise<Fixture<ThemeProvider>> {
-            return fixture<ThemeProvider>(html`
+            return await fixture<ThemeProvider>(html`
                 <${themeProviderTag}>
                     <${testLabelProviderTag} class="parent-provider" example-message="test-parent"></${testLabelProviderTag}>        
                     <${themeProviderTag}>
@@ -121,7 +121,7 @@ describe('Label Provider Base', () => {
 
     describe('with 2 nested theme providers without initial label values', () => {
         async function setup(): Promise<Fixture<ThemeProvider>> {
-            return fixture<ThemeProvider>(html`
+            return await fixture<ThemeProvider>(html`
                 <${themeProviderTag}>
                     <${testLabelProviderTag} class="parent-provider"></${testLabelProviderTag}>        
                     <${themeProviderTag}>

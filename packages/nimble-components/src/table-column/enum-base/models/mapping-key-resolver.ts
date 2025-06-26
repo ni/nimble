@@ -1,4 +1,4 @@
-import { nullableNumberConverter } from '@microsoft/fast-element';
+import { nullableNumberConverter } from '@ni/fast-element';
 import type { MappingKey } from '../../../mapping/base/types';
 import type { MappingKeyType } from '../types';
 

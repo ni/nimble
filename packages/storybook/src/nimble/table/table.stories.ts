@@ -1,6 +1,7 @@
-import { html, ref } from '@microsoft/fast-element';
+import { html, ref } from '@ni/fast-element';
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html';
+import { tableFitRowsHeight } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
 import { iconUserTag } from '@ni/nimble-components/dist/esm/icons/user';
 import { menuTag } from '@ni/nimble-components/dist/esm/menu';
 import { menuItemTag } from '@ni/nimble-components/dist/esm/menu-item';
@@ -8,13 +9,25 @@ import { tableColumnTextTag } from '@ni/nimble-components/dist/esm/table-column/
 import { labelProviderTableTag } from '@ni/nimble-components/dist/esm/label-provider/table';
 import { tableColumnNumberTextTag } from '@ni/nimble-components/dist/esm/table-column/number-text';
 import { Table, tableTag } from '@ni/nimble-components/dist/esm/table';
-import { TableRecordDelayedHierarchyState, TableRowSelectionMode } from '@ni/nimble-components/dist/esm/table/types';
+import {
+    TableRecordDelayedHierarchyState,
+    TableRowSelectionMode
+} from '@ni/nimble-components/dist/esm/table/types';
 import { ExampleDataType } from '@ni/nimble-components/dist/esm/table/tests/types';
+import {
+    scssPropertySetterMarkdown,
+    tokenNames
+} from '@ni/nimble-components/dist/esm/theme-provider/design-token-names';
 import {
     addLabelUseMetadata,
     type LabelUserArgs
 } from '../label-provider/base/label-user-stories-utils';
-import { createUserSelectedThemeStory } from '../../utilities/storybook';
+import {
+    apiCategory,
+    checkValidityDescription,
+    createUserSelectedThemeStory,
+    validityDescription
+} from '../../utilities/storybook';
 import { isChromatic } from '../../utilities/isChromatic';
 
 interface BaseTableArgs extends LabelUserArgs {
@@ -62,6 +75,15 @@ interface TableArgs extends BaseTableArgs {
     setSelectedRecordIds: undefined;
     getSelectedRecordIds: undefined;
     data: ExampleDataType;
+    setRecordHierarchyOptions: undefined;
+    defaultSlot: undefined;
+    actionMenuSlot: undefined;
+    actionMenuBeforetoggle: undefined;
+    actionMenuToggle: undefined;
+    selectionChange: undefined;
+    columnConfigurationChange: undefined;
+    rowExpandToggle: undefined;
+    fitRowsHeight: boolean;
 }
 
 const simpleData = [
@@ -205,7 +227,7 @@ const dataSets = {
     [ExampleDataType.hierarchicalDataSet]: hierarchicalData
 } as const;
 
-const dataDescription = `To set the data on the table, call \`setData()\` with an array data records. Each record is made up of fields,
+const dataDescription = `To set the data on the table, call \`setData()\` with an array of data records. Each record is made up of fields,
 which are key/value pairs. The key in each pair must be of type \`string\`, which is defined by the type \`TableFieldName\`. The value
 in each pair must be of type \`string\`, \`number\`, \`boolean\`, \`null\`, or \`undefined\`, which is defined by the type \`TableFieldValue\`.
 
@@ -236,35 +258,29 @@ The attribute is invalid in the following conditions:
 
 const parentIdFieldNameDescription = `An optional string attribute that specifies the field name within a row's record to use as a row's parent ID, which,
 when used in combination with the \`id-field-name\` attribute, will display the table data in a hierarchical fashion. If the attribute is not specified, the
-data in the table will always be presented without hierarchy.
+data in the table will be presented without hierarchy. To configure hierarchy dynamically instead, see \`setRecordHierarchyOptions()\`.
 
 The attribute is invalid in the following conditions:
 -   When this attribute is set, but \`id-field-name\` is unset. This will cause \`validity.idFieldNameNotConfigured\` to be \`true\`.
 -   When there are circular references between records discovered based on field values of \`parent-id-field-name\` for one record and \`id-field-name\` of another. This will cause \`validity.invalidParentIdConfiguration\` to be \`true\`.
 -   When an id specified by \`parent-id-field-name\` is not discovered in any record. This will cause \`validity.invalidParentIdConfiguration\` to be \`true\`.`;
 
-const validityDescription = `Readonly object of boolean values that represents the validity states that the table's configuration can be in.
-The object's type is \`TableValidity\`, and it contains the following boolean properties:
-
--   \`duplicateRecordId\`: \`true\` when multiple records were found with the same ID
--   \`missingRecordId\`: \`true\` when a record was found that did not have a field with the name specified by \`id-field-name\`, or when \`parent-id-field-name\` is set but \`id-field-name\` is not
--   \`invalidRecordId\`: \`true\` when a record was found where \`id-field-name\` did not refer to a value of type \`string\`
--   \`duplicateColumnId\`: \`true\` when multiple columns were defined with the same \`column-id\`
--   \`missingColumnId\`: \`true\` when a \`column-id\` was specified for some, but not all, columns
--   \`invalidColumnConfiguration\`: \`true\` when one or more columns have an invalid configuration. Call \`checkValidity()\` on each column to see which configuration is invalid and read the \`validity\` property of a column for more information about why it's invalid.
--   \`duplicateSortIndex\`: \`true\` when \`sort-index\` is specified as the same value for multiple columns that have \`sort-direction\` set to a value other than \`none\`
--   \`duplicateGroupIndex\`: \`true\` when \`group-index\` is specified as the same value for multiple columns
--   \`idFieldNameNotConfigured\`: \`true\` when a feature that requires \`id-field-name\` to be configured, such as row selection, is enabled but an \`id-field-name\` is not set
--   \`invalidParentIdConfiguration\`: \`true\` when the field specified by \`parent-id-field-name\` is not found in any record, or when there are circular references between field values in a record specified by \`id-field-name\` and \`parent-id-field-name\`.
-`;
-
 const setSelectedRecordIdsDescription = `A function that makes the rows associated with the provided record IDs selected in the table.
 If a record does not exist in the table's data, it will not be selected. If multiple record IDs are specified when the table's selection
 mode is \`single\`, only the first record that exists in the table's data will become selected.`;
 
+const fitRowsHeightDescription = `Style the table with ${scssPropertySetterMarkdown(tokenNames.tableFitRowsHeight, 'height')} to make the table's height grow to fit all rows.
+
+See the **Sizing** section for information on sizing the table.`;
+
 export const table: StoryObj<TableArgs> = {
     // prettier-ignore
     render: createUserSelectedThemeStory(html<TableArgs>`
+        <style class="code-hide">
+            nimble-table {
+                ${x => (x.fitRowsHeight ? `height: var(${tableFitRowsHeight.cssCustomProperty})` : '')}
+            }
+        </style>
         <${tableTag}
             ${ref('tableRef')}
             selection-mode="${x => TableRowSelectionMode[x.selectionMode]}"
@@ -326,53 +342,169 @@ export const table: StoryObj<TableArgs> = {
                     [ExampleDataType.largeDataSet]: 'Large data set (10k rows)',
                     [ExampleDataType.hierarchicalDataSet]: 'Hierarchical data'
                 }
-            }
+            },
+            table: { category: apiCategory.methods }
         },
         selectionMode: {
-            table: {
-                defaultValue: { summary: 'none' }
-            },
+            name: 'selection-mode',
             options: Object.keys(TableRowSelectionMode),
             description:
                 'Controls whether the table supports selecting a single row at a time, multiple rows at a time, or no rows. When selection is enabled, `id-field-name` must be specified.',
-            control: { type: 'radio' }
+            control: { type: 'radio' },
+            table: { category: apiCategory.attributes }
         },
         getSelectedRecordIds: {
             name: 'getSelectedRecordIds()',
             description:
                 'A function that returns an array of record IDs that represent the selected row(s) in the table.',
-            control: false
+            control: false,
+            table: { category: apiCategory.methods }
         },
         setSelectedRecordIds: {
             name: 'setSelectedRecordIds()',
             description: setSelectedRecordIdsDescription,
-            control: false
+            control: false,
+            table: { category: apiCategory.methods }
         },
         idFieldName: {
             name: 'id-field-name',
-            table: {
-                defaultValue: { summary: 'undefined' }
-            },
             description: idFieldNameDescription,
-            control: false
+            control: false,
+            table: { category: apiCategory.attributes }
         },
         parentIdFieldName: {
             name: 'parent-id-field-name',
-            table: {
-                defaultValue: { summary: 'undefined' }
-            },
             description: parentIdFieldNameDescription,
-            control: false
+            control: false,
+            table: { category: apiCategory.attributes }
         },
         validity: {
-            description: validityDescription,
-            control: false
+            description: validityDescription({
+                colloquialName: 'table',
+                validityObjectType: 'TableValidity',
+                validityFlags: [
+                    {
+                        flagName: 'duplicateRecordId',
+                        description:
+                            '`true` when multiple records were found with the same ID'
+                    },
+                    {
+                        flagName: 'missingRecordId',
+                        description:
+                            '`true` when a record was found that did not have a field with the name specified by `id-field-name`, or when `parent-id-field-name` is set but `id-field-name` is not'
+                    },
+                    {
+                        flagName: 'invalidRecordId',
+                        description:
+                            '`true` when a record was found where `id-field-name` did not refer to a value of type `string`'
+                    },
+                    {
+                        flagName: 'duplicateColumnId',
+                        description:
+                            '`true` when multiple columns were defined with the same `column-id`'
+                    },
+                    {
+                        flagName: 'missingColumnId',
+                        description:
+                            '`true` when a `column-id` was specified for some, but not all, columns'
+                    },
+                    {
+                        flagName: 'invalidColumnConfiguration',
+                        description:
+                            "`true` when one or more columns have an invalid configuration. Call `checkValidity()` on each column to see which configuration is invalid and read the `validity` property of a column for more information about why it's invalid."
+                    },
+                    {
+                        flagName: 'duplicateSortIndex',
+                        description:
+                            '`true` when `sort-index` is specified as the same value for multiple columns that have `sort-direction` set to a value other than `none`'
+                    },
+                    {
+                        flagName: 'duplicateGroupIndex',
+                        description:
+                            '`true` when `group-index` is specified as the same value for multiple columns'
+                    },
+                    {
+                        flagName: 'idFieldNameNotConfigured',
+                        description:
+                            '`true` when a feature that requires `id-field-name` to be configured, such as row selection, is enabled but an `id-field-name` is not set'
+                    },
+                    {
+                        flagName: 'invalidParentIdConfiguration',
+                        description:
+                            '`true` when the field specified by `parent-id-field-name` is not found in any record, or when there are circular references between field values in a record specified by `id-field-name` and `parent-id-field-name`.'
+                    }
+                ]
+            }),
+            control: false,
+            table: { category: apiCategory.nonAttributeProperties }
         },
         checkValidity: {
             name: 'checkValidity()',
+            description: checkValidityDescription({ componentName: 'table' }),
+            control: false,
+            table: { category: apiCategory.methods }
+        },
+        setRecordHierarchyOptions: {
+            name: 'setRecordHierarchyOptions()',
             description:
-                'A function that returns `true` if the configuration of the table is valid and `false` if the configuration of the table is not valid.',
-            control: false
+                'Used to configure the hierarchy state of rows dynamically. To set static hierarchy, use `parent-id-field-name` instead. See the **Delay-loaded Hierarchy** section for more information.',
+            control: false,
+            table: { category: apiCategory.methods }
+        },
+        defaultSlot: {
+            name: 'default',
+            description:
+                'Configure table columns by adding them as child elements in the default slot. See **Table Column Configuration** for more information.',
+            control: false,
+            table: { category: apiCategory.slots }
+        },
+        actionMenuSlot: {
+            name: 'Action menus',
+            description: `To add an action menu to a column, add a \`${menuTag}\` element as a child of the table and set its slot attribute to a custom value.
+                Then configure the column's \`action-menu-slot\` attribute to the same value. You can configure different action menus for multiple columns by
+                giving them unique slot names.<br><br>For information about when to use an action menu rather than a menu button column, see
+                [here](./?path=/docs/components-table-column-menu-button--docs#menu-button-column-vs-table-action-menu)`,
+            control: false,
+            table: { category: apiCategory.slots }
+        },
+        actionMenuBeforetoggle: {
+            name: 'action-menu-beforetoggle',
+            description:
+                'Event emitted before an action menu opens or closes. This can be used to populate the menu before it is visible.',
+            control: false,
+            table: { category: apiCategory.events }
+        },
+        actionMenuToggle: {
+            name: 'action-menu-toggle',
+            description: 'Event emitted after an action menu opens or closes.',
+            control: false,
+            table: { category: apiCategory.events }
+        },
+        selectionChange: {
+            name: 'selection-change',
+            description:
+                'Event emitted when the user changes which rows are selected.',
+            control: false,
+            table: { category: apiCategory.events }
+        },
+        columnConfigurationChange: {
+            name: 'column-configuration-change',
+            description:
+                "Event emitted when the user changes a column's width or sort order.",
+            control: false,
+            table: { category: apiCategory.events }
+        },
+        rowExpandToggle: {
+            name: 'row-expand-toggle',
+            description:
+                'Event emitted when the user expands or collapses a row in a table with hierarchy. This does not emit when group rows are expanded or collapsed.',
+            control: false,
+            table: { category: apiCategory.events }
+        },
+        fitRowsHeight: {
+            name: 'Fit rows height',
+            description: fitRowsHeightDescription,
+            table: { category: apiCategory.styles }
         }
     },
     args: {
@@ -382,12 +514,13 @@ export const table: StoryObj<TableArgs> = {
         validity: undefined,
         checkValidity: undefined,
         tableRef: undefined,
+        fitRowsHeight: false,
         updateData: x => {
             void (async () => {
                 // Safari workaround: the table element instance is made at this point
                 // but doesn't seem to be upgraded to a custom element yet
                 const args = x as TableArgs;
-                await customElements.whenDefined('nimble-table');
+                await customElements.whenDefined(tableTag);
                 await args.tableRef.setData(dataSets[args.data]);
             })();
         }
@@ -444,7 +577,7 @@ export const delayedHierarchy: Meta<DelayedHierarchyTableArgs> = {
                 // Safari workaround: the table element instance is made at this point
                 // but doesn't seem to be upgraded to a custom element yet
                 const args = x as DelayedHierarchyTableArgs;
-                await customElements.whenDefined('nimble-table');
+                await customElements.whenDefined(tableTag);
                 await args.tableRef.setData(
                     dataSets[ExampleDataType.simpleData]
                 );

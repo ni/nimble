@@ -26,31 +26,39 @@ const tokensFileHeader = `// Nimble Components Tokens SCSS
 @import 'tokens-internal';
 `;
 
-const tokensFileContents = Object.entries(tokenNames)
-    .map(([exportName, tokenName]) => `
+const tokensFileContents = Object.entries(tokenNames).map(
+    ([exportName, tokenName]) => `
 ${comments[exportName] === '' ? '' : `/// ${comments[exportName]}`}
 ${scssPropertyFromTokenName(tokenName)}: var(${scssInternalPropertyFromTokenName(tokenName)});
-`);
+`
+);
 
 const tokensFile = [tokensFileHeader, ...tokensFileContents].join('');
 
-const tokensInternalFilePath = path.resolve(__dirname, '../../../dist/tokens-internal.scss');
+const tokensInternalFilePath = path.resolve(
+    __dirname,
+    '../../../dist/tokens-internal.scss'
+);
 
 const tokensInternalFileHeader = `// Nimble Components Internal Tokens SCSS
 // Used by Nimble Components Tokens SCSS
 // For more information see https://github.com/ni/nimble/tree/main/packages/nimble-components#theming
 `;
 
-const tokensInternalFileContents = Object.entries(tokenNames)
-    .map(([_, tokenName]) => `
+const tokensInternalFileContents = Object.entries(tokenNames).map(
+    ([_, tokenName]) => `
 /// Internal property for ${scssPropertyFromTokenName(tokenName)}.
 /// Not intended for general use. If used, inform Nimble squad of use-case.
 /// Used to override a token value (generally making it no longer theme-aware).
 /// Requires SCSS interpolation to set, ie ${scssInternalPropertySetterMarkdown(tokenName, '<new value>')}.
 ${scssInternalPropertyFromTokenName(tokenName)}: ${cssPropertyFromTokenName(tokenName)};
-`);
+`
+);
 
-const tokensInternalFile = [tokensInternalFileHeader, ...tokensInternalFileContents].join('');
+const tokensInternalFile = [
+    tokensInternalFileHeader,
+    ...tokensInternalFileContents
+].join('');
 
 console.log(`fonts path to write to: ${fontsFilePath}`);
 console.log(`tokens path to write to: ${tokensFilePath}`);
@@ -65,5 +73,7 @@ fs.writeFileSync(tokensFilePath, tokensFile, { encoding: 'utf-8' });
 console.log('Done writing tokens file');
 
 console.log('Writing tokens internal file');
-fs.writeFileSync(tokensInternalFilePath, tokensInternalFile, { encoding: 'utf-8' });
+fs.writeFileSync(tokensInternalFilePath, tokensInternalFile, {
+    encoding: 'utf-8'
+});
 console.log('Done writing tokens internal file');

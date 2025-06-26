@@ -1,15 +1,15 @@
-import { attr, observable } from '@microsoft/fast-element';
-import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
+import { attr, nullableNumberConverter, observable } from '@ni/fast-element';
+import { DesignSystem, FoundationElement } from '@ni/fast-foundation';
 import {
     eventChange,
     keyArrowDown,
     keyArrowUp,
     keyEscape
-} from '@microsoft/fast-web-utilities';
+} from '@ni/fast-web-utilities';
 import {
     ButtonAppearance,
     ButtonAppearanceVariant,
-    MenuButtonToggleEventDetail,
+    type MenuButtonToggleEventDetail,
     MenuButtonPosition
 } from './types';
 import type { ToggleButton } from '../toggle-button';
@@ -39,6 +39,9 @@ export class MenuButton extends FoundationElement implements ButtonPattern {
 
     @attr({ attribute: 'content-hidden', mode: 'boolean' })
     public contentHidden = false;
+
+    @attr({ attribute: 'tabindex', converter: nullableNumberConverter })
+    public override tabIndex!: number;
 
     /**
      * Specifies whether or not the menu is open.

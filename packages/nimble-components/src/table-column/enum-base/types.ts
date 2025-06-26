@@ -1,5 +1,5 @@
 /**
- * Input data types for mapping-based columns (i.e. enum text and icon)
+ * Input data types for mapping-based columns
  * @public
  */
 export const MappingKeyType = {

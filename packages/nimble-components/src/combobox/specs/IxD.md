@@ -8,24 +8,24 @@ The combobox component is used to present a pre-defined list of options that end
 
 ### Background
 
--   [Select and Combobox Refresh HLD (#1303)](https://github.com/ni/nimble/issues/1303)
--   [ViD Combobox Styles (Figma)](https://www.figma.com/file/PO9mFOu5BCl8aJvFchEeuN/Nimble_Components?type=design&node-id=1529-41777&mode=design)
+- [Select and Combobox Refresh HLD (#1303)](https://github.com/ni/nimble/issues/1303)
+- [ViD Combobox Styles (Figma)](https://www.figma.com/file/PO9mFOu5BCl8aJvFchEeuN/Nimble_Components?type=design&node-id=1529-41777&mode=design)
 
 ## Usage
 
 When to use:
 
--   To provide an input for text entry coupled with a popup for quick selection and filtering
--   To allow end-users to enter custom values
--   For entering settings or preference values that don't (yet) exist
--   For single selection
+- To provide an input for text entry coupled with a popup for quick selection and filtering
+- To allow end-users to enter custom values
+- For entering settings or preference values that don't (yet) exist
+- For single selection
 
 When not to use:
 
--   When all the allowed values can be included in the list of options
--   When there are fewer than three options
--   For complex and/or hierarchical data
--   For multi selection
+- When all the allowed values can be included in the list of options
+- When there are fewer than three options
+- For complex and/or hierarchical data
+- For multi selection
 
 ### Anatomy
 
@@ -222,6 +222,6 @@ From a focused list option, `DOWN ARROW` or `UP ARROW` moves focus and selects t
 
 ## Future Considerations
 
--   Helper text for input components (where it should be located, how it should be accessed).
--   Do clients want an "Add new" list option option? Do we want to document how clients might show an "Add new" list option indicator in the dropdown?
--   Does the client-user need to be able to specify a prefix and/or suffix that appears in the field?
+- Helper text for input components (where it should be located, how it should be accessed).
+- Do clients want an "Add new" list option option? Do we want to document how clients might show an "Add new" list option indicator in the dropdown?
+- Does the client-user need to be able to specify a prefix and/or suffix that appears in the field?

@@ -2,17 +2,15 @@
 
 The `@ni/jasmine-parameterized` library provides utility functions for writing [Jasmine](https://jasmine.github.io/) parameterized tests.
 
-# Usage
+## Getting Started
 
-1. Install in your app's `devDependencies`:
+Install in your app's `devDependencies`:
 
-    ```
-    npm install -D @ni/jasmine-parameterized
-    ```
+```
+npm install -D @ni/jasmine-parameterized
+```
 
-2. Use `parameterizeSpec` to write strictly-typed jasmine tests that run for different test scenarios, where each test can be focused or excluded as needed by name.
-
-### `parameterizeSpec`
+### Using `parameterizeSpec`
 
 Use `parameterizeSpec` to create a parameterized test using an array of tests with names.
 
@@ -41,7 +39,7 @@ describe('Different rains', () => {
 });
 ```
 
-### `parameterizeSuite`
+### Using `parameterizeSuite`
 
 Use `parameterizeSuite` to create a parameterized test suite using an array of test scenarios with names.
 
@@ -74,3 +72,7 @@ parameterizeSuite(rainTests, (suite, name, value) => {
     frogs: xdescribe
 });
 ```
+
+## Contributing
+
+See `Getting Started` in [`CONTRIBUTING.md`](/packages/jasmine-parameterized/CONTRIBUTING.md#getting-started).

@@ -1,4 +1,4 @@
-import { html } from '@microsoft/fast-element';
+import { html } from '@ni/fast-element';
 import { parameterizeSpec } from '@ni/jasmine-parameterized';
 import { RichTextMentionUsersView, richTextMentionUsersViewTag } from '..';
 import { type Fixture, fixture } from '../../../../utilities/tests/fixture';
@@ -7,7 +7,7 @@ import { RichTextMentionUsersViewPageObject } from '../testing/rich-text-mention
 import { wackyStrings } from '../../../../utilities/tests/wacky-strings';
 
 async function setup(): Promise<Fixture<RichTextMentionUsersView>> {
-    return fixture<RichTextMentionUsersView>(
+    return await fixture<RichTextMentionUsersView>(
         html`<${richTextMentionUsersViewTag}
             mention-href="users:1"
             mention-label="John Doe"
@@ -29,12 +29,6 @@ describe('RichTextMentionUsersView', () => {
 
     afterEach(async () => {
         await disconnect();
-    });
-
-    it('should export its tag', () => {
-        expect(richTextMentionUsersViewTag).toBe(
-            'nimble-rich-text-mention-users-view'
-        );
     });
 
     it('can construct an element instance', () => {

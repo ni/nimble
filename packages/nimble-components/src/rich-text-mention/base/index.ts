@@ -1,11 +1,11 @@
 import {
     attr,
-    Notifier,
+    type Notifier,
     Observable,
     observable,
-    Subscriber
-} from '@microsoft/fast-element';
-import { FoundationElement } from '@microsoft/fast-foundation';
+    type Subscriber
+} from '@ni/fast-element';
+import { FoundationElement } from '@ni/fast-foundation';
 import type { MappingConfig } from './models/mapping-config';
 import type {
     RichTextMentionValidator,
@@ -13,7 +13,7 @@ import type {
 } from './models/mention-validator';
 import {
     MentionInternals,
-    MentionInternalsOptions
+    type MentionInternalsOptions
 } from './models/mention-internals';
 import { Mapping } from '../../mapping/base';
 import type { MappingConfigs, MentionUpdateEventDetail } from './types';

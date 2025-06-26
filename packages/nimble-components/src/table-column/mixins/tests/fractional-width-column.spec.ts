@@ -1,8 +1,7 @@
-/* eslint-disable max-classes-per-file */
-import { customElement } from '@microsoft/fast-element';
+import { customElement } from '@ni/fast-element';
 import {
     fixture,
-    Fixture,
+    type Fixture,
     uniqueElementName
 } from '../../../utilities/tests/fixture';
 import { TableColumn } from '../../base';
@@ -30,9 +29,8 @@ class TestTableColumn extends mixinFractionalWidthColumnAPI(TableColumn) {
     }
 }
 
-// prettier-ignore
 async function setup(): Promise<Fixture<TestTableColumn>> {
-    return fixture(columnName);
+    return await fixture(columnName);
 }
 
 describe('FractionalWidthColumn', () => {

@@ -14,10 +14,10 @@ mentioned in the editor, it should be loaded back to the viewer with the special
 
 ## Links To Relevant Work Items and Reference Material
 
--   [Rich Text Editor and Viewer README](./README.md)
--   [Comments `@mention` mockup](https://www.figma.com/file/Q5SU1OwrnD08keon3zObRX/SystemLink-orig?type=design&node-id=7248-114254&mode=design&t=y3JtM3aT77Aw0xjK-0)
--   [Mention users in comments - Requirement doc](https://dev.azure.com/ni/DevCentral/_git/Skyline?path=/docs/design-documents/Platform/Requirements/Mention-users-in-comments.md&_a=preview)
--   [Work Item for @mention in comments in AzDo](https://dev.azure.com/ni/DevCentral/_workitems/edit/2464517)
+- [Rich Text Editor and Viewer README](./README.md)
+- [Comments `@mention` mockup](https://www.figma.com/file/Q5SU1OwrnD08keon3zObRX/SystemLink-orig?type=design&node-id=7248-114254&mode=design&t=y3JtM3aT77Aw0xjK-0)
+- [Mention users in comments - Requirement doc](https://dev.azure.com/ni/DevCentral/_git/Skyline?path=/docs/design-documents/Platform/Requirements/Mention-users-in-comments.md&_a=preview)
+- [Work Item for @mention in comments in AzDo](https://dev.azure.com/ni/DevCentral/_workitems/edit/2464517)
 
 ## Design
 
@@ -221,27 +221,27 @@ will be hidden.
 
 _Component Name_
 
--   `nimble-rich-text-mention-users`
+- `nimble-rich-text-mention-users`
 
 _Content_
 
--   Zero or more `nimble-mapping-mention-user` elements
+- Zero or more `nimble-mapping-mention-user` elements
 
 _Props/Attrs_
 
--   `pattern` - is a string attribute that gets the regex pattern to match the `mention-href` in the mapping element. Exactly similar to
-    HTML attribute: [pattern](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/pattern).
--   `validity` - is a read-only object of boolean values that represents the validity state that the `@mention` configuration can be. The object type
-    is `RichTextMentionValidity`. The validation is especially for mapping the user details that are provided via the
-    `nimble-mapping-mention-user`. For example, if the client application provides the duplicate `mention-href` values that store the user ID, it will be an
-    issue in scenarios when parsing the mentioned user from just a user ID to a username. Similar to
-    [ValidityState](https://developer.mozilla.org/en-US/docs/Web/API/ValidityState)
+- `pattern` - is a string attribute that gets the regex pattern to match the `mention-href` in the mapping element. Exactly similar to
+  HTML attribute: [pattern](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/pattern).
+- `validity` - is a read-only object of boolean values that represents the validity state that the `@mention` configuration can be. The object type
+  is `RichTextMentionValidity`. The validation is especially for mapping the user details that are provided via the
+  `nimble-mapping-mention-user`. For example, if the client application provides the duplicate `mention-href` values that store the user ID, it will be an
+  issue in scenarios when parsing the mentioned user from just a user ID to a username. Similar to
+  [ValidityState](https://developer.mozilla.org/en-US/docs/Web/API/ValidityState)
 
 _Events_
 
--   `mention-update` - This event fires when the `@` character is added to the editor and for every character input after `@`.
-    This fires with the `eventData` containing the current text that is added after the `@` character and before the current position of the
-    text cursor.
+- `mention-update` - This event fires when the `@` character is added to the editor and for every character input after `@`.
+  This fires with the `eventData` containing the current text that is added after the `@` character and before the current position of the
+  text cursor.
 
     This can be achieved through Tiptap's `onUpdate()` and `onStart()` methods in `render` function in
     [suggestion](https://tiptap.dev/api/utilities/suggestion#render) configurations.
@@ -266,9 +266,9 @@ _Events_
 
 _Methods_
 
--   `checkValidity()` - this returns `true` if the configuration of the `@mention` mapping data is valid and `false` otherwise.
--   `getMentionedHrefs()` - this returns an array of strings representing the mentioned user URL (`mention-href` property value of
-    the user mapping element) in the current state of the editor.
+- `checkValidity()` - this returns `true` if the configuration of the `@mention` mapping data is valid and `false` otherwise.
+- `getMentionedHrefs()` - this returns an array of strings representing the mentioned user URL (`mention-href` property value of
+  the user mapping element) in the current state of the editor.
 
 #### User mapping element (Non-visible configuration element):
 
@@ -278,12 +278,12 @@ mention view, while the user Href contained in the `mention-href` attribute is u
 
 _Component Name_
 
--   `nimble-mapping-mention-user`
+- `nimble-mapping-mention-user`
 
 _Props/Attrs_
 
--   `mention-href`: string
--   `display-name`: string
+- `mention-href`: string
+- `display-name`: string
 
 #### User mention view (Visible UI element):
 
@@ -301,17 +301,17 @@ Different copying and pasting behaviors of the user mention view node:
 
 _Component Name_
 
--   `nimble-rich-text-mention-users-view`
+- `nimble-rich-text-mention-users-view`
 
 _Props/Attrs_
 
--   `mention-href`: string - the unique user URL containing a user ID of the mentioned user
--   `mention-label`: string - the user name of the mentioned user or the user ID extracted from the above Href if mapping element is not
-    present for the particular user
+- `mention-href`: string - the unique user URL containing a user ID of the mentioned user
+- `mention-label`: string - the user name of the mentioned user or the user ID extracted from the above Href if mapping element is not
+  present for the particular user
 
 _Content_
 
--   `@` + mentioned user name or user ID (if mapping element is not present for the particular user)
+- `@` + mentioned user name or user ID (if mapping element is not present for the particular user)
 
 #### Mention popup (Visible UI element):
 
@@ -322,16 +322,16 @@ options.
 
 _Component Name_
 
--   `nimble-rich-text-mention-list-box`
+- `nimble-rich-text-mention-list-box`
 
 _Content_
 
--   One or more `nimble-list-option` elements
+- One or more `nimble-list-option` elements
 
 _Events_
 
--   `change` - this event is fired whenever a change happens within the dropdown either by clicking the options via mouse or selecting the options through key down events.
-    This is used by the `nimble-rich-text-editor` to make the Tiptap editor select the option and render as a mention node using a command from the `Mention` extension in Tiptap.
+- `change` - this event is fired whenever a change happens within the dropdown either by clicking the options via mouse or selecting the options through key down events.
+  This is used by the `nimble-rich-text-editor` to make the Tiptap editor select the option and render as a mention node using a command from the `Mention` extension in Tiptap.
 
 ### Anatomy
 
@@ -663,14 +663,14 @@ This button will not be highlighted like other buttons when the cursor is placed
 
 _Focus_
 
--   Focus state of the list options for `@mention` will be the same as the `nimble-list-option`.
--   Focusing out from the editor will close the `@mention` popup if it is already open.
--   The `@mention` popup will open at the position where the **"@"** character is added into the editor. If the editor has the scrollbar enabled,
-    scrolling the editor up and down will not move the popup to the **"@"** position; it will remain at the same position where it was originally opened.
-    However, if an option is selected from the list, the focus will return to the position where the text cursor is located, next to the mentioned
-    user view node, in the editor.
--   If the `@mention` popup is opened, it will move along with the editor as you scroll the entire webpage, and it will hide when the
-    editor hides.
+- Focus state of the list options for `@mention` will be the same as the `nimble-list-option`.
+- Focusing out from the editor will close the `@mention` popup if it is already open.
+- The `@mention` popup will open at the position where the **"@"** character is added into the editor. If the editor has the scrollbar enabled,
+  scrolling the editor up and down will not move the popup to the **"@"** position; it will remain at the same position where it was originally opened.
+  However, if an option is selected from the list, the focus will return to the position where the text cursor is located, next to the mentioned
+  user view node, in the editor.
+- If the `@mention` popup is opened, it will move along with the editor as you scroll the entire webpage, and it will hide when the
+  editor hides.
 
 _Keyboard interactions for `@mention`_
 
@@ -730,4 +730,4 @@ to mention the user detail which is not displayed in the UI when the feature to 
 
 ## Open Issues
 
--   none
+- none

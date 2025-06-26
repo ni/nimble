@@ -24,7 +24,7 @@ From the repo root directory:
 2. Run `npm run build`
 3. Run the different Nimble Components test configurations:
 
-    - To view the components and manually test behaviors in Storybook: `npm run start -w @ni-private/storybook`
+    - To view the components and manually test behaviors in Storybook: `npm run storybook`
 
         **Note**: You will need to refresh your browser window to see style changes made in source.
 
@@ -41,19 +41,18 @@ Before building a new component, 3 specification documents need to be created:
 ## Development workflow
 
 1. When creating new components, create the folder structure and decide how to implement the component as described in [Develop new components](#develop-new-components).
-2. Run the Storybook build and start commands from the `storybook` package directory:
 
-    `npm run build`
+2. Create Storybook documentation and tests for the component as described in [`@ni-private/storybook` CONTRIBUTING](/packages/storybook/CONTRIBUTING.md).
 
-    `npm run start`
+3. Run the Storybook command from the repo root: `npm run storybook`.
 
-    Storybook will build its own copy of the component in a temporary folder which is separate from the normal build.
+    This command also causes `nimble-components` (and `spright-components`) to rebuild whenever a source file is changed so that Storybook can reflect the current state.
 
-3. Make functional and style changes to the component.
+4. Make functional and style changes to the component.
 
     The storybook will hot reload when you save changes, but the styles will not. On each save that changes `index.ts` or `styles.ts`, **you will need to refresh your browser window to see style changes**.
 
-4. Create or update tests.
+5. Create or update tests.
 
     To build and run the tests once, from the `nimble` directory run:
 
@@ -65,17 +64,16 @@ Before building a new component, 3 specification documents need to be created:
 
     See [Unit tests](#unit-tests) for additional available commands.
 
-5. Test out the component in each of the 3 major browsers: Chrome, Firefox, and Safari (WebKit).
+6. Test out the component in each of the 3 major browsers: Chrome, Firefox, and Safari (WebKit).
    For developers on non-Mac platforms, Safari/WebKit can be tested via the Playwright package:
 
-    - To open Storybook with WebKit, after running the Storybook command, run the command `npm run storybook-open-webkit -w @ni/nimble-components` from the `nimble` directory.
     - To run the unit tests with WebKit, use the command `npm run test-webkit -w @ni/nimble-components` from the `nimble` directory.
 
-6. Create change files for your work by running the following from the `nimble` directory:
+7. Create change files for your work by running the following from the `nimble` directory:
 
     `npm run change`
 
-7. Update the [Component Status table](./src/tests/component-status.stories.ts) to reflect the new component state.
+8. Update the [Component Status table](./src/tests/component-status.stories.ts) to reflect the new component state.
 
 ## Develop new components
 
@@ -83,16 +81,15 @@ Before building a new component, 3 specification documents need to be created:
 
 If a component is not ready for general use, it should be marked as "incubating" to indicate that status to clients. A component could be in this state if any of the following are true:
 
--   It is still in development.
--   It is currently experimental or application-specific and hasn't yet been generalized for broader use.
--   It is missing important features like interaction design, visual design, or accessibility.
+- It is still in development.
+- It is missing important features like interaction design, visual design, or accessibility.
 
 Incubating contributions may compromise on the above capabilities but they still must abide by other repository requirements. For example:
 
--   Start development with a spec describing the high level plan and what's in or out of scope
--   Coding conventions (element naming, linting, code quality)
--   Unit and Chromatic test coverage
--   Storybook documentation
+- Start development with a spec describing the high level plan and what's in or out of scope
+- Coding conventions (element naming, linting, code quality)
+- Unit and Chromatic test coverage
+- Storybook documentation
 
 To mark a component as incubating:
 
@@ -144,7 +141,7 @@ Sometimes you may want to extend a FAST component, but need to make changes to t
 Use the `css` tagged template helper to style the component according to Nimble guidelines. See [leveraging-css.md](https://github.com/microsoft/fast/blob/c94ad896dda3d4c806585d1d0bbfb37abdc3d758/packages/web-components/fast-element/docs/guide/leveraging-css.md) for (hopefully up-to-date) tips from FAST.
 
 ```ts
-import { Button as FoundationButton } from '@microsoft/fast-foundation';
+import { Button as FoundationButton } from '@ni/fast-foundation';
 const styles = css`
     ${/* My custom CSS for the nimble fancy button */ ''}
     :host {
@@ -190,17 +187,17 @@ Component CSS should follow the patterns described in [CSS Guidelines](/packages
 
 It is common in web development to represent variations of control states using css classes. While it is possible to apply custom styles to web components based on user-added CSS classes, i.e. `:host(.my-class)`, it is not allowed in nimble for the following reasons:
 
--   The `class` attribute is a user-configured attribute. For native HTML elements it would be surprising if setting a class, i.e. `<div class="my-class">`, caused the element to have a new style that the user did not define in their stylesheet. However, other attributes are expected to have element defined behavior, i.e. `<div hidden>`.
--   Classes set in the `class` attribute are not as well-typed across frameworks. Users have to contort a bit to use exported enums for CSS class strings while attributes and attribute values are well-typed in wrappers.
--   Binding to updates in the `class` attribute is more difficult / not an expected pattern. This makes it difficult to forward configured properties to inner elements. Alternatively, binding to attributes and forwarding bound attribute values in templates is a well supported pattern.
+- The `class` attribute is a user-configured attribute. For native HTML elements it would be surprising if setting a class, i.e. `<div class="my-class">`, caused the element to have a new style that the user did not define in their stylesheet. However, other attributes are expected to have element defined behavior, i.e. `<div hidden>`.
+- Classes set in the `class` attribute are not as well-typed across frameworks. Users have to contort a bit to use exported enums for CSS class strings while attributes and attribute values are well-typed in wrappers.
+- Binding to updates in the `class` attribute is more difficult / not an expected pattern. This makes it difficult to forward configured properties to inner elements. Alternatively, binding to attributes and forwarding bound attribute values in templates is a well supported pattern.
 
 ##### Attribute naming convention
 
--   Do not use attribute names that conflict with native attribute names:
-    -   Avoid any names in the [MDN HTML attribute reference list](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes#attribute_list) (unless the attribute is trying to match that behavior exactly).
-    -   Do a best effort search in relevant working groups for new attributes that may be coming to avoid, i.e. https://github.com/openui and https://github.com/whatwg.
-    -   Avoid any names that are [reserved words](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Lexical_grammar#reserved_words) in JavaScript.
--   Use lower-kebab-case for attributes and enum values that are part of a component's public API.
+- Do not use attribute names that conflict with native attribute names:
+    - Avoid any names in the [MDN HTML attribute reference list](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes#attribute_list) (unless the attribute is trying to match that behavior exactly).
+    - Do a best effort search in relevant working groups for new attributes that may be coming to avoid, i.e. https://github.com/openui and https://github.com/whatwg.
+    - Avoid any names that are [reserved words](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Lexical_grammar#reserved_words) in JavaScript.
+- Use lower-kebab-case for attributes and enum values that are part of a component's public API.
 
     ```ts
         @attr({ attribute: 'error-text' })
@@ -209,18 +206,19 @@ It is common in web development to represent variations of control states using 
 
 ##### Attribute common name patterns
 
--   For attributes that control the visibility of a part, use either the boolean attribute `<part>-visible` or `<part>-hidden`, i.e. `icon-visible` or `icon-hidden`.
+- For attributes that control the visibility of a part, use either the boolean attribute `<part>-visible` or `<part>-hidden`, i.e. `icon-visible` or `icon-hidden`.
 
     The default configuration should be the most common configuration and the boolean attribute should be added for the less common alternate configuration that differs from the default. An element should NOT implement both `-visible` and `-hidden` attributes for a given `<part>`, only one or the other.
 
--   Use the `appearance` attribute to represent mutually exclusive visual modes of a component that represent large style changes. Likely implemented with an attribute behavior.
+- Use the `appearance` attribute to represent mutually exclusive visual modes of a component that represent large style changes. Likely implemented with an attribute behavior.
 
     An `appearance-variant` attribute may also be used to represent smaller mutually exclusive variations of an appearance. Likely implemented with CSS attribute selectors.
 
 ##### Attribute common value patterns
 
--   When applicable, the default value for an attribute that is allowed to be unconfigured should be first in the enum object, have a descriptive enum name, such as `default`, `none`, etc, based on the context, and be the enum value `undefined`.
--   States representing the following ideas should use those names: `success`, `error`, `warning`, `information`.
+- When applicable, the default value for an attribute that is allowed to be unconfigured should be first in the enum object, have a descriptive enum name, such as `default`, `none`, etc, based on the context, and be the enum value `undefined`.
+- Boolean attributes must always default to `false`. Otherwise, the configuration in HTML becomes meaningless, as both `<element></element>` and `<element bool-attr></element>` result in `bool-attr` being set to `true`.
+- States representing the following ideas should use those names: `success`, `error`, `warning`, `information`.
 
     Avoid shorthands, i.e. `warn`, `info` and avoid alternatives, i.e. `pass`, `fail`, `invalid`.
 
@@ -242,7 +240,7 @@ With an attribute defined there are several ways to react to updates. To minimiz
 
     <!-- prettier-ignore -->
     ```ts
-    import { css } from '@microsoft/fast-element';
+    import { css } from '@ni/fast-element';
     css`
         /* ... */
     `.withBehaviors(
@@ -272,8 +270,8 @@ Components can also consider exposing an API that checks the validity of the com
 
 It is acceptable to throw exceptions in production code in other situations. For example:
 
--   when a case gets hit that should be impossible, like an invalid enum value.
--   from a component method when it shouldn't be called in the component's current state, like `show()` on a dialog that is already open.
+- when a case gets hit that should be impossible, like an invalid enum value.
+- from a component method when it shouldn't be called in the component's current state, like `show()` on a dialog that is already open.
 
 #### Comments
 
@@ -283,8 +281,8 @@ At a minimum all classes should have a block comment and ultimately all parts of
 
 Accessibility is a requirement for all new components. For the Nimble design system, this means
 
--   Focus states are defined for every element and work on all browsers.
--   Colors have sufficient contrast across all themes.
+- Focus states are defined for every element and work on all browsers.
+- Colors have sufficient contrast across all themes.
 
 This is a collaborative effort between development and design. Designers will do their due diligence to make sure that designs promote accessiblity, and developers must ensure that each design is implemented and tested across browsers and themes.
 
@@ -361,11 +359,11 @@ Consider whether or not the `delegatesFocus` shadow DOM option should be set to 
 
 Some guidelines to follow when deciding whether or not to set `delegatesFocus`:
 
--   For a component built on top of a fast-foundation component, check the fast-foundation component's README.md to see if the component was built with the expectation that focus will be delegated.
--   Non-interactive elements should keep `delegatesFocus` with the default `false` value.
--   Interactive controls that contain no focusable components in the shadow root should keep `delegatesFocus` with the default `false` value.
--   Interactive controls that contain focusable components in the shadow root should set `delegatesFocus` to `true`.
--   Refer to [MDN](https://developer.mozilla.org/en-US/docs/Web/API/Element/attachShadow#parameters) or [this table](https://github.com/TakayoshiKochi/tabindex-focus-navigation-explainer/blob/master/TabindexFocusNavigationExplainer.md#proposed-solution) for more information.
+- For a component built on top of a fast-foundation component, check the fast-foundation component's README.md to see if the component was built with the expectation that focus will be delegated.
+- Non-interactive elements should keep `delegatesFocus` with the default `false` value.
+- Interactive controls that contain no focusable components in the shadow root should keep `delegatesFocus` with the default `false` value.
+- Interactive controls that contain focusable components in the shadow root should set `delegatesFocus` to `true`.
+- Refer to [MDN](https://developer.mozilla.org/en-US/docs/Web/API/Element/attachShadow#parameters) or [this table](https://github.com/TakayoshiKochi/tabindex-focus-navigation-explainer/blob/master/TabindexFocusNavigationExplainer.md#proposed-solution) for more information.
 
 If it is determined that the component should delegate focus, it can be configured as shown below:
 
@@ -376,6 +374,35 @@ const nimbleButton = Button.compose({
         delegatesFocus: true
     }
 });
+```
+
+If delegating focus, you must forward the `tabindex` attribute to any focusable elements in the shadow DOM. While some browsers (e.g. Chrome) will work properly without forwarding, others (e.g. Firefox) won't. Override the `tabIndex` property and mark it as an attribute:
+
+```ts
+export class MyComponent {
+    ...
+    @attr({ attribute: 'tabindex', converter: nullableNumberConverter })
+    public override tabIndex!: number;
+}
+```
+
+Then in the template, bind the focusable elements' `tabindex` to the host component's property:
+
+<!-- prettier-ignore -->
+```html
+html<MyComponent>`
+    <nimble-button 
+        ...
+        tabindex="${x => x.tabIndex}">
+    </nimble-button>
+    // or for an element that isn't focusable by default:
+    <div
+        ...
+        tabindex="${x => {
+            const tabindex = x.tabIndex ?? 0;
+            return x.disabled ? undefined : `${tabindex}`;
+        }">
+    </div>`;
 ```
 
 ### Leverage mixins for shared APIs across components
@@ -396,26 +423,26 @@ The following commands can be run from the `nimble` directory:
 
 ### Development commands
 
--   `npm run tdd:watch -w @ni/nimble-components`: Starts a process for building the components and running the test suite on file changes.
+- `npm run tdd:watch -w @ni/nimble-components`: Starts a process for building the components and running the test suite on file changes.
 
     This command runs headlessly. See [Debugging commands](#debugging-commands) if you need to see the browser or set breakpoints while running.
 
--   `npm run tdd -w @ni/nimble-components`: Similar to the corresponding `tdd:watch` command but only runs once. Useful for infrastructure changes which do not trigger the watch command.
+- `npm run tdd -w @ni/nimble-components`: Similar to the corresponding `tdd:watch` command but only runs once. Useful for infrastructure changes which do not trigger the watch command.
 
 ### Debugging commands
 
--   `npm run test-chrome:debugger -w @ni/nimble-components`: When run opens a Chrome window that can be used for interactive debugging. Using dev tools set breakpoints in tests and refresh the page, etc.
+- `npm run test-chrome:debugger -w @ni/nimble-components`: When run opens a Chrome window that can be used for interactive debugging. Using dev tools set breakpoints in tests and refresh the page, etc.
 
     You can also take the page url and open it in a different browser to test interactively.
 
--   `npm run test-webkit:debugger -w @ni/nimble-components`: Similar to `test-chrome:debugger` but for WebKit. Can be run on Windows.
+- `npm run test-webkit:debugger -w @ni/nimble-components`: Similar to `test-chrome:debugger` but for WebKit. Can be run on Windows.
 
 ### Test utilities
 
 Test utilities located in [`/src/testing`](/packages/nimble-components/src/testing) may be used for testing:
 
--   performed inside the `@ni/nimble-components` package or
--   by other packages in the monorepo or users consuming the built package
+- performed inside the `@ni/nimble-components` package or
+- by other packages in the monorepo or users consuming the built package
 
 Test utilties located in [`/src/utilities/tests`](/packages/nimble-components/src/utilities/tests) are just for tests in the `@ni/nimble-components` package and are not shared externally.
 
@@ -444,22 +471,22 @@ Most user-visible strings displayed by Nimble components are provided by the cli
 
 The current label providers:
 
--   `nimble-label-provider-core`: Used for labels for all components without a dedicated label provider
--   `nimble-label-provider-rich-text`: Used for labels for the rich text components
--   `nimble-label-provider-table`: Used for labels for the table (and table sub-components / column types)
+- `nimble-label-provider-core`: Used for labels for all components without a dedicated label provider
+- `nimble-label-provider-rich-text`: Used for labels for the rich text components
+- `nimble-label-provider-table`: Used for labels for the table (and table sub-components / column types)
 
 The expected format for label token names is:
 
--   element/type(s) to which the token applies, e.g. `number-field` or `table`
-    -   This may not be an exact element name, if this label applies to multiple elements or will be used in multiple contexts
--   component part/category (optional), e.g. `column-header`
--   specific functionality or sub-part, e.g. `decrement`
--   the suffix `label` (will be omitted from the label-provider properties/attributes)
+- element/type(s) to which the token applies, e.g. `number-field` or `table`
+    - This may not be an exact element name, if this label applies to multiple elements or will be used in multiple contexts
+- component part/category (optional), e.g. `column-header`
+- specific functionality or sub-part, e.g. `decrement`
+- the suffix `label` (will be omitted from the label-provider properties/attributes)
 
 Components using localized labels should document them in Storybook. To add a "Localizable Labels" section:
 
--   Their story `Args` should extend `LabelUserArgs`
--   Call `addLabelUseMetadata()` and pass their declared metadata object, the applicable label provider tag, and the label tokens that they're using
+- Their story `Args` should extend `LabelUserArgs`
+- Call `addLabelUseMetadata()` and pass their declared metadata object, the applicable label provider tag, and the label tokens that they're using
 
 ## Component naming
 

@@ -1,6 +1,6 @@
-import { html } from '@microsoft/fast-element';
+import { html } from '@ni/fast-element';
 import { parameterizeSpec } from '@ni/jasmine-parameterized';
-import type { Table } from '..';
+import { tableTag, type Table } from '..';
 import type { TableColumn } from '../../table-column/base';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import { type Fixture, fixture } from '../../utilities/tests/fixture';
@@ -9,7 +9,8 @@ import type {
     TableRecord
 } from '../types';
 import { TablePageObject } from '../testing/table.pageobject';
-import { createEventListener } from '../../utilities/tests/component';
+import { waitForEvent } from '../../utilities/testing/component';
+import { tableColumnTextTag } from '../../table-column/text';
 
 interface SimpleTableRecord extends TableRecord {
     stringData: string;
@@ -17,6 +18,10 @@ interface SimpleTableRecord extends TableRecord {
     moreStringData2: string;
     moreStringData3: string;
 }
+
+type TableColumnConfigurationChangeEventHandler = (
+    evt: CustomEvent<TableColumnConfigurationChangeEventDetail>
+) => void;
 
 const simpleTableData = [
     {
@@ -50,29 +55,29 @@ const largeTableData = Array.from(Array(500), (_, i) => {
 
 // prettier-ignore
 async function setup(): Promise<Fixture<Table<SimpleTableRecord>>> {
-    return fixture<Table<SimpleTableRecord>>(
-        html`<nimble-table>
-            <nimble-table-column-text id="first-column" field-name="stringData">
-            </nimble-table-column-text>
-            <nimble-table-column-text id="second-column" field-name="moreStringData">
-            </nimble-table-column-text>
-        </nimble-table>`
+    return await fixture<Table<SimpleTableRecord>>(
+        html`<${tableTag}>
+            <${tableColumnTextTag} id="first-column" field-name="stringData">
+            </${tableColumnTextTag}>
+            <${tableColumnTextTag} id="second-column" field-name="moreStringData">
+            </${tableColumnTextTag}>
+        </${tableTag}>`
     );
 }
 
 // prettier-ignore
 async function setupInteractiveTests(): Promise<Fixture<Table<SimpleTableRecord>>> {
-    return fixture<Table<SimpleTableRecord>>(
-        html`<nimble-table>
-            <nimble-table-column-text id="first-column" field-name="stringData" min-pixel-width="50">
-            </nimble-table-column-text>
-            <nimble-table-column-text id="second-column" field-name="moreStringData" min-pixel-width="50">
-            </nimble-table-column-text>
-            <nimble-table-column-text id="third-column" field-name="moreStringData2" min-pixel-width="50">
-            </nimble-table-column-text>
-            <nimble-table-column-text id="fourth-column" field-name="moreStringData3" min-pixel-width="50">
-            </nimble-table-column-text>
-        </nimble-table>`
+    return await fixture<Table<SimpleTableRecord>>(
+        html`<${tableTag}>
+            <${tableColumnTextTag} id="first-column" field-name="stringData" min-pixel-width="50">
+            </${tableColumnTextTag}>
+            <${tableColumnTextTag} id="second-column" field-name="moreStringData" min-pixel-width="50">
+            </${tableColumnTextTag}>
+            <${tableColumnTextTag} id="third-column" field-name="moreStringData2" min-pixel-width="50">
+            </${tableColumnTextTag}>
+            <${tableColumnTextTag} id="fourth-column" field-name="moreStringData3" min-pixel-width="50">
+            </${tableColumnTextTag}>
+        </${tableTag}>`
     );
 }
 
@@ -134,7 +139,8 @@ describe('Table Column Sizing', () => {
                 column2ExpectedRenderedWidth: 400
             },
             {
-                name: 'second column set to use pixelWidth',
+                // Firefox skipped, see https://github.com/ni/nimble/issues/2491
+                name: 'second column set to use pixelWidth #SkipFirefox',
                 rowWidth: 600,
                 column1FractionalWidth: 1,
                 column1PixelWidth: undefined,
@@ -197,12 +203,12 @@ describe('Table Column Sizing', () => {
         parameterizeSpec(columnSizeTests, (spec, name, value) => {
             spec(name, async () => {
                 await connect();
+                await waitForUpdatesAsync();
                 await pageObject.sizeTableToGivenRowWidth(
                     value.rowWidth,
                     element
                 );
                 await element.setData(simpleTableData);
-                await connect();
                 await waitForUpdatesAsync();
 
                 column1.columnInternals.fractionalWidth = value.column1FractionalWidth;
@@ -245,9 +251,9 @@ describe('Table Column Sizing', () => {
 
         it('resizing table with fractionalWidth columns changes column rendered widths', async () => {
             await connect();
+            await waitForUpdatesAsync();
             await pageObject.sizeTableToGivenRowWidth(400, element);
             await element.setData(simpleTableData);
-            await connect();
             await waitForUpdatesAsync();
 
             await pageObject.sizeTableToGivenRowWidth(300, element);
@@ -261,9 +267,9 @@ describe('Table Column Sizing', () => {
 
         it('hidden column results in other column filling whole space', async () => {
             await connect();
+            await waitForUpdatesAsync();
             await pageObject.sizeTableToGivenRowWidth(400, element);
             await element.setData(simpleTableData);
-            await connect();
             await waitForUpdatesAsync();
 
             column1.columnHidden = true;
@@ -286,7 +292,8 @@ describe('Table Column Sizing', () => {
                 column2MinPixelWidth: 150
             },
             {
-                name: 'when columns have fractional widths',
+                // Firefox skipped, see https://github.com/ni/nimble/issues/2491
+                name: 'when columns have fractional widths #SkipFirefox',
                 column1FractionalWidth: 2,
                 column1PixelWidth: null,
                 column1MinPixelWidth: null,
@@ -298,9 +305,9 @@ describe('Table Column Sizing', () => {
         parameterizeSpec(tests, (spec, name, value) => {
             spec(name, async () => {
                 await connect();
+                await waitForUpdatesAsync();
                 await pageObject.sizeTableToGivenRowWidth(300, element);
                 await element.setData(largeTableData);
-                await connect();
                 await waitForUpdatesAsync();
 
                 column1.columnInternals.fractionalWidth = value.column1FractionalWidth;
@@ -1009,122 +1016,39 @@ describe('Table Interactive Column Sizing', () => {
         );
     });
 
-    describe('active divider tests', () => {
-        const dividerActiveTests = [
-            {
-                name: 'click on first column right divider',
-                dividerClickIndex: 0,
-                leftDividerClick: false,
-                expectedColumnActiveDividerIndexes: [0]
-            },
-            {
-                name: 'click on second column left divider',
-                dividerClickIndex: 1,
-                expectedColumnActiveDividerIndexes: [1, 2]
-            },
-            {
-                name: 'click on second column right divider',
-                dividerClickIndex: 2,
-                expectedColumnActiveDividerIndexes: [1, 2]
-            },
-            {
-                name: 'click on third column left divider',
-                dividerClickIndex: 3,
-                expectedColumnActiveDividerIndexes: [3, 4]
-            },
-            {
-                name: 'click on third column right divider',
-                dividerClickIndex: 4,
-                expectedColumnActiveDividerIndexes: [3, 4]
-            },
-            {
-                name: 'click on last column left divider',
-                dividerClickIndex: 5,
-                expectedColumnActiveDividerIndexes: [5]
-            }
-        ] as const;
-        parameterizeSpec(dividerActiveTests, (spec, name, value) => {
-            spec(
-                `${name} updates expected dividers as "divider-active" and "column-active"`,
-                async () => {
-                    const dividers = Array.from(
-                        element.shadowRoot!.querySelectorAll('.column-divider')
-                    );
-                    const divider = dividers[value.dividerClickIndex]!;
-                    const dividerRect = divider.getBoundingClientRect();
-                    const mouseDownEvent = new MouseEvent('mousedown', {
-                        clientX: (dividerRect.x + dividerRect.width) / 2,
-                        clientY: (dividerRect.y + dividerRect.height) / 2
-                    });
-                    const mouseUpEvent = new MouseEvent('mouseup');
-                    divider.dispatchEvent(mouseDownEvent);
-                    await waitForUpdatesAsync();
-                    const dividerActiveDividers = [];
-                    const columnActiveDividers = [];
-                    for (let i = 0; i < dividers.length; i++) {
-                        if (dividers[i]!.classList.contains('divider-active')) {
-                            dividerActiveDividers.push(i);
-                        }
-                        if (dividers[i]!.classList.contains('column-active')) {
-                            columnActiveDividers.push(i);
-                        }
-                    }
-                    document.dispatchEvent(mouseUpEvent); // clean up registered event handlers
-
-                    expect(dividerActiveDividers.length).toEqual(1);
-                    expect(dividerActiveDividers[0]).toEqual(
-                        value.dividerClickIndex
-                    );
-                    expect(columnActiveDividers).toEqual(
-                        value.expectedColumnActiveDividerIndexes
-                    );
-                }
-            );
-        });
-
-        it('first column only has right divider', () => {
-            const rightDivider = pageObject.getColumnRightDivider(0);
-            const leftDivider = pageObject.getColumnLeftDivider(0);
-
-            expect(rightDivider).not.toBeNull();
-            expect(leftDivider).toBeNull();
-        });
-
-        it('last column only has left divider', () => {
-            const rightDivider = pageObject.getColumnRightDivider(3);
-            const leftDivider = pageObject.getColumnLeftDivider(3);
-
-            expect(rightDivider).toBeNull();
-            expect(leftDivider).not.toBeNull();
-        });
-
-        it('after releasing divider, it is no longer marked as active', async () => {
-            const divider = pageObject.getColumnRightDivider(0)!;
-            const dividerRect = divider.getBoundingClientRect();
-            const mouseDownEvent = new MouseEvent('mousedown', {
-                clientX: (dividerRect.x + dividerRect.width) / 2,
-                clientY: (dividerRect.y + dividerRect.height) / 2
-            });
-            divider.dispatchEvent(mouseDownEvent);
+    describe('active divider styling', () => {
+        it('is applied during press', async () => {
+            const hasActiveStylingBefore = pageObject.columnRightDividerHasActiveStyling(0);
+            pageObject.pressRightColumnDivider(0);
             await waitForUpdatesAsync();
-            expect(divider.classList.contains('divider-active')).toBeTruthy();
+            const hasActiveStylingAfter = pageObject.columnRightDividerHasActiveStyling(0);
 
-            const mouseUpEvent = new MouseEvent('mouseup');
-            document.dispatchEvent(mouseUpEvent);
+            expect(hasActiveStylingBefore).toBeFalse();
+            expect(hasActiveStylingAfter).toBeTrue();
+        });
+
+        it('is removed after release', async () => {
+            pageObject.pressRightColumnDivider(0);
             await waitForUpdatesAsync();
-            expect(divider.classList.contains('divider-active')).toBeFalsy();
+            pageObject.releaseRightColumnDivider(0);
+            await waitForUpdatesAsync();
+            const hasActiveStyling = pageObject.columnRightDividerHasActiveStyling(0);
+
+            expect(hasActiveStyling).toBeFalse();
         });
     });
 
     it('resizing columns emits single "column-configuration-change" event with expected state', async () => {
-        const listener = createEventListener(
+        const spy = jasmine.createSpy<TableColumnConfigurationChangeEventHandler>();
+        const listener = waitForEvent(
             element,
-            'column-configuration-change'
+            'column-configuration-change',
+            spy
         );
         pageObject.dragSizeColumnByRightDivider(2, [1, 1, 1, 1]);
         await waitForUpdatesAsync();
-
-        expect(listener.spy).toHaveBeenCalledTimes(1);
+        await listener;
+        expect(spy).toHaveBeenCalledTimes(1);
         const expectedFractionalWidths = [1, 1, 1.04, 0.96];
         const expectedPixelWidths = [
             undefined,
@@ -1132,8 +1056,7 @@ describe('Table Interactive Column Sizing', () => {
             undefined,
             undefined
         ];
-        const eventDetails = (listener.spy.calls.first().args[0] as CustomEvent)
-            .detail as TableColumnConfigurationChangeEventDetail;
+        const eventDetails = spy.calls.first().args[0].detail;
         const actualFractionalWidths = eventDetails.columns.map(
             column => column.fractionalWidth
         );

@@ -1,55 +1,72 @@
 {
   "size": {
     "Body-line-height": {
-      "value": "18"
+      "value": "18",
+      "type": "fontSize"
     },
     "Body_2-line-height": {
-      "value": "16"
+      "value": "16",
+      "type": "fontSize"
     },
     "ControlLabel_1-line-height": {
-      "value": "16"
+      "value": "16",
+      "type": "fontSize"
     },
     "GroupLabel_1-line-height": {
-      "value": "16"
+      "value": "16",
+      "type": "fontSize"
     },
     "Headline_2-line-height": {
-      "value": "40"
+      "value": "40",
+      "type": "fontSize"
     },
     "Headline_1-line-height": {
-      "value": "32"
+      "value": "32",
+      "type": "fontSize"
     },
     "Title_3-line-height": {
-      "value": "32"
+      "value": "32",
+      "type": "fontSize"
     },
     "Title_2-line-height": {
-      "value": "28"
+      "value": "28",
+      "type": "fontSize"
     },
     "Title_1-line-height": {
-      "value": "24"
+      "value": "24",
+      "type": "fontSize"
     },
     "Subtitle_2-line-height": {
-      "value": "20"
+      "value": "20",
+      "type": "fontSize"
     },
     "Subtitle_1-line-height": {
-      "value": "16"
+      "value": "16",
+      "type": "fontSize"
     },
     "Link-line-height": {
-      "value": "18"
+      "value": "18",
+      "type": "fontSize"
     },
     "Placeholder-line-height": {
-      "value": "18"
+      "value": "18",
+      "type": "fontSize"
     },
     "BodyEmphasized-line-height": {
-      "value": "18"
+      "value": "18",
+      "type": "fontSize"
     },
     "BodyEmphasized_2-line-height": {
-      "value": "16"
+      "value": "16",
+      "type": "fontSize"
     },
     "ButtonLabel_1-line-height": {
-      "value": "16"
+      "value": "16",
+      "type": "fontSize"
     },
     "TooltipCaption-line-height": {
-      "value": "14"
+      "value": "14",
+      "type": "fontSize"
     }
   }
 }

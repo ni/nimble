@@ -1,9 +1,9 @@
 import {
     DesignSystem,
     Toolbar as FoundationToolbar,
-    ToolbarOptions,
+    type ToolbarOptions,
     toolbarTemplate as template
-} from '@microsoft/fast-foundation';
+} from '@ni/fast-foundation';
 import { styles } from './styles';
 
 declare global {
@@ -21,10 +21,7 @@ const nimbleToolbar = Toolbar.compose<ToolbarOptions>({
     baseName: 'toolbar',
     baseClass: FoundationToolbar,
     template,
-    styles,
-    shadowOptions: {
-        delegatesFocus: true
-    }
+    styles
 });
 
 DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleToolbar());

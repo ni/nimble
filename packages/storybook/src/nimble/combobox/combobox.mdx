@@ -1,17 +1,30 @@
 import { Controls, Canvas, Meta, Title, Description } from '@storybook/blocks';
 import * as comboboxStories from './combobox.stories';
+import ComponentApisLink from '../../docs/component-apis-link.mdx';
+import { comboboxTag } from '@ni/nimble-components/dist/esm/combobox/';
 import { listOptionTag } from '@ni/nimble-components/dist/esm/list-option/';
+import { selectTag } from '@ni/nimble-components/dist/esm/select/';
 
 <Meta of={comboboxStories} />
 <Title of={comboboxStories} />
-<Description of={comboboxStories} />
+
+Per [W3C](https://www.w3.org/WAI/ARIA/apg/patterns/combobox/), a combobox is an
+input widget that has an associated popup. The popup enables users to choose a
+value for the input from a collection. The <Tag name={comboboxTag} /> provides
+`autocomplete` options that can help a user find and select a particular value.
+
+The user can enter arbitrary values in the input area, not just those that exist
+as autocomplete options. Consider using <Tag name={selectTag} /> to limit values
+to those in the list. .
 
 <Canvas of={comboboxStories.underlineCombobox} />
+
+## API
+
 <Controls of={comboboxStories.underlineCombobox} />
+<ComponentApisLink />
 
-{/* ## Appearances */}
-
-{/* ## Appearance Variants */}
+{/* ## Styling */}
 
 {/* ## Usage */}
 
@@ -19,13 +32,18 @@ import { listOptionTag } from '@ni/nimble-components/dist/esm/list-option/';
 
 ### Native element and Blazor
 
-The value of the combobox comes from the text content of the selected autocomplete <Tag name={listOptionTag} />, or, if no matching autocomplete is found, the value is the user-entered text.
+The value of the combobox comes from the text content of the selected
+autocomplete <Tag name={listOptionTag} />, or, if no matching autocomplete is
+found, the value is the user-entered text.
 
 ### Angular
 
-In Angular, an autocomplete <Tag name={listOptionTag} /> can be created with an `ngValue`. In that case the `ngModel` of the combobox will be the `ngValue` of the matched autocomplete option.
-If no matching autocomplete option is found, the `ngModel` of the combobox will be set to `OPTION_NOT_FOUND`, and if the application needs to access the user-entered text, that should be done
-through the `value` property on the `NimbleComboboxDirective`.
+In Angular, an autocomplete <Tag name={listOptionTag} /> can be created with an
+`ngValue`. In that case the `ngModel` of the combobox will be the `ngValue` of
+the matched autocomplete option. If no matching autocomplete option is found,
+the `ngModel` of the combobox will be set to `OPTION_NOT_FOUND`, and if the
+application needs to access the user-entered text, that should be done through
+the `value` property on the `NimbleComboboxDirective`.
 
 {/* ## Accessibility */}
 

@@ -1,5 +1,3 @@
-@import url('@ni/nimble-tokens/dist/styledictionary/css/variables.css');
-
 .story-layout-container {
     display: grid;
     align-items: center;

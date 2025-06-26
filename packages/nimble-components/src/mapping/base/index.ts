@@ -1,5 +1,5 @@
-import { attr } from '@microsoft/fast-element';
-import { FoundationElement } from '@microsoft/fast-foundation';
+import { attr } from '@ni/fast-element';
+import { FoundationElement } from '@ni/fast-foundation';
 
 /**
  * Base class for mapping configuration elements

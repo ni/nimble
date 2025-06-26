@@ -1,4 +1,4 @@
-import { cssPartial } from '@microsoft/fast-element';
+import { cssPartial } from '@ni/fast-element';
 
 /**
  * Set user-select: none in a way that works across all supported browsers.

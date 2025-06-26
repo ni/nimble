@@ -1,23 +1,27 @@
-/* eslint-disable max-classes-per-file */
-import { attr, customElement, html } from '@microsoft/fast-element';
+import { attr, customElement, html } from '@ni/fast-element';
 import { parameterizeSpec } from '@ni/jasmine-parameterized';
 import { Table, tableTag } from '..';
 import { TableColumn } from '../../table-column/base';
-import { tableColumnTextTag } from '../../table-column/text';
+import { TableColumnText, tableColumnTextTag } from '../../table-column/text';
 import { TableColumnTextCellView } from '../../table-column/text/cell-view';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
-import { controlHeight } from '../../theme-provider/design-tokens';
-import { createEventListener } from '../../utilities/tests/component';
+import {
+    borderWidth,
+    controlHeight,
+    tableFitRowsHeight
+} from '../../theme-provider/design-tokens';
+import { waitForEvent, waitTimeout } from '../../utilities/testing/component';
 import {
     type Fixture,
     fixture,
     uniqueElementName
 } from '../../utilities/tests/fixture';
 import {
+    TableColumnAlignment,
     TableColumnSortDirection,
-    TableRecord,
+    type TableRecord,
     TableRecordDelayedHierarchyState,
-    TableRecordHierarchyOptions
+    type TableRecordHierarchyOptions
 } from '../types';
 import { TablePageObject } from '../testing/table.pageobject';
 import {
@@ -27,6 +31,10 @@ import {
 } from '../../table-column/base/tests/table-column.fixtures';
 import type { ColumnInternalsOptions } from '../../table-column/base/models/column-internals';
 import { ColumnValidator } from '../../table-column/base/models/column-validator';
+import { menuTag } from '../../menu';
+import { menuItemTag } from '../../menu-item';
+import { tableRowTag } from '../components/row';
+import { iconCheckTag } from '../../icons/check';
 
 interface SimpleTableRecord extends TableRecord {
     stringData: string;
@@ -70,13 +78,13 @@ const largeTableData = createLargeData(500);
 
 // prettier-ignore
 async function setup(): Promise<Fixture<Table<SimpleTableRecord>>> {
-    return fixture<Table<SimpleTableRecord>>(
-        html`<nimble-table style="width: 700px">
-            <nimble-table-column-text id="first-column" field-name="stringData">stringData</nimble-table-column-text>
-            <nimble-table-column-text id="second-column" field-name="moreStringData">
-                <nimble-icon-check></nimble-icon-check>
-            </nimble-table-column-text>
-        </nimble-table>`
+    return await fixture<Table<SimpleTableRecord>>(
+        html`<${tableTag} style="width: 700px">
+            <${tableColumnTextTag} id="first-column" field-name="stringData">stringData</${tableColumnTextTag}>
+            <${tableColumnTextTag} id="second-column" field-name="moreStringData">
+                <${iconCheckTag}></${iconCheckTag}>
+            </${tableColumnTextTag}>
+        </${tableTag}>`
     );
 }
 
@@ -86,8 +94,8 @@ describe('Table', () => {
         let connect: () => Promise<void>;
         let disconnect: () => Promise<void>;
         let pageObject: TablePageObject<SimpleTableRecord>;
-        let column1: TableColumn;
-        let column2: TableColumn;
+        let column1: TableColumnText;
+        let column2: TableColumnText;
 
         // The assumption being made here is that the values in the data are equal to their
         // rendered representation (no formatting).
@@ -150,8 +158,8 @@ describe('Table', () => {
         beforeEach(async () => {
             ({ element, connect, disconnect } = await setup());
             pageObject = new TablePageObject<SimpleTableRecord>(element);
-            column1 = element.querySelector<TableColumn>('#first-column')!;
-            column2 = element.querySelector<TableColumn>('#second-column')!;
+            column1 = element.querySelector<TableColumnText>('#first-column')!;
+            column2 = element.querySelector<TableColumnText>('#second-column')!;
         });
 
         afterEach(async () => {
@@ -159,9 +167,7 @@ describe('Table', () => {
         });
 
         it('can construct an element instance', () => {
-            expect(document.createElement('nimble-table')).toBeInstanceOf(
-                Table
-            );
+            expect(document.createElement(tableTag)).toBeInstanceOf(Table);
         });
 
         it('element has a role of "treegrid"', async () => {
@@ -195,14 +201,12 @@ describe('Table', () => {
             await element.setData(simpleTableData);
             await waitForUpdatesAsync();
 
-            let headerContent = pageObject.getHeaderContent(0)!.firstChild;
-            expect(headerContent?.textContent).toEqual('stringData');
+            expect(pageObject.getHeaderTextContent(0)).toEqual('stringData');
 
             element.columns[0]!.textContent = 'foo';
             await waitForUpdatesAsync();
 
-            headerContent = pageObject.getHeaderContent(0)!.firstChild;
-            expect(headerContent?.textContent).toEqual('foo');
+            expect(pageObject.getHeaderTextContent(0)).toEqual('foo');
         });
 
         it('sets title when header text is ellipsized', async () => {
@@ -271,6 +275,25 @@ describe('Table', () => {
 
             const header = pageObject.getHeaderElement(0);
             expect(header.indicatorsHidden).toBeTrue();
+        });
+
+        it('sets column header alignment to left by default', async () => {
+            await connect();
+            await waitForUpdatesAsync();
+
+            const header = pageObject.getHeaderElement(0);
+            expect(header.alignment).toEqual(TableColumnAlignment.left);
+        });
+
+        it('sets column header alignment to right when configured as right in columnInternals', async () => {
+            await connect();
+            await waitForUpdatesAsync();
+
+            element.columns[0]!.columnInternals.headerAlignment = TableColumnAlignment.right;
+            await waitForUpdatesAsync();
+
+            const header = pageObject.getHeaderElement(0);
+            expect(header.alignment).toEqual(TableColumnAlignment.right);
         });
 
         it('can set data before the element is connected', async () => {
@@ -373,7 +396,7 @@ describe('Table', () => {
             verifyRenderedData(simpleTableData);
         });
 
-        it('can update a record without making a copy of the data', async () => {
+        it('can update a record without making a copy of the data without hierarchy enabled', async () => {
             await connect();
             await waitForUpdatesAsync();
 
@@ -456,6 +479,37 @@ describe('Table', () => {
 
             verifyRenderedData(simpleTableData);
             expect(element.checkValidity()).toBeTrue();
+        });
+
+        it('allows row hover styling when not scrolling', async () => {
+            await connect();
+            await element.setData(simpleTableData);
+            column1.groupIndex = 0;
+            await waitForUpdatesAsync();
+
+            expect(pageObject.isRowHoverStylingEnabled()).toBeTrue();
+        });
+
+        it('does not allow row hover styling while scrolling', async () => {
+            await connect();
+            await element.setData(simpleTableData);
+            column1.groupIndex = 0;
+            await waitForUpdatesAsync();
+
+            element.viewport.dispatchEvent(new Event('scroll'));
+            await waitForUpdatesAsync();
+            expect(pageObject.isRowHoverStylingEnabled()).toBeFalse();
+        });
+
+        it('re-enables row hover styling after scrolling ends', async () => {
+            await connect();
+            await element.setData(simpleTableData);
+            column1.groupIndex = 0;
+            await waitForUpdatesAsync();
+
+            element.viewport.dispatchEvent(new Event('scroll'));
+            await waitTimeout(300);
+            expect(pageObject.isRowHoverStylingEnabled()).toBeTrue();
         });
 
         describe('record IDs', () => {
@@ -643,8 +697,8 @@ describe('Table', () => {
             })
             // eslint-disable-next-line @typescript-eslint/no-unused-vars
             class TestFocusableCellView extends TableColumnTextCellView {
-                public override focusedRecycleCallback(): void {
-                    (this.shadowRoot!.firstElementChild as HTMLElement).blur();
+                public override get tabbableChildren(): HTMLElement[] {
+                    return [this.shadowRoot!.firstElementChild as HTMLElement];
                 }
             }
             @customElement({
@@ -698,39 +752,11 @@ describe('Table', () => {
                 verifyRenderedData(dataSubsetAtEnd);
             });
 
-            it('and calls focusedRecycleCallback on focused cell views when a scroll happens', async () => {
-                const focusableColumn = document.createElement(
-                    focusableColumnName
-                ) as TestFocusableTableColumn;
-                focusableColumn.fieldName = 'stringData';
-                column1.replaceWith(focusableColumn);
-                await connect();
-                const data = [...largeTableData];
-                await element.setData(data);
-                await waitForUpdatesAsync();
-
-                const firstCellView = pageObject.getRenderedCellView(0, 0);
-                const focusedRecycleSpy = spyOn(
-                    firstCellView,
-                    'focusedRecycleCallback'
-                ).and.callThrough();
-                const focusableElementInCell = pageObject.getRenderedCellView(
-                    0,
-                    0
-                ).shadowRoot!.firstElementChild! as HTMLElement;
-                focusableElementInCell.focus();
-                expect(focusedRecycleSpy).not.toHaveBeenCalled();
-
-                await pageObject.scrollToLastRowAsync();
-
-                expect(focusedRecycleSpy).toHaveBeenCalledTimes(1);
-            });
-
             it('and closes open action menus when a scroll happens', async () => {
                 const slot = 'my-action-menu';
                 column1.actionMenuSlot = slot;
-                const menu = document.createElement('nimble-menu');
-                const menuItem1 = document.createElement('nimble-menu-item');
+                const menu = document.createElement(menuTag);
+                const menuItem1 = document.createElement(menuItemTag);
                 menuItem1.textContent = 'menu item 1';
                 menu.appendChild(menuItem1);
                 menu.slot = slot;
@@ -740,12 +766,12 @@ describe('Table', () => {
                 await element.setData(data);
                 await waitForUpdatesAsync();
 
-                const toggleListener = createEventListener(
+                const toggleListener = waitForEvent(
                     element,
                     'action-menu-toggle'
                 );
                 await pageObject.clickCellActionMenu(0, 0);
-                await toggleListener.promise;
+                await toggleListener;
                 expect(pageObject.getCellActionMenu(0, 0)!.open).toBe(true);
 
                 await pageObject.scrollToLastRowAsync();
@@ -843,13 +869,13 @@ describe('Table', () => {
                 await connect();
                 await waitForUpdatesAsync();
 
-                let toggleListener = createEventListener(
+                let toggleListener = waitForEvent(
                     element,
                     'action-menu-toggle'
                 );
                 // Open a menu button for the first row to cause all the menus to be slotted within that row
                 await pageObject.clickCellActionMenu(1, 0);
-                await toggleListener.promise;
+                await toggleListener;
 
                 const updatedSlot = 'my-new-slot';
                 column1.actionMenuSlot = updatedSlot;
@@ -857,16 +883,13 @@ describe('Table', () => {
                 await waitForUpdatesAsync();
 
                 // Reopen the menu so we can verify the slots (changing sort order causes a row recycle which closes action menus)
-                toggleListener = createEventListener(
-                    element,
-                    'action-menu-toggle'
-                );
+                toggleListener = waitForEvent(element, 'action-menu-toggle');
                 await pageObject.clickCellActionMenu(1, 0);
-                await toggleListener.promise;
+                await toggleListener;
 
                 // Verify the slot name is updated
                 const rowSlots = element
-                    .shadowRoot!.querySelectorAll('nimble-table-row')
+                    .shadowRoot!.querySelectorAll(tableRowTag)
                     ?.item(1)
                     .querySelectorAll<HTMLSlotElement>('slot');
                 expect(rowSlots.length).toBe(1);
@@ -974,6 +997,32 @@ describe('Table', () => {
                     parentId3: 'Parent 2'
                 }
             ];
+
+            it('can update a record without making a copy of the data with hierarchy enabled', async () => {
+                element.idFieldName = 'id';
+                element.parentIdFieldName = 'parentId';
+                await connect();
+                await waitForUpdatesAsync();
+
+                const data: SimpleTableRecord[] = hierarchicalData.map(x => ({
+                    ...x
+                }));
+                await element.setData(data);
+                await waitForUpdatesAsync();
+                const currentFieldValue = data[0]!.stringData;
+                expect(pageObject.getRenderedCellTextContent(0, 0)).toEqual(
+                    currentFieldValue
+                );
+
+                const updatedFieldValue = `${currentFieldValue} - updated value`;
+                data[0]!.stringData = updatedFieldValue;
+                await element.setData(data);
+                await waitForUpdatesAsync();
+                expect(pageObject.getRenderedCellTextContent(0, 0)).toEqual(
+                    updatedFieldValue
+                );
+            });
+
             it('shows collapse all button with hierarchical data', async () => {
                 await connect();
                 element.idFieldName = 'id';
@@ -2277,6 +2326,189 @@ describe('Table', () => {
                 ]);
             });
         });
+
+        describe('collapse all button space reservation', () => {
+            const collapseAllButtonConfigurations = [
+                {
+                    name: 'with groupable columns and with hierarchy',
+                    groupableColumns: true,
+                    hierarchy: true,
+                    expectSpaceReserved: true
+                },
+                {
+                    name: 'with groupable columns and without hierarchy',
+                    groupableColumns: true,
+                    hierarchy: false,
+                    expectSpaceReserved: true
+                },
+                {
+                    name: 'without groupable columns and with hierarchy',
+                    groupableColumns: false,
+                    hierarchy: true,
+                    expectSpaceReserved: true
+                },
+                {
+                    name: 'without groupable columns and without hierarchy',
+                    groupableColumns: false,
+                    hierarchy: false,
+                    expectSpaceReserved: false
+                }
+            ] as const;
+            parameterizeSpec(
+                collapseAllButtonConfigurations,
+                (spec, name, value) => {
+                    spec(name, async () => {
+                        await connect();
+                        await waitForUpdatesAsync();
+                        element.columns.forEach(column => {
+                            column.columnInternals.groupingDisabled = !value.groupableColumns;
+                        });
+                        element.parentIdFieldName = value.hierarchy
+                            ? 'parentId'
+                            : undefined;
+                        await waitForUpdatesAsync();
+
+                        expect(
+                            pageObject.isCollapseAllButtonSpaceReserved()
+                        ).toBe(value.expectSpaceReserved);
+                    });
+                }
+            );
+        });
+
+        describe('styling height with tableFitRowsHeight', () => {
+            function getExpectedHeight(rowCount: number): string {
+                const rowHeight = 34;
+                const headerHeight = 32;
+                return `${rowCount * rowHeight + headerHeight}px`;
+            }
+
+            function getTableHeight(): string {
+                return getComputedStyle(element).getPropertyValue('height');
+            }
+
+            beforeEach(async () => {
+                element.style.height = `var(${tableFitRowsHeight.cssCustomProperty})`;
+                await connect();
+                await waitForUpdatesAsync();
+            });
+
+            it('has correct height before data is applied', () => {
+                const tokenValue = getTableHeight();
+                const expectedHeight = getExpectedHeight(0);
+                expect(tokenValue).toBe(expectedHeight);
+            });
+
+            it('adjusts height when horizontal scrollbar is shown', async () => {
+                await element.setData(simpleTableData);
+                await waitForUpdatesAsync();
+
+                await pageObject.sizeTableToGivenRowWidth(100, element);
+                await waitForUpdatesAsync();
+
+                const tokenValue = getTableHeight();
+                const heightWithoutScrollbar = getExpectedHeight(
+                    simpleTableData.length
+                );
+                // Use the `toBeGreaterThanOrEqual` comparison because in browsers with overlay scrollbars,
+                // the heights will match. In other browsers, the token height will be larger than the
+                // calculated height of the rows + header by the width of the scrollbar.
+                expect(parseFloat(tokenValue)).toBeGreaterThanOrEqual(
+                    parseFloat(heightWithoutScrollbar)
+                );
+                expect(element.viewport.scrollHeight).toBe(
+                    element.viewport.clientHeight
+                );
+            });
+
+            it('has correct height when height changes because of setting data', async () => {
+                await element.setData(simpleTableData);
+                await waitForUpdatesAsync();
+
+                const tokenValue = getTableHeight();
+                const expectedHeight = getExpectedHeight(
+                    simpleTableData.length
+                );
+                expect(tokenValue).toBe(expectedHeight);
+            });
+
+            it('has correct height when height changes because grouping is updated', async () => {
+                await element.setData(simpleTableData);
+                await waitForUpdatesAsync();
+                column1.groupIndex = 0;
+                await waitForUpdatesAsync();
+
+                const tokenValue = getTableHeight();
+                const expectedHeight = getExpectedHeight(
+                    simpleTableData.length * 2
+                ); // Each record is grouped into its own group
+                expect(tokenValue).toBe(expectedHeight);
+            });
+
+            it('has correct height when height changes because hierarchy is collapsed', async () => {
+                const hierarchicalData = [
+                    { id: '0', parentId: undefined, stringData: 'foo' },
+                    { id: '1', parentId: '0', stringData: 'foo' },
+                    { id: '2', parentId: '0', stringData: 'foo' },
+                    { id: '3', parentId: undefined, stringData: 'foo' }
+                ];
+
+                element.idFieldName = 'id';
+                element.parentIdFieldName = 'parentId';
+                await element.setData(hierarchicalData);
+                await waitForUpdatesAsync();
+
+                pageObject.clickCollapseAllButton();
+                await waitForUpdatesAsync();
+
+                const tokenValue = getTableHeight();
+                const expectedHeight = getExpectedHeight(2); // There are only 2 top-level parents
+                expect(tokenValue).toBe(expectedHeight);
+            });
+        });
+
+        describe('row height calculation', () => {
+            it('is computed with a positive value', async () => {
+                await connect();
+                await waitForUpdatesAsync();
+
+                expect(element.rowHeight).toBeGreaterThan(0);
+            });
+
+            it('rowHeight and pageSize are recomputed when the borderWidth design token changes', async () => {
+                await connect();
+                await waitForUpdatesAsync();
+
+                const initialRowHeight = element.rowHeight;
+                const initialPageSize = element.virtualizer.pageSize;
+                const initialBorderWidth = borderWidth.getValueFor(element);
+                const newBorderWidth = parseFloat(initialBorderWidth) + 8;
+                borderWidth.setValueFor(element, `${newBorderWidth}px`);
+                await waitForUpdatesAsync();
+
+                expect(element.rowHeight).toBeGreaterThan(initialRowHeight);
+                expect(element.virtualizer.pageSize).toBeLessThan(
+                    initialPageSize
+                );
+            });
+
+            it('rowHeight and pageSize are recomputed when the controlHeight design token changes', async () => {
+                await connect();
+                await waitForUpdatesAsync();
+
+                const initialRowHeight = element.rowHeight;
+                const initialPageSize = element.virtualizer.pageSize;
+                const initialControlHeight = controlHeight.getValueFor(element);
+                const newControlHeight = parseFloat(initialControlHeight) * 2;
+                controlHeight.setValueFor(element, `${newControlHeight}px`);
+                await waitForUpdatesAsync();
+
+                expect(element.rowHeight).toBeGreaterThan(initialRowHeight);
+                expect(element.virtualizer.pageSize).toBeLessThan(
+                    initialPageSize
+                );
+            });
+        });
     });
 
     describe('without connection', () => {
@@ -2313,11 +2545,11 @@ describe('Table', () => {
 
         // prettier-ignore
         async function setupWithTestColumns(): Promise<Fixture<Table<SimpleTableRecord>>> {
-            return fixture<Table<SimpleTableRecord>>(
-                html`<nimble-table>
+            return await fixture<Table<SimpleTableRecord>>(
+                html`<${tableTag}>
                     <${tableColumnValidationTestTag} foo bar id="first-column" field-name="stringData">Col 1</${tableColumnValidationTestTag}>
                     <${tableColumnValidationTestTag} foo bar id="second-column" field-name="moreStringData">Col 2</${tableColumnValidationTestTag}>
-                </nimble-table>`
+                </${tableTag}>`
             );
         }
 
@@ -2409,7 +2641,8 @@ describe('Table', () => {
             await waitForUpdatesAsync();
         }
 
-        it('maintains scroll position if data does not change', async () => {
+        // Firefox skipped, see https://github.com/ni/nimble/issues/2491
+        it('maintains scroll position if data does not change #SkipFirefox', async () => {
             await setDataAndScrollToBottom(largeData200);
             const scrollTopBeforeDisconnect = element.viewport.scrollTop;
             const firstRenderedRowBeforeDisconnect = getFirstRenderedRowDataIndex(largeData200);
@@ -2423,7 +2656,8 @@ describe('Table', () => {
             );
         });
 
-        it('updates scroll position if data length is reduced while not attached', async () => {
+        // Firefox skipped, see https://github.com/ni/nimble/issues/2491
+        it('updates scroll position if data length is reduced while not attached #SkipFirefox', async () => {
             await setDataAndScrollToBottom(largeData400);
             const scrollTopBeforeDisconnect = element.viewport.scrollTop;
             const firstRenderedRowBeforeDisconnect = getFirstRenderedRowDataIndex(largeData400);
@@ -2441,7 +2675,8 @@ describe('Table', () => {
             );
         });
 
-        it('maintains scroll position if data length is increased while not attached', async () => {
+        // Firefox skipped, see https://github.com/ni/nimble/issues/2491
+        it('maintains scroll position if data length is increased while not attached #SkipFirefox', async () => {
             await setDataAndScrollToBottom(largeData200);
             const scrollTopBeforeDisconnect = element.viewport.scrollTop;
             const firstRenderedRowBeforeDisconnect = getFirstRenderedRowDataIndex(largeData200);
@@ -2478,7 +2713,8 @@ describe('Table', () => {
             );
         });
 
-        it('adjusts the number of rendered rows when the table height decreases while not attached', async () => {
+        // Firefox skipped, see https://github.com/ni/nimble/issues/2491
+        it('adjusts the number of rendered rows when the table height decreases while not attached #SkipFirefox', async () => {
             element.style.height = '500px';
             await element.setData(largeData200);
             await waitForUpdatesAsync();

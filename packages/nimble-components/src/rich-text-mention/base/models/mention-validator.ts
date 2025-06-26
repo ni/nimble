@@ -1,5 +1,8 @@
 import type { Mapping } from '../../../mapping/base';
-import { Validator, ValidityObject } from '../../../utilities/models/validator';
+import {
+    Validator,
+    type ValidityObject
+} from '../../../utilities/models/validator';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface RichTextMentionValidity extends ValidityObject {}

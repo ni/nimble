@@ -1,5 +1,5 @@
 import type { StoryFn, Meta } from '@storybook/html';
-import { html } from '@microsoft/fast-element';
+import { html } from '@ni/fast-element';
 import { drawerTag } from '@ni/nimble-components/dist/esm/drawer';
 import { createFixedThemeStory } from '../../utilities/storybook';
 import { sharedMatrixParameters } from '../../utilities/matrix';
@@ -32,23 +32,26 @@ if (remaining.length > 0) {
 }
 
 const playFunction = (): void => {
-    void document.querySelector('nimble-drawer')!.show();
+    void document.querySelector(drawerTag)!.show();
 };
 
-export const drawerLightThemeWhiteBackground: StoryFn = createFixedThemeStory(
+export const lightTheme: StoryFn = createFixedThemeStory(
     component,
     lightThemeWhiteBackground
 );
 
-drawerLightThemeWhiteBackground.play = playFunction;
+lightTheme.play = playFunction;
 
-export const drawerColorThemeDarkGreenBackground: StoryFn = createFixedThemeStory(component, colorThemeDarkGreenBackground);
+export const colorTheme: StoryFn = createFixedThemeStory(
+    component,
+    colorThemeDarkGreenBackground
+);
 
-drawerColorThemeDarkGreenBackground.play = playFunction;
+colorTheme.play = playFunction;
 
-export const drawerDarkThemeBlackBackground: StoryFn = createFixedThemeStory(
+export const darkTheme: StoryFn = createFixedThemeStory(
     component,
     darkThemeBlackBackground
 );
 
-drawerDarkThemeBlackBackground.play = playFunction;
+darkTheme.play = playFunction;

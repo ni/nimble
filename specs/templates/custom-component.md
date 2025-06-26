@@ -1,4 +1,4 @@
-# Nimble Component Name [Template]
+# Component Name [Template]
 
 ## Overview
 
@@ -6,10 +6,14 @@
 
 ### Background
 
-*Relevant historical or background information*
-*Link to Interaction Design spec*
-*Link to Visual Design spec*
-*Link to relevant work items, related existing issues, etc.*
+- *Relevant historical or background information*
+- *Link to Interaction Design spec*
+- *Link to Visual Design spec*
+- *Link to relevant work items, related existing issues, etc.*
+
+### Containing Library
+
+*State whether this component be part of Nimble or Spright and provide justification or considerations leading to that decision.* 
 
 ### Non-goals
 
@@ -56,14 +60,12 @@
 
 ### Anatomy 
 
-*Outline the component structure with a diagram of its visual tree (shadow dom). Enumerate key areas of visual customization, such as:*
+*Outline the component structure with a diagram of its visual tree (shadow DOM). Enumerate key areas of visual customization, such as:*
 
 - *Slot Names*
 - *Host Classes*
 - *Slotted Content/Slotted Classes*
 - *CSS Parts*
-
-*Work closely with the visual design partner to co-develop the API and anatomy along side the visual design.*
 
 ### Native form integration
 
@@ -71,13 +73,13 @@
 
 *Components that are intended to replace a native form element (input, textarea, select) should generally behave like their native counterpart. See ["More capable form controls" on web.dev](https://web.dev/articles/more-capable-form-controls) for an overview of requirements. Leverage patterns from [FAST Form Associated Custom Elements](https://github.com/microsoft/fast/blob/master/packages/web-components/fast-foundation/src/form-associated/form-associated-custom-element.spec.md).*
 
-### Angular integration 
+### Angular integration
 
 *Describe the plan for Angular support, including directives for attribute binding and ControlValueAccessor for form integration. Depending on the contributor's needs, implementing Angular integration may be deferred but the initial spec should still document what work will be needed.*
 
-### Blazor integration 
+### Blazor integration
 
-*Describe the plan for Blazor support, including form integration. See the [nimble-blazor CONTRIBUTING.md](/packages/nimble-blazor/CONTRIBUTING.md) for details. Depending on the contributor's needs, implementing Blazor integration may be deferred but the initial spec should still document what work will be needed.*
+*Describe the plan for Blazor support, including form integration. See the [nimble-blazor CONTRIBUTING.md](/packages/blazor-workspace/NimbleBlazor/CONTRIBUTING.md) for details. Depending on the contributor's needs, implementing Blazor integration may be deferred but the initial spec should still document what work will be needed.*
 
 ### Visual Appearance
 

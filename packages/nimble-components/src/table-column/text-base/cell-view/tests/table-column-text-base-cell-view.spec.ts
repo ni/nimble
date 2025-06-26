@@ -1,4 +1,4 @@
-import { customElement } from '@microsoft/fast-element';
+import { customElement } from '@ni/fast-element';
 import { TableColumnTextCellViewBase } from '..';
 import {
     uniqueElementName,
@@ -8,7 +8,7 @@ import {
 import { waitForUpdatesAsync } from '../../../../testing/async-helpers';
 import { template as textBaseCellViewTemplate } from '../template';
 import { styles as textBaseCellViewStyles } from '../styles';
-import { TextCellViewBaseAlignment } from '../types';
+import { TableColumnAlignment } from '../../../../table/types';
 
 describe('TableColumnTextCellViewBase', () => {
     let element: TableColumnTextCellViewBase;
@@ -30,7 +30,7 @@ describe('TableColumnTextCellViewBase', () => {
     }
 
     async function setup(): Promise<Fixture<TableColumnTextCellViewBase>> {
-        return fixture(testTextBaseCellViewTag);
+        return await fixture(testTextBaseCellViewTag);
     }
 
     beforeEach(async () => {
@@ -48,17 +48,17 @@ describe('TableColumnTextCellViewBase', () => {
     });
 
     it('defaults to left alignment', () => {
-        expect(element.alignment).toBe(TextCellViewBaseAlignment.left);
+        expect(element.alignment).toBe(TableColumnAlignment.left);
     });
 
     it('styles cell correctly with left alignment', async () => {
-        element.alignment = TextCellViewBaseAlignment.left;
+        element.alignment = TableColumnAlignment.left;
         await waitForUpdatesAsync();
         expect(getComputedStyle(element).marginLeft).toEqual('0px');
     });
 
     it('styles cell correctly with right alignment', async () => {
-        element.alignment = TextCellViewBaseAlignment.right;
+        element.alignment = TableColumnAlignment.right;
         await waitForUpdatesAsync();
         expect(getComputedStyle(element).marginLeft).not.toEqual('0px');
     });

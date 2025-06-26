@@ -1,17 +1,21 @@
-import { css } from '@microsoft/fast-element';
+import { css } from '@ni/fast-element';
 import {
     bodyFont,
     bodyFontColor,
     placeholderFont,
     placeholderFontColor
 } from '../../../theme-provider/design-tokens';
+import { display } from '../../../utilities/style/display';
 
 export const styles = css`
+    ${display('flex')}
+
     :host {
         width: fit-content;
         max-width: 100%;
         height: fit-content;
         align-self: center;
+        align-items: center;
     }
 
     nimble-anchor {

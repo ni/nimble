@@ -1,11 +1,11 @@
 import type { Meta, StoryFn } from '@storybook/html';
-import { html } from '@microsoft/fast-element';
+import { html } from '@ni/fast-element';
 import { waitForUpdatesAsync } from '@ni/nimble-components/dist/esm/testing/async-helpers';
 import { iconUserTag } from '@ni/nimble-components/dist/esm/icons/user';
 import { menuTag } from '@ni/nimble-components/dist/esm/menu';
 import { menuItemTag } from '@ni/nimble-components/dist/esm/menu-item';
 import { tableColumnTextTag } from '@ni/nimble-components/dist/esm/table-column/text';
-import { Table, tableTag } from '@ni/nimble-components/dist/esm/table';
+import { tableTag } from '@ni/nimble-components/dist/esm/table';
 import { TablePageObject } from '@ni/nimble-components/dist/esm/table/testing/table.pageobject';
 import { createFixedThemeStory } from '../../utilities/storybook';
 import { sharedMatrixParameters } from '../../utilities/matrix';
@@ -72,7 +72,7 @@ if (remaining.length > 0) {
 }
 
 const playFunction = async (): Promise<void> => {
-    const table = document.querySelector<Table>('nimble-table')!;
+    const table = document.querySelector(tableTag)!;
     await table.setData(data);
     await waitForUpdatesAsync();
 
@@ -80,14 +80,23 @@ const playFunction = async (): Promise<void> => {
     await pageObject.clickCellActionMenu(0, 0);
 };
 
-export const tableActionMenuOpenedLightThemeWhiteBackground: StoryFn = createFixedThemeStory(component, lightThemeWhiteBackground);
+export const lightTheme$ActionMenuOpened: StoryFn = createFixedThemeStory(
+    component,
+    lightThemeWhiteBackground
+);
 
-tableActionMenuOpenedLightThemeWhiteBackground.play = playFunction;
+lightTheme$ActionMenuOpened.play = playFunction;
 
-export const tableActionMenuOpenedColorThemeDarkGreenBackground: StoryFn = createFixedThemeStory(component, colorThemeDarkGreenBackground);
+export const colorTheme$ActionMenuOpened: StoryFn = createFixedThemeStory(
+    component,
+    colorThemeDarkGreenBackground
+);
 
-tableActionMenuOpenedColorThemeDarkGreenBackground.play = playFunction;
+colorTheme$ActionMenuOpened.play = playFunction;
 
-export const tableActionMenuOpenedDarkThemeBlackBackground: StoryFn = createFixedThemeStory(component, darkThemeBlackBackground);
+export const darkTheme$ActionMenuOpened: StoryFn = createFixedThemeStory(
+    component,
+    darkThemeBlackBackground
+);
 
-tableActionMenuOpenedDarkThemeBlackBackground.play = playFunction;
+darkTheme$ActionMenuOpened.play = playFunction;

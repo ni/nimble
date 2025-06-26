@@ -1,5 +1,4 @@
-import { css } from '@microsoft/fast-element';
-import { display } from '@microsoft/fast-foundation';
+import { css } from '@ni/fast-element';
 import {
     Black15,
     Black91,
@@ -7,6 +6,7 @@ import {
     PowerGreen,
     White
 } from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
+import { display } from '../utilities/style/display';
 import { spinnerSmallHeight } from '../theme-provider/design-tokens';
 import { Theme } from '../theme-provider/types';
 import { themeBehavior } from '../utilities/style/theme';
@@ -77,12 +77,14 @@ export const styles = css`
         }
 
         div.bit1 {
-            animation-name: ni-private-spinner-no-motion-opacity-keyframes,
+            animation-name:
+                ni-private-spinner-no-motion-opacity-keyframes,
                 ni-private-spinner-no-motion-transform-keyframes-1;
         }
 
         div.bit2 {
-            animation-name: ni-private-spinner-no-motion-opacity-keyframes,
+            animation-name:
+                ni-private-spinner-no-motion-opacity-keyframes,
                 ni-private-spinner-no-motion-transform-keyframes-2;
         }
     }

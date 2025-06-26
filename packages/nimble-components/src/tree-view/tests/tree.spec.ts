@@ -1,12 +1,12 @@
-import { html, ref } from '@microsoft/fast-element';
+import { html, ref } from '@ni/fast-element';
 import { notebook16X16 } from '@ni/nimble-tokens/dist/icons/js';
-import { keyEnter } from '@microsoft/fast-web-utilities';
-import { fixture, Fixture } from '../../utilities/tests/fixture';
-import { clickElement } from '../../utilities/tests/component';
+import { keyEnter } from '@ni/fast-web-utilities';
+import { fixture, type Fixture } from '../../utilities/tests/fixture';
+import { clickElement } from '../../utilities/testing/component';
 import { TreeViewSelectionMode } from '../types';
 import { TreeView, treeViewTag } from '..';
-import type { TreeItem } from '../../tree-item';
-import type { Button } from '../../button';
+import { treeItemTag, type TreeItem } from '../../tree-item';
+import { buttonTag, type Button } from '../../button';
 import '../../tree-item';
 import '../../button';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
@@ -25,23 +25,23 @@ class Model {
 }
 
 async function setup(source: Model): Promise<Fixture<TreeView>> {
-    return fixture<TreeView>(
+    return await fixture<TreeView>(
         // prettier-ignore
         html<Model>`
-        <nimble-tree-view ${ref('treeView')}>
-            <nimble-tree-item ${ref('root1')}>Root1
-                <nimble-tree-item ${ref('subRoot1')}>SubRoot
-                    <nimble-tree-item ${ref('leaf1')}><nimble-button ${ref('button')}>Leaf1</nimble-button></nimble-tree-item>
-                </nimble-tree-item>
-                <nimble-tree-item ${ref('leaf2')} selected>Leaf 2</nimble-tree-item>
-                <nimble-tree-item ${ref('leafWithIconDisabled')} disabled><svg slot="start">${notebook16X16.data}</svg>Leaf With Icon</nimble-tree-item>
-            </nimble-tree-item>
-            <nimble-tree-item ${ref('root2')}>Root2
-                <nimble-tree-item ${ref('subRoot2')}>SubRoot 2
-                    <nimble-tree-item ${ref('leaf3')}>Leaf 3</nimble-tree-item>
-                </nimble-tree-item>
-            </nimble-tree-item>
-        </nimble-tree-view>`,
+        <${treeViewTag} ${ref('treeView')}>
+            <${treeItemTag} ${ref('root1')}>Root1
+                <${treeItemTag} ${ref('subRoot1')}>SubRoot
+                    <${treeItemTag} ${ref('leaf1')}><${buttonTag} ${ref('button')}>Leaf1</${buttonTag}></${treeItemTag}>
+                </${treeItemTag}>
+                <${treeItemTag} ${ref('leaf2')} selected>Leaf 2</${treeItemTag}>
+                <${treeItemTag} ${ref('leafWithIconDisabled')} disabled><svg slot="start">${notebook16X16.data}</svg>Leaf With Icon</${treeItemTag}>
+            </${treeItemTag}>
+            <${treeItemTag} ${ref('root2')}>Root2
+                <${treeItemTag} ${ref('subRoot2')}>SubRoot 2
+                    <${treeItemTag} ${ref('leaf3')}>Leaf 3</${treeItemTag}>
+                </${treeItemTag}>
+            </${treeItemTag}>
+        </${treeViewTag}>`,
         { source }
     );
 }
@@ -71,14 +71,8 @@ describe('TreeView', () => {
         await disconnect();
     });
 
-    it('should export its tag', () => {
-        expect(treeViewTag).toBe('nimble-tree-view');
-    });
-
     it('can construct an element instance', () => {
-        expect(document.createElement('nimble-tree-view')).toBeInstanceOf(
-            TreeView
-        );
+        expect(document.createElement(treeViewTag)).toBeInstanceOf(TreeView);
     });
 
     it('should include a role of `tree`', () => {

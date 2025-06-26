@@ -1,11 +1,14 @@
-import { html } from '@microsoft/fast-element';
+import { html } from '@ni/fast-element';
 import { parameterizeSpec } from '@ni/jasmine-parameterized';
 import { TextArea, textAreaTag } from '..';
-import { waitForUpdatesAsync } from '../../testing/async-helpers';
-import { fixture, Fixture } from '../../utilities/tests/fixture';
+import {
+    processUpdates,
+    waitForUpdatesAsync
+} from '../../testing/async-helpers';
+import { fixture, type Fixture } from '../../utilities/tests/fixture';
 
 async function setup(): Promise<Fixture<TextArea>> {
-    return fixture<TextArea>(html`<nimble-text-area></nimble-text-area>`);
+    return await fixture<TextArea>(html`<${textAreaTag}></${textAreaTag}>`);
 }
 
 describe('Text Area', () => {
@@ -21,14 +24,8 @@ describe('Text Area', () => {
         await disconnect();
     });
 
-    it('should export its tag', () => {
-        expect(textAreaTag).toBe('nimble-text-area');
-    });
-
     it('can construct an element instance', () => {
-        expect(document.createElement('nimble-text-area')).toBeInstanceOf(
-            TextArea
-        );
+        expect(document.createElement(textAreaTag)).toBeInstanceOf(TextArea);
     });
 
     it('should set the "control" class on the internal control', async () => {
@@ -39,6 +36,20 @@ describe('Text Area', () => {
     it('should set the `part` attribute to "control" on the internal control', async () => {
         await connect();
         expect(element.control.part.contains('control')).toBe(true);
+    });
+
+    it('should set "aria-required" to true when "required-visible" is true', async () => {
+        await connect();
+        element.requiredVisible = true;
+        processUpdates();
+        expect(element.control.getAttribute('aria-required')).toBe('true');
+    });
+
+    it('should set "aria-required" to false when "required-visible" is false', async () => {
+        await connect();
+        element.requiredVisible = false;
+        processUpdates();
+        expect(element.control.getAttribute('aria-required')).toBe('false');
     });
 
     const attributeNames: readonly {

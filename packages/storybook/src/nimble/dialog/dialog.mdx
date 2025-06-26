@@ -1,26 +1,30 @@
 import { Canvas, Meta, Controls, Title } from '@storybook/blocks';
 import * as dialogStories from './dialog.stories';
+import ComponentApisLink from '../../docs/component-apis-link.mdx';
 
 <Meta of={dialogStories} />
 <Title of={dialogStories} />
 
-A modal dialog that appears centered on top of all other windows, blocking other interaction until dismissed.
-
-By default, the first focusable control gets focus when the dialog is opened. To focus a specific element instead, set the `autofocus` attribute on that element.
+A modal dialog that appears centered on top of all other windows, blocking other
+interaction until dismissed.
 
 <Canvas of={dialogStories.dialog} />
+
+## API
+
 <Controls of={dialogStories.dialog} />
+<ComponentApisLink />
 
-{/* ## Appearances */}
+## Styling
 
-{/* ## Appearance Variants */}
+### Sizing
 
-## Sizing
+The dialog size can be customized by modyfing the width, height and max-height
+properties of `nimble-dialog::part(control)`.
 
-The dialog size can be customized by modyfing the width, height and max-height properties of `nimble-dialog::part(control)`.
-
-By default, the dialog is sized to be small and growable. This should be used for small dialogs like a confirmation dialog.
-This is equivalent of using the following style configuration:
+By default, the dialog is sized to be small and growable. This should be used
+for small dialogs like a confirmation dialog. This is equivalent of using the
+following style configuration:
 
 ```scss
 nimble-dialog::part(control) {
@@ -30,7 +34,8 @@ nimble-dialog::part(control) {
 }
 ```
 
-For larger dialogs, for example a wizard-like dialog, the following style configuration should be used:
+For larger dialogs, for example a wizard-like dialog, the following style
+configuration should be used:
 
 ```scss
 nimble-dialog::part(control) {
@@ -40,7 +45,57 @@ nimble-dialog::part(control) {
 }
 ```
 
-{/* ## Usage */}
+## Usage
+
+By default, the first focusable control gets focus when the dialog is opened. To
+focus a specific element instead, set the `autofocus` attribute on that element.
+
+### Blazor
+
+Using the `NimbleDialog` in a Blazor app requires it to be placed in the
+template just like any other component. While its location in the template
+doesn't tend to matter, it is conventional for it to be placed at the bottom.
+Opening and closing the dialog will be handled by calling the `ShowAsync` and
+`CloseAsync` methods on a `NimbleDialog` reference respectively.
+
+If your dialog contains elements that can have user-provided state (such as an
+editable `NimbleTextField` or a `NimbleToggleButton`), and it is expected for
+the dialog to open in the same state each time, then you _must_ provide a means
+to reset that state between opens (the `NimbleDialog` can not do this itself). A
+common pattern to manage this is to bind the values of the elements in the
+dialog to some model state, and upon closing (or opening) the dialog simply
+re-create the model the values are bound to.
+
+MyDialogOwner.razor
+
+```html
+<NimbleDialog @ref="_dialog">
+    <NimbleTextField Value="@_model.FirstName"></NimbleTextField>
+    <NimbleTextField Value="@_model.LastName"></NimbleTextField>
+    <NimbleButton slot="footer" @onclick="CloseDialogAsync(DialogResult.OK)"
+        >OK</NimbleButton
+    >
+</NimbleDialog>
+```
+
+MyDialogOwner.razor.cs
+
+```cs
+private DialogData _model = new();
+private NimbleDialog! _dialog;
+
+private async Task CloseDialogAsync(DialogResult reason)
+{
+    await _dialog.CloseAsync(reason);
+    _model = new(); // reset model state
+}
+
+private class DialogData
+{
+    public string FirstName { get; set; }
+    public string LastName { get; set; }
+}
+```
 
 {/* ## Examples */}
 

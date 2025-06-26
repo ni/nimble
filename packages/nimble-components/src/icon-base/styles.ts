@@ -1,5 +1,5 @@
-import { css } from '@microsoft/fast-element';
-import { display } from '@microsoft/fast-foundation';
+import { css } from '@ni/fast-element';
+import { display } from '../utilities/style/display';
 import {
     iconSize,
     warningColor,
@@ -21,8 +21,7 @@ export const styles = css`
     }
 
     .icon {
-        width: 100%;
-        height: 100%;
+        display: contents;
     }
 
     :host([severity='error']) {
@@ -42,6 +41,7 @@ export const styles = css`
     }
 
     .icon svg {
+        display: inline-flex;
         fill: ${iconColor};
         width: 100%;
         height: 100%;

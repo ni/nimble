@@ -1,5 +1,5 @@
-import { css } from '@microsoft/fast-element';
-import { display } from '@microsoft/fast-foundation';
+import { css } from '@ni/fast-element';
+import { display } from '../utilities/style/display';
 import {
     borderRgbPartialColor,
     borderHoverColor,
@@ -19,11 +19,13 @@ import {
 import { appearanceBehavior } from '../utilities/style/appearance';
 import { TextAreaAppearance } from './types';
 import { styles as errorStyles } from '../patterns/error/styles';
+import { styles as requiredVisibleStyles } from '../patterns/required-visible/styles';
 import { userSelectNone } from '../utilities/style/user-select';
 
 export const styles = css`
     ${display('inline-flex')}
     ${errorStyles}
+    ${requiredVisibleStyles}
 
     :host {
         font: ${bodyFont};
@@ -39,6 +41,10 @@ export const styles = css`
         color: ${bodyDisabledFontColor};
     }
 
+    :host([disabled][appearance-readonly]) {
+        color: ${bodyFontColor};
+    }
+
     .label {
         display: block;
         color: ${controlLabelFontColor};
@@ -47,6 +53,10 @@ export const styles = css`
 
     :host([disabled]) .label {
         color: ${controlLabelDisabledFontColor};
+    }
+
+    :host([disabled][appearance-readonly]) .label {
+        color: ${controlLabelFontColor};
     }
 
     .container {
@@ -92,7 +102,6 @@ export const styles = css`
         font: inherit;
         flex-grow: 1;
         outline: none;
-        box-sizing: border-box;
         position: relative;
         color: inherit;
         border-radius: 0px;
@@ -127,6 +136,10 @@ export const styles = css`
         border-color: rgba(${borderRgbPartialColor}, 0.1);
     }
 
+    :host([disabled][appearance-readonly]) .control {
+        cursor: text;
+    }
+
     :host([error-visible]) .control {
         border-bottom-color: ${failColor};
     }
@@ -139,8 +152,12 @@ export const styles = css`
         color: ${controlLabelFontColor};
     }
 
-    .control[disabled]::placeholder {
+    :host([disabled]) .control::placeholder {
         color: ${controlLabelDisabledFontColor};
+    }
+
+    :host([disabled][appearance-readonly]) .control::placeholder {
+        color: ${controlLabelFontColor};
     }
 
     :host([resize='both']) .control {
@@ -187,6 +204,11 @@ export const styles = css`
             :host([disabled]) .control {
                 border-color: transparent;
                 background-color: rgba(${borderRgbPartialColor}, 0.1);
+            }
+
+            :host([disabled][appearance-readonly]) .control {
+                border-color: rgba(${borderRgbPartialColor}, 0.1);
+                background-color: transparent;
             }
 
             :host([error-visible][disabled]) .control {

@@ -1,8 +1,8 @@
-import { attr } from '@microsoft/fast-element';
+import { attr } from '@ni/fast-element';
 import {
     DesignSystem,
     Tooltip as FoundationTooltip
-} from '@microsoft/fast-foundation';
+} from '@ni/fast-foundation';
 import { styles } from './styles';
 import { template } from './template';
 import type { TooltipSeverity } from './types';

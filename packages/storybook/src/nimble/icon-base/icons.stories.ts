@@ -1,18 +1,20 @@
 import type { Meta, StoryObj } from '@storybook/html';
-import { html, ref, repeat } from '@microsoft/fast-element';
-import { DesignSystem } from '@microsoft/fast-foundation';
+import { html, ref, repeat } from '@ni/fast-element';
+import { DesignSystem } from '@ni/fast-foundation';
 import * as nimbleIconComponentsMap from '@ni/nimble-components/dist/esm/icons/all-icons';
 import {
     tokenNames,
     scssInternalPropertySetterMarkdown
 } from '@ni/nimble-components/dist/esm/theme-provider/design-token-names';
 import { Table, tableTag } from '@ni/nimble-components/dist/esm/table';
-import { tableColumnIconTag } from '@ni/nimble-components/dist/esm/table-column/icon';
+import { tableColumnMappingTag } from '@ni/nimble-components/dist/esm/table-column/mapping';
 import { mappingIconTag } from '@ni/nimble-components/dist/esm/mapping/icon';
 import { tableColumnTextTag } from '@ni/nimble-components/dist/esm/table-column/text';
 import { IconSeverity } from '@ni/nimble-components/dist/esm/icon-base/types';
 import { iconMetadata } from '@ni/nimble-components/dist/esm/icon-base/tests/icon-metadata';
+import { tableFitRowsHeight } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
 import {
+    apiCategory,
     createUserSelectedThemeStory,
     fastParameters,
     overrideWarning
@@ -55,8 +57,7 @@ const updateData = (tableRef: Table<Data>): void => {
     void (async () => {
         // Safari workaround: the table element instance is made at this point
         // but doesn't seem to be upgraded to a custom element yet
-        await customElements.whenDefined('nimble-table');
-        tableRef.style.setProperty('--data-length', data.length.toString());
+        await customElements.whenDefined(tableTag);
         await tableRef.setData(data);
     })();
 };
@@ -71,7 +72,8 @@ export const icons: StoryObj<IconArgs> = {
         severity: {
             options: Object.keys(IconSeverity),
             control: { type: 'radio' },
-            description: severityDescription
+            description: severityDescription,
+            table: { category: apiCategory.attributes }
         },
         tableRef: {
             table: {
@@ -80,13 +82,17 @@ export const icons: StoryObj<IconArgs> = {
         }
     },
     render: createUserSelectedThemeStory(html`
+        <style class="code-hide">
+            ${tableTag} {
+                height: var(${tableFitRowsHeight.cssCustomProperty});
+                max-height: none;
+            }
+        </style>
         <${tableTag}
             ${ref('tableRef')}
-            ${/* Make the table big enough to remove vertical scrollbar */ ''}
-            style="height: calc((34px * var(--data-length)) + 32px);"
             data-unused="${x => updateData(x.tableRef)}"
         >
-            <${tableColumnIconTag} field-name="tag" key-type="string">
+            <${tableColumnMappingTag} field-name="tag" key-type="string" fractional-width="0.2" >
                 Icon
                 ${repeat(() => data, html<Data, IconArgs>`
                     <${mappingIconTag}
@@ -97,7 +103,7 @@ export const icons: StoryObj<IconArgs> = {
                         text-hidden
                     ></${mappingIconTag}>
                 `)}
-            </${tableColumnIconTag}>
+            </${tableColumnMappingTag}>
             <${tableColumnTextTag} field-name="tag">
                 Tag Name
             </${tableColumnTextTag}>

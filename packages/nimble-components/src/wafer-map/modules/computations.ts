@@ -1,8 +1,14 @@
 import { range } from 'd3-array';
-import { ScaleBand, scaleBand, scaleQuantile, ScaleQuantile } from 'd3-scale';
+import {
+    type ScaleBand,
+    scaleBand,
+    scaleQuantile,
+    type ScaleQuantile
+} from 'd3-scale';
 import type { WaferMap } from '..';
 import type { WaferMapDie } from '../types';
-import { Dimensions, Margin, WaferMapOriginLocation } from '../types';
+import { WaferMapOriginLocation } from '../types';
+import type { Dimensions, Margin } from '../workers/types';
 
 interface GridDimensions {
     origin: {
@@ -127,9 +133,11 @@ export class Computations {
             gridDimensions,
             containerDiameter
         );
+        const dieWidth = this.horizontalScale.bandwidth();
+        const dieHeight = this.verticalScale.bandwidth();
         this._dieDimensions = {
-            width: this.horizontalScale.bandwidth(),
-            height: this.verticalScale.bandwidth()
+            width: isNaN(dieWidth) ? 0 : dieWidth,
+            height: isNaN(dieHeight) ? 0 : dieHeight
         };
     }
 
@@ -160,7 +168,7 @@ export class Computations {
     }
 
     private calculateGridDimensionsFromDies(
-        dies: Readonly<Readonly<WaferMapDie>[]>
+        dies: readonly Readonly<WaferMapDie>[]
     ): GridDimensions {
         if (dies.length === 0 || dies[0] === undefined) {
             return { origin: { x: 0, y: 0 }, rows: 0, cols: 0 };

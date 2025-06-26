@@ -1,4 +1,4 @@
-import { DesignToken } from '@microsoft/fast-foundation';
+import { DesignToken } from '@ni/fast-foundation';
 import { coreLabelDefaults } from './label-token-defaults';
 
 export const popupDismissLabel = DesignToken.create<string>({
@@ -40,3 +40,18 @@ export const filterNoResultsLabel = DesignToken.create<string>({
     name: 'filter-no-results-label',
     cssCustomPropertyName: null
 }).withDefault(coreLabelDefaults.filterNoResultsLabel);
+
+export const loadingLabel = DesignToken.create<string>({
+    name: 'loading-label',
+    cssCustomPropertyName: null
+}).withDefault(coreLabelDefaults.loadingLabel);
+
+export const scrollBackwardLabel = DesignToken.create<string>({
+    name: 'scroll-backward-label',
+    cssCustomPropertyName: null
+}).withDefault(coreLabelDefaults.scrollBackwardLabel);
+
+export const scrollForwardLabel = DesignToken.create<string>({
+    name: 'scroll-forward-label',
+    cssCustomPropertyName: null
+}).withDefault(coreLabelDefaults.scrollForwardLabel);

@@ -12,6 +12,7 @@ The process to create and approve a spec is:
    - [Developer] If proposing a new component, use one of the following templates and place the spec at `packages/nimble-components/src/component-name/specs/README.md`:
       - Use the [FAST-based component template](/specs/templates/fast-based-component.md) if leveraging a FAST component.
       - Use the [custom component template](/specs/templates/custom-component.md) if building a new component from scratch or on top of a different library.
+      - Use the [table column HLD template](/specs/templates/table-column-hld.md) if creating a new Nimble table column component.
    - If proposing extra component-specific effort/features use the [high-level design template](/specs/templates/high-level-design.md), and place the spec at `packages/nimble-components/src/component-name/specs/topic.md`
 2. Fill in the fields of the spec. Be sure to remove any boilerplate from the spec template which was not used. 
 3. Create a pull request for the branch to discuss the spec with Nimble maintainers. You can set the Beachball change type for the PR as `none`.

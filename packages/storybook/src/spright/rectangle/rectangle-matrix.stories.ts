@@ -1,5 +1,5 @@
 import type { StoryFn, Meta } from '@storybook/html';
-import { html, ViewTemplate } from '@microsoft/fast-element';
+import { html, ViewTemplate } from '@ni/fast-element';
 import { rectangleTag } from '@ni/spright-components/dist/esm/rectangle';
 import {
     createMatrix,
@@ -35,7 +35,7 @@ const component = ([
             ${() => `${disabledName} Rectangle`}</${rectangleTag}>
 `;
 
-export const rectangleThemeMatrix: StoryFn = createMatrixThemeStory(
+export const themeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(component, [disabledStates])
 );
 
@@ -43,7 +43,7 @@ const interactionStatesHover = cartesianProduct([disabledStates] as const);
 
 const interactionStates = cartesianProduct([[disabledStateIsEnabled]] as const);
 
-export const rectangleInteractionsThemeMatrix: StoryFn = createMatrixThemeStory(
+export const interactionsThemeMatrix: StoryFn = createMatrixThemeStory(
     createMatrixInteractionsFromStates(component, {
         hover: interactionStatesHover,
         hoverActive: interactionStates,
@@ -52,7 +52,7 @@ export const rectangleInteractionsThemeMatrix: StoryFn = createMatrixThemeStory(
     })
 );
 
-export const hiddenRectangle: StoryFn = createStory(
+export const hidden: StoryFn = createStory(
     hiddenWrapper(
         html`<${rectangleTag} hidden>Hidden Rectangle</${rectangleTag}>`
     )

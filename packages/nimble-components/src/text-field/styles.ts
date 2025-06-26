@@ -1,5 +1,5 @@
-import { css } from '@microsoft/fast-element';
-import { display } from '@microsoft/fast-foundation';
+import { css } from '@ni/fast-element';
+import { display } from '../utilities/style/display';
 
 import {
     borderRgbPartialColor,
@@ -14,19 +14,21 @@ import {
     bodyFont,
     controlLabelFontColor,
     controlLabelDisabledFontColor,
-    mediumPadding,
-    iconColor
+    smallPadding
 } from '../theme-provider/design-tokens';
 import { appearanceBehavior } from '../utilities/style/appearance';
 import { TextFieldAppearance } from './types';
 import { Theme } from '../theme-provider/types';
 import { themeBehavior } from '../utilities/style/theme';
 import { styles as errorStyles } from '../patterns/error/styles';
+import { styles as requiredVisibleStyles } from '../patterns/required-visible/styles';
 import { userSelectNone } from '../utilities/style/user-select';
 
+// prettier-ignore
 export const styles = css`
     ${display('inline-block')}
     ${errorStyles}
+    ${requiredVisibleStyles}
 
     :host {
         font: ${bodyFont};
@@ -37,10 +39,15 @@ export const styles = css`
         --ni-private-height-within-border: calc(
             ${controlHeight} - 2 * ${borderWidth}
         );
+        --ni-private-default-start-slot-opacity: 0.6;
     }
 
     :host([disabled]) {
         color: ${bodyDisabledFontColor};
+    }
+
+    :host([disabled][appearance-readonly]) {
+        color: ${bodyFontColor};
     }
 
     .label {
@@ -53,8 +60,11 @@ export const styles = css`
         color: ${controlLabelDisabledFontColor};
     }
 
+    :host([disabled][appearance-readonly]) .label {
+        color: ${controlLabelFontColor};
+    }
+
     .root {
-        box-sizing: border-box;
         position: relative;
         display: flex;
         flex-direction: row;
@@ -63,8 +73,9 @@ export const styles = css`
         align-items: center;
         justify-content: center;
         border: 0px solid rgba(${borderRgbPartialColor}, 0.3);
-        gap: ${mediumPadding};
+        gap: ${smallPadding};
         padding: ${borderWidth};
+        padding-left: calc(${borderWidth} + ${smallPadding});
     }
 
     :host([readonly]) .root {
@@ -118,7 +129,16 @@ export const styles = css`
 
     slot[name='start']::slotted(*) {
         flex: none;
-        ${iconColor.cssCustomProperty}: currentcolor;
+        opacity: var(--ni-private-default-start-slot-opacity);
+        margin-right: ${smallPadding};
+    }
+
+    :host([disabled]) slot[name='start']::slotted(*) {
+        opacity: 0.3;
+    }
+
+    :host([disabled][appearance-readonly]) slot[name='start']::slotted(*) {
+        opacity: var(--ni-private-default-start-slot-opacity);
     }
 
     .control {
@@ -151,12 +171,20 @@ export const styles = css`
         text-overflow: clip;
     }
 
+    :host([disabled][appearance-readonly]) .control {
+        cursor: text;
+    }
+
     .control::placeholder {
         color: ${controlLabelFontColor};
     }
 
-    .control[disabled]::placeholder {
+    :host([disabled]) .control::placeholder {
         color: ${bodyDisabledFontColor};
+    }
+
+    :host([disabled][appearance-readonly]) .control::placeholder {
+        color: ${controlLabelFontColor};
     }
 
     [part='end'] {
@@ -166,6 +194,7 @@ export const styles = css`
     [part='end']::after {
         content: '';
         position: absolute;
+        margin-left: calc(-1 * (${borderWidth} + ${smallPadding}));
         bottom: calc(-1 * ${borderWidth});
         width: 0px;
         height: 0px;
@@ -248,6 +277,7 @@ export const styles = css`
             .root {
                 border-width: ${borderWidth};
                 padding: 0;
+                padding-left: ${smallPadding};
             }
         `
     ),

@@ -1,14 +1,14 @@
-import { observable, attr, DOM } from '@microsoft/fast-element';
+import { observable, attr, DOM } from '@ni/fast-element';
 import {
     applyMixins,
     ARIAGlobalStatesAndProperties,
     DesignSystem
-} from '@microsoft/fast-foundation';
-import { keyEnter, keySpace } from '@microsoft/fast-web-utilities';
+} from '@ni/fast-foundation';
+import { keyEnter, keySpace } from '@ni/fast-web-utilities';
 import {
     findParentNode,
     isList,
-    AnyExtension,
+    type AnyExtension,
     Extension,
     Editor
 } from '@tiptap/core';
@@ -22,10 +22,10 @@ import type { ToggleButton } from '../../toggle-button';
 import {
     TipTapNodeName,
     mentionPluginPrefix,
-    MentionDetail,
-    FormatButtonsState
+    type MentionDetail,
+    type FormatButtonsState
 } from './types';
-import type { ErrorPattern } from '../../patterns/error/types';
+import { mixinErrorPattern } from '../../patterns/error/types';
 import { RichTextMarkdownParser } from '../models/markdown-parser';
 import { RichTextMarkdownSerializer } from '../models/markdown-serializer';
 import { RichText } from '../base';
@@ -44,11 +44,11 @@ declare global {
 /**
  * A nimble styled rich text editor
  */
-export class RichTextEditor extends RichText implements ErrorPattern {
+export class RichTextEditor extends mixinErrorPattern(RichText) {
     /**
      * @internal
      */
-    public editor = this.createEditor();
+    public editorDiv = this.createEditor();
 
     /**
      * @internal
@@ -56,7 +56,7 @@ export class RichTextEditor extends RichText implements ErrorPattern {
     public tiptapEditor = createTiptapEditor(
         () => {},
         () => {},
-        this.editor,
+        this.editorDiv,
         [],
         this.mentionListbox,
         this.placeholder
@@ -89,24 +89,6 @@ export class RichTextEditor extends RichText implements ErrorPattern {
      */
     @attr({ attribute: 'footer-hidden', mode: 'boolean' })
     public footerHidden = false;
-
-    /**
-     * Whether to display the error state.
-     *
-     * @public
-     * HTML Attribute: error-visible
-     */
-    @attr({ attribute: 'error-visible', mode: 'boolean' })
-    public errorVisible = false;
-
-    /**
-     * A message explaining why the value is invalid.
-     *
-     * @public
-     * HTML Attribute: error-text
-     */
-    @attr({ attribute: 'error-text' })
-    public errorText?: string;
 
     /**
      * @public
@@ -204,8 +186,8 @@ export class RichTextEditor extends RichText implements ErrorPattern {
      */
     public override connectedCallback(): void {
         super.connectedCallback();
-        if (!this.editor.isConnected) {
-            this.editorContainer.append(this.editor);
+        if (!this.editorDiv.isConnected) {
+            this.editorContainer.append(this.editorDiv);
         }
         this.bindEditorTransactionEvent();
         this.bindEditorUpdateEvent();
@@ -252,9 +234,9 @@ export class RichTextEditor extends RichText implements ErrorPattern {
      */
     public ariaLabelChanged(_prev: unknown, _next: unknown): void {
         if (this.ariaLabel !== null && this.ariaLabel !== undefined) {
-            this.editor.setAttribute('aria-label', this.ariaLabel);
+            this.editorDiv.setAttribute('aria-label', this.ariaLabel);
         } else {
-            this.editor.removeAttribute('aria-label');
+            this.editorDiv.removeAttribute('aria-label');
         }
     }
 
@@ -508,7 +490,7 @@ export class RichTextEditor extends RichText implements ErrorPattern {
             command => {
                 this.activeMentionCommand = command;
             },
-            this.editor,
+            this.editorDiv,
             this.configuration instanceof EditorConfiguration
                 ? this.configuration.mentionExtensionConfig
                 : [],
@@ -593,7 +575,7 @@ export class RichTextEditor extends RichText implements ErrorPattern {
     private disableEditor(): void {
         this.tiptapEditor.setEditable(!this.disabled);
         this.setEditorTabIndex();
-        this.editor.setAttribute(
+        this.editorDiv.setAttribute(
             'aria-disabled',
             this.disabled ? 'true' : 'false'
         );

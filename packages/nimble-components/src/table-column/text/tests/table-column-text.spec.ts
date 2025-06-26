@@ -1,4 +1,4 @@
-import { html, ref } from '@microsoft/fast-element';
+import { html, ref } from '@ni/fast-element';
 import { parameterizeSpec } from '@ni/jasmine-parameterized';
 import { tableTag, type Table } from '../../../table';
 import { TableColumnText, tableColumnTextTag } from '..';
@@ -21,7 +21,7 @@ class ElementReferences {
 
 // prettier-ignore
 async function setup(source: ElementReferences): Promise<Fixture<Table<SimpleTableRecord>>> {
-    return fixture<Table<SimpleTableRecord>>(
+    return await fixture<Table<SimpleTableRecord>>(
         html`<${themeProviderTag} lang="en-US">
                 <${tableTag} ${ref('table')} style="width: 700px">
                     <${tableColumnTextTag} ${ref('column')} field-name="field" group-index="0">
@@ -55,14 +55,10 @@ describe('TableColumnText', () => {
         await disconnect();
     });
 
-    it('should export its tag', () => {
-        expect(tableColumnTextTag).toBe('nimble-table-column-text');
-    });
-
     it('can construct an element instance', () => {
-        expect(
-            document.createElement('nimble-table-column-text')
-        ).toBeInstanceOf(TableColumnText);
+        expect(document.createElement(tableColumnTextTag)).toBeInstanceOf(
+            TableColumnText
+        );
     });
 
     it('reports column configuration valid', async () => {

@@ -1,15 +1,21 @@
-import { html } from '@microsoft/fast-element';
-import type { Table } from '..';
-import type { TableColumnText } from '../../table-column/text';
+import { html } from '@ni/fast-element';
+import { tableTag, type Table } from '..';
+import {
+    tableColumnTextTag,
+    type TableColumnText
+} from '../../table-column/text';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import { type Fixture, fixture } from '../../utilities/tests/fixture';
 import {
-    TableColumnConfigurationChangeEventDetail,
+    type TableColumnConfigurationChangeEventDetail,
     TableColumnSortDirection,
-    TableRecord
+    type TableRecord
 } from '../types';
-import { SortedColumn, TablePageObject } from '../testing/table.pageobject';
-import { createEventListener } from '../../utilities/tests/component';
+import {
+    type SortedColumn,
+    TablePageObject
+} from '../testing/table.pageobject';
+import { waitForEvent } from '../../utilities/testing/component';
 
 interface SimpleTableRecord extends TableRecord {
     id: string;
@@ -19,14 +25,18 @@ interface SimpleTableRecord extends TableRecord {
     parentId?: string;
 }
 
+type TableColumnConfigurationChangeEventHandler = (
+    evt: CustomEvent<TableColumnConfigurationChangeEventDetail>
+) => void;
+
 // prettier-ignore
 async function setup(): Promise<Fixture<Table<SimpleTableRecord>>> {
-    return fixture<Table<SimpleTableRecord>>(
-        html`<nimble-table id-field-name="id">
-            <nimble-table-column-text id="first-column" field-name="stringData1" column-id="column-1"></nimble-table-column-text>
-            <nimble-table-column-text id="second-column" field-name="stringData2" column-id="column-2"></nimble-table-column-text>
-            <nimble-table-column-text id="third-column" field-name="stringData3" column-id="column-3"></nimble-table-column-text>
-        </nimble-table>`
+    return await fixture<Table<SimpleTableRecord>>(
+        html`<${tableTag} id-field-name="id">
+            <${tableColumnTextTag} id="first-column" field-name="stringData1" column-id="column-1"></${tableColumnTextTag}>
+            <${tableColumnTextTag} id="second-column" field-name="stringData2" column-id="column-2"></${tableColumnTextTag}>
+            <${tableColumnTextTag} id="third-column" field-name="stringData3" column-id="column-3"></${tableColumnTextTag}>
+        </${tableTag}>`
     );
 }
 
@@ -576,15 +586,14 @@ describe('Table sorting', () => {
         await connect();
         await waitForUpdatesAsync();
 
-        const listener = createEventListener(
-            element,
-            'column-configuration-change'
-        );
+        const spy = jasmine.createSpy();
+        element.addEventListener('column-configuration-change', spy);
         column1.sortDirection = TableColumnSortDirection.ascending;
         column1.sortIndex = 0;
         await waitForUpdatesAsync();
 
-        expect(listener.spy).not.toHaveBeenCalled();
+        expect(spy).not.toHaveBeenCalled();
+        element.removeEventListener('column-configuration-change', spy);
     });
 
     describe('sort index validation', () => {
@@ -704,9 +713,7 @@ describe('Table sorting', () => {
             element.removeChild(column2);
             element.removeChild(column3);
 
-            const newColumn = document.createElement(
-                'nimble-table-column-text'
-            );
+            const newColumn = document.createElement(tableColumnTextTag);
             newColumn.fieldName = fieldName;
             if (sortDirection !== TableColumnSortDirection.none) {
                 newColumn.sortDirection = sortDirection;
@@ -965,15 +972,17 @@ describe('Table sorting', () => {
             await connect();
             await waitForUpdatesAsync();
 
-            const listener = createEventListener(
+            const spy = jasmine.createSpy<TableColumnConfigurationChangeEventHandler>();
+            const listener = waitForEvent(
                 element,
-                'column-configuration-change'
+                'column-configuration-change',
+                spy
             );
             await pageObject.clickColumnHeader(0);
+            await listener;
 
-            expect(listener.spy).toHaveBeenCalled();
-            const args = listener.spy.calls.first()
-                .args[0] as CustomEvent<TableColumnConfigurationChangeEventDetail>;
+            expect(spy).toHaveBeenCalled();
+            const args = spy.calls.first().args[0];
             expect(args.detail).toEqual({
                 columns: [
                     {
@@ -1013,13 +1022,12 @@ describe('Table sorting', () => {
             await connect();
             await waitForUpdatesAsync();
 
-            const listener = createEventListener(
-                element,
-                'column-configuration-change'
-            );
+            const spy = jasmine.createSpy();
+            element.addEventListener('column-configuration-change', spy);
             await pageObject.clickColumnHeader(0);
 
-            expect(listener.spy).not.toHaveBeenCalled();
+            expect(spy).not.toHaveBeenCalled();
+            element.removeEventListener('column-configuration-change', spy);
         });
     });
 

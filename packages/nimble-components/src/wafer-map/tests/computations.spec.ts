@@ -1,5 +1,6 @@
 import { Computations } from '../modules/computations';
-import { Margin, WaferMapOriginLocation } from '../types';
+import { WaferMapOriginLocation } from '../types';
+import type { Margin } from '../workers/types';
 import { getWaferMapMockComputations, getWaferMapDies } from './utilities';
 
 describe('Wafermap Computations module', () => {
@@ -49,12 +50,12 @@ describe('Wafermap Computations module', () => {
             expect(computationsModule.margin).toEqual(expectedMargin);
         });
 
-        it('should have horizontal domain containing all column indexes', () => {
+        it('should have horizontal domain containing all column Indices', () => {
             expect(computationsModule.horizontalScale.domain()).toEqual([
                 2, 3, 4, 5, 6
             ]);
         });
-        it('should have vertical domain containing all row indexes, ', () => {
+        it('should have vertical domain containing all row Indices, ', () => {
             expect(computationsModule.verticalScale.domain()).toEqual([
                 1, 2, 3, 4, 5, 6
             ]);

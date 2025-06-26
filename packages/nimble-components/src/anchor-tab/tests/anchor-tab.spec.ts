@@ -1,11 +1,11 @@
-import { html } from '@microsoft/fast-element';
+import { html } from '@ni/fast-element';
 import { parameterizeSpec } from '@ni/jasmine-parameterized';
-import { AnchorTab } from '..';
+import { AnchorTab, anchorTabTag } from '..';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
-import { Fixture, fixture } from '../../utilities/tests/fixture';
+import { type Fixture, fixture } from '../../utilities/tests/fixture';
 
 async function setup(): Promise<Fixture<AnchorTab>> {
-    return fixture<AnchorTab>(html`<nimble-anchor-tab></nimble-anchor-tab>`);
+    return await fixture<AnchorTab>(html`<${anchorTabTag}></${anchorTabTag}>`);
 }
 
 describe('AnchorTab', () => {
@@ -22,9 +22,7 @@ describe('AnchorTab', () => {
     });
 
     it('can construct an element instance', () => {
-        expect(document.createElement('nimble-anchor-tab')).toBeInstanceOf(
-            AnchorTab
-        );
+        expect(document.createElement(anchorTabTag)).toBeInstanceOf(AnchorTab);
     });
 
     const attributeNames = [

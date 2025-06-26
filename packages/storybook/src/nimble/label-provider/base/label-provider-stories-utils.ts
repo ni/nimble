@@ -1,6 +1,6 @@
-import { ViewTemplate, html, ref } from '@microsoft/fast-element';
+import { ViewTemplate, html, ref } from '@ni/fast-element';
 import type { Meta } from '@storybook/html';
-import type { DesignToken } from '@microsoft/fast-foundation';
+import type { DesignToken } from '@ni/fast-foundation';
 import { bodyFont } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
 import { Table, tableTag } from '@ni/nimble-components/dist/esm/table';
 import { tableColumnTextTag } from '@ni/nimble-components/dist/esm/table-column/text';
@@ -103,7 +103,7 @@ export const labelProviderMetadata: Meta<LabelProviderArgs> = {
             void (async () => {
                 // Safari workaround: the table element instance is made at this point
                 // but doesn't seem to be upgraded to a custom element yet
-                await customElements.whenDefined('nimble-table');
+                await customElements.whenDefined(tableTag);
 
                 const data = x.labelTokens.map(token => {
                     return {

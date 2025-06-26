@@ -1,4 +1,4 @@
-import { html } from '@microsoft/fast-element';
+import { html } from '@ni/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
 import { buttonTag } from '@ni/nimble-components/dist/esm/button';
 import { iconCogTag } from '@ni/nimble-components/dist/esm/icons/cog';
@@ -7,9 +7,17 @@ import { iconFilterTag } from '@ni/nimble-components/dist/esm/icons/filter';
 import { iconPencilTag } from '@ni/nimble-components/dist/esm/icons/pencil';
 import { iconTrashTag } from '@ni/nimble-components/dist/esm/icons/trash';
 import { toolbarTag } from '@ni/nimble-components/dist/esm/toolbar';
-import { createUserSelectedThemeStory } from '../../utilities/storybook';
+import {
+    apiCategory,
+    createUserSelectedThemeStory
+} from '../../utilities/storybook';
 
-const metadata: Meta = {
+interface ToolbarArgs {
+    start: undefined;
+    end: undefined;
+}
+
+const metadata: Meta<ToolbarArgs> = {
     title: 'Components/Toolbar',
     parameters: {},
     // prettier-ignore
@@ -37,7 +45,21 @@ const metadata: Meta = {
                 Filter
             </${buttonTag}>
         </${toolbarTag}>
-    `)
+    `),
+    argTypes: {
+        start: {
+            description:
+                'Content which will be positioned at the start of the toolbar.',
+            control: false,
+            table: { category: apiCategory.slots }
+        },
+        end: {
+            description:
+                'Content which will be positioned at the end of the toolbar.',
+            control: false,
+            table: { category: apiCategory.slots }
+        }
+    }
 };
 
 export default metadata;

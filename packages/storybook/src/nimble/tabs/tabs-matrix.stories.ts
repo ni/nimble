@@ -1,22 +1,57 @@
 import type { StoryFn, Meta } from '@storybook/html';
-import { html, ViewTemplate, when } from '@microsoft/fast-element';
+import { html, ViewTemplate, when } from '@ni/fast-element';
 import { buttonTag } from '@ni/nimble-components/dist/esm/button';
 import { tabTag } from '@ni/nimble-components/dist/esm/tab';
 import { tabPanelTag } from '@ni/nimble-components/dist/esm/tab-panel';
 import { tabsToolbarTag } from '@ni/nimble-components/dist/esm/tabs-toolbar';
 import { tabsTag } from '@ni/nimble-components/dist/esm/tabs';
+import {
+    controlLabelFont,
+    controlLabelFontColor
+} from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
 import { createStory } from '../../utilities/storybook';
 import {
     createMatrixThemeStory,
     createMatrix,
     sharedMatrixParameters
 } from '../../utilities/matrix';
-import { DisabledState, disabledStates } from '../../utilities/states';
+import { type DisabledState, disabledStates } from '../../utilities/states';
 import { hiddenWrapper } from '../../utilities/hidden';
 import { textCustomizationWrapper } from '../../utilities/text-customization';
 import { loremIpsum } from '../../utilities/lorem-ipsum';
 
-const tabsToolbarStates = [false, true] as const;
+const tabsToolbarStates = [
+    {
+        showToolbar: false,
+        showLeftButton: false,
+        showRightButtons: false,
+        label: 'No Toolbar'
+    },
+    {
+        showToolbar: true,
+        showLeftButton: false,
+        showRightButtons: false,
+        label: 'Toolbar with no buttons'
+    },
+    {
+        showToolbar: true,
+        showLeftButton: true,
+        showRightButtons: false,
+        label: 'Toolbar with left button'
+    },
+    {
+        showToolbar: true,
+        showLeftButton: false,
+        showRightButtons: true,
+        label: 'Toolbar with right buttons'
+    },
+    {
+        showToolbar: true,
+        showLeftButton: true,
+        showRightButtons: true,
+        label: 'Toolbar with left and right buttons'
+    }
+] as const;
 type TabsToolbarState = (typeof tabsToolbarStates)[number];
 
 const metadata: Meta = {
@@ -28,16 +63,29 @@ const metadata: Meta = {
 
 export default metadata;
 
+const widthStates = ['', '250px'] as const;
+type WidthState = (typeof widthStates)[number];
+
 // prettier-ignore
 const component = (
     toolbar: TabsToolbarState,
-    [disabledName, disabled]: DisabledState
+    [disabledName, disabled]: DisabledState,
+    widthValue: WidthState
+
 ): ViewTemplate => html`
-    <${tabsTag} style="padding: 15px;">
-        ${when(() => toolbar, html`
+    <label style="color: var(${controlLabelFontColor.cssCustomProperty}); font: var(${controlLabelFont.cssCustomProperty})">
+        ${toolbar.label} ${disabledName ? `(${disabledName})` : ''} ${widthValue ? `(${widthValue})` : ''}
+    </label>
+    <${tabsTag} style="padding: 15px;${widthValue ? ` width: ${widthValue};` : ''}">
+        ${when(() => toolbar.showToolbar, html`
             <${tabsToolbarTag}>
-                <${buttonTag} appearance="ghost">Toolbar Button</${buttonTag}>
-                <${buttonTag} appearance="ghost" style="margin-left: auto;">Right-aligned Button</${buttonTag}>
+                ${when(() => toolbar.showLeftButton, html`
+                    <${buttonTag} appearance="ghost">Left Button</${buttonTag}>
+                `)}
+                ${when(() => toolbar.showRightButtons, html`
+                    <${buttonTag} appearance="ghost" slot="end">Right Button 1</${buttonTag}>
+                    <${buttonTag} appearance="ghost" slot="end">Right Button 2</${buttonTag}>
+                `)}
             </${tabsToolbarTag}>
         `)}
         <${tabTag}>Tab One</${tabTag}>
@@ -45,17 +93,19 @@ const component = (
             Tab Two ${() => disabledName}
         </${tabTag}>
         <${tabTag} hidden>Tab Three</${tabTag}>
+        <${tabTag}>Tab Four</${tabTag}>
         <${tabPanelTag}>Tab content one</${tabPanelTag}>
         <${tabPanelTag}>Tab content two</${tabPanelTag}>
         <${tabPanelTag}>Tab content three</${tabPanelTag}>
+        <${tabPanelTag}>Tab content four</${tabPanelTag}>
     </${tabsTag}>
 `;
 
-export const tabsThemeMatrix: StoryFn = createMatrixThemeStory(
-    createMatrix(component, [tabsToolbarStates, disabledStates])
+export const themeMatrix: StoryFn = createMatrixThemeStory(
+    createMatrix(component, [tabsToolbarStates, disabledStates, widthStates])
 );
 
-export const hiddenTabs: StoryFn = createStory(
+export const hidden: StoryFn = createStory(
     hiddenWrapper(
         html`<${tabsTag} hidden>
             <${tabTag}>Tab One</${tabTag}>
@@ -69,7 +119,7 @@ export const textCustomized: StoryFn = createMatrixThemeStory(
         html`
             <${tabsTag}>
                 Inner text
-                <${tabsToolbarTag}>Tabs toolbar</${tabsToolbarTag}>
+                <${tabsToolbarTag}><${buttonTag} appearance="ghost">Tabs toolbar</${buttonTag}></${tabsToolbarTag}>
                 <${tabTag}>Tab</${tabTag}>
             </${tabsTag}>
         `
@@ -77,8 +127,17 @@ export const textCustomized: StoryFn = createMatrixThemeStory(
 );
 
 export const panelOverflow: StoryFn = createStory(html`
-    <nimble-tabs style="height: 120px; width: 400px;">
-        <nimble-tab>Tab One</nimble-tab>
-        <nimble-tab-panel style="width: 450px;">${loremIpsum}</nimble-tab-panel>
-    </nimble-tabs>
+    <${tabsTag} style="height: 120px; width: 400px;">
+        <${tabTag}>Tab One</${tabTag}>
+        <${tabPanelTag} style="width: 450px;">${loremIpsum}</${tabPanelTag}>
+    </${tabsTag}>
+`);
+
+export const panelSizeToContent: StoryFn = createStory(html`
+    <${tabsTag} style="width: 400px; height: 400px">
+        <${tabTag}>Tab One</${tabTag}>
+        <${tabPanelTag} style="width: 400px; height: 100%;">
+            <div style="width: 250px; height: 100%; background: red;"></div>
+        </${tabPanelTag}>
+    </${tabsTag}>
 `);

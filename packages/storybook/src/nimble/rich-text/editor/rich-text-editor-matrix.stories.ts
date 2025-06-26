@@ -1,16 +1,19 @@
 import type { Meta, StoryFn } from '@storybook/html';
-import { html, ViewTemplate } from '@microsoft/fast-element';
+import { html, ViewTemplate } from '@ni/fast-element';
 import { buttonTag } from '@ni/nimble-components/dist/esm/button';
 import { richTextMentionUsersTag } from '@ni/nimble-components/dist/esm/rich-text-mention/users';
 import { mappingUserTag } from '@ni/nimble-components/dist/esm/mapping/user';
-import { bodyFont, bodyFontColor } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
+import {
+    bodyFont,
+    bodyFontColor
+} from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
 import { toggleButtonTag } from '@ni/nimble-components/dist/esm/toggle-button';
 import { menuButtonTag } from '@ni/nimble-components/dist/esm/menu-button';
 import { anchorButtonTag } from '@ni/nimble-components/dist/esm/anchor-button';
 import { richTextEditorTag } from '@ni/nimble-components/dist/esm/rich-text/editor';
 import {
-    DisabledState,
-    ErrorState,
+    type DisabledState,
+    type ErrorState,
     disabledStates,
     errorStates
 } from '../../../utilities/states';
@@ -85,12 +88,12 @@ const component = (
 `;
 
 const playFunction = (): void => {
-    const editorNodeList = document.querySelectorAll('nimble-rich-text-editor');
+    const editorNodeList = document.querySelectorAll(richTextEditorTag);
     editorNodeList.forEach(element => element.setMarkdown(richTextMarkdownString));
 };
 
 const longTextPlayFunction = (): void => {
-    const editorNodeList = document.querySelectorAll('nimble-rich-text-editor');
+    const editorNodeList = document.querySelectorAll(richTextEditorTag);
     editorNodeList.forEach(element => element.setMarkdown(
         `${loremIpsum}\n\n **${loremIpsum}**\n\n ${loremIpsum}`
     ));
@@ -133,7 +136,7 @@ const slotButtonsTextCase = (
     </${richTextEditorTag}>
 `;
 
-export const richTextEditorThemeMatrix: StoryFn = createMatrixThemeStory(
+export const themeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(component, [
         disabledStates,
         footerHiddenStates,
@@ -141,9 +144,9 @@ export const richTextEditorThemeMatrix: StoryFn = createMatrixThemeStory(
         [placeholderValueStates[0]]
     ])
 );
-richTextEditorThemeMatrix.play = playFunction;
+themeMatrix.play = playFunction;
 
-export const errorStateThemeMatrixWithLengthyContent: StoryFn = createMatrixThemeStory(
+export const errorState$LongContent: StoryFn = createMatrixThemeStory(
     createMatrix(component, [
         [disabledStates[0]],
         [footerHiddenStates[0]],
@@ -151,9 +154,9 @@ export const errorStateThemeMatrixWithLengthyContent: StoryFn = createMatrixThem
         [placeholderValueStates[0]]
     ])
 );
-errorStateThemeMatrixWithLengthyContent.play = longTextPlayFunction;
+errorState$LongContent.play = longTextPlayFunction;
 
-export const placeholderStateThemeMatrix: StoryFn = createMatrixThemeStory(
+export const placeholder: StoryFn = createMatrixThemeStory(
     createMatrix(component, [
         disabledStates,
         [footerHiddenStates[0]],
@@ -162,7 +165,7 @@ export const placeholderStateThemeMatrix: StoryFn = createMatrixThemeStory(
     ])
 );
 
-export const richTextEditorSizing: StoryFn = createStory(html`
+export const sizing: StoryFn = createStory(html`
     ${createMatrix(editorSizingTestCase, [
         [
             ['No width', ''],
@@ -177,13 +180,13 @@ export const richTextEditorSizing: StoryFn = createStory(html`
     ])}
 `);
 
-export const richTextEditorSlotButtons: StoryFn = createStory(html`
+export const slottedButtons: StoryFn = createStory(html`
     ${createMatrix(slotButtonsTextCase, [slotButtons])}
 `);
 
 // prettier-ignore
 const mobileWidthComponent = html`
-    <${richTextEditorTag} style="padding: 20px; width: 360px; height: 250px;">
+    <${richTextEditorTag} style="margin: 20px; width: 360px; height: 250px;">
         <${richTextMentionUsersTag} pattern="^user:(.*)">
             <${mappingUserTag} key="user:1" display-name="John Doe"></${mappingUserTag}>
         </${richTextMentionUsersTag}>
@@ -199,9 +202,9 @@ const mobileWidthComponent = html`
     </${richTextEditorTag}>
 `;
 
-export const plainTextContentInMobileWidth: StoryFn = createStory(mobileWidthComponent);
-plainTextContentInMobileWidth.play = (): void => {
-    document.querySelector('nimble-rich-text-editor')!.setMarkdown(loremIpsum);
+export const plainTextContent$MobileWidth: StoryFn = createStory(mobileWidthComponent);
+plainTextContent$MobileWidth.play = (): void => {
+    document.querySelector(richTextEditorTag)!.setMarkdown(loremIpsum);
 };
 
 const multipleSubPointsContent = `
@@ -215,10 +218,10 @@ const multipleSubPointsContent = `
                      1. Sub point 8
                         1. Sub point 9`;
 
-export const multipleSubPointsContentInMobileWidth: StoryFn = createStory(mobileWidthComponent);
-multipleSubPointsContentInMobileWidth.play = (): void => {
+export const multipleSubPointsContent$MobileWidth: StoryFn = createStory(mobileWidthComponent);
+multipleSubPointsContent$MobileWidth.play = (): void => {
     document
-        .querySelector('nimble-rich-text-editor')!
+        .querySelector(richTextEditorTag)!
         .setMarkdown(multipleSubPointsContent);
 };
 
@@ -232,14 +235,14 @@ const differentListElementContentInSameLevel = `
 export const differentListElementInSameLevel: StoryFn = createStory(mobileWidthComponent);
 differentListElementInSameLevel.play = (): void => {
     document
-        .querySelector('nimble-rich-text-editor')!
+        .querySelector(richTextEditorTag)!
         .setMarkdown(differentListElementContentInSameLevel);
 };
 
-export const longWordContentInMobileWidth: StoryFn = createStory(mobileWidthComponent);
-longWordContentInMobileWidth.play = (): void => {
+export const longWordContent$MobileWidth: StoryFn = createStory(mobileWidthComponent);
+longWordContent$MobileWidth.play = (): void => {
     document
-        .querySelector('nimble-rich-text-editor')!
+        .querySelector(richTextEditorTag)!
         .setMarkdown(
             'ThisIsALongWordWithoutSpaceToTestLongWordInSmallWidthThisIsALongWordWithoutSpaceToTestLongWordInSmallWidth'
         );
@@ -258,22 +261,22 @@ This line enters new line in paragraph tag
       Hard break sub point content
 `;
 
-export const newLineWithForceLineBreakInMobileWidth: StoryFn = createStory(mobileWidthComponent);
-newLineWithForceLineBreakInMobileWidth.play = (): void => {
+export const newLineWithForceLineBreak$MobileWidth: StoryFn = createStory(mobileWidthComponent);
+newLineWithForceLineBreak$MobileWidth.play = (): void => {
     document
-        .querySelector('nimble-rich-text-editor')!
+        .querySelector(richTextEditorTag)!
         .setMarkdown(newLineWithForceLineBreakContent);
 };
 
-export const longLinkInMobileWidth: StoryFn = createStory(mobileWidthComponent);
-longLinkInMobileWidth.play = (): void => {
+export const longLink$MobileWidth: StoryFn = createStory(mobileWidthComponent);
+longLink$MobileWidth.play = (): void => {
     document
-        .querySelector('nimble-rich-text-editor')!
+        .querySelector(richTextEditorTag)!
         .setMarkdown(
             '<https://www.google.com/search?q=what+is+nimble&rlz=1C1CHBF_enIN1007IN1007&oq=what+is+nimble&aqs=chrome..69i57j0i512l9.2837j1j7&sourceid=chrome&ie=UTF-8>'
         );
 };
 
-export const hiddenRichTextEditor: StoryFn = createStory(
+export const hidden: StoryFn = createStory(
     hiddenWrapper(html`<${richTextEditorTag} hidden></${richTextEditorTag}>`)
 );

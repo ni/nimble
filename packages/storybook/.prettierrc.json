@@ -1,0 +1,8 @@
+{
+    "tabWidth": 4,
+    "useTabs": false,
+    "trailingComma": "none",
+    "singleQuote": true,
+    "endOfLine": "auto",
+    "proseWrap": "always"
+}

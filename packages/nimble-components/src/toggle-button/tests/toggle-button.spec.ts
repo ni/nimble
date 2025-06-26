@@ -1,12 +1,12 @@
-import { html } from '@microsoft/fast-element';
-import { keyEnter, keySpace } from '@microsoft/fast-web-utilities';
-import { fixture, Fixture } from '../../utilities/tests/fixture';
-import { ToggleButton } from '..';
+import { html } from '@ni/fast-element';
+import { keyEnter, keySpace } from '@ni/fast-web-utilities';
+import { fixture, type Fixture } from '../../utilities/tests/fixture';
+import { ToggleButton, toggleButtonTag } from '..';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 
 async function setup(): Promise<Fixture<ToggleButton>> {
-    return fixture<ToggleButton>(
-        html`<nimble-toggle-button></nimble-toggle-button>`
+    return await fixture<ToggleButton>(
+        html`<${toggleButtonTag}></${toggleButtonTag}>`
     );
 }
 
@@ -24,7 +24,7 @@ describe('ToggleButton', () => {
     });
 
     it('can construct an element instance', () => {
-        expect(document.createElement('nimble-toggle-button')).toBeInstanceOf(
+        expect(document.createElement(toggleButtonTag)).toBeInstanceOf(
             ToggleButton
         );
     });
@@ -106,7 +106,25 @@ describe('ToggleButton', () => {
         element.disabled = true;
         await connect();
         expect(element.control.hasAttribute('tabindex')).toBe(false);
-        expect(element.control.getAttribute('tabindex')).toBe(null);
+    });
+
+    it('should reflect `tabindex` value to the internal button', async () => {
+        await connect();
+
+        element.setAttribute('tabindex', '-1');
+        await waitForUpdatesAsync();
+
+        expect(element.control.getAttribute('tabindex')).toBe('-1');
+    });
+
+    it('should set the `tabindex` attribute to 0 on the internal button when removed from host', async () => {
+        element.setAttribute('tabindex', '-1');
+        await connect();
+
+        element.removeAttribute('tabindex');
+        await waitForUpdatesAsync();
+
+        expect(element.control.getAttribute('tabindex')).toBe('0');
     });
 
     describe('events', () => {

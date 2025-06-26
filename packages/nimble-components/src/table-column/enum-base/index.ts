@@ -1,10 +1,10 @@
 import {
     attr,
-    Notifier,
+    type Notifier,
     Observable,
     observable,
-    Subscriber
-} from '@microsoft/fast-element';
+    type Subscriber
+} from '@ni/fast-element';
 import type {
     TableStringField,
     TableBooleanField,

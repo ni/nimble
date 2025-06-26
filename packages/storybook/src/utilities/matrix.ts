@@ -1,4 +1,4 @@
-import { html, repeat, ViewTemplate } from '@microsoft/fast-element';
+import { html, repeat, ViewTemplate, when } from '@ni/fast-element';
 import { themeProviderTag } from '@ni/nimble-components/dist/esm/theme-provider';
 import {
     bodyFont,
@@ -41,7 +41,13 @@ export function cartesianProduct<T extends readonly unknown[]>(
         ...states: readonly unknown[]
     ): void => {
         if (currentDimensions && currentDimensions.length >= 1) {
-            const [currentDimension, ...remainingDimensions] = currentDimensions;
+            const [currentDimensionOrUndefined, ...remainingDimensions] = currentDimensions;
+
+            // TypeScript and ESLint disagree about whether this can be null or undefined.
+            // This was the only type strangeness noticed after the storybook build was changed
+            // to rely on component source directly so the workaround was allowed.
+            // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
+            const currentDimension = currentDimensionOrUndefined!;
             for (const currentState of currentDimension) {
                 recurseDimensions(remainingDimensions, ...states, currentState);
             }
@@ -128,22 +134,30 @@ export function createMatrixInteractionsFromStates<
         font: var(${bodyFont.cssCustomProperty});
         color: var(${bodyFontColor.cssCustomProperty});
     ">
-        <div class="pseudo-hover-all">
-            <p>Hover</p>
-            ${createMatrixFromStates(component, states.hover)}
-        </div>
-        <div class="pseudo-hover-all pseudo-active-all">
-            <p>Hover and active</p>
-            ${createMatrixFromStates(component, states.hoverActive)}
-        </div>
-        <div class="pseudo-active-all">
-            <p>Active</p>
-            ${createMatrixFromStates(component, states.active)}
-        </div>
-        <div class="pseudo-focus-visible-all pseudo-focus-within-all">
-            <p>Focus</p>
-            ${createMatrixFromStates(component, states.focus)}
-        </div>
+        ${when(() => states.hover.length > 0, html`
+            <div class="pseudo-hover-all">
+                <p>Hover</p>
+                ${createMatrixFromStates(component, states.hover)}
+            </div>
+        `)}
+        ${when(() => states.hoverActive.length > 0, html`
+            <div class="pseudo-hover-all pseudo-active-all">
+                <p>Hover and active</p>
+                ${createMatrixFromStates(component, states.hoverActive)}
+            </div>
+        `)}
+        ${when(() => states.active.length > 0, html`
+            <div class="pseudo-active-all">
+                <p>Active</p>
+                ${createMatrixFromStates(component, states.active)}
+            </div>
+        `)}
+        ${when(() => states.focus.length > 0, html`
+            <div class="pseudo-focus-visible-all pseudo-focus-within-all">
+                <p>Focus</p>
+                ${createMatrixFromStates(component, states.focus)}
+            </div>
+        `)}
     </div>
 `;
 }

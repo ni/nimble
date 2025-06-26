@@ -1,5 +1,4 @@
-// eslint-disable-next-line max-classes-per-file
-import { customElement, html, ref } from '@microsoft/fast-element';
+import { customElement, html, ref } from '@ni/fast-element';
 import { parameterizeSpec } from '@ni/jasmine-parameterized';
 import {
     uniqueElementName,
@@ -46,7 +45,7 @@ describe('TableColumnTextBaseGroupHeaderView', () => {
     async function setup(
         source: ElementReferences
     ): Promise<Fixture<ThemeProvider>> {
-        return fixture<ThemeProvider>(
+        return await fixture<ThemeProvider>(
             html`<${themeProviderTag} lang="en-US">
                     <${labelProviderTableTag} ${ref('labelProvider')}></${labelProviderTableTag}>
                     <${testTextBaseGroupHeaderViewTag} ${ref('groupView')}></${testTextBaseGroupHeaderViewTag}>

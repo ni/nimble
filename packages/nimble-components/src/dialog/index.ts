@@ -1,10 +1,10 @@
-import { attr, observable } from '@microsoft/fast-element';
+import { attr, observable } from '@ni/fast-element';
 import {
     applyMixins,
     ARIAGlobalStatesAndProperties,
     DesignSystem,
     FoundationElement
-} from '@microsoft/fast-foundation';
+} from '@ni/fast-foundation';
 import { UserDismissed } from '../patterns/dialog/types';
 import { styles } from './styles';
 import { template } from './template';
@@ -83,7 +83,7 @@ export class Dialog<CloseReason = void> extends FoundationElement {
             throw new Error('Dialog is already open');
         }
         this.dialogElement.showModal();
-        return new Promise((resolve, _reject) => {
+        return await new Promise((resolve, _reject) => {
             this.resolveShow = resolve;
         });
     }

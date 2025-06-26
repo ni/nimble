@@ -1,11 +1,11 @@
-import { attr } from '@microsoft/fast-element';
+import { attr } from '@ni/fast-element';
 import {
     applyMixins,
     ARIAGlobalStatesAndProperties,
     DesignSystem,
     FoundationElement
-} from '@microsoft/fast-foundation';
-import { eventAnimationEnd } from '@microsoft/fast-web-utilities';
+} from '@ni/fast-foundation';
+import { eventAnimationEnd } from '@ni/fast-web-utilities';
 import { UserDismissed } from '../patterns/dialog/types';
 import { styles } from './styles';
 import { template } from './template';
@@ -59,7 +59,7 @@ export class Drawer<CloseReason = void> extends FoundationElement {
             throw new Error('Drawer is already open');
         }
         this.openDialog();
-        return new Promise((resolve, _reject) => {
+        return await new Promise((resolve, _reject) => {
             this.resolveShow = resolve;
         });
     }

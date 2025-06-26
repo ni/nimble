@@ -74,6 +74,8 @@ export const comments: { readonly [key in TokenName]: string } = {
     spinnerSmallHeight: 'Small height (16px) for a spinner component',
     spinnerMediumHeight: 'Medium height (32px) for a spinner component',
     spinnerLargeHeight: 'Large height (64px) for a spinner component',
+    tableFitRowsHeight:
+        'The height of the table when all rows are visible. It is set automatically to the correct value within the scope of each table.',
     smallDelay:
         'Elements with small transition areas, such as icons and selection controls, have short durations.',
     mediumDelay:
@@ -279,11 +281,48 @@ export const comments: { readonly [key in TokenName]: string } = {
     elevation3BoxShadow:
         'The box shadow for elevation 3. Used for components such as dialogs, overlays, and pop-ups.',
     graphGridlineColor: 'Gridline color for graphs',
+    graphTrace1Color: 'Color for the first graph trace',
+    graphTrace2Color: 'Color for the second graph trace',
+    graphTrace3Color: 'Color for the third graph trace',
+    graphTrace4Color: 'Color for the fourth graph trace',
+    graphTrace5Color: 'Color for the fifth graph trace',
+    graphTrace6Color: 'Color for the sixth graph trace',
+    graphTrace7Color: 'Color for the seventh graph trace',
+    graphTrace8Color: 'Color for the eighth graph trace',
     mentionFont: 'Font shorthand for mention views',
     mentionFontColor: 'Font color for mention views',
     mentionDisabledFontColor: 'Disabled font color for mention views',
     mentionFontFamily: 'Font family for mention views',
     mentionFontSize: 'Font size for mention views',
     mentionFontWeight: 'Font weight for mention views',
-    mentionFontLineHeight: 'Font line height for mention views'
+    mentionFontLineHeight: 'Font line height for mention views',
+    calendarEventBackgroundStaticColor:
+        'Background color for static calendar events',
+    calendarEventBackgroundDynamicColor:
+        'Background color for dynamic calendar events',
+    calendarEventBackgroundTransientColor:
+        'Background color for transient calendar events',
+    calendarEventBorderStaticColor: 'Border color for static calendar events',
+    calendarEventBorderTransientColor:
+        'Border color for transient calendar events',
+    calendarEventStaticFontColor: 'Font color for static calendar events',
+    calendarEventDynamicFontColor: 'Font color for dynamic calendar events',
+    calendarEventTransientFontColor: 'Font color for transient calendar events',
+    calendarEventBackgroundHoverStaticColor:
+        'Color while hovering static calendar events',
+    calendarEventBackgroundHoverDynamicColor:
+        'Color while hovering dynamic calendar events',
+    calendarEventBackgroundHoverTransientColor:
+        'Color while hovering transient calendar events',
+    calendarEventOuterBorderHighlightedColor:
+        'Outer border color for calendar events when highlighted',
+    calendarRowBackgroundSelectedColor:
+        'Background color while calendar resource is selected/highlighted',
+    calendarEventFillBlockedColor:
+        'Background fill to indicate the occupied slots in calendar resource rows',
+    calendarGrabHandleBackgroundColor:
+        'Background fill color for the editable calendar event grab handle',
+    calendarGridBorderColor: 'Border color for the calendar grid',
+    calendarGroupHeaderBackgroundColor:
+        'Background color for the calendar resource group header'
 };

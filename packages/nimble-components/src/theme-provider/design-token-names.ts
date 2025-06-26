@@ -59,6 +59,7 @@ export const tokenNames: { readonly [key in TokenName]: string } = {
     spinnerSmallHeight: 'spinner-small-height',
     spinnerMediumHeight: 'spinner-medium-height',
     spinnerLargeHeight: 'spinner-large-height',
+    tableFitRowsHeight: 'table-fit-rows-height',
     smallDelay: 'small-delay',
     mediumDelay: 'medium-delay',
     largeDelay: 'large-delay',
@@ -225,13 +226,46 @@ export const tokenNames: { readonly [key in TokenName]: string } = {
     elevation2BoxShadow: 'elevation-2-box-shadow',
     elevation3BoxShadow: 'elevation-3-box-shadow',
     graphGridlineColor: 'graph-gridline-color',
+    graphTrace1Color: 'graph-trace-1-color',
+    graphTrace2Color: 'graph-trace-2-color',
+    graphTrace3Color: 'graph-trace-3-color',
+    graphTrace4Color: 'graph-trace-4-color',
+    graphTrace5Color: 'graph-trace-5-color',
+    graphTrace6Color: 'graph-trace-6-color',
+    graphTrace7Color: 'graph-trace-7-color',
+    graphTrace8Color: 'graph-trace-8-color',
     mentionFont: 'mention-font',
     mentionFontColor: 'mention-font-color',
     mentionDisabledFontColor: 'mention-disabled-font-color',
     mentionFontFamily: 'mention-font-family',
     mentionFontSize: 'mention-font-size',
     mentionFontWeight: 'mention-font-weight',
-    mentionFontLineHeight: 'mention-font-line-height'
+    mentionFontLineHeight: 'mention-font-line-height',
+    calendarEventBackgroundStaticColor:
+        'calendar-event-background-static-color',
+    calendarEventBackgroundDynamicColor:
+        'calendar-event-background-dynamic-color',
+    calendarEventBackgroundTransientColor:
+        'calendar-event-background-transient-color',
+    calendarEventBorderStaticColor: 'calendar-event-border-static-color',
+    calendarEventBorderTransientColor: 'calendar-event-border-transient-color',
+    calendarEventStaticFontColor: 'calendar-event-static-font-color',
+    calendarEventDynamicFontColor: 'calendar-event-dynamic-font-color',
+    calendarEventTransientFontColor: 'calendar-event-transient-font-color',
+    calendarEventBackgroundHoverStaticColor:
+        'calendar-event-background-hover-static-color',
+    calendarEventBackgroundHoverDynamicColor:
+        'calendar-event-background-hover-dynamic-color',
+    calendarEventBackgroundHoverTransientColor:
+        'calendar-event-background-hover-transient-color',
+    calendarEventOuterBorderHighlightedColor:
+        'calendar-event-outer-border-highlighted-color',
+    calendarRowBackgroundSelectedColor:
+        'calendar-row-background-selected-color',
+    calendarEventFillBlockedColor: 'calendar-event-fill-blocked-color',
+    calendarGrabHandleBackgroundColor: 'calendar-grab-handle-background-color',
+    calendarGridBorderColor: 'calendar-grid-border-color',
+    calendarGroupHeaderBackgroundColor: 'calendar-group-header-background-color'
 };
 
 const prefix = 'ni-nimble';

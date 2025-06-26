@@ -1,6 +1,6 @@
 import type { StoryFn, Meta } from '@storybook/html';
-import { html, ViewTemplate } from '@microsoft/fast-element';
-import { Table, tableTag } from '@ni/nimble-components/dist/esm/table';
+import { html, ViewTemplate } from '@ni/fast-element';
+import { tableTag } from '@ni/nimble-components/dist/esm/table';
 import {
     controlLabelFont,
     controlLabelFontColor
@@ -68,16 +68,14 @@ const component = (
     </${tableTag}>
 `;
 
-export const tableColumnTextThemeMatrix: StoryFn = createMatrixThemeStory(
+export const themeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(component, [placeholderStates])
 );
 
-tableColumnTextThemeMatrix.play = async (): Promise<void> => {
+themeMatrix.play = async (): Promise<void> => {
     await Promise.all(
-        Array.from(document.querySelectorAll<Table>('nimble-table')).map(
-            async table => {
-                await table.setData(data);
-            }
-        )
+        Array.from(document.querySelectorAll(tableTag)).map(async table => {
+            await table.setData(data);
+        })
     );
 };

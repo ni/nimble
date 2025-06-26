@@ -1,7 +1,10 @@
-import { html } from '@microsoft/fast-element';
+import { html } from '@ni/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
 import { mappingKeyDescription } from '../base/story-helpers';
-import { createUserSelectedThemeStory } from '../../../utilities/storybook';
+import {
+    apiCategory,
+    createUserSelectedThemeStory
+} from '../../../utilities/storybook';
 import { hiddenWrapper } from '../../../utilities/hidden';
 
 const metadata: Meta = {
@@ -10,7 +13,7 @@ const metadata: Meta = {
         docs: {
             description: {
                 component:
-                    'The `nimble-mapping-icon` element defines a mapping from a data value to an icon representation to use for that value. It is meant to be used as content of the `nimble-table-column-icon` element.'
+                    'The `nimble-mapping-icon` element defines a mapping from a data value to an icon representation to use for that value. It is meant to be used as content of the `nimble-table-column-mapping` element.'
             }
         }
     }
@@ -23,30 +26,34 @@ export const iconMapping: StoryObj = {
     argTypes: {
         key: {
             description: mappingKeyDescription('the mapped icon'),
-            control: { type: 'none' }
+            control: false,
+            table: { category: apiCategory.attributes }
         },
         icon: {
-            control: { type: 'none' },
-            description: `The tag name of the Nimble icon to render, e.g. \`nimble-icon-check\`. Alternatively, set \`icon\` to \`undefined\` to render
-                no icon for the mapping while still providing a label to be used when grouping. Space will always be reserved for the icon so
-                that the text in cells and group rows associated with icon mappings will always be aligned.`
+            control: false,
+            description:
+                'The tag name of the Nimble icon to render, e.g. `nimble-icon-check`.',
+            table: { category: apiCategory.attributes }
         },
         severity: {
-            control: { type: 'none' },
+            control: false,
             description:
-                'Must be one of the values in the `IconSeverity` enum. Controls the color of the icon.'
+                'Must be one of the values in the `IconSeverity` enum. Controls the color of the icon.',
+            table: { category: apiCategory.attributes }
         },
         text: {
-            control: { type: 'none' },
+            control: false,
             description: `A textual description of the value. The text will be displayed next to the icon in a cell if \`text-hidden\` is not set,
             or as the tooltip and accessible  name of the icon if \`text-hidden\` is set. The text is also displayed next to the icon
-            in a group header. This attribute is required.`
+            in a group header. This attribute is required.`,
+            table: { category: apiCategory.attributes }
         },
         textHidden: {
-            control: { type: 'none' },
+            control: false,
             name: 'text-hidden',
             description:
-                "When set, the text is hidden within the table's cells. When unset, the text is rendered next to the icon within the cell."
+                "When set, the text is hidden within the table's cells. When unset, the text is rendered next to the icon within the cell.",
+            table: { category: apiCategory.attributes }
         }
     },
     args: {}

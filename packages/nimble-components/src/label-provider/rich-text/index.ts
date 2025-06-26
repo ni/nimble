@@ -1,12 +1,13 @@
-import { attr } from '@microsoft/fast-element';
-import { DesignSystem } from '@microsoft/fast-foundation';
-import { DesignTokensFor, LabelProviderBase } from '../base';
+import { attr } from '@ni/fast-element';
+import { DesignSystem } from '@ni/fast-foundation';
+import { type DesignTokensFor, LabelProviderBase } from '../base';
 import {
     richTextToggleBoldLabel,
     richTextToggleItalicsLabel,
     richTextToggleBulletedListLabel,
     richTextToggleNumberedListLabel
 } from './label-tokens';
+import { styles } from '../base/styles';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -43,7 +44,8 @@ export class LabelProviderRichText
 }
 
 const nimbleLabelProviderRichText = LabelProviderRichText.compose({
-    baseName: 'label-provider-rich-text'
+    baseName: 'label-provider-rich-text',
+    styles
 });
 
 DesignSystem.getOrCreate()

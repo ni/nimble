@@ -2,25 +2,29 @@ import {
     attr,
     Observable,
     observable,
-    Notifier,
-    DOM
-} from '@microsoft/fast-element';
+    type Notifier,
+    DOM,
+    volatile
+} from '@ni/fast-element';
 import {
     Checkbox,
     DesignSystem,
+    type DesignTokenSubscriber,
     FoundationElement
-} from '@microsoft/fast-foundation';
+} from '@ni/fast-foundation';
 import {
+    createTable as tanStackCreateTable,
+    getCoreRowModel as tanStackGetCoreRowModel,
+    getSortedRowModel as tanStackGetSortedRowModel,
+    getGroupedRowModel as tanStackGetGroupedRowModel,
+    getExpandedRowModel as tanStackGetExpandedRowModel
+} from '@tanstack/table-core';
+import type {
     ColumnDef as TanStackColumnDef,
     TableState as TanStackTableState,
     Updater as TanStackUpdater,
     Table as TanStackTable,
     Row as TanStackRow,
-    createTable as tanStackCreateTable,
-    getCoreRowModel as tanStackGetCoreRowModel,
-    getSortedRowModel as tanStackGetSortedRowModel,
-    getGroupedRowModel as tanStackGetGroupedRowModel,
-    getExpandedRowModel as tanStackGetExpandedRowModel,
     TableOptionsResolved as TanStackTableOptionsResolved,
     SortingState as TanStackSortingState,
     RowSelectionState as TanStackRowSelectionState,
@@ -28,37 +32,45 @@ import {
     ExpandedState as TanStackExpandedState,
     OnChangeFn as TanStackOnChangeFn
 } from '@tanstack/table-core';
-import { keyShift } from '@microsoft/fast-web-utilities';
+import { keyEnter } from '@ni/fast-web-utilities';
 import { TableColumn } from '../table-column/base';
 import { TableValidator } from './models/table-validator';
 import { styles } from './styles';
 import { template } from './template';
 import {
+    TableColumnSortDirection,
+    TableRowSelectionMode,
+    TableRowSelectionState
+} from './types';
+import type {
     TableNode,
     TableActionMenuToggleEventDetail,
     TableColumnConfigurationChangeEventDetail,
-    TableColumnSortDirection,
     TableFieldValue,
     TableRecord,
     TableRowSelectionEventDetail,
-    TableRowSelectionMode,
-    TableRowSelectionState,
     TableRowSelectionToggleEventDetail,
     TableRowState,
     TableValidity,
-    TableSetRecordHierarchyOptions
+    TableSetRecordHierarchyOptions,
+    RowSlotRequestEventDetail,
+    SlotMetadata
 } from './types';
 import { Virtualizer } from './models/virtualizer';
 import { getTanStackSortingFunction } from './models/sort-operations';
 import { TableLayoutManager } from './models/table-layout-manager';
 import { TableUpdateTracker } from './models/table-update-tracker';
 import type { TableRow } from './components/row';
+import type { TableGroupRow } from './components/group-row';
 import { ColumnInternals } from '../table-column/base/models/column-internals';
 import { InteractiveSelectionManager } from './models/interactive-selection-manager';
 import { DataHierarchyManager } from './models/data-hierarchy-manager';
 import { ExpansionManager } from './models/expansion-manager';
 import { waitUntilCustomElementsDefinedAsync } from '../utilities/wait-until-custom-elements-defined-async';
 import { ColumnValidator } from '../table-column/base/models/column-validator';
+import { uniquifySlotNameForColumnId } from './models/utilities';
+import { KeyboardNavigationManager } from './models/keyboard-navigation-manager';
+import { borderWidth, controlHeight } from '../theme-provider/design-tokens';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -103,13 +115,7 @@ export class Table<
      * @internal
      */
     @observable
-    public readonly rowElements: TableRow[] = [];
-
-    /**
-     * @internal
-     */
-    @observable
-    public actionMenuSlots: string[] = [];
+    public readonly rowElements: (TableRow | TableGroupRow)[] = [];
 
     /**
      * @internal
@@ -170,7 +176,33 @@ export class Table<
      * @internal
      */
     @observable
+    public readonly collapseAllButton?: HTMLElement;
+
+    /**
+     * @internal
+     */
+    @observable
     public showCollapseAll = false;
+
+    /**
+     * @internal
+     */
+    @observable
+    public canHaveCollapsibleRows = false;
+
+    /**
+     * @internal
+     */
+    @volatile
+    public get collapseButtonVisibility(): string {
+        if (!this.canHaveCollapsibleRows) {
+            return 'hidden-size-reduced';
+        }
+        if (this.showCollapseAll) {
+            return 'visible';
+        }
+        return '';
+    }
 
     /**
      * @internal
@@ -200,6 +232,11 @@ export class Table<
     /**
      * @internal
      */
+    public readonly keyboardNavigationManager: KeyboardNavigationManager<TData>;
+
+    /**
+     * @internal
+     */
     @observable
     public firstSortedColumn?: TableColumn;
 
@@ -218,7 +255,14 @@ export class Table<
     public tableScrollableMinWidth = 0;
 
     @observable
-    public documentShiftKeyDown = false;
+    public windowShiftKeyDown = false;
+
+    /**
+     * @internal
+     */
+    public get rowHeight(): number {
+        return this._rowHeight;
+    }
 
     private readonly table: TanStackTable<TableNode<TData>>;
     private options: TanStackTableOptionsResolved<TableNode<TData>>;
@@ -229,12 +273,37 @@ export class Table<
     private readonly expansionManager: ExpansionManager<TData>;
     private columnNotifiers: Notifier[] = [];
     private readonly layoutManagerNotifier: Notifier;
+    private _rowHeight = 0;
     private isInitialized = false;
     // Programmatically updating the selection state of a checkbox fires the 'change' event.
     // Therefore, selection change events that occur due to programmatically updating
     // the selection checkbox 'checked' value should be ingored.
     // https://github.com/microsoft/fast/issues/5750
     private ignoreSelectionChangeEvents = false;
+    // Map from the external slot name to the record ID of the row that should have the slot
+    // and the unique slot name that the slot should be slotted into.
+    private readonly requestedSlots: Map<
+    string,
+    { recordId: string, uniqueSlot: string }
+    > = new Map();
+
+    private readonly borderWidthSubscriber: DesignTokenSubscriber<
+        typeof borderWidth
+    > = {
+            handleChange: () => {
+                this.updateRowHeight();
+            }
+        };
+
+    private readonly controlHeightSubscriber: DesignTokenSubscriber<
+        typeof controlHeight
+    > = {
+            handleChange: () => {
+                this.updateRowHeight();
+            }
+        };
+
+    private actionMenuSlots: string[] = [];
 
     public constructor() {
         super();
@@ -266,6 +335,10 @@ export class Table<
         };
         this.table = tanStackCreateTable(this.options);
         this.virtualizer = new Virtualizer(this, this.table);
+        this.keyboardNavigationManager = new KeyboardNavigationManager(
+            this,
+            this.virtualizer
+        );
         this.layoutManager = new TableLayoutManager(this);
         this.layoutManagerNotifier = Observable.getNotifier(this.layoutManager);
         this.layoutManagerNotifier.subscribe(this, 'isColumnBeingSized');
@@ -278,7 +351,10 @@ export class Table<
 
     public async setData(newData: readonly TData[]): Promise<void> {
         await this.processPendingUpdates();
-        const tanstackUpdates = this.calculateTanStackData(newData);
+        // Make a shallow clone of the record to avoid holding a reference to the client's data object.
+        // This also ensures that a data update will always result in a row's record being a new object.
+        const clonedData = newData.map(record => ({ ...record }));
+        const tanstackUpdates = this.calculateTanStackData(clonedData);
         this.updateTableOptions(tanstackUpdates);
     }
 
@@ -316,20 +392,29 @@ export class Table<
     public override connectedCallback(): void {
         super.connectedCallback();
         this.initialize();
+        this.updateRowHeight();
         this.virtualizer.connect();
         this.viewport.addEventListener('scroll', this.onViewPortScroll, {
             passive: true
         });
-        document.addEventListener('keydown', this.onKeyDown);
-        document.addEventListener('keyup', this.onKeyUp);
+        this.keyboardNavigationManager.connect();
+        window.addEventListener('keydown', this.onKeyDown);
+        window.addEventListener('keyup', this.onKeyUp);
+        window.addEventListener('blur', this.onBlur);
+        borderWidth.subscribe(this.borderWidthSubscriber, this);
+        controlHeight.subscribe(this.controlHeightSubscriber, this);
     }
 
     public override disconnectedCallback(): void {
         super.disconnectedCallback();
         this.virtualizer.disconnect();
+        this.keyboardNavigationManager.disconnect();
         this.viewport.removeEventListener('scroll', this.onViewPortScroll);
-        document.removeEventListener('keydown', this.onKeyDown);
-        document.removeEventListener('keyup', this.onKeyUp);
+        window.removeEventListener('keydown', this.onKeyDown);
+        window.removeEventListener('keyup', this.onKeyUp);
+        window.removeEventListener('blur', this.onBlur);
+        borderWidth.unsubscribe(this.borderWidthSubscriber);
+        controlHeight.unsubscribe(this.controlHeightSubscriber);
     }
 
     public checkValidity(): boolean {
@@ -376,7 +461,7 @@ export class Table<
         const selectionChanged = this.selectionManager.handleRowSelectionToggle(
             this.tableData[rowIndex],
             event.detail.newState,
-            this.documentShiftKeyDown
+            this.windowShiftKeyDown
         );
 
         if (selectionChanged) {
@@ -397,6 +482,16 @@ export class Table<
         }
 
         return true;
+    }
+
+    /** @internal */
+    public onRowFocusIn(event: FocusEvent): void {
+        this.keyboardNavigationManager.onRowFocusIn(event);
+    }
+
+    /** @internal */
+    public onRowBlur(event: FocusEvent): void {
+        this.keyboardNavigationManager.onRowBlur(event);
     }
 
     /** @internal */
@@ -429,17 +524,39 @@ export class Table<
     }
 
     /** @internal */
+    public onRowSlotsRequest(
+        event: CustomEvent<RowSlotRequestEventDetail>
+    ): void {
+        event.stopImmediatePropagation();
+
+        for (const slotMetadata of event.detail.slots) {
+            const uniqueSlot = uniquifySlotNameForColumnId(
+                event.detail.columnInternalId,
+                slotMetadata.slot
+            );
+            this.requestedSlots.set(slotMetadata.name, {
+                recordId: event.detail.recordId,
+                uniqueSlot
+            });
+        }
+
+        this.refreshRows();
+    }
+
+    /** @internal */
     public handleCollapseAllRows(): void {
         this.expansionManager.collapseAll();
     }
 
     /** @internal */
-    public onRightDividerMouseDown(
-        event: MouseEvent,
+    public onRightDividerPointerDown(
+        event: PointerEvent,
         columnIndex: number
     ): void {
-        if (event.button === 0) {
+        if (event.pointerType !== 'mouse' || event.button === 0) {
             this.layoutManager.beginColumnInteractiveSize(
+                event.target as HTMLElement,
+                event.pointerId,
                 event.clientX,
                 this.getRightDividerIndex(columnIndex)
             );
@@ -447,12 +564,14 @@ export class Table<
     }
 
     /** @internal */
-    public onLeftDividerMouseDown(
-        event: MouseEvent,
+    public onLeftDividerPointerDown(
+        event: PointerEvent,
         columnIndex: number
     ): void {
-        if (event.button === 0) {
+        if (event.pointerType !== 'mouse' || event.button === 0) {
             this.layoutManager.beginColumnInteractiveSize(
+                event.target as HTMLElement,
+                event.pointerId,
                 event.clientX,
                 this.getLeftDividerIndex(columnIndex)
             );
@@ -487,7 +606,7 @@ export class Table<
         column: TableColumn,
         allowMultiSort: boolean
     ): void {
-        if (column.sortingDisabled) {
+        if (column.columnInternals.sortingDisabled) {
             return;
         }
 
@@ -533,10 +652,34 @@ export class Table<
     /**
      * @internal
      */
+    public onHeaderKeyDown(column: TableColumn, event: KeyboardEvent): boolean {
+        const allowMultiSort = event.shiftKey;
+        if (event.key === keyEnter) {
+            this.toggleColumnSort(column, allowMultiSort);
+        }
+        // Return true so that we don't prevent default behavior. Without this, Tab navigation
+        // gets stuck on the column headers.
+        return true;
+    }
+
+    /**
+     * @internal
+     */
     public update(): void {
         this.validate();
         if (this.tableUpdateTracker.requiresTanStackUpdate) {
             this.updateTanStack();
+        }
+
+        if (
+            this.tableUpdateTracker.updateRowParentIds
+            || this.tableUpdateTracker.updateGroupRows
+        ) {
+            const hierarchyEnabled = this.isHierarchyEnabled();
+            const hasGroupableColumns = this.columns.some(
+                x => !x.columnInternals.groupingDisabled
+            );
+            this.canHaveCollapsibleRows = hierarchyEnabled || hasGroupableColumns;
         }
 
         if (this.tableUpdateTracker.updateActionMenuSlots) {
@@ -548,6 +691,10 @@ export class Table<
             this.visibleColumns = this.columns.filter(
                 column => !column.columnHidden
             );
+        }
+
+        if (this.tableUpdateTracker.requiresKeyboardFocusReset) {
+            this.keyboardNavigationManager.resetFocusState();
         }
     }
 
@@ -653,6 +800,19 @@ export class Table<
         this.tableUpdateTracker.trackColumnInstancesChanged();
     }
 
+    private updateRequestedSlotsForOpeningActionMenu(
+        openActionMenuRecordId: string
+    ): void {
+        for (const actionMenuSlot of this.actionMenuSlots) {
+            this.requestedSlots.set(actionMenuSlot, {
+                recordId: openActionMenuRecordId,
+                uniqueSlot: `row-action-menu-${actionMenuSlot}`
+            });
+        }
+
+        this.refreshRows();
+    }
+
     private async handleActionMenuBeforeToggleEvent(
         rowIndex: number,
         event: CustomEvent<TableActionMenuToggleEventDetail>
@@ -665,6 +825,9 @@ export class Table<
         }
 
         this.openActionMenuRecordId = event.detail.recordIds[0];
+        this.updateRequestedSlotsForOpeningActionMenu(
+            this.openActionMenuRecordId!
+        );
         const detail = await this.getActionMenuToggleEventDetail(event);
         this.$emit('action-menu-beforetoggle', detail);
     }
@@ -672,6 +835,7 @@ export class Table<
     private async handleRowActionMenuToggleEvent(
         event: CustomEvent<TableActionMenuToggleEventDetail>
     ): Promise<void> {
+        this.keyboardNavigationManager.onRowActionMenuToggle(event);
         const detail = await this.getActionMenuToggleEventDetail(event);
         this.$emit('action-menu-toggle', detail);
         if (!event.detail.newState) {
@@ -696,15 +860,15 @@ export class Table<
     };
 
     private readonly onKeyDown = (event: KeyboardEvent): void => {
-        if (event.key === keyShift) {
-            this.documentShiftKeyDown = true;
-        }
+        this.windowShiftKeyDown = event.shiftKey;
     };
 
     private readonly onKeyUp = (event: KeyboardEvent): void => {
-        if (event.key === keyShift) {
-            this.documentShiftKeyDown = false;
-        }
+        this.windowShiftKeyDown = event.shiftKey;
+    };
+
+    private readonly onBlur = (): void => {
+        this.windowShiftKeyDown = false;
     };
 
     private removeColumnObservers(): void {
@@ -758,7 +922,7 @@ export class Table<
 
     private getColumnsParticipatingInSorting(): TableColumn[] {
         return this.columns.filter(
-            x => !x.sortingDisabled
+            x => !x.columnInternals.sortingDisabled
                 && x.columnInternals.currentSortDirection
                     !== TableColumnSortDirection.none
                 && typeof x.columnInternals.currentSortIndex === 'number'
@@ -819,7 +983,7 @@ export class Table<
             && this.tableUpdateTracker.requiresTanStackDataReset
         ) {
             if (
-                !this.parentIdFieldName
+                !this.isHierarchyEnabled()
                 && !this.tableUpdateTracker.updateRowParentIds
             ) {
                 // Perform a shallow copy of the data to trigger tanstack to regenerate the row models and columns.
@@ -851,6 +1015,14 @@ export class Table<
     }
 
     private updateActionMenuSlots(): void {
+        if (this.openActionMenuRecordId !== undefined) {
+            // If the action menu is open, delete all the slots associated
+            // with the old action menu slots.
+            for (const actionMenuSlot of this.actionMenuSlots) {
+                this.requestedSlots.delete(actionMenuSlot);
+            }
+        }
+
         const slots = new Set<string>();
         for (const column of this.columns) {
             if (column.actionMenuSlot) {
@@ -858,6 +1030,14 @@ export class Table<
             }
         }
         this.actionMenuSlots = Array.from(slots);
+
+        if (this.openActionMenuRecordId !== undefined) {
+            // If the action menu is open, create slots for all the new
+            // action menu slots.
+            this.updateRequestedSlotsForOpeningActionMenu(
+                this.openActionMenuRecordId
+            );
+        }
     }
 
     private validate(): void {
@@ -940,15 +1120,13 @@ export class Table<
 
         let hasDataHierarchy = false;
         const rows = this.table.getRowModel().rows;
+        const slotsByRecordId = this.getRequestedSlotsByRecordId();
         this.tableData = rows.map(row => {
             const isGroupRow = row.getIsGrouped();
-            const hasParentRow = isGroupRow ? false : row.getParentRow();
             const isParent = !isGroupRow && this.getRowCanExpand(row);
-            const isChildOfGroupRowWithNoHierarchy = !isGroupRow
-                && !isParent
-                && !hasParentRow
-                && row.depth > 0
-                && !this.parentIdFieldName;
+            const isDataChildOfGroupRowWithNoHierarchy = !isGroupRow // is a data row (not a group row)
+                && !this.isHierarchyEnabled() // table does not have hierarchy enabled
+                && row.getParentRow()?.getIsGrouped(); // row has a parent that is a group row
             const rowState: TableRowState<TData> = {
                 record: row.original.clientRecord,
                 id: row.id,
@@ -958,15 +1136,17 @@ export class Table<
                 groupRowValue: isGroupRow
                     ? row.getValue(row.groupingColumnId!)
                     : undefined,
-                nestingLevel: isChildOfGroupRowWithNoHierarchy
+                nestingLevel: isDataChildOfGroupRowWithNoHierarchy
                     ? row.depth - 1
                     : row.depth,
                 isParentRow: isParent,
                 immediateChildCount: row.subRows.length,
                 groupColumn: this.getGroupRowColumn(row),
+                resolvedRowIndex: row.index,
                 isLoadingChildren: this.expansionManager.isLoadingChildren(
                     row.id
-                )
+                ),
+                requestedSlots: slotsByRecordId[row.id] ?? []
             };
             hasDataHierarchy = hasDataHierarchy || isParent;
             return rowState;
@@ -974,6 +1154,27 @@ export class Table<
         this.showCollapseAll = hasDataHierarchy
             || this.getColumnsParticipatingInGrouping().length > 0;
         this.virtualizer.dataChanged();
+    }
+
+    private getRequestedSlotsByRecordId(): {
+        [recordId: string]: SlotMetadata[]
+    } {
+        const slotsByRecordId: { [recordId: string]: SlotMetadata[] } = {};
+
+        for (const [slotName, { recordId, uniqueSlot }] of this
+            .requestedSlots) {
+            if (
+                !Object.prototype.hasOwnProperty.call(slotsByRecordId, recordId)
+            ) {
+                slotsByRecordId[recordId] = [];
+            }
+            slotsByRecordId[recordId]!.push({
+                name: slotName,
+                slot: uniqueSlot
+            });
+        }
+
+        return slotsByRecordId;
     }
 
     private getTableSelectionState(): TableRowSelectionState {
@@ -1169,6 +1370,12 @@ export class Table<
         }
 
         return tanstackSelectionState;
+    }
+
+    private updateRowHeight(): void {
+        this._rowHeight = parseFloat(controlHeight.getValueFor(this))
+            + 2 * parseFloat(borderWidth.getValueFor(this));
+        this.virtualizer?.updateRowHeight();
     }
 }
 

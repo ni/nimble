@@ -1,13 +1,13 @@
-import { attr } from '@microsoft/fast-element';
+import { attr } from '@ni/fast-element';
 import {
     applyMixins,
     ARIAGlobalStatesAndProperties,
     DesignSystem,
     FoundationElement
-} from '@microsoft/fast-foundation';
+} from '@ni/fast-foundation';
 import { styles } from './styles';
 import { template } from './template';
-import { BannerSeverity, BannerToggleEventDetail } from './types';
+import { BannerSeverity, type BannerToggleEventDetail } from './types';
 
 declare global {
     interface HTMLElementTagNameMap {

@@ -1,13 +1,13 @@
-import { html } from '@microsoft/fast-element';
-import { TableHeader } from '..';
+import { html } from '@ni/fast-element';
+import { TableHeader, tableHeaderTag } from '..';
 import { waitForUpdatesAsync } from '../../../../testing/async-helpers';
 import { type Fixture, fixture } from '../../../../utilities/tests/fixture';
-import { TableColumnSortDirection } from '../../../types';
+import { TableColumnAlignment, TableColumnSortDirection } from '../../../types';
 import { TableHeaderPageObject } from './table-header-pageobject';
 
 async function setup(): Promise<Fixture<TableHeader>> {
-    return fixture<TableHeader>(
-        html`<nimble-table-header> </nimble-table-header>`
+    return await fixture<TableHeader>(
+        html`<${tableHeaderTag}> </${tableHeaderTag}>`
     );
 }
 
@@ -28,8 +28,9 @@ describe('TableHeader', () => {
     });
 
     it('can construct an element instance', () => {
-        // prettier-ignore
-        expect(document.createElement('nimble-table-header')).toBeInstanceOf(TableHeader);
+        expect(document.createElement(tableHeaderTag)).toBeInstanceOf(
+            TableHeader
+        );
     });
 
     it('has role of columnheader', () => {
@@ -146,5 +147,9 @@ describe('TableHeader', () => {
         expect(element.getAttribute('aria-sort')).toEqual('descending');
         expect(pageObject.isSortAscendingIconVisible()).toBeFalse();
         expect(pageObject.isSortDescendingIconVisible()).toBeFalse();
+    });
+
+    it('defaults to left-aligned', () => {
+        expect(element.alignment).toBe(TableColumnAlignment.left);
     });
 });

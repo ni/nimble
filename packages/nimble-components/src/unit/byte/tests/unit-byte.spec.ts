@@ -1,12 +1,12 @@
-import { html } from '@microsoft/fast-element';
+import { html } from '@ni/fast-element';
 import { type Fixture, fixture } from '../../../utilities/tests/fixture';
 import { UnitByte, unitByteTag } from '..';
 import { byte1024UnitScale } from '../../../utilities/unit-format/unit-scale/byte-1024-unit-scale';
 import { byteUnitScale } from '../../../utilities/unit-format/unit-scale/byte-unit-scale';
 
 async function setup(binary: boolean): Promise<Fixture<UnitByte>> {
-    return fixture<UnitByte>(html`
-        <nimble-unit-byte ?binary="${() => binary}"></nimble-unit-byte>
+    return await fixture<UnitByte>(html`
+        <${unitByteTag} ?binary="${() => binary}"></${unitByteTag}>
     `);
 }
 
@@ -15,14 +15,8 @@ describe('Byte unit', () => {
     let connect: () => Promise<void>;
     let disconnect: () => Promise<void>;
 
-    it('should export its tag', () => {
-        expect(unitByteTag).toBe('nimble-unit-byte');
-    });
-
     it('can construct an element instance', () => {
-        expect(document.createElement('nimble-unit-byte')).toBeInstanceOf(
-            UnitByte
-        );
+        expect(document.createElement(unitByteTag)).toBeInstanceOf(UnitByte);
     });
 
     it('returns Byte1024UnitScale when "binary" attribute is set', async () => {

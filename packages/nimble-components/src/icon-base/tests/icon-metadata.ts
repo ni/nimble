@@ -13,11 +13,23 @@ export const iconMetadata: {
     IconAdd: {
         tags: ['add input field']
     },
+    IconMessageBot: {
+        tags: ['assistance', 'information', 'help']
+    },
     IconArrowDown: {
         tags: ['sort', 'arrow', 'down', 'descending']
     },
+    IconArrowDownRectangle: {
+        tags: ['install', 'software', 'drive', 'package', 'box']
+    },
+    IconArrowDownLeftAndArrowUpRight: {
+        tags: ['collapse', 'shrink', 'reduce size']
+    },
     IconArrowDownRightAndArrowUpLeft: {
         tags: ['resize', 'collapse']
+    },
+    IconArrowUpRightAndArrowDownLeft: {
+        tags: ['expand', 'grow', 'enlarge size']
     },
     IconArrowExpanderDown: {
         tags: []
@@ -43,20 +55,32 @@ export const iconMetadata: {
     IconArrowPartialRotateLeft: {
         tags: ['reset']
     },
+    IconArrowRightThin: {
+        tags: ['link', 'open']
+    },
     IconArrowRightToLine: {
         tags: ['login']
     },
     IconArrowRotateRight: {
         tags: ['refresh']
     },
-    IconArrowURotateLeft: {
-        tags: ['update']
-    },
     IconArrowUpLeftAndArrowDownRight: {
         tags: ['resize', 'expand']
     },
+    IconArrowUpRectangle: {
+        tags: ['uninstall', 'software', 'drive', 'package', 'box']
+    },
     IconArrowUpRightFromSquare: {
         tags: ['open', 'external', 'link']
+    },
+    IconArrowULeft: {
+        tags: ['undo', 'revert', 'back']
+    },
+    IconArrowURight: {
+        tags: ['redo', 'revert', 'forward']
+    },
+    IconArrowUUp: {
+        tags: ['update']
     },
     IconArrowsMaximize: {
         tags: ['resize', 'fullscreen']
@@ -64,8 +88,14 @@ export const iconMetadata: {
     IconArrowsRepeat: {
         tags: ['status', 'looping']
     },
+    IconArrowsRotateReverseDot: {
+        tags: ['automatic', 'automate', 'auto']
+    },
     IconArrowUp: {
         tags: ['sort', 'arrow', 'up', 'ascending']
+    },
+    IconAsterisk: {
+        tags: ['star', 'required']
     },
     IconAt: {
         tags: ['@', 'email', 'handle', 'mention']
@@ -77,10 +107,19 @@ export const iconMetadata: {
         tags: ['status', 'alarm']
     },
     IconBellAndComment: {
-        tags: ['alarm', 'notification']
+        tags: ['deprecated - prefer icon bell and message']
+    },
+    IconBellAndMessage: {
+        tags: ['alarm', 'notification', 'comment']
+    },
+    IconBellCheck: {
+        tags: ['acknowledged', 'alarm']
     },
     IconBellCircle: {
         tags: ['alarm']
+    },
+    IconBellOn: {
+        tags: ['set', 'urgent', 'notification', 'alarm']
     },
     IconBellSolidCircle: {
         tags: ['alarm']
@@ -94,14 +133,35 @@ export const iconMetadata: {
     IconBookMagnifyingGlass: {
         tags: ['analyze']
     },
-    IconCalendar: {
-        tags: ['schedule']
+    IconCalendarArrowsRotateReverseDot: {
+        tags: ['auto-schedule', 'automate', 'automatic']
     },
     IconCalendarCheckLines: {
         tags: ['test', 'plan', 'schedule']
     },
+    IconCalendarCircleExclamation: {
+        tags: ['conflict', 'schedule']
+    },
+    IconCalendarClock: {
+        tags: ['time', 'schedule']
+    },
     IconCalendarDay: {
-        tags: ['date', 'time', 'schedule']
+        tags: ['date']
+    },
+    IconCalendarDays: {
+        tags: ['month', 'schedule']
+    },
+    IconCalendarLines: {
+        tags: ['agenda']
+    },
+    IconCalendarRectangle: {
+        tags: ['year']
+    },
+    IconCalendarDayOutline: {
+        tags: ['today']
+    },
+    IconCalendarWeek: {
+        tags: []
     },
     IconChartDiagram: {
         tags: ['oidc']
@@ -116,13 +176,10 @@ export const iconMetadata: {
         tags: ['assets']
     },
     IconCheck: {
-        tags: ['status', 'alarm acknowledged']
+        tags: ['status', 'success', 'alarm acknowledged', 'approve']
     },
     IconCheckDot: {
         tags: ['status', 'done']
-    },
-    IconCheckLarge: {
-        tags: ['status']
     },
     IconCircle: {
         tags: ['status', 'connected']
@@ -131,10 +188,13 @@ export const iconMetadata: {
         tags: ['status', 'disconnected']
     },
     IconCircleCheck: {
-        tags: ['status', 'acknowledged']
+        tags: ['status', 'acknowledged', 'ready']
     },
     IconCircleFilled: {
         tags: []
+    },
+    IconCircleMinus: {
+        tags: ['not set', 'dash', 'hyphen']
     },
     IconCirclePartialBroken: {
         tags: ['status', 'partially connected']
@@ -188,7 +248,7 @@ export const iconMetadata: {
         tags: ['data indexing']
     },
     IconComment: {
-        tags: ['notes', 'alarm notes', 'speech', 'bubble']
+        tags: ['deprecated - prefer icon message']
     },
     IconComputerAndMonitor: {
         tags: ['devices and interfaces']
@@ -216,6 +276,9 @@ export const iconMetadata: {
     },
     IconDatabaseCheck: {
         tags: ['system state manager']
+    },
+    IconDebug: {
+        tags: ['troubleshoot']
     },
     IconDesktop: {
         tags: ['monitor']
@@ -346,6 +409,9 @@ export const iconMetadata: {
     IconLayerGroup: {
         tags: ['jobs']
     },
+    IconLightbulb: {
+        tags: ['suggested', 'prompt', 'idea', 'think']
+    },
     IconLightningBolt: {
         tags: ['active jobs']
     },
@@ -373,6 +439,23 @@ export const iconMetadata: {
     IconMarkdown: {
         tags: []
     },
+    IconMessage: {
+        tags: ['comment', 'notes', 'alarm notes', 'speech', 'bubble']
+    },
+    IconMessagesSparkle: {
+        tags: [
+            'nigel',
+            'chatbot',
+            'ai',
+            'chat',
+            'help',
+            'conversation',
+            'comment'
+        ]
+    },
+    IconMicrophone: {
+        tags: ['talk to text', 'speech', 'speak', 'sound', 'audio']
+    },
     IconMinus: {
         tags: ['mixed checkbox']
     },
@@ -381,6 +464,9 @@ export const iconMetadata: {
     },
     IconMobile: {
         tags: ['phone']
+    },
+    IconMountainSun: {
+        tags: ['image', 'browse']
     },
     IconNi: {
         tags: ['National Instruments', 'logo', 'product']
@@ -396,6 +482,12 @@ export const iconMetadata: {
     },
     IconOutwardSquaresThree: {
         tags: ['undeploy']
+    },
+    IconPaperclip: {
+        tags: ['attachment', 'add document', 'browse']
+    },
+    IconPaperPlane: {
+        tags: ['send', 'relay', 'submit']
     },
     IconPaste: {
         tags: ['clipboard']
@@ -417,6 +509,9 @@ export const iconMetadata: {
     },
     IconRectangleCheckLines: {
         tags: ['test', 'plan']
+    },
+    IconRectangleLines: {
+        tags: ['defined', 'paper', 'paragraph', 'sentence', 'words']
     },
     IconRunningArrow: {
         tags: ['status', 'running']
@@ -448,17 +543,29 @@ export const iconMetadata: {
     IconSkipArrow: {
         tags: ['status', 'skipped']
     },
+    IconSparkles: {
+        tags: ['clean up', 'stars']
+    },
+    IconSparkleSwirls: {
+        tags: ['ai', 'artificial intelligence', 'magic', 'advanced automate']
+    },
     IconSpinner: {
         tags: ['in progress']
     },
     IconSquareCheck: {
         tags: ['test insights']
     },
+    IconSquareListCog: {
+        tags: ['specification', 'requirements']
+    },
     IconSquareT: {
         tags: ['static text']
     },
     IconSquareX: {
         tags: ['quit', 'end', 'abort', 'stop', 'terminate']
+    },
+    IconStar8Point: {
+        tags: ['create new', 'burst']
     },
     IconStopSquare: {
         tags: ['quit', 'end']
@@ -493,17 +600,23 @@ export const iconMetadata: {
     IconThreeVerticalLines: {
         tags: []
     },
+    IconThumbDown: {
+        tags: ['dislike', 'disapprove', 'not good', 'no']
+    },
     IconThumbtack: {
         tags: []
+    },
+    IconThumbUp: {
+        tags: ['like', 'approve', 'good', 'yes']
     },
     IconTileSize: {
         tags: []
     },
     IconTimes: {
-        tags: ['close']
+        tags: ['clear', 'close', 'delete', 'multiply', 'remove']
     },
     IconTrash: {
-        tags: ['clear', 'close', 'delete', 'remove', 'x']
+        tags: ['delete', 'remove']
     },
     IconTriangle: {
         tags: ['status', 'alarm active']
@@ -553,6 +666,12 @@ export const iconMetadata: {
     IconWindowCode: {
         tags: ['http api']
     },
+    IconWindowDock: {
+        tags: ['dock', 'place', 'embed', 'attach']
+    },
+    IconWindowRestore: {
+        tags: ['undock', 'remove']
+    },
     IconWindowText: {
         tags: ['manual']
     },
@@ -560,7 +679,7 @@ export const iconMetadata: {
         tags: ['status', 'custom']
     },
     IconXmark: {
-        tags: ['status', 'fail']
+        tags: ['status', 'fail', 'cancel']
     },
     IconXmarkCheck: {
         tags: ['self test']

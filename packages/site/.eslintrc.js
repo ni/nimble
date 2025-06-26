@@ -1,16 +1,23 @@
 module.exports = {
     root: true,
-    extends: [
-        '@ni/eslint-config-javascript'
-    ],
     ignorePatterns: [
+        'node_modules',
+        'dist',
         // Force inclusion of config dot file
         '!.eleventy.js',
-        'node_modules',
-        'dist'
     ],
-    rules: {
-        // Enabled to prevent accidental usage of async-await
-        'require-await': 'error'
-    }
+    overrides: [
+        {
+            files: ['*.js'],
+            extends: ['@ni-private/eslint-config-nimble/javascript'],
+        },
+        {
+            files: ['*.ts'],
+            extends: ['@ni-private/eslint-config-nimble/typescript'],
+            parserOptions: {
+                project: ['./tsconfig.json'],
+                tsconfigRootDir: __dirname
+            },
+        }
+    ]
 };

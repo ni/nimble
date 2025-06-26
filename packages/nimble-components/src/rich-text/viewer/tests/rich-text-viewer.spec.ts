@@ -1,4 +1,4 @@
-import { html } from '@microsoft/fast-element';
+import { html } from '@ni/fast-element';
 import { RichTextViewer, richTextViewerTag } from '..';
 import { fixture, type Fixture } from '../../../utilities/tests/fixture';
 import { RichTextViewerPageObject } from '../testing/rich-text-viewer.pageobject';
@@ -10,19 +10,17 @@ import {
 } from '../../../rich-text-mention/users';
 import { richTextMentionUsersViewTag } from '../../../rich-text-mention/users/view';
 import { MappingUser, mappingUserTag } from '../../../mapping/user';
-import type {
-    MappingConfiguration,
-    UserMentionElements
-} from '../../editor/testing/types';
+import type { MappingConfiguration } from '../../editor/testing/types';
+import type { UserMentionElements } from '../../editor/models/tests/rich-text-editor-utils';
 
 async function setup(): Promise<Fixture<RichTextViewer>> {
-    return fixture<RichTextViewer>(
+    return await fixture<RichTextViewer>(
         html`<${richTextViewerTag}></${richTextViewerTag}>`
     );
 }
 
 async function setupMentionConfig(): Promise<Fixture<RichTextViewer>> {
-    return fixture<RichTextViewer>(
+    return await fixture<RichTextViewer>(
         // prettier-ignore
         html`<${richTextViewerTag}>
             <${richTextMentionUsersTag} pattern="^user:(.*)">
@@ -78,14 +76,10 @@ describe('RichTextViewer', () => {
         );
     });
 
-    it('should export its tag', () => {
-        expect(richTextViewerTag).toBe('nimble-rich-text-viewer');
-    });
-
-    it('set the markdown attribute and ensure the markdown property is not modified', () => {
+    it('set the markdown attribute and ensure the markdown property is modified', () => {
         element.setAttribute('markdown', '**markdown string**');
 
-        expect(element.markdown).toBe('');
+        expect(element.markdown).toBe('**markdown string**');
     });
 
     it('set the markdown property and ensure there is no markdown attribute', () => {

@@ -1,6 +1,7 @@
 import type { StoryFn, Meta } from '@storybook/html';
-import { html, ViewTemplate } from '@microsoft/fast-element';
-import { Orientation } from '@microsoft/fast-web-utilities';
+import { html, ViewTemplate } from '@ni/fast-element';
+import { Orientation } from '@ni/fast-web-utilities';
+import { standardPadding } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
 import { radioTag } from '@ni/nimble-components/dist/esm/radio';
 import { radioGroupTag } from '@ni/nimble-components/dist/esm/radio-group';
 import {
@@ -8,7 +9,14 @@ import {
     sharedMatrixParameters,
     createMatrixThemeStory
 } from '../../utilities/matrix';
-import { disabledStates, DisabledState } from '../../utilities/states';
+import {
+    disabledStates,
+    type DisabledState,
+    errorStates,
+    type ErrorState,
+    requiredVisibleStates,
+    type RequiredVisibleState
+} from '../../utilities/states';
 import { createStory } from '../../utilities/storybook';
 import { hiddenWrapper } from '../../utilities/hidden';
 import { textCustomizationWrapper } from '../../utilities/text-customization';
@@ -29,30 +37,37 @@ const metadata: Meta = {
 export default metadata;
 
 const component = (
+    [requiredVisibleName, requiredVisible]: RequiredVisibleState,
     [disabledName, disabled]: DisabledState,
-    [orientationName, orientation]: OrientationState
+    [orientationName, orientation]: OrientationState,
+    [errorName, errorVisible, errorText]: ErrorState
 ): ViewTemplate => html`<${radioGroupTag}
     orientation="${() => orientation}"
     ?disabled="${() => disabled}"
+    ?error-visible="${() => errorVisible}"
+    error-text="${() => errorText}"
+    ?required-visible="${() => requiredVisible}"
     value="1"
+    style="width: 250px; margin: var(${standardPadding.cssCustomProperty});"
 >
-    <label slot="label">${orientationName} ${disabledName}</label>
+    <label slot="label">${orientationName} ${disabledName} ${errorName} ${requiredVisibleName}</label>
     <${radioTag} value="1">Option 1</${radioTag}>
     <${radioTag} value="2">Option 2</${radioTag}>
 </${radioGroupTag}>`;
 
-export const radioGroupThemeMatrix: StoryFn = createMatrixThemeStory(
-    createMatrix(component, [disabledStates, orientationStates])
+export const themeMatrix: StoryFn = createMatrixThemeStory(
+    createMatrix(component, [
+        requiredVisibleStates,
+        disabledStates,
+        orientationStates,
+        errorStates
+    ])
 );
 
-export const hiddenRadioGroup: StoryFn = createStory(
+export const hidden: StoryFn = createStory(
     hiddenWrapper(
         html`<${radioGroupTag} hidden>Hidden Radio Group</${radioGroupTag}>`
     )
-);
-
-export const hiddenRadio: StoryFn = createStory(
-    hiddenWrapper(html`<${radioTag} hidden>Hidden Radio</${radioTag}>`)
 );
 
 export const textCustomized: StoryFn = createMatrixThemeStory(

@@ -1,4 +1,4 @@
-import { html, ref } from '@microsoft/fast-element';
+import { html, ref } from '@ni/fast-element';
 import { parameterizeSpec } from '@ni/jasmine-parameterized';
 import { tableTag, type Table } from '../../../table';
 import { TableColumnDurationText, tableColumnDurationTextTag } from '..';
@@ -30,7 +30,7 @@ describe('TableColumnDurationText', () => {
 
     // prettier-ignore
     async function setup(source: ElementReferences): Promise<Fixture<Table<SimpleTableRecord>>> {
-        return fixture<Table<SimpleTableRecord>>(
+        return await fixture<Table<SimpleTableRecord>>(
             html`<${themeProviderTag} lang="en-US">
                     <${tableTag} ${ref('table')} style="width: 700px">
                         <${tableColumnDurationTextTag} ${ref('column1')} field-name="field" group-index="0">
@@ -60,15 +60,9 @@ describe('TableColumnDurationText', () => {
         await disconnect();
     });
 
-    it('should export its tag', () => {
-        expect(tableColumnDurationTextTag).toBe(
-            'nimble-table-column-duration-text'
-        );
-    });
-
     it('can construct an element instance', () => {
         expect(
-            document.createElement('nimble-table-column-duration-text')
+            document.createElement(tableColumnDurationTextTag)
         ).toBeInstanceOf(TableColumnDurationText);
     });
 
@@ -148,7 +142,8 @@ describe('TableColumnDurationText', () => {
         expect(tablePageObject.getCellTitle(0, 0)).toEqual('');
     });
 
-    it('removes title on mouseout of cell', async () => {
+    // Firefox skipped, see https://github.com/ni/nimble/issues/2490
+    it('removes title on mouseout of cell #SkipFirefox', async () => {
         table.style.width = '100px';
         await table.setData([{ field: 8607022000 }]);
         await waitForUpdatesAsync();
@@ -167,7 +162,8 @@ describe('TableColumnDurationText', () => {
         );
     });
 
-    it('updates displayed date when lang token changes', async () => {
+    // Firefox skipped, see https://github.com/ni/nimble/issues/2490
+    it('updates displayed date when lang token changes #SkipFirefox', async () => {
         await table.setData([{ field: 8607022000 }]);
         await waitForUpdatesAsync();
         expect(tablePageObject.getRenderedCellTextContent(0, 0)).toBe(

@@ -14,17 +14,17 @@ This is a fairly straightforward execution of our custom column type pattern. Th
 
 If a table record is missing a href value a text span will be rendered rather than a link.
 
--   _Element name_: `nimble-table-column-anchor`
--   _Attributes/properties_:
-    -   `labelFieldName`
-    -   `hrefFieldName`
-    -   `hreflang`
-    -   `ping`
-    -   `referrerpolicy`
-    -   `rel`
-    -   `target`
-    -   `type`
-    -   `download`
+- _Element name_: `nimble-table-column-anchor`
+- _Attributes/properties_:
+    - `labelFieldName`
+    - `hrefFieldName`
+    - `hreflang`
+    - `ping`
+    - `referrerpolicy`
+    - `rel`
+    - `target`
+    - `type`
+    - `download`
 
 ### Cell Template
 
@@ -66,6 +66,8 @@ The column will be sorted and grouped by the label value. It would be unexpected
 
 When grouped, the header item should not be a link.
 
+The column will also support having a custom sort order, as detailed in the [Custom Sort Order HLD](../table-column-custom-sort-field-hld.md).
+
 ### Clearing state
 
 Because the anchor in the cell can have focus, we must override `focusedRecycleCallback()` in our cell view and have it call `blur()` on our anchor. If we don't, the focus can pass to other cells as you scroll.
@@ -97,15 +99,15 @@ The real challenge of this column type is integrating with the Angular router. T
 
 Note that this implies that these configuration parameters must be the same for each link in the column:
 
--   `target`
--   `queryParams`
--   `queryParamsHandling`
--   `fragment`
--   `state`
--   `relativeTo`
--   `preserveFragment`
--   `skipLocationChange`
--   `replaceUrl`
+- `target`
+- `queryParams`
+- `queryParamsHandling`
+- `fragment`
+- `state`
+- `relativeTo`
+- `preserveFragment`
+- `skipLocationChange`
+- `replaceUrl`
 
 Normally with RouterLink directives, you assign the url to `routerLink`/`nimbleRouterLink`, but in this case, the url is coming from the table data. `nimbleRouterLink` just has to be present for the directive to be applied.
 

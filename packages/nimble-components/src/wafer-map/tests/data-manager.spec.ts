@@ -1,23 +1,19 @@
-import { html } from '@microsoft/fast-element';
+import { html } from '@ni/fast-element';
 
-import { fixture, Fixture } from '../../utilities/tests/fixture';
+import { fixture, type Fixture } from '../../utilities/tests/fixture';
 import { processUpdates } from '../../testing/async-helpers';
 import type { DataManager } from '../modules/data-manager';
-import type { WaferMap } from '..';
-import {
-    Dimensions,
-    Margin,
-    WaferMapColorScaleMode,
-    WaferMapOriginLocation
-} from '../types';
+import { waferMapTag, type WaferMap } from '..';
+import { WaferMapColorScaleMode, WaferMapOriginLocation } from '../types';
 import {
     getColorScale,
     getHighlightedTags,
     getWaferMapDies
 } from './utilities';
+import type { Dimensions, Margin } from '../workers/types';
 
 async function setup(): Promise<Fixture<WaferMap>> {
-    return fixture<WaferMap>(html`<nimble-wafer-map></nimble-wafer-map>`);
+    return await fixture<WaferMap>(html`<${waferMapTag}></${waferMapTag}>`);
 }
 
 describe('Wafermap Data Manager', () => {

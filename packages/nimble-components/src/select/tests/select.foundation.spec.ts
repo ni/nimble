@@ -1,28 +1,21 @@
-// Based on tests in FAST repo: https://github.com/microsoft/fast/blob/085cb27d348ed6f59d080c167fa62aeaa1e3940e/packages/web-components/fast-foundation/src/select/select.spec.ts
+/**
+ * Based on tests in FAST repo: https://github.com/microsoft/fast/blob/085cb27d348ed6f59d080c167fa62aeaa1e3940e/packages/web-components/fast-foundation/src/select/select.spec.ts
+ * One notable change to the tests is that we no longer expect the selectedIndex to change for the Select as the user
+ * navigates the dropdown menu. As as result, some test names, and the relevant expect assertions have changed.
+ */
 import {
     keyArrowDown,
     keyArrowUp,
     keyEnd,
     keyHome
-} from '@microsoft/fast-web-utilities';
+} from '@ni/fast-web-utilities';
 import { Select } from '..';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import { fixture } from '../../utilities/tests/fixture';
 import { template } from '../template';
-import { ListOption } from '../../list-option';
+import { ListOption, listOptionTag } from '../../list-option';
 import { template as listOptionTemplate } from '../../list-option/template';
-
-/**
- * Timeout for use in async tets.
- */
-export async function timeout(ms = 0): Promise<void> {
-    return new Promise((resolve, _reject) => {
-        window.setTimeout(() => {
-            // eslint-disable-next-line no-void
-            resolve(void 0);
-        }, ms);
-    });
-}
+import { waitTimeout } from '../../utilities/testing/component';
 
 describe('Select', () => {
     const select = Select.compose({
@@ -50,15 +43,15 @@ describe('Select', () => {
             option()
         ]);
 
-        const option1 = document.createElement('nimble-list-option');
+        const option1 = document.createElement(listOptionTag);
         option1.value = 'one';
         option1.textContent = 'option one';
 
-        const option2 = document.createElement('nimble-list-option');
+        const option2 = document.createElement(listOptionTag);
         option2.value = 'two';
         option2.textContent = 'option two';
 
-        const option3 = document.createElement('nimble-list-option');
+        const option3 = document.createElement(listOptionTag);
         option3.value = 'three';
         option3.textContent = 'option three';
 
@@ -138,9 +131,7 @@ describe('Select', () => {
     });
 
     it('should set its value to the first enabled option', async () => {
-        const {
-            element, connect, disconnect, option1, option2, option3
-        } = await setup();
+        const { element, connect, disconnect, option1, option2, option3 } = await setup();
 
         await connect();
 
@@ -155,9 +146,7 @@ describe('Select', () => {
     });
 
     it('should set its value to the first enabled option when disabled', async () => {
-        const {
-            element, connect, disconnect, option1, option2, option3
-        } = await setup();
+        const { element, connect, disconnect, option1, option2, option3 } = await setup();
         element.disabled = true;
 
         await connect();
@@ -173,9 +162,7 @@ describe('Select', () => {
     });
 
     it('should select the first option with a `selected` attribute', async () => {
-        const {
-            element, connect, disconnect, option1, option2, option3
-        } = await setup();
+        const { element, connect, disconnect, option1, option2, option3 } = await setup();
 
         option2.setAttribute('selected', '');
 
@@ -192,9 +179,7 @@ describe('Select', () => {
     });
 
     it('should select the first option with a `selected` attribute when disabled', async () => {
-        const {
-            element, connect, disconnect, option1, option2, option3
-        } = await setup();
+        const { element, connect, disconnect, option1, option2, option3 } = await setup();
         element.disabled = true;
 
         option2.setAttribute('selected', '');
@@ -298,7 +283,7 @@ describe('Select', () => {
         await disconnect();
     });
 
-    describe("should NOT emit a 'change' event when the value changes by user input while open", () => {
+    describe("should NOT emit a 'change' event while open", () => {
         it('via arrow down key', async () => {
             const { element, connect, disconnect } = await setup();
 
@@ -322,7 +307,7 @@ describe('Select', () => {
 
             expect(wasChanged).toBeFalse();
 
-            expect(element.value).toEqual('two');
+            expect(element.value).toEqual('one');
 
             await disconnect();
         });
@@ -354,7 +339,7 @@ describe('Select', () => {
 
             expect(wasChanged).toBeFalse();
 
-            expect(element.value).toEqual('one');
+            expect(element.value).toEqual('two');
 
             await disconnect();
         });
@@ -412,13 +397,13 @@ describe('Select', () => {
 
             expect(wasChanged).toBeFalse();
 
-            expect(element.value).toEqual('three');
+            expect(element.value).toEqual('one');
 
             await disconnect();
         });
     });
 
-    describe("should NOT emit an 'input' event when the value changes by user input while open", () => {
+    describe("should NOT emit an 'input' event while open", () => {
         it('via arrow down key', async () => {
             const { element, connect, disconnect } = await setup();
 
@@ -437,12 +422,12 @@ describe('Select', () => {
                     element.addEventListener('input', () => resolve(true));
                     element.dispatchEvent(event);
                 }),
-                timeout().then(() => false)
+                waitTimeout().then(() => false)
             ]);
 
             expect(wasInput).toBeFalse();
 
-            expect(element.value).toEqual('two');
+            expect(element.value).toEqual('one');
 
             await disconnect();
         });
@@ -469,12 +454,12 @@ describe('Select', () => {
                     element.addEventListener('input', () => resolve(true));
                     element.dispatchEvent(event);
                 }),
-                timeout().then(() => false)
+                waitTimeout().then(() => false)
             ]);
 
             expect(wasInput).toBeFalse();
 
-            expect(element.value).toEqual('one');
+            expect(element.value).toEqual('two');
 
             await disconnect();
         });
@@ -497,7 +482,7 @@ describe('Select', () => {
                     element.addEventListener('input', () => resolve(true));
                     element.dispatchEvent(event);
                 }),
-                timeout().then(() => false)
+                waitTimeout().then(() => false)
             ]);
 
             expect(wasInput).toBeFalse();
@@ -527,12 +512,12 @@ describe('Select', () => {
                     element.addEventListener('input', () => resolve(true));
                     element.dispatchEvent(event);
                 }),
-                timeout().then(() => false)
+                waitTimeout().then(() => false)
             ]);
 
             expect(wasInput).toBeFalse();
 
-            expect(element.value).toEqual('three');
+            expect(element.value).toEqual('one');
 
             await disconnect();
         });
@@ -687,7 +672,7 @@ describe('Select', () => {
                         );
                         element.dispatchEvent(arrowUpEvent);
                     }),
-                    timeout().then(() => false)
+                    waitTimeout().then(() => false)
                 ])
             ).toBeTrue();
 
@@ -703,7 +688,7 @@ describe('Select', () => {
                         );
                         element.dispatchEvent(arrowDownEvent);
                     }),
-                    timeout().then(() => false)
+                    waitTimeout().then(() => false)
                 ])
             ).toBeTrue();
 
@@ -734,7 +719,7 @@ describe('Select', () => {
                     element.addEventListener('input', () => resolve(true));
                     element.dispatchEvent(event);
                 }),
-                timeout().then(() => false)
+                waitTimeout().then(() => false)
             ]);
 
             expect(wasInput).toBeTrue();
@@ -764,7 +749,7 @@ describe('Select', () => {
                     element.addEventListener('input', () => resolve(true));
                     element.dispatchEvent(event);
                 }),
-                timeout().then(() => false)
+                waitTimeout().then(() => false)
             ]);
 
             expect(wasInput).toBeTrue();
@@ -794,7 +779,7 @@ describe('Select', () => {
                     element.addEventListener('input', () => resolve(true));
                     element.dispatchEvent(event);
                 }),
-                timeout().then(() => false)
+                waitTimeout().then(() => false)
             ]);
 
             expect(wasInput).toBeTrue();
@@ -820,7 +805,7 @@ describe('Select', () => {
                     element.addEventListener('input', () => resolve(true));
                     element.dispatchEvent(event);
                 }),
-                timeout().then(() => false)
+                waitTimeout().then(() => false)
             ]);
 
             expect(wasInput).toBeTrue();
@@ -910,9 +895,7 @@ describe('Select', () => {
     });
 
     it('should set the `aria-activedescendant` attribute to the ID of the currently selected option', async () => {
-        const {
-            connect, disconnect, element, option1, option2, option3
-        } = await setup();
+        const { connect, disconnect, element, option1, option2, option3 } = await setup();
 
         await connect();
 

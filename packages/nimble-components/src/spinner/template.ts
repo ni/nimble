@@ -1,4 +1,4 @@
-import { html } from '@microsoft/fast-element';
+import { html } from '@ni/fast-element';
 import type { Spinner } from '.';
 
 /* eslint-disable @typescript-eslint/indent */
@@ -20,3 +20,4 @@ export const template = html<Spinner>`
         </div>
     </template>
 `;
+/* eslint-enable @typescript-eslint/indent */

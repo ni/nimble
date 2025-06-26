@@ -1,11 +1,11 @@
-import { html } from '@microsoft/fast-element';
-import { keyEnter, keySpace } from '@microsoft/fast-web-utilities';
-import { fixture, Fixture } from '../../utilities/tests/fixture';
+import { html } from '@ni/fast-element';
+import { keyEnter, keySpace } from '@ni/fast-web-utilities';
+import { fixture, type Fixture } from '../../utilities/tests/fixture';
 import { Switch, switchTag } from '..';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 
 async function setup(): Promise<Fixture<Switch>> {
-    return fixture<Switch>(html`<nimble-switch></nimble-switch>`);
+    return await fixture<Switch>(html`<${switchTag}></${switchTag}>`);
 }
 
 describe('Switch', () => {
@@ -22,12 +22,8 @@ describe('Switch', () => {
         await disconnect();
     });
 
-    it('should export its tag', () => {
-        expect(switchTag).toBe('nimble-switch');
-    });
-
     it('can construct an element instance', () => {
-        expect(document.createElement('nimble-switch')).toBeInstanceOf(Switch);
+        expect(document.createElement(switchTag)).toBeInstanceOf(Switch);
     });
 
     it('should have a role of `switch`', async () => {

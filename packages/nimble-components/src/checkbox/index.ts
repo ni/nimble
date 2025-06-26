@@ -1,11 +1,13 @@
+import { attr, nullableNumberConverter } from '@ni/fast-element';
 import {
     DesignSystem,
     Checkbox as FoundationCheckbox,
-    CheckboxOptions,
-    checkboxTemplate as template
-} from '@microsoft/fast-foundation';
+    type CheckboxOptions
+} from '@ni/fast-foundation';
 import { check16X16, minus16X16 } from '@ni/nimble-tokens/dist/icons/js';
 import { styles } from './styles';
+import { template } from './template';
+import { mixinErrorPattern } from '../patterns/error/types';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -16,7 +18,23 @@ declare global {
 /**
  * A nimble-styled checkbox control.
  */
-export class Checkbox extends FoundationCheckbox {}
+export class Checkbox extends mixinErrorPattern(FoundationCheckbox) {
+    /**
+     * @public
+     * @remarks
+     * HTML Attribute: tabindex
+     */
+    @attr({ attribute: 'tabindex', converter: nullableNumberConverter })
+    public override tabIndex!: number;
+
+    /**
+     * @internal
+     */
+    public get resolvedTabindex(): string | undefined {
+        const tabIndex = this.tabIndex ?? 0;
+        return this.disabled ? undefined : `${tabIndex}`;
+    }
+}
 
 const nimbleCheckbox = Checkbox.compose<CheckboxOptions>({
     baseName: 'checkbox',

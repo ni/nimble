@@ -1,5 +1,3 @@
-/* eslint-disable max-classes-per-file */
-
 import {
     FASTElement,
     html,
@@ -7,9 +5,9 @@ import {
     css,
     ref,
     ElementStyles,
-    Behavior,
+    type Behavior,
     attr
-} from '@microsoft/fast-element';
+} from '@ni/fast-element';
 import { uniqueElementName, fixture } from '../../tests/fixture';
 import type { Fixture } from '../../tests/fixture';
 import { TestAppearance } from './types';
@@ -150,7 +148,7 @@ describe('The MultivaluePropertyStyleSheetBehavior', () => {
                 </div>
             `;
 
-            return fixture(fixtureTemplate, {
+            return await fixture(fixtureTemplate, {
                 source: appearanceController
             });
         };
@@ -294,7 +292,7 @@ describe('The MultivaluePropertyStyleSheetBehavior', () => {
                 </div>
             `;
 
-            return fixture(fixtureTemplate, {
+            return await fixture(fixtureTemplate, {
                 source: appearanceController
             });
         };

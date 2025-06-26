@@ -1,4 +1,4 @@
-import { DesignSystem } from '@microsoft/fast-foundation';
+import { DesignSystem } from '@ni/fast-foundation';
 import { template } from '../../text-base/cell-view/template';
 import type {
     TableColumnNumberTextCellRecord,
@@ -6,7 +6,7 @@ import type {
 } from '..';
 import { styles } from '../../text-base/cell-view/styles';
 import { TableColumnTextCellViewBase } from '../../text-base/cell-view';
-import { TextCellViewBaseAlignment } from '../../text-base/cell-view/types';
+import { TableColumnAlignment } from '../../../table/types';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -23,7 +23,7 @@ TableColumnNumberTextColumnConfig
 > {
     protected override columnConfigChanged(): void {
         super.columnConfigChanged();
-        this.alignment = this.columnConfig?.alignment ?? TextCellViewBaseAlignment.left;
+        this.alignment = this.columnConfig?.alignment ?? TableColumnAlignment.left;
     }
 
     protected updateText(): void {

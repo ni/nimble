@@ -2,13 +2,8 @@ import type { ScaleBand, ScaleQuantile } from 'd3-scale';
 import { Computations } from './computations';
 import { Prerendering } from './prerendering';
 import type { WaferMap } from '..';
-import type {
-    Dimensions,
-    Margin,
-    DieRenderInfo,
-    WaferMapDie,
-    PointCoordinates
-} from '../types';
+import type { DieRenderInfo, WaferMapDie, PointCoordinates } from '../types';
+import type { Dimensions, Margin } from '../workers/types';
 
 /**
  * Data Manager uses Computations and Prerendering modules in order and exposes the results

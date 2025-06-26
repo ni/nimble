@@ -1,10 +1,8 @@
 import commonJS from '@rollup/plugin-commonjs';
 import resolve from '@rollup/plugin-node-resolve';
-import sourcemaps from 'rollup-plugin-sourcemaps';
+import sourcemaps from 'rollup-plugin-sourcemaps2';
 import terser from '@rollup/plugin-terser';
 import replace from '@rollup/plugin-replace';
-import json from '@rollup/plugin-json';
-import nodePolyfills from 'rollup-plugin-polyfill-node';
 
 const umdDevelopmentPlugin = () => replace({
     'process.env.NODE_ENV': JSON.stringify('development'),
@@ -52,14 +50,7 @@ export default [
             format: 'iife',
             sourcemap: true
         },
-        plugins: [
-            umdDevelopmentPlugin(),
-            nodePolyfills(),
-            sourcemaps(),
-            resolve(),
-            commonJS(),
-            json()
-        ],
+        plugins: [umdDevelopmentPlugin(), sourcemaps(), resolve(), commonJS()],
         onwarn
     },
     {
@@ -76,14 +67,7 @@ export default [
                 })
             ]
         },
-        plugins: [
-            umdProductionPlugin(),
-            nodePolyfills(),
-            sourcemaps(),
-            resolve(),
-            commonJS(),
-            json()
-        ],
+        plugins: [umdProductionPlugin(), sourcemaps(), resolve(), commonJS()],
         onwarn
     }
 ];

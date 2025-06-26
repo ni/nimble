@@ -1,0 +1,33 @@
+﻿@namespace NimbleBlazor
+@inherits NimbleTableColumn
+
+<nimble-table-column-anchor
+    label-field-name="@LabelFieldName"
+    href-field-name="@HrefFieldName"
+    placeholder="@Placeholder"
+    appearance="@Appearance.ToAttributeValue()"
+    underline-hidden="@UnderlineHidden"
+    hreflang="@HrefLang"
+    ping="@Ping"
+    referrerpolicy="@ReferrerPolicy"
+    rel="@Rel"
+    target="@Target"
+    type="@Type"
+    download="@Download"
+    column-id="@ColumnId"
+    action-menu-slot="@ActionMenuSlot"
+    action-menu-label="@ActionMenuLabel"
+    column-hidden="@ColumnHidden"
+    fractional-width="@FractionalWidth"
+    min-pixel-width="@MinPixelWidth"
+    sort-direction="@SortDirection.ToAttributeValue()"
+    sort-index="@SortIndex"
+    sorting-disabled="@SortingDisabled"
+    sort-by-field-name="@SortByFieldName"
+    group-index="@GroupIndex"
+    grouping-disabled="@GroupingDisabled"
+    @attributes="AdditionalAttributes"
+>
+    @ChildContent
+</nimble-table-column-anchor>
+

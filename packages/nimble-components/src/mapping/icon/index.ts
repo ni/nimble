@@ -1,10 +1,11 @@
-import { attr, observable } from '@microsoft/fast-element';
-import { DesignSystem } from '@microsoft/fast-foundation';
+import { attr, observable } from '@ni/fast-element';
+import { DesignSystem } from '@ni/fast-foundation';
 import { Mapping } from '../base';
 import { template } from '../base/template';
 import type { IconSeverity } from '../../icon-base/types';
 import { Icon } from '../../icon-base';
 import type { MappingKey } from '../base/types';
+import { styles } from '../base/styles';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -18,7 +19,7 @@ function isIconClass(elementClass: CustomElementConstructor): boolean {
 
 /**
  * Maps a data value to an icon.
- * One or more may be added as children of a nimble-table-column-icon element to define
+ * One or more may be added as children of a nimble-table-column-mapping element to define
  * how specific data values should be displayed as icons in that column's cells.
  */
 export class MappingIcon extends Mapping<MappingKey> {
@@ -83,7 +84,8 @@ export class MappingIcon extends Mapping<MappingKey> {
 
 const iconMapping = MappingIcon.compose({
     baseName: 'mapping-icon',
-    template
+    template,
+    styles
 });
 DesignSystem.getOrCreate().withPrefix('nimble').register(iconMapping());
 export const mappingIconTag = 'nimble-mapping-icon';

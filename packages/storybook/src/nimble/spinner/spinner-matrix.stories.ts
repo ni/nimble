@@ -1,5 +1,5 @@
 import type { StoryFn, Meta } from '@storybook/html';
-import { html, ViewTemplate } from '@microsoft/fast-element';
+import { html, ViewTemplate } from '@ni/fast-element';
 import {
     bodyFontColor,
     spinnerLargeHeight,
@@ -56,10 +56,10 @@ const component = (
     </${spinnerTag}>
 `;
 
-export const spinnerThemeMatrix: StoryFn = createMatrixThemeStory(
+export const themeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(component, [sizeStates, appearanceStates])
 );
 
-export const hiddenSpinner: StoryFn = createStory(
+export const hidden: StoryFn = createStory(
     hiddenWrapper(html`<${spinnerTag} hidden></${spinnerTag}>`)
 );

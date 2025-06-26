@@ -1,12 +1,13 @@
-import { attr, DOM, observable } from '@microsoft/fast-element';
+import { attr, DOM, observable } from '@ni/fast-element';
 import {
     DesignSystem,
     TextArea as FoundationTextArea
-} from '@microsoft/fast-foundation';
-import type { ErrorPattern } from '../patterns/error/types';
+} from '@ni/fast-foundation';
+import { mixinErrorPattern } from '../patterns/error/types';
 import { styles } from './styles';
 import { template } from './template';
 import { TextAreaAppearance } from './types';
+import { mixinRequiredVisiblePattern } from '../patterns/required-visible/types';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -17,7 +18,9 @@ declare global {
 /**
  * A nimble-styed HTML text area
  */
-export class TextArea extends FoundationTextArea implements ErrorPattern {
+export class TextArea extends mixinErrorPattern(
+    mixinRequiredVisiblePattern(FoundationTextArea)
+) {
     /**
      * The appearance the text area should have.
      *
@@ -28,25 +31,8 @@ export class TextArea extends FoundationTextArea implements ErrorPattern {
     @attr
     public appearance: TextAreaAppearance = TextAreaAppearance.outline;
 
-    /**
-     * A message explaining why the value is invalid.
-     *
-     * @public
-     * @remarks
-     * HTML Attribute: error-text
-     */
-    @attr({ attribute: 'error-text' })
-    public errorText?: string;
-
-    /**
-     * Whether to display the error state.
-     *
-     * @public
-     * @remarks
-     * HTML Attribute: error-visible
-     */
-    @attr({ attribute: 'error-visible', mode: 'boolean' })
-    public errorVisible = false;
+    @attr({ attribute: 'appearance-readonly', mode: 'boolean' })
+    public appearanceReadOnly = false;
 
     /**
      * The width of the vertical scrollbar, if displayed.

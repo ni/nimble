@@ -1,5 +1,5 @@
 import type { StoryFn, Meta } from '@storybook/html';
-import { html, ViewTemplate } from '@microsoft/fast-element';
+import { html, ViewTemplate } from '@ni/fast-element';
 import { breadcrumbItemTag } from '@ni/nimble-components/dist/esm/breadcrumb-item';
 import { breadcrumbTag } from '@ni/nimble-components/dist/esm/breadcrumb';
 import { BreadcrumbAppearance } from '@ni/nimble-components/dist/esm/breadcrumb/types';
@@ -7,10 +7,13 @@ import { createStory } from '../../utilities/storybook';
 import {
     createMatrixThemeStory,
     createMatrix,
-    sharedMatrixParameters
+    sharedMatrixParameters,
+    cartesianProduct,
+    createMatrixInteractionsFromStates
 } from '../../utilities/matrix';
 import { hiddenWrapper } from '../../utilities/hidden';
 import { textCustomizationWrapper } from '../../utilities/text-customization';
+import { type DisabledState, disabledStates } from '../../utilities/states';
 
 const appearanceStates = [
     ['Default', BreadcrumbAppearance.default],
@@ -27,25 +30,39 @@ const metadata: Meta = {
 
 export default metadata;
 
-const component = ([
-    appearanceName,
-    appearance
-]: AppearanceState): ViewTemplate => html`
+const component = (
+    [appearanceName, appearance]: AppearanceState,
+    [disabledName, disabled]: DisabledState
+): ViewTemplate => html`
     <${breadcrumbTag}
         appearance="${() => appearance}"
         style="margin-right: 24px"
     >
-        <${breadcrumbItemTag} href="${parent.location.href}">
-            ${() => `Breadcrumb (${appearanceName}) - Link`}
+        <${breadcrumbItemTag} ${disabled ? '' : 'href="parent.location.href"'}>
+            ${() => `${disabledName} Breadcrumb (${appearanceName}) - Link`}
         </${breadcrumbItemTag}>
         <${breadcrumbItemTag}>Current (No Link)</${breadcrumbItemTag}>
     </${breadcrumbTag}>
 `;
-export const breadcrumbThemeMatrix: StoryFn = createMatrixThemeStory(
-    createMatrix(component, [appearanceStates])
+export const themeMatrix: StoryFn = createMatrixThemeStory(
+    createMatrix(component, [appearanceStates, disabledStates])
 );
 
-export const hiddenBreadcrumb: StoryFn = createStory(
+const interactionStates = cartesianProduct([
+    appearanceStates,
+    disabledStates
+] as const);
+
+export const interactionsThemeMatrix: StoryFn = createMatrixThemeStory(
+    createMatrixInteractionsFromStates(component, {
+        hover: interactionStates,
+        hoverActive: interactionStates,
+        active: [],
+        focus: interactionStates
+    })
+);
+
+export const hidden: StoryFn = createStory(
     hiddenWrapper(
         html`<${breadcrumbTag} hidden>
             <${breadcrumbItemTag} href="#">Item 1</${breadcrumbItemTag}>
@@ -56,6 +73,6 @@ export const hiddenBreadcrumb: StoryFn = createStory(
 
 export const textCustomized: StoryFn = createMatrixThemeStory(
     textCustomizationWrapper(
-        html`<${breadcrumbItemTag}>Breadcrumb item</${breadcrumbItemTag}>`
+        html`<${breadcrumbItemTag} href="#">Breadcrumb item</${breadcrumbItemTag}>`
     )
 );

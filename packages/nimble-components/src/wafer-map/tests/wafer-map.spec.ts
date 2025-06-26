@@ -1,6 +1,7 @@
-import { html } from '@microsoft/fast-element';
+import { html } from '@ni/fast-element';
 import { Table, tableFromArrays } from 'apache-arrow';
-import { WaferMap } from '..';
+import type { Remote } from 'comlink';
+import { WaferMap, waferMapTag } from '..';
 import {
     processUpdates,
     waitForUpdatesAsync
@@ -11,9 +12,10 @@ import {
     WaferMapOrientation,
     WaferMapOriginLocation
 } from '../types';
+import type { MatrixRenderer } from '../workers/matrix-renderer';
 
 async function setup(): Promise<Fixture<WaferMap>> {
-    return fixture<WaferMap>(html`<nimble-wafer-map></nimble-wafer-map>`);
+    return await fixture<WaferMap>(html`<${waferMapTag}></${waferMapTag}>`);
 }
 describe('WaferMap', () => {
     let element: WaferMap;
@@ -30,12 +32,10 @@ describe('WaferMap', () => {
     });
 
     it('can construct an element instance', () => {
-        expect(document.createElement('nimble-wafer-map')).toBeInstanceOf(
-            WaferMap
-        );
+        expect(document.createElement(waferMapTag)).toBeInstanceOf(WaferMap);
     });
 
-    describe('update flow', () => {
+    describe('update action', () => {
         let spy: jasmine.Spy;
         beforeEach(() => {
             spy = spyOn(element, 'update');
@@ -116,7 +116,62 @@ describe('WaferMap', () => {
         });
     });
 
-    describe('worker renderer draw flow', () => {
+    describe('worker renderer draw wafer action', () => {
+        let matrixRendererSpy: jasmine.SpyObj<Remote<MatrixRenderer>>;
+        let setupWaferSpy: jasmine.Spy;
+        beforeEach(() => {
+            setupWaferSpy = spyOn(
+                element.workerRenderer,
+                'setupWafer'
+            ).and.returnValue(Promise.resolve());
+            matrixRendererSpy = jasmine.createSpyObj<Remote<MatrixRenderer>>(
+                'Remote',
+                ['setTransformConfig', 'drawWafer', 'drawText']
+            );
+            matrixRendererSpy.setTransformConfig.and.returnValue(
+                Promise.resolve()
+            );
+            matrixRendererSpy.drawWafer.and.returnValue(Promise.resolve());
+            matrixRendererSpy.drawText.and.returnValue(Promise.resolve());
+            element.workerRenderer.matrixRenderer = matrixRendererSpy;
+        });
+
+        it('will call setupWafer and drawWafer but not drawText when labels are hidden', async () => {
+            element.dieLabelsHidden = true;
+            element.canvasWidth = 500;
+            element.canvasHeight = 500;
+            element.diesTable = tableFromArrays({
+                colIndex: Int32Array.from([]),
+                rowIndex: Int32Array.from([]),
+                value: Float64Array.from([])
+            });
+            await waitForUpdatesAsync();
+            await element.currentTask;
+            expect(element.validity.invalidDiesTableSchema).toBeFalse();
+            expect(setupWaferSpy).toHaveBeenCalledTimes(1);
+            expect(matrixRendererSpy.drawWafer).toHaveBeenCalledTimes(1);
+            expect(matrixRendererSpy.drawText).toHaveBeenCalledTimes(0);
+        });
+
+        it('will call setupWafer, drawWafer and drawText when labels are not hidden', async () => {
+            element.dieLabelsHidden = false;
+            element.canvasWidth = 500;
+            element.canvasHeight = 500;
+            element.diesTable = tableFromArrays({
+                colIndex: Int32Array.from([1]),
+                rowIndex: Int32Array.from([1]),
+                value: Float64Array.from([1])
+            });
+            await waitForUpdatesAsync();
+            await element.currentTask;
+            expect(element.validity.invalidDiesTableSchema).toBeFalse();
+            expect(setupWaferSpy).toHaveBeenCalledTimes(1);
+            expect(matrixRendererSpy.drawWafer).toHaveBeenCalledTimes(1);
+            expect(matrixRendererSpy.drawText).toHaveBeenCalledTimes(1);
+        });
+    });
+
+    describe('worker renderer draw action', () => {
         let setupWaferSpy: jasmine.Spy;
         let drawWaferSpy: jasmine.Spy;
         beforeEach(() => {
@@ -130,7 +185,8 @@ describe('WaferMap', () => {
             ).and.returnValue(Promise.resolve());
         });
 
-        it('will call setupWafer and drawWafer after supported diesTable change', async () => {
+        // OffscreenCanvas not supported in Playwright's Windows/Linux Webkit build: https://github.com/ni/nimble/issues/2169
+        it('will call setupWafer and drawWafer after supported diesTable change #SkipWebkit', async () => {
             element.diesTable = tableFromArrays({
                 colIndex: Int32Array.from([]),
                 rowIndex: Int32Array.from([]),
@@ -151,7 +207,8 @@ describe('WaferMap', () => {
         });
     });
 
-    describe('worker renderer flow', () => {
+    // OffscreenCanvas not supported in Playwright's Windows/Linux Webkit build: https://github.com/ni/nimble/issues/2169
+    describe('worker renderer action #SkipWebkit', () => {
         let renderHoverSpy: jasmine.Spy;
         let experimentalUpdateSpy: jasmine.Spy;
 
@@ -194,7 +251,7 @@ describe('WaferMap', () => {
         });
     });
 
-    describe('zoom flow', () => {
+    describe('zoom action', () => {
         let initialValue: string | undefined;
 
         beforeEach(() => {
@@ -207,7 +264,8 @@ describe('WaferMap', () => {
             expect(initialValue).toBe('translate(0,0) scale(1)');
         });
 
-        it('can still zoom after canvas height was changed', () => {
+        // Some browsers skipped, see: https://github.com/ni/nimble/issues/1936
+        it('can still zoom after canvas height was changed #SkipWebkit', () => {
             element.canvasHeight = 250;
             processUpdates();
             element.dispatchEvent(
@@ -217,7 +275,8 @@ describe('WaferMap', () => {
             expect(zoomedValue).toBe('translate(0,0) scale(4)');
         });
 
-        it('can still zoom after canvas width was changed', () => {
+        // Some browsers skipped, see: https://github.com/ni/nimble/issues/1936
+        it('can still zoom after canvas width was changed #SkipWebkit', () => {
             element.canvasWidth = 250;
             processUpdates();
             element.dispatchEvent(
@@ -268,7 +327,7 @@ describe('WaferMap', () => {
         return element.transform.toString();
     }
 
-    describe('hover flow', () => {
+    describe('hover action', () => {
         beforeEach(async () => {
             element.canvasWidth = 500;
             element.canvasHeight = 500;
@@ -319,6 +378,19 @@ describe('WaferMap', () => {
             );
             await waitForUpdatesAsync();
             expect(element.hoverTransform).not.toEqual(initialTransform);
+        });
+    });
+
+    describe('hover action with no canvas dimensions', () => {
+        beforeEach(async () => {
+            element.dies = [{ x: 1, y: 1, value: '1' }];
+            element.colorScale = { colors: ['red', 'red'], values: ['1', '1'] };
+            await waitForUpdatesAsync();
+        });
+
+        it('will have hover rectangle with numeric dimensions', () => {
+            expect(element.hoverHeight).not.toBeNaN();
+            expect(element.hoverWidth).not.toBeNaN();
         });
     });
 });

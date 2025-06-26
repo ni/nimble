@@ -1,16 +1,25 @@
-import { type ViewTemplate, html, ref, slotted } from '@microsoft/fast-element';
+import { type ViewTemplate, html, ref, slotted, when } from '@ni/fast-element';
 import {
     type FoundationElementTemplate,
     type ComboboxOptions,
     startSlotTemplate,
     endSlotTemplate,
     Listbox
-} from '@microsoft/fast-foundation';
+} from '@ni/fast-foundation';
 import type { Combobox } from '.';
 import { anchoredRegionTag } from '../anchored-region';
 import { DropdownPosition } from '../patterns/dropdown/types';
 import { overflow } from '../utilities/directive/overflow';
+import { filterNoResultsLabel } from '../label-provider/core/label-tokens';
+import { createRequiredVisibleLabelTemplate } from '../patterns/required-visible/template';
 
+const labelTemplate = createRequiredVisibleLabelTemplate(html<Combobox>`
+    <label part="label" class="label">
+        <slot></slot>
+    </label>
+`);
+
+/* eslint-disable @typescript-eslint/indent */
 // prettier-ignore
 export const template: FoundationElementTemplate<
 ViewTemplate<Combobox>,
@@ -26,6 +35,7 @@ ComboboxOptions
         @focusout="${(x, c) => x.focusoutHandler(c.event as FocusEvent)}"
         @keydown="${(x, c) => x.keydownHandler(c.event as KeyboardEvent)}"
     >
+        ${labelTemplate}
         <div class="control" part="control" ${ref('controlWrapper')}>
             ${startSlotTemplate(context, definition)}
             <slot name="control">
@@ -35,6 +45,7 @@ ComboboxOptions
                     aria-controls="${x => x.ariaControls}"
                     aria-disabled="${x => x.ariaDisabled}"
                     aria-expanded="${x => x.ariaExpanded}"
+                    aria-required="${x => x.requiredVisible}"
                     aria-haspopup="listbox"
                     class="selected-value"
                     part="selected-value"
@@ -69,20 +80,30 @@ ComboboxOptions
             horizontal-scaling="anchor"
             ?hidden="${x => !x.open}">
             <div
-                class="listbox"
+                class="
+                    listbox
+                    scrollable-region
+                    ${x => (x.filteredOptions.length === 0 ? 'empty' : '')}
+                "
                 id="${x => x.listboxId}"
                 part="listbox"
                 role="listbox"
                 ?disabled="${x => x.disabled}"
+                style="--ni-private-listbox-available-viewport-height: ${x => x.availableViewportHeight}px;"
                 ${ref('listbox')}
             >
-                <slot
+                <slot name="option"
                     ${slotted({
-        filter: (n: Node) => n instanceof HTMLElement && Listbox.slottedOptionFilter(n),
-        flatten: true,
-        property: 'slottedOptions',
-    })}
+                        filter: (n: Node) => n instanceof HTMLElement && Listbox.slottedOptionFilter(n),
+                        flatten: true,
+                        property: 'slottedOptions',
+                    })}
                 ></slot>
+                ${when(x => x.filteredOptions.length === 0, html<Combobox>`
+                    <span class="no-results-label">
+                        ${x => filterNoResultsLabel.getValueFor(x)}
+                    </span>
+                `)}
             </div>
         </${anchoredRegionTag}>
     </template>

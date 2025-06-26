@@ -1,5 +1,5 @@
 import type { StoryFn, Meta } from '@storybook/html';
-import { html, ViewTemplate } from '@microsoft/fast-element';
+import { html, ViewTemplate } from '@ni/fast-element';
 import { menuTag } from '@ni/nimble-components/dist/esm/menu';
 import { menuItemTag } from '@ni/nimble-components/dist/esm/menu-item';
 import { menuButtonTag } from '@ni/nimble-components/dist/esm/menu-button';
@@ -48,29 +48,29 @@ if (remaining.length > 0) {
     throw new Error('New backgrounds need to be supported');
 }
 
-export const menuButtonBelowOpenLightThemeWhiteBackground: StoryFn = createFixedThemeStory(
+export const lightTheme$OpenBelow: StoryFn = createFixedThemeStory(
     component(positionStates[0]),
     lightThemeWhiteBackground
 );
-export const menuButtonAboveOpenLightThemeWhiteBackground: StoryFn = createFixedThemeStory(
+export const lightTheme$OpenAbove: StoryFn = createFixedThemeStory(
     component(positionStates[1]),
     lightThemeWhiteBackground
 );
 
-export const menuButtonBelowOpenColorThemeDarkGreenBackground: StoryFn = createFixedThemeStory(
+export const colorTheme$OpenBelow: StoryFn = createFixedThemeStory(
     component(positionStates[0]),
     colorThemeDarkGreenBackground
 );
-export const menuButtonAboveOpenColorThemeDarkGreenBackground: StoryFn = createFixedThemeStory(
+export const colorTheme$OpenAbove: StoryFn = createFixedThemeStory(
     component(positionStates[1]),
     colorThemeDarkGreenBackground
 );
 
-export const menuButtonBelowOpenDarkThemeBlackBackground: StoryFn = createFixedThemeStory(
+export const darkTheme$OpenBelow: StoryFn = createFixedThemeStory(
     component(positionStates[0]),
     darkThemeBlackBackground
 );
-export const menuButtonAboveOpenDarkThemeBlackBackground: StoryFn = createFixedThemeStory(
+export const darkTheme$OpenAbove: StoryFn = createFixedThemeStory(
     component(positionStates[1]),
     darkThemeBlackBackground
 );

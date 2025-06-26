@@ -1,0 +1,31 @@
+@import '@ni/nimble-angular/styles/tokens';
+
+.header {
+    --example-client-header-height: 48px;
+    background-color: $ni-nimble-header-background-color;
+    display: flex;
+    justify-content: flex-end;
+    height: var(--example-client-header-height);
+    #{$ni-nimble-internal-drawer-width}: 500px;
+}
+
+.user-settings-drawer {
+    padding: $ni-nimble-standard-padding;
+    display: flex;
+    flex-direction: column;
+}
+
+.theme-select {
+    width: 150px;
+    min-width: unset;
+}
+
+.close-button {
+    align-self: flex-end;
+}
+
+.menu-container {
+    display: flex;
+    align-items: center;
+    padding-right: $ni-nimble-standard-padding;
+}

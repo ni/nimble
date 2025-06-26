@@ -3,30 +3,17 @@ module.exports = {
     parserOptions: {
         ecmaVersion: 2020
     },
-    ignorePatterns: [
-        // Force inclusion of storybook dot file hidden folder
-        '!/.storybook',
-        'node_modules',
-        'dist'
-    ],
     rules: {
-        // Enabled to prevent accidental usage of async-await
-        'require-await': 'error',
+        // This rule's configuration is based on the NI javascript styleguide:
+        // https://github.com/ni/javascript-styleguide/blob/a1a6abd7adca7d9acd002705101b351d695b2442/packages/eslint-config-javascript/index.js
+        // The only difference is that we're increasing the value of minProperties (from 6) so
+        // that eslint doesn't introduce line breaks where prettier doesn't. If eslint introduces
+        // line breaks, they will be unix-style, which will cause pointless diffs in git.
+        'object-curly-newline': ['error', {
+            ObjectExpression: { minProperties: 1000, multiline: true, consistent: true },
+            ObjectPattern: { minProperties: 1000, multiline: true, consistent: true },
+            ImportDeclaration: { consistent: true },
+            ExportDeclaration: { consistent: true }
+        }],
     },
-    overrides: [
-        {
-            files: ['.storybook/**'],
-            env: {
-                browser: true
-            },
-            rules: {
-                // Storybook files will not be in published package and are allowed to use devDependencies
-                'import/no-extraneous-dependencies': [
-                    'error',
-                    { devDependencies: true }
-                ],
-                'import/no-default-export': 'off'
-            }
-        }
-    ]
 };

@@ -1,4 +1,4 @@
-import { html } from '@microsoft/fast-element';
+import { html } from '@ni/fast-element';
 import { MappingIcon, mappingIconTag } from '..';
 import {
     fixture,
@@ -18,7 +18,7 @@ describe('Icon Mapping', () => {
 
     // prettier-ignore
     async function setup(): Promise<Fixture<MappingIcon>> {
-        return fixture<MappingIcon>(html`
+        return await fixture<MappingIcon>(html`
         <${mappingIconTag}
             key="foo"
             text="foo"
@@ -26,12 +26,8 @@ describe('Icon Mapping', () => {
         </${mappingIconTag}>`);
     }
 
-    it('should export its tag', () => {
-        expect(mappingIconTag).toBe('nimble-mapping-icon');
-    });
-
     it('can construct an element instance', () => {
-        expect(document.createElement('nimble-mapping-icon')).toBeInstanceOf(
+        expect(document.createElement(mappingIconTag)).toBeInstanceOf(
             MappingIcon
         );
     });

@@ -1,9 +1,9 @@
-import { attr } from '@microsoft/fast-element';
+import { attr, nullableNumberConverter } from '@ni/fast-element';
 import {
     DesignSystem,
     Anchor as FoundationAnchor,
-    AnchorOptions
-} from '@microsoft/fast-foundation';
+    type AnchorOptions
+} from '@ni/fast-foundation';
 import { AnchorBase } from '../anchor-base';
 import { styles } from './styles';
 import { template } from './template';
@@ -34,6 +34,14 @@ export class Anchor extends AnchorBase {
      */
     @attr
     public appearance: AnchorAppearance;
+
+    /**
+     * @public
+     * @remarks
+     * HTML Attribute: tabindex
+     */
+    @attr({ attribute: 'tabindex', converter: nullableNumberConverter })
+    public override tabIndex!: number;
 
     /**
      * @public

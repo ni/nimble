@@ -1,9 +1,9 @@
 import type { StoryFn, Meta } from '@storybook/html';
-import { html, ViewTemplate } from '@microsoft/fast-element';
+import { html, ViewTemplate } from '@ni/fast-element';
 import { iconUserTag } from '@ni/nimble-components/dist/esm/icons/user';
 import { tableColumnTextTag } from '@ni/nimble-components/dist/esm/table-column/text';
 import { tableColumnNumberTextTag } from '@ni/nimble-components/dist/esm/table-column/number-text';
-import { Table, tableTag } from '@ni/nimble-components/dist/esm/table';
+import { tableTag } from '@ni/nimble-components/dist/esm/table';
 import {
     TableRecordDelayedHierarchyState,
     TableRowSelectionMode
@@ -12,7 +12,9 @@ import { createStory } from '../../utilities/storybook';
 import {
     createMatrixThemeStory,
     createMatrix,
-    sharedMatrixParameters
+    sharedMatrixParameters,
+    cartesianProduct,
+    createMatrixInteractionsFromStates
 } from '../../utilities/matrix';
 import { hiddenWrapper } from '../../utilities/hidden';
 import { isChromatic } from '../../utilities/isChromatic';
@@ -85,8 +87,9 @@ const selectionModeStates = Object.values(TableRowSelectionMode);
 type SelectionModeState = (typeof selectionModeStates)[number];
 
 const groupedStates = [
-    ['Grouped', true],
-    ['Ungrouped', false]
+    ['Grouped', { grouped: true, groupingDisabled: false }],
+    ['Ungrouped', { grouped: false, groupingDisabled: false }],
+    ['Grouping Disabled', { grouped: false, groupingDisabled: true }]
 ] as const;
 type GroupedState = (typeof groupedStates)[number];
 
@@ -109,55 +112,78 @@ const component = (
         parent-id-field-name="${() => (hierarchyState ? 'parentId' : undefined)}"
         style="${isChromatic() ? '--ni-private-spinner-animation-play-state:paused' : ''}"
     >
-        <${tableColumnTextTag} field-name="firstName" sort-direction="ascending" sort-index="0" group-index="${() => (groupedState ? '0' : undefined)}"><${iconUserTag}></${iconUserTag}></${tableColumnTextTag}>
-        <${tableColumnTextTag} field-name="lastName">Last Name</${tableColumnTextTag}>
-        <${tableColumnNumberTextTag} field-name="age" sort-direction="descending" sort-index="1" fractional-width=".5">Age</${tableColumnNumberTextTag}>
-        <${tableColumnTextTag} field-name="quote" column-hidden>Hidden Quote</${tableColumnTextTag}>
+        <${tableColumnTextTag} field-name="firstName" sort-direction="ascending" sort-index="0" group-index="${() => (groupedState.grouped ? '0' : undefined)}" ?grouping-disabled="${() => groupedState.groupingDisabled}"><${iconUserTag}></${iconUserTag}></${tableColumnTextTag}>
+        <${tableColumnTextTag} field-name="lastName" ?grouping-disabled="${() => groupedState.groupingDisabled}">Last Name</${tableColumnTextTag}>
+        <${tableColumnNumberTextTag} field-name="age" sort-direction="descending" sort-index="1" fractional-width=".5" ?grouping-disabled="${() => groupedState.groupingDisabled}">Age</${tableColumnNumberTextTag}>
+        <${tableColumnTextTag} field-name="quote" column-hidden ?grouping-disabled="${() => groupedState.groupingDisabled}">Hidden Quote</${tableColumnTextTag}>
     </${tableTag}>
 `;
 
 const playFunction = async (): Promise<void> => {
     await Promise.all(
-        Array.from(document.querySelectorAll<Table>('nimble-table')).map(
-            async table => {
-                await table.setData(data);
-                await table.setRecordHierarchyOptions([
-                    {
-                        recordId: '0',
-                        options: {
-                            delayedHierarchyState:
-                                TableRecordDelayedHierarchyState.canLoadChildren
-                        }
-                    },
-                    {
-                        recordId: '1',
-                        options: {
-                            delayedHierarchyState:
-                                TableRecordDelayedHierarchyState.loadingChildren
-                        }
+        Array.from(document.querySelectorAll(tableTag)).map(async table => {
+            await table.setData(data);
+            await table.setRecordHierarchyOptions([
+                {
+                    recordId: '0',
+                    options: {
+                        delayedHierarchyState:
+                            TableRecordDelayedHierarchyState.canLoadChildren
                     }
-                ]);
-                await table.setSelectedRecordIds(['', '2']);
-            }
-        )
+                },
+                {
+                    recordId: '1',
+                    options: {
+                        delayedHierarchyState:
+                            TableRecordDelayedHierarchyState.loadingChildren
+                    }
+                }
+            ]);
+            await table.setSelectedRecordIds(['', '2']);
+        })
     );
 };
 
-export const tableNoSelectionThemeMatrix: StoryFn = createMatrixThemeStory(
+export const noSelectionThemeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(component, [[undefined], groupedStates, hierarchyStates])
 );
-tableNoSelectionThemeMatrix.play = playFunction;
+noSelectionThemeMatrix.play = playFunction;
 
-export const tableSingleSelectionThemeMatrix: StoryFn = createMatrixThemeStory(
-    createMatrix(component, [['single'], groupedStates, hierarchyStates])
+export const singleSelectionThemeMatrix: StoryFn = createMatrixThemeStory(
+    createMatrix(component, [
+        [TableRowSelectionMode.single],
+        groupedStates,
+        hierarchyStates
+    ])
 );
-tableSingleSelectionThemeMatrix.play = playFunction;
+singleSelectionThemeMatrix.play = playFunction;
 
-export const tableMultipleSelectionThemeMatrix: StoryFn = createMatrixThemeStory(
-    createMatrix(component, [['multiple'], groupedStates, hierarchyStates])
+export const multipleSelectionThemeMatrix: StoryFn = createMatrixThemeStory(
+    createMatrix(component, [
+        [TableRowSelectionMode.multiple],
+        groupedStates,
+        hierarchyStates
+    ])
 );
-tableMultipleSelectionThemeMatrix.play = playFunction;
+multipleSelectionThemeMatrix.play = playFunction;
 
-export const hiddenTable: StoryFn = createStory(
+const groupedStatesGroupingEnabled = groupedStates[0];
+const hierarchyStatesHierarchyEnabled = hierarchyStates[0];
+const tableKeyboardFocusStates = cartesianProduct([
+    [TableRowSelectionMode.multiple],
+    [groupedStatesGroupingEnabled],
+    [hierarchyStatesHierarchyEnabled]
+] as const);
+export const keyboardFocusThemeMatrix: StoryFn = createMatrixThemeStory(
+    createMatrixInteractionsFromStates(component, {
+        hover: [],
+        hoverActive: [],
+        active: [],
+        focus: tableKeyboardFocusStates
+    })
+);
+keyboardFocusThemeMatrix.play = playFunction;
+
+export const hidden: StoryFn = createStory(
     hiddenWrapper(html`<${tableTag} hidden></${tableTag}>`)
 );

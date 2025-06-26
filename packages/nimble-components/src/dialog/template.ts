@@ -1,4 +1,4 @@
-import { html, ref, slotted } from '@microsoft/fast-element';
+import { html, ref, slotted } from '@ni/fast-element';
 import type { Dialog } from '.';
 
 export const template = html<Dialog>`

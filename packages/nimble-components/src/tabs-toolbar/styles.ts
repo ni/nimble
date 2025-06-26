@@ -1,5 +1,5 @@
-import { css } from '@microsoft/fast-element';
-import { display } from '@microsoft/fast-foundation';
+import { css } from '@ni/fast-element';
+import { display } from '../utilities/style/display';
 import {
     bodyFont,
     bodyFontColor,
@@ -16,7 +16,6 @@ export const styles = css`
     :host {
         align-items: center;
         height: ${controlHeight};
-        box-sizing: border-box;
         font: ${bodyFont};
         color: ${bodyFontColor};
     }
@@ -27,5 +26,14 @@ export const styles = css`
         border-left: calc(${borderWidth} * 2) solid
             rgba(${borderRgbPartialColor}, 0.3);
         margin: ${smallPadding} ${mediumPadding};
+    }
+
+    [part='start'] {
+        display: none;
+    }
+
+    [part='end'] {
+        margin-left: auto;
+        display: flex;
     }
 `;

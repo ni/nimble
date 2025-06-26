@@ -3,17 +3,16 @@ module.exports = eleventyConfig => {
         root: './',
         'landing/dist': './',
         '../../packages/storybook/dist/storybook': 'storybook',
-        '../../angular-workspace/dist/example-client-app': 'storybook/example-client-app',
-        '../../packages/nimble-blazor/dist/blazor-client-app': 'storybook/blazor-client-app',
+        '../../packages/angular-workspace/dist/example-client-app': 'storybook/example-client-app',
+        '../../packages/blazor-workspace/dist/blazor-client-app': 'storybook/blazor-client-app',
+        '../../packages/react-workspace/react-client-app/dist': 'storybook/react-client-app',
         '../../packages/performance/dist': 'storybook/performance'
     });
     eleventyConfig.setTemplateFormats([
-        'md',
-        'html',
     ]);
     return {
         dir: {
-            input: 'src',
+            input: '.',
             output: 'dist'
         }
     };

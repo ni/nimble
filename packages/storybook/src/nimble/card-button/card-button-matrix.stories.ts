@@ -1,5 +1,5 @@
 import type { StoryFn, Meta } from '@storybook/html';
-import { html, ViewTemplate } from '@microsoft/fast-element';
+import { html, ViewTemplate } from '@ni/fast-element';
 import { bodyFont } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
 import { cardButtonTag } from '@ni/nimble-components/dist/esm/card-button';
 import {
@@ -7,7 +7,7 @@ import {
     sharedMatrixParameters,
     createMatrixThemeStory
 } from '../../utilities/matrix';
-import { disabledStates, DisabledState } from '../../utilities/states';
+import { disabledStates, type DisabledState } from '../../utilities/states';
 import { createStory } from '../../utilities/storybook';
 import { hiddenWrapper } from '../../utilities/hidden';
 
@@ -63,11 +63,11 @@ const component = (
 </${cardButtonTag}>
 `;
 
-export const buttonThemeMatrix: StoryFn = createMatrixThemeStory(
+export const themeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(component, [disabledStates, selectedStates])
 );
 
-export const hiddenButton: StoryFn = createStory(
+export const hidden: StoryFn = createStory(
     hiddenWrapper(
         html`<${cardButtonTag} hidden>Hidden Card Button</${cardButtonTag}>`
     )

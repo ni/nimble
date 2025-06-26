@@ -1,17 +1,17 @@
-import { html } from '@microsoft/fast-element';
-import type { RichTextEditor } from '../../editor';
+import { html } from '@ni/fast-element';
+import { richTextEditorTag, type RichTextEditor } from '../../editor';
 import { fixture, type Fixture } from '../../../utilities/tests/fixture';
 import { RichTextEditorPageObject } from '../../editor/testing/rich-text-editor.pageobject';
 import { ToolbarButton } from '../../editor/testing/types';
 import {
     appendTestMentionConfiguration,
     appendUserMentionConfiguration
-} from '../../editor/testing/rich-text-editor-utils';
+} from '../../editor/models/tests/rich-text-editor-utils';
 import { waitForUpdatesAsync } from '../../../testing/async-helpers';
 
 async function setup(): Promise<Fixture<RichTextEditor>> {
-    return fixture<RichTextEditor>(
-        html`<nimble-rich-text-editor></nimble-rich-text-editor>`
+    return await fixture<RichTextEditor>(
+        html`<${richTextEditorTag}></${richTextEditorTag}>`
     );
 }
 
@@ -337,15 +337,19 @@ Plain text 3`);
 <user:1> `);
         });
 
-        it('Mention node', async () => {
+        // Firefox skipped, see https://github.com/ni/nimble/issues/2488
+        it('Mention node #SkipFirefox', async () => {
             await appendUserMentionConfiguration(element, [
                 { key: 'user:1', displayName: 'username1' }
             ]);
+
             await commitFirstMentionBoxOptionIntoEditor('@');
+
             expect(element.getMarkdown()).toEqual('<user:1> ');
         });
 
-        it('Multiple Mention node of same type', async () => {
+        // Firefox skipped, see https://github.com/ni/nimble/issues/2488
+        it('Multiple Mention node of same type #SkipFirefox', async () => {
             await appendUserMentionConfiguration(element, [
                 { key: 'user:1', displayName: 'username1' },
                 { key: 'user:2', displayName: 'username2' }
@@ -357,7 +361,8 @@ Plain text 3`);
             expect(element.getMarkdown()).toEqual('<user:1> <user:2> ');
         });
 
-        it('Multiple Mention node of different type', async () => {
+        // Intermittent on Webkit (at least), see https://github.com/ni/nimble/issues/2426
+        it('Multiple Mention node of different type #SkipWebkit', async () => {
             await appendUserMentionConfiguration(element, [
                 { key: 'user:1', displayName: 'username1' }
             ]);
