@@ -1,9 +1,9 @@
 import { html } from '@ni/fast-element';
 import { processUpdates } from '@ni/nimble-components/dist/esm/testing/async-helpers';
+import { waitForEvent } from '@ni/nimble-components/dist/esm/utilities/testing/component';
 import { ChatInput, chatInputTag } from '..';
 import { fixture, type Fixture } from '../../../utilities/tests/fixture';
 import { ChatInputPageObject } from '../testing/chat-input.pageobject';
-import type { ChatInputSendEventDetail } from '../types';
 
 async function setup(): Promise<Fixture<ChatInput>> {
     return await fixture<ChatInput>(html`<${chatInputTag}></${chatInputTag}>`);
@@ -128,57 +128,80 @@ describe('ChatInput', () => {
     });
 
     describe('send', () => {
-        const sendSpy = jasmine.createSpy();
         beforeEach(async () => {
             await connect();
-            element.addEventListener('send', sendSpy);
-            sendSpy.calls.reset();
         });
 
-        it('via button click triggers send event with value as data', () => {
+        it('via button click triggers send event with value as data', async () => {
+            const spy = jasmine.createSpy();
+            const sendListener = waitForEvent(element, 'send', spy);
             element.value = 'new value';
             processUpdates();
 
             page.clickSendButton();
 
-            expect(sendSpy).toHaveBeenCalledTimes(1);
-            const event = sendSpy.calls.mostRecent()
-                .args[0] as CustomEvent<ChatInputSendEventDetail>;
-            expect(event.detail.text).toEqual('new value');
+            await sendListener;
+            expect(spy).toHaveBeenCalledOnceWith(
+                new CustomEvent('send', {
+                    detail: { text: 'new value', newState: true }
+                })
+            );
         });
 
         it('via Enter triggers send event with value as data', async () => {
+            const spy = jasmine.createSpy();
+            const sendListener = waitForEvent(element, 'send', spy);
             element.value = 'new value';
             processUpdates();
 
             await page.pressEnterKey();
 
-            expect(sendSpy).toHaveBeenCalledTimes(1);
-            const event = sendSpy.calls.mostRecent()
-                .args[0] as CustomEvent<ChatInputSendEventDetail>;
-            expect(event.detail.text).toEqual('new value');
+            await sendListener;
+            expect(spy).toHaveBeenCalledOnceWith(
+                new CustomEvent('send', {
+                    detail: { text: 'new value', newState: true }
+                })
+            );
         });
 
-        it('via button click with no text triggers no send event', () => {
+        it('is called synchronously', () => {
+            // This test exists to verify that the tests below are actually detecting the absence of a call,
+            // and not just finishing before the call happens.
+            const spy = jasmine.createSpy();
+            element.addEventListener('send', spy);
+            element.value = 'new value';
             processUpdates();
             page.clickSendButton();
 
-            expect(sendSpy).not.toHaveBeenCalled();
+            expect(spy).toHaveBeenCalled();
+        });
+
+        it('via button click with no text triggers no send event', () => {
+            const spy = jasmine.createSpy();
+            element.addEventListener('send', spy);
+            processUpdates();
+            page.clickSendButton();
+
+            expect(spy).not.toHaveBeenCalled();
         });
 
         it('via Enter with no text triggers no send event', async () => {
+            const spy = jasmine.createSpy();
+            element.addEventListener('send', spy);
             processUpdates();
             await page.pressEnterKey();
 
-            expect(sendSpy).not.toHaveBeenCalled();
+            expect(spy).not.toHaveBeenCalled();
         });
 
         it('Shift-Enter triggers no send event', async () => {
+            const spy = jasmine.createSpy();
+            element.addEventListener('send', spy);
             element.value = 'new value';
             processUpdates();
             await page.pressShiftEnterKey();
 
-            expect(sendSpy).not.toHaveBeenCalled();
+            expect(spy).not.toHaveBeenCalled();
         });
     });
 
