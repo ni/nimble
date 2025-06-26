@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-<!-- This log was last generated on Tue, 24 Jun 2025 16:53:02 GMT and should not be manually modified. -->
+<!-- This log was last generated on Thu, 26 Jun 2025 19:20:55 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 33.11.1
+
+Thu, 26 Jun 2025 19:20:55 GMT
+
+### Patches
+
+- Fix issue with default slotted content in tabs toolbar that sets its margin-left to 'auto'. ([ni/nimble@0bbb3df](https://github.com/ni/nimble/commit/0bbb3dfc4dcdbcdfd80e31ea877c4386d93156c6))
 
 ## 33.11.0
 
