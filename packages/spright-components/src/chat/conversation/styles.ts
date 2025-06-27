@@ -1,9 +1,10 @@
 import { css } from '@ni/fast-element';
 import {
     applicationBackgroundColor,
+    borderWidth,
     chatConversationBackgroundGradientStartColor,
     chatConversationBackgroundGradientEndColor,
-    mediumPadding
+    dividerBackgroundColor
 } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
 import { display } from '../../utilities/style/display';
 
@@ -13,6 +14,7 @@ export const styles = css`
     :host {
         flex-direction: column;
         background: ${applicationBackgroundColor};
+        border: 2px solid ${dividerBackgroundColor};
     }
 
     .messages {
@@ -22,6 +24,7 @@ export const styles = css`
         justify-content: flex-start;
         row-gap: 32px;
         padding: 8px 32px 8px 32px;
+        border: ${borderWidth} solid ${applicationBackgroundColor};
         background: linear-gradient(
             ${chatConversationBackgroundGradientStartColor},
             ${chatConversationBackgroundGradientEndColor}
