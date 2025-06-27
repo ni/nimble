@@ -1,8 +1,25 @@
 # Change Log - @ni/spright-react
 
-<!-- This log was last generated on Tue, 24 Jun 2025 16:53:02 GMT and should not be manually modified. -->
+<!-- This log was last generated on Fri, 27 Jun 2025 15:07:42 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 0.2.0
+
+Fri, 27 Jun 2025 15:07:42 GMT
+
+### Minor changes
+
+- Chat input component ([ni/nimble@3b13af9](https://github.com/ni/nimble/commit/3b13af992e2c7a36cf07324de78e0e924be79dd7))
+- Bump @ni/spright-components to v5.5.0
+
+## 0.1.3
+
+Thu, 26 Jun 2025 19:20:55 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v5.4.3
 
 ## 0.1.2
 
