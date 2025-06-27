@@ -34,10 +34,7 @@ export async function viteFinal(config) {
         keep_fnames: true
     };
 
-    config.plugins.push(tsconfigPaths({
-        loose: true,
-        parseNative: true,
-    }));
+    config.plugins.push(tsconfigPaths());
 
     return mergeConfig(config);
 }
