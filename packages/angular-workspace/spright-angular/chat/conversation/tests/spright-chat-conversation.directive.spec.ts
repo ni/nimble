@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { SprightChatConversationModule } from '../spright-chat-conversation.module';
 
-describe('Spright chat', () => {
+describe('Spright chat conversation', () => {
     describe('module', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
@@ -9,7 +9,7 @@ describe('Spright chat', () => {
             });
         });
 
-        it('conversation custom element is defined', () => {
+        it('custom element is defined', () => {
             expect(customElements.get('spright-chat-conversation')).not.toBeUndefined();
         });
     });

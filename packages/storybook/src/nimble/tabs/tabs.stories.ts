@@ -12,6 +12,10 @@ import {
     disabledDescription
 } from '../../utilities/storybook';
 import { ExampleTabsType } from '../patterns/tabs/types';
+import {
+    defaultSlotDescription,
+    endSlotDescription
+} from '../patterns/tabs/doc-strings';
 
 interface TabsArgs {
     activeid: string;
@@ -31,7 +35,8 @@ interface TabPanelArgs {
 }
 
 interface ToolbarArgs {
-    toolbar: boolean;
+    default: boolean;
+    end: boolean;
 }
 
 const metadata: Meta<TabsArgs> = {
@@ -75,6 +80,7 @@ for (let i = 1; i <= 100; i++) {
 
 const tabSets = {
     [ExampleTabsType.simpleTabs]: simpleTabs,
+    [ExampleTabsType.simpleTabsWithToolbar]: simpleTabs,
     [ExampleTabsType.wideTabs]: wideTabs,
     [ExampleTabsType.manyTabs]: manyTabs
 } as const;
@@ -96,6 +102,13 @@ export const tabs: StoryObj<TabsArgs> = {
         ${repeat(x => (tabSets[x.tabsType] as TabArgs[]), html<TabArgs>`
             <${tabPanelTag}>Content of tab ${x => x.id}</${tabPanelTag}>
         `, { positioning: true })}
+        ${when(x => x.tabsType === ExampleTabsType.simpleTabsWithToolbar, html<TabsArgs>`
+            <${tabsToolbarTag}>
+                <${buttonTag} appearance="ghost">Toolbar Button</${buttonTag}>
+                <${buttonTag} appearance="ghost" slot="end">Toolbar Button 2</${buttonTag}>
+                <${buttonTag} appearance="ghost" slot="end">Toolbar Button 3</${buttonTag}>
+            </${tabsToolbarTag}>
+        `)}
         </${tabsTag}>
     `),
     argTypes: {
@@ -114,6 +127,8 @@ export const tabs: StoryObj<TabsArgs> = {
                 type: 'radio',
                 labels: {
                     [ExampleTabsType.simpleTabs]: 'Simple tabs',
+                    [ExampleTabsType.simpleTabsWithToolbar]:
+                        'Simple tabs with toolbar',
                     [ExampleTabsType.manyTabs]: 'Many tabs',
                     [ExampleTabsType.wideTabs]: 'Wide tabs'
                 }
@@ -190,8 +205,16 @@ export const tabPanel: StoryObj<TabPanelArgs> = {
 export const tabToolbar: StoryObj<ToolbarArgs> = {
     // prettier-ignore
     render: createUserSelectedThemeStory(html`
-        <${tabsTag}>
-            ${when(x => x.toolbar, html<TabsArgs>`<${tabsToolbarTag}><${buttonTag} appearance="ghost">Toolbar Button</${buttonTag}></${tabsToolbarTag}>`)}
+        <${tabsTag} style="width: 800px;">
+            <${tabsToolbarTag}>
+                ${when(x => x.default, html`
+                    <${buttonTag} appearance="ghost">Toolbar Button</${buttonTag}>
+                `)}
+                ${when(x => x.end, html`
+                    <${buttonTag} appearance="ghost" slot="end">Toolbar Button 2</${buttonTag}>
+                    <${buttonTag} appearance="ghost" slot="end">Toolbar Button 3</${buttonTag}>
+                `)}
+            </${tabsToolbarTag}>
             <${tabTag}>Tab One</${tabTag}>
             <${tabTag}>Tab Two</${tabTag}>
             <${tabPanelTag}>Content of the first tab</${tabPanelTag}>
@@ -199,13 +222,19 @@ export const tabToolbar: StoryObj<ToolbarArgs> = {
         </${tabsTag}>
     `),
     argTypes: {
-        toolbar: {
+        default: {
             name: 'default',
-            description: `Add a tabs toolbar as a child of the tabs and populate its content with \`${buttonTag}\` elements.`,
+            description: defaultSlotDescription,
+            table: { category: apiCategory.slots }
+        },
+        end: {
+            name: 'end',
+            description: endSlotDescription,
             table: { category: apiCategory.slots }
         }
     },
     args: {
-        toolbar: true
+        default: true,
+        end: true
     }
 };

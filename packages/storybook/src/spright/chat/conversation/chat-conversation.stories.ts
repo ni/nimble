@@ -1,11 +1,19 @@
 import type { Meta, StoryObj } from '@storybook/html';
-import { html } from '@ni/fast-element';
+import { html, ref, when } from '@ni/fast-element';
 import { buttonTag } from '@ni/nimble-components/dist/esm/button';
 import { menuButtonTag } from '@ni/nimble-components/dist/esm/menu-button';
 import { menuTag } from '@ni/nimble-components/dist/esm/menu';
 import { menuItemTag } from '@ni/nimble-components/dist/esm/menu-item';
 import { toggleButtonTag } from '@ni/nimble-components/dist/esm/toggle-button';
-import { chatConversationTag } from '@ni/spright-components/dist/esm/chat/conversation';
+import {
+    ChatConversation,
+    chatConversationTag
+} from '@ni/spright-components/dist/esm/chat/conversation';
+import {
+    ChatInput,
+    chatInputTag
+} from '@ni/spright-components/dist/esm/chat/input';
+import type { ChatInputSendEventDetail } from '@ni/spright-components/dist/esm/chat/input/types';
 import { ChatMessageType } from '@ni/spright-components/dist/esm/chat/message/types';
 import { chatMessageTag } from '@ni/spright-components/dist/esm/chat/message';
 import { richTextViewerTag } from '@ni/nimble-components/dist/esm/rich-text/viewer';
@@ -24,8 +32,17 @@ import { imgBlobUrl, markdownExample } from './story-helpers';
 import { loremIpsum } from '../../../utilities/lorem-ipsum';
 import { isChromatic } from '../../../utilities/isChromatic';
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-interface ChatConversationArgs {}
+interface ChatConversationArgs {
+    content: string;
+    input: boolean;
+    conversationRef: ChatConversation;
+    inputRef: ChatInput;
+    sendMessage: (
+        event: CustomEvent<ChatInputSendEventDetail>,
+        conversationRef: ChatConversation,
+        inputRef: ChatInput
+    ) => void;
+}
 
 const metadata: Meta<ChatConversationArgs> = {
     title: 'Spright/Chat Conversation'
@@ -35,8 +52,14 @@ export const chatConversation: StoryObj<ChatConversationArgs> = {
     parameters: {
         actions: {}
     },
+    // prettier-ignore
     render: createUserSelectedThemeStory(html`
-        <${chatConversationTag}>
+        <style class='code-hide'>
+            ${chatConversationTag} {
+                max-height: 600px;
+            }
+        </style>
+        <${chatConversationTag} ${ref('conversationRef')}>
             <${chatMessageTag} message-type="${() => ChatMessageType.system}">
                 To start, press any key.
             </${chatMessageTag}>
@@ -86,14 +109,45 @@ export const chatConversation: StoryObj<ChatConversationArgs> = {
                     Check core temperature
                 </${buttonTag}>
             </${chatMessageTag}>
+            ${when(x => x.input, html<ChatConversationArgs, ChatInput>`
+                <${chatInputTag} slot='input' placeholder='Type a message' send-button-label='Send' ${ref('inputRef')}
+                    @send="${(x2, c2) => x2.sendMessage(c2.event as CustomEvent<ChatInputSendEventDetail>, x2.conversationRef, x2.inputRef)}"
+                ></${chatInputTag}>
+            `)}
         </${chatConversationTag}>
     `),
     argTypes: {
         content: {
             name: 'default',
             description:
-                'The messages to display in the chat conversation. The DOM order of the messages controls their screen order within the conversation (earlier DOM order implies older message)',
+                'The messages to display in the chat conversation. The DOM order of the messages controls their screen order within the conversation (earlier DOM order implies older message).',
             table: { category: apiCategory.slots }
+        },
+        input: {
+            description: `A slot to optionally include a \`${chatInputTag}\` which will be displayed below the messages.`,
+            table: { category: apiCategory.slots }
+        },
+        sendMessage: {
+            table: { disable: true }
+        }
+    },
+    args: {
+        input: true,
+        sendMessage: (event, conversationRef, inputRef) => {
+            inputRef.resetInput();
+            const message = document.createElement(chatMessageTag);
+            message.messageType = ChatMessageType.outbound;
+            const span = document.createElement('span');
+            span.textContent = event.detail.text;
+            // Preserves new lines and trailing spaces that the user entered
+            span.style.whiteSpace = 'pre-wrap';
+            message.appendChild(span);
+            conversationRef.appendChild(message);
+            message.scrollIntoView({
+                behavior: 'smooth',
+                block: 'nearest',
+                inline: 'start'
+            });
         }
     }
 };
