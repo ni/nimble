@@ -32,6 +32,7 @@ import { NimbleRichTextViewerModule } from '@ni/nimble-angular/rich-text/viewer'
 import { NimbleRichTextEditorModule } from '@ni/nimble-angular/rich-text/editor';
 import { NimbleRichTextMentionUsersModule } from '@ni/nimble-angular/rich-text-mention/users';
 import { SprightChatConversationModule } from '@ni/spright-angular/chat/conversation';
+import { SprightChatInputModule } from '@ni/spright-angular/chat/input';
 import { SprightChatMessageModule } from '@ni/spright-angular/chat/message';
 import { SprightRectangleModule } from '@ni/spright-angular/rectangle';
 import { AppComponent } from './app.component';
@@ -112,6 +113,7 @@ import { HeaderComponent } from './header/header.component';
         NimbleMappingSpinnerModule,
         NimbleMappingEmptyModule,
         SprightChatConversationModule,
+        SprightChatInputModule,
         SprightChatMessageModule,
         SprightRectangleModule,
         RouterModule.forRoot(

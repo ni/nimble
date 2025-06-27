@@ -1,5 +1,6 @@
 import type { StoryFn, Meta } from '@storybook/html-vite';
 import { html, repeat, ViewTemplate } from '@ni/fast-element';
+import { chatInputTag } from '@ni/spright-components/dist/esm/chat/input';
 import { chatMessageTag } from '@ni/spright-components/dist/esm/chat/message';
 import { ChatMessageType } from '@ni/spright-components/dist/esm/chat/message/types';
 import { chatConversationTag } from '@ni/spright-components/dist/esm/chat/conversation';
@@ -185,6 +186,36 @@ export const slottedButtonsSizing: StoryFn = createMatrixThemeStory(html`
         footerActionsStates,
         endButtonStates
     ])}
+`);
+
+const heightStates = [
+    ['shorter', '100px'],
+    ['taller', '300px']
+] as const;
+type HeightStates = (typeof heightStates)[number];
+
+// prettier-ignore
+const conversationWithInput = (
+    [heightLabel, height]: HeightStates,
+): ViewTemplate => html`
+    <div style="width: 300px; padding: 8px;">
+        <${chatConversationTag} style="
+            width: 100%;
+            height: ${height};
+        ">
+            <${chatMessageTag} message-type="inbound">
+                <span>Conversation is ${heightLabel} than the height of the messages.</span>
+            </${chatMessageTag}>
+            <${chatMessageTag} message-type="outbound">
+                <span>Conversation is ${heightLabel} than the height of the messages.</span>
+            </${chatMessageTag}>
+        </${chatConversationTag}>
+        <${chatInputTag}></${chatInputTag}>
+    </div>
+`;
+
+export const conversationWithInputSizing: StoryFn = createMatrixThemeStory(html`
+    ${createMatrix(conversationWithInput, [heightStates])}
 `);
 
 export const hidden: StoryFn = createStory(

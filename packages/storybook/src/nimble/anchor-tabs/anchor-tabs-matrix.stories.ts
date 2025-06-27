@@ -4,6 +4,10 @@ import { anchorTabTag } from '@ni/nimble-components/dist/esm/anchor-tab';
 import { tabsToolbarTag } from '@ni/nimble-components/dist/esm/tabs-toolbar';
 import { buttonTag } from '@ni/nimble-components/dist/esm/button';
 import { anchorTabsTag } from '@ni/nimble-components/dist/esm/anchor-tabs';
+import {
+    controlLabelFont,
+    controlLabelFontColor
+} from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
 import { createStory } from '../../utilities/storybook';
 import {
     createMatrix,
@@ -14,7 +18,38 @@ import { type DisabledState, disabledStates } from '../../utilities/states';
 import { hiddenWrapper } from '../../utilities/hidden';
 import { textCustomizationWrapper } from '../../utilities/text-customization';
 
-const tabsToolbarStates = [false, true] as const;
+const tabsToolbarStates = [
+    {
+        showToolbar: false,
+        showLeftButton: false,
+        showRightButtons: false,
+        label: 'No Toolbar'
+    },
+    {
+        showToolbar: true,
+        showLeftButton: false,
+        showRightButtons: false,
+        label: 'Toolbar with no buttons'
+    },
+    {
+        showToolbar: true,
+        showLeftButton: true,
+        showRightButtons: false,
+        label: 'Toolbar with left button'
+    },
+    {
+        showToolbar: true,
+        showLeftButton: false,
+        showRightButtons: true,
+        label: 'Toolbar with right buttons'
+    },
+    {
+        showToolbar: true,
+        showLeftButton: true,
+        showRightButtons: true,
+        label: 'Toolbar with left and right buttons'
+    }
+] as const;
 type TabsToolbarState = (typeof tabsToolbarStates)[number];
 
 const widthStates = ['', '250px'] as const;
@@ -35,11 +70,19 @@ const component = (
     [disabledName, disabled]: DisabledState,
     widthValue: WidthState
 ): ViewTemplate => html`
+    <label style="color: var(${controlLabelFontColor.cssCustomProperty}); font: var(${controlLabelFont.cssCustomProperty})">
+        ${toolbar.label} ${disabledName ? `(${disabledName})` : ''} ${widthValue ? `(${widthValue})` : ''}
+    </label>
     <${anchorTabsTag} activeid="tab1" style="padding: 15px;${widthValue ? ` width: ${widthValue};` : ''}">
-        ${when(() => toolbar, html`
+        ${when(() => toolbar.showToolbar, html`
             <${tabsToolbarTag}>
-                <${buttonTag} appearance="ghost">Toolbar Button</${buttonTag}>
-                <${buttonTag} appearance="ghost" style="margin-left: auto;">Right-aligned Button</${buttonTag}>
+                ${when(() => toolbar.showLeftButton, html`
+                    <${buttonTag} appearance="ghost">Left Button</${buttonTag}>
+                `)}
+                ${when(() => toolbar.showRightButtons, html`
+                    <${buttonTag} appearance="ghost" slot="end">Right Button</${buttonTag}>
+                    <${buttonTag} appearance="ghost" slot="end">Right Button 2</${buttonTag}>
+                `)}
             </${tabsToolbarTag}>
         `)}
         <${anchorTabTag} id="tab1">Tab One</${anchorTabTag}>
@@ -68,7 +111,7 @@ export const textCustomized: StoryFn = createMatrixThemeStory(
         html`
             <${anchorTabsTag}>
                 Inner text
-                <${tabsToolbarTag}>Tabs toolbar</${tabsToolbarTag}>
+                <${tabsToolbarTag}><${buttonTag} appearance="ghost">Tabs toolbar</${buttonTag}></${tabsToolbarTag}>
                 <${anchorTabTag}>Tab</${anchorTabTag}>
             </${anchorTabsTag}>
         `

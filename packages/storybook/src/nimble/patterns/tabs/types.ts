@@ -1,5 +1,6 @@
 export const ExampleTabsType = {
     simpleTabs: 'SimpleTabs',
+    simpleTabsWithToolbar: 'SimpleTabsWithToolbar',
     manyTabs: 'ManyTabs',
     wideTabs: 'WideTabs'
 } as const;

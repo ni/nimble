@@ -2,6 +2,51 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Thu, 26 Jun 2025 19:20:55 GMT",
+      "version": "33.11.1",
+      "tag": "@ni/nimble-components_v33.11.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "0bbb3dfc4dcdbcdfd80e31ea877c4386d93156c6",
+            "comment": "Fix issue with default slotted content in tabs toolbar that sets its margin-left to 'auto'."
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 24 Jun 2025 16:53:02 GMT",
+      "version": "33.11.0",
+      "tag": "@ni/nimble-components_v33.11.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "198d94f59fad1d05605048ade29ede19cb8b8c32",
+            "comment": "Provide start/end slots for tabs toolbar."
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 20 Jun 2025 06:07:44 GMT",
+      "version": "33.10.0",
+      "tag": "@ni/nimble-components_v33.10.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "123377167+aagash-ni@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "3946d5cbe190276f9373a4d3b72ee47ee3681d75",
+            "comment": "Add theme aware token for calendar event outer border"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 16 Jun 2025 18:11:26 GMT",
       "version": "33.9.0",
       "tag": "@ni/nimble-components_v33.9.0",

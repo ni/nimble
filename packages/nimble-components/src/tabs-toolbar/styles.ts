@@ -27,4 +27,17 @@ export const styles = css`
             rgba(${borderRgbPartialColor}, 0.3);
         margin: ${smallPadding} ${mediumPadding};
     }
+
+    [part='start'] {
+        display: none;
+    }
+
+    [part='end'] {
+        display: none;
+    }
+
+    [part='end'].end {
+        margin-left: auto;
+        display: flex;
+    }
 `;
