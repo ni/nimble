@@ -1,5 +1,6 @@
 import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate } from '@ni/fast-element';
+import { bodyFont, bodyFontColor } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
 import { chatInputTag } from '@ni/spright-components/dist/esm/chat/input';
 import {
     sharedMatrixParameters,
@@ -11,12 +12,18 @@ import { hiddenWrapper } from '../../../utilities/hidden';
 import { textCustomizationWrapper } from '../../../utilities/text-customization';
 import { loremIpsum } from '../../../utilities/lorem-ipsum';
 
-const textStates = [
+const valueStates = [
     ['empty', ''],
     ['one line', "My cat's breath smells like cat food."],
     ['multi line', `${loremIpsum} ${loremIpsum} ${loremIpsum}`]
 ] as const;
-type LongTextState = (typeof textStates)[number];
+type ValueState = (typeof valueStates)[number];
+
+const placeholderStates = [
+    ['empty', ''],
+    ['one line', 'This is the placeholder']
+] as const;
+type PlaceholderState = (typeof placeholderStates)[number];
 
 const metadata: Meta = {
     title: 'Tests Spright/Chat Input',
@@ -29,17 +36,27 @@ export default metadata;
 
 // prettier-ignore
 const component = (
-    [_textLabel, text]: LongTextState
+    [valueLabel, value]: ValueState,
+    [placeholderLabel, placeholder]: PlaceholderState
 ): ViewTemplate => html`
+    <p 
+        style="
+        font: var(${bodyFont.cssCustomProperty});
+        color: var(${bodyFontColor.cssCustomProperty});
+        margin-bottom: 0px;
+        "
+    >    
+        ${valueLabel} value, ${placeholderLabel} placeholder
+    </p>
     <${chatInputTag}
-        placeholder="This is the placeholder"
-        value="${text}"
+        placeholder="${placeholder}"
+        value="${value}"
     >
     </${chatInputTag}>
 `;
 
 export const themeMatrix: StoryFn = createMatrixThemeStory(
-    createMatrix(component, [textStates])
+    createMatrix(component, [valueStates, placeholderStates])
 );
 
 export const hidden: StoryFn = createStory(
