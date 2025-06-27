@@ -2,6 +2,7 @@ import { attr, html } from '@ni/fast-element';
 import {
     DesignSystem,
     NumberField as FoundationNumberField,
+    type DesignTokenSubscriber,
     type NumberFieldOptions
 } from '@ni/fast-foundation';
 import { styles } from './styles';
@@ -18,6 +19,7 @@ import {
 } from '../label-provider/core/label-tokens';
 import { template } from './template';
 import { mixinRequiredVisiblePattern } from '../patterns/required-visible/types';
+import { lang } from '../theme-provider';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -40,11 +42,93 @@ export class NumberField extends mixinErrorPattern(
     @attr({ attribute: 'appearance-readonly', mode: 'boolean' })
     public appearanceReadOnly = false;
 
+    private decimalSeparator = '.';
+
+    private readonly langSubscriber: DesignTokenSubscriber<typeof lang> = {
+        handleChange: () => this.updateDecimalSeparator()
+    };
+
     public override connectedCallback(): void {
         super.connectedCallback();
 
         // This is a workaround for FAST issue: https://github.com/microsoft/fast/issues/6148
         this.control.setAttribute('role', 'spinbutton');
+        this.updateDecimalSeparator();
+        lang.subscribe(this.langSubscriber, this);
+    }
+
+    public override disconnectedCallback(): void {
+        super.disconnectedCallback();
+
+        lang.unsubscribe(this.langSubscriber, this);
+    }
+
+    // Same implementation as FAST NumberField, except:
+    //   - uses a variable regex to filter input, and
+    //   - ensures the decimal separator is always '.' in this.value
+    public override handleTextInput(): void {
+        this.control.value = this.control.value.replace(
+            new RegExp(`[^0-9\\-+e${this.decimalSeparator}]`, 'g'),
+            ''
+        );
+        // Necessary to access private property in base class
+        // eslint-disable-next-line @typescript-eslint/dot-notation
+        this['isUserInput'] = true;
+        this.syncValueFromInnerControl();
+    }
+
+    public override valueChanged(previous: string, next: string): void {
+        // Necessary to access private property in base class
+        // eslint-disable-next-line @typescript-eslint/dot-notation
+        const wasUserInput = this['isUserInput'] as boolean;
+        super.valueChanged(previous, this.value);
+        // Because super.valueChanged may coerce and re-assign the value, this handler can recurse.
+        // If the this.value now differs from what was originally assigned, we know there was a
+        // recursive call that already handled everything, so we can exit early.
+        if (next !== this.value) {
+            return;
+        }
+        // for user input, the UI value isn't updated until the control loses focus
+        if (this.control && !wasUserInput) {
+            this.syncValueToInnerControl();
+        }
+    }
+
+    public override handleBlur(): void {
+        this.syncValueToInnerControl();
+    }
+
+    // this.value <-- this.control.value
+    private syncValueFromInnerControl(): void {
+        this.value = this.decimalSeparator !== '.'
+            ? this.control.value.replace(this.decimalSeparator, '.')
+            : this.control.value;
+    }
+
+    // this.value --> this.control.value
+    private syncValueToInnerControl(): void {
+        this.control.value = this.decimalSeparator !== '.'
+            ? this.value.replace('.', this.decimalSeparator)
+            : this.value;
+    }
+
+    private updateDecimalSeparator(): void {
+        const previousSeparator = this.decimalSeparator;
+        this.decimalSeparator = this.getSeparatorForLanguange(
+            lang.getValueFor(this)
+        );
+        if (this.decimalSeparator !== previousSeparator) {
+            this.control.value = this.control.value.replace(
+                previousSeparator,
+                this.decimalSeparator
+            );
+        }
+    }
+
+    private getSeparatorForLanguange(language: string): string {
+        return Intl.NumberFormat(language)
+            .formatToParts(1.1)
+            .find(x => x.type === 'decimal')!.value;
     }
 }
 
