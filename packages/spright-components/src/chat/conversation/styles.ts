@@ -10,6 +10,12 @@ export const styles = css`
 
     :host {
         flex-direction: column;
+    }
+
+    .messages {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
         justify-content: flex-start;
         row-gap: 32px;
         padding: ${mediumPadding};

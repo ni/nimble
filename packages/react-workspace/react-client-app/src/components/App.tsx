@@ -56,6 +56,7 @@ import { NimbleRichTextMentionUsers } from '@ni/nimble-react/dist/esm/rich-text-
 import { NimbleMappingUser } from '@ni/nimble-react/dist/esm/mapping/user';
 import { NimbleRichTextViewer } from '@ni/nimble-react/dist/esm/rich-text/viewer';
 import { SprightChatConversation } from '@ni/spright-react/dist/esm/chat/conversation';
+import { SprightChatInput } from '@ni/spright-react/dist/esm/chat/input';
 import { SprightChatMessage } from '@ni/spright-react/dist/esm/chat/message';
 import { SprightRectangle } from '@ni/spright-react/dist/esm/rectangle';
 import { NimbleIconCopyText } from '@ni/nimble-react/dist/esm/icons/copy-text';
@@ -680,6 +681,10 @@ export function App(): JSX.Element {
                                 <NimbleButton slot="end" appearance="block">Order a tab</NimbleButton>
                                 <NimbleButton slot="end" appearance="block">Check core temperature</NimbleButton>
                             </SprightChatMessage>
+                            <SprightChatInput
+                                slot="input"
+                                placeholder="Type here"
+                            ></SprightChatInput>
                         </SprightChatConversation>
                     </div>
                     <div className="sub-container">
