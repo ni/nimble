@@ -1,8 +1,16 @@
 # Change Log - @ni/spright-blazor
 
-<!-- This log was last generated on Thu, 26 Jun 2025 19:20:55 GMT and should not be manually modified. -->
+<!-- This log was last generated on Fri, 27 Jun 2025 15:07:42 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 4.3.4
+
+Fri, 27 Jun 2025 15:07:42 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v5.5.0
 
 ## 4.3.3
 
