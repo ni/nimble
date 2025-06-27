@@ -107,7 +107,10 @@ export class ChatInput extends FoundationElement {
 const sprightChatInput = ChatInput.compose({
     baseName: 'chat-input',
     template,
-    styles
+    styles,
+    shadowOptions: {
+        delegatesFocus: true
+    }
 });
 
 DesignSystem.getOrCreate().withPrefix('spright').register(sprightChatInput());
