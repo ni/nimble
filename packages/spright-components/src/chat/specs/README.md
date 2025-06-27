@@ -370,13 +370,15 @@ If the input changes state between `processing` and not when focus was on the "S
 
 The application will not announce the state change between `processing` and not to screen readers. This is a scoping decision which should be reconsidered if these components are promoted from Spright to Nimble.
 
-The Design team has requested a non-standard appearance for the "Send" and "Stop" buttons: icon-only but rectangular shape. Nimble icon-only buttons  are square by default but allow setting an explicit width to make them rectangular. We will also set the text content and `title` to the value of `send-button-label` in accordance with Nimble's accessibility guidance.
+The Design team has requested a non-standard appearance for the "Send" and "Stop" buttons: icon-only but rectangular shape. Nimble icon-only buttons are square by default but allow setting an explicit width to make them rectangular. We will also set the text content and `title` to the value of `send-button-label` in accordance with Nimble's accessibility guidance.
 
 The text area will have an ARIA role of `textbox` similar to other Nimble text input components.
 
 ### Mobile
 
 Component layout will be tested at small screen sizes. The plans for content sizing and showing scrollbars should allow for adequate mobile layout. But initially there will be no specific testing of mobile behaviors as initial clients are desktop applications.
+
+On mobile, the input should treat the Enter/Return key as a new line as there is no way to use a modifier key to type Shift-Enter. Mobile users would press the Send button to submit. This is the behavior of other applications like Teams.
 
 ### Globalization
 
