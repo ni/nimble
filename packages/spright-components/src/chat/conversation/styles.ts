@@ -1,5 +1,6 @@
 import { css } from '@ni/fast-element';
 import {
+    applicationBackgroundColor,
     chatConversationBackgroundGradientStartColor,
     chatConversationBackgroundGradientEndColor,
     mediumPadding
@@ -10,6 +11,13 @@ export const styles = css`
     ${display('flex')}
 
     :host {
+        flex-direction: column;
+        background: ${applicationBackgroundColor};
+    }
+
+    .messages {
+        flex: 1;
+        display: flex;
         flex-direction: column;
         justify-content: flex-start;
         row-gap: 32px;
