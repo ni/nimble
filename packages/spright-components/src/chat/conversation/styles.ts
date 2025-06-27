@@ -21,11 +21,15 @@ export const styles = css`
         flex-direction: column;
         justify-content: flex-start;
         row-gap: 32px;
-        padding: ${mediumPadding};
+        padding: 8px 32px 8px 32px;
         background: linear-gradient(
             ${chatConversationBackgroundGradientStartColor},
             ${chatConversationBackgroundGradientEndColor}
         );
         overflow-y: auto;
+    }
+
+    .input {
+        padding: 8px 32px 4px 32px;
     }
 `;
