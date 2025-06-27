@@ -1,6 +1,6 @@
 {
   "type": "patch",
-  "comment": "Gradient background for chat conversation",
+  "comment": "Style improvements for chat conversation",
   "packageName": "@ni/spright-components",
   "email": "jattasNI@users.noreply.github.com",
   "dependentChangeType": "patch"
