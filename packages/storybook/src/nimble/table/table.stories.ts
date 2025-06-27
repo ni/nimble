@@ -1,6 +1,6 @@
 import { html, ref } from '@ni/fast-element';
-import { withActions } from '@storybook/addon-actions/decorator';
-import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html';
+import { withActions } from 'storybook/actions/decorator';
+import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html-vite';
 import { tableFitRowsHeight } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
 import { iconUserTag } from '@ni/nimble-components/dist/esm/icons/user';
 import { menuTag } from '@ni/nimble-components/dist/esm/menu';

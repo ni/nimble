@@ -1,4 +1,4 @@
-import type { Meta } from '@storybook/html';
+import type { Meta } from '@storybook/html-vite';
 import type { DesignToken } from '@ni/fast-foundation';
 import { apiCategory } from '../../../utilities/storybook';
 

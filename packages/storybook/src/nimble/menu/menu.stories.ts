@@ -1,6 +1,6 @@
 import { html, repeat, when } from '@ni/fast-element';
-import { withActions } from '@storybook/addon-actions/decorator';
-import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html';
+import { withActions } from 'storybook/actions/decorator';
+import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html-vite';
 import { iconArrowLeftFromLineTag } from '@ni/nimble-components/dist/esm/icons/arrow-left-from-line';
 import { iconUserTag } from '@ni/nimble-components/dist/esm/icons/user';
 import { menuItemTag } from '@ni/nimble-components/dist/esm/menu-item';
