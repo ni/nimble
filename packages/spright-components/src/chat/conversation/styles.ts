@@ -23,7 +23,8 @@ export const styles = css`
         flex-direction: column;
         justify-content: flex-start;
         row-gap: 32px;
-        padding: ${mediumPadding} ${standardPadding} ${mediumPadding} ${standardPadding};
+        padding: ${mediumPadding} ${standardPadding} ${mediumPadding}
+            ${standardPadding};
         border: ${borderWidth} solid ${applicationBackgroundColor};
         background: linear-gradient(
             ${chatConversationBackgroundGradientStartColor},
@@ -33,6 +34,7 @@ export const styles = css`
     }
 
     .input {
-        padding: ${mediumPadding} ${standardPadding} ${standardPadding} ${standardPadding};
+        padding: ${mediumPadding} ${standardPadding} ${standardPadding}
+            ${standardPadding};
     }
 `;
