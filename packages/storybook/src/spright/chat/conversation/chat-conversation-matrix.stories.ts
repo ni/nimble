@@ -189,7 +189,7 @@ export const slottedButtonsSizing: StoryFn = createMatrixThemeStory(html`
 `);
 
 const heightStates = [
-    ['shorter', '100px'],
+    ['shorter', '200px'],
     ['taller', '300px']
 ] as const;
 type HeightStates = (typeof heightStates)[number];
