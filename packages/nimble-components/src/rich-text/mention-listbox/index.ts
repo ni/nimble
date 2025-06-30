@@ -40,7 +40,7 @@ export class RichTextMentionListbox extends FoundationListbox {
      * @internal
      */
     @observable
-    public position?: DropdownPosition;
+    public availableViewportHeight = 0;
 
     /**
      * @internal
@@ -107,6 +107,7 @@ export class RichTextMentionListbox extends FoundationListbox {
      * @public
      */
     public show(options: MentionListboxShowOptions): void {
+        this.updateAvailableViewportHeight();
         this.filter = options.filter;
         this.anchorElement = options.anchorNode;
         this.setOpen(true);
@@ -281,6 +282,19 @@ export class RichTextMentionListbox extends FoundationListbox {
 
     private setOpen(value: boolean): void {
         this.open = value;
+    }
+
+    private updateAvailableViewportHeight(): void {
+        const currentBox = this.getBoundingClientRect();
+        const viewportHeight = document.documentElement.getBoundingClientRect().height;
+        const availableSpaceAbove = Math.trunc(currentBox.top);
+        const availableSpaceBelow = Math.trunc(
+            viewportHeight - currentBox.bottom
+        );
+        this.availableViewportHeight = Math.max(
+            availableSpaceAbove,
+            availableSpaceBelow
+        );
     }
 }
 

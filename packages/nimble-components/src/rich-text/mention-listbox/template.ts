@@ -3,7 +3,6 @@ import { Listbox } from '@ni/fast-foundation';
 import type { RichTextMentionListbox } from '.';
 import { anchoredRegionTag } from '../../anchored-region';
 import { filterNoResultsLabel } from '../../label-provider/core/label-tokens';
-import { DropdownPosition } from '../../patterns/dropdown/types';
 
 /* eslint-disable @typescript-eslint/indent */
 // prettier-ignore
@@ -11,11 +10,11 @@ export const template = html<RichTextMentionListbox>`
     <template>
         <${anchoredRegionTag}
             ${ref('region')}
-            class="anchored-region"
+            class="anchored-region confined-to-view"
             fixed-placement
             auto-update-mode="auto"
-            vertical-default-position="${x => (x.position === DropdownPosition.above ? 'top' : 'bottom')}"
-            vertical-positioning-mode="${x => (!x.position ? 'dynamic' : 'locktodefault')}"
+            vertical-default-position="bottom"
+            vertical-positioning-mode="dynamic"
             horizontal-default-position="center"
             horizontal-positioning-mode="locktodefault"
             horizontal-scaling="anchor"
@@ -30,6 +29,7 @@ export const template = html<RichTextMentionListbox>`
                 role="listbox"
                 @click="${(x, c) => x.clickHandler(c.event as MouseEvent)}"
                 ?disabled="${x => x.disabled}"
+                style="--ni-private-listbox-available-viewport-height: ${x => x.availableViewportHeight}px;"
                 ${ref('listbox')}
             >
                 <slot name="option"

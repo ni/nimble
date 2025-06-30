@@ -79,3 +79,13 @@ export async function waitTimeout(ms = 0): Promise<void> {
         window.setTimeout(() => resolve(undefined), ms);
     });
 }
+
+/**
+ * Waits for a predicate function to return truthy value (polls in loop of waitForUpdatesAsync calls).
+ */
+export async function waitPredicate(predicate: () => boolean): Promise<void> {
+    while (!predicate()) {
+        // eslint-disable-next-line no-await-in-loop
+        await waitForUpdatesAsync();
+    }
+}

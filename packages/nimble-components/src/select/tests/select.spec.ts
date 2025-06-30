@@ -12,7 +12,8 @@ import { checkFullyInViewport } from '../../utilities/tests/intersection-observe
 import { FilterMode, type SelectFilterInputEventDetail } from '../types';
 import {
     waitForEvent,
-    waitAnimationFrame
+    waitAnimationFrame,
+    waitPredicate
 } from '../../utilities/testing/component';
 import { filterSearchLabel } from '../../label-provider/core/label-tokens';
 import { ListOptionGroup, listOptionGroupTag } from '../../list-option-group';
@@ -107,9 +108,11 @@ async function setupWithGroups(): Promise<Fixture<Select>> {
 }
 
 async function clickAndWaitForOpen(select: Select): Promise<void> {
-    const regionLoadedPromise = waitForEvent(select, 'loaded');
     select.click();
-    await regionLoadedPromise;
+    await waitPredicate(
+        () => select.anchoredRegion?.classList.contains('horizontal-center')
+            === true
+    );
 }
 
 describe('Select', () => {
@@ -939,7 +942,6 @@ describe('Select', () => {
             await connect();
             element.focus();
             await clickAndWaitForOpen(element);
-            await waitForUpdatesAsync();
             await waitAnimationFrame(); // necessary because scrolling is queued with requestAnimationFrame
 
             expect(element.scrollableRegion.scrollTop).toBeGreaterThan(8000);
