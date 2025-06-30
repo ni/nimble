@@ -212,17 +212,25 @@ export const styles = css`
         flex-direction: column;
         width: 100%;
         --ni-private-listbox-visible-option-count: 10.5;
+        --ni-private-listbox-minimum-visible-option-count: 1.5;
         --ni-private-listbox-anchor-element-gap: ${smallPadding};
         --ni-private-listbox-padding: ${smallPadding};
         --ni-private-listbox-filter-height: 0px;
         --ni-private-listbox-loading-indicator-height: 0px;
-        --ni-private-listbox-ideal-height: calc(
+        --ni-private-listbox-boilerplate-height: calc(
             var(--ni-private-listbox-anchor-element-gap) + 
             2 * ${borderWidth} + 
             var(--ni-private-listbox-padding) +
-            ${controlHeight} * var(--ni-private-listbox-visible-option-count) +
             var(--ni-private-listbox-filter-height) +
             var(--ni-private-listbox-loading-indicator-height)
+        );
+        --ni-private-listbox-ideal-height: calc(
+            var(--ni-private-listbox-boilerplate-height) +
+            ${controlHeight} * var(--ni-private-listbox-visible-option-count)
+        );
+        --ni-private-listbox-minimum-height: calc(
+            var(--ni-private-listbox-boilerplate-height) +
+            ${controlHeight} * var(--ni-private-listbox-minimum-visible-option-count)
         );
         max-height: var(--ni-private-listbox-ideal-height);
         box-shadow: ${elevation2BoxShadow};
@@ -231,12 +239,15 @@ export const styles = css`
     }
 
     .anchored-region.confined-to-view .listbox {
-        max-height: min(
-            var(--ni-private-listbox-ideal-height),
-            calc(
-                var(--ni-private-listbox-available-viewport-height) - 
-                var(--ni-private-listbox-anchor-element-gap)
-            )
+        max-height: max(
+            min(
+                var(--ni-private-listbox-ideal-height),
+                calc(
+                    var(--ni-private-listbox-available-viewport-height) - 
+                    var(--ni-private-listbox-anchor-element-gap)
+                )
+            ),
+            var(--ni-private-listbox-minimum-height)
         );
     }
 

@@ -6,9 +6,9 @@ import {
     borderWidth,
     controlHeight,
     smallPadding
-} from '../../../../../nimble-components/src/theme-provider/design-tokens';
-import { listOptionTag } from '../../../../../nimble-components/src/list-option';
-import { richTextMentionListboxTag } from '../../../../../nimble-components/src/rich-text/mention-listbox';
+} from '@ni/nimble-components/src/theme-provider/design-tokens';
+import { listOptionTag } from '@ni/nimble-components/src/list-option';
+import { richTextMentionListboxTag } from '@ni/nimble-components/src/rich-text/mention-listbox';
 import { sharedMatrixParameters } from '../../../utilities/matrix';
 import { createStory } from '../../../utilities/storybook';
 
@@ -39,15 +39,19 @@ const component = (
 ): ViewTemplate => html`
     <style>
         body.sb-show-main.sb-main-padded {
-            padding-top: 0px;
-            padding-bottom: 0px;
+            padding: 0px;
         }
     </style>
     <div
-        style="--ni-private-dropdown-delta-height: calc(${numListOptions} * var(${controlHeight.cssCustomProperty}) 
-                + 2 * (var(${smallPadding.cssCustomProperty}) + var(${borderWidth.cssCustomProperty})));
+        style="--ni-private-dropdown-delta-height: calc(
+                ${numListOptions} * var(${controlHeight.cssCustomProperty}) +
+                2 * (var(${smallPadding.cssCustomProperty}) + var(${borderWidth.cssCustomProperty}))
+            );
             height: calc(2 * var(--ni-private-dropdown-delta-height) - ${aboveTooSmallByPixels + belowTooSmallByPixels}px + var(${bodyFontLineHeight.cssCustomProperty}));
-            border-left: 2px solid green;"
+            width: fit-content;
+            padding-left: 8px;
+            padding-right: 8px;
+            border-bottom: 2px solid green;"
     >
         <div
             class='anchor'
@@ -67,15 +71,27 @@ const component = (
     </div>
 `;
 
-export const richTextMentionListboxSufficientRoomAboveAndBelow: StoryFn = createStory(component(0, 0));
-richTextMentionListboxSufficientRoomAboveAndBelow.play = playFunction;
-export const richTextMentionListboxSufficientRoomAboveButNotBelow: StoryFn = createStory(component(0, 1));
-richTextMentionListboxSufficientRoomAboveButNotBelow.play = playFunction;
-export const richTextMentionListboxSufficientRoomBelowButNotAbove: StoryFn = createStory(component(1, 0));
-richTextMentionListboxSufficientRoomBelowButNotAbove.play = playFunction;
-export const richTextMentionListboxEquallyInsufficientRoomAboveAndBelow: StoryFn = createStory(component(1, 1));
-richTextMentionListboxEquallyInsufficientRoomAboveAndBelow.play = playFunction;
-export const richTextMentionListboxMoreInsufficientAboveThanBelow: StoryFn = createStory(component(2, 1));
-richTextMentionListboxMoreInsufficientAboveThanBelow.play = playFunction;
-export const richTextMentionListboxMoreInsufficientBelowThanAbove: StoryFn = createStory(component(1, 2));
-richTextMentionListboxMoreInsufficientBelowThanAbove.play = playFunction;
+export const sufficientSpaceAboveAndBelow: StoryFn = createStory(
+    component(0, 0)
+);
+sufficientSpaceAboveAndBelow.play = playFunction;
+export const sufficientSpaceAboveButNotBelow: StoryFn = createStory(
+    component(0, 40)
+);
+sufficientSpaceAboveButNotBelow.play = playFunction;
+export const sufficientSpaceBelowButNotAbove: StoryFn = createStory(
+    component(40, 0)
+);
+sufficientSpaceBelowButNotAbove.play = playFunction;
+export const aboveAndBelowEquallyTooSmall: StoryFn = createStory(
+    component(40, 40)
+);
+aboveAndBelowEquallyTooSmall.play = playFunction;
+export const bothTooSmallButMoreSpaceBelow: StoryFn = createStory(
+    component(80, 40)
+);
+bothTooSmallButMoreSpaceBelow.play = playFunction;
+export const bothTooSmallButMoreSpaceAbove: StoryFn = createStory(
+    component(40, 80)
+);
+bothTooSmallButMoreSpaceAbove.play = playFunction;

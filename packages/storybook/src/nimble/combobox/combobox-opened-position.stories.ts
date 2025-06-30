@@ -4,9 +4,9 @@ import {
     borderWidth,
     controlHeight,
     smallPadding
-} from '../../../../nimble-components/src/theme-provider/design-tokens';
-import { listOptionTag } from '../../../../nimble-components/src/list-option';
-import { comboboxTag } from '../../../../nimble-components/src/combobox';
+} from '@ni/nimble-components/src/theme-provider/design-tokens';
+import { listOptionTag } from '@ni/nimble-components/src/list-option';
+import { comboboxTag } from '@ni/nimble-components/src/combobox';
 import { createStory } from '../../utilities/storybook';
 import { sharedMatrixParameters } from '../../utilities/matrix';
 
@@ -28,16 +28,20 @@ const component = (
 ): ViewTemplate => html`
     <style>
         body.sb-show-main.sb-main-padded {
-            padding-top: 0px;
-            padding-bottom: 0px;
+            padding: 0px;
         }
     </style>
     <div
-        style="--ni-private-dropdown-delta-height: calc(${numListOptions} * var(${controlHeight.cssCustomProperty}) 
-                + 2 * (var(${smallPadding.cssCustomProperty}) + var(${borderWidth.cssCustomProperty}))
-                + var(${smallPadding.cssCustomProperty}));
+        style="--ni-private-dropdown-delta-height: calc(
+                ${numListOptions} * var(${controlHeight.cssCustomProperty}) +
+                2 * (var(${smallPadding.cssCustomProperty}) + var(${borderWidth.cssCustomProperty})) +
+                var(${smallPadding.cssCustomProperty})
+            );
             height: calc(2 * var(--ni-private-dropdown-delta-height) - ${aboveTooSmallByPixels + belowTooSmallByPixels}px + var(${controlHeight.cssCustomProperty}));
-            border-left: 2px solid green;"
+            width: fit-content;
+            padding-left: 8px;
+            padding-right: 8px;
+            border-bottom: 2px solid green;"
     >
         <${comboboxTag}
             open
@@ -50,9 +54,21 @@ const component = (
     </div>
 `;
 
-export const comboboxDefaultOpenSufficientRoomAboveAndBelow: StoryFn = createStory(component(0, 0));
-export const comboboxDefaultOpenSufficientRoomAboveButNotBelow: StoryFn = createStory(component(0, 1));
-export const comboboxDefaultOpenSufficientRoomBelowButNotAbove: StoryFn = createStory(component(1, 0));
-export const comboboxDefaultOpenEquallyInsufficientRoomAboveAndBelow: StoryFn = createStory(component(1, 1));
-export const comboboxDefaultOpenMoreInsufficientAboveThanBelow: StoryFn = createStory(component(2, 1));
-export const comboboxDefaultOpenMoreInsufficientBelowThanAbove: StoryFn = createStory(component(1, 2));
+export const openDefault$SufficientSpaceAboveAndBelow: StoryFn = createStory(
+    component(0, 0)
+);
+export const openDefault$SufficientSpaceAboveButNotBelow: StoryFn = createStory(
+    component(0, 40)
+);
+export const openDefault$SufficientSpaceBelowButNotAbove: StoryFn = createStory(
+    component(40, 0)
+);
+export const openDefault$AboveAndBelowEquallyTooSmall: StoryFn = createStory(
+    component(40, 40)
+);
+export const openDefault$BothTooSmallButMoreSpaceBelow: StoryFn = createStory(
+    component(80, 40)
+);
+export const openDefault$BothTooSmallButMoreSpaceAbove: StoryFn = createStory(
+    component(40, 80)
+);

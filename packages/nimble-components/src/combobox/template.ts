@@ -28,7 +28,7 @@ ComboboxOptions
     <template
         aria-disabled="${x => x.ariaDisabled}"
         autocomplete="${x => x.autocomplete}"
-        class="${x => (x.open ? 'open' : '')} ${x => (x.disabled ? 'disabled' : '')} ${x => x.position}"
+        class="${x => (x.open ? 'open' : '')} ${x => (x.disabled ? 'disabled' : '')} ${x => x.position || ''}"
         ?open="${x => x.open}"
         tabindex="${x => (!x.disabled ? '0' : null)}"
         @click="${(x, c) => x.clickHandler(c.event as MouseEvent)}"
