@@ -85,7 +85,7 @@ describe('NumberField', () => {
         expect(page.getDisplayValue()).toEqual('0123+-.e456789');
     });
 
-    const badInputCases = [
+    const inputParsingCases = [
         { name: '01...2', expectedValue: '1' },
         { name: '0...2', expectedValue: '0' },
         { name: '...2', expectedValue: '' },
@@ -98,7 +98,7 @@ describe('NumberField', () => {
         { name: '1.12e4', expectedValue: '11200' },
         { name: '112e4', expectedValue: '1120000' }
     ] as const;
-    parameterizeSpec(badInputCases, (spec, name, value) => {
+    parameterizeSpec(inputParsingCases, (spec, name, value) => {
         spec(
             `sets value to float-parsable leading portion of input string "${name}"`,
             () => {
@@ -137,13 +137,13 @@ describe('NumberField localization', () => {
     afterEach(async () => {
         await disconnect();
     });
-
     const localeCases = [
-        { name: 'en-US', expectedSeparator: '.' },
-        { name: 'zh', expectedSeparator: '.' },
-        { name: 'ja', expectedSeparator: '.' },
-        { name: 'fr-CA', expectedSeparator: ',' },
-        { name: 'de', expectedSeparator: ',' }
+        { name: 'en-US', expectedSeparator: '.', disallowedSeparator: ',' },
+        { name: 'zh', expectedSeparator: '.', disallowedSeparator: ',' },
+        { name: 'ja', expectedSeparator: '.', disallowedSeparator: ',' },
+        { name: 'fr-CA', expectedSeparator: ',', disallowedSeparator: '.' },
+        { name: 'de', expectedSeparator: ',', disallowedSeparator: '.' },
+        { name: 'ar-SA', expectedSeparator: '٫', disallowedSeparator: '.' }
     ] as const;
     parameterizeSuite(localeCases, (suite, name, value) => {
         suite(`for "${name}"`, () => {
@@ -159,8 +159,7 @@ describe('NumberField localization', () => {
 
             it('disallows input of wrong separator', async () => {
                 await setupWithLocaleAndConnect(name);
-                const disallowedSeparator = value.expectedSeparator === '.' ? ',' : '.';
-                page.inputText(`10${disallowedSeparator}1`);
+                page.inputText(`10${value.disallowedSeparator}1`);
                 expect(page.getDisplayValue()).toEqual('101');
             });
         });

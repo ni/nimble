@@ -43,9 +43,10 @@ export class NumberField extends mixinErrorPattern(
     public appearanceReadOnly = false;
 
     private decimalSeparator = '.';
+    private inputFilterRegExp: RegExp | null = null;
 
     private readonly langSubscriber: DesignTokenSubscriber<typeof lang> = {
-        handleChange: () => this.updateDecimalSeparator()
+        handleChange: () => this.updateDecimalSeparatorAndInputFilter()
     };
 
     public override connectedCallback(): void {
@@ -53,7 +54,7 @@ export class NumberField extends mixinErrorPattern(
 
         // This is a workaround for FAST issue: https://github.com/microsoft/fast/issues/6148
         this.control.setAttribute('role', 'spinbutton');
-        this.updateDecimalSeparator();
+        this.updateDecimalSeparatorAndInputFilter();
         lang.subscribe(this.langSubscriber, this);
     }
 
@@ -69,7 +70,7 @@ export class NumberField extends mixinErrorPattern(
     // https://github.com/ni/fast/blob/53628f75d9ca8057483b1872223f72e7c74baa8a/packages/web-components/fast-foundation/src/number-field/number-field.ts#L342
     public override handleTextInput(): void {
         this.control.value = this.control.value.replace(
-            new RegExp(`[^0-9\\-+e${this.decimalSeparator}]`, 'g'),
+            this.inputFilterRegExp!,
             ''
         );
         // Necessary to access private property in base class
@@ -95,6 +96,9 @@ export class NumberField extends mixinErrorPattern(
         }
     }
 
+    // This override does the same thing as the base implementation (i.e. writes the component's value to the inner control),
+    // but makes sure the value is copied with the correct, locale-dependent decimal separator.
+    // https://github.com/ni/fast/blob/53628f75d9ca8057483b1872223f72e7c74baa8a/packages/web-components/fast-foundation/src/number-field/number-field.ts#L386
     public override handleBlur(): void {
         this.syncValueToInnerControl();
     }
@@ -113,10 +117,14 @@ export class NumberField extends mixinErrorPattern(
             : this.value;
     }
 
-    private updateDecimalSeparator(): void {
+    private updateDecimalSeparatorAndInputFilter(): void {
         const previousSeparator = this.decimalSeparator;
         this.decimalSeparator = this.getSeparatorForLanguange(
             lang.getValueFor(this)
+        );
+        this.inputFilterRegExp = new RegExp(
+            `[^0-9\\-+e${this.decimalSeparator}]`,
+            'g'
         );
         if (this.decimalSeparator !== previousSeparator) {
             this.control.value = this.control.value.replace(
