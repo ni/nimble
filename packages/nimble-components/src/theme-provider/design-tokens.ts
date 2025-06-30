@@ -146,7 +146,7 @@ export const sectionBackgroundColor = DesignToken.create<string>(
 
 export const dividerBackgroundColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.dividerBackgroundColor)
-).withDefault((element: HTMLElement) => getColorForTheme(element, Black15, Black80, ForestGreen));
+).withDefault((element: HTMLElement) => getColorForTheme(element, hexToRgbaCssColor(Black91, 0.2), hexToRgbaCssColor(Black15, 0.2), hexToRgbaCssColor(White, 0.2)));
 
 export const fillSelectedColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.fillSelectedColor)
