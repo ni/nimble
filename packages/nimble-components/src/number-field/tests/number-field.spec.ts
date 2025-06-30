@@ -80,7 +80,7 @@ describe('NumberField', () => {
         expect(element.control.getAttribute('aria-required')).toBe('false');
     });
 
-    it('disallows input of characters that cannot be used in a number', () => {
+    it('disallows input of characters that cannot be used in a number for default "en" locale', () => {
         page.setText('0123+-.abcdeABCDE,!@#$%^&*()_[]{}|;:\'"<>?/456789');
         expect(page.getDisplayValue()).toEqual('0123+-.e456789');
     });

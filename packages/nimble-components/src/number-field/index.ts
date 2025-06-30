@@ -66,6 +66,7 @@ export class NumberField extends mixinErrorPattern(
     // Same implementation as FAST NumberField, except:
     //   - uses a variable regex to filter input, and
     //   - ensures the decimal separator is always '.' in this.value
+    // https://github.com/ni/fast/blob/53628f75d9ca8057483b1872223f72e7c74baa8a/packages/web-components/fast-foundation/src/number-field/number-field.ts#L342
     public override handleTextInput(): void {
         this.control.value = this.control.value.replace(
             new RegExp(`[^0-9\\-+e${this.decimalSeparator}]`, 'g'),
