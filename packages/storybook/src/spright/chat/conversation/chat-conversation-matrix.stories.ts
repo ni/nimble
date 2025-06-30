@@ -209,8 +209,8 @@ const conversationWithInput = (
             <${chatMessageTag} message-type="outbound">
                 <span>Conversation is ${heightLabel} than the height of the messages.</span>
             </${chatMessageTag}>
+            <${chatInputTag} slot='input'></${chatInputTag}>
         </${chatConversationTag}>
-        <${chatInputTag} slot='input'></${chatInputTag}>
     </div>
 `;
 
