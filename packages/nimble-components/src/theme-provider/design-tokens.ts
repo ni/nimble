@@ -507,6 +507,9 @@ export const labelHeight = DesignToken.create<string>(
 export const borderWidth = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.borderWidth)
 ).withDefault('1px');
+export const dividerWidth = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.dividerWidth)
+).withDefault('2px');
 export const iconSize = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.iconSize)
 ).withDefault('16px');
