@@ -35,7 +35,6 @@ export const styles = css`
 
     .input {
         padding: 0px ${standardPadding} 0px ${standardPadding};
-
     }
 
     .input.has-content {
