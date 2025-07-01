@@ -470,22 +470,18 @@ export const calendarGroupHeaderBackgroundColor = DesignToken.create<string>(
     hexToRgbaCssColor(Black91, 0.1)
 ));
 
-export const chatConversationBackgroundGradientStartColor = DesignToken.create<string>(
-    styleNameFromTokenName(
-        tokenNames.chatConversationBackgroundGradientStartColor
-    )
-).withDefault((element: HTMLElement) => getColorForTheme(element, Black15, Black82, ForestGreen));
-
-export const chatConversationBackgroundGradientEndColor = DesignToken.create<string>(
-    styleNameFromTokenName(
-        tokenNames.chatConversationBackgroundGradientEndColor
-    )
-).withDefault((element: HTMLElement) => getColorForTheme(
-    element,
-    hexToRgbaCssColor(Black15, 0),
-    hexToRgbaCssColor(Black82, 0),
-    hexToRgbaCssColor(ForestGreen, 0)
-));
+export const chatConversationBackgroundImage = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.chatConversationBackgroundImage)
+).withDefault((element: HTMLElement) => {
+    const start = getColorForTheme(element, Black15, Black82, ForestGreen);
+    const end = getColorForTheme(
+        element,
+        hexToRgbaCssColor(Black15, 0),
+        hexToRgbaCssColor(Black82, 0),
+        hexToRgbaCssColor(ForestGreen, 0)
+    );
+    return `linear-gradient(${start}, ${end})`;
+});
 
 // Component Sizing Tokens
 export const controlHeight = DesignToken.create<string>(

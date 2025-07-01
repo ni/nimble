@@ -2,10 +2,9 @@ import { css } from '@ni/fast-element';
 import {
     applicationBackgroundColor,
     borderWidth,
-    chatConversationBackgroundGradientStartColor,
-    chatConversationBackgroundGradientEndColor,
+    chatConversationBackgroundImage,
     mediumPadding,
-    standardPadding
+    standardPadding,
 } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
 import { display } from '../../utilities/style/display';
 
@@ -26,10 +25,7 @@ export const styles = css`
         padding: ${mediumPadding} ${standardPadding} ${mediumPadding}
             ${standardPadding};
         border: ${borderWidth} solid ${applicationBackgroundColor};
-        background: linear-gradient(
-            ${chatConversationBackgroundGradientStartColor},
-            ${chatConversationBackgroundGradientEndColor}
-        );
+        background: ${chatConversationBackgroundImage};
         overflow-y: auto;
     }
 

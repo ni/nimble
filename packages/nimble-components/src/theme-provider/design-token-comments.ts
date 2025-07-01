@@ -21,10 +21,8 @@ export const comments: { readonly [key in TokenName]: string } = {
         'Font color for "accent" appearance-variant outline buttons',
     buttonBorderAccentOutlineColor:
         'Border color for "accent" appearance-variant outline buttons',
-    chatConversationBackgroundGradientStartColor:
-        'Background gradient start color for Spright chat conversation',
-    chatConversationBackgroundGradientEndColor:
-        'Background gradient end color for Spright chat conversation',
+    chatConversationBackgroundImage:
+        'Gradient background image for Spright chat conversation',
     fillSelectedColor: 'Control fill color when a control is selected',
     fillSelectedRgbPartialColor:
         'DEPRECATED: *-partial tokens are used with rgba() to set color transparency in component stylesheets',
