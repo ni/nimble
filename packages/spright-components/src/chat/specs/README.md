@@ -375,7 +375,7 @@ The text area will have an ARIA role of `textbox` similar to other Nimble text i
 
 Component layout will be tested at small screen sizes. The plans for content sizing and showing scrollbars should allow for adequate mobile layout. But initially there will be no specific testing of mobile behaviors as initial clients are desktop applications.
 
-On mobile, the input should treat the Enter/Return key as a new line as there is no way to use a modifier key to type Shift-Enter. Mobile users would press the Send button to submit. This is the behavior of other applications like Teams.
+On mobile, typing a newline in the input will be difficult as most on-screen keyboards don't offer a to use a modifier key to type Shift-Enter. If mobile support becomes a requirement we could consider options like matching Teams behavior (Enter key creates newline, only "Send" button sends message). This would likely need to be a configuration on the input as detecting that the user is on a mobile device is an application concern.
 
 ### Globalization
 
