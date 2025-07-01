@@ -221,7 +221,7 @@ richText.markdown = 'Welcome **Homer**, how can I help?';
     - `footer-actions`
         - Action buttons to display left of the send/stop button.
     - `attachments`
-        - An area to slot arbitrary content adjacent to the text input area. Intended to be used for adding chips that represent attached files.
+        - An area to slot content adjacent to the text input area. Intended to be used for adding chips that represent attached files.
 
 ##### Input API alternatives
 
