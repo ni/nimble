@@ -64,54 +64,19 @@ export class NumberField extends mixinErrorPattern(
         lang.unsubscribe(this.langSubscriber, this);
     }
 
-    // Same implementation as FAST NumberField, except:
-    //   - uses a variable regex to filter input, and
-    //   - ensures the decimal separator is always '.' in this.value
-    // https://github.com/ni/fast/blob/53628f75d9ca8057483b1872223f72e7c74baa8a/packages/web-components/fast-foundation/src/number-field/number-field.ts#L342
-    public override handleTextInput(): void {
-        this.control.value = this.control.value.replace(
-            this.inputFilterRegExp!,
-            ''
-        );
-        // Necessary to access private property in base class
-        // eslint-disable-next-line @typescript-eslint/dot-notation
-        this['isUserInput'] = true;
-        this.syncValueFromInnerControl();
-    }
-
-    public override valueChanged(previous: string, next: string): void {
-        // Necessary to access private property in base class
-        // eslint-disable-next-line @typescript-eslint/dot-notation
-        const wasUserInput = this['isUserInput'] as boolean;
-        super.valueChanged(previous, this.value);
-        // Because super.valueChanged may coerce and re-assign the value, this handler can recurse.
-        // If the this.value now differs from what was originally assigned, we know there was a
-        // recursive call that already handled everything, so we can exit early.
-        if (next !== this.value) {
-            return;
-        }
-        // for user input, the UI value isn't updated until the control loses focus
-        if (this.control && !wasUserInput) {
-            this.syncValueToInnerControl();
-        }
-    }
-
-    // This override does the same thing as the base implementation (i.e. writes the component's value to the inner control),
-    // but makes sure the value is copied with the correct, locale-dependent decimal separator.
-    // https://github.com/ni/fast/blob/53628f75d9ca8057483b1872223f72e7c74baa8a/packages/web-components/fast-foundation/src/number-field/number-field.ts#L386
-    public override handleBlur(): void {
-        this.syncValueToInnerControl();
+    protected override sanitizeInput(inputText: string): string {
+        return inputText.replace(this.inputFilterRegExp!, '');
     }
 
     // this.value <-- this.control.value
-    private syncValueFromInnerControl(): void {
+    protected override syncValueFromInnerControl(): void {
         this.value = this.decimalSeparator !== '.'
             ? this.control.value.replace(this.decimalSeparator, '.')
             : this.control.value;
     }
 
     // this.value --> this.control.value
-    private syncValueToInnerControl(): void {
+    protected override syncValueToInnerControl(): void {
         this.control.value = this.decimalSeparator !== '.'
             ? this.value.replace('.', this.decimalSeparator)
             : this.value;

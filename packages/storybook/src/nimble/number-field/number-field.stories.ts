@@ -88,7 +88,8 @@ const metadata: Meta<NumberFieldArgs> = {
             table: { category: apiCategory.nonAttributeProperties }
         },
         valueAsNumber: {
-            description: 'The number displayed in the number field.',
+            description:
+                "The number displayed in the number field. This property is not exposed in Angular or Blazor, as those frameworks already access the component's value as a numeric type.",
             table: { category: apiCategory.nonAttributeProperties },
             control: false,
             type: 'number'
