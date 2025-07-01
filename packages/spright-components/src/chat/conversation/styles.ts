@@ -4,7 +4,7 @@ import {
     borderWidth,
     sectionBackgroundImage,
     mediumPadding,
-    standardPadding,
+    standardPadding
 } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
 import { display } from '../../utilities/style/display';
 
