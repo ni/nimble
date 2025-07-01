@@ -49,7 +49,7 @@
   "homepage": "https://github.com/ni/nimble#readme",
   "dependencies": {
     "@ni/fast-element": "^10.0.0",
-    "@ni/fast-foundation": "^10.0.0",
+    "@ni/fast-foundation": "^10.1.0",
     "@ni/fast-web-utilities": "^10.0.0",
     "@ni/nimble-components": "^33.11.1",
     "tslib": "^2.2.0"
