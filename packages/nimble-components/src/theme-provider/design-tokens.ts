@@ -145,7 +145,7 @@ export const sectionBackgroundColor = DesignToken.create<string>(
 ).withDefault((element: HTMLElement) => getColorForTheme(element, Black15, Black80, ForestGreen));
 
 export const sectionBackgroundImage = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.chatConversationBackgroundImage)
+    styleNameFromTokenName(tokenNames.sectionBackgroundImage)
 ).withDefault((element: HTMLElement) => {
     const start = getColorForTheme(element, Black15, Black82, ForestGreen);
     const end = getColorForTheme(
