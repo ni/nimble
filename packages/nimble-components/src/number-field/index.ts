@@ -43,7 +43,7 @@ export class NumberField extends mixinErrorPattern(
     public appearanceReadOnly = false;
 
     private decimalSeparator = '.';
-    private inputFilterRegExp: RegExp | null = null;
+    private inputFilterRegExp = this.buildFilterRegExp(this.decimalSeparator);
 
     private readonly langSubscriber: DesignTokenSubscriber<typeof lang> = {
         handleChange: () => this.updateDecimalSeparatorAndInputFilter()
@@ -65,7 +65,7 @@ export class NumberField extends mixinErrorPattern(
     }
 
     protected override sanitizeInput(inputText: string): string {
-        return inputText.replace(this.inputFilterRegExp!, '');
+        return inputText.replace(this.inputFilterRegExp, '');
     }
 
     // this.value <-- this.control.value
@@ -87,10 +87,7 @@ export class NumberField extends mixinErrorPattern(
         this.decimalSeparator = this.getSeparatorForLanguange(
             lang.getValueFor(this)
         );
-        this.inputFilterRegExp = new RegExp(
-            `[^0-9\\-+e${this.decimalSeparator}]`,
-            'g'
-        );
+        this.inputFilterRegExp = this.buildFilterRegExp(this.decimalSeparator);
         if (this.decimalSeparator !== previousSeparator) {
             this.control.value = this.control.value.replace(
                 previousSeparator,
@@ -103,6 +100,10 @@ export class NumberField extends mixinErrorPattern(
         return Intl.NumberFormat(language)
             .formatToParts(1.1)
             .find(x => x.type === 'decimal')!.value;
+    }
+
+    private buildFilterRegExp(decimalSeparator: string): RegExp {
+        return new RegExp(`[^0-9\\-+e${decimalSeparator}]`, 'g');
     }
 }
 
