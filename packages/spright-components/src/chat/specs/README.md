@@ -159,8 +159,7 @@ richText.markdown = 'Welcome **Homer**, how can I help?';
 #### Input example
 
 ```html
-<spright-chat-input placeholder="Ask Nigel" send-button-label="Send">
-</spright-chat-input>
+<spright-chat-input placeholder="Ask Nigel"> </spright-chat-input>
 ```
 
 ### API
@@ -207,8 +206,6 @@ richText.markdown = 'Welcome **Homer**, how can I help?';
     - `value` - string attribute to get or set the current text in the text area. See [Input API alternatives](#input-api-alternatives) for more info.
     - `processing` - boolean attribute that causes the "Stop" button to be shown rather than the "Send" button
     - `placeholder` - text to display in the text area when no text has been entered
-    - `send-button-label` - text to use for a `title` and ARIA attributes on the "Send" button. See Accessibility section for more info.
-    - `stop-button-label` - text to use for a `title` and ARIA attributes on the "Stop" button. See Accessibility section for more info.
     - `send-disabled` - boolean attribute that causes the "Send" button to be disabled even if there is text or other slotted content
     - `error-visible` and `error-text` - standard attributes for showing an error icon and red text below the control
 - _Methods_
@@ -370,7 +367,7 @@ If the input changes state between `processing` and not when focus was on the "S
 
 The application will not announce the state change between `processing` and not to screen readers. This is a scoping decision which should be reconsidered if these components are promoted from Spright to Nimble.
 
-The Design team has requested a non-standard appearance for the "Send" and "Stop" buttons: icon-only but rectangular shape. Nimble icon-only buttons are square by default but allow setting an explicit width to make them rectangular. We will also set the text content and `title` to the value of `send-button-label` in accordance with Nimble's accessibility guidance.
+The Design team has requested a non-standard appearance for the "Send" and "Stop" buttons: icon-only but rectangular shape. Nimble icon-only buttons are square by default but allow setting an explicit width to make them rectangular. We will also set the text content and `title` to the value of appropriate label provider strings (see [Globalization](#globalization) for more info).
 
 The text area will have an ARIA role of `textbox` similar to other Nimble text input components.
 
@@ -382,7 +379,7 @@ On mobile, the input should treat the Enter/Return key as a new line as there is
 
 ### Globalization
 
-The content is provided by applications so they are responsible for localization.
+Most content is provided by applications so they are responsible for localization. For the input component "Send" and "Stop" button titles and accessible labels we will add label provider strings. These supply default labels which applications can localize or replace with custom labels. These will be added to a new Spright chat label provider.
 
 Defining the behavior for RTL languages is initially out of scope. But the API can easily be extended to support changing the layout for an RTL language when that is desired.
 
