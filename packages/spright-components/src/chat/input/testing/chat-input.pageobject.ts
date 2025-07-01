@@ -30,8 +30,8 @@ export class ChatInputPageObject {
         return this.getSendButton().textContent?.trim() ?? '';
     }
 
-    public getSendButtonTabIndex(): number {
-        return this.getSendButton().tabIndex;
+    public getSendButtonTabIndex(): string | null {
+        return this.getSendButton().getAttribute('tabindex');
     }
 
     public textAreaHasFocus(): boolean {
@@ -41,8 +41,8 @@ export class ChatInputPageObject {
         );
     }
 
-    public getTextAreaTabIndex(): number {
-        return this.element.textArea!.tabIndex;
+    public getTextAreaTabIndex(): string | null {
+        return this.element.textArea!.getAttribute('tabindex');
     }
 
     public getPlaceholder(): string {
