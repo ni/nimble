@@ -144,6 +144,19 @@ export const sectionBackgroundColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.sectionBackgroundColor)
 ).withDefault((element: HTMLElement) => getColorForTheme(element, Black15, Black80, ForestGreen));
 
+export const sectionBackgroundImage = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.chatConversationBackgroundImage)
+).withDefault((element: HTMLElement) => {
+    const start = getColorForTheme(element, Black15, Black82, ForestGreen);
+    const end = getColorForTheme(
+        element,
+        hexToRgbaCssColor(Black15, 0),
+        hexToRgbaCssColor(Black82, 0),
+        hexToRgbaCssColor(ForestGreen, 0)
+    );
+    return `linear-gradient(${start}, ${end})`;
+});
+
 export const dividerBackgroundColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.dividerBackgroundColor)
 ).withDefault((element: HTMLElement) => getColorForTheme(
@@ -469,19 +482,6 @@ export const calendarGroupHeaderBackgroundColor = DesignToken.create<string>(
     hexToRgbaCssColor(Black91, 0.1),
     hexToRgbaCssColor(Black91, 0.1)
 ));
-
-export const chatConversationBackgroundImage = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.chatConversationBackgroundImage)
-).withDefault((element: HTMLElement) => {
-    const start = getColorForTheme(element, Black15, Black82, ForestGreen);
-    const end = getColorForTheme(
-        element,
-        hexToRgbaCssColor(Black15, 0),
-        hexToRgbaCssColor(Black82, 0),
-        hexToRgbaCssColor(ForestGreen, 0)
-    );
-    return `linear-gradient(${start}, ${end})`;
-});
 
 // Component Sizing Tokens
 export const controlHeight = DesignToken.create<string>(

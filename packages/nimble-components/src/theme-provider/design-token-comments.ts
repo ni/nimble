@@ -9,6 +9,8 @@ export const comments: { readonly [key in TokenName]: string } = {
     dividerBackgroundColor: 'Divider background color',
     headerBackgroundColor: 'Background color for application headers',
     sectionBackgroundColor: 'Background color for sections',
+    sectionBackgroundImage:
+        'Gradient background image for sections.',
     buttonFillPrimaryColor:
         'Control fill color for "primary" appearance-variant buttons',
     buttonPrimaryFontColor:
@@ -21,8 +23,6 @@ export const comments: { readonly [key in TokenName]: string } = {
         'Font color for "accent" appearance-variant outline buttons',
     buttonBorderAccentOutlineColor:
         'Border color for "accent" appearance-variant outline buttons',
-    chatConversationBackgroundImage:
-        'Gradient background image for Spright chat conversation',
     fillSelectedColor: 'Control fill color when a control is selected',
     fillSelectedRgbPartialColor:
         'DEPRECATED: *-partial tokens are used with rgba() to set color transparency in component stylesheets',

@@ -2,7 +2,7 @@ import { css } from '@ni/fast-element';
 import {
     applicationBackgroundColor,
     borderWidth,
-    chatConversationBackgroundImage,
+    sectionBackgroundImage,
     mediumPadding,
     standardPadding,
 } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
@@ -25,7 +25,7 @@ export const styles = css`
         padding: ${mediumPadding} ${standardPadding} ${mediumPadding}
             ${standardPadding};
         border: ${borderWidth} solid ${applicationBackgroundColor};
-        background: ${chatConversationBackgroundImage};
+        background: ${sectionBackgroundImage};
         overflow-y: auto;
     }
 
