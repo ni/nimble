@@ -61,7 +61,7 @@
   "dependencies": {
     "@ni/fast-colors": "^10.0.0",
     "@ni/fast-element": "^10.0.0",
-    "@ni/fast-foundation": "^10.0.0",
+    "@ni/fast-foundation": "^10.1.0",
     "@ni/fast-web-utilities": "^10.0.0",
     "@ni/nimble-tokens": "^8.10.0",
     "@tanstack/table-core": "^8.19.3",

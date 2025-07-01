@@ -29,7 +29,8 @@ import {
 
 interface NumberFieldArgs extends LabelUserArgs {
     label: string;
-    value: number;
+    value: string;
+    valueAsNumber: number;
     placeholder: string;
     step: number;
     hideStep: boolean;
@@ -83,8 +84,15 @@ const metadata: Meta<NumberFieldArgs> = {
         },
         value: {
             description:
-                'The number displayed in the number field. Note that the property value is not synced to an attribute.',
+                'The string representation of the number displayed in the number field. This value is not locale-dependent and always uses a dot as the decimal separator. Note that the `value` property is not synced to the `value` attribute, which only controls the initial value.',
             table: { category: apiCategory.nonAttributeProperties }
+        },
+        valueAsNumber: {
+            description:
+                "The number displayed in the number field. This property is not exposed in Angular or Blazor, as those frameworks already access the component's value as a numeric type.",
+            table: { category: apiCategory.nonAttributeProperties },
+            control: false,
+            type: 'number'
         },
         placeholder: {
             description: placeholderDescription({
@@ -171,7 +179,7 @@ const metadata: Meta<NumberFieldArgs> = {
     },
     args: {
         label: 'default label',
-        value: 42,
+        value: '42',
         placeholder: 'Enter number...',
         step: 1,
         hideStep: false,

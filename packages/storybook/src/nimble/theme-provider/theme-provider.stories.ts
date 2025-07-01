@@ -7,6 +7,7 @@ import {
     themeProviderTag
 } from '@ni/nimble-components/dist/esm/theme-provider';
 import { Theme } from '@ni/nimble-components/dist/esm/theme-provider/types';
+import { numberFieldTag } from '@ni/nimble-components/dist/esm/number-field';
 import {
     sharedTableArgTypes,
     type SharedTableArgs,
@@ -84,6 +85,8 @@ export const themeProvider: StoryObj<ThemeProviderArgs> = {
                 Date
                 </${tableColumnDateTextTag}>
             </${tableTag}>
+            <${numberFieldTag} value="42">
+            </${numberFieldTag}>
         </${themeProviderTag}>
     `),
     argTypes: {
