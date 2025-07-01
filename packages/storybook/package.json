@@ -18,7 +18,7 @@
     "@ni-private/eslint-config-nimble": "*",
     "@ni/fast-element": "^10.0.0",
     "@ni/fast-foundation": "^10.0.0",
-    "@ni/fast-react-wrapper": "^10.0.0",
+    "@ni/fast-react-wrapper": "^10.1.1",
     "@ni/fast-web-utilities": "^10.0.0",
     "@ni/nimble-components": "*",
     "@ni/nimble-react": "*",
