@@ -12,7 +12,6 @@ import type { AnchoredRegion } from '../../anchored-region';
 import { diacriticInsensitiveStringNormalizer } from '../../utilities/models/string-normalizers';
 import type { ListOption } from '../../list-option';
 import type { MentionListboxShowOptions } from './types';
-import { DropdownPosition } from '../../patterns/dropdown/types';
 
 declare global {
     interface HTMLElementTagNameMap {
