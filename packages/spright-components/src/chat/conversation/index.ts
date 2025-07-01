@@ -15,7 +15,7 @@ declare global {
 export class ChatConversation extends FoundationElement {
     /** @internal */
     @observable
-    public inputIsEmpty = true;
+    public inputEmpty = true;
 
     /** @internal */
     @observable
@@ -25,7 +25,7 @@ export class ChatConversation extends FoundationElement {
         _prev: HTMLElement[] | undefined,
         next: HTMLElement[] | undefined
     ): void {
-        this.inputIsEmpty = !next?.length;
+        this.inputEmpty = !next?.length;
     }
 }
 

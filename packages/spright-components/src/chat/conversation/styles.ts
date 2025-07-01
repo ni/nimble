@@ -30,11 +30,11 @@ export const styles = css`
     }
 
     .input {
-        padding: 0px ${standardPadding} 0px ${standardPadding};
-    }
-
-    .input.has-content {
         padding: ${mediumPadding} ${standardPadding} ${standardPadding}
             ${standardPadding};
+    }
+
+    .input.input-empty {
+        padding: 0px ${standardPadding} 0px ${standardPadding};
     }
 `;
