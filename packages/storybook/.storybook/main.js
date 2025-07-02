@@ -1,6 +1,5 @@
 import { dirname, join } from 'path';
 import remarkGfm from 'remark-gfm';
-import tsconfigPaths from 'vite-tsconfig-paths';
 
 // All files participating in storybook should be in src
 // so that TypeScript and linters can track them correctly
@@ -34,7 +33,25 @@ export async function viteFinal(config) {
         keep_fnames: true
     };
 
-    config.plugins.push(tsconfigPaths());
+    // Keep in sync with tsconfig.json
+    config.resolve.alias = [
+        {
+            find: '@ni/nimble-components/dist/esm',
+            replacement: '@ni/nimble-components/src'
+        },
+        {
+            find: '@ni/spright-components/dist/esm',
+            replacement: '@ni/spright-components/src'
+        },
+        {
+            find: '@ni/nimble-react/dist/esm',
+            replacement: '@ni/nimble-react/src'
+        },
+        {
+            find: '@ni/spright-react/dist/esm',
+            replacement: '@ni/spright-react/src'
+        },
+    ];
 
     return mergeConfig(config);
 }
