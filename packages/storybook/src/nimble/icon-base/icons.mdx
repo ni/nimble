@@ -1,4 +1,4 @@
-import { Meta, Controls, Canvas, Title } from '@storybook/blocks';
+import { Meta, Controls, Canvas, Title } from '@storybook/addon-docs/blocks';
 import * as iconsStories from './icons.stories';
 import { iconAddTag } from '@ni/nimble-components/dist/esm/icons/add';
 import ComponentApisLink from '../../docs/component-apis-link.mdx';
@@ -6,10 +6,11 @@ import ComponentApisLink from '../../docs/component-apis-link.mdx';
 <Meta of={iconsStories} />
 <Title of={iconsStories} />
 
-Nimble icons can be slotted into other components or used independently. Each
-icon is available as a custom element. For example,
-
-<Tag name={iconAddTag} openClose />.
+<div>
+    Nimble icons can be slotted into other components or used independently.
+    Each icon is available as a custom element. For example,
+    <Tag name={iconAddTag} openClose />.
+</div>
 
 If you need a new icon, please
 [submit an issue](https://github.com/ni/nimble/issues/new/choose) using the

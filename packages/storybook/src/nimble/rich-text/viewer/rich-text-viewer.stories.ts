@@ -1,5 +1,5 @@
 import { html } from '@ni/fast-element';
-import type { Meta, StoryObj } from '@storybook/html';
+import type { Meta, StoryObj } from '@storybook/html-vite';
 import { mappingUserTag } from '@ni/nimble-components/dist/esm/mapping/user';
 import { richTextMentionUsersTag } from '@ni/nimble-components/dist/esm/rich-text-mention/users';
 import { richTextViewerTag } from '@ni/nimble-components/dist/esm/rich-text/viewer';

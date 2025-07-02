@@ -1,6 +1,6 @@
 import { html, repeat, when } from '@ni/fast-element';
-import { withActions } from '@storybook/addon-actions/decorator';
-import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html';
+import { withActions } from 'storybook/actions/decorator';
+import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html-vite';
 import { listOptionTag } from '@ni/nimble-components/dist/esm/list-option';
 import { listOptionGroupTag } from '@ni/nimble-components/dist/esm/list-option-group';
 import { selectTag } from '@ni/nimble-components/dist/esm/select';

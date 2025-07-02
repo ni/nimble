@@ -1,4 +1,4 @@
-import type { StoryFn, Meta } from '@storybook/html';
+import type { StoryFn, Meta } from '@storybook/html-vite';
 import { html, repeat, ViewTemplate } from '@ni/fast-element';
 import { chatInputTag } from '@ni/spright-components/dist/esm/chat/input';
 import { chatMessageTag } from '@ni/spright-components/dist/esm/chat/message';

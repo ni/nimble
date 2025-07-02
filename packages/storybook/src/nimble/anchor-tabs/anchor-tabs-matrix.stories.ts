@@ -1,4 +1,4 @@
-import type { Meta, StoryFn } from '@storybook/html';
+import type { Meta, StoryFn } from '@storybook/html-vite';
 import { html, ViewTemplate, when } from '@ni/fast-element';
 import { anchorTabTag } from '@ni/nimble-components/dist/esm/anchor-tab';
 import { tabsToolbarTag } from '@ni/nimble-components/dist/esm/tabs-toolbar';

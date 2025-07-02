@@ -1,6 +1,6 @@
 import { html, ref, when } from '@ni/fast-element';
-import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html';
-import { withActions } from '@storybook/addon-actions/decorator';
+import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html-vite';
+import { withActions } from 'storybook/actions/decorator';
 import { buttonTag } from '@ni/nimble-components/dist/esm/button';
 import { labelProviderRichTextTag } from '@ni/nimble-components/dist/esm/label-provider/rich-text';
 import { mappingUserTag } from '@ni/nimble-components/dist/esm/mapping/user';

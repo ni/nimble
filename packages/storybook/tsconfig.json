@@ -31,8 +31,7 @@
         "jsx": "preserve",
 
         // Support Chromatic Turbosnap in a monorepo
-        // Used in conjunction with tsconfig-paths-webpack-plugin
-        // See: https://github.com/chromaui/chromatic-cli/issues/1149
+        // Keep in sync with .storybook/main.js vite config
         "paths": {
             "@ni/nimble-components/dist/esm/*": ["../nimble-components/src/*"],
             "@ni/spright-components/dist/esm/*": [

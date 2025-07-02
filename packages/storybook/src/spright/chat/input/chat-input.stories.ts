@@ -1,5 +1,5 @@
 import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html';
-import { withActions } from '@storybook/addon-actions/decorator';
+import { withActions } from 'storybook/actions/decorator';
 import { html } from '@ni/fast-element';
 import { chatInputTag } from '@ni/spright-components/dist/esm/chat/input';
 import {

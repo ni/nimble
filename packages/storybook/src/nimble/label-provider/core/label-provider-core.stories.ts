@@ -1,4 +1,4 @@
-import type { StoryObj, Meta } from '@storybook/html';
+import type { StoryObj, Meta } from '@storybook/html-vite';
 import { labelProviderCoreTag } from '@ni/nimble-components/dist/esm/label-provider/core';
 import * as labelTokensNamespace from '@ni/nimble-components/dist/esm/label-provider/core/label-tokens';
 import {
