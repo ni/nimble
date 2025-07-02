@@ -2,6 +2,21 @@
   "name": "@ni/spright-components",
   "entries": [
     {
+      "date": "Wed, 02 Jul 2025 14:09:36 GMT",
+      "version": "5.5.1",
+      "tag": "@ni/spright-components_v5.5.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/spright-components",
+            "commit": "44fd8dde63ffa41369de86785399c4c1a5eef22f",
+            "comment": "Delegate focus to input when chat is clicked"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 27 Jun 2025 15:07:42 GMT",
       "version": "5.5.0",
       "tag": "@ni/spright-components_v5.5.0",

@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Delegate focus to input when chat is clicked",
-  "packageName": "@ni/spright-components",
-  "email": "jattasNI@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}

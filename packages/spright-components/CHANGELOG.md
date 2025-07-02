@@ -1,8 +1,16 @@
 # Change Log - @ni/spright-components
 
-<!-- This log was last generated on Fri, 27 Jun 2025 15:07:42 GMT and should not be manually modified. -->
+<!-- This log was last generated on Wed, 02 Jul 2025 14:09:36 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 5.5.1
+
+Wed, 02 Jul 2025 14:09:36 GMT
+
+### Patches
+
+- Delegate focus to input when chat is clicked ([ni/nimble@44fd8dd](https://github.com/ni/nimble/commit/44fd8dde63ffa41369de86785399c4c1a5eef22f))
 
 ## 5.5.0
 
