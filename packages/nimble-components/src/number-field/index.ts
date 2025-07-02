@@ -87,8 +87,10 @@ export class NumberField extends mixinErrorPattern(
         this.decimalSeparator = this.getSeparatorForLanguange(
             lang.getValueFor(this)
         );
-        this.inputFilterRegExp = this.buildFilterRegExp(this.decimalSeparator);
         if (this.decimalSeparator !== previousSeparator) {
+            this.inputFilterRegExp = this.buildFilterRegExp(
+                this.decimalSeparator
+            );
             this.control.value = this.control.value.replace(
                 previousSeparator,
                 this.decimalSeparator
