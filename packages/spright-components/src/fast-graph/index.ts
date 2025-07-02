@@ -26,7 +26,7 @@ import 'flot/source/jquery.flot.axislabels.js';
 import 'flot/source/jquery.flot.selection.js';
 import { styles } from './styles';
 import { template } from './template';
-import type { AxisAutoScale } from './types';
+import type { AxisConfig, PlotStyle } from './types';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -40,13 +40,17 @@ interface Flot {
     draw: () => void;
     clearTextCache: () => void;
     resize: () => void;
+    getXAxes: () => AxisConfig[];
+    getYAxes: () => AxisConfig[];
 }
 
 interface FlotConfig {
-    yaxis: { min?: number, max?: number, autoScale: AxisAutoScale, color?: string };
-    xaxis: { autoScale: AxisAutoScale, color?: string };
-    zoom: { interactive: boolean };
-    pan: { interactive: boolean };
+    yaxes: AxisConfig[];
+    xaxes: AxisConfig[];
+    zoom?: { interactive: boolean };
+    pan?: { interactive: boolean };
+    plots?: PlotStyle[];
+    colors?: string[]; // Optional colors for the plots
 }
 
 interface FlotFactory {
@@ -65,24 +69,46 @@ export class FastGraph extends FoundationElement {
 
     private flot!: Flot;
     private resizeObserver?: ResizeObserver;
-    private data: unknown[] = [{ data: [], flatdata: true }];
+    private data: unknown[] = [];
+    private config: FlotConfig = {
+        yaxes: [{ autoScale: 'loose', mode: 'linear', min: 0, max: 10 }],
+        xaxes: [{ autoScale: 'exact', mode: 'linear', min: 0, max: 10 }],
+        zoom: { interactive: true },
+        pan: { interactive: true },
+    };
 
     public override connectedCallback(): void {
         super.connectedCallback();
-        this.flot = $.plot(this.flotElement, [], { yaxis: { autoScale: 'loose' }, xaxis: { autoScale: 'exact' }, zoom: { interactive: true }, pan: { interactive: true } });
-        this.flot.setData(this.data);
-        this.flot.setupGrid(true);
-        this.flot.draw();
+        this.flot = $.plot(this.flotElement, this.data, this.config);
         this.resizeObserver = new ResizeObserver(() => this.onResize());
         this.resizeObserver.observe(this);
     }
 
     public setData(data: unknown): void {
         // Assuming `data` is in a format that Flot can understand
-        // This is a placeholder for actual Flot initialization code
-        // Example: $.plot(this.flotElement, data);
         this.data = data as unknown[];
         this.updateFlot();
+    }
+
+    public get flotConfig(): FlotConfig {
+        return this.config;
+    }
+
+    public set flotConfig(config: FlotConfig) {
+        this.config = config;
+        const flotData = this.processData();
+
+        this.flot = $.plot(this.flotElement, flotData, this.config);
+    }
+
+    private processData(): unknown[] {
+        const flotData: unknown[] = [];
+        this.data.forEach((plotData, index) => {
+            const flatData = !Array.isArray((plotData as unknown[])[0]);
+            const plotConfig = this.flotConfig.plots?.[index] ?? {};
+            flotData.push({ data: plotData, ...plotConfig, flatdata: flatData });
+        });
+        return flotData;
     }
 
     private readonly onResize = (): void => {
@@ -92,7 +118,7 @@ export class FastGraph extends FoundationElement {
     };
 
     private readonly updateFlot = (): void => {
-        this.flot.setData(this.data);
+        this.flot.setData(this.processData());
         this.flot.setupGrid(true);
         this.flot.draw();
     };
