@@ -52,6 +52,7 @@
     "@ni/fast-foundation": "^10.0.0",
     "@ni/fast-web-utilities": "^10.0.0",
     "@ni/nimble-components": "^33.11.1",
+    "flot": "^4.2.6",
     "tslib": "^2.2.0"
   },
   "devDependencies": {
