@@ -1,6 +1,6 @@
 import { DesignSystem, FoundationElement } from '@ni/fast-foundation';
 import { keyEnter } from '@ni/fast-web-utilities';
-import { attr, observable } from '@ni/fast-element';
+import { attr, nullableNumberConverter, observable } from '@ni/fast-element';
 import { styles } from './styles';
 import { template } from './template';
 import type { ChatInputSendEventDetail } from './types';
@@ -23,6 +23,9 @@ export class ChatInput extends FoundationElement {
 
     @attr
     public value = '';
+
+    @attr({ attribute: 'tabindex', converter: nullableNumberConverter })
+    public override tabIndex!: number;
 
     /**
      * @internal
@@ -107,7 +110,10 @@ export class ChatInput extends FoundationElement {
 const sprightChatInput = ChatInput.compose({
     baseName: 'chat-input',
     template,
-    styles
+    styles,
+    shadowOptions: {
+        delegatesFocus: true
+    }
 });
 
 DesignSystem.getOrCreate().withPrefix('spright').register(sprightChatInput());

@@ -11,6 +11,7 @@ export const template = html<ChatInput>`
         ${ref('textArea')}
         placeholder="${x => x.placeholder}"
         rows="1"
+        tabindex="${x => x.tabIndex}"
         @keydown="${(x, c) => x.textAreaKeydownHandler(c.event as KeyboardEvent)}"
         @input="${x => x.textAreaInputHandler()}"
     ></textarea>
@@ -20,6 +21,7 @@ export const template = html<ChatInput>`
         appearance-variant="accent"
         ?disabled=${x => x.disableSendButton}
         @click=${x => x.sendButtonClickHandler()}
+        tabindex="${x => x.tabIndex}"
         title=${x => x.sendButtonLabel}
         content-hidden
     >
