@@ -189,7 +189,7 @@ export const slottedButtonsSizing: StoryFn = createMatrixThemeStory(html`
 `);
 
 const heightStates = [
-    ['shorter', '100px'],
+    ['shorter', '200px'],
     ['taller', '300px']
 ] as const;
 type HeightStates = (typeof heightStates)[number];
@@ -209,8 +209,8 @@ const conversationWithInput = (
             <${chatMessageTag} message-type="outbound">
                 <span>Conversation is ${heightLabel} than the height of the messages.</span>
             </${chatMessageTag}>
+            <${chatInputTag} slot='input'></${chatInputTag}>
         </${chatConversationTag}>
-        <${chatInputTag}></${chatInputTag}>
     </div>
 `;
 

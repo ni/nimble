@@ -13,6 +13,7 @@ export const tokenNames: { readonly [key in TokenName]: string } = {
     dividerBackgroundColor: 'divider-background-color',
     headerBackgroundColor: 'header-background-color',
     sectionBackgroundColor: 'section-background-color',
+    sectionBackgroundImage: 'section-background-image',
     buttonFillPrimaryColor: 'button-fill-primary-color',
     buttonPrimaryFontColor: 'button-primary-font-color',
     buttonFillAccentColor: 'button-fill-accent-color',
@@ -45,6 +46,7 @@ export const tokenNames: { readonly [key in TokenName]: string } = {
     largePadding: 'large-padding',
     labelHeight: 'label-height',
     borderWidth: 'border-width',
+    dividerWidth: 'divider-width',
     iconSize: 'icon-size',
     groupHeaderTextTransform: 'group-header-text-transform',
     drawerWidth: 'drawer-width',
@@ -302,7 +304,8 @@ const tokenSuffixes = [
     'Height',
     'Delay',
     'Padding',
-    'Color'
+    'Color',
+    'Image'
 ] as const;
 export type TokenSuffix = (typeof tokenSuffixes)[number];
 export const suffixFromTokenName = (

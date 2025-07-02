@@ -527,7 +527,7 @@ Public names for theme-aware tokens are specified in `src/theme-provider/design-
 2. Where **part** is the specific part of the element to which the token applies (e.g. 'border', 'background', or shadow).
 3. Where **interaction_states** is one or more interaction states (e.g. 'active', 'disabled', 'hover', or 'selected'). Multiple values should be sorted alphabetically.
 4. Where **remaining_states** the remaining, non-interaction states (e.g. 'accent', 'primary, or 'large'). Multiple values should be sorted alphabetically.
-5. Where **token_type** is the token category (e.g. 'color', 'font', 'font-color', 'height', 'width', or 'size').
+5. Where **token_type** is the token category (e.g. 'color', 'image', 'font', 'font-color', 'height', 'width', or 'size').
 
 ### Size ramp
 
