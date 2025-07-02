@@ -14,6 +14,7 @@ export const styles = css`
     :host {
         flex-direction: column;
         background: ${applicationBackgroundColor};
+        border: ${borderWidth} solid ${applicationBackgroundColor};
     }
 
     .messages {
@@ -24,13 +25,12 @@ export const styles = css`
         row-gap: 32px;
         padding: ${mediumPadding} ${standardPadding} ${mediumPadding}
             ${standardPadding};
-        border: ${borderWidth} solid ${applicationBackgroundColor};
         background: ${sectionBackgroundImage};
         overflow-y: auto;
     }
 
     .input {
-        padding: ${mediumPadding} ${standardPadding} ${standardPadding}
+        padding: ${borderWidth} ${standardPadding} ${standardPadding}
             ${standardPadding};
     }
 
