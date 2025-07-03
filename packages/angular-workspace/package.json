@@ -41,7 +41,7 @@
     "@ni/spright-components": "*",
     "rxjs": "^7.4.0",
     "tslib": "^2.2.0",
-    "zone.js": "^0.14.0"
+    "zone.js": "^0.15.1"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^18.2.12",
