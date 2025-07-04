@@ -34,17 +34,20 @@ export const styles = css`
     }
 
     .tooltip {
-        flex-shrink: 0;
-        max-width: 440px;
-        box-shadow: ${elevation2BoxShadow};
-        display: inline-flex;
-        border: ${borderWidth} solid var(--ni-private-tooltip-border-color);
-        background-color: var(--ni-private-tooltip-background-color);
-        padding-bottom: 6px;
-        padding-left: ${mediumPadding};
-        padding-right: ${mediumPadding};
-        padding-top: ${smallPadding};
-    }
+    flex-shrink: 0;
+    max-width: 100px;
+    max-height: 100px;
+    box-shadow: ${elevation2BoxShadow};
+    display: inline-flex;
+    border: ${borderWidth} solid var(--ni-private-tooltip-border-color);
+    background-color: var(--ni-private-tooltip-background-color);
+    padding-bottom: 6px;
+    padding-left: ${mediumPadding};
+    padding-right: ${mediumPadding};
+    padding-top: ${smallPadding};
+    overflow: auto; /* Add scrollbars if needed */
+}
+
 
     .status-icon {
         display: none;

@@ -29,7 +29,23 @@ interface TooltipArgs {
     content: 'simple' | 'complex';
 }
 
-const simpleContent = html<TooltipArgs>`Tooltip label`;
+const simpleContent = html<TooltipArgs>`Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus consectetur rhoncus facilisis. Mauris in neque in nulla ultricies feugiat a eu lorem. Praesent commodo ligula eu sapien laoreet consequat in eget massa. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Fusce accumsan, dui vitae commodo condimentum, arcu lorem ornare nulla, non dignissim risus orci quis nisi. Praesent tempus nunc at semper placerat. Donec in laoreet lectus, et bibendum sapien.
+
+Suspendisse cursus tempus consequat. Curabitur euismod a leo vitae condimentum. Integer consequat ante sit amet enim ornare rutrum fringilla et purus. Etiam ut dolor quis libero eleifend ornare. Suspendisse posuere mauris eget ex fringilla laoreet. Mauris tempor dignissim justo sed aliquet. Sed nunc lorem, posuere vitae ipsum quis, suscipit semper tellus. Integer luctus tempus arcu sed sodales. Proin porta, tortor quis molestie hendrerit, augue massa pellentesque neque, at dignissim lorem nibh eu urna. Quisque aliquet consequat odio, sit amet ornare nisl pharetra quis. Ut bibendum erat dolor. Vestibulum vulputate maximus massa, ut ornare turpis scelerisque quis. Etiam tempor dictum lectus, vitae posuere mauris pellentesque at. Curabitur aliquet iaculis efficitur. Nullam velit arcu, suscipit et eros vel, tempus efficitur magna. Morbi lobortis, diam id tempus sodales, nibh tellus cursus nibh, non cursus lacus arcu dignissim tortor.
+
+Aliquam porta nisi quis ipsum placerat elementum. Nulla sed scelerisque tortor, quis porttitor mauris. Vivamus sollicitudin scelerisque lacus, ac pellentesque nisi porta non. Morbi ut tempus libero. Curabitur tristique risus non lorem convallis tincidunt. Vivamus molestie, dolor vel pellentesque gravida, neque velit varius justo, ac aliquet quam turpis ac velit. Nulla scelerisque urna a nunc vestibulum elementum. Duis consectetur vitae risus eget hendrerit. Cras pulvinar purus risus, nec finibus risus facilisis at. Aenean fermentum eleifend neque in posuere. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Aliquam lobortis justo ultrices lectus pharetra posuere vitae vitae quam. Praesent sodales ipsum nec vehicula mollis. Maecenas in euismod mi.
+
+Nullam bibendum ipsum nec felis cursus finibus. Ut suscipit mollis mi, in suscipit arcu rhoncus eget. Vestibulum dapibus lacus sed eros mattis bibendum. Interdum et malesuada fames ac ante ipsum primis in faucibus. Vivamus eleifend ligula sem, et placerat risus consectetur eu. Suspendisse rutrum leo varius ipsum aliquam aliquet. Suspendisse ut aliquet neque. Cras semper tellus ac tellus lacinia commodo. Donec at scelerisque sem.
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus consectetur rhoncus facilisis. Mauris in neque in nulla ultricies feugiat a eu lorem. Praesent commodo ligula eu sapien laoreet consequat in eget massa. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Fusce accumsan, dui vitae commodo condimentum, arcu lorem ornare nulla, non dignissim risus orci quis nisi. Praesent tempus nunc at semper placerat. Donec in laoreet lectus, et bibendum sapien.
+
+Suspendisse cursus tempus consequat. Curabitur euismod a leo vitae condimentum. Integer consequat ante sit amet enim ornare rutrum fringilla et purus. Etiam ut dolor quis libero eleifend ornare. Suspendisse posuere mauris eget ex fringilla laoreet. Mauris tempor dignissim justo sed aliquet. Sed nunc lorem, posuere vitae ipsum quis, suscipit semper tellus. Integer luctus tempus arcu sed sodales. Proin porta, tortor quis molestie hendrerit, augue massa pellentesque neque, at dignissim lorem nibh eu urna. Quisque aliquet consequat odio, sit amet ornare nisl pharetra quis. Ut bibendum erat dolor. Vestibulum vulputate maximus massa, ut ornare turpis scelerisque quis. Etiam tempor dictum lectus, vitae posuere mauris pellentesque at. Curabitur aliquet iaculis efficitur. Nullam velit arcu, suscipit et eros vel, tempus efficitur magna. Morbi lobortis, diam id tempus sodales, nibh tellus cursus nibh, non cursus lacus arcu dignissim tortor.
+
+Aliquam porta nisi quis ipsum placerat elementum. Nulla sed scelerisque tortor, quis porttitor mauris. Vivamus sollicitudin scelerisque lacus, ac pellentesque nisi porta non. Morbi ut tempus libero. Curabitur tristique risus non lorem convallis tincidunt. Vivamus molestie, dolor vel pellentesque gravida, neque velit varius justo, ac aliquet quam turpis ac velit. Nulla scelerisque urna a nunc vestibulum elementum. Duis consectetur vitae risus eget hendrerit. Cras pulvinar purus risus, nec finibus risus facilisis at. Aenean fermentum eleifend neque in posuere. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Aliquam lobortis justo ultrices lectus pharetra posuere vitae vitae quam. Praesent sodales ipsum nec vehicula mollis. Maecenas in euismod mi.
+
+Nullam bibendum ipsum nec felis cursus finibus. Ut suscipit mollis mi, in suscipit arcu rhoncus eget. Vestibulum dapibus lacus sed eros mattis bibendum. Interdum et malesuada fames ac ante ipsum primis in faucibus. Vivamus eleifend ligula sem, et placerat risus consectetur eu. Suspendisse rutrum leo varius ipsum aliquam aliquet. Suspendisse ut aliquet neque. Cras semper tellus ac tellus lacinia commodo. Donec at scelerisque sem.
+
+Nunc dapibus laoreet quam vitae laoreet. Mauris eu vehicula felis, nec egestas odio. Vestibulum sit amet nulla nisi. Nullam pharetra massa vel mollis fermentum. Integer eu est accumsan, egestas tortor in, tristique eros. Vestibulum non libero dictum, convallis ipsum vel, commodo est. Cras vulputate quam non eros placerat, ut auctor lectus volutpat. Aliquam erat volutpat. Pellentesque at augue bibendum, ullamcorper turpis non, imperdiet metus. Sed ac mi lacus. Integer vitae fermentum nisl.
+Nunc dapibus laoreet quam vitae laoreet. Mauris eu vehicula felis, nec egestas odio. Vestibulum sit amet nulla nisi. Nullam pharetra massa vel mollis fermentum. Integer eu est accumsan, egestas tortor in, tristique eros. Vestibulum non libero dictum, convallis ipsum vel, commodo est. Cras vulputate quam non eros placerat, ut auctor lectus volutpat. Aliquam erat volutpat. Pellentesque at augue bibendum, ullamcorper turpis non, imperdiet metus. Sed ac mi lacus. Integer vitae fermentum nisl.`;
 const complexContent = html<TooltipArgs>`
     <style class="code-hide">
         #complex-anchor {
@@ -130,9 +146,9 @@ const metadata: Meta<TooltipArgs> = {
         </style>
     `),
     args: {
-        visible: false,
+        visible: true,
         severity: 'default',
-        iconVisible: false,
+        iconVisible: true,
         delay: 300,
         autoUpdateMode: 'anchor',
         anchorRef: undefined,
