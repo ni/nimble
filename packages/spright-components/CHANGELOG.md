@@ -1,8 +1,17 @@
 # Change Log - @ni/spright-components
 
-<!-- This log was last generated on Wed, 02 Jul 2025 14:09:36 GMT and should not be manually modified. -->
+<!-- This log was last generated on Mon, 07 Jul 2025 16:46:23 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 5.5.2
+
+Mon, 07 Jul 2025 16:46:23 GMT
+
+### Patches
+
+- Style improvements for chat conversation ([ni/nimble@69a41ca](https://github.com/ni/nimble/commit/69a41ca15b6f41e3af2b7d5bc2472bc969925777))
+- Bump @ni/nimble-components to v33.12.0
 
 ## 5.5.1
 

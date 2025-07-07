@@ -1,7 +1,0 @@
-{
-  "type": "minor",
-  "comment": "New and updated theme-aware design tokens for application dividers and chat components",
-  "packageName": "@ni/nimble-components",
-  "email": "jattasNI@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}

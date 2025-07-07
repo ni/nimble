@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-<!-- This log was last generated on Thu, 26 Jun 2025 19:20:55 GMT and should not be manually modified. -->
+<!-- This log was last generated on Mon, 07 Jul 2025 16:46:23 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 33.12.0
+
+Mon, 07 Jul 2025 16:46:23 GMT
+
+### Minor changes
+
+- New and updated theme-aware design tokens for application dividers and chat components ([ni/nimble@69a41ca](https://github.com/ni/nimble/commit/69a41ca15b6f41e3af2b7d5bc2472bc969925777))
 
 ## 33.11.1
 

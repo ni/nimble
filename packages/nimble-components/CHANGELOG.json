@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Mon, 07 Jul 2025 16:46:23 GMT",
+      "version": "33.12.0",
+      "tag": "@ni/nimble-components_v33.12.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "69a41ca15b6f41e3af2b7d5bc2472bc969925777",
+            "comment": "New and updated theme-aware design tokens for application dividers and chat components"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 02 Jul 2025 14:09:36 GMT",
       "version": "33.11.1",
       "tag": "@ni/nimble-components_v33.11.1",
