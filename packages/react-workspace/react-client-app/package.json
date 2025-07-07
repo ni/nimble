@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "@ni/nimble-react": "^0.1.3",
-    "@ni/spright-react": "^0.2.0",
+    "@ni/spright-react": "^0.2.1",
     "react": "^18",
     "react-dom": "^18"
   },

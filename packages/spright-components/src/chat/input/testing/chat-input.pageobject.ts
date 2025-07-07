@@ -30,11 +30,19 @@ export class ChatInputPageObject {
         return this.getSendButton().textContent?.trim() ?? '';
     }
 
+    public getSendButtonTabIndex(): string | null {
+        return this.getSendButton().getAttribute('tabindex');
+    }
+
     public textAreaHasFocus(): boolean {
         return (
             document.activeElement === this.element
             && this.element.shadowRoot?.activeElement === this.element.textArea
         );
+    }
+
+    public getTextAreaTabIndex(): string | null {
+        return this.element.textArea!.getAttribute('tabindex');
     }
 
     public getPlaceholder(): string {
