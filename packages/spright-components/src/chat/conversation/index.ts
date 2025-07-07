@@ -1,4 +1,5 @@
 import { DesignSystem, FoundationElement } from '@ni/fast-foundation';
+import { observable } from '@ni/fast-element';
 import { styles } from './styles';
 import { template } from './template';
 
@@ -11,7 +12,22 @@ declare global {
 /**
  * A Spright component for displaying a series of chat messages
  */
-export class ChatConversation extends FoundationElement {}
+export class ChatConversation extends FoundationElement {
+    /** @internal */
+    @observable
+    public inputEmpty = true;
+
+    /** @internal */
+    @observable
+    public readonly slottedInputElements?: HTMLElement[];
+
+    public slottedInputElementsChanged(
+        _prev: HTMLElement[] | undefined,
+        next: HTMLElement[] | undefined
+    ): void {
+        this.inputEmpty = !next?.length;
+    }
+}
 
 const sprightChatConversation = ChatConversation.compose({
     baseName: 'chat-conversation',
