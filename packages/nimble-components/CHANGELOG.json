@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 08 Jul 2025 00:20:19 GMT",
+      "version": "33.12.1",
+      "tag": "@ni/nimble-components_v33.12.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "62e162b4cee0f816a7fdf91775b272dc3bf86d5e",
+            "comment": "Revert dividerBackgroundColor token change"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 07 Jul 2025 16:46:23 GMT",
       "version": "33.12.0",
       "tag": "@ni/nimble-components_v33.12.0",

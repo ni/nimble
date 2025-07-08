@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-<!-- This log was last generated on Mon, 07 Jul 2025 16:46:23 GMT and should not be manually modified. -->
+<!-- This log was last generated on Tue, 08 Jul 2025 00:20:19 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 33.12.1
+
+Tue, 08 Jul 2025 00:20:19 GMT
+
+### Patches
+
+- Revert dividerBackgroundColor token change ([ni/nimble@62e162b](https://github.com/ni/nimble/commit/62e162b4cee0f816a7fdf91775b272dc3bf86d5e))
 
 ## 33.12.0
 
