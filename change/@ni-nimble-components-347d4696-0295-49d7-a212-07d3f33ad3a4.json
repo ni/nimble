@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "Revert dividerBackgroundColor token change",
+  "packageName": "@ni/nimble-components",
+  "email": "jattasNI@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
