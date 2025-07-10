@@ -248,7 +248,6 @@ _Events_
 
     This event will be triggered in the following scenarios to perform filtering in the client application. The below scenarios will also fire
     when there is a configuration element `nimble-rich-text-mention-users` even without the mapping elements:
-
     1. When a user inserts the character (e.g., `@`) into the editor, which activates the mention popup.
     2. When a user adds or removes text after inserting the mention character into the editor.
     3. When a user repositions the cursor between the text segments added after the mention character.
@@ -257,7 +256,6 @@ _Events_
     Refer the [accessibility](#accessibility) section to know more details about when it is required to emit the event for performing the filtering in the client application.
 
     Conversely, this event will not be fired when:
-
     1. A user moves the cursor away either using the mouse or any key down events that move the cursor from the current position to outside of `@`
        and characters after a minimum of two white spaces while the popup is open.
     2. A user selects an option from the dropdown list either using mouse click/pressing Enter or Tab.
@@ -477,7 +475,6 @@ _Alternatives_:
 1.  `@mention` - a custom scheme (`user`) in the Autolink format of CommonMark flavor `<user:user-id>`.
 
     Pros:
-
     1.  This markdown syntax does not interfere with the current `AutoLink` formats as the scheme we support for absolute links is `http` and `https`,
         whereas this is a unique scheme and yet follows the standard `CommonMark` markdown flavor
     2.  This syntax ensures the easy identification of a `mention` node using the `user` in place of `scheme` in Autolink when parsing the
@@ -493,14 +490,12 @@ _Alternatives_:
 2.  `@mention` - a custom markdown format `@<user-id>`.
 
     Pros:
-
     1. This syntax ensures the easy identification of a `mention` node using the **"@"** and **"<"** symbols when parsing the entire markdown string.
     2. The use of opening and closing **"<"** and **">"** symbols specifies the boundaries of the mention node's value within the markdown string,
        allowing for the clear identification of where it starts and ends. This is especially important when the value contains whitespace,
        as in the example `"@<Sue Ann>`, as without the **"<>"** symbols, it would be challenging to determine the precise end index of the value.
 
     Cons:
-
     1. It does not follow [CommonMark](https://spec.commonmark.org/0.30/) flavor or any other standard markdown flavors.
 
 #### 3. _Defining schema and adding tokenizer rule in markdown parser_:
