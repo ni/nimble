@@ -25,7 +25,6 @@ interface TreeArgs {
 
 interface ItemArgs {
     label: string;
-    value: string;
     disabled: boolean;
     icon: boolean;
     selected: boolean;
@@ -67,7 +66,7 @@ export const treeItem: StoryObj<ItemArgs> = {
     parameters: {
         docs: {
             description: {
-                story: `Use a \`${treeItemTag}\` if you want a tree item that calls a callback, has a value, and/or has child items. Use a \`${anchorTreeItemTag}\` instead if you want to navigate to a URL.`
+                story: `Use a \`${treeItemTag}\` if you want a tree item that calls a callback and/or has child items. Use a \`${anchorTreeItemTag}\` instead if you want to navigate to a URL.`
             }
         }
     },
@@ -76,11 +75,6 @@ export const treeItem: StoryObj<ItemArgs> = {
             name: 'default',
             description: `${textContentDescription({ componentName: 'tree item' })} Tree items can also contain child tree items to establish hierarchy.`,
             table: { category: apiCategory.slots }
-        },
-        value: {
-            description:
-                'A value for this tree item that can be used to identify the item when handling tree events.',
-            table: { category: apiCategory.attributes }
         },
         disabled: {
             description: disabledDescription({ componentName: 'tree item' }),
@@ -103,7 +97,7 @@ export const treeItem: StoryObj<ItemArgs> = {
     // prettier-ignore
     render: createUserSelectedThemeStory(html`
         <${treeViewTag}>
-            <${treeItemTag} ?expanded="${x => x.expanded}" ?selected="${x => x.selected}" ?disabled="${x => x.disabled}" value="${x => x.value}">
+            <${treeItemTag} ?expanded="${x => x.expanded}" ?selected="${x => x.selected}" ?disabled="${x => x.disabled}">
                 ${when(x => x.icon, html`<${iconDatabaseTag} slot="start"></${iconDatabaseTag}>`)}
                 ${x => x.label}
                 <${treeItemTag}>
@@ -114,7 +108,6 @@ export const treeItem: StoryObj<ItemArgs> = {
 `),
     args: {
         label: 'Item',
-        value: '1',
         disabled: false,
         icon: true,
         selected: false,
@@ -126,7 +119,7 @@ export const anchorTreeItem: StoryObj<AnchorItemArgs> = {
     parameters: {
         docs: {
             description: {
-                story: `Use a \`${anchorTreeItemTag}\` to navigate to a URL from a \`${treeViewTag}\`. If you want a tree item that can have a value and/or child items, use a \`${treeItemTag}\` instead.`
+                story: `Use a \`${anchorTreeItemTag}\` to navigate to a URL from a \`${treeViewTag}\`. If you want a tree item that can have child items, use a \`${treeItemTag}\` instead.`
             }
         }
     },
@@ -209,7 +202,7 @@ export const multipleTreeItems: StoryObj<TreeArgs> = {
     render: createUserSelectedThemeStory(html`
         <${treeViewTag} selection-mode="${x => x.selectionMode}">
             ${repeat(x => x.options, html<ItemArgs>`
-                <${treeItemTag} ?expanded="${x => x.expanded}" value="${x => x.value}">
+                <${treeItemTag} ?expanded="${x => x.expanded}">
                     ${when(x => x.icon, html`<${iconDatabaseTag} slot="start"></${iconDatabaseTag}>`)}
                     ${x => x.label}
                     <${treeItemTag} ?expanded="${x => x.expanded}" ?disabled="${x => x.disabled}">
@@ -237,7 +230,6 @@ export const multipleTreeItems: StoryObj<TreeArgs> = {
         options: [
             {
                 label: 'Option 1',
-                value: '1',
                 disabled: false,
                 icon: true,
                 selected: false,
@@ -245,7 +237,6 @@ export const multipleTreeItems: StoryObj<TreeArgs> = {
             },
             {
                 label: 'Option 2',
-                value: '2',
                 disabled: true,
                 icon: true,
                 selected: false,
@@ -253,7 +244,6 @@ export const multipleTreeItems: StoryObj<TreeArgs> = {
             },
             {
                 label: 'Option 3',
-                value: '3',
                 disabled: false,
                 icon: true,
                 selected: false,
@@ -261,7 +251,6 @@ export const multipleTreeItems: StoryObj<TreeArgs> = {
             },
             {
                 label: 'Option 4',
-                value: '3',
                 disabled: false,
                 icon: false,
                 selected: false,
