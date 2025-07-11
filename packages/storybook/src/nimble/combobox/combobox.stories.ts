@@ -1,7 +1,7 @@
 import { ComboboxAutocomplete } from '@ni/fast-foundation';
 import { html, repeat } from '@ni/fast-element';
-import { withActions } from '@storybook/addon-actions/decorator';
-import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html';
+import { withActions } from 'storybook/actions/decorator';
+import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html-vite';
 import { listOptionTag } from '@ni/nimble-components/dist/esm/list-option';
 import { comboboxTag } from '@ni/nimble-components/dist/esm/combobox';
 import { ExampleOptionsType } from '@ni/nimble-components/dist/esm/combobox/tests/types';

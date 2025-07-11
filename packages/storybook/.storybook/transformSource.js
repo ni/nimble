@@ -1,4 +1,4 @@
-const beautifyHTML = require('js-beautify').html;
+import { html as beautifyHTML } from 'js-beautify';
 
 const createFragmentFromHTML = html => {
     const template = document.createElement('template');

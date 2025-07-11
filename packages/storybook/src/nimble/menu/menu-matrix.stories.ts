@@ -1,5 +1,5 @@
 import { html, ViewTemplate, when } from '@ni/fast-element';
-import type { StoryFn, Meta } from '@storybook/html';
+import type { StoryFn, Meta } from '@storybook/html-vite';
 import { iconUserTag } from '@ni/nimble-components/dist/esm/icons/user';
 import { iconXmarkTag } from '@ni/nimble-components/dist/esm/icons/xmark';
 import { menuItemTag } from '@ni/nimble-components/dist/esm/menu-item';
