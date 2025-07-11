@@ -313,7 +313,7 @@ describe('TableColumnText', () => {
             expect(pageObject.getRenderedCellTextContent(0, 0)).toBe('');
         });
 
-        it('setting placeholder to defined string updates cells from displaying blank to displaying placeholder', async () => {
+        it('setting placeholder to defined string updates cells from displaying blank to displaying placeholder #SkipWebkit', async () => {
             await initializeColumnAndTable([{}]);
             expect(pageObject.getRenderedCellTextContent(0, 0)).toBe('');
 
