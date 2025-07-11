@@ -1,6 +1,4 @@
-// eslint-disable-next-line import/no-unresolved
 import { configureActions } from 'storybook/actions';
-// eslint-disable-next-line import/no-unresolved
 import { SyntaxHighlighter } from 'storybook/internal/components';
 import csharp from 'react-syntax-highlighter/dist/esm/languages/prism/csharp';
 import '@ni/nimble-tokens/dist/fonts/css/fonts.css';
@@ -9,7 +7,7 @@ import { transformSource } from './transformSource';
 import {
     backgroundStates,
     defaultBackgroundState
-} from '../src/utilities/states.ts';
+} from '../src/utilities/states';
 import {
     Container,
     Column,
@@ -18,7 +16,7 @@ import {
     Frame,
     Divider,
     Tag
-} from './blocks/StoryLayout.tsx';
+} from './blocks/StoryLayout';
 
 SyntaxHighlighter.registerLanguage('cs', csharp);
 

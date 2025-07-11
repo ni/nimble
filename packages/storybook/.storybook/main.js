@@ -27,11 +27,7 @@ export const core = {
 export async function viteFinal(config) {
     const { mergeConfig } = await import('vite');
 
-    config.build.minify = 'terser';
-    config.build.terserOptions = {
-        keep_classnames: true,
-        keep_fnames: true
-    };
+    config.build.minify = false;
 
     // Keep in sync with tsconfig.json
     config.resolve.alias = [

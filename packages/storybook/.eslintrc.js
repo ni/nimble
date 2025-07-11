@@ -1,4 +1,11 @@
 module.exports = {
+    settings: {
+        // Configure the `eslint-import-resolver-typescript` package to resolve `import/no-unresolved` eslint errors in JS files
+        // Per https://iifx.dev/en/articles/322441446
+        'import/resolver': {
+            typescript: {} // this loads <rootdir>/tsconfig.json to eslint
+        }
+    },
     root: true,
     ignorePatterns: [
         'node_modules',
@@ -20,7 +27,7 @@ module.exports = {
                 'import/no-extraneous-dependencies': [
                     'error',
                     { devDependencies: true }
-                ],
+                ]
             }
         },
         {
@@ -52,13 +59,13 @@ module.exports = {
             files: ['build/**/*.js'],
             rules: {
                 // Build scripts should give verbose logging
-                'no-console': 'off',
-            },
+                'no-console': 'off'
+            }
         },
         {
             files: ['.storybook/*.js'],
             env: {
-                browser: true,
+                browser: true
             }
         }
     ]
