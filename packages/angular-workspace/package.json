@@ -48,7 +48,7 @@
     "@angular/cli": "^18.2.12",
     "@angular/compiler-cli": "^18.2.13",
     "@angular/localize": "^18.2.13",
-    "@lhci/cli": "^0.14.0",
+    "@lhci/cli": "^0.15.0",
     "@ni/fast-web-utilities": "^10.0.0",
     "@ni-private/eslint-config-nimble": "*",
     "@ni/eslint-config-angular": "^9.0.4",
@@ -64,7 +64,7 @@
     "karma-jasmine-html-reporter": "^2.0.0",
     "karma-spec-reporter": "^0.0.36",
     "ng-packagr": "^18.2.1",
-    "playwright": "1.52.0",
+    "playwright": "1.53.1",
     "rollup": "^4.12.0",
     "typescript": "~5.4.5"
   }

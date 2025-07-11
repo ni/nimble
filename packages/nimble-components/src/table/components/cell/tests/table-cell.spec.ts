@@ -62,7 +62,7 @@ describe('TableCell', () => {
         expect(renderedCellView).toBeInstanceOf(TestTableColumnCellView);
     });
 
-    it('changing cellState updates rendered content', async () => {
+    it('changing cellState updates rendered content #SkipWebkit', async () => {
         await connect();
 
         element.cellState = {

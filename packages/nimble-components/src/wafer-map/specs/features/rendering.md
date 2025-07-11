@@ -181,12 +181,10 @@ These records will be made in a separate web page from the existing performance 
 Our target goals are:
 
 1. We will follow the Chrome Interaction to Next Paint (INP) [guideline](https://web.dev/articles/inp).
-
     1. An interactions such as a pan or zoom should complete within a "good" INP interval (<200 ms)
     1. If an interaction will take longer the user will see an indication that the interaction is in progress.
 
 1. For wafers >200k and <1m die
-
     1. Initial rendering: <1 second
     1. Zoom/pan actions: <500ms
     1. Configuration changes that don't modify the dataset (e.g. show labels):

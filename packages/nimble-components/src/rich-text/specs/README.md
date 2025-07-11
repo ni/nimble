@@ -176,7 +176,6 @@ _Events_
 
 - `input` - event emitted when there is a change in the editor. This can be achieved through Tiptap's [update event](https://tiptap.dev/api/events#update).
   Below are a few scenarios to understand when this event will fire:
-
     1. This event will fired for every input in the content of the editor, including text inputs, text formatting changes, and text removals.
     2. This event will not fire when there are no changes made to the content of the editor. For example, all mouse events, selecting the texts, state
        changes, etc,

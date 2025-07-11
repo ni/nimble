@@ -212,7 +212,8 @@ function createCustomMentionExtension(
                 mergeAttributes(this.options.HTMLAttributes, HTMLAttributes),
                 this.options.renderText({
                     options: this.options,
-                    node
+                    node,
+                    suggestion: null
                 })
             ];
         }
