@@ -48,6 +48,8 @@ jobs:
       - name: Remove pre-existing dotnet sdk 8 installs
         run: sudo apt remove --purge dotnet-sdk-8.0 dotnet-runtime-8.0 aspnetcore-runtime-8.0
         working-directory: packages/blazor-workspace/
+      - name: List all current packages after dotnet removal
+        run: sudo apt --installed list
       - uses: actions/setup-dotnet@v4
         with:
           global-json-file: packages/blazor-workspace/global.json
