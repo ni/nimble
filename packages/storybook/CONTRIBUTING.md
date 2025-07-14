@@ -42,7 +42,10 @@ import * as componentNameStories from './component-name.stories';
 <Meta of={componentNameStories} />
 <Title of={componentNameStories} />
 
+<div>
 *Component description*
+> Note: Wrap combined text and html markup in a `div` tag so the formatter doesn't add line breaks
+</div>
 
 <Canvas of={componentNameStories.firstStoryName} />
 
