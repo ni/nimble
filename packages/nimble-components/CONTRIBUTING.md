@@ -376,7 +376,7 @@ const nimbleButton = Button.compose({
 });
 ```
 
-If delegating focus, you must forward the `tabindex` attribute to any focusable elements in the shadow DOM. While some browsers (e.g. Chrome) will work properly without forwarding, others (e.g. Firefox) won't. Override the `tabIndex` property and mark it as an attribute:
+If delegating focus, you must forward the `tabindex` attribute to any focusable elements in the shadow DOM. Override the `tabIndex` property and mark it as an attribute:
 
 ```ts
 export class MyComponent {
@@ -404,6 +404,14 @@ html<MyComponent>`
         }">
     </div>`;
 ```
+
+Add automated tests for the behaviors implemented above. Search for `tabindex` in other components for inspiration.
+
+Across supported browsers, perform one-time manual verification of cases including the following:
+
+1. Setting a negative `tabindex` causes the control to be skipped when tabbing between elements
+2. Setting a non-negative `tabindex` causes the correct part(s) of the element to receive focus when tabbing between elements
+3. The default `tabIndex` property value reflects the actual behavior when the `tabindex` attribute isn't set
 
 ### Leverage mixins for shared APIs across components
 
@@ -519,7 +527,7 @@ Public names for theme-aware tokens are specified in `src/theme-provider/design-
 2. Where **part** is the specific part of the element to which the token applies (e.g. 'border', 'background', or shadow).
 3. Where **interaction_states** is one or more interaction states (e.g. 'active', 'disabled', 'hover', or 'selected'). Multiple values should be sorted alphabetically.
 4. Where **remaining_states** the remaining, non-interaction states (e.g. 'accent', 'primary, or 'large'). Multiple values should be sorted alphabetically.
-5. Where **token_type** is the token category (e.g. 'color', 'font', 'font-color', 'height', 'width', or 'size').
+5. Where **token_type** is the token category (e.g. 'color', 'image', 'font', 'font-color', 'height', 'width', or 'size').
 
 ### Size ramp
 

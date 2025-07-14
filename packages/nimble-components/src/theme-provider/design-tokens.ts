@@ -144,6 +144,19 @@ export const sectionBackgroundColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.sectionBackgroundColor)
 ).withDefault((element: HTMLElement) => getColorForTheme(element, Black15, Black80, ForestGreen));
 
+export const sectionBackgroundImage = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.sectionBackgroundImage)
+).withDefault((element: HTMLElement) => {
+    const start = getColorForTheme(element, Black15, Black82, ForestGreen);
+    const end = getColorForTheme(
+        element,
+        hexToRgbaCssColor(Black15, 0),
+        hexToRgbaCssColor(Black82, 0),
+        hexToRgbaCssColor(ForestGreen, 0)
+    );
+    return `linear-gradient(${start}, ${end})`;
+});
+
 export const dividerBackgroundColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.dividerBackgroundColor)
 ).withDefault((element: HTMLElement) => getColorForTheme(element, Black15, Black80, ForestGreen));
@@ -490,6 +503,9 @@ export const labelHeight = DesignToken.create<string>(
 export const borderWidth = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.borderWidth)
 ).withDefault('1px');
+export const dividerWidth = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.dividerWidth)
+).withDefault('2px');
 export const iconSize = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.iconSize)
 ).withDefault('16px');

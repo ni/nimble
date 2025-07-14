@@ -268,4 +268,37 @@ describe('ChatInput', () => {
             expect(page.getSendButtonTextContent()).toEqual('Send it!');
         });
     });
+
+    describe('tabindex', () => {
+        beforeEach(async () => {
+            await connect();
+        });
+
+        it('defaults when unset', () => {
+            expect(element.getAttribute('tabindex')).toBeNull();
+            expect(element.tabIndex).toBeUndefined();
+        });
+
+        it('syncs to property and focusable controls when set', () => {
+            element.setAttribute('tabindex', '-1');
+            processUpdates();
+
+            expect(element.getAttribute('tabindex')).toEqual('-1');
+            expect(element.tabIndex).toEqual(-1);
+            expect(page.getSendButtonTabIndex()).toEqual('-1');
+            expect(page.getTextAreaTabIndex()).toEqual('-1');
+        });
+
+        it('syncs to property and focusable controls when cleared', () => {
+            element.setAttribute('tabindex', '-1');
+            processUpdates();
+            element.removeAttribute('tabindex');
+            processUpdates();
+
+            expect(element.getAttribute('tabindex')).toBeNull();
+            expect(element.tabIndex).toBeNull();
+            expect(page.getSendButtonTabIndex()).toBeNull();
+            expect(page.getTextAreaTabIndex()).toBeNull();
+        });
+    });
 });
