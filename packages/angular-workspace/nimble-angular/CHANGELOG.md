@@ -1,8 +1,17 @@
 # Change Log - @ni/nimble-angular
 
-<!-- This log was last generated on Tue, 08 Jul 2025 00:20:19 GMT and should not be manually modified. -->
+<!-- This log was last generated on Tue, 15 Jul 2025 21:57:35 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 30.5.0
+
+Tue, 15 Jul 2025 21:57:35 GMT
+
+### Minor changes
+
+- Expose number-field pageobject from Angular package ([ni/nimble@ec117d7](https://github.com/ni/nimble/commit/ec117d73aa9a132fcf019723557634b9f22ebbdf))
+- Bump @ni/nimble-components to v34.0.0
 
 ## 30.4.5
 

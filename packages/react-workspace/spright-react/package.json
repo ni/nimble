@@ -1,6 +1,6 @@
 {
   "name": "@ni/spright-react",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "description": "React components for NI Spright",
   "keywords": [
     "spright",
@@ -28,8 +28,8 @@
     "typescript": "~5.4.5"
   },
   "peerDependencies": {
-    "@ni/fast-react-wrapper": "^10.1.0",
-    "@ni/spright-components": "^5.5.3",
+    "@ni/fast-react-wrapper": "^10.1.1",
+    "@ni/spright-components": "^5.5.4",
     "react": "^16 || ^17 || ^18"
   }
 }

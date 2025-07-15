@@ -49,7 +49,7 @@ NumberFieldOptions
                 ?required="${x => x.required}"
                 size="${x => x.size}"
                 type="text"
-                inputmode="numeric"
+                inputmode="text"
                 min="${x => x.min}"
                 max="${x => x.max}"
                 step="${x => x.step}"
