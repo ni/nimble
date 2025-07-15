@@ -43,13 +43,9 @@ jobs:
           fetch-depth: 0
 
       # Install dependencies
-      - name: List all current packages
-        run: sudo apt --installed list
-      - name: Remove pre-existing dotnet sdk 8 installs
+      - name: Remove pre-existing dotnet installs
         run: sudo apt remove --purge '^dotnet-.*' '^aspnetcore-.*'
         working-directory: packages/blazor-workspace/
-      - name: List all current packages after dotnet removal
-        run: sudo apt --installed list
       - uses: actions/setup-dotnet@v4
         with:
           global-json-file: packages/blazor-workspace/global.json
