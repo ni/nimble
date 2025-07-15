@@ -1,8 +1,17 @@
 # Change Log - @ni/spright-components
 
-<!-- This log was last generated on Tue, 08 Jul 2025 00:20:19 GMT and should not be manually modified. -->
+<!-- This log was last generated on Tue, 15 Jul 2025 21:57:35 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 5.5.4
+
+Tue, 15 Jul 2025 21:57:35 GMT
+
+### Patches
+
+- Update to ni/fast-foundation v10.1.0 ([ni/nimble@ec117d7](https://github.com/ni/nimble/commit/ec117d73aa9a132fcf019723557634b9f22ebbdf))
+- Bump @ni/nimble-components to v34.0.0
 
 ## 5.5.3
 

@@ -1,7 +1,0 @@
-{
-  "type": "major",
-  "comment": "Localize number-field decimal separator. Breaking change: users in locales with a comma as the decimal separator will need to input a comma rather than a period in the nimble-number-field component.",
-  "packageName": "@ni/nimble-components",
-  "email": "7282195+m-akinc@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}

@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 15 Jul 2025 21:57:35 GMT",
+      "version": "34.0.0",
+      "tag": "@ni/nimble-components_v34.0.0",
+      "comments": {
+        "major": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "ec117d73aa9a132fcf019723557634b9f22ebbdf",
+            "comment": "Localize number-field decimal separator. Breaking change: users in locales with a comma as the decimal separator will need to input a comma rather than a period in the nimble-number-field component."
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 08 Jul 2025 00:20:19 GMT",
       "version": "33.12.1",
       "tag": "@ni/nimble-components_v33.12.1",

@@ -1,8 +1,17 @@
 # Change Log - @ni/nimble-react
 
-<!-- This log was last generated on Tue, 08 Jul 2025 00:20:19 GMT and should not be manually modified. -->
+<!-- This log was last generated on Tue, 15 Jul 2025 21:57:35 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 0.1.6
+
+Tue, 15 Jul 2025 21:57:35 GMT
+
+### Patches
+
+- Update fast-react-wrapper dependency ([ni/nimble@ec117d7](https://github.com/ni/nimble/commit/ec117d73aa9a132fcf019723557634b9f22ebbdf))
+- Bump @ni/nimble-components to v34.0.0
 
 ## 0.1.5
 

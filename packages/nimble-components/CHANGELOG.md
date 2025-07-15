@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-<!-- This log was last generated on Tue, 08 Jul 2025 00:20:19 GMT and should not be manually modified. -->
+<!-- This log was last generated on Tue, 15 Jul 2025 21:57:35 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 34.0.0
+
+Tue, 15 Jul 2025 21:57:35 GMT
+
+### Major changes
+
+- Localize number-field decimal separator. Breaking change: users in locales with a comma as the decimal separator will need to input a comma rather than a period in the nimble-number-field component. ([ni/nimble@ec117d7](https://github.com/ni/nimble/commit/ec117d73aa9a132fcf019723557634b9f22ebbdf))
 
 ## 33.12.1
 
