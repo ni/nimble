@@ -2,6 +2,72 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Wed, 16 Jul 2025 16:52:33 GMT",
+      "version": "34.0.1",
+      "tag": "@ni/nimble-components_v34.0.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "ac78dc389e0dd7e042a654d184ff65f210316296",
+            "comment": "Update dependencies"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/jasmine-parameterized to v1.0.1",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 15 Jul 2025 21:57:35 GMT",
+      "version": "34.0.0",
+      "tag": "@ni/nimble-components_v34.0.0",
+      "comments": {
+        "major": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "ec117d73aa9a132fcf019723557634b9f22ebbdf",
+            "comment": "Localize number-field decimal separator. Breaking change: users in locales with a comma as the decimal separator will need to input a comma rather than a period in the nimble-number-field component."
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 08 Jul 2025 00:20:19 GMT",
+      "version": "33.12.1",
+      "tag": "@ni/nimble-components_v33.12.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "62e162b4cee0f816a7fdf91775b272dc3bf86d5e",
+            "comment": "Revert dividerBackgroundColor token change"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 07 Jul 2025 16:46:23 GMT",
+      "version": "33.12.0",
+      "tag": "@ni/nimble-components_v33.12.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "69a41ca15b6f41e3af2b7d5bc2472bc969925777",
+            "comment": "New and updated theme-aware design tokens for application dividers and chat components"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 02 Jul 2025 14:09:36 GMT",
       "version": "33.11.1",
       "tag": "@ni/nimble-components_v33.11.1",

@@ -2,6 +2,78 @@
   "name": "@ni/nimble-react",
   "entries": [
     {
+      "date": "Wed, 16 Jul 2025 16:52:33 GMT",
+      "version": "0.1.7",
+      "tag": "@ni/nimble-react_v0.1.7",
+      "comments": {
+        "patch": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-react",
+            "commit": "ac78dc389e0dd7e042a654d184ff65f210316296",
+            "comment": "Update dependencies"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-react",
+            "comment": "Bump @ni/nimble-components to v34.0.1",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 15 Jul 2025 21:57:35 GMT",
+      "version": "0.1.6",
+      "tag": "@ni/nimble-react_v0.1.6",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-react",
+            "commit": "ec117d73aa9a132fcf019723557634b9f22ebbdf",
+            "comment": "Update fast-react-wrapper dependency"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-react",
+            "comment": "Bump @ni/nimble-components to v34.0.0",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 08 Jul 2025 00:20:19 GMT",
+      "version": "0.1.5",
+      "tag": "@ni/nimble-react_v0.1.5",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-react",
+            "comment": "Bump @ni/nimble-components to v33.12.1",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 07 Jul 2025 16:46:23 GMT",
+      "version": "0.1.4",
+      "tag": "@ni/nimble-react_v0.1.4",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-react",
+            "comment": "Bump @ni/nimble-components to v33.12.0",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 26 Jun 2025 19:20:55 GMT",
       "version": "0.1.3",
       "tag": "@ni/nimble-react_v0.1.3",

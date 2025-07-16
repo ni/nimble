@@ -1,8 +1,41 @@
 # Change Log - @ni/nimble-components
 
-<!-- This log was last generated on Thu, 26 Jun 2025 19:20:55 GMT and should not be manually modified. -->
+<!-- This log was last generated on Wed, 16 Jul 2025 16:52:33 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 34.0.1
+
+Wed, 16 Jul 2025 16:52:33 GMT
+
+### Patches
+
+- Update dependencies ([ni/nimble@ac78dc3](https://github.com/ni/nimble/commit/ac78dc389e0dd7e042a654d184ff65f210316296))
+- Bump @ni/jasmine-parameterized to v1.0.1
+
+## 34.0.0
+
+Tue, 15 Jul 2025 21:57:35 GMT
+
+### Major changes
+
+- Localize number-field decimal separator. Breaking change: users in locales with a comma as the decimal separator will need to input a comma rather than a period in the nimble-number-field component. ([ni/nimble@ec117d7](https://github.com/ni/nimble/commit/ec117d73aa9a132fcf019723557634b9f22ebbdf))
+
+## 33.12.1
+
+Tue, 08 Jul 2025 00:20:19 GMT
+
+### Patches
+
+- Revert dividerBackgroundColor token change ([ni/nimble@62e162b](https://github.com/ni/nimble/commit/62e162b4cee0f816a7fdf91775b272dc3bf86d5e))
+
+## 33.12.0
+
+Mon, 07 Jul 2025 16:46:23 GMT
+
+### Minor changes
+
+- New and updated theme-aware design tokens for application dividers and chat components ([ni/nimble@69a41ca](https://github.com/ni/nimble/commit/69a41ca15b6f41e3af2b7d5bc2472bc969925777))
 
 ## 33.11.1
 

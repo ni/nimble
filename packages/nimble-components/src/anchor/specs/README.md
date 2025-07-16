@@ -21,7 +21,6 @@ Initially we will create two flavors of anchor: a standard anchor, and a button-
 
 - _Component Name_: `nimble-anchor`
 - _Properties/Attributes_: We will have the following properties/attributes in addition to the ones provided by the FAST anchor:
-
     - `appearance`:
         - `prominent`: the "loud" version from the design doc. Used to draw extra attention to the anchor. This matches the Breadcrumb's `appearance` attribute value.
     - `underline-hidden`: hides the anchor's underline except on hover or activation. This should be used except when an anchor is surrounded by other text or needs help being indentified as a link.

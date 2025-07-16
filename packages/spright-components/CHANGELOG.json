@@ -2,6 +2,90 @@
   "name": "@ni/spright-components",
   "entries": [
     {
+      "date": "Wed, 16 Jul 2025 16:52:33 GMT",
+      "version": "5.5.5",
+      "tag": "@ni/spright-components_v5.5.5",
+      "comments": {
+        "patch": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/spright-components",
+            "commit": "ac78dc389e0dd7e042a654d184ff65f210316296",
+            "comment": "Update dependencies"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/spright-components",
+            "comment": "Bump @ni/nimble-components to v34.0.1",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/spright-components",
+            "comment": "Bump @ni/jasmine-parameterized to v1.0.1",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 15 Jul 2025 21:57:35 GMT",
+      "version": "5.5.4",
+      "tag": "@ni/spright-components_v5.5.4",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/spright-components",
+            "commit": "ec117d73aa9a132fcf019723557634b9f22ebbdf",
+            "comment": "Update to ni/fast-foundation v10.1.0"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/spright-components",
+            "comment": "Bump @ni/nimble-components to v34.0.0",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 08 Jul 2025 00:20:19 GMT",
+      "version": "5.5.3",
+      "tag": "@ni/spright-components_v5.5.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/spright-components",
+            "comment": "Bump @ni/nimble-components to v33.12.1",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 07 Jul 2025 16:46:23 GMT",
+      "version": "5.5.2",
+      "tag": "@ni/spright-components_v5.5.2",
+      "comments": {
+        "patch": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/spright-components",
+            "commit": "69a41ca15b6f41e3af2b7d5bc2472bc969925777",
+            "comment": "Style improvements for chat conversation"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/spright-components",
+            "comment": "Bump @ni/nimble-components to v33.12.0",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 02 Jul 2025 14:09:36 GMT",
       "version": "5.5.1",
       "tag": "@ni/spright-components_v5.5.1",

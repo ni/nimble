@@ -1,8 +1,44 @@
 # Change Log - @ni/spright-components
 
-<!-- This log was last generated on Wed, 02 Jul 2025 14:09:36 GMT and should not be manually modified. -->
+<!-- This log was last generated on Wed, 16 Jul 2025 16:52:33 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 5.5.5
+
+Wed, 16 Jul 2025 16:52:33 GMT
+
+### Patches
+
+- Update dependencies ([ni/nimble@ac78dc3](https://github.com/ni/nimble/commit/ac78dc389e0dd7e042a654d184ff65f210316296))
+- Bump @ni/nimble-components to v34.0.1
+- Bump @ni/jasmine-parameterized to v1.0.1
+
+## 5.5.4
+
+Tue, 15 Jul 2025 21:57:35 GMT
+
+### Patches
+
+- Update to ni/fast-foundation v10.1.0 ([ni/nimble@ec117d7](https://github.com/ni/nimble/commit/ec117d73aa9a132fcf019723557634b9f22ebbdf))
+- Bump @ni/nimble-components to v34.0.0
+
+## 5.5.3
+
+Tue, 08 Jul 2025 00:20:19 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v33.12.1
+
+## 5.5.2
+
+Mon, 07 Jul 2025 16:46:23 GMT
+
+### Patches
+
+- Style improvements for chat conversation ([ni/nimble@69a41ca](https://github.com/ni/nimble/commit/69a41ca15b6f41e3af2b7d5bc2472bc969925777))
+- Bump @ni/nimble-components to v33.12.0
 
 ## 5.5.1
 
