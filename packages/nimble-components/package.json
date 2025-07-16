@@ -1,6 +1,6 @@
 {
   "name": "@ni/nimble-components",
-  "version": "34.0.0",
+  "version": "34.0.1",
   "description": "Styled web components for the NI Nimble Design System",
   "scripts": {
     "build": "npm run generate-icons && npm run generate-workers && npm run build-components && npm run bundle-components && npm run generate-scss",
@@ -102,7 +102,7 @@
   },
   "devDependencies": {
     "@ni-private/eslint-config-nimble": "*",
-    "@ni/jasmine-parameterized": "^1.0.0",
+    "@ni/jasmine-parameterized": "^1.0.1",
     "@rollup/plugin-commonjs": "^28.0.0",
     "@rollup/plugin-node-resolve": "^16.0.0",
     "@rollup/plugin-replace": "^6.0.0",

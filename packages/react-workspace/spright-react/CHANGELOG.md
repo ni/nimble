@@ -1,8 +1,17 @@
 # Change Log - @ni/spright-react
 
-<!-- This log was last generated on Tue, 15 Jul 2025 21:57:35 GMT and should not be manually modified. -->
+<!-- This log was last generated on Wed, 16 Jul 2025 16:52:33 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 0.2.5
+
+Wed, 16 Jul 2025 16:52:33 GMT
+
+### Patches
+
+- Update dependencies ([ni/nimble@ac78dc3](https://github.com/ni/nimble/commit/ac78dc389e0dd7e042a654d184ff65f210316296))
+- Bump @ni/spright-components to v5.5.5
 
 ## 0.2.4
 

@@ -2,6 +2,21 @@
   "name": "@ni/jasmine-parameterized",
   "entries": [
     {
+      "date": "Wed, 16 Jul 2025 16:52:33 GMT",
+      "version": "1.0.1",
+      "tag": "@ni/jasmine-parameterized_v1.0.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/jasmine-parameterized",
+            "commit": "ac78dc389e0dd7e042a654d184ff65f210316296",
+            "comment": "Update dependencies"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 01 May 2025 19:42:23 GMT",
       "version": "1.0.0",
       "tag": "@ni/jasmine-parameterized_v1.0.0",
