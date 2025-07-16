@@ -43,8 +43,8 @@ jobs:
           fetch-depth: 0
 
       # Install dependencies
-      - name: Remove pre-existing dotnet sdk 8 installs
-        run: sudo apt remove --purge dotnet-sdk-8.0
+      - name: Remove pre-existing dotnet installs
+        run: sudo apt remove --purge '^dotnet-.*' '^aspnetcore-.*'
         working-directory: packages/blazor-workspace/
       - uses: actions/setup-dotnet@v4
         with:
@@ -100,10 +100,7 @@ jobs:
 
       # Run Lighthouse audit (from any push)
       - name: Performance Audit with Lighthouse CI
-        # if: env.HAS_LHCI_GITHUB_APP_TOKEN == 'true' && github.event_name == 'push'
-        # Disabled due to errors during execution on CI
-        # See: https://github.com/ni/nimble/issues/2599
-        if: false
+        if: env.HAS_LHCI_GITHUB_APP_TOKEN == 'true' && github.event_name == 'push'
         run: npm run performance
         env:
           LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}

@@ -62,7 +62,8 @@ describe('TableCell', () => {
         expect(renderedCellView).toBeInstanceOf(TestTableColumnCellView);
     });
 
-    it('changing cellState updates rendered content', async () => {
+    // See: https://github.com/ni/nimble/issues/2658
+    it('changing cellState updates rendered content #SkipWebkit', async () => {
         await connect();
 
         element.cellState = {

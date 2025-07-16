@@ -173,13 +173,11 @@ If you consult the IxD document you will see that the design diverges from the a
 1. When a row is focused, pressing the left and right arrow keys will only move focus between the interactive elements in the row, regardless of whether there are multiple interactive elements in a given cell.
 
     Pros:
-
     - Easiest way to move between elements in the table that can be interacted with.
     - Can't accidentally leave focus area of row, which could make it cumbersome to get back to the row you were currently focused on.
     - Avoids need to press `Enter` first to enter into the cell that has multiple interactive elements.
 
     Cons:
-
     - ARIA suggests using the `Tab` key for this type of navigation, so it _does_ cover how to move between focusable elements within a row (including when there are two elements within the same cell). The main drawback to ARIA's guidance is that if you accidentally tab out of the row, and thus the table, tabbing back into the table doesn't necessarily guarantee you go to the row you just left (it might take you to the first row).
     - Possible confusion raised from how things like screen readers navigate the table, and how the table manages navigation.
     - Implementation cost. If it is important to make the table work well with screen readers, and part of that involves when the screen reader has moved focus to a `gridcell` that has multiple interactive elements, we would need to reconcile what a user has to do to actually interact with either of those elements. This isn't necessarily free.
@@ -188,30 +186,25 @@ If you consult the IxD document you will see that the design diverges from the a
 2. Pressing `Tab` either moves the focus _into_ or _out of_ the table. _Note: This was aligned with the ARIA `grid` pattern._
 
     Pros:
-
     - Gives users a fast means of tabbing past the table as part of a larger set of tabbable components.
 
     Cons:
-
     - Possible confusion for users when a row has focus, with obvious focusable/tabbable elements, and `Tab` does not take them to those elements.
     - One could say that only adding the interactive elements in a row to the set of tabbable elements on a page isn't that much of an overhead from a navigation perspective, so trying to reduce it below that is an unnecessary goal.
 
 3. The row selection checkbox is not part of the navigable set of elements on a row.
 
     Pros:
-
     - Avoids an interactive redundancy in that selecting a row is expected to be done by focusing the row and pressing `<Space>`.
     - Provides consistency with the `GroupRow` where we don't allow a user to move focus to the checkbox, though this is only a pro on its own if ARIA properly informed the user that the GroupRow could be operated as if it was the checkbox.
 
     Cons:
-
     - Breaks ARIA guidance that all interactive elements be focusable.
     - Behavior that doesn't match mouse interactions may cause confusion or frustration that interrupts users' goals/workflows.
 
 4. Expand/collapse of rows uses `Alt-ArrowUp/ArrowDown` (instead of simply `ArrowLeft` and `ArrowRight`)
 
     Cons:
-
     - Reliance on modifier keys when there are available workflows/keys that do not require them (i.e. strictly using `ArrowLeft` and `ArrowRight` keys with no modifiers)
     - Mistypes (attmpted to use `Alt` modifier but didn't) shifts focus unexpectedly.
 
