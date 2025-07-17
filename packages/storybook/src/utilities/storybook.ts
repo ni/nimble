@@ -55,7 +55,7 @@ const getGlobalTheme = (context: unknown): Theme => {
     // @ts-expect-error Accessing the global background defined in preview.js
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     const globalValue = context?.globals?.backgrounds?.value as GlobalValue;
-    const background = backgroundStates.find(({ value }) => value === globalValue)
+    const background = backgroundStates.find(({ theme }) => theme === globalValue)
         ?? defaultBackgroundState;
     return background.theme;
 };

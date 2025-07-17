@@ -20,10 +20,15 @@ import {
 
 SyntaxHighlighter.registerLanguage('cs', csharp);
 
-export const parameters = {
+const parameters = {
     backgrounds: {
-        default: defaultBackgroundState.name,
-        values: backgroundStates.map(({ name, value }) => ({ name, value }))
+        options: backgroundStates.reduce((obj, curr) => {
+            obj[curr.theme] = {
+                name: curr.name,
+                value: curr.value
+            };
+            return obj;
+        }, {})
     },
     options: {
         storySort: {
@@ -85,14 +90,18 @@ const createOrUpdateBackgroundWorkaround = style => {
 // Storybook background plugin does not support mdx
 // Workaround based on: https://github.com/storybookjs/storybook/issues/13323#issuecomment-876296801
 export default {
+    initialGlobals: {
+        backgrounds: {
+            value: defaultBackgroundState.theme,
+        }
+    },
     parameters,
     decorators: [
         (story, context) => {
-            const defaultBackgroundColorKey = context?.parameters?.backgrounds?.default;
-            const defaultBackgroundColor = context?.parameters?.backgrounds?.values?.find(
-                v => v.name === defaultBackgroundColorKey
-            )?.value;
-            const currentBackgroundColor = context?.globals?.backgrounds?.value ?? defaultBackgroundColor;
+            const defaultBackgroundColorKey = context?.initialGlobals?.backgrounds?.value;
+            const defaultBackgroundColor = context?.parameters?.backgrounds?.options[defaultBackgroundColorKey]?.value;
+            const currentBackgroundColorKey = context?.globals?.backgrounds?.value;
+            const currentBackgroundColor = context?.parameters?.backgrounds?.options[currentBackgroundColorKey]?.value ?? defaultBackgroundColor;
             const style = `.docs-story {
                 background-color: ${currentBackgroundColor}
             }`;
