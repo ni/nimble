@@ -20,10 +20,12 @@ import {
 } from '../../utilities/storybook';
 
 type IconName = keyof typeof nimbleIconComponentsMap;
-const data = Object.entries(nimbleIconComponentsMap).map(([iconClassName, iconClass]) => ({
-    tag: customElements.getName(iconClass),
-    metaphor: iconMetadata[iconClassName as IconName].tags.join(', ')
-}));
+const data = Object.entries(nimbleIconComponentsMap).map(
+    ([iconClassName, iconClass]) => ({
+        tag: customElements.getName(iconClass),
+        metaphor: iconMetadata[iconClassName as IconName].tags.join(', ')
+    })
+);
 
 type Data = (typeof data)[number];
 
