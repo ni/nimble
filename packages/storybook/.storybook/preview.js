@@ -1,5 +1,5 @@
-import { configureActions } from '@storybook/addon-actions';
-import { SyntaxHighlighter } from '@storybook/components';
+import { configureActions } from 'storybook/actions';
+import { SyntaxHighlighter } from 'storybook/internal/components';
 import csharp from 'react-syntax-highlighter/dist/esm/languages/prism/csharp';
 import '@ni/nimble-tokens/dist/fonts/css/fonts.css';
 import './preview.css';
@@ -7,7 +7,7 @@ import { transformSource } from './transformSource';
 import {
     backgroundStates,
     defaultBackgroundState
-} from '../src/utilities/states.ts';
+} from '../src/utilities/states';
 import {
     Container,
     Column,
@@ -16,14 +16,19 @@ import {
     Frame,
     Divider,
     Tag
-} from './blocks/StoryLayout.tsx';
+} from './blocks/StoryLayout';
 
 SyntaxHighlighter.registerLanguage('cs', csharp);
 
-export const parameters = {
+const parameters = {
     backgrounds: {
-        default: defaultBackgroundState.name,
-        values: backgroundStates.map(({ name, value }) => ({ name, value }))
+        options: backgroundStates.reduce((obj, curr) => {
+            obj[curr.theme] = {
+                name: curr.name,
+                value: curr.value
+            };
+            return obj;
+        }, {})
     },
     options: {
         storySort: {
@@ -85,14 +90,18 @@ const createOrUpdateBackgroundWorkaround = style => {
 // Storybook background plugin does not support mdx
 // Workaround based on: https://github.com/storybookjs/storybook/issues/13323#issuecomment-876296801
 export default {
+    initialGlobals: {
+        backgrounds: {
+            value: defaultBackgroundState.theme,
+        }
+    },
     parameters,
     decorators: [
         (story, context) => {
-            const defaultBackgroundColorKey = context?.parameters?.backgrounds?.default;
-            const defaultBackgroundColor = context?.parameters?.backgrounds?.values?.find(
-                v => v.name === defaultBackgroundColorKey
-            )?.value;
-            const currentBackgroundColor = context?.globals?.backgrounds?.value ?? defaultBackgroundColor;
+            const defaultBackgroundColorKey = context?.initialGlobals?.backgrounds?.value;
+            const defaultBackgroundColor = context?.parameters?.backgrounds?.options[defaultBackgroundColorKey]?.value;
+            const currentBackgroundColorKey = context?.globals?.backgrounds?.value;
+            const currentBackgroundColor = context?.parameters?.backgrounds?.options[currentBackgroundColorKey]?.value ?? defaultBackgroundColor;
             const style = `.docs-story {
                 background-color: ${currentBackgroundColor}
             }`;

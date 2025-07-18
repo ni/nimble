@@ -1,4 +1,4 @@
-import { Canvas, Meta, Controls, Title } from '@storybook/blocks';
+import { Canvas, Meta, Controls, Title } from '@storybook/addon-docs/blocks';
 import * as tabsStories from './tabs.stories';
 import ComponentApisLink from '../../docs/component-apis-link.mdx';
 import { anchorTabsTag } from '@ni/nimble-components/dist/esm/anchor-tabs';
@@ -16,8 +16,8 @@ content at a time. Each tab panel has an associated tab element, that when
 activated, displays the panel. The list of tab elements is arranged along one
 edge of the currently displayed panel, most commonly the top edge.
 
-Consider <Tag name={anchorTabsTag} /> if you want a sequence of tabs that
-navigate to different URLs.
+Use a <Tag name={anchorTabsTag} /> if you want a sequence of tabs that navigate
+to different URLs.
 
 <Canvas of={tabsStories.tabs} />
 

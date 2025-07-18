@@ -1,6 +1,6 @@
 import { html, repeat, when } from '@ni/fast-element';
-import { withActions } from '@storybook/addon-actions/decorator';
-import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html';
+import { withActions } from 'storybook/actions/decorator';
+import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html-vite';
 import { buttonTag } from '@ni/nimble-components/dist/esm/button';
 import { tabTag } from '@ni/nimble-components/dist/esm/tab';
 import { tabPanelTag } from '@ni/nimble-components/dist/esm/tab-panel';

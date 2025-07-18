@@ -1,5 +1,5 @@
 import { html, when } from '@ni/fast-element';
-import type { Meta, StoryObj } from '@storybook/html';
+import type { Meta, StoryObj } from '@storybook/html-vite';
 
 import { buttonTag } from '@ni/nimble-components/dist/esm/button';
 import { chatMessageTag } from '@ni/spright-components/dist/esm/chat/message';

@@ -1,4 +1,4 @@
-import type { Meta, StoryFn } from '@storybook/html';
+import type { Meta, StoryFn } from '@storybook/html-vite';
 import { html } from '@ni/fast-element';
 import { waitForUpdatesAsync } from '@ni/nimble-components/dist/esm/testing/async-helpers';
 import { iconUserTag } from '@ni/nimble-components/dist/esm/icons/user';

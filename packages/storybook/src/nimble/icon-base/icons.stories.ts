@@ -1,6 +1,5 @@
-import type { Meta, StoryObj } from '@storybook/html';
+import type { Meta, StoryObj } from '@storybook/html-vite';
 import { html, ref, repeat } from '@ni/fast-element';
-import { DesignSystem } from '@ni/fast-foundation';
 import * as nimbleIconComponentsMap from '@ni/nimble-components/dist/esm/icons/all-icons';
 import {
     tokenNames,
@@ -21,10 +20,12 @@ import {
 } from '../../utilities/storybook';
 
 type IconName = keyof typeof nimbleIconComponentsMap;
-const data = Object.values(nimbleIconComponentsMap).map(iconClass => ({
-    tag: DesignSystem.tagFor(iconClass),
-    metaphor: iconMetadata[iconClass.name as IconName].tags.join(', ')
-}));
+const data = Object.entries(nimbleIconComponentsMap).map(
+    ([iconClassName, iconClass]) => ({
+        tag: customElements.getName(iconClass),
+        metaphor: iconMetadata[iconClassName as IconName].tags.join(', ')
+    })
+);
 
 type Data = (typeof data)[number];
 
@@ -43,7 +44,7 @@ const metadata: Meta<IconArgs> = {
 export default metadata;
 
 const appearanceDescriptionOverride = `
-With SCSS properties, the icon color can be overriden. For example:
+With SCSS properties, the icon color can be overridden. For example:
 ${scssInternalPropertySetterMarkdown(tokenNames.iconColor, 'purple')}
 `;
 

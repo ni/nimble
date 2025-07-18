@@ -5,7 +5,7 @@ import {
     Stories,
     Title,
     Description
-} from '@storybook/blocks';
+} from '@storybook/addon-docs/blocks';
 import TargetDocs from '../patterns/anchor/target-docs.mdx';
 import ContentHiddenDocs from '../patterns/button/content-hidden-docs.mdx';
 import StylingDocs from '../patterns/button/styling-docs.mdx';
@@ -20,8 +20,8 @@ import * as anchorButtonStories from './anchor-button.stories';
 An anchor button is a component with the visual appearance of a button, but it
 navigates like an anchor/link when pressed.
 
-Consider <Tag name={buttonTag} /> if you want a button that triggers an action
-or event.
+Use <Tag name={buttonTag} /> if you want a button that triggers an action or
+event.
 
 <Canvas of={anchorButtonStories.outlineAnchorButton} />
 

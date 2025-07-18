@@ -1,5 +1,5 @@
 import { ViewTemplate, html, ref } from '@ni/fast-element';
-import type { Meta } from '@storybook/html';
+import type { Meta } from '@storybook/html-vite';
 import type { DesignToken } from '@ni/fast-foundation';
 import { bodyFont } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
 import { Table, tableTag } from '@ni/nimble-components/dist/esm/table';

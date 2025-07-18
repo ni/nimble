@@ -1,4 +1,4 @@
-import type { StoryFn, Meta } from '@storybook/html';
+import type { StoryFn, Meta } from '@storybook/html-vite';
 import { html, repeat, ViewTemplate, when } from '@ni/fast-element';
 import { ComboboxAutocomplete } from '@ni/fast-foundation';
 import { DropdownPosition } from '@ni/nimble-components/dist/esm/patterns/dropdown/types';
