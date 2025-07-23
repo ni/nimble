@@ -11,7 +11,7 @@ public partial class SprightChatInput : ComponentBase
     public string? Value { get; set; }
 
     /// <summary>
-    /// Gets or sets a callback that's invoked when a column's configuration is changed.
+    /// Gets or sets a callback that is invoked when the send event is raised.
     /// </summary>
     [Parameter]
     public EventCallback<ChatInputSendEventArgs> Send { get; set; }
@@ -28,11 +28,7 @@ public partial class SprightChatInput : ComponentBase
     [Parameter(CaptureUnmatchedValues = true)]
     public IDictionary<string, object>? AdditionalAttributes { get; set; }
 
-    /// <summary>
-    /// Called when the 'row-expand-toggle' event is fired on the web component.
-    /// </summary>
-    /// <param name="eventArgs">The toggle state of a table row</param>
-    protected async void HandleChatInputSend(ChatInputSendEventArgs eventArgs)
+    private async void HandleChatInputSend(ChatInputSendEventArgs eventArgs)
     {
         await Send.InvokeAsync(eventArgs);
     }
