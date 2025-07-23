@@ -36,11 +36,9 @@ interface ChatConversationArgs {
     content: string;
     input: boolean;
     conversationRef: ChatConversation;
-    inputRef: ChatInput;
     sendMessage: (
         event: CustomEvent<ChatInputSendEventDetail>,
-        conversationRef: ChatConversation,
-        inputRef: ChatInput
+        conversationRef: ChatConversation
     ) => void;
 }
 
@@ -111,7 +109,7 @@ export const chatConversation: StoryObj<ChatConversationArgs> = {
             </${chatMessageTag}>
             ${when(x => x.input, html<ChatConversationArgs, ChatInput>`
                 <${chatInputTag} slot='input' placeholder='Type a message' send-button-label='Send' ${ref('inputRef')}
-                    @send="${(x2, c2) => x2.sendMessage(c2.event as CustomEvent<ChatInputSendEventDetail>, x2.conversationRef, x2.inputRef)}"
+                    @send="${(x2, c2) => x2.sendMessage(c2.event as CustomEvent<ChatInputSendEventDetail>, x2.conversationRef)}"
                 ></${chatInputTag}>
             `)}
         </${chatConversationTag}>
@@ -133,8 +131,7 @@ export const chatConversation: StoryObj<ChatConversationArgs> = {
     },
     args: {
         input: true,
-        sendMessage: (event, conversationRef, inputRef) => {
-            inputRef.resetInput();
+        sendMessage: (event, conversationRef) => {
             const message = document.createElement(chatMessageTag);
             message.messageType = ChatMessageType.outbound;
             const span = document.createElement('span');

@@ -286,7 +286,6 @@ export class CustomAppComponent implements AfterViewInit {
 
     public onChatInputSend(e: Event): void {
         const chatInputSendEvent = (e as CustomEvent<ChatInputSendEventDetail>);
-        (chatInputSendEvent.target as ChatInput).resetInput();
         this.chatUserMessages.push(chatInputSendEvent.detail.text);
     }
 

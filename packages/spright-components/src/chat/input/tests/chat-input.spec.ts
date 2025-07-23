@@ -205,53 +205,6 @@ describe('ChatInput', () => {
         });
     });
 
-    describe('resetInput method', () => {
-        beforeEach(async () => {
-            await connect();
-        });
-
-        it('clears the input contents, sets focus, and disables the button', () => {
-            page.setText('new value');
-            element.resetInput();
-            processUpdates();
-
-            expect(element.value).toEqual('');
-            expect(page.getRenderedText()).toEqual('');
-            expect(page.textAreaHasFocus()).toBeTrue();
-            expect(page.isSendButtonEnabled()).toBeFalse();
-        });
-
-        it('can be called from send event handler', async () => {
-            const spy = jasmine.createSpy('send', () => {
-                element.resetInput();
-                processUpdates();
-
-                expect(element.value).toEqual('');
-                expect(page.getRenderedText()).toEqual('');
-                expect(page.textAreaHasFocus()).toBeTrue();
-                expect(page.isSendButtonEnabled()).toBeFalse();
-            });
-
-            element.addEventListener('send', spy);
-            element.value = 'new value';
-            processUpdates();
-
-            await page.pressEnterKey();
-            expect(spy).toHaveBeenCalledTimes(1);
-        });
-
-        it('can be called when not connected', async () => {
-            element.value = 'hello';
-            await disconnect();
-            element.resetInput();
-            await connect();
-            processUpdates();
-            expect(element.value).toEqual('');
-            expect(page.getRenderedText()).toEqual('');
-            expect(page.isSendButtonEnabled()).toBeFalse();
-        });
-    });
-
     describe('sendButtonLabel', () => {
         beforeEach(async () => {
             await connect();
