@@ -78,7 +78,7 @@ The component also contains the following features:
     - the text area height is a single line initially but grows its height to fit the entered text up to its max-height
     - the text area has configurable placeholder text
 1. Includes a "Send" button for the user to submit the current input text
-    - fires an event containing the current input content
+    - fires an event containing the current input content and then clears the content and sets keyboard focus back to the input
     - pressing Enter while the text area has focus will behave the same as clicking "Send"
     - pressing Shift-Enter will create a newline
     - the button is disabled and Enter has no effect if the input text and attachments slot are both empty or if the client has set an attribute to explicitly disable it
@@ -209,7 +209,6 @@ richText.markdown = 'Welcome **Homer**, how can I help?';
     - `send-disabled` - boolean attribute that causes the "Send" button to be disabled even if there is text or other slotted content
     - `error-visible` and `error-text` - standard attributes for showing an error icon and red text below the control
 - _Methods_
-    - `resetInput()` - clears the text input and gives it focus
 - _Events_
     - `send` - emitted when the user clicks the "Send" button or presses Enter with text present. Includes `ChatInputSendEventDetail` which is an object with a `text` field containing the input contents. Not cancelable.
     - `stop` - emitted when the user clicks the "Stop" button. Not cancelable.
@@ -225,6 +224,8 @@ richText.markdown = 'Welcome **Homer**, how can I help?';
 
 ##### Input API alternatives
 
+#### `value`
+
 The `value` API above is interesting because users can change it interactively while clients may wish to get or set it programmatically. Nimble has several patterns for properties and attributes related to state that the user can modify interactively:
 
 1. The text field and number field have a `value` property and a `current-value` attribute which are synced with user input and a `value` attribute which is only used to set the initial value. This approach comes from FAST. The `value` property and attribute match native form-associated input behavior while the `current-value` attribute adds the ability to read and write the current value from an attribute without overwriting a client-provided `value`.
@@ -235,6 +236,12 @@ Any of these approaches would achieve the goal of exposing the ability to get an
 
 - the chat input doesn't need form association or parity with a native component API and having multiple attributes adds implementation complexity versus a single attribute
 - users aren't expected to be interactively modifying large values in the chat input so performance is less of a concern than with the rich text editor
+
+##### Auto-clearing alternative
+
+In the case of the auto-clearing being undesirable, a `resetInput()` method was proposed that users of the component would be required to call every time a `send` event occurred.
+
+[Some concern](https://github.com/ni/nimble/pull/2611#discussion_r2110130708) was raised with having the 'Send' button (or pressing \<Enter\>) automatically clearing the text, however there is enough basis to do so both in that this is designed behavior for the control (there is no expectation that the text field should maintain any text after the send event occurs), and we already have a similar UX semantic with the clear button for the `Select`.
 
 ### Anatomy
 
@@ -363,7 +370,7 @@ _Consider the accessibility of the component, including:_
 
 The text field and button will each be keyboard focusable. This will be reflected visually to the user in accordance with the design spec.
 
-If the input changes state between `processing` and not when focus was on the "Send" or "Stop" button, the newly visible button will not receive focus. This is a scoping decision since most clients will call `resetInput()` at the same time as this state change, causing the button to lose focus anyway.
+If the input changes state between `processing` and not when focus was on the "Send" or "Stop" button, the newly visible button will not receive focus.
 
 The application will not announce the state change between `processing` and not to screen readers. This is a scoping decision which should be reconsidered if these components are promoted from Spright to Nimble.
 
