@@ -49,15 +49,6 @@ public class SprightChatInputTests
         Assert.Contains("placeholder", chatInput.Markup);
     }
 
-    [Fact]
-    public void SprightChatInputSendButtonLabel_AttributeIsSet()
-    {
-        var sendButtonText = "Send";
-        var chatInput = RenderWithPropertySet(x => x.SendButtonLabel, sendButtonText);
-
-        Assert.Contains("send-button-label", chatInput.Markup);
-    }
-
     private IRenderedComponent<SprightChatInput> RenderWithPropertySet<TProperty>(Expression<Func<SprightChatInput, TProperty>> propertyGetter, TProperty propertyValue)
     {
         var context = new TestContext();

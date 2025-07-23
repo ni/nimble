@@ -8,9 +8,6 @@ public partial class SprightChatInput : ComponentBase
     public string? Placeholder { get; set; }
 
     [Parameter]
-    public string? SendButtonLabel { get; set; }
-
-    [Parameter]
     public string? Value { get; set; }
 
     /// <summary>
