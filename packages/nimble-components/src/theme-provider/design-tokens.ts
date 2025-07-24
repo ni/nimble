@@ -478,6 +478,15 @@ export const calendarGroupHeaderBackgroundColor = DesignToken.create<string>(
     hexToRgbaCssColor(Black91, 0.1)
 ));
 
+export const calendarRowBackgroundConflictColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.calendarRowBackgroundConflictColor)
+).withDefault((element: HTMLElement) => getColorForTheme(
+    element,
+    hexToRgbaCssColor(Fail100LightUi, 0.2),
+    hexToRgbaCssColor(Fail100DarkUi, 0.2),
+    hexToRgbaCssColor(Fail100DarkUi, 0.2)
+));
+
 // Component Sizing Tokens
 export const controlHeight = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.controlHeight)
