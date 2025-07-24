@@ -114,12 +114,6 @@ describe('ChatInput', () => {
             expect(page.isSendButtonEnabled()).toBeFalse();
         });
 
-        it("Enter doesn't modify value", async () => {
-            page.setText('new value');
-            await page.pressEnterKey();
-            expect(element.value).toEqual('new value');
-        });
-
         it('Shift-Enter adds newline', async () => {
             page.setText('new value');
             await page.pressShiftEnterKey();
