@@ -176,11 +176,15 @@ describe('ChatInput', () => {
             expect(spy).toHaveBeenCalled();
         });
 
-        it('clears value', () => {
-            element.value = 'new value';
-            processUpdates();
+        it('clears the input contents, sets focus, and disables the button', () => {
+            page.setText('new value');
             page.clickSendButton();
+            processUpdates();
+
             expect(element.value).toEqual('');
+            expect(page.getRenderedText()).toEqual('');
+            expect(page.textAreaHasFocus()).toBeTrue();
+            expect(page.isSendButtonEnabled()).toBeFalse();
         });
 
         it('via button click with no text triggers no send event', () => {
