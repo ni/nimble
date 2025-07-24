@@ -87,8 +87,8 @@ export class ChatInput extends FoundationElement {
         const eventDetail: ChatInputSendEventDetail = {
             text: this.textArea!.value
         };
-        this.$emit('send', eventDetail);
         this.resetInput();
+        this.$emit('send', eventDetail);
     }
 
     private shouldDisableSendButton(): boolean {
