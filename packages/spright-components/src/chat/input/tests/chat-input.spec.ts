@@ -176,6 +176,13 @@ describe('ChatInput', () => {
             expect(spy).toHaveBeenCalled();
         });
 
+        it('clears value', () => {
+            element.value = 'new value';
+            processUpdates();
+            page.clickSendButton();
+            expect(element.value).toEqual('');
+        });
+
         it('via button click with no text triggers no send event', () => {
             const spy = jasmine.createSpy();
             element.addEventListener('send', spy);
