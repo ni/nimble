@@ -22,6 +22,8 @@ The intent is for this to be put in Nimble, as 1) this seems to be a fairly cons
 
 ### Features
 
+- Optionally selectable
+    - A `Chip` can be selected by either clicking on it (except when clicking remove button), or when pressing \<Enter\> when it has keyboard focus when the `selectable` attribute is set.
 - Optionally removable
     - Note that the `Chip` won't remove itself, and it will be up to the client to remove it from the DOM.
 - Allows slotted content to be placed to left of text content
@@ -56,12 +58,14 @@ _The key elements of the component's public API surface:_
 
 - _Component Name_: `nimble-chip`
 - _Props/Attrs_:
+    - `selectable` - set to allow chip to be selectable
     - `prevent-remove` - set to hide the remove button
     - `selected` - set to put the chip in a selected visual state
+    - `appearance` - supports `outline` and `block` appearances
     - `error-visible`
 - _Methods_
 - _Events_
-    - `remove` - fired when the chip remove button is pressed.
+    - `remove` - fired when the chip remove button is pressed (or \<Del\> or \<Backspace\> is pressed), and `prevent-remove` hasn't been set.
 - _Slots_
     - `start` - content placed to the left of the chip text
     - (default) - for the primary message text
@@ -148,8 +152,9 @@ _Consider the accessibility of the component, including:_
 - _Behavior with browser configurations like "Prefers reduced motion"_
     - N/A
 
-### Future possibilities
+### Future work
 
+- Create a chip container component that manages chip layout, and removal
 - Displaying auxiliary text to indicate secondary state.
 
 ### Globalization
