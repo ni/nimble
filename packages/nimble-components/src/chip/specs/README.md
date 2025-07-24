@@ -10,7 +10,6 @@ The `nimble-chip` is a simple component that presents text, an optional "remove"
 - [Chip design](https://www.figma.com/design/PO9mFOu5BCl8aJvFchEeuN/Nimble_Components?node-id=9269-229459&m=dev)
 - [Spright chat feature backlog](https://github.com/ni/nimble/issues/2610) (component for attachment chips)
 
-
 ### Containing Library
 
 The intent is for this to be put in Nimble, as 1) this seems to be a fairly constrained component, and thus easily ported to any needed UI platform, and 2) it seems to have broad use possibilities.
@@ -70,26 +69,24 @@ _The key elements of the component's public API surface:_
 ### Examples
 
 ```html
-<nimble-chip>
-    "Option Label"
-</nimble-chip>
+<nimble-chip> "Option Label" </nimble-chip>
 ```
+
 ![](./spec-images/Chip-normal.PNG)
 
 ```html
-<nimble-chip prevent-remove error-visible>
-    "Option Label"
-</nimble-chip>
+<nimble-chip prevent-remove error-visible> "Option Label" </nimble-chip>
 ```
+
 ![](./spec-images/Chip-prevent-remove-error-visible.PNG)
 
 ```html
 <nimble-chip>
-    <nimble-icon-check slot="start">
-    </nimble-icon-check>
+    <nimble-icon-check slot="start"> </nimble-icon-check>
     "Option Label"
 </nimble-chip>
 ```
+
 ![](./spec-images/Chip-checked.PNG)
 
 ### Anatomy
@@ -111,6 +108,7 @@ _The key elements of the component's public API surface:_
     </div>
 </template>
 ```
+
 While the template will have a named `end` slot, this will not be documented, and only be populated with the error icon as needed, following existing Nimble patterns.
 
 ### Angular integration
