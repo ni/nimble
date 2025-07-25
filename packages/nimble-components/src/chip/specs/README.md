@@ -13,6 +13,7 @@ The `nimble-chip` is a component that presents text, an optional "remove" button
 ### Containing Library
 
 The intent is for this to be put in Nimble, for the following reasons:
+
 - This is a fairly constrained component, and thus easily ported to any needed UI platform.
 - It has broad use possibilities.
 - Designs for the component have been completed (see above link)
