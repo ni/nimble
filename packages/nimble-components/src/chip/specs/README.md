@@ -31,7 +31,7 @@ However, there is a potential for there to be some accessibility concerns, notab
 - Allows slotted content to be placed to left of text content. Slotted content will be styled automatically to be appropriately sized for the chip (i.e. given a height of `controlSlimHeight`). Types of slotted content that will be documented as acceptible are:
     - icons
     - buttons with `content-hidden` set and `appearance` set to `ghost`.
-- Maxiumum width (text content will show ellipsis as needed and a tooltip on hover)
+- If a width is set and the label content is larger than the bounds of its container it will present with an ellipsis, and a tooltip will show the entire contents.
 
 ### Risks and Challenges
 
