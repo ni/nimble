@@ -12,7 +12,12 @@ The `nimble-chip` is a simple component that presents text, an optional "remove"
 
 ### Containing Library
 
-The intent is for this to be put in Nimble, as 1) this seems to be a fairly constrained component, and thus easily ported to any needed UI platform, and 2) it seems to have broad use possibilities.
+The intent is for this to be put in Nimble, for the following reasons:
+- This is a fairly constrained component, and thus easily ported to any needed UI platform.
+- It has broad use possibilities.
+- Designs for the component have been completed (see above link)
+
+However, there is a potential for there to be some accessibility concerns, notably around the remove button, that could persuade us to put this in Spright.
 
 ### Non-goals
 
@@ -23,8 +28,9 @@ The intent is for this to be put in Nimble, as 1) this seems to be a fairly cons
 
 - Optionally removable
     - Note that the `Chip` won't remove itself, and it will be up to the client to remove it from the DOM.
-- Allows slotted content to be placed to left of text content
-- Error icon (no error text)
+- Allows slotted content to be placed to left of text content. Slotted content will be styled automatically to be appropriately sized for the chip (i.e. given a height of `controlSlimHeight`). Types of slotted content that will be documented as acceptible are:
+    - icons
+    - buttons with `content-hidden` set and `apperance` set to `ghost`.
 - Maxiumum width (text content will show ellipsis as needed and a tooltip on hover)
 
 ### Risks and Challenges
@@ -45,6 +51,8 @@ Nigel chat attachment chip:
 
 ![](./spec-images/Nigel-attachment-chip.PNG)
 
+[Infragistics Chip component](https://www.infragistics.com/products/ignite-ui-web-components/web-components/components/inputs/chip)
+
 ---
 
 ## Design
@@ -57,14 +65,15 @@ _The key elements of the component's public API surface:_
 - _Props/Attrs_:
     - `prevent-remove` - set to hide the remove button
     - `appearance` - supports `outline` and `block` appearances
-    - `error-visible`
+    - `disabled`
 - _Methods_
 - _Events_
     - `remove` - fired when the chip remove button is pressed (or \<Del\> or \<Backspace\> is pressed), and `prevent-remove` hasn't been set.
 - _Slots_
     - `start` - content placed to the left of the chip text
-    - (default) - for the primary message text
+    - (default) - for the primary label text
 - _CSS Classes and CSS Custom Properties that affect the component_
+    - not supported
 
 ### Examples
 
@@ -75,10 +84,10 @@ _The key elements of the component's public API surface:_
 ![](./spec-images/Chip-normal.PNG)
 
 ```html
-<nimble-chip prevent-remove error-visible> "Option Label" </nimble-chip>
+<nimble-chip prevent-remove> "Option Label" </nimble-chip>
 ```
 
-![](./spec-images/Chip-prevent-remove-error-visible.PNG)
+![](./spec-images/Chip-no-remove.PNG)
 
 ```html
 <nimble-chip>
@@ -129,31 +138,35 @@ See Figma document link at the top of this document.
 
 ### States
 
-N/A
+The CSS `hover` and `focusVisible` states will have specific stylings (as seen in the UX designs), in addition to styling capturing the `disabled` attribute state.
 
 ### Accessibility
 
 _Consider the accessibility of the component, including:_
 
 - _Keyboard Navigation and Focus_
-    - the chip component is focusable, but the remove button is not. If the chip has focus and the \<Del\> or \<Backspace\> key is pressed, then the `remove` event will be emitted. If `prevent-remove` attribute is set, the `remove` event will not be emitted when pressing \<Del\> or \<Backspace\>.
+    - the chip component is focusable, as is the remove button (when present).
 - _Form Input_
     - N/A
 - _Use with Assistive Technology_
     - a `chip`'s accessible name comes from the element's contents by default
     - `aria-disabled` will be set whenever the `disabled` attribute is set
+    - the remove button will have an `aria-label` of "remove", which we will provide a label provider token for.
 - _Behavior with browser configurations like "Prefers reduced motion"_
     - N/A
 
 ### Future work
 
+- Make chip selectable (there are already UX designs)
+    - Currently there are no use-cases for chips requiring them to be selectable, but there are many use-cases in the wild where this is needed.
+- Provide error state for the chip (there are already UX designs)
+    - Again, there are no current use-cases requiring a chip to present with error information, but it is not unreasonable to expect we may have such a use-case in the future.
 - Create a chip container component that manages chip layout, and removal
-- Displaying auxiliary text to indicate secondary state.
-- While there are visual designs for a `selected` state there are currently no known usages that require a chip to be selectable.
+- Displaying auxiliary text to indicate secondary state (there are UX mockups of this).
 
 ### Globalization
 
-N/A
+Clients will be responsible for localizing any slotted content. An API will be provided to allow users to localize the label for the remove button, which, while it is never visualized, will be announced with screen readers.
 
 ### Security
 
@@ -182,3 +195,5 @@ Storybook stories will be created.
 ---
 
 ## Open Issues
+
+- Should we have a `removable` attribute instead of `prevent-remove` to invert the API state? This is the approach Infragistics takes with their component.
