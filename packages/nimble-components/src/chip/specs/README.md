@@ -2,7 +2,7 @@
 
 ## Overview
 
-The `nimble-chip` is a simple component that presents text, an optional "remove" button, optional slotted content to the left of the text, and an optional error icon.
+The `nimble-chip` is a component that presents text, an optional "remove" button, optional slotted content to the left of the text, and an optional error icon.
 
 ### Background
 
