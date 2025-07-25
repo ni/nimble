@@ -30,7 +30,7 @@ However, there is a potential for there to be some accessibility concerns, notab
     - Note that the `Chip` won't remove itself, and it will be up to the client to remove it from the DOM.
 - Allows slotted content to be placed to left of text content. Slotted content will be styled automatically to be appropriately sized for the chip (i.e. given a height of `controlSlimHeight`). Types of slotted content that will be documented as acceptible are:
     - icons
-    - buttons with `content-hidden` set and `apperance` set to `ghost`.
+    - buttons with `content-hidden` set and `appearance` set to `ghost`.
 - Maxiumum width (text content will show ellipsis as needed and a tooltip on hover)
 
 ### Risks and Challenges
