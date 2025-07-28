@@ -47,6 +47,7 @@ export const _standardBreadcrumb: StoryObj<BreadcrumbArgs> = {
     // prettier-ignore
     render: createUserSelectedThemeStory(html`
         <${breadcrumbTag}
+            style="width: 100%;"
             appearance="${x => BreadcrumbAppearance[x.appearance]}"
         >
             ${repeat(x => x.options, html<ItemArgs, BreadcrumbArgs>`
@@ -79,14 +80,14 @@ With a standard breadcrumb containing multiple items, the last breadcrumb repres
         options: [
             {
                 href: '#',
-                label: 'Page 1'
+                label: 'Page 1--------------------------------'
             },
             {
                 href: '#',
-                label: 'Page 2'
+                label: 'Page 2-------------------'
             },
             {
-                label: 'Current (No Link)'
+                label: 'Current (No Link)---------------------------------------------->'
             }
         ],
         appearance: 'default'
