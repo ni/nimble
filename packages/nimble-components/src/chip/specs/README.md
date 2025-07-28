@@ -29,9 +29,7 @@ However, there is a potential for there to be some accessibility concerns, notab
 
 - Optionally removable
     - Note that the `Chip` won't remove itself, and it will be up to the client to remove it from the DOM.
-- Allows slotted content to be placed to left of text content. Slotted content will be styled automatically to be appropriately sized for the chip (i.e. given a height of `controlSlimHeight`). Types of slotted content that will be documented as acceptible are:
-    - icons
-    - buttons with `content-hidden` set and `appearance` set to `ghost`.
+- Allows icons to be slotted left of text content. Slotted content will be styled automatically to be appropriately sized for the chip (i.e. given a height of `controlSlimHeight`)
 - If a width is set and the label content is larger than the bounds of its container it will present with an ellipsis, and a tooltip will show the entire contents.
 
 ### Risks and Challenges
@@ -64,9 +62,9 @@ _The key elements of the component's public API surface:_
 
 - _Component Name_: `nimble-chip`
 - _Props/Attrs_:
-    - `prevent-remove` - set to hide the remove button
+    - `removable` - set to show the remove button
     - `appearance` - supports `outline` and `block` appearances
-    - `disabled`
+    - `disabled` - styles the chip in the typical Nimble manner, and prevents all interaction with it including being able to focus it
 - _Methods_
 - _Events_
     - `remove` - fired when the chip remove button is pressed (or \<Del\> or \<Backspace\> is pressed), and `prevent-remove` hasn't been set.
