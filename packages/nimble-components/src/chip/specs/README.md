@@ -110,9 +110,10 @@ _The key elements of the component's public API surface:_
         </span>
         ${endSlotTemplate(context, definition)}
         ${when(x => !x.preventRemove, html<Chip>`
-            <nimble-button content-hidden @click="${x => x.handleRemoveClick()}">
-                <nimble-icon-times>
+            <nimble-button content-hidden @click="${x => x.handleRemoveClick()}" title="Remove">
+                <nimble-icon-times slot="start">
                 </nimble-icon-times>
+                Remove
             </nimble-button>
         `)}
     </div>
