@@ -23,6 +23,7 @@ The intent is for this to be put in Nimble, for the following reasons:
 
 - Arbitrary HTML content
 - Implementing a "chip container" component that would be responsible for laying out the chips in a particular fashion, as well as possibly managing their removal if the "remove" button on a chip is pressed. While this may be useful at some point it is not necessary for the `Chip` component to have value.
+- Usage guidance will be provided in the Storybook.
 
 ### Features
 
