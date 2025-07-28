@@ -2,7 +2,7 @@
 
 ## Overview
 
-The `nimble-chip` is a component that presents text, an optional "remove" button, optional slotted content to the left of the text, and an optional error icon.
+The `nimble-chip` is a component that presents text, an optional "remove" button, and optional slotted content to the left of the text.
 
 ### Background
 
@@ -17,8 +17,7 @@ The intent is for this to be put in Nimble, for the following reasons:
 - This is a fairly constrained component, and thus easily ported to any needed UI platform.
 - It has broad use possibilities.
 - Designs for the component have been completed (see above link)
-
-However, there is a potential for there to be some accessibility concerns, notably around the remove button, that could persuade us to put this in Spright.
+- While the remove button introduces a new interactive pattern for our controls from an accessibility perspective, the described plan seems in-line with ARIA expectations.
 
 ### Non-goals
 
@@ -108,7 +107,7 @@ _The key elements of the component's public API surface:_
         </span>
         ${endSlotTemplate(context, definition)}
         ${when(x => !x.preventRemove, html<Chip>`
-            <nimble-button content-hidden @click="${x => x.handleRemoveClick()}" title="Remove">
+            <nimble-button content-hidden @click="${x => x.handleRemoveClick()}" aria-label="${x => x.removeButtonLabel}">
                 <nimble-icon-times slot="start">
                 </nimble-icon-times>
                 Remove
@@ -118,7 +117,7 @@ _The key elements of the component's public API surface:_
 </template>
 ```
 
-While the template will have a named `end` slot, this will not be documented, and only be populated with the error icon as needed, following existing Nimble patterns.
+While the template will have a named `end` slot, this will not be documented following existing Nimble patterns. We may consider using the `end` slot if/when we add an error state to the chip.
 
 ### Angular integration
 
@@ -151,7 +150,8 @@ _Consider the accessibility of the component, including:_
 - _Use with Assistive Technology_
     - a `chip`'s accessible name comes from the element's contents by default
     - `aria-disabled` will be set whenever the `disabled` attribute is set
-    - the remove button will have an `aria-label` of "remove", which we will provide a label provider token for.
+    - no ARIA `role` seems necessary to define for the chip, as it isn't interactive itself (only the remove button is which has a `role`). The only valid role seemed to be [`status`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Roles/status_role), but that also didn't seem helpful from an accessibility perspective, particularly since it mainly relates to providing helpful information when the content changes (which we don't expect).
+    - the remove button will have an `aria-label` of "remove <chip content>", which we will provide a label provider token for the "remove" portion.
 - _Behavior with browser configurations like "Prefers reduced motion"_
     - N/A
 
