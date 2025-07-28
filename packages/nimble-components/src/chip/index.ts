@@ -1,5 +1,12 @@
-import { attr, nullableNumberConverter, observable } from '@ni/fast-element';
-import { applyMixins, DesignSystem, FoundationElement, StartEnd, type FoundationElementDefinition, type StartOptions } from '@ni/fast-foundation';
+import { attr, observable } from '@ni/fast-element';
+import {
+    applyMixins,
+    DesignSystem,
+    FoundationElement,
+    StartEnd,
+    type FoundationElementDefinition,
+    type StartOptions
+} from '@ni/fast-foundation';
 import { styles } from './styles';
 import { template } from './template';
 import { ChipAppearance } from './types';
@@ -54,7 +61,10 @@ export class Chip extends FoundationElement {
     }
 
     public keyDownHandler(event: KeyboardEvent): boolean {
-        if ((event.key === 'Delete' || event.key === 'Backspace') && this.removable) {
+        if (
+            (event.key === 'Delete' || event.key === 'Backspace')
+            && this.removable
+        ) {
             this.handleRemoveClick();
             event.stopPropagation();
             event.preventDefault();
