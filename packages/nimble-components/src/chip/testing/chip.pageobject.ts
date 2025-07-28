@@ -9,7 +9,9 @@ export class ChipPageObject {
     public constructor(protected readonly chipElement: Chip) {}
 
     public clickRemoveButton(): void {
-        const removeButton = this.chipElement.shadowRoot?.querySelector<Button>('.remove-button');
+        const removeButton = this.chipElement.shadowRoot?.querySelector<Button>(
+            '.remove-button'
+        );
         if (removeButton) {
             removeButton.click();
         } else {

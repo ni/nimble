@@ -10,7 +10,7 @@ import {
 
 interface ChipArgs {
     appearance: keyof typeof ChipAppearance;
-    preventRemove: boolean;
+    removable: boolean;
     content: string;
     start: boolean;
     disabled?: boolean;
@@ -25,7 +25,7 @@ const metadata: Meta<ChipArgs> = {
     },
     render: createUserSelectedThemeStory(html`
     ${disableStorybookZoomTransform}
-        <${chipTag} appearance="${x => x.appearance}" ?prevent-remove="${x => x.preventRemove}" ?start="${x => x.start}" ?disabled="${x => x.disabled}">
+        <${chipTag} appearance="${x => x.appearance}" ?removable="${x => x.removable}" ?start="${x => x.start}" ?disabled="${x => x.disabled}">
             ${x => x.content}
             ${when(x => x.start, html`
                 <nimble-icon-check slot="start"></nimble-icon-check>
@@ -38,8 +38,8 @@ const metadata: Meta<ChipArgs> = {
             control: { type: 'radio' },
             table: { category: apiCategory.attributes }
         },
-        preventRemove: {
-            name: 'prevent-remove',
+        removable: {
+            name: 'removable',
             table: { category: apiCategory.attributes }
         },
         disabled: {
@@ -61,7 +61,7 @@ const metadata: Meta<ChipArgs> = {
     },
     args: {
         appearance: 'outline',
-        preventRemove: false,
+        removable: false,
         content: 'Homer Simpson',
         start: false,
         disabled: false

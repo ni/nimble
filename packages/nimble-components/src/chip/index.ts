@@ -1,9 +1,10 @@
-import { attr, observable } from '@ni/fast-element';
+import { attr, nullableNumberConverter, observable } from '@ni/fast-element';
 import { applyMixins, DesignSystem, FoundationElement, StartEnd, type FoundationElementDefinition, type StartOptions } from '@ni/fast-foundation';
 import { styles } from './styles';
 import { template } from './template';
 import { ChipAppearance } from './types';
 import { slotTextContent } from '../utilities/models/slot-text-content';
+import { chipRemoveLabel } from '../label-provider/core/label-tokens';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -17,8 +18,8 @@ export type ChipOptions = FoundationElementDefinition & StartOptions;
  * A Nimble demo component (not for production use)
  */
 export class Chip extends FoundationElement {
-    @attr({ mode: 'boolean', attribute: 'prevent-remove' })
-    public preventRemove = false;
+    @attr({ mode: 'boolean' })
+    public removable = false;
 
     @attr({ mode: 'boolean' })
     public disabled = false;
@@ -39,20 +40,26 @@ export class Chip extends FoundationElement {
     }
 
     /** @internal */
+    public get removeButtonContent(): string {
+        return `${chipRemoveLabel.getValueFor(this)} ${this.elementTextContent}`;
+    }
+
+    /** @internal */
     public contentSlot!: HTMLSlotElement;
 
     public handleRemoveClick(): void {
-        if (!this.preventRemove) {
+        if (this.removable) {
             this.$emit('remove');
         }
     }
 
-    public keyDownHandler(event: KeyboardEvent): void {
-        if ((event.key === 'Delete' || event.key === 'Backspace') && !this.preventRemove) {
+    public keyDownHandler(event: KeyboardEvent): boolean {
+        if ((event.key === 'Delete' || event.key === 'Backspace') && this.removable) {
             this.handleRemoveClick();
             event.stopPropagation();
             event.preventDefault();
         }
+        return true;
     }
 }
 applyMixins(Chip, StartEnd);

@@ -11,7 +11,6 @@ ViewTemplate<Chip>, ChipOptions
 > = (context, definition) => html<Chip>`
     <template 
         aria-disabled="${x => x.disabled}"
-        tabindex="${x => (!x.disabled ? '0' : null)}"
         @keydown="${(x, c) => x.keyDownHandler(c.event as KeyboardEvent)}"
     >
         ${startSlotTemplate(context, definition)}
@@ -23,10 +22,16 @@ ViewTemplate<Chip>, ChipOptions
         >
             <slot ${ref('contentSlot')} ${slotted({ property: 'content' })}></slot>
         </span>
-        ${when(x => !x.preventRemove, html<Chip>`
-            <nimble-button class="remove-button" tabindex="0" content-hidden appearance="ghost" @click="${x => x.handleRemoveClick()}">
+        ${when(x => x.removable, html<Chip>`
+            <nimble-button
+                class="remove-button"
+                content-hidden
+                appearance="ghost"
+                @click="${x => x.handleRemoveClick()}"
+            >
                 <nimble-icon-times slot="start">
                 </nimble-icon-times>
+                ${x => x.removeButtonContent}
             </nimble-button>
         `)}
     </template>

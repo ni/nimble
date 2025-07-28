@@ -12,7 +12,8 @@ import {
     filterNoResultsLabel,
     loadingLabel,
     scrollBackwardLabel,
-    scrollForwardLabel
+    scrollForwardLabel,
+    chipRemoveLabel
 } from './label-tokens';
 import { styles } from '../base/styles';
 
@@ -33,7 +34,8 @@ const supportedLabels = {
     filterNoResults: filterNoResultsLabel,
     loading: loadingLabel,
     scrollBackward: scrollBackwardLabel,
-    scrollForward: scrollForwardLabel
+    scrollForward: scrollForwardLabel,
+    chipRemove: chipRemoveLabel
 } as const;
 
 /**
@@ -74,6 +76,9 @@ export class LabelProviderCore
 
     @attr({ attribute: 'scroll-forward' })
     public scrollForward: string | undefined;
+
+    @attr({ attribute: 'chip-remove' })
+    public chipRemove: string | undefined;
 
     protected override readonly supportedLabels = supportedLabels;
 }
