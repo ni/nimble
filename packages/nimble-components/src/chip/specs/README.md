@@ -152,7 +152,7 @@ _Consider the accessibility of the component, including:_
     - a `chip`'s accessible name comes from the element's contents by default
     - `aria-disabled` will be set whenever the `disabled` attribute is set
     - no ARIA `role` seems necessary to define for the chip, as it isn't interactive itself (only the remove button is which has a `role`). The only valid role seemed to be [`status`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Roles/status_role), but that also didn't seem helpful from an accessibility perspective, particularly since it mainly relates to providing helpful information when the content changes (which we don't expect).
-    - the remove button will have an `aria-label` of "remove <chip content>", which we will provide a label provider token for the "remove" portion.
+    - the remove button will have it's content set to provide a label provider token for the "remove" portion, plus the contents of the chip itself (thus a screen reader will annouce "Remove <Chip>").
 - _Behavior with browser configurations like "Prefers reduced motion"_
     - N/A
 
