@@ -64,7 +64,7 @@ _The key elements of the component's public API surface:_
 - _Props/Attrs_:
     - `removable` - set to show the remove button
     - `appearance` - supports `outline` and `block` appearances
-    - `disabled` - styles the chip in the typical Nimble manner, and prevents all interaction with it including being able to focus it
+    - `disabled` - styles the chip in the typical Nimble manner, including any slotted content, and prevents all interaction with it including being able to focus it
 - _Methods_
 - _Events_
     - `remove` - fired when the chip remove button is pressed (or \<Del\> or \<Backspace\> is pressed), and `prevent-remove` hasn't been set.
