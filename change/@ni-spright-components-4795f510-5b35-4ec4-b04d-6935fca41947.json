@@ -1,7 +1,0 @@
-{
-  "type": "major",
-  "comment": "Remove resetInput event and auto-clear text on send for chat input.",
-  "packageName": "@ni/spright-components",
-  "email": "26874831+atmgrifter00@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
