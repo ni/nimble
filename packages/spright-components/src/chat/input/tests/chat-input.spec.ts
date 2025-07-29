@@ -28,6 +28,13 @@ describe('ChatInput', () => {
         expect(document.createElement(chatInputTag)).toBeInstanceOf(ChatInput);
     });
 
+    it('calling focus sets focus on the text area', async () => {
+        await connect();
+        element.focus();
+        processUpdates();
+        expect(page.isTextAreaFocused()).toBeTrue();
+    });
+
     describe('initial state', () => {
         beforeEach(async () => {
             await connect();
@@ -156,6 +163,17 @@ describe('ChatInput', () => {
                     detail: { text: 'new value', newState: true }
                 })
             );
+        });
+
+        it('updates value before send event', async () => {
+            const sendListener = waitForEvent(element, 'send', () => {
+                expect(element.value).toEqual('');
+            });
+            element.value = 'new value';
+            processUpdates();
+
+            await page.pressEnterKey();
+            await sendListener;
         });
 
         it('is called synchronously', () => {
