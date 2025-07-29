@@ -328,5 +328,5 @@ export const comments: { readonly [key in TokenName]: string } = {
     calendarGroupHeaderBackgroundColor:
         'Background color for the calendar resource group header',
     calendarRowBackgroundConflictColor:
-        'Background color for the calendar resource when it have conflict'
+        'Background color for the calendar resource when its events are in conflict'
 };
