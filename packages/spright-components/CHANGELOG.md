@@ -1,8 +1,16 @@
 # Change Log - @ni/spright-components
 
-<!-- This log was last generated on Wed, 16 Jul 2025 16:52:33 GMT and should not be manually modified. -->
+<!-- This log was last generated on Tue, 29 Jul 2025 16:58:14 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 6.0.0
+
+Tue, 29 Jul 2025 16:58:14 GMT
+
+### Major changes
+
+- Remove resetInput event and auto-clear text on send for chat input. ([ni/nimble@25f4928](https://github.com/ni/nimble/commit/25f49285c0663e087c295b5e7779cc344f208936))
 
 ## 5.5.5
 
