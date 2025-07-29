@@ -14,7 +14,7 @@ The `nimble-chip` is a component that presents text, an optional "remove" button
 
 The intent is for this to be put in Nimble, for the following reasons:
 
-- This is a fairly constrained component, and thus easily ported to any needed UI platform.
+- This is a fairly constrained component, and thus easily ported to either Angular or Blazor.
 - It has broad use possibilities.
 - Designs for the component have been completed (see above link)
 - While the remove button introduces a new interactive pattern for our controls from an accessibility perspective, the described plan seems in-line with ARIA expectations.
