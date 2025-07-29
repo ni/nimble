@@ -2,6 +2,21 @@
   "name": "@ni/spright-components",
   "entries": [
     {
+      "date": "Tue, 29 Jul 2025 16:58:14 GMT",
+      "version": "6.0.0",
+      "tag": "@ni/spright-components_v6.0.0",
+      "comments": {
+        "major": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/spright-components",
+            "commit": "25f49285c0663e087c295b5e7779cc344f208936",
+            "comment": "Remove resetInput event and auto-clear text on send for chat input."
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 16 Jul 2025 16:52:33 GMT",
       "version": "5.5.5",
       "tag": "@ni/spright-components_v5.5.5",
