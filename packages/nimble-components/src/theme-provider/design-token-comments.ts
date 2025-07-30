@@ -320,13 +320,13 @@ export const comments: { readonly [key in TokenName]: string } = {
         'Outer border color for calendar events when highlighted',
     calendarRowBackgroundSelectedColor:
         'Background color while calendar resource is selected/highlighted',
+    calendarRowBackgroundConflictColor:
+        'Background color for the calendar resource when its events are in conflict',
     calendarEventFillBlockedColor:
         'Background fill to indicate the occupied slots in calendar resource rows',
     calendarGrabHandleBackgroundColor:
         'Background fill color for the editable calendar event grab handle',
     calendarGridBorderColor: 'Border color for the calendar grid',
     calendarGroupHeaderBackgroundColor:
-        'Background color for the calendar resource group header',
-    calendarRowBackgroundConflictColor:
-        'Background color for the calendar resource when its events are in conflict'
+        'Background color for the calendar resource group header'
 };
