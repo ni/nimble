@@ -1,7 +1,0 @@
-{
-  "type": "minor",
-  "comment": "Add theme aware token for calendar resource background conflict color",
-  "packageName": "@ni/nimble-components",
-  "email": "131153319+gokulprasanth-ni@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}

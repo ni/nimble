@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-<!-- This log was last generated on Wed, 16 Jul 2025 16:52:33 GMT and should not be manually modified. -->
+<!-- This log was last generated on Wed, 30 Jul 2025 05:47:02 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 34.1.0
+
+Wed, 30 Jul 2025 05:47:02 GMT
+
+### Minor changes
+
+- Add theme aware token for calendar resource background conflict color ([ni/nimble@ff59b3f](https://github.com/ni/nimble/commit/ff59b3f2ee38405faa793510534c3a74cd5eaa27))
 
 ## 34.0.1
 
