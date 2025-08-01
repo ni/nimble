@@ -464,6 +464,13 @@
                         Check core temperature
                     </NimbleButton>
                 </SprightChatMessage>
+                @foreach(var message in _userMessages)
+                {
+                    <SprightChatMessage MessageType="ChatMessageType.Outbound">
+                        @message
+                    </SprightChatMessage>
+                }
+                <SprightChatInput slot="input" Placeholder="Type here" Send="UpdateUserMessages"></SprightChatInput>
             </SprightChatConversation>
         </div>
     </div>
