@@ -11,12 +11,17 @@ export const styles = css`
 
     .list {
         display: flex;
-        flex-wrap: wrap;
+    }
+
+    ::slotted(*) {
+        flex-shrink: 0;
+        min-width: 0;
     }
 
     ::slotted(:last-child) {
         font: ${bodyEmphasizedFont};
         color: ${linkFontColor};
+        flex-shrink: 1;
     }
 
     :host([appearance='prominent']) ::slotted(:last-child) {
