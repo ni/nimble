@@ -60,15 +60,27 @@
       ]
     },
     {
-      "groupName": "npm NI dependencies update to latest",
+      "groupName": "npm NI non-dev dependencies update to latest",
+      "matchManagers": [
+        "npm"
+      ],
+      "matchDepTypes": [
+        "dependencies",
+        "peerDependencies"
+      ],
+      "matchPackageNames": "@ni/**",
+      "schedule": [
+        "at any time"
+      ]
+    },
+    {
+      "groupName": "npm NI devDependencies update to latest",
       "matchManagers": [
         "npm"
       ],
       "rangeStrategy": "update-lockfile",
       "matchDepTypes": [
-        "dependencies",
-        "devDependencies",
-        "peerDependencies"
+        "devDependencies"
       ],
       "matchPackageNames": "@ni/**",
       "schedule": [

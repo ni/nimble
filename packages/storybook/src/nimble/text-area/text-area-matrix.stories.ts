@@ -1,4 +1,4 @@
-import type { StoryFn, Meta } from '@storybook/html';
+import type { StoryFn, Meta } from '@storybook/html-vite';
 import { html, ViewTemplate } from '@ni/fast-element';
 import { textAreaTag } from '@ni/nimble-components/dist/esm/text-area';
 import { TextAreaAppearance } from '@ni/nimble-components/dist/esm/text-area/types';

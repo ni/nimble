@@ -1,7 +1,10 @@
 import { css } from '@ni/fast-element';
 import {
     applicationBackgroundColor,
-    mediumPadding
+    borderWidth,
+    sectionBackgroundImage,
+    mediumPadding,
+    standardPadding
 } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
 import { display } from '../../utilities/style/display';
 
@@ -10,10 +13,28 @@ export const styles = css`
 
     :host {
         flex-direction: column;
+        background: ${applicationBackgroundColor};
+        border: ${borderWidth} solid ${applicationBackgroundColor};
+    }
+
+    .messages {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
         justify-content: flex-start;
         row-gap: 32px;
-        padding: ${mediumPadding};
-        background: ${applicationBackgroundColor};
+        padding: ${mediumPadding} ${standardPadding} ${mediumPadding}
+            ${standardPadding};
+        background: ${sectionBackgroundImage};
         overflow-y: auto;
+    }
+
+    .input {
+        padding: ${borderWidth} ${standardPadding} ${standardPadding}
+            ${standardPadding};
+    }
+
+    .input.input-empty {
+        padding: 0px ${standardPadding} 0px ${standardPadding};
     }
 `;

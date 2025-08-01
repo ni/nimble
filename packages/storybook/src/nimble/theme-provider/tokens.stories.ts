@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/html';
+import type { Meta, StoryObj } from '@storybook/html-vite';
 import { html, repeat, ViewTemplate, when } from '@ni/fast-element';
 import { waitForUpdatesAsync } from '@ni/nimble-components/dist/esm/testing/async-helpers';
 import { PropertyFormat } from '@ni/nimble-components/dist/esm/theme-provider/tests/types';
@@ -51,6 +51,19 @@ const colorTemplate = html<TokenName>`
     ></div>
 `;
 
+const imageTemplate = html<TokenName>`
+    <div
+        title="${x => computedCSSValueFromTokenName(tokens[x])}"
+        style="
+        display: inline-block;
+        height: 24px;
+        width: 24px;
+        border: 1px solid black;
+        background-image: var(${x => cssPropertyFromTokenName(tokens[x])});
+    "
+    ></div>
+`;
+
 const rgbColorTemplate = html<TokenName>`
     <div
         title="${x => computedCSSValueFromTokenName(tokens[x])}"
@@ -86,6 +99,7 @@ const tokenTemplates: {
     readonly [key in TokenSuffix]: ViewTemplate<TokenName>;
 } = {
     Color: colorTemplate,
+    Image: imageTemplate,
     RgbPartialColor: rgbColorTemplate,
     DisabledFontColor: colorTemplate,
     FontColor: colorTemplate,

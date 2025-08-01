@@ -1,4 +1,10 @@
-import { DesignSystem, FoundationElement } from '@ni/fast-foundation';
+import { observable } from '@ni/fast-element';
+import {
+    applyMixins,
+    DesignSystem,
+    FoundationElement,
+    StartEnd
+} from '@ni/fast-foundation';
 import { styles } from './styles';
 import { template } from './template';
 
@@ -11,7 +17,11 @@ declare global {
 /**
  * A nimble-styled container for toolbar content next to tabs.
  */
-export class TabsToolbar extends FoundationElement {}
+export class TabsToolbar extends FoundationElement {
+    /** @internal */
+    @observable
+    public defaultSlottedElements: Element[] = [];
+}
 
 const nimbleTabsToolbar = TabsToolbar.compose({
     baseName: 'tabs-toolbar',
@@ -21,3 +31,5 @@ const nimbleTabsToolbar = TabsToolbar.compose({
 
 DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleTabsToolbar());
 export const tabsToolbarTag = 'nimble-tabs-toolbar';
+
+applyMixins(TabsToolbar, StartEnd);

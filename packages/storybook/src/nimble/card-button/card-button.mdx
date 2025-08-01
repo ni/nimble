@@ -1,4 +1,4 @@
-import { Canvas, Meta, Controls, Title } from '@storybook/blocks';
+import { Canvas, Meta, Controls, Title } from '@storybook/addon-docs/blocks';
 import { anchorButtonTag } from '@ni/nimble-components/dist/esm/anchor-button';
 import { cardButtonTag } from '@ni/nimble-components/dist/esm/card-button';
 import { buttonTag } from '@ni/nimble-components/dist/esm/button';
@@ -7,16 +7,16 @@ import * as cardButtonStories from './card-button.stories';
 <Meta of={cardButtonStories} />
 <Title of={cardButtonStories} />
 
-The <Tag name={cardButtonTag}/> is a button that is designed to contain
-arbitrary content that is specified by a client application. The
+<div>
+    The <Tag name={cardButtonTag} /> is a button that is designed to contain
+    arbitrary content that is specified by a client application. It is intended
+    to be larger and more prominent on a page than the standard
+    <Tag name={buttonTag} />. Use
+    <Tag name={anchorButtonTag} /> if you want a button that triggers navigation
+    to a URL.
+</div>
 
-<Tag name={cardButtonTag} /> is intended to be larger and more prominent on a
-page than the standard <Tag name={buttonTag} />.
-
-Consider <Tag name={anchorButtonTag} /> if you want a button that triggers
-navigation to a URL.
-
-Note: The styling for the "Color" theme is not complete.
+> **Note:** The styling for the "Color" theme is not complete.
 
 <Canvas of={cardButtonStories.cardButton} />
 

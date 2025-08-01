@@ -23,7 +23,6 @@ From the repo root directory:
 1. Run `npm install`
 2. Run `npm run build`
 3. Run the different Nimble Components test configurations:
-
     - To view the components and manually test behaviors in Storybook: `npm run storybook`
 
         **Note**: You will need to refresh your browser window to see style changes made in source.
@@ -66,7 +65,6 @@ Before building a new component, 3 specification documents need to be created:
 
 6. Test out the component in each of the 3 major browsers: Chrome, Firefox, and Safari (WebKit).
    For developers on non-Mac platforms, Safari/WebKit can be tested via the Playwright package:
-
     - To run the unit tests with WebKit, use the command `npm run test-webkit -w @ni/nimble-components` from the `nimble` directory.
 
 7. Create change files for your work by running the following from the `nimble` directory:
@@ -376,7 +374,7 @@ const nimbleButton = Button.compose({
 });
 ```
 
-If delegating focus, you must forward the `tabindex` attribute to any focusable elements in the shadow DOM. While some browsers (e.g. Chrome) will work properly without forwarding, others (e.g. Firefox) won't. Override the `tabIndex` property and mark it as an attribute:
+If delegating focus, you must forward the `tabindex` attribute to any focusable elements in the shadow DOM. Override the `tabIndex` property and mark it as an attribute:
 
 ```ts
 export class MyComponent {
@@ -404,6 +402,14 @@ html<MyComponent>`
         }">
     </div>`;
 ```
+
+Add automated tests for the behaviors implemented above. Search for `tabindex` in other components for inspiration.
+
+Across supported browsers, perform one-time manual verification of cases including the following:
+
+1. Setting a negative `tabindex` causes the control to be skipped when tabbing between elements
+2. Setting a non-negative `tabindex` causes the correct part(s) of the element to receive focus when tabbing between elements
+3. The default `tabIndex` property value reflects the actual behavior when the `tabindex` attribute isn't set
 
 ### Leverage mixins for shared APIs across components
 
@@ -519,7 +525,7 @@ Public names for theme-aware tokens are specified in `src/theme-provider/design-
 2. Where **part** is the specific part of the element to which the token applies (e.g. 'border', 'background', or shadow).
 3. Where **interaction_states** is one or more interaction states (e.g. 'active', 'disabled', 'hover', or 'selected'). Multiple values should be sorted alphabetically.
 4. Where **remaining_states** the remaining, non-interaction states (e.g. 'accent', 'primary, or 'large'). Multiple values should be sorted alphabetically.
-5. Where **token_type** is the token category (e.g. 'color', 'font', 'font-color', 'height', 'width', or 'size').
+5. Where **token_type** is the token category (e.g. 'color', 'image', 'font', 'font-color', 'height', 'width', or 'size').
 
 ### Size ramp
 

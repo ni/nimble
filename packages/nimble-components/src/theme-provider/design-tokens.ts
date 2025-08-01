@@ -144,6 +144,19 @@ export const sectionBackgroundColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.sectionBackgroundColor)
 ).withDefault((element: HTMLElement) => getColorForTheme(element, Black15, Black80, ForestGreen));
 
+export const sectionBackgroundImage = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.sectionBackgroundImage)
+).withDefault((element: HTMLElement) => {
+    const start = getColorForTheme(element, Black15, Black82, ForestGreen);
+    const end = getColorForTheme(
+        element,
+        hexToRgbaCssColor(Black15, 0),
+        hexToRgbaCssColor(Black82, 0),
+        hexToRgbaCssColor(ForestGreen, 0)
+    );
+    return `linear-gradient(${start}, ${end})`;
+});
+
 export const dividerBackgroundColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.dividerBackgroundColor)
 ).withDefault((element: HTMLElement) => getColorForTheme(element, Black15, Black80, ForestGreen));
@@ -419,6 +432,17 @@ export const calendarEventBackgroundHoverTransientColor = DesignToken.create<str
     DigitalGreenDark105
 ));
 
+export const calendarEventOuterBorderHighlightedColor = DesignToken.create<string>(
+    styleNameFromTokenName(
+        tokenNames.calendarEventOuterBorderHighlightedColor
+    )
+).withDefault((element: HTMLElement) => getColorForTheme(
+    element,
+    Black88,
+    hexToRgbaCssColor(White, 0.85),
+    hexToRgbaCssColor(White, 0.85)
+));
+
 export const calendarRowBackgroundSelectedColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.calendarRowBackgroundSelectedColor)
 ).withDefault((element: HTMLElement) => getColorForTheme(
@@ -426,6 +450,15 @@ export const calendarRowBackgroundSelectedColor = DesignToken.create<string>(
     hexToRgbaCssColor(DigitalGreenLight, 0.2),
     hexToRgbaCssColor(PowerGreen, 0.2),
     hexToRgbaCssColor(PowerGreen, 0.2)
+));
+
+export const calendarRowBackgroundConflictColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.calendarRowBackgroundConflictColor)
+).withDefault((element: HTMLElement) => getColorForTheme(
+    element,
+    hexToRgbaCssColor(Fail100LightUi, 0.2),
+    hexToRgbaCssColor(Fail100DarkUi, 0.2),
+    hexToRgbaCssColor(Fail100DarkUi, 0.2)
 ));
 
 export const calendarEventFillBlockedColor = DesignToken.create<string>(
@@ -479,6 +512,9 @@ export const labelHeight = DesignToken.create<string>(
 export const borderWidth = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.borderWidth)
 ).withDefault('1px');
+export const dividerWidth = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.dividerWidth)
+).withDefault('2px');
 export const iconSize = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.iconSize)
 ).withDefault('16px');

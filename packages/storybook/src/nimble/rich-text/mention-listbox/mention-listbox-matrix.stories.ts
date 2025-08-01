@@ -1,5 +1,5 @@
 import { ViewTemplate, html } from '@ni/fast-element';
-import type { Meta, StoryFn } from '@storybook/html';
+import type { Meta, StoryFn } from '@storybook/html-vite';
 import { listOptionTag } from '@ni/nimble-components/dist/esm/list-option';
 import { richTextMentionListboxTag } from '@ni/nimble-components/dist/esm/rich-text/mention-listbox';
 import { hiddenWrapper } from '../../../utilities/hidden';

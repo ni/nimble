@@ -1,5 +1,4 @@
 import * as nimbleIconsMap from '@ni/nimble-tokens/dist/icons/js';
-import { DesignSystem } from '@ni/fast-foundation';
 import { html } from '@ni/fast-element';
 import { parameterizeSpec } from '@ni/jasmine-parameterized';
 import * as allIconsNamespace from '../../icons/all-icons';
@@ -56,7 +55,7 @@ describe('Icons', () => {
 
         parameterizeSpec(allIconNames, (spec, name, value) => {
             spec(`for icon ${name}`, () => {
-                const tagName = DesignSystem.tagFor(value.iconClass);
+                const tagName = customElements.getName(value.iconClass)!;
                 expect(typeof tagName).toBe('string');
                 expect(tagName.length).toBeGreaterThan(0);
                 expect(document.createElement(tagName)).toBeInstanceOf(

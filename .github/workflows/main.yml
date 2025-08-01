@@ -43,24 +43,19 @@ jobs:
           fetch-depth: 0
 
       # Install dependencies
+      - name: Remove pre-existing dotnet installs
+        run: sudo apt remove --purge '^dotnet-.*' '^aspnetcore-.*'
+        working-directory: packages/blazor-workspace/
       - uses: actions/setup-dotnet@v4
         with:
           global-json-file: packages/blazor-workspace/global.json
       - uses: actions/setup-node@v4
         with:
-          node-version: '22'
+          node-version: '24'
           registry-url: 'https://registry.npmjs.org'
           cache: 'npm'
       - run: npm ci
       - run: dotnet restore --locked-mode
-        working-directory: packages/blazor-workspace/
-
-      # Print resolved dotnet info
-      - run: dotnet --info
-        working-directory: packages/blazor-workspace/
-      - run: dotnet --list-sdks
-        working-directory: packages/blazor-workspace/
-      - run: dotnet --version
         working-directory: packages/blazor-workspace/
 
       # print a log of outdated npm dependencies
@@ -87,7 +82,7 @@ jobs:
       # Publish to Chromatic (from any push)
       - name: Publish to Chromatic
         if: env.HAS_CHROMATIC_PROJECT_TOKEN == 'true' && github.event_name == 'push'
-        uses: chromaui/action@v11
+        uses: chromaui/action@v13
         with:
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
           onlyChanged: "!startsWith(github.ref, 'refs/heads/main')" # Use TurboSnap for PR builds
@@ -105,10 +100,7 @@ jobs:
 
       # Run Lighthouse audit (from any push)
       - name: Performance Audit with Lighthouse CI
-        # if: env.HAS_LHCI_GITHUB_APP_TOKEN == 'true' && github.event_name == 'push'
-        # Disabled due to errors during execution on CI
-        # See: https://github.com/ni/nimble/issues/2599
-        if: false
+        if: env.HAS_LHCI_GITHUB_APP_TOKEN == 'true' && github.event_name == 'push'
         run: npm run performance
         env:
           LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
@@ -144,7 +136,7 @@ jobs:
   pages:
     needs: build
     if: github.repository_owner == 'ni' && startsWith(github.ref, 'refs/heads/main')
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     permissions:
       pages: write # to deploy to Pages
       id-token: write # to verify the deployment originates from an appropriate source

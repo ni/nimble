@@ -1,7 +1,7 @@
 import { html } from '@ni/fast-element';
 import { Orientation } from '@ni/fast-web-utilities';
-import { withActions } from '@storybook/addon-actions/decorator';
-import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html';
+import { withActions } from 'storybook/actions/decorator';
+import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html-vite';
 import { radioTag } from '@ni/nimble-components/dist/esm/radio';
 import { radioGroupTag } from '@ni/nimble-components/dist/esm/radio-group';
 import {

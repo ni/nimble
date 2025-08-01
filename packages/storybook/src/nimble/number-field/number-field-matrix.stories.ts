@@ -1,4 +1,4 @@
-import type { StoryFn, Meta } from '@storybook/html';
+import type { StoryFn, Meta } from '@storybook/html-vite';
 import { html, ViewTemplate } from '@ni/fast-element';
 import { numberFieldTag } from '@ni/nimble-components/dist/esm/number-field';
 import { NumberFieldAppearance } from '@ni/nimble-components/dist/esm/number-field/types';

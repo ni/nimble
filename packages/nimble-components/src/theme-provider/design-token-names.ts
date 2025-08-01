@@ -13,6 +13,7 @@ export const tokenNames: { readonly [key in TokenName]: string } = {
     dividerBackgroundColor: 'divider-background-color',
     headerBackgroundColor: 'header-background-color',
     sectionBackgroundColor: 'section-background-color',
+    sectionBackgroundImage: 'section-background-image',
     buttonFillPrimaryColor: 'button-fill-primary-color',
     buttonPrimaryFontColor: 'button-primary-font-color',
     buttonFillAccentColor: 'button-fill-accent-color',
@@ -45,6 +46,7 @@ export const tokenNames: { readonly [key in TokenName]: string } = {
     largePadding: 'large-padding',
     labelHeight: 'label-height',
     borderWidth: 'border-width',
+    dividerWidth: 'divider-width',
     iconSize: 'icon-size',
     groupHeaderTextTransform: 'group-header-text-transform',
     drawerWidth: 'drawer-width',
@@ -258,8 +260,12 @@ export const tokenNames: { readonly [key in TokenName]: string } = {
         'calendar-event-background-hover-dynamic-color',
     calendarEventBackgroundHoverTransientColor:
         'calendar-event-background-hover-transient-color',
+    calendarEventOuterBorderHighlightedColor:
+        'calendar-event-outer-border-highlighted-color',
     calendarRowBackgroundSelectedColor:
         'calendar-row-background-selected-color',
+    calendarRowBackgroundConflictColor:
+        'calendar-row-background-conflict-color',
     calendarEventFillBlockedColor: 'calendar-event-fill-blocked-color',
     calendarGrabHandleBackgroundColor: 'calendar-grab-handle-background-color',
     calendarGridBorderColor: 'calendar-grid-border-color',
@@ -300,7 +306,8 @@ const tokenSuffixes = [
     'Height',
     'Delay',
     'Padding',
-    'Color'
+    'Color',
+    'Image'
 ] as const;
 export type TokenSuffix = (typeof tokenSuffixes)[number];
 export const suffixFromTokenName = (

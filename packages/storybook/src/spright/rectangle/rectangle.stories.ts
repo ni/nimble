@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/html';
+import type { Meta, StoryObj } from '@storybook/html-vite';
 import { html } from '@ni/fast-element';
 import { rectangleTag } from '@ni/spright-components/dist/esm/rectangle';
 import {

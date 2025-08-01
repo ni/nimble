@@ -149,7 +149,8 @@ describe('TableColumnNumberText', () => {
         );
     });
 
-    it('changing data from null to value displays value', async () => {
+    // See: https://github.com/ni/nimble/issues/2658
+    it('changing data from null to value displays value #SkipWebkit', async () => {
         await table.setData([{ number1: null }]);
         await connect();
         await waitForUpdatesAsync();

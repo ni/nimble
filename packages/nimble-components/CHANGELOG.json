@@ -2,6 +2,213 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Wed, 30 Jul 2025 05:47:02 GMT",
+      "version": "34.1.0",
+      "tag": "@ni/nimble-components_v34.1.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "131153319+gokulprasanth-ni@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "ff59b3f2ee38405faa793510534c3a74cd5eaa27",
+            "comment": "Add theme aware token for calendar resource background conflict color"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 22 Jul 2025 21:02:50 GMT",
+      "version": "34.0.1",
+      "tag": "@ni/nimble-components_v34.0.1",
+      "comments": {
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "not available",
+            "comment": "Test only changes"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 18 Jul 2025 19:38:10 GMT",
+      "version": "34.0.1",
+      "tag": "@ni/nimble-components_v34.0.1",
+      "comments": {
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "65cacc031fc2433448ec39c0b73765362551ba0a",
+            "comment": "Test only changes"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 16 Jul 2025 16:52:33 GMT",
+      "version": "34.0.1",
+      "tag": "@ni/nimble-components_v34.0.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "ac78dc389e0dd7e042a654d184ff65f210316296",
+            "comment": "Update dependencies"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/jasmine-parameterized to v1.0.1",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 15 Jul 2025 21:57:35 GMT",
+      "version": "34.0.0",
+      "tag": "@ni/nimble-components_v34.0.0",
+      "comments": {
+        "major": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "ec117d73aa9a132fcf019723557634b9f22ebbdf",
+            "comment": "Localize number-field decimal separator. Breaking change: users in locales with a comma as the decimal separator will need to input a comma rather than a period in the nimble-number-field component."
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 08 Jul 2025 00:20:19 GMT",
+      "version": "33.12.1",
+      "tag": "@ni/nimble-components_v33.12.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "62e162b4cee0f816a7fdf91775b272dc3bf86d5e",
+            "comment": "Revert dividerBackgroundColor token change"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 07 Jul 2025 16:46:23 GMT",
+      "version": "33.12.0",
+      "tag": "@ni/nimble-components_v33.12.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "69a41ca15b6f41e3af2b7d5bc2472bc969925777",
+            "comment": "New and updated theme-aware design tokens for application dividers and chat components"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 02 Jul 2025 14:09:36 GMT",
+      "version": "33.11.1",
+      "tag": "@ni/nimble-components_v33.11.1",
+      "comments": {
+        "none": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "44fd8dde63ffa41369de86785399c4c1a5eef22f",
+            "comment": "Improve contributing docs for delegates focus"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 26 Jun 2025 19:20:55 GMT",
+      "version": "33.11.1",
+      "tag": "@ni/nimble-components_v33.11.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "0bbb3dfc4dcdbcdfd80e31ea877c4386d93156c6",
+            "comment": "Fix issue with default slotted content in tabs toolbar that sets its margin-left to 'auto'."
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 24 Jun 2025 16:53:02 GMT",
+      "version": "33.11.0",
+      "tag": "@ni/nimble-components_v33.11.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "198d94f59fad1d05605048ade29ede19cb8b8c32",
+            "comment": "Provide start/end slots for tabs toolbar."
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 20 Jun 2025 06:07:44 GMT",
+      "version": "33.10.0",
+      "tag": "@ni/nimble-components_v33.10.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "123377167+aagash-ni@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "3946d5cbe190276f9373a4d3b72ee47ee3681d75",
+            "comment": "Add theme aware token for calendar event outer border"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 16 Jun 2025 18:11:26 GMT",
+      "version": "33.9.0",
+      "tag": "@ni/nimble-components_v33.9.0",
+      "comments": {
+        "none": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "374385d1670c6e11916b840ef7cf13b402ae7b68",
+            "comment": "HLD for localized decimal separator in number-field"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 10 Jun 2025 20:39:08 GMT",
+      "version": "33.9.0",
+      "tag": "@ni/nimble-components_v33.9.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "f7e28f84e7a8cb3255ec53aa71cfe444f4489747",
+            "comment": "Add icon calendar-circle-exclamation"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/nimble-tokens to v8.10.0",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 03 Jun 2025 16:23:41 GMT",
       "version": "33.8.2",
       "tag": "@ni/nimble-components_v33.8.2",

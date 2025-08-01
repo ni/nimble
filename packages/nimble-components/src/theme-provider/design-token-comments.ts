@@ -9,6 +9,7 @@ export const comments: { readonly [key in TokenName]: string } = {
     dividerBackgroundColor: 'Divider background color',
     headerBackgroundColor: 'Background color for application headers',
     sectionBackgroundColor: 'Background color for sections',
+    sectionBackgroundImage: 'Gradient background image for sections.',
     buttonFillPrimaryColor:
         'Control fill color for "primary" appearance-variant buttons',
     buttonPrimaryFontColor:
@@ -57,6 +58,7 @@ export const comments: { readonly [key in TokenName]: string } = {
     labelHeight:
         'Standard label height for components. Set the label font rather than explicitly setting the height for a label.',
     borderWidth: 'Standard border width for most components',
+    dividerWidth: 'Width of dividers between panes of an application',
     iconSize: 'Standard layout height for all icons',
     groupHeaderTextTransform: 'CSS text-transform string to use for headers',
     drawerWidth: 'TODO: delete when able',
@@ -314,8 +316,12 @@ export const comments: { readonly [key in TokenName]: string } = {
         'Color while hovering dynamic calendar events',
     calendarEventBackgroundHoverTransientColor:
         'Color while hovering transient calendar events',
+    calendarEventOuterBorderHighlightedColor:
+        'Outer border color for calendar events when highlighted',
     calendarRowBackgroundSelectedColor:
         'Background color while calendar resource is selected/highlighted',
+    calendarRowBackgroundConflictColor:
+        'Background color for the calendar resource when its events are in conflict',
     calendarEventFillBlockedColor:
         'Background fill to indicate the occupied slots in calendar resource rows',
     calendarGrabHandleBackgroundColor:

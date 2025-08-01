@@ -2,6 +2,21 @@
   "name": "@ni/nimble-tokens",
   "entries": [
     {
+      "date": "Tue, 10 Jun 2025 20:39:08 GMT",
+      "version": "8.10.0",
+      "tag": "@ni/nimble-tokens_v8.10.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "f7e28f84e7a8cb3255ec53aa71cfe444f4489747",
+            "comment": "Add icon calendar-circle-exclamation"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 03 Jun 2025 16:23:41 GMT",
       "version": "8.9.1",
       "tag": "@ni/nimble-tokens_v8.9.1",

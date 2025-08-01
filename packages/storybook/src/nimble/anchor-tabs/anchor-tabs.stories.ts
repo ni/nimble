@@ -1,5 +1,5 @@
 import { html, repeat, when } from '@ni/fast-element';
-import type { Meta, StoryObj } from '@storybook/html';
+import type { Meta, StoryObj } from '@storybook/html-vite';
 import { anchorTabTag } from '@ni/nimble-components/dist/esm/anchor-tab';
 import { tabsToolbarTag } from '@ni/nimble-components/dist/esm/tabs-toolbar';
 import { buttonTag } from '@ni/nimble-components/dist/esm/button';
@@ -11,6 +11,10 @@ import {
 } from '../../utilities/storybook';
 import { hrefDescription } from '../patterns/anchor/anchor-docs';
 import { ExampleTabsType } from '../patterns/tabs/types';
+import {
+    defaultSlotDescription,
+    endSlotDescription
+} from '../patterns/tabs/doc-strings';
 
 interface AnchorTabsArgs {
     activeid: string;
@@ -26,7 +30,8 @@ interface AnchorTabArgs {
 }
 
 interface ToolbarArgs {
-    toolbar: boolean;
+    default: boolean;
+    end: boolean;
 }
 
 const simpleTabs = [
@@ -68,6 +73,7 @@ for (let i = 1; i <= 100; i++) {
 
 const tabSets = {
     [ExampleTabsType.simpleTabs]: simpleTabs,
+    [ExampleTabsType.simpleTabsWithToolbar]: simpleTabs,
     [ExampleTabsType.wideTabs]: wideTabs,
     [ExampleTabsType.manyTabs]: manyTabs
 } as const;
@@ -79,11 +85,10 @@ const metadata: Meta<AnchorTabsArgs> = {
 export default metadata;
 
 export const anchorTabs: StoryObj<AnchorTabsArgs> = {
+    // prettier-ignore
     render: createUserSelectedThemeStory(html`
-    <${anchorTabsTag} activeid="${x => x.activeid}">
-        ${repeat(
-        x => tabSets[x.tabsType] as AnchorTabArgs[],
-        html<AnchorTabArgs>`
+        <${anchorTabsTag} activeid="${x => x.activeid}">
+        ${repeat(x => tabSets[x.tabsType] as AnchorTabArgs[], html<AnchorTabArgs>`
             <${anchorTabTag}
                 ?disabled="${x => x.disabled}"
                 id="${x => x.id}"
@@ -91,8 +96,14 @@ export const anchorTabs: StoryObj<AnchorTabsArgs> = {
             >
                 ${x => x.title}
             </${anchorTabTag}>
-        `
-    )}
+        `)}
+        ${when(x => x.tabsType === ExampleTabsType.simpleTabsWithToolbar, html`
+            <${tabsToolbarTag}>
+                <${buttonTag} appearance="ghost">Toolbar Button</${buttonTag}>
+                <${buttonTag} appearance="ghost" slot="end">Toolbar Button 2</${buttonTag}>
+                <${buttonTag} appearance="ghost" slot="end">Toolbar Button 3</${buttonTag}>
+            </${tabsToolbarTag}>
+        `)}
     </${anchorTabsTag}>
     `),
     argTypes: {
@@ -111,6 +122,8 @@ export const anchorTabs: StoryObj<AnchorTabsArgs> = {
                 type: 'radio',
                 labels: {
                     [ExampleTabsType.simpleTabs]: 'Simple tabs',
+                    [ExampleTabsType.simpleTabsWithToolbar]:
+                        'Simple tabs with toolbar',
                     [ExampleTabsType.manyTabs]: 'Many tabs',
                     [ExampleTabsType.wideTabs]: 'Wide tabs'
                 }
@@ -164,22 +177,37 @@ export const anchorTab: StoryObj<AnchorTabArgs> = {
 };
 
 export const tabsToolbar: StoryObj<ToolbarArgs> = {
+    // prettier-ignore
     render: createUserSelectedThemeStory(html`
-        <${anchorTabsTag} activeid="1">
-            ${when(x => x.toolbar, html<ToolbarArgs>`<${tabsToolbarTag}><${buttonTag} appearance="ghost">Toolbar Button</${buttonTag}></${tabsToolbarTag}>`)}
+        <${anchorTabsTag} activeid="1" style="width: 800px;">
+            <${tabsToolbarTag}>
+                ${when(x => x.default, html`
+                    <${buttonTag} appearance="ghost">Toolbar Button 1</${buttonTag}>
+                `)}
+                ${when(x => x.end, html`
+                    <${buttonTag} slot="end" appearance="ghost">Toolbar Button 2</${buttonTag}>
+                    <${buttonTag} slot="end" appearance="ghost">Toolbar Button 3</${buttonTag}>
+                `)}
+            </${tabsToolbarTag}>
             <${anchorTabTag} id="1" disabled href="https://www.google.com">Google</${anchorTabTag}>
             <${anchorTabTag} id="2" href="https://www.ni.com">NI</${anchorTabTag}>
             <${anchorTabTag} id="3" href="https://nimble.ni.dev">Nimble</${anchorTabTag}>
         </${anchorTabsTag}>
     `),
     argTypes: {
-        toolbar: {
+        default: {
             name: 'default',
-            description: `Add a tabs toolbar as a child of the tabs and populate its content with \`${buttonTag}\` elements.`,
+            description: defaultSlotDescription,
+            table: { category: apiCategory.slots }
+        },
+        end: {
+            name: 'end',
+            description: endSlotDescription,
             table: { category: apiCategory.slots }
         }
     },
     args: {
-        toolbar: true
+        default: true,
+        end: true
     }
 };

@@ -1,8 +1,82 @@
 # Change Log - @ni/nimble-components
 
-<!-- This log was last generated on Tue, 03 Jun 2025 16:23:41 GMT and should not be manually modified. -->
+<!-- This log was last generated on Wed, 30 Jul 2025 05:47:02 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 34.1.0
+
+Wed, 30 Jul 2025 05:47:02 GMT
+
+### Minor changes
+
+- Add theme aware token for calendar resource background conflict color ([ni/nimble@ff59b3f](https://github.com/ni/nimble/commit/ff59b3f2ee38405faa793510534c3a74cd5eaa27))
+
+## 34.0.1
+
+Wed, 16 Jul 2025 16:52:33 GMT
+
+### Patches
+
+- Update dependencies ([ni/nimble@ac78dc3](https://github.com/ni/nimble/commit/ac78dc389e0dd7e042a654d184ff65f210316296))
+- Bump @ni/jasmine-parameterized to v1.0.1
+
+## 34.0.0
+
+Tue, 15 Jul 2025 21:57:35 GMT
+
+### Major changes
+
+- Localize number-field decimal separator. Breaking change: users in locales with a comma as the decimal separator will need to input a comma rather than a period in the nimble-number-field component. ([ni/nimble@ec117d7](https://github.com/ni/nimble/commit/ec117d73aa9a132fcf019723557634b9f22ebbdf))
+
+## 33.12.1
+
+Tue, 08 Jul 2025 00:20:19 GMT
+
+### Patches
+
+- Revert dividerBackgroundColor token change ([ni/nimble@62e162b](https://github.com/ni/nimble/commit/62e162b4cee0f816a7fdf91775b272dc3bf86d5e))
+
+## 33.12.0
+
+Mon, 07 Jul 2025 16:46:23 GMT
+
+### Minor changes
+
+- New and updated theme-aware design tokens for application dividers and chat components ([ni/nimble@69a41ca](https://github.com/ni/nimble/commit/69a41ca15b6f41e3af2b7d5bc2472bc969925777))
+
+## 33.11.1
+
+Thu, 26 Jun 2025 19:20:55 GMT
+
+### Patches
+
+- Fix issue with default slotted content in tabs toolbar that sets its margin-left to 'auto'. ([ni/nimble@0bbb3df](https://github.com/ni/nimble/commit/0bbb3dfc4dcdbcdfd80e31ea877c4386d93156c6))
+
+## 33.11.0
+
+Tue, 24 Jun 2025 16:53:02 GMT
+
+### Minor changes
+
+- Provide start/end slots for tabs toolbar. ([ni/nimble@198d94f](https://github.com/ni/nimble/commit/198d94f59fad1d05605048ade29ede19cb8b8c32))
+
+## 33.10.0
+
+Fri, 20 Jun 2025 06:07:44 GMT
+
+### Minor changes
+
+- Add theme aware token for calendar event outer border ([ni/nimble@3946d5c](https://github.com/ni/nimble/commit/3946d5cbe190276f9373a4d3b72ee47ee3681d75))
+
+## 33.9.0
+
+Tue, 10 Jun 2025 20:39:08 GMT
+
+### Minor changes
+
+- Add icon calendar-circle-exclamation ([ni/nimble@f7e28f8](https://github.com/ni/nimble/commit/f7e28f84e7a8cb3255ec53aa71cfe444f4489747))
+- Bump @ni/nimble-tokens to v8.10.0
 
 ## 33.8.2
 

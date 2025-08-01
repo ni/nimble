@@ -36,13 +36,16 @@ Add `component-name.mdx` file in component directory with the following
 template:
 
 ```jsx
-import { Canvas, Meta, Controls, Title } from '@storybook/blocks';
+import { Canvas, Meta, Controls, Title } from '@storybook/addon-docs/blocks';
 import * as componentNameStories from './component-name.stories';
 
 <Meta of={componentNameStories} />
 <Title of={componentNameStories} />
 
+<div>
 *Component description*
+> Note: Wrap combined text and html markup in a `div` tag so the formatter doesn't add line breaks
+</div>
 
 <Canvas of={componentNameStories.firstStoryName} />
 

@@ -1,6 +1,6 @@
 import { html, ref } from '@ni/fast-element';
-import { withActions } from '@storybook/addon-actions/decorator';
-import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html';
+import { withActions } from 'storybook/actions/decorator';
+import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html-vite';
 import {
     tokenNames,
     scssInternalPropertySetterMarkdown

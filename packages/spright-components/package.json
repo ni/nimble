@@ -1,6 +1,6 @@
 {
   "name": "@ni/spright-components",
-  "version": "5.3.3",
+  "version": "6.0.1",
   "description": "NI Spright Components",
   "scripts": {
     "build": "npm run build-components && npm run bundle-components",
@@ -49,12 +49,13 @@
   "homepage": "https://github.com/ni/nimble#readme",
   "dependencies": {
     "@ni/fast-element": "^10.0.0",
-    "@ni/fast-foundation": "^10.0.0",
-    "@ni/nimble-components": "^33.8.2",
+    "@ni/fast-foundation": "^10.1.1",
+    "@ni/fast-web-utilities": "^10.0.0",
+    "@ni/nimble-components": "^34.1.0",
     "tslib": "^2.2.0"
   },
   "devDependencies": {
-    "@ni/jasmine-parameterized": "^1.0.0",
+    "@ni/jasmine-parameterized": "^1.0.1",
     "@ni-private/eslint-config-nimble": "*",
     "@rollup/plugin-commonjs": "^28.0.0",
     "@rollup/plugin-node-resolve": "^16.0.0",
@@ -74,7 +75,7 @@
     "karma-spec-reporter": "^0.0.36",
     "karma-webkit-launcher": "^2.6.0",
     "karma-webpack": "^5.0.0",
-    "playwright": "1.52.0",
+    "playwright": "1.53.1",
     "prettier-eslint": "^16.3.0",
     "prettier-eslint-cli": "^8.0.1",
     "rollup": "^4.12.0",
