@@ -33,20 +33,23 @@ export const styles = css`
         --ni-private-tooltip-background-color: ${Black15};
     }
 
-    .tooltip {
+.control {
+    position: fixed; /* Or absolute, depending on your positioning context */
+    z-index: 9999;
     flex-shrink: 0;
-    max-width: 100px;
-    max-height: 100px;
+    max-width: 500px;
+    max-height: 500px;
     box-shadow: ${elevation2BoxShadow};
     display: inline-flex;
     border: ${borderWidth} solid var(--ni-private-tooltip-border-color);
     background-color: var(--ni-private-tooltip-background-color);
-    padding-bottom: 6px;
-    padding-left: ${mediumPadding};
-    padding-right: ${mediumPadding};
-    padding-top: ${smallPadding};
-    overflow: auto; /* Add scrollbars if needed */
+    padding: ${smallPadding} ${mediumPadding} 6px;
+    overflow: auto;
+
+    /* prevent it from going outside viewport */
+    inset: auto auto auto auto;
 }
+
 
 
     .status-icon {

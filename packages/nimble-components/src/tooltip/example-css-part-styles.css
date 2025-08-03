@@ -1,0 +1,46 @@
+/* Custom styling for tooltip using the new CSS part API */
+
+/* Example 1: Custom sizing and overflow behavior */
+.custom-tooltip-sizing::part(control) {
+    max-width: 250px;
+    max-height: 100px;
+    overflow: hidden;
+}
+
+/* Example 2: Custom border and border radius */
+.custom-tooltip-border::part(control) {
+    border-radius: 12px;
+    border: 2px solid #007acc;
+}
+
+/* Example 3: Custom background with transparency */
+.custom-tooltip-background::part(control) {
+    background-color: rgba(0, 0, 0, 0.9);
+    backdrop-filter: blur(5px);
+}
+
+/* Example 4: Combining multiple customizations */
+.custom-tooltip-full::part(control) {
+    max-width: 300px;
+    max-height: 200px;
+    overflow: auto;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    padding: 12px;
+}
+
+/* Example 5: Theme-aware custom styling */
+@media (prefers-color-scheme: dark) {
+    .theme-aware-tooltip::part(control) {
+        border-color: #555;
+        background-color: #2a2a2a;
+    }
+}
+
+@media (prefers-color-scheme: light) {
+    .theme-aware-tooltip::part(control) {
+        border-color: #ddd;
+        background-color: #f9f9f9;
+    }
+}

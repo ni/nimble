@@ -370,4 +370,85 @@ describe('Tooltip', () => {
 
         await disconnect();
     });
+
+    describe('CSS Part', () => {
+        it('should expose control part for custom styling', async () => {
+            element.visible = true;
+
+            await connect();
+            await waitUntilAnchoredRegionLoaded(element);
+
+            const controlPart = element.shadowRoot?.querySelector('[part="control"]');
+            expect(controlPart).not.toBeNull();
+            expect(controlPart?.getAttribute('part')).toBe('control');
+
+            await disconnect();
+        });
+
+        it('should allow custom max-width styling via CSS part', async () => {
+            element.visible = true;
+            // Add custom styling to the host
+            const style = document.createElement('style');
+            style.textContent = `
+                ${tooltipTag}::part(control) {
+                    max-width: 200px;
+                }
+            `;
+            document.head.appendChild(style);
+
+            await connect();
+            await waitUntilAnchoredRegionLoaded(element);
+
+            const controlPart = element.shadowRoot!.querySelector('[part="control"]')!;
+            const computedStyle = window.getComputedStyle(controlPart);
+            expect(computedStyle.maxWidth).toBe('200px');
+
+            document.head.removeChild(style);
+            await disconnect();
+        });
+
+        it('should allow custom max-height styling via CSS part', async () => {
+            element.visible = true;
+            // Add custom styling to the host
+            const style = document.createElement('style');
+            style.textContent = `
+                ${tooltipTag}::part(control) {
+                    max-height: 150px;
+                }
+            `;
+            document.head.appendChild(style);
+
+            await connect();
+            await waitUntilAnchoredRegionLoaded(element);
+
+            const controlPart = element.shadowRoot!.querySelector('[part="control"]')!;
+            const computedStyle = window.getComputedStyle(controlPart);
+            expect(computedStyle.maxHeight).toBe('150px');
+
+            document.head.removeChild(style);
+            await disconnect();
+        });
+
+        it('should allow custom overflow styling via CSS part', async () => {
+            element.visible = true;
+            // Add custom styling to the host
+            const style = document.createElement('style');
+            style.textContent = `
+                ${tooltipTag}::part(control) {
+                    overflow: hidden;
+                }
+            `;
+            document.head.appendChild(style);
+
+            await connect();
+            await waitUntilAnchoredRegionLoaded(element);
+
+            const controlPart = element.shadowRoot!.querySelector('[part="control"]')!;
+            const computedStyle = window.getComputedStyle(controlPart);
+            expect(computedStyle.overflow).toBe('hidden');
+
+            document.head.removeChild(style);
+            await disconnect();
+        });
+    });
 });

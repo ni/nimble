@@ -26,7 +26,7 @@ export const template = html<Tooltip>`
                 dir="${x => x.currentDirection}"
                 ${ref('region')}
             >
-                <div class="tooltip" part="tooltip" role="tooltip">
+                <div class="control" part="control" role="tooltip">
                     <${iconExclamationMarkTag}
                         severity="error"
                         class="status-icon"

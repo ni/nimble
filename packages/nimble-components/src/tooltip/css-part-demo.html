@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nimble Tooltip CSS Part Demo</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        
+        .demo-section {
+            margin: 40px 0;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+        
+        .demo-button {
+            padding: 10px 20px;
+            margin: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background: #f5f5f5;
+            cursor: pointer;
+        }
+        
+        .demo-button:hover {
+            background: #e5e5e5;
+        }
+
+        /* Custom tooltip styles using CSS parts */
+        
+        /* Example 1: Custom sizing */
+        .size-demo::part(control) {
+            max-width: 200px;
+            max-height: 100px;
+            overflow: auto;
+        }
+        
+        /* Example 2: Custom appearance */
+        .appearance-demo::part(control) {
+            border-radius: 12px;
+            border: 2px solid #007acc;
+            background-color: #f0f8ff;
+            box-shadow: 0 4px 12px rgba(0, 122, 204, 0.3);
+        }
+        
+        /* Example 3: Minimal style */
+        .minimal-demo::part(control) {
+            border: none;
+            border-radius: 4px;
+            background-color: rgba(0, 0, 0, 0.8);
+            color: white;
+            font-size: 12px;
+            padding: 8px 12px;
+        }
+        
+        /* Example 4: Error styling */
+        .error-demo::part(control) {
+            border: 2px solid #d32f2f;
+            background-color: #ffebee;
+            border-radius: 6px;
+            max-width: 300px;
+        }
+        
+        /* Example 5: Success styling */
+        .success-demo::part(control) {
+            border: 2px solid #388e3c;
+            background-color: #e8f5e8;
+            border-radius: 6px;
+            max-width: 300px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Nimble Tooltip CSS Part API Demo</h1>
+    
+    <p>This demo shows how to use the <code>::part(control)</code> CSS selector to customize the tooltip's appearance.</p>
+    
+    <div class="demo-section">
+        <h2>Example 1: Custom Sizing</h2>
+        <p>This tooltip has custom max-width (200px) and max-height (100px) with scrollable overflow.</p>
+        <button id="size-button" class="demo-button">Hover for size demo</button>
+        <nimble-tooltip anchor="size-button" class="size-demo">
+            This is a longer tooltip text that demonstrates the custom sizing constraints. 
+            The max-width is limited to 200px and max-height to 100px. 
+            When the content is too long, it will show a scrollbar. 
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+        </nimble-tooltip>
+    </div>
+    
+    <div class="demo-section">
+        <h2>Example 2: Custom Appearance</h2>
+        <p>This tooltip has a custom border, border-radius, background color, and box shadow.</p>
+        <button id="appearance-button" class="demo-button">Hover for appearance demo</button>
+        <nimble-tooltip anchor="appearance-button" class="appearance-demo">
+            This tooltip has custom styling with a blue border, rounded corners, and custom shadow!
+        </nimble-tooltip>
+    </div>
+    
+    <div class="demo-section">
+        <h2>Example 3: Minimal Style</h2>
+        <p>This tooltip has minimal styling with no border and dark background.</p>
+        <button id="minimal-button" class="demo-button">Hover for minimal demo</button>
+        <nimble-tooltip anchor="minimal-button" class="minimal-demo">
+            Minimal dark tooltip
+        </nimble-tooltip>
+    </div>
+    
+    <div class="demo-section">
+        <h2>Example 4: Error Context</h2>
+        <p>This tooltip uses error severity with custom error-themed styling.</p>
+        <button id="error-button" class="demo-button">Hover for error demo</button>
+        <nimble-tooltip anchor="error-button" severity="error" icon-visible class="error-demo">
+            This is an error message tooltip with custom red styling and an icon!
+        </nimble-tooltip>
+    </div>
+    
+    <div class="demo-section">
+        <h2>Example 5: Success Context</h2>
+        <p>This tooltip uses information severity with custom success-themed styling.</p>
+        <button id="success-button" class="demo-button">Hover for success demo</button>
+        <nimble-tooltip anchor="success-button" severity="information" icon-visible class="success-demo">
+            This is a success message tooltip with custom green styling and an icon!
+        </nimble-tooltip>
+    </div>
+    
+    <div class="demo-section">
+        <h2>CSS Code Examples</h2>
+        <h3>Custom Sizing:</h3>
+        <pre><code>.size-demo::part(control) {
+    max-width: 200px;
+    max-height: 100px;
+    overflow: auto;
+}</code></pre>
+        
+        <h3>Custom Appearance:</h3>
+        <pre><code>.appearance-demo::part(control) {
+    border-radius: 12px;
+    border: 2px solid #007acc;
+    background-color: #f0f8ff;
+    box-shadow: 0 4px 12px rgba(0, 122, 204, 0.3);
+}</code></pre>
+        
+        <h3>Error Styling:</h3>
+        <pre><code>.error-demo::part(control) {
+    border: 2px solid #d32f2f;
+    background-color: #ffebee;
+    border-radius: 6px;
+    max-width: 300px;
+}</code></pre>
+    </div>
+
+    <script type="module">
+        // Import the tooltip component
+        import './index.js';
+        
+        // Add some interactivity to show tooltips on demand
+        const buttons = document.querySelectorAll('.demo-button');
+        buttons.forEach(button => {
+            button.addEventListener('mouseenter', () => {
+                const tooltipId = button.id.replace('-button', '');
+                const tooltip = document.querySelector(`nimble-tooltip[anchor="${button.id}"]`);
+                if (tooltip) {
+                    tooltip.visible = true;
+                }
+            });
+            
+            button.addEventListener('mouseleave', () => {
+                const tooltip = document.querySelector(`nimble-tooltip[anchor="${button.id}"]`);
+                if (tooltip) {
+                    tooltip.visible = false;
+                }
+            });
+        });
+    </script>
+</body>
+</html>

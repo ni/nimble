@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tooltip CSS Part Test</title>
+    <style>
+        nimble-tooltip::part(control) {
+            max-width: 200px;
+            max-height: 150px;
+            overflow: hidden;
+            border: 2px solid red;
+            background-color: yellow;
+        }
+    </style>
+</head>
+<body>
+    <script type="module">
+        import '../tooltip/index.js';
+    </script>
+    
+    <button id="test-button">Hover me</button>
+    <nimble-tooltip anchor="test-button" visible="true">
+        This is a test tooltip with custom styling applied via CSS parts.
+        This text should be constrained by the custom max-width and max-height.
+        The border should be red and background yellow to verify the part styling works.
+    </nimble-tooltip>
+</body>
+</html>
