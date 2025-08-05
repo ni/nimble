@@ -37,6 +37,6 @@
   },
   "dependencies": {
     "xliff": "^6.1.0",
-    "yargs": "^17.5.1"
+    "yargs": "^18.0.0"
   }
 }

@@ -38,6 +38,6 @@
   "peerDependencies": {
     "@ni/fast-react-wrapper": "^10.1.2",
     "@ni/nimble-components": "^34.1.1",
-    "react": "^16 || ^17 || ^18"
+    "react": "^19.0.0"
   }
 }

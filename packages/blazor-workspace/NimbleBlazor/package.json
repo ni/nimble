@@ -27,7 +27,7 @@
   "peerDependencies": {
     "@ni/nimble-components": "^34.1.1",
     "@ni/nimble-tokens": "^8.10.1",
-    "cross-env": "^7.0.3",
+    "cross-env": "^10.0.0",
     "rimraf": "^6.0.0"
   }
 }
