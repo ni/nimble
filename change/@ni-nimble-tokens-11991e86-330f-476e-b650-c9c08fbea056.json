@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Update the fail100DarkUi base color",
-  "packageName": "@ni/nimble-tokens",
-  "email": "131153319+gokulprasanth-ni@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}

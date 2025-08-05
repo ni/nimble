@@ -2,6 +2,21 @@
   "name": "@ni/nimble-tokens",
   "entries": [
     {
+      "date": "Tue, 05 Aug 2025 13:03:51 GMT",
+      "version": "8.10.1",
+      "tag": "@ni/nimble-tokens_v8.10.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "131153319+gokulprasanth-ni@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "0ac6d95ce1ad2e72ef85ea31cef4ef790e34040f",
+            "comment": "Update the fail100DarkUi base color"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 10 Jun 2025 20:39:08 GMT",
       "version": "8.10.0",
       "tag": "@ni/nimble-tokens_v8.10.0",
