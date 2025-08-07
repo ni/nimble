@@ -28,6 +28,9 @@ export const iconMetadata: {
     IconArrowDownRightAndArrowUpLeft: {
         tags: ['resize', 'collapse']
     },
+    IconArrowDownTwoRectangles: {
+        tags: ['panes', 'open', 'close', 'expand', 'collapse', 'bottom', 'top']
+    },
     IconArrowUpRightAndArrowDownLeft: {
         tags: ['expand', 'grow', 'enlarge size']
     },
@@ -49,6 +52,9 @@ export const iconMetadata: {
     IconArrowLeftFromLine: {
         tags: ['logout']
     },
+    IconArrowLeftTwoRectangles: {
+        tags: ['panes', 'open', 'close', 'expand', 'collapse', 'side']
+    },
     IconArrowOutCircle: {
         tags: ['move out']
     },
@@ -61,6 +67,9 @@ export const iconMetadata: {
     IconArrowRightToLine: {
         tags: ['login']
     },
+    IconArrowRightTwoRectangles: {
+        tags: ['panes', 'open', 'close', 'expand', 'collapse', 'side']
+    },
     IconArrowRotateRight: {
         tags: ['refresh']
     },
@@ -72,6 +81,9 @@ export const iconMetadata: {
     },
     IconArrowUpRightFromSquare: {
         tags: ['open', 'external', 'link']
+    },
+    IconArrowUpTwoRectangles: {
+        tags: ['panes', 'open', 'close', 'expand', 'collapse', 'bottom', 'top']
     },
     IconArrowULeft: {
         tags: ['undo', 'revert', 'back']
@@ -497,6 +509,9 @@ export const iconMetadata: {
     },
     IconPencil: {
         tags: ['edit']
+    },
+    IconPencilToRectangle: {
+        tags: ['new chat', 'conversation', 'ai']
     },
     IconPlay: {
         tags: ['arrow', 'start', 'go']
