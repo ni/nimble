@@ -67,7 +67,7 @@ _The key elements of the component's public API surface:_
     - `disabled` - styles the chip in the typical Nimble manner, including any slotted content, and prevents all interaction with it including being able to focus it
 - _Methods_
 - _Events_
-    - `remove` - fired when the chip remove button is pressed (or \<Del\> or \<Backspace\> is pressed when the chip has focus), and `removable` has been set.
+    - `remove` - fired when the chip remove button is pressed (or \<Del\> or \<Backspace\> is pressed), and `removable` has been set.
 - _Slots_
     - `start` - content placed to the left of the chip text
     - (default) - for the primary label text
@@ -197,4 +197,4 @@ Storybook stories will be created.
 
 ## Open Issues
 
-- Should we have a `removable` attribute instead of `prevent-remove` to invert the API state? This is the approach Infragistics takes with their component.
+None
