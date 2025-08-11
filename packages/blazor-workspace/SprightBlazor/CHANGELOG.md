@@ -1,8 +1,17 @@
 # Change Log - @ni/spright-blazor
 
-<!-- This log was last generated on Tue, 05 Aug 2025 13:03:51 GMT and should not be manually modified. -->
+<!-- This log was last generated on Mon, 11 Aug 2025 15:49:08 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 4.4.0
+
+Mon, 11 Aug 2025 15:49:08 GMT
+
+### Minor changes
+
+- Add SprightChatInput to Blazor. ([ni/nimble@cbfec64](https://github.com/ni/nimble/commit/cbfec64c5ae3384997fba19cfba712fbaffcbeba))
+- Bump @ni/spright-components to v6.0.3
 
 ## 4.3.12
 

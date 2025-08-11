@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Update fast-foundation and fast-react-wrapper dependencies to latest",
-  "packageName": "@ni/spright-components",
-  "email": "7282195+m-akinc@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
