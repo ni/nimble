@@ -23,11 +23,11 @@ const appearanceStates = [
 ] as const;
 type AppearanceState = (typeof appearanceStates)[number];
 
-const preventRemoveStates = [
-    ['Prevent Remove', true],
-    ['Allow Remove', false]
+const removableStates = [
+    ['Removable', true],
+    ['Not Removable', false]
 ] as const;
-type PreventRemoveState = (typeof preventRemoveStates)[number];
+type RemovableStates = (typeof removableStates)[number];
 
 const showStartSlotIconStates = [
     ['Show Icon', true],
@@ -62,18 +62,18 @@ export default metadata;
 const component = (
     [disabledName, disabled]: DisabledState,
     [appearanceName, appearance]: AppearanceState,
-    [preventRemoveName, preventRemove]: PreventRemoveState,
+    [removableName, removable]: RemovableStates,
     [showStartSlotIconName, showStartSlotIcon]: ShowStartSlotIconState,
     [labelName, label]: LabelState,
     [widthName, width]: WidthState
 ): ViewTemplate => html`
     <div style="display: flex; flex-direction: column;">
         <label style="color: var(${controlLabelFontColor.cssCustomProperty}); font: var(${controlLabelFont.cssCustomProperty})">
-            ${appearanceName}, ${preventRemoveName}, ${showStartSlotIconName}, ${labelName}, ${widthName}, ${disabledName ? `(${disabledName})` : ''} 
+            ${appearanceName}, ${removableName}, ${showStartSlotIconName}, ${labelName}, ${widthName}, ${disabledName ? `(${disabledName})` : ''} 
         </label> 
         <${chipTag}
             appearance="${() => appearance}"
-            ?prevent-remove="${() => preventRemove}"
+            ?removable="${() => removable}"
             ?disabled=${() => disabled}
             style="margin-right: 8px; margin-bottom: 8px; ${() => width};">
                 ${when(() => showStartSlotIcon, html`<${iconKeyTag} slot="start"></${iconKeyTag}>`)}
@@ -86,7 +86,7 @@ export const themeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(component, [
         disabledStates,
         appearanceStates,
-        preventRemoveStates,
+        removableStates,
         showStartSlotIconStates,
         labelStates,
         widthStates
@@ -96,7 +96,7 @@ export const themeMatrix: StoryFn = createMatrixThemeStory(
 const interactionStates = cartesianProduct([
     disabledStates,
     appearanceStates,
-    preventRemoveStates,
+    removableStates,
     [showStartSlotIconStatesOnlyIcon],
     [labelStatesOnlyShort],
     [widthStatesOnlyDefault]
@@ -105,7 +105,7 @@ const interactionStates = cartesianProduct([
 const interactionStatesHover = cartesianProduct([
     disabledStates,
     appearanceStates,
-    preventRemoveStates,
+    removableStates,
     [showStartSlotIconStatesOnlyIcon],
     [labelStatesOnlyShort],
     [widthStatesOnlyDefault]
