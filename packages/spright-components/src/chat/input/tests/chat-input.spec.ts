@@ -28,6 +28,13 @@ describe('ChatInput', () => {
         expect(document.createElement(chatInputTag)).toBeInstanceOf(ChatInput);
     });
 
+    it('calling focus sets focus on the text area', async () => {
+        await connect();
+        element.focus();
+        processUpdates();
+        expect(page.isTextAreaFocused()).toBeTrue();
+    });
+
     describe('initial state', () => {
         beforeEach(async () => {
             await connect();
@@ -114,12 +121,6 @@ describe('ChatInput', () => {
             expect(page.isSendButtonEnabled()).toBeFalse();
         });
 
-        it("Enter doesn't modify value", async () => {
-            page.setText('new value');
-            await page.pressEnterKey();
-            expect(element.value).toEqual('new value');
-        });
-
         it('Shift-Enter adds newline', async () => {
             page.setText('new value');
             await page.pressShiftEnterKey();
@@ -164,6 +165,17 @@ describe('ChatInput', () => {
             );
         });
 
+        it('updates value before send event', async () => {
+            const sendListener = waitForEvent(element, 'send', () => {
+                expect(element.value).toEqual('');
+            });
+            element.value = 'new value';
+            processUpdates();
+
+            await page.pressEnterKey();
+            await sendListener;
+        });
+
         it('is called synchronously', () => {
             // This test exists to verify that the tests below are actually detecting the absence of a call,
             // and not just finishing before the call happens.
@@ -174,6 +186,17 @@ describe('ChatInput', () => {
             page.clickSendButton();
 
             expect(spy).toHaveBeenCalled();
+        });
+
+        it('clears the input contents, sets focus, and disables the button', () => {
+            page.setText('new value');
+            page.clickSendButton();
+            processUpdates();
+
+            expect(element.value).toEqual('');
+            expect(page.getRenderedText()).toEqual('');
+            expect(page.textAreaHasFocus()).toBeTrue();
+            expect(page.isSendButtonEnabled()).toBeFalse();
         });
 
         it('via button click with no text triggers no send event', () => {
@@ -202,53 +225,6 @@ describe('ChatInput', () => {
             await page.pressShiftEnterKey();
 
             expect(spy).not.toHaveBeenCalled();
-        });
-    });
-
-    describe('resetInput method', () => {
-        beforeEach(async () => {
-            await connect();
-        });
-
-        it('clears the input contents, sets focus, and disables the button', () => {
-            page.setText('new value');
-            element.resetInput();
-            processUpdates();
-
-            expect(element.value).toEqual('');
-            expect(page.getRenderedText()).toEqual('');
-            expect(page.textAreaHasFocus()).toBeTrue();
-            expect(page.isSendButtonEnabled()).toBeFalse();
-        });
-
-        it('can be called from send event handler', async () => {
-            const spy = jasmine.createSpy('send', () => {
-                element.resetInput();
-                processUpdates();
-
-                expect(element.value).toEqual('');
-                expect(page.getRenderedText()).toEqual('');
-                expect(page.textAreaHasFocus()).toBeTrue();
-                expect(page.isSendButtonEnabled()).toBeFalse();
-            });
-
-            element.addEventListener('send', spy);
-            element.value = 'new value';
-            processUpdates();
-
-            await page.pressEnterKey();
-            expect(spy).toHaveBeenCalledTimes(1);
-        });
-
-        it('can be called when not connected', async () => {
-            element.value = 'hello';
-            await disconnect();
-            element.resetInput();
-            await connect();
-            processUpdates();
-            expect(element.value).toEqual('');
-            expect(page.getRenderedText()).toEqual('');
-            expect(page.isSendButtonEnabled()).toBeFalse();
         });
     });
 

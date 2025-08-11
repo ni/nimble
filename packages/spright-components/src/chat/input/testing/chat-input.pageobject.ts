@@ -18,6 +18,10 @@ export class ChatInputPageObject {
         return !this.getSendButton().disabled;
     }
 
+    public isTextAreaFocused(): boolean {
+        return this.element.textArea === this.element.shadowRoot?.activeElement;
+    }
+
     public clickSendButton(): void {
         this.getSendButton().click();
     }
