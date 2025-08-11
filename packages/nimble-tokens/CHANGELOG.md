@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-tokens
 
-<!-- This log was last generated on Tue, 10 Jun 2025 20:39:08 GMT and should not be manually modified. -->
+<!-- This log was last generated on Tue, 05 Aug 2025 13:03:51 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 8.10.1
+
+Tue, 05 Aug 2025 13:03:51 GMT
+
+### Patches
+
+- Update the fail100DarkUi base color ([ni/nimble@0ac6d95](https://github.com/ni/nimble/commit/0ac6d95ce1ad2e72ef85ea31cef4ef790e34040f))
 
 ## 8.10.0
 

@@ -34,6 +34,15 @@ function registerEvents(Blazor) {
         }
     });
     */
+
+    Blazor.registerCustomEventType('sprightchatinputsend', {
+        browserEventName: 'send',
+        createEventArgs: event => {
+            return {
+                text: event.target.value
+            };
+        }
+    });
 }
 
 function handleRuntimeStarted() {
