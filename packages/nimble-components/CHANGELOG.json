@@ -2,6 +2,36 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 05 Aug 2025 13:03:51 GMT",
+      "version": "34.1.1",
+      "tag": "@ni/nimble-components_v34.1.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/nimble-tokens to v8.10.1",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 30 Jul 2025 05:47:02 GMT",
+      "version": "34.1.0",
+      "tag": "@ni/nimble-components_v34.1.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "131153319+gokulprasanth-ni@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "ff59b3f2ee38405faa793510534c3a74cd5eaa27",
+            "comment": "Add theme aware token for calendar resource background conflict color"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 22 Jul 2025 21:02:50 GMT",
       "version": "34.0.1",
       "tag": "@ni/nimble-components_v34.0.1",

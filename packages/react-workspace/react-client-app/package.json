@@ -11,8 +11,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@ni/nimble-react": "^0.1.7",
-    "@ni/spright-react": "^0.2.6",
+    "@ni/nimble-react": "^0.1.9",
+    "@ni/spright-react": "^0.2.8",
     "react": "^18",
     "react-dom": "^18"
   },
@@ -22,7 +22,6 @@
     "@vitejs/plugin-react-swc": "^3.9.0",
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-refresh": "^0.4.19",
-    "sass-embedded": "^1.89.0",
     "typescript": "~5.4.5",
     "vite": "^7.0.0"
   }
