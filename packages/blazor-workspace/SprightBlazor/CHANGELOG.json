@@ -2,6 +2,57 @@
   "name": "@ni/spright-blazor",
   "entries": [
     {
+      "date": "Mon, 11 Aug 2025 15:49:08 GMT",
+      "version": "4.4.0",
+      "tag": "@ni/spright-blazor_v4.4.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/spright-blazor",
+            "commit": "cbfec64c5ae3384997fba19cfba712fbaffcbeba",
+            "comment": "Add SprightChatInput to Blazor."
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/spright-blazor",
+            "comment": "Bump @ni/spright-components to v6.0.3",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 05 Aug 2025 13:03:51 GMT",
+      "version": "4.3.12",
+      "tag": "@ni/spright-blazor_v4.3.12",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/spright-blazor",
+            "comment": "Bump @ni/spright-components to v6.0.2",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 30 Jul 2025 05:47:02 GMT",
+      "version": "4.3.11",
+      "tag": "@ni/spright-blazor_v4.3.11",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/spright-blazor",
+            "comment": "Bump @ni/spright-components to v6.0.1",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 29 Jul 2025 16:58:14 GMT",
       "version": "4.3.10",
       "tag": "@ni/spright-blazor_v4.3.10",

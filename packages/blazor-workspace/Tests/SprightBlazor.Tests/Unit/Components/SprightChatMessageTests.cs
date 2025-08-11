@@ -11,7 +11,7 @@ namespace SprightBlazor.Tests.Unit.Components;
 public class SprightChatMessageTests
 {
     [Fact]
-    public void SprightChatMessage_Render_HasChatConversationMarkup()
+    public void SprightChatMessage_Render_HasChatMessageMarkup()
     {
         var context = new TestContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
