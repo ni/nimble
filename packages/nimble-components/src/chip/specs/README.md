@@ -23,7 +23,6 @@ The intent is for this to be put in Nimble, for the following reasons:
 
 - Arbitrary HTML content
 - Implementing a "chip container" component that would be responsible for laying out the chips in a particular fashion, as well as possibly managing their removal if the "remove" button on a chip is pressed. While this may be useful at some point it is not necessary for the `Chip` component to have value.
-- Usage guidance will be provided in the Storybook.
 
 ### Features
 
@@ -69,7 +68,7 @@ _The key elements of the component's public API surface:_
 - _Events_
     - `remove` - fired when the chip remove button is pressed (or \<Del\> or \<Backspace\> is pressed), and `removable` has been set.
 - _Slots_
-    - `start` - content placed to the left of the chip text
+    - `start` - icon placed to the left of the chip text
     - (default) - for the primary label text
 - _CSS Classes and CSS Custom Properties that affect the component_
     - not supported
@@ -108,7 +107,7 @@ _The key elements of the component's public API surface:_
         </span>
         ${endSlotTemplate(context, definition)}
         ${when(x => !x.preventRemove, html<Chip>`
-            <nimble-button content-hidden @click="${x => x.handleRemoveClick()}" aria-label="${x => x.removeButtonLabel}">
+            <nimble-button content-hidden @click="${x => x.handleRemoveClick()}">
                 <nimble-icon-times slot="start">
                 </nimble-icon-times>
                 Remove
@@ -145,7 +144,7 @@ The CSS `hover` and `focusVisible` states will have specific stylings (as seen i
 _Consider the accessibility of the component, including:_
 
 - _Keyboard Navigation and Focus_
-    - the chip component is focusable, as is the remove button (when present).
+    - when the chip component is removable, the remove button will be focusable, otherwise it will not receive focus (following the `nimble-banner` pattern).
 - _Form Input_
     - N/A
 - _Use with Assistive Technology_
