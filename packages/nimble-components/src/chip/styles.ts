@@ -29,7 +29,6 @@ export const styles = css`
         color: ${bodyFontColor};
         font: ${bodyFont};
         padding: 0 ${mediumPadding};
-        cursor: pointer;
         white-space: nowrap;
         outline: none;
         border: none;
@@ -91,11 +90,6 @@ export const styles = css`
 
     .remove-button {
         height: ${controlSlimHeight};
-    }
-
-    :host(:hover) {
-        border-color: ${borderHoverColor};
-        box-shadow: 0px 0px 0px ${borderWidth} ${borderHoverColor} inset;
     }
 
     :host(${focusVisible}) {
@@ -161,10 +155,6 @@ export const styles = css`
                     rgba(${borderRgbPartialColor}, 0.1)
                 );
                 border-color: rgba(${borderRgbPartialColor}, 0.1);
-            }
-
-            :host(:hover) {
-                background-size: calc(100% - 4px) calc(100% - 4px);
             }
 
             :host(${focusVisible}) {

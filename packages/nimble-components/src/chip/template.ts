@@ -5,6 +5,8 @@ import {
 } from '@ni/fast-foundation';
 import type { Chip, ChipOptions } from '.';
 import { overflow } from '../utilities/directive/overflow';
+import { buttonTag } from '../button';
+import { iconTimesTag } from '../icons/times';
 
 export const template: FoundationElementTemplate<
 ViewTemplate<Chip>,
@@ -31,15 +33,15 @@ ChipOptions
         ${when(
         x => x.removable,
         html<Chip>`
-                <nimble-button
+                <${buttonTag}
                     class="remove-button"
                     content-hidden
                     appearance="ghost"
                     @click="${x => x.handleRemoveClick()}"
                 >
-                    <nimble-icon-times slot="start"> </nimble-icon-times>
+                    <${iconTimesTag} slot="start"></${iconTimesTag}>
                     ${x => x.removeButtonContent}
-                </nimble-button>
+                </${buttonTag}>
             `
     )}
     </template>
