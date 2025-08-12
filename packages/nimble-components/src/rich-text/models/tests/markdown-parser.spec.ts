@@ -264,6 +264,30 @@ describe('Markdown parser', () => {
             expect(getLeafContentsFromElement(doc)).toEqual(['Heading 1', 'Some text', 'Heading 2', 'More text']);
         });
 
+        it('image markdown string to img HTML tag', () => {
+            const doc = RichTextMarkdownParser.parseMarkdownToDOM('![Text](Image)').fragment;
+            expect(getTagsFromElement(doc)).toEqual(['P', 'IMG']);
+            expect(getLeafContentsFromElement(doc)).toEqual(['']);
+            expect(getLastChildElementAttribute('src', doc)).toBe('Image');
+            expect(getLastChildElementAttribute('alt', doc)).toBe('Text');
+        });
+
+        it('multiple images markdown string to img HTML tags', () => {
+            const doc = RichTextMarkdownParser.parseMarkdownToDOM('![Text](Image) ![Alt2](Image2)').fragment;
+            expect(getTagsFromElement(doc)).toEqual(['P', 'IMG', 'IMG']);
+            expect(getLeafContentsFromElement(doc)).toEqual(['', '']);
+            expect(getLastChildElementAttribute('src', doc)).toBe('Image2');
+            expect(getLastChildElementAttribute('alt', doc)).toBe('Alt2');
+        });
+
+        it('image inside bulleted list item', () => {
+            const doc = RichTextMarkdownParser.parseMarkdownToDOM('* ![Text](Image)').fragment;
+            expect(getTagsFromElement(doc)).toEqual(['UL', 'LI', 'P', 'IMG']);
+            expect(getLeafContentsFromElement(doc)).toEqual(['']);
+            expect(getLastChildElementAttribute('src', doc)).toBe('Image');
+            expect(getLastChildElementAttribute('alt', doc)).toBe('Text');
+        });
+
         describe('Absolute link', () => {
             describe('various valid absolute links should render same as in the markdown', () => {
                 const supportedAbsoluteLink = [
@@ -828,7 +852,7 @@ describe('Markdown parser', () => {
             { name: '### Heading 3' },
             { name: '[link](url)' },
             { name: '[ref][link] [link]:url' },
-            { name: '![Text](Image)' },
+            // Removed image markdown from unsupported list due to added support
             { name: '&nbsp;' },
             { name: '---' },
             { name: '***' },
@@ -839,9 +863,7 @@ describe('Markdown parser', () => {
             { name: '<em>not italic</em>' },
             { name: '<ol><li>not list</li><li>not list</li></ol>' },
             { name: '<ul><li>not list</li><li>not list</li></ul>' },
-            {
-                name: '<a href="https://nimble.ni.dev/">https://nimble.ni.dev/</a>'
-            },
+            { name: '<a href="https://nimble.ni.dev/">https://nimble.ni.dev/</a>' },
             { name: '<script>alert("not alert")</script>' }
         ] as const;
 

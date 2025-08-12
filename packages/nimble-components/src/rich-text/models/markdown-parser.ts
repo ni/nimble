@@ -81,7 +81,8 @@ export class RichTextMarkdownParser {
             'escape',
             'autolink',
             'newline',
-            'heading'
+            'heading',
+            'image'
         ]);
 
         /**
