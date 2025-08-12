@@ -26,6 +26,10 @@ export const styles = css`
         margin: ${mediumPadding};
     }
 
+    .attachments.empty {
+        display: none;
+    }
+
     .container {
         display: flex;
         flex-direction: column;

@@ -27,6 +27,14 @@ export class ChatInput extends FoundationElement {
     @attr({ attribute: 'tabindex', converter: nullableNumberConverter })
     public override tabIndex!: number;
 
+    /** @internal */
+    @observable
+    public readonly attachmentContent?: HTMLElement[];
+
+    /** @internal */
+    @observable
+    public hasAttachments = false;
+
     /**
      * @internal
      */
@@ -89,6 +97,13 @@ export class ChatInput extends FoundationElement {
         };
         this.resetInput();
         this.$emit('send', eventDetail);
+    }
+
+    protected attachmentContentChanged(
+        _prev: HTMLElement[] | undefined,
+        next: HTMLElement[] | undefined
+    ): void {
+        this.hasAttachments = !!next?.length;
     }
 
     private shouldDisableSendButton(): boolean {

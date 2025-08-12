@@ -1,4 +1,4 @@
-import { html, ref } from '@ni/fast-element';
+import { html, ref, slotted } from '@ni/fast-element';
 import { buttonTag } from '@ni/nimble-components/dist/esm/button';
 import { iconPaperPlaneTag } from '@ni/nimble-components/dist/esm/icons/paper-plane';
 import type { ChatInput } from '.';
@@ -7,8 +7,11 @@ import type { ChatInput } from '.';
 // prettier-ignore
 export const template = html<ChatInput>`
 <div class="container">
-    <div class="attachments">
-        <slot name="attachments"></slot>
+    <div class="attachments ${x => (x.hasAttachments ? '' : 'empty')}">
+        <slot
+            name="attachments"
+            ${slotted({ property: 'attachmentContent' })}
+        ></slot>
     </div>
     <textarea
         ${ref('textArea')}
