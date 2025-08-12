@@ -1,9 +1,11 @@
 import {
     schema,
     defaultMarkdownParser,
-    MarkdownParser
+    MarkdownParser,
+    type ParseSpec
 } from 'prosemirror-markdown';
 import { DOMSerializer, Schema } from 'prosemirror-model';
+import { tableNodes as createTableNodes } from 'prosemirror-tables';
 import { anchorTag } from '../../anchor';
 import type { MarkdownParserMentionConfiguration } from './markdown-parser-mention-configuration';
 
@@ -82,7 +84,8 @@ export class RichTextMarkdownParser {
             'autolink',
             'newline',
             'heading',
-            'image'
+            'image',
+            'table'
         ]);
 
         /**
@@ -95,16 +98,34 @@ export class RichTextMarkdownParser {
          */
         supportedTokenizerRules.normalizeLinkText = url => url;
 
+        // Extend token specs with table support using base token type names (markdown-it emits *_open/*_close but parser matches base name)
+        const tableTokenSpecs: { [name: string]: ParseSpec } = {
+            table: { block: 'table' },
+            thead: { ignore: true },
+            tbody: { ignore: true },
+            tr: { block: 'table_row' },
+            th: { block: 'table_header' },
+            td: { block: 'table_cell' }
+        };
+
+        const tokens = { ...defaultMarkdownParser.tokens, ...tableTokenSpecs };
+
         return new MarkdownParser(
             this.updatedSchema,
             supportedTokenizerRules,
-            defaultMarkdownParser.tokens
+            tokens
         );
     }
 
     private static getCustomSchemaConfiguration(): Schema {
+        const tableNodes = createTableNodes({
+            tableGroup: 'block',
+            cellContent: 'inline*',
+            cellAttributes: {}
+        });
+
         return new Schema({
-            nodes: schema.spec.nodes,
+            nodes: schema.spec.nodes.append(tableNodes),
             marks: {
                 link: {
                     attrs: {
