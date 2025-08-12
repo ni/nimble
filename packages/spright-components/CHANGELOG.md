@@ -1,8 +1,25 @@
 # Change Log - @ni/spright-components
 
-<!-- This log was last generated on Wed, 30 Jul 2025 05:47:02 GMT and should not be manually modified. -->
+<!-- This log was last generated on Mon, 11 Aug 2025 15:49:08 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 6.0.3
+
+Mon, 11 Aug 2025 15:49:08 GMT
+
+### Patches
+
+- Update fast-foundation and fast-react-wrapper dependencies to latest ([ni/nimble@4582e33](https://github.com/ni/nimble/commit/4582e33e34e9883fc3ad463d9cc75448e0ebc65f))
+- Bump @ni/nimble-components to v34.1.2
+
+## 6.0.2
+
+Tue, 05 Aug 2025 13:03:51 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v34.1.1
 
 ## 6.0.1
 
