@@ -29,7 +29,7 @@ export const styles = css`
         padding: 0 ${mediumPadding};
         gap: 4px;
         background-color: transparent;
-        border: ${borderWidth} solid transparent;
+        border: ${borderWidth} solid rgba(${actionRgbPartialColor}, 0.3);
         border-radius: 4px;
         justify-content: center;
         align-items: center;
@@ -47,6 +47,7 @@ export const styles = css`
     :host([disabled]) {
         cursor: default;
         color: ${bodyDisabledFontColor};
+        border-color: rgba(${borderRgbPartialColor}, 0.3);
         box-shadow: none;
         background-image: none;
         background-size: 100% 100%;
@@ -84,18 +85,6 @@ export const styles = css`
         margin-right: calc(-1 * ${smallPadding});
     }
 `.withBehaviors(
-    appearanceBehavior(
-        ChipAppearance.outline,
-        css`
-            :host {
-                border-color: rgba(${actionRgbPartialColor}, 0.3);
-            }
-
-            :host([disabled]) {
-                border-color: rgba(${borderRgbPartialColor}, 0.3);
-            }
-        `
-    ),
     appearanceBehavior(
         ChipAppearance.block,
         css`
