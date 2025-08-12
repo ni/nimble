@@ -4,14 +4,12 @@ import {
     bodyDisabledFontColor,
     bodyFont,
     bodyFontColor,
-    borderHoverColor,
     borderRgbPartialColor,
     borderWidth,
     controlHeight,
     controlSlimHeight,
     iconColor,
     mediumPadding,
-    smallDelay,
     smallPadding
 } from '../theme-provider/design-tokens';
 import { display } from '../utilities/style/display';
