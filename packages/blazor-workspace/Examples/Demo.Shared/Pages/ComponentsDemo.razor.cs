@@ -3,6 +3,7 @@ using System.Globalization;
 using Apache.Arrow;
 using Apache.Arrow.Types;
 using NimbleBlazor;
+using SprightBlazor;
 
 namespace Demo.Shared.Pages;
 
@@ -31,6 +32,7 @@ public partial class ComponentsDemo
     };
     private readonly HashSet<string> _recordsLoadingChildren = new();
     private readonly HashSet<string> _recordsWithLoadedChildren = new();
+    private List<string> _userMessages = new List<string>();
 
     public const string MarkdownString = "Supported rich text formatting options:\n" +
                                          "1. **Bold**\n" +
@@ -312,6 +314,11 @@ public partial class ComponentsDemo
     public void RemoveDiesFromRadius(int numberOfDies)
     {
         UpdateDiesTable(DiesTable.Length - (int)(numberOfDies * numberOfDies * Math.PI));
+    }
+
+    public void UpdateUserMessages(ChatInputSendEventArgs e)
+    {
+        _userMessages.Add(e.Text);
     }
 }
 

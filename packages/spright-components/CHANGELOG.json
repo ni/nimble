@@ -2,6 +2,42 @@
   "name": "@ni/spright-components",
   "entries": [
     {
+      "date": "Tue, 12 Aug 2025 20:52:47 GMT",
+      "version": "6.0.3",
+      "tag": "@ni/spright-components_v6.0.3",
+      "comments": {
+        "none": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/spright-components",
+            "commit": "e1291bcd22c49d6bb2dcd0958b7eaeb68c9118ee",
+            "comment": "Chat input component spec"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 11 Aug 2025 15:49:08 GMT",
+      "version": "6.0.3",
+      "tag": "@ni/spright-components_v6.0.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/spright-components",
+            "commit": "4582e33e34e9883fc3ad463d9cc75448e0ebc65f",
+            "comment": "Update fast-foundation and fast-react-wrapper dependencies to latest"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/spright-components",
+            "comment": "Bump @ni/nimble-components to v34.1.2",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 05 Aug 2025 13:03:51 GMT",
       "version": "6.0.2",
       "tag": "@ni/spright-components_v6.0.2",
