@@ -66,7 +66,7 @@ const component = (
         value="${value}"
     >
         ${attachment
-        ? html`<${chipTag} appearance="filled" removable slot="attachments">
+        ? html`<${chipTag} appearance="outline" removable slot="attachments">
                 Attachment
             </${chipTag}>
             <${buttonTag} content-hidden appearance="ghost" slot="start">
