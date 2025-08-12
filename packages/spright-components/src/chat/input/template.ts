@@ -7,6 +7,9 @@ import type { ChatInput } from '.';
 // prettier-ignore
 export const template = html<ChatInput>`
 <div class="container">
+    <div class="attachments">
+        <slot name="attachments"></slot>
+    </div>
     <textarea
         ${ref('textArea')}
         placeholder="${x => x.placeholder}"
@@ -15,18 +18,21 @@ export const template = html<ChatInput>`
         @keydown="${(x, c) => x.textAreaKeydownHandler(c.event as KeyboardEvent)}"
         @input="${x => x.textAreaInputHandler()}"
     ></textarea>
-    <${buttonTag}
-        class="send-button"
-        appearance="block"
-        appearance-variant="accent"
-        ?disabled=${x => x.disableSendButton}
-        @click=${x => x.sendButtonClickHandler()}
-        tabindex="${x => x.tabIndex}"
-        title=${x => x.sendButtonLabel}
-        content-hidden
-    >
-        ${x => x.sendButtonLabel}
-        <${iconPaperPlaneTag} slot="start"><${iconPaperPlaneTag}/>
-    </${buttonTag}>    
+    <div class="footer">
+        <slot name="start"></slot>
+        <${buttonTag}
+            class="send-button"
+            appearance="block"
+            appearance-variant="accent"
+            ?disabled=${x => x.disableSendButton}
+            @click=${x => x.sendButtonClickHandler()}
+            tabindex="${x => x.tabIndex}"
+            title=${x => x.sendButtonLabel}
+            content-hidden
+        >
+            ${x => x.sendButtonLabel}
+            <${iconPaperPlaneTag} slot="start"><${iconPaperPlaneTag}/>
+        </${buttonTag}>
+    </div>
 </div>`;
 /* eslint-enable @typescript-eslint/indent */

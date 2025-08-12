@@ -2,6 +2,8 @@ import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html';
 import { withActions } from 'storybook/actions/decorator';
 import { html } from '@ni/fast-element';
 import { chatInputTag } from '@ni/spright-components/dist/esm/chat/input';
+import { buttonTag } from '@ni/nimble-components/dist/esm/button';
+import { iconPaperclipTag } from '@ni/nimble-components/dist/esm/icons/paperclip';
 import {
     apiCategory,
     createUserSelectedThemeStory,
@@ -33,6 +35,9 @@ export const chatInput: StoryObj<ChatInputArgs> = {
             send-button-label="${x => x.sendButtonLabel}"
             value="${x => x.value}"    
         >
+            <${buttonTag} content-hidden appearance="ghost" slot="start">
+                <${iconPaperclipTag} slot="start"></${iconPaperclipTag}>
+            </${buttonTag}>
         </${chatInputTag}>
     `),
     argTypes: {

@@ -19,10 +19,16 @@ export const styles = css`
         height: auto;
     }
 
+    .attachments {
+        display: flex;
+        flex-wrap: wrap;
+        gap: ${mediumPadding};
+        margin: ${mediumPadding};
+    }
+
     .container {
-        display: grid;
-        grid-template-rows: auto 1fr;
-        grid-template-columns: 1fr auto;
+        display: flex;
+        flex-direction: column;
         width: 100%;
         height: 100%;
 
@@ -32,9 +38,6 @@ export const styles = css`
     }
 
     textarea {
-        grid-row: 1;
-        grid-column: 1 / 3;
-
         font: ${bodyFont};
         color: ${bodyFontColor};
         background-color: transparent;
@@ -54,9 +57,14 @@ export const styles = css`
         color: ${controlLabelFontColor};
     }
 
+    .footer{
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        padding: ${mediumPadding};
+    }
+
     .send-button {
-        grid-row: 2;
-        grid-column: 2;
         width: 80px;
         margin: ${mediumPadding};
     }

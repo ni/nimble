@@ -5,6 +5,9 @@ import {
     bodyFontColor
 } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
 import { chatInputTag } from '@ni/spright-components/dist/esm/chat/input';
+import { chipTag } from '@ni/nimble-components/dist/esm/chip';
+import { buttonTag } from '@ni/nimble-components/dist/esm/button';
+import { iconPaperclipTag } from '@ni/nimble-components/dist/esm/icons/paperclip';
 import {
     sharedMatrixParameters,
     createMatrixThemeStory,
@@ -28,6 +31,12 @@ const placeholderStates = [
 ] as const;
 type PlaceholderState = (typeof placeholderStates)[number];
 
+const attachmentStates = [
+    ['none', false],
+    ['attachment', true]
+] as const;
+type AttachmentState = (typeof attachmentStates)[number];
+
 const metadata: Meta = {
     title: 'Tests Spright/Chat Input',
     parameters: {
@@ -40,7 +49,8 @@ export default metadata;
 // prettier-ignore
 const component = (
     [valueLabel, value]: ValueState,
-    [placeholderLabel, placeholder]: PlaceholderState
+    [placeholderLabel, placeholder]: PlaceholderState,
+    [attachmentLabel, attachment]: AttachmentState
 ): ViewTemplate => html`
     <p 
         style="
@@ -49,17 +59,26 @@ const component = (
         margin-bottom: 0px;
         "
     >    
-        ${valueLabel} value, ${placeholderLabel} placeholder
+        ${valueLabel} value, ${placeholderLabel} placeholder, ${attachmentLabel} attachment
     </p>
     <${chatInputTag}
         placeholder="${placeholder}"
         value="${value}"
     >
+        ${attachment
+        ? html`<${chipTag} appearance="filled" removable slot="attachments">
+                Attachment
+            </${chipTag}>
+            <${buttonTag} content-hidden appearance="ghost" slot="start">
+                <${iconPaperclipTag} slot="start"></${iconPaperclipTag}>
+            </${buttonTag}>
+        `
+        : ''}
     </${chatInputTag}>
 `;
 
 export const themeMatrix: StoryFn = createMatrixThemeStory(
-    createMatrix(component, [valueStates, placeholderStates])
+    createMatrix(component, [valueStates, placeholderStates, attachmentStates])
 );
 
 export const hidden: StoryFn = createStory(
