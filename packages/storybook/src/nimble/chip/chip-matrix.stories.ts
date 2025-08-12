@@ -3,7 +3,10 @@ import { html, ViewTemplate, when } from '@ni/fast-element';
 import { iconKeyTag } from '@ni/nimble-components/dist/esm/icons/key';
 import { ChipAppearance } from '@ni/nimble-components/dist/esm/chip/types';
 import { chipTag } from '@ni/nimble-components/dist/esm/chip';
-import { controlLabelFont, controlLabelFontColor } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
+import {
+    controlLabelFont,
+    controlLabelFontColor
+} from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
 import {
     createMatrix,
     sharedMatrixParameters,
@@ -11,10 +14,7 @@ import {
     cartesianProduct,
     createMatrixInteractionsFromStates
 } from '../../utilities/matrix';
-import {
-    disabledStates,
-    type DisabledState
-} from '../../utilities/states';
+import { disabledStates, type DisabledState } from '../../utilities/states';
 import { textCustomizationWrapper } from '../../utilities/text-customization';
 
 const appearanceStates = [
@@ -38,7 +38,10 @@ const showStartSlotIconStatesOnlyIcon = showStartSlotIconStates[0];
 
 const labelStates = [
     ['Short Label', 'Option Label'],
-    ['Long Label', 'A very long label that will likely overflow the chip and require truncation with set width']
+    [
+        'Long Label',
+        'A very long label that will likely overflow the chip and require truncation with set width'
+    ]
 ] as const;
 type LabelState = (typeof labelStates)[number];
 const labelStatesOnlyShort = labelStates[0];

@@ -16,6 +16,7 @@ interface ChipArgs {
     disabled?: boolean;
 }
 
+// prettier-ignore
 const metadata: Meta<ChipArgs> = {
     title: 'Components/Chip',
     parameters: {
@@ -50,7 +51,8 @@ const metadata: Meta<ChipArgs> = {
         },
         start: {
             name: 'start',
-            description: 'Icon to be displayed to the left of the chip content.',
+            description:
+                'Icon to be displayed to the left of the chip content.',
             table: { category: apiCategory.slots }
         },
         content: {
