@@ -50,12 +50,12 @@ const metadata: Meta<ChipArgs> = {
         },
         start: {
             name: 'start',
-            description: 'Content to be displayed to the left of the chip content.',
+            description: 'Icon to be displayed to the left of the chip content.',
             table: { category: apiCategory.slots }
         },
         content: {
             name: 'default',
-            description: 'Content to be displayed inside the chip.',
+            description: 'Text to be displayed inside the chip.',
             table: { category: apiCategory.slots }
         }
     },

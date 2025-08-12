@@ -452,6 +452,15 @@ export const calendarRowBackgroundSelectedColor = DesignToken.create<string>(
     hexToRgbaCssColor(PowerGreen, 0.2)
 ));
 
+export const calendarRowBackgroundConflictColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.calendarRowBackgroundConflictColor)
+).withDefault((element: HTMLElement) => getColorForTheme(
+    element,
+    hexToRgbaCssColor(Fail100LightUi, 0.2),
+    hexToRgbaCssColor(Fail100DarkUi, 0.2),
+    hexToRgbaCssColor(Fail100DarkUi, 0.2)
+));
+
 export const calendarEventFillBlockedColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.calendarEventFillBlockedColor)
 ).withDefault((element: HTMLElement) => getColorForTheme(

@@ -264,6 +264,8 @@ export const tokenNames: { readonly [key in TokenName]: string } = {
         'calendar-event-outer-border-highlighted-color',
     calendarRowBackgroundSelectedColor:
         'calendar-row-background-selected-color',
+    calendarRowBackgroundConflictColor:
+        'calendar-row-background-conflict-color',
     calendarEventFillBlockedColor: 'calendar-event-fill-blocked-color',
     calendarGrabHandleBackgroundColor: 'calendar-grab-handle-background-color',
     calendarGridBorderColor: 'calendar-grid-border-color',
