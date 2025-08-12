@@ -288,6 +288,39 @@ describe('Markdown parser', () => {
             expect(getLastChildElementAttribute('alt', doc)).toBe('Text');
         });
 
+        it('basic table renders table structure', () => {
+            const markdown = '| Col1 | Col2 |\n| --- | --- |\n| Val1 | Val2 |';
+            const doc = RichTextMarkdownParser.parseMarkdownToDOM(markdown).fragment;
+            expect(getTagsFromElement(doc)).toEqual([
+                'TABLE', 'TBODY', 'TR', 'TH', 'TH', 'TR', 'TD', 'TD'
+            ]);
+            expect(getLeafContentsFromElement(doc)).toEqual([
+                'Col1', 'Col2', 'Val1', 'Val2'
+            ]);
+        });
+
+        it('table with multiple body rows', () => {
+            const markdown = '| H1 | H2 |\n| --- | --- |\n| R1C1 | R1C2 |\n| R2C1 | R2C2 |';
+            const doc = RichTextMarkdownParser.parseMarkdownToDOM(markdown).fragment;
+            expect(getTagsFromElement(doc)).toEqual([
+                'TABLE', 'TBODY', 'TR', 'TH', 'TH', 'TR', 'TD', 'TD', 'TR', 'TD', 'TD'
+            ]);
+            expect(getLeafContentsFromElement(doc)).toEqual([
+                'H1', 'H2', 'R1C1', 'R1C2', 'R2C1', 'R2C2'
+            ]);
+        });
+
+        it('table with inline formatting in cells', () => {
+            const markdown = '| **Bold** | *Italics* |\n| --- | --- |';
+            const doc = RichTextMarkdownParser.parseMarkdownToDOM(markdown).fragment;
+            expect(getTagsFromElement(doc)).toEqual([
+                'TABLE', 'TBODY', 'TR', 'TH', 'STRONG', 'TH', 'EM'
+            ]);
+            expect(getLeafContentsFromElement(doc)).toEqual([
+                'Bold', 'Italics'
+            ]);
+        });
+
         describe('Absolute link', () => {
             describe('various valid absolute links should render same as in the markdown', () => {
                 const supportedAbsoluteLink = [
