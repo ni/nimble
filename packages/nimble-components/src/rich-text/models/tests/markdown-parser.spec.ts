@@ -240,6 +240,30 @@ describe('Markdown parser', () => {
             ]);
         });
 
+        it('# Heading 1 as <h1>', () => {
+            const doc = RichTextMarkdownParser.parseMarkdownToDOM('# Heading 1').fragment;
+            expect(getTagsFromElement(doc)).toEqual(['H1']);
+            expect(getLeafContentsFromElement(doc)).toEqual(['Heading 1']);
+        });
+
+        it('## Heading 2 as <h2>', () => {
+            const doc = RichTextMarkdownParser.parseMarkdownToDOM('## Heading 2').fragment;
+            expect(getTagsFromElement(doc)).toEqual(['H2']);
+            expect(getLeafContentsFromElement(doc)).toEqual(['Heading 2']);
+        });
+
+        it('### Heading 3 as <h3>', () => {
+            const doc = RichTextMarkdownParser.parseMarkdownToDOM('### Heading 3').fragment;
+            expect(getTagsFromElement(doc)).toEqual(['H3']);
+            expect(getLeafContentsFromElement(doc)).toEqual(['Heading 3']);
+        });
+
+        it('mixed headings and paragraphs', () => {
+            const doc = RichTextMarkdownParser.parseMarkdownToDOM('# Heading 1\nSome text\n## Heading 2\nMore text').fragment;
+            expect(getTagsFromElement(doc)).toEqual(['H1', 'P', 'H2', 'P']);
+            expect(getLeafContentsFromElement(doc)).toEqual(['Heading 1', 'Some text', 'Heading 2', 'More text']);
+        });
+
         describe('Absolute link', () => {
             describe('various valid absolute links should render same as in the markdown', () => {
                 const supportedAbsoluteLink = [
