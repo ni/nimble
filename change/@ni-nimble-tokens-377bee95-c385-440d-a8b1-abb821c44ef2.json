@@ -1,7 +1,0 @@
-{
-  "type": "minor",
-  "comment": "New icons for panes and new chat. Updated icon triangle-two-lines-horizontal.",
-  "packageName": "@ni/nimble-tokens",
-  "email": "jattasNI@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
