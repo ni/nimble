@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-blazor
 
-<!-- This log was last generated on Mon, 11 Aug 2025 15:49:08 GMT and should not be manually modified. -->
+<!-- This log was last generated on Wed, 13 Aug 2025 00:29:51 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 20.4.11
+
+Wed, 13 Aug 2025 00:29:51 GMT
+
+### Patches
+
+- Update nuget dependencies ([ni/nimble@75f520b](https://github.com/ni/nimble/commit/75f520bf09eb316c828f2d8e8a96bf31a4515c9a))
 
 ## 20.4.10
 
