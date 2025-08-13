@@ -28,7 +28,7 @@ The intent is for this to be put in Nimble, for the following reasons:
 
 - Optionally removable
     - Note that the `Chip` won't remove itself, and it will be up to the client to remove it from the DOM.
-- Allows icons to be slotted left of text content. Slotted content will be styled automatically to be appropriately sized for the chip (i.e. given a height of `controlSlimHeight`)
+- Allows icons to be slotted left of text content. Slotted content will be styled automatically to be appropriately sized for the chip
 - If a width is set and the label content is larger than the bounds of its container it will present with an ellipsis, and a tooltip will show the entire contents.
 
 ### Risks and Challenges
@@ -65,8 +65,9 @@ _The key elements of the component's public API surface:_
     - `appearance` - supports `outline` and `block` appearances
     - `disabled` - styles the chip in the typical Nimble manner, including any slotted content, and prevents all interaction with it including being able to focus it
 - _Methods_
+    - _None_
 - _Events_
-    - `remove` - fired when the chip remove button is pressed (or \<Del\> or \<Backspace\> is pressed), and `removable` has been set.
+    - `remove` - fired when the chip remove button is pressed.
 - _Slots_
     - `start` - icon placed to the left of the chip text
     - (default) - for the primary label text
@@ -137,7 +138,7 @@ See Figma document link at the top of this document.
 
 ### States
 
-The CSS `hover` and `focusVisible` states will have specific stylings (as seen in the UX designs), in addition to styling capturing the `disabled` attribute state.
+We will provide styling for the `disabled` attribute state.
 
 ### Accessibility
 
@@ -166,7 +167,7 @@ _Consider the accessibility of the component, including:_
 
 ### Globalization
 
-Clients will be responsible for localizing any slotted content. An API will be provided to allow users to localize the label for the remove button, which, while it is never visualized, will be announced with screen readers.
+Clients will be responsible for localizing any slotted content. A label provider API will be provided to allow users to localize the label for the remove button, which, while it is never visualized, will be announced with screen readers.
 
 ### Security
 
