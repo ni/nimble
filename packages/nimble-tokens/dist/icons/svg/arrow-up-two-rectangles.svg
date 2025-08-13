@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
-  <path class="cls-1" d="M2,11h12v2H2v-2ZM2,8v2h12v-2H2Z"/>
-  <polygon class="cls-1" points="10.04 7 8.04 3 6.04 7 7.97 6.2 10.04 7"/>
+  <path class="cls-1" d="M2,7v7h12V2H2v5ZM5.5,12.5l2.5-5,2.5,5-2.59-1-2.41,1ZM13,3v3H3v-3h10Z"/>
 </svg>
