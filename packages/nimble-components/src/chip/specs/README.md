@@ -197,4 +197,4 @@ Storybook stories will be created.
 
 ## Open Issues
 
-None
+Designs call for there to be a max width of 284 pixels for the text portion of the chip. Do we need to create a token for this?
