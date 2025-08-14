@@ -64,3 +64,4 @@ import './tree-view';
 import './unit/byte';
 import './unit/volt';
 import './wafer-map';
+import './accordion';

@@ -1,0 +1,49 @@
+import { ArgsTable, Canvas, Meta, Story } from '@storybook/blocks';
+import { html } from '@microsoft/fast-element';
+import '../../utilities/storybook-setup';
+import '@ni/nimble-components/src/accordion';
+
+<Meta title="Nimble/Accordion/Item" />
+
+# Accordion Item
+
+A single collapsible section inside an accordion.
+
+## Basic
+
+<Canvas>
+  <Story name="basic-item">
+    {html`<nimble-accordion style="max-width: 480px; display:block;">
+      <nimble-accordion-item heading="Heading">Body</nimble-accordion-item>
+    </nimble-accordion>`}
+  </Story>
+</Canvas>
+
+## Expanded by default
+
+<Canvas>
+  <Story name="expanded-default">
+    {html`<nimble-accordion style="max-width: 480px; display:block;">
+      <nimble-accordion-item heading="Open" expanded>Body</nimble-accordion-item>
+    </nimble-accordion>`}
+  </Story>
+</Canvas>
+
+## Slotted heading and start/end
+
+<Canvas>
+  <Story name="slotted">
+    {html`<nimble-accordion style="max-width: 480px; display:block;">
+      <nimble-accordion-item>
+        <span slot="heading">Custom Heading</span>
+        <span slot="start">S</span>
+        <span>Item content</span>
+        <span slot="end">E</span>
+      </nimble-accordion-item>
+    </nimble-accordion>`}
+  </Story>
+</Canvas>
+
+## Args
+
+<ArgsTable of="nimble-accordion-item" />
