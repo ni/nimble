@@ -63,7 +63,7 @@ _The key elements of the component's public API surface:_
 - _Props/Attrs_:
     - `removable` - set to show the remove button
     - `appearance` - supports `outline` and `block` appearances
-    - `disabled` - styles the chip in the typical Nimble manner, including any slotted content, and prevents all interaction with it including being able to focus it
+    - `disabled` - styles the chip in the typical Nimble manner, including any slotted content, and prevents being able to focus and/or interact with the remove button.
 - _Methods_
     - _None_
 - _Events_
@@ -100,7 +100,7 @@ _The key elements of the component's public API surface:_
 ### Anatomy
 
 ```html
-<template aria-disabled="${x => x.disabled}">
+<template>
     <div class="control" part="control">
         ${startSlotTemplate(context, definition)}
         <span class="content" part="content">
