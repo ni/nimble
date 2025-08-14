@@ -12,10 +12,7 @@ export const template: FoundationElementTemplate<
 ViewTemplate<Chip>,
 ChipOptions
 > = (context, definition) => html<Chip>`
-    <template
-        aria-disabled="${x => x.disabled}"
-        @keydown="${(x, c) => x.keyDownHandler(c.event as KeyboardEvent)}"
-    >
+    <template>
         ${startSlotTemplate(context, definition)}
         <span
             class="content"
