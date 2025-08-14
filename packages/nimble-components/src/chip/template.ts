@@ -37,6 +37,7 @@ ChipOptions
                     class="remove-button"
                     content-hidden
                     appearance="ghost"
+                    ?disabled="${x => x.disabled}"
                     tabindex="${x => (!x.disabled ? '0' : null)}"
                     @click="${x => x.handleRemoveClick()}"
                 >
