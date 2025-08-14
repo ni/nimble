@@ -37,6 +37,7 @@ ChipOptions
                     class="remove-button"
                     content-hidden
                     appearance="ghost"
+                    tabindex="${x => (!x.disabled ? '0' : null)}"
                     @click="${x => x.handleRemoveClick()}"
                 >
                     <${iconTimesTag} slot="start"></${iconTimesTag}>
