@@ -2,6 +2,36 @@
   "name": "@ni/spright-blazor",
   "entries": [
     {
+      "date": "Wed, 13 Aug 2025 22:39:13 GMT",
+      "version": "4.5.0",
+      "tag": "@ni/spright-blazor_v4.5.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "beachball",
+            "package": "@ni/spright-blazor",
+            "comment": "Bump @ni/spright-components to v6.1.0",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 13 Aug 2025 00:29:51 GMT",
+      "version": "4.4.1",
+      "tag": "@ni/spright-blazor_v4.4.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/spright-blazor",
+            "commit": "75f520bf09eb316c828f2d8e8a96bf31a4515c9a",
+            "comment": "Update nuget dependencies"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 11 Aug 2025 15:49:08 GMT",
       "version": "4.4.0",
       "tag": "@ni/spright-blazor_v4.4.0",

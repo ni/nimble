@@ -2,6 +2,36 @@
   "name": "@ni/spright-components",
   "entries": [
     {
+      "date": "Wed, 13 Aug 2025 22:39:13 GMT",
+      "version": "6.1.0",
+      "tag": "@ni/spright-components_v6.1.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "beachball",
+            "package": "@ni/spright-components",
+            "comment": "Bump @ni/nimble-components to v34.2.0",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 12 Aug 2025 20:52:47 GMT",
+      "version": "6.0.3",
+      "tag": "@ni/spright-components_v6.0.3",
+      "comments": {
+        "none": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/spright-components",
+            "commit": "e1291bcd22c49d6bb2dcd0958b7eaeb68c9118ee",
+            "comment": "Chat input component spec"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 11 Aug 2025 15:49:08 GMT",
       "version": "6.0.3",
       "tag": "@ni/spright-components_v6.0.3",
