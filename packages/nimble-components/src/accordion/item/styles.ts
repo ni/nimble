@@ -2,12 +2,15 @@ import { css } from '@ni/fast-element';
 import {
     controlHeight,
     fillHoverColor,
-    iconColor,
     mediumPadding,
     smallPadding,
     borderWidth,
     dividerBackgroundColor,
-    failColor
+    failColor,
+    borderHoverColor,
+    bodyFont,
+    bodyFontColor,
+    bodyDisabledFontColor
 } from '../../theme-provider/design-tokens';
 import { focusVisible } from '../../utilities/style/focus';
 
@@ -21,11 +24,12 @@ export const styles = css`
         align-items: center;
         gap: ${smallPadding};
         width: 100%;
-        min-height: 44px;
+        min-height: ${controlHeight};
         height: ${controlHeight};
         padding: 0 ${mediumPadding};
         background: transparent;
-        color: inherit;
+        color: ${bodyFontColor};
+        font: ${bodyFont};
         border: none;
         text-align: left;
         cursor: pointer;
@@ -33,11 +37,15 @@ export const styles = css`
 
     :host(:not([disabled])) .control:hover {
         background: ${fillHoverColor};
+        /* inner ring to match hover outline without being clipped by parent overflow */
+        box-shadow: 0 0 0 ${borderWidth} ${borderHoverColor} inset;
     }
 
     .control${focusVisible} {
-        outline: var(--ni-focus-outline, 2px solid currentColor);
-        outline-offset: 2px;
+        /* Double ring entirely inside the header bounds so it isn't clipped */
+        box-shadow:
+            0 0 0 calc(${borderWidth} * 2) ${borderHoverColor} inset,
+            0 0 0 ${borderWidth} ${borderHoverColor} inset;
     }
 
     .heading {
@@ -54,7 +62,7 @@ export const styles = css`
 
     .icon {
         margin-inline-start: auto;
-        color: ${iconColor};
+        color: currentColor;
         transition: transform 200ms ease;
         display: inline-flex;
     }
@@ -71,9 +79,22 @@ export const styles = css`
     :host([error-visible]) .control {
         background: color-mix(in oklab, ${failColor} 10%, transparent);
     }
+    :host([error-visible]) ::slotted([slot='end']) {
+        color: ${failColor};
+    }
+    :host([error-visible]:not([disabled])) .control:hover {
+        box-shadow: 0 0 0 ${borderWidth} ${failColor} inset;
+    }
+    :host([error-visible]) .control${focusVisible} {
+        box-shadow:
+            0 0 0 calc(${borderWidth} * 2) ${failColor} inset,
+            0 0 0 ${borderWidth} ${failColor} inset;
+    }
 
     :host([disabled]) .control {
         cursor: not-allowed;
-        opacity: 0.5;
+        color: ${bodyDisabledFontColor};
+        background: transparent;
+        box-shadow: none;
     }
 `;

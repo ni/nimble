@@ -6,6 +6,7 @@ import type { AccordionItem } from './item';
 import './item';
 
 export type AccordionExpandMode = 'single' | 'multiple';
+export type AccordionAppearance = 'ghost' | 'outline' | 'block';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -21,6 +22,9 @@ export class Accordion extends FoundationElement {
     /** Controls whether one or multiple panels can be open. Defaults to "multiple". */
     @attr({ attribute: 'expand-mode' })
     public expandMode: AccordionExpandMode = 'multiple';
+
+    /** Appearance variant controlling container chrome (ghost | outline | block). */
+    @attr public appearance: AccordionAppearance = 'ghost';
 
     /** @internal */
     @observable public slottedItems: AccordionItem[] = [];

@@ -1,0 +1,33 @@
+import { Canvas, Meta, Controls, Title } from '@storybook/addon-docs/blocks';
+import * as accordionStories from './accordion.stories';
+import ComponentApisLink from '../../docs/component-apis-link.mdx';
+
+<Meta of={accordionStories} />
+<Title of={accordionStories} />
+
+<div>
+    An accordion groups content into collapsible sections. Use it to keep pages
+    scannable while allowing access to detailed content on demand.
+</div>
+
+<Canvas of={accordionStories._standardAccordion} />
+
+## API
+
+<Controls of={accordionStories._standardAccordion} />
+<ComponentApisLink />
+
+### Accordion Item
+
+<Canvas of={accordionStories.accordionItem} />
+<Controls of={accordionStories.accordionItem} />
+
+{/* ## Styling */}
+
+{/* ## Usage */}
+
+{/* ## Examples */}
+
+{/* ## Accessibility */}
+
+{/* ## Resources */}
