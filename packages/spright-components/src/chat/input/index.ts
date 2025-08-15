@@ -27,6 +27,9 @@ export class ChatInput extends FoundationElement {
     @attr({ attribute: 'tabindex', converter: nullableNumberConverter })
     public override tabIndex!: number;
 
+    @attr({ mode: 'boolean' })
+    public processing = false;
+
     /** @internal */
     @observable
     public readonly attachmentContent?: HTMLElement[];
@@ -97,6 +100,16 @@ export class ChatInput extends FoundationElement {
         };
         this.resetInput();
         this.$emit('send', eventDetail);
+    }
+
+    /**
+     * @internal
+     */
+    public stopButtonClickHandler(): void {
+        if (this.shouldDisableSendButton()) {
+            return;
+        }
+        this.$emit('stop');
     }
 
     protected attachmentContentChanged(

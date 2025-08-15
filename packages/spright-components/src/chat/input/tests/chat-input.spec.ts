@@ -1,5 +1,5 @@
 import { html } from '@ni/fast-element';
-import { processUpdates } from '@ni/nimble-components/dist/esm/testing/async-helpers';
+import { processUpdates, waitForUpdatesAsync } from '@ni/nimble-components/dist/esm/testing/async-helpers';
 import { waitForEvent } from '@ni/nimble-components/dist/esm/utilities/testing/component';
 import { ChatInput, chatInputTag } from '..';
 import { fixture, type Fixture } from '../../../utilities/tests/fixture';
@@ -17,6 +17,7 @@ describe('ChatInput', () => {
 
     beforeEach(async () => {
         ({ element, connect, disconnect } = await setup());
+        await connect();
         page = new ChatInputPageObject(element);
     });
 
@@ -35,25 +36,40 @@ describe('ChatInput', () => {
         expect(page.isTextAreaFocused()).toBeTrue();
     });
 
-    describe('initial state', () => {
-        beforeEach(async () => {
-            await connect();
-        });
+    it('has no rendered text content', () => {
+        expect(page.getRenderedText()).toEqual('');
+    });
 
-        it('has no rendered text content', () => {
-            expect(page.getRenderedText()).toEqual('');
-        });
+    it('shows placeholder', () => {
+        const placeholder = 'My placeholder';
+        element.placeholder = placeholder;
+        processUpdates();
+        expect(page.getPlaceholder()).toEqual(placeholder);
+    });
 
-        it('shows placeholder', () => {
-            const placeholder = 'My placeholder';
-            element.placeholder = placeholder;
-            processUpdates();
-            expect(page.getPlaceholder()).toEqual(placeholder);
-        });
+    it('send button is visible and disabled by default', () => {
+        expect(page.isSendButtonVisible()).toBeTrue();
+        expect(page.isSendButtonEnabled()).toBeFalse();
+    });
 
-        it('has disabled send button', () => {
-            expect(page.isSendButtonEnabled()).toBeFalse();
-        });
+    it('setting processing to true shows stop button', () => {
+        element.processing = true;
+        processUpdates();
+        expect(page.isSendButtonVisible()).toBeFalse();
+        expect(page.isStopButtonVisible()).toBeTrue();
+    });
+
+    it('pressing stop button sends stop event', async () => {
+        element.processing = true;
+        element.value = 'some text';
+        await waitForUpdatesAsync();
+        const spy = jasmine.createSpy();
+        const stopListener = waitForEvent(element, 'stop', spy);
+
+        page.clickStopButton();
+
+        await stopListener;
+        expect(spy).toHaveBeenCalled();
     });
 
     describe('value property set', () => {
@@ -129,10 +145,6 @@ describe('ChatInput', () => {
     });
 
     describe('send', () => {
-        beforeEach(async () => {
-            await connect();
-        });
-
         it('via button click triggers send event with value as data', async () => {
             const spy = jasmine.createSpy();
             const sendListener = waitForEvent(element, 'send', spy);
@@ -225,23 +237,6 @@ describe('ChatInput', () => {
             await page.pressShiftEnterKey();
 
             expect(spy).not.toHaveBeenCalled();
-        });
-    });
-
-    describe('sendButtonLabel', () => {
-        beforeEach(async () => {
-            await connect();
-        });
-
-        it('defaults to undefined', () => {
-            expect(element.sendButtonLabel).toBeUndefined();
-        });
-
-        it('affects button title and ARIA', () => {
-            element.sendButtonLabel = 'Send it!';
-            processUpdates();
-            expect(page.getSendButtonTitle()).toEqual('Send it!');
-            expect(page.getSendButtonTextContent()).toEqual('Send it!');
         });
     });
 

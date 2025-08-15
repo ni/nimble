@@ -68,7 +68,8 @@ export const styles = css`
         padding: ${mediumPadding};
     }
 
-    .send-button {
+    .send-button,
+    .stop-button {
         width: 80px;
         margin: ${mediumPadding};
     }

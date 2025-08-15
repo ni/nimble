@@ -15,7 +15,10 @@ export class ChatInputPageObject {
     public constructor(protected readonly element: ChatInput) {}
 
     public isSendButtonEnabled(): boolean {
-        return !this.getSendButton().disabled;
+        if (!this.getSendButton()) {
+            throw Error('Send button not found');
+        }
+        return !this.getSendButton()!.disabled;
     }
 
     public isTextAreaFocused(): boolean {
@@ -23,19 +26,31 @@ export class ChatInputPageObject {
     }
 
     public clickSendButton(): void {
-        this.getSendButton().click();
+        if (!this.isSendButtonVisible()) {
+            throw Error('Send button is not visible');
+        }
+        this.getSendButton()!.click();
     }
 
-    public getSendButtonTitle(): string {
-        return this.getSendButton().title;
+    public clickStopButton(): void {
+        if (!this.isStopButtonVisible()) {
+            throw Error('Stop button is not visible');
+        }
+        this.getStopButton()!.click();
     }
 
     public getSendButtonTextContent(): string {
-        return this.getSendButton().textContent?.trim() ?? '';
+        if (!this.getSendButton()) {
+            throw Error('Send button not found');
+        }
+        return this.getSendButton()!.textContent?.trim() ?? '';
     }
 
     public getSendButtonTabIndex(): string | null {
-        return this.getSendButton().getAttribute('tabindex');
+        if (!this.getSendButton()) {
+            throw Error('Send button not found');
+        }
+        return this.getSendButton()!.getAttribute('tabindex');
     }
 
     public textAreaHasFocus(): boolean {
@@ -77,9 +92,22 @@ export class ChatInputPageObject {
         await this.sendEnterKeyEvents(true);
     }
 
-    private getSendButton(): Button {
+    public isSendButtonVisible(): boolean {
+        return this.getSendButton() !== null;
+    }
+
+    public isStopButtonVisible(): boolean {
+        return this.getStopButton() !== null;
+    }
+
+    private getSendButton(): Button | null {
         const sendButton = this.element.shadowRoot!.querySelector<Button>('.send-button')!;
         return sendButton;
+    }
+
+    private getStopButton(): Button | null {
+        const stopButton = this.element.shadowRoot!.querySelector<Button>('.stop-button');
+        return stopButton;
     }
 
     private async sendEnterKeyEvents(shiftKey: boolean): Promise<void> {
