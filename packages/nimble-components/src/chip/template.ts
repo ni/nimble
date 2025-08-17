@@ -8,14 +8,12 @@ import { overflow } from '../utilities/directive/overflow';
 import { buttonTag } from '../button';
 import { iconTimesTag } from '../icons/times';
 
+// prettier-ignore
 export const template: FoundationElementTemplate<
 ViewTemplate<Chip>,
 ChipOptions
 > = (context, definition) => html<Chip>`
-    <template
-        aria-disabled="${x => x.disabled}"
-        @keydown="${(x, c) => x.keyDownHandler(c.event as KeyboardEvent)}"
-    >
+    <template>
         ${startSlotTemplate(context, definition)}
         <span
             class="content"
@@ -30,19 +28,17 @@ ChipOptions
                 ${slotted({ property: 'content' })}
             ></slot>
         </span>
-        ${when(
-        x => x.removable,
-        html<Chip>`
-                <${buttonTag}
-                    class="remove-button"
-                    content-hidden
-                    appearance="ghost"
-                    @click="${x => x.handleRemoveClick()}"
-                >
-                    <${iconTimesTag} slot="start"></${iconTimesTag}>
-                    ${x => x.removeButtonContent}
-                </${buttonTag}>
-            `
-    )}
+        ${when(x => x.removable && !x.disabled, html<Chip>`
+            <${buttonTag}
+                class="remove-button"
+                content-hidden
+                appearance="ghost"
+                ?disabled="${x => x.disabled}"
+                @click="${x => x.handleRemoveClick()}"
+            >
+                <${iconTimesTag} slot="start"></${iconTimesTag}>
+                ${x => x.removeButtonContent}
+            </${buttonTag}>
+        `)}
     </template>
 `;

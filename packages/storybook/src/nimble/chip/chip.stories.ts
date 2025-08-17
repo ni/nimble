@@ -4,7 +4,9 @@ import { chipTag } from '@ni/nimble-components/dist/esm/chip';
 import { ChipAppearance } from '@ni/nimble-components/dist/esm/chip/types';
 import {
     apiCategory,
+    appearanceDescription,
     createUserSelectedThemeStory,
+    disabledDescription,
     disableStorybookZoomTransform
 } from '../../utilities/storybook';
 
@@ -35,17 +37,19 @@ const metadata: Meta<ChipArgs> = {
     `),
     argTypes: {
         appearance: {
+            description: appearanceDescription({ componentName: 'chip' }),
             options: Object.keys(ChipAppearance),
             control: { type: 'radio' },
             table: { category: apiCategory.attributes }
         },
         removable: {
             name: 'removable',
+            description: 'When the `removable` attribute is set, a remove button is displayed on the chip. When the remove button is pressed a `remove` event is dispatched.',
             table: { category: apiCategory.attributes }
         },
         disabled: {
             name: 'disabled',
-            description: 'Whether the chip is disabled.',
+            description: disabledDescription({ componentName: 'chip' }),
             table: { category: apiCategory.attributes },
             control: { type: 'boolean' }
         },

@@ -59,18 +59,6 @@ export class Chip extends FoundationElement {
             this.$emit('remove');
         }
     }
-
-    public keyDownHandler(event: KeyboardEvent): boolean {
-        if (
-            (event.key === 'Delete' || event.key === 'Backspace')
-            && this.removable
-        ) {
-            this.handleRemoveClick();
-            event.stopPropagation();
-            event.preventDefault();
-        }
-        return true;
-    }
 }
 applyMixins(Chip, StartEnd);
 

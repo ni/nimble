@@ -7,7 +7,6 @@ import {
     borderRgbPartialColor,
     borderWidth,
     controlHeight,
-    controlSlimHeight,
     iconColor,
     mediumPadding,
     smallPadding
@@ -81,7 +80,8 @@ export const styles = css`
     }
 
     .remove-button {
-        height: ${controlSlimHeight};
+        height: 16px;
+        width: 16px;
         margin-right: calc(-1 * ${smallPadding});
     }
 `.withBehaviors(

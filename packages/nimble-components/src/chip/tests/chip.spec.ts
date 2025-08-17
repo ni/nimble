@@ -2,7 +2,6 @@ import { html } from '@ni/fast-element';
 import { Chip, chipTag } from '..';
 import { fixture, type Fixture } from '../../utilities/tests/fixture';
 import { ChipPageObject } from '../testing/chip.pageobject';
-import { sendKeyDownEvent } from '../../utilities/testing/component';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 
 async function setup(): Promise<Fixture<Chip>> {
@@ -37,35 +36,10 @@ describe('Chip', () => {
         expect(removeEvent).toHaveBeenCalled();
     });
 
-    it('pressing Delete key raises remove event when removable is true', async () => {
-        element.removable = true;
-        const removeEvent = jasmine.createSpy();
-        element.addEventListener('remove', removeEvent);
-        await sendKeyDownEvent(element, 'Delete');
-        expect(removeEvent).toHaveBeenCalled();
-    });
-
-    it('pressing Backspace key raises remove event when removable is true', async () => {
-        element.removable = true;
-        const removeEvent = jasmine.createSpy();
-        element.addEventListener('remove', removeEvent);
-        await sendKeyDownEvent(element, 'Backspace');
-        expect(removeEvent).toHaveBeenCalled();
-    });
-
-    it('pressing Delete key does not raise remove event when removable is false', async () => {
-        element.removable = false;
-        const removeEvent = jasmine.createSpy();
-        element.addEventListener('remove', removeEvent);
-        await sendKeyDownEvent(element, 'Delete');
-        expect(removeEvent).not.toHaveBeenCalled();
-    });
-
-    it('pressing Backspace key does not raise remove event when removable is false', async () => {
-        element.removable = false;
-        const removeEvent = jasmine.createSpy();
-        element.addEventListener('remove', removeEvent);
-        await sendKeyDownEvent(element, 'Backspace');
-        expect(removeEvent).not.toHaveBeenCalled();
+    it('when disabled remove button is not visible', async () => {
+        element.disabled = true;
+        await waitForUpdatesAsync();
+        const pageObject = new ChipPageObject(element);
+        expect(pageObject.isRemoveButtonVisible()).toBe(false);
     });
 });
