@@ -100,7 +100,7 @@ _The key elements of the component's public API surface:_
 ### Anatomy
 
 ```html
-<template aria-disabled="${x => x.disabled}">
+<template>
     <div class="control" part="control">
         ${startSlotTemplate(context, definition)}
         <span class="content" part="content">
