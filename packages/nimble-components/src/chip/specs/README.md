@@ -63,7 +63,7 @@ _The key elements of the component's public API surface:_
 - _Props/Attrs_:
     - `removable` - set to show the remove button
     - `appearance` - supports `outline` and `block` appearances
-    - `disabled` - styles the chip in the typical Nimble manner, including any slotted content, and prevents all interaction with it including being able to focus it
+    - `disabled` - styles the chip in the typical Nimble manner, including any user-slotted content (text and icon), and additionally hides the remove button.
 - _Methods_
     - _None_
 - _Events_
@@ -107,7 +107,7 @@ _The key elements of the component's public API surface:_
             <slot></slot>
         </span>
         ${endSlotTemplate(context, definition)}
-        ${when(x => !x.preventRemove, html<Chip>`
+        ${when(x => x.removable && !x.disabled, html<Chip>`
             <nimble-button content-hidden @click="${x => x.handleRemoveClick()}">
                 <nimble-icon-times slot="start">
                 </nimble-icon-times>
