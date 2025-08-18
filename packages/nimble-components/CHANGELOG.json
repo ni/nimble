@@ -2,6 +2,27 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Wed, 13 Aug 2025 22:39:13 GMT",
+      "version": "34.2.0",
+      "tag": "@ni/nimble-components_v34.2.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "5bad5891f9a06c709c40e1a4da2bb26938d8cbcc",
+            "comment": "New icons for panes and new chat. Updated icon triangle-two-lines-horizontal."
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/nimble-tokens to v8.11.0",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 11 Aug 2025 15:49:08 GMT",
       "version": "34.1.2",
       "tag": "@ni/nimble-components_v34.1.2",
