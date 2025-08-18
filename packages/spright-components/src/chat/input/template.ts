@@ -3,7 +3,10 @@ import { buttonTag } from '@ni/nimble-components/dist/esm/button';
 import { iconPaperPlaneTag } from '@ni/nimble-components/dist/esm/icons/paper-plane';
 import { iconStopSquareTag } from '@ni/nimble-components/dist/esm/icons/stop-square';
 import type { ChatInput } from '.';
-import { chatInputSendLabel, chatInputStopLabel } from '../../label-provider/chat/label-tokens';
+import {
+    chatInputSendLabel,
+    chatInputStopLabel
+} from '../../label-provider/chat/label-tokens';
 
 /* eslint-disable @typescript-eslint/indent */
 // prettier-ignore

@@ -61,7 +61,7 @@ export const styles = css`
         color: ${controlLabelFontColor};
     }
 
-    .footer{
+    .footer {
         display: flex;
         align-items: center;
         justify-content: flex-end;

@@ -1,11 +1,11 @@
 import { attr } from '@ni/fast-element';
 import { DesignSystem } from '@ni/fast-foundation';
-import { type DesignTokensFor, LabelProviderBase } from '@ni/nimble-components/dist/esm/label-provider/base';
-import { styles } from '@ni/nimble-components/dist/esm/label-provider/base/styles';
 import {
-    chatInputSendLabel,
-    chatInputStopLabel
-} from './label-tokens';
+    type DesignTokensFor,
+    LabelProviderBase
+} from '@ni/nimble-components/dist/esm/label-provider/base';
+import { styles } from '@ni/nimble-components/dist/esm/label-provider/base/styles';
+import { chatInputSendLabel, chatInputStopLabel } from './label-tokens';
 
 declare global {
     interface HTMLElementTagNameMap {

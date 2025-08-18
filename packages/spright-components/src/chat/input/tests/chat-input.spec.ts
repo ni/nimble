@@ -1,5 +1,8 @@
 import { html } from '@ni/fast-element';
-import { processUpdates, waitForUpdatesAsync } from '@ni/nimble-components/dist/esm/testing/async-helpers';
+import {
+    processUpdates,
+    waitForUpdatesAsync
+} from '@ni/nimble-components/dist/esm/testing/async-helpers';
 import { waitForEvent } from '@ni/nimble-components/dist/esm/utilities/testing/component';
 import { ChatInput, chatInputTag } from '..';
 import { fixture, type Fixture } from '../../../utilities/tests/fixture';
