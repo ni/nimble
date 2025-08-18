@@ -16,6 +16,7 @@ interface ChipArgs {
     content: string;
     start: boolean;
     disabled?: boolean;
+    remove: undefined;
 }
 
 // prettier-ignore
@@ -63,7 +64,12 @@ const metadata: Meta<ChipArgs> = {
             name: 'default',
             description: 'Text to be displayed inside the chip.',
             table: { category: apiCategory.slots }
-        }
+        },
+        remove: {
+            description: 'Emitted when the user presses the remove button.',
+            table: { category: apiCategory.events },
+            control: false
+        },
     },
     args: {
         appearance: 'outline',
