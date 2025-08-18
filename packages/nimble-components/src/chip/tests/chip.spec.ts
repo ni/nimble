@@ -49,9 +49,7 @@ describe('Chip', () => {
             await waitForUpdatesAsync();
         });
 
-        function dispatchEventToChipContent(
-            event: Event
-        ): boolean | undefined {
+        function dispatchEventToChipContent(event: Event): boolean | undefined {
             return element
                 .shadowRoot!.querySelector('.content')!
                 .dispatchEvent(event);
