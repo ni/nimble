@@ -1,5 +1,6 @@
 import { html, when } from '@ni/fast-element';
-import type { Meta, StoryObj } from '@storybook/html-vite';
+import type { HtmlRenderer, Meta, StoryObj } from '@storybook/html-vite';
+import { withActions } from 'storybook/internal/actions/decorator';
 import { chipTag } from '@ni/nimble-components/dist/esm/chip';
 import { ChipAppearance } from '@ni/nimble-components/dist/esm/chip/types';
 import {
@@ -22,11 +23,6 @@ interface ChipArgs {
 // prettier-ignore
 const metadata: Meta<ChipArgs> = {
     title: 'Components/Chip',
-    parameters: {
-        actions: {
-            handles: ['remove']
-        }
-    },
     render: createUserSelectedThemeStory(html`
     ${disableStorybookZoomTransform}
         <${chipTag} appearance="${x => x.appearance}" ?removable="${x => x.removable}" ?start="${x => x.start}" ?disabled="${x => x.disabled}">
@@ -82,4 +78,11 @@ const metadata: Meta<ChipArgs> = {
 
 export default metadata;
 
-export const chip: StoryObj<ChipArgs> = {};
+export const chip: StoryObj<ChipArgs> = {
+    decorators: [withActions<HtmlRenderer>],
+    parameters: {
+        actions: {
+            handles: ['remove']
+        }
+    }
+};
