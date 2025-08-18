@@ -36,7 +36,14 @@ describe('Chip', () => {
         expect(removeEvent).toHaveBeenCalled();
     });
 
-    it('when disabled remove button is not visible', async () => {
+    it('remove button is not visible when not removable', async () => {
+        element.removable = false;
+        await waitForUpdatesAsync();
+        const pageObject = new ChipPageObject(element);
+        expect(pageObject.isRemoveButtonVisible()).toBe(false);
+    });
+
+    it('remove button is not visible when disabled', async () => {
         element.disabled = true;
         await waitForUpdatesAsync();
         const pageObject = new ChipPageObject(element);
