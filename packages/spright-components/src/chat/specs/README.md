@@ -4,18 +4,23 @@
 
 This spec describes a set of components that can be used to compose a chat interface. This includes:
 
+- chat input: a text input, button, and related components for users to compose and send new messages
 - chat message: a single entry in a chat conversation, including some content and metadata about the message
-- chat conversation: a collection of messages that are laid out to convey the order the messages were sent
+- chat conversation: a layout component that allows slotting messages and an input
 
 ### Background
 
-Some Intelligent Test application teams are beginning development on chat interfaces in early 2025. Developers from one of those teams will build these components as their first Nimble contribution.
+Some Intelligent Test application teams are beginning development on Blazor chat interfaces in early 2025. Developers from one of those teams will build some of these components as their first Nimble contribution. Additional products are expecting to leverage the same components in Angular and will also contribute components.
 
 Initial designer-vetted visual designs exist in [Nimble_Components Figma](https://www.figma.com/design/PO9mFOu5BCl8aJvFchEeuN/Nimble_Components?node-id=12342-81782&node-type=canvas&t=L5GvLaC3injrqWrR-0).
 
-There is not yet an interaction design specification for these components.
+Initial application interaction designs exist in [a separate Figma](https://www.figma.com/design/G2KimFrkqrHMHQIFvKVDC4/AI-Chat-in-LabVIEW-TestStand-Specs).
 
-This work started with an innovation project ([branch](https://github.com/ni/nimble/compare/main...spright-chat-components)) and is not yet tracked with an issue.
+There is not yet a detailed Nimble interaction design specification for these components.
+
+A [Blazor implementation of the chat input component](https://dev.azure.com/ni/DevCentral/_git/ASW?path=%2FSource%2FMeasurementServices%2FAiAssistants%2FControls%2FComponents%2FInputTextArea.razor&version=GBfeatures%2FAIAssistants&_a=contents) exists in a client application.
+
+#2551 can be resolved with the addition of the input component.
 
 ### Containing Library
 
@@ -30,18 +35,6 @@ These components will initially be added to Spright. Per [Spright contributing g
 The components will only provide the presentation layer, not logic for interacting with each other or any service to add messages to a conversation.
 
 The message component will allow slotting arbitrary content, but any efforts to add content types to Nimble are out of scope of this document. For example, adding capabilities to the rich text viewer or adding styling for specific content types.
-
-We will not yet introduce an input toolbar component where a user can type and send messages and interact with related buttons. For now applications can construct this using the existing Nimble toolbar.
-
-    - Pros of dedicated component:
-
-        1. consistent layout and reduced implementation effort across applications
-        1. single implementation to change if requirements change
-
-    - Pros of applications leveraging Nimble toolbar:
-
-        1. dedicated component would require a large API surface area for configuring the visibility and enabled state of numerous buttons and firing events when the user interacts with the toolbar inputs.
-        1. allows more rapid experimentation while input use cases and interactions are still being solidified
 
 ### Features
 
@@ -76,7 +69,26 @@ The component also contains the following features:
 
 1. Lays out messages vertically based on their order.
 1. Displays a vertical scrollbar if there are more messages than fit in the height allocated to the conversation.
+1. Includes a slot to place an input component below the messages.
 1. Only appearance of its own is to set a background color.
+
+#### Chat input
+
+1. Accepts text input in a text area
+    - the text area height is a single line initially but grows its height to fit the entered text up to its max-height
+    - the text area has configurable placeholder text
+1. Includes a "Send" button for the user to submit the current input text
+    - fires an event containing the current input content and then clears the content and sets keyboard focus back to the input
+    - pressing Enter while the text area has focus will behave the same as clicking "Send"
+    - pressing Shift-Enter will create a newline
+    - the button is disabled and Enter has no effect if the input text and attachments slot are both empty or if the client has set an attribute to explicitly disable it
+1. Includes a "Stop" button for the user to abort an action that was triggered in response to a sent message (e.g. a file upload or incoming response)
+    - fires an event when clicked. This event contains no data. Does not fire an event if the user presses Enter in the text area while this button is visible.
+    - only one of the "Stop" or "Send" buttons will be visible at a given time
+    - when it's visible, this button is always enabled
+1. Includes slots for specifying additional content like a button for attaching files and chips for viewing/clearing attached files
+1. Styling for default, focus, and rollover states
+1. Displays errors via the standard red `!` icon and error text
 
 ### Risks and Challenges
 
@@ -84,8 +96,11 @@ These components are competing against possible implementations within applicati
 
 ### Prior Art/Examples
 
-**Screenshot of Figma design of chat and conversation component (light mode)**  
+**Screenshot of Figma design of message and conversation component (light mode)**  
 ![ ](spec-images/chat-conversation.png)
+
+**Screenshot of Figma design of chat input component (light mode)**  
+![ ](spec-images/chat-input.png)
 
 **Screenshot of Figma design of chat components embeded within larger pane (dark mode)**  
 ![ ](spec-images/chat-pane.png)
@@ -109,6 +124,7 @@ These components are competing against possible implementations within applicati
     <spright-chat-message message-type="system">
         <nimble-spinner></nimble-spinner>
     </spright-chat-message>
+    <spright-chat-input slot="input></spright-chat-input>
 </spright-chat-conversation>
 ```
 
@@ -129,11 +145,21 @@ richText.markdown = 'Welcome **Homer**, how can I help?';
 
 #### Prompt buttons message example
 
+<!-- prettier-ignore-start -->
+
 ```html
 <spright-chat-message message-type="inbound">
     <nimble-button appearance="block" slot="end">Help with my taxes</nimble-button>
     <nimble-button appearance="block" slot="end">Provide me some life advice</nimble-button>
-</spright-chat-message
+</spright-chat-message>
+```
+
+<!-- prettier-ignore-end -->
+
+#### Input example
+
+```html
+<spright-chat-input placeholder="Ask Nigel"> </spright-chat-input>
 ```
 
 ### API
@@ -171,6 +197,51 @@ richText.markdown = 'Welcome **Homer**, how can I help?';
     - The conversation will have a minimum width that clients are discouraged from overriding.
 - _Slots_
     - chat messages are added to the default slot. The DOM order of the messages controls their screen order within the conversation (earlier DOM order => earlier message => top of the conversation)
+    - a single chat input can optionally be added to the `input` slot. It will be placed below the messages.
+
+#### Input
+
+- _Component Name_ `spright-chat-input`
+- _Props/Attrs_
+    - `value` - string attribute to get or set the current text in the text area. See [Input API alternatives](#input-api-alternatives) for more info.
+    - `processing` - boolean attribute that causes the "Stop" button to be shown rather than the "Send" button
+    - `placeholder` - text to display in the text area when no text has been entered
+    - `send-disabled` - boolean attribute that causes the "Send" button to be disabled even if there is text or other slotted content
+    - `error-visible` and `error-text` - standard attributes for showing an error icon and red text below the control
+- _Methods_
+- _Events_
+    - `send` - emitted when the user clicks the "Send" button or presses Enter with text present. Includes `ChatInputSendEventDetail` which is an object with a `text` field containing the input contents. Not cancelable.
+    - `stop` - emitted when the user clicks the "Stop" button. Not cancelable.
+- _CSS Classes and CSS Custom Properties that affect the component_
+- _How native CSS Properties (height, width, etc.) affect the component_
+    - Clients can set the input width using normal CSS rules. The input will have a default minimum width that clients are discouraged from overriding.
+    - The input will have a default height to fit one line of text and will grow its height to fit more lines, up to a max-height. After that limit it will show a vertical scrollbar.
+- _Slots_
+    - `footer-actions`
+        - Action buttons to display left of the send/stop button.
+    - `attachments`
+        - An area to slot content adjacent to the text input area. Intended to be used for adding chips that represent attached files.
+
+##### Input API alternatives
+
+#### `value`
+
+The `value` API above is interesting because users can change it interactively while clients may wish to get or set it programmatically. Nimble has several patterns for properties and attributes related to state that the user can modify interactively:
+
+1. The text field and number field have a `value` property and a `current-value` attribute which are synced with user input and a `value` attribute which is only used to set the initial value. This approach comes from FAST. The `value` property and attribute match native form-associated input behavior while the `current-value` attribute adds the ability to read and write the current value from an attribute without overwriting a client-provided `value`.
+2. The rich text editor has `getMarkdown()` and `setMarkdown()` methods. This approach was selected partly to avoid the cost and noise of synchronizing possibly large values back to the DOM.
+3. The combobox has an (internal) `open` property and attribute which reflect the interactive state of the dropdown but can also be updated programmatically.
+
+Any of these approaches would achieve the goal of exposing the ability to get and set the chat input display value programmatically. We're proposing an option similar to 3 because:
+
+- the chat input doesn't need form association or parity with a native component API and having multiple attributes adds implementation complexity versus a single attribute
+- users aren't expected to be interactively modifying large values in the chat input so performance is less of a concern than with the rich text editor
+
+##### Auto-clearing alternative
+
+In the case of the auto-clearing being undesirable, a `resetInput()` method was proposed that users of the component would be required to call every time a `send` event occurred.
+
+[Some concern](https://github.com/ni/nimble/pull/2611#discussion_r2110130708) was raised with having the 'Send' button (or pressing \<Enter\>) automatically clearing the text, however there is enough basis to do so both in that this is designed behavior for the control (there is no expectation that the text field should maintain any text after the send event occurs), and we already have a similar UX semantic with the clear button for the `Select`.
 
 ### Anatomy
 
@@ -195,13 +266,55 @@ A message is simply a `div` which will styled with background / border / rounded
 
 #### Conversation
 
-Other than setting a background, a conversation has no appearance of its own and simply contains the default slot for messages.
+Other than setting a background, a conversation has no appearance of its own and simply contains the default slot for messages and the input slot for the chat input, along with wrapper `div`s for layout purposes.
 
 ```html
 <template>
-    <slot></slot>
+    <div class="messages">
+        <slot></slot>
+    </div>
+    <div class="input">
+        <slot name="input"></slot>
+    </div>
 </template>
 ```
+
+#### Input
+
+##### Template
+
+The input contains a native `textarea` and a `nimble-button`. The code below is simplified to omit some classes / refs and ARIA info.
+
+Not yet shown: "Stop" button, `footer-actions` slot, `attachments` slot, error text and icon.
+
+```html
+<div class="container">
+    <textarea
+        placeholder="${x => x.placeholder}"
+        rows="1"
+        @keydown="${(x, c) => x.textAreaKeydownHandler(c.event as KeyboardEvent)}"
+        @input="${x => x.textAreaInputHandler()}"
+    ></textarea>
+    <${buttonTag}
+        appearance="block"
+        appearance-variant="accent"
+        ?disabled=${x => x.disableSendButton}
+        @click=${x => x.sendButtonClickHandler()}
+    >
+        <${iconPaperPlaneTag} slot="start"><${iconPaperPlaneTag}/>
+    </${buttonTag}>
+</div>
+```
+
+##### Styles
+
+Most of the styling will use standard Nimble tokens and CSS layout techniques.
+
+One notable styling decision is that we plan to use [`field-sizing: content;`](https://developer.mozilla.org/en-US/docs/Web/CSS/field-sizing)
+to implement the ability to grow the height of the text area as the user types. This
+[is not yet supported in Firefox or Safari](https://developer.mozilla.org/en-US/docs/Web/CSS/field-sizing#browser_compatibility) (though it should land in Safari soon).
+Initially clients will either use modern versions of Chromium-based browsers or will only leverage this component behind a feature flag. If
+that changes before the feature is available in all supported browsers, we will revisit this decision and consider implementing a JavaScript-based resizing solution.
 
 ### Native form integration
 
@@ -209,11 +322,11 @@ Native form integration is not needed for these components.
 
 ### Angular integration
 
-Angular integration has not yet been evaluated in detail, but is expected to be able to follow existing patterns. It is not anticipated to be needed for initial clients.
+Angular wrappers will be created for every component.
 
 ### Blazor integration
 
-The Blazor wrappers `SpringChatConversation` and `SprightChatMessage` have been created.
+Blazor wrappers will be created for every component.
 
 ### Visual Appearance
 
@@ -225,9 +338,13 @@ Initial designer-vetted visual designs exist in [Nimble_Components Figma](https:
 
 ### States
 
-None.
+Chat message and conversation don't support any states.
+
+Chat input supports a default state, a rollover state, and a focus state. These impact the visual appearance similar to other controls. More info available in the Figma spec.
 
 ### Accessibility
+
+#### Messages
 
 Only keyboard navigation has been evaluated. The desired behavior is for each message's action buttons to be a single tab stop, with navigation between a message's action buttons accomplished using arrow keys. This should be achieved by placing the items within a `nimble-toolbar`, however the `nimble-toolbar` does not yet detect content in nested slots (see #2571). For scoping reasons the content will not initially be placed in a toolbar and thus each button will be a tab stop. Once that issue is addressed it should be possible to add a toolbar and achieve the desired behavior without breaking clients.
 
@@ -249,13 +366,27 @@ _Consider the accessibility of the component, including:_
 - _Behavior with browser configurations like "Prefers reduced motion"_
 - _Support for standard link behaviors if the component is an anchor or contains an anchor. These behaviors are enumerated in the [anchor-patterns story](/packages/nimble-components/src/patterns/anchor/tests/anchor-patterns.mdx). The story should be updated to include the new component._
 
+#### Input
+
+The text field and button will each be keyboard focusable. This will be reflected visually to the user in accordance with the design spec.
+
+If the input changes state between `processing` and not when focus was on the "Send" or "Stop" button, the newly visible button will not receive focus.
+
+The application will not announce the state change between `processing` and not to screen readers. This is a scoping decision which should be reconsidered if these components are promoted from Spright to Nimble.
+
+The Design team has requested a non-standard appearance for the "Send" and "Stop" buttons: icon-only but rectangular shape. Nimble icon-only buttons are square by default but allow setting an explicit width to make them rectangular. We will also set the text content and `title` to the value of appropriate label provider strings (see [Globalization](#globalization) for more info).
+
+The text area will have an ARIA role of `textbox` similar to other Nimble text input components.
+
 ### Mobile
 
 Component layout will be tested at small screen sizes. The plans for content sizing and showing scrollbars should allow for adequate mobile layout. But initially there will be no specific testing of mobile behaviors as initial clients are desktop applications.
 
+On mobile, typing a newline in the input will be difficult as most on-screen keyboards don't offer a to use a modifier key to type Shift-Enter. If mobile support becomes a requirement we could consider options like matching Teams behavior (Enter key creates newline, only "Send" button sends message). This would likely need to be a configuration on the input as detecting that the user is on a mobile device is an application concern.
+
 ### Globalization
 
-The content is provided by applications so they are responsible for localization.
+Most content is provided by applications so they are responsible for localization. For the input component "Send" and "Stop" button titles and accessible labels we will add label provider strings. These supply default labels which applications can localize or replace with custom labels. These will be added to a new Spright chat label provider.
 
 Defining the behavior for RTL languages is initially out of scope. But the API can easily be extended to support changing the layout for an RTL language when that is desired.
 

@@ -1,8 +1,17 @@
 # Change Log - @ni/nimble-components
 
-<!-- This log was last generated on Mon, 11 Aug 2025 15:49:08 GMT and should not be manually modified. -->
+<!-- This log was last generated on Wed, 13 Aug 2025 22:39:13 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 34.2.0
+
+Wed, 13 Aug 2025 22:39:13 GMT
+
+### Minor changes
+
+- New icons for panes and new chat. Updated icon triangle-two-lines-horizontal. ([ni/nimble@5bad589](https://github.com/ni/nimble/commit/5bad5891f9a06c709c40e1a4da2bb26938d8cbcc))
+- Bump @ni/nimble-tokens to v8.11.0
 
 ## 34.1.2
 
