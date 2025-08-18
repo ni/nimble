@@ -66,7 +66,7 @@ export const styles = css`
         flex-shrink: 0;
     }
 
-    [part='start']
+    [part='start'] {
         display: contents;
         ${iconColor.cssCustomProperty}: ${bodyFontColor};
     }
