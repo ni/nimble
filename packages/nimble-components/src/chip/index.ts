@@ -22,7 +22,7 @@ declare global {
 export type ChipOptions = FoundationElementDefinition & StartOptions;
 
 /**
- * A Nimble demo component (not for production use)
+ * A Nimble chip component
  */
 export class Chip extends FoundationElement {
     @attr({ mode: 'boolean' })
@@ -32,7 +32,7 @@ export class Chip extends FoundationElement {
     public disabled = false;
 
     @attr()
-    public appearance: ChipAppearance = 'outline';
+    public appearance: ChipAppearance = ChipAppearance.outline;
 
     /** @internal */
     public readonly content?: HTMLElement[];
@@ -65,7 +65,10 @@ applyMixins(Chip, StartEnd);
 const nimbleChip = Chip.compose<ChipOptions>({
     baseName: 'chip',
     template,
-    styles
+    styles,
+    shadowOptions: {
+        delegatesFocus: true
+    }
 });
 
 DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleChip());
