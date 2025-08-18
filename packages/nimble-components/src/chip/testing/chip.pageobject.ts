@@ -8,14 +8,25 @@ import type { Button } from '../../button';
 export class ChipPageObject {
     public constructor(protected readonly chipElement: Chip) {}
 
+    public isRemoveButtonVisible(): boolean {
+        const removeButton = this.getRemoveButton();
+        return removeButton ? removeButton.offsetParent !== null : false;
+    }
+
     public clickRemoveButton(): void {
-        const removeButton = this.chipElement.shadowRoot?.querySelector<Button>(
-            '.remove-button'
-        );
+        const removeButton = this.getRemoveButton();
         if (removeButton) {
             removeButton.click();
         } else {
             throw new Error('Remove button not found');
         }
+    }
+
+    private getRemoveButton(): Button | null {
+        return (
+            this.chipElement.shadowRoot?.querySelector<Button>(
+                '.remove-button'
+            ) ?? null
+        );
     }
 }

@@ -158,6 +158,16 @@ const components = [
         blazorStatus: ComponentFrameworkStatus.ready
     },
     {
+        componentName: 'Chip',
+        componentHref: './?path=/docs/components-chip--docs',
+        designHref:
+            'https://www.figma.com/design/PO9mFOu5BCl8aJvFchEeuN/Nimble_Components?node-id=2227-78839&p=f&t=jqn5mzroV2yUvbvC-0',
+        designLabel: 'Figma',
+        componentStatus: ComponentFrameworkStatus.ready,
+        angularStatus: ComponentFrameworkStatus.doesNotExist,
+        blazorStatus: ComponentFrameworkStatus.doesNotExist
+    },
+    {
         componentName: 'Combobox',
         componentHref: './?path=/docs/components-combobox--docs',
         designHref:
