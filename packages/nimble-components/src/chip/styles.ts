@@ -13,7 +13,6 @@ import {
 } from '../theme-provider/design-tokens';
 import { display } from '../utilities/style/display';
 import { appearanceBehavior } from '../utilities/style/appearance';
-import { focusVisible } from '../utilities/style/focus';
 import { ChipAppearance } from './types';
 
 export const styles = css`
@@ -33,14 +32,6 @@ export const styles = css`
         justify-content: center;
         align-items: center;
         background-repeat: no-repeat;
-        ${
-            /*
-                Not sure why but this is needed to get buttons with icons and buttons
-                without icons to align on the same line when the button is inline-flex
-                See: https://github.com/ni/nimble/issues/503
-            */ ''
-        }
-        vertical-align: middle;
     }
 
     :host([disabled]) {
@@ -94,10 +85,6 @@ export const styles = css`
                     rgba(${borderRgbPartialColor}, 0.1)
                 );
                 border-color: rgba(${borderRgbPartialColor}, 0.1);
-            }
-
-            :host(${focusVisible}) {
-                background-size: calc(100% - 4px) calc(100% - 4px);
             }
 
             :host([disabled]) {

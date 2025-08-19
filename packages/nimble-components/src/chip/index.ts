@@ -1,4 +1,4 @@
-import { attr, observable } from '@ni/fast-element';
+import { attr, nullableNumberConverter, observable } from '@ni/fast-element';
 import {
     applyMixins,
     DesignSystem,
@@ -34,6 +34,17 @@ export class Chip extends FoundationElement {
     @attr()
     public appearance: ChipAppearance = 'outline';
 
+    @attr({ attribute: 'tabindex', converter: nullableNumberConverter })
+    public override tabIndex!: number;
+
+    /**
+     * @internal
+     */
+    public get resolvedTabIndex(): string | undefined {
+        const tabIndex = this.tabIndex ?? 0;
+        return this.disabled ? undefined : `${tabIndex}`;
+    }
+
     /** @internal */
     public readonly content?: HTMLElement[];
 
@@ -65,7 +76,10 @@ applyMixins(Chip, StartEnd);
 const nimbleChip = Chip.compose<ChipOptions>({
     baseName: 'chip',
     template,
-    styles
+    styles,
+    shadowOptions: {
+        delegatesFocus: true
+    }
 });
 
 DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleChip());
