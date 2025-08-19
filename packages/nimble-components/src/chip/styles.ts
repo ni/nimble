@@ -8,6 +8,7 @@ import {
     borderWidth,
     controlHeight,
     iconColor,
+    iconSize,
     mediumPadding,
     smallPadding
 } from '../theme-provider/design-tokens';
@@ -69,8 +70,8 @@ export const styles = css`
     }
 
     .remove-button {
-        height: 16px;
-        width: 16px;
+        height: ${iconSize};
+        width: ${iconSize};
         margin-right: calc(-1 * ${smallPadding});
     }
 `.withBehaviors(
