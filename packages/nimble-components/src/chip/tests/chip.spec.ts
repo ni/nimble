@@ -32,6 +32,7 @@ describe('Chip', () => {
         const removeEvent = jasmine.createSpy();
         element.addEventListener('remove', removeEvent);
         const pageObject = new ChipPageObject(element);
+        expect(pageObject.isRemoveButtonVisible()).toBeTrue();
         pageObject.clickRemoveButton();
         expect(removeEvent).toHaveBeenCalled();
     });
