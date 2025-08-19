@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Mon, 18 Aug 2025 15:41:13 GMT",
+      "version": "34.2.0",
+      "tag": "@ni/nimble-components_v34.2.0",
+      "comments": {
+        "none": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "87f3ea474615b78c1b97a19a90a62ea0b2e4ad7b",
+            "comment": "Nimble chip spec."
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 13 Aug 2025 22:39:13 GMT",
       "version": "34.2.0",
       "tag": "@ni/nimble-components_v34.2.0",

@@ -22,7 +22,7 @@ declare global {
 export type ChipOptions = FoundationElementDefinition & StartOptions;
 
 /**
- * A Nimble demo component (not for production use)
+ * A Nimble chip component
  */
 export class Chip extends FoundationElement {
     @attr({ mode: 'boolean' })
@@ -32,7 +32,7 @@ export class Chip extends FoundationElement {
     public disabled = false;
 
     @attr()
-    public appearance: ChipAppearance = 'outline';
+    public appearance: ChipAppearance = ChipAppearance.outline;
 
     @attr({ attribute: 'tabindex', converter: nullableNumberConverter })
     public override tabIndex!: number;

@@ -48,7 +48,6 @@ export const styles = css`
     }
 
     :host([disabled]) slot[name='start']::slotted(*),
-    :host([disabled]) slot[name='end']::slotted(*),
     :host([disabled]) .remove-button {
         opacity: 0.3;
         ${iconColor.cssCustomProperty}: ${bodyFontColor};
@@ -58,8 +57,7 @@ export const styles = css`
         flex-shrink: 0;
     }
 
-    [part='start'],
-    [part='end'] {
+    [part='start'] {
         display: contents;
         ${iconColor.cssCustomProperty}: ${bodyFontColor};
     }
