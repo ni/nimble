@@ -25,20 +25,12 @@ const metadata: Meta<ChipArgs> = {
     title: 'Components/Chip',
     render: createUserSelectedThemeStory(html`
     ${disableStorybookZoomTransform}
-        <div>
-            <${chipTag} appearance="${x => x.appearance}" ?removable="${x => x.removable}" ?start="${x => x.icon}" ?disabled="${x => x.disabled}">
-                ${x => x.content}
-                ${when(x => x.icon, html`
-                    <nimble-icon-check slot="start"></nimble-icon-check>
-                `)}
-            </${chipTag}>
-            <${chipTag} appearance="${x => x.appearance}" ?removable="${x => x.removable}" ?start="${x => x.icon}" ?disabled="${x => x.disabled}">
-                ${x => x.content}
-                ${when(x => x.icon, html`
-                    <nimble-icon-check slot="start"></nimble-icon-check>
-                `)}
-            </${chipTag}>
-        </div>
+        <${chipTag} appearance="${x => x.appearance}" ?removable="${x => x.removable}" ?start="${x => x.icon}" ?disabled="${x => x.disabled}">
+            ${x => x.content}
+            ${when(x => x.icon, html`
+                <nimble-icon-check slot="start"></nimble-icon-check>
+            `)}
+        </${chipTag}>
     `),
     argTypes: {
         appearance: {
