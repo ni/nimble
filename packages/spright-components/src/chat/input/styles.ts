@@ -7,7 +7,9 @@ import {
     controlLabelFontColor,
     elevation2BoxShadow,
     mediumPadding,
-    popupBorderColor
+    popupBorderColor,
+    borderHoverColor,
+    smallDelay
 } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
 import { display } from '../../utilities/style/display';
 
@@ -17,18 +19,34 @@ export const styles = css`
     :host {
         width: 100%;
         height: auto;
+        --ni-private-hover-indicator-width: calc(${borderWidth} + 1px);
     }
 
     .container {
-        display: grid;
-        grid-template-rows: auto 1fr;
-        grid-template-columns: 1fr auto;
+        display: flex;
+        flex-direction: column;
         width: 100%;
         height: 100%;
 
         background-color: ${applicationBackgroundColor};
         border: ${borderWidth} solid ${popupBorderColor};
         box-shadow: ${elevation2BoxShadow};
+    }
+
+    .container::after {
+        content: '';
+        position: relative;
+        bottom: calc(-1 * ${borderWidth});
+        width: 0px;
+        height: 0px;
+        align-self: center;
+        border-bottom: ${borderHoverColor}
+            var(--ni-private-hover-indicator-width) solid;
+        transition: width ${smallDelay} ease-in;
+    }
+
+    :host(:hover) .container::after {
+        width: 100%;
     }
 
     textarea {
@@ -55,8 +73,7 @@ export const styles = css`
     }
 
     .send-button {
-        grid-row: 2;
-        grid-column: 2;
+        align-self: flex-end;
         width: 80px;
         margin: ${mediumPadding};
     }
