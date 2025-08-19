@@ -48,7 +48,7 @@ describe('Chip', () => {
         element.disabled = true;
         await waitForUpdatesAsync();
         const pageObject = new ChipPageObject(element);
-        expect(pageObject.isRemoveButtonVisible()).toBe(false);
+        expect(pageObject.isRemoveButtonVisible()).toBeFalse();
     });
 
     describe('title overflow', () => {
