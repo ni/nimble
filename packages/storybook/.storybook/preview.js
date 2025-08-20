@@ -2,7 +2,7 @@ import { configureActions } from 'storybook/actions';
 import { SyntaxHighlighter } from 'storybook/internal/components';
 import csharp from 'react-syntax-highlighter/dist/esm/languages/prism/csharp';
 import '@ni/nimble-tokens/dist/fonts/css/fonts.css';
-import './preview.css';
+// import './preview.css';
 import { transformSource } from './transformSource';
 import {
     backgroundStates,
@@ -17,6 +17,13 @@ import {
     Divider,
     Tag
 } from './blocks/StoryLayout';
+import theme from './theme';
+import { InlineTableOfContents } from './blocks/InlineTOC';
+import { InlineGuideline } from './blocks/InlineGuideline';
+import { GuidelinesDo, GuidelinesDont } from './blocks/Guideline';
+import { DocsGrid } from './blocks/DocsGrid';
+import HyperlinkCard from './blocks/HyperlinkCard';
+import ExampleContainer from './blocks/ExampleContainer';
 
 SyntaxHighlighter.registerLanguage('cs', csharp);
 
@@ -64,7 +71,8 @@ const parameters = {
         source: {
             transform: transformSource
         },
-        toc: { headingSelector: 'h1, h2, h3' },
+        toc: { disable: true, headingSelector: 'h1, h2, h3' },
+        theme,
         components: {
             Container,
             Column,
@@ -72,7 +80,14 @@ const parameters = {
             Dont,
             Frame,
             Divider,
-            Tag
+            Tag,
+            InlineGuideline,
+            TableOfContents: InlineTableOfContents,
+            GuidelinesDo,
+            GuidelinesDont,
+            DocsGrid,
+            HyperlinkCard,
+            ExampleContainer
         }
     }
 };

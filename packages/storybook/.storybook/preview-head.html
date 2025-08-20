@@ -1,0 +1,108 @@
+<!-- Extra head content for the Docs iframe -->
+<link rel="stylesheet" href="/fonts/founders/founders.css" />
+
+<!-- Docs typography overrides (higher specificity via `.sbdocs`), per Storybook theming docs -->
+<style>
+	/* H1 — Founders Grotesk Medium 52/56 */
+	.sbdocs .sbdocs-title,
+	.sbdocs .sbdocs-h1 {
+		font-family: "Founders Grotesk", "Founders_Grotesk", "Open Sans", sans-serif;
+		font-weight: 500;
+		font-size: 52px;
+		line-height: 56px;
+		letter-spacing: 0.52px;
+		color: #161617;
+	}
+
+	/* H2 — Founders Grotesk Regular 32/34 */
+	.sbdocs h2 {
+		font-family: "Founders Grotesk", "Founders_Grotesk", "Open Sans", sans-serif;
+		font-weight: 400;
+		font-size: 32px;
+		line-height: 34px;
+		letter-spacing: 0.32px;
+		color: #161617;
+        margin-top: 32px;
+	}
+
+	/* H3 — Founders Grotesk Medium 23/28 */
+	.sbdocs h3 {
+		font-family: "Founders Grotesk", "Founders_Grotesk", "Open Sans", sans-serif;
+		font-weight: 500;
+		font-size: 23px;
+		line-height: 28px;
+		letter-spacing: 0.23px;
+		color: #161617;
+	}
+
+    .sbdocs h3:first-of-type {
+        margin-top: 24px;
+    }
+
+    /* Body text — Source Sans Pro Regular 16/22, 85% black */
+    .sbdocs-p,
+    .docs-story p,
+    .docs-story li,
+    .docs-story td,
+    .docs-story th,
+    .docs-story span.sbdocs {
+        font-family: "Source Sans Pro", "Open Sans", Arial, sans-serif;
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 22px;
+        color: rgba(22, 22, 23, 0.85);
+    }
+
+    /* Table headers, labels (uppercase small) — Source Sans Pro SemiBold 12.8/16, 60% black */
+    .docs-story th,
+    .docs-story .sbdocs-table th,
+    .docs-story .sbdocs-table thead td {
+        font-weight: 600;
+        font-size: 12.8px;
+        line-height: 16px;
+        color: rgba(22, 22, 23, 0.6);
+        text-transform: uppercase;
+    }
+
+    /* Muted text/icons — 60% black */
+    .docs-story .muted,
+    .docs-story .sbdocs-muted,
+    .docs-story .docblock-argstable-row .docblock-argstable-type,
+    .docs-story .docblock-argstable-head {
+        color: rgba(22, 22, 23, 0.6);
+    }
+
+    /* Reduce space between Canvas (Preview) and the next h4 heading */
+    .sbdocs .sbdocs-preview {
+        margin-bottom: 16px;
+    }
+    .sbdocs .sbdocs-preview + h4 {
+        margin-top: 16px;
+    }
+
+    /* Links — accent green and underlined */
+    .sbdocs-a,
+    .docs-story a {
+        color: #00734b;
+        text-decoration: underline;
+        text-underline-offset: 2px;
+    }
+
+    /* Docs Table of Contents (toc) */
+    .toc-list a,
+    .sbdocs-toc a {
+        font-family: "Source Sans Pro", "Open Sans", Arial, sans-serif;
+        font-weight: 600; /* SemiBold */
+        font-size: 17px;
+        line-height: 19px;
+    }
+
+    /* Dividers/HR — 10% black */
+    .docs-story hr,
+    .sbdocs-hr {
+        border: 0;
+        height: 1px;
+        background: #1616171a;
+    }
+
+</style>

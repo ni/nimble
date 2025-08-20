@@ -19,13 +19,9 @@ export default create({
 
     // UI
     appBg: White,
-    appContentBg: White,
+    appContentBg: '#FCFCFC',
     appBorderColor: Black30,
     appBorderRadius: 5,
-
-    // Typography
-    fontBase: '"Open Sans", sans-serif',
-    fontCode: 'monospace',
 
     // Text colors
     textColor: Black91,

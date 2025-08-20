@@ -1,32 +1,215 @@
 import { Canvas, Meta, Controls, Title } from '@storybook/addon-docs/blocks';
+import ButtonAnatomy from './images/Button.png';
 import ContentHiddenDocs from '../patterns/button/content-hidden-docs.mdx';
 import StylingDocs from '../patterns/button/styling-docs.mdx';
 import ComponentApisLink from '../../docs/component-apis-link.mdx';
 import { buttonTag } from '@ni/nimble-components/dist/esm/button';
 import { anchorButtonTag } from '@ni/nimble-components/dist/esm/anchor-button';
 import * as buttonStories from './button.stories';
+import { NimbleIconKey } from '@ni/nimble-react/dist/esm/icons/key';
+import { NimbleButton } from '@ni/nimble-react/dist/esm/button';
+import { NimbleSelect } from '@ni/nimble-react/dist/esm/select';
+import { NimbleListOption } from '@ni/nimble-react/dist/esm/list-option';
 
 <Meta of={buttonStories} />
 <Title of={buttonStories} />
 
-Per [W3C](https://www.w3.org/WAI/ARIA/apg/patterns/button/) - A button is a
-widget that enables users to trigger an action or event, such as submitting a
-form, opening a dialog, canceling an action, or performing a delete operation.
+## Overview
 
-Consider <Tag name={anchorButtonTag} /> if you want a button that triggers
-navigation to a URL.
+A button is a widget that enables users to trigger an action or event, such as
+submitting a form, opening a dialog, canceling an action, or performing a delete
+operation. _Source: [W3C](https://www.w3.org/WAI/ARIA/apg/patterns/button/)_
 
-<Canvas of={buttonStories.outlineButton} />
+<TableOfContents
+    title="On this page"
+    headingSelector="h2"
+    exclude={['Overview']}
+/>
 
-## API
+<img
+    alt="Button anatomy"
+    src={ButtonAnatomy}
+    style={{ maxWidth: '936px', width: '100%', display: 'block' }}
+/>
+
+## Implementation & API
 
 <Controls of={buttonStories.outlineButton} />
 
 <ComponentApisLink />
 
-## Styling
+## Usage
 
-<StylingDocs components={{ Button: buttonTag }} />
+### When to Use
+
+- Primary Actions: Use buttons for primary actions that users need to take, such
+  as submitting a form, saving changes, or proceeding to the next step.
+- Call to Action (CTA): Buttons are ideal for CTAs that encourage users to take
+  a specific action, like “Sign Up,” “Buy Now,” or “Learn More.”
+
+## Appearance & Styling
+
+Standard styling options for the button control are found below, in order of
+usage — most to least. Consider the surrounding context before employing an
+appearance variant.
+
+### 1. Ghost Button
+
+<Canvas of={buttonStories.ghostButton} />
+
+#### Your Go-to Option
+
+Consider the Ghost button as the default. Perfect for tight spaces and managing
+visual density, it can produce UIs that feel clean, airy, and open. Pairs well
+with Outline or Block buttons. Ensure your button doesn't blend in with body
+text, tabs, or links.
+
+### 2. Outline Button
+
+<Canvas of={buttonStories.outlineButton} />
+
+#### Slightly More Visible
+
+The Outline button serves as the secondary style, ideal when the Ghost button
+just isn't enough. It retains some of the Ghost button’s positive attributes,
+like a clean and light presence, while appearing more visually explicit about
+its functionality.
+
+### 3. Block Button
+
+<Canvas of={buttonStories.blockButton} />
+
+#### The Stand Out
+
+The Block button is more visually prominent and functionally direct than the
+Outline or Ghost options. Use it when higher visibility is a priority or in busy
+environments where important controls might be missed. This appearance helps
+ensure critical actions aren’t overlooked.
+
+### Button Variants
+
+There are two available values for appearanceVariant — primary and accent —
+which can be applied to either Outline or Block appearances. Use these variants
+to make a button stand out for a specific reason, distinguishing between actions
+that:
+
+- Allow the user to achieve their most routine or primary objective.
+- Enable the user to complete their current task.
+
+### 4. Primary Button
+
+<ExampleContainer>
+    <div style={{ display: 'flex', alignItems: 'center', gap: '48px' }}>
+        <NimbleButton appearance="outline" appearanceVariant="primary">
+            Primary outline
+        </NimbleButton>
+        <NimbleButton appearance="block" appearanceVariant="primary">
+            Primary outline
+        </NimbleButton>
+    </div>
+</ExampleContainer>
+
+#### Unmistakably Clear
+
+The Primary button variant takes Outline or Block buttons to the next level of
+visual prominence; with its monochromatic appearance, it can resolve
+context-specific color conflicts within a UI. Pair with Ghost buttons to ensure
+a clear visual hierarchy.
+
+<InlineGuideline>Note: There is no “Primary” Ghost button.</InlineGuideline>
+
+### 5. Accent Button
+
+<ExampleContainer>
+    <div style={{ display: 'flex', alignItems: 'flex-start', gap: '48px' }}>
+        <NimbleButton appearance="outline" appearanceVariant="accent">
+            Accent outline
+        </NimbleButton>
+        <NimbleButton appearance="block" appearanceVariant="accent">
+            Accent block
+        </NimbleButton>
+    </div>
+</ExampleContainer>
+
+#### Maximum Impact
+
+Applying the Accent button variant ensures maximum visual prominence and adds
+some enthusiasm while supporting the brand. Be mindful of color implications and
+accessibility constraints. Only use one Accent button per section. Pair with
+Ghost buttons to ensure a clear visual hierarchy.
+
+<InlineGuideline>Note: There is no “Accented” Ghost button.</InlineGuideline>
+
+### Button Guidelines
+
+<DocsGrid columns={2} minColumnWidth={300}>
+  <GuidelinesDo title="Create a Clear Button Hierarchy" 
+    copy="Combine one or more Ghost button(s) with another single button of the available button styles (Outline, Block, Primary or Accent) to establish a clear hierarchy of actions, with the most critical action belonging to the non-ghost button of the set. ">
+    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%' }}>
+      <div style={{ display: 'flex', alignItems: 'center' }}>
+        <NimbleButton appearance="ghost">{`Back`}</NimbleButton>
+      </div>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '24px' }}>
+  <NimbleButton appearance="outline">{`Cancel`}</NimbleButton>
+  <NimbleButton appearance="block">{`Continue`}</NimbleButton>
+      </div>
+    </div>
+  </GuidelinesDo>
+  <GuidelinesDont title="Don’t Confuse the User" copy="Avoid placing Ghost Buttons, in a location where the user may easily confuse the button for another element or non-button text.">
+  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: 4, width: 176 }}>
+    <NimbleSelect appearance="underline" style={{ width: '100%' }}>
+      <NimbleListOption value="" disabled selected hidden>Select value...</NimbleListOption>
+      <NimbleListOption value="1">Option 1</NimbleListOption>
+      <NimbleListOption value="2">Option 2</NimbleListOption>
+      <NimbleListOption value="3">Option 3</NimbleListOption>
+    </NimbleSelect>
+    <NimbleButton appearance="ghost">{`Systems`}</NimbleButton>
+  </div>
+</GuidelinesDont>
+  <GuidelinesDo title="Compete Less, Communicate More" 
+    copy="Only use one Primary button or Accent button per section for maximum impact.">
+    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%' }}>
+      <div style={{ display: 'flex', alignItems: 'center' }}>
+        <NimbleButton appearance="ghost">{`Back`}</NimbleButton>
+      </div>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '24px' }}>
+        <NimbleButton appearance="ghost">{`Cancel`}</NimbleButton>
+        <NimbleButton appearance="block" appearanceVariant="accent">{`Continue`}</NimbleButton>
+      </div>
+    </div>
+  </GuidelinesDo>
+  <GuidelinesDont title="Don’t Crowd the Bold" 
+    copy="Avoid placing multiple higher-impact elements in close proximity, as their competing visual weight can dilute overall effectiveness and disrupt hierarchy. Specifically don't mix Outline with Block buttons (or even Primary with Accent buttons).">
+  <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', width: '100%' }}>
+      {/* Row 1: Outline + Block (don’t mix weights) */}
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%' }}>
+        <div style={{ display: 'flex', alignItems: 'center' }}>
+          <NimbleButton appearance="ghost">{`Back`}</NimbleButton>
+        </div>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '24px' }}>
+          <NimbleButton appearance="outline">{`Cancel`}</NimbleButton>
+          <NimbleButton appearance="block">{`Continue`}</NimbleButton>
+        </div>
+      </div>
+
+{/* Divider to mirror Figma */}
+
+<div style={{ height: 2, width: '100%', background: 'rgba(22,22,23,0.09)' }} />
+
+      {/* Row 2: Primary Block + Accent Block (don’t mix variants) */}
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%' }}>
+        <div style={{ display: 'flex', alignItems: 'center' }}>
+          <NimbleButton appearance="ghost">{`Back`}</NimbleButton>
+        </div>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '24px' }}>
+          <NimbleButton appearance="block">{`Cancel`}</NimbleButton>
+          <NimbleButton appearance="block" appearanceVariant="accent">{`Continue`}</NimbleButton>
+        </div>
+      </div>
+    </div>
+
+  </GuidelinesDont>
+</DocsGrid>
 
 ### Sizing
 
@@ -34,12 +217,53 @@ Nimble Buttons are currently always 32px tall. Designs exist for other sizes; if
 you need these in an application, please comment on
 [Configurable height for nimble controls (#610)](https://github.com/ni/nimble/issues/610).
 
-{/* ## Usage */}
-
-{/* ## Examples */}
+{/* Spacing with Other components */}
 
 ## Accessibility
 
+### Accessible Icon Buttons
+
 <ContentHiddenDocs buttonElement="nimble-button" />
 
-{/* ## Resources */}
+### Keyboard Usage
+
+Keyboard accessibility is a critical component of our design system, ensuring
+that all users, including those with disabilities, can navigate and interact
+with our products efficiently. By adhering to best practices for keyboard usage,
+we create a more inclusive and user-friendly experience.
+
+## Alternatives & Related
+
+### Alternative to Consider
+
+Consider using a `nimble-anchor-button` if you need a button that triggers
+navigation to a URL.
+
+### Related
+
+<DocsGrid columns={4}>
+    <HyperlinkCard
+        href="https://www.w3.org/WAI/ARIA/apg/patterns/button/"
+        title="W3C Button Pattern"
+    >
+        Learn more about button patterns and accessibility.
+    </HyperlinkCard>
+    <HyperlinkCard
+        href="?path=/docs/components-anchor-button--docs"
+        title="Anchor Button"
+    >
+        Additional context or a short description can go here.
+    </HyperlinkCard>
+    <HyperlinkCard
+        href="?path=/docs/components-card-button--docs"
+        title="Card Button"
+    >
+        Additional context or a short description can go here.
+    </HyperlinkCard>
+    <HyperlinkCard
+        href="?path=/docs/components-menu-button--docs"
+        title="Menu Button"
+    >
+        Additional context or a short description can go here.
+    </HyperlinkCard>
+</DocsGrid>

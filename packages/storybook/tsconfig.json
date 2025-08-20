@@ -45,5 +45,10 @@
             ]
         }
     },
-    "include": ["src"]
+    "include": [
+        "src",
+        ".storybook/**/*.ts",
+        ".storybook/**/*.tsx",
+        ".storybook/**/*.d.ts"
+    ]
 }
