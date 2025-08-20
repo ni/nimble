@@ -56,8 +56,7 @@ export const styles = css`
         box-shadow: none;
     }
 
-    :host([disabled]) slot[name='start']::slotted(*),
-    :host([disabled]) .remove-button {
+    :host([disabled]) slot[name='start']::slotted(*) {
         opacity: 0.3;
         ${iconColor.cssCustomProperty}: ${bodyFontColor};
     }
@@ -87,11 +86,8 @@ export const styles = css`
         ChipAppearance.block,
         css`
             :host {
-                background-image: linear-gradient(
-                    rgba(${borderRgbPartialColor}, 0.1),
-                    rgba(${borderRgbPartialColor}, 0.1)
-                );
-                border-color: rgba(${borderRgbPartialColor}, 0.1);
+                background-color: rgba(${borderRgbPartialColor}, 0.1);
+                border-color: transparent;
             }
 
             :host(${focusVisible}) {
