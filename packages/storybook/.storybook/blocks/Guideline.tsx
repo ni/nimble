@@ -116,7 +116,7 @@ const CopyText = styled('p')(({ theme }) => ({
   margin: '6px 0 0 0',
   fontFamily: `'Source Sans Pro', 'Source_Sans_Pro', ${theme.typography.fonts.base}`,
   fontWeight: 400,
-  fontSize: 16,
+  fontSize: 15,
   lineHeight: '21px',
   color: TEXT_DEFAULT,
 }));
