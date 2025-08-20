@@ -22,7 +22,7 @@ export class ChipPageObject {
         }
     }
 
-    private getRemoveButton(): Button | null {
+    public getRemoveButton(): Button | null {
         return (
             this.chipElement.shadowRoot?.querySelector<Button>(
                 '.remove-button'

@@ -51,6 +51,41 @@ describe('Chip', () => {
         expect(pageObject.isRemoveButtonVisible()).toBeFalse();
     });
 
+    it('should set a tabindex of 0 on the internal button', async () => {
+        element.removable = true;
+        await waitForUpdatesAsync();
+        const pageObject = new ChipPageObject(element);
+        expect(pageObject.getRemoveButton()!.getAttribute('tabindex')).toBe(
+            '0'
+        );
+    });
+
+    it('should reflect `tabindex` value to the internal button', async () => {
+        element.removable = true;
+        await waitForUpdatesAsync();
+        const pageObject = new ChipPageObject(element);
+
+        element.setAttribute('tabindex', '-1');
+        await waitForUpdatesAsync();
+
+        expect(pageObject.getRemoveButton()!.getAttribute('tabindex')).toBe(
+            '-1'
+        );
+    });
+
+    it('should set the `tabindex` attribute to 0 on the internal button when removed from host', async () => {
+        element.removable = true;
+        await waitForUpdatesAsync();
+        const pageObject = new ChipPageObject(element);
+
+        element.removeAttribute('tabindex');
+        await waitForUpdatesAsync();
+
+        expect(pageObject.getRemoveButton()!.getAttribute('tabindex')).toBe(
+            '0'
+        );
+    });
+
     describe('title overflow', () => {
         beforeEach(async () => {
             element.style.width = '200px';

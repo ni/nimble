@@ -7,6 +7,7 @@ import type { Chip, ChipOptions } from '.';
 import { overflow } from '../utilities/directive/overflow';
 import { buttonTag } from '../button';
 import { iconTimesTag } from '../icons/times';
+import { ButtonAppearance } from '../button/types';
 
 // prettier-ignore
 export const template: FoundationElementTemplate<
@@ -32,7 +33,7 @@ ChipOptions
             <${buttonTag}
                 class="remove-button"
                 content-hidden
-                appearance="ghost"
+                appearance="${ButtonAppearance.ghost}"
                 tabindex="${x => x.resolvedTabIndex}"
                 @click="${x => x.handleRemoveClick()}"
             >
