@@ -15,7 +15,7 @@ interface ChipArgs {
     appearance: keyof typeof ChipAppearance;
     removable: boolean;
     content: string;
-    start: boolean;
+    icon: boolean;
     disabled?: boolean;
     remove: undefined;
 }
@@ -25,9 +25,9 @@ const metadata: Meta<ChipArgs> = {
     title: 'Components/Chip',
     render: createUserSelectedThemeStory(html`
     ${disableStorybookZoomTransform}
-        <${chipTag} appearance="${x => x.appearance}" ?removable="${x => x.removable}" ?start="${x => x.start}" ?disabled="${x => x.disabled}">
+        <${chipTag} appearance="${x => x.appearance}" ?removable="${x => x.removable}" ?start="${x => x.icon}" ?disabled="${x => x.disabled}">
             ${x => x.content}
-            ${when(x => x.start, html`
+            ${when(x => x.icon, html`
                 <nimble-icon-check slot="start"></nimble-icon-check>
             `)}
         </${chipTag}>
@@ -50,10 +50,10 @@ const metadata: Meta<ChipArgs> = {
             table: { category: apiCategory.attributes },
             control: { type: 'boolean' }
         },
-        start: {
+        icon: {
             name: 'start',
             description:
-                'Icon to be displayed to the left of the chip content.',
+                'Set `slot="start"` to show an icon to the left of the chip content.',
             table: { category: apiCategory.slots }
         },
         content: {
@@ -71,7 +71,7 @@ const metadata: Meta<ChipArgs> = {
         appearance: 'outline',
         removable: false,
         content: 'Homer Simpson',
-        start: false,
+        icon: false,
         disabled: false
     }
 };

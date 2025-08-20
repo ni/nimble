@@ -10,7 +10,7 @@ export class ChipPageObject {
 
     public isRemoveButtonVisible(): boolean {
         const removeButton = this.getRemoveButton();
-        return removeButton ? removeButton.offsetParent !== null : false;
+        return removeButton ? removeButton !== null : false;
     }
 
     public clickRemoveButton(): void {

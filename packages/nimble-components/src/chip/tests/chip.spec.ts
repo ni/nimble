@@ -32,6 +32,7 @@ describe('Chip', () => {
         const removeEvent = jasmine.createSpy();
         element.addEventListener('remove', removeEvent);
         const pageObject = new ChipPageObject(element);
+        expect(pageObject.isRemoveButtonVisible()).toBeTrue();
         pageObject.clickRemoveButton();
         expect(removeEvent).toHaveBeenCalled();
     });
@@ -40,14 +41,14 @@ describe('Chip', () => {
         element.removable = false;
         await waitForUpdatesAsync();
         const pageObject = new ChipPageObject(element);
-        expect(pageObject.isRemoveButtonVisible()).toBe(false);
+        expect(pageObject.isRemoveButtonVisible()).toBeFalse();
     });
 
     it('remove button is not visible when disabled', async () => {
         element.disabled = true;
         await waitForUpdatesAsync();
         const pageObject = new ChipPageObject(element);
-        expect(pageObject.isRemoveButtonVisible()).toBe(false);
+        expect(pageObject.isRemoveButtonVisible()).toBeFalse();
     });
 
     describe('title overflow', () => {

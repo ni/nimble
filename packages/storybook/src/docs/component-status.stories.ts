@@ -297,7 +297,7 @@ const components = [
         blazorStatus: ComponentFrameworkStatus.ready
     },
     {
-        componentName: 'Picker (Chip/Pill)',
+        componentName: 'Picker (Chip)',
         designHref:
             'https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/18a0e4f6-6541-4420-a6b5-cb79652a97dc/',
         designLabel: 'XD',
