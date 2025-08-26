@@ -519,6 +519,12 @@ export const iconMetadata: {
     IconPotWithLid: {
         tags: ['box', 'utilities']
     },
+    IconPrint: {
+        tags: ['laser', 'inkjet', 'printer']
+    },
+    IconQrcodeRead: {
+        tags: ['scan', 'view', 'quick', 'response']
+    },
     IconQuestion: {
         tags: ['help']
     },
