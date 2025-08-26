@@ -522,7 +522,7 @@ export const iconMetadata: {
     IconPrint: {
         tags: ['laser', 'inkjet', 'printer']
     },
-    IconQrCode: {
+    IconQrcodeRead: {
         tags: ['scan', 'view']
     },
     IconQuestion: {
