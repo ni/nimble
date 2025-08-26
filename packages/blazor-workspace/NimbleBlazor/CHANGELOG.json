@@ -2,6 +2,27 @@
   "name": "@ni/nimble-blazor",
   "entries": [
     {
+      "date": "Tue, 26 Aug 2025 21:52:25 GMT",
+      "version": "20.6.0",
+      "tag": "@ni/nimble-blazor_v20.6.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-blazor",
+            "comment": "Bump @ni/nimble-components to v34.3.0",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-blazor",
+            "comment": "Bump @ni/nimble-tokens to v8.12.0",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 13 Aug 2025 22:39:13 GMT",
       "version": "20.5.0",
       "tag": "@ni/nimble-blazor_v20.5.0",

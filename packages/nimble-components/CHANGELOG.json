@@ -2,6 +2,27 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 26 Aug 2025 21:52:25 GMT",
+      "version": "34.3.0",
+      "tag": "@ni/nimble-components_v34.3.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "12396505dddd43d6aa08547150f2d818540894b7",
+            "comment": "New icons for print and QR code scan"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/nimble-tokens to v8.12.0",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 18 Aug 2025 15:41:13 GMT",
       "version": "34.2.0",
       "tag": "@ni/nimble-components_v34.2.0",
