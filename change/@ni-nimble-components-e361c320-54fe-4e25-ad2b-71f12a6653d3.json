@@ -3,5 +3,5 @@
   "comment": "New icons for print and QR code scan",
   "packageName": "@ni/nimble-components",
   "email": "jattasNI@users.noreply.github.com",
-  "dependentChangeType": "patch"
+  "dependentChangeType": "minor"
 }
