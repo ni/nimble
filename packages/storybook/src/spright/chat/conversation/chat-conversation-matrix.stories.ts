@@ -57,12 +57,6 @@ const contentHeightStates = [
 ] as const;
 type ContentHeightStates = (typeof contentHeightStates)[number];
 
-const hideBackgroundStates = [
-    ['hide-background:true', true],
-    ['hide-background:false', false]
-] as const;
-type HideBackgroundStates = (typeof hideBackgroundStates)[number];
-
 const componentSizing = (
     [_messageTypeLabel, messageType]: MessageTypeStates,
     [viewportLabel, viewportWidth, viewportHeight]: ViewportStates,
