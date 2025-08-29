@@ -1,8 +1,17 @@
 # Change Log - @ni/nimble-react
 
-<!-- This log was last generated on Wed, 13 Aug 2025 22:39:13 GMT and should not be manually modified. -->
+<!-- This log was last generated on Tue, 26 Aug 2025 21:52:25 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 0.3.0
+
+Tue, 26 Aug 2025 21:52:25 GMT
+
+### Minor changes
+
+- Bump @ni/nimble-tokens to v8.12.0
+- Bump @ni/nimble-components to v34.3.0
 
 ## 0.2.0
 

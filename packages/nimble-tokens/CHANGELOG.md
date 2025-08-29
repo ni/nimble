@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-tokens
 
-<!-- This log was last generated on Wed, 13 Aug 2025 22:39:13 GMT and should not be manually modified. -->
+<!-- This log was last generated on Tue, 26 Aug 2025 21:52:25 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 8.12.0
+
+Tue, 26 Aug 2025 21:52:25 GMT
+
+### Minor changes
+
+- New icons for print and QR code scan ([ni/nimble@1239650](https://github.com/ni/nimble/commit/12396505dddd43d6aa08547150f2d818540894b7))
 
 ## 8.11.0
 
