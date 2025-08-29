@@ -92,9 +92,7 @@ const componentWithPlaceholder = (
     </${chatInputTag}>
 `;
 
-const interactionStates = cartesianProduct([
-    placeholderStates
-] as const);
+const interactionStates = cartesianProduct([placeholderStates] as const);
 
 export const interactionsThemeMatrix: StoryFn = createMatrixThemeStory(
     createMatrixInteractionsFromStates(componentWithPlaceholder, {
