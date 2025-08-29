@@ -20,6 +20,7 @@ export const styles = css`
         width: 100%;
         height: auto;
         outline: none;
+        --ni-private-hover-indicator-width: calc(${borderWidth} + 1px);    
     }
 
     .container {
@@ -41,14 +42,8 @@ export const styles = css`
         width: 0px;
         height: 0px;
         align-self: center;
-        border-bottom: ${borderHoverColor} 2px solid;
+        border-bottom: ${borderHoverColor} var(--ni-private-hover-indicator-width) solid;
         transition: width ${smallDelay} ease-in;
-    }
-
-    @media (prefers-reduced-motion) {
-        :host::before {
-            transition-duration: 0s;
-        }
     }
 
     :host(:hover) .container::after {
@@ -56,9 +51,8 @@ export const styles = css`
         transition: width ${smallDelay} ease-in;
     }
 
-    :host(:focus-within) .container::after {
-        border-bottom-width: 1px;
-        width: 100%;
+    :host(:focus-within) .container {
+        border-bottom-color: ${borderHoverColor};
     }
 
     @media (prefers-reduced-motion) {
@@ -68,9 +62,6 @@ export const styles = css`
     }
 
     textarea {
-        grid-row: 1;
-        grid-column: 1 / 3;
-
         font: ${bodyFont};
         color: ${bodyFontColor};
         background-color: transparent;
