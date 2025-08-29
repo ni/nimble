@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "Add hover and focus styling to spright-chat-input",
+  "packageName": "@ni/spright-components",
+  "email": "26874831+atmgrifter00@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
