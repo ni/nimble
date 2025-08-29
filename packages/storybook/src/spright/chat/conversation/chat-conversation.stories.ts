@@ -33,6 +33,7 @@ import { loremIpsum } from '../../../utilities/lorem-ipsum';
 import { isChromatic } from '../../../utilities/isChromatic';
 
 interface ChatConversationArgs {
+    hideBackground: boolean;
     content: string;
     input: boolean;
     conversationRef: ChatConversation;
@@ -57,7 +58,7 @@ export const chatConversation: StoryObj<ChatConversationArgs> = {
                 max-height: 600px;
             }
         </style>
-        <${chatConversationTag} ${ref('conversationRef')}>
+        <${chatConversationTag} ${ref('conversationRef')} ?hide-background="${x => x.hideBackground}">
             <${chatMessageTag} message-type="${() => ChatMessageType.system}">
                 To start, press any key.
             </${chatMessageTag}>
@@ -115,6 +116,10 @@ export const chatConversation: StoryObj<ChatConversationArgs> = {
         </${chatConversationTag}>
     `),
     argTypes: {
+        hideBackground: {
+            description: 'Whether to hide the background of the chat conversation.',
+            table: { category: apiCategory.attributes }
+        },
         content: {
             name: 'default',
             description:
@@ -130,6 +135,7 @@ export const chatConversation: StoryObj<ChatConversationArgs> = {
         }
     },
     args: {
+        hideBackground: false,
         input: true,
         sendMessage: (event, conversationRef) => {
             const message = document.createElement(chatMessageTag);

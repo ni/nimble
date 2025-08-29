@@ -57,6 +57,12 @@ const contentHeightStates = [
 ] as const;
 type ContentHeightStates = (typeof contentHeightStates)[number];
 
+const hideBackgroundStates = [
+    ['hide-background:true', true],
+    ['hide-background:false', false]
+] as const;
+type HideBackgroundStates = (typeof hideBackgroundStates)[number];
+
 const componentSizing = (
     [_messageTypeLabel, messageType]: MessageTypeStates,
     [viewportLabel, viewportWidth, viewportHeight]: ViewportStates,
@@ -70,7 +76,7 @@ const componentSizing = (
         margin-bottom: 0px;
         "
     >
-        viewport:${() => viewportLabel}, content:${() => contentWidthLabel},${() => contentHeightLabel} 
+        viewport:${() => viewportLabel}, content:${() => contentWidthLabel},${() => contentHeightLabel}
     </p>
     <div style="
         width: ${viewportWidth};
@@ -217,6 +223,31 @@ const conversationWithInput = (
 export const conversationWithInputSizing: StoryFn = createMatrixThemeStory(html`
     ${createMatrix(conversationWithInput, [heightStates])}
 `);
+
+export const conversationBackground: StoryFn = createStory(
+    html`
+        <p>hide-background: true</p>
+        <${chatConversationTag} hide-background="true">
+            <${chatMessageTag} message-type="inbound">
+                <span>Hello.</span>
+            </${chatMessageTag}>
+            <${chatMessageTag} message-type="outbound">
+                <span>Greetings!</span>
+            </${chatMessageTag}>
+            <${chatInputTag} slot='input'></${chatInputTag}>
+        </${chatConversationTag}>
+        <p>hide-background: false</p>
+        <${chatConversationTag} hide-background="false">
+            <${chatMessageTag} message-type="inbound">
+                <span>Hello.</span>
+            </${chatMessageTag}>
+            <${chatMessageTag} message-type="outbound">
+                <span>Greetings!</span>
+            </${chatMessageTag}>
+            <${chatInputTag} slot='input'></${chatInputTag}>
+        </${chatConversationTag}>
+    `
+);
 
 export const hidden: StoryFn = createStory(
     hiddenWrapper(

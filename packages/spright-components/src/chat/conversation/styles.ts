@@ -17,6 +17,10 @@ export const styles = css`
         border: ${borderWidth} solid ${applicationBackgroundColor};
     }
 
+    :host([hide-background]) {
+        background: transparent;
+    }
+
     .messages {
         flex: 1;
         display: flex;
@@ -27,6 +31,10 @@ export const styles = css`
             ${standardPadding};
         background: ${sectionBackgroundImage};
         overflow-y: auto;
+    }
+
+    :host([hide-background]) .messages {
+        background: transparent;
     }
 
     .input {
