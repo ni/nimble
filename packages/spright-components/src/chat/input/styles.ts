@@ -20,9 +20,6 @@ export const styles = css`
         width: 100%;
         height: auto;
         outline: none;
-        --ni-private-hover-indicator-width: calc(${borderWidth} + 1px);
-        --ni-private-focus-indicator-width: 1px;
-        --ni-private-indicator-lines-gap: 2px;
     }
 
     .container {
@@ -37,15 +34,14 @@ export const styles = css`
         box-shadow: ${elevation2BoxShadow};
     }
 
-    .container::before {
+    .container::after {
         content: '';
         position: absolute;
-        bottom: calc(${borderWidth} + var(--ni-private-indicator-lines-gap));
+        bottom: calc(-1 * ${borderWidth});
         width: 0px;
         height: 0px;
         align-self: center;
-        border-bottom: ${borderHoverColor}
-            var(--ni-private-focus-indicator-width) solid;
+        border-bottom: ${borderHoverColor} 2px solid;
         transition: width ${smallDelay} ease-in;
     }
 
@@ -55,29 +51,18 @@ export const styles = css`
         }
     }
 
-    :host(:focus-within) .container::before {
-        width: calc(100% - 8px);
-    }
-
-    .container::after {
-        content: '';
-        position: relative;
-        bottom: calc(-1 * ${borderWidth});
-        width: 0px;
-        height: 0px;
-        align-self: center;
-        border-bottom: ${borderHoverColor}
-            var(--ni-private-hover-indicator-width) solid;
+    :host(:hover) .container::after {
+        width: 100%;
         transition: width ${smallDelay} ease-in;
     }
 
-    :host(:hover) .container::after,
     :host(:focus-within) .container::after {
+        border-bottom-width: 1px;
         width: 100%;
     }
 
     @media (prefers-reduced-motion) {
-        :host::after {
+        .container::after {
             transition-duration: 0s;
         }
     }
