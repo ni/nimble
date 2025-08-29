@@ -1,0 +1,7 @@
+{
+  "type": "minor",
+  "comment": "Add API to hide background visual for chat conversation.",
+  "packageName": "@ni/spright-components",
+  "email": "26874831+atmgrifter00@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
