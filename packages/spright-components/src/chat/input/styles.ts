@@ -20,7 +20,7 @@ export const styles = css`
         width: 100%;
         height: auto;
         outline: none;
-        --ni-private-hover-indicator-width: calc(${borderWidth} + 1px);    
+        --ni-private-hover-indicator-width: calc(${borderWidth} + 1px);
     }
 
     .container {
@@ -42,7 +42,8 @@ export const styles = css`
         width: 0px;
         height: 0px;
         align-self: center;
-        border-bottom: ${borderHoverColor} var(--ni-private-hover-indicator-width) solid;
+        border-bottom: ${borderHoverColor}
+            var(--ni-private-hover-indicator-width) solid;
         transition: width ${smallDelay} ease-in;
     }
 
