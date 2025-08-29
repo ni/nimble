@@ -117,7 +117,8 @@ export const chatConversation: StoryObj<ChatConversationArgs> = {
     `),
     argTypes: {
         hideBackground: {
-            description: 'Whether to hide the background of the chat conversation.',
+            description:
+                'Whether to hide the background of the chat conversation.',
             table: { category: apiCategory.attributes }
         },
         content: {
