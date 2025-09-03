@@ -10,6 +10,7 @@ import {
 } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
 import { buttonTag } from '@ni/nimble-components/dist/esm/button';
 import { iconThumbUpTag } from '@ni/nimble-components/dist/esm/icons/thumb-up';
+import { ChatConversationAppearance } from '@ni/spright-components/dist/esm/chat/conversation/types';
 import { hiddenWrapper } from '../../../utilities/hidden';
 import { createStory } from '../../../utilities/storybook';
 import {
@@ -56,6 +57,12 @@ const contentHeightStates = [
     ['tall', '600px']
 ] as const;
 type ContentHeightStates = (typeof contentHeightStates)[number];
+
+const appearanceStates = [
+    ['default', ChatConversationAppearance.default],
+    ['overlay', ChatConversationAppearance.overlay]
+] as const;
+type AppearanceStates = (typeof appearanceStates)[number];
 
 const componentSizing = (
     [_messageTypeLabel, messageType]: MessageTypeStates,
@@ -218,30 +225,33 @@ export const conversationWithInputSizing: StoryFn = createMatrixThemeStory(html`
     ${createMatrix(conversationWithInput, [heightStates])}
 `);
 
-export const conversationBackground: StoryFn = createStory(
-    html`
-        <p>hide-background: true</p>
-        <${chatConversationTag} hide-background="true">
-            <${chatMessageTag} message-type="inbound">
-                <span>Hello.</span>
-            </${chatMessageTag}>
-            <${chatMessageTag} message-type="outbound">
-                <span>Greetings!</span>
-            </${chatMessageTag}>
-            <${chatInputTag} slot='input'></${chatInputTag}>
-        </${chatConversationTag}>
-        <p>hide-background: false</p>
-        <${chatConversationTag} hide-background="false">
-            <${chatMessageTag} message-type="inbound">
-                <span>Hello.</span>
-            </${chatMessageTag}>
-            <${chatMessageTag} message-type="outbound">
-                <span>Greetings!</span>
-            </${chatMessageTag}>
-            <${chatInputTag} slot='input'></${chatInputTag}>
-        </${chatConversationTag}>
-    `
-);
+const conversationWithAppearance = ([
+    appearanceLabel,
+    appearance
+]: AppearanceStates): ViewTemplate => html`
+    <p         
+        style="
+        font: var(${bodyFont.cssCustomProperty});
+        color: var(${bodyFontColor.cssCustomProperty});
+        margin-bottom: 0px;
+        "
+    >
+        appearance: ${() => appearanceLabel}
+    </p>
+    <${chatConversationTag} appearance="${() => appearance}">
+        <${chatMessageTag} message-type="inbound">
+            <span>Hello.</span>
+        </${chatMessageTag}>
+        <${chatMessageTag} message-type="outbound">
+            <span>Greetings!</span>
+        </${chatMessageTag}>
+        <${chatInputTag} slot='input'></${chatInputTag}>
+    </${chatConversationTag}>
+`;
+
+export const conversationAppearance: StoryFn = createMatrixThemeStory(html`
+    ${createMatrix(conversationWithAppearance, [appearanceStates])}
+`);
 
 export const hidden: StoryFn = createStory(
     hiddenWrapper(

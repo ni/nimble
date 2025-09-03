@@ -33,8 +33,13 @@ export const styles = css`
         overflow-y: auto;
     }
 
-    :host([hide-background]) .messages {
-        background: transparent;
+    :host([appearance='overlay']) {
+        background: none;
+        border-color: transparent;
+    }
+
+    :host([appearance='overlay']) .messages {
+        background: none;
     }
 
     .input {

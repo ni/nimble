@@ -24,6 +24,7 @@ import { iconThumbDownTag } from '@ni/nimble-components/dist/esm/icons/thumb-dow
 import { iconArrowRotateRightTag } from '@ni/nimble-components/dist/esm/icons/arrow-rotate-right';
 import { iconThreeDotsLineTag } from '@ni/nimble-components/dist/esm/icons/three-dots-line';
 import { SpinnerAppearance } from '@ni/nimble-components/dist/esm/spinner/types';
+import { ChatConversationAppearance } from '@ni/spright-components/dist/esm/chat/conversation/types';
 import {
     apiCategory,
     createUserSelectedThemeStory
@@ -33,7 +34,7 @@ import { loremIpsum } from '../../../utilities/lorem-ipsum';
 import { isChromatic } from '../../../utilities/isChromatic';
 
 interface ChatConversationArgs {
-    hideBackground: boolean;
+    appearance: keyof typeof ChatConversationAppearance;
     content: string;
     input: boolean;
     conversationRef: ChatConversation;
@@ -58,7 +59,7 @@ export const chatConversation: StoryObj<ChatConversationArgs> = {
                 max-height: 600px;
             }
         </style>
-        <${chatConversationTag} ${ref('conversationRef')} ?hide-background="${x => x.hideBackground}">
+        <${chatConversationTag} ${ref('conversationRef')} appearance="${x => x.appearance}">
             <${chatMessageTag} message-type="${() => ChatMessageType.system}">
                 To start, press any key.
             </${chatMessageTag}>
@@ -116,9 +117,10 @@ export const chatConversation: StoryObj<ChatConversationArgs> = {
         </${chatConversationTag}>
     `),
     argTypes: {
-        hideBackground: {
-            description:
-                'Whether to hide the background of the chat conversation.',
+        appearance: {
+            options: Object.keys(ChatConversationAppearance),
+            control: { type: 'radio' },
+            description: 'The appearance of the chat conversation.',
             table: { category: apiCategory.attributes }
         },
         content: {
@@ -136,7 +138,7 @@ export const chatConversation: StoryObj<ChatConversationArgs> = {
         }
     },
     args: {
-        hideBackground: false,
+        appearance: 'default',
         input: true,
         sendMessage: (event, conversationRef) => {
             const message = document.createElement(chatMessageTag);

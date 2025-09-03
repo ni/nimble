@@ -2,6 +2,7 @@ import { DesignSystem, FoundationElement } from '@ni/fast-foundation';
 import { attr, observable } from '@ni/fast-element';
 import { styles } from './styles';
 import { template } from './template';
+import { ChatConversationAppearance } from './types';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -13,8 +14,8 @@ declare global {
  * A Spright component for displaying a series of chat messages
  */
 export class ChatConversation extends FoundationElement {
-    @attr({ mode: 'boolean', attribute: 'hide-background' })
-    public hideBackground = false;
+    @attr
+    public appearance = ChatConversationAppearance.default;
 
     /** @internal */
     @observable
