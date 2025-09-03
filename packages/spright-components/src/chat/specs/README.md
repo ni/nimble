@@ -188,6 +188,9 @@ richText.markdown = 'Welcome **Homer**, how can I help?';
 
 - _Component Name_ `spright-chat-conversation`
 - _Props/Attrs_
+    - `appearance`
+        - `undefined` (default): provides a vertical gradient background and a 1-pixel border
+        - `overlay`: hides the background and border of the spright-chat-conversation
 - _Methods_
 - _Events_
 - _CSS Classes and CSS Custom Properties that affect the component_
