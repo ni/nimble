@@ -46,8 +46,15 @@ const itemHrefDescription = `${defaultHrefDescription} If the last breadcrumb it
 export const _standardBreadcrumb: StoryObj<BreadcrumbArgs> = {
     // prettier-ignore
     render: createUserSelectedThemeStory(html`
+    <div
+        style="resize: both;
+        width:200px;
+        border: 1px solid lightgray;
+        overflow: hidden;"
+    >
         <${breadcrumbTag}
             appearance="${x => BreadcrumbAppearance[x.appearance]}"
+
         >
             ${repeat(x => x.options, html<ItemArgs, BreadcrumbArgs>`
                 <${breadcrumbItemTag}
@@ -57,6 +64,7 @@ export const _standardBreadcrumb: StoryObj<BreadcrumbArgs> = {
                 </${breadcrumbItemTag}>
             `)}
         </${breadcrumbTag}>
+    </div>
 `),
     // eslint-disable-next-line storybook/no-redundant-story-name
     name: 'Standard Breadcrumb',
