@@ -1,0 +1,42 @@
+# Copilot Instructions for ni/nimble Repository
+
+# Coding Practices
+- Follow the [NI JavaScript and TypeScript Styleguide](https://github.com/ni/javascript-styleguide) for all JavaScript and TypeScript code.
+- Exceptions and additional conventions for some packages are documented in their specific CONTRIBUTING.md files and in [packages/nimble-components/docs/coding-conventions.md](packages/nimble-components/docs/coding-conventions.md).
+- Use `const` objects instead of TypeScript enums, and default enum values where appropriate.
+- Use kebab-case for CSS class names.
+- Component CSS should adhere to [CSS Guidelines](packages/nimble-components/docs/css-guidelines.md).
+- Represent control states as attributes rather than classes; see conventions in [nimble-components CONTRIBUTING](packages/nimble-components/CONTRIBUTING.md).
+- All classes and public APIs should have block comments.
+
+# Repository & Tooling
+- The repo is a monorepo managed by NPM workspaces.
+- Linting is enforced via ESLint and automated formatting using Prettier ESLint. Use `npm run lint` and `npm run format`.
+- Recommended VS Code extensions are listed in `.vscode/extensions.json`; default formatter is set in `.vscode/settings.json`.
+- Testing is performed with Karma, Jasmine, bUnit, and Playwright.
+- Releases are managed with [beachball](https://microsoft.github.io/beachball/).
+- Dependency updates are automated via Renovate.
+
+# Documentation
+- Documentation for consumers: `README.md` files.
+- Documentation for contributors: `CONTRIBUTING.md` files.
+- Documentation is hierarchical: repo-wide at root, package-specific per package, utility/component-specific in source or `docs` folders.
+- Use relative links from the root for documentation.
+
+# Pull Request Policies
+- Keep PRs small, high-quality, and well-tested. Each PR should add incremental value and avoid introducing technical debt.
+- Each PR affecting a published package must include a beachball change file (`npm run change`).
+- Perform a self-review before requesting peer review.
+- Add a local peer reviewer. New contributors should include their team contact.
+- Owners listed in `.github/CODEOWNERS` must approve changes to files they own.
+- Use squash merges for PRs and copy the PR description into the squash commit message.
+- Status checks (lint, tests, dependency review) must pass before merging.
+- Trivial changes may skip some steps; use good judgement.
+
+# Dependency Management
+- Dependency Review action will block PRs with known vulnerabilities.
+- Renovate PRs should be completed or rejected by code owners, with a beachball change file added for version bumps.
+
+# Additional References
+- See [Nimble architecture](docs/Architecture.md) for design principles.
+- For component design assets, refer to the Figma and XD libraries linked in CONTRIBUTING.md.
