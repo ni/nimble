@@ -3,7 +3,7 @@ import remarkGfm from 'remark-gfm';
 
 // All files participating in storybook should be in src
 // so that TypeScript and linters can track them correctly
-export const stories = ['../src/docs', '../src/nimble', '../src/spright'];
+export const stories = ['../src/docs', '../src/nimble', '../src/spright', '../src/aight'];
 export const addons = [
     {
         name: getAbsolutePath('@storybook/addon-docs'),
@@ -32,12 +32,20 @@ export async function viteFinal(config) {
     // Keep in sync with tsconfig.json
     config.resolve.alias = [
         {
+            find: '@ni/aight-components/dist/esm',
+            replacement: '@ni/aight-components/src'
+        },
+        {
             find: '@ni/nimble-components/dist/esm',
             replacement: '@ni/nimble-components/src'
         },
         {
             find: '@ni/spright-components/dist/esm',
             replacement: '@ni/spright-components/src'
+        },
+        {
+            find: '@ni/aight-react/dist/esm',
+            replacement: '@ni/aight-react/src'
         },
         {
             find: '@ni/nimble-react/dist/esm',

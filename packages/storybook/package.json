@@ -21,6 +21,8 @@
     "@ni/fast-react-wrapper": "^10.1.2",
     "@ni/fast-web-utilities": "^10.0.0",
     "@ni/nimble-components": "*",
+    "@ni/aight-components": "*",
+    "@ni/aight-react": "*",
     "@ni/nimble-react": "*",
     "@ni/nimble-tokens": "*",
     "@ni/spright-components": "*",
