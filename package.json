@@ -48,6 +48,7 @@
     "packages/aight-components",
     "packages/react-workspace/nimble-react",
     "packages/react-workspace/spright-react",
+    "packages/react-workspace/aight-react",
     "packages/react-workspace/react-client-app",
     "packages/storybook",
     "packages/angular-workspace",

@@ -58,9 +58,12 @@ import { NimbleRichTextViewer } from '@ni/nimble-react/dist/esm/rich-text/viewer
 import { SprightChatConversation } from '@ni/spright-react/dist/esm/chat/conversation';
 import { SprightChatInput } from '@ni/spright-react/dist/esm/chat/input';
 import { SprightChatMessage } from '@ni/spright-react/dist/esm/chat/message';
-import { SprightRectangle } from '@ni/spright-react/dist/esm/rectangle';
 import { NimbleIconCopyText } from '@ni/nimble-react/dist/esm/icons/copy-text';
 import { NimbleIconWebviCustom } from '@ni/nimble-react/dist/esm/icons/webvi-custom';
+
+import { SprightRectangle } from '@ni/spright-react/dist/esm/rectangle';
+
+import { AightAightAight } from '@ni/aight-react/dist/esm/aight-aight';
 
 import './App.scss';
 import { useRef, useState } from 'react';
@@ -690,6 +693,10 @@ export function App(): JSX.Element {
                     <div className="sub-container">
                         <div className="container-label">Rectangle (Spright)</div>
                         <SprightRectangle>Spright!</SprightRectangle>
+                    </div>
+                    <div className="sub-container">
+                        <div className="container-label">Aight Aight (Aight)</div>
+                        <AightAightAight>Aight!</AightAightAight>
                     </div>
                 </div>
             </div>
