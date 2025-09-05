@@ -22,7 +22,9 @@ describe('AightAight', () => {
     });
 
     it('can construct an element instance', () => {
-        expect(document.createElement(aightAightTag)).toBeInstanceOf(AightAight);
+        expect(document.createElement(aightAightTag)).toBeInstanceOf(
+            AightAight
+        );
     });
 
     it('should have a slot element in the shadow DOM', async () => {
