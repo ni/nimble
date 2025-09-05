@@ -44,6 +44,18 @@ The Spright packages contain components that are built using Nimble technology a
 - [`SprightBlazor`](/packages/blazor-workspace/SprightBlazor/) - Blazor bindings for Spright components.
 - [`@ni/spright-components`](/packages/spright-components/) - Spright components to be used by [any  type of application](https://custom-elements-everywhere.com/).
 
+### Aight packages
+
+The Aight packages contain experimental components that are built using Nimble technology.
+
+[![Aight Angular NPM version and repo link](https://img.shields.io/npm/v/@ni/aight-angular.svg?label=@ni/aight-angular)](https://www.npmjs.com/package/@ni/aight-angular)
+[![Aight Blazor Nuget version and repo link](https://img.shields.io/nuget/v/AightBlazor.svg?label=AightBlazor)](https://www.nuget.org/packages/AightBlazor)
+[![Aight Components NPM version and repo link](https://img.shields.io/npm/v/@ni/aight-components.svg?label=@ni/aight-components)](https://www.npmjs.com/package/@ni/aight-components)
+
+- [`@ni/aight-angular`](/packages/angular-workspace/aight-angular/) - Angular bindings for Aight components.
+- [`AightBlazor`](/packages/blazor-workspace/AightBlazor/) - Blazor bindings for Aight components.
+- [`@ni/aight-components`](/packages/aight-components/) - Aight components to be used by [any  type of application](https://custom-elements-everywhere.com/).
+
 ### Utility packages
 
 Tools and utilities hosted in the repository.
