@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Initial aight package release",
-  "packageName": "@ni/aight-components",
-  "email": "rajsite@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}

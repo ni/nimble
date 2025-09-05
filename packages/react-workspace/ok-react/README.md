@@ -1,7 +1,7 @@
 <div align="center">
-    <p><b>ni | aight | react</b></p>
+    <p><b>ni | ok | react</b></p>
 </div>
 
-# Aight React
+# Ok React
 
 Work in progress alpha package

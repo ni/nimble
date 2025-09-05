@@ -1,15 +1,15 @@
 import { html } from '@ni/fast-element';
-import { AightAight, aightAightTag } from '..';
+import { Button, buttonTag } from '..';
 import { fixture, type Fixture } from '../../utilities/tests/fixture';
 
-async function setup(): Promise<Fixture<AightAight>> {
-    return await fixture<AightAight>(
-        html`<${aightAightTag}></${aightAightTag}>`
+async function setup(): Promise<Fixture<Button>> {
+    return await fixture<Button>(
+        html`<${buttonTag}></${buttonTag}>`
     );
 }
 
-describe('AightAight', () => {
-    let element: AightAight;
+describe('Button', () => {
+    let element: Button;
     let connect: () => Promise<void>;
     let disconnect: () => Promise<void>;
 
@@ -22,8 +22,8 @@ describe('AightAight', () => {
     });
 
     it('can construct an element instance', () => {
-        expect(document.createElement(aightAightTag)).toBeInstanceOf(
-            AightAight
+        expect(document.createElement(buttonTag)).toBeInstanceOf(
+            Button
         );
     });
 

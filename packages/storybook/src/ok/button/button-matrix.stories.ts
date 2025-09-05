@@ -1,6 +1,6 @@
 import type { StoryFn, Meta } from '@storybook/html-vite';
 import { html, ViewTemplate } from '@ni/fast-element';
-import { aightAightTag } from '@ni/aight-components/dist/esm/aight-aight';
+import { buttonTag } from '@ni/ok-components/dist/esm/button';
 import {
     createMatrix,
     sharedMatrixParameters,
@@ -17,7 +17,7 @@ import {
 } from '../../utilities/states';
 
 const metadata: Meta = {
-    title: 'Tests Aight/Aight-Aight',
+    title: 'Tests Ok/Button',
     parameters: {
         ...sharedMatrixParameters()
     }
@@ -29,10 +29,10 @@ const component = ([
     disabledName,
     disabled
 ]: DisabledState): ViewTemplate => html`
-    <${aightAightTag}
+    <${buttonTag}
         ?disabled=${() => disabled}
         style="margin-right: 8px;">
-            ${() => `${disabledName} Aight-Aight`}</${aightAightTag}>
+            ${() => `${disabledName} Button`}</${buttonTag}>
 `;
 
 export const themeMatrix: StoryFn = createMatrixThemeStory(
@@ -54,6 +54,6 @@ export const interactionsThemeMatrix: StoryFn = createMatrixThemeStory(
 
 export const hidden: StoryFn = createStory(
     hiddenWrapper(
-        html`<${aightAightTag} hidden>Hidden Rectangle</${aightAightTag}>`
+        html`<${buttonTag} hidden>Hidden Rectangle</${buttonTag}>`
     )
 );

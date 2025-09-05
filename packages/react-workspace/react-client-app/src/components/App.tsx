@@ -63,7 +63,7 @@ import { NimbleIconWebviCustom } from '@ni/nimble-react/dist/esm/icons/webvi-cus
 
 import { SprightRectangle } from '@ni/spright-react/dist/esm/rectangle';
 
-import { AightAightAight } from '@ni/aight-react/dist/esm/aight-aight';
+import { OkButton } from '@ni/ok-react/dist/esm/button';
 
 import './App.scss';
 import { useRef, useState } from 'react';
@@ -695,8 +695,8 @@ export function App(): JSX.Element {
                         <SprightRectangle>Spright!</SprightRectangle>
                     </div>
                     <div className="sub-container">
-                        <div className="container-label">Aight Aight (Aight)</div>
-                        <AightAightAight>Aight!</AightAightAight>
+                        <div className="container-label">Button (Ok)</div>
+                        <OkButton>Ok</OkButton>
                     </div>
                 </div>
             </div>

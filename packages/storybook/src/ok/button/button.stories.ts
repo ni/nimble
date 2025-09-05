@@ -1,43 +1,43 @@
 import type { Meta, StoryObj } from '@storybook/html-vite';
 import { html } from '@ni/fast-element';
-import { aightAightTag } from '@ni/aight-components/dist/esm/aight-aight';
+import { buttonTag } from '@ni/ok-components/dist/esm/button';
 import {
     apiCategory,
     createUserSelectedThemeStory,
     disabledDescription
 } from '../../utilities/storybook';
 
-interface AightAightArgs {
+interface OkButtonArgs {
     text: string;
     disabled: boolean;
 }
 
-const metadata: Meta<AightAightArgs> = {
-    title: 'Aight/Aight-Aight',
+const metadata: Meta<OkButtonArgs> = {
+    title: 'Ok/Button',
     parameters: {
         actions: {}
     },
     render: createUserSelectedThemeStory(html`
-        <${aightAightTag}
+        <${buttonTag}
             ?disabled="${x => x.disabled}"
-        >${x => x.text}</${aightAightTag}>
+        >${x => x.text}</${buttonTag}>
     `),
     argTypes: {
         text: {
-            description: 'The text to display in the Aight Aight.',
+            description: 'The text to display in the Ok Button.',
             table: { category: apiCategory.slots }
         },
         disabled: {
-            description: disabledDescription({ componentName: 'aight aight' }),
+            description: disabledDescription({ componentName: 'ok button' }),
             table: { category: apiCategory.attributes }
         }
     },
     args: {
-        text: 'Aight Aight Aight',
+        text: 'Ok',
         disabled: false
     }
 };
 
 export default metadata;
 
-export const aightAight: StoryObj<AightAightArgs> = {};
+export const button: StoryObj<OkButtonArgs> = {};

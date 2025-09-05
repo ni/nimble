@@ -44,17 +44,17 @@ The Spright packages contain components that are built using Nimble technology a
 - [`SprightBlazor`](/packages/blazor-workspace/SprightBlazor/) - Blazor bindings for Spright components.
 - [`@ni/spright-components`](/packages/spright-components/) - Spright components to be used by [any  type of application](https://custom-elements-everywhere.com/).
 
-### Aight packages
+### Ok packages
 
-The Aight packages contain experimental components that are built using Nimble technology.
+The Ok packages contain experimental components that are built using Nimble technology.
 
-[![Aight Angular NPM version and repo link](https://img.shields.io/npm/v/@ni/aight-angular.svg?label=@ni/aight-angular)](https://www.npmjs.com/package/@ni/aight-angular)
-[![Aight Blazor Nuget version and repo link](https://img.shields.io/nuget/v/AightBlazor.svg?label=AightBlazor)](https://www.nuget.org/packages/AightBlazor)
-[![Aight Components NPM version and repo link](https://img.shields.io/npm/v/@ni/aight-components.svg?label=@ni/aight-components)](https://www.npmjs.com/package/@ni/aight-components)
+[![Ok Angular NPM version and repo link](https://img.shields.io/npm/v/@ni/ok-angular.svg?label=@ni/ok-angular)](https://www.npmjs.com/package/@ni/ok-angular)
+[![Ok Blazor Nuget version and repo link](https://img.shields.io/nuget/v/OkBlazor.svg?label=OkBlazor)](https://www.nuget.org/packages/OkBlazor)
+[![Ok Components NPM version and repo link](https://img.shields.io/npm/v/@ni/ok-components.svg?label=@ni/ok-components)](https://www.npmjs.com/package/@ni/ok-components)
 
-- [`@ni/aight-angular`](/packages/angular-workspace/aight-angular/) - Angular bindings for Aight components.
-- [`AightBlazor`](/packages/blazor-workspace/AightBlazor/) - Blazor bindings for Aight components.
-- [`@ni/aight-components`](/packages/aight-components/) - Aight components to be used by [any  type of application](https://custom-elements-everywhere.com/).
+- [`@ni/ok-angular`](/packages/angular-workspace/ok-angular/) - Angular bindings for Ok components.
+- [`OkBlazor`](/packages/blazor-workspace/OkBlazor/) - Blazor bindings for Ok components.
+- [`@ni/ok-components`](/packages/ok-components/) - Ok components to be used by [any  type of application](https://custom-elements-everywhere.com/).
 
 ### Utility packages
 

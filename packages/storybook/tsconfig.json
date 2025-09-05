@@ -33,16 +33,16 @@
         // Support Chromatic Turbosnap in a monorepo
         // Keep in sync with .storybook/main.js vite config
         "paths": {
-            "@ni/aight-components/dist/esm/*": ["../aight-components/src/*"],
             "@ni/nimble-components/dist/esm/*": ["../nimble-components/src/*"],
+            "@ni/ok-components/dist/esm/*": ["../ok-components/src/*"],
             "@ni/spright-components/dist/esm/*": [
                 "../spright-components/src/*"
             ],
-            "@ni/aight-react/dist/esm/*": [
-                "../react-workspace/aight-react/src/*"
-            ],
             "@ni/nimble-react/dist/esm/*": [
                 "../react-workspace/nimble-react/src/*"
+            ],
+            "@ni/ok-react/dist/esm/*": [
+                "../react-workspace/ok-react/src/*"
             ],
             "@ni/spright-react/dist/esm/*": [
                 "../react-workspace/spright-react/src/*"

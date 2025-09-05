@@ -1,9 +1,9 @@
 {
-  "name": "@ni/aight-react",
+  "name": "@ni/ok-react",
   "version": "0.0.1",
-  "description": "React components for NI Aight",
+  "description": "React components for NI Ok Components",
   "keywords": [
-    "Aight",
+    "Ok",
     "react"
   ],
   "scripts": {
@@ -16,7 +16,7 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ni/nimble.git",
-    "directory": "packages/react-workspace/aight-react"
+    "directory": "packages/react-workspace/ok-react"
   },
   "publishConfig": {
     "access": "public"
@@ -29,7 +29,7 @@
   },
   "peerDependencies": {
     "@ni/fast-react-wrapper": "^10.1.2",
-    "@ni/aight-components": "^0.0.1",
+    "@ni/ok-components": "^0.0.1",
     "react": "^16 || ^17 || ^18"
   }
 }
