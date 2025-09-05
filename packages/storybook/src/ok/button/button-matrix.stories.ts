@@ -53,7 +53,5 @@ export const interactionsThemeMatrix: StoryFn = createMatrixThemeStory(
 );
 
 export const hidden: StoryFn = createStory(
-    hiddenWrapper(
-        html`<${buttonTag} hidden>Hidden Rectangle</${buttonTag}>`
-    )
+    hiddenWrapper(html`<${buttonTag} hidden>Hidden Rectangle</${buttonTag}>`)
 );

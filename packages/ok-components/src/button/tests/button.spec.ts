@@ -3,9 +3,7 @@ import { Button, buttonTag } from '..';
 import { fixture, type Fixture } from '../../utilities/tests/fixture';
 
 async function setup(): Promise<Fixture<Button>> {
-    return await fixture<Button>(
-        html`<${buttonTag}></${buttonTag}>`
-    );
+    return await fixture<Button>(html`<${buttonTag}></${buttonTag}>`);
 }
 
 describe('Button', () => {
@@ -22,9 +20,7 @@ describe('Button', () => {
     });
 
     it('can construct an element instance', () => {
-        expect(document.createElement(buttonTag)).toBeInstanceOf(
-            Button
-        );
+        expect(document.createElement(buttonTag)).toBeInstanceOf(Button);
     });
 
     it('should have a slot element in the shadow DOM', async () => {
