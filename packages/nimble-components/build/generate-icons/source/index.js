@@ -213,12 +213,12 @@ for (const key of Object.keys(icons)) {
         );
     }
 
-    const multiColorSetup = hasLayers
-        ? `        // Multi-color icon: set data flag & layer CSS custom properties\n        this.setAttribute('data-multicolor', '');\n${layerTokens
+    const multiColorConnectedCallback = hasLayers
+        ? `    public override connectedCallback() {\n        super.connectedCallback();\n        // Apply multi-color setup lazily to avoid constructor attribute mutation issues (WebKit)\n        if (!this.hasAttribute('data-multicolor')) {\n            this.setAttribute('data-multicolor', '');\n${layerTokens
             .map(
-                (tokenName, idx) => `        this.style.setProperty('--ni-nimble-icon-layer-${idx + 1}-color', 'var(' + ${tokenName}.cssCustomProperty + ')');`
+                (tokenName, idx) => `            this.style.setProperty('--ni-nimble-icon-layer-${idx + 1}-color', 'var(' + ${tokenName}.cssCustomProperty + ')');`
             )
-            .join('\n')}`
+            .join('\n')}\n        }\n    }\n`
         : '';
 
     const componentFileContents = `${generatedFilePrefix}
@@ -236,8 +236,8 @@ declare global {
 export class ${className} extends Icon {
     public constructor() {
         super(${svgName});
-${multiColorSetup ? `${multiColorSetup}\n` : ''}    }
-}
+    }
+${multiColorConnectedCallback}}
 registerIcon('${elementBaseName}', ${className});
 export const ${tagName} = '${elementName}';
 `;
