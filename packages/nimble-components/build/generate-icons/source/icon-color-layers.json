@@ -1,4 +1,0 @@
-{
-    "_comment": "Map trimmed icon name (without size suffix) to an ordered array of design token names exported from theme-provider/design-tokens.ts. These tokens will be applied to successive SVG classes .cls-1, .cls-2, etc.",
-    "circlePartialBroken": ["graphGridlineColor", "warningColor"]
-}

@@ -77,3 +77,61 @@ These steps require access to Adobe Illustrator and Perforce so will typically b
 5. Run `npm run build -w @ni/nimble-components` again. It should now succeed.
 6. Preview the built files by running: `npm run storybook`, and review the **Icons** story to confirm that your changes appear correctly. Inspect the icons in each **Severity** and ensure their color changes.
 7. Publish a PR with your changes. If there are any new icons, set `changeType` and `dependentChangeType` to minor in the beachball change file.
+
+#### Multi-color (layered) icons
+
+Some icons need more than a single (severity) color. Nimble supports up to six ordered color “layers” per icon. This section is the canonical reference for authoring multi‑color icons.
+
+Workflow overview:
+
+1. In this tokens package, edit the SVG in `source/icons` and apply sequential `cls-1`, `cls-2`, … classes to each colored region that should receive a different themed color. Re‑use a class for shapes sharing a color.
+2. Avoid hard‑coded thematic `fill` values. Omit `fill` or use `currentColor` for regions that should inherit the host color. Only keep literal colors for intentionally fixed brand/art portions.
+3. In the components package, add or update the corresponding `Icon<Name>` entry in `nimble-components/src/icon-base/tests/icon-metadata.ts` with a `layers` array. Each entry is the exported token name from `theme-provider/design-tokens.ts` (e.g. `warningColor`, `iconColor`). Order matters: index 0 -> `cls-1`, index 1 -> `cls-2`, etc.
+4. Run the icon generator (`npm run generate-icons -w @ni/nimble-components`) or a full build. The generator now parses the TypeScript metadata directly (no need for an intermediate two‑pass compile) and will log parsed multi‑color layers.
+5. Open Storybook and verify each layer’s color across light/dark themes. Confirm the icon host has `data-multicolor` and inline style variables `--ni-nimble-icon-layer-N-color`.
+
+Authoring checklist:
+
+- Classes: Use contiguous numbering (`cls-1`, `cls-2`, …). Do not skip numbers; fallbacks rely on sequence.
+- Max layers: 6 (additional layers will not get distinct CSS variables; consolidate or propose extension first).
+- Token names: Prefer existing semantic tokens; propose new tokens in design review rather than hard‑coding colors.
+- Metadata key: Must begin with `Icon` (e.g. `IconCirclePartialBroken`) so the generator can strip the prefix to form the component class name.
+
+How colors map:
+
+During generation, each token in `layers` is imported and the component constructor executes:
+
+`this.style.setProperty('--ni-nimble-icon-layer-N-color', 'var(' + token.cssCustomProperty + ')');`
+
+Base styles apply:
+
+```
+.cls-1 { fill: var(--ni-nimble-icon-layer-1-color); }
+.cls-2 { fill: var(--ni-nimble-icon-layer-2-color, var(--ni-nimble-icon-layer-1-color)); }
+... up to 6
+```
+
+Each higher layer falls back to the previous, then ultimately to the host `color`, ensuring resilience if metadata or variables are partially missing.
+
+Severity interaction:
+
+`data-multicolor` is added to layered icon hosts; severity‑based single‑color overrides only apply when this attribute is absent, preventing accidental recoloring.
+
+When to use multi‑color:
+
+Reserve layered colors for conveying distinct semantic parts (e.g., partial progress, warning overlay). Don’t add extra colors purely for decoration.
+
+Common pitfalls:
+
+* Missing / non‑sequential `cls-N` classes → unexpected fallback colors.
+* Hard‑coded fills overriding theme variables.
+* Forgot to add `layers` array → icon treated as single‑color.
+* More than 6 layers specified → layers beyond six ignored.
+
+Testing recommendations:
+
+* Visual check in Storybook across light/dark themes and with/without severity attribute.
+* Inspect element to confirm CSS variables and `data-multicolor`.
+* (Optional) Temporarily change a theme token value to ensure the correct shapes update.
+
+For a quick reference from components, see the abbreviated note in that package’s CONTRIBUTING file.
