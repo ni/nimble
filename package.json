@@ -53,6 +53,7 @@
     "packages/storybook",
     "packages/angular-workspace",
     "packages/angular-workspace/nimble-angular",
+    "packages/angular-workspace/ok-angular",
     "packages/angular-workspace/spright-angular",
     "packages/blazor-workspace",
     "packages/blazor-workspace/NimbleBlazor",
