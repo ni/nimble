@@ -11,6 +11,8 @@ const icons = require('@ni/nimble-tokens/dist/icons/js/index.js');
 const fs = require('fs');
 const path = require('path');
 
+const MAX_LAYERS = 6; // Keep in sync with CSS rules in icon-base/styles.ts
+
 const trimSizeFromName = text => {
     // Remove dimensions from icon name, e.g. "add16X16" -> "add"
     return text.replace(/\d+X\d+$/, '');
@@ -23,6 +25,7 @@ const generatedFilePrefix = '// AUTO-GENERATED FILE - DO NOT EDIT DIRECTLY\n// S
 // yields zero layer entries. This ensures immediate reflection of edits
 // without needing a TS build between passes.
 const layerMapping = {};
+let multiColorIconCount = 0; // tracked later during generation
 try {
     const tsSourcePath = path.resolve(
         __dirname,
@@ -118,6 +121,31 @@ try {
     );
 }
 
+// Collect exported design token names for validation (best-effort; non-fatal if file missing)
+const designTokenNames = new Set();
+try {
+    const designTokensPath = path.resolve(
+        __dirname,
+        '../../../src/theme-provider/design-tokens.ts'
+    );
+    if (fs.existsSync(designTokensPath)) {
+        const dtSource = fs.readFileSync(designTokensPath, 'utf-8');
+        const exportConstRegex = /export const (\w+)/g;
+        for (
+            let m = exportConstRegex.exec(dtSource);
+            m;
+            m = exportConstRegex.exec(dtSource)
+        ) {
+            designTokenNames.add(m[1]);
+        }
+    }
+} catch (dtErr) {
+    console.warn(
+        '[generate-icons] unable to parse design tokens for validation',
+        dtErr
+    );
+}
+
 const iconsDirectory = path.resolve(__dirname, '../../../src/icons');
 
 if (fs.existsSync(iconsDirectory)) {
@@ -143,9 +171,29 @@ for (const key of Object.keys(icons)) {
     const className = `Icon${pascalCase(iconName)}`; // e.g. "IconArrowExpanderLeft"
     const tagName = `icon${pascalCase(iconName)}Tag`; // e.g. "iconArrowExpanderLeftTag"
 
-    const layerTokens = layerMapping[iconName];
-    const hasLayers = Array.isArray(layerTokens) && layerTokens.length > 0;
+    const rawLayerTokens = layerMapping[iconName];
+    const hasLayers = Array.isArray(rawLayerTokens) && rawLayerTokens.length > 0;
+    let layerTokens = rawLayerTokens;
+    if (hasLayers && rawLayerTokens.length > MAX_LAYERS) {
+        console.warn(
+            `[generate-icons] multi-color: ${iconName} specifies ${rawLayerTokens.length} layers (> ${MAX_LAYERS}); layers beyond ${MAX_LAYERS} will be ignored.`
+        );
+        layerTokens = rawLayerTokens.slice(0, MAX_LAYERS);
+    }
     const uniqueLayerTokens = hasLayers ? [...new Set(layerTokens)] : [];
+    if (hasLayers && uniqueLayerTokens.length !== layerTokens.length) {
+        console.warn(
+            `[generate-icons] multi-color: ${iconName} has duplicate token entries (${layerTokens.join(', ')}). Duplicates are allowed but may indicate metadata noise.`
+        );
+    }
+    if (hasLayers) {
+        const unknown = uniqueLayerTokens.filter(t => !designTokenNames.has(t));
+        if (unknown.length) {
+            console.warn(
+                `[generate-icons] multi-color: ${iconName} references unknown design token(s): ${unknown.join(', ')}.`
+            );
+        }
+    }
 
     let layerTokenImport = '';
     if (hasLayers) {
@@ -155,6 +203,7 @@ for (const key of Object.keys(icons)) {
     }
 
     if (hasLayers) {
+        multiColorIconCount += 1;
         console.log(
             `[generate-icons] multi-color: ${iconName} -> ${layerTokens.join(', ')}`
         );
@@ -201,7 +250,10 @@ export const ${tagName} = '${elementName}';
         `export { ${className} } from './${fileName}';\n`
     );
 }
-console.log(`Finshed writing ${fileCount} icon component files`);
+console.log(`Finished writing ${fileCount} icon component files`);
+console.log(
+    `[generate-icons] multi-color summary: ${multiColorIconCount} icon(s) with layers (max supported layers per icon: ${MAX_LAYERS}).`
+);
 
 const allIconsFilePath = path.resolve(iconsDirectory, 'all-icons.ts');
 console.log('Writing all-icons file');
