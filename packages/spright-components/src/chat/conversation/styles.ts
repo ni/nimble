@@ -17,6 +17,11 @@ export const styles = css`
         border: ${borderWidth} solid ${applicationBackgroundColor};
     }
 
+    :host([appearance='overlay']) {
+        background: none;
+        border-color: transparent;
+    }
+
     .messages {
         flex: 1;
         display: flex;
@@ -27,6 +32,10 @@ export const styles = css`
             ${standardPadding};
         background: ${sectionBackgroundImage};
         overflow-y: auto;
+    }
+
+    :host([appearance='overlay']) .messages {
+        background: none;
     }
 
     .input {
