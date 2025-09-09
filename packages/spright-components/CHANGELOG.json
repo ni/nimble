@@ -2,6 +2,21 @@
   "name": "@ni/spright-components",
   "entries": [
     {
+      "date": "Tue, 09 Sep 2025 16:30:01 GMT",
+      "version": "6.3.0",
+      "tag": "@ni/spright-components_v6.3.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/spright-components",
+            "commit": "6fcca9e8d1299b319977ab98adc23d8cd12017b7",
+            "comment": "Add API to hide background visual for chat conversation."
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 09 Sep 2025 14:52:54 GMT",
       "version": "6.2.1",
       "tag": "@ni/spright-components_v6.2.1",
