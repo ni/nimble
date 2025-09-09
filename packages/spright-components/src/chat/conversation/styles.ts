@@ -17,8 +17,9 @@ export const styles = css`
         border: ${borderWidth} solid ${applicationBackgroundColor};
     }
 
-    :host([hide-background]) {
-        background: transparent;
+    :host([appearance='overlay']) {
+        background: none;
+        border-color: transparent;
     }
 
     .messages {
@@ -31,11 +32,6 @@ export const styles = css`
             ${standardPadding};
         background: ${sectionBackgroundImage};
         overflow-y: auto;
-    }
-
-    :host([appearance='overlay']) {
-        background: none;
-        border-color: transparent;
     }
 
     :host([appearance='overlay']) .messages {
