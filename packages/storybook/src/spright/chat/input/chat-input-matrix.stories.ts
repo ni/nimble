@@ -8,7 +8,9 @@ import { chatInputTag } from '@ni/spright-components/dist/esm/chat/input';
 import {
     sharedMatrixParameters,
     createMatrixThemeStory,
-    createMatrix
+    createMatrix,
+    cartesianProduct,
+    createMatrixInteractionsFromStates
 } from '../../../utilities/matrix';
 import { createStory } from '../../../utilities/storybook';
 import { hiddenWrapper } from '../../../utilities/hidden';
@@ -70,4 +72,33 @@ export const hidden: StoryFn = createStory(
 
 export const textCustomized: StoryFn = createMatrixThemeStory(
     textCustomizationWrapper(html`<${chatInputTag}></${chatInputTag}>`)
+);
+
+// prettier-ignore
+const componentWithPlaceholder = (
+    [_, placeholder]: PlaceholderState
+): ViewTemplate => html`
+    <p 
+        style="
+        font: var(${bodyFont.cssCustomProperty});
+        color: var(${bodyFontColor.cssCustomProperty});
+        margin-bottom: 0px;
+        "
+    >    
+    </p>
+    <${chatInputTag}
+        placeholder="${placeholder}"
+    >
+    </${chatInputTag}>
+`;
+
+const interactionStates = cartesianProduct([placeholderStates] as const);
+
+export const interactionsThemeMatrix: StoryFn = createMatrixThemeStory(
+    createMatrixInteractionsFromStates(componentWithPlaceholder, {
+        hover: interactionStates,
+        hoverActive: interactionStates,
+        active: [],
+        focus: interactionStates
+    })
 );
