@@ -19,7 +19,7 @@ module.exports = {
                     message: 'Do not directly use underlying libraries of nimble. Instead rely on or add to exports of nimble packages.'
                 },
                 {
-                    group: ['@ni/nimble-components', '@ni/spright-components'],
+                    group: ['@ni/*-components'],
                     message: 'Client Angular applications should not directly depend on web component packages.'
                 }]
                 }],

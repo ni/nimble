@@ -33,10 +33,8 @@ module.exports = {
                     },
                     {
                         group: [
-                            '@ni/nimble-components/**/tests',
-                            '@ni/nimble-components/**/testing',
-                            '@ni/spright-components/**/tests',
-                            '@ni/spright-components/**/testing'
+                            '@ni/*-components/**/tests',
+                            '@ni/*-components/**/testing',
                         ],
                         message: 'Do not use test code/utilities in production code.'
                     }]

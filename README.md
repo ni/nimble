@@ -54,7 +54,7 @@ The Ok packages contain experimental components that are built using Nimble tech
 
 - [`@ni/ok-angular`](/packages/angular-workspace/ok-angular/) - Angular bindings for Ok components.
 - [`OkBlazor`](/packages/blazor-workspace/OkBlazor/) - Blazor bindings for Ok components.
-- [`@ni/ok-components`](/packages/ok-components/) - Ok components to be used by [any  type of application](https://custom-elements-everywhere.com/).
+- [`@ni/ok-components`](/packages/ok-components/) - Ok components to be used by [any type of application](https://custom-elements-everywhere.com/).
 
 ### Utility packages
 
