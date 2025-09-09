@@ -42,6 +42,15 @@ in addition to selecting from the list.
 <Description of={listOptionGroupStories} />
 <Controls of={listOptionGroupStories.listOptionGroup} />
 
+### Angular
+
+In Angular, an <Tag name={listOptionTag} /> can be created with an `ngValue`. In
+that scenario, especially when using a `filter-mode` of `manual`, a
+[`compareWith` implementation](https://angular.dev/api/forms/SelectControlValueAccessor#customizing-option-selection)
+should be provided on the Select control. Without this, the Select may display
+unexpected behavior (like reverting to the placeholder value when updating the
+list of filtered options).
+
 ## Styling
 
 By default, the select control resizes to the selected option size. In most
