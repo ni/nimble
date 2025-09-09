@@ -1,8 +1,16 @@
 # Change Log - @ni/spright-components
 
-<!-- This log was last generated on Tue, 26 Aug 2025 21:52:25 GMT and should not be manually modified. -->
+<!-- This log was last generated on Tue, 09 Sep 2025 14:52:54 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 6.2.1
+
+Tue, 09 Sep 2025 14:52:54 GMT
+
+### Patches
+
+- Add hover and focus styling to spright-chat-input ([ni/nimble@a14a55f](https://github.com/ni/nimble/commit/a14a55f8c59b9be5c6c01d5d732222837974e5ca))
 
 ## 6.2.0
 
