@@ -37,19 +37,20 @@ in addition to selecting from the list.
 <Description of={listOptionStories} />
 <Controls of={listOptionStories.listOption} />
 
+#### Angular
+
+In Angular, a <Tag name={listOptionTag} />
+[can be created](https://angular.dev/api/forms/NgSelectOption) with a string
+`value` or an object `ngValue`. When using `ngValue`, provide a
+[`compareWith` implementation](https://angular.dev/api/forms/SelectControlValueAccessor#customizing-option-selection)
+on the Select control. Without this, the Select may display unexpected behavior
+(like reverting to the placeholder value when updating the list of filtered
+options).
+
 ### List Option Group
 
 <Description of={listOptionGroupStories} />
 <Controls of={listOptionGroupStories.listOptionGroup} />
-
-### Angular
-
-In Angular, an <Tag name={listOptionTag} /> can be created with an `ngValue`. In
-that scenario, especially when using a `filter-mode` of `manual`, a
-[`compareWith` implementation](https://angular.dev/api/forms/SelectControlValueAccessor#customizing-option-selection)
-should be provided on the Select control. Without this, the Select may display
-unexpected behavior (like reverting to the placeholder value when updating the
-list of filtered options).
 
 ## Styling
 
