@@ -6,7 +6,6 @@ import { tableColumnMappingTag } from '@ni/nimble-components/dist/esm/table-colu
 import { mappingIconTag } from '@ni/nimble-components/dist/esm/mapping/icon';
 import { iconCheckTag } from '@ni/nimble-components/dist/esm/icons/check';
 import { iconTriangleTag } from '@ni/nimble-components/dist/esm/icons/triangle';
-import { iconTriangleFilledTag } from '@ni/nimble-components/dist/esm/icons/triangle-filled';
 import { iconXmarkTag } from '@ni/nimble-components/dist/esm/icons/xmark';
 import { tableFitRowsHeight } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
 import { ComponentFrameworkStatus } from './types';
@@ -15,7 +14,7 @@ import {
     fastParameters
 } from '../utilities/storybook';
 
-const statusOptions = ['active', 'future'] as const;
+const statusOptions = ['active', 'future', 'spright', 'ok'] as const;
 
 interface TableArgs {
     tableRef: Table;
@@ -143,7 +142,8 @@ const components = [
         designHref:
             'https://www.figma.com/design/PO9mFOu5BCl8aJvFchEeuN/Nimble_Components?node-id=12342-81782&node-type=canvas&t=L5GvLaC3injrqWrR-0',
         designLabel: 'Figma',
-        componentStatus: ComponentFrameworkStatus.spright,
+        library: 'Spright',
+        componentStatus: ComponentFrameworkStatus.ready,
         angularStatus: ComponentFrameworkStatus.ready,
         blazorStatus: ComponentFrameworkStatus.ready
     },
@@ -558,7 +558,6 @@ const components = [
 
 const iconMappings = html`
     <${mappingIconTag} key="${ComponentFrameworkStatus.ready}" text="Ready" icon="${iconCheckTag}" severity="success" text-hidden></${mappingIconTag}>
-    <${mappingIconTag} key="${ComponentFrameworkStatus.spright}" text="Spright" icon="${iconTriangleFilledTag}" severity="success"></${mappingIconTag}>
     <${mappingIconTag} key="${ComponentFrameworkStatus.incubating}" text="Incubating" icon="${iconTriangleTag}" severity="warning"></${mappingIconTag}>
     <${mappingIconTag} key="${ComponentFrameworkStatus.doesNotExist}" text="Does not exist" icon="${iconXmarkTag}" severity="error"></${mappingIconTag}>
 `;
@@ -628,7 +627,6 @@ const metadata: Meta<TableArgs> = {
                 Blazor
                 ${iconMappings}
             </${tableColumnMappingTag}>
-
         </${tableTag}>
     `),
     argTypes: {
@@ -664,10 +662,29 @@ const metadata: Meta<TableArgs> = {
                         === ComponentFrameworkStatus.doesNotExist
                     && component.componentStatus
                         === ComponentFrameworkStatus.doesNotExist;
-                const data = components.filter(component => (x.status === 'future'
-                    ? isFuture(component)
-                    : !isFuture(component)));
-                await x.tableRef.setData(data);
+                const isSpright = (
+                    component: (typeof components)[number]
+                ): boolean => 'library' in component && component.library === 'Spright';
+                const isOk = (
+                    component: (typeof components)[number]
+                    // @ts-expect-error currently no "Ok" components so TypeScript complains that this is not possible
+                ): boolean => 'library' in component && component.library === 'Ok';
+
+                if (x.status === 'future') {
+                    await x.tableRef.setData(components.filter(isFuture));
+                } else if (x.status === 'ok') {
+                    await x.tableRef.setData(components.filter(isOk));
+                } else if (x.status === 'spright') {
+                    await x.tableRef.setData(components.filter(isSpright));
+                } else {
+                    await x.tableRef.setData(
+                        components.filter(
+                            component => !isFuture(component)
+                                && !isOk(component)
+                                && !isSpright(component)
+                        )
+                    );
+                }
             })();
         },
         status: statusOptions[0]
@@ -690,5 +707,25 @@ export const componentStatusFuture: StoryObj<TableArgs> = {
     },
     args: {
         status: 'future'
+    }
+};
+
+export const componentStatusSpright: StoryObj<TableArgs> = {
+    parameters: {
+        // Story used by documentation, not needed for visual comparison.
+        chromatic: { disableSnapshot: true }
+    },
+    args: {
+        status: 'spright'
+    }
+};
+
+export const componentStatusOk: StoryObj<TableArgs> = {
+    parameters: {
+        // Story used by documentation, not needed for visual comparison.
+        chromatic: { disableSnapshot: true }
+    },
+    args: {
+        status: 'ok'
     }
 };
