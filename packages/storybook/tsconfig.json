@@ -31,20 +31,21 @@
         "jsx": "preserve",
 
         // Support Chromatic Turbosnap in a monorepo
+        // See: https://github.com/chromaui/chromatic-cli/issues/1149#issuecomment-2936493954
         // Keep in sync with .storybook/main.js vite config
         "paths": {
             "@ni/nimble-components/dist/esm/*": ["../nimble-components/src/*"],
-            "@ni/ok-components/dist/esm/*": ["../ok-components/src/*"],
             "@ni/spright-components/dist/esm/*": [
                 "../spright-components/src/*"
             ],
+            "@ni/ok-components/dist/esm/*": ["../ok-components/src/*"],
             "@ni/nimble-react/dist/esm/*": [
                 "../react-workspace/nimble-react/src/*"
             ],
-            "@ni/ok-react/dist/esm/*": ["../react-workspace/ok-react/src/*"],
             "@ni/spright-react/dist/esm/*": [
                 "../react-workspace/spright-react/src/*"
-            ]
+            ],
+            "@ni/ok-react/dist/esm/*": ["../react-workspace/ok-react/src/*"],
         }
     },
     "include": ["src"]

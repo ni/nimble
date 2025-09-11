@@ -49,11 +49,9 @@ The Spright packages contain components that are built using Nimble technology a
 The Ok packages contain experimental components that are built using Nimble technology.
 
 [![Ok Angular NPM version and repo link](https://img.shields.io/npm/v/@ni/ok-angular.svg?label=@ni/ok-angular)](https://www.npmjs.com/package/@ni/ok-angular)
-[![Ok Blazor Nuget version and repo link](https://img.shields.io/nuget/v/OkBlazor.svg?label=OkBlazor)](https://www.nuget.org/packages/OkBlazor)
 [![Ok Components NPM version and repo link](https://img.shields.io/npm/v/@ni/ok-components.svg?label=@ni/ok-components)](https://www.npmjs.com/package/@ni/ok-components)
 
 - [`@ni/ok-angular`](/packages/angular-workspace/ok-angular/) - Angular bindings for Ok components.
-- [`OkBlazor`](/packages/blazor-workspace/OkBlazor/) - Blazor bindings for Ok components.
 - [`@ni/ok-components`](/packages/ok-components/) - Ok components to be used by [any type of application](https://custom-elements-everywhere.com/).
 
 ### Utility packages

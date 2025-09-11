@@ -29,6 +29,8 @@ export async function viteFinal(config) {
 
     config.build.minify = false;
 
+    // Support Chromatic Turbosnap in a monorepo
+    // See: https://github.com/chromaui/chromatic-cli/issues/1149#issuecomment-2936493954
     // Keep in sync with tsconfig.json
     config.resolve.alias = [
         {
@@ -36,24 +38,24 @@ export async function viteFinal(config) {
             replacement: '@ni/nimble-components/src'
         },
         {
-            find: '@ni/ok-components/dist/esm',
-            replacement: '@ni/ok-components/src'
-        },
-        {
             find: '@ni/spright-components/dist/esm',
             replacement: '@ni/spright-components/src'
+        },
+        {
+            find: '@ni/ok-components/dist/esm',
+            replacement: '@ni/ok-components/src'
         },
         {
             find: '@ni/nimble-react/dist/esm',
             replacement: '@ni/nimble-react/src'
         },
         {
-            find: '@ni/ok-react/dist/esm',
-            replacement: '@ni/ok-react/src'
-        },
-        {
             find: '@ni/spright-react/dist/esm',
             replacement: '@ni/spright-react/src'
+        },
+        {
+            find: '@ni/ok-react/dist/esm',
+            replacement: '@ni/ok-react/src'
         },
     ];
 
