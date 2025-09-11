@@ -1,7 +1,9 @@
 import { Story, Meta } from '@storybook/addon-docs/blocks';
 import {
     componentStatus,
-    componentStatusFuture
+    componentStatusFuture,
+    componentStatusSpright,
+    componentStatusOk
 } from './component-status.stories';
 import '@ni/nimble-components/dist/esm/icons/check';
 import '@ni/nimble-components/dist/esm/icons/triangle';
@@ -15,13 +17,25 @@ Here are components that are either implemented or on the roadmap for Nimble.
 Something missing?
 [File a request](https://github.com/ni/nimble/issues/new/choose)!
 
-## Ready or incubating
+## Nimble Components
 
 <p>
     <Story of={componentStatus} />
 </p>
 
-### Legend
+## Spright Components
+
+<p>
+    <Story of={componentStatusSpright} />
+</p>
+
+## Ok Components
+
+<p>
+    <Story of={componentStatusOk} />
+</p>
+
+## Legend
 
 | Icon                                                             | Description                                                                                                                                                              |
 | ---------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
