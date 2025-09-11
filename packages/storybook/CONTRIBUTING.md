@@ -4,7 +4,7 @@ This package contains Storybook files for each component which accomplish two
 things:
 
 1. provide user facing documentation in the
-   [public Nimble and Spright Storybook](https://nimble.ni.dev/storybook).
+   [public Storybook](https://nimble.ni.dev/storybook).
 2. comprehensively test visual states of the component in
    [Chromatic](https://www.chromatic.com/builds?appId=60e89457a987cf003efc0a5b).
 
@@ -18,9 +18,9 @@ From the Nimble repo root directory:
 
 ## Folder Structure
 
-Create a folder for each component under `src/nimble` or `src/spright`. The
-folder should match the name of the component in the corresponding
-`@ni/nimble-components` or `@ni/spright-components` package.
+Place components in their own folder in `src` corresponding to their components
+library, for example: `src/nimble/<component>` for
+`@ni/nimble-components/src/<component>`.
 
 Each folder should include the following files:
 
