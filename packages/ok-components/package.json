@@ -1,6 +1,6 @@
 {
   "name": "@ni/ok-components",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "NI Ok Components",
   "scripts": {
     "build": "npm run build-components && npm run bundle-components",

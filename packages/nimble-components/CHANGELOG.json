@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Thu, 11 Sep 2025 16:32:48 GMT",
+      "version": "34.3.0",
+      "tag": "@ni/nimble-components_v34.3.0",
+      "comments": {
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "108b03a39520fe996e920c83989a57d2fe0aad41",
+            "comment": "rollup config alignment notice"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 26 Aug 2025 21:52:25 GMT",
       "version": "34.3.0",
       "tag": "@ni/nimble-components_v34.3.0",
