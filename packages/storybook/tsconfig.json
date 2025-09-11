@@ -45,7 +45,7 @@
             "@ni/spright-react/dist/esm/*": [
                 "../react-workspace/spright-react/src/*"
             ],
-            "@ni/ok-react/dist/esm/*": ["../react-workspace/ok-react/src/*"],
+            "@ni/ok-react/dist/esm/*": ["../react-workspace/ok-react/src/*"]
         }
     },
     "include": ["src"]
