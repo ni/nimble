@@ -179,6 +179,13 @@ export class CustomAppComponent implements AfterViewInit {
         }
     }
 
+    public dynamicSelectCompareWith(o1: ComboboxItem | null | undefined, o2: ComboboxItem | null | undefined): boolean {
+        if (typeof o1 === 'object' && typeof o2 === 'object' && o1 !== null && o2 !== null) {
+            return o1.first === o2.first && o1.last === o2.last;
+        }
+        return o1 === o2;
+    }
+
     public shouldHideItem(value: ComboboxItem): boolean {
         return this.hideSelectedItem && value === this.dynamicSelectValue;
     }
