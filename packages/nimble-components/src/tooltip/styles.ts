@@ -33,7 +33,7 @@ export const styles = css`
         --ni-private-tooltip-background-color: ${Black15};
     }
 
-    .tooltip {
+    ::part(control) {
         flex-shrink: 0;
         max-width: 440px;
         box-shadow: ${elevation2BoxShadow};
