@@ -373,8 +373,7 @@ describe('AnchorTabs', () => {
         });
     });
 
-    // TODO: Fix tests and enable them - https://github.com/ni/nimble/issues/2603
-    xdescribe('scroll buttons', () => {
+    describe('scroll buttons', () => {
         async function setup(): Promise<Fixture<AnchorTabs>> {
             return await fixture<AnchorTabs>(
                 html`<${anchorTabsTag} activeid="tab-two">

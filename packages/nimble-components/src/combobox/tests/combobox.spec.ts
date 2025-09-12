@@ -560,8 +560,7 @@ describe('Combobox', () => {
             await disconnect();
         });
 
-        // Intermittent, see: https://github.com/ni/nimble/issues/2274
-        it('should scroll the selected option into view when opened #SkipWebkit', async () => {
+        it('should scroll the selected option into view when opened', async () => {
             await pageObject.commitValue('300');
             await pageObject.clickAndWaitForOpen();
             expect(element.listbox.scrollTop).toBeGreaterThan(9000);

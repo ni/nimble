@@ -211,28 +211,20 @@ describe('RichTextEditor', () => {
 
     describe('keyboard shortcuts should update the checked state of the buttons', () => {
         parameterizeSpec(formattingButtons, (spec, name, value) => {
-            spec(
-                // WebKit skipped, see https://github.com/ni/nimble/issues/1938
-                `"${name}" button keyboard shortcut check #SkipWebkit`,
-                async () => {
-                    expect(
-                        pageObject.getButtonCheckedState(
-                            value.toolbarButtonIndex
-                        )
-                    ).toBeFalse();
+            spec(`"${name}" button keyboard shortcut check`, async () => {
+                expect(
+                    pageObject.getButtonCheckedState(value.toolbarButtonIndex)
+                ).toBeFalse();
 
-                    await pageObject.clickEditorShortcutKeys(
-                        value.shortcutKey,
-                        value.shiftKey
-                    );
+                await pageObject.clickEditorShortcutKeys(
+                    value.shortcutKey,
+                    value.shiftKey
+                );
 
-                    expect(
-                        pageObject.getButtonCheckedState(
-                            value.toolbarButtonIndex
-                        )
-                    ).toBeTrue();
-                }
-            );
+                expect(
+                    pageObject.getButtonCheckedState(value.toolbarButtonIndex)
+                ).toBeTrue();
+            });
         });
     });
 
@@ -257,8 +249,7 @@ describe('RichTextEditor', () => {
     });
 
     describe('rich text formatting options to its respective HTML elements', () => {
-        // WebKit skipped, see https://github.com/ni/nimble/issues/1938
-        it('should have br tag name when pressing shift + enter #SkipWebkit', async () => {
+        it('should have br tag name when pressing shift + enter', async () => {
             await pageObject.setEditorTextContent('Plain text 1');
             await pageObject.pressShiftEnterKeysInEditor();
             await pageObject.setEditorTextContent('Plain text 2');
@@ -275,8 +266,7 @@ describe('RichTextEditor', () => {
             expect(pageObject.getEditorLeafContents()).toEqual(['bold']);
         });
 
-        // WebKit skipped, see https://github.com/ni/nimble/issues/1938
-        it('should have br tag name when pressing shift + Enter with bold content #SkipWebkit', async () => {
+        it('should have br tag name when pressing shift + Enter with bold content', async () => {
             await pageObject.toggleFooterButton(ToolbarButton.bold);
             await pageObject.setEditorTextContent('bold1');
             await pageObject.pressShiftEnterKeysInEditor();
@@ -298,8 +288,7 @@ describe('RichTextEditor', () => {
             expect(pageObject.getEditorLeafContents()).toEqual(['italics']);
         });
 
-        // WebKit skipped, see https://github.com/ni/nimble/issues/1938
-        it('should have br tag name when pressing shift + Enter with Italics content #SkipWebkit', async () => {
+        it('should have br tag name when pressing shift + Enter with Italics content', async () => {
             await pageObject.toggleFooterButton(ToolbarButton.italics);
             await pageObject.setEditorTextContent('italics1');
             await pageObject.pressShiftEnterKeysInEditor();
@@ -442,8 +431,7 @@ describe('RichTextEditor', () => {
             });
         });
 
-        // WebKit skipped, see https://github.com/ni/nimble/issues/1938
-        it('should have br tag name when pressing shift + Enter with numbered list content #SkipWebkit', async () => {
+        it('should have br tag name when pressing shift + Enter with numbered list content', async () => {
             await pageObject.setEditorTextContent('numbered list1');
             await pageObject.toggleFooterButton(ToolbarButton.numberedList);
             await pageObject.pressShiftEnterKeysInEditor();
@@ -502,8 +490,7 @@ describe('RichTextEditor', () => {
             ).toBeTrue();
         });
 
-        // WebKit skipped, see https://github.com/ni/nimble/issues/1938
-        it('should have br tag name when pressing shift + Enter with nested numbered lists content #SkipWebkit', async () => {
+        it('should have br tag name when pressing shift + Enter with nested numbered lists content', async () => {
             await pageObject.setEditorTextContent('List');
             await pageObject.toggleFooterButton(ToolbarButton.numberedList);
             await pageObject.pressEnterKeyInEditor();
@@ -592,8 +579,7 @@ describe('RichTextEditor', () => {
             expect(pageObject.getEditorLeafContents()).toEqual(['Bullet List']);
         });
 
-        // WebKit skipped, see https://github.com/ni/nimble/issues/1938
-        it('should have br tag name when pressing shift + Enter with bulleted list content #SkipWebkit', async () => {
+        it('should have br tag name when pressing shift + Enter with bulleted list content', async () => {
             await pageObject.setEditorTextContent('Bulleted List 1');
             await pageObject.toggleFooterButton(ToolbarButton.bulletList);
             await pageObject.pressShiftEnterKeysInEditor();
@@ -652,8 +638,7 @@ describe('RichTextEditor', () => {
             ).toBeTrue();
         });
 
-        // WebKit skipped, see https://github.com/ni/nimble/issues/1938
-        it('should have br tag name when pressing shift + Enter with nested bulleted lists content #SkipWebkit', async () => {
+        it('should have br tag name when pressing shift + Enter with nested bulleted lists content', async () => {
             await pageObject.setEditorTextContent('List');
             await pageObject.toggleFooterButton(ToolbarButton.bulletList);
             await pageObject.pressEnterKeyInEditor();
