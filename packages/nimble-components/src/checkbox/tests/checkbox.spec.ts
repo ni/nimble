@@ -4,11 +4,21 @@ import { fixture, type Fixture } from '../../utilities/tests/fixture';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 
 describe('Checkbox', () => {
+    let i = 0;
     async function setup(): Promise<Fixture<Checkbox>> {
         return await fixture<Checkbox>(html`<${checkboxTag}></${checkboxTag}>`);
     }
 
+    beforeEach(() => {
+        // eslint-disable-next-line no-console
+        console.log(`current i ${i} `);
+    });
+
     it('can construct an element instance', () => {
+        if (i < 2) {
+            // eslint-disable-next-line no-plusplus
+            throw new Error(`fail ${i++}`);
+        }
         expect(document.createElement(checkboxTag)).toBeInstanceOf(Checkbox);
     });
 
