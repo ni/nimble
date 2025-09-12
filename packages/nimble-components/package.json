@@ -40,7 +40,7 @@
     "test-firefox": "karma start karma.conf.headless.js --browsers=FirefoxHeadless --single-run --skip-tags SkipFirefox",
     "test-webkit:debugger": "karma start karma.conf.js --browsers=WebkitDebugging --skip-tags SkipWebkit",
     "test-webkit:watch": "karma start karma.conf.headless.js --browsers=WebkitHeadless --skip-tags SkipWebkit --watch-extensions js",
-    "test-webkit": "karma start karma.conf.headless.js --browsers=WebkitHeadless --single-run --skip-tags SkipWebkit",
+    "test-webkit": "karma start karma.conf.headless.js --browsers=WebkitHeadless --single-run",
     "test-concurrent": "concurrently --pad-prefix --timings --group \"npm:test-chrome\" \"npm:test-webkit\""
   },
   "repository": {
