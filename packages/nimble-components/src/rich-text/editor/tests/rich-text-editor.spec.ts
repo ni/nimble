@@ -211,27 +211,20 @@ describe('RichTextEditor', () => {
 
     describe('keyboard shortcuts should update the checked state of the buttons', () => {
         parameterizeSpec(formattingButtons, (spec, name, value) => {
-            spec(
-                `"${name}" button keyboard shortcut check`,
-                async () => {
-                    expect(
-                        pageObject.getButtonCheckedState(
-                            value.toolbarButtonIndex
-                        )
-                    ).toBeFalse();
+            spec(`"${name}" button keyboard shortcut check`, async () => {
+                expect(
+                    pageObject.getButtonCheckedState(value.toolbarButtonIndex)
+                ).toBeFalse();
 
-                    await pageObject.clickEditorShortcutKeys(
-                        value.shortcutKey,
-                        value.shiftKey
-                    );
+                await pageObject.clickEditorShortcutKeys(
+                    value.shortcutKey,
+                    value.shiftKey
+                );
 
-                    expect(
-                        pageObject.getButtonCheckedState(
-                            value.toolbarButtonIndex
-                        )
-                    ).toBeTrue();
-                }
-            );
+                expect(
+                    pageObject.getButtonCheckedState(value.toolbarButtonIndex)
+                ).toBeTrue();
+            });
         });
     });
 
