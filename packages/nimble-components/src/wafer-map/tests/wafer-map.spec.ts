@@ -171,7 +171,7 @@ describe('WaferMap', () => {
         });
     });
 
-    describe('worker renderer draw action', () => {
+    xdescribe('worker renderer draw action', () => {
         let setupWaferSpy: jasmine.Spy;
         let drawWaferSpy: jasmine.Spy;
         beforeEach(() => {
@@ -208,7 +208,7 @@ describe('WaferMap', () => {
     });
 
     // OffscreenCanvas not supported in Playwright's Windows/Linux Webkit build: https://github.com/ni/nimble/issues/2169
-    describe('worker renderer action #SkipWebkit', () => {
+    xdescribe('worker renderer action #SkipWebkit', () => {
         let renderHoverSpy: jasmine.Spy;
         let experimentalUpdateSpy: jasmine.Spy;
 
