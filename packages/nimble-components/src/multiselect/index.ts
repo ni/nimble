@@ -248,6 +248,31 @@ export class Multiselect
         e.stopPropagation();
     }
 
+    /**
+     * Clear the current selection. If a placeholder option exists it will not
+     * be selected by this operation; clearing results in no selected options
+     * and the multiselect will display the placeholder (if configured).
+     */
+    public clearSelect(): void {
+        // Clear the selected options
+        this.selectedOptions = [];
+
+        // Reset stored value and notify observers so consumers see an empty value
+        const prev = this._value;
+        if (prev !== '') {
+            this._value = '';
+            try {
+                super.valueChanged(prev, '');
+            } catch {
+                // defensive: ignore if base doesn't implement valueChanged
+            }
+            Observable.notify(this, 'value');
+        }
+
+        // Emit input/change and refresh display state
+        this.updateValue(true);
+    }
+
     public override clickHandler(e: MouseEvent): BooleanOrVoid {
         if (this.disabled) {
             return;
@@ -369,7 +394,9 @@ export class Multiselect
         const placeholderOption = this.getPlaceholderOption();
         // Show placeholder if there are no selections or only the placeholder is selected
         const hasNoSelection = this.selectedOptions.length === 0;
-        const hasOnlyPlaceholderSelected = !!placeholderOption && this.selectedOptions.length === 1 && this.selectedOptions[0] === placeholderOption;
+        const hasOnlyPlaceholderSelected = !!placeholderOption
+            && this.selectedOptions.length === 1
+            && this.selectedOptions[0] === placeholderOption;
 
         // When disabled (with or without appearance-readonly), only show placeholder when there are truly no selections
         // This ensures selected options are displayed in disabled mode

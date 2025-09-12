@@ -27,6 +27,7 @@ interface MultiselectArgs {
     requiredVisible: boolean;
     dropDownPosition: string;
     optionsType: OptionType;
+    clearable: boolean;
     appearance: string;
     filterMode: keyof typeof FilterMode;
     appearanceReadOnly: boolean;
@@ -102,6 +103,7 @@ const metadata: Meta<MultiselectArgs> = {
         ${disableStorybookZoomTransform}
         <${multiselectTag}
             ?disabled="${x => x.disabled}"
+            ?clearable="${x => x.clearable}"
             position="${x => x.dropDownPosition}"
             appearance="${x => x.appearance}"
             filter-mode="${x => (x.filterMode === 'none' ? undefined : x.filterMode)}"
@@ -192,11 +194,17 @@ const metadata: Meta<MultiselectArgs> = {
             name: 'required-visible',
             description: requiredVisibleDescription,
             table: { category: apiCategory.attributes }
+        },
+        clearable: {
+            name: 'clearable',
+            description: 'Show clear control to clear current selection',
+            table: { category: apiCategory.attributes }
         }
     },
     args: {
         label: 'Choose options',
         disabled: false,
+        clearable: false,
         filterMode: 'none',
         dropDownPosition: 'below',
         appearance: DropdownAppearance.underline,
