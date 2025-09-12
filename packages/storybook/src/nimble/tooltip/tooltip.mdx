@@ -23,9 +23,24 @@ More information can be found in the
 <Controls of={tooltipStories.tooltip} />
 <ComponentApisLink />
 
-{/* ## Styling */}
+## Styling
 
-{/* ## Usage */}
+The tooltip styling can be customized by modyfing the css
+properties of `nimble-tooltip::part(control)`. As for example:
+
+```scss
+nimble-tooltip::part(control) {
+    width: 100px;
+    height: 70px;
+    overflow: scroll;
+}
+```
+
+## Usage
+
+The tooltip component is marked as "incubating" because of many limitations
+around keyboard and screenreader accessibility that could impact the users.[Nimble limitations](https://github.com/ni/nimble/blob/main/packages/nimble-components/src/tooltip/specs/README.md#open-issues)
+The API limitations around anchor ids could result in future breaking API changes.
 
 {/* ## Examples */}
 
