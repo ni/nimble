@@ -155,8 +155,13 @@ export class Multiselect
     @volatile
     public get displayValue(): string {
         Observable.track(this, 'displayValue');
+        Observable.track(this, 'displayPlaceholder');
         const selected = this.selectedOptions ?? [];
         if (selected.length === 0) {
+            if (this.displayPlaceholder) {
+                const placeholderOption = this.getPlaceholderOption();
+                return placeholderOption?.text ?? '';
+            }
             return '';
         }
         if (selected.length === 1) {
@@ -362,14 +367,18 @@ export class Multiselect
 
     public updateDisplayValue(): void {
         const placeholderOption = this.getPlaceholderOption();
-        if (
-            placeholderOption
-            && this.selectedOptions.includes(placeholderOption)
-        ) {
-            this.displayPlaceholder = true;
+        // Show placeholder if there are no selections or only the placeholder is selected
+        const hasNoSelection = this.selectedOptions.length === 0;
+        const hasOnlyPlaceholderSelected = !!placeholderOption && this.selectedOptions.length === 1 && this.selectedOptions[0] === placeholderOption;
+
+        // When disabled (with or without appearance-readonly), only show placeholder when there are truly no selections
+        // This ensures selected options are displayed in disabled mode
+        if (this.disabled) {
+            this.displayPlaceholder = hasNoSelection;
         } else {
-            this.displayPlaceholder = false;
+            this.displayPlaceholder = hasNoSelection || hasOnlyPlaceholderSelected;
         }
+
         Observable.notify(this, 'displayValue');
     }
 
@@ -471,7 +480,13 @@ export class Multiselect
 
             const proxyOption = this.proxy?.options.item(i);
             if (proxyOption) {
-                proxyOption.selected = selected;
+                // If this option is a placeholder (hidden && disabled), do not
+                // reflect its selected state onto the proxy native <select> element.
+                // Marking the proxy option as selected can change the native
+                // select's selectedIndex/value and cause re-entrant selection
+                // updates between the foundation listbox and this component.
+                const isPlaceholder = (o as OptionLike).hidden && (o as OptionLike).disabled;
+                proxyOption.selected = isPlaceholder ? false : selected;
             }
 
             // Inject or remove check icon in the option's light DOM start slot so only
@@ -494,17 +509,9 @@ export class Multiselect
             }
         });
 
-        // Update selectedIndex for keyboard navigation in multi-select mode
-        // Set it to the last selected option, or -1 if no selection
-        if (Array.isArray(next) && next.length > 0) {
-            const lastSelectedOption = next[next.length - 1]!;
-            const lastSelectedIndex = this.options?.indexOf(lastSelectedOption) ?? -1;
-            if (lastSelectedIndex !== -1) {
-                this.selectedIndex = lastSelectedIndex;
-            }
-        } else {
-            this.selectedIndex = -1;
-        }
+        // For multiselect, selectedIndex is not used for selection state
+        // It is only used for keyboard navigation when the dropdown is open
+        // We don't update it based on selectedOptions to avoid loops with the base class
 
         // Update display value and notify observers
         this.updateDisplayValue();

@@ -19,12 +19,14 @@ import {
     slottedLabelDescription
 } from '../../utilities/storybook';
 
+type OptionType = 'simple' | 'placeholder' | 'grouped';
+
 interface MultiselectArgs {
     label: string;
     disabled: boolean;
     requiredVisible: boolean;
     dropDownPosition: string;
-    optionsType: string;
+    optionsType: OptionType;
     appearance: string;
     filterMode: keyof typeof FilterMode;
     appearanceReadOnly: boolean;
@@ -40,9 +42,9 @@ interface OptionArgs {
 }
 
 const simpleOptions: readonly OptionArgs[] = [
-    { label: 'Option 1', value: '1' },
+    { label: 'Option 1', value: '1', selected: true },
     { label: 'Option 2', value: '2' },
-    { label: 'Option 3', value: '3' },
+    { label: 'Option 3', value: '3', selected: true },
     { label: 'Zürich', value: '4' }
 ] as const;
 
@@ -68,8 +70,34 @@ const getGroupedOptions = (): GroupedOptionArgs[] => [
     }
 ];
 
+const placeholderOptions: readonly OptionArgs[] = [
+    {
+        label: 'Pick one or more…',
+        value: '__placeholder__',
+        disabled: true,
+        hidden: true
+    },
+    { label: 'Option 1', value: '1' },
+    { label: 'Option 2', value: '2' },
+    { label: 'Option 3', value: '3' }
+] as const;
+
+const optionSets = {
+    simple: simpleOptions,
+    placeholder: placeholderOptions
+} as const;
+
+function getOptionSet(optionsType: OptionType): readonly OptionArgs[] {
+    if (optionsType === 'grouped') {
+        return [] as const;
+    }
+
+    return optionSets[optionsType];
+}
+
 const metadata: Meta<MultiselectArgs> = {
-    title: 'Components/MultiSelect',
+    title: 'Components/Multi Select',
+    // prettier-ignore
     render: createUserSelectedThemeStory(html`
         ${disableStorybookZoomTransform}
         <${multiselectTag}
@@ -83,39 +111,43 @@ const metadata: Meta<MultiselectArgs> = {
             style="width:300px;"
         >
             ${x => x.label}
-            ${when(
-        x => x.optionsType === 'grouped',
-        html<MultiselectArgs>`
-                    ${repeat(
-        () => getGroupedOptions(),
-        html<GroupedOptionArgs>`
+
+            ${when(x => x.optionsType === 'grouped', html<MultiselectArgs>`
+                ${repeat(() => getGroupedOptions(), html<GroupedOptionArgs>`
                     <${listOptionGroupTag} label="${x => x.label}">
-                        ${repeat(
-        x => x.options,
-        html<OptionArgs>`
-                            <${listOptionTag} value="${x => x.value}">${x => x.label}</${listOptionTag}>
-                        `,
-        { positioning: true }
-    )}
+                        ${repeat(x => x.options, html<OptionArgs>`
+                            <${listOptionTag}
+                                value="${x => x.value}"
+                                ?hidden="${x => x.hidden}"
+                                ?disabled="${x => x.disabled}"
+                                ?selected="${x => x.selected}"
+                            >${x => x.label}</${listOptionTag}>
+                        `, { positioning: true })}
                     </${listOptionGroupTag}>
-                `
-    )}
-                `
-    )}
-            ${when(
-        x => x.optionsType !== 'grouped',
-        html`
-                    ${repeat(
-        () => simpleOptions,
-        html<OptionArgs>`
-                    <${listOptionTag} value="${x => x.value}">${x => x.label}</${listOptionTag}>
-                `
-    )}
-                `
-    )}
+                `)}
+            `)}
+
+            ${when(x => x.optionsType !== 'grouped', html<MultiselectArgs>`
+                ${repeat(x => getOptionSet(x.optionsType), html<OptionArgs>`
+                    <${listOptionTag}
+                        value="${x => x.value}"
+                        ?hidden="${x => x.hidden}"
+                        ?disabled="${x => x.disabled}"
+                        ?selected="${x => x.selected}"
+                    >${x => x.label}</${listOptionTag}>
+                `)}
+            `)}
+
         </${multiselectTag}>
     `),
     argTypes: {
+        optionsType: {
+            name: 'options-type',
+            options: ['simple', 'placeholder', 'grouped'],
+            control: { type: 'select' },
+            description: 'Controls the type of options displayed',
+            table: { category: apiCategory.attributes }
+        },
         label: {
             name: 'default',
             description: `${slottedLabelDescription({ componentName: 'multiselect' })}`,
@@ -182,5 +214,18 @@ export const multiselect: StoryObj<MultiselectArgs> = {
     parameters: {
         actions: { handles: ['change', 'filter-input'] },
         toolbar: { zoom: { hidden: true } }
+    }
+};
+
+export const placeholder: StoryObj<MultiselectArgs> = {
+    args: {
+        optionsType: 'placeholder'
+    }
+};
+
+export const readonly: StoryObj<MultiselectArgs> = {
+    args: {
+        disabled: true,
+        appearanceReadOnly: true
     }
 };

@@ -1,0 +1,72 @@
+import {
+    Canvas,
+    Meta,
+    Controls,
+    Title,
+    Description
+} from '@storybook/addon-docs/blocks';
+import * as multiselectStories from './multiselect.stories';
+import * as listOptionStories from '../list-option/list-option.stories';
+import * as listOptionGroupStories from '../list-option-group/list-option-group.stories';
+import ComponentApisLink from '../../docs/component-apis-link.mdx';
+import { multiselectTag } from '@ni/nimble-components/dist/esm/multiselect';
+import { listOptionTag } from '@ni/nimble-components/dist/esm/list-option';
+import { listOptionGroupTag } from '@ni/nimble-components/dist/esm/list-option-group';
+
+<Meta of={multiselectStories} />
+<Title of={multiselectStories} />
+
+The MultiSelect control allows users to choose one or more items from a list
+presented in a dropdown menu. It supports keyboard navigation, filtering, and
+grouped options.
+
+<Canvas of={multiselectStories.multiselect} />
+
+## API
+
+<Controls of={multiselectStories.multiselect} />
+<ComponentApisLink />
+
+### List Option
+
+<Description of={listOptionStories} />
+<Controls of={listOptionStories.listOption} />
+
+### List Option Group
+
+<Description of={listOptionGroupStories} />
+<Controls of={listOptionGroupStories.listOptionGroup} />
+
+## Styling
+
+By default, the multiselect control resizes to the selected options' content.
+In most layouts, give the control a specific `width` to align with other items.
+Ensure the control is wide enough so labels do not wrap and selected chips have
+room to render.
+
+## Examples
+
+### Placeholder
+
+To display placeholder text within the multiselect you must provide an option
+that has the `disabled`, `selected` and `hidden` attributes set. This option
+will not be available in the dropdown, and its contents will be used as the
+placeholder text. Giving the placeholder an initial `selected` state is only
+necessary to display the placeholder initially — if other selections exist,
+those will take precedence.
+
+Placeholder text for multiselect should follow the pattern "Choose options" or
+"Pick one or more…" and use sentence casing without trailing punctuation.
+
+<Canvas of={multiselectStories.placeholder} />
+
+### Dynamic options
+
+When the full set of options is too large to load at once, use the `filter-mode`
+("manual") and the `filter-input` event so you can fetch and provide matching
+options on demand. Ensure the currently selected options (and the placeholder,
+if present) are available in the DOM even when not included in the initial
+page of results; such options should be marked `hidden` if they must not
+appear in the dropdown list.
+
+<ComponentApisLink />

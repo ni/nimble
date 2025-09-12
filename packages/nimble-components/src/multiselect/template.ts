@@ -64,7 +64,7 @@ export const template: FoundationElementTemplate<ViewTemplate<Multiselect>, Sele
     @mousedown="${(x, c) => x.mousedownHandler(c.event as MouseEvent)}"
     >
         ${labelTemplate}
-    ${when(x => x.collapsible, html<Multiselect>`
+    ${when(x => x.collapsible || x.disabled, html<Multiselect>`
                 <div class="control" part="control" ?disabled="${x => x.disabled}" ${ref('control')}>
                 ${startSlotTemplate(context, definition)}
                 <slot name="button-container">
@@ -103,7 +103,7 @@ export const template: FoundationElementTemplate<ViewTemplate<Multiselect>, Sele
             horizontal-positioning-mode="locktodefault"
             horizontal-scaling="anchor"
             @loaded="${(x: Multiselect) => x.regionLoadedHandler()}"
-            ?hidden="${(x: Multiselect) => (x.collapsible ? !x.open : false)}">
+            ?hidden="${(x: Multiselect) => (x.collapsible ? !x.open : true)}">
             <div class="listbox-background">
                 <div
                     class="listbox ${(x: Multiselect) => (x.filteredOptions.length === 0 ? 'empty' : '')} ${(x: Multiselect) => x.positionAttribute}"
