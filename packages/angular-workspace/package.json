@@ -58,7 +58,6 @@
     "@ni/fast-web-utilities": "^10.0.0",
     "@ni-private/eslint-config-nimble": "*",
     "@ni/eslint-config-angular": "^9.0.4",
-    "@ni-private/jasmine-extensions": "*",
     "@ni/jasmine-parameterized": "*",
     "@ni/nimble-tokens": "*",
     "@rollup/plugin-node-resolve": "^16.0.0",
