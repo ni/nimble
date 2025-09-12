@@ -1033,8 +1033,7 @@ describe('RichTextEditor user mention via template', () => {
             expect(pageObject.getEditorFirstChildTextContent()).toBe('User @');
         });
 
-        // WebKit skipped, see https://github.com/ni/nimble/issues/1938
-        it('should get `@` text without a preceding whitespace after a hard break, when button clicked #SkipWebkit', async () => {
+        it('should get `@` text without a preceding whitespace after a hard break, when button clicked', async () => {
             await pageObject.setEditorTextContent('User');
             await pageObject.pressShiftEnterKeysInEditor();
             await pageObject.clickUserMentionButton();
@@ -1047,8 +1046,7 @@ describe('RichTextEditor user mention via template', () => {
             expect(pageObject.getEditorFirstChildTextContent()).toBe('User@');
         });
 
-        // WebKit skipped, see https://github.com/ni/nimble/issues/1938
-        it('should get `@` text with a single preceding whitespace after a hard break with a text, when button clicked #SkipWebkit', async () => {
+        it('should get `@` text with a single preceding whitespace after a hard break with a text, when button clicked', async () => {
             await pageObject.setEditorTextContent('User');
             await pageObject.pressShiftEnterKeysInEditor();
             await pageObject.setEditorTextContent('Text');
@@ -1357,8 +1355,7 @@ describe('RichTextEditorMentionListbox', () => {
             expect(await pageObject.isMentionListboxOpened()).toBeFalse();
         });
 
-        // WebKit skipped, see https://github.com/ni/nimble/issues/1938
-        it('setting `disabled` should close the mention popup #SkipWebkit', async () => {
+        it('setting `disabled` should close the mention popup', async () => {
             await appendUserMentionConfiguration(element, [
                 { key: 'user:1', displayName: 'username1' },
                 { key: 'user:2', displayName: 'username2' }

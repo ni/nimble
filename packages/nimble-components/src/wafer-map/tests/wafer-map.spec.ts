@@ -185,8 +185,7 @@ describe('WaferMap', () => {
             ).and.returnValue(Promise.resolve());
         });
 
-        // OffscreenCanvas not supported in Playwright's Windows/Linux Webkit build: https://github.com/ni/nimble/issues/2169
-        it('will call setupWafer and drawWafer after supported diesTable change #SkipWebkit', async () => {
+        it('will call setupWafer and drawWafer after supported diesTable change', async () => {
             element.diesTable = tableFromArrays({
                 colIndex: Int32Array.from([]),
                 rowIndex: Int32Array.from([]),
@@ -207,8 +206,7 @@ describe('WaferMap', () => {
         });
     });
 
-    // OffscreenCanvas not supported in Playwright's Windows/Linux Webkit build: https://github.com/ni/nimble/issues/2169
-    describe('worker renderer action #SkipWebkit', () => {
+    describe('worker renderer action', () => {
         let renderHoverSpy: jasmine.Spy;
         let experimentalUpdateSpy: jasmine.Spy;
 
@@ -264,8 +262,7 @@ describe('WaferMap', () => {
             expect(initialValue).toBe('translate(0,0) scale(1)');
         });
 
-        // Some browsers skipped, see: https://github.com/ni/nimble/issues/1936
-        it('can still zoom after canvas height was changed #SkipWebkit', () => {
+        it('can still zoom after canvas height was changed', () => {
             element.canvasHeight = 250;
             processUpdates();
             element.dispatchEvent(
@@ -275,8 +272,7 @@ describe('WaferMap', () => {
             expect(zoomedValue).toBe('translate(0,0) scale(4)');
         });
 
-        // Some browsers skipped, see: https://github.com/ni/nimble/issues/1936
-        it('can still zoom after canvas width was changed #SkipWebkit', () => {
+        it('can still zoom after canvas width was changed', () => {
             element.canvasWidth = 250;
             processUpdates();
             element.dispatchEvent(
