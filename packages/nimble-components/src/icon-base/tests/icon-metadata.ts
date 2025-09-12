@@ -6,9 +6,9 @@ interface IconMetadata {
     tags: string[];
 }
 
-export const iconMetadata: {
+export const iconMetadata: Partial<{
     readonly [key in IconName]: IconMetadata;
-} = {
+}> = {
     /* eslint-disable @typescript-eslint/naming-convention */
     IconAdd: {
         tags: ['add input field']

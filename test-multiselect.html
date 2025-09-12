@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multiselect Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 30px;
+        }
+        .test-section {
+            margin-bottom: 30px;
+        }
+        .test-section h2 {
+            color: #666;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+        nimble-multiselect {
+            width: 100%;
+            margin-bottom: 20px;
+        }
+        .instructions {
+            background-color: #e8f4fd;
+            padding: 15px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+            border-left: 4px solid #0066cc;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Multiselect Dropdown Test</h1>
+        
+        <div class="instructions">
+            <strong>Test Instructions:</strong>
+            <ol>
+                <li>Click on each multiselect component below</li>
+                <li>Verify that the dropdown opens when clicked</li>
+                <li>Select multiple options to test functionality</li>
+                <li>Check that selected options show check marks</li>
+            </ol>
+        </div>
+
+        <div class="test-section">
+            <h2>Basic Multiselect</h2>
+            <nimble-multiselect>
+                Choose options
+                <nimble-list-option value="1">Option 1</nimble-list-option>
+                <nimble-list-option value="2">Option 2</nimble-list-option>
+                <nimble-list-option value="3">Option 3</nimble-list-option>
+                <nimble-list-option value="4">Option 4</nimble-list-option>
+            </nimble-multiselect>
+        </div>
+
+        <div class="test-section">
+            <h2>Multiselect with Grouped Options</h2>
+            <nimble-multiselect>
+                Choose from groups
+                <nimble-list-option-group label="Group A">
+                    <nimble-list-option value="a1">A1</nimble-list-option>
+                    <nimble-list-option value="a2">A2</nimble-list-option>
+                </nimble-list-option-group>
+                <nimble-list-option-group label="Group B">
+                    <nimble-list-option value="b1">B1</nimble-list-option>
+                    <nimble-list-option value="b2">B2</nimble-list-option>
+                </nimble-list-option-group>
+            </nimble-multiselect>
+        </div>
+
+        <div class="test-section">
+            <h2>Multiselect with Filter</h2>
+            <nimble-multiselect filter-mode="standard">
+                Filterable options
+                <nimble-list-option value="apple">Apple</nimble-list-option>
+                <nimble-list-option value="banana">Banana</nimble-list-option>
+                <nimble-list-option value="cherry">Cherry</nimble-list-option>
+                <nimble-list-option value="date">Date</nimble-list-option>
+                <nimble-list-option value="elderberry">Elderberry</nimble-list-option>
+            </nimble-multiselect>
+        </div>
+    </div>
+
+    <!-- Load the nimble components -->
+    <script type="module" src="packages/nimble-components/dist/all-components-bundle.js"></script>
+</body>
+</html>

@@ -33,6 +33,7 @@ import './mapping/text';
 import './menu';
 import './menu-button';
 import './menu-item';
+import './multiselect';
 import './number-field';
 import './radio';
 import './radio-group';

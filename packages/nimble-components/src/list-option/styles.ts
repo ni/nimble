@@ -19,6 +19,7 @@ export const styles = css`
         font: ${bodyFont};
         cursor: pointer;
         justify-content: left;
+        align-items: center;
         height: ${controlHeight};
     }
 
@@ -63,7 +64,11 @@ export const styles = css`
     }
 
     [part='start'] {
-        display: none;
+        display: contents;
+    }
+
+    slot[name='start']::slotted(*) {
+        flex-shrink: 0;
     }
 
     .content {
@@ -79,6 +84,10 @@ export const styles = css`
     }
 
     [part='end'] {
-        display: none;
+        display: contents;
+    }
+
+    slot[name='end']::slotted(*) {
+        flex-shrink: 0;
     }
 `;

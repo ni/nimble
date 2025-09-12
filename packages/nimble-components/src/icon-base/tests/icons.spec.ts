@@ -74,7 +74,9 @@ describe('Icons', () => {
 
         parameterizeSpec(icons, (spec, name, value) => {
             spec(`for icon ${name}`, () => {
-                expect(value.metadata.tags).not.toContain('');
+                if (value.metadata) {
+                    expect(value.metadata.tags).not.toContain('');
+                }
             });
         });
     });

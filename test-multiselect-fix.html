@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multiselect Fix Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 30px;
+        }
+        .test-section {
+            margin-bottom: 30px;
+        }
+        .test-section h2 {
+            color: #666;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+        nimble-multiselect {
+            width: 100%;
+            margin-bottom: 20px;
+        }
+        .instructions {
+            background-color: #e8f4fd;
+            padding: 15px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+            border-left: 4px solid #0066cc;
+        }
+        .debug-info {
+            background-color: #f0f0f0;
+            padding: 10px;
+            border-radius: 4px;
+            margin-top: 10px;
+            font-family: monospace;
+            font-size: 12px;
+            max-height: 220px;
+            overflow: auto;
+        }
+        .debug-controls {
+            margin-top: 10px;
+            display: flex;
+            gap: 8px;
+        }
+        button { padding: 6px 10px; font-size: 13px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Multiselect Dropdown Fix Test</h1>
+        
+        <div class="instructions">
+            <strong>Test Instructions:</strong>
+            <ol>
+                <li>Click on the multiselect component below</li>
+                <li>The dropdown should now open and show the list options</li>
+                <li>Click on options to select them (multiple selection allowed)</li>
+                <li>Selected options should show check marks</li>
+                <li>Click outside or on the component again to close</li>
+            </ol>
+        </div>
+
+        <div class="test-section">
+            <h2>Basic Multiselect Test</h2>
+            <nimble-multiselect id="test-multiselect">
+                Choose options
+                <nimble-list-option value="1">Option 1</nimble-list-option>
+                <nimble-list-option value="2">Option 2</nimble-list-option>
+                <nimble-list-option value="3">Option 3</nimble-list-option>
+                <nimble-list-option value="4">Option 4</nimble-list-option>
+            </nimble-multiselect>
+
+            <div class="debug-controls">
+                <button id="btn-log-state">Log state</button>
+                <button id="btn-force-close">Force close (call close())</button>
+                <button id="btn-focus-away">Focus away</button>
+            </div>
+
+            <div class="debug-info" id="debug-info">
+                Debug: Click events and state changes will be logged here...
+            </div>
+        </div>
+    </div>
+
+    <!-- Load the nimble components -->
+    <script type="module" src="packages/nimble-components/dist/all-components-bundle.js"></script>
+    
+    <script>
+        // Add debug logging
+        document.addEventListener('DOMContentLoaded', () => {
+            const multiselect = document.getElementById('test-multiselect');
+            const debugInfo = document.getElementById('debug-info');
+            const btnLogState = document.getElementById('btn-log-state');
+            const btnForceClose = document.getElementById('btn-force-close');
+            const btnFocusAway = document.getElementById('btn-focus-away');
+
+            function log(message) {
+                const timestamp = new Date().toLocaleTimeString();
+                debugInfo.innerHTML += `<br>[${timestamp}] ${message}`;
+                debugInfo.scrollTop = debugInfo.scrollHeight;
+                // also print to console for easier debugging in DevTools
+                console.debug(`[MS-D] ${timestamp} - ${message}`);
+            }
+
+            function formatPath(path) {
+                try {
+                    return path.map(n => {
+                        if (!n) return 'null';
+                        const t = n.tagName || n.nodeName;
+                        const id = n.id ? `#${n.id}` : '';
+                        const cls = (n.className && typeof n.className === 'string') ? `.${n.className.split(' ').join('.')}` : '';
+                        return `${t}${id}${cls}`;
+                    }).join(' > ');
+                } catch (e) {
+                    return '[could not format path]';
+                }
+            }
+
+            if (multiselect) {
+                // Log when the component is ready
+                log('Multiselect component found and ready');
+
+                // Wrap close/open if present to learn who calls them
+                ['close', 'open', 'toggle'].forEach(fnName => {
+                    const orig = multiselect[fnName];
+                    if (typeof orig === 'function') {
+                        multiselect[fnName] = function(...args) {
+                            log(`${fnName}() called (stack follows)`);
+                            // short stack
+                            log(new Error().stack.split('\n').slice(1,6).join(' | '));
+                            return orig.apply(this, args);
+                        };
+                        log(`Wrapped method: ${fnName}`);
+                    }
+                });
+
+                // Wrap dispatchEvent to log outgoing events
+                const origDispatch = multiselect.dispatchEvent;
+                multiselect.dispatchEvent = function(ev) {
+                    log(`dispatchEvent: ${ev.type} (cancelable=${ev.cancelable})`);
+                    return origDispatch.call(this, ev);
+                };
+
+                // Listen for click events on the component (bubble phase)
+                multiselect.addEventListener('click', (e) => {
+                    log(`Click (bubble) on multiselect: target=${e.target.tagName} id=${e.target.id || 'n/a'}`);
+                    log(`  Event: defaultPrevented=${e.defaultPrevented}, cancelBubble=${e.cancelBubble}, composedPath length=${e.composedPath().length}`);
+                });
+
+                // Global capture-phase listeners to detect outside clicks and any stopPropagation
+                ['pointerdown', 'mousedown', 'touchstart', 'click'].forEach(type => {
+                    document.addEventListener(type, (e) => {
+                        const path = e.composedPath ? e.composedPath() : [];
+                        const clickedInside = path.includes(multiselect);
+                        log(`DOC ${type} (capture) target=${e.target.tagName} clickedInside=${clickedInside} defaultPrevented=${e.defaultPrevented}`);
+                        // log a short path to help see what element swallowed the event
+                        log(`  path: ${formatPath(path.slice(0,8))}`);
+                    }, { capture: true, passive: true });
+                });
+
+                // Listen for window click also
+                window.addEventListener('click', (e) => {
+                    log(`WINDOW click (bubble) target=${e.target.tagName}`);
+                });
+
+                // Observe attribute changes for 'open', 'aria-expanded', classes
+                const observer = new MutationObserver((mutations) => {
+                    mutations.forEach((mutation) => {
+                        if (mutation.type === 'attributes') {
+                            log(`Attribute changed: ${mutation.attributeName} -> ${multiselect.getAttribute(mutation.attributeName)}`);
+                        } else {
+                            log(`Mutation: ${mutation.type}`);
+                        }
+                    });
+                });
+                
+                observer.observe(multiselect, {
+                    attributes: true,
+                    attributeFilter: ['open', 'aria-expanded', 'class'],
+                    subtree: false
+                });
+
+                // Deep observer for potential overlay/backdrop element additions in the document body
+                const bodyObserver = new MutationObserver((mutations) => {
+                    mutations.forEach(m => {
+                        m.addedNodes.forEach(node => {
+                            if (node.nodeType === 1) {
+                                const tag = node.tagName;
+                                if (tag && (tag.toLowerCase().includes('overlay') || tag.toLowerCase().includes('backdrop') || node.classList.contains('overlay') || node.classList.contains('backdrop'))) {
+                                    log(`Potential overlay/backdrop added: ${tag} ${node.className}`);
+                                }
+                            }
+                        });
+                    });
+                });
+                bodyObserver.observe(document.body, { childList: true, subtree: true });
+
+                // Listen for change events
+                multiselect.addEventListener('change', (e) => {
+                    try {
+                        const vals = Array.from(multiselect.selectedOptions).map(o => o.value).join(', ');
+                        log(`Change event: Selected values = ${vals}`);
+                    } catch (err) {
+                        log(`Change event: (could not read selectedOptions) ${err}`);
+                    }
+                });
+
+                // Focus and blur tracking
+                multiselect.addEventListener('focusin', (e) => log(`focusin: ${e.target.tagName}`), true);
+                multiselect.addEventListener('focusout', (e) => log(`focusout: ${e.target.tagName}`), true);
+
+                // Monitor activeElement changes to see if focus moves elsewhere when trying to close
+                let lastActive = document.activeElement;
+                setInterval(() => {
+                    if (document.activeElement !== lastActive) {
+                        lastActive = document.activeElement;
+                        log(`ActiveElement changed to: ${document.activeElement ? (document.activeElement.tagName + (document.activeElement.id ? '#' + document.activeElement.id : '')) : 'null'}`);
+                    }
+                }, 500);
+
+                // Buttons to help reproduce
+                btnLogState.addEventListener('click', () => {
+                    log(`Manual state: hasAttribute(open)=${multiselect.hasAttribute('open')}, property open=${multiselect.open}`);
+                    log(`  aria-expanded=${multiselect.getAttribute('aria-expanded')}`);
+                    log(`  selectedOptions=${Array.from(multiselect.selectedOptions || []).map(o => o.value).join(', ')}`);
+                    log(`  bounding rect: ${JSON.stringify(multiselect.getBoundingClientRect())}`);
+                });
+
+                btnForceClose.addEventListener('click', () => {
+                    if (typeof multiselect.close === 'function') {
+                        try {
+                            multiselect.close();
+                            log('Called multiselect.close() manually');
+                        } catch (err) {
+                            log('Error calling close(): ' + err);
+                        }
+                    } else {
+                        // fallback: remove open attribute
+                        multiselect.removeAttribute('open');
+                        log('close() not found; removed open attribute manually');
+                    }
+                });
+
+                btnFocusAway.addEventListener('click', () => {
+                    // create a temporary focusable element and focus it to simulate clicking away
+                    const tmp = document.createElement('button');
+                    tmp.style.position = 'fixed';
+                    tmp.style.left = '-9999px';
+                    tmp.textContent = 'tmp';
+                    document.body.appendChild(tmp);
+                    tmp.focus();
+                    setTimeout(() => { tmp.remove(); }, 200);
+                    log('Focused away to temporary element');
+                });
+
+                log('Event listeners and debug wrappers attached');
+            } else {
+                log('ERROR: Multiselect component not found!');
+            }
+        });
+    </script>
+</body>
+</html>
