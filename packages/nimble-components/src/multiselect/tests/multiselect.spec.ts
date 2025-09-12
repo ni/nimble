@@ -27,6 +27,17 @@ async function setupWithSelections(): Promise<Fixture<Multiselect>> {
     return await fixture<Multiselect>(viewTemplate);
 }
 
+async function setupWithPlaceholder(): Promise<Fixture<Multiselect>> {
+    const viewTemplate = html`
+        <${multiselectTag}>
+            <${listOptionTag} value="__placeholder__" disabled hidden selected>Pick one or more…</${listOptionTag}>
+            <${listOptionTag} value="one">One</${listOptionTag}>
+            <${listOptionTag} value="two">Two</${listOptionTag}>
+        </${multiselectTag}>
+    `;
+    return await fixture<Multiselect>(viewTemplate);
+}
+
 describe('Multiselect', () => {
     let element: Multiselect;
     let connect: () => Promise<void>;
@@ -198,6 +209,50 @@ describe('Multiselect', () => {
             expect(element.selectedOptions).toEqual([option1, option2]);
             expect(element.value).toBe('one,two');
             expect(element.displayValue).toBe('One, Two');
+        });
+    });
+
+    describe('placeholder and clear behavior', () => {
+        beforeEach(async () => {
+            await disconnect();
+            ({ element, connect, disconnect } = await setupWithPlaceholder());
+            pageObject = new MultiselectPageObject(element);
+            await connect();
+        });
+
+        it('should display placeholder text and clearSelect should clear selection', async () => {
+            const placeholderOption = element.options[0] as ListOption;
+
+            // Placeholder initially selected
+            await waitForUpdatesAsync();
+            expect(element.displayValue).toBe('Pick one or more…');
+            // initial value reflects placeholder option value
+            expect(element.value).toBe('__placeholder__');
+
+            // Clear via API
+            element.clearSelect();
+            await waitForUpdatesAsync();
+
+            expect(element.selectedOptions).toEqual([]);
+            expect(element.value).toBe('');
+            // displayValue should still show placeholder text when no selections
+            expect(element.displayValue).toBe('Pick one or more…');
+            expect(placeholderOption.selected).toBeFalse();
+        });
+
+        it('setting value to empty string should clear selections and show placeholder', async () => {
+            await waitForUpdatesAsync();
+
+            // Ensure placeholder is present and selected initially
+            expect(element.displayValue).toBe('Pick one or more…');
+
+            // Clear via value
+            element.value = '';
+            await waitForUpdatesAsync();
+
+            expect(element.selectedOptions).toEqual([]);
+            expect(element.value).toBe('');
+            expect(element.displayValue).toBe('Pick one or more…');
         });
     });
 });

@@ -192,6 +192,31 @@ export class Multiselect
         const newValue = next;
 
         if (prev !== newValue) {
+            // When clearing the value, clear proxy native <select> selections and
+            // component selectedOptions before notifying the base class. The base
+            // class's valueChanged may read from the proxy select; if the proxy
+            // still has selected options the base may restore selections.
+            if (!newValue) {
+                // clear proxy options if present
+                if (this.proxy instanceof HTMLSelectElement) {
+                    for (const o of Array.from(this.proxy.options)) {
+                        o.selected = false;
+                    }
+                }
+
+                // Clear component selection state
+                this.selectedOptions = [];
+
+                this._value = newValue;
+                try {
+                    super.valueChanged(prev, newValue);
+                } catch {
+                    // defensive
+                }
+                Observable.notify(this, 'value');
+                return;
+            }
+
             this._value = newValue;
             super.valueChanged(prev, newValue);
             Observable.notify(this, 'value');
@@ -201,9 +226,6 @@ export class Multiselect
                 const values = newValue.split(',').map(v => v.trim());
                 const newSelection = this.options?.filter(option => values.includes((option as OptionLike)?.value ?? '')) ?? [];
                 this.selectedOptions = newSelection;
-            } else {
-                // Clear selections when value is empty
-                this.selectedOptions = [];
             }
         }
     }
@@ -350,6 +372,21 @@ export class Multiselect
      */
     public override keydownHandler(e: KeyboardEvent): BooleanOrVoid {
         const key = e.key;
+        // When closed, Enter or Space should open the dropdown (unless disabled)
+        if (
+            !this.open
+            && (key === keyEnter || key === keySpace)
+            && !this.disabled
+            && this.collapsible
+        ) {
+            e.preventDefault();
+            // Allow base class to perform any focus handling, then ensure open state
+            super.keydownHandler(e);
+            if (!this.open) {
+                this.open = true;
+            }
+            return true;
+        }
 
         // Handle multi-select specific keyboard behavior for Enter and Space
         if (this.open && (key === keyEnter || key === keySpace)) {
@@ -384,6 +421,42 @@ export class Multiselect
                 this.updateValue(true);
                 return true; // Event handled, don't call base handler
             }
+        }
+
+        // When open, handle arrow navigation to move active option for keyboard users
+        if (this.open && (key === 'ArrowDown' || key === 'ArrowUp')) {
+            e.preventDefault();
+
+            const direction = key === 'ArrowDown' ? 1 : -1;
+            const options = this.options ?? [];
+            const currentIndex = this.openActiveIndex ?? this.selectedIndex ?? -1;
+
+            const findNext = (start: number, step: number): number => {
+                let idx = start;
+                const len = options.length;
+                for (let i = 0; i < len; i++) {
+                    idx = (idx + step + len) % len;
+                    const opt = options[idx] as unknown as ListOption;
+                    if (!opt) {
+                        continue;
+                    }
+                    // skip options that are hidden or disabled
+                    if ((opt as OptionLike).hidden) {
+                        continue;
+                    }
+                    if ((opt as OptionLike).disabled) {
+                        continue;
+                    }
+                    return idx;
+                }
+                return -1;
+            };
+
+            const nextIndex = findNext(currentIndex, direction);
+            if (nextIndex !== -1) {
+                this.setActiveOption(nextIndex);
+            }
+            return true;
         }
 
         // For all other keys, use the base implementation
