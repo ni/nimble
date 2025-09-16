@@ -194,7 +194,7 @@
             </nimble-select>
             <div class="sub-container">
             <div class="container-label">Select with dynamic options</div>
-                <nimble-select #dynamicSelect appearance="underline" filter-mode="manual" [(ngModel)]="dynamicSelectValue" (filter-input)="onDynamicSelectFilterInput($event)">
+                <nimble-select #dynamicSelect appearance="underline" filter-mode="manual" [(ngModel)]="dynamicSelectValue" (filter-input)="onDynamicSelectFilterInput($event)" [compareWith]="dynamicSelectCompareWith">
                     <nimble-list-option hidden selected disabled [ngValue]="dynamicSelectPlaceholderValue">Select an option</nimble-list-option>
                     <nimble-list-option #dynamicOptions *ngFor="let item of dynamicSelectItems" [ngValue]="item" [hidden]="shouldHideItem(item)">{{ item.first }} {{ item.last }}</nimble-list-option>
                 </nimble-select>
@@ -484,6 +484,10 @@
                 <spright-chat-message message-type="outbound" *ngFor="let message of chatUserMessages"><span>{{message}}</span></spright-chat-message>
                 <spright-chat-input slot="input" placeholder="Type here" (send)="onChatInputSend($event)"></spright-chat-input>
             </spright-chat-conversation>
+        </div>
+        <div class="sub-container">
+            <div class="container-label">Button (Ok)</div>
+            <ok-button>Ok</ok-button>
         </div>
         <div class="sub-container">
             <div class="container-label">Rectangle (Spright)</div>

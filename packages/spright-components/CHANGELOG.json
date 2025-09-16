@@ -2,6 +2,51 @@
   "name": "@ni/spright-components",
   "entries": [
     {
+      "date": "Thu, 11 Sep 2025 16:32:48 GMT",
+      "version": "6.3.0",
+      "tag": "@ni/spright-components_v6.3.0",
+      "comments": {
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/spright-components",
+            "commit": "108b03a39520fe996e920c83989a57d2fe0aad41",
+            "comment": "rollup config alignment notice"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 09 Sep 2025 16:30:01 GMT",
+      "version": "6.3.0",
+      "tag": "@ni/spright-components_v6.3.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/spright-components",
+            "commit": "6fcca9e8d1299b319977ab98adc23d8cd12017b7",
+            "comment": "Add API to hide background visual for chat conversation."
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 09 Sep 2025 14:52:54 GMT",
+      "version": "6.2.1",
+      "tag": "@ni/spright-components_v6.2.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/spright-components",
+            "commit": "a14a55f8c59b9be5c6c01d5d732222837974e5ca",
+            "comment": "Add hover and focus styling to spright-chat-input"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 26 Aug 2025 21:52:25 GMT",
       "version": "6.2.0",
       "tag": "@ni/spright-components_v6.2.0",

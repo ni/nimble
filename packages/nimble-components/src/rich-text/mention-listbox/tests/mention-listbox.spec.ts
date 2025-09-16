@@ -69,8 +69,7 @@ describe('RichTextMentionListbox', () => {
         await disconnect();
     });
 
-    // Intermittent, see: https://github.com/ni/nimble/issues/2274
-    it('should scroll the selected option into view when opened #SkipWebkit', async () => {
+    it('should scroll the selected option into view when opened', async () => {
         await showAndWaitForOpen();
         await waitForSelectionUpdateAsync(); // showing filters the options and modifies the selection
 
@@ -83,8 +82,7 @@ describe('RichTextMentionListbox', () => {
         expect(element.listbox.scrollTop).toBeCloseTo(4);
     });
 
-    // Intermittent, see: https://github.com/ni/nimble/issues/2269
-    it('should limit dropdown height to viewport #SkipWebkit', async () => {
+    it('should limit dropdown height to viewport', async () => {
         element.listbox.style.setProperty(
             '--ni-private-listbox-visible-option-count',
             '10000'

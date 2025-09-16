@@ -5,10 +5,10 @@ Private package containing the Storybook for the Nimble repo.
 ## Usage warning
 
 This package is the exception to normal package dependency rules by having
-explicit monorepo path dependencies on nimble-components and spright-components
-and by inspecting non-public contents such as typescript source code instead of
-public build artifacts. The package should be not be used as a model of best
-practices for the nimble monorepo.
+explicit monorepo path dependencies on the components libraries and by
+inspecting non-public contents such as typescript source code instead of public
+build artifacts. The package should be not be used as a model of best practices
+for the nimble monorepo.
 
 ## Contributing
 

@@ -1,8 +1,24 @@
 # Change Log - @ni/spright-components
 
-<!-- This log was last generated on Tue, 26 Aug 2025 21:52:25 GMT and should not be manually modified. -->
+<!-- This log was last generated on Tue, 09 Sep 2025 16:30:01 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 6.3.0
+
+Tue, 09 Sep 2025 16:30:01 GMT
+
+### Minor changes
+
+- Add API to hide background visual for chat conversation. ([ni/nimble@6fcca9e](https://github.com/ni/nimble/commit/6fcca9e8d1299b319977ab98adc23d8cd12017b7))
+
+## 6.2.1
+
+Tue, 09 Sep 2025 14:52:54 GMT
+
+### Patches
+
+- Add hover and focus styling to spright-chat-input ([ni/nimble@a14a55f](https://github.com/ni/nimble/commit/a14a55f8c59b9be5c6c01d5d732222837974e5ca))
 
 ## 6.2.0
 

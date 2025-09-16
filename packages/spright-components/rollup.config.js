@@ -1,3 +1,8 @@
+/**
+ * The all-components-bundle build configuration in this file
+ * should be kept in sync with downstream component library
+ * rollup configurations for all-components-bundle builds
+ */
 import commonJS from '@rollup/plugin-commonjs';
 import resolve from '@rollup/plugin-node-resolve';
 import sourcemaps from 'rollup-plugin-sourcemaps2';

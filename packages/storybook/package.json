@@ -23,6 +23,8 @@
     "@ni/nimble-components": "*",
     "@ni/nimble-react": "*",
     "@ni/nimble-tokens": "*",
+    "@ni/ok-components": "*",
+    "@ni/ok-react": "*",
     "@ni/spright-components": "*",
     "@ni/spright-react": "*",
     "@storybook/addon-a11y": "^9.0.5",

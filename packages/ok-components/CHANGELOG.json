@@ -1,0 +1,20 @@
+{
+  "name": "@ni/ok-components",
+  "entries": [
+    {
+      "date": "Thu, 11 Sep 2025 16:32:48 GMT",
+      "version": "0.0.2",
+      "tag": "@ni/ok-components_v0.0.2",
+      "comments": {
+        "patch": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/ok-components",
+            "commit": "108b03a39520fe996e920c83989a57d2fe0aad41",
+            "comment": "ok-components"
+          }
+        ]
+      }
+    }
+  ]
+}

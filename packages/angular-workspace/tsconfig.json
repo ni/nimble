@@ -14,7 +14,13 @@
       ],
       "@ni/spright-angular/*": [
         "dist/spright-angular/*"
-      ]
+      ],
+      "@ni/ok-angular": [
+        "dist/ok-angular"
+      ],
+      "@ni/ok-angular/*": [
+        "dist/ok-angular/*"
+      ],
     },
     "baseUrl": "./",
     "outDir": "./dist/out-tsc",

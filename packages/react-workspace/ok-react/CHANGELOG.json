@@ -1,0 +1,26 @@
+{
+  "name": "@ni/ok-react",
+  "entries": [
+    {
+      "date": "Thu, 11 Sep 2025 16:32:48 GMT",
+      "version": "0.0.2",
+      "tag": "@ni/ok-react_v0.0.2",
+      "comments": {
+        "patch": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/ok-react",
+            "commit": "108b03a39520fe996e920c83989a57d2fe0aad41",
+            "comment": "ok-react"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/ok-react",
+            "comment": "Bump @ni/ok-components to v0.0.2",
+            "commit": "not available"
+          }
+        ]
+      }
+    }
+  ]
+}
