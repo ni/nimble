@@ -22,4 +22,18 @@ describe('Retry failed tests', () => {
             expect(afterEachSpy.calls.count()).toBe(0);
         });
     });
+    describe('with tests that console.error intermittently', () => {
+        let failedOnce = false;
+        const testSpy = jasmine.createSpy();
+        it('eventually do pass', () => {
+            testSpy();
+            if (!failedOnce) {
+                failedOnce = true;
+                // eslint-disable-next-line no-console
+                console.error('Testing error logging');
+            }
+            // The it statement will run multiple times increasing the spy count
+            expect(testSpy.calls.count()).toBe(2);
+        });
+    });
 });
