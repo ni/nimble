@@ -1,5 +1,5 @@
-// Scripts that should run at the very beginning of jasmine tests
-import { applyExtensions } from '@ni-private/jasmine-extensions';
+// eslint-disable-next-line import/no-useless-path-segments
+import { applyExtensions } from '../index.js';
 
 applyExtensions();
 
@@ -8,4 +8,3 @@ applyExtensions();
 console.error = (data: any): void => fail(data);
 // eslint-disable-next-line no-console, @typescript-eslint/no-explicit-any
 console.warn = (data: any): void => fail(data);
-jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000;
