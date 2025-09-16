@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 16 Sep 2025 23:07:19 GMT",
+      "version": "34.3.0",
+      "tag": "@ni/nimble-components_v34.3.0",
+      "comments": {
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "fee4e57878a1505d07db8ae320de6989e8dd463f",
+            "comment": "Test only change enabling retries"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 11 Sep 2025 16:32:48 GMT",
       "version": "34.3.0",
       "tag": "@ni/nimble-components_v34.3.0",

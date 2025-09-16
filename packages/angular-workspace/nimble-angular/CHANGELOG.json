@@ -2,6 +2,21 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Tue, 16 Sep 2025 23:07:19 GMT",
+      "version": "30.7.0",
+      "tag": "@ni/nimble-angular_v30.7.0",
+      "comments": {
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "fee4e57878a1505d07db8ae320de6989e8dd463f",
+            "comment": "test only change for retries"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 26 Aug 2025 21:52:25 GMT",
       "version": "30.7.0",
       "tag": "@ni/nimble-angular_v30.7.0",
