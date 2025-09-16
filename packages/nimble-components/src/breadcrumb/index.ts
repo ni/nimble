@@ -33,7 +33,7 @@ export class Breadcrumb extends FoundationBreadcrumb {
     public list!: HTMLElement;
     /**
      * @internal
-    */
+     */
     public readonly leftScrollButton?: HTMLElement;
 
     private readonly listResizeObserver: ResizeObserver;

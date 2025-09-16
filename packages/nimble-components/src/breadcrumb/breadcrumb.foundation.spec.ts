@@ -30,9 +30,15 @@ async function setup(): Promise<BreadcrumbTestSetup> {
         fastBreadcrumbItem()
     ]);
 
-    const item1 = document.createElement('fast-breadcrumb-item') as BreadcrumbItem;
-    const item2 = document.createElement('fast-breadcrumb-item') as BreadcrumbItem;
-    const item3 = document.createElement('fast-breadcrumb-item') as BreadcrumbItem;
+    const item1 = document.createElement(
+        'fast-breadcrumb-item'
+    ) as BreadcrumbItem;
+    const item2 = document.createElement(
+        'fast-breadcrumb-item'
+    ) as BreadcrumbItem;
+    const item3 = document.createElement(
+        'fast-breadcrumb-item'
+    ) as BreadcrumbItem;
 
     element.appendChild(item1);
     element.appendChild(item2);
@@ -57,7 +63,9 @@ describe('Breadcrumb', () => {
 
         await connect();
 
-        expect(element.shadowRoot?.querySelector("[role='list']")).not.toEqual(null);
+        expect(element.shadowRoot?.querySelector("[role='list']")).not.toEqual(
+            null
+        );
 
         await disconnect();
     });
@@ -67,7 +75,9 @@ describe('Breadcrumb', () => {
 
         await connect();
 
-        const items: NodeListOf<BreadcrumbItem> = element.querySelectorAll('fast-breadcrumb-item');
+        const items: NodeListOf<BreadcrumbItem> = element.querySelectorAll(
+            'fast-breadcrumb-item'
+        );
 
         const lastItem: BreadcrumbItem | undefined = items[items.length - 1];
 
@@ -104,14 +114,16 @@ describe('Breadcrumb', () => {
     it('should remove aria-current from any prior Breadcrumb Item children with hrefs when a new node is appended', async () => {
         const { element, connect, disconnect, item1, item2, item3 } = await setup();
 
-        (item1).setAttribute('href', '#');
-        (item2).setAttribute('href', '#');
-        (item3).setAttribute('href', '#');
+        item1.setAttribute('href', '#');
+        item2.setAttribute('href', '#');
+        item3.setAttribute('href', '#');
 
         await connect();
 
         expect(
-            element.querySelectorAll('fast-breadcrumb-item')[2]?.getAttribute('aria-current')
+            element
+                .querySelectorAll('fast-breadcrumb-item')[2]
+                ?.getAttribute('aria-current')
         ).toEqual('page');
 
         const item4 = document.createElement('fast-breadcrumb-item');
@@ -121,11 +133,15 @@ describe('Breadcrumb', () => {
         await DOM.nextUpdate();
 
         expect(
-            element.querySelectorAll('fast-breadcrumb-item')[2]?.hasAttribute('aria-current')
+            element
+                .querySelectorAll('fast-breadcrumb-item')[2]
+                ?.hasAttribute('aria-current')
         ).toEqual(false);
 
         expect(
-            element.querySelectorAll('fast-breadcrumb-item')[3]?.getAttribute('aria-current')
+            element
+                .querySelectorAll('fast-breadcrumb-item')[3]
+                ?.getAttribute('aria-current')
         ).toEqual('page');
 
         await disconnect();
