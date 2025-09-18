@@ -37,14 +37,14 @@ const metadata: Meta<BreadcrumbArgs> = {
 };
 
 const many = Array.from({ length: 100 }).map((_x, i) => ({
-    label: `Page ${i + 1}`,
-    href: i + 1 === 100 ? undefined : 'https://www.ni.com'
+    label: i + 1 === 100 ? 'Current (no link)' : `Page ${i + 1}`,
+    href: i + 1 === 100 ? undefined : `https://www.ni.com/?item=${i + 1}`
 }));
 
 const simple = [
     { label: 'Page 1', href: 'https://www.ni.com' },
     { label: 'Page 2', href: 'https://www.ni.com' },
-    { label: 'Page 3', href: undefined }
+    { label: 'Current (no link)', href: undefined }
 ] as const;
 
 const wide = [
@@ -56,7 +56,7 @@ const wide = [
         label: 'Page 2 that is also long but not too long',
         href: 'https://www.ni.com'
     },
-    { label: 'Short', href: undefined }
+    { label: 'Current (no link)', href: undefined }
 ] as const;
 
 const breadcrumbItemSets = {
