@@ -15,13 +15,10 @@ import { iconArrowExpanderRightTag } from '../icons/arrow-expander-right';
  * The template for the {@link @ni/fast-foundation#Breadcrumb} component.
  * @public
  */
-export const breadcrumbTemplate: FoundationElementTemplate<
-ViewTemplate<Breadcrumb>
-> = (_context, _definition) => html`
+// prettier-ignore
+export const breadcrumbTemplate: FoundationElementTemplate<ViewTemplate<Breadcrumb>> = (_context, _definition) => html`
     <template role="navigation">
-        ${when(
-        x => x.showScrollButtons,
-        html<Breadcrumb>`
+        ${when(x => x.showScrollButtons, html<Breadcrumb>`
             <${buttonTag} 
                 content-hidden
                 class="scroll-button left"
@@ -32,19 +29,13 @@ ViewTemplate<Breadcrumb>
                 ${x => scrollForwardLabel.getValueFor(x)}
                 <${iconArrowExpanderLeftTag} slot="start"></${iconArrowExpanderLeftTag}>
             </${buttonTag}>
-        `
-    )}
+        `)}
         <div ${ref('list')} role="list" class="list" part="list">
             <slot
-                ${slotted({
-        property: 'slottedBreadcrumbItems',
-        filter: elements()
-    })}
+                ${slotted({ property: 'slottedBreadcrumbItems', filter: elements() })}
             ></slot>
         </div>
-        ${when(
-        x => x.showScrollButtons,
-        html<Breadcrumb>`
+        ${when(x => x.showScrollButtons, html<Breadcrumb>`
             <${buttonTag}
                 content-hidden
                 class="scroll-button right"
@@ -54,7 +45,6 @@ ViewTemplate<Breadcrumb>
                 ${x => scrollBackwardLabel.getValueFor(x)}
                 <${iconArrowExpanderRightTag} slot="start"></${iconArrowExpanderRightTag}>
             </${buttonTag}>
-        `
-    )}
+        `)}
     </template>
 `;
