@@ -2,6 +2,21 @@
   "name": "@ni/spright-angular",
   "entries": [
     {
+      "date": "Tue, 16 Sep 2025 23:07:19 GMT",
+      "version": "7.7.2",
+      "tag": "@ni/spright-angular_v7.7.2",
+      "comments": {
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/spright-angular",
+            "commit": "fee4e57878a1505d07db8ae320de6989e8dd463f",
+            "comment": "test only change for retries"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 09 Sep 2025 16:30:01 GMT",
       "version": "7.7.2",
       "tag": "@ni/spright-angular_v7.7.2",
