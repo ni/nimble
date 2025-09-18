@@ -78,7 +78,7 @@ export class BreadcrumbPageObject {
         await waitForUpdatesAsync();
     }
 
-    public async removeBreadcrumbItem(index: number): Promise<void> {
+    public async removeBreadcrumbItemByIndex(index: number): Promise<void> {
         if (index >= this.breadcrumbElement.slottedBreadcrumbItems.length) {
             throw new Error(`Breadcrumb item with index ${index} not found`);
         }
@@ -87,7 +87,7 @@ export class BreadcrumbPageObject {
         await waitForUpdatesAsync();
     }
 
-    public async updateBreadcrumbLabel(
+    public async updateBreadcrumbItemLabel(
         index: number,
         label: string
     ): Promise<void> {
@@ -96,6 +96,17 @@ export class BreadcrumbPageObject {
         }
         const breadcrumb = this.breadcrumbElement.slottedBreadcrumbItems[index]!;
         breadcrumb.textContent = label;
+        await waitForUpdatesAsync();
+    }
+
+    public async scrollBreadcrumbItemIntoViewByIndex(
+        index: number,
+    ): Promise<void> {
+        if (index >= this.breadcrumbElement.slottedBreadcrumbItems.length) {
+            throw new Error(`Breadcrumb item with index ${index} not found`);
+        }
+        const breadcrumb = this.breadcrumbElement.slottedBreadcrumbItems[index]!;
+        breadcrumb.scrollIntoView();
         await waitForUpdatesAsync();
     }
 
