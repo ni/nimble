@@ -10,9 +10,10 @@ import {
     createUserSelectedThemeStory
 } from '../../utilities/storybook';
 import { hrefDescription } from '../patterns/anchor/anchor-docs';
+import { ExampleBreadcrumbItemsType } from './types';
 
 interface BreadcrumbArgs {
-    options: ItemArgs[];
+    itemsType: ExampleBreadcrumbItemsType;
     appearance: keyof typeof BreadcrumbAppearance;
 }
 
@@ -35,6 +36,35 @@ const metadata: Meta<BreadcrumbArgs> = {
     }
 };
 
+const many = Array.from({ length: 100 }).map((_x, i) => ({
+    label: `Page ${i + 1}`,
+    href: i + 1 === 100 ? undefined : 'https://www.ni.com'
+}));
+
+const simple = [
+    { label: 'Page 1', href: 'https://www.ni.com' },
+    { label: 'Page 2', href: 'https://www.ni.com' },
+    { label: 'Page 3', href: undefined }
+] as const;
+
+const wide = [
+    {
+        label: 'Page 1 that is too long and should probably be shorter but is not and sometimes you have to pick which battles to fight and which to let go of',
+        href: 'https://www.ni.com'
+    },
+    {
+        label: 'Page 2 that is also long but not too long',
+        href: 'https://www.ni.com'
+    },
+    { label: 'Short', href: undefined }
+] as const;
+
+const breadcrumbItemSets = {
+    [ExampleBreadcrumbItemsType.simple]: simple,
+    [ExampleBreadcrumbItemsType.many]: many,
+    [ExampleBreadcrumbItemsType.wide]: wide
+} as const;
+
 export default metadata;
 
 const defaultHrefDescription = hrefDescription({
@@ -46,17 +76,11 @@ const itemHrefDescription = `${defaultHrefDescription} If the last breadcrumb it
 export const _standardBreadcrumb: StoryObj<BreadcrumbArgs> = {
     // prettier-ignore
     render: createUserSelectedThemeStory(html`
-    <div
-        style="resize: both;
-        width:200px;
-        border: 1px solid lightgray;
-        overflow: hidden;"
-    >
         <${breadcrumbTag}
             appearance="${x => BreadcrumbAppearance[x.appearance]}"
 
         >
-            ${repeat(x => x.options, html<ItemArgs, BreadcrumbArgs>`
+            ${repeat(x => breadcrumbItemSets[x.itemsType], html<ItemArgs, BreadcrumbArgs>`
                 <${breadcrumbItemTag}
                     href="${x => x.href}"
                 >
@@ -64,17 +88,26 @@ export const _standardBreadcrumb: StoryObj<BreadcrumbArgs> = {
                 </${breadcrumbItemTag}>
             `)}
         </${breadcrumbTag}>
-    </div>
 `),
     // eslint-disable-next-line storybook/no-redundant-story-name
     name: 'Standard Breadcrumb',
     argTypes: {
-        options: {
+        itemsType: {
             name: 'default',
             description: `The \`${breadcrumbItemTag}\` elements that populate this breadcrumb. 
 
 With a standard breadcrumb containing multiple items, the last breadcrumb represents the current page.`,
-            table: { category: apiCategory.slots }
+            table: { category: apiCategory.slots },
+            options: Object.values(ExampleBreadcrumbItemsType),
+            control: {
+                type: 'radio',
+                labels: {
+                    [ExampleBreadcrumbItemsType.simple]:
+                        'Simple breadcrumb items',
+                    [ExampleBreadcrumbItemsType.many]: 'Many breadcrumb items',
+                    [ExampleBreadcrumbItemsType.wide]: 'Wide breadcrumb items'
+                }
+            }
         },
         appearance: {
             options: Object.keys(BreadcrumbAppearance),
@@ -84,19 +117,7 @@ With a standard breadcrumb containing multiple items, the last breadcrumb repres
         }
     },
     args: {
-        options: [
-            {
-                href: '#',
-                label: 'Page 1'
-            },
-            {
-                href: '#',
-                label: 'Page 2'
-            },
-            {
-                label: 'Current (No Link)'
-            }
-        ],
+        itemsType: ExampleBreadcrumbItemsType.simple,
         appearance: 'default'
     }
 };
