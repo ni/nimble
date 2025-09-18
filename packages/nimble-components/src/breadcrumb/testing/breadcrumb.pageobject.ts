@@ -100,7 +100,7 @@ export class BreadcrumbPageObject {
     }
 
     public async scrollBreadcrumbItemIntoViewByIndex(
-        index: number,
+        index: number
     ): Promise<void> {
         if (index >= this.breadcrumbElement.slottedBreadcrumbItems.length) {
             throw new Error(`Breadcrumb item with index ${index} not found`);
