@@ -4,8 +4,9 @@
   "private": true,
   "description": "Storybook for the Nimble repo",
   "scripts": {
-    "build": "storybook build -o dist/storybook --webpack-stats-json",
+    "build": "npm run gen-llm && storybook build -o dist/storybook --webpack-stats-json",
     "start": "storybook dev --quiet -p 6006",
+    "gen-llm": "node scripts/generate-llm-context.js",
     "lint": "npm run eslint && npm run prettier",
     "format": "npm run prettier-fix",
     "eslint": "eslint .",

@@ -153,6 +153,9 @@ class StoryFileParser {
                             description: attributeInfo.description
                         });
                         break;
+                    case 'styles':
+                        // Skip styles category for now
+                        break;
                     default:
                         throw Error(`Unexpected category ${attributeInfo.category}`);
                     }
@@ -394,7 +397,12 @@ export const apiReference = {
 // Main execution
 if (require.main === module) {
     const generator = new LLMContextGenerator();
-    generator.generateContext().catch(console.error);
+    try {
+        generator.generateContext();
+    } catch (error) {
+        console.error('Error generating LLM context:', error);
+        process.exit(1);
+    }
 }
 
 module.exports = { LLMContextGenerator, StoryFileParser };
