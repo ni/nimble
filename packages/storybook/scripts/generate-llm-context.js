@@ -302,8 +302,8 @@ class LLMContextGenerator {
         fs.writeFileSync(path.resolve(__dirname, '../../..', this.outputPath), markdown);
         console.log(`📝 Generated LLM context: ${this.outputPath}`);
 
-        // Also create a simple Storybook page for viewing
-        this.createStorybookPage(markdown);
+        // Also create a markdown file for Storybook
+        this.createMarkdownFile(markdown);
     }
 
     generateMarkdown(apis) {
@@ -360,37 +360,16 @@ ${api.methods.map(method => `- ${method.name}${method.signature ? `(${method.sig
 `;
     }
 
-    createStorybookPage(markdown) {
-        const storyContent = `
-export default {
-    title: 'Internal/LLM API Reference',
-    parameters: {
-        docs: { page: null },
-        previewTabs: { 
-            canvas: { hidden: true }
-        }
-    }
-};
+    createMarkdownFile(markdown) {
+        const markdownPath = path.resolve(__dirname, '../src/docs/llm-api-reference.md');
+        const markdownDir = path.dirname(markdownPath);
 
-export const apiReference = {
-    render: () => {
-        const container = document.createElement('div');
-        container.style.cssText = 'font-family: monospace; white-space: pre-wrap; padding: 20px; max-width: none; overflow-x: auto;';
-        container.textContent = \`${markdown.replace(/`/g, '\\`')}\`;
-        return container;
-    }
-};
-`;
-
-        const storyPath = path.resolve(__dirname, '../src/docs/llm-api-reference.stories.ts');
-        const storyDir = path.dirname(storyPath);
-
-        if (!fs.existsSync(storyDir)) {
-            fs.mkdirSync(storyDir, { recursive: true });
+        if (!fs.existsSync(markdownDir)) {
+            fs.mkdirSync(markdownDir, { recursive: true });
         }
 
-        fs.writeFileSync(storyPath, storyContent);
-        console.log('📄 Created Storybook page: src/docs/llm-api-reference.stories.ts');
+        fs.writeFileSync(markdownPath, markdown);
+        console.log('📄 Created markdown file: src/docs/llm-api-reference.md');
     }
 }
 
