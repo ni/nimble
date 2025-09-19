@@ -360,12 +360,11 @@ ${api.methods.map(method => `- ${method.name}${method.signature ? `(${method.sig
     createStorybookPage(markdown) {
         const storyContent = `
 export default {
-    title: 'LLM API Reference',
+    title: 'Internal/LLM API Reference',
     parameters: {
         docs: { page: null },
         previewTabs: { 
-            canvas: { hidden: true },
-            'storybook/docs/panel': { hidden: true }
+            canvas: { hidden: true }
         }
     }
 };

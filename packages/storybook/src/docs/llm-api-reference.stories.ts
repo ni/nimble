@@ -1,5 +1,5 @@
 export default {
-    title: 'LLM API Reference',
+    title: 'Internal/LLM API Reference',
     parameters: {
         docs: { page: null },
         previewTabs: {
