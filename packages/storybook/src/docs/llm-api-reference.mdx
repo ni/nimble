@@ -1,13 +1,11 @@
-import { Meta } from '@storybook/addon-docs/blocks';
-import { ApiReference } from './llm-api-reference.stories';
+import { Canvas, Meta, Title } from '@storybook/addon-docs/blocks';
+import * as llmApiStories from './llm-api-reference.stories';
 
-<Meta title="LLM API Reference" />
-
-# LLM API Reference
+<Meta of={llmApiStories} />
+<Title of={llmApiStories} />
 
 This page displays the automatically generated API documentation for all Nimble Design System components.
 Before asking an LLM to code a Nimble-based project, copy these instructions to a markdown file in your 
 repo and instruct the LLM to reference it when using Nimble.
 
-
-<ApiReference />
+<Canvas of={llmApiStories.ApiReference} />
