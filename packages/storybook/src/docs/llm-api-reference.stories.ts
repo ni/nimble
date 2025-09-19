@@ -3,13 +3,12 @@ export default {
     parameters: {
         docs: { page: null },
         previewTabs: {
-            canvas: { hidden: true },
-            'storybook/docs/panel': { hidden: true }
+            canvas: { hidden: true }
         }
     }
 };
 
-export const ApiReference = {
+export const apiReference = {
     render: () => {
         const container = document.createElement('div');
         container.style.cssText = 'font-family: monospace; white-space: pre-wrap; padding: 20px; max-width: none; overflow-x: auto;';

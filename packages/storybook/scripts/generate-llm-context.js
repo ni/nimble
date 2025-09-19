@@ -153,6 +153,8 @@ class StoryFileParser {
                             description: attributeInfo.description
                         });
                         break;
+                    default:
+                        throw Error(`Unexpected category ${attributeInfo.category}`);
                     }
                 }
             }
@@ -211,7 +213,7 @@ class StoryFileParser {
         return undefined;
     }
 
-    extractRenderTemplate(api) {
+    extractRenderTemplate(_api) {
         // TODO: Extract template information for usage examples
         // This would parse the render template to extract actual usage patterns
     }
@@ -368,7 +370,7 @@ export default {
     }
 };
 
-export const ApiReference = {
+export const apiReference = {
     render: () => {
         const container = document.createElement('div');
         container.style.cssText = 'font-family: monospace; white-space: pre-wrap; padding: 20px; max-width: none; overflow-x: auto;';
