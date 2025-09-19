@@ -1,5 +1,5 @@
 import { Meta } from '@storybook/addon-docs/blocks';
-import * as LLMStories from './llm-api-reference.stories';
+import { ApiReference } from './llm-api-reference.stories';
 
 <Meta title="LLM API Reference" />
 
@@ -9,6 +9,5 @@ This page displays the automatically generated API documentation for all Nimble 
 Before asking an LLM to code a Nimble-based project, copy these instructions to a markdown file in your 
 repo and instruct the LLM to reference it when using Nimble.
 
-<div dangerouslySetInnerHTML={{ __html: LLMStories.ApiReference.render().outerHTML }} />
 
 <ApiReference />
