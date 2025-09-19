@@ -368,7 +368,7 @@ export default {
     }
 };
 
-export const APIReference = {
+export const ApiReference = {
     render: () => {
         const container = document.createElement('div');
         container.style.cssText = 'font-family: monospace; white-space: pre-wrap; padding: 20px; max-width: none; overflow-x: auto;';
