@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+/* eslint-disable max-classes-per-file */
 
 /**
  * LLM Context Generator for Nimble Design System
