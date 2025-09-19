@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+/* eslint-disable no-console */
 /* eslint-disable max-classes-per-file */
 
 /**
@@ -240,7 +241,7 @@ class LLMContextGenerator {
         this.outputPath = 'packages/storybook/dist/llm-api-reference.md';
     }
 
-    async generateContext() {
+    generateContext() {
         console.log('🚀 Starting LLM context generation...');
 
         // Discover story files
