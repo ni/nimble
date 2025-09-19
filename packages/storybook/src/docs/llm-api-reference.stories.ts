@@ -1,9 +1,8 @@
-
 export default {
     title: 'LLM API Reference',
     parameters: {
         docs: { page: null },
-        previewTabs: { 
+        previewTabs: {
             canvas: { hidden: true },
             'storybook/docs/panel': { hidden: true }
         }
