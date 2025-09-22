@@ -78,7 +78,7 @@ export const _standardBreadcrumb: StoryObj<BreadcrumbArgs> = {
     render: createUserSelectedThemeStory(html`
         <${breadcrumbTag}
             appearance="${x => BreadcrumbAppearance[x.appearance]}"
-
+            style="width: 100%;"
         >
             ${repeat(x => breadcrumbItemSets[x.itemsType], html<ItemArgs, BreadcrumbArgs>`
                 <${breadcrumbItemTag}

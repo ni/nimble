@@ -8,7 +8,7 @@ import {
 } from '../theme-provider/design-tokens';
 
 export const styles = css`
-    ${display('flex')}
+    ${display('inline-flex')}
 
     :host {
         flex-direction: row;
@@ -17,14 +17,16 @@ export const styles = css`
     .scroll-button.left {
         margin-right: ${smallPadding};
     }
+
     .list {
-        display: flex;
+        display: inline-flex;
         max-width: 100%;
         width: max-content;
         align-self: end;
         overflow-x: scroll;
         scrollbar-width: none;
     }
+
     .scroll-button.right {
         margin-left: ${smallPadding};
     }
