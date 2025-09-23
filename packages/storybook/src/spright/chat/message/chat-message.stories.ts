@@ -4,7 +4,7 @@ import type { Meta, StoryObj } from '@storybook/html-vite';
 import { buttonTag } from '@ni/nimble-components/dist/esm/button';
 import { chatMessageTag } from '@ni/spright-components/dist/esm/chat/message';
 import { ChatMessageType } from '@ni/spright-components/dist/esm/chat/message/types';
-import { richTextViewerTag } from '@ni/nimble-components/dist/esm/rich-text/viewer';
+import { chatMarkdownViewerTag } from '@ni/spright-components/dist/esm/chat/markdown-viewer';
 import { spinnerTag } from '@ni/nimble-components/dist/esm/spinner';
 import { SpinnerAppearance } from '@ni/nimble-components/dist/esm/spinner/types';
 import { iconThumbUpTag } from '@ni/nimble-components/dist/esm/icons/thumb-up';
@@ -112,7 +112,7 @@ interface ChatMessageRichTextArgs extends ChatMessageArgs {
 export const chatMessageRichText: StoryObj<ChatMessageRichTextArgs> = {
     render: createUserSelectedThemeStory(html`
         <${chatMessageTag} message-type="${x => ChatMessageType[x.messageType]}">
-            <${richTextViewerTag} markdown="${x => x.markdown}"></${richTextViewerTag}>
+            <${chatMarkdownViewerTag} markdown="${x => x.markdown}"></${chatMarkdownViewerTag}>
             ${when(x => x.footerActions, html`
                 <${buttonTag} slot="footer-actions" appearance="ghost" title="Like" content-hidden>
                     <${iconThumbUpTag} slot="start"></${iconThumbUpTag}>
