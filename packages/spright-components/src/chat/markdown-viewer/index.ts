@@ -30,13 +30,14 @@ export class ChatMarkdownViewer extends FoundationElement {
     /**
      * @internal
      */
-    public markdownAsHtml = '';
+    public container!: HTMLDivElement;
 
     /**
      * @internal
      */
     public async markdownChanged(): Promise<void> {
-        this.markdownAsHtml = await marked.parse(this.markdown);
+        const markdownAsHtml = await marked.parseInline(this.markdown);
+        this.container.innerHTML = markdownAsHtml;
     }
 }
 
