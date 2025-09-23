@@ -3,8 +3,6 @@ import {
     DesignSystem,
     FoundationElement,
     StartEnd,
-    type FoundationElementDefinition,
-    type StartEndOptions
 } from '@ni/fast-foundation';
 import { styles } from './styles';
 import { template } from './template';
@@ -14,12 +12,6 @@ declare global {
         'spright-chat-markdown-viewer': ChatMarkdownViewer;
     }
 }
-
-/**
- * SprightChatMarkdownViewer configuration options
- * @public
- */
-export type ChatMarkdownViewerOptions = FoundationElementDefinition & StartEndOptions;
 
 /**
  * A Spright component for displaying a chat markdown viewer
