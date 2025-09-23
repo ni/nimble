@@ -1,8 +1,6 @@
 import {
-    applyMixins,
     DesignSystem,
     FoundationElement,
-    StartEnd,
 } from '@ni/fast-foundation';
 import { attr } from '@ni/fast-element';
 import { styles } from './styles';
@@ -34,7 +32,6 @@ export class ChatMarkdownViewer extends FoundationElement {
     public markdownChanged(): void {
     }
 }
-applyMixins(ChatMarkdownViewer, StartEnd);
 
 const sprightChatMarkdownViewer = ChatMarkdownViewer.compose({
     baseName: 'chat-markdown-viewer',
