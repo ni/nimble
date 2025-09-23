@@ -27,6 +27,12 @@ export class ChatMarkdownViewer extends FoundationElement {
      */
     @attr({ mode: 'fromView' })
     public markdown = '';
+
+    /**
+     * @internal
+     */
+    public markdownChanged(): void {
+    }
 }
 applyMixins(ChatMarkdownViewer, StartEnd);
 
