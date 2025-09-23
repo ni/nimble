@@ -13,4 +13,12 @@ export const styles = css`
         font: ${bodyFont};
         color: ${bodyFontColor};
     }
+
+    .container > *:first-child {
+        margin-top: 0px;
+    }
+
+    .container > *:last-child {
+        margin-bottom: 0px;
+    }
 `;

@@ -36,7 +36,7 @@ export class ChatMarkdownViewer extends FoundationElement {
      * @internal
      */
     public async markdownChanged(): Promise<void> {
-        const markdownAsHtml = await marked.parseInline(this.markdown);
+        const markdownAsHtml = await marked.parse(this.markdown);
         this.container.innerHTML = markdownAsHtml;
     }
 }
