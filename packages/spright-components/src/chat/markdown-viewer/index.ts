@@ -1,4 +1,3 @@
-import { attr, observable } from '@ni/fast-element';
 import {
     applyMixins,
     DesignSystem,
@@ -9,7 +8,6 @@ import {
 } from '@ni/fast-foundation';
 import { styles } from './styles';
 import { template } from './template';
-import { ChatMarkdownViewerType } from './types';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -27,29 +25,6 @@ export type ChatMarkdownViewerOptions = FoundationElementDefinition & StartEndOp
  * A Spright component for displaying a chat markdown viewer
  */
 export class ChatMarkdownViewer extends FoundationElement {
-    /**
-     * @public
-     * The message type of this message in the chat conversation
-     * @remarks
-     * HTML Attribute: message-type
-     */
-    @attr({ attribute: 'message-type' })
-    public messageType: ChatMarkdownViewerType = ChatMarkdownViewerType.system;
-
-    /** @internal */
-    @observable
-    public footerActionsIsEmpty = true;
-
-    /** @internal */
-    @observable
-    public readonly slottedFooterActionsElements?: HTMLElement[];
-
-    public slottedFooterActionsElementsChanged(
-        _prev: HTMLElement[] | undefined,
-        next: HTMLElement[] | undefined
-    ): void {
-        this.footerActionsIsEmpty = !next?.length;
-    }
 }
 applyMixins(ChatMarkdownViewer, StartEnd);
 
