@@ -16,7 +16,7 @@ import {
 import type { ChatInputSendEventDetail } from '@ni/spright-components/dist/esm/chat/input/types';
 import { ChatMessageType } from '@ni/spright-components/dist/esm/chat/message/types';
 import { chatMessageTag } from '@ni/spright-components/dist/esm/chat/message';
-import { richTextViewerTag } from '@ni/nimble-components/dist/esm/rich-text/viewer';
+import { chatMarkdownViewerTag } from '@ni/spright-components/dist/esm/chat/markdown-viewer';
 import { spinnerTag } from '@ni/nimble-components/dist/esm/spinner';
 import { iconCopyTextTag } from '@ni/nimble-components/dist/esm/icons/copy-text';
 import { iconThumbUpTag } from '@ni/nimble-components/dist/esm/icons/thumb-up';
@@ -65,7 +65,7 @@ export const chatConversation: StoryObj<ChatConversationArgs> = {
                 Where is the Any key?
             </${chatMessageTag}>
             <${chatMessageTag} message-type="${() => ChatMessageType.outbound}">
-                <${richTextViewerTag} markdown="${() => markdownExample}"></${richTextViewerTag}>
+                <${chatMarkdownViewerTag} markdown="${() => markdownExample}"></${chatMarkdownViewerTag}>
             </${chatMessageTag}>
             <${chatMessageTag} message-type="${() => ChatMessageType.system}">
                 <${spinnerTag}
