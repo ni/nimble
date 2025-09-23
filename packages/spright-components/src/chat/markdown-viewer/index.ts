@@ -4,6 +4,7 @@ import {
     FoundationElement,
     StartEnd,
 } from '@ni/fast-foundation';
+import { attr } from '@ni/fast-element';
 import { styles } from './styles';
 import { template } from './template';
 
@@ -17,6 +18,15 @@ declare global {
  * A Spright component for displaying a chat markdown viewer
  */
 export class ChatMarkdownViewer extends FoundationElement {
+    /**
+     *
+     * @public
+     * Markdown string to render its corresponding rich text content in the component.
+     * @remarks
+     * HTML Attribute: markdown
+     */
+    @attr({ mode: 'fromView' })
+    public markdown = '';
 }
 applyMixins(ChatMarkdownViewer, StartEnd);
 
