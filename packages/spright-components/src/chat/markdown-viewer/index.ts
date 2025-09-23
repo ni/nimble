@@ -3,6 +3,7 @@ import {
     FoundationElement,
 } from '@ni/fast-foundation';
 import { attr } from '@ni/fast-element';
+import { marked } from 'marked';
 import { styles } from './styles';
 import { template } from './template';
 
@@ -29,7 +30,13 @@ export class ChatMarkdownViewer extends FoundationElement {
     /**
      * @internal
      */
-    public markdownChanged(): void {
+    public markdownAsHtml = '';
+
+    /**
+     * @internal
+     */
+    public async markdownChanged(): Promise<void> {
+        this.markdownAsHtml = await marked.parse(this.markdown);
     }
 }
 

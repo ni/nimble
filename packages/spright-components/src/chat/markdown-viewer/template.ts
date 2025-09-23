@@ -8,7 +8,6 @@ import type { ChatMarkdownViewer } from '.';
 // prettier-ignore
 export const template: FoundationElementTemplate<
 ViewTemplate<ChatMarkdownViewer>> = (_context, _definition) => html<ChatMarkdownViewer>`
-    <div class="container">
-    </div>
+<div class="container">${x => x.markdownAsHtml}</div>
 `;
 /* eslint-enable @typescript-eslint/indent */
