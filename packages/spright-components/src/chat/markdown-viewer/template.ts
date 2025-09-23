@@ -4,14 +4,14 @@ import {
     endSlotTemplate,
     type FoundationElementTemplate
 } from '@ni/fast-foundation';
-import type { ChatMessage, ChatMessageOptions } from '.';
+import type { ChatMarkdownViewer, ChatMarkdownViewerOptions } from '.';
 
 /* eslint-disable @typescript-eslint/indent */
 // prettier-ignore
 export const template: FoundationElementTemplate<
-ViewTemplate<ChatMessage>,
-ChatMessageOptions
-> = (context, definition) => html<ChatMessage>`
+ViewTemplate<ChatMarkdownViewer>,
+ChatMarkdownViewerOptions
+> = (context, definition) => html<ChatMarkdownViewer>`
     <div class="container">
         ${startSlotTemplate(context, definition)}
         <section class="message-content">

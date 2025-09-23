@@ -16,7 +16,7 @@ import {
     standardPadding
 } from '@ni/nimble-components/dist/esm/theme-provider/design-tokens';
 import { display } from '../../utilities/style/display';
-import { ChatMessageType } from './types';
+import { ChatMarkdownViewerType } from './types';
 
 export const styles = css`
     ${display('flex')}
@@ -32,11 +32,11 @@ export const styles = css`
         color: ${bodyFontColor};
     }
 
-    :host([message-type='${ChatMessageType.outbound}']) {
+    :host([message-type='${ChatMarkdownViewerType.outbound}']) {
         justify-content: flex-end;
     }
 
-    :host([message-type='${ChatMessageType.inbound}']) {
+    :host([message-type='${ChatMarkdownViewerType.inbound}']) {
         justify-content: flex-start;
     }
 
@@ -56,7 +56,7 @@ export const styles = css`
         overflow-x: auto;
     }
 
-    :host([message-type='${ChatMessageType.outbound}']) .message-content {
+    :host([message-type='${ChatMarkdownViewerType.outbound}']) .message-content {
         background: ${fillSelectedColor};
         border: ${borderWidth} solid ${borderHoverColor};
         border-radius: ${mediumPadding} ${mediumPadding} 0px ${mediumPadding};
@@ -67,7 +67,7 @@ export const styles = css`
         display: none;
     }
 
-    :host([message-type='${ChatMessageType.inbound}'])
+    :host([message-type='${ChatMarkdownViewerType.inbound}'])
         .footer-actions.has-content {
         display: flex;
         column-gap: ${standardPadding};
@@ -85,7 +85,7 @@ export const styles = css`
         display: none;
     }
 
-    :host([message-type='${ChatMessageType.inbound}']) .end {
+    :host([message-type='${ChatMarkdownViewerType.inbound}']) .end {
         display: flex;
         column-gap: ${standardPadding};
         margin-top: ${largePadding};

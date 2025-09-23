@@ -9,24 +9,24 @@ import {
 } from '@ni/fast-foundation';
 import { styles } from './styles';
 import { template } from './template';
-import { ChatMessageType } from './types';
+import { ChatMarkdownViewerType } from './types';
 
 declare global {
     interface HTMLElementTagNameMap {
-        'spright-chat-message': ChatMessage;
+        'spright-chat-markdown-viewer': ChatMarkdownViewer;
     }
 }
 
 /**
- * SprightChatMessage configuration options
+ * SprightChatMarkdownViewer configuration options
  * @public
  */
-export type ChatMessageOptions = FoundationElementDefinition & StartEndOptions;
+export type ChatMarkdownViewerOptions = FoundationElementDefinition & StartEndOptions;
 
 /**
- * A Spright component for displaying a chat message
+ * A Spright component for displaying a chat markdown viewer
  */
-export class ChatMessage extends FoundationElement {
+export class ChatMarkdownViewer extends FoundationElement {
     /**
      * @public
      * The message type of this message in the chat conversation
@@ -34,7 +34,7 @@ export class ChatMessage extends FoundationElement {
      * HTML Attribute: message-type
      */
     @attr({ attribute: 'message-type' })
-    public messageType: ChatMessageType = ChatMessageType.system;
+    public messageType: ChatMarkdownViewerType = ChatMarkdownViewerType.system;
 
     /** @internal */
     @observable
@@ -51,13 +51,13 @@ export class ChatMessage extends FoundationElement {
         this.footerActionsIsEmpty = !next?.length;
     }
 }
-applyMixins(ChatMessage, StartEnd);
+applyMixins(ChatMarkdownViewer, StartEnd);
 
-const sprightChatMessage = ChatMessage.compose({
-    baseName: 'chat-message',
+const sprightChatMarkdownViewer = ChatMarkdownViewer.compose({
+    baseName: 'chat-markdown-viewer',
     template,
     styles
 });
 
-DesignSystem.getOrCreate().withPrefix('spright').register(sprightChatMessage());
-export const chatMessageTag = 'spright-chat-message';
+DesignSystem.getOrCreate().withPrefix('spright').register(sprightChatMarkdownViewer());
+export const chatMarkdownViewerTag = 'spright-chat-markdown-viewer';

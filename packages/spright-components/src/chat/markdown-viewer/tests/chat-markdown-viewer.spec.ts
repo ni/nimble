@@ -1,16 +1,16 @@
 import { html } from '@ni/fast-element';
-import { ChatMessage, chatMessageTag } from '..';
+import { ChatMarkdownViewer, chatMarkdownViewerTag } from '..';
 import { fixture, type Fixture } from '../../../utilities/tests/fixture';
-import { ChatMessageType } from '../types';
+import { ChatMarkdownViewerType } from '../types';
 
-async function setup(): Promise<Fixture<ChatMessage>> {
-    return await fixture<ChatMessage>(
-        html`<${chatMessageTag}>Some message</${chatMessageTag}>`
+async function setup(): Promise<Fixture<ChatMarkdownViewer>> {
+    return await fixture<ChatMarkdownViewer>(
+        html`<${chatMarkdownViewerTag}>Some message</${chatMarkdownViewerTag}>`
     );
 }
 
-describe('ChatMessage', () => {
-    let element: ChatMessage;
+describe('ChatMarkdownViewer', () => {
+    let element: ChatMarkdownViewer;
     let connect: () => Promise<void>;
     let disconnect: () => Promise<void>;
 
@@ -23,8 +23,8 @@ describe('ChatMessage', () => {
     });
 
     it('can construct an element instance', () => {
-        expect(document.createElement(chatMessageTag)).toBeInstanceOf(
-            ChatMessage
+        expect(document.createElement(chatMarkdownViewerTag)).toBeInstanceOf(
+            ChatMarkdownViewer
         );
     });
 
@@ -38,6 +38,6 @@ describe('ChatMessage', () => {
 
     it("should initialize 'message-type' to default", async () => {
         await connect();
-        expect(element.messageType).toBe(ChatMessageType.system);
+        expect(element.messageType).toBe(ChatMarkdownViewerType.system);
     });
 });

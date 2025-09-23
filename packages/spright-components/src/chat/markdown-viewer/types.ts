@@ -1,12 +1,12 @@
 /**
- * A message type in a chat conversation.
+ * A message type in a chat markdown viewer conversation.
  * @public
  */
-export const ChatMessageType = {
+export const ChatMarkdownViewerType = {
     system: undefined,
     outbound: 'outbound',
     inbound: 'inbound'
 } as const;
 
-export type ChatMessageType =
-    (typeof ChatMessageType)[keyof typeof ChatMessageType];
+export type ChatMarkdownViewerType =
+    (typeof ChatMarkdownViewerType)[keyof typeof ChatMarkdownViewerType];
