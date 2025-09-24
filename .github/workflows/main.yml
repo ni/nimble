@@ -46,6 +46,7 @@ jobs:
 
       # Install dependencies
       - run: dotnet --info
+      - run: sudo rm -rf /usr/share/dotnet/
       - name: Remove pre-existing dotnet installs
         run: sudo apt remove --purge '^dotnet-.*' '^aspnetcore-.*'
         working-directory: packages/blazor-workspace/
