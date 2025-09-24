@@ -23,9 +23,9 @@
       },
       "Microsoft.NET.Sdk.WebAssembly.Pack": {
         "type": "Direct",
-        "requested": "[9.0.9, )",
-        "resolved": "9.0.9",
-        "contentHash": "Nx4yF/l8YyzwHM+xBRFOSGv77mjBZP0XkImzLMdrSBGYPB32nEZNXTSwhH9viDhxMhGij+fVUjJj5iAtUdMBww=="
+        "requested": "[8.0.20, )",
+        "resolved": "8.0.20",
+        "contentHash": "T8IgvEg6M4INrHw9K89JjslxP0D6fHYiogFvarNPSjfusHdV/KvwJU4YC1+lNOIIgpjslkb4WWSW9IuNxHdPLg=="
       },
       "NI.CSharp.Analyzers": {
         "type": "Direct",
