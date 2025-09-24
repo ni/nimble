@@ -59,6 +59,7 @@
     "packages/blazor-workspace",
     "packages/blazor-workspace/NimbleBlazor",
     "packages/blazor-workspace/SprightBlazor",
+    "packages/blazor-workspace/OkBlazor",
     "packages/performance",
     "packages/site"
   ],
