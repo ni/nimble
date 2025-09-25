@@ -508,7 +508,7 @@ describe('Combobox', () => {
         it('should set classes based on open, disabled, and position', async () => {
             const { element, connect, disconnect } = await setup();
             await connect();
-            await waitForUpdatesAsync();
+            await new ComboboxPageObject(element).waitForListboxPositioned();
 
             expect(element.classList.contains('open')).toBeTrue();
             expect(element.classList.contains('disabled')).toBeTrue();
