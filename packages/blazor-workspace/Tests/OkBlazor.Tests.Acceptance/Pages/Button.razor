@@ -1,0 +1,15 @@
+﻿@page "/Button"
+@namespace OkBlazor.Tests.Acceptance.Pages
+@inherits LayoutComponentBase
+@rendermode @(new InteractiveServerRenderMode(prerender: false))
+
+<OkButton @ref="_button">Hello, world.</OkButton>
+
+@code {
+    private OkButton? _button;
+
+    public async Task ClickHandler()
+    {
+        // do something
+    }
+}

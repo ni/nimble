@@ -30,11 +30,6 @@
           "StyleCop.Analyzers": "1.2.0-beta.556"
         }
       },
-      "Apache.Arrow": {
-        "type": "Transitive",
-        "resolved": "20.0.0",
-        "contentHash": "kagv7fSLVe6i/llNqSeH5g8i7BjbTejolMzsDLNyxrlNy9gGN/G3otpn5YfvrW7xdlZdP43PGvz2Gb/gMYHkPA=="
-      },
       "Microsoft.AspNetCore.Authorization": {
         "type": "Transitive",
         "resolved": "8.0.19",
@@ -204,25 +199,6 @@
         "type": "Transitive",
         "resolved": "4.5.4",
         "contentHash": "zteT+G8xuGu6mS+mzDzYXbzS7rd3K6Fjb9RiZlYlJPam2/hU7JCBZBVEcywNuR+oZ1ncTvc/cq0faRr3P01OVg=="
-      },
-      "nimbleblazor": {
-        "type": "Project",
-        "dependencies": {
-          "Apache.Arrow": "[20.0.0, 20.0.0]",
-          "Microsoft.AspNetCore.Components.Web": "[8.0.19, )"
-        }
-      },
-      "okblazor": {
-        "type": "Project",
-        "dependencies": {
-          "Microsoft.AspNetCore.Components.Web": "[8.0.19, )"
-        }
-      },
-      "sprightblazor": {
-        "type": "Project",
-        "dependencies": {
-          "Microsoft.AspNetCore.Components.Web": "[8.0.19, )"
-        }
       }
     }
   }

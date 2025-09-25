@@ -434,10 +434,6 @@
             <NimbleButton @onclick=@(_ => RemoveDiesFromRadius(10))>Decrease Die Count</NimbleButton>
         </div>
         <div class="sub-container">
-            <div class="container-label">Rectangle (Spright)</div>
-            <SprightRectangle>Spright!</SprightRectangle>
-        </div>
-        <div class="sub-container">
             <div class="container-label">Chat Conversation and Messages (Spright)</div>
             <SprightChatConversation class="conversation">
                 <SprightChatMessage message-type="system">
@@ -472,6 +468,14 @@
                 }
                 <SprightChatInput slot="input" Placeholder="Type here" Send="UpdateUserMessages"></SprightChatInput>
             </SprightChatConversation>
+        </div>
+        <div class="sub-container">
+            <div class="container-label">Rectangle (Spright)</div>
+            <SprightRectangle>Spright!</SprightRectangle>
+        </div>
+        <div class="sub-container">
+            <div class="container-label">Button (Ok)</div>
+            <SprightRectangle>Ok</SprightRectangle>
         </div>
     </div>
 </div>

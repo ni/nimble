@@ -23,15 +23,15 @@
       },
       "Microsoft.NET.ILLink.Tasks": {
         "type": "Direct",
-        "requested": "[8.0.18, )",
-        "resolved": "8.0.18",
-        "contentHash": "OiXqr2YIBEV9dsAWEtasK470ALyJ0VxJ9k4MotOxlWV6HeEgrJKYMW4HHj1OCCXvqE0/A25wEKPkpfiBARgDZA=="
+        "requested": "[8.0.20, )",
+        "resolved": "8.0.20",
+        "contentHash": "Rhcto2AjGvTO62+/VTmBpumBOmqIGp7nYEbTbmEXkCq4yPGxV8whju3/HsIA/bKyo2+DggaYk5+/8sxb1AbPTw=="
       },
       "Microsoft.NET.Sdk.WebAssembly.Pack": {
         "type": "Direct",
-        "requested": "[8.0.18, )",
-        "resolved": "8.0.18",
-        "contentHash": "SoVkRwFwnaX39J1uaI72PTilSJ6OoonIG+2VMpazEaAA9t+aJt2Caf49q76SYv3x9iU8hu1axlMWSkR9rt8nIg=="
+        "requested": "[8.0.20, )",
+        "resolved": "8.0.20",
+        "contentHash": "T8IgvEg6M4INrHw9K89JjslxP0D6fHYiogFvarNPSjfusHdV/KvwJU4YC1+lNOIIgpjslkb4WWSW9IuNxHdPLg=="
       },
       "NI.CSharp.Analyzers": {
         "type": "Direct",
@@ -330,6 +330,7 @@
           "Microsoft.AspNetCore.Components.Web": "[8.0.19, )",
           "NI.CSharp.Analyzers": "[2.0.28, )",
           "NimbleBlazor": "[1.0.0, )",
+          "OkBlazor": "[1.0.0, )",
           "SprightBlazor": "[1.0.0, )"
         }
       },
@@ -337,6 +338,12 @@
         "type": "Project",
         "dependencies": {
           "Apache.Arrow": "[20.0.0, 20.0.0]",
+          "Microsoft.AspNetCore.Components.Web": "[8.0.19, )"
+        }
+      },
+      "okblazor": {
+        "type": "Project",
+        "dependencies": {
           "Microsoft.AspNetCore.Components.Web": "[8.0.19, )"
         }
       },
