@@ -21,6 +21,12 @@ const appearanceStates = [
 ] as const;
 type AppearanceState = (typeof appearanceStates)[number];
 
+const widthStates = [
+    ['', ''],
+    ['narrow ', 'width: 250px;']
+] as const;
+type WidthState = (typeof widthStates)[number];
+
 const metadata: Meta = {
     title: 'Tests/Breadcrumb',
     parameters: {
@@ -31,24 +37,28 @@ const metadata: Meta = {
 export default metadata;
 
 const component = (
+    [widthName, width]: WidthState,
     [appearanceName, appearance]: AppearanceState,
     [disabledName, disabled]: DisabledState
 ): ViewTemplate => html`
-    <${breadcrumbTag}
-        appearance="${() => appearance}"
-        style="margin-right: 24px"
-    >
-        <${breadcrumbItemTag} ${disabled ? '' : 'href="parent.location.href"'}>
-            ${() => `${disabledName} Breadcrumb (${appearanceName}) - Link`}
-        </${breadcrumbItemTag}>
-        <${breadcrumbItemTag}>Current (No Link)</${breadcrumbItemTag}>
-    </${breadcrumbTag}>
+    <div>
+        <${breadcrumbTag}
+            appearance="${() => appearance}"
+            style="margin-right: 24px;${width}"
+        >
+            <${breadcrumbItemTag} ${disabled ? '' : 'href="parent.location.href"'}>
+                ${() => `${widthName}${disabledName} Breadcrumb (${appearanceName}) - Link`}
+            </${breadcrumbItemTag}>
+            <${breadcrumbItemTag}>Current (No Link)</${breadcrumbItemTag}>
+        </${breadcrumbTag}>
+    </div>
 `;
 export const themeMatrix: StoryFn = createMatrixThemeStory(
-    createMatrix(component, [appearanceStates, disabledStates])
+    createMatrix(component, [widthStates, appearanceStates, disabledStates])
 );
 
 const interactionStates = cartesianProduct([
+    widthStates,
     appearanceStates,
     disabledStates
 ] as const);

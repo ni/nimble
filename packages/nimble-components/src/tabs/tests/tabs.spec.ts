@@ -26,7 +26,9 @@ async function setup(): Promise<Fixture<Tabs>> {
     return await fixture<Tabs>(viewTemplate);
 }
 
-async function setupInstance(): Promise<Fixture<Tabs> & { tabsPageObject: TabsPageObject }> {
+async function setupInstance(): Promise<
+Fixture<Tabs> & { tabsPageObject: TabsPageObject }
+> {
     const fixtureResult = await setup();
     await fixtureResult.connect();
     const tabsPageObject = new TabsPageObject(fixtureResult.element);

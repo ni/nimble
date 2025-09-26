@@ -389,10 +389,14 @@ describe('AnchorTabs', () => {
             );
         }
 
-        async function setupInstance(): Promise<Fixture<AnchorTabs> & { tabsPageObject: AnchorTabsPageObject }> {
+        async function setupInstance(): Promise<
+        Fixture<AnchorTabs> & { tabsPageObject: AnchorTabsPageObject }
+        > {
             const fixtureResult = await setup();
             await fixtureResult.connect();
-            const tabsPageObject = new AnchorTabsPageObject(fixtureResult.element);
+            const tabsPageObject = new AnchorTabsPageObject(
+                fixtureResult.element
+            );
             return {
                 ...fixtureResult,
                 tabsPageObject

@@ -19,10 +19,14 @@ async function setup(): Promise<Fixture<Breadcrumb>> {
     return await fixture<Breadcrumb>(viewTemplate);
 }
 
-async function setupInstance(): Promise<Fixture<Breadcrumb> & { breadcrumbPageObject: BreadcrumbPageObject }> {
+async function setupInstance(): Promise<
+Fixture<Breadcrumb> & { breadcrumbPageObject: BreadcrumbPageObject }
+> {
     const fixtureResult = await setup();
     await fixtureResult.connect();
-    const breadcrumbPageObject = new BreadcrumbPageObject(fixtureResult.element);
+    const breadcrumbPageObject = new BreadcrumbPageObject(
+        fixtureResult.element
+    );
     return {
         ...fixtureResult,
         breadcrumbPageObject
