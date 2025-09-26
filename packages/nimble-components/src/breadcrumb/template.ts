@@ -30,7 +30,7 @@ export const breadcrumbTemplate: FoundationElementTemplate<ViewTemplate<Breadcru
                 <${iconArrowExpanderLeftTag} slot="start"></${iconArrowExpanderLeftTag}>
             </${buttonTag}>
         `)}
-        <div ${ref('list')} role="list" class="list" part="list">
+        <div ${ref('list')} role="list" class="list" part="list" tabindex="-1">
             <slot
                 ${slotted({ property: 'slottedBreadcrumbItems', filter: elements() })}
             ></slot>
