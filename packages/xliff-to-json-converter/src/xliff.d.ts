@@ -3,10 +3,10 @@ declare module 'xliff' {
 
     export interface XliffTranslationObject {
         // Type comes from xliff library
-        // eslint-disable-next-line @typescript-eslint/naming-convention
+        // eslint-disable-next-line @typescript-eslint/naming-convention, @stylistic/quote-props
         readonly 'Standalone': {
+            // eslint-disable-next-line @stylistic/quote-props
             readonly 'id': string,
-            // eslint-disable-next-line @typescript-eslint/naming-convention
             readonly 'equiv-text': string
         };
     }

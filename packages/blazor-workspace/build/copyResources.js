@@ -1,7 +1,9 @@
-const path = require('path');
-const glob = require('glob');
-const fs = require('fs');
+import path from 'path';
+import { glob } from 'glob';
+import fs from 'fs';
+import { fileURLToPath } from 'url';
 
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const target = process.argv[2];
 
 let componentPackageName;
@@ -35,7 +37,7 @@ prepareDestinationDirectory(destinationDirectory, 'nimble-tokens');
 copyFiles(tokensBasePath, tokensSrcPattern, destinationDirectory, 'nimble-tokens');
 
 function resolvePackagePath(packageName) {
-    return path.dirname(require.resolve(`${packageName}/package.json`));
+    return path.dirname(fileURLToPath(new URL(import.meta.resolve(`${packageName}/package.json`))));
 }
 
 function copyFiles(srcPath, srcPattern, destinationRootPath, destRelativeDirectory) {
@@ -46,6 +48,7 @@ function copyFiles(srcPath, srcPattern, destinationRootPath, destRelativeDirecto
         absolute: true,
         nodir: true
     });
+
     if (sourcePaths.length <= 0) {
         throw new Error(`No files found at path "${srcPath}/${srcPattern}"`);
     }

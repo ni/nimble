@@ -7,7 +7,7 @@ const validateCellViewTemplate = (cellViewTag: string): void => {
     let instance;
     try {
         instance = document.createElement(cellViewTag);
-    } catch (ex) {
+    } catch (_ex) {
         // Swallow construction error to report a better one
     }
     if (!(instance instanceof TableCellView)) {

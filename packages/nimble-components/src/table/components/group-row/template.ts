@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/indent */
 import { html, ref, when } from '@ni/fast-element';
 import type { TableGroupRow } from '.';
 import { buttonTag } from '../../../button';
@@ -52,4 +51,3 @@ export const template = html<TableGroupRow>`
         </div>
     </template>
 `;
-/* eslint-enable @typescript-eslint/indent */

@@ -1,4 +1,5 @@
 {
+  "type":"module",
   "name": "@ni-private/jasmine-extensions",
   "version": "0.0.1",
   "private": "true",
@@ -30,7 +31,6 @@
   "publishConfig": {
     "access": "public"
   },
-  "type": "module",
   "exports": {
     ".": {
       "import": {

@@ -9,7 +9,6 @@ const labelTemplate = createRequiredVisibleLabelTemplate(
     html<RadioGroup>`<slot name="label"></slot>`
 );
 
-/* eslint-disable @typescript-eslint/indent */
 export const template = html<RadioGroup>`
     <template
         role="radiogroup"

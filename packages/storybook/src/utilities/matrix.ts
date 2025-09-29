@@ -46,7 +46,6 @@ export function cartesianProduct<T extends readonly unknown[]>(
             // TypeScript and ESLint disagree about whether this can be null or undefined.
             // This was the only type strangeness noticed after the storybook build was changed
             // to rely on component source directly so the workaround was allowed.
-            // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
             const currentDimension = currentDimensionOrUndefined!;
             for (const currentState of currentDimension) {
                 recurseDimensions(remainingDimensions, ...states, currentState);

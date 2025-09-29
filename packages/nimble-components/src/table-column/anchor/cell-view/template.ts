@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/indent */
 import { html, ref, when } from '@ni/fast-element';
 import type { TableColumnAnchorCellView } from '.';
 import { anchorTag } from '../../../anchor';
@@ -44,4 +43,3 @@ export const template = html<TableColumnAnchorCellView>`
             </span>`)}
     </template>
 `;
-/* eslint-enable @typescript-eslint/indent */

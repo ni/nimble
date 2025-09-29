@@ -1,4 +1,5 @@
 {
+  "type":"module",
   "name": "@ni/nimble-angular",
   "version": "30.7.0",
   "description": "Angular components for the NI Nimble Design System",

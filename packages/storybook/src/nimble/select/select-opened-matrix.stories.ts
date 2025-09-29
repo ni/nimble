@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import type { StoryFn, Meta } from '@storybook/html-vite';
 import { html, repeat, ViewTemplate, when } from '@ni/fast-element';
 import { DropdownPosition } from '@ni/nimble-components/dist/esm/patterns/dropdown/types';

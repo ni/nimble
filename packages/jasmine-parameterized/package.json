@@ -1,4 +1,5 @@
 {
+  "type": "module",
   "name": "@ni/jasmine-parameterized",
   "version": "1.0.1",
   "description": "A utility to write parameterized jasmine tests",
@@ -29,7 +30,6 @@
   "publishConfig": {
     "access": "public"
   },
-  "type": "module",
   "exports": {
     ".": {
       "import": {

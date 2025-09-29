@@ -7,5 +7,4 @@ export const MappingKeyType = {
     number: 'number',
     boolean: 'boolean'
 } as const;
-export type MappingKeyType =
-    (typeof MappingKeyType)[keyof typeof MappingKeyType];
+export type MappingKeyType = (typeof MappingKeyType)[keyof typeof MappingKeyType];

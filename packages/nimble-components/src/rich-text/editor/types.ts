@@ -9,8 +9,7 @@ export const TipTapNodeName = {
     numberedList: 'orderedList'
 } as const;
 
-export type TipTapNodeName =
-    (typeof TipTapNodeName)[keyof typeof TipTapNodeName];
+export type TipTapNodeName = (typeof TipTapNodeName)[keyof typeof TipTapNodeName];
 
 export interface MentionExtensionConfig {
     name: string;

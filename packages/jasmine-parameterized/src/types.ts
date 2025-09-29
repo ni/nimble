@@ -2,7 +2,6 @@
 // of eslint disables in this source file. In normal
 // test code use the globals directly so eslint can
 // guard accidental check-ins of fit, etc.
-// eslint-disable-next-line no-restricted-globals
 export type Fit = typeof fit;
 export type Xit = typeof xit;
 export type It = typeof it;
@@ -15,7 +14,6 @@ export type Spec = Fit | Xit | It;
  */
 export type SpecOverride = Fit | Xit;
 
-// eslint-disable-next-line no-restricted-globals
 export type Fdescribe = typeof fdescribe;
 export type Xdescribe = typeof xdescribe;
 export type Describe = typeof describe;

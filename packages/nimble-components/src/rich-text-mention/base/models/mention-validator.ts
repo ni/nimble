@@ -4,7 +4,7 @@ import {
     type ValidityObject
 } from '../../../utilities/models/validator';
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
 export interface RichTextMentionValidity extends ValidityObject {}
 
 type FlagNames<T> = T extends readonly (infer U)[] ? U : never;
@@ -122,7 +122,7 @@ export class RichTextMentionValidator<
             // eslint-disable-next-line no-new
             new URL(url);
             return false;
-        } catch (error) {
+        } catch (_error) {
             return true;
         }
     }
@@ -133,7 +133,7 @@ export class RichTextMentionValidator<
             // eslint-disable-next-line no-new
             new RegExp(pattern);
             return false;
-        } catch (error) {
+        } catch (_error) {
             return true;
         }
     }

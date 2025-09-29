@@ -16,7 +16,7 @@ const labelTemplate = createRequiredVisibleLabelTemplate(html<TextArea>`
 `);
 
 export const template: FoundationElementTemplate<
-ViewTemplate<TextArea>
+    ViewTemplate<TextArea>
 > = () => html<TextArea>`
     ${labelTemplate}
     <div class="container">

@@ -7,8 +7,8 @@ import type { Tooltip } from '.';
 // prettier-ignore
 export const template = html<Tooltip>`
             ${when(
-        x => x.tooltipVisible,
-        html<Tooltip>`
+                x => x.tooltipVisible,
+                html<Tooltip>`
             <${anchoredRegionTag}
                 class="anchored-region"
                 fixed-placement="true"
@@ -39,5 +39,5 @@ export const template = html<Tooltip>`
                 </div>
             </${anchoredRegionTag}>
         `
-    )}
+            )}
 `;

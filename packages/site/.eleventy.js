@@ -1,4 +1,5 @@
-module.exports = eleventyConfig => {
+// eslint-disable-next-line import/no-default-export, func-names
+export default function (eleventyConfig) {
     eleventyConfig.addPassthroughCopy({
         root: './',
         'landing/dist': './',
@@ -16,4 +17,4 @@ module.exports = eleventyConfig => {
             output: 'dist'
         }
     };
-};
+}

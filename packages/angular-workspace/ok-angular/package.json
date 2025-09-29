@@ -1,4 +1,5 @@
 {
+  "type": "module",
   "name": "@ni/ok-angular",
   "version": "0.0.2",
   "description": "Angular components for NI OK Components",

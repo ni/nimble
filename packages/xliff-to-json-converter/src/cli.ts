@@ -2,7 +2,7 @@
 
 import yargs from 'yargs';
 import { hideBin } from 'yargs/helpers';
-import { convertXliff2Json } from './convert';
+import { convertXliff2Json } from './convert.js';
 
 // This is how yargs expects to be run at the entry point of a cli application
 // eslint-disable-next-line @typescript-eslint/no-unused-expressions, @typescript-eslint/no-floating-promises

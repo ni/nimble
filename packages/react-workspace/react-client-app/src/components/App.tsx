@@ -90,7 +90,7 @@ export function App(): JSX.Element {
                 <p>
                     Explore the components below to see the Nimble components in action. See the <a
                         href="https://ni.github.io/nimble/storybook/">Nimble
-                    component docs</a> for additional usage details.
+                        component docs</a> for additional usage details.
                     Navigate to the <a href="../index.html">parent page</a>.
                 </p>
                 <div className="container">
@@ -680,7 +680,8 @@ export function App(): JSX.Element {
                                 </NimbleButton>
                                 <NimbleIconWebviCustom style={{ height: '100px', width: '100px' }}></NimbleIconWebviCustom>
                                 <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                                Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
+                                    Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                                </div>
                                 <NimbleButton slot="end" appearance="block">Order a tab</NimbleButton>
                                 <NimbleButton slot="end" appearance="block">Check core temperature</NimbleButton>
                             </SprightChatMessage>

@@ -19,11 +19,9 @@ export const ArrowKeyButton = {
     left: keyArrowLeft,
     right: keyArrowRight
 } as const;
-export type ArrowKeyButton =
-    (typeof ArrowKeyButton)[keyof typeof ArrowKeyButton];
+export type ArrowKeyButton = (typeof ArrowKeyButton)[keyof typeof ArrowKeyButton];
 
-export type LabelProvider =
-    | 'toggleBold'
+export type LabelProvider = | 'toggleBold'
     | 'toggleItalics'
     | 'toggleBulletedList'
     | 'toggleNumberedList';

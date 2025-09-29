@@ -40,8 +40,7 @@ export const ButtonAppearance = {
     ghost: 'ghost',
     block: 'block'
 } as const;
-export type ButtonAppearance =
-    (typeof ButtonAppearance)[keyof typeof ButtonAppearance];
+export type ButtonAppearance = (typeof ButtonAppearance)[keyof typeof ButtonAppearance];
 
 /**
  * Types of button appearance variants.
@@ -52,5 +51,4 @@ export const ButtonAppearanceVariant = {
     primary: 'primary',
     accent: 'accent'
 } as const;
-export type ButtonAppearanceVariant =
-    (typeof ButtonAppearanceVariant)[keyof typeof ButtonAppearanceVariant];
+export type ButtonAppearanceVariant = (typeof ButtonAppearanceVariant)[keyof typeof ButtonAppearanceVariant];
