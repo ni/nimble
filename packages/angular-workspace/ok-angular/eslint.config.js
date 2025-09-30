@@ -1,7 +1,7 @@
 import { fileURLToPath } from 'url';
 import path from 'path';
 // eslint-disable-next-line import/no-extraneous-dependencies, import/extensions
-import configurations from '@ni-private/angular-workspace/configurations.js';
+import { configurations } from '@ni-private/angular-workspace/configurations.js';
 
 const tsConfigRootDir = path.dirname(fileURLToPath(import.meta.url));
 
@@ -9,12 +9,12 @@ const tsConfigRootDir = path.dirname(fileURLToPath(import.meta.url));
 export default [
     ...configurations,
     {
-        files: ['**/*.ts'],
+        files: ['ok-angular/**/*.ts'],
         languageOptions: {
             parserOptions: {
                 project: [
-                    './tsconfig.lib.json',
-                    './tsconfig.spec.json'
+                    'ok-angular/tsconfig.lib.json',
+                    'ok-angular/tsconfig.spec.json'
                 ],
                 tsConfigRootDir
             }

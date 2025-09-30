@@ -1,17 +1,17 @@
 import { fileURLToPath } from 'url';
 import path from 'path';
 // eslint-disable-next-line import/extensions
-import configurations from '../configurations.js';
+import { configurations } from '../configurations.js';
 
 const tsConfigRootDir = path.dirname(fileURLToPath(import.meta.url));
 
 export default [
     ...configurations,
     {
-        ignores: ['src/environments/**'],
+        ignores: ['example-client-app/src/environments/**'],
     },
     {
-        files: ['eslint.config.js'],
+        files: ['example-client-app/eslint.config.js'],
         rules: {
             'import/no-default-export': 'off'
         }
@@ -20,7 +20,7 @@ export default [
         files: ['**/*.ts'],
         languageOptions: {
             parserOptions: {
-                project: ['../tsconfig.app.json', '../tsconfig.spec.json'],
+                project: ['example-client-app/tsconfig.app.json', 'example-client-app/tsconfig.spec.json'],
                 tsConfigRootDir,
             },
         },

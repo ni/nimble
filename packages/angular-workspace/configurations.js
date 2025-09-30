@@ -10,7 +10,7 @@ import { fileURLToPath } from 'url';
 
 const packageDir = path.dirname(fileURLToPath(import.meta.url));
 
-export default defineConfig([
+export const configurations = defineConfig([
     {
         ignores: ['!**/*', '**/node_modules', '**/dist'],
     },

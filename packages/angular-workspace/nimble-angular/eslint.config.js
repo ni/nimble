@@ -1,32 +1,32 @@
 import { fileURLToPath } from 'url';
 import path from 'path';
 // eslint-disable-next-line import/no-extraneous-dependencies, import/extensions
-import configurations from '@ni-private/angular-workspace/configurations.js';
+import { configurations } from '@ni-private/angular-workspace/configurations.js';
 
 const tsConfigRootDir = path.dirname(fileURLToPath(import.meta.url));
 
 export default [
     ...configurations,
     {
-        ignores: ['**/src/thirdparty/**', '**/build/**'],
+        ignores: ['nimble-angular/src/thirdparty/**'],
     },
     {
-        files: ['**/*.ts'],
+        files: ['nimble-angular/**/*.ts'],
         languageOptions: {
             parserOptions: {
-                project: ['./tsconfig.lib.json', './tsconfig.spec.json'],
+                project: ['nimble-angular/tsconfig.lib.json', 'nimble-angular/tsconfig.spec.json'],
                 tsConfigRootDir,
             }
         },
     },
     {
-        files: ['eslint.config.js'],
+        files: ['nimble-angular/eslint.config.js'],
         rules: {
             'import/no-default-export': 'off',
         },
     },
     {
-        files: ['**/build/**/*.js'],
+        files: ['nimble-angular/build/**/*.js'],
         rules: {
             // Logging in build scripts is useful
             'no-console': 'off',
