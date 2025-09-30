@@ -55,7 +55,6 @@ export default defineConfig([
     },
     {
         files: ['**/build/generate-workers/**/*.ts'],
-        extends: [...componentsConfig],
         languageOptions: {
             parserOptions: {
                 project: './build/generate-workers/tsconfig.json',
