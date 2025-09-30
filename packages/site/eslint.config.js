@@ -17,32 +17,16 @@ export default defineConfig([
     },
     {
         files: ['**/*.js'],
-        extends: [...javascriptNimbleConfig],
+        extends: javascriptNimbleConfig,
     },
     {
         files: ['**/*.ts'],
-        extends: [...typescriptNimbleConfig],
+        extends: typescriptNimbleConfig,
         languageOptions: {
             parserOptions: {
                 project: ['./tsconfig.json'],
                 tsConfigRootDir,
             },
         },
-    },
-    {
-        files: ['eslint.config.js'],
-        rules: {
-            'import/no-default-export': 'off',
-            // eslint-plugin-import doesn't know how to resolve entry points in packages
-            // that use modern export maps in package.json.
-            // https://github.com/typescript-eslint/typescript-eslint/issues/7565
-            // https://github.com/import-js/eslint-plugin-import/issues/2703
-            'import/no-unresolved': [
-                'error',
-                {
-                    ignore: ['eslint/config'],
-                },
-            ],
-        },
-    },
+    }
 ]);

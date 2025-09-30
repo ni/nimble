@@ -1,9 +1,10 @@
-import { ignoreAttributes } from '@ni/eslint-config-angular/template/options';
 import { javascriptNimbleConfig } from '@ni-private/eslint-config-nimble/javascript';
-import { angularConfig } from '@ni/eslint-config-angular';
 import { typescriptNimbleConfig } from '@ni-private/eslint-config-nimble/typescript';
-import { angularTemplateConfig } from '@ni/eslint-config-angular/template';
-// eslint-disable-next-line import/no-unresolved
+import {
+	angularConfig,
+    angularTemplateConfig,
+	ignoreAttributes,
+} from '@ni/eslint-config-angular';
 import { defineConfig } from 'eslint/config';
 import path from 'path';
 import { fileURLToPath } from 'url';

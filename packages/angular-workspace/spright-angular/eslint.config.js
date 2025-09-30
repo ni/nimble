@@ -2,12 +2,12 @@ import { fileURLToPath } from 'url';
 import path from 'path';
 // eslint-disable-next-line import/no-extraneous-dependencies, import/extensions
 import { configurations } from '@ni-private/angular-workspace/configurations.js';
+import { defineConfig } from 'eslint/config';
 
 const tsConfigRootDir = path.dirname(fileURLToPath(import.meta.url));
 
-// eslint-disable-next-line import/no-default-export
-export default [
-    ...configurations,
+export default defineConfig([
+    configurations,
     {
         files: ['spright-angular/**/*.ts'],
         languageOptions: {
@@ -20,4 +20,4 @@ export default [
             }
         }
     }
-];
+]);

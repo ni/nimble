@@ -1,7 +1,6 @@
-// eslint-disable-next-line import/extensions
 import configurations from './configurations.js';
+import { defineConfig } from 'eslint/config';
 
-// eslint-disable-next-line import/no-default-export
-export default [
-    ...configurations,
-];
+export default defineConfig([
+    configurations,
+]);

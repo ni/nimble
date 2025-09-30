@@ -1,12 +1,13 @@
 import { fileURLToPath } from 'url';
 import path from 'path';
-// eslint-disable-next-line import/no-extraneous-dependencies, import/extensions
+import { defineConfig } from 'eslint/config';
+// eslint-disable-next-line import/extensions, import/no-extraneous-dependencies
 import { configurations } from '@ni-private/angular-workspace/configurations.js';
 
 const tsConfigRootDir = path.dirname(fileURLToPath(import.meta.url));
 
-export default [
-    ...configurations,
+export default defineConfig([
+    configurations,
     {
         ignores: ['nimble-angular/src/thirdparty/**'],
     },
@@ -34,4 +35,4 @@ export default [
             'import/no-default-export': 'off',
         },
     },
-];
+]);
