@@ -35,8 +35,8 @@
 		"./components.js": "./components.js"
 	},
 	"peerDependencies": {
-		"@ni/eslint-config-javascript": "file:C:\\Users\\gravi\\javascript-styleguide\\javascript-styleguide\\packages\\eslint-config-javascript\\ni-eslint-config-javascript-4.4.0.tgz",
-		"@ni/eslint-config-typescript": "file:C:\\Users\\gravi\\javascript-styleguide\\javascript-styleguide\\packages\\eslint-config-typescript\\ni-eslint-config-typescript-4.4.4.tgz",
+		"@ni/eslint-config-javascript": "^4.3.0",
+		"@ni/eslint-config-typescript": "^4.4.2",
 		"eslint": "^9.3.5",
 		"eslint-plugin-jsdoc": "^51.3.4",
 		"globals": "^14.0.0"
