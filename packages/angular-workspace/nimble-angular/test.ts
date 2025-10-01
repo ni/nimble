@@ -7,6 +7,9 @@ import {
     BrowserDynamicTestingModule,
     platformBrowserDynamicTesting
 } from '@angular/platform-browser-dynamic/testing';
+import { applyExtensions } from '@ni-private/jasmine-extensions';
+
+applyExtensions();
 
 // First, initialize the Angular testing environment.
 getTestBed().initTestEnvironment(
