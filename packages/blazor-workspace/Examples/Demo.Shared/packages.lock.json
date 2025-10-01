@@ -212,6 +212,12 @@
           "Microsoft.AspNetCore.Components.Web": "[8.0.19, )"
         }
       },
+      "okblazor": {
+        "type": "Project",
+        "dependencies": {
+          "Microsoft.AspNetCore.Components.Web": "[8.0.19, )"
+        }
+      },
       "sprightblazor": {
         "type": "Project",
         "dependencies": {

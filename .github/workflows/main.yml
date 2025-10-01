@@ -44,22 +44,24 @@ jobs:
           # Required for chromatic change detection
           fetch-depth: 0
 
-      # Install dependencies
-      - name: Remove pre-existing dotnet installs
-        run: sudo apt remove --purge '^dotnet-.*' '^aspnetcore-.*'
-        working-directory: packages/blazor-workspace/
+      # Remove existing dotnet installs, both package managed versions and manual versions
+      # See https://github.com/dotnet/sdk/issues/39635#issuecomment-3075858666
+      - run: dotnet --info
+      - run: sudo apt remove --purge '^dotnet-.*' '^aspnetcore-.*'
       - run: sudo rm -rf /usr/share/dotnet/
+
+      # Install dependencies
       - uses: actions/setup-dotnet@v4
         with:
           global-json-file: packages/blazor-workspace/global.json
+      - run: dotnet restore --locked-mode
+        working-directory: packages/blazor-workspace/
       - uses: actions/setup-node@v4
         with:
           node-version: '24'
           registry-url: 'https://registry.npmjs.org'
           cache: 'npm'
       - run: npm ci
-      - run: dotnet restore --locked-mode
-        working-directory: packages/blazor-workspace/
 
       # print a log of outdated npm dependencies
       # only informational so swallow error codes

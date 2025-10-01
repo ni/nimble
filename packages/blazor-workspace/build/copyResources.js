@@ -12,8 +12,11 @@ if (target === 'nimble') {
 } else if (target === 'spright') {
     componentPackageName = 'spright-components';
     destinationDirectory = path.resolve(__dirname, '../SprightBlazor/wwwroot');
+} else if (target === 'ok') {
+    componentPackageName = 'ok-components';
+    destinationDirectory = path.resolve(__dirname, '../OkBlazor/wwwroot');
 } else {
-    throw new Error(`Argument must be either 'nimble' or 'spright'. Received: ${target}`);
+    throw new Error(`Argument must be either 'nimble', 'spright', or 'ok'. Received: ${target}`);
 }
 
 console.log(`Destination directory for blazor assets: "${destinationDirectory}"`);

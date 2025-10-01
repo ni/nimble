@@ -210,6 +210,7 @@
           "Microsoft.AspNetCore.Components.Web": "[8.0.19, )",
           "NI.CSharp.Analyzers": "[2.0.28, )",
           "NimbleBlazor": "[1.0.0, )",
+          "OkBlazor": "[1.0.0, )",
           "SprightBlazor": "[1.0.0, )"
         }
       },
@@ -217,6 +218,12 @@
         "type": "Project",
         "dependencies": {
           "Apache.Arrow": "[20.0.0, 20.0.0]",
+          "Microsoft.AspNetCore.Components.Web": "[8.0.19, )"
+        }
+      },
+      "okblazor": {
+        "type": "Project",
+        "dependencies": {
           "Microsoft.AspNetCore.Components.Web": "[8.0.19, )"
         }
       },
