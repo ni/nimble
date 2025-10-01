@@ -49,20 +49,14 @@ export function retryFailedTests(
 
                 if (millisecondsBetweenRetries && i != retries - 1) {
                     console.log(
-                        `Test "${spec.getFullName()}" failed, attempting retry ${i + 1} cleanup`
+                        `Test "${spec.getFullName()}" failed, attempting retry ${i + 1}. Will clean-up last run by running afterEach, re-setup by running beforeEach, wait ${millisecondsBetweenRetries}ms, and rerun the test`
                     );
                     for (let j = 0; j < beforeAfterFns.afters.length; j += 1) {
                         await run(that, beforeAfterFns.afters[j].fn);
                     }
-                    console.log(
-                        `Test "${spec.getFullName()}" failed, attempting retry ${i + 1} setup`
-                    );
                     for (let j = 0; j < beforeAfterFns.befores.length; j += 1) {
                         await run(that, beforeAfterFns.befores[j].fn);
                     }
-                    console.log(
-                        `Test "${spec.getFullName()}" failed, attempting retry ${i + 1} run in ${millisecondsBetweenRetries}ms`
-                    );
                     await new Promise(resolve => {
                         setTimeout(resolve, millisecondsBetweenRetries);
                     });
