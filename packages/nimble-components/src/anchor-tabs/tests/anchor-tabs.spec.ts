@@ -397,9 +397,7 @@ describe('AnchorTabs', () => {
         beforeEach(async () => {
             ({ connect, disconnect, element } = await setup());
             await connect();
-            tabsPageObject = new AnchorTabsPageObject(
-                element
-            );
+            tabsPageObject = new AnchorTabsPageObject(element);
         });
 
         afterEach(async () => {
