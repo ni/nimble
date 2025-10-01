@@ -6,12 +6,12 @@ export function retryFailedTests(
 ): void {
     // Handles both styles of async (Promises and done()) and returns a
     // Promise.  Wraps synchronous fns in a Promise, too.
-    const run = (fn: Function) => {
+    const run = (that: any, fn: Function) => {
         if (fn.length == 0) {
-            return fn();
+            return fn.call(that);
         }
         return new Promise(resolve => {
-            fn(resolve);
+            fn.call(that, resolve);
         });
     };
 
@@ -27,6 +27,7 @@ export function retryFailedTests(
         spec.queueableFn.fn = async function () {
             let exceptionCaught;
             let returnValue;
+            let that = this;
 
             for (let i = 0; i < retries; ++i) {
                 spec.reset();
@@ -34,7 +35,7 @@ export function retryFailedTests(
                 exceptionCaught = undefined;
 
                 try {
-                    returnValue = await run(originalTestFn);
+                    returnValue = await run(that, originalTestFn);
                 } catch (exception) {
                     exceptionCaught = exception;
                 }
@@ -51,13 +52,13 @@ export function retryFailedTests(
                         `Test "${spec.getFullName()}" failed, attempting retry ${i + 1} cleanup`
                     );
                     for (let j = 0; j < beforeAfterFns.afters.length; j += 1) {
-                        await run(beforeAfterFns.afters[j].fn);
+                        await run(that, beforeAfterFns.afters[j].fn);
                     }
                     console.log(
                         `Test "${spec.getFullName()}" failed, attempting retry ${i + 1} setup`
                     );
                     for (let j = 0; j < beforeAfterFns.befores.length; j += 1) {
-                        await run(beforeAfterFns.befores[j].fn);
+                        await run(that, beforeAfterFns.befores[j].fn);
                     }
                     console.log(
                         `Test "${spec.getFullName()}" failed, attempting retry ${i + 1} run in ${millisecondsBetweenRetries}ms`
