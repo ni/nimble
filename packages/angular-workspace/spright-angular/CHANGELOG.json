@@ -2,6 +2,21 @@
   "name": "@ni/spright-angular",
   "entries": [
     {
+      "date": "Wed, 01 Oct 2025 05:25:42 GMT",
+      "version": "7.7.3",
+      "tag": "@ni/spright-angular_v7.7.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/spright-angular",
+            "comment": "Bump @ni/spright-components to v6.3.1",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 16 Sep 2025 23:07:19 GMT",
       "version": "7.7.2",
       "tag": "@ni/spright-angular_v7.7.2",

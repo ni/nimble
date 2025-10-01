@@ -1,8 +1,17 @@
 # Change Log - @ni/nimble-angular
 
-<!-- This log was last generated on Tue, 26 Aug 2025 21:52:25 GMT and should not be manually modified. -->
+<!-- This log was last generated on Wed, 01 Oct 2025 05:25:42 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 30.7.1
+
+Wed, 01 Oct 2025 05:25:42 GMT
+
+### Patches
+
+- Angular export breadcrumb page object ([ni/nimble@853e186](https://github.com/ni/nimble/commit/853e186871678080ae0cfb476fbcf8de8c73c7db))
+- Bump @ni/nimble-components to v34.3.1
 
 ## 30.7.0
 

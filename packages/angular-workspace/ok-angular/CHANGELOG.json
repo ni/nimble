@@ -2,6 +2,21 @@
   "name": "@ni/ok-angular",
   "entries": [
     {
+      "date": "Wed, 01 Oct 2025 05:25:42 GMT",
+      "version": "0.0.3",
+      "tag": "@ni/ok-angular_v0.0.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/ok-angular",
+            "comment": "Bump @ni/ok-components to v0.0.3",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 16 Sep 2025 23:07:19 GMT",
       "version": "0.0.2",
       "tag": "@ni/ok-angular_v0.0.2",

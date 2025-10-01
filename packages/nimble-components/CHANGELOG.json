@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Wed, 01 Oct 2025 05:25:42 GMT",
+      "version": "34.3.1",
+      "tag": "@ni/nimble-components_v34.3.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "853e186871678080ae0cfb476fbcf8de8c73c7db",
+            "comment": "Scrollable breadcrumb"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 16 Sep 2025 23:07:19 GMT",
       "version": "34.3.0",
       "tag": "@ni/nimble-components_v34.3.0",

@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-<!-- This log was last generated on Tue, 26 Aug 2025 21:52:25 GMT and should not be manually modified. -->
+<!-- This log was last generated on Wed, 01 Oct 2025 05:25:42 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 34.3.1
+
+Wed, 01 Oct 2025 05:25:42 GMT
+
+### Patches
+
+- Scrollable breadcrumb ([ni/nimble@853e186](https://github.com/ni/nimble/commit/853e186871678080ae0cfb476fbcf8de8c73c7db))
 
 ## 34.3.0
 
