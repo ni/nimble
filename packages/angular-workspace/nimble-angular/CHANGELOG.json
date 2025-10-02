@@ -2,6 +2,42 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Wed, 01 Oct 2025 23:36:47 GMT",
+      "version": "30.7.1",
+      "tag": "@ni/nimble-angular_v30.7.1",
+      "comments": {
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "348042d959bd5b1043e91c7e521fabd6cf3a0af6",
+            "comment": "Test only change"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 01 Oct 2025 05:25:42 GMT",
+      "version": "30.7.1",
+      "tag": "@ni/nimble-angular_v30.7.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "853e186871678080ae0cfb476fbcf8de8c73c7db",
+            "comment": "Angular export breadcrumb page object"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v34.3.1",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 16 Sep 2025 23:07:19 GMT",
       "version": "30.7.0",
       "tag": "@ni/nimble-angular_v30.7.0",
