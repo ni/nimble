@@ -372,7 +372,9 @@ describe('AnchorTabs', () => {
             expect(document.activeElement).toBe(tab(0));
         });
     });
+});
 
+describe('AnchorTabs', () => {
     describe('scroll buttons', () => {
         async function setup(): Promise<Fixture<AnchorTabs>> {
             return await fixture<AnchorTabs>(
@@ -388,9 +390,12 @@ describe('AnchorTabs', () => {
         }
 
         let tabsPageObject: AnchorTabsPageObject;
+        let connect: () => Promise<void>;
+        let disconnect: () => Promise<void>;
+        let element: AnchorTabs;
 
         beforeEach(async () => {
-            ({ element, connect, disconnect } = await setup());
+            ({ connect, disconnect, element } = await setup());
             await connect();
             tabsPageObject = new AnchorTabsPageObject(element);
         });

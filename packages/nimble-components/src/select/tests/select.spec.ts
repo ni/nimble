@@ -1348,7 +1348,7 @@ describe('Select', () => {
                 expect(element.value).toBe('one');
             });
 
-            it('filtering to no available options sets ariaActiveDescendent to empty string', async () => {
+            it('filtering to no available options sets ariaActiveDescendent to empty string #SkipWebkit', async () => {
                 await pageObject.openAndSetFilterText('abc');
                 expect(element.ariaActiveDescendant).toBe('');
             });

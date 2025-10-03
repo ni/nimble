@@ -27,50 +27,40 @@ async function setup(): Promise<Fixture<Tabs>> {
 }
 
 describe('Tabs', () => {
+    let tabsPageObject: TabsPageObject;
+    let element: Tabs;
+    let connect: () => Promise<void>;
+    let disconnect: () => Promise<void>;
+
+    beforeEach(async () => {
+        ({ element, connect, disconnect } = await setup());
+        await connect();
+        tabsPageObject = new TabsPageObject(element);
+    });
+
+    afterEach(async () => {
+        await disconnect();
+    });
+
     it('can construct an element instance', () => {
         expect(document.createElement(tabsTag)).toBeInstanceOf(Tabs);
     });
 
     it('setting activeid should scroll the active tab into view', async () => {
-        const { element, connect, disconnect } = await setup();
-        await connect();
-        const tabsPageObject = new TabsPageObject(element);
         await tabsPageObject.setTabsWidth(300);
         element.activeid = '6'; // scrolls to the last tab
         await waitForUpdatesAsync();
         expect(tabsPageObject.getTabsViewScrollOffset()).toBeGreaterThan(0);
-
-        await disconnect();
     });
 
     it('clicking on a tab that is completely in view should not scroll the tablist', async () => {
-        const { element, connect, disconnect } = await setup();
-        await connect();
-        const tabsPageObject = new TabsPageObject(element);
         await tabsPageObject.setTabsWidth(300);
         await tabsPageObject.clickTab(2); // clicks the third tab
         await waitForUpdatesAsync();
         expect(tabsPageObject.getTabsViewScrollOffset()).toBe(0);
-
-        await disconnect();
     });
 
     describe('Scroll buttons', () => {
-        let tabsPageObject: TabsPageObject;
-        let element: Tabs;
-        let connect: () => Promise<void>;
-        let disconnect: () => Promise<void>;
-
-        beforeEach(async () => {
-            ({ element, connect, disconnect } = await setup());
-            await connect();
-            tabsPageObject = new TabsPageObject(element);
-        });
-
-        afterEach(async () => {
-            await disconnect();
-        });
-
         it('should not show scroll buttons when the tabs fit within the container', () => {
             expect(tabsPageObject.areScrollButtonsVisible()).toBeFalse();
         });

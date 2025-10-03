@@ -1,4 +1,4 @@
-# Change Log - @ni/ok-react
+# Change Log - @ni/ok-blazor
 
 <!-- This log was last generated on Wed, 01 Oct 2025 05:25:42 GMT and should not be manually modified. -->
 
@@ -14,9 +14,8 @@ Wed, 01 Oct 2025 05:25:42 GMT
 
 ## 0.0.2
 
-Thu, 11 Sep 2025 16:32:48 GMT
+Wed, 01 Oct 2025 04:04:12 GMT
 
 ### Patches
 
-- ok-react ([ni/nimble@108b03a](https://github.com/ni/nimble/commit/108b03a39520fe996e920c83989a57d2fe0aad41))
-- Bump @ni/ok-components to v0.0.2
+- OkBlazor first release ([ni/nimble@67be703](https://github.com/ni/nimble/commit/67be70366b8b359242ec49029c8626324cc3cbae))
