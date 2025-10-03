@@ -9,7 +9,6 @@ import {
 } from '../../testing/async-helpers';
 import { buttonTag } from '../../button';
 
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 async function setup<CloseReason = void>(
     preventDismiss = false
 ): Promise<Fixture<Drawer<CloseReason>>> {

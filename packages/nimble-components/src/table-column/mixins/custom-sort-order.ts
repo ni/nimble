@@ -101,7 +101,7 @@ export function mixinCustomSortOrderColumnAPI<
     }
 
     attr({ attribute: 'sort-by-field-name' })(
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+
         CustomSortOrderColumn.prototype,
         'sortByFieldName'
     );

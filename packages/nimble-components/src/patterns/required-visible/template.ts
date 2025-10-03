@@ -8,7 +8,7 @@ import type { RequiredVisiblePattern } from './types';
  *
  * This function is intended to be used with components leveraging `mixinRequiredVisiblePattern`.
  */
-/* eslint-disable @typescript-eslint/indent */
+
 export function createRequiredVisibleLabelTemplate(
     labelTemplate: ViewTemplate<RequiredVisiblePattern>
 ): ViewTemplate<RequiredVisiblePattern> {

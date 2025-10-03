@@ -283,25 +283,25 @@ export class Table<
     // Map from the external slot name to the record ID of the row that should have the slot
     // and the unique slot name that the slot should be slotted into.
     private readonly requestedSlots: Map<
-    string,
-    { recordId: string, uniqueSlot: string }
+        string,
+        { recordId: string, uniqueSlot: string }
     > = new Map();
 
     private readonly borderWidthSubscriber: DesignTokenSubscriber<
         typeof borderWidth
     > = {
-            handleChange: () => {
-                this.updateRowHeight();
-            }
-        };
+        handleChange: () => {
+            this.updateRowHeight();
+        }
+    };
 
     private readonly controlHeightSubscriber: DesignTokenSubscriber<
         typeof controlHeight
     > = {
-            handleChange: () => {
-                this.updateRowHeight();
-            }
-        };
+        handleChange: () => {
+            this.updateRowHeight();
+        }
+    };
 
     private actionMenuSlots: string[] = [];
 
@@ -734,7 +734,7 @@ export class Table<
             this.dataHierarchyManager.parentIdConfigurationValid
         );
         const tanStackUpdates: Partial<
-        TanStackTableOptionsResolved<TableNode<TData>>
+            TanStackTableOptionsResolved<TableNode<TData>>
         > = {
             data: tableNodes
         };
@@ -949,7 +949,7 @@ export class Table<
 
     private updateTanStack(): void {
         const updatedOptions: Partial<
-        TanStackTableOptionsResolved<TableNode<TData>>
+            TanStackTableOptionsResolved<TableNode<TData>>
         > = {};
         updatedOptions.state = {};
 

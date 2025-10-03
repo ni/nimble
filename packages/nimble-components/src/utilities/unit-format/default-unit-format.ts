@@ -9,7 +9,7 @@ import { passthroughUnitScale } from './unit-scale/passthrough-unit-scale';
 const signDisplay = 'negative' as Intl.NumberFormatOptions['signDisplay'];
 
 // Allow consistent pattern for defining Options and ResolvedOptions
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
 interface DefaultUnitFormatOptions extends UnitFormatOptions {}
 type ResolvedDefaultUnitFormatOptions = Required<DefaultUnitFormatOptions>;
 
@@ -40,8 +40,8 @@ export class DefaultUnitFormat extends UnitFormat {
     };
 
     private readonly defaultScaledUnitFormatters = new Map<
-    number,
-    ScaledUnitFormat
+        number,
+        ScaledUnitFormat
     >();
 
     // Format options for numbers that should be displayed in exponential notation. This should be used

@@ -22,8 +22,8 @@ declare global {
  * The cell view base class for displaying a string field as a menu button.
  */
 export class TableColumnMenuButtonCellView extends TableCellView<
-TableColumnMenuButtonCellRecord,
-TableColumnMenuButtonColumnConfig
+    TableColumnMenuButtonCellRecord,
+    TableColumnMenuButtonColumnConfig
 > {
     /** @internal */
     public menuButton?: MenuButton;

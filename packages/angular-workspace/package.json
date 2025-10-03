@@ -57,7 +57,7 @@
     "@lhci/cli": "^0.15.0",
     "@ni/fast-web-utilities": "^10.0.0",
     "@ni-private/eslint-config-nimble": "*",
-    "@ni/eslint-config-angular": "^9.0.4",
+    "@ni/eslint-config-angular": "^10.0.0",
     "@ni-private/jasmine-extensions": "*",
     "@ni/jasmine-parameterized": "*",
     "@ni/nimble-tokens": "*",

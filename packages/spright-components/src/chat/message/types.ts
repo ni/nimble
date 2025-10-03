@@ -8,5 +8,4 @@ export const ChatMessageType = {
     inbound: 'inbound'
 } as const;
 
-export type ChatMessageType =
-    (typeof ChatMessageType)[keyof typeof ChatMessageType];
+export type ChatMessageType = (typeof ChatMessageType)[keyof typeof ChatMessageType];

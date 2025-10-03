@@ -14,8 +14,8 @@ declare global {
  * The group header view for displaying duration fields as text.
  */
 export class TableColumnDurationTextGroupHeaderView extends TableColumnTextGroupHeaderViewBase<
-TableNumberFieldValue,
-TableColumnDurationTextColumnConfig
+    TableNumberFieldValue,
+    TableColumnDurationTextColumnConfig
 > {
     protected updateText(): void {
         if (this.columnConfig) {

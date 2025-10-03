@@ -19,8 +19,7 @@ import { resolveKeyWithType } from './models/mapping-key-resolver';
 import type { TableColumnEnumBaseValidator } from './models/table-column-enum-base-validator';
 import type { TableColumnTextBaseColumnConfig } from '../text-base/cell-view';
 
-export type TableColumnEnumCellRecord =
-    | TableStringField<'value'>
+export type TableColumnEnumCellRecord = | TableStringField<'value'>
     | TableBooleanField<'value'>
     | TableNumberField<'value'>;
 export type MappingConfigs = Map<MappingKey, MappingConfig>;

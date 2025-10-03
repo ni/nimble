@@ -7,5 +7,4 @@ export const ChatConversationAppearance = {
     overlay: 'overlay'
 } as const;
 
-export type ChatConversationAppearance =
-    (typeof ChatConversationAppearance)[keyof typeof ChatConversationAppearance];
+export type ChatConversationAppearance = (typeof ChatConversationAppearance)[keyof typeof ChatConversationAppearance];

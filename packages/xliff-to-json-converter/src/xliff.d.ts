@@ -4,9 +4,8 @@ declare module 'xliff' {
     export interface XliffTranslationObject {
         // Type comes from xliff library
         // eslint-disable-next-line @typescript-eslint/naming-convention
-        readonly 'Standalone': {
-            readonly 'id': string,
-            // eslint-disable-next-line @typescript-eslint/naming-convention
+        readonly Standalone: {
+            readonly id: string,
             readonly 'equiv-text': string
         };
     }

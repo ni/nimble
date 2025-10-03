@@ -127,8 +127,8 @@ const metadata: Meta<DialogArgs> = {
 
             ${x => content[x.content]}
             ${when(
-        x => x.footer === ExampleFooterContentType.buttons,
-        html<DialogArgs>`
+                x => x.footer === ExampleFooterContentType.buttons,
+                html<DialogArgs>`
                     <${buttonTag}
                         @click="${x => x.dialogRef.close('Back pressed')}"
                         appearance="ghost"
@@ -152,14 +152,14 @@ const metadata: Meta<DialogArgs> = {
                         Continue
                     </${buttonTag}>
                 `,
-        html<DialogArgs>`
+                html<DialogArgs>`
                     <span slot="footer"
                         >${x => (x.preventDismiss
-        ? 'Refresh the page to close the dialog.'
-        : 'Press Esc to close the dialog.')}</span
+                            ? 'Refresh the page to close the dialog.'
+                            : 'Press Esc to close the dialog.')}</span
                     >
                 `
-    )}
+            )}
         </${dialogTag}>
         <${buttonTag}
             id="open"

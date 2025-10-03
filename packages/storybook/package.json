@@ -6,7 +6,7 @@
   "scripts": {
     "build": "storybook build -o dist/storybook --webpack-stats-json",
     "start": "storybook dev --quiet -p 6006",
-    "lint": "npm run eslint && npm run prettier",
+    "lint": "npm run eslint",
     "format": "npm run prettier-fix",
     "eslint": "eslint .",
     "eslint-fix": "eslint . --fix",
@@ -48,6 +48,7 @@
   },
   "peerDependencies": {
     "@types/react": "^18",
-    "eslint-plugin-storybook": "^0.12.0"
+    "eslint-plugin-storybook": "^0.12.0",
+    "globals": "^14.0.0"
   }
 }

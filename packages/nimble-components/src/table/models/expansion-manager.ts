@@ -81,8 +81,8 @@ export class ExpansionManager<TData extends TableRecord> {
 
         const updatedExplicitExpansionStates = new Map<string, boolean>();
         const updatedHierarchyOptions = new Map<
-        string,
-        TableRecordHierarchyOptions
+            string,
+            TableRecordHierarchyOptions
         >();
         const updatedParentRowsWithChildren = new Set<string>();
         for (const row of rows) {
@@ -121,8 +121,8 @@ export class ExpansionManager<TData extends TableRecord> {
         hierarchyOptions: TableSetRecordHierarchyOptions[]
     ): void {
         const updatedHierarchyOptions = new Map<
-        string,
-        TableRecordHierarchyOptions
+            string,
+            TableRecordHierarchyOptions
         >();
         for (const { recordId, options } of hierarchyOptions) {
             updatedHierarchyOptions.set(recordId, options);

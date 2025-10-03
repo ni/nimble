@@ -30,7 +30,7 @@ type TableColumnBaseConstructor<
     ...args: any[]
 ) => TableColumnTextBase<TColumnConfig, TColumnValidator>;
 
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/explicit-function-return-type, @typescript-eslint/no-explicit-any
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/explicit-function-return-type
 export function mixinTextBase<
     TBase extends TableColumnBaseConstructor<TColumnConfig, TColumnValidator>,
     TColumnConfig,

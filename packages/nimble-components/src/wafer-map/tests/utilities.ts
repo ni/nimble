@@ -121,7 +121,7 @@ export function getDataManagerMock(
     verticalScale: ScaleBand<number> = getScaleBand([], [])
 ): DataManager {
     const dataManagerMock: Pick<
-    DataManager,
+        DataManager,
     'horizontalScale' | 'verticalScale' | 'dieDimensions' | 'margin'
     > = {
         horizontalScale,
@@ -144,7 +144,7 @@ export function getDataManagerMockForHover(
     )
 ): DataManager {
     const dataManagerMock: Pick<
-    DataManager,
+        DataManager,
     'invertedHorizontalScale' | 'invertedVerticalScale' | 'margin'
     > = {
         invertedHorizontalScale,
@@ -165,7 +165,7 @@ export function getWaferMapMockPrerendering(
     dataManager = {} as DataManager
 ): WaferMap {
     const waferMapMock: Pick<
-    WaferMap,
+        WaferMap,
     | 'dies'
     | 'colorScale'
     | 'highlightedTags'
@@ -196,7 +196,7 @@ export function getWaferMapMockHover(
     isExperimentalUpdate: boolean
 ): WaferMap {
     const waferMapMock: Pick<
-    WaferMap,
+        WaferMap,
     | 'diesTable'
     | 'transform'
     | 'originLocation'
@@ -224,7 +224,7 @@ export function getWaferMapMockComputations(
     }
 ): WaferMap {
     const waferMapMock: Pick<
-    WaferMap,
+        WaferMap,
     'dies' | 'originLocation' | 'canvasWidth' | 'canvasHeight' | 'validity'
     > = {
         dies,
@@ -251,7 +251,7 @@ export function getWaferMapMockComputationsExperimental(
     }
 ): WaferMap {
     const waferMapMock: Pick<
-    WaferMap,
+        WaferMap,
     | 'diesTable'
     | 'colorScale'
     | 'colorScaleMode'
@@ -272,7 +272,7 @@ export function getWaferMapMockValidator(
     diesTable: Table | undefined = undefined
 ): WaferMap {
     const waferMapMock: Pick<
-    WaferMap,
+        WaferMap,
     'gridMinX' | 'gridMaxX' | 'gridMinY' | 'gridMaxY' | 'diesTable'
     > = {
         gridMinX,

@@ -13,7 +13,7 @@ import { TableColumnTextValidator } from './models/table-column-text-validator';
 
 export type TableColumnTextCellRecord = TableStringField<'value'>;
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
 export interface TableColumnTextColumnConfig
     extends TableColumnTextBaseColumnConfig {}
 
@@ -29,8 +29,8 @@ declare global {
 export class TableColumnText extends mixinCustomSortOrderColumnAPI(
     mixinTextBase(
         TableColumnTextBase<
-        TableColumnTextColumnConfig,
-        TableColumnTextValidator
+            TableColumnTextColumnConfig,
+            TableColumnTextValidator
         >
     )
 ) {

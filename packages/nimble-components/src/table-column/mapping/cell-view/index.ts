@@ -30,8 +30,8 @@ declare global {
  */
 export class TableColumnMappingCellView
     extends TableCellView<
-    TableColumnEnumCellRecord,
-    TableColumnEnumColumnConfig
+        TableColumnEnumCellRecord,
+        TableColumnEnumColumnConfig
     >
     implements IconView, SpinnerView {
     @observable

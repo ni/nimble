@@ -1,7 +1,6 @@
 import { html } from '@ni/fast-element';
 import type { Spinner } from '.';
 
-/* eslint-disable @typescript-eslint/indent */
 // prettier-ignore
 export const template = html<Spinner>`
     <template role="progressbar">
@@ -20,4 +19,3 @@ export const template = html<Spinner>`
         </div>
     </template>
 `;
-/* eslint-enable @typescript-eslint/indent */

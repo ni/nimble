@@ -20,7 +20,6 @@ declare global {
 /**
  * A nimble-styled dialog.
  */
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 export class Dialog<CloseReason = void> extends FoundationElement {
     // We want the member to match the name of the constant
     // eslint-disable-next-line @typescript-eslint/naming-convention
@@ -146,7 +145,7 @@ export class Dialog<CloseReason = void> extends FoundationElement {
     }
 }
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
 export interface Dialog extends ARIAGlobalStatesAndProperties {}
 applyMixins(Dialog, ARIAGlobalStatesAndProperties);
 
