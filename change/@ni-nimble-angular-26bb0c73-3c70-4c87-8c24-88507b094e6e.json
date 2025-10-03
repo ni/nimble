@@ -1,6 +1,6 @@
 {
   "type": "patch",
-  "comment": "deps update",
+  "comment": "dependency update",
   "packageName": "@ni/nimble-angular",
   "email": "rajsite@users.noreply.github.com",
   "dependentChangeType": "patch"

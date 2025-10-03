@@ -1,6 +1,6 @@
 {
   "type": "patch",
-  "comment": "Update dpes",
+  "comment": "dependency update",
   "packageName": "@ni/ok-blazor",
   "email": "rajsite@users.noreply.github.com",
   "dependentChangeType": "patch"

@@ -1,6 +1,6 @@
 {
   "type": "patch",
-  "comment": "deps update",
+  "comment": "dependency update",
   "packageName": "@ni/xliff-to-json-converter",
   "email": "rajsite@users.noreply.github.com",
   "dependentChangeType": "patch"
