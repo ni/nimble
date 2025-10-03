@@ -161,9 +161,9 @@ export const styles = css`
         }
     }
 `.withBehaviors(
-    themeBehavior(
-        Theme.light,
-        css`
+                themeBehavior(
+                    Theme.light,
+                    css`
             :host {
                 --ni-private-switch-background-disabled-color: ${hexToRgbaCssColor(
                     Black91,
@@ -181,10 +181,10 @@ export const styles = css`
                 )};
             }
         `
-    ),
-    themeBehavior(
-        Theme.dark,
-        css`
+                ),
+                themeBehavior(
+                    Theme.dark,
+                    css`
             :host {
                 --ni-private-switch-background-disabled-color: ${hexToRgbaCssColor(
                     Black15,
@@ -205,10 +205,10 @@ export const styles = css`
                 )};
             }
         `
-    ),
-    themeBehavior(
-        Theme.color,
-        css`
+                ),
+                themeBehavior(
+                    Theme.color,
+                    css`
             :host {
                 --ni-private-switch-background-disabled-color: ${hexToRgbaCssColor(
                     White,
@@ -229,5 +229,5 @@ export const styles = css`
                 )};
             }
         `
-    )
-);
+                )
+            );

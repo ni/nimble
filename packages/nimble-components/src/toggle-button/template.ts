@@ -10,8 +10,8 @@ import type { ToggleButton } from '.';
 /* eslint-disable @typescript-eslint/indent */
 // prettier-ignore
 export const template: FoundationElementTemplate<
-ViewTemplate<ToggleButton>,
-ButtonOptions
+    ViewTemplate<ToggleButton>,
+    ButtonOptions
 > = (context, definition) => html<ToggleButton>`
     <div
         role="button"

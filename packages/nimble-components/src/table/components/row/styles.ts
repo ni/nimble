@@ -179,9 +179,9 @@ export const styles = css`
         --ni-private-table-cell-action-menu-display: block;
     }
 `.withBehaviors(
-    themeBehavior(
-        Theme.color,
-        css`
+            themeBehavior(
+                Theme.color,
+                css`
             :host([selectable]:not([selected])[allow-hover]:hover)::before {
                 background-color: ${hexToRgbaCssColor(White, 0.05)};
             }
@@ -194,5 +194,5 @@ export const styles = css`
                 background-color: ${hexToRgbaCssColor(White, 0.2)};
             }
         `
-    )
-);
+            )
+        );

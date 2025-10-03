@@ -9,8 +9,8 @@ import {
 import type { Button } from '.';
 
 export const template: FoundationElementTemplate<
-ViewTemplate<Button>,
-ButtonOptions
+    ViewTemplate<Button>,
+    ButtonOptions
 > = (context, definition) => html`
     <button
         class="control"

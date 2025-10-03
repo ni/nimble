@@ -48,7 +48,9 @@ describe('Radio Group', () => {
         element.appendChild(radio2);
         element.appendChild(radio3);
 
-        return { element, connect, disconnect, parent, radio1, radio2, radio3 };
+        return {
+            element, connect, disconnect, parent, radio1, radio2, radio3
+        };
     }
 
     it('should have a role of `radiogroup`', async () => {
@@ -475,7 +477,9 @@ describe('Radio Group', () => {
     });
 
     it('should allow resetting of elements by the parent form', async () => {
-        const { element, connect, disconnect, parent, radio1, radio2, radio3 } = await setup();
+        const {
+            element, connect, disconnect, parent, radio1, radio2, radio3
+        } = await setup();
 
         radio2.setAttribute('checked', '');
 

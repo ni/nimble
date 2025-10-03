@@ -180,9 +180,9 @@ export const styles = css`
         display: block;
     }
 `.withBehaviors(
-    new DirectionalStyleSheetBehavior(
-        // ltr styles
-        css`
+                new DirectionalStyleSheetBehavior(
+                    // ltr styles
+                    css`
             .expand-collapse-button {
                 left: var(
                     --ni-private-expand-collapse-button-nested-width,
@@ -198,8 +198,8 @@ export const styles = css`
                 transform: rotate(180deg);
             }
         `,
-        // rtl styles
-        css`
+                    // rtl styles
+                    css`
             .expand-collapse-button {
                 right: var(
                     --ni-private-expand-collapse-button-nested-width,
@@ -215,5 +215,5 @@ export const styles = css`
                 transform: rotate(135deg);
             }
         `
-    )
-);
+                )
+            );

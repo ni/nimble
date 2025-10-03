@@ -9,8 +9,8 @@ import type { ChatMessage, ChatMessageOptions } from '.';
 /* eslint-disable @typescript-eslint/indent */
 // prettier-ignore
 export const template: FoundationElementTemplate<
-ViewTemplate<ChatMessage>,
-ChatMessageOptions
+    ViewTemplate<ChatMessage>,
+    ChatMessageOptions
 > = (context, definition) => html<ChatMessage>`
     <div class="container">
         ${startSlotTemplate(context, definition)}

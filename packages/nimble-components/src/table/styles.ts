@@ -236,9 +236,9 @@ export const styles = css`
         ${accessiblyHidden}
     }
 `.withBehaviors(
-    themeBehavior(
-        Theme.color,
-        css`
+                themeBehavior(
+                    Theme.color,
+                    css`
             .table-row-container::before {
                 content: '';
                 width: 100%;
@@ -247,5 +247,5 @@ export const styles = css`
                 position: absolute;
             }
         `
-    )
-);
+                )
+            );

@@ -181,18 +181,18 @@ export const styles = css`
         right: var(--ni-private-scrollbar-width);
     }
 `.withBehaviors(
-    appearanceBehavior(
-        TextAreaAppearance.outline,
-        css`
+                appearanceBehavior(
+                    TextAreaAppearance.outline,
+                    css`
             .control {
                 border-color: rgba(${borderRgbPartialColor}, 0.3);
                 background-color: transparent;
             }
         `
-    ),
-    appearanceBehavior(
-        TextAreaAppearance.block,
-        css`
+                ),
+                appearanceBehavior(
+                    TextAreaAppearance.block,
+                    css`
             .control {
                 background-color: rgba(${borderRgbPartialColor}, 0.1);
             }
@@ -215,5 +215,5 @@ export const styles = css`
                 border-bottom-color: ${failColor};
             }
         `
-    )
-);
+                )
+            );

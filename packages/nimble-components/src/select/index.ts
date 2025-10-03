@@ -534,7 +534,9 @@ export class Select
 
             if (
                 enabledOptions.length > 0
-                && !enabledOptions.find(o => o === this.options[activeOptionIndex])
+                && !enabledOptions.find(
+                    o => o === this.options[activeOptionIndex]
+                )
             ) {
                 activeOptionIndex = this.options.indexOf(enabledOptions[0]!);
             } else if (enabledOptions.length === 0) {

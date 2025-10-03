@@ -179,23 +179,23 @@ export const styles = css`
         margin-left: auto;
     }
 `.withBehaviors(
-    appearanceBehavior(
-        DropdownAppearance.block,
-        css`
+                appearanceBehavior(
+                    DropdownAppearance.block,
+                    css`
             :host([error-visible]) .control {
                 border-bottom-width: ${borderWidth};
                 padding-bottom: 0;
             }
         `
-    ),
-    themeBehavior(
-        Theme.color,
-        css`
+                ),
+                themeBehavior(
+                    Theme.color,
+                    css`
             .filter-field,
             .no-results-label,
             .loading-container {
                 background: ${hexToRgbaCssColor(White, 0.15)};
             }
         `
-    )
-);
+                )
+            );

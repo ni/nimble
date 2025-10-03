@@ -161,9 +161,9 @@ export const styles = css`
         }
     }
 `.withBehaviors(
-    themeBehavior(
-        Theme.light,
-        css`
+                themeBehavior(
+                    Theme.light,
+                    css`
             :host {
                 --ni-private-spinner-bits-background-color: ${Black91};
             }
@@ -171,10 +171,10 @@ export const styles = css`
                 --ni-private-spinner-bits-background-color: ${DigitalGreenLight};
             }
         `
-    ),
-    themeBehavior(
-        Theme.dark,
-        css`
+                ),
+                themeBehavior(
+                    Theme.dark,
+                    css`
             :host {
                 --ni-private-spinner-bits-background-color: ${Black15};
             }
@@ -182,10 +182,10 @@ export const styles = css`
                 --ni-private-spinner-bits-background-color: ${PowerGreen};
             }
         `
-    ),
-    themeBehavior(
-        Theme.color,
-        css`
+                ),
+                themeBehavior(
+                    Theme.color,
+                    css`
             :host {
                 --ni-private-spinner-bits-background-color: ${White};
             }
@@ -193,5 +193,5 @@ export const styles = css`
                 --ni-private-spinner-bits-background-color: ${PowerGreen};
             }
         `
-    )
-);
+                )
+            );

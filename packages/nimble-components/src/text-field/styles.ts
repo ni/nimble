@@ -230,18 +230,18 @@ export const styles = css`
         ${controlHeight.cssCustomProperty}: 24px;
     }
 `.withBehaviors(
-    appearanceBehavior(
-        TextFieldAppearance.underline,
-        css`
+                appearanceBehavior(
+                    TextFieldAppearance.underline,
+                    css`
             .root {
                 border-bottom-width: ${borderWidth};
                 padding-bottom: 0;
             }
         `
-    ),
-    appearanceBehavior(
-        TextFieldAppearance.block,
-        css`
+                ),
+                appearanceBehavior(
+                    TextFieldAppearance.block,
+                    css`
             .root {
                 background-color: rgba(${borderRgbPartialColor}, 0.1);
             }
@@ -270,20 +270,20 @@ export const styles = css`
                 background-color: rgba(${borderRgbPartialColor}, 0.07);
             }
         `
-    ),
-    appearanceBehavior(
-        TextFieldAppearance.outline,
-        css`
+                ),
+                appearanceBehavior(
+                    TextFieldAppearance.outline,
+                    css`
             .root {
                 border-width: ${borderWidth};
                 padding: 0;
                 padding-left: ${smallPadding};
             }
         `
-    ),
-    appearanceBehavior(
-        TextFieldAppearance.frameless,
-        css`
+                ),
+                appearanceBehavior(
+                    TextFieldAppearance.frameless,
+                    css`
             .control {
                 padding-left: ${borderWidth};
                 padding-right: ${borderWidth};
@@ -293,21 +293,21 @@ export const styles = css`
                 border-color: transparent;
             }
         `
-    ),
-    themeBehavior(
-        Theme.light,
-        css`
+                ),
+                themeBehavior(
+                    Theme.light,
+                    css`
             .control::-ms-reveal {
                 filter: invert(0%);
             }
         `
-    ),
-    themeBehavior(
-        [Theme.dark, Theme.color],
-        css`
+                ),
+                themeBehavior(
+                    [Theme.dark, Theme.color],
+                    css`
             .control::-ms-reveal {
                 filter: invert(100%);
             }
         `
-    )
-);
+                )
+            );
