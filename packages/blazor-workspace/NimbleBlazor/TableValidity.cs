@@ -4,23 +4,23 @@ namespace NimbleBlazor;
 
 public interface ITableValidity
 {
-    public bool DuplicateRecordId { get; }
+    bool DuplicateRecordId { get; }
 
-    public bool MissingRecordId { get; }
+    bool MissingRecordId { get; }
 
-    public bool InvalidRecordId { get; }
+    bool InvalidRecordId { get; }
 
-    public bool DuplicateColumnId { get; }
+    bool DuplicateColumnId { get; }
 
-    public bool MissingColumnId { get; }
+    bool MissingColumnId { get; }
 
-    public bool InvalidColumnConfiguration { get; }
+    bool InvalidColumnConfiguration { get; }
 
-    public bool DuplicateSortIndex { get; }
+    bool DuplicateSortIndex { get; }
 
-    public bool DuplicateGroupIndex { get; }
+    bool DuplicateGroupIndex { get; }
 
-    public bool IdFieldNameNotConfigured { get; }
+    bool IdFieldNameNotConfigured { get; }
 }
 
 internal sealed class TableValidity : ITableValidity

@@ -18,8 +18,8 @@ declare global {
  * A cell view for displaying date/time fields as text
  */
 export class TableColumnDateTextCellView extends TableColumnTextCellViewBase<
-TableColumnDateTextCellRecord,
-TableColumnDateTextColumnConfig
+    TableColumnDateTextCellRecord,
+    TableColumnDateTextColumnConfig
 > {
     protected updateText(): void {
         if (this.columnConfig) {
