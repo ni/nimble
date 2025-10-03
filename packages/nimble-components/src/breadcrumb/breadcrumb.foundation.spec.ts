@@ -45,7 +45,12 @@ async function setup(): Promise<BreadcrumbTestSetup> {
     element.appendChild(item3);
 
     return {
-        element, connect, disconnect, item1, item2, item3
+        element,
+        connect,
+        disconnect,
+        item1,
+        item2,
+        item3
     };
 }
 

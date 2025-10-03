@@ -49,7 +49,13 @@ describe('Radio Group', () => {
         element.appendChild(radio3);
 
         return {
-            element, connect, disconnect, parent, radio1, radio2, radio3
+            element,
+            connect,
+            disconnect,
+            parent,
+            radio1,
+            radio2,
+            radio3
         };
     }
 
