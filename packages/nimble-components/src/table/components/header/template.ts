@@ -10,7 +10,6 @@ import {
     tableColumnHeaderSortedDescendingLabel
 } from '../../../label-provider/table/label-tokens';
 
-// prettier-ignore
 export const template = html<TableHeader>`
     <template role="columnheader"
         class="${x => (x.alignment === TableColumnAlignment.right ? 'right-align' : '')}"

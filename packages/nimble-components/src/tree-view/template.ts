@@ -1,7 +1,6 @@
 import { children, html, ref, slotted } from '@ni/fast-element';
 import type { TreeView } from '.';
 
-// prettier-ignore
 export const template = html<TreeView>`
     <template
         role="tree"

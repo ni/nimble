@@ -16,7 +16,6 @@ import { themeProviderTag } from '../theme-provider';
 import { Theme } from '../theme-provider/types';
 import { ButtonAppearance, ButtonAppearanceVariant } from '../button/types';
 
-// prettier-ignore
 export const template = html<Banner>`
     <${themeProviderTag} theme="${Theme.color}">
         <div class="container"

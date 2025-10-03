@@ -2,7 +2,6 @@ import { html, when } from '@ni/fast-element';
 import type { TableColumnMappingCellView } from '.';
 import { overflow } from '../../../utilities/directive/overflow';
 
-// prettier-ignore
 export const template = html<TableColumnMappingCellView>`
     ${when(
         x => x.visualizationTemplate,
