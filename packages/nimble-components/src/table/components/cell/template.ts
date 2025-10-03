@@ -8,7 +8,6 @@ import {
 } from '../../../menu-button/types';
 import { tableCellActionMenuLabel } from '../../../label-provider/table/label-tokens';
 
-// prettier-ignore
 export const template = html<TableCell>`
     <template role="cell" style="--ni-private-table-cell-nesting-level: ${x => x.nestingLevel}"
         @focusin="${x => x.onCellFocusIn()}"

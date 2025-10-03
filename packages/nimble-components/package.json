@@ -98,7 +98,8 @@
     "tslib": "^2.2.0"
   },
   "peerDependencies": {
-    "apache-arrow": "21.0.0"
+    "apache-arrow": "21.0.0",
+    "flatbuffers": "25.2.10"
   },
   "devDependencies": {
     "@ni-private/eslint-config-nimble": "*",
@@ -124,7 +125,7 @@
     "karma-spec-reporter": "^0.0.36",
     "karma-webkit-launcher": "^2.6.0",
     "karma-webpack": "^5.0.0",
-    "playwright": "1.53.1",
+    "playwright": "1.54.1",
     "prettier-eslint": "^16.3.0",
     "prettier-eslint-cli": "^8.0.1",
     "rollup": "^4.12.0",

@@ -25,7 +25,7 @@ export class NimbleBreadcrumbItemRouterLinkWithHrefDirective extends RouterLink 
     }
 
     public constructor(
-    @Inject(Router) router: Router,
+        @Inject(Router) router: Router,
         @Inject(ActivatedRoute) route: ActivatedRoute,
         renderer: Renderer2,
         private readonly elementRef: ElementRef<BreadcrumbItem>,

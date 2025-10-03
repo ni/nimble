@@ -21,7 +21,6 @@ import type { MappingConfig } from '../../rich-text-mention/base/models/mapping-
 import { listOptionTag } from '../../list-option';
 import type { MentionDetail } from './types';
 
-// prettier-ignore
 export const template = html<RichTextEditor>`
     <template
         ${children({ property: 'childItems', filter: elements() })}

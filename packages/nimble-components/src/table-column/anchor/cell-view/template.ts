@@ -1,10 +1,8 @@
-/* eslint-disable @typescript-eslint/indent */
 import { html, ref, when } from '@ni/fast-element';
 import type { TableColumnAnchorCellView } from '.';
 import { anchorTag } from '../../../anchor';
 import { overflow } from '../../../utilities/directive/overflow';
 
-// prettier-ignore
 export const template = html<TableColumnAnchorCellView>`
     <template
         @click="${(x, c) => {
@@ -44,4 +42,3 @@ export const template = html<TableColumnAnchorCellView>`
             </span>`)}
     </template>
 `;
-/* eslint-enable @typescript-eslint/indent */

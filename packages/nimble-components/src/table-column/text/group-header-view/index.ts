@@ -14,8 +14,8 @@ declare global {
  * The group header view for displaying string fields as text.
  */
 export class TableColumnTextGroupHeaderView extends TableColumnTextGroupHeaderViewBase<
-TableStringFieldValue,
-TableColumnTextColumnConfig
+    TableStringFieldValue,
+    TableColumnTextColumnConfig
 > {
     protected updateText(): void {
         this.text = typeof this.groupHeaderValue === 'string'

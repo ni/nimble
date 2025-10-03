@@ -44,7 +44,14 @@ async function setup(): Promise<BreadcrumbTestSetup> {
     element.appendChild(item2);
     element.appendChild(item3);
 
-    return { element, connect, disconnect, item1, item2, item3 };
+    return {
+        element,
+        connect,
+        disconnect,
+        item1,
+        item2,
+        item3
+    };
 }
 
 describe('Breadcrumb', () => {

@@ -125,7 +125,9 @@ describe('Table', () => {
             const visibleData = retrieveExpectedData(visibleTableDataSubset);
             const expectedRowCount = visibleData.length;
             expect(pageObject.getRenderedRowCount()).toEqual(expectedRowCount);
-            const visibleColumns = element.columns.filter(x => !x.columnHidden);
+            const visibleColumns = element.columns.filter(
+                x => !x.columnHidden
+            );
 
             for (let rowIndex = 0; rowIndex < expectedRowCount; rowIndex++) {
                 for (
