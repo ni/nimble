@@ -30,3 +30,4 @@ src/utilities/tests/fixture.ts
 src/utilities/style/direction.ts
 src/icons
 src/wafer-map/workers
+template.ts

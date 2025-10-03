@@ -2,8 +2,6 @@ import { children, html, slotted, type ViewTemplate } from '@ni/fast-element';
 import type { FoundationElementTemplate } from '@ni/fast-foundation';
 import type { Menu } from '.';
 
-/* eslint-disable @typescript-eslint/indent */
-// prettier-ignore
 export const template: FoundationElementTemplate<
 ViewTemplate<Menu>
 > = () => html`
@@ -22,4 +20,3 @@ ViewTemplate<Menu>
         <slot ${slotted('items')}></slot>
     </template>
 `;
-/* eslint-enable @typescript-eslint/indent */
