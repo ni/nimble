@@ -13,8 +13,8 @@ type TabsToolbarOptions = FoundationElementDefinition & StartEndOptions;
 /* eslint-disable @typescript-eslint/indent */
 // prettier-ignore
 export const template: FoundationElementTemplate<
-    ViewTemplate<TabsToolbar>,
-    TabsToolbarOptions
+ViewTemplate<TabsToolbar>,
+TabsToolbarOptions
 > = (context, definition) => html<TabsToolbar>`
     <template slot="end">
         ${when(x => x.defaultSlottedElements.length > 0, html`

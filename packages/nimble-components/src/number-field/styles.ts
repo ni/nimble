@@ -191,18 +191,18 @@ export const styles = css`
         margin-right: ${smallPadding};
     }
 `.withBehaviors(
-                appearanceBehavior(
-                    NumberFieldAppearance.underline,
-                    css`
+    appearanceBehavior(
+        NumberFieldAppearance.underline,
+        css`
             .root {
                 border-bottom-width: ${borderWidth};
                 padding-bottom: 0;
             }
         `
-                ),
-                appearanceBehavior(
-                    NumberFieldAppearance.block,
-                    css`
+    ),
+    appearanceBehavior(
+        NumberFieldAppearance.block,
+        css`
             .root {
                 background-color: rgba(${borderRgbPartialColor}, 0.1);
             }
@@ -230,19 +230,19 @@ export const styles = css`
                 border-bottom-color: ${failColor};
             }
         `
-                ),
-                appearanceBehavior(
-                    NumberFieldAppearance.outline,
-                    css`
+    ),
+    appearanceBehavior(
+        NumberFieldAppearance.outline,
+        css`
             .root {
                 border-width: ${borderWidth};
                 padding: 0;
             }
         `
-                ),
-                appearanceBehavior(
-                    NumberFieldAppearance.frameless,
-                    css`
+    ),
+    appearanceBehavior(
+        NumberFieldAppearance.frameless,
+        css`
             .root {
                 padding-left: ${borderWidth};
                 padding-right: ${borderWidth};
@@ -252,5 +252,5 @@ export const styles = css`
                 padding-left: 0px;
             }
         `
-                )
-            );
+    )
+);

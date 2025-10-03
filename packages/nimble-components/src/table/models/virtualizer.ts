@@ -108,8 +108,8 @@ export class Virtualizer<TData extends TableRecord = TableRecord> {
     }
 
     private createVirtualizerOptions(): VirtualizerOptions<
-        HTMLElement,
-        HTMLElement
+    HTMLElement,
+    HTMLElement
     > {
         const rowHeight = this.table.rowHeight;
         return {

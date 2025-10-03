@@ -24,8 +24,8 @@ const labelTemplate = createRequiredVisibleLabelTemplate(
  * @public
  */
 export const template: FoundationElementTemplate<
-    ViewTemplate<NumberField>,
-    NumberFieldOptions
+ViewTemplate<NumberField>,
+NumberFieldOptions
 > = (context, definition) => html`
     <template class="${x => (x.readOnly ? 'readonly' : '')}">
         ${labelTemplate}
@@ -76,8 +76,8 @@ export const template: FoundationElementTemplate<
                 ${ref('control')}
             />
             ${when(
-                x => !x.hideStep && !x.readOnly && !x.disabled,
-                html<NumberField>`
+        x => !x.hideStep && !x.readOnly && !x.disabled,
+        html<NumberField>`
                     <div class="controls" part="controls">
                         <div
                             class="step-up"
@@ -99,7 +99,7 @@ export const template: FoundationElementTemplate<
                         </div>
                     </div>
                 `
-            )}
+    )}
             ${endSlotTemplate(context, definition)}
         </div>
     </template>

@@ -7,8 +7,8 @@ import {
 import type { AnchorTab, TabOptions } from '.';
 
 export const template: FoundationElementTemplate<
-    ViewTemplate<AnchorTab>,
-    TabOptions
+ViewTemplate<AnchorTab>,
+TabOptions
 > = (context, definition) => html<AnchorTab>`
     <template slot="anchortab" role="tab" aria-disabled="${x => x.disabled}">
         <a

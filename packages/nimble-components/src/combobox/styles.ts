@@ -99,13 +99,13 @@ export const styles = css`
         fill: ${bodyDisabledFontColor};
     }
 `.withBehaviors(
-                appearanceBehavior(
-                    DropdownAppearance.block,
-                    css`
+    appearanceBehavior(
+        DropdownAppearance.block,
+        css`
             :host([error-visible]) .control {
                 border-bottom-width: ${borderWidth};
                 padding-bottom: 0;
             }
         `
-                )
-            );
+    )
+);

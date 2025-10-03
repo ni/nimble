@@ -176,8 +176,8 @@ export class RichTextMarkdownParser {
 
     private static setup(
         markdownParserMentionConfig:
-            | MarkdownParserMentionConfiguration[]
-            | undefined
+        | MarkdownParserMentionConfiguration[]
+        | undefined
     ): void {
         RichTextMarkdownParser.mentionConfigs = markdownParserMentionConfig;
         RichTextMarkdownParser.mentionedHrefs.clear();

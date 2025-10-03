@@ -94,8 +94,8 @@ declare global {
     name: tableColumnValidationTestTag
 })
 export class TableColumnValidationTest extends TableColumn<
-    unknown,
-    TestColumnValidator
+unknown,
+TestColumnValidator
 > {
     @attr({ mode: 'boolean' })
     public foo = false;

@@ -8,17 +8,17 @@ public interface ISortableColumn
     /// <summary>
     /// The direction the column is sorted.
     /// </summary>
-    TableColumnSortDirection? SortDirection { get; set; }
+    public TableColumnSortDirection? SortDirection { get; set; }
 
     /// <summary>
     /// The index for sorting the column. When multiple columns are sorted,
     /// they will be sorted from lowest index to highest index.
     /// </summary>
-    int? SortIndex { get; set; }
+    public int? SortIndex { get; set; }
 
     /// <summary>
     /// Whether or not sorting is disabled on the column. If sorting is disabled, the column
     /// will not be sorted even if <see cref="SortIndex"/> and <see cref="SortDirection"/> are configured.
     /// </summary>
-    bool? SortingDisabled { get; set; }
+    public bool? SortingDisabled { get; set; }
 }

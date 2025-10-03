@@ -5,7 +5,7 @@ namespace NimbleBlazor;
 /// </summary>
 public interface IGroupableColumn
 {
-    int? GroupIndex { get; set; }
+    public int? GroupIndex { get; set; }
 
-    bool? GroupingDisabled { get; set; }
+    public bool? GroupingDisabled { get; set; }
 }

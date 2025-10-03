@@ -30,8 +30,8 @@ declare global {
  */
 export class TableColumnMappingCellView
     extends TableCellView<
-        TableColumnEnumCellRecord,
-        TableColumnEnumColumnConfig
+    TableColumnEnumCellRecord,
+    TableColumnEnumColumnConfig
     >
     implements IconView, SpinnerView {
     @observable
@@ -42,8 +42,8 @@ export class TableColumnMappingCellView
 
     @observable
     public visualizationTemplate?:
-        | ViewTemplate<IconView>
-        | ViewTemplate<SpinnerView>;
+    | ViewTemplate<IconView>
+    | ViewTemplate<SpinnerView>;
 
     @observable
     public textHidden = false;

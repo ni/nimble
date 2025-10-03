@@ -197,9 +197,9 @@ export const styles = css`
         }
     }
 `.withBehaviors(
-                    appearanceBehavior(
-                        ButtonAppearance.outline,
-                        css`
+    appearanceBehavior(
+        ButtonAppearance.outline,
+        css`
             @layer base {
                 .control {
                     border-color: rgba(${actionRgbPartialColor}, 0.3);
@@ -212,20 +212,20 @@ export const styles = css`
                 }
             }
         `
-                    ),
-                    appearanceBehavior(
-                        ButtonAppearance.ghost,
-                        css`
+    ),
+    appearanceBehavior(
+        ButtonAppearance.ghost,
+        css`
             @layer disabled {
                 :host([disabled]) .control {
                     border-color: transparent;
                 }
             }
         `
-                    ),
-                    appearanceBehavior(
-                        ButtonAppearance.block,
-                        css`
+    ),
+    appearanceBehavior(
+        ButtonAppearance.block,
+        css`
             @layer base {
                 .control {
                     background-image: linear-gradient(
@@ -258,8 +258,8 @@ export const styles = css`
                 }
             }
         `
-                    )
-                );
+    )
+);
 
 export const buttonAppearanceVariantStyles = css``.withBehaviors(
     appearanceBehavior(

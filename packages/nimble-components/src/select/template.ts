@@ -44,16 +44,16 @@ const labelTemplate = createRequiredVisibleLabelTemplate(html<Select>`
 /* eslint-disable @typescript-eslint/indent */
 // prettier-ignore
 export const template: FoundationElementTemplate<
-    ViewTemplate<Select>,
-    SelectOptions
+ViewTemplate<Select>,
+SelectOptions
 > = (context, definition) => html<Select>`
     <template
         class="${x => [
-            x.collapsible && 'collapsible',
-            x.collapsible && x.open && 'open',
-            x.disabled && 'disabled',
-            x.collapsible && x.position,
-        ].filter(Boolean).join(' ')}"
+                x.collapsible && 'collapsible',
+                x.collapsible && x.open && 'open',
+                x.disabled && 'disabled',
+                x.collapsible && x.position,
+            ].filter(Boolean).join(' ')}"
         aria-activedescendant="${x => (x.filterMode === FilterMode.none ? x.ariaActiveDescendant : null)}"
         aria-controls="${x => (x.filterMode === FilterMode.none ? x.ariaControls : null)}"
         aria-disabled="${x => x.ariaDisabled}"

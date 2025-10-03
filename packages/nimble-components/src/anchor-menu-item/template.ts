@@ -8,14 +8,14 @@ import {
 import type { AnchorMenuItem } from '.';
 
 export const template: FoundationElementTemplate<
-    ViewTemplate<AnchorMenuItem>,
-    AnchorOptions
+ViewTemplate<AnchorMenuItem>,
+AnchorOptions
 > = (context, definition) => html<AnchorMenuItem>`
     <template
         role="menuitem"
         class="${x => (typeof x.startColumnCount === 'number'
-            ? `indent-${x.startColumnCount}`
-            : '')}"
+        ? `indent-${x.startColumnCount}`
+        : '')}"
         aria-disabled="${x => x.disabled}"
         @click="${(x, c) => x.clickHandler(c.event as MouseEvent)}"
         @keydown="${(x, c) => x.keydownHandler(c.event as KeyboardEvent)}"

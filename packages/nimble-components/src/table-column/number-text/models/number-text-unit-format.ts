@@ -13,7 +13,7 @@ export interface NumberTextUnitFormatOptions extends UnitFormatOptions {
     decimalMaximumDigits?: number;
 }
 type ResolvedNumberTextUnitFormatOptions = NumberTextUnitFormatOptions &
-    Required<UnitFormatOptions>;
+Required<UnitFormatOptions>;
 
 /**
  * Format for numbers (with optional units) in a number-text table column.

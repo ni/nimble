@@ -14,8 +14,8 @@ declare global {
  * The group header view for displaying number fields as text.
  */
 export class TableColumnNumberTextGroupHeaderView extends TableColumnTextGroupHeaderViewBase<
-    TableNumberFieldValue,
-    TableColumnNumberTextColumnConfig
+TableNumberFieldValue,
+TableColumnNumberTextColumnConfig
 > {
     protected updateText(): void {
         this.text = this.columnConfig?.formatter?.format(this.groupHeaderValue) ?? '';

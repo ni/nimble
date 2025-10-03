@@ -17,8 +17,8 @@ declare global {
  * A cell view for displaying duration fields as text
  */
 export class TableColumnDurationTextCellView extends TableColumnTextCellViewBase<
-    TableColumnDurationTextCellRecord,
-    TableColumnDurationTextColumnConfig
+TableColumnDurationTextCellRecord,
+TableColumnDurationTextColumnConfig
 > {
     protected updateText(): void {
         this.text = this.columnConfig?.formatter.format(this.cellRecord?.value) ?? '';

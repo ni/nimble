@@ -4,8 +4,8 @@ import type { TableColumnEnumBase, TableColumnEnumColumnConfig } from '.';
 import type { TableColumnEnumBaseValidator } from './models/table-column-enum-base-validator';
 
 export const template = html<
-    TableColumnEnumBase<
-        TableColumnEnumColumnConfig,
-        TableColumnEnumBaseValidator<[]>
-    >
+TableColumnEnumBase<
+TableColumnEnumColumnConfig,
+TableColumnEnumBaseValidator<[]>
+>
 >`${baseTemplate}<slot ${slotted('mappings')} name="mapping"></slot>`;

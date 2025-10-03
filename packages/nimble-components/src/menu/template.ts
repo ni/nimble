@@ -5,7 +5,7 @@ import type { Menu } from '.';
 /* eslint-disable @typescript-eslint/indent */
 // prettier-ignore
 export const template: FoundationElementTemplate<
-    ViewTemplate<Menu>
+ViewTemplate<Menu>
 > = () => html`
     <template
         slot="${x => {

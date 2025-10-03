@@ -123,8 +123,8 @@ export class WaferMap<
 
     @observable
     public renderer: RenderingModule = new RenderingModule(
-        this.asRequiredFieldsWaferMap
-    );
+            this.asRequiredFieldsWaferMap
+        );
 
     /**
      * @internal

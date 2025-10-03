@@ -4,7 +4,7 @@ namespace NimbleBlazor;
 
 public interface IThemeProviderValidity
 {
-    bool InvalidLang { get; }
+    public bool InvalidLang { get; }
 }
 
 internal sealed class ThemeProviderValidity : IThemeProviderValidity

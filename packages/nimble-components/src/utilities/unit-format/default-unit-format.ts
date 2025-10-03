@@ -40,8 +40,8 @@ export class DefaultUnitFormat extends UnitFormat {
     };
 
     private readonly defaultScaledUnitFormatters = new Map<
-        number,
-        ScaledUnitFormat
+    number,
+    ScaledUnitFormat
     >();
 
     // Format options for numbers that should be displayed in exponential notation. This should be used

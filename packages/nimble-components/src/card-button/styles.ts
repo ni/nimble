@@ -126,9 +126,9 @@ export const styles = css`
         display: none;
     }
 `.withBehaviors(
-            themeBehavior(
-                Theme.light,
-                css`
+    themeBehavior(
+        Theme.light,
+        css`
             :host {
                 --ni-private-card-button-background-hover-color: ${hexToRgbaCssColor(
                     White,
@@ -145,10 +145,10 @@ export const styles = css`
                 )};
             }
         `
-            ),
-            themeBehavior(
-                Theme.dark,
-                css`
+    ),
+    themeBehavior(
+        Theme.dark,
+        css`
             :host {
                 --ni-private-card-button-background-hover-color: ${hexToRgbaCssColor(
                     Black15,
@@ -165,10 +165,10 @@ export const styles = css`
                 --ni-private-card-button-border-selected-color: ${Black15};
             }
         `
-            ),
-            themeBehavior(
-                Theme.color,
-                css`
+    ),
+    themeBehavior(
+        Theme.color,
+        css`
             :host {
                 --ni-private-card-button-background-hover-color: ${hexToRgbaCssColor(
                     White,
@@ -188,5 +188,5 @@ export const styles = css`
                 )};
             }
         `
-            )
-        );
+    )
+);

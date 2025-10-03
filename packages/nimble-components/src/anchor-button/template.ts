@@ -8,8 +8,8 @@ import {
 import type { AnchorButton } from '.';
 
 export const template: FoundationElementTemplate<
-    ViewTemplate<AnchorButton>,
-    AnchorOptions
+ViewTemplate<AnchorButton>,
+AnchorOptions
 > = (context, definition) => html<AnchorButton>`
     <a
         class="control"

@@ -4,7 +4,7 @@ namespace NimbleBlazor;
 
 public interface IWaferMapValidity
 {
-    bool InvalidGridDimensions { get; }
+    public bool InvalidGridDimensions { get; }
 }
 
 internal sealed class WaferMapValidity : IWaferMapValidity

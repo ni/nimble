@@ -99,9 +99,9 @@ export const styles = css`
         justify-content: center;
     }
 `.withBehaviors(
-                themeBehavior(
-                    Theme.light,
-                    css`
+    themeBehavior(
+        Theme.light,
+        css`
             :host {
                 background: ${Black75};
             }
@@ -118,10 +118,10 @@ export const styles = css`
                 background: ${Information100LightUi};
             }
         `
-                ),
-                themeBehavior(
-                    Theme.dark,
-                    css`
+    ),
+    themeBehavior(
+        Theme.dark,
+        css`
             :host {
                 background: ${Black75};
             }
@@ -138,10 +138,10 @@ export const styles = css`
                 background: ${Information100DarkUi};
             }
         `
-                ),
-                themeBehavior(
-                    Theme.color,
-                    css`
+    ),
+    themeBehavior(
+        Theme.color,
+        css`
             :host {
                 background: ${applicationBackgroundColor};
             }
@@ -150,5 +150,5 @@ export const styles = css`
                 background: ${hexToRgbaCssColor(White, 0.3)};
             }
         `
-                )
-            );
+    )
+);

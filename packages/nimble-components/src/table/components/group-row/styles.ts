@@ -98,20 +98,20 @@ export const styles = css`
         padding-left: 0px;
     }
 `.withBehaviors(
-                themeBehavior(
-                    Theme.color,
-                    css`
+    themeBehavior(
+        Theme.color,
+        css`
             :host([allow-hover]:hover)::before {
                 background-color: ${hexToRgbaCssColor(White, 0.05)};
             }
         `
-                ),
-                themeBehavior(
-                    Theme.dark,
-                    css`
+    ),
+    themeBehavior(
+        Theme.dark,
+        css`
             :host([allow-hover]:hover)::before {
                 background-color: ${hexToRgbaCssColor(White, 0.1)};
             }
         `
-                )
-            );
+    )
+);

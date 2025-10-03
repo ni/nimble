@@ -12,9 +12,9 @@ declare namespace Intl {
     // added it to the type definition. See https://github.com/microsoft/TypeScript/issues/56269
     interface NumberFormatOptions {
         roundingPriority?:
-            | 'auto'
-            | 'morePrecision'
-            | 'lessPrecision'
-            | undefined;
+        | 'auto'
+        | 'morePrecision'
+        | 'lessPrecision'
+        | undefined;
     }
 }

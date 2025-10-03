@@ -19,8 +19,8 @@ import {
 
 // prettier-ignore
 export const template: FoundationElementTemplate<
-    ViewTemplate<TabsOwner>,
-    TabsOptions
+ViewTemplate<TabsOwner>,
+TabsOptions
 > = (context, definition) => html`
     <div
         class="tab-bar"

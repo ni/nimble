@@ -45,9 +45,9 @@ export const styles = css`
         }
     }
 `.withBehaviors(
-                    appearanceBehavior(
-                        ButtonAppearance.outline,
-                        css`
+    appearanceBehavior(
+        ButtonAppearance.outline,
+        css`
             @layer checked {
                 :host([appearance-variant='accent'])
                     .control[aria-pressed='true'] {
@@ -64,5 +64,5 @@ export const styles = css`
                 }
             }
         `
-                    )
-                );
+    )
+);

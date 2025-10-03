@@ -41,8 +41,8 @@ export class TableColumnMappingGroupHeaderView
 
     @observable
     public visualizationTemplate?:
-        | ViewTemplate<IconView>
-        | ViewTemplate<SpinnerView>;
+    | ViewTemplate<IconView>
+    | ViewTemplate<SpinnerView>;
 
     public readonly textHidden = false;
 

@@ -18,9 +18,9 @@ const labelTemplate = createRequiredVisibleLabelTemplate(
     >
         <slot
             ${slotted({
-                property: 'defaultSlottedNodes',
-                filter: whitespaceFilter
-            })}
+        property: 'defaultSlottedNodes',
+        filter: whitespaceFilter
+    })}
         ></slot>
     </label>`
 );
@@ -30,8 +30,8 @@ const labelTemplate = createRequiredVisibleLabelTemplate(
  * @public
  */
 export const template: FoundationElementTemplate<
-    ViewTemplate<TextField>,
-    TextFieldOptions
+ViewTemplate<TextField>,
+TextFieldOptions
 > = (context, definition) => html`
     <template
         class="

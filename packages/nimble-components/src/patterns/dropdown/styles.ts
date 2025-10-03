@@ -285,27 +285,27 @@ export const styles = css`
         padding: ${smallPadding} ${mediumPadding};
     }
 `.withBehaviors(
-                appearanceBehavior(
-                    DropdownAppearance.underline,
-                    css`
+    appearanceBehavior(
+        DropdownAppearance.underline,
+        css`
             .control {
                 border-bottom-width: ${borderWidth};
                 padding-bottom: 0;
             }
         `
-                ),
-                appearanceBehavior(
-                    DropdownAppearance.outline,
-                    css`
+    ),
+    appearanceBehavior(
+        DropdownAppearance.outline,
+        css`
             .control {
                 border-width: ${borderWidth};
                 padding: 0;
             }
         `
-                ),
-                appearanceBehavior(
-                    DropdownAppearance.block,
-                    css`
+    ),
+    appearanceBehavior(
+        DropdownAppearance.block,
+        css`
             .control {
                 background-color: rgba(${borderRgbPartialColor}, 0.1);
             }
@@ -319,10 +319,10 @@ export const styles = css`
                 background-color: rgba(${borderRgbPartialColor}, 0.07);
             }
         `
-                ),
-                appearanceBehavior(
-                    DropdownAppearance.frameless,
-                    css`
+    ),
+    appearanceBehavior(
+        DropdownAppearance.frameless,
+        css`
             .control {
                 border-width: 0;
                 padding: ${borderWidth};
@@ -332,13 +332,13 @@ export const styles = css`
                 padding-left: 0;
             }
         `
-                ),
-                themeBehavior(
-                    Theme.color,
-                    css`
+    ),
+    themeBehavior(
+        Theme.color,
+        css`
             .listbox slot {
                 background: ${hexToRgbaCssColor(White, 0.15)};
             }
         `
-                )
-            );
+    )
+);

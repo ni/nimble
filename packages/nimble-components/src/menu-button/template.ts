@@ -30,8 +30,8 @@ export const template = html<MenuButton>`
             <slot slot="end" name="end"></slot>
         </${toggleButtonTag}>
         ${when(
-            x => x.open,
-            html<MenuButton>`
+        x => x.open,
+        html<MenuButton>`
             <${anchoredRegionTag}
                 fixed-placement="true"
                 auto-update-mode="auto"
@@ -48,6 +48,6 @@ export const template = html<MenuButton>`
                 </span>
             </${anchoredRegionTag}>
         `
-        )}
+    )}
     </template>
 `;

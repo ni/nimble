@@ -22,8 +22,8 @@ const labelTemplate = createRequiredVisibleLabelTemplate(html<Combobox>`
 /* eslint-disable @typescript-eslint/indent */
 // prettier-ignore
 export const template: FoundationElementTemplate<
-    ViewTemplate<Combobox>,
-    ComboboxOptions
+ViewTemplate<Combobox>,
+ComboboxOptions
 > = (context, definition) => html`
     <template
         aria-disabled="${x => x.ariaDisabled}"

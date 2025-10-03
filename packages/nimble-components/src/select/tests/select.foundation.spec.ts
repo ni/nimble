@@ -131,9 +131,7 @@ describe('Select', () => {
     });
 
     it('should set its value to the first enabled option', async () => {
-        const {
-            element, connect, disconnect, option1, option2, option3
-        } = await setup();
+        const { element, connect, disconnect, option1, option2, option3 } = await setup();
 
         await connect();
 
@@ -148,9 +146,7 @@ describe('Select', () => {
     });
 
     it('should set its value to the first enabled option when disabled', async () => {
-        const {
-            element, connect, disconnect, option1, option2, option3
-        } = await setup();
+        const { element, connect, disconnect, option1, option2, option3 } = await setup();
         element.disabled = true;
 
         await connect();
@@ -166,9 +162,7 @@ describe('Select', () => {
     });
 
     it('should select the first option with a `selected` attribute', async () => {
-        const {
-            element, connect, disconnect, option1, option2, option3
-        } = await setup();
+        const { element, connect, disconnect, option1, option2, option3 } = await setup();
 
         option2.setAttribute('selected', '');
 
@@ -185,9 +179,7 @@ describe('Select', () => {
     });
 
     it('should select the first option with a `selected` attribute when disabled', async () => {
-        const {
-            element, connect, disconnect, option1, option2, option3
-        } = await setup();
+        const { element, connect, disconnect, option1, option2, option3 } = await setup();
         element.disabled = true;
 
         option2.setAttribute('selected', '');
@@ -903,9 +895,7 @@ describe('Select', () => {
     });
 
     it('should set the `aria-activedescendant` attribute to the ID of the currently selected option', async () => {
-        const {
-            connect, disconnect, element, option1, option2, option3
-        } = await setup();
+        const { connect, disconnect, element, option1, option2, option3 } = await setup();
 
         await connect();
 

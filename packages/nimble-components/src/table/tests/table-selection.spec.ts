@@ -2546,9 +2546,7 @@ describe('Table row selection', () => {
                     });
 
                     it('deselecting single leaf row updates all its group parents to be indeterminate', async () => {
-                        const allRecordIds = groupableTableData.map(
-                            x => x.id
-                        );
+                        const allRecordIds = groupableTableData.map(x => x.id);
                         await element.setSelectedRecordIds(allRecordIds);
                         await waitForUpdatesAsync();
 

@@ -69,12 +69,12 @@ export const styles = css`
         padding: 0px;
     }
 `.withBehaviors(
-            themeBehavior(
-                Theme.color,
-                css`
+    themeBehavior(
+        Theme.color,
+        css`
             slot {
                 background: ${hexToRgbaCssColor(White, 0.15)};
             }
         `
-            )
-        );
+    )
+);

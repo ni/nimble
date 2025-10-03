@@ -648,9 +648,7 @@ export class TablePageObject<T extends TableRecord> {
             `${tableRowTag}, ${tableGroupRowTag}`
         );
         const firstRowAllowsHover = rows[0]!.allowHover;
-        if (
-            Array.from(rows).some(x => x.allowHover !== firstRowAllowsHover)
-        ) {
+        if (Array.from(rows).some(x => x.allowHover !== firstRowAllowsHover)) {
             throw new Error('Rows inconsistently allow hover styling');
         }
         return firstRowAllowsHover;

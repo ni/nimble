@@ -9,7 +9,7 @@ import { RouterLink } from '../../thirdparty/directives/router_link';
 @Directive()
 export class DisableableRouterLinkWithHrefDirective<T extends { disabled: boolean }> extends RouterLink {
     public constructor(
-        @Inject(Router) router: Router,
+    @Inject(Router) router: Router,
         @Inject(ActivatedRoute) route: ActivatedRoute,
         renderer: Renderer2,
         private readonly elementRef: ElementRef<T>,

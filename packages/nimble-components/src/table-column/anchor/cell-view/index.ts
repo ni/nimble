@@ -19,8 +19,8 @@ declare global {
  * A cell view for displaying links
  */
 export class TableColumnAnchorCellView extends TableCellView<
-    TableColumnAnchorCellRecord,
-    TableColumnAnchorColumnConfig
+TableColumnAnchorCellRecord,
+TableColumnAnchorColumnConfig
 > {
     /** @internal */
     @observable

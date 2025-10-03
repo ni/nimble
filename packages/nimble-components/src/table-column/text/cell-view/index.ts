@@ -17,8 +17,8 @@ declare global {
  * A cell view for displaying string fields as text
  */
 export class TableColumnTextCellView extends TableColumnTextCellViewBase<
-    TableColumnTextCellRecord,
-    TableColumnTextColumnConfig
+TableColumnTextCellRecord,
+TableColumnTextColumnConfig
 > {
     protected updateText(): void {
         this.text = typeof this.cellRecord?.value === 'string'

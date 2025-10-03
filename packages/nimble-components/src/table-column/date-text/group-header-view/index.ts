@@ -15,8 +15,8 @@ declare global {
  * The group header view for displaying date/time fields as text.
  */
 export class TableColumnDateTextGroupHeaderView extends TableColumnTextGroupHeaderViewBase<
-    TableNumberFieldValue,
-    TableColumnDateTextColumnConfig
+TableNumberFieldValue,
+TableColumnDateTextColumnConfig
 > {
     protected updateText(): void {
         if (this.columnConfig) {
