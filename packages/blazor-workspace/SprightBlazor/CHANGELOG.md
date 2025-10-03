@@ -1,8 +1,25 @@
 # Change Log - @ni/spright-blazor
 
-<!-- This log was last generated on Tue, 09 Sep 2025 16:30:01 GMT and should not be manually modified. -->
+<!-- This log was last generated on Fri, 03 Oct 2025 20:31:52 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 4.6.4
+
+Fri, 03 Oct 2025 20:31:52 GMT
+
+### Patches
+
+- dependency update ([ni/nimble@a1e13c7](https://github.com/ni/nimble/commit/a1e13c73b88490ece5522a9c583bb429193217bc))
+- Bump @ni/spright-components to v6.3.2
+
+## 4.6.3
+
+Wed, 01 Oct 2025 05:25:42 GMT
+
+### Patches
+
+- Bump @ni/spright-components to v6.3.1
 
 ## 4.6.2
 

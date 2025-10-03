@@ -2,8 +2,7 @@ import { transfer, type Remote } from 'comlink';
 import { createMatrixRenderer } from '../modules/create-matrix-renderer';
 import type { MatrixRenderer } from '../workers/matrix-renderer';
 
-// OffscreenCanvas not supported in Playwright's Windows/Linux Webkit build: https://github.com/ni/nimble/issues/2169
-describe('MatrixRenderer worker #SkipWebkit', () => {
+describe('MatrixRenderer worker', () => {
     let matrixRenderer: Remote<MatrixRenderer>;
     let terminate: () => void;
     const testData = {

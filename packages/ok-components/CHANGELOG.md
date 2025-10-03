@@ -1,8 +1,28 @@
 # Change Log - @ni/ok-components
 
-<!-- This log was last generated on Thu, 11 Sep 2025 16:32:48 GMT and should not be manually modified. -->
+<!-- This log was last generated on Fri, 03 Oct 2025 20:31:52 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 0.0.4
+
+Fri, 03 Oct 2025 20:31:52 GMT
+
+### Patches
+
+- dependency update ([ni/nimble@a1e13c7](https://github.com/ni/nimble/commit/a1e13c73b88490ece5522a9c583bb429193217bc))
+- Bump @ni/nimble-components to v34.3.2
+- Bump @ni/spright-components to v6.3.2
+- Bump @ni/jasmine-parameterized to v1.0.2
+
+## 0.0.3
+
+Wed, 01 Oct 2025 05:25:42 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v34.3.1
+- Bump @ni/spright-components to v6.3.1
 
 ## 0.0.2
 

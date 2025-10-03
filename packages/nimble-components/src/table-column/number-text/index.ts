@@ -42,8 +42,8 @@ declare global {
  */
 export class TableColumnNumberText extends mixinTextBase(
     TableColumnTextBase<
-    TableColumnNumberTextColumnConfig,
-    TableColumnNumberTextValidator
+        TableColumnNumberTextColumnConfig,
+        TableColumnNumberTextValidator
     >
 ) {
     @attr

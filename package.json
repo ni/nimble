@@ -40,6 +40,7 @@
   ],
   "workspaces": [
     "packages/eslint-config-nimble",
+    "packages/jasmine-extensions",
     "packages/jasmine-parameterized",
     "packages/xliff-to-json-converter",
     "packages/nimble-tokens",
@@ -58,14 +59,15 @@
     "packages/blazor-workspace",
     "packages/blazor-workspace/NimbleBlazor",
     "packages/blazor-workspace/SprightBlazor",
+    "packages/blazor-workspace/OkBlazor",
     "packages/performance",
     "packages/site"
   ],
   "devDependencies": {
     "beachball": "^2.45.0",
     "concurrently": "^9.0.0",
-    "cross-env": "^7.0.3",
+    "cross-env": "^10.1.0",
     "patch-package": "^8.0.0",
-    "playwright": "1.53.1"
+    "playwright": "1.54.1"
   }
 }

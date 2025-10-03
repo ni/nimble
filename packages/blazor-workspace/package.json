@@ -19,6 +19,7 @@
     "test": "dotnet test -c Release",
     "copy-resources:nimble": "node build/copyResources.js nimble",
     "copy-resources:spright": "node build/copyResources.js spright",
+    "copy-resources:ok": "node build/copyResources.js ok",
     "update-lock-files": "dotnet restore --force-evaluate"
   },
   "files": [
@@ -29,11 +30,12 @@
     "@ni-private/eslint-config-nimble": "*",
     "@ni/nimble-components": "*",
     "@ni/nimble-tokens": "*",
+    "@ni/ok-components": "*",
     "@ni/spright-components": "*",
     "@rollup/plugin-node-resolve": "^16.0.0",
-    "cross-env": "^7.0.3",
+    "cross-env": "^10.1.0",
     "glob": "^11.0.0",
-    "playwright": "1.53.1",
+    "playwright": "1.54.1",
     "rollup": "^4.12.0"
   }
 }

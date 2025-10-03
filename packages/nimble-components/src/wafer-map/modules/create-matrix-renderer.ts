@@ -18,7 +18,7 @@ export const createMatrixRenderer = async (): Promise<{
     }
     const worker = new Worker(url);
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    const RemoteMatrixRenderer = wrap<new() => MatrixRenderer>(worker);
+    const RemoteMatrixRenderer = wrap<new () => MatrixRenderer>(worker);
     const matrixRenderer = await new RemoteMatrixRenderer();
     const terminate = (): void => worker.terminate();
     return {

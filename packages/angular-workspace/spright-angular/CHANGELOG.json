@@ -2,6 +2,66 @@
   "name": "@ni/spright-angular",
   "entries": [
     {
+      "date": "Fri, 03 Oct 2025 20:31:52 GMT",
+      "version": "7.7.4",
+      "tag": "@ni/spright-angular_v7.7.4",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/spright-angular",
+            "comment": "Bump @ni/spright-components to v6.3.2",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 01 Oct 2025 23:36:47 GMT",
+      "version": "7.7.3",
+      "tag": "@ni/spright-angular_v7.7.3",
+      "comments": {
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/spright-angular",
+            "commit": "348042d959bd5b1043e91c7e521fabd6cf3a0af6",
+            "comment": "Test only change"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 01 Oct 2025 05:25:42 GMT",
+      "version": "7.7.3",
+      "tag": "@ni/spright-angular_v7.7.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/spright-angular",
+            "comment": "Bump @ni/spright-components to v6.3.1",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 16 Sep 2025 23:07:19 GMT",
+      "version": "7.7.2",
+      "tag": "@ni/spright-angular_v7.7.2",
+      "comments": {
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/spright-angular",
+            "commit": "fee4e57878a1505d07db8ae320de6989e8dd463f",
+            "comment": "test only change for retries"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 09 Sep 2025 16:30:01 GMT",
       "version": "7.7.2",
       "tag": "@ni/spright-angular_v7.7.2",

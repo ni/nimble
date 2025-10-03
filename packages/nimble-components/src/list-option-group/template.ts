@@ -7,7 +7,6 @@ const isListOption = (n: Node): boolean => {
     return n instanceof ListOption;
 };
 
-// prettier-ignore
 export const template = html<ListOptionGroup>`
 <template
     role="group"

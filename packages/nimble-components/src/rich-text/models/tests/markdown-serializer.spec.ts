@@ -273,8 +273,7 @@ describe('Markdown serializer', () => {
    * Nested bulleted list`);
         });
 
-        // WebKit skipped, see https://github.com/ni/nimble/issues/1938
-        it('Hard break #SkipWebkit', async () => {
+        it('Hard break', async () => {
             await pageObject.setEditorTextContent('Plain text 1');
             await pageObject.pressShiftEnterKeysInEditor();
             await pageObject.setEditorTextContent('Plain text 2');
@@ -285,8 +284,7 @@ Plain text 2\
 Plain text 3`);
         });
 
-        // WebKit skipped, see https://github.com/ni/nimble/issues/1938
-        it('Hard break with bold #SkipWebkit', async () => {
+        it('Hard break with bold', async () => {
             await pageObject.toggleFooterButton(ToolbarButton.bold);
             await pageObject.setEditorTextContent('Bold');
             await pageObject.pressShiftEnterKeysInEditor();
@@ -295,8 +293,7 @@ Plain text 3`);
 **Bold**`);
         });
 
-        // WebKit skipped, see https://github.com/ni/nimble/issues/1938
-        it('Hard break with italics #SkipWebkit', async () => {
+        it('Hard break with italics', async () => {
             await pageObject.toggleFooterButton(ToolbarButton.italics);
             await pageObject.setEditorTextContent('Italics');
             await pageObject.pressShiftEnterKeysInEditor();
@@ -305,8 +302,7 @@ Plain text 3`);
 *Italics*`);
         });
 
-        // WebKit skipped, see https://github.com/ni/nimble/issues/1938
-        it('Hard break with bulleted list #SkipWebkit', async () => {
+        it('Hard break with bulleted list', async () => {
             await pageObject.setEditorTextContent('Bulleted');
             await pageObject.toggleFooterButton(ToolbarButton.bulletList);
             await pageObject.pressShiftEnterKeysInEditor();
@@ -315,8 +311,7 @@ Plain text 3`);
   list`);
         });
 
-        // WebKit skipped, see https://github.com/ni/nimble/issues/1938
-        it('Hard break with numbered list #SkipWebkit', async () => {
+        it('Hard break with numbered list', async () => {
             await pageObject.setEditorTextContent('Numbered');
             await pageObject.toggleFooterButton(ToolbarButton.numberedList);
             await pageObject.pressShiftEnterKeysInEditor();
@@ -325,8 +320,7 @@ Plain text 3`);
    list`);
         });
 
-        // WebKit skipped, see https://github.com/ni/nimble/issues/1938
-        it('Hard break with mention node #SkipWebkit', async () => {
+        it('Hard break with mention node', async () => {
             await appendUserMentionConfiguration(element, [
                 { key: 'user:1', displayName: 'username1' }
             ]);
@@ -361,8 +355,7 @@ Plain text 3`);
             expect(element.getMarkdown()).toEqual('<user:1> <user:2> ');
         });
 
-        // Intermittent on Webkit (at least), see https://github.com/ni/nimble/issues/2426
-        it('Multiple Mention node of different type #SkipWebkit', async () => {
+        it('Multiple Mention node of different type', async () => {
             await appendUserMentionConfiguration(element, [
                 { key: 'user:1', displayName: 'username1' }
             ]);

@@ -9,7 +9,7 @@ module.exports = {
         // The only difference is that we're increasing the value of minProperties (from 6) so
         // that eslint doesn't introduce line breaks where prettier doesn't. If eslint introduces
         // line breaks, they will be unix-style, which will cause pointless diffs in git.
-        'object-curly-newline': ['error', {
+        '@stylistic/object-curly-newline': ['error', {
             ObjectExpression: { minProperties: 1000, multiline: true, consistent: true },
             ObjectPattern: { minProperties: 1000, multiline: true, consistent: true },
             ImportDeclaration: { consistent: true },

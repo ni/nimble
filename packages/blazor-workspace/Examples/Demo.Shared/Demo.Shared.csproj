@@ -37,11 +37,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="8.0.19" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="8.0.20" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\NimbleBlazor\NimbleBlazor.csproj" />
+    <ProjectReference Include="..\..\OkBlazor\OkBlazor.csproj" />
     <ProjectReference Include="..\..\SprightBlazor\SprightBlazor.csproj" />
   </ItemGroup>
 

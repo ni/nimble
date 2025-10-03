@@ -5,7 +5,6 @@ import type {
 } from '@ni/fast-foundation';
 import type { Anchor } from '.';
 
-// prettier-ignore
 export const template: FoundationElementTemplate<
 ViewTemplate<Anchor>,
 AnchorOptions

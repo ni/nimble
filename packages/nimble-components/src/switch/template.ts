@@ -1,7 +1,6 @@
 import { html, slotted } from '@ni/fast-element';
 import type { Switch } from '.';
 
-// prettier-ignore
 export const template = html<Switch>`
     <template
         role="switch"

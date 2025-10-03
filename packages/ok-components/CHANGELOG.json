@@ -2,6 +2,75 @@
   "name": "@ni/ok-components",
   "entries": [
     {
+      "date": "Fri, 03 Oct 2025 20:31:52 GMT",
+      "version": "0.0.4",
+      "tag": "@ni/ok-components_v0.0.4",
+      "comments": {
+        "patch": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/ok-components",
+            "commit": "a1e13c73b88490ece5522a9c583bb429193217bc",
+            "comment": "dependency update"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/ok-components",
+            "comment": "Bump @ni/nimble-components to v34.3.2",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/ok-components",
+            "comment": "Bump @ni/spright-components to v6.3.2",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/ok-components",
+            "comment": "Bump @ni/jasmine-parameterized to v1.0.2",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 01 Oct 2025 05:25:42 GMT",
+      "version": "0.0.3",
+      "tag": "@ni/ok-components_v0.0.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/ok-components",
+            "comment": "Bump @ni/nimble-components to v34.3.1",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/ok-components",
+            "comment": "Bump @ni/spright-components to v6.3.1",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 16 Sep 2025 23:07:19 GMT",
+      "version": "0.0.2",
+      "tag": "@ni/ok-components_v0.0.2",
+      "comments": {
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/ok-components",
+            "commit": "fee4e57878a1505d07db8ae320de6989e8dd463f",
+            "comment": "test only change for retries"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 11 Sep 2025 16:32:48 GMT",
       "version": "0.0.2",
       "tag": "@ni/ok-components_v0.0.2",
