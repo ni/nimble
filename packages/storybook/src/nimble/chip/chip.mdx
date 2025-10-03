@@ -1,0 +1,36 @@
+import { Canvas, Meta, Controls, Title } from '@storybook/addon-docs/blocks';
+import * as chipStories from './chip.stories';
+import StylingDocs from '../patterns/button/styling-docs.mdx';
+import ComponentApisLink from '../../docs/component-apis-link.mdx';
+import { chipTag } from '@ni/nimble-components/dist/esm/chip';
+
+<Meta of={chipStories} />
+<Title of={chipStories} />
+
+A component for displaying information in a compact format. Provides an optional
+remove button to allow users to delete the chip by handling the `remove` event.
+
+<Canvas of={chipStories.chip} />
+
+## API
+
+<Controls of={chipStories.chip} />
+<ComponentApisLink />
+
+{/* ## Styling */}
+
+## Usage
+
+When displaying multiple related chips together, the recommended configuration
+is:
+
+- chips are arranged horizontally and wrap to new lines when there is
+  insufficient horizontal space
+- all chips have the same appearance
+- use the medium-padding token to create space between chips
+
+{/* ## Examples */}
+
+{/* ## Accessibility */}
+
+{/* ## Resources */}
