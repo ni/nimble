@@ -49,8 +49,10 @@ export function retryFailedTests(
 
                 if (millisecondsBetweenRetries && i != retries - 1) {
                     console.log(
-                        `Test "${spec.getFullName()}" failed, attempting retry ${i + 1}. Will clean-up last run by running afterEach, re-setup by running beforeEach, wait ${millisecondsBetweenRetries}ms, and rerun the test`
-                    );
+                        `\
+Test "${spec.getFullName()}" failed, attempting retry ${i + 1}.
+Will clean-up last run by running afterEach, re-setup by running beforeEach, wait ${millisecondsBetweenRetries}ms, and rerun the test.
+${spec.result.failedExpectations.map((x: {message: string, stack: string}) => (x.message + x.stack))}`);
                     for (let j = 0; j < beforeAfterFns.afters.length; j += 1) {
                         await run(that, beforeAfterFns.afters[j].fn);
                     }
