@@ -1,4 +1,3 @@
-// Based on tests in FAST repo: https://github.com/microsoft/fast/blob/085cb27d348ed6f59d080c167fa62aeaa1e3940e/packages/web-components/fast-foundation/src/combobox/combobox.spec.ts
 import {
     ComboboxAutocomplete,
     ListboxOption,
@@ -12,12 +11,12 @@ import { template } from '../template';
 import { listOptionTag } from '../../list-option';
 
 describe('Combobox', () => {
-    const combobox = Combobox.compose({
+    const combobox = (class TestCombobox extends Combobox {}).compose({
         baseName: 'combobox',
         template
     });
 
-    const option = ListboxOption.compose({
+    const option = (class TestListboxOption extends ListboxOption {}).compose({
         baseName: 'option',
         template: listboxOptionTemplate
     });

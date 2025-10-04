@@ -1,9 +1,9 @@
-import { attr, observable } from '@ni/fast-element';
+import { attr, customElement, observable } from '@ni/fast-element';
 import {
     applyMixins,
-    DesignSystem,
     FoundationElement,
     StartEnd,
+    type ElementDefinitionContext,
     type FoundationElementDefinition,
     type StartEndOptions
 } from '@ni/fast-foundation';
@@ -11,9 +11,11 @@ import { styles } from './styles';
 import { template } from './template';
 import { ChatMessageType } from './types';
 
+export const chatMessageTag = 'spright-chat-message';
+
 declare global {
     interface HTMLElementTagNameMap {
-        'spright-chat-message': ChatMessage;
+        [chatMessageTag]: ChatMessage;
     }
 }
 
@@ -26,6 +28,11 @@ export type ChatMessageOptions = FoundationElementDefinition & StartEndOptions;
 /**
  * A Spright component for displaying a chat message
  */
+@customElement({
+    name: chatMessageTag,
+    template: template(undefined as unknown as ElementDefinitionContext, {}),
+    styles
+})
 export class ChatMessage extends FoundationElement {
     /**
      * @public
@@ -52,12 +59,3 @@ export class ChatMessage extends FoundationElement {
     }
 }
 applyMixins(ChatMessage, StartEnd);
-
-const sprightChatMessage = ChatMessage.compose({
-    baseName: 'chat-message',
-    template,
-    styles
-});
-
-DesignSystem.getOrCreate().withPrefix('spright').register(sprightChatMessage());
-export const chatMessageTag = 'spright-chat-message';

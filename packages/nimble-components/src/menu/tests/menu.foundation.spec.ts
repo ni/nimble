@@ -1,23 +1,20 @@
-/**
- * Based on tests in FAST repo: https://github.com/microsoft/fast/blob/9c6dbb66615e6d229fc0ebf8065a67f109139f26/packages/web-components/fast-foundation/src/menu/menu.spec.ts
- */
 import { DOM } from '@ni/fast-element';
 import {
-    menuTemplate as template,
-    menuItemTemplate,
     MenuItemRole
 } from '@ni/fast-foundation';
 import { keyArrowDown, keyArrowUp } from '@ni/fast-web-utilities';
 import { Menu } from '..';
 import { MenuItem, menuItemTag } from '../../menu-item';
+import { template as menuItemTemplate } from '../../menu-item/template';
 import { fixture } from '../../utilities/tests/fixture';
+import { template } from '../template';
 
-const menu = Menu.compose({
+const menu = (class TestMenu extends Menu {}).compose({
     baseName: 'menu',
     template
 });
 
-const menuItem = MenuItem.compose({
+const menuItem = (class TestMenuItem extends MenuItem {}).compose({
     baseName: 'menu-item',
     template: menuItemTemplate
 });

@@ -1,11 +1,10 @@
-// Based on tests in FAST repo: https://github.com/microsoft/fast/blob/2ea80697bc3a5193e6123fb08ac3be2a76571aeb/packages/web-components/fast-foundation/src/listbox-option/listbox-option.spec.ts
 import { ListOption } from '..';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import { fixture } from '../../utilities/tests/fixture';
 import { template } from '../template';
 
 describe('ListboxOption', () => {
-    const option = ListOption.compose({
+    const option = (class TestListOption extends ListOption {}).compose({
         baseName: 'option',
         template
     });

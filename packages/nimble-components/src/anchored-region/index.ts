@@ -1,13 +1,16 @@
 import {
-    DesignSystem,
     AnchoredRegion as FoundationAnchoredRegion,
     anchoredRegionTemplate as template
 } from '@ni/fast-foundation';
+import { customElement } from '@ni/fast-element';
 import { styles } from './styles';
+import { elementDefinitionContextMock } from '../utilities/models/mock';
+
+export const anchoredRegionTag = 'nimble-anchored-region';
 
 declare global {
     interface HTMLElementTagNameMap {
-        'nimble-anchored-region': AnchoredRegion;
+        [anchoredRegionTag]: AnchoredRegion;
     }
 }
 
@@ -22,16 +25,9 @@ declare global {
 /**
  * A nimble-styled anchored region control.
  */
-export class AnchoredRegion extends FoundationAnchoredRegion {}
-
-const nimbleAnchoredRegion = AnchoredRegion.compose({
-    baseName: 'anchored-region',
-    baseClass: FoundationAnchoredRegion,
-    template,
+@customElement({
+    name: anchoredRegionTag,
+    template: template(elementDefinitionContextMock, {}),
     styles
-});
-
-DesignSystem.getOrCreate()
-    .withPrefix('nimble')
-    .register(nimbleAnchoredRegion());
-export const anchoredRegionTag = 'nimble-anchored-region';
+})
+export class AnchoredRegion extends FoundationAnchoredRegion {}

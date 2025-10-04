@@ -1,18 +1,25 @@
-import { DesignSystem, FoundationElement } from '@ni/fast-foundation';
-import { attr, observable } from '@ni/fast-element';
+import { FoundationElement } from '@ni/fast-foundation';
+import { attr, customElement, observable } from '@ni/fast-element';
 import { styles } from './styles';
 import { template } from './template';
 import { ChatConversationAppearance } from './types';
 
+export const chatConversationTag = 'spright-chat-conversation';
+
 declare global {
     interface HTMLElementTagNameMap {
-        'spright-chat-conversation': ChatConversation;
+        [chatConversationTag]: ChatConversation;
     }
 }
 
 /**
  * A Spright component for displaying a series of chat messages
  */
+@customElement({
+    name: chatConversationTag,
+    template,
+    styles
+})
 export class ChatConversation extends FoundationElement {
     @attr
     public appearance = ChatConversationAppearance.default;
@@ -32,14 +39,3 @@ export class ChatConversation extends FoundationElement {
         this.inputEmpty = !next?.length;
     }
 }
-
-const sprightChatConversation = ChatConversation.compose({
-    baseName: 'chat-conversation',
-    template,
-    styles
-});
-
-DesignSystem.getOrCreate()
-    .withPrefix('spright')
-    .register(sprightChatConversation());
-export const chatConversationTag = 'spright-chat-conversation';

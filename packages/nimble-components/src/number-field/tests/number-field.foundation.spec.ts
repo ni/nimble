@@ -1,12 +1,9 @@
-// Based on tests in FAST repo: https://github.com/microsoft/fast/blob/fd9068b94e4aa8d2282f0cce613f58436fae955d/packages/web-components/fast-foundation/src/number-field/number-field.spec.ts
-
 import { DOM } from '@ni/fast-element';
 import { NumberField } from '..';
 import { template } from '../template';
 import { fixture } from '../../utilities/tests/fixture';
 
-// eslint-disable-next-line @typescript-eslint/naming-convention
-const FASTNumberField = NumberField.compose({
+const fastNumberField = (class TestNumberField extends NumberField {}).compose({
     baseName: 'number-field',
     template
 });
@@ -17,7 +14,7 @@ async function setup(props?: Partial<NumberField>): Promise<{
     disconnect: () => Promise<void>,
     parent: HTMLElement
 }> {
-    const { element, connect, disconnect, parent } = await fixture(FASTNumberField());
+    const { element, connect, disconnect, parent } = await fixture(fastNumberField());
 
     if (props) {
         for (const key in props) {

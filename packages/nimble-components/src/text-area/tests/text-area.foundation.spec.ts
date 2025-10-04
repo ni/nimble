@@ -1,9 +1,8 @@
-// Based on tests in FAST repo: https://github.com/microsoft/fast/blob/085cb27d348ed6f59d080c167fa62aeaa1e3940e/packages/web-components/fast-foundation/src/text-area/text-area.spec.ts
 import { TextArea } from '..';
 import { fixture } from '../../utilities/tests/fixture';
 import { template } from '../template';
 
-const textArea = TextArea.compose({
+const textArea = (class TestTextArea extends TextArea {}).compose({
     baseName: 'text-area',
     template
 });

@@ -1,19 +1,29 @@
-import { DesignSystem, FoundationElement } from '@ni/fast-foundation';
+import { FoundationElement } from '@ni/fast-foundation';
 import { keyEnter } from '@ni/fast-web-utilities';
-import { attr, nullableNumberConverter, observable } from '@ni/fast-element';
+import { attr, customElement, nullableNumberConverter, observable } from '@ni/fast-element';
 import { styles } from './styles';
 import { template } from './template';
 import type { ChatInputSendEventDetail } from './types';
 
+export const chatInputTag = 'spright-chat-input';
+
 declare global {
     interface HTMLElementTagNameMap {
-        'spright-chat-input': ChatInput;
+        [chatInputTag]: ChatInput;
     }
 }
 
 /**
  * A Spright component for composing and sending a chat message
  */
+@customElement({
+    name: chatInputTag,
+    template,
+    styles,
+    shadowOptions: {
+        delegatesFocus: true
+    }
+})
 export class ChatInput extends FoundationElement {
     @attr
     public placeholder?: string;
@@ -104,15 +114,3 @@ export class ChatInput extends FoundationElement {
         }
     }
 }
-
-const sprightChatInput = ChatInput.compose({
-    baseName: 'chat-input',
-    template,
-    styles,
-    shadowOptions: {
-        delegatesFocus: true
-    }
-});
-
-DesignSystem.getOrCreate().withPrefix('spright').register(sprightChatInput());
-export const chatInputTag = 'spright-chat-input';

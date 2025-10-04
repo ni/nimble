@@ -1,6 +1,5 @@
 /**
- * Based on tests in FAST repo: https://github.com/microsoft/fast/blob/085cb27d348ed6f59d080c167fa62aeaa1e3940e/packages/web-components/fast-foundation/src/select/select.spec.ts
- * One notable change to the tests is that we no longer expect the selectedIndex to change for the Select as the user
+ * One notable change from fast foundation to the tests is that we no longer expect the selectedIndex to change for the Select as the user
  * navigates the dropdown menu. As as result, some test names, and the relevant expect assertions have changed.
  */
 import {
@@ -17,60 +16,60 @@ import { ListOption, listOptionTag } from '../../list-option';
 import { template as listOptionTemplate } from '../../list-option/template';
 import { waitTimeout } from '../../utilities/testing/component';
 
+const select = (class TestSelect extends Select {}).compose({
+    baseName: 'select',
+    template
+});
+
+const option = (class TestListOption extends ListOption {}).compose({
+    baseName: 'list-option',
+    template: listOptionTemplate
+});
+
+async function setup(): Promise<{
+    element: Select,
+    connect: () => Promise<void>,
+    disconnect: () => Promise<void>,
+    document: Document,
+    option1: ListOption,
+    option2: ListOption,
+    option3: ListOption,
+    parent: HTMLElement
+}> {
+    const { element, connect, disconnect, parent } = await fixture([
+        select(),
+        option()
+    ]);
+
+    const option1 = document.createElement(listOptionTag);
+    option1.value = 'one';
+    option1.textContent = 'option one';
+
+    const option2 = document.createElement(listOptionTag);
+    option2.value = 'two';
+    option2.textContent = 'option two';
+
+    const option3 = document.createElement(listOptionTag);
+    option3.value = 'three';
+    option3.textContent = 'option three';
+
+    element.appendChild(option1);
+    element.appendChild(option2);
+    element.appendChild(option3);
+
+    return {
+        element,
+        connect,
+        disconnect,
+        document,
+        option1,
+        option2,
+        option3,
+        parent
+    };
+}
+
 describe('Select', () => {
-    const select = Select.compose({
-        baseName: 'select',
-        template
-    });
-
-    const option = ListOption.compose({
-        baseName: 'list-option',
-        template: listOptionTemplate
-    });
-
-    async function setup(): Promise<{
-        element: Select,
-        connect: () => Promise<void>,
-        disconnect: () => Promise<void>,
-        document: Document,
-        option1: ListOption,
-        option2: ListOption,
-        option3: ListOption,
-        parent: HTMLElement
-    }> {
-        const { element, connect, disconnect, parent } = await fixture([
-            select(),
-            option()
-        ]);
-
-        const option1 = document.createElement(listOptionTag);
-        option1.value = 'one';
-        option1.textContent = 'option one';
-
-        const option2 = document.createElement(listOptionTag);
-        option2.value = 'two';
-        option2.textContent = 'option two';
-
-        const option3 = document.createElement(listOptionTag);
-        option3.value = 'three';
-        option3.textContent = 'option three';
-
-        element.appendChild(option1);
-        element.appendChild(option2);
-        element.appendChild(option3);
-
-        return {
-            element,
-            connect,
-            disconnect,
-            document,
-            option1,
-            option2,
-            option3,
-            parent
-        };
-    }
-
     it('should have a role of `combobox`', async () => {
         const { element, connect, disconnect } = await setup();
 

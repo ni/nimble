@@ -1,12 +1,9 @@
-// Based on tests in FAST repo: https://github.com/microsoft/fast/blob/fd9068b94e4aa8d2282f0cce613f58436fae955d/packages/web-components/fast-foundation/src/text-field/text-field.spec.ts
-
 import { TextFieldType } from '@ni/fast-foundation';
 import { TextField } from '..';
 import { fixture } from '../../utilities/tests/fixture';
 import { template } from '../template';
 
-// eslint-disable-next-line @typescript-eslint/naming-convention
-const FASTTextField = TextField.compose({
+const fastTextField = (class TestTextField extends TextField {}).compose({
     baseName: 'text-field',
     template
 });
@@ -17,7 +14,7 @@ async function setup(): Promise<{
     disconnect: () => Promise<void>,
     parent: HTMLElement
 }> {
-    const { element, connect, disconnect, parent } = await fixture(FASTTextField());
+    const { element, connect, disconnect, parent } = await fixture(fastTextField());
 
     return { element, connect, disconnect, parent };
 }

@@ -5,12 +5,12 @@ import { breadcrumbTemplate as template } from './template';
 import { fixture } from '../utilities/tests/fixture';
 import { BreadcrumbItem } from '../breadcrumb-item';
 
-const fastBreadcrumb = Breadcrumb.compose({
+const fastBreadcrumb = (class TestBreadcrumb extends Breadcrumb {}).compose({
     baseName: 'breadcrumb',
     template
 });
 
-const fastBreadcrumbItem = BreadcrumbItem.compose({
+const fastBreadcrumbItem = (class TestBreadcrumbItem extends BreadcrumbItem {}).compose({
     baseName: 'breadcrumb-item',
     breadcrumbItemTemplate
 });

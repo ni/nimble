@@ -1,64 +1,52 @@
-// Based on tests in FAST repo: https://github.com/microsoft/fast/blob/913c27e7e8503de1f7cd50bdbc9388134f52ef5d/packages/web-components/fast-foundation/src/radio-group/radio-group.spec.ts
-
 import { DOM } from '@ni/fast-element';
-import { Radio, radioTemplate as itemTemplate } from '@ni/fast-foundation';
 import { Orientation } from '@ni/fast-web-utilities';
 import { RadioGroup } from '..';
 import { fixture } from '../../utilities/tests/fixture';
 import { template } from '../template';
-import { radioTag } from '../../radio';
+import { Radio, radioTag } from '../../radio';
 
-// eslint-disable-next-line @typescript-eslint/naming-convention
-const FASTRadioGroup = RadioGroup.compose({
+const fastRadioGroup = (class TestRadioGroup extends RadioGroup {}).compose({
     baseName: 'radio-group',
     template
 });
 
+async function setup(): Promise<{
+    element: RadioGroup,
+    connect: () => Promise<void>,
+    disconnect: () => Promise<void>,
+    parent: HTMLElement,
+    radio1: Radio,
+    radio2: Radio,
+    radio3: Radio
+}> {
+    const { element, connect, disconnect, parent } = await fixture([
+        fastRadioGroup(),
+    ]);
+    const radio1 = document.createElement(radioTag);
+    const radio2 = document.createElement(radioTag);
+    const radio3 = document.createElement(radioTag);
+
+    radio1.className = 'one';
+    radio2.className = 'two';
+    radio3.className = 'three';
+
+    element.appendChild(radio1);
+    element.appendChild(radio2);
+    element.appendChild(radio3);
+
+    return {
+        element,
+        connect,
+        disconnect,
+        parent,
+        radio1,
+        radio2,
+        radio3
+    };
+}
+
 // TODO: Need to add tests for keyboard handling & focus management
 describe('Radio Group', () => {
-    // eslint-disable-next-line @typescript-eslint/naming-convention
-    const FASTRadio = Radio.compose({
-        baseName: 'radio',
-        template: itemTemplate
-    });
-
-    async function setup(): Promise<{
-        element: RadioGroup,
-        connect: () => Promise<void>,
-        disconnect: () => Promise<void>,
-        parent: HTMLElement,
-        radio1: Radio,
-        radio2: Radio,
-        radio3: Radio
-    }> {
-        const { element, connect, disconnect, parent } = await fixture([
-            FASTRadioGroup(),
-            FASTRadio()
-        ]);
-
-        const radio1 = document.createElement(radioTag);
-        const radio2 = document.createElement(radioTag);
-        const radio3 = document.createElement(radioTag);
-
-        radio1.className = 'one';
-        radio2.className = 'two';
-        radio3.className = 'three';
-
-        element.appendChild(radio1);
-        element.appendChild(radio2);
-        element.appendChild(radio3);
-
-        return {
-            element,
-            connect,
-            disconnect,
-            parent,
-            radio1,
-            radio2,
-            radio3
-        };
-    }
-
     it('should have a role of `radiogroup`', async () => {
         const { element, connect, disconnect } = await setup();
 
@@ -168,7 +156,7 @@ describe('Radio Group', () => {
     });
 
     it('should set the `aria-readonly` attribute equal to the `readonly` value', async () => {
-        const { element, connect, disconnect } = await fixture(FASTRadioGroup());
+        const { element, connect, disconnect } = await fixture(fastRadioGroup());
 
         element.readOnly = true;
 
@@ -186,7 +174,7 @@ describe('Radio Group', () => {
     });
 
     it('should NOT set a default `aria-readonly` value when `readonly` is not defined', async () => {
-        const { element, connect, disconnect } = await fixture(FASTRadioGroup());
+        const { element, connect, disconnect } = await fixture(fastRadioGroup());
 
         await connect();
 
@@ -221,8 +209,7 @@ describe('Radio Group', () => {
 
     it('should set tabindex of 0 to a child radio with a matching `value`', async () => {
         const { element, connect, disconnect } = await fixture([
-            FASTRadioGroup(),
-            FASTRadio()
+            fastRadioGroup(),
         ]);
 
         element.value = 'baz';
@@ -255,8 +242,7 @@ describe('Radio Group', () => {
 
     it('should NOT set tabindex of 0 to a child radio if its value does not match the radiogroup `value`', async () => {
         const { element, connect, disconnect } = await fixture([
-            FASTRadioGroup(),
-            FASTRadio()
+            fastRadioGroup(),
         ]);
 
         element.value = 'baz';
@@ -292,8 +278,7 @@ describe('Radio Group', () => {
 
     it('should set a child radio with a matching `value` to `checked`', async () => {
         const { element, connect, disconnect } = await fixture([
-            FASTRadioGroup(),
-            FASTRadio()
+            fastRadioGroup(),
         ]);
 
         element.value = 'baz';
@@ -327,8 +312,7 @@ describe('Radio Group', () => {
 
     it('should set a child radio with a matching `value` to `checked` when value changes', async () => {
         const { element, connect, disconnect } = await fixture([
-            FASTRadioGroup(),
-            FASTRadio()
+            fastRadioGroup(),
         ]);
 
         element.value = 'baz';
@@ -366,8 +350,7 @@ describe('Radio Group', () => {
 
     it('should mark the last radio defaulted to checked as checked, the rest should not be checked', async () => {
         const { element, connect, disconnect } = await fixture([
-            FASTRadioGroup(),
-            FASTRadio()
+            fastRadioGroup(),
         ]);
 
         const radio1 = document.createElement(radioTag);
@@ -401,8 +384,7 @@ describe('Radio Group', () => {
 
     it('should mark radio matching value on radio-group over any checked attributes', async () => {
         const { element, connect, disconnect } = await fixture([
-            FASTRadioGroup(),
-            FASTRadio()
+            fastRadioGroup(),
         ]);
 
         element.value = 'bar';
@@ -444,8 +426,7 @@ describe('Radio Group', () => {
 
     it('should NOT set a child radio to `checked` if its value does not match the radiogroup `value`', async () => {
         const { element, connect, disconnect } = await fixture([
-            FASTRadioGroup(),
-            FASTRadio()
+            fastRadioGroup(),
         ]);
 
         element.value = 'baz';

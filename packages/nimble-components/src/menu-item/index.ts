@@ -1,7 +1,6 @@
 import { customElement } from '@ni/fast-element';
 import {
     MenuItem as FoundationMenuItem,
-    menuItemTemplate as template,
 } from '@ni/fast-foundation';
 import { arrowExpanderRight16X16 } from '@ni/nimble-tokens/dist/icons/js';
 import { styles } from './styles';
@@ -10,6 +9,7 @@ import { elementDefinitionContextMock } from '../utilities/models/mock';
 // FAST menu item template requires an anchored region is available using tagFor DI
 // Register anchored region explicitly to make sure it is defined for the template
 import '../anchored-region';
+import { template } from './template';
 
 export const menuItemTag = 'nimble-menu-item';
 
